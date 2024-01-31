@@ -791,10 +791,16 @@ export const Voice: React.FC<{
 
 const debounce = (func, delay) => {
   let timer;
+  let frameId;
+
   return (...args) => {
     clearTimeout(timer);
+    cancelAnimationFrame(frameId);
+
     timer = setTimeout(() => {
-      func.apply(this, args);
+      frameId = requestAnimationFrame(() => {
+        func.apply(this, args);
+      });
     }, delay);
   };
 };
@@ -890,7 +896,9 @@ export const SplitSystemLayout: React.FC<{
   }, []);
 
   const [noteHeight, setNoteHeight] = useLocalStorage("noteHeight", 7);
+  const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
   const [secondWidth, setSecondWidth] = useLocalStorage("secondWidth", 40);
+  const debounceSetSecondWidth = useCallback(debounce(setSecondWidth, 50), []);
   const secondsToX = useCallback(
     (seconds) => seconds * secondWidth,
     [secondWidth],
@@ -927,7 +935,9 @@ export const SplitSystemLayout: React.FC<{
             min="1"
             max="15"
             value={noteHeight}
-            onChange={(e) => setNoteHeight(parseInt(e.target.value, 10))}
+            onChange={(e) =>
+              debounceSetNoteHeight(parseInt(e.target.value, 10))
+            }
             style={{
               transform: "rotate(90deg)",
               transformOrigin: "bottom left",
@@ -948,7 +958,9 @@ export const SplitSystemLayout: React.FC<{
             min="2"
             max="100"
             value={secondWidth}
-            onChange={(e) => setSecondWidth(parseInt(e.target.value, 10))}
+            onChange={(e) =>
+              debounceSetSecondWidth(parseInt(e.target.value, 10))
+            }
             style={{
               width: 80,
             }}

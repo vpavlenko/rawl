@@ -24,7 +24,6 @@ import {
   CATALOG_PREFIX,
   ERROR_FLASH_DURATION_MS,
   MAX_VOICES,
-  REPLACE_STATE_ON_SEEK,
   SOUNDFONT_MOUNTPOINT,
 } from "../config";
 import firebaseConfig from "../config/firebaseConfig";
@@ -624,20 +623,6 @@ class App extends React.Component {
     const seekMs = Math.floor(pos * this.state.currentSongDurationMs);
 
     this.seekRelativeInner(seekMs);
-
-    if (REPLACE_STATE_ON_SEEK) {
-      const urlParams = {
-        ...queryString.parse(window.location.search.substr(1)),
-        t: seekMs,
-      };
-      const stateUrl =
-        "?" +
-        queryString
-          .stringify(urlParams)
-          .replace(/%20/g, "+")
-          .replace(/%2F/g, "/");
-      window.history.replaceState(null, "", stateUrl);
-    }
   }
 
   seekRelative(ms) {

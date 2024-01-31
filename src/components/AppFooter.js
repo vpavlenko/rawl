@@ -22,7 +22,7 @@ const AppFooter = ({
   sequencer,
   togglePause,
 }) => (
-  <div className="AppFooter" style={{ height: showPlayerSettings ? 24 : 0 }}>
+  <div className="AppFooter" style={{ height: 24 }}>
     <div className="AppFooter-main">
       <div className="AppFooter-main-inner">
         <div style={{ display: "flex", flexDirection: "row" }}>
@@ -72,7 +72,7 @@ const AppFooter = ({
         </div>
       </div>
     </div>
-    {showPlayerSettings && (
+    {showPlayerSettings && false && (
       <div className="AppFooter-settings">
         {sequencer?.getPlayer() ? (
           <PlayerParams

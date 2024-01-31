@@ -15,7 +15,8 @@ const LanguageSelect: FC = observer(() => {
     >
       <option value="en">English</option>
       <option value="ja">Japanese</option>
-      <option value="zh">Chinese</option>
+      <option value="zh">Chinese (Simplified)</option>
+      <option value="tw">Chinese (Traditional)</option>
     </Select>
   )
 })

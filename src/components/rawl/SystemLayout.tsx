@@ -13,7 +13,7 @@ import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { ColorScheme, useColorScheme } from "./ColorScheme";
 import { SecondsSpan, SetVoiceMask, secondsToX__ } from "./Rawl";
 import { Analysis, PitchClass } from "./analysis";
-import { Note, NotesInVoices } from "./parseMidi";
+import { Note, NotesInVoices, PitchBendPoint } from "./parseMidi";
 
 export type MeasuresAndBeats = {
   measures: number[];
@@ -187,6 +187,44 @@ export type MouseHandlers = {
   ) => void;
 };
 
+const convertPitchBendToPathData = (
+  pitchBendData: PitchBendPoint[],
+  span: SecondsSpan,
+  noteHeight: number,
+  secondsToX: (number) => number,
+): string => {
+  const pitchBendRange = 8192;
+  const noteDuration = span[1] - span[0];
+  const noteStartX = secondsToX(span[0]);
+
+  const pitchBendToY = (value) => {
+    const normalizedValue = (value + pitchBendRange) / (2 * pitchBendRange); // Normalize to 0-1
+    return noteHeight * (1 - normalizedValue) * 4 + noteHeight / 2; // Invert because SVG's Y increases downwards
+  };
+
+  // Map a time value to the SVG's X coordinate, relative to the note's duration
+  const timeToX = (time) => {
+    const relativeTime = time - span[0]; // Time relative to the note's start
+    const normalizedTime = relativeTime / noteDuration; // Normalize to 0-1
+    return normalizedTime * (secondsToX(span[1]) - noteStartX); // Scale to note's width
+  };
+
+  // Start the path data string at the first pitch bend point
+  let pathData = `M ${timeToX(pitchBendData[0].time)} ${pitchBendToY(
+    pitchBendData[0].value,
+  )}`;
+
+  // Add line segments to each subsequent pitch bend point
+  pitchBendData.forEach((point, index) => {
+    if (index > 0) {
+      // Skip the first point as it's already used in 'M'
+      pathData += ` L ${timeToX(point.time)} ${pitchBendToY(point.value)}`;
+    }
+  });
+
+  return pathData;
+};
+
 const getNoteRectangles = (
   notes: Note[],
   voiceIndex: number,
@@ -230,6 +268,15 @@ const getNoteRectangles = (
         {drumEmoji}
       </span>
     ) : null;
+    const pathData = note.chipState.on.pitchBend
+      ? convertPitchBendToPathData(
+          note.chipState.on.pitchBend,
+          note.span,
+          noteHeight,
+          secondsToX,
+        )
+      : null;
+
     return (
       <div
         key={`nr_${note.id}`}
@@ -263,6 +310,23 @@ const getNoteRectangles = (
         onMouseEnter={(e) => !isDrum && handleMouseEnter(note, e.altKey)}
         onMouseLeave={() => !isDrum && handleMouseLeave()}
       >
+        {pathData && (
+          <div style={{ position: "relative", width: "100%", height: "100%" }}>
+            <svg
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                height: "100%",
+                width: "100%",
+                overflow: "visible",
+              }}
+            >
+              <path d={pathData} stroke="white" strokeWidth="4" fill="none" />
+              <path d={pathData} stroke="black" strokeWidth="2" fill="none" />
+            </svg>
+          </div>
+        )}
         {noteElement}
       </div>
     );

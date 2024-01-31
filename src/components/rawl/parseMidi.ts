@@ -1,6 +1,9 @@
 import MIDIEvents from "midievents";
 import { SecondsSpan } from "./Rawl";
 import { MeasuresAndBeats } from "./SystemLayout";
+const MIDIEvents = require("midievents");
+
+const DRUM_CHANNEL = 9;
 
 export type Note = {
   note: {
@@ -10,7 +13,12 @@ export type Note = {
   isDrum: boolean;
   id: number;
   span: SecondsSpan;
-  chipState: any;
+  chipState: { on: any; off: any };
+};
+
+export type PitchBendPoint = {
+  time: number;
+  value: number;
 };
 
 export type NotesInVoices = Note[][];
@@ -33,37 +41,49 @@ const getNotes = (events, channel): Note[] => {
   const notes: Note[] = [];
   const noteOn = {};
   events.forEach((event) => {
-    if (event.channel === channel && event.type === 8) {
+    if (event.channel === channel && event.type === MIDIEvents.EVENT_MIDI) {
       const midiNumber = event.param1;
-      if (channel === 9 && midiNumber > 87) {
-        return;
-        // probably a bug? can't be played by a default MIDI sound font
-      }
-      if (midiNumber in noteOn) {
-        if (channel !== 9 && noteOn[midiNumber].param2 === 0) {
+      if (event.subtype === MIDIEvents.EVENT_MIDI_NOTE_OFF) {
+        if (channel === DRUM_CHANNEL && midiNumber > 87) {
           return;
+          // probably a bug? can't be played by a default MIDI sound font
         }
-        if (event.playTime >= noteOn[midiNumber].playTime) {
-          notes.push({
-            note: {
-              midiNumber,
-            },
-            id,
-            isDrum: channel === 9,
-            span: [noteOn[midiNumber].playTime / 1000, event.playTime / 1000],
-            chipState: { on: noteOn[midiNumber], off: event },
-          });
+        if (midiNumber in noteOn) {
+          if (channel !== DRUM_CHANNEL && noteOn[midiNumber].param2 === 0) {
+            return;
+          }
+          if (event.playTime >= noteOn[midiNumber].playTime) {
+            notes.push({
+              note: {
+                midiNumber,
+              },
+              id,
+              isDrum: channel === DRUM_CHANNEL,
+              span: [noteOn[midiNumber].playTime / 1000, event.playTime / 1000],
+              chipState: { on: noteOn[midiNumber], off: event },
+            });
 
-          id++;
+            id++;
+          }
+          delete noteOn[midiNumber];
         }
-        delete noteOn[midiNumber];
       }
-      if (event.subtype === 9) {
+      if (event.subtype === MIDIEvents.EVENT_MIDI_PITCH_BEND) {
+        // TODO: Process pitch bend range change messages.
+        // https://chat.openai.com/share/8332f454-6d52-4911-a40c-f11c251fea1b
+        for (const midiNumber in noteOn) {
+          (noteOn[midiNumber].pitchBend ||= []).push({
+            time: event.playTime / 1000,
+            value: (event.param2 << 7) + event.param1,
+          });
+        }
+      }
+      if (event.subtype === MIDIEvents.EVENT_MIDI_NOTE_ON) {
         noteOn[midiNumber] = event;
       }
     }
   });
-  if (channel === 9) {
+  if (channel === DRUM_CHANNEL) {
     const uniqueMidiNumbers = [
       ...new Set(notes.map((note) => note.note.midiNumber)),
     ].sort((a, b) => a - b);

@@ -1,36 +1,18 @@
 import * as React from "react";
+import TagSearch from "../TagSearch";
 import ChordClouds from "./ChordClouds";
-import { S } from "./Course";
+import { Chapter, S } from "./Course";
 
-const ChordsInMinor = ({ sequencer }) => {
+const ChordsInMinor: Chapter = ({ sequencer, analyses }) => {
   return (
     <>
-      <h3>Natural minor</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/U96" song="Club Bizarre.mid" /> - main tonic
-        </li>
-        <li>
-          <S artist="MIDI/Vanilla Fudge" song="You Keep Me Hangin' On.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Vanilla Ice" song="Ice Ice Baby.1.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Vertical Horizon" song="Everything You Want.mid" /> -
-          drone
-        </li>
-        <li>
-          <S artist="MIDI/Visage" song="Fade to Grey.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Warren G" song="Regulate.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Bob Marley" song="I shot the Sheriff.mid" />
-        </li>
-      </ul>
       <ChordClouds chords={["i", "iv"]} />
+      <h3>Natural minor</h3>
+      <TagSearch tag="scale:natural_minor" analyses={analyses} />
+
+      <h3>General minor with V</h3>
+      <TagSearch tag="scale:minor" analyses={analyses} />
+
       <h3>i-iv-V-i</h3>
       <ul>
         <li>

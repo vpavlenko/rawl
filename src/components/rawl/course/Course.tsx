@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { PianoLegend } from "../PianoLegend";
 import { Corpus } from "../analysis";
-import About from "./About";
+import About, { Email } from "./About";
 import AppliedChords from "./AppliedChords";
 import BassLines from "./BassLines";
 import Blues from "./Blues";
@@ -26,28 +26,33 @@ import ThicknessOfVoicing from "./ThicknessOfVoicing";
 import Tonic from "./Tonic";
 import VoiceLeading from "./VoiceLeading";
 
-const CHAPTERS: { title: string; component: Chapter }[] = [
-  { title: "About", component: About },
-  { title: "Chords in a Major Key", component: ChordsInMajor },
-  { title: "Chords in a Minor Key", component: ChordsInMinor },
-  { title: "Thickness of Voicing", component: ThicknessOfVoicing },
-  { title: "Bass Lines", component: BassLines },
-  { title: "Tonic", component: Tonic },
-  { title: "Phrases", component: Phrases },
-  { title: "Texture", component: Texture },
-  { title: "Voice-Leading", component: VoiceLeading },
-  { title: "Functionality", component: Functionality },
-  { title: "Applied Chords", component: AppliedChords },
-  { title: "Modes", component: Modes },
-  { title: "Chromatic Chords", component: ChromaticChords },
-  { title: "Modulation", component: Modulation },
-  { title: "bIII, bVI, bVII in Major", component: Pentatonic },
-  { title: "Blues", component: Blues },
-  { title: "Chord-Scale Theory", component: ChordScaleTheory },
-  { title: "Rock Solo", component: RockSolo },
-  { title: "Jazz", component: Jazz },
-  { title: "The Rest", component: TheRest },
-];
+const CHAPTERS: { title: string; component: Chapter; hasContent?: boolean }[] =
+  [
+    { title: "About", component: About, hasContent: true },
+    {
+      title: "Chords in a Major Key",
+      component: ChordsInMajor,
+      hasContent: true,
+    },
+    { title: "Chords in a Minor Key", component: ChordsInMinor },
+    { title: "Thickness of Voicing", component: ThicknessOfVoicing },
+    { title: "Bass Lines", component: BassLines },
+    { title: "Tonic", component: Tonic },
+    { title: "Phrases", component: Phrases },
+    { title: "Texture", component: Texture },
+    { title: "Voice-Leading", component: VoiceLeading },
+    { title: "Functionality", component: Functionality },
+    { title: "Applied Chords", component: AppliedChords },
+    { title: "Modes", component: Modes },
+    { title: "Chromatic Chords", component: ChromaticChords },
+    { title: "Modulation", component: Modulation },
+    { title: "bIII, bVI, bVII in Major", component: Pentatonic },
+    { title: "Blues", component: Blues },
+    { title: "Chord-Scale Theory", component: ChordScaleTheory },
+    { title: "Rock Solo", component: RockSolo },
+    { title: "Jazz", component: Jazz },
+    { title: "The Rest", component: TheRest },
+  ];
 
 export type Chapter = React.FC<{ sequencer: any; analyses: Corpus }>;
 
@@ -109,8 +114,11 @@ const Course = ({
   if (!(chapter >= 0 && chapter < CHAPTERS.length)) {
     chapter = 1;
   }
-  const { component: Component, title } =
-    chapter >= 0 && chapter < CHAPTERS.length && CHAPTERS[chapter];
+  const {
+    component: Component,
+    title,
+    hasContent,
+  } = chapter >= 0 && chapter < CHAPTERS.length && CHAPTERS[chapter];
   return (
     <div
       style={{
@@ -143,6 +151,13 @@ const Course = ({
         </div>
       </div>
       <div className="course" style={{ width: "600px" }}>
+        {!hasContent && (
+          <div style={{ color: "#999999" }}>
+            This chapter is a stub. I assembled some examples to demonstrate
+            concepts, but I haven't yet written the narrative. If you want me to
+            demo it to you when it's done, reach out to <Email />
+          </div>
+        )}
         <h2>{title}</h2>
         {Component && <Component sequencer={sequencer} analyses={analyses} />}
       </div>

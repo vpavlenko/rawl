@@ -15,24 +15,11 @@ const ThicknessOfVoicing: Chapter = ({ sequencer, analyses }) => {
       <TagSearch tag="chord:ii7" analyses={analyses} />
 
       <h3>Diatonic seventh chords</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/U96" song="Club Bizarre.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Vera" song="At This Moment.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Bob Marley" song="Waiting In Vain.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Take That" song="Back For Good.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Television Theme Songs" song="Eastenders.mid" /> -
-          only minor sevenths?
-        </li>
-      </ul>
+      <TagSearch tag="voicing:diatonic_sevenths" analyses={analyses} />
+      <TagSearch
+        tag="voicing:only_minor_sevenths_in_major"
+        analyses={analyses}
+      />
 
       <h3>Blues seventh chords</h3>
       <TagSearch tag="voicing:blues" analyses={analyses} />

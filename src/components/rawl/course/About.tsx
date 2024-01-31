@@ -1,6 +1,10 @@
 import * as React from "react";
 import { Chapter, S } from "./Course";
 
+export const Email = () => (
+  <a href="mailto:cxielamiko@gmail.com">cxielamiko@gmail.com</a>
+);
+
 const About: Chapter = ({ sequencer }) => {
   return (
     <>
@@ -54,8 +58,7 @@ const About: Chapter = ({ sequencer }) => {
         This interactive book is a work in progress. Most chapters are stubs
         with playable examples. I need to write a narrative and test it on real
         students for clearness and usefulness. I do free Zoom lessons on this
-        platform to make it better. If you're interested, reach out:{" "}
-        <a href="mailto:cxielamiko@gmail.com">cxielamiko@gmail.com</a>
+        platform to make it better. If you're interested, reach out: <Email />
       </div>
       <div>
         If you don't understand what I meant in any particular paragraph of this

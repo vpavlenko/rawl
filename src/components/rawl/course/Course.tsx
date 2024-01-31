@@ -23,7 +23,6 @@ import RockSolo from "./RockSolo";
 import Texture from "./Texture";
 import TheRest from "./TheRest";
 import ThicknessOfVoicing from "./ThicknessOfVoicing";
-import Tonic from "./Tonic";
 import VoiceLeading from "./VoiceLeading";
 
 const CHAPTERS: { title: string; component: Chapter; hasContent?: boolean }[] =
@@ -37,7 +36,7 @@ const CHAPTERS: { title: string; component: Chapter; hasContent?: boolean }[] =
     { title: "Chords in a Minor Key", component: ChordsInMinor },
     { title: "Thickness of Voicing", component: ThicknessOfVoicing },
     { title: "Bass Lines", component: BassLines },
-    { title: "Tonic", component: Tonic },
+    // { title: "Tonic", component: Tonic },
     { title: "Phrases", component: Phrases },
     { title: "Texture", component: Texture },
     { title: "Voice-Leading", component: VoiceLeading },

@@ -9,6 +9,7 @@ const ChordsInMinor: Chapter = ({ sequencer, analyses }) => {
       <ChordClouds chords={["i", "iv", "v"]} />
       <h3>Natural minor</h3>
       <TagSearch tag="scale:natural_minor" analyses={analyses} />
+      <ChordClouds chords={["bVI", "bVII", "i", "bIII"]} />
 
       <h3>General minor with V</h3>
       <TagSearch tag="scale:minor" analyses={analyses} />

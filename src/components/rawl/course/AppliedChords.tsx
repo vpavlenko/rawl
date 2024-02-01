@@ -16,18 +16,21 @@ const AppliedChords: Chapter = ({ sequencer, analyses }) => {
       </ul>
       <TagSearch tag="applied:V/V" analyses={analyses} />
 
+      <ChordClouds chords={["V/ii", "ii"]} />
       <h3>Applied chords - V/ii</h3>
       <TagSearch tag="applied:V/ii" analyses={analyses} />
 
       <h3>Applied chords - V/iii</h3>
       <TagSearch tag="applied:V/iii" analyses={analyses} />
 
+      <ChordClouds chords={["V/vi", "vi"]} />
       <h3>Applied chords - V/vi</h3>
       <TagSearch tag="applied:V/vi" analyses={analyses} />
 
       <h3>Vsus4 in applied chords</h3>
       <TagSearch tag="voice-leading:Vsus4_in_applied" analyses={analyses} />
 
+      <ChordClouds chords={["V7/IV", "IV"]} />
       <h3>Applied chords - V7/IV</h3>
       <div>Hypothesis: V7/IV always implies V7 instead of V?</div>
       <TagSearch tag="applied:V7/IV" analyses={analyses} />
@@ -45,7 +48,6 @@ const AppliedChords: Chapter = ({ sequencer, analyses }) => {
       </ul>
       <TagSearch tag="applied:V/V/V" analyses={analyses} />
 
-      <ChordClouds chords={["III", "IV"]} />
       <h3>Applied chords to IV</h3>
       <ul>
         <li>
@@ -53,6 +55,7 @@ const AppliedChords: Chapter = ({ sequencer, analyses }) => {
           to IV
         </li>
       </ul>
+      <ChordClouds chords={["III", "IV"]} />
       <TagSearch tag="chord:III" analyses={analyses} />
       <TagSearch tag="chunks:III-IV" analyses={analyses} />
       <TagSearch tag="chunks:bVII-IV-I" analyses={analyses} />

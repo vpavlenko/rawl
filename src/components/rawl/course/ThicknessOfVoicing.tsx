@@ -17,6 +17,7 @@ const ThicknessOfVoicing: Chapter = ({ sequencer, analyses }) => {
       <TagSearch tag="voicing:root" analyses={analyses} />
       <TagSearch tag="voicing:power_chords" analyses={analyses} />
 
+      <ChordClouds chords={["ii7"]} />
       <h3>ii7</h3>
       <div>
         Even if most of the arrangement goes in thirds, two chords most often
@@ -25,16 +26,16 @@ const ThicknessOfVoicing: Chapter = ({ sequencer, analyses }) => {
       </div>
       <TagSearch tag="chord:ii7" analyses={analyses} />
 
-      <ChordClouds chords={["I△", "IV△"]} />
       <h3>Diatonic seventh chords</h3>
+      <ChordClouds chords={["I△", "iii7", "IV△", "vi7"]} />
       <TagSearch tag="voicing:diatonic_sevenths" analyses={analyses} />
       <TagSearch
         tag="voicing:only_minor_sevenths_in_major"
         analyses={analyses}
       />
 
-      <ChordClouds chords={["I7", "IV7", "V7"]} />
       <h3>Blues seventh chords</h3>
+      <ChordClouds chords={["I7", "IV7", "V7"]} />
       <div>
         Previous chords all drew notes from a single scale - a major scale. A
         different thing happens in blues - here a scale changes with each chord

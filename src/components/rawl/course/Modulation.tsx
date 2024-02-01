@@ -1,11 +1,13 @@
 import * as React from "react";
 import TagSearch from "../TagSearch";
+import ChordClouds from "./ChordClouds";
 import { Chapter } from "./Course";
 
 const Modulation: Chapter = ({ sequencer, analyses }) => {
   return (
     <>
       <TagSearch tag="modulation:parallel_keys" analyses={analyses} />
+      <ChordClouds chords={["i", "iv", "V", "I"]} />
       <TagSearch tag="chord:Picardy_third" analyses={analyses} />
       <TagSearch tag="modulation:contrast" analyses={analyses} />
       <TagSearch tag="modulation:often" analyses={analyses} />

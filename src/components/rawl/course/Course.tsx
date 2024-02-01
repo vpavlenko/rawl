@@ -124,7 +124,7 @@ const Course = ({
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "300px auto",
+        gridTemplateColumns: "250px auto",
         columnGap: "50px",
       }}
     >

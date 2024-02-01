@@ -14,26 +14,36 @@ const CLOUD_LEGEND_NOTE_HEIGHT = 15;
 const CHORDS = {
   i: [0, 3, 7],
   ii: [2, 5, 9],
+  ii7: [2, 5, 9, 0],
   iii: [4, 7, 11],
+  iii7: [4, 7, 11, 2],
   iv: [5, 8, 0],
-  I: [0, 4, 7], // Note: This will be the value of the last "I" chord in the array
+  I: [0, 4, 7],
+  "V7/IV": [0, 4, 7, 10],
   I7: [0, 4, 7, 10],
   vi: [9, 0, 4],
+  vi7: [9, 0, 4, 7],
   IV: [5, 9, 0],
   IV7: [5, 9, 0, 3],
-  V: [7, 11, 2], // Note: This will be the value of the last "V" chord in the array
+  V: [7, 11, 2],
   V7: [7, 11, 2, 5],
   "V/V": [2, 6, 9],
   "V/V/V": [9, 1, 4],
   "V/ii": [9, 1, 4],
   III: [4, 8, 11],
+  "V/vi": [4, 8, 11],
   Vsus4: [7, 0, 2],
-  "I△": [0, 4, 7, 111],
+  "I△": [0, 4, 7, 11],
   "IV△": [5, 9, 0, 4],
   I5: [0, 7],
   IV5: [5, 0],
   V5: [7, 2],
   v: [7, 10, 2],
+  bVI: [8, 0, 3],
+  bVII: [10, 2, 5],
+  bIII: [3, 7, 10],
+  bII: [1, 5, 8],
+  "V+": [7, 11, 3],
 };
 type Chord = keyof typeof CHORDS;
 
@@ -155,7 +165,7 @@ const ChordClouds = ({ chords }: { chords: Chord[] }) => {
   return (
     <div>
       <div style={{ position: "relative" }}>
-        <Row style={{ position: "absolute", left: 800 }}>
+        <Row style={{ position: "absolute", left: 750 }}>
           {chords.map((chord, index) => (
             <React.Fragment key={index}>
               <ChordCloud name={chord} colorScheme={colorScheme} />{" "}

@@ -35,6 +35,7 @@ const Modes: Chapter = ({ sequencer, analyses }) => {
       <h3>Hexatonic minor</h3>
       <TagSearch tag="scale:hexatonic_minor" analyses={analyses} />
 
+      <ChordClouds chords={["I", "bVII"]} />
       <h3>Mixolydian shuttle</h3>
       <ul>
         <li>

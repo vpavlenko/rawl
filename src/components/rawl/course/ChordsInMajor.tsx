@@ -218,6 +218,9 @@ const ChordsInMajor = ({ sequencer }) => (
       <li>
         <S artist="MIDI/The Boomtown Rats" song="I Don't Like Monday's.mid" />
       </li>
+      <li>
+        <S artist="MIDI/The Byrds" song="Turn! Turn! Turn!.1.mid" />
+      </li>
     </ul>
     <h3>V and V7</h3>
     <ChordClouds chords={["V", "V7"]} />

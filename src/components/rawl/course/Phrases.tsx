@@ -32,7 +32,10 @@ const Phrases: Chapter = ({ sequencer, analyses }) => {
       </ul>
 
       <TagSearch tag="phrasing:tonic_prolongation" analyses={analyses} />
-      <TagSearch tag="arrangement:silent_break" analyses={analyses} />
+      <TagSearch
+        tag="phrasing:silent_break_extra_measure"
+        analyses={analyses}
+      />
       <TagSearch tag="phrasing:fusion" analyses={analyses} />
       <TagSearch tag="phrasing:third_repetition" analyses={analyses} />
 

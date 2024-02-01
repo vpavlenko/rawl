@@ -36,6 +36,7 @@ const Functionality: Chapter = ({ sequencer, analyses }) => {
           <S artist="MIDI/Vanessa Williams" song="Colors of the Wind.mid" />
         </li>
       </ul>
+      <TagSearch tag="chunks:V-vi_deceptive" analyses={analyses} />
       <h3>Functionality - stasis, non-transposed riff, pedal</h3>
       <ul>
         <li>

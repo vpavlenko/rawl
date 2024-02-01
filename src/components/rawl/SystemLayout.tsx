@@ -257,7 +257,9 @@ const getNoteRectangles = (
         className="noteText"
         style={{
           fontSize: isDrum
-            ? (noteHeight - 5) * 0.4 + (secondsToX(1) - secondsToX(0)) * 0.2
+            ? 4 +
+              (noteHeight - 5) * 0.4 +
+              (secondsToX(1) - secondsToX(0)) * 0.15
             : `${Math.min(noteHeight + 2, 14)}px`,
           position: "relative",
           left: isDrum ? "-5px" : "0px",
@@ -718,6 +720,7 @@ export const Voice: React.FC<{
       measuresAndBeats,
       analysis,
       showVelocity,
+      handleNoteClick,
       handleMouseEnter,
       voiceMask,
       colorScheme,

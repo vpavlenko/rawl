@@ -24,6 +24,13 @@ const Modes: Chapter = ({ sequencer, analyses }) => {
         </ul>
       </div>
       <TagSearch tag="scale:dorian" analyses={analyses} />
+      <ul>
+        <li>
+          <S artist="MIDI/The Cars" song="Drive.1.mid" /> - here a dorian
+          shuttle is built on a vi chord in a major track - as a contrasting
+          part.
+        </li>
+      </ul>
       <TagSearch tag="chord:iadd6" analyses={analyses} />
       <TagSearch tag="chord:ii_in_minor" analyses={analyses} />
       <h3>iadd6</h3>

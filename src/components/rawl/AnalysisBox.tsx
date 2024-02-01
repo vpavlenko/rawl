@@ -206,6 +206,7 @@ export const TAGS = [
   "texture:arpeggio",
   "texture:rich_piano_arpeggio",
   "texture:guitar_strumming",
+  "texture:strumming_riff",
 
   "harmony:ambiguous_tonic",
 
@@ -215,6 +216,7 @@ export const TAGS = [
   "phrasing:tonic_prolongation",
   "phrasing:fusion",
   "phrasing:third_repetition",
+  "phrasing:silent_break_extra_measure",
 
   "instrument:banjo",
 ];

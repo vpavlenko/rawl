@@ -72,7 +72,7 @@ const ChordCloud: React.FC<{
   const [numRerenders, setNumRerenders] = useState(0);
   const noteDivs = [];
   for (let i = 0; i < 60; ++i) {
-    const width = Math.random() * 50;
+    const width = Math.random() * 40;
 
     noteDivs.push(
       <div

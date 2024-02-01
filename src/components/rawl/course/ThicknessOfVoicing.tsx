@@ -1,7 +1,7 @@
 import * as React from "react";
 import TagSearch from "../TagSearch";
 import ChordClouds from "./ChordClouds";
-import { Chapter } from "./Course";
+import { Chapter, S } from "./Course";
 
 const ThicknessOfVoicing: Chapter = ({ sequencer, analyses }) => {
   return (
@@ -15,6 +15,7 @@ const ThicknessOfVoicing: Chapter = ({ sequencer, analyses }) => {
         root+fifth combination.
       </div>
       <TagSearch tag="voicing:root" analyses={analyses} />
+      <TagSearch tag="arrangement:no_chords" analyses={analyses} />
       <TagSearch tag="voicing:power_chords" analyses={analyses} />
 
       <ChordClouds chords={["ii7"]} />
@@ -43,6 +44,13 @@ const ThicknessOfVoicing: Chapter = ({ sequencer, analyses }) => {
         the chords I7, IV7 and V7.
       </div>
       <TagSearch tag="voicing:blues" analyses={analyses} />
+      <ul>
+        <li>
+          <S artist="MIDI/The Chaplin Band" song="Let's Have a Party.mid" /> -
+          here chords are mostly built in triads, but the b7 mixolydian note is
+          played over some I7's and IV7's, as well as b3 over I7.
+        </li>
+      </ul>
     </>
   );
 };

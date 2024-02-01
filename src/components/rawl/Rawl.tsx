@@ -416,10 +416,10 @@ const Rawl: React.FC<{
         style={{
           position: "fixed",
           top: 40,
-          right: 5,
+          right: 0,
           zIndex: 10000,
           backgroundColor: "black",
-          marginRight: 30,
+          marginRight: 0,
           padding: 10,
         }}
       >

@@ -7,7 +7,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { FullScreen } from "react-full-screen";
 import { useLocalStorage } from "usehooks-ts";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { ColorScheme, useColorScheme } from "./ColorScheme";
@@ -817,7 +816,7 @@ export const SplitSystemLayout: React.FC<{
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
   setVoiceMask: SetVoiceMask;
-  fullScreenHandle: any;
+  // fullScreenHandle: any;
 }> = ({
   notes,
   voiceNames,
@@ -829,7 +828,7 @@ export const SplitSystemLayout: React.FC<{
   mouseHandlers,
   measureSelection,
   setVoiceMask,
-  fullScreenHandle,
+  // fullScreenHandle,
 }) => {
   const prevPositionSeconds = useRef<number>(0);
   useEffect(() => {
@@ -907,116 +906,111 @@ export const SplitSystemLayout: React.FC<{
   const xToSeconds = useCallback((x) => x / secondWidth, [secondWidth]);
 
   return (
-    <FullScreen handle={fullScreenHandle} className="FullScreen">
+    // <FullScreen handle={fullScreenHandle} className="FullScreen">
+    <div
+      key="innerLeftPanel"
+      style={{
+        margin: 0,
+        padding: 0,
+        position: "relative",
+        overflowX: "scroll",
+        overflowY: "scroll",
+        width: "100%",
+        height: "100%",
+        backgroundColor: "black",
+      }}
+      ref={parentRef}
+      className="SplitLayout"
+    >
       <div
-        key="innerLeftPanel"
         style={{
-          margin: 0,
-          padding: 0,
-          position: "relative",
-          overflowX: "scroll",
-          overflowY: "scroll",
-          width: "100%",
-          height: "100vh",
-          backgroundColor: "black",
+          position: "fixed",
+          bottom: 130,
+          right: -45,
+          zIndex: 10000,
         }}
-        ref={parentRef}
-        className="SplitLayout"
       >
-        <div
+        <input
+          type="range"
+          min="1"
+          max="15"
+          value={noteHeight}
+          onChange={(e) => debounceSetNoteHeight(parseInt(e.target.value, 10))}
           style={{
-            position: "fixed",
-            bottom: 130,
-            right: -45,
-            zIndex: 10000,
+            transform: "rotate(90deg)",
+            transformOrigin: "bottom left",
+            width: 80,
           }}
-        >
-          <input
-            type="range"
-            min="1"
-            max="15"
-            value={noteHeight}
-            onChange={(e) =>
-              debounceSetNoteHeight(parseInt(e.target.value, 10))
-            }
-            style={{
-              transform: "rotate(90deg)",
-              transformOrigin: "bottom left",
-              width: 80,
-            }}
-          />
-        </div>
-        <div
-          style={{
-            position: "fixed",
-            bottom: 30,
-            right: 40,
-            zIndex: 10000,
-          }}
-        >
-          <input
-            type="range"
-            min="2"
-            max="100"
-            value={secondWidth}
-            onChange={(e) =>
-              debounceSetSecondWidth(parseInt(e.target.value, 10))
-            }
-            style={{
-              width: 80,
-            }}
-          />
-        </div>
-        <MeasureNumbers
-          measuresAndBeats={measuresAndBeats}
-          analysis={analysis}
-          phraseStarts={phraseStarts}
-          measureSelection={measureSelection}
-          noteHeight={noteHeight}
-          secondsToX={secondsToX}
         />
-        {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) => (
-          <div key={order} style={{ position: "relative" }}>
-            <Voice
-              key={voiceIndex}
-              voiceName={voiceNames[voiceIndex]}
-              notes={notes}
-              measuresAndBeats={measuresAndBeats}
-              analysis={analysis}
-              mouseHandlers={mouseHandlers}
-              measureSelection={measureSelection}
-              showVelocity={showVelocity}
-              cursor={
-                <Cursor
-                  style={{
-                    transition:
-                      Math.abs(prevPositionSeconds.current - positionSeconds) <
-                      1
-                        ? "left 0.4s linear"
-                        : "",
-                    left: secondsToX(positionSeconds),
-                  }}
-                />
-              }
-              phraseStarts={phraseStarts}
-              scrollInfo={scrollInfo}
-              voiceMask={voiceMask}
-              setVoiceMask={setVoiceMask}
-              voiceIndex={voiceIndex}
-              noteHeight={noteHeight}
-              secondsToX={secondsToX}
-              xToSeconds={xToSeconds}
-            />
-          </div>
-        ))}
-
-        <div
-          key="piano-legend"
-          style={{ position: "fixed", bottom: 50, right: 50, zIndex: 30 }}
-        >
-          <PianoLegend />
-        </div>
       </div>
-    </FullScreen>
+      <div
+        style={{
+          position: "fixed",
+          bottom: 30,
+          right: 40,
+          zIndex: 10000,
+        }}
+      >
+        <input
+          type="range"
+          min="2"
+          max="100"
+          value={secondWidth}
+          onChange={(e) => debounceSetSecondWidth(parseInt(e.target.value, 10))}
+          style={{
+            width: 80,
+          }}
+        />
+      </div>
+      <MeasureNumbers
+        measuresAndBeats={measuresAndBeats}
+        analysis={analysis}
+        phraseStarts={phraseStarts}
+        measureSelection={measureSelection}
+        noteHeight={noteHeight}
+        secondsToX={secondsToX}
+      />
+      {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) => (
+        <div key={order}>
+          <Voice
+            key={voiceIndex}
+            voiceName={voiceNames[voiceIndex]}
+            notes={notes}
+            measuresAndBeats={measuresAndBeats}
+            analysis={analysis}
+            mouseHandlers={mouseHandlers}
+            measureSelection={measureSelection}
+            showVelocity={showVelocity}
+            cursor={
+              <Cursor
+                style={{
+                  transition:
+                    Math.abs(prevPositionSeconds.current - positionSeconds) < 1
+                      ? "left 0.4s linear"
+                      : "",
+                  left: secondsToX(positionSeconds),
+                }}
+              />
+            }
+            phraseStarts={phraseStarts}
+            scrollInfo={scrollInfo}
+            voiceMask={voiceMask}
+            setVoiceMask={setVoiceMask}
+            voiceIndex={voiceIndex}
+            noteHeight={noteHeight}
+            secondsToX={secondsToX}
+            xToSeconds={xToSeconds}
+          />
+        </div>
+      ))}
+
+      <div
+        key="piano-legend"
+        style={{ position: "fixed", bottom: 50, right: 50, zIndex: 30 }}
+      >
+        <PianoLegend />
+      </div>
+    </div>
+    // </FullScreen>
   );
 };

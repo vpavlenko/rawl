@@ -1,8 +1,5 @@
-import { faExpand } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useFullScreenHandle } from "react-full-screen";
 import styled from "styled-components";
 import { AnalysisBox } from "./AnalysisBox";
 import { MeasureSelection } from "./AnalysisGrid";
@@ -334,11 +331,11 @@ const Rawl: React.FC<{
     ],
   );
 
-  const fullScreenHandle = useFullScreenHandle();
-  useEffect(() => {
-    setEnterFullScreen(fullScreenHandle.enter);
-    return () => setEnterFullScreen(() => {});
-  }, []);
+  // const fullScreenHandle = useFullScreenHandle();
+  // useEffect(() => {
+  //   setEnterFullScreen(fullScreenHandle.enter);
+  //   return () => setEnterFullScreen(() => {});
+  // }, []);
 
   return (
     <div
@@ -373,7 +370,7 @@ const Rawl: React.FC<{
             {...commonParams}
             voiceNames={voiceNames}
             setVoiceMask={setVoiceMask}
-            fullScreenHandle={fullScreenHandle}
+            // fullScreenHandle={fullScreenHandle}
           />
         )}
       </div>
@@ -437,7 +434,7 @@ const Rawl: React.FC<{
               }}
               checked={showVelocity}
             />
-            Velocity
+            🔊
           </label>
           <label key={"merged"} className="inline">
             <input
@@ -447,7 +444,7 @@ const Rawl: React.FC<{
               checked={systemLayout === "merged"}
               value={"horizontal"}
             />
-            Merged
+            █
           </label>
           <label key={"split"} className="inline">
             <input
@@ -457,9 +454,9 @@ const Rawl: React.FC<{
               checked={systemLayout === "split"}
               value={"split"}
             />
-            Split
+            ☰
           </label>
-          {!fullScreenHandle.active && (
+          {/* {!fullScreenHandle.active && (
             <FontAwesomeIcon
               icon={faExpand}
               style={{
@@ -469,7 +466,7 @@ const Rawl: React.FC<{
               }}
               onClick={fullScreenHandle.enter}
             />
-          )}
+          )} */}
         </div>
         <TagBrowser tags={analysis.tags} />
       </div>

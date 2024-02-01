@@ -19,9 +19,10 @@ import Modes from "./Modes";
 import Modulation from "./Modulation";
 import Pentatonic from "./Pentatonic";
 import Phrases from "./Phrases";
-import RockSolo from "./RockSolo";
+import Rhythm from "./Rhythm";
+import Solo from "./Solo";
+import Styles from "./Styles";
 import Texture from "./Texture";
-import TheRest from "./TheRest";
 import ThicknessOfVoicing from "./ThicknessOfVoicing";
 import VoiceLeading from "./VoiceLeading";
 
@@ -39,6 +40,7 @@ const CHAPTERS: { title: string; component: Chapter; hasContent?: boolean }[] =
     // { title: "Tonic", component: Tonic },
     { title: "Phrases", component: Phrases },
     { title: "Texture", component: Texture },
+    { title: "Rhythm", component: Rhythm },
     { title: "Voice-Leading", component: VoiceLeading },
     { title: "Functionality", component: Functionality },
     { title: "Applied Chords", component: AppliedChords },
@@ -48,9 +50,9 @@ const CHAPTERS: { title: string; component: Chapter; hasContent?: boolean }[] =
     { title: "bIII, bVI, bVII in Major", component: Pentatonic },
     { title: "Blues", component: Blues },
     { title: "Chord-Scale Theory", component: ChordScaleTheory },
-    { title: "Rock Solo", component: RockSolo },
     { title: "Jazz", component: Jazz },
-    { title: "The Rest", component: TheRest },
+    { title: "Solo", component: Solo },
+    { title: "Styles", component: Styles },
   ];
 
 export type Chapter = React.FC<{ sequencer: any; analyses: Corpus }>;

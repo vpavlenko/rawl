@@ -598,7 +598,7 @@
           "rhythm:swing",
           "rhythm:triplet",
           "scale:pentatonic",
-          "genre:rockabilly"
+          "style:rockabilly"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -1541,7 +1541,13 @@
           "57": "transition",
           "67": "\"And You and I\"",
           "76": "A: Eclipse: instrumental",
-          "88": "solo / \"Coming Quickly\""
+          "88": "solo / \"Coming Quickly\"",
+          "108": "A': The Preacher the Teacher: intro",
+          "119": "verses",
+          "157": "(squashed 7:41..8:12 solo)",
+          "161": "\"Coming Quickly\"",
+          "169": "Apocalypse: instrumental",
+          "180": "\"And You and I\""
         },
         "phrasePatch": [
           {
@@ -1591,12 +1597,50 @@
           {
             "measure": 96,
             "diff": -2
+          },
+          {
+            "measure": 106,
+            "diff": -1
+          },
+          {
+            "measure": 109,
+            "diff": -1
+          },
+          {
+            "measure": 120,
+            "diff": -1
+          },
+          {
+            "measure": 143,
+            "diff": -2
+          },
+          {
+            "measure": 169,
+            "diff": -2
+          },
+          {
+            "measure": 171,
+            "diff": -2
+          },
+          {
+            "measure": 173,
+            "diff": -1
+          },
+          {
+            "measure": 176,
+            "diff": -1
+          },
+          {
+            "measure": 179,
+            "diff": 1
           }
         ],
         "comment": "",
         "tonic": 7,
         "tags": [
-          "stability:bIII"
+          "stability:bIII",
+          "style:prog_rock",
+          "form:rock_solo"
         ],
         "modulations": {
           "14": 2,
@@ -1605,8 +1649,131 @@
           "79": 9,
           "82": 4,
           "85": 11,
-          "88": 4
+          "88": 4,
+          "105": 11,
+          "108": 7,
+          "119": 4,
+          "141": 1,
+          "145": 4,
+          "153": 1,
+          "161": 4,
+          "167": 4,
+          "180": 11
         }
+      }
+    },
+    "Roundabout.1.mid": {
+      "0": {
+        "form": {
+          "2": "intro: guitar solo",
+          "12": "A: verse",
+          "46": "chorus",
+          "62": "verse",
+          "100": "B: \"Drifting Clouds\"",
+          "148": "interlude (partly skipped)",
+          "157": "solos (shortened)",
+          "174": "coda"
+        },
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 6,
+            "diff": -1
+          },
+          {
+            "measure": 9,
+            "diff": -2
+          },
+          {
+            "measure": 11,
+            "diff": 1
+          },
+          {
+            "measure": 28,
+            "diff": -2
+          },
+          {
+            "measure": 30,
+            "diff": 1
+          },
+          {
+            "measure": 43,
+            "diff": -2
+          },
+          {
+            "measure": 45,
+            "diff": 1
+          },
+          {
+            "measure": 54,
+            "diff": -1
+          },
+          {
+            "measure": 61,
+            "diff": -1
+          },
+          {
+            "measure": 64,
+            "diff": -2
+          },
+          {
+            "measure": 78,
+            "diff": -2
+          },
+          {
+            "measure": 80,
+            "diff": 1
+          },
+          {
+            "measure": 89,
+            "diff": -1
+          },
+          {
+            "measure": 96,
+            "diff": -1
+          },
+          {
+            "measure": 99,
+            "diff": 1
+          },
+          {
+            "measure": 152,
+            "diff": -1
+          },
+          {
+            "measure": 155,
+            "diff": -1
+          },
+          {
+            "measure": 158,
+            "diff": -1
+          },
+          {
+            "measure": 173,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "modulations": {
+          "44": 7,
+          "60": 4,
+          "79": 7,
+          "95": 4,
+          "151": 7,
+          "169": 4
+        },
+        "tags": [
+          "scale:dorian",
+          "scale:natural_minor",
+          "chord:Picardy_third",
+          "style:prog_rock",
+          "stability:bIII",
+          "scale:mixolydian"
+        ]
       }
     }
   },
@@ -2658,7 +2825,9 @@
           "modulation:relative_major",
           "chord:V7",
           "voice-leading:entire_scale",
-          "bass:root"
+          "bass:root",
+          "arrangement:silent_break",
+          "functionality:functional"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -2693,7 +2862,8 @@
           "scale:dorian",
           "voicing:root",
           "form:solo_piano_intro",
-          "style:metal"
+          "style:metal",
+          "functionality:riff"
         ],
         "modulations": {
           "138": 11
@@ -3051,7 +3221,8 @@
         "comment": "",
         "tonic": 2,
         "tags": [
-          "style:hip-hop_no_vocal",
+          "style:hip-hop",
+          "arrangement:karaoke",
           "scale:natural_minor",
           "functionality:shuttle"
         ],
@@ -3600,7 +3771,8 @@
         "romanNumerals": "",
         "tags": [
           "modulation:contrast",
-          "style:hip-hop_no_vocal",
+          "style:hip-hop",
+          "arrangement:karaoke",
           "style:modal_jazz",
           "scale:dorian",
           "scale:mixolydian"
@@ -4803,7 +4975,6 @@
           "harmony:pure_I-IV-V",
           "modulation:relative_major",
           "chunks:i-VII-VI-V",
-          "form:other_solo",
           "voicing:triads",
           "chord-scale:melodic_minor_V",
           "bass:idk",
@@ -5450,7 +5621,8 @@
         "tonic": 0,
         "modulations": {},
         "tags": [
-          "voicing:blues"
+          "voicing:blues",
+          "functionality:shuttle"
         ]
       }
     }
@@ -6293,7 +6465,8 @@
           "texture:arpeggio",
           "bass:root",
           "form:alterations_on_last_chord",
-          "phrasing:fusion"
+          "phrasing:fusion",
+          "predominant:dissonant"
         ]
       }
     }
@@ -6872,10 +7045,81 @@
           }
         ],
         "comment": "",
-        "tonic": 0,
+        "tonic": 5,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/The Brian Setzer Orchestra": {
+    "Jump Jive an Wail.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "modulations": {
+          "77": 10
+        },
+        "tags": [
+          "style:boogie",
+          "voice-leading:triple_chromatic",
+          "arrangement:orchestra",
+          "rhythm:swing",
+          "predominant:dissonant",
+          "modulation:up_at_the_end",
+          "chord:viio",
+          "chord:io7"
+        ]
+      }
+    }
+  },
+  "MIDI/The Brecker Brothers": {
+    "Lovely Lady.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "tags": [
+          "issues:R=1/2N",
+          "scale:natural_minor",
+          "voicing:diatonic_sevenths",
+          "functionality:progression"
+        ],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/America": {
+    "A Horse With No Name.1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
         "modulations": {},
         "tags": [
-          "harmony:quartal"
+          "functionality:shuttle",
+          "scale:dorian",
+          "voicing:alterations",
+          "form:rock_solo",
+          "melody:in_thirds"
         ]
       }
     }

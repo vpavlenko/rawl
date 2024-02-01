@@ -118,7 +118,6 @@ export const TAGS = [
   "style:jazz_fusion",
   "style:reggae",
   "style:latin",
-  "style:hip-hop_no_vocal",
   "style:hip-hop",
   "style:boogie",
   "style:blues",
@@ -137,6 +136,7 @@ export const TAGS = [
   "style:techno",
   "style:bluegrass",
   "style:prog_rock",
+  "style:rockabilly",
 
   "functionality:shuttle",
   "functionality:functional",
@@ -206,8 +206,6 @@ export const TAGS = [
   "texture:arpeggio",
   "texture:rich_piano_arpeggio",
   "texture:guitar_strumming",
-
-  "genre:rockabilly",
 
   "harmony:ambiguous_tonic",
 

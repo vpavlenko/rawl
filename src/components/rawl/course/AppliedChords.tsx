@@ -45,6 +45,7 @@ const AppliedChords: Chapter = ({ sequencer, analyses }) => {
       </ul>
       <TagSearch tag="applied:V/V/V" analyses={analyses} />
 
+      <ChordClouds chords={["III", "IV"]} />
       <h3>Applied chords to IV</h3>
       <ul>
         <li>

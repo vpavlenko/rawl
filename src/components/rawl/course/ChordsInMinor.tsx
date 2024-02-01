@@ -6,7 +6,7 @@ import { Chapter, S } from "./Course";
 const ChordsInMinor: Chapter = ({ sequencer, analyses }) => {
   return (
     <>
-      <ChordClouds chords={["i", "iv"]} />
+      <ChordClouds chords={["i", "iv", "v"]} />
       <h3>Natural minor</h3>
       <TagSearch tag="scale:natural_minor" analyses={analyses} />
 

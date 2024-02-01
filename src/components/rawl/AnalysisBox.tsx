@@ -214,6 +214,7 @@ export const TAGS = [
   "phrasing:dominant_prolongation",
   "phrasing:tonic_prolongation",
   "phrasing:fusion",
+  "phrasing:third_repetition",
 
   "instrument:banjo",
 ];

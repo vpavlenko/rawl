@@ -1,19 +1,31 @@
 import * as React from "react";
 import TagSearch from "../TagSearch";
-import { Chapter, S } from "./Course";
+import ChordClouds from "./ChordClouds";
+import { Chapter } from "./Course";
 
 const ThicknessOfVoicing: Chapter = ({ sequencer, analyses }) => {
   return (
     <>
-      <h3>Just the bass</h3>
+      <ChordClouds chords={["I5", "IV5", "V5"]} />
+      <div>
+        Basic Western harmony builds chords on scale degrees, three notes in a
+        chord. Since the notes of a chord in simple cases are drawn from the
+        major scale (i.e. they are diatonic) - the root itself completely
+        defines the chord. So harmony can be given using just the roots or via a
+        root+fifth combination.
+      </div>
       <TagSearch tag="voicing:root" analyses={analyses} />
-
-      <h3>Power chords</h3>
       <TagSearch tag="voicing:power_chords" analyses={analyses} />
 
       <h3>ii7</h3>
+      <div>
+        Even if most of the arrangement goes in thirds, two chords most often
+        get one more note - the seventh tone - are V7 and ii7. ii7 is a fusion
+        of ii and IV, syntactically.
+      </div>
       <TagSearch tag="chord:ii7" analyses={analyses} />
 
+      <ChordClouds chords={["I△", "IV△"]} />
       <h3>Diatonic seventh chords</h3>
       <TagSearch tag="voicing:diatonic_sevenths" analyses={analyses} />
       <TagSearch
@@ -21,39 +33,15 @@ const ThicknessOfVoicing: Chapter = ({ sequencer, analyses }) => {
         analyses={analyses}
       />
 
+      <ChordClouds chords={["I7", "IV7", "V7"]} />
       <h3>Blues seventh chords</h3>
+      <div>
+        Previous chords all drew notes from a single scale - a major scale. A
+        different thing happens in blues - here a scale changes with each chord
+        change. A mixolydian scale is built starting from the root of each of
+        the chords I7, IV7 and V7.
+      </div>
       <TagSearch tag="voicing:blues" analyses={analyses} />
-
-      <ul>
-        <li>
-          <S artist="MIDI/Vaughn" song="Blue Tango.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Uriah Heep" song="Lady in Black.mid" /> - scale used
-          as ornamentation
-        </li>
-        <li>
-          <S artist="MIDI/Victoria Williams" song="Boogieman.mid" /> - boogie
-        </li>
-        <li>
-          <S artist="MIDI/Vincent Gene" song="Be Bob A-Lula.mid" /> - rockabilly
-        </li>
-        <li>
-          <S artist="MIDI/VOF de Kunst" song="Een kopje koffie.mid" />
-        </li>
-        <li>
-          <S
-            artist="MIDI/Westernhagen"
-            song="Mit Pfefferminz bin ich dein Prinz.mid"
-          />
-        </li>
-        <li>
-          <S artist="MIDI/Donovan" song="Mellow Yellow.1.mid" />
-        </li>
-        <li>
-          <S artist="MIDI/Tatyana Ali" song="Daydreamin'.mid" />
-        </li>
-      </ul>
     </>
   );
 };

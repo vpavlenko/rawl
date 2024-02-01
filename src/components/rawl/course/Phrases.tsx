@@ -31,11 +31,10 @@ const Phrases: Chapter = ({ sequencer, analyses }) => {
         </li>
       </ul>
 
-      <h3>Silent break</h3>
+      <TagSearch tag="phrasing:tonic_prolongation" analyses={analyses} />
       <TagSearch tag="arrangement:silent_break" analyses={analyses} />
-
-      <h3>Fusion</h3>
       <TagSearch tag="phrasing:fusion" analyses={analyses} />
+      <TagSearch tag="phrasing:third_repetition" analyses={analyses} />
 
       <h3>Unsorted</h3>
       <ul>

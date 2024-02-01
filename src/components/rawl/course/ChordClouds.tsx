@@ -8,17 +8,19 @@ import { Row } from "./Course";
 const NOTE_HEIGHT = 5;
 
 const NOTES = ["1", "b2", "2", "b3", "3", "4", "#4", "5", "b6", "6", "b7", "7"];
-const CLOUD_HEIGHT = 300;
-const CLOUD_WIDTH = 200;
-const CLOUD_LEGENT_NOTE_HEIGHT = 20;
+const CLOUD_HEIGHT = 200;
+const CLOUD_WIDTH = 150;
+const CLOUD_LEGEND_NOTE_HEIGHT = 15;
 const CHORDS = {
   i: [0, 3, 7],
   ii: [2, 5, 9],
   iii: [4, 7, 11],
   iv: [5, 8, 0],
   I: [0, 4, 7], // Note: This will be the value of the last "I" chord in the array
+  I7: [0, 4, 7, 10],
   vi: [9, 0, 4],
   IV: [5, 9, 0],
+  IV7: [5, 9, 0, 3],
   V: [7, 11, 2], // Note: This will be the value of the last "V" chord in the array
   V7: [7, 11, 2, 5],
   "V/V": [2, 6, 9],
@@ -26,13 +28,19 @@ const CHORDS = {
   "V/ii": [9, 1, 4],
   III: [4, 8, 11],
   Vsus4: [7, 0, 2],
+  "I△": [0, 4, 7, 111],
+  "IV△": [5, 9, 0, 4],
+  I5: [0, 7],
+  IV5: [5, 0],
+  V5: [7, 2],
+  v: [7, 10, 2],
 };
 type Chord = keyof typeof CHORDS;
 
 const CloudPianoKey = styled.div`
   user-select: none;
   width: 100px;
-  height: ${CLOUD_LEGENT_NOTE_HEIGHT}px;
+  height: ${CLOUD_LEGEND_NOTE_HEIGHT}px;
   text-align: center;
   vertical-align: bottom;
   color: white;
@@ -53,7 +61,7 @@ const ChordCloud: React.FC<{
   const notes = CHORDS[name];
   const [numRerenders, setNumRerenders] = useState(0);
   const noteDivs = [];
-  for (let i = 0; i < 100; ++i) {
+  for (let i = 0; i < 60; ++i) {
     const width = Math.random() * 50;
 
     noteDivs.push(
@@ -86,15 +94,16 @@ const ChordCloud: React.FC<{
         ></CloudPianoKey>
         <div
           style={{
-            backgroundColor: "black",
-            borderRadius: "50%",
-            fontSize: 14,
-            width: 17,
-            height: 17,
+            fontSize: CLOUD_LEGEND_NOTE_HEIGHT - 3,
+            width: CLOUD_LEGEND_NOTE_HEIGHT,
+            height: CLOUD_LEGEND_NOTE_HEIGHT,
             position: "absolute",
             left: 42,
             textAlign: "center",
-            top: 2,
+            top: 0,
+            textShadow:
+              "0 0 1px black, 0 0 3px black, 0 0 6px black, 0 0 9px black",
+            fontWeight: 700,
           }}
         >
           {NOTES[note]}
@@ -102,7 +111,7 @@ const ChordCloud: React.FC<{
       </div>,
     );
     if (i > 0) {
-      top += ((12 + notes[i] - notes[i - 1]) % 12) * CLOUD_LEGENT_NOTE_HEIGHT;
+      top += ((12 + notes[i] - notes[i - 1]) % 12) * CLOUD_LEGEND_NOTE_HEIGHT;
     }
   }
   return (
@@ -127,7 +136,7 @@ const ChordCloud: React.FC<{
         {noteDivs}
         <span
           style={{
-            fontSize: 72,
+            fontSize: 48,
             zIndex: 10,
             textShadow:
               "0 0 1px black, 0 0 3px black, 0 0 5px black, 0 0 7px black, 0 0 10px black, 0 0 15px black, 0 0 20px black, 0 0 30px black",

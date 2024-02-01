@@ -10,6 +10,7 @@ import {
   SplitSystemLayout,
   SystemLayout,
 } from "./SystemLayout";
+import { formatTag } from "./TagSearch";
 import {
   ANALYSIS_STUB,
   Analysis,
@@ -56,7 +57,7 @@ const TagBrowser: React.FC<{ tags?: string[] }> = ({ tags }) => {
           <div>
             <LinkForSeparateTab
               href={`/tags/${tag}`}
-              text={`${tag.replace(":", ": ").replace("_", " ")}`}
+              text={`${formatTag(tag)}`}
             />
           </div>
         ))}

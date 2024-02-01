@@ -198,7 +198,7 @@ export const TAGS = [
   "form:alterations_on_last_chord",
 
   "melody:non-transposed_riff",
-  "melody:in_thirds",
+  "doubling:in_thirds",
   "melody:doubled",
 
   "percussion:tonal",

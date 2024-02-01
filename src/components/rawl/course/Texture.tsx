@@ -7,7 +7,7 @@ const Texture: Chapter = ({ sequencer, analyses }) => {
     <>
       <TagSearch tag="texture:arpeggio" analyses={analyses} />
       <TagSearch tag="texture:guitar_strumming" analyses={analyses} />
-      <TagSearch tag="melody:in_thirds" analyses={analyses} />
+      <TagSearch tag="doubling:in_thirds" analyses={analyses} />
       <TagSearch tag="arrangement:pad_chord_tones" analyses={analyses} />
       <TagSearch tag="arrangement:piano_glissando" analyses={analyses} />
       <TagSearch tag="arrangement:fills_at_rests" analyses={analyses} />

@@ -184,7 +184,7 @@
           "functionality:stasis",
           "issues:manual_remeasuring_needed",
           "chord:Iadd6",
-          "melody:in_thirds",
+          "doubling:in_thirds",
           "arrangement:no_chords"
         ],
         "modulations": {},
@@ -708,7 +708,7 @@
         "romanNumerals": "",
         "tags": [
           "chord:iv_in_major",
-          "melody:in_thirds",
+          "doubling:in_thirds",
           "issues:mute_voices",
           "voicing:power_chords",
           "scale:major"
@@ -1197,7 +1197,7 @@
         "tags": [
           "bass:root",
           "scale:blues",
-          "melody:in_thirds",
+          "doubling:in_thirds",
           "scale:hexatonic_minor",
           "issues:merge_voices"
         ]
@@ -2253,7 +2253,7 @@
           "chord:bII",
           "bass:diatonic_line",
           "modulation:contrast",
-          "melody:in_thirds",
+          "doubling:in_thirds",
           "modulation:often",
           "issues:R=1/2N",
           "voice-leading:chromatic",
@@ -2754,7 +2754,7 @@
           "rhythm:syncopation",
           "issues:merge_voices",
           "functionality:short_progression",
-          "melody:in_thirds"
+          "doubling:in_thirds"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -2826,8 +2826,8 @@
           "chord:V7",
           "voice-leading:entire_scale",
           "bass:root",
-          "arrangement:silent_break",
-          "functionality:functional"
+          "functionality:functional",
+          "phrasing:silent_break_extra_measure"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -3067,7 +3067,7 @@
           "voicing:triads",
           "chord:bII",
           "modulation:relative_major",
-          "melody:in_thirds",
+          "doubling:in_thirds",
           "arrangement:counterpoint",
           "bass:riff"
         ],
@@ -3248,7 +3248,7 @@
           "voice-leading:pedal",
           "bass:diatonic_approaches",
           "arrangement:no_chords",
-          "melody:in_thirds"
+          "doubling:in_thirds"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -3416,7 +3416,7 @@
           "harmony:pure_I-V",
           "voice-leading:chromatic",
           "bass:root_fifth",
-          "melody:in_thirds",
+          "doubling:in_thirds",
           "issues:manual_remeasuring_needed",
           "modulation:up_at_the_end",
           "scale:major",
@@ -3683,7 +3683,7 @@
           "texture:arpeggio",
           "tempo:ritardando",
           "voicing:triads",
-          "melody:in_thirds",
+          "doubling:in_thirds",
           "scale:major",
           "arrangement:simple_second_line",
           "phrasing:dominant_prolongation"
@@ -4192,7 +4192,7 @@
           "bass:diatonic_approaches",
           "rhythm:swing",
           "harmony:ambiguous_tonic",
-          "melody:in_thirds"
+          "doubling:in_thirds"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -5363,7 +5363,7 @@
           "voicing:root",
           "style:EDM",
           "functionality:progression",
-          "arrangement:silent_break"
+          "phrasing:silent_break_extra_measure"
         ]
       }
     }
@@ -5474,8 +5474,7 @@
           "scale:dorian",
           "style:reggae",
           "functionality:progression",
-          "voicing:triads",
-          "arrangement:silent_break"
+          "voicing:triads"
         ]
       }
     },
@@ -6023,7 +6022,7 @@
         "modulations": {},
         "tags": [
           "bass:diatonic_line",
-          "melody:in_thirds",
+          "doubling:in_thirds",
           "arrangement:no_chords"
         ]
       }
@@ -6145,7 +6144,7 @@
           "applied:V/ii",
           "functionality:functional",
           "arrangement:counterpoint",
-          "melody:in_thirds",
+          "doubling:in_thirds",
           "bass:diatonic_approaches"
         ]
       }
@@ -6307,7 +6306,7 @@
           "bass:simple",
           "arrangement:ornamental_riff",
           "functionality:functional",
-          "arrangement:silent_break"
+          "phrasing:silent_break_extra_measure"
         ]
       }
     }
@@ -6388,7 +6387,7 @@
           "style:soul",
           "style:disco",
           "arrangement:piano_glissando",
-          "melody:in_thirds",
+          "doubling:in_thirds",
           "bass:transposed_riff"
         ]
       }
@@ -6545,10 +6544,10 @@
           "arrangement:fills_at_rests",
           "applied:V/vi",
           "functionality:functional",
-          "arrangement:silent_break",
           "voice-leading:Vsus4_in_applied",
           "phrasing:dominant_prolongation",
-          "form:rock_solo"
+          "form:rock_solo",
+          "phrasing:silent_break_extra_measure"
         ]
       }
     }
@@ -6632,7 +6631,7 @@
           "functionality:functional",
           "bass:root_fifth",
           "arrangement:fills_at_rests",
-          "melody:in_thirds"
+          "doubling:in_thirds"
         ]
       }
     }
@@ -6700,7 +6699,7 @@
           "voice-leading:pedal",
           "bass:diatonic_line",
           "chord:Iadd6",
-          "arrangement:silent_break"
+          "phrasing:silent_break_extra_measure"
         ]
       }
     }
@@ -6725,7 +6724,7 @@
         "tags": [
           "scale:dorian",
           "bass:root_fifth",
-          "melody:in_thirds",
+          "doubling:in_thirds",
           "phrasing:tonic_prolongation",
           "voice-leading:in_chords"
         ]
@@ -6770,7 +6769,7 @@
           "voicing:triads",
           "bass:root_fifth",
           "texture:guitar_strumming",
-          "melody:in_thirds",
+          "doubling:in_thirds",
           "arrangement:ornamental_riff",
           "arrangement:counterpoint"
         ]
@@ -7119,7 +7118,276 @@
           "scale:dorian",
           "voicing:alterations",
           "form:rock_solo",
-          "melody:in_thirds"
+          "doubling:in_thirds"
+        ]
+      }
+    }
+  },
+  "MIDI/The Byrds": {
+    "Turn! Turn! Turn!.1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 18,
+            "diff": 1
+          },
+          {
+            "measure": 23,
+            "diff": 2
+          },
+          {
+            "measure": 37,
+            "diff": 1
+          },
+          {
+            "measure": 42,
+            "diff": 2
+          },
+          {
+            "measure": 56,
+            "diff": 1
+          },
+          {
+            "measure": 61,
+            "diff": 2
+          },
+          {
+            "measure": 75,
+            "diff": 1
+          },
+          {
+            "measure": 80,
+            "diff": 2
+          },
+          {
+            "measure": 94,
+            "diff": 1
+          },
+          {
+            "measure": 99,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "modulations": {},
+        "tags": [
+          "scale:major",
+          "voicing:triads",
+          "phrasing:tonic_prolongation",
+          "bass:diatonic_line",
+          "doubling:in_thirds"
+        ]
+      }
+    }
+  },
+  "MIDI/The Cars": {
+    "Drive.1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 58,
+            "diff": -2
+          },
+          {
+            "measure": 50,
+            "diff": -2
+          },
+          {
+            "measure": 54,
+            "diff": 2
+          },
+          {
+            "measure": 72,
+            "diff": -1
+          },
+          {
+            "measure": 79,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "modulations": {},
+        "tags": [
+          "scale:major",
+          "voicing:triads",
+          "functionality:stasis",
+          "scale:dorian",
+          "bass:root",
+          "arrangement:pad_chord_tones",
+          "functionality:shuttle",
+          "arrangement:fills_at_rests",
+          "arrangement:ornamental_riff"
+        ]
+      }
+    }
+  },
+  "MIDI/The Chaplin Band": {
+    "Let's Have a Party.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 43,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "modulations": {},
+        "tags": [
+          "phrasing:tonic_prolongation",
+          "arrangement:piano_glissando",
+          "voicing:triads",
+          "style:blues"
+        ]
+      }
+    }
+  },
+  "MIDI/The Cardigans": {
+    "My Favorite Game.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": 2
+          },
+          {
+            "measure": 47,
+            "diff": 1
+          },
+          {
+            "measure": 96,
+            "diff": 2
+          },
+          {
+            "measure": 118,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "modulations": {},
+        "tags": [
+          "bass:root",
+          "scale:minor",
+          "functionality:progression",
+          "voicing:root",
+          "voice-leading:triple_chromatic",
+          "phrasing:dominant_prolongation",
+          "voicing:triads"
+        ]
+      }
+    }
+  },
+  "MIDI/The Charmaines": {
+    "Eternally.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "modulations": {
+          "41": 7,
+          "73": 9
+        },
+        "tags": [
+          "applied:viio/",
+          "bass:transposed_riff",
+          "texture:guitar_strumming",
+          "modulation:up_at_the_end",
+          "scale:major",
+          "chord:V+",
+          "voicing:triads",
+          "texture:strumming_riff",
+          "voice-leading:chromatic",
+          "arrangement:fills_at_rests",
+          "arrangement:simple_second_line",
+          "functionality:functional",
+          "arrangement:silent_break"
+        ]
+      }
+    }
+  },
+  "MIDI/The Chi-Lites": {
+    "Oh Girl.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 23,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "modulations": {},
+        "tags": [
+          "scale:major",
+          "voice-leading:Vsus4",
+          "voicing:triads",
+          "stability:bIII",
+          "chord:bVII",
+          "phrasing:dominant_prolongation",
+          "doubling:in_thirds",
+          "arrangement:pad_chord_tones"
+        ]
+      }
+    }
+  },
+  "MIDI/The Buckinghams": {
+    "Mercy, Mercy, Mercy.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 5
+          },
+          {
+            "measure": 10,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "modulations": {
+          "68": 8
+        },
+        "tags": [
+          "scale:mixolydian",
+          "voicing:blues",
+          "doubling:in_thirds",
+          "modulation:up_at_the_end"
         ]
       }
     }

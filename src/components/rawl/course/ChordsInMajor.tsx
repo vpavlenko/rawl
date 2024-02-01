@@ -1,9 +1,10 @@
 import * as React from "react";
 import { NoteSnippet } from "../Axes";
+import TagSearch from "../TagSearch";
 import ChordClouds from "./ChordClouds";
 import { Row, S } from "./Course";
 
-const ChordsInMajor = ({ sequencer }) => (
+const ChordsInMajor = ({ sequencer, analyses }) => (
   <>
     <h3>I-V</h3>
     <ChordClouds chords={["I", "V"]} />
@@ -232,6 +233,13 @@ const ChordsInMajor = ({ sequencer }) => (
         sequencer={sequencer}
       />
     </div>
+    <h3>More examples</h3>
+    <div>
+      Here are all tracks in my database that have parts in a mostly stable
+      major key. Not all of them, however, use just the six chords above - which
+      will be covered in later chapters.
+    </div>
+    <TagSearch tag="scale:major" analyses={analyses} />
   </>
 );
 

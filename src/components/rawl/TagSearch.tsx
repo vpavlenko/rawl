@@ -2,6 +2,9 @@ import * as React from "react";
 import { Corpus } from "./analysis";
 import { SongLink } from "./course/Course";
 
+export const formatTag = (tag: string): string =>
+  tag.replace(":", ": ").replace("_", " ");
+
 const TagSearch: React.FC<{ tag: string; analyses: Corpus }> = ({
   tag,
   analyses,
@@ -24,7 +27,7 @@ const TagSearch: React.FC<{ tag: string; analyses: Corpus }> = ({
   return (
     <div style={{ marginTop: "40px" }}>
       <div>
-        <strong>{tag}</strong>:
+        <strong>{formatTag(tag)}</strong>
       </div>
       <ul>{result}</ul>
     </div>

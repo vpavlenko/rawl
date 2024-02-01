@@ -671,14 +671,15 @@ export const Voice: React.FC<{
 }) => {
   const { colorScheme } = useColorScheme();
 
-  const midiRange = useMemo(
-    () =>
-      getMidiRange(notes, [
-        xToSeconds(scrollInfo.left),
-        xToSeconds(scrollInfo.right),
-      ]),
-    [notes, scrollInfo, xToSeconds],
-  );
+  // const midiRange = useMemo(
+  //   () =>
+  //     getMidiRange(notes, [
+  //       xToSeconds(scrollInfo.left),
+  //       xToSeconds(scrollInfo.right),
+  //     ]),
+  //   [notes, scrollInfo, xToSeconds],
+  // );
+  const midiRange = useMemo(() => getMidiRange(notes), [notes]);
 
   const { systemClickHandler, handleNoteClick, handleMouseEnter } =
     mouseHandlers;

@@ -174,15 +174,12 @@ const Rawl: React.FC<{
 
   const [hoveredNote, setHoveredNote] = useState<Note | null>(null);
   const [hoveredAltKey, setHoveredAltKey] = useState<boolean>(false);
-  const handleMouseEnter = useCallback(
-    (note: Note, altKey: boolean) => {
-      if (altKey) {
-        setHoveredNote(note);
-      }
-      setHoveredAltKey(altKey);
-    },
-    [paused],
-  );
+  const handleMouseEnter = useCallback((note: Note, altKey: boolean) => {
+    if (altKey) {
+      setHoveredNote(note);
+    }
+    setHoveredAltKey(altKey);
+  }, []);
   const handleMouseLeave = useCallback(() => {
     setHoveredNote(null);
   }, []);

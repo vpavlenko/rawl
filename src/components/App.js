@@ -791,10 +791,7 @@ class App extends React.Component {
         render={({ history, match, location }) => {
           // Undo the react-router-dom double-encoded % workaround - see DirectoryLink.js
           const browsePath = match.params?.browsePath?.replace("%25", "%");
-          console.log("BROWSE_PATH", browsePath);
-
           const searchParams = new URLSearchParams(window.location.search);
-
           this.browsePath = browsePath;
           const path = this.playContexts[browsePath]?.[currIdx];
           const subtune = this.state.currentSongSubtune; // legacy from NES, always == '0' for MIDI

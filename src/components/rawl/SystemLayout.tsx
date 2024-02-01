@@ -256,7 +256,9 @@ const getNoteRectangles = (
       <span
         className="noteText"
         style={{
-          fontSize: isDrum ? "10px" : `${Math.min(noteHeight + 2, 14)}px`,
+          fontSize: isDrum
+            ? (noteHeight - 5) * 0.4 + (secondsToX(1) - secondsToX(0)) * 0.2
+            : `${Math.min(noteHeight + 2, 14)}px`,
           position: "relative",
           left: isDrum ? "-5px" : "0px",
           lineHeight: `${Math.min(noteHeight, 14)}px`,

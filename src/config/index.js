@@ -5,7 +5,6 @@ const SOUNDFONT_URL_PATH = "https://corsproxy.io/?https://gifx.co/soundfonts/";
 //const CATALOG_PREFIX = 'http://localhost:3000/catalog/';        // python scripts/httpserver.py - Python file server
 // const SOUNDFONT_URL_PATH = 'http://localhost:3000/soundfonts/'; // Webpack dev server
 const MAX_VOICES = 64;
-const REPLACE_STATE_ON_SEEK = false;
 const ERROR_FLASH_DURATION_MS = 6000;
 const FORMATS = [
   "ay",
@@ -133,7 +132,6 @@ module.exports = {
   ERROR_FLASH_DURATION_MS,
   FORMATS,
   MAX_VOICES,
-  REPLACE_STATE_ON_SEEK,
   SOUNDFONT_MOUNTPOINT,
   SOUNDFONT_URL_PATH,
   SOUNDFONTS,

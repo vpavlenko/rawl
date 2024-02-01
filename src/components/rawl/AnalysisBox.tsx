@@ -33,6 +33,7 @@ export const TAGS = [
   "arrangement:piano_glissando",
   "arrangement:silent_break",
   "arrangement:karaoke",
+  "arrangement:orchestra",
 
   "bass:diatonic_line",
   "bass:walking",
@@ -175,6 +176,7 @@ export const TAGS = [
 
   "dominant:IV",
   "dominant:very_dissonant",
+  "predominant:dissonant",
 
   "issues:merge_voices",
   "issues:mute_voices",

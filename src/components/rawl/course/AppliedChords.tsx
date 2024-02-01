@@ -53,6 +53,11 @@ const AppliedChords: Chapter = ({ sequencer, analyses }) => {
         </li>
       </ul>
       <TagSearch tag="chord:III" analyses={analyses} />
+      <TagSearch tag="chunks:III-IV" analyses={analyses} />
+      <TagSearch tag="chunks:bVII-IV-I" analyses={analyses} />
+
+      <h3>Applied viio/</h3>
+      <TagSearch tag="chord:viio/" analyses={analyses} />
     </>
   );
 };

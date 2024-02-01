@@ -25,6 +25,7 @@ const Modes: Chapter = ({ sequencer, analyses }) => {
       </div>
       <TagSearch tag="scale:dorian" analyses={analyses} />
       <TagSearch tag="chord:iadd6" analyses={analyses} />
+      <TagSearch tag="chord:ii_in_minor" analyses={analyses} />
       <h3>iadd6</h3>
       <ul>
         <li>

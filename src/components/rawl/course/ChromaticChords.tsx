@@ -1,8 +1,9 @@
 import * as React from "react";
+import TagSearch from "../TagSearch";
 import ChordClouds from "./ChordClouds";
-import { S } from "./Course";
+import { Chapter, S } from "./Course";
 
-const ChromaticChords = ({ sequencer }) => {
+const ChromaticChords: Chapter = ({ sequencer, analyses }) => {
   return (
     <>
       <h3>bII</h3>
@@ -17,13 +18,14 @@ const ChromaticChords = ({ sequencer }) => {
           />
         </li>
       </ul>
-      <h3>Chromatic chords - V+</h3>
-      <h3>Chromatic chords - iv</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/Weezer" song="Buddy Holly.mid" />
-        </li>
-      </ul>
+      <h3>Chromatic chords</h3>
+      <TagSearch tag="chord:V+" analyses={analyses} />
+      <TagSearch tag="chord:iv_in_major" analyses={analyses} />
+      <TagSearch tag="chord:viio" analyses={analyses} />
+      <TagSearch tag="chord:io7" analyses={analyses} />
+      <TagSearch tag="chord:viø" analyses={analyses} />
+      <TagSearch tag="chord:III" analyses={analyses} />
+
       <h3>Chromatic chords - viio</h3>
       <ul>
         <li>

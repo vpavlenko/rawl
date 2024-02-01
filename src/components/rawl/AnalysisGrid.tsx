@@ -287,14 +287,14 @@ export const AnalysisGrid: React.FC<{
               secondsToX={secondsToX}
               showNonPhraseStarts={
                 measures.length >= 2 &&
-                secondsToX(measures[1]) - secondsToX(measures[0]) > 35
+                secondsToX(measures[1]) - secondsToX(measures[0]) > 25
               }
               tonicStart={modulations.get(i === 0 ? -1 : i)}
             />
           );
         })}
         {beats.length >= 2 &&
-          secondsToX(beats[1]) - secondsToX(beats[0]) > 25 &&
+          secondsToX(beats[1]) - secondsToX(beats[0]) > 15 &&
           beats.map((time) => (
             <Beat key={time} second={time} secondsToX={secondsToX} />
           ))}

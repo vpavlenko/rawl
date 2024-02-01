@@ -519,15 +519,14 @@ const VoiceName: React.FC<{
       style={{
         position: "fixed",
         top,
-        left: "2px",
-        marginLeft: "2px",
+        left: 2,
+        marginLeft: 2,
+        marginTop: 7,
         fontFamily: "sans-serif",
-        fontSize: "12px",
+        fontSize: 12,
+        textShadow: "0 0 1px black, 0 0 3px black, 0 0 6px black",
         userSelect: "none",
-        backgroundColor: "#0009",
         zIndex: 100,
-        padding: 7,
-        boxShadow: "inset 0 0 1px white",
       }}
       ref={ref}
       onClick={(e) => {

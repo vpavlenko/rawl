@@ -21,15 +21,6 @@ const Functionality: Chapter = ({ sequencer, analyses }) => {
         </li>
       </ul>
       <TagSearch tag="functionality:functional" analyses={analyses} />
-      <h3>Functionality - mixed</h3>
-      <ul>
-        <li>
-          <S
-            artist="MIDI/White Barry"
-            song="Can't Get Enough of Your Love, Babe.mid"
-          />
-        </li>
-      </ul>
       <h3>Deceptive cadence</h3>
       <ul>
         <li>
@@ -75,6 +66,19 @@ const Functionality: Chapter = ({ sequencer, analyses }) => {
         <li>The Beatles - Eleanor Rigby VI-i</li>
       </ul>
       <TagSearch tag="functionality:shuttle" analyses={analyses} />
+      <h3>Mixed</h3>
+      <div>Some tracks have parts of different functionalities.</div>
+      <ul>
+        <li>
+          <S
+            artist="MIDI/White Barry"
+            song="Can't Get Enough of Your Love, Babe.mid"
+          />
+        </li>
+        <li>
+          <S artist="MIDI/The Cars" song="Drive.1.mid" />
+        </li>
+      </ul>
     </>
   );
 };

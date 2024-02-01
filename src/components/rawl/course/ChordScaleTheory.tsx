@@ -11,9 +11,10 @@ const ChordScaleTheory: Chapter = ({ sequencer, analyses }) => {
         Henry Martin. On the Tonic Added-Sixth Chord in Jazz
       </a>
       <TagSearch tag="chord:Iadd6" analyses={analyses} />
-      <h3>V9, V11, V13</h3>
+      <h3>V9, V11, V13, V7b9</h3>
       <TagSearch tag="chord:V9" analyses={analyses} />
       <TagSearch tag="chord:V13" analyses={analyses} />
+      <TagSearch tag="chord:V7b9" analyses={analyses} />
       <h3>Alterations (9th, 13th)</h3>
       <TagSearch tag="voicing:alterations" analyses={analyses} />
       <TagSearch tag="form:alterations_on_last_chord" analyses={analyses} />

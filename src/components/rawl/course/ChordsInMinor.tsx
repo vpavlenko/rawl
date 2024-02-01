@@ -6,60 +6,54 @@ import { Chapter, S } from "./Course";
 const ChordsInMinor: Chapter = ({ sequencer, analyses }) => {
   return (
     <>
-      <ChordClouds chords={["i", "iv", "v"]} />
-      <h3>Natural minor</h3>
-      <TagSearch tag="scale:natural_minor" analyses={analyses} />
-      <ChordClouds chords={["bVI", "bVII", "i", "bIII"]} />
+      <ChordClouds chords={["i", "iv", "V"]} />
+      <div>
+        In the 1960s..1980s a minor key was less popular that a major one.
+      </div>
 
-      <h3>General minor with V</h3>
-      <TagSearch tag="scale:minor" analyses={analyses} />
-
-      <h3>i-iv-V-i</h3>
+      <h3>Minor with V</h3>
       <ul>
         <li>
-          <S artist="MIDI/Tanita Tikaram" song="Twist In My Sobriety.mid" />
+          <S artist="MIDI/Tanita Tikaram" song="Twist In My Sobriety.mid" /> -
+          i-iv-V-i (need to fix phrasing)
         </li>
-      </ul>
-      <h3>VI-VII-i</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/Talking Heads" song="Psycho Killer.mid" />
-        </li>
-      </ul>
-      <h3>Minor before V7</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/Vangelis" song="1492: Conquest of Paradise.mid" />
-        </li>
-      </ul>
-      <h3>i-iv-v-i</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/Technotronic" song="Pump Up the Jam.mid" /> - also III
-        </li>
-      </ul>
-      <h3>minor with V7</h3>
-      <ul>
-        <li>
-          <S artist="MIDI/Ventures" song="Walk Don't Run.mid" /> - has entire
-          scale
-        </li>
-        <li>
-          <S artist="MIDI/U.S.A. for Africa" song="We Are the World.mid" /> - no
-          V7, complex
-        </li>
-        <li>
-          <S artist="MIDI/Usher" song="My Way.mid" /> - Andalusian R&B
-        </li>
-      </ul>
-      <ChordClouds chords={["Vsus4", "V"]} />
-      <h3>Vsus4-V</h3>
-      <ul>
         <li>
           <S artist="MIDI/Taylor Dayne" song="Tell It to My Heart.mid" /> -
-          mixed, also bVII-v7
+          bVI-bVII-v-i with V
+        </li>
+        <li>
+          <S artist="MIDI/The Cardigans" song="My Favorite Game.mid" /> -
+          similar
+        </li>
+        <li>
+          <S artist="MIDI/Ventures" song="Walk Don't Run.mid" /> - i-bVII-bVI-V
+          with a major bIII-bVI part
+        </li>
+        <li>
+          <S artist="MIDI/Wayne Jeff" song="The Eve of the War.mid" /> - i-V7
+          with bVI-bVII-i
+        </li>
+        <li>
+          <S artist="MIDI/Vangelis" song="1492: Conquest of Paradise.mid" /> -
+          minor, requires muting a trumpet
+        </li>
+        <li>
+          <S artist="MIDI/Usher" song="My Way.mid" /> - i-bVII-bVI-V RnB
         </li>
       </ul>
+
+      <h3>Natural minor</h3>
+      <div>
+        Tracks that are built around natural minor often have other
+        complications: diatonic seventh chords or other alterations, dance-like
+        progression style, pedals. There wasn't a simple functional natural
+        minor language in the 1960s in the classical pop/rock time - it's more
+        modern and more diverse.
+      </div>
+      <ChordClouds chords={["i", "iv", "v"]} />
+
+      <TagSearch tag="scale:natural_minor" analyses={analyses} />
+      <ChordClouds chords={["bVI", "bVII", "i", "bIII"]} />
     </>
   );
 };

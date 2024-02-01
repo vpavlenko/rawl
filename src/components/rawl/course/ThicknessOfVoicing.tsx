@@ -25,11 +25,20 @@ const ThicknessOfVoicing: Chapter = ({ sequencer, analyses }) => {
         get one more note - the seventh tone - are V7 and ii7. ii7 is a fusion
         of ii and IV, syntactically.
       </div>
+
       <TagSearch tag="chord:ii7" analyses={analyses} />
+      <div>
+        The ii+IV fusion can also be seen in a ii6 inversion - a ii chord on a 4
+        bass, where it's the only inverted chord in a song. This pattern is more
+        common in common practice music than in the 20th century, though.
+      </div>
+      <TagSearch tag="chord:ii6" analyses={analyses} />
 
       <h3>Diatonic seventh chords</h3>
       <ChordClouds chords={["I△", "iii7", "IV△", "vi7"]} />
+
       <TagSearch tag="voicing:diatonic_sevenths" analyses={analyses} />
+      <TagSearch tag="chord:i7" analyses={analyses} />
       <TagSearch
         tag="voicing:only_minor_sevenths_in_major"
         analyses={analyses}

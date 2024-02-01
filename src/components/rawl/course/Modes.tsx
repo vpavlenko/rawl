@@ -44,6 +44,10 @@ const Modes: Chapter = ({ sequencer, analyses }) => {
 
       <ChordClouds chords={["I", "bVII"]} />
       <h3>Mixolydian shuttle</h3>
+      <div>
+        Same logic as with the dorian shuttle - a very popular usage of bVII as
+        simply a shuttle:
+      </div>
       <ul>
         <li>
           <S
@@ -62,6 +66,7 @@ const Modes: Chapter = ({ sequencer, analyses }) => {
         </li>
       </ul>
       <TagSearch tag="chord:bVII" analyses={analyses} />
+      <TagSearch tag="scale:mixolydian" analyses={analyses} />
     </>
   );
 };

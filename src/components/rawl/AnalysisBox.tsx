@@ -34,6 +34,7 @@ export const TAGS = [
   "arrangement:silent_break",
   "arrangement:karaoke",
   "arrangement:orchestra",
+  "arrangement:several_vocal_lines",
 
   "bass:diatonic_line",
   "bass:walking",
@@ -60,6 +61,7 @@ export const TAGS = [
   "inversion:IV64",
 
   "chord:ii7",
+  "chord:ii6",
   "chord:m7s",
   "chord:V7",
   "chord:viio",
@@ -104,6 +106,8 @@ export const TAGS = [
   "chunks:circle_of_fifths",
   "chunks:bVII-IV-I",
   "chunks:III-IV",
+  "chunk:ii-V-iii-VI",
+  "chunks:I-vi-ii-V",
 
   "stability:bVII-V",
   "stability:bVI-bVII-I",
@@ -170,6 +174,7 @@ export const TAGS = [
   "scale:mixolydian",
   "scale:major_b6",
   "scale:hexatonic_minor",
+  "scale:b3_in_major",
 
   "tempo:accelerando",
   "tempo:ritardando",

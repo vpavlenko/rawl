@@ -710,24 +710,43 @@ class App extends React.Component {
     });
   }
 
+  processFetchedDirectory(path, items) {
+    this.playContexts[path] = items
+      .filter((item) => item.type === "file")
+      .map((item) =>
+        item.path.replace("%", "%25").replace("#", "%23").replace(/^\//, ""),
+      );
+    const directories = {
+      ...this.state.directories,
+      [path]: items,
+    };
+    this.setState({ directories });
+  }
+
   fetchDirectory(path) {
-    return fetch(`${API_BASE}/browse?path=%2F${encodeURIComponent(path)}`)
-      .then((response) => response.json())
-      .then((items) => {
-        this.playContexts[path] = items
-          .filter((item) => item.type === "file")
-          .map((item) =>
-            item.path
-              .replace("%", "%25")
-              .replace("#", "%23")
-              .replace(/^\//, ""),
-          );
-        const directories = {
-          ...this.state.directories,
-          [path]: items,
-        };
-        this.setState({ directories });
-      });
+    if (path.startsWith("static")) {
+      const items = [
+        {
+          idx: 0,
+          path: "/static/Yes/Close_to_the_edge.mid",
+          size: 1337,
+          type: "file",
+        },
+        {
+          idx: 0,
+          path: "/static/Yes/To_be_over.mid",
+          size: 1337,
+          type: "file",
+        },
+      ];
+      return this.processFetchedDirectory(path, items);
+    } else {
+      return fetch(`${API_BASE}/browse?path=%2F${encodeURIComponent(path)}`)
+        .then((response) => response.json())
+        .then((items) => {
+          return this.processFetchedDirectory(path, items);
+        });
+    }
   }
 
   onDrop = (droppedFiles) => {

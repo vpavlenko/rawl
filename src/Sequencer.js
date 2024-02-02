@@ -129,10 +129,15 @@ export default class Sequencer extends EventEmitter {
       this.player.suspend();
     }
 
-    // Normalize url - paths are assumed to live under CATALOG_PREFIX
-    url = url.startsWith("http")
-      ? url
-      : CATALOG_PREFIX + encodeURIComponent(encodeURIComponent(url));
+    if (url.startsWith("static")) {
+      url = url.replace("static", "https://rawl.rocks/midi");
+    } else {
+      // Normalize url - paths are assumed to live under CATALOG_PREFIX
+      url = url.startsWith("http")
+        ? url
+        : CATALOG_PREFIX + encodeURIComponent(encodeURIComponent(url));
+    }
+
     // Find a player that can play this filetype
     const ext = url.split(".").pop().toLowerCase();
     for (let i = 0; i < this.players.length; i++) {

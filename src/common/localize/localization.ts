@@ -762,14 +762,12 @@ export default {
     initializing: "啟動中...",
     profile: "個人資訊",
     "edit-profile": "編輯個人資訊",
-    "signin-to-edit-profile":
-      "登入以編輯個人資訊",
+    "signin-to-edit-profile": "登入以編輯個人資訊",
     "display-name": "顯示名稱",
     bio: "自我介紹",
     save: "儲存",
     "recent-tracks": "最近的曲目",
-    "publish-notice":
-      "一旦公開樂曲，其他的使用者也將可以聆聽您的曲目。",
+    "publish-notice": "一旦公開樂曲，其他的使用者也將可以聆聽您的曲目。",
     "published-notice": "您的曲目已公開，其他人也可聆聽您的曲目。",
     publish: "公開",
     unpublish: "非公開",

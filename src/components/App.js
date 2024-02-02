@@ -733,7 +733,7 @@ class App extends React.Component {
           type: "file",
         },
         {
-          idx: 0,
+          idx: 1,
           path: "/static/Yes/To_be_over.mid",
           size: 1337,
           type: "file",

@@ -21,7 +21,6 @@ import Sequencer, { NUM_REPEAT_MODES, REPEAT_OFF } from "../Sequencer";
 import ChipCore from "../chip-core";
 import {
   API_BASE,
-  CATALOG_PREFIX,
   ERROR_FLASH_DURATION_MS,
   MAX_VOICES,
   SOUNDFONT_MOUNTPOINT,
@@ -729,15 +728,6 @@ class App extends React.Component {
         };
         this.setState({ directories });
       });
-  }
-
-  getCurrentSongLink() {
-    const url = this.sequencer.getCurrUrl();
-    return url
-      ? process.env.PUBLIC_URL +
-          "/?play=" +
-          encodeURIComponent(url.replace(CATALOG_PREFIX, ""))
-      : "#";
   }
 
   onDrop = (droppedFiles) => {

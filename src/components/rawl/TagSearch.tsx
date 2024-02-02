@@ -3,7 +3,7 @@ import { Corpus } from "./analysis";
 import { SongLink } from "./course/Course";
 
 export const formatTag = (tag: string): string =>
-  tag.replace(":", ": ").replace("_", " ");
+  tag.replace(/:/g, ": ").replace(/_/g, " ");
 
 const TagSearch: React.FC<{ tag: string; analyses: Corpus }> = ({
   tag,

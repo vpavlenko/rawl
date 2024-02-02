@@ -673,14 +673,17 @@ export const Voice: React.FC<{
 }) => {
   const { colorScheme } = useColorScheme();
 
-  // const midiRange = useMemo(
-  //   () =>
-  //     getMidiRange(notes, [
-  //       xToSeconds(scrollInfo.left),
-  //       xToSeconds(scrollInfo.right),
-  //     ]),
-  //   [notes, scrollInfo, xToSeconds],
-  // );
+  // To restore it, we need to lock the calculation of frozenRange and frozenHeight
+  // and don't change it after loading the notes.
+
+  const localMidiRange = useMemo(
+    () =>
+      getMidiRange(notes, [
+        xToSeconds(scrollInfo.left),
+        xToSeconds(scrollInfo.right),
+      ]),
+    [notes, scrollInfo, xToSeconds],
+  );
   const midiRange = useMemo(() => getMidiRange(notes), [notes]);
 
   const { systemClickHandler, handleNoteClick, handleMouseEnter } =
@@ -729,7 +732,7 @@ export const Voice: React.FC<{
     ],
   );
 
-  const hasVisibleNotes = midiRange[1] >= midiRange[0];
+  const hasVisibleNotes = localMidiRange[1] >= localMidiRange[0];
 
   return (
     <div

@@ -738,6 +738,12 @@ class App extends React.Component {
           size: 1337,
           type: "file",
         },
+        {
+          idx: 2,
+          path: "/static/bushgrafts/funny val solo.mid",
+          size: 1337,
+          type: "file",
+        },
       ];
       return this.processFetchedDirectory(path, items);
     } else {

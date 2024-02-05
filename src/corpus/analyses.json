@@ -3739,7 +3739,8 @@
           "modulation:parallel_keys",
           "voicing:triads",
           "chord:Picardy_third",
-          "bass:root"
+          "bass:root",
+          "scale:minor"
         ],
         "modulations": {},
         "fourMeasurePhrasingReferences": [
@@ -4767,6 +4768,25 @@
         "tags": [],
         "modulations": {}
       }
+    },
+    "The Year of the Cat.2.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {
+          "30": 2,
+          "36": 7,
+          "90": 2
+        }
+      }
     }
   },
   "MIDI/Marvin Gaye": {
@@ -5020,7 +5040,8 @@
           "rhythm:2_against_3",
           "bass:root_fifth",
           "bass:diatonic_line",
-          "voice-leading:chromatic"
+          "voice-leading:chromatic",
+          "chunks:i-VII-VI-V"
         ]
       }
     }
@@ -5308,10 +5329,10 @@
         "tags": [
           "style:eurodance",
           "scale:natural_minor",
-          "functionality:progression",
           "form:development_through_instrumentation",
           "voicing:diatonic_sevenths",
-          "bass:root"
+          "bass:root",
+          "functionality:short_progression"
         ]
       }
     }
@@ -5511,13 +5532,31 @@
           {
             "measure": 23,
             "diff": 1
+          },
+          {
+            "measure": 44,
+            "diff": 1
+          },
+          {
+            "measure": 69,
+            "diff": -2
+          },
+          {
+            "measure": 87,
+            "diff": 1
           }
         ],
         "comment": "",
         "tonic": 7,
         "modulations": {},
         "tags": [
-          "scale:natural_minor"
+          "scale:natural_minor",
+          "phrasing:silent_break_extra_measure",
+          "bass:developed",
+          "voicing:alterations",
+          "style:reggae",
+          "form:rock_solo",
+          "functionality:functional"
         ]
       }
     },
@@ -5856,13 +5895,21 @@
           {
             "measure": 1,
             "diff": 0
+          },
+          {
+            "measure": 29,
+            "diff": 1
           }
         ],
         "comment": "",
         "tonic": 6,
         "modulations": {},
         "tags": [
-          "voicing:triads"
+          "voicing:triads",
+          "scale:minor",
+          "bass:root",
+          "functionality:progression",
+          "phrasing:silent_break_extra_measure"
         ]
       }
     }
@@ -6306,7 +6353,9 @@
           "bass:simple",
           "arrangement:ornamental_riff",
           "functionality:functional",
-          "phrasing:silent_break_extra_measure"
+          "phrasing:silent_break_extra_measure",
+          "scale:natural_minor",
+          "voice-leading:Vsus4"
         ]
       }
     }
@@ -7228,7 +7277,8 @@
           "arrangement:pad_chord_tones",
           "functionality:shuttle",
           "arrangement:fills_at_rests",
-          "arrangement:ornamental_riff"
+          "arrangement:ornamental_riff",
+          "voice-leading:Vsus4"
         ]
       }
     }
@@ -7389,6 +7439,238 @@
           "doubling:in_thirds",
           "modulation:up_at_the_end"
         ]
+      }
+    }
+  },
+  "MIDI/The Offspring": {
+    "The Kids Aren't Alright.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "modulations": {},
+        "tags": [
+          "scale:natural_minor",
+          "functionality:progression",
+          "voicing:power_chords"
+        ]
+      }
+    }
+  },
+  "MIDI/The Chordettes": {
+    "Lollipop.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 6
+          }
+        ],
+        "comment": "I-vi-ii-V",
+        "tonic": 8,
+        "modulations": {},
+        "tags": [
+          "chord:ii6",
+          "voice-leading:Vsus4",
+          "scale:major",
+          "voicing:triads",
+          "bass:root",
+          "chunks:I-vi-ii-V",
+          "arrangement:several_vocal_lines"
+        ]
+      }
+    }
+  },
+  "Classical MIDI/Addinsell": {
+    "Warsaw Concerto (Dangerous Moonlight theme) (1941).mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/The Chiffons": {
+    "One Fine Day.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [
+          "chord:iv_in_major",
+          "voicing:triads",
+          "scale:major",
+          "bass:root_fifth",
+          "bass:diatonic_approaches",
+          "chunk:ii-V-iii-VI",
+          "modulation:contrast",
+          "chord:ii7",
+          "scale:b3_in_major"
+        ],
+        "modulations": {
+          "43": 0,
+          "51": 2,
+          "55": 7
+        }
+      }
+    }
+  },
+  "static/Yes": {
+    "To_be_over.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 10,
+            "diff": 2
+          },
+          {
+            "measure": 24,
+            "diff": 2
+          },
+          {
+            "measure": 38,
+            "diff": 1
+          },
+          {
+            "measure": 55,
+            "diff": 2
+          },
+          {
+            "measure": 65,
+            "diff": 1
+          },
+          {
+            "measure": 114,
+            "diff": 1
+          },
+          {
+            "measure": 119,
+            "diff": 1
+          },
+          {
+            "measure": 160,
+            "diff": -1
+          },
+          {
+            "measure": 163,
+            "diff": 1
+          },
+          {
+            "measure": 176,
+            "diff": 2
+          },
+          {
+            "measure": 198,
+            "diff": -1
+          },
+          {
+            "measure": 225,
+            "diff": -1
+          },
+          {
+            "measure": 256,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "modulations": {
+          "51": 2,
+          "66": 4,
+          "110": 2,
+          "159": 11,
+          "256": 4
+        },
+        "tags": [
+          "chord:bVII"
+        ]
+      }
+    },
+    "Close_to_the_edge.mid": {
+      "0": {
+        "form": {
+          "18": "intro",
+          "130": "main theme",
+          "180": "A: A Solid Time of Change, verse"
+        },
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 78,
+            "diff": 1
+          },
+          {
+            "measure": 131,
+            "diff": 2
+          },
+          {
+            "measure": 181,
+            "diff": -1
+          },
+          {
+            "measure": 184,
+            "diff": 2
+          },
+          {
+            "measure": 6,
+            "diff": 12
+          },
+          {
+            "measure": 78,
+            "diff": 1
+          },
+          {
+            "measure": 92,
+            "diff": -1
+          },
+          {
+            "measure": 131,
+            "diff": 2
+          },
+          {
+            "measure": 147,
+            "diff": -2
+          },
+          {
+            "measure": 181,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {
+          "180": 9
+        }
       }
     }
   }

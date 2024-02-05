@@ -355,8 +355,9 @@ export const AnalysisBox: React.FC<{
             <div>What to do with measure {selectedMeasure}?</div>
             <ul className="vertical-list-of-buttons">
               <li>Enter modulation: alt+click on a new tonic</li>
-              {getPhraseStarts(analysis, 400).indexOf(selectedMeasure) !==
-                -1 && (
+              {getPhraseStarts(analysis, selectedMeasure + 10).indexOf(
+                selectedMeasure,
+              ) !== -1 && (
                 <li>
                   Move phrase start
                   {movePhraseStart}

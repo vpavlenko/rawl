@@ -7617,7 +7617,25 @@
         "form": {
           "18": "intro",
           "130": "main theme",
-          "180": "A: A Solid Time of Change, verse"
+          "180": "A: A Solid Time of Change, verse",
+          "218": "chorus (hint)",
+          "234": "bridge",
+          "255": "chorus",
+          "263": "refrain \"I Get Up\"",
+          "274": "A': Total Mass Retain, verse",
+          "303": "chorus (hint)",
+          "314": "bridge",
+          "330": "chorus",
+          "338": "refrain \"I Get Up\"",
+          "345": "link",
+          "393": "B: I Get Up I Get Down, song (w/ organ solo)",
+          "480": "organ transition",
+          "495": "main theme",
+          "527": "solos",
+          "563": "A'': Seasons of Man, verse",
+          "588": "bridge",
+          "600": "chorus",
+          "616": "refrain \"I Get Up\""
         },
         "phrasePatch": [
           {
@@ -7663,13 +7681,331 @@
           {
             "measure": 181,
             "diff": -1
+          },
+          {
+            "measure": 184,
+            "diff": 2
+          },
+          {
+            "measure": 193,
+            "diff": 1
+          },
+          {
+            "measure": 200,
+            "diff": -2
+          },
+          {
+            "measure": 222,
+            "diff": -2
+          },
+          {
+            "measure": 224,
+            "diff": 2
+          },
+          {
+            "measure": 230,
+            "diff": -2
+          },
+          {
+            "measure": 232,
+            "diff": 2
+          },
+          {
+            "measure": 242,
+            "diff": -1
+          },
+          {
+            "measure": 249,
+            "diff": -1
+          },
+          {
+            "measure": 256,
+            "diff": -1
+          },
+          {
+            "measure": 267,
+            "diff": -1
+          },
+          {
+            "measure": 278,
+            "diff": 2
+          },
+          {
+            "measure": 296,
+            "diff": 0
+          },
+          {
+            "measure": 304,
+            "diff": -1
+          },
+          {
+            "measure": 315,
+            "diff": -1
+          },
+          {
+            "measure": 342,
+            "diff": -1
+          },
+          {
+            "measure": 401,
+            "diff": -1
+          },
+          {
+            "measure": 408,
+            "diff": 1
+          },
+          {
+            "measure": 413,
+            "diff": 1
+          },
+          {
+            "measure": 422,
+            "diff": 1
+          },
+          {
+            "measure": 427,
+            "diff": 1
+          },
+          {
+            "measure": 436,
+            "diff": 2
+          },
+          {
+            "measure": 450,
+            "diff": 2
+          },
+          {
+            "measure": 472,
+            "diff": 2
+          },
+          {
+            "measure": 482,
+            "diff": 3
+          },
+          {
+            "measure": 497,
+            "diff": -2
+          },
+          {
+            "measure": 543,
+            "diff": -1
+          },
+          {
+            "measure": 546,
+            "diff": -1
+          },
+          {
+            "measure": 549,
+            "diff": -1
+          },
+          {
+            "measure": 564,
+            "diff": -1
+          },
+          {
+            "measure": 567,
+            "diff": -1
+          },
+          {
+            "measure": 570,
+            "diff": -1
+          },
+          {
+            "measure": 573,
+            "diff": -1
+          },
+          {
+            "measure": 576,
+            "diff": -1
+          },
+          {
+            "measure": 583,
+            "diff": -1
+          },
+          {
+            "measure": 586,
+            "diff": -1
+          },
+          {
+            "measure": 589,
+            "diff": -1
+          },
+          {
+            "measure": 592,
+            "diff": -2
+          },
+          {
+            "measure": 594,
+            "diff": -1
+          },
+          {
+            "measure": 597,
+            "diff": -1
           }
         ],
-        "comment": "",
+        "comment": "why no bend visible in m. 234?",
         "tonic": 2,
         "tags": [],
         "modulations": {
-          "180": 9
+          "180": 9,
+          "218": 4,
+          "234": 0,
+          "255": 2,
+          "263": 0,
+          "274": 9,
+          "314": 2,
+          "330": 4,
+          "338": 2,
+          "345": 0,
+          "393": 4,
+          "446": 9,
+          "452": 4,
+          "468": 9,
+          "474": 11,
+          "495": 6,
+          "521": 9,
+          "575": 7,
+          "579": 9,
+          "590": 5,
+          "600": 7,
+          "616": 5
+        }
+      }
+    }
+  },
+  "Classical MIDI/Scarlatti": {
+    "Sonata in C (L.441).mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "static/bushgrafts": {
+    "funny val solo.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {
+          "29": 3,
+          "35": 0
+        }
+      }
+    }
+  },
+  "static/Lena": {
+    "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 9,
+            "diff": -1
+          },
+          {
+            "measure": 24,
+            "diff": 5
+          },
+          {
+            "measure": 65,
+            "diff": 2
+          },
+          {
+            "measure": 99,
+            "diff": 2
+          },
+          {
+            "measure": 117,
+            "diff": 3
+          },
+          {
+            "measure": 128,
+            "diff": -1
+          },
+          {
+            "measure": 131,
+            "diff": 2
+          },
+          {
+            "measure": 153,
+            "diff": 1
+          },
+          {
+            "measure": 186,
+            "diff": 5
+          },
+          {
+            "measure": 223,
+            "diff": 2
+          },
+          {
+            "measure": 229,
+            "diff": -1
+          },
+          {
+            "measure": 232,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {
+          "12": 10,
+          "16": 2,
+          "20": 7,
+          "37": 10,
+          "41": 2,
+          "45": 7,
+          "57": 2,
+          "67": 10,
+          "75": 2,
+          "83": 7,
+          "87": 5,
+          "91": 4,
+          "93": 2,
+          "95": 7,
+          "109": 2,
+          "120": 7,
+          "127": 0,
+          "139": 3,
+          "141": 7,
+          "145": 0,
+          "147": 3,
+          "149": 7,
+          "154": 10,
+          "162": 2,
+          "170": 7,
+          "174": 5,
+          "178": 2,
+          "182": 7,
+          "189": 9,
+          "195": 0,
+          "199": 4,
+          "207": 9,
+          "211": 9,
+          "215": 4
         }
       }
     }

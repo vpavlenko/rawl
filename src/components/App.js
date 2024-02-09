@@ -744,6 +744,18 @@ class App extends React.Component {
           size: 1337,
           type: "file",
         },
+        {
+          idx: 3,
+          path: "/static/Lena/Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_.mid",
+          size: 1337,
+          type: "file",
+        },
+        {
+          idx: 4,
+          path: "/static/Lena/One_Summers_Day_Spirited_Away.mid",
+          size: 1337,
+          type: "file",
+        },
       ];
       return this.processFetchedDirectory(path, items);
     } else {

@@ -98,6 +98,7 @@ export default class PianoRollStore {
       scrollTop: computed,
       transform: computed,
       windowedEvents: computed,
+      allNotes: computed,
       notes: computed,
       ghostNotes: computed,
       selectionBounds: computed,
@@ -260,21 +261,18 @@ export default class PianoRollStore {
     )
   }
 
-  get notes(): PianoNoteItem[] {
+  get allNotes(): PianoNoteItem[] {
     const {
       transform,
-      windowedEvents,
-      selectedNoteIds,
       selectedTrack: track,
       selectedTrackId,
+      selectedNoteIds,
     } = this
-
     if (track === undefined) {
       return []
     }
     const isRhythmTrack = track.isRhythmTrack
-
-    const noteEvents = windowedEvents.filter(isNoteEvent)
+    const noteEvents = track.events.filter(isNoteEvent)
 
     return noteEvents.map((e): PianoNoteItem => {
       const rect = isRhythmTrack
@@ -290,6 +288,18 @@ export default class PianoRollStore {
         trackId: selectedTrackId,
       }
     })
+  }
+
+  get notes(): PianoNoteItem[] {
+    const { scrollLeft, canvasWidth, selectedTrack: track, allNotes } = this
+    if (track === undefined) {
+      return []
+    }
+
+    const startX = scrollLeft
+    const endX = scrollLeft + canvasWidth
+
+    return allNotes.filter((n) => n.x + n.width > startX && n.x < endX)
   }
 
   get ghostNotes(): PianoNoteItem[] {

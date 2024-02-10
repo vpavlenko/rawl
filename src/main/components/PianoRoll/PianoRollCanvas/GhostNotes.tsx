@@ -1,8 +1,9 @@
 import Color from "color"
+import { vec4 } from "gl-matrix"
 import { partition } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
-import { trackColorToCSSColor } from "../../../../common/track/TrackColor"
+import { trackColorToVec4 } from "../../../../common/track/TrackColor"
 import { colorToVec4 } from "../../../gl/color"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
@@ -18,18 +19,16 @@ export const GhostNotes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
   const theme = useTheme()
 
   const [drumNotes, normalNotes] = partition(notes, (n) => n.isDrum)
+  const colorForTrackId = song.tracks.map((t) =>
+    t.color !== undefined ? trackColorToVec4(t.color) : null,
+  )
+  const ghostNoteColor = colorToVec4(Color(theme.ghostNoteColor))
 
   const getColorForTrackId = (trackId: number) => {
-    const color = song.getTrack(trackId)?.color
-    return colorToVec4(
-      Color(
-        color !== undefined
-          ? trackColorToCSSColor(color)
-          : theme.ghostNoteColor,
-      ).mix(Color(theme.backgroundColor), 0.7),
-    )
+    const color = colorForTrackId[trackId] ?? ghostNoteColor
+    return vec4.lerp(vec4.create(), color, ghostNoteColor, 0.7)
   }
-  const borderColor = Color("transparent")
+  const transparentColor = vec4.zero(vec4.create())
 
   const colorize = (item: PianoNoteItem) => ({
     ...item,
@@ -39,12 +38,12 @@ export const GhostNotes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
   return (
     <>
       <NoteCircles
-        strokeColor={colorToVec4(borderColor)}
+        strokeColor={transparentColor}
         rects={drumNotes.map(colorize)}
         zIndex={zIndex}
       />
       <NoteRectangles
-        strokeColor={colorToVec4(borderColor)}
+        strokeColor={transparentColor}
         rects={normalNotes.map(colorize)}
         zIndex={zIndex + 0.1}
       />

@@ -1,4 +1,5 @@
 import Color from "color"
+import { vec4 } from "gl-matrix"
 import { partition } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
@@ -28,13 +29,19 @@ export const Notes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
   )
   const borderColor = colorToVec4(baseColor.lighten(0.3))
   const selectedColor = colorToVec4(baseColor.lighten(0.7))
-  const backgroundColor = Color(theme.backgroundColor)
+  const backgroundColor = colorToVec4(Color(theme.backgroundColor))
+  const baseColorVec4 = colorToVec4(baseColor)
 
   const colorize = (item: PianoNoteItem) => ({
     ...item,
     color: item.isSelected
       ? selectedColor
-      : colorToVec4(baseColor.mix(backgroundColor, 1 - item.velocity / 127)),
+      : vec4.lerp(
+          vec4.create(),
+          baseColorVec4,
+          backgroundColor,
+          1 - item.velocity / 127,
+        ),
   })
 
   return (

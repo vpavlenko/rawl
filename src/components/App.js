@@ -816,6 +816,24 @@ class App extends React.Component {
           size: 1337,
           type: "file",
         },
+        {
+          idx: 15,
+          path: "/static/Daniil/vivaldi_summer_part3.mid",
+          size: 1337,
+          type: "file",
+        },
+        {
+          idx: 16,
+          path: "/static/Daniil/Vivaldi_-_Summer__The_Four_Seasons__-_Rousseau.mid",
+          size: 1337,
+          type: "file",
+        },
+        {
+          idx: 17,
+          path: "/static/Daniil/Sviridov_Time_Foward.1.mid",
+          size: 1337,
+          type: "file",
+        },
       ];
       return this.processFetchedDirectory(path, items);
     } else {

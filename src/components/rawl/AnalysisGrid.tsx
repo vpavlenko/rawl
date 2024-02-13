@@ -289,7 +289,7 @@ export const AnalysisGrid: React.FC<{
                 measures.length >= 2 &&
                 secondsToX(measures[1]) - secondsToX(measures[0]) > 25
               }
-              tonicStart={modulations.get(i === 0 ? -1 : i)}
+              tonicStart={modulations.get(i)}
             />
           );
         })}

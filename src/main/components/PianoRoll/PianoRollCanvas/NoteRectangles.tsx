@@ -20,7 +20,7 @@ export const NoteRectangles: FC<NoteRectanglesProps> = ({
   return (
     <GLNode
       createShader={NoteShader}
-      createBuffer={(gl) => new NoteBuffer(gl)}
+      createBuffer={(vertexArray) => new NoteBuffer(vertexArray)}
       uniforms={{ projectionMatrix, strokeColor }}
       buffer={rects}
       zIndex={zIndex}

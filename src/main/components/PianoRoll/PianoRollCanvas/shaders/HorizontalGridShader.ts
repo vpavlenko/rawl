@@ -1,60 +1,47 @@
-import {
-  Attrib,
-  rectToTriangles,
-  Shader,
-  uniformFloat,
-  uniformMat4,
-  uniformVec4,
-} from "@ryohey/webgl-react"
+import { InstancedBuffer, rectToTriangles, Shader } from "@ryohey/webgl-react"
 import { IRect } from "../../../../../common/geometry"
 
-export class HorizontalGridBuffer {
-  private gl: WebGLRenderingContext
-
-  readonly buffers: {
-    position: WebGLBuffer
-  }
-
-  constructor(gl: WebGLRenderingContext) {
-    this.gl = gl
-    this.buffers = {
-      position: gl.createBuffer()!,
-    }
-  }
-
+export class HorizontalGridBuffer extends InstancedBuffer<IRect, "position"> {
   update(rect: IRect) {
-    const { gl } = this
     const positions = rectToTriangles(rect)
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.position)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.DYNAMIC_DRAW)
+    this.vertexArray.updateBuffer("position", new Float32Array(positions))
   }
 
   get vertexCount() {
     return 6
   }
+
+  get instanceCount() {
+    return 0
+  }
 }
 
-export const HorizontalGridShader = (gl: WebGLRenderingContext) =>
+export const HorizontalGridShader = (gl: WebGL2RenderingContext) =>
   new Shader(
     gl,
-    `
+    `#version 300 es
       precision lowp float;
-      attribute vec4 aVertexPosition;
-      uniform mat4 uProjectionMatrix;
-      varying vec4 vPosition;
+
+      uniform mat4 projectionMatrix;
+      in vec4 position;
+      out vec4 vPosition;
 
       void main() {
-        gl_Position = uProjectionMatrix * aVertexPosition;
-        vPosition = aVertexPosition;
+        gl_Position = projectionMatrix * position;
+        vPosition = position;
       }
     `,
-    `
+    `#version 300 es
       precision lowp float;
-      uniform vec4 uColor;
-      uniform vec4 uHighlightedColor;
-      uniform vec4 uBlackLaneColor;
-      uniform float uHeight;
-      varying vec4 vPosition;
+
+      uniform vec4 color;
+      uniform vec4 highlightedColor;
+      uniform vec4 blackLaneColor;
+      uniform float height;
+      
+      in vec4 vPosition;
+
+      out vec4 outColor;
 
       float step2(float x) {
         return step(0.0, x) * step(x, 1.0);
@@ -64,33 +51,33 @@ export const HorizontalGridShader = (gl: WebGLRenderingContext) =>
         const float eps = 0.1;
         float y = vPosition.y;
         float border = 1.0;
-        float index = 128.0 - y / uHeight;
+        float index = 128.0 - y / height;
         float key = mod(index, 12.0);
 
         // draw border
         if (abs(key) < eps || abs(key - 5.0) < eps) {
-          vec4 color = mix(uHighlightedColor, uColor, step(0.1, key));
-          gl_FragColor = step(fract(index) * uHeight, border) * color;
+          vec4 color = mix(highlightedColor, color, step(0.1, key));
+          outColor = step(fract(index) * height, border) * color;
         }
 
         // draw black lane
-        gl_FragColor += (
+        outColor += (
           step2(key - 1.0) + 
           step2(key - 3.0) + 
           step2(key - 6.0) + 
           step2(key - 8.0) + 
           step2(key - 10.0)
-        ) * uBlackLaneColor;
+        ) * blackLaneColor;
       }
     `,
-    (program) => ({
-      position: new Attrib(gl, program, "aVertexPosition", 2),
-    }),
-    (program) => ({
-      projectionMatrix: uniformMat4(gl, program, "uProjectionMatrix"),
-      color: uniformVec4(gl, program, "uColor"),
-      highlightedColor: uniformVec4(gl, program, "uHighlightedColor"),
-      blackLaneColor: uniformVec4(gl, program, "uBlackLaneColor"),
-      height: uniformFloat(gl, program, "uHeight"),
-    }),
+    {
+      position: { size: 2, type: gl.FLOAT },
+    },
+    {
+      projectionMatrix: { type: "mat4" },
+      color: { type: "vec4" },
+      highlightedColor: { type: "vec4" },
+      blackLaneColor: { type: "vec4" },
+      height: { type: "float" },
+    },
   )

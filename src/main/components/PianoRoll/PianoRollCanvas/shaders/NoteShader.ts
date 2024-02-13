@@ -1,10 +1,8 @@
 import {
-  Attrib,
-  rectToTriangleBounds,
+  InstancedBuffer,
   rectToTriangles,
   Shader,
-  uniformMat4,
-  uniformVec4,
+  VertexArray,
 } from "@ryohey/webgl-react"
 import { vec4 } from "gl-matrix"
 import { IRect } from "../../../../../common/geometry"
@@ -13,80 +11,100 @@ export interface IColorData {
   color: vec4
 }
 
-export class NoteBuffer {
-  private gl: WebGLRenderingContext
+class Float32Data {
+  readonly data: Float32Array
+  private cursor: number = 0
 
-  readonly buffers: {
-    position: WebGLBuffer
-    bounds: WebGLBuffer
-    color: WebGLBuffer
+  constructor(size: number) {
+    this.data = new Float32Array(size)
   }
 
-  private _vertexCount: number = 0
-
-  constructor(gl: WebGLRenderingContext) {
-    this.gl = gl
-    this.buffers = {
-      position: gl.createBuffer()!,
-      bounds: gl.createBuffer()!,
-      color: gl.createBuffer()!,
-    }
-  }
-
-  update(rects: (IRect & IColorData)[]) {
-    const { gl } = this
-    const positions = rects.flatMap(rectToTriangles)
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.position)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.DYNAMIC_DRAW)
-
-    const bounds = rects.flatMap(rectToTriangleBounds)
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.bounds)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(bounds), gl.DYNAMIC_DRAW)
-
-    const colors = rects.flatMap((obj) =>
-      Array.from(Array(6)).flatMap(() => Array.from(obj.color)),
-    )
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.color)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.DYNAMIC_DRAW)
-
-    this._vertexCount = rects.length * 6
-  }
-
-  get vertexCount() {
-    return this._vertexCount
+  push(value: number) {
+    this.data[this.cursor++] = value
   }
 }
 
-export const NoteShader = (gl: WebGLRenderingContext) =>
+export class NoteBuffer extends InstancedBuffer<
+  (IRect & IColorData)[],
+  "position" | "bounds" | "color"
+> {
+  private _instanceCount: number = 0
+
+  constructor(vertexArray: VertexArray<"position" | "bounds" | "color">) {
+    super(vertexArray)
+
+    this.vertexArray.updateBuffer(
+      "position",
+      new Float32Array(rectToTriangles({ x: 0, y: 0, width: 1, height: 1 })),
+    )
+  }
+
+  update(rects: (IRect & IColorData)[]) {
+    const boundsData = new Float32Data(rects.length * 4)
+    const colorsData = new Float32Data(rects.length * 4)
+
+    for (let i = 0; i < rects.length; i++) {
+      const rect = rects[i]
+      boundsData.push(rect.x)
+      boundsData.push(rect.y)
+      boundsData.push(rect.width)
+      boundsData.push(rect.height)
+
+      colorsData.push(rect.color[0])
+      colorsData.push(rect.color[1])
+      colorsData.push(rect.color[2])
+      colorsData.push(rect.color[3])
+    }
+
+    this.vertexArray.updateBuffer("bounds", boundsData.data)
+    this.vertexArray.updateBuffer("color", colorsData.data)
+
+    this._instanceCount = rects.length
+  }
+
+  get vertexCount() {
+    return 6
+  }
+
+  get instanceCount() {
+    return this._instanceCount
+  }
+}
+
+export const NoteShader = (gl: WebGL2RenderingContext) =>
   new Shader(
     gl,
-    `
+    `#version 300 es
       precision lowp float;
-      attribute vec4 aVertexPosition;
 
-      // XYZW -> X, Y, Width, Height
-      attribute vec4 aBounds;
-      attribute vec4 aColor;
+      uniform mat4 projectionMatrix;
 
-      uniform mat4 uProjectionMatrix;
-      varying vec4 vBounds;
-      varying vec2 vPosition;
-      varying vec4 vColor;
+      in vec4 position;
+      in vec4 bounds;  // x, y, width, height
+      in vec4 color;
+
+      out vec4 vBounds;
+      out vec2 vPosition;
+      out vec4 vColor;
 
       void main() {
-        gl_Position = uProjectionMatrix * aVertexPosition;
-        vBounds = aBounds;
-        vPosition = aVertexPosition.xy;
-        vColor = aColor;
+        vec4 transformedPosition = vec4((position.xy * bounds.zw + bounds.xy), position.zw);
+        gl_Position = projectionMatrix * transformedPosition;
+        vBounds = bounds;
+        vPosition = transformedPosition.xy;
+        vColor = color;
       }
     `,
-    `
+    `#version 300 es
       precision lowp float;
 
-      uniform vec4 uStrokeColor;
-      varying vec4 vBounds;
-      varying vec2 vPosition;
-      varying vec4 vColor;
+      uniform vec4 strokeColor;
+
+      in vec4 vBounds;
+      in vec2 vPosition;
+      in vec4 vColor;
+
+      out vec4 outColor;
 
       void main() {
         float border = 1.0;
@@ -95,19 +113,19 @@ export const NoteShader = (gl: WebGLRenderingContext) =>
 
         if ((localX < border) || (localX >= (vBounds.z - border)) || (localY < border) || (localY > (vBounds.w - border))) {
           // draw outline
-          gl_FragColor = uStrokeColor;
+          outColor = strokeColor;
         } else {
-          gl_FragColor = vColor;
+          outColor = vColor;
         }
       }
     `,
-    (program) => ({
-      position: new Attrib(gl, program, "aVertexPosition", 2),
-      bounds: new Attrib(gl, program, "aBounds", 4),
-      color: new Attrib(gl, program, "aColor", 4),
-    }),
-    (program) => ({
-      projectionMatrix: uniformMat4(gl, program, "uProjectionMatrix"),
-      strokeColor: uniformVec4(gl, program, "uStrokeColor"),
-    }),
+    {
+      position: { size: 2, type: gl.FLOAT },
+      bounds: { size: 4, type: gl.FLOAT, divisor: 1 },
+      color: { size: 4, type: gl.FLOAT, divisor: 1 },
+    },
+    {
+      projectionMatrix: { type: "mat4" },
+      strokeColor: { type: "vec4" },
+    },
   )

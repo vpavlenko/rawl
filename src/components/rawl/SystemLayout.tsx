@@ -48,7 +48,7 @@ export const getPhraseStarts = (
 
 export const getModulations = (analysis: Analysis) =>
   [
-    { measure: -1, tonic: analysis.tonic },
+    { measure: 0, tonic: analysis.tonic },
     ...Object.entries(analysis.modulations || []).map((entry) => ({
       measure: parseInt(entry[0], 10) - 1,
       tonic: entry[1],

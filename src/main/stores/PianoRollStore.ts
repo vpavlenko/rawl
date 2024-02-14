@@ -1,4 +1,4 @@
-import { clamp, cloneDeep, flatten, maxBy, minBy } from "lodash"
+import { clamp, cloneDeep, maxBy, minBy } from "lodash"
 import {
   action,
   autorun,
@@ -26,8 +26,6 @@ export type PianoNoteItem = IRect & {
   id: number
   velocity: number
   isSelected: boolean
-  isDrum: boolean
-  trackId: number
 }
 
 export type SerializedPianoRollStore = Pick<
@@ -98,8 +96,9 @@ export default class PianoRollStore {
       scrollTop: computed,
       transform: computed,
       windowedEvents: computed,
+      allNotes: computed,
       notes: computed,
-      ghostNotes: computed,
+      ghostTrackIds: computed,
       selectionBounds: computed,
       currentVolume: computed,
       currentPan: computed,
@@ -260,24 +259,15 @@ export default class PianoRollStore {
     )
   }
 
-  get notes(): PianoNoteItem[] {
-    const {
-      transform,
-      windowedEvents,
-      selectedNoteIds,
-      selectedTrack: track,
-      selectedTrackId,
-    } = this
-
+  get allNotes(): PianoNoteItem[] {
+    const { transform, selectedTrack: track, selectedNoteIds } = this
     if (track === undefined) {
       return []
     }
-    const isRhythmTrack = track.isRhythmTrack
-
-    const noteEvents = windowedEvents.filter(isNoteEvent)
+    const noteEvents = track.events.filter(isNoteEvent)
 
     return noteEvents.map((e): PianoNoteItem => {
-      const rect = isRhythmTrack
+      const rect = track.isRhythmTrack
         ? transform.getDrumRect(e)
         : transform.getRect(e)
       const isSelected = selectedNoteIds.includes(e.id)
@@ -286,51 +276,33 @@ export default class PianoRollStore {
         id: e.id,
         velocity: e.velocity,
         isSelected,
-        isDrum: isRhythmTrack,
-        trackId: selectedTrackId,
       }
     })
   }
 
-  get ghostNotes(): PianoNoteItem[] {
-    const song = this.rootStore.song
-    const {
-      transform,
-      notGhostTracks,
-      scrollLeft,
-      canvasWidth,
-      selectedTrackId,
-    } = this
+  get notes(): PianoNoteItem[] {
+    const { scrollLeft, canvasWidth, selectedTrack: track, allNotes } = this
+    if (track === undefined) {
+      return []
+    }
 
-    return flatten(
-      song.tracks.map((track, id) => {
-        if (
-          notGhostTracks.has(id) ||
-          id === selectedTrackId ||
-          track == undefined
-        ) {
-          return []
-        }
-        return filterEventsOverlapScroll(
-          track.events.filter(isNoteEvent),
-          transform.pixelsPerTick,
-          scrollLeft,
-          canvasWidth,
-        ).map((e): PianoNoteItem => {
-          const rect = track.isRhythmTrack
-            ? transform.getDrumRect(e)
-            : transform.getRect(e)
-          return {
-            ...rect,
-            id: e.id,
-            velocity: 127, // draw opaque when ghost
-            isSelected: false,
-            isDrum: track.isRhythmTrack,
-            trackId: id,
-          }
-        })
-      }),
-    )
+    const startX = scrollLeft
+    const endX = scrollLeft + canvasWidth
+
+    return allNotes.filter((n) => n.x + n.width > startX && n.x < endX)
+  }
+
+  get ghostTrackIds(): number[] {
+    const song = this.rootStore.song
+    const { notGhostTracks, selectedTrackId } = this
+    return song.tracks
+      .map((_, id) => id)
+      .filter(
+        (track, id) =>
+          id !== selectedTrackId &&
+          !notGhostTracks.has(id) &&
+          track != undefined,
+      )
   }
 
   // hit test notes in canvas coordinates

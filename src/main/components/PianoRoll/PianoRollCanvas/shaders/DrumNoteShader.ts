@@ -1,37 +1,42 @@
-import { Attrib, Shader, uniformMat4, uniformVec4 } from "@ryohey/webgl-react"
+import { Shader } from "@ryohey/webgl-react"
 
-export const DrumNoteShader = (gl: WebGLRenderingContext) =>
+export const DrumNoteShader = (gl: WebGL2RenderingContext) =>
   new Shader(
     gl,
-    `
+    `#version 300 es
       precision lowp float;
-      attribute vec4 aVertexPosition;
 
-      // XYZW -> X, Y, Width, Height
-      attribute vec4 aBounds;
-      attribute vec4 aColor;
+      uniform mat4 projectionMatrix;
 
-      uniform mat4 uProjectionMatrix;
-      varying vec4 vBounds;
-      varying vec2 vPosition;
-      varying vec4 vColor;
+      in vec4 position;
+      in vec4 bounds;  // [x, y, width, height]
+      in vec2 state; // [velocity, isSelected]
+
+      out vec4 vBounds;
+      out vec2 vPosition;
+      out vec2 vState;
 
       void main() {
-        gl_Position = uProjectionMatrix * aVertexPosition;
-        vBounds = aBounds;
-        vPosition = aVertexPosition.xy;
-        vColor = aColor;
+        vec4 transformedPosition = vec4((position.xy * bounds.zw + bounds.xy), position.zw);
+        gl_Position = projectionMatrix * transformedPosition;
+        vBounds = bounds;
+        vPosition = transformedPosition.xy;
+        vState = state;
       }
     `,
-    `
+    `#version 300 es
       precision lowp float;
 
-      uniform vec4 uFillColor;
-      uniform vec4 uStrokeColor;
+      uniform vec4 strokeColor;
+      uniform vec4 selectedColor;
+      uniform vec4 inactiveColor;
+      uniform vec4 activeColor;
 
-      varying vec4 vBounds;
-      varying vec2 vPosition;
-      varying vec4 vColor;
+      in vec4 vBounds;
+      in vec2 vPosition;
+      in vec2 vState;
+
+      out vec4 outColor;
 
       void main() {
         float border = 1.0;
@@ -41,19 +46,24 @@ export const DrumNoteShader = (gl: WebGLRenderingContext) =>
         float len = length(vPosition - center);
 
         if (len < r - border) {
-          gl_FragColor = vColor;
+          // if selected, draw selected color
+          // otherwise, draw color based on velocity by mixing active and inactive color
+          outColor = mix(mix(inactiveColor, activeColor, vState.x), selectedColor, vState.y);
         } else if (len < r) {
-          gl_FragColor = uStrokeColor;
+          outColor = strokeColor;
         }
       }
     `,
-    (program) => ({
-      position: new Attrib(gl, program, "aVertexPosition", 2),
-      bounds: new Attrib(gl, program, "aBounds", 4),
-      color: new Attrib(gl, program, "aColor", 4),
-    }),
-    (program) => ({
-      projectionMatrix: uniformMat4(gl, program, "uProjectionMatrix"),
-      strokeColor: uniformVec4(gl, program, "uStrokeColor"),
-    }),
+    {
+      position: { size: 2, type: gl.FLOAT },
+      bounds: { size: 4, type: gl.FLOAT, divisor: 1 },
+      state: { size: 2, type: gl.FLOAT, divisor: 1 },
+    },
+    {
+      projectionMatrix: { type: "mat4" },
+      strokeColor: { type: "vec4" },
+      inactiveColor: { type: "vec4" },
+      activeColor: { type: "vec4" },
+      selectedColor: { type: "vec4" },
+    },
   )

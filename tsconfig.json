@@ -22,7 +22,11 @@
     "alwaysStrict": true,
     "useDefineForClassFields": true,
     "resolveJsonModule": true,
-    "strict": true
+    "strict": true,
+    "paths": {
+      // Avoid referencing the node_modules of the library when developing a local library.
+      "@types/react": ["./node_modules/@types/react"]
+    }
   },
   "include": ["src/**/*"]
 }

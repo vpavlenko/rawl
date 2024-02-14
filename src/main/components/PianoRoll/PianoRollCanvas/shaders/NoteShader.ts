@@ -1,92 +1,111 @@
 import {
-  Attrib,
-  rectToTriangleBounds,
+  InstancedBuffer,
   rectToTriangles,
   Shader,
-  uniformMat4,
-  uniformVec4,
+  VertexArray,
 } from "@ryohey/webgl-react"
-import { vec4 } from "gl-matrix"
 import { IRect } from "../../../../../common/geometry"
 
-export interface IColorData {
-  color: vec4
+export interface INoteData {
+  velocity: number
+  isSelected: boolean
 }
 
-export class NoteBuffer {
-  private gl: WebGLRenderingContext
+class Float32Data {
+  readonly data: Float32Array
+  private cursor: number = 0
 
-  readonly buffers: {
-    position: WebGLBuffer
-    bounds: WebGLBuffer
-    color: WebGLBuffer
+  constructor(size: number) {
+    this.data = new Float32Array(size)
   }
 
-  private _vertexCount: number = 0
-
-  constructor(gl: WebGLRenderingContext) {
-    this.gl = gl
-    this.buffers = {
-      position: gl.createBuffer()!,
-      bounds: gl.createBuffer()!,
-      color: gl.createBuffer()!,
-    }
+  push(value: number) {
+    this.data[this.cursor++] = value
   }
+}
 
-  update(rects: (IRect & IColorData)[]) {
-    const { gl } = this
-    const positions = rects.flatMap(rectToTriangles)
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.position)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.DYNAMIC_DRAW)
+export class NoteBuffer extends InstancedBuffer<
+  (IRect & INoteData)[],
+  "position" | "bounds" | "state"
+> {
+  private _instanceCount: number = 0
 
-    const bounds = rects.flatMap(rectToTriangleBounds)
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.bounds)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(bounds), gl.DYNAMIC_DRAW)
+  constructor(vertexArray: VertexArray<"position" | "bounds" | "state">) {
+    super(vertexArray)
 
-    const colors = rects.flatMap((obj) =>
-      Array.from(Array(6)).flatMap(() => Array.from(obj.color)),
+    this.vertexArray.updateBuffer(
+      "position",
+      new Float32Array(rectToTriangles({ x: 0, y: 0, width: 1, height: 1 })),
     )
-    gl.bindBuffer(gl.ARRAY_BUFFER, this.buffers.color)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.DYNAMIC_DRAW)
+  }
 
-    this._vertexCount = rects.length * 6
+  update(rects: (IRect & INoteData)[]) {
+    const boundsData = new Float32Data(rects.length * 4)
+    const stateData = new Float32Data(rects.length * 2)
+
+    for (let i = 0; i < rects.length; i++) {
+      const rect = rects[i]
+      boundsData.push(rect.x)
+      boundsData.push(rect.y)
+      boundsData.push(rect.width)
+      boundsData.push(rect.height)
+
+      stateData.push(rect.velocity / 127)
+      stateData.push(rect.isSelected ? 1 : 0)
+    }
+
+    this.vertexArray.updateBuffer("bounds", boundsData.data)
+    this.vertexArray.updateBuffer("state", stateData.data)
+
+    this._instanceCount = rects.length
   }
 
   get vertexCount() {
-    return this._vertexCount
+    return 6
+  }
+
+  get instanceCount() {
+    return this._instanceCount
   }
 }
 
-export const NoteShader = (gl: WebGLRenderingContext) =>
+export const NoteShader = (gl: WebGL2RenderingContext) =>
   new Shader(
     gl,
-    `
+    `#version 300 es
       precision lowp float;
-      attribute vec4 aVertexPosition;
 
-      // XYZW -> X, Y, Width, Height
-      attribute vec4 aBounds;
-      attribute vec4 aColor;
+      uniform mat4 projectionMatrix;
 
-      uniform mat4 uProjectionMatrix;
-      varying vec4 vBounds;
-      varying vec2 vPosition;
-      varying vec4 vColor;
+      in vec4 position;
+      in vec4 bounds;  // [x, y, width, height]
+      in vec2 state; // [velocity, isSelected]
+
+      out vec4 vBounds;
+      out vec2 vPosition;
+      out vec2 vState;
 
       void main() {
-        gl_Position = uProjectionMatrix * aVertexPosition;
-        vBounds = aBounds;
-        vPosition = aVertexPosition.xy;
-        vColor = aColor;
+        vec4 transformedPosition = vec4((position.xy * bounds.zw + bounds.xy), position.zw);
+        gl_Position = projectionMatrix * transformedPosition;
+        vBounds = bounds;
+        vPosition = transformedPosition.xy;
+        vState = state;
       }
     `,
-    `
+    `#version 300 es
       precision lowp float;
 
-      uniform vec4 uStrokeColor;
-      varying vec4 vBounds;
-      varying vec2 vPosition;
-      varying vec4 vColor;
+      uniform vec4 strokeColor;
+      uniform vec4 selectedColor;
+      uniform vec4 inactiveColor;
+      uniform vec4 activeColor;
+
+      in vec4 vBounds;
+      in vec2 vPosition;
+      in vec2 vState;
+
+      out vec4 outColor;
 
       void main() {
         float border = 1.0;
@@ -95,19 +114,24 @@ export const NoteShader = (gl: WebGLRenderingContext) =>
 
         if ((localX < border) || (localX >= (vBounds.z - border)) || (localY < border) || (localY > (vBounds.w - border))) {
           // draw outline
-          gl_FragColor = uStrokeColor;
+          outColor = strokeColor;
         } else {
-          gl_FragColor = vColor;
+          // if selected, draw selected color
+          // otherwise, draw color based on velocity by mixing active and inactive color
+          outColor = mix(mix(inactiveColor, activeColor, vState.x), selectedColor, vState.y);
         }
       }
     `,
-    (program) => ({
-      position: new Attrib(gl, program, "aVertexPosition", 2),
-      bounds: new Attrib(gl, program, "aBounds", 4),
-      color: new Attrib(gl, program, "aColor", 4),
-    }),
-    (program) => ({
-      projectionMatrix: uniformMat4(gl, program, "uProjectionMatrix"),
-      strokeColor: uniformVec4(gl, program, "uStrokeColor"),
-    }),
+    {
+      position: { size: 2, type: gl.FLOAT },
+      bounds: { size: 4, type: gl.FLOAT, divisor: 1 },
+      state: { size: 2, type: gl.FLOAT, divisor: 1 },
+    },
+    {
+      projectionMatrix: { type: "mat4" },
+      strokeColor: { type: "vec4" },
+      inactiveColor: { type: "vec4" },
+      activeColor: { type: "vec4" },
+      selectedColor: { type: "vec4" },
+    },
   )

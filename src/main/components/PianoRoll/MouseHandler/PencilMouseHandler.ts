@@ -1,5 +1,5 @@
 import { IPoint, pointAdd } from "../../../../common/geometry"
-import { isNoteEvent, NoteEvent } from "../../../../common/track"
+import { NoteEvent, isNoteEvent } from "../../../../common/track"
 import {
   addNoteToSelection,
   createNote,
@@ -23,6 +23,8 @@ export const getPencilActionForMouseDown =
   (e: MouseEvent): MouseGesture | null => {
     const local = rootStore.pianoRollStore.getLocal(e)
     const items = rootStore.pianoRollStore.getNotes(local)
+    const isDrum =
+      rootStore.pianoRollStore.selectedTrack?.isRhythmTrack ?? false
 
     switch (e.button) {
       case 0: {
@@ -43,7 +45,7 @@ export const getPencilActionForMouseDown =
             if (!item.isSelected) {
               selectNote(rootStore)(item.id)
             }
-            const position = getPositionType(local, item)
+            const position = getPositionType(local, item, isDrum)
             switch (position) {
               case "center":
                 return dragNoteCenterAction(item)
@@ -69,12 +71,13 @@ export const getPencilActionForMouseDown =
   }
 
 export const getPencilCursorForMouseMove =
-  (rootStore: RootStore) =>
+  ({ pianoRollStore }: RootStore) =>
   (e: MouseEvent): string => {
-    const local = rootStore.pianoRollStore.getLocal(e)
-    const items = rootStore.pianoRollStore.getNotes(local)
+    const local = pianoRollStore.getLocal(e)
+    const items = pianoRollStore.getNotes(local)
+    const isDrum = pianoRollStore.selectedTrack?.isRhythmTrack ?? false
     if (items.length > 0) {
-      const position = getPositionType(local, items[0])
+      const position = getPositionType(local, items[0], isDrum)
       return mousePositionToCursor(position)
     }
 
@@ -97,6 +100,7 @@ const mousePositionToCursor = (position: MousePositionType) => {
 const getPositionType = (
   local: IPoint,
   item: PianoNoteItem,
+  isDrum: boolean,
 ): MousePositionType => {
   if (item === null) {
     console.warn("no item")
@@ -104,7 +108,7 @@ const getPositionType = (
   }
   const localX = local.x - item.x
 
-  if (item.isDrum) {
+  if (isDrum) {
     return "center"
   }
   const edgeSize = Math.min(item.width / 3, 8)

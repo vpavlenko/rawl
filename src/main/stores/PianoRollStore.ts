@@ -1,4 +1,4 @@
-import { clamp, cloneDeep, flatten, maxBy, minBy } from "lodash"
+import { clamp, cloneDeep, maxBy, minBy } from "lodash"
 import {
   action,
   autorun,
@@ -8,7 +8,7 @@ import {
   observe,
 } from "mobx"
 import { IPoint, IRect, containsPoint } from "../../common/geometry"
-import { isNotUndefined } from "../../common/helpers/array"
+import { isNotNull, isNotUndefined } from "../../common/helpers/array"
 import { filterEventsOverlapScroll } from "../../common/helpers/filterEvents"
 import { getMBTString } from "../../common/measure/mbt"
 import Quantizer from "../../common/quantizer"
@@ -26,8 +26,6 @@ export type PianoNoteItem = IRect & {
   id: number
   velocity: number
   isSelected: boolean
-  isDrum: boolean
-  trackId: number
 }
 
 export type SerializedPianoRollStore = Pick<
@@ -262,20 +260,14 @@ export default class PianoRollStore {
   }
 
   get allNotes(): PianoNoteItem[] {
-    const {
-      transform,
-      selectedTrack: track,
-      selectedTrackId,
-      selectedNoteIds,
-    } = this
+    const { transform, selectedTrack: track, selectedNoteIds } = this
     if (track === undefined) {
       return []
     }
-    const isRhythmTrack = track.isRhythmTrack
     const noteEvents = track.events.filter(isNoteEvent)
 
     return noteEvents.map((e): PianoNoteItem => {
-      const rect = isRhythmTrack
+      const rect = track.isRhythmTrack
         ? transform.getDrumRect(e)
         : transform.getRect(e)
       const isSelected = selectedNoteIds.includes(e.id)
@@ -284,8 +276,6 @@ export default class PianoRollStore {
         id: e.id,
         velocity: e.velocity,
         isSelected,
-        isDrum: isRhythmTrack,
-        trackId: selectedTrackId,
       }
     })
   }
@@ -302,7 +292,7 @@ export default class PianoRollStore {
     return allNotes.filter((n) => n.x + n.width > startX && n.x < endX)
   }
 
-  get ghostNotes(): PianoNoteItem[] {
+  get ghostNotes(): { [key: number]: PianoNoteItem[] } {
     const song = this.rootStore.song
     const {
       transform,
@@ -312,34 +302,37 @@ export default class PianoRollStore {
       selectedTrackId,
     } = this
 
-    return flatten(
-      song.tracks.map((track, id) => {
-        if (
-          notGhostTracks.has(id) ||
-          id === selectedTrackId ||
-          track == undefined
-        ) {
-          return []
-        }
-        return filterEventsOverlapScroll(
-          track.events.filter(isNoteEvent),
-          transform.pixelsPerTick,
-          scrollLeft,
-          canvasWidth,
-        ).map((e): PianoNoteItem => {
-          const rect = track.isRhythmTrack
-            ? transform.getDrumRect(e)
-            : transform.getRect(e)
-          return {
-            ...rect,
-            id: e.id,
-            velocity: 127, // draw opaque when ghost
-            isSelected: false,
-            isDrum: track.isRhythmTrack,
-            trackId: id,
+    return Object.fromEntries(
+      song.tracks
+        .map((track, id) => {
+          if (
+            notGhostTracks.has(id) ||
+            id === selectedTrackId ||
+            track == undefined
+          ) {
+            return null
           }
+          return [
+            id,
+            filterEventsOverlapScroll(
+              track.events.filter(isNoteEvent),
+              transform.pixelsPerTick,
+              scrollLeft,
+              canvasWidth,
+            ).map((e): PianoNoteItem => {
+              const rect = track.isRhythmTrack
+                ? transform.getDrumRect(e)
+                : transform.getRect(e)
+              return {
+                ...rect,
+                id: e.id,
+                velocity: 127, // draw opaque when ghost
+                isSelected: false,
+              }
+            }),
+          ]
         })
-      }),
+        .filter(isNotNull),
     )
   }
 

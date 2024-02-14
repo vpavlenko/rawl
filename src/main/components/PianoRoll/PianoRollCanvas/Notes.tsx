@@ -1,13 +1,10 @@
 import Color from "color"
-import { vec4 } from "gl-matrix"
-import { partition } from "lodash"
 import { observer } from "mobx-react-lite"
 import { FC } from "react"
 import { trackColorToCSSColor } from "../../../../common/track/TrackColor"
 import { colorToVec4 } from "../../../gl/color"
 import { useStores } from "../../../hooks/useStores"
 import { useTheme } from "../../../hooks/useTheme"
-import { PianoNoteItem } from "../../../stores/PianoRollStore"
 import { NoteCircles } from "./NoteCircles"
 import { NoteRectangles } from "./NoteRectangles"
 
@@ -21,7 +18,6 @@ export const Notes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
     return <></>
   }
 
-  const [drumNotes, normalNotes] = partition(notes, (n) => n.isDrum)
   const baseColor = Color(
     selectedTrack.color !== undefined
       ? trackColorToCSSColor(selectedTrack.color)
@@ -32,30 +28,28 @@ export const Notes: FC<{ zIndex: number }> = observer(({ zIndex }) => {
   const backgroundColor = colorToVec4(Color(theme.backgroundColor))
   const baseColorVec4 = colorToVec4(baseColor)
 
-  const colorize = (item: PianoNoteItem) => ({
-    ...item,
-    color: item.isSelected
-      ? selectedColor
-      : vec4.lerp(
-          vec4.create(),
-          baseColorVec4,
-          backgroundColor,
-          1 - item.velocity / 127,
-        ),
-  })
-
   return (
     <>
-      <NoteCircles
-        strokeColor={borderColor}
-        rects={drumNotes.map(colorize)}
-        zIndex={zIndex}
-      />
-      <NoteRectangles
-        strokeColor={borderColor}
-        rects={normalNotes.map(colorize)}
-        zIndex={zIndex + 0.1}
-      />
+      {selectedTrack.isRhythmTrack && (
+        <NoteCircles
+          strokeColor={borderColor}
+          rects={notes}
+          inactiveColor={backgroundColor}
+          activeColor={baseColorVec4}
+          selectedColor={selectedColor}
+          zIndex={zIndex}
+        />
+      )}
+      {!selectedTrack.isRhythmTrack && (
+        <NoteRectangles
+          strokeColor={borderColor}
+          inactiveColor={backgroundColor}
+          activeColor={baseColorVec4}
+          selectedColor={selectedColor}
+          rects={notes}
+          zIndex={zIndex + 0.1}
+        />
+      )}
     </>
   )
 })

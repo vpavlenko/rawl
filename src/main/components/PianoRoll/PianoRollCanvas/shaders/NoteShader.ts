@@ -4,11 +4,11 @@ import {
   Shader,
   VertexArray,
 } from "@ryohey/webgl-react"
-import { vec4 } from "gl-matrix"
 import { IRect } from "../../../../../common/geometry"
 
-export interface IColorData {
-  color: vec4
+export interface INoteData {
+  velocity: number
+  isSelected: boolean
 }
 
 class Float32Data {
@@ -25,12 +25,12 @@ class Float32Data {
 }
 
 export class NoteBuffer extends InstancedBuffer<
-  (IRect & IColorData)[],
-  "position" | "bounds" | "color"
+  (IRect & INoteData)[],
+  "position" | "bounds" | "state"
 > {
   private _instanceCount: number = 0
 
-  constructor(vertexArray: VertexArray<"position" | "bounds" | "color">) {
+  constructor(vertexArray: VertexArray<"position" | "bounds" | "state">) {
     super(vertexArray)
 
     this.vertexArray.updateBuffer(
@@ -39,9 +39,9 @@ export class NoteBuffer extends InstancedBuffer<
     )
   }
 
-  update(rects: (IRect & IColorData)[]) {
+  update(rects: (IRect & INoteData)[]) {
     const boundsData = new Float32Data(rects.length * 4)
-    const colorsData = new Float32Data(rects.length * 4)
+    const stateData = new Float32Data(rects.length * 2)
 
     for (let i = 0; i < rects.length; i++) {
       const rect = rects[i]
@@ -50,14 +50,12 @@ export class NoteBuffer extends InstancedBuffer<
       boundsData.push(rect.width)
       boundsData.push(rect.height)
 
-      colorsData.push(rect.color[0])
-      colorsData.push(rect.color[1])
-      colorsData.push(rect.color[2])
-      colorsData.push(rect.color[3])
+      stateData.push(rect.velocity / 127)
+      stateData.push(rect.isSelected ? 1 : 0)
     }
 
     this.vertexArray.updateBuffer("bounds", boundsData.data)
-    this.vertexArray.updateBuffer("color", colorsData.data)
+    this.vertexArray.updateBuffer("state", stateData.data)
 
     this._instanceCount = rects.length
   }
@@ -80,29 +78,32 @@ export const NoteShader = (gl: WebGL2RenderingContext) =>
       uniform mat4 projectionMatrix;
 
       in vec4 position;
-      in vec4 bounds;  // x, y, width, height
-      in vec4 color;
+      in vec4 bounds;  // [x, y, width, height]
+      in vec2 state; // [velocity, isSelected]
 
       out vec4 vBounds;
       out vec2 vPosition;
-      out vec4 vColor;
+      out vec2 vState;
 
       void main() {
         vec4 transformedPosition = vec4((position.xy * bounds.zw + bounds.xy), position.zw);
         gl_Position = projectionMatrix * transformedPosition;
         vBounds = bounds;
         vPosition = transformedPosition.xy;
-        vColor = color;
+        vState = state;
       }
     `,
     `#version 300 es
       precision lowp float;
 
       uniform vec4 strokeColor;
+      uniform vec4 selectedColor;
+      uniform vec4 inactiveColor;
+      uniform vec4 activeColor;
 
       in vec4 vBounds;
       in vec2 vPosition;
-      in vec4 vColor;
+      in vec2 vState;
 
       out vec4 outColor;
 
@@ -115,17 +116,22 @@ export const NoteShader = (gl: WebGL2RenderingContext) =>
           // draw outline
           outColor = strokeColor;
         } else {
-          outColor = vColor;
+          // if selected, draw selected color
+          // otherwise, draw color based on velocity by mixing active and inactive color
+          outColor = mix(mix(inactiveColor, activeColor, vState.x), selectedColor, vState.y);
         }
       }
     `,
     {
       position: { size: 2, type: gl.FLOAT },
       bounds: { size: 4, type: gl.FLOAT, divisor: 1 },
-      color: { size: 4, type: gl.FLOAT, divisor: 1 },
+      state: { size: 2, type: gl.FLOAT, divisor: 1 },
     },
     {
       projectionMatrix: { type: "mat4" },
       strokeColor: { type: "vec4" },
+      inactiveColor: { type: "vec4" },
+      activeColor: { type: "vec4" },
+      selectedColor: { type: "vec4" },
     },
   )

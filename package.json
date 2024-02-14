@@ -37,7 +37,7 @@
     "@ryohey/react-split-pane": "^0.1.94",
     "@ryohey/react-svg-spinners": "^0.3.2",
     "@ryohey/wavelet": "^0.7.1",
-    "@ryohey/webgl-react": "file:../webgl-react/lib",
+    "@ryohey/webgl-react": "^0.4.0",
     "@sentry/react": "^7.86.0",
     "@sentry/tracing": "^7.86.0",
     "@types/react": "^18.2.55",

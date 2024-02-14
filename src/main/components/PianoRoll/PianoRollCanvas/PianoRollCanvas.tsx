@@ -98,7 +98,7 @@ export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
           </Transform>
           <Transform matrix={scrollXYMatrix}>
             {ghostTrackIds.map((trackId) => (
-              <GhostNotes trackId={trackId} zIndex={2} />
+              <GhostNotes key={trackId} trackId={trackId} zIndex={2} />
             ))}
             <Notes zIndex={3} />
             <Selection rect={selectionBounds} zIndex={4} />

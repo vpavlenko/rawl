@@ -296,13 +296,13 @@ export default class PianoRollStore {
     const song = this.rootStore.song
     const { notGhostTracks, selectedTrackId } = this
     return song.tracks
+      .map((_, id) => id)
       .filter(
         (track, id) =>
           id !== selectedTrackId &&
           !notGhostTracks.has(id) &&
           track != undefined,
       )
-      .map((_, id) => id)
   }
 
   // hit test notes in canvas coordinates

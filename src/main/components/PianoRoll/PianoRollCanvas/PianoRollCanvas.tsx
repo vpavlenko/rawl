@@ -34,6 +34,7 @@ export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
         rulerStore: { beats },
         cursorX,
         selectionBounds,
+        ghostTrackIds,
       },
     } = rootStore
 
@@ -96,7 +97,9 @@ export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
             <Cursor x={cursorX} height={height} zIndex={5} />
           </Transform>
           <Transform matrix={scrollXYMatrix}>
-            <GhostNotes zIndex={2} />
+            {ghostTrackIds.map((trackId) => (
+              <GhostNotes trackId={trackId} zIndex={2} />
+            ))}
             <Notes zIndex={3} />
             <Selection rect={selectionBounds} zIndex={4} />
           </Transform>

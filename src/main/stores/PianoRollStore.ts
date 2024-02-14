@@ -8,7 +8,7 @@ import {
   observe,
 } from "mobx"
 import { IPoint, IRect, containsPoint } from "../../common/geometry"
-import { isNotNull, isNotUndefined } from "../../common/helpers/array"
+import { isNotUndefined } from "../../common/helpers/array"
 import { filterEventsOverlapScroll } from "../../common/helpers/filterEvents"
 import { getMBTString } from "../../common/measure/mbt"
 import Quantizer from "../../common/quantizer"
@@ -98,7 +98,7 @@ export default class PianoRollStore {
       windowedEvents: computed,
       allNotes: computed,
       notes: computed,
-      ghostNotes: computed,
+      ghostTrackIds: computed,
       selectionBounds: computed,
       currentVolume: computed,
       currentPan: computed,
@@ -292,48 +292,17 @@ export default class PianoRollStore {
     return allNotes.filter((n) => n.x + n.width > startX && n.x < endX)
   }
 
-  get ghostNotes(): { [key: number]: PianoNoteItem[] } {
+  get ghostTrackIds(): number[] {
     const song = this.rootStore.song
-    const {
-      transform,
-      notGhostTracks,
-      scrollLeft,
-      canvasWidth,
-      selectedTrackId,
-    } = this
-
-    return Object.fromEntries(
-      song.tracks
-        .map((track, id) => {
-          if (
-            notGhostTracks.has(id) ||
-            id === selectedTrackId ||
-            track == undefined
-          ) {
-            return null
-          }
-          return [
-            id,
-            filterEventsOverlapScroll(
-              track.events.filter(isNoteEvent),
-              transform.pixelsPerTick,
-              scrollLeft,
-              canvasWidth,
-            ).map((e): PianoNoteItem => {
-              const rect = track.isRhythmTrack
-                ? transform.getDrumRect(e)
-                : transform.getRect(e)
-              return {
-                ...rect,
-                id: e.id,
-                velocity: 127, // draw opaque when ghost
-                isSelected: false,
-              }
-            }),
-          ]
-        })
-        .filter(isNotNull),
-    )
+    const { notGhostTracks, selectedTrackId } = this
+    return song.tracks
+      .filter(
+        (track, id) =>
+          id !== selectedTrackId &&
+          !notGhostTracks.has(id) &&
+          track != undefined,
+      )
+      .map((_, id) => id)
   }
 
   // hit test notes in canvas coordinates

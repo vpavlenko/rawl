@@ -1,3 +1,4 @@
+import { arrayMove } from "@dnd-kit/sortable"
 import styled from "@emotion/styled"
 import { range } from "lodash"
 import ChevronDoubleLeftIcon from "mdi-react/ChevronDoubleLeftIcon"
@@ -19,6 +20,7 @@ import {
   isEqualControlMode,
 } from "../../stores/ControlStore"
 import { ControlName } from "../ControlPane/ControlName"
+import { DraggableList } from "./DraggableList"
 
 const nonControllerControlModes: ControlMode[] = [
   {
@@ -107,6 +109,7 @@ export const ControlSettingDialog = observer(() => {
   const onClickAdd = () => {
     if (selectedRightMode) {
       controlStore.controlModes.push(selectedRightMode)
+      setSelectedRightMode(null)
     }
   }
 
@@ -115,7 +118,25 @@ export const ControlSettingDialog = observer(() => {
       controlStore.controlModes = controlStore.controlModes.filter(
         (mode) => !isEqualControlMode(mode, selectedLeftMode),
       )
+      setSelectedLeftMode(null)
     }
+  }
+
+  const onLeftItemMoved = (fromId: string, toId: string) => {
+    const fromIndex = leftItems.findIndex(
+      (item) => controlModeKey(item.mode) === fromId,
+    )
+    const toIndex = leftItems.findIndex(
+      (item) => controlModeKey(item.mode) === toId,
+    )
+    if (fromIndex === -1 || toIndex === -1) {
+      return
+    }
+    controlStore.controlModes = arrayMove(
+      controlStore.controlModes,
+      fromIndex,
+      toIndex,
+    )
   }
 
   return (
@@ -126,18 +147,23 @@ export const ControlSettingDialog = observer(() => {
       <DialogContent>
         <Content>
           <Pane>
-            {leftItems.map((item) => (
-              <Item
-                key={controlModeKey(item.mode)}
-                isSelected={item.isSelected}
-                onClick={() => {
-                  setSelectedLeftMode(item.mode)
-                  setSelectedRightMode(null)
-                }}
-              >
-                <ControlName mode={item.mode} />
-              </Item>
-            ))}
+            <DraggableList
+              items={leftItems}
+              getItemId={(item) => controlModeKey(item.mode)}
+              onItemMoved={onLeftItemMoved}
+              render={(item) => (
+                <Item
+                  key={controlModeKey(item.mode)}
+                  isSelected={item.isSelected}
+                  onClick={() => {
+                    setSelectedLeftMode(item.mode)
+                    setSelectedRightMode(null)
+                  }}
+                >
+                  <ControlName mode={item.mode} />
+                </Item>
+              )}
+            />
           </Pane>
           <CenterPane>
             <InsertButton onClick={onClickAdd}>

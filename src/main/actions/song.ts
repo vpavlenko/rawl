@@ -62,7 +62,7 @@ export const addTrack =
   ({ song, pushHistory }: RootStore) =>
   () => {
     pushHistory()
-    song.addTrack(emptyTrack(song.tracks.length - 1))
+    song.addTrack(emptyTrack(Math.min(song.tracks.length - 1, 0xf)))
   }
 
 export const removeTrack =

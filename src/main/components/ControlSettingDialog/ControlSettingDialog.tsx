@@ -20,8 +20,19 @@ import {
 } from "../../stores/ControlStore"
 import { ControlName } from "../ControlPane/ControlName"
 
+const nonControllerControlModes: ControlMode[] = [
+  {
+    type: "velocity",
+  },
+  {
+    type: "pitchBend",
+  },
+]
+
 const getAllControlModes = (): ControlMode[] =>
-  range(0, 128).map((i) => ({ type: "controller", controllerType: i }))
+  nonControllerControlModes.concat(
+    range(0, 128).map((i) => ({ type: "controller", controllerType: i })),
+  )
 
 const Item = styled.div<{ isSelected: boolean }>`
   padding: 0.5rem 1rem;

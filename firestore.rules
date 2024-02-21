@@ -8,7 +8,7 @@ service cloud.firestore {
         && request.auth.uid == resource.data.userId 
         && request.auth.uid == request.resource.data.userId 
         && request.resource.data.createdAt == resource.data.createdAt 
-        && request.resource.data.playCount == resource.data.playCount;
+        && (!request.resource.data.keys().hasAny(["playCount"]) || request.resource.data.playCount == resource.data.playCount);
       allow create: if request.auth != null 
         && request.auth.uid == request.resource.data.userId 
         && (!request.resource.data.keys().hasAny(["playCount"]) || request.resource.data.playCount == 0);

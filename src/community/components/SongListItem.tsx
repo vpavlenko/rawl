@@ -25,6 +25,7 @@ const Username = styled.div`
 `
 
 const Title = styled.div`
+  word-break: break-all;
   font-weight: 600;
   font-size: 130%;
 `
@@ -93,6 +94,8 @@ const Time = styled.div`
   align-items: center;
   margin-right: 1rem;
   color: ${({ theme }) => theme.secondaryTextColor};
+  flex-shrink: 0;
+  min-width: 4rem;
 `
 
 const Tag = styled.div`
@@ -104,6 +107,12 @@ const Tag = styled.div`
   color: ${({ theme }) => theme.textColor};
   font-size: 90%;
   margin-right: 0.5rem;
+`
+
+const Labels = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-right: 1rem;
 `
 
 export interface SongListItemProps {
@@ -135,7 +144,7 @@ export const SongListItem: FC<SongListItemProps> = observer(({ song }) => {
     <Wrapper onClick={onClick}>
       <PlayButton isPlaying={isPlaying} />
       <Content>
-        <div style={{ marginRight: "1rem" }}>
+        <Labels>
           <Title>
             {song.name.length > 0 ? (
               song.name
@@ -144,7 +153,7 @@ export const SongListItem: FC<SongListItemProps> = observer(({ song }) => {
             )}
           </Title>
           <Username>{song.user?.name}</Username>
-        </div>
+        </Labels>
         {!song.isPublic && <Tag>Private</Tag>}
       </Content>
       <PlayCount>

@@ -81,10 +81,16 @@ const Wrapper = styled.div`
   }
 `
 
+const PlayCount = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  color: ${({ theme }) => theme.secondaryTextColor};
+`
+
 const Time = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 0.2rem;
   margin-right: 1rem;
   color: ${({ theme }) => theme.secondaryTextColor};
 `
@@ -141,6 +147,10 @@ export const SongListItem: FC<SongListItemProps> = observer(({ song }) => {
         </div>
         {!song.isPublic && <Tag>Private</Tag>}
       </Content>
+      <PlayCount>
+        <PlayArrow size={14} style={{ marginRight: "0.25rem" }} />
+        {song.playCount ?? 0}
+      </PlayCount>
       <Time>{formatTimeAgo(song.updatedAt)}</Time>
     </Wrapper>
   )

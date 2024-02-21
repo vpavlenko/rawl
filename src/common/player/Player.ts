@@ -15,7 +15,7 @@ import { getStatusEvents } from "../track/selector"
 import { ITrackMute } from "../trackMute/ITrackMute"
 import { DistributiveOmit } from "../types"
 import EventScheduler from "./EventScheduler"
-import { convertTrackEvents, PlayerEvent } from "./PlayerEvent"
+import { PlayerEvent, convertTrackEvents } from "./PlayerEvent"
 
 export interface LoopSetting {
   begin: number

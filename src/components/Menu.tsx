@@ -50,6 +50,7 @@ const StyledLi = styled.li<{ disabled?: boolean }>`
   align-items: center;
   padding: 0.5rem 1rem;
   pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
+  cursor: pointer;
 
   &:hover {
     background: ${({ theme, disabled }) =>

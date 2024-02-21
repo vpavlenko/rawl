@@ -11,6 +11,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  increment,
   orderBy,
   query,
   serverTimestamp,
@@ -135,6 +136,14 @@ export class CloudSongRepository implements ICloudSongRepository {
     const docs = await getDocs(publicSongsQuery)
     return docs.docs.map(toSong)
   }
+
+  async incrementPlayCount(songId: string): Promise<void> {
+    const ref = this.songRef(songId)
+
+    await updateDoc(ref, {
+      playCount: increment(1),
+    })
+  }
 }
 
 interface FirestoreSong {
@@ -144,6 +153,7 @@ interface FirestoreSong {
   publishedAt?: Timestamp
   dataRef: DocumentReference
   userId: string
+  playCount?: number
   user?: FirestoreUser
 }
 

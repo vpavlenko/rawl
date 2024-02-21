@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import DownloadIcon from "mdi-react/DownloadIcon"
+import PlayArrow from "mdi-react/PlayArrowIcon"
 import ShareIcon from "mdi-react/ShareIcon"
 import { observer } from "mobx-react-lite"
 import { FC, useState } from "react"
@@ -68,6 +69,17 @@ const Actions = styled.div`
 const ActionButton = styled(Button)`
   background: ${({ theme }) => theme.secondaryBackgroundColor};
   margin-right: 0.5rem;
+`
+
+const Stats = styled.div`
+  margin-bottom: 1rem;
+`
+
+const PlayCount = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  color: ${({ theme }) => theme.secondaryTextColor};
 `
 
 export const SongPage: FC<SongPageProps> = observer(({ songId }) => {
@@ -175,6 +187,17 @@ export const SongPage: FC<SongPageProps> = observer(({ songId }) => {
         </HeaderRight>
       </Header>
       <Content>
+        <Stats>
+          <PlayCount>
+            <PlayArrow size={14} style={{ marginRight: "0.25rem" }} />
+            {song.playCount ?? 0}{" "}
+            {song.playCount === 1 ? (
+              <Localized default="play">play-count-1</Localized>
+            ) : (
+              <Localized default="plays">play-count</Localized>
+            )}
+          </PlayCount>
+        </Stats>
         <Actions>
           <ActionButton onClick={onClickDownload}>
             <DownloadIcon size="1rem" style={{ marginRight: "0.5rem" }} />

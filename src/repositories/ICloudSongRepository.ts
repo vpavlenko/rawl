@@ -10,6 +10,7 @@ export interface CloudSong {
   publishedAt?: Date
   isPublic?: boolean
   user?: User
+  playCount?: number
 }
 
 export interface ICloudSongRepository {
@@ -19,6 +20,7 @@ export interface ICloudSongRepository {
   delete(songId: string): Promise<void>
   publish(songId: string, user: User): Promise<void>
   unpublish(songId: string): Promise<void>
+  incrementPlayCount(songId: string): Promise<void>
   getMySongs(): Promise<CloudSong[]>
   getPublicSongs(): Promise<CloudSong[]>
   getPublicSongsByUser(userId: string): Promise<CloudSong[]>

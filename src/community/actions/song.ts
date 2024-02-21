@@ -1,12 +1,28 @@
-import { CloudSong } from "../../repositories/ICloudSongRepository"
+import { debounce } from "lodash"
+import {
+  CloudSong,
+  ICloudSongRepository,
+} from "../../repositories/ICloudSongRepository"
 import RootStore from "../stores/RootStore"
 
+const debouncedIncrementPlayCount = debounce(
+  (cloudSongRepository: ICloudSongRepository, songId: string) =>
+    cloudSongRepository.incrementPlayCount(songId),
+  5000,
+)
+
 export const playSong =
-  ({ songStore, player }: RootStore) =>
+  ({ songStore, player, cloudSongRepository }: RootStore) =>
   async (song: CloudSong) => {
     await songStore.loadSong(song)
     player.reset()
     player.play()
+
+    try {
+      await debouncedIncrementPlayCount(cloudSongRepository, song.id)
+    } catch (e) {
+      console.error(e)
+    }
   }
 
 const playSongAt =

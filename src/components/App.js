@@ -840,6 +840,30 @@ class App extends React.Component {
           size: 1337,
           type: "file",
         },
+        {
+          idx: 19,
+          path: "/static/blues_heads/Billie_s_Bounce_Billies_Bounce.mid",
+          size: 1337,
+          type: "file",
+        },
+        {
+          idx: 20,
+          path: "/static/blues_heads/Blue_Rondo_A_La_Turk.mid",
+          size: 1337,
+          type: "file",
+        },
+        {
+          idx: 21,
+          path: "/static/blues_heads/Blues_for_Alice.mid",
+          size: 1337,
+          type: "file",
+        },
+        {
+          idx: 22,
+          path: "/static/blues_heads/Sandu.mid",
+          size: 1337,
+          type: "file",
+        },
       ];
       return this.processFetchedDirectory(path, items);
     } else {

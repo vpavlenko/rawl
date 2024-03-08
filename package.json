@@ -111,9 +111,9 @@
   },
   "homepage": "https://rawl.rocks",
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "node --openssl-legacy-provider scripts/start.js",
     "build": "npm run build-catalog; npm run build-chip-core; node scripts/build.js",
-    "build-lite": "node scripts/build.js",
+    "build-lite": "node --openssl-legacy-provider scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "build-chip-core": "source ~/emsdk/emsdk_env.sh; node scripts/build-chip-core.js",
     "build-catalog": "node $NODE_DEBUG_OPTION scripts/build-catalog.js",

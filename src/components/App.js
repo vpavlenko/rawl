@@ -834,6 +834,12 @@ class App extends React.Component {
           size: 1337,
           type: "file",
         },
+        {
+          idx: 18,
+          path: "/static/blues_heads/Bags_Groove__Lead_sheet_.mid",
+          size: 1337,
+          type: "file",
+        },
       ];
       return this.processFetchedDirectory(path, items);
     } else {

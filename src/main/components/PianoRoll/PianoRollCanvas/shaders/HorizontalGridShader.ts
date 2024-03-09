@@ -1,7 +1,14 @@
-import { InstancedBuffer, rectToTriangles, Shader } from "@ryohey/webgl-react"
+import {
+  Buffer,
+  rectToTriangles,
+  Shader,
+  VertexArray,
+} from "@ryohey/webgl-react"
 import { IRect } from "../../../../../common/geometry"
 
-export class HorizontalGridBuffer extends InstancedBuffer<IRect, "position"> {
+export class HorizontalGridBuffer implements Buffer<IRect, "position"> {
+  constructor(readonly vertexArray: VertexArray<"position">) {}
+
   update(rect: IRect) {
     const positions = rectToTriangles(rect)
     this.vertexArray.updateBuffer("position", new Float32Array(positions))
@@ -9,10 +16,6 @@ export class HorizontalGridBuffer extends InstancedBuffer<IRect, "position"> {
 
   get vertexCount() {
     return 6
-  }
-
-  get instanceCount() {
-    return 0
   }
 }
 

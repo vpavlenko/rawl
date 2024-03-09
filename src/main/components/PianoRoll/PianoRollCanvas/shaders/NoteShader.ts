@@ -24,15 +24,15 @@ class Float32Data {
   }
 }
 
-export class NoteBuffer extends InstancedBuffer<
-  (IRect & INoteData)[],
-  "position" | "bounds" | "state"
-> {
+export class NoteBuffer
+  implements
+    InstancedBuffer<(IRect & INoteData)[], "position" | "bounds" | "state">
+{
   private _instanceCount: number = 0
 
-  constructor(vertexArray: VertexArray<"position" | "bounds" | "state">) {
-    super(vertexArray)
-
+  constructor(
+    readonly vertexArray: VertexArray<"position" | "bounds" | "state">,
+  ) {
     this.vertexArray.updateBuffer(
       "position",
       new Float32Array(rectToTriangles({ x: 0, y: 0, width: 1, height: 1 })),

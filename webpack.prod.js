@@ -27,7 +27,6 @@ module.exports = merge(common, {
         { from: "public/*.sf2", to: "[name][ext]" },
         { from: "public/*.svg", to: "[name][ext]" },
         { from: "public/*.png", to: "[name][ext]" },
-        { from: "public/*.js", to: "[name][ext]" },
         { from: "public/*.webmanifest", to: "[name][ext]" },
         { from: "public/*.css", to: "[name][ext]" },
       ],

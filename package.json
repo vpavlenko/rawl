@@ -101,5 +101,10 @@
     "webpack-dev-server": "^5.0.2",
     "webpack-merge": "5.10.0",
     "workbox-webpack-plugin": "^7.0.0"
+  },
+  "overrides": {
+    "@pmmmwh/react-refresh-webpack-plugin": {
+      "webpack-dev-server": "^5.0.2"
+    }
   }
 }

@@ -1075,12 +1075,6 @@ class App extends React.Component {
           type: "file",
         },
         {
-          idx: 58,
-          path: "/static/musescore_manual/Game_of_Thrones.mid",
-          size: 1337,
-          type: "file",
-        },
-        {
           idx: 59,
           path: "/static/musescore_manual/Godfather.mid",
           size: 1337,

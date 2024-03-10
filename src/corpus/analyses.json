@@ -4567,6 +4567,27 @@
           "voicing:triads"
         ]
       }
+    },
+    "Strawberry Fields Forever.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          },
+          {
+            "measure": 9,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "tags": [],
+        "modulations": {
+          "7": 5
+        }
+      }
     }
   },
   "MIDI/T-Square": {
@@ -4779,10 +4800,10 @@
           }
         ],
         "comment": "",
-        "tonic": 7,
+        "tonic": 9,
         "tags": [],
         "modulations": {
-          "30": 2,
+          "30": 9,
           "36": 7,
           "90": 2
         }
@@ -5182,7 +5203,8 @@
           "chord:III",
           "chord-scale:phrygian_dominant",
           "rhythm:swing",
-          "arrangement:chordal_riff"
+          "arrangement:chordal_riff",
+          "applied:V/V/V"
         ]
       }
     }
@@ -8007,6 +8029,2014 @@
           "211": 9,
           "215": 4
         }
+      }
+    },
+    "One_Summers_Day_Spirited_Away.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Pink Floyd": {
+    "Shine On You Crazy Diamond, Part One.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 111,
+            "diff": 2
+          },
+          {
+            "measure": 149,
+            "diff": 2
+          },
+          {
+            "measure": 247,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {
+          "219": 3,
+          "231": 7
+        }
+      }
+    }
+  },
+  "MIDI/B.B. King": {
+    "Why I Sing the Blues.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Erroll Garner": {
+    "The Way Back Blues.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "modulations": {},
+        "tags": [
+          "style:blues"
+        ]
+      }
+    }
+  },
+  "MIDI/Duke Ellington": {
+    "Jeep's Blues.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "static/blues_heads": {
+    "Sandu.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Billie_s_Bounce_Billies_Bounce.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Blues_for_Alice.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Bags_Groove__Lead_sheet_.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Blues_in_the_Closet_Lead_sheet_.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Blue_Rondo_A_La_Turk.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 74,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {
+          "10": 9,
+          "18": 5,
+          "26": 9,
+          "34": 5,
+          "42": 9,
+          "50": 5,
+          "58": 9,
+          "80": 5
+        }
+      }
+    }
+  },
+  "MIDI/Holiday Billie": {
+    "Stormy Blues.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 4
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "static/musescore_manual": {
+    "Another_Love__-_Tom_Odell_Professional.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 13,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Super_Mario_Bros_Main_Theme.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Pokemon_Theme_Song.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 38,
+            "diff": 1
+          },
+          {
+            "measure": 75,
+            "diff": 1
+          },
+          {
+            "measure": 88,
+            "diff": 2
+          },
+          {
+            "measure": 94,
+            "diff": -3
+          },
+          {
+            "measure": 99,
+            "diff": 2
+          },
+          {
+            "measure": 117,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {
+          "84": 9,
+          "90": 7
+        }
+      }
+    },
+    "Carol_of_the_Bells.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          }
+        ],
+        "comment": "",
+        "tonic": 8,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Someone_You_Loved.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 13,
+            "diff": -2
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          },
+          {
+            "measure": 9,
+            "diff": 2
+          },
+          {
+            "measure": 31,
+            "diff": 1
+          }
+        ],
+        "comment": "error in measures after 31",
+        "tonic": 1,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Bella_Ciao.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Let_It_Go_Disney_Frozen.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 17,
+            "diff": 1
+          },
+          {
+            "measure": 34,
+            "diff": 0
+          },
+          {
+            "measure": 38,
+            "diff": -2
+          },
+          {
+            "measure": 44,
+            "diff": 1
+          },
+          {
+            "measure": 53,
+            "diff": -2
+          },
+          {
+            "measure": 55,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {
+          "13": 3,
+          "18": 8,
+          "43": 1,
+          "49": 3,
+          "51": 8
+        }
+      }
+    },
+    "River_Flows_In_You.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 6,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Zeldas_Lullaby.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Dawn_Pride_and_Prejudice.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 21,
+            "diff": 0
+          },
+          {
+            "measure": 25,
+            "diff": -1
+          },
+          {
+            "measure": 32,
+            "diff": -1
+          },
+          {
+            "measure": 51,
+            "diff": 2
+          },
+          {
+            "measure": 65,
+            "diff": -1
+          },
+          {
+            "measure": 68,
+            "diff": -1
+          },
+          {
+            "measure": 75,
+            "diff": 2
+          },
+          {
+            "measure": 85,
+            "diff": 1
+          },
+          {
+            "measure": 90,
+            "diff": 3
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Love_Store_Francis_Lai.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          },
+          {
+            "measure": 15,
+            "diff": -2
+          },
+          {
+            "measure": 25,
+            "diff": -2
+          },
+          {
+            "measure": 27,
+            "diff": 0
+          },
+          {
+            "measure": 31,
+            "diff": -2
+          },
+          {
+            "measure": 37,
+            "diff": -1
+          },
+          {
+            "measure": 48,
+            "diff": -2
+          },
+          {
+            "measure": 58,
+            "diff": -2
+          },
+          {
+            "measure": 64,
+            "diff": -2
+          },
+          {
+            "measure": 70,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Moon_River_Breakfast_at_Tiffanys.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {
+          "63": 5
+        }
+      }
+    },
+    "Feliz_Navidad.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Liebestraum_No._3_in_A_Major.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          },
+          {
+            "measure": 10,
+            "diff": -2
+          },
+          {
+            "measure": 16,
+            "diff": -2
+          },
+          {
+            "measure": 30,
+            "diff": -2
+          },
+          {
+            "measure": 36,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 8,
+        "tags": [],
+        "modulations": {
+          "28": 11
+        }
+      }
+    },
+    "Sadness_and_Sorrow.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "tude_S._1413_in_G_Minor_La_Campanella__Liszt.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 8,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Legend_of_Zelda_Great_Fairy_Fountain.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Game_of_Thrones_Easy_piano.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Godfather.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Wet_Hands_Minecraft.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Disney_Pixar_Up_Theme.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Jingle_Bell_Rock.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Interstellar.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 9,
+            "diff": 2
+          },
+          {
+            "measure": 47,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Ed_Sheeran_Perfect_THE_WORST_PIANO_ARRANGEMENT_I_HAVE_EVER_MADE.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          },
+          {
+            "measure": 30,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 8,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Fly_Me_to_the_Moon.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "bad measures",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Pink_Panther.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          },
+          {
+            "measure": 26,
+            "diff": -2
+          },
+          {
+            "measure": 28,
+            "diff": 2
+          },
+          {
+            "measure": 46,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Je_Te_Laisserai_Des_Mots_-_Patrick_Watson.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {
+          "9": 11
+        }
+      }
+    },
+    "Someone_Like_You_easy_piano.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 21,
+            "diff": 1
+          },
+          {
+            "measure": 34,
+            "diff": -1
+          },
+          {
+            "measure": 45,
+            "diff": 1
+          },
+          {
+            "measure": 58,
+            "diff": -2
+          },
+          {
+            "measure": 60,
+            "diff": 1
+          },
+          {
+            "measure": 81,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Omori_Duet.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          }
+        ],
+        "comment": "bad measures",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Schindlers_List.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          },
+          {
+            "measure": 14,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Believer_-_Imagine_Dragons.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Summer_Joe_Hisaishi.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 21,
+            "diff": -1
+          },
+          {
+            "measure": 48,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {
+          "28": 7,
+          "32": 2
+        }
+      }
+    },
+    "Sonate_No._14_Moonlight_3rd_Movement.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 13,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 1,
+        "tags": [],
+        "modulations": {
+          "19": 8
+        }
+      }
+    },
+    "Mariage_dAmour.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          },
+          {
+            "measure": 11,
+            "diff": 1
+          },
+          {
+            "measure": 20,
+            "diff": 1
+          },
+          {
+            "measure": 37,
+            "diff": 1
+          },
+          {
+            "measure": 58,
+            "diff": 1
+          },
+          {
+            "measure": 63,
+            "diff": 1
+          },
+          {
+            "measure": 72,
+            "diff": 1
+          },
+          {
+            "measure": 81,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Sweden_Minecraft.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Gymnopdie_No._1__Satie.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          }
+        ],
+        "comment": "",
+        "tonic": 3,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Requiem_for_a_Dream.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          },
+          {
+            "measure": 26,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "All_I_Want_for_Christmas_is_You.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          },
+          {
+            "measure": 95,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "We_Dont_Talk_about_Bruno.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          },
+          {
+            "measure": 22,
+            "diff": 2
+          },
+          {
+            "measure": 36,
+            "diff": 2
+          },
+          {
+            "measure": 74,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Sonate_No._14_Moonlight_1st_Movement.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 1,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Clair_de_Lune__Debussy.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 1,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Waltz_in_A_MinorChopin.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {
+          "18": 9,
+          "66": 0,
+          "74": 9
+        }
+      }
+    },
+    "Test_Drive_How_to_Train_Your_Dragon.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -1
+          },
+          {
+            "measure": 28,
+            "diff": 1
+          },
+          {
+            "measure": 33,
+            "diff": -2
+          },
+          {
+            "measure": 43,
+            "diff": 2
+          },
+          {
+            "measure": 49,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {
+          "48": 4
+        }
+      }
+    },
+    "Undertale_-_Megalovania_Piano_ver._3.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Yann_Tiersen_Amelie.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Mad_world_Piano.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Canon_in_D.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Love_Like_You_Steven_Universe.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 33,
+            "diff": -2
+          },
+          {
+            "measure": 59,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 3,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "My_War_Attack_on_Titan.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 1,
+        "tags": [],
+        "modulations": {
+          "25": 2,
+          "45": 1
+        }
+      }
+    },
+    "Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": 2
+          },
+          {
+            "measure": 39,
+            "diff": 1
+          },
+          {
+            "measure": 44,
+            "diff": 2
+          },
+          {
+            "measure": 86,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Attack_on_Titan_Shinzou_wo_Sasageyo.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 6,
+            "diff": -2
+          },
+          {
+            "measure": 20,
+            "diff": -1
+          },
+          {
+            "measure": 27,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {
+          "4": 6,
+          "8": 9,
+          "23": 3
+        }
+      }
+    },
+    "Super_Mario_Bros_Peaches.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Fr_Elise.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          },
+          {
+            "measure": 11,
+            "diff": 1
+          },
+          {
+            "measure": 20,
+            "diff": -1
+          },
+          {
+            "measure": 27,
+            "diff": -1
+          },
+          {
+            "measure": 34,
+            "diff": -1
+          },
+          {
+            "measure": 41,
+            "diff": -1
+          },
+          {
+            "measure": 48,
+            "diff": -1
+          },
+          {
+            "measure": 55,
+            "diff": -1
+          },
+          {
+            "measure": 62,
+            "diff": 1
+          },
+          {
+            "measure": 71,
+            "diff": -1
+          },
+          {
+            "measure": 78,
+            "diff": -1
+          },
+          {
+            "measure": 85,
+            "diff": -2
+          },
+          {
+            "measure": 103,
+            "diff": -2
+          },
+          {
+            "measure": 105,
+            "diff": 2
+          },
+          {
+            "measure": 115,
+            "diff": -1
+          },
+          {
+            "measure": 122,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {
+          "47": 5,
+          "53": 0,
+          "58": 9
+        }
+      }
+    },
+    "Golden_Hour__JVKE_Updated_Ver..mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Hallelujah.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 33,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Fallen_Down_Undertale.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Michael_Giaccino_Married_Life.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Gravity_Falls_Opening.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "static/Daniil": {
+    "Sviridov_Time_Foward.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 41,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 1,
+        "tags": [],
+        "modulations": {
+          "1": 10,
+          "37": 1,
+          "55": 10,
+          "87": 10,
+          "115": 1
+        }
+      }
+    },
+    "pornofilmy-prosti_proshyay_privet.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {
+          "77": 11
+        }
+      }
+    },
+    "pornofilmy-prosti_proshyay_privet.2.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 33,
+            "diff": -2
+          },
+          {
+            "measure": 63,
+            "diff": 2
+          },
+          {
+            "measure": 109,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {
+          "77": 11
+        }
+      }
+    },
+    "Vivaldi_-_Summer__The_Four_Seasons__-_Rousseau.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": 1
+          },
+          {
+            "measure": 10,
+            "diff": 1
+          },
+          {
+            "measure": 19,
+            "diff": 2
+          },
+          {
+            "measure": 33,
+            "diff": -1
+          },
+          {
+            "measure": 36,
+            "diff": 2
+          },
+          {
+            "measure": 42,
+            "diff": -1
+          },
+          {
+            "measure": 53,
+            "diff": -2
+          },
+          {
+            "measure": 63,
+            "diff": 1
+          },
+          {
+            "measure": 68,
+            "diff": -1
+          },
+          {
+            "measure": 71,
+            "diff": -1
+          },
+          {
+            "measure": 78,
+            "diff": 1
+          },
+          {
+            "measure": 83,
+            "diff": 2
+          },
+          {
+            "measure": 101,
+            "diff": 1
+          },
+          {
+            "measure": 110,
+            "diff": -1
+          },
+          {
+            "measure": 125,
+            "diff": -1
+          },
+          {
+            "measure": 128,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {
+          "34": 2,
+          "60": 0,
+          "97": 7
+        }
+      }
+    },
+    "pornofilmy-ya_tak_soskuchilsya.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {
+          "153": 11
+        }
+      }
+    },
+    "pornofilmy-ya_tak_soskuchilsya.2.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {
+          "153": 11
+        }
+      }
+    },
+    "pornofilmy-ya_tak_soskuchilsya.1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 9,
+            "diff": 1
+          },
+          {
+            "measure": 14,
+            "diff": -2
+          },
+          {
+            "measure": 76,
+            "diff": 1
+          },
+          {
+            "measure": 81,
+            "diff": -2
+          },
+          {
+            "measure": 147,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "tags": [],
+        "modulations": {
+          "145": 0
+        }
+      }
+    },
+    "pornofilmy-prosti_proshyay_privet.1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 17,
+            "diff": 2
+          },
+          {
+            "measure": 63,
+            "diff": 2
+          },
+          {
+            "measure": 109,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {
+          "77": 11
+        }
+      }
+    },
+    "Sviridov_Time_Foward.1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 41,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 1,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Jamaaladeen Tacuma": {
+    "Jukebox.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "modulations": {},
+        "tags": [
+          "voicing:blues"
+        ]
+      }
+    }
+  },
+  "MIDI/Henry Butler": {
+    "Butler's Boogie.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Radiohead": {
+    "Karma Police.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Morton Jelly Roll": {
+    "Beale Street Blues.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "tags": [],
+        "modulations": {}
       }
     }
   }

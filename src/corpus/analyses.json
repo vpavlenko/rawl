@@ -8854,12 +8854,26 @@
           {
             "measure": 47,
             "diff": -2
+          },
+          {
+            "measure": 69,
+            "diff": 1
+          },
+          {
+            "measure": 78,
+            "diff": 1
+          },
+          {
+            "measure": 135,
+            "diff": 1
           }
         ],
         "comment": "",
         "tonic": 9,
         "tags": [],
-        "modulations": {}
+        "modulations": {
+          "135": 4
+        }
       }
     },
     "Ed_Sheeran_Perfect_THE_WORST_PIANO_ARRANGEMENT_I_HAVE_EVER_MADE.mid": {

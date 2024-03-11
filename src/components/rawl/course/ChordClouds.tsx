@@ -10,7 +10,7 @@ const NOTE_HEIGHT = 5;
 const NOTES = ["1", "b2", "2", "b3", "3", "4", "#4", "5", "b6", "6", "b7", "7"];
 const CLOUD_HEIGHT = 200;
 const CLOUD_WIDTH = 150;
-const CLOUD_LEGEND_NOTE_HEIGHT = 10;
+const CLOUD_LEGEND_NOTE_HEIGHT = 7;
 export const CHORDS = {
   i: [0, 3, 7],
   ii: [2, 5, 9],
@@ -81,7 +81,7 @@ export const ChordLegend: React.FC<{
         <CloudPianoKey
           className={`noteColor_${note}_${colorScheme}`}
         ></CloudPianoKey>
-        <div
+        {/* <div
           style={{
             fontSize: CLOUD_LEGEND_NOTE_HEIGHT + 3,
             width: CLOUD_LEGEND_NOTE_HEIGHT,
@@ -96,7 +96,7 @@ export const ChordLegend: React.FC<{
           }}
         >
           {NOTES[note]}
-        </div>
+        </div> */}
       </div>,
     );
     if (i > 0) {

@@ -9,16 +9,16 @@ const Chord: React.FC<{
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
       <span
-        style={{ fontSize: 30, position: "relative", top: 25, marginRight: 25 }}
+        style={{ fontSize: 25, position: "relative", top: -6, marginRight: 20 }}
       >
         {name}
       </span>
       <span
         style={{
           width: 70,
-          height: 140,
+          height: 100,
           display: "inline-block",
-          marginRight: 10,
+          marginRight: 5,
         }}
       >
         <div

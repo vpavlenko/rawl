@@ -9,6 +9,7 @@ import {
 } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
+import ChordChart from "./ChordChart";
 import { ColorScheme, useColorScheme } from "./ColorScheme";
 import { PianoLegend } from "./PianoLegend";
 import { SecondsSpan, SetVoiceMask, secondsToX__ } from "./Rawl";
@@ -1016,6 +1017,9 @@ export const SplitSystemLayout: React.FC<{
         style={{ position: "fixed", bottom: 50, right: 50, zIndex: 30 }}
       >
         <PianoLegend />
+      </div>
+      <div>
+        <ChordChart />
       </div>
     </div>
     // </FullScreen>

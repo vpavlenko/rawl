@@ -11,7 +11,7 @@ const NOTES = ["1", "b2", "2", "b3", "3", "4", "#4", "5", "b6", "6", "b7", "7"];
 const CLOUD_HEIGHT = 200;
 const CLOUD_WIDTH = 150;
 const CLOUD_LEGEND_NOTE_HEIGHT = 15;
-const CHORDS = {
+export const CHORDS = {
   i: [0, 3, 7],
   ii: [2, 5, 9],
   ii7: [2, 5, 9, 0],
@@ -46,7 +46,7 @@ const CHORDS = {
   bII: [1, 5, 8],
   "V+": [7, 11, 3],
 };
-type Chord = keyof typeof CHORDS;
+export type Chord = keyof typeof CHORDS;
 
 const CloudPianoKey = styled.div`
   user-select: none;
@@ -65,35 +65,11 @@ const CloudPianoKey = styled.div`
   border-width: 5px;
 `;
 
-const ChordCloud: React.FC<{
+export const ChordLegend: React.FC<{
   name: Chord;
   colorScheme: ColorScheme;
 }> = React.memo(({ name, colorScheme }) => {
   const notes = CHORDS[name];
-  const [numRerenders, setNumRerenders] = useState(0);
-  const noteDivs = [];
-  for (let i = 0; i < 60; ++i) {
-    const width = Math.random() * 40;
-
-    noteDivs.push(
-      <div
-        key={i}
-        className={`noteColor_${
-          notes[Math.floor(Math.random() * notes.length)]
-        }_${colorScheme}`}
-        style={{
-          position: "absolute",
-          top: Math.random() * (CLOUD_HEIGHT - NOTE_HEIGHT),
-          left: Math.random() * (CLOUD_WIDTH - width),
-          width,
-          height: NOTE_HEIGHT,
-          boxSizing: "border-box",
-          borderRadius: "5px",
-        }}
-      />,
-    );
-  }
-
   const legendNotes = [];
   let top = 0;
   for (let i = notes.length - 1; i >= 0; i--) {
@@ -125,6 +101,41 @@ const ChordCloud: React.FC<{
       top += ((12 + notes[i] - notes[i - 1]) % 12) * CLOUD_LEGEND_NOTE_HEIGHT;
     }
   }
+
+  return (
+    <span style={{ fontSize: 20, position: "relative" }}>{legendNotes}</span>
+  );
+});
+
+const ChordCloud: React.FC<{
+  name: Chord;
+  colorScheme: ColorScheme;
+}> = React.memo(({ name, colorScheme }) => {
+  const notes = CHORDS[name];
+  const [numRerenders, setNumRerenders] = useState(0);
+  const noteDivs = [];
+  for (let i = 0; i < 60; ++i) {
+    const width = Math.random() * 40;
+
+    noteDivs.push(
+      <div
+        key={i}
+        className={`noteColor_${
+          notes[Math.floor(Math.random() * notes.length)]
+        }_${colorScheme}`}
+        style={{
+          position: "absolute",
+          top: Math.random() * (CLOUD_HEIGHT - NOTE_HEIGHT),
+          left: Math.random() * (CLOUD_WIDTH - width),
+          width,
+          height: NOTE_HEIGHT,
+          boxSizing: "border-box",
+          borderRadius: "5px",
+        }}
+      />,
+    );
+  }
+
   return (
     <div
       style={{
@@ -156,7 +167,7 @@ const ChordCloud: React.FC<{
           {name}
         </span>
       </div>
-      <span style={{ fontSize: 20, position: "relative" }}>{legendNotes}</span>
+      <ChordLegend name={name} colorScheme={colorScheme} />
     </div>
   );
 }, isEqual);

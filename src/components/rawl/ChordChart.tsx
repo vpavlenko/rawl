@@ -38,7 +38,7 @@ const Chord: React.FC<{
 const ChordChart = () => {
   const { colorScheme } = useColorScheme();
   return (
-    <div style={{ position: "fixed", left: 2, marginTop: 10 }}>
+    <div style={{ position: "fixed", left: 2, marginTop: 20 }}>
       <div>
         <div style={{ display: "flex", flexDirection: "row" }}>
           <div style={{ marginRight: 30 }}>major</div>
@@ -65,6 +65,7 @@ const ChordChart = () => {
       <div>
         <div style={{ display: "flex", flexDirection: "row" }}>
           <div style={{ marginRight: 30 }}>other</div>
+          <Chord name={"V7"} colorScheme={colorScheme} />
           <Chord name={"V/ii"} colorScheme={colorScheme} />
           <Chord name={"V7/IV"} colorScheme={colorScheme} />
           <Chord name={"V/V"} colorScheme={colorScheme} />

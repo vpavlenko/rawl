@@ -9693,6 +9693,846 @@
         "tags": [],
         "modulations": {}
       }
+    },
+    "Lena_Raine_Pigstep.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Titanic.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Dream_a_little_dream_of_me.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {
+          "21": 9,
+          "29": 0
+        }
+      }
+    },
+    "Happy_Birthday_to_You.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Good_Bye_Hachiko.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Despacito.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 6,
+            "diff": -1
+          },
+          {
+            "measure": 57,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Sweet_Dreams.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 29,
+            "diff": -2
+          },
+          {
+            "measure": 51,
+            "diff": -2
+          },
+          {
+            "measure": 57,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Avicii_Wake_me_up.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 41,
+            "diff": -2
+          }
+        ],
+        "comment": "mm. 39-... wrong rhythms",
+        "tonic": 11,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "How_long_blues.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Hit_the_Road_Jack.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 57,
+            "diff": 1
+          },
+          {
+            "measure": 62,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Take_on_me.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Axel_F_Beverly_Hills_Cop_III.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 37,
+            "diff": -1
+          },
+          {
+            "measure": 68,
+            "diff": 2
+          },
+          {
+            "measure": 78,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Alone_Marshmello.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Lady_Gaga_Always_remember_us_this_way.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "TheFatRat_Unity.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Johnny_Cash_Hurt.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": 0
+          },
+          {
+            "measure": 21,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "You_ve_got_a_friend_in_me.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": 1
+          },
+          {
+            "measure": 14,
+            "diff": -1
+          },
+          {
+            "measure": 17,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 3,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Billie_Eilish_Bad_Guy.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 37,
+            "diff": -2
+          },
+          {
+            "measure": 71,
+            "diff": -2
+          },
+          {
+            "measure": 85,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Cant_Help_Falling_In_Love.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          },
+          {
+            "measure": 23,
+            "diff": 1
+          },
+          {
+            "measure": 36,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Chris_Isaak_Wicked_Game.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Wellerman_Sea_Shanty.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          },
+          {
+            "measure": 22,
+            "diff": -3
+          },
+          {
+            "measure": 39,
+            "diff": -3
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Never_Gonna_Give_You_Up.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Liana_Flores_Rises_the_Moon.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Photograph_Ed_Sheeran.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 9,
+            "diff": 1
+          },
+          {
+            "measure": 26,
+            "diff": 1
+          },
+          {
+            "measure": 35,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Coffin_dance.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Vangelis_Chariots_of_fire.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Viva_La_Vida_Coldplay.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 8,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "John_Lennon_Imagine.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Ed_Sheeran_Shape_of_you.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 157,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 1,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Let_Her_Go_Passenger.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "The_Weeknd_Blinding_Lights.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Ophelia.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 13,
+            "diff": -2
+          },
+          {
+            "measure": 27,
+            "diff": -2
+          },
+          {
+            "measure": 29,
+            "diff": 0
+          },
+          {
+            "measure": 33,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Sweet_home_Chicago.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Avril_14_Aphex_Twin.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 8,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Im_Blue_Eiffel_65.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "A_Thousand_Miles.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": 2
+          },
+          {
+            "measure": 15,
+            "diff": 1
+          },
+          {
+            "measure": 24,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "TheFatRat_Monody.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 13,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 1,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Jolene.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 25,
+            "diff": -1
+          },
+          {
+            "measure": 36,
+            "diff": -1
+          },
+          {
+            "measure": 21,
+            "diff": 3
+          },
+          {
+            "measure": 27,
+            "diff": 1
+          },
+          {
+            "measure": 32,
+            "diff": 3
+          },
+          {
+            "measure": 42,
+            "diff": 3
+          },
+          {
+            "measure": 53,
+            "diff": 2
+          },
+          {
+            "measure": 63,
+            "diff": 2
+          },
+          {
+            "measure": 73,
+            "diff": 2
+          },
+          {
+            "measure": 83,
+            "diff": 3
+          },
+          {
+            "measure": 94,
+            "diff": 3
+          },
+          {
+            "measure": 105,
+            "diff": 2
+          },
+          {
+            "measure": 115,
+            "diff": 2
+          },
+          {
+            "measure": 125,
+            "diff": 3
+          },
+          {
+            "measure": 136,
+            "diff": 8
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Lovely_Billie_Eilish.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          },
+          {
+            "measure": 47,
+            "diff": -2
+          },
+          {
+            "measure": 81,
+            "diff": -3
+          },
+          {
+            "measure": 82,
+            "diff": -1
+          },
+          {
+            "measure": 85,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
     }
   },
   "static/Daniil": {

@@ -10,7 +10,7 @@ const NOTE_HEIGHT = 5;
 const NOTES = ["1", "b2", "2", "b3", "3", "4", "#4", "5", "b6", "6", "b7", "7"];
 const CLOUD_HEIGHT = 200;
 const CLOUD_WIDTH = 150;
-const CLOUD_LEGEND_NOTE_HEIGHT = 15;
+const CLOUD_LEGEND_NOTE_HEIGHT = 10;
 export const CHORDS = {
   i: [0, 3, 7],
   ii: [2, 5, 9],
@@ -45,12 +45,14 @@ export const CHORDS = {
   bIII: [3, 7, 10],
   bII: [1, 5, 8],
   "V+": [7, 11, 3],
+  viio7: [11, 2, 5, 8],
+  io7: [0, 3, 6, 9],
 };
 export type Chord = keyof typeof CHORDS;
 
 const CloudPianoKey = styled.div`
   user-select: none;
-  width: 100px;
+  width: 50px;
   height: ${CLOUD_LEGEND_NOTE_HEIGHT}px;
   text-align: center;
   vertical-align: bottom;
@@ -81,13 +83,13 @@ export const ChordLegend: React.FC<{
         ></CloudPianoKey>
         <div
           style={{
-            fontSize: CLOUD_LEGEND_NOTE_HEIGHT - 3,
+            fontSize: CLOUD_LEGEND_NOTE_HEIGHT + 3,
             width: CLOUD_LEGEND_NOTE_HEIGHT,
             height: CLOUD_LEGEND_NOTE_HEIGHT,
             position: "absolute",
-            left: 42,
+            left: 21,
             textAlign: "center",
-            top: 0,
+            top: -2,
             textShadow:
               "0 0 1px black, 0 0 3px black, 0 0 6px black, 0 0 9px black",
             fontWeight: 700,

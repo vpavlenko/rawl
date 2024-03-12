@@ -22,7 +22,6 @@ module.exports = merge(common, {
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: "public/*.sf2", to: "[name][ext]" },
         { from: "public/*.svg", to: "[name][ext]" },
         { from: "public/*.png", to: "[name][ext]" },
         { from: "public/*.webmanifest", to: "[name][ext]" },

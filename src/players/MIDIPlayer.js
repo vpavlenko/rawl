@@ -63,8 +63,7 @@ export default class MIDIPlayer extends Player {
       label: "Soundfont",
       type: "enum",
       options: SOUNDFONTS,
-      // Small Soundfonts - GMGSx Plus
-      defaultValue: SOUNDFONTS[1].items[0].value,
+      defaultValue: SOUNDFONTS[2].items[1].value,
       dependsOn: {
         param: "synthengine",
         value: MIDI_ENGINE_LIBFLUIDLITE,
@@ -77,7 +76,7 @@ export default class MIDIPlayer extends Player {
       min: 0.0,
       max: 1.0,
       step: 0.01,
-      defaultValue: 0.33,
+      defaultValue: 0.03,
       dependsOn: {
         param: "synthengine",
         value: MIDI_ENGINE_LIBFLUIDLITE,

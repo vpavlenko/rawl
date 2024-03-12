@@ -270,6 +270,13 @@ export const AnalysisGrid: React.FC<{
       getModulations(analysis).map(({ measure, tonic }) => [measure, tonic]),
     );
 
+    const showBeats =
+      beats.length >= 3 && secondsToX(beats[2]) - secondsToX(beats[1]) >= 15;
+    const showAllMeasureBars =
+      showBeats ||
+      (measures.length >= 3 &&
+        secondsToX(measures[2]) - secondsToX(measures[1]) >= 25);
+
     return (
       <div style={{ zIndex: 15 }}>
         {measures.map((time, i) => {
@@ -285,16 +292,12 @@ export const AnalysisGrid: React.FC<{
               measureSelection={measureSelection}
               systemLayout={systemLayout}
               secondsToX={secondsToX}
-              showNonPhraseStarts={
-                measures.length >= 2 &&
-                secondsToX(measures[1]) - secondsToX(measures[0]) > 23
-              }
+              showNonPhraseStarts={showAllMeasureBars}
               tonicStart={modulations.get(i)}
             />
           );
         })}
-        {beats.length >= 2 &&
-          secondsToX(beats[1]) - secondsToX(beats[0]) > 13 &&
+        {showBeats &&
           beats.map((time) => (
             <Beat key={time} second={time} secondsToX={secondsToX} />
           ))}

@@ -1,17 +1,37 @@
 import * as React from "react";
 import { ColorScheme, useColorScheme } from "./ColorScheme";
-import { Chord, ChordLegend } from "./course/ChordClouds";
+import { PitchClass } from "./analysis";
+import { CHORDS, Chord, ChordLegend } from "./course/ChordClouds";
 
 // TODO: position superscripts nicer:
 // https://chat.openai.com/share/42b5dd9d-73e0-426b-a704-cded9796b612
 const Chord: React.FC<{
   name: Chord;
   colorScheme: ColorScheme;
-}> = ({ name, colorScheme }) => {
+  scaleDegreesUnderCursor: Set<PitchClass>;
+}> = ({ name, colorScheme, scaleDegreesUnderCursor }) => {
+  const isCurrentChord = CHORDS[name].every((scaleDegree) =>
+    scaleDegreesUnderCursor.has(scaleDegree),
+  );
+  debugger;
+  // we need to know the current tonic
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+      }}
+    >
       <span
-        style={{ fontSize: 20, position: "relative", top: -6, marginRight: 20 }}
+        style={{
+          fontSize: 20,
+          position: "relative",
+          top: -6,
+          marginRight: 20,
+          transition: "background-color 0.4s linear, color 0.4s linear",
+          backgroundColor: isCurrentChord ? "white" : "black",
+          color: isCurrentChord ? "black" : "white",
+        }}
       >
         {name
           .replace("b", "♭")
@@ -43,80 +63,76 @@ const Chord: React.FC<{
   );
 };
 
-const ChordChart = () => {
+const ChordRow: React.FC<{
+  title: string;
+  chords: Chord[];
+  colorScheme: ColorScheme;
+  scaleDegreesUnderCursor: Set<PitchClass>;
+}> = ({ title, chords, colorScheme, scaleDegreesUnderCursor }) => (
+  <div style={{ display: "flex", flexDirection: "row" }}>
+    <div style={{ marginRight: 30 }}>{title}</div>
+    {chords.map((chord) => (
+      <Chord
+        name={chord}
+        colorScheme={colorScheme}
+        scaleDegreesUnderCursor={scaleDegreesUnderCursor}
+      />
+    ))}
+  </div>
+);
+
+const ChordChart: React.FC<{ scaleDegreesUnderCursor: Set<PitchClass> }> = ({
+  scaleDegreesUnderCursor,
+}) => {
   const { colorScheme } = useColorScheme();
   return (
     <div style={{ position: "fixed", left: 2, marginTop: 40 }}>
-      <div>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <div style={{ marginRight: 30 }}>minor key</div>
-          <Chord name={"iv"} colorScheme={colorScheme} />
-          <Chord name={"bVI"} colorScheme={colorScheme} />
-          <Chord name={"i"} colorScheme={colorScheme} />
-          <Chord name={"bIII"} colorScheme={colorScheme} />
-          <Chord name={"v"} colorScheme={colorScheme} />
-          <Chord name={"bVII"} colorScheme={colorScheme} />
-        </div>
-      </div>
-      <div>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <div style={{ marginRight: 30 }}>major key</div>
-          <Chord name={"ii"} colorScheme={colorScheme} />
-          <Chord name={"IV"} colorScheme={colorScheme} />
-          <Chord name={"vi"} colorScheme={colorScheme} />
-          <Chord name={"I"} colorScheme={colorScheme} />
-          <Chord name={"iii"} colorScheme={colorScheme} />
-          <Chord name={"V"} colorScheme={colorScheme} />
-        </div>
-      </div>
-      <div>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <div style={{ marginRight: 30 }}>applied</div>
-          <Chord name={"V/ii"} colorScheme={colorScheme} />
-          <Chord name={"V7/IV"} colorScheme={colorScheme} />
-          <Chord name={"V/vi"} colorScheme={colorScheme} />
-          <Chord name={"V/iii"} colorScheme={colorScheme} />
-          <Chord name={"V/V"} colorScheme={colorScheme} />
-        </div>
-      </div>
-      <div>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <div style={{ marginRight: 30 }}>dominants</div>
-          <Chord name={"V7"} colorScheme={colorScheme} />
-          <Chord name={"Vsus4"} colorScheme={colorScheme} />
-          <Chord name={"V+"} colorScheme={colorScheme} />
-          <Chord name={"bII"} colorScheme={colorScheme} />
-        </div>
-      </div>
-      <div>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <div style={{ marginRight: 30 }}>Mozart</div>
-          <Chord name={"It"} colorScheme={colorScheme} />
-          <Chord name={"Fr"} colorScheme={colorScheme} />
-          <Chord name={"Ger"} colorScheme={colorScheme} />
-          <Chord name={"Cad64"} colorScheme={colorScheme} />
-          <Chord name={"cad64"} colorScheme={colorScheme} />
-          <Chord name={"ii65"} colorScheme={colorScheme} />
-          <Chord name={"iiø65"} colorScheme={colorScheme} />
-          <Chord name={"viio7"} colorScheme={colorScheme} />
-          <Chord name={"viio7/V"} colorScheme={colorScheme} />
-        </div>
-      </div>
-      <div>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <div style={{ marginRight: 30 }}>chord types</div>
-          <Chord name={"I+"} colorScheme={colorScheme} />
-          <Chord name={"I"} colorScheme={colorScheme} />
-          <Chord name={"I7"} colorScheme={colorScheme} />
-          <Chord name={"I△"} colorScheme={colorScheme} />
-          <Chord name={"i"} colorScheme={colorScheme} />
-          <Chord name={"i7"} colorScheme={colorScheme} />
-          <Chord name={"i△"} colorScheme={colorScheme} />
-          <Chord name={"io"} colorScheme={colorScheme} />
-          <Chord name={"io7"} colorScheme={colorScheme} />
-          <Chord name={"iø7"} colorScheme={colorScheme} />
-        </div>
-      </div>
+      <ChordRow
+        title="minor key"
+        chords={["iv", "bVI", "i", "bIII", "v", "bVII"]}
+        colorScheme={colorScheme}
+        scaleDegreesUnderCursor={scaleDegreesUnderCursor}
+      />
+      <ChordRow
+        title="major key"
+        chords={["ii", "IV", "vi", "I", "iii", "V"]}
+        colorScheme={colorScheme}
+        scaleDegreesUnderCursor={scaleDegreesUnderCursor}
+      />
+      <ChordRow
+        title="applied"
+        chords={["V/ii", "V7/IV", "V/vi", "V/iii", "V/V"]}
+        colorScheme={colorScheme}
+        scaleDegreesUnderCursor={scaleDegreesUnderCursor}
+      />
+      {/* <ChordRow
+        title="dominants"
+        chords={["V7", "Vsus4", "V+", "bII"]}
+        colorScheme={colorScheme}
+        scaleDegreesUnderCursor={scaleDegreesUnderCursor}
+      />
+      <ChordRow
+        title="Mozart"
+        chords={[
+          "It",
+          "Fr",
+          "Ger",
+          "Cad64",
+          "cad64",
+          "ii65",
+          "iiø65",
+          "viio7",
+          "viio7/V",
+        ]}
+        colorScheme={colorScheme}
+        scaleDegreesUnderCursor={scaleDegreesUnderCursor}
+      />
+      <ChordRow
+        title="chord types"
+        chords={["I+", "I", "I7", "I△", "i", "i7", "i△", "io", "io7", "iø7"]}
+        colorScheme={colorScheme}
+        scaleDegreesUnderCursor={scaleDegreesUnderCursor}
+      /> */}
     </div>
   );
 };

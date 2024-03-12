@@ -61,7 +61,7 @@ export const CHORDS = {
   "i△": [0, 3, 7, 11],
   i7: [0, 3, 7, 10],
   iø7: [0, 3, 6, 10],
-};
+} as const;
 export type Chord = keyof typeof CHORDS;
 
 const CloudPianoKey = styled.div`

@@ -850,8 +850,8 @@ export const SplitSystemLayout: React.FC<{
           notesInVoice
             .filter(
               (note) =>
-                note.span[0] <= positionSeconds &&
-                note.span[1] >= positionSeconds,
+                note.span[0] - 0.1 <= positionSeconds &&
+                note.span[1] + 0.1 >= positionSeconds,
             )
             .map(
               (note) =>

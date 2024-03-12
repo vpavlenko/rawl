@@ -24,7 +24,7 @@ const Chord: React.FC<{
       <span
         style={{
           width: 70,
-          height: 100,
+          height: 85,
           display: "inline-block",
           marginRight: 5,
         }}
@@ -49,18 +49,7 @@ const ChordChart = () => {
     <div style={{ position: "fixed", left: 2, marginTop: 40 }}>
       <div>
         <div style={{ display: "flex", flexDirection: "row" }}>
-          <div style={{ marginRight: 30 }}>major</div>
-          <Chord name={"ii"} colorScheme={colorScheme} />
-          <Chord name={"IV"} colorScheme={colorScheme} />
-          <Chord name={"vi"} colorScheme={colorScheme} />
-          <Chord name={"I"} colorScheme={colorScheme} />
-          <Chord name={"iii"} colorScheme={colorScheme} />
-          <Chord name={"V"} colorScheme={colorScheme} />
-        </div>
-      </div>
-      <div>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <div style={{ marginRight: 30 }}>minor</div>
+          <div style={{ marginRight: 30 }}>minor key</div>
           <Chord name={"iv"} colorScheme={colorScheme} />
           <Chord name={"bVI"} colorScheme={colorScheme} />
           <Chord name={"i"} colorScheme={colorScheme} />
@@ -71,15 +60,32 @@ const ChordChart = () => {
       </div>
       <div>
         <div style={{ display: "flex", flexDirection: "row" }}>
-          <div style={{ marginRight: 30 }}>other</div>
+          <div style={{ marginRight: 30 }}>major key</div>
+          <Chord name={"ii"} colorScheme={colorScheme} />
+          <Chord name={"IV"} colorScheme={colorScheme} />
+          <Chord name={"vi"} colorScheme={colorScheme} />
+          <Chord name={"I"} colorScheme={colorScheme} />
+          <Chord name={"iii"} colorScheme={colorScheme} />
+          <Chord name={"V"} colorScheme={colorScheme} />
+        </div>
+      </div>
+      <div>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <div style={{ marginRight: 30 }}>applied</div>
+          <Chord name={"V/ii"} colorScheme={colorScheme} />
+          <Chord name={"V7/IV"} colorScheme={colorScheme} />
+          <Chord name={"V/vi"} colorScheme={colorScheme} />
+          <Chord name={"V/iii"} colorScheme={colorScheme} />
+          <Chord name={"V/V"} colorScheme={colorScheme} />
+        </div>
+      </div>
+      <div>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <div style={{ marginRight: 30 }}>dominants</div>
           <Chord name={"V7"} colorScheme={colorScheme} />
           <Chord name={"Vsus4"} colorScheme={colorScheme} />
           <Chord name={"V+"} colorScheme={colorScheme} />
           <Chord name={"bII"} colorScheme={colorScheme} />
-          <Chord name={"V/ii"} colorScheme={colorScheme} />
-          <Chord name={"V7/IV"} colorScheme={colorScheme} />
-          <Chord name={"V/V"} colorScheme={colorScheme} />
-          <Chord name={"V/vi"} colorScheme={colorScheme} />
         </div>
       </div>
       <div>
@@ -98,7 +104,7 @@ const ChordChart = () => {
       </div>
       <div>
         <div style={{ display: "flex", flexDirection: "row" }}>
-          <div style={{ marginRight: 30 }}>palette</div>
+          <div style={{ marginRight: 30 }}>chord types</div>
           <Chord name={"I+"} colorScheme={colorScheme} />
           <Chord name={"I"} colorScheme={colorScheme} />
           <Chord name={"I7"} colorScheme={colorScheme} />

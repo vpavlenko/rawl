@@ -107,7 +107,7 @@ class App extends React.Component {
       this.setState({
         user,
         loadingUser: !!user,
-        analysisEnabled: !!user,
+        // analysisEnabled: !!user,
       });
       if (user) {
         const docRef = doc(this.db, "users", user.uid);

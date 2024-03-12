@@ -10,7 +10,7 @@ const NOTE_HEIGHT = 5;
 const NOTES = ["1", "b2", "2", "b3", "3", "4", "#4", "5", "b6", "6", "b7", "7"];
 const CLOUD_HEIGHT = 200;
 const CLOUD_WIDTH = 150;
-const CLOUD_LEGEND_NOTE_HEIGHT = 5;
+const CLOUD_LEGEND_NOTE_HEIGHT = 6;
 export const CHORDS = {
   i: [0, 3, 7],
   ii: [2, 5, 9],

@@ -24,7 +24,7 @@ const Chord: React.FC<{
       <span
         style={{
           width: 70,
-          height: 85,
+          height: 90,
           display: "inline-block",
           marginRight: 5,
         }}

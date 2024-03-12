@@ -782,7 +782,7 @@ export const Voice: React.FC<{
         />
       ) : null}
       {cursor}
-      {hasVisibleNotes && voiceName ? (
+      {hasVisibleNotes && voiceMask.length > 1 && voiceName ? (
         <VoiceName
           voiceName={voiceName}
           voiceMask={voiceMask}

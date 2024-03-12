@@ -424,7 +424,7 @@ const Rawl: React.FC<{
           padding: 10,
         }}
       >
-        <div style={{ display: "flex", flexDirection: "row", gap: 15 }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <label className="inline">
             <input
               title="Velocity"

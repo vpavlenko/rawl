@@ -65,7 +65,10 @@ export const PianoLegend: React.FC = () => {
                   zIndex: 2,
                 }}
               >
-                {BLACK_KEY_LABELS[i]}
+                {BLACK_KEY_LABELS[i]
+                  .toString()
+                  .replace("b", "♭")
+                  .replace("#", "♯")}
               </PianoKey>
             ) : null}
           </React.Fragment>

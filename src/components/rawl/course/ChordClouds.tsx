@@ -10,7 +10,7 @@ const NOTE_HEIGHT = 5;
 const NOTES = ["1", "b2", "2", "b3", "3", "4", "#4", "5", "b6", "6", "b7", "7"];
 const CLOUD_HEIGHT = 200;
 const CLOUD_WIDTH = 150;
-const CLOUD_LEGEND_NOTE_HEIGHT = 7;
+const CLOUD_LEGEND_NOTE_HEIGHT = 6;
 export const CHORDS = {
   i: [0, 3, 7],
   ii: [2, 5, 9],
@@ -47,6 +47,19 @@ export const CHORDS = {
   "V+": [7, 11, 3],
   viio7: [11, 2, 5, 8],
   io7: [0, 3, 6, 9],
+  It: [8, 0, 6],
+  Fr: [8, 0, 2, 6],
+  Ger: [8, 0, 3, 6],
+  Cad64: [7, 0, 4],
+  cad64: [7, 0, 3],
+  "viio7/V": [6, 9, 0, 3],
+  ii65: [5, 9, 0, 2],
+  iiø65: [5, 8, 0, 2],
+  io: [0, 3, 6],
+  "I+": [0, 4, 8],
+  "i△": [0, 3, 7, 11],
+  i7: [0, 3, 7, 10],
+  iø7: [0, 3, 6, 10],
 };
 export type Chord = keyof typeof CHORDS;
 

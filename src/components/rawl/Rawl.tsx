@@ -24,7 +24,8 @@ import { Note, ParsingResult } from "./parseMidi";
 // If not used, the playback cursor isn't exactly where the sound is.
 // Sometimes it should be adjusted for external screens.
 const LATENCY_CORRECTION_MS =
-  (localStorage && parseInt(localStorage.getItem("latency"), 10)) || 250;
+  (localStorage && parseInt(localStorage.getItem("latency"), 10)) || 0;
+export const CHORD_HIGHLIGHT_ADDITIONAL_CORRECTION_MS = -200;
 
 export type SecondsSpan = [number, number];
 

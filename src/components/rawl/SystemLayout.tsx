@@ -12,7 +12,12 @@ import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import ChordChart from "./ChordChart";
 import { ColorScheme, useColorScheme } from "./ColorScheme";
 import { PianoLegend } from "./PianoLegend";
-import { SecondsSpan, SetVoiceMask, secondsToX__ } from "./Rawl";
+import {
+  CHORD_HIGHLIGHT_ADDITIONAL_CORRECTION_MS,
+  SecondsSpan,
+  SetVoiceMask,
+  secondsToX__,
+} from "./Rawl";
 import { Analysis, PitchClass } from "./analysis";
 import { Note, NotesInVoices, PitchBendPoint } from "./parseMidi";
 
@@ -850,8 +855,12 @@ export const SplitSystemLayout: React.FC<{
           notesInVoice
             .filter(
               (note) =>
-                note.span[0] <= positionSeconds &&
-                note.span[1] >= positionSeconds,
+                note.span[0] <=
+                  positionSeconds +
+                    CHORD_HIGHLIGHT_ADDITIONAL_CORRECTION_MS / 1000 &&
+                note.span[1] >=
+                  positionSeconds +
+                    CHORD_HIGHLIGHT_ADDITIONAL_CORRECTION_MS / 1000,
             )
             .map(
               (note) =>

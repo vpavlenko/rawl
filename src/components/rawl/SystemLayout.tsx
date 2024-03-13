@@ -70,13 +70,18 @@ const getTonic = (measure: number, analysis: Analysis): PitchClass => {
   return modulations[i].tonic as PitchClass;
 };
 
-const getNoteMeasure = (note: Note, measures: number[] | null): number => {
+export const getSecondsMeasure = (
+  seconds: number,
+  measures: number[] | null,
+): number => {
   if (!measures) {
     return -1;
   }
-  const noteMiddle = (note.span[0] + note.span[1]) / 2;
-  return measures.findIndex((time) => time >= noteMiddle) - 1;
+  return measures.findIndex((time) => time >= seconds) - 1;
 };
+
+const getNoteMeasure = (note: Note, measures: number[] | null): number =>
+  getSecondsMeasure((note.span[0] + note.span[1]) / 2, measures);
 
 const getAverageMidiNumber = (notes: Note[]) =>
   notes.length > 0
@@ -848,6 +853,15 @@ export const SplitSystemLayout: React.FC<{
     prevPositionSeconds.current = positionSeconds;
   }, [positionSeconds]);
 
+  const tonic = useMemo(
+    () =>
+      getTonic(
+        getSecondsMeasure(positionSeconds, measuresAndBeats.measures),
+        analysis,
+      ),
+    [positionSeconds],
+  );
+
   const scaleDegreesUnderCursor = useMemo(
     () =>
       new Set(
@@ -864,16 +878,11 @@ export const SplitSystemLayout: React.FC<{
             )
             .map(
               (note) =>
-                ((note.note.midiNumber -
-                  getTonic(
-                    getNoteMeasure(note, measuresAndBeats.measures),
-                    analysis,
-                  )) %
-                  12) as PitchClass,
+                ((note.note.midiNumber - tonic + 12) % 12) as PitchClass,
             ),
         ),
       ),
-    [positionSeconds],
+    [tonic, positionSeconds],
   );
 
   const scaleDegreesAroundCursor = useMemo(
@@ -892,16 +901,11 @@ export const SplitSystemLayout: React.FC<{
             )
             .map(
               (note) =>
-                ((note.note.midiNumber -
-                  getTonic(
-                    getNoteMeasure(note, measuresAndBeats.measures),
-                    analysis,
-                  )) %
-                  12) as PitchClass,
+                ((note.note.midiNumber - tonic + 12) % 12) as PitchClass,
             ),
         ),
       ),
-    [positionSeconds],
+    [tonic, positionSeconds],
   );
 
   const voicesSortedByAverageMidiNumber = useMemo(
@@ -1055,7 +1059,7 @@ export const SplitSystemLayout: React.FC<{
                 style={{
                   transition:
                     Math.abs(prevPositionSeconds.current - positionSeconds) < 1
-                      ? "left 0.4s linear"
+                      ? "left 0.1s linear"
                       : "",
                   left: secondsToX(positionSeconds),
                 }}
@@ -1081,6 +1085,7 @@ export const SplitSystemLayout: React.FC<{
       </div>
       <div>
         <ChordChart
+          tonic={tonic}
           scaleDegreesUnderCursor={scaleDegreesUnderCursor}
           scaleDegreesAroundCursor={scaleDegreesAroundCursor}
         />

@@ -876,6 +876,34 @@ export const SplitSystemLayout: React.FC<{
     [positionSeconds],
   );
 
+  const scaleDegreesAroundCursor = useMemo(
+    () =>
+      new Set(
+        notes.flatMap((notesInVoice) =>
+          notesInVoice
+            .filter(
+              (note) =>
+                note.span[0] - 0.05 <=
+                  positionSeconds +
+                    CHORD_HIGHLIGHT_ADDITIONAL_CORRECTION_MS / 1000 &&
+                note.span[1] + 0.05 >=
+                  positionSeconds +
+                    CHORD_HIGHLIGHT_ADDITIONAL_CORRECTION_MS / 1000,
+            )
+            .map(
+              (note) =>
+                ((note.note.midiNumber -
+                  getTonic(
+                    getNoteMeasure(note, measuresAndBeats.measures),
+                    analysis,
+                  )) %
+                  12) as PitchClass,
+            ),
+        ),
+      ),
+    [positionSeconds],
+  );
+
   const voicesSortedByAverageMidiNumber = useMemo(
     () =>
       notes
@@ -1052,7 +1080,10 @@ export const SplitSystemLayout: React.FC<{
         <PianoLegend />
       </div>
       <div>
-        <ChordChart scaleDegreesUnderCursor={scaleDegreesUnderCursor} />
+        <ChordChart
+          scaleDegreesUnderCursor={scaleDegreesUnderCursor}
+          scaleDegreesAroundCursor={scaleDegreesAroundCursor}
+        />
       </div>
     </div>
     // </FullScreen>

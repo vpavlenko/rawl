@@ -12,9 +12,18 @@ const Chord: React.FC<{
   name: Chord;
   colorScheme: ColorScheme;
   scaleDegreesUnderCursor: Set<PitchClass>;
-}> = ({ name, colorScheme, scaleDegreesUnderCursor }) => {
+  scaleDegreesAroundCursor: Set<PitchClass>;
+}> = ({
+  name,
+  colorScheme,
+  scaleDegreesUnderCursor,
+  scaleDegreesAroundCursor,
+}) => {
   const isCurrentChord = CHORDS[name].every((scaleDegree) =>
     scaleDegreesUnderCursor.has(scaleDegree),
+  );
+  const isArpeggiatedCurrentChord = CHORDS[name].every((scaleDegree) =>
+    scaleDegreesAroundCursor.has(scaleDegree),
   );
   return (
     <div
@@ -42,7 +51,10 @@ const Chord: React.FC<{
           textAlign: "right",
           width: "2.5em",
           height: "2em",
-          transition: "background-color 0.3s linear, color 0.3s linear",
+          transition: `background-color 0.3s linear, color 0.3s linear${
+            isArpeggiatedCurrentChord ? "" : ", box-shadow 0.2s linear"
+          }`,
+          boxShadow: isArpeggiatedCurrentChord ? "0px 0px 0px 1px white" : "",
           backgroundColor: isCurrentChord ? "white" : "transparent",
           color: isCurrentChord ? "black" : "white",
         }}
@@ -64,7 +76,14 @@ const ChordRow: React.FC<{
   chords: Chord[];
   colorScheme: ColorScheme;
   scaleDegreesUnderCursor: Set<PitchClass>;
-}> = ({ title, chords, colorScheme, scaleDegreesUnderCursor }) => (
+  scaleDegreesAroundCursor: Set<PitchClass>;
+}> = ({
+  title,
+  chords,
+  colorScheme,
+  scaleDegreesUnderCursor,
+  scaleDegreesAroundCursor,
+}) => (
   <div
     style={{
       display: "grid",
@@ -79,14 +98,16 @@ const ChordRow: React.FC<{
         name={chord}
         colorScheme={colorScheme}
         scaleDegreesUnderCursor={scaleDegreesUnderCursor}
+        scaleDegreesAroundCursor={scaleDegreesAroundCursor}
       />
     ))}
   </div>
 );
 
-const ChordChart: React.FC<{ scaleDegreesUnderCursor: Set<PitchClass> }> = ({
-  scaleDegreesUnderCursor,
-}) => {
+const ChordChart: React.FC<{
+  scaleDegreesUnderCursor: Set<PitchClass>;
+  scaleDegreesAroundCursor: Set<PitchClass>;
+}> = ({ scaleDegreesUnderCursor, scaleDegreesAroundCursor }) => {
   const { colorScheme } = useColorScheme();
   return (
     <div style={{ position: "fixed", left: 2, marginTop: 40, width: "100vw" }}>
@@ -95,18 +116,21 @@ const ChordChart: React.FC<{ scaleDegreesUnderCursor: Set<PitchClass> }> = ({
         chords={["iv", "bVI", "i", "bIII", "v", "bVII"]}
         colorScheme={colorScheme}
         scaleDegreesUnderCursor={scaleDegreesUnderCursor}
+        scaleDegreesAroundCursor={scaleDegreesAroundCursor}
       />
       <ChordRow
         title="major key"
         chords={["ii", "IV", "vi", "I", "iii", "V"]}
         colorScheme={colorScheme}
         scaleDegreesUnderCursor={scaleDegreesUnderCursor}
+        scaleDegreesAroundCursor={scaleDegreesAroundCursor}
       />
       <ChordRow
         title="applied"
         chords={["V/ii", "V7/IV", "V/vi", "V7", "V/iii", "V/V"]}
         colorScheme={colorScheme}
         scaleDegreesUnderCursor={scaleDegreesUnderCursor}
+        scaleDegreesAroundCursor={scaleDegreesAroundCursor}
       />
       {/* <ChordRow
         title="dominants"

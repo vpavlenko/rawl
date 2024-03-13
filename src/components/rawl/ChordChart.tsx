@@ -5,6 +5,9 @@ import { CHORDS, Chord, ChordLegend } from "./course/ChordClouds";
 
 // TODO: position superscripts nicer:
 // https://chat.openai.com/share/42b5dd9d-73e0-426b-a704-cded9796b612
+
+// TODO: show guitar chord on hover
+// https://chat.openai.com/share/aa1a4c44-98b9-46b2-bd82-a2ffff7a714c
 const Chord: React.FC<{
   name: Chord;
   colorScheme: ColorScheme;
@@ -65,7 +68,7 @@ const ChordRow: React.FC<{
   <div
     style={{
       display: "grid",
-      gridTemplateColumns: "repeat(auto-fill, 140px)",
+      gridTemplateColumns: "repeat(auto-fill, 170px)",
       justifyContent: "space-between",
       gap: "10px",
     }}

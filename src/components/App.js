@@ -188,7 +188,7 @@ class App extends React.Component {
       currentSongSubtune: 0,
       currentSongDurationMs: 1,
       currentSongPositionMs: 0,
-      tempo: 1,
+      tempo: 1.2,
       voiceMask: Array(MAX_VOICES).fill(true),
       voiceNames: Array(MAX_VOICES).fill(""),
       imageUrl: null,

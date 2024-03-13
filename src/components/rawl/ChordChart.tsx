@@ -271,7 +271,6 @@ const Chord: React.FC<{
   scaleDegreesUnderCursor: Set<PitchClass>;
   scaleDegreesAroundCursor: Set<PitchClass>;
   hovered: boolean;
-  setHovered: Dispatch<SetStateAction<boolean>>;
 }> = ({
   name,
   colorScheme,
@@ -279,7 +278,6 @@ const Chord: React.FC<{
   scaleDegreesUnderCursor,
   scaleDegreesAroundCursor,
   hovered,
-  setHovered,
 }) => {
   const isCurrentChord = CHORDS[name].every((scaleDegree) =>
     scaleDegreesUnderCursor.has(scaleDegree),
@@ -288,14 +286,6 @@ const Chord: React.FC<{
     scaleDegreesAroundCursor.has(scaleDegree),
   );
 
-  const handleMouseEnter = useCallback(() => {
-    setHovered(true);
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setHovered(false);
-  }, []);
-
   return (
     <div
       style={{
@@ -303,8 +293,6 @@ const Chord: React.FC<{
         height: 90,
         position: "relative",
       }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       <div
         style={{
@@ -364,29 +352,39 @@ const ChordRow: React.FC<{
   scaleDegreesAroundCursor,
   hovered,
   setHovered,
-}) => (
-  <div
-    style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fill, 170px)",
-      justifyContent: "space-between",
-      gap: "10px",
-    }}
-  >
-    <div>{title}</div>
-    {chords.map((chord) => (
-      <Chord
-        name={chord}
-        colorScheme={colorScheme}
-        tonic={tonic}
-        scaleDegreesUnderCursor={scaleDegreesUnderCursor}
-        scaleDegreesAroundCursor={scaleDegreesAroundCursor}
-        hovered={hovered}
-        setHovered={setHovered}
-      />
-    ))}
-  </div>
-);
+}) => {
+  const handleMouseEnter = useCallback(() => {
+    setHovered(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setHovered(false);
+  }, []);
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, 170px)",
+        justifyContent: "space-between",
+        gap: "10px",
+      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div>{title}</div>
+      {chords.map((chord) => (
+        <Chord
+          name={chord}
+          colorScheme={colorScheme}
+          tonic={tonic}
+          scaleDegreesUnderCursor={scaleDegreesUnderCursor}
+          scaleDegreesAroundCursor={scaleDegreesAroundCursor}
+          hovered={hovered}
+        />
+      ))}
+    </div>
+  );
+};
 
 const ChordChart: React.FC<{
   tonic: PitchClass;

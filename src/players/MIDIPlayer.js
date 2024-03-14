@@ -64,7 +64,7 @@ export default class MIDIPlayer extends Player {
       type: "enum",
       options: SOUNDFONTS,
       // defaultValue: SOUNDFONTS[2].items[7].value,
-      defaultValue: SOUNDFONTS[2].items[6].value,
+      defaultValue: SOUNDFONTS[2].items[0].value,
       dependsOn: {
         param: "synthengine",
         value: MIDI_ENGINE_LIBFLUIDLITE,

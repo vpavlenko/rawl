@@ -4808,6 +4808,40 @@
           "90": 2
         }
       }
+    },
+    "The Year of the Cat.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Time Passages.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -5
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
     }
   },
   "MIDI/Marvin Gaye": {
@@ -8695,7 +8729,7 @@
           }
         ],
         "comment": "",
-        "tonic": 7,
+        "tonic": 4,
         "tags": [],
         "modulations": {}
       }
@@ -8906,6 +8940,10 @@
           {
             "measure": 1,
             "diff": 0
+          },
+          {
+            "measure": 45,
+            "diff": 1
           }
         ],
         "comment": "bad measures",
@@ -9527,6 +9565,9 @@
         "modulations": {
           "4": 6,
           "8": 9,
+          "12": 6,
+          "14": 9,
+          "19": 0,
           "23": 3
         }
       }
@@ -9700,6 +9741,10 @@
           {
             "measure": 1,
             "diff": 0
+          },
+          {
+            "measure": 25,
+            "diff": 1
           }
         ],
         "comment": "",
@@ -9998,6 +10043,18 @@
           },
           {
             "measure": 21,
+            "diff": 1
+          },
+          {
+            "measure": 42,
+            "diff": 1
+          },
+          {
+            "measure": 55,
+            "diff": 1
+          },
+          {
+            "measure": 72,
             "diff": 1
           }
         ],

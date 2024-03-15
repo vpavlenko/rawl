@@ -13,7 +13,7 @@ import ChordChart from "./ChordChart";
 import { ColorScheme, useColorScheme } from "./ColorScheme";
 import { PianoLegend } from "./PianoLegend";
 import {
-  CHORD_HIGHLIGHT_ADDITIONAL_CORRECTION_MS,
+  CHORD_HIGHLIGHT_LATENCY_CORRECTION_MS,
   SecondsSpan,
   SetVoiceMask,
   secondsToX__,
@@ -871,10 +871,10 @@ export const SplitSystemLayout: React.FC<{
               (note) =>
                 note.span[0] <=
                   positionSeconds +
-                    CHORD_HIGHLIGHT_ADDITIONAL_CORRECTION_MS / 1000 &&
+                    CHORD_HIGHLIGHT_LATENCY_CORRECTION_MS / 1000 &&
                 note.span[1] >=
                   positionSeconds +
-                    CHORD_HIGHLIGHT_ADDITIONAL_CORRECTION_MS / 1000,
+                    CHORD_HIGHLIGHT_LATENCY_CORRECTION_MS / 1000,
             )
             .map(
               (note) =>
@@ -894,10 +894,10 @@ export const SplitSystemLayout: React.FC<{
               (note) =>
                 note.span[0] - 0.05 <=
                   positionSeconds +
-                    CHORD_HIGHLIGHT_ADDITIONAL_CORRECTION_MS / 1000 &&
+                    CHORD_HIGHLIGHT_LATENCY_CORRECTION_MS / 1000 &&
                 note.span[1] + 0.05 >=
                   positionSeconds +
-                    CHORD_HIGHLIGHT_ADDITIONAL_CORRECTION_MS / 1000,
+                    CHORD_HIGHLIGHT_LATENCY_CORRECTION_MS / 1000,
             )
             .map(
               (note) =>
@@ -1059,7 +1059,7 @@ export const SplitSystemLayout: React.FC<{
                 style={{
                   transition:
                     Math.abs(prevPositionSeconds.current - positionSeconds) < 1
-                      ? "left 0.1s linear"
+                      ? "left 0.4s linear"
                       : "",
                   left: secondsToX(positionSeconds),
                 }}

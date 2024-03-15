@@ -156,7 +156,7 @@ class App extends React.Component {
           Math.log2((audioCtx.baseLatency || 0.001) * audioCtx.sampleRate),
         ),
       ),
-      4096, // can set to 16384, but the cursor will lag. smooth is 2048
+      16384, // can set to 16384, but the cursor will lag. smooth is 2048
     );
     const gainNode = (this.gainNode = audioCtx.createGain());
     gainNode.gain.value = 1;
@@ -175,6 +175,15 @@ class App extends React.Component {
       audioCtx.baseLatency * audioCtx.sampleRate,
       bufferSize,
     );
+
+    let latencyCorrectionMs = parseInt(
+      localStorage.getItem("latencyCorrectionMs"),
+      10,
+    );
+    latencyCorrectionMs =
+      !isNaN(latencyCorrectionMs) && latencyCorrectionMs !== null
+        ? latencyCorrectionMs
+        : 300;
 
     this.state = {
       loading: true,
@@ -207,6 +216,7 @@ class App extends React.Component {
       parsings: {},
       analysisEnabled: false,
       analyses: defaultAnalyses,
+      latencyCorrectionMs,
     };
 
     this.initChipCore(audioCtx, playerNode, bufferSize);
@@ -1564,6 +1574,11 @@ class App extends React.Component {
     return 0;
   };
 
+  setLatencyCorrectionMs = (latencyCorrectionMs) => {
+    this.setState({ latencyCorrectionMs });
+    localStorage.setItem("latencyCorrectionMs", latencyCorrectionMs);
+  };
+
   render() {
     const currContext = this.sequencer?.getCurrContext();
     const currIdx = this.sequencer?.getCurrIdx();
@@ -1622,6 +1637,7 @@ class App extends React.Component {
                       setEnterFullScreen={(enterFullScreen) =>
                         (this.enterFullScreen = enterFullScreen)
                       }
+                      latencyCorrectionMs={this.state.latencyCorrectionMs}
                     />
                   )}
               </>
@@ -1725,6 +1741,8 @@ class App extends React.Component {
                 handleVolumeChange={this.handleVolumeChange}
                 sequencer={this.sequencer}
                 togglePause={this.togglePause}
+                latencyCorrectionMs={this.state.latencyCorrectionMs}
+                setLatencyCorrectionMs={this.setLatencyCorrectionMs}
               />
             </div>
           )}

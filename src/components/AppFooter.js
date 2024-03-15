@@ -21,6 +21,8 @@ const AppFooter = ({
   handleVolumeChange,
   sequencer,
   togglePause,
+  latencyCorrectionMs,
+  setLatencyCorrectionMs,
 }) => (
   <div className="AppFooter" style={{ height: 24 }}>
     <div className="AppFooter-main">
@@ -47,6 +49,27 @@ const AppFooter = ({
             }}
             onChange={handleTimeSliderChange}
           />
+          <button
+            onClick={() => setLatencyCorrectionMs(latencyCorrectionMs - 100)}
+          >
+            -lat
+          </button>
+          <span style={{ fontFamily: "monospace" }}>
+            {`${
+              Math.sign(latencyCorrectionMs / 1000) >= 0 ? "+" : "-"
+            }${Math.abs(latencyCorrectionMs / 1000)
+              .toFixed(2)
+              .charAt(0)}.${Math.abs(latencyCorrectionMs / 1000)
+              .toFixed(2)
+              .charAt(2)}`}
+            s
+          </span>
+          <button
+            onClick={() => setLatencyCorrectionMs(latencyCorrectionMs + 100)}
+          >
+            lat+
+          </button>
+
           <VolumeSlider
             onChange={(e) => {
               handleVolumeChange(e.target.value);

@@ -21,11 +21,7 @@ import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { LinkForSeparateTab } from "./course/Course";
 import { Note, ParsingResult } from "./parseMidi";
 
-// If not used, the playback cursor isn't exactly where the sound is.
-// Sometimes it should be adjusted for external screens.
-const LATENCY_CORRECTION_MS =
-  (localStorage && parseInt(localStorage.getItem("latency"), 10)) || 0;
-export const CHORD_HIGHLIGHT_ADDITIONAL_CORRECTION_MS = -200;
+export const CHORD_HIGHLIGHT_LATENCY_CORRECTION_MS = -200;
 
 export type SecondsSpan = [number, number];
 
@@ -89,6 +85,7 @@ const Rawl: React.FC<{
   exercise: ExerciseType | null;
   sequencer: any;
   setEnterFullScreen: any;
+  latencyCorrectionMs: number;
 }> = ({
   parsingResult,
   getCurrentPositionMs,
@@ -107,6 +104,7 @@ const Rawl: React.FC<{
   exercise,
   sequencer,
   setEnterFullScreen,
+  latencyCorrectionMs,
 }) => {
   useEffect(() => {
     document.title = `${artist.slice(5)} - ${song.slice(0, -4)} - Rawl`;
@@ -243,7 +241,7 @@ const Rawl: React.FC<{
         return;
       }
 
-      setPositionMs(getCurrentPositionMs() - LATENCY_CORRECTION_MS);
+      setPositionMs(getCurrentPositionMs() - latencyCorrectionMs);
       requestAnimationFrame(animate);
     };
 
@@ -252,7 +250,7 @@ const Rawl: React.FC<{
     return () => {
       running = false;
     };
-  }, []);
+  }, [latencyCorrectionMs]);
 
   useEffect(() => {
     const handleEscapePress = (event) => {

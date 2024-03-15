@@ -41,9 +41,22 @@ const DAW = () => {
         </li>
       </ul>
       <h3>Signal</h3>
-      <a href="https://signal-jy5a-two.vercel.app/edit" target="_blank">
-        https://signal-jy5a-two.vercel.app/edit
-      </a>
+      <ul>
+        <li>
+          <a href="https://signal-jy5a-two.vercel.app/edit" target="_blank">
+            https://signal-jy5a-two.vercel.app/edit
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/vpavlenko/signal/commits/12colors/"
+            target="_blank"
+          >
+            https://github.com/vpavlenko/signal/commits/12colors/
+          </a>{" "}
+          - anyone wants to debug WebGL-React?
+        </li>
+      </ul>
       <h3>Cubase</h3>
       Cubase has{" "}
       <a
@@ -65,6 +78,13 @@ const DAW = () => {
         target="_blank"
       >
         Promised
+      </a>
+      <h3>Studio One</h3>
+      <a
+        href="https://answers.presonus.com/45430/want-change-the-color-for-each-pitch-of-midi-note-shown-below"
+        target="_blank"
+      >
+        https://answers.presonus.com/45430/want-change-the-color-for-each-pitch-of-midi-note-shown-below
       </a>
     </div>
   );

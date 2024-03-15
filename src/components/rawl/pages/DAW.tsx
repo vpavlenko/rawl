@@ -86,6 +86,13 @@ const DAW = () => {
       >
         https://answers.presonus.com/45430/want-change-the-color-for-each-pitch-of-midi-note-shown-below
       </a>
+      <h3>Logic Pro</h3>
+      <a
+        href="https://logicpro.skydocu.com/en/preferences-project-settings-and-key-commands/project-settings/score-settings/colors-settings/"
+        target="_blank"
+      >
+        https://logicpro.skydocu.com/en/preferences-project-settings-and-key-commands/project-settings/score-settings/colors-settings/
+      </a>
     </div>
   );
 };

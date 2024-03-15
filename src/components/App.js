@@ -1519,7 +1519,13 @@ class App extends React.Component {
         },
         {
           idx: 130,
-          path: "/static/musescore_manual/You_ve_got_a_friend_in_me.mid",
+          path: "/static/musescore_manual/Alice_DJ_Better_Off_Alone.mid",
+          size: 1337,
+          type: "file",
+        },
+        {
+          idx: 131,
+          path: "/static/musescore_manual/Sviridov_Snowstorm_Waltz.mid",
           size: 1337,
           type: "file",
         },

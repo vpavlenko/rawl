@@ -1,4 +1,3 @@
-import Color from "color"
 import React, { FC, useCallback, useState } from "react"
 import { noteNameWithOctString } from "../../../common/helpers/noteNumberString"
 import {
@@ -72,7 +71,7 @@ function drawLabel(
   ctx.textAlign = "right"
   ctx.textBaseline = "middle"
   ctx.font = `12px ${font}`
-  ctx.fillStyle = color
+  ctx.fillStyle = "white"
   ctx.fillText(noteNameWithOctString(keyNum), x, height / 2)
 }
 
@@ -84,48 +83,54 @@ function drawKeys(
   theme: Theme,
   touchingKeys: number[],
 ) {
-  ctx.save()
-  ctx.translate(0, 0.5)
+  // Pitch-to-color mapping array
+  const pitchToColorMapping = [
+    "#ff0000",
+    "#820000",
+    "#ff89be",
+    "#fffd37",
+    "#00ff59",
+    "#00d5ff",
+    "#808080",
+    "#0c0cfc",
+    "#fe6412",
+    "#007000",
+    "#925601",
+    "#a000ff",
+  ]
 
-  ctx.fillStyle = theme.pianoKeyWhite
-  ctx.fillRect(0, 0, width, keyHeight * numberOfKeys)
-
+  const colors = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0] // Key color pattern (0: white, 1: black)
   const blackKeyWidth = width * 0.64
-  const blackKeyFillStyle = makeBlackKeyFillStyle(ctx, blackKeyWidth)
-  const grayDividerColor = Color(theme.dividerColor).alpha(0.3).string()
+  const blackKeyFillStyle = makeBlackKeyFillStyle(ctx, blackKeyWidth) // Original black key gradient
 
-  drawBorder(ctx, width, theme.dividerColor)
-
-  // 0: white, 1: black
-  const colors = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0]
   for (let i = 0; i < numberOfKeys; i++) {
     const isBlack = colors[i % colors.length] !== 0
-    const bordered = i % 12 === 4 || i % 12 === 11
     const y = (numberOfKeys - i - 1) * keyHeight
+
     ctx.save()
     ctx.translate(0, y)
 
-    const isSelected = touchingKeys.includes(i)
-
+    const keyColor = pitchToColorMapping[i % 12] // Select color based on pitch
     if (isBlack) {
+      // Black key: use original gradient fill and optionally add pitch color overlay/border
       drawBlackKey(
         ctx,
         blackKeyWidth,
         width,
         keyHeight,
-        isSelected ? theme.themeColor : blackKeyFillStyle,
-        grayDividerColor,
+        blackKeyFillStyle,
+        theme.dividerColor,
       )
-    } else {
-      if (isSelected) {
-        ctx.fillStyle = theme.themeColor
-        ctx.fillRect(0, 0.5, width, keyHeight)
-      }
 
-      if (bordered) {
-        drawBorder(ctx, width, theme.dividerColor)
-      }
+      // Optional: Add a colored border or overlay to indicate pitch color
+      ctx.fillStyle = keyColor
+      ctx.fillRect(0, 0, blackKeyWidth, keyHeight) // Draw border around black key
+    } else {
+      // White key: fill with pitch color
+      ctx.fillStyle = keyColor
+      ctx.fillRect(0, 0, width, keyHeight)
     }
+
     const isKeyC = i % 12 === 0
     if (isKeyC) {
       drawLabel(
@@ -139,8 +144,6 @@ function drawKeys(
     }
     ctx.restore()
   }
-
-  ctx.restore()
 }
 
 export interface PianoKeysProps {

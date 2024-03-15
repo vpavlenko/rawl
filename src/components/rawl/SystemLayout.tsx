@@ -867,6 +867,7 @@ export const SplitSystemLayout: React.FC<{
       new Set(
         notes.flatMap((notesInVoice) =>
           notesInVoice
+            .filter(({ isDrum }) => !isDrum)
             .filter(
               (note) =>
                 note.span[0] <=
@@ -890,6 +891,7 @@ export const SplitSystemLayout: React.FC<{
       new Set(
         notes.flatMap((notesInVoice) =>
           notesInVoice
+            .filter(({ isDrum }) => !isDrum)
             .filter(
               (note) =>
                 note.span[0] - 0.05 <=

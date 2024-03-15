@@ -16,77 +16,66 @@ const AppHeader: React.FC = () => {
         Tags
       </Link>
       {" • "}
-      <Link
-        className="AppHeader-title"
-        to={{ pathname: "/browse/Classical MIDI" }}
-      >
-        Classical
-      </Link>
-      {", "}
       <Link className="AppHeader-title" to={{ pathname: "/browse/Demo MIDI" }}>
-        Demo
-      </Link>
-      {", "}
-      <Link
-        className="AppHeader-title"
-        to={{ pathname: "/browse/Contemporary" }}
-      >
-        Contemp
-      </Link>
-      {", "}
-      <Link className="AppHeader-title" to={{ pathname: "/browse/Game MIDI" }}>
-        Game
-      </Link>
-      {", "}
-      <Link className="AppHeader-title" to={{ pathname: "/browse/Jazz MIDI" }}>
-        Jazz
-      </Link>
-      {", "}
-      <Link
-        className="AppHeader-title"
-        to={{ pathname: "/browse/Piano E-Competition MIDI" }}
-      >
-        Piano
-      </Link>
-      {", "}
+        d
+      </Link>{" "}
       <Link
         className="AppHeader-title"
         to={{ pathname: "/browse/Roland SMF MIDI Disks" }}
       >
-        Roland
-      </Link>
-      {", "}
+        r
+      </Link>{" "}
       <Link
         className="AppHeader-title"
-        to={{ pathname: "/browse/Sound Canvas MIDI Collection" }}
+        to={{ pathname: "/browse/Piano E-Competition MIDI" }}
       >
-        SC
-      </Link>
-      {", "}
-      <Link
-        className="AppHeader-title"
-        to={{ pathname: "/browse/Tune 1000 SMF MIDI Disks" }}
-      >
-        Tune
-      </Link>
-      {", "}
+        e
+      </Link>{" "}
       <Link
         className="AppHeader-title"
         to={{ pathname: "/browse/vgmusic.com MIDI" }}
       >
-        vg
-      </Link>
-      {", "}
+        v
+      </Link>{" "}
       <Link
         className="AppHeader-title"
         to={{ pathname: "/browse/Nintendo 64 (SoundFont MIDI)" }}
       >
-        N64
-      </Link>
-      {", "}
+        n
+      </Link>{" "}
       <Link className="AppHeader-title" to={{ pathname: "/browse/OnlyMIDIs" }}>
-        Only
-      </Link>
+        o
+      </Link>{" "}
+      <Link
+        className="AppHeader-title"
+        to={{ pathname: "/browse/Sound Canvas MIDI Collection" }}
+      >
+        s
+      </Link>{" "}
+      <Link
+        className="AppHeader-title"
+        to={{ pathname: "/browse/Tune 1000 SMF MIDI Disks" }}
+      >
+        t
+      </Link>{" "}
+      <Link
+        className="AppHeader-title"
+        to={{ pathname: "/browse/Classical MIDI" }}
+      >
+        cl
+      </Link>{" "}
+      <Link
+        className="AppHeader-title"
+        to={{ pathname: "/browse/Contemporary" }}
+      >
+        ct
+      </Link>{" "}
+      <Link className="AppHeader-title" to={{ pathname: "/browse/Game MIDI" }}>
+        g
+      </Link>{" "}
+      <Link className="AppHeader-title" to={{ pathname: "/browse/Jazz MIDI" }}>
+        j
+      </Link>{" "}
       {" • "}
       <a href="https://github.com/vpavlenko/rawl" target="_blank">
         <div className="octocat" />

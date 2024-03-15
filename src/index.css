@@ -653,6 +653,11 @@ img {
     font-size: 36px;
 }
 
+.course h4, h5, h6 {
+    font-size: 24px;
+    margin-top: 40px;
+}
+
 .course div {
     margin-bottom: 20px;
 }

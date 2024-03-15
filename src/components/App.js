@@ -47,6 +47,7 @@ import { ColorSchemeProvider } from "./rawl/ColorScheme";
 import Rawl from "./rawl/Rawl";
 import TagSearch from "./rawl/TagSearch";
 import Course from "./rawl/course/Course";
+import DAW from "./rawl/pages/DAW";
 
 const mergeAnalyses = (base, diff) => {
   const result = { ...base };
@@ -1699,6 +1700,7 @@ class App extends React.Component {
                             />
                           )}
                         />
+                        <Route path="/pages/daw" render={() => <DAW />} />
                         {browseRoute}
                       </Switch>
                     </div>

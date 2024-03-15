@@ -77,6 +77,10 @@ const AppHeader: React.FC = () => {
         j
       </Link>{" "}
       {" • "}
+      <Link className="AppHeader-title" to={{ pathname: "/pages/daw" }}>
+        DAW
+      </Link>{" "}
+      {" • "}
       <a href="https://github.com/vpavlenko/rawl" target="_blank">
         <div className="octocat" />
       </a>

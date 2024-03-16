@@ -683,52 +683,53 @@ img {
 }
 
 .noteColor_1_colors:after, .noteColor_1_shapes:after {
-    content: ''; /* Required for :after to work */
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 2px; /* Size of the dot */
-    height: 2px; /* Size of the dot */
-    background-color: white; /* Color of the dot */
-    border-radius: 50%; /* Makes the dot circular */
-    transform: translate(-50%, -50%); /* Centers the dot */
-}
-
-.noteColor_2_colors {
-    background-color: #ff89be;
-}
-
-.noteColor_3_colors {
-    background-color: #fffd37;
+    width: 2px;
+    height: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .noteColor_4_colors {
-    background-color: #00ff59;
-    box-shadow: 0 0 3px #00ff59, 0 0 6px #00ff59;
+    background-color: #fa74ff;
 }
 
 .noteColor_5_colors {
-    background-color:  #00d5ff;
+    background-color: #fffd37;
+    box-shadow: 0 0 3px #fffd37, 0 0 6px #fffd37;
+}
+
+.noteColor_2_colors {
+    background-color: #17ff2f;
+    /* box-shadow: 0 0 3px #00ff59, 0 0 6px #00ff59; */
+}
+
+.noteColor_11_colors {
+    background-color:  #03cef7;
 }
 
 .noteColor_6_colors {
     background-color: gray;
-    box-shadow: 0 0 3px gray, 0 0 6px gray;
+    /* box-shadow: 0 0 3px gray, 0 0 6px gray; */
 }
 
 .noteColor_7_colors {
-    background-color: rgb(12, 12, 252);
-}
-
-.noteColor_8_colors {
-    background-color: #fe6412;
+    background-color: rgb(0, 0, 230);
 }
 
 .noteColor_9_colors {
+    background-color: #fe6412;
+}
+
+.noteColor_10_colors {
     background-color: #007000;
 }
 
-.noteColor_9_colors:after, .noteColor_5_colors:after, .noteColor_8_colors:after {
+.noteColor_10_colors:after, .noteColor_3_colors:after, .noteColor_8_colors:after {
     content: '';
     position: absolute;
     top: 50%;
@@ -739,14 +740,14 @@ img {
     transform: translate(-50%, -50%);
 }
 
-.noteColor_10_colors {
+.noteColor_8_colors {
     background-color: #925601;
-    box-shadow: 0 0 3px #925601, 0 0 6px #925601;
+    /* box-shadow: 0 0 3px #925601, 0 0 6px #925601; */
 }
 
-.noteColor_11_colors {
+.noteColor_3_colors {
     background-color: #a000ff;
-    box-shadow: 0 0 3px #a000ff, 0 0 6px #a000ff;
+    /* box-shadow: 0 0 3px #a000ff, 0 0 6px #a000ff; */
 }
 
 .noteColor_0_shapes {

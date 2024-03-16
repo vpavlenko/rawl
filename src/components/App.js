@@ -1529,6 +1529,54 @@ class App extends React.Component {
           size: 1337,
           type: "file",
         },
+        {
+          idx: 132,
+          path: "/static/musescore_manual/Flight_Facilities_Crave_You.mid",
+          size: 1337,
+          type: "file",
+        },
+        {
+          idx: 133,
+          path: "/static/musescore_manual/Flight_Facilities_Crave_You_2.mid",
+          size: 1337,
+          type: "file",
+        },
+        {
+          idx: 134,
+          path: "/static/musescore_manual/Morphine_Cure_for_Pain.mid",
+          size: 1337,
+          type: "file",
+        },
+        {
+          idx: 135,
+          path: "/static/musescore_manual/The_Strokes_Reptilia.mid",
+          size: 1337,
+          type: "file",
+        },
+        {
+          idx: 136,
+          path: "/static/musescore_manual/The_Strokes_Reptilia_2.mid",
+          size: 1337,
+          type: "file",
+        },
+        {
+          idx: 137,
+          path: "/static/musescore_manual/The_Strokes_Reptilia_3.mid",
+          size: 1337,
+          type: "file",
+        },
+        {
+          idx: 138,
+          path: "/static/musescore_manual/Walking_On_a_dream.mid",
+          size: 1337,
+          type: "file",
+        },
+        {
+          idx: 139,
+          path: "/static/musescore_manual/You_and_whose_army.mid",
+          size: 1337,
+          type: "file",
+        },
       ];
       return this.processFetchedDirectory(path, items);
     } else {

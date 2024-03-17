@@ -4764,10 +4764,14 @@
           {
             "measure": 51,
             "diff": -2
+          },
+          {
+            "measure": 5,
+            "diff": -3
           }
         ],
         "comment": "",
-        "tonic": 11,
+        "tonic": 2,
         "tags": [],
         "modulations": {
           "23": 2,
@@ -5955,6 +5959,26 @@
           {
             "measure": 29,
             "diff": 1
+          },
+          {
+            "measure": 21,
+            "diff": 2
+          },
+          {
+            "measure": 17,
+            "diff": 2
+          },
+          {
+            "measure": 25,
+            "diff": -2
+          },
+          {
+            "measure": 27,
+            "diff": 3
+          },
+          {
+            "measure": 35,
+            "diff": -1
           }
         ],
         "comment": "",
@@ -8111,6 +8135,153 @@
           "231": 7
         }
       }
+    },
+    "Time.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          }
+        ],
+        "comment": "",
+        "tonic": 6,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Breathe.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Wish You Were Here.6.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "The Great Gig in the Sky.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {
+          "71": 11,
+          "79": 10
+        }
+      }
+    },
+    "Wish You Were Here.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Brain Damage.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Comfortably Numb.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Wish You Were Here.2.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 22,
+            "diff": -1
+          },
+          {
+            "measure": 45,
+            "diff": 1
+          },
+          {
+            "measure": 66,
+            "diff": -2
+          },
+          {
+            "measure": 14,
+            "diff": -2
+          },
+          {
+            "measure": 19,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 7,
+        "tags": [],
+        "modulations": {}
+      }
     }
   },
   "MIDI/B.B. King": {
@@ -8457,6 +8628,10 @@
           {
             "measure": 5,
             "diff": -3
+          },
+          {
+            "measure": 34,
+            "diff": 1
           }
         ],
         "comment": "",
@@ -8949,7 +9124,16 @@
         "comment": "bad measures",
         "tonic": 0,
         "tags": [],
-        "modulations": {}
+        "modulations": {
+          "13": 9,
+          "17": 0,
+          "29": 9,
+          "33": 0,
+          "50": 9,
+          "54": 0,
+          "58": 9,
+          "62": 0
+        }
       }
     },
     "Pink_Panther.mid": {
@@ -9364,6 +9548,7 @@
         "tags": [],
         "modulations": {
           "18": 9,
+          "34": 9,
           "66": 0,
           "74": 9
         }
@@ -9666,7 +9851,9 @@
         "modulations": {
           "47": 5,
           "53": 0,
-          "58": 9
+          "58": 9,
+          "95": 10,
+          "98": 9
         }
       }
     },
@@ -9699,7 +9886,7 @@
           }
         ],
         "comment": "",
-        "tonic": 0,
+        "tonic": 9,
         "tags": [],
         "modulations": {}
       }
@@ -10142,7 +10329,12 @@
         "comment": "",
         "tonic": 5,
         "tags": [],
-        "modulations": {}
+        "modulations": {
+          "19": 9,
+          "23": 5,
+          "32": 9,
+          "36": 5
+        }
       }
     },
     "Chris_Isaak_Wicked_Game.mid": {
@@ -10364,7 +10556,7 @@
           }
         ],
         "comment": "",
-        "tonic": 10,
+        "tonic": 5,
         "tags": [],
         "modulations": {}
       }
@@ -10601,6 +10793,152 @@
         ],
         "comment": "",
         "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Flight_Facilities_Crave_You.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "The_Strokes_Reptilia.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Alice_DJ_Better_Off_Alone.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 8,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Morphine_Cure_for_Pain.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 3,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "The_Strokes_Reptilia_2.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Sviridov_Snowstorm_Waltz.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "tags": [],
+        "modulations": {
+          "53": 7,
+          "77": 11,
+          "117": 2,
+          "153": 11,
+          "205": 7,
+          "229": 11
+        }
+      }
+    },
+    "Flight_Facilities_Crave_You_2.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 1,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "The_Strokes_Reptilia_3.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Walking_On_a_dream.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 8,
         "tags": [],
         "modulations": {}
       }
@@ -10932,6 +11270,21 @@
         "tags": [],
         "modulations": {}
       }
+    },
+    "Airbag.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {}
+      }
     }
   },
   "MIDI/Morton Jelly Roll": {
@@ -10946,6 +11299,377 @@
         ],
         "comment": "",
         "tonic": 10,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "Game MIDI/Zombie Wars (Windows, 1996)": {
+    "1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          }
+        ],
+        "comment": "tetratonic",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {
+          "18": 7
+        }
+      }
+    },
+    "3.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "modulations": {
+          "43": 6,
+          "55": 9
+        },
+        "tags": [
+          "scale:natural_minor"
+        ]
+      }
+    },
+    "2.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "modulations": {
+          "19": 3,
+          "35": 2,
+          "43": 3,
+          "59": 2
+        },
+        "tags": [
+          "scale:blues"
+        ]
+      }
+    },
+    "4.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {
+          "19": 4,
+          "23": 3
+        }
+      }
+    }
+  },
+  "Jazz MIDI": {
+    "4brosrvg.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 3
+          }
+        ],
+        "comment": "",
+        "tonic": 8,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "2ndtime.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 58,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "tags": [],
+        "modulations": {
+          "1": 0,
+          "2": 0,
+          "10": 3,
+          "18": 0,
+          "26": 3,
+          "34": 0,
+          "42": 3,
+          "50": 0
+        }
+      }
+    }
+  },
+  "Game MIDI/ZADOR (Mac, 2001)": {
+    "musik2.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 3,
+        "modulations": {},
+        "tags": [
+          "scale:pentatonic"
+        ]
+      }
+    },
+    "musik1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 3,
+        "modulations": {},
+        "tags": [
+          "scale:pentatonic"
+        ]
+      }
+    }
+  },
+  "Game MIDI/3D Santa Quest (Mobile, 2003)": {
+    "level1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "Jingle Bells",
+        "tonic": 0,
+        "modulations": {},
+        "tags": [
+          "harmony:pure_I-IV-V",
+          "scale:pentatonic",
+          "form:rock_solo"
+        ]
+      }
+    }
+  },
+  "Game MIDI/3D Setback aka pitch (Mac, 1999)": {
+    "Shubert-Liszt DIE FORELLE.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 1,
+        "modulations": {},
+        "tags": [
+          "harmony:pure_I-IV-V"
+        ]
+      }
+    },
+    "Shubert - SK.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "Schubert neo-riemannian",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Red Hot Chili Peppers": {
+    "Under The Bridge.1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 18,
+            "diff": 2
+          },
+          {
+            "measure": 28,
+            "diff": 2
+          },
+          {
+            "measure": 50,
+            "diff": 2
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [
+          "chunks:III-IV"
+        ],
+        "modulations": {
+          "10": 4
+        }
+      }
+    },
+    "Under The Bridge.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "Contemporary/asikwus": {
+    "Clavinet Glory.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 10,
+        "tags": [],
+        "modulations": {
+          "30": 8
+        }
+      }
+    }
+  },
+  "Game MIDI/Airline Tycoon (Windows, 1998)": {
+    "01-title.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Al Wilson": {
+    "Show and Tell.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 14,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 2,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/King Crimson": {
+    "21st Century Schizoid Man.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "Game MIDI/3D Hearts Deluxe (Mac, 1998)": {
+    "Satie-Gnoss.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {
+          "55": 7
+        }
+      }
+    },
+    "Spades Opening Music.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
         "tags": [],
         "modulations": {}
       }

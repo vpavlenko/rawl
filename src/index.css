@@ -675,6 +675,7 @@ img {
 
 .noteColor_2_colors {
     background-color: red;
+    box-shadow: 0 0 3px red, 0 0 6px red;
 }
 
 .noteColor_1_colors {
@@ -736,7 +737,7 @@ img {
 }
 
 .noteColor_10_colors {
-    background-color: #fe6412;
+    background-color: #ff7328;
 }
 
 .noteColor_3_colors {

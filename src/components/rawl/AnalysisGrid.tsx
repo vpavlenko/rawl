@@ -9,7 +9,8 @@ import {
 import { Analysis, PitchClass } from "./analysis";
 
 export const STACKED_RN_HEIGHT = 20;
-const MIN_WIDTH_BETWEEN_BARS = 25;
+const MIN_WIDTH_BETWEEN_BEATS = 17;
+const MIN_WIDTH_BETWEEN_MEASURES = 25;
 
 const VerticalBar = styled.div`
   width: 1px;
@@ -273,11 +274,11 @@ export const AnalysisGrid: React.FC<{
         beats.length >= 3 &&
         secondsToX(beatsInThirdMeasure[1]) -
           secondsToX(beatsInThirdMeasure[0]) >=
-          MIN_WIDTH_BETWEEN_BARS;
+          MIN_WIDTH_BETWEEN_BEATS;
       showAllMeasureBars =
         showBeats ||
         secondsToX(measures[2]) - secondsToX(measures[1]) >=
-          MIN_WIDTH_BETWEEN_BARS;
+          MIN_WIDTH_BETWEEN_MEASURES;
     }
 
     return (

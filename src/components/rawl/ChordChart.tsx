@@ -377,8 +377,9 @@ const ChordRow: React.FC<{
       }}
     >
       <div>{title}</div>
-      {chords.map((chord) => (
+      {chords.map((chord, index) => (
         <Chord
+          key={index}
           name={chord}
           colorScheme={colorScheme}
           tonic={tonic}
@@ -422,8 +423,9 @@ const ChordChart: React.FC<{
   }, []);
   return (
     <div style={{ position: "fixed", left: 2, marginTop: 40, width: "100vw" }}>
-      {CHORD_SETS.map(({ title, chords }) => (
+      {CHORD_SETS.map(({ title, chords }, index) => (
         <ChordRow
+          key={index}
           title={title}
           chords={chords}
           colorScheme={colorScheme}

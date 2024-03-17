@@ -49,6 +49,16 @@ function BrowseList({ items, ...props }) {
         });
       }
     }
+
+    const link = params.get("link");
+    if (link) {
+      handleSongClick(
+        `https://corsproxy.io/?${atob(link)}`,
+        playContext,
+      )({
+        preventDefault: () => {},
+      });
+    }
   }, [items.length, location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Scroll Into View

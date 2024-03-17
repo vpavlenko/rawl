@@ -139,7 +139,9 @@ export default class Sequencer extends EventEmitter {
     }
 
     // Find a player that can play this filetype
-    const ext = url.split(".").pop().toLowerCase();
+    const ext = url.includes("score.mid")
+      ? "mid"
+      : url.split(".").pop().toLowerCase();
     for (let i = 0; i < this.players.length; i++) {
       if (this.players[i].canPlay(ext)) {
         this.player = this.players[i];

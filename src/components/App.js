@@ -1668,7 +1668,7 @@ class App extends React.Component {
                   analyses={this.state.analyses}
                   sequencer={this.sequencer}
                 />
-                {searchParams.get("song") &&
+                {(searchParams.get("song") || searchParams.get("link")) &&
                   this.state.parsings[browsePath] && (
                     <Rawl
                       parsingResult={this.state.parsings[browsePath]}

@@ -831,7 +831,8 @@ img {
 
 .noteColor_7_colors {
     background-color: rgb(113, 113, 113);
-    /* box-shadow: 0 0 3px gray, 0 0 6px gray; */
+    -webkit-box-shadow: 0 0 3px rgb(113, 113, 113), 0 0 6px rgb(113, 113, 113);
+            box-shadow: 0 0 3px rgb(113, 113, 113), 0 0 6px rgb(113, 113, 113);
 }
 
 .noteColor_8_colors {
@@ -971,4 +972,4 @@ img {
 }
 
 
-/*# sourceMappingURL=main.3a9556e5.css.map*/
+/*# sourceMappingURL=main.2463f798.css.map*/

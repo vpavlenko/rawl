@@ -9,9 +9,12 @@ export type TagSpan = {
   voices?: number[];
 };
 
+export type Modulations = { [oneIndexedMeasureStart: number]: PitchClass };
+
+// TODO: refactor to move tonic into modulations[0]
 export type Analysis = {
   tonic: PitchClass | null;
-  modulations: { [oneIndexedMeasureStart: number]: PitchClass };
+  modulations: Modulations;
   comment: string;
   tags: string[];
   form: { [oneIndexedMeasureStart: number]: string };
@@ -35,6 +38,28 @@ export const ANALYSIS_STUB: Analysis = {
   phrasePatch: [],
 };
 
+const removeIdleModulations = (
+  tonic: PitchClass,
+  modulations: Modulations,
+): Modulations => {
+  const result: Modulations = {};
+  let lastValue = tonic;
+
+  const sortedMeasures = Object.keys(modulations)
+    .map(Number)
+    .sort((a, b) => a - b);
+
+  for (const measure of sortedMeasures) {
+    const currentValue = modulations[measure];
+    if (currentValue !== lastValue) {
+      result[measure] = currentValue;
+      lastValue = currentValue;
+    }
+  }
+
+  return result;
+};
+
 export const getNewAnalysis = (
   note: Note | null,
   selectedMeasure: number | null,
@@ -46,10 +71,14 @@ export const getNewAnalysis = (
   if (selectedMeasure !== null) {
     if (altKey) {
       if (note) {
-        update.modulations = { ...(analysis.modulations || []) };
-        update.modulations[selectedMeasure] = (note.note.midiNumber %
-          12) as PitchClass;
-        // TODO: if the next modulation is the same pitch class, we should remove the next one
+        let newModulations = {
+          ...(analysis.modulations || []),
+          [selectedMeasure]: (note.note.midiNumber % 12) as PitchClass,
+        };
+        update.modulations = removeIdleModulations(
+          analysis.tonic,
+          newModulations,
+        );
       }
     }
   } else {

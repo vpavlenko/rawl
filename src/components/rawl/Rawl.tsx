@@ -202,21 +202,16 @@ const Rawl: React.FC<{
     setAnalysis({ ...analysis, ...diff });
   }, [allNotes]);
 
-  const handleNoteClick = useCallback(
-    showAnalysisBox
-      ? (note: Note, altKey: boolean) => {
-          advanceAnalysis(
-            note,
-            selectedMeasureRef.current,
-            setSelectedMeasure,
-            analysisRef.current,
-            commitAnalysisUpdate,
-            altKey,
-          );
-        }
-      : null,
-    [showAnalysisBox],
-  );
+  const handleNoteClick = useCallback((note: Note, altKey: boolean) => {
+    advanceAnalysis(
+      note,
+      selectedMeasureRef.current,
+      setSelectedMeasure,
+      analysisRef.current,
+      commitAnalysisUpdate,
+      altKey,
+    );
+  }, []);
 
   const [positionMs, setPositionMs] = useState(0);
 

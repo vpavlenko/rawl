@@ -90,7 +90,7 @@ function BrowseList({ items, ...props }) {
             : {}
         }
       >
-        {items.map((item) => {
+        {items.map((item, index) => {
           // XXX: Escape immediately: the escaped URL is considered canonical.
           //      The URL must be decoded for display from here on out.
           const path =
@@ -116,7 +116,7 @@ function BrowseList({ items, ...props }) {
           if (item.type === "directory") {
             return (
               <div
-                key={name}
+                key={index}
                 className={
                   "BrowseList-row" +
                   (items.length > 4 ? " BrowseList-row-mainPage" : "")
@@ -139,7 +139,7 @@ function BrowseList({ items, ...props }) {
             const href = CATALOG_PREFIX + path;
             return (
               <div
-                key={name}
+                key={index}
                 className={
                   (isPlaying
                     ? "Song-now-playing BrowseList-row"

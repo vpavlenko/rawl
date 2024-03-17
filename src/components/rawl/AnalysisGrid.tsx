@@ -271,14 +271,21 @@ export const AnalysisGrid: React.FC<{
       getModulations(analysis).map(({ measure, tonic }) => [measure, tonic]),
     );
 
-    const showBeats =
-      beats.length >= 3 &&
-      secondsToX(beats[2]) - secondsToX(beats[1]) >= MIN_WIDTH_BETWEEN_BARS;
-    const showAllMeasureBars =
-      showBeats ||
-      (measures.length >= 3 &&
+    let showBeats = true;
+    let showAllMeasureBars = true;
+
+    if (measures.length >= 3) {
+      const beatsInThirdMeasure = beats.filter((beat) => beat > measures[2]);
+      showBeats =
+        beats.length >= 3 &&
+        secondsToX(beatsInThirdMeasure[1]) -
+          secondsToX(beatsInThirdMeasure[0]) >=
+          MIN_WIDTH_BETWEEN_BARS;
+      showAllMeasureBars =
+        showBeats ||
         secondsToX(measures[2]) - secondsToX(measures[1]) >=
-          MIN_WIDTH_BETWEEN_BARS);
+          MIN_WIDTH_BETWEEN_BARS;
+    }
 
     return (
       <div style={{ zIndex: 15 }}>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { ColorScheme, useColorScheme } from "./ColorScheme";
 import { PitchClass } from "./analysis";
 import { CHORDS, Chord, ChordLegend } from "./course/ChordClouds";
@@ -262,8 +262,8 @@ const ROMAN_NUMERAL_TO_CHORD = {
 // TODO: position superscripts nicer:
 // https://chat.openai.com/share/42b5dd9d-73e0-426b-a704-cded9796b612
 
-// TODO: show guitar chord on hover
-// https://chat.openai.com/share/aa1a4c44-98b9-46b2-bd82-a2ffff7a714c
+type MouseEventHanlder = (event: React.MouseEvent<HTMLDivElement>) => void;
+
 const Chord: React.FC<{
   name: Chord;
   colorScheme: ColorScheme;
@@ -271,6 +271,8 @@ const Chord: React.FC<{
   scaleDegreesUnderCursor: Set<PitchClass>;
   scaleDegreesAroundCursor: Set<PitchClass>;
   hovered: boolean;
+  handleMouseEnter: MouseEventHanlder;
+  handleMouseLeave: MouseEventHanlder;
 }> = ({
   name,
   colorScheme,
@@ -278,6 +280,8 @@ const Chord: React.FC<{
   scaleDegreesUnderCursor,
   scaleDegreesAroundCursor,
   hovered,
+  handleMouseEnter,
+  handleMouseLeave,
 }) => {
   // Disable for now since position is accurate to sampleRate, which as 16384
   // is too coarse for a reasonable result.
@@ -325,6 +329,8 @@ const Chord: React.FC<{
           backgroundColor: isCurrentChord ? "white" : "transparent",
           color: isCurrentChord ? "black" : "white",
         }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         {hovered
           ? ROMAN_NUMERAL_TO_CHORD[tonic][name]
@@ -348,7 +354,8 @@ const ChordRow: React.FC<{
   scaleDegreesUnderCursor: Set<PitchClass>;
   scaleDegreesAroundCursor: Set<PitchClass>;
   hovered: boolean;
-  setHovered: Dispatch<SetStateAction<boolean>>;
+  handleMouseEnter: MouseEventHanlder;
+  handleMouseLeave: MouseEventHanlder;
 }> = ({
   title,
   chords,
@@ -357,15 +364,9 @@ const ChordRow: React.FC<{
   scaleDegreesUnderCursor,
   scaleDegreesAroundCursor,
   hovered,
-  setHovered,
+  handleMouseEnter,
+  handleMouseLeave,
 }) => {
-  const handleMouseEnter = useCallback(() => {
-    setHovered(true);
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setHovered(false);
-  }, []);
   return (
     <div
       style={{
@@ -374,8 +375,6 @@ const ChordRow: React.FC<{
         justifyContent: "space-between",
         gap: "10px",
       }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       <div>{title}</div>
       {chords.map((chord) => (
@@ -386,11 +385,24 @@ const ChordRow: React.FC<{
           scaleDegreesUnderCursor={scaleDegreesUnderCursor}
           scaleDegreesAroundCursor={scaleDegreesAroundCursor}
           hovered={hovered}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseLeave={handleMouseLeave}
         />
       ))}
     </div>
   );
 };
+
+type ChordSet = { title: string; chords: Chord[] };
+
+const CHORD_SETS: ChordSet[] = [
+  {
+    title: "minor key",
+    chords: ["iv", "bVI", "i", "bIII", "v", "bVII"],
+  },
+  { title: "major key", chords: ["ii", "IV", "vi", "I", "iii", "V"] },
+  { title: "applied", chords: ["V/ii", "V7/IV", "V/vi", "V7", "V/iii", "V/V"] },
+];
 
 const ChordChart: React.FC<{
   tonic: PitchClass;
@@ -399,38 +411,27 @@ const ChordChart: React.FC<{
 }> = ({ tonic, scaleDegreesUnderCursor, scaleDegreesAroundCursor }) => {
   const { colorScheme } = useColorScheme();
   const [hovered, setHovered] = useState<boolean>(false);
+  const handleMouseEnter = useCallback(() => {
+    setHovered(true);
+  }, []);
+  const handleMouseLeave = useCallback(() => {
+    setHovered(false);
+  }, []);
   return (
     <div style={{ position: "fixed", left: 2, marginTop: 40, width: "100vw" }}>
-      <ChordRow
-        title="minor key"
-        chords={["iv", "bVI", "i", "bIII", "v", "bVII"]}
-        colorScheme={colorScheme}
-        tonic={tonic}
-        scaleDegreesUnderCursor={scaleDegreesUnderCursor}
-        scaleDegreesAroundCursor={scaleDegreesAroundCursor}
-        hovered={hovered}
-        setHovered={setHovered}
-      />
-      <ChordRow
-        title="major key"
-        chords={["ii", "IV", "vi", "I", "iii", "V"]}
-        colorScheme={colorScheme}
-        tonic={tonic}
-        scaleDegreesUnderCursor={scaleDegreesUnderCursor}
-        scaleDegreesAroundCursor={scaleDegreesAroundCursor}
-        hovered={hovered}
-        setHovered={setHovered}
-      />
-      <ChordRow
-        title="applied"
-        chords={["V/ii", "V7/IV", "V/vi", "V7", "V/iii", "V/V"]}
-        colorScheme={colorScheme}
-        tonic={tonic}
-        scaleDegreesUnderCursor={scaleDegreesUnderCursor}
-        scaleDegreesAroundCursor={scaleDegreesAroundCursor}
-        hovered={hovered}
-        setHovered={setHovered}
-      />
+      {CHORD_SETS.map(({ title, chords }) => (
+        <ChordRow
+          title={title}
+          chords={chords}
+          colorScheme={colorScheme}
+          tonic={tonic}
+          scaleDegreesUnderCursor={scaleDegreesUnderCursor}
+          scaleDegreesAroundCursor={scaleDegreesAroundCursor}
+          hovered={hovered}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseLeave={handleMouseLeave}
+        />
+      ))}
       {/* <ChordRow
         title="dominants"
         chords={["V7", "Vsus4", "V+", "bII"]}

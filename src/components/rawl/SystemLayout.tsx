@@ -971,7 +971,7 @@ export const SplitSystemLayout: React.FC<{
     };
   }, []);
 
-  const [noteHeight, setNoteHeight] = useLocalStorage("noteHeight", 3);
+  const [noteHeight, setNoteHeight] = useLocalStorage("noteHeight", 7);
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
   const [secondWidth, setSecondWidth] = useLocalStorage("secondWidth", 40);
   const debounceSetSecondWidth = useCallback(debounce(setSecondWidth, 50), []);

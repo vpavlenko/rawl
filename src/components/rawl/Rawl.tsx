@@ -455,7 +455,6 @@ const Rawl: React.FC<{
         </div>
         <TagBrowser tags={analysis.tags} />
       </div>
-      <div></div>
     </div>
   );
 };

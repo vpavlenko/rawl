@@ -77,7 +77,8 @@ export const getSecondsMeasure = (
   if (!measures) {
     return -1;
   }
-  return measures.findIndex((time) => time >= seconds) - 1;
+  const result = measures.findIndex((time) => time >= seconds);
+  return (result === -1 ? measures.length - 1 : result) - 1;
 };
 
 const getNoteMeasure = (note: Note, measures: number[] | null): number =>
@@ -1000,8 +1001,8 @@ export const SplitSystemLayout: React.FC<{
       <div
         style={{
           position: "fixed",
-          bottom: 130,
-          right: -45,
+          bottom: 322,
+          right: -141,
           zIndex: 10000,
         }}
       >
@@ -1014,15 +1015,15 @@ export const SplitSystemLayout: React.FC<{
           style={{
             transform: "rotate(90deg)",
             transformOrigin: "bottom left",
-            width: 80,
+            width: 240,
           }}
         />
       </div>
       <div
         style={{
           position: "fixed",
-          bottom: 30,
-          right: 40,
+          bottom: 80,
+          right: 107,
           zIndex: 10000,
         }}
       >
@@ -1033,7 +1034,7 @@ export const SplitSystemLayout: React.FC<{
           value={secondWidth}
           onChange={(e) => debounceSetSecondWidth(parseInt(e.target.value, 10))}
           style={{
-            width: 80,
+            width: 240,
           }}
         />
       </div>
@@ -1081,7 +1082,7 @@ export const SplitSystemLayout: React.FC<{
 
       <div
         key="piano-legend"
-        style={{ position: "fixed", bottom: 50, right: 50, zIndex: 30 }}
+        style={{ position: "fixed", bottom: 100, right: 100, zIndex: 30 }}
       >
         <PianoLegend />
       </div>

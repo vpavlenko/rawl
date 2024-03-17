@@ -34,7 +34,6 @@ const BeatBar = styled(VerticalBar)`
 `;
 
 export type MeasureSelection = {
-  previouslySelectedMeasure: number;
   selectedMeasure: number;
   selectMeasure: (number) => void;
 };
@@ -77,8 +76,7 @@ const Measure: React.FC<{
   showNonPhraseStarts,
   tonicStart,
 }) => {
-  const { previouslySelectedMeasure, selectedMeasure, selectMeasure } =
-    measureSelection;
+  const { selectedMeasure, selectMeasure } = measureSelection;
 
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
@@ -119,12 +117,7 @@ const Measure: React.FC<{
                   position: "absolute",
                   top: 0,
                   left: left + 7,
-                  color:
-                    selectedMeasure === number
-                      ? "red"
-                      : previouslySelectedMeasure === number
-                      ? "green"
-                      : "white",
+                  color: selectedMeasure === number ? "red" : "white",
                   zIndex: 15,
                   cursor: "pointer",
                   userSelect: "none",

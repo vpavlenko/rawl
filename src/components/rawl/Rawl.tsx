@@ -142,22 +142,9 @@ const Rawl: React.FC<{
     [analysis, saveAnalysis],
   );
 
-  // The next two variables store a span of selected measures.
-  // TODO: refactor via renaming "selectedMeasureStart" and "selectedMeasureEnd", if ever used
-  const [previouslySelectedMeasure, setPreviouslySelectedMeasure] = useState<
-    number | null
-  >(null);
   const [selectedMeasure, setSelectedMeasure] = useState<number | null>(null);
   const selectMeasure = useCallback(
-    (measure) => {
-      if (measure === null) {
-        setPreviouslySelectedMeasure(null);
-        setSelectedMeasure(null);
-      } else {
-        setPreviouslySelectedMeasure(selectedMeasure);
-        setSelectedMeasure(measure);
-      }
-    },
+    (measure) => setSelectedMeasure(measure),
     [selectedMeasure],
   );
 
@@ -301,11 +288,10 @@ const Rawl: React.FC<{
 
   const measureSelection: MeasureSelection = useMemo(
     () => ({
-      previouslySelectedMeasure,
       selectedMeasure,
       selectMeasure,
     }),
-    [previouslySelectedMeasure, selectedMeasure, selectMeasure],
+    [selectedMeasure, selectMeasure],
   );
 
   const commonParams = useMemo(
@@ -379,7 +365,6 @@ const Rawl: React.FC<{
           <AnalysisBox
             analysis={analysis}
             commitAnalysisUpdate={commitAnalysisUpdate}
-            previouslySelectedMeasure={previouslySelectedMeasure}
             selectedMeasure={selectedMeasure}
             selectMeasure={selectMeasure}
             artist={artist}

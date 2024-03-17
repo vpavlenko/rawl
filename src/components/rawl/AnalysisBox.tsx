@@ -231,7 +231,6 @@ const FORM_SECTIONS = ["intro", "verse", "chorus", "bridge", "outro", "solo"];
 export const AnalysisBox: React.FC<{
   analysis: Analysis;
   commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void;
-  previouslySelectedMeasure: number;
   selectedMeasure: number;
   selectMeasure: (measure: number | null) => void;
   artist: string;
@@ -240,7 +239,6 @@ export const AnalysisBox: React.FC<{
   ({
     analysis,
     commitAnalysisUpdate,
-    previouslySelectedMeasure,
     selectedMeasure,
     selectMeasure,
     artist,

@@ -1001,8 +1001,8 @@ export const SplitSystemLayout: React.FC<{
       <div
         style={{
           position: "fixed",
-          bottom: 322,
-          right: -141,
+          bottom: 243,
+          right: -59,
           zIndex: 10000,
         }}
       >
@@ -1015,7 +1015,7 @@ export const SplitSystemLayout: React.FC<{
           style={{
             transform: "rotate(90deg)",
             transformOrigin: "bottom left",
-            width: 240,
+            width: 160,
           }}
         />
       </div>

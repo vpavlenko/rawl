@@ -279,12 +279,18 @@ const Chord: React.FC<{
   scaleDegreesAroundCursor,
   hovered,
 }) => {
-  const isCurrentChord = CHORDS[name].every((scaleDegree) =>
-    scaleDegreesUnderCursor.has(scaleDegree),
-  );
-  const isArpeggiatedCurrentChord = CHORDS[name].every((scaleDegree) =>
-    scaleDegreesAroundCursor.has(scaleDegree),
-  );
+  // Disable for now since position is accurate to sampleRate, which as 16384
+  // is too coarse for a reasonable result.
+  const isCurrentChord =
+    false &&
+    CHORDS[name].every((scaleDegree) =>
+      scaleDegreesUnderCursor.has(scaleDegree),
+    );
+  const isArpeggiatedCurrentChord =
+    false &&
+    CHORDS[name].every((scaleDegree) =>
+      scaleDegreesAroundCursor.has(scaleDegree),
+    );
 
   return (
     <div

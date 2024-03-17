@@ -728,7 +728,7 @@ img {
 
 .noteColor_7_colors {
     background-color: rgb(113, 113, 113);
-    /* box-shadow: 0 0 3px gray, 0 0 6px gray; */
+    box-shadow: 0 0 3px rgb(113, 113, 113), 0 0 6px rgb(113, 113, 113);
 }
 
 .noteColor_8_colors {

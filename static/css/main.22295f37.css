@@ -772,7 +772,7 @@ img {
     background-color: white;
 }
 
-.noteColor_7_colors {
+.noteColor_2_colors {
     background-color: red;
 }
 
@@ -811,40 +811,40 @@ img {
     background-color: white;
 }
 
-.noteColor_4_colors {
+.noteColor_11_colors {
     background-color: #fffd37;
     -webkit-box-shadow: 0 0 3px #fffd37, 0 0 6px #fffd37;
             box-shadow: 0 0 3px #fffd37, 0 0 6px #fffd37;
 }
 
-.noteColor_9_colors {
+.noteColor_4_colors {
     background-color: #00fb47;
     /* box-shadow: 0 0 3px #00ff59, 0 0 6px #00ff59; */
 }
 
-.noteColor_5_colors {
-    background-color:  #03cef7;
+.noteColor_9_colors {
+    background-color:  #03b9d5;
 }
 
-.noteColor_6_colors {
-    background-color: gray;
+.noteColor_7_colors {
+    background-color: rgb(113, 113, 113);
     /* box-shadow: 0 0 3px gray, 0 0 6px gray; */
 }
 
-.noteColor_2_colors {
+.noteColor_8_colors {
     background-color: rgb(0, 0, 255);
 }
 
-.noteColor_3_colors {
+.noteColor_10_colors {
     background-color: #fe6412;
 }
 
-.noteColor_8_colors {
+.noteColor_3_colors {
     background-color: #007000;
     
 }
 
-.noteColor_11_colors {
+.noteColor_6_colors {
     background-color: #ff80bf;
 }
 
@@ -863,7 +863,7 @@ img {
     background-color: #935600;
 } */
 
-.noteColor_10_colors {
+.noteColor_5_colors {
     background-color: #a812ff;
     
     /* box-shadow: 0 0 3px #a000ff, 0 0 6px #a000ff; */
@@ -965,4 +965,4 @@ img {
 }
 
 
-/*# sourceMappingURL=main.31080aa8.css.map*/
+/*# sourceMappingURL=main.22295f37.css.map*/

@@ -683,7 +683,7 @@ img {
     box-shadow: 0 0 3px maroon, 0 0 6px maroon;
 }
 
-.noteColor_1_colors:after, .noteColor_1_shapes:after, .noteColor_6_colors:after {
+.noteColor_1_colors:after, .noteColor_1_shapes:after {
     content: '';
     position: absolute;
     top: 50%;
@@ -693,7 +693,8 @@ img {
     background-color: white;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-} 
+}
+
 
 /* .noteColor_5_colors:after {
     content: '';
@@ -728,8 +729,8 @@ img {
 }
 
 .noteColor_7_colors {
-    background-color: rgb(113, 113, 113);
-    box-shadow: 0 0 3px rgb(113, 113, 113), 0 0 6px rgb(113, 113, 113);
+    background-color: rgb(120, 120, 120);
+    box-shadow: 0 0 3px rgb(120, 120, 120), 0 0 6px rgb(120, 120, 120);
 }
 
 .noteColor_8_colors {
@@ -747,8 +748,10 @@ img {
 
 .noteColor_6_colors {
     /* background-color: #ff80bf; */
-    box-shadow: 0 0 1px white inset, 0 0 2px white inset;
+    /* box-shadow: 0 0 1px white inset, 0 0 2px white inset; */
     background-color: black;
+    /* border: 1px dotted white; */
+    box-shadow: 0 0 3px white, 0 0 6px white, 0 0 9px white;
 }
 
 /* .noteColor_10_colors:after, .noteColor_3_colors:after, .noteColor_8_colors:after {
@@ -767,7 +770,7 @@ img {
 } */
 
 .noteColor_5_colors {
-    background-color: #a812ff;
+    background-color: #df12ff;
     
     /* box-shadow: 0 0 3px #a000ff, 0 0 6px #a000ff; */
 }

@@ -835,7 +835,6 @@ export const SplitSystemLayout: React.FC<{
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
   setVoiceMask: SetVoiceMask;
-  // fullScreenHandle: any;
 }> = ({
   notes,
   voiceNames,
@@ -847,7 +846,6 @@ export const SplitSystemLayout: React.FC<{
   mouseHandlers,
   measureSelection,
   setVoiceMask,
-  // fullScreenHandle,
 }) => {
   const prevPositionSeconds = useRef<number>(0);
   useEffect(() => {
@@ -982,7 +980,6 @@ export const SplitSystemLayout: React.FC<{
   const xToSeconds = useCallback((x) => x / secondWidth, [secondWidth]);
 
   return (
-    // <FullScreen handle={fullScreenHandle} className="FullScreen">
     <div
       key="innerLeftPanel"
       style={{
@@ -1094,6 +1091,5 @@ export const SplitSystemLayout: React.FC<{
         />
       </div>
     </div>
-    // </FullScreen>
   );
 };

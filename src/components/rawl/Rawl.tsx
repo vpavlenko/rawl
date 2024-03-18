@@ -3,7 +3,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import { AnalysisBox } from "./AnalysisBox";
 import { MeasureSelection } from "./AnalysisGrid";
-import Exercise, { ExerciseType } from "./Exercise";
 import {
   MergedSystemLayout,
   MouseHandlers,
@@ -30,13 +29,6 @@ export const secondsToX__ = (seconds) => seconds * SECOND_WIDTH;
 export const xToSeconds__ = (x) => x / SECOND_WIDTH;
 
 export type SetVoiceMask = (mask: boolean[]) => void;
-
-const cleanForExercise = (savedAnalysis: Analysis, exercise: ExerciseType) => {
-  if (exercise === "tonic") {
-    return { ...savedAnalysis, tonic: null, modulations: {} };
-  }
-  return savedAnalysis;
-};
 
 const Control = styled.div`
   cursor: pointer;
@@ -78,13 +70,9 @@ const Rawl: React.FC<{
   showAnalysisBox: boolean;
   seek: (ms: number) => void;
   registerSeekCallback: (seekCallback: (ms: number) => void) => void;
-  synth: { noteOn; noteOff };
-  paused: boolean;
   artist: string;
   song: string;
-  exercise: ExerciseType | null;
   sequencer: any;
-  setEnterFullScreen: any;
   latencyCorrectionMs: number;
 }> = ({
   parsingResult,
@@ -97,13 +85,9 @@ const Rawl: React.FC<{
   showAnalysisBox,
   seek,
   registerSeekCallback,
-  synth,
-  paused,
   artist,
   song,
-  exercise,
   sequencer,
-  setEnterFullScreen,
   latencyCorrectionMs,
 }) => {
   useEffect(() => {
@@ -111,14 +95,13 @@ const Rawl: React.FC<{
   }, [artist, song]);
 
   const [analysis, setAnalysis] = useState<Analysis>(
-    (savedAnalysis && cleanForExercise(savedAnalysis, exercise)) ||
-      ANALYSIS_STUB,
+    savedAnalysis || ANALYSIS_STUB,
   );
   // useEffect(() => setAnalysis(ANALYSIS_STUB), [parsingResult]);
   useEffect(() => {
     // this can be in a race if Firebase is slow
     if (savedAnalysis) {
-      setAnalysis(cleanForExercise(savedAnalysis, exercise));
+      setAnalysis(savedAnalysis);
     }
   }, [savedAnalysis]);
 
@@ -134,9 +117,7 @@ const Rawl: React.FC<{
   const commitAnalysisUpdate = useCallback(
     (analysisUpdate: Partial<Analysis>) => {
       const updatedAnalysis = { ...analysis, ...analysisUpdate };
-      if (!exercise) {
-        saveAnalysis(updatedAnalysis);
-      }
+      saveAnalysis(updatedAnalysis);
       setAnalysis(updatedAnalysis);
     },
     [analysis, saveAnalysis],
@@ -312,12 +293,6 @@ const Rawl: React.FC<{
     ],
   );
 
-  // const fullScreenHandle = useFullScreenHandle();
-  // useEffect(() => {
-  //   setEnterFullScreen(fullScreenHandle.enter);
-  //   return () => setEnterFullScreen(() => {});
-  // }, []);
-
   return (
     <div
       style={{
@@ -351,11 +326,10 @@ const Rawl: React.FC<{
             {...commonParams}
             voiceNames={voiceNames}
             setVoiceMask={setVoiceMask}
-            // fullScreenHandle={fullScreenHandle}
           />
         )}
       </div>
-      {showAnalysisBox && !exercise && (
+      {showAnalysisBox && (
         <div style={{ width: "350px", height: "100%", zIndex: 20 }}>
           <AnalysisBox
             analysis={analysis}
@@ -367,31 +341,6 @@ const Rawl: React.FC<{
           />
         </div>
       )}
-      {exercise && (
-        <div
-          style={{
-            position: "fixed",
-            right: 280,
-            bottom: 30,
-            backgroundColor: "black",
-            width: "250px",
-            height: "120px",
-            zIndex: 10000000,
-            border: "1px solid yellow",
-            padding: "10px",
-          }}
-        >
-          <Exercise
-            artist={artist}
-            song={song}
-            type={exercise}
-            analysis={analysis}
-            savedAnalysis={savedAnalysis}
-            sequencer={sequencer}
-          />
-        </div>
-      )}
-
       <div
         style={{
           position: "fixed",
@@ -436,17 +385,6 @@ const Rawl: React.FC<{
             />
             ☰
           </label>
-          {/* {!fullScreenHandle.active && (
-            <FontAwesomeIcon
-              icon={faExpand}
-              style={{
-                cursor: "pointer",
-                position: "relative",
-                top: 2,
-              }}
-              onClick={fullScreenHandle.enter}
-            />
-          )} */}
         </div>
         <TagBrowser tags={analysis.tags} />
       </div>

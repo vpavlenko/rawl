@@ -37,7 +37,6 @@ const CHAPTERS: { title: string; component: Chapter; hasContent?: boolean }[] =
     { title: "Chords in a Minor Key", component: ChordsInMinor },
     { title: "Thickness of Voicing", component: ThicknessOfVoicing },
     { title: "Bass Lines", component: BassLines },
-    // { title: "Tonic", component: Tonic },
     { title: "Phrases", component: Phrases },
     { title: "Texture", component: Texture },
     { title: "Rhythm", component: Rhythm },

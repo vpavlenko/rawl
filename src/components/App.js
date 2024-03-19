@@ -51,6 +51,8 @@ import Narrative from "./rawl/narratives/Narrative";
 import DAW from "./rawl/pages/DAW";
 import STATIC_MIDI_FILES from "./staticMidiFilles";
 
+export const DUMMY_CALLBACK = () => {};
+
 const mergeAnalyses = (base, diff) => {
   const result = { ...base };
 
@@ -779,7 +781,15 @@ class App extends React.Component {
     localStorage.setItem("latencyCorrectionMs", latencyCorrectionMs);
   };
 
+  registerSeekCallback = (seekCallback) => this.setState({ seekCallback });
+
   render() {
+    const rawlState = {
+      voiceNames: this.state.voiceNames,
+      voiceMask: this.state.voiceMask,
+      setVoiceMask: this.handleSetVoiceMask,
+      latencyCorrectionMs: this.state.latencyCorrectionMs,
+    };
     const currContext = this.sequencer?.getCurrContext();
     const currIdx = this.sequencer?.getCurrIdx();
 
@@ -820,18 +830,12 @@ class App extends React.Component {
                       getCurrentPositionMs={this.getCurrentPositionMs}
                       savedAnalysis={savedAnalysis}
                       saveAnalysis={this.saveAnalysis}
-                      voiceNames={this.state.voiceNames}
-                      voiceMask={this.state.voiceMask}
-                      setVoiceMask={this.handleSetVoiceMask}
                       showAnalysisBox={this.state.analysisEnabled}
                       seek={(time) => this.seekRelativeInner(time, true)}
-                      registerSeekCallback={(seekCallback) =>
-                        this.setState({ seekCallback })
-                      }
+                      registerSeekCallback={this.registerSeekCallback}
                       artist={browsePath}
                       song={song}
-                      sequencer={this.sequencer}
-                      latencyCorrectionMs={this.state.latencyCorrectionMs}
+                      {...rawlState}
                     />
                   )}
               </>
@@ -897,7 +901,10 @@ class App extends React.Component {
                         <Route
                           path="/see"
                           render={() => (
-                            <Narrative analyses={this.state.analyses} />
+                            <Narrative
+                              analyses={this.state.analyses}
+                              rawlState={rawlState}
+                            />
                           )}
                         />
                         {browseRoute}

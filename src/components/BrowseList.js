@@ -4,6 +4,7 @@ import * as React from "react";
 import { memo, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { CATALOG_PREFIX } from "../config";
+import { DUMMY_CALLBACK } from "./App";
 import DirectoryLink from "./DirectoryLink";
 
 function splitOnLastSlash(str) {
@@ -45,7 +46,7 @@ function BrowseList({ items, ...props }) {
           playContext,
           item.idx,
         )({
-          preventDefault: () => {},
+          preventDefault: DUMMY_CALLBACK,
         });
       }
     }
@@ -56,7 +57,7 @@ function BrowseList({ items, ...props }) {
         `https://corsproxy.io/?${atob(link)}`,
         playContext,
       )({
-        preventDefault: () => {},
+        preventDefault: DUMMY_CALLBACK,
       });
     }
   }, [items.length, location]); // eslint-disable-line react-hooks/exhaustive-deps

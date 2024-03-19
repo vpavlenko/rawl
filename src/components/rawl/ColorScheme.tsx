@@ -6,6 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { DUMMY_CALLBACK } from "../App";
 
 export type ColorScheme = "colors" | "shapes";
 
@@ -16,7 +17,7 @@ interface ColorSchemeContextType {
 
 const defaultContextValue: ColorSchemeContextType = {
   colorScheme: "colors",
-  setColorScheme: () => {},
+  setColorScheme: DUMMY_CALLBACK,
 };
 
 const ColorSchemeContext =

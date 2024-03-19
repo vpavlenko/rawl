@@ -8,6 +8,7 @@ import {
   useState,
 } from "react";
 import { useLocalStorage } from "usehooks-ts";
+import { DUMMY_CALLBACK } from "../App";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import ChordChart from "./ChordChart";
 import { ColorScheme, useColorScheme } from "./ColorScheme";
@@ -722,7 +723,7 @@ export const Voice: React.FC<{
         measuresAndBeats.measures,
         handleNoteClick,
         handleMouseEnter,
-        () => {},
+        DUMMY_CALLBACK,
         showVelocity,
         colorScheme,
         secondsToX,

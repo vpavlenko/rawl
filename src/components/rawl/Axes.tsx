@@ -1,6 +1,7 @@
 import MidiWriter from "midi-writer-js";
 import * as React from "react";
 import styled from "styled-components";
+import { DUMMY_CALLBACK } from "../App";
 import { TAGS } from "./AnalysisBox";
 import MIDI_PREVIEWS from "./AxesMidiPreviews";
 import { PianoLegend } from "./PianoLegend";
@@ -124,23 +125,23 @@ const VOICE_PARAMS = {
   measureSelection: {
     previouslySelectedMeasure: null,
     selectedMeasure: null,
-    selectMeasure: () => {},
+    selectMeasure: DUMMY_CALLBACK,
   },
   showHeader: false,
   scrollInfo: { left: 0, top: 0 },
   scrollRight: 1000,
   voiceName: null,
-  setVoiceMask: () => {},
+  setVoiceMask: DUMMY_CALLBACK,
   voiceIndex: 0,
   voiceMask: [true],
   showTonalGrid: false,
   mouseHandlers: {
     handleNoteClick: null,
-    handleMouseEnter: () => {},
-    handleMouseLeave: () => {},
+    handleMouseEnter: DUMMY_CALLBACK,
+    handleMouseLeave: DUMMY_CALLBACK,
     hoveredNote: null,
     hoveredAltKey: false,
-    systemClickHandler: () => {},
+    systemClickHandler: DUMMY_CALLBACK,
   },
   noteHeight: 5,
   xToSeconds: xToSeconds__,

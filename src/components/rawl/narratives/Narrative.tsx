@@ -1,7 +1,11 @@
 import * as React from "react";
+import { AppStateForRawl } from "../Rawl";
 import EmbeddedRawl from "./EmbeddedRawl";
 
-const Narrative = ({ analyses }) => {
+const Narrative: React.FC<{ analyses: any; rawlState: AppStateForRawl }> = ({
+  analyses,
+  rawlState,
+}) => {
   const path =
     "/static/musescore_manual/Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid";
   return (
@@ -13,6 +17,7 @@ const Narrative = ({ analyses }) => {
         }
         analyses={analyses}
         measures={[77, 87]}
+        rawlState={rawlState}
       />
     </div>
   );

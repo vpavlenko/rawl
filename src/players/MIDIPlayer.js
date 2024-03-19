@@ -5,6 +5,7 @@ import path from "path";
 import autoBind from "auto-bind";
 import range from "lodash/range";
 import requestCache from "../RequestCache";
+import { DUMMY_CALLBACK } from "../components/App";
 import {
   SOUNDFONTS,
   SOUNDFONT_MOUNTPOINT,
@@ -23,7 +24,7 @@ import Player from "./Player";
 let core = null;
 
 const dummyMidiOutput = {
-  send: () => {},
+  send: DUMMY_CALLBACK,
 };
 
 const midiDevices = [dummyMidiOutput];

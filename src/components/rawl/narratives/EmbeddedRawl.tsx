@@ -1,7 +1,10 @@
 import MIDIFile from "midifile";
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MIDIPlayer from "../../../players/MIDIFilePlayer";
+import { DUMMY_CALLBACK } from "../../App";
+import Rawl, { AppStateForRawl } from "../Rawl";
+import { ParsingResult } from "../parseMidi";
 
 // given this midi file, we need to load its midi, parse and be ready to insert it into sequencer to play
 // the navigation for the player happens under the hood
@@ -9,68 +12,66 @@ import MIDIPlayer from "../../../players/MIDIFilePlayer";
 //     and to be independent from the playing
 // let's go through this flow for an ordinary path
 
-const fetchMidi = (url) => {
-  fetch(url)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(
-          `HTTP ${response.status} ${response.statusText} ${url}`,
-        );
-      }
-      return response.arrayBuffer();
-    })
-    .then((buffer) => {
-      const data = new Uint8Array(buffer);
-      const midiFile = new MIDIFile(data);
-      const result = new MIDIPlayer().load(midiFile);
-      debugger;
-    });
-  // .catch((e) => {
-  //     this.handlePlayerError(e.message);
-  // });
+const GET_ZERO = () => 0;
+
+const fetchMidi = async (url) => {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status} ${response.statusText} ${url}`);
+    }
+    const buffer = await response.arrayBuffer();
+    const data = new Uint8Array(buffer);
+    const midiFile = new MIDIFile(data);
+    return new MIDIPlayer().load(midiFile);
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 const EmbeddedRawl: React.FC<{
   file: string;
   analyses: any;
   measures: number[];
-}> = ({ file, analyses, measures }) => {
+  rawlState: AppStateForRawl;
+}> = ({ file, analyses, measures, rawlState }) => {
   const [browsePath, song] = file.split("?");
   const analysis = analyses[browsePath]?.[song];
-  useEffect(
-    () =>
-      fetchMidi(
-        "https://rawl.rocks/midi/musescore_manual/Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid",
-      ),
-    [],
+  const [parsingResult, setParsingResult] = useState<ParsingResult | null>(
+    null,
   );
+
+  useEffect(() => {
+    const midiUrl =
+      "https://rawl.rocks/midi/musescore_manual/Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid";
+    fetchMidi(midiUrl).then((result) => {
+      if (result) {
+        setParsingResult(result);
+      }
+    });
+  }, [file]);
+
   return (
     <div>
       <h3>Embedded Rawl</h3>
       <div>{file}</div>
       {`mm. ${measures[0]}-${measures[1]}`}
-      {/* <Rawl
-        parsingResult={this.state.parsings[browsePath]}
-        getCurrentPositionMs={this.getCurrentPositionMs}
-        savedAnalysis={savedAnalysis}
-        saveAnalysis={null}
-        voiceNames={this.state.voiceNames}
-        voiceMask={this.state.voiceMask}
-        setVoiceMask={this.handleSetVoiceMask}
-        showAnalysisBox={this.state.analysisEnabled}
-        seek={(time) => this.seekRelativeInner(time, true)}
-        registerSeekCallback={(seekCallback) => this.setState({ seekCallback })}
-        synth={this.midiPlayer.midiFilePlayer.synth}
-        paused={this.state.paused}
-        artist={browsePath}
-        song={song}
-        exercise={searchParams.get("exercise")}
-        sequencer={this.sequencer}
-        setEnterFullScreen={(enterFullScreen) =>
-          (this.enterFullScreen = enterFullScreen)
-        }
-        latencyCorrectionMs={this.state.latencyCorrectionMs}
-      /> */}
+      <div style={{ height: "400px", width: "1000px" }}>
+        {parsingResult && (
+          <Rawl
+            parsingResult={parsingResult}
+            getCurrentPositionMs={GET_ZERO}
+            savedAnalysis={analysis}
+            saveAnalysis={null}
+            showAnalysisBox={false}
+            seek={DUMMY_CALLBACK}
+            registerSeekCallback={DUMMY_CALLBACK}
+            artist={browsePath}
+            song={song}
+            {...rawlState}
+          />
+        )}
+      </div>
     </div>
   );
 };

@@ -59,6 +59,13 @@ const TagBrowser: React.FC<{ tags?: string[] }> = ({ tags }) => {
   );
 };
 
+export type AppStateForRawl = {
+  voiceNames: string[];
+  voiceMask: boolean[];
+  setVoiceMask: SetVoiceMask;
+  latencyCorrectionMs: number;
+};
+
 const Rawl: React.FC<{
   parsingResult: ParsingResult;
   getCurrentPositionMs: () => number;
@@ -72,7 +79,6 @@ const Rawl: React.FC<{
   registerSeekCallback: (seekCallback: (ms: number) => void) => void;
   artist: string;
   song: string;
-  sequencer: any;
   latencyCorrectionMs: number;
 }> = ({
   parsingResult,
@@ -87,7 +93,6 @@ const Rawl: React.FC<{
   registerSeekCallback,
   artist,
   song,
-  sequencer,
   latencyCorrectionMs,
 }) => {
   useEffect(() => {

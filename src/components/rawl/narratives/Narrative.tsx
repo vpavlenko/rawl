@@ -8,17 +8,25 @@ const Narrative: React.FC<{ analyses: any; rawlState: AppStateForRawl }> = ({
 }) => {
   return (
     <div style={{ width: "600px" }}>
-      Narrative
+      <h3>iv-i-V-i</h3>
       <EmbeddedRawl
-        song={"Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid"}
+        staticMidiFileId={38}
         analyses={analyses}
-        measures={[77, 87]}
         rawlState={rawlState}
       />
       <EmbeddedRawl
-        song={"Bella_Ciao.mid"}
+        staticMidiFileId={50}
         analyses={analyses}
-        measures={[77, 87]}
+        rawlState={rawlState}
+      />
+      <EmbeddedRawl
+        staticMidiFileId={59}
+        analyses={analyses}
+        rawlState={rawlState}
+      />
+      <EmbeddedRawl
+        staticMidiFileId={140}
+        analyses={analyses}
         rawlState={rawlState}
       />
     </div>

@@ -66,6 +66,8 @@ export type AppStateForRawl = {
   latencyCorrectionMs: number;
 };
 
+export type ChordChartLayout = "hidden" | null;
+
 const Rawl: React.FC<{
   parsingResult: ParsingResult;
   getCurrentPositionMs: () => number;
@@ -80,6 +82,7 @@ const Rawl: React.FC<{
   artist: string;
   song: string;
   latencyCorrectionMs: number;
+  chordChartLayout: ChordChartLayout;
 }> = ({
   parsingResult,
   getCurrentPositionMs,
@@ -94,9 +97,10 @@ const Rawl: React.FC<{
   artist,
   song,
   latencyCorrectionMs,
+  chordChartLayout,
 }) => {
   useEffect(() => {
-    document.title = `${artist?.slice(5)} - ${song?.slice(0, -4)} - Rawl`;
+    document.title = `${artist} - ${song} - Rawl`;
   }, [artist, song]);
 
   const [analysis, setAnalysis] = useState<Analysis>(
@@ -331,6 +335,7 @@ const Rawl: React.FC<{
             {...commonParams}
             voiceNames={voiceNames}
             setVoiceMask={setVoiceMask}
+            chordChartLayout={chordChartLayout}
           />
         )}
       </div>

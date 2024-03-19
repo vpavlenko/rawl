@@ -13,7 +13,12 @@ import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import ChordStairs, { MODES } from "./ChordStairs";
 import { ColorScheme, useColorScheme } from "./ColorScheme";
 import { PianoLegend } from "./PianoLegend";
-import { SecondsSpan, SetVoiceMask, secondsToX__ } from "./Rawl";
+import {
+  ChordChartLayout,
+  SecondsSpan,
+  SetVoiceMask,
+  secondsToX__,
+} from "./Rawl";
 import { Analysis, PitchClass } from "./analysis";
 import { Note, NotesInVoices, PitchBendPoint } from "./parseMidi";
 
@@ -831,6 +836,7 @@ export const SplitSystemLayout: React.FC<{
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
   setVoiceMask: SetVoiceMask;
+  chordChartLayout: ChordChartLayout;
 }> = ({
   notes,
   voiceNames,
@@ -842,6 +848,7 @@ export const SplitSystemLayout: React.FC<{
   mouseHandlers,
   measureSelection,
   setVoiceMask,
+  chordChartLayout,
 }) => {
   const prevPositionSeconds = useRef<number>(0);
   useEffect(() => {
@@ -1023,20 +1030,22 @@ export const SplitSystemLayout: React.FC<{
         <PianoLegend />
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          position: "fixed",
-          left: 2,
-          gap: 60,
-          marginTop: 40,
-        }}
-      >
-        <ChordStairs mode={MODES[0]} />
-        <ChordStairs mode={MODES[1]} />
-        <ChordStairs mode={MODES[2]} />
-      </div>
+      {chordChartLayout !== "hidden" && (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            position: "fixed",
+            left: 2,
+            gap: 60,
+            marginTop: 40,
+          }}
+        >
+          <ChordStairs mode={MODES[0]} />
+          <ChordStairs mode={MODES[1]} />
+          <ChordStairs mode={MODES[2]} />
+        </div>
+      )}
     </div>
   );
 };

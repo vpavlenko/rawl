@@ -3,6 +3,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import MIDIPlayer from "../../../players/MIDIFilePlayer";
 import { DUMMY_CALLBACK } from "../../App";
+import STATIC_MIDI_FILES from "../../staticMidiFilles";
 import Rawl, { AppStateForRawl } from "../Rawl";
 import { ParsingResult } from "../parseMidi";
 
@@ -30,14 +31,15 @@ const fetchMidi = async (url) => {
 };
 
 const EmbeddedRawl: React.FC<{
-  song: string;
+  staticMidiFileId: number;
   analyses: any;
-  measures: number[];
   rawlState: AppStateForRawl;
-}> = ({ song, analyses, measures, rawlState }) => {
-  const analysis = analyses["static/musescore_manual"]?.[song][0];
-  // analyses['static/musescore_manual']['Bella_Ciao.mid']
-  // analyses['static/musescore_manual']['Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid']
+}> = ({ staticMidiFileId, analyses, rawlState }) => {
+  const { path, link } = STATIC_MIDI_FILES.find(
+    ({ idx }) => idx === staticMidiFileId,
+  );
+  const song = path.split("/").at(-1);
+  const analysis = analyses["static/musescore_manual"][song]?.[0];
   const [parsingResult, setParsingResult] = useState<ParsingResult | null>(
     null,
   );
@@ -55,7 +57,17 @@ const EmbeddedRawl: React.FC<{
     <div>
       <h3>Embedded Rawl</h3>
       <div>{song}</div>
-      {`mm. ${measures[0]}-${measures[1]}`}
+      <a href={link} target="_blank">
+        source
+      </a>
+      <div>
+        <a
+          href={`https://rawl.rocks/browse/static/musescore_manual?song=${song}`}
+          target="_blank"
+        >
+          open separately
+        </a>
+      </div>
       <div style={{ height: "400px", width: "1000px" }}>
         {parsingResult && (
           <Rawl
@@ -68,6 +80,7 @@ const EmbeddedRawl: React.FC<{
             registerSeekCallback={DUMMY_CALLBACK}
             artist={song}
             song={""}
+            chordChartLayout={"hidden"}
             {...rawlState}
           />
         )}

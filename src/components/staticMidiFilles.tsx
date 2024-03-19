@@ -1,4 +1,12 @@
-const STATIC_MIDI_FILES = [
+type StaticMidiFile = {
+  idx: number;
+  path: string;
+  link?: string;
+  type: "file";
+  size: 1337;
+};
+
+const STATIC_MIDI_FILES: StaticMidiFile[] = [
   {
     idx: 0,
     path: "/static/Yes/Close_to_the_edge.mid",
@@ -230,6 +238,7 @@ const STATIC_MIDI_FILES = [
   {
     idx: 38,
     path: "/static/musescore_manual/Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid",
+    link: "https://musescore.com/user/24950681/scores/4601656",
     size: 1337,
     type: "file",
   },
@@ -302,6 +311,7 @@ const STATIC_MIDI_FILES = [
   {
     idx: 50,
     path: "/static/musescore_manual/Bella_Ciao.mid",
+    link: "https://musescore.com/user/26930991/scores/6106322",
     size: 1337,
     type: "file",
   },
@@ -356,6 +366,7 @@ const STATIC_MIDI_FILES = [
   {
     idx: 59,
     path: "/static/musescore_manual/Godfather.mid",
+    link: "https://musescore.com/user/16140171/scores/6244267",
     size: 1337,
     type: "file",
   },
@@ -836,6 +847,13 @@ const STATIC_MIDI_FILES = [
   {
     idx: 139,
     path: "/static/musescore_manual/You_and_whose_army.mid",
+    size: 1337,
+    type: "file",
+  },
+  {
+    idx: 140,
+    path: "/static/musescore_manual/Godfather.1.mid",
+    link: "https://musescore.com/user/9265496/scores/2049321",
     size: 1337,
     type: "file",
   },

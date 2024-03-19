@@ -2,12 +2,6 @@ import * as React from "react";
 import styled from "styled-components";
 import { CHORDS, Chord } from "./course/ChordClouds";
 
-// Let's build stairs for minor mode
-// It's essentially a set of chords
-// The tricky part is to position them correctly in a bounding box.
-// We can make calculations based on the highest note of a last chord
-// and work back from it.
-
 const NOTE_HEIGHT = 5;
 const NOTE_WIDTH = 40;
 const HORIZONTAL_GAP = 15;
@@ -43,7 +37,7 @@ export const MODES: Mode[] = [
 
 const base12 = (num) => Math.floor(num / 12) * 12;
 
-const ChordStairs: React.FC<{ mode: Mode }> = ({ mode }) => {
+const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
   const { title, chords } = mode;
   const numChords = chords.length;
 
@@ -68,6 +62,8 @@ const ChordStairs: React.FC<{ mode: Mode }> = ({ mode }) => {
 
   const height = maxPitch - rehydratedChords[0].pitches[0] + 1;
 
+  const tonicChordPosition = chords.findIndex((chord) => /^(i|I)$/.test(chord));
+
   return (
     <div
       style={{
@@ -76,7 +72,9 @@ const ChordStairs: React.FC<{ mode: Mode }> = ({ mode }) => {
         position: "relative",
       }}
     >
-      <div style={{ position: "absolute", top: 0, left: 0 }}>{title}</div>
+      <div style={{ position: "absolute", top: 0, left: 0, color: "#aaa" }}>
+        {title}
+      </div>
       {rehydratedChords.flatMap(({ pitches }, index) =>
         pitches.map((pitch) => (
           <ChordNote
@@ -94,7 +92,7 @@ const ChordStairs: React.FC<{ mode: Mode }> = ({ mode }) => {
           style={{
             position: "absolute",
             top:
-              index < 2
+              index < tonicChordPosition
                 ? (maxPitch - pitches.at(-1)) * NOTE_HEIGHT - 25
                 : (maxPitch - pitches[0]) * NOTE_HEIGHT + 10,
             left: index * (NOTE_WIDTH + HORIZONTAL_GAP),
@@ -105,5 +103,6 @@ const ChordStairs: React.FC<{ mode: Mode }> = ({ mode }) => {
       ))}
     </div>
   );
-};
+});
+
 export default ChordStairs;

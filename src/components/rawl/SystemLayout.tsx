@@ -187,13 +187,12 @@ const getNoteColor = (
         12
   }_${colorScheme}`;
 
-type MouseEventHanlder = (note: Note, altKey: boolean) => void;
+type MouseEventHanlder = (note: Note) => void;
 export type MouseHandlers = {
   handleNoteClick: MouseEventHanlder | null;
   handleMouseEnter: MouseEventHanlder;
   handleMouseLeave: () => void;
   hoveredNote: Note | null;
-  hoveredAltKey: boolean;
   systemClickHandler: (
     e: React.MouseEvent,
     xToSeconds?: (number) => number,
@@ -321,10 +320,10 @@ const getNoteRectangles = (
         onClick={(e) => {
           e.stopPropagation();
           if (handleNoteClick && !isDrum) {
-            handleNoteClick(note, e.altKey);
+            handleNoteClick(note);
           }
         }}
-        onMouseEnter={(e) => !isDrum && handleMouseEnter(note, e.altKey)}
+        onMouseEnter={(e) => !isDrum && handleMouseEnter(note)}
         onMouseLeave={() => !isDrum && handleMouseLeave()}
       >
         {pathData && (
@@ -368,7 +367,6 @@ export const MergedSystemLayout = ({
     handleMouseEnter,
     handleMouseLeave,
     hoveredNote,
-    hoveredAltKey,
     systemClickHandler,
   } = mouseHandlers;
 
@@ -433,7 +431,6 @@ export const MergedSystemLayout = ({
       noteHeight,
       voiceMask,
       hoveredNote,
-      hoveredAltKey,
       showVelocity,
       colorScheme,
     ],

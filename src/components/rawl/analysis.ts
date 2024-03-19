@@ -64,22 +64,19 @@ export const getNewAnalysis = (
   note: Note | null,
   selectedMeasure: number | null,
   analysis: Analysis,
-  altKey: boolean = false,
 ): Analysis => {
   let update: Partial<Analysis> = {};
 
   if (selectedMeasure !== null) {
-    if (altKey) {
-      if (note) {
-        let newModulations = {
-          ...(analysis.modulations || []),
-          [selectedMeasure]: (note.note.midiNumber % 12) as PitchClass,
-        };
-        update.modulations = removeIdleModulations(
-          analysis.tonic,
-          newModulations,
-        );
-      }
+    if (note) {
+      let newModulations = {
+        ...(analysis.modulations || []),
+        [selectedMeasure]: (note.note.midiNumber % 12) as PitchClass,
+      };
+      update.modulations = removeIdleModulations(
+        analysis.tonic,
+        newModulations,
+      );
     }
   } else {
     update.tonic = (note.note.midiNumber % 12) as PitchClass;
@@ -94,9 +91,8 @@ export const advanceAnalysis = (
   selectMeasure: (_: null) => void,
   analysis: Analysis,
   commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void,
-  altKey: boolean = false,
 ) => {
-  const newAnalysis = getNewAnalysis(note, selectedMeasure, analysis, altKey);
+  const newAnalysis = getNewAnalysis(note, selectedMeasure, analysis);
 
   selectMeasure(null);
   commitAnalysisUpdate(newAnalysis);

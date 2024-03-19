@@ -130,6 +130,23 @@ const Measure: React.FC<{
                   selectMeasure(number);
                 }}
               >
+                {selectedMeasure === number && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 25,
+                      left: 0,
+                      color: "gray",
+                      fontSize: 12,
+                    }}
+                    onClick={(e) => {
+                      selectMeasure(null);
+                      e.stopPropagation();
+                    }}
+                  >
+                    Esc
+                  </div>
+                )}
                 <span
                   style={{
                     fontSize: "12px",

@@ -134,7 +134,12 @@ const Rawl: React.FC<{
 
   const [selectedMeasure, setSelectedMeasure] = useState<number | null>(null);
   const selectMeasure = useCallback(
-    (measure) => setSelectedMeasure(measure),
+    (measure) => {
+      setSelectedMeasure(measure);
+      if (measure === null) {
+        setHoveredNote(null);
+      }
+    },
     [selectedMeasure],
   );
 
@@ -147,12 +152,10 @@ const Rawl: React.FC<{
   const allNotes = useMemo(() => notes.flat(), [notes]);
 
   const [hoveredNote, setHoveredNote] = useState<Note | null>(null);
-  const [hoveredAltKey, setHoveredAltKey] = useState<boolean>(false);
-  const handleMouseEnter = useCallback((note: Note, altKey: boolean) => {
-    if (altKey) {
+  const handleMouseEnter = useCallback((note: Note) => {
+    if (selectedMeasureRef.current) {
       setHoveredNote(note);
     }
-    setHoveredAltKey(altKey);
   }, []);
   const handleMouseLeave = useCallback(() => {
     setHoveredNote(null);
@@ -165,7 +168,6 @@ const Rawl: React.FC<{
             hoveredNote,
             selectedMeasureRef.current,
             analysisRef.current,
-            hoveredAltKey,
           )
         : analysis,
     [hoveredNote, analysis],
@@ -192,14 +194,13 @@ const Rawl: React.FC<{
     setAnalysis({ ...analysis, ...diff });
   }, [allNotes]);
 
-  const handleNoteClick = useCallback((note: Note, altKey: boolean) => {
+  const handleNoteClick = useCallback((note: Note) => {
     advanceAnalysis(
       note,
       selectedMeasureRef.current,
       setSelectedMeasure,
       analysisRef.current,
       commitAnalysisUpdate,
-      altKey,
     );
   }, []);
 
@@ -228,7 +229,6 @@ const Rawl: React.FC<{
     const handleEscapePress = (event) => {
       if (event.key === "Escape" || event.keyCode === 27) {
         selectMeasure(null);
-        setHoveredNote(null);
       }
     };
 
@@ -258,7 +258,6 @@ const Rawl: React.FC<{
       handleMouseEnter,
       handleMouseLeave,
       hoveredNote,
-      hoveredAltKey,
       systemClickHandler,
     }),
     [
@@ -266,7 +265,6 @@ const Rawl: React.FC<{
       handleMouseEnter,
       handleMouseLeave,
       hoveredNote,
-      hoveredAltKey,
       systemClickHandler,
     ],
   );

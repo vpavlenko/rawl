@@ -140,7 +140,6 @@ const VOICE_PARAMS = {
     handleMouseEnter: DUMMY_CALLBACK,
     handleMouseLeave: DUMMY_CALLBACK,
     hoveredNote: null,
-    hoveredAltKey: false,
     systemClickHandler: DUMMY_CALLBACK,
   },
   noteHeight: 5,

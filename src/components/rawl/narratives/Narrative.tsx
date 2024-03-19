@@ -2,6 +2,8 @@ import * as React from "react";
 import EmbeddedRawl from "./EmbeddedRawl";
 
 const Narrative = ({ analyses }) => {
+  const path =
+    "/static/musescore_manual/Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid";
   return (
     <div style={{ width: "600px" }}>
       Narrative

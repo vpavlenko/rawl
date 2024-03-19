@@ -104,7 +104,7 @@ MIDIPlayer.prototype.load = function (midiFile, useTrackLoops = false) {
     timebase: midiFile.header.datas.getUint16(12),
     timeEvents,
   });
-  this.setChipStateDump(result);
+  this.setChipStateDump?.(result);
 
   return result;
 };
@@ -377,7 +377,7 @@ MIDIPlayer.prototype.processPlay = function () {
 
 MIDIPlayer.prototype.handleProgramChange = function (channel, program) {
   this.channelProgramNums[channel] = program;
-  this.programChangeCb();
+  this.programChangeCb?.();
 };
 
 MIDIPlayer.prototype.togglePause = function () {
@@ -430,9 +430,9 @@ MIDIPlayer.prototype.panic = function (timestamp) {
   } else {
     // Release sustain pedal on all channels
     for (let ch = 0; ch < 16; ch++) {
-      this.synth.controlChange(ch, CC_SUSTAIN_PEDAL, 0);
+      this.synth?.controlChange(ch, CC_SUSTAIN_PEDAL, 0);
     }
-    this.synth.panic();
+    this.synth?.panic();
   }
 };
 

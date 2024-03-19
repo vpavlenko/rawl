@@ -1027,6 +1027,8 @@ export const SplitSystemLayout: React.FC<{
         style={{
           display: "flex",
           flexDirection: "row",
+          position: "fixed",
+          left: 2,
           gap: 60,
           marginTop: 40,
         }}

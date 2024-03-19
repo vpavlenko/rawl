@@ -4,7 +4,7 @@ import { CHORDS, Chord } from "./course/ChordClouds";
 
 const NOTE_HEIGHT = 5;
 const NOTE_WIDTH = 40;
-const HORIZONTAL_GAP = 15;
+const HORIZONTAL_GAP = 25;
 
 const ChordNote = styled.div`
   user-select: none;

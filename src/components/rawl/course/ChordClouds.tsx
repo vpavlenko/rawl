@@ -70,7 +70,7 @@ export type Chord = keyof typeof CHORDS;
 
 const CloudPianoKey = styled.div`
   user-select: none;
-  width: 50px;
+  width: 40px;
   height: ${CLOUD_LEGEND_NOTE_HEIGHT}px;
   text-align: center;
   vertical-align: bottom;
@@ -95,7 +95,7 @@ export const ChordLegend: React.FC<{
   for (let i = notes.length - 1; i >= 0; i--) {
     const note = notes[i];
     legendNotes.push(
-      <div key={i} style={{ position: "absolute", top, left: -50 }}>
+      <div key={i} style={{ position: "absolute", top, left: 0 }}>
         <CloudPianoKey
           className={`noteColor_${note}_${colorScheme}`}
         ></CloudPianoKey>
@@ -122,9 +122,7 @@ export const ChordLegend: React.FC<{
     }
   }
 
-  return (
-    <span style={{ fontSize: 20, position: "relative" }}>{legendNotes}</span>
-  );
+  return <>{legendNotes}</>;
 });
 
 const ChordCloud: React.FC<{

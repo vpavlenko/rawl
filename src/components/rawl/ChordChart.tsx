@@ -299,8 +299,8 @@ const Chord: React.FC<{
   return (
     <div
       style={{
-        width: 70,
-        height: 90,
+        width: 30,
+        height: 70,
         position: "relative",
       }}
     >
@@ -315,11 +315,11 @@ const Chord: React.FC<{
       </div>
       <div
         style={{
-          fontSize: 20,
+          fontSize: 24,
           position: "absolute",
-          top: -8,
-          left: "-3.5em",
-          textAlign: "right",
+          display: "none",
+          textShadow: "0px 0px 5px black, 0px 0px 3px black",
+          zIndex: 100,
           width: "2.5em",
           height: "2em",
           transition: `background-color 0.3s linear, color 0.3s linear${
@@ -371,7 +371,7 @@ const ChordRow: React.FC<{
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, 170px)",
+        gridTemplateColumns: "repeat(auto-fill, 40px)",
         justifyContent: "space-between",
         gap: "10px",
       }}

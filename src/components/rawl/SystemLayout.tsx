@@ -10,15 +10,10 @@ import {
 import { useLocalStorage } from "usehooks-ts";
 import { DUMMY_CALLBACK } from "../App";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
-import ChordChart from "./ChordChart";
+import ChordStairs, { MODES } from "./ChordStairs";
 import { ColorScheme, useColorScheme } from "./ColorScheme";
 import { PianoLegend } from "./PianoLegend";
-import {
-  CHORD_HIGHLIGHT_LATENCY_CORRECTION_MS,
-  SecondsSpan,
-  SetVoiceMask,
-  secondsToX__,
-} from "./Rawl";
+import { SecondsSpan, SetVoiceMask, secondsToX__ } from "./Rawl";
 import { Analysis, PitchClass } from "./analysis";
 import { Note, NotesInVoices, PitchBendPoint } from "./parseMidi";
 
@@ -853,63 +848,6 @@ export const SplitSystemLayout: React.FC<{
     prevPositionSeconds.current = positionSeconds;
   }, [positionSeconds]);
 
-  const tonic = useMemo(
-    () =>
-      getTonic(
-        getSecondsMeasure(positionSeconds, measuresAndBeats.measures),
-        analysis,
-      ),
-    [positionSeconds],
-  );
-
-  const scaleDegreesUnderCursor = useMemo(
-    () =>
-      new Set(
-        notes.flatMap((notesInVoice) =>
-          notesInVoice
-            .filter(({ isDrum }) => !isDrum)
-            .filter(
-              (note) =>
-                note.span[0] <=
-                  positionSeconds +
-                    CHORD_HIGHLIGHT_LATENCY_CORRECTION_MS / 1000 &&
-                note.span[1] >=
-                  positionSeconds +
-                    CHORD_HIGHLIGHT_LATENCY_CORRECTION_MS / 1000,
-            )
-            .map(
-              (note) =>
-                ((note.note.midiNumber - tonic + 12) % 12) as PitchClass,
-            ),
-        ),
-      ),
-    [tonic, positionSeconds],
-  );
-
-  const scaleDegreesAroundCursor = useMemo(
-    () =>
-      new Set(
-        notes.flatMap((notesInVoice) =>
-          notesInVoice
-            .filter(({ isDrum }) => !isDrum)
-            .filter(
-              (note) =>
-                note.span[0] - 0.05 <=
-                  positionSeconds +
-                    CHORD_HIGHLIGHT_LATENCY_CORRECTION_MS / 1000 &&
-                note.span[1] + 0.05 >=
-                  positionSeconds +
-                    CHORD_HIGHLIGHT_LATENCY_CORRECTION_MS / 1000,
-            )
-            .map(
-              (note) =>
-                ((note.note.midiNumber - tonic + 12) % 12) as PitchClass,
-            ),
-        ),
-      ),
-    [tonic, positionSeconds],
-  );
-
   const voicesSortedByAverageMidiNumber = useMemo(
     () =>
       notes
@@ -1084,12 +1022,18 @@ export const SplitSystemLayout: React.FC<{
       >
         <PianoLegend />
       </div>
-      <div>
-        <ChordChart
-          tonic={tonic}
-          scaleDegreesUnderCursor={scaleDegreesUnderCursor}
-          scaleDegreesAroundCursor={scaleDegreesAroundCursor}
-        />
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: 60,
+          marginTop: 40,
+        }}
+      >
+        <ChordStairs mode={MODES[0]} />
+        <ChordStairs mode={MODES[1]} />
+        <ChordStairs mode={MODES[2]} />
       </div>
     </div>
   );

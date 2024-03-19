@@ -9,14 +9,22 @@ import { CHORDS, Chord } from "./course/ChordClouds";
 // and work back from it.
 
 const NOTE_HEIGHT = 5;
-const NOTE_WIDTH = 30;
-const HORIZONTAL_GAP = 5;
+const NOTE_WIDTH = 40;
+const HORIZONTAL_GAP = 15;
 
 const ChordNote = styled.div`
   user-select: none;
   border-radius: 5px;
   width: ${NOTE_WIDTH}px;
   height: ${NOTE_HEIGHT}px;
+`;
+
+const ChordName = styled.div`
+  width: ${NOTE_WIDTH}px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 `;
 
 type Mode = { title: string; chords: Chord[] };
@@ -81,6 +89,20 @@ const ChordStairs: React.FC<{ mode: Mode }> = ({ mode }) => {
           />
         )),
       )}
+      {rehydratedChords.map(({ name, pitches }, index) => (
+        <ChordName
+          style={{
+            position: "absolute",
+            top:
+              index < 2
+                ? (maxPitch - pitches.at(-1)) * NOTE_HEIGHT - 25
+                : (maxPitch - pitches[0]) * NOTE_HEIGHT + 10,
+            left: index * (NOTE_WIDTH + HORIZONTAL_GAP),
+          }}
+        >
+          {name.replace("b", "♭")}
+        </ChordName>
+      ))}
     </div>
   );
 };

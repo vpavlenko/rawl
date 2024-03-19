@@ -74,7 +74,7 @@ export const PianoLegend: React.FC = () => {
           </React.Fragment>
         ))}
       </div>
-      <div>
+      {/* <div>
         <label key={"merged"} className="inline">
           <input
             onChange={() => setColorScheme("colors")}
@@ -95,7 +95,7 @@ export const PianoLegend: React.FC = () => {
           />
           neon
         </label>
-      </div>
+      </div> */}
     </div>
   );
 };

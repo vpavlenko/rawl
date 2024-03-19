@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { DUMMY_CALLBACK } from "../App";
 import { TAGS } from "./AnalysisBox";
 import MIDI_PREVIEWS from "./AxesMidiPreviews";
+import ChordStairs, { MODES } from "./ChordStairs";
 import { PianoLegend } from "./PianoLegend";
 import { secondsToX__, xToSeconds__ } from "./Rawl";
 import { Voice } from "./SystemLayout";
@@ -152,6 +153,9 @@ const Axes = ({ sequencer }) => {
   return (
     <div>
       <h2>Axes of Western popular harmony, as seen in 12 colors</h2>
+      <ChordStairs mode={MODES[0]} />
+      <ChordStairs mode={MODES[1]} />
+      <ChordStairs mode={MODES[2]} />
       <PianoLegend />
       <Axis title="1. Major/minor">
         <Tag

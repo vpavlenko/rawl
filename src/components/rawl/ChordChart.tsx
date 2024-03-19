@@ -396,16 +396,16 @@ const ChordRow: React.FC<{
 
 type ChordSet = { title: string; chords: Chord[] };
 
-const CHORD_SETS: ChordSet[] = [
+export const CHORD_SETS: ChordSet[] = [
   {
     title: "minor key",
     chords: ["iv", "bVI", "i", "bIII", "v", "bVII"],
   },
   { title: "major key", chords: ["ii", "IV", "vi", "I", "iii", "V"] },
-  {
-    title: "applied",
-    chords: ["V7/ii", "V7/IV", "V7/vi", "V7", "V7/iii", "V7/V"],
-  },
+  // {
+  //   title: "applied",
+  //   chords: ["V7/ii", "V7/IV", "V7/vi", "V7", "V7/iii", "V7/V"],
+  // },
 ];
 
 const ChordChart: React.FC<{

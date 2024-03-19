@@ -30,31 +30,31 @@ const fetchMidi = async (url) => {
 };
 
 const EmbeddedRawl: React.FC<{
-  file: string;
+  song: string;
   analyses: any;
   measures: number[];
   rawlState: AppStateForRawl;
-}> = ({ file, analyses, measures, rawlState }) => {
-  const [browsePath, song] = file.split("?");
-  const analysis = analyses[browsePath]?.[song];
+}> = ({ song, analyses, measures, rawlState }) => {
+  const analysis = analyses["static/musescore_manual"]?.[song][0];
+  // analyses['static/musescore_manual']['Bella_Ciao.mid']
+  // analyses['static/musescore_manual']['Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid']
   const [parsingResult, setParsingResult] = useState<ParsingResult | null>(
     null,
   );
 
   useEffect(() => {
-    const midiUrl =
-      "https://rawl.rocks/midi/musescore_manual/Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid";
+    const midiUrl = `https://rawl.rocks/midi/musescore_manual/${song}`;
     fetchMidi(midiUrl).then((result) => {
       if (result) {
         setParsingResult(result);
       }
     });
-  }, [file]);
+  }, [song]);
 
   return (
     <div>
       <h3>Embedded Rawl</h3>
-      <div>{file}</div>
+      <div>{song}</div>
       {`mm. ${measures[0]}-${measures[1]}`}
       <div style={{ height: "400px", width: "1000px" }}>
         {parsingResult && (
@@ -66,8 +66,8 @@ const EmbeddedRawl: React.FC<{
             showAnalysisBox={false}
             seek={DUMMY_CALLBACK}
             registerSeekCallback={DUMMY_CALLBACK}
-            artist={browsePath}
-            song={song}
+            artist={song}
+            song={""}
             {...rawlState}
           />
         )}

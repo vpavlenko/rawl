@@ -35,8 +35,6 @@ export const MODES: Mode[] = [
   { title: "major key", chords: ["ii", "IV", "vi", "I", "iii", "V"] },
 ];
 
-const base12 = (num) => Math.floor(num / 12) * 12;
-
 const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
   const { title, chords } = mode;
   const numChords = chords.length;
@@ -66,6 +64,7 @@ const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
 
   return (
     <div
+      key={title}
       style={{
         width: numChords * NOTE_WIDTH + (numChords - 1) * HORIZONTAL_GAP,
         height: height * NOTE_HEIGHT,

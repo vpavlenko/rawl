@@ -772,7 +772,7 @@ img {
 .noteColor_5_colors {
     background-color: #df12ff;
     
-    /* box-shadow: 0 0 3px #a000ff, 0 0 6px #a000ff; */
+    box-shadow: 0 0 3px #df12ff, 0 0 6px #df12ff;
 }
 
 .noteColor_0_shapes {

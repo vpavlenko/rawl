@@ -654,6 +654,8 @@ class App extends React.Component {
     }, 100);
   }
 
+  seekForRawl = (seekMs) => this.seekRelativeInner(seekMs, true);
+
   handleSetVoiceMask(voiceMask) {
     if (!this.sequencer.getPlayer()) return;
 
@@ -762,6 +764,8 @@ class App extends React.Component {
         // See https://reactjs.org/docs/integrating-with-other-libraries.html#integrating-with-model-layers
         this.forceUpdate();
       } else {
+        this.browsePath = "drop";
+        this.props.history.push("/drop");
         const songData = reader.result;
         this.sequencer.playSongFile(file.name, songData);
       }
@@ -831,7 +835,7 @@ class App extends React.Component {
                       savedAnalysis={savedAnalysis}
                       saveAnalysis={this.saveAnalysis}
                       showAnalysisBox={this.state.analysisEnabled}
-                      seek={(time) => this.seekRelativeInner(time, true)}
+                      seek={this.seekForRawl}
                       registerSeekCallback={this.registerSeekCallback}
                       artist={browsePath}
                       song={song}
@@ -844,6 +848,7 @@ class App extends React.Component {
         }}
       />
     );
+
     return (
       <ColorSchemeProvider>
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>
@@ -906,6 +911,25 @@ class App extends React.Component {
                               rawlState={rawlState}
                             />
                           )}
+                        />
+                        <Route
+                          path={["/drop"]}
+                          render={() =>
+                            this.state.parsings["drop"] && (
+                              <Rawl
+                                parsingResult={this.state.parsings["drop"]}
+                                getCurrentPositionMs={this.getCurrentPositionMs}
+                                savedAnalysis={null} // TODO: persist in localStorage by hash
+                                saveAnalysis={DUMMY_CALLBACK}
+                                showAnalysisBox={this.state.analysisEnabled}
+                                seek={this.seekForRawl}
+                                registerSeekCallback={this.registerSeekCallback}
+                                artist={"drop"}
+                                song={""}
+                                {...rawlState}
+                              />
+                            )
+                          }
                         />
                         {browseRoute}
                       </Switch>

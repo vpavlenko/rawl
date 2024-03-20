@@ -16,7 +16,7 @@ const TagSearch: React.FC<{ tag: string; analyses: Corpus }> = ({
       for (const subtune in analyses[artist][song]) {
         if (analyses[artist][song][subtune].tags.indexOf(tag) !== -1) {
           result.push(
-            <li>
+            <li key={`${artist}_${song}`}>
               <SongLink artist={artist} song={song} />
             </li>,
           );

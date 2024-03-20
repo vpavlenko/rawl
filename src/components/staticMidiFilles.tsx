@@ -865,6 +865,13 @@ const STATIC_MIDI_FILES: StaticMidiFile[] = [
     size: 1337,
     type: "file",
   },
+  {
+    idx: 142,
+    path: "/static/musescore_manual/smth2.mid",
+    link: "https://musescore.com/user/37758827/scores/6833120/",
+    size: 1337,
+    type: "file",
+  },
 ];
 
 export default STATIC_MIDI_FILES;

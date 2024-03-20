@@ -25,14 +25,10 @@ type Mode = { title: string; chords: Chord[] };
 
 export const MODES: Mode[] = [
   {
-    title: "natural minor",
-    chords: ["iv", "bVI", "i", "bIII", "v", "bVII"],
+    title: "minor",
+    chords: ["iv", "bVI", "i", "bIII", "v", "V", "V7", "bVII"],
   },
-  {
-    title: "harmonic minor",
-    chords: ["iv", "bVI", "i", "bIII", "V", "bVII"],
-  },
-  { title: "major key", chords: ["ii", "IV", "vi", "I", "iii", "V"] },
+  { title: "major", chords: ["ii", "IV", "vi", "I", "iii", "V", "V7"] },
 ];
 
 const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {

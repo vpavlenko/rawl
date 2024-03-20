@@ -1040,7 +1040,6 @@ export const SplitSystemLayout: React.FC<{
         >
           <ChordStairs mode={MODES[0]} />
           <ChordStairs mode={MODES[1]} />
-          <ChordStairs mode={MODES[2]} />
         </div>
       )}
     </div>

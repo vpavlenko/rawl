@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import Select from "react-select";
-import { getPhraseStarts } from "./SystemLayout";
 import { Analysis } from "./analysis";
 
 export const TAGS = [
@@ -317,34 +316,6 @@ export const AnalysisBox: React.FC<{
         };
       },
     );
-    const movePhraseStart = useInputField(
-      1,
-      null,
-      "Diff",
-      "20%",
-      (analysis, stringValue) => {
-        const value = parseInt(stringValue, 10);
-        selectMeasure(null);
-        return {
-          phrasePatch:
-            analysis.phrasePatch.at(-1).measure +
-              analysis.phrasePatch.at(-1).diff ===
-            selectedMeasure
-              ? [
-                  ...analysis.phrasePatch.slice(0, -1),
-                  {
-                    measure: analysis.phrasePatch.at(-1).measure,
-                    diff: analysis.phrasePatch.at(-1).diff + value,
-                  },
-                ]
-              : [
-                  ...analysis.phrasePatch,
-                  { measure: selectedMeasure, diff: value },
-                ],
-        };
-      },
-      true,
-    );
 
     return (
       <div key="menu" style={{ marginTop: "100px" }}>
@@ -353,13 +324,6 @@ export const AnalysisBox: React.FC<{
             <div>What to do with measure {selectedMeasure}?</div>
             <ul className="vertical-list-of-buttons">
               <li>Enter modulation: alt+click on a new tonic</li>
-              {getPhraseStarts(analysis, 1000).indexOf(selectedMeasure) !==
-                -1 && (
-                <li>
-                  Move phrase start
-                  {movePhraseStart}
-                </li>
-              )}
               <li>
                 {formSection}
                 <div>

@@ -178,18 +178,10 @@ const Rawl: React.FC<{
       ) {
         const diff = measure - selectedMeasure;
         const analysisUpdate: Partial<Analysis> = {
-          phrasePatch:
-            analysis.phrasePatch.at(-1).measure +
-              analysis.phrasePatch.at(-1).diff ===
-            selectedMeasure
-              ? [
-                  ...analysis.phrasePatch.slice(0, -1),
-                  {
-                    measure: analysis.phrasePatch.at(-1).measure,
-                    diff: analysis.phrasePatch.at(-1).diff + diff,
-                  },
-                ]
-              : [...analysis.phrasePatch, { measure: selectedMeasure, diff }],
+          phrasePatch: [
+            ...analysis.phrasePatch,
+            { measure: selectedMeasure, diff },
+          ],
         };
         setSelectedMeasure(null);
         commitAnalysisUpdate(analysisUpdate);

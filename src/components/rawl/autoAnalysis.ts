@@ -50,7 +50,7 @@ export const findFirstPhraseStart = (
   measuresAndBeats: MeasuresAndBeats,
 ): number => {
   let result = -1;
-  const { measures } = measuresAndBeats;
+  const { measures, beats } = measuresAndBeats;
   // Find left-most note with pitch. If it's on beat 1, that's the measure. Otherwise it's anacrusis.
   let earliestOnset = Math.min(
     ...notes.filter((note) => !note.isDrum).map((note) => note.span[0]),
@@ -62,7 +62,15 @@ export const findFirstPhraseStart = (
     }
     result++;
   }
-  if (earliestOnset > measures[result] * 0.75 + measures[result + 1] * 0.25) {
+  if (
+    earliestOnset > measures[result] * 0.75 + measures[result + 1] * 0.25 ||
+    beats.filter(
+      (beat) => beat > measures[result] && beat < measures[result + 1],
+    ).length <
+      beats.filter(
+        (beat) => beat > measures[result + 1] && beat < measures[result + 2],
+      ).length
+  ) {
     result++;
   }
   return result;

@@ -686,8 +686,17 @@ class App extends React.Component {
   handleSongClick(url, context, index, subtune = 0) {
     return (e) => {
       e.preventDefault();
+
+      const tryPlayContext = () => {
+        if (this.sequencer) {
+          this.playContext(context, index, subtune);
+        } else {
+          setTimeout(tryPlayContext, 200);
+        }
+      };
+
       if (context) {
-        this.playContext(context, index, subtune);
+        tryPlayContext();
       } else {
         this.sequencer.playSonglist([url]);
       }

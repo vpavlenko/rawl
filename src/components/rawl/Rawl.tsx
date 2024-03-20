@@ -8,6 +8,7 @@ import {
   MouseHandlers,
   SplitSystemLayout,
   SystemLayout,
+  getPhraseStarts,
 } from "./SystemLayout";
 import { formatTag } from "./TagSearch";
 import {
@@ -133,15 +134,6 @@ const Rawl: React.FC<{
   );
 
   const [selectedMeasure, setSelectedMeasure] = useState<number | null>(null);
-  const selectMeasure = useCallback(
-    (measure) => {
-      setSelectedMeasure(measure);
-      if (measure === null) {
-        setHoveredNote(null);
-      }
-    },
-    [selectedMeasure],
-  );
 
   const selectedMeasureRef = useRef(selectedMeasure);
   useEffect(() => {
@@ -175,6 +167,39 @@ const Rawl: React.FC<{
   const measuresAndBeats = useMemo(() => {
     return parsingResult?.measuresAndBeats;
   }, [futureAnalysis, allNotes, parsingResult]);
+
+  const selectMeasure = useCallback(
+    (measure) => {
+      if (
+        selectedMeasure &&
+        getPhraseStarts(analysis, measuresAndBeats.measures.length).indexOf(
+          selectedMeasure,
+        ) !== -1
+      ) {
+        const diff = measure - selectedMeasure;
+        const analysisUpdate: Partial<Analysis> = {
+          phrasePatch:
+            analysis.phrasePatch.at(-1).measure +
+              analysis.phrasePatch.at(-1).diff ===
+            selectedMeasure
+              ? [
+                  ...analysis.phrasePatch.slice(0, -1),
+                  {
+                    measure: analysis.phrasePatch.at(-1).measure,
+                    diff: analysis.phrasePatch.at(-1).diff + diff,
+                  },
+                ]
+              : [...analysis.phrasePatch, { measure: selectedMeasure, diff }],
+        };
+        setSelectedMeasure(null);
+        commitAnalysisUpdate(analysisUpdate);
+      } else {
+        setSelectedMeasure(measure);
+      }
+      setHoveredNote(null);
+    },
+    [selectedMeasure, analysis, measuresAndBeats],
+  );
 
   useEffect(() => {
     if (analysis.phrasePatch?.length > 0) {

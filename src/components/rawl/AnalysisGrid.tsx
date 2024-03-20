@@ -65,6 +65,7 @@ const Measure: React.FC<{
   secondsToX: (number) => number;
   showNonPhraseStarts: boolean;
   tonicStart?: PitchClass;
+  selectedPhraseStart: number;
 }> = ({
   span,
   number,
@@ -76,6 +77,7 @@ const Measure: React.FC<{
   secondsToX,
   showNonPhraseStarts,
   tonicStart,
+  selectedPhraseStart,
 }) => {
   const { selectedMeasure, selectMeasure } = measureSelection;
 
@@ -118,7 +120,13 @@ const Measure: React.FC<{
                   position: "absolute",
                   top: 0,
                   left: left + 7,
-                  color: selectedMeasure === number ? "red" : "white",
+                  color:
+                    selectedMeasure === number
+                      ? "red"
+                      : selectedPhraseStart !== -1 &&
+                        Math.abs(number - selectedPhraseStart) <= 3
+                      ? "orange"
+                      : "white",
                   zIndex: 15,
                   cursor: "pointer",
                   userSelect: "none",
@@ -298,6 +306,11 @@ export const AnalysisGrid: React.FC<{
           MIN_WIDTH_BETWEEN_MEASURES;
     }
 
+    const selectedPhraseStart =
+      phraseStarts.indexOf(measureSelection.selectedMeasure) !== -1
+        ? measureSelection.selectedMeasure
+        : -1;
+
     return (
       <div style={{ zIndex: 15 }}>
         {measures.map((time, i) => {
@@ -315,6 +328,7 @@ export const AnalysisGrid: React.FC<{
               secondsToX={secondsToX}
               showNonPhraseStarts={showAllMeasureBars}
               tonicStart={modulations.get(i)}
+              selectedPhraseStart={selectedPhraseStart}
             />
           );
         })}

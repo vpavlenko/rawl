@@ -89,13 +89,14 @@ const Measure: React.FC<{
       {showHeader && tonicStart !== undefined && (
         <span
           style={{
-            color: "red",
+            color: "white",
             position: "absolute",
-            top: -2,
-            left: left + 28,
+            top: 40,
+            left: left + 2,
             fontSize: 12,
             zIndex: 100,
             fontWeight: 700,
+            userSelect: "none",
           }}
         >
           {PITCH_CLASS_TO_LETTER[tonicStart]}

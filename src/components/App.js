@@ -691,20 +691,19 @@ class App extends React.Component {
     return (e) => {
       e.preventDefault();
 
-      const tryPlayContext = () => {
-        if (this.sequencer) {
-          this.playContext(context, index, subtune);
-        } else {
-          setTimeout(tryPlayContext, 200);
+      const tryPlay = () => {
+        try {
+          if (context) {
+            this.playContext(context, index, subtune);
+          } else {
+            this.sequencer.playSonglist([url]);
+          }
+        } catch {
+          setTimeout(tryPlay, 200);
         }
       };
 
-      if (context) {
-        tryPlayContext();
-      } else {
-        // TODO: still crashes here, fix
-        this.sequencer.playSonglist([url]);
-      }
+      tryPlay();
     };
   }
 

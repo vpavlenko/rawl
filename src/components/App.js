@@ -810,7 +810,7 @@ class App extends React.Component {
     const currContext = this.sequencer?.getCurrContext();
     const currIdx = this.sequencer?.getCurrIdx();
     const hash = this.sequencer?.hash;
-    const localAnalysis = localStorage.getItem(hash);
+    const localAnalysis = hash && localStorage.getItem(hash);
     const parsedLocalAnalysis = localAnalysis && JSON.parse(localAnalysis);
     const browseRoute = (
       <Route

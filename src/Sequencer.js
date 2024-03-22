@@ -197,7 +197,7 @@ export default class Sequencer extends EventEmitter {
 
   async playSongBuffer(filepath, buffer, subtune = 0) {
     const uint8Array = new Uint8Array(buffer);
-    this.hash = md5(buffer);
+    this.hash = md5(uint8Array);
     this.player.setTempo(1);
     let result;
     try {

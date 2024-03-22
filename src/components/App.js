@@ -374,27 +374,26 @@ class App extends React.Component {
   }
 
   async saveAnalysis(analysis) {
-    const currIdx = this.sequencer?.getCurrIdx();
-    if (currIdx === undefined) return;
-
-    const path =
-      this.playContexts[this.browsePath] &&
-      this.playContexts[this.browsePath][currIdx];
-    const subtune = this.state.currentSongSubtune;
-    if (!path) return;
-
-    // hack .__.
-    const lastSlashIndex = path.lastIndexOf("/");
-    const beforeSlash = path.substring(0, lastSlashIndex);
-    const song = path.substring(lastSlashIndex + 1);
-
     const user = this.state.user;
     if (user) {
+      const currIdx = this.sequencer?.getCurrIdx();
+      if (currIdx === undefined) return;
+
+      const path =
+        this.playContexts[this.browsePath] &&
+        this.playContexts[this.browsePath][currIdx];
+      if (!path) return;
+
+      const lastSlashIndex = path.lastIndexOf("/");
+      const beforeSlash = path.substring(0, lastSlashIndex);
+      const song = path.substring(lastSlashIndex + 1);
+
       const userRef = doc(this.db, "users", user.uid);
       const userDoc = await getDoc(userRef);
 
       let userData = userDoc.exists ? userDoc.data() : {};
 
+      const subtune = this.state.currentSongSubtune;
       const diff = {
         [beforeSlash]: { [song]: { [subtune]: analysis } },
       };
@@ -408,6 +407,11 @@ class App extends React.Component {
       this.setState((prevState) => ({
         analyses: mergeAnalyses(prevState.analyses, diff),
       }));
+    } else {
+      const hash = this.sequencer?.hash;
+      if (hash) {
+        localStorage.setItem(hash, JSON.stringify(analysis));
+      }
     }
   }
 
@@ -698,6 +702,7 @@ class App extends React.Component {
       if (context) {
         tryPlayContext();
       } else {
+        // TODO: still crashes here, fix
         this.sequencer.playSonglist([url]);
       }
     };
@@ -805,7 +810,9 @@ class App extends React.Component {
     };
     const currContext = this.sequencer?.getCurrContext();
     const currIdx = this.sequencer?.getCurrIdx();
-
+    const hash = this.sequencer?.hash;
+    const localAnalysis = localStorage.getItem(hash);
+    const parsedLocalAnalysis = localAnalysis && JSON.parse(localAnalysis);
     const browseRoute = (
       <Route
         path={["/browse/:browsePath*"]}
@@ -818,7 +825,8 @@ class App extends React.Component {
           const subtune = this.state.currentSongSubtune; // legacy from NES, always == '0' for MIDI
           const song = path?.substring(path.lastIndexOf("/") + 1);
           const savedAnalysis =
-            this.state.analyses[browsePath]?.[song]?.[subtune];
+            this.state.analyses[browsePath]?.[song]?.[subtune] ??
+            parsedLocalAnalysis;
           return (
             this.contentAreaRef.current && (
               <>
@@ -928,8 +936,8 @@ class App extends React.Component {
                               <Rawl
                                 parsingResult={this.state.parsings["drop"]}
                                 getCurrentPositionMs={this.getCurrentPositionMs}
-                                savedAnalysis={null} // TODO: persist in localStorage by hash
-                                saveAnalysis={DUMMY_CALLBACK}
+                                savedAnalysis={parsedLocalAnalysis}
+                                saveAnalysis={this.saveAnalysis}
                                 showAnalysisBox={this.state.analysisEnabled}
                                 seek={this.seekForRawl}
                                 registerSeekCallback={this.registerSeekCallback}

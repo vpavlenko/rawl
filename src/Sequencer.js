@@ -163,11 +163,6 @@ export default class Sequencer extends EventEmitter {
       .send()
       .then((xhr) => xhr.response)
       .then((buffer) => {
-        const hash = md5(new Uint8Array(buffer));
-        console.log("MD5:", hash);
-        this.hash = hash;
-        // This hash should be present in Lakh dataset mapping:
-        // https://colinraffel.com/projects/lmd/
         this.currUrl = url;
         const filepath = url.replace(CATALOG_PREFIX, "");
         this.playSongBuffer(filepath, buffer, subtune);
@@ -201,8 +196,8 @@ export default class Sequencer extends EventEmitter {
   }
 
   async playSongBuffer(filepath, buffer, subtune = 0) {
-    let uint8Array;
-    uint8Array = new Uint8Array(buffer);
+    const uint8Array = new Uint8Array(buffer);
+    this.hash = md5(buffer);
     this.player.setTempo(1);
     let result;
     try {

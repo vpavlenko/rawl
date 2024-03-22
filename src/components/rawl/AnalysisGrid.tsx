@@ -11,6 +11,7 @@ import { Analysis, PitchClass } from "./analysis";
 export const STACKED_RN_HEIGHT = 20;
 const MIN_WIDTH_BETWEEN_BEATS = 17;
 const MIN_WIDTH_BETWEEN_MEASURES = 25;
+const GRADIENT_HEIGHT_IN_NOTES = 3;
 
 const VerticalBar = styled.div`
   width: 1px;
@@ -245,11 +246,11 @@ const TonalGrid: React.FC<{
               style={{
                 position: "absolute",
                 width,
-                height: 6 * noteHeight,
+                height: GRADIENT_HEIGHT_IN_NOTES * noteHeight,
                 left: secondsToX(from),
-                top: midiNumberToY(midiNumber - 7),
+                top: midiNumberToY(midiNumber - 13 + GRADIENT_HEIGHT_IN_NOTES),
                 pointerEvents: "none",
-                background: `linear-gradient(to top, #222, transparent)`,
+                background: `linear-gradient(to top, #333, transparent)`,
                 zIndex: 0,
               }}
             />,

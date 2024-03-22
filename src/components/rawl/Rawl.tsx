@@ -258,6 +258,7 @@ const Rawl: React.FC<{
 
   const systemClickHandler = useCallback(
     (e: React.MouseEvent, xToSeconds = xToSeconds__) => {
+      selectMeasure(null);
       const targetElement = e.target as HTMLElement;
       const rect = targetElement.getBoundingClientRect();
       const distance = e.clientX - rect.left + targetElement.scrollLeft;

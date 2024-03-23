@@ -188,7 +188,7 @@ class App extends React.Component {
     latencyCorrectionMs =
       !isNaN(latencyCorrectionMs) && latencyCorrectionMs !== null
         ? latencyCorrectionMs
-        : 600;
+        : 400;
 
     this.state = {
       loading: true,

@@ -942,7 +942,7 @@ export const SplitSystemLayout: React.FC<{
         style={{
           position: "fixed",
           bottom: 243,
-          right: -59,
+          right: -88,
           zIndex: 10000,
         }}
       >
@@ -962,8 +962,8 @@ export const SplitSystemLayout: React.FC<{
       <div
         style={{
           position: "fixed",
-          bottom: 80,
-          right: 107,
+          bottom: 70,
+          right: 79,
           zIndex: 10000,
         }}
       >
@@ -1022,7 +1022,7 @@ export const SplitSystemLayout: React.FC<{
 
       <div
         key="piano-legend"
-        style={{ position: "fixed", bottom: 100, right: 100, zIndex: 30 }}
+        style={{ position: "fixed", bottom: 90, right: 70, zIndex: 30 }}
       >
         <PianoLegend />
       </div>
@@ -1040,6 +1040,7 @@ export const SplitSystemLayout: React.FC<{
         >
           <ChordStairs mode={MODES[0]} />
           <ChordStairs mode={MODES[1]} />
+          <ChordStairs mode={MODES[2]} />
         </div>
       )}
     </div>

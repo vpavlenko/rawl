@@ -29,6 +29,10 @@ export const MODES: Mode[] = [
     chords: ["iv", "bVI", "i", "bIII", "v", "V", "V7", "bVII"],
   },
   { title: "major", chords: ["ii", "IV", "vi", "I", "iii", "V", "V7"] },
+  {
+    title: "chromatic",
+    chords: ["V7/ii", "V7/iii", "V7/IV", "bII", "V7/V", "V7/vi", "viio7/V"],
+  },
 ];
 
 const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
@@ -65,6 +69,7 @@ const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
         width: numChords * NOTE_WIDTH + (numChords - 1) * HORIZONTAL_GAP,
         height: height * NOTE_HEIGHT,
         position: "relative",
+        zIndex: -5,
       }}
     >
       <div style={{ position: "absolute", top: 0, left: 0, color: "#aaa" }}>

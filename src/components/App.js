@@ -14,7 +14,7 @@ import path from "path";
 import queryString from "querystring";
 import React from "react";
 import Dropzone from "react-dropzone";
-import { Redirect, Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 
 import requestCache from "../RequestCache";
 import Sequencer, { NUM_REPEAT_MODES, REPEAT_OFF } from "../Sequencer";
@@ -44,6 +44,7 @@ import MessageBox from "./MessageBox";
 import Visualizer from "./Visualizer";
 import Axes from "./rawl/Axes";
 import { ColorSchemeProvider } from "./rawl/ColorScheme";
+import LandingPage from "./rawl/LandingPage";
 import Rawl from "./rawl/Rawl";
 import TagSearch from "./rawl/TagSearch";
 import Course from "./rawl/course/Course";
@@ -801,6 +802,7 @@ class App extends React.Component {
   registerSeekCallback = (seekCallback) => this.setState({ seekCallback });
 
   render() {
+    const { location } = this.props;
     const rawlState = {
       voiceNames: this.state.voiceNames,
       voiceMask: this.state.voiceMask,
@@ -881,7 +883,9 @@ class App extends React.Component {
                 playerError={this.state.playerError}
                 showPlayerError={this.state.showPlayerError}
               />
-              <AppHeader isPhone={isMobile.phone} />
+              {location.pathname !== "/" && (
+                <AppHeader isPhone={isMobile.phone} />
+              )}
               <div className="App-main">
                 <div className="App-main-inner">
                   <div className="App-main-content-and-settings">
@@ -890,11 +894,7 @@ class App extends React.Component {
                       ref={this.contentAreaRef}
                     >
                       <Switch>
-                        <Route
-                          path="/"
-                          exact
-                          render={() => <Redirect to="/course" />}
-                        />
+                        <Route path="/" exact render={() => <LandingPage />} />
                         <Route
                           path="/axes"
                           render={() => <Axes sequencer={this.sequencer} />}
@@ -952,46 +952,50 @@ class App extends React.Component {
                     </div>
                   </div>
                 </div>
-                {!isMobile.phone && !this.state.loading && (
-                  <Visualizer
-                    audioCtx={this.audioCtx}
-                    sourceNode={this.playerNode}
-                    chipCore={this.chipCore}
-                    settingsEnabled={this.state.showPlayerSettings}
-                    handleToggleSettings={this.toggleSettings}
-                    analysisEnabled={this.state.analysisEnabled}
-                    handleToggleAnalysis={() =>
-                      this.setState((state) => ({
-                        analysisEnabled: !state.analysisEnabled,
-                      }))
-                    }
-                    paused={this.state.ejected || this.state.paused}
-                    user={this.state.user}
-                    handleLogout={this.handleLogout}
-                    handleLogin={this.handleLogin}
-                  />
-                )}
+                {location.pathname !== "/" &&
+                  !isMobile.phone &&
+                  !this.state.loading && (
+                    <Visualizer
+                      audioCtx={this.audioCtx}
+                      sourceNode={this.playerNode}
+                      chipCore={this.chipCore}
+                      settingsEnabled={this.state.showPlayerSettings}
+                      handleToggleSettings={this.toggleSettings}
+                      analysisEnabled={this.state.analysisEnabled}
+                      handleToggleAnalysis={() =>
+                        this.setState((state) => ({
+                          analysisEnabled: !state.analysisEnabled,
+                        }))
+                      }
+                      paused={this.state.ejected || this.state.paused}
+                      user={this.state.user}
+                      handleLogout={this.handleLogout}
+                      handleLogin={this.handleLogin}
+                    />
+                  )}
               </div>
-              <AppFooter
-                currentSongDurationMs={this.state.currentSongDurationMs}
-                currentSongNumVoices={this.state.currentSongNumVoices}
-                ejected={this.state.ejected}
-                paused={this.state.paused}
-                showPlayerSettings={this.state.showPlayerSettings}
-                songUrl={this.state.songUrl}
-                tempo={this.state.tempo}
-                voiceNames={this.state.voiceNames}
-                voiceMask={this.state.voiceMask}
-                volume={this.state.volume}
-                handleSetVoiceMask={this.handleSetVoiceMask}
-                handleTempoChange={this.handleTempoChange}
-                handleTimeSliderChange={this.handleTimeSliderChange}
-                handleVolumeChange={this.handleVolumeChange}
-                sequencer={this.sequencer}
-                togglePause={this.togglePause}
-                latencyCorrectionMs={this.state.latencyCorrectionMs}
-                setLatencyCorrectionMs={this.setLatencyCorrectionMs}
-              />
+              {location.pathname !== "/" && (
+                <AppFooter
+                  currentSongDurationMs={this.state.currentSongDurationMs}
+                  currentSongNumVoices={this.state.currentSongNumVoices}
+                  ejected={this.state.ejected}
+                  paused={this.state.paused}
+                  showPlayerSettings={this.state.showPlayerSettings}
+                  songUrl={this.state.songUrl}
+                  tempo={this.state.tempo}
+                  voiceNames={this.state.voiceNames}
+                  voiceMask={this.state.voiceMask}
+                  volume={this.state.volume}
+                  handleSetVoiceMask={this.handleSetVoiceMask}
+                  handleTempoChange={this.handleTempoChange}
+                  handleTimeSliderChange={this.handleTimeSliderChange}
+                  handleVolumeChange={this.handleVolumeChange}
+                  sequencer={this.sequencer}
+                  togglePause={this.togglePause}
+                  latencyCorrectionMs={this.state.latencyCorrectionMs}
+                  setLatencyCorrectionMs={this.setLatencyCorrectionMs}
+                />
+              )}
             </div>
           )}
         </Dropzone>

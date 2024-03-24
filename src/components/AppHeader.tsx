@@ -8,8 +8,12 @@ const AppHeader: React.FC = () => {
         Rawl
       </Link>
       {" • "}
+      <Link className="AppHeader-title" to={{ pathname: "/course" }}>
+        Course
+      </Link>
+      {" • "}
       <Link className="AppHeader-title" to={{ pathname: "/browse/MIDI" }}>
-        Songs
+        Rock
       </Link>
       {" • "}
       <Link className="AppHeader-title" to={{ pathname: "/axes" }}>

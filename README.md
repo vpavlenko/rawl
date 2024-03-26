@@ -98,5 +98,3 @@ Then the levels of pieces of increasing attractiveness:
 3. Same for favorite artists for which MIDIs are available.
 4. Same but music only is available, so the MIDI is crafted via automatic transcription.
 
-<img width="496" alt="Screenshot 2024-01-25 at 16 07 22" src="https://github.com/vpavlenko/rawl/assets/1491908/9b5e0339-f58b-45ea-99a4-2a919864fa8a">
-

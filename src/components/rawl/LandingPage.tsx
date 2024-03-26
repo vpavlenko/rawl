@@ -20,14 +20,12 @@ const DropBox = styled.div`
 const Icon = styled(FontAwesomeIcon)`
   font-size: 48px;
   color: #0f0; /* Neon green color */
-  text-shadow: 0 0 10px #0f0; /* Neon glow effect */
 `;
 
 const Text = styled.p`
   margin-top: 15px;
   font-size: 16px;
   color: #0f0; /* Neon green text */
-  text-shadow: 0 0 5px #0f0; /* Subtle glow effect */
 `;
 
 const FileDropBox: React.FC = () => (
@@ -46,7 +44,6 @@ const NeonLink = styled.a`
   text-decoration: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  text-shadow: 0 0 1px rgba(255, 255, 255, 0.8);
   margin-right: 40px;
 
   &:hover,
@@ -121,7 +118,6 @@ const LandingPage = () => (
       <div
         style={{
           fontSize: 40,
-          textShadow: "0px 0px 2px #00ffff",
           fontFamily: "Verdana, serif",
           marginTop: 60,
           textAlign: "center",

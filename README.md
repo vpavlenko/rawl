@@ -1,5 +1,3 @@
-<img width="1119" alt="Screenshot 2023-11-30 at 11 40 39" src="https://github.com/vpavlenko/rawl/assets/1491908/b62c2c4a-d56b-42b6-9a5b-5d6131e79d71">
-
 # Rawl
 
 This is a fork of [Chip Player JS](https://github.com/mmontag/chip-player-js) that focuses on music theory analysis of MIDI and NES tracks.
@@ -14,70 +12,9 @@ Your own annotations currently won't be saved, but I can fix that - please, cont
 Try `yarn install` and `yarn start`. If it doesn't work, try reading https://github.com/mmontag/chip-player-js/. Don't compile wasm, I pre-compiled it and added it to the repo.
 .
 
-# 12 Colors
+## 12 Colors
 
-<img width="259" alt="Screenshot 2023-11-20 at 21 50 26" src="https://github.com/vpavlenko/12-colors/assets/1491908/685c4c16-861a-4833-8e9c-8dfcba76f0bc">
-
-Harmony of Western music - scales, chords, chord tones, passing notes, suspensions, alterations, borrowed chords, modulations - becomes visible if we color its notes in 12 colors, starting from the tonic. This repo documents the process of converting our world into a 12-colored one.
-
-**Is this a new music notation?** [No.](https://www.youtube.com/watch?v=Eq3bUFgEcb4) It doesn't aim to help people perform music, at all. So, it doesn't cover the vast majority of use cases. Instead, it helps with just the one thing - to rapidly learn and easily navigate through the harmonic language used for composition. That is, to understand structural ideas of composers and to navigate through music theory.
-
-12 colors is an idea to enhance any other notation - piano rolls, standard notation, jianpu, guitar tabs.
-
-## Visual system
-
-### 12 colors
-
-Goals:
-
-- give each of the 12 notes in an octave a unique color, starting from the local tonic
-- give most basic colors to most popular notes
-- make minor and major modes sharply distinguishable
-- draw rest of the notes somewhat from the rainbow, but use semantically unsettling colors for rare notes
-
-Non-goals:
-
-- draw colors exactly from the rainbow. if possible, color palette should help exploring semantics
-
-Solution:
-
-- [TWELVE_TONE_COLORS](https://github.com/vpavlenko/chiptheory/blob/master/src/components/chiptheory/romanNumerals.tsx#L221)
-
-Rationale:
-
-- four most important colors are red (tonic), yellow (minor third), light green (major third), blue (fifth)
-- dominant (V and V7) has very catchy blue-violet-pink gradient (four shades)
-- natural major has two green shades, no yellow shades
-- natural minor has yellow, orange and brown, nothing green
-- therefore, modal mixture will be immediately visible as green vs yellow contrast
-- thirds and sixths are rhyming (light/dark yellow/green) - helps with mediant chords
-- to many genres, a definition of a local tonic will be "a picked starting note that maximizes amount of red and blue on a screen", or "minimize the amount of rare colors"
-- lower/raised 6 and lower/raised 7 are all used in certain minor/major modes, so all four should be easy-to-name and distinguishable
-- gray is pretty rare, absent in some tracks. it's usage is lydian, V/V and blues scale. gray as a color should be in this schema because it's too good to throw out - it will work with both black and white backgrounds, it's a basic one
-- dark red is for phrygian and bII (tritone sub) or N6 - also rare and unique
-- the coloring somewhat matches the one from Hooktheory and somewhat is drawn from the rainbow, so it's an easy switch from Hooktheory books (lovely ones!) to my system
-
-Any color scheme will work just fine - that is, an eye will rapidly start extracting harmonic patterns given any color scheme of 12 contrasting colors. The improvements should help seeing more popular chords faster and make them easier/more intuitive/mnemonic to remember. The idea is about having some 12 colors, consistently from a tonic (movable-do), without any mixing between modes (without homonyms).
-
-### Chord tones
-
-In a harmonic analysis, we choose a root. In most cases, a root is one of the notes of a measure in question, so a simple interactive harmonic analysis allows hovering on notes, observing note meaning (interval) relative to a hovered root and choosing a root by clicking on it.
-
-The exact quality of a chord can be approximately calculated by [ratio of minor thirds to major thirds](https://github.com/vpavlenko/chiptheory/blob/master/src/components/chiptheory/romanNumerals.tsx#L126), substantial presence of sevenths, diminished/perfect fifth.
-
-In many genres, it probably doesn't make sense to carefully infer and store a chord inversion.
-
-Note meanings according to current root should be labeled on the notes - as a note(head) text. Where possible, numbers should be used. A minor third should be clearly distinct from a major third (I chose "III"). Chord tones prominent in certain chords can use these chords' symbols as a mnemonic: ▵ for I▵, + for V+, b for b9. Should "T" be a "o" instead?
-
-- [TWELVE_CHORD_TONES](https://github.com/vpavlenko/chiptheory/blob/master/src/components/chiptheory/romanNumerals.tsx#L78)
-
-### Modulation
-
-An abrupt modulation is a simple change of a tonic note. Two regions will be visibly different since all horizontal color stripes will be shifted.
-
-A pivot chord modulation where one or more chords have functional meaning in both keys can be visualized as a curtain inviting to hover/drag an exact place of recoloring, or as a blinking (or as a gradient?)
-
-The concept of modulation vs. tonicization can be expressed in gradual hierarchy, where at lowest level every chord makes its own key and its root is red. (This requires harmonic analysis.) So, red should always correspond to a "." root doot. At highest level there's a single red shared by all sections. Applied chords adjacent to their targets can have a hover interface to momentarily recolor their region.
+https://twitter.com/vitalypavlenko/status/1771820942680830417
 
 ## Input formats
 

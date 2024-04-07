@@ -255,6 +255,22 @@ const TonalGrid: React.FC<{
               }}
             />,
           );
+        if (midiNumber - 7 >= midiRange[0] && midiNumber - 7 <= midiRange[1])
+          result.push(
+            <div
+              key={`tonalgrid_octave_${i}_fifth_${midiNumber}`}
+              style={{
+                position: "absolute",
+                width,
+                height: 0,
+                left: secondsToX(from),
+                top: midiNumberToY(midiNumber - 6) - 1,
+                pointerEvents: "none",
+                borderBottom: "1px solid #222",
+                zIndex: 0,
+              }}
+            />,
+          );
       }
     }
     return result;

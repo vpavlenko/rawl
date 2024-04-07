@@ -258,7 +258,7 @@ const getNoteRectangles = (
       note: { midiNumber, relativeNumber },
     } = note;
     const number = relativeNumber === undefined ? midiNumber : relativeNumber;
-    const top = midiNumberToY(number);
+    const top = midiNumberToY(number) - noteHeight;
     const left = secondsToX(note.span[0]);
     const color = isDrum
       ? "noteColor_drum"
@@ -299,7 +299,7 @@ const getNoteRectangles = (
         className={color}
         style={{
           position: "absolute",
-          height: `${noteHeight}px`,
+          height: `${noteHeight * 2}px`,
           width: isDrum
             ? "0px"
             : secondsToX(note.span[1]) - secondsToX(note.span[0]),
@@ -312,7 +312,7 @@ const getNoteRectangles = (
           opacity: isActiveVoice
             ? (showVelocity && note?.chipState?.on?.param2 / 127) || 1
             : 0.4,
-          borderRadius: "5px",
+          borderRadius: "3px",
           boxSizing: "border-box",
           display: "grid",
           placeItems: "center",
@@ -912,7 +912,7 @@ export const SplitSystemLayout: React.FC<{
     };
   }, []);
 
-  const [noteHeight, setNoteHeight] = useLocalStorage("noteHeight", 7);
+  const [noteHeight, setNoteHeight] = useLocalStorage("noteHeight", 4);
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
   const [secondWidth, setSecondWidth] = useLocalStorage("secondWidth", 40);
   const debounceSetSecondWidth = useCallback(debounce(setSecondWidth, 50), []);

@@ -2,15 +2,15 @@ import * as React from "react";
 import styled from "styled-components";
 import { CHORDS, Chord } from "./course/ChordClouds";
 
-const NOTE_HEIGHT = 5;
+const NOTE_HEIGHT = 4;
 const NOTE_WIDTH = 40;
 const HORIZONTAL_GAP = 25;
 
 const ChordNote = styled.div`
   user-select: none;
-  border-radius: 5px;
+  border-radius: 3px;
   width: ${NOTE_WIDTH}px;
-  height: ${NOTE_HEIGHT}px;
+  height: ${NOTE_HEIGHT * 2}px;
 `;
 
 const ChordName = styled.div`
@@ -26,7 +26,7 @@ type Mode = { title: string; chords: Chord[] };
 export const MODES: Mode[] = [
   {
     title: "minor",
-    chords: ["iv", "bVI", "i", "bIII", "v", "V", "V7", "bVII"],
+    chords: ["iio", "iv", "bVI", "i", "bIII", "v", "V", "V7", "bVII"],
   },
   { title: "major", chords: ["ii", "IV", "vi", "I", "iii", "V", "V7"] },
   {

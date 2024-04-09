@@ -1,4 +1,38 @@
 {
+  "MIDI/Fleetwood Mac": {
+    "The Chain.mid": {
+      "0": {
+        "modulations": {},
+        "tonic": 4,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 9,
+            "diff": 1
+          },
+          {
+            "measure": 30,
+            "diff": 1
+          },
+          {
+            "measure": 59,
+            "diff": 1
+          },
+          {
+            "measure": 64,
+            "diff": 2
+          }
+        ],
+        "sections": []
+      }
+    }
+  },
   "MIDI/ABBA": {
     "Waterloo.mid": {
       "0": {
@@ -69,6 +103,62 @@
           {
             "measure": 62,
             "diff": 2
+          }
+        ],
+        "sections": []
+      }
+    },
+    "ludovico-einaudi-una-mattina.mid": {
+      "0": {
+        "modulations": {},
+        "tonic": 9,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "sections": []
+      }
+    },
+    "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano.mid": {
+      "0": {
+        "modulations": {
+          "78": 3,
+          "111": 8,
+          "143": 0
+        },
+        "tonic": 0,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 41,
+            "diff": -2
+          },
+          {
+            "measure": 79,
+            "diff": -2
+          },
+          {
+            "measure": 77,
+            "diff": 2
+          },
+          {
+            "measure": 147,
+            "diff": -2
+          },
+          {
+            "measure": 185,
+            "diff": 1
           }
         ],
         "sections": []
@@ -2200,7 +2290,17 @@
           "83": 248.56
         },
         "tonic": 7,
-        "basedOn": null
+        "basedOn": null,
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          }
+        ]
       }
     }
   },
@@ -5478,6 +5578,136 @@
           "bass:root",
           "functionality:short_progression"
         ]
+      }
+    }
+  },
+  "Classical MIDI/Williams": {
+    "Home Alone - A Home Alone Christmas.mid": {
+      "0": {
+        "modulations": {
+          "38": 5,
+          "46": 8,
+          "52": 0,
+          "74": 10,
+          "113": 7,
+          "126": 8,
+          "134": 9,
+          "154": 0,
+          "165": 9,
+          "172": 2,
+          "202": 1
+        },
+        "tonic": 0,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 10,
+            "diff": -2
+          },
+          {
+            "measure": 28,
+            "diff": 2
+          },
+          {
+            "measure": 34,
+            "diff": -2
+          },
+          {
+            "measure": 36,
+            "diff": 2
+          },
+          {
+            "measure": 50,
+            "diff": 2
+          },
+          {
+            "measure": 60,
+            "diff": -2
+          },
+          {
+            "measure": 114,
+            "diff": -1
+          },
+          {
+            "measure": 125,
+            "diff": 1
+          },
+          {
+            "measure": 134,
+            "diff": 1
+          },
+          {
+            "measure": 155,
+            "diff": -1
+          },
+          {
+            "measure": 166,
+            "diff": -1
+          },
+          {
+            "measure": 173,
+            "diff": -1
+          },
+          {
+            "measure": 200,
+            "diff": 2
+          },
+          {
+            "measure": 210,
+            "diff": -2
+          },
+          {
+            "measure": 232,
+            "diff": -1
+          }
+        ],
+        "sections": []
+      }
+    }
+  },
+  "Classical MIDI/Williams/Star Wars": {
+    "The Phantom Menace - Duel of the Fates (piano solo).mid": {
+      "0": {
+        "modulations": {
+          "51": 0,
+          "53": 4,
+          "55": 0,
+          "57": 4,
+          "66": 7
+        },
+        "tonic": 4,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 9,
+            "diff": 2
+          },
+          {
+            "measure": 19,
+            "diff": 2
+          },
+          {
+            "measure": 61,
+            "diff": 1
+          },
+          {
+            "measure": 82,
+            "diff": -2
+          }
+        ],
+        "sections": []
       }
     }
   },

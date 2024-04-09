@@ -886,6 +886,20 @@ const STATIC_MIDI_FILES: StaticMidiFile[] = [
     size: 1337,
     type: "file",
   },
+  {
+    idx: 145,
+    path: "/static/urfu/ludovico-einaudi-una-mattina.mid",
+    link: "https://www.nonstop2k.com/midi-files/11642-ludovico-einaudi-una-mattina-midi.html",
+    size: 1337,
+    type: "file",
+  },
+  {
+    idx: 146,
+    path: "/static/urfu/maneskin_honey_are_u_comingv1rock.mid",
+    link: "https://musescore.com/user/7484921/scores/15314107/",
+    size: 1337,
+    type: "file",
+  },
 ];
 
 export default STATIC_MIDI_FILES;

@@ -123,7 +123,7 @@ const Rawl: React.FC<{
   }, [analysis]);
 
   const [showVelocity, setShowVelocity] = useState(false);
-  const [systemLayout, setSystemLayout] = useState<SystemLayout>("stacked");
+  const [systemLayout, setSystemLayout] = useState<SystemLayout>("split");
 
   const commitAnalysisUpdate = useCallback(
     (analysisUpdate: Partial<Analysis>) => {

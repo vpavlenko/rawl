@@ -872,6 +872,20 @@ const STATIC_MIDI_FILES: StaticMidiFile[] = [
     size: 1337,
     type: "file",
   },
+  {
+    idx: 143,
+    path: "/static/urfu/Prelude_in_G_Minor_Opus_23_No._5.mid",
+    link: "https://musescore.com/user/2660886/scores/6026988",
+    size: 1337,
+    type: "file",
+  },
+  {
+    idx: 144,
+    path: "/static/urfu/Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano.mid",
+    link: "https://musescore.com/minh_cuteee/scores/6555384",
+    size: 1337,
+    type: "file",
+  },
 ];
 
 export default STATIC_MIDI_FILES;

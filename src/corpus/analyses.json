@@ -1,4 +1,80 @@
 {
+  "MIDI/ABBA": {
+    "Waterloo.mid": {
+      "0": {
+        "modulations": {},
+        "tonic": 2,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 19,
+            "diff": 2
+          },
+          {
+            "measure": 37,
+            "diff": 2
+          },
+          {
+            "measure": 55,
+            "diff": 2
+          }
+        ],
+        "sections": []
+      }
+    }
+  },
+  "static/urfu": {
+    "Prelude_in_G_Minor_Opus_23_No._5.mid": {
+      "0": {
+        "modulations": {},
+        "tonic": 7,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 9,
+            "diff": 1
+          },
+          {
+            "measure": 18,
+            "diff": -1
+          },
+          {
+            "measure": 29,
+            "diff": -1
+          },
+          {
+            "measure": 28,
+            "diff": 1
+          },
+          {
+            "measure": 33,
+            "diff": 2
+          },
+          {
+            "measure": 43,
+            "diff": -1
+          },
+          {
+            "measure": 62,
+            "diff": 2
+          }
+        ],
+        "sections": []
+      }
+    }
+  },
   "MIDI/Usher": {
     "My Way.1.mid": {
       "0": {

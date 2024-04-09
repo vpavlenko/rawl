@@ -5322,7 +5322,15 @@
         "phrasePatch": [
           {
             "measure": 1,
-            "diff": 5
+            "diff": -1
+          },
+          {
+            "measure": 4,
+            "diff": -4
+          },
+          {
+            "measure": 4,
+            "diff": 2
           }
         ],
         "comment": "",
@@ -9000,7 +9008,9 @@
         "comment": "",
         "tonic": 0,
         "tags": [],
-        "modulations": {}
+        "modulations": {
+          "26": 3
+        }
       }
     },
     "Wet_Hands_Minecraft.mid": {
@@ -9384,7 +9394,7 @@
           }
         ],
         "comment": "",
-        "tonic": 2,
+        "tonic": 4,
         "tags": [],
         "modulations": {}
       }
@@ -9609,16 +9619,11 @@
     "Yann_Tiersen_Amelie.mid": {
       "0": {
         "form": [],
-        "phrasePatch": [
-          {
-            "measure": 1,
-            "diff": 0
-          }
-        ],
         "comment": "",
         "tonic": 4,
         "tags": [],
-        "modulations": {}
+        "modulations": {},
+        "phrasePatch": []
       }
     },
     "Mad_world_Piano.mid": {
@@ -9753,6 +9758,8 @@
           "12": 6,
           "14": 9,
           "19": 0,
+          "21": 5,
+          "22": 9,
           "23": 3
         }
       }
@@ -9967,7 +9974,9 @@
         "comment": "",
         "tonic": 4,
         "tags": [],
-        "modulations": {}
+        "modulations": {
+          "94": 8
+        }
       }
     },
     "Dream_a_little_dream_of_me.mid": {
@@ -11660,6 +11669,275 @@
       }
     },
     "Spades Opening Music.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "Game MIDI/- Arranged -/New Tetris, The (Nintendo 64, 1999)": {
+    "KALINKA.MID": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "THREAD6.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Kiss": {
+    "I Was Made for Loving You Baby.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 2
+          },
+          {
+            "measure": 7,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Baccara": {
+    "Yes Sir I Can Boogie.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": -1
+          },
+          {
+            "measure": 8,
+            "diff": -8
+          },
+          {
+            "measure": 8,
+            "diff": -8
+          },
+          {
+            "measure": 4,
+            "diff": -1
+          },
+          {
+            "measure": 7,
+            "diff": -2
+          },
+          {
+            "measure": 9,
+            "diff": -1
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "MIDI/Lipps, Inc.": {
+    "Funky Town.1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Funky Town.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 25,
+            "diff": -2
+          },
+          {
+            "measure": 35,
+            "diff": -2
+          },
+          {
+            "measure": 93,
+            "diff": -2
+          },
+          {
+            "measure": 111,
+            "diff": -2
+          },
+          {
+            "measure": 121,
+            "diff": -2
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "Game MIDI/- Arranged -/Tetris (NES, 1988)": {
+    "katiusha.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 4,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "kalinka-tod.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": 1
+          },
+          {
+            "measure": 22,
+            "diff": -2
+          },
+          {
+            "measure": 44,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 5,
+        "tags": [],
+        "modulations": {
+          "20": 8
+        }
+      }
+    }
+  },
+  "Game MIDI/Bedlam 2 (Mac, 1997)": {
+    "credits.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 11,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "fanfare.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "Game MIDI/Astrobatics (Windows, 2005)": {
+    "Music1.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 9,
+        "tags": [],
+        "modulations": {}
+      }
+    },
+    "Interface.mid": {
+      "0": {
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "comment": "",
+        "tonic": 0,
+        "tags": [],
+        "modulations": {}
+      }
+    }
+  },
+  "Game MIDI/- Arranged -/Tetris (Gameboy) (Gameboy, 19xx)": {
+    "drbtetris.mid": {
       "0": {
         "form": [],
         "phrasePatch": [

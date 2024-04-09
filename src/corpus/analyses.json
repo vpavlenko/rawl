@@ -125,182 +125,192 @@
       }
     },
     "Krylya_Nautilus_duo.mid": {
-      "modulations": {},
-      "tonic": 4,
-      "comment": "",
-      "tags": [],
-      "form": [],
-      "phrasePatch": [
-        {
-          "measure": 1,
-          "diff": 0
-        },
-        {
-          "measure": 5,
-          "diff": -3
-        },
-        {
-          "measure": 22,
-          "diff": 1
-        },
-        {
-          "measure": 23,
-          "diff": -1
-        },
-        {
-          "measure": 26,
-          "diff": -3
-        }
-      ],
-      "sections": []
+      "0": {
+        "modulations": {},
+        "tonic": 4,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -3
+          },
+          {
+            "measure": 22,
+            "diff": 1
+          },
+          {
+            "measure": 23,
+            "diff": -1
+          },
+          {
+            "measure": 26,
+            "diff": -3
+          }
+        ],
+        "sections": []
+      }
     },
     "Numb_-_Linkin_Park.mid": {
-      "modulations": {},
-      "tonic": 6,
-      "comment": "",
-      "tags": [],
-      "form": [],
-      "phrasePatch": [
-        {
-          "measure": 1,
-          "diff": 1
-        },
-        {
-          "measure": 26,
-          "diff": -2
-        },
-        {
-          "measure": 64,
-          "diff": 1
-        }
-      ],
-      "sections": []
+      "0": {
+        "modulations": {},
+        "tonic": 6,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 26,
+            "diff": -2
+          },
+          {
+            "measure": 64,
+            "diff": 1
+          }
+        ],
+        "sections": []
+      }
     },
     "Sorcerers_doll___-_The_King_and_the_Jester___.mid": {
-      "modulations": {},
-      "tonic": 2,
-      "comment": "",
-      "tags": [],
-      "form": [],
-      "phrasePatch": [
-        {
-          "measure": 1,
-          "diff": 0
-        },
-        {
-          "measure": 33,
-          "diff": 1
-        },
-        {
-          "measure": 66,
-          "diff": 1
-        },
-        {
-          "measure": 91,
-          "diff": 1
-        }
-      ],
-      "sections": []
+      "0": {
+        "modulations": {},
+        "tonic": 2,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 33,
+            "diff": 1
+          },
+          {
+            "measure": 66,
+            "diff": 1
+          },
+          {
+            "measure": 91,
+            "diff": 1
+          }
+        ],
+        "sections": []
+      }
     },
     "Anders_Thue_Sonne.mid": {
-      "modulations": {
-        "33": 11,
-        "51": 2,
-        "69": 11
-      },
-      "tonic": 2,
-      "comment": "",
-      "tags": [],
-      "form": [],
-      "phrasePatch": [
-        {
-          "measure": 1,
-          "diff": 0
+      "0": {
+        "modulations": {
+          "33": 11,
+          "51": 2,
+          "69": 11
         },
-        {
-          "measure": 9,
-          "diff": 2
-        },
-        {
-          "measure": 119,
-          "diff": 1
-        }
-      ],
-      "sections": []
+        "tonic": 2,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 9,
+            "diff": 2
+          },
+          {
+            "measure": 119,
+            "diff": 1
+          }
+        ],
+        "sections": []
+      }
     },
     "The_Prince_of_Silence____Nautilus_Pompilius.mid": {
-      "modulations": {},
-      "tonic": 3,
-      "comment": "",
-      "tags": [],
-      "form": [],
-      "phrasePatch": [
-        {
-          "measure": 1,
-          "diff": 0
-        },
-        {
-          "measure": 29,
-          "diff": 1
-        },
-        {
-          "measure": 34,
-          "diff": -2
-        },
-        {
-          "measure": 56,
-          "diff": -1
-        },
-        {
-          "measure": 59,
-          "diff": -2
-        },
-        {
-          "measure": 25,
-          "diff": -2
-        },
-        {
-          "measure": 28,
-          "diff": -1
-        },
-        {
-          "measure": 29,
-          "diff": 1
-        },
-        {
-          "measure": 34,
-          "diff": -2
-        },
-        {
-          "measure": 51,
-          "diff": 1
-        },
-        {
-          "measure": 54,
-          "diff": 1
-        },
-        {
-          "measure": 59,
-          "diff": -2
-        },
-        {
-          "measure": 65,
-          "diff": -1
-        },
-        {
-          "measure": 68,
-          "diff": -1
-        },
-        {
-          "measure": 71,
-          "diff": -1
-        },
-        {
-          "measure": 74,
-          "diff": -1
-        }
-      ],
-      "sections": []
+      "0": {
+        "modulations": {},
+        "tonic": 3,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 29,
+            "diff": 1
+          },
+          {
+            "measure": 34,
+            "diff": -2
+          },
+          {
+            "measure": 56,
+            "diff": -1
+          },
+          {
+            "measure": 59,
+            "diff": -2
+          },
+          {
+            "measure": 25,
+            "diff": -2
+          },
+          {
+            "measure": 28,
+            "diff": -1
+          },
+          {
+            "measure": 29,
+            "diff": 1
+          },
+          {
+            "measure": 34,
+            "diff": -2
+          },
+          {
+            "measure": 51,
+            "diff": 1
+          },
+          {
+            "measure": 54,
+            "diff": 1
+          },
+          {
+            "measure": 59,
+            "diff": -2
+          },
+          {
+            "measure": 65,
+            "diff": -1
+          },
+          {
+            "measure": 68,
+            "diff": -1
+          },
+          {
+            "measure": 71,
+            "diff": -1
+          },
+          {
+            "measure": 74,
+            "diff": -1
+          }
+        ],
+        "sections": []
+      }
     },
     "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano.mid": {
       "0": {

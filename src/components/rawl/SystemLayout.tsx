@@ -312,7 +312,7 @@ const getNoteRectangles = (
           opacity: isActiveVoice
             ? (showVelocity && note?.chipState?.on?.param2 / 127) || 1
             : 0.4,
-          borderRadius: "3px",
+          borderRadius: "4px",
           boxSizing: "border-box",
           display: "grid",
           placeItems: "center",
@@ -912,7 +912,7 @@ export const SplitSystemLayout: React.FC<{
     };
   }, []);
 
-  const [noteHeight, setNoteHeight] = useLocalStorage("noteHeight", 4);
+  const [noteHeight, setNoteHeight] = useLocalStorage("noteHeight", 6);
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
   const [secondWidth, setSecondWidth] = useLocalStorage("secondWidth", 40);
   const debounceSetSecondWidth = useCallback(debounce(setSecondWidth, 50), []);

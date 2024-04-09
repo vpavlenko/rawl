@@ -8,7 +8,7 @@ const HORIZONTAL_GAP = 25;
 
 const ChordNote = styled.div`
   user-select: none;
-  border-radius: 3px;
+  border-radius: 4px;
   width: ${NOTE_WIDTH}px;
   height: ${NOTE_HEIGHT * 2}px;
 `;
@@ -28,7 +28,7 @@ export const MODES: Mode[] = [
     title: "minor",
     chords: ["iio", "iv", "bVI", "i", "bIII", "v", "V", "V7", "bVII"],
   },
-  { title: "major", chords: ["ii", "IV", "vi", "I", "iii", "V", "V7"] },
+  { title: "major", chords: ["ii", "IV", "vi", "I", "iii", "V", "V7", "viio"] },
   {
     title: "chromatic",
     chords: ["V7/ii", "V7/iii", "V7/IV", "bII", "V7/V", "V7/vi", "viio7/V"],

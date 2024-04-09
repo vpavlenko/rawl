@@ -7,6 +7,7 @@ import {
   MergedSystemLayout,
   MouseHandlers,
   SplitSystemLayout,
+  StackedSystemLayout,
   SystemLayout,
   getPhraseStarts,
 } from "./SystemLayout";
@@ -346,8 +347,15 @@ const Rawl: React.FC<{
             measuresAndBeats={measuresAndBeats}
             registerSeekCallback={registerSeekCallback}
           />
-        ) : (
+        ) : systemLayout === "split" ? (
           <SplitSystemLayout
+            {...commonParams}
+            voiceNames={voiceNames}
+            setVoiceMask={setVoiceMask}
+            chordChartLayout={chordChartLayout}
+          />
+        ) : (
+          <StackedSystemLayout
             {...commonParams}
             voiceNames={voiceNames}
             setVoiceMask={setVoiceMask}
@@ -410,6 +418,16 @@ const Rawl: React.FC<{
               value={"split"}
             />
             ☰
+          </label>
+          <label key={"stacked"} className="inline">
+            <input
+              onChange={() => setSystemLayout("stacked")}
+              type="radio"
+              name="system-layout"
+              checked={systemLayout === "stacked"}
+              value={"stacked"}
+            />
+            T
           </label>
         </div>
         <TagBrowser tags={analysis.tags} />

@@ -93,7 +93,7 @@ const getAverageMidiNumber = (notes: Note[]) =>
         notes.length
     : Infinity;
 
-export type SystemLayout = "merged" | "split";
+export type SystemLayout = "merged" | "split" | "stacked";
 
 export type MidiRange = [number, number];
 
@@ -602,6 +602,7 @@ const MeasureNumbers = ({
   measureSelection,
   noteHeight,
   secondsToX,
+  measureStart,
 }: {
   measuresAndBeats: MeasuresAndBeats;
   analysis: Analysis;
@@ -609,6 +610,7 @@ const MeasureNumbers = ({
   measureSelection: MeasureSelection;
   noteHeight: number;
   secondsToX: (number) => number;
+  measureStart: number;
 }) => (
   <div
     key="measure_header"
@@ -640,6 +642,7 @@ const MeasureNumbers = ({
       showHeader={true}
       showTonalGrid={false}
       secondsToX={secondsToX}
+      measureStart={measureStart}
     />
   </div>
 );
@@ -742,6 +745,7 @@ export const Voice: React.FC<{
     ],
   );
 
+  // TODO: make smarter once Stacked is implemented
   const hasVisibleNotes = localMidiRange[1] >= localMidiRange[0];
 
   return (
@@ -985,6 +989,7 @@ export const SplitSystemLayout: React.FC<{
         measureSelection={measureSelection}
         noteHeight={noteHeight}
         secondsToX={secondsToX}
+        measureStart={0}
       />
       {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) => (
         <div key={order}>
@@ -1043,6 +1048,289 @@ export const SplitSystemLayout: React.FC<{
           <ChordStairs mode={MODES[2]} />
         </div>
       )}
+    </div>
+  );
+};
+
+// const SECTION_STARTS_IN_PHRASES = [0, 1, 6, 11, 16, 21];
+const SECTION_STARTS_IN_PHRASES = [0, 1, 5, 10, 12, 16, 20];
+
+export const StackedSystemLayout: React.FC<{
+  notes: NotesInVoices;
+  voiceNames: string[];
+  voiceMask: boolean[];
+  measuresAndBeats: MeasuresAndBeats;
+  showVelocity: boolean;
+  positionSeconds: number;
+  analysis: Analysis;
+  mouseHandlers: MouseHandlers;
+  measureSelection: MeasureSelection;
+  setVoiceMask: SetVoiceMask;
+  chordChartLayout: ChordChartLayout;
+}> = ({
+  notes,
+  voiceNames,
+  voiceMask,
+  measuresAndBeats,
+  showVelocity,
+  positionSeconds,
+  analysis,
+  mouseHandlers,
+  measureSelection,
+  setVoiceMask,
+  chordChartLayout,
+}) => {
+  const [noteHeight, setNoteHeight] = useLocalStorage("noteHeight", 6);
+  const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
+  const [secondWidth, setSecondWidth] = useLocalStorage("secondWidth", 40);
+  const debounceSetSecondWidth = useCallback(debounce(setSecondWidth, 50), []);
+
+  const prevPositionSeconds = useRef<number>(0);
+  useEffect(() => {
+    prevPositionSeconds.current = positionSeconds;
+  }, [positionSeconds]);
+
+  const voicesSortedByAverageMidiNumber = useMemo(
+    () =>
+      notes
+        .map((voice, voiceIndex) => ({
+          average: getAverageMidiNumber(voice),
+          voiceIndex,
+        }))
+        .sort((a, b) => b.average - a.average)
+        .map(({ voiceIndex }) => ({
+          voiceIndex,
+          notes: notes[voiceIndex],
+        })),
+    [notes],
+  );
+
+  // TODO: make sure the very last measure is also a phrase start
+  const phraseStarts = useMemo(
+    () => getPhraseStarts(analysis, measuresAndBeats.measures.length),
+    [analysis, measuresAndBeats],
+  );
+
+  const sections = useMemo(
+    () =>
+      SECTION_STARTS_IN_PHRASES.map((sectionStartInPhrases, index) => {
+        const sectionStartInMeasures = phraseStarts[sectionStartInPhrases];
+        const sectionEndInMeasures =
+          index + 1 < SECTION_STARTS_IN_PHRASES.length
+            ? phraseStarts[SECTION_STARTS_IN_PHRASES[index + 1]]
+            : phraseStarts.at(-1);
+        const { measures, beats } = measuresAndBeats;
+        const filteredMeasures = measures.filter(
+          (measure, index) =>
+            sectionStartInMeasures - 1 <= index &&
+            index <= sectionEndInMeasures - 1,
+        );
+        const filteredBeats = beats.filter(
+          (beat) =>
+            filteredMeasures[0] <= beat && beat <= filteredMeasures.at(-1),
+        );
+
+        const secondsToX = (seconds) =>
+          (seconds - filteredMeasures[0]) * secondWidth;
+        const xToSeconds = (x) => x / secondWidth + filteredMeasures[0];
+        return {
+          measuresAndBeats: {
+            measures: filteredMeasures,
+            beats: filteredBeats,
+          },
+          secondsToX,
+          xToSeconds,
+          phraseStarts: phraseStarts.map(
+            (phraseStart) => phraseStart - sectionStartInMeasures + 1,
+          ),
+          measureStart: sectionStartInMeasures - 1,
+          voices: voicesSortedByAverageMidiNumber.map(
+            ({ voiceIndex, notes }) => ({
+              voiceIndex,
+              notes: notes.filter(
+                (note) =>
+                  note.span[1] >= filteredMeasures[0] &&
+                  note.span[0] < filteredMeasures.at(-1),
+              ),
+            }),
+          ),
+        };
+      }),
+    [
+      voicesSortedByAverageMidiNumber,
+      phraseStarts,
+      measuresAndBeats,
+      secondWidth,
+    ],
+  );
+
+  const parentRef = useRef(null);
+
+  const [scrollInfo, setScrollInfo] = useState<ScrollInfo>({
+    left: -1,
+    right: 100000,
+  });
+
+  const debouncedScroll = useCallback(
+    debounce(
+      (left, right) =>
+        setScrollInfo({
+          left,
+          right,
+        }),
+      50,
+    ),
+    [],
+  );
+
+  const handleScroll = () => {
+    const { scrollLeft, offsetWidth } = parentRef.current;
+    const scrollRight = scrollLeft + offsetWidth;
+
+    debouncedScroll(scrollLeft, scrollRight);
+  };
+
+  useEffect(() => {
+    const parentDiv = parentRef.current;
+    if (parentDiv) {
+      parentDiv.addEventListener("scroll", handleScroll);
+      handleScroll();
+    }
+
+    return () => {
+      if (parentDiv) {
+        parentDiv.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
+
+  return (
+    <div
+      key="innerLeftPanel"
+      style={{
+        margin: 0,
+        padding: 0,
+        position: "relative",
+        overflowX: "scroll",
+        overflowY: "scroll",
+        width: "100%",
+        height: "100%",
+        backgroundColor: "black",
+      }}
+      ref={parentRef}
+      className="SplitLayout"
+    >
+      <div
+        style={{
+          position: "fixed",
+          bottom: 243,
+          right: -88,
+          zIndex: 10000,
+        }}
+      >
+        <input
+          type="range"
+          min="1"
+          max="15"
+          value={noteHeight}
+          onChange={(e) => debounceSetNoteHeight(parseInt(e.target.value, 10))}
+          style={{
+            transform: "rotate(90deg)",
+            transformOrigin: "bottom left",
+            width: 160,
+          }}
+        />
+      </div>
+      <div
+        style={{
+          position: "fixed",
+          bottom: 70,
+          right: 79,
+          zIndex: 10000,
+        }}
+      >
+        <input
+          type="range"
+          min="2"
+          max="100"
+          value={secondWidth}
+          onChange={(e) => debounceSetSecondWidth(parseInt(e.target.value, 10))}
+          style={{
+            width: 240,
+          }}
+        />
+      </div>
+
+      {sections.map(
+        (
+          {
+            measuresAndBeats,
+            secondsToX,
+            xToSeconds,
+            voices,
+            phraseStarts,
+            measureStart,
+          },
+          order,
+        ) => (
+          <div style={{ marginBottom: 30 }}>
+            <MeasureNumbers
+              measuresAndBeats={measuresAndBeats}
+              analysis={analysis}
+              phraseStarts={phraseStarts}
+              measureSelection={measureSelection}
+              noteHeight={noteHeight}
+              secondsToX={secondsToX}
+              measureStart={measureStart}
+            />
+            {voices.map(({ notes, voiceIndex }) => (
+              <div key={order}>
+                <Voice
+                  key={voiceIndex}
+                  voiceName={voiceNames[voiceIndex]}
+                  notes={notes}
+                  measuresAndBeats={measuresAndBeats}
+                  analysis={analysis}
+                  mouseHandlers={mouseHandlers}
+                  measureSelection={measureSelection}
+                  showVelocity={showVelocity}
+                  cursor={
+                    positionSeconds > measuresAndBeats.measures[0] &&
+                    positionSeconds < measuresAndBeats.measures.at(-1) && (
+                      <Cursor
+                        style={{
+                          transition:
+                            Math.abs(
+                              prevPositionSeconds.current - positionSeconds,
+                            ) < 1
+                              ? "left 0.4s linear"
+                              : "",
+                          left: secondsToX(positionSeconds),
+                        }}
+                      />
+                    )
+                  }
+                  phraseStarts={phraseStarts}
+                  scrollInfo={scrollInfo}
+                  voiceMask={voiceMask}
+                  setVoiceMask={setVoiceMask}
+                  voiceIndex={voiceIndex}
+                  noteHeight={noteHeight}
+                  secondsToX={secondsToX}
+                  xToSeconds={xToSeconds}
+                />
+              </div>
+            ))}
+          </div>
+        ),
+      )}
+
+      <div
+        key="piano-legend"
+        style={{ position: "fixed", bottom: 90, right: 70, zIndex: 30 }}
+      >
+        <PianoLegend />
+      </div>
     </div>
   );
 };

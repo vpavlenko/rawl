@@ -289,6 +289,7 @@ export const AnalysisGrid: React.FC<{
   showHeader?: boolean;
   showTonalGrid?: boolean;
   secondsToX: (number) => number;
+  measureStart?: number;
 }> = React.memo(
   ({
     analysis,
@@ -302,6 +303,7 @@ export const AnalysisGrid: React.FC<{
     showHeader = true,
     showTonalGrid = true,
     secondsToX,
+    measureStart = 0,
   }) => {
     const { measures, beats } = measuresAndBeats;
     const modulations = new Map(
@@ -340,7 +342,7 @@ export const AnalysisGrid: React.FC<{
               span={[time, measures[number] ?? time]}
               isPhraseStart={phraseStarts.indexOf(number) !== -1}
               formSection={(analysis.form ?? {})[number]}
-              number={number}
+              number={number + measureStart}
               measureSelection={measureSelection}
               systemLayout={systemLayout}
               secondsToX={secondsToX}

@@ -935,6 +935,13 @@ const STATIC_MIDI_FILES: StaticMidiFile[] = [
     size: 1337,
     type: "file",
   },
+  {
+    idx: 152,
+    path: "/static/urfu/Sorcerers_doll___-_The_King_and_the_Jester___.mid",
+    link: "https://musescore.com/user/30065112/scores/6611851/",
+    size: 1337,
+    type: "file",
+  },
 ];
 
 export default STATIC_MIDI_FILES;

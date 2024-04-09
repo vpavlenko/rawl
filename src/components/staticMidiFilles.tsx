@@ -900,6 +900,41 @@ const STATIC_MIDI_FILES: StaticMidiFile[] = [
     size: 1337,
     type: "file",
   },
+  {
+    idx: 147,
+    path: "/static/urfu/Prelude_in_C-sharp_Minor_Opus_3_No._2__Sergei_Rachmaninoff.mid",
+    link: "https://musescore.com/user/2660886/scores/2101171",
+    size: 1337,
+    type: "file",
+  },
+  {
+    idx: 148,
+    path: "/static/urfu/Krylya_Nautilus_duo.mid",
+    link: "https://musescore.com/user/30781238/scores/8203532",
+    size: 1337,
+    type: "file",
+  },
+  {
+    idx: 149,
+    path: "/static/urfu/The_Prince_of_Silence____Nautilus_Pompilius.mid",
+    link: "https://musescore.com/user/30065112/scores/8217491/",
+    size: 1337,
+    type: "file",
+  },
+  {
+    idx: 150,
+    path: "/static/urfu/Numb_-_Linkin_Park.mid",
+    link: "https://musescore.com/user/27756224/scores/5650222/",
+    size: 1337,
+    type: "file",
+  },
+  {
+    idx: 151,
+    path: "/static/urfu/Anders_Thue_Sonne.mid",
+    link: "https://musescore.com/user/19027351/scores/5866005",
+    size: 1337,
+    type: "file",
+  },
 ];
 
 export default STATIC_MIDI_FILES;

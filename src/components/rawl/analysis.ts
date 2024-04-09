@@ -19,6 +19,7 @@ export type Analysis = {
   tags: string[];
   form: { [oneIndexedMeasureStart: number]: string };
   phrasePatch: { measure: number; diff: number }[];
+  sections?: number[];
 };
 
 export type Corpus = {
@@ -36,6 +37,7 @@ export const ANALYSIS_STUB: Analysis = {
   tags: [],
   form: [],
   phrasePatch: [],
+  sections: [], // in phrases
 };
 
 const removeIdleModulations = (

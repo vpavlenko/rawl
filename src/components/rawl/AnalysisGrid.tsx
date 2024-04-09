@@ -38,6 +38,7 @@ const BeatBar = styled(VerticalBar)`
 export type MeasureSelection = {
   selectedMeasure: number;
   selectMeasure: (number) => void;
+  splitAtMeasure: () => void;
 };
 
 const PITCH_CLASS_TO_LETTER = {
@@ -80,7 +81,7 @@ const Measure: React.FC<{
   tonicStart,
   selectedPhraseStart,
 }) => {
-  const { selectedMeasure, selectMeasure } = measureSelection;
+  const { selectedMeasure, selectMeasure, splitAtMeasure } = measureSelection;
 
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
@@ -141,21 +142,38 @@ const Measure: React.FC<{
                 }}
               >
                 {selectedMeasure === number && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 25,
-                      left: 0,
-                      color: "gray",
-                      fontSize: 12,
-                    }}
-                    onClick={(e) => {
-                      selectMeasure(null);
-                      e.stopPropagation();
-                    }}
-                  >
-                    Esc
-                  </div>
+                  <>
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 25,
+                        left: 0,
+                        color: "gray",
+                        fontSize: 12,
+                      }}
+                      onClick={(e) => {
+                        selectMeasure(null);
+                        e.stopPropagation();
+                      }}
+                    >
+                      Esc
+                    </div>
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: -26,
+                        color: "red",
+                        fontSize: 14,
+                      }}
+                      onClick={(e) => {
+                        splitAtMeasure();
+                        e.stopPropagation();
+                      }}
+                    >
+                      ↵
+                    </div>
+                  </>
                 )}
                 <span
                   style={{

@@ -123,7 +123,7 @@ const Rawl: React.FC<{
   }, [analysis]);
 
   const [showVelocity, setShowVelocity] = useState(false);
-  const [systemLayout, setSystemLayout] = useState<SystemLayout>("split");
+  const [systemLayout, setSystemLayout] = useState<SystemLayout>("stacked");
 
   const commitAnalysisUpdate = useCallback(
     (analysisUpdate: Partial<Analysis>) => {
@@ -193,6 +193,29 @@ const Rawl: React.FC<{
     },
     [selectedMeasure, analysis, measuresAndBeats],
   );
+  const splitAtMeasure = useCallback(() => {
+    const phraseStarts = getPhraseStarts(
+      analysis,
+      measuresAndBeats.measures.length,
+    );
+    debugger;
+    const newSection = phraseStarts.indexOf(selectedMeasure);
+    if (newSection === -1) {
+      alert(
+        `splitAtMeasure, not found ${selectedMeasure} in ${JSON.stringify(
+          phraseStarts,
+        )}`,
+      );
+    } else {
+      const analysisUpdate: Partial<Analysis> = {
+        sections: [
+          ...new Set([...(analysis.sections ?? [0]), newSection]),
+        ].sort((a, b) => a - b),
+      };
+      setSelectedMeasure(null);
+      commitAnalysisUpdate(analysisUpdate);
+    }
+  }, [selectedMeasure, analysis, measuresAndBeats]);
 
   useEffect(() => {
     if (analysis.phrasePatch?.length > 0) {
@@ -292,8 +315,9 @@ const Rawl: React.FC<{
     () => ({
       selectedMeasure,
       selectMeasure,
+      splitAtMeasure,
     }),
-    [selectedMeasure, selectMeasure],
+    [selectedMeasure, selectMeasure, splitAtMeasure],
   );
 
   const commonParams = useMemo(

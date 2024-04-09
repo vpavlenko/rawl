@@ -1052,9 +1052,6 @@ export const SplitSystemLayout: React.FC<{
   );
 };
 
-// const SECTION_STARTS_IN_PHRASES = [0, 1, 6, 11, 16, 21];
-const SECTION_STARTS_IN_PHRASES = [0, 1, 5, 10, 12, 16, 20];
-
 export const StackedSystemLayout: React.FC<{
   notes: NotesInVoices;
   voiceNames: string[];
@@ -1113,11 +1110,11 @@ export const StackedSystemLayout: React.FC<{
 
   const sections = useMemo(
     () =>
-      SECTION_STARTS_IN_PHRASES.map((sectionStartInPhrases, index) => {
+      (analysis.sections ?? [0]).map((sectionStartInPhrases, index) => {
         const sectionStartInMeasures = phraseStarts[sectionStartInPhrases];
         const sectionEndInMeasures =
-          index + 1 < SECTION_STARTS_IN_PHRASES.length
-            ? phraseStarts[SECTION_STARTS_IN_PHRASES[index + 1]]
+          index + 1 < (analysis.sections ?? [0]).length
+            ? phraseStarts[(analysis.sections ?? [0])[index + 1]]
             : phraseStarts.at(-1);
         const { measures, beats } = measuresAndBeats;
         const filteredMeasures = measures.filter(

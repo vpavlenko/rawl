@@ -265,6 +265,28 @@ const Rawl: React.FC<{
       commitAnalysisUpdate(analysisUpdate);
     }
   }, [selectedMeasure, analysis, measuresAndBeats]);
+  const mergeAtMeasure = useCallback(() => {
+    const phraseStarts = getPhraseStarts(
+      analysis,
+      measuresAndBeats.measures.length,
+    );
+    const sectionToRemove = phraseStarts.indexOf(selectedMeasure);
+    if (sectionToRemove === -1) {
+      alert(
+        `mergeAtMeasure, not found ${selectedMeasure} in ${JSON.stringify(
+          phraseStarts,
+        )}`,
+      );
+    } else {
+      const analysisUpdate: Partial<Analysis> = {
+        sections: (analysis.sections ?? [0]).filter(
+          (section) => section !== sectionToRemove,
+        ),
+      };
+      setSelectedMeasure(null);
+      commitAnalysisUpdate(analysisUpdate);
+    }
+  }, [selectedMeasure, analysis, measuresAndBeats]);
 
   useEffect(() => {
     if (analysis.phrasePatch?.length > 0) {
@@ -365,8 +387,9 @@ const Rawl: React.FC<{
       selectedMeasure,
       selectMeasure,
       splitAtMeasure,
+      mergeAtMeasure,
     }),
-    [selectedMeasure, selectMeasure, splitAtMeasure],
+    [selectedMeasure, selectMeasure, splitAtMeasure, mergeAtMeasure],
   );
 
   const coloredNotes: ColoredNotesInVoices = useMemo(

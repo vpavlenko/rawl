@@ -692,6 +692,7 @@ export const Voice: React.FC<{
     ],
   );
 
+  const { measures } = measuresAndBeats;
   // TODO: make smarter once Stacked is implemented
   const hasVisibleNotes =
     !!sectionSpan || localMidiRange[1] >= localMidiRange[0];
@@ -700,12 +701,7 @@ export const Voice: React.FC<{
     <div
       key={`voice_${voiceIndex}_${measuresAndBeats.measures.at(-1)}_parent`}
       style={{
-        width: secondsToX(
-          Math.max(
-            measuresAndBeats.measures.at(-1),
-            measuresAndBeats.beats.at(-1),
-          ),
-        ),
+        width: secondsToX(measures[sectionSpan?.[1] ?? measures.length - 1]),
         height: hasVisibleNotes ? height : 1,
         position: "relative",
         marginTop: hasVisibleNotes ? "15px" : 0,
@@ -1222,8 +1218,10 @@ export const StackedSystemLayout: React.FC<{
                   measureSelection={measureSelection}
                   showVelocity={showVelocity}
                   cursor={
-                    positionSeconds > measuresAndBeats.measures[0] &&
-                    positionSeconds < measuresAndBeats.measures.at(-1) && (
+                    positionSeconds >
+                      measuresAndBeats.measures[sectionSpan[0]] &&
+                    positionSeconds <
+                      measuresAndBeats.measures[sectionSpan[1]] && (
                       <Cursor
                         style={{
                           transition:

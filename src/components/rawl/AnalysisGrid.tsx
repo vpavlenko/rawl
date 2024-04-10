@@ -35,6 +35,7 @@ export type MeasureSelection = {
   selectedMeasure: number;
   selectMeasure: (number) => void;
   splitAtMeasure: () => void;
+  mergeAtMeasure: () => void;
 };
 
 const PITCH_CLASS_TO_LETTER = {
@@ -64,6 +65,7 @@ const Measure: React.FC<{
   showNonPhraseStarts: boolean;
   tonicStart?: PitchClass;
   selectedPhraseStart: number;
+  sectionSpan: MeasuresSpan;
 }> = ({
   span,
   number,
@@ -76,8 +78,10 @@ const Measure: React.FC<{
   showNonPhraseStarts,
   tonicStart,
   selectedPhraseStart,
+  sectionSpan,
 }) => {
-  const { selectedMeasure, selectMeasure, splitAtMeasure } = measureSelection;
+  const { selectedMeasure, selectMeasure, splitAtMeasure, mergeAtMeasure } =
+    measureSelection;
 
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
@@ -138,22 +142,24 @@ const Measure: React.FC<{
                 }}
               >
                 {selectedMeasure === number && (
-                  <>
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: 25,
-                        left: 0,
-                        color: "gray",
-                        fontSize: 12,
-                      }}
-                      onClick={(e) => {
-                        selectMeasure(null);
-                        e.stopPropagation();
-                      }}
-                    >
-                      Esc
-                    </div>
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 25,
+                      left: 0,
+                      color: "gray",
+                      fontSize: 12,
+                    }}
+                    onClick={(e) => {
+                      selectMeasure(null);
+                      e.stopPropagation();
+                    }}
+                  >
+                    Esc
+                  </div>
+                )}
+                {selectedPhraseStart === number &&
+                  sectionSpan?.[0] !== number - 1 && (
                     <div
                       style={{
                         position: "absolute",
@@ -169,8 +175,25 @@ const Measure: React.FC<{
                     >
                       ↵
                     </div>
-                  </>
-                )}
+                  )}
+                {selectedPhraseStart === number &&
+                  sectionSpan?.[0] === number - 1 && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 18,
+                        color: "red",
+                        fontSize: 14,
+                      }}
+                      onClick={(e) => {
+                        mergeAtMeasure();
+                        e.stopPropagation();
+                      }}
+                    >
+                      ↱
+                    </div>
+                  )}
                 <span
                   style={{
                     fontSize: "12px",
@@ -379,6 +402,7 @@ export const AnalysisGrid: React.FC<{
               showNonPhraseStarts={showAllMeasureBars}
               tonicStart={modulations.get(i)}
               selectedPhraseStart={selectedPhraseStart}
+              sectionSpan={sectionSpan}
             />
           ) : null;
         })}

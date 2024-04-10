@@ -2,9 +2,9 @@ import * as React from "react";
 import styled from "styled-components";
 import { CHORDS, Chord } from "./course/ChordClouds";
 
-const NOTE_HEIGHT = 4;
-const NOTE_WIDTH = 40;
-const HORIZONTAL_GAP = 25;
+const NOTE_HEIGHT = 3;
+const NOTE_WIDTH = 30;
+const HORIZONTAL_GAP = 10;
 
 const ChordNote = styled.div`
   user-select: none;

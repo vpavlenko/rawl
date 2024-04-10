@@ -1140,19 +1140,6 @@ export const StackedSystemLayout: React.FC<{
   return (
     <>
       <div
-        style={{
-          position: "sticky",
-          display: "flex",
-          flexDirection: "row",
-          gap: 60,
-          marginBottom: 40,
-        }}
-      >
-        <ChordStairs mode={MODES[0]} />
-        <ChordStairs mode={MODES[1]} />
-        <ChordStairs mode={MODES[2]} />
-      </div>
-      <div
         key="innerLeftPanel"
         style={{
           margin: 0,
@@ -1210,6 +1197,21 @@ export const StackedSystemLayout: React.FC<{
               width: 240,
             }}
           />
+        </div>
+        <div
+          style={{
+            position: "fixed",
+            display: "flex",
+            flexDirection: "column",
+            gap: 60,
+            marginBottom: 20,
+            top: 50,
+            right: 80,
+          }}
+        >
+          <ChordStairs mode={MODES[0]} />
+          <ChordStairs mode={MODES[1]} />
+          <ChordStairs mode={MODES[2]} />
         </div>
 
         {sections.map(

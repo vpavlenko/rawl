@@ -29,7 +29,9 @@
             "diff": 2
           }
         ],
-        "sections": []
+        "sections": [
+          0
+        ]
       }
     }
   },
@@ -59,7 +61,9 @@
             "diff": 2
           }
         ],
-        "sections": []
+        "sections": [
+          0
+        ]
       }
     }
   },
@@ -105,7 +109,9 @@
             "diff": 2
           }
         ],
-        "sections": []
+        "sections": [
+          0
+        ]
       }
     },
     "ludovico-einaudi-una-mattina.mid": {
@@ -121,7 +127,9 @@
             "diff": 0
           }
         ],
-        "sections": []
+        "sections": [
+          0
+        ]
       }
     },
     "Krylya_Nautilus_duo.mid": {
@@ -153,7 +161,9 @@
             "diff": -3
           }
         ],
-        "sections": []
+        "sections": [
+          0
+        ]
       }
     },
     "Numb_-_Linkin_Park.mid": {
@@ -177,7 +187,9 @@
             "diff": 1
           }
         ],
-        "sections": []
+        "sections": [
+          0
+        ]
       }
     },
     "Sorcerers_doll___-_The_King_and_the_Jester___.mid": {
@@ -205,7 +217,9 @@
             "diff": 1
           }
         ],
-        "sections": []
+        "sections": [
+          0
+        ]
       }
     },
     "Anders_Thue_Sonne.mid": {
@@ -233,7 +247,9 @@
             "diff": 1
           }
         ],
-        "sections": []
+        "sections": [
+          0
+        ]
       }
     },
     "The_Prince_of_Silence____Nautilus_Pompilius.mid": {
@@ -309,7 +325,9 @@
             "diff": -1
           }
         ],
-        "sections": []
+        "sections": [
+          0
+        ]
       }
     },
     "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano.mid": {
@@ -349,7 +367,9 @@
             "diff": 1
           }
         ],
-        "sections": []
+        "sections": [
+          0
+        ]
       }
     }
   },
@@ -5855,7 +5875,9 @@
             "diff": -1
           }
         ],
-        "sections": []
+        "sections": [
+          0
+        ]
       }
     }
   },
@@ -5895,7 +5917,9 @@
             "diff": -2
           }
         ],
-        "sections": []
+        "sections": [
+          0
+        ]
       }
     }
   },

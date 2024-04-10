@@ -15,12 +15,13 @@ import { formatTag } from "./TagSearch";
 import {
   ANALYSIS_STUB,
   Analysis,
+  PitchClass,
   advanceAnalysis,
   getNewAnalysis,
 } from "./analysis";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { LinkForSeparateTab } from "./course/Course";
-import { Note, ParsingResult } from "./parseMidi";
+import { ColoredNotesInVoices, Note, ParsingResult } from "./parseMidi";
 
 export const CHORD_HIGHLIGHT_LATENCY_CORRECTION_MS = -200;
 
@@ -69,6 +70,52 @@ export type AppStateForRawl = {
 };
 
 export type ChordChartLayout = "hidden" | null;
+
+const getTonic = (measure: number, analysis: Analysis): PitchClass => {
+  const modulations = getModulations(analysis);
+  let i = 0;
+  while (i + 1 < modulations.length && modulations[i + 1].measure <= measure) {
+    i++;
+  }
+  return modulations[i].tonic as PitchClass;
+};
+
+export const getModulations = (analysis: Analysis) =>
+  [
+    { measure: 0, tonic: analysis.tonic },
+    ...Object.entries(analysis.modulations || []).map((entry) => ({
+      measure: parseInt(entry[0], 10) - 1,
+      tonic: entry[1],
+    })),
+  ].sort((a, b) => a.measure - b.measure);
+
+const getSecondsMeasure = (
+  seconds: number,
+  measures: number[] | null,
+): number => {
+  if (!measures) {
+    return -1;
+  }
+  const result = measures.findIndex((time) => time >= seconds);
+  return (result === -1 ? measures.length - 1 : result) - 1;
+};
+
+const getNoteMeasure = (note: Note, measures: number[] | null): number =>
+  getSecondsMeasure((note.span[0] + note.span[1]) / 2, measures);
+
+const getNoteColor = (
+  note: Note,
+  analysis: Analysis,
+  measures: number[],
+  // colorScheme: ColorScheme,
+): string =>
+  `noteColor_${
+    analysis.tonic === null
+      ? "default"
+      : (note.note.midiNumber -
+          getTonic(getNoteMeasure(note, measures), analysis)) %
+        12
+  }_colors`;
 
 const Rawl: React.FC<{
   parsingResult: ParsingResult;
@@ -198,7 +245,6 @@ const Rawl: React.FC<{
       analysis,
       measuresAndBeats.measures.length,
     );
-    debugger;
     const newSection = phraseStarts.indexOf(selectedMeasure);
     if (newSection === -1) {
       alert(
@@ -320,9 +366,22 @@ const Rawl: React.FC<{
     [selectedMeasure, selectMeasure, splitAtMeasure],
   );
 
+  const coloredNotes: ColoredNotesInVoices = useMemo(
+    () =>
+      notes.map((notesInVoice) =>
+        notesInVoice.map((note) => ({
+          ...note,
+          color: note.isDrum
+            ? "noteColor_drum"
+            : getNoteColor(note, futureAnalysis, measuresAndBeats.measures),
+        })),
+      ),
+    [notes, futureAnalysis, measuresAndBeats],
+  );
+
   const commonParams = useMemo(
     () => ({
-      notes,
+      notes: coloredNotes,
       voiceMask,
       measuresAndBeats,
       showVelocity,
@@ -332,7 +391,7 @@ const Rawl: React.FC<{
       analysis: futureAnalysis,
     }),
     [
-      notes,
+      coloredNotes,
       voiceMask,
       measuresAndBeats,
       showVelocity,

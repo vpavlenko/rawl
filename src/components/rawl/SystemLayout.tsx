@@ -11,7 +11,7 @@ import { useLocalStorage } from "usehooks-ts";
 import { DUMMY_CALLBACK } from "../App";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import ChordStairs, { MODES } from "./ChordStairs";
-import { ColorScheme, useColorScheme } from "./ColorScheme";
+import { useColorScheme } from "./ColorScheme";
 import { PianoLegend } from "./PianoLegend";
 import {
   ChordChartLayout,
@@ -19,8 +19,13 @@ import {
   SetVoiceMask,
   secondsToX__,
 } from "./Rawl";
-import { Analysis, PitchClass } from "./analysis";
-import { Note, NotesInVoices, PitchBendPoint } from "./parseMidi";
+import { Analysis } from "./analysis";
+import {
+  ColoredNote,
+  ColoredNotesInVoices,
+  Note,
+  PitchBendPoint,
+} from "./parseMidi";
 
 export type MeasuresAndBeats = {
   measures: number[];
@@ -52,38 +57,6 @@ export const getPhraseStarts = (
 
   return result;
 };
-
-export const getModulations = (analysis: Analysis) =>
-  [
-    { measure: 0, tonic: analysis.tonic },
-    ...Object.entries(analysis.modulations || []).map((entry) => ({
-      measure: parseInt(entry[0], 10) - 1,
-      tonic: entry[1],
-    })),
-  ].sort((a, b) => a.measure - b.measure);
-
-const getTonic = (measure: number, analysis: Analysis): PitchClass => {
-  const modulations = getModulations(analysis);
-  let i = 0;
-  while (i + 1 < modulations.length && modulations[i + 1].measure <= measure) {
-    i++;
-  }
-  return modulations[i].tonic as PitchClass;
-};
-
-export const getSecondsMeasure = (
-  seconds: number,
-  measures: number[] | null,
-): number => {
-  if (!measures) {
-    return -1;
-  }
-  const result = measures.findIndex((time) => time >= seconds);
-  return (result === -1 ? measures.length - 1 : result) - 1;
-};
-
-const getNoteMeasure = (note: Note, measures: number[] | null): number =>
-  getSecondsMeasure((note.span[0] + note.span[1]) / 2, measures);
 
 const getAverageMidiNumber = (notes: Note[]) =>
   notes.length > 0
@@ -173,20 +146,6 @@ const getMidiRange = (notes: Note[], span?: SecondsSpan): MidiRange => {
   return [min, max];
 };
 
-const getNoteColor = (
-  note: Note,
-  analysis: Analysis,
-  measures: number[],
-  colorScheme: ColorScheme,
-): string =>
-  `noteColor_${
-    analysis.tonic === null
-      ? "default"
-      : (note.note.midiNumber -
-          getTonic(getNoteMeasure(note, measures), analysis)) %
-        12
-  }_${colorScheme}`;
-
 type MouseEventHanlder = (note: Note) => void;
 export type MouseHandlers = {
   handleNoteClick: MouseEventHanlder | null;
@@ -238,31 +197,26 @@ const convertPitchBendToPathData = (
 };
 
 const getNoteRectangles = (
-  notes: Note[],
+  notes: ColoredNote[],
   voiceIndex: number,
   isActiveVoice: boolean,
-  analysis: Analysis,
   midiNumberToY: (number: number) => number,
   noteHeight: number,
-  measures: number[] = null,
   handleNoteClick: MouseEventHanlder,
   handleMouseEnter: MouseEventHanlder,
   handleMouseLeave: () => void,
   showVelocity = false,
-  colorScheme: ColorScheme,
   secondsToX: (number) => number,
 ) => {
   return notes.map((note) => {
     const {
       isDrum,
       note: { midiNumber, relativeNumber },
+      color,
     } = note;
     const number = relativeNumber === undefined ? midiNumber : relativeNumber;
     const top = midiNumberToY(number) - noteHeight;
     const left = secondsToX(note.span[0]);
-    const color = isDrum
-      ? "noteColor_drum"
-      : getNoteColor(note, analysis, measures, colorScheme);
     const drumEmoji = isDrum ? GM_DRUM_KIT[midiNumber] || midiNumber : null;
     const noteElement = drumEmoji ? (
       <span
@@ -412,28 +366,16 @@ export const MergedSystemLayout = ({
           voice,
           i,
           voiceMask[i],
-          analysis,
           midiNumberToY,
           noteHeight,
-          measuresAndBeats.measures,
           handleNoteClick,
           handleMouseEnter,
           handleMouseLeave,
           showVelocity,
-          colorScheme,
           secondsToX__,
         ),
       ),
-    [
-      notes,
-      analysis,
-      measuresAndBeats,
-      noteHeight,
-      voiceMask,
-      hoveredNote,
-      showVelocity,
-      colorScheme,
-    ],
+    [notes, noteHeight, voiceMask, hoveredNote, showVelocity],
   );
   const phraseStarts = useMemo(
     () => getPhraseStarts(analysis, measuresAndBeats.measures.length),
@@ -648,7 +590,7 @@ const MeasureNumbers = ({
 );
 
 export const Voice: React.FC<{
-  notes: Note[];
+  notes: ColoredNote[];
   measuresAndBeats: MeasuresAndBeats;
   analysis: Analysis;
   showVelocity: boolean;
@@ -717,15 +659,12 @@ export const Voice: React.FC<{
         notes,
         0,
         true,
-        analysis,
         midiNumberToY,
         noteHeight,
-        measuresAndBeats.measures,
         handleNoteClick,
         handleMouseEnter,
         DUMMY_CALLBACK,
         showVelocity,
-        colorScheme,
         secondsToX,
       ),
       frozenHeight: height,
@@ -827,7 +766,7 @@ const debounce = (func, delay) => {
 };
 
 export const SplitSystemLayout: React.FC<{
-  notes: NotesInVoices;
+  notes: ColoredNotesInVoices;
   voiceNames: string[];
   voiceMask: boolean[];
   measuresAndBeats: MeasuresAndBeats;
@@ -1053,7 +992,7 @@ export const SplitSystemLayout: React.FC<{
 };
 
 export const StackedSystemLayout: React.FC<{
-  notes: NotesInVoices;
+  notes: ColoredNotesInVoices;
   voiceNames: string[];
   voiceMask: boolean[];
   measuresAndBeats: MeasuresAndBeats;

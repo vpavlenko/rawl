@@ -1,11 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import {
-  MeasuresAndBeats,
-  MidiRange,
-  SystemLayout,
-  getModulations,
-} from "./SystemLayout";
+import { getModulations } from "./Rawl";
+import { MeasuresAndBeats, MidiRange, SystemLayout } from "./SystemLayout";
 import { Analysis, PitchClass } from "./analysis";
 
 export const STACKED_RN_HEIGHT = 20;

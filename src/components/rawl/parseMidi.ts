@@ -16,12 +16,18 @@ export type Note = {
   chipState: { on: any; off: any };
 };
 
+export type ColoredNote = Note & {
+  color: string;
+};
+
 export type PitchBendPoint = {
   time: number;
   value: number;
 };
 
 export type NotesInVoices = Note[][];
+
+export type ColoredNotesInVoices = ColoredNote[][];
 
 export type MidiSource = {
   events: any;

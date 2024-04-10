@@ -1138,125 +1138,144 @@ export const StackedSystemLayout: React.FC<{
   }, []);
 
   return (
-    <div
-      key="innerLeftPanel"
-      style={{
-        margin: 0,
-        padding: 0,
-        position: "relative",
-        overflowX: "scroll",
-        overflowY: "scroll",
-        width: "100%",
-        height: "100%",
-        backgroundColor: "black",
-      }}
-      ref={parentRef}
-      className="SplitLayout"
-    >
+    <>
       <div
         style={{
-          position: "fixed",
-          bottom: 243,
-          right: -88,
-          zIndex: 10000,
+          position: "sticky",
+          display: "flex",
+          flexDirection: "row",
+          gap: 60,
+          marginBottom: 40,
         }}
       >
-        <input
-          type="range"
-          min="1"
-          max="15"
-          value={noteHeight}
-          onChange={(e) => debounceSetNoteHeight(parseInt(e.target.value, 10))}
-          style={{
-            transform: "rotate(90deg)",
-            transformOrigin: "bottom left",
-            width: 160,
-          }}
-        />
+        <ChordStairs mode={MODES[0]} />
+        <ChordStairs mode={MODES[1]} />
+        <ChordStairs mode={MODES[2]} />
       </div>
       <div
+        key="innerLeftPanel"
         style={{
-          position: "fixed",
-          bottom: 70,
-          right: 79,
-          zIndex: 10000,
+          margin: 0,
+          padding: 0,
+          position: "relative",
+          overflowX: "scroll",
+          overflowY: "scroll",
+          width: "100%",
+          height: "100%",
+          backgroundColor: "black",
         }}
+        ref={parentRef}
+        className="SplitLayout"
       >
-        <input
-          type="range"
-          min="2"
-          max="100"
-          value={secondWidth}
-          onChange={(e) => debounceSetSecondWidth(parseInt(e.target.value, 10))}
+        <div
           style={{
-            width: 240,
+            position: "fixed",
+            bottom: 243,
+            right: -88,
+            zIndex: 10000,
           }}
-        />
-      </div>
+        >
+          <input
+            type="range"
+            min="1"
+            max="15"
+            value={noteHeight}
+            onChange={(e) =>
+              debounceSetNoteHeight(parseInt(e.target.value, 10))
+            }
+            style={{
+              transform: "rotate(90deg)",
+              transformOrigin: "bottom left",
+              width: 160,
+            }}
+          />
+        </div>
+        <div
+          style={{
+            position: "fixed",
+            bottom: 70,
+            right: 79,
+            zIndex: 10000,
+          }}
+        >
+          <input
+            type="range"
+            min="2"
+            max="100"
+            value={secondWidth}
+            onChange={(e) =>
+              debounceSetSecondWidth(parseInt(e.target.value, 10))
+            }
+            style={{
+              width: 240,
+            }}
+          />
+        </div>
 
-      {sections.map(
-        ({ sectionSpan, secondsToX, xToSeconds, voices }, order) => (
-          <div style={{ marginBottom: 30 }}>
-            <MeasureNumbers
-              measuresAndBeats={measuresAndBeats}
-              analysis={analysis}
-              phraseStarts={phraseStarts}
-              measureSelection={measureSelection}
-              noteHeight={noteHeight}
-              secondsToX={secondsToX}
-              sectionSpan={sectionSpan}
-            />
-            {voices.map(({ notes, voiceIndex }) => (
-              <div key={order}>
-                <Voice
-                  key={voiceIndex}
-                  voiceName={voiceNames[voiceIndex]}
-                  notes={notes}
-                  measuresAndBeats={measuresAndBeats}
-                  analysis={analysis}
-                  mouseHandlers={mouseHandlers}
-                  measureSelection={measureSelection}
-                  showVelocity={showVelocity}
-                  cursor={
-                    positionSeconds >
-                      measuresAndBeats.measures[sectionSpan[0]] &&
-                    positionSeconds <
-                      measuresAndBeats.measures[sectionSpan[1]] && (
-                      <Cursor
-                        style={{
-                          transition:
-                            Math.abs(
-                              prevPositionSeconds.current - positionSeconds,
-                            ) < 1
-                              ? "left 0.4s linear"
-                              : "",
-                          left: secondsToX(positionSeconds),
-                        }}
-                      />
-                    )
-                  }
-                  phraseStarts={phraseStarts}
-                  scrollInfo={scrollInfo}
-                  voiceMask={voiceMask}
-                  setVoiceMask={setVoiceMask}
-                  voiceIndex={voiceIndex}
-                  noteHeight={noteHeight}
-                  secondsToX={secondsToX}
-                  xToSeconds={xToSeconds}
-                  sectionSpan={sectionSpan}
-                />
-              </div>
-            ))}
-          </div>
-        ),
-      )}
+        {sections.map(
+          ({ sectionSpan, secondsToX, xToSeconds, voices }, order) => (
+            <div style={{ marginBottom: 30 }}>
+              <MeasureNumbers
+                measuresAndBeats={measuresAndBeats}
+                analysis={analysis}
+                phraseStarts={phraseStarts}
+                measureSelection={measureSelection}
+                noteHeight={noteHeight}
+                secondsToX={secondsToX}
+                sectionSpan={sectionSpan}
+              />
+              {voices.map(({ notes, voiceIndex }) => (
+                <div key={order}>
+                  <Voice
+                    key={voiceIndex}
+                    voiceName={voiceNames[voiceIndex]}
+                    notes={notes}
+                    measuresAndBeats={measuresAndBeats}
+                    analysis={analysis}
+                    mouseHandlers={mouseHandlers}
+                    measureSelection={measureSelection}
+                    showVelocity={showVelocity}
+                    cursor={
+                      positionSeconds >
+                        measuresAndBeats.measures[sectionSpan[0]] &&
+                      positionSeconds <
+                        measuresAndBeats.measures[sectionSpan[1]] && (
+                        <Cursor
+                          style={{
+                            transition:
+                              Math.abs(
+                                prevPositionSeconds.current - positionSeconds,
+                              ) < 1
+                                ? "left 0.4s linear"
+                                : "",
+                            left: secondsToX(positionSeconds),
+                          }}
+                        />
+                      )
+                    }
+                    phraseStarts={phraseStarts}
+                    scrollInfo={scrollInfo}
+                    voiceMask={voiceMask}
+                    setVoiceMask={setVoiceMask}
+                    voiceIndex={voiceIndex}
+                    noteHeight={noteHeight}
+                    secondsToX={secondsToX}
+                    xToSeconds={xToSeconds}
+                    sectionSpan={sectionSpan}
+                  />
+                </div>
+              ))}
+            </div>
+          ),
+        )}
 
-      <div
-        key="piano-legend"
-        style={{ position: "fixed", bottom: 90, right: 70, zIndex: 30 }}
-      >
-        <PianoLegend />
+        <div
+          key="piano-legend"
+          style={{ position: "fixed", bottom: 90, right: 70, zIndex: 30 }}
+        >
+          <PianoLegend />
+        </div>
       </div>
-    </div>
+    </>
   );
 };

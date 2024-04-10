@@ -9094,7 +9094,21 @@
         "comment": "",
         "tonic": 8,
         "tags": [],
-        "modulations": {}
+        "modulations": {
+          "57": 9
+        },
+        "sections": [
+          0,
+          1,
+          3,
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17
+        ]
       }
     },
     "Someone_You_Loved.mid": {
@@ -9436,7 +9450,14 @@
         "comment": "",
         "tonic": 0,
         "tags": [],
-        "modulations": {}
+        "modulations": {},
+        "sections": [
+          0,
+          1,
+          3,
+          5,
+          7
+        ]
       }
     },
     "Liebestraum_No._3_in_A_Major.mid": {
@@ -9741,12 +9762,37 @@
           {
             "measure": 30,
             "diff": -2
+          },
+          {
+            "measure": 68,
+            "diff": 1
           }
         ],
         "comment": "",
         "tonic": 8,
         "tags": [],
-        "modulations": {}
+        "modulations": {},
+        "sections": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18
+        ]
       }
     },
     "Fly_Me_to_the_Moon.mid": {
@@ -10697,7 +10743,13 @@
         "comment": "",
         "tonic": 2,
         "tags": [],
-        "modulations": {}
+        "modulations": {},
+        "sections": [
+          0,
+          1,
+          3,
+          5
+        ]
       }
     },
     "Lena_Raine_Pigstep.mid": {
@@ -10804,7 +10856,20 @@
         "comment": "",
         "tonic": 11,
         "tags": [],
-        "modulations": {}
+        "modulations": {},
+        "sections": [
+          0,
+          3,
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21
+        ]
       }
     },
     "Sweet_Dreams.mid": {

@@ -259,15 +259,20 @@ const TonalGrid: React.FC<{
     secondsToX,
     sectionSpan,
   }) => {
-    const minX = secondsToX(measures[sectionSpan?.[0] ?? 0]);
-    const maxX = secondsToX(measures[sectionSpan?.[1] ?? measures.length - 1]);
-
     const modulations = getModulations(analysis);
     if (!modulations || !measures) return;
     modulations.push({
       measure: measures.length,
       tonic: modulations[0].tonic,
     });
+
+    const minX = secondsToX(measures[sectionSpan?.[0] ?? 0]);
+    const maxX =
+      secondsToX(measures[sectionSpan?.[1] ?? measures.length - 1]) +
+      (modulations.filter(({ measure }) => measure === sectionSpan?.[1])
+        .length > 0
+        ? 50
+        : 0);
 
     const result = [];
     for (let i = 0; i + 1 < modulations.length; ++i) {

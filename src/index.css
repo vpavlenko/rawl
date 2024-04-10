@@ -683,7 +683,7 @@ img {
     /* box-shadow: 0 0 3px maroon, 0 0 6px maroon; */
 }
 
-.noteColor_1_colors:after, .noteColor_1_shapes:after {
+.noteColor_1_colors:after, .noteColor_6_colors:after {
     content: '';
     position: absolute;
     top: 50%;

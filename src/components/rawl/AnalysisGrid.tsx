@@ -93,8 +93,8 @@ const Measure: React.FC<{
           style={{
             color: "white",
             position: "absolute",
-            top: 40,
-            left: left + 2,
+            top: -2,
+            left: left + 30,
             fontSize: 12,
             zIndex: 100,
             fontWeight: 700,
@@ -166,6 +166,8 @@ const Measure: React.FC<{
                         left: -26,
                         color: "red",
                         fontSize: 14,
+                        fontWeight: 700,
+                        zIndex: 100,
                       }}
                       onClick={(e) => {
                         splitAtMeasure();
@@ -184,6 +186,8 @@ const Measure: React.FC<{
                         left: 18,
                         color: "red",
                         fontSize: 14,
+                        fontWeight: 700,
+                        zIndex: 100,
                       }}
                       onClick={(e) => {
                         mergeAtMeasure();

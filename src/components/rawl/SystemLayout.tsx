@@ -709,6 +709,7 @@ export const Voice: React.FC<{
         marginLeft: "0px",
         // borderBottom: hasVisibleNotes ? "1px solid #888" : "",
         zIndex: 1,
+        backgroundColor: "black",
       }}
       onClick={(e) => systemClickHandler(e, xToSeconds)}
     >

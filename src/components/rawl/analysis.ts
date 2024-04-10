@@ -37,7 +37,7 @@ export const ANALYSIS_STUB: Analysis = {
   tags: [],
   form: [],
   phrasePatch: [],
-  sections: [], // in phrases
+  sections: [0], // in phrases
 };
 
 const removeIdleModulations = (

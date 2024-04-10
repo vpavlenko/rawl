@@ -695,7 +695,8 @@ export const Voice: React.FC<{
   const { measures } = measuresAndBeats;
   // TODO: make smarter once Stacked is implemented
   const hasVisibleNotes =
-    !!sectionSpan || localMidiRange[1] >= localMidiRange[0];
+    voiceMask[voiceIndex] &&
+    (!!sectionSpan || localMidiRange[1] >= localMidiRange[0]);
 
   return (
     <div
@@ -722,7 +723,7 @@ export const Voice: React.FC<{
             (midiRange[0] - frozenMidiRange[0]) * noteHeight,
         }}
       >
-        {noteRectangles}
+        {voiceMask[voiceIndex] ? noteRectangles : null}
       </div>
       {hasVisibleNotes ? (
         <AnalysisGrid
@@ -952,7 +953,7 @@ export const SplitSystemLayout: React.FC<{
                 style={{
                   transition:
                     Math.abs(prevPositionSeconds.current - positionSeconds) < 1
-                      ? "left 0.4s linear"
+                      ? "left 0.37s linear"
                       : "",
                   left: secondsToX(positionSeconds),
                 }}
@@ -1239,8 +1240,6 @@ export const StackedSystemLayout: React.FC<{
                     measureSelection={measureSelection}
                     showVelocity={showVelocity}
                     cursor={
-                      positionSeconds >
-                        measuresAndBeats.measures[sectionSpan[0]] &&
                       positionSeconds <
                         measuresAndBeats.measures[sectionSpan[1]] && (
                         <Cursor
@@ -1249,7 +1248,7 @@ export const StackedSystemLayout: React.FC<{
                               Math.abs(
                                 prevPositionSeconds.current - positionSeconds,
                               ) < 1
-                                ? "left 0.4s linear"
+                                ? "left 0.37s linear"
                                 : "",
                             left: secondsToX(positionSeconds),
                           }}

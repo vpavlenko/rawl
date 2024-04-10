@@ -742,7 +742,7 @@ class App extends React.Component {
   fetchDirectory(path) {
     if (path.startsWith("static")) {
       return this.processFetchedDirectory(path, STATIC_MIDI_FILES);
-    } else {
+    } else if (!path.startsWith("link")) {
       return fetch(`${API_BASE}/browse?path=%2F${encodeURIComponent(path)}`)
         .then((response) => response.json())
         .then((items) => {

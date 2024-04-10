@@ -942,6 +942,13 @@ const STATIC_MIDI_FILES: StaticMidiFile[] = [
     size: 1337,
     type: "file",
   },
+  {
+    idx: 153,
+    path: "/static/musescore_manual/Jupiter_-_arr._for_two_pianos_by_Gustav_Holst.mid",
+    link: "https://musescore.com/user/58480/scores/2426786",
+    size: 1337,
+    type: "file",
+  },
 ];
 
 export default STATIC_MIDI_FILES;

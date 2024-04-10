@@ -1032,7 +1032,7 @@ export const StackedSystemLayout: React.FC<{
 }) => {
   const [noteHeight, setNoteHeight] = useLocalStorage("noteHeight", 4);
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
-  const [secondWidth, setSecondWidth] = useLocalStorage("secondWidth", 70);
+  const [secondWidth, setSecondWidth] = useLocalStorage("secondWidth", 55);
   const debounceSetSecondWidth = useCallback(debounce(setSecondWidth, 50), []);
 
   const prevPositionSeconds = useRef<number>(0);

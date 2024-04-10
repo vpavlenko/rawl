@@ -121,7 +121,7 @@ const Measure: React.FC<{
                 key={`db_n_${number}`}
                 style={{
                   position: "absolute",
-                  top: 0,
+                  top: -6,
                   left: left + 7,
                   color:
                     selectedMeasure === number
@@ -129,11 +129,10 @@ const Measure: React.FC<{
                       : selectedPhraseStart !== -1 &&
                         Math.abs(number - selectedPhraseStart) <= 3
                       ? "orange"
-                      : "white",
+                      : "#666",
                   zIndex: 15,
                   cursor: "pointer",
                   userSelect: "none",
-                  backgroundColor: "#0009",
                   ...(systemLayout === "merged" ? { width } : {}), // enlarges seek area for stacked
                 }}
                 onClick={(e) => {
@@ -145,7 +144,7 @@ const Measure: React.FC<{
                   <div
                     style={{
                       position: "absolute",
-                      top: 25,
+                      top: 23,
                       left: 0,
                       color: "gray",
                       fontSize: 12,
@@ -163,7 +162,7 @@ const Measure: React.FC<{
                     <div
                       style={{
                         position: "absolute",
-                        top: 0,
+                        top: 4,
                         left: -26,
                         color: "red",
                         fontSize: 14,
@@ -181,7 +180,7 @@ const Measure: React.FC<{
                     <div
                       style={{
                         position: "absolute",
-                        top: 0,
+                        top: 4,
                         left: 18,
                         color: "red",
                         fontSize: 14,
@@ -407,6 +406,7 @@ export const AnalysisGrid: React.FC<{
           ) : null;
         })}
         {showBeats &&
+          !showHeader &&
           beats.map((time) =>
             time >= measures[sectionSpan[0]] &&
             time <= measures[sectionSpan[1]] ? (

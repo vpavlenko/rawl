@@ -568,7 +568,7 @@ const MeasureNumbers = ({
             measuresAndBeats.beats.at(-1),
           ),
         ) + 300,
-      height: 20,
+      height: 16,
       marginBottom: "-14px",
       marginLeft: "0px",
       zIndex: 10000,
@@ -707,7 +707,7 @@ export const Voice: React.FC<{
         marginTop: hasVisibleNotes ? "15px" : 0,
         marginBottom: hasVisibleNotes ? "0px" : 0,
         marginLeft: "0px",
-        borderBottom: hasVisibleNotes ? "1px solid #888" : "",
+        // borderBottom: hasVisibleNotes ? "1px solid #888" : "",
         zIndex: 1,
       }}
       onClick={(e) => systemClickHandler(e, xToSeconds)}
@@ -1028,9 +1028,9 @@ export const StackedSystemLayout: React.FC<{
   setVoiceMask,
   chordChartLayout,
 }) => {
-  const [noteHeight, setNoteHeight] = useLocalStorage("noteHeight", 6);
+  const [noteHeight, setNoteHeight] = useLocalStorage("noteHeight", 4);
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
-  const [secondWidth, setSecondWidth] = useLocalStorage("secondWidth", 40);
+  const [secondWidth, setSecondWidth] = useLocalStorage("secondWidth", 70);
   const debounceSetSecondWidth = useCallback(debounce(setSecondWidth, 50), []);
 
   const prevPositionSeconds = useRef<number>(0);

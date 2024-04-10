@@ -10219,7 +10219,15 @@
         "comment": "",
         "tonic": 2,
         "tags": [],
-        "modulations": {}
+        "modulations": {},
+        "sections": [
+          0,
+          1,
+          5,
+          9,
+          12,
+          16
+        ]
       }
     },
     "Attack_on_Titan_Shinzou_wo_Sasageyo.mid": {
@@ -10389,7 +10397,16 @@
         "comment": "",
         "tonic": 9,
         "tags": [],
-        "modulations": {}
+        "modulations": {},
+        "sections": [
+          0,
+          1,
+          3,
+          5,
+          8,
+          10,
+          12
+        ]
       }
     },
     "Fallen_Down_Undertale.mid": {

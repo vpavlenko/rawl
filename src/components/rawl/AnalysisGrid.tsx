@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { getModulations } from "./Rawl";
 import { MeasuresAndBeats, MidiRange, SystemLayout } from "./SystemLayout";
-import { Analysis, PitchClass } from "./analysis";
+import { Analysis, MeasuresSpan, PitchClass } from "./analysis";
 
 export const STACKED_RN_HEIGHT = 20;
 const MIN_WIDTH_BETWEEN_BEATS = 17;
@@ -303,7 +303,7 @@ export const AnalysisGrid: React.FC<{
   showHeader?: boolean;
   showTonalGrid?: boolean;
   secondsToX: (number) => number;
-  measureStart?: number;
+  sectionSpan?: MeasuresSpan;
 }> = React.memo(
   ({
     analysis,
@@ -317,9 +317,12 @@ export const AnalysisGrid: React.FC<{
     showHeader = true,
     showTonalGrid = true,
     secondsToX,
-    measureStart = 0,
+    sectionSpan = null,
   }) => {
     const { measures, beats } = measuresAndBeats;
+    if (sectionSpan == null) {
+      sectionSpan = [0, measures.length]; // measures.length - 1 ?
+    }
     const modulations = new Map(
       getModulations(analysis).map(({ measure, tonic }) => [measure, tonic]),
     );
@@ -349,14 +352,14 @@ export const AnalysisGrid: React.FC<{
       <div style={{ zIndex: 15 }}>
         {measures.map((time, i) => {
           const number = i + 1; // 1-indexed
-          return (
+          return sectionSpan[0] <= i && i <= sectionSpan[1] ? (
             <Measure
               key={i}
-              showHeader={showHeader}
+              showHeader={showHeader && i < sectionSpan[1]}
               span={[time, measures[number] ?? time]}
               isPhraseStart={phraseStarts.indexOf(number) !== -1}
               formSection={(analysis.form ?? {})[number]}
-              number={number + measureStart}
+              number={number}
               measureSelection={measureSelection}
               systemLayout={systemLayout}
               secondsToX={secondsToX}
@@ -364,7 +367,7 @@ export const AnalysisGrid: React.FC<{
               tonicStart={modulations.get(i)}
               selectedPhraseStart={selectedPhraseStart}
             />
-          );
+          ) : null;
         })}
         {showBeats &&
           beats.map((time) => (

@@ -15,11 +15,12 @@ import { useColorScheme } from "./ColorScheme";
 import { PianoLegend } from "./PianoLegend";
 import {
   ChordChartLayout,
+  SecondsConverter,
   SecondsSpan,
   SetVoiceMask,
   secondsToX__,
 } from "./Rawl";
-import { Analysis } from "./analysis";
+import { Analysis, MeasuresSpan } from "./analysis";
 import {
   ColoredNote,
   ColoredNotesInVoices,
@@ -165,7 +166,7 @@ const convertPitchBendToPathData = (
   pitchBendData: PitchBendPoint[],
   span: SecondsSpan,
   noteHeight: number,
-  secondsToX: (number) => number,
+  secondsToX: SecondsConverter,
 ): string => {
   const pitchBendRange = 8192;
   const noteDuration = span[1] - span[0];
@@ -209,7 +210,7 @@ const getNoteRectangles = (
   handleMouseEnter: MouseEventHanlder,
   handleMouseLeave: () => void,
   showVelocity = false,
-  secondsToX: (number) => number,
+  secondsToX: SecondsConverter,
 ) => {
   return notes.map((note) => {
     const {
@@ -429,7 +430,7 @@ const VoiceName: React.FC<{
   setVoiceMask: SetVoiceMask;
   voiceIndex: number;
   scrollInfo: ScrollInfo;
-  secondsToX: (number) => number;
+  secondsToX: SecondsConverter;
   midiNumberToY: (number) => number;
 }> = ({
   voiceName,
@@ -547,15 +548,15 @@ const MeasureNumbers = ({
   measureSelection,
   noteHeight,
   secondsToX,
-  measureStart,
+  sectionSpan,
 }: {
   measuresAndBeats: MeasuresAndBeats;
   analysis: Analysis;
   phraseStarts: number[];
   measureSelection: MeasureSelection;
   noteHeight: number;
-  secondsToX: (number) => number;
-  measureStart: number;
+  secondsToX: SecondsConverter;
+  sectionSpan?: MeasuresSpan;
 }) => (
   <div
     key="measure_header"
@@ -571,7 +572,7 @@ const MeasureNumbers = ({
       marginBottom: "-14px",
       marginLeft: "0px",
       zIndex: 10000,
-      position: "sticky",
+      position: sectionSpan ? "relative" : "sticky",
       top: 0,
     }}
   >
@@ -587,7 +588,7 @@ const MeasureNumbers = ({
       showHeader={true}
       showTonalGrid={false}
       secondsToX={secondsToX}
-      measureStart={measureStart}
+      sectionSpan={sectionSpan}
     />
   </div>
 );
@@ -608,8 +609,9 @@ export const Voice: React.FC<{
   voiceMask: boolean[];
   showTonalGrid?: boolean;
   noteHeight: number;
-  secondsToX: (number) => number;
-  xToSeconds: (number) => number;
+  secondsToX: SecondsConverter;
+  xToSeconds: SecondsConverter;
+  sectionSpan?: MeasuresSpan;
 }> = ({
   notes,
   measuresAndBeats,
@@ -628,6 +630,7 @@ export const Voice: React.FC<{
   noteHeight,
   secondsToX,
   xToSeconds,
+  sectionSpan,
 }) => {
   const { colorScheme } = useColorScheme();
 
@@ -656,6 +659,9 @@ export const Voice: React.FC<{
     [height, midiRange, noteHeight],
   );
 
+  // The frozenHeight machinery was used when I experimented with smart
+  // collapse/expand of every Voice relative to its current range on a current screen.
+  // I'm not sure it's used anymore.
   const { noteRectangles, frozenHeight, frozenMidiRange } = useMemo(
     () => ({
       noteRectangles: getNoteRectangles(
@@ -675,7 +681,6 @@ export const Voice: React.FC<{
     }),
     [
       notes,
-      measuresAndBeats,
       analysis,
       showVelocity,
       handleNoteClick,
@@ -688,7 +693,8 @@ export const Voice: React.FC<{
   );
 
   // TODO: make smarter once Stacked is implemented
-  const hasVisibleNotes = localMidiRange[1] >= localMidiRange[0];
+  const hasVisibleNotes =
+    !!sectionSpan || localMidiRange[1] >= localMidiRange[0];
 
   return (
     <div
@@ -734,6 +740,7 @@ export const Voice: React.FC<{
           showHeader={false}
           showTonalGrid={showTonalGrid && !notes[0]?.isDrum}
           secondsToX={secondsToX}
+          sectionSpan={sectionSpan}
         />
       ) : null}
       {cursor}
@@ -931,7 +938,6 @@ export const SplitSystemLayout: React.FC<{
         measureSelection={measureSelection}
         noteHeight={noteHeight}
         secondsToX={secondsToX}
-        measureStart={0}
       />
       {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) => (
         <div key={order}>
@@ -994,6 +1000,13 @@ export const SplitSystemLayout: React.FC<{
   );
 };
 
+type Section = {
+  sectionSpan: MeasuresSpan;
+  secondsToX: SecondsConverter;
+  xToSeconds: SecondsConverter;
+  voices: { voiceIndex: number; notes: ColoredNote[] }[];
+};
+
 export const StackedSystemLayout: React.FC<{
   notes: ColoredNotesInVoices;
   voiceNames: string[];
@@ -1050,46 +1063,30 @@ export const StackedSystemLayout: React.FC<{
     [analysis, measuresAndBeats],
   );
 
-  const sections = useMemo(
+  const sections: Section[] = useMemo(
     () =>
       (analysis.sections ?? [0]).map((sectionStartInPhrases, index) => {
-        const sectionStartInMeasures = phraseStarts[sectionStartInPhrases];
-        const sectionEndInMeasures =
-          index + 1 < (analysis.sections ?? [0]).length
+        const { measures } = measuresAndBeats;
+        const start = phraseStarts[sectionStartInPhrases] - 1;
+        const end =
+          (index + 1 < (analysis.sections ?? [0]).length
             ? phraseStarts[(analysis.sections ?? [0])[index + 1]]
-            : phraseStarts.at(-1);
-        const { measures, beats } = measuresAndBeats;
-        const filteredMeasures = measures.filter(
-          (measure, index) =>
-            sectionStartInMeasures - 1 <= index &&
-            index <= sectionEndInMeasures - 1,
-        );
-        const filteredBeats = beats.filter(
-          (beat) =>
-            filteredMeasures[0] <= beat && beat <= filteredMeasures.at(-1),
-        );
+            : measures.length) - 1;
 
         const secondsToX = (seconds) =>
-          (seconds - filteredMeasures[0]) * secondWidth;
-        const xToSeconds = (x) => x / secondWidth + filteredMeasures[0];
+          (seconds - measures[start]) * secondWidth;
+        const xToSeconds = (x) => x / secondWidth + measures[start];
         return {
-          measuresAndBeats: {
-            measures: filteredMeasures,
-            beats: filteredBeats,
-          },
+          sectionSpan: [start, end],
           secondsToX,
           xToSeconds,
-          phraseStarts: phraseStarts.map(
-            (phraseStart) => phraseStart - sectionStartInMeasures + 1,
-          ),
-          measureStart: sectionStartInMeasures - 1,
           voices: voicesSortedByAverageMidiNumber.map(
             ({ voiceIndex, notes }) => ({
               voiceIndex,
               notes: notes.filter(
                 (note) =>
-                  note.span[1] >= filteredMeasures[0] &&
-                  note.span[0] < filteredMeasures.at(-1),
+                  note.span[1] >= measures[start] &&
+                  note.span[0] + 1e-3 < measures[end],
               ),
             }),
           ),
@@ -1100,6 +1097,7 @@ export const StackedSystemLayout: React.FC<{
       phraseStarts,
       measuresAndBeats,
       secondWidth,
+      analysis.sections,
     ],
   );
 
@@ -1201,17 +1199,7 @@ export const StackedSystemLayout: React.FC<{
       </div>
 
       {sections.map(
-        (
-          {
-            measuresAndBeats,
-            secondsToX,
-            xToSeconds,
-            voices,
-            phraseStarts,
-            measureStart,
-          },
-          order,
-        ) => (
+        ({ sectionSpan, secondsToX, xToSeconds, voices }, order) => (
           <div style={{ marginBottom: 30 }}>
             <MeasureNumbers
               measuresAndBeats={measuresAndBeats}
@@ -1220,7 +1208,7 @@ export const StackedSystemLayout: React.FC<{
               measureSelection={measureSelection}
               noteHeight={noteHeight}
               secondsToX={secondsToX}
-              measureStart={measureStart}
+              sectionSpan={sectionSpan}
             />
             {voices.map(({ notes, voiceIndex }) => (
               <div key={order}>
@@ -1257,6 +1245,7 @@ export const StackedSystemLayout: React.FC<{
                   noteHeight={noteHeight}
                   secondsToX={secondsToX}
                   xToSeconds={xToSeconds}
+                  sectionSpan={sectionSpan}
                 />
               </div>
             ))}

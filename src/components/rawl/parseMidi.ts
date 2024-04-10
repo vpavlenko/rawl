@@ -161,6 +161,9 @@ function calculateMeasureAndBeats(timeEvents) {
     }
   });
 
+  if (measures.length >= 2)
+    measures.push(2 * measures.at(-1) - measures.at(-2));
+
   return { measures, beats };
 }
 

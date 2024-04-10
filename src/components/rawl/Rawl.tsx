@@ -28,8 +28,11 @@ export const CHORD_HIGHLIGHT_LATENCY_CORRECTION_MS = -200;
 export type SecondsSpan = [number, number];
 
 const SECOND_WIDTH = 40;
-export const secondsToX__ = (seconds) => seconds * SECOND_WIDTH;
-export const xToSeconds__ = (x) => x / SECOND_WIDTH;
+
+export type SecondsConverter = (number) => number;
+export const secondsToX__: SecondsConverter = (seconds) =>
+  seconds * SECOND_WIDTH;
+export const xToSeconds__: SecondsConverter = (x) => x / SECOND_WIDTH;
 
 export type SetVoiceMask = (mask: boolean[]) => void;
 

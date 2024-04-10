@@ -222,6 +222,7 @@ const TonalGrid: React.FC<{
   noteHeight: number;
   midiRange: MidiRange;
   secondsToX: (number) => number;
+  sectionSpan?: MeasuresSpan;
 }> = React.memo(
   ({
     analysis,
@@ -230,7 +231,11 @@ const TonalGrid: React.FC<{
     noteHeight,
     midiRange,
     secondsToX,
+    sectionSpan,
   }) => {
+    const minX = secondsToX(measures[sectionSpan?.[0] ?? 0]);
+    const maxX = secondsToX(measures[sectionSpan?.[1] ?? measures.length - 1]);
+
     const modulations = getModulations(analysis);
     if (!modulations || !measures) return;
     modulations.push({
@@ -248,43 +253,51 @@ const TonalGrid: React.FC<{
       const from = measures[Math.max(fromIndex, 0)];
       const to = measures[Math.min(toIndex, measures.length - 1)];
       const { tonic } = modulations[i];
-      const width = secondsToX(to) - secondsToX(from);
-      if (!width) continue;
+      const fromX = secondsToX(from);
+      const toX = secondsToX(to);
+      const width = Math.min(toX, maxX) - fromX;
       for (let octave = 2; octave <= 9; ++octave) {
         const midiNumber = tonic + octave * 12;
-        if (midiNumber - 12 >= midiRange[0] && midiNumber - 12 <= midiRange[1])
-          // TODO: display a note like C4 gracefully at each gradient start
-          result.push(
-            <div
-              key={`tonalgrid_octave_${i}_${midiNumber}`}
-              style={{
-                position: "absolute",
-                width,
-                height: GRADIENT_HEIGHT_IN_NOTES * noteHeight,
-                left: secondsToX(from),
-                top: midiNumberToY(midiNumber - 13 + GRADIENT_HEIGHT_IN_NOTES),
-                pointerEvents: "none",
-                background: `linear-gradient(to top, #333, transparent)`,
-                zIndex: 0,
-              }}
-            />,
-          );
-        if (midiNumber - 7 >= midiRange[0] && midiNumber - 7 <= midiRange[1])
-          result.push(
-            <div
-              key={`tonalgrid_octave_${i}_fifth_${midiNumber}`}
-              style={{
-                position: "absolute",
-                width,
-                height: 0,
-                left: secondsToX(from),
-                top: midiNumberToY(midiNumber - 6) - 1,
-                pointerEvents: "none",
-                borderBottom: "1px solid #222",
-                zIndex: 0,
-              }}
-            />,
-          );
+        if (toX >= minX && fromX <= maxX) {
+          if (
+            midiNumber - 12 >= midiRange[0] &&
+            midiNumber - 12 <= midiRange[1]
+          )
+            // TODO: display a note like C4 gracefully at each gradient start
+            result.push(
+              <div
+                key={`tonalgrid_octave_${i}_${midiNumber}`}
+                style={{
+                  position: "absolute",
+                  width,
+                  height: GRADIENT_HEIGHT_IN_NOTES * noteHeight,
+                  left: fromX,
+                  top: midiNumberToY(
+                    midiNumber - 13 + GRADIENT_HEIGHT_IN_NOTES,
+                  ),
+                  pointerEvents: "none",
+                  background: `linear-gradient(to top, #333, transparent)`,
+                  zIndex: 0,
+                }}
+              />,
+            );
+          if (midiNumber - 7 >= midiRange[0] && midiNumber - 7 <= midiRange[1])
+            result.push(
+              <div
+                key={`tonalgrid_octave_${i}_fifth_${midiNumber}`}
+                style={{
+                  position: "absolute",
+                  width,
+                  height: 0,
+                  left: fromX,
+                  top: midiNumberToY(midiNumber - 6) - 1,
+                  pointerEvents: "none",
+                  borderBottom: "1px solid #222",
+                  zIndex: 0,
+                }}
+              />,
+            );
+        }
       }
     }
     return result;
@@ -370,9 +383,12 @@ export const AnalysisGrid: React.FC<{
           ) : null;
         })}
         {showBeats &&
-          beats.map((time) => (
-            <Beat key={time} second={time} secondsToX={secondsToX} />
-          ))}
+          beats.map((time) =>
+            time >= measures[sectionSpan[0]] &&
+            time <= measures[sectionSpan[1]] ? (
+              <Beat key={time} second={time} secondsToX={secondsToX} />
+            ) : null,
+          )}
         {showTonalGrid && analysis.tonic !== null && (
           <TonalGrid
             analysis={analysis}
@@ -381,6 +397,7 @@ export const AnalysisGrid: React.FC<{
             noteHeight={noteHeight}
             midiRange={midiRange}
             secondsToX={secondsToX}
+            sectionSpan={sectionSpan}
           />
         )}
       </div>

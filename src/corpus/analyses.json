@@ -9193,6 +9193,46 @@
           {
             "measure": 55,
             "diff": -1
+          },
+          {
+            "measure": 30,
+            "diff": 1
+          },
+          {
+            "measure": 35,
+            "diff": 1
+          },
+          {
+            "measure": 38,
+            "diff": 2
+          },
+          {
+            "measure": 44,
+            "diff": -1
+          },
+          {
+            "measure": 48,
+            "diff": 1
+          },
+          {
+            "measure": 49,
+            "diff": -2
+          },
+          {
+            "measure": 53,
+            "diff": 1
+          },
+          {
+            "measure": 57,
+            "diff": 1
+          },
+          {
+            "measure": 62,
+            "diff": -1
+          },
+          {
+            "measure": 61,
+            "diff": 2
           }
         ],
         "comment": "",
@@ -9201,10 +9241,30 @@
         "modulations": {
           "13": 3,
           "18": 8,
+          "28": 3,
+          "34": 8,
           "43": 1,
           "49": 3,
-          "51": 8
-        }
+          "51": 5,
+          "54": 8
+        },
+        "sections": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ]
       }
     },
     "River_Flows_In_You.mid": {
@@ -9443,7 +9503,27 @@
         "comment": "",
         "tonic": 5,
         "tags": [],
-        "modulations": {}
+        "modulations": {},
+        "sections": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          18,
+          20,
+          22,
+          24,
+          26,
+          28,
+          30,
+          32,
+          34
+        ]
       }
     },
     "tude_S._1413_in_G_Minor_La_Campanella__Liszt.mid": {
@@ -9569,7 +9649,18 @@
         "comment": "",
         "tonic": 5,
         "tags": [],
-        "modulations": {}
+        "modulations": {},
+        "sections": [
+          0,
+          1,
+          5,
+          9,
+          13,
+          16,
+          20,
+          22,
+          27
+        ]
       }
     },
     "Jingle_Bell_Rock.mid": {
@@ -10234,7 +10325,19 @@
         "comment": "",
         "tonic": 2,
         "tags": [],
-        "modulations": {}
+        "modulations": {},
+        "sections": [
+          0,
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          18
+        ]
       }
     },
     "Yann_Tiersen_Amelie.mid": {
@@ -10376,6 +10479,10 @@
           {
             "measure": 27,
             "diff": -1
+          },
+          {
+            "measure": 26,
+            "diff": 1
           }
         ],
         "comment": "",
@@ -10387,10 +10494,18 @@
           "12": 6,
           "14": 9,
           "19": 0,
-          "21": 5,
-          "22": 9,
           "23": 3
-        }
+        },
+        "sections": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
       }
     },
     "Super_Mario_Bros_Peaches.mid": {

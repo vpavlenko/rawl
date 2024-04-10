@@ -53,6 +53,9 @@ export const getPhraseStarts = (
     while (result.at(-1) + 4 < numMeasures) {
       result.push(result.at(-1) + 4);
     }
+    if (result[0] !== 1) {
+      result.unshift(1);
+    }
   }
 
   return result;

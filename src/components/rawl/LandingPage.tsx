@@ -132,10 +132,10 @@ const LandingPage = () => (
             "/browse/static/musescore_manual?song=Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid"
           }
         />
-        <Example
+        {/* <Example
           name={"Für Elise"}
           pathname={"/browse/static/musescore_manual?song=Fr_Elise.mid"}
-        />
+        /> */}
         <Example
           name={"Game of Thrones"}
           pathname={
@@ -146,7 +146,7 @@ const LandingPage = () => (
           name={"Hallelujah"}
           pathname={"/browse/static/musescore_manual?song=Hallelujah.mid"}
         />
-        <Example
+        {/* <Example
           name={"Interstellar"}
           pathname={"/browse/static/musescore_manual?song=Interstellar.mid"}
         />
@@ -155,7 +155,7 @@ const LandingPage = () => (
           pathname={
             "/browse/static/musescore_manual?song=Sonate_No._14_Moonlight_1st_Movement.mid"
           }
-        />
+        /> */}
         <Example
           name={"Attack on Titan"}
           pathname={
@@ -218,12 +218,12 @@ const LandingPage = () => (
           name={"Minecraft – Sweden"}
           pathname={"/browse/static/musescore_manual?song=Sweden_Minecraft.mid"}
         />
-        <Example
+        {/* <Example
           name={"Minecraft – Wet Hands"}
           pathname={
             "/browse/static/musescore_manual?song=Wet_Hands_Minecraft.mid"
           }
-        />
+        /> */}
         <Example
           name={"Megalovania"}
           pathname={
@@ -254,18 +254,18 @@ const LandingPage = () => (
             "/browse/static/musescore_manual?song=Ed_Sheeran_Perfect_THE_WORST_PIANO_ARRANGEMENT_I_HAVE_EVER_MADE.mid"
           }
         />
-        <Example
+        {/* <Example
           name={"Ed Sheeran – Shape of You"}
           pathname={
             "/browse/static/musescore_manual?song=Ed_Sheeran_Shape_of_you.mid"
           }
-        />
-        <Example
+        /> */}
+        {/* <Example
           name={"Ed Sheeran – Photograph"}
           pathname={
             "/browse/static/musescore_manual?song=Photograph_Ed_Sheeran.mid"
           }
-        />
+        /> */}
         <Example
           name={"Feliz Navidad"}
           pathname={"/browse/static/musescore_manual?song=Feliz_Navidad.mid"}
@@ -300,12 +300,12 @@ const LandingPage = () => (
             "/browse/static/musescore_manual?song=Yann_Tiersen_Amelie.mid"
           }
         />
-        <Example
+        {/* <Example
           name={"Billie Eilish – Bad Guy"}
           pathname={
             "/browse/static/musescore_manual?song=Billie_Eilish_Bad_Guy.mid"
           }
-        />
+        /> */}
         <Example
           name={"Despacito"}
           pathname={"/browse/static/musescore_manual?song=Despacito.mid"}

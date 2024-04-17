@@ -123,7 +123,7 @@ const LandingPage = () => (
           textAlign: "center",
         }}
       >
-        See music in 12 colors
+        See Western music in 12 colors
       </div>
       <div style={{ marginTop: 100 }}>
         <Example
@@ -351,27 +351,33 @@ const LandingPage = () => (
         <ChordStairs mode={MODES[1]} />
       </div>
       <div style={{ marginTop: 100 }}>
-        Read the idea explained in a{" "}
+        I'm{" "}
+        <a href="mailto:cxielamiko@gmail.com" target="_blank" rel="noreferrer">
+          Vitaly Pavlenko
+        </a>
+        . I explain my approach in{" "}
         <a
           href="https://twitter.com/vitalypavlenko/status/1771820942680830417"
           target="_blank"
           rel="noreferrer"
         >
-          Twitter thread
+          39 tweets
         </a>
-      </div>
-      <div style={{ marginTop: 20 }}>
-        Created by{" "}
-        <a href="mailto:cxielamiko@gmail.com" target="_blank" rel="noreferrer">
-          Vitaly Pavlenko
-        </a>
-        ,{" "}
+        . The code is{" "}
         <a
           href="https://github.com/vpavlenko/rawl"
           target="_blank"
           rel="noreferrer"
         >
-          open-source
+          on Github
+        </a>
+        . I also collect{" "}
+        <a
+          href="https://github.com/vpavlenko/study-music"
+          target="_blank"
+          rel="noreferrer"
+        >
+          resources on music theory
         </a>
       </div>
     </Content>

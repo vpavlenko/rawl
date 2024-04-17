@@ -350,6 +350,30 @@ const LandingPage = () => (
         <ChordStairs mode={MODES[0]} />
         <ChordStairs mode={MODES[1]} />
       </div>
+      <div style={{ marginTop: 100 }}>
+        Read the idea explained in a{" "}
+        <a
+          href="https://twitter.com/vitalypavlenko/status/1771820942680830417"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Twitter thread
+        </a>
+      </div>
+      <div style={{ marginTop: 20 }}>
+        Created by{" "}
+        <a href="mailto:cxielamiko@gmail.com" target="_blank" rel="noreferrer">
+          Vitaly Pavlenko
+        </a>
+        ,{" "}
+        <a
+          href="https://github.com/vpavlenko/rawl"
+          target="_blank"
+          rel="noreferrer"
+        >
+          open-source
+        </a>
+      </div>
     </Content>
     <RightSide sideImage={landingRightSideImage} />
   </Container>

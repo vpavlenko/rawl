@@ -5,7 +5,7 @@ import { DUMMY_CALLBACK } from "../App";
 import { TAGS } from "./AnalysisBox";
 import MIDI_PREVIEWS from "./AxesMidiPreviews";
 import { PianoLegend } from "./PianoLegend";
-import { secondsToX__, xToSeconds__ } from "./Rawl";
+import { getNoteColor, secondsToX__, xToSeconds__ } from "./Rawl";
 import { Voice } from "./SystemLayout";
 import { PitchClass } from "./analysis";
 
@@ -48,7 +48,16 @@ export const NoteSnippet = ({ notes, sequencer }) => {
           // result.notes[0].forEach((note) => delete note.chipState);
           MIDI_PREVIEWS[notes] = {
             measuresAndBeats: result.measuresAndBeats,
-            notes: result.notes[0],
+            notes: result.notes[0].map((note) => ({
+              ...note,
+              color: note.isDrum
+                ? "noteColor_drum"
+                : getNoteColor(
+                    note,
+                    VOICE_PARAMS.analysis,
+                    result.measuresAndBeats.measures,
+                  ),
+            })),
           };
           console.log(JSON.stringify(MIDI_PREVIEWS));
         }}
@@ -134,7 +143,7 @@ const VOICE_PARAMS = {
   setVoiceMask: DUMMY_CALLBACK,
   voiceIndex: 0,
   voiceMask: [true],
-  showTonalGrid: false,
+  showTonalGrid: true,
   mouseHandlers: {
     handleNoteClick: null,
     handleMouseEnter: DUMMY_CALLBACK,

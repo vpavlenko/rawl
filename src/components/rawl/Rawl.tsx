@@ -106,7 +106,7 @@ const getSecondsMeasure = (
 const getNoteMeasure = (note: Note, measures: number[] | null): number =>
   getSecondsMeasure((note.span[0] + note.span[1]) / 2, measures);
 
-const getNoteColor = (
+export const getNoteColor = (
   note: Note,
   analysis: Analysis,
   measures: number[],

@@ -632,6 +632,7 @@ export const Voice: React.FC<{
   xToSeconds,
   sectionSpan,
 }) => {
+  debugger;
   const { colorScheme } = useColorScheme();
 
   // To restore it, we need to lock the calculation of frozenRange and frozenHeight

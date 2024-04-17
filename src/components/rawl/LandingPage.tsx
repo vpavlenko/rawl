@@ -4,6 +4,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ChordStairs, { MODES } from "./ChordStairs";
+import { PianoLegend } from "./PianoLegend";
 import landingLeftSideImage from "./landing_left_side.png";
 import landingRightSideImage from "./landing_right_side.png";
 
@@ -347,8 +348,13 @@ const LandingPage = () => (
           gap: 70,
         }}
       >
-        <ChordStairs mode={MODES[0]} />
+        <ul style={{ textAlign: "left" }}>
+          <li>The tonic note is always white.</li>
+          <li>Functions: T – green, PD – cool, D – warm</li>
+        </ul>
+        <PianoLegend />
         <ChordStairs mode={MODES[1]} />
+        <ChordStairs mode={MODES[0]} />
       </div>
       <div style={{ marginTop: 100 }}>
         I'm{" "}

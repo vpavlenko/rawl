@@ -353,6 +353,24 @@ const LandingPage = () => (
           }
         />
       </Section>
+      <Section title="sheet music">
+        <Example
+          name={"The Entertainer"}
+          pathname="https://musescore.com/user/39031562/scores/15664612"
+        />
+        <Example
+          name={"Jingle Bell Rock (arr. John Herbert)"}
+          pathname="https://musescore.com/user/39031562/scores/15670804"
+        />
+        <Example
+          name={"Jingle Bell Rock (arr. SkyRecon, in D)"}
+          pathname="https://musescore.com/user/39031562/scores/15671017"
+        />
+        <Example
+          name={"Joe Hisaishi – Summer"}
+          pathname="https://musescore.com/user/39031562/scores/15671254"
+        />
+      </Section>
 
       {/* <Example
           name={"Für Elise"}

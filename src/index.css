@@ -675,12 +675,10 @@ img {
 
 .noteColor_2_colors {
     background-color: red;
-    /* box-shadow: 0 0 3px red, 0 0 6px red; */
 }
 
 .noteColor_1_colors {
     background-color: rgb(130, 0, 0);
-    /* box-shadow: 0 0 3px maroon, 0 0 6px maroon; */
 }
 
 .noteColor_1_colors:after, .noteColor_6_colors:after {
@@ -695,46 +693,28 @@ img {
     transform: translate(-50%, -50%);
 }
 
-
-/* .noteColor_5_colors:after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 2px;
-    height: 2px;
-    background-color: black;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-} */
-
-
 .noteColor_0_colors {
     background-color: white;
 }
 
 .noteColor_11_colors {
     background-color: #fffb00;
-    /* box-shadow: 0 0 3px #fffd37, 0 0 6px #fffd37; */
 }
 
 .noteColor_4_colors {
     background-color: #00fb47;
-    /* box-shadow: 0 0 3px #00ff59, 0 0 6px #00ff59; */
-}
-
-.noteColor_9_colors {
-    background-color:  #03b9d5;
-    /* box-shadow: 0 0 3px #03b9d5, 0 0 6px #03b9d5; */
 }
 
 .noteColor_7_colors {
     background-color: rgb(120, 120, 120);
-    /* box-shadow: 0 0 3px rgb(120, 120, 120), 0 0 6px rgb(120, 120, 120); */
 }
 
 .noteColor_8_colors {
     background-color: rgb(0, 0, 255);
+}
+
+.noteColor_9_colors {
+    background-color:  #03b9d5;
 }
 
 .noteColor_10_colors {
@@ -748,119 +728,39 @@ img {
 
 .noteColor_6_colors {
     /* background-color: #ff80bf; */
-    /* box-shadow: 0 0 9px white inset; */
     background-color: black;
     /* border: 1px dotted white; */
     box-shadow: 0 0 3px white, 0 0 6px white, 0 0 9px white;
-    /* box-shadow: 0 0 3px white, 0 0 6px white, 0 0 9px white; */
 }
-
-/* .noteColor_10_colors:after, .noteColor_3_colors:after, .noteColor_8_colors:after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 1px;
-    background-color: black;
-    transform: translate(-50%, -50%);
-} */
-
-/* .noteColor_8_colors {
-    background-color: #935600;
-} */
 
 .noteColor_5_colors {
     background-color: #df12ff;
     
-    /* box-shadow: 0 0 3px #df12ff, 0 0 6px #df12ff; */
 }
 
-.noteColor_0_shapes {
-    background-color: #fe6efe;
-    box-shadow: 0 0 3px #ff1eff, 0 0 6px #ff1eff, 0 0 9px #ff1eff;
-    border-radius: 3px 0px 0px 3px !important;
+.landing_gradient_green {
+    background: linear-gradient(to right, #007000, #00fb47);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-weight: 900;
 }
 
-.noteColor_1_shapes {
-    background-color: black;
-    border: 1px dashed rgb(253, 139, 0);
+.landing_gradient_cool {
+    background: linear-gradient(to right, #df12ff, #0000ff, #03b9d5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-weight: 900;
 }
 
-.noteColor_2_shapes {
-    background-color: rgb(54, 251, 4);
-    box-shadow: 0 0 3px rgb(20, 170, 45), 0 0 6px rgb(20, 170, 45), 0 0 9px rgb(20, 170, 45);
-}
-
-.noteColor_3_shapes {
-    /* background-color: #ae0089; */
-    background: linear-gradient(to top, #ffffff 0%, rgb(51, 51, 252));
-    /* box-shadow: 0 0 3px #ae0089, 0 0 6px #ae0089, 0 0 9px #ae0089; */
-    border-radius: 5px 0px 5px 0px !important;
-}
-
-.noteColor_4_shapes {
-    background-color: #2b6eb1;
-}
-
-.noteColor_5_shapes {
-    background-color: rgb(0,
-     0, 0);
-    border-top: 1px solid #e9d70e;
-    border-bottom: 1px solid #e9d70e;
-    border-radius: 0px 3px 3px 0px !important;
-}
-
-.noteColor_6_shapes {
-    background-color: black;
-    border: 1px dotted white;
-    box-shadow: 0 0 3px white, 0 0 6px white, 0 0 9px white;
-}
-
-.noteColor_7_shapes {
-    background-color: white;
-}
-/* 
-.noteColor_7_shapes:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%; 
-    transform: translateY(-50%); 
-} */
-/* 
-.noteColor_7_shapes:after {
-    content: "";
-    display: block;
-    height: 1px;
-    background-color: black;
-    width: 100%;
-} */
-
-
-.noteColor_8_shapes {
-    background-color: rgb(107, 107, 107);
-    /* border-left: 1px dashed #47ffa0;
-    border-top: 1px dashed #47ffa0; */
-    border-radius: 0px 5px 0px 5px !important;
-    box-shadow: 0 0 3px rgb(80, 80, 80), 0 0 6px rgb(80, 80, 80), 0 0 9px rgb(80, 80, 80);
-}
-
-.noteColor_9_shapes {
-    border-top: 1px solid rgb(255, 0, 179);
-    border-bottom: 1px solid rgb(255, 0, 179);
-    border-radius: 0px 3px 3px 0px !important;
-}
-
-
-
-.noteColor_10_shapes {
-    /* background: linear-gradient(to top, rgb(51, 51, 252), yellow); */
-    box-shadow: 0 0 3px rgb(252, 197, 134), 0 0 6px rgb(252, 197, 134), 0 0 9px rgb(252, 197, 134), 0 0 12px rgb(252, 197, 134), inset 0 0 3px blue, inset 0 0 6px blue;
-    border-radius: 0 !important;
-}
-
-.noteColor_11_shapes {
-    background-color: #ff0000;
+.landing_gradient_warm {
+    background: linear-gradient(to right, #fffb00, #ff7328, red, #df12ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    font-weight: 900;
 }

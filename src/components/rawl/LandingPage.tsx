@@ -1,6 +1,7 @@
 import { faMusic } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ChordStairs, { MODES } from "./ChordStairs";
@@ -38,7 +39,7 @@ const FileDropBox: React.FC = () => (
 
 const NeonLink = styled.a`
   display: inline-block;
-  padding: 5px 10px; // Adjust padding as needed
+  padding: 0px 10px; // Adjust padding as needed
   color: #fff; // White text color for the neon effect
   font-size: 20px;
   font-family: "Helvetica Neue", Arial, sans-serif; // Sexy sans-serif font
@@ -111,6 +112,18 @@ const Content = styled.div`
   text-align: center; // Center text inside the content (if needed)
 `;
 
+const Section: React.FC<{
+  title: string;
+  children: ReactNode;
+}> = ({ title, children }) => {
+  return (
+    <div style={{ marginTop: 40, textAlign: "left", width: "100%" }}>
+      <span style={{ color: "gray" }}>{title} </span>
+      {children}
+    </div>
+  );
+};
+
 const LandingPage = () => (
   <Container>
     <LeftSide sideImage={landingLeftSideImage} />
@@ -121,22 +134,25 @@ const LandingPage = () => (
           fontSize: 40,
           fontFamily: "Verdana, serif",
           marginTop: 60,
+          marginBottom: 60,
           textAlign: "center",
         }}
       >
         See Western music in 12 colors
       </div>
-      <div style={{ marginTop: 100 }}>
-        <Example
-          name={"Pirates of the Caribbean"}
-          pathname={
-            "/browse/static/musescore_manual?song=Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid"
-          }
-        />
-        {/* <Example
-          name={"Für Elise"}
-          pathname={"/browse/static/musescore_manual?song=Fr_Elise.mid"}
-        /> */}
+      <div style={{ marginTop: 50, marginBottom: 30 }}>
+        <PianoLegend />
+      </div>
+      <div style={{ marginTop: 30, marginBottom: 50 }}>
+        The tonic note is always white. Functions: T –{" "}
+        <span className="landing_gradient_green">green</span>, PD –{" "}
+        <span className="landing_gradient_cool">cool</span>, D –{" "}
+        <span className="landing_gradient_warm">warm</span>
+      </div>
+      <div style={{ marginTop: 50, marginBottom: 50 }}>
+        <ChordStairs mode={MODES[0]} />
+      </div>
+      <Section title="natural minor">
         <Example
           name={"Game of Thrones"}
           pathname={
@@ -147,22 +163,32 @@ const LandingPage = () => (
           name={"Hallelujah"}
           pathname={"/browse/static/musescore_manual?song=Hallelujah.mid"}
         />
-        {/* <Example
-          name={"Interstellar"}
-          pathname={"/browse/static/musescore_manual?song=Interstellar.mid"}
+        <Example
+          name={"Jolene"}
+          pathname={"/browse/static/musescore_manual?song=Jolene.mid"}
         />
         <Example
-          name={"Moonlight Sonata"}
+          name={"John Legend – All of Me"}
           pathname={
-            "/browse/static/musescore_manual?song=Sonate_No._14_Moonlight_1st_Movement.mid"
-          }
-        /> */}
-        <Example
-          name={"Attack on Titan"}
-          pathname={
-            "/browse/static/musescore_manual?song=Attack_on_Titan_Shinzou_wo_Sasageyo.mid"
+            "/browse/static/musescore_manual?song=All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK.mid"
           }
         />
+        <Example
+          name={"Minecraft – Sweden"}
+          pathname={"/browse/static/musescore_manual?song=Sweden_Minecraft.mid"}
+        />
+        <Example
+          name={"Yann Tiersen – Amelie"}
+          pathname={
+            "/browse/static/musescore_manual?song=Yann_Tiersen_Amelie.mid"
+          }
+        />
+        <Example
+          name={"Despacito"}
+          pathname={"/browse/static/musescore_manual?song=Despacito.mid"}
+        />
+      </Section>
+      <Section title="harmonic minor">
         <Example
           name={"Imagine Dragons – Believer"}
           pathname={
@@ -180,22 +206,8 @@ const LandingPage = () => (
           }
         />
         <Example
-          name={"Fly Me to the Moon"}
-          pathname={
-            "/browse/static/musescore_manual?song=Fly_Me_to_the_Moon.mid"
-          }
-        />
-        <Example
           name={"Godfather"}
           pathname={"/browse/static/musescore_manual?song=Godfather.mid"}
-        />
-        <Example
-          name={"Jingle Bell Rock"}
-          pathname={"/browse/static/musescore_manual?song=Jingle_Bell_Rock.mid"}
-        />
-        <Example
-          name={"Pink Panther"}
-          pathname={"/browse/static/musescore_manual?song=Pink_Panther.mid"}
         />
         <Example
           name={"Requiem for a Dream"}
@@ -204,72 +216,18 @@ const LandingPage = () => (
           }
         />
         <Example
-          name={"Joe Hisaishi – Summer"}
+          name={"Pokémon"}
           pathname={
-            "/browse/static/musescore_manual?song=Summer_Joe_Hisaishi.mid"
+            "/browse/static/musescore_manual?song=Pokemon_Theme_Song.mid"
           }
         />
+      </Section>
+      <Section title="mixed minor">
         <Example
-          name={"Gymnopedie"}
+          name={"Pirates of the Caribbean"}
           pathname={
-            "/browse/static/musescore_manual?song=Gymnopdie_No._1__Satie.mid"
+            "/browse/static/musescore_manual?song=Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid"
           }
-        />
-        <Example
-          name={"Minecraft – Sweden"}
-          pathname={"/browse/static/musescore_manual?song=Sweden_Minecraft.mid"}
-        />
-        {/* <Example
-          name={"Minecraft – Wet Hands"}
-          pathname={
-            "/browse/static/musescore_manual?song=Wet_Hands_Minecraft.mid"
-          }
-        /> */}
-        <Example
-          name={"Megalovania"}
-          pathname={
-            "/browse/static/musescore_manual?song=Undertale_-_Megalovania_Piano_ver._3.mid"
-          }
-        />
-        <Example
-          name={"All of Me"}
-          pathname={
-            "/browse/static/musescore_manual?song=All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK.mid"
-          }
-        />
-        <Example
-          name={"Disney – Frozen"}
-          pathname={
-            "/browse/static/musescore_manual?song=Let_It_Go_Disney_Frozen.mid"
-          }
-        />
-        <Example
-          name={"Disney – Up"}
-          pathname={
-            "/browse/static/musescore_manual?song=Disney_Pixar_Up_Theme.mid"
-          }
-        />
-        <Example
-          name={"Ed Sheeran – Perfect"}
-          pathname={
-            "/browse/static/musescore_manual?song=Ed_Sheeran_Perfect_THE_WORST_PIANO_ARRANGEMENT_I_HAVE_EVER_MADE.mid"
-          }
-        />
-        {/* <Example
-          name={"Ed Sheeran – Shape of You"}
-          pathname={
-            "/browse/static/musescore_manual?song=Ed_Sheeran_Shape_of_you.mid"
-          }
-        /> */}
-        {/* <Example
-          name={"Ed Sheeran – Photograph"}
-          pathname={
-            "/browse/static/musescore_manual?song=Photograph_Ed_Sheeran.mid"
-          }
-        /> */}
-        <Example
-          name={"Feliz Navidad"}
-          pathname={"/browse/static/musescore_manual?song=Feliz_Navidad.mid"}
         />
         <Example
           name={"Gravity Falls"}
@@ -277,44 +235,29 @@ const LandingPage = () => (
             "/browse/static/musescore_manual?song=Gravity_Falls_Opening.mid"
           }
         />
+      </Section>
+      <div style={{ marginTop: 150, marginBottom: 50 }}>
+        <ChordStairs mode={MODES[1]} />
+      </div>
+      <Section title="major">
         <Example
-          name={"Yiruma – Kiss the Rain"}
+          name={"Jingle Bell Rock"}
+          pathname={"/browse/static/musescore_manual?song=Jingle_Bell_Rock.mid"}
+        />
+        <Example
+          name={"Joe Hisaishi – Summer"}
           pathname={
-            "/browse/static/musescore_manual?song=Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019.mid"
+            "/browse/static/musescore_manual?song=Summer_Joe_Hisaishi.mid"
           }
         />
         <Example
-          name={"Pokémon"}
-          pathname={
-            "/browse/static/musescore_manual?song=Pokemon_Theme_Song.mid"
-          }
+          name={"Feliz Navidad"}
+          pathname={"/browse/static/musescore_manual?song=Feliz_Navidad.mid"}
         />
         <Example
           name={"Super Mario Bros"}
           pathname={
             "/browse/static/musescore_manual?song=Super_Mario_Bros_Main_Theme.mid"
-          }
-        />
-        <Example
-          name={"Yann Tiersen – Amelie"}
-          pathname={
-            "/browse/static/musescore_manual?song=Yann_Tiersen_Amelie.mid"
-          }
-        />
-        {/* <Example
-          name={"Billie Eilish – Bad Guy"}
-          pathname={
-            "/browse/static/musescore_manual?song=Billie_Eilish_Bad_Guy.mid"
-          }
-        /> */}
-        <Example
-          name={"Despacito"}
-          pathname={"/browse/static/musescore_manual?song=Despacito.mid"}
-        />
-        <Example
-          name={"Hit the Road Jack"}
-          pathname={
-            "/browse/static/musescore_manual?song=Hit_the_Road_Jack.mid"
           }
         />
         <Example
@@ -324,14 +267,119 @@ const LandingPage = () => (
           }
         />
         <Example
-          name={"Jolene"}
-          pathname={"/browse/static/musescore_manual?song=Jolene.mid"}
+          name={"Ed Sheeran – Perfect"}
+          pathname={
+            "/browse/static/musescore_manual?song=Ed_Sheeran_Perfect_THE_WORST_PIANO_ARRANGEMENT_I_HAVE_EVER_MADE.mid"
+          }
+        />
+        <Example
+          name={"Disney – Up"}
+          pathname={
+            "/browse/static/musescore_manual?song=Disney_Pixar_Up_Theme.mid"
+          }
+        />
+        <Example
+          name={"Yiruma – Kiss the Rain"}
+          pathname={
+            "/browse/static/musescore_manual?song=Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019.mid"
+          }
+        />
+      </Section>
+      <Section title="relative keys">
+        <Example
+          name={"Fly Me to the Moon"}
+          pathname={
+            "/browse/static/musescore_manual?song=Fly_Me_to_the_Moon.mid"
+          }
         />
         <Example
           name={"Titanic"}
           pathname={"/browse/static/musescore_manual?song=Titanic.mid"}
         />
-      </div>
+      </Section>
+      <Section title="parallel keys">
+        <Example
+          name={"Gymnopedie"}
+          pathname={
+            "/browse/static/musescore_manual?song=Gymnopdie_No._1__Satie.mid"
+          }
+        />
+      </Section>
+      <Section title="modulations">
+        <Example
+          name={"Attack on Titan"}
+          pathname={
+            "/browse/static/musescore_manual?song=Attack_on_Titan_Shinzou_wo_Sasageyo.mid"
+          }
+        />
+        <Example
+          name={"Disney – Frozen"}
+          pathname={
+            "/browse/static/musescore_manual?song=Let_It_Go_Disney_Frozen.mid"
+          }
+        />
+      </Section>
+      <Section title="blues scale">
+        <Example
+          name={"Pink Panther"}
+          pathname={"/browse/static/musescore_manual?song=Pink_Panther.mid"}
+        />
+        <Example
+          name={"Megalovania"}
+          pathname={
+            "/browse/static/musescore_manual?song=Undertale_-_Megalovania_Piano_ver._3.mid"
+          }
+        />
+        <Example
+          name={"Hit the Road Jack"}
+          pathname={
+            "/browse/static/musescore_manual?song=Hit_the_Road_Jack.mid"
+          }
+        />
+      </Section>
+
+      {/* <Example
+          name={"Für Elise"}
+          pathname={"/browse/static/musescore_manual?song=Fr_Elise.mid"}
+        /> */}
+
+      {/* <Example
+          name={"Interstellar"}
+          pathname={"/browse/static/musescore_manual?song=Interstellar.mid"}
+        />
+        <Example
+          name={"Moonlight Sonata"}
+          pathname={
+            "/browse/static/musescore_manual?song=Sonate_No._14_Moonlight_1st_Movement.mid"
+          }
+        /> */}
+
+      {/* <Example
+          name={"Minecraft – Wet Hands"}
+          pathname={
+            "/browse/static/musescore_manual?song=Wet_Hands_Minecraft.mid"
+          }
+        /> */}
+
+      {/* <Example
+          name={"Ed Sheeran – Shape of You"}
+          pathname={
+            "/browse/static/musescore_manual?song=Ed_Sheeran_Shape_of_you.mid"
+          }
+        /> */}
+      {/* <Example
+          name={"Ed Sheeran – Photograph"}
+          pathname={
+            "/browse/static/musescore_manual?song=Photograph_Ed_Sheeran.mid"
+          }
+        /> */}
+
+      {/* <Example
+          name={"Billie Eilish – Bad Guy"}
+          pathname={
+            "/browse/static/musescore_manual?song=Billie_Eilish_Bad_Guy.mid"
+          }
+        /> */}
       <div style={{ marginTop: 100 }}>
         <FileDropBox />
       </div>
@@ -339,23 +387,6 @@ const LandingPage = () => (
         <Link to={{ pathname: "/course" }} style={{ fontSize: 26 }}>
           A course on rock harmony and arrangement
         </Link>
-      </div>
-      <div
-        style={{
-          marginTop: 100,
-          display: "flex",
-          flexDirection: "column",
-          gap: 70,
-        }}
-      >
-        <ul style={{ textAlign: "left" }}>
-          <li>The tonic note is always white.</li>
-          <li>Functions: T – green, PD – cool, D – warm</li>
-        </ul>
-        <PianoLegend />
-        <ChordStairs mode={MODES[1]} />
-        <ChordStairs mode={MODES[0]} />
-        <ChordStairs mode={MODES[2]} />
       </div>
       <div style={{ marginTop: 100 }}>
         I'm{" "}

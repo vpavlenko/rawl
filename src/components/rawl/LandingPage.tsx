@@ -146,23 +146,40 @@ const LandingPage = () => (
       <div style={{ marginTop: 30, marginBottom: 50 }}>
         <div
           style={{
-            listStyleType: "none",
             textAlign: "left",
             display: "flex",
             flexDirection: "column",
             gap: 7,
           }}
         >
-          <div style={{ fontWeight: 900 }}>the tonic note is always white</div>
-          <div className="landing_gradient_green">
-            tonic chords have a green pitch
-          </div>
-          <div className="landing_gradient_cool">
-            predominants are in cool colors
-          </div>
-          <div className="landing_gradient_warm">
-            dominants are in warm colors
-          </div>
+          <span>
+            <span style={{ fontWeight: 900 }}>
+              the tonic note is always white
+            </span>
+          </span>
+          <span>
+            <span className="landing_gradient_green">
+              tonic chords have a green pitch
+            </span>
+          </span>
+          <span>
+            <span className="landing_gradient_cool">
+              predominants are in cool colors
+            </span>
+          </span>
+          <span>
+            <span className="landing_gradient_warm">
+              dominants are in warm colors
+            </span>
+          </span>
+          <span>
+            <span className="landing_gradient_bright">
+              major mode is brighter
+            </span>
+          </span>
+          <span>
+            <span className="landing_gradient_dark">minor mode is darker</span>
+          </span>
         </div>
       </div>
       <div style={{ marginTop: 50, marginBottom: 50 }}>

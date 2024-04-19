@@ -632,7 +632,6 @@ export const Voice: React.FC<{
   xToSeconds,
   sectionSpan,
 }) => {
-  debugger;
   const { colorScheme } = useColorScheme();
 
   // To restore it, we need to lock the calculation of frozenRange and frozenHeight
@@ -1204,21 +1203,6 @@ export const StackedSystemLayout: React.FC<{
             }}
           />
         </div>
-        <div
-          style={{
-            position: "fixed",
-            display: "flex",
-            flexDirection: "column",
-            gap: 60,
-            marginBottom: 20,
-            top: 50,
-            right: 80,
-          }}
-        >
-          <ChordStairs mode={MODES[0]} />
-          <ChordStairs mode={MODES[1]} />
-          <ChordStairs mode={MODES[2]} />
-        </div>
 
         {sections.map(
           ({ sectionSpan, secondsToX, xToSeconds, voices }, order) => (
@@ -1233,7 +1217,10 @@ export const StackedSystemLayout: React.FC<{
                 sectionSpan={sectionSpan}
               />
               {voices.map(({ notes, voiceIndex }) => (
-                <div key={order}>
+                <div
+                  key={order}
+                  style={{ display: "flex", flexDirection: "row" }}
+                >
                   <Voice
                     key={voiceIndex}
                     voiceName={voiceNames[voiceIndex]}
@@ -1269,6 +1256,23 @@ export const StackedSystemLayout: React.FC<{
                     xToSeconds={xToSeconds}
                     sectionSpan={sectionSpan}
                   />
+                  {order === 1 && (
+                    <div style={{ position: "relative" }}>
+                      <div
+                        style={{
+                          position: "fixed",
+                          marginLeft: 100,
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 30,
+                        }}
+                      >
+                        <ChordStairs mode={MODES[1]} />
+                        <ChordStairs mode={MODES[0]} />
+                        <ChordStairs mode={MODES[2]} />
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

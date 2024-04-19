@@ -69,7 +69,6 @@ const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
         width: numChords * NOTE_WIDTH + (numChords - 1) * HORIZONTAL_GAP,
         height: height * NOTE_HEIGHT,
         position: "relative",
-        zIndex: -5,
       }}
     >
       <div style={{ position: "absolute", top: 0, left: 0, color: "#aaa" }}>

@@ -355,6 +355,7 @@ const LandingPage = () => (
         <PianoLegend />
         <ChordStairs mode={MODES[1]} />
         <ChordStairs mode={MODES[0]} />
+        <ChordStairs mode={MODES[2]} />
       </div>
       <div style={{ marginTop: 100 }}>
         I'm{" "}

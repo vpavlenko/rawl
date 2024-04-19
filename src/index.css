@@ -739,7 +739,7 @@ img {
 }
 
 .landing_gradient_green {
-    background: linear-gradient(to right, #007000, #00fb47);
+    background: linear-gradient(to right, white, #007000,  #007000, #00fb47, #00fb47, rgb(120, 120, 120));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -748,7 +748,7 @@ img {
 }
 
 .landing_gradient_cool {
-    background: linear-gradient(to right, #df12ff, #0000ff, #03b9d5);
+    background: linear-gradient(to right, #df12ff,#df12ff, #0000ff, #0000ff,#0000ff, #03b9d5, #03b9d5, #03b9d5, #007000, #00fb47);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

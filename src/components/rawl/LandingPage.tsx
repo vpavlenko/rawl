@@ -144,10 +144,26 @@ const LandingPage = () => (
         <PianoLegend />
       </div>
       <div style={{ marginTop: 30, marginBottom: 50 }}>
-        The tonic note is always white. Functions: T –{" "}
-        <span className="landing_gradient_green">green</span>, PD –{" "}
-        <span className="landing_gradient_cool">cool</span>, D –{" "}
-        <span className="landing_gradient_warm">warm</span>
+        <div
+          style={{
+            listStyleType: "none",
+            textAlign: "left",
+            display: "flex",
+            flexDirection: "column",
+            gap: 7,
+          }}
+        >
+          <div style={{ fontWeight: 900 }}>the tonic note is always white</div>
+          <div className="landing_gradient_green">
+            tonic chords have a green pitch
+          </div>
+          <div className="landing_gradient_cool">
+            predominants are in cool colors
+          </div>
+          <div className="landing_gradient_warm">
+            dominants are in warm colors
+          </div>
+        </div>
       </div>
       <div style={{ marginTop: 50, marginBottom: 50 }}>
         <ChordStairs mode={MODES[0]} />

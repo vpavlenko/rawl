@@ -379,6 +379,12 @@ const LandingPage = () => (
       </Section>
       <Section title="parallel keys">
         <Example
+          name={"George Bizet – Habanera (from Carmen)"}
+          pathname={
+            "/browse/static/musescore_manual?song=Habanera_-_Piano_Solo_-_Georges_Bizet.mid"
+          }
+        />
+        <Example
           name={"Gymnopedie"}
           pathname={
             "/browse/static/musescore_manual?song=Gymnopdie_No._1__Satie.mid"

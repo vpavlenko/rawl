@@ -9729,6 +9729,31 @@
         ]
       }
     },
+    "Habanera_-_Piano_Solo_-_Georges_Bizet.mid": {
+      "0": {
+        "modulations": {},
+        "tonic": 2,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "sections": [
+          0,
+          1,
+          3,
+          5,
+          7,
+          9,
+          11,
+          13
+        ]
+      }
+    },
     "Super_Mario_Bros_Main_Theme.mid": {
       "0": {
         "form": [],

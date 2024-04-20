@@ -446,12 +446,22 @@ const LandingPage = () => (
       </Section>
       <Section title="jazz">
         <Example
+          name={"Misty"}
+          pathname={"/browse/static/musescore_manual?song=Misty_piano_solo.mid"}
+        />
+        <Example
+          name={"White Christmas"}
+          pathname={"/browse/static/musescore_manual?song=white_christmas.mid"}
+        />
+        <Example
           name={"Tamás Deák – Vízisí"}
           pathname={"/browse/static/musescore_manual?song=vizisi.mid"}
         />
         <Example
-          name={"Misty"}
-          pathname={"/browse/static/musescore_manual?song=Misty_piano_solo.mid"}
+          name={"George Gershwin – Rhapsody in Blue"}
+          pathname={
+            "/browse/static/musescore_manual?song=Gershwin_Rhapsody_in_Blue_Piano_solo.mid"
+          }
         />
       </Section>
       <Section title="sheet music">

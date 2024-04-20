@@ -956,6 +956,13 @@ const STATIC_MIDI_FILES: StaticMidiFile[] = [
     size: 1337,
     type: "file",
   },
+  {
+    idx: 155,
+    path: "/static/musescore_manual/the_entertainer_scott_joplin.mid",
+    link: "https://musescore.com/user/58480/scores/529126",
+    size: 1337,
+    type: "file",
+  },
 ];
 
 export default STATIC_MIDI_FILES;

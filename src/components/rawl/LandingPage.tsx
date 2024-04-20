@@ -357,6 +357,12 @@ const LandingPage = () => (
             "/browse/static/musescore_manual?song=chopin_military_polonaise.mid"
           }
         />
+        <Example
+          name={"Scott Joplin – The Entertainer"}
+          pathname={
+            "/browse/static/musescore_manual?song=the_entertainer_scott_joplin.mid"
+          }
+        />
       </Section>
       <Section title="blues scale">
         <Example

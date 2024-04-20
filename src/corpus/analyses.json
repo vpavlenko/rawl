@@ -9238,6 +9238,38 @@
         ]
       }
     },
+    "the_entertainer_scott_joplin.mid": {
+      "0": {
+        "modulations": {
+          "85": 5,
+          "106": 9,
+          "109": 5,
+          "117": 0
+        },
+        "tonic": 0,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "sections": [
+          0,
+          1,
+          5,
+          9,
+          13,
+          17,
+          21,
+          25,
+          30,
+          34
+        ]
+      }
+    },
     "Another_Love__-_Tom_Odell_Professional.mid": {
       "0": {
         "form": [],

@@ -429,6 +429,12 @@ const LandingPage = () => (
             "/browse/static/musescore_manual?song=beethoven_sonate_5_1st.mid"
           }
         />
+        <Example
+          name={"George Bizet – Prelude to Act 1 of Carmen"}
+          pathname={
+            "/browse/static/musescore_manual?song=Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet.mid"
+          }
+        />
       </Section>
       <Section title="ragtimes by Scott Joplin">
         <Example

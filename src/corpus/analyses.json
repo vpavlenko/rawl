@@ -9989,6 +9989,59 @@
         ]
       }
     },
+    "Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet.mid": {
+      "0": {
+        "modulations": {
+          "21": 2,
+          "25": 9,
+          "33": 6,
+          "51": 9,
+          "67": 5,
+          "107": 9,
+          "137": 2,
+          "145": 5,
+          "153": 8,
+          "155": 3,
+          "157": 5,
+          "159": 7
+        },
+        "tonic": 9,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 49,
+            "diff": -2
+          },
+          {
+            "measure": 119,
+            "diff": -2
+          },
+          {
+            "measure": 141,
+            "diff": -2
+          }
+        ],
+        "sections": [
+          0,
+          4,
+          8,
+          13,
+          17,
+          24,
+          30,
+          35,
+          36,
+          38,
+          40
+        ]
+      }
+    },
     "Entry_of_the_Gladiators_-_Julius_Fuk_-_1897.mid": {
       "0": {
         "modulations": {

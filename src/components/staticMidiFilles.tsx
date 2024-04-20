@@ -949,6 +949,13 @@ const STATIC_MIDI_FILES: StaticMidiFile[] = [
     size: 1337,
     type: "file",
   },
+  {
+    idx: 154,
+    path: "/static/musescore_manual/chopin_military_polonaise.mid",
+    link: "https://musescore.com/classicman/scores/84426",
+    size: 1337,
+    type: "file",
+  },
 ];
 
 export default STATIC_MIDI_FILES;

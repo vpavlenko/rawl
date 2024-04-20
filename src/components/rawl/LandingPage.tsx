@@ -341,6 +341,12 @@ const LandingPage = () => (
             "/browse/static/musescore_manual?song=Gymnopdie_No._1__Satie.mid"
           }
         />
+        <Example
+          name={"Mozart – Piano Sonata No. 11, mov. 1 (variations)"}
+          pathname={
+            "/browse/static/musescore_manual?song=mozart_sonata_11_1st.mid"
+          }
+        />
       </Section>
       <Section title="modulations">
         <Example

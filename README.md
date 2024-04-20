@@ -3,7 +3,7 @@
 This is a fork of [Chip Player JS](https://github.com/mmontag/chip-player-js) that focuses on music theory analysis of MIDI and NES tracks.
 All credits for tremendous original work go to Matt Montag and all contributors to libraries that he managed to wire together. I'm just writing a tiny layer on top. The licensing is the same.
 
-My stuff lives primarily in [src/components/rawl](src/components/rawl), I also removed some features from the UI to maximize useful display area for analysis. Annotations live in [src/corpus/analyses.json](src/corpus/analyses.json). 
+My stuff lives primarily in [src/components/rawl](src/components/rawl), I also removed some features from the UI to maximize useful display area for analysis. Annotations live in [src/corpus/analyses.json](src/corpus/analyses.json).
 
 Your own annotations currently won't be saved, but I can fix that - please, contact me.
 
@@ -20,13 +20,15 @@ https://twitter.com/vitalypavlenko/status/1771820942680830417
 
 ### MIDI
 
-MIDI files can be dropped into https://rawl.rocks/ for visualization - to do that, firstly navigate to any MIDI file in the database. Saving for user files isn't supported yet (contact me). Additionally, there's a decent built-in MIDI library coming from Chip Player JS project: [rock/pop](https://vpavlenko.github.io/chiptheory/browse/MIDI/), [classical](https://vpavlenko.github.io/chiptheory/browse/Classical%20MIDI), [jazz](https://vpavlenko.github.io/chiptheory/browse/Jazz%20MIDI)
+MIDI files can be dropped into https://rawl.rocks/ for visualization. Saving for user files isn't supported yet (contact me). Additionally, there's a decent built-in MIDI library coming from Chip Player JS project: [rock/pop](https://vpavlenko.github.io/chiptheory/browse/MIDI/), [classical](https://vpavlenko.github.io/chiptheory/browse/Classical%20MIDI), [jazz](https://vpavlenko.github.io/chiptheory/browse/Jazz%20MIDI)
+
+#### TODO
 
 This content should be transformed so that it's discoverable via search engines on queries like "yellow submarine analysis".
 
 Also, the environment should make it super easy to record a YouTube video with the analysis, and even the one synchronized with real audio instead of a MIDI rendering.
 
-Also, we should probably explore other MIDI datasets, eg. [LA](https://huggingface.co/datasets/projectlosangeles/Los-Angeles-MIDI-Dataset)
+Also, we should probably explore other MIDI datasets, eg. MetaMIDI, Los Angeles, 130k.
 
 Also, this should probably be available on Ultimate Guitar.
 
@@ -97,4 +99,3 @@ Then the levels of pieces of increasing attractiveness:
 2. 12-colored piano rolls of random pop pieces available in MIDI. It's for the brave who want to get into the unknown
 3. Same for favorite artists for which MIDIs are available.
 4. Same but music only is available, so the MIDI is crafted via automatic transcription.
-

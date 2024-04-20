@@ -120,16 +120,22 @@ const Section: React.FC<{
   return (
     <div
       style={{
-        marginTop: 40,
+        marginTop: 50,
         textAlign: "left",
         width: "100%",
         display: "flex",
         flexDirection: "row",
-        gap: 40,
+        gap: 5,
       }}
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
-        <span style={{ color: "gray", whiteSpace: "nowrap" }}>{title} </span>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 5,
+        }}
+      >
+        <span style={{ color: "gray", width: 120 }}>{title} </span>
         {scale && <InlinePianoLegend enabledPitches={scale} />}
       </div>
       <div>{children}</div>
@@ -146,15 +152,15 @@ const LandingPage = () => (
         style={{
           fontSize: 40,
           fontFamily: "Verdana, serif",
-          marginTop: 60,
-          marginBottom: 60,
+          marginTop: 40,
+          marginBottom: 30,
           textAlign: "center",
         }}
       >
         See Western music in 12 colors
       </div>
       <div style={{ display: "flex", flexDirection: "row", gap: 150 }}>
-        <div style={{ marginTop: 50, marginBottom: 30 }}>
+        <div style={{ marginTop: 30, marginBottom: 30 }}>
           <PianoLegend />
         </div>
         <div style={{ marginTop: 30, marginBottom: 50 }}>
@@ -204,13 +210,59 @@ const LandingPage = () => (
           display: "flex",
           flexDirection: "row",
           gap: 150,
-          marginTop: 50,
-          marginBottom: 50,
+          marginTop: 30,
+          marginBottom: 30,
         }}
       >
-        <ChordStairs mode={MODES[0]} />
         <ChordStairs mode={MODES[1]} />
+        <ChordStairs mode={MODES[0]} />
       </div>
+      <Section title="major" scale={[0, 2, 4, 5, 7, 9, 11]}>
+        <Example
+          name={"Jingle Bell Rock"}
+          pathname={"/browse/static/musescore_manual?song=Jingle_Bell_Rock.mid"}
+        />
+        <Example
+          name={"Joe Hisaishi – Summer"}
+          pathname={
+            "/browse/static/musescore_manual?song=Summer_Joe_Hisaishi.mid"
+          }
+        />
+        <Example
+          name={"Feliz Navidad"}
+          pathname={"/browse/static/musescore_manual?song=Feliz_Navidad.mid"}
+        />
+        <Example
+          name={"Super Mario Bros"}
+          pathname={
+            "/browse/static/musescore_manual?song=Super_Mario_Bros_Main_Theme.mid"
+          }
+        />
+        <Example
+          name={"John Lennon – Imagine"}
+          pathname={
+            "/browse/static/musescore_manual?song=John_Lennon_Imagine.mid"
+          }
+        />
+        <Example
+          name={"Ed Sheeran – Perfect"}
+          pathname={
+            "/browse/static/musescore_manual?song=Ed_Sheeran_Perfect_THE_WORST_PIANO_ARRANGEMENT_I_HAVE_EVER_MADE.mid"
+          }
+        />
+        <Example
+          name={"Disney – Up"}
+          pathname={
+            "/browse/static/musescore_manual?song=Disney_Pixar_Up_Theme.mid"
+          }
+        />
+        <Example
+          name={"Yiruma – Kiss the Rain"}
+          pathname={
+            "/browse/static/musescore_manual?song=Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019.mid"
+          }
+        />
+      </Section>
       <Section title="natural minor" scale={[0, 2, 3, 5, 7, 8, 10]}>
         <Example
           name={"Game of Thrones"}
@@ -295,50 +347,21 @@ const LandingPage = () => (
           }
         />
       </Section>
-
-      <Section title="major" scale={[0, 2, 4, 5, 7, 9, 11]}>
+      <Section title="blues scale" scale={[0, 3, 5, 6, 7, 10]}>
         <Example
-          name={"Jingle Bell Rock"}
-          pathname={"/browse/static/musescore_manual?song=Jingle_Bell_Rock.mid"}
+          name={"Pink Panther"}
+          pathname={"/browse/static/musescore_manual?song=Pink_Panther.mid"}
         />
         <Example
-          name={"Joe Hisaishi – Summer"}
+          name={"Megalovania"}
           pathname={
-            "/browse/static/musescore_manual?song=Summer_Joe_Hisaishi.mid"
+            "/browse/static/musescore_manual?song=Undertale_-_Megalovania_Piano_ver._3.mid"
           }
         />
         <Example
-          name={"Feliz Navidad"}
-          pathname={"/browse/static/musescore_manual?song=Feliz_Navidad.mid"}
-        />
-        <Example
-          name={"Super Mario Bros"}
+          name={"Hit the Road Jack"}
           pathname={
-            "/browse/static/musescore_manual?song=Super_Mario_Bros_Main_Theme.mid"
-          }
-        />
-        <Example
-          name={"John Lennon – Imagine"}
-          pathname={
-            "/browse/static/musescore_manual?song=John_Lennon_Imagine.mid"
-          }
-        />
-        <Example
-          name={"Ed Sheeran – Perfect"}
-          pathname={
-            "/browse/static/musescore_manual?song=Ed_Sheeran_Perfect_THE_WORST_PIANO_ARRANGEMENT_I_HAVE_EVER_MADE.mid"
-          }
-        />
-        <Example
-          name={"Disney – Up"}
-          pathname={
-            "/browse/static/musescore_manual?song=Disney_Pixar_Up_Theme.mid"
-          }
-        />
-        <Example
-          name={"Yiruma – Kiss the Rain"}
-          pathname={
-            "/browse/static/musescore_manual?song=Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019.mid"
+            "/browse/static/musescore_manual?song=Hit_the_Road_Jack.mid"
           }
         />
       </Section>
@@ -397,24 +420,6 @@ const LandingPage = () => (
           name={"Beethoven – Sonata No. 5, mov. 1"}
           pathname={
             "/browse/static/musescore_manual?song=beethoven_sonate_5_1st.mid"
-          }
-        />
-      </Section>
-      <Section title="blues scale" scale={[0, 3, 5, 6, 7, 10]}>
-        <Example
-          name={"Pink Panther"}
-          pathname={"/browse/static/musescore_manual?song=Pink_Panther.mid"}
-        />
-        <Example
-          name={"Megalovania"}
-          pathname={
-            "/browse/static/musescore_manual?song=Undertale_-_Megalovania_Piano_ver._3.mid"
-          }
-        />
-        <Example
-          name={"Hit the Road Jack"}
-          pathname={
-            "/browse/static/musescore_manual?song=Hit_the_Road_Jack.mid"
           }
         />
       </Section>

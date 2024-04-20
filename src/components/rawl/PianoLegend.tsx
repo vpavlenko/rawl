@@ -10,10 +10,10 @@ const KEY_WIDTH = 30;
 const KEY_HEIGHT = 60;
 const ROW_DISTANCE = 40;
 const PADDING = 3;
-const INLINE_KEY_WIDTH = 5;
-const INLINE_KEY_HEIGHT = 12;
-const INLINE_ROW_DISTANCE = 7;
-const INLINE_PADDING = 1;
+const INLINE_KEY_WIDTH = 10;
+const INLINE_KEY_HEIGHT = 24;
+const INLINE_ROW_DISTANCE = 15;
+const INLINE_PADDING = 2;
 
 const PianoKey = styled.div`
   position: absolute;
@@ -27,7 +27,6 @@ const PianoKey = styled.div`
     0px 0px 3px black;
   display: grid;
   align-content: end;
-  border-radius: 5px;
   box-sizing: border-box;
   border-width: 10px;
 `;
@@ -52,6 +51,7 @@ export const PianoLegend: React.FC = () => {
                 left: (KEY_WIDTH + PADDING) * i,
                 width: KEY_WIDTH,
                 height: KEY_HEIGHT,
+                borderRadius: "5px",
               }}
             >
               {i + 1}
@@ -66,6 +66,7 @@ export const PianoLegend: React.FC = () => {
                   zIndex: 2,
                   width: KEY_WIDTH,
                   height: KEY_HEIGHT,
+                  borderRadius: "5px",
                 }}
               >
                 {BLACK_KEY_LABELS[i]
@@ -99,31 +100,39 @@ export const InlinePianoLegend: React.FC<{ enabledPitches: number[] }> = ({
     >
       {[0, 1, 2, 3, 4, 5, 6].map((i) => (
         <React.Fragment key={i}>
-          {enabledPitches.includes(WHITE_KEYS[i]) && (
-            <PianoKey
-              key={`w_${i}`}
-              className={`noteColor_${[WHITE_KEYS[i]]}_colors`}
-              style={{
-                top: INLINE_ROW_DISTANCE,
-                left: (INLINE_KEY_WIDTH + INLINE_PADDING) * i,
-                width: INLINE_KEY_WIDTH,
-                height: INLINE_KEY_HEIGHT,
-              }}
-            />
-          )}
-          {BLACK_KEYS[i] !== -1 && enabledPitches.includes(BLACK_KEYS[i]) ? (
+          <PianoKey
+            key={`w_${i}`}
+            className={
+              enabledPitches.includes(WHITE_KEYS[i])
+                ? `noteColor_${[WHITE_KEYS[i]]}_colors`
+                : `noteColor_disabled`
+            }
+            style={{
+              top: INLINE_ROW_DISTANCE,
+              left: (INLINE_KEY_WIDTH + INLINE_PADDING) * i,
+              width: INLINE_KEY_WIDTH,
+              height: INLINE_KEY_HEIGHT,
+              borderRadius: "3px",
+            }}
+          />
+          {BLACK_KEYS[i] !== -1 && (
             <PianoKey
               key={`b_${i}`}
-              className={`noteColor_${[BLACK_KEYS[i]]}_colors`}
+              className={
+                enabledPitches.includes(BLACK_KEYS[i])
+                  ? `noteColor_${[BLACK_KEYS[i]]}_colors`
+                  : `noteColor_disabled`
+              }
               style={{
                 top: 0,
                 left: (INLINE_KEY_WIDTH + INLINE_PADDING) * (i + 0.5),
                 zIndex: 2,
                 width: INLINE_KEY_WIDTH,
                 height: INLINE_KEY_HEIGHT,
+                borderRadius: "3px",
               }}
             />
-          ) : null}
+          )}
         </React.Fragment>
       ))}
     </div>

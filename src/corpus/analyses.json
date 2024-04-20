@@ -9633,6 +9633,38 @@
         ]
       }
     },
+    "Misty_piano_solo.mid": {
+      "0": {
+        "modulations": {
+          "11": 8,
+          "13": 6,
+          "14": 3,
+          "19": 8,
+          "23": 3
+        },
+        "tonic": 3,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          },
+          {
+            "measure": 18,
+            "diff": 1
+          }
+        ],
+        "sections": [
+          0,
+          1,
+          3,
+          5,
+          7
+        ]
+      }
+    },
     "Super_Mario_Bros_Main_Theme.mid": {
       "0": {
         "form": [],

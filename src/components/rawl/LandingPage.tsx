@@ -115,11 +115,24 @@ const Content = styled.div`
 const Section: React.FC<{
   title: string;
   children: ReactNode;
-}> = ({ title, children }) => {
+  scale?: number[];
+}> = ({ title, children, scale }) => {
   return (
-    <div style={{ marginTop: 40, textAlign: "left", width: "100%" }}>
-      <span style={{ color: "gray" }}>{title} </span>
-      {children}
+    <div
+      style={{
+        marginTop: 40,
+        textAlign: "left",
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        gap: 40,
+      }}
+    >
+      <div style={{ display: "flex", flexDirection: "column", gap: 15 }}>
+        <span style={{ color: "gray", whiteSpace: "nowrap" }}>{title} </span>
+        {scale && <InlinePianoLegend enabledPitches={scale} />}
+      </div>
+      <div>{children}</div>
     </div>
   );
 };
@@ -140,53 +153,65 @@ const LandingPage = () => (
       >
         See Western music in 12 colors
       </div>
-      <div style={{ marginTop: 50, marginBottom: 30 }}>
-        <PianoLegend />
-      </div>
-      <div style={{ marginTop: 30, marginBottom: 50 }}>
-        <div
-          style={{
-            textAlign: "left",
-            display: "flex",
-            flexDirection: "column",
-            gap: 7,
-          }}
-        >
-          <span>
-            <span style={{ fontWeight: 900 }}>
-              the tonic note is always white
+      <div style={{ display: "flex", flexDirection: "row", gap: 150 }}>
+        <div style={{ marginTop: 50, marginBottom: 30 }}>
+          <PianoLegend />
+        </div>
+        <div style={{ marginTop: 30, marginBottom: 50 }}>
+          <div
+            style={{
+              textAlign: "left",
+              display: "flex",
+              flexDirection: "column",
+              gap: 7,
+            }}
+          >
+            <span>
+              <span style={{ fontWeight: 900 }}>
+                the tonic note is always white
+              </span>
             </span>
-          </span>
-          <span>
-            <span className="landing_gradient_green">
-              tonic chords have a green pitch
+            <span>
+              <span className="landing_gradient_green">
+                tonic chords have a green pitch
+              </span>
             </span>
-          </span>
-          <span>
-            <span className="landing_gradient_cool">
-              predominants are in cool colors
+            <span>
+              <span className="landing_gradient_cool">
+                predominants are in cool colors
+              </span>
             </span>
-          </span>
-          <span>
-            <span className="landing_gradient_warm">
-              dominants are in warm colors
+            <span>
+              <span className="landing_gradient_warm">
+                dominants are in warm colors
+              </span>
             </span>
-          </span>
-          <span>
-            <span className="landing_gradient_bright">
-              major mode is brighter
+            <span>
+              <span className="landing_gradient_bright">
+                major mode is brighter
+              </span>
             </span>
-          </span>
-          <span>
-            <span className="landing_gradient_dark">minor mode is darker</span>
-          </span>
+            <span>
+              <span className="landing_gradient_dark">
+                minor mode is darker
+              </span>
+            </span>
+          </div>
         </div>
       </div>
-      <div style={{ marginTop: 50, marginBottom: 50 }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: 150,
+          marginTop: 50,
+          marginBottom: 50,
+        }}
+      >
         <ChordStairs mode={MODES[0]} />
+        <ChordStairs mode={MODES[1]} />
       </div>
-      <Section title="natural minor">
-        <InlinePianoLegend enabledPitches={[0, 2, 3, 5, 7, 8, 10]} />
+      <Section title="natural minor" scale={[0, 2, 3, 5, 7, 8, 10]}>
         <Example
           name={"Game of Thrones"}
           pathname={
@@ -222,8 +247,7 @@ const LandingPage = () => (
           pathname={"/browse/static/musescore_manual?song=Despacito.mid"}
         />
       </Section>
-      <Section title="harmonic minor">
-        <InlinePianoLegend enabledPitches={[0, 2, 3, 5, 7, 8, 11]} />
+      <Section title="harmonic minor" scale={[0, 2, 3, 5, 7, 8, 11]}>
         <Example
           name={"Imagine Dragons – Believer"}
           pathname={
@@ -257,8 +281,7 @@ const LandingPage = () => (
           }
         />
       </Section>
-      <Section title="mixed minor">
-        <InlinePianoLegend enabledPitches={[0, 2, 3, 5, 7, 8, 10, 11]} />
+      <Section title="mixed minor" scale={[0, 2, 3, 5, 7, 8, 10, 11]}>
         <Example
           name={"Pirates of the Caribbean"}
           pathname={
@@ -272,11 +295,8 @@ const LandingPage = () => (
           }
         />
       </Section>
-      <div style={{ marginTop: 150, marginBottom: 50 }}>
-        <ChordStairs mode={MODES[1]} />
-      </div>
-      <Section title="major">
-        <InlinePianoLegend enabledPitches={[0, 2, 4, 5, 7, 9, 11]} />
+
+      <Section title="major" scale={[0, 2, 4, 5, 7, 9, 11]}>
         <Example
           name={"Jingle Bell Rock"}
           pathname={"/browse/static/musescore_manual?song=Jingle_Bell_Rock.mid"}
@@ -380,8 +400,7 @@ const LandingPage = () => (
           }
         />
       </Section>
-      <Section title="blues scale">
-        <InlinePianoLegend enabledPitches={[0, 3, 5, 6, 7, 10]} />
+      <Section title="blues scale" scale={[0, 3, 5, 6, 7, 10]}>
         <Example
           name={"Pink Panther"}
           pathname={"/browse/static/musescore_manual?song=Pink_Panther.mid"}
@@ -403,6 +422,10 @@ const LandingPage = () => (
         <Example
           name={"Tamás Deák – Vízisí"}
           pathname={"/browse/static/musescore_manual?song=vizisi.mid"}
+        />
+        <Example
+          name={"Misty"}
+          pathname={"/browse/static/musescore_manual?song=Misty_piano_solo.mid"}
         />
       </Section>
       <Section title="sheet music">

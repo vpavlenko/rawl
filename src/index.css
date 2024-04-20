@@ -738,6 +738,11 @@ img {
     
 }
 
+.noteColor_disabled {
+    box-shadow: 0 0 1px inset white;
+    background-color: transparent;
+}
+
 .landing_gradient_green {
     background: linear-gradient(to right, white, #007000, #00fb47, rgb(120, 120, 120));
     -webkit-background-clip: text;

@@ -101,7 +101,7 @@ const Measure: React.FC<{
             style={{
               color: "white",
               position: "absolute",
-              top: -2,
+              top: 0,
               left: left + 30,
               fontSize: 12,
               zIndex: 100,
@@ -109,6 +109,13 @@ const Measure: React.FC<{
               userSelect: "none",
             }}
           >
+            {previousTonic !== null && (
+              <>{`${
+                modulationDiff > 6
+                  ? `↓${Math.abs(modulationDiff - 12)}`
+                  : `↑${modulationDiff}`
+              } `}</>
+            )}
             {PITCH_CLASS_TO_LETTER[tonicStart]}
           </span>
 
@@ -117,12 +124,13 @@ const Measure: React.FC<{
               modulationDiff === 6 ? 0 : modulationDiff
             }_colors`}
             style={{
-              width: 13,
+              width: 80,
               height: 18,
               position: "absolute",
               top: 0,
               left: left,
-              zIndex: 100,
+              zIndex: 0,
+              userSelect: "none",
               maskImage:
                 "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
               WebkitMaskImage:
@@ -156,7 +164,9 @@ const Measure: React.FC<{
                       : selectedPhraseStart !== -1 &&
                         Math.abs(number - selectedPhraseStart) <= 3
                       ? "orange"
-                      : "#666",
+                      : modulationDiff === null
+                      ? "#666"
+                      : "black",
                   zIndex: 15,
                   cursor: "pointer",
                   userSelect: "none",

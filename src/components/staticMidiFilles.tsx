@@ -1060,6 +1060,13 @@ const STATIC_MIDI_FILES: StaticMidiFile[] = [
     size: 1337,
     type: "file",
   },
+  {
+    idx: 170,
+    path: "/static/musescore_manual/Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet.mid",
+    link: "https://musescore.com/user/58480/scores/2295601",
+    size: 1337,
+    type: "file",
+  },
 ];
 
 export default STATIC_MIDI_FILES;

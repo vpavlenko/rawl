@@ -9989,6 +9989,42 @@
         ]
       }
     },
+    "Entry_of_the_Gladiators_-_Julius_Fuk_-_1897.mid": {
+      "0": {
+        "modulations": {
+          "5": 6,
+          "9": 0,
+          "77": 5
+        },
+        "tonic": 4,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 121,
+            "diff": 2
+          }
+        ],
+        "sections": [
+          0,
+          3,
+          7,
+          11,
+          15,
+          19,
+          20,
+          24,
+          28,
+          30,
+          34
+        ]
+      }
+    },
     "Super_Mario_Bros_Main_Theme.mid": {
       "0": {
         "form": [],

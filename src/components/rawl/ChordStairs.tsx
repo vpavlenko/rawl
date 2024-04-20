@@ -97,7 +97,7 @@ const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
             left: index * (NOTE_WIDTH + HORIZONTAL_GAP),
           }}
         >
-          {name.replace("b", "♭")}
+          {name.replace("b", "♭").replace("o", "º")}
         </ChordName>
       ))}
     </div>

@@ -262,6 +262,12 @@ const LandingPage = () => (
             "/browse/static/musescore_manual?song=Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019.mid"
           }
         />
+        <Example
+          name={"Julius Fučík – Entrance of the Gladiators"}
+          pathname={
+            "/browse/static/musescore_manual?song=Entry_of_the_Gladiators_-_Julius_Fuk_-_1897.mid"
+          }
+        />
       </Section>
       <Section title="natural minor" scale={[0, 2, 3, 5, 7, 8, 10]}>
         <Example

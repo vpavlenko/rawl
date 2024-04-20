@@ -9665,6 +9665,70 @@
         ]
       }
     },
+    "Maple_Leaf_Rag_Scott_Joplin.mid": {
+      "0": {
+        "modulations": {
+          "82": 1,
+          "106": 3,
+          "110": 1,
+          "114": 8
+        },
+        "tonic": 8,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 1
+          }
+        ],
+        "sections": [
+          0,
+          5,
+          9,
+          13,
+          17,
+          21,
+          25,
+          29,
+          33
+        ]
+      }
+    },
+    "Pine_Apple_Rag_-_Scott_Joplin_-_1908.mscz.mid": {
+      "0": {
+        "modulations": {
+          "26": 5,
+          "29": 10,
+          "85": 3,
+          "105": 7,
+          "109": 3
+        },
+        "tonic": 10,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          }
+        ],
+        "sections": [
+          0,
+          1,
+          5,
+          9,
+          13,
+          17,
+          21,
+          25,
+          29,
+          33
+        ]
+      }
+    },
     "Super_Mario_Bros_Main_Theme.mid": {
       "0": {
         "form": [],

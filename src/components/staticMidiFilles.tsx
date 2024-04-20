@@ -1025,6 +1025,41 @@ const STATIC_MIDI_FILES: StaticMidiFile[] = [
     size: 1337,
     type: "file",
   },
+  {
+    idx: 165,
+    path: "/static/musescore_manual/Pine_Apple_Rag_-_Scott_Joplin_-_1908.mscz.mid",
+    link: "https://musescore.com/james_brigham/scores/1494541",
+    size: 1337,
+    type: "file",
+  },
+  {
+    idx: 166,
+    path: "/static/musescore_manual/Habanera_-_Piano_Solo_-_Georges_Bizet.mid",
+    link: "https://musescore.com/user/58480/scores/2265906",
+    size: 1337,
+    type: "file",
+  },
+  {
+    idx: 167,
+    path: "/static/musescore_manual/Entry_of_the_Gladiators_-_Julius_Fuk_-_1897.mid",
+    link: "https://musescore.com/james_brigham/scores/1243801",
+    size: 1337,
+    type: "file",
+  },
+  {
+    idx: 168,
+    path: "/static/musescore_manual/Waltz_in_A_Major_Op.39_No.15_by_Johannes_Brahms.mid",
+    link: "https://musescore.com/james_brigham/scores/1243801",
+    size: 1337,
+    type: "file",
+  },
+  {
+    idx: 169,
+    path: "/static/musescore_manual/The_Cascades__Scott_Joplin__1904.mid",
+    link: "https://musescore.com/user/58480/scores/1600221",
+    size: 1337,
+    type: "file",
+  },
 ];
 
 export default STATIC_MIDI_FILES;

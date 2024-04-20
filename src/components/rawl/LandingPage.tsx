@@ -39,9 +39,9 @@ const FileDropBox: React.FC = () => (
 
 const NeonLink = styled.a`
   display: inline-block;
-  padding: 0px 10px; // Adjust padding as needed
+  padding: 2px 6px; // Adjust padding as needed
   color: #fff; // White text color for the neon effect
-  font-size: 20px;
+  font-size: 17px;
   font-family: "Helvetica Neue", Arial, sans-serif; // Sexy sans-serif font
   text-decoration: none;
   cursor: pointer;
@@ -410,16 +410,31 @@ const LandingPage = () => (
             "/browse/static/musescore_manual?song=chopin_military_polonaise.mid"
           }
         />
+
         <Example
-          name={"Scott Joplin – The Entertainer"}
+          name={"Beethoven – Sonata No. 5, mov. 1"}
+          pathname={
+            "/browse/static/musescore_manual?song=beethoven_sonate_5_1st.mid"
+          }
+        />
+      </Section>
+      <Section title="ragtimes by Scott Joplin">
+        <Example
+          name={"The Entertainer"}
           pathname={
             "/browse/static/musescore_manual?song=the_entertainer_scott_joplin.mid"
           }
         />
         <Example
-          name={"Beethoven – Sonata No. 5, mov. 1"}
+          name={"Maple Leaf Rag"}
           pathname={
-            "/browse/static/musescore_manual?song=beethoven_sonate_5_1st.mid"
+            "/browse/static/musescore_manual?song=Maple_Leaf_Rag_Scott_Joplin.mid"
+          }
+        />
+        <Example
+          name={"Pine Apple Rag"}
+          pathname={
+            "/browse/static/musescore_manual?song=Pine_Apple_Rag_-_Scott_Joplin_-_1908.mscz.mid"
           }
         />
       </Section>
@@ -435,7 +450,7 @@ const LandingPage = () => (
       </Section>
       <Section title="sheet music">
         <Example
-          name={"The Entertainer"}
+          name={"Scott Joplin – The Entertainer"}
           pathname="https://musescore.com/user/39031562/scores/15664612"
         />
         <Example

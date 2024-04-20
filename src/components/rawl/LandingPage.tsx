@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ChordStairs, { MODES } from "./ChordStairs";
-import { PianoLegend } from "./PianoLegend";
+import { InlinePianoLegend, PianoLegend } from "./PianoLegend";
 import landingLeftSideImage from "./landing_left_side.png";
 import landingRightSideImage from "./landing_right_side.png";
 
@@ -186,6 +186,7 @@ const LandingPage = () => (
         <ChordStairs mode={MODES[0]} />
       </div>
       <Section title="natural minor">
+        <InlinePianoLegend enabledPitches={[0, 2, 3, 5, 7, 8, 10]} />
         <Example
           name={"Game of Thrones"}
           pathname={
@@ -222,6 +223,7 @@ const LandingPage = () => (
         />
       </Section>
       <Section title="harmonic minor">
+        <InlinePianoLegend enabledPitches={[0, 2, 3, 5, 7, 8, 11]} />
         <Example
           name={"Imagine Dragons – Believer"}
           pathname={
@@ -256,6 +258,7 @@ const LandingPage = () => (
         />
       </Section>
       <Section title="mixed minor">
+        <InlinePianoLegend enabledPitches={[0, 2, 3, 5, 7, 8, 10, 11]} />
         <Example
           name={"Pirates of the Caribbean"}
           pathname={
@@ -273,6 +276,7 @@ const LandingPage = () => (
         <ChordStairs mode={MODES[1]} />
       </div>
       <Section title="major">
+        <InlinePianoLegend enabledPitches={[0, 2, 4, 5, 7, 9, 11]} />
         <Example
           name={"Jingle Bell Rock"}
           pathname={"/browse/static/musescore_manual?song=Jingle_Bell_Rock.mid"}
@@ -365,6 +369,7 @@ const LandingPage = () => (
         />
       </Section>
       <Section title="blues scale">
+        <InlinePianoLegend enabledPitches={[0, 3, 5, 6, 7, 10]} />
         <Example
           name={"Pink Panther"}
           pathname={"/browse/static/musescore_manual?song=Pink_Panther.mid"}

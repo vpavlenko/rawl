@@ -9270,6 +9270,61 @@
         ]
       }
     },
+    "vizisi.mid": {
+      "0": {
+        "modulations": {
+          "53": 0,
+          "84": 9,
+          "92": 6,
+          "100": 3,
+          "108": 0,
+          "134": 5,
+          "174": 2,
+          "176": 6,
+          "178": 5,
+          "180": 4,
+          "182": 5
+        },
+        "tonic": 5,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 69,
+            "diff": -1
+          },
+          {
+            "measure": 112,
+            "diff": -2
+          },
+          {
+            "measure": 61,
+            "diff": -1
+          },
+          {
+            "measure": 67,
+            "diff": 1
+          }
+        ],
+        "sections": [
+          0,
+          1,
+          7,
+          13,
+          17,
+          21,
+          28,
+          34,
+          40,
+          44
+        ]
+      }
+    },
     "Another_Love__-_Tom_Odell_Professional.mid": {
       "0": {
         "form": [],

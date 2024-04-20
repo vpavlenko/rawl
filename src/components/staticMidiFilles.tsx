@@ -993,8 +993,7 @@ const STATIC_MIDI_FILES: StaticMidiFile[] = [
   },
   {
     idx: 160,
-    path: "/static/musescore_manual/white_christmas.mid",
-    link: "https://musescore.com/user/32009255/scores/6497506",
+    path: "SENTINEL3",
     size: 1337,
     type: "file",
   },

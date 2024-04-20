@@ -387,6 +387,12 @@ const LandingPage = () => (
           }
         />
       </Section>
+      <Section title="jazz">
+        <Example
+          name={"Tamás Deák – Vízisí"}
+          pathname={"/browse/static/musescore_manual?song=vizisi.mid"}
+        />
+      </Section>
       <Section title="sheet music">
         <Example
           name={"The Entertainer"}

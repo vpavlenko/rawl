@@ -367,6 +367,12 @@ const LandingPage = () => (
             "/browse/static/musescore_manual?song=the_entertainer_scott_joplin.mid"
           }
         />
+        <Example
+          name={"Beethoven – Sonata No. 5, mov. 1"}
+          pathname={
+            "/browse/static/musescore_manual?song=beethoven_sonate_5_1st.mid"
+          }
+        />
       </Section>
       <Section title="blues scale">
         <InlinePianoLegend enabledPitches={[0, 3, 5, 6, 7, 10]} />

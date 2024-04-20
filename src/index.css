@@ -674,11 +674,11 @@ img {
 }
 
 .noteColor_2_colors {
-    background-color: red;
+    background-color: red !important;
 }
 
 .noteColor_1_colors {
-    background-color: rgb(130, 0, 0);
+    background-color: rgb(130, 0, 0) !important;
 }
 
 .noteColor_1_colors:after, .noteColor_6_colors:after {
@@ -688,53 +688,53 @@ img {
     left: 50%;
     width: 1px;
     height: 1px;
-    background-color: white;
+    background-color: white !important;
     border-radius: 50%;
     transform: translate(-50%, -50%);
 }
 
 .noteColor_0_colors {
-    background-color: white;
+    background-color: white !important;
 }
 
 .noteColor_11_colors {
-    background-color: #fffb00;
+    background-color: #fffb00 !important;
 }
 
 .noteColor_4_colors {
-    background-color: #00fb47;
+    background-color: #00fb47 !important;
 }
 
 .noteColor_7_colors {
-    background-color: rgb(120, 120, 120);
+    background-color: rgb(120, 120, 120) !important;
 }
 
 .noteColor_8_colors {
-    background-color: rgb(0, 0, 255);
+    background-color: rgb(0, 0, 255) !important;
 }
 
 .noteColor_9_colors {
-    background-color:  #03b9d5;
+    background-color:  #03b9d5 !important;
 }
 
 .noteColor_10_colors {
-    background-color: #ff7328;
+    background-color: #ff7328 !important;
 }
 
 .noteColor_3_colors {
-    background-color: #007000;
+    background-color: #007000 !important;
     
 }
 
 .noteColor_6_colors {
     /* background-color: #ff80bf; */
-    background-color: black;
+    background-color: black !important;
     /* border: 1px dotted white; */
     box-shadow: 0 0 3px white, 0 0 6px white, 0 0 9px white;
 }
 
 .noteColor_5_colors {
-    background-color: #df12ff;
+    background-color: #df12ff !important;
     
 }
 

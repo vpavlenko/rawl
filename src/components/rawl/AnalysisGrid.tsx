@@ -66,6 +66,7 @@ const Measure: React.FC<{
   tonicStart?: PitchClass;
   selectedPhraseStart: number;
   sectionSpan: MeasuresSpan;
+  previousTonic: PitchClass | null;
 }> = ({
   span,
   number,
@@ -79,6 +80,7 @@ const Measure: React.FC<{
   tonicStart,
   selectedPhraseStart,
   sectionSpan,
+  previousTonic,
 }) => {
   const { selectedMeasure, selectMeasure, splitAtMeasure, mergeAtMeasure } =
     measureSelection;
@@ -86,23 +88,48 @@ const Measure: React.FC<{
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
 
+  let modulationDiff: number | null = null;
+  if (tonicStart !== undefined && previousTonic !== null) {
+    modulationDiff = (tonicStart - previousTonic + 12) % 12;
+  }
+
   return (
     <>
       {showHeader && tonicStart !== undefined && (
-        <span
-          style={{
-            color: "white",
-            position: "absolute",
-            top: -2,
-            left: left + 30,
-            fontSize: 12,
-            zIndex: 100,
-            fontWeight: 700,
-            userSelect: "none",
-          }}
-        >
-          {PITCH_CLASS_TO_LETTER[tonicStart]}
-        </span>
+        <>
+          <span
+            style={{
+              color: "white",
+              position: "absolute",
+              top: -2,
+              left: left + 30,
+              fontSize: 12,
+              zIndex: 100,
+              fontWeight: 700,
+              userSelect: "none",
+            }}
+          >
+            {PITCH_CLASS_TO_LETTER[tonicStart]}
+          </span>
+
+          <div
+            className={`noteColor_${
+              modulationDiff === 6 ? 0 : modulationDiff
+            }_colors`}
+            style={{
+              width: 13,
+              height: 18,
+              position: "absolute",
+              top: 0,
+              left: left,
+              zIndex: 100,
+              maskImage:
+                "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
+            }}
+          />
+        </>
       )}
       {(showNonPhraseStarts || isPhraseStart) && (
         <>
@@ -367,9 +394,18 @@ export const AnalysisGrid: React.FC<{
     if (sectionSpan == null) {
       sectionSpan = [0, measures.length]; // measures.length - 1 ?
     }
+    const modulationsArray = getModulations(analysis);
     const modulations = new Map(
-      getModulations(analysis).map(({ measure, tonic }) => [measure, tonic]),
+      modulationsArray.map(({ measure, tonic }) => [measure, tonic]),
     );
+    const findPreviousTonic = (currentMeasure: number): PitchClass | null =>
+      modulationsArray.reduce(
+        (acc, { measure, tonic }) =>
+          measure < currentMeasure && measure > acc.measure
+            ? { measure, tonic }
+            : acc,
+        { measure: -Infinity, tonic: null },
+      ).tonic;
 
     let showBeats = true;
     let showAllMeasureBars = true;
@@ -409,6 +445,7 @@ export const AnalysisGrid: React.FC<{
               secondsToX={secondsToX}
               showNonPhraseStarts={showAllMeasureBars}
               tonicStart={modulations.get(i)}
+              previousTonic={findPreviousTonic(i)}
               selectedPhraseStart={selectedPhraseStart}
               sectionSpan={sectionSpan}
             />

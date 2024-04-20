@@ -1256,7 +1256,7 @@ export const StackedSystemLayout: React.FC<{
                     xToSeconds={xToSeconds}
                     sectionSpan={sectionSpan}
                   />
-                  {order === 1 && (
+                  {order === 1 && voiceIndex === 0 && (
                     <div style={{ position: "relative" }}>
                       <div
                         style={{

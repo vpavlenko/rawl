@@ -74,7 +74,7 @@ export type AppStateForRawl = {
 
 export type ChordChartLayout = "hidden" | null;
 
-const getTonic = (measure: number, analysis: Analysis): PitchClass => {
+export const getTonic = (measure: number, analysis: Analysis): PitchClass => {
   const modulations = getModulations(analysis);
   let i = 0;
   while (i + 1 < modulations.length && modulations[i + 1].measure <= measure) {
@@ -92,7 +92,7 @@ export const getModulations = (analysis: Analysis) =>
     })),
   ].sort((a, b) => a.measure - b.measure);
 
-const getSecondsMeasure = (
+export const getSecondsMeasure = (
   seconds: number,
   measures: number[] | null,
 ): number => {

@@ -7,7 +7,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { CSSProperties } from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
 import { DUMMY_CALLBACK } from "../App";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
@@ -19,9 +18,11 @@ import {
   SecondsConverter,
   SecondsSpan,
   SetVoiceMask,
+  getSecondsMeasure,
+  getTonic,
   secondsToX__,
 } from "./Rawl";
-import { Analysis, MeasuresSpan } from "./analysis";
+import { Analysis, MeasuresSpan, PitchClass } from "./analysis";
 import {
   ColoredNote,
   ColoredNotesInVoices,
@@ -1003,39 +1004,49 @@ export const SplitSystemLayout: React.FC<{
 };
 
 const CursorWrapper: React.FC<{
+  left: number;
+  shouldHaveTransition: boolean;
   xToSeconds: SecondsConverter;
-  style: CSSProperties;
-  setCursorSeconds: (number) => void;
-}> = ({ xToSeconds, style, setCursorSeconds }) => {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const frameId = useRef<number | null>(null);
+  setCursorSeconds?: (number) => void;
+}> = React.memo(
+  ({ xToSeconds, left, shouldHaveTransition, setCursorSeconds }) => {
+    const cursorRef = useRef<HTMLDivElement>(null);
+    const frameId = useRef<number | null>(null);
 
-  const updatePosition = () => {
-    if (cursorRef.current) {
-      const rect = cursorRef.current.getBoundingClientRect();
-      const parentRect = (
-        cursorRef.current.parentNode as HTMLElement
-      ).getBoundingClientRect();
-      if (parentRect) {
-        const positionX = rect.left - parentRect.left;
-        setCursorSeconds(xToSeconds(positionX));
-      }
-    }
-    frameId.current = requestAnimationFrame(updatePosition);
-  };
-
-  useEffect(() => {
-    frameId.current = requestAnimationFrame(updatePosition);
-
-    return () => {
-      if (frameId.current !== null) {
-        cancelAnimationFrame(frameId.current);
-      }
+    const style = {
+      left,
+      transition: shouldHaveTransition ? "left 0.37s linear" : "",
     };
-  }, [setCursorSeconds, xToSeconds]);
 
-  return <Cursor ref={cursorRef} style={style} />;
-};
+    useEffect(() => {
+      if (setCursorSeconds) {
+        const updatePosition = () => {
+          if (cursorRef.current) {
+            const rect = cursorRef.current.getBoundingClientRect();
+            const parentRect = (
+              cursorRef.current.parentNode as HTMLElement
+            ).getBoundingClientRect();
+            if (parentRect) {
+              const positionX = rect.left - parentRect.left;
+              setCursorSeconds(xToSeconds(positionX));
+            }
+          }
+          frameId.current = requestAnimationFrame(updatePosition);
+        };
+
+        frameId.current = requestAnimationFrame(updatePosition);
+
+        return () => {
+          if (frameId.current !== null) {
+            cancelAnimationFrame(frameId.current);
+          }
+        };
+      }
+    }, [setCursorSeconds, xToSeconds]);
+
+    return <Cursor ref={cursorRef} style={style} />;
+  },
+);
 
 type Section = {
   sectionSpan: MeasuresSpan;
@@ -1180,6 +1191,54 @@ export const StackedSystemLayout: React.FC<{
 
   const [cursorSeconds, setCursorSeconds] = useState<number>(0);
 
+  const tonic = useMemo(
+    () =>
+      getTonic(
+        getSecondsMeasure(positionSeconds, measuresAndBeats.measures),
+        analysis,
+      ),
+    [positionSeconds, measuresAndBeats, analysis],
+  );
+
+  const pitchClassesUnderCursor = useMemo(
+    () =>
+      new Set(
+        notes.flatMap((notesInVoice) =>
+          notesInVoice
+            .filter(({ isDrum }) => !isDrum)
+            .filter(
+              (note) =>
+                note.span[0] <= cursorSeconds && note.span[1] >= cursorSeconds,
+            )
+            .map(
+              (note) =>
+                ((note.note.midiNumber - tonic + 12) % 12) as PitchClass,
+            ),
+        ),
+      ),
+    [cursorSeconds, notes, tonic],
+  );
+
+  const pitchClassesAroundCursor = useMemo(
+    () =>
+      new Set(
+        notes.flatMap((notesInVoice) =>
+          notesInVoice
+            .filter(({ isDrum }) => !isDrum)
+            .filter(
+              (note) =>
+                note.span[0] - 0.05 <= cursorSeconds &&
+                note.span[1] + 0.05 >= cursorSeconds,
+            )
+            .map(
+              (note) =>
+                ((note.note.midiNumber - tonic + 12) % 12) as PitchClass,
+            ),
+        ),
+      ),
+    [cursorSeconds, notes, tonic],
+  );
+
   return (
     <>
       <div
@@ -1272,17 +1331,16 @@ export const StackedSystemLayout: React.FC<{
                       positionSeconds <
                         measuresAndBeats.measures[sectionSpan[1]] && (
                         <CursorWrapper
-                          style={{
-                            transition:
-                              Math.abs(
-                                prevPositionSeconds.current - positionSeconds,
-                              ) < 1
-                                ? "left 0.37s linear"
-                                : "",
-                            left: secondsToX(positionSeconds),
-                          }}
+                          left={secondsToX(positionSeconds)}
+                          shouldHaveTransition={
+                            Math.abs(
+                              prevPositionSeconds.current - positionSeconds,
+                            ) < 1
+                          }
                           xToSeconds={xToSeconds}
-                          setCursorSeconds={setCursorSeconds}
+                          setCursorSeconds={
+                            order === sections.length - 1 && setCursorSeconds
+                          }
                         />
                       )
                     }
@@ -1315,9 +1373,21 @@ export const StackedSystemLayout: React.FC<{
               gap: 30,
             }}
           >
-            <ChordStairs mode={MODES[1]} />
-            <ChordStairs mode={MODES[0]} />
-            <ChordStairs mode={MODES[2]} />
+            <ChordStairs
+              mode={MODES[1]}
+              pitchClassesUnderCursor={pitchClassesUnderCursor}
+              pitchClassesAroundCursor={pitchClassesAroundCursor}
+            />
+            <ChordStairs
+              mode={MODES[0]}
+              pitchClassesUnderCursor={pitchClassesUnderCursor}
+              pitchClassesAroundCursor={pitchClassesAroundCursor}
+            />
+            <ChordStairs
+              mode={MODES[2]}
+              pitchClassesUnderCursor={pitchClassesUnderCursor}
+              pitchClassesAroundCursor={pitchClassesAroundCursor}
+            />
             <PianoLegend />
           </div>
         </div>

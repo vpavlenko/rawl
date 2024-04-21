@@ -101,7 +101,7 @@ const Measure: React.FC<{
             style={{
               color: "white",
               position: "absolute",
-              top: 0,
+              top: -2,
               left: left + 30,
               fontSize: 12,
               zIndex: 100,
@@ -125,7 +125,7 @@ const Measure: React.FC<{
             }_colors`}
             style={{
               width: 80,
-              height: 18,
+              height: 12,
               position: "absolute",
               top: 0,
               left: left,

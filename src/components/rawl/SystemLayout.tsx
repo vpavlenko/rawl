@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { CSSProperties } from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
 import { DUMMY_CALLBACK } from "../App";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
@@ -1001,6 +1002,41 @@ export const SplitSystemLayout: React.FC<{
   );
 };
 
+const CursorWrapper: React.FC<{
+  xToSeconds: SecondsConverter;
+  style: CSSProperties;
+  setCursorSeconds: (number) => void;
+}> = ({ xToSeconds, style, setCursorSeconds }) => {
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const frameId = useRef<number | null>(null);
+
+  const updatePosition = () => {
+    if (cursorRef.current) {
+      const rect = cursorRef.current.getBoundingClientRect();
+      const parentRect = (
+        cursorRef.current.parentNode as HTMLElement
+      ).getBoundingClientRect();
+      if (parentRect) {
+        const positionX = rect.left - parentRect.left;
+        setCursorSeconds(xToSeconds(positionX));
+      }
+    }
+    frameId.current = requestAnimationFrame(updatePosition);
+  };
+
+  useEffect(() => {
+    frameId.current = requestAnimationFrame(updatePosition);
+
+    return () => {
+      if (frameId.current !== null) {
+        cancelAnimationFrame(frameId.current);
+      }
+    };
+  }, [setCursorSeconds, xToSeconds]);
+
+  return <Cursor ref={cursorRef} style={style} />;
+};
+
 type Section = {
   sectionSpan: MeasuresSpan;
   secondsToX: SecondsConverter;
@@ -1142,6 +1178,8 @@ export const StackedSystemLayout: React.FC<{
     };
   }, []);
 
+  const [cursorSeconds, setCursorSeconds] = useState<number>(0);
+
   return (
     <>
       <div
@@ -1233,7 +1271,7 @@ export const StackedSystemLayout: React.FC<{
                     cursor={
                       positionSeconds <
                         measuresAndBeats.measures[sectionSpan[1]] && (
-                        <Cursor
+                        <CursorWrapper
                           style={{
                             transition:
                               Math.abs(
@@ -1243,6 +1281,8 @@ export const StackedSystemLayout: React.FC<{
                                 : "",
                             left: secondsToX(positionSeconds),
                           }}
+                          xToSeconds={xToSeconds}
+                          setCursorSeconds={setCursorSeconds}
                         />
                       )
                     }

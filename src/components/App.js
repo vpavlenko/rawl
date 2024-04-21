@@ -52,6 +52,12 @@ import Narrative from "./rawl/narratives/Narrative";
 import DAW from "./rawl/pages/DAW";
 import STATIC_MIDI_FILES from "./staticMidiFilles";
 
+// The maximum possible latency (16384, 400ms) is set because the current audio
+// engine (onaudioprocess) is running in the same UI thread where all expensive
+// computations about note rectangles are happening. Lowering the buffer size will
+// lead to cracks and lags in the sound.
+const BUFFER_SIZE = 16384;
+
 export const DUMMY_CALLBACK = () => {};
 
 const mergeAnalyses = (base, diff) => {
@@ -162,7 +168,7 @@ class App extends React.Component {
           Math.log2((audioCtx.baseLatency || 0.001) * audioCtx.sampleRate),
         ),
       ),
-      16384, // can set to 16384, but the cursor will lag. smooth is 2048
+      BUFFER_SIZE,
     );
     const gainNode = (this.gainNode = audioCtx.createGain());
     gainNode.gain.value = 1;

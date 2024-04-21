@@ -1170,7 +1170,7 @@ export const StackedSystemLayout: React.FC<{
           <input
             type="range"
             min="1"
-            max="15"
+            max="10"
             value={noteHeight}
             onChange={(e) =>
               debounceSetNoteHeight(parseInt(e.target.value, 10))
@@ -1256,23 +1256,6 @@ export const StackedSystemLayout: React.FC<{
                     xToSeconds={xToSeconds}
                     sectionSpan={sectionSpan}
                   />
-                  {order === 1 && voiceIndex === 0 && (
-                    <div style={{ position: "relative" }}>
-                      <div
-                        style={{
-                          position: "fixed",
-                          marginLeft: 100,
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: 30,
-                        }}
-                      >
-                        <ChordStairs mode={MODES[1]} />
-                        <ChordStairs mode={MODES[0]} />
-                        <ChordStairs mode={MODES[2]} />
-                      </div>
-                    </div>
-                  )}
                 </div>
               ))}
             </div>
@@ -1283,7 +1266,20 @@ export const StackedSystemLayout: React.FC<{
           key="piano-legend"
           style={{ position: "fixed", bottom: 90, right: 70, zIndex: 30 }}
         >
-          <PianoLegend />
+          <div
+            style={{
+              // position: "fixed",
+              // marginLeft: 100,
+              display: "flex",
+              flexDirection: "column",
+              gap: 30,
+            }}
+          >
+            <ChordStairs mode={MODES[1]} />
+            <ChordStairs mode={MODES[0]} />
+            <ChordStairs mode={MODES[2]} />
+            <PianoLegend />
+          </div>
         </div>
       </div>
     </>

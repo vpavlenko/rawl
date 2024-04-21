@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { CHORDS, Chord } from "./course/ChordClouds";
 
 const NOTE_HEIGHT = 3;
-const NOTE_WIDTH = 30;
-const HORIZONTAL_GAP = 10;
+const NOTE_WIDTH = 28;
+const HORIZONTAL_GAP = 9;
 
 const ChordNote = styled.div`
   user-select: none;
@@ -97,7 +97,7 @@ const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
             left: index * (NOTE_WIDTH + HORIZONTAL_GAP),
           }}
         >
-          {name.replace("b", "♭").replace("o", "º")}
+          {name.replace("b", "♭").replace("o", "º").replace("7", "⁷")}
         </ChordName>
       ))}
     </div>

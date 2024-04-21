@@ -159,7 +159,7 @@ const LandingPage = () => (
       >
         See Western music in 12 colors
       </div>
-      <div style={{ display: "flex", flexDirection: "row", gap: 150 }}>
+      <div style={{ display: "flex", flexDirection: "row", gap: 100 }}>
         <div style={{ marginTop: 30, marginBottom: 30 }}>
           <PianoLegend />
         </div>
@@ -209,7 +209,7 @@ const LandingPage = () => (
         style={{
           display: "flex",
           flexDirection: "row",
-          gap: 150,
+          gap: 100,
           marginTop: 30,
           marginBottom: 30,
         }}

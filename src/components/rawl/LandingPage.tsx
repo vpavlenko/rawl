@@ -350,7 +350,7 @@ const LandingPage = () => (
           pathname={"/browse/static/musescore_manual?song=Tetris_Theme.mid"}
         />
         <Example
-          name={"Tetris (arr. Kyle Landry"}
+          name={"Tetris (arr. Kyle Landry)"}
           pathname={
             "/browse/static/musescore_manual?song=Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki.mid"
           }

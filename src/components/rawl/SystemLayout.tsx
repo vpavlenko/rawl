@@ -7,14 +7,12 @@ import {
   useRef,
   useState,
 } from "react";
-import { useLocalStorage } from "usehooks-ts";
 import { DUMMY_CALLBACK } from "../App";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import ChordStairs, { MODES } from "./ChordStairs";
 import { useColorScheme } from "./ColorScheme";
 import { PianoLegend } from "./PianoLegend";
 import {
-  ChordChartLayout,
   SecondsConverter,
   SecondsSpan,
   SetVoiceMask,
@@ -794,7 +792,6 @@ export const StackedSystemLayout: React.FC<{
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
   setVoiceMask: SetVoiceMask;
-  chordChartLayout: ChordChartLayout;
 }> = ({
   notes,
   voiceNames,
@@ -806,11 +803,10 @@ export const StackedSystemLayout: React.FC<{
   mouseHandlers,
   measureSelection,
   setVoiceMask,
-  chordChartLayout,
 }) => {
-  const [noteHeight, setNoteHeight] = useLocalStorage("noteHeight", 4);
+  const [noteHeight, setNoteHeight] = useState<number>(4);
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
-  const [secondWidth, setSecondWidth] = useLocalStorage("secondWidth", 55);
+  const [secondWidth, setSecondWidth] = useState<number>(55);
   const debounceSetSecondWidth = useCallback(debounce(setSecondWidth, 50), []);
 
   const prevPositionSeconds = useRef<number>(0);

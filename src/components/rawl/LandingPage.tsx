@@ -110,6 +110,11 @@ const Content = styled.div`
   align-items: center; // Center children horizontally in the container
 
   text-align: center; // Center text inside the content (if needed)
+
+  @media (max-width: 900px) {
+    width: 100%; // Make width 100% on smaller screens
+    padding: 0 20px; // Add padding to avoid touching the screen edges
+  }
 `;
 
 const Section: React.FC<{
@@ -219,24 +224,8 @@ const LandingPage = () => (
       </div>
       <Section title="major" scale={[0, 2, 4, 5, 7, 9, 11]}>
         <Example
-          name={"Jingle Bell Rock"}
-          pathname={"/browse/static/musescore_manual?song=Jingle_Bell_Rock.mid"}
-        />
-        <Example
-          name={"Joe Hisaishi – Summer"}
-          pathname={
-            "/browse/static/musescore_manual?song=Summer_Joe_Hisaishi.mid"
-          }
-        />
-        <Example
           name={"Feliz Navidad"}
           pathname={"/browse/static/musescore_manual?song=Feliz_Navidad.mid"}
-        />
-        <Example
-          name={"Super Mario Bros"}
-          pathname={
-            "/browse/static/musescore_manual?song=Super_Mario_Bros_Main_Theme.mid"
-          }
         />
         <Example
           name={"John Lennon – Imagine"}
@@ -248,6 +237,22 @@ const LandingPage = () => (
           name={"Ed Sheeran – Perfect"}
           pathname={
             "/browse/static/musescore_manual?song=Ed_Sheeran_Perfect.mid"
+          }
+        />
+        <Example
+          name={"Jingle Bell Rock"}
+          pathname={"/browse/static/musescore_manual?song=Jingle_Bell_Rock.mid"}
+        />
+        <Example
+          name={"Joe Hisaishi – Summer"}
+          pathname={
+            "/browse/static/musescore_manual?song=Summer_Joe_Hisaishi.mid"
+          }
+        />
+        <Example
+          name={"Super Mario Bros"}
+          pathname={
+            "/browse/static/musescore_manual?song=Super_Mario_Bros_Main_Theme.mid"
           }
         />
         <Example
@@ -317,6 +322,30 @@ const LandingPage = () => (
           pathname={"/browse/static/musescore_manual?song=Bella_Ciao.mid"}
         />
         <Example
+          name={"Requiem for a Dream"}
+          pathname={
+            "/browse/static/musescore_manual?song=Requiem_for_a_Dream.mid"
+          }
+        />
+      </Section>
+      <Section title="mixed minor" scale={[0, 2, 3, 5, 7, 8, 10, 11]}>
+        <Example
+          name={"Tetris"}
+          pathname={"/browse/static/musescore_manual?song=Tetris_Theme.mid"}
+        />
+        <Example
+          name={"Tetris (arr. Kyle Landry"}
+          pathname={
+            "/browse/static/musescore_manual?song=Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki.mid"
+          }
+        />
+        <Example
+          name={"Pirates of the Caribbean"}
+          pathname={
+            "/browse/static/musescore_manual?song=Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid"
+          }
+        />
+        <Example
           name={"Carol of the Bells"}
           pathname={
             "/browse/static/musescore_manual?song=Carol_of_the_Bells.mid"
@@ -327,27 +356,9 @@ const LandingPage = () => (
           pathname={"/browse/static/musescore_manual?song=Godfather.mid"}
         />
         <Example
-          name={"Requiem for a Dream"}
-          pathname={
-            "/browse/static/musescore_manual?song=Requiem_for_a_Dream.mid"
-          }
-        />
-        <Example
           name={"Pokémon"}
           pathname={
             "/browse/static/musescore_manual?song=Pokemon_Theme_Song.mid"
-          }
-        />
-      </Section>
-      <Section title="mixed minor" scale={[0, 2, 3, 5, 7, 8, 10, 11]}>
-        <Example
-          name={"Tetris"}
-          pathname={"/browse/static/musescore_manual?song=Tetris_Theme.mid"}
-        />
-        <Example
-          name={"Pirates of the Caribbean"}
-          pathname={
-            "/browse/static/musescore_manual?song=Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid"
           }
         />
         <Example

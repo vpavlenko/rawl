@@ -71,8 +71,6 @@ export type AppStateForRawl = {
   latencyCorrectionMs: number;
 };
 
-export type ChordChartLayout = "hidden" | null;
-
 const getTonic = (measure: number, analysis: Analysis): PitchClass => {
   const modulations = getModulations(analysis);
   let i = 0;
@@ -133,7 +131,6 @@ const Rawl: React.FC<{
   artist: string;
   song: string;
   latencyCorrectionMs: number;
-  chordChartLayout: ChordChartLayout;
 }> = ({
   parsingResult,
   getCurrentPositionMs,
@@ -148,7 +145,6 @@ const Rawl: React.FC<{
   artist,
   song,
   latencyCorrectionMs,
-  chordChartLayout,
 }) => {
   useEffect(() => {
     document.title = `${artist} - ${song} - Rawl`;
@@ -460,7 +456,6 @@ const Rawl: React.FC<{
             {...commonParams}
             voiceNames={voiceNames}
             setVoiceMask={setVoiceMask}
-            chordChartLayout={chordChartLayout}
           />
         )}
       </div>

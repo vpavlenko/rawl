@@ -129,7 +129,7 @@ const Measure: React.FC<{
               position: "absolute",
               top: 0,
               left: left,
-              zIndex: 0,
+              zIndex: 3,
               userSelect: "none",
               maskImage:
                 "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
@@ -462,7 +462,6 @@ export const AnalysisGrid: React.FC<{
           ) : null;
         })}
         {showBeats &&
-          !showHeader &&
           beats.map((time) =>
             time >= measures[sectionSpan[0]] &&
             time <= measures[sectionSpan[1]] ? (

@@ -48,7 +48,6 @@ import LandingPage from "./rawl/LandingPage";
 import Rawl from "./rawl/Rawl";
 import TagSearch from "./rawl/TagSearch";
 import Course from "./rawl/course/Course";
-import Narrative from "./rawl/narratives/Narrative";
 import DAW from "./rawl/pages/DAW";
 import STATIC_MIDI_FILES from "./staticMidiFilles";
 
@@ -919,15 +918,6 @@ class App extends React.Component {
                           )}
                         />
                         <Route path="/pages/daw" render={() => <DAW />} />
-                        <Route
-                          path="/see"
-                          render={() => (
-                            <Narrative
-                              analyses={this.state.analyses}
-                              rawlState={rawlState}
-                            />
-                          )}
-                        />
                         <Route
                           path={["/drop"]}
                           render={() =>

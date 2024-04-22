@@ -117,6 +117,30 @@ const Content = styled.div`
   }
 `;
 
+const ChordStairsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+  }
+`;
+
+const LegendAndMetaphorsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  @media (max-width: 900px) {
+    gap: 20px;
+  }
+`;
+
 const Section: React.FC<{
   title: string;
   children: ReactNode;
@@ -164,11 +188,11 @@ const LandingPage = () => (
       >
         See Western music in 12 colors
       </div>
-      <div style={{ display: "flex", flexDirection: "row", gap: 100 }}>
-        <div style={{ marginTop: 30, marginBottom: 30 }}>
+      <LegendAndMetaphorsContainer>
+        <div>
           <PianoLegend />
         </div>
-        <div style={{ marginTop: 30, marginBottom: 50 }}>
+        <div>
           <div
             style={{
               textAlign: "left",
@@ -209,19 +233,11 @@ const LandingPage = () => (
             </span>
           </div>
         </div>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: 100,
-          marginTop: 30,
-          marginBottom: 30,
-        }}
-      >
+      </LegendAndMetaphorsContainer>
+      <ChordStairsContainer>
         <ChordStairs mode={MODES[1]} />
         <ChordStairs mode={MODES[0]} />
-      </div>
+      </ChordStairsContainer>
       <Section title="major" scale={[0, 2, 4, 5, 7, 9, 11]}>
         <Example
           name={"Feliz Navidad"}

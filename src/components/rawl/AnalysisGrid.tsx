@@ -34,7 +34,7 @@ const BeatBar = styled(VerticalBar)`
 export type MeasureSelection = {
   selectedMeasure: number;
   selectMeasure: (number) => void;
-  splitAtMeasure: () => void;
+  splitAtMeasure: (boolean) => void;
   mergeAtMeasure: () => void;
 };
 
@@ -67,6 +67,7 @@ const Measure: React.FC<{
   selectedPhraseStart: number;
   sectionSpan: MeasuresSpan;
   previousTonic: PitchClass | null;
+  isLastSection: boolean;
 }> = ({
   span,
   number,
@@ -81,6 +82,7 @@ const Measure: React.FC<{
   selectedPhraseStart,
   sectionSpan,
   previousTonic,
+  isLastSection,
 }) => {
   const { selectedMeasure, selectMeasure, splitAtMeasure, mergeAtMeasure } =
     measureSelection;
@@ -207,11 +209,32 @@ const Measure: React.FC<{
                         zIndex: 100,
                       }}
                       onClick={(e) => {
-                        splitAtMeasure();
+                        splitAtMeasure(false);
                         e.stopPropagation();
                       }}
                     >
                       ↵
+                    </div>
+                  )}
+                {selectedPhraseStart === number &&
+                  sectionSpan?.[0] !== number - 1 &&
+                  isLastSection && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 4,
+                        left: -40,
+                        color: "red",
+                        fontSize: 14,
+                        fontWeight: 700,
+                        zIndex: 100,
+                      }}
+                      onClick={(e) => {
+                        splitAtMeasure(true);
+                        e.stopPropagation();
+                      }}
+                    >
+                      /8
                     </div>
                   )}
                 {selectedPhraseStart === number &&
@@ -458,6 +481,7 @@ export const AnalysisGrid: React.FC<{
               previousTonic={findPreviousTonic(i)}
               selectedPhraseStart={selectedPhraseStart}
               sectionSpan={sectionSpan}
+              isLastSection={sectionSpan?.[1] + 1 === measures.length}
             />
           ) : null;
         })}

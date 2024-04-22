@@ -22,8 +22,6 @@ import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { LinkForSeparateTab } from "./course/Course";
 import { ColoredNotesInVoices, Note, ParsingResult } from "./parseMidi";
 
-export const CHORD_HIGHLIGHT_LATENCY_CORRECTION_MS = -200;
-
 export type SecondsSpan = [number, number];
 
 const SECOND_WIDTH = 40;
@@ -238,28 +236,38 @@ const Rawl: React.FC<{
     },
     [selectedMeasure, analysis, measuresAndBeats],
   );
-  const splitAtMeasure = useCallback(() => {
-    const phraseStarts = getPhraseStarts(
-      analysis,
-      measuresAndBeats.measures.length,
-    );
-    const newSection = phraseStarts.indexOf(selectedMeasure);
-    if (newSection === -1) {
-      alert(
-        `splitAtMeasure, not found ${selectedMeasure} in ${JSON.stringify(
-          phraseStarts,
-        )}`,
+  const splitAtMeasure = useCallback(
+    (groupByTwoPhrasesTillTheEnd: boolean) => {
+      const phraseStarts = getPhraseStarts(
+        analysis,
+        measuresAndBeats.measures.length,
       );
-    } else {
-      const analysisUpdate: Partial<Analysis> = {
-        sections: [
-          ...new Set([...(analysis.sections ?? [0]), newSection]),
-        ].sort((a, b) => a - b),
-      };
-      setSelectedMeasure(null);
-      commitAnalysisUpdate(analysisUpdate);
-    }
-  }, [selectedMeasure, analysis, measuresAndBeats]);
+      const newSections = [phraseStarts.indexOf(selectedMeasure)];
+
+      if (newSections[0] === -1) {
+        alert(
+          `splitAtMeasure, not found ${selectedMeasure} in ${JSON.stringify(
+            phraseStarts,
+          )}`,
+        );
+      } else {
+        if (groupByTwoPhrasesTillTheEnd) {
+          for (let i = newSections[0]; i < phraseStarts.length; i += 2) {
+            newSections.push(i);
+          }
+        }
+
+        const analysisUpdate: Partial<Analysis> = {
+          sections: [
+            ...new Set([...(analysis.sections ?? [0]), ...newSections]),
+          ].sort((a, b) => a - b),
+        };
+        setSelectedMeasure(null);
+        commitAnalysisUpdate(analysisUpdate);
+      }
+    },
+    [selectedMeasure, analysis, measuresAndBeats],
+  );
   const mergeAtMeasure = useCallback(() => {
     const phraseStarts = getPhraseStarts(
       analysis,

@@ -316,7 +316,7 @@ const LandingPage = () => (
           pathname={"/browse/static/musescore_manual?song=Sweden_Minecraft.mid"}
         />
         <Example
-          name={"Yann Tiersen – Amelie"}
+          name={"Yann Tiersen – Amélie"}
           pathname={
             "/browse/static/musescore_manual?song=Yann_Tiersen_Amelie.mid"
           }
@@ -519,10 +519,6 @@ const LandingPage = () => (
         <Example
           name={"Jingle Bell Rock (arr. SkyRecon, in D)"}
           pathname="https://musescore.com/user/39031562/scores/15671017"
-        />
-        <Example
-          name={"Joe Hisaishi – Summer"}
-          pathname="https://musescore.com/user/39031562/scores/15671254"
         />
       </Section>
 

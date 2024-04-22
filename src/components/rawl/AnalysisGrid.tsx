@@ -248,7 +248,7 @@ const Measure: React.FC<{
                   key={`form_section_${number}`}
                   style={{
                     position: "absolute",
-                    left: left + (systemLayout === "split" ? 23 : 1),
+                    left: left + (systemLayout === "stacked" ? 23 : 1),
                     top: 0,
                     zIndex: 95,
                     backgroundColor: "#3339",

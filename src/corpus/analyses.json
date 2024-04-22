@@ -10864,7 +10864,39 @@
         }
       }
     },
-    "Ed_Sheeran_Perfect_THE_WORST_PIANO_ARRANGEMENT_I_HAVE_EVER_MADE.mid": {
+    "Tetris_Theme.mid": {
+      "0": {
+        "modulations": {},
+        "tonic": 9,
+        "comment": "",
+        "tags": [],
+        "form": [],
+        "phrasePatch": [
+          {
+            "measure": 1,
+            "diff": 0
+          },
+          {
+            "measure": 5,
+            "diff": -2
+          },
+          {
+            "measure": 3,
+            "diff": -1
+          }
+        ],
+        "sections": [
+          0,
+          3,
+          5,
+          7,
+          9,
+          11,
+          13
+        ]
+      }
+    },
+    "Ed_Sheeran_Perfect.mid": {
       "0": {
         "form": [],
         "phrasePatch": [

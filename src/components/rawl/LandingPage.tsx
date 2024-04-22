@@ -247,7 +247,7 @@ const LandingPage = () => (
         <Example
           name={"Ed Sheeran – Perfect"}
           pathname={
-            "/browse/static/musescore_manual?song=Ed_Sheeran_Perfect_THE_WORST_PIANO_ARRANGEMENT_I_HAVE_EVER_MADE.mid"
+            "/browse/static/musescore_manual?song=Ed_Sheeran_Perfect.mid"
           }
         />
         <Example
@@ -340,6 +340,10 @@ const LandingPage = () => (
         />
       </Section>
       <Section title="mixed minor" scale={[0, 2, 3, 5, 7, 8, 10, 11]}>
+        <Example
+          name={"Tetris"}
+          pathname={"/browse/static/musescore_manual?song=Tetris_Theme.mid"}
+        />
         <Example
           name={"Pirates of the Caribbean"}
           pathname={

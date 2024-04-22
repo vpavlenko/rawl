@@ -70,7 +70,7 @@ const getAverageMidiNumber = (notes: Note[]) =>
         notes.length
     : Infinity;
 
-export type SystemLayout = "merged" | "split" | "stacked";
+export type SystemLayout = "merged" | "stacked";
 
 export type MidiRange = [number, number];
 
@@ -583,7 +583,7 @@ const MeasureNumbers = ({
       noteHeight={noteHeight}
       measureSelection={measureSelection}
       phraseStarts={phraseStarts}
-      systemLayout={"split"}
+      systemLayout={"stacked"}
       midiRange={[0, 0]}
       showHeader={true}
       showTonalGrid={false}
@@ -733,7 +733,7 @@ export const Voice: React.FC<{
           noteHeight={noteHeight}
           measureSelection={measureSelection}
           phraseStarts={phraseStarts}
-          systemLayout={"split"}
+          systemLayout={"stacked"}
           midiRange={midiRange}
           showHeader={false}
           showTonalGrid={showTonalGrid && !notes[0]?.isDrum}
@@ -774,231 +774,6 @@ const debounce = (func, delay) => {
       });
     }, delay);
   };
-};
-
-export const SplitSystemLayout: React.FC<{
-  notes: ColoredNotesInVoices;
-  voiceNames: string[];
-  voiceMask: boolean[];
-  measuresAndBeats: MeasuresAndBeats;
-  showVelocity: boolean;
-  positionSeconds: number;
-  analysis: Analysis;
-  mouseHandlers: MouseHandlers;
-  measureSelection: MeasureSelection;
-  setVoiceMask: SetVoiceMask;
-  chordChartLayout: ChordChartLayout;
-}> = ({
-  notes,
-  voiceNames,
-  voiceMask,
-  measuresAndBeats,
-  showVelocity,
-  positionSeconds,
-  analysis,
-  mouseHandlers,
-  measureSelection,
-  setVoiceMask,
-  chordChartLayout,
-}) => {
-  const prevPositionSeconds = useRef<number>(0);
-  useEffect(() => {
-    prevPositionSeconds.current = positionSeconds;
-  }, [positionSeconds]);
-
-  const voicesSortedByAverageMidiNumber = useMemo(
-    () =>
-      notes
-        .map((voice, voiceIndex) => ({
-          average: getAverageMidiNumber(voice),
-          voiceIndex,
-        }))
-        .sort((a, b) => b.average - a.average)
-        .map(({ voiceIndex }) => ({
-          voiceIndex,
-          notes: notes[voiceIndex],
-        })),
-    [notes],
-  );
-
-  const phraseStarts = useMemo(
-    () => getPhraseStarts(analysis, measuresAndBeats.measures.length),
-    [analysis, measuresAndBeats],
-  );
-
-  const parentRef = useRef(null);
-
-  const [scrollInfo, setScrollInfo] = useState<ScrollInfo>({
-    left: -1,
-    right: 100000,
-  });
-
-  const debouncedScroll = useCallback(
-    debounce(
-      (left, right) =>
-        setScrollInfo({
-          left,
-          right,
-        }),
-      50,
-    ),
-    [],
-  );
-
-  const handleScroll = () => {
-    const { scrollLeft, offsetWidth } = parentRef.current;
-    const scrollRight = scrollLeft + offsetWidth;
-
-    debouncedScroll(scrollLeft, scrollRight);
-  };
-
-  useEffect(() => {
-    const parentDiv = parentRef.current;
-    if (parentDiv) {
-      parentDiv.addEventListener("scroll", handleScroll);
-      handleScroll();
-    }
-
-    return () => {
-      if (parentDiv) {
-        parentDiv.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, []);
-
-  const [noteHeight, setNoteHeight] = useLocalStorage("noteHeight", 6);
-  const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
-  const [secondWidth, setSecondWidth] = useLocalStorage("secondWidth", 40);
-  const debounceSetSecondWidth = useCallback(debounce(setSecondWidth, 50), []);
-  const secondsToX = useCallback(
-    (seconds) => seconds * secondWidth,
-    [secondWidth],
-  );
-  const xToSeconds = useCallback((x) => x / secondWidth, [secondWidth]);
-
-  return (
-    <div
-      key="innerLeftPanel"
-      style={{
-        margin: 0,
-        padding: 0,
-        position: "relative",
-        overflowX: "scroll",
-        overflowY: "scroll",
-        width: "100%",
-        height: "100%",
-        backgroundColor: "black",
-      }}
-      ref={parentRef}
-      className="SplitLayout"
-    >
-      <div
-        style={{
-          position: "fixed",
-          bottom: 243,
-          right: -88,
-          zIndex: 10000,
-        }}
-      >
-        <input
-          type="range"
-          min="1"
-          max="15"
-          value={noteHeight}
-          onChange={(e) => debounceSetNoteHeight(parseInt(e.target.value, 10))}
-          style={{
-            transform: "rotate(90deg)",
-            transformOrigin: "bottom left",
-            width: 160,
-          }}
-        />
-      </div>
-      <div
-        style={{
-          position: "fixed",
-          bottom: 70,
-          right: 79,
-          zIndex: 10000,
-        }}
-      >
-        <input
-          type="range"
-          min="2"
-          max="100"
-          value={secondWidth}
-          onChange={(e) => debounceSetSecondWidth(parseInt(e.target.value, 10))}
-          style={{
-            width: 240,
-          }}
-        />
-      </div>
-      <MeasureNumbers
-        measuresAndBeats={measuresAndBeats}
-        analysis={analysis}
-        phraseStarts={phraseStarts}
-        measureSelection={measureSelection}
-        noteHeight={noteHeight}
-        secondsToX={secondsToX}
-      />
-      {voicesSortedByAverageMidiNumber.map(({ voiceIndex, notes }, order) => (
-        <div key={order}>
-          <Voice
-            key={voiceIndex}
-            voiceName={voiceNames[voiceIndex]}
-            notes={notes}
-            measuresAndBeats={measuresAndBeats}
-            analysis={analysis}
-            mouseHandlers={mouseHandlers}
-            measureSelection={measureSelection}
-            showVelocity={showVelocity}
-            cursor={
-              <Cursor
-                style={{
-                  transition:
-                    Math.abs(prevPositionSeconds.current - positionSeconds) < 1
-                      ? "left 0.37s linear"
-                      : "",
-                  left: secondsToX(positionSeconds),
-                }}
-              />
-            }
-            phraseStarts={phraseStarts}
-            scrollInfo={scrollInfo}
-            voiceMask={voiceMask}
-            setVoiceMask={setVoiceMask}
-            voiceIndex={voiceIndex}
-            noteHeight={noteHeight}
-            secondsToX={secondsToX}
-            xToSeconds={xToSeconds}
-          />
-        </div>
-      ))}
-
-      <div
-        key="piano-legend"
-        style={{ position: "fixed", bottom: 90, right: 70, zIndex: 30 }}
-      >
-        <PianoLegend />
-      </div>
-
-      {chordChartLayout !== "hidden" && (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            position: "fixed",
-            left: 2,
-            gap: 60,
-            marginTop: 40,
-          }}
-        >
-          <ChordStairs mode={MODES[0]} />
-          <ChordStairs mode={MODES[1]} />
-          <ChordStairs mode={MODES[2]} />
-        </div>
-      )}
-    </div>
-  );
 };
 
 type Section = {
@@ -1163,7 +938,7 @@ export const StackedSystemLayout: React.FC<{
           style={{
             position: "fixed",
             bottom: 243,
-            right: -88,
+            right: -93,
             zIndex: 10000,
           }}
         >
@@ -1262,23 +1037,29 @@ export const StackedSystemLayout: React.FC<{
           ),
         )}
 
+        <div style={{ height: 600 }}></div>
+
         <div
           key="piano-legend"
           style={{ position: "fixed", bottom: 90, right: 70, zIndex: 30 }}
         >
           <div
             style={{
-              // position: "fixed",
-              // marginLeft: 100,
               display: "flex",
               flexDirection: "column",
               gap: 30,
+              backgroundColor: "black",
+              padding: 10,
+              border: "1px solid #666",
+              zIndex: 100000,
             }}
           >
             <ChordStairs mode={MODES[1]} />
             <ChordStairs mode={MODES[0]} />
             <ChordStairs mode={MODES[2]} />
-            <PianoLegend />
+            <div style={{ margin: "auto" }}>
+              <PianoLegend />
+            </div>
           </div>
         </div>
       </div>

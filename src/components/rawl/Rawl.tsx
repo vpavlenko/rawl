@@ -6,7 +6,6 @@ import { MeasureSelection } from "./AnalysisGrid";
 import {
   MergedSystemLayout,
   MouseHandlers,
-  SplitSystemLayout,
   StackedSystemLayout,
   SystemLayout,
   getPhraseStarts,
@@ -456,13 +455,6 @@ const Rawl: React.FC<{
             measuresAndBeats={measuresAndBeats}
             registerSeekCallback={registerSeekCallback}
           />
-        ) : systemLayout === "split" ? (
-          <SplitSystemLayout
-            {...commonParams}
-            voiceNames={voiceNames}
-            setVoiceMask={setVoiceMask}
-            chordChartLayout={chordChartLayout}
-          />
         ) : (
           <StackedSystemLayout
             {...commonParams}
@@ -518,16 +510,6 @@ const Rawl: React.FC<{
             />
             █
           </label>
-          <label key={"split"} className="inline">
-            <input
-              onChange={() => setSystemLayout("split")}
-              type="radio"
-              name="system-layout"
-              checked={systemLayout === "split"}
-              value={"split"}
-            />
-            ☰
-          </label>
           <label key={"stacked"} className="inline">
             <input
               onChange={() => setSystemLayout("stacked")}
@@ -536,7 +518,7 @@ const Rawl: React.FC<{
               checked={systemLayout === "stacked"}
               value={"stacked"}
             />
-            T
+            ☰
           </label>
         </div>
         <TagBrowser tags={analysis.tags} />

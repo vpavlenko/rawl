@@ -1,10 +1,12 @@
 import * as React from "react";
+import { useCallback, useState } from "react";
 import styled from "styled-components";
 import { CHORDS, Chord } from "./course/ChordClouds";
 
 const NOTE_HEIGHT = 5;
 const NOTE_WIDTH = 40;
 const HORIZONTAL_GAP = 12;
+const DISABLED_OPACITY = 0.2;
 
 const ChordNote = styled.div`
   user-select: none;
@@ -46,6 +48,21 @@ export const MODES: Mode[] = [
 ];
 
 const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
+  const [disabledChords, setDisabledChords] = useState<Set<string>>(new Set());
+
+  const toggleChord = useCallback(
+    (chord: string) => {
+      setDisabledChords(
+        new Set(
+          disabledChords.has(chord)
+            ? Array.from(disabledChords).filter((e) => e !== chord)
+            : [...disabledChords, chord],
+        ),
+      );
+    },
+    [disabledChords],
+  );
+
   const { title, chords } = mode;
   const numChords = chords.length;
 
@@ -82,10 +99,25 @@ const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
         fontSize: 24,
       }}
     >
-      <div style={{ position: "absolute", top: 0, left: 0, color: "#aaa" }}>
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          color: "#aaa",
+          userSelect: "none",
+          opacity:
+            disabledChords.size === mode.chords.length ? DISABLED_OPACITY : 1,
+        }}
+        onClick={() =>
+          setDisabledChords(
+            disabledChords.size > 0 ? new Set() : new Set(mode.chords),
+          )
+        }
+      >
         {title}
       </div>
-      {rehydratedChords.flatMap(({ pitches }, index) =>
+      {rehydratedChords.flatMap(({ name, pitches }, index) =>
         pitches.map((pitch) => (
           <ChordNote
             className={`noteColor_${pitch % 12}_colors`}
@@ -93,7 +125,9 @@ const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
               position: "absolute",
               left: index * (NOTE_WIDTH + HORIZONTAL_GAP),
               top: (maxPitch - pitch) * NOTE_HEIGHT,
+              opacity: disabledChords.has(name) ? DISABLED_OPACITY : 1,
             }}
+            onClick={() => toggleChord(name)}
           />
         )),
       )}
@@ -106,7 +140,10 @@ const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
                 ? (maxPitch - pitches.at(-1)) * NOTE_HEIGHT - 29
                 : (maxPitch - pitches[0]) * NOTE_HEIGHT + 14,
             left: index * (NOTE_WIDTH + HORIZONTAL_GAP),
+            opacity: disabledChords.has(name) ? DISABLED_OPACITY : 1,
+            userSelect: "none",
           }}
+          onClick={() => toggleChord(name)}
         >
           {name.replace("b", "♭").replace("o", "º").replace("7", "⁷")}
         </ChordName>

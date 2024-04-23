@@ -64,7 +64,7 @@ export default class MIDIPlayer extends Player {
       label: "Soundfont",
       type: "enum",
       options: SOUNDFONTS,
-      defaultValue: SOUNDFONTS[2].items[1].value,
+      defaultValue: SOUNDFONTS[2].items[0].value,
       // defaultValue: SOUNDFONTS[1].items[0].value,
       dependsOn: {
         param: "synthengine",

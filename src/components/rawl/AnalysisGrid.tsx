@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { getModulations } from "./Rawl";
-import { MeasuresAndBeats, MidiRange, SystemLayout } from "./SystemLayout";
+import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
 import { Analysis, MeasuresSpan, PitchClass } from "./analysis";
 
 export const STACKED_RN_HEIGHT = 20;
@@ -58,7 +58,6 @@ const Measure: React.FC<{
   number: number;
   isPhraseStart: boolean;
   formSection: string;
-  systemLayout: SystemLayout;
   measureSelection: MeasureSelection;
   showHeader: boolean;
   secondsToX: (number) => number;
@@ -73,7 +72,6 @@ const Measure: React.FC<{
   number,
   isPhraseStart,
   formSection,
-  systemLayout,
   measureSelection,
   showHeader,
   secondsToX,
@@ -172,7 +170,6 @@ const Measure: React.FC<{
                   zIndex: 15,
                   cursor: "pointer",
                   userSelect: "none",
-                  ...(systemLayout === "merged" ? { width } : {}), // enlarges seek area for stacked
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -271,7 +268,7 @@ const Measure: React.FC<{
                   key={`form_section_${number}`}
                   style={{
                     position: "absolute",
-                    left: left + (systemLayout === "stacked" ? 23 : 1),
+                    left: left + 23,
                     top: 0,
                     zIndex: 95,
                     backgroundColor: "#3339",
@@ -401,7 +398,6 @@ export const AnalysisGrid: React.FC<{
   midiNumberToY: (number: number) => number;
   noteHeight: number;
   phraseStarts: number[];
-  systemLayout: SystemLayout;
   midiRange: MidiRange;
   measureSelection: MeasureSelection;
   showHeader?: boolean;
@@ -416,7 +412,6 @@ export const AnalysisGrid: React.FC<{
     noteHeight,
     measureSelection,
     phraseStarts,
-    systemLayout,
     midiRange,
     showHeader = true,
     showTonalGrid = true,
@@ -474,7 +469,6 @@ export const AnalysisGrid: React.FC<{
               formSection={(analysis.form ?? {})[number]}
               number={number}
               measureSelection={measureSelection}
-              systemLayout={systemLayout}
               secondsToX={secondsToX}
               showNonPhraseStarts={showAllMeasureBars}
               tonicStart={modulations.get(i)}

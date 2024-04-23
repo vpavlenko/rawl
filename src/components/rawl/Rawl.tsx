@@ -8,6 +8,7 @@ import {
   MouseHandlers,
   StackedSystemLayout,
   SystemLayout,
+  SystemLayoutProps,
   getPhraseStarts,
 } from "./SystemLayout";
 import { formatTag } from "./TagSearch";
@@ -407,7 +408,7 @@ const Rawl: React.FC<{
     [notes, futureAnalysis, measuresAndBeats],
   );
 
-  const commonParams = useMemo(
+  const systemLayoutProps: SystemLayoutProps = useMemo(
     () => ({
       notes: coloredNotes,
       voiceMask,
@@ -417,6 +418,8 @@ const Rawl: React.FC<{
       mouseHandlers,
       measureSelection,
       analysis: futureAnalysis,
+      voiceNames,
+      setVoiceMask,
     }),
     [
       coloredNotes,
@@ -427,6 +430,8 @@ const Rawl: React.FC<{
       mouseHandlers,
       measureSelection,
       futureAnalysis,
+      voiceNames,
+      setVoiceMask,
     ],
   );
 
@@ -453,17 +458,9 @@ const Rawl: React.FC<{
         className="Rawl"
       >
         {systemLayout === "merged" ? (
-          <MergedSystemLayout
-            {...commonParams}
-            measuresAndBeats={measuresAndBeats}
-            registerSeekCallback={registerSeekCallback}
-          />
+          <MergedSystemLayout {...systemLayoutProps} />
         ) : (
-          <StackedSystemLayout
-            {...commonParams}
-            voiceNames={voiceNames}
-            setVoiceMask={setVoiceMask}
-          />
+          <StackedSystemLayout {...systemLayoutProps} />
         )}
       </div>
       {showAnalysisBox && (
@@ -502,16 +499,6 @@ const Rawl: React.FC<{
             />
             🔊
           </label>
-          <label key={"merged"} className="inline">
-            <input
-              onChange={() => setSystemLayout("merged")}
-              type="radio"
-              name="system-layout"
-              checked={systemLayout === "merged"}
-              value={"horizontal"}
-            />
-            █
-          </label>
           <label key={"stacked"} className="inline">
             <input
               onChange={() => setSystemLayout("stacked")}
@@ -521,6 +508,16 @@ const Rawl: React.FC<{
               value={"stacked"}
             />
             ☰
+          </label>
+          <label key={"merged"} className="inline">
+            <input
+              onChange={() => setSystemLayout("merged")}
+              type="radio"
+              name="system-layout"
+              checked={systemLayout === "merged"}
+              value={"horizontal"}
+            />
+            █
           </label>
         </div>
         <TagBrowser tags={analysis.tags} />

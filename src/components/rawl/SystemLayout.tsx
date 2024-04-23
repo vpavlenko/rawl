@@ -13,12 +13,7 @@ import { DUMMY_CALLBACK } from "../App";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import ChordStairs, { MODES } from "./ChordStairs";
 import { InlinePianoLegend, PianoLegend } from "./PianoLegend";
-import {
-  SecondsConverter,
-  SecondsSpan,
-  SetVoiceMask,
-  secondsToX__,
-} from "./Rawl";
+import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
 import { Analysis, MeasuresSpan } from "./analysis";
 import {
   ColoredNote,
@@ -69,6 +64,7 @@ const getAverageMidiNumber = (notes: Note[]) =>
         notes.length
     : Infinity;
 
+// TODO: rename "stacked" to "split" - semantically
 export type SystemLayout = "merged" | "stacked";
 
 export type MidiRange = [number, number];
@@ -306,116 +302,6 @@ const getNoteRectangles = (
   });
 };
 
-// TODO: add types
-// TODO: maybe add React.memo
-export const MergedSystemLayout = ({
-  voiceMask,
-  positionSeconds,
-  analysis,
-  notes,
-  measuresAndBeats,
-  measureSelection,
-  showVelocity,
-  registerSeekCallback,
-  mouseHandlers,
-}) => {
-  const {
-    handleNoteClick,
-    handleMouseEnter,
-    handleMouseLeave,
-    hoveredNote,
-    systemClickHandler,
-  } = mouseHandlers;
-
-  // TODO: probably should exclude isDrum notes
-  const midiRange = useMemo(() => getMidiRange(notes.flat()), [notes]);
-
-  const [divHeight, setDivHeight] = useState(0);
-  const divRef = useRef(null);
-  useEffect(() => {
-    const updateHeight = () => {
-      if (divRef.current) {
-        setDivHeight(divRef.current.offsetHeight);
-      }
-    };
-    updateHeight();
-    window.addEventListener("resize", updateHeight);
-    new ResizeObserver(() => updateHeight()).observe(divRef.current);
-    return () => {
-      window.removeEventListener("resize", updateHeight);
-    };
-  }, []);
-
-  useEffect(() => {
-    registerSeekCallback(
-      (seekMs) =>
-        (divRef.current.scrollLeft = secondsToX__(seekMs / 1000) - 100),
-    );
-  }, []);
-
-  const noteHeight = divHeight / (midiRange[1] - midiRange[0] + 7);
-  const midiNumberToY = useMemo(
-    () => (midiNumber) =>
-      divHeight - (midiNumber - midiRange[0] + 4) * noteHeight,
-    [noteHeight],
-  );
-
-  const noteRectangles = useMemo(
-    () =>
-      notes.flatMap((voice, i) =>
-        getNoteRectangles(
-          voice,
-          i,
-          voiceMask[i],
-          midiNumberToY,
-          noteHeight,
-          handleNoteClick,
-          handleMouseEnter,
-          handleMouseLeave,
-          showVelocity,
-          secondsToX__,
-        ),
-      ),
-    [notes, noteHeight, voiceMask, hoveredNote, showVelocity],
-  );
-  const phraseStarts = useMemo(
-    () => getPhraseStarts(analysis, measuresAndBeats.measures.length),
-    [analysis, measuresAndBeats],
-  );
-
-  return (
-    <div
-      key="innerLeftPanel"
-      ref={divRef}
-      style={{
-        margin: 0,
-        padding: 0,
-        position: "relative",
-        overflowX: "scroll",
-        overflowY: "hidden",
-        width: "100%",
-        height: "100%",
-        backgroundColor: "black",
-      }}
-      onClick={systemClickHandler}
-    >
-      {noteRectangles}
-      <Cursor style={{ left: secondsToX__(positionSeconds) }} />
-      <AnalysisGrid
-        analysis={analysis}
-        measuresAndBeats={measuresAndBeats}
-        midiNumberToY={midiNumberToY}
-        noteHeight={noteHeight}
-        measureSelection={measureSelection}
-        phraseStarts={phraseStarts}
-        systemLayout={"merged"}
-        midiRange={midiRange}
-        secondsToX={secondsToX__}
-      />
-    </div>
-  );
-};
-
 type ScrollInfo = {
   left: number;
   right: number;
@@ -580,7 +466,6 @@ const MeasureNumbers = ({
       noteHeight={noteHeight}
       measureSelection={measureSelection}
       phraseStarts={phraseStarts}
-      systemLayout={"stacked"}
       midiRange={[0, 0]}
       showHeader={true}
       showTonalGrid={false}
@@ -727,7 +612,6 @@ export const Voice: React.FC<{
           noteHeight={noteHeight}
           measureSelection={measureSelection}
           phraseStarts={phraseStarts}
-          systemLayout={"stacked"}
           midiRange={midiRange}
           showHeader={false}
           showTonalGrid={showTonalGrid && !notes[0]?.isDrum}
@@ -787,7 +671,7 @@ const FoldButton = styled.button`
   padding: 5px 15px;
 `;
 
-export const StackedSystemLayout: React.FC<{
+export type SystemLayoutProps = {
   notes: ColoredNotesInVoices;
   voiceNames: string[];
   voiceMask: boolean[];
@@ -798,7 +682,9 @@ export const StackedSystemLayout: React.FC<{
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
   setVoiceMask: SetVoiceMask;
-}> = ({
+};
+
+export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
   notes,
   voiceNames,
   voiceMask,
@@ -1081,5 +967,23 @@ export const StackedSystemLayout: React.FC<{
         </div>
       </div>
     </>
+  );
+};
+
+const MERGED_VOICE_NAMES = ["merged"];
+const MERGED_VOICE_MASK = [true];
+
+export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
+  const { notes } = props;
+
+  const flattenedNotes = useMemo(() => [notes.flat()], [notes]);
+
+  return (
+    <StackedSystemLayout
+      {...props}
+      notes={flattenedNotes}
+      voiceNames={MERGED_VOICE_NAMES}
+      voiceMask={MERGED_VOICE_MASK}
+    />
   );
 };

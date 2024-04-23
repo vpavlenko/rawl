@@ -105,7 +105,6 @@ export const getNoteColor = (
   note: Note,
   analysis: Analysis,
   measures: number[],
-  // colorScheme: ColorScheme,
 ): string =>
   `noteColor_${
     analysis.tonic === null

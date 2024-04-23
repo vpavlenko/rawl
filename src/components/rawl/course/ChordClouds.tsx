@@ -2,12 +2,10 @@ import isEqual from "lodash/isEqual";
 import * as React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import { ColorScheme, useColorScheme } from "../ColorScheme";
 import { Row } from "./Course";
 
 const NOTE_HEIGHT = 5;
 
-const NOTES = ["1", "b2", "2", "b3", "3", "4", "#4", "5", "b6", "6", "b7", "7"];
 const CLOUD_HEIGHT = 200;
 const CLOUD_WIDTH = 150;
 const CLOUD_LEGEND_NOTE_HEIGHT = 6;
@@ -90,8 +88,7 @@ const CloudPianoKey = styled.div`
 
 export const ChordLegend: React.FC<{
   name: Chord;
-  colorScheme: ColorScheme;
-}> = React.memo(({ name, colorScheme }) => {
+}> = React.memo(({ name }) => {
   const notes = CHORDS[name];
   const legendNotes = [];
   let top = 0;
@@ -99,9 +96,7 @@ export const ChordLegend: React.FC<{
     const note = notes[i];
     legendNotes.push(
       <div key={i} style={{ position: "absolute", top, left: -50 }}>
-        <CloudPianoKey
-          className={`noteColor_${note}_${colorScheme}`}
-        ></CloudPianoKey>
+        <CloudPianoKey className={`noteColor_${note}_colors`}></CloudPianoKey>
         {/* <div
           style={{
             fontSize: CLOUD_LEGEND_NOTE_HEIGHT + 3,
@@ -132,8 +127,7 @@ export const ChordLegend: React.FC<{
 
 const ChordCloud: React.FC<{
   name: Chord;
-  colorScheme: ColorScheme;
-}> = React.memo(({ name, colorScheme }) => {
+}> = React.memo(({ name }) => {
   const notes = CHORDS[name];
   const [numRerenders, setNumRerenders] = useState(0);
   const noteDivs = [];
@@ -145,7 +139,7 @@ const ChordCloud: React.FC<{
         key={i}
         className={`noteColor_${
           notes[Math.floor(Math.random() * notes.length)]
-        }_${colorScheme}`}
+        }_colors`}
         style={{
           position: "absolute",
           top: Math.random() * (CLOUD_HEIGHT - NOTE_HEIGHT),
@@ -190,20 +184,19 @@ const ChordCloud: React.FC<{
           {name}
         </span>
       </div>
-      <ChordLegend name={name} colorScheme={colorScheme} />
+      <ChordLegend name={name} />
     </div>
   );
 }, isEqual);
 
 const ChordClouds = ({ chords }: { chords: Chord[] }) => {
-  const { colorScheme } = useColorScheme();
   return (
     <div>
       <div style={{ position: "relative" }}>
         <Row style={{ position: "absolute", left: 750 }}>
           {chords.map((chord, index) => (
             <React.Fragment key={index}>
-              <ChordCloud name={chord} colorScheme={colorScheme} />{" "}
+              <ChordCloud name={chord} />{" "}
             </React.Fragment>
           ))}
         </Row>

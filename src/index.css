@@ -673,8 +673,8 @@ img {
     background-color: white;
 }
 
-.noteColor_2_colors {
-    background-color: red !important;
+.noteColor_0_colors {
+    background-color: white !important;
 }
 
 .noteColor_1_colors {
@@ -693,16 +693,25 @@ img {
     transform: translate(-50%, -50%);
 }
 
-.noteColor_0_colors {
-    background-color: white !important;
+.noteColor_2_colors {
+    background-color: red !important;
 }
 
-.noteColor_11_colors {
-    background-color: #fffb00 !important;
+.noteColor_3_colors {
+    background-color: #007000 !important;
 }
 
 .noteColor_4_colors {
     background-color: #00fb47 !important;
+}
+
+.noteColor_5_colors {
+    background-color: #df12ff !important;
+}
+
+.noteColor_6_colors {
+    background-color: black !important;
+    box-shadow: 0 0 3px white, 0 0 6px white, 0 0 9px white;
 }
 
 .noteColor_7_colors {
@@ -721,21 +730,8 @@ img {
     background-color: #ff7328 !important;
 }
 
-.noteColor_3_colors {
-    background-color: #007000 !important;
-    
-}
-
-.noteColor_6_colors {
-    /* background-color: #ff80bf; */
-    background-color: black !important;
-    /* border: 1px dotted white; */
-    box-shadow: 0 0 3px white, 0 0 6px white, 0 0 9px white;
-}
-
-.noteColor_5_colors {
-    background-color: #df12ff !important;
-    
+.noteColor_11_colors {
+    background-color: #fffb00 !important;
 }
 
 .noteColor_disabled {

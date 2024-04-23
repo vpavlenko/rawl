@@ -12,7 +12,6 @@ import { useLocalStorage } from "usehooks-ts";
 import { DUMMY_CALLBACK } from "../App";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import ChordStairs, { MODES } from "./ChordStairs";
-import { useColorScheme } from "./ColorScheme";
 import { InlinePianoLegend, PianoLegend } from "./PianoLegend";
 import {
   SecondsConverter,
@@ -328,8 +327,6 @@ export const MergedSystemLayout = ({
     systemClickHandler,
   } = mouseHandlers;
 
-  const { colorScheme } = useColorScheme();
-
   // TODO: probably should exclude isDrum notes
   const midiRange = useMemo(() => getMidiRange(notes.flat()), [notes]);
 
@@ -632,8 +629,6 @@ export const Voice: React.FC<{
   xToSeconds,
   sectionSpan,
 }) => {
-  const { colorScheme } = useColorScheme();
-
   // To restore it, we need to lock the calculation of frozenRange and frozenHeight
   // and don't change it after loading the notes.
 
@@ -686,7 +681,6 @@ export const Voice: React.FC<{
       handleNoteClick,
       handleMouseEnter,
       voiceMask,
-      colorScheme,
       noteHeight,
       secondsToX,
     ],

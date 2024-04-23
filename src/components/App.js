@@ -43,7 +43,6 @@ import DropMessage from "./DropMessage";
 import MessageBox from "./MessageBox";
 import Visualizer from "./Visualizer";
 import Axes from "./rawl/Axes";
-import { ColorSchemeProvider } from "./rawl/ColorScheme";
 import LandingPage from "./rawl/LandingPage";
 import Rawl from "./rawl/Rawl";
 import TagSearch from "./rawl/TagSearch";
@@ -867,129 +866,127 @@ class App extends React.Component {
     );
 
     return (
-      <ColorSchemeProvider>
-        <Dropzone disableClick style={{}} onDrop={this.onDrop}>
-          {(dropzoneProps) => (
-            <div className="App">
-              <DropMessage dropzoneProps={dropzoneProps} />
-              <MessageBox
-                showInfo={this.state.showInfo}
-                infoTexts={this.state.infoTexts}
-                toggleInfo={this.toggleInfo}
-              />
-              <Alert
-                handlePlayerError={this.handlePlayerError}
-                playerError={this.state.playerError}
-                showPlayerError={this.state.showPlayerError}
-              />
-              {location.pathname !== "/" && (
-                <AppHeader isPhone={isMobile.phone} />
-              )}
-              <div className="App-main">
-                <div className="App-main-inner">
-                  <div className="App-main-content-and-settings">
-                    <div
-                      className="App-main-content-area"
-                      ref={this.contentAreaRef}
-                    >
-                      <Switch>
-                        <Route path="/" exact render={() => <LandingPage />} />
-                        <Route
-                          path="/axes"
-                          render={() => <Axes sequencer={this.sequencer} />}
-                        />
-                        <Route
-                          path="/course/:chapter*"
-                          render={({ match }) => (
-                            <Course
-                              sequencer={this.sequencer}
-                              chapter={match.params?.chapter}
-                              analyses={this.state.analyses}
+      <Dropzone disableClick style={{}} onDrop={this.onDrop}>
+        {(dropzoneProps) => (
+          <div className="App">
+            <DropMessage dropzoneProps={dropzoneProps} />
+            <MessageBox
+              showInfo={this.state.showInfo}
+              infoTexts={this.state.infoTexts}
+              toggleInfo={this.toggleInfo}
+            />
+            <Alert
+              handlePlayerError={this.handlePlayerError}
+              playerError={this.state.playerError}
+              showPlayerError={this.state.showPlayerError}
+            />
+            {location.pathname !== "/" && (
+              <AppHeader isPhone={isMobile.phone} />
+            )}
+            <div className="App-main">
+              <div className="App-main-inner">
+                <div className="App-main-content-and-settings">
+                  <div
+                    className="App-main-content-area"
+                    ref={this.contentAreaRef}
+                  >
+                    <Switch>
+                      <Route path="/" exact render={() => <LandingPage />} />
+                      <Route
+                        path="/axes"
+                        render={() => <Axes sequencer={this.sequencer} />}
+                      />
+                      <Route
+                        path="/course/:chapter*"
+                        render={({ match }) => (
+                          <Course
+                            sequencer={this.sequencer}
+                            chapter={match.params?.chapter}
+                            analyses={this.state.analyses}
+                          />
+                        )}
+                      />
+                      <Route
+                        path="/tags/:tag*"
+                        render={({ match }) => (
+                          <TagSearch
+                            tag={match.params?.tag}
+                            analyses={this.state.analyses}
+                          />
+                        )}
+                      />
+                      <Route path="/pages/daw" render={() => <DAW />} />
+                      <Route
+                        path={["/drop"]}
+                        render={() =>
+                          this.state.parsings["drop"] && (
+                            <Rawl
+                              parsingResult={this.state.parsings["drop"]}
+                              getCurrentPositionMs={this.getCurrentPositionMs}
+                              savedAnalysis={parsedLocalAnalysis}
+                              saveAnalysis={this.saveAnalysis}
+                              showAnalysisBox={this.state.analysisEnabled}
+                              seek={this.seekForRawl}
+                              registerSeekCallback={this.registerSeekCallback}
+                              artist={"drop"}
+                              song={""}
+                              {...rawlState}
                             />
-                          )}
-                        />
-                        <Route
-                          path="/tags/:tag*"
-                          render={({ match }) => (
-                            <TagSearch
-                              tag={match.params?.tag}
-                              analyses={this.state.analyses}
-                            />
-                          )}
-                        />
-                        <Route path="/pages/daw" render={() => <DAW />} />
-                        <Route
-                          path={["/drop"]}
-                          render={() =>
-                            this.state.parsings["drop"] && (
-                              <Rawl
-                                parsingResult={this.state.parsings["drop"]}
-                                getCurrentPositionMs={this.getCurrentPositionMs}
-                                savedAnalysis={parsedLocalAnalysis}
-                                saveAnalysis={this.saveAnalysis}
-                                showAnalysisBox={this.state.analysisEnabled}
-                                seek={this.seekForRawl}
-                                registerSeekCallback={this.registerSeekCallback}
-                                artist={"drop"}
-                                song={""}
-                                {...rawlState}
-                              />
-                            )
-                          }
-                        />
-                        {browseRoute}
-                      </Switch>
-                    </div>
+                          )
+                        }
+                      />
+                      {browseRoute}
+                    </Switch>
                   </div>
                 </div>
-                {location.pathname !== "/" &&
-                  !isMobile.phone &&
-                  !this.state.loading && (
-                    <Visualizer
-                      audioCtx={this.audioCtx}
-                      sourceNode={this.playerNode}
-                      chipCore={this.chipCore}
-                      settingsEnabled={this.state.showPlayerSettings}
-                      handleToggleSettings={this.toggleSettings}
-                      analysisEnabled={this.state.analysisEnabled}
-                      handleToggleAnalysis={() =>
-                        this.setState((state) => ({
-                          analysisEnabled: !state.analysisEnabled,
-                        }))
-                      }
-                      paused={this.state.ejected || this.state.paused}
-                      user={this.state.user}
-                      handleLogout={this.handleLogout}
-                      handleLogin={this.handleLogin}
-                    />
-                  )}
               </div>
-              {location.pathname !== "/" && (
-                <AppFooter
-                  currentSongDurationMs={this.state.currentSongDurationMs}
-                  currentSongNumVoices={this.state.currentSongNumVoices}
-                  ejected={this.state.ejected}
-                  paused={this.state.paused}
-                  showPlayerSettings={this.state.showPlayerSettings}
-                  songUrl={this.state.songUrl}
-                  tempo={this.state.tempo}
-                  voiceNames={this.state.voiceNames}
-                  voiceMask={this.state.voiceMask}
-                  volume={this.state.volume}
-                  handleSetVoiceMask={this.handleSetVoiceMask}
-                  handleTempoChange={this.handleTempoChange}
-                  handleTimeSliderChange={this.handleTimeSliderChange}
-                  handleVolumeChange={this.handleVolumeChange}
-                  sequencer={this.sequencer}
-                  togglePause={this.togglePause}
-                  latencyCorrectionMs={this.state.latencyCorrectionMs}
-                  setLatencyCorrectionMs={this.setLatencyCorrectionMs}
-                />
-              )}
+              {location.pathname !== "/" &&
+                !isMobile.phone &&
+                !this.state.loading && (
+                  <Visualizer
+                    audioCtx={this.audioCtx}
+                    sourceNode={this.playerNode}
+                    chipCore={this.chipCore}
+                    settingsEnabled={this.state.showPlayerSettings}
+                    handleToggleSettings={this.toggleSettings}
+                    analysisEnabled={this.state.analysisEnabled}
+                    handleToggleAnalysis={() =>
+                      this.setState((state) => ({
+                        analysisEnabled: !state.analysisEnabled,
+                      }))
+                    }
+                    paused={this.state.ejected || this.state.paused}
+                    user={this.state.user}
+                    handleLogout={this.handleLogout}
+                    handleLogin={this.handleLogin}
+                  />
+                )}
             </div>
-          )}
-        </Dropzone>
-      </ColorSchemeProvider>
+            {location.pathname !== "/" && (
+              <AppFooter
+                currentSongDurationMs={this.state.currentSongDurationMs}
+                currentSongNumVoices={this.state.currentSongNumVoices}
+                ejected={this.state.ejected}
+                paused={this.state.paused}
+                showPlayerSettings={this.state.showPlayerSettings}
+                songUrl={this.state.songUrl}
+                tempo={this.state.tempo}
+                voiceNames={this.state.voiceNames}
+                voiceMask={this.state.voiceMask}
+                volume={this.state.volume}
+                handleSetVoiceMask={this.handleSetVoiceMask}
+                handleTempoChange={this.handleTempoChange}
+                handleTimeSliderChange={this.handleTimeSliderChange}
+                handleVolumeChange={this.handleVolumeChange}
+                sequencer={this.sequencer}
+                togglePause={this.togglePause}
+                latencyCorrectionMs={this.state.latencyCorrectionMs}
+                setLatencyCorrectionMs={this.setLatencyCorrectionMs}
+              />
+            )}
+          </div>
+        )}
+      </Dropzone>
     );
   }
 }

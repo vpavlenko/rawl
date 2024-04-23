@@ -6,10 +6,10 @@ const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
 
 const BLACK_KEY_LABELS = ["b2", "b3", -1, "#4", "b6", "b7", -1];
 
-const KEY_WIDTH = 30;
-const KEY_HEIGHT = 60;
-const ROW_DISTANCE = 40;
-const PADDING = 3;
+const KEY_WIDTH = 40;
+const KEY_HEIGHT = 80;
+const ROW_DISTANCE = 50;
+const PADDING = 5;
 const INLINE_KEY_WIDTH = 10;
 const INLINE_KEY_HEIGHT = 24;
 const INLINE_ROW_DISTANCE = 15;
@@ -18,7 +18,7 @@ const INLINE_PADDING = 2;
 const PianoKey = styled.div`
   position: absolute;
   user-select: none;
-  font-size: 16px;
+  font-size: 20px;
   text-align: center;
   vertical-align: bottom;
   color: white;

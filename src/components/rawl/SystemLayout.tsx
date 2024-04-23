@@ -816,9 +816,9 @@ export const StackedSystemLayout: React.FC<{
   measureSelection,
   setVoiceMask,
 }) => {
-  const [noteHeight, setNoteHeight] = useState<number>(4);
+  const [noteHeight, setNoteHeight] = useState<number>(5);
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
-  const [secondWidth, setSecondWidth] = useState<number>(55);
+  const [secondWidth, setSecondWidth] = useState<number>(70);
   const debounceSetSecondWidth = useCallback(debounce(setSecondWidth, 50), []);
 
   const prevPositionSeconds = useRef<number>(0);
@@ -991,7 +991,7 @@ export const StackedSystemLayout: React.FC<{
 
         {sections.map(
           ({ sectionSpan, secondsToX, xToSeconds, voices }, order) => (
-            <div style={{ marginBottom: 30 }}>
+            <div style={{ marginBottom: 40 }}>
               <MeasureNumbers
                 measuresAndBeats={measuresAndBeats}
                 analysis={analysis}
@@ -1051,7 +1051,7 @@ export const StackedSystemLayout: React.FC<{
 
         <div
           key="piano-legend"
-          style={{ position: "fixed", bottom: 90, right: 70, zIndex: 30 }}
+          style={{ position: "fixed", bottom: 90, right: 70, zIndex: 10000 }}
         >
           {showLegend ? (
             <div>
@@ -1061,7 +1061,7 @@ export const StackedSystemLayout: React.FC<{
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: 30,
+                  gap: 90,
                   backgroundColor: "black",
                   padding: 10,
                   border: "1px solid #666",

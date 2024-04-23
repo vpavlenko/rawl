@@ -331,7 +331,7 @@ const TonalGrid: React.FC<{
       secondsToX(measures[sectionSpan?.[1] ?? measures.length - 1]) +
       (modulations.filter(({ measure }) => measure === sectionSpan?.[1])
         .length > 0
-        ? 50
+        ? 30
         : 0);
 
     const result = [];

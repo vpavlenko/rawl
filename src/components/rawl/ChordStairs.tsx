@@ -2,9 +2,9 @@ import * as React from "react";
 import styled from "styled-components";
 import { CHORDS, Chord } from "./course/ChordClouds";
 
-const NOTE_HEIGHT = 3;
-const NOTE_WIDTH = 28;
-const HORIZONTAL_GAP = 9;
+const NOTE_HEIGHT = 5;
+const NOTE_WIDTH = 40;
+const HORIZONTAL_GAP = 12;
 
 const ChordNote = styled.div`
   user-select: none;
@@ -16,6 +16,7 @@ const ChordNote = styled.div`
 const ChordName = styled.div`
   width: ${NOTE_WIDTH}px;
   height: 20px;
+  font-size: 20px;
   display: flex;
   justify-content: center;
   text-align: center;
@@ -78,6 +79,7 @@ const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
         width: numChords * NOTE_WIDTH + (numChords - 1) * HORIZONTAL_GAP,
         height: height * NOTE_HEIGHT,
         position: "relative",
+        fontSize: 24,
       }}
     >
       <div style={{ position: "absolute", top: 0, left: 0, color: "#aaa" }}>
@@ -101,8 +103,8 @@ const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
             position: "absolute",
             top:
               index < tonicChordPosition
-                ? (maxPitch - pitches.at(-1)) * NOTE_HEIGHT - 25
-                : (maxPitch - pitches[0]) * NOTE_HEIGHT + 10,
+                ? (maxPitch - pitches.at(-1)) * NOTE_HEIGHT - 29
+                : (maxPitch - pitches[0]) * NOTE_HEIGHT + 14,
             left: index * (NOTE_WIDTH + HORIZONTAL_GAP),
           }}
         >

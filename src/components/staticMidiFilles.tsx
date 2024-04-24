@@ -1081,6 +1081,13 @@ const STATIC_MIDI_FILES: StaticMidiFile[] = [
     size: 1337,
     type: "file",
   },
+  {
+    idx: 173,
+    path: "/static/musescore_manual/Symphony_No9_From_The_New_World_1st_movement_for_piano_solo_.mid",
+    link: "https://musescore.com/user/24959521/scores/6524283",
+    size: 1337,
+    type: "file",
+  },
 ];
 
 export default STATIC_MIDI_FILES;

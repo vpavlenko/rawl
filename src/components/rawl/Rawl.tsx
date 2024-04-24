@@ -145,7 +145,7 @@ const Rawl: React.FC<{
   latencyCorrectionMs,
 }) => {
   useEffect(() => {
-    document.title = `${artist} - ${song} - Rawl`;
+    document.title = `${song} - ${artist} - Rawl`;
   }, [artist, song]);
 
   const [analysis, setAnalysis] = useState<Analysis>(

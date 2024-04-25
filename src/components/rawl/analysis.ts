@@ -39,13 +39,13 @@ export const ANALYSIS_STUB: Analysis = {
 };
 
 const removeIdleModulations = (modulations: Modulations): Modulations => {
-  const result: Modulations = {};
-
   const sortedMeasures = Object.keys(modulations)
     .map(Number)
     .sort((a, b) => a - b);
 
-  let lastValue = sortedMeasures[0];
+  let lastValue = modulations[sortedMeasures[0]];
+  const result: Modulations = { 0: lastValue };
+
   for (const measure of sortedMeasures.slice(1)) {
     const currentValue = modulations[measure];
     if (currentValue !== lastValue) {

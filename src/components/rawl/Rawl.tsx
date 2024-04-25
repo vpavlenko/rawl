@@ -303,7 +303,7 @@ const Rawl: React.FC<{
 
     const tonic = findTonic(allNotes);
     if (tonic !== -1 && analysis.modulations[0] === null) {
-      diff.modulations[0] = tonic;
+      diff.modulations = { 0: tonic };
     }
     setAnalysis({ ...analysis, ...diff });
   }, [allNotes]);

@@ -10,7 +10,7 @@ admin.initializeApp({
 const db = admin.firestore();
 
 async function downloadAndMergeAnalyses() {
-  const docRef = db.collection("users").doc("hqAWkYyzu2hIzNgE3ui89f41vFA2");
+  const docRef = db.collection("users").doc("RK31rsh4tDdUGlNYQvakXW4AYbB3");
   const userSnapshot = await docRef.get();
 
   if (userSnapshot.exists) {

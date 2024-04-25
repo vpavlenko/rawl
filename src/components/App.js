@@ -92,7 +92,7 @@ class App extends React.Component {
     this.db = getFirestore(firebaseApp);
 
     // Load the analyses by Vitaly Pavlenko
-    const docRef = doc(this.db, "users", "hqAWkYyzu2hIzNgE3ui89f41vFA2");
+    const docRef = doc(this.db, "users", "RK31rsh4tDdUGlNYQvakXW4AYbB3");
     getDoc(docRef).then((userSnapshot) => {
       if (userSnapshot.exists() && userSnapshot.data().analyses) {
         // if (this.state.analyses == defaultAnalyses) {

@@ -1088,6 +1088,34 @@ const STATIC_MIDI_FILES: StaticMidiFile[] = [
     size: 1337,
     type: "file",
   },
+  {
+    idx: 174,
+    path: "/static/musescore_manual/The_Swan_Lake_Suite_1._Scene_Piano_solo_arrangement.mid",
+    link: "https://musescore.com/user/24959521/scores/6298061",
+    size: 1337,
+    type: "file",
+  },
+  {
+    idx: 175,
+    path: "/static/musescore_manual/Symphony_No9_From_The_New_World_4th_movement__Z_Novho_Svta.mid",
+    link: "https://musescore.com/user/24959521/scores/6531971/",
+    size: 1337,
+    type: "file",
+  },
+  {
+    idx: 176,
+    path: "/static/musescore_manual/Symphony_No9__From_The_New_World__2nd_movement.mid",
+    link: "https://musescore.com/user/24959521/scores/6522740/",
+    size: 1337,
+    type: "file",
+  },
+  {
+    idx: 177,
+    path: "/static/musescore_manual/Symphony_No.9_From_The_New_World_3rd_movement_Scherzo.mid",
+    link: "https://musescore.com/user/24959521/scores/6525933/",
+    size: 1337,
+    type: "file",
+  },
 ];
 
 export default STATIC_MIDI_FILES;

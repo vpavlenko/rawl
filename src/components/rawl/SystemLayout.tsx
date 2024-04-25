@@ -871,7 +871,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
 
         {sections.map(
           ({ sectionSpan, secondsToX, xToSeconds, voices }, order) => (
-            <div style={{ marginBottom: 40 }}>
+            <div style={{ marginBottom: 40 }} key={order}>
               <MeasureNumbers
                 measuresAndBeats={measuresAndBeats}
                 analysis={analysis}
@@ -883,11 +883,10 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
               />
               {voices.map(({ notes, voiceIndex }) => (
                 <div
-                  key={order}
+                  key={voiceIndex}
                   style={{ display: "flex", flexDirection: "row" }}
                 >
                   <Voice
-                    key={voiceIndex}
                     voiceName={voiceNames[voiceIndex]}
                     notes={notes}
                     measuresAndBeats={measuresAndBeats}
@@ -899,6 +898,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
                       positionSeconds <
                         measuresAndBeats.measures[sectionSpan[1]] && (
                         <Cursor
+                          key={"cursor"}
                           style={{
                             transition:
                               Math.abs(

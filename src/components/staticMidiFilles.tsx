@@ -1116,6 +1116,13 @@ const STATIC_MIDI_FILES: StaticMidiFile[] = [
     size: 1337,
     type: "file",
   },
+  {
+    idx: 178,
+    path: "/static/musescore_manual/Saint_Saens_Symphony_3_1st.mid",
+    link: "https://www.classicalmidi.co.uk/saintsaens.htm",
+    size: 1337,
+    type: "file",
+  },
 ];
 
 export default STATIC_MIDI_FILES;

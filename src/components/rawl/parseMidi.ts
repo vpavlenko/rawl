@@ -143,7 +143,8 @@ function calculateMeasureAndBeats(timeEvents) {
       return true;
     } else {
       lastBeatFractionGone +=
-        (timeUntil - lastBeatTime) / secondsPerQuarterNote;
+        (timeUntil - lastBeatTime) /
+        ((secondsPerQuarterNote / denominator) * 4);
       lastBeatTime = timeUntil;
       return false;
     }

@@ -13,7 +13,6 @@ export type Modulations = { [oneIndexedMeasureStart: number]: PitchClass };
 
 // TODO: refactor to move tonic into modulations[0]
 export type Analysis = {
-  tonic: PitchClass | null;
   modulations: Modulations;
   comment: string;
   tags: string[];
@@ -31,8 +30,7 @@ export type Corpus = {
 };
 
 export const ANALYSIS_STUB: Analysis = {
-  modulations: {},
-  tonic: null,
+  modulations: { 0: null },
   comment: "",
   tags: [],
   form: [],
@@ -40,18 +38,15 @@ export const ANALYSIS_STUB: Analysis = {
   sections: [0], // in phrases
 };
 
-const removeIdleModulations = (
-  tonic: PitchClass,
-  modulations: Modulations,
-): Modulations => {
+const removeIdleModulations = (modulations: Modulations): Modulations => {
   const result: Modulations = {};
-  let lastValue = tonic;
 
   const sortedMeasures = Object.keys(modulations)
     .map(Number)
     .sort((a, b) => a - b);
 
-  for (const measure of sortedMeasures) {
+  let lastValue = sortedMeasures[0];
+  for (const measure of sortedMeasures.slice(1)) {
     const currentValue = modulations[measure];
     if (currentValue !== lastValue) {
       result[measure] = currentValue;
@@ -69,19 +64,12 @@ export const getNewAnalysis = (
 ): Analysis => {
   let update: Partial<Analysis> = {};
 
-  if (selectedMeasure !== null) {
-    if (note) {
-      let newModulations = {
-        ...(analysis.modulations || []),
-        [selectedMeasure]: (note.note.midiNumber % 12) as PitchClass,
-      };
-      update.modulations = removeIdleModulations(
-        analysis.tonic,
-        newModulations,
-      );
-    }
-  } else {
-    update.tonic = (note.note.midiNumber % 12) as PitchClass;
+  if (note) {
+    let newModulations = {
+      ...(analysis.modulations || []),
+      [selectedMeasure ?? 0]: (note.note.midiNumber % 12) as PitchClass,
+    };
+    update.modulations = removeIdleModulations(newModulations);
   }
 
   return { ...analysis, ...update };

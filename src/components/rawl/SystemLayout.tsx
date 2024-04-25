@@ -696,9 +696,9 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
   measureSelection,
   setVoiceMask,
 }) => {
-  const [noteHeight, setNoteHeight] = useState<number>(5);
+  const [noteHeight, setNoteHeight] = useState<number>(4);
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
-  const [secondWidth, setSecondWidth] = useState<number>(70);
+  const [secondWidth, setSecondWidth] = useState<number>(45);
   const debounceSetSecondWidth = useCallback(debounce(setSecondWidth, 50), []);
 
   const prevPositionSeconds = useRef<number>(0);

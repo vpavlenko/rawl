@@ -80,13 +80,12 @@ const getTonic = (measure: number, analysis: Analysis): PitchClass => {
 };
 
 export const getModulations = (analysis: Analysis) =>
-  [
-    { measure: 0, tonic: analysis.tonic },
-    ...Object.entries(analysis.modulations || []).map((entry) => ({
+  Object.entries(analysis.modulations || [])
+    .map((entry) => ({
       measure: parseInt(entry[0], 10) - 1,
       tonic: entry[1],
-    })),
-  ].sort((a, b) => a.measure - b.measure);
+    }))
+    .sort((a, b) => a.measure - b.measure);
 
 const getSecondsMeasure = (
   seconds: number,
@@ -108,7 +107,7 @@ export const getNoteColor = (
   measures: number[],
 ): string =>
   `noteColor_${
-    analysis.tonic === null
+    analysis.modulations[0] === null
       ? "default"
       : (note.note.midiNumber -
           getTonic(getNoteMeasure(note, measures), analysis)) %
@@ -303,8 +302,8 @@ const Rawl: React.FC<{
     }
 
     const tonic = findTonic(allNotes);
-    if (tonic !== -1 && analysis.tonic === null) {
-      diff.tonic = tonic;
+    if (tonic !== -1 && analysis.modulations[0] === null) {
+      diff.modulations[0] = tonic;
     }
     setAnalysis({ ...analysis, ...diff });
   }, [allNotes]);

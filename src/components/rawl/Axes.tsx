@@ -7,7 +7,6 @@ import MIDI_PREVIEWS from "./AxesMidiPreviews";
 import { PianoLegend } from "./PianoLegend";
 import { getNoteColor, secondsToX__, xToSeconds__ } from "./Rawl";
 import { Voice } from "./SystemLayout";
-import { PitchClass } from "./analysis";
 
 export const NoteSnippet = ({ notes, sequencer }) => {
   return (
@@ -121,8 +120,7 @@ const Axis: React.FC<React.PropsWithChildren<{ title: string }>> = ({
 
 const VOICE_PARAMS = {
   analysis: {
-    modulations: {},
-    tonic: 0 as PitchClass,
+    modulations: { 0: 0 },
     comment: "",
     tags: [],
     form: [],

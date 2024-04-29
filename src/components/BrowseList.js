@@ -6,6 +6,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { CATALOG_PREFIX } from "../config";
 import { DUMMY_CALLBACK } from "./App";
 import DirectoryLink from "./DirectoryLink";
+import { saveMidi } from "./rawl/midiStorage";
 
 function splitOnLastSlash(str) {
   var lastIndex = str.lastIndexOf("/");
@@ -53,6 +54,7 @@ function BrowseList({ items, ...props }) {
 
     const link = params.get("link");
     if (link) {
+      saveMidi(link);
       handleSongClick(
         `https://corsproxy.io/?${atob(link)}`,
         playContext,

@@ -10,6 +10,9 @@ import {
 
 function formatForURL(title: string): string {
   let processedTitle = title.toLowerCase();
+  processedTitle = processedTitle
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, ""); // remove diacritics
   processedTitle = processedTitle.replace(/[^a-z0-9\s-]/g, "_");
   processedTitle = processedTitle.replace(/[\s-]+/g, "_");
   processedTitle = processedTitle.replace(/_+/g, "_");
@@ -52,6 +55,7 @@ export const saveMidi = async (link: string) => {
     await updateDoc(indexRef, {
       midis: arrayUnion({ title, slug, id: docRef.id }),
     });
+    window.location.href = `/browse/f/${slug}`;
   } catch (error) {
     alert(`Fetching binary file failed: ${JSON.stringify(error)}`);
   }

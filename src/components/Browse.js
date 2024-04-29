@@ -27,7 +27,11 @@ const Browse = ({
     <div
       style={{
         height:
-          searchParams.get("song") || searchParams.get("link") ? "0px" : "100%",
+          searchParams.get("song") ||
+          searchParams.get("link") ||
+          browsePath.startsWith("f/")
+            ? "0px"
+            : "100%",
         overflow: "scroll",
         margin: 0,
       }}

@@ -744,10 +744,11 @@ class App extends React.Component {
       const index = await getDoc(doc(this.db, "indexes", "midis"));
       const firestoreMidiDirectory = index
         .data()
-        .midis.map(({ title, id }, order) => ({
+        .midis.map(({ title, id, slug }, order) => ({
           idx: order,
           path: `/static/f/${title}`,
           id,
+          slug,
           size: 1337,
           type: "file",
         }));

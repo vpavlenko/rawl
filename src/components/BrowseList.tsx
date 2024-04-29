@@ -191,15 +191,19 @@ function BrowseList({ items, ...props }) {
                   ) : (
                     <a
                       onClick={(e) => {
-                        const searchParams = new URLSearchParams(
-                          window.location.search,
-                        );
-                        searchParams.set("song", name);
+                        if (item.slug) {
+                          window.location.href = `/browse/f/${item.slug}`;
+                        } else {
+                          const searchParams = new URLSearchParams(
+                            window.location.search,
+                          );
+                          searchParams.set("song", name);
 
-                        history.push({
-                          search: searchParams.toString(),
-                        });
-                        handleSongClick(href, playContext, item.idx)(e);
+                          history.push({
+                            search: searchParams.toString(),
+                          });
+                          handleSongClick(href, playContext, item.idx)(e);
+                        }
                       }}
                       style={{ color: fileAnalysis ? "#ff0" : "#aaa" }}
                     >

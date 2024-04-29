@@ -130,6 +130,8 @@ export default class Sequencer extends EventEmitter {
       this.player.suspend();
     }
 
+    if (url.startsWith("static/f")) return;
+
     if (url.startsWith("static")) {
       url = url.replace("static", "https://rawl.rocks/midi");
     } else {

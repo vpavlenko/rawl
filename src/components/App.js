@@ -737,9 +737,21 @@ class App extends React.Component {
     this.setState({ directories });
   }
 
-  fetchDirectory(path) {
+  async fetchDirectory(path) {
     if (path.startsWith("static")) {
       return this.processFetchedDirectory(path, STATIC_MIDI_FILES);
+    } else if (path.startsWith("f")) {
+      const index = await getDoc(doc(this.db, "indexes", "midis"));
+      const firestoreMidiDirectory = index
+        .data()
+        .midis.map(({ title, id }, order) => ({
+          idx: order,
+          path: `/static/f/${title}`,
+          id,
+          size: 1337,
+          type: "file",
+        }));
+      return this.processFetchedDirectory(path, firestoreMidiDirectory);
     } else if (!path.startsWith("link")) {
       return fetch(`${API_BASE}/browse?path=%2F${encodeURIComponent(path)}`)
         .then((response) => response.json())

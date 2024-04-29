@@ -1,5 +1,6 @@
 import autoBindReact from "auto-bind/react";
 import EventEmitter from "events";
+import { doc, getDoc, getFirestore } from "firebase/firestore/lite";
 import md5 from "md5";
 import { CATALOG_PREFIX } from "./config";
 import promisify from "./promisify-xhr";
@@ -133,15 +134,17 @@ export default class Sequencer extends EventEmitter {
       url = url.replace("static", "https://rawl.rocks/midi");
     } else {
       // Normalize url - paths are assumed to live under CATALOG_PREFIX
-      url = url.startsWith("http")
-        ? url
-        : CATALOG_PREFIX + encodeURIComponent(encodeURIComponent(url));
+      url =
+        url.startsWith("http") || url.startsWith("f:")
+          ? url
+          : CATALOG_PREFIX + encodeURIComponent(encodeURIComponent(url));
     }
 
     // Find a player that can play this filetype
-    const ext = url.includes("score.mid")
-      ? "mid"
-      : url.split(".").pop().toLowerCase();
+    const ext =
+      url.includes("score.mid") || url.startsWith("f:")
+        ? "mid"
+        : url.split(".").pop().toLowerCase();
     for (let i = 0; i < this.players.length; i++) {
       if (this.players[i].canPlay(ext)) {
         this.player = this.players[i];
@@ -153,25 +156,36 @@ export default class Sequencer extends EventEmitter {
       return;
     }
 
-    // Fetch the song file (cancelable request)
-    // Cancel any outstanding request so that playback doesn't happen out of order
-    if (this.songRequest) this.songRequest.abort();
-    this.songRequest = promisify(new XMLHttpRequest());
-    this.songRequest.responseType = "arraybuffer";
-    this.songRequest.open("GET", url);
-    this.songRequest
-      .send()
-      .then((xhr) => xhr.response)
-      .then((buffer) => {
-        this.currUrl = url;
-        const filepath = url.replace(CATALOG_PREFIX, "");
-        this.playSongBuffer(filepath, buffer, subtune);
-      })
-      .catch((e) => {
-        this.handlePlayerError(
-          e.message || `HTTP ${e.status} ${e.statusText} ${url}`,
-        );
-      });
+    if (url.startsWith("f:")) {
+      const playFromFirestore = async () => {
+        const firestore = getFirestore();
+        const { blob } = (
+          await getDoc(doc(firestore, "midis", url.slice(2)))
+        ).data();
+        this.playSongBuffer(url, blob, subtune);
+      };
+      playFromFirestore();
+    } else {
+      // Fetch the song file (cancelable request)
+      // Cancel any outstanding request so that playback doesn't happen out of order
+      if (this.songRequest) this.songRequest.abort();
+      this.songRequest = promisify(new XMLHttpRequest());
+      this.songRequest.responseType = "arraybuffer";
+      this.songRequest.open("GET", url);
+      this.songRequest
+        .send()
+        .then((xhr) => xhr.response)
+        .then((buffer) => {
+          this.currUrl = url;
+          const filepath = url.replace(CATALOG_PREFIX, "");
+          this.playSongBuffer(filepath, buffer, subtune);
+        })
+        .catch((e) => {
+          this.handlePlayerError(
+            e.message || `HTTP ${e.status} ${e.statusText} ${url}`,
+          );
+        });
+    }
   }
 
   async playSongFile(filepath, songData, subtune = 0) {
@@ -196,7 +210,9 @@ export default class Sequencer extends EventEmitter {
   }
 
   async playSongBuffer(filepath, buffer, subtune = 0) {
-    const uint8Array = new Uint8Array(buffer);
+    const uint8Array = buffer._byteString
+      ? Uint8Array.from(buffer._byteString.binaryString, (e) => e.charCodeAt(0))
+      : new Uint8Array(buffer);
     this.hash = md5(uint8Array);
     console.log("MD5", this.hash);
     this.player.setTempo(1);

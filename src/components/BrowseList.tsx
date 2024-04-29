@@ -1,5 +1,6 @@
+import { doc, getDoc, getFirestore } from "firebase/firestore/lite";
 import trimEnd from "lodash/trimEnd";
-import queryString from "querystring";
+import * as queryString from "querystring";
 import * as React from "react";
 import { memo, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
@@ -62,6 +63,31 @@ function BrowseList({ items, ...props }) {
         preventDefault: DUMMY_CALLBACK,
       });
     }
+
+    const [_, urlSlug] = location.pathname.split("browse/f/");
+    if (urlSlug) {
+      const playSlug = async () => {
+        const firestore = getFirestore();
+        const index = await getDoc(doc(firestore, "indexes", "midis"));
+        const filteredMidis = index
+          .data()
+          .midis.filter(({ slug }) => slug === urlSlug);
+        if (filteredMidis.length > 1) {
+          alert(`More than one midi is found for a slug ${urlSlug}`);
+        } else if (filteredMidis.length === 0) {
+          alert(`No midi is found for a slug ${urlSlug}`);
+        } else {
+          const { id } = filteredMidis[0];
+          handleSongClick(
+            `f:${id}`, // figure out how to play it in Sequencer:playSong
+            playContext,
+          )({
+            preventDefault: DUMMY_CALLBACK,
+          });
+        }
+      };
+      playSlug();
+    }
   }, [items.length, location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Scroll Into View
@@ -74,6 +100,7 @@ function BrowseList({ items, ...props }) {
 
   // Check if previous page url is the parent directory of current page url.
   const history = useHistory();
+  // @ts-ignore
   const prevPath = trimEnd(history.location.state?.prevPathname, "/");
   const currPath = trimEnd(window.location.pathname, "/");
   const prevPageIsParentDir =
@@ -126,15 +153,18 @@ function BrowseList({ items, ...props }) {
                 }
               >
                 <div className="BrowseList-colName">
-                  <DirectoryLink
-                    dim={!fileAnalysis}
-                    to={"/browse/" + path}
-                    search={search}
-                    isBackLink={isBackLink}
-                    history={history}
-                  >
-                    {name}
-                  </DirectoryLink>
+                  {
+                    // @ts-ignore
+                    <DirectoryLink
+                      dim={!fileAnalysis}
+                      to={"/browse/" + path}
+                      search={search}
+                      isBackLink={isBackLink}
+                      history={history}
+                    >
+                      {name}
+                    </DirectoryLink>
+                  }
                 </div>
               </div>
             );

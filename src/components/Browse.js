@@ -13,9 +13,12 @@ const Browse = ({
   searchPath,
 }) => {
   useEffect(() => {
-    if (!listing) {
-      fetchDirectory(browsePath);
-    }
+    const fetchData = () => {
+      if (!listing) {
+        fetchDirectory(browsePath);
+      }
+    };
+    fetchData();
   }, [browsePath, listing, fetchDirectory]);
 
   const searchParams = new URLSearchParams(window.location.search);

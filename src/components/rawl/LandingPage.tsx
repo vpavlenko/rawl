@@ -188,6 +188,17 @@ const LandingPage = () => (
       >
         See Western music in 12 colors
       </div>
+      <div style={{ margin: "100px 0 100px 0" }}>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/uW7r-nehi7o?si=zjR312K-CGekpBwU"
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          style={{ border: "0px" }}
+        />
+      </div>
       <LegendAndMetaphorsContainer>
         <div>
           <PianoLegend />

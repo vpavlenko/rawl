@@ -5,12 +5,6 @@ import md5 from "md5";
 import { CATALOG_PREFIX } from "./config";
 import promisify from "./promisify-xhr";
 
-export const REPEAT_OFF = 0;
-export const REPEAT_ALL = 1;
-export const REPEAT_ONE = 2;
-export const NUM_REPEAT_MODES = 3;
-export const REPEAT_LABELS = ["Off", "All", "One"];
-
 export default class Sequencer extends EventEmitter {
   constructor(players, history) {
     super();
@@ -18,14 +12,11 @@ export default class Sequencer extends EventEmitter {
 
     this.player = null;
     this.players = players;
-    // this.onSequencerStateUpdate = onSequencerStateUpdate;
-    // this.onPlayerError = onError;
 
     this.currIdx = 0;
     this.context = null;
     this.currUrl = null;
     this.songRequest = null;
-    this.repeat = REPEAT_OFF;
     this.history = history;
 
     this.players.forEach((player) => {
@@ -69,16 +60,6 @@ export default class Sequencer extends EventEmitter {
 
   playSonglist(urls) {
     this.playContext(urls, 0);
-  }
-
-  setRepeat(repeat) {
-    this.repeat = repeat;
-  }
-
-  advanceSong() {
-    if (this.context == null) return;
-
-    this.playCurrentSong();
   }
 
   playSubtune(subtune) {

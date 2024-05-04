@@ -16,7 +16,7 @@ import React from "react";
 import Dropzone from "react-dropzone";
 import { Route, Switch, withRouter } from "react-router-dom";
 
-import Sequencer, { NUM_REPEAT_MODES, REPEAT_OFF } from "../Sequencer";
+import Sequencer from "../Sequencer";
 import ChipCore from "../chip-core";
 import {
   API_BASE,
@@ -203,7 +203,6 @@ class App extends React.Component {
       faves: [],
       songUrl: null,
       volume: 100,
-      repeat: REPEAT_OFF,
       directories: {},
       hasPlayer: false,
       paramDefs: [],
@@ -646,13 +645,6 @@ class App extends React.Component {
   handleVolumeChange(volume) {
     this.setState({ volume });
     this.gainNode.gain.value = Math.max(0, Math.min(2, volume * 0.01));
-  }
-
-  handleCycleRepeat() {
-    // TODO: Handle dropped file repeat
-    const repeat = (this.state.repeat + 1) % NUM_REPEAT_MODES;
-    this.setState({ repeat });
-    this.sequencer.setRepeat(repeat);
   }
 
   processFetchedDirectory(path, items) {

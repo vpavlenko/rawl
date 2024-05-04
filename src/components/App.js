@@ -586,19 +586,15 @@ class App extends React.Component {
   }
 
   handleSongClick(url, context, index) {
-    return (e) => {
-      e.preventDefault();
-
-      const tryPlay = () => {
-        try {
-          this.playSong(context ? context[index] : url);
-        } catch {
-          setTimeout(tryPlay, 200);
-        }
-      };
-
-      tryPlay();
+    const tryPlay = () => {
+      try {
+        this.playSong(context ? context[index] : url);
+      } catch {
+        setTimeout(tryPlay, 200);
+      }
     };
+
+    tryPlay();
   }
 
   handleVolumeChange(volume) {

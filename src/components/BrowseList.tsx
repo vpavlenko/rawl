@@ -5,7 +5,6 @@ import * as React from "react";
 import { memo, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { CATALOG_PREFIX } from "../config";
-import { DUMMY_CALLBACK } from "./App";
 import DirectoryLink from "./DirectoryLink";
 import { saveMidi } from "./rawl/midiStorage";
 
@@ -35,25 +34,14 @@ function BrowseList({ items, ...props }) {
       if (item) {
         const href = CATALOG_PREFIX + item.path;
 
-        handleSongClick(
-          href,
-          playContext,
-          item.idx,
-        )({
-          preventDefault: DUMMY_CALLBACK,
-        });
+        handleSongClick(href, playContext, item.idx);
       }
     }
 
     const link = params.get("link");
     if (link) {
       saveMidi(link);
-      handleSongClick(
-        `https://corsproxy.io/?${atob(link)}`,
-        playContext,
-      )({
-        preventDefault: DUMMY_CALLBACK,
-      });
+      handleSongClick(`https://corsproxy.io/?${atob(link)}`, playContext);
     }
 
     const [_, urlSlug] = location.pathname.split("browse/f/");
@@ -70,12 +58,7 @@ function BrowseList({ items, ...props }) {
           alert(`No midi is found for a slug ${urlSlug}`);
         } else {
           const { id } = filteredMidis[0];
-          handleSongClick(
-            `f:${id}`, // figure out how to play it in Sequencer:playSong
-            playContext,
-          )({
-            preventDefault: DUMMY_CALLBACK,
-          });
+          handleSongClick(`f:${id}`, playContext);
         }
       };
       playSlug();
@@ -165,8 +148,8 @@ function BrowseList({ items, ...props }) {
                 <div className="BrowseList-colName">
                   {path.startsWith("Nintendo") ? (
                     <a
-                      onClick={(e) =>
-                        handleSongClick(href, playContext, item.idx)(e)
+                      onClick={() =>
+                        handleSongClick(href, playContext, item.idx)
                       }
                     >
                       {name}
@@ -185,7 +168,7 @@ function BrowseList({ items, ...props }) {
                           history.push({
                             search: searchParams.toString(),
                           });
-                          handleSongClick(href, playContext, item.idx)(e);
+                          handleSongClick(href, playContext, item.idx);
                         }
                       }}
                       style={{ color: fileAnalysis ? "#ff0" : "#aaa" }}

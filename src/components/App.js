@@ -239,21 +239,17 @@ class App extends React.Component {
     const debug = queryString.parse(window.location.search.substring(1)).debug;
     // Create all the players. Players will set up IDBFS mount points.
     const self = this;
-    const players = [MIDIPlayer].map(
-      (P) =>
-        new P(
-          this.chipCore,
-          audioCtx.sampleRate,
-          bufferSize,
-          debug,
-          (parsing) =>
-            self.setState((prevState) => ({
-              parsings: { ...prevState.parsings, [this.browsePath]: parsing },
-            })),
-          this.togglePause,
-        ),
+    this.midiPlayer = new MIDIPlayer(
+      this.chipCore,
+      audioCtx.sampleRate,
+      bufferSize,
+      debug,
+      (parsing) =>
+        self.setState((prevState) => ({
+          parsings: { ...prevState.parsings, [this.browsePath]: parsing },
+        })),
+      this.togglePause,
     );
-    this.midiPlayer = players[0];
 
     // Set up the central audio processing callback. This is where the magic happens.
     playerNode.onaudioprocess = (e) => {
@@ -261,9 +257,8 @@ class App extends React.Component {
       for (let i = 0; i < e.outputBuffer.numberOfChannels; i++) {
         channels.push(e.outputBuffer.getChannelData(i));
       }
-      for (let player of players) {
-        if (player.stopped) continue;
-        player.processAudio(channels);
+      if (!this.midiPlayer.stopped) {
+        this.midiPlayer.processAudio(channels);
       }
     };
 
@@ -272,10 +267,10 @@ class App extends React.Component {
       if (err) {
         console.log("Error populating FS from indexeddb.", err);
       }
-      players.forEach((player) => player.handleFileSystemReady());
+      this.midiPlayer.handleFileSystemReady();
     });
 
-    this.sequencer = new Sequencer(players, this.props.history);
+    this.sequencer = new Sequencer([this.midiPlayer], this.props.history);
     this.sequencer.on("sequencerStateUpdate", this.handleSequencerStateUpdate);
     this.sequencer.on("playerError", this.handlePlayerError);
 

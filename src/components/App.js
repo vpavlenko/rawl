@@ -286,7 +286,7 @@ class App extends React.Component {
       this.fetchDirectory(dirname).then(() => {
         this.props.history.replace(`/browse/${dirname}${search}`);
         const index = this.playContexts[dirname].indexOf(play);
-        this.playContext(this.playContexts[dirname], index);
+        this.sequencer.playSong(this.playContexts[dirname][index]);
 
         if (urlParams.t) {
           setTimeout(() => {
@@ -464,10 +464,6 @@ class App extends React.Component {
     });
   }
 
-  playContext(context, index = 0) {
-    this.sequencer.playContext(context, index);
-  }
-
   handleSequencerStateUpdate(sequencerState) {
     const { isEjected } = sequencerState;
     console.log("App.handleSequencerStateUpdate(isEjected=%s)", isEjected);
@@ -595,11 +591,7 @@ class App extends React.Component {
 
       const tryPlay = () => {
         try {
-          if (context) {
-            this.playContext(context, index);
-          } else {
-            this.sequencer.playContext([url], 0);
-          }
+          this.sequencer.playSong(context ? context[index] : url);
         } catch {
           setTimeout(tryPlay, 200);
         }

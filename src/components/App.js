@@ -40,7 +40,6 @@ import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader";
 import Browse from "./Browse";
 import DropMessage from "./DropMessage";
-import MessageBox from "./MessageBox";
 import Visualizer from "./Visualizer";
 import Axes from "./rawl/Axes";
 import LandingPage from "./rawl/LandingPage";
@@ -206,7 +205,6 @@ class App extends React.Component {
       voiceNames: Array(MAX_VOICES).fill(""),
       imageUrl: null,
       infoTexts: [],
-      showInfo: false,
       showPlayerError: false,
       showPlayerSettings: true,
       user: null,
@@ -447,7 +445,6 @@ class App extends React.Component {
 
       switch (e.key) {
         case "Escape":
-          this.setState({ showInfo: false });
           e.target.blur();
           break;
         default:
@@ -573,7 +570,6 @@ class App extends React.Component {
 
       this.setState({
         ...App.mapSequencerStateToAppState(sequencerState),
-        showInfo: false,
       });
     }
   }
@@ -716,12 +712,6 @@ class App extends React.Component {
     const repeat = (this.state.repeat + 1) % NUM_REPEAT_MODES;
     this.setState({ repeat });
     this.sequencer.setRepeat(repeat);
-  }
-
-  toggleInfo() {
-    this.setState({
-      showInfo: !this.state.showInfo,
-    });
   }
 
   processFetchedDirectory(path, items) {
@@ -885,11 +875,6 @@ class App extends React.Component {
         {(dropzoneProps) => (
           <div className="App">
             <DropMessage dropzoneProps={dropzoneProps} />
-            <MessageBox
-              showInfo={this.state.showInfo}
-              infoTexts={this.state.infoTexts}
-              toggleInfo={this.toggleInfo}
-            />
             <Alert
               handlePlayerError={this.handlePlayerError}
               playerError={this.state.playerError}

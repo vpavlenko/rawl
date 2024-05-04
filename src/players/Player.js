@@ -165,7 +165,6 @@ export default class Player extends EventEmitter {
       voiceNames: [...Array(this.getNumVoices())].map((_, i) =>
         this.getVoiceName(i),
       ),
-      infoTexts: [],
       isStopped: this.stopped,
       isPaused: this.paused,
     };

@@ -16,7 +16,6 @@ import React from "react";
 import Dropzone from "react-dropzone";
 import { Route, Switch, withRouter } from "react-router-dom";
 
-import requestCache from "../RequestCache";
 import Sequencer, { NUM_REPEAT_MODES, REPEAT_OFF } from "../Sequencer";
 import ChipCore from "../chip-core";
 import {
@@ -26,11 +25,7 @@ import {
   SOUNDFONT_MOUNTPOINT,
 } from "../config";
 import firebaseConfig from "../config/firebaseConfig";
-import {
-  ensureEmscFileWithData,
-  getMetadataUrlForCatalogUrl,
-  unlockAudioContext,
-} from "../util";
+import { ensureEmscFileWithData, unlockAudioContext } from "../util";
 
 import MIDIPlayer from "../players/MIDIPlayer";
 
@@ -194,7 +189,6 @@ class App extends React.Component {
       paused: true,
       ejected: true,
       playerError: null,
-      currentSongMetadata: {},
       currentSongNumVoices: 0,
       currentSongNumSubtunes: 0,
       currentSongSubtune: 0,
@@ -203,8 +197,6 @@ class App extends React.Component {
       tempo: 1,
       voiceMask: Array(MAX_VOICES).fill(true),
       voiceNames: Array(MAX_VOICES).fill(""),
-      imageUrl: null,
-      infoTexts: [],
       showPlayerError: false,
       showPlayerSettings: true,
       user: null,
@@ -324,7 +316,6 @@ class App extends React.Component {
       ejected: "isEjected",
       paused: "isPaused",
       currentSongSubtune: "subtune",
-      currentSongMetadata: "metadata",
       currentSongNumVoices: "numVoices",
       currentSongPositionMs: "positionMs",
       currentSongDurationMs: "durationMs",
@@ -336,7 +327,6 @@ class App extends React.Component {
       hasPlayer: "hasPlayer",
       // TODO: add param values? move to paramStateUpdate?
       paramDefs: "paramDefs",
-      infoTexts: "infoTexts",
     };
     const appState = {};
     for (let prop in map) {
@@ -500,12 +490,10 @@ class App extends React.Component {
       this.setState({
         ejected: true,
         currentSongSubtune: 0,
-        currentSongMetadata: {},
         currentSongNumVoices: 0,
         currentSongPositionMs: 0,
         currentSongDurationMs: 1,
         currentSongNumSubtunes: 0,
-        imageUrl: null,
         songUrl: null,
       });
       // TODO: Disabled to support scroll restoration.
@@ -515,57 +503,10 @@ class App extends React.Component {
         this.mediaSessionAudio.pause();
 
         navigator.mediaSession.playbackState = "none";
-        if ("MediaMetadata" in window) {
-          navigator.mediaSession.metadata = new window.MediaMetadata({});
-        }
       }
     } else {
-      const player = this.sequencer.getPlayer();
-      const url = this.sequencer.getCurrUrl();
-      if (url) {
-        const metadataUrl = getMetadataUrlForCatalogUrl(url);
-        // TODO: Disabled to support scroll restoration.
-        // const filepath = url.replace(CATALOG_PREFIX, '');
-        // updateQueryString({ play: filepath, t: undefined });
-        // TODO: move fetch metadata to Player when it becomes event emitter
-        requestCache
-          .fetchCached(metadataUrl)
-          .then((response) => {
-            const { imageUrl, infoTexts } = response;
-            const newInfoTexts = [...infoTexts, ...this.state.infoTexts];
-            this.setState({ imageUrl, infoTexts: newInfoTexts });
-
-            if ("mediaSession" in navigator) {
-              // Clear artwork if imageUrl is null.
-              navigator.mediaSession.metadata.artwork =
-                imageUrl == null
-                  ? []
-                  : [
-                      {
-                        src: imageUrl,
-                        sizes: "512x512",
-                      },
-                    ];
-            }
-          })
-          .catch((e) => {
-            this.setState({ imageUrl: null });
-          });
-      }
-
-      const metadata = player.getMetadata();
-
       if ("mediaSession" in navigator) {
         this.mediaSessionAudio.play();
-
-        if ("MediaMetadata" in window) {
-          navigator.mediaSession.metadata = new window.MediaMetadata({
-            title: metadata.title || metadata.formatted?.title,
-            artist: metadata.artist || metadata.formatted?.subtitle,
-            album: metadata.game,
-            artwork: [],
-          });
-        }
       }
 
       this.setState({

@@ -530,9 +530,6 @@ export default class MIDIPlayer extends Player {
   getMetadata() {
     return {
       ...this.filepathMeta,
-      infoTexts: [this.midiFilePlayer.textInfo.join("\n")].filter(
-        (text) => text !== "",
-      ),
     };
   }
 

@@ -6,12 +6,11 @@ import { CATALOG_PREFIX } from "./config";
 import promisify from "./promisify-xhr";
 
 export default class Sequencer extends EventEmitter {
-  constructor(players, history) {
+  constructor(midiPlayer, history) {
     super();
     autoBindReact(this);
 
-    this.player = null;
-    this.players = players;
+    this.midiPlayer = midiPlayer;
 
     this.currIdx = 0;
     this.context = null;
@@ -19,10 +18,8 @@ export default class Sequencer extends EventEmitter {
     this.songRequest = null;
     this.history = history;
 
-    this.players.forEach((player) => {
-      player.on("playerStateUpdate", this.handlePlayerStateUpdate);
-      player.on("playerError", this.handlePlayerError);
-    });
+    midiPlayer.on("playerStateUpdate", this.handlePlayerStateUpdate);
+    midiPlayer.on("playerError", this.handlePlayerError);
   }
 
   handlePlayerError(e) {
@@ -54,7 +51,7 @@ export default class Sequencer extends EventEmitter {
   }
 
   getPlayer() {
-    return this.player;
+    return this.midiPlayer;
   }
 
   getCurrIdx() {
@@ -62,9 +59,7 @@ export default class Sequencer extends EventEmitter {
   }
 
   playSong(url) {
-    if (this.player !== null) {
-      this.player.suspend();
-    }
+    this.midiPlayer.suspend();
 
     if (url.startsWith("static/f")) return;
 
@@ -83,13 +78,8 @@ export default class Sequencer extends EventEmitter {
       url.includes("score.mid") || url.startsWith("f:")
         ? "mid"
         : url.split(".").pop().toLowerCase();
-    for (let i = 0; i < this.players.length; i++) {
-      if (this.players[i].canPlay(ext)) {
-        this.player = this.players[i];
-        break;
-      }
-    }
-    if (this.player === null) {
+
+    if (!this.midiPlayer.canPlay(ext)) {
       this.emit("playerError", `The file format ".${ext}" was not recognized.`);
       return;
     }
@@ -127,19 +117,15 @@ export default class Sequencer extends EventEmitter {
   }
 
   async playSongFile(filepath, songData) {
-    if (this.player !== null) {
-      this.player.suspend();
-    }
+    this.midiPlayer.suspend();
 
     const ext = filepath.split(".").pop().toLowerCase();
 
     // Find a player that can play this filetype
-    const player = this.players.find((player) => player.canPlay(ext));
-    if (player == null) {
+
+    if (!this.midiPlayer.canPlay(ext)) {
       this.emit("playerError", `The file format ".${ext}" was not recognized.`);
       return;
-    } else {
-      this.player = player;
     }
 
     this.context = [];
@@ -153,15 +139,15 @@ export default class Sequencer extends EventEmitter {
       : new Uint8Array(buffer);
     this.hash = md5(uint8Array);
     console.log("MD5", this.hash);
-    this.player.setTempo(1);
+    this.midiPlayer.setTempo(1);
     let result;
     try {
-      result = await this.player.loadData(uint8Array, filepath);
+      result = await this.midiPlayer.loadData(uint8Array, filepath);
     } catch (e) {
       this.handlePlayerError(`Unable to play ${filepath} (${e.message}).`);
     }
-    const numVoices = this.player.getNumVoices();
-    this.player.setVoiceMask([...Array(numVoices)].fill(true));
+    const numVoices = this.midiPlayer.getNumVoices();
+    this.midiPlayer.setVoiceMask([...Array(numVoices)].fill(true));
     return result;
   }
 }

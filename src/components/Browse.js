@@ -6,10 +6,8 @@ const Browse = ({
   listing,
   fetchDirectory,
   playContext,
-  currIdx,
   handleSongClick,
   analyses,
-  searchPath,
 }) => {
   useEffect(() => {
     const fetchData = () => {
@@ -39,10 +37,8 @@ const Browse = ({
         browsePath={browsePath}
         playContext={playContext}
         items={listing || []}
-        currIdx={currIdx}
         handleSongClick={handleSongClick}
         analyses={analyses}
-        searchPath={searchPath}
       />
     </div>
   );

@@ -21,8 +21,7 @@ function splitOnLastSlash(str) {
 
 export default memo(BrowseList);
 function BrowseList({ items, ...props }) {
-  const { handleSongClick, browsePath, playContext, analyses, searchPath } =
-    props;
+  const { handleSongClick, browsePath, playContext, analyses } = props;
 
   const location = useLocation();
 
@@ -102,16 +101,12 @@ function BrowseList({ items, ...props }) {
   return (
     <div>
       <div
-        style={
-          !searchPath
-            ? {
-                display: "flex",
-                flexDirection: "row",
-                flexWrap: "wrap",
-                alignContent: "flex-start",
-              }
-            : {}
-        }
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignContent: "flex-start",
+        }}
       >
         {items.map((item, index) => {
           // XXX: Escape immediately: the escaped URL is considered canonical.

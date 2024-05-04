@@ -12,7 +12,6 @@ export default class Sequencer extends EventEmitter {
 
     this.midiPlayer = midiPlayer;
 
-    this.currIdx = 0;
     this.context = null;
     this.currUrl = null;
     this.songRequest = null;
@@ -45,13 +44,8 @@ export default class Sequencer extends EventEmitter {
   }
 
   playContext(context, index = 0) {
-    this.currIdx = index;
     this.context = context;
-    this.playSong(this.context[this.currIdx], 0);
-  }
-
-  getCurrIdx() {
-    return this.currIdx;
+    this.playSong(this.context[index], 0);
   }
 
   playSong(url) {

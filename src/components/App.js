@@ -349,7 +349,8 @@ class App extends React.Component {
   async saveAnalysis(analysis) {
     const user = this.state.user;
     if (user) {
-      const currIdx = this.sequencer?.getCurrIdx();
+      const currIdx = -42;
+      console.log("SAVE ANALYSIS IS BROKEN");
       if (currIdx === undefined) return;
 
       const path =
@@ -702,7 +703,7 @@ class App extends React.Component {
       setVoiceMask: this.handleSetVoiceMask,
       latencyCorrectionMs: this.state.latencyCorrectionMs,
     };
-    const currIdx = this.sequencer?.getCurrIdx();
+    const currIdx = -42;
     const hash = this.sequencer?.hash;
     const localAnalysis = hash && localStorage.getItem(hash);
     const parsedLocalAnalysis = localAnalysis && JSON.parse(localAnalysis);
@@ -722,17 +723,12 @@ class App extends React.Component {
             this.contentAreaRef.current && (
               <>
                 <Browse
-                  currIdx={currIdx}
-                  historyAction={history.action}
-                  locationKey={location.key}
                   browsePath={browsePath}
                   listing={this.state.directories[browsePath]}
                   playContext={this.playContexts[browsePath]}
                   fetchDirectory={this.fetchDirectory}
                   handleSongClick={this.handleSongClick}
-                  scrollContainerRef={this.contentAreaRef}
                   analyses={this.state.analyses}
-                  sequencer={this.sequencer}
                 />
                 {(searchParams.get("song") ||
                   searchParams.get("link") ||

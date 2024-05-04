@@ -489,7 +489,7 @@ class App extends React.Component {
       }
 
       this.setState({
-        ...this.mapSequencerStateToAppState(sequencerState),
+        ...App.mapSequencerStateToAppState(sequencerState),
       });
     }
   }

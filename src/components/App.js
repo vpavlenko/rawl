@@ -10,26 +10,26 @@ import {
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore/lite";
 import isMobile from "ismobilejs";
 import clamp from "lodash/clamp";
+import md5 from "md5";
 import path from "path";
 import queryString from "querystring";
 import React from "react";
 import Dropzone from "react-dropzone";
 import { Route, Switch, withRouter } from "react-router-dom";
 
-import Sequencer from "../Sequencer";
 import ChipCore from "../chip-core";
 import {
   API_BASE,
+  CATALOG_PREFIX,
   ERROR_FLASH_DURATION_MS,
   MAX_VOICES,
   SOUNDFONT_MOUNTPOINT,
 } from "../config";
 import firebaseConfig from "../config/firebaseConfig";
-import { ensureEmscFileWithData, unlockAudioContext } from "../util";
-
-import MIDIPlayer from "../players/MIDIPlayer";
-
 import defaultAnalyses from "../corpus/analyses.json";
+import MIDIPlayer from "../players/MIDIPlayer";
+import promisify from "../promisify-xhr";
+import { ensureEmscFileWithData, unlockAudioContext } from "../util";
 import Alert from "./Alert";
 import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader";
@@ -79,6 +79,8 @@ class App extends React.Component {
     this.errorTimer = null;
     this.midiPlayer = null; // Need a reference to MIDIPlayer to handle SoundFont loading.
     window.ChipPlayer = this;
+    this.currUrl = null;
+    this.songRequest = null;
 
     // Initialize Firebase
     const firebaseApp = firebaseInitializeApp(firebaseConfig);
@@ -248,6 +250,8 @@ class App extends React.Component {
         })),
       this.togglePause,
     );
+    this.midiPlayer.on("playerStateUpdate", this.handlePlayerStateUpdate);
+    this.midiPlayer.on("playerError", this.handlePlayerError);
 
     // Set up the central audio processing callback. This is where the magic happens.
     playerNode.onaudioprocess = (e) => {
@@ -268,10 +272,6 @@ class App extends React.Component {
       this.midiPlayer?.handleFileSystemReady();
     });
 
-    this.sequencer = new Sequencer(this.midiPlayer);
-    this.sequencer.on("sequencerStateUpdate", this.handleSequencerStateUpdate);
-    this.sequencer.on("playerError", this.handlePlayerError);
-
     // TODO: Move to separate processUrlParams method.
     const urlParams = queryString.parse(window.location.search.substring(1));
     if (urlParams.play) {
@@ -286,7 +286,7 @@ class App extends React.Component {
       this.fetchDirectory(dirname).then(() => {
         this.props.history.replace(`/browse/${dirname}${search}`);
         const index = this.playContexts[dirname].indexOf(play);
-        this.sequencer.playSong(this.playContexts[dirname][index]);
+        this.playSong(this.playContexts[dirname][index]);
 
         if (urlParams.t) {
           setTimeout(() => {
@@ -381,9 +381,8 @@ class App extends React.Component {
         analyses: mergeAnalyses(prevState.analyses, diff),
       }));
     } else {
-      const hash = this.sequencer?.hash;
-      if (hash) {
-        localStorage.setItem(hash, JSON.stringify(analysis));
+      if (this.hash) {
+        localStorage.setItem(this.hash, JSON.stringify(analysis));
       }
     }
   }
@@ -490,12 +489,13 @@ class App extends React.Component {
       }
 
       this.setState({
-        ...App.mapSequencerStateToAppState(sequencerState),
+        ...this.mapSequencerStateToAppState(sequencerState),
       });
     }
   }
 
   handlePlayerError(message) {
+    this.handleSequencerStateUpdate({ isEjected: true });
     if (message) this.setState({ playerError: message });
     this.setState({ showPlayerError: !!message });
     clearTimeout(this.errorTimer);
@@ -591,7 +591,7 @@ class App extends React.Component {
 
       const tryPlay = () => {
         try {
-          this.sequencer.playSong(context ? context[index] : url);
+          this.playSong(context ? context[index] : url);
         } catch {
           setTimeout(tryPlay, 200);
         }
@@ -674,7 +674,7 @@ class App extends React.Component {
         this.browsePath = "drop";
         this.props.history.push("/drop");
         const songData = reader.result;
-        this.sequencer.playSongFile(file.name, songData);
+        this.playSongFile(file.name, songData);
       }
     };
     reader.readAsArrayBuffer(file);
@@ -687,6 +687,103 @@ class App extends React.Component {
 
   registerSeekCallback = (seekCallback) => this.setState({ seekCallback });
 
+  handlePlayerStateUpdate(playerState) {
+    const { isStopped } = playerState;
+    console.debug("Sequencer.handlePlayerStateUpdate(isStopped=%s)", isStopped);
+
+    if (isStopped) {
+      this.currUrl = null;
+    } else {
+      this.handleSequencerStateUpdate({
+        url: this.currUrl,
+        hasPlayer: true,
+        // TODO: combine isEjected and hasPlayer
+        isEjected: false,
+        ...playerState,
+      });
+    }
+  }
+
+  playSong(url) {
+    if (url.startsWith("static/f")) return;
+
+    if (url.startsWith("static")) {
+      url = url.replace("static", "https://rawl.rocks/midi");
+    } else {
+      // Normalize url - paths are assumed to live under CATALOG_PREFIX
+      url =
+        url.startsWith("http") || url.startsWith("f:")
+          ? url
+          : CATALOG_PREFIX + encodeURIComponent(encodeURIComponent(url));
+    }
+
+    // Find a player that can play this filetype
+    const ext =
+      url.includes("score.mid") || url.startsWith("f:")
+        ? "mid"
+        : url.split(".").pop().toLowerCase();
+
+    if (!this.midiPlayer.canPlay(ext)) {
+      this.handlePlayerError(`The file format ".${ext}" was not recognized.`);
+      return;
+    }
+
+    if (url.startsWith("f:")) {
+      const playFromFirestore = async () => {
+        const firestore = getFirestore();
+        const { blob } = (
+          await getDoc(doc(firestore, "midis", url.slice(2)))
+        ).data();
+        this.playSongBuffer(url, blob);
+      };
+      playFromFirestore();
+    } else {
+      // Fetch the song file (cancelable request)
+      // Cancel any outstanding request so that playback doesn't happen out of order
+      if (this.songRequest) this.songRequest.abort();
+      this.songRequest = promisify(new XMLHttpRequest());
+      this.songRequest.responseType = "arraybuffer";
+      this.songRequest.open("GET", url);
+      this.songRequest
+        .send()
+        .then((xhr) => xhr.response)
+        .then((buffer) => {
+          this.currUrl = url;
+          const filepath = url.replace(CATALOG_PREFIX, "");
+          this.playSongBuffer(filepath, buffer);
+        })
+        .catch((e) => {
+          this.handlePlayerError(
+            e.message || `HTTP ${e.status} ${e.statusText} ${url}`,
+          );
+        });
+    }
+  }
+
+  async playSongFile(filepath, songData) {
+    this.currUrl = null;
+    return this.playSongBuffer(filepath, songData);
+  }
+
+  async playSongBuffer(filepath, buffer) {
+    this.midiPlayer.suspend();
+    const uint8Array = buffer._byteString
+      ? Uint8Array.from(buffer._byteString.binaryString, (e) => e.charCodeAt(0))
+      : new Uint8Array(buffer);
+    this.hash = md5(uint8Array);
+    console.log("MD5", this.hash);
+    this.midiPlayer.setTempo(1);
+    let result;
+    try {
+      result = await this.midiPlayer.loadData(uint8Array, filepath);
+    } catch (e) {
+      this.handlePlayerError(`Unable to play ${filepath} (${e.message}).`);
+    }
+    const numVoices = this.midiPlayer.getNumVoices();
+    this.midiPlayer.setVoiceMask([...Array(numVoices)].fill(true));
+    return result;
+  }
+
   render() {
     const { location } = this.props;
     const rawlState = {
@@ -696,7 +793,7 @@ class App extends React.Component {
       latencyCorrectionMs: this.state.latencyCorrectionMs,
     };
     const currIdx = -42;
-    const hash = this.sequencer?.hash;
+    const { hash } = this;
     const localAnalysis = hash && localStorage.getItem(hash);
     const parsedLocalAnalysis = localAnalysis && JSON.parse(localAnalysis);
     const browseRoute = (
@@ -768,15 +865,11 @@ class App extends React.Component {
                   >
                     <Switch>
                       <Route path="/" exact render={() => <LandingPage />} />
-                      <Route
-                        path="/axes"
-                        render={() => <Axes sequencer={this.sequencer} />}
-                      />
+                      <Route path="/axes" render={() => <Axes />} />
                       <Route
                         path="/course/:chapter*"
                         render={({ match }) => (
                           <Course
-                            sequencer={this.sequencer}
                             chapter={match.params?.chapter}
                             analyses={this.state.analyses}
                           />
@@ -853,7 +946,6 @@ class App extends React.Component {
                 handleTempoChange={this.handleTempoChange}
                 handleTimeSliderChange={this.handleTimeSliderChange}
                 handleVolumeChange={this.handleVolumeChange}
-                sequencer={this.sequencer}
                 togglePause={this.togglePause}
                 latencyCorrectionMs={this.state.latencyCorrectionMs}
                 setLatencyCorrectionMs={this.setLatencyCorrectionMs}

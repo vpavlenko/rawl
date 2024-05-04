@@ -27,14 +27,17 @@ function BrowseList({ items, ...props }) {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
 
-    // Autoplay for MIDI song URLs
     const song = params.get("song");
     if (song) {
       const item = items.find((item) => item.path.endsWith(song));
       if (item) {
-        const href = CATALOG_PREFIX + item.path;
-
-        handleSongClick(href, playContext, item.idx);
+        console.log(
+          "item",
+          decodeURI(location.pathname),
+          decodeURI(location.search),
+          item.path,
+        );
+        handleSongClick(CATALOG_PREFIX + item.path, playContext, item.idx);
       }
     }
 
@@ -146,15 +149,7 @@ function BrowseList({ items, ...props }) {
                 className={"BrowseList-row BrowseList-row-mainPage"}
               >
                 <div className="BrowseList-colName">
-                  {path.startsWith("Nintendo") ? (
-                    <a
-                      onClick={() =>
-                        handleSongClick(href, playContext, item.idx)
-                      }
-                    >
-                      {name}
-                    </a>
-                  ) : (
+                  {
                     <a
                       onClick={(e) => {
                         if (item.slug) {
@@ -168,14 +163,13 @@ function BrowseList({ items, ...props }) {
                           history.push({
                             search: searchParams.toString(),
                           });
-                          handleSongClick(href, playContext, item.idx);
                         }
                       }}
                       style={{ color: fileAnalysis ? "#ff0" : "#aaa" }}
                     >
                       {name}
                     </a>
-                  )}
+                  }
                 </div>
               </div>
             );

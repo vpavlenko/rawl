@@ -6,7 +6,6 @@ const Browse = ({
   listing,
   fetchDirectory,
   playContext,
-  currContext,
   currIdx,
   handleSongClick,
   analyses,
@@ -40,7 +39,6 @@ const Browse = ({
         browsePath={browsePath}
         playContext={playContext}
         items={listing || []}
-        currContext={currContext}
         currIdx={currIdx}
         handleSongClick={handleSongClick}
         analyses={analyses}

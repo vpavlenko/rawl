@@ -21,15 +21,8 @@ function splitOnLastSlash(str) {
 
 export default memo(BrowseList);
 function BrowseList({ items, ...props }) {
-  const {
-    currContext,
-    currIdx,
-    handleSongClick,
-    browsePath,
-    playContext,
-    analyses,
-    searchPath,
-  } = props;
+  const { handleSongClick, browsePath, playContext, analyses, searchPath } =
+    props;
 
   const location = useLocation();
 
@@ -132,7 +125,6 @@ function BrowseList({ items, ...props }) {
                   .replace("&", "%26")
                   .replace(/^\//, "");
           const name = item.path.split("/").pop();
-          const isPlaying = currContext === playContext && currIdx === item.idx;
           const isBackLink = item.path === ".." && prevPageIsParentDir;
           const [artist, song] = splitOnLastSlash(path);
           let fileAnalysis =
@@ -173,11 +165,7 @@ function BrowseList({ items, ...props }) {
             return (
               <div
                 key={index}
-                className={
-                  (isPlaying
-                    ? "Song-now-playing BrowseList-row"
-                    : "BrowseList-row") + " BrowseList-row-mainPage"
-                }
+                className={"BrowseList-row BrowseList-row-mainPage"}
               >
                 <div className="BrowseList-colName">
                   {path.startsWith("Nintendo") ? (

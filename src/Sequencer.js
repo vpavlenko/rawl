@@ -50,24 +50,11 @@ export default class Sequencer extends EventEmitter {
   playContext(context, index = 0) {
     this.currIdx = index;
     this.context = context;
-    this.playCurrentSong(0);
-  }
-
-  playCurrentSong() {
-    let idx = this.currIdx;
-    this.playSong(this.context[idx], 0);
-  }
-
-  playSonglist(urls) {
-    this.playContext(urls, 0);
+    this.playSong(this.context[this.currIdx], 0);
   }
 
   getPlayer() {
     return this.player;
-  }
-
-  getCurrContext() {
-    return this.context;
   }
 
   getCurrIdx() {

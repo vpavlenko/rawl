@@ -624,7 +624,7 @@ class App extends React.Component {
           if (context) {
             this.playContext(context, index);
           } else {
-            this.sequencer.playSonglist([url]);
+            this.sequencer.playContext([url], 0);
           }
         } catch {
           setTimeout(tryPlay, 200);
@@ -736,7 +736,6 @@ class App extends React.Component {
       setVoiceMask: this.handleSetVoiceMask,
       latencyCorrectionMs: this.state.latencyCorrectionMs,
     };
-    const currContext = this.sequencer?.getCurrContext();
     const currIdx = this.sequencer?.getCurrIdx();
     const hash = this.sequencer?.hash;
     const localAnalysis = hash && localStorage.getItem(hash);
@@ -757,7 +756,6 @@ class App extends React.Component {
             this.contentAreaRef.current && (
               <>
                 <Browse
-                  currContext={currContext}
                   currIdx={currIdx}
                   historyAction={history.action}
                   locationKey={location.key}

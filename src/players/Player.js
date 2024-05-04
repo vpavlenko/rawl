@@ -132,14 +132,6 @@ export default class Player extends EventEmitter {
     return 0;
   }
 
-  getNumSubtunes() {
-    return 1;
-  }
-
-  getSubtune() {
-    return 0;
-  }
-
   getMetadata() {
     return {
       title: null,
@@ -157,8 +149,6 @@ export default class Player extends EventEmitter {
       durationMs: this.getDurationMs(),
       positionMs: this.getPositionMs(),
       numVoices: this.getNumVoices(),
-      numSubtunes: this.getNumSubtunes(),
-      subtune: this.getSubtune(),
       paramDefs: this.getParamDefs(),
       tempo: this.getTempo(),
       voiceMask: this.getVoiceMask(),

@@ -190,8 +190,6 @@ class App extends React.Component {
       ejected: true,
       playerError: null,
       currentSongNumVoices: 0,
-      currentSongNumSubtunes: 0,
-      currentSongSubtune: 0,
       currentSongDurationMs: 1,
       currentSongPositionMs: 0,
       tempo: 1,
@@ -314,11 +312,9 @@ class App extends React.Component {
     const map = {
       ejected: "isEjected",
       paused: "isPaused",
-      currentSongSubtune: "subtune",
       currentSongNumVoices: "numVoices",
       currentSongPositionMs: "positionMs",
       currentSongDurationMs: "durationMs",
-      currentSongNumSubtunes: "numSubtunes",
       tempo: "tempo",
       voiceNames: "voiceNames",
       voiceMask: "voiceMask",
@@ -379,9 +375,8 @@ class App extends React.Component {
 
       let userData = userDoc.exists ? userDoc.data() : {};
 
-      const subtune = this.state.currentSongSubtune;
       const diff = {
-        [beforeSlash]: { [song]: { [subtune]: analysis } },
+        [beforeSlash]: { [song]: { 0: analysis } },
       };
       userData.analyses = mergeAnalyses(userData.analyses ?? {}, diff);
 
@@ -477,8 +472,8 @@ class App extends React.Component {
     });
   }
 
-  playContext(context, index = 0, subtune = 0) {
-    this.sequencer.playContext(context, index, subtune);
+  playContext(context, index = 0) {
+    this.sequencer.playContext(context, index);
   }
 
   handleSequencerStateUpdate(sequencerState) {
@@ -488,11 +483,9 @@ class App extends React.Component {
     if (isEjected) {
       this.setState({
         ejected: true,
-        currentSongSubtune: 0,
         currentSongNumVoices: 0,
         currentSongPositionMs: 0,
         currentSongDurationMs: 1,
-        currentSongNumSubtunes: 0,
         songUrl: null,
       });
       // TODO: Disabled to support scroll restoration.
@@ -622,14 +615,14 @@ class App extends React.Component {
     });
   }
 
-  handleSongClick(url, context, index, subtune = 0) {
+  handleSongClick(url, context, index) {
     return (e) => {
       e.preventDefault();
 
       const tryPlay = () => {
         try {
           if (context) {
-            this.playContext(context, index, subtune);
+            this.playContext(context, index);
           } else {
             this.sequencer.playSonglist([url]);
           }
@@ -757,11 +750,9 @@ class App extends React.Component {
           const searchParams = new URLSearchParams(window.location.search);
           this.browsePath = browsePath;
           const path = this.playContexts[browsePath]?.[currIdx];
-          const subtune = this.state.currentSongSubtune; // legacy from NES, always == '0' for MIDI
           const song = path?.substring(path.lastIndexOf("/") + 1);
           const savedAnalysis =
-            this.state.analyses[browsePath]?.[song]?.[subtune] ??
-            parsedLocalAnalysis;
+            this.state.analyses[browsePath]?.[song]?.[0] ?? parsedLocalAnalysis;
           return (
             this.contentAreaRef.current && (
               <>

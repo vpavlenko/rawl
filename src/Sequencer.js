@@ -47,47 +47,19 @@ export default class Sequencer extends EventEmitter {
     }
   }
 
-  playContext(context, index = 0, subtune = 0) {
+  playContext(context, index = 0) {
     this.currIdx = index;
     this.context = context;
-    this.playCurrentSong(subtune);
+    this.playCurrentSong(0);
   }
 
-  playCurrentSong(subtune = 0) {
+  playCurrentSong() {
     let idx = this.currIdx;
-    this.playSong(this.context[idx], subtune);
+    this.playSong(this.context[idx], 0);
   }
 
   playSonglist(urls) {
     this.playContext(urls, 0);
-  }
-
-  playSubtune(subtune) {
-    const currentPathname = window.location.pathname.replace(
-      "/chiptheory/",
-      "/",
-    );
-    const searchParams = new URLSearchParams(window.location.search);
-    searchParams.set("subtune", subtune + 1);
-
-    this.history.push({
-      pathname: currentPathname,
-      search: searchParams.toString(),
-    });
-
-    this.player.playSubtune(subtune);
-  }
-
-  prevSubtune() {
-    const subtune = this.player.getSubtune() - 1;
-    if (subtune < 0) return;
-    this.playSubtune(subtune);
-  }
-
-  nextSubtune() {
-    const subtune = this.player.getSubtune() + 1;
-    if (subtune >= this.player.getNumSubtunes()) return;
-    this.playSubtune(subtune);
   }
 
   getPlayer() {
@@ -102,11 +74,7 @@ export default class Sequencer extends EventEmitter {
     return this.currIdx;
   }
 
-  getCurrUrl() {
-    return this.currUrl;
-  }
-
-  playSong(url, subtune = 0) {
+  playSong(url) {
     if (this.player !== null) {
       this.player.suspend();
     }
@@ -145,7 +113,7 @@ export default class Sequencer extends EventEmitter {
         const { blob } = (
           await getDoc(doc(firestore, "midis", url.slice(2)))
         ).data();
-        this.playSongBuffer(url, blob, subtune);
+        this.playSongBuffer(url, blob);
       };
       playFromFirestore();
     } else {
@@ -161,7 +129,7 @@ export default class Sequencer extends EventEmitter {
         .then((buffer) => {
           this.currUrl = url;
           const filepath = url.replace(CATALOG_PREFIX, "");
-          this.playSongBuffer(filepath, buffer, subtune);
+          this.playSongBuffer(filepath, buffer);
         })
         .catch((e) => {
           this.handlePlayerError(
@@ -171,7 +139,7 @@ export default class Sequencer extends EventEmitter {
     }
   }
 
-  async playSongFile(filepath, songData, subtune = 0) {
+  async playSongFile(filepath, songData) {
     if (this.player !== null) {
       this.player.suspend();
     }
@@ -189,10 +157,10 @@ export default class Sequencer extends EventEmitter {
 
     this.context = [];
     this.currUrl = null;
-    return this.playSongBuffer(filepath, songData, subtune);
+    return this.playSongBuffer(filepath, songData);
   }
 
-  async playSongBuffer(filepath, buffer, subtune = 0) {
+  async playSongBuffer(filepath, buffer) {
     const uint8Array = buffer._byteString
       ? Uint8Array.from(buffer._byteString.binaryString, (e) => e.charCodeAt(0))
       : new Uint8Array(buffer);
@@ -201,7 +169,7 @@ export default class Sequencer extends EventEmitter {
     this.player.setTempo(1);
     let result;
     try {
-      result = await this.player.loadData(uint8Array, filepath, subtune);
+      result = await this.player.loadData(uint8Array, filepath);
     } catch (e) {
       this.handlePlayerError(`Unable to play ${filepath} (${e.message}).`);
     }

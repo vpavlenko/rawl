@@ -113,16 +113,6 @@ export default class Visualizer extends PureComponent {
             />
             Spectrogram
           </label>
-          {/* <label className="inline" style={{ marginLeft: "20px" }}>
-            <input
-              onChange={this.props.handleToggleSettings}
-              type="checkbox"
-              // value={true}
-              checked={this.props.settingsEnabled}
-              name="settings-enabled"
-            />
-            Settings
-          </label> */}
           {user ? (
             <>
               {" • "}

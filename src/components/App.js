@@ -116,7 +116,6 @@ class App extends React.Component {
               console.debug("Creating user document", user.uid);
               setDoc(docRef, {
                 faves: [],
-                settings: {},
                 user: {
                   email: user.email,
                 },
@@ -196,7 +195,6 @@ class App extends React.Component {
       voiceMask: Array(MAX_VOICES).fill(true),
       voiceNames: Array(MAX_VOICES).fill(""),
       showPlayerError: false,
-      showPlayerSettings: true,
       user: null,
       faves: [],
       songUrl: null,
@@ -257,8 +255,8 @@ class App extends React.Component {
       for (let i = 0; i < e.outputBuffer.numberOfChannels; i++) {
         channels.push(e.outputBuffer.getChannelData(i));
       }
-      if (!this.midiPlayer.stopped) {
-        this.midiPlayer.processAudio(channels);
+      if (!this.midiPlayer?.stopped) {
+        this.midiPlayer?.processAudio(channels);
       }
     };
 
@@ -267,7 +265,7 @@ class App extends React.Component {
       if (err) {
         console.log("Error populating FS from indexeddb.", err);
       }
-      this.midiPlayer.handleFileSystemReady();
+      this.midiPlayer?.handleFileSystemReady();
     });
 
     this.sequencer = new Sequencer(this.midiPlayer, this.props.history);
@@ -292,9 +290,7 @@ class App extends React.Component {
 
         if (urlParams.t) {
           setTimeout(() => {
-            if (this.sequencer.getPlayer()) {
-              this.sequencer.getPlayer().seekMs(parseInt(urlParams.t, 10));
-            }
+            this.midiPlayer?.seekMs(parseInt(urlParams.t, 10));
           }, 100);
         }
       });
@@ -513,9 +509,9 @@ class App extends React.Component {
   }
 
   togglePause() {
-    if (this.state.ejected || !this.sequencer.getPlayer()) return;
+    if (this.state.ejected) return;
 
-    const paused = this.sequencer.getPlayer().togglePause();
+    const paused = this.midiPlayer?.togglePause();
     if ("mediaSession" in navigator) {
       if (paused) {
         this.mediaSessionAudio.pause();
@@ -526,25 +522,19 @@ class App extends React.Component {
     this.setState({ paused: paused });
   }
 
-  toggleSettings() {
-    this.setState({ showPlayerSettings: !this.state.showPlayerSettings });
-
-    // I save it here as a memory on how to save anything on a user's account.
-    //
-    // const user = this.state.user;
-    // if (user) {
-    //   const userRef = doc(this.db, "users", user.uid);
-    //   updateDoc(userRef, {
-    //     settings: { showPlayerSettings: showPlayerSettings },
-    //   }).catch((e) => {
-    //     console.log("Couldn't update settings in Firebase.", e);
-    //   });
-    // }
-  }
+  // I save it here as a memory on how to save anything on a user's account.
+  //
+  // const user = this.state.user;
+  // if (user) {
+  //   const userRef = doc(this.db, "users", user.uid);
+  //   updateDoc(userRef, {
+  //     settings: { showPlayerSettings: showPlayerSettings },
+  //   }).catch((e) => {
+  //     console.log("Couldn't update settings in Firebase.", e);
+  //   });
+  // }
 
   handleTimeSliderChange(event) {
-    if (!this.sequencer.getPlayer()) return;
-
     const pos = event.target ? event.target.value : event;
     const seekMs = Math.floor(pos * this.state.currentSongDurationMs);
 
@@ -552,14 +542,8 @@ class App extends React.Component {
   }
 
   seekRelative(ms) {
-    if (!this.sequencer.getPlayer()) return;
-
     const durationMs = this.state.currentSongDurationMs;
-    const seekMs = clamp(
-      this.sequencer.getPlayer().getPositionMs() + ms,
-      0,
-      durationMs,
-    );
+    const seekMs = clamp(this.midiPlayer?.getPositionMs() + ms, 0, durationMs);
 
     this.seekRelativeInner(seekMs);
   }
@@ -568,14 +552,14 @@ class App extends React.Component {
     if (!firedByChiptheory && this.state.seekCallback) {
       this.state.seekCallback(seekMs);
     }
-    this.sequencer.getPlayer().seekMs(seekMs);
+    this.midiPlayer?.seekMs(seekMs);
     this.setState({
       currentSongPositionMs: seekMs, // Smooth
     });
     setTimeout(() => {
-      if (this.sequencer.getPlayer().isPlaying()) {
+      if (this.midiPlayer?.isPlaying()) {
         this.setState({
-          currentSongPositionMs: this.sequencer.getPlayer().getPositionMs(), // Accurate
+          currentSongPositionMs: this.midiPlayer?.getPositionMs(), // Accurate
         });
       }
     }, 100);
@@ -584,27 +568,21 @@ class App extends React.Component {
   seekForRawl = (seekMs) => this.seekRelativeInner(seekMs, true);
 
   handleSetVoiceMask(voiceMask) {
-    if (!this.sequencer.getPlayer()) return;
-
-    this.sequencer.getPlayer().setVoiceMask(voiceMask);
+    this.midiPlayer?.setVoiceMask(voiceMask);
     this.setState({ voiceMask: [...voiceMask] });
   }
 
   handleTempoChange(event) {
-    if (!this.sequencer.getPlayer()) return;
-
     const tempo = parseFloat(event.target ? event.target.value : event) || 1.0;
-    this.sequencer.getPlayer().setTempo(tempo);
+    this.midiPlayer?.setTempo(tempo);
     this.setState({
       tempo: tempo,
     });
   }
 
   setSpeedRelative(delta) {
-    if (!this.sequencer.getPlayer()) return;
-
     const tempo = clamp(this.state.tempo + delta, 0.1, 2);
-    this.sequencer.getPlayer().setTempo(tempo);
+    this.midiPlayer?.setTempo(tempo);
     this.setState({
       tempo: tempo,
     });
@@ -694,8 +672,8 @@ class App extends React.Component {
           new Uint8Array(reader.result),
           forceWrite,
         );
-        this.midiPlayer.updateSoundfontParamDefs();
-        this.midiPlayer.setParameter("soundfont", sf2Path, isTransient);
+        this.midiPlayer?.updateSoundfontParamDefs();
+        this.midiPlayer?.setParameter("soundfont", sf2Path, isTransient);
         // TODO: emit "paramDefsChanged" from player.
         // See https://reactjs.org/docs/integrating-with-other-libraries.html#integrating-with-model-layers
         this.forceUpdate();
@@ -707,13 +685,6 @@ class App extends React.Component {
       }
     };
     reader.readAsArrayBuffer(file);
-  };
-
-  getCurrentPositionMs = () => {
-    if (this.sequencer && this.sequencer.getPlayer()) {
-      return this.sequencer.getPlayer().getPositionMs();
-    }
-    return 0;
   };
 
   setLatencyCorrectionMs = (latencyCorrectionMs) => {
@@ -769,7 +740,7 @@ class App extends React.Component {
                   this.state.parsings[browsePath] && (
                     <Rawl
                       parsingResult={this.state.parsings[browsePath]}
-                      getCurrentPositionMs={this.getCurrentPositionMs}
+                      getCurrentPositionMs={this.midiPlayer?.getPositionMs}
                       savedAnalysis={savedAnalysis}
                       saveAnalysis={this.saveAnalysis}
                       showAnalysisBox={this.state.analysisEnabled}
@@ -839,7 +810,9 @@ class App extends React.Component {
                           this.state.parsings["drop"] && (
                             <Rawl
                               parsingResult={this.state.parsings["drop"]}
-                              getCurrentPositionMs={this.getCurrentPositionMs}
+                              getCurrentPositionMs={
+                                this.midiPlayer?.getPositionMs
+                              }
                               savedAnalysis={parsedLocalAnalysis}
                               saveAnalysis={this.saveAnalysis}
                               showAnalysisBox={this.state.analysisEnabled}
@@ -864,8 +837,6 @@ class App extends React.Component {
                     audioCtx={this.audioCtx}
                     sourceNode={this.playerNode}
                     chipCore={this.chipCore}
-                    settingsEnabled={this.state.showPlayerSettings}
-                    handleToggleSettings={this.toggleSettings}
                     analysisEnabled={this.state.analysisEnabled}
                     handleToggleAnalysis={() =>
                       this.setState((state) => ({
@@ -885,7 +856,6 @@ class App extends React.Component {
                 currentSongNumVoices={this.state.currentSongNumVoices}
                 ejected={this.state.ejected}
                 paused={this.state.paused}
-                showPlayerSettings={this.state.showPlayerSettings}
                 songUrl={this.state.songUrl}
                 tempo={this.state.tempo}
                 voiceNames={this.state.voiceNames}
@@ -899,6 +869,7 @@ class App extends React.Component {
                 togglePause={this.togglePause}
                 latencyCorrectionMs={this.state.latencyCorrectionMs}
                 setLatencyCorrectionMs={this.setLatencyCorrectionMs}
+                getCurrentPositionMs={this.midiPlayer?.getPositionMs}
               />
             )}
           </div>

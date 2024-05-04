@@ -1,25 +1,17 @@
 import React, { memo } from "react";
 import downloadImage from "../images/download.png";
-import PlayerParams from "./PlayerParams";
 import TimeSlider from "./TimeSlider";
 import VolumeSlider from "./VolumeSlider";
 
 const AppFooter = ({
   currentSongDurationMs,
-  currentSongNumVoices,
   ejected,
   paused,
-  showPlayerSettings,
   songUrl,
-  tempo,
-  voiceNames,
-  voiceMask,
   volume,
-  handleSetVoiceMask,
-  handleTempoChange,
   handleTimeSliderChange,
   handleVolumeChange,
-  sequencer,
+  getCurrentPositionMs,
   togglePause,
   latencyCorrectionMs,
   setLatencyCorrectionMs,
@@ -41,12 +33,7 @@ const AppFooter = ({
           <TimeSlider
             paused={paused}
             currentSongDurationMs={currentSongDurationMs}
-            getCurrentPositionMs={() => {
-              if (sequencer && sequencer.getPlayer()) {
-                return sequencer.getPlayer().getPositionMs();
-              }
-              return 0;
-            }}
+            getCurrentPositionMs={getCurrentPositionMs}
             onChange={handleTimeSliderChange}
           />
           <button
@@ -95,24 +82,6 @@ const AppFooter = ({
         </div>
       </div>
     </div>
-    {showPlayerSettings && false && (
-      <div className="AppFooter-settings">
-        {sequencer?.getPlayer() ? (
-          <PlayerParams
-            ejected={ejected}
-            tempo={tempo}
-            numVoices={currentSongNumVoices}
-            voiceMask={voiceMask}
-            voiceNames={voiceNames}
-            handleTempoChange={handleTempoChange}
-            handleSetVoiceMask={handleSetVoiceMask}
-            getParameter={sequencer.getPlayer().getParameter}
-            setParameter={sequencer.getPlayer().setParameter}
-            paramDefs={sequencer.getPlayer().getParamDefs()}
-          />
-        ) : null}
-      </div>
-    )}
   </div>
 );
 

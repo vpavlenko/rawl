@@ -50,10 +50,6 @@ export default class Sequencer extends EventEmitter {
     this.playSong(this.context[this.currIdx], 0);
   }
 
-  getPlayer() {
-    return this.midiPlayer;
-  }
-
   getCurrIdx() {
     return this.currIdx;
   }

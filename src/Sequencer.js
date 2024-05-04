@@ -6,7 +6,7 @@ import { CATALOG_PREFIX } from "./config";
 import promisify from "./promisify-xhr";
 
 export default class Sequencer extends EventEmitter {
-  constructor(midiPlayer, history) {
+  constructor(midiPlayer) {
     super();
     autoBindReact(this);
 
@@ -14,7 +14,6 @@ export default class Sequencer extends EventEmitter {
 
     this.currUrl = null;
     this.songRequest = null;
-    this.history = history;
 
     midiPlayer.on("playerStateUpdate", this.handlePlayerStateUpdate);
     midiPlayer.on("playerError", this.handlePlayerError);
@@ -43,8 +42,6 @@ export default class Sequencer extends EventEmitter {
   }
 
   playSong(url) {
-    this.midiPlayer.suspend();
-
     if (url.startsWith("static/f")) return;
 
     if (url.startsWith("static")) {
@@ -101,22 +98,12 @@ export default class Sequencer extends EventEmitter {
   }
 
   async playSongFile(filepath, songData) {
-    this.midiPlayer.suspend();
-
-    const ext = filepath.split(".").pop().toLowerCase();
-
-    // Find a player that can play this filetype
-
-    if (!this.midiPlayer.canPlay(ext)) {
-      this.emit("playerError", `The file format ".${ext}" was not recognized.`);
-      return;
-    }
-
     this.currUrl = null;
     return this.playSongBuffer(filepath, songData);
   }
 
   async playSongBuffer(filepath, buffer) {
+    this.midiPlayer.suspend();
     const uint8Array = buffer._byteString
       ? Uint8Array.from(buffer._byteString.binaryString, (e) => e.charCodeAt(0))
       : new Uint8Array(buffer);

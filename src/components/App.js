@@ -268,7 +268,7 @@ class App extends React.Component {
       this.midiPlayer?.handleFileSystemReady();
     });
 
-    this.sequencer = new Sequencer(this.midiPlayer, this.props.history);
+    this.sequencer = new Sequencer(this.midiPlayer);
     this.sequencer.on("sequencerStateUpdate", this.handleSequencerStateUpdate);
     this.sequencer.on("playerError", this.handlePlayerError);
 

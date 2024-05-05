@@ -1,4 +1,5 @@
 import { doc, getDoc, getFirestore } from "firebase/firestore/lite";
+import { Location } from "history";
 import { CATALOG_PREFIX } from "../config";
 import { saveMidi } from "./rawl/midiStorage";
 
@@ -27,10 +28,15 @@ export const processMidiUrls = (
   const link = params.get("link");
   if (link) {
     saveMidi(link);
-    handleSongClick(`https://corsproxy.io/?${atob(link)}`, playContext);
+    handleSongClick(`https://corsproxy.io/?${atob(link)}`);
   }
+};
 
-  const [_, urlSlug] = location.pathname.split("browse/f/");
+export const processMidiUrlsInApp = (
+  location: Location,
+  handleSongClick: (url: string) => void,
+) => {
+  const [_, urlSlug] = location.pathname.split("/f/");
   if (urlSlug) {
     const playSlug = async () => {
       const firestore = getFirestore();
@@ -44,7 +50,7 @@ export const processMidiUrls = (
         alert(`No midi is found for a slug ${urlSlug}`);
       } else {
         const { id } = filteredMidis[0];
-        handleSongClick(`f:${id}`, playContext);
+        handleSongClick(`f:${id}`);
       }
     };
     playSlug();

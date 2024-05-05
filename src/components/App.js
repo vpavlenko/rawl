@@ -36,6 +36,7 @@ import AppHeader from "./AppHeader";
 import Browse from "./Browse";
 import DropMessage from "./DropMessage";
 import Visualizer from "./Visualizer";
+import { processMidiUrlsInApp } from "./midiUrls";
 import Axes from "./rawl/Axes";
 import LandingPage from "./rawl/LandingPage";
 import Rawl from "./rawl/Rawl";
@@ -211,6 +212,8 @@ class App extends React.Component {
     };
 
     this.initChipCore(audioCtx, playerNode, bufferSize);
+
+    processMidiUrlsInApp(this.props.location, this.handleSongClick);
   }
 
   async initChipCore(audioCtx, playerNode, bufferSize) {

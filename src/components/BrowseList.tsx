@@ -103,7 +103,7 @@ function BrowseList({ items, ...props }) {
                     <a
                       onClick={(e) => {
                         if (item.slug) {
-                          window.location.href = `/browse/f/${item.slug}`;
+                          window.location.href = `/f/${item.slug}`;
                         } else {
                           const searchParams = new URLSearchParams(
                             window.location.search,

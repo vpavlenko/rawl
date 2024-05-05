@@ -337,7 +337,10 @@ export default class MIDIPlayer extends Player {
     }
 
     // Load custom Soundfont if present in the metadata response.
-    if (this.getParameter("synthengine") === MIDI_ENGINE_LIBFLUIDLITE) {
+    if (
+      this.getParameter("synthengine") === MIDI_ENGINE_LIBFLUIDLITE &&
+      !filepath.startsWith("f:")
+    ) {
       const metadataUrl = getMetadataUrlForFilepath(filepath);
       let useMelodicChannel10 = false;
       // This will most certainly be cached by a preceding fetch in App.js.

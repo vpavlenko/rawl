@@ -1,12 +1,9 @@
-import { doc, getDoc, getFirestore } from "firebase/firestore/lite";
 import trimEnd from "lodash/trimEnd";
 import * as queryString from "querystring";
 import * as React from "react";
-import { memo, useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
-import { CATALOG_PREFIX } from "../config";
+import { memo } from "react";
+import { useHistory } from "react-router-dom";
 import DirectoryLink from "./DirectoryLink";
-import { saveMidi } from "./rawl/midiStorage";
 
 function splitOnLastSlash(str) {
   var lastIndex = str.lastIndexOf("/");
@@ -20,53 +17,7 @@ function splitOnLastSlash(str) {
 
 export default memo(BrowseList);
 function BrowseList({ items, ...props }) {
-  const { handleSongClick, browsePath, playContext, analyses } = props;
-
-  const location = useLocation();
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-
-    const song = params.get("song");
-    if (song) {
-      const item = items.find((item) => item.path.endsWith(song));
-      if (item) {
-        console.log(
-          "item",
-          decodeURI(location.pathname),
-          decodeURI(location.search),
-          item.path,
-        );
-        handleSongClick(CATALOG_PREFIX + item.path, playContext, item.idx);
-      }
-    }
-
-    const link = params.get("link");
-    if (link) {
-      saveMidi(link);
-      handleSongClick(`https://corsproxy.io/?${atob(link)}`, playContext);
-    }
-
-    const [_, urlSlug] = location.pathname.split("browse/f/");
-    if (urlSlug) {
-      const playSlug = async () => {
-        const firestore = getFirestore();
-        const index = await getDoc(doc(firestore, "indexes", "midis"));
-        const filteredMidis = index
-          .data()
-          .midis.filter(({ slug }) => slug === urlSlug);
-        if (filteredMidis.length > 1) {
-          alert(`More than one midi is found for a slug ${urlSlug}`);
-        } else if (filteredMidis.length === 0) {
-          alert(`No midi is found for a slug ${urlSlug}`);
-        } else {
-          const { id } = filteredMidis[0];
-          handleSongClick(`f:${id}`, playContext);
-        }
-      };
-      playSlug();
-    }
-  }, [items.length, location]); // eslint-disable-line react-hooks/exhaustive-deps
+  const { browsePath, analyses } = props;
 
   // Scroll Into View
   // ----------------
@@ -142,7 +93,6 @@ function BrowseList({ items, ...props }) {
               </div>
             );
           } else {
-            const href = CATALOG_PREFIX + path;
             return (
               <div
                 key={index}

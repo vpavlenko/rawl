@@ -1,5 +1,8 @@
-import React, { useEffect } from "react";
+import * as React from "react";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import BrowseList from "./BrowseList";
+import { processMidiUrls } from "./midiUrls";
 
 const Browse = ({
   browsePath,
@@ -19,6 +22,13 @@ const Browse = ({
   }, [browsePath, listing, fetchDirectory]);
 
   const searchParams = new URLSearchParams(window.location.search);
+
+  const location = useLocation();
+
+  const items = listing || [];
+  useEffect(() => {
+    processMidiUrls(handleSongClick, location, items, playContext);
+  }, [items.length, location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div

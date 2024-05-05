@@ -783,9 +783,7 @@ class App extends React.Component {
                   parsingResult={this.state.parsing}
                   getCurrentPositionMs={this.midiPlayer?.getPositionMs}
                   savedAnalysis={
-                    this.state.analyses[
-                      slug ? `f/${slug}` : `c/${chiptuneUrl}`
-                    ]?.[0]
+                    this.state.analyses[slug ? `f/${slug}` : `c/${chiptuneUrl}`]
                   }
                   saveAnalysis={this.saveAnalysis}
                   showAnalysisBox={this.state.analysisEnabled}

@@ -26,7 +26,7 @@ import {
   SOUNDFONT_MOUNTPOINT,
 } from "../config";
 import firebaseConfig from "../config/firebaseConfig";
-import defaultAnalyses from "../corpus/analyses.json";
+import defaultAnalyses from "../corpus/newAnalyses.json";
 import MIDIPlayer from "../players/MIDIPlayer";
 import promisify from "../promisify-xhr";
 import { ensureEmscFileWithData, unlockAudioContext } from "../util";
@@ -805,8 +805,8 @@ class App extends React.Component {
           this.browsePath = browsePath;
           const path = this.playContexts[browsePath]?.[currIdx];
           const song = path?.substring(path.lastIndexOf("/") + 1);
-          const savedAnalysis =
-            this.state.analyses[browsePath]?.[song]?.[0] ?? parsedLocalAnalysis;
+          const savedAnalysis = this.state.analyses[browsePath]?.[song]?.[0];
+          //?? parsedLocalAnalysis
           return (
             <>
               <Browse
@@ -851,7 +851,11 @@ class App extends React.Component {
                 <Rawl
                   parsingResult={this.state.parsing}
                   getCurrentPositionMs={this.midiPlayer?.getPositionMs}
-                  savedAnalysis={null} // TODO
+                  savedAnalysis={
+                    this.state.analyses[
+                      slug ? `f/${slug}` : `c/${chiptuneUrl}`
+                    ][0]
+                  }
                   saveAnalysis={this.saveAnalysis}
                   showAnalysisBox={this.state.analysisEnabled}
                   seek={this.seekForRawl}
@@ -918,7 +922,7 @@ class App extends React.Component {
                               getCurrentPositionMs={
                                 this.midiPlayer?.getPositionMs
                               }
-                              savedAnalysis={parsedLocalAnalysis}
+                              savedAnalysis={null}
                               saveAnalysis={this.saveAnalysis}
                               showAnalysisBox={this.state.analysisEnabled}
                               seek={this.seekForRawl}

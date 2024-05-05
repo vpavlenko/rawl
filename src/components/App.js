@@ -205,7 +205,7 @@ class App extends React.Component {
       directories: {},
       hasPlayer: false,
       paramDefs: [],
-      parsings: {},
+      parsing: null,
       analysisEnabled: false,
       analyses: defaultAnalyses,
       latencyCorrectionMs,
@@ -248,9 +248,9 @@ class App extends React.Component {
       bufferSize,
       debug,
       (parsing) =>
-        self.setState((prevState) => ({
-          parsings: { ...prevState.parsings, [this.browsePath]: parsing },
-        })),
+        self.setState({
+          parsing,
+        }),
       this.togglePause,
     );
     this.midiPlayer.on("playerStateUpdate", this.handlePlayerStateUpdate);
@@ -792,9 +792,9 @@ class App extends React.Component {
       latencyCorrectionMs: this.state.latencyCorrectionMs,
     };
     const currIdx = -42;
-    const { hash } = this;
-    const localAnalysis = hash && localStorage.getItem(hash);
-    const parsedLocalAnalysis = localAnalysis && JSON.parse(localAnalysis);
+    // const { hash } = this;
+    // const localAnalysis = hash && localStorage.getItem(hash);
+    // const parsedLocalAnalysis = localAnalysis && JSON.parse(localAnalysis);
     const browseRoute = (
       <Route
         path={["/browse/:browsePath*"]}
@@ -808,35 +808,60 @@ class App extends React.Component {
           const savedAnalysis =
             this.state.analyses[browsePath]?.[song]?.[0] ?? parsedLocalAnalysis;
           return (
-            this.contentAreaRef.current && (
-              <>
-                <Browse
-                  browsePath={browsePath}
-                  listing={this.state.directories[browsePath]}
-                  playContext={this.playContexts[browsePath]}
-                  fetchDirectory={this.fetchDirectory}
-                  handleSongClick={this.handleSongClick}
-                  analyses={this.state.analyses}
+            <>
+              <Browse
+                browsePath={browsePath}
+                listing={this.state.directories[browsePath]}
+                playContext={this.playContexts[browsePath]}
+                fetchDirectory={this.fetchDirectory}
+                handleSongClick={this.handleSongClick}
+                analyses={this.state.analyses}
+              />
+              {(searchParams.get("song") ||
+                searchParams.get("link") ||
+                browsePath.startsWith("f/")) &&
+                this.state.parsings[browsePath] && (
+                  <Rawl
+                    parsingResult={this.state.parsings[browsePath]}
+                    getCurrentPositionMs={this.midiPlayer?.getPositionMs}
+                    savedAnalysis={savedAnalysis}
+                    saveAnalysis={this.saveAnalysis}
+                    showAnalysisBox={this.state.analysisEnabled}
+                    seek={this.seekForRawl}
+                    registerSeekCallback={this.registerSeekCallback}
+                    artist={browsePath}
+                    song={song}
+                    {...rawlState}
+                  />
+                )}
+            </>
+          );
+        }}
+      />
+    );
+    const rawlRoute = (
+      <Route
+        path={["/f/:slug*"]}
+        render={({ match }) => {
+          const { slug } = match.params;
+          const { parsing } = this.state;
+          return (
+            <>
+              {parsing && (
+                <Rawl
+                  parsingResult={this.state.parsing}
+                  getCurrentPositionMs={this.midiPlayer?.getPositionMs}
+                  savedAnalysis={null} // TODO
+                  saveAnalysis={this.saveAnalysis}
+                  showAnalysisBox={this.state.analysisEnabled}
+                  seek={this.seekForRawl}
+                  registerSeekCallback={this.registerSeekCallback}
+                  artist={""}
+                  song={slug}
+                  {...rawlState}
                 />
-                {(searchParams.get("song") ||
-                  searchParams.get("link") ||
-                  browsePath.startsWith("f/")) &&
-                  this.state.parsings[browsePath] && (
-                    <Rawl
-                      parsingResult={this.state.parsings[browsePath]}
-                      getCurrentPositionMs={this.midiPlayer?.getPositionMs}
-                      savedAnalysis={savedAnalysis}
-                      saveAnalysis={this.saveAnalysis}
-                      showAnalysisBox={this.state.analysisEnabled}
-                      seek={this.seekForRawl}
-                      registerSeekCallback={this.registerSeekCallback}
-                      artist={browsePath}
-                      song={song}
-                      {...rawlState}
-                    />
-                  )}
-              </>
-            )
+              )}
+            </>
           );
         }}
       />
@@ -906,6 +931,7 @@ class App extends React.Component {
                         }
                       />
                       {browseRoute}
+                      {rawlRoute}
                     </Switch>
                   </div>
                 </div>

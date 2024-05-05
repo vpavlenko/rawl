@@ -126,7 +126,8 @@
     "fixvgm": "node $NODE_DEBUG_OPTION scripts/fixvgm.js",
     "update-corpus": "node scripts/update-corpus.js",
     "backup-tonics": "node scripts/backup-tonics.js",
-    "rename-tag": "node scripts/rename-tag.js"
+    "rename-tag": "node scripts/rename-tag.js",
+    "upload-static-files-to-f": "ts-node --project tsconfig.json scripts/rawl/upload-static-files-to-f.ts"
   },
   "jest": {
     "collectCoverageFrom": [

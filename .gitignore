@@ -19,6 +19,7 @@ catalog
 public/music
 src/config/firebaseConfig.js
 src/config/firebaseConfig.json
+src/config/firebaseConfigPrivate.json
 libxmp/a.out.js
 libxmp/lite/Makefile.in
 *.backup/

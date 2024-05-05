@@ -47,28 +47,6 @@ import STATIC_MIDI_FILES from "./staticMidiFilles";
 
 export const DUMMY_CALLBACK = () => {};
 
-const mergeAnalyses = (base, diff) => {
-  const result = { ...base };
-
-  for (const game in diff) {
-    if (!result[game]) {
-      result[game] = {};
-    }
-
-    for (const file in diff[game]) {
-      if (!result[game][file]) {
-        result[game][file] = {};
-      }
-
-      for (const subtune in diff[game][file]) {
-        result[game][file][subtune] = diff[game][file][subtune];
-      }
-    }
-  }
-
-  return result;
-};
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -93,10 +71,7 @@ class App extends React.Component {
       if (userSnapshot.exists() && userSnapshot.data().analyses) {
         // if (this.state.analyses == defaultAnalyses) {
         this.setState({
-          analyses: mergeAnalyses(
-            defaultAnalyses,
-            userSnapshot.data().analyses,
-          ),
+          analyses: { ...defaultAnalyses, ...userSnapshot.data().analyses },
         });
         // }
         // else: analyses of some other user have already been loaded, leave them intact
@@ -327,26 +302,23 @@ class App extends React.Component {
   async saveAnalysis(analysis) {
     const user = this.state.user;
     if (user) {
-      console.log("SAVE ANALYSIS IS BROKEN");
+      const userRef = doc(this.db, "users", user.uid);
+      const userDoc = await getDoc(userRef);
 
-      // const userRef = doc(this.db, "users", user.uid);
-      // const userDoc = await getDoc(userRef);
+      let userData = userDoc.exists ? userDoc.data() : {};
+      userData.analyses = {
+        ...(userData.analyses ?? {}),
+        [this.path]: analysis,
+      };
 
-      // let userData = userDoc.exists ? userDoc.data() : {};
+      await setDoc(userRef, userData).catch((e) => {
+        console.log("Couldn't save analysis.", e);
+        alert("Could not save analysis");
+      });
 
-      // const diff = {
-      //   [beforeSlash]: { [song]: { 0: analysis } },
-      // };
-      // userData.analyses = mergeAnalyses(userData.analyses ?? {}, diff);
-
-      // await setDoc(userRef, userData).catch((e) => {
-      //   console.log("Couldn't save analysis.", e);
-      //   alert("Could not save analysis");
-      // });
-
-      // this.setState((prevState) => ({
-      //   analyses: mergeAnalyses(prevState.analyses, diff),
-      // }));
+      this.setState({
+        analyses: userData.analyses,
+      });
     } else {
       if (this.hash) {
         localStorage.setItem(this.hash, JSON.stringify(analysis));
@@ -776,21 +748,20 @@ class App extends React.Component {
         render={({ match }) => {
           const { slug, chiptuneUrl } = match.params;
           const { parsing } = this.state;
+          this.path = match.url;
           return (
             <>
               {parsing && (
                 <Rawl
-                  parsingResult={this.state.parsing}
+                  parsingResult={parsing}
                   getCurrentPositionMs={this.midiPlayer?.getPositionMs}
-                  savedAnalysis={
-                    this.state.analyses[slug ? `f/${slug}` : `c/${chiptuneUrl}`]
-                  }
+                  savedAnalysis={this.state.analyses[this.path]}
                   saveAnalysis={this.saveAnalysis}
                   showAnalysisBox={this.state.analysisEnabled}
                   seek={this.seekForRawl}
                   registerSeekCallback={this.registerSeekCallback}
                   artist={""}
-                  song={slug}
+                  song={slug ?? chiptuneUrl}
                   {...rawlState}
                 />
               )}

@@ -26,7 +26,13 @@ export const saveMidi = async (link: string) => {
 
     const link = atob(params.get("link") || "");
     const url = atob(params.get("pageUrl") || "");
-    const title = atob(params.get("title") || "");
+    const title = decodeURIComponent(
+      atob(decodeURIComponent(params.get("title") || ""))
+        .split("")
+        .map((char) => "%" + ("00" + char.charCodeAt(0).toString(16)).slice(-2))
+        .join(""),
+    );
+
     const slug = formatForURL(title);
 
     const response = await fetch(`https://corsproxy.io/?${link}`, {

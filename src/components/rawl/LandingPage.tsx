@@ -415,10 +415,42 @@ const LandingPage = () => (
           pathname="https://musescore.com/user/39031562/scores/15671017"
         />
       </Section>
-      <Section title="Hepokoski (2020)">
+      <Section title="James Hepokoski. A&nbsp;Sonata Theory Handbook (2020)">
         <Example
           name={"Mozart, Piano Sonata in B-flat, K. 333/i (Allegro)"}
           pathname={"f/sonata_no_13_1st_movement_k_333"}
+        />
+        <Example
+          name={
+            "Mozart, Symphony No. 34 in C, K. 338/ii (Andante di molto più tosto Allegretto)"
+          }
+          pathname={
+            "c/Classical%20MIDI/Mozart/Symphonies/Symphony%20No.%2034,%20K338%20–%20II.%20Andante%20di%20molto.mid"
+          }
+        />
+        <Example
+          name={`Haydn, Symphony No. 100 in G, "Military," first movement (Adagio-Allegro)`}
+          pathname={"f/haydn_100_1"}
+        />
+        <Example
+          name={`Haydn, String Quartet in G, op. 76 no. 1/i (Allegrocon spirito)`}
+          pathname={
+            "f/string_quartet_in_g_major_hob_iii_75_op_76_no_1_joseph_haydn"
+          }
+        />
+        <Example
+          name={`Beethoven, Symphony No. 2 in D, op. 36/i (Adagio molto - Allegro con brio)`}
+          pathname={
+            "c/Classical%20MIDI/Beethoven/Symphony%20No.%202%20(Lucarelli)%20-%201.mid"
+          }
+        />
+        <Example
+          name={`Beethoven, String Quartet in E Minor,op. 59no. 2/i (Allegro)`}
+          pathname={"f/string_quartet_no_8_in_e_minor_opus_59_rasumovsky_no_2"}
+        />
+        <Example
+          name={`Schubert, String Quartet No. 14 in D Minor, D. 810/i (Allegro)`}
+          pathname={"f/schubert_death_and_maiden_string_quartet"}
         />
       </Section>
 

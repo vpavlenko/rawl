@@ -16,9 +16,7 @@ function splitOnLastSlash(str) {
 }
 
 export default memo(BrowseList);
-function BrowseList({ items, ...props }) {
-  const { browsePath, analyses } = props;
-
+function BrowseList({ items, browsePath, analyses }) {
   // Scroll Into View
   // ----------------
   // Note this does not work for virtual list, since the playing item might not be in the DOM.

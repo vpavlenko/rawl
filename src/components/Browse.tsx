@@ -2,14 +2,7 @@ import * as React from "react";
 import { useEffect } from "react";
 import BrowseList from "./BrowseList";
 
-const Browse = ({
-  browsePath,
-  listing,
-  fetchDirectory,
-  playContext,
-  handleSongClick,
-  analyses,
-}) => {
+const Browse = ({ browsePath, listing, fetchDirectory, analyses }) => {
   useEffect(() => {
     const fetchData = () => {
       if (!listing) {
@@ -29,9 +22,7 @@ const Browse = ({
     >
       <BrowseList
         browsePath={browsePath}
-        playContext={playContext}
         items={listing || []}
-        handleSongClick={handleSongClick}
         analyses={analyses}
       />
     </div>

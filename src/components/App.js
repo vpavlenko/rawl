@@ -76,7 +76,6 @@ class App extends React.Component {
 
     this.attachMediaKeyHandlers();
     this.contentAreaRef = React.createRef();
-    this.playContexts = {};
     this.errorTimer = null;
     this.midiPlayer = null; // Need a reference to MIDIPlayer to handle SoundFont loading.
     window.ChipPlayer = this;
@@ -275,30 +274,6 @@ class App extends React.Component {
       this.midiPlayer?.handleFileSystemReady();
     });
 
-    // TODO: Move to separate processUrlParams method.
-    const urlParams = queryString.parse(window.location.search.substring(1));
-    if (urlParams.play) {
-      const play = urlParams.play;
-      const dirname = path.dirname(urlParams.play);
-      // Treat play param as a "transient command" and strip it away after starting playback.
-      // See comment in Browse.js for more about why a sticky play param is not a good idea.
-      delete urlParams.play;
-      const qs = queryString.stringify(urlParams);
-      const search = qs ? `?${qs}` : "";
-      // Navigate to song's containing folder. History comes from withRouter().
-      this.fetchDirectory(dirname).then(() => {
-        this.props.history.replace(`/browse/${dirname}${search}`);
-        const index = this.playContexts[dirname].indexOf(play);
-        this.playSong(this.playContexts[dirname][index]);
-
-        if (urlParams.t) {
-          setTimeout(() => {
-            this.midiPlayer?.seekMs(parseInt(urlParams.t, 10));
-          }, 100);
-        }
-      });
-    }
-
     this.setState({ loading: false });
   }
 
@@ -352,37 +327,26 @@ class App extends React.Component {
   async saveAnalysis(analysis) {
     const user = this.state.user;
     if (user) {
-      const currIdx = -42;
       console.log("SAVE ANALYSIS IS BROKEN");
-      if (currIdx === undefined) return;
 
-      const path =
-        this.playContexts[this.browsePath] &&
-        this.playContexts[this.browsePath][currIdx];
-      if (!path) return;
+      // const userRef = doc(this.db, "users", user.uid);
+      // const userDoc = await getDoc(userRef);
 
-      const lastSlashIndex = path.lastIndexOf("/");
-      const beforeSlash = path.substring(0, lastSlashIndex);
-      const song = path.substring(lastSlashIndex + 1);
+      // let userData = userDoc.exists ? userDoc.data() : {};
 
-      const userRef = doc(this.db, "users", user.uid);
-      const userDoc = await getDoc(userRef);
+      // const diff = {
+      //   [beforeSlash]: { [song]: { 0: analysis } },
+      // };
+      // userData.analyses = mergeAnalyses(userData.analyses ?? {}, diff);
 
-      let userData = userDoc.exists ? userDoc.data() : {};
+      // await setDoc(userRef, userData).catch((e) => {
+      //   console.log("Couldn't save analysis.", e);
+      //   alert("Could not save analysis");
+      // });
 
-      const diff = {
-        [beforeSlash]: { [song]: { 0: analysis } },
-      };
-      userData.analyses = mergeAnalyses(userData.analyses ?? {}, diff);
-
-      await setDoc(userRef, userData).catch((e) => {
-        console.log("Couldn't save analysis.", e);
-        alert("Could not save analysis");
-      });
-
-      this.setState((prevState) => ({
-        analyses: mergeAnalyses(prevState.analyses, diff),
-      }));
+      // this.setState((prevState) => ({
+      //   analyses: mergeAnalyses(prevState.analyses, diff),
+      // }));
     } else {
       if (this.hash) {
         localStorage.setItem(this.hash, JSON.stringify(analysis));
@@ -606,11 +570,6 @@ class App extends React.Component {
   }
 
   processFetchedDirectory(path, items) {
-    this.playContexts[path] = items
-      .filter((item) => item.type === "file")
-      .map((item) =>
-        item.path.replace("%", "%25").replace("#", "%23").replace(/^\//, ""),
-      );
     const directories = {
       ...this.state.directories,
       [path]: items,
@@ -804,9 +763,7 @@ class App extends React.Component {
             <Browse
               browsePath={browsePath}
               listing={this.state.directories[browsePath]}
-              playContext={this.playContexts[browsePath]}
               fetchDirectory={this.fetchDirectory}
-              handleSongClick={this.handleSongClick}
               analyses={this.state.analyses}
             />
           );

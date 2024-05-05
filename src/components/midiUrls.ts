@@ -3,39 +3,18 @@ import { Location } from "history";
 import { CATALOG_PREFIX } from "../config";
 import { saveMidi } from "./rawl/midiStorage";
 
-export const processMidiUrls = (
-  handleSongClick,
-  location,
-  items,
-  playContext,
+export const processMidiUrlsInApp = (
+  location: Location,
+  handleSongClick: (url: string) => void,
 ) => {
   const params = new URLSearchParams(location.search);
-
-  const song = params.get("song");
-  if (song) {
-    const item = items.find((item) => item.path.endsWith(song));
-    if (item) {
-      console.log(
-        "item",
-        decodeURI(location.pathname),
-        decodeURI(location.search),
-        item.path,
-      );
-      handleSongClick(CATALOG_PREFIX + item.path, playContext, item.idx);
-    }
-  }
 
   const link = params.get("link");
   if (link) {
     saveMidi(link);
     handleSongClick(`https://corsproxy.io/?${atob(link)}`);
   }
-};
 
-export const processMidiUrlsInApp = (
-  location: Location,
-  handleSongClick: (url: string) => void,
-) => {
   const [_, urlSlug] = location.pathname.split("/f/");
   if (urlSlug) {
     const playSlug = async () => {

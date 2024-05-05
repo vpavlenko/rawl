@@ -105,14 +105,10 @@ function BrowseList({ items, ...props }) {
                         if (item.slug) {
                           window.location.href = `/f/${item.slug}`;
                         } else {
-                          const searchParams = new URLSearchParams(
-                            window.location.search,
-                          );
-                          searchParams.set("song", name);
+                          const [, path] =
+                            window.location.href.split("/browse/");
 
-                          history.push({
-                            search: searchParams.toString(),
-                          });
+                          window.location.href = `/c/${path}/${name}`;
                         }
                       }}
                       style={{ color: fileAnalysis ? "#ff0" : "#aaa" }}

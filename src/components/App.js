@@ -791,50 +791,24 @@ class App extends React.Component {
       setVoiceMask: this.handleSetVoiceMask,
       latencyCorrectionMs: this.state.latencyCorrectionMs,
     };
-    const currIdx = -42;
     // const { hash } = this;
     // const localAnalysis = hash && localStorage.getItem(hash);
     // const parsedLocalAnalysis = localAnalysis && JSON.parse(localAnalysis);
     const browseRoute = (
       <Route
         path={["/browse/:browsePath*"]}
-        render={({ history, match, location }) => {
-          // Undo the react-router-dom double-encoded % workaround - see DirectoryLink.js
+        render={({ match }) => {
           const browsePath = match.params?.browsePath?.replace("%25", "%");
-          const searchParams = new URLSearchParams(window.location.search);
           this.browsePath = browsePath;
-          const path = this.playContexts[browsePath]?.[currIdx];
-          const song = path?.substring(path.lastIndexOf("/") + 1);
-          const savedAnalysis = this.state.analyses[browsePath]?.[song]?.[0];
-          //?? parsedLocalAnalysis
           return (
-            <>
-              <Browse
-                browsePath={browsePath}
-                listing={this.state.directories[browsePath]}
-                playContext={this.playContexts[browsePath]}
-                fetchDirectory={this.fetchDirectory}
-                handleSongClick={this.handleSongClick}
-                analyses={this.state.analyses}
-              />
-              {(searchParams.get("song") ||
-                searchParams.get("link") ||
-                browsePath.startsWith("f/")) &&
-                this.state.parsings[browsePath] && (
-                  <Rawl
-                    parsingResult={this.state.parsings[browsePath]}
-                    getCurrentPositionMs={this.midiPlayer?.getPositionMs}
-                    savedAnalysis={savedAnalysis}
-                    saveAnalysis={this.saveAnalysis}
-                    showAnalysisBox={this.state.analysisEnabled}
-                    seek={this.seekForRawl}
-                    registerSeekCallback={this.registerSeekCallback}
-                    artist={browsePath}
-                    song={song}
-                    {...rawlState}
-                  />
-                )}
-            </>
+            <Browse
+              browsePath={browsePath}
+              listing={this.state.directories[browsePath]}
+              playContext={this.playContexts[browsePath]}
+              fetchDirectory={this.fetchDirectory}
+              handleSongClick={this.handleSongClick}
+              analyses={this.state.analyses}
+            />
           );
         }}
       />
@@ -854,7 +828,7 @@ class App extends React.Component {
                   savedAnalysis={
                     this.state.analyses[
                       slug ? `f/${slug}` : `c/${chiptuneUrl}`
-                    ][0]
+                    ]?.[0]
                   }
                   saveAnalysis={this.saveAnalysis}
                   showAnalysisBox={this.state.analysisEnabled}

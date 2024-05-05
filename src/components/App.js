@@ -26,7 +26,7 @@ import {
   SOUNDFONT_MOUNTPOINT,
 } from "../config";
 import firebaseConfig from "../config/firebaseConfig";
-import defaultAnalyses from "../corpus/newAnalyses.json";
+import defaultAnalyses from "../corpus/analyses.json";
 import MIDIPlayer from "../players/MIDIPlayer";
 import promisify from "../promisify-xhr";
 import { ensureEmscFileWithData, unlockAudioContext } from "../util";

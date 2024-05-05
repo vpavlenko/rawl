@@ -841,9 +841,9 @@ class App extends React.Component {
     );
     const rawlRoute = (
       <Route
-        path={["/f/:slug*"]}
+        path={["/f/:slug*", "/c/:chiptuneUrl*"]}
         render={({ match }) => {
-          const { slug } = match.params;
+          const { slug, chiptuneUrl } = match.params;
           const { parsing } = this.state;
           return (
             <>

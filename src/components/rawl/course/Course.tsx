@@ -67,7 +67,7 @@ export const LinkForSeparateTab: React.FC<{ href: string; text: string }> = ({
   href,
   text,
 }) => (
-  <a href={href} target="_blank">
+  <a href={href} target="_blank" rel="noreferrer">
     {text}&nbsp;&nbsp;
     <FontAwesomeIcon
       icon={faArrowUpRightFromSquare}
@@ -77,30 +77,12 @@ export const LinkForSeparateTab: React.FC<{ href: string; text: string }> = ({
 );
 export const SongLink = ({ artist, song }) => (
   <LinkForSeparateTab
-    href={`/browse/${artist}?song=${song}`}
+    href={`/c/${artist}/${song}`}
     text={`${artist.slice(5)} - ${song.slice(0, -4)}`}
   />
 );
 
-export const S = ({ artist, song, exercise = null }) => {
-  return (
-    <>
-      {exercise ? (
-        <>
-          <a
-            href={`/browse/${artist}?song=${song}&exercise=${exercise}`}
-            style={{ color: "orange" }}
-            target="_blank"
-          >
-            {artist.slice(5)} - {song.slice(0, -4)}: find the {exercise}
-          </a>
-        </>
-      ) : (
-        <SongLink artist={artist} song={song} />
-      )}
-    </>
-  );
-};
+export const S = ({ artist, song }) => <SongLink artist={artist} song={song} />;
 
 const Course = ({
   chapter,

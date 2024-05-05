@@ -45,65 +45,65 @@ const extractFilename = (path: string): string | null => {
 };
 
 async function updateStaticFilesToF() {
-  STATIC_MIDI_FILES.slice(0, 1).forEach(async ({ path: sitePath, link }) => {
+  STATIC_MIDI_FILES.slice(1).forEach(async ({ path: sitePath, link }) => {
+    if (sitePath.includes("SENTINEL")) return;
     const [_, subpath] = sitePath.split("/static/");
     const resolvedPath = path.resolve(__dirname, "../../public/midi/", subpath);
 
     console.log({ sitePath, link, subpath, __dirname, resolvedPath });
 
-    if (!fs.existsSync(resolvedPath)) {
-      console.log("File does not exist.");
-      return;
-    }
-
-    // Get file stats for size
-    const stats = fs.statSync(resolvedPath);
-    console.log(`File size: ${stats.size} bytes`);
-
-    // Read the first 15 bytes of the file
-    const buffer = Buffer.alloc(15);
-    const fd = fs.openSync(resolvedPath, "r");
-    fs.readSync(fd, buffer, 0, 15, 0);
-    fs.closeSync(fd);
-
-    // Convert to base64
-    const base64Data = buffer.toString("base64");
-    console.log(`First 15 bytes in Base64: ${base64Data}`);
-
-    const slug = extractFilename(subpath);
-    const midisEntry = {
-      url: link ?? null,
-      slug,
-      title: slug,
-      blob: await createFirestoreBuffer(resolvedPath),
-    };
-
-    console.log({ midisEntry });
-
-    const midisCollection = firestore.collection("midis");
-
-    // Add a document to the 'midis' collection
-    try {
-      const docRef = await midisCollection.add(midisEntry);
-      console.log("MIDI file written with ID: ", docRef.id);
-
-      const indexRef = firestore.doc("indexes/midis");
-
-      try {
-        const arrayUnion = admin.firestore.FieldValue.arrayUnion;
-        await indexRef.update({
-          midis: arrayUnion({ title: slug, slug, id: docRef.id }),
-        });
-        console.log("Index updated successfully.");
-      } catch (error) {
-        console.error("Error updating index: ", error);
+    if (true) {
+      if (!fs.existsSync(resolvedPath)) {
+        console.log("File does not exist.");
+        return;
       }
-    } catch (error) {
-      console.error("Error adding MIDI file: ", error);
+
+      // Get file stats for size
+      const stats = fs.statSync(resolvedPath);
+      console.log(`File size: ${stats.size} bytes`);
+
+      // Read the first 15 bytes of the file
+      const buffer = Buffer.alloc(15);
+      const fd = fs.openSync(resolvedPath, "r");
+      fs.readSync(fd, buffer, 0, 15, 0);
+      fs.closeSync(fd);
+
+      // Convert to base64
+      const base64Data = buffer.toString("base64");
+      console.log(`First 15 bytes in Base64: ${base64Data}`);
+
+      const slug = extractFilename(subpath);
+      const midisEntry = {
+        url: link ?? null,
+        slug,
+        title: slug,
+        blob: await createFirestoreBuffer(resolvedPath),
+      };
+
+      console.log({ midisEntry });
+
+      const midisCollection = firestore.collection("midis");
+
+      // Add a document to the 'midis' collection
+      try {
+        const docRef = await midisCollection.add(midisEntry);
+        console.log("MIDI file written with ID: ", docRef.id);
+
+        const indexRef = firestore.doc("indexes/midis");
+
+        try {
+          const arrayUnion = admin.firestore.FieldValue.arrayUnion;
+          await indexRef.update({
+            midis: arrayUnion({ title: slug, slug, id: docRef.id }),
+          });
+          console.log("Index updated successfully.");
+        } catch (error) {
+          console.error("Error updating index: ", error);
+        }
+      } catch (error) {
+        console.error("Error adding MIDI file: ", error);
+      }
     }
-    console.log();
-    console.log();
-    console.log();
   });
 }
 

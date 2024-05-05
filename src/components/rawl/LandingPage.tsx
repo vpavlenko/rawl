@@ -250,272 +250,155 @@ const LandingPage = () => (
         <ChordStairs mode={MODES[0]} />
       </ChordStairsContainer>
       <Section title="major" scale={[0, 2, 4, 5, 7, 9, 11]}>
-        <Example
-          name={"Feliz Navidad"}
-          pathname={"/browse/static/musescore_manual?song=Feliz_Navidad.mid"}
-        />
+        <Example name={"Feliz Navidad"} pathname={"f/Feliz_Navidad"} />
         <Example
           name={"John Lennon – Imagine"}
-          pathname={
-            "/browse/static/musescore_manual?song=John_Lennon_Imagine.mid"
-          }
+          pathname={"f/John_Lennon_Imagine"}
         />
         <Example
           name={"Ed Sheeran – Perfect"}
-          pathname={
-            "/browse/static/musescore_manual?song=Ed_Sheeran_Perfect.mid"
-          }
+          pathname={"f/Ed_Sheeran_Perfect"}
         />
-        <Example
-          name={"Jingle Bell Rock"}
-          pathname={"/browse/static/musescore_manual?song=Jingle_Bell_Rock.mid"}
-        />
+        <Example name={"Jingle Bell Rock"} pathname={"f/Jingle_Bell_Rock"} />
         <Example
           name={"Joe Hisaishi – Summer"}
-          pathname={
-            "/browse/static/musescore_manual?song=Summer_Joe_Hisaishi.mid"
-          }
+          pathname={"f/Summer_Joe_Hisaishi"}
         />
         <Example
           name={"Super Mario Bros"}
-          pathname={
-            "/browse/static/musescore_manual?song=Super_Mario_Bros_Main_Theme.mid"
-          }
+          pathname={"f/Super_Mario_Bros_Main_Theme"}
         />
-        <Example
-          name={"Disney – Up"}
-          pathname={
-            "/browse/static/musescore_manual?song=Disney_Pixar_Up_Theme.mid"
-          }
-        />
+        <Example name={"Disney – Up"} pathname={"f/Disney_Pixar_Up_Theme"} />
         <Example
           name={"Yiruma – Kiss the Rain"}
           pathname={
-            "/browse/static/musescore_manual?song=Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019.mid"
+            "f/Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019"
           }
         />
         <Example
           name={"Julius Fučík – Entrance of the Gladiators"}
-          pathname={
-            "/browse/static/musescore_manual?song=Entry_of_the_Gladiators_-_Julius_Fuk_-_1897.mid"
-          }
+          pathname={"f/Entry_of_the_Gladiators_-_Julius_Fuk_-_1897"}
         />
       </Section>
       <Section title="natural minor" scale={[0, 2, 3, 5, 7, 8, 10]}>
         <Example
           name={"Game of Thrones"}
-          pathname={
-            "/browse/static/musescore_manual?song=Game_of_Thrones_Easy_piano.mid"
-          }
+          pathname={"f/Game_of_Thrones_Easy_piano"}
         />
-        <Example
-          name={"Hallelujah"}
-          pathname={"/browse/static/musescore_manual?song=Hallelujah.mid"}
-        />
-        <Example
-          name={"Jolene"}
-          pathname={"/browse/static/musescore_manual?song=Jolene.mid"}
-        />
+        <Example name={"Hallelujah"} pathname={"f/Hallelujah"} />
+        <Example name={"Jolene"} pathname={"f/Jolene"} />
         <Example
           name={"John Legend – All of Me"}
-          pathname={
-            "/browse/static/musescore_manual?song=All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK.mid"
-          }
+          pathname={"f/All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK"}
         />
-        <Example
-          name={"Minecraft – Sweden"}
-          pathname={"/browse/static/musescore_manual?song=Sweden_Minecraft.mid"}
-        />
+        <Example name={"Minecraft – Sweden"} pathname={"f/Sweden_Minecraft"} />
         <Example
           name={"Yann Tiersen – Amélie"}
-          pathname={
-            "/browse/static/musescore_manual?song=Yann_Tiersen_Amelie.mid"
-          }
+          pathname={"f/Yann_Tiersen_Amelie"}
         />
-        <Example
-          name={"Despacito"}
-          pathname={"/browse/static/musescore_manual?song=Despacito.mid"}
-        />
+        <Example name={"Despacito"} pathname={"f/Despacito"} />
       </Section>
       <Section title="harmonic minor" scale={[0, 2, 3, 5, 7, 8, 11]}>
         <Example
           name={"Imagine Dragons – Believer"}
-          pathname={
-            "/browse/static/musescore_manual?song=Believer_-_Imagine_Dragons.mid"
-          }
+          pathname={"f/Believer_-_Imagine_Dragons"}
         />
-        <Example
-          name={"Bella Ciao"}
-          pathname={"/browse/static/musescore_manual?song=Bella_Ciao.mid"}
-        />
+        <Example name={"Bella Ciao"} pathname={"f/Bella_Ciao"} />
         <Example
           name={"Requiem for a Dream"}
-          pathname={
-            "/browse/static/musescore_manual?song=Requiem_for_a_Dream.mid"
-          }
+          pathname={"f/Requiem_for_a_Dream"}
         />
       </Section>
       <Section title="mixed minor" scale={[0, 2, 3, 5, 7, 8, 10, 11]}>
-        <Example
-          name={"Tetris"}
-          pathname={"/browse/static/musescore_manual?song=Tetris_Theme.mid"}
-        />
+        <Example name={"Tetris"} pathname={"f/Tetris_Theme"} />
         <Example
           name={"Tetris (arr. Kyle Landry)"}
           pathname={
-            "/browse/static/musescore_manual?song=Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki.mid"
+            "f/Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki"
           }
         />
         <Example
           name={"Pirates of the Caribbean"}
-          pathname={
-            "/browse/static/musescore_manual?song=Pirates_of_the_Caribbean_-_Hes_a_Pirate.mid"
-          }
+          pathname={"f/Pirates_of_the_Caribbean_-_Hes_a_Pirate"}
         />
         <Example
           name={"Carol of the Bells"}
-          pathname={
-            "/browse/static/musescore_manual?song=Carol_of_the_Bells.mid"
-          }
+          pathname={"f/Carol_of_the_Bells"}
         />
-        <Example
-          name={"Godfather"}
-          pathname={"/browse/static/musescore_manual?song=Godfather.mid"}
-        />
-        <Example
-          name={"Pokémon"}
-          pathname={
-            "/browse/static/musescore_manual?song=Pokemon_Theme_Song.mid"
-          }
-        />
-        <Example
-          name={"Gravity Falls"}
-          pathname={
-            "/browse/static/musescore_manual?song=Gravity_Falls_Opening.mid"
-          }
-        />
+        <Example name={"Godfather"} pathname={"f/Godfather"} />
+        <Example name={"Pokémon"} pathname={"f/Pokemon_Theme_Song"} />
+        <Example name={"Gravity Falls"} pathname={"f/Gravity_Falls_Opening"} />
       </Section>
       <Section title="blues scale" scale={[0, 3, 5, 6, 7, 10]}>
-        <Example
-          name={"Pink Panther"}
-          pathname={"/browse/static/musescore_manual?song=Pink_Panther.mid"}
-        />
+        <Example name={"Pink Panther"} pathname={"f/Pink_Panther"} />
         <Example
           name={"Megalovania"}
-          pathname={
-            "/browse/static/musescore_manual?song=Undertale_-_Megalovania_Piano_ver._3.mid"
-          }
+          pathname={"f/Undertale_-_Megalovania_Piano_ver._3"}
         />
-        <Example
-          name={"Hit the Road Jack"}
-          pathname={
-            "/browse/static/musescore_manual?song=Hit_the_Road_Jack.mid"
-          }
-        />
+        <Example name={"Hit the Road Jack"} pathname={"f/Hit_the_Road_Jack"} />
       </Section>
       <Section title="relative keys">
         <Example
           name={"Fly Me to the Moon"}
-          pathname={
-            "/browse/static/musescore_manual?song=Fly_Me_to_the_Moon.mid"
-          }
+          pathname={"f/Fly_Me_to_the_Moon"}
         />
-        <Example
-          name={"Titanic"}
-          pathname={"/browse/static/musescore_manual?song=Titanic.mid"}
-        />
+        <Example name={"Titanic"} pathname={"f/Titanic"} />
       </Section>
       <Section title="parallel keys">
         <Example
           name={"George Bizet – Habanera (from Carmen)"}
-          pathname={
-            "/browse/static/musescore_manual?song=Habanera_-_Piano_Solo_-_Georges_Bizet.mid"
-          }
+          pathname={"f/Habanera_-_Piano_Solo_-_Georges_Bizet"}
         />
-        <Example
-          name={"Gymnopedie"}
-          pathname={
-            "/browse/static/musescore_manual?song=Gymnopdie_No._1__Satie.mid"
-          }
-        />
+        <Example name={"Gymnopedie"} pathname={"f/Gymnopdie_No._1__Satie"} />
         <Example
           name={"Mozart – Piano Sonata No. 11, mov. 1 (variations)"}
-          pathname={
-            "/browse/static/musescore_manual?song=mozart_sonata_11_1st.mid"
-          }
+          pathname={"f/mozart_sonata_11_1st"}
         />
       </Section>
       <Section title="modulations">
         <Example
           name={"Attack on Titan"}
-          pathname={
-            "/browse/static/musescore_manual?song=Attack_on_Titan_Shinzou_wo_Sasageyo.mid"
-          }
+          pathname={"f/Attack_on_Titan_Shinzou_wo_Sasageyo"}
         />
         <Example
           name={"Disney – Frozen"}
-          pathname={
-            "/browse/static/musescore_manual?song=Let_It_Go_Disney_Frozen.mid"
-          }
+          pathname={"f/Let_It_Go_Disney_Frozen"}
         />
         <Example
           name={"Chopin – Military Polonaise"}
-          pathname={
-            "/browse/static/musescore_manual?song=chopin_military_polonaise.mid"
-          }
+          pathname={"f/chopin_military_polonaise"}
         />
 
         <Example
           name={"Beethoven – Sonata No. 5, mov. 1"}
-          pathname={
-            "/browse/static/musescore_manual?song=beethoven_sonate_5_1st.mid"
-          }
+          pathname={"f/beethoven_sonate_5_1st"}
         />
         <Example
           name={"George Bizet – Prelude to Act 1 of Carmen"}
-          pathname={
-            "/browse/static/musescore_manual?song=Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet.mid"
-          }
+          pathname={"f/Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet"}
         />
       </Section>
       <Section title="ragtimes by Scott Joplin">
         <Example
           name={"The Entertainer"}
-          pathname={
-            "/browse/static/musescore_manual?song=the_entertainer_scott_joplin.mid"
-          }
+          pathname={"f/the_entertainer_scott_joplin"}
         />
         <Example
           name={"Maple Leaf Rag"}
-          pathname={
-            "/browse/static/musescore_manual?song=Maple_Leaf_Rag_Scott_Joplin.mid"
-          }
+          pathname={"f/Maple_Leaf_Rag_Scott_Joplin"}
         />
         <Example
           name={"Pine Apple Rag"}
-          pathname={
-            "/browse/static/musescore_manual?song=Pine_Apple_Rag_-_Scott_Joplin_-_1908.mscz.mid"
-          }
+          pathname={"f/Pine_Apple_Rag_-_Scott_Joplin_-_1908.mscz"}
         />
       </Section>
       <Section title="jazz">
-        <Example
-          name={"Misty"}
-          pathname={"/browse/static/musescore_manual?song=Misty_piano_solo.mid"}
-        />
-        <Example
-          name={"White Christmas"}
-          pathname={"/browse/static/musescore_manual?song=white_christmas.mid"}
-        />
-        <Example
-          name={"Tamás Deák – Vízisí"}
-          pathname={"/browse/static/musescore_manual?song=vizisi.mid"}
-        />
+        <Example name={"Misty"} pathname={"f/Misty_piano_solo"} />
+        <Example name={"White Christmas"} pathname={"f/white_christmas"} />
+        <Example name={"Tamás Deák – Vízisí"} pathname={"f/vizisi"} />
         <Example
           name={"George Gershwin – Rhapsody in Blue"}
-          pathname={
-            "/browse/static/musescore_manual?song=Gershwin_Rhapsody_in_Blue_Piano_solo.mid"
-          }
+          pathname={"f/Gershwin_Rhapsody_in_Blue_Piano_solo"}
         />
       </Section>
       <Section title="sheet music">
@@ -535,44 +418,44 @@ const LandingPage = () => (
 
       {/* <Example
           name={"Für Elise"}
-          pathname={"/browse/static/musescore_manual?song=Fr_Elise.mid"}
+          pathname={"f/Fr_Elise"}
         /> */}
 
       {/* <Example
           name={"Interstellar"}
-          pathname={"/browse/static/musescore_manual?song=Interstellar.mid"}
+          pathname={"f/Interstellar"}
         />
         <Example
           name={"Moonlight Sonata"}
           pathname={
-            "/browse/static/musescore_manual?song=Sonate_No._14_Moonlight_1st_Movement.mid"
+            "f/Sonate_No._14_Moonlight_1st_Movement"
           }
         /> */}
 
       {/* <Example
           name={"Minecraft – Wet Hands"}
           pathname={
-            "/browse/static/musescore_manual?song=Wet_Hands_Minecraft.mid"
+            "f/Wet_Hands_Minecraft"
           }
         /> */}
 
       {/* <Example
           name={"Ed Sheeran – Shape of You"}
           pathname={
-            "/browse/static/musescore_manual?song=Ed_Sheeran_Shape_of_you.mid"
+            "f/Ed_Sheeran_Shape_of_you"
           }
         /> */}
       {/* <Example
           name={"Ed Sheeran – Photograph"}
           pathname={
-            "/browse/static/musescore_manual?song=Photograph_Ed_Sheeran.mid"
+            "f/Photograph_Ed_Sheeran"
           }
         /> */}
 
       {/* <Example
           name={"Billie Eilish – Bad Guy"}
           pathname={
-            "/browse/static/musescore_manual?song=Billie_Eilish_Bad_Guy.mid"
+            "f/Billie_Eilish_Bad_Guy"
           }
         /> */}
       <div style={{ marginTop: 100 }}>

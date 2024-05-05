@@ -765,7 +765,6 @@ class App extends React.Component {
   }
 
   async playSongBuffer(filepath, buffer) {
-    debugger;
     this.midiPlayer.suspend();
     const uint8Array = buffer._byteString
       ? Uint8Array.from(buffer._byteString.binaryString, (e) => e.charCodeAt(0))

@@ -55,7 +55,7 @@ export const saveMidi = async (link: string) => {
     await updateDoc(indexRef, {
       midis: arrayUnion({ title, slug, id: docRef.id }),
     });
-    window.location.href = `/browse/f/${slug}`;
+    window.location.href = `/f/${slug}`;
   } catch (error) {
     alert(`Fetching binary file failed: ${JSON.stringify(error)}`);
   }

@@ -124,9 +124,8 @@
     "prepare": "patch-package",
     "server": "DEV=1 node public/index.js",
     "fixvgm": "node $NODE_DEBUG_OPTION scripts/fixvgm.js",
-    "update-corpus": "node scripts/update-corpus.js",
-    "backup-tonics": "node scripts/backup-tonics.js",
-    "rename-tag": "node scripts/rename-tag.js",
+    "update-corpus": "node scripts/rawl/update-corpus.js",
+    "rename-tag": "node scripts/rawl/rename-tag.js",
     "upload-static-files-to-f": "ts-node --project tsconfig.json scripts/rawl/upload-static-files-to-f.ts"
   },
   "jest": {

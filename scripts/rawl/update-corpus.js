@@ -1,8 +1,7 @@
 const admin = require("firebase-admin");
 const fs = require("fs");
-const serviceAccount = require("../src/config/firebaseConfig.json");
+const serviceAccount = require("../../src/config/firebaseConfigPrivate.json");
 
-// Initialize Firebase
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
@@ -16,7 +15,6 @@ async function downloadAndMergeAnalyses() {
   if (userSnapshot.exists) {
     const firebaseAnalyses = userSnapshot.data().analyses;
 
-    // Read the existing corpus
     let localAnalyses;
     try {
       localAnalyses = JSON.parse(
@@ -26,35 +24,9 @@ async function downloadAndMergeAnalyses() {
       console.error("No local corpus found", error);
     }
 
-    // Merge the analyses from Firebase into the local corpus
-    for (const game in firebaseAnalyses) {
-      if (!localAnalyses[game]) {
-        console.log(`Created a new game ${game}`);
-        localAnalyses[game] = {};
-      }
-
-      for (const file in firebaseAnalyses[game]) {
-        if (!localAnalyses[game][file]) {
-          console.log(`Created a new file ${file}`);
-          localAnalyses[game][file] = {};
-        }
-
-        for (const subtune in firebaseAnalyses[game][file]) {
-          console.log(
-            `Write to game ${game}, file ${file}, subtune ${
-              Number(subtune) + 1
-            }`,
-          );
-          localAnalyses[game][file][subtune] =
-            firebaseAnalyses[game][file][subtune];
-        }
-      }
-    }
-
-    // Write the merged data back to analyses.json
     fs.writeFileSync(
       "src/corpus/analyses.json",
-      JSON.stringify(localAnalyses, null, 2),
+      JSON.stringify({ ...localAnalyses, ...firebaseAnalyses }, null, 2),
       "utf-8",
     );
     console.log("Data successfully merged into corpus/analyses.json");

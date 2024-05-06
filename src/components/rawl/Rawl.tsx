@@ -165,7 +165,7 @@ const Rawl: React.FC<{
   }, [analysis]);
 
   const [showVelocity, setShowVelocity] = useState(false);
-  const [systemLayout, setSystemLayout] = useState<SystemLayout>("stacked");
+  const [systemLayout, setSystemLayout] = useState<SystemLayout>("merged");
 
   const commitAnalysisUpdate = useCallback(
     (analysisUpdate: Partial<Analysis>) => {

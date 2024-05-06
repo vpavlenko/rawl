@@ -357,6 +357,12 @@ const LandingPage = () => (
       </Section>
       <Section title="modulations">
         <Example
+          name={"Michel Legrand – Umbrellas"}
+          pathname={
+            "c/Classical%20MIDI/Legrand/Michel%20Legrand%20-%20Umbrellas%201.mid"
+          }
+        />
+        <Example
           name={"Attack on Titan"}
           pathname={"f/Attack_on_Titan_Shinzou_wo_Sasageyo"}
         />
@@ -378,6 +384,38 @@ const LandingPage = () => (
           pathname={"f/Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet"}
         />
       </Section>
+      <Section title="chromatic">
+        <Example
+          name={"Tchaikovsky. Sugar Plum Fairy"}
+          pathname={
+            "c/Classical%20MIDI/Tchaikovsky/The%20Nutcracker%20(Suite%20from%20the%20Ballet),%20Op.%2071a%20–%203.%20Dance%20of%20the%20Sugar-Plum%20Fairy%20(D.%20Ganetz).mid"
+          }
+        />
+      </Section>
+      <Section title="preludes by Chopin">
+        <Example
+          name={"4 (E minor)"}
+          pathname={
+            "c/Classical%20MIDI/Chopin/24%20Preludes,%20Op.%2028%20–%20No.%204%20in%20E%20minor%20('Suffocation')%20(J.%20Sirulnikoff).mid"
+          }
+        />
+      </Section>
+      <Section title="symphonies">
+        <Example
+          name={"Rachmaninoff 1/i"}
+          pathname={
+            "c/Classical%20MIDI/Rachmaninoff/Symphony%20No.%201%20in%20D%20minor,%20Op.%2013%20for%20piano%20duet%20-%20I.%20Grave,%20Allegro%20ma%20non%20troppo.mid"
+          }
+        />
+      </Section>
+      <Section title="John Williams">
+        <Example
+          name={"Double Trouble"}
+          pathname={
+            "c/Classical%20MIDI/Williams/Harry%20Potter/Prisoner%20of%20Azkaban%20-%20Double%20Trouble.mid"
+          }
+        />
+      </Section>
       <Section title="ragtimes by Scott Joplin">
         <Example
           name={"The Entertainer"}
@@ -390,6 +428,14 @@ const LandingPage = () => (
         <Example
           name={"Pine Apple Rag"}
           pathname={"f/Pine_Apple_Rag_-_Scott_Joplin_-_1908.mscz"}
+        />
+        <Example
+          name={"The Ragtime Dance"}
+          pathname={"f/the_ragtime_dance_scott_joplin_1906_arrangement"}
+        />
+        <Example
+          name={"Country Club"}
+          pathname={"f/country_club_ragtime_two_step_scott_joplin_1909"}
         />
       </Section>
       <Section title="jazz">
@@ -445,12 +491,25 @@ const LandingPage = () => (
           }
         />
         <Example
-          name={`Beethoven, String Quartet in E Minor,op. 59no. 2/i (Allegro)`}
+          name={`Beethoven, String Quartet in E Minor, op. 59 no. 2/i (Allegro)`}
           pathname={"f/string_quartet_no_8_in_e_minor_opus_59_rasumovsky_no_2"}
         />
         <Example
           name={`Schubert, String Quartet No. 14 in D Minor, D. 810/i (Allegro)`}
           pathname={"f/schubert_death_and_maiden_string_quartet"}
+        />
+        <div style={{ color: "gray" }}>also mentioned:</div>
+        <Example
+          name={`Mozart, Symphony No. 28 in C, K. 200/i (Allegro)`}
+          pathname={
+            "c/Classical%20MIDI/Mozart/Symphonies/Symphony%20No.%2028,%20K200%20–%20I.%20Allegro.mid"
+          }
+        />
+        <Example
+          name={`Mozart, Symphony No. 30 in D, K. 202/i (Allegro)`}
+          pathname={
+            "c/Classical%20MIDI/Mozart/Symphonies/Symphony%20No.%2030,%20K202%20–%20I.%20Allegro.mid"
+          }
         />
       </Section>
 

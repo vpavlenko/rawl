@@ -748,7 +748,7 @@ class App extends React.Component {
         render={({ match }) => {
           const { slug, chiptuneUrl } = match.params;
           const { parsing } = this.state;
-          this.path = match.url;
+          this.path = match.url.slice(1);
           return (
             <>
               {parsing && (

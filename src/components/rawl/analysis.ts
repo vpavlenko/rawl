@@ -10,6 +10,9 @@ export type TagSpan = {
 };
 
 export type Modulations = { [oneIndexedMeasureStart: number]: PitchClass };
+export type MeasureRenumbering = {
+  [oneIndexedMeasureStart: number]: PitchClass;
+};
 
 // TODO: refactor to move tonic into modulations[0]
 export type Analysis = {
@@ -19,6 +22,7 @@ export type Analysis = {
   form: { [oneIndexedMeasureStart: number]: string };
   phrasePatch: { measure: number; diff: number }[];
   sections?: number[];
+  measureRenumbering?: MeasureRenumbering;
 };
 
 export type Corpus = {

@@ -2,7 +2,12 @@ import * as React from "react";
 import styled from "styled-components";
 import { getModulations } from "./Rawl";
 import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
-import { Analysis, MeasuresSpan, PitchClass } from "./analysis";
+import {
+  Analysis,
+  MeasureRenumbering,
+  MeasuresSpan,
+  PitchClass,
+} from "./analysis";
 
 export const STACKED_RN_HEIGHT = 20;
 const MIN_WIDTH_BETWEEN_BEATS = 17;
@@ -28,7 +33,7 @@ const MeasureBar = styled(VerticalBar)`
 `;
 
 const BeatBar = styled(VerticalBar)`
-  border-left: 1px dashed #262626;
+  border-left: 1px dashed #333;
 `;
 
 export type MeasureSelection = {
@@ -56,6 +61,7 @@ const PITCH_CLASS_TO_LETTER = {
 const Measure: React.FC<{
   span: [number, number];
   number: number;
+  displayNumber: number;
   isPhraseStart: boolean;
   formSection: string;
   measureSelection: MeasureSelection;
@@ -70,6 +76,7 @@ const Measure: React.FC<{
 }> = ({
   span,
   number,
+  displayNumber,
   isPhraseStart,
   formSection,
   measureSelection,
@@ -260,7 +267,7 @@ const Measure: React.FC<{
                     fontFamily: "sans-serif",
                   }}
                 >
-                  {number}
+                  {displayNumber}
                 </span>
               </div>
               {formSection && (
@@ -392,6 +399,31 @@ const TonalGrid: React.FC<{
   },
 );
 
+const renumberMeasure: (
+  measureStart: number,
+  measureRenumbering: MeasureRenumbering,
+) => number = (measureStart, measureRenumbering) => {
+  if (measureRenumbering === undefined) {
+    return measureStart;
+  }
+
+  let maxKey: number | undefined = undefined;
+  Object.keys(measureRenumbering).forEach((key) => {
+    const numericKey = parseInt(key, 10);
+    if (
+      numericKey <= measureStart &&
+      (maxKey === undefined || numericKey > maxKey)
+    ) {
+      maxKey = numericKey;
+    }
+  });
+
+  if (maxKey === undefined) {
+    return measureStart;
+  }
+  return measureStart + measureRenumbering[maxKey] - maxKey;
+};
+
 export const AnalysisGrid: React.FC<{
   analysis: Analysis;
   measuresAndBeats: MeasuresAndBeats;
@@ -459,7 +491,11 @@ export const AnalysisGrid: React.FC<{
     return (
       <div style={{ zIndex: 15 }}>
         {measures.map((time, i) => {
-          const number = i + 1; // 1-indexed
+          const number = i + 1;
+          const displayNumber = renumberMeasure(
+            i + 1,
+            analysis.measureRenumbering,
+          );
           return sectionSpan[0] <= i && i <= sectionSpan[1] ? (
             <Measure
               key={i}
@@ -468,6 +504,7 @@ export const AnalysisGrid: React.FC<{
               isPhraseStart={phraseStarts.indexOf(number) !== -1}
               formSection={(analysis.form ?? {})[number]}
               number={number}
+              displayNumber={displayNumber}
               measureSelection={measureSelection}
               secondsToX={secondsToX}
               showNonPhraseStarts={showAllMeasureBars}

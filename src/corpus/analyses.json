@@ -13950,6 +13950,10 @@
   },
   "f/sonata_no_13_1st_movement_k_333": {
     "form": [],
+    "measureRenumbering": {
+      "1": 0,
+      "65": 0
+    },
     "phrasePatch": [
       {
         "measure": 1,
@@ -14278,6 +14282,465 @@
     "tags": [],
     "modulations": {
       "0": 7
+    }
+  },
+  "c/Classical MIDI/Rachmaninoff/Symphony No. 1 in D minor, Op. 13 for piano duet - I. Grave, Allegro ma non troppo.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 2
+      },
+      {
+        "measure": 12,
+        "diff": -2
+      },
+      {
+        "measure": 18,
+        "diff": -1
+      },
+      {
+        "measure": 25,
+        "diff": -2
+      },
+      {
+        "measure": 39,
+        "diff": 2
+      },
+      {
+        "measure": 45,
+        "diff": -1
+      },
+      {
+        "measure": 48,
+        "diff": -1
+      },
+      {
+        "measure": 51,
+        "diff": 2
+      },
+      {
+        "measure": 73,
+        "diff": -1
+      },
+      {
+        "measure": 76,
+        "diff": 1
+      },
+      {
+        "measure": 93,
+        "diff": 1
+      },
+      {
+        "measure": 98,
+        "diff": 1
+      },
+      {
+        "measure": 111,
+        "diff": 1
+      },
+      {
+        "measure": 132,
+        "diff": -2
+      },
+      {
+        "measure": 130,
+        "diff": 1
+      },
+      {
+        "measure": 131,
+        "diff": -1
+      },
+      {
+        "measure": 134,
+        "diff": -1
+      },
+      {
+        "measure": 145,
+        "diff": 1
+      },
+      {
+        "measure": 158,
+        "diff": -1
+      },
+      {
+        "measure": 157,
+        "diff": 1
+      },
+      {
+        "measure": 194,
+        "diff": -1
+      },
+      {
+        "measure": 197,
+        "diff": -1
+      },
+      {
+        "measure": 200,
+        "diff": -2
+      },
+      {
+        "measure": 202,
+        "diff": -1
+      },
+      {
+        "measure": 217,
+        "diff": 1
+      },
+      {
+        "measure": 222,
+        "diff": -2
+      },
+      {
+        "measure": 224,
+        "diff": 1
+      },
+      {
+        "measure": 229,
+        "diff": -2
+      },
+      {
+        "measure": 247,
+        "diff": -1
+      },
+      {
+        "measure": 250,
+        "diff": -1
+      },
+      {
+        "measure": 265,
+        "diff": -2
+      },
+      {
+        "measure": 275,
+        "diff": -1
+      },
+      {
+        "measure": 278,
+        "diff": -1
+      },
+      {
+        "measure": 333,
+        "diff": -2
+      },
+      {
+        "measure": 335,
+        "diff": 4
+      },
+      {
+        "measure": 339,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      7,
+      11,
+      14,
+      16,
+      21,
+      25,
+      26,
+      28,
+      35,
+      37,
+      39,
+      41,
+      44,
+      46,
+      48,
+      52,
+      55,
+      57,
+      59,
+      61,
+      64,
+      66,
+      69,
+      70,
+      73,
+      76,
+      79,
+      84
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "61": 7,
+      "101": 10,
+      "110": 2,
+      "137": 9,
+      "154": 1,
+      "157": 11,
+      "174": 4,
+      "182": 9,
+      "191": 3,
+      "193": 6,
+      "196": 10,
+      "198": 9,
+      "213": 2,
+      "263": 10,
+      "265": 3,
+      "266": 2,
+      "293": 6,
+      "297": 10,
+      "301": 2
+    }
+  },
+  "c/Classical MIDI/Tchaikovsky/The Nutcracker (Suite from the Ballet), Op. 71a – 3. Dance of the Sugar-Plum Fairy (D. Ganetz).mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      4,
+      6,
+      9,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4,
+      "50": 11,
+      "51": 9,
+      "52": 7,
+      "53": 4
+    }
+  },
+  "c/Classical MIDI/Chopin/24 Preludes, Op. 28 – No. 4 in E minor ('Suffocation') (J. Sirulnikoff).mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/country_club_ragtime_two_step_scott_joplin_1909": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 85,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      33,
+      35,
+      37
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "86": 5
+    }
+  },
+  "c/Classical MIDI/Chopin/24 Preludes, Op. 28 – No. 4 in E minor ('Suffocation') (G. D. Robertson).mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "c/Classical MIDI/Mozart/Symphonies/Symphony No. 30, K202 – I. Allegro.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "c/Classical MIDI/Williams/Harry Potter/Prisoner of Azkaban - Double Trouble.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": -2
+      },
+      {
+        "measure": 19,
+        "diff": 1
+      },
+      {
+        "measure": 28,
+        "diff": -2
+      },
+      {
+        "measure": 42,
+        "diff": -2
+      },
+      {
+        "measure": 44,
+        "diff": 1
+      },
+      {
+        "measure": 49,
+        "diff": 1
+      },
+      {
+        "measure": 54,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      7,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "38": 11,
+      "45": 0,
+      "48": 9,
+      "50": 2
+    }
+  },
+  "c/Classical MIDI/Legrand/Michel Legrand - Umbrellas 1.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "18": 6,
+      "34": 7
+    }
+  },
+  "f/the_ragtime_dance_scott_joplin_1906_arrangement": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "37": 3
+    }
+  },
+  "c/Classical MIDI/Mozart/Symphonies/Symphony No. 28, K200 – I. Allegro.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 11,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
     }
   }
 }

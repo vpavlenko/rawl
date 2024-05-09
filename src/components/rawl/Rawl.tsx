@@ -292,6 +292,7 @@ const Rawl: React.FC<{
 
   const renumberMeasure = useCallback(
     (displayNumber) => {
+      setSelectedMeasure(null);
       commitAnalysisUpdate({
         measureRenumbering: {
           [selectedMeasure]: displayNumber,

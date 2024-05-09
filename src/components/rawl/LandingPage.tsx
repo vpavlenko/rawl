@@ -532,6 +532,122 @@ const LandingPage = () => (
           name={"2.1. Beethoven, Piano Sonata in F minor, Op. 2, No. 1"}
           pathname={"f/beethoven_sonata_in_f_minor_op_2_no_1_movement_i"}
         />
+        <Example
+          name={"2.2. Mozart, Rondo in D, K. 485"}
+          pathname={
+            "f/mozart_rondo_in_d_major_k_485_professional_production_score"
+          }
+        />
+        <Example
+          name={"2.3. Beethoven, Piano Sonata in G, Op. 14, No. 2/i"}
+          pathname={"f/beethoven_sonata_in_g_op_14_no_2_movement_i"}
+        />
+        <Example
+          name={"2.6. Mozart, Piano Sonata in C, K. 330/i"}
+          pathname={
+            "c/Classical%20MIDI/Mozart/Piano%20Sonatas/Piano%20Sonata%20No.%2011,%20K330%20–%20I.%20Allegro%20moderato.mid"
+          }
+        />
+        <Example
+          name={"2.7. Beethoven, Bagatelle in G minor, Op. 119, No. 1"}
+          pathname={
+            "f/bagatelle_in_g_minor_op_119_no_1_ludwig_van_beethoven_16_07_1770_26_03_1827_piano_solo"
+          }
+        />
+        <Example
+          name={"2.9. Mozart, Piano Sonata in G, K. 283/i"}
+          pathname={
+            "c/Classical%20MIDI/Mozart/Piano%20Sonatas/Piano%20Sonata%20No.%205,%20K283.mid"
+          }
+        />
+        <Example
+          name={`2.10. Mozart, String Quartet in C ("Dissonance"), K. 465/i`}
+          pathname={"f/mozart_string_quartet_no_19_in_c_major_k465_dissonance"}
+        />
+        <Example
+          name={`2.11. Mozart, Piano Sonata in C, K. 309/iii`}
+          pathname={
+            "c/Classical%20MIDI/Mozart/Piano%20Sonatas/Piano%20Sonata%20No.%2010,%20K309%20–%20III.%20Presto.mid"
+          }
+        />
+        <Example
+          name={"2.13. Beethoven, Piano Sonata in G, Op. 14, No. 2/i"}
+          pathname={"f/beethoven_sonata_in_g_op_14_no_2_movement_i"}
+        />
+        <Example
+          name={"2.14. Mozart, Piano Sonata in C, K. 330/i"}
+          pathname={
+            "c/Classical%20MIDI/Mozart/Piano%20Sonatas/Piano%20Sonata%20No.%2011,%20K330%20–%20I.%20Allegro%20moderato.mid"
+          }
+        />
+        <Example
+          name={`2.15. Mozart, Piano Sonata in C, K. 309/iii`}
+          pathname={
+            "c/Classical%20MIDI/Mozart/Piano%20Sonatas/Piano%20Sonata%20No.%2010,%20K309%20–%20III.%20Presto.mid"
+          }
+        />
+        <Example
+          name={`2.16. Mozart, Piano Sonata in D, K. 311/iii`}
+          pathname={"f/sonata_no_9_3rd_movement_k_311"}
+        />
+        <Example
+          name={`2.17. Mozart, String Quartet in C ("Dissonance"), K. 465/i`}
+          pathname={"f/mozart_string_quartet_no_19_in_c_major_k465_dissonance"}
+        />
+        <Example
+          name={"2.18. Beethoven, Bagatelle in G minor, Op. 119, No. 1"}
+          pathname={
+            "f/bagatelle_in_g_minor_op_119_no_1_ludwig_van_beethoven_16_07_1770_26_03_1827_piano_solo"
+          }
+        />
+        <Example
+          name={"2.23. Beethoven, Piano Sonata in C, Op. 2, No. 3/i"}
+          pathname={
+            "f/piano_sonata_no_3_in_c_major_op_2_no_3_ludwig_van_beethoven_piano_sonata_no_3_in_c_major_op_2_no_3_complete"
+          }
+        />
+        <Example
+          name={"2.25. Mozart, String Quartet in A, K. 464/ii (from m. 546)"}
+          pathname={"f/mozart_string_quartet_no_18_in_a_major_k464"}
+        />
+        <Example
+          name={"2.26. Mozart, Piano Sonata in F, K. 332/ii"}
+          pathname={
+            "c/Classical%20MIDI/Mozart/Piano%20Sonatas/Piano%20Sonata%20No.%2013,%20K332%20–%20II.%20Menuetto.mid"
+          }
+        />
+        <Example
+          name={"2.27. Beethoven, Symphony No. 5 in C minor, Op. 67/i"}
+          pathname={
+            "c/Classical%20MIDI/Beethoven/Symphony%20No.%205%20(Galimberti)%20-%201.mid"
+          }
+        />
+        <Example
+          name={"2.29. Beethoven (?), Piano Sonatina in G, Anh. 5/i"}
+          pathname={"f/sonatina_in_g_beethoven_anh_5_no_1_beethoven"}
+        />
+        <Example
+          name={"2.30. Mozart, Fantasy for Piano in D minor, K. 397"}
+          pathname={"f/fantasia_in_d_minor_k_397_385g_wolfgang_amadeus_mozart"}
+        />
+        <Example
+          name={"2.33. Mozart, Piano Sonata in F, K. 332/iii"}
+          pathname={
+            "c/Classical%20MIDI/Mozart/Piano%20Sonatas/Piano%20Sonata%20No.%2013,%20K332%20–%20III.%20Allegro.mid"
+          }
+        />
+        <Example
+          name={"2.34. Beethoven, Piano Trio in B-flat, Op. 11/ii"}
+          pathname={
+            "f/beethoven_trio_for_clarinet_cello_and_piano_no_4_op_11_2nd_movement"
+          }
+        />
+        <Example
+          name={"2.35. Haydn, Piano Sonata in E minor, H. 34/ii"}
+          pathname={
+            "f/sonata_in_e_minor_hob_xvi_34_joseph_haydn_piano_sonata_hob_xvi_34_2_adagio"
+          }
+        />
       </Section>
 
       {/* <Example

@@ -10,7 +10,7 @@ const Browse = ({ browsePath, listing, fetchDirectory, analyses }) => {
       }
     };
     fetchData();
-  }, [browsePath, listing, fetchDirectory]);
+  }, [listing, fetchDirectory, browsePath]);
 
   return (
     <div
@@ -20,11 +20,7 @@ const Browse = ({ browsePath, listing, fetchDirectory, analyses }) => {
         margin: 0,
       }}
     >
-      <BrowseList
-        browsePath={browsePath}
-        items={listing || []}
-        analyses={analyses}
-      />
+      <BrowseList items={listing || []} analyses={analyses} />
     </div>
   );
 };

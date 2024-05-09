@@ -290,6 +290,17 @@ const Rawl: React.FC<{
     }
   }, [selectedMeasure, analysis, measuresAndBeats]);
 
+  const renumberMeasure = useCallback(
+    (displayNumber) => {
+      commitAnalysisUpdate({
+        measureRenumbering: {
+          [selectedMeasure]: displayNumber,
+        },
+      });
+    },
+    [selectMeasure, analysis],
+  );
+
   useEffect(() => {
     if (analysis.phrasePatch?.length > 0) {
       return;
@@ -390,8 +401,15 @@ const Rawl: React.FC<{
       selectMeasure,
       splitAtMeasure,
       mergeAtMeasure,
+      renumberMeasure,
     }),
-    [selectedMeasure, selectMeasure, splitAtMeasure, mergeAtMeasure],
+    [
+      selectedMeasure,
+      selectMeasure,
+      splitAtMeasure,
+      mergeAtMeasure,
+      renumberMeasure,
+    ],
   );
 
   const coloredNotes: ColoredNotesInVoices = useMemo(

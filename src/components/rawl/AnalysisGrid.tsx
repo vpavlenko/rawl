@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { getModulations } from "./Rawl";
 import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
@@ -41,6 +42,7 @@ export type MeasureSelection = {
   selectMeasure: (number) => void;
   splitAtMeasure: (boolean) => void;
   mergeAtMeasure: () => void;
+  renumberMeasure: (number) => void;
 };
 
 const PITCH_CLASS_TO_LETTER = {
@@ -56,6 +58,39 @@ const PITCH_CLASS_TO_LETTER = {
   9: "A",
   10: "Bb",
   11: "B",
+};
+
+const RemeasuringInput: React.FC<{
+  renumberMeasure: (measure: number) => void;
+}> = ({ renumberMeasure }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [value, setValue] = useState<string>("");
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.stopPropagation();
+      renumberMeasure(parseInt(value, 10));
+    }
+  };
+
+  useEffect(() => inputRef.current.focus(), []);
+
+  return (
+    <input
+      type="text"
+      ref={inputRef}
+      value={value}
+      onChange={handleChange}
+      onKeyDown={handleKeyDown}
+      style={{ fontSize: "10px", width: "3em" }}
+      aria-label="Renumber measure"
+      autoFocus
+    />
+  );
 };
 
 const Measure: React.FC<{
@@ -89,8 +124,13 @@ const Measure: React.FC<{
   previousTonic,
   isLastSection,
 }) => {
-  const { selectedMeasure, selectMeasure, splitAtMeasure, mergeAtMeasure } =
-    measureSelection;
+  const {
+    selectedMeasure,
+    selectMeasure,
+    splitAtMeasure,
+    mergeAtMeasure,
+    renumberMeasure,
+  } = measureSelection;
 
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
@@ -184,21 +224,32 @@ const Measure: React.FC<{
                 }}
               >
                 {selectedMeasure === number && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 23,
-                      left: 0,
-                      color: "gray",
-                      fontSize: 12,
-                    }}
-                    onClick={(e) => {
-                      selectMeasure(null);
-                      e.stopPropagation();
-                    }}
-                  >
-                    Esc
-                  </div>
+                  <>
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 23,
+                        left: 0,
+                        color: "gray",
+                        fontSize: 12,
+                      }}
+                      onClick={(e) => {
+                        selectMeasure(null);
+                        e.stopPropagation();
+                      }}
+                    >
+                      Esc
+                    </div>
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: -20,
+                        left: 0,
+                      }}
+                    >
+                      <RemeasuringInput renumberMeasure={renumberMeasure} />
+                    </div>
+                  </>
                 )}
                 {selectedPhraseStart === number &&
                   sectionSpan?.[0] !== number - 1 && (

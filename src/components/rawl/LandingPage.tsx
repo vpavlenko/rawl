@@ -649,6 +649,12 @@ const LandingPage = () => (
           }
         />
       </Section>
+      {/* <Section title="Drew Nobile. Form as Harmony in Rock Music">
+        <Example
+          name={"2.1. Beethoven, Piano Sonata in F minor, Op. 2, No. 1"}
+          pathname={"f/beethoven_sonata_in_f_minor_op_2_no_1_movement_i"}
+        />
+      </Section> */}
 
       {/* <Example
           name={"Für Elise"}

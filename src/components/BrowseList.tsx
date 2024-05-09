@@ -1,5 +1,4 @@
 import trimEnd from "lodash/trimEnd";
-import * as queryString from "querystring";
 import * as React from "react";
 import { memo } from "react";
 import { useHistory } from "react-router-dom";
@@ -17,14 +16,6 @@ function splitOnLastSlash(str) {
 
 export default memo(BrowseList);
 function BrowseList({ items, browsePath, analyses }) {
-  // Scroll Into View
-  // ----------------
-  // Note this does not work for virtual list, since the playing item might not be in the DOM.
-  // See also https://medium.com/@teh_builder/ref-objects-inside-useeffect-hooks-eb7c15198780
-  const urlParams = queryString.parse(window.location.search.substring(1));
-  delete urlParams.q;
-  const search = queryString.stringify(urlParams);
-
   // Check if previous page url is the parent directory of current page url.
   const history = useHistory();
   // @ts-ignore
@@ -76,13 +67,10 @@ function BrowseList({ items, browsePath, analyses }) {
               >
                 <div className="BrowseList-colName">
                   {
-                    // @ts-ignore
                     <DirectoryLink
                       dim={!fileAnalysis}
                       to={"/browse/" + path}
-                      search={search}
                       isBackLink={isBackLink}
-                      history={history}
                     >
                       {name}
                     </DirectoryLink>

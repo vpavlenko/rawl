@@ -13950,10 +13950,6 @@
   },
   "f/sonata_no_13_1st_movement_k_333": {
     "form": [],
-    "measureRenumbering": {
-      "1": 0,
-      "65": 0
-    },
     "phrasePatch": [
       {
         "measure": 1,
@@ -14058,22 +14054,78 @@
       {
         "measure": 231,
         "diff": 1
+      },
+      {
+        "measure": 48,
+        "diff": -1
+      },
+      {
+        "measure": 50,
+        "diff": 1
+      },
+      {
+        "measure": 153,
+        "diff": -1
+      },
+      {
+        "measure": 159,
+        "diff": 1
+      },
+      {
+        "measure": 152,
+        "diff": 1
+      },
+      {
+        "measure": 161,
+        "diff": -1
+      },
+      {
+        "measure": 112,
+        "diff": -1
+      },
+      {
+        "measure": 114,
+        "diff": 1
+      },
+      {
+        "measure": 236,
+        "diff": -3
+      },
+      {
+        "measure": 209,
+        "diff": -1
+      },
+      {
+        "measure": 221,
+        "diff": 1
+      },
+      {
+        "measure": 212,
+        "diff": 1
+      },
+      {
+        "measure": 223,
+        "diff": -1
       }
     ],
     "comment": "",
     "sections": [
       0,
       3,
+      4,
       6,
       8,
       10,
+      12,
       13,
       15,
       16,
       19,
+      20,
       22,
       24,
       26,
+      28,
       29,
       31,
       32,
@@ -14091,13 +14143,19 @@
       55,
       56
     ],
+    "measureRenumbering": {
+      "1": 0,
+      "65": 0,
+      "129": 63,
+      "232": 63
+    },
     "tags": [],
     "modulations": {
       "0": 10,
       "12": 5,
       "65": 10,
       "76": 5,
-      "139": 0,
+      "138": 0,
       "142": 10,
       "145": 7,
       "153": 10,
@@ -14202,9 +14260,20 @@
       {
         "measure": 160,
         "diff": 1
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      },
+      {
+        "measure": 32,
+        "diff": 1
       }
     ],
     "comment": "",
+    "measureRenumbering": {
+      "1": -1
+    },
     "sections": [
       0,
       1,
@@ -14215,6 +14284,7 @@
       15,
       17,
       19,
+      20,
       21,
       24,
       28,
@@ -14222,13 +14292,14 @@
       33,
       35,
       37,
-      39
+      39,
+      40
     ],
     "tags": [],
     "modulations": {
       "0": 5,
       "33": 0,
-      "85": 5
+      "87": 5
     }
   },
   "f/string_quartet_no_8_in_e_minor_opus_59_rasumovsky_no_2": {
@@ -14741,6 +14812,292 @@
     "tags": [],
     "modulations": {
       "0": 0
+    }
+  },
+  "c/Classical MIDI/Mozart/Piano Sonatas/Piano Sonata No. 13, K332 – I. Allegro.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 26,
+        "diff": -2
+      },
+      {
+        "measure": 40,
+        "diff": 2
+      },
+      {
+        "measure": 66,
+        "diff": 2
+      },
+      {
+        "measure": 76,
+        "diff": 2
+      },
+      {
+        "measure": 82,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      7,
+      11,
+      13,
+      15,
+      18,
+      20,
+      23
+    ],
+    "measureRenumbering": {
+      "1": 0,
+      "95": 1
+    },
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "24": 2,
+      "30": 0,
+      "95": 5
+    }
+  },
+  "c/Classical MIDI/Bach/Bwv846-869 The Well Tempered Clavier Book 1/WT1_1A.MID": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "8": 7,
+      "13": 5,
+      "15": 0
+    }
+  },
+  "c/Classical MIDI/Mozart/Piano Sonatas/Piano Sonata No. 16, K545.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": -3
+      },
+      {
+        "measure": 31,
+        "diff": -1
+      },
+      {
+        "measure": 42,
+        "diff": 1
+      },
+      {
+        "measure": 63,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      9,
+      12,
+      16,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "14": 7,
+      "33": 2,
+      "37": 9,
+      "42": 5,
+      "51": 0
+    }
+  },
+  "f/beethoven_sonata_in_f_minor_op_2_no_1_movement_i": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": -2
+      },
+      {
+        "measure": 20,
+        "diff": 1
+      },
+      {
+        "measure": 33,
+        "diff": 1
+      },
+      {
+        "measure": 50,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      13
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "10": 8,
+      "50": 5
+    }
+  },
+  "c/Classical MIDI/Beethoven/Symphony No. 9 (Cvikl) - 2.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 109,
+        "diff": 2
+      },
+      {
+        "measure": 251,
+        "diff": 2
+      },
+      {
+        "measure": 321,
+        "diff": -1
+      },
+      {
+        "measure": 324,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14,
+      19,
+      23,
+      27,
+      31,
+      34,
+      37,
+      41,
+      45,
+      49,
+      54,
+      58,
+      62,
+      66,
+      69,
+      72,
+      79
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "77": 0,
+      "151": 2,
+      "219": 0,
+      "293": 3,
+      "320": 4,
+      "329": 9
+    }
+  },
+  "c/Classical MIDI/Mozart/The Chelsea Notebook/Early Pieces n17 Siciliano.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 24,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "5": 5,
+      "16": 2,
+      "20": 5
+    }
+  },
+  "c/Classical MIDI/Mozart/Piano Sonatas/Piano Sonata No. 1, K279 – I. Allegro.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": -1
+      },
+      {
+        "measure": 24,
+        "diff": 2
+      },
+      {
+        "measure": 30,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "17": 7,
+      "39": 0
     }
   }
 }

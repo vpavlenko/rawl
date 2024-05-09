@@ -479,7 +479,7 @@ const LandingPage = () => (
           pathname={"f/haydn_100_1"}
         />
         <Example
-          name={`Haydn, String Quartet in G, op. 76 no. 1/i (Allegrocon spirito)`}
+          name={`Haydn, String Quartet in G, op. 76 no. 1/i (Allegro con spirito)`}
           pathname={
             "f/string_quartet_in_g_major_hob_iii_75_op_76_no_1_joseph_haydn"
           }
@@ -510,6 +510,27 @@ const LandingPage = () => (
           pathname={
             "c/Classical%20MIDI/Mozart/Symphonies/Symphony%20No.%2030,%20K202%20–%20I.%20Allegro.mid"
           }
+        />
+        <Example
+          name={`Mozart, Piano Sonata in F, K. 332/i (Allegro)`}
+          pathname={
+            "c/Classical%20MIDI/Mozart/Piano%20Sonatas/Piano%20Sonata%20No.%2013,%20K332%20–%20I.%20Allegro.mid"
+          }
+        />
+      </Section>
+      <Section title="William E.&nbsp;Caplin. Analyzing Classical Form (2013)">
+        <div>
+          <a
+            href="https://www.music.mcgill.ca/acf/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            the original companion website
+          </a>
+        </div>
+        <Example
+          name={"2.1. Beethoven, Piano Sonata in F minor, Op. 2, No. 1"}
+          pathname={"f/beethoven_sonata_in_f_minor_op_2_no_1_movement_i"}
         />
       </Section>
 

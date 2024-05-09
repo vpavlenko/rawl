@@ -1,11 +1,7 @@
 import path from "path";
 import queryString from "querystring";
-import React from "react";
 
-import DirectoryLink from "./components/DirectoryLink";
 import { API_BASE, CATALOG_PREFIX } from "./config";
-
-const CATALOG_PREFIX_REGEX = /^https?:\/\/[a-z0-9\-.:]+\/(music|catalog)\//;
 
 export function updateQueryString(newParams) {
   // Merge new params with current query string
@@ -61,19 +57,6 @@ export function allOrNone(...args) {
     str += args[i];
   }
   return str;
-}
-
-export function pathToLinks(path) {
-  if (!path) return null;
-
-  path =
-    path.replace(CATALOG_PREFIX_REGEX, "/").split("/").slice(0, -1).join("/") +
-    "/";
-  return (
-    <DirectoryLink dim to={"/browse" + path}>
-      {decodeURI(path)}
-    </DirectoryLink>
-  );
 }
 
 export function getFilepathFromUrl(url) {

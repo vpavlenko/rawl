@@ -1,8 +1,6 @@
-import trimEnd from "lodash/trimEnd";
 import * as React from "react";
 import { memo } from "react";
-import { useHistory } from "react-router-dom";
-import DirectoryLink from "./DirectoryLink";
+import { Link } from "react-router-dom";
 
 function splitOnLastSlash(str) {
   var lastIndex = str.lastIndexOf("/");
@@ -15,15 +13,7 @@ function splitOnLastSlash(str) {
 }
 
 export default memo(BrowseList);
-function BrowseList({ items, browsePath, analyses }) {
-  // Check if previous page url is the parent directory of current page url.
-  const history = useHistory();
-  // @ts-ignore
-  const prevPath = trimEnd(history.location.state?.prevPathname, "/");
-  const currPath = trimEnd(window.location.pathname, "/");
-  const prevPageIsParentDir =
-    prevPath === currPath.substring(0, currPath.lastIndexOf("/"));
-
+function BrowseList({ items, analyses }) {
   return (
     <div>
       <div
@@ -35,18 +25,12 @@ function BrowseList({ items, browsePath, analyses }) {
         }}
       >
         {items.map((item, index) => {
-          // XXX: Escape immediately: the escaped URL is considered canonical.
-          //      The URL must be decoded for display from here on out.
-          const path =
-            item.path === ".."
-              ? browsePath.substr(0, browsePath.lastIndexOf("/")) // parent path
-              : item.path
-                  .replace("%", "%25")
-                  .replace("#", "%23")
-                  .replace("&", "%26")
-                  .replace(/^\//, "");
+          const path = item.path
+            .replace("%", "%25")
+            .replace("#", "%23")
+            .replace("&", "%26")
+            .replace(/^\//, "");
           const name = item.path.split("/").pop();
-          const isBackLink = item.path === ".." && prevPageIsParentDir;
           const [artist, song] = splitOnLastSlash(path);
           let fileAnalysis =
             analyses &&
@@ -66,15 +50,12 @@ function BrowseList({ items, browsePath, analyses }) {
                 }
               >
                 <div className="BrowseList-colName">
-                  {
-                    <DirectoryLink
-                      dim={!fileAnalysis}
-                      to={"/browse/" + path}
-                      isBackLink={isBackLink}
-                    >
-                      {name}
-                    </DirectoryLink>
-                  }
+                  <Link
+                    to={"/browse/" + path}
+                    className={!fileAnalysis ? "DirectoryLink-dim" : ""}
+                  >
+                    {name}
+                  </Link>
                 </div>
               </div>
             );

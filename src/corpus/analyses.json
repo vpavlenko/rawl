@@ -15099,5 +15099,783 @@
       "17": 7,
       "39": 0
     }
+  },
+  "f/sonata_in_e_minor_hob_xvi_34_joseph_haydn_piano_sonata_hob_xvi_34_2_adagio": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      5,
+      7,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "12": 2,
+      "21": 7,
+      "41": 11
+    }
+  },
+  "f/mozart_rondo_in_d_major_k_485_professional_production_score": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -2
+      },
+      {
+        "measure": 35,
+        "diff": 1
+      },
+      {
+        "measure": 44,
+        "diff": -1
+      },
+      {
+        "measure": 51,
+        "diff": 1
+      },
+      {
+        "measure": 52,
+        "diff": 1
+      },
+      {
+        "measure": 61,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "21": 9,
+      "60": 2
+    }
+  },
+  "f/mozart_string_quartet_no_19_in_c_major_k465_dissonance": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": -2
+      },
+      {
+        "measure": 55,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      8,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "5": 10,
+      "9": 8,
+      "11": 5,
+      "16": 0,
+      "47": 7
+    }
+  },
+  "f/string_quartet_no_23_in_f_major_k_590_wolfgang_amadeus_mozart": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "c/Classical MIDI/Beethoven/Symphony No. 5 (Galimberti) - 1.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 2
+      },
+      {
+        "measure": 3,
+        "diff": -1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 11,
+        "diff": 1
+      },
+      {
+        "measure": 24,
+        "diff": -1
+      },
+      {
+        "measure": 43,
+        "diff": 2
+      },
+      {
+        "measure": 61,
+        "diff": -1
+      },
+      {
+        "measure": 96,
+        "diff": 1
+      },
+      {
+        "measure": 109,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      6,
+      11,
+      16,
+      24,
+      31
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "59": 3
+    }
+  },
+  "c/Classical MIDI/Mozart/Piano Sonatas/Piano Sonata No. 13, K332 – II. Menuetto.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 10
+    }
+  },
+  "f/beethoven_sonata_in_g_op_14_no_2_movement_i": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": -1
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      },
+      {
+        "measure": 10,
+        "diff": -1
+      },
+      {
+        "measure": 12,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      8
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "1": 7,
+      "21": 2
+    }
+  },
+  "c/Game MIDI/8th Angel (Windows, 2000)/bgm16.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/fantasia_in_d_minor_k_397_385g_wolfgang_amadeus_mozart": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -1
+      },
+      {
+        "measure": 28,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "20": 9,
+      "36": 7
+    }
+  },
+  "f/piano_sonata_no_3_in_c_major_op_2_no_3_ludwig_van_beethoven_piano_sonata_no_3_in_c_major_op_2_no_3_complete": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": 1
+      },
+      {
+        "measure": 26,
+        "diff": 1
+      },
+      {
+        "measure": 35,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "c/Classical MIDI/Mozart/Piano Sonatas/Piano Sonata No. 5, K283.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 2
+      },
+      {
+        "measure": 16,
+        "diff": 2
+      },
+      {
+        "measure": 22,
+        "diff": 2
+      },
+      {
+        "measure": 36,
+        "diff": -2
+      },
+      {
+        "measure": 38,
+        "diff": 1
+      },
+      {
+        "measure": 43,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "24": 2
+    }
+  },
+  "f/sonata_no_9_3rd_movement_k_311": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 2
+      },
+      {
+        "measure": 36,
+        "diff": -2
+      },
+      {
+        "measure": 58,
+        "diff": -1
+      },
+      {
+        "measure": 77,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      11,
+      15,
+      17,
+      20,
+      23
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "34": 9,
+      "87": 2
+    }
+  },
+  "c/Classical MIDI/Mozart/Piano Sonatas/Piano Sonata No. 13, K332 – III. Allegro.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -1
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 5,
+        "diff": 3
+      },
+      {
+        "measure": 11,
+        "diff": 4
+      },
+      {
+        "measure": 15,
+        "diff": 1
+      },
+      {
+        "measure": 24,
+        "diff": 1
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      },
+      {
+        "measure": 32,
+        "diff": 1
+      },
+      {
+        "measure": 41,
+        "diff": -1
+      },
+      {
+        "measure": 48,
+        "diff": -1
+      },
+      {
+        "measure": 67,
+        "diff": -1
+      },
+      {
+        "measure": 70,
+        "diff": 1
+      },
+      {
+        "measure": 79,
+        "diff": 1
+      },
+      {
+        "measure": 88,
+        "diff": -2
+      },
+      {
+        "measure": 90,
+        "diff": 2
+      },
+      {
+        "measure": 28,
+        "diff": 2
+      },
+      {
+        "measure": 35,
+        "diff": -3
+      },
+      {
+        "measure": 36,
+        "diff": 1
+      },
+      {
+        "measure": 44,
+        "diff": 1
+      },
+      {
+        "measure": 48,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      9,
+      12,
+      16,
+      18,
+      22
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "37": 2,
+      "40": 0,
+      "92": 5
+    }
+  },
+  "c/MIDI/Ambra/Aspettavo te.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": -1
+      },
+      {
+        "measure": 21,
+        "diff": -2
+      },
+      {
+        "measure": 35,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 6
+    }
+  },
+  "f/mozart_string_quartet_no_18_in_a_major_k464": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 546,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      137,
+      144,
+      151
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "557": 4,
+      "575": 9,
+      "585": 4
+    }
+  },
+  "c/Classical MIDI/Mozart/Piano Sonatas/Piano Sonata No. 11, K330 – I. Allegro moderato.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "c/Classical MIDI/Mozart/Piano Sonatas/Piano Sonata No. 10, K309 – III. Presto.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 2
+      },
+      {
+        "measure": 19,
+        "diff": -1
+      },
+      {
+        "measure": 22,
+        "diff": -1
+      },
+      {
+        "measure": 21,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6
+    ],
+    "measureRenumbering": {
+      "1": -1
+    },
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/sonatina_in_g_beethoven_anh_5_no_1_beethoven": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "c/Classical MIDI/Mozart/Piano Sonatas/Piano Sonata No. 8, K311.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -2
+      },
+      {
+        "measure": 4,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/bagatelle_in_g_minor_op_119_no_1_ludwig_van_beethoven_16_07_1770_26_03_1827_piano_solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      9
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "18": 3
+    }
+  },
+  "f/beethoven_trio_for_clarinet_cello_and_piano_no_4_op_11_2nd_movement": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": 1
+      },
+      {
+        "measure": 27,
+        "diff": 1
+      },
+      {
+        "measure": 44,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 3,
+      "21": 10,
+      "28": 3,
+      "32": 4,
+      "39": 3
+    }
   }
 }

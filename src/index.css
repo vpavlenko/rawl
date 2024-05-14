@@ -790,3 +790,67 @@ img {
     font-weight: 900;
     display: inline-block;
 }
+
+.voiceShape-0 {
+    border-radius: 0px;
+}
+
+.voiceShape-1 {
+    border-radius: 1px;
+}
+
+.voiceShape-2 {
+    border-radius: 2px;
+}
+
+.voiceShape-3 {
+    border-radius: 3px;
+}
+
+.voiceShape-4 {
+    border-radius: 4px;
+}
+
+.voiceShape-5 {
+    border-radius: 5px;
+}
+
+.voiceShape-6 {
+    border-radius: 6px;
+}
+
+.voiceShape-7 {
+    border-radius: 7px;
+}
+
+.voiceShape-8 {
+    border-radius: 8px;
+}
+
+.voiceShape-9 {
+    border-radius: 9px;
+}
+
+.voiceShape-10 {
+    border-radius: 10px;
+}
+
+.voiceShape-11 {
+    border-radius: 11px;
+}
+
+.voiceShape-12 {
+    border-radius: 12px;
+}
+
+.voiceShape-13 {
+    border-radius: 13px;
+}
+
+.voiceShape-14 {
+    border-radius: 14px;
+}
+
+.voiceShape-15 {
+    border-radius: 15px;
+}

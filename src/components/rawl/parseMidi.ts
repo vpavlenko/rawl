@@ -14,6 +14,7 @@ export type Note = {
   id: number;
   span: SecondsSpan;
   chipState: { on: any; off: any };
+  voiceIndex: number;
 };
 
 export type ColoredNote = Note & {
@@ -43,7 +44,7 @@ export type ParsingResult = {
 
 let id = 0;
 
-const getNotes = (events, channel): Note[] => {
+const getNotes = (events, channel, voiceIndex): Note[] => {
   const notes: Note[] = [];
   const noteOn = {};
   events.forEach((event) => {
@@ -67,6 +68,7 @@ const getNotes = (events, channel): Note[] => {
               isDrum: channel === DRUM_CHANNEL,
               span: [noteOn[midiNumber].playTime / 1000, event.playTime / 1000],
               chipState: { on: noteOn[midiNumber], off: event },
+              voiceIndex,
             });
 
             id++;
@@ -179,7 +181,9 @@ export const parseNotes = ({
       console.log("KEY SIGNATURE" + JSON.stringify(event));
     }
   });
-  const notes = activeChannels.map((channel) => getNotes(events, channel));
+  const notes = activeChannels.map((channel, index) =>
+    getNotes(events, channel, index),
+  );
   return {
     measuresAndBeats,
     notes,

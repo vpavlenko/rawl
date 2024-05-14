@@ -197,8 +197,6 @@ const convertPitchBendToPathData = (
 
 const getNoteRectangles = (
   notes: ColoredNote[],
-  voiceIndex: number,
-  isActiveVoice: boolean,
   midiNumberToY: (number: number) => number,
   noteHeight: number,
   handleNoteClick: MouseEventHanlder,
@@ -212,6 +210,7 @@ const getNoteRectangles = (
       isDrum,
       note: { midiNumber, relativeNumber },
       color,
+      voiceIndex,
     } = note;
     const number = relativeNumber === undefined ? midiNumber : relativeNumber;
     const top = midiNumberToY(number) - noteHeight;
@@ -249,7 +248,7 @@ const getNoteRectangles = (
     return (
       <div
         key={`nr_${note.id}`}
-        className={color}
+        className={`${color} voiceShape-${voiceIndex}`}
         style={{
           position: "absolute",
           height: `${noteHeight * 2}px`,
@@ -259,13 +258,11 @@ const getNoteRectangles = (
           overflow: "visible",
           top,
           left,
-          pointerEvents: voiceIndex === -1 ? "none" : "auto",
+          pointerEvents: "auto",
           cursor: handleNoteClick && !isDrum ? "pointer" : "default",
           zIndex: 10,
-          opacity: isActiveVoice
-            ? (showVelocity && note?.chipState?.on?.param2 / 127) || 1
-            : 0.4,
-          borderRadius: "4px",
+          opacity: (showVelocity && note?.chipState?.on?.param2 / 127) || 1,
+          // borderRadius: "4px",
           boxSizing: "border-box",
           display: "grid",
           placeItems: "center",
@@ -546,8 +543,6 @@ export const Voice: React.FC<{
     () => ({
       noteRectangles: getNoteRectangles(
         notes,
-        0,
-        true,
         midiNumberToY,
         noteHeight,
         handleNoteClick,
@@ -974,16 +969,23 @@ const MERGED_VOICE_NAMES = ["merged"];
 const MERGED_VOICE_MASK = [true];
 
 export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
-  const { notes } = props;
+  const { notes, voiceNames } = props;
 
   const flattenedNotes = useMemo(() => [notes.flat()], [notes]);
 
   return (
-    <StackedSystemLayout
-      {...props}
-      notes={flattenedNotes}
-      voiceNames={MERGED_VOICE_NAMES}
-      voiceMask={MERGED_VOICE_MASK}
-    />
+    <div style={{ position: "relative" }}>
+      <StackedSystemLayout
+        {...props}
+        notes={flattenedNotes}
+        voiceNames={MERGED_VOICE_NAMES}
+        voiceMask={MERGED_VOICE_MASK}
+      />
+      <div style={{ position: "fixed", top: 50, right: 100 }}>
+        {voiceNames.map((voiceName) => (
+          <div>{voiceName}</div>
+        ))}
+      </div>
+    </div>
   );
 };

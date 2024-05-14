@@ -517,6 +517,12 @@ const LandingPage = () => (
             "c/Classical%20MIDI/Mozart/Piano%20Sonatas/Piano%20Sonata%20No.%2013,%20K332%20–%20I.%20Allegro.mid"
           }
         />
+        <Example
+          name={`Mozart, Symphony No. 39 in E-flat, K. 543/iv (Finale, Allegro Molto)`}
+          pathname={
+            "c/Classical%20MIDI/Mozart/Symphonies/Symphony%20No.%2039,%20K543%20–%20IV.%20Finale%20(Allegro%20molto).mid"
+          }
+        />
       </Section>
       <Section title="William E.&nbsp;Caplin. Analyzing Classical Form (2013)">
         <div>

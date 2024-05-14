@@ -71,6 +71,8 @@ function MIDIPlayer(options) {
   this.channelProgramNums = [];
   this.textInfo = [];
   this.setChipStateDump = options.setChipStateDump;
+  this.trackNames = {};
+  this.channelToTrack = {};
 
   window.addEventListener("unload", this.stop);
 }
@@ -607,13 +609,17 @@ MIDIPlayer.prototype.summarizeMidiEvents = function () {
 
   for (let j = 0; j < this.events.length; j++) {
     const event = this.events[j];
+    const { channel, track } = event;
+    if (typeof channel !== "undefined" && typeof track !== "undefined") {
+      this.channelToTrack[channel] = track;
+    }
     switch (event.subtype) {
       case MIDIEvents.EVENT_MIDI_NOTE_ON:
-        channelsInUse[event.channel] = 1;
+        channelsInUse[channel] = 1;
         break;
       case MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE:
-        if (!channelProgramNums[event.channel])
-          this.handleProgramChange(event.channel, event.param1);
+        if (!channelProgramNums[channel])
+          this.handleProgramChange(channel, event.param1);
         break;
       case MIDIEvents.EVENT_META_TEXT:
       case MIDIEvents.EVENT_META_COPYRIGHT_NOTICE:
@@ -628,6 +634,9 @@ MIDIPlayer.prototype.summarizeMidiEvents = function () {
           .trim();
         if (text && !text.match(/nstd/i))
           this.textInfo.push(`${META_LABELS[event.subtype]}: ${text}`);
+        if (event.subtype === MIDIEvents.EVENT_META_TRACK_NAME) {
+          this.trackNames[track] = text;
+        }
         break;
       default:
         break;

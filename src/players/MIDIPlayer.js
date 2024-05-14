@@ -514,9 +514,11 @@ export default class MIDIPlayer extends Player {
   getVoiceName(index) {
     const ch = this.activeChannels[index];
     const pgm = this.midiFilePlayer.channelProgramNums[ch];
-    return ch === 9
-      ? GM_DRUM_KITS[pgm] || GM_DRUM_KITS[0]
-      : GM_INSTRUMENTS[pgm];
+    const instrumentName =
+      ch === 9 ? GM_DRUM_KITS[pgm] || GM_DRUM_KITS[0] : GM_INSTRUMENTS[pgm];
+    const trackName =
+      this.midiFilePlayer.trackNames[this.midiFilePlayer.channelToTrack[ch]];
+    return trackName ?? instrumentName;
   }
 
   getVoiceMask() {

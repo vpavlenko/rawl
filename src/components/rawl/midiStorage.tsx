@@ -21,7 +21,7 @@ export const processMidiUrls = (
 
   const link = params.get("link");
   if (link) {
-    saveMidi(link);
+    saveMidiFromLink(link);
     // handleSongClick(`https://corsproxy.io/?${atob(link)}`);
   }
 
@@ -51,7 +51,7 @@ export const processMidiUrls = (
   }
 };
 
-function formatForURL(title: string): string {
+const formatForURL = (title: string): string => {
   let processedTitle = title.toLowerCase();
   processedTitle = processedTitle
     .normalize("NFD")
@@ -61,9 +61,30 @@ function formatForURL(title: string): string {
   processedTitle = processedTitle.replace(/_+/g, "_");
   processedTitle = processedTitle.replace(/^_+|_+$/g, "");
   return processedTitle;
-}
+};
 
-export const saveMidi = async (link: string) => {
+const saveMidi = async (title: string, url: string, midi: ArrayBuffer) => {
+  debugger;
+  const slug = formatForURL(title);
+  const firestoreBlob = Bytes.fromUint8Array(new Uint8Array(midi));
+  const firestore = getFirestore();
+
+  const docRef = await addDoc(collection(firestore, "midis"), {
+    blob: firestoreBlob,
+    url,
+    title,
+    slug,
+  });
+  console.log("Document written with ID:", docRef.id);
+
+  const indexRef = doc(firestore, "indexes", "midis");
+  await updateDoc(indexRef, {
+    midis: arrayUnion({ title, slug, id: docRef.id }),
+  });
+  window.location.href = `/f/${slug}`;
+};
+
+export const saveMidiFromLink = async (link: string) => {
   try {
     const params = new URLSearchParams(window.location.search);
 
@@ -76,64 +97,42 @@ export const saveMidi = async (link: string) => {
         .join(""),
     );
 
-    const slug = formatForURL(title);
-
     const response = await fetch(`https://corsproxy.io/?${link}`, {
       method: "GET",
     });
-
     if (!response.ok) {
       throw new Error(`HTTP error. Status: ${response.status}`);
     }
 
-    const firestoreBlob = Bytes.fromUint8Array(
-      new Uint8Array(await (await response.blob()).arrayBuffer()),
-    );
-
-    const firestore = getFirestore();
-
-    const docRef = await addDoc(collection(firestore, "midis"), {
-      blob: firestoreBlob,
-      url,
-      title,
-      slug,
-    });
-    console.log("Document written with ID:", docRef.id);
-
-    const indexRef = doc(firestore, "indexes", "midis");
-    await updateDoc(indexRef, {
-      midis: arrayUnion({ title, slug, id: docRef.id }),
-    });
-    window.location.href = `/f/${slug}`;
+    const midi = await (await response.blob()).arrayBuffer();
+    saveMidi(title, url, midi);
   } catch (error) {
     alert(`Fetching binary file failed: ${JSON.stringify(error)}`);
   }
 };
 
-export const DropSaveForm: React.FC = () => {
-  const [inputValue, setInputValue] = useState<string>("");
+export const DropSaveForm: React.FC<{ midi: ArrayBuffer }> = ({ midi }) => {
+  const [title, setTitle] = useState<string>("");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+    setTitle(event.target.value);
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      // Replace this console.log with your action
-      console.log("Enter key pressed! Value:", inputValue);
-      // Clear the input after the action if needed
-      setInputValue("");
+      saveMidi(title, "drop", midi);
     }
   };
 
   return (
     <div>
-      Save drop
       <input
         type="text"
-        value={inputValue}
+        placeholder="Enter a title"
+        value={title}
         onChange={handleInputChange}
         onKeyDown={handleKeyPress}
+        style={{ width: "30em" }}
       />
     </div>
   );

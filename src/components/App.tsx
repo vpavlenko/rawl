@@ -97,7 +97,8 @@ interface FirestoreMidiDocument {
   url: string | null;
 }
 
-// is it defined in a Firestore SDK?
+// is it defined in a Firestore SDK? it's probably Bytes, and
+// we should probably avoid using private fields of it
 type FirestoreBlob = {
   _byteString?: {
     binaryString: string;
@@ -119,6 +120,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private path: string;
   private hash: string;
   private browsePath: string;
+  private midi: ArrayBuffer;
 
   constructor(props) {
     super(props);
@@ -684,10 +686,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
       } else {
         this.browsePath = "drop";
         this.props.history.push("/drop");
-        const songData = result;
         this.currUrl = null;
         debugger;
-        this.playSongBuffer(file.name, songData);
+        this.midi = result;
+        this.playSongBuffer(file.name, result);
       }
     };
     reader.readAsArrayBuffer(file);
@@ -849,7 +851,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     song={slug ?? chiptuneUrl}
                     {...rawlState}
                   />
-                  {match.path === "/drop" && <DropSaveForm />}
+                  {match.path === "/drop" && <DropSaveForm midi={this.midi} />}
                 </>
               )}
             </>

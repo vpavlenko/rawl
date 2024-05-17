@@ -2,7 +2,6 @@ import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import { VoiceMask } from "../App";
-import { AnalysisBox } from "./AnalysisBox";
 import { MeasureSelection } from "./AnalysisGrid";
 import {
   MergedSystemLayout,
@@ -22,6 +21,7 @@ import {
 } from "./analysis";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { LinkForSeparateTab } from "./course/Course";
+import { buildManualMeasuresAndBeats } from "./measures";
 import { ColoredNotesInVoices, Note, ParsingResult } from "./parseMidi";
 
 export type SecondsSpan = [number, number];
@@ -136,7 +136,7 @@ const Rawl: React.FC<{
   voiceNames,
   voiceMask,
   setVoiceMask,
-  showAnalysisBox,
+  showAnalysisBox: enableManualRemeasuring,
   seek,
   artist,
   song,
@@ -201,12 +201,16 @@ const Rawl: React.FC<{
         ? getNewAnalysis(
             hoveredNote,
             selectedMeasureRef.current,
+            enableManualRemeasuring,
             analysisRef.current,
           )
         : analysis,
-    [hoveredNote, analysis],
+    [hoveredNote, analysis, enableManualRemeasuring],
   );
   const measuresAndBeats = useMemo(() => {
+    if (futureAnalysis.measures) {
+      return buildManualMeasuresAndBeats(futureAnalysis.measures, allNotes);
+    }
     return parsingResult?.measuresAndBeats;
   }, [futureAnalysis, allNotes, parsingResult]);
 
@@ -319,15 +323,19 @@ const Rawl: React.FC<{
     setAnalysis({ ...analysis, ...diff });
   }, [allNotes]);
 
-  const handleNoteClick = useCallback((note: Note) => {
-    advanceAnalysis(
-      note,
-      selectedMeasureRef.current,
-      setSelectedMeasure,
-      analysisRef.current,
-      commitAnalysisUpdate,
-    );
-  }, []);
+  const handleNoteClick = useCallback(
+    (note: Note) => {
+      advanceAnalysis(
+        note,
+        selectedMeasureRef.current,
+        enableManualRemeasuring,
+        setSelectedMeasure,
+        analysisRef.current,
+        commitAnalysisUpdate,
+      );
+    },
+    [enableManualRemeasuring, commitAnalysisUpdate],
+  );
 
   const [positionMs, setPositionMs] = useState(0);
 
@@ -366,14 +374,40 @@ const Rawl: React.FC<{
 
   const systemClickHandler = useCallback(
     (e: React.MouseEvent, xToSeconds = xToSeconds__) => {
-      selectMeasure(null);
       const targetElement = e.target as HTMLElement;
       const rect = targetElement.getBoundingClientRect();
       const distance = e.clientX - rect.left + targetElement.scrollLeft;
       const time = xToSeconds(distance);
-      seek(time * 1000);
+
+      if (enableManualRemeasuring && selectedMeasure) {
+        advanceAnalysis(
+          {
+            span: [time, -1],
+            note: { midiNumber: -1 },
+            isDrum: false,
+            chipState: { on: {}, off: {} },
+            id: -1,
+            voiceIndex: -1,
+          },
+          selectedMeasureRef.current,
+          enableManualRemeasuring,
+          setSelectedMeasure,
+          analysisRef.current,
+          commitAnalysisUpdate,
+        );
+      } else {
+        selectMeasure(null);
+
+        seek(time * 1000);
+      }
     },
-    [seek],
+    [
+      seek,
+      selectMeasure,
+      selectedMeasure,
+      enableManualRemeasuring,
+      commitAnalysisUpdate,
+    ],
   );
 
   const positionSeconds = positionMs / 1000;
@@ -480,18 +514,6 @@ const Rawl: React.FC<{
           <StackedSystemLayout {...systemLayoutProps} />
         )}
       </div>
-      {showAnalysisBox && (
-        <div style={{ width: "350px", height: "100%", zIndex: 20 }}>
-          <AnalysisBox
-            analysis={analysis}
-            commitAnalysisUpdate={commitAnalysisUpdate}
-            selectedMeasure={selectedMeasure}
-            selectMeasure={selectMeasure}
-            artist={artist}
-            song={song}
-          />
-        </div>
-      )}
       <div
         style={{
           position: "fixed",

@@ -1,0 +1,38 @@
+import { MeasuresAndBeats } from "./SystemLayout";
+import { ManualMeasures } from "./analysis";
+import { Note } from "./parseMidi";
+
+export const buildManualMeasuresAndBeats = (
+  manualMeasures: ManualMeasures,
+  notes: Note[],
+): MeasuresAndBeats => {
+  const { measureStarts, beatsPerMeasure } = manualMeasures;
+  const measures = [measureStarts[1] ?? 0];
+  const beats = [];
+  let currentBeatsPerMeasure = beatsPerMeasure[1] ?? 4;
+  let measureIndex = 1;
+  let currentMeasureLength = 1.0;
+  while (true) {
+    measureIndex++;
+    let newMeasure =
+      measureStarts[measureIndex] ?? measures.at(-1) + currentMeasureLength;
+    for (let i = 1; i < currentBeatsPerMeasure; ++i) {
+      beats.push(
+        (measures.at(-1) * (currentBeatsPerMeasure - i)) /
+          currentBeatsPerMeasure +
+          (newMeasure * i) / currentBeatsPerMeasure,
+      );
+    }
+    currentBeatsPerMeasure =
+      beatsPerMeasure[measureIndex] ?? currentBeatsPerMeasure;
+    currentMeasureLength = newMeasure - measures.at(-1);
+    measures.push(newMeasure);
+    if (
+      currentMeasureLength < 0.01 ||
+      notes.every((note) => note.span[1] < newMeasure)
+    ) {
+      break;
+    }
+  }
+  return { measures, beats };
+};

@@ -14,23 +14,25 @@ export type MeasureRenumbering = {
   [oneIndexedMeasureStart: number]: PitchClass;
 };
 
+export type ManualMeasures = {
+  measureStarts: { [oneIndexedMeasureStart: number]: number };
+  beatsPerMeasure: { [oneIndexedMeasureStart: number]: number };
+};
+
 // TODO: refactor to move tonic into modulations[0]
 export type Analysis = {
   modulations: Modulations;
   comment: string;
   tags: string[];
   form: { [oneIndexedMeasureStart: number]: string };
-  phrasePatch: { measure: number; diff: number }[];
+  phrasePatch?: { measure: number; diff: number }[];
   sections?: number[];
   measureRenumbering?: MeasureRenumbering;
+  measures?: ManualMeasures;
 };
 
 export type Corpus = {
-  [artist: string]: {
-    [song: string]: {
-      [zeroLiteral: string]: Analysis;
-    };
-  };
+  [path: string]: Analysis;
 };
 
 export const ANALYSIS_STUB: Analysis = {
@@ -64,16 +66,27 @@ const removeIdleModulations = (modulations: Modulations): Modulations => {
 export const getNewAnalysis = (
   note: Note | null,
   selectedMeasure: number | null,
+  enableManualRemeasuring: boolean,
   analysis: Analysis,
 ): Analysis => {
   let update: Partial<Analysis> = {};
 
   if (note) {
-    let newModulations = {
-      ...(analysis.modulations || []),
-      [selectedMeasure ?? 0]: (note.note.midiNumber % 12) as PitchClass,
-    };
-    update.modulations = removeIdleModulations(newModulations);
+    if (enableManualRemeasuring) {
+      if (selectedMeasure) {
+        update.measures = analysis.measures ?? {
+          measureStarts: {},
+          beatsPerMeasure: {},
+        };
+        update.measures.measureStarts[selectedMeasure] = note.span[0];
+      }
+    } else {
+      let newModulations = {
+        ...(analysis.modulations || []),
+        [selectedMeasure ?? 0]: (note.note.midiNumber % 12) as PitchClass,
+      };
+      update.modulations = removeIdleModulations(newModulations);
+    }
   }
 
   return { ...analysis, ...update };
@@ -82,11 +95,17 @@ export const getNewAnalysis = (
 export const advanceAnalysis = (
   note: Note | null,
   selectedMeasure: number | null,
+  enableManualRemeasuring: boolean,
   selectMeasure: (_: null) => void,
   analysis: Analysis,
   commitAnalysisUpdate: (analysisUpdate: Partial<Analysis>) => void,
 ) => {
-  const newAnalysis = getNewAnalysis(note, selectedMeasure, analysis);
+  const newAnalysis = getNewAnalysis(
+    note,
+    selectedMeasure,
+    enableManualRemeasuring,
+    analysis,
+  );
 
   selectMeasure(null);
   commitAnalysisUpdate(newAnalysis);

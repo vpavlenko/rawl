@@ -273,7 +273,7 @@ const getNoteRectangles = (
           pointerEvents: "auto",
           cursor: handleNoteClick && !isDrum ? "pointer" : "default",
           zIndex: 10,
-          opacity: (showVelocity && note?.chipState?.on?.param2 / 127) || 0.8,
+          opacity: (showVelocity && note?.chipState?.on?.param2 / 127) || 1,
           // borderRadius: "4px",
           boxSizing: "border-box",
           display: "grid",

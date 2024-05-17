@@ -100,7 +100,7 @@ export default class Visualizer extends PureComponent {
                 checked={this.props.analysisEnabled}
                 name="analysis-enabled"
               />
-              Analysis
+              Manual remeasuring
             </label>
           )}
           <label className="inline" style={{ marginLeft: "20px" }}>

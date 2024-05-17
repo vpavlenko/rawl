@@ -50,6 +50,7 @@ import Visualizer from "./Visualizer";
 import LandingPage from "./rawl/LandingPage";
 import Rawl from "./rawl/Rawl";
 import TagSearch from "./rawl/TagSearch";
+import { Corpus } from "./rawl/analysis";
 import Course from "./rawl/course/Course";
 import { DropSaveForm, processMidiUrls } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
@@ -80,7 +81,7 @@ type AppState = {
   paramDefs: any;
   parsing: ParsingResult;
   analysisEnabled: boolean;
-  analyses: any;
+  analyses: Corpus;
   latencyCorrectionMs: number;
 };
 
@@ -156,7 +157,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
       this.setState({
         user,
         loadingUser: !!user,
-        // analysisEnabled: !!user,
       });
       if (user) {
         const docRef = doc(this.db, "users", user.uid);
@@ -253,7 +253,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       paramDefs: [],
       parsing: null,
       analysisEnabled: false,
-      analyses: defaultAnalyses,
+      analyses: defaultAnalyses as Corpus,
       latencyCorrectionMs,
     };
 

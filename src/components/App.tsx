@@ -2,19 +2,31 @@ import autoBindReact from "auto-bind/react";
 import { initializeApp as firebaseInitializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,
+  User,
   getAuth,
   onAuthStateChanged,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore/lite";
+import {
+  Firestore,
+  doc,
+  getDoc,
+  getFirestore,
+  setDoc,
+} from "firebase/firestore/lite";
 import clamp from "lodash/clamp";
 import md5 from "md5";
 import path from "path";
 import queryString from "querystring";
 import React from "react";
 import Dropzone from "react-dropzone";
-import { Route, Switch, withRouter } from "react-router-dom";
+import {
+  Route,
+  RouteComponentProps,
+  Switch,
+  withRouter,
+} from "react-router-dom";
 
 import ChipCore from "../chip-core";
 import {
@@ -35,18 +47,79 @@ import AppHeader from "./AppHeader";
 import Browse from "./Browse";
 import DropMessage from "./DropMessage";
 import Visualizer from "./Visualizer";
-import Axes from "./rawl/Axes";
 import LandingPage from "./rawl/LandingPage";
 import Rawl from "./rawl/Rawl";
 import TagSearch from "./rawl/TagSearch";
 import Course from "./rawl/course/Course";
-import { processMidiUrls } from "./rawl/midiStorage";
+import { DropSaveForm, processMidiUrls } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
+import { ParsingResult } from "./rawl/parseMidi";
 import STATIC_MIDI_FILES from "./staticMidiFilles";
 
 export const DUMMY_CALLBACK = () => {};
 
-class App extends React.Component {
+export type VoiceMask = boolean[];
+
+type AppState = {
+  loading: boolean;
+  loadingUser: boolean;
+  paused: boolean;
+  ejected: boolean;
+  playerError: null;
+  currentSongNumVoices: number;
+  currentSongDurationMs: number;
+  currentSongPositionMs: number;
+  tempo: number;
+  voiceMask: VoiceMask;
+  voiceNames: string[];
+  showPlayerError: boolean;
+  user: User;
+  songUrl: string;
+  volume: number;
+  directories: any;
+  paramDefs: any;
+  parsing: ParsingResult;
+  analysisEnabled: boolean;
+  analyses: any;
+  latencyCorrectionMs: number;
+};
+
+interface FirestoreMidiIndex {
+  midis: { id: string; slug: string; title: string }[];
+}
+
+interface FirestoreMidiDocument {
+  blob: {
+    _byteString: string;
+  };
+  slug: string;
+  title: string;
+  url: string | null;
+}
+
+// is it defined in a Firestore SDK?
+type FirestoreBlob = {
+  _byteString?: {
+    binaryString: string;
+  };
+};
+
+class App extends React.Component<RouteComponentProps, AppState> {
+  private contentAreaRef: React.RefObject<HTMLDivElement>;
+  private errorTimer: number;
+  private midiPlayer: MIDIPlayer;
+  private currUrl: string;
+  private songRequest: (method: string, url: string) => Promise<any>;
+  private db: Firestore;
+  private audioCtx: AudioContext;
+  private mediaSessionAudio: HTMLAudioElement;
+  private gainNode: GainNode;
+  private playerNode: ScriptProcessorNode;
+  private chipCore: any;
+  private path: string;
+  private hash: string;
+  private browsePath: string;
+
   constructor(props) {
     super(props);
     autoBindReact(this);
@@ -55,7 +128,7 @@ class App extends React.Component {
     this.contentAreaRef = React.createRef();
     this.errorTimer = null;
     this.midiPlayer = null; // Need a reference to MIDIPlayer to handle SoundFont loading.
-    window.ChipPlayer = this;
+    // window.ChipPlayer = this;
     this.currUrl = null;
     this.songRequest = null;
 
@@ -91,7 +164,6 @@ class App extends React.Component {
               // Create user
               console.debug("Creating user document", user.uid);
               setDoc(docRef, {
-                faves: [],
                 user: {
                   email: user.email,
                 },
@@ -100,7 +172,6 @@ class App extends React.Component {
               // Restore user
               const data = userSnapshot.data();
               this.setState({
-                faves: data.faves || [],
                 // analyses: data.analyses,
               });
             }
@@ -117,7 +188,9 @@ class App extends React.Component {
     // └────────────┘      └────────────┘      └─────────────┘
     const audioCtx =
       (this.audioCtx =
+      // @ts-ignore
       window.audioCtx =
+        // @ts-ignore
         new (window.AudioContext || window.webkitAudioContext)({
           latencyHint: "playback",
         }));
@@ -172,11 +245,9 @@ class App extends React.Component {
       voiceNames: Array(MAX_VOICES).fill(""),
       showPlayerError: false,
       user: null,
-      faves: [],
       songUrl: null,
       volume: 100,
       directories: {},
-      hasPlayer: false,
       paramDefs: [],
       parsing: null,
       analysisEnabled: false,
@@ -192,6 +263,7 @@ class App extends React.Component {
   async initChipCore(audioCtx, playerNode, bufferSize) {
     // Load the chip-core Emscripten runtime
     try {
+      // @ts-ignore
       this.chipCore = await new ChipCore({
         // Look for .wasm file in web root, not the same location as the app bundle (static/js).
         locateFile: (path, prefix) => {
@@ -262,7 +334,6 @@ class App extends React.Component {
       voiceNames: "voiceNames",
       voiceMask: "voiceMask",
       songUrl: "url",
-      hasPlayer: "hasPlayer",
       // TODO: add param values? move to paramStateUpdate?
       paramDefs: "paramDefs",
     };
@@ -293,7 +364,6 @@ class App extends React.Component {
     signOut(auth).then(() => {
       this.setState({
         user: null,
-        faves: [],
       });
     });
   }
@@ -358,12 +428,19 @@ class App extends React.Component {
 
       switch (e.key) {
         case "Escape":
-          e.target.blur();
+          if (e.target instanceof HTMLElement) {
+            e.target.blur();
+          }
           break;
         default:
       }
 
-      if (e.target.tagName === "INPUT" && e.target.type === "text") return; // text input has focus
+      if (
+        e.target instanceof HTMLInputElement &&
+        e.target.tagName === "INPUT" &&
+        e.target.type === "text"
+      )
+        return; // text input has focus
 
       switch (e.key) {
         case " ":
@@ -385,7 +462,12 @@ class App extends React.Component {
         default:
       }
 
-      if (e.target.tagName === "INPUT" && e.target.type === "range") return; // a range slider has focus
+      if (
+        e.target instanceof HTMLInputElement &&
+        e.target.tagName === "INPUT" &&
+        e.target.type === "range"
+      )
+        return; // a range slider has focus
 
       switch (e.key) {
         case "ArrowLeft":
@@ -437,6 +519,8 @@ class App extends React.Component {
     if (message) this.setState({ playerError: message });
     this.setState({ showPlayerError: !!message });
     clearTimeout(this.errorTimer);
+    // see https://chatgpt.com/share/14effd20-b14e-4fb1-b644-6b76a6151c1d
+    // @ts-ignore
     this.errorTimer = setTimeout(
       () => this.setState({ showPlayerError: false }),
       ERROR_FLASH_DURATION_MS,
@@ -476,17 +560,14 @@ class App extends React.Component {
     this.seekRelativeInner(seekMs);
   }
 
-  seekRelative(ms) {
+  seekRelative(ms: number) {
     const durationMs = this.state.currentSongDurationMs;
     const seekMs = clamp(this.midiPlayer?.getPositionMs() + ms, 0, durationMs);
 
     this.seekRelativeInner(seekMs);
   }
 
-  seekRelativeInner(seekMs, firedByChiptheory = false) {
-    if (!firedByChiptheory && this.state.seekCallback) {
-      this.state.seekCallback(seekMs);
-    }
+  seekRelativeInner(seekMs: number) {
     this.midiPlayer?.seekMs(seekMs);
     this.setState({
       currentSongPositionMs: seekMs, // Smooth
@@ -500,9 +581,9 @@ class App extends React.Component {
     }, 100);
   }
 
-  seekForRawl = (seekMs) => this.seekRelativeInner(seekMs, true);
+  seekForRawl = (seekMs: number) => this.seekRelativeInner(seekMs);
 
-  handleSetVoiceMask(voiceMask) {
+  handleSetVoiceMask(voiceMask: VoiceMask) {
     this.midiPlayer?.setVoiceMask(voiceMask);
     this.setState({ voiceMask: [...voiceMask] });
   }
@@ -523,10 +604,10 @@ class App extends React.Component {
     });
   }
 
-  handleSongClick(url, context, index) {
+  handleSongClick(url: string) {
     const tryPlay = () => {
       try {
-        this.playSong(context ? context[index] : url);
+        this.playSong(url);
       } catch {
         setTimeout(tryPlay, 200);
       }
@@ -535,7 +616,7 @@ class App extends React.Component {
     tryPlay();
   }
 
-  handleVolumeChange(volume) {
+  handleVolumeChange(volume: number) {
     this.setState({ volume });
     this.gainNode.gain.value = Math.max(0, Math.min(2, volume * 0.01));
   }
@@ -553,16 +634,16 @@ class App extends React.Component {
       return this.processFetchedDirectory(path, STATIC_MIDI_FILES);
     } else if (path.startsWith("f")) {
       const index = await getDoc(doc(this.db, "indexes", "midis"));
-      const firestoreMidiDirectory = index
-        .data()
-        .midis.map(({ title, id, slug }, order) => ({
-          idx: order,
-          path: `/static/f/${title}`,
-          id,
-          slug,
-          size: 1337,
-          type: "file",
-        }));
+      const firestoreMidiDirectory = (
+        index.data() as FirestoreMidiIndex
+      ).midis.map(({ title, id, slug }, order) => ({
+        idx: order,
+        path: `/static/f/${title}`,
+        id,
+        slug,
+        size: 1337,
+        type: "file",
+      }));
       return this.processFetchedDirectory(path, firestoreMidiDirectory);
     } else if (!path.startsWith("link")) {
       return fetch(`${API_BASE}/browse?path=%2F${encodeURIComponent(path)}`)
@@ -584,6 +665,7 @@ class App extends React.Component {
       return;
     }
     reader.onload = async () => {
+      const result = reader.result as ArrayBuffer;
       if (ext === ".sf2" && this.midiPlayer) {
         const sf2Path = `user/${file.name}`;
         const forceWrite = true;
@@ -591,7 +673,7 @@ class App extends React.Component {
         await ensureEmscFileWithData(
           this.chipCore,
           `${SOUNDFONT_MOUNTPOINT}/${sf2Path}`,
-          new Uint8Array(reader.result),
+          new Uint8Array(result),
           forceWrite,
         );
         this.midiPlayer?.updateSoundfontParamDefs();
@@ -602,19 +684,19 @@ class App extends React.Component {
       } else {
         this.browsePath = "drop";
         this.props.history.push("/drop");
-        const songData = reader.result;
-        this.playSongFile(file.name, songData);
+        const songData = result;
+        this.currUrl = null;
+        debugger;
+        this.playSongBuffer(file.name, songData);
       }
     };
     reader.readAsArrayBuffer(file);
   };
 
-  setLatencyCorrectionMs = (latencyCorrectionMs) => {
+  setLatencyCorrectionMs = (latencyCorrectionMs: number) => {
     this.setState({ latencyCorrectionMs });
-    localStorage.setItem("latencyCorrectionMs", latencyCorrectionMs);
+    localStorage.setItem("latencyCorrectionMs", latencyCorrectionMs.toString());
   };
-
-  registerSeekCallback = (seekCallback) => this.setState({ seekCallback });
 
   handlePlayerStateUpdate(playerState) {
     const { isStopped } = playerState;
@@ -625,8 +707,6 @@ class App extends React.Component {
     } else {
       this.handleSequencerStateUpdate({
         url: this.currUrl,
-        hasPlayer: true,
-        // TODO: combine isEjected and hasPlayer
         isEjected: false,
         ...playerState,
       });
@@ -669,11 +749,18 @@ class App extends React.Component {
     } else {
       // Fetch the song file (cancelable request)
       // Cancel any outstanding request so that playback doesn't happen out of order
-      if (this.songRequest) this.songRequest.abort();
+      if (this.songRequest) {
+        // @ts-ignore
+        this.songRequest.abort();
+      }
+      // TODO: rewrite on fetch()
       this.songRequest = promisify(new XMLHttpRequest());
+      // @ts-ignore
       this.songRequest.responseType = "arraybuffer";
+      // @ts-ignore
       this.songRequest.open("GET", url);
       this.songRequest
+        // @ts-ignore
         .send()
         .then((xhr) => xhr.response)
         .then((buffer) => {
@@ -689,28 +776,24 @@ class App extends React.Component {
     }
   }
 
-  async playSongFile(filepath, songData) {
-    this.currUrl = null;
-    return this.playSongBuffer(filepath, songData);
-  }
-
-  async playSongBuffer(filepath, buffer) {
+  async playSongBuffer(filepath: string, buffer: ArrayBuffer | FirestoreBlob) {
     this.midiPlayer.suspend();
-    const uint8Array = buffer._byteString
-      ? Uint8Array.from(buffer._byteString.binaryString, (e) => e.charCodeAt(0))
-      : new Uint8Array(buffer);
+    const uint8Array =
+      "_byteString" in buffer
+        ? Uint8Array.from(buffer._byteString.binaryString, (e) =>
+            e.charCodeAt(0),
+          )
+        : new Uint8Array(buffer as ArrayBuffer);
     this.hash = md5(uint8Array);
     console.log("MD5", this.hash);
     this.midiPlayer.setTempo(1);
-    let result;
     try {
-      result = await this.midiPlayer.loadData(uint8Array, filepath);
+      await this.midiPlayer.loadData(uint8Array, filepath);
     } catch (e) {
       this.handlePlayerError(`Unable to play ${filepath} (${e.message}).`);
     }
     const numVoices = this.midiPlayer.getNumVoices();
     this.midiPlayer.setVoiceMask([...Array(numVoices)].fill(true));
-    return result;
   }
 
   render() {
@@ -745,24 +828,29 @@ class App extends React.Component {
       <Route
         path={["/f/:slug*", "/c/:chiptuneUrl*", "/drop"]}
         render={({ match }) => {
-          const { slug, chiptuneUrl } = match.params;
+          const { slug, chiptuneUrl } = match.params as {
+            slug?: string;
+            chiptuneUrl?: string;
+          };
           const { parsing } = this.state;
           this.path = match.url.slice(1);
           return (
             <>
               {parsing && (
-                <Rawl
-                  parsingResult={parsing}
-                  getCurrentPositionMs={this.midiPlayer?.getPositionMs}
-                  savedAnalysis={this.state.analyses[this.path] ?? null}
-                  saveAnalysis={this.saveAnalysis}
-                  showAnalysisBox={this.state.analysisEnabled}
-                  seek={this.seekForRawl}
-                  registerSeekCallback={this.registerSeekCallback}
-                  artist={""}
-                  song={slug ?? chiptuneUrl}
-                  {...rawlState}
-                />
+                <>
+                  <Rawl
+                    parsingResult={parsing}
+                    getCurrentPositionMs={this.midiPlayer?.getPositionMs}
+                    savedAnalysis={this.state.analyses[this.path] ?? null}
+                    saveAnalysis={this.saveAnalysis}
+                    showAnalysisBox={this.state.analysisEnabled}
+                    seek={this.seekForRawl}
+                    artist={""}
+                    song={slug ?? chiptuneUrl}
+                    {...rawlState}
+                  />
+                  {match.path === "/drop" && <DropSaveForm />}
+                </>
               )}
             </>
           );
@@ -772,6 +860,7 @@ class App extends React.Component {
 
     return (
       <Dropzone disableClick style={{}} onDrop={this.onDrop}>
+        {/* @ts-ignore */}
         {(dropzoneProps) => (
           <div className="App">
             <DropMessage dropzoneProps={dropzoneProps} />
@@ -790,12 +879,12 @@ class App extends React.Component {
                   >
                     <Switch>
                       <Route path="/" exact render={() => <LandingPage />} />
-                      <Route path="/axes" render={() => <Axes />} />
+                      {/* <Route path="/axes" render={() => <Axes />} /> */}
                       <Route
                         path="/course/:chapter*"
                         render={({ match }) => (
                           <Course
-                            chapter={match.params?.chapter}
+                            chapter={parseInt(match.params?.chapter, 10)}
                             analyses={this.state.analyses}
                           />
                         )}
@@ -837,16 +926,10 @@ class App extends React.Component {
             {location.pathname !== "/" && (
               <AppFooter
                 currentSongDurationMs={this.state.currentSongDurationMs}
-                currentSongNumVoices={this.state.currentSongNumVoices}
                 ejected={this.state.ejected}
                 paused={this.state.paused}
                 songUrl={this.state.songUrl}
-                tempo={this.state.tempo}
-                voiceNames={this.state.voiceNames}
-                voiceMask={this.state.voiceMask}
                 volume={this.state.volume}
-                handleSetVoiceMask={this.handleSetVoiceMask}
-                handleTempoChange={this.handleTempoChange}
                 handleTimeSliderChange={this.handleTimeSliderChange}
                 handleVolumeChange={this.handleVolumeChange}
                 togglePause={this.togglePause}

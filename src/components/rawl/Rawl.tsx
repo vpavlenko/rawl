@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
+import { VoiceMask } from "../App";
 import { AnalysisBox } from "./AnalysisBox";
 import { MeasureSelection } from "./AnalysisGrid";
 import {
@@ -65,7 +66,7 @@ const TagBrowser: React.FC<{ tags?: string[] }> = ({ tags }) => {
 
 export type AppStateForRawl = {
   voiceNames: string[];
-  voiceMask: boolean[];
+  voiceMask: VoiceMask;
   setVoiceMask: SetVoiceMask;
   latencyCorrectionMs: number;
 };
@@ -120,11 +121,10 @@ const Rawl: React.FC<{
   savedAnalysis?: Analysis;
   saveAnalysis: (Analysis) => void;
   voiceNames: string[];
-  voiceMask: boolean[];
+  voiceMask: VoiceMask;
   setVoiceMask: SetVoiceMask;
   showAnalysisBox: boolean;
   seek: (ms: number) => void;
-  registerSeekCallback: (seekCallback: (ms: number) => void) => void;
   artist: string;
   song: string;
   latencyCorrectionMs: number;
@@ -138,7 +138,6 @@ const Rawl: React.FC<{
   setVoiceMask,
   showAnalysisBox,
   seek,
-  registerSeekCallback,
   artist,
   song,
   latencyCorrectionMs,

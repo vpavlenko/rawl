@@ -15,10 +15,10 @@ const AppHeader: React.FC = () => {
       <Link className="AppHeader-title" to={{ pathname: "/browse/MIDI" }}>
         Rock
       </Link>
-      {" • "}
+      {/* {" • "}
       <Link className="AppHeader-title" to={{ pathname: "/axes" }}>
         Tags
-      </Link>
+      </Link> */}
       {" • "}
       <Link className="AppHeader-title" to={{ pathname: "/browse/Demo MIDI" }}>
         d

@@ -9,6 +9,8 @@ import {
   updateDoc,
 } from "firebase/firestore/lite";
 import { Location } from "history";
+import * as React from "react";
+import { useState } from "react";
 import { CATALOG_PREFIX } from "../../config";
 
 export const processMidiUrls = (
@@ -106,4 +108,33 @@ export const saveMidi = async (link: string) => {
   } catch (error) {
     alert(`Fetching binary file failed: ${JSON.stringify(error)}`);
   }
+};
+
+export const DropSaveForm: React.FC = () => {
+  const [inputValue, setInputValue] = useState<string>("");
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      // Replace this console.log with your action
+      console.log("Enter key pressed! Value:", inputValue);
+      // Clear the input after the action if needed
+      setInputValue("");
+    }
+  };
+
+  return (
+    <div>
+      Save drop
+      <input
+        type="text"
+        value={inputValue}
+        onChange={handleInputChange}
+        onKeyDown={handleKeyPress}
+      />
+    </div>
+  );
 };

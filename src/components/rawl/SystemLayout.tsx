@@ -9,7 +9,7 @@ import {
 } from "react";
 import styled from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
-import { DUMMY_CALLBACK } from "../App";
+import { DUMMY_CALLBACK, VoiceMask } from "../App";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import ChordStairs, { MODES } from "./ChordStairs";
 import { InlinePianoLegend, PianoLegend } from "./PianoLegend";
@@ -318,7 +318,7 @@ type ScrollInfo = {
 
 const VoiceName: React.FC<{
   voiceName: string;
-  voiceMask: boolean[];
+  voiceMask: VoiceMask;
   setVoiceMask: SetVoiceMask;
   voiceIndex: number;
   scrollInfo: ScrollInfo;
@@ -497,7 +497,7 @@ export const Voice: React.FC<{
   voiceName: string;
   setVoiceMask: SetVoiceMask;
   voiceIndex: number;
-  voiceMask: boolean[];
+  voiceMask: VoiceMask;
   showTonalGrid?: boolean;
   noteHeight: number;
   secondsToX: SecondsConverter;
@@ -681,7 +681,7 @@ const FoldButton = styled.button`
 export type SystemLayoutProps = {
   notes: ColoredNotesInVoices;
   voiceNames: string[];
-  voiceMask: boolean[];
+  voiceMask: VoiceMask;
   measuresAndBeats: MeasuresAndBeats;
   showVelocity: boolean;
   positionSeconds: number;

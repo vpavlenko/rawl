@@ -3,7 +3,19 @@ import downloadImage from "../images/download.png";
 import TimeSlider from "./TimeSlider";
 import VolumeSlider from "./VolumeSlider";
 
-const AppFooter = ({
+const AppFooter: React.FC<{
+  currentSongDurationMs: number;
+  ejected: boolean;
+  paused: boolean;
+  songUrl: string;
+  volume: number;
+  handleTimeSliderChange: any;
+  handleVolumeChange: any;
+  getCurrentPositionMs: any;
+  togglePause: any;
+  latencyCorrectionMs: number;
+  setLatencyCorrectionMs: (latency: number) => void;
+}> = ({
   currentSongDurationMs,
   ejected,
   paused,
@@ -66,7 +78,6 @@ const AppFooter = ({
               e.preventDefault();
               e.stopPropagation();
             }}
-            title="Double-click or right-click to reset to 100%."
             value={volume}
           />
           <a

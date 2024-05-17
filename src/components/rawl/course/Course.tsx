@@ -54,7 +54,7 @@ const CHAPTERS: { title: string; component: Chapter; hasContent?: boolean }[] =
     { title: "Styles", component: Styles },
   ];
 
-export type Chapter = React.FC<{ sequencer: any; analyses: Corpus }>;
+export type Chapter = React.FC<{ analyses: Corpus }>;
 
 export const Row = styled.div`
   display: flex;
@@ -86,11 +86,9 @@ export const S = ({ artist, song }) => <SongLink artist={artist} song={song} />;
 
 const Course = ({
   chapter,
-  sequencer,
   analyses,
 }: {
   chapter: number;
-  sequencer: any;
   analyses: Corpus;
 }) => {
   if (!(chapter >= 0 && chapter < CHAPTERS.length)) {
@@ -141,7 +139,7 @@ const Course = ({
           </div>
         )}
         <h2>{title}</h2>
-        {Component && <Component sequencer={sequencer} analyses={analyses} />}
+        {Component && <Component analyses={analyses} />}
       </div>
     </div>
   );

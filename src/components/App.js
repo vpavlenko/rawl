@@ -744,7 +744,7 @@ class App extends React.Component {
     );
     const rawlRoute = (
       <Route
-        path={["/f/:slug*", "/c/:chiptuneUrl*"]}
+        path={["/f/:slug*", "/c/:chiptuneUrl*", "/drop"]}
         render={({ match }) => {
           const { slug, chiptuneUrl } = match.params;
           const { parsing } = this.state;
@@ -755,7 +755,7 @@ class App extends React.Component {
                 <Rawl
                   parsingResult={parsing}
                   getCurrentPositionMs={this.midiPlayer?.getPositionMs}
-                  savedAnalysis={this.state.analyses[this.path]}
+                  savedAnalysis={this.state.analyses[this.path] ?? null}
                   saveAnalysis={this.saveAnalysis}
                   showAnalysisBox={this.state.analysisEnabled}
                   seek={this.seekForRawl}
@@ -813,27 +813,6 @@ class App extends React.Component {
                         )}
                       />
                       <Route path="/pages/daw" render={() => <DAW />} />
-                      <Route
-                        path={["/drop"]}
-                        render={() =>
-                          this.state.parsings["drop"] && (
-                            <Rawl
-                              parsingResult={this.state.parsings["drop"]}
-                              getCurrentPositionMs={
-                                this.midiPlayer?.getPositionMs
-                              }
-                              savedAnalysis={null}
-                              saveAnalysis={this.saveAnalysis}
-                              showAnalysisBox={this.state.analysisEnabled}
-                              seek={this.seekForRawl}
-                              registerSeekCallback={this.registerSeekCallback}
-                              artist={"drop"}
-                              song={""}
-                              {...rawlState}
-                            />
-                          )
-                        }
-                      />
                       {browseRoute}
                       {rawlRoute}
                     </Switch>

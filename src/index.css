@@ -792,46 +792,46 @@ img {
 }
 
 .voiceShape-0 {
-    border-radius: 0px;
+    border-radius: 6px 6px 6px 6px;
 }
 
 .voiceShape-1 {
-    border-radius: 1px;
+    border-radius: 6px 0 6px 0;
 }
 
 .voiceShape-2 {
-    border-radius: 2px;
+    border-radius: 0 6px 0 6px;
 }
 
 .voiceShape-3 {
-    border-radius: 3px;
+    border-radius: 6px 0 0 6px;
 }
 
 .voiceShape-4 {
-    border-radius: 4px;
+    border-radius: 0 6px 6px 0;
 }
 
 .voiceShape-5 {
-    border-radius: 5px;
+    border-radius: 6px 6px 0 0;
 }
 
 .voiceShape-6 {
-    border-radius: 6px;
+    border-radius: 0 0 6px 6px;
 }
 
 .voiceShape-7 {
-    border-radius: 7px;
+    border-radius: 6px 0 6px 6px;
 }
 
 .voiceShape-8 {
-    border-radius: 8px;
+    border-radius: 0 6px 0 6px;
 }
 
 .voiceShape-9 {
-    border-radius: 9px;
+    border-radius: 4px;
 }
 
-.voiceShape-10 {
+/* .voiceShape-10 {
     border-radius: 10px;
 }
 
@@ -853,4 +853,4 @@ img {
 
 .voiceShape-15 {
     border-radius: 15px;
-}
+} */

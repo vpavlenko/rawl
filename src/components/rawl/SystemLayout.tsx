@@ -235,7 +235,19 @@ const getNoteRectangles = (
       >
         {drumEmoji}
       </span>
-    ) : null;
+    ) : (
+      <span
+        style={{
+          fontSize: 0,
+          textShadow: "0px 0px 2px black",
+          top: 8,
+          left: voiceIndex,
+          position: "relative",
+        }}
+      >
+        {voiceIndex}
+      </span>
+    );
     const pathData = note.chipState.on.pitchBend
       ? convertPitchBendToPathData(
           note.chipState.on.pitchBend,
@@ -261,11 +273,11 @@ const getNoteRectangles = (
           pointerEvents: "auto",
           cursor: handleNoteClick && !isDrum ? "pointer" : "default",
           zIndex: 10,
-          opacity: (showVelocity && note?.chipState?.on?.param2 / 127) || 1,
+          opacity: (showVelocity && note?.chipState?.on?.param2 / 127) || 0.8,
           // borderRadius: "4px",
           boxSizing: "border-box",
           display: "grid",
-          placeItems: "center",
+          placeItems: drumEmoji ? "center" : "",
         }}
         onClick={(e) => {
           e.stopPropagation();
@@ -969,9 +981,10 @@ const MERGED_VOICE_NAMES = ["merged"];
 const MERGED_VOICE_MASK = [true];
 
 export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
-  const { notes, voiceNames } = props;
+  const { notes, voiceNames, voiceMask, setVoiceMask } = props;
 
   const flattenedNotes = useMemo(() => [notes.flat()], [notes]);
+  const isSingleActive = voiceMask.filter((voice) => voice).length === 1;
 
   return (
     <div style={{ position: "relative" }}>
@@ -982,8 +995,53 @@ export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
         voiceMask={MERGED_VOICE_MASK}
       />
       <div style={{ position: "fixed", top: 50, right: 100 }}>
-        {voiceNames.map((voiceName) => (
-          <div>{voiceName}</div>
+        {voiceNames.map((voiceName, voiceIndex) => (
+          <div>
+            <input
+              title="active"
+              type="checkbox"
+              onChange={(e) => {
+                e.stopPropagation();
+                setVoiceMask(
+                  voiceMask.map((value, i) =>
+                    i === voiceIndex ? !value : value,
+                  ),
+                );
+              }}
+              checked={voiceMask[voiceIndex]}
+              style={{
+                margin: "0px 0px 0px 17px",
+                height: 11,
+                display: "inline",
+              }}
+            />{" "}
+            <span
+              className={`voiceShape-${voiceIndex}`}
+              style={{
+                display: "inline-block",
+                backgroundColor: "white",
+                height: 8,
+                width: 20,
+              }}
+            />{" "}
+            {voiceName}
+            <button
+              style={{
+                cursor: "pointer",
+                userSelect: "none",
+                fontFamily: "sans-serif",
+                fontSize: 12,
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                isSingleActive
+                  ? setVoiceMask(voiceMask.map(() => true))
+                  : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
+              }}
+            >
+              {isSingleActive ? "Unsolo All" : "Solo"}
+            </button>
+          </div>
         ))}
       </div>
     </div>

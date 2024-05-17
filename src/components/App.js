@@ -8,7 +8,6 @@ import {
   signOut,
 } from "firebase/auth";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore/lite";
-import isMobile from "ismobilejs";
 import clamp from "lodash/clamp";
 import md5 from "md5";
 import path from "path";
@@ -781,9 +780,7 @@ class App extends React.Component {
               playerError={this.state.playerError}
               showPlayerError={this.state.showPlayerError}
             />
-            {location.pathname !== "/" && (
-              <AppHeader isPhone={isMobile.phone} />
-            )}
+            {location.pathname !== "/" && <AppHeader />}
             <div className="App-main">
               <div className="App-main-inner">
                 <div className="App-main-content-and-settings">
@@ -819,25 +816,23 @@ class App extends React.Component {
                   </div>
                 </div>
               </div>
-              {location.pathname !== "/" &&
-                !isMobile.phone &&
-                !this.state.loading && (
-                  <Visualizer
-                    audioCtx={this.audioCtx}
-                    sourceNode={this.playerNode}
-                    chipCore={this.chipCore}
-                    analysisEnabled={this.state.analysisEnabled}
-                    handleToggleAnalysis={() =>
-                      this.setState((state) => ({
-                        analysisEnabled: !state.analysisEnabled,
-                      }))
-                    }
-                    paused={this.state.ejected || this.state.paused}
-                    user={this.state.user}
-                    handleLogout={this.handleLogout}
-                    handleLogin={this.handleLogin}
-                  />
-                )}
+              {location.pathname !== "/" && !this.state.loading && (
+                <Visualizer
+                  audioCtx={this.audioCtx}
+                  sourceNode={this.playerNode}
+                  chipCore={this.chipCore}
+                  analysisEnabled={this.state.analysisEnabled}
+                  handleToggleAnalysis={() =>
+                    this.setState((state) => ({
+                      analysisEnabled: !state.analysisEnabled,
+                    }))
+                  }
+                  paused={this.state.ejected || this.state.paused}
+                  user={this.state.user}
+                  handleLogout={this.handleLogout}
+                  handleLogin={this.handleLogin}
+                />
+              )}
             </div>
             {location.pathname !== "/" && (
               <AppFooter

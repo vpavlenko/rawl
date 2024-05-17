@@ -8408,11 +8408,6 @@ isexe@^2.0.0:
   resolved "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
 
-ismobilejs@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.npmjs.org/ismobilejs/-/ismobilejs-0.4.1.tgz"
-  integrity sha512-8XDJbWbSCtFfWqmbSvCTX2/r3hROAP0S/BDBuGqdz8hJ4/EaQZx8vLjdIwDfIENeViG1EQuGpwPp+Bt3jZ8/Iw==
-
 isobject@^2.0.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/isobject/-/isobject-2.1.0.tgz"

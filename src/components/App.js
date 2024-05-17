@@ -35,12 +35,12 @@ import AppHeader from "./AppHeader";
 import Browse from "./Browse";
 import DropMessage from "./DropMessage";
 import Visualizer from "./Visualizer";
-import { processMidiUrlsInApp } from "./midiUrls";
 import Axes from "./rawl/Axes";
 import LandingPage from "./rawl/LandingPage";
 import Rawl from "./rawl/Rawl";
 import TagSearch from "./rawl/TagSearch";
 import Course from "./rawl/course/Course";
+import { processMidiUrls } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
 import STATIC_MIDI_FILES from "./staticMidiFilles";
 
@@ -186,7 +186,7 @@ class App extends React.Component {
 
     this.initChipCore(audioCtx, playerNode, bufferSize);
 
-    processMidiUrlsInApp(this.props.location, this.handleSongClick);
+    processMidiUrls(this.props.location, this.handleSongClick);
   }
 
   async initChipCore(audioCtx, playerNode, bufferSize) {

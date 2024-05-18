@@ -186,14 +186,19 @@ const Rawl: React.FC<{
   const allNotes = useMemo(() => notes.flat(), [notes]);
 
   const [hoveredNote, setHoveredNote] = useState<Note | null>(null);
-  const handleMouseEnter = useCallback((note: Note) => {
-    if (selectedMeasureRef.current) {
-      setHoveredNote(note);
-    }
-  }, []);
+  const handleMouseEnter = useCallback(
+    (note: Note) => {
+      if (!enableManualRemeasuring && selectedMeasureRef.current) {
+        setHoveredNote(note);
+      }
+    },
+    [enableManualRemeasuring],
+  );
   const handleMouseLeave = useCallback(() => {
-    setHoveredNote(null);
-  }, []);
+    if (!enableManualRemeasuring) {
+      setHoveredNote(null);
+    }
+  }, [enableManualRemeasuring]);
 
   const futureAnalysis = useMemo(
     () =>

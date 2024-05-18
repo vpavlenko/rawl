@@ -1,6 +1,10 @@
+import minBy from "lodash/minBy";
 import { MeasuresAndBeats } from "./SystemLayout";
 import { ManualMeasures } from "./analysis";
 import { Note } from "./parseMidi";
+
+const snap = (time: number, notes: Note[]) =>
+  minBy(notes, ({ span: [start] }) => Math.abs(time - start)).span[0];
 
 export const buildManualMeasuresAndBeats = (
   manualMeasures: ManualMeasures,
@@ -15,7 +19,11 @@ export const buildManualMeasuresAndBeats = (
   while (true) {
     measureIndex++;
     let newMeasure =
-      measureStarts[measureIndex] ?? measures.at(-1) + currentMeasureLength;
+      measureStarts[measureIndex] ??
+      snap(measures.at(-1) + currentMeasureLength, notes);
+    if (newMeasure - measures.at(-1) < 0.01) {
+      newMeasure = measures.at(-1) + 2;
+    }
     for (let i = 1; i < currentBeatsPerMeasure; ++i) {
       beats.push(
         (measures.at(-1) * (currentBeatsPerMeasure - i)) /
@@ -27,10 +35,7 @@ export const buildManualMeasuresAndBeats = (
       beatsPerMeasure[measureIndex] ?? currentBeatsPerMeasure;
     currentMeasureLength = newMeasure - measures.at(-1);
     measures.push(newMeasure);
-    if (
-      currentMeasureLength < 0.01 ||
-      notes.every((note) => note.span[1] < newMeasure)
-    ) {
+    if (notes.every((note) => note.span[1] < newMeasure)) {
       break;
     }
   }

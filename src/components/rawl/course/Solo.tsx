@@ -2,7 +2,7 @@ import * as React from "react";
 import TagSearch from "../TagSearch";
 import { Chapter } from "./Course";
 
-const Solo: Chapter = ({ sequencer, analyses }) => {
+const Solo: Chapter = ({ analyses }) => {
   return (
     <>
       <TagSearch tag="form:rock_solo" analyses={analyses} />

@@ -3,7 +3,7 @@ import TagSearch from "../TagSearch";
 import ChordClouds from "./ChordClouds";
 import { Chapter, S } from "./Course";
 
-const Modes: Chapter = ({ sequencer, analyses }) => {
+const Modes: Chapter = ({ analyses }) => {
   return (
     <>
       <ChordClouds chords={["i", "IV"]} />

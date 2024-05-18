@@ -2,7 +2,7 @@ import * as React from "react";
 import TagSearch from "../TagSearch";
 import { Chapter } from "./Course";
 
-const Rhythm: Chapter = ({ sequencer, analyses }) => {
+const Rhythm: Chapter = ({ analyses }) => {
   return (
     <>
       <TagSearch tag="rhythm:swing" analyses={analyses} />

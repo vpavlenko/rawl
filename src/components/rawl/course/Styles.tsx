@@ -2,7 +2,7 @@ import * as React from "react";
 import TagSearch from "../TagSearch";
 import { Chapter, S } from "./Course";
 
-const Styles: Chapter = ({ sequencer, analyses }) => {
+const Styles: Chapter = ({ analyses }) => {
   return (
     <>
       <TagSearch tag="style:reggae" analyses={analyses} />

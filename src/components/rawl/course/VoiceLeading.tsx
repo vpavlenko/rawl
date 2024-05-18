@@ -2,7 +2,7 @@ import * as React from "react";
 import TagSearch from "../TagSearch";
 import { Chapter } from "./Course";
 
-const VoiceLeading: Chapter = ({ sequencer, analyses }) => {
+const VoiceLeading: Chapter = ({ analyses }) => {
   return (
     <>
       <TagSearch tag="voice-leading:Vsus4" analyses={analyses} />

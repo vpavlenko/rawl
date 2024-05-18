@@ -9,7 +9,10 @@ import { getNoteColor, secondsToX__, xToSeconds__ } from "./Rawl";
 import { Voice } from "./SystemLayout";
 import { PitchClass } from "./analysis";
 
-export const NoteSnippet = ({ notes, sequencer }) => {
+// @ts-ignore
+const sequencer = window.sequencer;
+
+export const NoteSnippet = ({ notes }) => {
   return (
     notes && (
       <div
@@ -85,9 +88,7 @@ export const Tag = ({
       <a href={`/tags/${name}`} target="_blank">
         {name.split(":")[1]}
       </a>
-      {notes && sequencer && (
-        <NoteSnippet notes={notes} sequencer={sequencer} />
-      )}
+      {notes && sequencer && <NoteSnippet notes={notes} />}
     </span>
   );
 };

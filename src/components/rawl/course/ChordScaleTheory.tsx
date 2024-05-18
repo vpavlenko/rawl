@@ -2,7 +2,7 @@ import * as React from "react";
 import TagSearch from "../TagSearch";
 import { Chapter } from "./Course";
 
-const ChordScaleTheory: Chapter = ({ sequencer, analyses }) => {
+const ChordScaleTheory: Chapter = ({ analyses }) => {
   return (
     <>
       <h3>Iadd6</h3>

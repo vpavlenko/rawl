@@ -5,7 +5,7 @@ export const Email = () => (
   <a href="mailto:cxielamiko@gmail.com">cxielamiko@gmail.com</a>
 );
 
-const About: Chapter = ({ sequencer }) => {
+const About: Chapter = () => {
   return (
     <>
       <div style={{ position: "relative" }}>

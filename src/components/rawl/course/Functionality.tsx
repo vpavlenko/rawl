@@ -2,7 +2,7 @@ import * as React from "react";
 import TagSearch from "../TagSearch";
 import { Chapter, S } from "./Course";
 
-const Functionality: Chapter = ({ sequencer, analyses }) => {
+const Functionality: Chapter = ({ analyses }) => {
   return (
     <>
       <h3>Functionality - progression</h3>

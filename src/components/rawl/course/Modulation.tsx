@@ -3,7 +3,7 @@ import TagSearch from "../TagSearch";
 import ChordClouds from "./ChordClouds";
 import { Chapter } from "./Course";
 
-const Modulation: Chapter = ({ sequencer, analyses }) => {
+const Modulation: Chapter = ({ analyses }) => {
   return (
     <>
       <TagSearch tag="modulation:parallel_keys" analyses={analyses} />

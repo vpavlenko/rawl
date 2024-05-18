@@ -2,7 +2,7 @@ import * as React from "react";
 import TagSearch from "../TagSearch";
 import { Chapter } from "./Course";
 
-const Texture: Chapter = ({ sequencer, analyses }) => {
+const Texture: Chapter = ({ analyses }) => {
   return (
     <>
       <TagSearch tag="texture:arpeggio" analyses={analyses} />

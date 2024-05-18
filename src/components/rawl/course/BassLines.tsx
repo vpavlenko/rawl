@@ -2,7 +2,7 @@ import * as React from "react";
 import TagSearch from "../TagSearch";
 import { Chapter, S } from "./Course";
 
-const BassLines: Chapter = ({ sequencer, analyses }) => {
+const BassLines: Chapter = ({ analyses }) => {
   return (
     <>
       <h3>Bass: root, root-fifth, diatonic approaches</h3>

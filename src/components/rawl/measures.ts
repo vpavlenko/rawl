@@ -14,13 +14,19 @@ export const buildManualMeasuresAndBeats = (
   const measures = [measureStarts[1] ?? 0];
   const beats = [];
   let currentBeatsPerMeasure = beatsPerMeasure[1] ?? 4;
+  let previousBeatsPerMeasure = currentBeatsPerMeasure;
   let measureIndex = 1;
   let currentMeasureLength = 1.0;
   while (true) {
     measureIndex++;
     let newMeasure =
       measureStarts[measureIndex] ??
-      snap(measures.at(-1) + currentMeasureLength, notes);
+      snap(
+        measures.at(-1) +
+          (currentMeasureLength * currentBeatsPerMeasure) /
+            previousBeatsPerMeasure,
+        notes,
+      );
     if (newMeasure - measures.at(-1) < 0.01) {
       newMeasure = measures.at(-1) + 2;
     }
@@ -31,6 +37,7 @@ export const buildManualMeasuresAndBeats = (
           (newMeasure * i) / currentBeatsPerMeasure,
       );
     }
+    previousBeatsPerMeasure = currentBeatsPerMeasure;
     currentBeatsPerMeasure =
       beatsPerMeasure[measureIndex] ?? currentBeatsPerMeasure;
     currentMeasureLength = newMeasure - measures.at(-1);

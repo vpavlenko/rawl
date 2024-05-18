@@ -1,3 +1,4 @@
+import merge from "lodash/merge";
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
@@ -115,6 +116,11 @@ export const getNoteColor = (
         12
   }_colors`;
 
+export type RenumberMeasureCallback = (
+  measure: number,
+  isShift: boolean,
+) => void;
+
 const Rawl: React.FC<{
   parsingResult: ParsingResult;
   getCurrentPositionMs: () => number;
@@ -168,7 +174,7 @@ const Rawl: React.FC<{
 
   const commitAnalysisUpdate = useCallback(
     (analysisUpdate: Partial<Analysis>) => {
-      const updatedAnalysis = { ...analysis, ...analysisUpdate };
+      const updatedAnalysis = merge(analysis, analysisUpdate);
       saveAnalysis(updatedAnalysis);
       setAnalysis(updatedAnalysis);
     },
@@ -299,15 +305,26 @@ const Rawl: React.FC<{
   }, [selectedMeasure, analysis, measuresAndBeats]);
 
   const renumberMeasure = useCallback(
-    (displayNumber) => {
+    (displayNumber, isShift) => {
       setSelectedMeasure(null);
-      commitAnalysisUpdate({
-        measureRenumbering: {
-          [selectedMeasure]: displayNumber,
-        },
-      });
+      commitAnalysisUpdate(
+        enableManualRemeasuring && isShift
+          ? {
+              measures: {
+                beatsPerMeasure: {
+                  [selectedMeasure]: displayNumber,
+                },
+                measureStarts: {},
+              },
+            }
+          : {
+              measureRenumbering: {
+                [selectedMeasure]: displayNumber,
+              },
+            },
+      );
     },
-    [selectMeasure, analysis],
+    [selectMeasure, analysis, selectedMeasure, enableManualRemeasuring],
   );
 
   useEffect(() => {

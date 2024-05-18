@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { getModulations } from "./Rawl";
+import { RenumberMeasureCallback, getModulations } from "./Rawl";
 import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
 import {
   Analysis,
@@ -42,7 +42,7 @@ export type MeasureSelection = {
   selectMeasure: (number) => void;
   splitAtMeasure: (boolean) => void;
   mergeAtMeasure: () => void;
-  renumberMeasure: (number) => void;
+  renumberMeasure: RenumberMeasureCallback;
 };
 
 const PITCH_CLASS_TO_LETTER = {
@@ -61,7 +61,7 @@ const PITCH_CLASS_TO_LETTER = {
 };
 
 const RemeasuringInput: React.FC<{
-  renumberMeasure: (measure: number) => void;
+  renumberMeasure: RenumberMeasureCallback;
 }> = ({ renumberMeasure }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState<string>("");
@@ -73,7 +73,7 @@ const RemeasuringInput: React.FC<{
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       event.stopPropagation();
-      renumberMeasure(parseInt(value, 10));
+      renumberMeasure(parseInt(value, 10), event.shiftKey);
     }
   };
 

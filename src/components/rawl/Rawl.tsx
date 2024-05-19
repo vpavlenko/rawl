@@ -1,3 +1,4 @@
+import cloneDeep from "lodash/cloneDeep";
 import merge from "lodash/merge";
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -174,7 +175,8 @@ const Rawl: React.FC<{
 
   const commitAnalysisUpdate = useCallback(
     (analysisUpdate: Partial<Analysis>) => {
-      const updatedAnalysis = merge(analysis, analysisUpdate);
+      const updatedAnalysis = cloneDeep(analysis);
+      merge(updatedAnalysis, analysisUpdate);
       saveAnalysis(updatedAnalysis);
       setAnalysis(updatedAnalysis);
     },

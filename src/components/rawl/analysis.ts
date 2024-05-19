@@ -1,3 +1,4 @@
+import cloneDeep from "lodash/cloneDeep";
 import { Note } from "./parseMidi";
 
 export type PitchClass = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
@@ -74,7 +75,7 @@ export const getNewAnalysis = (
   if (note) {
     if (enableManualRemeasuring) {
       if (selectedMeasure) {
-        update.measures = analysis.measures ?? {
+        update.measures = cloneDeep(analysis.measures) ?? {
           measureStarts: {},
           beatsPerMeasure: {},
         };

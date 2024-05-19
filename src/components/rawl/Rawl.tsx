@@ -1,5 +1,3 @@
-import cloneDeep from "lodash/cloneDeep";
-import merge from "lodash/merge";
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
@@ -175,8 +173,7 @@ const Rawl: React.FC<{
 
   const commitAnalysisUpdate = useCallback(
     (analysisUpdate: Partial<Analysis>) => {
-      const updatedAnalysis = cloneDeep(analysis);
-      merge(updatedAnalysis, analysisUpdate);
+      const updatedAnalysis = { ...analysis, ...analysisUpdate };
       saveAnalysis(updatedAnalysis);
       setAnalysis(updatedAnalysis);
     },
@@ -309,22 +306,24 @@ const Rawl: React.FC<{
   const renumberMeasure = useCallback(
     (displayNumber, isShift) => {
       setSelectedMeasure(null);
-      commitAnalysisUpdate(
+
+      const analysisUpdate =
         enableManualRemeasuring && isShift
           ? {
               measures: {
                 beatsPerMeasure: {
+                  ...(analysis.measures?.beatsPerMeasure ?? {}),
                   [selectedMeasure]: displayNumber,
                 },
-                measureStarts: {},
+                measureStarts: analysis.measures?.measureStarts ?? {},
               },
             }
           : {
               measureRenumbering: {
                 [selectedMeasure]: displayNumber,
               },
-            },
-      );
+            };
+      commitAnalysisUpdate(analysisUpdate);
     },
     [selectMeasure, analysis, selectedMeasure, enableManualRemeasuring],
   );

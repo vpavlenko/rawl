@@ -911,7 +911,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
                               Math.abs(
                                 prevPositionSeconds.current - positionSeconds,
                               ) < 1
-                                ? "left 0.37s linear"
+                                ? "left 0.74s linear"
                                 : "",
                             left: secondsToX(positionSeconds),
                           }}

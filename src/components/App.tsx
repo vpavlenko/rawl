@@ -231,7 +231,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     latencyCorrectionMs =
       !isNaN(latencyCorrectionMs) && latencyCorrectionMs !== null
         ? latencyCorrectionMs
-        : 400;
+        : 0;
 
     this.state = {
       loading: true,

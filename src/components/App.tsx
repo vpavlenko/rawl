@@ -83,6 +83,7 @@ type AppState = {
   analysisEnabled: boolean;
   analyses: Corpus;
   latencyCorrectionMs: number;
+  fileToDownload: Uint8Array;
 };
 
 interface FirestoreMidiIndex {
@@ -255,6 +256,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       analysisEnabled: false,
       analyses: defaultAnalyses as Corpus,
       latencyCorrectionMs,
+      fileToDownload: null,
     };
 
     this.initChipCore(audioCtx, playerNode, bufferSize);
@@ -687,7 +689,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
         this.browsePath = "drop";
         this.props.history.push("/drop");
         this.currUrl = null;
-        debugger;
         this.midi = result;
         this.playSongBuffer(file.name, result);
       }
@@ -789,6 +790,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.hash = md5(uint8Array);
     console.log("MD5", this.hash);
     this.midiPlayer.setTempo(1);
+    this.setState({
+      fileToDownload: uint8Array,
+    });
     try {
       await this.midiPlayer.loadData(uint8Array, filepath);
     } catch (e) {
@@ -930,7 +934,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 currentSongDurationMs={this.state.currentSongDurationMs}
                 ejected={this.state.ejected}
                 paused={this.state.paused}
-                songUrl={this.state.songUrl}
+                fileToDownload={this.state.fileToDownload}
                 volume={this.state.volume}
                 handleTimeSliderChange={this.handleTimeSliderChange}
                 handleVolumeChange={this.handleVolumeChange}

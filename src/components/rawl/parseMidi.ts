@@ -1,7 +1,6 @@
 import MIDIEvents from "midievents";
 import { SecondsSpan } from "./Rawl";
 import { MeasuresAndBeats } from "./SystemLayout";
-const MIDIEvents = require("midievents");
 
 const DRUM_CHANNEL = 9;
 

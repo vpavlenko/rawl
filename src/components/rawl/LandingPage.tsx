@@ -655,6 +655,24 @@ const LandingPage = () => (
           }
         />
       </Section>
+      <Section title="EdMAC 2024">
+        <Example
+          name={"Mozart, Piano Sonata in D, K. 284"}
+          pathname={
+            "c/Classical%20MIDI/Mozart/Piano%20Sonatas/Piano%20Sonata%20No.%206,%20K284.mid"
+          }
+        />
+        <Example
+          name={"Ravel, Pavane pour une infante défunte"}
+          pathname={"f/pavane_pour_une_infante_defunte_ravel_recorder"}
+        />
+        <Example name={"The Lamp is Low"} pathname={"f/the_lamp_is_low"} />
+        <Example name={"Debussy, Rêverie"} pathname={"f/reverie_galimberti"} />
+        <Example
+          name={"Bruckner, Symphony #8, mov. 1, A-J"}
+          pathname={"f/bruckner_8_a_j"}
+        />
+      </Section>
       {/* <Section title="Drew Nobile. Form as Harmony in Rock Music">
         <Example
           name={"2.1. Beethoven, Piano Sonata in F minor, Op. 2, No. 1"}

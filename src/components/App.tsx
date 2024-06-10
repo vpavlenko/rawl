@@ -48,6 +48,7 @@ import Browse from "./Browse";
 import DropMessage from "./DropMessage";
 import Visualizer from "./Visualizer";
 import LandingPage from "./rawl/LandingPage";
+import Pirate from "./rawl/Pirate";
 import Rawl from "./rawl/Rawl";
 import TagSearch from "./rawl/TagSearch";
 import { Corpus } from "./rawl/analysis";
@@ -905,6 +906,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                         )}
                       />
                       <Route path="/pages/daw" render={() => <DAW />} />
+                      <Route path="/pirate" render={() => <Pirate />} />
                       {browseRoute}
                       {rawlRoute}
                     </Switch>

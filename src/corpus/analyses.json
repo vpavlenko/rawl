@@ -450,9 +450,29 @@
       {
         "measure": 13,
         "diff": -2
+      },
+      {
+        "measure": 91,
+        "diff": -2
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      8,
+      10,
+      12,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29
+    ],
     "tags": [],
     "modulations": {
       "1": 4
@@ -1167,6 +1187,14 @@
       }
     ],
     "comment": "error in measures after 31",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
     "tags": [],
     "modulations": {
       "1": 1
@@ -1317,6 +1345,14 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
     "tags": [],
     "modulations": {
       "1": 6
@@ -1604,18 +1640,19 @@
       }
     ],
     "comment": "",
-    "tags": [],
-    "modulations": {
-      "1": 0
-    },
     "sections": [
       0,
       2,
       6,
       10,
       14,
-      18
-    ]
+      18,
+      22
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
   },
   "f/Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2": {
     "form": [],
@@ -1959,10 +1996,22 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      9,
+      11,
+      13,
+      17,
+      21
+    ],
     "tags": [],
     "modulations": {
-      "1": 7,
-      "9": 11
+      "0": 7,
+      "9": 11,
+      "45": 7,
+      "53": 11
     }
   },
   "f/Someone_Like_You_easy_piano": {
@@ -2553,21 +2602,42 @@
       {
         "measure": 86,
         "diff": 2
+      },
+      {
+        "measure": 88,
+        "diff": -2
+      },
+      {
+        "measure": 40,
+        "diff": -1
+      },
+      {
+        "measure": 45,
+        "diff": 1
+      },
+      {
+        "measure": 39,
+        "diff": 1
+      },
+      {
+        "measure": 47,
+        "diff": -1
       }
     ],
     "comment": "",
-    "tags": [],
-    "modulations": {
-      "1": 2
-    },
     "sections": [
       0,
       1,
       5,
       9,
       12,
-      16
-    ]
+      16,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
   },
   "f/Attack_on_Titan_Shinzou_wo_Sasageyo": {
     "form": [],
@@ -2721,6 +2791,22 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26
+    ],
     "tags": [],
     "modulations": {
       "1": 4
@@ -3191,6 +3277,20 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      9,
+      11,
+      13,
+      15,
+      18,
+      20,
+      22,
+      24
+    ],
     "tags": [],
     "modulations": {
       "1": 7
@@ -5722,6 +5822,23 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      7,
+      11,
+      15,
+      19,
+      23,
+      27,
+      29,
+      31,
+      33,
+      35,
+      39
+    ],
     "tags": [],
     "modulations": {
       "1": 7,
@@ -15876,6 +15993,2106 @@
       "28": 3,
       "32": 4,
       "39": 3
+    }
+  },
+  "c/Game MIDI/- Arranged -/Mortal Kombat (Arcade, 1992)/Sega Genesis/MKcourtyard_genEsis.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": 2
+      },
+      {
+        "measure": 23,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/pirates_of_the_caribbean_main_theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 6
+      },
+      {
+        "measure": 39,
+        "diff": 1
+      },
+      {
+        "measure": 44,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      12,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/thirty_five_smallest_non_diatonic_chords_in_c_or_b": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/pirates_of_the_caribbean_easy_piano_capa": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5
+    ],
+    "measureRenumbering": {
+      "1": 6
+    },
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "c/Game MIDI/- Arranged -/Mortal Kombat (Arcade, 1992)/Sega Genesis/mk_pit_genEsis.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      5,
+      7,
+      9,
+      11,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 1,
+      "21": 4,
+      "29": 1,
+      "49": 4
+    }
+  },
+  "f/river_flows_in_you_yiruma_10th_anniversary_version_piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 6
+    }
+  },
+  "c/Game MIDI/- Arranged -/Mortal Kombat (Arcade, 1992)/Sega Genesis/mk_titlescreen_zb.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 6,
+        "diff": -2
+      },
+      {
+        "measure": 20,
+        "diff": -3
+      },
+      {
+        "measure": 21,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/he_s_a_pirate_ost_kalimba_cover": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 39,
+        "diff": 1
+      },
+      {
+        "measure": 44,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/alexey_bychkov_s_trio_goby_waltz": {
+    "measures": {
+      "beatsPerMeasure": {
+        "1": 3
+      },
+      "measureStarts": {
+        "1": 8.319791666666665,
+        "2": 9.119791666666664,
+        "9": 14.783333333333312,
+        "10": 15.551041666666645,
+        "11": 16.383333333333308,
+        "13": 17.98333333333332,
+        "32": 33.11979166666676,
+        "33": 33.88750000000008,
+        "35": 35.4552083333334,
+        "42": 40.927083333333286,
+        "44": 42.52708333333325,
+        "50": 47.359374999999844,
+        "70": 63.99499999999977,
+        "75": 68.09583333333313,
+        "76": 68.89583333333316,
+        "85": 75.98916666666652,
+        "101": 88.6395833333337,
+        "102": 89.39958333333371,
+        "104": 90.97291666666703
+      }
+    },
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": -1
+      },
+      {
+        "measure": 9,
+        "diff": 2
+      },
+      {
+        "measure": 15,
+        "diff": 2
+      },
+      {
+        "measure": 33,
+        "diff": 2
+      },
+      {
+        "measure": 35,
+        "diff": -2
+      },
+      {
+        "measure": 37,
+        "diff": 2
+      },
+      {
+        "measure": 43,
+        "diff": 2
+      },
+      {
+        "measure": 45,
+        "diff": -2
+      },
+      {
+        "measure": 55,
+        "diff": -2
+      },
+      {
+        "measure": 81,
+        "diff": 2
+      },
+      {
+        "measure": 87,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      7,
+      8,
+      10,
+      12,
+      13,
+      15,
+      18,
+      19,
+      21,
+      24
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 6,
+      "4": 7,
+      "5": 4,
+      "17": 0,
+      "29": 6,
+      "32": 4,
+      "69": 6,
+      "73": 6
+    }
+  },
+  "f/kimigayo_national_anthem_of_japan": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/copland_s_third_symphony_first_movement": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": -2
+      },
+      {
+        "measure": 28,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": -1
+      },
+      {
+        "measure": 48,
+        "diff": -2
+      },
+      {
+        "measure": 54,
+        "diff": 1
+      },
+      {
+        "measure": 63,
+        "diff": -1
+      },
+      {
+        "measure": 62,
+        "diff": -1
+      },
+      {
+        "measure": 65,
+        "diff": 1
+      },
+      {
+        "measure": 94,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6,
+      8,
+      10,
+      13,
+      15,
+      18,
+      20,
+      22,
+      24,
+      25
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4,
+      "33": 9,
+      "46": 3,
+      "55": 2,
+      "66": 4,
+      "70": 3,
+      "78": 10,
+      "82": 9,
+      "90": 3
+    }
+  },
+  "c/Game MIDI/- Arranged -/Mortal Kombat (Arcade, 1992)/Sega Genesis/mk_gorolair_zb.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/sydameni_laulu": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "c/Game MIDI/- Arranged -/Mortal Kombat (Arcade, 1992)/Sega Genesis/mk_palacegates_zb.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/pirates_of_the_carribean_beginner": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "measureRenumbering": {
+      "1": 6
+    },
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/symphony_no_1_k_16_2nd_movement": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      },
+      {
+        "measure": 15,
+        "diff": -1
+      },
+      {
+        "measure": 22,
+        "diff": 1
+      },
+      {
+        "measure": 31,
+        "diff": -2
+      },
+      {
+        "measure": 37,
+        "diff": -1
+      },
+      {
+        "measure": 44,
+        "diff": 1
+      },
+      {
+        "measure": 53,
+        "diff": -2
+      },
+      {
+        "measure": 55,
+        "diff": 2
+      },
+      {
+        "measure": 57,
+        "diff": -2
+      },
+      {
+        "measure": 59,
+        "diff": -2
+      },
+      {
+        "measure": 65,
+        "diff": -1
+      },
+      {
+        "measure": 72,
+        "diff": 1
+      },
+      {
+        "measure": 81,
+        "diff": -2
+      },
+      {
+        "measure": 87,
+        "diff": -2
+      },
+      {
+        "measure": 93,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "7": 3,
+      "23": 0,
+      "29": 3,
+      "51": 5,
+      "53": 7,
+      "57": 0,
+      "73": 3,
+      "79": 5,
+      "81": 7,
+      "85": 0
+    }
+  },
+  "f/alto_sax_natural_minor_scales_and_arpeggios": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 16,
+        "diff": -1
+      },
+      {
+        "measure": 23,
+        "diff": -1
+      },
+      {
+        "measure": 30,
+        "diff": -1
+      },
+      {
+        "measure": 41,
+        "diff": -1
+      },
+      {
+        "measure": 48,
+        "diff": -1
+      },
+      {
+        "measure": 55,
+        "diff": -1
+      },
+      {
+        "measure": 62,
+        "diff": -1
+      },
+      {
+        "measure": 73,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      9,
+      11,
+      13,
+      15,
+      17,
+      18,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3,
+      "8": 8,
+      "15": 1,
+      "22": 6,
+      "29": 11,
+      "33": 4,
+      "40": 9,
+      "47": 2,
+      "54": 7,
+      "61": 0,
+      "65": 5,
+      "72": 10
+    }
+  },
+  "c/MIDI/Elton John/Crocodile Rock.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/major_diatonic_chords": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/he_s_a_pirate_hard_version": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 39,
+        "diff": 1
+      },
+      {
+        "measure": 44,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      12,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/bheki_mseleku_angola": {
+    "measures": {
+      "beatsPerMeasure": {
+        "48": 2,
+        "49": 4,
+        "50": 2,
+        "51": 5,
+        "53": 4,
+        "54": 2,
+        "55": 4,
+        "96": 2,
+        "97": 4,
+        "98": 2,
+        "99": 5,
+        "102": 4,
+        "103": 2,
+        "104": 4,
+        "106": 2,
+        "107": 4,
+        "109": 2,
+        "110": 4,
+        "111": 2,
+        "112": 4,
+        "113": 2,
+        "114": 4,
+        "115": 2,
+        "116": 4,
+        "117": 2,
+        "118": 4,
+        "120": 2,
+        "121": 4,
+        "123": 2,
+        "124": 4,
+        "125": 2,
+        "126": 4,
+        "127": 2,
+        "128": 4,
+        "129": 2,
+        "130": 4,
+        "131": 2,
+        "132": 4,
+        "134": 2,
+        "135": 4,
+        "137": 2,
+        "138": 5,
+        "141": 4,
+        "142": 2,
+        "143": 4
+      },
+      "measureStarts": {
+        "1": 0.671875,
+        "4": 4.012152777777778,
+        "6": 6.109375,
+        "10": 10.483680555555557,
+        "12": 12.685069444444444,
+        "14": 14.768402777777778,
+        "18": 19.007291666666667,
+        "21": 22.15,
+        "22": 23.135416666666686,
+        "27": 28.22395833333338,
+        "28": 29.221180555555595,
+        "29": 30.228125000000038,
+        "41": 42.719791666666715,
+        "54": 55.60084097859327,
+        "56": 57.374999999999936,
+        "57": 58.44993438320209,
+        "58": 59.60548993875765,
+        "59": 60.574999999999925,
+        "61": 62.623958333333256,
+        "62": 63.7610454943132,
+        "66": 68.15937499999993,
+        "69": 71.27736742424233,
+        "73": 75.32708333333335,
+        "86": 88.7031250000001,
+        "89": 91.87187500000012,
+        "90": 92.92708333333348,
+        "103": 106.32371031746061,
+        "105": 107.71145833333377,
+        "106": 108.70466269841299,
+        "108": 110.30312500000046,
+        "110": 111.83958333333383,
+        "111": 112.81577380952432,
+        "113": 114.35545634920685,
+        "115": 115.86339285714335,
+        "117": 117.35545634920685,
+        "120": 119.89489087301652,
+        "124": 123.10312500000076,
+        "125": 124.08536706349271,
+        "127": 125.55550595238171,
+        "128": 126.01562500000084,
+        "129": 127.02375992063568,
+        "131": 128.51582341269918,
+        "134": 130.98373015873105,
+        "142": 138.67380952381035,
+        "144": 140.00000000000057,
+        "145": 140.89583333333383,
+        "146": 143.61562500000048,
+        "148": 148.8643372703417
+      }
+    },
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": -1
+      },
+      {
+        "measure": 101,
+        "diff": -2
+      },
+      {
+        "measure": 107,
+        "diff": -1
+      },
+      {
+        "measure": 103,
+        "diff": 1
+      },
+      {
+        "measure": 111,
+        "diff": -1
+      },
+      {
+        "measure": 122,
+        "diff": -1
+      },
+      {
+        "measure": 125,
+        "diff": -1
+      },
+      {
+        "measure": 136,
+        "diff": -1
+      },
+      {
+        "measure": 139,
+        "diff": -1
+      },
+      {
+        "measure": 53,
+        "diff": 2
+      },
+      {
+        "measure": 59,
+        "diff": -2
+      },
+      {
+        "measure": 142,
+        "diff": 1
+      },
+      {
+        "measure": 147,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      33,
+      35,
+      37,
+      39
+    ],
+    "measureRenumbering": {
+      "5": 1,
+      "9": 1,
+      "13": 1,
+      "25": 5,
+      "32": 13,
+      "44": 21,
+      "57": 1,
+      "61": 1,
+      "73": 5,
+      "80": 13,
+      "92": 21,
+      "100": 34,
+      "118": 38
+    },
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "51": 7,
+      "52": 2,
+      "53": 9,
+      "55": 0,
+      "99": 7,
+      "100": 4,
+      "101": 1,
+      "102": 10,
+      "124": 1,
+      "126": 10,
+      "128": 1,
+      "130": 10,
+      "138": 5,
+      "139": 0,
+      "140": 2,
+      "141": 9,
+      "143": 0
+    }
+  },
+  "f/pirate_melody_16measures_transpositions": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": -3
+      },
+      {
+        "measure": 39,
+        "diff": -3
+      },
+      {
+        "measure": 56,
+        "diff": -3
+      },
+      {
+        "measure": 73,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      10,
+      15,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "18": 3,
+      "35": 0,
+      "52": 5,
+      "69": 8
+    }
+  },
+  "f/examples_of_chord_progressions_in_a_minor": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      },
+      {
+        "measure": 56,
+        "diff": -1
+      },
+      {
+        "measure": 83,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      7,
+      14,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/he_s_a_pirate_easy_piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 39,
+        "diff": 1
+      },
+      {
+        "measure": 44,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      12,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/this_charming_man_the_smiths_piano_vocal_guitar": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 65,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      16,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 6
+    }
+  },
+  "c/MIDI/The Beatles": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3
+    }
+  },
+  "f/chopin_ballade_no_1_in_g_minor_op_23": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 165,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      41,
+      42,
+      44,
+      46,
+      48,
+      50,
+      52,
+      54,
+      56,
+      58,
+      60,
+      62,
+      64,
+      66
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "13": 10,
+      "16": 7,
+      "166": 10
+    }
+  },
+  "f/pirates_of_the_caribbean_he_s_a_pirate_hard_version": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 39,
+        "diff": 1
+      },
+      {
+        "measure": 44,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/pirate_melody_16measures_whole_tone": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/aziza_mustafa_zadeh_dance_of_fire_nicola_morali_solo_piano_cover": {
+    "measures": {
+      "beatsPerMeasure": {
+        "1": 3
+      },
+      "measureStarts": {
+        "1": 0.4263565891472868,
+        "2": 1.6312500000000003,
+        "3": 2.7510416666666675,
+        "31": 33.85520833333338,
+        "36": 39.423958333333346,
+        "39": 42.84791666666666,
+        "91": 102.94375000000048,
+        "93": 105.15104166666715,
+        "95": 107.32708333333383,
+        "107": 120.60729166666735,
+        "108": 121.72493872549089,
+        "115": 129.4395833333342,
+        "144": 162.62395833333323,
+        "145": 164.7354166666665,
+        "146": 166.62395833333318,
+        "147": 169.53541666666652,
+        "149": 174.52708333333317
+      }
+    },
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 1
+      },
+      {
+        "measure": 35,
+        "diff": 1
+      },
+      {
+        "measure": 40,
+        "diff": -2
+      },
+      {
+        "measure": 42,
+        "diff": 2
+      },
+      {
+        "measure": 48,
+        "diff": -2
+      },
+      {
+        "measure": 50,
+        "diff": 2
+      },
+      {
+        "measure": 56,
+        "diff": -2
+      },
+      {
+        "measure": 58,
+        "diff": 2
+      },
+      {
+        "measure": 60,
+        "diff": -2
+      },
+      {
+        "measure": 106,
+        "diff": 1
+      },
+      {
+        "measure": 123,
+        "diff": 1
+      },
+      {
+        "measure": 132,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      38,
+      39
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "31": 1,
+      "35": 6,
+      "38": 5,
+      "44": 3,
+      "52": 1,
+      "74": 6,
+      "78": 1,
+      "86": 10,
+      "119": 1,
+      "122": 6,
+      "126": 10
+    }
+  },
+  "f/pirati_dei_caraibi_per_trio_di_flauti_pirates_of_the_carribean_for_flute_trio": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5
+    ],
+    "measureRenumbering": {
+      "1": 4
+    },
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/all_of_the_girls_you_loved_before_taylor_swift": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 11
+    }
+  },
+  "f/portal_still_alive": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": -1
+      },
+      {
+        "measure": 25,
+        "diff": -1
+      },
+      {
+        "measure": 44,
+        "diff": -1
+      },
+      {
+        "measure": 51,
+        "diff": -1
+      },
+      {
+        "measure": 70,
+        "diff": -1
+      },
+      {
+        "measure": 77,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      8,
+      10,
+      12,
+      14,
+      15,
+      17,
+      19,
+      21,
+      23
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "17": 5,
+      "24": 2,
+      "42": 5,
+      "49": 2,
+      "68": 5,
+      "75": 2
+    }
+  },
+  "f/aziza_mustafa_zadeh_dance_of_fire_2010_live_trio": {
+    "measures": {
+      "beatsPerMeasure": {
+        "1": 3
+      },
+      "measureStarts": {
+        "1": 2.2,
+        "7": 8.799999999999999,
+        "13": 15.551041666666645,
+        "15": 17.791666666666657,
+        "35": 39.679166666666674,
+        "38": 42.9203800890585,
+        "40": 45.055208333333276,
+        "59": 65.35902512722626,
+        "65": 71.77429230279871,
+        "89": 97.4395833333338,
+        "90": 98.46354166666713,
+        "100": 109.24791666666732,
+        "115": 125.50312500000094,
+        "116": 126.49583333333432,
+        "118": 128.51145833333433,
+        "131": 142.52708333333393,
+        "135": 146.81562500000047,
+        "158": 171.19999999999925,
+        "161": 174.36207856234017,
+        "165": 178.57581902035545,
+        "170": 183.7998886768439,
+        "171": 184.86354166666553,
+        "186": 200.6314805979625,
+        "187": 201.5999999999979,
+        "210": 225.69583333333023
+      }
+    },
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 2
+      },
+      {
+        "measure": 1,
+        "diff": -1
+      },
+      {
+        "measure": 18,
+        "diff": 1
+      },
+      {
+        "measure": 35,
+        "diff": 1
+      },
+      {
+        "measure": 40,
+        "diff": -2
+      },
+      {
+        "measure": 42,
+        "diff": 2
+      },
+      {
+        "measure": 56,
+        "diff": -2
+      },
+      {
+        "measure": 106,
+        "diff": 1
+      },
+      {
+        "measure": 123,
+        "diff": 1
+      },
+      {
+        "measure": 132,
+        "diff": 2
+      },
+      {
+        "measure": 158,
+        "diff": 1
+      },
+      {
+        "measure": 175,
+        "diff": 1
+      },
+      {
+        "measure": 180,
+        "diff": -2
+      },
+      {
+        "measure": 182,
+        "diff": 2
+      },
+      {
+        "measure": 188,
+        "diff": -2
+      },
+      {
+        "measure": 190,
+        "diff": 2
+      },
+      {
+        "measure": 196,
+        "diff": -2
+      },
+      {
+        "measure": 198,
+        "diff": 2
+      },
+      {
+        "measure": 200,
+        "diff": -2
+      },
+      {
+        "measure": 246,
+        "diff": 1
+      },
+      {
+        "measure": 263,
+        "diff": 1
+      },
+      {
+        "measure": 272,
+        "diff": 2
+      },
+      {
+        "measure": 278,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      33,
+      34,
+      35,
+      36,
+      38,
+      40,
+      42,
+      44,
+      46,
+      48,
+      50,
+      52,
+      54,
+      56,
+      58,
+      60,
+      62,
+      64,
+      66,
+      67,
+      68
+    ],
+    "measureRenumbering": {
+      "142": 2
+    },
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "31": 1,
+      "35": 6,
+      "38": 5,
+      "44": 3,
+      "52": 1,
+      "74": 6,
+      "78": 1,
+      "86": 10,
+      "119": 1,
+      "122": 6,
+      "126": 10,
+      "171": 1,
+      "175": 6,
+      "178": 5,
+      "184": 3,
+      "192": 1,
+      "214": 6,
+      "218": 1,
+      "226": 10,
+      "259": 1,
+      "262": 6,
+      "266": 10
+    }
+  },
+  "f/he_s_a_pirate_from_pirates_of_the_caribbean": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 39,
+        "diff": 1
+      },
+      {
+        "measure": 44,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      12,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/the_seven_diatonic_natural_minor_chords_in_a_minor": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/pirates_of_the_caribbean_hans_zimmer_virtuosic_piano_solo_movement_3": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": 1
+      },
+      {
+        "measure": 75,
+        "diff": -2
+      },
+      {
+        "measure": 89,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      10,
+      14,
+      19,
+      24,
+      28,
+      32
+    ],
+    "measureRenumbering": {
+      "1": 6
+    },
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "73": 4,
+      "92": 2
+    }
+  },
+  "f/pirate_melody_16measures_chromatic": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "c/Classical MIDI/Mozart/Symphonies/Symphony No. 39, K543 – IV. Finale (Allegro molto).mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": -1
+      },
+      {
+        "measure": 45,
+        "diff": -2
+      },
+      {
+        "measure": 51,
+        "diff": -2
+      },
+      {
+        "measure": 57,
+        "diff": -2
+      },
+      {
+        "measure": 71,
+        "diff": -2
+      },
+      {
+        "measure": 89,
+        "diff": -2
+      },
+      {
+        "measure": 91,
+        "diff": 2
+      },
+      {
+        "measure": 93,
+        "diff": -3
+      },
+      {
+        "measure": 94,
+        "diff": -1
+      },
+      {
+        "measure": 97,
+        "diff": -1
+      },
+      {
+        "measure": 100,
+        "diff": -2
+      },
+      {
+        "measure": 98,
+        "diff": 2
+      },
+      {
+        "measure": 104,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      12,
+      16,
+      20,
+      23,
+      25,
+      31
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 3,
+      "33": 10,
+      "53": 6,
+      "63": 10,
+      "105": 3
+    }
+  },
+  "f/he_s_a_pirate_klaus_badelt_pirates_of_the_caribbean_ost_rock_version": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "c/Game MIDI/- Arranged -/Mortal Kombat (Arcade, 1992)/Sega Genesis/mk_throneroom_zb.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 8,
+      "21": 11,
+      "25": 8
+    }
+  },
+  "f/pirate_melody_16measures_scales": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": -3
+      },
+      {
+        "measure": 39,
+        "diff": -3
+      },
+      {
+        "measure": 56,
+        "diff": -3
+      },
+      {
+        "measure": 73,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      10,
+      15,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/pirates_of_the_caribbean_easy_piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      },
+      {
+        "measure": 42,
+        "diff": 2
+      },
+      {
+        "measure": 60,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      12,
+      16,
+      20
+    ],
+    "measureRenumbering": {
+      "1": 3
+    },
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/he_s_a_pirate_hans_zimmer_klaus_badelt": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": 1
+      },
+      {
+        "measure": 39,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      12,
+      16
+    ],
+    "measureRenumbering": {
+      "1": 6
+    },
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/pirates_of_the_caribbean_for_alto_saxophone": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 33,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      11,
+      15
+    ],
+    "measureRenumbering": {
+      "1": 7
+    },
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/i_allegro_symphony_no_4_in_d_major_k_19_w_a_mozart": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
     }
   }
 }

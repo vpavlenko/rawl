@@ -669,8 +669,34 @@ const LandingPage = () => (
         <Example name={"The Lamp is Low"} pathname={"f/the_lamp_is_low"} />
         <Example name={"Debussy, Rêverie"} pathname={"f/reverie_galimberti"} />
         <Example
-          name={"Bruckner, Symphony #8, mov. 1, A-J"}
-          pathname={"f/bruckner_8_a_j"}
+          name={"Bruckner, Symphony #8, mov. 1"}
+          pathname={"f/bruckner_8"}
+        />
+      </Section>
+      <Section title="Barbershop">
+        <Example
+          name={"Kristofer Maddigan, Cuphead – A Quick Break"}
+          pathname={"f/cuphead_a_quick_break"}
+        />
+        <Example
+          name={
+            "Kristofer Maddigan, Cuphead – Don't Deal With The Devil (incomplete arrangement)"
+          }
+          pathname={"f/don_t_deal_with_the_devil_barbershop_quartet_cuphead"}
+        />
+        <Example
+          name={"God Only Knows, arr. Clay Hine (OST 'Bioshock Infinite')"}
+          pathname={"f/god_only_knows_bioshock_infinite_2013"}
+        />
+        <Example
+          name={"Chauncey Olcott, My Wild Irish Rose (polecat)"}
+          pathname={"f/my_wild_irish_rose"}
+        />
+        <Example
+          name={
+            "Never Gonna Give You Up (Rick Roll) - not a barbershop harmony"
+          }
+          pathname={"f/never_gunna_give_you_up_barbershop"}
         />
       </Section>
       {/* <Section title="Drew Nobile. Form as Harmony in Rock Music">

@@ -471,15 +471,16 @@ const Rawl: React.FC<{
 
   const coloredNotes: ColoredNotesInVoices = useMemo(
     () =>
-      notes.map((notesInVoice) =>
+      notes.map((notesInVoice, voiceIndex) =>
         notesInVoice.map((note) => ({
           ...note,
           color: note.isDrum
             ? "noteColor_drum"
             : getNoteColor(note, futureAnalysis, measuresAndBeats.measures),
+          isActive: voiceMask[voiceIndex],
         })),
       ),
-    [notes, futureAnalysis, measuresAndBeats],
+    [notes, futureAnalysis, measuresAndBeats, voiceMask],
   );
 
   const systemLayoutProps: SystemLayoutProps = useMemo(

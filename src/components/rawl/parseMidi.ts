@@ -18,6 +18,7 @@ export type Note = {
 
 export type ColoredNote = Note & {
   color: string;
+  isActive: boolean;
 };
 
 export type PitchBendPoint = {

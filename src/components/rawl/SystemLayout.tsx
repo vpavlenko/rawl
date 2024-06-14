@@ -211,6 +211,7 @@ const getNoteRectangles = (
       note: { midiNumber, relativeNumber },
       color,
       voiceIndex,
+      isActive,
     } = note;
     const number = relativeNumber === undefined ? midiNumber : relativeNumber;
     const top = midiNumberToY(number) - noteHeight;
@@ -263,17 +264,18 @@ const getNoteRectangles = (
         className={`${color} voiceShape-${voiceIndex}`}
         style={{
           position: "absolute",
-          height: `${noteHeight * 2}px`,
+          height: `${isActive ? noteHeight * 2 : 1}px`,
           width: isDrum
             ? "0px"
             : secondsToX(note.span[1]) - secondsToX(note.span[0]),
           overflow: "visible",
-          top,
+          top: isActive ? top : top + noteHeight * 2 - 1,
           left,
           pointerEvents: "auto",
           cursor: handleNoteClick && !isDrum ? "pointer" : "default",
           zIndex: 10,
-          opacity: (showVelocity && note?.chipState?.on?.param2 / 127) || 1,
+          // opacity: (showVelocity && note?.chipState?.on?.param2 / 127) || 1,
+          // opacity: isActive ? 1 : 0.3,
           // borderRadius: "4px",
           boxSizing: "border-box",
           display: "grid",

@@ -28,7 +28,6 @@ const PianoKey = styled.div`
   display: grid;
   align-content: end;
   box-sizing: border-box;
-  border-width: 10px;
 `;
 
 export const PianoLegend: React.FC = () => {

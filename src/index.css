@@ -711,7 +711,9 @@ img {
 
 .noteColor_6_colors {
     background-color: black !important;
-    box-shadow: 0 0 3px white, 0 0 6px white, 0 0 9px white;
+    /* box-shadow: 0 0 3px white, 0 0 6px white, 0 0 9px white; */
+    border: 1px dotted white;
+    box-sizing: border-box;
 }
 
 .noteColor_7_colors {

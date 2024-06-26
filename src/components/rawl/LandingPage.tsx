@@ -673,12 +673,33 @@ const LandingPage = () => (
           pathname={"f/bruckner_8"}
         />
         <Example
+          name={"Bruckner, Symphony #7, mov. 1"}
+          pathname={"f/bruckner_7_1"}
+        />
+        <Example
           name={"Bruckner, Symphony #7, mov. 2"}
           pathname={"f/bruckner_7_2"}
         />
         <Example
           name={"Mahler, Symphony #4, mov. 3"}
           pathname={"f/mahler_4_3"}
+        />
+        <div style={{ color: "gray" }}>Rachmaninoff, piano concert #4:</div>
+        <Example
+          name={"1"}
+          pathname={
+            "f/piano_concerto_no_4_op_40_sergei_rachmaninoff_i_allegro_vivace_alla_breve"
+          }
+        />
+        <Example
+          name={"2"}
+          pathname={"f/piano_concerto_no_4_op_40_sergei_rachmaninoff_ii_largo"}
+        />
+        <Example
+          name={"3"}
+          pathname={
+            "f/piano_concerto_no_4_op_40_sergei_rachmaninoff_iii_allegro_vivace"
+          }
         />
       </Section>
       <Section title="Barbershop">
@@ -705,6 +726,45 @@ const LandingPage = () => (
             "Never Gonna Give You Up (Rick Roll) - not a barbershop harmony"
           }
           pathname={"f/never_gunna_give_you_up_barbershop"}
+        />
+      </Section>
+      <Section title="Third school">
+        <Example name={"ABBA, “SOS”"} pathname={"c/MIDI/ABBA/S.O.S.mid"} />
+        <Example
+          name={"Earth, Wind & Fire, “September”"}
+          pathname={"f/earth_wind_fire_september"}
+        />
+        <Example
+          name={"Michael Jackson “Rock With You”"}
+          pathname={"c/MIDI/Michael%20Jackson/Rock%20With%20You.mid"}
+        />
+        <Example
+          name={"The Korgis, “Everybody’s Got to Learn Sometime”"}
+          pathname={
+            "c/MIDI/Korgis/Everybody%27s%20Got%20to%20Learn%20Sometime.mid"
+          }
+        />
+        <Example
+          name={"Simply Red, “If You Don’t Know Me By Now”"}
+          pathname={
+            "c/MIDI/Simply%20Red/If%20You%20Don%27t%20Know%20Me%20By%20Now.mid"
+          }
+        />
+        <Example
+          name={"Gotye (feat. Kimbra), “Somebody That I Used to Know”"}
+          pathname={"f/gotye_feat_kimbra_somebody_that_i_used_to_know"}
+        />
+        <Example
+          name={"Peter Gabriel, “Solsbury Hill”"}
+          pathname={"c/MIDI/Peter%20Gabriel/Solsbury%20Hill.mid"}
+        />
+        <Example
+          name={"Björk, “Hyperballad”"}
+          pathname={"c/MIDI/Bjork/Hyper-Ballad.mid"}
+        />
+        <Example
+          name={"Coldplay, “Viva la Vida”"}
+          pathname={"f/Viva_La_Vida_Coldplay"}
         />
       </Section>
       {/* <Section title="Drew Nobile. Form as Harmony in Rock Music">

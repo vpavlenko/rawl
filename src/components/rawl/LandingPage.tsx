@@ -672,6 +672,14 @@ const LandingPage = () => (
           name={"Bruckner, Symphony #8, mov. 1"}
           pathname={"f/bruckner_8"}
         />
+        <Example
+          name={"Bruckner, Symphony #7, mov. 2"}
+          pathname={"f/bruckner_7_2"}
+        />
+        <Example
+          name={"Mahler, Symphony #4, mov. 3"}
+          pathname={"f/mahler_4_3"}
+        />
       </Section>
       <Section title="Barbershop">
         <Example

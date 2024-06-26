@@ -257,6 +257,7 @@ const getNoteRectangles = (
           secondsToX,
         )
       : null;
+    const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
 
     return (
       <div
@@ -265,21 +266,20 @@ const getNoteRectangles = (
         style={{
           position: "absolute",
           height: `${isActive ? noteHeight * 2 : 1}px`,
-          width: isDrum
-            ? "0px"
-            : secondsToX(note.span[1]) - secondsToX(note.span[0]),
+          width: isDrum ? "0px" : width,
           overflow: "visible",
           top: isActive ? top : top + noteHeight * 2 - 1,
           left,
           pointerEvents: "auto",
           cursor: handleNoteClick && !isDrum ? "pointer" : "default",
-          zIndex: 10,
+          zIndex: Math.round(10 + 1000 / width),
           // opacity: (showVelocity && note?.chipState?.on?.param2 / 127) || 1,
           // opacity: isActive ? 1 : 0.3,
           // borderRadius: "4px",
           boxSizing: "border-box",
           display: "grid",
           placeItems: drumEmoji ? "center" : "",
+          boxShadow: "0 0 0px 0.5px black",
         }}
         onClick={(e) => {
           e.stopPropagation();

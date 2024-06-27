@@ -233,14 +233,17 @@ const Rawl: React.FC<{
         ) !== -1
       ) {
         const diff = measure - selectedMeasure;
-        const analysisUpdate: Partial<Analysis> = {
-          phrasePatch: [
-            ...analysis.phrasePatch,
-            { measure: selectedMeasure, diff },
-          ],
-        };
-        setSelectedMeasure(null);
-        commitAnalysisUpdate(analysisUpdate);
+        if (diff >= -4) {
+          // prevent accidental misclicks when a selection is forgotten by user
+          const analysisUpdate: Partial<Analysis> = {
+            phrasePatch: [
+              ...analysis.phrasePatch,
+              { measure: selectedMeasure, diff },
+            ],
+          };
+          setSelectedMeasure(null);
+          commitAnalysisUpdate(analysisUpdate);
+        }
       } else {
         setSelectedMeasure(measure);
       }

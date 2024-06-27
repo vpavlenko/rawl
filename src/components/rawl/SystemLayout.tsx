@@ -960,7 +960,10 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
                 <ChordStairs mode={MODES[1]} />
                 <ChordStairs mode={MODES[0]} />
                 <ChordStairs mode={MODES[2]} />
-                <div style={{ margin: "auto" }}>
+                <div
+                  style={{ margin: "auto" }}
+                  onClick={() => setShowLegend(false)}
+                >
                   <PianoLegend />
                 </div>
               </div>

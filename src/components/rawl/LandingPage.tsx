@@ -57,12 +57,13 @@ const NeonLink = styled.a`
   }
 `;
 
-const Example: React.FC<{ name: string; pathname: string }> = ({
+const Example: React.FC<{ name: string; pathname: string; bad?: boolean }> = ({
   name,
   pathname,
+  bad = false,
 }) => (
   <NeonLink key={pathname} href={pathname} target="_blank">
-    {name}
+    <span style={bad ? { textDecoration: "line-through" } : {}}>{name}</span>
   </NeonLink>
 );
 
@@ -249,6 +250,140 @@ const LandingPage = () => (
         <ChordStairs mode={MODES[1]} />
         <ChordStairs mode={MODES[0]} />
       </ChordStairsContainer>
+      <Section title="EdMAC 2024">
+        <div style={{ color: "gray" }}>Gavottes</div>
+        <Example
+          name={"Mozart, Piano Sonata in D, K. 284"}
+          pathname={
+            "c/Classical%20MIDI/Mozart/Piano%20Sonatas/Piano%20Sonata%20No.%206,%20K284.mid"
+          }
+        />
+        <Example
+          name={"Händel HWV 491"}
+          pathname={"f/gavotte_in_g_major_hwv_491_handel_george_frideric"}
+        />
+        <Example name={"F. J. Gossec"} pathname={"f/gavotte_f_j_gossec"} />
+        {/* <Example
+          name={"Mahler, Symphony #4, mov. 3"}
+          pathname={"f/mahler_4_3"}
+          bad={true}
+        /> */}
+        <div style={{ color: "gray" }}>Bruckner</div>
+        <Example name={"8/1"} pathname={"f/bruckner_8"} />
+        <Example name={"8/1 (another file)"} pathname={"f/symphony_8_1"} />
+        <Example name={"7/1"} pathname={"f/bruckner_7_1"} />
+        <Example name={"7/2"} pathname={"f/bruckner_7_2"} />
+        <div style={{ color: "gray" }}>
+          Structural Versus Rhetorical Musical Borrowing
+        </div>
+        <Example
+          name={"Ravel, Pavane pour une infante défunte"}
+          pathname={"f/pavane_pour_une_infante_defunte_ravel_recorder"}
+        />
+        <Example name={"The Lamp is Low"} pathname={"f/the_lamp_is_low"} />
+        <Example name={"Debussy, Rêverie"} pathname={"f/reverie_galimberti"} />
+        <div style={{ color: "gray" }}>Energetic Overflow</div>
+        <Example
+          name={"Chopin, Ballade in F minor, op. 52"}
+          pathname={"f/chopin_ballade_no_4_piano_solo"}
+        />
+        <Example
+          name={"Brahms, Intermezzo op. 118 no. 1 in A minor"}
+          pathname={"f/brahms_op118_1"}
+        />
+        <div style={{ color: "gray" }}>Eleanor Rigby</div>
+        <Example
+          name={"The Beatles"}
+          pathname={"c/MIDI/The%20Beatles/Eleanor%20Rigby.4.mid"}
+        />
+        <Example
+          name={"Cody Fry"}
+          pathname={"/f/eleanor_rigby_cody_fry_no_perc1"}
+        />
+
+        <div style={{ color: "gray" }}>Piazzolla, Histoire du Tango:</div>
+        <Example
+          name={"Bordel 1900"}
+          pathname={"f/piazzolla_histoire_du_tango_bordel_1900"}
+        />
+        <Example
+          name={"Cafe 1930"}
+          pathname={"f/piazzolla_histoire_du_tango_cafe_1930"}
+        />
+        <Example
+          name={"Nightclub 1960"}
+          pathname={"f/piazzolla_histoire_du_tango_nightclub_1960"}
+        />
+        <Example
+          name={"Concert d'aujourd'hui"}
+          pathname={"f/piazzolla_histoire_du_tango_concert_aujourdhui"}
+        />
+        {/* <div style={{ color: "gray" }}>Tigran Hamasyan:</div>
+        <Example name={"Kars 1"} pathname={"f/kars_1_tigran_hamasyan"} /> */}
+        <div style={{ color: "gray" }}>Rachmaninoff, piano concert #4:</div>
+        <Example name={"1"} pathname={"f/rachmaninoff_piano_concerto_4_1"} />
+        <Example
+          name={"2"}
+          pathname={"f/piano_concerto_no_4_op_40_sergei_rachmaninoff_ii_largo"}
+          bad={true}
+        />
+        <Example
+          name={"3"}
+          pathname={
+            "f/piano_concerto_no_4_op_40_sergei_rachmaninoff_iii_allegro_vivace"
+          }
+          bad={true}
+        />
+      </Section>
+      <Section title="Yoel Greenberg, How Sonata Forms (2022)">
+        <Example
+          name={"2.1. Scarlatti, K. 159"}
+          pathname={"f/sonata_k159_scarlatti"}
+        />
+        <Example
+          name={"4.1. Corelli, op. 1 no. 8, II"}
+          pathname={"f/corelli_op1_no8_ii"}
+        />
+      </Section>
+      <Section title="Third school">
+        <Example name={"ABBA, “SOS”"} pathname={"c/MIDI/ABBA/S.O.S.mid"} />
+        <Example
+          name={"Earth, Wind & Fire, “September”"}
+          pathname={"f/earth_wind_fire_september"}
+        />
+        <Example
+          name={"Michael Jackson “Rock With You”"}
+          pathname={"c/MIDI/Michael%20Jackson/Rock%20With%20You.mid"}
+        />
+        <Example
+          name={"The Korgis, “Everybody’s Got to Learn Sometime”"}
+          pathname={
+            "c/MIDI/Korgis/Everybody%27s%20Got%20to%20Learn%20Sometime.mid"
+          }
+        />
+        <Example
+          name={"Simply Red, “If You Don’t Know Me By Now”"}
+          pathname={
+            "c/MIDI/Simply%20Red/If%20You%20Don%27t%20Know%20Me%20By%20Now.mid"
+          }
+        />
+        <Example
+          name={"Gotye (feat. Kimbra), “Somebody That I Used to Know”"}
+          pathname={"f/gotye_feat_kimbra_somebody_that_i_used_to_know"}
+        />
+        <Example
+          name={"Peter Gabriel, “Solsbury Hill”"}
+          pathname={"c/MIDI/Peter%20Gabriel/Solsbury%20Hill.mid"}
+        />
+        <Example
+          name={"Björk, “Hyperballad”"}
+          pathname={"c/MIDI/Bjork/Hyper-Ballad.mid"}
+        />
+        <Example
+          name={"Coldplay, “Viva la Vida”"}
+          pathname={"f/Viva_La_Vida_Coldplay"}
+        />
+      </Section>
       <Section title="major" scale={[0, 2, 4, 5, 7, 9, 11]}>
         <Example name={"Feliz Navidad"} pathname={"f/Feliz_Navidad"} />
         <Example
@@ -406,6 +541,10 @@ const LandingPage = () => (
           pathname={
             "c/Classical%20MIDI/Rachmaninoff/Symphony%20No.%201%20in%20D%20minor,%20Op.%2013%20for%20piano%20duet%20-%20I.%20Grave,%20Allegro%20ma%20non%20troppo.mid"
           }
+        />
+        <Example
+          name={"Shostakovich 5/ii (solo piano)"}
+          pathname={"f/shostakovich_symphony_no5_2nd_movement_for_piano_solo"}
         />
       </Section>
       <Section title="John Williams">
@@ -655,70 +794,7 @@ const LandingPage = () => (
           }
         />
       </Section>
-      <Section title="EdMAC 2024">
-        <Example
-          name={"Mozart, Piano Sonata in D, K. 284"}
-          pathname={
-            "c/Classical%20MIDI/Mozart/Piano%20Sonatas/Piano%20Sonata%20No.%206,%20K284.mid"
-          }
-        />
-        <Example
-          name={"Ravel, Pavane pour une infante défunte"}
-          pathname={"f/pavane_pour_une_infante_defunte_ravel_recorder"}
-        />
-        <Example name={"The Lamp is Low"} pathname={"f/the_lamp_is_low"} />
-        <Example name={"Debussy, Rêverie"} pathname={"f/reverie_galimberti"} />
-        <Example
-          name={"Bruckner, Symphony #8, mov. 1"}
-          pathname={"f/bruckner_8"}
-        />
-        <Example
-          name={"Bruckner, Symphony #8, mov. 1 (another file)"}
-          pathname={"f/symphony_8_1"}
-        />
-        <Example
-          name={"Bruckner, Symphony #7, mov. 1"}
-          pathname={"f/bruckner_7_1"}
-        />
-        <Example
-          name={"Bruckner, Symphony #7, mov. 2"}
-          pathname={"f/bruckner_7_2"}
-        />
-        <Example
-          name={"Mahler, Symphony #4, mov. 3"}
-          pathname={"f/mahler_4_3"}
-        />
-        <Example
-          name={"Chopin, Ballade in F minor, op. 52"}
-          pathname={"f/chopin_ballade_no_4_piano_solo"}
-        />
-        <Example
-          name={"Brahms, Intermezzo op. 118 no. 1 in A minor"}
-          pathname={"f/brahms_op118_1"}
-        />
-        <div style={{ color: "gray" }}>Rachmaninoff, piano concert #4:</div>
-        <Example name={"1"} pathname={"f/rachmaninoff_piano_concerto_4_1"} />
-        <Example
-          name={"2"}
-          pathname={"f/piano_concerto_no_4_op_40_sergei_rachmaninoff_ii_largo"}
-        />
-        <Example
-          name={"3"}
-          pathname={
-            "f/piano_concerto_no_4_op_40_sergei_rachmaninoff_iii_allegro_vivace"
-          }
-        />
-      </Section>
-      <Section title="Yoel Greenberg, How Sonata Forms (2022)">
-        <Example
-          name={"2.1. Scarlatti, K. 159"}
-          pathname={"f/sonata_k159_scarlatti"}
-        />
-        <Example
-          name={"4.1. Corelli, op. 1 no. 8, II"}
-          pathname={"f/corelli_op1_no8_ii"}
-        />
-      </Section>
+
       <Section title="Barbershop">
         <Example
           name={"Kristofer Maddigan, Cuphead – A Quick Break"}
@@ -745,45 +821,7 @@ const LandingPage = () => (
           pathname={"f/never_gunna_give_you_up_barbershop"}
         />
       </Section>
-      <Section title="Third school">
-        <Example name={"ABBA, “SOS”"} pathname={"c/MIDI/ABBA/S.O.S.mid"} />
-        <Example
-          name={"Earth, Wind & Fire, “September”"}
-          pathname={"f/earth_wind_fire_september"}
-        />
-        <Example
-          name={"Michael Jackson “Rock With You”"}
-          pathname={"c/MIDI/Michael%20Jackson/Rock%20With%20You.mid"}
-        />
-        <Example
-          name={"The Korgis, “Everybody’s Got to Learn Sometime”"}
-          pathname={
-            "c/MIDI/Korgis/Everybody%27s%20Got%20to%20Learn%20Sometime.mid"
-          }
-        />
-        <Example
-          name={"Simply Red, “If You Don’t Know Me By Now”"}
-          pathname={
-            "c/MIDI/Simply%20Red/If%20You%20Don%27t%20Know%20Me%20By%20Now.mid"
-          }
-        />
-        <Example
-          name={"Gotye (feat. Kimbra), “Somebody That I Used to Know”"}
-          pathname={"f/gotye_feat_kimbra_somebody_that_i_used_to_know"}
-        />
-        <Example
-          name={"Peter Gabriel, “Solsbury Hill”"}
-          pathname={"c/MIDI/Peter%20Gabriel/Solsbury%20Hill.mid"}
-        />
-        <Example
-          name={"Björk, “Hyperballad”"}
-          pathname={"c/MIDI/Bjork/Hyper-Ballad.mid"}
-        />
-        <Example
-          name={"Coldplay, “Viva la Vida”"}
-          pathname={"f/Viva_La_Vida_Coldplay"}
-        />
-      </Section>
+
       {/* <Section title="Drew Nobile. Form as Harmony in Rock Music">
         <Example
           name={"2.1. Beethoven, Piano Sonata in F minor, Op. 2, No. 1"}

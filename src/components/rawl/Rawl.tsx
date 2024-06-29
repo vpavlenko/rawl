@@ -99,7 +99,7 @@ const getSecondsMeasure = (
   return (result === -1 ? measures.length - 1 : result) - 1;
 };
 
-const getNoteMeasure = (note: Note, measures: number[] | null): number =>
+export const getNoteMeasure = (note: Note, measures: number[] | null): number =>
   getSecondsMeasure((note.span[0] + note.span[1]) / 2, measures);
 
 export const getNoteColor = (
@@ -213,9 +213,10 @@ const Rawl: React.FC<{
             selectedMeasureRef.current,
             enableManualRemeasuring,
             analysisRef.current,
+            measuresAndBeats.measures,
           )
         : analysis,
-    [hoveredNote, analysis, enableManualRemeasuring],
+    [hoveredNote, analysis, enableManualRemeasuring, measuresAndBeats.measures],
   );
   const measuresAndBeats = useMemo(() => {
     if (futureAnalysis.measures) {

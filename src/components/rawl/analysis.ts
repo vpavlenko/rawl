@@ -1,4 +1,5 @@
 import cloneDeep from "lodash/cloneDeep";
+import { getNoteMeasure } from "./Rawl";
 import { Note } from "./parseMidi";
 
 export type PitchClass = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
@@ -69,6 +70,7 @@ export const getNewAnalysis = (
   selectedMeasure: number | null,
   enableManualRemeasuring: boolean,
   analysis: Analysis,
+  measures: number[],
 ): Analysis => {
   let update: Partial<Analysis> = {};
 
@@ -82,11 +84,25 @@ export const getNewAnalysis = (
         update.measures.measureStarts[selectedMeasure] = note.span[0];
       }
     } else {
-      let newModulations = {
-        ...(analysis.modulations || []),
-        [selectedMeasure ?? 0]: (note.note.midiNumber % 12) as PitchClass,
-      };
-      update.modulations = removeIdleModulations(newModulations);
+      const minModulationMeasure =
+        Math.min(
+          ...Object.keys(analysis.modulations)
+            .map(Number)
+            .filter((key) => key > 0),
+        ) || null;
+      const noteMeasure = getNoteMeasure(note, measures);
+      if (
+        selectedMeasure === null ||
+        minModulationMeasure === null ||
+        noteMeasure < minModulationMeasure
+      ) {
+        debugger;
+        let newModulations = {
+          ...(analysis.modulations || []),
+          [selectedMeasure ?? 0]: (note.note.midiNumber % 12) as PitchClass,
+        };
+        update.modulations = removeIdleModulations(newModulations);
+      }
     }
   }
 

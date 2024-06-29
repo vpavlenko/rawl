@@ -673,6 +673,10 @@ const LandingPage = () => (
           pathname={"f/bruckner_8"}
         />
         <Example
+          name={"Bruckner, Symphony #8, mov. 1 (another file)"}
+          pathname={"f/symphony_8_1"}
+        />
+        <Example
           name={"Bruckner, Symphony #7, mov. 1"}
           pathname={"f/bruckner_7_1"}
         />
@@ -684,13 +688,16 @@ const LandingPage = () => (
           name={"Mahler, Symphony #4, mov. 3"}
           pathname={"f/mahler_4_3"}
         />
-        <div style={{ color: "gray" }}>Rachmaninoff, piano concert #4:</div>
         <Example
-          name={"1"}
-          pathname={
-            "f/piano_concerto_no_4_op_40_sergei_rachmaninoff_i_allegro_vivace_alla_breve"
-          }
+          name={"Chopin, Ballade in F minor, op. 52"}
+          pathname={"f/chopin_ballade_no_4_piano_solo"}
         />
+        <Example
+          name={"Brahms, Intermezzo op. 118 no. 1 in A minor"}
+          pathname={"f/brahms_op118_1"}
+        />
+        <div style={{ color: "gray" }}>Rachmaninoff, piano concert #4:</div>
+        <Example name={"1"} pathname={"f/rachmaninoff_piano_concerto_4_1"} />
         <Example
           name={"2"}
           pathname={"f/piano_concerto_no_4_op_40_sergei_rachmaninoff_ii_largo"}
@@ -700,6 +707,16 @@ const LandingPage = () => (
           pathname={
             "f/piano_concerto_no_4_op_40_sergei_rachmaninoff_iii_allegro_vivace"
           }
+        />
+      </Section>
+      <Section title="Yoel Greenberg, How Sonata Forms (2022)">
+        <Example
+          name={"2.1. Scarlatti, K. 159"}
+          pathname={"f/sonata_k159_scarlatti"}
+        />
+        <Example
+          name={"4.1. Corelli, op. 1 no. 8, II"}
+          pathname={"f/corelli_op1_no8_ii"}
         />
       </Section>
       <Section title="Barbershop">

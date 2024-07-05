@@ -281,7 +281,7 @@ const getNoteRectangles = (
           boxSizing: "border-box",
           display: "grid",
           placeItems: drumEmoji ? "center" : "",
-          boxShadow: "0 0 0px 0.5px black",
+          boxShadow: isActive ? "0 0 0px 0.5px black" : "",
         }}
         onClick={(e) => {
           e.stopPropagation();

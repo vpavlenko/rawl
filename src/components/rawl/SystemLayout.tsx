@@ -222,12 +222,14 @@ const getNoteRectangles = (
         className="noteText"
         style={{
           fontSize: isDrum
-            ? 4 +
-              (noteHeight - 5) * 0.4 +
-              (secondsToX(1) - secondsToX(0)) * 0.15
+            ? isActive
+              ? 4 +
+                (noteHeight - 5) * 0.4 +
+                (secondsToX(1) - secondsToX(0)) * 0.15
+              : 6
             : `${Math.min(noteHeight + 2, 14)}px`,
           position: "relative",
-          left: isDrum ? "-5px" : "0px",
+          left: isDrum ? (isActive ? "-5px" : "-2.5px") : "0px",
           lineHeight: `${Math.min(noteHeight, 14)}px`,
           fontFamily: "Helvetica, sans-serif",
           fontWeight: isDrum ? 100 : 700,
@@ -265,7 +267,7 @@ const getNoteRectangles = (
         className={`${color} voiceShape-${voiceIndex}`}
         style={{
           position: "absolute",
-          height: `${isActive ? noteHeight * 2 : 1}px`,
+          height: `${isActive ? noteHeight * 2 : 0.5}px`,
           width: isDrum ? "0px" : width,
           overflow: "visible",
           top: isActive ? top : top + noteHeight * 2 - 1,

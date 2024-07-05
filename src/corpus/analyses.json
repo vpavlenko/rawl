@@ -587,16 +587,6 @@
     ]
   },
   "f/Misty_piano_solo": {
-    "modulations": {
-      "1": 3,
-      "11": 8,
-      "13": 6,
-      "14": 3,
-      "19": 8,
-      "23": 3
-    },
-    "comment": "",
-    "tags": [],
     "form": [],
     "phrasePatch": [
       {
@@ -606,15 +596,33 @@
       {
         "measure": 18,
         "diff": 1
+      },
+      {
+        "measure": 19,
+        "diff": -1
+      },
+      {
+        "measure": 18,
+        "diff": 1
       }
     ],
+    "comment": "",
     "sections": [
       0,
       1,
       3,
       5,
       7
-    ]
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3,
+      "11": 8,
+      "13": 6,
+      "14": 3,
+      "19": 8,
+      "23": 3
+    }
   },
   "f/Maple_Leaf_Rag_Scott_Joplin": {
     "modulations": {
@@ -3469,8 +3477,29 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34
+    ],
     "tags": [],
     "modulations": {
+      "0": 5,
       "1": 8
     }
   },
@@ -5735,15 +5764,97 @@
       {
         "measure": 597,
         "diff": -1
+      },
+      {
+        "measure": 499,
+        "diff": -1
+      },
+      {
+        "measure": 502,
+        "diff": -1
+      },
+      {
+        "measure": 525,
+        "diff": -1
+      },
+      {
+        "measure": 524,
+        "diff": 3
+      },
+      {
+        "measure": 620,
+        "diff": -1
+      },
+      {
+        "measure": 623,
+        "diff": 1
+      },
+      {
+        "measure": 628,
+        "diff": 2
+      },
+      {
+        "measure": 634,
+        "diff": -1
       }
     ],
     "comment": "why no bend visible in m. 234?",
+    "measureRenumbering": {
+      "1": 0
+    },
+    "sections": [
+      0,
+      1,
+      2,
+      8,
+      17,
+      20,
+      23,
+      29,
+      30,
+      35,
+      40,
+      42,
+      43,
+      48,
+      51,
+      55,
+      57,
+      59,
+      61,
+      66,
+      68,
+      73,
+      76,
+      80,
+      84,
+      89,
+      96,
+      99,
+      102,
+      105,
+      106,
+      110,
+      111,
+      116,
+      119,
+      126,
+      127,
+      133,
+      137,
+      142,
+      146,
+      149,
+      153,
+      157
+    ],
     "tags": [],
     "modulations": {
+      "0": 5,
       "1": 2,
       "180": 9,
       "218": 4,
-      "234": 0,
+      "234": 5,
       "255": 2,
       "263": 0,
       "274": 9,
@@ -5751,7 +5862,7 @@
       "330": 4,
       "338": 2,
       "345": 0,
-      "393": 4,
+      "365": 4,
       "446": 9,
       "452": 4,
       "468": 9,
@@ -10249,8 +10360,14 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
     "modulations": {
-      "1": 0
+      "0": 0
     },
     "tags": [
       "scale:major",
@@ -18637,9 +18754,68 @@
       {
         "measure": 317,
         "diff": 1
+      },
+      {
+        "measure": 342,
+        "diff": 1
+      },
+      {
+        "measure": 367,
+        "diff": 1
+      },
+      {
+        "measure": 392,
+        "diff": 1
+      },
+      {
+        "measure": 417,
+        "diff": 1
+      },
+      {
+        "measure": 442,
+        "diff": 1
+      },
+      {
+        "measure": 467,
+        "diff": 1
+      },
+      {
+        "measure": 468,
+        "diff": -1
+      },
+      {
+        "measure": 471,
+        "diff": 1
+      },
+      {
+        "measure": 492,
+        "diff": 1
+      },
+      {
+        "measure": 565,
+        "diff": 1
+      },
+      {
+        "measure": 586,
+        "diff": 1
+      },
+      {
+        "measure": 595,
+        "diff": 1
+      },
+      {
+        "measure": 582,
+        "diff": 1
+      },
+      {
+        "measure": 588,
+        "diff": -1
       }
     ],
     "comment": "",
+    "measureRenumbering": {
+      "221": 0
+    },
     "sections": [
       0,
       1,
@@ -18712,16 +18888,9 @@
       138,
       140,
       142,
-      144,
-      146,
-      148,
-      150,
-      152,
-      154
+      143,
+      147
     ],
-    "measureRenumbering": {
-      "221": 0
-    },
     "tags": [],
     "modulations": {
       "0": 2,
@@ -18747,7 +18916,13 @@
       "259": 9,
       "263": 2,
       "284": 9,
-      "288": 2
+      "288": 2,
+      "334": 9,
+      "338": 2,
+      "359": 9,
+      "363": 2,
+      "459": 9,
+      "463": 2
     }
   },
   "f/pavane_pour_une_infante_defunte_ravel_recorder": {
@@ -18799,8 +18974,9 @@
     "tags": [],
     "modulations": {
       "0": 7,
+      "8": 4,
       "12": 11,
-      "26": 2,
+      "17": 2,
       "28": 7
     }
   },
@@ -19815,14 +19991,16 @@
       "101": 0,
       "113": 1,
       "114": 2,
-      "115": 9,
-      "119": 8,
+      "115": 3,
+      "118": 8,
       "121": 4,
       "123": 5,
       "125": 6,
       "127": 7,
       "134": 8,
-      "142": 6,
+      "142": 4,
+      "144": 8,
+      "146": 4,
       "151": 10,
       "153": 1,
       "167": 5,
@@ -19834,8 +20012,8 @@
       "178": 0,
       "185": 1,
       "191": 6,
-      "195": 1,
-      "197": 11,
+      "193": 1,
+      "196": 11,
       "207": 1
     }
   },
@@ -19940,7 +20118,7 @@
     ],
     "tags": [],
     "modulations": {
-      "0": 0
+      "0": 3
     }
   },
   "f/rachmaninoff_piano_concerto_4_1": {
@@ -20120,6 +20298,14 @@
       {
         "measure": 106,
         "diff": -2
+      },
+      {
+        "measure": 56,
+        "diff": -1
+      },
+      {
+        "measure": 59,
+        "diff": 1
       }
     ],
     "comment": "",
@@ -20143,7 +20329,10 @@
     "tags": [],
     "modulations": {
       "0": 4,
-      "70": 11,
+      "52": 11,
+      "55": 10,
+      "57": 8,
+      "59": 6,
       "78": 0,
       "90": 11
     }
@@ -20181,6 +20370,14 @@
       },
       {
         "measure": 100,
+        "diff": -1
+      },
+      {
+        "measure": 16,
+        "diff": 1
+      },
+      {
+        "measure": 17,
         "diff": -1
       }
     ],
@@ -20837,11 +21034,12 @@
     "tags": [],
     "modulations": {
       "0": 0,
-      "22": 9,
-      "26": 2,
-      "29": 9,
+      "22": 4,
+      "26": 9,
+      "29": 11,
       "30": 0,
       "36": 9,
+      "43": 4,
       "47": 2,
       "51": 0,
       "57": 9
@@ -20875,28 +21073,38 @@
     "sections": [
       0,
       3,
-      5,
       7,
       10,
       13,
+      15,
       16,
       18,
       20,
-      22,
       24,
       26
     ],
     "tags": [],
     "modulations": {
-      "0": 3,
+      "0": 4,
+      "9": 9,
+      "11": 4,
       "23": 9,
       "27": 7,
       "30": 4,
+      "39": 2,
+      "40": 0,
+      "41": 4,
+      "59": 6,
+      "60": 8,
+      "61": 4,
+      "81": 6,
+      "82": 8,
+      "83": 4,
       "92": 9,
       "96": 7,
       "99": 4,
-      "108": 5,
-      "109": 3,
+      "108": 2,
+      "109": 0,
       "110": 10,
       "111": 8,
       "112": 6,
@@ -21048,6 +21256,38 @@
       {
         "measure": 131,
         "diff": -1
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 13,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      },
+      {
+        "measure": 24,
+        "diff": 1
+      },
+      {
+        "measure": 119,
+        "diff": -1
+      },
+      {
+        "measure": 129,
+        "diff": 1
+      },
+      {
+        "measure": 134,
+        "diff": -1
+      },
+      {
+        "measure": 137,
+        "diff": 1
       }
     ],
     "comment": "",
@@ -21070,7 +21310,28 @@
     ],
     "tags": [],
     "modulations": {
-      "0": 9
+      "0": 9,
+      "17": 7,
+      "19": 5,
+      "21": 3,
+      "23": 9,
+      "30": 2,
+      "31": 0,
+      "32": 9,
+      "48": 0,
+      "50": 9,
+      "52": 0,
+      "54": 9,
+      "89": 2,
+      "93": 4,
+      "99": 9,
+      "122": 7,
+      "124": 5,
+      "126": 3,
+      "128": 9,
+      "135": 2,
+      "136": 0,
+      "137": 9
     }
   },
   "c/MIDI/The Beatles/Eleanor Rigby.4.mid": {
@@ -21198,7 +21459,6 @@
     "tags": [],
     "modulations": {
       "0": 9,
-      "43": 4,
       "51": 6,
       "55": 4,
       "59": 2,
@@ -21411,6 +21671,22 @@
       {
         "measure": 121,
         "diff": -1
+      },
+      {
+        "measure": 111,
+        "diff": 1
+      },
+      {
+        "measure": 115,
+        "diff": -1
+      },
+      {
+        "measure": 57,
+        "diff": 1
+      },
+      {
+        "measure": 61,
+        "diff": -1
       }
     ],
     "comment": "",
@@ -21436,11 +21712,35 @@
     "tags": [],
     "modulations": {
       "0": 9,
+      "18": 0,
+      "20": 9,
+      "22": 0,
+      "23": 2,
+      "24": 4,
       "27": 2,
+      "31": 4,
       "36": 9,
-      "40": 6,
-      "54": 9,
-      "91": 6,
+      "40": 11,
+      "42": 6,
+      "54": 2,
+      "58": 4,
+      "61": 2,
+      "62": 0,
+      "63": 9,
+      "91": 11,
+      "93": 6,
+      "102": 1,
+      "103": 11,
+      "104": 9,
+      "105": 4,
+      "108": 9,
+      "110": 2,
+      "112": 4,
+      "115": 2,
+      "116": 0,
+      "117": 4,
+      "118": 2,
+      "119": 0,
       "120": 9
     }
   },
@@ -21573,6 +21873,608 @@
     "tags": [],
     "modulations": {
       "0": 2
+    }
+  },
+  "c/MIDI/Dallara/Come prima.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "42": 3
+    }
+  },
+  "f/bruckner_symphony_4_1": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      8,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3,
+      "33": 1,
+      "50": 3
+    }
+  },
+  "f/now_voyager_suite_max_steiner": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 33,
+        "diff": 1
+      },
+      {
+        "measure": 42,
+        "diff": -2
+      },
+      {
+        "measure": 68,
+        "diff": -1
+      },
+      {
+        "measure": 95,
+        "diff": -2
+      },
+      {
+        "measure": 25,
+        "diff": 1
+      },
+      {
+        "measure": 30,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      8,
+      12,
+      17,
+      21,
+      24,
+      27,
+      31,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "5": 7,
+      "13": 6,
+      "21": 2,
+      "27": 1,
+      "34": 6,
+      "36": 8,
+      "38": 2,
+      "42": 7,
+      "44": 9,
+      "48": 7,
+      "50": 5,
+      "52": 10,
+      "56": 8,
+      "67": 9,
+      "83": 3,
+      "97": 8,
+      "101": 5,
+      "105": 7,
+      "113": 1,
+      "121": 4,
+      "129": 9,
+      "137": 5
+    }
+  },
+  "c/MIDI/The Beatles/Eleanor Rigby.8.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": 1
+      },
+      {
+        "measure": 7,
+        "diff": 1
+      },
+      {
+        "measure": 8,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/prelude_in_c_sharp_minor_opus_3_no_2_sergei_rachmaninoff": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 1
+    }
+  },
+  "c/MIDI/ABBA/Money, Money, Money.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "c/MIDI/The Beatles/Penny Lane.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 2
+      },
+      {
+        "measure": 7,
+        "diff": 1
+      },
+      {
+        "measure": 8,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 11
+    }
+  },
+  "f/prelude_in_c_major_bach_piano_solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "6": 7,
+      "8": 0
+    }
+  },
+  "f/earth_wind_fire_september": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 6,
+      "8": 2,
+      "12": 6,
+      "20": 2,
+      "28": 6
+    }
+  },
+  "f/moments_musicaux_d_780_op_94_no_3_franz_schubert": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "19": 8,
+      "64": 5
+    }
+  },
+  "f/moonlight_sonata_ludwig_van_beethoven_piano_solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "9": 5
+    }
+  },
+  "c/Classical MIDI/Mozart/Symphonies/Symphony No. 40, K550 – I. Allegro molto.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": 1
+      },
+      {
+        "measure": 19,
+        "diff": 4
+      },
+      {
+        "measure": 23,
+        "diff": -2
+      },
+      {
+        "measure": 25,
+        "diff": -2
+      },
+      {
+        "measure": 47,
+        "diff": -2
+      },
+      {
+        "measure": 61,
+        "diff": 2
+      },
+      {
+        "measure": 75,
+        "diff": -2
+      },
+      {
+        "measure": 73,
+        "diff": 1
+      },
+      {
+        "measure": 98,
+        "diff": -2
+      },
+      {
+        "measure": 104,
+        "diff": -2
+      },
+      {
+        "measure": 118,
+        "diff": 3
+      },
+      {
+        "measure": 125,
+        "diff": -2
+      },
+      {
+        "measure": 147,
+        "diff": -2
+      },
+      {
+        "measure": 161,
+        "diff": 2
+      },
+      {
+        "measure": 175,
+        "diff": -1
+      },
+      {
+        "measure": 198,
+        "diff": -2
+      },
+      {
+        "measure": 204,
+        "diff": -2
+      },
+      {
+        "measure": 218,
+        "diff": -1
+      },
+      {
+        "measure": 221,
+        "diff": -2
+      },
+      {
+        "measure": 243,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      6,
+      12,
+      17,
+      23,
+      27,
+      32,
+      38,
+      43,
+      49,
+      53,
+      57,
+      62
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "29": 10,
+      "102": 7,
+      "129": 10,
+      "204": 6,
+      "219": 9
+    }
+  },
+  "f/the_earth_prelude_ludovico_einaudi_piano_solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/chopin_raindrop_prelude": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 1,
+      "11": 8,
+      "14": 3
+    }
+  },
+  "f/moments_musicaux_d_780_no_3_in_f_minor": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "19": 8,
+      "43": 5,
+      "47": 8
+    }
+  },
+  "f/piano_sonata_no_16_in_c_major_k_545_wolfgang_amadeus_mozart_piano_solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "14": 7
+    }
+  },
+  "f/shivers_ed_sheeran_shivers_ed_sheeran_mixed_ensemble": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 11
+    }
+  },
+  "c/MIDI/The Beatles/Good Night.mid": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
     }
   }
 }

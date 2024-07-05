@@ -710,7 +710,19 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
   const [noteHeight, setNoteHeight] = useState<number>(4);
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
   const [secondWidth, setSecondWidth] = useState<number>(45);
-  const debounceSetSecondWidth = useCallback(debounce(setSecondWidth, 50), []);
+  const setSecondWidthCalled = useRef(false);
+
+  const debounceSetSecondWidth = useCallback(
+    debounce((value: number) => {
+      setSecondWidthCalled.current = true;
+      setSecondWidth(value);
+    }, 50),
+    [],
+  );
+
+  useEffect(() => {
+    setSecondWidthCalled.current = false;
+  }, [secondWidth]);
 
   const prevPositionSeconds = useRef<number>(0);
   useEffect(() => {
@@ -912,6 +924,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
                           key={"cursor"}
                           style={{
                             transition:
+                              !setSecondWidthCalled.current &&
                               Math.abs(
                                 prevPositionSeconds.current - positionSeconds,
                               ) < 1

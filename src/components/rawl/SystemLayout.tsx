@@ -292,7 +292,7 @@ const getNoteRectangles = (
         onMouseEnter={(e) => !isDrum && handleMouseEnter(note)}
         onMouseLeave={() => !isDrum && handleMouseLeave()}
       >
-        {pathData && (
+        {pathData && isActive && (
           <div style={{ position: "relative", width: "100%", height: "100%" }}>
             <svg
               style={{
@@ -1014,7 +1014,16 @@ export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
         voiceNames={MERGED_VOICE_NAMES}
         voiceMask={MERGED_VOICE_MASK}
       />
-      <div style={{ position: "fixed", top: 50, right: 100 }}>
+      <div
+        style={{
+          position: "fixed",
+          top: 50,
+          right: 100,
+          zIndex: 1000000,
+          backgroundColor: "black",
+          padding: 10,
+        }}
+      >
         {voiceNames.map((voiceName, voiceIndex) => (
           <div>
             <input

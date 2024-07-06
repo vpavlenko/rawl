@@ -320,6 +320,11 @@ const LandingPage = () => (
         />
         {/* <div style={{ color: "gray" }}>Tigran Hamasyan:</div>
         <Example name={"Kars 1"} pathname={"f/kars_1_tigran_hamasyan"} /> */}
+        <div style={{ color: "gray" }}>Max Steiner</div>
+        <Example
+          name={"Now Voyager Suite (choose ☰ in top-right, mute chords)"}
+          pathname={"f/now_voyager_suite_max_steiner"}
+        />
         <div style={{ color: "gray" }}>Rachmaninoff, piano concert #4:</div>
         <Example name={"1"} pathname={"f/rachmaninoff_piano_concerto_4_1"} />
         <Example
@@ -347,6 +352,10 @@ const LandingPage = () => (
       </Section>
       <Section title="Third school">
         <Example name={"ABBA, “SOS”"} pathname={"c/MIDI/ABBA/S.O.S.mid"} />
+        <Example
+          name={"Ed Sheeran, “Shivers”"}
+          pathname={"f/shivers_ed_sheeran_shivers_ed_sheeran_mixed_ensemble"}
+        />
         <Example
           name={"Earth, Wind & Fire, “September”"}
           pathname={"f/earth_wind_fire_september"}

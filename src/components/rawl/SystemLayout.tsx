@@ -1031,11 +1031,13 @@ export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
               type="checkbox"
               onChange={(e) => {
                 e.stopPropagation();
-                setVoiceMask(
-                  voiceMask.map((value, i) =>
-                    i === voiceIndex ? !value : value,
-                  ),
+                let newVoiceMask = voiceMask.map((value, i) =>
+                  i === voiceIndex ? !value : value,
                 );
+                if (newVoiceMask.filter((voice) => voice).length === 0) {
+                  newVoiceMask = voiceMask.map(() => true);
+                }
+                setVoiceMask(newVoiceMask);
               }}
               checked={voiceMask[voiceIndex]}
               style={{
@@ -1053,23 +1055,20 @@ export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
                 width: 20,
               }}
             />{" "}
-            {voiceName}
-            <button
+            <span
               style={{
                 cursor: "pointer",
                 userSelect: "none",
-                fontFamily: "sans-serif",
-                fontSize: 12,
               }}
               onClick={(e) => {
                 e.stopPropagation();
-                isSingleActive
+                isSingleActive && voiceMask[voiceIndex]
                   ? setVoiceMask(voiceMask.map(() => true))
                   : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
               }}
             >
-              {isSingleActive ? "Unsolo All" : "Solo"}
-            </button>
+              {voiceName}
+            </span>
           </div>
         ))}
       </div>

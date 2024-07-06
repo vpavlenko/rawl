@@ -1014,64 +1014,66 @@ export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
         voiceNames={MERGED_VOICE_NAMES}
         voiceMask={MERGED_VOICE_MASK}
       />
-      <div
-        style={{
-          position: "fixed",
-          top: 50,
-          right: 100,
-          zIndex: 1000000,
-          backgroundColor: "black",
-          padding: 10,
-        }}
-      >
-        {voiceNames.map((voiceName, voiceIndex) => (
-          <div>
-            <input
-              title="active"
-              type="checkbox"
-              onChange={(e) => {
-                e.stopPropagation();
-                let newVoiceMask = voiceMask.map((value, i) =>
-                  i === voiceIndex ? !value : value,
-                );
-                if (newVoiceMask.filter((voice) => voice).length === 0) {
-                  newVoiceMask = voiceMask.map(() => true);
-                }
-                setVoiceMask(newVoiceMask);
-              }}
-              checked={voiceMask[voiceIndex]}
-              style={{
-                margin: "0px 0px 0px 17px",
-                height: 11,
-                display: "inline",
-              }}
-            />{" "}
-            <span
-              className={`voiceShape-${voiceIndex}`}
-              style={{
-                display: "inline-block",
-                backgroundColor: "white",
-                height: 8,
-                width: 20,
-              }}
-            />{" "}
-            <span
-              style={{
-                cursor: "pointer",
-                userSelect: "none",
-              }}
-              onClick={(e) => {
-                e.stopPropagation();
-                isSingleActive && voiceMask[voiceIndex]
-                  ? setVoiceMask(voiceMask.map(() => true))
-                  : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
-              }}
-            >
-              {voiceName}
-            </span>
-          </div>
-        ))}
-      </div>
+      {voiceNames.length > 1 && (
+        <div
+          style={{
+            position: "fixed",
+            top: 50,
+            right: 100,
+            zIndex: 1000000,
+            backgroundColor: "black",
+            padding: 10,
+          }}
+        >
+          {voiceNames.map((voiceName, voiceIndex) => (
+            <div>
+              <input
+                title="active"
+                type="checkbox"
+                onChange={(e) => {
+                  e.stopPropagation();
+                  let newVoiceMask = voiceMask.map((value, i) =>
+                    i === voiceIndex ? !value : value,
+                  );
+                  if (newVoiceMask.filter((voice) => voice).length === 0) {
+                    newVoiceMask = voiceMask.map(() => true);
+                  }
+                  setVoiceMask(newVoiceMask);
+                }}
+                checked={voiceMask[voiceIndex]}
+                style={{
+                  margin: "0px 0px 0px 17px",
+                  height: 11,
+                  display: "inline",
+                }}
+              />{" "}
+              <span
+                className={`voiceShape-${voiceIndex}`}
+                style={{
+                  display: "inline-block",
+                  backgroundColor: "white",
+                  height: 8,
+                  width: 20,
+                }}
+              />{" "}
+              <span
+                style={{
+                  cursor: "pointer",
+                  userSelect: "none",
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  isSingleActive && voiceMask[voiceIndex]
+                    ? setVoiceMask(voiceMask.map(() => true))
+                    : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
+                }}
+              >
+                {voiceName}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

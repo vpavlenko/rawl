@@ -517,8 +517,11 @@ export default class MIDIPlayer extends Player {
     const instrumentName =
       ch === 9 ? GM_DRUM_KITS[pgm] || GM_DRUM_KITS[0] : GM_INSTRUMENTS[pgm];
     const areFirstTrackNamesDistinct =
-      new Set(Object.values(this.midiFilePlayer.channelToTrack).slice(0, 2))
-        .size === 2;
+      new Set(
+        Object.values(this.midiFilePlayer.channelToTrack)
+          .map((track) => this.midiFilePlayer.trackNames[track])
+          .slice(0, 2),
+      ).size === 2;
     const trackName = areFirstTrackNamesDistinct
       ? this.midiFilePlayer.trackNames[this.midiFilePlayer.channelToTrack[ch]]
       : null;

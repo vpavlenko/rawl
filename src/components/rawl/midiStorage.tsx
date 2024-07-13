@@ -11,6 +11,7 @@ import {
 import { Location } from "history";
 import * as React from "react";
 import { useState } from "react";
+import { slugify } from "transliteration";
 import { CATALOG_PREFIX } from "../../config";
 
 export const processMidiUrls = (
@@ -51,21 +52,8 @@ export const processMidiUrls = (
   }
 };
 
-const formatForURL = (title: string): string => {
-  let processedTitle = title.toLowerCase();
-  processedTitle = processedTitle
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, ""); // remove diacritics
-  processedTitle = processedTitle.replace(/[^a-z0-9\s-]/g, "_");
-  processedTitle = processedTitle.replace(/[\s-]+/g, "_");
-  processedTitle = processedTitle.replace(/_+/g, "_");
-  processedTitle = processedTitle.replace(/^_+|_+$/g, "");
-  return processedTitle;
-};
-
 const saveMidi = async (title: string, url: string, midi: ArrayBuffer) => {
-  debugger;
-  const slug = formatForURL(title);
+  const slug = slugify(title);
   const firestoreBlob = Bytes.fromUint8Array(new Uint8Array(midi));
   const firestore = getFirestore();
 
@@ -90,6 +78,7 @@ export const saveMidiFromLink = async (link: string) => {
 
     const link = atob(params.get("link") || "");
     const url = atob(params.get("pageUrl") || "");
+    debugger;
     const title = decodeURIComponent(
       atob(decodeURIComponent(params.get("title") || ""))
         .split("")

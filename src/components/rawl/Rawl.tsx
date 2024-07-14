@@ -267,7 +267,7 @@ const Rawl: React.FC<{
         );
       } else {
         if (groupByTwoPhrasesTillTheEnd) {
-          for (let i = newSections[0]; i < phraseStarts.length; i += 2) {
+          for (let i = newSections[0]; i < phraseStarts.length - 1; i += 2) {
             newSections.push(i);
           }
         }

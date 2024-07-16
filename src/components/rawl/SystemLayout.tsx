@@ -1003,7 +1003,14 @@ const MERGED_VOICE_MASK = [true];
 export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
   const { notes, voiceNames, voiceMask, setVoiceMask } = props;
 
-  const flattenedNotes = useMemo(() => [notes.flat()], [notes]);
+  const flattenedNotes = useMemo(
+    () => [
+      notes
+        .filter((notes) => (notes && notes[0].isActive) || !notes[0].isDrum)
+        .flat(),
+    ],
+    [notes],
+  );
   const isSingleActive = voiceMask.filter((voice) => voice).length === 1;
 
   return (

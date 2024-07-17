@@ -481,6 +481,14 @@ const LandingPage = () => (
         />
         <Example name={"Hit the Road Jack"} pathname={"f/Hit_the_Road_Jack"} />
       </Section>
+      <Section title="hijaz" scale={[0, 1, 4, 5, 7, 8, 10]}>
+        <Example name={"Underground Cocek"} pathname={"f/underground-cocek"} />
+        <Example name={"Tetris"} pathname={"f/korobeiniki-tetris"} />
+        <Example
+          name={"Dunavsko horo"}
+          pathname={"f/dunavsko-horo---diko-iliev-diko-iliev"}
+        />
+      </Section>
       <Section title="relative keys">
         <Example
           name={"Fly Me to the Moon"}
@@ -535,6 +543,15 @@ const LandingPage = () => (
             "c/Classical%20MIDI/Tchaikovsky/The%20Nutcracker%20(Suite%20from%20the%20Ballet),%20Op.%2071a%20–%203.%20Dance%20of%20the%20Sugar-Plum%20Fairy%20(D.%20Ganetz).mid"
           }
         />
+      </Section>
+      <Section title="Balkan brass">
+        <Example name={"Underground Cocek"} pathname={"f/underground-cocek"} />
+        <Example name={"Bubamara"} pathname={"f/bubamara"} />
+        <Example name={"Ederlezi"} pathname={"f/ederlezi"} />
+        <Example name={"Hava Nagila"} pathname={"f/hava-nagila"} />
+        <Example name={"Kalashnjikov"} pathname={"f/kalasnjikov"} />
+        <Example name={"Tetris"} pathname={"f/korobeiniki-tetris"} />
+        <Example name={"Mesecina"} pathname={"f/mesecina"} />
       </Section>
       <Section title="preludes by Chopin">
         <Example

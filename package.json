@@ -125,6 +125,7 @@
     "server": "DEV=1 node public/index.js",
     "fixvgm": "node $NODE_DEBUG_OPTION scripts/fixvgm.js",
     "update-corpus": "node scripts/rawl/update-corpus.js",
+    "backup-midis": "node scripts/rawl/backup-midis.js",
     "rename-tag": "node scripts/rawl/rename-tag.js",
     "upload-static-files-to-f": "ts-node --project tsconfig.json scripts/rawl/upload-static-files-to-f.ts"
   },

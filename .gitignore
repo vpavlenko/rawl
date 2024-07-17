@@ -25,3 +25,4 @@ libxmp/lite/Makefile.in
 *.backup/
 _ignore/
 .DS_Store
+src/midis

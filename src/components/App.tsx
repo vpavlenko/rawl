@@ -744,9 +744,11 @@ class App extends React.Component<RouteComponentProps, AppState> {
     if (url.startsWith("f:")) {
       const playFromFirestore = async () => {
         const firestore = getFirestore();
-        const { blob } = (
+        const { blob, url: webUrl } = (
           await getDoc(doc(firestore, "midis", url.slice(2)))
         ).data();
+        // @ts-ignore
+        window.webUrl = webUrl;
         this.playSongBuffer(url, blob);
       };
       playFromFirestore();

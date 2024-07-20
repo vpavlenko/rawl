@@ -270,7 +270,7 @@ const getNoteRectangles = (
           height: `${isActive ? noteHeight * 2 : 0.5}px`,
           width: isDrum ? "0px" : width,
           overflow: "visible",
-          top: isActive ? top : top + noteHeight * 2 - 1,
+          top: isActive ? top : top + noteHeight * 2 - 0.5,
           left,
           pointerEvents: "auto",
           cursor: handleNoteClick && !isDrum ? "pointer" : "default",

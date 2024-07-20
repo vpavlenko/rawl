@@ -50,7 +50,10 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
   events.forEach((event) => {
     if (event.channel === channel && event.type === MIDIEvents.EVENT_MIDI) {
       const midiNumber = event.param1;
-      if (event.subtype === MIDIEvents.EVENT_MIDI_NOTE_OFF) {
+      if (
+        event.subtype === MIDIEvents.EVENT_MIDI_NOTE_OFF ||
+        (event.subtype === MIDIEvents.EVENT_MIDI_NOTE_ON && noteOn[midiNumber])
+      ) {
         if (channel === DRUM_CHANNEL && midiNumber > 87) {
           return;
           // probably a bug? can't be played by a default MIDI sound font

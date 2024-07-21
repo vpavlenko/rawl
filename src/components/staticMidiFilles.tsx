@@ -6,6 +6,8 @@ type StaticMidiFile = {
   size: 1337;
 };
 
+// TODO: delete this file since everything is moved via
+// scripts/rawl/upload-static-files-to-f.ts
 const STATIC_MIDI_FILES: StaticMidiFile[] = [
   {
     idx: 0,

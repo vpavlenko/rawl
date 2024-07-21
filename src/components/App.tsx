@@ -56,6 +56,7 @@ import Course from "./rawl/course/Course";
 import { DropSaveForm, processMidiUrls } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
 import { ParsingResult } from "./rawl/parseMidi";
+import transformMidi from "./rawl/transformMidi";
 import STATIC_MIDI_FILES from "./staticMidiFilles";
 
 export const DUMMY_CALLBACK = () => {};
@@ -91,15 +92,6 @@ interface FirestoreMidiIndex {
   midis: { id: string; slug: string; title: string }[];
 }
 
-interface FirestoreMidiDocument {
-  blob: {
-    _byteString: string;
-  };
-  slug: string;
-  title: string;
-  url: string | null;
-}
-
 // is it defined in a Firestore SDK? it's probably Bytes, and
 // we should probably avoid using private fields of it
 type FirestoreBlob = {
@@ -107,6 +99,13 @@ type FirestoreBlob = {
     binaryString: string;
   };
 };
+
+interface FirestoreMidiDocument {
+  blob: FirestoreBlob;
+  slug: string;
+  title: string;
+  url: string | null;
+}
 
 class App extends React.Component<RouteComponentProps, AppState> {
   private contentAreaRef: React.RefObject<HTMLDivElement>;
@@ -746,10 +745,17 @@ class App extends React.Component<RouteComponentProps, AppState> {
         const firestore = getFirestore();
         const { blob, url: webUrl } = (
           await getDoc(doc(firestore, "midis", url.slice(2)))
-        ).data();
+        ).data() as FirestoreMidiDocument;
         // @ts-ignore
         window.webUrl = webUrl;
-        this.playSongBuffer(url, blob);
+
+        const transformedMidi = transformMidi(
+          Uint8Array.from(blob._byteString.binaryString, (e) =>
+            e.charCodeAt(0),
+          ),
+        );
+
+        this.playSongBuffer(url, transformedMidi);
       };
       playFromFirestore();
     } else {
@@ -782,14 +788,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }
   }
 
-  async playSongBuffer(filepath: string, buffer: ArrayBuffer | FirestoreBlob) {
+  async playSongBuffer(filepath: string, buffer: ArrayBuffer | Uint8Array) {
     this.midiPlayer.suspend();
-    const uint8Array =
-      "_byteString" in buffer
-        ? Uint8Array.from(buffer._byteString.binaryString, (e) =>
-            e.charCodeAt(0),
-          )
-        : new Uint8Array(buffer as ArrayBuffer);
+    const uint8Array = new Uint8Array(buffer);
     this.hash = md5(uint8Array);
     console.log("MD5", this.hash);
     this.midiPlayer.setTempo(1);

@@ -1,2 +1,3 @@
 --ignore-dir=build/
 --ignore-file=is:chip-core.js
+--ignore-dir=src/midis/

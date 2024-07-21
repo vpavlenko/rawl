@@ -35,6 +35,7 @@ export const processMidiUrls = (
         .data()
         .midis.filter(({ slug }) => slug === urlSlug);
       if (filteredMidis.length > 1) {
+        // TODO: prevent this from happening at the time of saving.
         alert(`More than one midi is found for a slug ${urlSlug}`);
       } else if (filteredMidis.length === 0) {
         alert(`No midi is found for a slug ${urlSlug}`);
@@ -78,7 +79,6 @@ export const saveMidiFromLink = async (link: string) => {
 
     const link = atob(params.get("link") || "");
     const url = atob(params.get("pageUrl") || "");
-    debugger;
     const title = decodeURIComponent(
       atob(decodeURIComponent(params.get("title") || ""))
         .split("")

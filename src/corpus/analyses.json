@@ -453,24 +453,37 @@
       {
         "measure": 91,
         "diff": -2
+      },
+      {
+        "measure": 23,
+        "diff": -2
+      },
+      {
+        "measure": 33,
+        "diff": -2
+      },
+      {
+        "measure": 59,
+        "diff": -2
       }
     ],
     "comment": "",
     "sections": [
       0,
       3,
-      5,
-      8,
-      10,
-      12,
-      15,
-      17,
+      6,
+      9,
+      11,
+      13,
+      16,
+      18,
       19,
       21,
       23,
       25,
       27,
-      29
+      29,
+      31
     ],
     "tags": [],
     "modulations": {
@@ -1170,6 +1183,15 @@
     ]
   },
   "f/Someone_You_Loved": {
+    "measures": {
+      "beatsPerMeasure": {},
+      "measureStarts": {
+        "1": 0,
+        "2": 4,
+        "32": 123,
+        "33": 127
+      }
+    },
     "form": [],
     "phrasePatch": [
       {
@@ -1196,10 +1218,15 @@
     "comment": "error in measures after 31",
     "sections": [
       0,
+      1,
       2,
+      3,
       4,
+      5,
       6,
+      7,
       8,
+      9,
       10
     ],
     "tags": [],
@@ -1678,6 +1705,11 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      2,
+      4
+    ],
     "tags": [],
     "modulations": {
       "1": 11
@@ -2062,6 +2094,28 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
     "tags": [],
     "modulations": {
       "1": 9
@@ -2153,12 +2207,6 @@
       }
     ],
     "comment": "",
-    "tags": [],
-    "modulations": {
-      "1": 2,
-      "28": 7,
-      "32": 2
-    },
     "sections": [
       0,
       1,
@@ -2168,7 +2216,13 @@
       8,
       10,
       12
-    ]
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 11,
+      "28": 7,
+      "32": 2
+    }
   },
   "f/Sonate_No._14_Moonlight_3rd_Movement": {
     "form": [],
@@ -2230,6 +2284,19 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19
+    ],
     "tags": [],
     "modulations": {
       "1": 7
@@ -2244,15 +2311,18 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
     "tags": [],
     "modulations": {
       "1": 4
-    },
-    "sections": [
-      0,
-      2,
-      4
-    ]
+    }
   },
   "f/Gymnopdie_No._1__Satie": {
     "form": [],
@@ -2538,8 +2608,19 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      8,
+      10,
+      12,
+      14
+    ],
     "tags": [],
     "modulations": {
+      "0": 2,
       "1": 5
     }
   },
@@ -2864,6 +2945,12 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12
+    ],
     "tags": [],
     "modulations": {
       "1": 2
@@ -3139,6 +3226,14 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      2,
+      8,
+      12,
+      15,
+      18
+    ],
     "tags": [],
     "modulations": {
       "1": 9
@@ -3395,6 +3490,13 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      5,
+      7
+    ],
     "tags": [],
     "modulations": {
       "1": 2
@@ -3567,6 +3669,16 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13
+    ],
     "tags": [],
     "modulations": {
       "1": 4
@@ -3824,6 +3936,20 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      12,
+      14,
+      16,
+      18,
+      21,
+      23
+    ],
     "tags": [],
     "modulations": {
       "1": 4
@@ -16278,7 +16404,14 @@
     "sections": [
       0,
       1,
-      2
+      2,
+      4,
+      6,
+      7,
+      9,
+      10,
+      11,
+      13
     ],
     "tags": [],
     "modulations": {
@@ -23355,15 +23488,28 @@
       {
         "measure": 1,
         "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 2,
+        "diff": -1
       }
     ],
     "comment": "",
     "sections": [
-      0
+      0,
+      1,
+      5,
+      9,
+      13,
+      17
     ],
     "tags": [],
     "modulations": {
-      "0": 2
+      "0": 9
     }
   },
   "f/bulchenska-rachenitsa": {
@@ -23945,11 +24091,15 @@
     "comment": "",
     "sections": [
       0,
+      1,
       2,
       4,
       6,
       8
     ],
+    "measureRenumbering": {
+      "1": 0
+    },
     "tags": [],
     "modulations": {
       "0": 9,
@@ -24169,11 +24319,18 @@
       {
         "measure": 1,
         "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": -1
       }
     ],
     "comment": "",
     "sections": [
-      0
+      0,
+      4,
+      6,
+      8
     ],
     "tags": [],
     "modulations": {
@@ -25475,7 +25632,11 @@
     ],
     "comment": "",
     "sections": [
-      0
+      0,
+      4,
+      8,
+      12,
+      16
     ],
     "tags": [],
     "modulations": {
@@ -25719,7 +25880,7 @@
     ],
     "tags": [],
     "modulations": {
-      "0": 9
+      "0": 7
     }
   },
   "f/svatbarska-rachenitsa": {
@@ -26033,7 +26194,9 @@
     ],
     "comment": "",
     "sections": [
-      0
+      0,
+      8,
+      16
     ],
     "tags": [],
     "modulations": {
@@ -26490,7 +26653,11 @@
     ],
     "comment": "",
     "sections": [
-      0
+      0,
+      2,
+      4,
+      6,
+      8
     ],
     "tags": [],
     "modulations": {
@@ -26566,6 +26733,1837 @@
     "tags": [],
     "modulations": {
       "0": 4
+    }
+  },
+  "f/yiruma_river_flows_in_you_easy": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 8,
+        "diff": -1
+      },
+      {
+        "measure": 39,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/yiruma_chaconne": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14,
+      18,
+      20,
+      22,
+      24
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "41": 7
+    }
+  },
+  "f/yiruma_spring_time": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 57,
+        "diff": 1
+      },
+      {
+        "measure": 41,
+        "diff": 1
+      },
+      {
+        "measure": 59,
+        "diff": -1
+      },
+      {
+        "measure": 82,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/i---yiruma": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": -2
+      },
+      {
+        "measure": 32,
+        "diff": -2
+      },
+      {
+        "measure": 30,
+        "diff": 2
+      },
+      {
+        "measure": 56,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/seymour_cekurjankino_horo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/yiruma_wait_there": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/yiruma_reminiscent": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": -1
+      },
+      {
+        "measure": 41,
+        "diff": 1
+      },
+      {
+        "measure": 58,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      10,
+      11,
+      13,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/the-scientist---coldplay-piano-arrangement": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 37,
+        "diff": -2
+      },
+      {
+        "measure": 71,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      9,
+      11,
+      13,
+      15,
+      17,
+      18,
+      20,
+      22
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/it-s-your-day---yiruma": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/yiruma_its_your_day": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/glavinishko-cetvorno": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 8,
+        "diff": -1
+      },
+      {
+        "measure": 11,
+        "diff": -1
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/yiruma_kiss_the_rain_easy": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/cetvorno-horo-2": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/cetvorno-horo-4": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 2
+      },
+      {
+        "measure": 15,
+        "diff": 2
+      },
+      {
+        "measure": 29,
+        "diff": 2
+      },
+      {
+        "measure": 39,
+        "diff": 1
+      },
+      {
+        "measure": 44,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      7,
+      10
+    ],
+    "measureRenumbering": {
+      "1": -1
+    },
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "31": 7
+    }
+  },
+  "f/clocks---coldplay": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      },
+      {
+        "measure": 32,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/congratulations---mac-miller": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/yiruma_love_me": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 42,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/kasapsko": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      8,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/sadness-and-sorrow": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 37,
+        "diff": -2
+      },
+      {
+        "measure": 55,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      9,
+      11,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/may-be---yiruma": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 2
+      },
+      {
+        "measure": 36,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 1
+    }
+  },
+  "f/gurenge--demon-slayer-kimetsu-no-yaiba-op": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 2
+      },
+      {
+        "measure": 51,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/four-chord-song": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 57,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      14,
+      19,
+      31,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/yiruma_prelude_in_g_minor": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": 1
+      },
+      {
+        "measure": 3,
+        "diff": -1
+      },
+      {
+        "measure": 6,
+        "diff": 2
+      },
+      {
+        "measure": 12,
+        "diff": 2
+      },
+      {
+        "measure": 26,
+        "diff": 2
+      },
+      {
+        "measure": 36,
+        "diff": -2
+      },
+      {
+        "measure": 54,
+        "diff": 2
+      },
+      {
+        "measure": 60,
+        "diff": 2
+      },
+      {
+        "measure": 66,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      5,
+      6,
+      9,
+      12,
+      13,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "44": 9
+    }
+  },
+  "f/attack-on-titan-theme-guren-no-yumiya": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": 1
+      },
+      {
+        "measure": 52,
+        "diff": -1
+      },
+      {
+        "measure": 59,
+        "diff": 1
+      },
+      {
+        "measure": 100,
+        "diff": -1
+      },
+      {
+        "measure": 131,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      8,
+      9,
+      13,
+      15,
+      17,
+      20,
+      21,
+      25,
+      28,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 1,
+      "7": 4,
+      "11": 8,
+      "32": 1,
+      "55": 4,
+      "59": 8,
+      "82": 1,
+      "103": 4,
+      "111": 7,
+      "114": 3,
+      "134": 6,
+      "142": 9
+    }
+  },
+  "f/ii-v-i-jazz-voicings": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4,
+      "1": 9
+    }
+  },
+  "f/yiruma_fairy_tale": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -2
+      },
+      {
+        "measure": 12,
+        "diff": -2
+      },
+      {
+        "measure": 14,
+        "diff": 2
+      },
+      {
+        "measure": 16,
+        "diff": -2
+      },
+      {
+        "measure": 18,
+        "diff": -2
+      },
+      {
+        "measure": 20,
+        "diff": -2
+      },
+      {
+        "measure": 26,
+        "diff": -2
+      },
+      {
+        "measure": 32,
+        "diff": -2
+      },
+      {
+        "measure": 46,
+        "diff": -2
+      },
+      {
+        "measure": 52,
+        "diff": -2
+      },
+      {
+        "measure": 58,
+        "diff": -2
+      },
+      {
+        "measure": 60,
+        "diff": -2
+      },
+      {
+        "measure": 66,
+        "diff": -2
+      },
+      {
+        "measure": 72,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      6,
+      11,
+      12,
+      14,
+      19,
+      24
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/yiruma_do_you": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/yiruma_if_i_could_see_you_again": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": 1
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 11,
+        "diff": 3
+      },
+      {
+        "measure": 19,
+        "diff": -1
+      },
+      {
+        "measure": 22,
+        "diff": 1
+      },
+      {
+        "measure": 27,
+        "diff": 2
+      },
+      {
+        "measure": 33,
+        "diff": 2
+      },
+      {
+        "measure": 29,
+        "diff": 1
+      },
+      {
+        "measure": 36,
+        "diff": -2
+      },
+      {
+        "measure": 38,
+        "diff": 1
+      },
+      {
+        "measure": 43,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "18": 2,
+      "20": 9
+    }
+  },
+  "f/ballade-pour-adeline---richard-clayderman": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 15,
+        "diff": 2
+      },
+      {
+        "measure": 29,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      4,
+      6,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": -1
+      },
+      {
+        "measure": 93,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      9,
+      13,
+      17,
+      21,
+      24
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/undertale-ost---hopes-and-dreams-save-the-world": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 129,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42,
+      44,
+      46,
+      48
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "81": 8
+    }
+  },
+  "f/bregovsko-horo-1": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      },
+      {
+        "measure": 19,
+        "diff": 1
+      },
+      {
+        "measure": 28,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/the-office-opening-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/chetvorno_shopsko_fixed": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      6,
+      10,
+      14,
+      16,
+      20,
+      24,
+      26,
+      30,
+      34,
+      36
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "17": 0,
+      "25": 9,
+      "57": 7,
+      "65": 4,
+      "81": 11,
+      "97": 2,
+      "105": 11,
+      "121": 6,
+      "137": 9,
+      "145": 6
+    }
+  },
+  "f/doki-doki-literature-club-ost---your-reality": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": -2
+      },
+      {
+        "measure": 63,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6,
+      7,
+      9,
+      11,
+      13,
+      15,
+      16,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/yiruma_maybe": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 2
+      },
+      {
+        "measure": 36,
+        "diff": 1
+      },
+      {
+        "measure": 65,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      16,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 1
+    }
+  },
+  "f/idotdotdot---yiruma": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/yiruma_love_me_easy": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 30,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/time-forgets---yiruma": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 15,
+        "diff": -2
+      },
+      {
+        "measure": 21,
+        "diff": -2
+      },
+      {
+        "measure": 39,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/lomka-po-lomka-kasapsko-horo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/cetvorno-horo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "17": 0,
+      "25": 2
+    }
+  },
+  "f/yiruma_when_the_love_falls": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/yiruma_27_may": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      10,
+      12,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/lazarsko-horo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 2
+      },
+      {
+        "measure": 27,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "measureRenumbering": {
+      "1": -1
+    },
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/autumn-leaves": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/ii-v-i-warmup": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "5": 10,
+      "9": 8,
+      "13": 6,
+      "17": 4,
+      "21": 2,
+      "25": 0
+    }
+  },
+  "f/autumn_leaves_diatonic": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/passing-by---yiruma": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/chetvorno-horo---sofia": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "17": 9
+    }
+  },
+  "f/skyrim-theme-for-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 11
+    }
+  },
+  "f/mihaiylovgradsko-horo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/kulsko-horo-2": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14,
+      18,
+      22,
+      26,
+      30,
+      34,
+      38,
+      42,
+      46,
+      50
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "41": 0,
+      "49": 2,
+      "57": 0,
+      "65": 2,
+      "89": 5,
+      "97": 2,
+      "121": 0,
+      "137": 2,
+      "153": 5,
+      "161": 2
+    }
+  },
+  "f/piano-man-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/yiruma_room_with_a_view": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 33,
+        "diff": -1
+      },
+      {
+        "measure": 56,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3,
+      "25": 0,
+      "32": 11,
+      "44": 7
+    }
+  },
+  "f/yiruma_reason": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 30,
+        "diff": 1
+      },
+      {
+        "measure": 39,
+        "diff": 1
+      },
+      {
+        "measure": 48,
+        "diff": 1
+      },
+      {
+        "measure": 73,
+        "diff": 1
+      },
+      {
+        "measure": 82,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/the-four-chord-song---axis-of-awesome": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/yiruma---love-me": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 42,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
     }
   }
 }

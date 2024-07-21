@@ -80,6 +80,7 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
   let leftHandLastEventTime = 0;
 
   mergedEvents.forEach((event) => {
+    if (event.type === "trackName") return;
     if (isNoteOrPitchBendEvent(event)) {
       if (event.originalTrack === 0) {
         // Right hand (originally track 0)

@@ -51,7 +51,8 @@ import LandingPage from "./rawl/LandingPage";
 import Pirate from "./rawl/Pirate";
 import Rawl from "./rawl/Rawl";
 import TagSearch from "./rawl/TagSearch";
-import { Corpus } from "./rawl/analysis";
+import { Analyses } from "./rawl/analysis";
+import Corpus from "./rawl/corpora/Corpus";
 import Course from "./rawl/course/Course";
 import { DropSaveForm, processMidiUrls } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
@@ -83,7 +84,7 @@ type AppState = {
   paramDefs: any;
   parsing: ParsingResult;
   analysisEnabled: boolean;
-  analyses: Corpus;
+  analyses: Analyses;
   latencyCorrectionMs: number;
   fileToDownload: Uint8Array;
 };
@@ -254,7 +255,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       paramDefs: [],
       parsing: null,
       analysisEnabled: false,
-      analyses: defaultAnalyses as Corpus,
+      analyses: defaultAnalyses as Analyses,
       latencyCorrectionMs,
       fileToDownload: null,
     };
@@ -897,6 +898,12 @@ class App extends React.Component<RouteComponentProps, AppState> {
                             chapter={parseInt(match.params?.chapter, 10)}
                             analyses={this.state.analyses}
                           />
+                        )}
+                      />
+                      <Route
+                        path="/corpus/:corpus*"
+                        render={({ match }) => (
+                          <Corpus slug={match.params?.corpus} />
                         )}
                       />
                       <Route

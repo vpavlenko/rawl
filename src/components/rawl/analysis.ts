@@ -32,7 +32,7 @@ export type Analysis = {
   measures?: ManualMeasures;
 };
 
-export type Corpus = {
+export type Analyses = {
   [path: string]: Analysis;
 };
 

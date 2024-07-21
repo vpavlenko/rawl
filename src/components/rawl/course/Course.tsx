@@ -4,7 +4,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { PianoLegend } from "../PianoLegend";
-import { Corpus } from "../analysis";
+import { Analyses } from "../analysis";
 import About, { Email } from "./About";
 import AppliedChords from "./AppliedChords";
 import BassLines from "./BassLines";
@@ -54,7 +54,7 @@ const CHAPTERS: { title: string; component: Chapter; hasContent?: boolean }[] =
     { title: "Styles", component: Styles },
   ];
 
-export type Chapter = React.FC<{ analyses: Corpus }>;
+export type Chapter = React.FC<{ analyses: Analyses }>;
 
 export const Row = styled.div`
   display: flex;
@@ -89,7 +89,7 @@ const Course = ({
   analyses,
 }: {
   chapter: number;
-  analyses: Corpus;
+  analyses: Analyses;
 }) => {
   if (!(chapter >= 0 && chapter < CHAPTERS.length)) {
     chapter = 1;

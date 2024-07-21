@@ -1,10 +1,10 @@
 import * as React from "react";
-import { Corpus } from "./analysis";
+import { Analyses } from "./analysis";
 
 export const formatTag = (tag: string): string =>
   tag.replace(/:/g, ": ").replace(/_/g, " ");
 
-const TagSearch: React.FC<{ tag: string; analyses: Corpus }> = ({
+const TagSearch: React.FC<{ tag: string; analyses: Analyses }> = ({
   tag,
   analyses,
 }) => {

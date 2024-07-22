@@ -852,7 +852,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
             position: "fixed",
             bottom: 243,
             right: -93,
-            zIndex: 10000,
+            zIndex: 100000,
           }}
         >
           <input
@@ -875,6 +875,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
             position: "fixed",
             bottom: 70,
             right: 79,
+            zIndex: 100000,
           }}
         >
           <input

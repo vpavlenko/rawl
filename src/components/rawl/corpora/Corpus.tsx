@@ -7,18 +7,18 @@ const corpora = [
   {
     slug: "first_love",
     midis: [
-      "i---yiruma",
-      "may-be---yiruma",
-      "yiruma---love-me",
       "river-flows-in-you",
-      "passing-by---yiruma",
+      "may-be---yiruma",
       "it-s-your-day---yiruma",
-      "left-my-hearts---yiruma",
+      "yiruma---love-me",
+      "farewell---yiruma",
       "time-forgets---yiruma",
+      "if-i-could-see-you-again---yiruma",
+      "i---yiruma",
       "on-the-way---yiruma",
       "till-i-find-you---yiruma",
-      "if-i-could-see-you-again---yiruma",
-      "farewell---yiruma",
+      "passing-by---yiruma",
+      "left-my-hearts---yiruma",
       "dream-a-little-dream-of-me---yiruma", // cover
       "when-the-love-falls---yiruma", // cover
     ],

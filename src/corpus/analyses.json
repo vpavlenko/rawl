@@ -1608,10 +1608,6 @@
       }
     ],
     "comment": "",
-    "tags": [],
-    "modulations": {
-      "1": 5
-    },
     "sections": [
       0,
       2,
@@ -1631,7 +1627,11 @@
       30,
       32,
       34
-    ]
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 8
+    }
   },
   "f/tude_S._1413_in_G_Minor_La_Campanella__Liszt": {
     "form": [],
@@ -26995,7 +26995,7 @@
     ],
     "tags": [],
     "modulations": {
-      "0": 2
+      "0": 5
     }
   },
   "f/it-s-your-day---yiruma": {
@@ -27318,6 +27318,10 @@
       {
         "measure": 36,
         "diff": 1
+      },
+      {
+        "measure": 65,
+        "diff": -1
       }
     ],
     "comment": "",
@@ -27327,7 +27331,11 @@
       3,
       5,
       7,
-      9
+      9,
+      11,
+      13,
+      16,
+      18
     ],
     "tags": [],
     "modulations": {
@@ -28290,11 +28298,30 @@
     "sections": [
       0,
       1,
-      3
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21
     ],
     "tags": [],
     "modulations": {
-      "0": 9
+      "0": 9,
+      "13": 0,
+      "21": 5,
+      "23": 3,
+      "25": 0,
+      "29": 5,
+      "31": 3,
+      "33": 0,
+      "35": 9,
+      "53": 0,
+      "75": 9
     }
   },
   "f/chetvorno-horo---sofia": {
@@ -28534,6 +28561,21 @@
     }
   },
   "f/yiruma---love-me": {
+    "measures": {
+      "beatsPerMeasure": {
+        "1": 4,
+        "9": 3,
+        "10": 4,
+        "42": 3,
+        "43": 4
+      },
+      "measureStarts": {
+        "2": 3.3802919999999994,
+        "10": 29.577554999999975,
+        "11": 32.957846999999965,
+        "43": 140.28211800000076
+      }
+    },
     "form": [],
     "phrasePatch": [
       {
@@ -28564,6 +28606,423 @@
     "tags": [],
     "modulations": {
       "0": 5
+    }
+  },
+  "f/when-the-love-falls---yiruma": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/if-i-could-see-you-again---yiruma": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      },
+      {
+        "measure": 15,
+        "diff": -2
+      },
+      {
+        "measure": 25,
+        "diff": -2
+      },
+      {
+        "measure": 31,
+        "diff": -2
+      },
+      {
+        "measure": 41,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      7,
+      9,
+      11,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/left-my-hearts---yiruma": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      },
+      {
+        "measure": 15,
+        "diff": 1
+      },
+      {
+        "measure": 20,
+        "diff": 1
+      },
+      {
+        "measure": 25,
+        "diff": 1
+      },
+      {
+        "measure": 30,
+        "diff": 1
+      },
+      {
+        "measure": 35,
+        "diff": 1
+      },
+      {
+        "measure": 40,
+        "diff": -1
+      },
+      {
+        "measure": 43,
+        "diff": 1
+      },
+      {
+        "measure": 48,
+        "diff": 1
+      },
+      {
+        "measure": 53,
+        "diff": 2
+      },
+      {
+        "measure": 59,
+        "diff": -1
+      },
+      {
+        "measure": 62,
+        "diff": 1
+      },
+      {
+        "measure": 67,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/on-the-way---yiruma": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 15,
+        "diff": -1
+      },
+      {
+        "measure": 18,
+        "diff": -2
+      },
+      {
+        "measure": 28,
+        "diff": -1
+      },
+      {
+        "measure": 31,
+        "diff": -2
+      },
+      {
+        "measure": 41,
+        "diff": -2
+      },
+      {
+        "measure": 43,
+        "diff": 1
+      },
+      {
+        "measure": 56,
+        "diff": -2
+      },
+      {
+        "measure": 70,
+        "diff": -1
+      },
+      {
+        "measure": 69,
+        "diff": 2
+      },
+      {
+        "measure": 7,
+        "diff": -2
+      },
+      {
+        "measure": 12,
+        "diff": 2
+      },
+      {
+        "measure": 20,
+        "diff": -2
+      },
+      {
+        "measure": 25,
+        "diff": 2
+      },
+      {
+        "measure": 33,
+        "diff": -2
+      },
+      {
+        "measure": 37,
+        "diff": 2
+      },
+      {
+        "measure": 44,
+        "diff": -3
+      },
+      {
+        "measure": 45,
+        "diff": -1
+      },
+      {
+        "measure": 48,
+        "diff": -2
+      },
+      {
+        "measure": 48,
+        "diff": 2
+      },
+      {
+        "measure": 58,
+        "diff": -2
+      },
+      {
+        "measure": 60,
+        "diff": -2
+      },
+      {
+        "measure": 63,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      12,
+      14,
+      17,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "22": 2,
+      "24": 9,
+      "26": 0
+    }
+  },
+  "f/dream-a-little-dream-of-me---yiruma": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "21": 9,
+      "28": 0
+    }
+  },
+  "f/river-flows-in-you": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/till-i-find-you---yiruma": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": -1
+      },
+      {
+        "measure": 24,
+        "diff": -1
+      },
+      {
+        "measure": 43,
+        "diff": -1
+      },
+      {
+        "measure": 50,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      7,
+      9,
+      11,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "9": 3,
+      "11": 9,
+      "13": 7,
+      "16": 5,
+      "18": 9,
+      "20": 7,
+      "27": 0,
+      "35": 3,
+      "37": 9,
+      "39": 7,
+      "42": 5,
+      "44": 9,
+      "46": 7
+    }
+  },
+  "f/farewell---yiruma": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": -2
+      },
+      {
+        "measure": 31,
+        "diff": -1
+      },
+      {
+        "measure": 30,
+        "diff": -1
+      },
+      {
+        "measure": 29,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
     }
   }
 }

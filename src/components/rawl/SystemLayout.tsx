@@ -467,7 +467,7 @@ const MeasureNumbers = ({
       height: 16,
       marginBottom: "-14px",
       marginLeft: "0px",
-      zIndex: 10000,
+      zIndex: 90000,
       position: sectionSpan ? "relative" : "sticky",
       top: 0,
     }}
@@ -875,7 +875,6 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
             position: "fixed",
             bottom: 70,
             right: 79,
-            zIndex: 10000,
           }}
         >
           <input
@@ -955,7 +954,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
 
         <div
           key="piano-legend"
-          style={{ position: "fixed", bottom: 90, right: 70, zIndex: 10000 }}
+          style={{ position: "fixed", bottom: 90, right: 70, zIndex: 100000 }}
         >
           {showLegend ? (
             <div>
@@ -1027,7 +1026,7 @@ export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
             position: "fixed",
             top: 50,
             right: 100,
-            zIndex: 1000000,
+            zIndex: 90000,
             backgroundColor: "black",
             padding: 10,
           }}

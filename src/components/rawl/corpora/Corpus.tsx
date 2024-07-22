@@ -1,10 +1,8 @@
 import * as React from "react";
 
 // I skip "14 I… 48:33" since it's basically track 1 with added violin.
-// I skip "13 Dream A Little Dream Of Me 46:25" since it's not original.
-// I skip "07 When The Love Falls 23:28" since it's not original.
-// For "05 Passing By 15:17" and "09 Time Forgets… 29:52" I use versions without a cello, since
-// it's doubling a piano melody anyways.
+// For "05 Passing By 15:17", "09 Time Forgets… 29:52" and "15 Farewell 52:45"
+// I use versions without a cello, since it's doubling a piano melody anyways.
 const corpora = [
   {
     slug: "first_love",
@@ -17,6 +15,12 @@ const corpora = [
       "it-s-your-day---yiruma",
       "left-my-hearts---yiruma",
       "time-forgets---yiruma",
+      "on-the-way---yiruma",
+      "till-i-find-you---yiruma",
+      "if-i-could-see-you-again---yiruma",
+      "farewell---yiruma",
+      "dream-a-little-dream-of-me---yiruma", // cover
+      "when-the-love-falls---yiruma", // cover
     ],
   },
 ];
@@ -33,7 +37,7 @@ const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
       {corpus.midis.map((midiSlug) => (
         <div>
           <a href={`/f/${midiSlug}`} target="_blank">
-            {midiSlug}
+            {midiSlug.replace(/---/g, " – ").replace(/-/g, " ")}
           </a>
         </div>
       ))}

@@ -72,6 +72,30 @@ const corpora = [
       "philip-glass---satyagraha-act-3-ending",
     ],
   },
+  { slug: "machaut", midis: ["machaut---messe-de-nostre-dame---kyrie"] },
+  {
+    slug: "tango",
+    midis: [
+      "tango-la-cumparsita---piano-solo-tutorial-parte-a",
+      "tango-por-una-cabeza",
+      "spanish-tango",
+      "escorregando---tango-brasileiro",
+      "tango---traditionnel-paraguayen",
+      "catherine-s-tango---dustin-o-halloran",
+      "tango---isaac-albeniz",
+      "tango-for-piano",
+      "tango-habanera-vers-1925-by-ernesto-nazareth",
+      "tango-from-schnittke-s-concerto-grosso-1",
+      "to-ostatnia-niedziela-last-sunday---polish-tango",
+      "tango-of-the-roses",
+      "piazzolla_histoire_du_tango_bordel_1900",
+      "piazzolla_histoire_du_tango_cafe_1930",
+      "piazzolla_histoire_du_tango_nightclub_1960",
+      "piazzolla_histoire_du_tango_concert_aujourdhui",
+      "tango-to-evora",
+      "tango-pour-claude---richard-galliano",
+    ],
+  },
 ];
 
 const Corpus: React.FC<{ slug: string }> = ({ slug }) => {

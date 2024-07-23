@@ -773,7 +773,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
               notes: notes.filter(
                 (note) =>
                   note.span[1] >= measures[start] &&
-                  note.span[0] + 1e-3 < measures[end],
+                  note.span[0] + 1e-2 < measures[end],
               ),
             }),
           ),

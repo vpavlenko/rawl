@@ -23,10 +23,20 @@ function isNoteOrPitchBendEvent(
   );
 }
 
-function hasNoteInChannelZero(track: MidiEvent[]): boolean {
-  return track.some(
-    (event) => isNoteOrPitchBendEvent(event) && event.channel === 0,
-  );
+function hasOnlyChannelZeroNotesAndAtLeastOne(track: MidiEvent[]): boolean {
+  let hasChannelZeroNote = false;
+
+  for (const event of track) {
+    if (isNoteOrPitchBendEvent(event)) {
+      if (event.channel === 0) {
+        hasChannelZeroNote = true;
+      } else {
+        return false; // Found a note in a channel other than 0
+      }
+    }
+  }
+
+  return hasChannelZeroNote; // Must have at least one note in channel 0
 }
 
 function transformMidi(inputData: Uint8Array): Uint8Array {
@@ -36,8 +46,10 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
     return inputData;
   }
 
-  const hasNotesInBothTracks = midi.tracks.every(hasNoteInChannelZero);
-  if (!hasNotesInBothTracks) {
+  const bothTracksValid = midi.tracks.every(
+    hasOnlyChannelZeroNotesAndAtLeastOne,
+  );
+  if (!bothTracksValid) {
     return inputData;
   }
 

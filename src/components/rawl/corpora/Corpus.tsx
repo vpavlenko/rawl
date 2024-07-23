@@ -23,6 +23,55 @@ const corpora = [
       "when-the-love-falls---yiruma", // cover
     ],
   },
+  {
+    slug: "jim_brickman",
+    midis: [
+      "valentine---jim-brickman-with-martina-mcbride",
+      "beautiful",
+      "jim-brickman---night-prayer-uoc-gi",
+    ],
+  },
+  {
+    // minimalism
+    slug: "george_winston",
+    midis: [
+      "thanksgiving",
+      "colors-dance---george-winston",
+      "february-sea---george-winston-771567dfea6219c668f882216e7f8c356a9b6bc5",
+      "longing-love---george-winston",
+      //       Lullaby (Sandman)
+      // January Stars
+      // Early Morning Range
+    ],
+  },
+  {
+    slug: "david_lanz",
+    midis: [
+      "cristofari-s-dream",
+      "moonlight-lake-by-david-lanz",
+      "angels-falling-by-david-lanz",
+    ],
+  },
+  {
+    slug: "philip_glass",
+    midis: [
+      "glassworks-opening-1---philip-glass-opening-1---philip-glass",
+      "tales-from-the-loop",
+      "walk-to-school-tales-from-the-loop",
+      "it-was-always-you-helen-from-the-classic-horror-movie-candyman",
+      "philip-glass---prophecies",
+      "philip-glass---facades",
+      "night-train---philip-glass-arr.-for-solo-piano",
+      "philip-glass---spaceship",
+      "philip-glass---pruit-igoe",
+      "philip-glass---islands",
+      "akhnaten-prelude---philip-glass",
+      "dead-things",
+      "candyman",
+      "philip-glass---floe",
+      "philip-glass---satyagraha-act-3-ending",
+    ],
+  },
 ];
 
 const Corpus: React.FC<{ slug: string }> = ({ slug }) => {

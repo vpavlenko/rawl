@@ -142,6 +142,33 @@ const corpora = [
       "tango-till-you-drop-abrsm-grade-5-saxophone-b-3", // melody for harmonization
     ],
   },
+  {
+    slug: "musette",
+    midis: ["sous-le-ciel-de-paris", "la-vie-en-rose-solo-accordion"],
+  },
+  {
+    slug: "klezmer",
+    midis: [
+      "odessa-bulgar-no.3",
+      "der-heyser-bulgar---misc-tunes-der-heyser-bulgar",
+      "freylekhe-mekhutonim",
+      "shloymke-s_freylekhs",
+      "freylekhs-2",
+      "freylekh-de-reconciliation",
+      "odessa-bulgarish-new-york-psycho-freylekhs",
+      "mr-zvonsky-s-freylekhs",
+      "freylekh-zain---frohlich-sein",
+      "lebedikh-un-freylekh---trad.-klezmer-for-flute-clarinet",
+    ],
+  },
+  {
+    slug: "fado",
+    midis: [
+      "fado-da-mouraria---anonimo",
+      "lisboa-antiga---fado-marcha---raul-portela",
+      "fado---alfredo-mantua",
+    ],
+  },
 ];
 
 const Corpus: React.FC<{ slug: string }> = ({ slug }) => {

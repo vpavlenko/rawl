@@ -76,27 +76,41 @@ const corpora = [
   {
     slug: "tango",
     midis: [
-      "tango-la-cumparsita---piano-solo-tutorial-parte-a",
+      "la-cumparsita",
       "happy-birthday-tango-variation",
+      "happy-birthday-tango",
+      "happy-birthday-to-you---tango-version",
+      "birthday-tango",
+      "birthday-tango-2",
+
       "to-ostatnia-niedziela-last-sunday---polish-tango",
+      "chicago---cell-block-tango---misc-soundtrack",
+      "underground-tango---goran-bregovic-string-quartet",
+
       "tango-ndeg3-op.50---jose-ferrer-y-esteve-1835---1916", // ideal V/bIII
       "assassin-s_tango",
-      "tango-por-una-cabeza",
+      "ojos-negros-tango-by-vicente-greco", // V-I compared to parallel V-i
+
+      "tango---isaac-albeniz",
       "spanish-tango",
 
       "tango-jealousy---jacob-gade",
       "beleet-moy-parus-a.-mironov---gennadiy-gladkov",
 
-      "tango---isaac-albeniz",
+      "tango-por-una-cabeza",
+
       "tango-el-choclo---angel-gregorio-villoldo",
       "sankarin-tango-finnish-tango---petri-alanko-and-martti-suosalo",
       "escorregando---tango-brasileiro",
       "tango---traditionnel-paraguayen",
       "catherine-s-tango---dustin-o-halloran",
-      "ojos-negros-tango-by-vicente-greco", // V-I compared to parallel V-i
+      "a-la-gran-muneca---tango",
+      "mi-noche-triste-tango---castriota-arr.-domingo-prat",
+
       "shovel-knight-plague-of-shadows---tango-of-the-troupple-king",
       "tango-for-piano",
-      "underground-tango---goran-bregovic-string-quartet",
+
+      "saladillo-tango-pour-piano-de-vicente-greco-1888-1924",
       "tango-habanera-vers-1925-by-ernesto-nazareth",
       "tango-de-la-muerte",
       "tango-pour-claude---richard-galliano",
@@ -106,10 +120,11 @@ const corpora = [
       "tango-to-evora",
       "carioca-1913",
       "moon-tango---r.-clayderman",
-      "la-cumparsita",
+
       "the-masochism-tango---tom-lehrer-the-masochism-tango---tom-lehrer-the-masochism-tango",
       "lagrima---tango---joao-teixeira-guimaraes-1883---1947",
       "tango-flamenco---luis-de-soria-1851---1935", // pure major
+      "milca-s-birthday-tango.....",
 
       // el tango de roxanne
 
@@ -121,7 +136,10 @@ const corpora = [
       "astor-piazzolla-adios-nonino-tango",
       "street-tango-for-clarinet-and-piano",
       "triunfal-tango-by-astor-piazzolla-in-edition-for-classical-guitar-from-victor-villadangos",
+      "calambre-tango-piazzolla",
       "malena---tango", // exercise
+      "tango-la-cumparsita---piano-solo-tutorial-parte-a",
+      "tango-till-you-drop-abrsm-grade-5-saxophone-b-3", // melody for harmonization
     ],
   },
 ];

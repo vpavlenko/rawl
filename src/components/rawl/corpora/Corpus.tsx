@@ -77,53 +77,52 @@ const corpora = [
     slug: "tango",
     midis: [
       "la-cumparsita",
-      "happy-birthday-tango-variation",
+      "sankarin-tango-finnish-tango---petri-alanko-and-martti-suosalo",
+      "tango---traditionnel-paraguayen",
+      "catherine-s-tango---dustin-o-halloran",
+      "mi-noche-triste-tango---castriota-arr.-domingo-prat",
+
+      "spanish-tango",
+      "tango-to-evora",
+      "a-la-gran-muneca---tango",
+      "tango-ndeg3-op.50---jose-ferrer-y-esteve-1835---1916", // ideal V/bIII
       "happy-birthday-tango",
+      "to-ostatnia-niedziela-last-sunday---polish-tango",
+      "ojos-negros-tango-by-vicente-greco", // V-I compared to parallel V-i
+      "shovel-knight-plague-of-shadows---tango-of-the-troupple-king",
+      "tango-habanera-vers-1925-by-ernesto-nazareth",
+      "ole-guapa-by-a.malando",
+
+      "saladillo-tango-pour-piano-de-vicente-greco-1888-1924",
+      "escorregando---tango-brasileiro",
+      "tango---isaac-albeniz",
+      "tango-flamenco---luis-de-soria-1851---1935", // pure major
+
+      "lagrima---tango---joao-teixeira-guimaraes-1883---1947",
+      "moon-tango---r.-clayderman",
+      "assassin-s_tango",
+      "tango-for-piano",
+      "tango-of-the-roses",
+
+      "carioca-1913",
+      "tango-el-choclo---angel-gregorio-villoldo",
+      "tango-por-una-cabeza",
+      "the-masochism-tango---tom-lehrer-the-masochism-tango---tom-lehrer-the-masochism-tango",
+
+      "tango-jealousy---jacob-gade",
+      "beleet-moy-parus-a.-mironov---gennadiy-gladkov",
+      "chicago---cell-block-tango---misc-soundtrack",
+      "underground-tango---goran-bregovic-string-quartet",
+
+      "happy-birthday-tango-variation",
       "happy-birthday-to-you---tango-version",
       "birthday-tango",
       "birthday-tango-2",
 
-      "to-ostatnia-niedziela-last-sunday---polish-tango",
-      "chicago---cell-block-tango---misc-soundtrack",
-      "underground-tango---goran-bregovic-string-quartet",
-
-      "tango-ndeg3-op.50---jose-ferrer-y-esteve-1835---1916", // ideal V/bIII
-      "assassin-s_tango",
-      "ojos-negros-tango-by-vicente-greco", // V-I compared to parallel V-i
-
-      "tango---isaac-albeniz",
-      "spanish-tango",
-
-      "tango-jealousy---jacob-gade",
-      "beleet-moy-parus-a.-mironov---gennadiy-gladkov",
-
-      "tango-por-una-cabeza",
-
-      "tango-el-choclo---angel-gregorio-villoldo",
-      "sankarin-tango-finnish-tango---petri-alanko-and-martti-suosalo",
-      "escorregando---tango-brasileiro",
-      "tango---traditionnel-paraguayen",
-      "catherine-s-tango---dustin-o-halloran",
-      "a-la-gran-muneca---tango",
-      "mi-noche-triste-tango---castriota-arr.-domingo-prat",
-
-      "shovel-knight-plague-of-shadows---tango-of-the-troupple-king",
-      "tango-for-piano",
-
-      "saladillo-tango-pour-piano-de-vicente-greco-1888-1924",
-      "tango-habanera-vers-1925-by-ernesto-nazareth",
       "tango-de-la-muerte",
       "tango-pour-claude---richard-galliano",
       "tango-from-schnittke-s-concerto-grosso-1",
-      "tango-of-the-roses",
-      "ole-guapa-by-a.malando",
-      "tango-to-evora",
-      "carioca-1913",
-      "moon-tango---r.-clayderman",
 
-      "the-masochism-tango---tom-lehrer-the-masochism-tango---tom-lehrer-the-masochism-tango",
-      "lagrima---tango---joao-teixeira-guimaraes-1883---1947",
-      "tango-flamenco---luis-de-soria-1851---1935", // pure major
       "milca-s-birthday-tango.....",
 
       // el tango de roxanne
@@ -140,6 +139,7 @@ const corpora = [
       "malena---tango", // exercise
       "tango-la-cumparsita---piano-solo-tutorial-parte-a",
       "tango-till-you-drop-abrsm-grade-5-saxophone-b-3", // melody for harmonization
+      "Habanera_-_Piano_Solo_-_Georges_Bizet",
     ],
   },
   {

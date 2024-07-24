@@ -77,23 +77,51 @@ const corpora = [
     slug: "tango",
     midis: [
       "tango-la-cumparsita---piano-solo-tutorial-parte-a",
+      "happy-birthday-tango-variation",
+      "to-ostatnia-niedziela-last-sunday---polish-tango",
+      "tango-ndeg3-op.50---jose-ferrer-y-esteve-1835---1916", // ideal V/bIII
+      "assassin-s_tango",
       "tango-por-una-cabeza",
       "spanish-tango",
+
+      "tango-jealousy---jacob-gade",
+      "beleet-moy-parus-a.-mironov---gennadiy-gladkov",
+
+      "tango---isaac-albeniz",
+      "tango-el-choclo---angel-gregorio-villoldo",
+      "sankarin-tango-finnish-tango---petri-alanko-and-martti-suosalo",
       "escorregando---tango-brasileiro",
       "tango---traditionnel-paraguayen",
       "catherine-s-tango---dustin-o-halloran",
-      "tango---isaac-albeniz",
+      "ojos-negros-tango-by-vicente-greco", // V-I compared to parallel V-i
+      "shovel-knight-plague-of-shadows---tango-of-the-troupple-king",
       "tango-for-piano",
+      "underground-tango---goran-bregovic-string-quartet",
       "tango-habanera-vers-1925-by-ernesto-nazareth",
+      "tango-de-la-muerte",
+      "tango-pour-claude---richard-galliano",
       "tango-from-schnittke-s-concerto-grosso-1",
-      "to-ostatnia-niedziela-last-sunday---polish-tango",
       "tango-of-the-roses",
+      "ole-guapa-by-a.malando",
+      "tango-to-evora",
+      "carioca-1913",
+      "moon-tango---r.-clayderman",
+      "la-cumparsita",
+      "the-masochism-tango---tom-lehrer-the-masochism-tango---tom-lehrer-the-masochism-tango",
+      "lagrima---tango---joao-teixeira-guimaraes-1883---1947",
+      "tango-flamenco---luis-de-soria-1851---1935", // pure major
+
+      // el tango de roxanne
+
       "piazzolla_histoire_du_tango_bordel_1900",
       "piazzolla_histoire_du_tango_cafe_1930",
       "piazzolla_histoire_du_tango_nightclub_1960",
       "piazzolla_histoire_du_tango_concert_aujourdhui",
-      "tango-to-evora",
-      "tango-pour-claude---richard-galliano",
+      "astor-piazzolla---prologue-tango-apasionado",
+      "astor-piazzolla-adios-nonino-tango",
+      "street-tango-for-clarinet-and-piano",
+      "triunfal-tango-by-astor-piazzolla-in-edition-for-classical-guitar-from-victor-villadangos",
+      "malena---tango", // exercise
     ],
   },
 ];

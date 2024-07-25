@@ -194,7 +194,7 @@ const corpora = [
   {
     slug: "scott_joplin",
     midis: [
-      "happy-birthday-song-in-jazz-arr.-by-jonny-maysilver-swan-rag---scott-joplin---1914---transcribed-by-richard-zimmerman",
+      "silver-swan-rag---scott-joplin---1914---transcribed-by-richard-zimmerman",
       "Maple_Leaf_Rag_Scott_Joplin",
       "elite-syncopations---scott-joplin---1902",
       "weeping-willow---scott-joplin---1903",

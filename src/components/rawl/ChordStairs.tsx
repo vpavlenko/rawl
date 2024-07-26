@@ -40,6 +40,7 @@ export const MODES: Mode[] = [
       "V7/V",
       "V7/vi",
       "viio7/V",
+      "Fr",
       "Ger",
       "V7/ii",
       "V7/iii",

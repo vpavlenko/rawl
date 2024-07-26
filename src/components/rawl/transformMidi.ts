@@ -94,12 +94,13 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
   mergedEvents.forEach((event) => {
     if (event.type === "trackName") return;
     if (isNoteOrPitchBendEvent(event)) {
-      if (event.originalTrack === 0) {
+      if (event.originalTrack === 0 || event.type === "noteOff") {
         // Right hand (originally track 0)
         const deltaTime = event.absoluteTime - rightHandLastEventTime;
         rightHandEvents.push({ ...event, deltaTime, channel: 0 });
         rightHandLastEventTime = event.absoluteTime;
-      } else if (event.originalTrack === 1) {
+      }
+      if (event.originalTrack === 1 || event.type === "noteOff") {
         // Left hand (originally track 1)
         const deltaTime = event.absoluteTime - leftHandLastEventTime;
         leftHandEvents.push({ ...event, deltaTime, channel: 1 });

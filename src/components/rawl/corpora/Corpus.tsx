@@ -270,6 +270,26 @@ const corpora = [
     slug: "gershwin_preludes",
     midis: ["gershwin_prelude_1", "gershwin_prelude_2", "gershwin_prelude_3"],
   },
+  {
+    slug: "minecraft_c418",
+    midis: [
+      "minecraft---dead-voxel",
+      "beginning-minecraft",
+      "aria-math---c418-from-minecraft",
+      "minecraft-calm",
+      "c418---cat-from-minecraft---volume-alpha",
+      "clark-minecraft",
+      "moog-city-minecraft",
+      "danny-minecraft",
+      "living-mice-minecraft",
+      "alpha-full---minecraft-credits-end-poem",
+      "dry-hands-minecraft",
+      "haggstrom-minecraft",
+      "minecraft-title",
+      "mice-on-venus-minecraft",
+      "subwoofer-lullaby-minecraft",
+    ],
+  },
 ];
 
 const Corpus: React.FC<{ slug: string }> = ({ slug }) => {

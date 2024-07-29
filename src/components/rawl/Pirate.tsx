@@ -1,4 +1,6 @@
 import * as React from "react";
+import ChordStairs, { Mode } from "./ChordStairs";
+import { ChordStairsContainer } from "./LandingPage";
 
 const TOC = [
   {
@@ -39,17 +41,61 @@ const TOC = [
   },
 ];
 
+const FUNCTIONS: Mode[] = [
+  {
+    title: "S1",
+    chords: ["V7/vi", "vi"],
+  },
+  {
+    title: "S2",
+    chords: ["V7/vi", "V7/ii", "ii", "io7"],
+  },
+  {
+    title: "S3",
+    chords: ["V7/IV", "IV", "iv", "io7"],
+  },
+  {
+    title: "S4",
+    chords: ["io7"],
+  },
+  { title: "K", chords: ["Cad64", "I6"] },
+  {
+    title: "D1",
+    chords: ["V7/ii", "V7/V", "V7"],
+  },
+  {
+    title: "D2",
+    chords: ["vi", "V7/V", "V7"],
+  },
+  {
+    title: "D3",
+    chords: ["V7/ii", "ii", "V7"],
+  },
+  {
+    title: "T",
+    chords: ["IPAC"],
+  },
+];
+
 const Pirate = () => {
   return (
     <div>
-      {TOC.map(({ slug, link }) => (
+      {/* {TOC.map(({ slug, link }) => (
         <div>
           {slug}:{" "}
           <a href={link} target="_blank">
             {link}
           </a>
         </div>
-      ))}
+      ))} */}
+      <div>Cadences in Scott Joplin: SKDT</div>
+      <div>
+        <ChordStairsContainer>
+          {FUNCTIONS.map((f) => (
+            <ChordStairs mode={f} />
+          ))}
+        </ChordStairsContainer>
+      </div>
     </div>
   );
 };

@@ -118,7 +118,7 @@ const Content = styled.div`
   }
 `;
 
-const ChordStairsContainer = styled.div`
+export const ChordStairsContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 100px;

@@ -66,6 +66,8 @@ export const CHORDS = {
   iio: [2, 5, 8],
   iio7: [2, 5, 8, 11],
   viio: [11, 2, 5],
+  IPAC: [0, 4, 12],
+  I6: [4, 7, 12],
 } as const;
 export type Chord = keyof typeof CHORDS;
 

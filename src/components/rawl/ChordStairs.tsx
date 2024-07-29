@@ -24,7 +24,7 @@ const ChordName = styled.div`
   text-align: center;
 `;
 
-type Mode = { title: string; chords: Chord[] };
+export type Mode = { title: string; chords: Chord[] };
 
 export const MODES: Mode[] = [
   {

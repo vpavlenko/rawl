@@ -228,9 +228,17 @@ const corpora = [
       "kismet-rag---joplin-and-hayden---1913",
       "felicity-rag---joplin-and-hayden---1911",
       "stoptime-rag---scott-joplin---1910",
+      "swipesy-cakewalk-1900",
+      "the-easy-winners---scott-joplin---1901",
+      "cleopha---scott-joplin---1902",
+      "a-breeze-from-alabama---scott-joplin---1902",
+      "something-doing---joplin-and-hayden---1903",
+      "the-favorite---scott-joplin---1904",
+      "the-rose-bud-march---scott-joplin---1905",
 
       "antoinette---scott-joplin---1906",
       "a-real-slow-drag---scott-joplin---1913",
+      "march-majestic---scott-joplin---1902",
     ],
   },
 ];

@@ -192,22 +192,36 @@
     ]
   },
   "f/the_entertainer_scott_joplin": {
-    "modulations": {
-      "1": 0,
-      "85": 5,
-      "106": 9,
-      "109": 5,
-      "117": 0
-    },
-    "comment": "",
-    "tags": [],
     "form": [],
     "phrasePatch": [
       {
         "measure": 1,
         "diff": 0
       }
-    ]
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      30,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "85": 5,
+      "103": 2,
+      "106": 9,
+      "109": 5,
+      "117": 0
+    }
   },
   "f/vizisi": {
     "modulations": {
@@ -638,15 +652,6 @@
     }
   },
   "f/Maple_Leaf_Rag_Scott_Joplin": {
-    "modulations": {
-      "1": 8,
-      "82": 1,
-      "106": 3,
-      "110": 1,
-      "114": 8
-    },
-    "comment": "",
-    "tags": [],
     "form": [],
     "phrasePatch": [
       {
@@ -654,6 +659,7 @@
         "diff": 1
       }
     ],
+    "comment": "",
     "sections": [
       0,
       5,
@@ -664,7 +670,20 @@
       25,
       29,
       33
-    ]
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 8,
+      "62": 10,
+      "64": 8,
+      "82": 1,
+      "106": 3,
+      "110": 1,
+      "114": 8
+    }
   },
   "f/Pine_Apple_Rag_-_Scott_Joplin_-_1908.mscz": {
     "modulations": {
@@ -744,38 +763,6 @@
     ]
   },
   "f/Gershwin_Rhapsody_in_Blue_Piano_solo": {
-    "modulations": {
-      "1": 10,
-      "7": 3,
-      "9": 8,
-      "21": 6,
-      "28": 4,
-      "38": 9,
-      "48": 5,
-      "52": 0,
-      "56": 3,
-      "58": 6,
-      "59": 9,
-      "60": 0,
-      "61": 10,
-      "62": 8,
-      "63": 6,
-      "64": 5,
-      "65": 4,
-      "69": 11,
-      "70": 5,
-      "72": 9,
-      "85": 0,
-      "130": 11,
-      "134": 2,
-      "138": 7,
-      "158": 1,
-      "170": 7,
-      "175": 2,
-      "180": 7
-    },
-    "comment": "",
-    "tags": [],
     "form": [],
     "phrasePatch": [
       {
@@ -899,6 +886,7 @@
         "diff": -3
       }
     ],
+    "comment": "",
     "sections": [
       0,
       1,
@@ -927,7 +915,40 @@
       49,
       51,
       53
-    ]
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "7": 3,
+      "9": 8,
+      "21": 6,
+      "28": 4,
+      "38": 9,
+      "48": 5,
+      "52": 0,
+      "56": 3,
+      "58": 6,
+      "59": 9,
+      "60": 0,
+      "61": 10,
+      "62": 8,
+      "63": 6,
+      "64": 5,
+      "65": 4,
+      "69": 11,
+      "70": 5,
+      "72": 9,
+      "85": 0,
+      "109": 9,
+      "115": 0,
+      "130": 11,
+      "134": 2,
+      "138": 7,
+      "158": 1,
+      "170": 7,
+      "175": 2,
+      "180": 7
+    }
   },
   "f/Habanera_-_Piano_Solo_-_Georges_Bizet": {
     "modulations": {
@@ -2374,12 +2395,38 @@
       {
         "measure": 5,
         "diff": -3
+      },
+      {
+        "measure": 38,
+        "diff": -1
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
     "tags": [],
     "modulations": {
-      "1": 3
+      "0": 3,
+      "7": 5,
+      "8": 3,
+      "10": 10,
+      "11": 8,
+      "12": 10,
+      "14": 3,
+      "18": 10,
+      "19": 3,
+      "20": 10,
+      "22": 3
     }
   },
   "f/Requiem_for_a_Dream": {
@@ -15012,29 +15059,26 @@
     "sections": [
       0,
       1,
-      3,
       5,
-      7,
       9,
-      11,
       13,
-      15,
       17,
-      19,
       21,
-      23,
       25,
-      27,
       29,
-      31,
       33,
-      35,
       37
     ],
     "tags": [],
     "modulations": {
       "0": 0,
-      "86": 5
+      "27": 4,
+      "29": 0,
+      "31": 9,
+      "33": 0,
+      "86": 5,
+      "142": 2,
+      "146": 5
     }
   },
   "c/Classical MIDI/Chopin/24 Preludes, Op. 28 – No. 4 in E minor ('Suffocation') (G. D. Robertson).mid": {
@@ -26869,15 +26913,24 @@
       1,
       3,
       5,
+      6,
       7,
       9,
+      10,
       11,
+      12,
       13,
       15
     ],
     "tags": [],
     "modulations": {
-      "0": 7
+      "0": 7,
+      "11": 9,
+      "13": 7,
+      "37": 9,
+      "39": 7,
+      "51": 9,
+      "53": 7
     }
   },
   "f/seymour_cekurjankino_horo": {
@@ -28715,6 +28768,42 @@
       {
         "measure": 41,
         "diff": -2
+      },
+      {
+        "measure": 13,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": 2
+      },
+      {
+        "measure": 24,
+        "diff": -1
+      },
+      {
+        "measure": 25,
+        "diff": 2
+      },
+      {
+        "measure": 31,
+        "diff": -2
+      },
+      {
+        "measure": 29,
+        "diff": 1
+      },
+      {
+        "measure": 32,
+        "diff": 2
+      },
+      {
+        "measure": 38,
+        "diff": 1
+      },
+      {
+        "measure": 45,
+        "diff": 2
       }
     ],
     "comment": "",
@@ -28722,15 +28811,20 @@
       0,
       2,
       4,
+      5,
       6,
-      7,
+      8,
       9,
-      11,
+      10,
       12
     ],
     "tags": [],
     "modulations": {
-      "0": 9
+      "0": 9,
+      "18": 2,
+      "20": 9,
+      "34": 2,
+      "36": 9
     }
   },
   "f/left-my-hearts---yiruma": {
@@ -28911,6 +29005,26 @@
       {
         "measure": 63,
         "diff": -3
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      },
+      {
+        "measure": 15,
+        "diff": 2
+      },
+      {
+        "measure": 17,
+        "diff": -1
+      },
+      {
+        "measure": 27,
+        "diff": -1
+      },
+      {
+        "measure": 28,
+        "diff": 1
       }
     ],
     "comment": "",
@@ -29023,12 +29137,7 @@
       "18": 9,
       "20": 7,
       "27": 0,
-      "35": 3,
-      "37": 9,
-      "39": 7,
-      "42": 5,
-      "44": 9,
-      "46": 7
+      "35": 7
     }
   },
   "f/farewell---yiruma": {
@@ -29066,6 +29175,5380 @@
     "tags": [],
     "modulations": {
       "0": 0
+    }
+  },
+  "f/la-cumparsita": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/a-breeze-from-alabama---scott-joplin---1902": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14,
+      18,
+      22,
+      26,
+      27,
+      31,
+      35,
+      36,
+      40
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "60": 9,
+      "62": 0,
+      "70": 8,
+      "94": 11,
+      "99": 8,
+      "102": 5,
+      "142": 0
+    }
+  },
+  "f/angels-falling-by-david-lanz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 3,
+        "diff": 1
+      },
+      {
+        "measure": 116,
+        "diff": 1
+      },
+      {
+        "measure": 133,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      8,
+      13,
+      15,
+      17,
+      22,
+      29
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "24": 0,
+      "48": 9
+    }
+  },
+  "f/tango-flamenco---luis-de-soria-1851---1935": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      9,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/underground-tango---goran-bregovic-string-quartet": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14,
+      18,
+      22,
+      26
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/tango-habanera-vers-1925-by-ernesto-nazareth": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 66,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3
+    }
+  },
+  "f/fado---alfredo-mantua": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10
+    }
+  },
+  "f/lisboa-antiga---fado-marcha---raul-portela": {
+    "measures": {
+      "beatsPerMeasure": {},
+      "measureStarts": {
+        "1": 0,
+        "2": 0.75,
+        "3": 1.7500000000000002,
+        "92": 90.95,
+        "93": 91.95
+      }
+    },
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 11,
+        "diff": -2
+      },
+      {
+        "measure": 49,
+        "diff": 2
+      },
+      {
+        "measure": 51,
+        "diff": -2
+      },
+      {
+        "measure": 61,
+        "diff": 1
+      },
+      {
+        "measure": 78,
+        "diff": -2
+      },
+      {
+        "measure": 49,
+        "diff": -2
+      },
+      {
+        "measure": 60,
+        "diff": 2
+      },
+      {
+        "measure": 62,
+        "diff": -3
+      },
+      {
+        "measure": 63,
+        "diff": -1
+      },
+      {
+        "measure": 72,
+        "diff": 2
+      },
+      {
+        "measure": 78,
+        "diff": -2
+      },
+      {
+        "measure": 92,
+        "diff": 2
+      },
+      {
+        "measure": 94,
+        "diff": 1
+      },
+      {
+        "measure": 95,
+        "diff": -1
+      },
+      {
+        "measure": 98,
+        "diff": 1
+      },
+      {
+        "measure": 94,
+        "diff": -2
+      },
+      {
+        "measure": 92,
+        "diff": -1
+      },
+      {
+        "measure": 96,
+        "diff": -1
+      },
+      {
+        "measure": 131,
+        "diff": -2
+      },
+      {
+        "measure": 145,
+        "diff": -1
+      },
+      {
+        "measure": 160,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      8,
+      16,
+      24,
+      30,
+      38
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/philip-glass---islands": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      6,
+      8,
+      9,
+      10,
+      11,
+      12,
+      16,
+      17,
+      18,
+      19,
+      20,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "57": 4,
+      "65": 9,
+      "89": 4,
+      "97": 5
+    }
+  },
+  "f/triunfal-tango-by-astor-piazzolla-in-edition-for-classical-guitar-from-victor-villadangos": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/freylekhe-mekhutonim": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/tango-from-schnittke-s-concerto-grosso-1": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3,
+      "35": 8,
+      "39": 6,
+      "51": 8,
+      "55": 6
+    }
+  },
+  "f/birthday-tango": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      },
+      {
+        "measure": 64,
+        "diff": -2
+      },
+      {
+        "measure": 70,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "44": 9,
+      "52": 7
+    }
+  },
+  "f/etude-op.-10-no.-5-black-keys-pentatonic-arrangement": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 69,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 6
+    }
+  },
+  "f/fado---maria-se-fores-ao-baile": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/march-majestic---scott-joplin---1902": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33,
+      37
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "21": 7,
+      "33": 2,
+      "37": 7,
+      "69": 0,
+      "89": 7,
+      "93": 0,
+      "101": 9,
+      "105": 7,
+      "109": 9,
+      "111": 2,
+      "113": 0,
+      "153": 7,
+      "157": 0
+    }
+  },
+  "f/astor-piazzolla---prologue-tango-apasionado": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/tango---traditionnel-paraguayen": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/lagrima---tango---joao-teixeira-guimaraes-1883---1947": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 4,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/magnetic-rag---scott-joplin---1914": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": -1
+      },
+      {
+        "measure": 41,
+        "diff": 1
+      },
+      {
+        "measure": 74,
+        "diff": 2
+      },
+      {
+        "measure": 76,
+        "diff": -2
+      },
+      {
+        "measure": 78,
+        "diff": -2
+      },
+      {
+        "measure": 92,
+        "diff": -2
+      },
+      {
+        "measure": 102,
+        "diff": -2
+      },
+      {
+        "measure": 116,
+        "diff": -2
+      },
+      {
+        "measure": 130,
+        "diff": -2
+      },
+      {
+        "measure": 140,
+        "diff": -2
+      },
+      {
+        "measure": 146,
+        "diff": -2
+      },
+      {
+        "measure": 122,
+        "diff": -2
+      },
+      {
+        "measure": 126,
+        "diff": 2
+      },
+      {
+        "measure": 138,
+        "diff": 2
+      },
+      {
+        "measure": 146,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      24,
+      28,
+      31,
+      32,
+      36,
+      40,
+      44,
+      48,
+      49
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "27": 7,
+      "29": 10,
+      "37": 7,
+      "70": 10,
+      "132": 5,
+      "136": 10,
+      "147": 1,
+      "148": 5,
+      "152": 10
+    }
+  },
+  "f/something-doing---joplin-and-hayden---1903": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14,
+      18,
+      22,
+      26,
+      30,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "26": 0,
+      "30": 5,
+      "86": 10
+    }
+  },
+  "f/the-masochism-tango---tom-lehrer-the-masochism-tango---tom-lehrer-the-masochism-tango": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 79,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/tango-por-una-cabeza": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": -1
+      },
+      {
+        "measure": 17,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/catherine-s-tango---dustin-o-halloran": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "17": 5,
+      "25": 10,
+      "33": 5
+    }
+  },
+  "f/hannamontana---poshlaya-molli-agga": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/hanna-montana---poshlaya-molli-hannamontana---poshlaya-molli": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/beautiful": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 41,
+        "diff": -2
+      },
+      {
+        "measure": 55,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "43": 0
+    }
+  },
+  "f/scott-joplin-s-new-rag---revised-edition---c1914----piano-tutorial": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 122,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      30,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "28": 4,
+      "30": 0,
+      "32": 9,
+      "34": 0,
+      "38": 9,
+      "70": 0,
+      "103": 2,
+      "106": 0,
+      "111": 2,
+      "114": 0,
+      "118": 4,
+      "139": 0
+    }
+  },
+  "f/malenkiy-princ": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 30,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      4,
+      7,
+      8,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/tipichnaya_vecherinka_s_basseynom": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/sugar-cane---scott-joplin---1908": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "82": 3,
+      "106": 5,
+      "110": 3,
+      "114": 10
+    }
+  },
+  "f/philip-glass---facades": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": 2
+      },
+      {
+        "measure": 93,
+        "diff": -2
+      },
+      {
+        "measure": 115,
+        "diff": -2
+      },
+      {
+        "measure": 137,
+        "diff": -2
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 3,
+        "diff": 2
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": -2
+      },
+      {
+        "measure": 49,
+        "diff": -2
+      },
+      {
+        "measure": 71,
+        "diff": -2
+      },
+      {
+        "measure": 83,
+        "diff": 2
+      },
+      {
+        "measure": 93,
+        "diff": -2
+      },
+      {
+        "measure": 105,
+        "diff": 2
+      },
+      {
+        "measure": 115,
+        "diff": -2
+      },
+      {
+        "measure": 127,
+        "diff": 2
+      },
+      {
+        "measure": 137,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      7,
+      13,
+      19,
+      25,
+      31,
+      37
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/philip-glass---floe": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      15,
+      23,
+      27,
+      31,
+      35,
+      39,
+      43,
+      47,
+      48,
+      50,
+      52,
+      54,
+      58,
+      60,
+      62
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/chicago---cell-block-tango---misc-soundtrack": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 15,
+        "diff": -1
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 8,
+        "diff": -1
+      },
+      {
+        "measure": 18,
+        "diff": 1
+      },
+      {
+        "measure": 35,
+        "diff": -1
+      },
+      {
+        "measure": 38,
+        "diff": 1
+      },
+      {
+        "measure": 55,
+        "diff": -1
+      },
+      {
+        "measure": 62,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      9,
+      14,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 6,
+      "53": 7,
+      "62": 8
+    }
+  },
+  "f/wall-street-rag---scott-joplin---1909": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "25": 9,
+      "27": 0,
+      "69": 5,
+      "95": 2,
+      "98": 5,
+      "121": 7,
+      "123": 9,
+      "125": 5,
+      "129": 7,
+      "131": 5
+    }
+  },
+  "f/tango-jealousy---jacob-gade": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 16,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      6,
+      8,
+      12,
+      16,
+      20,
+      24
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "29": 9,
+      "33": 2
+    }
+  },
+  "f/weeping-willow---scott-joplin---1903": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "25": 2,
+      "29": 7,
+      "33": 4,
+      "35": 7,
+      "85": 0,
+      "102": 9,
+      "104": 0,
+      "107": 4,
+      "109": 0
+    }
+  },
+  "f/all-major-scales-arpeggios": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/jim-brickman---night-prayer-uoc-gi": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/birthday-tango-2": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/varshaver-freylekhs-klezmer-tune": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/scott-joplin-s-new-rag---original-edition---1912": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 122,
+        "diff": 1
+      },
+      {
+        "measure": 123,
+        "diff": -1
+      },
+      {
+        "measure": 154,
+        "diff": 1
+      },
+      {
+        "measure": 155,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      30,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "28": 4,
+      "30": 0,
+      "32": 9,
+      "34": 0,
+      "38": 9,
+      "70": 0,
+      "103": 2,
+      "106": 0,
+      "111": 2,
+      "114": 0,
+      "118": 4,
+      "138": 0
+    }
+  },
+  "f/happy-birthday-tango": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 35,
+        "diff": -1
+      },
+      {
+        "measure": 50,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/spanish-tango": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 1
+      },
+      {
+        "measure": 35,
+        "diff": 2
+      },
+      {
+        "measure": 53,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "36": 4
+    }
+  },
+  "f/tango-for-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": 2
+      },
+      {
+        "measure": 28,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/tango---isaac-albeniz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 43,
+        "diff": 1
+      },
+      {
+        "measure": 84,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      11,
+      15,
+      19,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "15": 9,
+      "19": 2,
+      "31": 6,
+      "43": 2,
+      "56": 9,
+      "60": 2,
+      "72": 6,
+      "84": 2
+    }
+  },
+  "f/beleet-moy-parus-a.-mironov---gennadiy-gladkov": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 77,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/rose-leaf-rag---scott-joplin---1907": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "22": 9,
+      "25": 0,
+      "27": 4,
+      "29": 0,
+      "85": 5,
+      "105": 0,
+      "111": 2,
+      "113": 7,
+      "115": 5
+    }
+  },
+  "f/a-la-gran-muneca---tango": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/it-was-always-you-helen-from-the-classic-horror-movie-candyman": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 12,
+        "diff": -1
+      },
+      {
+        "measure": 15,
+        "diff": -1
+      },
+      {
+        "measure": 38,
+        "diff": -1
+      },
+      {
+        "measure": 41,
+        "diff": -1
+      },
+      {
+        "measure": 44,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      6,
+      8,
+      12,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "47": 3
+    }
+  },
+  "f/machaut---messe-de-nostre-dame---kyrie": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      },
+      {
+        "measure": 56,
+        "diff": -1
+      },
+      {
+        "measure": 79,
+        "diff": -2
+      },
+      {
+        "measure": 101,
+        "diff": -2
+      },
+      {
+        "measure": 115,
+        "diff": 1
+      },
+      {
+        "measure": 132,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      7,
+      14,
+      20,
+      26,
+      30,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/the-chrysanthemum---scott-joplin---1904": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33,
+      37
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "26": 5,
+      "29": 10,
+      "33": 0,
+      "35": 10,
+      "37": 5,
+      "59": 9,
+      "61": 5,
+      "69": 10,
+      "85": 3,
+      "106": 10,
+      "109": 3,
+      "111": 7,
+      "113": 3,
+      "117": 0,
+      "149": 3
+    }
+  },
+  "f/reflection-rag---scott-joplin---1917": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33,
+      37
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "38": 7,
+      "70": 10,
+      "102": 3
+    }
+  },
+  "f/ole-guapa-by-a.malando": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 58,
+        "diff": -3
+      },
+      {
+        "measure": 55,
+        "diff": -1
+      },
+      {
+        "measure": 58,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      6,
+      10,
+      14,
+      21,
+      25
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/shloymke-s_freylekhs": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/tango-pour-claude---richard-galliano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 81,
+        "diff": -2
+      },
+      {
+        "measure": 87,
+        "diff": 1
+      },
+      {
+        "measure": 152,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      8,
+      12,
+      16,
+      20,
+      22,
+      26,
+      30,
+      34,
+      38
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "49": 2,
+      "51": 7,
+      "53": 0,
+      "55": 5,
+      "57": 10,
+      "61": 9,
+      "120": 11
+    }
+  },
+  "f/carioca-1913": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      33,
+      35,
+      37,
+      39,
+      41,
+      43,
+      45
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 8,
+      "34": 11,
+      "46": 6,
+      "50": 11,
+      "98": 8,
+      "114": 11,
+      "138": 4,
+      "146": 3,
+      "154": 8
+    }
+  },
+  "f/antoinette---scott-joplin---1906": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      26,
+      30,
+      35
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "69": 0,
+      "85": 10,
+      "93": 8,
+      "101": 0,
+      "121": 10,
+      "129": 8,
+      "137": 0
+    }
+  },
+  "f/happy-birthday-tango-variation": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/odessa-bulgarish-new-york-psycho-freylekhs": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 46,
+        "diff": -2
+      },
+      {
+        "measure": 60,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      6,
+      11,
+      15,
+      19,
+      23
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/the-favorite---scott-joplin---1904": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "37": 7,
+      "49": 10,
+      "53": 7,
+      "65": 10,
+      "85": 3,
+      "106": 7,
+      "109": 3
+    }
+  },
+  "f/palm-leaf-rag---scott-joplin---1903": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 69,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      26,
+      30
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "26": 2,
+      "29": 10,
+      "31": 0,
+      "34": 10,
+      "70": 3,
+      "102": 10
+    }
+  },
+  "f/pyos": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/kismet-rag---joplin-and-hayden---1913": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14,
+      18,
+      22,
+      26,
+      30,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "28": 7,
+      "31": 0,
+      "39": 7,
+      "67": 9,
+      "69": 7,
+      "71": 0,
+      "87": 5,
+      "115": 7,
+      "117": 5,
+      "119": 0
+    }
+  },
+  "f/happy-birthday-to-you---tango-version": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/elite-syncopations---scott-joplin---1902": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "58": 9,
+      "61": 5,
+      "85": 10,
+      "105": 2,
+      "109": 10
+    }
+  },
+  "f/saladillo-tango-pour-piano-de-vicente-greco-1888-1924": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": -1
+      },
+      {
+        "measure": 49,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "33": 9,
+      "49": 2,
+      "65": 7,
+      "81": 2
+    }
+  },
+  "f/steve-reich---piano-phase": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/tango-of-the-roses": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 30,
+        "diff": -2
+      },
+      {
+        "measure": 44,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      8,
+      9,
+      12,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/paragon-rag---scott-joplin---1909": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 89,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "27": 2,
+      "29": 7,
+      "85": 0,
+      "146": 8,
+      "148": 0
+    }
+  },
+  "f/chopin-prelude-e-minor-op-28-no-4-w-chord-symbols": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/contract---poshlaya-molly-easy-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/the-easy-winners---scott-joplin---1901": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      22,
+      26,
+      30,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 8,
+      "26": 3,
+      "29": 8,
+      "85": 1
+    }
+  },
+  "f/felicity-rag---joplin-and-hayden---1911": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 101,
+        "diff": 1
+      },
+      {
+        "measure": 102,
+        "diff": -1
+      },
+      {
+        "measure": 105,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      26,
+      30
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "69": 5,
+      "89": 0,
+      "93": 5,
+      "102": 0
+    }
+  },
+  "f/colors-dance---george-winston": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": -2
+      },
+      {
+        "measure": 29,
+        "diff": -2
+      },
+      {
+        "measure": 63,
+        "diff": 1
+      },
+      {
+        "measure": 68,
+        "diff": -2
+      },
+      {
+        "measure": 70,
+        "diff": 1
+      },
+      {
+        "measure": 79,
+        "diff": -1
+      },
+      {
+        "measure": 86,
+        "diff": -1
+      },
+      {
+        "measure": 89,
+        "diff": 1
+      },
+      {
+        "measure": 210,
+        "diff": -1
+      },
+      {
+        "measure": 217,
+        "diff": -1
+      },
+      {
+        "measure": 220,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      8,
+      11,
+      14,
+      16,
+      17,
+      19,
+      21,
+      23,
+      24,
+      26,
+      28,
+      30,
+      50,
+      52,
+      54,
+      56,
+      57,
+      63
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "90": 6,
+      "194": 9,
+      "219": 6
+    }
+  },
+  "f/sunflower-slow-drag---joplin-and-hayden---1901": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      22,
+      26,
+      30,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "85": 3
+    }
+  },
+  "f/stoptime-rag---scott-joplin---1910": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      10,
+      14,
+      18,
+      22,
+      26,
+      30,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "17": 9,
+      "33": 0,
+      "62": 7,
+      "65": 0,
+      "69": 2,
+      "71": 0
+    }
+  },
+  "f/philip-glass---spaceship": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/original-rags---scott-joplin---1899": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14,
+      18,
+      22,
+      26,
+      27,
+      31,
+      35,
+      39
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "36": 9,
+      "39": 7,
+      "73": 0,
+      "105": 7,
+      "125": 2,
+      "129": 4,
+      "133": 2,
+      "141": 7,
+      "169": 9,
+      "170": 7
+    }
+  },
+  "f/sous-le-ciel-de-paris": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/philip-glass---satyagraha-act-3-ending": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 11,
+        "diff": 2
+      },
+      {
+        "measure": 17,
+        "diff": 2
+      },
+      {
+        "measure": 23,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      5,
+      6,
+      9,
+      11,
+      15,
+      19,
+      23,
+      27,
+      31,
+      35,
+      39,
+      43,
+      47,
+      51,
+      55,
+      59,
+      63
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4,
+      "33": 9
+    }
+  },
+  "f/glassworks-opening-1---philip-glass-opening-1---philip-glass": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/akhnaten-prelude---philip-glass": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      23,
+      27,
+      31,
+      35,
+      39,
+      46,
+      47,
+      51,
+      55,
+      59,
+      65,
+      70,
+      72,
+      74,
+      76,
+      79,
+      86,
+      90,
+      94,
+      98,
+      104
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/assassin-s_tango": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": -1
+      },
+      {
+        "measure": 69,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      10,
+      16,
+      19,
+      22
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/walk-to-school-tales-from-the-loop": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": 1
+      },
+      {
+        "measure": 26,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/fig-leaf-rag---scott-joplin---1908": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "26": 5,
+      "29": 10,
+      "59": 7,
+      "61": 10,
+      "85": 3,
+      "107": 7,
+      "109": 3,
+      "111": 5,
+      "113": 3
+    }
+  },
+  "f/leola-two-step---scott-joplin---1905": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 8,
+      "22": 5,
+      "23": 10,
+      "24": 8,
+      "82": 1,
+      "106": 10,
+      "110": 1,
+      "114": 8,
+      "135": 5,
+      "138": 8
+    }
+  },
+  "f/tales-from-the-loop": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 61,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      5,
+      7,
+      9,
+      12,
+      14,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 11
+    }
+  },
+  "f/freylekh-de-reconciliation": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      11,
+      15
+    ],
+    "measureRenumbering": {
+      "1": 0
+    },
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/search-light-rag---scott-joplin---c1907": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "26": 5,
+      "29": 10,
+      "31": 7,
+      "33": 10,
+      "65": 0,
+      "67": 10,
+      "85": 3,
+      "106": 7,
+      "109": 3,
+      "111": 0,
+      "113": 3
+    }
+  },
+  "f/euphonic-sounds---scott-joplin---1909": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "25": 7,
+      "29": 10,
+      "37": 0,
+      "53": 2,
+      "57": 0,
+      "61": 7,
+      "65": 1,
+      "67": 10,
+      "85": 5,
+      "101": 2,
+      "105": 5,
+      "117": 10
+    }
+  },
+  "f/happy-birthday-song-in-jazz-arr.-by-jonny-may": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "32": 7,
+      "48": 0,
+      "80": 5
+    }
+  },
+  "f/night-train---philip-glass-arr.-for-solo-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 153,
+        "diff": -1
+      },
+      {
+        "measure": 160,
+        "diff": -1
+      },
+      {
+        "measure": 167,
+        "diff": -1
+      },
+      {
+        "measure": 174,
+        "diff": -1
+      },
+      {
+        "measure": 241,
+        "diff": 1
+      },
+      {
+        "measure": 246,
+        "diff": 1
+      },
+      {
+        "measure": 251,
+        "diff": 1
+      },
+      {
+        "measure": 256,
+        "diff": 1
+      },
+      {
+        "measure": 265,
+        "diff": 2
+      },
+      {
+        "measure": 275,
+        "diff": 2
+      },
+      {
+        "measure": 297,
+        "diff": -2
+      },
+      {
+        "measure": 319,
+        "diff": -2
+      },
+      {
+        "measure": 429,
+        "diff": -1
+      },
+      {
+        "measure": 432,
+        "diff": -1
+      },
+      {
+        "measure": 435,
+        "diff": -1
+      },
+      {
+        "measure": 438,
+        "diff": -1
+      },
+      {
+        "measure": 477,
+        "diff": -2
+      },
+      {
+        "measure": 515,
+        "diff": 1
+      },
+      {
+        "measure": 520,
+        "diff": 1
+      },
+      {
+        "measure": 525,
+        "diff": 1
+      },
+      {
+        "measure": 530,
+        "diff": 1
+      },
+      {
+        "measure": 595,
+        "diff": 2
+      },
+      {
+        "measure": 601,
+        "diff": 2
+      },
+      {
+        "measure": 607,
+        "diff": 2
+      },
+      {
+        "measure": 613,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      9,
+      13,
+      14,
+      18,
+      19,
+      23,
+      24,
+      25,
+      26,
+      27,
+      31,
+      35,
+      36,
+      44,
+      49,
+      52,
+      57,
+      60,
+      64,
+      68,
+      70,
+      72,
+      73,
+      74,
+      75,
+      77,
+      78,
+      79,
+      81,
+      82,
+      85,
+      95,
+      104,
+      106,
+      111,
+      112,
+      114,
+      115,
+      117,
+      118,
+      119,
+      120,
+      122,
+      123,
+      124,
+      128,
+      134,
+      136,
+      144,
+      148,
+      152,
+      156,
+      160,
+      162
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3
+    }
+  },
+  "f/fado-da-mouraria---anonimo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "10": 5
+    }
+  },
+  "f/tango-ndeg3-op.50---jose-ferrer-y-esteve-1835---1916": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": 1
+      },
+      {
+        "measure": 51,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "26": 0,
+      "28": 9
+    }
+  },
+  "f/malena---tango": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 22,
+        "diff": 1
+      },
+      {
+        "measure": 35,
+        "diff": 1
+      },
+      {
+        "measure": 36,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/der-heyser-bulgar---misc-tunes-der-heyser-bulgar": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 98,
+        "diff": -1
+      },
+      {
+        "measure": 117,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      7,
+      13,
+      17,
+      21,
+      26,
+      31
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/valentine---jim-brickman-with-martina-mcbride": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 26,
+        "diff": -2
+      },
+      {
+        "measure": 48,
+        "diff": -2
+      },
+      {
+        "measure": 70,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      6,
+      7,
+      12,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 1
+    }
+  },
+  "f/mr-zvonsky-s-freylekhs": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/the-blues-scale-in-all-12-keys": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/wonder-wave-by-david-lanz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/la-vie-en-rose-solo-accordion": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/swipesy-cakewalk-1900": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "23": 7,
+      "25": 10,
+      "31": 7,
+      "33": 10,
+      "56": 7,
+      "61": 10,
+      "85": 3,
+      "117": 10
+    }
+  },
+  "f/longing-love---george-winston": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -2
+      },
+      {
+        "measure": 15,
+        "diff": 1
+      },
+      {
+        "measure": 32,
+        "diff": 1
+      },
+      {
+        "measure": 49,
+        "diff": 1
+      },
+      {
+        "measure": 70,
+        "diff": 1
+      },
+      {
+        "measure": 91,
+        "diff": -1
+      },
+      {
+        "measure": 122,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      4,
+      6,
+      8,
+      10,
+      12,
+      13,
+      15,
+      17,
+      20,
+      22,
+      26,
+      30
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "49": 0,
+      "54": 9,
+      "70": 0,
+      "106": 9,
+      "122": 0
+    }
+  },
+  "f/tango-to-evora": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/average_rag_1": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/peacherine-rag---scott-joplin---1901": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3,
+      "31": 0,
+      "33": 3,
+      "37": 10,
+      "69": 3,
+      "85": 8
+    }
+  },
+  "f/freylekh-zain---frohlich-sein": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/february-sea---george-winston-771567dfea6219c668f882216e7f8c356a9b6bc5": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 105,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      22,
+      25
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/milca-s-birthday-tango.....": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/moon-tango---r.-clayderman": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      },
+      {
+        "measure": 17,
+        "diff": -1
+      },
+      {
+        "measure": 27,
+        "diff": 1
+      },
+      {
+        "measure": 44,
+        "diff": 1
+      },
+      {
+        "measure": 61,
+        "diff": -1
+      },
+      {
+        "measure": 40,
+        "diff": 1
+      },
+      {
+        "measure": 46,
+        "diff": -1
+      },
+      {
+        "measure": 68,
+        "diff": 1
+      },
+      {
+        "measure": 64,
+        "diff": -1
+      },
+      {
+        "measure": 68,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      7,
+      10,
+      13,
+      15,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/school-of-ragtime---scott-joplin---1908": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": -1
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      },
+      {
+        "measure": 35,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      9,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/the-rose-bud-march---scott-joplin---1905": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/candyman": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": 2
+      },
+      {
+        "measure": 23,
+        "diff": -2
+      },
+      {
+        "measure": 25,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/mi-noche-triste-tango---castriota-arr.-domingo-prat": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      7,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "45": 0,
+      "53": 9
+    }
+  },
+  "f/sankarin-tango-finnish-tango---petri-alanko-and-martti-suosalo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      7,
+      11,
+      13,
+      17,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/the-cascades---scott-joplin---1904": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      18,
+      22,
+      26,
+      30
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "70": 10,
+      "105": 3,
+      "131": 0,
+      "133": 3
+    }
+  },
+  "f/cristofari-s-dream": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 69,
+        "diff": -2
+      },
+      {
+        "measure": 75,
+        "diff": -1
+      },
+      {
+        "measure": 102,
+        "diff": -2
+      },
+      {
+        "measure": 116,
+        "diff": -2
+      },
+      {
+        "measure": 122,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      10,
+      13,
+      15,
+      17,
+      19,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      35,
+      39
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "33": 9,
+      "37": 2,
+      "49": 9,
+      "53": 2,
+      "74": 5,
+      "78": 0,
+      "82": 7,
+      "86": 2
+    }
+  },
+  "f/the-strenuous-life---scott-joplin---1902": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      22,
+      26,
+      30,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "37": 7,
+      "57": 2,
+      "61": 7,
+      "69": 0,
+      "85": 5,
+      "115": 2,
+      "117": 5,
+      "149": 7,
+      "151": 5
+    }
+  },
+  "f/philip-glass---pruit-igoe": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 7,
+        "diff": 1
+      },
+      {
+        "measure": 12,
+        "diff": -2
+      },
+      {
+        "measure": 14,
+        "diff": 1
+      },
+      {
+        "measure": 23,
+        "diff": -1
+      },
+      {
+        "measure": 3,
+        "diff": 5
+      },
+      {
+        "measure": 13,
+        "diff": 2
+      },
+      {
+        "measure": 17,
+        "diff": 5
+      },
+      {
+        "measure": 27,
+        "diff": 2
+      },
+      {
+        "measure": 33,
+        "diff": 3
+      },
+      {
+        "measure": 39,
+        "diff": 5
+      },
+      {
+        "measure": 48,
+        "diff": 4
+      },
+      {
+        "measure": 56,
+        "diff": 3
+      },
+      {
+        "measure": 63,
+        "diff": -2
+      },
+      {
+        "measure": 61,
+        "diff": 2
+      },
+      {
+        "measure": 75,
+        "diff": 2
+      },
+      {
+        "measure": 81,
+        "diff": 2
+      },
+      {
+        "measure": 87,
+        "diff": -2
+      },
+      {
+        "measure": 89,
+        "diff": 2
+      },
+      {
+        "measure": 95,
+        "diff": 4
+      },
+      {
+        "measure": 111,
+        "diff": 2
+      },
+      {
+        "measure": 117,
+        "diff": 2
+      },
+      {
+        "measure": 123,
+        "diff": -2
+      },
+      {
+        "measure": 125,
+        "diff": 2
+      },
+      {
+        "measure": 131,
+        "diff": 4
+      },
+      {
+        "measure": 155,
+        "diff": 1
+      },
+      {
+        "measure": 139,
+        "diff": 2
+      },
+      {
+        "measure": 145,
+        "diff": 4
+      },
+      {
+        "measure": 153,
+        "diff": 6
+      },
+      {
+        "measure": 168,
+        "diff": -1
+      },
+      {
+        "measure": 171,
+        "diff": 1
+      },
+      {
+        "measure": 176,
+        "diff": -1
+      },
+      {
+        "measure": 179,
+        "diff": 1
+      },
+      {
+        "measure": 184,
+        "diff": -1
+      },
+      {
+        "measure": 187,
+        "diff": 1
+      },
+      {
+        "measure": 192,
+        "diff": -1
+      },
+      {
+        "measure": 195,
+        "diff": 1
+      },
+      {
+        "measure": 141,
+        "diff": 2
+      },
+      {
+        "measure": 161,
+        "diff": 2
+      },
+      {
+        "measure": 171,
+        "diff": 4
+      },
+      {
+        "measure": 180,
+        "diff": 3
+      },
+      {
+        "measure": 186,
+        "diff": 5
+      },
+      {
+        "measure": 196,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      13,
+      16,
+      20,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/lebedikh-un-freylekh---trad.-klezmer-for-flute-clarinet": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/tango-till-you-drop-abrsm-grade-5-saxophone-b-3": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 11
+    }
+  },
+  "f/astor-piazzolla-adios-nonino-tango": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -2
+      },
+      {
+        "measure": 19,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      9,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "18": 8,
+      "26": 0,
+      "34": 8,
+      "38": 5
+    }
+  },
+  "f/tango-la-cumparsita---piano-solo-tutorial-parte-a": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/gladiolus-rag---scott-joplin---1907": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 86,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      9,
+      13,
+      17,
+      21,
+      26,
+      30,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 8,
+      "22": 5,
+      "26": 8,
+      "60": 5,
+      "62": 8,
+      "82": 1,
+      "103": 5,
+      "105": 1,
+      "109": 10,
+      "111": 1,
+      "143": 9,
+      "145": 1
+    }
+  },
+  "f/odessa-bulgar-no.3": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "34": 0,
+      "49": 9
+    }
+  },
+  "f/shovel-knight-plague-of-shadows---tango-of-the-troupple-king": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      7,
+      11,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10
+    }
+  },
+  "f/to-ostatnia-niedziela-last-sunday---polish-tango": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "42": 7,
+      "46": 5,
+      "50": 2
+    }
+  },
+  "f/tango-el-choclo---angel-gregorio-villoldo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "26": 5,
+      "30": 2
+    }
+  },
+  "f/philip-glass---prophecies": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 37,
+        "diff": -2
+      },
+      {
+        "measure": 47,
+        "diff": -2
+      },
+      {
+        "measure": 57,
+        "diff": -2
+      },
+      {
+        "measure": 91,
+        "diff": -2
+      },
+      {
+        "measure": 101,
+        "diff": -2
+      },
+      {
+        "measure": 155,
+        "diff": -2
+      },
+      {
+        "measure": 165,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6,
+      9,
+      12,
+      15,
+      18,
+      21,
+      24,
+      27,
+      28,
+      32,
+      35,
+      38,
+      41,
+      44,
+      49,
+      50,
+      54,
+      56,
+      58,
+      60,
+      62,
+      64
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/tango-de-la-muerte": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/moonlight-lake-by-david-lanz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6,
+      9,
+      10,
+      12,
+      15,
+      17,
+      20,
+      22
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "41": 7,
+      "49": 10,
+      "61": 7,
+      "65": 10
+    }
+  },
+  "f/street-tango-for-clarinet-and-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": 1
+      },
+      {
+        "measure": 55,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      6,
+      10,
+      14,
+      18,
+      20,
+      22,
+      24
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "56": 2,
+      "84": 7,
+      "86": 5,
+      "88": 2
+    }
+  },
+  "f/a-real-slow-drag---scott-joplin---1913": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 37,
+        "diff": 2
+      },
+      {
+        "measure": 55,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      9,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 11,
+      "20": 5,
+      "44": 9,
+      "47": 5,
+      "57": 10
+    }
+  },
+  "f/the-nonpareil---scott-joplin---1907": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "58": 7,
+      "61": 10,
+      "69": 3,
+      "90": 7,
+      "93": 3,
+      "96": 5,
+      "99": 3
+    }
+  },
+  "f/ojos-negros-tango-by-vicente-greco": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -1
+      },
+      {
+        "measure": 12,
+        "diff": 1
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 16,
+        "diff": -1
+      },
+      {
+        "measure": 31,
+        "diff": -2
+      },
+      {
+        "measure": 23,
+        "diff": -1
+      },
+      {
+        "measure": 28,
+        "diff": 1
+      },
+      {
+        "measure": 33,
+        "diff": -1
+      },
+      {
+        "measure": 32,
+        "diff": 1
+      },
+      {
+        "measure": 77,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      10,
+      14,
+      16,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "18": 8,
+      "22": 5,
+      "61": 8,
+      "65": 5
+    }
+  },
+  "f/chopin_nocturne_op9_no2_maestro_2011r3d3t5": {
+    "measures": {
+      "beatsPerMeasure": {
+        "2": 12,
+        "34": 1,
+        "36": 6,
+        "37": 12
+      },
+      "measureStarts": {
+        "2": 1.5403645833333333,
+        "3": 6.9414062500000036,
+        "6": 23.916666666666664,
+        "7": 29.251302083333307,
+        "8": 35.7278645833333,
+        "9": 41.089843749999986,
+        "10": 47.54427083333332,
+        "11": 52.80598958333339,
+        "12": 59.05208333333347,
+        "13": 63.96354166666679,
+        "14": 69.4635416666667,
+        "15": 75.77083333333331,
+        "17": 87.58854166666649,
+        "18": 94.38932291666642,
+        "19": 99.37369791666642,
+        "20": 105.45442708333293,
+        "21": 110.33203124999959,
+        "22": 116.06770833333282,
+        "23": 122.89062499999936,
+        "24": 130.64583333333252,
+        "25": 136.58203124999937,
+        "26": 147.16536458333263,
+        "27": 152.51432291666603,
+        "28": 157.70182291666615,
+        "29": 164.19010416666637,
+        "31": 176.11979166666663,
+        "32": 181.21093749999991,
+        "33": 186.63802083333326,
+        "34": 189.81901041666663,
+        "35": 194.27604166666677,
+        "36": 204.27734375000014,
+        "37": 208.3763020833334,
+        "38": 213.41666666666677,
+        "39": 220.00260416666677
+      }
+    },
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3
+    }
+  },
+  "f/escorregando---tango-brasileiro": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": -2
+      },
+      {
+        "measure": 36,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": -1
+      },
+      {
+        "measure": 40,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      6,
+      11,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "45": 5
+    }
+  },
+  "f/the-sycamore---scott-joplin---1904": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "27": 4,
+      "28": 9,
+      "29": 7,
+      "69": 0
+    }
+  },
+  "f/dazhe-moya-beybi-ne-znaet---poshlaya-molli": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/silver-swan-rag---scott-joplin---1914---transcribed-by-richard-zimmerman": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      30
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "24": 7,
+      "25": 10,
+      "37": 7,
+      "58": 5,
+      "61": 7,
+      "69": 10,
+      "85": 3,
+      "105": 7,
+      "109": 3,
+      "117": 10
+    }
+  },
+  "f/cleopha---scott-joplin---1902": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 86,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14,
+      18,
+      22,
+      26,
+      30,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "87": 10
+    }
+  },
+  "f/freylekhs-2": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/thanksgiving": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      },
+      {
+        "measure": 15,
+        "diff": -2
+      },
+      {
+        "measure": 21,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": -2
+      },
+      {
+        "measure": 33,
+        "diff": -2
+      },
+      {
+        "measure": 39,
+        "diff": -2
+      },
+      {
+        "measure": 45,
+        "diff": -2
+      },
+      {
+        "measure": 51,
+        "diff": -2
+      },
+      {
+        "measure": 57,
+        "diff": -2
+      },
+      {
+        "measure": 63,
+        "diff": -1
+      },
+      {
+        "measure": 62,
+        "diff": -1
+      },
+      {
+        "measure": 69,
+        "diff": -2
+      },
+      {
+        "measure": 75,
+        "diff": 4
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/fado-portugues": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/diatonic-7th-chords-in-major-key": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/dead-things": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
     }
   }
 }

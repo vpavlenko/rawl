@@ -245,6 +245,31 @@ const corpora = [
       "march-majestic---scott-joplin---1902",
     ],
   },
+  {
+    slug: "gershwin_songbook",
+    midis: [
+      "oh-lady-be-good---george-gershwin-1924-public-domain-piano-voice-sheet-music-arrangement",
+      "gershwin_swanee",
+      "piano-i-ll-build-a-stairway-to-paradise",
+      "stairway-to-paradise-lead-sheet-with-verse-and-lyrics",
+      "fascinating-rhythm---george-gershwin-ira-gershwin-1924-piano-vocal-arrangement",
+      "do-it-again---george-gershwin-buddy-desylva",
+      "the-man-i-love---george-gershwin-ira-gershwin-1924-piano-vocal-arrangement",
+    ],
+  },
+  {
+    slug: "fats_waller",
+    midis: [
+      // https://musescore.com/user/58480/sets/3470906
+      "asbestos---fats-waller---c1930",
+      "alligator-crawl---fats-waller---1934",
+      "handful-of-keys---fats-waller---1933",
+    ],
+  },
+  {
+    slug: "gershwin_preludes",
+    midis: ["gershwin_prelude_1", "gershwin_prelude_2", "gershwin_prelude_3"],
+  },
 ];
 
 const Corpus: React.FC<{ slug: string }> = ({ slug }) => {

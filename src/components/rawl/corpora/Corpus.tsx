@@ -234,8 +234,12 @@ const corpora = [
       "a-breeze-from-alabama---scott-joplin---1902",
       "something-doing---joplin-and-hayden---1903",
       "the-favorite---scott-joplin---1904",
-      "the-rose-bud-march---scott-joplin---1905",
+      "pleasant-moments---scott-joplin---1909",
+      "heliotrope-bouquet---joplin-and-chauvin---1907",
+      "lily-queen---joplin-marshall---1907",
+      "eugenia---scott-joplin---1905-6",
 
+      "the-rose-bud-march---scott-joplin---1905",
       "antoinette---scott-joplin---1906",
       "a-real-slow-drag---scott-joplin---1913",
       "march-majestic---scott-joplin---1902",

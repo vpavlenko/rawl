@@ -58,7 +58,7 @@ const FUNCTIONS: Mode[] = [
     title: "S4",
     chords: ["io7"],
   },
-  { title: "K", chords: ["Cad64", "I6"] },
+  { title: "K", chords: ["I6", "Cad64"] },
   {
     title: "D1",
     chords: ["V7/ii", "V7/V", "V7"],

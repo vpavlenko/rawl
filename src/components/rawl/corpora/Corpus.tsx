@@ -190,23 +190,39 @@ const corpora = [
   },
   {
     slug: "happy_birthday",
-    midis: ["happy-birthday-song-in-jazz-arr.-by-jonny-may"],
+    midis: [
+      "happy-birthday-song-in-jazz-arr.-by-jonny-may",
+      "happy-birthday-tango",
+      "happy-birthday-tango-variation",
+      "happy-birthday-to-you---tango-version",
+      "birthday-tango",
+      "birthday-tango-2",
+      "happy-birthday-waltz",
+      "happy-birthday-but-it-s-a-bach-chorale",
+      "chopin-ish-happy-birthday-to-you",
+      "happy-birthday-3-part-vocals",
+      "happy-birthday-variations-in-g-minor",
+    ],
   },
   {
     slug: "scott_joplin",
     midis: [
-      "silver-swan-rag---scott-joplin---1914---transcribed-by-richard-zimmerman",
       "Maple_Leaf_Rag_Scott_Joplin",
+      "the-sycamore---scott-joplin---1904",
+      "the-cascades---scott-joplin---1904",
+      "leola-two-step---scott-joplin---1905",
+      "gladiolus-rag---scott-joplin---1907",
+      "sugar-cane---scott-joplin---1908",
+
+      "silver-swan-rag---scott-joplin---1914---transcribed-by-richard-zimmerman",
       "elite-syncopations---scott-joplin---1902",
       "weeping-willow---scott-joplin---1903",
-      "gladiolus-rag---scott-joplin---1907",
       "school-of-ragtime---scott-joplin---1908",
       "country_club_ragtime_two_step_scott_joplin_1909",
       "the_ragtime_dance_scott_joplin_1906_arrangement",
       "Pine_Apple_Rag_-_Scott_Joplin_-_1908.mscz",
       "the_entertainer_scott_joplin",
       "sunflower-slow-drag---joplin-and-hayden---1901",
-      "the-sycamore---scott-joplin---1904",
       "reflection-rag---scott-joplin---1917",
       "rose-leaf-rag---scott-joplin---1907",
       "palm-leaf-rag---scott-joplin---1903",
@@ -217,18 +233,14 @@ const corpora = [
       "fig-leaf-rag---scott-joplin---1908",
       "magnetic-rag---scott-joplin---1914",
       "original-rags---scott-joplin---1899",
-      "the-cascades---scott-joplin---1904",
       "paragon-rag---scott-joplin---1909",
-      "leola-two-step---scott-joplin---1905",
       "the-nonpareil---scott-joplin---1907",
       "the-chrysanthemum---scott-joplin---1904",
       "euphonic-sounds---scott-joplin---1909",
-      "sugar-cane---scott-joplin---1908",
       "scott-joplin-s-new-rag---original-edition---1912",
       "scott-joplin-s-new-rag---revised-edition---c1914",
       "kismet-rag---joplin-and-hayden---1913",
       "felicity-rag---joplin-and-hayden---1911",
-      "stoptime-rag---scott-joplin---1910",
       "swipesy-cakewalk-1900",
       "the-easy-winners---scott-joplin---1901",
       "cleopha---scott-joplin---1902",
@@ -240,6 +252,7 @@ const corpora = [
       "lily-queen---joplin-marshall---1907",
       "eugenia---scott-joplin---1905-6",
 
+      "stoptime-rag---scott-joplin---1910",
       "the-rose-bud-march---scott-joplin---1905",
       "antoinette---scott-joplin---1906",
       "a-real-slow-drag---scott-joplin---1913",
@@ -342,6 +355,11 @@ const corpora = [
     midis: [
       "bts-bangtansonyeondan---i-need-u-suga-piano-full-solo",
       "bts-jungkook-bangtansonyeondan-jeonggug---still-with-you",
+      "bts-bangtansonyeondan---fake-love",
+
+      "spring-day---bts",
+      "the-truth-untold---bts",
+      "bts-bangtansonyeondan---dynamite-piano-version",
     ],
   },
   {
@@ -355,6 +373,7 @@ const corpora = [
       "heroes-of-might-magic-iii---tower-town-theme",
       "inferno-theme-by-paul-romero-from-heroes-of-might-and-magic-3",
       "heroes-of-might-magic-iii---fortress-town-theme",
+      "heroes-of-might-magic-iii---castle-town-theme",
 
       "dirt-theme-hope---heroes-of-might-and-magic-iv---celtic-harp",
       "academy-order-theme---heroes-and-might-and-magic-iv",
@@ -362,6 +381,18 @@ const corpora = [
       "haven-theme-piano-form-heroes-of-might-and-magic-v",
 
       "heroes-of-might-and-magic-vi-unknown-title",
+    ],
+  },
+  {
+    slug: "beauty_and_the_beast",
+    midis: [
+      "beauty-and-the-beast-prologue",
+      "evermore---alan-menken-evermore-from-beauty-and-the-beast---alan-menken-piano-voice",
+      "something-there",
+      "if-i-can-t-love-her",
+      "belle",
+      "gaston",
+      "tale-as-old-as-time---beauty-and-the-beast---alan-menken---piano-solo",
     ],
   },
 ];
@@ -373,7 +404,7 @@ const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
         {corpora.map(({ slug, midis }) => (
           <div>
             <Link to={`/corpus/${slug}`}>
-              {slug}{" "}
+              {slug.replace("_", " ")}{" "}
               <span style={{ color: "white", fontSize: "0.6em" }}>
                 {midis.length}
               </span>

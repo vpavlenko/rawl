@@ -308,8 +308,60 @@ const corpora = [
       "vatican-rag",
       "i-wanna-go-back-to-dixie---tom-lehrer",
       "a-christmas-carol---tom-lehrer-a-christmas-carol",
+      "national-brotherhood-week",
+      "my-home-town---tom-lehrer",
+      "te-amo---tom-lehrer",
+      "whos-next---tom-lehrer",
+      "there-s-a-delta-for-every-epsilon---tom-lehrer",
+      "hanukah-in-santa-monica---tom-lehrer",
+      "so-long-mom----tom-lehrer",
+
+      "we-will-all-go-together-when-we-go---tom-lehrer", //corrupt?
 
       "the-subway-song---tom-lehrer", // 1915, Theodore Morse!
+    ],
+  },
+  {
+    // todo: link "ragtime treasures" together
+    slug: "joseph_lamb",
+    midis: [
+      "the-alaskan-rag---joseph-f-lamb",
+      "paramount-rag",
+      "thoroughbred-rag-c-1960",
+      "toad-stool-rag-c-1959",
+      "chimes-of-dixie-c-1960",
+      "cinders",
+    ],
+  },
+  {
+    slug: "ted_snyder",
+    midis: ["the-sheik-of-araby-arr.-zez-confrey"],
+  },
+  {
+    slug: "bts",
+    midis: [
+      "bts-bangtansonyeondan---i-need-u-suga-piano-full-solo",
+      "bts-jungkook-bangtansonyeondan-jeonggug---still-with-you",
+    ],
+  },
+  {
+    slug: "homm",
+    midis: [
+      "heroes-of-might-and-magic-2--sorceress-town---paul-anthony-romero",
+
+      "heroes-of-might-and-magic-iii---main-menu-theme",
+      "heroes-of-might-and-magic-iii----waiting-theme",
+      "heroes-of-might-and-magic-3---necropolis-town-theme",
+      "heroes-of-might-magic-iii---tower-town-theme",
+      "inferno-theme-by-paul-romero-from-heroes-of-might-and-magic-3",
+      "heroes-of-might-magic-iii---fortress-town-theme",
+
+      "dirt-theme-hope---heroes-of-might-and-magic-iv---celtic-harp",
+      "academy-order-theme---heroes-and-might-and-magic-iv",
+
+      "haven-theme-piano-form-heroes-of-might-and-magic-v",
+
+      "heroes-of-might-and-magic-vi-unknown-title",
     ],
   },
 ];
@@ -318,9 +370,14 @@ const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
   if (!slug)
     return (
       <div>
-        {corpora.map(({ slug }) => (
+        {corpora.map(({ slug, midis }) => (
           <div>
-            <Link to={`/corpus/${slug}`}>{slug}</Link>
+            <Link to={`/corpus/${slug}`}>
+              {slug}{" "}
+              <span style={{ color: "white", fontSize: "0.6em" }}>
+                {midis.length}
+              </span>
+            </Link>
           </div>
         ))}
       </div>

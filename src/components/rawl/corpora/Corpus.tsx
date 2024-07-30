@@ -208,11 +208,11 @@ const corpora = [
     slug: "scott_joplin",
     midis: [
       "Maple_Leaf_Rag_Scott_Joplin",
-      "the-sycamore---scott-joplin---1904",
-      "the-cascades---scott-joplin---1904",
-      "leola-two-step---scott-joplin---1905",
       "gladiolus-rag---scott-joplin---1907",
+      "the-cascades---scott-joplin---1904",
       "sugar-cane---scott-joplin---1908",
+      "leola-two-step---scott-joplin---1905",
+      "the-sycamore---scott-joplin---1904",
 
       "silver-swan-rag---scott-joplin---1914---transcribed-by-richard-zimmerman",
       "elite-syncopations---scott-joplin---1902",

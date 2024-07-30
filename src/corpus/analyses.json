@@ -16701,6 +16701,30 @@
       {
         "measure": 94,
         "diff": -1
+      },
+      {
+        "measure": 113,
+        "diff": -1
+      },
+      {
+        "measure": 112,
+        "diff": 1
+      },
+      {
+        "measure": 109,
+        "diff": 1
+      },
+      {
+        "measure": 130,
+        "diff": 1
+      },
+      {
+        "measure": 163,
+        "diff": -1
+      },
+      {
+        "measure": 170,
+        "diff": -1
       }
     ],
     "comment": "",
@@ -16716,7 +16740,13 @@
       20,
       22,
       24,
-      25
+      25,
+      29,
+      34,
+      36,
+      40,
+      42,
+      44
     ],
     "tags": [],
     "modulations": {
@@ -16729,7 +16759,10 @@
       "70": 3,
       "78": 10,
       "82": 9,
-      "90": 3
+      "90": 3,
+      "110": 1,
+      "122": 3,
+      "131": 4
     }
   },
   "c/Game MIDI/- Arranged -/Mortal Kombat (Arcade, 1992)/Sega Genesis/mk_gorolair_zb.mid": {
@@ -33194,11 +33227,26 @@
     "sections": [
       0,
       1,
-      6
+      5,
+      9,
+      13,
+      17,
+      25,
+      33,
+      34,
+      38
     ],
     "tags": [],
     "modulations": {
-      "0": 7
+      "0": 7,
+      "69": 0,
+      "111": 7,
+      "117": 0,
+      "122": 9,
+      "129": 0,
+      "133": 7,
+      "159": 2,
+      "161": 7
     }
   },
   "f/candyman": {
@@ -34549,6 +34597,3029 @@
     "tags": [],
     "modulations": {
       "0": 7
+    }
+  },
+  "f/happy-birthday-variations-in-g-minor": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      },
+      {
+        "measure": 19,
+        "diff": 1
+      },
+      {
+        "measure": 28,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": -1
+      },
+      {
+        "measure": 41,
+        "diff": 1
+      },
+      {
+        "measure": 50,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      9,
+      11,
+      13,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/my-home-town---tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/paramount-rag": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14,
+      18,
+      22,
+      26,
+      30
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 8,
+      "70": 1,
+      "130": 5,
+      "131": 8,
+      "132": 1
+    }
+  },
+  "f/heroes-of-might-and-magic-vi-unknown-title": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4,
+      "6": 9,
+      "10": 2,
+      "12": 9
+    }
+  },
+  "f/oh-lady-be-good---george-gershwin-1924-public-domain-piano-voice-sheet-music-arrangement": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 85,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4,
+      "9": 7,
+      "17": 4,
+      "21": 7,
+      "86": 4,
+      "90": 7,
+      "98": 4,
+      "102": 7
+    }
+  },
+  "f/beginning-minecraft": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3
+    }
+  },
+  "f/toad-stool-rag-c-1959": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      31
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "57": 0,
+      "61": 10,
+      "65": 7,
+      "69": 10,
+      "85": 3,
+      "125": 0,
+      "129": 3
+    }
+  },
+  "f/we-will-all-go-together-when-we-go---tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/heroes-of-might-and-magic-iii---main-menu-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 7,
+        "diff": 2
+      },
+      {
+        "measure": 25,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "25": 1,
+      "26": 9,
+      "27": 6,
+      "28": 9
+    }
+  },
+  "f/evermore---alan-menken-evermore-from-beauty-and-the-beast---alan-menken-piano-voice": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": 1
+      },
+      {
+        "measure": 51,
+        "diff": 1
+      },
+      {
+        "measure": 68,
+        "diff": -2
+      },
+      {
+        "measure": 66,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "43": 0
+    }
+  },
+  "f/i-wanna-go-back-to-dixie---tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 47,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      12,
+      14,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10
+    }
+  },
+  "f/fight-fiercely-harvard---tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": -1
+      },
+      {
+        "measure": 37,
+        "diff": -1
+      },
+      {
+        "measure": 72,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/heroes-of-might-and-magic-2--sorceress-town---paul-anthony-romero": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": 2
+      },
+      {
+        "measure": 96,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/subwoofer-lullaby-minecraft": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/clark-minecraft": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/haggstrom-minecraft": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/eugenia---scott-joplin---1905-6": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33,
+      37
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "26": 5,
+      "29": 10,
+      "31": 7,
+      "33": 10,
+      "57": 7,
+      "59": 2,
+      "61": 10,
+      "85": 3,
+      "101": 0,
+      "105": 4,
+      "109": 7,
+      "113": 3,
+      "119": 0,
+      "121": 10,
+      "125": 3
+    }
+  },
+  "f/alligator-crawl---fats-waller---1934": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "29": 4,
+      "33": 2,
+      "37": 0,
+      "45": 5,
+      "61": 0,
+      "69": 4,
+      "77": 0
+    }
+  },
+  "f/moog-city-minecraft": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6,
+      9,
+      12,
+      16,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/wernher-von-braun---tom-lehrer---tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 46,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "26": 4,
+      "34": 0,
+      "61": 4,
+      "69": 0
+    }
+  },
+  "f/inferno-theme-by-paul-romero-from-heroes-of-might-and-magic-3": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "17": 0,
+      "25": 4,
+      "33": 0,
+      "49": 8
+    }
+  },
+  "f/living-mice-minecraft": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/chimes-of-dixie-c-1960": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      7,
+      11,
+      19,
+      27,
+      31,
+      39,
+      41
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "122": 10,
+      "154": 5
+    }
+  },
+  "f/dirt-theme-hope---heroes-of-might-and-magic-iv---celtic-harp": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 42,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      11,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/so-long-mom----tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 41,
+        "diff": -2
+      },
+      {
+        "measure": 55,
+        "diff": 2
+      },
+      {
+        "measure": 61,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      10,
+      15,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/whos-next---tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": -2
+      },
+      {
+        "measure": 28,
+        "diff": -2
+      },
+      {
+        "measure": 38,
+        "diff": -1
+      },
+      {
+        "measure": 37,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      7,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "14": 3,
+      "24": 4,
+      "34": 5
+    }
+  },
+  "f/gershwin_prelude_3": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 49,
+        "diff": 2
+      },
+      {
+        "measure": 51,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      7,
+      9,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3
+    }
+  },
+  "f/heroes-of-might-and-magic-iii----waiting-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "5": 7,
+      "9": 9,
+      "13": 7,
+      "17": 9,
+      "21": 7,
+      "25": 9
+    }
+  },
+  "f/gershwin_prelude_2": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": -2
+      },
+      {
+        "measure": 47,
+        "diff": -2
+      },
+      {
+        "measure": 49,
+        "diff": -2
+      },
+      {
+        "measure": 1,
+        "diff": 2
+      },
+      {
+        "measure": 7,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 1
+    }
+  },
+  "f/gershwin_prelude_1": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 15,
+        "diff": 1
+      },
+      {
+        "measure": 24,
+        "diff": 1
+      },
+      {
+        "measure": 29,
+        "diff": 1
+      },
+      {
+        "measure": 20,
+        "diff": 1
+      },
+      {
+        "measure": 26,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      7,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10,
+      "30": 2,
+      "34": 0,
+      "42": 2,
+      "50": 10
+    }
+  },
+  "f/fascinating-rhythm---george-gershwin-ira-gershwin-1924-piano-vocal-arrangement": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      9,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3,
+      "13": 10,
+      "21": 3
+    }
+  },
+  "f/hanukah-in-santa-monica---tom-lehrer-8bbe875464c17f6faa9a162192557cf1a17a257d-2": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10
+    }
+  },
+  "f/the-truth-untold---bts": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 1
+    }
+  },
+  "f/cinders": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      22,
+      26,
+      30
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "105": 5,
+      "119": 0,
+      "121": 5
+    }
+  },
+  "f/the-elements---tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": 1
+      },
+      {
+        "measure": 26,
+        "diff": -2
+      },
+      {
+        "measure": 36,
+        "diff": -2
+      },
+      {
+        "measure": 54,
+        "diff": 1
+      },
+      {
+        "measure": 59,
+        "diff": -2
+      },
+      {
+        "measure": 69,
+        "diff": -2
+      },
+      {
+        "measure": 71,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      6,
+      10,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/bts-bangtansonyeondan---i-need-u-suga-piano-full-solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 113,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12,
+      14,
+      18,
+      20,
+      24,
+      28,
+      32
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/heliotrope-bouquet---joplin-and-chauvin---1907": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "69": 0,
+      "95": 9,
+      "97": 0,
+      "122": 4,
+      "125": 0
+    }
+  },
+  "f/heroes-of-might-magic-iii---tower-town-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/stairway-to-paradise-lead-sheet-with-verse-and-lyrics": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      6,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "21": 4,
+      "25": 0
+    }
+  },
+  "f/vatican-rag": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 53,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/aria-math---c418-from-minecraft": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 93,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      18,
+      23,
+      25,
+      29,
+      33,
+      37,
+      41,
+      45
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/dry-hands-minecraft": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 11
+    }
+  },
+  "f/beauty-and-the-beast-prologue": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 6,
+        "diff": -1
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 24,
+        "diff": 1
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      },
+      {
+        "measure": 32,
+        "diff": -1
+      },
+      {
+        "measure": 39,
+        "diff": -1
+      },
+      {
+        "measure": 42,
+        "diff": -2
+      },
+      {
+        "measure": 44,
+        "diff": 1
+      },
+      {
+        "measure": 49,
+        "diff": -1
+      },
+      {
+        "measure": 52,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      7,
+      9,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/minecraft-title": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      6,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 6
+    }
+  },
+  "f/lily-queen---joplin-marshall---1907": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "26": 7,
+      "29": 0,
+      "85": 5,
+      "139": 9,
+      "141": 5
+    }
+  },
+  "f/heroes-of-might-magic-iii---fortress-town-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4,
+      "9": 6,
+      "17": 8,
+      "20": 5,
+      "25": 8,
+      "34": 6,
+      "37": 4,
+      "38": 2,
+      "39": 0,
+      "40": 6
+    }
+  },
+  "f/bts-bangtansonyeondan---fake-love": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      33,
+      35,
+      37,
+      39
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/the-alaskan-rag---joseph-f-lamb": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 8,
+      "85": 1,
+      "107": 5,
+      "109": 1,
+      "139": 5,
+      "141": 1
+    }
+  },
+  "f/sasha_2": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": 2
+      },
+      {
+        "measure": 27,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/alpha-full---minecraft-credits-end-poem": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/hanukah-in-santa-monica---tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10
+    }
+  },
+  "f/appalachian-spring---aaron-copland-appalachian-spring": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9
+    }
+  },
+  "f/haven-theme-piano-form-heroes-of-might-and-magic-v": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 24,
+        "diff": 1
+      },
+      {
+        "measure": 33,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      6,
+      9,
+      11,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 1,
+      "25": 10,
+      "36": 7,
+      "44": 3
+    }
+  },
+  "f/be-prepared---tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      7,
+      11,
+      13,
+      17,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/average_rag_2": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/te-amo---tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 2
+      },
+      {
+        "measure": 24,
+        "diff": -2
+      },
+      {
+        "measure": 12,
+        "diff": -2
+      },
+      {
+        "measure": 20,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "37": 11,
+      "41": 7
+    }
+  },
+  "f/handful-of-keys---fats-waller---1933": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      10,
+      18,
+      19,
+      27
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "73": 0,
+      "109": 7
+    }
+  },
+  "f/spring-day---bts": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3
+    }
+  },
+  "f/the-subway-song---tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/a-christmas-carol---tom-lehrer-a-christmas-carol": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 49,
+        "diff": 1
+      },
+      {
+        "measure": 54,
+        "diff": 1
+      },
+      {
+        "measure": 59,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      7,
+      11,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/the-old-dope-peddler---tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 15,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/bts-bangtansonyeondan---dynamite-piano-version": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4,
+      "78": 6
+    }
+  },
+  "f/i-hold-your-hand-in-mine---tom-lehrer-i-hold-your-hand-in-mine": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      7,
+      11,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "42": 8,
+      "54": 5
+    }
+  },
+  "f/tom-lehrer---new-math-music": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": -2
+      },
+      {
+        "measure": 20,
+        "diff": -1
+      },
+      {
+        "measure": 31,
+        "diff": 1
+      },
+      {
+        "measure": 40,
+        "diff": -1
+      },
+      {
+        "measure": 47,
+        "diff": 1
+      },
+      {
+        "measure": 52,
+        "diff": -1
+      },
+      {
+        "measure": 63,
+        "diff": 2
+      },
+      {
+        "measure": 69,
+        "diff": 1
+      },
+      {
+        "measure": 86,
+        "diff": 1
+      },
+      {
+        "measure": 115,
+        "diff": -1
+      },
+      {
+        "measure": 138,
+        "diff": 1
+      },
+      {
+        "measure": 139,
+        "diff": 1
+      },
+      {
+        "measure": 152,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      8,
+      13,
+      18,
+      22,
+      26,
+      33,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "1": 0,
+      "10": 4,
+      "27": 0,
+      "89": 4,
+      "114": 0
+    }
+  },
+  "f/do-it-again---george-gershwin-buddy-desylva": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/danny-minecraft": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7
+    }
+  },
+  "f/the-man-i-love---george-gershwin-ira-gershwin-1924-piano-vocal-arrangement": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      11,
+      13,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3
+    }
+  },
+  "f/thoroughbred-rag-c-1960": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      9,
+      13,
+      17,
+      21,
+      22,
+      26,
+      30,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "82": 5,
+      "106": 9,
+      "110": 5
+    }
+  },
+  "f/academy-order-theme---heroes-and-might-and-magic-iv": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/hojnacki_1": {
+    "measures": {
+      "beatsPerMeasure": {},
+      "measureStarts": {
+        "1": 0.4479166666666667
+      }
+    },
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/belle": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": -3
+      },
+      {
+        "measure": 31,
+        "diff": 1
+      },
+      {
+        "measure": 36,
+        "diff": 1
+      },
+      {
+        "measure": 41,
+        "diff": -1
+      },
+      {
+        "measure": 40,
+        "diff": 1
+      },
+      {
+        "measure": 61,
+        "diff": -1
+      },
+      {
+        "measure": 64,
+        "diff": -1
+      },
+      {
+        "measure": 95,
+        "diff": 1
+      },
+      {
+        "measure": 100,
+        "diff": -1
+      },
+      {
+        "measure": 103,
+        "diff": -1
+      },
+      {
+        "measure": 106,
+        "diff": -2
+      },
+      {
+        "measure": 112,
+        "diff": -2
+      },
+      {
+        "measure": 134,
+        "diff": -1
+      },
+      {
+        "measure": 145,
+        "diff": -2
+      },
+      {
+        "measure": 151,
+        "diff": 1
+      },
+      {
+        "measure": 152,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      6,
+      8,
+      12,
+      16,
+      18,
+      22,
+      24,
+      29,
+      31,
+      33,
+      35,
+      38
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "19": 10,
+      "20": 8,
+      "21": 0,
+      "23": 5,
+      "32": 10,
+      "49": 5,
+      "53": 8,
+      "62": 11,
+      "102": 3,
+      "108": 0,
+      "118": 5,
+      "126": 9,
+      "128": 3,
+      "133": 0,
+      "137": 3,
+      "143": 2
+    }
+  },
+  "f/pleasant-moments---scott-joplin---1909": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 7,
+      "11": 11,
+      "13": 7,
+      "21": 2,
+      "53": 7,
+      "69": 0,
+      "87": 9,
+      "89": 0,
+      "101": 7
+    }
+  },
+  "f/c418---cat-from-minecraft---volume-alpha": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 8
+    }
+  },
+  "f/gershwin_swanee": {
+    "measures": {
+      "beatsPerMeasure": {},
+      "measureStarts": {
+        "2": 1.190475,
+        "3": 2.20237875,
+        "4": 3.154758749999999,
+        "62": 58.45232250000004,
+        "63": 59.404702500000035,
+        "64": 60.3571
+      }
+    },
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -1
+      },
+      {
+        "measure": 133,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5
+    }
+  },
+  "f/tale-as-old-as-time---beauty-and-the-beast---alan-menken---piano-solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": -1
+      },
+      {
+        "measure": 24,
+        "diff": -1
+      },
+      {
+        "measure": 27,
+        "diff": -2
+      },
+      {
+        "measure": 33,
+        "diff": -1
+      },
+      {
+        "measure": 44,
+        "diff": -1
+      },
+      {
+        "measure": 47,
+        "diff": -1
+      },
+      {
+        "measure": 46,
+        "diff": 4
+      },
+      {
+        "measure": 50,
+        "diff": -4
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      9,
+      11,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 1,
+      "32": 3
+    }
+  },
+  "f/minecraft-calm": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 1,
+      "21": 4,
+      "61": 2
+    }
+  },
+  "f/there-s-a-delta-for-every-epsilon---tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": -1
+      },
+      {
+        "measure": 26,
+        "diff": -1
+      },
+      {
+        "measure": 32,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/the-sheik-of-araby-arr.-zez-confrey": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 2
+      },
+      {
+        "measure": 16,
+        "diff": -2
+      },
+      {
+        "measure": 162,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      10,
+      14,
+      19,
+      25,
+      29,
+      33,
+      37
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 10
+    }
+  },
+  "f/heroes-of-might-magic-iii---castle-town-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      5,
+      7,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 9,
+      "9": 0,
+      "13": 10,
+      "17": 2,
+      "29": 5,
+      "33": 3,
+      "37": 7,
+      "49": 3,
+      "53": 1,
+      "57": 5
+    }
+  },
+  "f/chopin-ish-happy-birthday-to-you": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3
+    }
+  },
+  "f/asbestos---fats-waller---c1930": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      26,
+      28,
+      30,
+      32
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3,
+      "37": 8,
+      "69": 3,
+      "105": 8
+    }
+  },
+  "f/minecraft---dead-voxel": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      20,
+      22,
+      26
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3
+    }
+  },
+  "f/national-brotherhood-week": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 33,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3
+    }
+  },
+  "f/the-wild-west-is-where-i-want-to-be---tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      7,
+      11,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3
+    }
+  },
+  "f/happy-birthday-but-it-s-a-bach-chorale": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 8,
+        "diff": -1
+      },
+      {
+        "measure": 11,
+        "diff": -1
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/gaston": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 33,
+        "diff": 2
+      },
+      {
+        "measure": 59,
+        "diff": 2
+      },
+      {
+        "measure": 117,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      14,
+      20,
+      28
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "1": 9,
+      "17": 0
+    }
+  },
+  "f/bts-jungkook-bangtansonyeondan-jeonggug---still-with-you": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      9,
+      13,
+      17,
+      21,
+      27,
+      31,
+      35,
+      39
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 1
+    }
+  },
+  "f/something-there": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -1
+      },
+      {
+        "measure": 28,
+        "diff": 2
+      },
+      {
+        "measure": 34,
+        "diff": 1
+      },
+      {
+        "measure": 39,
+        "diff": -2
+      },
+      {
+        "measure": 53,
+        "diff": -1
+      },
+      {
+        "measure": 56,
+        "diff": -1
+      },
+      {
+        "measure": 59,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      7,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "16": 5,
+      "18": 2
+    }
+  },
+  "f/heroes-of-might-and-magic-3---necropolis-town-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 72,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      12,
+      17,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "8": 3,
+      "32": 10,
+      "40": 5,
+      "48": 0,
+      "60": 7,
+      "64": 10
+    }
+  },
+  "f/poisoning-pigeons-in-the-park---tom-lehrer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 37,
+        "diff": -3
+      },
+      {
+        "measure": 34,
+        "diff": 0
+      },
+      {
+        "measure": 34,
+        "diff": 4
+      },
+      {
+        "measure": 33,
+        "diff": 1
+      },
+      {
+        "measure": 39,
+        "diff": -1
+      },
+      {
+        "measure": 54,
+        "diff": 1
+      },
+      {
+        "measure": 91,
+        "diff": 1
+      },
+      {
+        "measure": 112,
+        "diff": 1
+      },
+      {
+        "measure": 117,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      8,
+      14,
+      16,
+      22,
+      28
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0
+    }
+  },
+  "f/if-i-can-t-love-her": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -2
+      },
+      {
+        "measure": 19,
+        "diff": -2
+      },
+      {
+        "measure": 53,
+        "diff": -2
+      },
+      {
+        "measure": 55,
+        "diff": -2
+      },
+      {
+        "measure": 57,
+        "diff": -1
+      },
+      {
+        "measure": 60,
+        "diff": -1
+      },
+      {
+        "measure": 63,
+        "diff": -2
+      },
+      {
+        "measure": 73,
+        "diff": -2
+      },
+      {
+        "measure": 91,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      14,
+      18,
+      20,
+      21,
+      23,
+      25
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4,
+      "11": 7,
+      "17": 4,
+      "49": 1,
+      "71": 6,
+      "79": 9
+    }
+  },
+  "f/mice-on-venus-minecraft": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      7,
+      11,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "27": 5
     }
   }
 }

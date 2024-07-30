@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 
 // I skip "14 I… 48:33" since it's basically track 1 with added violin.
 // For "05 Passing By 15:17", "09 Time Forgets… 29:52" and "15 Farewell 52:45"
@@ -290,9 +291,41 @@ const corpora = [
       "subwoofer-lullaby-minecraft",
     ],
   },
+  {
+    slug: "tom_lehrer",
+    midis: [
+      "the-elements---tom-lehrer",
+      "the-masochism-tango---tom-lehrer-the-masochism-tango---tom-lehrer-the-masochism-tango",
+      "tom_lehrer_i_got_it_from_agnes",
+      "poisoning-pigeons-in-the-park---tom-lehrer",
+      "wernher-von-braun---tom-lehrer---tom-lehrer",
+      "the-wild-west-is-where-i-want-to-be---tom-lehrer",
+      "be-prepared---tom-lehrer",
+      "tom-lehrer---new-math-music",
+      "fight-fiercely-harvard---tom-lehrer",
+      "the-old-dope-peddler---tom-lehrer",
+      "i-hold-your-hand-in-mine---tom-lehrer-i-hold-your-hand-in-mine",
+      "vatican-rag",
+      "i-wanna-go-back-to-dixie---tom-lehrer",
+      "a-christmas-carol---tom-lehrer-a-christmas-carol",
+
+      "the-subway-song---tom-lehrer", // 1915, Theodore Morse!
+    ],
+  },
 ];
 
 const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
+  if (!slug)
+    return (
+      <div>
+        {corpora.map(({ slug }) => (
+          <div>
+            <Link to={`/corpus/${slug}`}>{slug}</Link>
+          </div>
+        ))}
+      </div>
+    );
+
   const corpus = corpora.filter((corpus) => corpus.slug === slug)?.[0];
   if (!corpus) {
     return <div>Corpus {slug} not found</div>;

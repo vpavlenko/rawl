@@ -9,63 +9,75 @@ import {
 } from "midi-file";
 import * as React from "react";
 import { useEffect } from "react";
-import { gladiolusRagS, mapleLeafRagS } from "./slicerFiles";
+import { cascadesRagS, gladiolusRagS, mapleLeafRagS } from "./slicerFiles";
 
-function adjustDeltaTimes(
-  events: MidiEvent[],
-  offsetTicks: number,
-): MidiEvent[] {
-  let accumulatedDeltaTime = offsetTicks;
-  return events.map((event) => {
-    let newEvent = { ...event };
-    newEvent.deltaTime += accumulatedDeltaTime;
-    accumulatedDeltaTime = 0; // subsequent events keep their deltaTime
-    return newEvent;
+const UNIFIED_BPM = 60;
+
+function adjustDeltaTimes(track: MidiEvent[], offset: number): MidiEvent[] {
+  return track.map((event, index) => {
+    if (index === 0) {
+      return { ...event, deltaTime: event.deltaTime + offset };
+    } else {
+      return { ...event };
+    }
+  });
+}
+
+function replaceBpmEvents(track: MidiEvent[], bpm: number): MidiEvent[] {
+  const microsecondsPerBeat = Math.round(60000000 / bpm);
+  return track.map((event) => {
+    if (event.type === "setTempo") {
+      event.microsecondsPerBeat = microsecondsPerBeat;
+    }
+    return event;
   });
 }
 
 function mergeMidiFiles(midiDatas: MidiData[]): Uint8Array {
   const ppqn = midiDatas[0].header.ticksPerBeat;
-  const barOffset = ppqn * 2; // Assuming 4/4 time signature for simplicity
+  const barOffset = ppqn * 1; // wrong assumbption on stable 2/4?
 
-  let mergedTracks = midiDatas[0].tracks.map((track) => [...track]);
-  let lastTick = mergedTracks.map((track) =>
+  let mergedTracks = midiDatas[0].tracks.map((track) =>
+    replaceBpmEvents([...track], UNIFIED_BPM),
+  );
+
+  let lastTicks = mergedTracks.map((track) =>
     track.reduce((acc, event) => acc + event.deltaTime, 0),
   );
-  let currentBarOffset = barOffset;
 
   for (let i = 1; i < midiDatas.length; i++) {
+    const maxLastTick = Math.max(...lastTicks);
+
     const adjustedTracks = midiDatas[i].tracks.map((track, trackIndex) => {
+      const offset = maxLastTick + barOffset - lastTicks[trackIndex];
       const adjustedTrack = adjustDeltaTimes(
-        track,
-        lastTick[trackIndex] + currentBarOffset,
+        replaceBpmEvents(track, UNIFIED_BPM),
+        offset,
       );
 
       // Remove endOfTrack events from the current track before merging
-      const filteredTrack = adjustedTrack.filter(
-        (event) => event.type !== "endOfTrack",
-      );
-
-      // Append the endOfTrack event of the current track to the end
-      const endOfTrackEvent = adjustedTrack.find(
-        (event) => event.type === "endOfTrack",
-      );
-      if (endOfTrackEvent) {
-        filteredTrack.push({ ...endOfTrackEvent, deltaTime: 0 });
-      }
-
-      return filteredTrack;
+      return adjustedTrack.filter((event) => event.type !== "endOfTrack");
     });
 
     mergedTracks = mergedTracks.map((track, trackIndex) => [
       ...track,
       ...adjustedTracks[trackIndex],
     ]);
-    lastTick = mergedTracks.map((track) =>
+
+    // Recalculate the last tick for each merged track
+    lastTicks = mergedTracks.map((track) =>
       track.reduce((acc, event) => acc + event.deltaTime, 0),
     );
-    currentBarOffset += barOffset;
   }
+
+  // Append endOfTrack event to each track at the very end
+  mergedTracks = mergedTracks.map((track) => {
+    const endOfTrackEvent: MidiEvent = {
+      deltaTime: 0,
+      type: "endOfTrack",
+    } as MidiMetaEvent<"endOfTrack">;
+    return [...track, endOfTrackEvent];
+  });
 
   const mergedMidiData: MidiData = {
     header: midiDatas[0].header,
@@ -89,6 +101,7 @@ function base64ToUint8Array(base64: string): Uint8Array {
 
 const mapleLeafRag: Uint8Array = base64ToUint8Array(mapleLeafRagS);
 const gladiolusRag: Uint8Array = base64ToUint8Array(gladiolusRagS);
+const cascadesRag: Uint8Array = base64ToUint8Array(cascadesRagS);
 
 function extractSlice(
   midiData: MidiData,
@@ -191,6 +204,12 @@ const truncatedGladiolusRag = extractSlice(
   240 + 480 * 2 * 8,
 );
 
+const truncatedCascadesRag = extractSlice(
+  parseMidi(cascadesRag),
+  480 * 2 * (4 + 6),
+  480 * 2 * (4 + 8),
+);
+
 // Write the truncated MIDI data back to a file or Uint8Array
 // const outputMidi: Uint8Array = new Uint8Array(writeMidi(truncatedMidiData));
 
@@ -198,6 +217,7 @@ const truncatedGladiolusRag = extractSlice(
 const midiFileArray: MidiData[] = [
   truncatedMapleLeafRag,
   truncatedGladiolusRag,
+  truncatedCascadesRag,
   // Add more MIDI files as needed
 ];
 

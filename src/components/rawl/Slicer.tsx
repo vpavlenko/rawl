@@ -34,9 +34,13 @@ function replaceBpmEvents(track: MidiEvent[], bpm: number): MidiEvent[] {
   });
 }
 
+function roundUpToBar(ticks: number, ppqn: number, barLength: number): number {
+  return Math.ceil(ticks / barLength) * barLength;
+}
+
 function mergeMidiFiles(midiDatas: MidiData[]): Uint8Array {
   const ppqn = midiDatas[0].header.ticksPerBeat;
-  const barOffset = ppqn * 2; // wrong assumbption on stable 2/4?
+  const barLength = ppqn * 2; // Assuming 4/4 time signature
 
   let mergedTracks = midiDatas[0].tracks.map((track) =>
     replaceBpmEvents([...track], UNIFIED_BPM),
@@ -48,9 +52,10 @@ function mergeMidiFiles(midiDatas: MidiData[]): Uint8Array {
 
   for (let i = 1; i < midiDatas.length; i++) {
     const maxLastTick = Math.max(...lastTicks);
+    const roundedMaxLastTick = roundUpToBar(maxLastTick, ppqn, barLength);
 
     const adjustedTracks = midiDatas[i].tracks.map((track, trackIndex) => {
-      const offset = maxLastTick + barOffset - lastTicks[trackIndex];
+      const offset = roundedMaxLastTick + barLength - lastTicks[trackIndex];
       const adjustedTrack = adjustDeltaTimes(
         replaceBpmEvents(track, UNIFIED_BPM),
         offset,

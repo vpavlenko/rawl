@@ -9,7 +9,7 @@ import {
 } from "midi-file";
 import * as React from "react";
 import { useEffect } from "react";
-import { cascadesRagS, gladiolusRagS, mapleLeafRagS } from "./slicerFiles";
+import { loadMidiFromSlug } from "./slicerFiles";
 import transformMidi from "./transformMidi";
 
 const UNIFIED_BPM = 60;
@@ -100,10 +100,6 @@ function base64ToUint8Array(base64: string): Uint8Array {
   return bytes;
 }
 
-const mapleLeafRag: Uint8Array = base64ToUint8Array(mapleLeafRagS);
-const gladiolusRag: Uint8Array = base64ToUint8Array(gladiolusRagS);
-const cascadesRag: Uint8Array = base64ToUint8Array(cascadesRagS);
-
 function extractSlice(
   midiData: MidiData,
   startTick: number,
@@ -193,61 +189,58 @@ function extractSlice(
   return midiData;
 }
 
-const truncatedMapleLeafRag = extractSlice(
-  parseMidi(mapleLeafRag),
-  240 + 480 * 2 * 0,
-  240 + 480 * 2 * 16,
-);
-
-const truncatedGladiolusRag = extractSlice(
-  parseMidi(gladiolusRag),
-  240 + 480 * 2 * 0,
-  240 + 480 * 2 * 16,
-);
-
-const truncatedCascadesRag = extractSlice(
-  parseMidi(cascadesRag),
-  480 * 2 * 4,
-  480 * 2 * 20,
-);
-
-// Write the truncated MIDI data back to a file or Uint8Array
-// const outputMidi: Uint8Array = new Uint8Array(writeMidi(truncatedMidiData));
-
-// Usage example
-const midiFileArray: MidiData[] = [
-  truncatedMapleLeafRag,
-  truncatedGladiolusRag,
-  truncatedCascadesRag,
-  // Add more MIDI files as needed
-];
-
-const outputMidi = mergeMidiFiles(midiFileArray);
-// Use the mergedMidiFile Uint8Array as needed
-
 console.log("MIDI file truncated successfully.");
 
 const Slicer: React.FC<{
   playSongBuffer: (filepath: string, buffer: ArrayBuffer | Uint8Array) => void;
 }> = ({ playSongBuffer }) => {
   useEffect(() => {
-    //initChipCore races
-    setTimeout(() => playSongBuffer("slicer", transformMidi(outputMidi)), 1000);
+    const asyncFunc = async () => {
+      const mapleLeafRagBinary = await loadMidiFromSlug(
+        "Maple_Leaf_Rag_Scott_Joplin",
+      );
+      const gladiolusRagBinary = await loadMidiFromSlug(
+        "gladiolus-rag---scott-joplin---1907",
+      );
+      const cascadesRagBinary = await loadMidiFromSlug(
+        "the-cascades---scott-joplin---1904",
+      );
+
+      const slicedMapleLeafRag = extractSlice(
+        parseMidi(mapleLeafRagBinary),
+        240 + 480 * 2 * 0,
+        240 + 480 * 2 * 16,
+      );
+
+      const slicedGladiolusRag = extractSlice(
+        parseMidi(gladiolusRagBinary),
+        240 + 480 * 2 * 0,
+        240 + 480 * 2 * 16,
+      );
+
+      const slicedCascadesRag = extractSlice(
+        parseMidi(cascadesRagBinary),
+        480 * 2 * 4,
+        480 * 2 * 20,
+      );
+
+      const midiFileArray: MidiData[] = [
+        slicedMapleLeafRag,
+        slicedGladiolusRag,
+        slicedCascadesRag,
+      ];
+
+      const outputMidi = mergeMidiFiles(midiFileArray);
+
+      setTimeout(
+        () => playSongBuffer("slicer", transformMidi(outputMidi)),
+        1000,
+      );
+    };
+    asyncFunc();
   }, []);
 
-  // call
-  // this.playSongBuffer(file.name, result);
-  // as soon as midi file is ready
-
-  // task one: play from base64
-  // task two: play only till tick 4800
-
-  return (
-    <div>
-      Slicer
-      {/* <ReactJson src={midi} theme="monokai" style={{ fontSize: "12px" }} /> */}
-    </div>
-  );
+  return <div>Slicer</div>;
 };
 
 export default Slicer;

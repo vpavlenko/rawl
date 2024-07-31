@@ -90,19 +90,19 @@ type AppState = {
   fileToDownload: Uint8Array;
 };
 
-interface FirestoreMidiIndex {
+export interface FirestoreMidiIndex {
   midis: { id: string; slug: string; title: string }[];
 }
 
 // is it defined in a Firestore SDK? it's probably Bytes, and
 // we should probably avoid using private fields of it
-type FirestoreBlob = {
+export type FirestoreBlob = {
   _byteString?: {
     binaryString: string;
   };
 };
 
-interface FirestoreMidiDocument {
+export interface FirestoreMidiDocument {
   blob: FirestoreBlob;
   slug: string;
   title: string;

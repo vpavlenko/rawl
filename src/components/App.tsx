@@ -50,6 +50,7 @@ import Visualizer from "./Visualizer";
 import LandingPage from "./rawl/LandingPage";
 import Pirate from "./rawl/Pirate";
 import Rawl from "./rawl/Rawl";
+import Slicer from "./rawl/Slicer";
 import TagSearch from "./rawl/TagSearch";
 import { Analyses } from "./rawl/analysis";
 import Corpus from "./rawl/corpora/Corpus";
@@ -837,7 +838,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     );
     const rawlRoute = (
       <Route
-        path={["/f/:slug*", "/c/:chiptuneUrl*", "/drop"]}
+        path={["/f/:slug*", "/c/:chiptuneUrl*", "/drop", "/slicer"]}
         render={({ match }) => {
           const { slug, chiptuneUrl } = match.params as {
             slug?: string;
@@ -862,6 +863,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   />
                   {match.path === "/drop" && <DropSaveForm midi={this.midi} />}
                 </>
+              )}
+              {match.path === "/slicer" && (
+                <Slicer playSongBuffer={this.playSongBuffer} />
               )}
             </>
           );

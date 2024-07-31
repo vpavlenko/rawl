@@ -88,23 +88,14 @@ function mergeMidiFiles(midiDatas: MidiData[]): Uint8Array {
   return new Uint8Array(writeMidi(mergedMidiData));
 }
 
-function base64ToUint8Array(base64: string): Uint8Array {
-  const binaryString = atob(base64);
-  const len = binaryString.length;
-  const bytes = new Uint8Array(len);
-
-  for (let i = 0; i < len; i++) {
-    bytes[i] = binaryString.charCodeAt(i);
-  }
-
-  return bytes;
-}
-
-function extractSlice(
-  midiData: MidiData,
-  startTick: number,
-  endTick: number,
-): MidiData {
+async function extractSlice(
+  slug: string,
+  startMeasure: number,
+  endMeasure: number,
+): Promise<MidiData> {
+  const startTick = startMeasure * 480 * 2;
+  const endTick = endMeasure * 480 * 2;
+  const midiData = parseMidi(await loadMidiFromSlug(slug));
   midiData.tracks = midiData.tracks.map((track) => {
     let slicedTrack: MidiEvent[] = [];
     let noteOnEvents: Map<number, MidiNoteOnEvent> = new Map();
@@ -196,46 +187,18 @@ const Slicer: React.FC<{
 }> = ({ playSongBuffer }) => {
   useEffect(() => {
     const asyncFunc = async () => {
-      const mapleLeafRagBinary = await loadMidiFromSlug(
-        "Maple_Leaf_Rag_Scott_Joplin",
-      );
-      const gladiolusRagBinary = await loadMidiFromSlug(
-        "gladiolus-rag---scott-joplin---1907",
-      );
-      const cascadesRagBinary = await loadMidiFromSlug(
-        "the-cascades---scott-joplin---1904",
-      );
-
-      const slicedMapleLeafRag = extractSlice(
-        parseMidi(mapleLeafRagBinary),
-        240 + 480 * 2 * 0,
-        240 + 480 * 2 * 16,
-      );
-
-      const slicedGladiolusRag = extractSlice(
-        parseMidi(gladiolusRagBinary),
-        240 + 480 * 2 * 0,
-        240 + 480 * 2 * 16,
-      );
-
-      const slicedCascadesRag = extractSlice(
-        parseMidi(cascadesRagBinary),
-        480 * 2 * 4,
-        480 * 2 * 20,
-      );
-
       const midiFileArray: MidiData[] = [
-        slicedMapleLeafRag,
-        slicedGladiolusRag,
-        slicedCascadesRag,
+        await extractSlice("Maple_Leaf_Rag_Scott_Joplin", 0.25, 16.25),
+        await extractSlice("gladiolus-rag---scott-joplin---1907", 0.25, 16.25),
+        await extractSlice("the-cascades---scott-joplin---1904", 4, 20),
+        await extractSlice("sugar-cane---scott-joplin---1908", 0.25, 16.25),
+        await extractSlice("leola-two-step---scott-joplin---1905", 0.25, 16.25),
+        await extractSlice("the-sycamore---scott-joplin---1904", 4, 20),
       ];
 
       const outputMidi = mergeMidiFiles(midiFileArray);
 
-      setTimeout(
-        () => playSongBuffer("slicer", transformMidi(outputMidi)),
-        1000,
-      );
+      setTimeout(() => playSongBuffer("slicer", transformMidi(outputMidi)), 0);
     };
     asyncFunc();
   }, []);

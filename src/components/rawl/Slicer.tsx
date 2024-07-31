@@ -1,6 +1,7 @@
 import {
   MidiData,
   MidiEvent,
+  MidiMetaEvent,
   MidiNoteOffEvent,
   MidiNoteOnEvent,
   parseMidi,
@@ -89,18 +90,40 @@ function base64ToUint8Array(base64: string): Uint8Array {
 const mapleLeafRag: Uint8Array = base64ToUint8Array(mapleLeafRagS);
 const gladiolusRag: Uint8Array = base64ToUint8Array(gladiolusRagS);
 
-// Function to truncate the MIDI tracks
-function truncateMidi(midiData: MidiData, truncateTick: number): MidiData {
+function extractSlice(
+  midiData: MidiData,
+  startTick: number,
+  endTick: number,
+): MidiData {
   midiData.tracks = midiData.tracks.map((track) => {
-    let truncatedTrack: MidiEvent[] = [];
+    let slicedTrack: MidiEvent[] = [];
     let noteOnEvents: Map<number, MidiNoteOnEvent> = new Map();
     let accumulatedDeltaTime = 0;
+    let firstEventInSlice = true;
+
+    // Collect metadata events
+    let metadataEvents: MidiMetaEvent<any>[] = [];
 
     for (let event of track) {
       accumulatedDeltaTime += event.deltaTime;
-      if (accumulatedDeltaTime >= truncateTick) {
-        // If the event is beyond the truncate tick, we stop processing
+
+      if (accumulatedDeltaTime < startTick) {
+        // Collect metadata events before startTick
+        if ((event as MidiMetaEvent<any>).meta) {
+          metadataEvents.push(event as MidiMetaEvent<any>);
+        }
+        continue;
+      }
+
+      if (accumulatedDeltaTime >= endTick) {
+        // If the event is beyond the end tick, we stop processing
         break;
+      }
+
+      if (firstEventInSlice) {
+        // Adjust deltaTime for the first event in the slice
+        event.deltaTime = accumulatedDeltaTime - startTick;
+        firstEventInSlice = false;
       }
 
       // Keep track of NoteOn events to match with NoteOff
@@ -116,43 +139,56 @@ function truncateMidi(midiData: MidiData, truncateTick: number): MidiData {
         noteOnEvents.delete(event.noteNumber);
       }
 
-      truncatedTrack.push(event);
+      slicedTrack.push(event);
     }
 
-    // Ensure all unclosed notes are turned off by the truncate tick
+    // Ensure all unclosed notes are turned off by the end tick
     for (let [noteNumber, noteOnEvent] of noteOnEvents) {
       let noteOffEvent: MidiNoteOffEvent = {
         type: "noteOff",
         channel: noteOnEvent.channel,
-        deltaTime: truncateTick - accumulatedDeltaTime,
+        deltaTime: 0,
         noteNumber: noteNumber,
         velocity: 0,
       };
-      accumulatedDeltaTime = truncateTick;
-      truncatedTrack.push(noteOffEvent);
+      accumulatedDeltaTime = endTick;
+      slicedTrack.push(noteOffEvent);
+    }
+
+    // Adjust all events to start from the new tick 0
+    let adjustedTrack: MidiEvent[] = [];
+
+    adjustedTrack = [...slicedTrack];
+
+    // Add all collected metadata events at the beginning
+    for (let metaEvent of metadataEvents) {
+      metaEvent.deltaTime = 0;
+      adjustedTrack.unshift(metaEvent);
     }
 
     // Add an end-of-track event
-    truncatedTrack.push({
+    adjustedTrack.push({
       deltaTime: 0,
       type: "endOfTrack",
     });
 
-    return truncatedTrack;
+    return adjustedTrack;
   });
 
+  debugger;
   return midiData;
 }
 
-const truncateTick = 4800;
-const truncatedMapleLeafRag = truncateMidi(
+const truncatedMapleLeafRag = extractSlice(
   parseMidi(mapleLeafRag),
-  truncateTick,
+  240 + 480 * 2 * 6,
+  240 + 480 * 2 * 8,
 );
 
-const truncatedGladiolusRag = truncateMidi(
+const truncatedGladiolusRag = extractSlice(
   parseMidi(gladiolusRag),
-  truncateTick,
+  240 + 480 * 2 * 6,
+  240 + 480 * 2 * 8,
 );
 
 // Write the truncated MIDI data back to a file or Uint8Array

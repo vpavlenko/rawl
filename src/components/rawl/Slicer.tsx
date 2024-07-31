@@ -10,6 +10,7 @@ import {
 import * as React from "react";
 import { useEffect } from "react";
 import { cascadesRagS, gladiolusRagS, mapleLeafRagS } from "./slicerFiles";
+import transformMidi from "./transformMidi";
 
 const UNIFIED_BPM = 60;
 
@@ -35,7 +36,7 @@ function replaceBpmEvents(track: MidiEvent[], bpm: number): MidiEvent[] {
 
 function mergeMidiFiles(midiDatas: MidiData[]): Uint8Array {
   const ppqn = midiDatas[0].header.ticksPerBeat;
-  const barOffset = ppqn * 1; // wrong assumbption on stable 2/4?
+  const barOffset = ppqn * 2; // wrong assumbption on stable 2/4?
 
   let mergedTracks = midiDatas[0].tracks.map((track) =>
     replaceBpmEvents([...track], UNIFIED_BPM),
@@ -194,20 +195,20 @@ function extractSlice(
 
 const truncatedMapleLeafRag = extractSlice(
   parseMidi(mapleLeafRag),
-  240 + 480 * 2 * 6,
-  240 + 480 * 2 * 8,
+  240 + 480 * 2 * 0,
+  240 + 480 * 2 * 16,
 );
 
 const truncatedGladiolusRag = extractSlice(
   parseMidi(gladiolusRag),
-  240 + 480 * 2 * 6,
-  240 + 480 * 2 * 8,
+  240 + 480 * 2 * 0,
+  240 + 480 * 2 * 16,
 );
 
 const truncatedCascadesRag = extractSlice(
   parseMidi(cascadesRag),
-  480 * 2 * (4 + 6),
-  480 * 2 * (4 + 8),
+  480 * 2 * 4,
+  480 * 2 * 20,
 );
 
 // Write the truncated MIDI data back to a file or Uint8Array
@@ -231,7 +232,7 @@ const Slicer: React.FC<{
 }> = ({ playSongBuffer }) => {
   useEffect(() => {
     //initChipCore races
-    setTimeout(() => playSongBuffer("slicer", outputMidi), 1000);
+    setTimeout(() => playSongBuffer("slicer", transformMidi(outputMidi)), 1000);
   }, []);
 
   // call

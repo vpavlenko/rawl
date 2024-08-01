@@ -11,6 +11,8 @@ import MIDIFile from "midifile";
 import * as React from "react";
 import { useEffect } from "react";
 import MIDIPlayer from "../../players/MIDIFilePlayer";
+import { MeasuresAndBeats, getPhraseStarts } from "./SystemLayout";
+import { Analyses } from "./analysis";
 import { loadMidiFromSlug } from "./slicerFiles";
 import transformMidi from "./transformMidi";
 
@@ -95,23 +97,60 @@ function mergeMidiFiles(midiDatas: MidiData[]): Uint8Array {
   return new Uint8Array(writeMidi(mergedMidiData));
 }
 
-const getMeasuresAsTicks = (binaryMidi): number[] => {
+const getMeasuresAndBeats = (binaryMidi: Uint8Array): MeasuresAndBeats => {
   const midiFile = new MIDIFile(binaryMidi);
   const midiPlayer = new MIDIPlayer();
   const result = midiPlayer.load(midiFile);
-  return result.measuresAndBeats.ticks.measures;
+  return result.measuresAndBeats;
 };
+
+type SliceMeasureSpan = { type: "measureSpan"; measureSpan: [number, number] };
+type SliceSingleSection = { type: "singleSection"; section: number };
+type SliceSpan = SliceMeasureSpan | SliceSingleSection;
+
+const M = (start: number, end: number): SliceMeasureSpan => ({
+  type: "measureSpan",
+  measureSpan: [start, end],
+});
+
+const S = (section: number): SliceSingleSection => ({
+  type: "singleSection",
+  section,
+});
 
 async function extractSlice(
   slug: string,
-  startMeasure: number,
-  endMeasure: number,
+  sliceSpan: SliceSpan,
+  analyses: Analyses,
 ): Promise<MidiData> {
   const binaryMidi = await loadMidiFromSlug(slug);
-  const ticksMeasures = getMeasuresAsTicks(binaryMidi);
+  const analysis = analyses[`f/${slug}`];
+  const measuresAndBeats = getMeasuresAndBeats(binaryMidi);
+  const ticksMeasures = measuresAndBeats.ticks.measures;
+  const phraseStarts = getPhraseStarts(
+    analysis,
+    measuresAndBeats.measures.length,
+  );
+  const sections = (analysis.sections ?? [0]).map(
+    (sectionStartInPhrases, index) => {
+      const { measures } = measuresAndBeats;
+      const start = phraseStarts[sectionStartInPhrases] - 1;
+      const end =
+        (index + 1 < (analysis.sections ?? [0]).length
+          ? phraseStarts[(analysis.sections ?? [0])[index + 1]]
+          : measures.length) - 1;
+      return [start, end];
+    },
+  );
+  const measureSpan =
+    sliceSpan.type === "singleSection"
+      ? [sections[sliceSpan.section][0], sections[sliceSpan.section][1]]
+      : sliceSpan.measureSpan;
 
-  const startTick = ticksMeasures[startMeasure];
-  const endTick = ticksMeasures[endMeasure];
+  // TODO: extract sections , build phrases via getPhraseStarts, review Rawl
+
+  const startTick = ticksMeasures[measureSpan[0]];
+  const endTick = ticksMeasures[measureSpan[1]];
 
   const midiData = parseMidi(await loadMidiFromSlug(slug));
   midiData.tracks = midiData.tracks.map((track) => {
@@ -194,7 +233,6 @@ async function extractSlice(
     return adjustedTrack;
   });
 
-  debugger;
   return midiData;
 }
 
@@ -202,16 +240,37 @@ console.log("MIDI file truncated successfully.");
 
 const Slicer: React.FC<{
   playSongBuffer: (filepath: string, buffer: ArrayBuffer | Uint8Array) => void;
-}> = ({ playSongBuffer }) => {
+  analyses: Analyses;
+}> = ({ playSongBuffer, analyses }) => {
   useEffect(() => {
     const asyncFunc = async () => {
       const midiFileArray: MidiData[] = [
-        await extractSlice("Maple_Leaf_Rag_Scott_Joplin", 1, 17),
-        await extractSlice("gladiolus-rag---scott-joplin---1907", 1, 17),
-        await extractSlice("the-cascades---scott-joplin---1904", 4, 20),
-        await extractSlice("sugar-cane---scott-joplin---1908", 1, 17),
-        await extractSlice("leola-two-step---scott-joplin---1905", 1, 17),
-        await extractSlice("the-sycamore---scott-joplin---1904", 4, 20),
+        await extractSlice("Maple_Leaf_Rag_Scott_Joplin", M(1, 17), analyses),
+        await extractSlice(
+          "gladiolus-rag---scott-joplin---1907",
+          M(1, 17),
+          analyses,
+        ),
+        await extractSlice(
+          "the-cascades---scott-joplin---1904",
+          S(1),
+          analyses,
+        ),
+        await extractSlice(
+          "sugar-cane---scott-joplin---1908",
+          M(1, 17),
+          analyses,
+        ),
+        await extractSlice(
+          "leola-two-step---scott-joplin---1905",
+          M(1, 17),
+          analyses,
+        ),
+        await extractSlice(
+          "the-sycamore---scott-joplin---1904",
+          S(1),
+          analyses,
+        ),
       ];
 
       const outputMidi = mergeMidiFiles(midiFileArray);

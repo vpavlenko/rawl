@@ -865,7 +865,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 </>
               )}
               {match.path === "/slicer" && (
-                <Slicer playSongBuffer={this.playSongBuffer} />
+                <Slicer
+                  playSongBuffer={this.playSongBuffer}
+                  analyses={this.state.analyses}
+                />
               )}
             </>
           );

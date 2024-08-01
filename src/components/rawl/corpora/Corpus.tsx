@@ -217,7 +217,7 @@ const corpora = [
       "silver-swan-rag---scott-joplin---1914---transcribed-by-richard-zimmerman",
       "elite-syncopations---scott-joplin---1902",
       "weeping-willow---scott-joplin---1903",
-      "school-of-ragtime---scott-joplin---1908",
+
       "country_club_ragtime_two_step_scott_joplin_1909",
       "the_ragtime_dance_scott_joplin_1906_arrangement",
       "Pine_Apple_Rag_-_Scott_Joplin_-_1908.mscz",
@@ -257,6 +257,8 @@ const corpora = [
       "antoinette---scott-joplin---1906",
       "a-real-slow-drag---scott-joplin---1913",
       "march-majestic---scott-joplin---1902",
+
+      "school-of-ragtime---scott-joplin---1908",
     ],
   },
   {

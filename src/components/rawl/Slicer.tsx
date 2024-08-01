@@ -44,14 +44,200 @@ type SliceStack = {
 
 const SLICE_STACKS: SliceStack[] = [
   {
-    slug: "maple_like_periods",
+    slug: "maple_like_themes",
     slices: [
-      { slug: "Maple_Leaf_Rag_Scott_Joplin", sliceSpan: M(1, 17) },
-      { slug: "gladiolus-rag---scott-joplin---1907", sliceSpan: M(1, 17) },
-      { slug: "the-cascades---scott-joplin---1904", sliceSpan: S(1) },
-      { slug: "sugar-cane---scott-joplin---1908", sliceSpan: M(1, 17) },
-      { slug: "leola-two-step---scott-joplin---1905", sliceSpan: M(1, 17) },
-      { slug: "the-sycamore---scott-joplin---1904", sliceSpan: S(1) },
+      { slug: "Maple_Leaf_Rag_Scott_Joplin", sliceSpan: M(2, 18) },
+      { slug: "gladiolus-rag---scott-joplin---1907", sliceSpan: M(2, 18) },
+      { slug: "the-cascades---scott-joplin---1904", sliceSpan: S(2) },
+      { slug: "sugar-cane---scott-joplin---1908", sliceSpan: M(2, 18) },
+      { slug: "leola-two-step---scott-joplin---1905", sliceSpan: M(2, 18) },
+      { slug: "the-sycamore---scott-joplin---1904", sliceSpan: S(2) },
+    ],
+    corpus: "scott_joplin",
+  },
+  {
+    slug: "second_sections_in_minor",
+    slices: [
+      {
+        slug: "silver-swan-rag---scott-joplin---1914---transcribed-by-richard-zimmerman",
+        sliceSpan: S(4),
+      },
+      { slug: "reflection-rag---scott-joplin---1917", sliceSpan: S(4) },
+      // in 4/4, doesn't allow to slice correctly
+      //   { slug: "magnetic-rag---scott-joplin---1914", sliceSpan: S(4) },
+      {
+        slug: "scott-joplin-s-new-rag---original-edition---1912",
+        sliceSpan: S(4),
+      },
+    ],
+    corpus: "scott_joplin",
+  },
+  {
+    slug: "first_sections_as_periods_starting_on_I",
+    slices: [
+      {
+        slug: "silver-swan-rag---scott-joplin---1914---transcribed-by-richard-zimmerman",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "elite-syncopations---scott-joplin---1902",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "weeping-willow---scott-joplin---1903",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "country_club_ragtime_two_step_scott_joplin_1909",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "the_ragtime_dance_scott_joplin_1906_arrangement",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "Pine_Apple_Rag_-_Scott_Joplin_-_1908.mscz",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "the_entertainer_scott_joplin",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "sunflower-slow-drag---joplin-and-hayden---1901",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "reflection-rag---scott-joplin---1917",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "rose-leaf-rag---scott-joplin---1907",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "search-light-rag---scott-joplin---c1907",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "the-strenuous-life---scott-joplin---1902",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "wall-street-rag---scott-joplin---1909",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "peacherine-rag---scott-joplin---1901",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "fig-leaf-rag---scott-joplin---1908",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "original-rags---scott-joplin---1899",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "paragon-rag---scott-joplin---1909",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "euphonic-sounds---scott-joplin---1909",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "scott-joplin-s-new-rag---original-edition---1912",
+        sliceSpan: S(2),
+      },
+      {
+        slug: "kismet-rag---joplin-and-hayden---1913",
+        sliceSpan: S(2),
+      },
+      // incomplete
+    ],
+    corpus: "scott_joplin",
+  },
+  {
+    slug: "cadences_in_first_periods_starting_on_I",
+    slices: [
+      {
+        slug: "silver-swan-rag---scott-joplin---1914---transcribed-by-richard-zimmerman",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "elite-syncopations---scott-joplin---1902",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "weeping-willow---scott-joplin---1903",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "country_club_ragtime_two_step_scott_joplin_1909",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "the_ragtime_dance_scott_joplin_1906_arrangement",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "Pine_Apple_Rag_-_Scott_Joplin_-_1908.mscz",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "the_entertainer_scott_joplin",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "sunflower-slow-drag---joplin-and-hayden---1901",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "reflection-rag---scott-joplin---1917",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "rose-leaf-rag---scott-joplin---1907",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "search-light-rag---scott-joplin---c1907",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "the-strenuous-life---scott-joplin---1902",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "wall-street-rag---scott-joplin---1909",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "peacherine-rag---scott-joplin---1901",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "fig-leaf-rag---scott-joplin---1908",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "original-rags---scott-joplin---1899",
+        sliceSpan: M(21, 25),
+      },
+      {
+        slug: "paragon-rag---scott-joplin---1909",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "euphonic-sounds---scott-joplin---1909",
+        sliceSpan: M(17, 21),
+      },
+      {
+        slug: "scott-joplin-s-new-rag---original-edition---1912",
+        sliceSpan: M(18, 22),
+      },
     ],
     corpus: "scott_joplin",
   },
@@ -171,8 +357,8 @@ async function extractSlice(
   );
   const measureSpan =
     sliceSpan.type === "singleSection"
-      ? [sections[sliceSpan.section][0], sections[sliceSpan.section][1]]
-      : sliceSpan.measureSpan;
+      ? [sections[sliceSpan.section - 1][0], sections[sliceSpan.section - 1][1]]
+      : [sliceSpan.measureSpan[0] - 1, sliceSpan.measureSpan[1] - 1];
 
   // TODO: extract sections , build phrases via getPhraseStarts, review Rawl
 
@@ -273,7 +459,9 @@ const SliceStackView: React.FC<{
   useEffect(() => {
     const asyncFunc = async () => {
       const midiFileArray: MidiData[] = await Promise.all(
-        SLICE_STACKS[0].slices.map(({ slug, sliceSpan }) =>
+        SLICE_STACKS.filter(
+          ({ slug: slug_ }) => slug_ === slug,
+        )?.[0].slices.map(({ slug, sliceSpan }) =>
           extractSlice(slug, sliceSpan, analyses),
         ),
       );

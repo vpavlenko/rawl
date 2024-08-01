@@ -35,6 +35,7 @@ export type MidiSource = {
   activeChannels: any;
   timebase: any;
   timeEvents: any;
+  ticksPerBeat: number;
 };
 
 export type ParsingResult = {
@@ -121,23 +122,30 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
 // Except that in practice these events are always key=0 scale=0 (no one is setting them)
 // Although classical music MIDI might have it.
 
-function calculateMeasureAndBeats(timeEvents) {
+function calculateMeasureAndBeats(timeEvents, timebase) {
   const measures = [0];
   const beats = [];
+  const measuresInTicks = [0];
   let secondsPerQuarterNote = 0.5;
   let numerator = 4;
   let denominator = 4;
   let lastBeatFractionGone = 0;
   let constructedBeatsInLastMeasure = 0;
   let lastBeatTime = 0; // either measures[-1] or beats[-1]
+  let lastTick = 0; // Track the last tick time
 
-  const createNewBeat = (timeUntil) => {
+  const createNewBeat = (timeUntil, tick) => {
     const newBeatEndTime =
       lastBeatTime +
       (1 - lastBeatFractionGone) * ((secondsPerQuarterNote / denominator) * 4);
+
+    const newBeatEndTick =
+      lastTick + (1 - lastBeatFractionGone) * ((timebase / denominator) * 4);
+
     if (newBeatEndTime - 0.005 <= timeUntil) {
       if (constructedBeatsInLastMeasure + 1 >= numerator) {
         measures.push(newBeatEndTime);
+        measuresInTicks.push(Math.round(newBeatEndTick)); // Push measure in ticks
         constructedBeatsInLastMeasure = 0;
       } else {
         beats.push(newBeatEndTime);
@@ -145,19 +153,22 @@ function calculateMeasureAndBeats(timeEvents) {
       }
       lastBeatFractionGone = 0;
       lastBeatTime = newBeatEndTime;
+      lastTick = newBeatEndTick;
       return true;
     } else {
       lastBeatFractionGone +=
         (timeUntil - lastBeatTime) /
         ((secondsPerQuarterNote / denominator) * 4);
       lastBeatTime = timeUntil;
+      lastTick = tick; // Update the last tick position
       return false;
     }
   };
 
   timeEvents.forEach((event) => {
-    const { bpm, playTime } = event;
-    while (createNewBeat(playTime / 1000));
+    const { bpm, playTime, tick } = event;
+
+    while (createNewBeat(playTime / 1000, tick));
 
     if (event.type === "timeSignature") {
       numerator = event.numerator;
@@ -167,18 +178,21 @@ function calculateMeasureAndBeats(timeEvents) {
     }
   });
 
-  if (measures.length >= 2)
+  if (measures.length >= 2) {
     measures.push(2 * measures.at(-1) - measures.at(-2));
+    measuresInTicks.push(2 * measuresInTicks.at(-1) - measuresInTicks.at(-2));
+  }
 
-  return { measures, beats };
+  return { measures, beats, ticks: { measures: measuresInTicks } };
 }
 
 export const parseNotes = ({
   events,
   activeChannels,
   timeEvents,
+  timebase,
 }: MidiSource): ParsingResult => {
-  const measuresAndBeats = calculateMeasureAndBeats(timeEvents);
+  const measuresAndBeats = calculateMeasureAndBeats(timeEvents, timebase);
   events.forEach((event) => {
     if (event.subtype === MIDIEvents.EVENT_META_KEY_SIGNATURE) {
       console.log("KEY SIGNATURE" + JSON.stringify(event));

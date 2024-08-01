@@ -7,8 +7,10 @@ import {
   parseMidi,
   writeMidi,
 } from "midi-file";
+import MIDIFile from "midifile";
 import * as React from "react";
 import { useEffect } from "react";
+import MIDIPlayer from "../../players/MIDIFilePlayer";
 import { loadMidiFromSlug } from "./slicerFiles";
 import transformMidi from "./transformMidi";
 
@@ -93,13 +95,24 @@ function mergeMidiFiles(midiDatas: MidiData[]): Uint8Array {
   return new Uint8Array(writeMidi(mergedMidiData));
 }
 
+const getMeasuresAsTicks = (binaryMidi): number[] => {
+  const midiFile = new MIDIFile(binaryMidi);
+  const midiPlayer = new MIDIPlayer();
+  const result = midiPlayer.load(midiFile);
+  return result.measuresAndBeats.ticks.measures;
+};
+
 async function extractSlice(
   slug: string,
   startMeasure: number,
   endMeasure: number,
 ): Promise<MidiData> {
-  const startTick = startMeasure * 480 * 2;
-  const endTick = endMeasure * 480 * 2;
+  const binaryMidi = await loadMidiFromSlug(slug);
+  const ticksMeasures = getMeasuresAsTicks(binaryMidi);
+
+  const startTick = ticksMeasures[startMeasure];
+  const endTick = ticksMeasures[endMeasure];
+
   const midiData = parseMidi(await loadMidiFromSlug(slug));
   midiData.tracks = midiData.tracks.map((track) => {
     let slicedTrack: MidiEvent[] = [];
@@ -193,11 +206,11 @@ const Slicer: React.FC<{
   useEffect(() => {
     const asyncFunc = async () => {
       const midiFileArray: MidiData[] = [
-        await extractSlice("Maple_Leaf_Rag_Scott_Joplin", 0.25, 16.25),
-        await extractSlice("gladiolus-rag---scott-joplin---1907", 0.25, 16.25),
+        await extractSlice("Maple_Leaf_Rag_Scott_Joplin", 1, 17),
+        await extractSlice("gladiolus-rag---scott-joplin---1907", 1, 17),
         await extractSlice("the-cascades---scott-joplin---1904", 4, 20),
-        await extractSlice("sugar-cane---scott-joplin---1908", 0.25, 16.25),
-        await extractSlice("leola-two-step---scott-joplin---1905", 0.25, 16.25),
+        await extractSlice("sugar-cane---scott-joplin---1908", 1, 17),
+        await extractSlice("leola-two-step---scott-joplin---1905", 1, 17),
         await extractSlice("the-sycamore---scott-joplin---1904", 4, 20),
       ];
 

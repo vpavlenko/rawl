@@ -194,6 +194,7 @@ MIDIFile.prototype.getTimeEvents = function (tracks) {
   const subtype = null;
   const timeEvents = [];
   let maxPlayTime = 0;
+  let tick = 0;
 
   // Reading events
   // if the read is sequential
@@ -206,11 +207,17 @@ MIDIFile.prototype.getTimeEvents = function (tracks) {
       // loooping through events
       event = eventIterator.next();
       while (event) {
+        tick += event.delta ?? 0;
         playTime += event.delta ? (event.delta * tickResolution) / 1000 : 0;
         if (event.type === MIDIEvents.EVENT_META) {
           // tempo change events
           if (event.subtype === MIDIEvents.EVENT_META_SET_TEMPO) {
-            timeEvents.push({ type: "bpm", bpm: event.tempoBPM, playTime });
+            timeEvents.push({
+              type: "bpm",
+              bpm: event.tempoBPM,
+              playTime,
+              tick,
+            });
             tickResolution = this.header.getTickResolution(event.tempo);
           }
           if (event.subtype === MIDIEvents.EVENT_META_TIME_SIGNATURE) {
@@ -219,6 +226,7 @@ MIDIFile.prototype.getTimeEvents = function (tracks) {
               numerator: event.param1,
               denominatorPower: event.param2,
               playTime,
+              tick,
             });
           }
         }
@@ -228,6 +236,7 @@ MIDIFile.prototype.getTimeEvents = function (tracks) {
           (!subtype || (event.subtype && event.subtype === subtype))
         ) {
           event.playTime = playTime;
+          event.tick = tick;
           combinedEvents.push(event);
         }
         event = eventIterator.next();
@@ -278,11 +287,17 @@ MIDIFile.prototype.getTimeEvents = function (tracks) {
         }
         // filling values
         event = trackIterators[smallestDelta].curEvent;
+        tick += event.delta;
         playTime += event.delta ? (event.delta * tickResolution) / 1000 : 0;
         if (event.type === MIDIEvents.EVENT_META) {
           // tempo change events
           if (event.subtype === MIDIEvents.EVENT_META_SET_TEMPO) {
-            timeEvents.push({ type: "bpm", bpm: event.tempoBPM, playTime });
+            timeEvents.push({
+              type: "bpm",
+              bpm: event.tempoBPM,
+              playTime,
+              tick,
+            });
             tickResolution = this.header.getTickResolution(event.tempo);
           }
           if (event.subtype === MIDIEvents.EVENT_META_TIME_SIGNATURE) {
@@ -291,6 +306,7 @@ MIDIFile.prototype.getTimeEvents = function (tracks) {
               numerator: event.param1,
               denominatorPower: event.param2,
               playTime,
+              tick,
             });
           }
         }
@@ -300,6 +316,7 @@ MIDIFile.prototype.getTimeEvents = function (tracks) {
           (!subtype || (event.subtype && event.subtype === subtype))
         ) {
           event.playTime = playTime;
+          event.tick = tick;
           event.track = smallestDelta;
           combinedEvents.push(event);
         }
@@ -325,7 +342,12 @@ MIDIFile.prototype.getTimeEvents = function (tracks) {
   combinedEvents.forEach(({ playTime }) => {
     if (playTime) maxPlayTime = Math.max(playTime, maxPlayTime);
   });
-  timeEvents.push({ type: "bpm", bpm: 120, playTime: maxPlayTime });
+  timeEvents.push({
+    type: "bpm",
+    bpm: 120,
+    playTime: maxPlayTime,
+    tick: Math.max(...combinedEvents.map(({ tick }) => tick ?? 0)),
+  });
   return timeEvents.sort((a, b) => a.playTime - b.playTime);
 };
 

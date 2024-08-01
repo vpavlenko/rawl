@@ -838,7 +838,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     );
     const rawlRoute = (
       <Route
-        path={["/f/:slug*", "/c/:chiptuneUrl*", "/drop", "/slicer"]}
+        path={["/f/:slug*", "/c/:chiptuneUrl*", "/drop", "/slicer/:slug*"]}
         render={({ match }) => {
           const { slug, chiptuneUrl } = match.params as {
             slug?: string;
@@ -864,10 +864,11 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   {match.path === "/drop" && <DropSaveForm midi={this.midi} />}
                 </>
               )}
-              {match.path === "/slicer" && (
+              {match.path.startsWith("/slicer") && (
                 <Slicer
                   playSongBuffer={this.playSongBuffer}
                   analyses={this.state.analyses}
+                  slug={slug}
                 />
               )}
             </>

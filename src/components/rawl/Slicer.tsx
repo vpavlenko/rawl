@@ -10,13 +10,54 @@ import {
 import MIDIFile from "midifile";
 import * as React from "react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import MIDIPlayer from "../../players/MIDIFilePlayer";
 import { MeasuresAndBeats, getPhraseStarts } from "./SystemLayout";
 import { Analyses } from "./analysis";
 import { loadMidiFromSlug } from "./slicerFiles";
 import transformMidi from "./transformMidi";
 
-const UNIFIED_BPM = 60;
+type SliceMeasureSpan = { type: "measureSpan"; measureSpan: [number, number] };
+type SliceSingleSection = { type: "singleSection"; section: number };
+type SliceSpan = SliceMeasureSpan | SliceSingleSection;
+
+const M = (start: number, end: number): SliceMeasureSpan => ({
+  type: "measureSpan",
+  measureSpan: [start, end],
+});
+
+const S = (section: number): SliceSingleSection => ({
+  type: "singleSection",
+  section,
+});
+
+type Slice = {
+  slug: string;
+  sliceSpan: SliceSpan;
+};
+
+type SliceStack = {
+  slug: string;
+  slices: Slice[];
+  corpus: string;
+};
+
+const SLICE_STACKS: SliceStack[] = [
+  {
+    slug: "maple_like_periods",
+    slices: [
+      { slug: "Maple_Leaf_Rag_Scott_Joplin", sliceSpan: M(1, 17) },
+      { slug: "gladiolus-rag---scott-joplin---1907", sliceSpan: M(1, 17) },
+      { slug: "the-cascades---scott-joplin---1904", sliceSpan: S(1) },
+      { slug: "sugar-cane---scott-joplin---1908", sliceSpan: M(1, 17) },
+      { slug: "leola-two-step---scott-joplin---1905", sliceSpan: M(1, 17) },
+      { slug: "the-sycamore---scott-joplin---1904", sliceSpan: S(1) },
+    ],
+    corpus: "scott_joplin",
+  },
+];
+
+const UNIFIED_BPM = 70;
 
 function adjustDeltaTimes(track: MidiEvent[], offset: number): MidiEvent[] {
   return track.map((event, index) => {
@@ -103,20 +144,6 @@ const getMeasuresAndBeats = (binaryMidi: Uint8Array): MeasuresAndBeats => {
   const result = midiPlayer.load(midiFile);
   return result.measuresAndBeats;
 };
-
-type SliceMeasureSpan = { type: "measureSpan"; measureSpan: [number, number] };
-type SliceSingleSection = { type: "singleSection"; section: number };
-type SliceSpan = SliceMeasureSpan | SliceSingleSection;
-
-const M = (start: number, end: number): SliceMeasureSpan => ({
-  type: "measureSpan",
-  measureSpan: [start, end],
-});
-
-const S = (section: number): SliceSingleSection => ({
-  type: "singleSection",
-  section,
-});
 
 async function extractSlice(
   slug: string,
@@ -238,40 +265,18 @@ async function extractSlice(
 
 console.log("MIDI file truncated successfully.");
 
-const Slicer: React.FC<{
+const SliceStackView: React.FC<{
   playSongBuffer: (filepath: string, buffer: ArrayBuffer | Uint8Array) => void;
   analyses: Analyses;
-}> = ({ playSongBuffer, analyses }) => {
+  slug: string;
+}> = ({ playSongBuffer, analyses, slug }) => {
   useEffect(() => {
     const asyncFunc = async () => {
-      const midiFileArray: MidiData[] = [
-        await extractSlice("Maple_Leaf_Rag_Scott_Joplin", M(1, 17), analyses),
-        await extractSlice(
-          "gladiolus-rag---scott-joplin---1907",
-          M(1, 17),
-          analyses,
+      const midiFileArray: MidiData[] = await Promise.all(
+        SLICE_STACKS[0].slices.map(({ slug, sliceSpan }) =>
+          extractSlice(slug, sliceSpan, analyses),
         ),
-        await extractSlice(
-          "the-cascades---scott-joplin---1904",
-          S(1),
-          analyses,
-        ),
-        await extractSlice(
-          "sugar-cane---scott-joplin---1908",
-          M(1, 17),
-          analyses,
-        ),
-        await extractSlice(
-          "leola-two-step---scott-joplin---1905",
-          M(1, 17),
-          analyses,
-        ),
-        await extractSlice(
-          "the-sycamore---scott-joplin---1904",
-          S(1),
-          analyses,
-        ),
-      ];
+      );
 
       const outputMidi = mergeMidiFiles(midiFileArray);
 
@@ -279,8 +284,37 @@ const Slicer: React.FC<{
     };
     asyncFunc();
   }, []);
+  return <div>SliceStack: {slug}. Save?</div>;
+};
 
-  return <div>Slicer</div>;
+const SlicerLanding: React.FC<{}> = () => {
+  return (
+    <div>
+      {SLICE_STACKS.map(({ slug, slices, corpus }) => (
+        <div>
+          <Link to={`/slicer/${slug}`}>
+            {slug}, {slices.length}, for {corpus}
+          </Link>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const Slicer: React.FC<{
+  playSongBuffer: (filepath: string, buffer: ArrayBuffer | Uint8Array) => void;
+  analyses: Analyses;
+  slug: string;
+}> = ({ playSongBuffer, analyses, slug }) => {
+  return slug ? (
+    <SliceStackView
+      playSongBuffer={playSongBuffer}
+      analyses={analyses}
+      slug={slug}
+    />
+  ) : (
+    <SlicerLanding />
+  );
 };
 
 export default Slicer;

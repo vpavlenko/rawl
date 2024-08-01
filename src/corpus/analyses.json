@@ -33762,6 +33762,18 @@
       {
         "measure": 86,
         "diff": -3
+      },
+      {
+        "measure": 83,
+        "diff": -1
+      },
+      {
+        "measure": 82,
+        "diff": 1
+      },
+      {
+        "measure": 83,
+        "diff": 0
       }
     ],
     "comment": "",
@@ -37620,6 +37632,114 @@
     "modulations": {
       "0": 0,
       "27": 5
+    }
+  },
+  "slicer/maple_like_periods": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -1
+      },
+      {
+        "measure": 10,
+        "diff": -1
+      },
+      {
+        "measure": 21,
+        "diff": -3
+      },
+      {
+        "measure": 38,
+        "diff": -3
+      },
+      {
+        "measure": 55,
+        "diff": -3
+      },
+      {
+        "measure": 72,
+        "diff": -3
+      },
+      {
+        "measure": 89,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      10,
+      15,
+      20,
+      25
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 8,
+      "35": 0,
+      "52": 10,
+      "69": 8,
+      "86": 7
+    }
+  },
+  "f/maple_starts": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": -3
+      },
+      {
+        "measure": 38,
+        "diff": -3
+      },
+      {
+        "measure": 55,
+        "diff": -3
+      },
+      {
+        "measure": 72,
+        "diff": -3
+      },
+      {
+        "measure": 89,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      10,
+      15,
+      20,
+      25
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 8,
+      "35": 0,
+      "52": 10,
+      "69": 8,
+      "86": 7
     }
   }
 }

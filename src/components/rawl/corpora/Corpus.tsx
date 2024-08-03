@@ -397,6 +397,188 @@ const corpora = [
       "tale-as-old-as-time---beauty-and-the-beast---alan-menken---piano-solo",
     ],
   },
+  {
+    slug: "tokyo_ghoul",
+    midis: [
+      "unravel-acoustic-ver-tokyo-ghoul-theishter-sheet-music-full-sheets",
+      "tokyo-ghoul---glassy-sky-theishter-edit",
+      "tokyo-ghoul-a-kisetsu-wa-tsugitsugi-shindeiku",
+      "tokyo-ghoul---licht-und-schatten-akmigone-transcription",
+      "tokyo-ghoul-a-ost---wanderers",
+      "schmetterling---tokyo-ghoul-re-ep-7-bgm",
+      "tokyo-ghoul-re-op--katharsis",
+    ],
+  },
+  {
+    slug: "alan_silvestri",
+    midis: [
+      "the-avengers-theme---piano",
+      "forest-gump---main-title-feather-theme",
+      "back-to-the-future-theme-song",
+    ],
+  },
+  {
+    slug: "deltarune",
+    midis: [
+      "deltarune-chapter-2-ost-toby-fox---my-castle-town-piano-solo",
+      "attack-of-the-killer-queen---deltarune-chapter-2",
+    ],
+  },
+  {
+    slug: "bill_evans",
+    midis: ["bill-evans-on-autunm-leaves-from-the-album-portrait-in-jazz"],
+  },
+  {
+    slug: "debussy",
+    midis: [
+      "arabesque-l.-66-no.-1-in-e-major",
+      "estampes-i-pagodes----debussy",
+      "valse-romantique-claude-debussy",
+      "petite-suite-for-piano-four-hands---claude-debussy",
+      "debussy-claude---la-plus-que-lente",
+      "the-little-nigar-le-petit-negre---debussy",
+      "la-cathedrale-engloutie---debussy",
+      "debussy---suite-bergamasque-4-passepied",
+      "debussy---images-reflets-dans-leau",
+      "claude-debussy---la-fille-aux-cheveux-de-lin",
+    ],
+  },
+  {
+    slug: "autumn_leaves",
+    midis: [
+      "autumn-leaves",
+      "autumn-leaves-les-feuilles-mortes",
+      "autumn-leaves---jazz-piano-solo-tutorial", // need more remeasuring
+      "bill-evans-on-autunm-leaves-from-the-album-portrait-in-jazz",
+    ],
+  },
+  {
+    slug: "jazz_standards",
+    midis: ["recorda-me-no-me-esqueca"],
+  },
+  {
+    // https://musescore.com/user/24069/sets/4869434
+    slug: "rachmaninoff",
+    midis: ["rachmaninoff-piano-concerto-no.-2-1st-mvmt.-arr.-for-2-pianos"],
+  },
+  {
+    slug: "rhythm_changes",
+    midis: [
+      "oleo---sonny-rollins",
+      "cottontail_sax_soli",
+      "cotton-tail---duke-ellington",
+      "cotton-tail---duke-ellington-musescore3",
+      "cotton-tail",
+      "dexterity",
+      "dexterity---charlie-parker",
+      "fungii-mama---richard-blue-mitchell",
+    ],
+  },
+  {
+    slug: "i_play",
+    midis: [
+      "overcooked---menu-theme",
+      "overcooked-2-medley",
+      "overcooked-medley",
+    ],
+  },
+  {
+    // https://musescore.com/user/24069/sets/4868382
+    slug: "tchaikovsky",
+    midis: [
+      "trepak-russian-dance---tchaikovsky---piano-transcription",
+      "dance-of-the-reed-flutes-the-nutcracker-suite---tchaikovsky",
+      "chinese-dance---the-nutcracker-suite---peter-tchaikovsky",
+      "tchaikovsky-waltz-of-the-flowers-from-the-nutcracker-piano-4-hands",
+    ],
+  },
+  {
+    // https://musescore.com/user/24069/sets/4868456
+    slug: "wagner",
+    midis: [
+      "wagner-siegfried-s-funeral-march-from-gotterdammerung-piano-solo",
+      "wagner-elsa-s-procession-to-the-cathedral-from-the-opera-lohengrin-piano-solo",
+    ],
+  },
+  {
+    slug: "chopin_24_preludes",
+    midis: [
+      "prelude-opus-28-no.-1-in-c-major",
+      "prelude-opus-28-no.-2-in-a-minor",
+    ],
+  },
+  {
+    slug: "grieg_lyric_pieces",
+    midis: ["grieg_arietta_yaskawa", "grieg_lyric_2_waltz_yaskawa"],
+  },
+  {
+    // https://musescore.com/user/19710/sets/3559241
+    slug: "pictures_at_the_exhibition",
+    midis: [
+      "promenade-i",
+      "gnomus",
+      "promenade-ii",
+      "il-vecchio-castello",
+      "promenade-iii",
+      "tuileries-dispute-d-enfants-apres-jeux",
+      "bydlo",
+    ],
+  },
+  {
+    // https://www.discogs.com/release/17759461-Various-%D0%A8%D0%B5%D0%B4%D0%B5%D0%B2%D1%80%D1%8B-%D0%9A%D0%BB%D0%B0%D1%81%D1%81%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B9-%D0%9C%D1%83%D0%B7%D1%8B%D0%BA%D0%B8-%D0%9A%D0%BE%D0%BB%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D1%8F-2-%D0%92%D1%8B%D0%BF%D1%83%D1%81%D0%BA-5
+    slug: "popular_classics",
+    midis: [
+      "valse---coppelia---piano-solo---arr.-leo-delibes",
+      "le-carnaval-des-animaux---aquarium",
+      "hungarian-march---hector-berlioz",
+      "hungarian-dance-no-5-in-g-minor",
+      "waltz-no.-11-in-g-flat-major-op.70-no.1---frederic-chopin",
+      "swan-lake-op.-20-act-iii-no.-20-danse-hongroise-hungarian-dance-czardas",
+      "funiculi-funicula",
+      "chopin---waltz-no.-1-in-d-flat-major-op.-64", // harmonic prototype for Scott Joplin
+      "grand-march-from-the-opera-aida-by-giuseppe-verdi",
+      "danse-macabre-opus-40-s.-555",
+      "minuet-from-music-for-the-royal-fireworks---georg-friedrich-handel",
+      "glinka---the-lark-from-a-farewell-to-saint-petersburg-no.-10",
+      "lyapunov-reverie-du-soir-op.3",
+      "thema-aus-die-moldau---b-smetana-s-sitnikava",
+    ],
+  },
+  {
+    slug: "bo_burnham",
+    midis: ["welcome-to-the-internet---bo-burnham-s-inside"],
+  },
+  {
+    slug: "three_part_harmony",
+    midis: ["yksin-op.29b-no.4---toivo-kuula", "ekialde-dantza"],
+  },
+  {
+    slug: "poulenc",
+    midis: ["poulenc-melancolie-piano-solo"],
+  },
+  {
+    slug: "chinese",
+    midis: ["han-gong-chun-li-chun-ri---song-yu-ning"],
+  },
+  {
+    slug: "brad_mehldau",
+    midis: ["anthropology---brad-mehldau"],
+  },
+  {
+    // https://musescore.com/user/24069/sets/5098783
+    slug: "dvorak",
+    midis: [
+      "Symphony_No9_From_The_New_World_1st_movement_for_piano_solo_",
+      "Symphony_No9__From_The_New_World__2nd_movement",
+      "Symphony_No.9_From_The_New_World_3rd_movement_Scherzo",
+      "Symphony_No9_From_The_New_World_4th_movement__Z_Novho_Svta",
+    ],
+  },
+  {
+    // https://musescore.com/user/19710/sets
+    slug: "beethoven_sonatas",
+    midis: ["beethoven---sonata-in-f-minor-op.2-no.1-movement-i"],
+  },
 ];
 
 const Corpus: React.FC<{ slug: string }> = ({ slug }) => {

@@ -25,7 +25,7 @@ import {
 export type MeasuresAndBeats = {
   measures: number[];
   beats: number[];
-  ticks: { measures: number[] };
+  ticks?: { measures: number[] };
 };
 
 export const getPhraseStarts = (

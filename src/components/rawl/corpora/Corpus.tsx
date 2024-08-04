@@ -502,7 +502,10 @@ const corpora = [
   },
   {
     slug: "john_philip_sousa",
-    midis: ["the-liberty-bell-march---john-philip-sousa---1893", ""],
+    midis: [
+      "the-liberty-bell-march---john-philip-sousa---1893",
+      "semper-fidelis-piano-john-philip-sousa",
+    ],
   },
   {
     slug: "white_star_line_1912",

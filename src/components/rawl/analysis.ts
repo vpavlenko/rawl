@@ -20,7 +20,6 @@ export type ManualMeasures = {
   beatsPerMeasure: { [oneIndexedMeasureStart: number]: number };
 };
 
-// TODO: refactor to move tonic into modulations[0]
 export type Analysis = {
   modulations: Modulations;
   comment: string;
@@ -37,7 +36,7 @@ export type Analyses = {
 };
 
 export const ANALYSIS_STUB: Analysis = {
-  modulations: { 0: null },
+  modulations: { 1: null },
   comment: "",
   tags: [],
   form: [],
@@ -51,7 +50,7 @@ const removeIdleModulations = (modulations: Modulations): Modulations => {
     .sort((a, b) => a - b);
 
   let lastValue = modulations[sortedMeasures[0]];
-  const result: Modulations = { 0: lastValue };
+  const result: Modulations = { 1: lastValue };
 
   for (const measure of sortedMeasures.slice(1)) {
     const currentValue = modulations[measure];

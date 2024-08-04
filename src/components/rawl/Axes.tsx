@@ -122,7 +122,7 @@ const Axis: React.FC<React.PropsWithChildren<{ title: string }>> = ({
 
 const VOICE_PARAMS = {
   analysis: {
-    modulations: { 0: 0 as PitchClass },
+    modulations: { 1: 0 as PitchClass },
     comment: "",
     tags: [],
     form: [],

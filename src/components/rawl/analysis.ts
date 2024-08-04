@@ -82,9 +82,16 @@ export const getNewAnalysis = (
         update.measures.measureStarts[selectedMeasure] = note.span[0];
       }
     } else {
+      // TODO: if !selectedMeasure, then only apply modulation if we're inside
+      // the very first modulatory region (if there's already two)
+      // This probably has a circular dependency since we probably need to
+      // build measures to know where exactly our note falls.
+      if (!selectedMeasure) {
+        return analysis;
+      }
       let newModulations = {
         ...(analysis.modulations || []),
-        [selectedMeasure ?? 0]: (note.note.midiNumber % 12) as PitchClass,
+        [selectedMeasure]: (note.note.midiNumber % 12) as PitchClass,
       };
       update.modulations = removeIdleModulations(newModulations);
     }

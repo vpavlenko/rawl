@@ -453,8 +453,26 @@ const corpora = [
     ],
   },
   {
+    // https://musescore.com/user/68853055
+    slug: "greek_music",
+    midis: [
+      "m.-theodorakis---ena-to-helidoni---greek-music-001",
+      "g.-katsaros---kathe-limani-kai-kaimos---greek-music-002",
+      "m.-loizos---o-dromos---greek-music-003",
+    ],
+  },
+  {
     slug: "jazz_standards",
-    midis: ["recorda-me-no-me-esqueca"],
+    midis: [
+      "recorda-me-no-me-esqueca",
+      "all-the-things-you-are",
+      "all-the-things-you-are-2",
+      "all-the-things-you-are-lead-sheet---jerome-kern-oscar-hammerstein-ii",
+      "all-the-things-you-are---reharmonized---jerome-kern",
+      "solo-transcription-all-the-things-you-are---paul-desmond",
+      "all-the-things-you-are-guitar-chord-melody",
+      "my-funny-valentine-lead-sheet-with-lyrics",
+    ],
   },
   {
     // https://musescore.com/user/24069/sets/4869434
@@ -480,6 +498,17 @@ const corpora = [
       "overcooked---menu-theme",
       "overcooked-2-medley",
       "overcooked-medley",
+    ],
+  },
+  {
+    slug: "john_philip_sousa",
+    midis: ["the-liberty-bell-march---john-philip-sousa---1893", ""],
+  },
+  {
+    slug: "white_star_line_1912",
+    // https://musescore.com/user/64608175/sets/7661602
+    midis: [
+      "the-quaker-girl-valse---lionel-monckton-carl-kiefert-1910", // iiø-V->V7/V
     ],
   },
   {
@@ -542,6 +571,7 @@ const corpora = [
       "glinka---the-lark-from-a-farewell-to-saint-petersburg-no.-10",
       "lyapunov-reverie-du-soir-op.3",
       "thema-aus-die-moldau---b-smetana-s-sitnikava",
+      "fantasia-on-greensleeves---ralph-vaughan-williams",
     ],
   },
   {
@@ -558,7 +588,7 @@ const corpora = [
   },
   {
     slug: "chinese",
-    midis: ["han-gong-chun-li-chun-ri---song-yu-ning"],
+    midis: ["han-gong-chun-li-chun-ri---song-yu-ning", "shan-zhi-gao---song"],
   },
   {
     slug: "brad_mehldau",
@@ -577,7 +607,12 @@ const corpora = [
   {
     // https://musescore.com/user/19710/sets
     slug: "beethoven_sonatas",
-    midis: ["beethoven---sonata-in-f-minor-op.2-no.1-movement-i"],
+    midis: [
+      "beethoven---sonata-in-f-minor-op.2-no.1-movement-i",
+      "Sonate_No._14_Moonlight_1st_Movement",
+      "moonlight_sonata_ludwig_van_beethoven_piano_solo",
+      "Sonate_No._14_Moonlight_3rd_Movement",
+    ],
   },
 ];
 

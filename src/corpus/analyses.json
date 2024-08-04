@@ -41273,5 +41273,488 @@
     "modulations": {
       "0": 10
     }
+  },
+  "f/solo-transcription-all-the-things-you-are---paul-desmond": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 8,
+      "7": 0
+    }
+  },
+  "f/my-funny-valentine-lead-sheet-with-lyrics": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "15": 3,
+      "22": 8,
+      "24": 0,
+      "32": 8,
+      "34": 3,
+      "36": 0
+    }
+  },
+  "f/all-the-things-you-are-lead-sheet---jerome-kern-oscar-hammerstein-ii": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 8,
+      "6": 0,
+      "9": 3,
+      "14": 7,
+      "21": 4,
+      "24": 8
+    }
+  },
+  "f/m.-theodorakis---ena-to-helidoni---greek-music-001": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 31,
+        "diff": 1
+      },
+      {
+        "measure": 36,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 4
+    }
+  },
+  "f/all-the-things-you-are": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      9,
+      11,
+      13,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 0,
+      "1": 8,
+      "5": 0,
+      "9": 3,
+      "13": 7,
+      "21": 4,
+      "25": 8
+    }
+  },
+  "f/g.-katsaros---kathe-limani-kai-kaimos---greek-music-002": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      7,
+      12,
+      14,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2,
+      "26": 5,
+      "33": 2
+    }
+  },
+  "f/all-the-things-you-are-2": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 1,
+      "4": 0,
+      "6": 1,
+      "8": 0,
+      "10": 5,
+      "18": 0,
+      "25": 7,
+      "30": 4,
+      "33": 5,
+      "42": 8
+    }
+  },
+  "f/all-the-things-you-are---reharmonized---jerome-kern": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 8,
+      "5": 0,
+      "9": 3,
+      "13": 7,
+      "21": 4,
+      "24": 8
+    }
+  },
+  "f/the-quaker-girl-valse---lionel-monckton-carl-kiefert-1910": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      10,
+      18,
+      27,
+      35,
+      43,
+      51,
+      60,
+      68,
+      76,
+      84,
+      92,
+      101
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 3,
+      "31": 5,
+      "35": 3,
+      "73": 10,
+      "82": 5,
+      "89": 10,
+      "105": 3,
+      "141": 0,
+      "185": 4,
+      "188": 0,
+      "237": 8,
+      "253": 0,
+      "257": 8,
+      "273": 3,
+      "305": 8,
+      "337": 3,
+      "369": 10,
+      "401": 3
+    }
+  },
+  "f/the-liberty-bell-march---john-philip-sousa---1893": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 69,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "31": 0,
+      "37": 5,
+      "61": 2,
+      "65": 5
+    }
+  },
+  "f/all-the-things-you-are-guitar-chord-melody": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      9,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "2": 1,
+      "10": 8,
+      "14": 0,
+      "18": 3,
+      "22": 7,
+      "30": 4,
+      "34": 8,
+      "40": 10,
+      "42": 8
+    }
+  },
+  "f/m.-loizos---o-dromos---greek-music-003": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 22,
+        "diff": 1
+      },
+      {
+        "measure": 27,
+        "diff": 1
+      },
+      {
+        "measure": 32,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      },
+      {
+        "measure": 58,
+        "diff": 1
+      },
+      {
+        "measure": 63,
+        "diff": 1
+      },
+      {
+        "measure": 68,
+        "diff": 1
+      },
+      {
+        "measure": 73,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 2
+    }
+  },
+  "f/shan-zhi-gao---song": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 26,
+        "diff": -2
+      },
+      {
+        "measure": 48,
+        "diff": -2
+      },
+      {
+        "measure": 98,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      7,
+      12,
+      16,
+      20,
+      25
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 8
+    }
+  },
+  "f/fantasia-on-greensleeves---ralph-vaughan-williams": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": -2
+      },
+      {
+        "measure": 36,
+        "diff": -3
+      },
+      {
+        "measure": 61,
+        "diff": -1
+      },
+      {
+        "measure": 64,
+        "diff": 1
+      },
+      {
+        "measure": 69,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      9,
+      11,
+      13,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "0": 5,
+      "24": 3,
+      "26": 0,
+      "28": 5,
+      "32": 9,
+      "33": 2,
+      "57": 5
+    }
   }
 }

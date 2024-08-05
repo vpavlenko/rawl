@@ -460,6 +460,8 @@ const corpora = [
       "g.-katsaros---kathe-limani-kai-kaimos---greek-music-002",
       "m.-loizos---o-dromos---greek-music-003",
 
+      "p.-katsimihas---an-yparhei-logos---greek-music-072",
+      "t.-morakis---se-magika-nisia---greek-music-073",
       "s.-xarhakos---to-dihty---greek-music-074",
       "g.-zampetas---ti-na-ftaiei---greek-music-075",
       "h.-nikolopoylos---to-agrioloyloydo---greek-music-076",

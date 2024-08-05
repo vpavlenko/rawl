@@ -459,6 +459,12 @@ const corpora = [
       "m.-theodorakis---ena-to-helidoni---greek-music-001",
       "g.-katsaros---kathe-limani-kai-kaimos---greek-music-002",
       "m.-loizos---o-dromos---greek-music-003",
+
+      "h.-nikolopoylos---to-agrioloyloydo---greek-music-076",
+      "m.-hatzidakis---to-vals-ton-hamenon-oneiron---greek-music-077",
+      "d.-savvopoylos---dimosthenoys-lexis---greek-music-078",
+      "s.-xarhakos---mpoyrnovalia---greek-music-079",
+      "t.-moysafiris---kane-kati-na-haso-to-treno---greek-music-080",
     ],
   },
   {
@@ -505,6 +511,7 @@ const corpora = [
     midis: [
       "the-liberty-bell-march---john-philip-sousa---1893",
       "semper-fidelis-piano-john-philip-sousa",
+      "the-stars-and-stripes-forever--john-f-sousa---arr.-v-horowitz",
     ],
   },
   {
@@ -512,6 +519,8 @@ const corpora = [
     // https://musescore.com/user/64608175/sets/7661602
     midis: [
       "the-quaker-girl-valse---lionel-monckton-carl-kiefert-1910", // iiø-V->V7/V
+      "barber-of-seville-overture",
+      "overture-to-poet-and-peasant---franz-von-suppe-piano-reduction-solo",
     ],
   },
   {
@@ -530,6 +539,7 @@ const corpora = [
     midis: [
       "wagner-siegfried-s-funeral-march-from-gotterdammerung-piano-solo",
       "wagner-elsa-s-procession-to-the-cathedral-from-the-opera-lohengrin-piano-solo",
+      "wagner_tannhauser_overture_piano_solo",
     ],
   },
   {
@@ -542,6 +552,64 @@ const corpora = [
   {
     slug: "grieg_lyric_pieces",
     midis: ["grieg_arietta_yaskawa", "grieg_lyric_2_waltz_yaskawa"],
+  },
+  {
+    slug: "kaijura_yuki",
+    midis: ["nara-no-kyoukai-vol.-2---m01"],
+  },
+  {
+    slug: "jacob_axel_josephson",
+    midis: ["albumblad"],
+  },
+  {
+    slug: "emmerich_kalman",
+    midis: [
+      "the-tercet-from-die-bajadere-by-emmerich-kalman-tercet-iz-operetty-bayadera-i.-kalmana",
+      "grafin-mariza.-no-7a-komm-zigany---emmerich-kalman",
+      "die-zirkusprinzessin---emmerich-kalman-reminiszenz_nr.15a_die-zirkusprinzessin_emmerich-kalman",
+      "die-herzogin-von-chicago-nr.1a---emmerich-kalman",
+      "i-still-can-dream---emmerich-kalman",
+      "throw-me-a-rose---emmerich-kalman-throw-me-a-rose",
+      "grafin-mariza.-no-3-wenn-es-abend-wird---emmerich-kalman-wenn-es-abend-wird",
+    ],
+  },
+  {
+    slug: "vicenzo_piano",
+    midis: [
+      "winter---lucia-salieri-vicenzo-piano",
+      "letter-to-my-mother---vicenzo-piano",
+      "introspection---vicenzo-piano",
+      "day-off---vicenzo-piano",
+      "awakening---vicenzo-piano",
+      "farewell---vicenzo-piano",
+      "the-golden-waltz---vicenzo-piano",
+      "the-midnight-waltz---vicenzo-piano",
+      "a-dream-i-had---vicenzo-piano",
+      "interstellar---vicenzo-piano",
+    ],
+  },
+  {
+    slug: "todd_owen",
+    midis: [
+      "leaves-upon-tess",
+      "at-the-klutzy-ball",
+      "backpack-quest",
+      "when-i-am-dust-in-arcadia",
+      "sincerest-betrayal",
+    ],
+  },
+  {
+    slug: "SIX",
+    midis: [
+      "heart-of-stone-from-six-the-musical",
+      "six-the-musical---broadway-six-medley",
+    ],
+  },
+  {
+    slug: "xix_century_russian_romance",
+    midis: [
+      "no-ya-vas-vse-taki-lyublyu...-nevertheless-i-love-you...---russian-romance",
+    ],
   },
   {
     // https://musescore.com/user/19710/sets/3559241

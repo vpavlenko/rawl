@@ -429,6 +429,71 @@ const corpora = [
     midis: ["bill-evans-on-autunm-leaves-from-the-album-portrait-in-jazz"],
   },
   {
+    slug: "c_pop",
+    // https://musescore.com/user/33589731
+    midis: ["meng---tntshi-dai-shao-nian-tuan"],
+  },
+  {
+    slug: "ttng",
+    midis: [
+      "ttng_26_is_dancier_than_4_tablature",
+      "ttng---empty-palms-tablature",
+    ],
+  },
+  {
+    slug: "nihoshika",
+    midis: [
+      "bu-wu-nizhao-rasaretaguang---nihosika-heyani-terasareta-hikari---nihoshika",
+      "reinotubuyaki---nihosika",
+    ],
+  },
+  {
+    slug: "joel_peters",
+    midis: ["trading-eights", "frostfang-s-theme", "waterfall---ec1ipze"],
+  },
+  {
+    slug: "lena_raine_minecraft",
+    midis: [
+      "lena-raine---rubedo",
+      "pigstep",
+      "otherside---lena-raine-piano-solo",
+    ],
+  },
+  {
+    slug: "lena_raine_celeste",
+    midis: [
+      "little-goth---celeste",
+      "scattered-and-lost---celeste",
+      "quiet-and-falling---celeste",
+      "awake-celeste-ost",
+      "resurrections---lena-raine",
+    ],
+  },
+  {
+    slug: "mamomo",
+    midis: [
+      "xiu-ti---mamomo",
+      "xxd44nature",
+      "summer-echoes---mamomo",
+      "silver----bai-yin",
+      "huan-chuang-noidea---prayer",
+      "sengokuhara_02",
+    ],
+  },
+  {
+    slug: "national_anthems",
+    midis: [
+      "zimbabwe-national-anthem",
+      "togo-national-anthem",
+      "nigeria-national-anthem",
+      "lesotho-national-anthem",
+      "burundi-national-anthem",
+      "chad-national-anthem",
+      "ghana-national-anthem",
+      "algeria-national-anthem",
+    ],
+  },
+  {
     slug: "debussy",
     midis: [
       "arabesque-l.-66-no.-1-in-e-major",
@@ -453,6 +518,23 @@ const corpora = [
     ],
   },
   {
+    slug: "komitas",
+    midis: [
+      "garown-a-garun-a-spring-clarinet-piano-komitas",
+      "garown-a-spring---komitas",
+      "chinar-es-komitas",
+      "ounabi-ndeg2-des-6-danses-armeniennes-de-komitas",
+      "alagyas-alaghiyssh-clarinettepiano-komitas-komitas",
+      "hov-arek---komitas",
+      "hoy-nazan---komitas",
+      "a.04-01-havadarim",
+      "saren-kowga-jowxtm-goc",
+      "kaqavik",
+      "yar-jan-ari---komitas-vardapet",
+      "a.03-01-vorti-assdoudzo-komitas",
+    ],
+  },
+  {
     // https://musescore.com/user/68853055
     slug: "greek_music",
     midis: [
@@ -460,6 +542,19 @@ const corpora = [
       "g.-katsaros---kathe-limani-kai-kaimos---greek-music-002",
       "m.-loizos---o-dromos---greek-music-003",
 
+      "m.-theodorakis---omorfi-poli---greek-music-036",
+      "a.-kaldaras---nyhtose-horis-feggari---greek-music-037",
+      "m.-hatzidakis---efta-tragoydia-tha-soy-po---greek-music-038",
+      "g.-katsaros---pame-gia-upno-katerina---greek-music-039",
+      "g.-spanos---aspra-karavia---greek-music-040",
+      "g.-mitsakis---palamakia---greek-music-041",
+      "v.-tsitsanis---eimaste-alania---greek-music-042",
+      "pyx-lax---de-tha-dakryso-pia-gia-sena---greek-music-043",
+      "n.-portokalogloy---to-kalokairaki---greek-music-044",
+      "p.-sidiropoylos---o-mpampis-o-floy---greek-music-045",
+      "orf.-peridis---fotovolida---greek-music-046",
+      "th.-mikroytsikos---enas-negros-thermastis-apo-to-tzimpoyti---greek-music-047",
+      "m.-loizos---koytsi-kithara---greek-music-048", // a capella thirds
       "g.-spanos---mia-agapi-gia-to-kalokairi---greek-music-049",
       "h.-nikolopoylos---hronia-helidonia---greek-music-050",
       "m.-hiotis---thessaloniki-moy---greek-music-051",
@@ -595,6 +690,12 @@ const corpora = [
   {
     slug: "medleys",
     midis: ["seru-giran-medley---charly-garcia"],
+  },
+  {
+    slug: "medorei",
+    midis: [
+      "zhao-he-aidorumedore", // Showa Era J-Pop Idol Medley
+    ],
   },
   {
     slug: "mihail_krug",

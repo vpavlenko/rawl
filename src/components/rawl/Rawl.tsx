@@ -601,9 +601,9 @@ const Rawl: React.FC<{
             }}
             onClick={() =>
               navigator.clipboard.writeText(
-                `"${location.pathname.substring(
+                `, "${location.pathname.substring(
                   location.pathname.lastIndexOf("/") + 1,
-                )}",`,
+                )}"`,
               )
             }
           />

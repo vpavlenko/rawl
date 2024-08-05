@@ -1,4 +1,6 @@
 import autoBind from "auto-bind";
+import chardet from "chardet";
+import iconv from "iconv-lite";
 import { parseNotes } from "../components/rawl/parseMidi";
 
 const MIDIEvents = require("midievents");
@@ -636,7 +638,10 @@ MIDIPlayer.prototype.summarizeMidiEvents = function () {
         if (text && !text.match(/nstd/i))
           this.textInfo.push(`${META_LABELS[event.subtype]}: ${text}`);
         if (event.subtype === MIDIEvents.EVENT_META_TRACK_NAME) {
-          this.trackNames[track] = text;
+          this.trackNames[track] = iconv.decode(
+            event.data,
+            chardet.detect(event.data),
+          );
         }
         break;
       default:

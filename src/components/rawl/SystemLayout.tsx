@@ -239,19 +239,7 @@ const getNoteRectangles = (
       >
         {drumEmoji}
       </span>
-    ) : (
-      <span
-        style={{
-          fontSize: 0,
-          textShadow: "0px 0px 2px black",
-          top: 8,
-          left: voiceIndex,
-          position: "relative",
-        }}
-      >
-        {voiceIndex}
-      </span>
-    );
+    ) : null;
     const pathData = note.chipState.on.pitchBend
       ? convertPitchBendToPathData(
           note.chipState.on.pitchBend,

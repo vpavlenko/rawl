@@ -460,7 +460,30 @@ const corpora = [
       "g.-katsaros---kathe-limani-kai-kaimos---greek-music-002",
       "m.-loizos---o-dromos---greek-music-003",
 
-      "p.-katsimihas---an-yparhei-logos---greek-music-072",
+      "g.-spanos---mia-agapi-gia-to-kalokairi---greek-music-049",
+      "h.-nikolopoylos---hronia-helidonia---greek-music-050",
+      "m.-hiotis---thessaloniki-moy---greek-music-051",
+      "m.-theodorakis---vrehei-sti-ftohogeitonia---greek-music-052",
+      "v.-tsitsanis---horisame-ena-deilino---greek-music-053",
+      "g.-zampetas---agonia---greek-music-054",
+      "s.-xarhakos---stoy-thoma---greek-music-055",
+      "g.-papaioannoy---vadizo-kai-paramilo---greek-music-056",
+      "g.-mpithikotsis---toy-votanikoy-o-magkas---greek-music-057",
+      "v.-tsitsanis---to-vapori-ap-tin-persia---greek-music-058",
+      "a.-kaldaras---min-perimeneis-pia---greek-music-059",
+      "m.-hiotis---perasmenes-moy-agapes---greek-music-060",
+      "g.-zampetas---stalia-stalia---greek-music-061",
+      "h.-nikolopoylos---ston-aggelon-ta-mpoyzoykia---greek-music-062",
+      "m.-plessas---ti-soy-kana-kai-pineis---greek-music-063",
+      "s.-koygioymtzis---to-kokkino-foystani---greek-music-064",
+      "t.-moysafiris---o-taxitzis---greek-music-065",
+      "g.-hatzinasios---me-lene-giorgo---greek-music-066",
+      "g.-spanos---tha-me-thymitheis---greek-music-067",
+      "m.-tokas---exartatai---greek-music-068", // demo minor chord
+      "h.-nikolopoylos---yparho---greek-music-069", // phrygian
+      "m.-loizos---ah-helidoni-moy---greek-music-070",
+      "g.-katsaros---ta-kythira-pote-de-tha-ta-vroyme---greek-music-071", // typo in m.8
+      "p.-katsimihas---an-yparhei-logos---greek-music-072", // hijaz bvi-I7 feel of iv-V7-i
       "t.-morakis---se-magika-nisia---greek-music-073",
       "s.-xarhakos---to-dihty---greek-music-074",
       "g.-zampetas---ti-na-ftaiei---greek-music-075",
@@ -575,7 +598,7 @@ const corpora = [
   },
   {
     slug: "mihail_krug",
-    midis: ["prihodite-v-moy-dom"],
+    midis: ["prihodite-v-moy-dom", "fraer---mihail-krug", "kolshchik"],
   },
   {
     slug: "udo_jurgens",

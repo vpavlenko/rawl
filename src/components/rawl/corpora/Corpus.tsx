@@ -460,6 +460,8 @@ const corpora = [
       "g.-katsaros---kathe-limani-kai-kaimos---greek-music-002",
       "m.-loizos---o-dromos---greek-music-003",
 
+      "s.-xarhakos---to-dihty---greek-music-074",
+      "g.-zampetas---ti-na-ftaiei---greek-music-075",
       "h.-nikolopoylos---to-agrioloyloydo---greek-music-076",
       "m.-hatzidakis---to-vals-ton-hamenon-oneiron---greek-music-077",
       "d.-savvopoylos---dimosthenoys-lexis---greek-music-078",
@@ -562,6 +564,36 @@ const corpora = [
     midis: ["albumblad"],
   },
   {
+    slug: "christian_hymns_worldwide",
+    midis: ["karibu-na-bwana"],
+  },
+  {
+    slug: "medleys",
+    midis: ["seru-giran-medley---charly-garcia"],
+  },
+  {
+    slug: "mihail_krug",
+    midis: ["prihodite-v-moy-dom"],
+  },
+  {
+    slug: "udo_jurgens",
+    midis: [
+      "griechischer-wein---udo-jurgens-griechischer-wein---udo-jurgens",
+      "griechischer-wein---udo-jurgens",
+      "zehn-nach-elf-udo-jurgens-piano-cover",
+      "vielen-dank-fur-die-blumen---udo-jurgens",
+      "ein-ehrenwertes-haus---udo-jurgens",
+    ],
+  },
+  {
+    slug: "geoffrey_gregoire_kargmax",
+    midis: [
+      "oriental-breath",
+      "menuet-en-mib-mineur",
+      "espieglerie-grazioso-entre-violon-et-piano-mi-m",
+    ],
+  },
+  {
     slug: "emmerich_kalman",
     midis: [
       "the-tercet-from-die-bajadere-by-emmerich-kalman-tercet-iz-operetty-bayadera-i.-kalmana",
@@ -610,6 +642,19 @@ const corpora = [
     midis: [
       "no-ya-vas-vse-taki-lyublyu...-nevertheless-i-love-you...---russian-romance",
     ],
+  },
+  {
+    slug: "bebu_silvetti",
+    midis: [
+      "mexico-de-noche",
+      "quiero-amanecer-con-alguien---daniela-romo",
+      "melissa---bebu-silvetti", // canon in D
+      "bebu-silvetti---piano",
+    ],
+  },
+  {
+    slug: "early_20th_century_easy_american",
+    midis: ["in-the-garden---c.-austin-miles"],
   },
   {
     // https://musescore.com/user/19710/sets/3559241

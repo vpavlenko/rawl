@@ -1,5 +1,8 @@
+import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { VoiceMask } from "../App";
 import { MeasureSelection } from "./AnalysisGrid";
@@ -147,6 +150,8 @@ const Rawl: React.FC<{
   song,
   latencyCorrectionMs,
 }) => {
+  const location = useLocation();
+
   useEffect(() => {
     document.title = `${song} - ${artist} - Rawl`;
   }, [artist, song]);
@@ -585,6 +590,23 @@ const Rawl: React.FC<{
             />
             █
           </label>
+          <FontAwesomeIcon
+            icon={faCopy}
+            style={{
+              cursor: "pointer",
+              width: "15px",
+              color: "gray",
+              marginLeft: "10px",
+              marginTop: "10px",
+            }}
+            onClick={() =>
+              navigator.clipboard.writeText(
+                location.pathname.substring(
+                  location.pathname.lastIndexOf("/") + 1,
+                ),
+              )
+            }
+          />
         </div>
         <TagBrowser tags={analysis.tags} />
       </div>

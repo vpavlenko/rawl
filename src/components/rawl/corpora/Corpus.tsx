@@ -33,6 +33,21 @@ const corpora = [
     ],
   },
   {
+    slug: "ryan_elder",
+    midis: ["rick-and-morty-main-theme---ryan-elder"],
+  },
+  {
+    slug: "giovanni_allevi",
+    // https://musescore.com/user/77038780
+    midis: [
+      "amor-sacro---giovanni-allevi",
+      "la-stanza-dei-giochi---giovanni-allevi",
+      "come-sei-veramente-~-giovani-allevi",
+      "flowers---giovanni-allevi",
+      "aria-~-giovanni-allevi",
+    ],
+  },
+  {
     // minimalism
     slug: "george_winston",
     midis: [
@@ -535,6 +550,20 @@ const corpora = [
     ],
   },
   {
+    slug: "lionel_rusquet",
+    midis: [
+      "le-monde-des-graves-piano",
+      "reflet", // ideal relative minor/major sequence
+    ],
+  },
+  {
+    slug: "gesualdo",
+    midis: [
+      "moro-lasso-al-mio-duolo---gesualdo",
+      "belta-poi-che-t-assenti---carlo-gesualdo",
+    ],
+  },
+  {
     // https://musescore.com/user/68853055
     slug: "greek_music",
     midis: [
@@ -865,7 +894,7 @@ const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
         {corpora.map(({ slug, midis }) => (
           <div>
             <Link to={`/corpus/${slug}`}>
-              {slug.replace("_", " ")}{" "}
+              {slug.replace(/_/g, " ")}{" "}
               <span style={{ color: "white", fontSize: "0.6em" }}>
                 {midis.length}
               </span>

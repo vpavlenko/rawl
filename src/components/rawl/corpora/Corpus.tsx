@@ -440,6 +440,28 @@ const corpora = [
     ],
   },
   {
+    slug: "mikael_tariverdiev",
+    midis: [
+      "malenkiy-princ-m.-tariverdiev",
+      "vals-iz-ironii-sudby-ili-s-legkim-parom-the-waltz-from-the-irony-of-fate",
+      "dvoe-v-kafe",
+      "mne-nravitsya-chto-vy-bolny-ne-mnoy---mikael-tariverdie",
+      "mgnoveniya---m.-tariverdiiev",
+      "tihaya-muzyka-regtaym-no-9---m.-tariverdiev",
+      "tariverdiev-sudba-rezidenta-prelyudiya",
+      "po-ulice-moey---m.-tariverdiev",
+      "snow-above-leningrad-sneg-nad-leningradom---mikael-tariverdiev",
+      "pesnya-o-dalyokoy-rodine",
+      "tvoy-golos---mikael-tariverdiev",
+      "ne-zhaleyu-ne-zovu-ne-plachu",
+      "pesnya-tartali",
+      "na-tihoreckuyu-sostav-otpravitsya",
+      "v-sobore---m.-tariverdiev",
+      "ubil-ya-poemu---m.-tariverdiev",
+      "mikael-tariverdiev-michael-tariverdiyev---nikogo-ne-budet-v-dome-no-one-will-be-at-home",
+    ],
+  },
+  {
     slug: "bill_evans",
     midis: ["bill-evans-on-autunm-leaves-from-the-album-portrait-in-jazz"],
   },
@@ -557,11 +579,46 @@ const corpora = [
     ],
   },
   {
+    slug: "modern_composers_of_single_pieces",
+    midis: ["gray"],
+  },
+  {
+    slug: "stephen_foster",
+    midis: [
+      "stephen-foster---hard-times-come-again-no-more",
+      "jeanie-with-the-light-brown-hair---stephen-foster",
+      "old-black-joe-by-stephen-foster",
+      "beautiful-dreamer---stephen-foster",
+      "soiree-polka---stephen-c.-foster---1850",
+      "ah-may-the-red-rose-live-alway---stephen-foster-1850", // Indian Guest
+      "some-folks-like-to-sigh---s-foster-arr.-p.r.-brass-quintet",
+      "gentle-annie",
+      "beyond-the-mystic-river---stephen-c.-foster",
+      "445-friendship-with-jesus",
+      "old-dog-tray",
+      "weep-no-more---stephen-c.-foster",
+      "old-folks-at-home---theme-and-variations-by-stephen-foster",
+      "oh-susanna",
+      "gone-from-my-heart---stephen-c.-foster",
+      "angelina-baker-by-stephen-c.-foster-not-quite-angeline-the-baker",
+      "my-old-kentucky-home---stephen-collins-foster",
+      "slumber-my-darling-by-stephen-foster",
+    ],
+  },
+  {
+    slug: "possibly_tango",
+    midis: ["veinte-anos"],
+  },
+  {
     slug: "gesualdo",
     midis: [
       "moro-lasso-al-mio-duolo---gesualdo",
       "belta-poi-che-t-assenti---carlo-gesualdo",
     ],
+  },
+  {
+    slug: "rimsky-korsakoff",
+    midis: ["song-of-the-indian-guest"],
   },
   {
     // https://musescore.com/user/68853055
@@ -655,6 +712,18 @@ const corpora = [
       "overcooked---menu-theme",
       "overcooked-2-medley",
       "overcooked-medley",
+    ],
+  },
+  {
+    slug: "l_m_gottschalk",
+    midis: [
+      "grande-tarantelle---gottschalk-1872",
+      "the-dying-swan-1870",
+      "souvenirs-d-andalousie-1855",
+      "morte-l.-m.-gottschalk-in-memoriam", // corrupted grid somehow
+      "bamboula-1849",
+      "the-banjo-1855",
+      "tremolo---gottschalk-1868",
     ],
   },
   {
@@ -826,6 +895,7 @@ const corpora = [
   },
   {
     // https://www.discogs.com/release/17759461-Various-%D0%A8%D0%B5%D0%B4%D0%B5%D0%B2%D1%80%D1%8B-%D0%9A%D0%BB%D0%B0%D1%81%D1%81%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B9-%D0%9C%D1%83%D0%B7%D1%8B%D0%BA%D0%B8-%D0%9A%D0%BE%D0%BB%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D1%8F-2-%D0%92%D1%8B%D0%BF%D1%83%D1%81%D0%BA-5
+    // https://musescore.com/user/12163676
     slug: "popular_classics",
     midis: [
       "valse---coppelia---piano-solo---arr.-leo-delibes",

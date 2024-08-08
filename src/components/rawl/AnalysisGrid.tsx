@@ -256,7 +256,7 @@ const Measure: React.FC<{
                     <div
                       style={{
                         position: "absolute",
-                        top: 4,
+                        top: -12,
                         left: -26,
                         color: "red",
                         fontSize: 14,
@@ -277,7 +277,7 @@ const Measure: React.FC<{
                     <div
                       style={{
                         position: "absolute",
-                        top: 4,
+                        top: -12,
                         left: -40,
                         color: "red",
                         fontSize: 14,

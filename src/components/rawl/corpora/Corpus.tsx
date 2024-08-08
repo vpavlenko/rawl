@@ -724,6 +724,9 @@ const corpora = [
       "bamboula-1849",
       "the-banjo-1855",
       "tremolo---gottschalk-1868",
+      "le-bananier-chanson-negre-de-l.m-gottschalk-1846",
+      "souvenir-de-porto-rico-200-i.e.-206-follower-special",
+      "god-save-the-queen---gottschalk-c.1860",
     ],
   },
   {
@@ -732,6 +735,22 @@ const corpora = [
       "the-liberty-bell-march---john-philip-sousa---1893",
       "semper-fidelis-piano-john-philip-sousa",
       "the-stars-and-stripes-forever--john-f-sousa---arr.-v-horowitz",
+    ],
+  },
+  {
+    slug: "ignacy_feliks_dobrzynski",
+    midis: [
+      "feliks-dobrzynski---farewell-nocturne",
+      "nocturne-op.21-no1---ignacy-feliks-dobrzynski",
+      "nocturne-in-f-minor-op.24-no.1---ignacy-feliks-dobrzynski",
+    ],
+  },
+  {
+    slug: "john_field",
+    midis: [
+      "nocturne-no.5---h.37---john-field---edited-by-liszt",
+      "nocturne-no.1---field",
+      "john-field-nocturne-no.-12",
     ],
   },
   {

@@ -4527,11 +4527,9 @@
     "tags": [],
     "modulations": {
       "1": 4,
-      "7": 7,
-      "8": 2,
       "10": 9,
-      "15": 2,
-      "18": 5,
+      "15": 10,
+      "18": 1,
       "19": 2,
       "20": 3,
       "21": 4,
@@ -19397,6 +19395,14 @@
       {
         "measure": 106,
         "diff": -1
+      },
+      {
+        "measure": 59,
+        "diff": 0
+      },
+      {
+        "measure": 145,
+        "diff": -1
       }
     ],
     "comment": "",
@@ -19415,7 +19421,10 @@
       21,
       25,
       29,
-      32
+      32,
+      37,
+      41,
+      43
     ],
     "tags": [],
     "modulations": {
@@ -19423,16 +19432,25 @@
       "15": 11,
       "18": 2,
       "20": 5,
-      "22": 9,
+      "22": 8,
+      "23": 4,
       "26": 2,
       "28": 5,
-      "30": 4,
+      "30": 8,
+      "31": 4,
       "52": 11,
       "55": 2,
       "57": 5,
-      "59": 4,
+      "59": 8,
+      "60": 4,
+      "63": 2,
+      "65": 5,
+      "67": 8,
+      "68": 4,
       "89": 0,
-      "93": 4
+      "93": 4,
+      "144": 11,
+      "160": 6
     }
   },
   "f/never_gunna_give_you_up_barbershop": {
@@ -25951,7 +25969,8 @@
     ],
     "tags": [],
     "modulations": {
-      "1": 7
+      "1": 9,
+      "88": 10
     }
   },
   "f/svatbarska-rachenitsa": {
@@ -41738,6 +41757,7072 @@
       "32": 9,
       "33": 2,
       "57": 5
+    }
+  },
+  "f/burundi-national-anthem": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      },
+      {
+        "measure": 25,
+        "diff": -1
+      },
+      {
+        "measure": 28,
+        "diff": 1
+      },
+      {
+        "measure": 29,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/mihail-krug-vladimirskiy-central": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 2
+      },
+      {
+        "measure": 15,
+        "diff": -2
+      },
+      {
+        "measure": 45,
+        "diff": -2
+      },
+      {
+        "measure": 51,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6,
+      8,
+      12,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/awakening---vicenzo-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -1
+      },
+      {
+        "measure": 25,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1
+    }
+  },
+  "f/song-of-the-indian-guest": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 7,
+        "diff": 1
+      },
+      {
+        "measure": 16,
+        "diff": -1
+      },
+      {
+        "measure": 23,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/meng---tntshi-dai-shao-nian-tuan": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      7,
+      9,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/pyx-lax---de-tha-dakryso-pia-gia-sena---greek-music-043": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/kaqavik": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/saren-kowga-jowxtm-goc": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/old-black-joe-by-stephen-foster": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/god-save-the-queen---gottschalk-c.1860": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      },
+      {
+        "measure": 23,
+        "diff": -2
+      },
+      {
+        "measure": 37,
+        "diff": -2
+      },
+      {
+        "measure": 51,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      8,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "49": 4,
+      "51": 2
+    }
+  },
+  "f/belta-poi-che-t-assenti---carlo-gesualdo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/po-ulice-moey---m.-tariverdiev": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -1
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 11,
+        "diff": 1
+      },
+      {
+        "measure": 60,
+        "diff": -1
+      },
+      {
+        "measure": 63,
+        "diff": -1
+      },
+      {
+        "measure": 66,
+        "diff": -1
+      },
+      {
+        "measure": 4,
+        "diff": 1
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 20,
+        "diff": -1
+      },
+      {
+        "measure": 23,
+        "diff": -1
+      },
+      {
+        "measure": 30,
+        "diff": -1
+      },
+      {
+        "measure": 33,
+        "diff": -1
+      },
+      {
+        "measure": 44,
+        "diff": -1
+      },
+      {
+        "measure": 47,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      8,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/s.-xarhakos---mpoyrnovalia---greek-music-079": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": 1
+      },
+      {
+        "measure": 30,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      7,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/introspection---vicenzo-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      },
+      {
+        "measure": 25,
+        "diff": 2
+      },
+      {
+        "measure": 39,
+        "diff": -1
+      },
+      {
+        "measure": 50,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10
+    }
+  },
+  "f/v-sobore---m.-tariverdiev": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 8,
+        "diff": -1
+      },
+      {
+        "measure": 19,
+        "diff": -2
+      },
+      {
+        "measure": 25,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "4": 5,
+      "11": 2,
+      "21": 5
+    }
+  },
+  "f/g.-spanos---mia-agapi-gia-to-kalokairi---greek-music-049": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "25": 9,
+      "29": 2
+    }
+  },
+  "f/come-sei-veramente-~-giovani-allevi": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": 1
+      },
+      {
+        "measure": 30,
+        "diff": -2
+      },
+      {
+        "measure": 48,
+        "diff": 1
+      },
+      {
+        "measure": 53,
+        "diff": -2
+      },
+      {
+        "measure": 59,
+        "diff": 1
+      },
+      {
+        "measure": 100,
+        "diff": -2
+      },
+      {
+        "measure": 110,
+        "diff": 1
+      },
+      {
+        "measure": 119,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      4,
+      7,
+      9,
+      10,
+      12,
+      15,
+      18,
+      20,
+      22,
+      25,
+      27,
+      28
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "17": 5,
+      "25": 9,
+      "40": 5,
+      "47": 9,
+      "111": 5,
+      "119": 9
+    }
+  },
+  "f/kolshchik": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 19,
+        "diff": 2
+      },
+      {
+        "measure": 37,
+        "diff": 2
+      },
+      {
+        "measure": 55,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/g.-mitsakis---palamakia---greek-music-041": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": -1
+      },
+      {
+        "measure": 4,
+        "diff": 1
+      },
+      {
+        "measure": 17,
+        "diff": -2
+      },
+      {
+        "measure": 31,
+        "diff": -2
+      },
+      {
+        "measure": 29,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/togo-national-anthem": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/oriental-breath": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 23,
+        "diff": -2
+      },
+      {
+        "measure": 37,
+        "diff": -3
+      },
+      {
+        "measure": 50,
+        "diff": -1
+      },
+      {
+        "measure": 61,
+        "diff": -2
+      },
+      {
+        "measure": 71,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      6,
+      10,
+      12,
+      14,
+      17,
+      20,
+      24,
+      27
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/little-goth---celeste": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/john-field-nocturne-no.-12": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": -3
+      },
+      {
+        "measure": 15,
+        "diff": -1
+      },
+      {
+        "measure": 26,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "11": 2,
+      "18": 7
+    }
+  },
+  "f/la-stanza-dei-giochi---giovanni-allevi": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": 1
+      },
+      {
+        "measure": 30,
+        "diff": 1
+      },
+      {
+        "measure": 43,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "31": 7,
+      "32": 9,
+      "33": 8,
+      "35": 3,
+      "36": 5,
+      "37": 4,
+      "39": 0
+    }
+  },
+  "f/vielen-dank-fur-die-blumen---udo-jurgens": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/th.-mikroytsikos---enas-negros-thermastis-apo-to-tzimpoyti---greek-music-047": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/chinar-es-komitas": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 3,
+        "diff": -1
+      },
+      {
+        "measure": 22,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/hov-arek---komitas": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "13": 7,
+      "21": 9,
+      "29": 0,
+      "37": 9
+    }
+  },
+  "f/zimbabwe-national-anthem": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/letter-to-my-mother---vicenzo-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/reflet": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": -1
+      },
+      {
+        "measure": 4,
+        "diff": 1
+      },
+      {
+        "measure": 13,
+        "diff": -2
+      },
+      {
+        "measure": 23,
+        "diff": -2
+      },
+      {
+        "measure": 49,
+        "diff": -2
+      },
+      {
+        "measure": 55,
+        "diff": -1
+      },
+      {
+        "measure": 62,
+        "diff": -2
+      },
+      {
+        "measure": 64,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      5,
+      7,
+      9,
+      11,
+      14,
+      16,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "15": 0,
+      "19": 9
+    }
+  },
+  "f/vals-iz-ironii-sudby-ili-s-legkim-parom-the-waltz-from-the-irony-of-fate": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 10,
+        "diff": -2
+      },
+      {
+        "measure": 40,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/the-tercet-from-die-bajadere-by-emmerich-kalman-tercet-iz-operetty-bayadera-i.-kalmana": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "19": 9,
+      "27": 2
+    }
+  },
+  "f/h.-nikolopoylos---to-agrioloyloydo---greek-music-076": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 11,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/bu-wu-nizhao-rasaretaguang---nihosika-heyani-terasareta-hikari---nihoshika": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 3,
+        "diff": 1
+      },
+      {
+        "measure": 4,
+        "diff": -2
+      },
+      {
+        "measure": 18,
+        "diff": -1
+      },
+      {
+        "measure": 17,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/when-i-am-dust-in-arcadia": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/semper-fidelis-piano-john-philip-sousa": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14,
+      18,
+      22,
+      26
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "66": 9,
+      "68": 0,
+      "73": 5
+    }
+  },
+  "f/aria-~-giovanni-allevi": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      6,
+      10,
+      14,
+      17,
+      21,
+      25,
+      29,
+      33,
+      37,
+      40,
+      46,
+      50,
+      54,
+      58
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/gentle-annie": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 15,
+        "diff": 1
+      },
+      {
+        "measure": 24,
+        "diff": 1
+      },
+      {
+        "measure": 29,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/v.-tsitsanis---to-vapori-ap-tin-persia---greek-music-058": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/reinotubuyaki---nihosika": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6
+    }
+  },
+  "f/m.-theodorakis---vrehei-sti-ftohogeitonia---greek-music-052": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/seru-giran-medley---charly-garcia": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 7,
+        "diff": 2
+      },
+      {
+        "measure": 9,
+        "diff": -4
+      },
+      {
+        "measure": 21,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6,
+      "5": 0,
+      "20": 9
+    }
+  },
+  "f/g.-zampetas---agonia---greek-music-054": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      8,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/orf.-peridis---fotovolida---greek-music-046": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 53,
+        "diff": -2
+      },
+      {
+        "measure": 55,
+        "diff": -1
+      },
+      {
+        "measure": 58,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      13,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6
+    }
+  },
+  "f/interstellar---vicenzo-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      9,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/closed-topic----xiu-ti": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": -1
+      },
+      {
+        "measure": 20,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      5,
+      11,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10,
+      "23": 3,
+      "67": 8
+    }
+  },
+  "f/old-folks-at-home---theme-and-variations-by-stephen-foster": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14,
+      21,
+      28,
+      32,
+      36
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "57": 0,
+      "73": 9,
+      "81": 0,
+      "101": 9,
+      "107": 0,
+      "113": 7
+    }
+  },
+  "f/die-zirkusprinzessin---emmerich-kalman-reminiszenz_nr.15a_die-zirkusprinzessin_emmerich-kalman": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/melissa---bebu-silvetti": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 2
+      },
+      {
+        "measure": 23,
+        "diff": -1
+      },
+      {
+        "measure": 22,
+        "diff": -1
+      },
+      {
+        "measure": 15,
+        "diff": -2
+      },
+      {
+        "measure": 19,
+        "diff": 2
+      },
+      {
+        "measure": 85,
+        "diff": -3
+      },
+      {
+        "measure": 82,
+        "diff": 4
+      },
+      {
+        "measure": 81,
+        "diff": 1
+      },
+      {
+        "measure": 87,
+        "diff": -1
+      },
+      {
+        "measure": 106,
+        "diff": 2
+      },
+      {
+        "measure": 116,
+        "diff": 1
+      },
+      {
+        "measure": 133,
+        "diff": 1
+      },
+      {
+        "measure": 138,
+        "diff": 1
+      },
+      {
+        "measure": 143,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      9,
+      11,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "116": 3
+    }
+  },
+  "f/h.-nikolopoylos---ston-aggelon-ta-mpoyzoykia---greek-music-062": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 11,
+        "diff": 1
+      },
+      {
+        "measure": 20,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/overture-to-poet-and-peasant---franz-von-suppe-piano-reduction-solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": -2
+      },
+      {
+        "measure": 15,
+        "diff": 1
+      },
+      {
+        "measure": 32,
+        "diff": -1
+      },
+      {
+        "measure": 43,
+        "diff": -1
+      },
+      {
+        "measure": 46,
+        "diff": -1
+      },
+      {
+        "measure": 53,
+        "diff": -3
+      },
+      {
+        "measure": 94,
+        "diff": -1
+      },
+      {
+        "measure": 105,
+        "diff": 2
+      },
+      {
+        "measure": 115,
+        "diff": 1
+      },
+      {
+        "measure": 128,
+        "diff": -1
+      },
+      {
+        "measure": 131,
+        "diff": -1
+      },
+      {
+        "measure": 146,
+        "diff": -2
+      },
+      {
+        "measure": 172,
+        "diff": 1
+      },
+      {
+        "measure": 173,
+        "diff": -1
+      },
+      {
+        "measure": 176,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      18,
+      21,
+      25,
+      28,
+      34,
+      38,
+      43
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "39": 10,
+      "42": 2,
+      "50": 10,
+      "66": 2,
+      "78": 10
+    }
+  },
+  "f/g.-spanos---tha-me-thymitheis---greek-music-067": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/s.-xarhakos---to-dihty---greek-music-074": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/garown-a-spring---komitas": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 53,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/m.-hiotis---thessaloniki-moy---greek-music-051": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/yar-jan-ari---komitas-vardapet": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/ya-sprosil-u-yasenya---tariverdiev-tariverdiev": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/barber-of-seville-overture": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 11,
+        "diff": -1
+      },
+      {
+        "measure": 14,
+        "diff": -2
+      },
+      {
+        "measure": 16,
+        "diff": 2
+      },
+      {
+        "measure": 30,
+        "diff": -2
+      },
+      {
+        "measure": 28,
+        "diff": 4
+      },
+      {
+        "measure": 40,
+        "diff": -1
+      },
+      {
+        "measure": 32,
+        "diff": -4
+      },
+      {
+        "measure": 43,
+        "diff": -2
+      },
+      {
+        "measure": 69,
+        "diff": 1
+      },
+      {
+        "measure": 78,
+        "diff": -1
+      },
+      {
+        "measure": 89,
+        "diff": -1
+      },
+      {
+        "measure": 96,
+        "diff": 1
+      },
+      {
+        "measure": 92,
+        "diff": 1
+      },
+      {
+        "measure": 98,
+        "diff": -1
+      },
+      {
+        "measure": 117,
+        "diff": -1
+      },
+      {
+        "measure": 152,
+        "diff": -1
+      },
+      {
+        "measure": 159,
+        "diff": -2
+      },
+      {
+        "measure": 165,
+        "diff": -1
+      },
+      {
+        "measure": 172,
+        "diff": -2
+      },
+      {
+        "measure": 178,
+        "diff": 1
+      },
+      {
+        "measure": 203,
+        "diff": -1
+      },
+      {
+        "measure": 238,
+        "diff": 2
+      },
+      {
+        "measure": 252,
+        "diff": 2
+      },
+      {
+        "measure": 262,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      5,
+      7,
+      11,
+      14,
+      17,
+      21,
+      25,
+      28,
+      31,
+      37,
+      41,
+      45,
+      48,
+      51,
+      54,
+      60,
+      63,
+      66
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "61": 7,
+      "154": 4
+    }
+  },
+  "f/tariverdiev-sudba-rezidenta-prelyudiya": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -2
+      },
+      {
+        "measure": 44,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      8,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/tvoy-golos---mikael-tariverdiev": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": -1
+      },
+      {
+        "measure": 24,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": -1
+      },
+      {
+        "measure": 40,
+        "diff": 1
+      },
+      {
+        "measure": 49,
+        "diff": -1
+      },
+      {
+        "measure": 60,
+        "diff": -1
+      },
+      {
+        "measure": 63,
+        "diff": 1
+      },
+      {
+        "measure": 72,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      8,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/d.-savvopoylos---dimosthenoys-lexis---greek-music-078": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 41,
+        "diff": -2
+      },
+      {
+        "measure": 71,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      10,
+      14,
+      18,
+      21,
+      25
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/m.-hatzidakis---efta-tragoydia-tha-soy-po---greek-music-038": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "29": 9,
+      "33": 2,
+      "41": 9
+    }
+  },
+  "f/hoy-nazan---komitas": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "17": 7
+    }
+  },
+  "f/tomorrow---giovanni-allevi": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 41,
+        "diff": 2
+      },
+      {
+        "measure": 75,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      14,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "17": 8,
+      "21": 0,
+      "43": 2,
+      "51": 10,
+      "55": 2
+    }
+  },
+  "f/quiet-and-falling---celeste": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/le-monde-des-graves-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 161,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      28,
+      32,
+      36,
+      40
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "145": 3,
+      "153": 6,
+      "164": 7
+    }
+  },
+  "f/prihodite-v-moy-dom": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/m.-theodorakis---omorfi-poli---greek-music-036": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      },
+      {
+        "measure": 21,
+        "diff": 1
+      },
+      {
+        "measure": 46,
+        "diff": 2
+      },
+      {
+        "measure": 52,
+        "diff": 1
+      },
+      {
+        "measure": 61,
+        "diff": 1
+      },
+      {
+        "measure": 86,
+        "diff": 2
+      },
+      {
+        "measure": 92,
+        "diff": 1
+      },
+      {
+        "measure": 101,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      6,
+      9,
+      13,
+      15,
+      18,
+      22
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/445-friendship-with-jesus": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 19,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/mexico-de-noche": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": -1
+      },
+      {
+        "measure": 76,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "9": 2,
+      "20": 4,
+      "28": 2,
+      "36": 0,
+      "43": 4,
+      "56": 2,
+      "64": 0,
+      "71": 4
+    }
+  },
+  "f/some-folks-like-to-sigh---s-foster-arr.-p.r.-brass-quintet": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 23,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/at-the-klutzy-ball": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1
+    }
+  },
+  "f/m.-loizos---koytsi-kithara---greek-music-048": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/gray": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/malenkiy-princ-m.-tariverdiev": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "16": 0,
+      "21": 9
+    }
+  },
+  "f/p.-sidiropoylos---o-mpampis-o-floy---greek-music-045": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      7,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/awake-celeste-ost": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/grande-tarantelle---gottschalk-1872": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": 1
+      },
+      {
+        "measure": 58,
+        "diff": -1
+      },
+      {
+        "measure": 101,
+        "diff": -1
+      },
+      {
+        "measure": 204,
+        "diff": 1
+      },
+      {
+        "measure": 217,
+        "diff": -1
+      },
+      {
+        "measure": 252,
+        "diff": 1
+      },
+      {
+        "measure": 317,
+        "diff": -1
+      },
+      {
+        "measure": 340,
+        "diff": 1
+      },
+      {
+        "measure": 373,
+        "diff": 2
+      },
+      {
+        "measure": 391,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      4,
+      16,
+      31,
+      35,
+      43,
+      51,
+      55,
+      63,
+      67,
+      71,
+      75,
+      79,
+      85,
+      101,
+      105,
+      113,
+      121
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "204": 5,
+      "235": 2,
+      "284": 6,
+      "324": 4,
+      "331": 2,
+      "438": 5,
+      "454": 2,
+      "470": 5
+    }
+  },
+  "f/zehn-nach-elf-udo-jurgens-piano-cover": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 16,
+        "diff": 1
+      },
+      {
+        "measure": 33,
+        "diff": -2
+      },
+      {
+        "measure": 43,
+        "diff": 1
+      },
+      {
+        "measure": 60,
+        "diff": -2
+      },
+      {
+        "measure": 62,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      8,
+      11,
+      15,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10,
+      "44": 1,
+      "58": 9,
+      "62": 0
+    }
+  },
+  "f/snow-above-leningrad-sneg-nad-leningradom---mikael-tariverdiev": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 8,
+        "diff": -1
+      },
+      {
+        "measure": 11,
+        "diff": -2
+      },
+      {
+        "measure": 13,
+        "diff": -2
+      },
+      {
+        "measure": 15,
+        "diff": 2
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      },
+      {
+        "measure": 32,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      },
+      {
+        "measure": 46,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      7,
+      9,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/grafin-mariza.-no-7a-komm-zigany---emmerich-kalman": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 51,
+        "diff": 1
+      },
+      {
+        "measure": 52,
+        "diff": -2
+      },
+      {
+        "measure": 54,
+        "diff": -2
+      },
+      {
+        "measure": 96,
+        "diff": 1
+      },
+      {
+        "measure": 101,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      37
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "22": 4,
+      "23": 2,
+      "123": 5,
+      "135": 9,
+      "143": 2
+    }
+  },
+  "f/m.-hatzidakis---to-vals-ton-hamenon-oneiron---greek-music-077": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      10,
+      16,
+      22,
+      27,
+      32,
+      38,
+      44
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "41": 9,
+      "65": 0,
+      "129": 9
+    }
+  },
+  "f/t.-moysafiris---o-taxitzis---greek-music-065": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -2
+      },
+      {
+        "measure": 12,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/quiero-amanecer-con-alguien---daniela-romo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/nocturne-op.21-no1---ignacy-feliks-dobrzynski": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 50,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      5,
+      7,
+      8,
+      9,
+      11,
+      13,
+      14,
+      15,
+      17,
+      19,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "10": 0,
+      "12": 10,
+      "14": 7,
+      "18": 0,
+      "20": 10,
+      "22": 7,
+      "25": 10,
+      "34": 3,
+      "36": 5,
+      "38": 7,
+      "59": 0,
+      "61": 10,
+      "63": 7,
+      "67": 0,
+      "69": 10,
+      "71": 7,
+      "75": 0,
+      "77": 7,
+      "79": 0,
+      "81": 7
+    }
+  },
+  "f/sincerest-betrayal": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10
+    }
+  },
+  "f/s.-koygioymtzis---to-kokkino-foystani---greek-music-064": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 31,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      8,
+      10,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/sengokuhara_02": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/ubil-ya-poemu---m.-tariverdiev": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 8,
+        "diff": -1
+      },
+      {
+        "measure": 23,
+        "diff": -1
+      },
+      {
+        "measure": 42,
+        "diff": -2
+      },
+      {
+        "measure": 44,
+        "diff": -1
+      },
+      {
+        "measure": 47,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/lena-raine---rubedo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/the-dying-swan-1870": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": -2
+      },
+      {
+        "measure": 41,
+        "diff": -1
+      },
+      {
+        "measure": 68,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/a.-kaldaras---nyhtose-horis-feggari---greek-music-037": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -2
+      },
+      {
+        "measure": 8,
+        "diff": -1
+      },
+      {
+        "measure": 11,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      3,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/the-washington-post-piano-john-philip-sousa": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14,
+      18,
+      22,
+      28,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "33": 2,
+      "41": 7,
+      "73": 0,
+      "98": 2,
+      "101": 0
+    }
+  },
+  "f/summer-echoes---mamomo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": -1
+      },
+      {
+        "measure": 88,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      9,
+      13,
+      17,
+      22,
+      26,
+      30,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/old-dog-tray": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 27,
+        "diff": 1
+      },
+      {
+        "measure": 32,
+        "diff": 1
+      },
+      {
+        "measure": 49,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      7,
+      9,
+      11,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/tihaya-muzyka-regtaym-no-9---m.-tariverdiev": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/ein-ehrenwertes-haus---udo-jurgens": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 42,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/g.-papaioannoy---vadizo-kai-paramilo---greek-music-056": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 7,
+        "diff": -2
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/soiree-polka---stephen-c.-foster---1850": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": 1
+      },
+      {
+        "measure": 26,
+        "diff": 1
+      },
+      {
+        "measure": 35,
+        "diff": 1
+      },
+      {
+        "measure": 44,
+        "diff": 1
+      },
+      {
+        "measure": 85,
+        "diff": 1
+      },
+      {
+        "measure": 94,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "36": 5,
+      "53": 0,
+      "61": 5,
+      "69": 0
+    }
+  },
+  "f/six-the-musical---broadway-six-medley": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 33,
+        "diff": 1
+      },
+      {
+        "measure": 66,
+        "diff": 1
+      },
+      {
+        "measure": 83,
+        "diff": -1
+      },
+      {
+        "measure": 90,
+        "diff": 1
+      },
+      {
+        "measure": 95,
+        "diff": -1
+      },
+      {
+        "measure": 106,
+        "diff": -1
+      },
+      {
+        "measure": 109,
+        "diff": -2
+      },
+      {
+        "measure": 119,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      23,
+      26,
+      29
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "17": 10,
+      "34": 5,
+      "67": 0,
+      "91": 9,
+      "94": 11,
+      "105": 2,
+      "115": 6
+    }
+  },
+  "f/en-gammel-knark---gamle-er-unge-der-er-blevet-aeldre": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/mgnoveniya---m.-tariverdiiev": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 53,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/v.-tsitsanis---eimaste-alania---greek-music-042": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/albumblad": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": -2
+      },
+      {
+        "measure": 56,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      7,
+      10,
+      12,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "8": 5,
+      "10": 0,
+      "12": 10,
+      "14": 7,
+      "16": 2,
+      "35": 9,
+      "42": 11,
+      "48": 9,
+      "51": 8,
+      "54": 4
+    }
+  },
+  "f/my-old-kentucky-home---stephen-collins-foster": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/nocturne-no.5---h.37---john-field---edited-by-liszt": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": 1
+      },
+      {
+        "measure": 39,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10,
+      "5": 5,
+      "9": 10,
+      "27": 5,
+      "31": 0,
+      "33": 10
+    }
+  },
+  "f/alagyas-alaghiyssh-clarinettepiano-komitas-komitas": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10
+    }
+  },
+  "f/beyond-the-mystic-river---stephen-c.-foster": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1
+    }
+  },
+  "f/the-midnight-waltz---vicenzo-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      8,
+      13,
+      17,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6
+    }
+  },
+  "f/g.-spanos---aspra-karavia---greek-music-040": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/p.-katsimihas---an-yparhei-logos---greek-music-072": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": 1
+      },
+      {
+        "measure": 43,
+        "diff": 1
+      },
+      {
+        "measure": 48,
+        "diff": 1
+      },
+      {
+        "measure": 57,
+        "diff": 1
+      },
+      {
+        "measure": 66,
+        "diff": 1
+      },
+      {
+        "measure": 75,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/ah-may-the-red-rose-live-alway---stephen-foster-1850": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "17": 2,
+      "25": 7,
+      "49": 2,
+      "57": 7
+    }
+  },
+  "f/nigeria-national-anthem": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/m.-loizos---ah-helidoni-moy---greek-music-070": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/pesnya-tartali": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/slumber-my-darling-by-stephen-foster": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/chad-national-anthem": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": -2
+      },
+      {
+        "measure": 39,
+        "diff": -2
+      },
+      {
+        "measure": 49,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      6,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10
+    }
+  },
+  "f/stephen-foster---hard-times-come-again-no-more": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 15,
+        "diff": 1
+      },
+      {
+        "measure": 28,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      },
+      {
+        "measure": 50,
+        "diff": 1
+      },
+      {
+        "measure": 59,
+        "diff": 1
+      },
+      {
+        "measure": 72,
+        "diff": 1
+      },
+      {
+        "measure": 81,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      7,
+      9,
+      11,
+      12,
+      14,
+      16,
+      17,
+      19,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/le-bananier-chanson-negre-de-l.m-gottschalk-1846": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 3,
+        "diff": 2
+      },
+      {
+        "measure": 41,
+        "diff": 1
+      },
+      {
+        "measure": 66,
+        "diff": 2
+      },
+      {
+        "measure": 5,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 12,
+        "diff": 1
+      },
+      {
+        "measure": 13,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": -2
+      },
+      {
+        "measure": 8,
+        "diff": 1
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      },
+      {
+        "measure": 15,
+        "diff": 1
+      },
+      {
+        "measure": 13,
+        "diff": 1
+      },
+      {
+        "measure": 17,
+        "diff": -1
+      },
+      {
+        "measure": 24,
+        "diff": 2
+      },
+      {
+        "measure": 43,
+        "diff": -2
+      },
+      {
+        "measure": 67,
+        "diff": 1
+      },
+      {
+        "measure": 100,
+        "diff": -2
+      },
+      {
+        "measure": 110,
+        "diff": 2
+      },
+      {
+        "measure": 120,
+        "diff": 2
+      },
+      {
+        "measure": 122,
+        "diff": -2
+      },
+      {
+        "measure": 132,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      6,
+      10,
+      14,
+      16,
+      20,
+      27
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "62": 8,
+      "64": 0,
+      "68": 3,
+      "98": 8,
+      "112": 0
+    }
+  },
+  "f/m.-tokas---exartatai---greek-music-068": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": -2
+      },
+      {
+        "measure": 35,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/g.-hatzinasios---me-lene-giorgo---greek-music-066": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      6,
+      10,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/a-dream-i-had---vicenzo-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": -1
+      },
+      {
+        "measure": 18,
+        "diff": -1
+      },
+      {
+        "measure": 25,
+        "diff": -2
+      },
+      {
+        "measure": 31,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6
+    }
+  },
+  "f/h.-nikolopoylos---yparho---greek-music-069": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": -2
+      },
+      {
+        "measure": 24,
+        "diff": -2
+      },
+      {
+        "measure": 42,
+        "diff": -2
+      },
+      {
+        "measure": 48,
+        "diff": -2
+      },
+      {
+        "measure": 54,
+        "diff": -2
+      },
+      {
+        "measure": 60,
+        "diff": -2
+      },
+      {
+        "measure": 38,
+        "diff": 2
+      },
+      {
+        "measure": 42,
+        "diff": 2
+      },
+      {
+        "measure": 48,
+        "diff": -2
+      },
+      {
+        "measure": 48,
+        "diff": 4
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      5,
+      8,
+      9,
+      12,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/winter---lucia-salieri-vicenzo-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      9,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/g.-zampetas---ti-na-ftaiei---greek-music-075": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 7,
+        "diff": 1
+      },
+      {
+        "measure": 12,
+        "diff": 1
+      },
+      {
+        "measure": 17,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": 1
+      },
+      {
+        "measure": 27,
+        "diff": -1
+      },
+      {
+        "measure": 30,
+        "diff": 1
+      },
+      {
+        "measure": 39,
+        "diff": 1
+      },
+      {
+        "measure": 48,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      7,
+      9,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/nocturne-no.1---field": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": -1
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      },
+      {
+        "measure": 52,
+        "diff": -1
+      },
+      {
+        "measure": 67,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      6,
+      8,
+      10,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3,
+      "21": 10,
+      "28": 5,
+      "32": 3,
+      "51": 0,
+      "53": 3,
+      "55": 0,
+      "57": 3
+    }
+  },
+  "f/griechischer-wein---udo-jurgens": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": 2
+      },
+      {
+        "measure": 24,
+        "diff": 2
+      },
+      {
+        "measure": 42,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/julenat": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "11": 3,
+      "15": 0
+    }
+  },
+  "f/rick-and-morty-main-theme---ryan-elder": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/otherside---lena-raine-piano-solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "41": 9
+    }
+  },
+  "f/weep-no-more---stephen-c.-foster": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": 1
+      },
+      {
+        "measure": 39,
+        "diff": 1
+      },
+      {
+        "measure": 23,
+        "diff": -1
+      },
+      {
+        "measure": 26,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/s.-xarhakos---stoy-thoma---greek-music-055": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/a.-kaldaras---min-perimeneis-pia---greek-music-059": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/waterfall---ec1ipze": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/moro-lasso-al-mio-duolo---gesualdo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1,
+      "5": 9,
+      "7": 0,
+      "16": 1,
+      "17": 2,
+      "29": 5,
+      "35": 2,
+      "39": 0,
+      "61": 9
+    }
+  },
+  "f/frostfang-s-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "35": 0,
+      "37": 10,
+      "40": 2
+    }
+  },
+  "f/t.-morakis---se-magika-nisia---greek-music-073": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      9,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/jeanie-with-the-light-brown-hair---stephen-foster": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 27,
+        "diff": 1
+      },
+      {
+        "measure": 48,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/grafin-mariza.-no-3-wenn-es-abend-wird---emmerich-kalman-wenn-es-abend-wird": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      7,
+      11,
+      15,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/tariverdiev---net-eti-slyozy-ne-moi": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 1
+      },
+      {
+        "measure": 23,
+        "diff": 1
+      },
+      {
+        "measure": 36,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/nara-no-kyoukai-vol.-2---m01": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 23,
+        "diff": -1
+      },
+      {
+        "measure": 66,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6,
+      8,
+      10,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "50": 10,
+      "56": 7,
+      "58": 11
+    }
+  },
+  "f/trading-eights": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/m.-hiotis---perasmenes-moy-agapes---greek-music-060": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/the-stars-and-stripes-forever--john-f-sousa---arr.-v-horowitz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 69,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      31,
+      35,
+      39,
+      45,
+      49
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3,
+      "26": 0,
+      "29": 3,
+      "69": 8,
+      "146": 5,
+      "150": 8,
+      "178": 9,
+      "202": 6,
+      "206": 9
+    }
+  },
+  "f/scattered-and-lost---celeste": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 33,
+        "diff": 1
+      },
+      {
+        "measure": 78,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      8,
+      10,
+      12,
+      14,
+      16,
+      19,
+      22,
+      24,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "12": 11,
+      "23": 10,
+      "25": 9,
+      "27": 11,
+      "29": 10,
+      "31": 9,
+      "51": 4,
+      "57": 11,
+      "68": 10,
+      "70": 9,
+      "72": 11,
+      "74": 10,
+      "76": 9
+    }
+  },
+  "f/farewell---vicenzo-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/feliks-dobrzynski---farewell-nocturne": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": 0
+      },
+      {
+        "measure": 23,
+        "diff": -1
+      },
+      {
+        "measure": 34,
+        "diff": -1
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "11": 10,
+      "19": 7,
+      "33": 3,
+      "37": 7
+    }
+  },
+  "f/day-off---vicenzo-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      },
+      {
+        "measure": 21,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": -2
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      },
+      {
+        "measure": 46,
+        "diff": -2
+      },
+      {
+        "measure": 56,
+        "diff": 2
+      },
+      {
+        "measure": 66,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      6,
+      11,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/the-golden-waltz---vicenzo-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 38,
+        "diff": 2
+      },
+      {
+        "measure": 56,
+        "diff": -2
+      },
+      {
+        "measure": 98,
+        "diff": -2
+      },
+      {
+        "measure": 34,
+        "diff": 2
+      },
+      {
+        "measure": 36,
+        "diff": -2
+      },
+      {
+        "measure": 34,
+        "diff": -2
+      },
+      {
+        "measure": 38,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      9,
+      14,
+      19,
+      25
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/na-tihoreckuyu-sostav-otpravitsya": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 1
+      },
+      {
+        "measure": 23,
+        "diff": 1
+      },
+      {
+        "measure": 24,
+        "diff": -1
+      },
+      {
+        "measure": 27,
+        "diff": -3
+      },
+      {
+        "measure": 40,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/g.-mpithikotsis---toy-votanikoy-o-magkas---greek-music-057": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -3
+      },
+      {
+        "measure": 18,
+        "diff": 1
+      },
+      {
+        "measure": 19,
+        "diff": -2
+      },
+      {
+        "measure": 29,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/amor-sacro---giovanni-allevi": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": -1
+      },
+      {
+        "measure": 41,
+        "diff": 1
+      },
+      {
+        "measure": 46,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      6,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "7": 6,
+      "13": 5,
+      "18": 4,
+      "26": 7,
+      "34": 10,
+      "41": 9
+    }
+  },
+  "f/xxd44nature": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 33,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "3": 8,
+      "5": 9,
+      "9": 4,
+      "25": 1
+    }
+  },
+  "f/beautiful-dreamer---stephen-foster": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": 1
+      },
+      {
+        "measure": 42,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/die-herzogin-von-chicago-nr.1a---emmerich-kalman": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/huan-chuang-noidea---prayer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 41,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/zhao-he-aidorumedore": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/i-still-can-dream---emmerich-kalman": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/algeria-national-anthem": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 30,
+        "diff": -2
+      },
+      {
+        "measure": 36,
+        "diff": -2
+      },
+      {
+        "measure": 42,
+        "diff": -2
+      },
+      {
+        "measure": 48,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      14,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/griechischer-wein---udo-jurgens-griechischer-wein---udo-jurgens": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/heart-of-stone-from-six-the-musical": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": 2
+      },
+      {
+        "measure": 55,
+        "diff": -2
+      },
+      {
+        "measure": 51,
+        "diff": 2
+      },
+      {
+        "measure": 53,
+        "diff": -2
+      },
+      {
+        "measure": 73,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      13,
+      15,
+      18,
+      20,
+      22,
+      24,
+      30,
+      33,
+      34,
+      36
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "119": 7
+    }
+  },
+  "f/veinte-anos": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/ghana-national-anthem": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 8
+    }
+  },
+  "f/ttng---empty-palms-tablature": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/v.-tsitsanis---horisame-ena-deilino---greek-music-053": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -1
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/n.-portokalogloy---to-kalokairaki---greek-music-044": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/flowers---giovanni-allevi": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -1
+      },
+      {
+        "measure": 20,
+        "diff": -1
+      },
+      {
+        "measure": 31,
+        "diff": -1
+      },
+      {
+        "measure": 38,
+        "diff": -1
+      },
+      {
+        "measure": 45,
+        "diff": -1
+      },
+      {
+        "measure": 64,
+        "diff": 2
+      },
+      {
+        "measure": 74,
+        "diff": 2
+      },
+      {
+        "measure": 84,
+        "diff": -1
+      },
+      {
+        "measure": 91,
+        "diff": -1
+      },
+      {
+        "measure": 94,
+        "diff": -2
+      },
+      {
+        "measure": 100,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      10,
+      13,
+      14,
+      17,
+      19,
+      24
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/nocturne-in-f-minor-op.24-no.1---ignacy-feliks-dobrzynski": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 38,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "18": 8,
+      "26": 1,
+      "30": 3,
+      "34": 4,
+      "38": 5,
+      "47": 10,
+      "49": 5,
+      "51": 10,
+      "53": 5
+    }
+  },
+  "f/angelina-baker-by-stephen-c.-foster-not-quite-angeline-the-baker": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/ne-zhaleyu-ne-zovu-ne-plachu": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 10,
+        "diff": -1
+      },
+      {
+        "measure": 13,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      },
+      {
+        "measure": 21,
+        "diff": 2
+      },
+      {
+        "measure": 27,
+        "diff": 1
+      },
+      {
+        "measure": 32,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/t.-moysafiris---kane-kati-na-haso-to-treno---greek-music-080": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 1
+      },
+      {
+        "measure": 23,
+        "diff": 2
+      },
+      {
+        "measure": 29,
+        "diff": 2
+      },
+      {
+        "measure": 35,
+        "diff": 2
+      },
+      {
+        "measure": 41,
+        "diff": 1
+      },
+      {
+        "measure": 46,
+        "diff": 1
+      },
+      {
+        "measure": 51,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      5,
+      7,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/h.-nikolopoylos---hronia-helidonia---greek-music-050": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 45,
+        "diff": -2
+      },
+      {
+        "measure": 55,
+        "diff": -2
+      },
+      {
+        "measure": 97,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      14,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "53": 4,
+      "69": 2
+    }
+  },
+  "f/garown-a-garun-a-spring-clarinet-piano-komitas": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/the-banjo-1855": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 37,
+        "diff": 2
+      },
+      {
+        "measure": 71,
+        "diff": 1
+      },
+      {
+        "measure": 72,
+        "diff": -1
+      },
+      {
+        "measure": 219,
+        "diff": -1
+      },
+      {
+        "measure": 218,
+        "diff": 4
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      9,
+      12,
+      14,
+      16,
+      18,
+      21,
+      26,
+      28,
+      30,
+      34,
+      37,
+      42,
+      46,
+      50,
+      54
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6
+    }
+  },
+  "f/bamboula-1849": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 81,
+        "diff": -1
+      },
+      {
+        "measure": 132,
+        "diff": -1
+      },
+      {
+        "measure": 131,
+        "diff": 1
+      },
+      {
+        "measure": 148,
+        "diff": -1
+      },
+      {
+        "measure": 183,
+        "diff": 3
+      },
+      {
+        "measure": 210,
+        "diff": 3
+      },
+      {
+        "measure": 221,
+        "diff": 3
+      },
+      {
+        "measure": 232,
+        "diff": 1
+      },
+      {
+        "measure": 249,
+        "diff": -1
+      },
+      {
+        "measure": 284,
+        "diff": 3
+      },
+      {
+        "measure": 303,
+        "diff": 3
+      },
+      {
+        "measure": 314,
+        "diff": 3
+      },
+      {
+        "measure": 333,
+        "diff": 3
+      },
+      {
+        "measure": 352,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      12,
+      14,
+      16,
+      20,
+      21,
+      25,
+      29,
+      34,
+      37,
+      38,
+      42,
+      46,
+      52,
+      56,
+      61,
+      63,
+      65,
+      67,
+      69,
+      71,
+      73,
+      75,
+      77,
+      79,
+      81
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1,
+      "33": 3,
+      "37": 1,
+      "49": 6,
+      "53": 1,
+      "55": 5,
+      "57": 6,
+      "61": 1,
+      "63": 5,
+      "65": 6,
+      "84": 1,
+      "116": 6,
+      "136": 1,
+      "147": 10,
+      "167": 1,
+      "186": 10,
+      "194": 1,
+      "213": 10,
+      "224": 1,
+      "233": 6,
+      "252": 10,
+      "268": 1,
+      "287": 10,
+      "295": 1,
+      "306": 10,
+      "317": 6,
+      "336": 1
+    }
+  },
+  "f/melodien-som-evert-taube-aldrig-skrev": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": -2
+      },
+      {
+        "measure": 64,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/leaves-upon-tess": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/backpack-quest": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 11,
+        "diff": 1
+      },
+      {
+        "measure": 16,
+        "diff": 1
+      },
+      {
+        "measure": 21,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/gone-from-my-heart---stephen-c.-foster": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/pigstep": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/g.-zampetas---stalia-stalia---greek-music-061": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": -2
+      },
+      {
+        "measure": 24,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/resurrections---lena-raine": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 105,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      36,
+      38,
+      40,
+      42,
+      43
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/karibu-na-bwana": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/in-the-garden---c.-austin-miles": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 8
+    }
+  },
+  "f/tremolo---gottschalk-1868": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 41,
+        "diff": -1
+      },
+      {
+        "measure": 64,
+        "diff": -1
+      },
+      {
+        "measure": 83,
+        "diff": -1
+      },
+      {
+        "measure": 102,
+        "diff": -2
+      },
+      {
+        "measure": 128,
+        "diff": -1
+      },
+      {
+        "measure": 151,
+        "diff": -1
+      },
+      {
+        "measure": 170,
+        "diff": -1
+      },
+      {
+        "measure": 213,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      7,
+      11,
+      13,
+      17,
+      22,
+      26,
+      30,
+      34,
+      36,
+      40,
+      45,
+      47,
+      51,
+      55
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1,
+      "33": 4,
+      "37": 1,
+      "56": 4,
+      "60": 1,
+      "120": 4,
+      "124": 1,
+      "143": 4,
+      "147": 1,
+      "164": 4,
+      "166": 1,
+      "201": 5,
+      "205": 3,
+      "207": 10,
+      "209": 1
+    }
+  },
+  "f/throw-me-a-rose---emmerich-kalman-throw-me-a-rose": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      12,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/no-ya-vas-vse-taki-lyublyu...-nevertheless-i-love-you...---russian-romance": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/silver----bai-yin": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 53,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      10,
+      13,
+      18,
+      23
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6,
+      "17": 3,
+      "29": 5,
+      "40": 6,
+      "68": 3,
+      "80": 5,
+      "91": 6
+    }
+  },
+  "f/g.-katsaros---ta-kythira-pote-de-tha-ta-vroyme---greek-music-071": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "16": 8
+    }
+  },
+  "f/mne-nravitsya-chto-vy-bolny-ne-mnoy---mikael-tariverdie": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/g.-katsaros---pame-gia-upno-katerina---greek-music-039": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -1
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 12,
+        "diff": 1
+      },
+      {
+        "measure": 21,
+        "diff": 2
+      },
+      {
+        "measure": 39,
+        "diff": 2
+      },
+      {
+        "measure": 45,
+        "diff": 2
+      },
+      {
+        "measure": 51,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      9,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/dvoe-v-kafe": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": 1
+      },
+      {
+        "measure": 58,
+        "diff": -1
+      },
+      {
+        "measure": 61,
+        "diff": -1
+      },
+      {
+        "measure": 72,
+        "diff": -1
+      },
+      {
+        "measure": 79,
+        "diff": 1
+      },
+      {
+        "measure": 92,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6,
+      10,
+      15,
+      20,
+      24
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/m.-plessas---ti-soy-kana-kai-pineis---greek-music-063": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -2
+      },
+      {
+        "measure": 12,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      3,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/espieglerie-grazioso-entre-violon-et-piano-mi-m": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 3,
+        "diff": 3
+      },
+      {
+        "measure": 34,
+        "diff": -2
+      },
+      {
+        "measure": 40,
+        "diff": -1
+      },
+      {
+        "measure": 43,
+        "diff": -1
+      },
+      {
+        "measure": 66,
+        "diff": -1
+      },
+      {
+        "measure": 69,
+        "diff": -1
+      },
+      {
+        "measure": 84,
+        "diff": -1
+      },
+      {
+        "measure": 87,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      11,
+      14,
+      18,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/pesnya-o-dalyokoy-rodine": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 19,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/en-by-i-provinsen-mus3": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": 6
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/souvenir-de-porto-rico-200-i.e.-206-follower-special": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 57,
+        "diff": 2
+      },
+      {
+        "measure": 83,
+        "diff": 2
+      },
+      {
+        "measure": 217,
+        "diff": -1
+      },
+      {
+        "measure": 276,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      36,
+      38,
+      40,
+      42,
+      44,
+      46,
+      48,
+      54,
+      56,
+      58,
+      60,
+      62,
+      66,
+      68
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3,
+      "109": 6,
+      "113": 3,
+      "133": 6,
+      "137": 3,
+      "141": 6,
+      "145": 3,
+      "165": 6,
+      "202": 3,
+      "207": 4,
+      "211": 3,
+      "236": 6,
+      "240": 3
+    }
+  },
+  "f/menuet-en-mib-mineur": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 129,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      8,
+      12,
+      14,
+      16,
+      20,
+      24,
+      28
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/bebu-silvetti---piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/fraer---mihail-krug": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 3,
+        "diff": -1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 7,
+        "diff": -1
+      },
+      {
+        "measure": 10,
+        "diff": -1
+      },
+      {
+        "measure": 2,
+        "diff": 1
+      },
+      {
+        "measure": 7,
+        "diff": -1
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      },
+      {
+        "measure": 17,
+        "diff": -1
+      },
+      {
+        "measure": 20,
+        "diff": -2
+      },
+      {
+        "measure": 22,
+        "diff": -1
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      },
+      {
+        "measure": 36,
+        "diff": -1
+      },
+      {
+        "measure": 43,
+        "diff": -1
+      },
+      {
+        "measure": 50,
+        "diff": -1
+      },
+      {
+        "measure": 57,
+        "diff": -1
+      },
+      {
+        "measure": 64,
+        "diff": -1
+      },
+      {
+        "measure": 71,
+        "diff": -1
+      },
+      {
+        "measure": 78,
+        "diff": -1
+      },
+      {
+        "measure": 85,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      6,
+      10,
+      14,
+      18,
+      22
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/ounabi-ndeg2-des-6-danses-armeniennes-de-komitas": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6,
+      9,
+      12,
+      15,
+      18,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
     }
   }
 }

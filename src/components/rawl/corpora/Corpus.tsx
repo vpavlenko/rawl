@@ -754,6 +754,18 @@ const corpora = [
     ],
   },
   {
+    slug: "fuzzy",
+    midis: [
+      "julenat",
+      "en-gammel-knark---gamle-er-unge-der-er-blevet-aeldre",
+      "en-by-i-provinsen-mus3",
+    ],
+  },
+  {
+    slug: "ebbe_raun",
+    midis: ["melodien-som-evert-taube-aldrig-skrev"],
+  },
+  {
     slug: "white_star_line_1912",
     // https://musescore.com/user/64608175/sets/7661602
     midis: [

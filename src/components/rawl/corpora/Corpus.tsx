@@ -90,6 +90,9 @@ const corpora = [
   },
   { slug: "machaut", midis: ["machaut---messe-de-nostre-dame---kyrie"] },
   {
+    // also https://musescore.com/sheetmusic?text=%D1%82%D0%B0%D0%BD%D0%B3%D0%BE&type=non-official
+    // also https://musescore.com/sheetmusic?text=%E3%82%BF%E3%83%B3%E3%82%B4&type=non-official
+    // also https://musescore.com/sheetmusic?text=%E6%8E%A2%E6%88%88&type=non-official
     slug: "tango",
     midis: [
       "la-cumparsita",
@@ -156,6 +159,7 @@ const corpora = [
       "tango-la-cumparsita---piano-solo-tutorial-parte-a",
       "tango-till-you-drop-abrsm-grade-5-saxophone-b-3", // melody for harmonization
       "Habanera_-_Piano_Solo_-_Georges_Bizet",
+      "tango-lyubvi",
     ],
   },
   {
@@ -201,6 +205,55 @@ const corpora = [
       "fado---helena-rolim-g.-barba",
       "fado---rosinha-dos-limoes-4-piano",
       "fado---cancao-do-mar-solidao---recorder",
+    ],
+  },
+  {
+    slug: "bach_chorales",
+    midis: [
+      "ach-bleib-bei-uns-herr-jesu-christ",
+      "ach-bleib-bei-uns-herr-jesu-christ---j.-s.-bach---german-phrasing",
+      "ach-gott-erhor-mein-seufzen-bwv-254-and-original-setting",
+    ],
+  },
+  // 1883
+  {
+    slug: "charlie_astin",
+    midis: ["in-the-gloaming-1883", "clide-polka-1883"],
+  },
+  // 1897, first three annotated, then just preserved
+  {
+    slug: "theo_a_metz",
+    midis: [
+      "a-hot-time-in-the-old-town-1897",
+      "fiddling-silas-1899",
+      "the-klondike-1897",
+      "the-song-they-sang-at-santiago-1898",
+      "indian-smoke-dance-1919",
+      "walk-baby-walk-1897",
+      "omene-1893",
+      "give-cinda-the-cake-1898",
+    ],
+  },
+  // 1907
+  {
+    slug: "king_kollins",
+    midis: ["the-whizzer-1907", "the-twirler-1907"],
+  },
+  // 1917
+  {
+    slug: "frank_h_grey",
+    midis: ["love-in-venice-1924", "valse-des-fleurs-1925"],
+  },
+  {
+    slug: "paul_mauriat",
+    midis: [
+      "toccata---paul-mauriat",
+      "minuetto",
+      "nocturne---paul-mauriat",
+      "alouette---paul-mauriat",
+      "love-is-blue---paul-mauriat",
+      "ballade---paul-mauriat",
+      "petite-melodie",
     ],
   },
   {
@@ -440,6 +493,63 @@ const corpora = [
     ],
   },
   {
+    slug: "mieczyslaw_weinberg",
+    midis: ["vstuplenie-iz-m-f-vinni-puh-m.-vaynberg"],
+  },
+  {
+    slug: "françois_couperin",
+    midis: [
+      "francois-couperin---les-barricades-mysterieuses",
+      "le-rossignol-en-amour---francois-couperin",
+    ],
+  },
+  {
+    slug: "eduard_artemyev",
+    midis: [
+      "sibirskiy-ciryulnik---eduard-artemev",
+      "svoy-sredi-chuzhih-chuzhoy-sredi-svoih---eduard-artemev",
+      "raba-lyubvi---eduard-artemev",
+    ],
+  },
+  {
+    slug: "vladimir_shainsky",
+    midis: [
+      "belye-korabliki-v.-shainskiy",
+      "chemu-uchat-v-shkole----vladimir-shainskiy",
+      "pesenka-krokodila-geny-iz-m-f-cheburashka---vladimir-shainskiy-perelozhenie-dlya-fortepiano-i-golosa",
+      "kukla---v.-shainskiy",
+    ],
+  },
+  {
+    slug: "maksim_dunaevsky",
+    midis: [
+      "misyachniy-vals---i.-dunaievskiy",
+      "polka---i.-dunaievskiy",
+      "oy-cvite-kalina---i.-dunaievskiy",
+      "uvertyura-do-k-f-diti-kapitana-granta---i.-dunaievskiy",
+    ],
+  },
+  {
+    slug: "gennady_gladkov",
+    midis: [
+      "pesnya-genialnogo-syshchika---gennadiy-gladkov",
+      "duet-princessy-i-korolya---gennadiy-gladkov-duet-princessy-i-korolya",
+      "pesnya-atamanshi-i-razboynikov-govoryat-my-byaki-buki---gennadiy-gladkov-pesnya-atamanshi-i-razboynikov-govoryat-my-byaki-buki-g.-gladkov",
+      "prosnis-i-poy---gennadiy-gladkov",
+      "tviy-poyizd---g.-gladkov",
+      "proshchalna-pisnya---g.-gladkov",
+      "farewell-song----g.-gladkov----easy-violin-and-piano",
+      "pisnya-ostapa---g.-gladkov", // reharm diatonic -> V/
+      "golovna-tema---g.-gladkov",
+      "rio---g.-gladkov",
+      "pritvornaya-pesnya-trubadura---gladkov",
+      "shestvie-cortege",
+      "tango-lyubvi",
+      "a-mozhet-byt-vorona---g.-gladkov",
+      "dzhentlmeny-udachi---g.-gladkov",
+    ],
+  },
+  {
     slug: "mikael_tariverdiev",
     midis: [
       "malenkiy-princ-m.-tariverdiev",
@@ -607,7 +717,7 @@ const corpora = [
   },
   {
     slug: "possibly_tango",
-    midis: ["veinte-anos"],
+    midis: ["veinte-anos", "rio---g.-gladkov"],
   },
   {
     slug: "gesualdo",
@@ -622,6 +732,8 @@ const corpora = [
   },
   {
     // https://musescore.com/user/68853055
+    // also see https://musescore.com/sheetmusic?text=%CE%BC%CE%BF%CF%85%CF%83%CE%B9%CE%BA%CE%AE&type=non-official
+    // https://musescore.com/sheetmusic?text=%CE%97&type=non-official
     slug: "greek_music",
     midis: [
       "m.-theodorakis---ena-to-helidoni---greek-music-001",
@@ -763,7 +875,11 @@ const corpora = [
   },
   {
     slug: "ebbe_raun",
-    midis: ["melodien-som-evert-taube-aldrig-skrev"],
+    midis: [
+      "melodien-som-evert-taube-aldrig-skrev",
+      "noget-om-mit-hjerterum",
+      "ingen-er-evig-ung",
+    ],
   },
   {
     slug: "white_star_line_1912",
@@ -944,6 +1060,7 @@ const corpora = [
       "lyapunov-reverie-du-soir-op.3",
       "thema-aus-die-moldau---b-smetana-s-sitnikava",
       "fantasia-on-greensleeves---ralph-vaughan-williams",
+      "der-flohwalzer",
     ],
   },
   {

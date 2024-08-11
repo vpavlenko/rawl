@@ -27,16 +27,27 @@ async function backupMidiIndexes() {
   }
 }
 
-async function backupMidiDocuments(limit = 2) {
+async function backupMidiDocuments() {
   const midisCollectionRef = db.collection("midis");
-  const midisSnapshot = await midisCollectionRef.limit(limit).get();
 
-  if (!midisSnapshot.empty) {
-    for (const doc of midisSnapshot.docs) {
-      const midiFilePath = path.join("src/midis", `${doc.id}.json`);
+  // Prefetch the document IDs
+  const midisSnapshot = await midisCollectionRef.select().get();
+  if (midisSnapshot.empty) {
+    console.error("No midi documents found in the collection");
+    return;
+  }
 
-      if (!fs.existsSync(midiFilePath)) {
-        const midiData = doc.data();
+  // Iterate over the document IDs
+  for (const doc of midisSnapshot.docs) {
+    const docId = doc.id;
+    const midiFilePath = path.join("src/midis", `${docId}.json`);
+
+    if (!fs.existsSync(midiFilePath)) {
+      // Fetch the full document data only if the file doesn't exist
+      const fullDocSnapshot = await midisCollectionRef.doc(docId).get();
+
+      if (fullDocSnapshot.exists) {
+        const midiData = fullDocSnapshot.data();
 
         // Check and handle the blob field correctly
         if (midiData.blob) {
@@ -55,18 +66,18 @@ async function backupMidiDocuments(limit = 2) {
         );
         console.log(`Midi data backed up to ${midiFilePath}`);
       } else {
-        console.log(`File ${midiFilePath} already exists, skipping download`);
+        console.log(`Document with ID ${docId} no longer exists`);
       }
+    } else {
+      console.log(`File ${midiFilePath} already exists, skipping download`);
     }
-  } else {
-    console.error("No midi documents found in the collection");
   }
 }
 
 async function backupMidiData() {
   try {
     await backupMidiIndexes();
-    await backupMidiDocuments(10000); // Limiting to 2 MIDI documents
+    await backupMidiDocuments();
     console.log("Midi data backup completed successfully");
   } catch (error) {
     console.error("Error during backup process", error);

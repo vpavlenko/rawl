@@ -504,6 +504,22 @@ const corpora = [
     ],
   },
   {
+    slug: "austin_wintory",
+    midis: [
+      "apotheosis-journey-ost---austin-wintory-thepandatooth-s-arrangement",
+      "nascence-journey-main-theme",
+      "monaco---what-s-yours-is-mine",
+      "pdf-volibear-the-relentless-storm",
+      "jokes-jokes-jokes",
+      "journey-i-was-born-for-this---austin-wintory",
+      "the-old-south-distillery",
+    ],
+  },
+  {
+    slug: "darren_korb_hades",
+    midis: ["on-the-coast---darren-korb-austin-wintory"],
+  },
+  {
     slug: "eduard_artemyev",
     midis: [
       "sibirskiy-ciryulnik---eduard-artemev",
@@ -879,6 +895,15 @@ const corpora = [
       "melodien-som-evert-taube-aldrig-skrev",
       "noget-om-mit-hjerterum",
       "ingen-er-evig-ung",
+    ],
+  },
+  // barbershop
+  {
+    slug: "ringmasters",
+    midis: [
+      "kung-liljekonvalje",
+      "you-ll-never-walk-alone",
+      "between-the-devil-and-the-deep-blue-sea",
     ],
   },
   {

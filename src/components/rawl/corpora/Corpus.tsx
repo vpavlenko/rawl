@@ -215,6 +215,56 @@ const corpora = [
       "ach-gott-erhor-mein-seufzen-bwv-254-and-original-setting",
     ],
   },
+  {
+    slug: "bach_french_suite_no2",
+    midis: [
+      "j.-s.-bach---sarabande-from-french-suite-no2-bwv-813",
+      "bach-allemande-bwv-813-french-suite-ii",
+    ],
+  },
+  {
+    slug: "lucrecia_roces_kasilag",
+    midis: [
+      "fantasia---lucrecia-roces-kasilag",
+      "prelude-etnika---piano-transcription",
+      "luwalhati---lucrecia-r.-kasilag",
+    ],
+  },
+  {
+    slug: "ernesto_lecuona",
+    midis: [
+      "danza-lucumi---e.-lecuona-original",
+      "la-comparsa---ernesto-lecuona",
+      "siboney---ernesto-lecuona",
+      "andalucia---ernesto-lecuona",
+      "malaguena---ernesto-lecuona",
+      "gitanerias",
+    ],
+  },
+  {
+    slug: "malaguena",
+    midis: [
+      "malaguena---ernesto-lecuona",
+      "rumores-de-la-caleta-malaguena-albeniz",
+      "ndeg-3---malaguena",
+      "nuevo-metodo-pag.-20-malaguena---francisco-cimadevilla",
+      "malaguena-nocturna---l-elegiaque-malaguena-nocturna",
+      "malaguena-by-azpiazu",
+      "malaguena-sarasate",
+      "malaguena-salerosa",
+    ],
+  },
+  {
+    slug: "ennio_morricone",
+    midis: [
+      "ennio-morricone-chi-mai-from-le-professionnel-easy-piano-arr.-by-free-musickey",
+      "playing-love---ennio-morricone",
+      "deborah-s-theme-~-ennio-morricone",
+      "la-califfa-ennio-morricone",
+      "gabriel-s-oboe---ennio-morricone",
+      "cinema-paradiso-morricone",
+    ],
+  },
   // 1883
   {
     slug: "charlie_astin",
@@ -929,7 +979,21 @@ const corpora = [
   },
   {
     slug: "carlos_chavez",
-    midis: ["diez-preludios-para-piano---carlos-chavez"],
+    midis: ["diez-preludios-para-piano---carlos-chavez", "ponchito-al-hombro"],
+  },
+  {
+    slug: "anoushiravan_rohani", // pure harmonic minor
+    midis: [
+      "il-coure-mio---anoushiravan-rohani",
+      "maadar",
+      "gol-e-sang---anoushiravan-rohani",
+      "aziz-joon---anoushiravan-rohani",
+      "soltaan-e-ghalbhaa---anoushiravan-rohani",
+      "potpurri---anoshirvan-rohani",
+      "saraab---anoushiravan-rohani",
+      "bahaneh",
+      "queen-of-hearts",
+    ],
   },
   {
     slug: "alan_hovhaness",

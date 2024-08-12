@@ -62,7 +62,9 @@ const PITCH_CLASS_TO_LETTER = {
 
 const RemeasuringInput: React.FC<{
   renumberMeasure: RenumberMeasureCallback;
-}> = ({ renumberMeasure }) => {
+  splitAtMeasure: (boolean) => void;
+  mergeAtMeasure: () => void;
+}> = ({ renumberMeasure, splitAtMeasure, mergeAtMeasure }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState<string>("");
 
@@ -73,7 +75,15 @@ const RemeasuringInput: React.FC<{
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       event.stopPropagation();
-      renumberMeasure(parseInt(value, 10), event.shiftKey);
+      if (value === "") {
+        if (event.shiftKey) {
+          mergeAtMeasure();
+        } else {
+          splitAtMeasure(false);
+        }
+      } else {
+        renumberMeasure(parseInt(value, 10), event.shiftKey);
+      }
     }
   };
 
@@ -247,7 +257,11 @@ const Measure: React.FC<{
                         left: 0,
                       }}
                     >
-                      <RemeasuringInput renumberMeasure={renumberMeasure} />
+                      <RemeasuringInput
+                        renumberMeasure={renumberMeasure}
+                        splitAtMeasure={splitAtMeasure}
+                        mergeAtMeasure={mergeAtMeasure}
+                      />
                     </div>
                   </>
                 )}

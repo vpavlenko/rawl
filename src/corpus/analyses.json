@@ -51155,5 +51155,2129 @@
       "77": 9,
       "82": 4
     }
+  },
+  "f/it-s-a-long-road-from-first-blood---jerry-goldsmith": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "9": 0
+    }
+  },
+  "f/le-mans-66": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 33,
+        "diff": -3
+      },
+      {
+        "measure": 29,
+        "diff": 1
+      },
+      {
+        "measure": 31,
+        "diff": 3
+      },
+      {
+        "measure": 38,
+        "diff": 1
+      },
+      {
+        "measure": 63,
+        "diff": 3
+      },
+      {
+        "measure": 70,
+        "diff": -1
+      },
+      {
+        "measure": 77,
+        "diff": 1
+      },
+      {
+        "measure": 82,
+        "diff": 3
+      },
+      {
+        "measure": 105,
+        "diff": -2
+      },
+      {
+        "measure": 127,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      18,
+      19,
+      22,
+      27,
+      30,
+      32,
+      34,
+      36
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/baroque-expression---martha-mier": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "15": 2,
+      "30": 9
+    }
+  },
+  "f/prayer-of-st-gregory---alan-hovhaness": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": -1
+      },
+      {
+        "measure": 28,
+        "diff": 1
+      },
+      {
+        "measure": 57,
+        "diff": 1
+      },
+      {
+        "measure": 66,
+        "diff": -1
+      },
+      {
+        "measure": 69,
+        "diff": 1
+      },
+      {
+        "measure": 78,
+        "diff": 1
+      },
+      {
+        "measure": 87,
+        "diff": 1
+      },
+      {
+        "measure": 96,
+        "diff": 1
+      },
+      {
+        "measure": 105,
+        "diff": 2
+      },
+      {
+        "measure": 115,
+        "diff": 1
+      },
+      {
+        "measure": 101,
+        "diff": 1
+      },
+      {
+        "measure": 108,
+        "diff": -1
+      },
+      {
+        "measure": 120,
+        "diff": -2
+      },
+      {
+        "measure": 118,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6,
+      9,
+      10,
+      14,
+      16,
+      18,
+      20,
+      24,
+      28
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/just-struttin-along": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/water-from-an-ancient-well---abdullah-ibrahim": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/blues-train---catherine-rollin-catherine-rollin---blues-train-jazz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/grand-mother": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/blue-bolero": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/spoon-river---percy-grainger": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 7,
+        "diff": -1
+      },
+      {
+        "measure": 38,
+        "diff": 2
+      },
+      {
+        "measure": 168,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42,
+      44
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "40": 10,
+      "42": 7,
+      "44": 2,
+      "48": 10,
+      "56": 7,
+      "124": 10,
+      "136": 0,
+      "144": 7,
+      "160": 10
+    }
+  },
+  "f/rosemary-s-theme-the-giver": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 26,
+        "diff": 2
+      },
+      {
+        "measure": 52,
+        "diff": 2
+      },
+      {
+        "measure": 82,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      7,
+      13,
+      17,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/french-movie-waltz---catherine-rollin": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "9": 0,
+      "11": 9
+    }
+  },
+  "f/enchanted-waterfall---martha-mier": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "13": 9,
+      "21": 0
+    }
+  },
+  "f/sneaky-skeleton---catherine-rollin": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/the-gremlin-rag-accordion": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "41": 1
+    }
+  },
+  "f/surfboard-boogie": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/thaba-bosigo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/to-catch-a-dream---martha-mier": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 49,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/king-solomon-s-mines---main-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 31,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      8,
+      10,
+      12,
+      14,
+      16,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "19": 3,
+      "23": 0,
+      "30": 5,
+      "46": 6,
+      "50": 10,
+      "54": 5,
+      "62": 3,
+      "66": 0
+    }
+  },
+  "f/homecoming-song---abdullah-ibrahim": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": 1
+      },
+      {
+        "measure": 11,
+        "diff": 1
+      },
+      {
+        "measure": 16,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 8
+    }
+  },
+  "f/solitude---duke-ellington-as-played-by-roland-hanna": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": -1
+      },
+      {
+        "measure": 41,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/as-bold-as-brass-a-very-british-march-for-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": 1
+      },
+      {
+        "measure": 39,
+        "diff": 1
+      },
+      {
+        "measure": 23,
+        "diff": 1
+      },
+      {
+        "measure": 41,
+        "diff": -1
+      },
+      {
+        "measure": 52,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10
+    }
+  },
+  "f/plaukstosais-jasmins---georgs-pelecis": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 101,
+        "diff": -2
+      },
+      {
+        "measure": 251,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      11,
+      14,
+      17,
+      21,
+      23,
+      25,
+      29,
+      33,
+      37,
+      41,
+      45,
+      50,
+      55,
+      59,
+      63,
+      67
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "131": 0,
+      "139": 9,
+      "179": 0,
+      "199": 9,
+      "207": 0,
+      "219": 9,
+      "235": 0,
+      "247": 9
+    }
+  },
+  "f/the-wedding---abdullah-ibrahim": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 30,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/five-pieces-op.-306-no.-4-waltz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      },
+      {
+        "measure": 15,
+        "diff": 1
+      },
+      {
+        "measure": 32,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "6": 6,
+      "14": 0,
+      "18": 3,
+      "20": 5,
+      "22": 7,
+      "28": 0
+    }
+  },
+  "f/peppermint-rag---martha-mier": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 53,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/cryin-in-the-rain-piano-solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": -1
+      },
+      {
+        "measure": 18,
+        "diff": 1
+      },
+      {
+        "measure": 31,
+        "diff": -1
+      },
+      {
+        "measure": 34,
+        "diff": -2
+      },
+      {
+        "measure": 40,
+        "diff": -1
+      },
+      {
+        "measure": 47,
+        "diff": 1
+      },
+      {
+        "measure": 60,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      8,
+      9,
+      11,
+      13,
+      16,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10,
+      "14": 1,
+      "30": 10,
+      "43": 1
+    }
+  },
+  "f/molly-on-the-shore": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      33,
+      35,
+      37,
+      39,
+      41,
+      43,
+      45,
+      47
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 8,
+      "115": 6,
+      "131": 8,
+      "163": 5,
+      "179": 8
+    }
+  },
+  "f/diez-preludios-para-piano---carlos-chavez": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 8,
+        "diff": -2
+      },
+      {
+        "measure": 26,
+        "diff": -1
+      },
+      {
+        "measure": 61,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      6,
+      9,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/dance-of-the-knights": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 31,
+        "diff": -2
+      },
+      {
+        "measure": 41,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      8,
+      10,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "5": 11,
+      "7": 7,
+      "9": 4,
+      "13": 11,
+      "17": 2,
+      "23": 9,
+      "27": 4,
+      "29": 5,
+      "33": 0,
+      "36": 4,
+      "41": 11,
+      "43": 7,
+      "45": 4
+    }
+  },
+  "f/st.-estes-reform-school-extended---marco-beltrami-venom-let-there-be-carnage": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 37,
+        "diff": -2
+      },
+      {
+        "measure": 79,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      11,
+      13,
+      15,
+      17,
+      18,
+      19,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/funeral-march---f.-chopin-halloween-scary-version---easy-to-intermediate": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/theme-from-world-war-z---marco-beltrami-theme-from-world-war-z--isolated-system": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 61,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/witches-brew---catherine-rollin": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/zireh-gonbadeh-kabood": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      },
+      {
+        "measure": 23,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/downright-happy-rag": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 41,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/piano-serenade-in-a-flat": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 8
+    }
+  },
+  "f/theme-from-hoosiers": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3,
+      "17": 1,
+      "32": 8,
+      "41": 5
+    }
+  },
+  "f/fur-elise-but-elise-is-scary": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "17": 10,
+      "19": 11,
+      "21": 0
+    }
+  },
+  "f/baroque-harpsichord": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      },
+      {
+        "measure": 23,
+        "diff": -2
+      },
+      {
+        "measure": 21,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10
+    }
+  },
+  "f/english-serenades-op.-46-no.-1---valentin-silvestrov": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      },
+      {
+        "measure": 15,
+        "diff": 1
+      },
+      {
+        "measure": 24,
+        "diff": 1
+      },
+      {
+        "measure": 29,
+        "diff": 2
+      },
+      {
+        "measure": 35,
+        "diff": 1
+      },
+      {
+        "measure": 40,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "25": 1,
+      "27": 4,
+      "38": 1,
+      "45": 5
+    }
+  },
+  "f/solitude---duke-ellington-eddie-de-lange-and-irving-mills-piano-version": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1
+    }
+  },
+  "f/tea-for-two---vincent-youmans-and-irving-caesar-1924-piano-voice-sheet-music-arrangement": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 19,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      7,
+      9,
+      11,
+      13,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 8,
+      "7": 5,
+      "11": 8,
+      "28": 0,
+      "35": 8,
+      "42": 10,
+      "47": 8
+    }
+  },
+  "f/moonlight-nocturne---catherine-rollin": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 53,
+        "diff": -1
+      },
+      {
+        "measure": 60,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "21": 3,
+      "25": 0,
+      "29": 3,
+      "33": 0
+    }
+  },
+  "f/solitude---duke-ellington": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      },
+      {
+        "measure": 15,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/dance-of-the-knights-transcription-for-piano-solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "5": 11,
+      "7": 7,
+      "9": 4,
+      "13": 11,
+      "17": 2
+    }
+  },
+  "f/star-trek-voyager-theme-piano-arrangement": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 8,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6,
+      "23": 11,
+      "29": 6
+    }
+  },
+  "f/aghaye-hekayati": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": -1
+      },
+      {
+        "measure": 48,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/mountain-lullaby---jealous-of-the-birds-piano-solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/symphony-no.-2-mysterious-mountain---alan-hovhaness-mysterious_mountain_iii": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 3,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/rosemary-s-waltz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": -2
+      },
+      {
+        "measure": 36,
+        "diff": -2
+      },
+      {
+        "measure": 46,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6,
+      8,
+      10,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "10": 3,
+      "12": 11,
+      "14": 7,
+      "20": 0,
+      "27": 8,
+      "29": 4,
+      "31": 3,
+      "33": 0,
+      "38": 1,
+      "40": 3,
+      "42": 5
+    }
+  },
+  "f/mandela---abdullah-ibrahim--y8-african-music": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/the-russia-house---jerry-goldsmith": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": -1
+      },
+      {
+        "measure": 57,
+        "diff": 1
+      },
+      {
+        "measure": 58,
+        "diff": 1
+      },
+      {
+        "measure": 59,
+        "diff": -2
+      },
+      {
+        "measure": 61,
+        "diff": -2
+      },
+      {
+        "measure": 83,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1,
+      "4": 0,
+      "6": 11,
+      "10": 1,
+      "12": 0,
+      "14": 8,
+      "16": 7,
+      "18": 0,
+      "58": 10,
+      "61": 9,
+      "63": 8,
+      "67": 10,
+      "69": 9,
+      "71": 5,
+      "73": 4,
+      "75": 9
+    }
+  },
+  "f/english-serenades-op.-46-no.-4---valentin-silvestrov": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 37,
+        "diff": -2
+      },
+      {
+        "measure": 83,
+        "diff": -1
+      },
+      {
+        "measure": 29,
+        "diff": -2
+      },
+      {
+        "measure": 33,
+        "diff": 2
+      },
+      {
+        "measure": 55,
+        "diff": -2
+      },
+      {
+        "measure": 53,
+        "diff": 3
+      },
+      {
+        "measure": 51,
+        "diff": 2
+      },
+      {
+        "measure": 58,
+        "diff": -2
+      },
+      {
+        "measure": 60,
+        "diff": 2
+      },
+      {
+        "measure": 62,
+        "diff": 1
+      },
+      {
+        "measure": 63,
+        "diff": -3
+      },
+      {
+        "measure": 64,
+        "diff": -1
+      },
+      {
+        "measure": 102,
+        "diff": -1
+      },
+      {
+        "measure": 109,
+        "diff": -1
+      },
+      {
+        "measure": 53,
+        "diff": -2
+      },
+      {
+        "measure": 54,
+        "diff": 1
+      },
+      {
+        "measure": 62,
+        "diff": 1
+      },
+      {
+        "measure": 101,
+        "diff": -1
+      },
+      {
+        "measure": 107,
+        "diff": 1
+      },
+      {
+        "measure": 124,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      7,
+      9,
+      14,
+      21,
+      26,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11,
+      "49": 1,
+      "51": 3,
+      "53": 11
+    }
+  },
+  "f/tea-for-two-er-ren-deocha-wo---vincent-youmans": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": -1
+      },
+      {
+        "measure": 2,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": -1
+      },
+      {
+        "measure": 73,
+        "diff": 2
+      },
+      {
+        "measure": 175,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42,
+      44,
+      46
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3,
+      "9": 8,
+      "17": 0,
+      "25": 8,
+      "31": 10,
+      "37": 8,
+      "57": 0,
+      "64": 8,
+      "83": 0,
+      "90": 8,
+      "97": 10,
+      "102": 8,
+      "119": 0,
+      "126": 8,
+      "133": 10,
+      "138": 8,
+      "151": 0,
+      "158": 8,
+      "165": 10,
+      "170": 8,
+      "174": 3,
+      "180": 5,
+      "185": 3
+    }
+  },
+  "f/maraba-blue---abdullah-ibrahim": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/abschiedsserenade-ii-farewell-serenade---valentin-silvestrov": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": -1
+      },
+      {
+        "measure": 48,
+        "diff": -1
+      },
+      {
+        "measure": 51,
+        "diff": 1
+      },
+      {
+        "measure": 56,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      5,
+      7,
+      9,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1,
+      "20": 4,
+      "28": 1
+    }
+  },
+  "f/country-gardens-for-brass-quintet": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3,
+      "9": 10,
+      "13": 3,
+      "25": 10,
+      "29": 3,
+      "41": 10,
+      "45": 3,
+      "57": 10,
+      "61": 3,
+      "73": 10,
+      "77": 3
+    }
+  },
+  "f/all-in-the-past---georgs-pelecis": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": -1
+      },
+      {
+        "measure": 25,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
   }
 }

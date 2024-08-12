@@ -421,6 +421,15 @@ const corpora = [
     midis: ["the-sheik-of-araby-arr.-zez-confrey"],
   },
   {
+    slug: "alex_thorn",
+    midis: [
+      "piano-serenade-in-a-flat",
+      "as-bold-as-brass-a-very-british-march-for-piano",
+      "baroque-harpsichord",
+      "cryin-in-the-rain-piano-solo",
+    ],
+  },
+  {
     slug: "bts",
     midis: [
       "bts-bangtansonyeondan---i-need-u-suga-piano-full-solo",
@@ -515,9 +524,45 @@ const corpora = [
       "the-old-south-distillery",
     ],
   },
+  // world pianists
   {
     slug: "darren_korb_hades",
     midis: ["on-the-coast---darren-korb-austin-wintory"],
+  },
+  {
+    slug: "percy_grainger",
+    midis: [
+      "molly-on-the-shore",
+      "spoon-river---percy-grainger",
+      "country-gardens-for-brass-quintet",
+    ],
+  },
+  {
+    slug: "abdullah_ibrahim",
+    midis: [
+      "blue-bolero",
+      "homecoming-song---abdullah-ibrahim",
+      "mandela---abdullah-ibrahim--y8-african-music",
+      "water-from-an-ancient-well---abdullah-ibrahim",
+      "the-wedding---abdullah-ibrahim",
+      "thaba-bosigo",
+      "maraba-blue---abdullah-ibrahim",
+    ],
+  },
+  {
+    slug: "bahram_dehghanyar",
+    midis: ["zireh-gonbadeh-kabood", "grand-mother", "aghaye-hekayati"],
+  },
+  {
+    slug: "jerry_goldsmith",
+    midis: [
+      "star-trek-voyager-theme-piano-arrangement",
+
+      "the-russia-house---jerry-goldsmith",
+      "the-gremlin-rag-accordion",
+      "king-solomon-s-mines---main-theme",
+      "theme-from-hoosiers",
+    ],
   },
   {
     slug: "eduard_artemyev",
@@ -544,6 +589,10 @@ const corpora = [
       "oy-cvite-kalina---i.-dunaievskiy",
       "uvertyura-do-k-f-diti-kapitana-granta---i.-dunaievskiy",
     ],
+  },
+  {
+    slug: "prokofiev",
+    midis: ["dance-of-the-knights"],
   },
   {
     slug: "gennady_gladkov",
@@ -814,12 +863,89 @@ const corpora = [
       "solo-transcription-all-the-things-you-are---paul-desmond",
       "all-the-things-you-are-guitar-chord-melody",
       "my-funny-valentine-lead-sheet-with-lyrics",
+      "tea-for-two---vincent-youmans-and-irving-caesar-1924-piano-voice-sheet-music-arrangement",
+      "tea-for-two-er-ren-deocha-wo---vincent-youmans",
     ],
   },
   {
     // https://musescore.com/user/24069/sets/4869434
     slug: "rachmaninoff",
     midis: ["rachmaninoff-piano-concerto-no.-2-1st-mvmt.-arr.-for-2-pianos"],
+  },
+  {
+    slug: "valentin_silvestrov",
+    midis: [
+      "five-pieces-op.-306-no.-4-waltz",
+      "abschiedsserenade-ii-farewell-serenade---valentin-silvestrov",
+      "english-serenades-op.-46-no.-1---valentin-silvestrov",
+      "english-serenades-op.-46-no.-4---valentin-silvestrov",
+    ],
+  },
+  {
+    slug: "george_pelecis",
+    midis: [
+      "all-in-the-past---georgs-pelecis",
+      "plaukstosais-jasmins---georgs-pelecis",
+    ],
+  },
+  {
+    slug: "marco_beltrami",
+    midis: [
+      "rosemary-s-theme-the-giver",
+      "rosemary-s-waltz",
+      "st.-estes-reform-school-extended---marco-beltrami-venom-let-there-be-carnage",
+      "le-mans-66",
+      "theme-from-world-war-z---marco-beltrami-theme-from-world-war-z--isolated-system",
+    ],
+  },
+  {
+    slug: "catherine_rollin",
+    midis: [
+      "french-movie-waltz---catherine-rollin",
+      "moonlight-nocturne---catherine-rollin",
+      "sneaky-skeleton---catherine-rollin",
+      "blues-train---catherine-rollin-catherine-rollin---blues-train-jazz",
+      "witches-brew---catherine-rollin",
+    ],
+  },
+  {
+    slug: "martha_mier",
+    midis: [
+      "to-catch-a-dream---martha-mier",
+      "peppermint-rag---martha-mier",
+      "downright-happy-rag",
+      "just-struttin-along",
+      "surfboard-boogie",
+      "enchanted-waterfall---martha-mier",
+      "baroque-expression---martha-mier",
+    ],
+  },
+  {
+    slug: "scary",
+    midis: [
+      "fur-elise-but-elise-is-scary",
+      "funeral-march---f.-chopin-halloween-scary-version---easy-to-intermediate",
+    ],
+  },
+  {
+    slug: "carlos_chavez",
+    midis: ["diez-preludios-para-piano---carlos-chavez"],
+  },
+  {
+    slug: "alan_hovhaness",
+    midis: [
+      "mountain-lullaby---jealous-of-the-birds-piano-solo",
+      "prayer-of-st-gregory---alan-hovhaness",
+      "symphony-no.-2-mysterious-mountain---alan-hovhaness-mysterious_mountain_iii",
+    ],
+  },
+  {
+    slug: "duke_ellington",
+    midis: [
+      "solitude---duke-ellington",
+      "solitude---duke-ellington-eddie-de-lange-and-irving-mills-piano-version",
+      "solitude---duke-ellington-as-played-by-roland-hanna",
+    ],
   },
   {
     slug: "rhythm_changes",

@@ -1,3 +1,4 @@
+import { clamp } from "lodash";
 import * as React from "react";
 import {
   ReactNode,
@@ -682,6 +683,11 @@ export type SystemLayoutProps = {
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
   setVoiceMask: SetVoiceMask;
+  registerKeyboardHandler: (
+    name: string,
+    handler: (e: KeyboardEvent) => void,
+  ) => void;
+  unregisterKeyboardHandler: (name: string) => void;
 };
 
 export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
@@ -695,6 +701,8 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
   mouseHandlers,
   measureSelection,
   setVoiceMask,
+  registerKeyboardHandler,
+  unregisterKeyboardHandler,
 }) => {
   const [noteHeight, setNoteHeight] = useState<number>(4);
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
@@ -818,6 +826,34 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
   }, []);
 
   const [showLegend, setShowLegend] = useLocalStorage("showLegend", true);
+
+  const handleSecondWidthChange = useCallback((newWidth: number) => {
+    setSecondWidth(clamp(newWidth, 2, 150));
+  }, []);
+
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case "a":
+          handleSecondWidthChange(secondWidth - 10);
+          break;
+        case "d":
+          handleSecondWidthChange(secondWidth + 10);
+          break;
+      }
+    };
+
+    registerKeyboardHandler("systemLayout", handleKeyPress);
+
+    return () => {
+      unregisterKeyboardHandler("systemLayout");
+    };
+  }, [
+    registerKeyboardHandler,
+    unregisterKeyboardHandler,
+    secondWidth,
+    handleSecondWidthChange,
+  ]);
 
   return (
     <>

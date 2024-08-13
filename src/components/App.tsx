@@ -109,6 +109,8 @@ export interface FirestoreMidiDocument {
   url: string | null;
 }
 
+type KeyboardHandler = (e: KeyboardEvent) => void;
+
 class App extends React.Component<RouteComponentProps, AppState> {
   private contentAreaRef: React.RefObject<HTMLDivElement>;
   private errorTimer: number;
@@ -126,6 +128,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private browsePath: string;
   private midi: ArrayBuffer;
   private droppedFilename: string;
+  private keyboardHandlers: Map<string, KeyboardHandler> = new Map();
 
   constructor(props) {
     super(props);
@@ -501,6 +504,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
           break;
         default:
       }
+
+      // Run all registered handlers
+      this.keyboardHandlers.forEach((handler) => handler(e));
     });
   }
 
@@ -824,6 +830,14 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.midiPlayer.setVoiceMask([...Array(numVoices)].fill(true));
   }
 
+  registerKeyboardHandler = (id: string, handler: KeyboardHandler) => {
+    this.keyboardHandlers.set(id, handler);
+  };
+
+  unregisterKeyboardHandler = (id: string) => {
+    this.keyboardHandlers.delete(id);
+  };
+
   render() {
     const { location } = this.props;
     const rawlState = {
@@ -875,6 +889,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     seek={this.seekForRawl}
                     artist={""}
                     song={slug ?? chiptuneUrl}
+                    registerKeyboardHandler={this.registerKeyboardHandler}
+                    unregisterKeyboardHandler={this.unregisterKeyboardHandler}
                     {...rawlState}
                   />
                   {match.path === "/drop" && (

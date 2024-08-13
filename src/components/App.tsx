@@ -462,7 +462,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           this.togglePause();
           e.preventDefault();
           break;
-        case "s":
+        case "u":
           const { location } = this.props;
           navigator.clipboard.writeText(
             `"${location.pathname.substring(

@@ -840,6 +840,12 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
         case "d":
           handleSecondWidthChange(secondWidth + 10);
           break;
+        case "s":
+          debounceSetNoteHeight(Math.min(noteHeight + 1, 10));
+          break;
+        case "w":
+          debounceSetNoteHeight(Math.max(noteHeight - 1, 1));
+          break;
       }
     };
 
@@ -853,6 +859,8 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
     unregisterKeyboardHandler,
     secondWidth,
     handleSecondWidthChange,
+    noteHeight,
+    debounceSetNoteHeight,
   ]);
 
   return (

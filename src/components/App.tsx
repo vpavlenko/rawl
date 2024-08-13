@@ -27,6 +27,7 @@ import {
   Switch,
   withRouter,
 } from "react-router-dom";
+import { slugify } from "transliteration";
 
 import ChipCore from "../chip-core";
 import {
@@ -684,7 +685,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   onDrop = (droppedFiles) => {
     const reader = new FileReader();
     const file = droppedFiles[0];
-    this.droppedFilename = file.name.replace(/\.mid$/i, ""); // Store the filename without .mid extension
+    this.droppedFilename = slugify(file.name.replace(/\.mid$/i, ""));
     const ext = path.extname(file.name).toLowerCase();
     if (ext === ".sf2" && !this.midiPlayer) {
       this.handlePlayerError(

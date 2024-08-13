@@ -100,22 +100,55 @@ export const saveMidiFromLink = async (link: string) => {
   }
 };
 
-export const DropSaveForm: React.FC<{ midi: ArrayBuffer }> = ({ midi }) => {
-  const [title, setTitle] = useState<string>("");
+export const DropSaveForm: React.FC<{
+  midi: ArrayBuffer;
+  filename: string;
+}> = ({ midi, filename }) => {
+  const [title, setTitle] = useState<string>(filename);
+  const [sourceUrl, setSourceUrl] = useState<string>("");
+  const titleInputRef = React.useRef<HTMLInputElement>(null);
+
+  // Add useEffect hook to focus and select the title input
+  React.useEffect(() => {
+    if (titleInputRef.current) {
+      titleInputRef.current.focus();
+      titleInputRef.current.select();
+    }
+  }, []);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
 
+  const handleUrlChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSourceUrl(event.target.value);
+  };
+
+  const handleSave = () => {
+    if (title.trim() !== "") {
+      saveMidi(title, sourceUrl || "drop", midi);
+    } else {
+      if (titleInputRef.current) {
+        titleInputRef.current.style.backgroundColor = "red";
+        setTimeout(() => {
+          if (titleInputRef.current) {
+            titleInputRef.current.style.backgroundColor = "";
+          }
+        }, 1000);
+      }
+    }
+  };
+
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      saveMidi(title, "drop", midi);
+      handleSave();
     }
   };
 
   return (
     <div>
       <input
+        ref={titleInputRef}
         type="text"
         placeholder="Enter a title"
         value={title}
@@ -123,6 +156,17 @@ export const DropSaveForm: React.FC<{ midi: ArrayBuffer }> = ({ midi }) => {
         onKeyDown={handleKeyPress}
         style={{ width: "30em" }}
       />
+      <input
+        type="text"
+        placeholder="Enter a source URL (optional)"
+        value={sourceUrl}
+        onChange={handleUrlChange}
+        onKeyDown={handleKeyPress}
+        style={{ width: "30em", marginTop: "10px" }}
+      />
+      <button onClick={handleSave} style={{ marginTop: "10px" }}>
+        Save
+      </button>
     </div>
   );
 };

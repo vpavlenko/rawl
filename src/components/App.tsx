@@ -125,6 +125,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private hash: string;
   private browsePath: string;
   private midi: ArrayBuffer;
+  private droppedFilename: string;
 
   constructor(props) {
     super(props);
@@ -663,6 +664,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   onDrop = (droppedFiles) => {
     const reader = new FileReader();
     const file = droppedFiles[0];
+    this.droppedFilename = file.name.replace(/\.mid$/i, ""); // Store the filename without .mid extension
     const ext = path.extname(file.name).toLowerCase();
     if (ext === ".sf2" && !this.midiPlayer) {
       this.handlePlayerError(
@@ -861,7 +863,12 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     song={slug ?? chiptuneUrl}
                     {...rawlState}
                   />
-                  {match.path === "/drop" && <DropSaveForm midi={this.midi} />}
+                  {match.path === "/drop" && (
+                    <DropSaveForm
+                      midi={this.midi}
+                      filename={this.droppedFilename}
+                    />
+                  )}
                 </>
               )}
               {match.path.startsWith("/slicer") && (

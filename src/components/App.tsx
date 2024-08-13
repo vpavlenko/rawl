@@ -376,6 +376,11 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   async saveAnalysis(analysis) {
+    if (this.path === "drop") {
+      console.log("Cannot save analysis for dropped files.");
+      return;
+    }
+
     const user = this.state.user;
     if (user) {
       const userRef = doc(this.db, "users", user.uid);
@@ -452,6 +457,15 @@ class App extends React.Component<RouteComponentProps, AppState> {
       switch (e.key) {
         case " ":
           this.togglePause();
+          e.preventDefault();
+          break;
+        case "s":
+          const { location } = this.props;
+          navigator.clipboard.writeText(
+            `"${location.pathname.substring(
+              location.pathname.lastIndexOf("/") + 1,
+            )}", `,
+          );
           e.preventDefault();
           break;
         case "-":

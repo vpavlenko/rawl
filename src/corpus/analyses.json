@@ -54471,11 +54471,24 @@
     "comment": "",
     "sections": [
       0,
-      1
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      26,
+      30,
+      34
     ],
     "tags": [],
     "modulations": {
-      "1": 7
+      "1": 7,
+      "69": 0,
+      "77": 7,
+      "85": 0,
+      "101": 7
     }
   },
   "f/ponchito-al-hombro": {
@@ -55630,7 +55643,8 @@
     ],
     "tags": [],
     "modulations": {
-      "1": 5
+      "1": 5,
+      "31": 8
     }
   },
   "f/malaguena---ernesto-lecuona": {
@@ -56043,6 +56057,1554 @@
       "37": 7,
       "41": 0,
       "49": 7
+    }
+  },
+  "f/spain---chick-corea": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 2
+      },
+      {
+        "measure": 27,
+        "diff": -1
+      },
+      {
+        "measure": 30,
+        "diff": 2
+      },
+      {
+        "measure": 36,
+        "diff": 3
+      },
+      {
+        "measure": 43,
+        "diff": -1
+      },
+      {
+        "measure": 46,
+        "diff": 2
+      },
+      {
+        "measure": 52,
+        "diff": 2
+      },
+      {
+        "measure": 74,
+        "diff": 2
+      },
+      {
+        "measure": 120,
+        "diff": -1
+      },
+      {
+        "measure": 123,
+        "diff": 2
+      },
+      {
+        "measure": 129,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      5,
+      8,
+      11,
+      14,
+      16,
+      19,
+      22,
+      25,
+      26
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11,
+      "80": 2,
+      "84": 11,
+      "104": 2,
+      "108": 11
+    }
+  },
+  "f/toccate---dennis-alexander-.": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      8,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "25": 8,
+      "33": 7
+    }
+  },
+  "f/mickey-mouse---manfred-schmitz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "21": 0
+    }
+  },
+  "f/memelicanmanrag": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      18,
+      22,
+      26,
+      30
+    ],
+    "measureRenumbering": {
+      "85": 85
+    },
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "5": 4,
+      "32": 7,
+      "69": 0,
+      "105": 9,
+      "109": 7,
+      "113": 0
+    }
+  },
+  "f/sonatina-in-c-major---dennis-alexander": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 45,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "17": 9,
+      "21": 7,
+      "25": 0,
+      "29": 7,
+      "33": 0
+    }
+  },
+  "f/messe-breve---leo-delibes-delibes-messe-breve-ssa-kyrie": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "22": 10,
+      "36": 7
+    }
+  },
+  "f/xi.-prelude-des-dur-op.-6-no-5---tadeusz-joteyko": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1
+    }
+  },
+  "f/zimniy-vecher-winter-evening---manfred-shmitc-manfred-schmitz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6,
+      "19": 9,
+      "22": 6
+    }
+  },
+  "f/nocturne-op.112---jean-henri-ravina": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 26,
+        "diff": -1
+      },
+      {
+        "measure": 29,
+        "diff": 1
+      },
+      {
+        "measure": 46,
+        "diff": -1
+      },
+      {
+        "measure": 49,
+        "diff": 1
+      },
+      {
+        "measure": 74,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      8,
+      10,
+      13,
+      15,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "6": 7,
+      "10": 0,
+      "12": 5,
+      "18": 0,
+      "32": 5,
+      "38": 0,
+      "52": 5,
+      "61": 2,
+      "63": 5
+    }
+  },
+  "f/elegie---manfred-schmitz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 1
+      },
+      {
+        "measure": 27,
+        "diff": 1
+      },
+      {
+        "measure": 36,
+        "diff": 2
+      },
+      {
+        "measure": 46,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/romance-melancolique---manfred-schmitz-easy": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 64,
+        "diff": 1
+      },
+      {
+        "measure": 65,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      12,
+      14,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "36": 5,
+      "40": 8,
+      "44": 7,
+      "46": 9
+    }
+  },
+  "f/going-places---dennis-alexander": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "29": 10,
+      "33": 0
+    }
+  },
+  "f/cucumber-slumber-leadsheet-johnson-zawlinul": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 3
+      },
+      {
+        "measure": 12,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/bagatelle---manfred-schmitz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "6": 0,
+      "15": 7,
+      "16": 5,
+      "17": 10,
+      "21": 2,
+      "27": 0,
+      "28": 11
+    }
+  },
+  "f/titanium_toccata-50": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 7,
+        "diff": -2
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      4,
+      5,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "7": 11,
+      "9": 6,
+      "10": 10,
+      "11": 4,
+      "17": 3,
+      "19": 4,
+      "25": 11,
+      "26": 5,
+      "27": 11,
+      "28": 5,
+      "29": 4
+    }
+  },
+  "f/birdland-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      7,
+      10,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/etude---ravina-no.-22-op.-50---h-moll": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": -2
+      },
+      {
+        "measure": 56,
+        "diff": -1
+      },
+      {
+        "measure": 79,
+        "diff": -1
+      },
+      {
+        "measure": 75,
+        "diff": -1
+      },
+      {
+        "measure": 77,
+        "diff": 1
+      },
+      {
+        "measure": 28,
+        "diff": -1
+      },
+      {
+        "measure": 35,
+        "diff": 1
+      },
+      {
+        "measure": 31,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": -1
+      },
+      {
+        "measure": 27,
+        "diff": 1
+      },
+      {
+        "measure": 33,
+        "diff": -1
+      },
+      {
+        "measure": 55,
+        "diff": 1
+      },
+      {
+        "measure": 60,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      6,
+      10,
+      14,
+      16,
+      20,
+      22,
+      24
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11,
+      "36": 6,
+      "52": 11
+    }
+  },
+  "f/elegie-op.16-no.1---tadeusz-joteyko": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -3
+      },
+      {
+        "measure": 26,
+        "diff": -1
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      },
+      {
+        "measure": 11,
+        "diff": -2
+      },
+      {
+        "measure": 53,
+        "diff": -1
+      },
+      {
+        "measure": 56,
+        "diff": -3
+      },
+      {
+        "measure": 69,
+        "diff": -1
+      },
+      {
+        "measure": 72,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      6,
+      8,
+      10,
+      12,
+      13,
+      16,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/petit-bolero-op.-62---jean-henri-ravina": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": 2
+      },
+      {
+        "measure": 60,
+        "diff": 1
+      },
+      {
+        "measure": 61,
+        "diff": 1
+      },
+      {
+        "measure": 74,
+        "diff": -1
+      },
+      {
+        "measure": 77,
+        "diff": 1
+      },
+      {
+        "measure": 73,
+        "diff": 1
+      },
+      {
+        "measure": 79,
+        "diff": -1
+      },
+      {
+        "measure": 90,
+        "diff": -1
+      },
+      {
+        "measure": 86,
+        "diff": -1
+      },
+      {
+        "measure": 88,
+        "diff": 1
+      },
+      {
+        "measure": 109,
+        "diff": 1
+      },
+      {
+        "measure": 122,
+        "diff": -1
+      },
+      {
+        "measure": 141,
+        "diff": 3
+      },
+      {
+        "measure": 144,
+        "diff": -2
+      },
+      {
+        "measure": 142,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      18,
+      20,
+      22,
+      24,
+      27,
+      29,
+      31,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "52": 1,
+      "54": 4,
+      "60": 9,
+      "91": 1,
+      "93": 9,
+      "97": 2,
+      "99": 9
+    }
+  },
+  "f/prelude-op.5-no6---tadeusz-joteyko": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -2
+      },
+      {
+        "measure": 16,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "15": 11,
+      "16": 7
+    }
+  },
+  "f/andrea---manfred-schmitz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 66,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      11,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/flower-duet-from-lakme-by-leo-delibes-transcription-for-violin-and-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/prelude-op.7-no3---tadeusz-joteyko": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "3": 6,
+      "5": 8,
+      "7": 6,
+      "9": 4,
+      "11": 6,
+      "13": 1,
+      "15": 11,
+      "17": 0,
+      "19": 10,
+      "21": 8,
+      "23": 6,
+      "25": 4,
+      "27": 1,
+      "30": 11
+    }
+  },
+  "f/episode---manfred-schmitz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      },
+      {
+        "measure": 10,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": 2
+      },
+      {
+        "measure": 21,
+        "diff": -2
+      },
+      {
+        "measure": 19,
+        "diff": 4
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "18": 5,
+      "19": 3,
+      "21": 8,
+      "22": 2
+    }
+  },
+  "f/poetische-skizze---manfred-schmitz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/reflections-by-dennis-alexander": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "5": 4,
+      "13": 7
+    }
+  },
+  "f/for-linda-king---manfred-schmitz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "21": 10,
+      "25": 7
+    }
+  },
+  "f/spieluhr-serenade---manfred-schmitz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 3,
+        "diff": 1
+      },
+      {
+        "measure": 4,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "38": 4,
+      "44": 7,
+      "50": 0
+    }
+  },
+  "f/grumpy-old-witch---dennis-alexander": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/pizzicati-from-sylvia-act-iii-no.-20---leo-delibes---1876": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 11,
+        "diff": -3
+      },
+      {
+        "measure": 28,
+        "diff": 1
+      },
+      {
+        "measure": 57,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      6,
+      9,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3,
+      "13": 7,
+      "16": 3,
+      "24": 7,
+      "26": 10,
+      "28": 3,
+      "37": 8,
+      "53": 3,
+      "59": 7,
+      "62": 3,
+      "66": 0,
+      "68": 3
+    }
+  },
+  "f/am-abend---manfred-schmitz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": -1
+      },
+      {
+        "measure": 25,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "4": 2,
+      "10": 0,
+      "12": 3,
+      "14": 0
+    }
+  },
+  "f/mercy-mercy-mercy---joe-zawinul-2": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "21": 4
+    }
+  },
+  "f/nocturne-in-e-flat-major---dennis-alexander": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": -1
+      },
+      {
+        "measure": 11,
+        "diff": 1
+      },
+      {
+        "measure": 12,
+        "diff": -2
+      },
+      {
+        "measure": 18,
+        "diff": -2
+      },
+      {
+        "measure": 16,
+        "diff": 1
+      },
+      {
+        "measure": 21,
+        "diff": -2
+      },
+      {
+        "measure": 22,
+        "diff": 1
+      },
+      {
+        "measure": 27,
+        "diff": -2
+      },
+      {
+        "measure": 25,
+        "diff": 1
+      },
+      {
+        "measure": 30,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      6,
+      8,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/praerie-song---manfred-schmitz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      12,
+      16,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/manfred-schmitz---kleine-pop-romanze-short-pop-romance": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": 2
+      },
+      {
+        "measure": 35,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/mercy-mercy-mercy---joe-zawinul": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "16": 4,
+      "21": 7
+    }
+  },
+  "f/appaloosa-spirit---dennis-alexander": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -2
+      },
+      {
+        "measure": 43,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      9,
+      11,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/old-movie-man---manfred-schmitz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/walk-tall---joe-zawinul": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "9": 2
+    }
+  },
+  "f/barkarole---manfred-schmitz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": 1
+      },
+      {
+        "measure": 48,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      6,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "13": 2,
+      "15": 3,
+      "17": 0,
+      "19": 5,
+      "21": 8,
+      "23": 5,
+      "25": 9,
+      "28": 5,
+      "30": 2,
+      "32": 3,
+      "34": 0,
+      "36": 5,
+      "38": 2,
+      "40": 3,
+      "44": 7
+    }
+  },
+  "f/boogie-woogie-waltz-zawinul-leadsheet": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/manfredschmitzunpeutriste": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/prelude---manfred-schmitz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "5": 2
+    }
+  },
+  "f/valse-romantique-sriram": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "19": 8,
+      "23": 0,
+      "27": 4,
+      "28": 7,
+      "29": 9,
+      "30": 0
     }
   }
 }

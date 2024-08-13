@@ -302,6 +302,7 @@ const corpora = [
       "ender-lilies-quietus-of-the-knights---the-white-witch",
       "the-witch-s-breath---ender-lilies",
       "a-nocturne-for-all---ender-lilies-ost",
+      "ephemeral---yamato-kasai---klavier---mili-mag-mell-deemo",
     ],
   },
   {
@@ -310,6 +311,27 @@ const corpora = [
       "aj_weidt_the_colored_guards", // two banjos
       "aj_weidt_kaloola",
       "memelicanmanrag",
+    ],
+  },
+  {
+    slug: "scriabin",
+    midis: ["24-preludes-op.11-no.1---a.-scriabin"],
+  },
+  {
+    slug: "tadeusz_joteyko",
+    midis: [
+      "elegie-op.16-no.1---tadeusz-joteyko",
+      "xi.-prelude-des-dur-op.-6-no-5---tadeusz-joteyko",
+      "prelude-op.5-no6---tadeusz-joteyko",
+      "prelude-op.7-no3---tadeusz-joteyko",
+    ],
+  },
+  {
+    slug: "leo_delibes",
+    midis: [
+      "valse---coppelia---piano-solo---arr.-leo-delibes",
+      "flower-duet-from-lakme-by-leo-delibes-transcription-for-violin-and-piano",
+      "messe-breve---leo-delibes-delibes-messe-breve-ssa-kyrie",
     ],
   },
   {
@@ -1103,11 +1125,70 @@ const corpora = [
     ],
   },
   {
+    slug: "jean_henri_ravina",
+    midis: [
+      "etude---ravina-no.-22-op.-50---h-moll",
+      "petit-bolero-op.-62---jean-henri-ravina",
+      "nocturne-op.112---jean-henri-ravina",
+    ],
+  },
+  {
+    slug: "joe_zawinul",
+    midis: [
+      "birdland-piano",
+      "mercy-mercy-mercy---joe-zawinul",
+      "mercy-mercy-mercy---joe-zawinul-2",
+      "boogie-woogie-waltz-zawinul-leadsheet",
+      "walk-tall---joe-zawinul",
+      "125th-street-congress-zawinul-leadsheet",
+      "cucumber-slumber-leadsheet-johnson-zawlinul",
+    ],
+  },
+  {
     slug: "john_philip_sousa",
     midis: [
       "the-liberty-bell-march---john-philip-sousa---1893",
       "semper-fidelis-piano-john-philip-sousa",
       "the-stars-and-stripes-forever--john-f-sousa---arr.-v-horowitz",
+    ],
+  },
+  {
+    slug: "chick_corea",
+    midis: ["spain---chick-corea"],
+  },
+  {
+    slug: "dennis_alexander",
+    midis: [
+      "reflections-by-dennis-alexander",
+      "titanium_toccata-50",
+      "appaloosa-spirit---dennis-alexander",
+      "going-places---dennis-alexander",
+      "toccate---dennis-alexander-.",
+      "valse-romantique-sriram",
+      "grumpy-old-witch---dennis-alexander",
+      "nocturne-in-e-flat-major---dennis-alexander",
+    ],
+  },
+  {
+    slug: "manfred_schmitz",
+    midis: [
+      "manfred-schmitz---kleine-pop-romanze-short-pop-romance",
+      "barkarole---manfred-schmitz",
+      "zimniy-vecher-winter-evening---manfred-shmitc-manfred-schmitz",
+      "am-abend---manfred-schmitz",
+      "elegie---manfred-schmitz",
+      "mickey-mouse---manfred-schmitz", // rag
+      "andrea---manfred-schmitz",
+      "for-linda-king---manfred-schmitz",
+      "manfredschmitzunpeutriste",
+      "old-movie-man---manfred-schmitz",
+      "bagatelle---manfred-schmitz",
+      "romance-melancolique---manfred-schmitz-easy",
+      "praerie-song---manfred-schmitz",
+      "episode---manfred-schmitz",
+      "spieluhr-serenade---manfred-schmitz",
+      "poetische-skizze---manfred-schmitz",
+      "prelude---manfred-schmitz",
     ],
   },
   {

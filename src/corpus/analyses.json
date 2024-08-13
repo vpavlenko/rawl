@@ -26009,25 +26009,6 @@
       "1": 9
     }
   },
-  "drop": {
-    "form": [],
-    "phrasePatch": [
-      {
-        "measure": 1,
-        "diff": 0
-      }
-    ],
-    "comment": "",
-    "sections": [
-      0,
-      2
-    ],
-    "tags": [],
-    "modulations": {
-      "1": 9,
-      "88": 10
-    }
-  },
   "f/svatbarska-rachenitsa": {
     "form": [],
     "phrasePatch": [
@@ -53278,6 +53259,2790 @@
     "tags": [],
     "modulations": {
       "1": 2
+    }
+  },
+  "f/oyun---ahmed-adnan-saygun": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 16,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/the-witch-s-breath---ender-lilies": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 33,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      9,
+      11,
+      13,
+      15,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "21": 8,
+      "39": 5
+    }
+  },
+  "f/elevation---gustave-tritant": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": 1
+      },
+      {
+        "measure": 32,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      },
+      {
+        "measure": 46,
+        "diff": 1
+      },
+      {
+        "measure": 47,
+        "diff": -3
+      },
+      {
+        "measure": 44,
+        "diff": 1
+      },
+      {
+        "measure": 65,
+        "diff": 1
+      },
+      {
+        "measure": 66,
+        "diff": -3
+      },
+      {
+        "measure": 63,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6,
+      8,
+      11,
+      13,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 8,
+      "23": 3,
+      "28": 10,
+      "33": 6,
+      "38": 3,
+      "40": 5,
+      "42": 8,
+      "69": 0,
+      "71": 8
+    }
+  },
+  "f/malaguena-nocturna---l-elegiaque-malaguena-nocturna": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": -1
+      },
+      {
+        "measure": 34,
+        "diff": -2
+      },
+      {
+        "measure": 40,
+        "diff": -2
+      },
+      {
+        "measure": 38,
+        "diff": 1
+      },
+      {
+        "measure": 26,
+        "diff": 1
+      },
+      {
+        "measure": 31,
+        "diff": -1
+      },
+      {
+        "measure": 43,
+        "diff": -1
+      },
+      {
+        "measure": 46,
+        "diff": -2
+      },
+      {
+        "measure": 72,
+        "diff": -1
+      },
+      {
+        "measure": 79,
+        "diff": -2
+      },
+      {
+        "measure": 93,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      4,
+      6,
+      9,
+      10,
+      13,
+      15,
+      17,
+      20,
+      23,
+      25,
+      26,
+      28
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/horon-for-bb-clarinet-and-piano---ahmed-adnan-saygun": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": 1
+      },
+      {
+        "measure": 23,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "26": 1
+    }
+  },
+  "f/soltaan-e-ghalbhaa---anoushiravan-rohani": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/inci---ahmed-adnan-saygun": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/coda---cesare-pugni": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 58,
+        "diff": -1
+      },
+      {
+        "measure": 77,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      7,
+      11,
+      15,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "10": 4,
+      "22": 7
+    }
+  },
+  "f/andalucia---ernesto-lecuona": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 37,
+        "diff": -2
+      },
+      {
+        "measure": 71,
+        "diff": 2
+      },
+      {
+        "measure": 129,
+        "diff": -1
+      },
+      {
+        "measure": 160,
+        "diff": 2
+      },
+      {
+        "measure": 166,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      10,
+      14,
+      19,
+      23,
+      27,
+      31,
+      32,
+      34,
+      36,
+      38
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/gol-e-sang---anoushiravan-rohani": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 16,
+        "diff": 1
+      },
+      {
+        "measure": 25,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": 1
+      },
+      {
+        "measure": 47,
+        "diff": 1
+      },
+      {
+        "measure": 48,
+        "diff": -1
+      },
+      {
+        "measure": 51,
+        "diff": -3
+      },
+      {
+        "measure": 68,
+        "diff": 1
+      },
+      {
+        "measure": 85,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      9,
+      12,
+      15,
+      19,
+      23
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "48": 0,
+      "50": 10,
+      "52": 0,
+      "54": 10,
+      "56": 7
+    }
+  },
+  "f/rumores-de-la-caleta-malaguena": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 38,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/ruya---ahmed-adnan-saygun": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/communion-funebre---gustave-tritant": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": -1
+      },
+      {
+        "measure": 16,
+        "diff": 1
+      },
+      {
+        "measure": 21,
+        "diff": -1
+      },
+      {
+        "measure": 40,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      5,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "9": 7,
+      "17": 0,
+      "24": 5,
+      "26": 7,
+      "28": 9,
+      "30": 0
+    }
+  },
+  "f/ndeg-3---malaguena": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 65,
+        "diff": -1
+      },
+      {
+        "measure": 53,
+        "diff": 2
+      },
+      {
+        "measure": 66,
+        "diff": -2
+      },
+      {
+        "measure": 88,
+        "diff": -3
+      },
+      {
+        "measure": 137,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      12,
+      16,
+      18,
+      20,
+      22,
+      27,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11,
+      "64": 7,
+      "84": 11
+    }
+  },
+  "f/ender-lilies-quietus-of-the-knights---grudge-save-ver.": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": -1
+      },
+      {
+        "measure": 44,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      3,
+      5,
+      6,
+      8,
+      10,
+      11
+    ],
+    "measureRenumbering": {
+      "42": 42
+    },
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/gitanerias": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": 0
+      },
+      {
+        "measure": 161,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      13,
+      14,
+      18,
+      22,
+      26,
+      28,
+      32,
+      36
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/malaguena-by-azpiazu": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 89,
+        "diff": 1
+      },
+      {
+        "measure": 77,
+        "diff": -1
+      },
+      {
+        "measure": 80,
+        "diff": 1
+      },
+      {
+        "measure": 94,
+        "diff": -1
+      },
+      {
+        "measure": 153,
+        "diff": -1
+      },
+      {
+        "measure": 156,
+        "diff": 1
+      },
+      {
+        "measure": 165,
+        "diff": 1
+      },
+      {
+        "measure": 170,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      7,
+      11,
+      15,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      38,
+      42,
+      44,
+      46
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "61": 9,
+      "76": 4,
+      "137": 9,
+      "152": 4,
+      "163": 0,
+      "169": 4
+    }
+  },
+  "f/queen-of-hearts": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/prelude-etnika---piano-transcription": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -3
+      },
+      {
+        "measure": 30,
+        "diff": 2
+      },
+      {
+        "measure": 40,
+        "diff": 2
+      },
+      {
+        "measure": 42,
+        "diff": 1
+      },
+      {
+        "measure": 55,
+        "diff": 3
+      },
+      {
+        "measure": 70,
+        "diff": -3
+      },
+      {
+        "measure": 71,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6,
+      10,
+      13,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/masal---ahmed-adnan-saygun": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 35,
+        "diff": -2
+      },
+      {
+        "measure": 37,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      9,
+      10,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/malaguena-sarasate": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": 2
+      },
+      {
+        "measure": 27,
+        "diff": 2
+      },
+      {
+        "measure": 33,
+        "diff": 2
+      },
+      {
+        "measure": 39,
+        "diff": 2
+      },
+      {
+        "measure": 45,
+        "diff": 2
+      },
+      {
+        "measure": 115,
+        "diff": -3
+      },
+      {
+        "measure": 140,
+        "diff": 2
+      },
+      {
+        "measure": 158,
+        "diff": 2
+      },
+      {
+        "measure": 164,
+        "diff": 2
+      },
+      {
+        "measure": 170,
+        "diff": 2
+      },
+      {
+        "measure": 176,
+        "diff": 2
+      },
+      {
+        "measure": 182,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      6,
+      8,
+      11,
+      13,
+      15,
+      18,
+      22,
+      26,
+      28,
+      30,
+      32,
+      33,
+      36,
+      38,
+      40,
+      42
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "17": 11,
+      "23": 9,
+      "41": 5,
+      "47": 2,
+      "82": 7,
+      "142": 2,
+      "154": 11,
+      "160": 9,
+      "178": 5,
+      "184": 2
+    }
+  },
+  "f/ender-lilies-quietus-of-the-knights---holy-land-save-ver.": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 32,
+        "diff": -2
+      },
+      {
+        "measure": 38,
+        "diff": -1
+      },
+      {
+        "measure": 12,
+        "diff": -1
+      },
+      {
+        "measure": 11,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      8,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/a-nocturne-for-all---ender-lilies-ost": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "21": 3,
+      "25": 0,
+      "29": 3,
+      "33": 0
+    }
+  },
+  "f/ennio-morricone-chi-mai-from-le-professionnel-easy-piano-arr.-by-free-musickey": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 53,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      9,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6
+    }
+  },
+  "f/j.-s.-bach---sarabande-from-french-suite-no2-bwv-813": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "14": 5,
+      "15": 3,
+      "18": 10,
+      "20": 7,
+      "25": 0,
+      "26": 5,
+      "29": 0
+    }
+  },
+  "f/il-coure-mio---anoushiravan-rohani": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 86,
+        "diff": -3
+      },
+      {
+        "measure": 135,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      8,
+      12,
+      16,
+      21,
+      25,
+      26,
+      30,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "103": 0,
+      "107": 10,
+      "111": 0,
+      "115": 10,
+      "119": 7
+    }
+  },
+  "f/le-carnaval-de-venise-pas-de-deux-di-satanella---cesare-pugni---variazione-maschile": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "11": 0,
+      "19": 5
+    }
+  },
+  "f/bach-allemande-bwv-813-french-suite-ii": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -2
+      },
+      {
+        "measure": 12,
+        "diff": -2
+      },
+      {
+        "measure": 14,
+        "diff": -3
+      },
+      {
+        "measure": 15,
+        "diff": -2
+      },
+      {
+        "measure": 21,
+        "diff": -2
+      },
+      {
+        "measure": 23,
+        "diff": -3
+      },
+      {
+        "measure": 24,
+        "diff": 1
+      },
+      {
+        "measure": 29,
+        "diff": -2
+      },
+      {
+        "measure": 31,
+        "diff": -1
+      },
+      {
+        "measure": 34,
+        "diff": -3
+      },
+      {
+        "measure": 35,
+        "diff": 1
+      },
+      {
+        "measure": 40,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "13": 10,
+      "14": 8,
+      "15": 3,
+      "17": 0,
+      "21": 5,
+      "22": 8,
+      "23": 5,
+      "25": 3,
+      "26": 0,
+      "27": 7,
+      "28": 5,
+      "29": 0,
+      "36": 3,
+      "37": 0
+    }
+  },
+  "f/aj_weidt_kaloola": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/ponchito-al-hombro": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      6,
+      11,
+      16,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/deborah-s-theme-~-ennio-morricone": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": -1
+      },
+      {
+        "measure": 14,
+        "diff": 1
+      },
+      {
+        "measure": 15,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      },
+      {
+        "measure": 17,
+        "diff": -1
+      },
+      {
+        "measure": 32,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/nuevo-metodo-pag.-20-malaguena---francisco-cimadevilla": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "25": 0,
+      "48": 9
+    }
+  },
+  "f/luwalhati---lucrecia-r.-kasilag": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/siboney---ernesto-lecuona": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": 2
+      },
+      {
+        "measure": 20,
+        "diff": 2
+      },
+      {
+        "measure": 26,
+        "diff": 2
+      },
+      {
+        "measure": 68,
+        "diff": -2
+      },
+      {
+        "measure": 102,
+        "diff": -2
+      },
+      {
+        "measure": 104,
+        "diff": -1
+      },
+      {
+        "measure": 103,
+        "diff": -1
+      },
+      {
+        "measure": 106,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      8,
+      12,
+      17,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/blue-monk-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/la-esmeralda-ballet-variacao---cesare-pugni": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      },
+      {
+        "measure": 19,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "20": 3,
+      "27": 0
+    }
+  },
+  "f/potpurri---anoshirvan-rohani": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/ataturk-marsi---ahmed-adnan-saygun": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/ender-lilies-quietus-of-the-knights---the-white-witch": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 12,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/danza-lucumi---e.-lecuona-original": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 41,
+        "diff": 2
+      },
+      {
+        "measure": 119,
+        "diff": 2
+      },
+      {
+        "measure": 115,
+        "diff": 2
+      },
+      {
+        "measure": 123,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      10,
+      14,
+      18,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1
+    }
+  },
+  "f/aj_weidt_the_colored_guards": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 106,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14,
+      18,
+      22,
+      26,
+      28,
+      32,
+      36,
+      40
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "70": 0,
+      "102": 7
+    }
+  },
+  "f/ayse-m": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      },
+      {
+        "measure": 23,
+        "diff": 1
+      },
+      {
+        "measure": 28,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/round-midnight---thelonious-monk": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "4": 9,
+      "6": 4
+    }
+  },
+  "f/malaguena-salerosa": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      },
+      {
+        "measure": 19,
+        "diff": -2
+      },
+      {
+        "measure": 25,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": 1
+      },
+      {
+        "measure": 47,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      10,
+      12,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "2": 2,
+      "20": 5,
+      "23": 9,
+      "26": 2
+    }
+  },
+  "f/ninni---ahmed-adnan-saygun": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/aziz-joon---anoushiravan-rohani": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 2
+      },
+      {
+        "measure": 35,
+        "diff": 2
+      },
+      {
+        "measure": 41,
+        "diff": 2
+      },
+      {
+        "measure": 47,
+        "diff": 2
+      },
+      {
+        "measure": 53,
+        "diff": 2
+      },
+      {
+        "measure": 63,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      7,
+      9,
+      11,
+      13,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "65": 2,
+      "69": 0,
+      "73": 2,
+      "77": 0,
+      "81": 9
+    }
+  },
+  "f/bahaneh": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": -1
+      },
+      {
+        "measure": 82,
+        "diff": -1
+      },
+      {
+        "measure": 89,
+        "diff": 1
+      },
+      {
+        "measure": 102,
+        "diff": -2
+      },
+      {
+        "measure": 128,
+        "diff": 3
+      },
+      {
+        "measure": 98,
+        "diff": -2
+      },
+      {
+        "measure": 98,
+        "diff": 2
+      },
+      {
+        "measure": 104,
+        "diff": -1
+      },
+      {
+        "measure": 107,
+        "diff": -1
+      },
+      {
+        "measure": 110,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      7,
+      12,
+      17,
+      23,
+      29,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/gabriel-s-oboe---ennio-morricone": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 7,
+        "diff": 1
+      },
+      {
+        "measure": 16,
+        "diff": -1
+      },
+      {
+        "measure": 19,
+        "diff": 1
+      },
+      {
+        "measure": 28,
+        "diff": -1
+      },
+      {
+        "measure": 31,
+        "diff": 1
+      },
+      {
+        "measure": 40,
+        "diff": -1
+      },
+      {
+        "measure": 43,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10
+    }
+  },
+  "f/la-schottische": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 1
+      },
+      {
+        "measure": 35,
+        "diff": -1
+      },
+      {
+        "measure": 34,
+        "diff": 1
+      },
+      {
+        "measure": 43,
+        "diff": 1
+      },
+      {
+        "measure": 60,
+        "diff": 1
+      },
+      {
+        "measure": 93,
+        "diff": 1
+      },
+      {
+        "measure": 102,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      11,
+      13,
+      17,
+      21,
+      25,
+      29
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "52": 2,
+      "69": 9,
+      "85": 7,
+      "101": 2,
+      "109": 9,
+      "117": 7
+    }
+  },
+  "f/cinema-paradiso-morricone": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": 1
+      },
+      {
+        "measure": 19,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -2
+      },
+      {
+        "measure": 13,
+        "diff": -3
+      },
+      {
+        "measure": 15,
+        "diff": -2
+      },
+      {
+        "measure": 21,
+        "diff": -1
+      },
+      {
+        "measure": 24,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/kocaman-bebek---ahmed-adnan-saygun": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "24": 0,
+      "38": 2
+    }
+  },
+  "f/malaguena-facil": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 70,
+        "diff": -1
+      },
+      {
+        "measure": 73,
+        "diff": -2
+      },
+      {
+        "measure": 83,
+        "diff": -1
+      },
+      {
+        "measure": 71,
+        "diff": 1
+      },
+      {
+        "measure": 76,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      7,
+      9,
+      11,
+      13,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "47": 0,
+      "69": 4
+    }
+  },
+  "f/la-comparsa---ernesto-lecuona": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 69,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6
+    }
+  },
+  "f/saraab---anoushiravan-rohani": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -2
+      },
+      {
+        "measure": 31,
+        "diff": -2
+      },
+      {
+        "measure": 53,
+        "diff": -2
+      },
+      {
+        "measure": 51,
+        "diff": 2
+      },
+      {
+        "measure": 49,
+        "diff": 2
+      },
+      {
+        "measure": 55,
+        "diff": 2
+      },
+      {
+        "measure": 61,
+        "diff": 2
+      },
+      {
+        "measure": 67,
+        "diff": 2
+      },
+      {
+        "measure": 93,
+        "diff": -1
+      },
+      {
+        "measure": 112,
+        "diff": 2
+      },
+      {
+        "measure": 118,
+        "diff": 2
+      },
+      {
+        "measure": 124,
+        "diff": 2
+      },
+      {
+        "measure": 130,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      8,
+      10,
+      12,
+      14,
+      16,
+      19,
+      22,
+      24,
+      26,
+      28,
+      30
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "5": 10,
+      "9": 8,
+      "13": 5,
+      "68": 0,
+      "73": 10,
+      "77": 7,
+      "81": 0,
+      "85": 10,
+      "89": 7
+    }
+  },
+  "f/afacan-kedi---ahmed-adnan-saygun": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 19,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/elevation-funebre---gustave-tritant": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": -1
+      },
+      {
+        "measure": 26,
+        "diff": 1
+      },
+      {
+        "measure": 31,
+        "diff": -1
+      },
+      {
+        "measure": 58,
+        "diff": -1
+      },
+      {
+        "measure": 73,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      7,
+      8,
+      10,
+      12,
+      14,
+      15,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "19": 4,
+      "27": 9,
+      "34": 2,
+      "36": 9,
+      "46": 4,
+      "54": 9
+    }
+  },
+  "f/la-califfa-ennio-morricone": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 19,
+        "diff": 1
+      },
+      {
+        "measure": 20,
+        "diff": -1
+      },
+      {
+        "measure": 23,
+        "diff": -3
+      },
+      {
+        "measure": 24,
+        "diff": -1
+      },
+      {
+        "measure": 27,
+        "diff": -1
+      },
+      {
+        "measure": 30,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/ephemeral---yamato-kasai---klavier---mili-mag-mell-deemo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      },
+      {
+        "measure": 21,
+        "diff": 2
+      },
+      {
+        "measure": 17,
+        "diff": 2
+      },
+      {
+        "measure": 25,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/malaguena---ernesto-lecuona": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      },
+      {
+        "measure": 56,
+        "diff": -1
+      },
+      {
+        "measure": 59,
+        "diff": -1
+      },
+      {
+        "measure": 78,
+        "diff": -3
+      },
+      {
+        "measure": 74,
+        "diff": 1
+      },
+      {
+        "measure": 76,
+        "diff": 3
+      },
+      {
+        "measure": 115,
+        "diff": -1
+      },
+      {
+        "measure": 130,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      5,
+      7,
+      9,
+      11,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      29,
+      31,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/rumores-de-la-caleta-malaguena-albeniz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 30,
+        "diff": 2
+      },
+      {
+        "measure": 48,
+        "diff": 2
+      },
+      {
+        "measure": 74,
+        "diff": -2
+      },
+      {
+        "measure": 76,
+        "diff": -1
+      },
+      {
+        "measure": 79,
+        "diff": -2
+      },
+      {
+        "measure": 97,
+        "diff": 1
+      },
+      {
+        "measure": 126,
+        "diff": 2
+      },
+      {
+        "measure": 144,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      7,
+      11,
+      18,
+      20,
+      25,
+      31,
+      35
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "72": 5,
+      "98": 9
+    }
+  },
+  "f/peasant-pas-de-deux-interpolated-variation---cesare-pugni": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/maadar": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 42,
+        "diff": 1
+      },
+      {
+        "measure": 79,
+        "diff": -2
+      },
+      {
+        "measure": 113,
+        "diff": 1
+      },
+      {
+        "measure": 126,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      7,
+      11,
+      15,
+      20,
+      24,
+      28,
+      29
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "43": 0,
+      "77": 9,
+      "93": 0,
+      "113": 9
+    }
+  },
+  "f/fantasia---lucrecia-roces-kasilag": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 59,
+        "diff": -1
+      },
+      {
+        "measure": 66,
+        "diff": -2
+      },
+      {
+        "measure": 76,
+        "diff": 1
+      },
+      {
+        "measure": 101,
+        "diff": -1
+      },
+      {
+        "measure": 128,
+        "diff": 1
+      },
+      {
+        "measure": 141,
+        "diff": 1
+      },
+      {
+        "measure": 154,
+        "diff": 1
+      },
+      {
+        "measure": 191,
+        "diff": -3
+      },
+      {
+        "measure": 216,
+        "diff": -2
+      },
+      {
+        "measure": 222,
+        "diff": -2
+      },
+      {
+        "measure": 264,
+        "diff": -2
+      },
+      {
+        "measure": 256,
+        "diff": 0
+      },
+      {
+        "measure": 252,
+        "diff": 2
+      },
+      {
+        "measure": 264,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      15,
+      21,
+      26,
+      28,
+      30,
+      33,
+      36,
+      42,
+      48,
+      52,
+      64
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "146": 7,
+      "187": 9
+    }
+  },
+  "f/straight-no-chaser-thelonious-monk": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      7,
+      10,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10
+    }
+  },
+  "f/playing-love---ennio-morricone": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 8,
+        "diff": -1
+      },
+      {
+        "measure": 11,
+        "diff": 1
+      },
+      {
+        "measure": 16,
+        "diff": 1
+      },
+      {
+        "measure": 21,
+        "diff": -3
+      },
+      {
+        "measure": 22,
+        "diff": 1
+      },
+      {
+        "measure": 51,
+        "diff": 1
+      },
+      {
+        "measure": 68,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      7,
+      9,
+      11,
+      13,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "4": 5,
+      "7": 2,
+      "8": 10,
+      "10": 2
+    }
+  },
+  "f/l-office-pratique-de-l-organiste---gustave-tritant": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 39,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "11": 4,
+      "19": 7,
+      "27": 0,
+      "35": 5,
+      "37": 7,
+      "41": 0,
+      "49": 7
     }
   }
 }

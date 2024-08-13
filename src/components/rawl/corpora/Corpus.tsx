@@ -295,6 +295,58 @@ const corpora = [
     midis: ["love-in-venice-1924", "valse-des-fleurs-1925"],
   },
   {
+    slug: "yamato_kasai",
+    midis: [
+      "ender-lilies-quietus-of-the-knights---holy-land-save-ver.",
+      "ender-lilies-quietus-of-the-knights---grudge-save-ver.",
+      "ender-lilies-quietus-of-the-knights---the-white-witch",
+      "the-witch-s-breath---ender-lilies",
+      "a-nocturne-for-all---ender-lilies-ost",
+    ],
+  },
+  {
+    slug: "aj_weidt",
+    midis: [
+      "aj_weidt_the_colored_guards", // two banjos
+      "aj_weidt_kaloola",
+      "memelicanmanrag",
+    ],
+  },
+  {
+    slug: "gustave_tritant",
+    midis: [
+      "elevation---gustave-tritant",
+      "communion-funebre---gustave-tritant",
+      "elevation-funebre---gustave-tritant",
+      "l-office-pratique-de-l-organiste---gustave-tritant",
+    ],
+  },
+  {
+    slug: "cesare_pugni",
+    midis: [
+      "la-esmeralda-ballet-variacao---cesare-pugni",
+      "coda---cesare-pugni",
+      "peasant-pas-de-deux-interpolated-variation---cesare-pugni",
+      "la-schottische",
+      "le-carnaval-de-venise-pas-de-deux-di-satanella---cesare-pugni---variazione-maschile",
+    ],
+  },
+  {
+    slug: "ahmed_adnan_saygun",
+    midis: [
+      "inci---ahmed-adnan-saygun",
+      "ayse-m",
+      "oyun---ahmed-adnan-saygun",
+      "ruya---ahmed-adnan-saygun",
+      "masal---ahmed-adnan-saygun",
+      "ataturk-marsi---ahmed-adnan-saygun",
+      "ninni---ahmed-adnan-saygun",
+      "kocaman-bebek---ahmed-adnan-saygun",
+      "horon-for-bb-clarinet-and-piano---ahmed-adnan-saygun",
+      "afacan-kedi---ahmed-adnan-saygun",
+    ],
+  },
+  {
     slug: "paul_mauriat",
     midis: [
       "toccata---paul-mauriat",
@@ -915,6 +967,9 @@ const corpora = [
       "my-funny-valentine-lead-sheet-with-lyrics",
       "tea-for-two---vincent-youmans-and-irving-caesar-1924-piano-voice-sheet-music-arrangement",
       "tea-for-two-er-ren-deocha-wo---vincent-youmans",
+      "straight-no-chaser-thelonious-monk",
+      "blue-monk-piano",
+      "round-midnight---thelonious-monk",
     ],
   },
   {

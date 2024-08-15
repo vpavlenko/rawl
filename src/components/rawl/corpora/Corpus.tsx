@@ -216,6 +216,14 @@ const corpora = [
     ],
   },
   {
+    slug: "karen_khachaturian",
+    midis: [],
+  },
+  {
+    slug: "misc_bach",
+    midis: ["bach-goldberg-variation-00-aria"],
+  },
+  {
     slug: "bach_french_suite_no2",
     midis: [
       "j.-s.-bach---sarabande-from-french-suite-no2-bwv-813",
@@ -681,11 +689,11 @@ const corpora = [
     slug: "jerry_goldsmith",
     midis: [
       "star-trek-voyager-theme-piano-arrangement",
-
       "the-russia-house---jerry-goldsmith",
       "the-gremlin-rag-accordion",
       "king-solomon-s-mines---main-theme",
       "theme-from-hoosiers",
+      "it-s-a-long-road-from-first-blood---jerry-goldsmith",
     ],
   },
   {
@@ -1154,7 +1162,13 @@ const corpora = [
   },
   {
     slug: "chick_corea",
-    midis: ["spain---chick-corea"],
+    midis: [
+      "spain---chick-corea",
+      "children-s-song-no.-7---chick-corea",
+      "children-s-song-no.-6",
+      "children-s-song-2",
+      "children-s-song-no.-5",
+    ],
   },
   {
     slug: "dennis_alexander",

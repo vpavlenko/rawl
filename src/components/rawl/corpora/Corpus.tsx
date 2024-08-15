@@ -774,6 +774,16 @@ const corpora = [
     midis: ["bill-evans-on-autunm-leaves-from-the-album-portrait-in-jazz"],
   },
   {
+    slug: "jules_massenet",
+    midis: [
+      "thais-meditation-by-jules-massenet",
+      "aragonesa---jules-massenet",
+      "avril-est-amoureux---jules-massenet---arr.-for-flute-and-harp",
+      "musique-pour-bercer-les-petits-enfants-lullaby-jules-massenet---for-melodica-and-harmonium",
+      "elegie---jules-massenet---version-for-voice-cello-and-piano",
+    ],
+  },
+  {
     slug: "taylor_swift",
     midis: [
       "cardigan---taylor-swift",
@@ -1233,6 +1243,67 @@ const corpora = [
       "feliks-dobrzynski---farewell-nocturne",
       "nocturne-op.21-no1---ignacy-feliks-dobrzynski",
       "nocturne-in-f-minor-op.24-no.1---ignacy-feliks-dobrzynski",
+    ],
+  },
+  {
+    slug: "ignacy_jan_paderewski",
+    midis: [
+      "elegy-op.4---ignacy-jan-paderewski",
+      "miscellanea-op.16---ignacy-jan-paderewski-no.4-nocturne",
+      "piano-concerto-op.17---ignacy-jan-paderewski",
+      "ignacy-jan-paderewski-sarabande-op.-14-no-2",
+    ],
+  },
+  {
+    slug: "nikolay_zubov",
+    midis: [
+      "ne-uhodi-pobud-so-mnoyu-don-t-go-stay-with-me-romance",
+      "o-ni-nemaie-mriyi---m.-zubov",
+      "poglyad-tvoyih-chornih-ochey---m.-zubov",
+    ],
+  },
+  {
+    slug: "mykola_mozgovyy",
+    midis: [
+      "minaie-den-minaie-nich---mikola-mozgoviy",
+      "moya-zemlya---mikola-mozgoviy",
+      "zacharuy-nas-lyubov---mikola-mozgoviy",
+      "nazvi---m.-mozgoviy",
+    ],
+  },
+  {
+    slug: "myroslav_skoryk",
+    midis: [
+      "melodiya-lya-minor-dlya-skripki-i-fortepiano---m.-skorik",
+      "namalyuy-meni-nich---m.-skorik",
+      "listok-do-albomu---miroslav-skorik",
+      "narodniy-tanec---miroslav-skorik",
+      "zhartivliva-p-iesa---miroslav-skorik",
+      "sini-ochi---miroslav-skorik",
+      "nav-yazliviy-motiv---miroslav-skorik",
+      "v-narodnomu-stili---miroslav-skorik",
+      "tanec-iz-guculskogo-triptiha",
+    ],
+  },
+  {
+    slug: "moritz_moszkowski",
+    midis: [
+      "moszkowski---la-jongleuse-op.52-no.4",
+      "tarentelle-10-pieces-mignonnes-op.-77-no.-6-m.-moszkowski",
+    ],
+  },
+  {
+    slug: "loginvovchyk_single",
+    midis: [
+      "na-krilah-vitru---a.-minov",
+      "dobriy-vechir-dole---o.-pushkarenko",
+    ],
+  },
+  {
+    slug: "valery_zubkov",
+    midis: [
+      "vozvrashchenie---v.-zubkov-return---v.-zubkov",
+      "gypsy-v.-zubkov-cygan-v.-zubkov", // same?
     ],
   },
   {

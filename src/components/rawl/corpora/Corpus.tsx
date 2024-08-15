@@ -145,6 +145,7 @@ const corpora = [
       "milca-s-birthday-tango.....",
 
       // el tango de roxanne
+      "tango-lyubvi",
 
       "piazzolla_histoire_du_tango_bordel_1900",
       "piazzolla_histoire_du_tango_cafe_1930",
@@ -771,6 +772,27 @@ const corpora = [
   {
     slug: "bill_evans",
     midis: ["bill-evans-on-autunm-leaves-from-the-album-portrait-in-jazz"],
+  },
+  {
+    slug: "taylor_swift",
+    midis: [
+      "cardigan---taylor-swift",
+      "champagne-problems---taylor-swift",
+      // willow - call stack size exceeded bug
+      "evermore---taylor-swift-feat.-bon-iver",
+      "love-story---taylor-swift-taylor-s-version",
+      "tolerate-it---taylor-swift-intro-from-the-eras-tour",
+      "no-body-no-crime---taylor-swift",
+      "shake-it-off---taylor-swift",
+      // "fearless---taylor-swift", - is it that song?
+      "fearless---taylor-swift-2",
+      "enchanted-taylor-s-version---taylor-swift",
+      "forever-and-always---taylor-swift",
+      "lover---shawn-mendes-taylor-swift",
+      "blank-space---taylor-swift-easy-piano",
+      "wildest-dreams---taylor-swift",
+      "run-feat.-ed-sheeran-taylor-s-version-from-the-vault---taylor-swift-run-feat.-ed-sheeran-taylor-s-version-from-the-vault---flute-and-clarinet-duet",
+    ],
   },
   {
     slug: "c_pop",

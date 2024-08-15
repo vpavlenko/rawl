@@ -106,7 +106,10 @@ const RemeasuringInput: React.FC<{
           splitAtMeasure(false);
         }
       } else {
-        renumberMeasure(parseInt(value, 10), event.shiftKey);
+        const parsedValue = parseInt(value, 10);
+        if (!isNaN(parsedValue)) {
+          renumberMeasure(parsedValue, event.shiftKey);
+        }
       }
     }
   };

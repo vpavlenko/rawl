@@ -148,16 +148,13 @@ class App extends React.Component<RouteComponentProps, AppState> {
     const auth = getAuth(firebaseApp);
     this.db = getFirestore(firebaseApp);
 
-    // Load the analyses by Vitaly Pavlenko
-    const docRef = doc(this.db, "users", "RK31rsh4tDdUGlNYQvakXW4AYbB3");
-    getDoc(docRef).then((userSnapshot) => {
-      if (userSnapshot.exists() && userSnapshot.data().analyses) {
-        // if (this.state.analyses == defaultAnalyses) {
+    // Load the admin analyses
+    const adminDocRef = doc(this.db, "users", "RK31rsh4tDdUGlNYQvakXW4AYbB3");
+    getDoc(adminDocRef).then((adminSnapshot) => {
+      if (adminSnapshot.exists() && adminSnapshot.data().analyses) {
         this.setState({
-          analyses: { ...defaultAnalyses, ...userSnapshot.data().analyses },
+          analyses: { ...defaultAnalyses, ...adminSnapshot.data().analyses },
         });
-        // }
-        // else: analyses of some other user have already been loaded, leave them intact
       }
     });
 
@@ -167,28 +164,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
         loadingUser: !!user,
       });
       if (user) {
-        const docRef = doc(this.db, "users", user.uid);
-        getDoc(docRef)
-          .then((userSnapshot) => {
-            if (!userSnapshot.exists()) {
-              // Create user
-              console.debug("Creating user document", user.uid);
-              setDoc(docRef, {
-                user: {
-                  email: user.email,
-                },
-              });
-            } else {
-              // Restore user
-              const data = userSnapshot.data();
-              this.setState({
-                // analyses: data.analyses,
-              });
-            }
-          })
-          .finally(() => {
-            this.setState({ loadingUser: false });
-          });
+        this.loadUserAnalyses(user.uid);
+      } else {
+        this.setState({ loadingUser: false });
       }
     });
 
@@ -269,6 +247,32 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.initChipCore(audioCtx, playerNode, bufferSize);
 
     processMidiUrls(this.props.location, this.handleSongClick);
+  }
+
+  loadUserAnalyses(userId: string) {
+    const userDocRef = doc(this.db, "users", userId);
+    getDoc(userDocRef)
+      .then((userSnapshot) => {
+        if (userSnapshot.exists()) {
+          const userData = userSnapshot.data();
+          if (userData.analyses) {
+            this.setState((prevState) => ({
+              analyses: { ...prevState.analyses, ...userData.analyses },
+            }));
+          }
+        } else {
+          // Create user document if it doesn't exist
+          console.debug("Creating user document", userId);
+          setDoc(userDocRef, {
+            user: {
+              email: this.state.user.email,
+            },
+          });
+        }
+      })
+      .finally(() => {
+        this.setState({ loadingUser: false });
+      });
   }
 
   async initChipCore(audioCtx, playerNode, bufferSize) {

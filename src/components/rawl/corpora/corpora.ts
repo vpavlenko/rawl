@@ -503,6 +503,7 @@ export const corpora = [
       "minecraft-title",
       "mice-on-venus-minecraft",
       "subwoofer-lullaby-minecraft",
+      "Sweden_Minecraft",
     ],
   },
   {

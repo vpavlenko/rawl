@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ChordStairs, { MODES } from "./ChordStairs";
+import CorpusSearch from "./CorpusSearch";
 import { InlinePianoLegend, PianoLegend } from "./PianoLegend";
 import landingLeftSideImage from "./landing_left_side.png";
 import landingRightSideImage from "./landing_right_side.png";
@@ -189,17 +190,7 @@ const LandingPage = () => (
       >
         See Western music in 12 colors
       </div>
-      <div style={{ margin: "100px 0 100px 0" }}>
-        <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/uW7r-nehi7o?si=zjR312K-CGekpBwU"
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-          style={{ border: "0px" }}
-        />
-      </div>
+
       <LegendAndMetaphorsContainer>
         <div>
           <PianoLegend />
@@ -250,6 +241,23 @@ const LandingPage = () => (
         <ChordStairs mode={MODES[1]} />
         <ChordStairs mode={MODES[0]} />
       </ChordStairsContainer>
+
+      <Section title="">
+        <CorpusSearch />
+      </Section>
+
+      <div style={{ margin: "100px 0 100px 0" }}>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/uW7r-nehi7o?si=zjR312K-CGekpBwU"
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          style={{ border: "0px" }}
+        />
+      </div>
+
       <Section title="EdMAC 2024">
         <div style={{ color: "gray" }}>Gavottes</div>
         <Example

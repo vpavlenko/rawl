@@ -1189,6 +1189,7 @@ export const corpora = [
       "jurassic-park---journey-to-the-island",
       "na-krilah-vitru---a.-minov",
       "narodniy-tanec---miroslav-skorik",
+      "skyscraper---wynn-anne-rossi",
     ],
   },
   {
@@ -1198,6 +1199,8 @@ export const corpora = [
       "appalachian-spring---aaron-copland-appalachian-spring",
       "hoe-down---aaron-copland",
       "at-the-river-g",
+      "aaron-copland---story-of-our-town",
+      "the-cat-and-the-mouse",
     ],
   },
   {
@@ -1217,6 +1220,7 @@ export const corpora = [
       "nbc-sunday-night-football-theme",
       "the-fabelmans---john-williams",
       "helena-s-theme---john-williams-from-indiana-jones-and-the-dial-of-destiny",
+      "with-malice-toward-none---trumpet-solo-john-williams", // very coplandinan quartal language
     ],
   },
   {
@@ -1422,6 +1426,43 @@ export const corpora = [
       "wagner-siegfried-s-funeral-march-from-gotterdammerung-piano-solo",
       "wagner-elsa-s-procession-to-the-cathedral-from-the-opera-lohengrin-piano-solo",
       "wagner_tannhauser_overture_piano_solo",
+    ],
+  },
+  {
+    slug: "melody_bober",
+    midis: [
+      "stealth-mode---melody-bober",
+      "blues-006---blyuz-006",
+      "midnight-ride---melody-bober-midnight-ride",
+      "melody-bober----yellowhammer-stomp",
+      "antique-music-box---melody-bober",
+    ],
+  },
+  {
+    slug: "wynn-anne_rossi",
+    midis: [
+      "skyscraper---wynn-anne-rossi",
+      "cafe-cha-cha---wynn-anne-rossi",
+      "alma-del-tango---wynn-anne-rossi",
+    ],
+  },
+  {
+    slug: "jennifer_linn",
+    midis: ["the-dreamcatcher", "snowcrystals---jennifer-linn"],
+  },
+  {
+    slug: "john_adams",
+    midis: [
+      "piano-arr.-short-ride-in-a-fast-machine---john-adams",
+      "phrygian-gates-china-gates---john-adams",
+    ],
+  },
+  {
+    slug: "ignacio_cervantes",
+    midis: [
+      "no-me-toques-danza-cubana-de-ignacio-cervantes",
+      "soledad-.-habanera-par-ignazio-cervantes",
+      "los-tres-golpes-danza-ignacio-cervantes",
     ],
   },
   {

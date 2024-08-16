@@ -1662,25 +1662,30 @@ const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
           onChange={(e) => setSearchTerm(e.target.value)}
           style={{ width: "100%", padding: "10px", marginBottom: "20px" }}
         />
-        {filteredCorpora.map(({ slug, midis }) => (
-          <div key={slug}>
-            <Link to={`/corpus/${slug}`}>
-              {highlightMatch(slug.replace(/_/g, " "), searchTerm)}{" "}
-              <span
-                style={{
-                  color: "white",
-                  fontSize: "0.6em",
-                }}
-              >
-                {midis.length}
-              </span>
-            </Link>
-            {searchTerm &&
-              midis
-                .filter((midi) =>
-                  midi.toLowerCase().includes(searchTerm.toLowerCase()),
-                )
-                .map((midi) => (
+        {filteredCorpora.map(({ slug, midis }) => {
+          const composerMatched =
+            searchTerm && slug.toLowerCase().includes(searchTerm.toLowerCase());
+          return (
+            <div
+              key={slug}
+              style={
+                composerMatched
+                  ? {
+                      borderLeft: "3px solid yellow",
+                      paddingLeft: "10px",
+                      marginBottom: "15px",
+                    }
+                  : {}
+              }
+            >
+              <Link to={`/corpus/${slug}`}>
+                {highlightMatch(slug.replace(/_/g, " "), searchTerm)}{" "}
+                <span style={{ color: "white", fontSize: "0.6em" }}>
+                  {midis.length}
+                </span>
+              </Link>
+              {(composerMatched || searchTerm) &&
+                midis.map((midi) => (
                   <div key={midi} style={{ paddingLeft: "20px" }}>
                     <a
                       href={`/f/${midi}`}
@@ -1694,8 +1699,9 @@ const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
                     </a>
                   </div>
                 ))}
-          </div>
-        ))}
+            </div>
+          );
+        })}
       </div>
     );
   }

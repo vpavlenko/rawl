@@ -1665,6 +1665,11 @@ const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
         {filteredCorpora.map(({ slug, midis }) => {
           const composerMatched =
             searchTerm && slug.toLowerCase().includes(searchTerm.toLowerCase());
+          const matchingMidis = searchTerm
+            ? midis.filter((midi) =>
+                midi.toLowerCase().includes(searchTerm.toLowerCase()),
+              )
+            : midis;
           return (
             <div
               key={slug}
@@ -1685,7 +1690,7 @@ const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
                 </span>
               </Link>
               {(composerMatched || searchTerm) &&
-                midis.map((midi) => (
+                matchingMidis.map((midi) => (
                   <div key={midi} style={{ paddingLeft: "20px" }}>
                     <a
                       href={`/f/${midi}`}

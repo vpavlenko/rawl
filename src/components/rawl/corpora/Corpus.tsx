@@ -1185,6 +1185,41 @@ const corpora = [
     ],
   },
   {
+    slug: "tonal_stretch",
+    midis: [
+      "jurassic-park---journey-to-the-island",
+      "na-krilah-vitru---a.-minov",
+      "narodniy-tanec---miroslav-skorik",
+    ],
+  },
+  {
+    slug: "aaron_copland",
+    midis: [
+      "copland_s_third_symphony_first_movement",
+      "appalachian-spring---aaron-copland-appalachian-spring",
+      "hoe-down---aaron-copland",
+      "at-the-river-g",
+    ],
+  },
+  {
+    slug: "john_williams",
+    midis: [
+      "jurassic-park-theme---john-williams-jurrasic-park-theme---john-williams",
+      "somewhere-in-my-memory-by-john-williams",
+      "theme-from-schindler-s-list---piano-solo",
+      "jurassic-park---journey-to-the-island", // what's going on?
+      "e.t.-end-credits-piano-solo",
+      "e.t.-theme---ywcm",
+      "jazz-autographs---john-williams-jazz-autographs-from-the-terminal---john-williams",
+      "holiday-flight-from-home-alone-2---john-williams-joni-leiman-solo-piano-transcription",
+      "jaws-theme",
+      "the-tale-of-viktor-navorski-john-williams",
+      "catch-me-if-you-can-sax-solo",
+      "nbc-sunday-night-football-theme",
+      "the-fabelmans---john-williams",
+    ],
+  },
+  {
     slug: "john_philip_sousa",
     midis: [
       "the-liberty-bell-march---john-philip-sousa---1893",
@@ -1290,6 +1325,28 @@ const corpora = [
     midis: [
       "moszkowski---la-jongleuse-op.52-no.4",
       "tarentelle-10-pieces-mignonnes-op.-77-no.-6-m.-moszkowski",
+      "spanish-dance---moritz-moszkowski",
+      "moszkowski---etincelles-op.36-no.6",
+    ],
+  },
+  {
+    slug: "platon_mayboroda",
+    midis: [
+      "bili-kashtani---platon-mayboroda",
+      "kiyivskiy-vals---p.-mayboroda",
+      "ridna-mati-moya-pisnya-pro-rushnik---p.-mayboroda",
+    ],
+  },
+  {
+    slug: "yaroslav_kis",
+    midis: ["liricheskiy-vals---yaroslav-kis"],
+  },
+  {
+    slug: "yuriy_zubay",
+    midis: [
+      "babusya-yagusya---yu.-zubay",
+      "osinnya-pisnya---yuriy-zubay",
+      "koncertino---yu.-zubay",
     ],
   },
   {
@@ -1519,6 +1576,7 @@ const corpora = [
       "thema-aus-die-moldau---b-smetana-s-sitnikava",
       "fantasia-on-greensleeves---ralph-vaughan-williams",
       "der-flohwalzer",
+      "stanley-myers---cavatina-arranged-for-piano",
     ],
   },
   {

@@ -2,7 +2,13 @@
 // I skip "14 I… 48:33" since it's basically track 1 with added violin.
 // For "05 Passing By 15:17", "09 Time Forgets… 29:52" and "15 Farewell 52:45"
 // I use versions without a cello, since it's doubling a piano melody anyways.
-export const corpora = [
+
+type Corpora = {
+  slug: string;
+  midis: string[];
+};
+
+export const corpora: Corpora[] = [
   {
     slug: "first_love",
     midis: [
@@ -212,6 +218,27 @@ export const corpora = [
       "ach-bleib-bei-uns-herr-jesu-christ",
       "ach-bleib-bei-uns-herr-jesu-christ---j.-s.-bach---german-phrasing",
       "ach-gott-erhor-mein-seufzen-bwv-254-and-original-setting",
+    ],
+  },
+  {
+    slug: "mike_morasky",
+    midis: [
+      "your-precious-moon---mike-morasky-wheatley-boss-fight-ending",
+      "thirty-seven-after-six",
+      "team-fortress---upgrade-station-piano---mike-morasky",
+      "rocket-jump-waltz-piano-solo",
+      "cara-mia-addio---full-piano-cover",
+      "soldier-of-dance",
+      "team-fortress---rise-of-the-living-bread---mike-morasky",
+      "team-fortress-2-main-theme---mike-morasky-team-fortress-2-piano-solo", // blues scale
+      "saxton-s-dilemma-sax-quartet---mike-morasky",
+      "machiavellian-bach",
+      "the-parish---mike-morasky",
+      "tf2---mannrobics---piano",
+      "counter-strike-2---main-menu-theme---mike-morasky-counter-strike-2---main-menu-theme-for-solo-piano",
+      "music-of-the-spheres", // augmented vibes
+      "half-life-alyx---ending-triumph",
+      "you-are-not-part-of-the-control-group",
     ],
   },
   {
@@ -918,7 +945,7 @@ export const corpora = [
   },
   {
     slug: "modern_composers_of_single_pieces",
-    midis: ["gray"],
+    midis: ["gray", "changing-times---heather-hammond"],
   },
   {
     slug: "stephen_foster",
@@ -1190,6 +1217,7 @@ export const corpora = [
       "na-krilah-vitru---a.-minov",
       "narodniy-tanec---miroslav-skorik",
       "skyscraper---wynn-anne-rossi",
+      "team-fortress---rise-of-the-living-bread---mike-morasky",
     ],
   },
   {
@@ -1429,6 +1457,23 @@ export const corpora = [
     ],
   },
   {
+    slug: "timothy_brown",
+    midis: [
+      "dance-of-the-wind---timothy-brown",
+      "toccatina---timothy-brown",
+      "summer-song",
+      "scherzino---timothy-brown", // i like this one. simple and effective
+    ],
+  },
+  {
+    slug: "lionel_yu",
+    midis: [
+      "fight-for-freedom---lionel-yu",
+      "i-will-love-you-always---lionel-yu",
+      "the-cursed-path",
+    ],
+  },
+  {
     slug: "melody_bober",
     midis: [
       "stealth-mode---melody-bober",
@@ -1436,6 +1481,7 @@ export const corpora = [
       "midnight-ride---melody-bober-midnight-ride",
       "melody-bober----yellowhammer-stomp",
       "antique-music-box---melody-bober",
+      "dance-of-the-autumn-leaves---melody-bober",
     ],
   },
   {
@@ -1619,13 +1665,43 @@ export const corpora = [
       "chopin---waltz-no.-1-in-d-flat-major-op.-64", // harmonic prototype for Scott Joplin
       "grand-march-from-the-opera-aida-by-giuseppe-verdi",
       "danse-macabre-opus-40-s.-555",
-      "minuet-from-music-for-the-royal-fireworks---georg-friedrich-handel",
       "glinka---the-lark-from-a-farewell-to-saint-petersburg-no.-10",
       "lyapunov-reverie-du-soir-op.3",
       "thema-aus-die-moldau---b-smetana-s-sitnikava",
       "fantasia-on-greensleeves---ralph-vaughan-williams",
       "der-flohwalzer",
       "stanley-myers---cavatina-arranged-for-piano",
+    ],
+  },
+  {
+    slug: "kelly_bailey",
+    midis: [
+      "triage-at-dawn",
+      "portal-radio-music-for-trombone",
+      "something-secret-steers-us",
+    ],
+  },
+  {
+    slug: "thomas_attwood",
+    midis: [
+      "allegro---first-movement-from-sonatina-no.-1-in-g-trinity-grade-2-piano",
+    ],
+  },
+  {
+    slug: "martin_kratochwil",
+    midis: [
+      "potato-blues",
+      "sour-apple-blues",
+      "lonesome-broccoli-blues-_-easy-piano",
+    ],
+  },
+  {
+    slug: "handel",
+    midis: [
+      "minuet-from-music-for-the-royal-fireworks---georg-friedrich-handel",
+      "gavotte_in_g_major_hwv_491_handel_george_frideric",
+      "passacaglia---handel-halvorsen",
+      "water-music-suite-in-d-major-ii---alla-hornpipe-handel",
     ],
   },
   {
@@ -1989,7 +2065,6 @@ export const corpora = [
       "gankino-2",
       "gavotte",
       "gavotte_f_j_gossec",
-      "gavotte_in_g_major_hwv_491_handel_george_frideric",
       "glavinishko-cetvorno",
       "god_only_knows_bioshock_infinite_2013",
       "gotye_feat_kimbra_somebody_that_i_used_to_know",

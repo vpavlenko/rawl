@@ -10,6 +10,29 @@ type Corpora = {
 
 export const corpora: Corpora[] = [
   {
+    slug: "yiruma_misc",
+    midis: [
+      "yiruma_27_may",
+      "yiruma_chaconne",
+      "yiruma_do_you",
+      "yiruma_fairy_tale",
+      "yiruma_if_i_could_see_you_again",
+      "yiruma_its_your_day",
+      "yiruma_kiss_the_rain_easy",
+      "yiruma_love_me",
+      "yiruma_love_me_easy",
+      "yiruma_maybe",
+      "yiruma_prelude_in_g_minor",
+      "yiruma_reason",
+      "yiruma_reminiscent",
+      "yiruma_river_flows_in_you_easy",
+      "yiruma_room_with_a_view",
+      "yiruma_spring_time",
+      "yiruma_wait_there",
+      "yiruma_when_the_love_falls",
+    ],
+  },
+  {
     slug: "first_love",
     midis: [
       "river-flows-in-you",
@@ -165,6 +188,7 @@ export const corpora: Corpora[] = [
       "tango-till-you-drop-abrsm-grade-5-saxophone-b-3", // melody for harmonization
       "Habanera_-_Piano_Solo_-_Georges_Bizet",
       "tango-lyubvi",
+      "tango-do-k-f-12-stulev---o.-zacepin",
     ],
   },
   {
@@ -221,6 +245,41 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "peter_mcconnell",
+    midis: [
+      "plants-vs-zombies-2-modern-day-piano-transcription",
+      "heartstone-pull-up-a-chair-piano",
+      "pvz2-ancient-egypt",
+      "pvz2-modern-day---ultimate-battle---peter-mcconnell",
+      "wild-west-main-theme",
+      "wip-plants-vs-zombies-garden-warfare-2---infinity-time-ost-only-piano---peter-mcconnell",
+      "neon-mixtape-tour---choose-your-seeds",
+      "swanky-maximo---grim-fandango",
+      "plants-vs-zombies-2-ballad-jam",
+    ],
+  },
+  {
+    slug: "ari_pulkkinen",
+    midis: [
+      "angry-birds-theme---ari-pulkkinen-angry-birds-theme",
+      "throne-of-the-lost-king-trine-ost",
+      "waltz-of-the-temple-forest-elves-trine-2-soundtrack",
+      "trine-4-moonlit-forest",
+      "brambelstoke-village---trine---ari-pulkkinen",
+      "academy-hallways",
+    ],
+  },
+  {
+    // wrong approach. better continue chiptheory's approach with parsing NES files: better coverage
+    // see https://vpavlenko.github.io/chiptheory
+    slug: "nobuo_uematsu",
+    midis: ["final-fantasy-i-matoya-s-cave---nobuo-uematsu"],
+  },
+  {
+    slug: "scott_lloyd_shelly",
+    midis: [],
+  },
+  {
     slug: "mike_morasky",
     midis: [
       "your-precious-moon---mike-morasky-wheatley-boss-fight-ending",
@@ -239,6 +298,9 @@ export const corpora: Corpora[] = [
       "music-of-the-spheres", // augmented vibes
       "half-life-alyx---ending-triumph",
       "you-are-not-part-of-the-control-group",
+      "the-calm---valve-for-brass-quintet",
+      "medic",
+      "misfortune-teller---valve-studio-orchestra-.",
     ],
   },
   {
@@ -854,6 +916,15 @@ export const corpora: Corpora[] = [
     midis: ["trading-eights", "frostfang-s-theme", "waterfall---ec1ipze"],
   },
   {
+    slug: "inon_zur",
+    midis: [
+      "dragon-age-origins-theme-song",
+      "hymn-of-vaghen---inon-zur",
+      "theme-from-fallout-76---inon-zur",
+      "in-uthenera",
+    ],
+  },
+  {
     slug: "lena_raine_minecraft",
     midis: [
       "lena-raine---rubedo",
@@ -898,6 +969,7 @@ export const corpora: Corpora[] = [
   {
     slug: "debussy",
     midis: [
+      "Clair_de_Lune__Debussy",
       "arabesque-l.-66-no.-1-in-e-major",
       "estampes-i-pagodes----debussy",
       "valse-romantique-claude-debussy",
@@ -944,8 +1016,22 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "scott_lloyd_shelly",
+    midis: [
+      "overworld-day---scott-lloyd-shelly-terraria-ost", // finally lydian vgm vibes
+      "boss-1---scott-lloyd-shelly-terraria-ost",
+      "windy-day---scott-lloyd-shelly-terraria-ost",
+      "alternate-day---scott-lloyd-shelly-terraria-ost",
+      "thunderstorm-storm---scott-lloyd-shelly-terraria-ost",
+    ],
+  },
+  {
     slug: "modern_composers_of_single_pieces",
-    midis: ["gray", "changing-times---heather-hammond"],
+    midis: [
+      "gray",
+      "changing-times---heather-hammond",
+      "ma-lu-mitai-baka-mitai---mitsuharu-fukuyama-piano-arrangement",
+    ],
   },
   {
     slug: "stephen_foster",
@@ -1043,6 +1129,16 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "akira_yamaoka",
+    midis: [
+      "akira-yamaoka---silent-hill-2---promise-reprise",
+      "magdalene---akira-yamaoka",
+      "never-forgive-me-never-forget-me---akira-yamaoka",
+      "silent-hill-not-tomorrow-lisa-s-death",
+      "akira-yamaoka---true",
+    ],
+  },
+  {
     slug: "jazz_standards",
     midis: [
       "recorda-me-no-me-esqueca",
@@ -1063,7 +1159,12 @@ export const corpora: Corpora[] = [
   {
     // https://musescore.com/user/24069/sets/4869434
     slug: "rachmaninoff",
-    midis: ["rachmaninoff-piano-concerto-no.-2-1st-mvmt.-arr.-for-2-pianos"],
+    midis: [
+      "rachmaninoff-piano-concerto-no.-2-1st-mvmt.-arr.-for-2-pianos",
+      "piano_concerto_no_4_op_40_sergei_rachmaninoff_i_allegro_vivace_alla_breve",
+      "prelude_in_c_sharp_minor_opus_3_no_2_sergei_rachmaninoff",
+      "rachmaninoff_piano_concerto_4_1",
+    ],
   },
   {
     slug: "valentin_silvestrov",
@@ -1137,6 +1238,48 @@ export const corpora: Corpora[] = [
       "bahaneh",
       "queen-of-hearts",
     ],
+  },
+  {
+    slug: "evgeny_doga",
+    midis: [
+      "vals---ie.-doga",
+      "sonet---ie.-doga",
+      "meditation---ie.-doga",
+      "i-love-you---ie.-doga",
+      "portret---e.-doga",
+    ],
+  },
+  {
+    slug: "aleksandr_zatsepin",
+    midis: [
+      "pesenka-o-medvedyah---a.-zacepin",
+      "s-lyubovyu-vstretitsya---a.-zacepin",
+      "volki-gonyat-olenya---a.-zacepin",
+      "hudozhniki---a.-zacepin",
+      "island-of-misfortune-ostrov-nevezeniya---o.-zacepin",
+      "proshchay---a.-zacepin",
+      "tango-do-k-f-12-stulev---o.-zacepin",
+      "kak-zhe-mne-teper-tebya-lyubit---a.-zacepin", // triton sub
+      "lunnaya-serenada---a.-zacepin",
+    ],
+  },
+  {
+    slug: "tihon_hrennikov",
+    midis: [
+      "vals---t.-hrennikov",
+      "vals-davnim-davno---t.-hrennikov",
+      "prelyudiya---t.-hrennikov",
+      "moskovskie-okna-bossa-nova",
+      "chto-tak-serdce-rastrevozheno",
+      "marsh-artilleristov---t.-n.-hrennikov",
+      "proshchanie---tihon-hrennikov-proshchanie",
+      "koliskova-svitlani---t.-hrennikov",
+      "chastushki---t.-hrennikov",
+    ],
+  },
+  {
+    slug: "sergey_banevich",
+    midis: ["fantaziya---s.-banevich", "soldatik-i-balerina"],
   },
   {
     slug: "alan_hovhaness",
@@ -1625,6 +1768,13 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "johann_pachelbel",
+    midis: [
+      "Canon_in_D",
+      "johann-pachelbel-1653~1706---fugue-in-c-major-p.144",
+    ],
+  },
+  {
     slug: "bebu_silvetti",
     midis: [
       "mexico-de-noche",
@@ -1636,6 +1786,16 @@ export const corpora: Corpora[] = [
   {
     slug: "early_20th_century_easy_american",
     midis: ["in-the-garden---c.-austin-miles"],
+  },
+  {
+    slug: "joe_hisaishi",
+    midis: [
+      "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
+      "Summer_Joe_Hisaishi",
+      "a-town-with-an-ocean-view--joe-hisaishi--natural-key-signature",
+      "joe-hisaishi---hana-bi",
+      "the-name-of-life-inochi-no-namae-joe-hisaishi",
+    ],
   },
   {
     // https://musescore.com/user/19710/sets/3559241
@@ -1671,6 +1831,7 @@ export const corpora: Corpora[] = [
       "fantasia-on-greensleeves---ralph-vaughan-williams",
       "der-flohwalzer",
       "stanley-myers---cavatina-arranged-for-piano",
+      "imslp181922-wima.ec84-oginski_polonez_a",
     ],
   },
   {
@@ -1883,11 +2044,11 @@ export const corpora: Corpora[] = [
       "Blue_Rondo_A_La_Turk",
       "Blues_for_Alice",
       "Blues_in_the_Closet_Lead_sheet_",
-      "Canon_in_D",
+
       "Cant_Help_Falling_In_Love",
       "Carol_of_the_Bells",
       "Chris_Isaak_Wicked_Game",
-      "Clair_de_Lune__Debussy",
+
       "Close_to_the_edge",
       "Coffin_dance",
       "Dawn_Pride_and_Prejudice",
@@ -1938,7 +2099,7 @@ export const corpora: Corpora[] = [
       "Lovely_Billie_Eilish",
       "Mad_world_Piano",
       "Mariage_dAmour",
-      "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
+
       "Michael_Giaccino_Married_Life",
       "Misty_piano_solo",
       "Moon_River_Breakfast_at_Tiffanys",
@@ -1964,7 +2125,7 @@ export const corpora: Corpora[] = [
       "Someone_Like_You_easy_piano",
       "Someone_You_Loved",
       "Sorcerers_doll___-_The_King_and_the_Jester___",
-      "Summer_Joe_Hisaishi",
+
       "Super_Mario_Bros_Main_Theme",
       "Super_Mario_Bros_Peaches",
       "Sviridov_Snowstorm_Waltz",
@@ -2113,7 +2274,7 @@ export const corpora: Corpora[] = [
       "opa-cupa",
       "pavane_pour_une_infante_defunte_ravel_recorder",
       "piano-man-piano",
-      "piano_concerto_no_4_op_40_sergei_rachmaninoff_i_allegro_vivace_alla_breve",
+
       "piano_sonata_no_16_in_c_major_k_545_wolfgang_amadeus_mozart_piano_solo",
       "piano_sonata_no_3_in_c_major_op_2_no_3_ludwig_van_beethoven_piano_sonata_no_3_in_c_major_op_2_no_3_complete",
       "piano_tutorial",
@@ -2139,9 +2300,9 @@ export const corpora: Corpora[] = [
       "pornofilmy-ya_tak_soskuchilsya.2",
       "portal_still_alive",
       "prelude_in_c_major_bach_piano_solo",
-      "prelude_in_c_sharp_minor_opus_3_no_2_sergei_rachmaninoff",
+
       "pyos",
-      "rachmaninoff_piano_concerto_4_1",
+
       "reverie_galimberti",
       "river_flows_in_you_yiruma_10th_anniversary_version_piano",
       "roumen-sirakov-s-daichevo",
@@ -2193,24 +2354,6 @@ export const corpora: Corpora[] = [
       "white_christmas",
       "wonder-wave-by-david-lanz",
       "ya-sprosil-u-yasenya---tariverdiev-tariverdiev",
-      "yiruma_27_may",
-      "yiruma_chaconne",
-      "yiruma_do_you",
-      "yiruma_fairy_tale",
-      "yiruma_if_i_could_see_you_again",
-      "yiruma_its_your_day",
-      "yiruma_kiss_the_rain_easy",
-      "yiruma_love_me",
-      "yiruma_love_me_easy",
-      "yiruma_maybe",
-      "yiruma_prelude_in_g_minor",
-      "yiruma_reason",
-      "yiruma_reminiscent",
-      "yiruma_river_flows_in_you_easy",
-      "yiruma_room_with_a_view",
-      "yiruma_spring_time",
-      "yiruma_wait_there",
-      "yiruma_when_the_love_falls",
     ],
   },
 ];

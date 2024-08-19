@@ -276,10 +276,6 @@ export const corpora: Corpora[] = [
     midis: ["final-fantasy-i-matoya-s-cave---nobuo-uematsu"],
   },
   {
-    slug: "scott_lloyd_shelly",
-    midis: [],
-  },
-  {
     slug: "mike_morasky",
     midis: [
       "your-precious-moon---mike-morasky-wheatley-boss-fight-ending",
@@ -833,6 +829,8 @@ export const corpora: Corpora[] = [
       "tango-lyubvi",
       "a-mozhet-byt-vorona---g.-gladkov",
       "dzhentlmeny-udachi---g.-gladkov",
+      "beleet-moy-parus-a.-mironov---gennadiy-gladkov",
+      "padal-proshlogodniy-sneg---grigoriy-gladkov", // cool stuff
     ],
   },
   {
@@ -855,6 +853,8 @@ export const corpora: Corpora[] = [
       "v-sobore---m.-tariverdiev",
       "ubil-ya-poemu---m.-tariverdiev",
       "mikael-tariverdiev-michael-tariverdiyev---nikogo-ne-budet-v-dome-no-one-will-be-at-home",
+      "tariverdiev---net-eti-slyozy-ne-moi",
+      "ya-sprosil-u-yasenya---tariverdiev-tariverdiev",
     ],
   },
   {
@@ -980,6 +980,7 @@ export const corpora: Corpora[] = [
       "debussy---suite-bergamasque-4-passepied",
       "debussy---images-reflets-dans-leau",
       "claude-debussy---la-fille-aux-cheveux-de-lin",
+      "prelude-l.-117-no.-6-in-d-minor---debussy",
     ],
   },
   {
@@ -1154,6 +1155,7 @@ export const corpora: Corpora[] = [
       "straight-no-chaser-thelonious-monk",
       "blue-monk-piano",
       "round-midnight---thelonious-monk",
+      "footprints.mscz",
     ],
   },
   {
@@ -1250,6 +1252,55 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "marc_sabatella",
+    midis: [
+      "reunion",
+      "different-worlds",
+      "for-dad",
+      "coming-back-home",
+      "birthday-rag",
+      "fugue",
+      "autumn-fires",
+    ],
+  },
+  {
+    slug: "raimonds_pauls",
+    midis: [
+      "million-alyh-roz---raimonds-pauls",
+      "ischezli-solnechnye-dni",
+      "raymond-pauls-ptichka-na-vetke",
+      "zelyonyy-svet---valeriy-leontev-raymond-pauls",
+    ],
+  },
+  {
+    slug: "mark_fradkin",
+    midis: [
+      "techyot-reka-volga---muzyka-m-fradkin",
+      "doroga-na-berlin---mark-grigorevich-fradkin",
+    ],
+  },
+  {
+    slug: "aleksey_rybnikov",
+    midis: [
+      "ya-tebya-nikogda-ne-zabudu---o.-ribnikov",
+      "pesnya-krasnoy-shapochki---a.-rybnikov",
+      "pesnya-krasnoy-shapochki---aleksey-rybnikov",
+      "poslednyaya-poema-the-last-poem---aleksey-rybnikov", // many strategies
+      "pisnya-kota-bazilio-ta-lisici-alisi---o.-ribnikov",
+      "meeting-a.-rybnikov---zustrich-o.-ribnikov",
+      "misyachna-pisnya---o.-ribnikov",
+      "main---alexey-rybnikov-golovna-tema---oleksiy-ribnikov",
+      "belyy-shipovnik---o.-ribnikov",
+      "tema-mriy---oleksiy-ribnikov-dream-theme-alexey-rybnikov",
+      "v-parke---aleksey-rybnikov-v-parke---aleksey-rybnikov-iz-kinofilma-vam-i-ne-snilos",
+      "recognition-alexey-rybnikov-a.-rybnikov-priznanie",
+      "groza---aleksey-rybnikov-iz-k-f-cherez-ternii-k-zvezdam",
+      "a.-rybnikov----the-lamplighter-s-song-ost-the-adventures-of-buratino-1976",
+      "ostrov-sokrovishch-aleksey-lvovich-rybnikov",
+      "mlechnyy-put-milky-way",
+    ],
+  },
+  {
     slug: "aleksandr_zatsepin",
     midis: [
       "pesenka-o-medvedyah---a.-zacepin",
@@ -1261,6 +1312,7 @@ export const corpora: Corpora[] = [
       "tango-do-k-f-12-stulev---o.-zacepin",
       "kak-zhe-mne-teper-tebya-lyubit---a.-zacepin", // triton sub
       "lunnaya-serenada---a.-zacepin",
+      "volshebnik-nedouchka---aleksandr-zacepin",
     ],
   },
   {
@@ -1279,7 +1331,13 @@ export const corpora: Corpora[] = [
   },
   {
     slug: "sergey_banevich",
-    midis: ["fantaziya---s.-banevich", "soldatik-i-balerina"],
+    midis: [
+      "fantaziya---s.-banevich",
+      "soldatik-i-balerina",
+      "at-the-station-na-vokzale",
+      "road", // seventh chords in minor, change of meter
+      "pesenka-pro-vovu-rasteryashku", // Iadd6 = ii65, V+/IV
+    ],
   },
   {
     slug: "alan_hovhaness",
@@ -2332,7 +2390,7 @@ export const corpora: Corpora[] = [
       "sydameni_laulu",
       "symphony_8_1",
       "symphony_no_1_k_16_2nd_movement",
-      "tariverdiev---net-eti-slyozy-ne-moi",
+
       "the-blues-scale-in-all-12-keys",
       "the-four-chord-song---axis-of-awesome",
       "the-office-opening-theme",
@@ -2353,7 +2411,6 @@ export const corpora: Corpora[] = [
       "vizisi",
       "white_christmas",
       "wonder-wave-by-david-lanz",
-      "ya-sprosil-u-yasenya---tariverdiev-tariverdiev",
     ],
   },
 ];

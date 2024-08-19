@@ -81,8 +81,11 @@ const CorpusSearch: React.FC = () => {
   );
 
   const renderEmptySearchResults = () => {
+    const sortedCorpora = filteredCorpora.sort(
+      (a, b) => b.midis.length - a.midis.length,
+    );
     const columns = [[], [], []];
-    filteredCorpora.forEach(({ slug, midis }, index) => {
+    sortedCorpora.forEach(({ slug, midis }, index) => {
       columns[index % 3].push(
         <div key={slug}>
           <Link to={`/corpus/${slug}`}>

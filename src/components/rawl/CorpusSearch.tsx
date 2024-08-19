@@ -20,11 +20,22 @@ const SearchContainer = styled.div`
   max-width: 100%;
 `;
 
-const SearchInput = styled.input`
-  width: 100%;
-  padding: 10px;
+const SearchInputContainer = styled.div`
+  display: flex;
+  align-items: center;
   margin-bottom: 20px;
+`;
+
+const SearchInput = styled.input`
+  flex-grow: 1;
+  padding: 10px;
   box-sizing: border-box;
+`;
+
+const TotalCount = styled.span`
+  margin-left: 10px;
+  color: #888;
+  font-size: 0.9em;
 `;
 
 const ResultsContainer = styled.div`
@@ -54,6 +65,11 @@ const CorpusSearch: React.FC = () => {
       searchInputRef.current.focus();
     }
   }, []);
+
+  const totalMidis = corpora.reduce(
+    (sum, corpus) => sum + corpus.midis.length,
+    0,
+  );
 
   const filteredCorpora = corpora.filter(
     (corpus) =>
@@ -90,13 +106,16 @@ const CorpusSearch: React.FC = () => {
 
   return (
     <SearchContainer>
-      <SearchInput
-        ref={searchInputRef}
-        type="text"
-        placeholder="Search composers or songs, eg. 'nocturne', 'entertainer', 'jaws', 'autumn leaves'"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      <SearchInputContainer>
+        <SearchInput
+          ref={searchInputRef}
+          type="text"
+          placeholder="Search composers or songs, eg. 'nocturne', 'entertainer', 'jaws', 'autumn leaves'"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <TotalCount>{totalMidis} MIDIs</TotalCount>
+      </SearchInputContainer>
       <ResultsContainer>
         {searchTerm === ""
           ? renderEmptySearchResults()

@@ -960,7 +960,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
                               !setSecondWidthCalled.current &&
                               Math.abs(
                                 prevPositionSeconds.current - positionSeconds,
-                              ) < 1
+                              ) < 2
                                 ? "left 0.74s linear"
                                 : "",
                             left: secondsToX(positionSeconds),

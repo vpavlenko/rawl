@@ -1032,6 +1032,7 @@ export const corpora: Corpora[] = [
       "gray",
       "changing-times---heather-hammond",
       "ma-lu-mitai-baka-mitai---mitsuharu-fukuyama-piano-arrangement",
+      "devotion",
     ],
   },
   {
@@ -1273,6 +1274,11 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "alkan",
+    midis: ["nocturne-opus-22-in-b-major---alkan"],
+  },
+
+  {
     slug: "robert_d_vandall",
     midis: [
       "prelude-no.-4-in-f-major---robert-d.-vandall",
@@ -1288,6 +1294,7 @@ export const corpora: Corpora[] = [
     midis: [
       "fanfara-for-horn---malcolm-arnold-fantasy-for-horn",
       "fantasy-for-trumpet-op.-100---malcolm-arnold-excerpt-from-fantasy-for-trumpet-op.-100",
+      "fantasy-for-trombone",
       "siciliano-from-prelude-siciliano-and-rondo",
       "eight-children-s-pieces-op.36---malcolm-arnold",
       "piano-reduction-mvt-i-from-four-cornish-dances---malcolm-arnold",
@@ -1435,6 +1442,21 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "jean-luc_ponty",
+    midis: ["faith-in-you"],
+  },
+  {
+    slug: "placebo",
+    midis: ["every-you-every-me---placebo", "the-bitter-end---placebo"],
+  },
+  {
+    slug: "john_cacavas",
+    midis: [
+      "jazzy-sax---john-cacavas",
+      "corsage-for-winds---john-cacavas-string-quartet",
+    ],
+  },
+  {
     slug: "joe_zawinul",
     midis: [
       "birdland-piano",
@@ -1447,6 +1469,41 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "altin_gun",
+    midis: [
+      "goca-dunya---altin-gun-goca-dunya.xml",
+      "rakiya-su-katamam---selami-sahin-altin-gun",
+      "badi-sabah-olmadan---altin-gun-badi-sabah-olmadan.xml",
+    ],
+  },
+  {
+    slug: "herbie_hancock",
+    midis: ["cantaloupe-island"],
+  },
+  {
+    slug: "michel_camilo",
+    midis: [
+      "one-more-once---michel-camilo", // 12-bar blues
+      "michel-camilo-from-within",
+      "blue-bossa-salsa---michel-camilo",
+      "caribe---michel-camilo",
+    ],
+  },
+  {
+    slug: "hiromi_uehara",
+    midis: [
+      "the-tom-and-jerry-show---hiromi-uehara",
+      "hiromi-uehara---haze",
+      "hiromi-uehara---old-castle-by-the-river-in-the-middle-of-a-forest",
+      "mr.-c.c.-cm-ver.---hiromi-uehara",
+      "spark-by-hiromi-uehara-the-trio-project-piano-score",
+    ],
+  },
+  {
+    slug: "george_duke",
+    midis: ["if-you-will---george-duke", "george-duke---it-s-on"],
+  },
+  {
     slug: "tonal_stretch",
     midis: [
       "jurassic-park---journey-to-the-island",
@@ -1455,6 +1512,7 @@ export const corpora: Corpora[] = [
       "skyscraper---wynn-anne-rossi",
       "team-fortress---rise-of-the-living-bread---mike-morasky",
       "eight-children-s-pieces-op.36---malcolm-arnold",
+      "the-tom-and-jerry-show---hiromi-uehara",
     ],
   },
   {
@@ -2132,6 +2190,12 @@ export const corpora: Corpora[] = [
       "veselinovo-horo-2",
       "veselinovo-horo-3",
       "yareshko-horo",
+      "sandansko-oro",
+      "seymour_jambolsko_pajdushko",
+      "seymour_paidushko",
+      "seymour_pajdusko_oro",
+      "bavno-oro",
+      "dospatsko-oro---misc-tunes",
     ],
   },
   {
@@ -2285,7 +2349,7 @@ export const corpora: Corpora[] = [
       "aziza_mustafa_zadeh_dance_of_fire_nicola_morali_solo_piano_cover",
       "bagatelle_in_g_minor_op_119_no_1_ludwig_van_beethoven_16_07_1770_26_03_1827_piano_solo",
       "ballade-pour-adeline---richard-clayderman",
-      "bavno-oro",
+
       "beethoven_sonata_in_f_minor_op_2_no_1_movement_i",
       "beethoven_sonata_in_g_op_14_no_2_movement_i",
       "beethoven_sonate_5_1st",
@@ -2324,7 +2388,7 @@ export const corpora: Corpora[] = [
       "directed_by_robert_b_weide",
       "doki-doki-literature-club-ost---your-reality",
       "don_t_deal_with_the_devil_barbershop_quartet_cuphead",
-      "dospatsko-oro---misc-tunes",
+
       "earth_wind_fire_september",
       "ederlezi",
       "eleanor_rigby_cody_fry_no_perc1",
@@ -2421,12 +2485,10 @@ export const corpora: Corpora[] = [
       "rumores-de-la-caleta-malaguena",
       "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
       "sadness-and-sorrow",
-      "sandansko-oro",
+
       "sasha_2",
       "scott-joplin-s-new-rag---revised-edition---c1914----piano-tutorial",
-      "seymour_jambolsko_pajdushko",
-      "seymour_paidushko",
-      "seymour_pajdusko_oro",
+
       "shivers_ed_sheeran_shivers_ed_sheeran_mixed_ensemble",
       "shostakovich_symphony_no5_2nd_movement_for_piano_solo",
       "skyrim-theme-for-piano",

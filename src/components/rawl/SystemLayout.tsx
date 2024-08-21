@@ -713,14 +713,6 @@ export const TonalHistogramLayout: React.FC<SystemLayoutProps> = ({
 
   return (
     <div style={{ padding: "20px", backgroundColor: "black" }}>
-      <MeasureNumbers
-        measuresAndBeats={measuresAndBeats}
-        analysis={analysis}
-        phraseStarts={phraseStarts}
-        measureSelection={measureSelection}
-        noteHeight={noteHeight}
-        secondsToX={secondsToX}
-      />
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {tonalHistograms.map((histogram, index) => (
           <div key={index} style={{ margin: "10px", textAlign: "center" }}>

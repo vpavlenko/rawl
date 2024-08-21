@@ -15,6 +15,7 @@ export const calculateTonalHistograms = (
     const measureStart = measures[i];
     const measureEnd = measures[i + 1];
     const histogram = new Array(12).fill(0);
+    const tonic = getTonic(i, analysis);
 
     notes.forEach((note) => {
       const [noteStart, noteEnd] = note.span;
@@ -23,7 +24,6 @@ export const calculateTonalHistograms = (
 
       if (overlapStart < overlapEnd) {
         const overlapDuration = overlapEnd - overlapStart;
-        const tonic = getTonic(i, analysis);
         const pitchClass = (note.note.midiNumber - tonic + 12) % 12;
         histogram[pitchClass] += overlapDuration;
       }

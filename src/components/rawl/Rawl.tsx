@@ -12,6 +12,7 @@ import {
   StackedSystemLayout,
   SystemLayout,
   SystemLayoutProps,
+  TonalHistogramLayout,
   getPhraseStarts,
 } from "./SystemLayout";
 import { formatTag } from "./TagSearch";
@@ -26,6 +27,10 @@ import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { LinkForSeparateTab } from "./course/Course";
 import { buildManualMeasuresAndBeats } from "./measures";
 import { ColoredNotesInVoices, Note, ParsingResult } from "./parseMidi";
+import {
+  TonalHistogram,
+  calculateTonalHistograms,
+} from "./tonalSearch/TonalSearch";
 
 export type SecondsSpan = [number, number];
 
@@ -74,7 +79,7 @@ export type AppStateForRawl = {
   latencyCorrectionMs: number;
 };
 
-const getTonic = (measure: number, analysis: Analysis): PitchClass => {
+export const getTonic = (measure: number, analysis: Analysis): PitchClass => {
   const modulations = getModulations(analysis);
   let i = 0;
   while (i + 1 < modulations.length && modulations[i + 1].measure <= measure) {
@@ -498,6 +503,14 @@ const Rawl: React.FC<{
     [notes, futureAnalysis, measuresAndBeats, voiceMask],
   );
 
+  const tonalHistograms = useMemo((): TonalHistogram[] => {
+    return calculateTonalHistograms(
+      coloredNotes.flat(),
+      measuresAndBeats.measures,
+      futureAnalysis,
+    );
+  }, [coloredNotes, measuresAndBeats.measures, futureAnalysis]);
+
   const systemLayoutProps: SystemLayoutProps = useMemo(
     () => ({
       notes: coloredNotes,
@@ -512,6 +525,7 @@ const Rawl: React.FC<{
       analysis: futureAnalysis,
       registerKeyboardHandler,
       unregisterKeyboardHandler,
+      tonalHistograms,
     }),
     [
       coloredNotes,
@@ -526,6 +540,7 @@ const Rawl: React.FC<{
       futureAnalysis,
       registerKeyboardHandler,
       unregisterKeyboardHandler,
+      tonalHistograms,
     ],
   );
 
@@ -553,8 +568,13 @@ const Rawl: React.FC<{
       >
         {systemLayout === "merged" ? (
           <MergedSystemLayout {...systemLayoutProps} />
-        ) : (
+        ) : systemLayout === "stacked" ? (
           <StackedSystemLayout {...systemLayoutProps} />
+        ) : (
+          <TonalHistogramLayout
+            {...systemLayoutProps}
+            tonalHistograms={tonalHistograms}
+          />
         )}
       </div>
       <div
@@ -600,6 +620,16 @@ const Rawl: React.FC<{
               value={"horizontal"}
             />
             █
+          </label>
+          <label key={"tonal"} className="inline">
+            <input
+              onChange={() => setSystemLayout("tonal")}
+              type="radio"
+              name="system-layout"
+              checked={systemLayout === "tonal"}
+              value={"tonal"}
+            />
+            📊
           </label>
           <FontAwesomeIcon
             icon={faCopy}

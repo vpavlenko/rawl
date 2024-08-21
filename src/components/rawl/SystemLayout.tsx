@@ -22,6 +22,7 @@ import {
   Note,
   PitchBendPoint,
 } from "./parseMidi";
+import { TonalHistogram } from "./tonalSearch/TonalSearch";
 
 export type MeasuresAndBeats = {
   measures: number[];
@@ -67,7 +68,7 @@ const getAverageMidiNumber = (notes: Note[]) =>
     : Infinity;
 
 // TODO: rename "stacked" to "split" - semantically
-export type SystemLayout = "merged" | "stacked";
+export type SystemLayout = "merged" | "stacked" | "tonal";
 
 export type MidiRange = [number, number];
 
@@ -688,6 +689,71 @@ export type SystemLayoutProps = {
     handler: (e: KeyboardEvent) => void,
   ) => void;
   unregisterKeyboardHandler: (name: string) => void;
+  tonalHistograms: TonalHistogram[];
+};
+
+export const TonalHistogramLayout: React.FC<SystemLayoutProps> = ({
+  measuresAndBeats,
+  analysis,
+  measureSelection,
+  tonalHistograms,
+}) => {
+  const [noteHeight, setNoteHeight] = useState<number>(4);
+  const [secondWidth, setSecondWidth] = useState<number>(45);
+
+  const phraseStarts = useMemo(
+    () => getPhraseStarts(analysis, measuresAndBeats.measures.length),
+    [analysis, measuresAndBeats],
+  );
+
+  const secondsToX = useCallback(
+    (seconds: number) => seconds * secondWidth,
+    [secondWidth],
+  );
+
+  return (
+    <div style={{ padding: "20px", backgroundColor: "black" }}>
+      <MeasureNumbers
+        measuresAndBeats={measuresAndBeats}
+        analysis={analysis}
+        phraseStarts={phraseStarts}
+        measureSelection={measureSelection}
+        noteHeight={noteHeight}
+        secondsToX={secondsToX}
+      />
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {tonalHistograms.map((histogram, index) => (
+          <div key={index} style={{ margin: "10px", textAlign: "center" }}>
+            <div
+              style={{ fontSize: "12px", color: "white", marginBottom: "5px" }}
+            >
+              Measure {index + 1}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-end",
+                height: "100px",
+                width: "60px",
+              }}
+            >
+              {histogram.map((bar, barIndex) => (
+                <div
+                  key={barIndex}
+                  className={`noteColor_${barIndex}_colors`}
+                  style={{
+                    width: "5px",
+                    height: `${bar * 100}%`,
+                    marginRight: "1px",
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({

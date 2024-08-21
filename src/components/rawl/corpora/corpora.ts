@@ -1273,12 +1273,39 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "robert_d_vandall",
+    midis: [
+      "prelude-no.-4-in-f-major---robert-d.-vandall",
+      "rockin-at-the-hall",
+      "witches-waltz---robert-d.-vandall",
+      "slide-easy---robert-d.-vandall", // test 12-bar blues search
+      "in-the-groove---robert-d.-vandall-piano-trio",
+      "prelude-no.-7-in-b-minor", // minor circle of fifths
+    ],
+  },
+  {
+    slug: "malcolm_arnold",
+    midis: [
+      "fanfara-for-horn---malcolm-arnold-fantasy-for-horn",
+      "fantasy-for-trumpet-op.-100---malcolm-arnold-excerpt-from-fantasy-for-trumpet-op.-100",
+      "siciliano-from-prelude-siciliano-and-rondo",
+      "eight-children-s-pieces-op.36---malcolm-arnold",
+      "piano-reduction-mvt-i-from-four-cornish-dances---malcolm-arnold",
+      "whistle-down-the-wind---malcolm-arnold",
+    ],
+  },
+  {
     slug: "mark_fradkin",
     midis: [
       "techyot-reka-volga---muzyka-m-fradkin",
       "doroga-na-berlin---mark-grigorevich-fradkin",
+      "sluchaynyy-vals---m.-fradkin",
     ],
   },
+  // {
+  //   slug: "anatoly_novikov",
+  //   midis: [],
+  // },
   {
     slug: "aleksey_rybnikov",
     midis: [
@@ -1337,6 +1364,14 @@ export const corpora: Corpora[] = [
       "at-the-station-na-vokzale",
       "road", // seventh chords in minor, change of meter
       "pesenka-pro-vovu-rasteryashku", // Iadd6 = ii65, V+/IV
+    ],
+  },
+  {
+    slug: "bslick",
+    midis: [
+      "let-go-piggy-book-2-soundtrack---bslick",
+      "the-untold-story-ft.-melissa-medina---bslick",
+      "archie-theme-scary-shanty---bslick",
     ],
   },
   {
@@ -1419,6 +1454,7 @@ export const corpora: Corpora[] = [
       "narodniy-tanec---miroslav-skorik",
       "skyscraper---wynn-anne-rossi",
       "team-fortress---rise-of-the-living-bread---mike-morasky",
+      "eight-children-s-pieces-op.36---malcolm-arnold",
     ],
   },
   {
@@ -1928,6 +1964,24 @@ export const corpora: Corpora[] = [
     midis: ["welcome-to-the-internet---bo-burnham-s-inside"],
   },
   {
+    slug: "lin-manuel_miranda",
+    midis: [
+      "We_Dont_Talk_about_Bruno",
+      "waiting-on-a-miracle-from-encanto---lin-manuel-miranda",
+      "keep-the-beat---lin-manuel-miranda-keep-the-beat",
+      "surface-pressure-disney-s-encanto",
+      "surface-pressure---encanto",
+      "moana-lin-manuel-miranda---you-re-welcome-piano-solo",
+      "how-far-i-ll-go-~-moana-ost",
+      "dos-oruguitas---lin-manuel-miranda-by-adonay-guedes",
+      "where-you-are-from-moana---lin-manuel-miranda-where-you-are-easy",
+      "aaron-burr-sir",
+      "lauren-s-interlude",
+
+      "the-family-madrigal-from-encanto---lin-manuel-miranda-simplified-for-kids-beginners-piano",
+    ],
+  },
+  {
     slug: "three_part_harmony",
     midis: ["yksin-op.29b-no.4---toivo-kuula", "ekialde-dantza"],
   },
@@ -2210,7 +2264,7 @@ export const corpora: Corpora[] = [
       "Walking_On_a_dream",
       "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
       "Waltz_in_A_MinorChopin",
-      "We_Dont_Talk_about_Bruno",
+
       "Wellerman_Sea_Shanty",
       "Wet_Hands_Minecraft",
       "Yann_Tiersen_Amelie",

@@ -732,7 +732,9 @@ export const TonalHistogramLayout: React.FC<SystemLayoutProps> = ({
               {histogram.map((bar, barIndex) => (
                 <div
                   key={barIndex}
-                  className={`noteColor_${barIndex}_colors`}
+                  className={`noteColor_${
+                    barIndex === 6 ? 0 : barIndex
+                  }_colors`}
                   style={{
                     width: "5px",
                     height: `${bar * 100}%`,

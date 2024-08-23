@@ -488,6 +488,18 @@ class App extends React.Component<RouteComponentProps, AppState> {
         case "+":
           this.setSpeedRelative(0.01);
           break;
+        case "p":
+          this.setLatencyCorrectionMs(0);
+          e.preventDefault();
+          break;
+        case "[":
+          this.setLatencyCorrectionMs(200);
+          e.preventDefault();
+          break;
+        case "]":
+          this.setLatencyCorrectionMs(800);
+          e.preventDefault();
+          break;
         default:
       }
 

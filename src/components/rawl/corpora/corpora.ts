@@ -767,6 +767,18 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "elza_ibrahimova",
+    midis: [
+      "elza-ibrahimova---daha-m-nd-dozum-yox",
+      "ot-n-gunl-rimi-qaytaraydilar-azerbaijani-song-piano",
+      "s-n-yadima-dus-nd", // iv-V7-i, three chord minor
+    ],
+  },
+  {
+    slug: "azerbaijani_single",
+    midis: [],
+  },
+  {
     slug: "bahram_dehghanyar",
     midis: ["zireh-gonbadeh-kabood", "grand-mother", "aghaye-hekayati"],
   },
@@ -1025,6 +1037,10 @@ export const corpora: Corpora[] = [
       "alternate-day---scott-lloyd-shelly-terraria-ost",
       "thunderstorm-storm---scott-lloyd-shelly-terraria-ost",
     ],
+  },
+  {
+    slug: "common_practice_single_pieces",
+    midis: ["valsy-griboedova---griboedov-s-waltzes"],
   },
   {
     slug: "modern_composers_of_single_pieces",
@@ -1995,6 +2011,123 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "arif_malikov",
+    midis: [
+      "sehrli-xalat-filminin-musiqisi---arif-m-likov",
+      "cix-yasil-duz---arif-m-likov-azerbaijan-folk-song",
+      "brilliant-dadasova---gull-rim",
+    ],
+  },
+  {
+    slug: "jobim",
+    midis: ["wave---antonio-carlos-jobim-jazz-piano-solo"],
+  },
+  {
+    slug: "chico_buarque",
+    midis: ["atras_da_porta"],
+  },
+  {
+    slug: "martin_schjoler",
+    midis: [
+      "brawl-stars---menu-theme",
+      "brawl-stars-metropolis-theme",
+      "brawl-stars---footbrawl-theme",
+      "brawl-stars---win-theme-piano",
+      "brawl-stars---draw-theme",
+      "brawl-stars---lose-theme",
+      "brawl-stars-ost---battle-8",
+      "brawl-stars---brawl-o-ween-battle-2",
+      "brawl-star",
+    ],
+  },
+  {
+    slug: "claude_morgan",
+    midis: [
+      "el-bimbo---claude-morgan",
+      "la-balanga",
+      "tchoo-tchoo-hold-on-the-line",
+    ],
+  },
+  {
+    slug: "vladimir_dashkevich",
+    midis: [
+      "rekviem-iz-k-f-sobache-serdce---vladimir-dashkevich",
+      "tam-na-nevedomyh-dorozhkah---v.-dashkevich",
+      "irene-adler-waltz----v.-dashkevich",
+      "marsh-krasnoarmeycev---vladimir-dashkevich-perelozhenie-dlya-fortepiano-i-golosa",
+      "uvertyura---v.-dashkevich",
+      "song-of-the-sea-pisnya-pro-more---v.-dashkevich",
+      "surovye-gody-uhodyat-iz-k-f-sobache-serdce---vladimir-dashkevich-yuriy-kim",
+    ],
+  },
+  {
+    slug: "singles",
+    midis: [
+      "catherine-howard-s-fate---blackmore-s-night",
+      "moskau---dschinghis-khan-moskau",
+    ],
+  },
+  {
+    slug: "russian_singles",
+    midis: [
+      "belym-snegom---muzyka-e-rodygina-belym-snegom---muzyka-e.-rodygina",
+      "beri_shinel-_poshli_domoy",
+    ],
+  },
+  {
+    slug: "fleur",
+    midis: [
+      "formalin-formalin---flyour",
+      "shelkopryad---flyour",
+      "teplye-koty---flyour",
+    ],
+  },
+  {
+    slug: "manisha_vremeni",
+    midis: [
+      "moy-drug---mashina-vremeni",
+      "odnazhdy-mir-prognetsya-pod-nas.",
+      "she-walks-through-life-a-smile-on-her-face----a.-makarevich",
+    ],
+  },
+  {
+    slug: "melnitsa",
+    midis: [
+      "melnica---korolevna",
+      "melnica---doroga-sna",
+      "melnica----nevesta-poloza",
+    ],
+  },
+  {
+    slug: "igor_kornelyuk",
+    midis: [
+      "banditskiy-peterburg-gorod-kotorogo-net-fortepiano-a-town-that-does-not-exist",
+      "syuyita-mayster-ta-margarita---i.-kornelyuk",
+    ],
+  },
+  {
+    slug: "krematoriy",
+    midis: ["katmandu-polnaya-versiya", "musornyy-veter-gr.-krematoriy"],
+  },
+  {
+    slug: "norbert_schultze",
+    midis: [
+      "lili-marlene---norbert-schultz",
+      "von-finnland-bis-zum-schwarzen-meer",
+      "das-lied-vom-deutschen-u-boot-mann",
+    ],
+  },
+  {
+    slug: "boban_markovic",
+    midis: [
+      "majstorski-cocek---boban-markovic",
+      "beli-dvor---boban-markovic",
+      "za-beograd---boban-markovic",
+      "zivot-cigana---boban-markovic",
+      "ciganin-kuca---boban-markovic",
+    ],
+  },
+  {
     slug: "thomas_attwood",
     midis: [
       "allegro---first-movement-from-sonatina-no.-1-in-g-trinity-grade-2-piano",
@@ -2006,6 +2139,20 @@ export const corpora: Corpora[] = [
       "potato-blues",
       "sour-apple-blues",
       "lonesome-broccoli-blues-_-easy-piano",
+    ],
+  },
+  {
+    slug: "glenn_stafford",
+    midis: [
+      "starcraft-2---wings-of-liberty---piano-solo",
+      "warcraft-2-human-1---by-glenn-stafford-arranged-by-gori-fater",
+      "warcraft-ii---orcs-betrayal", // bvi in a functional context
+      "brood-war-aria---glenn-stafford-and-neal-acree",
+      "warcraft-ii---humans-beyond-the-dark-portal",
+      "warcraft-2-intro---glenn-stafford",
+      "drustvar",
+      "grizzly-hills-wow",
+      "warcraft-iii---orc-theme-old-school-battle-net-theme",
     ],
   },
   {

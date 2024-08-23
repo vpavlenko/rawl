@@ -63809,19 +63809,26 @@
       {
         "measure": 1,
         "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": 1
       }
     ],
     "comment": "",
     "sections": [
       0,
       1,
-      2,
       3,
-      4
+      5,
+      7,
+      9
     ],
     "tags": [],
     "modulations": {
-      "1": 7
+      "1": 7,
+      "22": 4,
+      "29": 7
     }
   },
   "f/keep-the-beat---lin-manuel-miranda-keep-the-beat": {
@@ -67451,6 +67458,5689 @@
     "tags": [],
     "modulations": {
       "1": 0
+    }
+  },
+  "f/banditskiy-peterburg-gorod-kotorogo-net-fortepiano-a-town-that-does-not-exist": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      6,
+      7,
+      9,
+      11,
+      12,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/melnica---korolevna": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": 2
+      },
+      {
+        "measure": 161,
+        "diff": 2
+      },
+      {
+        "measure": 157,
+        "diff": -2
+      },
+      {
+        "measure": 161,
+        "diff": -2
+      },
+      {
+        "measure": 163,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      8,
+      12,
+      16,
+      18,
+      20,
+      25,
+      29,
+      31,
+      33,
+      38,
+      39,
+      44,
+      46,
+      48,
+      50,
+      54
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "65": 4,
+      "73": 9,
+      "117": 4,
+      "125": 9,
+      "177": 2
+    }
+  },
+  "f/belym-snegom---muzyka-e-rodygina-belym-snegom---muzyka-e.-rodygina": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 30,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/katmandu-polnaya-versiya": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 26,
+        "diff": -1
+      },
+      {
+        "measure": 37,
+        "diff": -1
+      },
+      {
+        "measure": 48,
+        "diff": -1
+      },
+      {
+        "measure": 51,
+        "diff": -1
+      },
+      {
+        "measure": 54,
+        "diff": -1
+      },
+      {
+        "measure": 57,
+        "diff": -1
+      },
+      {
+        "measure": 60,
+        "diff": -1
+      },
+      {
+        "measure": 63,
+        "diff": -1
+      },
+      {
+        "measure": 62,
+        "diff": 1
+      },
+      {
+        "measure": 75,
+        "diff": -1
+      },
+      {
+        "measure": 86,
+        "diff": -1
+      },
+      {
+        "measure": 97,
+        "diff": -1
+      },
+      {
+        "measure": 100,
+        "diff": -1
+      },
+      {
+        "measure": 103,
+        "diff": -1
+      },
+      {
+        "measure": 106,
+        "diff": -1
+      },
+      {
+        "measure": 109,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      4,
+      7,
+      10,
+      12,
+      16,
+      18,
+      21,
+      24,
+      26,
+      30,
+      32
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "2": 2,
+      "10": 4,
+      "44": 9,
+      "56": 2,
+      "63": 4,
+      "93": 9,
+      "105": 2,
+      "112": 4
+    }
+  },
+  "f/prelude-opus-28-no.-6-in-b-minor": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": 2
+      },
+      {
+        "measure": 7,
+        "diff": -2
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": -2
+      },
+      {
+        "measure": 13,
+        "diff": -2
+      },
+      {
+        "measure": 15,
+        "diff": -2
+      },
+      {
+        "measure": 17,
+        "diff": -2
+      },
+      {
+        "measure": 19,
+        "diff": -2
+      },
+      {
+        "measure": 21,
+        "diff": -2
+      },
+      {
+        "measure": 23,
+        "diff": -2
+      },
+      {
+        "measure": 25,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11,
+      "11": 0,
+      "15": 11
+    }
+  },
+  "f/corsage-for-winds---john-cacavas-string-quartet": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 41,
+        "diff": -2
+      },
+      {
+        "measure": 47,
+        "diff": -2
+      },
+      {
+        "measure": 53,
+        "diff": -2
+      },
+      {
+        "measure": 55,
+        "diff": -2
+      },
+      {
+        "measure": 53,
+        "diff": 2
+      },
+      {
+        "measure": 59,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      10,
+      12,
+      14,
+      16,
+      18,
+      19,
+      23
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3,
+      "35": 0,
+      "57": 3,
+      "83": 0,
+      "91": 3
+    }
+  },
+  "f/starcraft-2---wings-of-liberty---piano-solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": -2
+      },
+      {
+        "measure": 32,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": -2
+      },
+      {
+        "measure": 59,
+        "diff": -2
+      },
+      {
+        "measure": 65,
+        "diff": -1
+      },
+      {
+        "measure": 68,
+        "diff": 1
+      },
+      {
+        "measure": 77,
+        "diff": -2
+      },
+      {
+        "measure": 83,
+        "diff": -2
+      },
+      {
+        "measure": 89,
+        "diff": -1
+      },
+      {
+        "measure": 108,
+        "diff": -2
+      },
+      {
+        "measure": 100,
+        "diff": -3
+      },
+      {
+        "measure": 101,
+        "diff": -1
+      },
+      {
+        "measure": 110,
+        "diff": 2
+      },
+      {
+        "measure": 124,
+        "diff": -1
+      },
+      {
+        "measure": 191,
+        "diff": 1
+      },
+      {
+        "measure": 151,
+        "diff": -2
+      },
+      {
+        "measure": 153,
+        "diff": -2
+      },
+      {
+        "measure": 131,
+        "diff": 2
+      },
+      {
+        "measure": 141,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      6,
+      9,
+      11,
+      13,
+      17,
+      18,
+      22,
+      24,
+      30,
+      38,
+      41,
+      42,
+      44,
+      47,
+      49
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1,
+      "5": 10,
+      "20": 7,
+      "30": 11,
+      "64": 2,
+      "88": 11,
+      "106": 2,
+      "112": 1,
+      "116": 5,
+      "120": 7,
+      "123": 9,
+      "127": 6,
+      "133": 10,
+      "139": 0,
+      "149": 1,
+      "164": 4,
+      "167": 10,
+      "169": 11
+    }
+  },
+  "f/inspecteur-gadget---shuki-levy-haim-saban-inspecteur-gadget": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 8,
+      "21": 11,
+      "25": 8
+    }
+  },
+  "f/if-you-will---george-duke": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10,
+      "67": 0,
+      "81": 8
+    }
+  },
+  "f/brawl-stars---draw-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/hiromi-uehara---old-castle-by-the-river-in-the-middle-of-a-forest": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 11,
+        "diff": 2
+      },
+      {
+        "measure": 25,
+        "diff": -1
+      },
+      {
+        "measure": 72,
+        "diff": -1
+      },
+      {
+        "measure": 75,
+        "diff": 1
+      },
+      {
+        "measure": 76,
+        "diff": -1
+      },
+      {
+        "measure": 107,
+        "diff": -1
+      },
+      {
+        "measure": 106,
+        "diff": 1
+      },
+      {
+        "measure": 111,
+        "diff": -1
+      },
+      {
+        "measure": 146,
+        "diff": -1
+      },
+      {
+        "measure": 181,
+        "diff": -2
+      },
+      {
+        "measure": 179,
+        "diff": 1
+      },
+      {
+        "measure": 204,
+        "diff": 2
+      },
+      {
+        "measure": 214,
+        "diff": -1
+      },
+      {
+        "measure": 249,
+        "diff": -1
+      },
+      {
+        "measure": 356,
+        "diff": -1
+      },
+      {
+        "measure": 367,
+        "diff": -1
+      },
+      {
+        "measure": 446,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      15,
+      18,
+      20,
+      22,
+      23,
+      25,
+      26,
+      27,
+      29,
+      31,
+      32,
+      34,
+      36,
+      38,
+      40,
+      41,
+      42,
+      43,
+      45,
+      47,
+      49,
+      51,
+      53,
+      55,
+      57,
+      58,
+      60,
+      62,
+      63,
+      64,
+      65,
+      67,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      96,
+      102,
+      104,
+      106,
+      109,
+      111
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10,
+      "12": 9,
+      "13": 6,
+      "24": 5
+    }
+  },
+  "f/beri_shinel-_poshli_domoy": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": -2
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -1
+      },
+      {
+        "measure": 27,
+        "diff": -1
+      },
+      {
+        "measure": 42,
+        "diff": -2
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": -1
+      },
+      {
+        "measure": 2,
+        "diff": 1
+      },
+      {
+        "measure": 7,
+        "diff": -1
+      },
+      {
+        "measure": 13,
+        "diff": -1
+      },
+      {
+        "measure": 14,
+        "diff": 1
+      },
+      {
+        "measure": 19,
+        "diff": 1
+      },
+      {
+        "measure": 24,
+        "diff": -1
+      },
+      {
+        "measure": 23,
+        "diff": 1
+      },
+      {
+        "measure": 31,
+        "diff": -1
+      },
+      {
+        "measure": 34,
+        "diff": -1
+      },
+      {
+        "measure": 37,
+        "diff": -1
+      },
+      {
+        "measure": 38,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "30": 7,
+      "33": 5,
+      "36": 7,
+      "38": 2
+    }
+  },
+  "f/melnica----nevesta-poloza": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 61,
+        "diff": 2
+      },
+      {
+        "measure": 111,
+        "diff": 2
+      },
+      {
+        "measure": 161,
+        "diff": 2
+      },
+      {
+        "measure": 167,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      7,
+      11,
+      13,
+      15,
+      19,
+      23,
+      25,
+      27,
+      31,
+      33,
+      35,
+      37
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/brawl-stars---lose-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/that-cold-place-2nd-floor---ittle-dew": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      7,
+      9,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/spark-by-hiromi-uehara-the-trio-project-piano-score": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 73,
+        "diff": 2
+      },
+      {
+        "measure": 115,
+        "diff": 2
+      },
+      {
+        "measure": 181,
+        "diff": 2
+      },
+      {
+        "measure": 187,
+        "diff": 1
+      },
+      {
+        "measure": 183,
+        "diff": 1
+      },
+      {
+        "measure": 189,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      21,
+      23,
+      25,
+      28,
+      29,
+      31,
+      32,
+      33,
+      35,
+      37,
+      39,
+      41,
+      43,
+      44,
+      45,
+      46
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "65": 5,
+      "70": 8,
+      "75": 5,
+      "80": 8,
+      "117": 9,
+      "134": 5,
+      "135": 0,
+      "136": 7,
+      "137": 9
+    }
+  },
+  "f/turkish-march-by-yuja-wang": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 134,
+        "diff": 1
+      },
+      {
+        "measure": 159,
+        "diff": -2
+      },
+      {
+        "measure": 165,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      34,
+      36,
+      38,
+      42,
+      44
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "66": 6,
+      "82": 9
+    }
+  },
+  "f/heathcliff-theme-song": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "25": 8
+    }
+  },
+  "f/brawl-stars---menu-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 45,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      9,
+      12,
+      14,
+      16,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/s-n-yadima-dus-nd": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": -1
+      },
+      {
+        "measure": 88,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/warcraft-2-intro---glenn-stafford": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -2
+      },
+      {
+        "measure": 39,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      10,
+      12,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "20": 8,
+      "21": 5,
+      "22": 1,
+      "23": 5,
+      "24": 8,
+      "25": 5,
+      "26": 1,
+      "27": 5,
+      "38": 8,
+      "39": 5,
+      "40": 1,
+      "41": 5,
+      "42": 8,
+      "43": 5,
+      "44": 1,
+      "45": 5
+    }
+  },
+  "f/pilot-for-hire--microsoft-flight-simulator-x": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      },
+      {
+        "measure": 44,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "13": 0,
+      "21": 10,
+      "23": 0,
+      "25": 3,
+      "32": 6,
+      "36": 0,
+      "40": 2,
+      "46": 0,
+      "50": 7,
+      "58": 0,
+      "66": 10,
+      "68": 5,
+      "70": 3
+    }
+  },
+  "f/odnazhdy-mir-prognetsya-pod-nas.": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": -1
+      },
+      {
+        "measure": 44,
+        "diff": -1
+      },
+      {
+        "measure": 71,
+        "diff": -1
+      },
+      {
+        "measure": 74,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      6,
+      11,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/blue-bossa-salsa---michel-camilo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "9": 1,
+      "13": 0,
+      "25": 1,
+      "29": 0,
+      "41": 1,
+      "45": 0
+    }
+  },
+  "f/hiromi-uehara---haze": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      19,
+      36,
+      53,
+      70,
+      74,
+      78,
+      82,
+      86,
+      90,
+      103,
+      107
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/formula-1-theme---brian-tyler": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 20,
+        "diff": -1
+      },
+      {
+        "measure": 35,
+        "diff": -3
+      },
+      {
+        "measure": 68,
+        "diff": -3
+      },
+      {
+        "measure": 77,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      12,
+      15,
+      18,
+      19,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "12": 7,
+      "65": 2,
+      "69": 5
+    }
+  },
+  "f/venom-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -1
+      },
+      {
+        "measure": 16,
+        "diff": -1
+      },
+      {
+        "measure": 31,
+        "diff": -1
+      },
+      {
+        "measure": 70,
+        "diff": -3
+      },
+      {
+        "measure": 71,
+        "diff": 1
+      },
+      {
+        "measure": 76,
+        "diff": 1
+      },
+      {
+        "measure": 81,
+        "diff": 2
+      },
+      {
+        "measure": 72,
+        "diff": -4
+      },
+      {
+        "measure": 79,
+        "diff": -1
+      },
+      {
+        "measure": 82,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6,
+      9,
+      13,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3,
+      "23": 10
+    }
+  },
+  "f/sehrli-xalat-filminin-musiqisi---arif-m-likov": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 16,
+        "diff": -2
+      },
+      {
+        "measure": 22,
+        "diff": -2
+      },
+      {
+        "measure": 36,
+        "diff": -2
+      },
+      {
+        "measure": 42,
+        "diff": -2
+      },
+      {
+        "measure": 20,
+        "diff": 1
+      },
+      {
+        "measure": 29,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/the-hunger-games-mockingjay-pt.-2-piano-suite": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/song-of-the-sea-pisnya-pro-more---v.-dashkevich": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "21": 4,
+      "37": 7,
+      "69": 4,
+      "85": 7
+    }
+  },
+  "f/digimon-main-theme-organ-cover": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 26,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      5,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/brood-war-aria---glenn-stafford-and-neal-acree": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10,
+      "26": 7,
+      "28": 5,
+      "30": 2,
+      "36": 10
+    }
+  },
+  "f/soledad-y-el-mar": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/ashford-abbey---jeremy-soule-guild-wars": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -1
+      },
+      {
+        "measure": 28,
+        "diff": -1
+      },
+      {
+        "measure": 35,
+        "diff": -2
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/ot-n-gunl-rimi-qaytaraydilar-azerbaijani-song-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 33,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      5,
+      7,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6
+    }
+  },
+  "f/the-bitter-end---placebo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/far-horizons---the-elder-scrolls-v-skyrim-piano-cover": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 49,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/syuyita-mayster-ta-margarita---i.-kornelyuk": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": -2
+      },
+      {
+        "measure": 64,
+        "diff": -2
+      },
+      {
+        "measure": 70,
+        "diff": -1
+      },
+      {
+        "measure": 89,
+        "diff": -2
+      },
+      {
+        "measure": 111,
+        "diff": -2
+      },
+      {
+        "measure": 121,
+        "diff": -2
+      },
+      {
+        "measure": 119,
+        "diff": 1
+      },
+      {
+        "measure": 144,
+        "diff": -1
+      },
+      {
+        "measure": 151,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      23,
+      26,
+      29,
+      32,
+      35,
+      38,
+      40,
+      42
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "66": 10,
+      "69": 5,
+      "73": 8,
+      "77": 3,
+      "81": 6,
+      "85": 0,
+      "99": 6,
+      "109": 7,
+      "128": 0,
+      "146": 7,
+      "157": 0
+    }
+  },
+  "f/formalin-formalin---flyour": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/a-happy-outing-24-pieces-for-children-op.39-no.-24---dmitry-kabalevsky": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/she-walks-through-life-a-smile-on-her-face----a.-makarevich": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -1
+      },
+      {
+        "measure": 36,
+        "diff": -1
+      },
+      {
+        "measure": 43,
+        "diff": -2
+      },
+      {
+        "measure": 53,
+        "diff": -1
+      },
+      {
+        "measure": 64,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6,
+      11,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "16": 2,
+      "19": 9,
+      "33": 4,
+      "41": 9,
+      "62": 4
+    }
+  },
+  "f/tom-and-jerry-theme-piano-solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3,
+      "5": 5,
+      "11": 9,
+      "14": 5
+    }
+  },
+  "f/la-balanga": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10,
+      "18": 7,
+      "22": 10
+    }
+  },
+  "f/call-of-magic-nerevar-rising---the-elder-scrolls-morrowind-jeremy-soule": {
+    "measures": {
+      "beatsPerMeasure": {
+        "1": 3,
+        "17": 4,
+        "18": 3,
+        "30": 5,
+        "31": 3
+      },
+      "measureStarts": {
+        "1": 0,
+        "2": 2.5714319999999993,
+        "5": 12.85716,
+        "6": 15.428592
+      }
+    },
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": -3
+      },
+      {
+        "measure": 6,
+        "diff": -1
+      },
+      {
+        "measure": 34,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/musornyy-veter-gr.-krematoriy": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": 2
+      },
+      {
+        "measure": 37,
+        "diff": 2
+      },
+      {
+        "measure": 71,
+        "diff": -2
+      },
+      {
+        "measure": 77,
+        "diff": 2
+      },
+      {
+        "measure": 87,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      5,
+      7,
+      9,
+      12,
+      14,
+      17,
+      19,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "39": 7,
+      "47": 4
+    }
+  },
+  "f/badi-sabah-olmadan---altin-gun-badi-sabah-olmadan.xml": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 26,
+        "diff": 1
+      },
+      {
+        "measure": 83,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      16,
+      19,
+      21,
+      23,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/moy-drug---mashina-vremeni": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "27": 5,
+      "33": 2
+    }
+  },
+  "f/rakiya-su-katamam---selami-sahin-altin-gun": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      7,
+      11,
+      13,
+      17,
+      21,
+      25,
+      32,
+      36
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/elza-ibrahimova---daha-m-nd-dozum-yox": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": 1
+      },
+      {
+        "measure": 48,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      3,
+      7,
+      9,
+      12,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "19": 2,
+      "23": 9,
+      "30": 0,
+      "34": 9
+    }
+  },
+  "f/atras_da_porta": {
+    "measures": {
+      "beatsPerMeasure": {
+        "9": 3,
+        "29": 4
+      },
+      "measureStarts": {
+        "2": 3.000007999999999,
+        "30": 72.4585124999999,
+        "38": 98.51910449999973,
+        "53": 139.08721599999956,
+        "54": 142.15539249999952,
+        "61": 161.2462684999995,
+        "62": 163.97353649999945,
+        "69": 183.06441249999935
+      }
+    },
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      7,
+      9,
+      12,
+      14,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "5": 2,
+      "21": 9
+    }
+  },
+  "f/the-mandalorian---main-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": -2
+      },
+      {
+        "measure": 48,
+        "diff": -1
+      },
+      {
+        "measure": 55,
+        "diff": 1
+      },
+      {
+        "measure": 68,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      9,
+      13,
+      15,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/warcraft-iii---orc-theme-old-school-battle-net-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": -2
+      },
+      {
+        "measure": 40,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      4,
+      6,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "26": 5,
+      "30": 8,
+      "34": 11,
+      "36": 6
+    }
+  },
+  "f/brawl-stars---win-theme-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/peaches-from-super-mario-bros-movie-for-violin---brian-tyler-jack-blackman": {
+    "measures": {
+      "beatsPerMeasure": {},
+      "measureStarts": {
+        "2": 2.608696000000001
+      }
+    },
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/running-on-raindrops-from-raya-and-the-last-dragon---james-newton-howard": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 7,
+        "diff": 2
+      },
+      {
+        "measure": 13,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": -2
+      },
+      {
+        "measure": 20,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      6,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "33": 7
+    }
+  },
+  "f/cix-yasil-duz---arif-m-likov-azerbaijan-folk-song": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -2
+      },
+      {
+        "measure": 67,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      7,
+      9,
+      11,
+      15,
+      17,
+      19,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/teplye-koty---flyour": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 3,
+        "diff": 2
+      },
+      {
+        "measure": 17,
+        "diff": -3
+      },
+      {
+        "measure": 58,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      6,
+      8,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/michel-camilo-from-within": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": -1
+      },
+      {
+        "measure": 44,
+        "diff": -1
+      },
+      {
+        "measure": 51,
+        "diff": -1
+      },
+      {
+        "measure": 94,
+        "diff": -2
+      },
+      {
+        "measure": 104,
+        "diff": -2
+      },
+      {
+        "measure": 102,
+        "diff": 2
+      },
+      {
+        "measure": 104,
+        "diff": -1
+      },
+      {
+        "measure": 107,
+        "diff": 2
+      },
+      {
+        "measure": 113,
+        "diff": -2
+      },
+      {
+        "measure": 119,
+        "diff": -2
+      },
+      {
+        "measure": 129,
+        "diff": -1
+      },
+      {
+        "measure": 132,
+        "diff": 2
+      },
+      {
+        "measure": 86,
+        "diff": -2
+      },
+      {
+        "measure": 88,
+        "diff": -2
+      },
+      {
+        "measure": 88,
+        "diff": 4
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      6,
+      8,
+      9,
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      28
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/the-book-of-boba-fett---main-title-theme---ludwig-goransson---piano-version": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 50,
+        "diff": -1
+      },
+      {
+        "measure": 57,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      15,
+      19,
+      22,
+      26,
+      30
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "66": 0,
+      "86": 7
+    }
+  },
+  "f/nat-king-cole---easy-listening-blues-transcription": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10
+    }
+  },
+  "f/greendale-is-where-i-belong---ludwig-goransson---community": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": 1
+      },
+      {
+        "measure": 54,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/thundercats-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/irken-armada-invasion-zim-s-theme---mattias-hakulinen-and-pontus-askbrink": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 49,
+        "diff": -2
+      },
+      {
+        "measure": 71,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      5,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "17": 5,
+      "37": 10,
+      "47": 9,
+      "55": 8,
+      "67": 9
+    }
+  },
+  "f/lili-marlene---norbert-schultz": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/wave---antonio-carlos-jobim-jazz-piano-solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "7": 7,
+      "11": 4,
+      "14": 2,
+      "19": 7,
+      "23": 4,
+      "25": 2,
+      "29": 5,
+      "33": 3,
+      "36": 2,
+      "39": 7,
+      "43": 4,
+      "45": 2
+    }
+  },
+  "f/yuja-wang-encore-transcription-of-orfeo-ed-euridice-wq.30---christoph-willibald-gluck": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 37,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "9": 5,
+      "17": 2
+    }
+  },
+  "f/harry-potter-ii-game-main-menu---jeremy-soule": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": -1
+      },
+      {
+        "measure": 48,
+        "diff": -1
+      },
+      {
+        "measure": 59,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      8,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "9": 4,
+      "47": 8,
+      "51": 3
+    }
+  },
+  "f/bulk-skull-s-theme-mighty-morphin-power-rangers---shuki-levy-haim-saban-et-al": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "14": 7,
+      "18": 9,
+      "22": 2,
+      "26": 0
+    }
+  },
+  "f/grass-skirt-chase-piano-arrangement": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/mighty-morphin-power-rangers-sheet-music-easy-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/wakanda-forever-from-wakanda-forever---ludwig-goransson": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": -1
+      },
+      {
+        "measure": 28,
+        "diff": 2
+      },
+      {
+        "measure": 34,
+        "diff": 2
+      },
+      {
+        "measure": 40,
+        "diff": 2
+      },
+      {
+        "measure": 46,
+        "diff": 2
+      },
+      {
+        "measure": 52,
+        "diff": 2
+      },
+      {
+        "measure": 62,
+        "diff": -2
+      },
+      {
+        "measure": 58,
+        "diff": 2
+      },
+      {
+        "measure": 62,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      6,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/warcraft-2-human-1---by-glenn-stafford-arranged-by-gori-fater": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/guild-wars-2-trailer---jeremy-soule": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 86,
+        "diff": 1
+      },
+      {
+        "measure": 115,
+        "diff": -1
+      },
+      {
+        "measure": 122,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      19,
+      21,
+      22,
+      24,
+      26,
+      28
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "50": 0,
+      "66": 9,
+      "74": 8,
+      "82": 9,
+      "87": 7,
+      "95": 6,
+      "103": 11
+    }
+  },
+  "f/every-you-every-me---placebo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      11,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/brawl-stars-ost---battle-8": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/cantaloupe-island": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "9": 1,
+      "13": 2,
+      "15": 1
+    }
+  },
+  "f/brawl-stars---brawl-o-ween-battle-2": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -1
+      },
+      {
+        "measure": 40,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      5,
+      7,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "12": 3,
+      "16": 0,
+      "39": 3,
+      "42": 10,
+      "43": 0
+    }
+  },
+  "f/zivot-cigana---boban-markovic": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -2
+      },
+      {
+        "measure": 15,
+        "diff": -1
+      },
+      {
+        "measure": 18,
+        "diff": -1
+      },
+      {
+        "measure": 21,
+        "diff": -1
+      },
+      {
+        "measure": 32,
+        "diff": 1
+      },
+      {
+        "measure": 41,
+        "diff": 1
+      },
+      {
+        "measure": 50,
+        "diff": -2
+      },
+      {
+        "measure": 52,
+        "diff": -1
+      },
+      {
+        "measure": 63,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      11,
+      13,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/clowns---dmitri-kabalevsky": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "10": 5,
+      "14": 9
+    }
+  },
+  "f/za-beograd---boban-markovic": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 2,
+        "diff": -1
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 11,
+        "diff": 2
+      },
+      {
+        "measure": 17,
+        "diff": -1
+      },
+      {
+        "measure": 28,
+        "diff": 1
+      },
+      {
+        "measure": 41,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/i-m-thinking---ittle-dew": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      7,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/shelkopryad---flyour": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      33,
+      35,
+      37,
+      39,
+      41,
+      43,
+      45
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/one-more-once---michel-camilo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 151,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      5,
+      8,
+      11,
+      14,
+      17,
+      20,
+      23,
+      26,
+      29,
+      32,
+      35
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/valsy-griboedova---griboedov-s-waltzes": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 22,
+        "diff": 1
+      },
+      {
+        "measure": 47,
+        "diff": 1
+      },
+      {
+        "measure": 124,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      33,
+      35
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "4": 8,
+      "23": 3,
+      "31": 8,
+      "48": 3,
+      "56": 8,
+      "72": 4,
+      "88": 7,
+      "104": 0,
+      "120": 4
+    }
+  },
+  "f/grizzly-hills-wow": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 8,
+        "diff": 1
+      },
+      {
+        "measure": 21,
+        "diff": -1
+      },
+      {
+        "measure": 24,
+        "diff": -1
+      },
+      {
+        "measure": 31,
+        "diff": 2
+      },
+      {
+        "measure": 37,
+        "diff": 2
+      },
+      {
+        "measure": 51,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/le-vol-du-condor---les-mysterieuses-cites-d-or---shuki-levy-haim-saban---4-mains": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "5": 7,
+      "21": 9
+    }
+  },
+  "f/the-tom-and-jerry-show---hiromi-uehara": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": 2
+      },
+      {
+        "measure": 55,
+        "diff": 1
+      },
+      {
+        "measure": 80,
+        "diff": 2
+      },
+      {
+        "measure": 98,
+        "diff": 1
+      },
+      {
+        "measure": 119,
+        "diff": -1
+      },
+      {
+        "measure": 122,
+        "diff": -1
+      },
+      {
+        "measure": 157,
+        "diff": 2
+      },
+      {
+        "measure": 167,
+        "diff": 2
+      },
+      {
+        "measure": 173,
+        "diff": 1
+      },
+      {
+        "measure": 178,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      10,
+      12,
+      13,
+      14,
+      15,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      25,
+      26,
+      28,
+      29,
+      30,
+      32,
+      34,
+      35,
+      36,
+      37,
+      38,
+      40,
+      41
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "51": 0,
+      "60": 5,
+      "99": 8,
+      "107": 5,
+      "114": 3,
+      "129": 5
+    }
+  },
+  "f/mr.-c.c.-cm-ver.---hiromi-uehara": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 8
+    }
+  },
+  "f/goca-dunya---altin-gun-goca-dunya.xml": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": -2
+      },
+      {
+        "measure": 55,
+        "diff": -2
+      },
+      {
+        "measure": 65,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      17,
+      19,
+      21,
+      23
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11,
+      "23": 4,
+      "31": 11,
+      "37": 4,
+      "39": 11
+    }
+  },
+  "f/marsh-krasnoarmeycev---vladimir-dashkevich-perelozhenie-dlya-fortepiano-i-golosa": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/melnica---doroga-sna": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -2
+      },
+      {
+        "measure": 23,
+        "diff": -3
+      },
+      {
+        "measure": 40,
+        "diff": -3
+      },
+      {
+        "measure": 57,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6,
+      8,
+      11,
+      13,
+      16,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "20": 11,
+      "45": 4,
+      "53": 11,
+      "54": 2
+    }
+  },
+  "f/foils---ludwig-goransson-from-tenet": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 61,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      7,
+      10,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/guild-wars-factions-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/fear-not-this-night-guild-wars-2-piano-version": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 41,
+        "diff": 2
+      },
+      {
+        "measure": 47,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/tam-na-nevedomyh-dorozhkah---v.-dashkevich": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/happy-hogwarts-from-harry-potter-and-the-philosopher-s-stone": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -2
+      },
+      {
+        "measure": 35,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/brilliant-dadasova---gull-rim": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      },
+      {
+        "measure": 25,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      7,
+      12,
+      16,
+      20,
+      24
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "60": 2,
+      "64": 0,
+      "68": 9,
+      "76": 2,
+      "80": 0,
+      "84": 9
+    }
+  },
+  "f/princess-remedy---shark-of-omen-shore": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      7,
+      9,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "25": 0,
+      "35": 7,
+      "47": 5
+    }
+  },
+  "f/uvertyura---v.-dashkevich": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 2
+      },
+      {
+        "measure": 39,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      7,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6,
+      "11": 1,
+      "31": 6
+    }
+  },
+  "f/brawl-stars-summer-of-monsters-battle-2-insane": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      7,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "9": 0,
+      "17": 3,
+      "19": 6,
+      "21": 9,
+      "25": 0,
+      "29": 5,
+      "37": 0,
+      "45": 3,
+      "47": 6,
+      "49": 9,
+      "53": 0
+    }
+  },
+  "f/jazzy-sax---john-cacavas": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6
+    }
+  },
+  "f/caribe---michel-camilo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 2
+      },
+      {
+        "measure": 28,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      },
+      {
+        "measure": 250,
+        "diff": 1
+      },
+      {
+        "measure": 259,
+        "diff": 1
+      },
+      {
+        "measure": 268,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      33,
+      35,
+      37,
+      39,
+      41,
+      42,
+      44,
+      46,
+      48,
+      50,
+      52,
+      54,
+      56,
+      58,
+      60,
+      62,
+      64
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/slow-waltz-24-pieces-for-children-op.39-no.-23---dmitry-kabalevsky": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/can-you-hear-the-music---ludwig-goransson-from-oppenheimer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/diagon-alley---jeremy-soule-from-harry-potter-and-the-chamber-of-secrets---solo-piano-arr.": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "25": 3,
+      "35": 9
+    }
+  },
+  "f/main-theme---black-panther---ludwig-goransson---piano-solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "17": 5,
+      "41": 2,
+      "45": 5
+    }
+  },
+  "f/surovye-gody-uhodyat-iz-k-f-sobache-serdce---vladimir-dashkevich-yuriy-kim": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      9,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6,
+      "4": 9,
+      "6": 6
+    }
+  },
+  "f/nickelodeon-all-star-brawl-menu-theme---mattias-hakulinen": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 14,
+        "diff": 1
+      },
+      {
+        "measure": 19,
+        "diff": -1
+      },
+      {
+        "measure": 18,
+        "diff": 2
+      },
+      {
+        "measure": 15,
+        "diff": -1
+      },
+      {
+        "measure": 19,
+        "diff": -1
+      },
+      {
+        "measure": 22,
+        "diff": -2
+      },
+      {
+        "measure": 60,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6,
+      8,
+      13,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/animato-24-pieces-for-children-op.-39-no.-18---dmitri-kabalevsky": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/el-bimbo---claude-morgan": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "15": 0,
+      "17": 10,
+      "20": 7
+    }
+  },
+  "f/brawl-stars-metropolis-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 41,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      7,
+      10,
+      12,
+      14,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "74": 7
+    }
+  },
+  "f/warcraft-ii---orcs-betrayal": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 22,
+        "diff": -2
+      },
+      {
+        "measure": 18,
+        "diff": 2
+      },
+      {
+        "measure": 22,
+        "diff": 2
+      },
+      {
+        "measure": 36,
+        "diff": -2
+      },
+      {
+        "measure": 62,
+        "diff": -1
+      },
+      {
+        "measure": 73,
+        "diff": -1
+      },
+      {
+        "measure": 76,
+        "diff": 1
+      },
+      {
+        "measure": 69,
+        "diff": -1
+      },
+      {
+        "measure": 71,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      6,
+      9,
+      11,
+      14,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "6": 8,
+      "10": 11,
+      "21": 6,
+      "23": 1,
+      "38": 6,
+      "42": 11,
+      "46": 4,
+      "54": 9,
+      "72": 0
+    }
+  },
+  "f/george-duke---it-s-on": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/rip-tide-ripped-hide": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -2
+      },
+      {
+        "measure": 36,
+        "diff": 2
+      },
+      {
+        "measure": 42,
+        "diff": -3
+      },
+      {
+        "measure": 43,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      9,
+      11,
+      12,
+      14,
+      16,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "20": 7,
+      "30": 9,
+      "39": 5,
+      "57": 7,
+      "67": 9
+    }
+  },
+  "f/brawl-star": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": 1
+      },
+      {
+        "measure": 23,
+        "diff": 5
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      6
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/path-of-fire-main-theme-menu---piano-arrangement": {
+    "measures": {
+      "beatsPerMeasure": {},
+      "measureStarts": {
+        "3": 4.999999999999999,
+        "4": 7.499999999999999,
+        "7": 15,
+        "21": 50.00000000000001,
+        "22": 52.50000000000001,
+        "28": 66.25000000000001,
+        "29": 68.75000000000001,
+        "52": 125,
+        "53": 127.5
+      }
+    },
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 27,
+        "diff": 1
+      },
+      {
+        "measure": 28,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6,
+      9,
+      11,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "43": 9
+    }
+  },
+  "f/brawl-stars---footbrawl-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "29": 7
+    }
+  },
+  "f/spm---spongebob-production-music-hawaiian-adventures-spongebob-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/devotion": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -2
+      },
+      {
+        "measure": 19,
+        "diff": -2
+      },
+      {
+        "measure": 25,
+        "diff": -2
+      },
+      {
+        "measure": 31,
+        "diff": -2
+      },
+      {
+        "measure": 37,
+        "diff": -3
+      },
+      {
+        "measure": 42,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "5": 8,
+      "11": 0,
+      "18": 8,
+      "27": 1,
+      "29": 0,
+      "34": 11,
+      "36": 8,
+      "38": 3,
+      "41": 1,
+      "44": 0
+    }
+  },
+  "f/irene-adler-waltz----v.-dashkevich": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3,
+      "41": 8
+    }
+  },
+  "f/nocturne-opus-22-in-b-major---alkan": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      },
+      {
+        "measure": 35,
+        "diff": 1
+      },
+      {
+        "measure": 60,
+        "diff": 1
+      },
+      {
+        "measure": 69,
+        "diff": 1
+      },
+      {
+        "measure": 78,
+        "diff": 1
+      },
+      {
+        "measure": 87,
+        "diff": 1
+      },
+      {
+        "measure": 104,
+        "diff": -1
+      },
+      {
+        "measure": 139,
+        "diff": 1
+      },
+      {
+        "measure": 135,
+        "diff": -1
+      },
+      {
+        "measure": 134,
+        "diff": 1
+      },
+      {
+        "measure": 140,
+        "diff": -1
+      },
+      {
+        "measure": 143,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      5,
+      7,
+      8,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      26,
+      27,
+      29,
+      31,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11,
+      "11": 6,
+      "15": 3,
+      "17": 10,
+      "19": 3,
+      "27": 11,
+      "36": 6,
+      "40": 3,
+      "42": 10,
+      "44": 3,
+      "50": 11,
+      "61": 4,
+      "65": 1,
+      "70": 4,
+      "78": 1,
+      "83": 4,
+      "85": 1,
+      "92": 2,
+      "94": 11,
+      "96": 6,
+      "100": 3,
+      "103": 11,
+      "111": 6,
+      "115": 3,
+      "117": 10,
+      "119": 3,
+      "126": 11
+    }
+  },
+  "f/fantasy-for-trombone": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 15,
+        "diff": -2
+      },
+      {
+        "measure": 25,
+        "diff": -2
+      },
+      {
+        "measure": 21,
+        "diff": 2
+      },
+      {
+        "measure": 25,
+        "diff": 2
+      },
+      {
+        "measure": 31,
+        "diff": 1
+      },
+      {
+        "measure": 36,
+        "diff": 1
+      },
+      {
+        "measure": 41,
+        "diff": -2
+      },
+      {
+        "measure": 95,
+        "diff": -1
+      },
+      {
+        "measure": 110,
+        "diff": -1
+      },
+      {
+        "measure": 109,
+        "diff": 3
+      },
+      {
+        "measure": 112,
+        "diff": 1
+      },
+      {
+        "measure": 117,
+        "diff": 2
+      },
+      {
+        "measure": 123,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      6,
+      9,
+      19,
+      24,
+      27
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10,
+      "37": 4,
+      "75": 10,
+      "79": 1,
+      "94": 4,
+      "106": 10
+    }
+  },
+  "f/no-man-s-sky-escape-velocity---65daysofstatic": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 8,
+        "diff": -1
+      },
+      {
+        "measure": 11,
+        "diff": -1
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      },
+      {
+        "measure": 53,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "13": 9
+    }
+  },
+  "f/catherine-howard-s-fate---blackmore-s-night": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": -1
+      },
+      {
+        "measure": 16,
+        "diff": 1
+      },
+      {
+        "measure": 65,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/secunda-the-elder-scrolls-v-skyrim": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": -1
+      },
+      {
+        "measure": 33,
+        "diff": 4
+      },
+      {
+        "measure": 57,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      9,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/don-t-go-down-to-sorrow---65daysofstatic": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 15,
+        "diff": 2
+      },
+      {
+        "measure": 45,
+        "diff": 2
+      },
+      {
+        "measure": 55,
+        "diff": 2
+      },
+      {
+        "measure": 93,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      9,
+      11,
+      13,
+      20,
+      22,
+      27,
+      31,
+      37,
+      39,
+      46,
+      50
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/das-lied-vom-deutschen-u-boot-mann": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      11,
+      21,
+      31,
+      41,
+      51,
+      61
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/drustvar": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -1
+      },
+      {
+        "measure": 16,
+        "diff": -1
+      },
+      {
+        "measure": 19,
+        "diff": -1
+      },
+      {
+        "measure": 22,
+        "diff": -1
+      },
+      {
+        "measure": 33,
+        "diff": -1
+      },
+      {
+        "measure": 36,
+        "diff": -1
+      },
+      {
+        "measure": 39,
+        "diff": -1
+      },
+      {
+        "measure": 42,
+        "diff": -1
+      },
+      {
+        "measure": 45,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      6,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "8": 2,
+      "15": 7,
+      "21": 9,
+      "28": 2,
+      "29": 10,
+      "35": 3,
+      "41": 2,
+      "46": 9,
+      "53": 2
+    }
+  },
+  "f/faith-in-you": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/von-finnland-bis-zum-schwarzen-meer": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": -2
+      },
+      {
+        "measure": 72,
+        "diff": -2
+      },
+      {
+        "measure": 106,
+        "diff": -2
+      },
+      {
+        "measure": 120,
+        "diff": 1
+      },
+      {
+        "measure": 121,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      5,
+      6,
+      10,
+      12,
+      15,
+      19,
+      21,
+      23,
+      24,
+      28,
+      30,
+      32
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "18": 9,
+      "62": 4,
+      "64": 9,
+      "69": 4,
+      "70": 9,
+      "123": 2,
+      "127": 9
+    }
+  },
+  "f/majstorski-cocek---boban-markovic": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": -1
+      },
+      {
+        "measure": 18,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/beli-dvor---boban-markovic": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/ciganin-kuca---boban-markovic": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      4,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/dragonborn---skyrim-theme-song-piano-solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 45,
+        "diff": 1
+      },
+      {
+        "measure": 98,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      16,
+      21,
+      24
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/piano-duet-he-man-and-the-masters-of-the-universe-1980s---shuki-levi-haim-saban": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 19,
+        "diff": 1
+      },
+      {
+        "measure": 36,
+        "diff": 1
+      },
+      {
+        "measure": 41,
+        "diff": 1
+      },
+      {
+        "measure": 46,
+        "diff": -2
+      },
+      {
+        "measure": 52,
+        "diff": 1
+      },
+      {
+        "measure": 69,
+        "diff": 1
+      },
+      {
+        "measure": 78,
+        "diff": -1
+      },
+      {
+        "measure": 74,
+        "diff": 1
+      },
+      {
+        "measure": 78,
+        "diff": -1
+      },
+      {
+        "measure": 85,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "3": 9,
+      "11": 0,
+      "20": 9,
+      "28": 0,
+      "37": 9,
+      "44": 0,
+      "53": 9,
+      "61": 0,
+      "70": 9,
+      "77": 0,
+      "86": 9
+    }
+  },
+  "f/moskau---dschinghis-khan-moskau": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 41,
+        "diff": 1
+      },
+      {
+        "measure": 86,
+        "diff": 1
+      },
+      {
+        "measure": 111,
+        "diff": 1
+      },
+      {
+        "measure": 132,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      32,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5,
+      "141": 6
+    }
+  },
+  "f/theme-from-rambo-brian-tyler": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": -1
+      },
+      {
+        "measure": 22,
+        "diff": -1
+      },
+      {
+        "measure": 21,
+        "diff": 1
+      },
+      {
+        "measure": 26,
+        "diff": 1
+      },
+      {
+        "measure": 39,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      5,
+      7,
+      9,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "27": 10,
+      "31": 8,
+      "33": 0,
+      "45": 5
+    }
+  },
+  "f/tchoo-tchoo-hold-on-the-line": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/rekviem-iz-k-f-sobache-serdce---vladimir-dashkevich": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": -1
+      },
+      {
+        "measure": 12,
+        "diff": 1
+      },
+      {
+        "measure": 13,
+        "diff": -3
+      },
+      {
+        "measure": 14,
+        "diff": -1
+      },
+      {
+        "measure": 21,
+        "diff": -1
+      },
+      {
+        "measure": 24,
+        "diff": 2
+      },
+      {
+        "measure": 34,
+        "diff": 1
+      },
+      {
+        "measure": 35,
+        "diff": -2
+      },
+      {
+        "measure": 30,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": 2
+      },
+      {
+        "measure": 52,
+        "diff": -1
+      },
+      {
+        "measure": 55,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      7,
+      11,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 8,
+      "36": 1,
+      "38": 4,
+      "41": 8
+    }
+  },
+  "f/warcraft-ii---humans-beyond-the-dark-portal": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 65,
+        "diff": 1
+      },
+      {
+        "measure": 74,
+        "diff": 1
+      },
+      {
+        "measure": 70,
+        "diff": 1
+      },
+      {
+        "measure": 76,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "13": 5,
+      "17": 11,
+      "21": 4,
+      "29": 9,
+      "37": 2,
+      "41": 11,
+      "45": 4,
+      "47": 10,
+      "49": 4,
+      "51": 10,
+      "53": 4,
+      "67": 7,
+      "69": 11,
+      "71": 2,
+      "73": 5,
+      "75": 9,
+      "77": 0,
+      "79": 4
+    }
+  },
+  "f/mi-tierra-veracruzana---natalia-lafourcade": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 98,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
+  },
+  "f/take-me-somewhere-nice---mogwai": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 6
     }
   }
 }

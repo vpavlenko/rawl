@@ -2095,8 +2095,24 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "65daysofstatic",
+    midis: [
+      "don-t-go-down-to-sorrow---65daysofstatic",
+      "no-man-s-sky-escape-velocity---65daysofstatic",
+    ],
+  },
+  {
+    slug: "mogwai",
+    midis: ["take-me-somewhere-nice---mogwai"],
+  },
+  {
     slug: "dmitry_kabalevsky",
-    midis: [],
+    midis: [
+      "slow-waltz-24-pieces-for-children-op.39-no.-23---dmitry-kabalevsky",
+      "clowns---dmitri-kabalevsky", // I~i mix
+      "a-happy-outing-24-pieces-for-children-op.39-no.-24---dmitry-kabalevsky",
+      "animato-24-pieces-for-children-op.-39-no.-18---dmitri-kabalevsky",
+    ],
   },
   {
     slug: "mattias_hakulinen",
@@ -2104,6 +2120,8 @@ export const corpora: Corpora[] = [
       "nickelodeon-all-star-brawl-menu-theme---mattias-hakulinen",
       "irken-armada-invasion-zim-s-theme---mattias-hakulinen-and-pontus-askbrink",
       "i-m-thinking---ittle-dew",
+      "that-cold-place-2nd-floor---ittle-dew",
+      "princess-remedy---shark-of-omen-shore",
     ],
   },
   {

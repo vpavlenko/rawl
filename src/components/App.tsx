@@ -21,6 +21,7 @@ import path from "path";
 import queryString from "querystring";
 import React from "react";
 import Dropzone from "react-dropzone";
+import Modal from "react-modal";
 import {
   Route,
   RouteComponentProps,
@@ -51,6 +52,7 @@ import Visualizer from "./Visualizer";
 import LandingPage from "./rawl/LandingPage";
 import Pirate from "./rawl/Pirate";
 import Rawl from "./rawl/Rawl";
+import { ShortcutHelp } from "./rawl/ShortcutHelp";
 import Slicer from "./rawl/Slicer";
 import TagSearch from "./rawl/TagSearch";
 import { Analyses } from "./rawl/analysis";
@@ -89,6 +91,7 @@ type AppState = {
   analyses: Analyses;
   latencyCorrectionMs: number;
   fileToDownload: Uint8Array;
+  showShortcutHelp: boolean;
 };
 
 export interface FirestoreMidiIndex {
@@ -111,6 +114,8 @@ export interface FirestoreMidiDocument {
 }
 
 type KeyboardHandler = (e: KeyboardEvent) => void;
+
+Modal.setAppElement("#root");
 
 class App extends React.Component<RouteComponentProps, AppState> {
   private contentAreaRef: React.RefObject<HTMLDivElement>;
@@ -242,6 +247,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       analyses: defaultAnalyses as Analyses,
       latencyCorrectionMs,
       fileToDownload: null,
+      showShortcutHelp: false,
     };
 
     this.initChipCore(audioCtx, playerNode, bufferSize);
@@ -500,6 +506,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
           this.setLatencyCorrectionMs(800);
           e.preventDefault();
           break;
+        case "h":
+          this.toggleShortcutHelp();
+          e.preventDefault();
+          break;
         default:
       }
 
@@ -756,6 +766,12 @@ class App extends React.Component<RouteComponentProps, AppState> {
       });
     }
   }
+
+  toggleShortcutHelp = () => {
+    this.setState((prevState) => ({
+      showShortcutHelp: !prevState.showShortcutHelp,
+    }));
+  };
 
   playSong(url) {
     if (url.startsWith("static/f")) return;
@@ -1018,6 +1034,13 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 getCurrentPositionMs={this.midiPlayer?.getPositionMs}
               />
             )}
+            <Modal
+              isOpen={this.state.showShortcutHelp}
+              onRequestClose={this.toggleShortcutHelp}
+              contentLabel="Keyboard Shortcuts"
+            >
+              <ShortcutHelp />
+            </Modal>
           </div>
         )}
       </Dropzone>

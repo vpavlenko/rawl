@@ -71,6 +71,7 @@
     "react-dom": "^16.8.0",
     "react-dropzone": "7.0.0",
     "react-is": "^16.8.0",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^5.2.0",
     "react-select": "^5.7.5",
     "resolve": "1.6.0",

@@ -774,10 +774,10 @@ export const corpora: Corpora[] = [
       "s-n-yadima-dus-nd", // iv-V7-i, three chord minor
     ],
   },
-  {
-    slug: "azerbaijani_single",
-    midis: [],
-  },
+  // {
+  //   slug: "azerbaijani_single",
+  //   midis: [],
+  // },
   {
     slug: "bahram_dehghanyar",
     midis: ["zireh-gonbadeh-kabood", "grand-mother", "aghaye-hekayati"],
@@ -1022,10 +1022,31 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "sage_guyton_jeremy_wakefield_nick_carr",
+    midis: [
+      "grass-skirt-chase-piano-arrangement",
+      "spm---spongebob-production-music-hawaiian-adventures-spongebob-theme", // I V/V V7 I
+      "hello-blues---sage-guyton-jeremy-wakefield", // ragtime?
+      "rip-tide-ripped-hide",
+    ],
+  },
+  {
     slug: "lionel_rusquet",
     midis: [
       "le-monde-des-graves-piano",
       "reflet", // ideal relative minor/major sequence
+    ],
+  },
+  {
+    slug: "maclaine_diemer",
+    midis: ["path-of-fire-main-theme-menu---piano-arrangement"],
+  },
+  {
+    slug: "yuja_wang",
+    midis: [
+      "turkish-march-by-yuja-wang",
+      "rhapsody-on-a-theme-of-paganini-op.43---sergei-rachmaninoff-18th-variation-yuja-wang",
+      "yuja-wang-encore-transcription-of-orfeo-ed-euridice-wq.30---christoph-willibald-gluck",
     ],
   },
   {
@@ -1043,12 +1064,27 @@ export const corpora: Corpora[] = [
     midis: ["valsy-griboedova---griboedov-s-waltzes"],
   },
   {
+    slug: "shuki_levy_haim_saban",
+    midis: [
+      "inspecteur-gadget---shuki-levy-haim-saban-inspecteur-gadget", // weird pre-dominant
+      "heathcliff-theme-song", // test 50s progression
+      "bulk-skull-s-theme-mighty-morphin-power-rangers---shuki-levy-haim-saban-et-al",
+      "le-vol-du-condor---les-mysterieuses-cites-d-or---shuki-levy-haim-saban---4-mains",
+      "piano-duet-he-man-and-the-masters-of-the-universe-1980s---shuki-levi-haim-saban",
+    ],
+  },
+  {
     slug: "modern_composers_of_single_pieces",
     midis: [
       "gray",
       "changing-times---heather-hammond",
       "ma-lu-mitai-baka-mitai---mitsuharu-fukuyama-piano-arrangement",
       "devotion",
+      "tom-and-jerry-theme-piano-solo",
+      "pilot-for-hire--microsoft-flight-simulator-x",
+      "thundercats-theme",
+      "mighty-morphin-power-rangers-sheet-music-easy-piano",
+      "digimon-main-theme-organ-cover",
     ],
   },
   {
@@ -1183,6 +1219,7 @@ export const corpora: Corpora[] = [
       "piano_concerto_no_4_op_40_sergei_rachmaninoff_i_allegro_vivace_alla_breve",
       "prelude_in_c_sharp_minor_opus_3_no_2_sergei_rachmaninoff",
       "rachmaninoff_piano_concerto_4_1",
+      "Prelude_in_G_Minor_Opus_23_No._5",
     ],
   },
   {
@@ -1220,6 +1257,10 @@ export const corpora: Corpora[] = [
       "blues-train---catherine-rollin-catherine-rollin---blues-train-jazz",
       "witches-brew---catherine-rollin",
     ],
+  },
+  {
+    slug: "boogie_woogie",
+    midis: [],
   },
   {
     slug: "martha_mier",
@@ -1427,7 +1468,7 @@ export const corpora: Corpora[] = [
     ],
   },
   {
-    slug: "i_play",
+    slug: "overcooked",
     midis: [
       "overcooked---menu-theme",
       "overcooked-2-medley",
@@ -1529,6 +1570,7 @@ export const corpora: Corpora[] = [
       "team-fortress---rise-of-the-living-bread---mike-morasky",
       "eight-children-s-pieces-op.36---malcolm-arnold",
       "the-tom-and-jerry-show---hiromi-uehara",
+      "irken-armada-invasion-zim-s-theme---mattias-hakulinen-and-pontus-askbrink",
     ],
   },
   {
@@ -1828,6 +1870,14 @@ export const corpora: Corpora[] = [
       "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
       "chopin---waltz-no.-1-in-d-flat-major-op.-64",
       "chopin---waltz-no.-1-in-d-flat-major-op.-64",
+      "Waltz_in_A_MinorChopin",
+
+      "chopin_ballade_fminor_op52",
+      "chopin_ballade_no_1_in_g_minor_op_23",
+      "chopin_ballade_no_4_piano_solo",
+      "chopin_military_polonaise",
+      "chopin_nocturne_op9_no2_maestro_2011r3d3t5",
+      "chopin_raindrop_prelude",
     ],
   },
   {
@@ -1835,6 +1885,9 @@ export const corpora: Corpora[] = [
     midis: [
       "prelude-opus-28-no.-1-in-c-major",
       "prelude-opus-28-no.-2-in-a-minor",
+
+      "chopin-prelude-e-minor-op-28-no-4-w-chord-symbols",
+      "prelude-opus-28-no.-6-in-b-minor",
     ],
   },
   {
@@ -2038,6 +2091,26 @@ export const corpora: Corpora[] = [
       "brawl-stars-ost---battle-8",
       "brawl-stars---brawl-o-ween-battle-2",
       "brawl-star",
+      "brawl-stars-summer-of-monsters-battle-2-insane",
+    ],
+  },
+  {
+    slug: "dmitry_kabalevsky",
+    midis: [],
+  },
+  {
+    slug: "mattias_hakulinen",
+    midis: [
+      "nickelodeon-all-star-brawl-menu-theme---mattias-hakulinen",
+      "irken-armada-invasion-zim-s-theme---mattias-hakulinen-and-pontus-askbrink",
+      "i-m-thinking---ittle-dew",
+    ],
+  },
+  {
+    slug: "james_newton_howard",
+    midis: [
+      "the-hunger-games-mockingjay-pt.-2-piano-suite",
+      "running-on-raindrops-from-raya-and-the-last-dragon---james-newton-howard",
     ],
   },
   {
@@ -2134,6 +2207,10 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "nat_king_cole",
+    midis: ["nat-king-cole---easy-listening-blues-transcription"],
+  },
+  {
     slug: "martin_kratochwil",
     midis: [
       "potato-blues",
@@ -2154,6 +2231,48 @@ export const corpora: Corpora[] = [
       "grizzly-hills-wow",
       "warcraft-iii---orc-theme-old-school-battle-net-theme",
     ],
+  },
+  {
+    slug: "ludwig_goransson",
+    midis: [
+      "can-you-hear-the-music---ludwig-goransson-from-oppenheimer",
+      "the-book-of-boba-fett---main-title-theme---ludwig-goransson---piano-version",
+      "venom-theme",
+      "wakanda-forever-from-wakanda-forever---ludwig-goransson",
+      "main-theme---black-panther---ludwig-goransson---piano-solo",
+      "foils---ludwig-goransson-from-tenet",
+      "the-mandalorian---main-theme",
+      "greendale-is-where-i-belong---ludwig-goransson---community",
+    ],
+  },
+  {
+    slug: "brian_tyler",
+    midis: [
+      "formula-1-theme---brian-tyler",
+      "peaches-from-super-mario-bros-movie-for-violin---brian-tyler-jack-blackman",
+      "theme-from-rambo-brian-tyler",
+    ],
+  },
+  {
+    slug: "jeremy_soule",
+    midis: [
+      "harry-potter-ii-game-main-menu---jeremy-soule",
+      "diagon-alley---jeremy-soule-from-harry-potter-and-the-chamber-of-secrets---solo-piano-arr.",
+      "happy-hogwarts-from-harry-potter-and-the-philosopher-s-stone",
+      "call-of-magic-nerevar-rising---the-elder-scrolls-morrowind-jeremy-soule",
+      "dragonborn---skyrim-theme-song-piano-solo",
+      "secunda-the-elder-scrolls-v-skyrim",
+      "fear-not-this-night-guild-wars-2-piano-version",
+      "guild-wars-2-trailer---jeremy-soule",
+      "guild-wars-factions-theme",
+      "ashford-abbey---jeremy-soule-guild-wars",
+      "overture-from-guild-wars-2",
+    ],
+  },
+  {
+    // she's not a composer?
+    slug: "natalia_lafourcade",
+    midis: ["soledad-y-el-mar", "mi-tierra-veracruzana---natalia-lafourcade"],
   },
   {
     slug: "handel",
@@ -2201,6 +2320,13 @@ export const corpora: Corpora[] = [
   {
     slug: "brad_mehldau",
     midis: ["anthropology---brad-mehldau"],
+  },
+  {
+    slug: "aziza_mustafa_zadeh",
+    midis: [
+      "aziza_mustafa_zadeh_dance_of_fire_2010_live_trio",
+      "aziza_mustafa_zadeh_dance_of_fire_nicola_morali_solo_piano_cover",
+    ],
   },
   {
     // https://musescore.com/user/24069/sets/5098783
@@ -2437,7 +2563,7 @@ export const corpora: Corpora[] = [
       "Pink_Panther",
       "Pirates_of_the_Caribbean_-_Hes_a_Pirate",
       "Pokemon_Theme_Song",
-      "Prelude_in_G_Minor_Opus_23_No._5",
+
       "Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet",
       "Requiem_for_a_Dream",
       "River_Flows_In_You",
@@ -2474,7 +2600,6 @@ export const corpora: Corpora[] = [
       "Vivaldi_-_Summer__The_Four_Seasons__-_Rousseau",
       "Walking_On_a_dream",
       "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
-      "Waltz_in_A_MinorChopin",
 
       "Wellerman_Sea_Shanty",
       "Wet_Hands_Minecraft",
@@ -2492,8 +2617,7 @@ export const corpora: Corpora[] = [
       "autumn_leaves_diatonic",
       "average_rag_1",
       "average_rag_2",
-      "aziza_mustafa_zadeh_dance_of_fire_2010_live_trio",
-      "aziza_mustafa_zadeh_dance_of_fire_nicola_morali_solo_piano_cover",
+
       "bagatelle_in_g_minor_op_119_no_1_ludwig_van_beethoven_16_07_1770_26_03_1827_piano_solo",
       "ballade-pour-adeline---richard-clayderman",
 
@@ -2512,13 +2636,7 @@ export const corpora: Corpora[] = [
       "bubamara",
       "cheek_to_cheek",
       "chetvorno_shopsko_fixed",
-      "chopin-prelude-e-minor-op-28-no-4-w-chord-symbols",
-      "chopin_ballade_fminor_op52",
-      "chopin_ballade_no_1_in_g_minor_op_23",
-      "chopin_ballade_no_4_piano_solo",
-      "chopin_military_polonaise",
-      "chopin_nocturne_op9_no2_maestro_2011r3d3t5",
-      "chopin_raindrop_prelude",
+
       "classical_music_mashup",
       "clocks---coldplay",
       "closed-topic----xiu-ti",

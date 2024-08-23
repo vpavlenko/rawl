@@ -877,7 +877,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       voiceNames: this.state.voiceNames,
       voiceMask: this.state.voiceMask,
       setVoiceMask: this.handleSetVoiceMask,
-      latencyCorrectionMs: this.state.latencyCorrectionMs,
+      latencyCorrectionMs: this.state.latencyCorrectionMs * this.state.tempo,
     };
     // const { hash } = this;
     // const localAnalysis = hash && localStorage.getItem(hash);

@@ -57,6 +57,7 @@ import Slicer from "./rawl/Slicer";
 import TagSearch from "./rawl/TagSearch";
 import { Analyses } from "./rawl/analysis";
 import Corpus from "./rawl/corpora/Corpus";
+import PathView from "./rawl/corpora/PathView";
 import Course from "./rawl/course/Course";
 import { DropSaveForm, processMidiUrls } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
@@ -1002,6 +1003,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                       <Route path="/pirate" render={() => <Pirate />} />
                       {browseRoute}
                       {rawlRoute}
+                      <Route path="/path" render={() => <PathView />} />
                     </Switch>
                   </div>
                 </div>

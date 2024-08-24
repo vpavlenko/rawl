@@ -12,6 +12,10 @@ const AppHeader: React.FC = () => {
         Corpora
       </Link>
       {" • "}
+      <Link className="AppHeader-title" to={{ pathname: "/path" }}>
+        Path
+      </Link>
+      {" • "}
       <Link className="AppHeader-title" to={{ pathname: "/browse/MIDI" }}>
         Rock
       </Link>

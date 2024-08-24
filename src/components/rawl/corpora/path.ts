@@ -430,3 +430,5 @@ const path: {
 // john williams till ywcm
 // rybnikov till tema mriy
 // gottschalk till andalousie
+
+export default path;

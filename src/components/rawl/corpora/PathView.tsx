@@ -104,27 +104,17 @@ const MidiLink = styled(Link)`
   }
 `;
 
-const DebugInput = styled.input`
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 2000;
-`;
-
 const PathView: React.FC = () => {
   const [activeChapter, setActiveChapter] = useState(0);
   const [activeTopic, setActiveTopic] = useState("");
-  const [debugValue, setDebugValue] = useState("");
   const topicRefs = useRef<{ [key: string]: React.RefObject<HTMLDivElement> }>(
     {},
   );
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const scrollContainerRef = useRef<Element | null>(null);
+  const scrollTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
-    // Find the scrollable container
-    const findScrollableParent = (
-      element: HTMLElement | null,
-    ): HTMLElement | null => {
+    const findScrollableParent = (element: Element | null): Element | null => {
       if (!element) return null;
       if (element.scrollHeight > element.clientHeight) {
         return element;
@@ -133,11 +123,10 @@ const PathView: React.FC = () => {
     };
 
     const contentArea = document.querySelector(".App-main-content-area");
-    const scrollableParent = findScrollableParent(contentArea as HTMLElement);
+    const scrollableParent = findScrollableParent(contentArea);
 
     if (scrollableParent) {
       scrollContainerRef.current = scrollableParent;
-      console.log("Scrollable container found:", scrollableParent);
     } else {
       console.warn("No scrollable container found");
     }
@@ -151,11 +140,31 @@ const PathView: React.FC = () => {
 
   const scrollToTopic = (topic: string) => {
     const topicElement = topicRefs.current[topic].current;
-    if (topicElement) {
-      const yOffset = -140; // Adjust this value based on the height of your AppHeader + ChapterNavigation
-      const y =
-        topicElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: "instant" });
+    const scrollContainer = scrollContainerRef.current;
+    if (topicElement && scrollContainer) {
+      const containerRect = scrollContainer.getBoundingClientRect();
+      const topicRect = topicElement.getBoundingClientRect();
+      const relativeTop = topicRect.top - containerRect.top;
+      const targetScrollTop = scrollContainer.scrollTop + relativeTop - 100; // 100px from top
+
+      // Animate scroll
+      const startScrollTop = scrollContainer.scrollTop;
+      const distance = targetScrollTop - startScrollTop;
+      const duration = 200; // ms
+      let start: number | null = null;
+
+      const step = (timestamp: number) => {
+        if (!start) start = timestamp;
+        const progress = timestamp - start;
+        const percentage = Math.min(progress / duration, 1);
+        scrollContainer.scrollTop =
+          startScrollTop + distance * easeInOutCubic(percentage);
+        if (progress < duration) {
+          window.requestAnimationFrame(step);
+        }
+      };
+
+      window.requestAnimationFrame(step);
     }
   };
 
@@ -165,46 +174,59 @@ const PathView: React.FC = () => {
   };
 
   const handleScroll = useCallback(() => {
-    console.log("Scroll event triggered");
-    if (!scrollContainerRef.current) return;
+    if (scrollTimeoutRef.current !== null) {
+      window.clearTimeout(scrollTimeoutRef.current);
+    }
 
-    const scrollPosition = scrollContainerRef.current.scrollTop;
-    let currentChapter = 0;
-    let currentTopic = "";
+    scrollTimeoutRef.current = window.setTimeout(() => {
+      if (!scrollContainerRef.current) return;
 
-    path.forEach((chapter, chapterIndex) => {
-      chapter.topics.forEach((topic) => {
-        const topicElement = topicRefs.current[topic.topic].current;
-        if (topicElement && topicElement.offsetTop <= scrollPosition + 140) {
-          currentChapter = chapterIndex;
-          currentTopic = topic.topic;
-        }
+      const containerRect = scrollContainerRef.current.getBoundingClientRect();
+      const triggerPoint = containerRect.top + 100; // 100px from top
+
+      let currentChapter = 0;
+      let currentTopic = "";
+
+      path.forEach((chapter, chapterIndex) => {
+        chapter.topics.forEach((topic) => {
+          const topicElement = topicRefs.current[topic.topic].current;
+          if (topicElement) {
+            const topicRect = topicElement.getBoundingClientRect();
+            if (
+              topicRect.top <= triggerPoint &&
+              topicRect.bottom > triggerPoint
+            ) {
+              currentChapter = chapterIndex;
+              currentTopic = topic.topic;
+            }
+          }
+        });
       });
-    });
 
-    console.log(
-      `Current chapter: ${currentChapter}, Current topic: ${currentTopic}`,
-    );
-    setActiveChapter(currentChapter);
-    setActiveTopic(currentTopic);
-    setDebugValue(`Chapter: ${currentChapter}, Topic: ${currentTopic}`);
+      setActiveChapter(currentChapter);
+      setActiveTopic(currentTopic);
+    }, 100); // Debounce for 100ms
   }, []);
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
-      console.log("Adding scroll event listener to", scrollContainer);
       scrollContainer.addEventListener("scroll", handleScroll);
       return () => {
-        console.log("Removing scroll event listener");
         scrollContainer.removeEventListener("scroll", handleScroll);
+        if (scrollTimeoutRef.current !== null) {
+          window.clearTimeout(scrollTimeoutRef.current);
+        }
       };
     }
   }, [handleScroll]);
 
+  // Easing function for smooth animation
+  const easeInOutCubic = (t: number): number =>
+    t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+
   return (
     <PathContainer>
-      <DebugInput type="text" value={debugValue} readOnly />
       <ChapterNavigation>
         {path.map((chapter, index) => (
           <ChapterButton

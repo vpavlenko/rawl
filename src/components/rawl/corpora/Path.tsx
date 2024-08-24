@@ -19,11 +19,15 @@ const path: {
   {
     topic: "I vi IV V7 major",
     midis: [
-      "old-black-joe-by-stephen-foster",
       "tf2---mannrobics---piano", // pure, simple, power chords, no 7^
+      "awakening---vicenzo-piano", // iii
+      "old-black-joe-by-stephen-foster",
+      "winter---lucia-salieri-vicenzo-piano",
+      "letter-to-my-mother---vicenzo-piano", // ii
       "cara-mia-addio---full-piano-cover", // bass 8-7-6
     ],
   },
+
   {
     topic: "major with iii",
     midis: ["somewhere-in-my-memory-by-john-williams"],
@@ -37,7 +41,11 @@ const path: {
 
   {
     topic: "parallel modulation",
-    midis: ["pisnya-kota-bazilio-ta-lisici-alisi---o.-ribnikov"],
+    midis: [
+      "pisnya-kota-bazilio-ta-lisici-alisi---o.-ribnikov",
+      "volshebnik-nedouchka---aleksandr-zacepin",
+      "souvenirs-d-andalousie-1855",
+    ],
   },
   {
     topic: "simple harmonic minor",
@@ -51,6 +59,7 @@ const path: {
     topic: "V minor",
     midis: [
       "heroes-of-might-and-magic-iii----waiting-theme", // two chords
+      "farewell---vicenzo-piano", // very simple, just V7 and vi
       "misfortune-teller---valve-studio-orchestra-.", // mm. 1-36
       "you-are-not-part-of-the-control-group", // simple
     ],
@@ -64,6 +73,12 @@ const path: {
   {
     topic: "V7 minor",
     midis: [
+      "the-golden-waltz---vicenzo-piano",
+      "the-midnight-waltz---vicenzo-piano",
+      "interstellar---vicenzo-piano",
+      "introspection---vicenzo-piano",
+      "brawl-stars---lose-theme", // phrygian cadence
+      "brawl-stars-ost---battle-8",
       "counter-strike-2---main-menu-theme---mike-morasky-counter-strike-2---main-menu-theme-for-solo-piano", // simple, VII
       "rocket-jump-waltz-piano-solo", // iv, vi, blues scale
       "soldier-of-dance", // simple, functional, iio, melodic minor, complex RH with thirds and chords
@@ -103,6 +118,7 @@ const path: {
       "andrea---manfred-schmitz",
       "theme-from-schindler-s-list---piano-solo",
       "heroes-of-might-and-magic-vi-unknown-title",
+      "brawl-stars-metropolis-theme",
     ],
   },
 
@@ -140,12 +156,18 @@ const path: {
       "stephen-foster---hard-times-come-again-no-more",
       "misyachna-pisnya---o.-ribnikov",
       "pesnya-atamanshi-i-razboynikov-govoryat-my-byaki-buki---gennadiy-gladkov-pesnya-atamanshi-i-razboynikov-govoryat-my-byaki-buki-g.-gladkov", // with relative minor
+      "brawl-stars-metropolis-theme",
     ],
   },
 
   {
     topic: "circle of fifhts with V7/V",
-    midis: ["hudozhniki---a.-zacepin", "proshchay---a.-zacepin"],
+    midis: [
+      "hudozhniki---a.-zacepin",
+      "proshchay---a.-zacepin",
+      "lunnaya-serenada---a.-zacepin", // autumn leaves
+      "volshebnik-nedouchka---aleksandr-zacepin",
+    ],
   },
   {
     topic: "II passing in major",
@@ -157,11 +179,13 @@ const path: {
       "jeanie-with-the-light-brown-hair---stephen-foster",
       "beautiful-dreamer---stephen-foster", // ii6
       "pesnjakrasnoishapochki",
+      "day-off---vicenzo-piano",
     ],
   },
   {
     topic: "V7/ii",
     midis: [
+      "a-dream-i-had---vicenzo-piano",
       "no.9-esther-s-waltz---esther-abrami", // Cad64, relative
     ],
   },
@@ -193,7 +217,7 @@ const path: {
   },
   {
     topic: "rich ragtime major",
-    midis: ["ataturk-marsi---ahmed-adnan-saygun"],
+    midis: ["ataturk-marsi---ahmed-adnan-saygun", "the-dying-swan-1870"],
   },
 
   {
@@ -219,14 +243,6 @@ const path: {
   },
 
   { topic: "III in major", midis: ["pesnjakrasnoishapochki"] },
-  {
-    topic: "blues scale",
-    midis: [
-      "team-fortress-2-main-theme---mike-morasky-team-fortress-2-piano-solo", // pure
-
-      "rocket-jump-waltz-piano-solo",
-    ],
-  },
 
   {
     topic: "minimalism",
@@ -236,7 +252,7 @@ const path: {
     ],
   },
   {
-    topic: "pentatonic",
+    topic: "major pentatonic",
     midis: [
       "afacan-kedi---ahmed-adnan-saygun",
       "etude-op.-10-no.-5-black-keys-pentatonic-arrangement",
@@ -244,8 +260,25 @@ const path: {
     ],
   },
   {
+    topic: "minor pentatonic",
+    midis: ["brawl-stars---menu-theme", "brawl-stars---footbrawl-theme"],
+  },
+  {
     topic: "stack of perfect fifths",
     midis: ["kocaman-bebek---ahmed-adnan-saygun"],
+  },
+  {
+    topic: "blues scale",
+    midis: [
+      "team-fortress-2-main-theme---mike-morasky-team-fortress-2-piano-solo", // pure
+      "brawl-stars-metropolis-theme",
+      "rocket-jump-waltz-piano-solo",
+    ],
+  },
+
+  {
+    topic: "mario cadence",
+    midis: ["Super_Mario_Bros_Main_Theme", "brawl-stars---footbrawl-theme"],
   },
   {
     topic: "VIIaug",
@@ -270,6 +303,8 @@ const path: {
       "ashford-abbey---jeremy-soule-guild-wars",
       "overture-from-guild-wars-2",
       "heroes-of-might-and-magic-2--sorceress-town---paul-anthony-romero",
+      "brawl-stars---draw-theme",
+      "brawl-stars-ost---battle-8",
     ],
   },
 
@@ -291,11 +326,15 @@ const path: {
       "s-lyubovyu-vstretitsya---a.-zacepin", // V7b9/IV
       "prosnis-i-poy---gennadiy-gladkov", // Iadd6, chain of dominants, V7b9, V9
       "proshchay---a.-zacepin",
+      "lunnaya-serenada---a.-zacepin", // #9
     ],
   },
   {
     topic: "bII with alterations",
-    midis: ["kak-zhe-mne-teper-tebya-lyubit---a.-zacepin"],
+    midis: [
+      "kak-zhe-mne-teper-tebya-lyubit---a.-zacepin",
+      "Super_Mario_Bros_Main_Theme",
+    ],
   },
 
   {
@@ -310,6 +349,7 @@ const path: {
       "barkarole---manfred-schmitz",
       "e.t.-end-credits-piano-solo",
       "volki-gonyat-olenya---a.-zacepin",
+      "brawl-stars---win-theme-piano",
     ],
   },
 
@@ -324,7 +364,10 @@ const path: {
 
   {
     topic: "symmetric chromatic",
-    midis: ["le-carnaval-des-animaux---aquarium"],
+    midis: [
+      "le-carnaval-des-animaux---aquarium",
+      "grande-tarantelle---gottschalk-1872",
+    ],
   },
 
   { topic: "chromatic stacks", midis: ["proshchay---a.-zacepin"] },
@@ -386,3 +429,4 @@ const path: {
 // popular classics till hungarian dance 5
 // john williams till ywcm
 // rybnikov till tema mriy
+// gottschalk till andalousie

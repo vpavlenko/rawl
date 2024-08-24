@@ -17,16 +17,6 @@ const shortcuts = {
     s: "Increase note height",
     w: "Decrease note height",
   },
-  "Measure Selection": {
-    z: "Select 4 measures back",
-    x: "Select 3 measures back",
-    c: "Select 2 measures back",
-    v: "Select 1 measure back",
-    b: "Select 1 measure forward",
-    n: "Select 2 measures forward",
-    m: "Select 3 measures forward",
-    ",": "Select 4 measures forward",
-  },
 };
 
 const styles = {

@@ -15,6 +15,17 @@ const MIN_WIDTH_BETWEEN_BEATS = 17;
 const MIN_WIDTH_BETWEEN_MEASURES = 25;
 const GRADIENT_HEIGHT_IN_NOTES = 3;
 
+const KEY_TO_OFFSET = {
+  z: -4,
+  x: -3,
+  c: -2,
+  v: -1,
+  b: 1,
+  n: 2,
+  m: 3,
+  ",": 4,
+};
+
 const VerticalBar = styled.div`
   width: 1px;
   height: 100%;
@@ -81,20 +92,9 @@ const RemeasuringInput: React.FC<{
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const keyToOffset = {
-      z: -4,
-      x: -3,
-      c: -2,
-      v: -1,
-      b: 1,
-      n: 2,
-      m: 3,
-      ",": 4,
-    };
-
-    if (event.key in keyToOffset) {
+    if (event.key in KEY_TO_OFFSET) {
       event.preventDefault();
-      const offset = keyToOffset[event.key];
+      const offset = KEY_TO_OFFSET[event.key];
       selectMeasure(selectedMeasure + offset);
     }
     if (event.key === "Enter") {
@@ -246,7 +246,7 @@ const Measure: React.FC<{
                     selectedMeasure === number
                       ? "red"
                       : selectedPhraseStart !== -1 &&
-                        Math.abs(number - selectedPhraseStart) <= 3
+                        Math.abs(number - selectedPhraseStart) <= 4
                       ? "orange"
                       : modulationDiff === null
                       ? "#666"
@@ -282,6 +282,8 @@ const Measure: React.FC<{
                         position: "absolute",
                         top: -20,
                         left: 0,
+                        display: "flex",
+                        alignItems: "center",
                       }}
                     >
                       <RemeasuringInput
@@ -291,9 +293,50 @@ const Measure: React.FC<{
                         selectMeasure={selectMeasure}
                         selectedMeasure={selectedMeasure}
                       />
+                      <div
+                        style={{
+                          marginLeft: 5,
+                          color: "white",
+                          fontSize: 10,
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        hover the new tonic, click to save modulation
+                        {selectedPhraseStart === number &&
+                        sectionSpan?.[0] === number - 1 ? (
+                          <span>
+                            . Shift+Enter to merge back to previous section
+                          </span>
+                        ) : (
+                          <span>. Enter to split into two sections</span>
+                        )}
+                      </div>
                     </div>
                   </>
                 )}
+                {selectedMeasure !== null &&
+                  selectedPhraseStart === selectedMeasure &&
+                  sectionSpan?.[0] !== selectedMeasure - 1 &&
+                  Object.entries(KEY_TO_OFFSET).map(([key, offset]) => {
+                    const targetMeasure = selectedMeasure + offset;
+                    if (targetMeasure === number) {
+                      return (
+                        <div
+                          key={key}
+                          style={{
+                            position: "absolute",
+                            top: -6,
+                            left: 0,
+                            color: "orange",
+                            fontSize: 10,
+                          }}
+                        >
+                          {key}
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
                 {selectedPhraseStart === number &&
                   sectionSpan?.[0] !== number - 1 && (
                     <div

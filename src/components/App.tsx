@@ -62,7 +62,6 @@ import { DropSaveForm, processMidiUrls } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
 import { ParsingResult } from "./rawl/parseMidi";
 import transformMidi from "./rawl/transformMidi";
-import STATIC_MIDI_FILES from "./staticMidiFilles";
 
 export const DUMMY_CALLBACK = () => {};
 
@@ -684,9 +683,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   async fetchDirectory(path) {
-    if (path.startsWith("static")) {
-      return this.processFetchedDirectory(path, STATIC_MIDI_FILES);
-    } else if (path.startsWith("f")) {
+    if (path.startsWith("f")) {
       const index = await getDoc(doc(this.db, "indexes", "midis"));
       const firestoreMidiDirectory = (
         index.data() as FirestoreMidiIndex

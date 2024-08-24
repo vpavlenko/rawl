@@ -1374,6 +1374,7 @@ export const corpora: Corpora[] = [
     slug: "aleksey_rybnikov",
     midis: [
       "ya-tebya-nikogda-ne-zabudu---o.-ribnikov",
+      "pesnjakrasnoishapochki",
       "pesnya-krasnoy-shapochki---a.-rybnikov",
       "pesnya-krasnoy-shapochki---aleksey-rybnikov",
       "poslednyaya-poema-the-last-poem---aleksey-rybnikov", // many strategies

@@ -6,8 +6,6 @@ const path: {
   topic: string;
   midis: string[];
 }[] = [
-  { topic: "five notes", midis: [] },
-  { topic: "chromatic harmony", midis: [] },
   { topic: "I V major", midis: [] },
   {
     topic: "I ii V7 major",
@@ -38,8 +36,15 @@ const path: {
   { topic: "parallel symmetry", midis: [] },
 
   {
+    topic: "parallel modulation",
+    midis: ["pisnya-kota-bazilio-ta-lisici-alisi---o.-ribnikov"],
+  },
+  {
     topic: "simple harmonic minor",
-    midis: ["your-precious-moon---mike-morasky-wheatley-boss-fight-ending"],
+    midis: [
+      "your-precious-moon---mike-morasky-wheatley-boss-fight-ending",
+      "heroes-of-might-magic-iii---tower-town-theme",
+    ],
   },
 
   {
@@ -51,7 +56,10 @@ const path: {
     ],
   },
 
-  { topic: "diatonic circle of fifths", midis: ["am-abend---manfred-schmitz"] },
+  {
+    topic: "diatonic circle of fifths",
+    midis: ["am-abend---manfred-schmitz"],
+  },
 
   {
     topic: "V7 minor",
@@ -73,27 +81,42 @@ const path: {
   },
 
   {
-    topic: "Vsus4",
-    midis: [
-      "andrea---manfred-schmitz",
-      "theme-from-schindler-s-list---piano-solo",
-    ],
-  },
-
-  {
     topic: "V7 minor with bIII",
     midis: [
       "duet-princessy-i-korolya---gennadiy-gladkov-duet-princessy-i-korolya",
       "andrea---manfred-schmitz",
       "theme-from-schindler-s-list---piano-solo",
+      "ya-tebya-nikogda-ne-zabudu---o.-ribnikov",
+      "main---alexey-rybnikov-golovna-tema---oleksiy-ribnikov",
+      "belyy-shipovnik---o.-ribnikov",
     ],
   },
+
+  {
+    topic: "rapid modulations",
+    midis: ["tema-mriy---oleksiy-ribnikov-dream-theme-alexey-rybnikov"],
+  },
+
+  {
+    topic: "Vsus4",
+    midis: [
+      "andrea---manfred-schmitz",
+      "theme-from-schindler-s-list---piano-solo",
+      "heroes-of-might-and-magic-vi-unknown-title",
+    ],
+  },
+
+  { topic: "Vsus4 unresolved", midis: ["volki-gonyat-olenya---a.-zacepin"] },
+
   {
     topic: "V7/iv",
     midis: [
+      "pisnya-kota-bazilio-ta-lisici-alisi---o.-ribnikov",
+      "island-of-misfortune-ostrov-nevezeniya---o.-zacepin",
       "no.2-remembering-her---esther-abrami", // viio->Cad64, can be explained as chromatic bass
     ],
   },
+
   {
     topic: "relative symmetry",
     midis: [
@@ -102,24 +125,52 @@ const path: {
     ],
   },
   {
+    topic: "smooth modulation",
+    midis: ["main---alexey-rybnikov-golovna-tema---oleksiy-ribnikov"],
+  },
+
+  {
+    topic: "functional modulations",
+    midis: ["meeting-a.-rybnikov---zustrich-o.-ribnikov"],
+  },
+
+  {
     topic: "V7/V",
     midis: [
       "stephen-foster---hard-times-come-again-no-more",
-
+      "misyachna-pisnya---o.-ribnikov",
       "pesnya-atamanshi-i-razboynikov-govoryat-my-byaki-buki---gennadiy-gladkov-pesnya-atamanshi-i-razboynikov-govoryat-my-byaki-buki-g.-gladkov", // with relative minor
     ],
+  },
+
+  {
+    topic: "circle of fifhts with V7/V",
+    midis: ["hudozhniki---a.-zacepin", "proshchay---a.-zacepin"],
+  },
+  {
+    topic: "II passing in major",
+    midis: ["poslednyaya-poema-the-last-poem---aleksey-rybnikov"],
   },
   {
     topic: "V7/vi",
     midis: [
       "jeanie-with-the-light-brown-hair---stephen-foster",
       "beautiful-dreamer---stephen-foster", // ii6
+      "pesnjakrasnoishapochki",
     ],
   },
   {
     topic: "V7/ii",
     midis: [
       "no.9-esther-s-waltz---esther-abrami", // Cad64, relative
+    ],
+  },
+  {
+    topic: "ii_V7/iv",
+    midis: [
+      "pesenka-o-medvedyah---a.-zacepin",
+      "hudozhniki---a.-zacepin",
+      "tango-do-k-f-12-stulev---o.-zacepin",
     ],
   },
   { topic: "Fr", midis: ["theme-from-schindler-s-list---piano-solo"] },
@@ -131,6 +182,7 @@ const path: {
     topic: "functional diminished chords",
     midis: ["elegie---manfred-schmitz"],
   },
+
   {
     topic: "iiø7 in major",
     midis: ["valse---coppelia---piano-solo---arr.-leo-delibes"],
@@ -139,14 +191,34 @@ const path: {
     topic: "chain_of_dominants",
     midis: ["pesnya-genialnogo-syshchika---gennadiy-gladkov"],
   },
+  {
+    topic: "rich ragtime major",
+    midis: ["ataturk-marsi---ahmed-adnan-saygun"],
+  },
 
   {
     topic: "o7 break",
     midis: ["your-precious-moon---mike-morasky-wheatley-boss-fight-ending"],
   },
-  { topic: "augmented tonic", midis: ["music-of-the-spheres"] },
+  {
+    topic: "augmented tonic",
+    midis: [
+      "music-of-the-spheres",
+      "heroes-of-might-magic-iii---fortress-town-theme",
+    ],
+  },
+  {
+    topic: "parallel chords mix",
+    midis: ["heroes-of-might-magic-iii---castle-town-theme"],
+  },
 
-  { topic: "bII", midis: [] },
+  { topic: "iadd6", midis: ["pesenka-o-medvedyah---a.-zacepin"] },
+  {
+    topic: "bII",
+    midis: ["haven-theme-piano-form-heroes-of-might-and-magic-v"],
+  },
+
+  { topic: "III in major", midis: ["pesnjakrasnoishapochki"] },
   {
     topic: "blues scale",
     midis: [
@@ -163,21 +235,72 @@ const path: {
       "glassworks-opening-1---philip-glass-opening-1---philip-glass",
     ],
   },
-  { topic: "simple natural minor", midis: [] },
-  { topic: "natural minor with bIII tonicization", midis: [] },
-
   {
-    topic: "dorianish natural minor",
+    topic: "pentatonic",
     midis: [
+      "afacan-kedi---ahmed-adnan-saygun",
+      "etude-op.-10-no.-5-black-keys-pentatonic-arrangement",
+      "han-gong-chun-li-chun-ri---song-yu-ning",
+    ],
+  },
+  {
+    topic: "stack of perfect fifths",
+    midis: ["kocaman-bebek---ahmed-adnan-saygun"],
+  },
+  {
+    topic: "VIIaug",
+    midis: ["haven-theme-piano-form-heroes-of-might-and-magic-v"],
+  },
+  {
+    topic: "simple natural minor",
+    midis: [
+      "guild-wars-factions-theme",
+      "inci---ahmed-adnan-saygun",
+      "ayse-m",
+      "ninni---ahmed-adnan-saygun",
+    ],
+  },
+  {
+    topic: "simple epic natural minor with episodic IV",
+    midis: [
+      "call-of-magic-nerevar-rising---the-elder-scrolls-morrowind-jeremy-soule",
+      "dragonborn---skyrim-theme-song-piano-solo",
+      "secunda-the-elder-scrolls-v-skyrim",
+      "fear-not-this-night-guild-wars-2-piano-version",
+      "ashford-abbey---jeremy-soule-guild-wars",
+      "overture-from-guild-wars-2",
       "heroes-of-might-and-magic-2--sorceress-town---paul-anthony-romero",
     ],
   },
 
   {
+    topic: "mixed minor",
+    midis: [
+      "academy-order-theme---heroes-and-might-and-magic-iv", // IV
+    ],
+  },
+
+  {
+    topic: "double tonic relative",
+    midis: ["dirt-theme-hope---heroes-of-might-and-magic-iv---celtic-harp"],
+  },
+
+  {
     topic: "alterated dominants",
     midis: [
+      "s-lyubovyu-vstretitsya---a.-zacepin", // V7b9/IV
       "prosnis-i-poy---gennadiy-gladkov", // Iadd6, chain of dominants, V7b9, V9
+      "proshchay---a.-zacepin",
     ],
+  },
+  {
+    topic: "bII with alterations",
+    midis: ["kak-zhe-mne-teper-tebya-lyubit---a.-zacepin"],
+  },
+
+  {
+    topic: "diationic sevenths chords",
+    midis: ["volki-gonyat-olenya---a.-zacepin", "proshchay---a.-zacepin"],
   },
 
   {
@@ -186,36 +309,75 @@ const path: {
       "am-abend---manfred-schmitz", // Iadd9
       "barkarole---manfred-schmitz",
       "e.t.-end-credits-piano-solo",
+      "volki-gonyat-olenya---a.-zacepin",
     ],
   },
 
-  { topic: "idiosyncratic", midis: ["e.t.-theme---ywcm"] },
+  {
+    topic: "idiosyncratic",
+    midis: [
+      "e.t.-theme---ywcm",
+      "ruya---ahmed-adnan-saygun",
+      "horon-for-bb-clarinet-and-piano---ahmed-adnan-saygun",
+    ],
+  },
 
   {
     topic: "symmetric chromatic",
     midis: ["le-carnaval-des-animaux---aquarium"],
   },
 
+  { topic: "chromatic stacks", midis: ["proshchay---a.-zacepin"] },
+
   {
     topic: "complex chromatic/modulatory vgm",
     midis: [
       "misfortune-teller---valve-studio-orchestra-.", // IV7 vibes, simple
       "team-fortress---rise-of-the-living-bread---mike-morasky",
+      "harry-potter-ii-game-main-menu---jeremy-soule",
+    ],
+  },
+
+  {
+    topic: "mixolydian",
+    midis: ["happy-hogwarts-from-harry-potter-and-the-philosopher-s-stone"],
+  },
+
+  {
+    topic: "yellow black",
+    midis: ["heroes-of-might-and-magic-3---necropolis-town-theme"],
+  },
+
+  {
+    topic: "bvi in minor",
+    midis: [
+      "inferno-theme-by-paul-romero-from-heroes-of-might-and-magic-3",
+      "guild-wars-2-trailer---jeremy-soule",
     ],
   },
 
   { topic: "vgm non-functional diatonic", midis: ["Sweden_Minecraft"] },
 
-  { topic: "episodic dorian", midis: ["andrea---manfred-schmitz"] },
+  {
+    topic: "episodic IV",
+    midis: [
+      "andrea---manfred-schmitz",
+      "heroes-of-might-and-magic-vi-unknown-title",
+      "s-lyubovyu-vstretitsya---a.-zacepin",
+    ],
+  },
 
   { topic: "picardy third", midis: ["you-are-not-part-of-the-control-group"] },
 
   {
     topic: "sentence",
     midis: [
+      "misyachna-pisnya---o.-ribnikov",
       "theme-from-schindler-s-list---piano-solo", // 2x + 2x
     ],
   },
+
+  { topic: "locrian", midis: ["guild-wars-2-trailer---jeremy-soule"] },
 ];
 
 // foster processed until soiree polka
@@ -223,3 +385,4 @@ const path: {
 // schmitz till andrea
 // popular classics till hungarian dance 5
 // john williams till ywcm
+// rybnikov till tema mriy

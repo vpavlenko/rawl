@@ -1032,6 +1032,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 latencyCorrectionMs={this.state.latencyCorrectionMs}
                 setLatencyCorrectionMs={this.setLatencyCorrectionMs}
                 getCurrentPositionMs={this.midiPlayer?.getPositionMs}
+                tempo={this.state.tempo}
+                setTempo={this.handleTempoChange}
               />
             )}
             <Modal

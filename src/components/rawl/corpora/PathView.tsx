@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import path from "./path";
@@ -6,15 +6,21 @@ import path from "./path";
 const PathContainer = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   max-width: 100%;
   margin: 0 auto;
-  padding: 20px;
 `;
 
 const ChapterNavigation = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #1a1a1a;
+  position: fixed;
+  top: 60px; // Adjust this value based on the actual height of your AppHeader
+  left: 0;
+  right: 0;
+  z-index: 1000;
 `;
 
 const ChapterButton = styled.button<{ active: boolean }>`
@@ -32,23 +38,22 @@ const ChapterButton = styled.button<{ active: boolean }>`
 
 const ContentContainer = styled.div`
   display: flex;
-  max-height: calc(100vh - 100px);
+  margin-top: 120px; // Adjust this value based on the combined height of AppHeader and ChapterNavigation
 `;
 
 const Sidebar = styled.div`
   width: 30%;
-  padding-right: 20px;
+  padding: 20px;
+  position: fixed;
+  top: 140px; // Adjust based on the height of AppHeader + ChapterNavigation
+  bottom: 0;
   overflow-y: auto;
 `;
 
 const MainContent = styled.div`
   width: 70%;
-  overflow-y: auto;
-  padding-left: 20px;
-`;
-
-const TopicIndex = styled.div`
-  margin-left: 20px;
+  margin-left: 30%;
+  padding: 20px;
 `;
 
 const SidebarLink = styled.a<{ active: boolean }>`
@@ -99,15 +104,44 @@ const MidiLink = styled(Link)`
   }
 `;
 
+const DebugInput = styled.input`
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 2000;
+`;
+
 const PathView: React.FC = () => {
   const [activeChapter, setActiveChapter] = useState(0);
   const [activeTopic, setActiveTopic] = useState("");
+  const [debugValue, setDebugValue] = useState("");
   const topicRefs = useRef<{ [key: string]: React.RefObject<HTMLDivElement> }>(
     {},
   );
-  const mainContentRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    // Find the scrollable container
+    const findScrollableParent = (
+      element: HTMLElement | null,
+    ): HTMLElement | null => {
+      if (!element) return null;
+      if (element.scrollHeight > element.clientHeight) {
+        return element;
+      }
+      return findScrollableParent(element.parentElement);
+    };
+
+    const contentArea = document.querySelector(".App-main-content-area");
+    const scrollableParent = findScrollableParent(contentArea as HTMLElement);
+
+    if (scrollableParent) {
+      scrollContainerRef.current = scrollableParent;
+      console.log("Scrollable container found:", scrollableParent);
+    } else {
+      console.warn("No scrollable container found");
+    }
+
     path.forEach((chapter) => {
       chapter.topics.forEach((topic) => {
         topicRefs.current[topic.topic] = React.createRef();
@@ -116,35 +150,61 @@ const PathView: React.FC = () => {
   }, []);
 
   const scrollToTopic = (topic: string) => {
-    topicRefs.current[topic].current?.scrollIntoView({
-      block: "start",
-      behavior: "instant",
-    });
-  };
-
-  const handleScroll = () => {
-    if (mainContentRef.current) {
-      const scrollPosition = mainContentRef.current.scrollTop;
-      let currentChapter = 0;
-      let currentTopic = "";
-
-      path.forEach((chapter, chapterIndex) => {
-        chapter.topics.forEach((topic) => {
-          const topicElement = topicRefs.current[topic.topic].current;
-          if (topicElement && topicElement.offsetTop <= scrollPosition + 100) {
-            currentChapter = chapterIndex;
-            currentTopic = topic.topic;
-          }
-        });
-      });
-
-      setActiveChapter(currentChapter);
-      setActiveTopic(currentTopic);
+    const topicElement = topicRefs.current[topic].current;
+    if (topicElement) {
+      const yOffset = -140; // Adjust this value based on the height of your AppHeader + ChapterNavigation
+      const y =
+        topicElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "instant" });
     }
   };
 
+  const scrollToChapter = (chapterIndex: number) => {
+    const firstTopicOfChapter = path[chapterIndex].topics[0].topic;
+    scrollToTopic(firstTopicOfChapter);
+  };
+
+  const handleScroll = useCallback(() => {
+    console.log("Scroll event triggered");
+    if (!scrollContainerRef.current) return;
+
+    const scrollPosition = scrollContainerRef.current.scrollTop;
+    let currentChapter = 0;
+    let currentTopic = "";
+
+    path.forEach((chapter, chapterIndex) => {
+      chapter.topics.forEach((topic) => {
+        const topicElement = topicRefs.current[topic.topic].current;
+        if (topicElement && topicElement.offsetTop <= scrollPosition + 140) {
+          currentChapter = chapterIndex;
+          currentTopic = topic.topic;
+        }
+      });
+    });
+
+    console.log(
+      `Current chapter: ${currentChapter}, Current topic: ${currentTopic}`,
+    );
+    setActiveChapter(currentChapter);
+    setActiveTopic(currentTopic);
+    setDebugValue(`Chapter: ${currentChapter}, Topic: ${currentTopic}`);
+  }, []);
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      console.log("Adding scroll event listener to", scrollContainer);
+      scrollContainer.addEventListener("scroll", handleScroll);
+      return () => {
+        console.log("Removing scroll event listener");
+        scrollContainer.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [handleScroll]);
+
   return (
     <PathContainer>
+      <DebugInput type="text" value={debugValue} readOnly />
       <ChapterNavigation>
         {path.map((chapter, index) => (
           <ChapterButton
@@ -152,7 +212,7 @@ const PathView: React.FC = () => {
             active={index === activeChapter}
             onClick={() => {
               setActiveChapter(index);
-              scrollToTopic(chapter.topics[0].topic);
+              scrollToChapter(index);
             }}
           >
             {chapter.chapter}
@@ -171,7 +231,7 @@ const PathView: React.FC = () => {
             </SidebarLink>
           ))}
         </Sidebar>
-        <MainContent ref={mainContentRef} onScroll={handleScroll}>
+        <MainContent>
           {path.map((chapter) => (
             <div key={chapter.chapter}>
               <ChapterTitle>{chapter.chapter}</ChapterTitle>

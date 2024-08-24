@@ -2,7 +2,7 @@ import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { VoiceMask } from "../App";
 import { MeasureSelection } from "./AnalysisGrid";
@@ -24,6 +24,7 @@ import {
   getNewAnalysis,
 } from "./analysis";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
+import { corpora } from "./corpora/corpora";
 import { LinkForSeparateTab } from "./course/Course";
 import { buildManualMeasuresAndBeats } from "./measures";
 import { ColoredNotesInVoices, Note, ParsingResult } from "./parseMidi";
@@ -128,6 +129,49 @@ export type RenumberMeasureCallback = (
   isShift: boolean,
 ) => void;
 
+const CompositionTitle: React.FC<{ slug: string }> = ({ slug }) => {
+  const formattedTitle = slug
+    .replace(/---/g, " – ")
+    .replace(/-/g, " ")
+    .replace(/_/g, " ");
+
+  const author = React.useMemo(() => {
+    const corpusEntry = corpora.find((corpus) => corpus.midis.includes(slug));
+    return corpusEntry
+      ? corpusEntry.slug
+          .replace(/_/g, " ")
+          .split(" ")
+          .map(
+            (word) =>
+              word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
+          )
+          .join(" ")
+      : "";
+  }, [slug]);
+
+  return (
+    <div
+      style={{
+        padding: "10px",
+        backgroundColor: "rgba(0, 0, 0, 0.8)",
+        color: "white",
+        fontSize: "1.2em",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      <h1 style={{ margin: 0, fontSize: "1em" }}>
+        {formattedTitle}
+        {author && (
+          <span style={{ fontWeight: "normal", marginLeft: "10px" }}>
+            ({author})
+          </span>
+        )}
+      </h1>
+    </div>
+  );
+};
+
 const Rawl: React.FC<{
   parsingResult: ParsingResult;
   getCurrentPositionMs: () => number;
@@ -163,6 +207,7 @@ const Rawl: React.FC<{
   unregisterKeyboardHandler,
 }) => {
   const location = useLocation();
+  const { slug } = useParams<{ slug: string }>();
 
   useEffect(() => {
     document.title = `${song} - ${artist} - Rawl`;
@@ -549,23 +594,26 @@ const Rawl: React.FC<{
       style={{
         position: "relative",
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
         overflow: "hidden",
         flexGrow: 1,
       }}
     >
       <div
-        key="leftPanel"
+        key="innerLeftPanel"
         style={{
+          margin: 0,
+          padding: 0,
+          position: "relative",
+          overflowX: "scroll",
+          overflowY: "scroll",
           width: "100%",
           height: "100%",
-          padding: 0,
           backgroundColor: "black",
-          flexGrow: 1,
-          overflowX: "auto",
         }}
         className="Rawl"
       >
+        {slug && <CompositionTitle slug={slug} />}
         {systemLayout === "merged" ? (
           <MergedSystemLayout {...systemLayoutProps} />
         ) : systemLayout === "stacked" ? (

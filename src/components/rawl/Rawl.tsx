@@ -1,4 +1,7 @@
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowUpRightFromSquare,
+  faCopy,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -129,7 +132,10 @@ export type RenumberMeasureCallback = (
   isShift: boolean,
 ) => void;
 
-const CompositionTitle: React.FC<{ slug: string }> = ({ slug }) => {
+const CompositionTitle: React.FC<{ slug: string; webUrl: string | null }> = ({
+  slug,
+  webUrl,
+}) => {
   const formattedTitle = slug
     .replace(/---/g, " – ")
     .replace(/-/g, " ")
@@ -158,6 +164,7 @@ const CompositionTitle: React.FC<{ slug: string }> = ({ slug }) => {
         fontSize: "1.2em",
         display: "flex",
         alignItems: "center",
+        justifyContent: "space-between",
       }}
     >
       <h1 style={{ margin: 0, fontSize: "1em" }}>
@@ -166,6 +173,23 @@ const CompositionTitle: React.FC<{ slug: string }> = ({ slug }) => {
           <span style={{ fontWeight: "normal", marginLeft: "10px" }}>
             ({author})
           </span>
+        )}
+        {webUrl && (
+          <a
+            href={webUrl}
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              color: "gray",
+              textDecoration: "none",
+              cursor: "pointer",
+            }}
+          >
+            <FontAwesomeIcon
+              icon={faArrowUpRightFromSquare}
+              style={{ width: "15px", marginLeft: "10px" }}
+            />
+          </a>
         )}
       </h1>
     </div>
@@ -190,6 +214,7 @@ const Rawl: React.FC<{
     handler: (e: KeyboardEvent) => void,
   ) => void;
   unregisterKeyboardHandler: (id: string) => void;
+  webUrl: string | null;
 }> = ({
   parsingResult,
   getCurrentPositionMs,
@@ -205,6 +230,7 @@ const Rawl: React.FC<{
   latencyCorrectionMs,
   registerKeyboardHandler,
   unregisterKeyboardHandler,
+  webUrl,
 }) => {
   const location = useLocation();
   const { slug } = useParams<{ slug: string }>();
@@ -613,7 +639,7 @@ const Rawl: React.FC<{
         }}
         className="Rawl"
       >
-        {slug && <CompositionTitle slug={slug} />}
+        {slug && <CompositionTitle slug={slug} webUrl={webUrl} />}
         {systemLayout === "merged" ? (
           <MergedSystemLayout {...systemLayoutProps} />
         ) : systemLayout === "stacked" ? (

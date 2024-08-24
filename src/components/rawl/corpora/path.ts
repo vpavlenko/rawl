@@ -6,7 +6,6 @@ const path: {
   topic: string;
   midis: string[];
 }[] = [
-  { topic: "I V major", midis: [] },
   {
     topic: "I ii V7 major",
     midis: [
@@ -15,7 +14,6 @@ const path: {
       "jurassic-park-theme---john-williams-jurrasic-park-theme---john-williams",
     ],
   },
-  { topic: "I IV V major", midis: [] },
   {
     topic: "I vi IV V7 major",
     midis: [
@@ -37,16 +35,6 @@ const path: {
     midis: ["heroes-of-might-and-magic-iii---main-menu-theme"],
   },
 
-  { topic: "parallel symmetry", midis: [] },
-
-  {
-    topic: "parallel modulation",
-    midis: [
-      "pisnya-kota-bazilio-ta-lisici-alisi---o.-ribnikov",
-      "volshebnik-nedouchka---aleksandr-zacepin",
-      "souvenirs-d-andalousie-1855",
-    ],
-  },
   {
     topic: "simple harmonic minor",
     midis: [
@@ -66,11 +54,6 @@ const path: {
   },
 
   {
-    topic: "diatonic circle of fifths",
-    midis: ["am-abend---manfred-schmitz"],
-  },
-
-  {
     topic: "V7 minor",
     midis: [
       "the-golden-waltz---vicenzo-piano",
@@ -84,14 +67,6 @@ const path: {
       "soldier-of-dance", // simple, functional, iio, melodic minor, complex RH with thirds and chords
       "team-fortress---upgrade-station-piano---mike-morasky", // track driver V7 at the end
       "thirty-seven-after-six", // V-i ambiguous
-    ],
-  },
-  {
-    topic: "minor with chromatic bass",
-    midis: [
-      "half-life-alyx---ending-triumph",
-      "overcooked---menu-theme", // idiosyncratic chords
-      "zimniy-vecher-winter-evening---manfred-shmitc-manfred-schmitz",
     ],
   },
 
@@ -108,10 +83,18 @@ const path: {
   },
 
   {
-    topic: "rapid modulations",
-    midis: ["tema-mriy---oleksiy-ribnikov-dream-theme-alexey-rybnikov"],
+    topic: "diatonic circle of fifths",
+    midis: ["am-abend---manfred-schmitz"],
   },
 
+  {
+    topic: "minor with chromatic bass",
+    midis: [
+      "half-life-alyx---ending-triumph",
+      "overcooked---menu-theme", // idiosyncratic chords
+      "zimniy-vecher-winter-evening---manfred-shmitc-manfred-schmitz",
+    ],
+  },
   {
     topic: "Vsus4",
     midis: [
@@ -125,12 +108,17 @@ const path: {
   { topic: "Vsus4 unresolved", midis: ["volki-gonyat-olenya---a.-zacepin"] },
 
   {
-    topic: "V7/iv",
+    topic: "parallel modulation",
     midis: [
       "pisnya-kota-bazilio-ta-lisici-alisi---o.-ribnikov",
-      "island-of-misfortune-ostrov-nevezeniya---o.-zacepin",
-      "no.2-remembering-her---esther-abrami", // viio->Cad64, can be explained as chromatic bass
+      "volshebnik-nedouchka---aleksandr-zacepin",
+      "souvenirs-d-andalousie-1855",
     ],
+  },
+
+  {
+    topic: "rapid modulations",
+    midis: ["tema-mriy---oleksiy-ribnikov-dream-theme-alexey-rybnikov"],
   },
 
   {
@@ -148,6 +136,15 @@ const path: {
   {
     topic: "functional modulations",
     midis: ["meeting-a.-rybnikov---zustrich-o.-ribnikov"],
+  },
+
+  {
+    topic: "V7/iv",
+    midis: [
+      "pisnya-kota-bazilio-ta-lisici-alisi---o.-ribnikov",
+      "island-of-misfortune-ostrov-nevezeniya---o.-zacepin",
+      "no.2-remembering-her---esther-abrami", // viio->Cad64, can be explained as chromatic bass
+    ],
   },
 
   {
@@ -197,15 +194,24 @@ const path: {
       "tango-do-k-f-12-stulev---o.-zacepin",
     ],
   },
-  { topic: "Fr", midis: ["theme-from-schindler-s-list---piano-solo"] },
+
   {
     topic: "applied circle of fifths",
     midis: ["hungarian-dance-no-5-in-g-minor"],
   },
   {
+    topic: "bII",
+    midis: ["haven-theme-piano-form-heroes-of-might-and-magic-v"],
+  },
+
+  { topic: "III in major", midis: ["pesnjakrasnoishapochki"] },
+
+  {
     topic: "functional diminished chords",
     midis: ["elegie---manfred-schmitz"],
   },
+
+  { topic: "Fr", midis: ["theme-from-schindler-s-list---piano-solo"] },
 
   {
     topic: "iiø7 in major",
@@ -224,6 +230,29 @@ const path: {
     topic: "o7 break",
     midis: ["your-precious-moon---mike-morasky-wheatley-boss-fight-ending"],
   },
+
+  {
+    topic: "alterated dominants",
+    midis: [
+      "s-lyubovyu-vstretitsya---a.-zacepin", // V7b9/IV
+      "prosnis-i-poy---gennadiy-gladkov", // Iadd6, chain of dominants, V7b9, V9
+      "proshchay---a.-zacepin",
+      "lunnaya-serenada---a.-zacepin", // #9
+    ],
+  },
+  {
+    topic: "bII with alterations",
+    midis: [
+      "kak-zhe-mne-teper-tebya-lyubit---a.-zacepin",
+      "Super_Mario_Bros_Main_Theme",
+    ],
+  },
+
+  {
+    topic: "diationic sevenths chords",
+    midis: ["volki-gonyat-olenya---a.-zacepin", "proshchay---a.-zacepin"],
+  },
+
   {
     topic: "augmented tonic",
     midis: [
@@ -237,12 +266,6 @@ const path: {
   },
 
   { topic: "iadd6", midis: ["pesenka-o-medvedyah---a.-zacepin"] },
-  {
-    topic: "bII",
-    midis: ["haven-theme-piano-form-heroes-of-might-and-magic-v"],
-  },
-
-  { topic: "III in major", midis: ["pesnjakrasnoishapochki"] },
 
   {
     topic: "minimalism",
@@ -275,6 +298,8 @@ const path: {
       "rocket-jump-waltz-piano-solo",
     ],
   },
+
+  { topic: "locrian", midis: ["guild-wars-2-trailer---jeremy-soule"] },
 
   {
     topic: "mario cadence",
@@ -318,28 +343,6 @@ const path: {
   {
     topic: "double tonic relative",
     midis: ["dirt-theme-hope---heroes-of-might-and-magic-iv---celtic-harp"],
-  },
-
-  {
-    topic: "alterated dominants",
-    midis: [
-      "s-lyubovyu-vstretitsya---a.-zacepin", // V7b9/IV
-      "prosnis-i-poy---gennadiy-gladkov", // Iadd6, chain of dominants, V7b9, V9
-      "proshchay---a.-zacepin",
-      "lunnaya-serenada---a.-zacepin", // #9
-    ],
-  },
-  {
-    topic: "bII with alterations",
-    midis: [
-      "kak-zhe-mne-teper-tebya-lyubit---a.-zacepin",
-      "Super_Mario_Bros_Main_Theme",
-    ],
-  },
-
-  {
-    topic: "diationic sevenths chords",
-    midis: ["volki-gonyat-olenya---a.-zacepin", "proshchay---a.-zacepin"],
   },
 
   {
@@ -419,8 +422,6 @@ const path: {
       "theme-from-schindler-s-list---piano-solo", // 2x + 2x
     ],
   },
-
-  { topic: "locrian", midis: ["guild-wars-2-trailer---jeremy-soule"] },
 ];
 
 // foster processed until soiree polka

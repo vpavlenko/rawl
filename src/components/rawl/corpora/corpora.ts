@@ -2080,6 +2080,26 @@ export const corpora: Corpora[] = [
     midis: ["atras_da_porta"],
   },
   {
+    slug: "borislav_slavov",
+    midis: ["down-by-the-river---borislav-slavov-baldur-s-gate-3-ost"],
+  },
+  {
+    slug: "takeshi_abo",
+    midis: [
+      "gate-of-steiner",
+      "suzuha-s-farewell-wakare---steins-gate",
+      "steins-gate-0---messenger-piano",
+    ],
+  },
+  {
+    slug: "esther_abrami",
+    midis: [
+      "no.9-esther-s-waltz---esther-abrami",
+      "no.2-remembering-her---esther-abrami",
+      "no.1-a-minor-waltz---esther-abrami-no-1-a-minor-waltz",
+    ],
+  },
+  {
     slug: "martin_schjoler",
     midis: [
       "brawl-stars---menu-theme",

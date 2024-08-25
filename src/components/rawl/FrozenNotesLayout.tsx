@@ -1,7 +1,7 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
+import FrozenNotes from "./FrozenNotes";
 import { SystemLayoutProps } from "./SystemLayout";
-import { ColoredNote } from "./parseMidi";
 
 const Container = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ const JsonDisplay = styled.pre`
 
 const RangeInputs = styled.div`
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
 `;
 
@@ -49,103 +49,13 @@ const CopyIndicator = styled.div<{ visible: boolean }>`
   transition: opacity 0.3s;
 `;
 
-interface FrozenNotesProps {
-  notes: ColoredNote[][];
-  measureWidth: number;
-  midiNumberToY: (midiNumber: number) => number;
-}
-
-const FrozenNotes: React.FC<FrozenNotesProps> = ({
-  notes,
-  measureWidth,
-  midiNumberToY,
-}) => {
-  const midiRange = useMemo(() => {
-    let min = Infinity;
-    let max = -Infinity;
-    notes.forEach((voiceNotes) => {
-      voiceNotes.forEach((note) => {
-        const midiNumber = note.note.midiNumber;
-        min = Math.min(min, midiNumber);
-        max = Math.max(max, midiNumber);
-      });
-    });
-    return [min, max];
-  }, [notes]);
-
-  const timeRange = useMemo(() => {
-    let min = Infinity;
-    let max = -Infinity;
-    notes.forEach((voiceNotes) => {
-      voiceNotes.forEach((note) => {
-        min = Math.min(min, note.span[0]);
-        max = Math.max(max, note.span[1]);
-      });
-    });
-    return [min, max];
-  }, [notes]);
-
-  const height = (midiRange[1] - midiRange[0] + 1) * 4; // 4px per MIDI note
-  const width = (timeRange[1] - timeRange[0]) * measureWidth;
-
-  const toX = (time: number) => (time - timeRange[0]) * measureWidth;
-  const toY = (midiNumber: number) =>
-    height - (midiNumber - midiRange[0] + 1) * 4;
-
-  const getNoteRectangles = (notes: ColoredNote[]) => {
-    return notes.map((note) => {
-      const {
-        span,
-        color,
-        voiceIndex,
-        isActive,
-        isDrum,
-        note: { midiNumber },
-      } = note;
-      const top = toY(midiNumber);
-      const left = toX(span[0]);
-      const noteWidth = toX(span[1]) - left;
-
-      return (
-        <div
-          key={`nr_${note.id}`}
-          className={`${color} voiceShape-${voiceIndex}`}
-          style={{
-            position: "absolute",
-            height: `${isActive ? 4 : 0.5}px`,
-            width: isDrum ? "0px" : noteWidth,
-            top: isActive ? top : top + 4 - 0.5,
-            left,
-            backgroundColor: color,
-            zIndex: Math.round(10 + 1000 / noteWidth),
-          }}
-        />
-      );
-    });
-  };
-
-  return (
-    <div
-      style={{
-        position: "relative",
-        height: `${height}px`,
-        width: `${width}px`,
-        border: "1px solid red",
-      }}
-    >
-      {notes.map((voiceNotes, index) => (
-        <div key={index}>{getNoteRectangles(voiceNotes)}</div>
-      ))}
-    </div>
-  );
-};
-
 const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
   frozenNotes,
   measuresAndBeats,
 }) => {
   const [measureRange, setMeasureRange] = useState([1, 4]);
   const [copyIndicatorVisible, setCopyIndicatorVisible] = useState(false);
+  const endMeasureRef = useRef<HTMLInputElement>(null);
 
   const handleRangeChange = useCallback(
     (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -159,7 +69,13 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
     [],
   );
 
-  const filteredNotes = useMemo(
+  React.useEffect(() => {
+    if (endMeasureRef.current) {
+      endMeasureRef.current.focus();
+    }
+  }, []);
+
+  const filteredNotes = React.useMemo(
     () =>
       frozenNotes.map((voiceNotes) =>
         voiceNotes.filter((note) => {
@@ -167,7 +83,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
             (m) => m > note.span[0],
           );
           return (
-            noteMeasure >= measureRange[0] - 1 && noteMeasure < measureRange[1]
+            noteMeasure >= measureRange[0] - 1 && noteMeasure <= measureRange[1]
           );
         }),
       ),
@@ -195,30 +111,25 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
   return (
     <Container>
       <FrozenNotesDisplay>
-        <h2>
-          Frozen Notes (Measures {measureRange[0]}-{measureRange[1]})
-        </h2>
+        <h2>Frozen Notes</h2>
         <RangeInputs>
-          <div>
-            <label>Start Measure:</label>
-            <NumberInput
-              type="number"
-              min="1"
-              max={measuresAndBeats.measures.length}
-              value={measureRange[0]}
-              onChange={handleRangeChange(0)}
-            />
-          </div>
-          <div>
-            <label>End Measure:</label>
-            <NumberInput
-              type="number"
-              min="1"
-              max={measuresAndBeats.measures.length}
-              value={measureRange[1]}
-              onChange={handleRangeChange(1)}
-            />
-          </div>
+          <label>Measures:</label>
+          <NumberInput
+            type="number"
+            min="1"
+            max={measuresAndBeats.measures.length}
+            value={measureRange[0]}
+            onChange={handleRangeChange(0)}
+          />
+          <span>to</span>
+          <NumberInput
+            type="number"
+            min="1"
+            max={measuresAndBeats.measures.length}
+            value={measureRange[1]}
+            onChange={handleRangeChange(1)}
+            ref={endMeasureRef}
+          />
         </RangeInputs>
         <FrozenNotes
           notes={filteredNotes}

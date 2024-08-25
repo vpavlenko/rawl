@@ -242,7 +242,7 @@ const getNoteRectangles = (
         {drumEmoji}
       </span>
     ) : null;
-    const pathData = note.chipState.on.pitchBend
+    const pathData = note.chipState?.on?.pitchBend
       ? convertPitchBendToPathData(
           note.chipState.on.pitchBend,
           note.span,

@@ -12,7 +12,7 @@ export type Note = {
   isDrum: boolean;
   id: number;
   span: SecondsSpan;
-  chipState: { on: any; off: any };
+  chipState?: { on: any; off: any };
   voiceIndex: number;
 };
 

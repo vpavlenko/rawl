@@ -9,6 +9,7 @@ import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { VoiceMask } from "../App";
 import { MeasureSelection } from "./AnalysisGrid";
+import FrozenNotesLayout from "./FrozenNotesLayout";
 import {
   MergedSystemLayout,
   MouseHandlers,
@@ -597,6 +598,7 @@ const Rawl: React.FC<{
       registerKeyboardHandler,
       unregisterKeyboardHandler,
       tonalHistograms,
+      frozenNotes: coloredNotes,
     }),
     [
       coloredNotes,
@@ -644,11 +646,13 @@ const Rawl: React.FC<{
           <MergedSystemLayout {...systemLayoutProps} />
         ) : systemLayout === "stacked" ? (
           <StackedSystemLayout {...systemLayoutProps} />
-        ) : (
+        ) : systemLayout === "tonal" ? (
           <TonalHistogramLayout
             {...systemLayoutProps}
             tonalHistograms={tonalHistograms}
           />
+        ) : (
+          <FrozenNotesLayout {...systemLayoutProps} />
         )}
       </div>
       <div
@@ -704,6 +708,16 @@ const Rawl: React.FC<{
               value={"tonal"}
             />
             📊
+          </label>
+          <label key={"frozen"} className="inline">
+            <input
+              onChange={() => setSystemLayout("frozen")}
+              type="radio"
+              name="system-layout"
+              checked={systemLayout === "frozen"}
+              value={"frozen"}
+            />
+            🧊
           </label>
           <FontAwesomeIcon
             icon={faCopy}

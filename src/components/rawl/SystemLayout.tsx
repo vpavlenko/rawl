@@ -68,7 +68,7 @@ const getAverageMidiNumber = (notes: Note[]) =>
     : Infinity;
 
 // TODO: rename "stacked" to "split" - semantically
-export type SystemLayout = "merged" | "stacked" | "tonal";
+export type SystemLayout = "merged" | "stacked" | "tonal" | "frozen";
 
 export type MidiRange = [number, number];
 
@@ -690,6 +690,7 @@ export type SystemLayoutProps = {
   ) => void;
   unregisterKeyboardHandler: (name: string) => void;
   tonalHistograms: TonalHistogram[];
+  frozenNotes: ColoredNote[][];
 };
 
 export const TonalHistogramLayout: React.FC<SystemLayoutProps> = ({

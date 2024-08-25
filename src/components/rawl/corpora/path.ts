@@ -235,7 +235,7 @@ const path: {
     ],
   },
   {
-    chapter: "American/Jazz Harmony",
+    chapter: "American & Jazz Harmony",
     topics: [
       {
         topic: "chain_of_dominants",

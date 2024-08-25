@@ -65,7 +65,7 @@ const TopicTitle = styled.h3`
 const MidiLink = styled.a`
   display: block;
   padding: 3px 0;
-  font-size: 12px;
+  font-size: 14px;
   color: #ffffff;
   text-decoration: none;
   word-wrap: break-word;
@@ -145,7 +145,7 @@ const PathView: React.FC = () => {
 
   const measureWidth = 100;
   const midiNumberToY = (midiNumber: number) => (127 - midiNumber) * 4;
-  const scale = 0.5; // Define scale factor
+  const scale = 0.9; // Define scale factor
 
   return (
     <PathContainer>

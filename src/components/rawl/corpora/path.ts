@@ -263,8 +263,12 @@ const path: {
         ],
       },
       {
-        topic: "diationic sevenths chords",
+        topic: "diatonic sevenths chords",
         midis: ["volki-gonyat-olenya---a.-zacepin", "proshchay---a.-zacepin"],
+      },
+      {
+        topic: "iadd6",
+        midis: ["pesenka-o-medvedyah---a.-zacepin"],
       },
     ],
   },
@@ -274,10 +278,6 @@ const path: {
       {
         topic: "parallel chords mix",
         midis: ["heroes-of-might-magic-iii---castle-town-theme"],
-      },
-      {
-        topic: "iadd6",
-        midis: ["pesenka-o-medvedyah---a.-zacepin"],
       },
       {
         topic: "minimalism",
@@ -313,11 +313,7 @@ const path: {
 
       {
         topic: "mario cadence",
-        midis: [
-          "Super_Mario_Bros_Main_Theme",
-          "brawl-stars---footbrawl-theme",
-          "brawl-stars---win-theme-piano",
-        ],
+        midis: ["Super_Mario_Bros_Main_Theme", "brawl-stars---win-theme-piano"],
       },
       {
         topic: "simple natural minor",

@@ -177,7 +177,7 @@ const Section: React.FC<{
 const Footer = styled.div`
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
-  padding: 10px;
+  padding: 30px 0px;
   text-align: center;
   height: 3em;
 `;

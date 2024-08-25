@@ -50,6 +50,7 @@ import Browse from "./Browse";
 import DropMessage from "./DropMessage";
 import Visualizer from "./Visualizer";
 import LandingPage from "./rawl/LandingPage";
+import OldLandingPage from "./rawl/OldLandingPage";
 import Pirate from "./rawl/Pirate";
 import Rawl from "./rawl/Rawl";
 import { ShortcutHelp } from "./rawl/ShortcutHelp";
@@ -974,6 +975,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   >
                     <Switch>
                       <Route path="/" exact render={() => <LandingPage />} />
+                      <Route path="/old" render={() => <OldLandingPage />} />
                       {/* <Route path="/axes" render={() => <Axes />} /> */}
                       <Route
                         path="/course/:chapter*"

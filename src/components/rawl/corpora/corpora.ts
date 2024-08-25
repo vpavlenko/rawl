@@ -741,6 +741,10 @@ export const corpora: Corpora[] = [
       "the-old-south-distillery",
     ],
   },
+  {
+    slug: "cyril_scott",
+    midis: ["lotus-land", "cyril-scott-summerland-playtime-op.-54-no.1"],
+  },
   // world pianists
   {
     slug: "darren_korb_hades",
@@ -2388,6 +2392,13 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "einaudi",
+    midis: [
+      "the_earth_prelude_ludovico_einaudi_piano_solo",
+      "ludovico-einaudi-una-mattina",
+    ],
+  },
+  {
     slug: "horo",
     midis: [
       "aytoska-rchenica---unknown-aitoska_rachenitsa",
@@ -2731,7 +2742,6 @@ export const corpora: Corpora[] = [
       "kimigayo_national_anthem_of_japan",
       "korobeiniki-tetris",
       "kukla_kolduna",
-      "ludovico-einaudi-una-mattina",
       "mahler_4_3",
       "major_diatonic_chords",
       "malaguena-facil",
@@ -2816,7 +2826,7 @@ export const corpora: Corpora[] = [
       "the-office-opening-theme",
       "the-scientist---coldplay-piano-arrangement",
       "the-washington-post-piano-john-philip-sousa",
-      "the_earth_prelude_ludovico_einaudi_piano_solo",
+
       "the_lamp_is_low",
       "the_seven_diatonic_natural_minor_chords_in_a_minor",
       "thirty_five_smallest_non_diatonic_chords_in_c_or_b",

@@ -5,7 +5,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { VoiceMask } from "../App";
 import { MeasureSelection } from "./AnalysisGrid";
@@ -144,16 +144,7 @@ const CompositionTitle: React.FC<{ slug: string; webUrl: string | null }> = ({
 
   const author = React.useMemo(() => {
     const corpusEntry = corpora.find((corpus) => corpus.midis.includes(slug));
-    return corpusEntry
-      ? corpusEntry.slug
-          .replace(/_/g, " ")
-          .split(" ")
-          .map(
-            (word) =>
-              word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
-          )
-          .join(" ")
-      : "";
+    return corpusEntry ? corpusEntry.slug : "";
   }, [slug]);
 
   return (
@@ -172,7 +163,20 @@ const CompositionTitle: React.FC<{ slug: string; webUrl: string | null }> = ({
         {formattedTitle}
         {author && (
           <span style={{ fontWeight: "normal", marginLeft: "10px" }}>
-            ({author})
+            (
+            <Link
+              to={`/corpus/${author}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: "inherit",
+                textDecoration: "none",
+                cursor: "pointer",
+              }}
+            >
+              {author.replace(/_/g, " ")}
+            </Link>
+            )
           </span>
         )}
         {webUrl && (

@@ -106,6 +106,7 @@ const path: {
           "theme-from-schindler-s-list---piano-solo",
           "heroes-of-might-and-magic-vi-unknown-title",
           "brawl-stars-metropolis-theme",
+          "cyril-scott-summerland-playtime-op.-54-no.1",
         ],
       },
       {
@@ -243,7 +244,11 @@ const path: {
       },
       {
         topic: "rich ragtime major",
-        midis: ["ataturk-marsi---ahmed-adnan-saygun", "the-dying-swan-1870"],
+        midis: [
+          "ataturk-marsi---ahmed-adnan-saygun",
+          "the-dying-swan-1870",
+          "cyril-scott-summerland-playtime-op.-54-no.1",
+        ],
       },
 
       {
@@ -296,7 +301,11 @@ const path: {
       },
       {
         topic: "minor pentatonic",
-        midis: ["brawl-stars---menu-theme", "brawl-stars---footbrawl-theme"],
+        midis: [
+          "brawl-stars---menu-theme",
+          "brawl-stars---footbrawl-theme",
+          "lotus-land",
+        ],
       },
       {
         topic: "stack of perfect fifths",
@@ -374,15 +383,19 @@ const path: {
     chapter: "Modern Chromatic Harmony",
     topics: [
       {
-        topic: "augmented tonic",
+        topic: "augmented",
         midis: [
           "music-of-the-spheres",
           "heroes-of-might-magic-iii---fortress-town-theme",
         ],
       },
       {
-        topic: "o7 break",
+        topic: "diminished",
         midis: ["your-precious-moon---mike-morasky-wheatley-boss-fight-ending"],
+      },
+      {
+        topic: "whole-tone",
+        midis: ["lotus-land"],
       },
       {
         topic: "constant structures",
@@ -392,14 +405,7 @@ const path: {
           "e.t.-end-credits-piano-solo",
           "volki-gonyat-olenya---a.-zacepin",
           "brawl-stars---win-theme-piano",
-        ],
-      },
-      {
-        topic: "idiosyncratic",
-        midis: [
-          "e.t.-theme---ywcm",
-          "ruya---ahmed-adnan-saygun",
-          "horon-for-bb-clarinet-and-piano---ahmed-adnan-saygun",
+          "lotus-land",
         ],
       },
       {
@@ -412,14 +418,6 @@ const path: {
       {
         topic: "chromatic stacks",
         midis: ["proshchay---a.-zacepin"],
-      },
-      {
-        topic: "complex chromatic/modulatory vgm",
-        midis: [
-          "misfortune-teller---valve-studio-orchestra-.",
-          "team-fortress---rise-of-the-living-bread---mike-morasky",
-          "harry-potter-ii-game-main-menu---jeremy-soule",
-        ],
       },
       {
         topic: "yellow black",
@@ -439,6 +437,23 @@ const path: {
       {
         topic: "V+",
         midis: ["haven-theme-piano-form-heroes-of-might-and-magic-v"],
+      },
+      {
+        topic: "idiosyncratic",
+        midis: [
+          "e.t.-theme---ywcm",
+          "ruya---ahmed-adnan-saygun",
+          "horon-for-bb-clarinet-and-piano---ahmed-adnan-saygun",
+          "lotus-land",
+        ],
+      },
+      {
+        topic: "complex chromatic/modulatory vgm",
+        midis: [
+          "misfortune-teller---valve-studio-orchestra-.",
+          "team-fortress---rise-of-the-living-bread---mike-morasky",
+          "harry-potter-ii-game-main-menu---jeremy-soule",
+        ],
       },
     ],
   },

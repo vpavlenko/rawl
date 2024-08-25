@@ -189,7 +189,7 @@ const FullWidthPathViewContainer = styled.div`
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  height: calc(100vh - 20px); // Compensate for the top bar
+  height: calc(100vh - 15px); // Compensate for the top bar
   margin-top: -20px; // Pull the container up to cover the top bar
 `;
 

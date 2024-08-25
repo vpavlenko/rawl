@@ -23,6 +23,7 @@ const JsonDisplay = styled.pre`
   &:active {
     background-color: #333;
   }
+  font-size: 8px;
 `;
 
 const RangeInputs = styled.div`
@@ -90,20 +91,20 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
     [frozenNotes, measureRange, measuresAndBeats],
   );
 
-  const frozenJson = JSON.stringify(
+  const frozenJsonOneLiner = JSON.stringify(
     filteredNotes.map((voiceNotes) =>
       voiceNotes.map(({ chipState, ...note }) => note),
     ),
-    null,
-    2,
   );
 
+  const exportString = `"${frozenJsonOneLiner.replace(/"/g, '\\"')}"`;
+
   const copyToClipboard = useCallback(() => {
-    navigator.clipboard.writeText(frozenJson).then(() => {
+    navigator.clipboard.writeText(exportString).then(() => {
       setCopyIndicatorVisible(true);
       setTimeout(() => setCopyIndicatorVisible(false), 2000);
     });
-  }, [frozenJson]);
+  }, [exportString]);
 
   const measureWidth = 100; // Fixed width for each measure
   const midiNumberToY = (midiNumber: number) => (127 - midiNumber) * 4;
@@ -137,7 +138,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
           midiNumberToY={midiNumberToY}
         />
       </FrozenNotesDisplay>
-      <JsonDisplay onClick={copyToClipboard}>{frozenJson}</JsonDisplay>
+      <JsonDisplay onClick={copyToClipboard}>{exportString}</JsonDisplay>
       <CopyIndicator visible={copyIndicatorVisible}>
         Copied to clipboard!
       </CopyIndicator>

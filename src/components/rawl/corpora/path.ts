@@ -151,14 +151,6 @@ const path: {
     chapter: "Applied Chords",
     topics: [
       {
-        topic: "V7/iv",
-        midis: [
-          "pisnya-kota-bazilio-ta-lisici-alisi---o.-ribnikov",
-          "island-of-misfortune-ostrov-nevezeniya---o.-zacepin",
-          "no.2-remembering-her---esther-abrami",
-        ],
-      },
-      {
         topic: "V7/V",
         midis: [
           "stephen-foster---hard-times-come-again-no-more",
@@ -197,6 +189,14 @@ const path: {
         ],
       },
       {
+        topic: "V7/iv",
+        midis: [
+          "pisnya-kota-bazilio-ta-lisici-alisi---o.-ribnikov",
+          "island-of-misfortune-ostrov-nevezeniya---o.-zacepin",
+          "no.2-remembering-her---esther-abrami",
+        ],
+      },
+      {
         topic: "ii_V7/iv",
         midis: [
           "pesenka-o-medvedyah---a.-zacepin",
@@ -222,7 +222,7 @@ const path: {
         midis: ["pesnjakrasnoishapochki"],
       },
       {
-        topic: "functional diminished chords",
+        topic: "io7 or viio7/V",
         midis: ["elegie---manfred-schmitz"],
       },
       {
@@ -230,7 +230,7 @@ const path: {
         midis: ["theme-from-schindler-s-list---piano-solo"],
       },
       {
-        topic: "iiø7 in major",
+        topic: "ii-iiø in major",
         midis: ["valse---coppelia---piano-solo---arr.-leo-delibes"],
       },
     ],
@@ -252,7 +252,7 @@ const path: {
       },
 
       {
-        topic: "alterated dominants",
+        topic: "altered dominants",
         midis: [
           "s-lyubovyu-vstretitsya---a.-zacepin",
           "prosnis-i-poy---gennadiy-gladkov",
@@ -280,10 +280,6 @@ const path: {
   {
     chapter: "Modern Diatonic / Modal Interchange",
     topics: [
-      {
-        topic: "parallel chords mix",
-        midis: ["heroes-of-might-magic-iii---castle-town-theme"],
-      },
       {
         topic: "minimalism",
         midis: [
@@ -373,8 +369,12 @@ const path: {
         ],
       },
       {
+        topic: "i and I",
+        midis: ["heroes-of-might-magic-iii---castle-town-theme"],
+      },
+      {
         topic: "picardy third",
-        midis: ["you-are-not-part-of-the-control-group"],
+        midis: ["medic"],
       },
     ],
   },

@@ -55,7 +55,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
 }) => {
   const [measureRange, setMeasureRange] = useState([1, 4]);
   const [copyIndicatorVisible, setCopyIndicatorVisible] = useState(false);
-  const endMeasureRef = useRef<HTMLInputElement>(null);
+  const startMeasureRef = useRef<HTMLInputElement>(null);
 
   const handleRangeChange = useCallback(
     (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,8 +70,14 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
   );
 
   React.useEffect(() => {
-    if (endMeasureRef.current) {
-      endMeasureRef.current.focus();
+    if (startMeasureRef.current) {
+      startMeasureRef.current.focus();
+      setTimeout(() => {
+        if (startMeasureRef.current) {
+          startMeasureRef.current.blur();
+          startMeasureRef.current.focus();
+        }
+      }, 0);
     }
   }, []);
 
@@ -123,6 +129,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
             max={measuresAndBeats.measures.length}
             value={measureRange[0]}
             onChange={handleRangeChange(0)}
+            ref={startMeasureRef}
           />
           <span>to</span>
           <NumberInput
@@ -131,7 +138,6 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
             max={measuresAndBeats.measures.length}
             value={measureRange[1]}
             onChange={handleRangeChange(1)}
-            ref={endMeasureRef}
           />
         </RangeInputs>
         <FrozenNotes

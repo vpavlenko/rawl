@@ -54,7 +54,7 @@ const path: {
       {
         topic: "V minor",
         midis: [
-          "heroes-of-might-magic-iii----waiting-theme",
+          "heroes-of-might-and-magic-iii----waiting-theme",
           "farewell---vicenzo-piano",
           "misfortune-teller---valve-studio-orchestra-.",
           "you-are-not-part-of-the-control-group",
@@ -245,10 +245,7 @@ const path: {
         topic: "rich ragtime major",
         midis: ["ataturk-marsi---ahmed-adnan-saygun", "the-dying-swan-1870"],
       },
-      {
-        topic: "o7 break",
-        midis: ["your-precious-moon---mike-morasky-wheatley-boss-fight-ending"],
-      },
+
       {
         topic: "alterated dominants",
         midis: [
@@ -272,15 +269,8 @@ const path: {
     ],
   },
   {
-    chapter: "Modern Video Game Harmony",
+    chapter: "Modern Diatonic / Modal Interchange",
     topics: [
-      {
-        topic: "augmented tonic",
-        midis: [
-          "music-of-the-spheres",
-          "heroes-of-might-magic-iii---fortress-town-theme",
-        ],
-      },
       {
         topic: "parallel chords mix",
         midis: ["heroes-of-might-magic-iii---castle-town-theme"],
@@ -320,17 +310,14 @@ const path: {
           "rocket-jump-waltz-piano-solo",
         ],
       },
-      {
-        topic: "locrian",
-        midis: ["guild-wars-2-trailer---jeremy-soule"],
-      },
+
       {
         topic: "mario cadence",
-        midis: ["Super_Mario_Bros_Main_Theme", "brawl-stars---footbrawl-theme"],
-      },
-      {
-        topic: "VIIaug",
-        midis: ["haven-theme-piano-form-heroes-of-might-and-magic-v"],
+        midis: [
+          "Super_Mario_Bros_Main_Theme",
+          "brawl-stars---footbrawl-theme",
+          "brawl-stars---win-theme-piano",
+        ],
       },
       {
         topic: "simple natural minor",
@@ -362,6 +349,44 @@ const path: {
       {
         topic: "double tonic relative",
         midis: ["dirt-theme-hope---heroes-of-might-and-magic-iv---celtic-harp"],
+      },
+
+      {
+        topic: "mixolydian",
+        midis: ["happy-hogwarts-from-harry-potter-and-the-philosopher-s-stone"],
+      },
+      {
+        topic: "vgm non-functional diatonic",
+        midis: ["Sweden_Minecraft"],
+      },
+      {
+        topic: "episodic IV",
+        midis: [
+          "andrea---manfred-schmitz",
+          "heroes-of-might-magic-vi-unknown-title",
+          "s-lyubovyu-vstretitsya---a.-zacepin",
+        ],
+      },
+      {
+        topic: "picardy third",
+        midis: ["you-are-not-part-of-the-control-group"],
+      },
+    ],
+  },
+
+  {
+    chapter: "Modern Chromatic Harmony",
+    topics: [
+      {
+        topic: "augmented tonic",
+        midis: [
+          "music-of-the-spheres",
+          "heroes-of-might-magic-iii---fortress-town-theme",
+        ],
+      },
+      {
+        topic: "o7 break",
+        midis: ["your-precious-moon---mike-morasky-wheatley-boss-fight-ending"],
       },
       {
         topic: "constant structures",
@@ -401,12 +426,8 @@ const path: {
         ],
       },
       {
-        topic: "mixolydian",
-        midis: ["happy-hogwarts-from-harry-potter-and-the-philosopher-s-stone"],
-      },
-      {
         topic: "yellow black",
-        midis: ["heroes-of-might-magic-3---necropolis-town-theme"],
+        midis: ["heroes-of-might-and-magic-3---necropolis-town-theme"],
       },
       {
         topic: "bvi in minor",
@@ -416,21 +437,18 @@ const path: {
         ],
       },
       {
-        topic: "vgm non-functional diatonic",
-        midis: ["Sweden_Minecraft"],
+        topic: "locrian",
+        midis: ["guild-wars-2-trailer---jeremy-soule"],
       },
       {
-        topic: "episodic IV",
-        midis: [
-          "andrea---manfred-schmitz",
-          "heroes-of-might-magic-vi-unknown-title",
-          "s-lyubovyu-vstretitsya---a.-zacepin",
-        ],
+        topic: "V+",
+        midis: ["haven-theme-piano-form-heroes-of-might-and-magic-v"],
       },
-      {
-        topic: "picardy third",
-        midis: ["you-are-not-part-of-the-control-group"],
-      },
+    ],
+  },
+  {
+    chapter: "Form",
+    topics: [
       {
         topic: "sentence",
         midis: [

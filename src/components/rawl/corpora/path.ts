@@ -42,7 +42,7 @@ const path: {
     ],
   },
   {
-    chapter: "V7 minor",
+    chapter: "V7 Minor",
     topics: [
       {
         topic: "simple harmonic minor",

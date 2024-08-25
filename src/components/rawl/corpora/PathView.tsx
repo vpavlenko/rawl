@@ -4,7 +4,11 @@ import path from "./path";
 
 const PathContainer = styled.div`
   display: flex;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 `;
 
 const ChapterColumn = styled.div`
@@ -12,6 +16,9 @@ const ChapterColumn = styled.div`
   flex-shrink: 0;
   background-color: #1a1a1a;
   overflow-y: auto;
+  position: sticky;
+  top: 0;
+  height: 100%;
 `;
 
 const ContentArea = styled.div`
@@ -40,13 +47,16 @@ const TopicCard = styled.div`
   padding: 10px;
   display: inline-block;
   vertical-align: top;
-  max-width: calc(33.33% - 10px);
+  max-width: 20em;
 `;
 
 const TopicTitle = styled.h3`
   font-size: 14px;
   margin: 0 0 10px 0;
   color: #f0f0f0;
+  word-wrap: break-word;
+  padding-left: 1em;
+  text-indent: -1em;
 `;
 
 const MidiLink = styled.a`
@@ -55,6 +65,9 @@ const MidiLink = styled.a`
   font-size: 12px;
   color: #b0b0b0;
   text-decoration: none;
+  word-wrap: break-word;
+  padding-left: 1em;
+  text-indent: -1em;
   &:hover {
     color: #4a90e2;
   }

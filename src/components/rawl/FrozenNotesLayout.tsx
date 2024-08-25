@@ -60,6 +60,38 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
   measureWidth,
   midiNumberToY,
 }) => {
+  const midiRange = useMemo(() => {
+    let min = Infinity;
+    let max = -Infinity;
+    notes.forEach((voiceNotes) => {
+      voiceNotes.forEach((note) => {
+        const midiNumber = note.note.midiNumber;
+        min = Math.min(min, midiNumber);
+        max = Math.max(max, midiNumber);
+      });
+    });
+    return [min, max];
+  }, [notes]);
+
+  const timeRange = useMemo(() => {
+    let min = Infinity;
+    let max = -Infinity;
+    notes.forEach((voiceNotes) => {
+      voiceNotes.forEach((note) => {
+        min = Math.min(min, note.span[0]);
+        max = Math.max(max, note.span[1]);
+      });
+    });
+    return [min, max];
+  }, [notes]);
+
+  const height = (midiRange[1] - midiRange[0] + 1) * 4; // 4px per MIDI note
+  const width = (timeRange[1] - timeRange[0]) * measureWidth;
+
+  const toX = (time: number) => (time - timeRange[0]) * measureWidth;
+  const toY = (midiNumber: number) =>
+    height - (midiNumber - midiRange[0] + 1) * 4;
+
   const getNoteRectangles = (notes: ColoredNote[]) => {
     return notes.map((note) => {
       const {
@@ -70,9 +102,9 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
         isDrum,
         note: { midiNumber },
       } = note;
-      const top = midiNumberToY(midiNumber);
-      const left = span[0] * measureWidth;
-      const width = (span[1] - span[0]) * measureWidth;
+      const top = toY(midiNumber);
+      const left = toX(span[0]);
+      const noteWidth = toX(span[1]) - left;
 
       return (
         <div
@@ -81,11 +113,11 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
           style={{
             position: "absolute",
             height: `${isActive ? 4 : 0.5}px`,
-            width: isDrum ? "0px" : width,
+            width: isDrum ? "0px" : noteWidth,
             top: isActive ? top : top + 4 - 0.5,
             left,
             backgroundColor: color,
-            zIndex: Math.round(10 + 1000 / width),
+            zIndex: Math.round(10 + 1000 / noteWidth),
           }}
         />
       );
@@ -93,7 +125,14 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
   };
 
   return (
-    <div style={{ position: "relative", height: "600px", width: "100%" }}>
+    <div
+      style={{
+        position: "relative",
+        height: `${height}px`,
+        width: `${width}px`,
+        border: "1px solid red",
+      }}
+    >
       {notes.map((voiceNotes, index) => (
         <div key={index}>{getNoteRectangles(voiceNotes)}</div>
       ))}
@@ -135,7 +174,13 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
     [frozenNotes, measureRange, measuresAndBeats],
   );
 
-  const frozenJson = JSON.stringify(filteredNotes, null, 2);
+  const frozenJson = JSON.stringify(
+    filteredNotes.map((voiceNotes) =>
+      voiceNotes.map(({ chipState, ...note }) => note),
+    ),
+    null,
+    2,
+  );
 
   const copyToClipboard = useCallback(() => {
     navigator.clipboard.writeText(frozenJson).then(() => {

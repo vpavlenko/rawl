@@ -5,14 +5,16 @@ interface FrozenNotesProps {
   notes: ColoredNote[][];
   measureWidth: number;
   midiNumberToY: (midiNumber: number) => number;
-  scale?: number; // Add scale prop
+  scale?: number;
+  maxWidth: number; // Add maxWidth prop
 }
 
 const FrozenNotes: React.FC<FrozenNotesProps> = ({
   notes,
   measureWidth,
   midiNumberToY,
-  scale = 1, // Default scale to 1
+  scale = 1,
+  maxWidth,
 }) => {
   const midiRange = useMemo(() => {
     let min = Infinity;
@@ -39,11 +41,17 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
     return [min, max];
   }, [notes]);
 
-  const noteHeight = 8 * scale; // Scale noteHeight
+  const noteHeight = 8 * scale;
   const height = ((midiRange[1] - midiRange[0] + 1) * 4 + noteHeight) * scale;
-  const width = (timeRange[1] - timeRange[0]) * measureWidth * scale;
+  const width = Math.min(
+    (timeRange[1] - timeRange[0]) * measureWidth * scale,
+    maxWidth,
+  );
+  const scaleFactor =
+    width / ((timeRange[1] - timeRange[0]) * measureWidth * scale);
 
-  const toX = (time: number) => (time - timeRange[0]) * measureWidth * scale;
+  const toX = (time: number) =>
+    (time - timeRange[0]) * measureWidth * scale * scaleFactor;
   const toY = (midiNumber: number) =>
     height - (midiNumber - midiRange[0] + 1) * 4 * scale - noteHeight;
 

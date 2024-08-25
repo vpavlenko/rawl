@@ -108,6 +108,9 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
   const measureWidth = 50; // Fixed width for each measure
   const midiNumberToY = (midiNumber: number) => (127 - midiNumber) * 4;
 
+  // Calculate maxWidth based on the number of measures
+  const maxWidth = (measureRange[1] - measureRange[0] + 1) * measureWidth;
+
   return (
     <Container>
       <FrozenNotesDisplay>
@@ -135,6 +138,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
           notes={filteredNotes}
           measureWidth={measureWidth}
           midiNumberToY={midiNumberToY}
+          maxWidth={maxWidth}
         />
       </FrozenNotesDisplay>
       <JsonDisplay onClick={copyToClipboard}>{exportString}</JsonDisplay>

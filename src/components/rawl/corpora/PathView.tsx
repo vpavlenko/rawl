@@ -47,10 +47,10 @@ const TopicCard = styled.div`
   background-color: #2c2c2c;
   margin: 5px;
   padding: 10px;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
   vertical-align: top;
   max-width: 20em;
-  position: relative;
 `;
 
 const TopicTitle = styled.h3`
@@ -77,11 +77,7 @@ const MidiLink = styled.a`
 `;
 
 const MiniNotesDisplay = styled.div`
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  transform: scale(0.5);
-  transform-origin: bottom left;
+  margin: 5px 0;
 `;
 
 // Add this constant mapping
@@ -101,6 +97,7 @@ const PathView: React.FC = () => {
 
   const measureWidth = 100;
   const midiNumberToY = (midiNumber: number) => (127 - midiNumber) * 4;
+  const scale = 0.5; // Define scale factor
 
   return (
     <PathContainer>
@@ -120,6 +117,16 @@ const PathView: React.FC = () => {
         {path[activeChapter].topics.map((topic) => (
           <TopicCard key={topic.topic}>
             <TopicTitle>{topic.topic}</TopicTitle>
+            {topicToFrozenNotes[topic.topic] && (
+              <MiniNotesDisplay>
+                <FrozenNotes
+                  notes={topicToFrozenNotes[topic.topic]}
+                  measureWidth={measureWidth}
+                  midiNumberToY={midiNumberToY}
+                  scale={scale} // Pass scale to FrozenNotes
+                />
+              </MiniNotesDisplay>
+            )}
             {topic.midis.map((midi, index) => (
               <MidiLink
                 key={index}
@@ -130,15 +137,6 @@ const PathView: React.FC = () => {
                 {midi.replace(/---/g, " – ").replace(/-/g, " ")}
               </MidiLink>
             ))}
-            {topicToFrozenNotes[topic.topic] && (
-              <MiniNotesDisplay>
-                <FrozenNotes
-                  notes={topicToFrozenNotes[topic.topic]}
-                  measureWidth={measureWidth}
-                  midiNumberToY={midiNumberToY}
-                />
-              </MiniNotesDisplay>
-            )}
           </TopicCard>
         ))}
       </ContentArea>

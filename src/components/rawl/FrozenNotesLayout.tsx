@@ -84,7 +84,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
             (m) => m > note.span[0],
           );
           return (
-            noteMeasure >= measureRange[0] - 1 && noteMeasure <= measureRange[1]
+            noteMeasure >= measureRange[0] && noteMeasure <= measureRange[1]
           );
         }),
       ),

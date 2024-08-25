@@ -5,12 +5,14 @@ interface FrozenNotesProps {
   notes: ColoredNote[][];
   measureWidth: number;
   midiNumberToY: (midiNumber: number) => number;
+  scale?: number; // Add scale prop
 }
 
 const FrozenNotes: React.FC<FrozenNotesProps> = ({
   notes,
   measureWidth,
   midiNumberToY,
+  scale = 1, // Default scale to 1
 }) => {
   const midiRange = useMemo(() => {
     let min = Infinity;
@@ -37,13 +39,13 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
     return [min, max];
   }, [notes]);
 
-  const noteHeight = 8; // Define noteHeight constant
-  const height = (midiRange[1] - midiRange[0] + 1) * 4 + noteHeight; // Add noteHeight to total height
-  const width = (timeRange[1] - timeRange[0]) * measureWidth;
+  const noteHeight = 8 * scale; // Scale noteHeight
+  const height = ((midiRange[1] - midiRange[0] + 1) * 4 + noteHeight) * scale;
+  const width = (timeRange[1] - timeRange[0]) * measureWidth * scale;
 
-  const toX = (time: number) => (time - timeRange[0]) * measureWidth;
+  const toX = (time: number) => (time - timeRange[0]) * measureWidth * scale;
   const toY = (midiNumber: number) =>
-    height - (midiNumber - midiRange[0] + 1) * 4 - noteHeight; // Adjust toY calculation
+    height - (midiNumber - midiRange[0] + 1) * 4 * scale - noteHeight;
 
   const getNoteRectangles = (notes: ColoredNote[]) => {
     return notes.map((note) => {
@@ -65,9 +67,9 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
           className={`${color} voiceShape-${voiceIndex}`}
           style={{
             position: "absolute",
-            height: `${isActive ? noteHeight : 0.5}px`,
+            height: `${isActive ? noteHeight : 0.5 * scale}px`,
             width: isDrum ? "0px" : noteWidth,
-            top: isActive ? top : top + noteHeight - 0.5,
+            top: isActive ? top : top + noteHeight - 0.5 * scale,
             left,
             backgroundColor: color,
             zIndex: Math.round(10 + 1000 / noteWidth),
@@ -83,7 +85,6 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
         position: "relative",
         height: `${height}px`,
         width: `${width}px`,
-        border: "1px solid red",
       }}
     >
       {notes.map((voiceNotes, index) => (

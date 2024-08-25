@@ -617,6 +617,21 @@ const Rawl: React.FC<{
     ],
   );
 
+  const handleKeyPress = useCallback((e: KeyboardEvent) => {
+    if (e.key === "f") {
+      setSystemLayout((prevLayout) =>
+        prevLayout === "frozen" ? "merged" : "frozen",
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    registerKeyboardHandler("frozenLayoutSwitch", handleKeyPress);
+    return () => {
+      unregisterKeyboardHandler("frozenLayoutSwitch");
+    };
+  }, [registerKeyboardHandler, unregisterKeyboardHandler, handleKeyPress]);
+
   return (
     <div
       style={{
@@ -695,7 +710,7 @@ const Rawl: React.FC<{
               type="radio"
               name="system-layout"
               checked={systemLayout === "merged"}
-              value={"horizontal"}
+              value={"merged"}
             />
             █
           </label>

@@ -5,18 +5,17 @@ import { SystemLayoutProps } from "./SystemLayout";
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   padding: 20px;
   background-color: black;
   color: white;
 `;
 
 const FrozenNotesDisplay = styled.div`
-  flex: 1;
-  margin-right: 20px;
+  margin-bottom: 20px;
 `;
 
 const JsonDisplay = styled.pre`
-  flex: 1;
   white-space: pre-wrap;
   word-break: break-all;
   cursor: pointer;
@@ -80,11 +79,11 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
     () =>
       frozenNotes.map((voiceNotes) =>
         voiceNotes.filter((note) => {
-          const noteMeasure = measuresAndBeats.measures.findIndex(
-            (m) => m > note.span[0],
-          );
+          const startMeasure = measureRange[0] - 1;
+          const endMeasure = measureRange[1] - 1;
           return (
-            noteMeasure >= measureRange[0] && noteMeasure <= measureRange[1]
+            note.span[1] >= measuresAndBeats.measures[startMeasure] &&
+            note.span[0] + 1e-2 < measuresAndBeats.measures[endMeasure + 1]
           );
         }),
       ),
@@ -106,7 +105,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
     });
   }, [exportString]);
 
-  const measureWidth = 100; // Fixed width for each measure
+  const measureWidth = 50; // Fixed width for each measure
   const midiNumberToY = (midiNumber: number) => (127 - midiNumber) * 4;
 
   return (

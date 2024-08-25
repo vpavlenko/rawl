@@ -10,6 +10,7 @@ const shortcuts = {
     "+": "Increase speed by 0.01",
     ArrowLeft: "Seek backward 5 seconds",
     ArrowRight: "Seek forward 5 seconds",
+    f: "Switch to frozen layout",
   },
   "System Layout": {
     a: "Decrease second width",

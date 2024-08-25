@@ -89,7 +89,11 @@ const path: {
       },
       {
         topic: "diatonic circle of fifths",
-        midis: ["am-abend---manfred-schmitz"],
+        midis: ["am-abend---manfred-schmitz", "pvz2-ancient-egypt"],
+      },
+      {
+        topic: "phrygian cadence",
+        midis: ["pvz2-ancient-egypt"],
       },
       {
         topic: "minor with chromatic bass",
@@ -106,6 +110,7 @@ const path: {
           "theme-from-schindler-s-list---piano-solo",
           "heroes-of-might-and-magic-vi-unknown-title",
           "brawl-stars-metropolis-theme",
+          "brawl-star",
           "cyril-scott-summerland-playtime-op.-54-no.1",
         ],
       },
@@ -344,8 +349,15 @@ const path: {
         ],
       },
       {
+        topic: "celtic dorian",
+        midis: ["heartstone-pull-up-a-chair-piano"],
+      },
+      {
         topic: "mixed minor",
-        midis: ["academy-order-theme---heroes-and-might-and-magic-iv"],
+        midis: [
+          "academy-order-theme---heroes-and-might-and-magic-iv",
+          "brawl-star",
+        ],
       },
       {
         topic: "double tonic relative",
@@ -431,6 +443,13 @@ const path: {
         ],
       },
       {
+        topic: "neo-riemannian mix",
+        midis: [
+          "brawl-stars---brawl-o-ween-battle-2",
+          "brawl-stars-summer-of-monsters-battle-2-insane",
+        ],
+      },
+      {
         topic: "locrian",
         midis: ["guild-wars-2-trailer---jeremy-soule"],
       },
@@ -453,6 +472,7 @@ const path: {
           "misfortune-teller---valve-studio-orchestra-.",
           "team-fortress---rise-of-the-living-bread---mike-morasky",
           "harry-potter-ii-game-main-menu---jeremy-soule",
+          "plants-vs-zombies-2-modern-day-piano-transcription",
         ],
       },
     ],

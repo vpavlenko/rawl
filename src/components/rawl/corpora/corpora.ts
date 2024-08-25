@@ -2105,7 +2105,7 @@ export const corpora: Corpora[] = [
     ],
   },
   {
-    slug: "martin_schjoler",
+    slug: "brawl_stars",
     midis: [
       "brawl-stars---menu-theme",
       "brawl-stars-metropolis-theme",

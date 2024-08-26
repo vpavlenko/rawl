@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import FrozenNotes from "../FrozenNotes";
+import Rawl from "../Rawl";
 import { processMidiUrls } from "../midiStorage";
 import { ColoredNote } from "../parseMidi";
 import { topicToFrozenStrings } from "../pathViewFrozenSnippets";
@@ -98,13 +99,15 @@ const topicToFrozenNotes: { [key: string]: ColoredNote[][] } =
 
 const PathView: React.FC = () => {
   const [activeChapter, setActiveChapter] = useState(0);
-  const { handleSongClick } = useContext(AppContext);
+  const { handleSongClick, rawlProps } = useContext(AppContext);
+  const [currentMidi, setCurrentMidi] = useState<string | null>(null);
 
   const handleChapterSelect = (index: number) => {
     setActiveChapter(index);
   };
 
   const handleMidiClick = (slug: string) => {
+    setCurrentMidi(slug);
     const fakeLocation = {
       pathname: `/f/${slug}`,
       search: "",
@@ -155,8 +158,23 @@ const PathView: React.FC = () => {
           </TopicCard>
         ))}
       </ContentArea>
+      {currentMidi && rawlProps && rawlProps.parsingResult && (
+        <RawlContainer>
+          <Rawl {...rawlProps} song={currentMidi} />
+        </RawlContainer>
+      )}
     </PathContainer>
   );
 };
+
+const RawlContainer = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50vh;
+  background-color: #000;
+  z-index: 1000;
+`;
 
 export default PathView;

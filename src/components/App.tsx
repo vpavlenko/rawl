@@ -44,7 +44,7 @@ import MIDIPlayer from "../players/MIDIPlayer";
 import promisify from "../promisify-xhr";
 import { ensureEmscFileWithData, unlockAudioContext } from "../util";
 import Alert from "./Alert";
-import { AppContext } from "./AppContext";
+import { AppContext, RawlProps } from "./AppContext";
 import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader";
 import Browse from "./Browse";
@@ -880,11 +880,22 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
   render() {
     const { location } = this.props;
-    const rawlState = {
+    const rawlProps: RawlProps = {
+      parsingResult: this.state.parsing,
+      getCurrentPositionMs: this.midiPlayer?.getPositionMs || (() => 0),
+      savedAnalysis: this.state.analyses[this.path],
+      saveAnalysis: this.saveAnalysis,
       voiceNames: this.state.voiceNames,
       voiceMask: this.state.voiceMask,
       setVoiceMask: this.handleSetVoiceMask,
+      showAnalysisBox: this.state.analysisEnabled,
+      seek: this.seekForRawl,
+      artist: "",
+      song: this.path,
       latencyCorrectionMs: this.state.latencyCorrectionMs * this.state.tempo,
+      registerKeyboardHandler: this.registerKeyboardHandler,
+      unregisterKeyboardHandler: this.unregisterKeyboardHandler,
+      webUrl: this.state.webUrl,
     };
     // const { hash } = this;
     // const localAnalysis = hash && localStorage.getItem(hash);
@@ -932,7 +943,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     registerKeyboardHandler={this.registerKeyboardHandler}
                     unregisterKeyboardHandler={this.unregisterKeyboardHandler}
                     webUrl={this.state.webUrl}
-                    {...rawlState}
+                    {...rawlProps}
                   />
                   {match.path === "/drop" && (
                     <DropSaveForm
@@ -956,7 +967,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
     );
 
     return (
-      <AppContext.Provider value={{ handleSongClick: this.handleSongClick }}>
+      <AppContext.Provider
+        value={{ handleSongClick: this.handleSongClick, rawlProps }}
+      >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>
           {/* @ts-ignore */}
           {(dropzoneProps) => (

@@ -21,7 +21,7 @@ export type RawlProps = {
     handler: (e: KeyboardEvent) => void,
   ) => void;
   unregisterKeyboardHandler: (id: string) => void;
-  webUrl: string | null;
+  sourceUrl: string | null;
 };
 
 export const AppContext = React.createContext<{

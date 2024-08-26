@@ -133,10 +133,10 @@ export type RenumberMeasureCallback = (
   isShift: boolean,
 ) => void;
 
-const CompositionTitle: React.FC<{ slug: string; webUrl: string | null }> = ({
-  slug,
-  webUrl,
-}) => {
+const CompositionTitle: React.FC<{
+  slug: string;
+  sourceUrl: string | null;
+}> = ({ slug, sourceUrl }) => {
   const formattedTitle = slug
     .replace(/---/g, " – ")
     .replace(/-/g, " ")
@@ -179,9 +179,9 @@ const CompositionTitle: React.FC<{ slug: string; webUrl: string | null }> = ({
             )
           </span>
         )}
-        {webUrl && (
+        {sourceUrl && (
           <a
-            href={webUrl}
+            href={sourceUrl}
             target="_blank"
             rel="noreferrer"
             style={{
@@ -219,7 +219,7 @@ const Rawl: React.FC<{
     handler: (e: KeyboardEvent) => void,
   ) => void;
   unregisterKeyboardHandler: (id: string) => void;
-  webUrl: string | null;
+  sourceUrl: string | null;
 }> = ({
   parsingResult,
   getCurrentPositionMs,
@@ -235,7 +235,7 @@ const Rawl: React.FC<{
   latencyCorrectionMs,
   registerKeyboardHandler,
   unregisterKeyboardHandler,
-  webUrl,
+  sourceUrl,
 }) => {
   const location = useLocation();
   const { slug } = useParams<{ slug: string }>();
@@ -660,7 +660,7 @@ const Rawl: React.FC<{
         }}
         className="Rawl"
       >
-        {slug && <CompositionTitle slug={slug} webUrl={webUrl} />}
+        {slug && <CompositionTitle slug={slug} sourceUrl={sourceUrl} />}
         {systemLayout === "merged" ? (
           <MergedSystemLayout {...systemLayoutProps} />
         ) : systemLayout === "stacked" ? (

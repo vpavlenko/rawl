@@ -236,7 +236,10 @@ const path: {
       },
       {
         topic: "ii-iiø in major",
-        midis: ["valse---coppelia---piano-solo---arr.-leo-delibes"],
+        midis: [
+          "valse---coppelia---piano-solo---arr.-leo-delibes",
+          "danza-lucumi---e.-lecuona-original",
+        ],
       },
     ],
   },

@@ -94,12 +94,12 @@ type AppState = {
   latencyCorrectionMs: number;
   fileToDownload: Uint8Array;
   showShortcutHelp: boolean;
-  webUrl: string | null;
   rawlProps: RawlProps | null;
   currentMidi: {
     id: string;
     title: string;
     slug: string;
+    sourceUrl: string | null;
   } | null;
 };
 
@@ -119,7 +119,7 @@ export interface FirestoreMidiDocument {
   blob: FirestoreBlob;
   slug: string;
   title: string;
-  url: string | null;
+  url: string | null; // This is named 'url' in Firestore but we use it as 'sourceUrl' internally
 }
 
 type KeyboardHandler = (e: KeyboardEvent) => void;
@@ -257,7 +257,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
       latencyCorrectionMs,
       fileToDownload: null,
       showShortcutHelp: false,
-      webUrl: null,
       rawlProps: null,
       currentMidi: null,
     };
@@ -703,6 +702,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
               id: midiInfo.id,
               title: midiData.title,
               slug: midiData.slug,
+              sourceUrl: midiData.url, // Use the 'url' field from Firestore as sourceUrl
             },
           },
           () => {
@@ -783,7 +783,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
             this.state.latencyCorrectionMs * this.state.tempo,
           registerKeyboardHandler: this.registerKeyboardHandler,
           unregisterKeyboardHandler: this.unregisterKeyboardHandler,
-          webUrl: this.state.webUrl,
+          sourceUrl: prevState.currentMidi?.sourceUrl || null,
         };
         console.log("New rawlProps:", newRawlProps);
         return { rawlProps: newRawlProps };
@@ -934,14 +934,17 @@ class App extends React.Component<RouteComponentProps, AppState> {
     if (url.startsWith("f:")) {
       const playFromFirestore = async () => {
         const firestore = getFirestore();
-        const { blob, url: webUrl } = (
+        const { blob, url: sourceUrl } = (
           await getDoc(doc(firestore, "midis", url.slice(2)))
         ).data() as FirestoreMidiDocument;
-        // @ts-ignore
-        window.webUrl = webUrl;
 
-        // Set the webUrl state here
-        this.setState({ webUrl });
+        // Update the state with sourceUrl
+        this.setState((prevState) => ({
+          currentMidi: {
+            ...prevState.currentMidi,
+            sourceUrl: sourceUrl || null, // Use null if sourceUrl is undefined or empty
+          },
+        }));
 
         const transformedMidi = transformMidi(
           Uint8Array.from(blob._byteString.binaryString, (e) =>
@@ -1025,7 +1028,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       latencyCorrectionMs: this.state.latencyCorrectionMs * this.state.tempo,
       registerKeyboardHandler: this.registerKeyboardHandler,
       unregisterKeyboardHandler: this.unregisterKeyboardHandler,
-      webUrl: this.state.webUrl,
+      sourceUrl: this.state.currentMidi?.sourceUrl || null,
     };
     // const { hash } = this;
     // const localAnalysis = hash && localStorage.getItem(hash);
@@ -1072,7 +1075,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     song={slug ?? chiptuneUrl}
                     registerKeyboardHandler={this.registerKeyboardHandler}
                     unregisterKeyboardHandler={this.unregisterKeyboardHandler}
-                    webUrl={this.state.webUrl}
+                    sourceUrl={this.state.currentMidi?.sourceUrl || null}
                     {...rawlProps}
                   />
                   {match.path === "/drop" && (

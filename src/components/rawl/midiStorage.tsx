@@ -36,14 +36,18 @@ export const processMidiUrls = (
   }
 };
 
-const saveMidi = async (title: string, url: string, midi: ArrayBuffer) => {
+const saveMidi = async (
+  title: string,
+  sourceUrl: string,
+  midi: ArrayBuffer,
+) => {
   const slug = slugify(title);
   const firestoreBlob = Bytes.fromUint8Array(new Uint8Array(midi));
   const firestore = getFirestore();
 
   const docRef = await addDoc(collection(firestore, "midis"), {
     blob: firestoreBlob,
-    url,
+    url: sourceUrl, // This is correct, we're storing it as 'url' in Firestore
     title,
     slug,
   });

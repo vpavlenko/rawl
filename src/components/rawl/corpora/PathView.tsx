@@ -9,6 +9,7 @@ import path from "./path";
 
 const PathContainer = styled.div`
   display: flex;
+  flex-direction: column;
   height: 100%;
   width: 100%;
   position: absolute;
@@ -16,14 +17,23 @@ const PathContainer = styled.div`
   left: 0;
 `;
 
-const ChapterColumn = styled.div`
-  width: 200px;
-  flex-shrink: 0;
+const ChapterRow = styled.div`
+  display: flex;
+  overflow-x: auto;
   background-color: #1a1a1a;
-  overflow-y: auto;
   position: sticky;
   top: 0;
-  height: 100%;
+  z-index: 1;
+`;
+
+const ChapterButton = styled.button<{ active: boolean }>`
+  padding: 10px 20px;
+  text-align: center;
+  background-color: ${(props) => (props.active ? "#4a90e2" : "transparent")};
+  color: white;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
 `;
 
 const ContentArea = styled.div`
@@ -34,16 +44,6 @@ const ContentArea = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-`;
-
-const ChapterButton = styled.button<{ active: boolean }>`
-  width: 100%;
-  padding: 30px 10px;
-  text-align: left;
-  background-color: ${(props) => (props.active ? "#4a90e2" : "transparent")};
-  color: white;
-  border: none;
-  cursor: pointer;
 `;
 
 const TopicCard = styled.div`
@@ -120,7 +120,7 @@ const PathView: React.FC = () => {
 
   return (
     <PathContainer>
-      <ChapterColumn>
+      <ChapterRow>
         {path.map((chapter, index) => (
           <ChapterButton
             key={chapter.chapter}
@@ -131,7 +131,7 @@ const PathView: React.FC = () => {
             {chapter.chapter}
           </ChapterButton>
         ))}
-      </ChapterColumn>
+      </ChapterRow>
       <ContentArea>
         {path[activeChapter].topics.map((topic) => (
           <TopicCard key={topic.topic}>

@@ -286,39 +286,8 @@ const path: {
     chapter: "Modern Diatonic / Modal Interchange",
     topics: [
       {
-        topic: "minimalism",
-        midis: [
-          "you-are-not-part-of-the-control-group",
-          "glassworks-opening-1---philip-glass-opening-1---philip-glass",
-        ],
-      },
-      {
-        topic: "major pentatonic",
-        midis: [
-          "afacan-kedi---ahmed-adnan-saygun",
-          "etude-op.-10-no.-5-black-keys-pentatonic-arrangement",
-          "han-gong-chun-li-chun-ri---song-yu-ning",
-        ],
-      },
-      {
-        topic: "minor pentatonic",
-        midis: [
-          "brawl-stars---menu-theme",
-          "brawl-stars---footbrawl-theme",
-          "lotus-land",
-        ],
-      },
-      {
         topic: "stack of perfect fifths",
         midis: ["kocaman-bebek---ahmed-adnan-saygun"],
-      },
-      {
-        topic: "blues scale",
-        midis: [
-          "team-fortress-2-main-theme---mike-morasky-team-fortress-2-piano-solo",
-          "brawl-stars-metropolis-theme",
-          "rocket-jump-waltz-piano-solo",
-        ],
       },
 
       {
@@ -390,6 +359,44 @@ const path: {
       },
     ],
   },
+  {
+    chapter: "Less-than-heptatonic Scales",
+    topics: [
+      {
+        topic: "major pentatonic",
+        midis: [
+          "afacan-kedi---ahmed-adnan-saygun",
+          "etude-op.-10-no.-5-black-keys-pentatonic-arrangement",
+          "han-gong-chun-li-chun-ri---song-yu-ning",
+        ],
+      },
+      {
+        topic: "minor pentatonic",
+        midis: [
+          "brawl-stars---menu-theme",
+          "brawl-stars---footbrawl-theme",
+          "lotus-land",
+        ],
+      },
+      {
+        topic: "blues scale",
+        midis: [
+          "team-fortress-2-main-theme---mike-morasky-team-fortress-2-piano-solo",
+          "brawl-stars-metropolis-theme",
+          "rocket-jump-waltz-piano-solo",
+        ],
+      },
+    ],
+  },
+  {
+    chapter: "Augmented Second Scales",
+    topics: [
+      {
+        topic: "minor #4",
+        midis: ["pvz2-ancient-egypt"],
+      },
+    ],
+  },
 
   {
     chapter: "Modern Chromatic Harmony",
@@ -418,6 +425,7 @@ const path: {
           "volki-gonyat-olenya---a.-zacepin",
           "brawl-stars---win-theme-piano",
           "lotus-land",
+          "you-are-not-part-of-the-control-group",
         ],
       },
       {
@@ -498,5 +506,6 @@ const path: {
 // john williams till ywcm
 // rybnikov till tema mriy
 // gottschalk till andalousie
+// peter_mcconnell till egypt
 
 export default path;

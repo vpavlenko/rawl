@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import FrozenNotes from "../FrozenNotes";
 import Rawl from "../Rawl";
-import { processMidiUrls } from "../midiStorage";
 import { ColoredNote } from "../parseMidi";
 import { topicToFrozenStrings } from "../pathViewFrozenSnippets";
 import path from "./path";
@@ -98,23 +97,16 @@ const topicToFrozenNotes: { [key: string]: ColoredNote[][] } =
   );
 
 const PathView: React.FC = () => {
-  const [activeChapter, setActiveChapter] = useState(0);
   const { handleSongClick, rawlProps } = useContext(AppContext);
-  const [currentMidi, setCurrentMidi] = useState<string | null>(null);
+  const [activeChapter, setActiveChapter] = useState(0);
 
   const handleChapterSelect = (index: number) => {
     setActiveChapter(index);
   };
 
   const handleMidiClick = (slug: string) => {
-    setCurrentMidi(slug);
-    const fakeLocation = {
-      pathname: `/f/${slug}`,
-      search: "",
-      hash: "",
-      state: null,
-    };
-    processMidiUrls(fakeLocation, handleSongClick);
+    console.log("handleMidiClick called with slug:", slug);
+    handleSongClick(`f:${slug}`);
   };
 
   const measureWidth = 100;
@@ -158,9 +150,9 @@ const PathView: React.FC = () => {
           </TopicCard>
         ))}
       </ContentArea>
-      {currentMidi && rawlProps && rawlProps.parsingResult && (
+      {rawlProps && rawlProps.parsingResult && (
         <RawlContainer>
-          <Rawl {...rawlProps} song={currentMidi} />
+          <Rawl {...rawlProps} />
         </RawlContainer>
       )}
     </PathContainer>

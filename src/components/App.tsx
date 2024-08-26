@@ -95,6 +95,12 @@ type AppState = {
   fileToDownload: Uint8Array;
   showShortcutHelp: boolean;
   webUrl: string | null;
+  rawlProps: RawlProps | null;
+  currentMidi: {
+    id: string;
+    title: string;
+    slug: string;
+  } | null;
 };
 
 export interface FirestoreMidiIndex {
@@ -252,6 +258,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
       fileToDownload: null,
       showShortcutHelp: false,
       webUrl: null,
+      rawlProps: null,
+      currentMidi: null,
     };
 
     this.initChipCore(audioCtx, playerNode, bufferSize);
@@ -394,34 +402,13 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   async saveAnalysis(analysis) {
-    if (this.path === "drop") {
-      console.log("Cannot save analysis for dropped files.");
-      return;
-    }
-
-    const user = this.state.user;
-    if (user) {
-      const userRef = doc(this.db, "users", user.uid);
-      const userDoc = await getDoc(userRef);
-
-      let userData = userDoc.exists ? userDoc.data() : {};
-      userData.analyses = {
-        ...(userData.analyses ?? {}),
-        [this.path]: analysis,
-      };
-
-      await setDoc(userRef, userData).catch((e) => {
-        console.log("Couldn't save analysis.", e);
-        alert("Could not save analysis");
-      });
-
-      this.setState({
-        analyses: userData.analyses,
-      });
-    } else {
-      if (this.hash) {
-        localStorage.setItem(this.hash, JSON.stringify(analysis));
-      }
+    if (this.state.currentMidi) {
+      this.setState((prevState) => ({
+        analyses: {
+          ...prevState.analyses,
+          [`f/${this.state.currentMidi.slug}`]: analysis,
+        },
+      }));
     }
   }
 
@@ -662,16 +649,157 @@ class App extends React.Component<RouteComponentProps, AppState> {
     });
   }
 
-  handleSongClick = (url: string) => {
-    const tryPlay = () => {
-      try {
-        this.playSong(url);
-      } catch {
-        setTimeout(tryPlay, 200);
-      }
-    };
+  handleSongClick = async (url: string) => {
+    console.log("handleSongClick called with url:", url);
+    if (url.startsWith("f:")) {
+      const slug = url.slice(2);
+      console.log("Extracted slug:", slug);
+      await this.loadMidiFromSlug(slug);
+    } else {
+      console.log("Unhandled URL type:", url);
+    }
+  };
 
-    tryPlay();
+  loadMidiFromSlug = async (slug: string) => {
+    console.log("loadMidiFromSlug called with slug:", slug);
+    const firestore = getFirestore();
+    try {
+      console.log("Fetching index document");
+      const indexDoc = await getDoc(doc(firestore, "indexes", "midis"));
+      const indexData = indexDoc.data();
+      console.log("Index document data:", indexData);
+
+      if (!indexData) {
+        console.error("Index document not found");
+        return;
+      }
+
+      console.log("Searching for MIDI info with slug:", slug);
+      const midiInfo = indexData.midis.find((midi) => midi.slug === slug);
+      console.log("Found MIDI info:", midiInfo);
+
+      if (!midiInfo) {
+        console.error(`No MIDI found for slug: ${slug}`);
+        return;
+      }
+
+      console.log("Fetching MIDI document with ID:", midiInfo.id);
+      const midiDoc = await getDoc(doc(firestore, "midis", midiInfo.id));
+      if (midiDoc.exists()) {
+        const midiData = midiDoc.data();
+        console.log("MIDI document data:", midiData);
+
+        // Convert Firestore Bytes to Blob
+        const midiBlob = new Blob([midiData.blob.toUint8Array()], {
+          type: "audio/midi",
+        });
+        console.log("Created MIDI Blob:", midiBlob);
+
+        this.setState(
+          {
+            currentMidi: {
+              id: midiInfo.id,
+              title: midiData.title,
+              slug: midiData.slug,
+            },
+          },
+          () => {
+            console.log(
+              "State updated with currentMidi:",
+              this.state.currentMidi,
+            );
+            console.log("Calling loadMidi with blob");
+            this.loadMidi(midiBlob);
+          },
+        );
+      } else {
+        console.error("No such document!");
+      }
+    } catch (error) {
+      console.error("Error loading MIDI:", error);
+    }
+  };
+
+  loadMidi = (midiBlob: Blob) => {
+    console.log("loadMidi called with blob:", midiBlob);
+
+    if (this.midiPlayer) {
+      console.log("MIDIPlayer exists, loading data");
+
+      // Convert Blob to ArrayBuffer
+      midiBlob
+        .arrayBuffer()
+        .then((arrayBuffer) => {
+          this.midiPlayer
+            .loadData(arrayBuffer, this.state.currentMidi?.slug || "")
+            .then((parsingResult) => {
+              console.log("MIDI data loaded, parsing result:", parsingResult);
+              this.setState({ parsing: parsingResult }, () => {
+                console.log("State updated with parsing result");
+                this.setupMidiPlayer();
+              });
+            })
+            .catch((error) => {
+              console.error("Error loading MIDI data:", error);
+            });
+        })
+        .catch((error) => {
+          console.error("Error converting Blob to ArrayBuffer:", error);
+        });
+    } else {
+      console.error("MIDIPlayer not initialized");
+    }
+  };
+
+  setupMidiPlayer = () => {
+    console.log("Setting up MIDI player");
+
+    console.log("Setting up rawlProps");
+    this.setState(
+      (prevState) => {
+        const slug = prevState.currentMidi?.slug;
+        const analysisKey = `f/${slug}`;
+        const savedAnalysis = prevState.analyses[analysisKey];
+        console.log(
+          `Retrieving analysis for key: ${analysisKey}`,
+          savedAnalysis,
+        );
+
+        const newRawlProps = {
+          parsingResult: this.state.parsing,
+          getCurrentPositionMs: this.midiPlayer?.getPositionMs || (() => 0),
+          savedAnalysis: savedAnalysis,
+          saveAnalysis: this.saveAnalysis,
+          voiceNames: this.state.voiceNames,
+          voiceMask: this.state.voiceMask,
+          setVoiceMask: this.handleSetVoiceMask,
+          showAnalysisBox: this.state.analysisEnabled,
+          seek: this.seekForRawl,
+          artist: "",
+          song: prevState.currentMidi?.title || "",
+          latencyCorrectionMs:
+            this.state.latencyCorrectionMs * this.state.tempo,
+          registerKeyboardHandler: this.registerKeyboardHandler,
+          unregisterKeyboardHandler: this.unregisterKeyboardHandler,
+          webUrl: this.state.webUrl,
+        };
+        console.log("New rawlProps:", newRawlProps);
+        return { rawlProps: newRawlProps };
+      },
+      () => {
+        console.log("State updated with rawlProps");
+        this.startPlayback();
+      },
+    );
+  };
+
+  startPlayback = () => {
+    console.log("Starting playback");
+    if (this.midiPlayer) {
+      console.log("MIDIPlayer exists, starting playback");
+    } else {
+      console.error("MIDIPlayer not initialized");
+    }
   };
 
   handleVolumeChange(volume: number) {
@@ -968,7 +1096,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
     return (
       <AppContext.Provider
-        value={{ handleSongClick: this.handleSongClick, rawlProps }}
+        value={{
+          handleSongClick: this.handleSongClick,
+          rawlProps: this.state.rawlProps,
+        }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>
           {/* @ts-ignore */}

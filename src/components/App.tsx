@@ -44,6 +44,7 @@ import MIDIPlayer from "../players/MIDIPlayer";
 import promisify from "../promisify-xhr";
 import { ensureEmscFileWithData, unlockAudioContext } from "../util";
 import Alert from "./Alert";
+import { AppContext } from "./AppContext";
 import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader";
 import Browse from "./Browse";
@@ -661,7 +662,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     });
   }
 
-  handleSongClick(url: string) {
+  handleSongClick = (url: string) => {
     const tryPlay = () => {
       try {
         this.playSong(url);
@@ -671,7 +672,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     };
 
     tryPlay();
-  }
+  };
 
   handleVolumeChange(volume: number) {
     this.setState({ volume });
@@ -955,106 +956,108 @@ class App extends React.Component<RouteComponentProps, AppState> {
     );
 
     return (
-      <Dropzone disableClick style={{}} onDrop={this.onDrop}>
-        {/* @ts-ignore */}
-        {(dropzoneProps) => (
-          <div className="App">
-            <DropMessage dropzoneProps={dropzoneProps} />
-            <Alert
-              handlePlayerError={this.handlePlayerError}
-              playerError={this.state.playerError}
-              showPlayerError={this.state.showPlayerError}
-            />
-            {location.pathname !== "/" && <AppHeader />}
-            <div className="App-main">
-              <div className="App-main-inner">
-                <div className="App-main-content-and-settings">
-                  <div
-                    className="App-main-content-area"
-                    ref={this.contentAreaRef}
-                  >
-                    <Switch>
-                      <Route path="/" exact render={() => <LandingPage />} />
-                      <Route path="/old" render={() => <OldLandingPage />} />
-                      {/* <Route path="/axes" render={() => <Axes />} /> */}
-                      <Route
-                        path="/course/:chapter*"
-                        render={({ match }) => (
-                          <Course
-                            chapter={parseInt(match.params?.chapter, 10)}
-                            analyses={this.state.analyses}
-                          />
-                        )}
-                      />
-                      <Route
-                        path="/corpus/:corpus*"
-                        render={({ match }) => (
-                          <Corpus slug={match.params?.corpus} />
-                        )}
-                      />
-                      <Route
-                        path="/tags/:tag*"
-                        render={({ match }) => (
-                          <TagSearch
-                            tag={match.params?.tag}
-                            analyses={this.state.analyses}
-                          />
-                        )}
-                      />
-                      <Route path="/pages/daw" render={() => <DAW />} />
-                      <Route path="/pirate" render={() => <Pirate />} />
-                      {browseRoute}
-                      {rawlRoute}
-                      <Route path="/path" render={() => <PathView />} />
-                    </Switch>
+      <AppContext.Provider value={{ handleSongClick: this.handleSongClick }}>
+        <Dropzone disableClick style={{}} onDrop={this.onDrop}>
+          {/* @ts-ignore */}
+          {(dropzoneProps) => (
+            <div className="App">
+              <DropMessage dropzoneProps={dropzoneProps} />
+              <Alert
+                handlePlayerError={this.handlePlayerError}
+                playerError={this.state.playerError}
+                showPlayerError={this.state.showPlayerError}
+              />
+              {location.pathname !== "/" && <AppHeader />}
+              <div className="App-main">
+                <div className="App-main-inner">
+                  <div className="App-main-content-and-settings">
+                    <div
+                      className="App-main-content-area"
+                      ref={this.contentAreaRef}
+                    >
+                      <Switch>
+                        <Route path="/" exact render={() => <LandingPage />} />
+                        <Route path="/old" render={() => <OldLandingPage />} />
+                        {/* <Route path="/axes" render={() => <Axes />} /> */}
+                        <Route
+                          path="/course/:chapter*"
+                          render={({ match }) => (
+                            <Course
+                              chapter={parseInt(match.params?.chapter, 10)}
+                              analyses={this.state.analyses}
+                            />
+                          )}
+                        />
+                        <Route
+                          path="/corpus/:corpus*"
+                          render={({ match }) => (
+                            <Corpus slug={match.params?.corpus} />
+                          )}
+                        />
+                        <Route
+                          path="/tags/:tag*"
+                          render={({ match }) => (
+                            <TagSearch
+                              tag={match.params?.tag}
+                              analyses={this.state.analyses}
+                            />
+                          )}
+                        />
+                        <Route path="/pages/daw" render={() => <DAW />} />
+                        <Route path="/pirate" render={() => <Pirate />} />
+                        {browseRoute}
+                        {rawlRoute}
+                        <Route path="/path" render={() => <PathView />} />
+                      </Switch>
+                    </div>
                   </div>
                 </div>
+                {location.pathname !== "/" && !this.state.loading && (
+                  <Visualizer
+                    audioCtx={this.audioCtx}
+                    sourceNode={this.playerNode}
+                    chipCore={this.chipCore}
+                    analysisEnabled={this.state.analysisEnabled}
+                    handleToggleAnalysis={() =>
+                      this.setState((state) => ({
+                        analysisEnabled: !state.analysisEnabled,
+                      }))
+                    }
+                    paused={this.state.ejected || this.state.paused}
+                    user={this.state.user}
+                    handleLogout={this.handleLogout}
+                    handleLogin={this.handleLogin}
+                  />
+                )}
               </div>
-              {location.pathname !== "/" && !this.state.loading && (
-                <Visualizer
-                  audioCtx={this.audioCtx}
-                  sourceNode={this.playerNode}
-                  chipCore={this.chipCore}
-                  analysisEnabled={this.state.analysisEnabled}
-                  handleToggleAnalysis={() =>
-                    this.setState((state) => ({
-                      analysisEnabled: !state.analysisEnabled,
-                    }))
-                  }
-                  paused={this.state.ejected || this.state.paused}
-                  user={this.state.user}
-                  handleLogout={this.handleLogout}
-                  handleLogin={this.handleLogin}
+              {location.pathname !== "/" && (
+                <AppFooter
+                  currentSongDurationMs={this.state.currentSongDurationMs}
+                  ejected={this.state.ejected}
+                  paused={this.state.paused}
+                  fileToDownload={this.state.fileToDownload}
+                  volume={this.state.volume}
+                  handleTimeSliderChange={this.handleTimeSliderChange}
+                  handleVolumeChange={this.handleVolumeChange}
+                  togglePause={this.togglePause}
+                  latencyCorrectionMs={this.state.latencyCorrectionMs}
+                  setLatencyCorrectionMs={this.setLatencyCorrectionMs}
+                  getCurrentPositionMs={this.midiPlayer?.getPositionMs}
+                  tempo={this.state.tempo}
+                  setTempo={this.handleTempoChange}
                 />
               )}
+              <Modal
+                isOpen={this.state.showShortcutHelp}
+                onRequestClose={this.toggleShortcutHelp}
+                contentLabel="Keyboard Shortcuts"
+              >
+                <ShortcutHelp />
+              </Modal>
             </div>
-            {location.pathname !== "/" && (
-              <AppFooter
-                currentSongDurationMs={this.state.currentSongDurationMs}
-                ejected={this.state.ejected}
-                paused={this.state.paused}
-                fileToDownload={this.state.fileToDownload}
-                volume={this.state.volume}
-                handleTimeSliderChange={this.handleTimeSliderChange}
-                handleVolumeChange={this.handleVolumeChange}
-                togglePause={this.togglePause}
-                latencyCorrectionMs={this.state.latencyCorrectionMs}
-                setLatencyCorrectionMs={this.setLatencyCorrectionMs}
-                getCurrentPositionMs={this.midiPlayer?.getPositionMs}
-                tempo={this.state.tempo}
-                setTempo={this.handleTempoChange}
-              />
-            )}
-            <Modal
-              isOpen={this.state.showShortcutHelp}
-              onRequestClose={this.toggleShortcutHelp}
-              contentLabel="Keyboard Shortcuts"
-            >
-              <ShortcutHelp />
-            </Modal>
-          </div>
-        )}
-      </Dropzone>
+          )}
+        </Dropzone>
+      </AppContext.Provider>
     );
   }
 }

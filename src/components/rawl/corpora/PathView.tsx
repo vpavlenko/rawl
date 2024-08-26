@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import { AppContext } from "../../AppContext";
 import FrozenNotes from "../FrozenNotes";
+import { processMidiUrls } from "../midiStorage";
 import { ColoredNote } from "../parseMidi";
 import { topicToFrozenStrings } from "../pathViewFrozenSnippets";
 import path from "./path";
@@ -63,7 +65,7 @@ const TopicTitle = styled.h3`
   text-indent: -1em;
 `;
 
-const MidiLink = styled.a`
+const MidiButton = styled.button`
   display: block;
   padding: 3px 0;
   font-size: 14px;
@@ -72,6 +74,10 @@ const MidiLink = styled.a`
   word-wrap: break-word;
   padding-left: 1em;
   text-indent: -1em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
   &:hover {
     color: #4a90e2;
   }
@@ -92,9 +98,20 @@ const topicToFrozenNotes: { [key: string]: ColoredNote[][] } =
 
 const PathView: React.FC = () => {
   const [activeChapter, setActiveChapter] = useState(0);
+  const { handleSongClick } = useContext(AppContext);
 
   const handleChapterSelect = (index: number) => {
     setActiveChapter(index);
+  };
+
+  const handleMidiClick = (slug: string) => {
+    const fakeLocation = {
+      pathname: `/f/${slug}`,
+      search: "",
+      hash: "",
+      state: null,
+    };
+    processMidiUrls(fakeLocation, handleSongClick);
   };
 
   const measureWidth = 100;
@@ -131,14 +148,9 @@ const PathView: React.FC = () => {
               </MiniNotesDisplay>
             )}
             {topic.midis.map((midi, index) => (
-              <MidiLink
-                key={index}
-                href={`/f/${midi}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <MidiButton key={index} onClick={() => handleMidiClick(midi)}>
                 {midi.replace(/---/g, " – ").replace(/-/g, " ")}
-              </MidiLink>
+              </MidiButton>
             ))}
           </TopicCard>
         ))}

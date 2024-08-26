@@ -652,16 +652,16 @@ class App extends React.Component<RouteComponentProps, AppState> {
   handleSongClick = async (url: string) => {
     console.log("handleSongClick called with url:", url);
     if (url.startsWith("f:")) {
-      const slug = url.slice(2);
-      console.log("Extracted slug:", slug);
-      await this.loadMidiFromSlug(slug);
+      const slugOrId = url.slice(2);
+      console.log("Extracted slugOrId:", slugOrId);
+      await this.loadMidiFromSlug(slugOrId);
     } else {
       console.log("Unhandled URL type:", url);
     }
   };
 
-  loadMidiFromSlug = async (slug: string) => {
-    console.log("loadMidiFromSlug called with slug:", slug);
+  loadMidiFromSlug = async (slugOrId: string) => {
+    console.log("loadMidiFromSlug called with slugOrId:", slugOrId);
     const firestore = getFirestore();
     try {
       console.log("Fetching index document");
@@ -674,12 +674,14 @@ class App extends React.Component<RouteComponentProps, AppState> {
         return;
       }
 
-      console.log("Searching for MIDI info with slug:", slug);
-      const midiInfo = indexData.midis.find((midi) => midi.slug === slug);
+      console.log("Searching for MIDI info with slugOrId:", slugOrId);
+      let midiInfo = indexData.midis.find(
+        (midi) => midi.slug === slugOrId || midi.id === slugOrId,
+      );
       console.log("Found MIDI info:", midiInfo);
 
       if (!midiInfo) {
-        console.error(`No MIDI found for slug: ${slug}`);
+        console.error(`No MIDI found for slugOrId: ${slugOrId}`);
         return;
       }
 

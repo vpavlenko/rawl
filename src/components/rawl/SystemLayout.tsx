@@ -207,6 +207,7 @@ const getNoteRectangles = (
   handleMouseLeave: () => void,
   showVelocity = false,
   secondsToX: SecondsConverter,
+  enableManualRemeasuring: boolean,
 ) => {
   return notes.map((note) => {
     const {
@@ -264,7 +265,12 @@ const getNoteRectangles = (
           top: isActive ? top : top + noteHeight * 2 - 0.5,
           left,
           pointerEvents: "auto",
-          cursor: handleNoteClick && !isDrum ? "pointer" : "default",
+          cursor:
+            enableManualRemeasuring && !isDrum
+              ? "e-resize"
+              : handleNoteClick && !isDrum
+              ? "pointer"
+              : "default",
           zIndex: Math.round(10 + 1000 / width),
           // opacity: (showVelocity && note?.chipState?.on?.param2 / 127) || 1,
           // opacity: isActive ? 1 : 0.3,
@@ -498,6 +504,7 @@ export const Voice: React.FC<{
   secondsToX: SecondsConverter;
   xToSeconds: SecondsConverter;
   sectionSpan?: MeasuresSpan;
+  enableManualRemeasuring: boolean;
 }> = ({
   notes,
   measuresAndBeats,
@@ -517,6 +524,7 @@ export const Voice: React.FC<{
   secondsToX,
   xToSeconds,
   sectionSpan,
+  enableManualRemeasuring,
 }) => {
   // To restore it, we need to lock the calculation of frozenRange and frozenHeight
   // and don't change it after loading the notes.
@@ -557,6 +565,7 @@ export const Voice: React.FC<{
         DUMMY_CALLBACK,
         showVelocity,
         secondsToX,
+        enableManualRemeasuring,
       ),
       frozenHeight: height,
       frozenMidiRange: midiRange,
@@ -570,6 +579,7 @@ export const Voice: React.FC<{
       voiceMask,
       noteHeight,
       secondsToX,
+      enableManualRemeasuring,
     ],
   );
 
@@ -691,6 +701,7 @@ export type SystemLayoutProps = {
   unregisterKeyboardHandler: (name: string) => void;
   tonalHistograms: TonalHistogram[];
   frozenNotes: ColoredNote[][];
+  enableManualRemeasuring?: boolean;
 };
 
 export const TonalHistogramLayout: React.FC<SystemLayoutProps> = ({
@@ -764,6 +775,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
   setVoiceMask,
   registerKeyboardHandler,
   unregisterKeyboardHandler,
+  enableManualRemeasuring = false,
 }) => {
   const [noteHeight, setNoteHeight] = useState<number>(4);
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
@@ -1061,6 +1073,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
                     secondsToX={secondsToX}
                     xToSeconds={xToSeconds}
                     sectionSpan={sectionSpan}
+                    enableManualRemeasuring={enableManualRemeasuring}
                   />
                 </div>
               ))}
@@ -1118,7 +1131,13 @@ const MERGED_VOICE_NAMES = ["merged"];
 const MERGED_VOICE_MASK = [true];
 
 export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
-  const { notes, voiceNames, voiceMask, setVoiceMask } = props;
+  const {
+    notes,
+    voiceNames,
+    voiceMask,
+    setVoiceMask,
+    enableManualRemeasuring,
+  } = props;
 
   const flattenedNotes = useMemo(
     () => [
@@ -1137,6 +1156,7 @@ export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
         notes={flattenedNotes}
         voiceNames={MERGED_VOICE_NAMES}
         voiceMask={MERGED_VOICE_MASK}
+        enableManualRemeasuring={enableManualRemeasuring}
       />
       {voiceNames.length > 1 && (
         <div

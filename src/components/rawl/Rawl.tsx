@@ -662,9 +662,15 @@ const Rawl: React.FC<{
       >
         {slug && <CompositionTitle slug={slug} sourceUrl={sourceUrl} />}
         {systemLayout === "merged" ? (
-          <MergedSystemLayout {...systemLayoutProps} />
+          <MergedSystemLayout
+            {...systemLayoutProps}
+            enableManualRemeasuring={enableManualRemeasuring}
+          />
         ) : systemLayout === "stacked" ? (
-          <StackedSystemLayout {...systemLayoutProps} />
+          <StackedSystemLayout
+            {...systemLayoutProps}
+            enableManualRemeasuring={enableManualRemeasuring}
+          />
         ) : systemLayout === "tonal" ? (
           <TonalHistogramLayout
             {...systemLayoutProps}

@@ -70,14 +70,21 @@ const CorpusSearch: React.FC = () => {
     setTotalMidis(uniqueMidis.size);
   }, []);
 
-  const filteredCorpora = corpora.filter(
-    (corpus) =>
-      (searchTerm === "" ? corpus.midis.length >= 1 : true) &&
-      (corpus.slug.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        corpus.midis.some((midi) =>
-          midi.toLowerCase().includes(searchTerm.toLowerCase()),
-        )),
-  );
+  const filteredCorpora = corpora.filter((corpus) => {
+    if (searchTerm === "") return corpus.midis.length >= 1;
+
+    const searchTerms = searchTerm.toLowerCase().split(/\s+/);
+    const corpusWords = corpus.slug.toLowerCase().split(/[-_\s]+/);
+    const midiWords = corpus.midis.flatMap((midi) =>
+      midi.toLowerCase().split(/[-_\s]+/),
+    );
+
+    return searchTerms.every(
+      (term) =>
+        corpusWords.some((word) => word.includes(term)) ||
+        midiWords.some((word) => word.includes(term)),
+    );
+  });
 
   const renderEmptySearchResults = () => {
     const sortedCorpora = filteredCorpora.sort(
@@ -122,12 +129,22 @@ const CorpusSearch: React.FC = () => {
         {searchTerm === ""
           ? renderEmptySearchResults()
           : filteredCorpora.map(({ slug, midis }) => {
-              const composerMatched = slug
-                .toLowerCase()
-                .includes(searchTerm.toLowerCase());
-              const matchingMidis = midis.filter((midi) =>
-                midi.toLowerCase().includes(searchTerm.toLowerCase()),
+              const searchTerms = searchTerm.toLowerCase().split(/\s+/);
+              const composerMatched = searchTerms.every((term) =>
+                slug
+                  .toLowerCase()
+                  .split(/[-_\s]+/)
+                  .some((word) => word.includes(term)),
               );
+              const matchingMidis = midis.filter((midi) =>
+                searchTerms.every((term) =>
+                  midi
+                    .toLowerCase()
+                    .split(/[-_\s]+/)
+                    .some((word) => word.includes(term)),
+                ),
+              );
+
               return (
                 <div
                   key={slug}

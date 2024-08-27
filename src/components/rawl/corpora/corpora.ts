@@ -1813,6 +1813,7 @@ export const corpora: Corpora[] = [
       "dance-of-the-reed-flutes-the-nutcracker-suite---tchaikovsky",
       "chinese-dance---the-nutcracker-suite---peter-tchaikovsky",
       "tchaikovsky-waltz-of-the-flowers-from-the-nutcracker-piano-4-hands",
+      "dance-of-the-sugar-plum-fairy",
     ],
   },
   {
@@ -2634,7 +2635,6 @@ export const corpora: Corpora[] = [
       "autumn-leaves-jazz-piano",
       "clocks---coldplay",
       "Sadness_and_Sorrow",
-
       "Super_Mario_Bros_Main_Theme",
       "nocturne-in-c-sharp-minor",
       "gurenge--demon-slayer-kimetsu-no-yaiba-op",
@@ -2679,6 +2679,32 @@ export const corpora: Corpora[] = [
       "Cant_Help_Falling_In_Love",
       "Someone_You_Loved",
       "sonate-no.-17-tempest-3rd-movement",
+      "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night",
+      "africa---toto",
+      "yuri-on-ice---piano-theme-full",
+      "Yann_Tiersen_Amelie",
+      "dont-stop-believing-piano",
+      "lacrimosa---requiem",
+      "dance-of-the-sugar-plum-fairy",
+      "sign-of-the-times---harry-styles",
+      "alan-walker---alone-piano",
+      "Love_Like_You_Steven_Universe",
+      "Pokemon_Theme_Song",
+      "Billie_Eilish_Bad_Guy",
+      "Test_Drive_How_to_Train_Your_Dragon",
+      "how-far-i-ll-go-~-moana-ost",
+      "Vivaldi_-_Summer__The_Four_Seasons__-_Rousseau",
+      "Im_Blue_Eiffel_65",
+      "Ed_Sheeran_Shape_of_you",
+      "chiquitita-abba---piano",
+      "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",
+      "nothing-else-matters---metallica",
+      "welcome-to-the-black-parade---my-chemical-romance",
+      "fairy-tail-main-theme",
+      "calum-scott---you-are-the-reason-piano-sheet-lyrics-lyrics-version-link-in-description",
+      "your-song-piano",
+      "my-lie-watashi-no-uso---your-lie-in-april",
+      "anastasia---once-upon-a-december",
     ],
   },
   {
@@ -2696,7 +2722,6 @@ export const corpora: Corpora[] = [
       "Axel_F_Beverly_Hills_Cop_III",
       "Bags_Groove__Lead_sheet_",
 
-      "Billie_Eilish_Bad_Guy",
       "Billie_s_Bounce_Billies_Bounce",
       "Blue_Rondo_A_La_Turk",
       "Blues_for_Alice",
@@ -2709,7 +2734,6 @@ export const corpora: Corpora[] = [
 
       "Dream_a_little_dream_of_me",
 
-      "Ed_Sheeran_Shape_of_you",
       "Entry_of_the_Gladiators_-_Julius_Fuk_-_1897",
 
       "Feliz_Navidad",
@@ -2724,7 +2748,6 @@ export const corpora: Corpora[] = [
       "Happy_Birthday_to_You",
       "Hit_the_Road_Jack",
       "How_long_blues",
-      "Im_Blue_Eiffel_65",
 
       "Jingle_Bell_Rock",
 
@@ -2742,7 +2765,6 @@ export const corpora: Corpora[] = [
       "Let_It_Go_Disney_Frozen",
       "Liana_Flores_Rises_the_Moon",
 
-      "Love_Like_You_Steven_Universe",
       "Love_Store_Francis_Lai",
 
       "Misty_piano_solo",
@@ -2755,8 +2777,6 @@ export const corpora: Corpora[] = [
       "Ophelia",
       "Photograph_Ed_Sheeran",
       "Pink_Panther",
-
-      "Pokemon_Theme_Song",
 
       "Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet",
 
@@ -2772,7 +2792,6 @@ export const corpora: Corpora[] = [
       "Sweet_Dreams",
       "Sweet_home_Chicago",
 
-      "Test_Drive_How_to_Train_Your_Dragon",
       "Tetris_Theme",
       "TheFatRat_Monody",
       "TheFatRat_Unity",
@@ -2786,12 +2805,10 @@ export const corpora: Corpora[] = [
 
       "Vangelis_Chariots_of_fire",
 
-      "Vivaldi_-_Summer__The_Four_Seasons__-_Rousseau",
       "Walking_On_a_dream",
 
       "Wellerman_Sea_Shanty",
 
-      "Yann_Tiersen_Amelie",
       "You_ve_got_a_friend_in_me",
 
       "alexey_bychkov_s_trio_goby_waltz",

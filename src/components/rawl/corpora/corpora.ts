@@ -1872,6 +1872,19 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "mozart_misc",
+    midis: [
+      "fantasia_in_d_minor_k_397_385g_wolfgang_amadeus_mozart",
+      "i_allegro_symphony_no_4_in_d_major_k_19_w_a_mozart",
+      "mozart_rondo_in_d_major_k_485_professional_production_score",
+      "mozart_sonata_11_1st",
+      "mozart_string_quartet_no_18_in_a_major_k464",
+      "mozart_string_quartet_no_19_in_c_major_k465_dissonance",
+      "piano_sonata_no_16_in_c_major_k_545_wolfgang_amadeus_mozart_piano_solo",
+      "string_quartet_no_23_in_f_major_k_590_wolfgang_amadeus_mozart",
+    ],
+  },
+  {
     slug: "chopin_misc",
     midis: [
       "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
@@ -2570,6 +2583,8 @@ export const corpora: Corpora[] = [
       "All_I_Want_for_Christmas_is_You",
       "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
       "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
+      "a-thousand-years",
+      "Disney_Pixar_Up_Theme",
     ],
   },
   {
@@ -2602,7 +2617,7 @@ export const corpora: Corpora[] = [
       "Coffin_dance",
       "Dawn_Pride_and_Prejudice",
       "Despacito",
-      "Disney_Pixar_Up_Theme",
+
       "Dream_a_little_dream_of_me",
 
       "Ed_Sheeran_Shape_of_you",
@@ -2751,7 +2766,7 @@ export const corpora: Corpora[] = [
       "eleanor_rigby_cody_fry_no_perc1",
       "etude-op.-10-no.-5-black-keys-pentatonic-arrangement",
       "examples_of_chord_progressions_in_a_minor",
-      "fantasia_in_d_minor_k_397_385g_wolfgang_amadeus_mozart",
+
       "firuze",
       "four-chord-song",
       "gamzedeyim_deva_bulmam",
@@ -2773,7 +2788,7 @@ export const corpora: Corpora[] = [
       "he_s_a_pirate_klaus_badelt_pirates_of_the_caribbean_ost_rock_version",
       "he_s_a_pirate_ost_kalimba_cover",
       "hojnacki_1",
-      "i_allegro_symphony_no_4_in_d_major_k_19_w_a_mozart",
+
       "idotdotdot---yiruma",
       "ii-v-i-jazz-voicings",
       "ii-v-i-warmup",
@@ -2794,10 +2809,7 @@ export const corpora: Corpora[] = [
       "moments_musicaux_d_780_no_3_in_f_minor",
       "moments_musicaux_d_780_op_94_no_3_franz_schubert",
       "motion-sickness---phoebe-bridgers",
-      "mozart_rondo_in_d_major_k_485_professional_production_score",
-      "mozart_sonata_11_1st",
-      "mozart_string_quartet_no_18_in_a_major_k464",
-      "mozart_string_quartet_no_19_in_c_major_k465_dissonance",
+
       "mpaintoyska",
       "my_wild_irish_rose",
       "never_gunna_give_you_up_barbershop",
@@ -2805,7 +2817,6 @@ export const corpora: Corpora[] = [
       "opa-cupa",
       "pavane_pour_une_infante_defunte_ravel_recorder",
 
-      "piano_sonata_no_16_in_c_major_k_545_wolfgang_amadeus_mozart_piano_solo",
       "piano_sonata_no_3_in_c_major_op_2_no_3_ludwig_van_beethoven_piano_sonata_no_3_in_c_major_op_2_no_3_complete",
       "piano_tutorial",
       "pirate_melody_16measures_chromatic",
@@ -2855,7 +2866,7 @@ export const corpora: Corpora[] = [
       "sorcerer_s_puppet_the_king_and_the_jester",
       "steve-reich---piano-phase",
       "string_quartet_in_g_major_hob_iii_75_op_76_no_1_joseph_haydn",
-      "string_quartet_no_23_in_f_major_k_590_wolfgang_amadeus_mozart",
+
       "string_quartet_no_8_in_e_minor_opus_59_rasumovsky_no_2",
       "sydameni_laulu",
       "symphony_8_1",

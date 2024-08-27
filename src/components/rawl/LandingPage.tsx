@@ -103,7 +103,6 @@ const RightSide = styled(Side)`
 `;
 
 const Content = styled.div`
-  min-height: 100vh;
   width: 900px; // Set a fixed width for the content
   margin: auto; // Center the content block horizontally within its container
 
@@ -204,102 +203,92 @@ const TopSection = styled.div`
   width: 100%;
 `;
 
-const LandingPage: React.FC = () => {
-  const [searchTerm, setSearchTerm] = React.useState("");
-
-  const handleSearchChange = (term: string) => {
-    setSearchTerm(term);
-  };
-
+const LandingPage = () => {
   return (
     <PageContainer>
       <TopSection>
         <LeftSide sideImage={landingLeftSideImage} />
         <Content>
-          <div style={{ display: searchTerm === "" ? "block" : "none" }}>
-            <div
-              style={{
-                fontSize: 40,
-                fontFamily: "Verdana, serif",
-                marginTop: 40,
-                marginBottom: 30,
-                textAlign: "center",
-              }}
-            >
-              See Western music in 12 colors
-            </div>
-
-            <LegendAndMetaphorsContainer>
-              <div>
-                <PianoLegend />
-              </div>
-              <div>
-                <div
-                  style={{
-                    textAlign: "left",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 7,
-                  }}
-                >
-                  <span>
-                    <span style={{ fontWeight: 900 }}>
-                      the tonic note is always white
-                    </span>
-                  </span>
-                  <span>
-                    <span className="landing_gradient_green">
-                      tonic chords have a green pitch
-                    </span>
-                  </span>
-                  <span>
-                    <span className="landing_gradient_cool">
-                      predominants are in cool colors
-                    </span>
-                  </span>
-                  <span>
-                    <span className="landing_gradient_warm">
-                      dominants are in warm colors
-                    </span>
-                  </span>
-                  <span>
-                    <span className="landing_gradient_bright">
-                      major mode is brighter
-                    </span>
-                  </span>
-                  <span>
-                    <span className="landing_gradient_dark">
-                      minor mode is darker
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </LegendAndMetaphorsContainer>
-            <ChordStairsContainer>
-              <ChordStairs mode={MODES[1]} />
-              <ChordStairs mode={MODES[0]} />
-            </ChordStairsContainer>
+          <div
+            style={{
+              fontSize: 40,
+              fontFamily: "Verdana, serif",
+              marginTop: 40,
+              marginBottom: 30,
+              textAlign: "center",
+            }}
+          >
+            See Western music in 12 colors
           </div>
 
+          <LegendAndMetaphorsContainer>
+            <div>
+              <PianoLegend />
+            </div>
+            <div>
+              <div
+                style={{
+                  textAlign: "left",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 7,
+                }}
+              >
+                <span>
+                  <span style={{ fontWeight: 900 }}>
+                    the tonic note is always white
+                  </span>
+                </span>
+                <span>
+                  <span className="landing_gradient_green">
+                    tonic chords have a green pitch
+                  </span>
+                </span>
+                <span>
+                  <span className="landing_gradient_cool">
+                    predominants are in cool colors
+                  </span>
+                </span>
+                <span>
+                  <span className="landing_gradient_warm">
+                    dominants are in warm colors
+                  </span>
+                </span>
+                <span>
+                  <span className="landing_gradient_bright">
+                    major mode is brighter
+                  </span>
+                </span>
+                <span>
+                  <span className="landing_gradient_dark">
+                    minor mode is darker
+                  </span>
+                </span>
+              </div>
+            </div>
+          </LegendAndMetaphorsContainer>
+          <ChordStairsContainer>
+            <ChordStairs mode={MODES[1]} />
+            <ChordStairs mode={MODES[0]} />
+          </ChordStairsContainer>
+
           <Section title="">
-            <CorpusSearch onSearchChange={handleSearchChange} />
+            <CorpusSearch />
           </Section>
 
-          <div style={{ display: searchTerm === "" ? "block" : "none" }}>
-            <div style={{ margin: "100px 0 100px 0" }}>
-              <iframe
-                width="560"
-                height="315"
-                src="https://www.youtube.com/embed/uW7r-nehi7o?si=zjR312K-CGekpBwU"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                style={{ border: "0px" }}
-              />
-            </div>
-            <div style={{ marginTop: 30, marginBottom: 100 }}>
-              <FileDropBox />
-            </div>
+          <div style={{ margin: "100px 0 100px 0" }}>
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube.com/embed/uW7r-nehi7o?si=zjR312K-CGekpBwU"
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              style={{ border: "0px" }}
+            />
+          </div>
+          <div style={{ marginTop: 30, marginBottom: 100 }}>
+            <FileDropBox />
           </div>
 
           <Footer>
@@ -341,11 +330,9 @@ const LandingPage: React.FC = () => {
         <RightSide sideImage={landingRightSideImage} />
       </TopSection>
 
-      {searchTerm === "" && (
-        <FullWidthPathViewContainer>
-          <PathView />
-        </FullWidthPathViewContainer>
-      )}
+      <FullWidthPathViewContainer>
+        <PathView />
+      </FullWidthPathViewContainer>
     </PageContainer>
   );
 };

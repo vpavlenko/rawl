@@ -1,7 +1,11 @@
-import * as React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { corpora } from "./corpora/corpora";
+
+interface CorpusSearchProps {
+  onSearchChange: (term: string) => void;
+}
 
 const highlightMatch = (text: string, term: string) => {
   if (!term) return text;
@@ -40,7 +44,7 @@ const TotalCount = styled.span`
 
 const ResultsContainer = styled.div`
   width: 100%;
-  height: 400px;
+  height: 80vh;
   overflow-y: auto;
 `;
 
@@ -56,12 +60,20 @@ const Column = styled.div`
   box-sizing: border-box;
 `;
 
-const CorpusSearch: React.FC = () => {
-  const [searchTerm, setSearchTerm] = React.useState("");
-  const searchInputRef = React.useRef<HTMLInputElement>(null);
-  const [totalMidis, setTotalMidis] = React.useState(0);
+const HighlightedResult = styled.div<{ isSelected: boolean }>`
+  background-color: ${(props) =>
+    props.isSelected ? "rgba(255, 255, 0, 0.4)" : "transparent"};
+  padding: 0;
+  margin: 2px 0;
+`;
 
-  React.useEffect(() => {
+const CorpusSearch: React.FC<CorpusSearchProps> = ({ onSearchChange }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [totalMidis, setTotalMidis] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  useEffect(() => {
     if (searchInputRef.current) {
       searchInputRef.current.focus();
     }
@@ -85,6 +97,36 @@ const CorpusSearch: React.FC = () => {
         midiWords.some((word) => word.includes(term)),
     );
   });
+
+  const flattenedResults = React.useMemo(() => {
+    return filteredCorpora.flatMap(({ slug, midis }) => [
+      { type: "corpus", slug, url: `/corpus/${slug}` },
+      ...midis.map((midi) => ({ type: "midi", midi, url: `/f/${midi}` })),
+    ]);
+  }, [filteredCorpora]);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev + 1) % flattenedResults.length);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSelectedIndex(
+        (prev) =>
+          (prev - 1 + flattenedResults.length) % flattenedResults.length,
+      );
+    } else if (e.key === "Enter" && selectedIndex !== -1) {
+      e.preventDefault();
+      const selected = flattenedResults[selectedIndex];
+      window.open(selected.url, "_blank");
+    }
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newTerm = e.target.value;
+    setSearchTerm(newTerm);
+    onSearchChange(newTerm);
+  };
 
   const renderEmptySearchResults = () => {
     const sortedCorpora = filteredCorpora.sort(
@@ -114,21 +156,21 @@ const CorpusSearch: React.FC = () => {
   };
 
   return (
-    <SearchContainer>
+    <SearchContainer onKeyDown={handleKeyDown}>
       <SearchInputContainer>
         <SearchInput
           ref={searchInputRef}
           type="text"
           placeholder="Search composers or songs, eg. 'nocturne', 'entertainer', 'jaws', 'autumn leaves'"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={handleSearchChange}
         />
         <TotalCount>{totalMidis} MIDIs</TotalCount>
       </SearchInputContainer>
       <ResultsContainer>
         {searchTerm === ""
           ? renderEmptySearchResults()
-          : filteredCorpora.map(({ slug, midis }) => {
+          : filteredCorpora.map(({ slug, midis }, corpusIndex) => {
               const searchTerms = searchTerm.toLowerCase().split(/\s+/);
               const composerMatched = searchTerms.every((term) =>
                 slug
@@ -158,15 +200,23 @@ const CorpusSearch: React.FC = () => {
                       : {}
                   }
                 >
-                  <Link to={`/corpus/${slug}`}>
-                    {highlightMatch(slug.replace(/_/g, " "), searchTerm)}{" "}
-                    <span style={{ color: "white", fontSize: "0.6em" }}>
-                      {midis.length}
-                    </span>
-                  </Link>
+                  <HighlightedResult isSelected={selectedIndex === corpusIndex}>
+                    <Link to={`/corpus/${slug}`}>
+                      {highlightMatch(slug.replace(/_/g, " "), searchTerm)}{" "}
+                      <span style={{ color: "white", fontSize: "0.6em" }}>
+                        {midis.length}
+                      </span>
+                    </Link>
+                  </HighlightedResult>
                   {(composerMatched || searchTerm) &&
-                    matchingMidis.map((midi) => (
-                      <div key={midi} style={{ paddingLeft: "20px" }}>
+                    matchingMidis.map((midi, midiIndex) => (
+                      <HighlightedResult
+                        key={midi}
+                        isSelected={
+                          selectedIndex === corpusIndex + midiIndex + 1
+                        }
+                        style={{ paddingLeft: "20px" }}
+                      >
                         <a
                           href={`/f/${midi}`}
                           target="_blank"
@@ -177,7 +227,7 @@ const CorpusSearch: React.FC = () => {
                             searchTerm,
                           )}
                         </a>
-                      </div>
+                      </HighlightedResult>
                     ))}
                 </div>
               );

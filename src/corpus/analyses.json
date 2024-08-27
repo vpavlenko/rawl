@@ -73591,5 +73591,362 @@
     "modulations": {
       "1": 5
     }
+  },
+  "f/autumn-leaves-jazz-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 98,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10,
+      "6": 7,
+      "10": 10,
+      "14": 7,
+      "22": 10,
+      "26": 7,
+      "34": 10,
+      "38": 7,
+      "42": 10,
+      "46": 7,
+      "54": 10,
+      "58": 7,
+      "66": 10,
+      "70": 7,
+      "74": 10,
+      "78": 7,
+      "86": 10,
+      "90": 7
+    }
+  },
+  "f/solas---jamie-duffy": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 74,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      7,
+      11,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/nocturne-in-c-sharp-minor": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 33,
+        "diff": 1
+      },
+      {
+        "measure": 34,
+        "diff": -1
+      },
+      {
+        "measure": 49,
+        "diff": -2
+      },
+      {
+        "measure": 55,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      8,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1,
+      "21": 9,
+      "25": 6,
+      "27": 1,
+      "31": 8,
+      "47": 1
+    }
+  },
+  "f/still-dre---variation-composition": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/nocturne-in-c-minor-op.-posth.-d.-inoue": {
+    "measures": {
+      "beatsPerMeasure": {},
+      "measureStarts": {
+        "1": 2,
+        "2": 6.14756,
+        "3": 11.472221,
+        "6": 26.19747487499999,
+        "7": 30.054820874999987
+      }
+    },
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -1
+      },
+      {
+        "measure": 2,
+        "diff": 1
+      },
+      {
+        "measure": 6,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1,
+      "22": 9,
+      "26": 6,
+      "28": 1,
+      "32": 8
+    }
+  },
+  "f/fantaisie-impromptu-in-c-minor---chopin": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 45,
+        "diff": -2
+      },
+      {
+        "measure": 47,
+        "diff": -1
+      },
+      {
+        "measure": 46,
+        "diff": 1
+      },
+      {
+        "measure": 131,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6,
+      10,
+      11,
+      13,
+      16,
+      19,
+      21,
+      26,
+      30,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1,
+      "10": 8,
+      "13": 4,
+      "19": 1,
+      "55": 3,
+      "57": 1,
+      "71": 8,
+      "75": 1,
+      "79": 3,
+      "81": 1
+    }
+  },
+  "f/what-falling-in-love-feels-like---jake25.17-fanmade-extended-version": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": 2
+      },
+      {
+        "measure": 12,
+        "diff": -1
+      },
+      {
+        "measure": 19,
+        "diff": -1
+      },
+      {
+        "measure": 46,
+        "diff": 1
+      },
+      {
+        "measure": 51,
+        "diff": 1
+      },
+      {
+        "measure": 60,
+        "diff": 1
+      },
+      {
+        "measure": 69,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      12,
+      13,
+      15,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/wa-mozart-marche-turque-turkish-march-fingered": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      },
+      {
+        "measure": 19,
+        "diff": 1
+      },
+      {
+        "measure": 36,
+        "diff": 1
+      },
+      {
+        "measure": 53,
+        "diff": 1
+      },
+      {
+        "measure": 70,
+        "diff": 1
+      },
+      {
+        "measure": 62,
+        "diff": 1
+      },
+      {
+        "measure": 80,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "72": 6
+    }
   }
 }

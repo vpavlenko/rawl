@@ -1008,6 +1008,9 @@ export const corpora: Corpora[] = [
       "autumn-leaves-les-feuilles-mortes",
       "autumn-leaves---jazz-piano-solo-tutorial", // need more remeasuring
       "bill-evans-on-autunm-leaves-from-the-album-portrait-in-jazz",
+      "autumn-leaves-jazz-piano",
+      "autumn-leaves-in-c",
+      "autumn_leaves_diatonic",
     ],
   },
   {
@@ -1888,6 +1891,10 @@ export const corpora: Corpora[] = [
     slug: "chopin_misc",
     midis: [
       "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
+      "chopin_nocturne_op9_no2_maestro_2011r3d3t5",
+      "nocturne-in-c-minor-op.-posth.-d.-inoue",
+      "nocturne-in-c-sharp-minor",
+
       "chopin---waltz-no.-1-in-d-flat-major-op.-64",
       "chopin---waltz-no.-1-in-d-flat-major-op.-64",
       "Waltz_in_A_MinorChopin",
@@ -1896,10 +1903,11 @@ export const corpora: Corpora[] = [
       "chopin_ballade_no_1_in_g_minor_op_23",
       "chopin_ballade_no_4_piano_solo",
       "chopin_military_polonaise",
-      "chopin_nocturne_op9_no2_maestro_2011r3d3t5",
-      "chopin_raindrop_prelude",
+
+      "fantaisie-impromptu-in-c-minor---chopin",
     ],
   },
+
   {
     slug: "chopin_24_preludes",
     midis: [
@@ -1908,6 +1916,7 @@ export const corpora: Corpora[] = [
 
       "chopin-prelude-e-minor-op-28-no-4-w-chord-symbols",
       "prelude-opus-28-no.-6-in-b-minor",
+      "chopin_raindrop_prelude",
     ],
   },
   {
@@ -2538,6 +2547,9 @@ export const corpora: Corpora[] = [
       "gankino-2",
       "kasapsko",
       "maricensko",
+      "chetvorno_shopsko_fixed",
+      "daichovo-chara",
+      "daichovo-hora",
     ],
   },
   {
@@ -2566,10 +2578,8 @@ export const corpora: Corpora[] = [
       "Golden_Hour__JVKE_Updated_Ver.",
       "Game_of_Thrones_Easy_piano",
       "Someone_You_Loved",
-      "Ed_Sheeran_Perfect",
       "Believer_-_Imagine_Dragons",
       "Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019",
-      "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
       "tude_S._1413_in_G_Minor_La_Campanella__Liszt",
       "Liebestraum_No._3_in_A_Major",
       "Mad_world_Piano",
@@ -2585,6 +2595,35 @@ export const corpora: Corpora[] = [
       "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
       "a-thousand-years",
       "Disney_Pixar_Up_Theme",
+      "wa-mozart-marche-turque-turkish-march-fingered",
+      "Viva_La_Vida_Coldplay",
+      "Gravity_Falls_Opening",
+      "the_entertainer_scott_joplin",
+      "John_Lennon_Imagine",
+      "Lovely_Billie_Eilish",
+      "fantaisie-impromptu-in-c-minor---chopin",
+      "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
+      "the-scientist---coldplay-piano-arrangement",
+      "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
+      "ballade-pour-adeline---richard-clayderman",
+      "Ed_Sheeran_Perfect",
+      "Fallen_Down_Undertale",
+      "Omori_Duet",
+      "Never_Gonna_Give_You_Up",
+      "Despacito",
+      "despacito-piano-cover-peter-bence",
+      "Summer_Joe_Hisaishi",
+      "arabesque-l.-66-no.-1-in-e-major",
+      "chopin-prelude-e-minor-op-28-no-4-w-chord-symbols",
+      "still-dre---variation-composition",
+      "what-falling-in-love-feels-like---jake25.17-fanmade-extended-version",
+      "solas---jamie-duffy",
+      "autumn-leaves-jazz-piano",
+      "clocks---coldplay",
+      "Sadness_and_Sorrow",
+      "Cant_Help_Falling_In_Love",
+      "Super_Mario_Bros_Main_Theme",
+      "nocturne-in-c-sharp-minor",
     ],
   },
   {
@@ -2609,20 +2648,17 @@ export const corpora: Corpora[] = [
       "Blues_for_Alice",
       "Blues_in_the_Closet_Lead_sheet_",
 
-      "Cant_Help_Falling_In_Love",
-
       "Chris_Isaak_Wicked_Game",
 
       "Close_to_the_edge",
       "Coffin_dance",
       "Dawn_Pride_and_Prejudice",
-      "Despacito",
 
       "Dream_a_little_dream_of_me",
 
       "Ed_Sheeran_Shape_of_you",
       "Entry_of_the_Gladiators_-_Julius_Fuk_-_1897",
-      "Fallen_Down_Undertale",
+
       "Feliz_Navidad",
       "Flight_Facilities_Crave_You",
       "Flight_Facilities_Crave_You_2",
@@ -2631,7 +2667,6 @@ export const corpora: Corpora[] = [
       "Godfather",
 
       "Good_Bye_Hachiko",
-      "Gravity_Falls_Opening",
 
       "Happy_Birthday_to_You",
       "Hit_the_Road_Jack",
@@ -2639,7 +2674,7 @@ export const corpora: Corpora[] = [
       "Im_Blue_Eiffel_65",
 
       "Jingle_Bell_Rock",
-      "John_Lennon_Imagine",
+
       "Johnny_Cash_Hurt",
 
       "Jolene",
@@ -2656,16 +2691,14 @@ export const corpora: Corpora[] = [
 
       "Love_Like_You_Steven_Universe",
       "Love_Store_Francis_Lai",
-      "Lovely_Billie_Eilish",
 
       "Michael_Giaccino_Married_Life",
       "Misty_piano_solo",
       "Moon_River_Breakfast_at_Tiffanys",
       "Morphine_Cure_for_Pain",
       "My_War_Attack_on_Titan",
-      "Never_Gonna_Give_You_Up",
+
       "Numb_-_Linkin_Park",
-      "Omori_Duet",
 
       "Ophelia",
       "Photograph_Ed_Sheeran",
@@ -2676,14 +2709,12 @@ export const corpora: Corpora[] = [
       "Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet",
       "Requiem_for_a_Dream",
 
-      "Sadness_and_Sorrow",
       "Saint_Saens_Symphony_3_1st",
       "Sandu",
       "Schindlers_List",
 
       "Sorcerers_doll___-_The_King_and_the_Jester___",
 
-      "Super_Mario_Bros_Main_Theme",
       "Super_Mario_Bros_Peaches",
       "Sviridov_Snowstorm_Waltz",
       "Sviridov_Time_Foward",
@@ -2704,7 +2735,7 @@ export const corpora: Corpora[] = [
       "To_be_over",
 
       "Vangelis_Chariots_of_fire",
-      "Viva_La_Vida_Coldplay",
+
       "Vivaldi_-_Summer__The_Four_Seasons__-_Rousseau",
       "Walking_On_a_dream",
 
@@ -2720,13 +2751,11 @@ export const corpora: Corpora[] = [
       "as_it_was_harry_styles",
       "asphyxia---tokyo-ghoul-re-op",
       "attack-on-titan-theme-guren-no-yumiya",
-      "autumn-leaves-in-c",
-      "autumn_leaves_diatonic",
+
       "average_rag_1",
       "average_rag_2",
 
       "bagatelle_in_g_minor_op_119_no_1_ludwig_van_beethoven_16_07_1770_26_03_1827_piano_solo",
-      "ballade-pour-adeline---richard-clayderman",
 
       "beethoven_sonata_in_f_minor_op_2_no_1_movement_i",
       "beethoven_sonata_in_g_op_14_no_2_movement_i",
@@ -2742,7 +2771,6 @@ export const corpora: Corpora[] = [
       "bruckner_symphony_4_1",
       "bubamara",
       "cheek_to_cheek",
-      "chetvorno_shopsko_fixed",
 
       "classical_music_mashup",
       "clocks---coldplay",
@@ -2752,8 +2780,7 @@ export const corpora: Corpora[] = [
       "contract---poshlaya-molly-easy-piano",
       "corelli_op1_no8_ii",
       "cuphead_a_quick_break",
-      "daichovo-chara",
-      "daichovo-hora",
+
       "dance-of-the-knights-transcription-for-piano-solo",
       "dazhe-moya-beybi-ne-znaet---poshlaya-molli",
       "diatonic-7th-chords-in-major-key",
@@ -2848,7 +2875,7 @@ export const corpora: Corpora[] = [
       "river_flows_in_you_yiruma_10th_anniversary_version_piano",
       "roumen-sirakov-s-daichevo",
       "rumores-de-la-caleta-malaguena",
-      "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
+
       "sadness-and-sorrow",
 
       "sasha_2",
@@ -2875,7 +2902,7 @@ export const corpora: Corpora[] = [
       "the-blues-scale-in-all-12-keys",
       "the-four-chord-song---axis-of-awesome",
       "the-office-opening-theme",
-      "the-scientist---coldplay-piano-arrangement",
+
       "the-washington-post-piano-john-philip-sousa",
 
       "the_lamp_is_low",

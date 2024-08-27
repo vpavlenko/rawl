@@ -316,7 +316,6 @@ const Measure: React.FC<{
                 )}
                 {selectedMeasure !== null &&
                   selectedPhraseStart === selectedMeasure &&
-                  sectionSpan?.[0] !== selectedMeasure - 1 &&
                   Object.entries(KEY_TO_OFFSET).map(([key, offset]) => {
                     const targetMeasure = selectedMeasure + offset;
                     if (targetMeasure === number) {

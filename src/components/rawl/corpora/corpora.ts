@@ -305,8 +305,11 @@ export const corpora: Corpora[] = [
     midis: [],
   },
   {
-    slug: "misc_bach",
-    midis: ["bach-goldberg-variation-00-aria"],
+    slug: "bach_misc",
+    midis: [
+      "bach-goldberg-variation-00-aria",
+      "bwv0565-toccata-and-fugue-in-dm-c",
+    ],
   },
   {
     slug: "bach_french_suite_no2",
@@ -476,6 +479,7 @@ export const corpora: Corpora[] = [
   {
     slug: "happy_birthday",
     midis: [
+      "happy-birthday-to-you-c-major",
       "happy-birthday-song-in-jazz-arr.-by-jonny-may",
       "happy-birthday-tango",
       "happy-birthday-tango-variation",
@@ -1094,6 +1098,7 @@ export const corpora: Corpora[] = [
       "thundercats-theme",
       "mighty-morphin-power-rangers-sheet-music-easy-piano",
       "digimon-main-theme-organ-cover",
+      "vizisi",
     ],
   },
   {
@@ -2408,12 +2413,20 @@ export const corpora: Corpora[] = [
   },
   {
     // https://musescore.com/user/19710/sets
-    slug: "beethoven_sonatas",
+    slug: "beethoven",
     midis: [
       "beethoven---sonata-in-f-minor-op.2-no.1-movement-i",
       "Sonate_No._14_Moonlight_1st_Movement",
       "moonlight_sonata_ludwig_van_beethoven_piano_solo",
       "Sonate_No._14_Moonlight_3rd_Movement",
+      "sonate-no.-17-tempest-3rd-movement",
+      "sonatina_in_g_beethoven_anh_5_no_1_beethoven",
+      "bagatelle_in_g_minor_op_119_no_1_ludwig_van_beethoven_16_07_1770_26_03_1827_piano_solo",
+      "beethoven-symphony-no.-5-1st-movement-piano-solo",
+      "beethoven_sonata_in_f_minor_op_2_no_1_movement_i",
+      "beethoven_sonata_in_g_op_14_no_2_movement_i",
+      "beethoven_sonate_5_1st",
+      "beethoven_trio_for_clarinet_cello_and_piano_no_4_op_11_2nd_movement",
     ],
   },
   {
@@ -2578,7 +2591,7 @@ export const corpora: Corpora[] = [
       "Another_Love__-_Tom_Odell_Professional",
       "Golden_Hour__JVKE_Updated_Ver.",
       "Game_of_Thrones_Easy_piano",
-      "Someone_You_Loved",
+
       "Believer_-_Imagine_Dragons",
       "Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019",
       "tude_S._1413_in_G_Minor_La_Campanella__Liszt",
@@ -2621,7 +2634,7 @@ export const corpora: Corpora[] = [
       "autumn-leaves-jazz-piano",
       "clocks---coldplay",
       "Sadness_and_Sorrow",
-      "Cant_Help_Falling_In_Love",
+
       "Super_Mario_Bros_Main_Theme",
       "nocturne-in-c-sharp-minor",
       "gurenge--demon-slayer-kimetsu-no-yaiba-op",
@@ -2658,6 +2671,14 @@ export const corpora: Corpora[] = [
       "sia---snowman",
       "flight-of-the-bumblebee",
       "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2",
+      "bwv0565-toccata-and-fugue-in-dm-c",
+      "happy-birthday-to-you-c-major",
+      "Requiem_for_a_Dream",
+      "Legend_of_Zelda_Great_Fairy_Fountain",
+      "piano_sonata_no_16_in_c_major_k_545_wolfgang_amadeus_mozart_piano_solo",
+      "Cant_Help_Falling_In_Love",
+      "Someone_You_Loved",
+      "sonate-no.-17-tempest-3rd-movement",
     ],
   },
   {
@@ -2715,7 +2736,7 @@ export const corpora: Corpora[] = [
       "Krylya_Nautilus_duo",
       "Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki",
       "Lady_Gaga_Always_remember_us_this_way",
-      "Legend_of_Zelda_Great_Fairy_Fountain",
+
       "Lena_Raine_Pigstep",
 
       "Let_It_Go_Disney_Frozen",
@@ -2738,7 +2759,6 @@ export const corpora: Corpora[] = [
       "Pokemon_Theme_Song",
 
       "Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet",
-      "Requiem_for_a_Dream",
 
       "Saint_Saens_Symphony_3_1st",
       "Sandu",
@@ -2784,12 +2804,6 @@ export const corpora: Corpora[] = [
       "average_rag_1",
       "average_rag_2",
 
-      "bagatelle_in_g_minor_op_119_no_1_ludwig_van_beethoven_16_07_1770_26_03_1827_piano_solo",
-
-      "beethoven_sonata_in_f_minor_op_2_no_1_movement_i",
-      "beethoven_sonata_in_g_op_14_no_2_movement_i",
-      "beethoven_sonate_5_1st",
-      "beethoven_trio_for_clarinet_cello_and_piano_no_4_op_11_2nd_movement",
       "bheki_mseleku_angola",
       "brahms_118_1",
       "brahms_op118_1",
@@ -2918,7 +2932,7 @@ export const corpora: Corpora[] = [
       "sonata_no_13_1st_movement_k_333",
       "sonata_no_9_3rd_movement_k_311",
       "sonatina-in-c-major---dennis-alexander",
-      "sonatina_in_g_beethoven_anh_5_no_1_beethoven",
+
       "sorcerer_s_puppet_the_king_and_the_jester",
       "steve-reich---piano-phase",
       "string_quartet_in_g_major_hob_iii_75_op_76_no_1_joseph_haydn",
@@ -2944,7 +2958,7 @@ export const corpora: Corpora[] = [
       "underground_tango_goran_bregovic_string_quartet",
 
       "varshaver-freylekhs-klezmer-tune",
-      "vizisi",
+
       "white_christmas",
       "wonder-wave-by-david-lanz",
     ],

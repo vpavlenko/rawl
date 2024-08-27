@@ -401,13 +401,34 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   async saveAnalysis(analysis) {
-    if (this.state.currentMidi) {
-      this.setState((prevState) => ({
-        analyses: {
-          ...prevState.analyses,
-          [`f/${this.state.currentMidi.slug}`]: analysis,
-        },
-      }));
+    const user = this.state.user;
+    if (user) {
+      const userRef = doc(this.db, "users", user.uid);
+      const userDoc = await getDoc(userRef);
+
+      let userData = userDoc.exists() ? userDoc.data() : {};
+      userData.analyses = {
+        ...(userData.analyses ?? {}),
+        [this.path]: analysis,
+      };
+
+      await setDoc(userRef, userData).catch((e) => {
+        console.log("Couldn't save analysis.", e);
+        alert("Could not save analysis");
+      });
+
+      this.setState({
+        analyses: userData.analyses,
+      });
+    } else {
+      if (this.state.currentMidi) {
+        this.setState((prevState) => ({
+          analyses: {
+            ...prevState.analyses,
+            [`f/${this.state.currentMidi.slug}`]: analysis,
+          },
+        }));
+      }
     }
   }
 
@@ -584,18 +605,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }
     this.setState({ paused: paused });
   }
-
-  // I save it here as a memory on how to save anything on a user's account.
-  //
-  // const user = this.state.user;
-  // if (user) {
-  //   const userRef = doc(this.db, "users", user.uid);
-  //   updateDoc(userRef, {
-  //     settings: { showPlayerSettings: showPlayerSettings },
-  //   }).catch((e) => {
-  //     console.log("Couldn't update settings in Firebase.", e);
-  //   });
-  // }
 
   handleTimeSliderChange(event) {
     const pos = event.target ? event.target.value : event;

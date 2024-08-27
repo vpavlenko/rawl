@@ -160,8 +160,17 @@ const AppFooter: React.FC<
                 title={paused ? "Resume (use Space)" : "Pause (use Space)"}
                 className="box-button"
                 disabled={ejected}
+                style={{
+                  width: "30px",
+                  height: "22px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "16px",
+                  lineHeight: 1,
+                }}
               >
-                {paused ? " ► " : " ⏸ "}
+                {paused ? "►" : "⏸"}
               </button>{" "}
             </span>
             <TimeSlider

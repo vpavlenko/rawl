@@ -737,12 +737,13 @@ class App extends React.Component<RouteComponentProps, AppState> {
     if (this.midiPlayer) {
       console.log("MIDIPlayer exists, loading data");
 
-      // Convert Blob to ArrayBuffer
       midiBlob
         .arrayBuffer()
         .then((arrayBuffer) => {
+          const transformedBuffer = transformMidi(new Uint8Array(arrayBuffer));
+
           this.midiPlayer
-            .loadData(arrayBuffer, this.state.currentMidi?.slug || "")
+            .loadData(transformedBuffer, this.state.currentMidi?.slug || "")
             .then((parsingResult) => {
               console.log("MIDI data loaded, parsing result:", parsingResult);
               this.setState({ parsing: parsingResult }, () => {
@@ -996,7 +997,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
   async playSongBuffer(filepath: string, buffer: ArrayBuffer | Uint8Array) {
     this.midiPlayer.suspend();
-    const uint8Array = new Uint8Array(buffer);
+    const uint8Array = transformMidi(new Uint8Array(buffer));
+
     this.hash = md5(uint8Array);
     console.log("MD5", this.hash);
     this.midiPlayer.setTempo(1);

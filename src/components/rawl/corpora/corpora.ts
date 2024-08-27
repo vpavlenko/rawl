@@ -1132,7 +1132,7 @@ export const corpora: Corpora[] = [
   },
   {
     slug: "rimsky-korsakoff",
-    midis: ["song-of-the-indian-guest"],
+    midis: ["song-of-the-indian-guest", "flight-of-the-bumblebee"],
   },
   {
     // https://musescore.com/user/68853055
@@ -2653,6 +2653,11 @@ export const corpora: Corpora[] = [
       "waltz-opus-64-no.-2-in-c-minor",
       "the-legend-of-zelda-main-theme-easy",
       "undertale-ost---nyeh-heh-heh-bonetrousle",
+      "minuet-bwv-anhang-114-in-g-major",
+      "ylang-ylang---fkj-transcribed-by-lilroo",
+      "sia---snowman",
+      "flight-of-the-bumblebee",
+      "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2",
     ],
   },
   {

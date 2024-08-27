@@ -59,17 +59,16 @@ const Column = styled.div`
 const CorpusSearch: React.FC = () => {
   const [searchTerm, setSearchTerm] = React.useState("");
   const searchInputRef = React.useRef<HTMLInputElement>(null);
+  const [totalMidis, setTotalMidis] = React.useState(0);
 
   React.useEffect(() => {
     if (searchInputRef.current) {
       searchInputRef.current.focus();
     }
-  }, []);
 
-  const totalMidis = corpora.reduce(
-    (sum, corpus) => sum + corpus.midis.length,
-    0,
-  );
+    const uniqueMidis = new Set(corpora.flatMap((corpus) => corpus.midis));
+    setTotalMidis(uniqueMidis.size);
+  }, []);
 
   const filteredCorpora = corpora.filter(
     (corpus) =>

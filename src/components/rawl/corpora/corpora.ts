@@ -2522,6 +2522,20 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "musescore_top",
+    midis: [
+      "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
+      "River_Flows_In_You",
+      "Canon_in_D",
+      "Fr_Elise",
+      "Clair_de_Lune__Debussy",
+      "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
+      "Gymnopdie_No._1__Satie",
+      "Hallelujah",
+      "Waltz_in_A_MinorChopin",
+    ],
+  },
+  {
     slug: "unsorted",
     midis: [
       "A_Thousand_Miles",
@@ -2562,15 +2576,14 @@ export const corpora: Corpora[] = [
       "Flight_Facilities_Crave_You",
       "Flight_Facilities_Crave_You_2",
       "Fly_Me_to_the_Moon",
-      "Fr_Elise",
+
       "Game_of_Thrones_Easy_piano",
       "Gershwin_Rhapsody_in_Blue_Piano_solo",
       "Godfather",
       "Golden_Hour__JVKE_Updated_Ver.",
       "Good_Bye_Hachiko",
       "Gravity_Falls_Opening",
-      "Gymnopdie_No._1__Satie",
-      "Hallelujah",
+
       "Happy_Birthday_to_You",
       "Hit_the_Road_Jack",
       "How_long_blues",
@@ -2616,7 +2629,7 @@ export const corpora: Corpora[] = [
 
       "Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet",
       "Requiem_for_a_Dream",
-      "River_Flows_In_You",
+
       "Sadness_and_Sorrow",
       "Saint_Saens_Symphony_3_1st",
       "Sandu",

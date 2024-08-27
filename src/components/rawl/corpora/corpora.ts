@@ -30,6 +30,7 @@ export const corpora: Corpora[] = [
       "yiruma_spring_time",
       "yiruma_wait_there",
       "yiruma_when_the_love_falls",
+      "Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019",
     ],
   },
   {
@@ -589,6 +590,7 @@ export const corpora: Corpora[] = [
       "mice-on-venus-minecraft",
       "subwoofer-lullaby-minecraft",
       "Sweden_Minecraft",
+      "Wet_Hands_Minecraft",
     ],
   },
   {
@@ -2519,6 +2521,10 @@ export const corpora: Corpora[] = [
       "seymour_pajdusko_oro",
       "bavno-oro",
       "dospatsko-oro---misc-tunes",
+      "gankino",
+      "gankino-2",
+      "kasapsko",
+      "maricensko",
     ],
   },
   {
@@ -2533,6 +2539,37 @@ export const corpora: Corpora[] = [
       "Gymnopdie_No._1__Satie",
       "Hallelujah",
       "Waltz_in_A_MinorChopin",
+      "Pirates_of_the_Caribbean_-_Hes_a_Pirate",
+      "Sonate_No._14_Moonlight_1st_Movement",
+      "passacaglia---handel-halvorsen",
+      "Je_Te_Laisserai_Des_Mots_-_Patrick_Watson",
+      "One_Summers_Day_Spirited_Away",
+      "Undertale_-_Megalovania_Piano_ver._3",
+      "Carol_of_the_Bells",
+      "Sonate_No._14_Moonlight_3rd_Movement",
+      "Sweden_Minecraft",
+      "Interstellar",
+      "Another_Love__-_Tom_Odell_Professional",
+      "Golden_Hour__JVKE_Updated_Ver.",
+      "Game_of_Thrones_Easy_piano",
+      "Someone_You_Loved",
+      "Ed_Sheeran_Perfect",
+      "Believer_-_Imagine_Dragons",
+      "Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019",
+      "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
+      "tude_S._1413_in_G_Minor_La_Campanella__Liszt",
+      "Liebestraum_No._3_in_A_Major",
+      "Mad_world_Piano",
+      "Mariage_dAmour",
+      "Someone_Like_You_easy_piano",
+      "my-heart-will-go-on", // double-tonic
+      "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2",
+      "Wet_Hands_Minecraft",
+      "Fly_Me_to_the_Moon",
+      "piano-man-piano",
+      "All_I_Want_for_Christmas_is_You",
+      "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
+      "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
     ],
   },
   {
@@ -2540,17 +2577,16 @@ export const corpora: Corpora[] = [
     midis: [
       "A_Thousand_Miles",
       "Alice_DJ_Better_Off_Alone",
-      "All_I_Want_for_Christmas_is_You",
-      "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
+
       "Alone_Marshmello",
       "Anders_Thue_Sonne",
-      "Another_Love__-_Tom_Odell_Professional",
+
       "Attack_on_Titan_Shinzou_wo_Sasageyo",
       "Avicii_Wake_me_up",
       "Avril_14_Aphex_Twin",
       "Axel_F_Beverly_Hills_Cop_III",
       "Bags_Groove__Lead_sheet_",
-      "Believer_-_Imagine_Dragons",
+
       "Bella_Ciao",
       "Billie_Eilish_Bad_Guy",
       "Billie_s_Bounce_Billies_Bounce",
@@ -2559,7 +2595,7 @@ export const corpora: Corpora[] = [
       "Blues_in_the_Closet_Lead_sheet_",
 
       "Cant_Help_Falling_In_Love",
-      "Carol_of_the_Bells",
+
       "Chris_Isaak_Wicked_Game",
 
       "Close_to_the_edge",
@@ -2568,19 +2604,17 @@ export const corpora: Corpora[] = [
       "Despacito",
       "Disney_Pixar_Up_Theme",
       "Dream_a_little_dream_of_me",
-      "Ed_Sheeran_Perfect",
+
       "Ed_Sheeran_Shape_of_you",
       "Entry_of_the_Gladiators_-_Julius_Fuk_-_1897",
       "Fallen_Down_Undertale",
       "Feliz_Navidad",
       "Flight_Facilities_Crave_You",
       "Flight_Facilities_Crave_You_2",
-      "Fly_Me_to_the_Moon",
 
-      "Game_of_Thrones_Easy_piano",
       "Gershwin_Rhapsody_in_Blue_Piano_solo",
       "Godfather",
-      "Golden_Hour__JVKE_Updated_Ver.",
+
       "Good_Bye_Hachiko",
       "Gravity_Falls_Opening",
 
@@ -2588,15 +2622,14 @@ export const corpora: Corpora[] = [
       "Hit_the_Road_Jack",
       "How_long_blues",
       "Im_Blue_Eiffel_65",
-      "Interstellar",
-      "Je_Te_Laisserai_Des_Mots_-_Patrick_Watson",
+
       "Jingle_Bell_Rock",
       "John_Lennon_Imagine",
       "Johnny_Cash_Hurt",
-      "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2",
+
       "Jolene",
       "Jupiter_-_arr._for_two_pianos_by_Gustav_Holst",
-      "Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019",
+
       "Krylya_Nautilus_duo",
       "Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki",
       "Lady_Gaga_Always_remember_us_this_way",
@@ -2605,12 +2638,10 @@ export const corpora: Corpora[] = [
       "Let_Her_Go_Passenger",
       "Let_It_Go_Disney_Frozen",
       "Liana_Flores_Rises_the_Moon",
-      "Liebestraum_No._3_in_A_Major",
+
       "Love_Like_You_Steven_Universe",
       "Love_Store_Francis_Lai",
       "Lovely_Billie_Eilish",
-      "Mad_world_Piano",
-      "Mariage_dAmour",
 
       "Michael_Giaccino_Married_Life",
       "Misty_piano_solo",
@@ -2620,11 +2651,11 @@ export const corpora: Corpora[] = [
       "Never_Gonna_Give_You_Up",
       "Numb_-_Linkin_Park",
       "Omori_Duet",
-      "One_Summers_Day_Spirited_Away",
+
       "Ophelia",
       "Photograph_Ed_Sheeran",
       "Pink_Panther",
-      "Pirates_of_the_Caribbean_-_Hes_a_Pirate",
+
       "Pokemon_Theme_Song",
 
       "Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet",
@@ -2634,8 +2665,7 @@ export const corpora: Corpora[] = [
       "Saint_Saens_Symphony_3_1st",
       "Sandu",
       "Schindlers_List",
-      "Someone_Like_You_easy_piano",
-      "Someone_You_Loved",
+
       "Sorcerers_doll___-_The_King_and_the_Jester___",
 
       "Super_Mario_Bros_Main_Theme",
@@ -2657,15 +2687,14 @@ export const corpora: Corpora[] = [
       "The_Weeknd_Blinding_Lights",
       "Titanic",
       "To_be_over",
-      "Undertale_-_Megalovania_Piano_ver._3",
+
       "Vangelis_Chariots_of_fire",
       "Viva_La_Vida_Coldplay",
       "Vivaldi_-_Summer__The_Four_Seasons__-_Rousseau",
       "Walking_On_a_dream",
-      "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
 
       "Wellerman_Sea_Shanty",
-      "Wet_Hands_Minecraft",
+
       "Yann_Tiersen_Amelie",
       "You_ve_got_a_friend_in_me",
       "Zeldas_Lullaby",
@@ -2726,8 +2755,7 @@ export const corpora: Corpora[] = [
       "firuze",
       "four-chord-song",
       "gamzedeyim_deva_bulmam",
-      "gankino",
-      "gankino-2",
+
       "gavotte",
       "gavotte_f_j_gossec",
       "glavinishko-cetvorno",
@@ -2751,7 +2779,7 @@ export const corpora: Corpora[] = [
       "ii-v-i-warmup",
       "kalasnjikov",
       "kars_1_tigran_hamasyan",
-      "kasapsko",
+
       "kimigayo_national_anthem_of_japan",
       "korobeiniki-tetris",
       "kukla_kolduna",
@@ -2760,7 +2788,7 @@ export const corpora: Corpora[] = [
       "malaguena-facil",
       "malenkiy-princ",
       "maple_starts",
-      "maricensko",
+
       "mesecina",
       "mihail-krug-vladimirskiy-central",
       "moments_musicaux_d_780_no_3_in_f_minor",
@@ -2776,7 +2804,6 @@ export const corpora: Corpora[] = [
       "now_voyager_suite_max_steiner",
       "opa-cupa",
       "pavane_pour_une_infante_defunte_ravel_recorder",
-      "piano-man-piano",
 
       "piano_sonata_no_16_in_c_major_k_545_wolfgang_amadeus_mozart_piano_solo",
       "piano_sonata_no_3_in_c_major_op_2_no_3_ludwig_van_beethoven_piano_sonata_no_3_in_c_major_op_2_no_3_complete",
@@ -2846,7 +2873,7 @@ export const corpora: Corpora[] = [
       "this_charming_man_the_smiths_piano_vocal_guitar",
       "tipichnaya_vecherinka_s_basseynom",
       "tomorrow---giovanni-allevi",
-      "tude_S._1413_in_G_Minor_La_Campanella__Liszt",
+
       "underground-cocek",
       "underground_tango_goran_bregovic_string_quartet",
       "undertale-ost---hopes-and-dreams-save-the-world",

@@ -12,21 +12,13 @@ const shortcuts = {
     ArrowRight: "Seek forward 5 seconds",
     f: "Switch to frozen layout",
   },
-  "System Layout": {
-    a: "Decrease second width",
-    d: "Increase second width",
-    s: "Increase note height",
-    w: "Decrease note height",
-  },
 };
 
 const styles = {
   container: {
     fontFamily: "Arial, sans-serif",
-    backgroundColor: "#1e1e1e",
     color: "#ffffff",
     padding: "20px",
-    borderRadius: "5px",
     maxWidth: "600px",
     margin: "0 auto",
   },

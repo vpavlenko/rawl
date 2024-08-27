@@ -924,6 +924,11 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
     debounceSetNoteHeight,
   ]);
 
+  const TinyLetter = styled.span`
+    font-size: 10px;
+    color: #999;
+  `;
+
   return (
     <>
       <div
@@ -949,6 +954,18 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
             zIndex: 100000,
           }}
         >
+          <span style={{ position: "relative", top: -3, left: 18 }}>
+            <TinyLetter>w</TinyLetter>
+          </span>
+          <span
+            style={{
+              position: "relative",
+              top: 169,
+              left: 13,
+            }}
+          >
+            <TinyLetter>s</TinyLetter>
+          </span>
           <input
             type="range"
             min="1"
@@ -972,6 +989,9 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
             zIndex: 100000,
           }}
         >
+          <span style={{ position: "relative", top: -5, left: 0 }}>
+            <TinyLetter>a</TinyLetter>
+          </span>
           <input
             type="range"
             min="2"
@@ -984,6 +1004,9 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
               width: 240,
             }}
           />
+          <span style={{ position: "relative", top: -5, left: 0 }}>
+            <TinyLetter>d</TinyLetter>
+          </span>
         </div>
 
         {sections.map(

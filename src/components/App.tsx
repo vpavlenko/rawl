@@ -1200,6 +1200,15 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 isOpen={this.state.showShortcutHelp}
                 onRequestClose={this.toggleShortcutHelp}
                 contentLabel="Keyboard Shortcuts"
+                style={{
+                  content: {
+                    background: "black",
+                    border: "none",
+                  },
+                  overlay: {
+                    backgroundColor: "rgba(0, 0, 0, 0.75)",
+                  },
+                }}
               >
                 <ShortcutHelp />
               </Modal>

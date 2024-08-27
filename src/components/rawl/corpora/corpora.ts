@@ -1898,6 +1898,7 @@ export const corpora: Corpora[] = [
       "chopin---waltz-no.-1-in-d-flat-major-op.-64",
       "chopin---waltz-no.-1-in-d-flat-major-op.-64",
       "Waltz_in_A_MinorChopin",
+      "waltz-opus-64-no.-2-in-c-minor",
 
       "chopin_ballade_fminor_op52",
       "chopin_ballade_no_1_in_g_minor_op_23",
@@ -2583,7 +2584,6 @@ export const corpora: Corpora[] = [
       "tude_S._1413_in_G_Minor_La_Campanella__Liszt",
       "Liebestraum_No._3_in_A_Major",
       "Mad_world_Piano",
-      "Mariage_dAmour",
       "Someone_Like_You_easy_piano",
       "my-heart-will-go-on", // double-tonic
       "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2",
@@ -2624,6 +2624,35 @@ export const corpora: Corpora[] = [
       "Cant_Help_Falling_In_Love",
       "Super_Mario_Bros_Main_Theme",
       "nocturne-in-c-sharp-minor",
+      "gurenge--demon-slayer-kimetsu-no-yaiba-op",
+      "Let_Her_Go_Passenger",
+      "dragonborn---skyrim-theme-song-piano-solo",
+      "Michael_Giaccino_Married_Life",
+      "undertale-ost---hopes-and-dreams-save-the-world",
+      "Zeldas_Lullaby",
+      "doki-doki-literature-club-ost---your-reality",
+      "attack-on-titan-theme-guren-no-yumiya",
+      "Bella_Ciao",
+      "Mariage_dAmour",
+      "Maple_Leaf_Rag_Scott_Joplin",
+      "the-office-opening-theme",
+      "Take_on_me",
+      "chopin_ballade_no_1_in_g_minor_op_23",
+      "Dawn_Pride_and_Prejudice",
+      "congratulations---mac-miller",
+      "Schindlers_List",
+      "theme-from-schindler-s-list---piano-solo",
+      "g-minor-bach",
+      "kimi-no-na-wa---sparkle-theishter-2016",
+      "undertale-undertale-piano",
+      "etude-opus-25-no.-11-winter-wind-in-a-minor",
+      "when-i-was-your-man---bruno-mars",
+      "liszt---hungarian-rhapsody-no.-2",
+      "beethoven-symphony-no.-5-1st-movement-piano-solo",
+      "erik-satie---gnossienne-ndeg1",
+      "waltz-opus-64-no.-2-in-c-minor",
+      "the-legend-of-zelda-main-theme-easy",
+      "undertale-ost---nyeh-heh-heh-bonetrousle",
     ],
   },
   {
@@ -2641,7 +2670,6 @@ export const corpora: Corpora[] = [
       "Axel_F_Beverly_Hills_Cop_III",
       "Bags_Groove__Lead_sheet_",
 
-      "Bella_Ciao",
       "Billie_Eilish_Bad_Guy",
       "Billie_s_Bounce_Billies_Bounce",
       "Blue_Rondo_A_La_Turk",
@@ -2652,7 +2680,6 @@ export const corpora: Corpora[] = [
 
       "Close_to_the_edge",
       "Coffin_dance",
-      "Dawn_Pride_and_Prejudice",
 
       "Dream_a_little_dream_of_me",
 
@@ -2685,14 +2712,13 @@ export const corpora: Corpora[] = [
       "Lady_Gaga_Always_remember_us_this_way",
       "Legend_of_Zelda_Great_Fairy_Fountain",
       "Lena_Raine_Pigstep",
-      "Let_Her_Go_Passenger",
+
       "Let_It_Go_Disney_Frozen",
       "Liana_Flores_Rises_the_Moon",
 
       "Love_Like_You_Steven_Universe",
       "Love_Store_Francis_Lai",
 
-      "Michael_Giaccino_Married_Life",
       "Misty_piano_solo",
       "Moon_River_Breakfast_at_Tiffanys",
       "Morphine_Cure_for_Pain",
@@ -2711,7 +2737,6 @@ export const corpora: Corpora[] = [
 
       "Saint_Saens_Symphony_3_1st",
       "Sandu",
-      "Schindlers_List",
 
       "Sorcerers_doll___-_The_King_and_the_Jester___",
 
@@ -2721,7 +2746,7 @@ export const corpora: Corpora[] = [
       "Sviridov_Time_Foward.1",
       "Sweet_Dreams",
       "Sweet_home_Chicago",
-      "Take_on_me",
+
       "Test_Drive_How_to_Train_Your_Dragon",
       "Tetris_Theme",
       "TheFatRat_Monody",
@@ -2743,14 +2768,13 @@ export const corpora: Corpora[] = [
 
       "Yann_Tiersen_Amelie",
       "You_ve_got_a_friend_in_me",
-      "Zeldas_Lullaby",
+
       "alexey_bychkov_s_trio_goby_waltz",
       "all-major-scales-arpeggios",
       "all_of_the_girls_you_loved_before_taylor_swift",
       "alto_sax_natural_minor_scales_and_arpeggios",
       "as_it_was_harry_styles",
       "asphyxia---tokyo-ghoul-re-op",
-      "attack-on-titan-theme-guren-no-yumiya",
 
       "average_rag_1",
       "average_rag_2",
@@ -2776,7 +2800,7 @@ export const corpora: Corpora[] = [
       "clocks---coldplay",
       "closed-topic----xiu-ti",
       "cody_fry_eleanor_rigby_no_lead_vocal",
-      "congratulations---mac-miller",
+
       "contract---poshlaya-molly-easy-piano",
       "corelli_op1_no8_ii",
       "cuphead_a_quick_break",
@@ -2785,7 +2809,7 @@ export const corpora: Corpora[] = [
       "dazhe-moya-beybi-ne-znaet---poshlaya-molli",
       "diatonic-7th-chords-in-major-key",
       "directed_by_robert_b_weide",
-      "doki-doki-literature-club-ost---your-reality",
+
       "don_t_deal_with_the_devil_barbershop_quartet_cuphead",
 
       "earth_wind_fire_september",
@@ -2901,7 +2925,6 @@ export const corpora: Corpora[] = [
 
       "the-blues-scale-in-all-12-keys",
       "the-four-chord-song---axis-of-awesome",
-      "the-office-opening-theme",
 
       "the-washington-post-piano-john-philip-sousa",
 
@@ -2914,7 +2937,7 @@ export const corpora: Corpora[] = [
 
       "underground-cocek",
       "underground_tango_goran_bregovic_string_quartet",
-      "undertale-ost---hopes-and-dreams-save-the-world",
+
       "varshaver-freylekhs-klezmer-tune",
       "vizisi",
       "white_christmas",

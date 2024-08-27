@@ -51,7 +51,7 @@ const AppFooter: React.FC<
   }
 
   const handleTempoChange = (delta: number) => {
-    const newTempo = Math.max(0.1, Math.min(2, tempo + delta));
+    const newTempo = Math.max(0.1, Math.min(4, tempo + delta));
     setTempo(Number(newTempo.toFixed(2)));
   };
 

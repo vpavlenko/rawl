@@ -650,7 +650,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   setSpeedRelative(delta) {
-    const tempo = clamp(this.state.tempo + delta, 0.1, 2);
+    const tempo = clamp(this.state.tempo + delta, 0.1, 4);
     this.midiPlayer?.setTempo(tempo);
     this.setState({
       tempo: tempo,
@@ -1025,7 +1025,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     const rawlProps: RawlProps = {
       parsingResult: this.state.parsing,
       getCurrentPositionMs: this.midiPlayer?.getPositionMs || (() => 0),
-      savedAnalysis: this.state.analyses[this.path],
+      savedAnalysis: this.state.analyses[this.path] ?? null,
       saveAnalysis: this.saveAnalysis,
       voiceNames: this.state.voiceNames,
       voiceMask: this.state.voiceMask,

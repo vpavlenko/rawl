@@ -492,7 +492,7 @@ MIDIPlayer.prototype.getSpeed = function () {
 };
 
 MIDIPlayer.prototype.setSpeed = function (speed) {
-  this.speed = Math.max(0.1, Math.min(10, speed));
+  this.speed = Math.max(0.1, Math.min(4, speed));
 };
 
 MIDIPlayer.prototype.setPositionSynth = function (eventList) {

@@ -1170,7 +1170,7 @@ export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
           }}
         >
           {voiceNames.map((voiceName, voiceIndex) => (
-            <div>
+            <div key={voiceIndex}>
               <input
                 title="active"
                 type="checkbox"
@@ -1192,15 +1192,6 @@ export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
                 }}
               />{" "}
               <span
-                className={`voiceShape-${voiceIndex}`}
-                style={{
-                  display: "inline-block",
-                  backgroundColor: "white",
-                  height: 8,
-                  width: 20,
-                }}
-              />{" "}
-              <span
                 style={{
                   cursor: "pointer",
                   userSelect: "none",
@@ -1212,6 +1203,17 @@ export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
                     : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
                 }}
               >
+                <span
+                  className={`voiceShape-${voiceIndex}`}
+                  style={{
+                    display: "inline-block",
+                    backgroundColor: "white",
+                    height: 8,
+                    width: 20,
+                    marginRight: 5,
+                    verticalAlign: "middle",
+                  }}
+                />
                 {voiceName}
               </span>
             </div>

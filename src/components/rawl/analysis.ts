@@ -1,16 +1,14 @@
 import cloneDeep from "lodash/cloneDeep";
 import { Note } from "./parseMidi";
+import { SecondsSpan } from "./Rawl";
+import { MeasuresAndBeats } from "./SystemLayout";
 
 export type PitchClass = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
 
 export type MeasuresSpan = [number, number]; // one-based numbering, last measure inclusive. [1, 8] is the first eight measures
-export type TagSpan = {
-  tag: string;
-  span: MeasuresSpan;
-  voices?: number[];
-};
 
 export type Modulations = { [oneIndexedMeasureStart: number]: PitchClass };
+
 export type MeasureRenumbering = {
   [oneIndexedMeasureStart: number]: PitchClass;
 };
@@ -20,15 +18,43 @@ export type ManualMeasures = {
   beatsPerMeasure: { [oneIndexedMeasureStart: number]: number };
 };
 
+export type FrozenNote = {};
+
+export type MidiNumberToNoteSpans = {
+  [midiNumber: number]: SecondsSpan[];
+};
+
+export type FrozenAnalysis = {
+  modulations: Modulations;
+  measuresAndBeats: MeasuresAndBeats;
+};
+
+export type FrozenNotes = {
+  notesInVoices: MidiNumberToNoteSpans[]; // first dimension is voice
+  analysis: FrozenAnalysis;
+};
+
+export type Snippet = {
+  tag: string;
+
+  // the focus is on the most efficient compression of it.
+  // may be replaced with base64 in the future.
+  frozenNotes: FrozenNotes;
+  measuresSpan: MeasuresSpan;
+};
+
 export type Analysis = {
   modulations: Modulations;
-  comment: string;
-  tags: string[];
-  form: { [oneIndexedMeasureStart: number]: string };
   phrasePatch?: { measure: number; diff: number }[];
   sections?: number[];
   measureRenumbering?: MeasureRenumbering;
   measures?: ManualMeasures;
+  snippets?: Snippet[];
+
+  // outdated, was used in winter 2023..24 for rock prototype
+  comment: string;
+  tags: string[];
+  form: { [oneIndexedMeasureStart: number]: string };
 };
 
 export type Analyses = {

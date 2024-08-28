@@ -1,6 +1,8 @@
 import React, { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
+import { FrozenNotes as FrozenNotesType, Snippet } from "./analysis";
 import FrozenNotes from "./FrozenNotes";
+import { getModulations } from "./Rawl";
 import { SystemLayoutProps } from "./SystemLayout";
 
 const Container = styled.div`
@@ -52,6 +54,7 @@ const CopyIndicator = styled.div<{ visible: boolean }>`
 const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
   frozenNotes,
   measuresAndBeats,
+  analysis,
 }) => {
   const [measureRange, setMeasureRange] = useState([1, 4]);
   const [copyIndicatorVisible, setCopyIndicatorVisible] = useState(false);
@@ -96,13 +99,83 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
     [frozenNotes, measureRange, measuresAndBeats],
   );
 
-  const frozenJsonOneLiner = JSON.stringify(
-    filteredNotes.map((voiceNotes) =>
-      voiceNotes.map(({ chipState, ...note }) => note),
-    ),
-  );
+  const createFrozenNotes = useCallback((): FrozenNotesType => {
+    const startMeasure = measureRange[0] - 1;
+    const endMeasure = measureRange[1] - 1;
+    const startTime = measuresAndBeats.measures[startMeasure];
+    const endTime = measuresAndBeats.measures[endMeasure + 1];
 
-  const exportString = `"${frozenJsonOneLiner.replace(/"/g, '\\"')}"`;
+    const notesInVoices: FrozenNotesType["notesInVoices"] = frozenNotes.map(
+      (voiceNotes) => {
+        const midiNumberToNoteSpans: {
+          [midiNumber: number]: [number, number][];
+        } = {};
+        voiceNotes.forEach((note) => {
+          if (note.span[1] >= startTime && note.span[0] < endTime) {
+            const midiNumber = note.note.midiNumber;
+            if (!midiNumberToNoteSpans[midiNumber]) {
+              midiNumberToNoteSpans[midiNumber] = [];
+            }
+            midiNumberToNoteSpans[midiNumber].push([
+              note.span[0] - startTime,
+              note.span[1] - startTime,
+            ]);
+          }
+        });
+        return midiNumberToNoteSpans;
+      },
+    );
+
+    const modulations = getModulations(analysis);
+    const relevantModulations = modulations.filter(
+      (mod) => mod.measure >= startMeasure && mod.measure <= endMeasure,
+    );
+    if (
+      relevantModulations.length === 0 ||
+      relevantModulations[0].measure > startMeasure
+    ) {
+      const lastPreviousTonic = modulations
+        .filter((mod) => mod.measure <= startMeasure)
+        .reduce(
+          (prev, current) => (current.measure > prev.measure ? current : prev),
+          modulations[0],
+        );
+      relevantModulations.unshift({
+        measure: startMeasure,
+        tonic: lastPreviousTonic.tonic,
+      });
+    }
+
+    const frozenAnalysis: FrozenNotesType["analysis"] = {
+      modulations: Object.fromEntries(
+        relevantModulations.map((mod) => [
+          mod.measure - startMeasure + 1,
+          mod.tonic,
+        ]),
+      ),
+      measuresAndBeats: {
+        measures: measuresAndBeats.measures
+          .slice(startMeasure, endMeasure + 2)
+          .map((time) => time - startTime),
+        beats: measuresAndBeats.beats
+          .filter((time) => time >= startTime && time < endTime)
+          .map((time) => time - startTime),
+      },
+    };
+
+    return {
+      notesInVoices,
+      analysis: frozenAnalysis,
+    };
+  }, [frozenNotes, measureRange, measuresAndBeats, analysis]);
+
+  const snippet: Snippet = {
+    tag: "tag",
+    frozenNotes: createFrozenNotes(),
+    measuresSpan: [measureRange[0], measureRange[1]],
+  };
+
+  const exportString = JSON.stringify(snippet);
 
   const copyToClipboard = useCallback(() => {
     navigator.clipboard.writeText(exportString).then(() => {

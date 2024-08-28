@@ -276,22 +276,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
             onChange={handleRangeChange(1)}
           />
         </RangeInputs>
-        <EnhancedFrozenNotes
-          notes={filteredNotes}
-          measureWidth={measureWidth}
-          midiNumberToY={midiNumberToY}
-          maxWidth={maxWidth}
-          analysis={rehydratedAnalysis}
-          measuresAndBeats={measuresAndBeats}
-        />
-      </FrozenNotesDisplay>
-      <JsonDisplay onClick={copyToClipboard}>{exportString}</JsonDisplay>
-      <CopyIndicator visible={copyIndicatorVisible}>
-        Copied to clipboard!
-      </CopyIndicator>
-      <RehydratedNotesDisplay>
         <h3>Rehydrated Notes</h3>
-        <pre>{JSON.stringify(rehydratedNotes, null, 2)}</pre>
         <EnhancedFrozenNotes
           notes={rehydratedNotes}
           measureWidth={measureWidth}
@@ -300,6 +285,13 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
           analysis={rehydratedAnalysis}
           measuresAndBeats={snippet.frozenNotes.analysis.measuresAndBeats}
         />
+      </FrozenNotesDisplay>
+      <JsonDisplay onClick={copyToClipboard}>{exportString}</JsonDisplay>
+      <CopyIndicator visible={copyIndicatorVisible}>
+        Copied to clipboard!
+      </CopyIndicator>
+      <RehydratedNotesDisplay>
+        <pre>{JSON.stringify(rehydratedNotes, null, 2)}</pre>
       </RehydratedNotesDisplay>
     </Container>
   );

@@ -474,6 +474,7 @@ const TonalGrid: React.FC<{
         ? 30
         : 0);
 
+    debugger;
     const result = [];
     for (let i = 0; i + 1 < modulations.length; ++i) {
       const fromIndex = modulations[i].measure;
@@ -588,7 +589,7 @@ export const AnalysisGrid: React.FC<{
   }) => {
     const { measures, beats } = measuresAndBeats;
     if (sectionSpan == null) {
-      sectionSpan = [0, measures.length]; // measures.length - 1 ?
+      sectionSpan = [0, measures.length - 1];
     }
     const modulationsArray = getModulations(analysis);
     const modulations = new Map(

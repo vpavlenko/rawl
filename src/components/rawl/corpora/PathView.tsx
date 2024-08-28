@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
-import FrozenNotes from "../FrozenNotes";
 import Rawl from "../Rawl";
 import { ColoredNote } from "../parseMidi";
 import { topicToFrozenStrings } from "../pathViewFrozenSnippets";
@@ -133,13 +132,13 @@ const PathView: React.FC = () => {
             <TopicTitle>{topic.topic}</TopicTitle>
             {topicToFrozenNotes[topic.topic] && (
               <MiniNotesDisplay>
-                <FrozenNotes
+                {/* <FrozenNotes
                   notes={topicToFrozenNotes[topic.topic]}
                   measureWidth={measureWidth}
                   midiNumberToY={midiNumberToY}
                   scale={scale} // Pass scale to FrozenNotes
                   maxWidth={20 * 16} // 20em * 16px (assuming 1em = 16px)
-                />
+                /> */}
               </MiniNotesDisplay>
             )}
             {topic.midis.map((midi, index) => (

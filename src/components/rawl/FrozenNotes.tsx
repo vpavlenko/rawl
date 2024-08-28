@@ -20,12 +20,15 @@ interface EnhancedFrozenNotesProps extends FrozenNotesProps {
 
 const FrozenNotesContainer = styled.div`
   position: relative;
+  overflow: hidden;
 `;
 
 const NotesLayer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
 `;
 
 const HeaderStaff = styled.div`
@@ -158,8 +161,13 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
         max = Math.max(max, note.span[1]);
       });
     });
+    // Ensure the time range includes the last measure
+    max = Math.max(
+      max,
+      measuresAndBeats.measures[measuresAndBeats.measures.length - 1],
+    );
     return [min, max];
-  }, [notes]);
+  }, [notes, measuresAndBeats]);
 
   const noteHeight = 8 * scale;
   const height = ((midiRange[1] - midiRange[0] + 1) * 4 + noteHeight) * scale;
@@ -200,6 +208,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           width: `${width}px`,
           height: `${height}px`,
           position: "relative",
+          overflow: "hidden",
         }}
       >
         <AnalysisGrid

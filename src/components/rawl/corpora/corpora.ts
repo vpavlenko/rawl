@@ -26,6 +26,7 @@ export const corpora: Corpora[] = [
       "yiruma_reason",
       "yiruma_reminiscent",
       "yiruma_river_flows_in_you_easy",
+      "River_Flows_In_You",
       "yiruma_room_with_a_view",
       "yiruma_spring_time",
       "yiruma_wait_there",
@@ -2048,6 +2049,7 @@ export const corpora: Corpora[] = [
     slug: "joe_hisaishi",
     midis: [
       "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
+      "One_Summers_Day_Spirited_Away",
       "Summer_Joe_Hisaishi",
       "a-town-with-an-ocean-view--joe-hisaishi--natural-key-signature",
       "joe-hisaishi---hana-bi",
@@ -2428,6 +2430,8 @@ export const corpora: Corpora[] = [
       "beethoven_sonata_in_g_op_14_no_2_movement_i",
       "beethoven_sonate_5_1st",
       "beethoven_trio_for_clarinet_cello_and_piano_no_4_op_11_2nd_movement",
+      "Fr_Elise",
+      "piano_sonata_no_3_in_c_major_op_2_no_3_ludwig_van_beethoven_piano_sonata_no_3_in_c_major_op_2_no_3_complete",
     ],
   },
   {
@@ -2571,7 +2575,9 @@ export const corpora: Corpora[] = [
     slug: "musescore_top",
     midis: [
       "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
-      "River_Flows_In_You",
+      // "River_Flows_In_You",
+      "river-flows-in-you",
+      // "yiruma_river_flows_in_you_easy",
       "Canon_in_D",
       "Fr_Elise",
       "Clair_de_Lune__Debussy",
@@ -2705,15 +2711,25 @@ export const corpora: Corpora[] = [
       "your-song-piano",
       "my-lie-watashi-no-uso---your-lie-in-april",
       "anastasia---once-upon-a-december",
+      "bts-bangtansonyeondan---i-need-u-suga-piano-full-solo",
+      "la-vie-en-rose-solo-accordion",
+      "A_Thousand_Miles",
+      "Godfather",
+      "Pink_Panther",
+      "stranger-things-theme",
+      "abba--the-winner-takes-it-all",
+      "20th-century-fox-fanfare-piano-arr.",
+      "swan-lake-theme---tchaikovsky",
+      "marshmello-ft.-bastille---happier",
+      "kamado-tanjiro-no-uta-~-demon-slayer-ep-19-ed-ost-fonzi-m-improvised-hard-version",
+      "senorita---shawn-mendes-camilla-cabello",
     ],
   },
   {
     slug: "unsorted",
     midis: [
-      "A_Thousand_Miles",
       "Alice_DJ_Better_Off_Alone",
 
-      "Alone_Marshmello",
       "Anders_Thue_Sonne",
 
       "Attack_on_Titan_Shinzou_wo_Sasageyo",
@@ -2741,7 +2757,7 @@ export const corpora: Corpora[] = [
       "Flight_Facilities_Crave_You_2",
 
       "Gershwin_Rhapsody_in_Blue_Piano_solo",
-      "Godfather",
+      "Alone_Marshmello",
 
       "Good_Bye_Hachiko",
 
@@ -2776,7 +2792,6 @@ export const corpora: Corpora[] = [
 
       "Ophelia",
       "Photograph_Ed_Sheeran",
-      "Pink_Panther",
 
       "Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet",
 
@@ -2904,7 +2919,6 @@ export const corpora: Corpora[] = [
       "opa-cupa",
       "pavane_pour_une_infante_defunte_ravel_recorder",
 
-      "piano_sonata_no_3_in_c_major_op_2_no_3_ludwig_van_beethoven_piano_sonata_no_3_in_c_major_op_2_no_3_complete",
       "piano_tutorial",
       "pirate_melody_16measures_chromatic",
       "pirate_melody_16measures_scales",

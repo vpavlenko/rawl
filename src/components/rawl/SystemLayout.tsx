@@ -961,7 +961,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
         <div
           style={{
             position: "fixed",
-            bottom: 243,
+            bottom: 244,
             right: -93,
             zIndex: 100000,
           }}

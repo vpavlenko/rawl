@@ -203,7 +203,7 @@ const convertPitchBendToPathData = (
   return pathData;
 };
 
-const getNoteRectangles = (
+export const getNoteRectangles = (
   notes: ColoredNote[],
   midiNumberToY: (number: number) => number,
   noteHeight: number,

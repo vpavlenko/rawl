@@ -3,8 +3,12 @@ import styled from "styled-components";
 import { Analysis, PitchClass } from "./analysis";
 import { AnalysisGrid } from "./AnalysisGrid";
 import { ColoredNote } from "./parseMidi";
-import { getModulations } from "./Rawl";
-import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
+import { getModulations, SecondsConverter } from "./Rawl";
+import {
+  getNoteRectangles as getSystemNoteRectangles,
+  MeasuresAndBeats,
+  MidiRange,
+} from "./SystemLayout";
 
 interface FrozenNotesProps {
   notes: ColoredNote[][];
@@ -68,39 +72,34 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
     maxWidth,
   );
 
-  const toX = (time: number) => (time - timeRange[0]) * measureWidth;
+  const secondsToX: SecondsConverter = useCallback(
+    (seconds) => (seconds - timeRange[0]) * measureWidth,
+    [timeRange, measureWidth],
+  );
 
-  const getNoteRectangles = (notes: ColoredNote[]) => {
-    return notes.map((note) => {
-      const {
-        span,
-        color,
-        voiceIndex,
-        isActive,
-        isDrum,
-        note: { midiNumber },
-      } = note;
-      const top = midiNumberToY(midiNumber + 1); // Adjust vertical position
-      const left = toX(span[0]);
-      const noteWidth = toX(span[1]) - left;
+  const adjustedMidiNumberToY = useCallback(
+    (midiNumber: number) => {
+      // Add one pre-calc height to shift notes up
+      return midiNumberToY(midiNumber) - noteHeight;
+    },
+    [midiNumberToY, noteHeight],
+  );
 
-      return (
-        <div
-          key={`nr_${note.id}`}
-          className={`${color} voiceShape-${voiceIndex}`}
-          style={{
-            position: "absolute",
-            height: `${isActive ? noteHeight * 2 : 0.5}px`,
-            width: isDrum ? "0px" : noteWidth,
-            top: `${top}px`,
-            left: `${left}px`,
-            backgroundColor: color,
-            zIndex: Math.round(10 + 1000 / noteWidth),
-          }}
-        />
-      );
-    });
-  };
+  const getNoteRectangles = useCallback(
+    (notes: ColoredNote[]) =>
+      getSystemNoteRectangles(
+        notes,
+        adjustedMidiNumberToY,
+        noteHeight,
+        () => {}, // handleNoteClick
+        () => {}, // handleMouseEnter
+        () => {}, // handleMouseLeave
+        false, // showVelocity
+        secondsToX,
+        false, // enableManualRemeasuring
+      ),
+    [adjustedMidiNumberToY, noteHeight, secondsToX],
+  );
 
   return (
     <div

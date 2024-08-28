@@ -1023,7 +1023,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
 
         {sections.map(
           ({ sectionSpan, secondsToX, xToSeconds, voices }, order) => (
-            <div style={{ marginTop: 25 }} key={order}>
+            <div style={{ marginTop: 10 + noteHeight * 5 }} key={order}>
               <MeasureNumbers
                 measuresAndBeats={measuresAndBeats}
                 analysis={analysis}

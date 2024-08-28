@@ -2076,8 +2076,7 @@
     ],
     "tags": [],
     "modulations": {
-      "1": 7,
-      "9": 11,
+      "1": 11,
       "45": 7,
       "53": 11
     }
@@ -2375,10 +2374,6 @@
       }
     ],
     "comment": "",
-    "tags": [],
-    "modulations": {
-      "1": 2
-    },
     "sections": [
       0,
       2,
@@ -2388,7 +2383,11 @@
       11,
       13,
       17
-    ]
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
+    }
   },
   "f/Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major": {
     "form": [],
@@ -2422,13 +2421,14 @@
     "tags": [],
     "modulations": {
       "1": 3,
-      "7": 5,
-      "8": 3,
-      "10": 10,
-      "11": 8,
+      "10": 5,
+      "11": 3,
       "12": 10,
       "14": 3,
-      "18": 10,
+      "15": 5,
+      "16": 0,
+      "17": 3,
+      "18": 5,
       "19": 3,
       "20": 10,
       "22": 3
@@ -2522,12 +2522,88 @@
       {
         "measure": 1,
         "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": -1
+      },
+      {
+        "measure": 24,
+        "diff": -1
+      },
+      {
+        "measure": 16,
+        "diff": -1
+      },
+      {
+        "measure": 19,
+        "diff": 1
+      },
+      {
+        "measure": 31,
+        "diff": -1
+      },
+      {
+        "measure": 27,
+        "diff": 1
+      },
+      {
+        "measure": 31,
+        "diff": 1
+      },
+      {
+        "measure": 36,
+        "diff": 2
+      },
+      {
+        "measure": 50,
+        "diff": 1
+      },
+      {
+        "measure": 59,
+        "diff": 1
+      },
+      {
+        "measure": 55,
+        "diff": 1
+      },
+      {
+        "measure": 61,
+        "diff": -1
+      },
+      {
+        "measure": 64,
+        "diff": -2
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 13,
+        "diff": -1
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      1,
+      6,
+      10,
+      14
+    ],
     "tags": [],
     "modulations": {
-      "1": 1
+      "1": 1,
+      "8": 4,
+      "11": 0,
+      "12": 11,
+      "20": 6,
+      "25": 1,
+      "45": 4,
+      "49": 1,
+      "56": 4,
+      "57": 1
     }
   },
   "f/Clair_de_Lune__Debussy": {
@@ -2536,9 +2612,38 @@
       {
         "measure": 1,
         "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": -2
+      },
+      {
+        "measure": 39,
+        "diff": -1
+      },
+      {
+        "measure": 42,
+        "diff": 1
+      },
+      {
+        "measure": 67,
+        "diff": -1
+      },
+      {
+        "measure": 70,
+        "diff": 1
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      2,
+      7,
+      9,
+      13,
+      15,
+      17
+    ],
     "tags": [],
     "modulations": {
       "1": 1
@@ -2557,13 +2662,25 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19
+    ],
     "tags": [],
     "modulations": {
       "1": 0,
-      "18": 9,
-      "34": 9,
-      "66": 0,
-      "74": 9
+      "10": 9,
+      "36": 0,
+      "38": 9
     }
   },
   "f/Test_Drive_How_to_Train_Your_Dragon": {
@@ -2684,6 +2801,21 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23
+    ],
     "tags": [],
     "modulations": {
       "1": 2
@@ -2920,12 +3052,32 @@
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      7,
+      11,
+      13,
+      17,
+      21,
+      23,
+      25,
+      28,
+      29,
+      33
+    ],
     "tags": [],
     "modulations": {
       "1": 9,
-      "47": 5,
+      "33": 0,
+      "35": 9,
+      "46": 5,
       "53": 0,
       "58": 9,
+      "83": 2,
+      "86": 9,
+      "92": 2,
       "95": 10,
       "98": 9
     }
@@ -6234,12 +6386,44 @@
       {
         "measure": 1,
         "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 42,
+        "diff": -1
+      },
+      {
+        "measure": 45,
+        "diff": -1
+      },
+      {
+        "measure": 68,
+        "diff": -1
       }
     ],
     "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      11,
+      14
+    ],
     "tags": [],
     "modulations": {
-      "1": 0
+      "1": 0,
+      "22": 9,
+      "36": 5,
+      "48": 0,
+      "56": 9,
+      "58": 0,
+      "60": 9,
+      "62": 5
     }
   },
   "f/Sandu": {
@@ -26896,8 +27080,7 @@
       4,
       6,
       8,
-      10,
-      12
+      10
     ],
     "tags": [],
     "modulations": {
@@ -29178,7 +29361,7 @@
     ],
     "tags": [],
     "modulations": {
-      "1": 9
+      "1": 6
     }
   },
   "f/till-i-find-you---yiruma": {
@@ -65053,13 +65236,9 @@
     "sections": [
       0,
       1,
-      3,
       5,
-      7,
       9,
-      11,
       13,
-      15,
       17
     ],
     "tags": [],
@@ -73947,6 +74126,1782 @@
     "modulations": {
       "1": 9,
       "72": 6
+    }
+  },
+  "f/lacrimosa---requiem": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 7,
+        "diff": 2
+      },
+      {
+        "measure": 9,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": -2
+      },
+      {
+        "measure": 17,
+        "diff": -2
+      },
+      {
+        "measure": 23,
+        "diff": -1
+      },
+      {
+        "measure": 30,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      6,
+      7
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "6": 9,
+      "7": 2,
+      "13": 0,
+      "14": 2,
+      "15": 5,
+      "21": 2
+    }
+  },
+  "f/anastasia---once-upon-a-december": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 109,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      6,
+      8,
+      10,
+      12,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11,
+      "49": 0,
+      "85": 1
+    }
+  },
+  "f/minuet-bwv-anhang-114-in-g-major": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "35": 2,
+      "41": 7
+    }
+  },
+  "f/kimi-no-na-wa---sparkle-theishter-2016": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 121,
+        "diff": -2
+      },
+      {
+        "measure": 113,
+        "diff": -2
+      },
+      {
+        "measure": 117,
+        "diff": 2
+      },
+      {
+        "measure": 135,
+        "diff": 1
+      },
+      {
+        "measure": 144,
+        "diff": -2
+      },
+      {
+        "measure": 109,
+        "diff": 2
+      },
+      {
+        "measure": 113,
+        "diff": 2
+      },
+      {
+        "measure": 135,
+        "diff": 1
+      },
+      {
+        "measure": 141,
+        "diff": -1
+      },
+      {
+        "measure": 140,
+        "diff": 2
+      },
+      {
+        "measure": 148,
+        "diff": 2
+      },
+      {
+        "measure": 162,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      10,
+      16,
+      20,
+      23,
+      27,
+      29,
+      33,
+      35,
+      37,
+      39,
+      41
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/flight-of-the-bumblebee": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 47,
+        "diff": -2
+      },
+      {
+        "measure": 45,
+        "diff": 4
+      },
+      {
+        "measure": 53,
+        "diff": 2
+      },
+      {
+        "measure": 99,
+        "diff": -2
+      },
+      {
+        "measure": 97,
+        "diff": 3
+      },
+      {
+        "measure": 100,
+        "diff": 4
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "15": 2,
+      "31": 7,
+      "59": 9,
+      "67": 2,
+      "75": 9
+    }
+  },
+  "f/stranger-things-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/sia---snowman": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      12,
+      14,
+      16,
+      18,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1,
+      "21": 10,
+      "23": 1,
+      "25": 10,
+      "45": 1,
+      "65": 10
+    }
+  },
+  "f/nothing-else-matters---metallica": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 13,
+        "diff": 2
+      },
+      {
+        "measure": 23,
+        "diff": 1
+      },
+      {
+        "measure": 32,
+        "diff": 1
+      },
+      {
+        "measure": 41,
+        "diff": 1
+      },
+      {
+        "measure": 98,
+        "diff": 1
+      },
+      {
+        "measure": 119,
+        "diff": -2
+      },
+      {
+        "measure": 129,
+        "diff": 2
+      },
+      {
+        "measure": 139,
+        "diff": 2
+      },
+      {
+        "measure": 141,
+        "diff": 1
+      },
+      {
+        "measure": 142,
+        "diff": -3
+      },
+      {
+        "measure": 139,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      28,
+      29,
+      31,
+      33
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/sonate-no.-17-tempest-3rd-movement": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      },
+      {
+        "measure": 34,
+        "diff": -2
+      },
+      {
+        "measure": 48,
+        "diff": 1
+      },
+      {
+        "measure": 69,
+        "diff": -1
+      },
+      {
+        "measure": 76,
+        "diff": -1
+      },
+      {
+        "measure": 75,
+        "diff": -1
+      },
+      {
+        "measure": 82,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      9,
+      18,
+      26
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "35": 0,
+      "43": 9,
+      "92": 2
+    }
+  },
+  "f/senorita---shawn-mendes-camilla-cabello": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      15,
+      17,
+      19,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/g-minor-bach": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 45,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      7,
+      9,
+      11,
+      13,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "16": 0,
+      "45": 7
+    }
+  },
+  "f/alan-walker---alone-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 53,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/sign-of-the-times---harry-styles": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/undertale-undertale-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      28,
+      32,
+      36
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3,
+      "129": 4
+    }
+  },
+  "f/old-town-road---lil-nas-x-ft.-billy-ray-cyrus": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      4,
+      6,
+      7,
+      9,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 8
+    }
+  },
+  "f/yuri-on-ice---piano-theme-full": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      6,
+      8,
+      10,
+      12,
+      16,
+      20,
+      22,
+      24,
+      27,
+      29,
+      31
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/kamado-tanjiro-no-uta-~-demon-slayer-ep-19-ed-ost-fonzi-m-improvised-hard-version": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": 2
+      },
+      {
+        "measure": 11,
+        "diff": 2
+      },
+      {
+        "measure": 37,
+        "diff": 2
+      },
+      {
+        "measure": 123,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      21,
+      23,
+      25,
+      27,
+      29,
+      33,
+      35,
+      37,
+      39,
+      44,
+      49,
+      53
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "78": 10,
+      "87": 5,
+      "107": 6,
+      "137": 9,
+      "141": 2,
+      "157": 3,
+      "172": 11,
+      "175": 6,
+      "219": 11,
+      "223": 3,
+      "231": 6
+    }
+  },
+  "f/ylang-ylang---fkj-transcribed-by-lilroo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 57,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1,
+      "17": 5,
+      "21": 9,
+      "23": 3,
+      "25": 1,
+      "41": 5,
+      "47": 3,
+      "49": 1
+    }
+  },
+  "f/welcome-to-the-black-parade---my-chemical-romance": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 33,
+        "diff": 1
+      },
+      {
+        "measure": 78,
+        "diff": -2
+      },
+      {
+        "measure": 100,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      6,
+      8,
+      9,
+      13,
+      17,
+      19,
+      23,
+      25,
+      27
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7,
+      "92": 9
+    }
+  },
+  "f/beethoven-symphony-no.-5-1st-movement-piano-solo": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": 5
+      },
+      {
+        "measure": 27,
+        "diff": -1
+      },
+      {
+        "measure": 42,
+        "diff": 2
+      },
+      {
+        "measure": 64,
+        "diff": -1
+      },
+      {
+        "measure": 83,
+        "diff": 1
+      },
+      {
+        "measure": 112,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      10,
+      15,
+      31,
+      32
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "58": 3,
+      "76": 5,
+      "79": 8,
+      "84": 3,
+      "126": 5
+    }
+  },
+  "f/when-i-was-your-man---bruno-mars": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 16,
+        "diff": 1
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      },
+      {
+        "measure": 62,
+        "diff": 3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      4,
+      6,
+      8,
+      9,
+      11,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/happy-birthday-to-you-c-major": {
+    "measures": {
+      "beatsPerMeasure": {
+        "1": 1,
+        "2": 3
+      },
+      "measureStarts": {
+        "2": 0.5000000000000001,
+        "3": 2.0000000000000004
+      }
+    },
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "measureRenumbering": {
+      "2": 2
+    },
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/etude-opus-25-no.-11-winter-wind-in-a-minor": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 21,
+        "diff": 2
+      },
+      {
+        "measure": 63,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      14,
+      17,
+      19,
+      22
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "5": 9,
+      "15": 5,
+      "23": 4,
+      "29": 11,
+      "31": 4,
+      "35": 0,
+      "59": 9
+    }
+  },
+  "f/abba--the-winner-takes-it-all": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 17,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      21,
+      23
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 7
+    }
+  },
+  "f/marshmello-ft.-bastille---happier": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 5
+    }
+  },
+  "f/waltz-opus-64-no.-2-in-c-minor": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 66,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      5,
+      9,
+      13,
+      17,
+      21,
+      25,
+      29,
+      33,
+      37,
+      41,
+      45
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1,
+      "6": 9,
+      "10": 1,
+      "12": 4,
+      "14": 8,
+      "16": 1,
+      "74": 3,
+      "79": 1
+    }
+  },
+  "f/my-lie-watashi-no-uso---your-lie-in-april": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 33,
+        "diff": 1
+      },
+      {
+        "measure": 38,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "40": 10
+    }
+  },
+  "f/chiquitita-abba---piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 10,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9,
+      "17": 1,
+      "19": 9
+    }
+  },
+  "f/dance-of-the-sugar-plum-fairy": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      9,
+      11
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4,
+      "10": 11,
+      "13": 4,
+      "17": 11,
+      "18": 9,
+      "19": 7,
+      "20": 4,
+      "43": 11,
+      "46": 4
+    }
+  },
+  "f/adele---skyfall": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0
+    }
+  },
+  "f/liszt---hungarian-rhapsody-no.-2": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 2,
+        "diff": 1
+      },
+      {
+        "measure": 3,
+        "diff": 2
+      },
+      {
+        "measure": 13,
+        "diff": -2
+      },
+      {
+        "measure": 59,
+        "diff": -2
+      },
+      {
+        "measure": 61,
+        "diff": 1
+      },
+      {
+        "measure": 70,
+        "diff": 1
+      },
+      {
+        "measure": 87,
+        "diff": -1
+      },
+      {
+        "measure": 110,
+        "diff": 1
+      },
+      {
+        "measure": 355,
+        "diff": -1
+      },
+      {
+        "measure": 414,
+        "diff": 4
+      },
+      {
+        "measure": 418,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      3,
+      7,
+      9,
+      11,
+      13,
+      16,
+      18,
+      20,
+      22,
+      25,
+      28,
+      30,
+      36,
+      40,
+      45,
+      51,
+      55,
+      59,
+      63,
+      69,
+      75,
+      79,
+      89,
+      97,
+      101,
+      104,
+      108,
+      109,
+      115
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1,
+      "15": 4,
+      "18": 1,
+      "23": 8,
+      "27": 4,
+      "31": 1,
+      "75": 4,
+      "79": 1,
+      "86": 4,
+      "90": 1,
+      "98": 4,
+      "102": 1,
+      "119": 6,
+      "251": 1,
+      "267": 6,
+      "315": 1,
+      "354": 9,
+      "378": 6
+    }
+  },
+  "f/isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      6,
+      11,
+      15,
+      19
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10
+    }
+  },
+  "f/swan-lake-theme---tchaikovsky": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 19,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 11
+    }
+  },
+  "f/africa---toto": {
+    "measures": {
+      "beatsPerMeasure": {
+        "16": 6,
+        "17": 4,
+        "20": 6,
+        "21": 4,
+        "24": 6,
+        "25": 4,
+        "45": 6,
+        "46": 4,
+        "49": 6,
+        "50": 4,
+        "70": 6,
+        "71": 4,
+        "73": 8,
+        "74": 4
+      },
+      "measureStarts": {
+        "2": 2.6666680000000005,
+        "30": 81.3333739999996,
+        "55": 150.66674199999883,
+        "63": 172.00008599999896
+      }
+    },
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      },
+      {
+        "measure": 62,
+        "diff": 1
+      },
+      {
+        "measure": 75,
+        "diff": -1
+      },
+      {
+        "measure": 74,
+        "diff": 0
+      },
+      {
+        "measure": 82,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      10,
+      12,
+      13,
+      15,
+      16,
+      18,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 1,
+      "13": 8,
+      "29": 9,
+      "42": 8,
+      "54": 9,
+      "63": 1,
+      "67": 8,
+      "74": 9
+    }
+  },
+  "f/calum-scott---you-are-the-reason-piano-sheet-lyrics-lyrics-version-link-in-description": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      10,
+      12,
+      14,
+      17,
+      20
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10
+    }
+  },
+  "f/the-legend-of-zelda-main-theme-easy": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      6,
+      8
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/bwv0565-toccata-and-fugue-in-dm-c": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -1
+      },
+      {
+        "measure": 20,
+        "diff": -1
+      },
+      {
+        "measure": 23,
+        "diff": -1
+      },
+      {
+        "measure": 26,
+        "diff": 2
+      },
+      {
+        "measure": 32,
+        "diff": -2
+      },
+      {
+        "measure": 34,
+        "diff": -3
+      },
+      {
+        "measure": 31,
+        "diff": 4
+      },
+      {
+        "measure": 30,
+        "diff": 1
+      },
+      {
+        "measure": 44,
+        "diff": 1
+      },
+      {
+        "measure": 45,
+        "diff": -1
+      },
+      {
+        "measure": 64,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      4,
+      6,
+      8,
+      10,
+      13,
+      16
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2,
+      "50": 7,
+      "54": 5
+    }
+  },
+  "f/dont-stop-believing-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 97,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      7,
+      10,
+      16,
+      19,
+      24,
+      26,
+      30
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 4
+    }
+  },
+  "f/undertale-ost---nyeh-heh-heh-bonetrousle": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 25,
+        "diff": -3
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      6,
+      11,
+      13
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "52": 3,
+      "54": 0
+    }
+  },
+  "f/erik-satie---gnossienne-ndeg1": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 9,
+        "diff": 1
+      },
+      {
+        "measure": 18,
+        "diff": 1
+      },
+      {
+        "measure": 31,
+        "diff": 2
+      },
+      {
+        "measure": 37,
+        "diff": 2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      6,
+      7,
+      8,
+      10
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 9
+    }
+  },
+  "f/ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 1
+      },
+      {
+        "measure": 58,
+        "diff": -1
+      },
+      {
+        "measure": 81,
+        "diff": -1
+      },
+      {
+        "measure": 104,
+        "diff": 1
+      },
+      {
+        "measure": 113,
+        "diff": 1
+      },
+      {
+        "measure": 114,
+        "diff": 1
+      },
+      {
+        "measure": 131,
+        "diff": -1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      34
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 0,
+      "104": 11,
+      "115": 2
+    }
+  },
+  "f/your-song-piano": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 11,
+        "diff": 1
+      },
+      {
+        "measure": 16,
+        "diff": 4
+      },
+      {
+        "measure": 24,
+        "diff": 5
+      },
+      {
+        "measure": 37,
+        "diff": 1
+      },
+      {
+        "measure": 42,
+        "diff": -2
+      },
+      {
+        "measure": 48,
+        "diff": 1
+      },
+      {
+        "measure": 57,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      1,
+      3,
+      5,
+      8,
+      10,
+      12
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 3
+    }
+  },
+  "f/20th-century-fox-fanfare-piano-arr.": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 5,
+        "diff": -2
+      },
+      {
+        "measure": 7,
+        "diff": -1
+      },
+      {
+        "measure": 10,
+        "diff": 1
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 10
+    }
+  },
+  "f/fairy-tail-main-theme": {
+    "form": [],
+    "phrasePatch": [
+      {
+        "measure": 1,
+        "diff": 0
+      },
+      {
+        "measure": 29,
+        "diff": -2
+      }
+    ],
+    "comment": "",
+    "sections": [
+      0,
+      2,
+      4,
+      7,
+      9,
+      11,
+      13,
+      15
+    ],
+    "tags": [],
+    "modulations": {
+      "1": 2
     }
   }
 }

@@ -30,8 +30,8 @@ const FrozenNotesContainer = styled.div`
 
 const HeaderStaff = styled.div`
   position: relative;
-  height: 40px;
-  margin-bottom: 10px;
+  height: 16px;
+  margin-bottom: 0px;
 `;
 
 const FrozenNotes: React.FC<FrozenNotesProps> = ({
@@ -189,7 +189,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           analysis={analysis}
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={() => 0}
-          noteHeight={40}
+          noteHeight={16}
           phraseStarts={[]}
           midiRange={[0, 0]}
           measureSelection={dummyMeasureSelection}

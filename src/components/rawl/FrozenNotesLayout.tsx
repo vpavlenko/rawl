@@ -1,7 +1,12 @@
 import React, { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
-import { FrozenNotes as FrozenNotesType, Snippet } from "./analysis";
+import {
+  FrozenNotes as FrozenNotesType,
+  PitchClass,
+  Snippet,
+} from "./analysis";
 import FrozenNotes from "./FrozenNotes";
+import { ColoredNote } from "./parseMidi";
 import { getModulations } from "./Rawl";
 import { SystemLayoutProps } from "./SystemLayout";
 
@@ -49,6 +54,12 @@ const CopyIndicator = styled.div<{ visible: boolean }>`
   border-radius: 5px;
   opacity: ${(props) => (props.visible ? 1 : 0)};
   transition: opacity 0.3s;
+`;
+
+const RehydratedNotesDisplay = styled.div`
+  margin-top: 20px;
+  border-top: 1px solid #444;
+  padding-top: 20px;
 `;
 
 const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
@@ -190,6 +201,46 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
   // Calculate maxWidth based on the number of measures
   const maxWidth = (measureRange[1] - measureRange[0] + 1) * measureWidth;
 
+  // Rehydrate function
+  const rehydrateNotes = (snippet: Snippet): ColoredNote[][] => {
+    const { frozenNotes, measuresSpan } = snippet;
+    const startTime = measuresAndBeats.measures[measuresSpan[0] - 1];
+    const modulations = getModulations(analysis);
+
+    return frozenNotes.notesInVoices.map((voice, voiceIndex) => {
+      const notes: ColoredNote[] = [];
+      Object.entries(voice).forEach(([midiNumber, spans]) => {
+        spans.forEach((span, index) => {
+          const absoluteSpan: [number, number] = [
+            span[0] + startTime,
+            span[1] + startTime,
+          ];
+          const noteCenterTime = (absoluteSpan[0] + absoluteSpan[1]) / 2;
+          const lastModulation = modulations
+            .filter((mod) => mod.measure <= noteCenterTime)
+            .reduce((prev, current) =>
+              current.measure > prev.measure ? current : prev,
+            );
+          const localTonic = lastModulation.tonic as PitchClass;
+          const colorNumber = (parseInt(midiNumber) - localTonic + 12) % 12;
+
+          notes.push({
+            note: { midiNumber: parseInt(midiNumber) },
+            id: voiceIndex * 1000 + parseInt(midiNumber) * 100 + index,
+            isDrum: false,
+            span: absoluteSpan,
+            voiceIndex,
+            color: `noteColor_${colorNumber}_colors`,
+            isActive: true,
+          });
+        });
+      });
+      return notes;
+    });
+  };
+
+  const rehydratedNotes = rehydrateNotes(snippet);
+
   return (
     <Container>
       <FrozenNotesDisplay>
@@ -224,6 +275,16 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
       <CopyIndicator visible={copyIndicatorVisible}>
         Copied to clipboard!
       </CopyIndicator>
+      <RehydratedNotesDisplay>
+        <h3>Rehydrated Notes</h3>
+        <pre>{JSON.stringify(rehydratedNotes, null, 2)}</pre>
+        <FrozenNotes
+          notes={rehydratedNotes}
+          measureWidth={measureWidth}
+          midiNumberToY={midiNumberToY}
+          maxWidth={maxWidth}
+        />
+      </RehydratedNotesDisplay>
     </Container>
   );
 };

@@ -24,6 +24,11 @@ import {
 } from "./parseMidi";
 import { TonalHistogram } from "./tonalSearch/TonalSearch";
 
+const TinyLetter = styled.span`
+  font-size: 10px;
+  color: #999;
+`;
+
 export type MeasuresAndBeats = {
   measures: number[];
   beats: number[];
@@ -935,11 +940,6 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
     noteHeight,
     debounceSetNoteHeight,
   ]);
-
-  const TinyLetter = styled.span`
-    font-size: 10px;
-    color: #999;
-  `;
 
   return (
     <>

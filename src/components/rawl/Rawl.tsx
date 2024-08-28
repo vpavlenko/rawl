@@ -142,9 +142,10 @@ const CompositionTitle: React.FC<{
     .replace(/-/g, " ")
     .replace(/_/g, " ");
 
-  const author = React.useMemo(() => {
-    const corpusEntry = corpora.find((corpus) => corpus.midis.includes(slug));
-    return corpusEntry ? corpusEntry.slug : "";
+  const relatedCorpora = React.useMemo(() => {
+    return corpora
+      .filter((corpus) => corpus.midis.includes(slug))
+      .map((corpus) => corpus.slug);
   }, [slug]);
 
   return (
@@ -161,21 +162,26 @@ const CompositionTitle: React.FC<{
     >
       <h1 style={{ margin: 0, fontSize: "1em" }}>
         {formattedTitle}
-        {author && (
+        {relatedCorpora.length > 0 && (
           <span style={{ fontWeight: "normal", marginLeft: "10px" }}>
             (
-            <Link
-              to={`/corpus/${author}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                color: "inherit",
-                textDecoration: "none",
-                cursor: "pointer",
-              }}
-            >
-              {author.replace(/_/g, " ")}
-            </Link>
+            {relatedCorpora.map((corpus, index) => (
+              <React.Fragment key={corpus}>
+                {index > 0 && ", "}
+                <Link
+                  to={`/corpus/${corpus}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: "inherit",
+                    textDecoration: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  {corpus.replace(/_/g, " ")}
+                </Link>
+              </React.Fragment>
+            ))}
             )
           </span>
         )}

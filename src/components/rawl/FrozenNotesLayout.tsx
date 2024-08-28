@@ -98,21 +98,6 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
     }
   }, []);
 
-  const filteredNotes = React.useMemo(
-    () =>
-      frozenNotes.map((voiceNotes) =>
-        voiceNotes.filter((note) => {
-          const startMeasure = measureRange[0] - 1;
-          const endMeasure = measureRange[1] - 1;
-          return (
-            note.span[1] >= measuresAndBeats.measures[startMeasure] &&
-            note.span[0] + 1e-2 < measuresAndBeats.measures[endMeasure + 1]
-          );
-        }),
-      ),
-    [frozenNotes, measureRange, measuresAndBeats],
-  );
-
   const createFrozenNotes = useCallback((): FrozenNotesType => {
     const startMeasure = measureRange[0] - 1;
     const endMeasure = measureRange[1] - 1;
@@ -257,8 +242,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
   const height = (midiRange[1] - midiRange[0] + 1) * noteHeight;
 
   const midiNumberToY = useCallback(
-    (midiNumber: number) =>
-      height - (midiNumber - midiRange[0] + 1) * noteHeight,
+    (midiNumber: number) => height - (midiNumber - midiRange[0]) * noteHeight,
     [height, midiRange, noteHeight],
   );
 

@@ -474,7 +474,6 @@ const TonalGrid: React.FC<{
         ? 30
         : 0);
 
-    debugger;
     const result = [];
     for (let i = 0; i + 1 < modulations.length; ++i) {
       const fromIndex = modulations[i].measure;

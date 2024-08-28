@@ -77,19 +77,11 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
     [timeRange, measureWidth],
   );
 
-  const adjustedMidiNumberToY = useCallback(
-    (midiNumber: number) => {
-      // Add one pre-calc height to shift notes up
-      return midiNumberToY(midiNumber) - noteHeight;
-    },
-    [midiNumberToY, noteHeight],
-  );
-
   const getNoteRectangles = useCallback(
     (notes: ColoredNote[]) =>
       getSystemNoteRectangles(
         notes,
-        adjustedMidiNumberToY,
+        midiNumberToY,
         noteHeight,
         () => {}, // handleNoteClick
         () => {}, // handleMouseEnter
@@ -98,7 +90,7 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
         secondsToX,
         false, // enableManualRemeasuring
       ),
-    [adjustedMidiNumberToY, noteHeight, secondsToX],
+    [midiNumberToY, noteHeight, secondsToX],
   );
 
   return (
@@ -145,21 +137,12 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
     return [firstMeasure, lastMeasure];
   }, [measuresAndBeats]);
 
-  const height = (midiRange[1] - midiRange[0] + 1) * noteHeight;
+  const height = (midiRange[1] - midiRange[0] + 2) * noteHeight;
   const width = (timeRange[1] - timeRange[0]) * measureWidth;
 
   const secondsToX = useCallback(
     (seconds: number) => (seconds - timeRange[0]) * measureWidth,
     [timeRange, measureWidth],
-  );
-
-  const adjustedMidiNumberToY = useCallback(
-    (midiNumber: number) => {
-      const result = (midiRange[1] - midiNumber) * noteHeight;
-      console.log("FrozenNotes adjustedMidiNumberToY", midiNumber, result);
-      return result;
-    },
-    [midiRange, noteHeight],
   );
 
   const modulations = useMemo(() => getModulations(analysis), [analysis]);
@@ -226,7 +209,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
         <AnalysisGrid
           analysis={analysis}
           measuresAndBeats={measuresAndBeats}
-          midiNumberToY={adjustedMidiNumberToY}
+          midiNumberToY={midiNumberToY}
           noteHeight={noteHeight}
           phraseStarts={[]}
           midiRange={midiRange}
@@ -238,7 +221,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
         <FrozenNotes
           notes={adjustedNotes}
           measureWidth={measureWidth}
-          midiNumberToY={adjustedMidiNumberToY}
+          midiNumberToY={midiNumberToY}
           maxWidth={width}
           noteHeight={noteHeight}
         />

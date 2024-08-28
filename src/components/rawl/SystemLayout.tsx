@@ -777,9 +777,9 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
   unregisterKeyboardHandler,
   enableManualRemeasuring = false,
 }) => {
-  const [noteHeight, setNoteHeight] = useState<number>(4);
+  const [noteHeight, setNoteHeight] = useState<number>(3);
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
-  const [secondWidth, setSecondWidth] = useState<number>(45);
+  const [secondWidth, setSecondWidth] = useState<number>(40);
   const setSecondWidthCalled = useRef(false);
 
   const debounceSetSecondWidth = useCallback(
@@ -908,16 +908,16 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
     const handleKeyPress = (e: KeyboardEvent) => {
       switch (e.key) {
         case "a":
-          handleSecondWidthChange(secondWidth - 10);
+          handleSecondWidthChange(secondWidth - 2);
           break;
         case "d":
-          handleSecondWidthChange(secondWidth + 10);
+          handleSecondWidthChange(secondWidth + 2);
           break;
         case "s":
-          debounceSetNoteHeight(Math.min(noteHeight + 1, 10));
+          debounceSetNoteHeight(Math.min(noteHeight + 0.25, 10));
           break;
         case "w":
-          debounceSetNoteHeight(Math.max(noteHeight - 1, 1));
+          debounceSetNoteHeight(Math.max(noteHeight - 0.25, 1));
           break;
       }
     };
@@ -1023,7 +1023,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
 
         {sections.map(
           ({ sectionSpan, secondsToX, xToSeconds, voices }, order) => (
-            <div style={{ marginTop: 40 }} key={order}>
+            <div style={{ marginTop: 25 }} key={order}>
               <MeasureNumbers
                 measuresAndBeats={measuresAndBeats}
                 analysis={analysis}

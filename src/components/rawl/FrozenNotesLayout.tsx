@@ -1,11 +1,14 @@
 import React, { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
 import {
+  Analysis,
+  ANALYSIS_STUB,
+  FrozenAnalysis,
   FrozenNotes as FrozenNotesType,
   PitchClass,
   Snippet,
 } from "./analysis";
-import FrozenNotes from "./FrozenNotes";
+import EnhancedFrozenNotes from "./FrozenNotes";
 import { ColoredNote } from "./parseMidi";
 import { getModulations } from "./Rawl";
 import { SystemLayoutProps } from "./SystemLayout";
@@ -241,6 +244,15 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
 
   const rehydratedNotes = rehydrateNotes(snippet);
 
+  const rehydrateAnalysis = (frozenAnalysis: FrozenAnalysis): Analysis => {
+    return {
+      ...ANALYSIS_STUB,
+      modulations: frozenAnalysis.modulations,
+    };
+  };
+
+  const rehydratedAnalysis = rehydrateAnalysis(snippet.frozenNotes.analysis);
+
   return (
     <Container>
       <FrozenNotesDisplay>
@@ -264,11 +276,13 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
             onChange={handleRangeChange(1)}
           />
         </RangeInputs>
-        <FrozenNotes
+        <EnhancedFrozenNotes
           notes={filteredNotes}
           measureWidth={measureWidth}
           midiNumberToY={midiNumberToY}
           maxWidth={maxWidth}
+          analysis={rehydratedAnalysis}
+          measuresAndBeats={measuresAndBeats}
         />
       </FrozenNotesDisplay>
       <JsonDisplay onClick={copyToClipboard}>{exportString}</JsonDisplay>
@@ -278,11 +292,13 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
       <RehydratedNotesDisplay>
         <h3>Rehydrated Notes</h3>
         <pre>{JSON.stringify(rehydratedNotes, null, 2)}</pre>
-        <FrozenNotes
+        <EnhancedFrozenNotes
           notes={rehydratedNotes}
           measureWidth={measureWidth}
           midiNumberToY={midiNumberToY}
           maxWidth={maxWidth}
+          analysis={rehydratedAnalysis}
+          measuresAndBeats={snippet.frozenNotes.analysis.measuresAndBeats}
         />
       </RehydratedNotesDisplay>
     </Container>

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import {
   Analysis,
@@ -199,10 +199,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
   }, [exportString]);
 
   const measureWidth = 50; // Fixed width for each measure
-  const midiNumberToY = (midiNumber: number) => (127 - midiNumber) * 4;
-
-  // Calculate maxWidth based on the number of measures
-  const maxWidth = (measureRange[1] - measureRange[0] + 1) * measureWidth;
+  const noteHeight = 3; // Match the initial value in StackedSystemLayout
 
   // Rehydrate function
   const rehydrateNotes = (snippet: Snippet): ColoredNote[][] => {
@@ -244,6 +241,30 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
 
   const rehydratedNotes = rehydrateNotes(snippet);
 
+  const midiRange = useMemo(() => {
+    let min = Infinity;
+    let max = -Infinity;
+    rehydratedNotes.forEach((voiceNotes) => {
+      voiceNotes.forEach((note) => {
+        const midiNumber = note.note.midiNumber;
+        min = Math.min(min, midiNumber);
+        max = Math.max(max, midiNumber);
+      });
+    });
+    return [min, max] as [number, number];
+  }, [rehydratedNotes]);
+
+  const height = (midiRange[1] - midiRange[0] + 1) * noteHeight;
+
+  const midiNumberToY = useCallback(
+    (midiNumber: number) =>
+      height - (midiNumber - midiRange[0] + 1) * noteHeight,
+    [height, midiRange, noteHeight],
+  );
+
+  // Calculate maxWidth based on the number of measures
+  const maxWidth = (measureRange[1] - measureRange[0] + 1) * measureWidth;
+
   const rehydrateAnalysis = (frozenAnalysis: FrozenAnalysis): Analysis => {
     return {
       ...ANALYSIS_STUB,
@@ -284,6 +305,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
           maxWidth={maxWidth}
           analysis={rehydratedAnalysis}
           measuresAndBeats={snippet.frozenNotes.analysis.measuresAndBeats}
+          noteHeight={noteHeight}
         />
       </FrozenNotesDisplay>
       <JsonDisplay onClick={copyToClipboard}>{exportString}</JsonDisplay>

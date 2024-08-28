@@ -63,7 +63,7 @@ export default class Slider extends PureComponent {
           className="Slider-knob"
           style={{
             left: pos,
-            transition: this.state.dragging ? "none" : "left 0.74s linear",
+            transition: this.state.dragging ? "none" : "left 0.37s linear",
           }}
         />
       </div>

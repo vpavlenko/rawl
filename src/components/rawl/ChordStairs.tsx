@@ -118,13 +118,14 @@ const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
       >
         {title}
       </div>
-      {rehydratedChords.flatMap(({ name, pitches }, index) =>
-        pitches.map((pitch) => (
+      {rehydratedChords.flatMap(({ name, pitches }, chordIndex) =>
+        pitches.map((pitch, pitchIndex) => (
           <ChordNote
+            key={`${chordIndex}-${pitchIndex}`}
             className={`noteColor_${pitch % 12}_colors`}
             style={{
               position: "absolute",
-              left: index * (NOTE_WIDTH + HORIZONTAL_GAP),
+              left: chordIndex * (NOTE_WIDTH + HORIZONTAL_GAP),
               top: (maxPitch - pitch) * NOTE_HEIGHT,
               opacity: disabledChords.has(name) ? DISABLED_OPACITY : 1,
             }}
@@ -134,6 +135,7 @@ const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
       )}
       {rehydratedChords.map(({ name, pitches }, index) => (
         <ChordName
+          key={`chord-name-${index}`}
           style={{
             position: "absolute",
             top:

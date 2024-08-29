@@ -276,7 +276,7 @@ export const getNoteRectangles = (
               : handleNoteClick && !isDrum
               ? "pointer"
               : "default",
-          zIndex: Math.round(10 + 1000 / width),
+          zIndex: Math.round(10 + (width > 0 ? 1000 / width : 1000)),
           // opacity: (showVelocity && note?.chipState?.on?.param2 / 127) || 1,
           // opacity: isActive ? 1 : 0.3,
           // borderRadius: "4px",

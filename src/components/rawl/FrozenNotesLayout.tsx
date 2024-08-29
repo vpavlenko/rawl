@@ -9,7 +9,7 @@ import {
   Snippet,
 } from "./analysis";
 import EnhancedFrozenNotes from "./FrozenNotes";
-import { ColoredNote } from "./parseMidi";
+import { Note } from "./parseMidi";
 import { getModulations } from "./Rawl";
 import { MeasuresAndBeats, SystemLayoutProps } from "./SystemLayout";
 
@@ -128,29 +128,30 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
     );
 
     const modulations = getModulations(analysis);
-    const relevantModulations = modulations.filter(
-      (mod) => mod.measure >= startMeasure && mod.measure <= endMeasure,
-    );
-    if (
-      relevantModulations.length === 0 ||
-      relevantModulations[0].measure > startMeasure
-    ) {
-      const lastPreviousTonic = modulations
-        .filter((mod) => mod.measure <= startMeasure)
-        .reduce(
-          (prev, current) => (current.measure > prev.measure ? current : prev),
-          modulations[0],
-        );
-      relevantModulations.unshift({
-        measure: startMeasure,
-        tonic: lastPreviousTonic.tonic,
-      });
-    }
+
+    // Find the latest modulation that occurs before or at the start measure
+    const initialModulation = modulations
+      .filter((mod) => mod.measure <= startMeasure)
+      .reduce(
+        (latest, current) =>
+          current.measure > latest.measure ? current : latest,
+        { measure: 0, tonic: 0 as PitchClass }, // Default to C if no previous modulations
+      );
+
+    // Get all modulations within our slice, including the initial one
+    const relevantModulations = [
+      initialModulation,
+      ...modulations.filter(
+        (mod) => mod.measure > startMeasure && mod.measure <= endMeasure,
+      ),
+    ];
 
     const frozenAnalysis: FrozenNotesType["analysis"] = {
       modulations: Object.fromEntries(
         relevantModulations.map((mod) => [
-          mod.measure - startMeasure + 1,
+          mod.measure === initialModulation.measure
+            ? 1
+            : mod.measure - startMeasure + 1,
           mod.tonic,
         ]),
       ),
@@ -188,37 +189,23 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
   const measureWidth = 50; // Fixed width for each measure
   const noteHeight = 3; // Match the initial value in StackedSystemLayout
 
-  // Rehydrate function
-  const rehydrateNotes = (snippet: Snippet): ColoredNote[][] => {
-    const { frozenNotes, measuresSpan } = snippet;
-    const startTime = measuresAndBeats.measures[measuresSpan[0] - 1];
-    const modulations = getModulations(analysis);
+  const rehydrateNotes = (snippet: Snippet): Note[][] => {
+    const { frozenNotes } = snippet;
 
     return frozenNotes.notesInVoices.map((voice, voiceIndex) => {
-      const notes: ColoredNote[] = [];
+      const notes: Note[] = [];
       Object.entries(voice).forEach(([midiNumber, spans]) => {
         spans.forEach((span, index) => {
           const absoluteSpan: [number, number] = [
-            span[0] / TIME_SCALE_FACTOR + startTime,
-            span[1] / TIME_SCALE_FACTOR + startTime,
+            span[0] / TIME_SCALE_FACTOR,
+            span[1] / TIME_SCALE_FACTOR,
           ];
-          const noteCenterTime = (absoluteSpan[0] + absoluteSpan[1]) / 2;
-          const lastModulation = modulations
-            .filter((mod) => mod.measure <= noteCenterTime)
-            .reduce((prev, current) =>
-              current.measure > prev.measure ? current : prev,
-            );
-          const localTonic = lastModulation.tonic as PitchClass;
-          const colorNumber = (parseInt(midiNumber) - localTonic + 12) % 12;
-
           notes.push({
             note: { midiNumber: parseInt(midiNumber) },
             id: voiceIndex * 1000 + parseInt(midiNumber) * 100 + index,
             isDrum: false,
             span: absoluteSpan,
             voiceIndex,
-            color: `noteColor_${colorNumber}_colors`,
-            isActive: true,
           });
         });
       });
@@ -253,30 +240,38 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
 
   const rehydrateAnalysis = (
     frozenAnalysis: FrozenAnalysis,
+    startMeasure: number,
   ): {
     analysis: Analysis;
     measuresAndBeats: MeasuresAndBeats;
   } => {
+    const rehydratedMeasuresAndBeats = {
+      measures: frozenAnalysis.measuresAndBeats.measures.map(
+        (time) => time / TIME_SCALE_FACTOR,
+      ),
+      beats: frozenAnalysis.measuresAndBeats.beats.map(
+        (time) => time / TIME_SCALE_FACTOR,
+      ),
+    };
+
     return {
       analysis: {
         ...ANALYSIS_STUB,
-        modulations: frozenAnalysis.modulations,
-      },
-      measuresAndBeats: {
-        measures: frozenAnalysis.measuresAndBeats.measures.map(
-          (time) => time / TIME_SCALE_FACTOR,
-        ),
-        beats: frozenAnalysis.measuresAndBeats.beats.map(
-          (time) => time / TIME_SCALE_FACTOR,
+        modulations: Object.fromEntries(
+          Object.entries(frozenAnalysis.modulations).map(([measure, tonic]) => [
+            measure, // Keep the measure numbers as they are in the frozen analysis
+            tonic as PitchClass,
+          ]),
         ),
       },
+      measuresAndBeats: rehydratedMeasuresAndBeats,
     };
   };
 
   const {
     analysis: rehydratedAnalysis,
     measuresAndBeats: rehydratedMeasuresAndBeats,
-  } = rehydrateAnalysis(snippet.frozenNotes.analysis);
+  } = rehydrateAnalysis(snippet.frozenNotes.analysis, measureRange[0]);
 
   return (
     <Container>
@@ -310,6 +305,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
           analysis={rehydratedAnalysis}
           measuresAndBeats={rehydratedMeasuresAndBeats}
           noteHeight={noteHeight}
+          startMeasure={measureRange[0]}
         />
       </FrozenNotesDisplay>
       <JsonDisplay onClick={copyToClipboard}>{exportString}</JsonDisplay>

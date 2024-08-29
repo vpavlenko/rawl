@@ -1,9 +1,9 @@
 import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
-import { Analysis, PitchClass } from "./analysis";
+import { Analysis } from "./analysis";
 import { AnalysisGrid } from "./AnalysisGrid";
-import { ColoredNote } from "./parseMidi";
-import { getModulations, SecondsConverter } from "./Rawl";
+import { ColoredNote, Note } from "./parseMidi";
+import { getNoteColor, SecondsConverter } from "./Rawl";
 import {
   getNoteRectangles as getSystemNoteRectangles,
   MeasuresAndBeats,
@@ -11,7 +11,7 @@ import {
 } from "./SystemLayout";
 
 interface FrozenNotesProps {
-  notes: ColoredNote[][];
+  notes: Note[][]; // Change this to Note[][]
   measureWidth: number;
   midiNumberToY: (midiNumber: number) => number;
   maxWidth: number;
@@ -21,6 +21,7 @@ interface FrozenNotesProps {
 interface EnhancedFrozenNotesProps extends FrozenNotesProps {
   analysis: Analysis;
   measuresAndBeats: MeasuresAndBeats;
+  startMeasure: number;
 }
 
 const FrozenNotesContainer = styled.div`
@@ -102,7 +103,7 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
       }}
     >
       {notes.map((voiceNotes, index) => (
-        <div key={index}>{getNoteRectangles(voiceNotes)}</div>
+        <div key={index}>{getNoteRectangles(voiceNotes as ColoredNote[])}</div>
       ))}
     </div>
   );
@@ -116,6 +117,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
   analysis,
   measuresAndBeats,
   noteHeight,
+  startMeasure,
 }) => {
   const midiRange = useMemo(() => {
     let min = Infinity;
@@ -145,34 +147,18 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
     [timeRange, measureWidth],
   );
 
-  const modulations = useMemo(() => getModulations(analysis), [analysis]);
-
-  const getTonic = useCallback(
-    (time: number): PitchClass => {
-      const measure = measuresAndBeats.measures.findIndex((m) => m > time) - 1;
-      const relevantModulation = modulations
-        .filter((mod) => mod.measure <= measure)
-        .reduce((prev, current) =>
-          current.measure > prev.measure ? current : prev,
-        );
-      return relevantModulation.tonic;
-    },
-    [measuresAndBeats, modulations],
-  );
-
   const adjustedNotes = useMemo(() => {
     return notes.map((voiceNotes) =>
-      voiceNotes.map((note) => {
-        const noteCenterTime = (note.span[0] + note.span[1]) / 2;
-        const tonic = getTonic(noteCenterTime);
-        const colorNumber = (note.note.midiNumber - tonic + 12) % 12;
-        return {
-          ...note,
-          color: `noteColor_${colorNumber}_colors`,
-        };
-      }),
+      voiceNotes.map((note) => ({
+        ...note,
+        color: (() => {
+          debugger;
+          return getNoteColor(note, analysis, measuresAndBeats.measures);
+        })(),
+        isActive: true, // Add this if it's needed for rendering
+      })),
     );
-  }, [notes, getTonic]);
+  }, [notes, analysis, measuresAndBeats.measures, startMeasure]);
 
   const dummyMeasureSelection = {
     selectedMeasure: null,
@@ -182,6 +168,11 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
     renumberMeasure: () => {},
   };
 
+  const phraseStarts = useMemo(
+    () => measuresAndBeats.measures.map((_, index) => index + 1),
+    [measuresAndBeats.measures],
+  );
+
   return (
     <FrozenNotesContainer>
       <HeaderStaff>
@@ -190,7 +181,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={() => 0}
           noteHeight={16}
-          phraseStarts={[]}
+          phraseStarts={phraseStarts}
           midiRange={[0, 0]}
           measureSelection={dummyMeasureSelection}
           showHeader={true}
@@ -211,7 +202,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={midiNumberToY}
           noteHeight={noteHeight}
-          phraseStarts={[]}
+          phraseStarts={phraseStarts}
           midiRange={midiRange}
           measureSelection={dummyMeasureSelection}
           showHeader={false}
@@ -219,7 +210,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           secondsToX={secondsToX}
         />
         <FrozenNotes
-          notes={adjustedNotes}
+          notes={adjustedNotes as ColoredNote[][]} // Cast to ColoredNote[][] here
           measureWidth={measureWidth}
           midiNumberToY={midiNumberToY}
           maxWidth={width}

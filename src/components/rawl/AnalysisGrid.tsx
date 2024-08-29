@@ -586,6 +586,7 @@ export const AnalysisGrid: React.FC<{
     secondsToX,
     sectionSpan = null,
   }) => {
+    debugger;
     const { measures, beats } = measuresAndBeats;
     if (sectionSpan == null) {
       sectionSpan = [0, measures.length - 1];
@@ -609,7 +610,7 @@ export const AnalysisGrid: React.FC<{
     if (measures.length >= 3) {
       const beatsInThirdMeasure = beats.filter((beat) => beat > measures[2]);
       showBeats =
-        beats.length >= 3 &&
+        beats.length < 3 ||
         secondsToX(beatsInThirdMeasure[1]) -
           secondsToX(beatsInThirdMeasure[0]) >=
           MIN_WIDTH_BETWEEN_BEATS;

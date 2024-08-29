@@ -128,14 +128,13 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
     );
 
     const modulations = getModulations(analysis);
-
     // Find the latest modulation that occurs before or at the start measure
     const initialModulation = modulations
       .filter((mod) => mod.measure <= startMeasure)
       .reduce(
         (latest, current) =>
           current.measure > latest.measure ? current : latest,
-        { measure: 0, tonic: 0 as PitchClass }, // Default to C if no previous modulations
+        { measure: -1, tonic: 0 as PitchClass }, // Default to C if no previous modulations
       );
 
     // Get all modulations within our slice, including the initial one
@@ -240,7 +239,6 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
 
   const rehydrateAnalysis = (
     frozenAnalysis: FrozenAnalysis,
-    startMeasure: number,
   ): {
     analysis: Analysis;
     measuresAndBeats: MeasuresAndBeats;
@@ -271,7 +269,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
   const {
     analysis: rehydratedAnalysis,
     measuresAndBeats: rehydratedMeasuresAndBeats,
-  } = rehydrateAnalysis(snippet.frozenNotes.analysis, measureRange[0]);
+  } = rehydrateAnalysis(snippet.frozenNotes.analysis);
 
   return (
     <Container>

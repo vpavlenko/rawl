@@ -3,6 +3,10 @@ import styled from "styled-components";
 import {
   Analysis,
   ANALYSIS_STUB,
+  CompressedNotes,
+  DeltaCoded,
+  deltaCoding,
+  deltaDecoding,
   FrozenAnalysis,
   FrozenNotesType,
   PitchClass,
@@ -111,9 +115,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
 
     const notesInVoices: FrozenNotesType["notesInVoices"] = frozenNotes.map(
       (voiceNotes) => {
-        const lengthToNotes: {
-          [length: number]: { [midiNumber: number]: number[] };
-        } = {};
+        const lengthToNotes: CompressedNotes = {};
         voiceNotes.forEach((note) => {
           if (note.span[1] >= startTime && note.span[0] < endTime) {
             const start = Math.round(
@@ -128,11 +130,21 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
               lengthToNotes[length] = {};
             }
             if (!lengthToNotes[length][midiNumber]) {
-              lengthToNotes[length][midiNumber] = [];
+              lengthToNotes[length][midiNumber] = [start];
+            } else {
+              (lengthToNotes[length][midiNumber] as number[]).push(start);
             }
-            lengthToNotes[length][midiNumber].push(start);
           }
         });
+
+        // Apply delta coding to the start times
+        Object.values(lengthToNotes).forEach((midiNumbers) => {
+          Object.keys(midiNumbers).forEach((midiNumber) => {
+            const starts = midiNumbers[midiNumber] as number[];
+            midiNumbers[midiNumber] = deltaCoding(starts.sort((a, b) => a - b));
+          });
+        });
+
         return lengthToNotes;
       },
     );
@@ -165,12 +177,16 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
         ]),
       ),
       measuresAndBeats: {
-        measures: measuresAndBeats.measures
-          .slice(startMeasure, endMeasure + 2)
-          .map((time) => Math.round((time - startTime) * TIME_SCALE_FACTOR)),
-        beats: measuresAndBeats.beats
-          .filter((time) => time >= startTime && time < endTime)
-          .map((time) => Math.round((time - startTime) * TIME_SCALE_FACTOR)),
+        measures: deltaCoding(
+          measuresAndBeats.measures
+            .slice(startMeasure, endMeasure + 2)
+            .map((time) => Math.round((time - startTime) * TIME_SCALE_FACTOR)),
+        ),
+        beats: deltaCoding(
+          measuresAndBeats.beats
+            .filter((time) => time >= startTime && time < endTime)
+            .map((time) => Math.round((time - startTime) * TIME_SCALE_FACTOR)),
+        ),
       },
     };
 
@@ -205,7 +221,8 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
       const notes: Note[] = [];
       Object.entries(voice).forEach(([length, midiNumbers]) => {
         Object.entries(midiNumbers).forEach(([midiNumber, starts]) => {
-          (starts as number[]).forEach((start, index) => {
+          const decodedStarts = deltaDecoding(starts as DeltaCoded<number>);
+          decodedStarts.forEach((start, index) => {
             const startTime = start / TIME_SCALE_FACTOR;
             const lengthTime = parseInt(length) / TIME_SCALE_FACTOR;
             const absoluteSpan: [number, number] = [
@@ -233,10 +250,10 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
     measuresAndBeats: MeasuresAndBeats;
   } => {
     const rehydratedMeasuresAndBeats = {
-      measures: frozenAnalysis.measuresAndBeats.measures.map(
+      measures: deltaDecoding(frozenAnalysis.measuresAndBeats.measures).map(
         (time) => time / TIME_SCALE_FACTOR,
       ),
-      beats: frozenAnalysis.measuresAndBeats.beats.map(
+      beats: deltaDecoding(frozenAnalysis.measuresAndBeats.beats).map(
         (time) => time / TIME_SCALE_FACTOR,
       ),
     };

@@ -1,7 +1,6 @@
 import cloneDeep from "lodash/cloneDeep";
 import { Note } from "./parseMidi";
 import { SecondsSpan } from "./Rawl";
-import { MeasuresAndBeats } from "./SystemLayout";
 
 export type PitchClass = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
 
@@ -18,9 +17,12 @@ export type ManualMeasures = {
   beatsPerMeasure: { [oneIndexedMeasureStart: number]: number };
 };
 
+// Add this new type for delta-coded arrays
+export type DeltaCoded<T extends number> = [T, ...number[]];
+
 export interface CompressedNotes {
   [length: number]: {
-    [midiNumber: number]: number[];
+    [midiNumber: number]: DeltaCoded<number>;
   };
 }
 
@@ -41,7 +43,10 @@ export type MidiNumberToNoteSpans = {
 
 export type FrozenAnalysis = {
   modulations: Modulations;
-  measuresAndBeats: MeasuresAndBeats;
+  measuresAndBeats: {
+    measures: DeltaCoded<number>;
+    beats: DeltaCoded<number>;
+  };
 };
 
 export type FrozenNotes = {
@@ -149,3 +154,21 @@ export const advanceAnalysis = (
   selectMeasure(null);
   commitAnalysisUpdate(newAnalysis);
 };
+
+// Add these utility functions for delta coding and decoding
+export function deltaCoding(arr: number[]): DeltaCoded<number> {
+  if (arr.length === 0) return [0];
+  const result: DeltaCoded<number> = [arr[0]];
+  for (let i = 1; i < arr.length; i++) {
+    result.push(arr[i] - arr[i - 1]);
+  }
+  return result;
+}
+
+export function deltaDecoding(encoded: DeltaCoded<number>): number[] {
+  const result: number[] = [encoded[0]];
+  for (let i = 1; i < encoded.length; i++) {
+    result.push(result[i - 1] + encoded[i]);
+  }
+  return result;
+}

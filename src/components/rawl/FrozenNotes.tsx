@@ -11,7 +11,7 @@ import {
 } from "./SystemLayout";
 
 interface FrozenNotesProps {
-  notes: Note[][]; // Change this to Note[][]
+  notes: Note[][];
   measureWidth: number;
   midiNumberToY: (midiNumber: number) => number;
   maxWidth: number;
@@ -152,7 +152,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
       voiceNotes.map((note) => ({
         ...note,
         color: getNoteColor(note, analysis, measuresAndBeats.measures),
-        isActive: true, // Add this if it's needed for rendering
+        isActive: true,
       })),
     );
   }, [notes, analysis, measuresAndBeats.measures, startMeasure]);
@@ -202,7 +202,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           secondsToX={secondsToX}
         />
         <FrozenNotes
-          notes={adjustedNotes as ColoredNote[][]} // Cast to ColoredNote[][] here
+          notes={adjustedNotes as ColoredNote[][]}
           measureWidth={measureWidth}
           midiNumberToY={midiNumberToY}
           maxWidth={width}

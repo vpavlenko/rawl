@@ -586,7 +586,6 @@ export const AnalysisGrid: React.FC<{
     secondsToX,
     sectionSpan = null,
   }) => {
-    debugger;
     const { measures, beats } = measuresAndBeats;
     if (sectionSpan == null) {
       sectionSpan = [0, measures.length - 1];
@@ -604,27 +603,23 @@ export const AnalysisGrid: React.FC<{
         { measure: -Infinity, tonic: null },
       ).tonic;
 
-    let showBeats = true;
-    let showAllMeasureBars = true;
-
-    if (measures.length >= 3) {
-      const beatsInThirdMeasure = beats.filter((beat) => beat > measures[2]);
-      showBeats =
-        beats.length < 3 ||
-        secondsToX(beatsInThirdMeasure[1]) -
-          secondsToX(beatsInThirdMeasure[0]) >=
-          MIN_WIDTH_BETWEEN_BEATS;
-      showAllMeasureBars =
-        showBeats ||
-        secondsToX(measures[2]) - secondsToX(measures[1]) >=
-          MIN_WIDTH_BETWEEN_MEASURES;
-    }
+    const beatsInThirdMeasure = beats.filter(
+      (beat) =>
+        beat > measures[Math.min(sectionSpan[0] + 2, sectionSpan[1] - 1)],
+    );
+    const showBeats =
+      beatsInThirdMeasure.length < 2 ||
+      secondsToX(beatsInThirdMeasure[1]) - secondsToX(beatsInThirdMeasure[0]) >=
+        MIN_WIDTH_BETWEEN_BEATS;
+    const showAllMeasureBars =
+      showBeats ||
+      secondsToX(measures[2]) - secondsToX(measures[1]) >=
+        MIN_WIDTH_BETWEEN_MEASURES;
 
     const selectedPhraseStart =
       phraseStarts.indexOf(measureSelection.selectedMeasure) !== -1
         ? measureSelection.selectedMeasure
         : -1;
-
     return (
       <div style={{ zIndex: 15 }}>
         {measures.map((time, i) => {

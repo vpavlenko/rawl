@@ -309,6 +309,18 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
   // Calculate maxWidth based on the number of measures
   const maxWidth = (measureRange[1] - measureRange[0] + 1) * measureWidth;
 
+  // Pad only the measures array for correct numbering
+  const paddedMeasuresAndBeats = useMemo(() => {
+    const startMeasure = measureRange[0] - 1;
+    const paddedMeasures = Array(startMeasure)
+      .fill(rehydratedMeasuresAndBeats.measures[0])
+      .concat(rehydratedMeasuresAndBeats.measures);
+    return {
+      ...rehydratedMeasuresAndBeats,
+      measures: paddedMeasures,
+    };
+  }, [rehydratedMeasuresAndBeats, measureRange]);
+
   return (
     <Container>
       <FrozenNotesDisplay>
@@ -340,7 +352,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
           midiNumberToY={midiNumberToY}
           maxWidth={maxWidth}
           analysis={rehydratedAnalysis}
-          measuresAndBeats={rehydratedMeasuresAndBeats}
+          measuresAndBeats={paddedMeasuresAndBeats}
           noteHeight={noteHeight}
           startMeasure={measureRange[0]}
         />

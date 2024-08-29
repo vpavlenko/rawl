@@ -11,7 +11,9 @@ import {
 import EnhancedFrozenNotes from "./FrozenNotes";
 import { ColoredNote } from "./parseMidi";
 import { getModulations } from "./Rawl";
-import { SystemLayoutProps } from "./SystemLayout";
+import { MeasuresAndBeats, SystemLayoutProps } from "./SystemLayout";
+
+const TIME_SCALE_FACTOR = 100;
 
 const Container = styled.div`
   display: flex;
@@ -116,8 +118,8 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
               midiNumberToNoteSpans[midiNumber] = [];
             }
             midiNumberToNoteSpans[midiNumber].push([
-              note.span[0] - startTime,
-              note.span[1] - startTime,
+              Math.round((note.span[0] - startTime) * TIME_SCALE_FACTOR),
+              Math.round((note.span[1] - startTime) * TIME_SCALE_FACTOR),
             ]);
           }
         });
@@ -155,10 +157,10 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
       measuresAndBeats: {
         measures: measuresAndBeats.measures
           .slice(startMeasure, endMeasure + 2)
-          .map((time) => time - startTime),
+          .map((time) => Math.round((time - startTime) * TIME_SCALE_FACTOR)),
         beats: measuresAndBeats.beats
           .filter((time) => time >= startTime && time < endTime)
-          .map((time) => time - startTime),
+          .map((time) => Math.round((time - startTime) * TIME_SCALE_FACTOR)),
       },
     };
 
@@ -197,8 +199,8 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
       Object.entries(voice).forEach(([midiNumber, spans]) => {
         spans.forEach((span, index) => {
           const absoluteSpan: [number, number] = [
-            span[0] + startTime,
-            span[1] + startTime,
+            span[0] / TIME_SCALE_FACTOR + startTime,
+            span[1] / TIME_SCALE_FACTOR + startTime,
           ];
           const noteCenterTime = (absoluteSpan[0] + absoluteSpan[1]) / 2;
           const lastModulation = modulations
@@ -249,14 +251,32 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
   // Calculate maxWidth based on the number of measures
   const maxWidth = (measureRange[1] - measureRange[0] + 1) * measureWidth;
 
-  const rehydrateAnalysis = (frozenAnalysis: FrozenAnalysis): Analysis => {
+  const rehydrateAnalysis = (
+    frozenAnalysis: FrozenAnalysis,
+  ): {
+    analysis: Analysis;
+    measuresAndBeats: MeasuresAndBeats;
+  } => {
     return {
-      ...ANALYSIS_STUB,
-      modulations: frozenAnalysis.modulations,
+      analysis: {
+        ...ANALYSIS_STUB,
+        modulations: frozenAnalysis.modulations,
+      },
+      measuresAndBeats: {
+        measures: frozenAnalysis.measuresAndBeats.measures.map(
+          (time) => time / TIME_SCALE_FACTOR,
+        ),
+        beats: frozenAnalysis.measuresAndBeats.beats.map(
+          (time) => time / TIME_SCALE_FACTOR,
+        ),
+      },
     };
   };
 
-  const rehydratedAnalysis = rehydrateAnalysis(snippet.frozenNotes.analysis);
+  const {
+    analysis: rehydratedAnalysis,
+    measuresAndBeats: rehydratedMeasuresAndBeats,
+  } = rehydrateAnalysis(snippet.frozenNotes.analysis);
 
   return (
     <Container>
@@ -288,7 +308,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
           midiNumberToY={midiNumberToY}
           maxWidth={maxWidth}
           analysis={rehydratedAnalysis}
-          measuresAndBeats={snippet.frozenNotes.analysis.measuresAndBeats}
+          measuresAndBeats={rehydratedMeasuresAndBeats}
           noteHeight={noteHeight}
         />
       </FrozenNotesDisplay>

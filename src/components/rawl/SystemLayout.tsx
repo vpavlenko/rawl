@@ -782,7 +782,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
   unregisterKeyboardHandler,
   enableManualRemeasuring = false,
 }) => {
-  const [noteHeight, setNoteHeight] = useState<number>(3);
+  const [noteHeight, setNoteHeight] = useState<number>(3.5);
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
   const [secondWidth, setSecondWidth] = useState<number>(40);
   const setSecondWidthCalled = useRef(false);

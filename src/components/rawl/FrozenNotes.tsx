@@ -109,155 +109,119 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
   );
 };
 
-const MemoizedAnalysisGrid = React.memo(
-  AnalysisGrid,
-  (prevProps, nextProps) => {
-    // Custom comparison function for measuresAndBeats
-    const areMeasuresAndBeatsEqual = (prev, next) => {
-      return (
-        prev.measures.length === next.measures.length &&
-        prev.beats.length === next.beats.length &&
-        prev.measures.every((m, i) => Math.abs(m - next.measures[i]) < 1e-6) &&
-        prev.beats.every((b, i) => Math.abs(b - next.beats[i]) < 1e-6)
-      );
-    };
-
-    return (
-      prevProps.analysis === nextProps.analysis &&
-      areMeasuresAndBeatsEqual(
-        prevProps.measuresAndBeats,
-        nextProps.measuresAndBeats,
-      ) &&
-      prevProps.midiNumberToY === nextProps.midiNumberToY &&
-      prevProps.noteHeight === nextProps.noteHeight &&
-      prevProps.phraseStarts === nextProps.phraseStarts &&
-      prevProps.midiRange[0] === nextProps.midiRange[0] &&
-      prevProps.midiRange[1] === nextProps.midiRange[1] &&
-      prevProps.measureSelection === nextProps.measureSelection &&
-      prevProps.showHeader === nextProps.showHeader &&
-      prevProps.showTonalGrid === nextProps.showTonalGrid &&
-      prevProps.secondsToX === nextProps.secondsToX &&
-      prevProps.sectionSpan[0] === nextProps.sectionSpan[0] &&
-      prevProps.sectionSpan[1] === nextProps.sectionSpan[1]
-    );
-  },
-);
-
-const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = React.memo(
-  ({
-    notes,
-    measureWidth,
-    midiNumberToY,
-    maxWidth,
-    analysis,
-    measuresAndBeats,
-    noteHeight,
-    startMeasure,
-  }) => {
-    const midiRange = useMemo(() => {
-      let min = Infinity;
-      let max = -Infinity;
-      notes.forEach((voiceNotes) => {
-        voiceNotes.forEach((note) => {
-          const midiNumber = note.note.midiNumber;
-          min = Math.min(min, midiNumber);
-          max = Math.max(max, midiNumber);
-        });
+const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
+  notes,
+  measureWidth,
+  midiNumberToY,
+  maxWidth,
+  analysis,
+  measuresAndBeats,
+  noteHeight,
+  startMeasure,
+}) => {
+  const midiRange = useMemo(() => {
+    let min = Infinity;
+    let max = -Infinity;
+    notes.forEach((voiceNotes) => {
+      voiceNotes.forEach((note) => {
+        const midiNumber = note.note.midiNumber;
+        min = Math.min(min, midiNumber);
+        max = Math.max(max, midiNumber);
       });
-      return [min, max] as MidiRange;
-    }, [notes]);
+    });
+    return [min, max] as MidiRange;
+  }, [notes]);
 
-    const timeRange = useMemo(() => {
-      const firstMeasure = measuresAndBeats.measures[0];
-      const lastMeasure =
-        measuresAndBeats.measures[measuresAndBeats.measures.length - 1];
-      return [firstMeasure, lastMeasure];
-    }, [measuresAndBeats]);
+  const timeRange = useMemo(() => {
+    const firstMeasure = measuresAndBeats.measures[0];
+    const lastMeasure =
+      measuresAndBeats.measures[measuresAndBeats.measures.length - 1];
+    return [firstMeasure, lastMeasure];
+  }, [measuresAndBeats]);
 
-    const height = (midiRange[1] - midiRange[0] + 2) * noteHeight;
-    const width = (timeRange[1] - timeRange[0]) * measureWidth;
+  const height = (midiRange[1] - midiRange[0] + 2) * noteHeight;
+  const width = (timeRange[1] - timeRange[0]) * measureWidth;
 
-    const secondsToX = useCallback(
-      (seconds: number) => (seconds - timeRange[0]) * measureWidth,
-      [timeRange, measureWidth],
+  const secondsToX = useCallback(
+    (seconds: number) => (seconds - timeRange[0]) * measureWidth,
+    [timeRange, measureWidth],
+  );
+
+  const adjustedNotes = useMemo(() => {
+    return notes.map((voiceNotes) =>
+      voiceNotes.map((note) => ({
+        ...note,
+        color: getNoteColor(note, analysis, measuresAndBeats.measures),
+        isActive: true,
+      })),
     );
+  }, [notes, analysis, measuresAndBeats.measures, startMeasure]);
 
-    const adjustedNotes = useMemo(() => {
-      return notes.map((voiceNotes) =>
-        voiceNotes.map((note) => ({
-          ...note,
-          color: getNoteColor(note, analysis, measuresAndBeats.measures),
-          isActive: true,
-        })),
-      );
-    }, [notes, analysis, measuresAndBeats.measures, startMeasure]);
+  const dummyMeasureSelection = useMemo(
+    () => ({
+      selectedMeasure: null,
+      selectMeasure: () => {},
+      splitAtMeasure: () => {},
+      mergeAtMeasure: () => {},
+      renumberMeasure: () => {},
+    }),
+    [],
+  );
 
-    const dummyMeasureSelection = useMemo(
-      () => ({
-        selectedMeasure: null,
-        selectMeasure: () => {},
-        splitAtMeasure: () => {},
-        mergeAtMeasure: () => {},
-        renumberMeasure: () => {},
-      }),
-      [],
-    );
+  const sectionSpan: MeasuresSpan = useMemo(() => {
+    const paddingLength = startMeasure - 1;
+    const endMeasure = measuresAndBeats.measures.length - 1;
+    return [paddingLength, endMeasure];
+  }, [startMeasure, measuresAndBeats.measures.length]);
 
-    const sectionSpan: MeasuresSpan = useMemo(() => {
-      const paddingLength = startMeasure - 1;
-      const endMeasure = measuresAndBeats.measures.length - 1;
-      return [paddingLength, endMeasure];
-    }, [startMeasure, measuresAndBeats.measures.length]);
-
-    return (
-      <FrozenNotesContainer>
-        <HeaderStaff>
-          <MemoizedAnalysisGrid
-            analysis={analysis}
-            measuresAndBeats={measuresAndBeats}
-            midiNumberToY={() => 0}
-            noteHeight={16}
-            phraseStarts={[]}
-            midiRange={[0, 0]}
-            measureSelection={dummyMeasureSelection}
-            showHeader={true}
-            showTonalGrid={false}
-            secondsToX={secondsToX}
-            sectionSpan={sectionSpan}
-          />
-        </HeaderStaff>
-        <div
-          style={{
-            width: `${width}px`,
-            height: `${height}px`,
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          <MemoizedAnalysisGrid
-            analysis={analysis}
-            measuresAndBeats={measuresAndBeats}
-            midiNumberToY={midiNumberToY}
-            noteHeight={noteHeight}
-            phraseStarts={[]}
-            midiRange={midiRange}
-            measureSelection={dummyMeasureSelection}
-            showHeader={false}
-            showTonalGrid={true}
-            secondsToX={secondsToX}
-            sectionSpan={sectionSpan}
-          />
-          <FrozenNotes
-            notes={adjustedNotes as ColoredNote[][]}
-            measureWidth={measureWidth}
-            midiNumberToY={midiNumberToY}
-            maxWidth={width}
-            noteHeight={noteHeight}
-          />
-        </div>
-      </FrozenNotesContainer>
-    );
-  },
-);
+  return (
+    <FrozenNotesContainer>
+      <HeaderStaff>
+        <AnalysisGrid
+          analysis={analysis}
+          measuresAndBeats={measuresAndBeats}
+          midiNumberToY={() => 0}
+          noteHeight={16}
+          phraseStarts={[]}
+          midiRange={[0, 0]}
+          measureSelection={dummyMeasureSelection}
+          showHeader={true}
+          showTonalGrid={false}
+          secondsToX={secondsToX}
+          sectionSpan={sectionSpan}
+        />
+      </HeaderStaff>
+      <div
+        style={{
+          width: `${width}px`,
+          height: `${height}px`,
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <AnalysisGrid
+          analysis={analysis}
+          measuresAndBeats={measuresAndBeats}
+          midiNumberToY={midiNumberToY}
+          noteHeight={noteHeight}
+          phraseStarts={[]}
+          midiRange={midiRange}
+          measureSelection={dummyMeasureSelection}
+          showHeader={false}
+          showTonalGrid={true}
+          secondsToX={secondsToX}
+          sectionSpan={sectionSpan}
+        />
+        <FrozenNotes
+          notes={adjustedNotes as ColoredNote[][]}
+          measureWidth={measureWidth}
+          midiNumberToY={midiNumberToY}
+          maxWidth={width}
+          noteHeight={noteHeight}
+        />
+      </div>
+    </FrozenNotesContainer>
+  );
+};
 
 export default EnhancedFrozenNotes;

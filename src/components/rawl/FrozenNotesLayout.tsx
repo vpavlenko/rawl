@@ -75,6 +75,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
   const [measureRange, setMeasureRange] = useState([1, 4]);
   const [copyIndicatorVisible, setCopyIndicatorVisible] = useState(false);
   const startMeasureRef = useRef<HTMLInputElement>(null);
+  const [renderKey, setRenderKey] = useState(0);
 
   const handleRangeChange = useCallback(
     (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,6 +85,8 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
         newRange[index] = value;
         return newRange;
       });
+      // Increment renderKey to force re-render
+      setRenderKey((prevKey) => prevKey + 1);
     },
     [],
   );
@@ -223,7 +226,48 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
     });
   };
 
-  const rehydratedNotes = rehydrateNotes(snippet);
+  const rehydrateAnalysis = (
+    frozenAnalysis: FrozenAnalysis,
+  ): {
+    analysis: Analysis;
+    measuresAndBeats: MeasuresAndBeats;
+  } => {
+    const rehydratedMeasuresAndBeats = {
+      measures: frozenAnalysis.measuresAndBeats.measures.map(
+        (time) => time / TIME_SCALE_FACTOR,
+      ),
+      beats: frozenAnalysis.measuresAndBeats.beats.map(
+        (time) => time / TIME_SCALE_FACTOR,
+      ),
+    };
+
+    return {
+      analysis: {
+        ...ANALYSIS_STUB,
+        modulations: Object.fromEntries(
+          Object.entries(frozenAnalysis.modulations).map(([measure, tonic]) => [
+            measure,
+            tonic as PitchClass,
+          ]),
+        ),
+      },
+      measuresAndBeats: rehydratedMeasuresAndBeats,
+    };
+  };
+
+  const { rehydratedNotes, rehydratedAnalysis, rehydratedMeasuresAndBeats } =
+    useMemo(() => {
+      const rehydratedNotes = rehydrateNotes(snippet);
+      const {
+        analysis: rehydratedAnalysis,
+        measuresAndBeats: rehydratedMeasuresAndBeats,
+      } = rehydrateAnalysis(snippet.frozenNotes.analysis);
+      return {
+        rehydratedNotes,
+        rehydratedAnalysis,
+        rehydratedMeasuresAndBeats,
+      };
+    }, [snippet, renderKey]); // Add renderKey as a dependency
 
   const midiRange = useMemo(() => {
     let min = Infinity;
@@ -247,40 +291,6 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
 
   // Calculate maxWidth based on the number of measures
   const maxWidth = (measureRange[1] - measureRange[0] + 1) * measureWidth;
-
-  const rehydrateAnalysis = (
-    frozenAnalysis: FrozenAnalysis,
-  ): {
-    analysis: Analysis;
-    measuresAndBeats: MeasuresAndBeats;
-  } => {
-    const rehydratedMeasuresAndBeats = {
-      measures: frozenAnalysis.measuresAndBeats.measures.map(
-        (time) => time / TIME_SCALE_FACTOR,
-      ),
-      beats: frozenAnalysis.measuresAndBeats.beats.map(
-        (time) => time / TIME_SCALE_FACTOR,
-      ),
-    };
-
-    return {
-      analysis: {
-        ...ANALYSIS_STUB,
-        modulations: Object.fromEntries(
-          Object.entries(frozenAnalysis.modulations).map(([measure, tonic]) => [
-            measure, // Keep the measure numbers as they are in the frozen analysis
-            tonic as PitchClass,
-          ]),
-        ),
-      },
-      measuresAndBeats: rehydratedMeasuresAndBeats,
-    };
-  };
-
-  const {
-    analysis: rehydratedAnalysis,
-    measuresAndBeats: rehydratedMeasuresAndBeats,
-  } = rehydrateAnalysis(snippet.frozenNotes.analysis);
 
   return (
     <Container>
@@ -307,6 +317,7 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
         </RangeInputs>
         <h3>Rehydrated Notes</h3>
         <EnhancedFrozenNotes
+          key={renderKey} // Add a key prop to force re-render
           notes={rehydratedNotes}
           measureWidth={measureWidth}
           midiNumberToY={midiNumberToY}

@@ -151,10 +151,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
     return notes.map((voiceNotes) =>
       voiceNotes.map((note) => ({
         ...note,
-        color: (() => {
-          debugger;
-          return getNoteColor(note, analysis, measuresAndBeats.measures);
-        })(),
+        color: getNoteColor(note, analysis, measuresAndBeats.measures),
         isActive: true, // Add this if it's needed for rendering
       })),
     );
@@ -216,4 +213,4 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
   );
 };
 
-export default EnhancedFrozenNotes;
+export default React.memo(EnhancedFrozenNotes);

@@ -4,7 +4,7 @@ import {
   Analysis,
   ANALYSIS_STUB,
   FrozenAnalysis,
-  FrozenNotes as FrozenNotesType,
+  FrozenNotesType,
   PitchClass,
   Snippet,
 } from "./analysis";
@@ -108,22 +108,29 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
 
     const notesInVoices: FrozenNotesType["notesInVoices"] = frozenNotes.map(
       (voiceNotes) => {
-        const midiNumberToNoteSpans: {
-          [midiNumber: number]: [number, number][];
+        const lengthToNotes: {
+          [length: number]: { [midiNumber: number]: number[] };
         } = {};
         voiceNotes.forEach((note) => {
           if (note.span[1] >= startTime && note.span[0] < endTime) {
+            const start = Math.round(
+              (note.span[0] - startTime) * TIME_SCALE_FACTOR,
+            );
+            const length = Math.round(
+              (note.span[1] - note.span[0]) * TIME_SCALE_FACTOR,
+            );
             const midiNumber = note.note.midiNumber;
-            if (!midiNumberToNoteSpans[midiNumber]) {
-              midiNumberToNoteSpans[midiNumber] = [];
+
+            if (!lengthToNotes[length]) {
+              lengthToNotes[length] = {};
             }
-            midiNumberToNoteSpans[midiNumber].push([
-              Math.round((note.span[0] - startTime) * TIME_SCALE_FACTOR),
-              Math.round((note.span[1] - startTime) * TIME_SCALE_FACTOR),
-            ]);
+            if (!lengthToNotes[length][midiNumber]) {
+              lengthToNotes[length][midiNumber] = [];
+            }
+            lengthToNotes[length][midiNumber].push(start);
           }
         });
-        return midiNumberToNoteSpans;
+        return lengthToNotes;
       },
     );
 
@@ -193,18 +200,22 @@ const FrozenNotesLayout: React.FC<SystemLayoutProps> = ({
 
     return frozenNotes.notesInVoices.map((voice, voiceIndex) => {
       const notes: Note[] = [];
-      Object.entries(voice).forEach(([midiNumber, spans]) => {
-        spans.forEach((span, index) => {
-          const absoluteSpan: [number, number] = [
-            span[0] / TIME_SCALE_FACTOR,
-            span[1] / TIME_SCALE_FACTOR,
-          ];
-          notes.push({
-            note: { midiNumber: parseInt(midiNumber) },
-            id: voiceIndex * 1000 + parseInt(midiNumber) * 100 + index,
-            isDrum: false,
-            span: absoluteSpan,
-            voiceIndex,
+      Object.entries(voice).forEach(([length, midiNumbers]) => {
+        Object.entries(midiNumbers).forEach(([midiNumber, starts]) => {
+          (starts as number[]).forEach((start, index) => {
+            const startTime = start / TIME_SCALE_FACTOR;
+            const lengthTime = parseInt(length) / TIME_SCALE_FACTOR;
+            const absoluteSpan: [number, number] = [
+              startTime,
+              startTime + lengthTime,
+            ];
+            notes.push({
+              note: { midiNumber: parseInt(midiNumber) },
+              id: voiceIndex * 1000 + parseInt(midiNumber) * 100 + index,
+              isDrum: false,
+              span: absoluteSpan,
+              voiceIndex,
+            });
           });
         });
       });

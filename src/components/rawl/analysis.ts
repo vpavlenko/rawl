@@ -18,7 +18,22 @@ export type ManualMeasures = {
   beatsPerMeasure: { [oneIndexedMeasureStart: number]: number };
 };
 
-export type FrozenNote = {};
+export interface CompressedNotes {
+  [length: number]: {
+    [midiNumber: number]: number[];
+  };
+}
+
+export interface FrozenNotesType {
+  notesInVoices: CompressedNotes[];
+  analysis: FrozenAnalysis;
+}
+
+export interface Snippet {
+  tag: string;
+  frozenNotes: FrozenNotesType;
+  measuresSpan: [number, number];
+}
 
 export type MidiNumberToNoteSpans = {
   [midiNumber: number]: SecondsSpan[];
@@ -32,15 +47,6 @@ export type FrozenAnalysis = {
 export type FrozenNotes = {
   notesInVoices: MidiNumberToNoteSpans[]; // first dimension is voice
   analysis: FrozenAnalysis;
-};
-
-export type Snippet = {
-  tag: string;
-
-  // the focus is on the most efficient compression of it.
-  // may be replaced with base64 in the future.
-  frozenNotes: FrozenNotes;
-  measuresSpan: MeasuresSpan;
 };
 
 export type Analysis = {

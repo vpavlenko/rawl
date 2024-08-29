@@ -168,11 +168,6 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
     renumberMeasure: () => {},
   };
 
-  const phraseStarts = useMemo(
-    () => measuresAndBeats.measures.map((_, index) => index + 1),
-    [measuresAndBeats.measures],
-  );
-
   return (
     <FrozenNotesContainer>
       <HeaderStaff>
@@ -181,7 +176,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={() => 0}
           noteHeight={16}
-          phraseStarts={phraseStarts}
+          phraseStarts={[]}
           midiRange={[0, 0]}
           measureSelection={dummyMeasureSelection}
           showHeader={true}
@@ -202,7 +197,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={midiNumberToY}
           noteHeight={noteHeight}
-          phraseStarts={phraseStarts}
+          phraseStarts={[]}
           midiRange={midiRange}
           measureSelection={dummyMeasureSelection}
           showHeader={false}

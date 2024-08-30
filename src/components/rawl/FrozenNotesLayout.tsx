@@ -1,23 +1,21 @@
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
+import ErrorBoundary from "../ErrorBoundary";
 import {
   Analysis,
-  ANALYSIS_STUB,
   CompressedNotes,
-  DeltaCoded,
   deltaCoding,
-  deltaDecoding,
-  FrozenAnalysis,
   FrozenNotesType,
   PitchClass,
+  rehydrateAnalysis,
+  rehydrateNotes,
   Snippet,
+  TIME_SCALE_FACTOR,
 } from "./analysis";
 import EnhancedFrozenNotes from "./FrozenNotes";
-import { Note } from "./parseMidi";
 import { getModulations } from "./Rawl";
-import { MeasuresAndBeats, SystemLayoutProps } from "./SystemLayout";
-
-const TIME_SCALE_FACTOR = 100;
+import SnippetItem from "./SnippetItem";
+import { SystemLayoutProps } from "./SystemLayout";
 
 const Container = styled.div`
   display: flex;
@@ -75,13 +73,9 @@ const SnippetList = styled.div`
   margin-top: 20px;
   border-top: 1px solid #444;
   padding-top: 20px;
-`;
-
-const SnippetItem = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 20px;
 `;
 
 const ErrorMessage = styled.div`
@@ -117,7 +111,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
         const newRange = [...prev];
         newRange[index] = Math.max(
           1,
-          Math.min(value, measuresAndBeats.measures.length),
+          Math.min(value, measuresAndBeats?.measures.length || 1),
         );
         // Ensure start measure is not greater than end measure
         if (index === 0 && newRange[0] > newRange[1]) {
@@ -131,7 +125,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
       // Increment renderKey to force re-render
       setRenderKey((prevKey) => prevKey + 1);
     },
-    [measuresAndBeats.measures.length],
+    [measuresAndBeats],
   );
 
   React.useEffect(() => {
@@ -146,7 +140,12 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     }
   }, []);
 
-  const createFrozenNotes = useCallback((): FrozenNotesType => {
+  const createFrozenNotes = useCallback((): FrozenNotesType | null => {
+    if (!frozenNotes || !measuresAndBeats || !analysis) {
+      console.error("Missing required props in createFrozenNotes");
+      return null;
+    }
+
     const startMeasure = measureRange[0] - 1;
     const endMeasure = measureRange[1] - 1;
     const startTime = measuresAndBeats.measures[startMeasure];
@@ -235,15 +234,23 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     };
   }, [frozenNotes, measureRange, measuresAndBeats, analysis]);
 
-  const snippet: Snippet = {
-    tag: tagName,
-    frozenNotes: createFrozenNotes(),
-    measuresSpan: [measureRange[0], measureRange[1]],
-  };
+  const snippet: Snippet | null = useMemo(() => {
+    const frozenNotesData = createFrozenNotes();
+    if (!frozenNotesData) return null;
 
-  const exportString = JSON.stringify(snippet);
+    return {
+      tag: tagName,
+      frozenNotes: frozenNotesData,
+      measuresSpan: [measureRange[0], measureRange[1]],
+    };
+  }, [createFrozenNotes, tagName, measureRange]);
+
+  const exportString = useMemo(() => {
+    return snippet ? JSON.stringify(snippet) : "";
+  }, [snippet]);
 
   const saveSnippet = useCallback(() => {
+    if (!snippet) return;
     const updatedAnalysis: Analysis = {
       ...analysis,
       snippets: [...(analysis.snippets || []), snippet],
@@ -265,6 +272,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
   );
 
   const copyToClipboard = useCallback(() => {
+    if (!exportString) return;
     navigator.clipboard.writeText(exportString).then(() => {
       setCopyIndicatorVisible(true);
       setTimeout(() => setCopyIndicatorVisible(false), 2000);
@@ -274,82 +282,12 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
   const measureWidth = 50; // Fixed width for each measure
   const noteHeight = 3; // Match the initial value in StackedSystemLayout
 
-  const rehydrateNotes = (snippet: Snippet): Note[][] => {
-    const { frozenNotes } = snippet;
-    let nextId = 1; // Initialize a counter for unique IDs
-
-    return frozenNotes.notesInVoices.map((voice, voiceIndex) => {
-      const notes: Note[] = [];
-      Object.entries(voice).forEach(([length, midiNumbers]) => {
-        Object.entries(midiNumbers).forEach(([midiNumber, starts]) => {
-          const decodedStarts = deltaDecoding(starts as DeltaCoded<number>);
-          decodedStarts.forEach((start) => {
-            const startTime = start / TIME_SCALE_FACTOR;
-            const lengthTime = parseInt(length) / TIME_SCALE_FACTOR;
-            const absoluteSpan: [number, number] = [
-              startTime,
-              startTime + lengthTime,
-            ];
-            notes.push({
-              note: { midiNumber: parseInt(midiNumber) },
-              id: nextId++, // Use the incrementing ID
-              isDrum: false,
-              span: absoluteSpan,
-              voiceIndex,
-            });
-          });
-        });
-      });
-      return notes;
-    });
-  };
-
-  const rehydrateAnalysis = (
-    frozenAnalysis: FrozenAnalysis,
-  ): {
-    analysis: Analysis;
-    measuresAndBeats: MeasuresAndBeats;
-  } => {
-    const rehydratedMeasuresAndBeats = {
-      measures: deltaDecoding(frozenAnalysis.measuresAndBeats.measures).map(
-        (time) => time / TIME_SCALE_FACTOR,
-      ),
-      beats: deltaDecoding(frozenAnalysis.measuresAndBeats.beats).map(
-        (time) => time / TIME_SCALE_FACTOR,
-      ),
-    };
-
-    return {
-      analysis: {
-        ...ANALYSIS_STUB,
-        modulations: Object.fromEntries(
-          Object.entries(frozenAnalysis.modulations).map(([measure, tonic]) => [
-            measure,
-            tonic as PitchClass,
-          ]),
-        ),
-      },
-      measuresAndBeats: rehydratedMeasuresAndBeats,
-    };
-  };
-
-  const { rehydratedNotes, rehydratedAnalysis, rehydratedMeasuresAndBeats } =
-    useMemo(() => {
-      const rehydratedNotes = rehydrateNotes(snippet);
-      const {
-        analysis: rehydratedAnalysis,
-        measuresAndBeats: rehydratedMeasuresAndBeats,
-      } = rehydrateAnalysis(snippet.frozenNotes.analysis);
-      return {
-        rehydratedNotes,
-        rehydratedAnalysis,
-        rehydratedMeasuresAndBeats,
-      };
-    }, [snippet, renderKey]); // Add renderKey as a dependency
-
   const midiRange = useMemo(() => {
+    if (!snippet) return [0, 0] as [number, number];
+
     let min = Infinity;
     let max = -Infinity;
+    const rehydratedNotes = rehydrateNotes(snippet);
     rehydratedNotes.forEach((voiceNotes) => {
       voiceNotes.forEach((note) => {
         const midiNumber = note.note.midiNumber;
@@ -358,7 +296,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
       });
     });
     return [min, max] as [number, number];
-  }, [rehydratedNotes]);
+  }, [snippet]);
 
   const height = (midiRange[1] - midiRange[0] + 1) * noteHeight;
 
@@ -372,6 +310,8 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
 
   // Pad only the measures array for correct numbering
   const paddedMeasuresAndBeats = useMemo(() => {
+    if (!snippet) return { measures: [], beats: [] };
+
     const startMeasure = measureRange[0] - 1;
     const endMeasure = measureRange[1];
 
@@ -379,21 +319,23 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     const paddingLength = Math.max(0, startMeasure);
 
     // Slice the measures array to include only the selected range
-    const slicedMeasures = rehydratedMeasuresAndBeats.measures.slice(
-      0,
-      endMeasure + 1,
-    );
+    const slicedMeasures = rehydrateAnalysis(
+      snippet.frozenNotes.analysis,
+    ).measuresAndBeats.measures.slice(0, endMeasure + 1);
 
     const paddedMeasures = [
-      ...Array(paddingLength).fill(rehydratedMeasuresAndBeats.measures[0] || 0),
+      ...Array(paddingLength).fill(
+        rehydrateAnalysis(snippet.frozenNotes.analysis).measuresAndBeats
+          .measures[0] || 0,
+      ),
       ...slicedMeasures,
     ];
 
     return {
-      ...rehydratedMeasuresAndBeats,
+      ...rehydrateAnalysis(snippet.frozenNotes.analysis).measuresAndBeats,
       measures: paddedMeasures,
     };
-  }, [rehydratedMeasuresAndBeats, measureRange]);
+  }, [snippet, renderKey]); // Add renderKey as a dependency
 
   const isValidRange = useMemo(() => {
     return (
@@ -402,89 +344,102 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
       measureRange[0] > 0 &&
       measureRange[1] > 0 &&
       measureRange[0] <= measureRange[1] &&
-      measureRange[1] <= measuresAndBeats.measures.length
+      measureRange[1] <= (measuresAndBeats?.measures.length || 0)
     );
-  }, [measureRange, measuresAndBeats.measures.length]);
+  }, [measureRange, measuresAndBeats]);
+
+  // Add this check after all hooks have been called
+  if (!frozenNotes || !measuresAndBeats || !analysis) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <Container>
-      <FrozenNotesDisplay>
-        <h2>Frozen Notes</h2>
-        <RangeInputs>
-          <label>Measures:</label>
-          <NumberInput
-            type="number"
-            min="1"
-            max={measuresAndBeats.measures.length}
-            value={measureRange[0]}
-            onChange={handleRangeChange(0)}
-            ref={startMeasureRef}
-          />
-          <span>to</span>
-          <NumberInput
-            type="number"
-            min="1"
-            max={measuresAndBeats.measures.length}
-            value={measureRange[1]}
-            onChange={handleRangeChange(1)}
-          />
-          <label>
-            Tag:
-            <input
-              type="text"
-              value={tagName}
-              onChange={(e) => setTagName(e.target.value)}
-              style={{ marginLeft: "10px", width: "100px" }}
+    <ErrorBoundary>
+      <Container>
+        <FrozenNotesDisplay>
+          <h2>Frozen Notes</h2>
+          <RangeInputs>
+            <label>Measures:</label>
+            <NumberInput
+              type="number"
+              min="1"
+              max={measuresAndBeats.measures.length}
+              value={measureRange[0]}
+              onChange={handleRangeChange(0)}
+              ref={startMeasureRef}
             />
-          </label>
-        </RangeInputs>
-        {error && <ErrorMessage>{error}</ErrorMessage>}
-        {isValidRange ? (
-          <>
-            <h3>Rehydrated Notes</h3>
-            <EnhancedFrozenNotes
-              key={renderKey}
-              notes={rehydratedNotes}
+            <span>to</span>
+            <NumberInput
+              type="number"
+              min="1"
+              max={measuresAndBeats.measures.length}
+              value={measureRange[1]}
+              onChange={handleRangeChange(1)}
+            />
+            <label>
+              Tag:
+              <input
+                type="text"
+                value={tagName}
+                onChange={(e) => setTagName(e.target.value)}
+                style={{ marginLeft: "10px", width: "100px" }}
+              />
+            </label>
+          </RangeInputs>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          {isValidRange && snippet ? (
+            <>
+              <h3>Rehydrated Notes</h3>
+              <EnhancedFrozenNotes
+                key={renderKey}
+                notes={rehydrateNotes(snippet)}
+                measureWidth={measureWidth}
+                midiNumberToY={midiNumberToY}
+                maxWidth={maxWidth}
+                analysis={
+                  rehydrateAnalysis(snippet.frozenNotes.analysis).analysis
+                }
+                measuresAndBeats={paddedMeasuresAndBeats}
+                noteHeight={noteHeight}
+                startMeasure={measureRange[0]}
+              />
+              <JsonDisplay onClick={copyToClipboard}>
+                {exportString}
+              </JsonDisplay>
+              <button onClick={saveSnippet} style={{ marginTop: "10px" }}>
+                Save Snippet
+              </button>
+            </>
+          ) : (
+            <ErrorMessage>
+              {error ||
+                "Please enter a valid measure range to display frozen notes."}
+            </ErrorMessage>
+          )}
+        </FrozenNotesDisplay>
+        <CopyIndicator visible={copyIndicatorVisible}>
+          {copyIndicatorVisible ? "Snippet saved!" : "Copied to clipboard!"}
+        </CopyIndicator>
+        <SnippetList>
+          <h3>Saved Snippets</h3>
+          {analysis.snippets?.map((savedSnippet, index) => (
+            <SnippetItem
+              key={index}
+              snippet={savedSnippet}
+              index={index}
+              deleteSnippet={deleteSnippet}
               measureWidth={measureWidth}
-              midiNumberToY={midiNumberToY}
-              maxWidth={maxWidth}
-              analysis={rehydratedAnalysis}
-              measuresAndBeats={paddedMeasuresAndBeats}
               noteHeight={noteHeight}
-              startMeasure={measureRange[0]}
             />
-            <JsonDisplay onClick={copyToClipboard}>{exportString}</JsonDisplay>
-            <button onClick={saveSnippet} style={{ marginTop: "10px" }}>
-              Save Snippet
-            </button>
-          </>
-        ) : (
-          <ErrorMessage>
-            Please enter a valid measure range to display frozen notes.
-          </ErrorMessage>
+          ))}
+        </SnippetList>
+        {isValidRange && snippet && (
+          <RehydratedNotesDisplay>
+            <pre>{JSON.stringify(rehydrateNotes(snippet), null, 2)}</pre>
+          </RehydratedNotesDisplay>
         )}
-      </FrozenNotesDisplay>
-      <CopyIndicator visible={copyIndicatorVisible}>
-        {copyIndicatorVisible ? "Snippet saved!" : "Copied to clipboard!"}
-      </CopyIndicator>
-      <SnippetList>
-        <h3>Saved Snippets</h3>
-        {analysis.snippets?.map((savedSnippet, index) => (
-          <SnippetItem key={index}>
-            <span>
-              {savedSnippet.tag} (Measures:{" "}
-              {savedSnippet.measuresSpan.join("-")})
-            </span>
-            <button onClick={() => deleteSnippet(index)}>Delete</button>
-          </SnippetItem>
-        ))}
-      </SnippetList>
-      {isValidRange && (
-        <RehydratedNotesDisplay>
-          <pre>{JSON.stringify(rehydratedNotes, null, 2)}</pre>
-        </RehydratedNotesDisplay>
-      )}
-    </Container>
+      </Container>
+    </ErrorBoundary>
   );
 };
 

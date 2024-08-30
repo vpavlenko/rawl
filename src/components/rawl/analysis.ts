@@ -1,6 +1,9 @@
 import cloneDeep from "lodash/cloneDeep";
 import { Note } from "./parseMidi";
 import { SecondsSpan } from "./Rawl";
+import { MeasuresAndBeats } from "./SystemLayout";
+
+export const TIME_SCALE_FACTOR = 100;
 
 export type PitchClass = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
 
@@ -172,3 +175,61 @@ export function deltaDecoding(encoded: DeltaCoded<number>): number[] {
   }
   return result;
 }
+
+export const rehydrateNotes = (snippet: Snippet): Note[][] => {
+  const { frozenNotes } = snippet;
+
+  return frozenNotes.notesInVoices.map((voice, voiceIndex) => {
+    const notes: Note[] = [];
+    Object.entries(voice).forEach(([length, midiNumbers]) => {
+      Object.entries(midiNumbers).forEach(([midiNumber, starts]) => {
+        const decodedStarts = deltaDecoding(starts as DeltaCoded<number>);
+        decodedStarts.forEach((start) => {
+          const startTime = start / TIME_SCALE_FACTOR;
+          const lengthTime = parseInt(length) / TIME_SCALE_FACTOR;
+          const absoluteSpan: [number, number] = [
+            startTime,
+            startTime + lengthTime,
+          ];
+          notes.push({
+            note: { midiNumber: parseInt(midiNumber) },
+            id: notes.length + 1, // Unique ID for each note
+            isDrum: false,
+            span: absoluteSpan,
+            voiceIndex,
+          });
+        });
+      });
+    });
+    return notes;
+  });
+};
+
+export const rehydrateAnalysis = (
+  frozenAnalysis: FrozenAnalysis,
+): {
+  analysis: Analysis;
+  measuresAndBeats: MeasuresAndBeats;
+} => {
+  const rehydratedMeasuresAndBeats = {
+    measures: deltaDecoding(frozenAnalysis.measuresAndBeats.measures).map(
+      (time) => time / TIME_SCALE_FACTOR,
+    ),
+    beats: deltaDecoding(frozenAnalysis.measuresAndBeats.beats).map(
+      (time) => time / TIME_SCALE_FACTOR,
+    ),
+  };
+
+  return {
+    analysis: {
+      ...ANALYSIS_STUB,
+      modulations: Object.fromEntries(
+        Object.entries(frozenAnalysis.modulations).map(([measure, tonic]) => [
+          measure,
+          tonic as PitchClass,
+        ]),
+      ),
+    },
+    measuresAndBeats: rehydratedMeasuresAndBeats,
+  };
+};

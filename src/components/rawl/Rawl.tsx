@@ -8,6 +8,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { VoiceMask } from "../App";
+import ErrorBoundary from "../ErrorBoundary";
 import { MeasureSelection } from "./AnalysisGrid";
 import FrozenNotesLayout from "./FrozenNotesLayout";
 import {
@@ -685,10 +686,14 @@ const Rawl: React.FC<{
             tonalHistograms={tonalHistograms}
           />
         ) : (
-          <FrozenNotesLayout
-            {...systemLayoutProps}
-            saveAnalysis={saveAnalysis}
-          />
+          <ErrorBoundary
+            fallback={<div>Error loading Frozen Notes Layout</div>}
+          >
+            <FrozenNotesLayout
+              {...systemLayoutProps}
+              saveAnalysis={saveAnalysis}
+            />
+          </ErrorBoundary>
         )}
       </div>
       <div

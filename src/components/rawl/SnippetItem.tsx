@@ -6,7 +6,7 @@ import EnhancedFrozenNotes from "./FrozenNotes";
 const SnippetItemContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 350px;
   border: 1px solid #444;
   border-radius: 5px;
   overflow: hidden;
@@ -21,8 +21,9 @@ const SnippetHeader = styled.div`
 `;
 
 const SnippetContent = styled.div`
-  height: 150px;
-  overflow: hidden;
+  height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 const DeleteButton = styled.button`
@@ -88,6 +89,43 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     [snippetHeight, snippetMidiRange, noteHeight],
   );
 
+  // Reuse the padding logic from FrozenNotesLayout
+  const paddedMeasuresAndBeats = useMemo(() => {
+    const startMeasure = snippet.measuresSpan[0] - 1;
+    const endMeasure = snippet.measuresSpan[1];
+
+    // Ensure we don't create an array with negative length
+    const paddingLength = Math.max(0, startMeasure);
+
+    // Slice the measures array to include only the selected range
+    const slicedMeasures = rehydratedMeasuresAndBeats.measures.slice(
+      0,
+      endMeasure + 1,
+    );
+
+    const paddedMeasures = [
+      ...Array(paddingLength).fill(rehydratedMeasuresAndBeats.measures[0] || 0),
+      ...slicedMeasures,
+    ];
+
+    return {
+      ...rehydratedMeasuresAndBeats,
+      measures: paddedMeasures,
+    };
+  }, [snippet, rehydratedMeasuresAndBeats]);
+
+  // Debug output
+  console.log("SnippetItem Debug Info:", {
+    snippetTag: snippet.tag,
+    rehydratedAnalysis,
+    rehydratedMeasuresAndBeats,
+    paddedMeasuresAndBeats,
+    snippetMidiRange,
+    snippetHeight,
+    measureWidth,
+    noteHeight,
+  });
+
   return (
     <SnippetItemContainer>
       <SnippetHeader>
@@ -99,15 +137,35 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
       <SnippetContent>
         <EnhancedFrozenNotes
           notes={rehydratedNotes}
-          measureWidth={measureWidth / 2}
+          measureWidth={measureWidth}
           midiNumberToY={snippetMidiNumberToY}
-          maxWidth={300}
+          maxWidth={350}
           analysis={rehydratedAnalysis}
-          measuresAndBeats={rehydratedMeasuresAndBeats}
+          measuresAndBeats={paddedMeasuresAndBeats}
           noteHeight={noteHeight}
           startMeasure={snippet.measuresSpan[0]}
         />
       </SnippetContent>
+      {/* Debug output */}
+      <pre
+        style={{
+          fontSize: "10px",
+          color: "gray",
+          maxHeight: "100px",
+          overflow: "auto",
+        }}
+      >
+        {JSON.stringify(
+          {
+            rehydratedAnalysis,
+            paddedMeasuresAndBeats,
+            snippetMidiRange,
+            snippetHeight,
+          },
+          null,
+          2,
+        )}
+      </pre>
     </SnippetItemContainer>
   );
 };

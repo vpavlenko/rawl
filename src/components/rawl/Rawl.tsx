@@ -609,6 +609,7 @@ const Rawl: React.FC<{
       unregisterKeyboardHandler,
       tonalHistograms,
       frozenNotes: coloredNotes,
+      saveAnalysis,
     }),
     [
       coloredNotes,
@@ -624,6 +625,7 @@ const Rawl: React.FC<{
       registerKeyboardHandler,
       unregisterKeyboardHandler,
       tonalHistograms,
+      saveAnalysis,
     ],
   );
 
@@ -683,7 +685,10 @@ const Rawl: React.FC<{
             tonalHistograms={tonalHistograms}
           />
         ) : (
-          <FrozenNotesLayout {...systemLayoutProps} />
+          <FrozenNotesLayout
+            {...systemLayoutProps}
+            saveAnalysis={saveAnalysis}
+          />
         )}
       </div>
       <div

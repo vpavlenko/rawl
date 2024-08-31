@@ -1,4 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
+import { Theme } from "react-select";
+import CreatableSelect from "react-select/creatable";
 import styled from "styled-components";
 import ErrorBoundary from "../ErrorBoundary";
 import {
@@ -83,6 +85,70 @@ const ErrorMessage = styled.div`
   margin-top: 10px;
 `;
 
+const StyledSelect = styled(CreatableSelect)`
+  width: 600px;
+  margin-left: 10px;
+`;
+
+// Custom theme for react-select
+const selectTheme = (theme: Theme) => ({
+  ...theme,
+  colors: {
+    ...theme.colors,
+    primary: "#4a90e2",
+    primary75: "#4a90e2cc",
+    primary50: "#4a90e280",
+    primary25: "#4a90e240",
+    danger: "#de350b",
+    dangerLight: "#de350b40",
+    neutral0: "white",
+    neutral5: "#f2f2f2",
+    neutral10: "#e6e6e6",
+    neutral20: "#cccccc",
+    neutral30: "#b3b3b3",
+    neutral40: "#999999",
+    neutral50: "#808080",
+    neutral60: "#666666",
+    neutral70: "#4d4d4d",
+    neutral80: "#333333",
+    neutral90: "#1a1a1a",
+  },
+});
+
+// Custom styles for react-select
+const selectStyles = {
+  control: (provided) => ({
+    ...provided,
+    backgroundColor: "white",
+    borderColor: "#cccccc",
+  }),
+  menu: (provided) => ({
+    ...provided,
+    backgroundColor: "white",
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected ? "#4a90e2" : "white",
+    color: state.isSelected ? "white" : "black",
+    "&:hover": {
+      backgroundColor: "#f0f0f0",
+      color: "black",
+    },
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: "black",
+  }),
+  input: (provided) => ({
+    ...provided,
+    color: "black",
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    color: "#808080",
+  }),
+};
+
 interface FrozenNotesLayoutProps extends SystemLayoutProps {
   saveAnalysis: (analysis: Analysis) => void;
 }
@@ -95,7 +161,10 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
 }) => {
   const [dataRange, setDataRange] = useState<[number, number]>([1, 4]);
   const [inputRange, setInputRange] = useState<[string, string]>(["1", "4"]);
-  const [tagName, setTagName] = useState("tag");
+  const [tagName, setTagName] = useState<{
+    value: string;
+    label: string;
+  } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copyIndicatorVisible, setCopyIndicatorVisible] = useState(false);
 
@@ -244,7 +313,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     if (!frozenNotesData) return null;
 
     return {
-      tag: tagName,
+      tag: tagName?.value || "",
       frozenNotes: frozenNotesData,
       measuresSpan: dataRange,
     };
@@ -345,6 +414,18 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     };
   }, [snippet, dataRange, measuresAndBeats]);
 
+  const allTags = useMemo(() => {
+    const tagSet = new Set<string>();
+    if (analysis && analysis.snippets) {
+      analysis.snippets.forEach((snippet) => {
+        if (snippet.tag) {
+          tagSet.add(snippet.tag);
+        }
+      });
+    }
+    return Array.from(tagSet).map((tag) => ({ value: tag, label: tag }));
+  }, [analysis]);
+
   // Add this check after all hooks have been called
   if (!frozenNotes || !measuresAndBeats || !analysis) {
     return <div>Loading...</div>;
@@ -364,6 +445,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
               value={inputRange[0]}
               onChange={handleRangeChange(0)}
               onBlur={handleRangeBlur(0)}
+              autoFocus
             />
             <span>to</span>
             <NumberInput
@@ -376,11 +458,18 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
             />
             <label>
               Tag:
-              <input
-                type="text"
+              <StyledSelect
                 value={tagName}
-                onChange={(e) => setTagName(e.target.value)}
-                style={{ marginLeft: "10px", width: "100px" }}
+                onChange={(selectedOption) =>
+                  setTagName(
+                    selectedOption as { value: string; label: string } | null,
+                  )
+                }
+                options={allTags}
+                isClearable
+                placeholder="Select or create a tag"
+                theme={selectTheme}
+                styles={selectStyles}
               />
             </label>
           </RangeInputs>

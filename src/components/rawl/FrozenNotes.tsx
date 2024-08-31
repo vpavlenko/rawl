@@ -42,7 +42,6 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
   midiNumberToY,
   maxWidth,
   noteHeight,
-  timeRange,
 }) => {
   const midiRange = useMemo(() => {
     let min = Infinity;
@@ -57,7 +56,7 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
     return [min, max];
   }, [notes]);
 
-  const height = (midiRange[1] - midiRange[0] + 1) * noteHeight;
+  const height = (midiRange[1] - midiRange[0] + 2) * noteHeight;
 
   const getNoteRectangles = useCallback(
     (notes: ColoredNote[]) =>

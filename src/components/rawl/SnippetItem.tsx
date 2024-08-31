@@ -92,13 +92,9 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     return [min, max] as [number, number];
   }, [rehydratedNotes]);
 
-  const snippetHeight =
-    (snippetMidiRange[1] - snippetMidiRange[0] + 1) * noteHeight;
-
   const snippetMidiNumberToY = useCallback(
-    (midiNumber: number) =>
-      snippetHeight - (midiNumber - snippetMidiRange[0] + 2) * noteHeight,
-    [snippetHeight, snippetMidiRange, noteHeight],
+    (midiNumber: number) => (snippetMidiRange[1] - midiNumber + 1) * noteHeight,
+    [snippetMidiRange, noteHeight],
   );
 
   const timeRange = useMemo(() => {

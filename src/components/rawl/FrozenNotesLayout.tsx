@@ -102,16 +102,29 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
 
   const handleRangeChange = useCallback(
     (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = parseInt(e.target.value, 10);
-      if (isNaN(value)) {
+      const value = e.target.value;
+
+      if (value === "") {
+        setMeasureRange((prev) => {
+          const newRange = [...prev];
+          newRange[index] = "";
+          return newRange;
+        });
+        setError(null);
+        return;
+      }
+
+      const numValue = parseInt(value, 10);
+      if (isNaN(numValue)) {
         setError("Please enter valid numbers for measure range.");
         return;
       }
+
       setMeasureRange((prev) => {
         const newRange = [...prev];
         newRange[index] = Math.max(
           1,
-          Math.min(value, measuresAndBeats?.measures.length || 1),
+          Math.min(numValue, measuresAndBeats?.measures.length || 1),
         );
         // Ensure start measure is not greater than end measure
         if (index === 0 && newRange[0] > newRange[1]) {
@@ -122,7 +135,6 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
         return newRange;
       });
       setError(null);
-      // Increment renderKey to force re-render
       setRenderKey((prevKey) => prevKey + 1);
     },
     [measuresAndBeats],
@@ -363,18 +375,31 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
             <NumberInput
               type="number"
               min="1"
-              max={measuresAndBeats.measures.length}
-              value={measureRange[0]}
+              max={measuresAndBeats?.measures.length || 1}
+              value={measureRange[0] || ""}
               onChange={handleRangeChange(0)}
+              onBlur={() => {
+                if (measureRange[0] === "") {
+                  setMeasureRange((prev) => [1, prev[1]]);
+                }
+              }}
               ref={startMeasureRef}
             />
             <span>to</span>
             <NumberInput
               type="number"
               min="1"
-              max={measuresAndBeats.measures.length}
-              value={measureRange[1]}
+              max={measuresAndBeats?.measures.length || 1}
+              value={measureRange[1] || ""}
               onChange={handleRangeChange(1)}
+              onBlur={() => {
+                if (measureRange[1] === "") {
+                  setMeasureRange((prev) => [
+                    prev[0],
+                    measuresAndBeats?.measures.length || 1,
+                  ]);
+                }
+              }}
             />
             <label>
               Tag:

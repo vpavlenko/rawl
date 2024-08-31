@@ -10,7 +10,6 @@ const PathContainer = styled.div`
   flex-direction: column;
   height: 100%;
   width: 100%;
-  overflow-y: auto;
 `;
 
 const ChapterRow = styled.div`
@@ -20,6 +19,11 @@ const ChapterRow = styled.div`
   position: sticky;
   top: 0;
   z-index: 1;
+`;
+
+const ScrollableContent = styled.div`
+  flex-grow: 1;
+  overflow-y: auto;
 `;
 
 const ChapterButton = styled.button<{ active: boolean }>`
@@ -176,31 +180,33 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
             </ChapterButton>
           ))}
         </ChapterRow>
-        <ContentArea>
-          {errorMessages.map((error, index) => (
-            <ErrorMessage key={index}>{error}</ErrorMessage>
-          ))}
-          <ChapterSection>
-            <h2>{chapterData[activeChapter].chapter}</h2>
-            {chapterData[activeChapter].topics.map((topic) => (
-              <TopicCard key={topic.topic}>
-                <TopicTitle>{topic.topic}</TopicTitle>
-                <p>Number of snippets: {topic.snippets.length}</p>
-                <SnippetList snippets={topic.snippets} noteHeight={3} />
-                <div>
-                  {topic.midis.map((midi, index) => (
-                    <MidiButton
-                      key={index}
-                      onClick={() => handleMidiClick(midi)}
-                    >
-                      {midi.replace(/---/g, " – ").replace(/-/g, " ")}
-                    </MidiButton>
-                  ))}
-                </div>
-              </TopicCard>
+        <ScrollableContent>
+          <ContentArea>
+            {errorMessages.map((error, index) => (
+              <ErrorMessage key={index}>{error}</ErrorMessage>
             ))}
-          </ChapterSection>
-        </ContentArea>
+            <ChapterSection>
+              <h2>{chapterData[activeChapter].chapter}</h2>
+              {chapterData[activeChapter].topics.map((topic) => (
+                <TopicCard key={topic.topic}>
+                  <TopicTitle>{topic.topic}</TopicTitle>
+                  <p>Number of snippets: {topic.snippets.length}</p>
+                  <SnippetList snippets={topic.snippets} noteHeight={3} />
+                  <div>
+                    {topic.midis.map((midi, index) => (
+                      <MidiButton
+                        key={index}
+                        onClick={() => handleMidiClick(midi)}
+                      >
+                        {midi.replace(/---/g, " – ").replace(/-/g, " ")}
+                      </MidiButton>
+                    ))}
+                  </div>
+                </TopicCard>
+              ))}
+            </ChapterSection>
+          </ContentArea>
+        </ScrollableContent>
       </PathContainer>
     </ErrorBoundary>
   );

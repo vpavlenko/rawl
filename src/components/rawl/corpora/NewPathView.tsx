@@ -239,7 +239,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
                         onClick={() =>
                           handleMidiClick(
                             midi,
-                            topic.snippets[0].measuresSpan[0],
+                            topic.snippets[index].measuresSpan[0],
                           )
                         }
                       >

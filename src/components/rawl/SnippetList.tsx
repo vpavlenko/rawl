@@ -9,30 +9,33 @@ const SnippetListContainer = styled.div`
   gap: 20px;
 `;
 
+const SnippetItemWrapper = styled.div`
+  width: 400px; // Match the width of SnippetItem
+  margin-bottom: 20px; // Add some vertical spacing between items
+`;
+
 interface SnippetListProps {
   snippets: Snippet[];
   deleteSnippet?: (index: number) => void;
-  measureWidth?: number;
   noteHeight?: number;
 }
 
 const SnippetList: React.FC<SnippetListProps> = ({
   snippets,
   deleteSnippet,
-  measureWidth = 50,
   noteHeight = 3,
 }) => {
   return (
     <SnippetListContainer>
       {snippets.map((snippet, index) => (
-        <SnippetItem
-          key={index}
-          snippet={snippet}
-          index={index}
-          deleteSnippet={deleteSnippet}
-          measureWidth={measureWidth}
-          noteHeight={noteHeight}
-        />
+        <SnippetItemWrapper key={index}>
+          <SnippetItem
+            snippet={snippet}
+            index={index}
+            deleteSnippet={deleteSnippet}
+            noteHeight={noteHeight}
+          />
+        </SnippetItemWrapper>
       ))}
     </SnippetListContainer>
   );

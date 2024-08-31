@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Analysis, MeasuresSpan } from "./analysis";
 import { AnalysisGrid } from "./AnalysisGrid";
 import { ColoredNote, Note } from "./parseMidi";
-import { getNoteColor, SecondsConverter } from "./Rawl";
+import { getNoteColor } from "./Rawl";
 import {
   getNoteRectangles as getSystemNoteRectangles,
   MeasuresAndBeats,
@@ -12,10 +12,11 @@ import {
 
 interface FrozenNotesProps {
   notes: Note[][];
-  measureWidth: number;
+  toX: (seconds: number) => number;
   midiNumberToY: (midiNumber: number) => number;
   maxWidth: number;
   noteHeight: number;
+  timeRange: [number, number];
 }
 
 interface EnhancedFrozenNotesProps extends FrozenNotesProps {
@@ -37,10 +38,11 @@ const HeaderStaff = styled.div`
 
 const FrozenNotes: React.FC<FrozenNotesProps> = ({
   notes,
-  measureWidth,
+  toX,
   midiNumberToY,
   maxWidth,
   noteHeight,
+  timeRange,
 }) => {
   const midiRange = useMemo(() => {
     let min = Infinity;
@@ -55,28 +57,7 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
     return [min, max];
   }, [notes]);
 
-  const timeRange = useMemo(() => {
-    let min = Infinity;
-    let max = -Infinity;
-    notes.forEach((voiceNotes) => {
-      voiceNotes.forEach((note) => {
-        min = Math.min(min, note.span[0]);
-        max = Math.max(max, note.span[1]);
-      });
-    });
-    return [min, max];
-  }, [notes]);
-
   const height = (midiRange[1] - midiRange[0] + 1) * noteHeight;
-  const width = Math.min(
-    (timeRange[1] - timeRange[0]) * measureWidth,
-    maxWidth,
-  );
-
-  const secondsToX: SecondsConverter = useCallback(
-    (seconds) => (seconds - timeRange[0]) * measureWidth,
-    [timeRange, measureWidth],
-  );
 
   const getNoteRectangles = useCallback(
     (notes: ColoredNote[]) =>
@@ -88,10 +69,10 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
         () => {}, // handleMouseEnter
         () => {}, // handleMouseLeave
         false, // showVelocity
-        secondsToX,
+        toX,
         false, // enableManualRemeasuring
       ),
-    [midiNumberToY, noteHeight, secondsToX],
+    [midiNumberToY, noteHeight, toX],
   );
 
   return (
@@ -99,7 +80,8 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
       style={{
         position: "relative",
         height: `${height}px`,
-        width: `${width}px`,
+        width: `${maxWidth}px`,
+        overflow: "hidden",
       }}
     >
       {notes.map((voiceNotes, index) => (
@@ -111,13 +93,14 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
 
 const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
   notes,
-  measureWidth,
   midiNumberToY,
   maxWidth,
   analysis,
   measuresAndBeats,
   noteHeight,
   startMeasure,
+  toX,
+  timeRange,
 }) => {
   const midiRange = useMemo(() => {
     let min = Infinity;
@@ -132,20 +115,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
     return [min, max] as MidiRange;
   }, [notes]);
 
-  const timeRange = useMemo(() => {
-    const firstMeasure = measuresAndBeats.measures[0];
-    const lastMeasure =
-      measuresAndBeats.measures[measuresAndBeats.measures.length - 1];
-    return [firstMeasure, lastMeasure];
-  }, [measuresAndBeats]);
-
   const height = (midiRange[1] - midiRange[0] + 2) * noteHeight;
-  const width = (timeRange[1] - timeRange[0]) * measureWidth;
-
-  const secondsToX = useCallback(
-    (seconds: number) => (seconds - timeRange[0]) * measureWidth,
-    [timeRange, measureWidth],
-  );
 
   const adjustedNotes = useMemo(() => {
     return notes.map((voiceNotes) =>
@@ -187,13 +157,13 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           measureSelection={dummyMeasureSelection}
           showHeader={true}
           showTonalGrid={false}
-          secondsToX={secondsToX}
+          secondsToX={toX}
           sectionSpan={sectionSpan}
         />
       </HeaderStaff>
       <div
         style={{
-          width: `${width}px`,
+          width: `${maxWidth}px`,
           height: `${height}px`,
           position: "relative",
           overflow: "hidden",
@@ -209,15 +179,16 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           measureSelection={dummyMeasureSelection}
           showHeader={false}
           showTonalGrid={true}
-          secondsToX={secondsToX}
+          secondsToX={toX}
           sectionSpan={sectionSpan}
         />
         <FrozenNotes
           notes={adjustedNotes as ColoredNote[][]}
-          measureWidth={measureWidth}
+          toX={toX}
           midiNumberToY={midiNumberToY}
-          maxWidth={width}
+          maxWidth={maxWidth}
           noteHeight={noteHeight}
+          timeRange={timeRange}
         />
       </div>
     </FrozenNotesContainer>

@@ -186,11 +186,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
               <TopicCard key={topic.topic}>
                 <TopicTitle>{topic.topic}</TopicTitle>
                 <p>Number of snippets: {topic.snippets.length}</p>
-                <SnippetList
-                  snippets={topic.snippets}
-                  measureWidth={50}
-                  noteHeight={3}
-                />
+                <SnippetList snippets={topic.snippets} noteHeight={3} />
                 <div>
                   {topic.midis.map((midi, index) => (
                     <MidiButton

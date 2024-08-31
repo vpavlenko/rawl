@@ -9,14 +9,12 @@ import {
   deltaCoding,
   FrozenNotesType,
   PitchClass,
-  rehydrateAnalysis,
-  rehydrateNotes,
   rehydrateSnippet,
   Snippet,
   TIME_SCALE_FACTOR,
 } from "./analysis";
-import EnhancedFrozenNotes from "./FrozenNotes";
 import { getModulations } from "./Rawl";
+import SnippetItem from "./SnippetItem";
 import SnippetList from "./SnippetList";
 import { SystemLayoutProps } from "./SystemLayout";
 
@@ -364,66 +362,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     });
   }, [exportString]);
 
-  const measureWidth = 50; // Fixed width for each measure
   const noteHeight = 3; // Match the initial value in StackedSystemLayout
-
-  const midiRange = useMemo(() => {
-    if (!snippet) return [0, 0] as [number, number];
-
-    let min = Infinity;
-    let max = -Infinity;
-    const rehydratedNotes = rehydrateNotes(snippet);
-    rehydratedNotes.forEach((voiceNotes) => {
-      voiceNotes.forEach((note) => {
-        const midiNumber = note.note.midiNumber;
-        min = Math.min(min, midiNumber);
-        max = Math.max(max, midiNumber);
-      });
-    });
-    return [min, max] as [number, number];
-  }, [snippet]);
-
-  const height = (midiRange[1] - midiRange[0] + 1) * noteHeight;
-
-  const midiNumberToY = useCallback(
-    (midiNumber: number) => height - (midiNumber - midiRange[0]) * noteHeight,
-    [height, midiRange, noteHeight],
-  );
-
-  // Calculate maxWidth based on the number of measures
-  const maxWidth = (dataRange[1] - dataRange[0] + 1) * measureWidth;
-
-  // Pad only the measures array for correct numbering
-  const paddedMeasuresAndBeats = useMemo(() => {
-    if (!snippet) return { measures: [], beats: [] };
-
-    const start = dataRange[0];
-    const end = dataRange[1];
-
-    const startMeasure = Math.max(0, start - 1);
-    const endMeasure = Math.min(end, measuresAndBeats?.measures.length || 1);
-
-    // Ensure we don't create an array with negative length
-    const paddingLength = Math.max(0, startMeasure);
-
-    // Slice the measures array to include only the selected range
-    const slicedMeasures = rehydrateAnalysis(
-      snippet.frozenNotes.analysis,
-    ).measuresAndBeats.measures.slice(0, endMeasure + 1);
-
-    const paddedMeasures = [
-      ...Array(paddingLength).fill(
-        rehydrateAnalysis(snippet.frozenNotes.analysis).measuresAndBeats
-          .measures[0] || 0,
-      ),
-      ...slicedMeasures,
-    ];
-
-    return {
-      ...rehydrateAnalysis(snippet.frozenNotes.analysis).measuresAndBeats,
-      measures: paddedMeasures,
-    };
-  }, [snippet, dataRange, measuresAndBeats]);
 
   const allTags = useMemo(() => {
     const tagSet = new Set<string>();
@@ -490,18 +429,14 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
             </label>
           </RangeInputs>
           {error && <ErrorMessage>{error}</ErrorMessage>}
-          {!error && rehydratedSnippet && (
+          {!error && snippet && (
             <>
               <h3>Rehydrated Notes</h3>
-              <EnhancedFrozenNotes
-                notes={rehydratedSnippet.rehydratedNotes}
-                measureWidth={measureWidth}
-                midiNumberToY={midiNumberToY}
-                maxWidth={400}
-                analysis={rehydratedSnippet.rehydratedAnalysis}
-                measuresAndBeats={rehydratedSnippet.rehydratedMeasuresAndBeats}
+              <SnippetItem
+                snippet={snippet}
+                index={-1} // Use a dummy index for preview
                 noteHeight={noteHeight}
-                startMeasure={dataRange[0]}
+                isPreview={true}
               />
               <JsonDisplay onClick={copyToClipboard}>
                 {exportString}
@@ -518,7 +453,6 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
           <SnippetList
             snippets={analysis.snippets || []}
             deleteSnippet={deleteSnippet}
-            measureWidth={measureWidth}
             noteHeight={noteHeight}
           />
         </SnippetListContainer>

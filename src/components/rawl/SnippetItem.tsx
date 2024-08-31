@@ -42,21 +42,43 @@ interface SnippetItemProps {
   snippet: Snippet;
   index: number;
   deleteSnippet?: (index: number) => void;
-  measureWidth: number;
   noteHeight: number;
+  isPreview?: boolean;
 }
 
 const SnippetItem: React.FC<SnippetItemProps> = ({
   snippet,
   index,
   deleteSnippet,
-  measureWidth,
   noteHeight,
+  isPreview = false,
 }) => {
   const { rehydratedNotes, rehydratedAnalysis, rehydratedMeasuresAndBeats } =
-    useMemo(() => {
-      return rehydrateSnippet(snippet);
-    }, [snippet]);
+    useMemo(() => rehydrateSnippet(snippet), [snippet]);
+
+  const paddedMeasuresAndBeats = useMemo(() => {
+    const startMeasure = snippet.measuresSpan[0];
+    const endMeasure = snippet.measuresSpan[1];
+
+    // Ensure we don't create an array with negative length
+    const paddingLength = Math.max(0, startMeasure - 1);
+
+    // Slice the measures array to include only the selected range
+    const slicedMeasures = rehydratedMeasuresAndBeats.measures.slice(
+      0,
+      endMeasure + 1,
+    );
+
+    const paddedMeasures = [
+      ...Array(paddingLength).fill(rehydratedMeasuresAndBeats.measures[0] || 0),
+      ...slicedMeasures,
+    ];
+
+    return {
+      ...rehydratedMeasuresAndBeats,
+      measures: paddedMeasures,
+    };
+  }, [snippet, rehydratedMeasuresAndBeats]);
 
   const snippetMidiRange = useMemo(() => {
     let min = Infinity;
@@ -80,47 +102,48 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     [snippetHeight, snippetMidiRange, noteHeight],
   );
 
-  const paddedMeasuresAndBeats = useMemo(() => {
-    const startMeasure = snippet.measuresSpan[0] - 1;
+  const timeRange = useMemo(() => {
+    const startMeasure = snippet.measuresSpan[0];
     const endMeasure = snippet.measuresSpan[1];
-    const paddingLength = Math.max(0, startMeasure);
-    const slicedMeasures = rehydratedMeasuresAndBeats.measures.slice(
-      0,
-      endMeasure + 1,
-    );
-    const paddedMeasures = [
-      ...Array(paddingLength).fill(rehydratedMeasuresAndBeats.measures[0] || 0),
-      ...slicedMeasures,
-    ];
+    const startTime = paddedMeasuresAndBeats.measures[startMeasure - 1] || 0;
+    const endTime = paddedMeasuresAndBeats.measures[endMeasure] || startTime;
+    return [startTime, endTime] as [number, number];
+  }, [snippet, paddedMeasuresAndBeats]);
 
-    return {
-      ...rehydratedMeasuresAndBeats,
-      measures: paddedMeasures,
-    };
-  }, [snippet, rehydratedMeasuresAndBeats]);
+  const toX = useCallback(
+    (seconds: number) => {
+      const normalizedTime =
+        (seconds - timeRange[0]) / (timeRange[1] - timeRange[0]);
+      return isNaN(normalizedTime) ? 0 : normalizedTime * 400; // Map to 0..400px, default to 0 if NaN
+    },
+    [timeRange],
+  );
 
   return (
     <SnippetItemContainer>
-      <SnippetHeader>
-        <span>
-          {snippet.tag} (Measures: {snippet.measuresSpan.join("-")})
-        </span>
-        {deleteSnippet && (
-          <DeleteButton onClick={() => deleteSnippet(index)}>
-            Delete
-          </DeleteButton>
-        )}
-      </SnippetHeader>
+      {!isPreview && (
+        <SnippetHeader>
+          <span>
+            {snippet.tag} (Measures: {snippet.measuresSpan.join("-")})
+          </span>
+          {deleteSnippet && (
+            <DeleteButton onClick={() => deleteSnippet(index)}>
+              Delete
+            </DeleteButton>
+          )}
+        </SnippetHeader>
+      )}
       <SnippetContent>
         <EnhancedFrozenNotes
           notes={rehydratedNotes}
-          measureWidth={measureWidth}
           midiNumberToY={snippetMidiNumberToY}
-          maxWidth={350}
+          maxWidth={400}
           analysis={rehydratedAnalysis}
           measuresAndBeats={paddedMeasuresAndBeats}
           noteHeight={noteHeight}
           startMeasure={snippet.measuresSpan[0]}
+          toX={toX}
+          timeRange={timeRange}
         />
       </SnippetContent>
     </SnippetItemContainer>

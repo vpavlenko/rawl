@@ -14,7 +14,7 @@ import {
 } from "./analysis";
 import EnhancedFrozenNotes from "./FrozenNotes";
 import { getModulations } from "./Rawl";
-import SnippetItem from "./SnippetItem";
+import SnippetList from "./SnippetList";
 import { SystemLayoutProps } from "./SystemLayout";
 
 const Container = styled.div`
@@ -69,7 +69,7 @@ const RehydratedNotesDisplay = styled.div`
   padding-top: 20px;
 `;
 
-const SnippetList = styled.div`
+const SnippetListContainer = styled.div`
   margin-top: 20px;
   border-top: 1px solid #444;
   padding-top: 20px;
@@ -420,19 +420,15 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
         <CopyIndicator visible={copyIndicatorVisible}>
           {copyIndicatorVisible ? "Snippet saved!" : "Copied to clipboard!"}
         </CopyIndicator>
-        <SnippetList>
+        <SnippetListContainer>
           <h3>Saved Snippets</h3>
-          {analysis.snippets?.map((savedSnippet, index) => (
-            <SnippetItem
-              key={index}
-              snippet={savedSnippet}
-              index={index}
-              deleteSnippet={deleteSnippet}
-              measureWidth={measureWidth}
-              noteHeight={noteHeight}
-            />
-          ))}
-        </SnippetList>
+          <SnippetList
+            snippets={analysis.snippets || []}
+            deleteSnippet={deleteSnippet}
+            measureWidth={measureWidth}
+            noteHeight={noteHeight}
+          />
+        </SnippetListContainer>
         {isValidRange && snippet && (
           <RehydratedNotesDisplay>
             <pre>{JSON.stringify(rehydrateNotes(snippet), null, 2)}</pre>

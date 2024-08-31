@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { Snippet, rehydrateAnalysis, rehydrateNotes } from "./analysis";
 import EnhancedFrozenNotes from "./FrozenNotes";
 
-const SnippetItemContainer = styled.div`
+const SnippetItemContainer = styled.div<{ compact: boolean }>`
   display: flex;
   flex-direction: column;
-  width: 350px;
+  width: ${(props) => (props.compact ? "100%" : "350px")};
   border: 1px solid #444;
   border-radius: 5px;
   overflow: hidden;
@@ -20,8 +20,8 @@ const SnippetHeader = styled.div`
   background-color: #222;
 `;
 
-const SnippetContent = styled.div`
-  height: 300px;
+const SnippetContent = styled.div<{ compact: boolean }>`
+  height: ${(props) => (props.compact ? "200px" : "300px")};
   overflow-y: auto;
   overflow-x: hidden;
 `;
@@ -41,9 +41,10 @@ const DeleteButton = styled.button`
 interface SnippetItemProps {
   snippet: Snippet;
   index: number;
-  deleteSnippet: (index: number) => void;
+  deleteSnippet?: (index: number) => void;
   measureWidth: number;
   noteHeight: number;
+  compact: boolean;
 }
 
 const SnippetItem: React.FC<SnippetItemProps> = ({
@@ -52,6 +53,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
   deleteSnippet,
   measureWidth,
   noteHeight,
+  compact,
 }) => {
   const { rehydratedNotes, rehydratedAnalysis, rehydratedMeasuresAndBeats } =
     useMemo(() => {
@@ -89,20 +91,14 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     [snippetHeight, snippetMidiRange, noteHeight],
   );
 
-  // Reuse the padding logic from FrozenNotesLayout
   const paddedMeasuresAndBeats = useMemo(() => {
     const startMeasure = snippet.measuresSpan[0] - 1;
     const endMeasure = snippet.measuresSpan[1];
-
-    // Ensure we don't create an array with negative length
     const paddingLength = Math.max(0, startMeasure);
-
-    // Slice the measures array to include only the selected range
     const slicedMeasures = rehydratedMeasuresAndBeats.measures.slice(
       0,
       endMeasure + 1,
     );
-
     const paddedMeasures = [
       ...Array(paddingLength).fill(rehydratedMeasuresAndBeats.measures[0] || 0),
       ...slicedMeasures,
@@ -114,58 +110,30 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     };
   }, [snippet, rehydratedMeasuresAndBeats]);
 
-  // Debug output
-  console.log("SnippetItem Debug Info:", {
-    snippetTag: snippet.tag,
-    rehydratedAnalysis,
-    rehydratedMeasuresAndBeats,
-    paddedMeasuresAndBeats,
-    snippetMidiRange,
-    snippetHeight,
-    measureWidth,
-    noteHeight,
-  });
-
   return (
-    <SnippetItemContainer>
+    <SnippetItemContainer compact={compact}>
       <SnippetHeader>
         <span>
           {snippet.tag} (Measures: {snippet.measuresSpan.join("-")})
         </span>
-        <DeleteButton onClick={() => deleteSnippet(index)}>Delete</DeleteButton>
+        {deleteSnippet && (
+          <DeleteButton onClick={() => deleteSnippet(index)}>
+            Delete
+          </DeleteButton>
+        )}
       </SnippetHeader>
-      <SnippetContent>
+      <SnippetContent compact={compact}>
         <EnhancedFrozenNotes
           notes={rehydratedNotes}
           measureWidth={measureWidth}
           midiNumberToY={snippetMidiNumberToY}
-          maxWidth={350}
+          maxWidth={compact ? "100%" : 350}
           analysis={rehydratedAnalysis}
           measuresAndBeats={paddedMeasuresAndBeats}
           noteHeight={noteHeight}
           startMeasure={snippet.measuresSpan[0]}
         />
       </SnippetContent>
-      {/* Debug output */}
-      <pre
-        style={{
-          fontSize: "10px",
-          color: "gray",
-          maxHeight: "100px",
-          overflow: "auto",
-        }}
-      >
-        {JSON.stringify(
-          {
-            rehydratedAnalysis,
-            paddedMeasuresAndBeats,
-            snippetMidiRange,
-            snippetHeight,
-          },
-          null,
-          2,
-        )}
-      </pre>
     </SnippetItemContainer>
   );
 };

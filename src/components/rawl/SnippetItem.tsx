@@ -98,7 +98,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
 
   const snippetMidiNumberToY = useCallback(
     (midiNumber: number) =>
-      snippetHeight - (midiNumber - snippetMidiRange[0]) * noteHeight,
+      snippetHeight - (midiNumber - snippetMidiRange[0] + 2) * noteHeight,
     [snippetHeight, snippetMidiRange, noteHeight],
   );
 

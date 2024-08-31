@@ -47,7 +47,7 @@ export const getPhraseStarts = (
   result.push(i);
   for (const { measure, diff } of analysis.phrasePatch || []) {
     if (result.indexOf(measure) === -1) {
-      alert(`bad phrasePatch, measure ${measure} not found`);
+      console.log(`bad phrasePatch, measure ${measure} not found`);
       break;
     }
     for (let j = result.indexOf(measure); j < result.length; ++j) {

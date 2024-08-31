@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import ErrorBoundary from "../../ErrorBoundary";
 import { Analysis, Snippet } from "../analysis";
+import Rawl from "../Rawl";
 import SnippetList from "../SnippetList";
 
 const PathContainer = styled.div`
@@ -85,6 +86,16 @@ const MidiButton = styled.button`
   }
 `;
 
+const RawlContainer = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50vh;
+  background-color: #000;
+  z-index: 1000;
+`;
+
 interface NewPathViewProps {
   analyses: { [key: string]: Analysis };
 }
@@ -99,7 +110,7 @@ interface ChapterData {
 }
 
 const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
-  const { handleSongClick } = useContext(AppContext);
+  const { handleSongClick, rawlProps } = useContext(AppContext);
   const [loading, setLoading] = useState(true);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [chapterData, setChapterData] = useState<ChapterData[]>([]);
@@ -111,6 +122,9 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
     const errors: string[] = [];
 
     Object.entries(analyses).forEach(([path, analysis]) => {
+      // Strip the "f/" prefix from the path
+      const slug = path.startsWith("f/") ? path.slice(2) : path;
+
       if (analysis.snippets && analysis.snippets.length > 0) {
         analysis.snippets.forEach((snippet) => {
           const [chapter, topic] = snippet.tag.split(":");
@@ -130,8 +144,8 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
           }
 
           topicData.snippets.push(snippet);
-          if (!topicData.midis.includes(path)) {
-            topicData.midis.push(path);
+          if (!topicData.midis.includes(slug)) {
+            topicData.midis.push(slug);
           }
         });
       }
@@ -208,6 +222,11 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
             </ChapterSection>
           </ContentArea>
         </ScrollableContent>
+        {rawlProps && rawlProps.parsingResult && (
+          <RawlContainer>
+            <Rawl {...rawlProps} />
+          </RawlContainer>
+        )}
       </PathContainer>
     </ErrorBoundary>
   );

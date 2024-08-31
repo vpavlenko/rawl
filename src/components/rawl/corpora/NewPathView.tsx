@@ -4,7 +4,7 @@ import { AppContext } from "../../AppContext";
 import ErrorBoundary from "../../ErrorBoundary";
 import { Analysis, Snippet } from "../analysis";
 import Rawl from "../Rawl";
-import SnippetList from "../SnippetList";
+import SnippetsForTopic from "../SnippetsForTopic";
 
 const PathContainer = styled.div`
   display: flex;
@@ -231,7 +231,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
               {chapterData[activeChapter].topics.map((topic) => (
                 <TopicCard key={topic.topic}>
                   <TopicTitle>{topic.topic}</TopicTitle>
-                  <SnippetList snippets={topic.snippets} noteHeight={3} />
+                  <SnippetsForTopic snippets={topic.snippets} noteHeight={3} />
                   <div>
                     {topic.midis.map((midi, index) => (
                       <MidiButton

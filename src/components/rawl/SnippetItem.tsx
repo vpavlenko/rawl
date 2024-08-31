@@ -21,7 +21,6 @@ const SnippetHeader = styled.div`
 `;
 
 const SnippetContent = styled.div`
-  height: 300px;
   overflow-y: auto;
   overflow-x: hidden;
 `;

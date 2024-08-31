@@ -613,6 +613,7 @@ const Rawl: React.FC<{
       tonalHistograms,
       frozenNotes: coloredNotes,
       saveAnalysis,
+      measureStart,
     }),
     [
       coloredNotes,
@@ -629,6 +630,7 @@ const Rawl: React.FC<{
       unregisterKeyboardHandler,
       tonalHistograms,
       saveAnalysis,
+      measureStart,
     ],
   );
 

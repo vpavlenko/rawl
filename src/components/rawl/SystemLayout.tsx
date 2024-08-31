@@ -707,6 +707,7 @@ export type SystemLayoutProps = {
   tonalHistograms: TonalHistogram[];
   frozenNotes: ColoredNote[][];
   enableManualRemeasuring?: boolean;
+  measureStart?: number;
 };
 
 export const TonalHistogramLayout: React.FC<SystemLayoutProps> = ({
@@ -767,7 +768,9 @@ export const TonalHistogramLayout: React.FC<SystemLayoutProps> = ({
   );
 };
 
-export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
+export const StackedSystemLayout: React.FC<
+  SystemLayoutProps & { measureStart?: number }
+> = ({
   notes,
   voiceNames,
   voiceMask,
@@ -781,6 +784,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
   registerKeyboardHandler,
   unregisterKeyboardHandler,
   enableManualRemeasuring = false,
+  measureStart,
 }) => {
   const [noteHeight, setNoteHeight] = useState<number>(3.5);
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
@@ -864,6 +868,7 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
   );
 
   const parentRef = useRef(null);
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const [scrollInfo, setScrollInfo] = useState<ScrollInfo>({
     left: -1,
@@ -940,6 +945,26 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
     noteHeight,
     debounceSetNoteHeight,
   ]);
+
+  useEffect(() => {
+    if (
+      measureStart !== undefined &&
+      parentRef.current &&
+      sectionRefs.current.length > 0
+    ) {
+      const sectionIndex = sections.findIndex(
+        ({ sectionSpan }) =>
+          measureStart >= sectionSpan[0] && measureStart <= sectionSpan[1],
+      );
+
+      if (sectionIndex !== -1) {
+        const sectionElement = sectionRefs.current[sectionIndex];
+        if (sectionElement) {
+          sectionElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    }
+  }, [measureStart, sections]);
 
   return (
     <>
@@ -1023,7 +1048,11 @@ export const StackedSystemLayout: React.FC<SystemLayoutProps> = ({
 
         {sections.map(
           ({ sectionSpan, secondsToX, xToSeconds, voices }, order) => (
-            <div style={{ marginTop: 10 + noteHeight * 5 }} key={order}>
+            <div
+              style={{ paddingTop: 10 + noteHeight * 5 }}
+              key={order}
+              ref={(el) => (sectionRefs.current[order] = el)}
+            >
               <MeasureNumbers
                 measuresAndBeats={measuresAndBeats}
                 analysis={analysis}

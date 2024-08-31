@@ -8,6 +8,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import { Bytes } from "firebase/firestore";
 import {
   Firestore,
   doc,
@@ -108,16 +109,8 @@ export interface FirestoreMidiIndex {
   midis: { id: string; slug: string; title: string }[];
 }
 
-// is it defined in a Firestore SDK? it's probably Bytes, and
-// we should probably avoid using private fields of it
-export type FirestoreBlob = {
-  _byteString?: {
-    binaryString: string;
-  };
-};
-
 export interface FirestoreMidiDocument {
-  blob: FirestoreBlob;
+  blob: Bytes;
   slug: string;
   title: string;
   url: string | null; // This is named 'url' in Firestore but we use it as 'sourceUrl' internally
@@ -675,7 +668,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     try {
       console.log("Fetching index document");
       const indexDoc = await getDoc(doc(firestore, "indexes", "midis"));
-      const indexData = indexDoc.data();
+      const indexData = indexDoc.data() as FirestoreMidiIndex;
       console.log("Index document data:", indexData);
 
       if (!indexData) {
@@ -697,7 +690,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       console.log("Fetching MIDI document with ID:", midiInfo.id);
       const midiDoc = await getDoc(doc(firestore, "midis", midiInfo.id));
       if (midiDoc.exists()) {
-        const midiData = midiDoc.data();
+        const midiData = midiDoc.data() as FirestoreMidiDocument;
         console.log("MIDI document data:", midiData);
 
         // Convert Firestore Bytes to Blob
@@ -712,7 +705,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
               id: midiInfo.id,
               title: midiData.title,
               slug: midiData.slug,
-              sourceUrl: midiData.url, // Use the 'url' field from Firestore as sourceUrl
+              sourceUrl: midiData.url,
             },
           },
           () => {
@@ -958,9 +951,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
         }));
 
         const transformedMidi = transformMidi(
-          Uint8Array.from(blob._byteString.binaryString, (e) =>
-            e.charCodeAt(0),
-          ),
+          Uint8Array.from(blob.toUint8Array()),
         );
 
         this.playSongBuffer(url, transformedMidi);

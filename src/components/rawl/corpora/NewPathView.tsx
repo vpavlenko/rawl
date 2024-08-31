@@ -190,7 +190,6 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
                   snippets={topic.snippets}
                   measureWidth={50}
                   noteHeight={3}
-                  compact={true}
                 />
                 <div>
                   {topic.midis.map((midi, index) => (

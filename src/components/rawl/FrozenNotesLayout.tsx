@@ -11,6 +11,7 @@ import {
   PitchClass,
   rehydrateAnalysis,
   rehydrateNotes,
+  rehydrateSnippet,
   Snippet,
   TIME_SCALE_FACTOR,
 } from "./analysis";
@@ -25,6 +26,16 @@ const Container = styled.div`
   padding: 20px;
   background-color: black;
   color: white;
+`;
+
+const DebugContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+`;
+
+const DebugColumn = styled.div`
+  width: 48%;
 `;
 
 const FrozenNotesDisplay = styled.div`
@@ -426,6 +437,11 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     return Array.from(tagSet).map((tag) => ({ value: tag, label: tag }));
   }, [analysis]);
 
+  const rehydratedSnippet = useMemo(() => {
+    if (!snippet) return null;
+    return rehydrateSnippet(snippet);
+  }, [snippet]);
+
   // Add this check after all hooks have been called
   if (!frozenNotes || !measuresAndBeats || !analysis) {
     return <div>Loading...</div>;
@@ -474,18 +490,16 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
             </label>
           </RangeInputs>
           {error && <ErrorMessage>{error}</ErrorMessage>}
-          {!error && snippet && (
+          {!error && rehydratedSnippet && (
             <>
               <h3>Rehydrated Notes</h3>
               <EnhancedFrozenNotes
-                notes={rehydrateNotes(snippet)}
+                notes={rehydratedSnippet.rehydratedNotes}
                 measureWidth={measureWidth}
                 midiNumberToY={midiNumberToY}
-                maxWidth={maxWidth}
-                analysis={
-                  rehydrateAnalysis(snippet.frozenNotes.analysis).analysis
-                }
-                measuresAndBeats={paddedMeasuresAndBeats}
+                maxWidth={400}
+                analysis={rehydratedSnippet.rehydratedAnalysis}
+                measuresAndBeats={rehydratedSnippet.rehydratedMeasuresAndBeats}
                 noteHeight={noteHeight}
                 startMeasure={dataRange[0]}
               />
@@ -498,9 +512,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
             </>
           )}
         </FrozenNotesDisplay>
-        <CopyIndicator visible={copyIndicatorVisible}>
-          {copyIndicatorVisible ? "Snippet saved!" : "Copied to clipboard!"}
-        </CopyIndicator>
+
         <SnippetListContainer>
           <h3>Saved Snippets</h3>
           <SnippetList
@@ -510,11 +522,24 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
             noteHeight={noteHeight}
           />
         </SnippetListContainer>
-        {snippet && (
-          <RehydratedNotesDisplay>
-            <pre>{JSON.stringify(rehydrateNotes(snippet), null, 2)}</pre>
-          </RehydratedNotesDisplay>
+
+        {/* Debugging JSON */}
+        {!error && rehydratedSnippet && (
+          <DebugContainer>
+            <DebugColumn>
+              <h4>Frozen Snippet</h4>
+              <pre>{JSON.stringify(snippet, null, 2)}</pre>
+            </DebugColumn>
+            <DebugColumn>
+              <h4>Rehydrated Snippet</h4>
+              <pre>{JSON.stringify(rehydratedSnippet, null, 2)}</pre>
+            </DebugColumn>
+          </DebugContainer>
         )}
+
+        <CopyIndicator visible={copyIndicatorVisible}>
+          {copyIndicatorVisible ? "Snippet saved!" : "Copied to clipboard!"}
+        </CopyIndicator>
       </Container>
     </ErrorBoundary>
   );

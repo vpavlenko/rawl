@@ -14,7 +14,6 @@ interface SnippetListProps {
   deleteSnippet?: (index: number) => void;
   measureWidth?: number;
   noteHeight?: number;
-  compact?: boolean;
 }
 
 const SnippetList: React.FC<SnippetListProps> = ({
@@ -22,7 +21,6 @@ const SnippetList: React.FC<SnippetListProps> = ({
   deleteSnippet,
   measureWidth = 50,
   noteHeight = 3,
-  compact = false,
 }) => {
   return (
     <SnippetListContainer>
@@ -34,7 +32,6 @@ const SnippetList: React.FC<SnippetListProps> = ({
           deleteSnippet={deleteSnippet}
           measureWidth={measureWidth}
           noteHeight={noteHeight}
-          compact={compact}
         />
       ))}
     </SnippetListContainer>

@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
-import { Snippet, rehydrateAnalysis, rehydrateNotes } from "./analysis";
+import { Snippet, rehydrateSnippet } from "./analysis";
 import EnhancedFrozenNotes from "./FrozenNotes";
 
-const SnippetItemContainer = styled.div<{ compact: boolean }>`
+const SnippetItemContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: ${(props) => (props.compact ? "100%" : "350px")};
+  width: 400px;
   border: 1px solid #444;
   border-radius: 5px;
   overflow: hidden;
@@ -20,8 +20,8 @@ const SnippetHeader = styled.div`
   background-color: #222;
 `;
 
-const SnippetContent = styled.div<{ compact: boolean }>`
-  height: ${(props) => (props.compact ? "200px" : "300px")};
+const SnippetContent = styled.div`
+  height: 300px;
   overflow-y: auto;
   overflow-x: hidden;
 `;
@@ -44,7 +44,6 @@ interface SnippetItemProps {
   deleteSnippet?: (index: number) => void;
   measureWidth: number;
   noteHeight: number;
-  compact: boolean;
 }
 
 const SnippetItem: React.FC<SnippetItemProps> = ({
@@ -53,20 +52,10 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
   deleteSnippet,
   measureWidth,
   noteHeight,
-  compact,
 }) => {
   const { rehydratedNotes, rehydratedAnalysis, rehydratedMeasuresAndBeats } =
     useMemo(() => {
-      const rehydratedNotes = rehydrateNotes(snippet);
-      const {
-        analysis: rehydratedAnalysis,
-        measuresAndBeats: rehydratedMeasuresAndBeats,
-      } = rehydrateAnalysis(snippet.frozenNotes.analysis);
-      return {
-        rehydratedNotes,
-        rehydratedAnalysis,
-        rehydratedMeasuresAndBeats,
-      };
+      return rehydrateSnippet(snippet);
     }, [snippet]);
 
   const snippetMidiRange = useMemo(() => {
@@ -111,7 +100,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
   }, [snippet, rehydratedMeasuresAndBeats]);
 
   return (
-    <SnippetItemContainer compact={compact}>
+    <SnippetItemContainer>
       <SnippetHeader>
         <span>
           {snippet.tag} (Measures: {snippet.measuresSpan.join("-")})
@@ -122,7 +111,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
           </DeleteButton>
         )}
       </SnippetHeader>
-      <SnippetContent compact={compact}>
+      <SnippetContent>
         <EnhancedFrozenNotes
           notes={rehydratedNotes}
           measureWidth={measureWidth}

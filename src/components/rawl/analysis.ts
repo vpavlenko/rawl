@@ -176,6 +176,22 @@ export function deltaDecoding(encoded: DeltaCoded<number>): number[] {
   return result;
 }
 
+export function undeltaCoding(encoded: DeltaCoded<number>): number[] {
+  return deltaDecoding(encoded);
+}
+
+export function adjustModulations(
+  modulations: Modulations,
+  measureStart: number,
+): Modulations {
+  return Object.fromEntries(
+    Object.entries(modulations).map(([measure, tonic]) => [
+      parseInt(measure) + measureStart - 1,
+      tonic,
+    ]),
+  );
+}
+
 export const rehydrateNotes = (snippet: Snippet): Note[][] => {
   const { frozenNotes } = snippet;
 
@@ -205,31 +221,51 @@ export const rehydrateNotes = (snippet: Snippet): Note[][] => {
   });
 };
 
-export const rehydrateAnalysis = (
-  frozenAnalysis: FrozenAnalysis,
+export function rehydrateAnalysis(
+  frozenAnalysis: FrozenNotesType["analysis"],
+  measureStart: number = 1,
 ): {
   analysis: Analysis;
   measuresAndBeats: MeasuresAndBeats;
-} => {
-  const rehydratedMeasuresAndBeats = {
-    measures: deltaDecoding(frozenAnalysis.measuresAndBeats.measures).map(
-      (time) => time / TIME_SCALE_FACTOR,
-    ),
-    beats: deltaDecoding(frozenAnalysis.measuresAndBeats.beats).map(
-      (time) => time / TIME_SCALE_FACTOR,
-    ),
-  };
-
+} {
   return {
     analysis: {
-      ...ANALYSIS_STUB,
-      modulations: Object.fromEntries(
-        Object.entries(frozenAnalysis.modulations).map(([measure, tonic]) => [
-          measure,
-          tonic as PitchClass,
-        ]),
+      modulations: adjustModulations(frozenAnalysis.modulations, measureStart),
+      comment: "",
+      tags: [],
+      form: {},
+    },
+    measuresAndBeats: {
+      measures: undeltaCoding(frozenAnalysis.measuresAndBeats.measures).map(
+        (time) => time / TIME_SCALE_FACTOR,
+      ),
+      beats: undeltaCoding(frozenAnalysis.measuresAndBeats.beats).map(
+        (time) => time / TIME_SCALE_FACTOR,
       ),
     },
-    measuresAndBeats: rehydratedMeasuresAndBeats,
   };
-};
+}
+
+export function rehydrateSnippet(snippet: Snippet): {
+  rehydratedNotes: Note[][];
+  rehydratedAnalysis: Analysis;
+  rehydratedMeasuresAndBeats: MeasuresAndBeats;
+} {
+  const rehydratedNotes = rehydrateNotes(snippet);
+  const {
+    analysis: rehydratedAnalysis,
+    measuresAndBeats: rehydratedMeasuresAndBeats,
+  } = rehydrateAnalysis(snippet.frozenNotes.analysis, snippet.measuresSpan[0]);
+
+  // Ensure modulations are properly adjusted
+  rehydratedAnalysis.modulations = adjustModulations(
+    snippet.frozenNotes.analysis.modulations,
+    snippet.measuresSpan[0],
+  );
+
+  return {
+    rehydratedNotes,
+    rehydratedAnalysis,
+    rehydratedMeasuresAndBeats,
+  };
+}

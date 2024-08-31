@@ -27,6 +27,7 @@ const ScrollableContent = styled.div`
   flex-grow: 1;
   overflow-y: auto;
   height: calc(100% - 50px); // Subtract the ChapterRow height
+  overflow-x: auto; // Add horizontal scrolling
 `;
 
 const ChapterButton = styled.button<{ active: boolean }>`
@@ -51,7 +52,10 @@ const ContentArea = styled.div<{ isRawlVisible: boolean }>`
 `;
 
 const ChapterSection = styled.div`
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding-bottom: 20px;
 `;
 
 const TopicCard = styled.div`
@@ -59,6 +63,8 @@ const TopicCard = styled.div`
   margin: 5px 0;
   padding: 10px;
   border-radius: 5px;
+  width: 400px;
+  flex-shrink: 0;
 `;
 
 const TopicTitle = styled.h3`

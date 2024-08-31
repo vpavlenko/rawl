@@ -19,15 +19,18 @@ const ChapterRow = styled.div`
   position: sticky;
   top: 0;
   z-index: 1;
+  height: 30px; // Set a static height
 `;
 
 const ScrollableContent = styled.div`
   flex-grow: 1;
   overflow-y: auto;
+  height: calc(100% - 50px); // Subtract the ChapterRow height
 `;
 
 const ChapterButton = styled.button<{ active: boolean }>`
-  padding: 10px 20px;
+  padding: 0 20px;
+  height: 100%; // Make buttons fill the ChapterRow height
   text-align: center;
   background-color: ${(props) => (props.active ? "#4a90e2" : "transparent")};
   color: white;
@@ -186,11 +189,9 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
               <ErrorMessage key={index}>{error}</ErrorMessage>
             ))}
             <ChapterSection>
-              <h2>{chapterData[activeChapter].chapter}</h2>
               {chapterData[activeChapter].topics.map((topic) => (
                 <TopicCard key={topic.topic}>
                   <TopicTitle>{topic.topic}</TopicTitle>
-                  <p>Number of snippets: {topic.snippets.length}</p>
                   <SnippetList snippets={topic.snippets} noteHeight={3} />
                   <div>
                     {topic.midis.map((midi, index) => (

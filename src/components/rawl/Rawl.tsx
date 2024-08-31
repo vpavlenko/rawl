@@ -652,7 +652,7 @@ const Rawl: React.FC<{
     if (measureStart !== undefined && measuresAndBeats) {
       const absoluteMeasureStart =
         measureStart + (analysis.measureRenumbering?.[1] || 0) - 1;
-      const seekTime = measuresAndBeats.measures[absoluteMeasureStart];
+      const seekTime = measuresAndBeats.measures[absoluteMeasureStart] - 1;
       if (seekTime !== undefined) {
         console.log("Seeking to time:", seekTime * 1000);
         seek(seekTime * 1000);

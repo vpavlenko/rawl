@@ -94,6 +94,7 @@ const RawlContainer = styled.div`
   height: 50vh;
   background-color: #000;
   z-index: 1000;
+  overflow: auto; // Enable scrolling
 `;
 
 interface NewPathViewProps {

@@ -40,10 +40,14 @@ const ChapterButton = styled.button<{ active: boolean }>`
   white-space: nowrap;
 `;
 
-const ContentArea = styled.div`
+const ContentArea = styled.div<{ isRawlVisible: boolean }>`
   flex-grow: 1;
   background-color: #333333;
   padding: 10px;
+  height: ${(props) =>
+    props.isRawlVisible ? "calc(50vh - 30px)" : "calc(100vh - 30px)"};
+  overflow-y: auto;
+  transition: height 0.3s ease-in-out;
 `;
 
 const ChapterSection = styled.div`
@@ -119,6 +123,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
   const [selectedMeasureStart, setSelectedMeasureStart] = useState<
     number | undefined
   >(undefined);
+  const [isRawlVisible, setIsRawlVisible] = useState(false);
 
   const processAnalyses = useCallback(() => {
     console.log("Processing analyses");
@@ -184,6 +189,10 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
     setSelectedMeasureStart(measureStart);
   };
 
+  React.useEffect(() => {
+    setIsRawlVisible(!!rawlProps && !!rawlProps.parsingResult);
+  }, [rawlProps]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -208,7 +217,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
           ))}
         </ChapterRow>
         <ScrollableContent>
-          <ContentArea>
+          <ContentArea isRawlVisible={isRawlVisible}>
             {errorMessages.map((error, index) => (
               <ErrorMessage key={index}>{error}</ErrorMessage>
             ))}

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import styled from "styled-components";
 import ErrorBoundary from "../ErrorBoundary";
 import {
@@ -93,64 +93,56 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
   analysis,
   saveAnalysis,
 }) => {
-  const [measureRange, setMeasureRange] = useState([1, 4]);
-  const [copyIndicatorVisible, setCopyIndicatorVisible] = useState(false);
-  const startMeasureRef = useRef<HTMLInputElement>(null);
-  const [renderKey, setRenderKey] = useState(0);
+  const [dataRange, setDataRange] = useState<[number, number]>([1, 4]);
+  const [inputRange, setInputRange] = useState<[string, string]>(["1", "4"]);
   const [tagName, setTagName] = useState("tag");
   const [error, setError] = useState<string | null>(null);
+  const [copyIndicatorVisible, setCopyIndicatorVisible] = useState(false);
+
+  const maxMeasure = measuresAndBeats?.measures.length || 1;
+
+  const validateAndUpdateRange = useCallback(
+    (newRange: [string, string]) => {
+      const [start, end] = newRange.map((val) => {
+        const num = parseInt(val, 10);
+        return isNaN(num) ? 0 : Math.max(1, Math.min(num, maxMeasure));
+      });
+
+      if (start > 0 && end > 0 && start <= end) {
+        setDataRange([start, end]);
+        setError(null);
+      } else {
+        setError("Please enter a valid measure range.");
+      }
+    },
+    [maxMeasure],
+  );
 
   const handleRangeChange = useCallback(
     (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
+      const newValue = e.target.value;
+      const newRange = [...inputRange] as [string, string];
+      newRange[index] = newValue;
+      setInputRange(newRange);
 
-      if (value === "") {
-        setMeasureRange((prev) => {
-          const newRange = [...prev];
-          newRange[index] = "";
-          return newRange;
-        });
-        setError(null);
-        return;
+      if (newValue !== "") {
+        validateAndUpdateRange(newRange);
       }
-
-      const numValue = parseInt(value, 10);
-      if (isNaN(numValue)) {
-        setError("Please enter valid numbers for measure range.");
-        return;
-      }
-
-      setMeasureRange((prev) => {
-        const newRange = [...prev];
-        newRange[index] = Math.max(
-          1,
-          Math.min(numValue, measuresAndBeats?.measures.length || 1),
-        );
-        // Ensure start measure is not greater than end measure
-        if (index === 0 && newRange[0] > newRange[1]) {
-          newRange[1] = newRange[0];
-        } else if (index === 1 && newRange[1] < newRange[0]) {
-          newRange[0] = newRange[1];
-        }
-        return newRange;
-      });
-      setError(null);
-      setRenderKey((prevKey) => prevKey + 1);
     },
-    [measuresAndBeats],
+    [inputRange, validateAndUpdateRange],
   );
 
-  React.useEffect(() => {
-    if (startMeasureRef.current) {
-      startMeasureRef.current.focus();
-      setTimeout(() => {
-        if (startMeasureRef.current) {
-          startMeasureRef.current.blur();
-          startMeasureRef.current.focus();
-        }
-      }, 0);
-    }
-  }, []);
+  const handleRangeBlur = useCallback(
+    (index: number) => () => {
+      const newRange = [...inputRange] as [string, string];
+      if (newRange[index] === "") {
+        newRange[index] = index === 0 ? "1" : maxMeasure.toString();
+      }
+      setInputRange(newRange);
+      validateAndUpdateRange(newRange);
+    },
+    [inputRange, maxMeasure, validateAndUpdateRange],
+  );
 
   const createFrozenNotes = useCallback((): FrozenNotesType | null => {
     if (!frozenNotes || !measuresAndBeats || !analysis) {
@@ -158,8 +150,9 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
       return null;
     }
 
-    const startMeasure = measureRange[0] - 1;
-    const endMeasure = measureRange[1] - 1;
+    const startMeasure = Math.max(0, dataRange[0] - 1);
+    const endMeasure = Math.min(dataRange[1], maxMeasure) - 1;
+
     const startTime = measuresAndBeats.measures[startMeasure];
     const endTime = measuresAndBeats.measures[endMeasure + 1];
 
@@ -244,7 +237,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
       notesInVoices,
       analysis: frozenAnalysis,
     };
-  }, [frozenNotes, measureRange, measuresAndBeats, analysis]);
+  }, [frozenNotes, dataRange, measuresAndBeats, analysis, maxMeasure]);
 
   const snippet: Snippet | null = useMemo(() => {
     const frozenNotesData = createFrozenNotes();
@@ -253,9 +246,9 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     return {
       tag: tagName,
       frozenNotes: frozenNotesData,
-      measuresSpan: [measureRange[0], measureRange[1]],
+      measuresSpan: dataRange,
     };
-  }, [createFrozenNotes, tagName, measureRange]);
+  }, [createFrozenNotes, tagName, dataRange]);
 
   const exportString = useMemo(() => {
     return snippet ? JSON.stringify(snippet) : "";
@@ -318,14 +311,17 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
   );
 
   // Calculate maxWidth based on the number of measures
-  const maxWidth = (measureRange[1] - measureRange[0] + 1) * measureWidth;
+  const maxWidth = (dataRange[1] - dataRange[0] + 1) * measureWidth;
 
   // Pad only the measures array for correct numbering
   const paddedMeasuresAndBeats = useMemo(() => {
     if (!snippet) return { measures: [], beats: [] };
 
-    const startMeasure = measureRange[0] - 1;
-    const endMeasure = measureRange[1];
+    const start = dataRange[0];
+    const end = dataRange[1];
+
+    const startMeasure = Math.max(0, start - 1);
+    const endMeasure = Math.min(end, measuresAndBeats?.measures.length || 1);
 
     // Ensure we don't create an array with negative length
     const paddingLength = Math.max(0, startMeasure);
@@ -347,18 +343,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
       ...rehydrateAnalysis(snippet.frozenNotes.analysis).measuresAndBeats,
       measures: paddedMeasures,
     };
-  }, [snippet, renderKey]); // Add renderKey as a dependency
-
-  const isValidRange = useMemo(() => {
-    return (
-      !isNaN(measureRange[0]) &&
-      !isNaN(measureRange[1]) &&
-      measureRange[0] > 0 &&
-      measureRange[1] > 0 &&
-      measureRange[0] <= measureRange[1] &&
-      measureRange[1] <= (measuresAndBeats?.measures.length || 0)
-    );
-  }, [measureRange, measuresAndBeats]);
+  }, [snippet, dataRange, measuresAndBeats]);
 
   // Add this check after all hooks have been called
   if (!frozenNotes || !measuresAndBeats || !analysis) {
@@ -375,31 +360,19 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
             <NumberInput
               type="number"
               min="1"
-              max={measuresAndBeats?.measures.length || 1}
-              value={measureRange[0] || ""}
+              max={maxMeasure}
+              value={inputRange[0]}
               onChange={handleRangeChange(0)}
-              onBlur={() => {
-                if (measureRange[0] === "") {
-                  setMeasureRange((prev) => [1, prev[1]]);
-                }
-              }}
-              ref={startMeasureRef}
+              onBlur={handleRangeBlur(0)}
             />
             <span>to</span>
             <NumberInput
               type="number"
               min="1"
-              max={measuresAndBeats?.measures.length || 1}
-              value={measureRange[1] || ""}
+              max={maxMeasure}
+              value={inputRange[1]}
               onChange={handleRangeChange(1)}
-              onBlur={() => {
-                if (measureRange[1] === "") {
-                  setMeasureRange((prev) => [
-                    prev[0],
-                    measuresAndBeats?.measures.length || 1,
-                  ]);
-                }
-              }}
+              onBlur={handleRangeBlur(1)}
             />
             <label>
               Tag:
@@ -412,11 +385,10 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
             </label>
           </RangeInputs>
           {error && <ErrorMessage>{error}</ErrorMessage>}
-          {isValidRange && snippet ? (
+          {!error && snippet && (
             <>
               <h3>Rehydrated Notes</h3>
               <EnhancedFrozenNotes
-                key={renderKey}
                 notes={rehydrateNotes(snippet)}
                 measureWidth={measureWidth}
                 midiNumberToY={midiNumberToY}
@@ -426,7 +398,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
                 }
                 measuresAndBeats={paddedMeasuresAndBeats}
                 noteHeight={noteHeight}
-                startMeasure={measureRange[0]}
+                startMeasure={dataRange[0]}
               />
               <JsonDisplay onClick={copyToClipboard}>
                 {exportString}
@@ -435,11 +407,6 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
                 Save Snippet
               </button>
             </>
-          ) : (
-            <ErrorMessage>
-              {error ||
-                "Please enter a valid measure range to display frozen notes."}
-            </ErrorMessage>
           )}
         </FrozenNotesDisplay>
         <CopyIndicator visible={copyIndicatorVisible}>
@@ -454,7 +421,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
             noteHeight={noteHeight}
           />
         </SnippetListContainer>
-        {isValidRange && snippet && (
+        {snippet && (
           <RehydratedNotesDisplay>
             <pre>{JSON.stringify(rehydrateNotes(snippet), null, 2)}</pre>
           </RehydratedNotesDisplay>

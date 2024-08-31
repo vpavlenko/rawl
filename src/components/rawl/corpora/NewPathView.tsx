@@ -115,6 +115,9 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [chapterData, setChapterData] = useState<ChapterData[]>([]);
   const [activeChapter, setActiveChapter] = useState(0);
+  const [selectedMeasureStart, setSelectedMeasureStart] = useState<
+    number | undefined
+  >(undefined);
 
   const processAnalyses = useCallback(() => {
     console.log("Processing analyses");
@@ -169,9 +172,15 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
     setActiveChapter(index);
   };
 
-  const handleMidiClick = (slug: string) => {
-    console.log("handleMidiClick called with slug:", slug);
+  const handleMidiClick = (slug: string, measureStart: number) => {
+    console.log(
+      "handleMidiClick called with slug:",
+      slug,
+      "and measureStart:",
+      measureStart,
+    );
     handleSongClick(`f:${slug}`);
+    setSelectedMeasureStart(measureStart);
   };
 
   if (loading) {
@@ -211,7 +220,12 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
                     {topic.midis.map((midi, index) => (
                       <MidiButton
                         key={index}
-                        onClick={() => handleMidiClick(midi)}
+                        onClick={() =>
+                          handleMidiClick(
+                            midi,
+                            topic.snippets[0].measuresSpan[0],
+                          )
+                        }
                       >
                         {midi.replace(/---/g, " – ").replace(/-/g, " ")}
                       </MidiButton>
@@ -224,7 +238,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
         </ScrollableContent>
         {rawlProps && rawlProps.parsingResult && (
           <RawlContainer>
-            <Rawl {...rawlProps} />
+            <Rawl {...rawlProps} measureStart={selectedMeasureStart} />
           </RawlContainer>
         )}
       </PathContainer>

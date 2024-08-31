@@ -227,6 +227,7 @@ const Rawl: React.FC<{
   ) => void;
   unregisterKeyboardHandler: (id: string) => void;
   sourceUrl: string | null;
+  measureStart?: number;
 }> = ({
   parsingResult,
   getCurrentPositionMs,
@@ -243,6 +244,7 @@ const Rawl: React.FC<{
   registerKeyboardHandler,
   unregisterKeyboardHandler,
   sourceUrl,
+  measureStart,
 }) => {
   const location = useLocation();
   const { slug } = useParams<{ slug: string }>();
@@ -644,6 +646,19 @@ const Rawl: React.FC<{
       unregisterKeyboardHandler("frozenLayoutSwitch");
     };
   }, [registerKeyboardHandler, unregisterKeyboardHandler, handleKeyPress]);
+
+  useEffect(() => {
+    console.log("Rawl: measureStart changed", measureStart);
+    if (measureStart !== undefined && measuresAndBeats) {
+      const absoluteMeasureStart =
+        measureStart + (analysis.measureRenumbering?.[1] || 0) - 1;
+      const seekTime = measuresAndBeats.measures[absoluteMeasureStart];
+      if (seekTime !== undefined) {
+        console.log("Seeking to time:", seekTime * 1000);
+        seek(seekTime * 1000);
+      }
+    }
+  }, [measureStart, measuresAndBeats, analysis.measureRenumbering, seek]);
 
   return (
     <div

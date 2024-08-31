@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import styled from "styled-components";
+import { AppContext } from "../../AppContext";
 import ErrorBoundary from "../../ErrorBoundary";
 import { Analysis, Snippet } from "../analysis";
 import SnippetList from "../SnippetList";
@@ -10,6 +11,25 @@ const PathContainer = styled.div`
   height: 100%;
   width: 100%;
   overflow-y: auto;
+`;
+
+const ChapterRow = styled.div`
+  display: flex;
+  overflow-x: auto;
+  background-color: #1a1a1a;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+`;
+
+const ChapterButton = styled.button<{ active: boolean }>`
+  padding: 10px 20px;
+  text-align: center;
+  background-color: ${(props) => (props.active ? "#4a90e2" : "transparent")};
+  color: white;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
 `;
 
 const ContentArea = styled.div`
@@ -40,15 +60,22 @@ const ErrorMessage = styled.div`
   margin-bottom: 10px;
 `;
 
-const DebugInfo = styled.pre`
-  background-color: #1e1e1e;
-  color: #d4d4d4;
-  padding: 10px;
-  border-radius: 5px;
-  overflow-x: auto;
-  font-size: 12px;
-  max-height: 200px;
-  overflow-y: auto;
+const MidiButton = styled.button`
+  display: block;
+  padding: 3px 0;
+  font-size: 14px;
+  color: #ffffff;
+  text-decoration: none;
+  word-wrap: break-word;
+  padding-left: 1em;
+  text-indent: -1em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  &:hover {
+    color: #4a90e2;
+  }
 `;
 
 interface NewPathViewProps {
@@ -65,9 +92,11 @@ interface ChapterData {
 }
 
 const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
+  const { handleSongClick } = useContext(AppContext);
   const [loading, setLoading] = useState(true);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [chapterData, setChapterData] = useState<ChapterData[]>([]);
+  const [activeChapter, setActiveChapter] = useState(0);
 
   const processAnalyses = useCallback(() => {
     console.log("Processing analyses");
@@ -115,6 +144,15 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
     processAnalyses();
   }, [processAnalyses]);
 
+  const handleChapterSelect = (index: number) => {
+    setActiveChapter(index);
+  };
+
+  const handleMidiClick = (slug: string) => {
+    console.log("handleMidiClick called with slug:", slug);
+    handleSongClick(`f:${slug}`);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -126,29 +164,47 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
   return (
     <ErrorBoundary>
       <PathContainer>
-        <h1>Analyses with Snippets</h1>
+        <ChapterRow>
+          {chapterData.map((chapter, index) => (
+            <ChapterButton
+              key={chapter.chapter}
+              active={index === activeChapter}
+              onClick={() => handleChapterSelect(index)}
+              onMouseEnter={() => handleChapterSelect(index)}
+            >
+              {chapter.chapter}
+            </ChapterButton>
+          ))}
+        </ChapterRow>
         <ContentArea>
           {errorMessages.map((error, index) => (
             <ErrorMessage key={index}>{error}</ErrorMessage>
           ))}
-          {chapterData.map((chapter) => (
-            <ChapterSection key={chapter.chapter}>
-              <h2>{chapter.chapter}</h2>
-              {chapter.topics.map((topic) => (
-                <TopicCard key={topic.topic}>
-                  <TopicTitle>{topic.topic}</TopicTitle>
-                  <p>Number of snippets: {topic.snippets.length}</p>
-                  <p>MIDIs: {topic.midis.join(", ")}</p>
-                  <SnippetList
-                    snippets={topic.snippets}
-                    measureWidth={50}
-                    noteHeight={3}
-                    compact={true}
-                  />
-                </TopicCard>
-              ))}
-            </ChapterSection>
-          ))}
+          <ChapterSection>
+            <h2>{chapterData[activeChapter].chapter}</h2>
+            {chapterData[activeChapter].topics.map((topic) => (
+              <TopicCard key={topic.topic}>
+                <TopicTitle>{topic.topic}</TopicTitle>
+                <p>Number of snippets: {topic.snippets.length}</p>
+                <SnippetList
+                  snippets={topic.snippets}
+                  measureWidth={50}
+                  noteHeight={3}
+                  compact={true}
+                />
+                <div>
+                  {topic.midis.map((midi, index) => (
+                    <MidiButton
+                      key={index}
+                      onClick={() => handleMidiClick(midi)}
+                    >
+                      {midi.replace(/---/g, " – ").replace(/-/g, " ")}
+                    </MidiButton>
+                  ))}
+                </div>
+              </TopicCard>
+            ))}
+          </ChapterSection>
         </ContentArea>
       </PathContainer>
     </ErrorBoundary>

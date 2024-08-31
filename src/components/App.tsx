@@ -1116,6 +1116,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
         value={{
           handleSongClick: this.handleSongClick,
           rawlProps: this.state.rawlProps,
+          analyses: this.state.analyses,
+          saveAnalysis: this.saveAnalysis,
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>

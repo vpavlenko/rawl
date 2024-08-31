@@ -1,6 +1,6 @@
 import React from "react";
 import { VoiceMask } from "./App";
-import { Analysis } from "./rawl/analysis";
+import { Analyses, Analysis } from "./rawl/analysis";
 import { ParsingResult } from "./rawl/parseMidi";
 
 export type RawlProps = {
@@ -27,7 +27,11 @@ export type RawlProps = {
 export const AppContext = React.createContext<{
   handleSongClick: (url: string) => void;
   rawlProps: RawlProps | null;
+  analyses: Analyses;
+  saveAnalysis: (analysis: Analysis) => void;
 }>({
   handleSongClick: () => {},
   rawlProps: null,
+  analyses: {},
+  saveAnalysis: () => {},
 });

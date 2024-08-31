@@ -1,7 +1,8 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import { Theme } from "react-select";
 import CreatableSelect from "react-select/creatable";
 import styled from "styled-components";
+import { AppContext } from "../AppContext";
 import ErrorBoundary from "../ErrorBoundary";
 import {
   Analysis,
@@ -168,6 +169,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
   analysis,
   saveAnalysis,
 }) => {
+  const { analyses } = useContext(AppContext);
   const [dataRange, setDataRange] = useState<[number, number]>([1, 4]);
   const [inputRange, setInputRange] = useState<[string, string]>(["1", "4"]);
   const [tagName, setTagName] = useState<{
@@ -366,15 +368,17 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
 
   const allTags = useMemo(() => {
     const tagSet = new Set<string>();
-    if (analysis && analysis.snippets) {
-      analysis.snippets.forEach((snippet) => {
-        if (snippet.tag) {
-          tagSet.add(snippet.tag);
-        }
-      });
-    }
+    Object.values(analyses).forEach((analysis) => {
+      if (analysis.snippets) {
+        analysis.snippets.forEach((snippet) => {
+          if (snippet.tag) {
+            tagSet.add(snippet.tag);
+          }
+        });
+      }
+    });
     return Array.from(tagSet).map((tag) => ({ value: tag, label: tag }));
-  }, [analysis]);
+  }, [analyses]);
 
   const rehydratedSnippet = useMemo(() => {
     if (!snippet) return null;

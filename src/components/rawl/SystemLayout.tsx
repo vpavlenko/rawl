@@ -1,4 +1,3 @@
-import { clamp } from "lodash";
 import * as React from "react";
 import {
   ReactNode,
@@ -8,21 +7,15 @@ import {
   useRef,
   useState,
 } from "react";
-import styled from "styled-components";
 import { DUMMY_CALLBACK, VoiceMask } from "../App";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
-import { FoldablePianoLegend } from "./PianoLegend";
 import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
 import { Analysis, MeasuresSpan } from "./analysis";
 import { getNoteRectangles, MouseHandlers } from "./getNoteRectangles";
+import ControlPanel, { debounce } from "./layouts/ControlPanel";
 import MergedVoicesLegend from "./layouts/MergedVoicesLegend";
 import { ColoredNote, ColoredNotesInVoices, Note } from "./parseMidi";
 import { TonalHistogram } from "./tonalSearch/TonalSearch";
-
-const TinyLetter = styled.span`
-  font-size: 10px;
-  color: #999;
-`;
 
 export type MeasuresAndBeats = {
   measures: number[];
@@ -421,22 +414,6 @@ export const Voice: React.FC<{
   );
 };
 
-const debounce = (func, delay) => {
-  let timer;
-  let frameId;
-
-  return (...args) => {
-    clearTimeout(timer);
-    cancelAnimationFrame(frameId);
-
-    timer = setTimeout(() => {
-      frameId = requestAnimationFrame(() => {
-        func.apply(this, args);
-      });
-    }, delay);
-  };
-};
-
 type Section = {
   sectionSpan: MeasuresSpan;
   secondsToX: SecondsConverter;
@@ -541,17 +518,8 @@ export const StackedSystemLayout: React.FC<
   measureStart,
 }) => {
   const [noteHeight, setNoteHeight] = useState<number>(3.5);
-  const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
   const [secondWidth, setSecondWidth] = useState<number>(40);
   const setSecondWidthCalled = useRef(false);
-
-  const debounceSetSecondWidth = useCallback(
-    debounce((value: number) => {
-      setSecondWidthCalled.current = true;
-      setSecondWidth(value);
-    }, 50),
-    [],
-  );
 
   useEffect(() => {
     setSecondWidthCalled.current = false;
@@ -662,42 +630,6 @@ export const StackedSystemLayout: React.FC<
     };
   }, []);
 
-  const handleSecondWidthChange = useCallback((newWidth: number) => {
-    setSecondWidth(clamp(newWidth, 2, 150));
-  }, []);
-
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      switch (e.key) {
-        case "a":
-          handleSecondWidthChange(secondWidth - 2);
-          break;
-        case "d":
-          handleSecondWidthChange(secondWidth + 2);
-          break;
-        case "s":
-          debounceSetNoteHeight(Math.min(noteHeight + 0.25, 10));
-          break;
-        case "w":
-          debounceSetNoteHeight(Math.max(noteHeight - 0.25, 1));
-          break;
-      }
-    };
-
-    registerKeyboardHandler("systemLayout", handleKeyPress);
-
-    return () => {
-      unregisterKeyboardHandler("systemLayout");
-    };
-  }, [
-    registerKeyboardHandler,
-    unregisterKeyboardHandler,
-    secondWidth,
-    handleSecondWidthChange,
-    noteHeight,
-    debounceSetNoteHeight,
-  ]);
-
   useEffect(() => {
     if (
       measureStart !== undefined &&
@@ -735,69 +667,6 @@ export const StackedSystemLayout: React.FC<
         ref={parentRef}
         className="SplitLayout"
       >
-        <div
-          style={{
-            position: "fixed",
-            bottom: 244,
-            right: -93,
-            zIndex: 100000,
-          }}
-        >
-          <span style={{ position: "relative", top: -3, left: 18 }}>
-            <TinyLetter>w</TinyLetter>
-          </span>
-          <span
-            style={{
-              position: "relative",
-              top: 169,
-              left: 13,
-            }}
-          >
-            <TinyLetter>s</TinyLetter>
-          </span>
-          <input
-            type="range"
-            min="1"
-            max="10"
-            value={noteHeight}
-            onChange={(e) =>
-              debounceSetNoteHeight(parseInt(e.target.value, 10))
-            }
-            style={{
-              transform: "rotate(90deg)",
-              transformOrigin: "bottom left",
-              width: 160,
-            }}
-          />
-        </div>
-        <div
-          style={{
-            position: "fixed",
-            bottom: 70,
-            right: 79,
-            zIndex: 100000,
-          }}
-        >
-          <span style={{ position: "relative", top: -5, left: 0 }}>
-            <TinyLetter>a</TinyLetter>
-          </span>
-          <input
-            type="range"
-            min="2"
-            max="150"
-            value={secondWidth}
-            onChange={(e) =>
-              debounceSetSecondWidth(parseInt(e.target.value, 10))
-            }
-            style={{
-              width: 240,
-            }}
-          />
-          <span style={{ position: "relative", top: -5, left: 0 }}>
-            <TinyLetter>d</TinyLetter>
-          </span>
-        </div>
-
         {sections.map(
           ({ sectionSpan, secondsToX, xToSeconds, voices }, order) => (
             <div
@@ -863,7 +732,14 @@ export const StackedSystemLayout: React.FC<
 
         <div style={{ height: 600 }} />
 
-        <FoldablePianoLegend />
+        <ControlPanel
+          noteHeight={noteHeight}
+          setNoteHeight={setNoteHeight}
+          secondWidth={secondWidth}
+          setSecondWidth={setSecondWidth}
+          registerKeyboardHandler={registerKeyboardHandler}
+          unregisterKeyboardHandler={unregisterKeyboardHandler}
+        />
       </div>
     </>
   );

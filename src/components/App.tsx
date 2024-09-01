@@ -120,6 +120,13 @@ type KeyboardHandler = (e: KeyboardEvent) => void;
 
 Modal.setAppElement("#root");
 
+function mergeAnalyses(existingAnalyses, newAnalyses) {
+  return {
+    ...existingAnalyses,
+    ...newAnalyses,
+  };
+}
+
 class App extends React.Component<RouteComponentProps, AppState> {
   private contentAreaRef: React.RefObject<HTMLDivElement>;
   private errorTimer: number;
@@ -268,7 +275,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           const userData = userSnapshot.data();
           if (userData.analyses) {
             this.setState((prevState) => ({
-              analyses: { ...prevState.analyses, ...userData.analyses },
+              analyses: mergeAnalyses(prevState.analyses, userData.analyses),
             }));
           }
         } else {
@@ -401,26 +408,24 @@ class App extends React.Component<RouteComponentProps, AppState> {
       const userDoc = await getDoc(userRef);
 
       let userData = userDoc.exists() ? userDoc.data() : {};
-      userData.analyses = {
-        ...(userData.analyses ?? {}),
+      userData.analyses = mergeAnalyses(userData.analyses ?? {}, {
         [this.path]: analysis,
-      };
+      });
 
       await setDoc(userRef, userData).catch((e) => {
         console.log("Couldn't save analysis.", e);
         alert("Could not save analysis");
       });
 
-      this.setState({
-        analyses: userData.analyses,
-      });
+      this.setState((prevState) => ({
+        analyses: mergeAnalyses(prevState.analyses, userData.analyses),
+      }));
     } else {
       if (this.state.currentMidi) {
         this.setState((prevState) => ({
-          analyses: {
-            ...prevState.analyses,
+          analyses: mergeAnalyses(prevState.analyses, {
             [`f/${this.state.currentMidi.slug}`]: analysis,
-          },
+          }),
         }));
       }
     }

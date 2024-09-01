@@ -6,7 +6,7 @@ import { ParsingResult } from "./rawl/parseMidi";
 export type RawlProps = {
   parsingResult: ParsingResult | null;
   getCurrentPositionMs: () => number;
-  savedAnalysis: Analysis | undefined;
+  savedAnalysis: Analysis | null;
   saveAnalysis: (analysis: Analysis) => void;
   voiceNames: string[];
   voiceMask: VoiceMask;

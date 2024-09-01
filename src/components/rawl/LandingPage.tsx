@@ -3,10 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { ReactNode } from "react";
 import styled from "styled-components";
+import { AppContext } from "../AppContext";
 import ChordStairs, { MODES } from "./ChordStairs";
 import CorpusSearch from "./CorpusSearch";
 import { InlinePianoLegend, PianoLegend } from "./PianoLegend";
-import PathView from "./corpora/PathView";
+import NewPathView from "./corpora/NewPathView"; // Change this import
 import landingLeftSideImage from "./landing_left_side.png";
 import landingRightSideImage from "./landing_right_side.png";
 
@@ -204,6 +205,8 @@ const TopSection = styled.div`
 `;
 
 const LandingPage = () => {
+  const { analyses } = React.useContext(AppContext);
+
   return (
     <PageContainer>
       <TopSection>
@@ -331,7 +334,7 @@ const LandingPage = () => {
       </TopSection>
 
       <FullWidthPathViewContainer>
-        <PathView />
+        <NewPathView analyses={analyses} />
       </FullWidthPathViewContainer>
     </PageContainer>
   );

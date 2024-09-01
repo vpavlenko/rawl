@@ -8,21 +8,9 @@ const AppHeader: React.FC = () => {
         Rawl
       </Link>
       {" • "}
-      <Link className="AppHeader-title" to={{ pathname: "/corpus" }}>
-        Corpora
-      </Link>
-      {" • "}
-      <Link className="AppHeader-title" to={{ pathname: "/path" }}>
-        Path
-      </Link>
-      {" • "}
       <Link className="AppHeader-title" to={{ pathname: "/browse/MIDI" }}>
         Rock
       </Link>
-      {/* {" • "}
-      <Link className="AppHeader-title" to={{ pathname: "/axes" }}>
-        Tags
-      </Link> */}
       {" • "}
       <Link className="AppHeader-title" to={{ pathname: "/browse/Demo MIDI" }}>
         d

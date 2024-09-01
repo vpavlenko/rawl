@@ -12,8 +12,8 @@ import * as React from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import MIDIPlayer from "../../players/MIDIFilePlayer";
-import { MeasuresAndBeats, getPhraseStarts } from "./SystemLayout";
-import { Analyses } from "./analysis";
+import { MeasuresAndBeats } from "./SystemLayout";
+import { Analyses, getPhraseStarts } from "./analysis";
 import { loadMidiFromSlug } from "./slicerFiles";
 import transformMidi from "./transformMidi";
 

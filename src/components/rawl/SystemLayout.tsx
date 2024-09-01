@@ -10,7 +10,7 @@ import {
 import { DUMMY_CALLBACK, VoiceMask } from "../App";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
-import { Analysis, MeasuresSpan } from "./analysis";
+import { Analysis, getPhraseStarts, MeasuresSpan } from "./analysis";
 import { getNoteRectangles, MouseHandlers } from "./getNoteRectangles";
 import ControlPanel, { debounce } from "./layouts/ControlPanel";
 import MergedVoicesLegend from "./layouts/MergedVoicesLegend";
@@ -21,35 +21,6 @@ export type MeasuresAndBeats = {
   measures: number[];
   beats: number[];
   ticks?: { measures: number[] };
-};
-
-export const getPhraseStarts = (
-  analysis: Analysis,
-  numMeasures: number,
-): number[] => {
-  const result = [];
-  let i;
-  for (i = 1; i < numMeasures; i += 4) {
-    result.push(i);
-  }
-  result.push(i);
-  for (const { measure, diff } of analysis.phrasePatch || []) {
-    if (result.indexOf(measure) === -1) {
-      console.log(`bad phrasePatch, measure ${measure} not found`);
-      break;
-    }
-    for (let j = result.indexOf(measure); j < result.length; ++j) {
-      result[j] += diff;
-    }
-    while (result.at(-1) + 4 < numMeasures) {
-      result.push(result.at(-1) + 4);
-    }
-    if (result[0] !== 1) {
-      result.unshift(1);
-    }
-  }
-
-  return result;
 };
 
 const getAverageMidiNumber = (notes: Note[]) =>

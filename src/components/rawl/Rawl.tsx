@@ -17,7 +17,6 @@ import {
   SystemLayout,
   SystemLayoutProps,
   TonalHistogramLayout,
-  getPhraseStarts,
 } from "./SystemLayout";
 import { formatTag } from "./TagSearch";
 import {
@@ -26,6 +25,7 @@ import {
   PitchClass,
   advanceAnalysis,
   getNewAnalysis,
+  getPhraseStarts,
 } from "./analysis";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { corpora } from "./corpora/corpora";

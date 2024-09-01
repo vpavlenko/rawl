@@ -273,3 +273,32 @@ export function rehydrateSnippet(snippet: Snippet): {
 export function getSnippetTags(analysis: Analysis): string[] {
   return analysis.snippets?.flatMap((snippet) => snippet.tag.split(" ")) || [];
 }
+
+export const getPhraseStarts = (
+  analysis: Analysis,
+  numMeasures: number,
+): number[] => {
+  const result = [];
+  let i;
+  for (i = 1; i < numMeasures; i += 4) {
+    result.push(i);
+  }
+  result.push(i);
+  for (const { measure, diff } of analysis.phrasePatch || []) {
+    if (result.indexOf(measure) === -1) {
+      console.log(`bad phrasePatch, measure ${measure} not found`);
+      break;
+    }
+    for (let j = result.indexOf(measure); j < result.length; ++j) {
+      result[j] += diff;
+    }
+    while (result.at(-1) + 4 < numMeasures) {
+      result.push(result.at(-1) + 4);
+    }
+    if (result[0] !== 1) {
+      result.unshift(1);
+    }
+  }
+
+  return result;
+};

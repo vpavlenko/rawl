@@ -340,15 +340,14 @@ export const StackedSystemLayout: React.FC<
     [notes],
   );
 
-  // TODO: make sure the very last measure is also a phrase start
   const phraseStarts = useMemo(
     () => getPhraseStarts(analysis, measuresAndBeats.measures.length),
     [analysis, measuresAndBeats],
   );
 
-  const sections: Section[] = useMemo(
-    () =>
-      (analysis.sections ?? [0]).map((sectionStartInPhrases, index) => {
+  const sections: Section[] = useMemo(() => {
+    const calculatedSections = (analysis.sections ?? [0]).map(
+      (sectionStartInPhrases, index) => {
         const { measures } = measuresAndBeats;
         const start = phraseStarts[sectionStartInPhrases] - 1;
         const end =
@@ -360,7 +359,7 @@ export const StackedSystemLayout: React.FC<
           (seconds - measures[start]) * secondWidth;
         const xToSeconds = (x) => x / secondWidth + measures[start];
         return {
-          sectionSpan: [start, end],
+          sectionSpan: [start, end] as MeasuresSpan,
           secondsToX,
           xToSeconds,
           voices: voicesSortedByAverageMidiNumber.map(
@@ -374,15 +373,41 @@ export const StackedSystemLayout: React.FC<
             }),
           ),
         };
-      }),
-    [
-      voicesSortedByAverageMidiNumber,
-      phraseStarts,
-      measuresAndBeats,
-      secondWidth,
-      analysis.sections,
-    ],
-  );
+      },
+    );
+
+    const viewportWidth = window.innerWidth;
+    const targetWidthPercentage = 0.92;
+    const targetWidth = viewportWidth * targetWidthPercentage;
+
+    const longestSection = calculatedSections
+      .filter((section) => section.sectionSpan[1] - section.sectionSpan[0] < 25)
+      .reduce((longest, current) => {
+        const currentLength =
+          measuresAndBeats.measures[current.sectionSpan[1]] -
+          measuresAndBeats.measures[current.sectionSpan[0]];
+        const longestLength =
+          measuresAndBeats.measures[longest.sectionSpan[1]] -
+          measuresAndBeats.measures[longest.sectionSpan[0]];
+        return currentLength > longestLength ? current : longest;
+      }, calculatedSections[0]);
+
+    if (longestSection) {
+      const longestSectionLength =
+        measuresAndBeats.measures[longestSection.sectionSpan[1]] -
+        measuresAndBeats.measures[longestSection.sectionSpan[0]];
+      const optimalSecondWidth = targetWidth / longestSectionLength;
+      setSecondWidth(optimalSecondWidth);
+    }
+
+    return calculatedSections;
+  }, [
+    voicesSortedByAverageMidiNumber,
+    phraseStarts,
+    measuresAndBeats,
+    secondWidth,
+    analysis.sections,
+  ]);
 
   const parentRef = useRef(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);

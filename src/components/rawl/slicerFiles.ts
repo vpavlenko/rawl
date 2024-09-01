@@ -17,8 +17,6 @@ export const loadMidiFromSlug = async (urlSlug) => {
       await getDoc(doc(firestore, "midis", id))
     ).data() as FirestoreMidiDocument;
 
-    return Uint8Array.from(blob._byteString.binaryString, (e) =>
-      e.charCodeAt(0),
-    );
+    return blob.toUint8Array();
   }
 };

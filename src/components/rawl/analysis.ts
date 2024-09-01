@@ -269,3 +269,7 @@ export function rehydrateSnippet(snippet: Snippet): {
     rehydratedMeasuresAndBeats,
   };
 }
+
+export function getSnippetTags(analysis: Analysis): string[] {
+  return analysis.snippets?.flatMap((snippet) => snippet.tag.split(" ")) || [];
+}

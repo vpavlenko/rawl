@@ -1,8 +1,11 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { AppContext } from "../../AppContext";
+import { getSnippetTags } from "../analysis";
 import { corpora } from "./corpora";
 
 const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
+  const { analyses } = React.useContext(AppContext);
   const [searchTerm, setSearchTerm] = React.useState("");
   const searchInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -22,6 +25,15 @@ const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
     return parts.map((part, index) =>
       regex.test(part) ? <mark key={index}>{part}</mark> : part,
     );
+  };
+
+  const getTagsForMidi = (midiSlug: string) => {
+    const analysis = analyses[`f/${midiSlug}`];
+    if (analysis) {
+      const tags = getSnippetTags(analysis);
+      return tags.length > 0 ? tags : null;
+    }
+    return null;
   };
 
   const filteredCorpora = corpora.filter(
@@ -101,10 +113,45 @@ const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
     <div>
       <h1>{slug}</h1>
       {corpus.midis.map((midiSlug) => (
-        <div>
-          <a href={`/f/${midiSlug}`} target="_blank">
+        <div
+          key={midiSlug}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: "10px",
+          }}
+        >
+          <a href={`/f/${midiSlug}`} target="_blank" rel="noopener noreferrer">
             {midiSlug.replace(/---/g, " – ").replace(/-/g, " ")}
           </a>
+          {getTagsForMidi(midiSlug) && (
+            <div
+              style={{ marginLeft: "10px", display: "flex", flexWrap: "wrap" }}
+            >
+              {getTagsForMidi(midiSlug).map((tag, index) => {
+                const [chapter, topic] = tag.split(":");
+                return (
+                  <div
+                    key={index}
+                    style={{
+                      color: "gray",
+                      fontSize: "0.7em",
+                      marginRight: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "left",
+                      lineHeight: "1.2",
+                    }}
+                  >
+                    <span>{chapter?.replace(/_/g, " ")}</span>
+                    <span style={{ color: "white" }}>
+                      {topic?.replace(/_/g, " ")}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       ))}
     </div>

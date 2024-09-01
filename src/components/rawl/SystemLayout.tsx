@@ -9,11 +9,9 @@ import {
   useState,
 } from "react";
 import styled from "styled-components";
-import { useLocalStorage } from "usehooks-ts";
 import { DUMMY_CALLBACK, VoiceMask } from "../App";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
-import ChordStairs, { MODES } from "./ChordStairs";
-import { InlinePianoLegend, PianoLegend } from "./PianoLegend";
+import { FoldablePianoLegend } from "./PianoLegend";
 import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
 import { Analysis, MeasuresSpan } from "./analysis";
 import { getNoteRectangles, MouseHandlers } from "./getNoteRectangles";
@@ -446,16 +444,6 @@ type Section = {
   voices: { voiceIndex: number; notes: ColoredNote[] }[];
 };
 
-const FoldButton = styled.button`
-  position: absolute;
-  top: 0;
-  right: 0;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  padding: 5px 15px;
-`;
-
 export type SystemLayoutProps = {
   notes: ColoredNotesInVoices;
   voiceNames: string[];
@@ -674,8 +662,6 @@ export const StackedSystemLayout: React.FC<
     };
   }, []);
 
-  const [showLegend, setShowLegend] = useLocalStorage("showLegend", true);
-
   const handleSecondWidthChange = useCallback((newWidth: number) => {
     setSecondWidth(clamp(newWidth, 2, 150));
   }, []);
@@ -875,47 +861,9 @@ export const StackedSystemLayout: React.FC<
           ),
         )}
 
-        <div style={{ height: 600 }}></div>
+        <div style={{ height: 600 }} />
 
-        <div
-          key="piano-legend"
-          style={{ position: "fixed", bottom: 90, right: 70, zIndex: 100000 }}
-        >
-          {showLegend ? (
-            <div>
-              <FoldButton onClick={() => setShowLegend(false)}>X</FoldButton>
-
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 90,
-                  backgroundColor: "black",
-                  padding: 10,
-                  border: "1px solid #666",
-                  zIndex: 100000,
-                }}
-              >
-                <ChordStairs mode={MODES[1]} />
-                <ChordStairs mode={MODES[0]} />
-                <ChordStairs mode={MODES[2]} />
-                <div
-                  style={{ margin: "auto" }}
-                  onClick={() => setShowLegend(false)}
-                >
-                  <PianoLegend />
-                </div>
-              </div>
-            </div>
-          ) : (
-            <button
-              onClick={() => setShowLegend(true)}
-              style={{ background: "none" }}
-            >
-              <InlinePianoLegend />
-            </button>
-          )}
-        </div>
+        <FoldablePianoLegend />
       </div>
     </>
   );

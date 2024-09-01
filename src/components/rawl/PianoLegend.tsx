@@ -1,5 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
+import { useLocalStorage } from "usehooks-ts";
+import ChordStairs, { MODES } from "./ChordStairs";
 
 const BLACK_KEYS = [1, 3, -1, 6, 8, 10, -1];
 const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
@@ -134,6 +136,62 @@ export const InlinePianoLegend: React.FC<{ enabledPitches?: number[] }> = ({
           )}
         </React.Fragment>
       ))}
+    </div>
+  );
+};
+
+const FoldButton = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px 15px;
+`;
+
+export const FoldablePianoLegend: React.FC = () => {
+  const [showLegend, setShowLegend] = useLocalStorage("showLegend", true);
+
+  return (
+    <div
+      key="piano-legend"
+      style={{ position: "fixed", bottom: 90, right: 70, zIndex: 100000 }}
+    >
+      {showLegend ? (
+        <div>
+          <FoldButton onClick={() => setShowLegend(false)}>X</FoldButton>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 90,
+              backgroundColor: "black",
+              padding: 10,
+              border: "1px solid #666",
+              zIndex: 100000,
+            }}
+          >
+            <ChordStairs mode={MODES[1]} />
+            <ChordStairs mode={MODES[0]} />
+            <ChordStairs mode={MODES[2]} />
+            <div
+              style={{ margin: "auto" }}
+              onClick={() => setShowLegend(false)}
+            >
+              <PianoLegend />
+            </div>
+          </div>
+        </div>
+      ) : (
+        <button
+          onClick={() => setShowLegend(true)}
+          style={{ background: "none" }}
+        >
+          <InlinePianoLegend />
+        </button>
+      )}
     </div>
   );
 };

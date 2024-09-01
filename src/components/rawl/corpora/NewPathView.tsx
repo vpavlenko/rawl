@@ -7,31 +7,28 @@ import Rawl from "../Rawl";
 import SnippetsForTopic from "../SnippetsForTopic";
 
 const PathContainer = styled.div`
-  display: flex;
-  flex-direction: column;
   height: 100%;
   width: 100%;
 `;
 
 const ChapterRow = styled.div`
   display: flex;
-  overflow-x: auto;
+  flex-wrap: wrap; // Allow wrapping to the next line
   background-color: #1a1a1a;
-  position: sticky;
+  //   position: sticky;
   top: 0;
   z-index: 1;
-  height: 30px; // Set a static height
+  width: 100%; // Ensure it takes the full width
 `;
 
 const ScrollableContent = styled.div`
   flex-grow: 1;
   overflow-y: auto;
-  height: calc(100% - 50px); // Subtract the ChapterRow height
-  overflow-x: auto; // Add horizontal scrolling
+  overflow-x: hidden; // Remove horizontal scrolling
 `;
 
 const ChapterButton = styled.button<{ active: boolean }>`
-  padding: 0 20px;
+  padding: 5px 10px;
   height: 100%; // Make buttons fill the ChapterRow height
   text-align: center;
   background-color: ${(props) => (props.active ? "#4a90e2" : "transparent")};
@@ -54,7 +51,7 @@ const ContentArea = styled.div<{ isRawlVisible: boolean }>`
 const ChapterSection = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 2px;
   padding-bottom: 20px;
 `;
 
@@ -216,9 +213,8 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
               key={chapter.chapter}
               active={index === activeChapter}
               onClick={() => handleChapterSelect(index)}
-              onMouseEnter={() => handleChapterSelect(index)}
             >
-              {chapter.chapter}
+              {chapter.chapter.replace(/_/g, " ")}
             </ChapterButton>
           ))}
         </ChapterRow>

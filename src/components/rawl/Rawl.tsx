@@ -270,7 +270,6 @@ const Rawl: React.FC<{
     analysisRef.current = analysis;
   }, [analysis]);
 
-  const [showVelocity, setShowVelocity] = useState(false);
   const [systemLayout, setSystemLayout] = useState<SystemLayout>("merged");
 
   const commitAnalysisUpdate = useCallback(
@@ -603,7 +602,6 @@ const Rawl: React.FC<{
       voiceNames,
       setVoiceMask,
       measuresAndBeats,
-      showVelocity,
       positionSeconds,
       mouseHandlers,
       measureSelection,
@@ -621,7 +619,6 @@ const Rawl: React.FC<{
       voiceNames,
       setVoiceMask,
       measuresAndBeats,
-      showVelocity,
       positionSeconds,
       mouseHandlers,
       measureSelection,
@@ -725,18 +722,6 @@ const Rawl: React.FC<{
         }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <label className="inline">
-            <input
-              title="Velocity"
-              type="checkbox"
-              onChange={(e) => {
-                e.stopPropagation();
-                setShowVelocity(e.target.checked);
-              }}
-              checked={showVelocity}
-            />
-            🔊
-          </label>
           <label key={"stacked"} className="inline">
             <input
               onChange={() => setSystemLayout("stacked")}

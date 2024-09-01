@@ -210,7 +210,6 @@ export const getNoteRectangles = (
   handleNoteClick: MouseEventHanlder,
   handleMouseEnter: MouseEventHanlder,
   handleMouseLeave: () => void,
-  showVelocity = false,
   secondsToX: SecondsConverter,
   enableManualRemeasuring: boolean,
 ) => {
@@ -277,9 +276,6 @@ export const getNoteRectangles = (
               ? "pointer"
               : "default",
           zIndex: Math.round(10 + (width > 0 ? 1000 / width : 1000)),
-          // opacity: (showVelocity && note?.chipState?.on?.param2 / 127) || 1,
-          // opacity: isActive ? 1 : 0.3,
-          // borderRadius: "4px",
           boxSizing: "border-box",
           display: "grid",
           placeItems: drumEmoji ? "center" : "",
@@ -494,7 +490,6 @@ export const Voice: React.FC<{
   notes: ColoredNote[];
   measuresAndBeats: MeasuresAndBeats;
   analysis: Analysis;
-  showVelocity: boolean;
   cursor: ReactNode;
   phraseStarts: number[];
   mouseHandlers: MouseHandlers;
@@ -516,7 +511,6 @@ export const Voice: React.FC<{
   analysis,
   mouseHandlers,
   measureSelection,
-  showVelocity,
   cursor,
   phraseStarts,
   scrollInfo,
@@ -568,7 +562,6 @@ export const Voice: React.FC<{
         handleNoteClick,
         handleMouseEnter,
         DUMMY_CALLBACK,
-        showVelocity,
         secondsToX,
         enableManualRemeasuring,
       ),
@@ -578,7 +571,6 @@ export const Voice: React.FC<{
     [
       notes,
       analysis,
-      showVelocity,
       handleNoteClick,
       handleMouseEnter,
       voiceMask,
@@ -693,7 +685,6 @@ export type SystemLayoutProps = {
   voiceNames: string[];
   voiceMask: VoiceMask;
   measuresAndBeats: MeasuresAndBeats;
-  showVelocity: boolean;
   positionSeconds: number;
   analysis: Analysis;
   mouseHandlers: MouseHandlers;
@@ -775,7 +766,6 @@ export const StackedSystemLayout: React.FC<
   voiceNames,
   voiceMask,
   measuresAndBeats,
-  showVelocity,
   positionSeconds,
   analysis,
   mouseHandlers,
@@ -1074,7 +1064,6 @@ export const StackedSystemLayout: React.FC<
                     analysis={analysis}
                     mouseHandlers={mouseHandlers}
                     measureSelection={measureSelection}
-                    showVelocity={showVelocity}
                     cursor={
                       positionSeconds <
                         measuresAndBeats.measures[sectionSpan[1]] && (

@@ -17,6 +17,7 @@ import { InlinePianoLegend, PianoLegend } from "./PianoLegend";
 import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
 import { Analysis, MeasuresSpan } from "./analysis";
 import { getNoteRectangles, MouseHandlers } from "./getNoteRectangles";
+import MergedVoicesLegend from "./layouts/MergedVoicesLegend";
 import { ColoredNote, ColoredNotesInVoices, Note } from "./parseMidi";
 import { TonalHistogram } from "./tonalSearch/TonalSearch";
 
@@ -951,68 +952,11 @@ export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
         voiceMask={MERGED_VOICE_MASK}
         enableManualRemeasuring={enableManualRemeasuring}
       />
-      {voiceNames.length > 1 && (
-        <div
-          style={{
-            position: "fixed",
-            top: 50,
-            right: 100,
-            zIndex: 90000,
-            backgroundColor: "black",
-            padding: 10,
-          }}
-        >
-          {voiceNames.map((voiceName, voiceIndex) => (
-            <div key={voiceIndex}>
-              <input
-                title="active"
-                type="checkbox"
-                onChange={(e) => {
-                  e.stopPropagation();
-                  let newVoiceMask = voiceMask.map((value, i) =>
-                    i === voiceIndex ? !value : value,
-                  );
-                  if (newVoiceMask.filter((voice) => voice).length === 0) {
-                    newVoiceMask = voiceMask.map(() => true);
-                  }
-                  setVoiceMask(newVoiceMask);
-                }}
-                checked={voiceMask[voiceIndex]}
-                style={{
-                  margin: "0px 0px 0px 17px",
-                  height: 11,
-                  display: "inline",
-                }}
-              />{" "}
-              <span
-                style={{
-                  cursor: "pointer",
-                  userSelect: "none",
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  isSingleActive && voiceMask[voiceIndex]
-                    ? setVoiceMask(voiceMask.map(() => true))
-                    : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
-                }}
-              >
-                <span
-                  className={`voiceShape-${voiceIndex}`}
-                  style={{
-                    display: "inline-block",
-                    backgroundColor: "white",
-                    height: 8,
-                    width: 20,
-                    marginRight: 5,
-                    verticalAlign: "middle",
-                  }}
-                />
-                {voiceName}
-              </span>
-            </div>
-          ))}
-        </div>
-      )}
+      <MergedVoicesLegend
+        voiceNames={voiceNames}
+        voiceMask={voiceMask}
+        setVoiceMask={setVoiceMask}
+      />
     </div>
   );
 };

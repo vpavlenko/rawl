@@ -13,7 +13,6 @@ import { MeasureSelection } from "./AnalysisGrid";
 import FrozenNotesLayout from "./FrozenNotesLayout";
 import {
   MergedSystemLayout,
-  MouseHandlers,
   StackedSystemLayout,
   SystemLayout,
   SystemLayoutProps,
@@ -31,6 +30,7 @@ import {
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { corpora } from "./corpora/corpora";
 import { LinkForSeparateTab } from "./course/Course";
+import { MouseHandlers } from "./getNoteRectangles";
 import { buildManualMeasuresAndBeats } from "./measures";
 import { ColoredNotesInVoices, Note, ParsingResult } from "./parseMidi";
 import {

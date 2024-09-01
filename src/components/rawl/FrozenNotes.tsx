@@ -2,13 +2,10 @@ import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
 import { Analysis, MeasuresSpan } from "./analysis";
 import { AnalysisGrid } from "./AnalysisGrid";
+import { getNoteRectangles as getSystemNoteRectangles } from "./getNoteRectangles";
 import { ColoredNote, Note } from "./parseMidi";
 import { getNoteColor } from "./Rawl";
-import {
-  getNoteRectangles as getSystemNoteRectangles,
-  MeasuresAndBeats,
-  MidiRange,
-} from "./SystemLayout";
+import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
 
 interface FrozenNotesProps {
   notes: Note[][];
@@ -67,7 +64,6 @@ const FrozenNotes: React.FC<FrozenNotesProps> = ({
         () => {}, // handleNoteClick
         () => {}, // handleMouseEnter
         () => {}, // handleMouseLeave
-        false, // showVelocity
         toX,
         false, // enableManualRemeasuring
       ),

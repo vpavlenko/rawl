@@ -1,5 +1,11 @@
-import React, { useCallback, useContext, useMemo, useState } from "react";
-import { Theme } from "react-select";
+import React, {
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { components, Theme } from "react-select";
 import CreatableSelect from "react-select/creatable";
 import styled from "styled-components";
 import { AppContext } from "../AppContext";
@@ -95,10 +101,30 @@ const ErrorMessage = styled.div`
   margin-top: 10px;
 `;
 
-const StyledSelect = styled(CreatableSelect)`
+const StyledSelect = styled(CreatableSelect).attrs({
+  classNamePrefix: "react-select",
+})`
   width: 600px;
   margin-left: 10px;
+
+  .react-select__menu {
+    z-index: 9999;
+  }
+
+  .react-select__option--is-focused {
+    background-color: #deebff;
+  }
 `;
+
+// Custom components for react-select
+const customComponents = {
+  Option: (props) => (
+    <components.Option {...props}>
+      {props.isSelected ? "✓ " : ""}
+      {props.label}
+    </components.Option>
+  ),
+};
 
 // Custom theme for react-select
 const selectTheme = (theme: Theme) => ({
@@ -135,6 +161,7 @@ const selectStyles = {
   menu: (provided) => ({
     ...provided,
     backgroundColor: "white",
+    zIndex: 9999,
   }),
   option: (provided, state) => ({
     ...provided,
@@ -156,6 +183,24 @@ const selectStyles = {
   placeholder: (provided) => ({
     ...provided,
     color: "#808080",
+  }),
+  indicatorSeparator: (provided) => ({
+    ...provided,
+    display: "none",
+  }),
+  dropdownIndicator: (provided) => ({
+    ...provided,
+    color: "#666666",
+    "&:hover": {
+      color: "#333333",
+    },
+  }),
+  clearIndicator: (provided) => ({
+    ...provided,
+    color: "#666666",
+    "&:hover": {
+      color: "#333333",
+    },
   }),
 };
 
@@ -385,6 +430,19 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     return rehydrateSnippet(snippet);
   }, [snippet]);
 
+  const selectRef = useRef(null);
+
+  const handleSelectKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  };
+
+  const handleSelectChange = (selectedOption) => {
+    setTagName(selectedOption as { value: string; label: string } | null);
+  };
+
   // Add this check after all hooks have been called
   if (!frozenNotes || !measuresAndBeats || !analysis) {
     return <div>Loading...</div>;
@@ -418,17 +476,22 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
             <label>
               Tag:
               <StyledSelect
+                ref={selectRef}
                 value={tagName}
-                onChange={(selectedOption) =>
-                  setTagName(
-                    selectedOption as { value: string; label: string } | null,
-                  )
-                }
+                onChange={handleSelectChange}
+                onInputChange={(inputValue) => {
+                  if (inputValue) {
+                    setTagName({ value: inputValue, label: inputValue });
+                  }
+                }}
                 options={allTags}
                 isClearable
                 placeholder="Select or create a tag"
                 theme={selectTheme}
                 styles={selectStyles}
+                components={customComponents}
+                onKeyDown={handleSelectKeyDown}
+                menuIsOpen={true} // Force menu to stay open
               />
             </label>
           </RangeInputs>

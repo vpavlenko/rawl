@@ -247,7 +247,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       paramDefs: [],
       parsing: null,
       analysisEnabled: false,
-      analyses: defaultAnalyses as Analyses,
+      analyses: defaultAnalyses as unknown as Analyses,
       latencyCorrectionMs,
       fileToDownload: null,
       showShortcutHelp: false,

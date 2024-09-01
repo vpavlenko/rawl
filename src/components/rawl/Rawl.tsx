@@ -16,7 +16,6 @@ import {
   StackedSystemLayout,
   SystemLayout,
   SystemLayoutProps,
-  TonalHistogramLayout,
 } from "./SystemLayout";
 import { formatTag } from "./TagSearch";
 import {
@@ -33,10 +32,6 @@ import { LinkForSeparateTab } from "./course/Course";
 import { MouseHandlers } from "./getNoteRectangles";
 import { buildManualMeasuresAndBeats } from "./measures";
 import { ColoredNotesInVoices, Note, ParsingResult } from "./parseMidi";
-import {
-  TonalHistogram,
-  calculateTonalHistograms,
-} from "./tonalSearch/TonalSearch";
 
 export type SecondsSpan = [number, number];
 
@@ -587,14 +582,6 @@ const Rawl: React.FC<{
     [notes, futureAnalysis, measuresAndBeats, voiceMask],
   );
 
-  const tonalHistograms = useMemo((): TonalHistogram[] => {
-    return calculateTonalHistograms(
-      coloredNotes.flat(),
-      measuresAndBeats.measures,
-      futureAnalysis,
-    );
-  }, [coloredNotes, measuresAndBeats.measures, futureAnalysis]);
-
   const systemLayoutProps: SystemLayoutProps = useMemo(
     () => ({
       notes: coloredNotes,
@@ -608,7 +595,6 @@ const Rawl: React.FC<{
       analysis: futureAnalysis,
       registerKeyboardHandler,
       unregisterKeyboardHandler,
-      tonalHistograms,
       frozenNotes: coloredNotes,
       saveAnalysis,
       measureStart,
@@ -625,7 +611,6 @@ const Rawl: React.FC<{
       futureAnalysis,
       registerKeyboardHandler,
       unregisterKeyboardHandler,
-      tonalHistograms,
       saveAnalysis,
       measureStart,
     ],
@@ -694,11 +679,6 @@ const Rawl: React.FC<{
             {...systemLayoutProps}
             enableManualRemeasuring={enableManualRemeasuring}
           />
-        ) : systemLayout === "tonal" ? (
-          <TonalHistogramLayout
-            {...systemLayoutProps}
-            tonalHistograms={tonalHistograms}
-          />
         ) : (
           <ErrorBoundary
             fallback={<div>Error loading Frozen Notes Layout</div>}
@@ -741,16 +721,6 @@ const Rawl: React.FC<{
               value={"merged"}
             />
             █
-          </label>
-          <label key={"tonal"} className="inline">
-            <input
-              onChange={() => setSystemLayout("tonal")}
-              type="radio"
-              name="system-layout"
-              checked={systemLayout === "tonal"}
-              value={"tonal"}
-            />
-            📊
           </label>
           <label key={"frozen"} className="inline">
             <input

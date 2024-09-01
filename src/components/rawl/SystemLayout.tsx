@@ -295,6 +295,9 @@ export type SystemLayoutProps = {
   measureStart?: number;
 };
 
+const isAnnotatedSection = (section: Section) =>
+  section.sectionSpan[1] - section.sectionSpan[0] < 25;
+
 export const StackedSystemLayout: React.FC<
   SystemLayoutProps & { measureStart?: number }
 > = ({
@@ -381,7 +384,7 @@ export const StackedSystemLayout: React.FC<
     const targetWidth = viewportWidth * targetWidthPercentage;
 
     const longestSection = calculatedSections
-      .filter((section) => section.sectionSpan[1] - section.sectionSpan[0] < 25)
+      .filter(isAnnotatedSection)
       .reduce((longest, current) => {
         const currentLength =
           measuresAndBeats.measures[current.sectionSpan[1]] -
@@ -392,7 +395,7 @@ export const StackedSystemLayout: React.FC<
         return currentLength > longestLength ? current : longest;
       }, calculatedSections[0]);
 
-    if (longestSection) {
+    if (longestSection && isAnnotatedSection(longestSection)) {
       const longestSectionLength =
         measuresAndBeats.measures[longestSection.sectionSpan[1]] -
         measuresAndBeats.measures[longestSection.sectionSpan[0]];

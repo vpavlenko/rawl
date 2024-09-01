@@ -605,18 +605,18 @@ export const AnalysisGrid: React.FC<{
         { measure: -Infinity, tonic: null },
       ).tonic;
 
-    const beatsInThirdMeasure = beats.filter(
-      (beat) =>
-        beat > measures[Math.min(sectionSpan[0] + 2, sectionSpan[1] - 1)],
-    );
-    const showBeats =
-      beatsInThirdMeasure.length < 2 ||
-      secondsToX(beatsInThirdMeasure[1]) - secondsToX(beatsInThirdMeasure[0]) >=
-        MIN_WIDTH_BETWEEN_BEATS;
-    const showAllMeasureBars =
-      showBeats ||
-      secondsToX(measures[2]) - secondsToX(measures[1]) >=
-        MIN_WIDTH_BETWEEN_MEASURES;
+    // const beatsInThirdMeasure = beats.filter(
+    //   (beat) =>
+    //     beat > measures[Math.min(sectionSpan[0] + 2, sectionSpan[1] - 1)],
+    // );
+    const showBeats = true;
+    // beatsInThirdMeasure.length < 2 ||
+    // secondsToX(beatsInThirdMeasure[1]) - secondsToX(beatsInThirdMeasure[0]) >=
+    //   MIN_WIDTH_BETWEEN_BEATS;
+    const showAllMeasureBars = true;
+    // showBeats ||
+    // secondsToX(measures[2]) - secondsToX(measures[1]) >=
+    //   MIN_WIDTH_BETWEEN_MEASURES;
 
     const selectedPhraseStart =
       phraseStarts.indexOf(measureSelection.selectedMeasure) !== -1

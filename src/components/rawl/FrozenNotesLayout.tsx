@@ -223,6 +223,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copyIndicatorVisible, setCopyIndicatorVisible] = useState(false);
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const maxMeasure = measuresAndBeats?.measures.length || 1;
 
@@ -439,8 +440,13 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     }
   };
 
-  const handleSelectChange = (selectedOption) => {
-    setTagName(selectedOption as { value: string; label: string } | null);
+  const handleSelectChange = (selectedOption, actionMeta) => {
+    if (actionMeta.action === "create-option") {
+      setTagName({ value: selectedOption.value, label: selectedOption.value });
+    } else {
+      setTagName(selectedOption as { value: string; label: string } | null);
+    }
+    setMenuIsOpen(false);
   };
 
   // Add this check after all hooks have been called
@@ -479,19 +485,18 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
                 ref={selectRef}
                 value={tagName}
                 onChange={handleSelectChange}
-                onInputChange={(inputValue) => {
-                  if (inputValue) {
-                    setTagName({ value: inputValue, label: inputValue });
-                  }
-                }}
                 options={allTags}
                 isClearable
+                isCreatable
                 placeholder="Select or create a tag"
                 theme={selectTheme}
                 styles={selectStyles}
                 components={customComponents}
                 onKeyDown={handleSelectKeyDown}
-                menuIsOpen={true} // Force menu to stay open
+                menuIsOpen={menuIsOpen}
+                onMenuOpen={() => setMenuIsOpen(true)}
+                onMenuClose={() => setMenuIsOpen(false)}
+                onBlur={() => setMenuIsOpen(false)}
               />
             </label>
           </RangeInputs>

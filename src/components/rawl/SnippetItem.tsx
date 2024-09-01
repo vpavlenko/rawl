@@ -119,7 +119,10 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
       {!isPreview && (
         <SnippetHeader>
           <span>
-            {snippet.tag} (Measures: {snippet.measuresSpan.join("-")})
+            {snippet.tag}{" "}
+            <span style={{ color: "gray" }}>
+              {snippet.measuresSpan.join("..")}
+            </span>
           </span>
           {deleteSnippet && (
             <DeleteButton onClick={() => deleteSnippet(index)}>

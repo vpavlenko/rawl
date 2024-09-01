@@ -116,6 +116,34 @@ const StyledSelect = styled(CreatableSelect).attrs({
   }
 `;
 
+const SaveButton = styled.button<{ unsaved: boolean }>`
+  margin-top: 10px;
+  background-color: ${(props) => (props.unsaved ? "#4CAF50" : "#808080")};
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: ${(props) => (props.unsaved ? "pointer" : "default")};
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: ${(props) => (props.unsaved ? "#45a049" : "#808080")};
+  }
+`;
+
+const FlashOverlay = styled.div<{ visible: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: ${(props) => (props.visible ? 1 : 0)};
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 9999;
+`;
+
 // Custom components for react-select
 const customComponents = {
   Option: (props) => (
@@ -225,6 +253,8 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
   const [copyIndicatorVisible, setCopyIndicatorVisible] = useState(false);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [tagError, setTagError] = useState<string | null>(null);
+  const [unsavedChanges, setUnsavedChanges] = useState(false);
+  const [flashVisible, setFlashVisible] = useState(false);
 
   const maxMeasure = measuresAndBeats?.measures.length || 1;
 
@@ -255,6 +285,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
       if (newValue !== "") {
         validateAndUpdateRange(newRange);
       }
+      setUnsavedChanges(true);
     },
     [inputRange, validateAndUpdateRange],
   );
@@ -393,9 +424,15 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
       snippets: [...(analysis.snippets || []), snippet],
     };
     saveAnalysis(updatedAnalysis);
-    setCopyIndicatorVisible(true);
-    setTimeout(() => setCopyIndicatorVisible(false), 2000);
-  }, [analysis, saveAnalysis, snippet, tagName]);
+    setUnsavedChanges(false);
+    setFlashVisible(true);
+    setTimeout(() => setFlashVisible(false), 300);
+
+    // Reset input fields to defaults
+    setInputRange(["1", maxMeasure.toString()]);
+    setDataRange([1, maxMeasure]);
+    setTagName(null);
+  }, [analysis, saveAnalysis, snippet, tagName, maxMeasure]);
 
   const deleteSnippet = useCallback(
     (index: number) => {
@@ -453,6 +490,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
       setTagName(selectedOption as { value: string; label: string } | null);
     }
     setMenuIsOpen(false);
+    setUnsavedChanges(true);
   };
 
   // Add this check after all hooks have been called
@@ -463,6 +501,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
   return (
     <ErrorBoundary>
       <Container>
+        <FlashOverlay visible={flashVisible} />
         <FrozenNotesDisplay>
           <h2>Frozen Notes</h2>
           <RangeInputs>
@@ -490,7 +529,10 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
               <StyledSelect
                 ref={selectRef}
                 value={tagName}
-                onChange={handleSelectChange}
+                onChange={(selectedOption, actionMeta) => {
+                  handleSelectChange(selectedOption, actionMeta);
+                  setUnsavedChanges(true);
+                }}
                 options={allTags}
                 isClearable
                 placeholder="Select or create a tag"
@@ -519,9 +561,13 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
               <JsonDisplay onClick={copyToClipboard}>
                 {exportString}
               </JsonDisplay>
-              <button onClick={saveSnippet} style={{ marginTop: "10px" }}>
-                Save Snippet
-              </button>
+              <SaveButton
+                onClick={saveSnippet}
+                unsaved={unsavedChanges}
+                disabled={!unsavedChanges}
+              >
+                {unsavedChanges ? "Save Snippet" : "Snippet Saved"}
+              </SaveButton>
             </>
           )}
         </FrozenNotesDisplay>

@@ -487,7 +487,6 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
                 onChange={handleSelectChange}
                 options={allTags}
                 isClearable
-                isCreatable
                 placeholder="Select or create a tag"
                 theme={selectTheme}
                 styles={selectStyles}

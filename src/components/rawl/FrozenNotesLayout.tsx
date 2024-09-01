@@ -488,6 +488,8 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     }
   };
 
+  const saveButtonRef = useRef<HTMLButtonElement>(null);
+
   const handleSelectChange = (selectedOption, actionMeta) => {
     if (actionMeta.action === "create-option") {
       setTagName({ value: selectedOption.value, label: selectedOption.value });
@@ -496,6 +498,11 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     }
     setMenuIsOpen(false);
     setUnsavedChanges(true);
+
+    // Move focus to Save Snippet button after creating a new tag or selecting an existing one
+    setTimeout(() => {
+      saveButtonRef.current?.focus();
+    }, 0);
   };
 
   const measureStartRef = useRef<HTMLInputElement>(null);
@@ -575,6 +582,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
                 {exportString}
               </JsonDisplay>
               <SaveButton
+                ref={saveButtonRef}
                 onClick={saveSnippet}
                 unsaved={unsavedChanges}
                 disabled={!unsavedChanges}

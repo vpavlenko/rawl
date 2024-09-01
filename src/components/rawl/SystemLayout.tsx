@@ -315,7 +315,7 @@ export const StackedSystemLayout: React.FC<
   enableManualRemeasuring = false,
   measureStart,
 }) => {
-  const [noteHeight, setNoteHeight] = useState<number>(3.5);
+  const [noteHeight, setNoteHeight] = useState<number>(3);
   const [secondWidth, setSecondWidth] = useState<number>(40);
   const setSecondWidthCalled = useRef(false);
 

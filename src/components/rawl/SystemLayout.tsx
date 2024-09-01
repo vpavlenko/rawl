@@ -941,7 +941,6 @@ export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
     ],
     [notes],
   );
-  const isSingleActive = voiceMask.filter((voice) => voice).length === 1;
 
   return (
     <div style={{ position: "relative" }}>

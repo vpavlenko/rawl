@@ -5,15 +5,15 @@ import SnippetItem from "./SnippetItem";
 
 const SnippetListContainer = styled.div`
   display: flex;
-  flex-direction: row; // Change to row for horizontal layout
-  overflow-x: auto; // Enable horizontal scrolling
+  flex-wrap: wrap; // Allow items to wrap to the next line
   gap: 20px;
-  padding-bottom: 10px; // Add some padding to account for potential scrollbar
+  padding-bottom: 10px;
 `;
 
 const SnippetItemWrapper = styled.div`
-  flex: 0 0 auto; // Prevent items from growing or shrinking
-  width: 400px; // Match the width of SnippetItem
+  flex: 0 0 auto;
+  width: 400px;
+  margin-bottom: 20px; // Add vertical spacing between rows
 `;
 
 interface SnippetListProps {

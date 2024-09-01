@@ -1,6 +1,7 @@
 import React, {
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -412,6 +413,12 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     return snippet ? JSON.stringify(snippet) : "";
   }, [snippet]);
 
+  const resetToDefaults = useCallback(() => {
+    setInputRange(["1", "4"]);
+    setDataRange([1, 4]);
+    setTagName(null);
+  }, []);
+
   const saveSnippet = useCallback(() => {
     if (!snippet) return;
     if (!tagName || !tagName.value.trim()) {
@@ -429,10 +436,8 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     setTimeout(() => setFlashVisible(false), 300);
 
     // Reset input fields to defaults
-    setInputRange(["1", maxMeasure.toString()]);
-    setDataRange([1, maxMeasure]);
-    setTagName(null);
-  }, [analysis, saveAnalysis, snippet, tagName, maxMeasure]);
+    resetToDefaults();
+  }, [analysis, saveAnalysis, snippet, tagName, resetToDefaults]);
 
   const deleteSnippet = useCallback(
     (index: number) => {
@@ -493,6 +498,14 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     setUnsavedChanges(true);
   };
 
+  const measureStartRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (measureStartRef.current) {
+      measureStartRef.current.focus();
+    }
+  }, []);
+
   // Add this check after all hooks have been called
   if (!frozenNotes || !measuresAndBeats || !analysis) {
     return <div>Loading...</div>;
@@ -507,13 +520,13 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
           <RangeInputs>
             <label>Measures:</label>
             <NumberInput
+              ref={measureStartRef}
               type="number"
               min="1"
               max={maxMeasure}
               value={inputRange[0]}
               onChange={handleRangeChange(0)}
               onBlur={handleRangeBlur(0)}
-              autoFocus
             />
             <span>to</span>
             <NumberInput

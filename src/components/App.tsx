@@ -57,12 +57,10 @@ import Pirate from "./rawl/Pirate";
 import Rawl from "./rawl/Rawl";
 import { ShortcutHelp } from "./rawl/ShortcutHelp";
 import Slicer from "./rawl/Slicer";
-import TagSearch from "./rawl/TagSearch";
 import { Analyses } from "./rawl/analysis";
 import Corpus from "./rawl/corpora/Corpus";
 import NewPathView from "./rawl/corpora/NewPathView";
 import PathView from "./rawl/corpora/PathView";
-import Course from "./rawl/course/Course";
 import { DropSaveForm, processMidiUrls } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
 import { ParsingResult } from "./rawl/parseMidi";
@@ -1137,29 +1135,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
                       <Switch>
                         <Route path="/" exact render={() => <LandingPage />} />
                         <Route path="/old" render={() => <OldLandingPage />} />
-                        {/* <Route path="/axes" render={() => <Axes />} /> */}
-                        <Route
-                          path="/course/:chapter*"
-                          render={({ match }) => (
-                            <Course
-                              chapter={parseInt(match.params?.chapter, 10)}
-                              analyses={this.state.analyses}
-                            />
-                          )}
-                        />
                         <Route
                           path="/corpus/:corpus*"
                           render={({ match }) => (
                             <Corpus slug={match.params?.corpus} />
-                          )}
-                        />
-                        <Route
-                          path="/tags/:tag*"
-                          render={({ match }) => (
-                            <TagSearch
-                              tag={match.params?.tag}
-                              analyses={this.state.analyses}
-                            />
                           )}
                         />
                         <Route path="/pages/daw" render={() => <DAW />} />

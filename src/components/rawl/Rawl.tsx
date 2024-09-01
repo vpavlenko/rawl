@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import styled from "styled-components";
 import { VoiceMask } from "../App";
 import ErrorBoundary from "../ErrorBoundary";
 import { MeasureSelection } from "./AnalysisGrid";
@@ -17,7 +16,6 @@ import {
   SystemLayout,
   SystemLayoutProps,
 } from "./SystemLayout";
-import { formatTag } from "./TagSearch";
 import {
   ANALYSIS_STUB,
   Analysis,
@@ -28,7 +26,6 @@ import {
 } from "./analysis";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { corpora } from "./corpora/corpora";
-import { LinkForSeparateTab } from "./course/Course";
 import { MouseHandlers } from "./getNoteRectangles";
 import { buildManualMeasuresAndBeats } from "./measures";
 import { ColoredNotesInVoices, Note, ParsingResult } from "./parseMidi";
@@ -43,35 +40,6 @@ export const secondsToX__: SecondsConverter = (seconds) =>
 export const xToSeconds__: SecondsConverter = (x) => x / SECOND_WIDTH;
 
 export type SetVoiceMask = (mask: boolean[]) => void;
-
-const Control = styled.div`
-  cursor: pointer;
-  color: aqua;
-`;
-
-const TagBrowser: React.FC<{ tags?: string[] }> = ({ tags }) => {
-  const [isShown, setIsShown] = useState<boolean>(false);
-  return (
-    tags?.length > 0 &&
-    (isShown ? (
-      <div>
-        <Control onClick={() => setIsShown(false)}>hide</Control>
-        {tags.map((tag) => (
-          <div>
-            <LinkForSeparateTab
-              href={`/tags/${tag}`}
-              text={`${formatTag(tag)}`}
-            />
-          </div>
-        ))}
-      </div>
-    ) : (
-      <Control onClick={() => setIsShown(true)} style={{}}>
-        show <strong>{tags?.length}</strong> tag{tags?.length > 1 && "s"}
-      </Control>
-    ))
-  );
-};
 
 export type AppStateForRawl = {
   voiceNames: string[];
@@ -750,7 +718,6 @@ const Rawl: React.FC<{
             }
           />
         </div>
-        <TagBrowser tags={analysis.tags} />
       </div>
     </div>
   );

@@ -144,7 +144,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
         analysis.snippets.forEach((snippet) => {
           const [chapter, topic] = snippet.tag.split(":");
           if (!chapter || !topic) {
-            errors.push(`Invalid tag format: ${snippet.tag}`);
+            errors.push(`Invalid tag format: ${snippet.tag} in ${path}`);
             return;
           }
 

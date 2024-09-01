@@ -224,6 +224,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [copyIndicatorVisible, setCopyIndicatorVisible] = useState(false);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [tagError, setTagError] = useState<string | null>(null);
 
   const maxMeasure = measuresAndBeats?.measures.length || 1;
 
@@ -382,6 +383,11 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
 
   const saveSnippet = useCallback(() => {
     if (!snippet) return;
+    if (!tagName || !tagName.value.trim()) {
+      setTagError("Please enter a tag name before saving.");
+      return;
+    }
+    setTagError(null);
     const updatedAnalysis: Analysis = {
       ...analysis,
       snippets: [...(analysis.snippets || []), snippet],
@@ -389,7 +395,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     saveAnalysis(updatedAnalysis);
     setCopyIndicatorVisible(true);
     setTimeout(() => setCopyIndicatorVisible(false), 2000);
-  }, [analysis, saveAnalysis, snippet]);
+  }, [analysis, saveAnalysis, snippet, tagName]);
 
   const deleteSnippet = useCallback(
     (index: number) => {
@@ -500,6 +506,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
             </label>
           </RangeInputs>
           {error && <ErrorMessage>{error}</ErrorMessage>}
+          {tagError && <ErrorMessage>{tagError}</ErrorMessage>}
           {!error && snippet && (
             <>
               <h3>Rehydrated Notes</h3>

@@ -618,15 +618,20 @@ export const AnalysisGrid: React.FC<{
     // secondsToX(measures[2]) - secondsToX(measures[1]) >=
     //   MIN_WIDTH_BETWEEN_MEASURES;
 
-    debugger;
     // TODO: filter measures and beats using sectionSpan
-    const showBeats = React.useMemo(
-      () =>
-        secondsToX(measures.at(-1) - measures.at(0)) /
-          (measures.filter((m) => m != 0).length + beats.length + 1) >=
-        MIN_WIDTH_BETWEEN_BEATS,
-      [measures, beats, secondsToX],
-    );
+    const showBeats = React.useMemo(() => {
+      const relevantBars = [...measures, ...beats]
+        .filter(
+          (bar) =>
+            bar >= measures[sectionSpan[0]] && bar <= measures[sectionSpan[1]],
+        )
+        .sort((a, b) => a - b);
+      return (
+        (secondsToX(relevantBars.at(-1)) - secondsToX(relevantBars.at(0))) /
+          (relevantBars.length + 1) >=
+        MIN_WIDTH_BETWEEN_BEATS
+      );
+    }, [measures, beats, secondsToX, sectionSpan]);
 
     const selectedPhraseStart =
       phraseStarts.indexOf(measureSelection.selectedMeasure) !== -1

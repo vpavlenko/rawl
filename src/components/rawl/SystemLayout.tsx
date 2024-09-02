@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { Link } from "react-router-dom";
 import { DUMMY_CALLBACK, VoiceMask } from "../App";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
@@ -79,9 +80,16 @@ const InlineSnippets = ({
         }
         const left = secondsToX(measuresAndBeats.measures[measureStart - 1]);
 
+        const [chapter, topic] = snippet.tag.split(":");
+
         return (
-          <div
+          <Link
             key={index}
+            to={`/s/${encodeURIComponent(chapter.trim())}/${encodeURIComponent(
+              topic.trim(),
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               position: "absolute",
               top: "-15px",
@@ -89,10 +97,12 @@ const InlineSnippets = ({
               textAlign: "center",
               color: "#777",
               fontSize: "12px",
+              textDecoration: "none",
+              cursor: "pointer",
             }}
           >
             {snippet.tag.replace(/: /g, " ").replace(/_/g, " ")}
-          </div>
+          </Link>
         );
       })}
     </>

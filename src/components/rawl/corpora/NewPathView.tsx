@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import ErrorBoundary from "../../ErrorBoundary";
@@ -129,8 +130,10 @@ const HomeChapter = styled.div`
   padding: 20px;
 `;
 
-interface NewPathViewProps {
+export interface NewPathViewProps {
   analyses: { [key: string]: Analysis };
+  initialChapter?: string;
+  initialTopic?: string;
 }
 
 interface SnippetWithSlug {
@@ -146,7 +149,11 @@ interface ChapterData {
   }[];
 }
 
-const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
+const NewPathView: React.FC<NewPathViewProps> = ({
+  analyses,
+  initialChapter,
+  initialTopic,
+}) => {
   const { handleSongClick, rawlProps, resetMidiPlayerState } =
     useContext(AppContext);
   const [loading, setLoading] = useState(true);
@@ -159,6 +166,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
   >(undefined);
   const [isRawlVisible, setIsRawlVisible] = useState(false);
   const topicRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const history = useHistory();
 
   const processAnalyses = useCallback(() => {
     console.log("Processing analyses");
@@ -209,14 +217,40 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
     processAnalyses();
   }, [processAnalyses]);
 
+  useEffect(() => {
+    if (initialChapter) {
+      const chapterIndex = chapterData.findIndex(
+        (c) => c.chapter === initialChapter,
+      );
+      if (chapterIndex !== -1) {
+        setActiveChapter(chapterIndex);
+        if (initialTopic) {
+          setActiveTopic(initialTopic);
+          setTimeout(() => {
+            topicRefs.current[initialTopic]?.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }, 0);
+        }
+      }
+    }
+  }, [initialChapter, initialTopic, chapterData]);
+
   const handleChapterSelect = (index: number) => {
     setActiveChapter(index);
     resetMidiPlayerState();
     setActiveTopic(null);
+    const chapter = chapterData[index].chapter;
+    history.push(`/s/${encodeURIComponent(chapter)}`);
   };
 
   const handleTopicSelect = (topic: string) => {
     setActiveTopic(topic);
+    const chapter = chapterData[activeChapter].chapter;
+    history.push(
+      `/s/${encodeURIComponent(chapter)}/${encodeURIComponent(topic)}`,
+    );
     topicRefs.current[topic]?.scrollIntoView({
       behavior: "smooth",
       block: "start",

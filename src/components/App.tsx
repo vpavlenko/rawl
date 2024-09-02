@@ -27,6 +27,7 @@ import {
   Route,
   RouteComponentProps,
   Switch,
+  useParams,
   withRouter,
 } from "react-router-dom";
 import { slugify } from "transliteration";
@@ -58,7 +59,7 @@ import { ShortcutHelp } from "./rawl/ShortcutHelp";
 import Slicer from "./rawl/Slicer";
 import { Analyses } from "./rawl/analysis";
 import Corpus from "./rawl/corpora/Corpus";
-import NewPathView from "./rawl/corpora/NewPathView";
+import NewPathView, { NewPathViewProps } from "./rawl/corpora/NewPathView";
 import PathView from "./rawl/corpora/PathView";
 import { DropSaveForm, processMidiUrls } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
@@ -1168,6 +1169,15 @@ class App extends React.Component<RouteComponentProps, AppState> {
                         {browseRoute}
                         {rawlRoute}
                         <Route path="/path" render={() => <PathView />} />
+                        {/* New routes for /s/<chapter> and /s/<chapter>/<topic> */}
+                        <Route
+                          path={["/s/:chapter", "/s/:chapter/:topic"]}
+                          render={() => (
+                            <NewPathViewWithParams
+                              analyses={this.state.analyses}
+                            />
+                          )}
+                        />
                       </Switch>
                     </div>
                   </div>
@@ -1230,5 +1240,18 @@ class App extends React.Component<RouteComponentProps, AppState> {
     );
   }
 }
+
+// New component to handle route params
+const NewPathViewWithParams: React.FC<NewPathViewProps> = ({ analyses }) => {
+  const { chapter, topic } = useParams<{ chapter: string; topic?: string }>();
+
+  return (
+    <NewPathView
+      analyses={analyses}
+      initialChapter={decodeURIComponent(chapter)}
+      initialTopic={topic ? decodeURIComponent(topic) : undefined}
+    />
+  );
+};
 
 export default withRouter(App);

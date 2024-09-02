@@ -82,12 +82,6 @@ const CopyIndicator = styled.div<{ visible: boolean }>`
   transition: opacity 0.3s;
 `;
 
-const RehydratedNotesDisplay = styled.div`
-  margin-top: 20px;
-  border-top: 1px solid #444;
-  padding-top: 20px;
-`;
-
 const SnippetListContainer = styled.div`
   margin-top: 20px;
   border-top: 1px solid #444;
@@ -481,13 +475,6 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
 
   const selectRef = useRef(null);
 
-  const handleSelectKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-  };
-
   const saveButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleSelectChange = (selectedOption, actionMeta) => {
@@ -559,7 +546,6 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
                 theme={selectTheme}
                 styles={selectStyles}
                 components={customComponents}
-                onKeyDown={handleSelectKeyDown}
                 menuIsOpen={menuIsOpen}
                 onMenuOpen={() => setMenuIsOpen(true)}
                 onMenuClose={() => setMenuIsOpen(false)}

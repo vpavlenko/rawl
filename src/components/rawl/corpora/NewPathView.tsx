@@ -111,12 +111,16 @@ interface NewPathViewProps {
   analyses: { [key: string]: Analysis };
 }
 
+interface SnippetWithSlug {
+  snippet: Snippet;
+  slug: string;
+}
+
 interface ChapterData {
   chapter: string;
   topics: {
     topic: string;
-    snippets: Snippet[];
-    midis: string[];
+    snippets: SnippetWithSlug[];
   }[];
 }
 
@@ -155,14 +159,11 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
 
           let topicData = data[chapter].topics.find((t) => t.topic === topic);
           if (!topicData) {
-            topicData = { topic, snippets: [], midis: [] };
+            topicData = { topic, snippets: [] };
             data[chapter].topics.push(topicData);
           }
 
-          topicData.snippets.push(snippet);
-          if (!topicData.midis.includes(slug)) {
-            topicData.midis.push(slug);
-          }
+          topicData.snippets.push({ snippet, slug });
         });
       }
     });
@@ -231,23 +232,22 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
             <ChapterSection>
               {chapterData[activeChapter].topics.map((topic) => (
                 <TopicCard key={topic.topic}>
-                  <TopicTitle>{topic.topic}</TopicTitle>
-                  <SnippetsForTopic snippets={topic.snippets} noteHeight={3} />
-                  <div>
-                    {topic.midis.map((midi, index) => (
+                  <TopicTitle>{topic.topic.replace(/_/g, " ")}</TopicTitle>
+                  {topic.snippets.map(({ snippet, slug }, index) => (
+                    <div key={index}>
                       <MidiButton
-                        key={index}
                         onClick={() =>
-                          handleMidiClick(
-                            midi,
-                            topic.snippets[index].measuresSpan[0],
-                          )
+                          handleMidiClick(slug, snippet.measuresSpan[0])
                         }
                       >
-                        {midi.replace(/---/g, " – ").replace(/-/g, " ")}
+                        {slug
+                          .replace(/---/g, " – ")
+                          .replace(/-/g, " ")
+                          .replace(/_/g, " ")}
                       </MidiButton>
-                    ))}
-                  </div>
+                      <SnippetsForTopic snippets={[snippet]} noteHeight={3} />
+                    </div>
+                  ))}
                 </TopicCard>
               ))}
             </ChapterSection>

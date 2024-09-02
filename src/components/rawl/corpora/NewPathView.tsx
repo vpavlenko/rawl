@@ -15,14 +15,17 @@ import SnippetsForTopic from "../SnippetsForTopic";
 const PathContainer = styled.div`
   height: 100%;
   width: 100%;
-  padding-top: 80px; // Adjust padding to account for fixed menus
+  // padding-top: 80px; // Adjust padding to account for fixed menus
+  margin: 0;
+  padding: 0;
 `;
 
-const FixedMenuContainer = styled.div`
-  position: fixed;
+const MenuContainer = styled.div`
+  position: sticky;
   top: 0;
   width: 100%;
   z-index: 10000000;
+  background-color: #1a1a1a; // Ensure background color to avoid transparency issues
 `;
 
 const ChapterRow = styled.div`
@@ -223,7 +226,10 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
 
   const handleTopicSelect = (topic: string) => {
     setActiveTopic(topic);
-    topicRefs.current[topic]?.scrollIntoView({ behavior: "smooth" });
+    topicRefs.current[topic]?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   useEffect(() => {
@@ -273,7 +279,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
   return (
     <ErrorBoundary>
       <PathContainer>
-        <FixedMenuContainer>
+        <MenuContainer>
           <ChapterRow>
             {chapterData.map((chapter, index) => (
               <ChapterButton
@@ -296,7 +302,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
               </TopicButton>
             ))}
           </TopicRow>
-        </FixedMenuContainer>
+        </MenuContainer>
         <ScrollableContent>
           <ContentArea isRawlVisible={isRawlVisible}>
             {errorMessages.map((error, index) => (
@@ -305,12 +311,14 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
             <ChapterSection>
               {chapterData[activeChapter].topics.map((topic) => (
                 <>
-                  <TopicTitle>{topic.topic.replace(/_/g, " ")}</TopicTitle>
-                  <TopicCard
+                  <TopicTitle
                     key={topic.topic}
                     id={topic.topic}
                     ref={(el) => (topicRefs.current[topic.topic] = el)}
                   >
+                    {topic.topic.replace(/_/g, " ")}
+                  </TopicTitle>
+                  <TopicCard>
                     {topic.snippets.map(({ snippet, slug }, index) => (
                       <div key={index}>
                         <MidiButton

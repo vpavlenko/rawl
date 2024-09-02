@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import ErrorBoundary from "../../ErrorBoundary";
@@ -9,22 +15,36 @@ import SnippetsForTopic from "../SnippetsForTopic";
 const PathContainer = styled.div`
   height: 100%;
   width: 100%;
+  padding-top: 80px; // Adjust padding to account for fixed menus
+`;
+
+const FixedMenuContainer = styled.div`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10000000;
 `;
 
 const ChapterRow = styled.div`
   display: flex;
   flex-wrap: wrap; // Allow wrapping to the next line
   background-color: #1a1a1a;
-  //   position: sticky;
-  top: 0;
-  z-index: 1;
   width: 100%; // Ensure it takes the full width
+`;
+
+const TopicRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #2a2a2a;
+  width: 100%;
+  overflow-x: auto;
 `;
 
 const ScrollableContent = styled.div`
   flex-grow: 1;
   overflow-y: auto;
   overflow-x: hidden; // Remove horizontal scrolling
+  padding-top: 80px; // Adjust padding to account for fixed menus
 `;
 
 const ChapterButton = styled.button<{ active: boolean }>`
@@ -36,6 +56,17 @@ const ChapterButton = styled.button<{ active: boolean }>`
   border: none;
   cursor: pointer;
   white-space: nowrap;
+`;
+
+const TopicButton = styled.button<{ active: boolean }>`
+  padding: 10px 20px;
+  text-align: center;
+  background-color: ${(props) => (props.active ? "#4a90e2" : "transparent")};
+  color: white;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 16px;
 `;
 
 const ContentArea = styled.div<{ isRawlVisible: boolean }>`
@@ -131,10 +162,12 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [chapterData, setChapterData] = useState<ChapterData[]>([]);
   const [activeChapter, setActiveChapter] = useState(0);
+  const [activeTopic, setActiveTopic] = useState<string | null>(null);
   const [selectedMeasureStart, setSelectedMeasureStart] = useState<
     number | undefined
   >(undefined);
   const [isRawlVisible, setIsRawlVisible] = useState(false);
+  const topicRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   const processAnalyses = useCallback(() => {
     console.log("Processing analyses");
@@ -178,14 +211,41 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
     setLoading(false);
   }, [analyses]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     processAnalyses();
   }, [processAnalyses]);
 
   const handleChapterSelect = (index: number) => {
     setActiveChapter(index);
-    resetMidiPlayerState(); // Reset MIDI player state when a new chapter is selected
+    resetMidiPlayerState();
+    setActiveTopic(null);
   };
+
+  const handleTopicSelect = (topic: string) => {
+    setActiveTopic(topic);
+    topicRefs.current[topic]?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveTopic(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.5 },
+    );
+
+    Object.values(topicRefs.current).forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [chapterData, activeChapter]);
 
   const handleMidiClick = (slug: string, measureStart: number) => {
     console.log(
@@ -198,7 +258,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
     setSelectedMeasureStart(measureStart);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsRawlVisible(!!rawlProps && !!rawlProps.parsingResult);
   }, [rawlProps]);
 
@@ -213,17 +273,30 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
   return (
     <ErrorBoundary>
       <PathContainer>
-        <ChapterRow>
-          {chapterData.map((chapter, index) => (
-            <ChapterButton
-              key={chapter.chapter}
-              active={index === activeChapter}
-              onClick={() => handleChapterSelect(index)}
-            >
-              {chapter.chapter.replace(/_/g, " ")}
-            </ChapterButton>
-          ))}
-        </ChapterRow>
+        <FixedMenuContainer>
+          <ChapterRow>
+            {chapterData.map((chapter, index) => (
+              <ChapterButton
+                key={chapter.chapter}
+                active={index === activeChapter}
+                onClick={() => handleChapterSelect(index)}
+              >
+                {chapter.chapter.replace(/_/g, " ")}
+              </ChapterButton>
+            ))}
+          </ChapterRow>
+          <TopicRow>
+            {chapterData[activeChapter].topics.map((topic) => (
+              <TopicButton
+                key={topic.topic}
+                active={topic.topic === activeTopic}
+                onClick={() => handleTopicSelect(topic.topic)}
+              >
+                {topic.topic.replace(/_/g, " ")}
+              </TopicButton>
+            ))}
+          </TopicRow>
+        </FixedMenuContainer>
         <ScrollableContent>
           <ContentArea isRawlVisible={isRawlVisible}>
             {errorMessages.map((error, index) => (
@@ -231,24 +304,30 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
             ))}
             <ChapterSection>
               {chapterData[activeChapter].topics.map((topic) => (
-                <TopicCard key={topic.topic}>
+                <>
                   <TopicTitle>{topic.topic.replace(/_/g, " ")}</TopicTitle>
-                  {topic.snippets.map(({ snippet, slug }, index) => (
-                    <div key={index}>
-                      <MidiButton
-                        onClick={() =>
-                          handleMidiClick(slug, snippet.measuresSpan[0])
-                        }
-                      >
-                        {slug
-                          .replace(/---/g, " – ")
-                          .replace(/-/g, " ")
-                          .replace(/_/g, " ")}
-                      </MidiButton>
-                      <SnippetsForTopic snippets={[snippet]} noteHeight={3} />
-                    </div>
-                  ))}
-                </TopicCard>
+                  <TopicCard
+                    key={topic.topic}
+                    id={topic.topic}
+                    ref={(el) => (topicRefs.current[topic.topic] = el)}
+                  >
+                    {topic.snippets.map(({ snippet, slug }, index) => (
+                      <div key={index}>
+                        <MidiButton
+                          onClick={() =>
+                            handleMidiClick(slug, snippet.measuresSpan[0])
+                          }
+                        >
+                          {slug
+                            .replace(/---/g, " – ")
+                            .replace(/-/g, " ")
+                            .replace(/_/g, " ")}
+                        </MidiButton>
+                        <SnippetsForTopic snippets={[snippet]} noteHeight={3} />
+                      </div>
+                    ))}
+                  </TopicCard>
+                </>
               ))}
             </ChapterSection>
           </ContentArea>

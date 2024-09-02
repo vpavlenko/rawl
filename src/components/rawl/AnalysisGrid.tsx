@@ -620,10 +620,13 @@ export const AnalysisGrid: React.FC<{
 
     // TODO: filter measures and beats using sectionSpan
     const showBeats = React.useMemo(() => {
+      debugger;
       const relevantBars = [...measures, ...beats]
         .filter(
           (bar) =>
-            bar >= measures[sectionSpan[0]] && bar <= measures[sectionSpan[1]],
+            bar !== 0 &&
+            bar >= measures[sectionSpan[0]] &&
+            bar <= measures[sectionSpan[1]],
         )
         .sort((a, b) => a - b);
       return (

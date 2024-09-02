@@ -15,23 +15,19 @@ import SnippetsForTopic from "../SnippetsForTopic";
 const PathContainer = styled.div`
   height: 100%;
   width: 100%;
-  // padding-top: 80px; // Adjust padding to account for fixed menus
   margin: 0;
   padding: 0;
 `;
 
 const MenuContainer = styled.div`
-  position: sticky;
-  top: 0;
   width: 100%;
-  z-index: 10000000;
   background-color: #1a1a1a; // Ensure background color to avoid transparency issues
 `;
 
 const ChapterRow = styled.div`
   display: flex;
   flex-wrap: wrap; // Allow wrapping to the next line
-  background-color: #1a1a1a;
+  background-color: black;
   width: 100%; // Ensure it takes the full width
 `;
 
@@ -39,7 +35,7 @@ const ScrollableContent = styled.div`
   flex-grow: 1;
   overflow-y: auto;
   overflow-x: hidden; // Remove horizontal scrolling
-  padding-top: 80px; // Adjust padding to account for fixed menus
+  padding-top: 0; // Adjust padding to account for fixed menus
 `;
 
 const ChapterButton = styled.button<{ active: boolean }>`
@@ -53,21 +49,9 @@ const ChapterButton = styled.button<{ active: boolean }>`
   white-space: nowrap;
 `;
 
-const TopicButton = styled.button<{ active: boolean }>`
-  padding: 10px 20px;
-  text-align: center;
-  background-color: ${(props) => (props.active ? "#4a90e2" : "transparent")};
-  color: white;
-  border: none;
-  cursor: pointer;
-  white-space: nowrap;
-  font-size: 16px;
-`;
-
 const ContentArea = styled.div<{ isRawlVisible: boolean }>`
   flex-grow: 1;
-  background-color: #333333;
-  padding: 10px;
+  // background-color: #333333;
   height: ${(props) =>
     props.isRawlVisible ? "calc(50vh - 30px)" : "calc(100vh - 30px)"};
   overflow-y: auto;
@@ -81,11 +65,15 @@ const ChapterSection = styled.div`
   padding-bottom: 20px;
 `;
 
+const TopicContainer = styled.div`
+  margin: 20px 0px 20px 0px;
+`;
+
 const TopicCard = styled.div`
   background-color: #000000;
-  margin: 5px 0;
-  padding: 10px;
-  border-radius: 5px;
+  // margin: 5px 0;
+  // padding: 10px;
+  // border-radius: 5px;
   display: flex;
   flex-wrap: wrap; // Allow wrapping of SnippetItem components
   gap: 20px; // Add some space between SnippetItem components
@@ -95,7 +83,7 @@ const TopicCard = styled.div`
 
 const TopicTitle = styled.h3`
   font-size: 18px;
-  margin: 0 0 10px 0;
+  margin: 0px 0px 10px 0px;
   color: #ffffff;
 `;
 
@@ -271,27 +259,27 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
   return (
     <ErrorBoundary>
       <PathContainer>
-        <MenuContainer>
-          <ChapterRow>
-            {chapterData.map((chapter, index) => (
-              <ChapterButton
-                key={chapter.chapter}
-                active={index === activeChapter}
-                onClick={() => handleChapterSelect(index)}
-              >
-                {chapter.chapter.replace(/_/g, " ")}
-              </ChapterButton>
-            ))}
-          </ChapterRow>
-        </MenuContainer>
         <ScrollableContent>
+          <MenuContainer>
+            <ChapterRow>
+              {chapterData.map((chapter, index) => (
+                <ChapterButton
+                  key={chapter.chapter}
+                  active={index === activeChapter}
+                  onClick={() => handleChapterSelect(index)}
+                >
+                  {chapter.chapter.replace(/_/g, " ")}
+                </ChapterButton>
+              ))}
+            </ChapterRow>
+          </MenuContainer>
           <ContentArea isRawlVisible={isRawlVisible}>
             {errorMessages.map((error, index) => (
               <ErrorMessage key={index}>{error}</ErrorMessage>
             ))}
             <ChapterSection>
               {chapterData[activeChapter].topics.map((topic) => (
-                <>
+                <TopicContainer>
                   <TopicTitle
                     key={topic.topic}
                     id={topic.topic}
@@ -316,7 +304,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
                       </div>
                     ))}
                   </TopicCard>
-                </>
+                </TopicContainer>
               ))}
             </ChapterSection>
           </ContentArea>

@@ -10,7 +10,7 @@ import {
 import { DUMMY_CALLBACK, VoiceMask } from "../App";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
-import { Analysis, getPhraseStarts, MeasuresSpan } from "./analysis";
+import { Analysis, getPhraseStarts, MeasuresSpan, Snippet } from "./analysis";
 import { getNoteRectangles, MouseHandlers } from "./getNoteRectangles";
 import ControlPanel, { debounce } from "./layouts/ControlPanel";
 import MergedVoicesLegend from "./layouts/MergedVoicesLegend";
@@ -56,6 +56,49 @@ export type ScrollInfo = {
   right: number;
 };
 
+const InlineSnippets = ({
+  measuresAndBeats,
+  snippets,
+  secondsToX,
+  sectionSpan,
+}: {
+  measuresAndBeats: MeasuresAndBeats;
+  snippets: Snippet[];
+  secondsToX: SecondsConverter;
+  sectionSpan?: MeasuresSpan;
+}) => {
+  return (
+    <>
+      {snippets.map((snippet, index) => {
+        const measureStart = snippet.measuresSpan[0];
+        if (
+          sectionSpan &&
+          (measureStart < sectionSpan[0] || measureStart > sectionSpan[1])
+        ) {
+          return null;
+        }
+        const left = secondsToX(measuresAndBeats.measures[measureStart - 1]);
+
+        return (
+          <div
+            key={index}
+            style={{
+              position: "absolute",
+              top: "-15px",
+              left: `${left}px`,
+              textAlign: "center",
+              color: "#777",
+              fontSize: "12px",
+            }}
+          >
+            {snippet.tag.replace(/: /g, " ").replace(/_/g, " ")}
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
 const MeasureNumbers = ({
   measuresAndBeats,
   analysis,
@@ -91,6 +134,12 @@ const MeasureNumbers = ({
       top: 0,
     }}
   >
+    <InlineSnippets
+      measuresAndBeats={measuresAndBeats}
+      snippets={analysis.snippets || []}
+      secondsToX={secondsToX}
+      sectionSpan={sectionSpan}
+    />
     <AnalysisGrid
       analysis={analysis}
       measuresAndBeats={measuresAndBeats}

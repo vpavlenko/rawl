@@ -302,3 +302,12 @@ export const getPhraseStarts = (
 
   return result;
 };
+
+export function getSnippetsStartingAtMeasure(
+  snippets: Snippet[],
+  measure: number,
+): string[] {
+  return snippets
+    .filter((snippet) => snippet.measuresSpan[0] === measure)
+    .map((snippet) => snippet.tag);
+}

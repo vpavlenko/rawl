@@ -11,7 +11,7 @@ import {
 } from "./analysis";
 
 export const STACKED_RN_HEIGHT = 20;
-const MIN_WIDTH_BETWEEN_BEATS = 17;
+const MIN_WIDTH_BETWEEN_BEATS = 10;
 const MIN_WIDTH_BETWEEN_MEASURES = 25;
 const GRADIENT_HEIGHT_IN_NOTES = 3;
 
@@ -609,7 +609,7 @@ export const AnalysisGrid: React.FC<{
     //   (beat) =>
     //     beat > measures[Math.min(sectionSpan[0] + 2, sectionSpan[1] - 1)],
     // );
-    const showBeats = true;
+    // const showBeats = true;
     // beatsInThirdMeasure.length < 2 ||
     // secondsToX(beatsInThirdMeasure[1]) - secondsToX(beatsInThirdMeasure[0]) >=
     //   MIN_WIDTH_BETWEEN_BEATS;
@@ -617,6 +617,16 @@ export const AnalysisGrid: React.FC<{
     // showBeats ||
     // secondsToX(measures[2]) - secondsToX(measures[1]) >=
     //   MIN_WIDTH_BETWEEN_MEASURES;
+
+    debugger;
+    // TODO: filter measures and beats using sectionSpan
+    const showBeats = React.useMemo(
+      () =>
+        secondsToX(measures.at(-1) - measures.at(0)) /
+          (measures.filter((m) => m != 0).length + beats.length + 1) >=
+        MIN_WIDTH_BETWEEN_BEATS,
+      [measures, beats, secondsToX],
+    );
 
     const selectedPhraseStart =
       phraseStarts.indexOf(measureSelection.selectedMeasure) !== -1

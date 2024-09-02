@@ -497,6 +497,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
   useEffect(() => {
     if (measureStartRef.current) {
       measureStartRef.current.focus();
+      measureStartRef.current.select(); // Select the content
     }
   }, []);
 

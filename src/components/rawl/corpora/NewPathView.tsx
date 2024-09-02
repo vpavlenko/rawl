@@ -50,8 +50,8 @@ const ContentArea = styled.div<{ isRawlVisible: boolean }>`
 
 const ChapterSection = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 2px;
+  flex-direction: column; // Change to column to flow topics vertically
+  gap: 20px; // Add some space between topics
   padding-bottom: 20px;
 `;
 
@@ -60,8 +60,11 @@ const TopicCard = styled.div`
   margin: 5px 0;
   padding: 10px;
   border-radius: 5px;
-  width: 400px;
-  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap; // Allow wrapping of SnippetItem components
+  gap: 20px; // Add some space between SnippetItem components
+  width: 100%; // Ensure it takes the full width
+  box-sizing: border-box; // Include padding and border in the element's total width and height
 `;
 
 const TopicTitle = styled.h3`

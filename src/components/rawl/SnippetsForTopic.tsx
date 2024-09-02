@@ -12,8 +12,10 @@ const SnippetsForTopicContainer = styled.div`
 `;
 
 const SnippetItemWrapper = styled.div`
-  flex: 0 0 auto;
-  width: 400px;
+  flex: 1 1 auto; // Allow the item to grow and shrink
+  min-width: 0; // Ensure the item can shrink below its content width
+  max-width: 100%; // Ensure the item does not exceed the container width
+  box-sizing: border-box; // Include padding and border in the element's total width and height
 `;
 
 interface SnippetsForTopicProps {

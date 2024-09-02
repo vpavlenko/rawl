@@ -7,7 +7,9 @@ const SnippetItemContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 400px;
-  border: 1px solid #444;
+  border-top: 1px solid #444;
+  border-bottom: 1px solid #444;
+  border-left: 1px solid #444;
   border-radius: 5px;
   overflow: hidden;
 `;

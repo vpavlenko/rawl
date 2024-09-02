@@ -35,14 +35,6 @@ const ChapterRow = styled.div`
   width: 100%; // Ensure it takes the full width
 `;
 
-const TopicRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  background-color: #2a2a2a;
-  width: 100%;
-  overflow-x: auto;
-`;
-
 const ScrollableContent = styled.div`
   flex-grow: 1;
   overflow-y: auto;
@@ -291,17 +283,6 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
               </ChapterButton>
             ))}
           </ChapterRow>
-          <TopicRow>
-            {chapterData[activeChapter].topics.map((topic) => (
-              <TopicButton
-                key={topic.topic}
-                active={topic.topic === activeTopic}
-                onClick={() => handleTopicSelect(topic.topic)}
-              >
-                {topic.topic.replace(/_/g, " ")}
-              </TopicButton>
-            ))}
-          </TopicRow>
         </MenuContainer>
         <ScrollableContent>
           <ContentArea isRawlVisible={isRawlVisible}>

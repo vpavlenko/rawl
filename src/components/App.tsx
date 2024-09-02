@@ -1017,6 +1017,22 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.keyboardHandlers.delete(id);
   };
 
+  resetMidiPlayerState = () => {
+    if (this.midiPlayer) {
+      this.midiPlayer.eject();
+    }
+    this.setState({
+      ejected: true,
+      currentSongNumVoices: 0,
+      currentSongPositionMs: 0,
+      currentSongDurationMs: 1,
+      songUrl: null,
+      rawlProps: null,
+      currentMidi: null,
+      parsing: null,
+    });
+  };
+
   render() {
     const { location } = this.props;
     const rawlProps: RawlProps = {
@@ -1112,6 +1128,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           rawlProps: this.state.rawlProps,
           analyses: this.state.analyses,
           saveAnalysis: this.saveAnalysis,
+          resetMidiPlayerState: this.resetMidiPlayerState,
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>

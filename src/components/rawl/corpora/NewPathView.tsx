@@ -118,7 +118,8 @@ interface ChapterData {
 }
 
 const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
-  const { handleSongClick, rawlProps } = useContext(AppContext);
+  const { handleSongClick, rawlProps, resetMidiPlayerState } =
+    useContext(AppContext);
   const [loading, setLoading] = useState(true);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [chapterData, setChapterData] = useState<ChapterData[]>([]);
@@ -179,6 +180,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
 
   const handleChapterSelect = (index: number) => {
     setActiveChapter(index);
+    resetMidiPlayerState(); // Reset MIDI player state when a new chapter is selected
   };
 
   const handleMidiClick = (slug: string, measureStart: number) => {

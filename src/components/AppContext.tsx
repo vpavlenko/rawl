@@ -24,14 +24,18 @@ export type RawlProps = {
   sourceUrl: string | null;
 };
 
-export const AppContext = React.createContext<{
+interface AppContextProps {
   handleSongClick: (url: string) => void;
   rawlProps: RawlProps | null;
   analyses: Analyses;
   saveAnalysis: (analysis: Analysis) => void;
-}>({
+  resetMidiPlayerState: () => void; // Add this line
+}
+
+export const AppContext = React.createContext<AppContextProps>({
   handleSongClick: () => {},
   rawlProps: null,
   analyses: {},
   saveAnalysis: () => {},
+  resetMidiPlayerState: () => {}, // Add this line
 });

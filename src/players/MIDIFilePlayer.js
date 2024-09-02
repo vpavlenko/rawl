@@ -465,6 +465,8 @@ MIDIPlayer.prototype.reset = function (timestamp) {
   } else {
     this.synth.reset();
   }
+  this.position = 0;
+  this.paused = true;
 };
 
 // --- Chip Player JS support ---

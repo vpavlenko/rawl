@@ -672,4 +672,10 @@ export default class MIDIPlayer extends Player {
       if (err !== -1) console.log("Loaded soundfont.");
     });
   }
+
+  eject() {
+    this.stop();
+    this.midiFilePlayer.reset();
+    this.emit("playerStateUpdate", { isStopped: true });
+  }
 }

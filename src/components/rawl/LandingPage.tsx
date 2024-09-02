@@ -5,7 +5,6 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 import { AppContext } from "../AppContext";
 import ChordStairs, { MODES } from "./ChordStairs";
-import CorpusSearch from "./CorpusSearch";
 import { InlinePianoLegend, PianoLegend } from "./PianoLegend";
 import NewPathView from "./corpora/NewPathView"; // Change this import
 import landingLeftSideImage from "./landing_left_side.png";
@@ -238,10 +237,6 @@ const LandingPage = () => {
             <ChordStairs mode={MODES[1]} />
             <ChordStairs mode={MODES[0]} />
           </ChordStairsContainer>
-
-          <Section title="">
-            <CorpusSearch />
-          </Section>
 
           <div style={{ margin: "100px 0 100px 0" }}>
             <iframe

@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import ChordStairs, { MODES } from "./ChordStairs";
+import CorpusSearch from "./CorpusSearch";
 import { PianoLegend } from "./PianoLegend";
 
 const Content = styled.div`
@@ -109,6 +110,8 @@ const NewLandingPage: React.FC = () => {
         <ChordStairs mode={MODES[1]} />
         <ChordStairs mode={MODES[0]} />
       </ChordStairsContainer>
+
+      <CorpusSearch />
     </Content>
   );
 };

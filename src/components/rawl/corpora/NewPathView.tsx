@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import ErrorBoundary from "../../ErrorBoundary";
 import { Analysis, Snippet } from "../analysis";
+import NewLandingPage from "../NewLandingPage";
 import Rawl from "../Rawl";
 import SnippetsForTopic from "../SnippetsForTopic";
 
@@ -121,6 +122,13 @@ const RawlContainer = styled.div`
   overflow: auto; // Enable scrolling
 `;
 
+const HomeChapter = styled.div`
+  font-size: 24px;
+  color: white;
+  text-align: center;
+  padding: 20px;
+`;
+
 interface NewPathViewProps {
   analyses: { [key: string]: Analysis };
 }
@@ -156,6 +164,9 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
     console.log("Processing analyses");
     const data: { [chapter: string]: ChapterData } = {};
     const errors: string[] = [];
+
+    // Add special chapter "🎨"
+    data["🎨"] = { chapter: "🎨", topics: [] };
 
     Object.entries(analyses).forEach(([path, analysis]) => {
       // Strip the "f/" prefix from the path
@@ -278,34 +289,43 @@ const NewPathView: React.FC<NewPathViewProps> = ({ analyses }) => {
               <ErrorMessage key={index}>{error}</ErrorMessage>
             ))}
             <ChapterSection>
-              {chapterData[activeChapter].topics.map((topic) => (
-                <TopicContainer>
-                  <TopicTitle
-                    key={topic.topic}
-                    id={topic.topic}
-                    ref={(el) => (topicRefs.current[topic.topic] = el)}
-                  >
-                    {topic.topic.replace(/_/g, " ")}
-                  </TopicTitle>
-                  <TopicCard>
-                    {topic.snippets.map(({ snippet, slug }, index) => (
-                      <div key={index}>
-                        <MidiButton
-                          onClick={() =>
-                            handleMidiClick(slug, snippet.measuresSpan[0])
-                          }
-                        >
-                          {slug
-                            .replace(/---/g, " – ")
-                            .replace(/-/g, " ")
-                            .replace(/_/g, " ")}
-                        </MidiButton>
-                        <SnippetsForTopic snippets={[snippet]} noteHeight={3} />
-                      </div>
-                    ))}
-                  </TopicCard>
-                </TopicContainer>
-              ))}
+              {chapterData[activeChapter].chapter === "🎨" ? (
+                <HomeChapter>
+                  <NewLandingPage />
+                </HomeChapter>
+              ) : (
+                chapterData[activeChapter].topics.map((topic) => (
+                  <TopicContainer>
+                    <TopicTitle
+                      key={topic.topic}
+                      id={topic.topic}
+                      ref={(el) => (topicRefs.current[topic.topic] = el)}
+                    >
+                      {topic.topic.replace(/_/g, " ")}
+                    </TopicTitle>
+                    <TopicCard>
+                      {topic.snippets.map(({ snippet, slug }, index) => (
+                        <div key={index}>
+                          <MidiButton
+                            onClick={() =>
+                              handleMidiClick(slug, snippet.measuresSpan[0])
+                            }
+                          >
+                            {slug
+                              .replace(/---/g, " – ")
+                              .replace(/-/g, " ")
+                              .replace(/_/g, " ")}
+                          </MidiButton>
+                          <SnippetsForTopic
+                            snippets={[snippet]}
+                            noteHeight={3}
+                          />
+                        </div>
+                      ))}
+                    </TopicCard>
+                  </TopicContainer>
+                ))
+              )}
             </ChapterSection>
           </ContentArea>
         </ScrollableContent>

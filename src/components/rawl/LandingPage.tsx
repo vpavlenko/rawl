@@ -39,42 +39,6 @@ const FileDropBox: React.FC = () => (
   </DropBox>
 );
 
-const NeonLink = styled.a`
-  display: inline-block;
-  padding: 2px 6px; // Adjust padding as needed
-  color: #fff; // White text color for the neon effect
-  font-size: 17px;
-  font-family: "Helvetica Neue", Arial, sans-serif; // Sexy sans-serif font
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-right: 40px;
-
-  &:hover,
-  &:visited:hover {
-    color: #fff; // Lighter pink color on hover for added interaction
-    text-shadow:
-      0 0 5px #660,
-      0 0 15px #660;
-  }
-`;
-
-const Example: React.FC<{ name: string; pathname: string; bad?: boolean }> = ({
-  name,
-  pathname,
-  bad = false,
-}) => (
-  <NeonLink key={pathname} href={pathname} target="_blank">
-    <span style={bad ? { textDecoration: "line-through" } : {}}>{name}</span>
-  </NeonLink>
-);
-
-const Container = styled.div`
-  display: flex;
-  width: 100vw; // Set container width to 100% of the viewport width
-  justify-content: center; // Center the children horizontally
-`;
-
 const Side = styled.div<{ sideImage: string }>`
   flex-grow: 1;
   background-size: cover;

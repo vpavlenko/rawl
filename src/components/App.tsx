@@ -51,7 +51,6 @@ import AppHeader from "./AppHeader";
 import Browse from "./Browse";
 import DropMessage from "./DropMessage";
 import Visualizer from "./Visualizer";
-import LandingPage from "./rawl/LandingPage";
 import OldLandingPage from "./rawl/OldLandingPage";
 import Pirate from "./rawl/Pirate";
 import Rawl from "./rawl/Rawl";
@@ -1150,7 +1149,13 @@ class App extends React.Component<RouteComponentProps, AppState> {
                       ref={this.contentAreaRef}
                     >
                       <Switch>
-                        <Route path="/" exact render={() => <LandingPage />} />
+                        <Route
+                          path="/"
+                          exact
+                          render={() => (
+                            <NewPathView analyses={this.state.analyses} />
+                          )}
+                        />
                         <Route path="/old" render={() => <OldLandingPage />} />
                         <Route
                           path="/corpus/:corpus*"
@@ -1163,12 +1168,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                         {browseRoute}
                         {rawlRoute}
                         <Route path="/path" render={() => <PathView />} />
-                        <Route
-                          path="/path2"
-                          render={() => (
-                            <NewPathView analyses={this.state.analyses} />
-                          )}
-                        />
                       </Switch>
                     </div>
                   </div>

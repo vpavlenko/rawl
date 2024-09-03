@@ -1121,6 +1121,39 @@ class App extends React.Component<RouteComponentProps, AppState> {
       />
     );
 
+    // Check if the current route should render NewPathView
+    const isNewPathViewRoute =
+      location.pathname === "/" || location.pathname.startsWith("/s/");
+
+    if (isNewPathViewRoute) {
+      return (
+        <AppContext.Provider
+          value={{
+            handleSongClick: this.handleSongClick,
+            rawlProps: this.state.rawlProps,
+            analyses: this.state.analyses,
+            saveAnalysis: this.saveAnalysis,
+            resetMidiPlayerState: this.resetMidiPlayerState,
+          }}
+        >
+          <Switch>
+            <Route
+              path="/"
+              exact
+              render={() => <NewPathView analyses={this.state.analyses} />}
+            />
+            <Route
+              path={["/s/:chapter", "/s/:chapter/:topic"]}
+              render={() => (
+                <NewPathViewWithParams analyses={this.state.analyses} />
+              )}
+            />
+          </Switch>
+        </AppContext.Provider>
+      );
+    }
+
+    // The rest of your existing render method for other routes
     return (
       <AppContext.Provider
         value={{
@@ -1151,13 +1184,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                       ref={this.contentAreaRef}
                     >
                       <Switch>
-                        <Route
-                          path="/"
-                          exact
-                          render={() => (
-                            <NewPathView analyses={this.state.analyses} />
-                          )}
-                        />
                         <Route path="/old" render={() => <OldLandingPage />} />
                         <Route
                           path="/corpus/:corpus*"
@@ -1170,15 +1196,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                         {browseRoute}
                         {rawlRoute}
                         <Route path="/path" render={() => <PathView />} />
-                        {/* New routes for /s/<chapter> and /s/<chapter>/<topic> */}
-                        <Route
-                          path={["/s/:chapter", "/s/:chapter/:topic"]}
-                          render={() => (
-                            <NewPathViewWithParams
-                              analyses={this.state.analyses}
-                            />
-                          )}
-                        />
                       </Switch>
                     </div>
                   </div>

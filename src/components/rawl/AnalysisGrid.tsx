@@ -620,7 +620,6 @@ export const AnalysisGrid: React.FC<{
 
     // TODO: filter measures and beats using sectionSpan
     const showBeats = React.useMemo(() => {
-      debugger;
       const relevantBars = [...measures, ...beats]
         .filter(
           (bar) =>

@@ -608,17 +608,47 @@ const Rawl: React.FC<{
         position: "relative",
         display: "flex",
         flexDirection: "column",
-        height: "100%", // Ensure it takes full height
-        overflow: "hidden", // Prevent scrolling on this container
+        height: "100%",
+        overflow: "hidden",
       }}
     >
       {isEmbedded && (
-        <div
-          style={{
-            borderTop: "1px solid #666",
-            flexShrink: 0,
-          }}
-        />
+        <>
+          <div
+            style={{
+              borderTop: "1px solid #666",
+              flexShrink: 0,
+            }}
+          />
+          <Link
+            to={`/f/${slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              position: "fixed",
+              top: "calc(50vh + 10px)",
+              right: "10px",
+              color: "white",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              padding: "5px 10px",
+              borderRadius: "5px",
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              gap: "5px",
+              zIndex: 1000,
+              fontSize: "14px",
+            }}
+          >
+            <span>
+              {slug
+                .replace(/---/g, " – ")
+                .replace(/-/g, " ")
+                .replace(/_/g, " ")}
+            </span>
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </Link>
+        </>
       )}
       <div
         style={{

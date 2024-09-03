@@ -8,14 +8,14 @@ import {
   useRef,
   useState,
 } from "react";
-import { Link } from "react-router-dom";
 import { DUMMY_CALLBACK, VoiceMask } from "../App";
 import { AppContext } from "../AppContext";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
-import { Analysis, getPhraseStarts, MeasuresSpan, Snippet } from "./analysis";
+import { Analysis, getPhraseStarts, MeasuresSpan } from "./analysis";
 import { getNoteRectangles, MouseHandlers } from "./getNoteRectangles";
 import ControlPanel, { debounce } from "./layouts/ControlPanel";
+import { MeasureNumbers } from "./layouts/MeasureNumbers";
 import MergedVoicesLegend from "./layouts/MergedVoicesLegend";
 import { VoiceName } from "./layouts/VoiceName";
 import { ColoredNote, ColoredNotesInVoices, Note } from "./parseMidi";
@@ -55,148 +55,6 @@ export type ScrollInfo = {
   left: number;
   right: number;
 };
-
-const InlineSnippets = ({
-  measuresAndBeats,
-  snippets,
-  secondsToX,
-  sectionSpan,
-}: {
-  measuresAndBeats: MeasuresAndBeats;
-  snippets: Snippet[];
-  secondsToX: SecondsConverter;
-  sectionSpan?: MeasuresSpan;
-}) => {
-  const groupedSnippets = snippets.reduce(
-    (acc, snippet) => {
-      const measureStart = snippet.measuresSpan[0];
-      if (!acc[measureStart]) {
-        acc[measureStart] = [];
-      }
-      acc[measureStart].push(snippet);
-      return acc;
-    },
-    {} as Record<number, Snippet[]>,
-  );
-
-  return (
-    <>
-      {Object.entries(groupedSnippets).map(([measureStart, snippetsGroup]) => {
-        const start = parseInt(measureStart);
-        if (sectionSpan && (start < sectionSpan[0] || start > sectionSpan[1])) {
-          return null;
-        }
-        const left = secondsToX(measuresAndBeats.measures[start - 1]);
-
-        return (
-          <div
-            key={start}
-            style={{
-              position: "absolute",
-              top: "-18px",
-              left: `${left}px`,
-              textAlign: "left",
-              color: "#777",
-              fontSize: "10px",
-              cursor: "pointer",
-              display: "flex",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              maxWidth: "300px", // Adjust this value as needed
-            }}
-          >
-            {snippetsGroup.map((snippet, index) => {
-              const [chapter, topic] = snippet.tag.split(":");
-              return (
-                <Link
-                  key={index}
-                  to={`/s/${encodeURIComponent(
-                    chapter.trim(),
-                  )}/${encodeURIComponent(topic.trim())}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    textDecoration: "none",
-                    color: "inherit",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-start",
-                    marginRight: "10px",
-                    lineHeight: "0.9",
-                  }}
-                >
-                  <span style={{ color: "#666" }}>
-                    {chapter.replace(/_/g, " ")}
-                  </span>
-                  <span style={{ color: "#aaa" }}>
-                    {topic.replace(/_/g, " ")}
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-        );
-      })}
-    </>
-  );
-};
-
-const MeasureNumbers = ({
-  measuresAndBeats,
-  analysis,
-  phraseStarts,
-  measureSelection,
-  noteHeight,
-  secondsToX,
-  sectionSpan,
-}: {
-  measuresAndBeats: MeasuresAndBeats;
-  analysis: Analysis;
-  phraseStarts: number[];
-  measureSelection: MeasureSelection;
-  noteHeight: number;
-  secondsToX: SecondsConverter;
-  sectionSpan?: MeasuresSpan;
-}) => (
-  <div
-    key="measure_header"
-    style={{
-      width:
-        secondsToX(
-          Math.max(
-            measuresAndBeats.measures.at(-1),
-            measuresAndBeats.beats.at(-1),
-          ),
-        ) + 300,
-      height: 16,
-      marginBottom: "-14px",
-      marginLeft: "0px",
-      zIndex: 90000,
-      position: sectionSpan ? "relative" : "sticky",
-      top: 0,
-    }}
-  >
-    <InlineSnippets
-      measuresAndBeats={measuresAndBeats}
-      snippets={analysis.snippets || []}
-      secondsToX={secondsToX}
-      sectionSpan={sectionSpan}
-    />
-    <AnalysisGrid
-      analysis={analysis}
-      measuresAndBeats={measuresAndBeats}
-      midiNumberToY={() => 0}
-      noteHeight={noteHeight}
-      measureSelection={measureSelection}
-      phraseStarts={phraseStarts}
-      midiRange={[0, 0]}
-      showHeader={true}
-      showTonalGrid={false}
-      secondsToX={secondsToX}
-      sectionSpan={sectionSpan}
-    />
-  </div>
-);
 
 export const Voice: React.FC<{
   notes: ColoredNote[];
@@ -380,9 +238,6 @@ export type SystemLayoutProps = {
   enableManualRemeasuring?: boolean;
   measureStart?: number;
 };
-
-const isAnnotatedSection = (section: Section) =>
-  section.sectionSpan[1] - section.sectionSpan[0] < 25;
 
 export const StackedSystemLayout: React.FC<
   SystemLayoutProps & { measureStart?: number; isEmbedded?: boolean }

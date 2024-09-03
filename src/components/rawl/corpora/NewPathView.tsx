@@ -136,6 +136,10 @@ const HomeChapter = styled.div`
   padding: 20px;
 `;
 
+const ClickableContainer = styled.div`
+  cursor: pointer;
+`;
+
 export interface NewPathViewProps {
   analyses: { [key: string]: Analysis };
   initialChapter?: string;
@@ -363,12 +367,13 @@ const NewPathView: React.FC<NewPathViewProps> = ({
                     </TopicTitle>
                     <TopicCard>
                       {topic.snippets.map(({ snippet, slug }, index) => (
-                        <div key={index}>
-                          <MidiButton
-                            onClick={() =>
-                              handleMidiClick(slug, snippet.measuresSpan[0])
-                            }
-                          >
+                        <ClickableContainer
+                          key={index}
+                          onClick={() =>
+                            handleMidiClick(slug, snippet.measuresSpan[0])
+                          }
+                        >
+                          <MidiButton>
                             {slug
                               .replace(/---/g, " – ")
                               .replace(/-/g, " ")
@@ -378,7 +383,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({
                             snippets={[snippet]}
                             noteHeight={3}
                           />
-                        </div>
+                        </ClickableContainer>
                       ))}
                     </TopicCard>
                   </TopicContainer>

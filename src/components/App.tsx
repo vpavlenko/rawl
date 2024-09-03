@@ -1141,7 +1141,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 playerError={this.state.playerError}
                 showPlayerError={this.state.showPlayerError}
               />
-              {location.pathname !== "/" && <AppHeader />}
+              {location.pathname !== "/" &&
+                !location.pathname.startsWith("/s/") && <AppHeader />}
               <div className="App-main">
                 <div className="App-main-inner">
                   <div className="App-main-content-and-settings">
@@ -1182,23 +1183,25 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     </div>
                   </div>
                 </div>
-                {location.pathname !== "/" && !this.state.loading && (
-                  <Visualizer
-                    audioCtx={this.audioCtx}
-                    sourceNode={this.playerNode}
-                    chipCore={this.chipCore}
-                    analysisEnabled={this.state.analysisEnabled}
-                    handleToggleAnalysis={() =>
-                      this.setState((state) => ({
-                        analysisEnabled: !state.analysisEnabled,
-                      }))
-                    }
-                    paused={this.state.ejected || this.state.paused}
-                    user={this.state.user}
-                    handleLogout={this.handleLogout}
-                    handleLogin={this.handleLogin}
-                  />
-                )}
+                {location.pathname !== "/" &&
+                  !location.pathname.startsWith("/s/") &&
+                  !this.state.loading && (
+                    <Visualizer
+                      audioCtx={this.audioCtx}
+                      sourceNode={this.playerNode}
+                      chipCore={this.chipCore}
+                      analysisEnabled={this.state.analysisEnabled}
+                      handleToggleAnalysis={() =>
+                        this.setState((state) => ({
+                          analysisEnabled: !state.analysisEnabled,
+                        }))
+                      }
+                      paused={this.state.ejected || this.state.paused}
+                      user={this.state.user}
+                      handleLogout={this.handleLogout}
+                      handleLogin={this.handleLogin}
+                    />
+                  )}
               </div>
               {location.pathname !== "/" && (
                 <AppFooter

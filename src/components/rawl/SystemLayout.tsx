@@ -407,68 +407,75 @@ export const StackedSystemLayout: React.FC<
     [analysis, measuresAndBeats],
   );
 
-  const sections: Section[] = useMemo(() => {
-    const calculatedSections = (analysis.sections ?? [0]).map(
-      (sectionStartInPhrases, index) => {
-        const { measures } = measuresAndBeats;
-        const start = phraseStarts[sectionStartInPhrases] - 1;
-        const end =
-          (index + 1 < (analysis.sections ?? [0]).length
-            ? phraseStarts[(analysis.sections ?? [0])[index + 1]]
-            : measures.length) - 1;
+  const sectionSpans = useMemo(() => {
+    return (analysis.sections ?? [0]).map((sectionStartInPhrases, index) => {
+      const { measures } = measuresAndBeats;
+      const start = phraseStarts[sectionStartInPhrases] - 1;
+      const end =
+        (index + 1 < (analysis.sections ?? [0]).length
+          ? phraseStarts[(analysis.sections ?? [0])[index + 1]]
+          : measures.length) - 1;
+      return [start, end] as MeasuresSpan;
+    });
+  }, [analysis.sections, measuresAndBeats, phraseStarts]);
 
-        const secondsToX = (seconds) =>
-          (seconds - measures[start]) * secondWidth;
-        const xToSeconds = (x) => x / secondWidth + measures[start];
-        return {
-          sectionSpan: [start, end] as MeasuresSpan,
-          secondsToX,
-          xToSeconds,
-          voices: voicesSortedByAverageMidiNumber.map(
-            ({ voiceIndex, notes }) => ({
-              voiceIndex,
-              notes: notes.filter(
-                (note) =>
-                  note.span[1] >= measures[start] &&
-                  note.span[0] + 1e-2 < measures[end],
-              ),
-            }),
-          ),
-        };
-      },
-    );
-
+  const optimalSecondWidth = useMemo(() => {
     const viewportWidth = window.innerWidth;
     const targetWidthPercentage = 0.92;
     const targetWidth = viewportWidth * targetWidthPercentage;
 
-    const longestSection = calculatedSections
-      .filter(isAnnotatedSection)
+    const longestSection = sectionSpans
+      .filter((span) => span[1] - span[0] < 25)
       .reduce((longest, current) => {
         const currentLength =
-          measuresAndBeats.measures[current.sectionSpan[1]] -
-          measuresAndBeats.measures[current.sectionSpan[0]];
+          measuresAndBeats.measures[current[1]] -
+          measuresAndBeats.measures[current[0]];
         const longestLength =
-          measuresAndBeats.measures[longest.sectionSpan[1]] -
-          measuresAndBeats.measures[longest.sectionSpan[0]];
+          measuresAndBeats.measures[longest[1]] -
+          measuresAndBeats.measures[longest[0]];
         return currentLength > longestLength ? current : longest;
-      }, calculatedSections[0]);
+      }, sectionSpans[0]);
 
-    if (longestSection && isAnnotatedSection(longestSection)) {
+    if (longestSection && longestSection[1] - longestSection[0] < 25) {
       const longestSectionLength =
-        measuresAndBeats.measures[longestSection.sectionSpan[1]] -
-        measuresAndBeats.measures[longestSection.sectionSpan[0]];
-      const optimalSecondWidth = targetWidth / longestSectionLength;
-      setSecondWidth(optimalSecondWidth);
+        measuresAndBeats.measures[longestSection[1]] -
+        measuresAndBeats.measures[longestSection[0]];
+      return targetWidth / longestSectionLength;
     }
+    return secondWidth;
+  }, [notes]); // Only recalculate when notes change
 
-    return calculatedSections;
+  useEffect(() => {
+    setSecondWidth(optimalSecondWidth);
+  }, [optimalSecondWidth]);
+
+  const sections: Section[] = useMemo(() => {
+    return sectionSpans.map((sectionSpan) => {
+      const secondsToX = (seconds) =>
+        (seconds - measuresAndBeats.measures[sectionSpan[0]]) * secondWidth;
+      const xToSeconds = (x) =>
+        x / secondWidth + measuresAndBeats.measures[sectionSpan[0]];
+      return {
+        sectionSpan,
+        secondsToX,
+        xToSeconds,
+        voices: voicesSortedByAverageMidiNumber.map(
+          ({ voiceIndex, notes }) => ({
+            voiceIndex,
+            notes: notes.filter(
+              (note) =>
+                note.span[1] >= measuresAndBeats.measures[sectionSpan[0]] &&
+                note.span[0] + 1e-2 < measuresAndBeats.measures[sectionSpan[1]],
+            ),
+          }),
+        ),
+      };
+    });
   }, [
-    voicesSortedByAverageMidiNumber,
-    phraseStarts,
+    sectionSpans,
     measuresAndBeats,
     secondWidth,
-    analysis.sections,
+    voicesSortedByAverageMidiNumber,
   ]);
 
   const parentRef = useRef(null);

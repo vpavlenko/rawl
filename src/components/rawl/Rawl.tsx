@@ -1,9 +1,17 @@
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { Link, useLocation } from "react-router-dom";
 import { VoiceMask } from "../App";
+import { AppContext } from "../AppContext";
 import ErrorBoundary from "../ErrorBoundary";
 import { MeasureSelection } from "./AnalysisGrid";
 import FrozenNotesLayout from "./FrozenNotesLayout";
@@ -202,7 +210,8 @@ const Rawl: React.FC<{
   isEmbedded = false,
 }) => {
   const location = useLocation();
-  const { slug } = useParams<{ slug: string }>();
+  const { currentMidi } = useContext(AppContext);
+  const slug = currentMidi?.slug || "";
 
   useEffect(() => {
     document.title = `${song} - ${artist} - Rawl`;

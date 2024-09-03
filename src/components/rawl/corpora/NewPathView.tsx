@@ -160,8 +160,13 @@ const NewPathView: React.FC<NewPathViewProps> = ({
   initialChapter,
   initialTopic,
 }) => {
-  const { handleSongClick, rawlProps, resetMidiPlayerState } =
-    useContext(AppContext);
+  const {
+    handleSongClick,
+    currentMidi,
+    resetMidiPlayerState,
+    rawlProps,
+    saveAnalysis,
+  } = useContext(AppContext);
   const [loading, setLoading] = useState(true);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [chapterData, setChapterData] = useState<ChapterData[]>([]);
@@ -296,8 +301,8 @@ const NewPathView: React.FC<NewPathViewProps> = ({
   };
 
   useEffect(() => {
-    setIsRawlVisible(!!rawlProps && !!rawlProps.parsingResult);
-  }, [rawlProps]);
+    setIsRawlVisible(!!currentMidi);
+  }, [currentMidi]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -382,10 +387,22 @@ const NewPathView: React.FC<NewPathViewProps> = ({
             </ChapterSection>
           </ContentArea>
         </ScrollableContent>
-        {rawlProps && rawlProps.parsingResult && (
+        {currentMidi && rawlProps && (
           <RawlContainer>
             <Rawl
-              {...rawlProps}
+              parsingResult={rawlProps.parsingResult}
+              getCurrentPositionMs={rawlProps.getCurrentPositionMs}
+              savedAnalysis={rawlProps.savedAnalysis}
+              saveAnalysis={saveAnalysis}
+              voiceNames={rawlProps.voiceNames}
+              voiceMask={rawlProps.voiceMask}
+              setVoiceMask={rawlProps.setVoiceMask}
+              showAnalysisBox={rawlProps.showAnalysisBox}
+              seek={rawlProps.seek}
+              artist={rawlProps.artist}
+              song={rawlProps.song}
+              latencyCorrectionMs={rawlProps.latencyCorrectionMs}
+              sourceUrl={currentMidi.sourceUrl}
               measureStart={selectedMeasureStart}
               isEmbedded={true}
             />

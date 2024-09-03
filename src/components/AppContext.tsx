@@ -24,6 +24,13 @@ export type RawlProps = {
   sourceUrl: string | null;
 };
 
+export interface CurrentMidi {
+  id: string;
+  title: string;
+  slug: string;
+  sourceUrl: string | null;
+}
+
 interface AppContextProps {
   handleSongClick: (url: string) => void;
   rawlProps: RawlProps | null;
@@ -35,6 +42,8 @@ interface AppContextProps {
     handler: (e: KeyboardEvent) => void,
   ) => void;
   unregisterKeyboardHandler: (id: string) => void;
+  currentMidi: CurrentMidi | null;
+  setCurrentMidi: (midi: CurrentMidi | null) => void;
 }
 
 export const AppContext = React.createContext<AppContextProps>({
@@ -45,4 +54,6 @@ export const AppContext = React.createContext<AppContextProps>({
   resetMidiPlayerState: () => {}, // Add this line
   registerKeyboardHandler: () => {},
   unregisterKeyboardHandler: () => {},
+  currentMidi: null,
+  setCurrentMidi: () => {},
 });

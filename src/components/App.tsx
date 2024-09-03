@@ -702,24 +702,20 @@ class App extends React.Component<RouteComponentProps, AppState> {
         });
         console.log("Created MIDI Blob:", midiBlob);
 
-        this.setState(
-          {
-            currentMidi: {
-              id: midiInfo.id,
-              title: midiData.title,
-              slug: midiData.slug,
-              sourceUrl: midiData.url,
-            },
-          },
-          () => {
-            console.log(
-              "State updated with currentMidi:",
-              this.state.currentMidi,
-            );
-            console.log("Calling loadMidi with blob");
-            this.loadMidi(midiBlob);
-          },
-        );
+        const currentMidi = {
+          id: midiInfo.id,
+          title: midiData.title,
+          slug: midiData.slug,
+          sourceUrl: midiData.url,
+        };
+        this.setState({ currentMidi }, () => {
+          console.log(
+            "State updated with currentMidi:",
+            this.state.currentMidi,
+          );
+          console.log("Calling loadMidi with blob");
+          this.loadMidi(midiBlob);
+        });
       } else {
         console.error("No such document!");
       }
@@ -1136,6 +1132,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
             resetMidiPlayerState: this.resetMidiPlayerState,
             registerKeyboardHandler: this.registerKeyboardHandler,
             unregisterKeyboardHandler: this.unregisterKeyboardHandler,
+            currentMidi: this.state.currentMidi,
+            setCurrentMidi: (currentMidi) => this.setState({ currentMidi }),
           }}
         >
           <Switch>
@@ -1166,6 +1164,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
           resetMidiPlayerState: this.resetMidiPlayerState,
           registerKeyboardHandler: this.registerKeyboardHandler,
           unregisterKeyboardHandler: this.unregisterKeyboardHandler,
+          currentMidi: this.state.currentMidi,
+          setCurrentMidi: (currentMidi) => this.setState({ currentMidi }),
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>

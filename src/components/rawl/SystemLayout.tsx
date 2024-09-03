@@ -67,41 +67,74 @@ const InlineSnippets = ({
   secondsToX: SecondsConverter;
   sectionSpan?: MeasuresSpan;
 }) => {
+  const groupedSnippets = snippets.reduce(
+    (acc, snippet) => {
+      const measureStart = snippet.measuresSpan[0];
+      if (!acc[measureStart]) {
+        acc[measureStart] = [];
+      }
+      acc[measureStart].push(snippet);
+      return acc;
+    },
+    {} as Record<number, Snippet[]>,
+  );
+
   return (
     <>
-      {snippets.map((snippet, index) => {
-        const measureStart = snippet.measuresSpan[0];
-        if (
-          sectionSpan &&
-          (measureStart < sectionSpan[0] || measureStart > sectionSpan[1])
-        ) {
+      {Object.entries(groupedSnippets).map(([measureStart, snippetsGroup]) => {
+        const start = parseInt(measureStart);
+        if (sectionSpan && (start < sectionSpan[0] || start > sectionSpan[1])) {
           return null;
         }
-        const left = secondsToX(measuresAndBeats.measures[measureStart - 1]);
-
-        const [chapter, topic] = snippet.tag.split(":");
+        const left = secondsToX(measuresAndBeats.measures[start - 1]);
 
         return (
-          <Link
-            key={index}
-            to={`/s/${encodeURIComponent(chapter.trim())}/${encodeURIComponent(
-              topic.trim(),
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
+          <div
+            key={start}
             style={{
               position: "absolute",
-              top: "-15px",
+              top: "-18px",
               left: `${left}px`,
-              textAlign: "center",
+              textAlign: "left",
               color: "#777",
-              fontSize: "12px",
-              textDecoration: "none",
+              fontSize: "10px",
               cursor: "pointer",
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              maxWidth: "300px", // Adjust this value as needed
             }}
           >
-            {snippet.tag.replace(/: /g, " ").replace(/_/g, " ")}
-          </Link>
+            {snippetsGroup.map((snippet, index) => {
+              const [chapter, topic] = snippet.tag.split(":");
+              return (
+                <Link
+                  key={index}
+                  to={`/s/${encodeURIComponent(
+                    chapter.trim(),
+                  )}/${encodeURIComponent(topic.trim())}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    marginRight: "10px",
+                    lineHeight: "0.9",
+                  }}
+                >
+                  <span style={{ color: "#666" }}>
+                    {chapter.replace(/_/g, " ")}
+                  </span>
+                  <span style={{ color: "#aaa" }}>
+                    {topic.replace(/_/g, " ")}
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
         );
       })}
     </>

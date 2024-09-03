@@ -30,6 +30,11 @@ interface AppContextProps {
   analyses: Analyses;
   saveAnalysis: (analysis: Analysis) => void;
   resetMidiPlayerState: () => void; // Add this line
+  registerKeyboardHandler: (
+    id: string,
+    handler: (e: KeyboardEvent) => void,
+  ) => void;
+  unregisterKeyboardHandler: (id: string) => void;
 }
 
 export const AppContext = React.createContext<AppContextProps>({
@@ -38,4 +43,6 @@ export const AppContext = React.createContext<AppContextProps>({
   analyses: {},
   saveAnalysis: () => {},
   resetMidiPlayerState: () => {}, // Add this line
+  registerKeyboardHandler: () => {},
+  unregisterKeyboardHandler: () => {},
 });

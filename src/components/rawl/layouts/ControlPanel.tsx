@@ -1,6 +1,7 @@
-import { clamp } from "lodash";
-import React, { useCallback, useEffect } from "react";
+import clamp from "lodash/clamp";
+import React, { useCallback, useContext, useEffect } from "react";
 import styled from "styled-components";
+import { AppContext } from "../../AppContext";
 import { FoldablePianoLegend } from "../PianoLegend";
 
 const TinyLetter = styled.span`
@@ -29,11 +30,6 @@ type ControlPanelProps = {
   setNoteHeight: (height: number) => void;
   secondWidth: number;
   setSecondWidth: (width: number) => void;
-  registerKeyboardHandler: (
-    name: string,
-    handler: (e: KeyboardEvent) => void,
-  ) => void;
-  unregisterKeyboardHandler: (name: string) => void;
 };
 
 const ControlPanel: React.FC<ControlPanelProps> = ({
@@ -41,9 +37,10 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   setNoteHeight,
   secondWidth,
   setSecondWidth,
-  registerKeyboardHandler,
-  unregisterKeyboardHandler,
 }) => {
+  const { registerKeyboardHandler, unregisterKeyboardHandler } =
+    useContext(AppContext);
+
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
   const debounceSetSecondWidth = useCallback(debounce(setSecondWidth, 50), []);
 

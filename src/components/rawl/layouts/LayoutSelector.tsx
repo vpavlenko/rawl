@@ -1,6 +1,7 @@
 import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import { AppContext } from "../../AppContext";
 
 // TODO: rename "stacked" to "split" - semantically
 export type SystemLayout = "merged" | "stacked" | "frozen";
@@ -9,20 +10,16 @@ interface LayoutSelectorProps {
   systemLayout: SystemLayout;
   setSystemLayout: React.Dispatch<React.SetStateAction<SystemLayout>>;
   onCopyPath: () => void;
-  registerKeyboardHandler: (
-    id: string,
-    handler: (e: KeyboardEvent) => void,
-  ) => void;
-  unregisterKeyboardHandler: (id: string) => void;
 }
 
 const LayoutSelector: React.FC<LayoutSelectorProps> = ({
   systemLayout,
   setSystemLayout,
   onCopyPath,
-  registerKeyboardHandler,
-  unregisterKeyboardHandler,
 }) => {
+  const { registerKeyboardHandler, unregisterKeyboardHandler } =
+    useContext(AppContext);
+
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === "f") {

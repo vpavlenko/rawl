@@ -1134,6 +1134,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
             analyses: this.state.analyses,
             saveAnalysis: this.saveAnalysis,
             resetMidiPlayerState: this.resetMidiPlayerState,
+            registerKeyboardHandler: this.registerKeyboardHandler,
+            unregisterKeyboardHandler: this.unregisterKeyboardHandler,
           }}
         >
           <Switch>
@@ -1162,6 +1164,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
           analyses: this.state.analyses,
           saveAnalysis: this.saveAnalysis,
           resetMidiPlayerState: this.resetMidiPlayerState,
+          registerKeyboardHandler: this.registerKeyboardHandler,
+          unregisterKeyboardHandler: this.unregisterKeyboardHandler,
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>

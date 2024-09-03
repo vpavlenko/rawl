@@ -181,11 +181,6 @@ const Rawl: React.FC<{
   artist: string;
   song: string;
   latencyCorrectionMs: number;
-  registerKeyboardHandler: (
-    id: string,
-    handler: (e: KeyboardEvent) => void,
-  ) => void;
-  unregisterKeyboardHandler: (id: string) => void;
   sourceUrl: string | null;
   measureStart?: number;
 }> = ({
@@ -201,8 +196,6 @@ const Rawl: React.FC<{
   artist,
   song,
   latencyCorrectionMs,
-  registerKeyboardHandler,
-  unregisterKeyboardHandler,
   sourceUrl,
   measureStart,
 }) => {
@@ -558,8 +551,6 @@ const Rawl: React.FC<{
       mouseHandlers,
       measureSelection,
       analysis: futureAnalysis,
-      registerKeyboardHandler,
-      unregisterKeyboardHandler,
       frozenNotes: coloredNotes,
       saveAnalysis,
       measureStart,
@@ -574,8 +565,6 @@ const Rawl: React.FC<{
       mouseHandlers,
       measureSelection,
       futureAnalysis,
-      registerKeyboardHandler,
-      unregisterKeyboardHandler,
       saveAnalysis,
       measureStart,
     ],
@@ -652,8 +641,6 @@ const Rawl: React.FC<{
         systemLayout={systemLayout}
         setSystemLayout={setSystemLayout}
         onCopyPath={handleCopyPath}
-        registerKeyboardHandler={registerKeyboardHandler}
-        unregisterKeyboardHandler={unregisterKeyboardHandler}
       />
     </div>
   );

@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   ReactNode,
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -9,6 +10,7 @@ import {
 } from "react";
 import { Link } from "react-router-dom";
 import { DUMMY_CALLBACK, VoiceMask } from "../App";
+import { AppContext } from "../AppContext";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
 import { Analysis, getPhraseStarts, MeasuresSpan, Snippet } from "./analysis";
@@ -341,11 +343,6 @@ export type SystemLayoutProps = {
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
   setVoiceMask: SetVoiceMask;
-  registerKeyboardHandler: (
-    name: string,
-    handler: (e: KeyboardEvent) => void,
-  ) => void;
-  unregisterKeyboardHandler: (name: string) => void;
   frozenNotes: ColoredNote[][];
   enableManualRemeasuring?: boolean;
   measureStart?: number;
@@ -366,11 +363,12 @@ export const StackedSystemLayout: React.FC<
   mouseHandlers,
   measureSelection,
   setVoiceMask,
-  registerKeyboardHandler,
-  unregisterKeyboardHandler,
   enableManualRemeasuring = false,
   measureStart,
 }) => {
+  const { registerKeyboardHandler, unregisterKeyboardHandler } =
+    useContext(AppContext);
+
   const [noteHeight, setNoteHeight] = useState<number>(3);
   const [secondWidth, setSecondWidth] = useState<number>(40);
   const setSecondWidthCalled = useRef(false);
@@ -623,8 +621,6 @@ export const StackedSystemLayout: React.FC<
           setNoteHeight={setNoteHeight}
           secondWidth={secondWidth}
           setSecondWidth={setSecondWidth}
-          registerKeyboardHandler={registerKeyboardHandler}
-          unregisterKeyboardHandler={unregisterKeyboardHandler}
         />
       </div>
     </>

@@ -626,17 +626,17 @@ const Rawl: React.FC<{
             rel="noopener noreferrer"
             style={{
               position: "fixed",
-              top: "calc(50vh + 10px)",
+              top: "calc(50vh + 1px)",
               right: "10px",
               color: "white",
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              backgroundColor: "black",
               padding: "5px 10px",
               borderRadius: "5px",
               textDecoration: "none",
               display: "flex",
               alignItems: "center",
               gap: "5px",
-              zIndex: 1000,
+              zIndex: 100000000,
               fontSize: "14px",
             }}
           >

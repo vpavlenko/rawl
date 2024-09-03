@@ -27,7 +27,10 @@ const InlineSnippets: React.FC<{
     <>
       {Object.entries(groupedSnippets).map(([measureStart, snippetsGroup]) => {
         const start = parseInt(measureStart);
-        if (sectionSpan && (start < sectionSpan[0] || start > sectionSpan[1])) {
+        if (
+          sectionSpan &&
+          (start <= sectionSpan[0] || start > sectionSpan[1])
+        ) {
           return null;
         }
         const left = secondsToX(measuresAndBeats.measures[start - 1]);
@@ -45,8 +48,7 @@ const InlineSnippets: React.FC<{
               cursor: "pointer",
               display: "flex",
               flexDirection: "row",
-              flexWrap: "wrap",
-              maxWidth: "300px",
+              flexWrap: "nowrap",
             }}
           >
             {snippetsGroup.map((snippet, index) => {

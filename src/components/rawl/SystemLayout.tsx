@@ -352,7 +352,7 @@ const isAnnotatedSection = (section: Section) =>
   section.sectionSpan[1] - section.sectionSpan[0] < 25;
 
 export const StackedSystemLayout: React.FC<
-  SystemLayoutProps & { measureStart?: number }
+  SystemLayoutProps & { measureStart?: number; isEmbedded?: boolean }
 > = ({
   notes,
   voiceNames,
@@ -365,6 +365,7 @@ export const StackedSystemLayout: React.FC<
   setVoiceMask,
   enableManualRemeasuring = false,
   measureStart,
+  isEmbedded = false,
 }) => {
   const { registerKeyboardHandler, unregisterKeyboardHandler } =
     useContext(AppContext);
@@ -616,12 +617,14 @@ export const StackedSystemLayout: React.FC<
 
         <div style={{ height: 600 }} />
 
-        <ControlPanel
-          noteHeight={noteHeight}
-          setNoteHeight={setNoteHeight}
-          secondWidth={secondWidth}
-          setSecondWidth={setSecondWidth}
-        />
+        {!isEmbedded && (
+          <ControlPanel
+            noteHeight={noteHeight}
+            setNoteHeight={setNoteHeight}
+            secondWidth={secondWidth}
+            setSecondWidth={setSecondWidth}
+          />
+        )}
       </div>
     </>
   );
@@ -630,13 +633,16 @@ export const StackedSystemLayout: React.FC<
 const MERGED_VOICE_NAMES = ["merged"];
 const MERGED_VOICE_MASK = [true];
 
-export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
+export const MergedSystemLayout: React.FC<
+  SystemLayoutProps & { isEmbedded?: boolean }
+> = (props) => {
   const {
     notes,
     voiceNames,
     voiceMask,
     setVoiceMask,
     enableManualRemeasuring,
+    isEmbedded = false,
   } = props;
 
   const flattenedNotes = useMemo(
@@ -656,12 +662,15 @@ export const MergedSystemLayout: React.FC<SystemLayoutProps> = (props) => {
         voiceNames={MERGED_VOICE_NAMES}
         voiceMask={MERGED_VOICE_MASK}
         enableManualRemeasuring={enableManualRemeasuring}
+        isEmbedded={isEmbedded}
       />
-      <MergedVoicesLegend
-        voiceNames={voiceNames}
-        voiceMask={voiceMask}
-        setVoiceMask={setVoiceMask}
-      />
+      {!isEmbedded && (
+        <MergedVoicesLegend
+          voiceNames={voiceNames}
+          voiceMask={voiceMask}
+          setVoiceMask={setVoiceMask}
+        />
+      )}
     </div>
   );
 };

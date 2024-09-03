@@ -183,6 +183,7 @@ const Rawl: React.FC<{
   latencyCorrectionMs: number;
   sourceUrl: string | null;
   measureStart?: number;
+  isEmbedded?: boolean;
 }> = ({
   parsingResult,
   getCurrentPositionMs,
@@ -198,6 +199,7 @@ const Rawl: React.FC<{
   latencyCorrectionMs,
   sourceUrl,
   measureStart,
+  isEmbedded = false,
 }) => {
   const location = useLocation();
   const { slug } = useParams<{ slug: string }>();
@@ -620,11 +622,13 @@ const Rawl: React.FC<{
           <MergedSystemLayout
             {...systemLayoutProps}
             enableManualRemeasuring={enableManualRemeasuring}
+            isEmbedded={isEmbedded}
           />
         ) : systemLayout === "stacked" ? (
           <StackedSystemLayout
             {...systemLayoutProps}
             enableManualRemeasuring={enableManualRemeasuring}
+            isEmbedded={isEmbedded}
           />
         ) : (
           <ErrorBoundary
@@ -637,11 +641,13 @@ const Rawl: React.FC<{
           </ErrorBoundary>
         )}
       </div>
-      <LayoutSelector
-        systemLayout={systemLayout}
-        setSystemLayout={setSystemLayout}
-        onCopyPath={handleCopyPath}
-      />
+      {!isEmbedded && (
+        <LayoutSelector
+          systemLayout={systemLayout}
+          setSystemLayout={setSystemLayout}
+          onCopyPath={handleCopyPath}
+        />
+      )}
     </div>
   );
 };

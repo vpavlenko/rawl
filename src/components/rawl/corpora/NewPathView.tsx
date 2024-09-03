@@ -384,7 +384,11 @@ const NewPathView: React.FC<NewPathViewProps> = ({
         </ScrollableContent>
         {rawlProps && rawlProps.parsingResult && (
           <RawlContainer>
-            <Rawl {...rawlProps} measureStart={selectedMeasureStart} />
+            <Rawl
+              {...rawlProps}
+              measureStart={selectedMeasureStart}
+              isEmbedded={true}
+            />
           </RawlContainer>
         )}
       </PathContainer>

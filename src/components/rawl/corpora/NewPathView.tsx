@@ -300,6 +300,11 @@ const NewPathView: React.FC<NewPathViewProps> = ({
       "and measureStart:",
       measureStart,
     );
+
+    // Reset the MIDI player state before loading a new MIDI
+    resetMidiPlayerState();
+
+    // Then load the new MIDI
     handleSongClick(`f:${slug}`);
     setSelectedMeasureStart(measureStart);
   };

@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import ErrorBoundary from "../../ErrorBoundary";
@@ -83,10 +83,16 @@ const TopicCard = styled.div`
   box-sizing: border-box; // Include padding and border in the element's total width and height
 `;
 
-const TopicTitle = styled.h3`
+const TopicTitle = styled(Link)`
   font-size: 18px;
   margin: 0px 0px 10px 0px;
   color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  display: block; // Change from inline to block
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const ErrorMessage = styled.div`
@@ -329,13 +335,26 @@ const NewPathView: React.FC<NewPathViewProps> = ({
                 </HomeChapter>
               ) : (
                 chapterData[activeChapter].topics.map((topic) => (
-                  <TopicContainer>
+                  <TopicContainer key={topic.topic}>
                     <TopicTitle
-                      key={topic.topic}
+                      to={`/s/${encodeURIComponent(
+                        chapterData[activeChapter].chapter,
+                      )}/${encodeURIComponent(topic.topic)}`}
                       id={topic.topic}
-                      ref={(el) => (topicRefs.current[topic.topic] = el)}
+                      ref={(el: HTMLAnchorElement | null) => {
+                        if (el) {
+                          topicRefs.current[topic.topic] =
+                            el as unknown as HTMLDivElement;
+                        }
+                      }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleTopicSelect(topic.topic);
+                      }}
                     >
-                      {topic.topic.replace(/_/g, " ")}
+                      <div ref={(el) => (topicRefs.current[topic.topic] = el)}>
+                        {topic.topic.replace(/_/g, " ")}
+                      </div>
                     </TopicTitle>
                     <TopicCard>
                       {topic.snippets.map(({ snippet, slug }, index) => (

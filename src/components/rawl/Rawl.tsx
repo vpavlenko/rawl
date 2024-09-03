@@ -599,55 +599,71 @@ const Rawl: React.FC<{
         position: "relative",
         display: "flex",
         flexDirection: "column",
-        overflow: "hidden",
-        flexGrow: 1,
+        height: "100%", // Ensure it takes full height
+        overflow: "hidden", // Prevent scrolling on this container
       }}
     >
-      <div
-        key="innerLeftPanel"
-        style={{
-          margin: 0,
-          padding: 0,
-          position: "relative",
-          overflowX: "scroll",
-          overflowY: "scroll",
-          width: "100%",
-          height: "100%",
-          backgroundColor: "black",
-        }}
-        className="Rawl"
-      >
-        {slug && <CompositionTitle slug={slug} sourceUrl={sourceUrl} />}
-        {systemLayout === "merged" ? (
-          <MergedSystemLayout
-            {...systemLayoutProps}
-            enableManualRemeasuring={enableManualRemeasuring}
-            isEmbedded={isEmbedded}
-          />
-        ) : systemLayout === "stacked" ? (
-          <StackedSystemLayout
-            {...systemLayoutProps}
-            enableManualRemeasuring={enableManualRemeasuring}
-            isEmbedded={isEmbedded}
-          />
-        ) : (
-          <ErrorBoundary
-            fallback={<div>Error loading Frozen Notes Layout</div>}
-          >
-            <FrozenNotesLayout
-              {...systemLayoutProps}
-              saveAnalysis={saveAnalysis}
-            />
-          </ErrorBoundary>
-        )}
-      </div>
-      {!isEmbedded && (
-        <LayoutSelector
-          systemLayout={systemLayout}
-          setSystemLayout={setSystemLayout}
-          onCopyPath={handleCopyPath}
+      {isEmbedded && (
+        <div
+          style={{
+            borderTop: "0.5px solid #333",
+            flexShrink: 0,
+          }}
         />
       )}
+      <div
+        style={{
+          flexGrow: 1,
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          key="innerLeftPanel"
+          style={{
+            margin: 0,
+            padding: 0,
+            position: "relative",
+            overflowX: "scroll",
+            overflowY: "scroll",
+            flexGrow: 1,
+            backgroundColor: "black",
+          }}
+          className="Rawl"
+        >
+          {slug && <CompositionTitle slug={slug} sourceUrl={sourceUrl} />}
+          {systemLayout === "merged" ? (
+            <MergedSystemLayout
+              {...systemLayoutProps}
+              enableManualRemeasuring={enableManualRemeasuring}
+              isEmbedded={isEmbedded}
+            />
+          ) : systemLayout === "stacked" ? (
+            <StackedSystemLayout
+              {...systemLayoutProps}
+              enableManualRemeasuring={enableManualRemeasuring}
+              isEmbedded={isEmbedded}
+            />
+          ) : (
+            <ErrorBoundary
+              fallback={<div>Error loading Frozen Notes Layout</div>}
+            >
+              <FrozenNotesLayout
+                {...systemLayoutProps}
+                saveAnalysis={saveAnalysis}
+              />
+            </ErrorBoundary>
+          )}
+        </div>
+        {!isEmbedded && (
+          <LayoutSelector
+            systemLayout={systemLayout}
+            setSystemLayout={setSystemLayout}
+            onCopyPath={handleCopyPath}
+          />
+        )}
+      </div>
     </div>
   );
 };

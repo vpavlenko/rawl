@@ -1,7 +1,4 @@
-import {
-  faArrowUpRightFromSquare,
-  faCopy,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -13,7 +10,6 @@ import FrozenNotesLayout from "./FrozenNotesLayout";
 import {
   MergedSystemLayout,
   StackedSystemLayout,
-  SystemLayout,
   SystemLayoutProps,
 } from "./SystemLayout";
 import {
@@ -27,6 +23,7 @@ import {
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { corpora } from "./corpora/corpora";
 import { MouseHandlers } from "./getNoteRectangles";
+import LayoutSelector, { SystemLayout } from "./layouts/LayoutSelector";
 import { buildManualMeasuresAndBeats } from "./measures";
 import { ColoredNotesInVoices, Note, ParsingResult } from "./parseMidi";
 
@@ -584,21 +581,6 @@ const Rawl: React.FC<{
     ],
   );
 
-  const handleKeyPress = useCallback((e: KeyboardEvent) => {
-    if (e.key === "f") {
-      setSystemLayout((prevLayout) =>
-        prevLayout === "frozen" ? "merged" : "frozen",
-      );
-    }
-  }, []);
-
-  useEffect(() => {
-    registerKeyboardHandler("frozenLayoutSwitch", handleKeyPress);
-    return () => {
-      unregisterKeyboardHandler("frozenLayoutSwitch");
-    };
-  }, [registerKeyboardHandler, unregisterKeyboardHandler, handleKeyPress]);
-
   useEffect(() => {
     console.log("Rawl: measureStart changed", measureStart);
     if (measureStart !== undefined && measuresAndBeats) {
@@ -611,6 +593,14 @@ const Rawl: React.FC<{
       }
     }
   }, [measureStart, measuresAndBeats, analysis.measureRenumbering, seek]);
+
+  const handleCopyPath = useCallback(() => {
+    navigator.clipboard.writeText(
+      `"${location.pathname.substring(
+        location.pathname.lastIndexOf("/") + 1,
+      )}", `,
+    );
+  }, [location.pathname]);
 
   return (
     <div
@@ -658,67 +648,13 @@ const Rawl: React.FC<{
           </ErrorBoundary>
         )}
       </div>
-      <div
-        style={{
-          position: "fixed",
-          top: 40,
-          right: 0,
-          zIndex: 1000000,
-          backgroundColor: "black",
-          marginRight: 0,
-          padding: 10,
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <label key={"stacked"} className="inline">
-            <input
-              onChange={() => setSystemLayout("stacked")}
-              type="radio"
-              name="system-layout"
-              checked={systemLayout === "stacked"}
-              value={"stacked"}
-            />
-            ☰
-          </label>
-          <label key={"merged"} className="inline">
-            <input
-              onChange={() => setSystemLayout("merged")}
-              type="radio"
-              name="system-layout"
-              checked={systemLayout === "merged"}
-              value={"merged"}
-            />
-            █
-          </label>
-          <label key={"frozen"} className="inline">
-            <input
-              onChange={() => setSystemLayout("frozen")}
-              type="radio"
-              name="system-layout"
-              checked={systemLayout === "frozen"}
-              value={"frozen"}
-            />
-            🧊
-          </label>
-          <FontAwesomeIcon
-            icon={faCopy}
-            style={{
-              cursor: "pointer",
-              width: "15px",
-              color: "gray",
-              marginLeft: "10px",
-              marginTop: "10px",
-            }}
-            onClick={() =>
-              navigator.clipboard.writeText(
-                `"${location.pathname.substring(
-                  location.pathname.lastIndexOf("/") + 1,
-                )}", `,
-              )
-            }
-          />
-        </div>
-      </div>
+      <LayoutSelector
+        systemLayout={systemLayout}
+        setSystemLayout={setSystemLayout}
+        onCopyPath={handleCopyPath}
+        registerKeyboardHandler={registerKeyboardHandler}
+        unregisterKeyboardHandler={unregisterKeyboardHandler}
+      />
     </div>
   );
 };

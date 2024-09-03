@@ -32,9 +32,6 @@ const getAverageMidiNumber = (notes: Note[]) =>
         notes.length
     : Infinity;
 
-// TODO: rename "stacked" to "split" - semantically
-export type SystemLayout = "merged" | "stacked" | "frozen";
-
 export type MidiRange = [number, number];
 
 const getMidiRange = (notes: Note[], span?: SecondsSpan): MidiRange => {

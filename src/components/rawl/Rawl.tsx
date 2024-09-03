@@ -615,7 +615,7 @@ const Rawl: React.FC<{
       {isEmbedded && (
         <div
           style={{
-            borderTop: "0.5px solid #333",
+            borderTop: "1px solid #666",
             flexShrink: 0,
           }}
         />

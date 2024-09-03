@@ -3,8 +3,44 @@ import styled from "styled-components";
 import ChordStairs, { MODES } from "./ChordStairs";
 import CorpusSearch from "./CorpusSearch";
 import { PianoLegend } from "./PianoLegend";
+import landingLeftSideImage from "./landing_left_side.png";
+import landingRightSideImage from "./landing_right_side.png";
+
+const TopSection = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const Side = styled.div<{ sideImage: string }>`
+  flex-grow: 1;
+  background-size: cover;
+  background-position: center;
+  // Basic structure for the background-image, actual gradient will be defined in LeftSide and RightSide
+  background-image: url(${(props) => props.sideImage});
+`;
+
+const LeftSide = styled(Side)`
+  margin-right: 20px;
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 100%
+    ),
+    url(${(props) => props.sideImage});
+`;
+
+const RightSide = styled(Side)`
+  margin-left: 20px;
+  background-image: linear-gradient(
+      to left,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 1) 100%
+    ),
+    url(${(props) => props.sideImage});
+`;
 
 const Content = styled.div`
+  font-size: 16px;
   width: 900px; // Set a fixed width for the content
   margin: auto; // Center the content block horizontally within its container
 
@@ -47,72 +83,76 @@ const LegendAndMetaphorsContainer = styled.div`
 
 const NewLandingPage: React.FC = () => {
   return (
-    <Content>
-      <div
-        style={{
-          fontSize: 40,
-          fontFamily: "Verdana, serif",
-          marginTop: 40,
-          marginBottom: 30,
-          textAlign: "center",
-        }}
-      >
-        See Western music in 12 colors
-      </div>
-
-      <LegendAndMetaphorsContainer>
-        <div>
-          <PianoLegend />
+    <TopSection>
+      <LeftSide sideImage={landingLeftSideImage} />
+      <Content>
+        <div
+          style={{
+            fontSize: 40,
+            fontFamily: "Verdana, serif",
+            marginTop: 40,
+            marginBottom: 30,
+            textAlign: "center",
+          }}
+        >
+          See Western music in 12 colors
         </div>
-        <div>
-          <div
-            style={{
-              textAlign: "left",
-              display: "flex",
-              flexDirection: "column",
-              gap: 7,
-            }}
-          >
-            <span>
-              <span style={{ fontWeight: 900 }}>
-                the tonic note is always white
-              </span>
-            </span>
-            <span>
-              <span className="landing_gradient_green">
-                tonic chords have a green pitch
-              </span>
-            </span>
-            <span>
-              <span className="landing_gradient_cool">
-                predominants are in cool colors
-              </span>
-            </span>
-            <span>
-              <span className="landing_gradient_warm">
-                dominants are in warm colors
-              </span>
-            </span>
-            <span>
-              <span className="landing_gradient_bright">
-                major mode is brighter
-              </span>
-            </span>
-            <span>
-              <span className="landing_gradient_dark">
-                minor mode is darker
-              </span>
-            </span>
+
+        <LegendAndMetaphorsContainer>
+          <div>
+            <PianoLegend />
           </div>
-        </div>
-      </LegendAndMetaphorsContainer>
-      <ChordStairsContainer>
-        <ChordStairs mode={MODES[1]} />
-        <ChordStairs mode={MODES[0]} />
-      </ChordStairsContainer>
+          <div>
+            <div
+              style={{
+                textAlign: "left",
+                display: "flex",
+                flexDirection: "column",
+                gap: 7,
+              }}
+            >
+              <span>
+                <span style={{ fontWeight: 900 }}>
+                  the tonic note is always white
+                </span>
+              </span>
+              <span>
+                <span className="landing_gradient_green">
+                  tonic chords have a green pitch
+                </span>
+              </span>
+              <span>
+                <span className="landing_gradient_cool">
+                  predominants are in cool colors
+                </span>
+              </span>
+              <span>
+                <span className="landing_gradient_warm">
+                  dominants are in warm colors
+                </span>
+              </span>
+              <span>
+                <span className="landing_gradient_bright">
+                  major mode is brighter
+                </span>
+              </span>
+              <span>
+                <span className="landing_gradient_dark">
+                  minor mode is darker
+                </span>
+              </span>
+            </div>
+          </div>
+        </LegendAndMetaphorsContainer>
+        <ChordStairsContainer>
+          <ChordStairs mode={MODES[1]} />
+          <ChordStairs mode={MODES[0]} />
+        </ChordStairsContainer>
 
-      <CorpusSearch />
-    </Content>
+        <CorpusSearch />
+      </Content>
+      <RightSide sideImage={landingRightSideImage} />
+    </TopSection>
   );
 };
 

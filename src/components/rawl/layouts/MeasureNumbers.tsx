@@ -40,11 +40,11 @@ const InlineSnippets: React.FC<{
             key={start}
             style={{
               position: "absolute",
-              top: "-18px",
+              top: "-20px",
               left: `${left}px`,
               textAlign: "left",
               color: "#777",
-              fontSize: "10px",
+              fontSize: "11px",
               cursor: "pointer",
               display: "flex",
               flexDirection: "row",
@@ -71,10 +71,10 @@ const InlineSnippets: React.FC<{
                     lineHeight: "0.9",
                   }}
                 >
-                  <span style={{ color: "#666" }}>
+                  <span style={{ color: "#777" }}>
                     {chapter.replace(/_/g, " ")}
                   </span>
-                  <span style={{ color: "#aaa" }}>
+                  <span style={{ color: "#ccc" }}>
                     {topic.replace(/_/g, " ")}
                   </span>
                 </Link>

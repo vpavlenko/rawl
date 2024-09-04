@@ -1,5 +1,9 @@
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowUpRightFromSquare,
+  faLink,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import * as React from "react";
 import {
   useCallback,
@@ -105,7 +109,22 @@ export type RenumberMeasureCallback = (
 const CompositionTitle: React.FC<{
   slug: string;
   sourceUrl: string | null;
-}> = ({ slug, sourceUrl }) => {
+  onSourceUrlUpdate: (newUrl: string) => void;
+}> = ({ slug, sourceUrl, onSourceUrlUpdate }) => {
+  const [editedUrl, setEditedUrl] = useState(sourceUrl || "");
+
+  const handleSave = () => {
+    if (editedUrl !== sourceUrl) {
+      onSourceUrlUpdate(editedUrl);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSave();
+    }
+  };
+
   const formattedTitle = slug
     .replace(/---/g, " – ")
     .replace(/-/g, " ")
@@ -116,6 +135,9 @@ const CompositionTitle: React.FC<{
       .filter((corpus) => corpus.midis.includes(slug))
       .map((corpus) => corpus.slug);
   }, [slug]);
+
+  const searchQuery = encodeURIComponent(formattedTitle);
+  const museScoreUrl = `https://musescore.com/sheetmusic?sort=view_count&text=${searchQuery}`;
 
   return (
     <div
@@ -154,7 +176,7 @@ const CompositionTitle: React.FC<{
             )
           </span>
         )}
-        {sourceUrl && (
+        {sourceUrl ? (
           <a
             href={sourceUrl}
             target="_blank"
@@ -170,6 +192,40 @@ const CompositionTitle: React.FC<{
               style={{ width: "15px", marginLeft: "10px" }}
             />
           </a>
+        ) : (
+          <>
+            <input
+              type="text"
+              value={editedUrl}
+              onChange={(e) => setEditedUrl(e.target.value)}
+              onKeyDown={handleKeyDown}
+              onBlur={handleSave}
+              style={{
+                marginLeft: "10px",
+                fontSize: "0.8em",
+                width: "200px",
+                background: "rgba(255, 255, 255, 0.1)",
+                border: "none",
+                color: "white",
+                padding: "2px 5px",
+              }}
+              placeholder="Enter source URL"
+            />
+            <a
+              href={museScoreUrl}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                color: "gray",
+                textDecoration: "none",
+                cursor: "pointer",
+                marginLeft: "10px",
+              }}
+              title="Search on MuseScore"
+            >
+              <FontAwesomeIcon icon={faLink} />
+            </a>
+          </>
         )}
       </h1>
     </div>
@@ -210,7 +266,7 @@ const Rawl: React.FC<{
   isEmbedded = false,
 }) => {
   const location = useLocation();
-  const { currentMidi } = useContext(AppContext);
+  const { currentMidi, setCurrentMidi } = useContext(AppContext);
   const slug = currentMidi?.slug || "";
 
   useEffect(() => {
@@ -602,6 +658,21 @@ const Rawl: React.FC<{
     );
   }, [location.pathname]);
 
+  const handleSourceUrlUpdate = async (newUrl: string) => {
+    if (currentMidi) {
+      const db = getFirestore();
+      const midiDocRef = doc(db, "midis", currentMidi.id);
+
+      try {
+        await updateDoc(midiDocRef, { url: newUrl });
+        setCurrentMidi({ ...currentMidi, sourceUrl: newUrl });
+      } catch (error) {
+        console.error("Error updating source URL:", error);
+        alert("Failed to update source URL. Please try again.");
+      }
+    }
+  };
+
   return (
     <div
       style={{
@@ -671,7 +742,13 @@ const Rawl: React.FC<{
           }}
           className="Rawl"
         >
-          {slug && <CompositionTitle slug={slug} sourceUrl={sourceUrl} />}
+          {slug && (
+            <CompositionTitle
+              slug={slug}
+              sourceUrl={sourceUrl}
+              onSourceUrlUpdate={handleSourceUrlUpdate}
+            />
+          )}
           {systemLayout === "merged" ? (
             <MergedSystemLayout
               {...systemLayoutProps}

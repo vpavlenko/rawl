@@ -188,7 +188,9 @@ const Measure: React.FC<{
               color: "white",
               position: "absolute",
               top: -2,
-              left: left + (previousTonic === null ? 18 : 30),
+              left:
+                left +
+                (previousTonic === null ? String(number).length * 8 + 10 : 30),
               fontSize: 12,
               zIndex: 100,
               fontWeight: 700,

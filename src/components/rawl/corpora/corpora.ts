@@ -2385,6 +2385,15 @@ export const corpora: Corpora[] = [
     slug: "three_part_harmony",
     midis: ["yksin-op.29b-no.4---toivo-kuula", "ekialde-dantza"],
   },
+
+  {
+    slug: "dario_marianelli",
+    midis: [
+      "Dawn_Pride_and_Prejudice",
+      "liz-on-top-of-the-world",
+      "your-hands-are-cold-from-pride-and-prejudice-2005-soundtrack",
+    ],
+  },
   {
     slug: "poulenc",
     midis: ["poulenc-melancolie-piano-solo"],

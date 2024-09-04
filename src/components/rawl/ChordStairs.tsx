@@ -64,7 +64,7 @@ export const CHORDS = {
 } as const;
 export type Chord = keyof typeof CHORDS;
 
-const NOTE_HEIGHT = 5;
+const NOTE_HEIGHT = 4;
 const NOTE_WIDTH = 40;
 const HORIZONTAL_GAP = 12;
 const DISABLED_OPACITY = 0.2;
@@ -158,7 +158,7 @@ const ChordStairs: React.FC<{ mode: Mode }> = React.memo(({ mode }) => {
         width: numChords * NOTE_WIDTH + (numChords - 1) * HORIZONTAL_GAP,
         height: height * NOTE_HEIGHT,
         position: "relative",
-        fontSize: 24,
+        fontSize: 20,
       }}
     >
       <div

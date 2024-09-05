@@ -3,10 +3,12 @@ import styled from "styled-components";
 import { Snippet, rehydrateSnippet } from "./analysis";
 import EnhancedFrozenNotes from "./FrozenNotes";
 
-const SnippetItemContainer = styled.div`
+const PX_IN_MEASURE = 100;
+
+const SnippetItemContainer = styled.div<{ width: number }>`
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: ${(props) => props.width}px;
   border-top: 1px solid #444;
   border-bottom: 1px solid #444;
   border-left: 1px solid #444;
@@ -107,17 +109,21 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     return [startTime, endTime] as [number, number];
   }, [snippet, paddedMeasuresAndBeats]);
 
+  const containerWidth = useMemo(() => {
+    return (rehydratedMeasuresAndBeats.measures.length - 1) * PX_IN_MEASURE;
+  }, [timeRange]);
+
   const toX = useCallback(
     (seconds: number) => {
       const normalizedTime =
         (seconds - timeRange[0]) / (timeRange[1] - timeRange[0]);
-      return isNaN(normalizedTime) ? 0 : normalizedTime * 400; // Map to 0..400px, default to 0 if NaN
+      return isNaN(normalizedTime) ? 0 : normalizedTime * containerWidth; // Use containerWidth instead of 400
     },
-    [timeRange],
+    [timeRange, containerWidth],
   );
 
   return (
-    <SnippetItemContainer>
+    <SnippetItemContainer width={containerWidth}>
       {!isPreview && (
         <SnippetHeader>
           <span>
@@ -137,7 +143,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
         <EnhancedFrozenNotes
           notes={rehydratedNotes}
           midiNumberToY={snippetMidiNumberToY}
-          maxWidth={400}
+          maxWidth={containerWidth}
           analysis={rehydratedAnalysis}
           measuresAndBeats={paddedMeasuresAndBeats}
           noteHeight={noteHeight}

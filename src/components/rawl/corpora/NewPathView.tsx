@@ -293,20 +293,33 @@ const NewPathView: React.FC<NewPathViewProps> = ({
     };
   }, [chapterData, activeChapter]);
 
-  const handleMidiClick = (slug: string, measureStart: number) => {
+  const handleMidiClick = (
+    slug: string,
+    measureStart: number,
+    topic: string,
+  ) => {
     console.log(
       "handleMidiClick called with slug:",
       slug,
-      "and measureStart:",
+      "measureStart:",
       measureStart,
+      "and topic:",
+      topic,
     );
 
     // Reset the MIDI player state before loading a new MIDI
     resetMidiPlayerState();
 
-    // Then load the new MIDI
+    // Load the new MIDI
     handleSongClick(`f:${slug}`);
     setSelectedMeasureStart(measureStart);
+
+    // Scroll to the topic
+    setActiveTopic(topic);
+    topicRefs.current[topic]?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   useEffect(() => {
@@ -375,7 +388,11 @@ const NewPathView: React.FC<NewPathViewProps> = ({
                         <ClickableContainer
                           key={index}
                           onClick={() =>
-                            handleMidiClick(slug, snippet.measuresSpan[0])
+                            handleMidiClick(
+                              slug,
+                              snippet.measuresSpan[0],
+                              topic.topic,
+                            )
                           }
                         >
                           <MidiButton>

@@ -275,6 +275,12 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
       const newValue = e.target.value;
       const newRange = [...inputRange] as [string, string];
       newRange[index] = newValue;
+
+      // If measureStart > measureEnd, set measureEnd := measureStart
+      if (index === 0 && parseInt(newValue, 10) > parseInt(newRange[1], 10)) {
+        newRange[1] = newValue;
+      }
+
       setInputRange(newRange);
 
       if (newValue !== "") {

@@ -49,6 +49,9 @@ const ChapterButton = styled.button<{ active: boolean }>`
   border: none;
   cursor: pointer;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px; // Adjust this value as needed
 `;
 
 const ContentArea = styled.div<{ isRawlVisible: boolean }>`
@@ -68,7 +71,8 @@ const ChapterSection = styled.div`
 `;
 
 const TopicContainer = styled.div`
-  margin: 20px 0px 20px 0px;
+  margin: 0; // Remove the top and bottom margin
+  padding: 20px 0; // Add padding instead of margin for spacing
 `;
 
 const TopicCard = styled.div`
@@ -93,6 +97,14 @@ const TopicTitle = styled(Link)`
   &:hover {
     text-decoration: underline;
   }
+`;
+
+const StickyTopicTitle = styled(TopicTitle)`
+  position: sticky;
+  top: 0;
+  background-color: #1a1a1a;
+  z-index: 100000;
+  padding: 10px 0;
 `;
 
 const ErrorMessage = styled.div`
@@ -272,27 +284,6 @@ const NewPathView: React.FC<NewPathViewProps> = ({
     });
   };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveTopic(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.5 },
-    );
-
-    Object.values(topicRefs.current).forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [chapterData, activeChapter]);
-
   const handleMidiClick = (
     slug: string,
     measureStart: number,
@@ -326,6 +317,65 @@ const NewPathView: React.FC<NewPathViewProps> = ({
     setIsRawlVisible(!!currentMidi);
   }, [currentMidi]);
 
+  const [stickyTopic, setStickyTopic] = useState<string | null>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const topic = entry.target.id;
+          if (entry.isIntersecting && entry.boundingClientRect.top <= 1) {
+            // Check if the top of the element is at or above the top of the viewport
+            setStickyTopic(topic);
+          } else if (
+            stickyTopic === topic &&
+            entry.boundingClientRect.top > 1
+          ) {
+            // Find the next visible topic when the current sticky topic is scrolled out of view
+            const nextVisibleTopic = Object.keys(topicRefs.current).find(
+              (t) => {
+                const ref = topicRefs.current[t];
+                return ref && ref.getBoundingClientRect().top <= 1;
+              },
+            );
+            setStickyTopic(nextVisibleTopic || null);
+          }
+        });
+      },
+      { threshold: [0, 1], rootMargin: "-1px 0px 0px 0px" },
+    );
+
+    Object.values(topicRefs.current).forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [chapterData, activeChapter, stickyTopic]);
+
+  const TopicTitleWithSticky: React.FC<{ topic: string }> = ({ topic }) => {
+    return (
+      <StickyTopicTitle
+        to={`/s/${encodeURIComponent(
+          chapterData[activeChapter].chapter,
+        )}/${encodeURIComponent(topic)}`}
+        id={topic}
+        ref={(el: HTMLAnchorElement | null) => {
+          if (el) {
+            topicRefs.current[topic] = el as unknown as HTMLDivElement;
+          }
+        }}
+        onClick={(e) => {
+          e.preventDefault();
+          handleTopicSelect(topic);
+        }}
+      >
+        <div>{topic.replace(/_/g, " ")}</div>
+      </StickyTopicTitle>
+    );
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -345,6 +395,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({
                   key={chapter.chapter}
                   active={index === activeChapter}
                   onClick={() => handleChapterSelect(index)}
+                  title={chapter.chapter.replace(/_/g, " ")} // Add this line for tooltip
                 >
                   {chapter.chapter.replace(/_/g, " ")}
                 </ChapterButton>
@@ -361,55 +412,43 @@ const NewPathView: React.FC<NewPathViewProps> = ({
                   <NewLandingPage />
                 </HomeChapter>
               ) : (
-                chapterData[activeChapter].topics.map((topic) => (
-                  <TopicContainer key={topic.topic}>
-                    <TopicTitle
-                      to={`/s/${encodeURIComponent(
-                        chapterData[activeChapter].chapter,
-                      )}/${encodeURIComponent(topic.topic)}`}
-                      id={topic.topic}
-                      ref={(el: HTMLAnchorElement | null) => {
-                        if (el) {
-                          topicRefs.current[topic.topic] =
-                            el as unknown as HTMLDivElement;
-                        }
-                      }}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleTopicSelect(topic.topic);
-                      }}
-                    >
-                      <div ref={(el) => (topicRefs.current[topic.topic] = el)}>
-                        {topic.topic.replace(/_/g, " ")}
-                      </div>
-                    </TopicTitle>
-                    <TopicCard>
-                      {topic.snippets.map(({ snippet, slug }, index) => (
-                        <ClickableContainer
-                          key={index}
-                          onClick={() =>
-                            handleMidiClick(
-                              slug,
-                              snippet.measuresSpan[0],
-                              topic.topic,
-                            )
-                          }
-                        >
-                          <MidiButton>
-                            {slug
-                              .replace(/---/g, " – ")
-                              .replace(/-/g, " ")
-                              .replace(/_/g, " ")}
-                          </MidiButton>
-                          <SnippetsForTopic
-                            snippets={[snippet]}
-                            noteHeight={3}
-                          />
-                        </ClickableContainer>
-                      ))}
-                    </TopicCard>
-                  </TopicContainer>
-                ))
+                <>
+                  {stickyTopic && (
+                    <StickyTopicTitle as="div">
+                      {stickyTopic.replace(/_/g, " ")}
+                    </StickyTopicTitle>
+                  )}
+                  {chapterData[activeChapter].topics.map((topic) => (
+                    <TopicContainer key={topic.topic}>
+                      <TopicTitleWithSticky topic={topic.topic} />
+                      <TopicCard>
+                        {topic.snippets.map(({ snippet, slug }, index) => (
+                          <ClickableContainer
+                            key={index}
+                            onClick={() =>
+                              handleMidiClick(
+                                slug,
+                                snippet.measuresSpan[0],
+                                topic.topic,
+                              )
+                            }
+                          >
+                            <MidiButton>
+                              {slug
+                                .replace(/---/g, " – ")
+                                .replace(/-/g, " ")
+                                .replace(/_/g, " ")}
+                            </MidiButton>
+                            <SnippetsForTopic
+                              snippets={[snippet]}
+                              noteHeight={3}
+                            />
+                          </ClickableContainer>
+                        ))}
+                      </TopicCard>
+                    </TopicContainer>
+                  ))}
+                </>
               )}
             </ChapterSection>
           </ContentArea>

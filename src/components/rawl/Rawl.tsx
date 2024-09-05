@@ -145,7 +145,7 @@ const CompositionTitle: React.FC<{
         padding: "10px",
         backgroundColor: "rgba(0, 0, 0, 0.8)",
         color: "white",
-        fontSize: "1.2em",
+        fontSize: "16px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",

@@ -2669,7 +2669,7 @@ export const corpora: Corpora[] = [
       "chopin_ballade_no_1_in_g_minor_op_23",
       "Dawn_Pride_and_Prejudice",
       "congratulations---mac-miller",
-      "Schindlers_List",
+      // "Schindlers_List",
       "theme-from-schindler-s-list---piano-solo",
       "g-minor-bach",
       "kimi-no-na-wa---sparkle-theishter-2016",

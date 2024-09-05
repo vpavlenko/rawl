@@ -137,7 +137,7 @@ const RawlContainer = styled.div`
   right: 0;
   height: 50vh;
   background-color: #000;
-  z-index: 1000;
+  z-index: 200000;
   overflow: auto; // Enable scrolling
 `;
 

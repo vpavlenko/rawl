@@ -12,7 +12,6 @@ const SnippetListContainer = styled.div`
 
 const SnippetItemWrapper = styled.div`
   flex: 0 0 auto;
-  width: 400px;
   margin-bottom: 20px; // Add vertical spacing between rows
 `;
 

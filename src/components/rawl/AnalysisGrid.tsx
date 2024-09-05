@@ -42,12 +42,12 @@ export const Cursor = styled(VerticalBar)`
 
 const MeasureBar = styled(VerticalBar)`
   background-color: #444;
-  z-index: 1; // Lower z-index
+  z-index: 1;
 `;
 
 const BeatBar = styled(VerticalBar)`
-  border-left: 1px dashed #333;
-  z-index: 1; // Lower z-index
+  border-left: 0.5px dashed #333;
+  z-index: 1;
 `;
 
 export type MeasureSelection = {

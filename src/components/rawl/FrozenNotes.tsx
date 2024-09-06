@@ -7,16 +7,13 @@ import { ColoredNote, Note } from "./parseMidi";
 import { getNoteColor } from "./Rawl";
 import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
 
-interface FrozenNotesProps {
+interface EnhancedFrozenNotesProps {
   notes: Note[][];
   toX: (seconds: number) => number;
   midiNumberToY: (midiNumber: number) => number;
   maxWidth: number;
   noteHeight: number;
   timeRange: [number, number];
-}
-
-interface EnhancedFrozenNotesProps extends FrozenNotesProps {
   analysis: Analysis;
   measuresAndBeats: MeasuresAndBeats;
   startMeasure: number;
@@ -32,59 +29,6 @@ const HeaderStaff = styled.div`
   height: 16px;
   margin-bottom: 0px;
 `;
-
-const FrozenNotes: React.FC<FrozenNotesProps> = ({
-  notes,
-  toX,
-  midiNumberToY,
-  maxWidth,
-  noteHeight,
-}) => {
-  const midiRange = useMemo(() => {
-    let min = Infinity;
-    let max = -Infinity;
-    notes.forEach((voiceNotes) => {
-      voiceNotes.forEach((note) => {
-        const midiNumber = note.note.midiNumber;
-        min = Math.min(min, midiNumber);
-        max = Math.max(max, midiNumber);
-      });
-    });
-    return [min, max];
-  }, [notes]);
-
-  const height = (midiRange[1] - midiRange[0] + 2) * noteHeight;
-
-  const getNoteRectangles = useCallback(
-    (notes: ColoredNote[]) =>
-      getSystemNoteRectangles(
-        notes,
-        midiNumberToY,
-        noteHeight,
-        () => {}, // handleNoteClick
-        () => {}, // handleMouseEnter
-        () => {}, // handleMouseLeave
-        toX,
-        false, // enableManualRemeasuring
-      ),
-    [midiNumberToY, noteHeight, toX],
-  );
-
-  return (
-    <div
-      style={{
-        position: "relative",
-        height: `${height}px`,
-        width: `${maxWidth}px`,
-        overflow: "hidden",
-      }}
-    >
-      {notes.map((voiceNotes, index) => (
-        <div key={index}>{getNoteRectangles(voiceNotes as ColoredNote[])}</div>
-      ))}
-    </div>
-  );
-};
 
 const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
   notes,
@@ -120,7 +64,22 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
         isActive: true,
       })),
     );
-  }, [notes, analysis, measuresAndBeats.measures, startMeasure]);
+  }, [notes, analysis, measuresAndBeats.measures]);
+
+  const getNoteRectangles = useCallback(
+    (notes: ColoredNote[]) =>
+      getSystemNoteRectangles(
+        notes,
+        midiNumberToY,
+        noteHeight,
+        () => {}, // handleNoteClick
+        () => {}, // handleMouseEnter
+        () => {}, // handleMouseLeave
+        toX,
+        false, // enableManualRemeasuring
+      ),
+    [midiNumberToY, noteHeight, toX],
+  );
 
   const dummyMeasureSelection = useMemo(
     () => ({
@@ -138,6 +97,12 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
     const endMeasure = measuresAndBeats.measures.length - 1;
     return [paddingLength, endMeasure];
   }, [startMeasure, measuresAndBeats.measures.length]);
+
+  const memoizedNoteRectangles = useMemo(() => {
+    return adjustedNotes.map((voiceNotes) =>
+      getNoteRectangles(voiceNotes as ColoredNote[]),
+    );
+  }, [adjustedNotes, getNoteRectangles]);
 
   return (
     <FrozenNotesContainer>
@@ -177,14 +142,18 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           secondsToX={toX}
           sectionSpan={sectionSpan}
         />
-        <FrozenNotes
-          notes={adjustedNotes as ColoredNote[][]}
-          toX={toX}
-          midiNumberToY={midiNumberToY}
-          maxWidth={maxWidth}
-          noteHeight={noteHeight}
-          timeRange={timeRange}
-        />
+        <div
+          style={{
+            position: "relative",
+            height: `${height}px`,
+            width: `${maxWidth}px`,
+            overflow: "hidden",
+          }}
+        >
+          {memoizedNoteRectangles.map((voiceRectangles, index) => (
+            <div key={index}>{voiceRectangles}</div>
+          ))}
+        </div>
       </div>
     </FrozenNotesContainer>
   );

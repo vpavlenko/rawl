@@ -458,13 +458,34 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
 
   const deleteSnippet = useCallback(
     (index: number) => {
+      const snippetToDelete = analysis.snippets?.[index];
       const updatedAnalysis: Analysis = {
         ...analysis,
         snippets: (analysis.snippets || []).filter((_, i) => i !== index),
       };
       saveAnalysis(updatedAnalysis);
+
+      // Set the measure range of the deleted snippet into input fields
+      if (snippetToDelete && snippetToDelete.measuresSpan) {
+        const [start, end] = snippetToDelete.measuresSpan;
+        setInputRange([start.toString(), end.toString()]);
+        setDataRange([start, end]);
+      }
+
+      // Clear the tag name
+      setTagName(null);
+
+      // Set unsaved changes to true
+      setUnsavedChanges(true);
+
+      // Set focus to the tag input
+      setTimeout(() => {
+        if (selectRef.current) {
+          selectRef.current.focus();
+        }
+      }, 0);
     },
-    [analysis, saveAnalysis],
+    [analysis, saveAnalysis, setInputRange, setDataRange],
   );
 
   const copyToClipboard = useCallback(() => {

@@ -231,6 +231,23 @@ interface FrozenNotesLayoutProps extends SystemLayoutProps {
   saveAnalysis: (analysis: Analysis) => void;
 }
 
+// Add this new function to count tag occurrences
+const countTagOccurrences = (
+  analyses: Record<string, Analysis>,
+): Record<string, number> => {
+  const tagCounts: Record<string, number> = {};
+  Object.values(analyses).forEach((analysis) => {
+    if (analysis.snippets) {
+      analysis.snippets.forEach((snippet) => {
+        if (snippet.tag) {
+          tagCounts[snippet.tag] = (tagCounts[snippet.tag] || 0) + 1;
+        }
+      });
+    }
+  });
+  return tagCounts;
+};
+
 const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
   frozenNotes,
   measuresAndBeats,
@@ -462,6 +479,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
 
   const allTags = useMemo(() => {
     const tagSet = new Set<string>();
+    const tagCounts = countTagOccurrences(analyses);
     Object.values(analyses).forEach((analysis) => {
       if (analysis.snippets) {
         analysis.snippets.forEach((snippet) => {
@@ -471,7 +489,10 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
         });
       }
     });
-    return Array.from(tagSet).map((tag) => ({ value: tag, label: tag }));
+    return Array.from(tagSet).map((tag) => ({
+      value: tag,
+      label: `${tag} (${tagCounts[tag]})`,
+    }));
   }, [analyses]);
 
   const rehydratedSnippet = useMemo(() => {

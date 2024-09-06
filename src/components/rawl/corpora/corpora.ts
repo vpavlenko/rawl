@@ -1603,6 +1603,7 @@ export const corpora: Corpora[] = [
   {
     slug: "john_williams",
     midis: [
+      "john-william---jurassic-park-theme",
       "jurassic-park-theme---john-williams-jurrasic-park-theme---john-williams",
       "somewhere-in-my-memory-by-john-williams",
       "theme-from-schindler-s-list---piano-solo",
@@ -2733,6 +2734,23 @@ export const corpora: Corpora[] = [
       "marshmello-ft.-bastille---happier",
       "kamado-tanjiro-no-uta-~-demon-slayer-ep-19-ed-ost-fonzi-m-improvised-hard-version",
       "senorita---shawn-mendes-camilla-cabello",
+      "demons-imagine-dragons",
+      "easy-on-me---adele",
+      "bluestone-alley-piano-tiles-2",
+      "rihanna-ft.-mikky-echo---stay",
+      "olivia-rodrigo---drivers-license",
+      "forest-gump---main-title-feather-theme",
+      "the-avengers-theme---piano",
+      "hall-of-fame",
+      "rush-e-but-it-s-as-difficult-as-humanly-possible",
+      "Let_It_Go_Disney_Frozen",
+      "john-william---jurassic-park-theme",
+      "always-with-me-piano-cover.",
+      "spring-day---bts",
+      // "river_flows_in_you_yiruma_10th_anniversary_version_piano",
+      "lost-boy---ruth-b",
+      "itsumo-nando-demo-always-with-me---spirited-away",
+      "fix-you---coldplay",
     ],
   },
   {
@@ -2788,7 +2806,6 @@ export const corpora: Corpora[] = [
 
       "Lena_Raine_Pigstep",
 
-      "Let_It_Go_Disney_Frozen",
       "Liana_Flores_Rises_the_Moon",
 
       "Love_Store_Francis_Lai",
@@ -2956,7 +2973,7 @@ export const corpora: Corpora[] = [
       "pyos",
 
       "reverie_galimberti",
-      "river_flows_in_you_yiruma_10th_anniversary_version_piano",
+
       "roumen-sirakov-s-daichevo",
       "rumores-de-la-caleta-malaguena",
 

@@ -126,17 +126,17 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     <SnippetItemContainer width={containerWidth}>
       {!isPreview && (
         <SnippetHeader>
-          <span>
-            {snippet.tag}{" "}
-            <span style={{ color: "gray" }}>
-              {snippet.measuresSpan.join("..")}
-            </span>
-          </span>
           {deleteSnippet && (
             <DeleteButton onClick={() => deleteSnippet(index)}>
               Delete
             </DeleteButton>
           )}
+          <span>
+            {snippet.tag.replace(":", ": ")}{" "}
+            <span style={{ color: "gray" }}>
+              {snippet.measuresSpan.join("..")}
+            </span>
+          </span>
         </SnippetHeader>
       )}
       <SnippetContent>

@@ -561,7 +561,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
         <FrozenNotesDisplay>
           <h2>Frozen Notes</h2>
           <RangeInputs>
-            <label>Measures:</label>
+            <label>Measures:&nbsp;</label>
             <NumberInput
               ref={measureStartRef}
               type="number"
@@ -571,7 +571,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
               onChange={handleRangeChange(0)}
               onBlur={handleRangeBlur(0)}
             />
-            <span>to</span>
+            <span>to&nbsp;</span>
             <NumberInput
               type="number"
               min="1"
@@ -580,27 +580,25 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
               onChange={handleRangeChange(1)}
               onBlur={handleRangeBlur(1)}
             />
-            <label>
-              Tag:
-              <StyledSelect
-                ref={selectRef}
-                value={tagName}
-                onChange={(selectedOption, actionMeta) => {
-                  handleSelectChange(selectedOption, actionMeta);
-                  setUnsavedChanges(true);
-                }}
-                options={allTags}
-                isClearable
-                placeholder="Select or create a tag"
-                theme={selectTheme}
-                styles={selectStyles}
-                components={customComponents}
-                menuIsOpen={menuIsOpen}
-                onMenuOpen={() => setMenuIsOpen(true)}
-                onMenuClose={() => setMenuIsOpen(false)}
-                onBlur={() => setMenuIsOpen(false)}
-              />
-            </label>
+
+            <StyledSelect
+              ref={selectRef}
+              value={tagName}
+              onChange={(selectedOption, actionMeta) => {
+                handleSelectChange(selectedOption, actionMeta);
+                setUnsavedChanges(true);
+              }}
+              options={allTags}
+              isClearable
+              placeholder="Select or create a tag"
+              theme={selectTheme}
+              styles={selectStyles}
+              components={customComponents}
+              menuIsOpen={menuIsOpen}
+              onMenuOpen={() => setMenuIsOpen(true)}
+              onMenuClose={() => setMenuIsOpen(false)}
+              onBlur={() => setMenuIsOpen(false)}
+            />
           </RangeInputs>
           {error && <ErrorMessage>{error}</ErrorMessage>}
           {tagError && <ErrorMessage>{tagError}</ErrorMessage>}

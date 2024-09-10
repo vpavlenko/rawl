@@ -308,19 +308,21 @@ export const StackedSystemLayout: React.FC<
     const targetWidthPercentage = 0.92;
     const targetWidth = viewportWidth * targetWidthPercentage;
 
-    const longestSection = sectionSpans
-      .filter((span) => span[1] - span[0] < 25)
-      .reduce((longest, current) => {
-        const currentLength =
-          measuresAndBeats.measures[current[1]] -
-          measuresAndBeats.measures[current[0]];
-        const longestLength =
-          measuresAndBeats.measures[longest[1]] -
-          measuresAndBeats.measures[longest[0]];
-        return currentLength > longestLength ? current : longest;
-      }, sectionSpans[0]);
+    const annotatedSections = sectionSpans.filter(
+      (span) => span[1] - span[0] < 25,
+    );
 
-    if (longestSection && longestSection[1] - longestSection[0] < 25) {
+    const longestSection = annotatedSections.reduce((longest, current) => {
+      const currentLength =
+        measuresAndBeats.measures[current[1]] -
+        measuresAndBeats.measures[current[0]];
+      const longestLength =
+        measuresAndBeats.measures[longest[1]] -
+        measuresAndBeats.measures[longest[0]];
+      return currentLength > longestLength ? current : longest;
+    }, sectionSpans[0]);
+
+    if (longestSection && annotatedSections.length > 1) {
       const longestSectionLength =
         measuresAndBeats.measures[longestSection[1]] -
         measuresAndBeats.measures[longestSection[0]];

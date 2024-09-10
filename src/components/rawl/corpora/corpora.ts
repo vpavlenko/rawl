@@ -90,6 +90,10 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "tomohito_nishiura",
+    midis: ["professor-layton-s-theme---piano"],
+  },
+  {
     slug: "david_lanz",
     midis: [
       "cristofari-s-dream",
@@ -882,7 +886,19 @@ export const corpora: Corpora[] = [
   },
   {
     slug: "bill_evans",
-    midis: ["bill-evans-on-autunm-leaves-from-the-album-portrait-in-jazz"],
+    midis: [
+      "bill-evans-on-autunm-leaves-from-the-album-portrait-in-jazz",
+      "remembering-the-rain---bill-evans",
+      "danny-boy-bill-evans-ver.",
+      "bill-evans---waltz-for-debby-medium",
+    ],
+  },
+  {
+    slug: "karsten_obarski",
+    midis: [
+      "oil-imperium-ingame-music-action-1---karsten-obarski",
+      "oil-imperium-title-music---karsten-obarski",
+    ],
   },
   {
     slug: "jules_massenet",
@@ -892,6 +908,13 @@ export const corpora: Corpora[] = [
       "avril-est-amoureux---jules-massenet---arr.-for-flute-and-harp",
       "musique-pour-bercer-les-petits-enfants-lullaby-jules-massenet---for-melodica-and-harmonium",
       "elegie---jules-massenet---version-for-voice-cello-and-piano",
+    ],
+  },
+  {
+    slug: "cardiacs",
+    midis: [
+      "cardiacs---tarred-and-feathered-for-solo-piano",
+      "cardiacs---in-a-city-lining-for-solo-piano",
     ],
   },
   {
@@ -1088,6 +1111,14 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "gari_biasillo",
+    midis: [
+      "target-renegade-main-theme---gari-biasillo",
+      "target-renegade-level-3-music---gari-biasillo",
+      "target-renegade-end-theme---gari-biasillo",
+    ],
+  },
+  {
     slug: "modern_composers_of_single_pieces",
     midis: [
       "gray",
@@ -1100,6 +1131,8 @@ export const corpora: Corpora[] = [
       "mighty-morphin-power-rangers-sheet-music-easy-piano",
       "digimon-main-theme-organ-cover",
       "vizisi",
+      "lost-patrol-main-theme---chris-glaister-jonathan-dunn",
+      "none-of-them-knew-they-were-robots---mr.-bungle-mostly",
     ],
   },
   {
@@ -2329,6 +2362,14 @@ export const corpora: Corpora[] = [
       "peaches-from-super-mario-bros-movie-for-violin---brian-tyler-jack-blackman",
       "theme-from-rambo-brian-tyler",
     ],
+  },
+  {
+    slug: "miki higashino",
+    midis: ["reminiscence---suikoden-2"],
+  },
+  {
+    slug: "rob_hubbard",
+    midis: ["monty-on-the-run"],
   },
   {
     slug: "jeremy_soule",

@@ -1231,6 +1231,10 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "j_p_ahmad",
+    midis: ["castlemania", "ninja-runner", "super-bounce"],
+  },
+  {
     slug: "akira_yamaoka",
     midis: [
       "akira-yamaoka---silent-hill-2---promise-reprise",
@@ -1257,6 +1261,8 @@ export const corpora: Corpora[] = [
       "blue-monk-piano",
       "round-midnight---thelonious-monk",
       "footprints.mscz",
+      "satin-doll",
+      "lady_bird_piano_solo",
     ],
   },
   {
@@ -2364,8 +2370,8 @@ export const corpora: Corpora[] = [
     ],
   },
   {
-    slug: "miki higashino",
-    midis: ["reminiscence---suikoden-2"],
+    slug: "miki_higashino_sukoiden_2",
+    midis: ["reminiscence---suikoden-2", "two-rivers---suikoden-2"],
   },
   {
     slug: "rob_hubbard",

@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import ChordStairs, { MODES } from "./ChordStairs";
 import CorpusSearch from "./CorpusSearch";
+import Index from "./Index";
 import { PianoLegend } from "./PianoLegend";
 import landingLeftSideImage from "./landing_left_side.png";
 import landingRightSideImage from "./landing_right_side.png";
@@ -150,6 +151,7 @@ const NewLandingPage: React.FC = () => {
         </ChordStairsContainer>
 
         <CorpusSearch />
+        <Index />
       </Content>
       <RightSide sideImage={landingRightSideImage} />
     </TopSection>

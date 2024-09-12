@@ -314,6 +314,7 @@ export const corpora: Corpora[] = [
     midis: [
       "bach-goldberg-variation-00-aria",
       "bwv0565-toccata-and-fugue-in-dm-c",
+      "prelude-no.-2-bwv-847-in-c-minor",
     ],
   },
   {
@@ -2687,7 +2688,7 @@ export const corpora: Corpora[] = [
       "Fallen_Down_Undertale",
       "Omori_Duet",
       "Never_Gonna_Give_You_Up",
-      "Despacito",
+      // "Despacito",
       "despacito-piano-cover-peter-bence",
       "Summer_Joe_Hisaishi",
       "arabesque-l.-66-no.-1-in-e-major",
@@ -2713,6 +2714,7 @@ export const corpora: Corpora[] = [
       "mariage-d-amour---paul-de-senneville-marriage-d-amour",
       "Maple_Leaf_Rag_Scott_Joplin",
       "the-office-opening-theme",
+      "the-office---opening-titles-theme-song-for-piano",
       "Take_on_me",
       "chopin_ballade_no_1_in_g_minor_op_23",
       "Dawn_Pride_and_Prejudice",

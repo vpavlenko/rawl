@@ -314,7 +314,34 @@ export const corpora: Corpora[] = [
     midis: [
       "bach-goldberg-variation-00-aria",
       "bwv0565-toccata-and-fugue-in-dm-c",
+    ],
+  },
+  {
+    slug: "bach_wtc",
+    midis: [
+      "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
       "prelude-no.-2-bwv-847-in-c-minor",
+      "prelude-no.-3-bwv-848-in-c-major", // very regular
+      "prelude-no.-4-bwv-849-in-c-minor",
+      "prelude-no.-5-bwv-850-in-d-major",
+      "prelude-no.-6-bwv-851-in-d-minor",
+      "prelude-no.-7-bwv-852-in-e-major",
+      "prelude-no.-8-bwv-853-in-e-minor",
+      "prelude-no.-9-bwv-854-in-e-major",
+      "prelude-no.-10-bwv-855-in-e-minor",
+      "prelude-no.-11-bwv-856-in-f-major", // decent
+      "prelude-no.-12-bwv-857-in-f-minor",
+      "prelude-no.-13-bwv-858-in-f-major",
+      "prelude-no.-14-bwv-859-in-f-minor",
+      "prelude-no.-15-bwv-860-in-g-major",
+      "prelude-no.-16-bwv-861-in-g-minor",
+      "prelude-no.-17-bwv-862-in-a-major",
+      "prelude-no.-18-bwv-863-in-g-minor",
+      "prelude-no.-19-bwv-864-in-a-major",
+      "prelude-no.-20-bwv-865-in-a-minor",
+      "prelude-no.-21-bwv-866-in-b-major",
+      "prelude-no.-22-bwv-867-in-b-minor",
+      "prelude-no.-23-bwv-868-in-b-major",
     ],
   },
   {

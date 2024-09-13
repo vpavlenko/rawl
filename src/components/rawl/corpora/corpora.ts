@@ -342,6 +342,7 @@ export const corpora: Corpora[] = [
       "prelude-no.-21-bwv-866-in-b-major",
       "prelude-no.-22-bwv-867-in-b-minor",
       "prelude-no.-23-bwv-868-in-b-major",
+      "prelude-no.-24-bwv-869-in-b-minor",
     ],
   },
   {
@@ -1342,7 +1343,22 @@ export const corpora: Corpora[] = [
   },
   {
     slug: "boogie_woogie",
-    midis: [],
+    midis: [
+      "boogie-woogie",
+      "original-boogie-woogie",
+      "boogie-woogie---misc-traditional-boogie-woogie-_-basic-piano-solo-for-beginners",
+      "pine-top-s-boogie-woogie---transcription-of-take-b",
+      "suzan-boogie-woogie-in-c---easy-piano-riff---basic-boogie",
+      "boogie-blues-etude-1974---oscar-peterson-piano-solo-transcription",
+      "boogie-woogie---monday-struggle---by-albert-ammons",
+      "boogie-woogie-stomp",
+      "easy-boogie-woogie",
+      "lewis-boogie-rock-n-roll-piano-arrangement",
+      "surfboard-boogie",
+
+      "some-boogie-woogie-by-albert-ammons-friends",
+      "bumble-boogie---adapted-from-the-flight-of-the-bumble-bee",
+    ],
   },
   {
     slug: "martha_mier",

@@ -4,8 +4,11 @@ import {
   arrayUnion,
   collection,
   doc,
+  getDocs,
   getFirestore,
+  query,
   updateDoc,
+  where,
 } from "firebase/firestore/lite";
 import { Location } from "history";
 import * as React from "react";
@@ -41,9 +44,26 @@ const saveMidi = async (
   sourceUrl: string,
   midi: ArrayBuffer,
 ) => {
-  const slug = slugify(title);
-  const firestoreBlob = Bytes.fromUint8Array(new Uint8Array(midi));
+  let slug = slugify(title);
   const firestore = getFirestore();
+
+  // Check if the slug already exists
+  const checkSlugExists = async (slugToCheck: string) => {
+    const q = query(
+      collection(firestore, "midis"),
+      where("slug", "==", slugToCheck),
+    );
+    const querySnapshot = await getDocs(q);
+    return !querySnapshot.empty;
+  };
+
+  // If slug exists, append random characters
+  if (await checkSlugExists(slug)) {
+    const randomChars = Math.random().toString(16).substring(2, 8);
+    slug = `${slug}-${randomChars}`;
+  }
+
+  const firestoreBlob = Bytes.fromUint8Array(new Uint8Array(midi));
 
   const docRef = await addDoc(collection(firestore, "midis"), {
     blob: firestoreBlob,

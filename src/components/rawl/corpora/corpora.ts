@@ -123,6 +123,24 @@ export const corpora: Corpora[] = [
   },
   { slug: "machaut", midis: ["machaut---messe-de-nostre-dame---kyrie"] },
   {
+    slug: "ernesto_nazareth",
+    midis: [
+      "brejeiro---ernesto-nazareth",
+      "tango-habanera-vers-1925-by-ernesto-nazareth",
+    ],
+  },
+  {
+    slug: "georgian",
+    midis: [
+      "moxevis-k-alo-t-inao",
+      "c-angala-da-gogona",
+      "t-u-ase-turp-a-iqavi",
+      "nu-giqors-k-alav",
+      "mival-guriashi",
+      "kintouri",
+    ],
+  },
+  {
     // also https://musescore.com/sheetmusic?text=%D1%82%D0%B0%D0%BD%D0%B3%D0%BE&type=non-official
     // also https://musescore.com/sheetmusic?text=%E3%82%BF%E3%83%B3%E3%82%B4&type=non-official
     // also https://musescore.com/sheetmusic?text=%E6%8E%A2%E6%88%88&type=non-official
@@ -195,6 +213,7 @@ export const corpora: Corpora[] = [
       "Habanera_-_Piano_Solo_-_Georges_Bizet",
       "tango-lyubvi",
       "tango-do-k-f-12-stulev---o.-zacepin",
+      "underground_tango_goran_bregovic_string_quartet",
     ],
   },
   {
@@ -343,6 +362,10 @@ export const corpora: Corpora[] = [
       "prelude-no.-22-bwv-867-in-b-minor",
       "prelude-no.-23-bwv-868-in-b-major",
       "prelude-no.-24-bwv-869-in-b-minor",
+      "prelude-no.-1-bwv-870-in-c-major",
+      "prelude-no.-2-bwv-871-in-c-minor",
+      "prelude-no.-3-bwv-872-in-c-major",
+      "prelude-no.-4-bwv-873-in-c-minor",
     ],
   },
   {
@@ -1056,6 +1079,7 @@ export const corpora: Corpora[] = [
       "debussy---images-reflets-dans-leau",
       "claude-debussy---la-fille-aux-cheveux-de-lin",
       "prelude-l.-117-no.-6-in-d-minor---debussy",
+      "golliwog-s-cakewalk",
     ],
   },
   {
@@ -1085,6 +1109,13 @@ export const corpora: Corpora[] = [
       "kaqavik",
       "yar-jan-ari---komitas-vardapet",
       "a.03-01-vorti-assdoudzo-komitas",
+    ],
+  },
+  {
+    slug: "grant_kirkhope",
+    midis: [
+      "mid-boss-mayhem",
+      "the-phantom-of-the-bwahpera-act-1---mario-rabbids-kingdom-battle",
     ],
   },
   {
@@ -1145,6 +1176,49 @@ export const corpora: Corpora[] = [
       "target-renegade-main-theme---gari-biasillo",
       "target-renegade-level-3-music---gari-biasillo",
       "target-renegade-end-theme---gari-biasillo",
+    ],
+  },
+  {
+    slug: "zun_touhou",
+    midis: [],
+  },
+  {
+    slug: "edmund_fu",
+    midis: [
+      "dpsp-starting-wind---edmund-fu",
+      "yi-zhan-next-station---edmund-fu",
+    ],
+  },
+  {
+    slug: "farhan_sarasin",
+    midis: [
+      "original-reflect---gawr-gura---farhan-sarasin",
+      "id-entity-voices---hololive-idol-project",
+      "scent-from-voez",
+    ],
+  },
+  {
+    slug: "yoko_shimomura",
+    midis: [
+      "guile-s-theme-street-fighter-ii",
+      "beware-the-forest-s-mushrooms-forest-maze---super-mario-rpg---yoko-shimomura-piano",
+    ],
+  },
+  {
+    slug: "yasunori_mitsuda",
+    midis: [
+      "where-we-used-to-be---xenoblade-chronicles-2",
+      "xenoblade-chronicles-2---mor-ardain-~-roaming-the-wastes",
+      "xenoblade-2-one-last-you-piano-arrange---yasunori-mitsuda",
+    ],
+  },
+  {
+    slug: "yoshito_sekigawa",
+    midis: [
+      "cafe-scene---paper-mario-the-origami-king",
+      "super-paper-mario---naoko-mitome-and-chika-sekigawa-staff-roll-",
+      "it-s-showtime-from-super-paper-mario---naoko-mitome-chika-sekigawa",
+      "the-museum---paper-mario-the-origami-king",
     ],
   },
   {
@@ -1355,6 +1429,8 @@ export const corpora: Corpora[] = [
       "easy-boogie-woogie",
       "lewis-boogie-rock-n-roll-piano-arrangement",
       "surfboard-boogie",
+      "boogie-woogie-7a11a3",
+      "boogie-woogie-piano",
 
       "some-boogie-woogie-by-albert-ammons-friends",
       "bumble-boogie---adapted-from-the-flight-of-the-bumble-bee",
@@ -1682,6 +1758,10 @@ export const corpora: Corpora[] = [
       "aaron-copland---story-of-our-town",
       "the-cat-and-the-mouse",
     ],
+  },
+  {
+    slug: "revaz_laghidze",
+    midis: ["simg-era-t-bilisze---revaz-lag-iz-e"],
   },
   {
     slug: "john_williams",
@@ -2042,6 +2122,22 @@ export const corpora: Corpora[] = [
     midis: ["prihodite-v-moy-dom", "fraer---mihail-krug", "kolshchik"],
   },
   {
+    slug: "danny_elfman",
+    midis: [
+      "victor-s-piano-solo---danny-elfman---corpse-bride",
+      "the-simpsons-main-title-theme---piano",
+      "the-simpsons-main-theme---danny-elfman",
+      "everybody-knows",
+      "hong-kong-disneyland-mystic-manor-theme-remastered---danny-elfman",
+      "hero-s-theme---justice-league-2017---danny-elfman---piano-solo",
+      "opening-titles-from-edward-scissorhands",
+      "main-titles-from-doctor-strange-in-the-multiverse-of-madness-2022---danny-elfman",
+      "wednesday---piano-opening-theme---danny-elfman-wednesday---piano-opening-theme",
+      "alice-in-wonderland",
+      "this-is-halloween-short-version---danny-elfman",
+    ],
+  },
+  {
     slug: "udo_jurgens",
     midis: [
       "griechischer-wein---udo-jurgens-griechischer-wein---udo-jurgens",
@@ -2171,10 +2267,19 @@ export const corpora: Corpora[] = [
       "glinka---the-lark-from-a-farewell-to-saint-petersburg-no.-10",
       "lyapunov-reverie-du-soir-op.3",
       "thema-aus-die-moldau---b-smetana-s-sitnikava",
+      "mein-vaterland-nr2-moldau---bedrich-smetana-for-piano-solo",
       "fantasia-on-greensleeves---ralph-vaughan-williams",
       "der-flohwalzer",
       "stanley-myers---cavatina-arranged-for-piano",
       "imslp181922-wima.ec84-oginski_polonez_a",
+    ],
+  },
+  {
+    slug: "smetana",
+    midis: [
+      "thema-aus-die-moldau---b-smetana-s-sitnikava",
+      "bedrich-smetana---vltava-ma-vlast",
+      "mein-vaterland-nr2-moldau---bedrich-smetana-for-piano-solo",
     ],
   },
   {
@@ -3105,7 +3210,6 @@ export const corpora: Corpora[] = [
       "tomorrow---giovanni-allevi",
 
       "underground-cocek",
-      "underground_tango_goran_bregovic_string_quartet",
 
       "varshaver-freylekhs-klezmer-tune",
 

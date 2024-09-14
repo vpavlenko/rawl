@@ -41,11 +41,13 @@ const TotalCount = styled.span`
 const ResultsContainer = styled.div`
   width: 100%;
   overflow-y: auto;
+  text-align: left;
 `;
 
 const ColumnContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start;
 `;
 
 const Column = styled.div`
@@ -53,6 +55,7 @@ const Column = styled.div`
   min-width: 33%;
   padding-right: 10px;
   box-sizing: border-box;
+  text-align: left;
 `;
 
 const CorpusSearch: React.FC = () => {
@@ -147,15 +150,12 @@ const CorpusSearch: React.FC = () => {
               return (
                 <div
                   key={slug}
-                  style={
-                    composerMatched
-                      ? {
-                          borderLeft: "3px solid yellow",
-                          paddingLeft: "10px",
-                          marginBottom: "15px",
-                        }
-                      : {}
-                  }
+                  style={{
+                    borderLeft: composerMatched ? "3px solid yellow" : "none",
+                    paddingLeft: composerMatched ? "10px" : "0",
+                    marginBottom: "15px",
+                    textAlign: "left",
+                  }}
                 >
                   <Link to={`/corpus/${slug}`}>
                     {highlightMatch(slug.replace(/_/g, " "), searchTerm)}{" "}

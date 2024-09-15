@@ -477,7 +477,11 @@ export const corpora: Corpora[] = [
   },
   {
     slug: "scriabin",
-    midis: ["24-preludes-op.11-no.1---a.-scriabin"],
+    midis: [
+      "24-preludes-op.11-no.1---a.-scriabin",
+      "scriabin-vers-la-flamme-op.-72",
+      "scriabin-s-nocturne-for-the-left-hand",
+    ],
   },
   {
     slug: "tadeusz_joteyko",
@@ -1863,6 +1867,7 @@ export const corpora: Corpora[] = [
 
       "tones-for-joan-s-bones",
       "fingerprints---chick-corea",
+      "chick-corea-s-scriabin",
     ],
   },
   {

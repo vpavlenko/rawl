@@ -12,8 +12,7 @@ import {
 
 export const STACKED_RN_HEIGHT = 20;
 const MIN_WIDTH_BETWEEN_BEATS = 10;
-const MIN_WIDTH_BETWEEN_MEASURES = 25;
-const GRADIENT_HEIGHT_IN_NOTES = 3;
+const GRADIENT_HEIGHT_IN_NOTES = 0.5;
 
 const KEY_TO_OFFSET = {
   z: -4,
@@ -525,9 +524,9 @@ const TonalGrid: React.FC<{
                   width,
                   height: 0,
                   left: fromX,
-                  top: midiNumberToY(midiNumber - 6) - 1,
+                  top: midiNumberToY(midiNumber - 6) - 0.5,
                   pointerEvents: "none",
-                  borderBottom: "1px solid #222",
+                  borderBottom: "0.5px dashed #333",
                   zIndex: 0,
                 }}
               />,

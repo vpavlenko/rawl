@@ -165,7 +165,7 @@ export const MeasureNumbers: React.FC<{
           ),
         ) + 300,
       height: 16,
-      marginBottom: "-14px",
+      marginBottom: "-15px",
       marginLeft: "0px",
       zIndex: 90000,
       position: sectionSpan ? "relative" : "sticky",

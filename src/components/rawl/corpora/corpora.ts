@@ -123,10 +123,24 @@ export const corpora: Corpora[] = [
   },
   { slug: "machaut", midis: ["machaut---messe-de-nostre-dame---kyrie"] },
   {
+    slug: "habanera",
+    midis: [
+      "la-cubana-danza-habanera-1850-de-florencio-lahoz",
+      "habanera---pascual-roch-1864---1921",
+      "la-paloma-habanera",
+      "habanera---bartolome-calatayud",
+      "soledad-.-habanera-par-ignazio-cervantes",
+      "emilia-habanera-pour-guitare-a.alba",
+
+      "piece-en-forme-de-habanera",
+    ],
+  },
+  {
     slug: "ernesto_nazareth",
     midis: [
       "brejeiro---ernesto-nazareth",
       "tango-habanera-vers-1925-by-ernesto-nazareth",
+      "apanhei-te-cavanquinho---ernesto-nazareth",
     ],
   },
   {
@@ -184,16 +198,9 @@ export const corpora: Corpora[] = [
       "chicago---cell-block-tango---misc-soundtrack",
       "underground-tango---goran-bregovic-string-quartet",
 
-      "happy-birthday-tango-variation",
-      "happy-birthday-to-you---tango-version",
-      "birthday-tango",
-      "birthday-tango-2",
-
       "tango-de-la-muerte",
       "tango-pour-claude---richard-galliano",
       "tango-from-schnittke-s-concerto-grosso-1",
-
-      "milca-s-birthday-tango.....",
 
       // el tango de roxanne
       "tango-lyubvi",
@@ -405,6 +412,8 @@ export const corpora: Corpora[] = [
       "malaguena-by-azpiazu",
       "malaguena-sarasate",
       "malaguena-salerosa",
+      "malaguena-facil",
+      "rumores-de-la-caleta-malaguena",
     ],
   },
   {
@@ -786,6 +795,17 @@ export const corpora: Corpora[] = [
     midis: ["vstuplenie-iz-m-f-vinni-puh-m.-vaynberg"],
   },
   {
+    slug: "rachel_portman",
+    midis: ["we-had-today", "the-letterbox", "chocolat---main-titles"],
+  },
+  {
+    slug: "john_barry",
+    midis: [
+      "places-out-of-africa---john-barry",
+      "somewhere-in-time---john-barry",
+    ],
+  },
+  {
     slug: "françois_couperin",
     midis: [
       "francois-couperin---les-barricades-mysterieuses",
@@ -1157,6 +1177,21 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "jazz_solos",
+    midis: ["oblivion-bud-powell"],
+  },
+  {
+    slug: "mendelssohn",
+    midis: [
+      "wedding-march-mendelssohn-piano",
+      "mendelssohn-opus-67-no.-2-aka-lost-illusions",
+    ],
+  },
+  {
+    slug: "romantic_single_pieces",
+    midis: ["caprice-brillant-sur-romeo-et-juliette-op.-303---georges-lamothe"],
+  },
+  {
     slug: "common_practice_single_pieces",
     midis: ["valsy-griboedova---griboedov-s-waltzes"],
   },
@@ -1171,6 +1206,14 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "m2u",
+    midis: ["m2u---masquerade"],
+  },
+  {
+    slug: "haywyre",
+    midis: ["prologue---haywyre"],
+  },
+  {
     slug: "gari_biasillo",
     midis: [
       "target-renegade-main-theme---gari-biasillo",
@@ -1180,13 +1223,17 @@ export const corpora: Corpora[] = [
   },
   {
     slug: "zun_touhou",
-    midis: [],
+    midis: [
+      "touhou-8---maiden-s-capriccio-~-dream-battle",
+      "touhou---native-faith",
+    ],
   },
   {
     slug: "edmund_fu",
     midis: [
       "dpsp-starting-wind---edmund-fu",
       "yi-zhan-next-station---edmund-fu",
+      "deemo-walking-by-the-sea---edmund-fu",
     ],
   },
   {
@@ -1219,6 +1266,12 @@ export const corpora: Corpora[] = [
       "super-paper-mario---naoko-mitome-and-chika-sekigawa-staff-roll-",
       "it-s-showtime-from-super-paper-mario---naoko-mitome-chika-sekigawa",
       "the-museum---paper-mario-the-origami-king",
+    ],
+  },
+  {
+    slug: "early_xx_century_single_pieces",
+    midis: [
+      "feuillet-d-album-no.1-in-f-minor---ludovic-lamothe-feuillet-d-album-no.1-in-f-minor",
     ],
   },
   {
@@ -1793,6 +1846,13 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "cameron_lee_simpson",
+    midis: [
+      "mr.rogers-theme-wont-you-be-my-neighbor-arr.-cameron-lee-simpson",
+      "picking-the-chicken---cameron-lee-simpson---pjotr-kolster",
+    ],
+  },
+  {
     slug: "chick_corea",
     midis: [
       "spain---chick-corea",
@@ -1800,6 +1860,9 @@ export const corpora: Corpora[] = [
       "children-s-song-no.-6",
       "children-s-song-2",
       "children-s-song-no.-5",
+
+      "tones-for-joan-s-bones",
+      "fingerprints---chick-corea",
     ],
   },
   {
@@ -2056,6 +2119,8 @@ export const corpora: Corpora[] = [
       "mozart_string_quartet_no_19_in_c_major_k465_dissonance",
       "piano_sonata_no_16_in_c_major_k_545_wolfgang_amadeus_mozart_piano_solo",
       "string_quartet_no_23_in_f_major_k_590_wolfgang_amadeus_mozart",
+      "sonata_no_13_1st_movement_k_333",
+      "sonata_no_9_3rd_movement_k_311",
     ],
   },
   {
@@ -2087,7 +2152,11 @@ export const corpora: Corpora[] = [
       "prelude-opus-28-no.-2-in-a-minor",
 
       "chopin-prelude-e-minor-op-28-no-4-w-chord-symbols",
+
       "prelude-opus-28-no.-6-in-b-minor",
+      "prelude-opus-28-no.-7-in-a-major---chopin",
+      "prelude-opus-28-no.-8-in-f-minor",
+
       "chopin_raindrop_prelude",
     ],
   },
@@ -2272,6 +2341,7 @@ export const corpora: Corpora[] = [
       "der-flohwalzer",
       "stanley-myers---cavatina-arranged-for-piano",
       "imslp181922-wima.ec84-oginski_polonez_a",
+      "Entry_of_the_Gladiators_-_Julius_Fuk_-_1897",
     ],
   },
   {
@@ -2406,10 +2476,19 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "anton_rubinstein",
+    midis: [
+      "melody-in-f-op.-3-no.-1---anton-rubinstein",
+      "morceau-d-anton-rubinstein-toreador-et-andalouse",
+      "melody-in-b-op.-3-no.-2---anton-rubinstein",
+    ],
+  },
+  {
     slug: "russian_singles",
     midis: [
       "belym-snegom---muzyka-e-rodygina-belym-snegom---muzyka-e.-rodygina",
       "beri_shinel-_poshli_domoy",
+      "i-hear-the-noise-of-birches...---konstantin-orbelyan",
     ],
   },
   {
@@ -2599,6 +2678,18 @@ export const corpora: Corpora[] = [
     slug: "chinese",
     midis: ["han-gong-chun-li-chun-ri---song-yu-ning", "shan-zhi-gao---song"],
   },
+
+  {
+    slug: "schubert",
+    midis: [
+      "moments_musicaux_d_780_no_3_in_f_minor",
+      "moments_musicaux_d_780_op_94_no_3_franz_schubert",
+      "schubert-impromptu-op.-90-no.-4",
+      "serenade---schubert",
+      "schubert-waltz-in-b-minor-op.-18-no.-6-d.145",
+    ],
+  },
+
   {
     slug: "brad_mehldau",
     midis: ["anthropology---brad-mehldau"],
@@ -2775,6 +2866,16 @@ export const corpora: Corpora[] = [
       "chetvorno_shopsko_fixed",
       "daichovo-chara",
       "daichovo-hora",
+    ],
+  },
+  {
+    slug: "richard_clayderman",
+    midis: [
+      "ballade-pour-adeline---richard-clayderman",
+      "moon-tango---r.-clayderman",
+      "les-fleurs-sauvages---richard-clayderman",
+      "souvenirs-d-enfance---richard-clayderman",
+      "concerto-des-etoiles---richard-clayderman",
     ],
   },
   {
@@ -2975,8 +3076,6 @@ export const corpora: Corpora[] = [
 
       "Dream_a_little_dream_of_me",
 
-      "Entry_of_the_Gladiators_-_Julius_Fuk_-_1897",
-
       "Feliz_Navidad",
       "Flight_Facilities_Crave_You",
       "Flight_Facilities_Crave_You_2",
@@ -3126,14 +3225,13 @@ export const corpora: Corpora[] = [
       "kukla_kolduna",
       "mahler_4_3",
       "major_diatonic_chords",
-      "malaguena-facil",
+
       "malenkiy-princ",
       "maple_starts",
 
       "mesecina",
       "mihail-krug-vladimirskiy-central",
-      "moments_musicaux_d_780_no_3_in_f_minor",
-      "moments_musicaux_d_780_op_94_no_3_franz_schubert",
+
       "motion-sickness---phoebe-bridgers",
 
       "mpaintoyska",
@@ -3172,7 +3270,6 @@ export const corpora: Corpora[] = [
       "reverie_galimberti",
 
       "roumen-sirakov-s-daichevo",
-      "rumores-de-la-caleta-malaguena",
 
       "sadness-and-sorrow",
 
@@ -3184,8 +3281,6 @@ export const corpora: Corpora[] = [
       "skyrim-theme-for-piano",
       "sonata_in_e_minor_hob_xvi_34_joseph_haydn_piano_sonata_hob_xvi_34_2_adagio",
       "sonata_k159_scarlatti",
-      "sonata_no_13_1st_movement_k_333",
-      "sonata_no_9_3rd_movement_k_311",
       "sonatina-in-c-major---dennis-alexander",
 
       "sorcerer_s_puppet_the_king_and_the_jester",

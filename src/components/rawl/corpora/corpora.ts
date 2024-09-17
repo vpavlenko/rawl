@@ -2734,6 +2734,7 @@ export const corpora: Corpora[] = [
       "schubert-ecossaise-no-8-op-18-d.145",
       "ecossaise-in-c-major-no-8-d.299---franz-schubert",
       "schubert-german-dance-d.783-op.-33-no.-2",
+      "german-dance-and-ecossaise-d.643---franz-schubert",
     ],
   },
 

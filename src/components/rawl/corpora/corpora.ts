@@ -1185,10 +1185,18 @@ export const corpora: Corpora[] = [
     midis: ["oblivion-bud-powell"],
   },
   {
+    slug: "michiru_yamane",
+    midis: [
+      "michiru-yamane---wood-carving-partita",
+      "dance-of-gold---castlevania-symphony-of-the-night",
+    ],
+  },
+  {
     slug: "mendelssohn",
     midis: [
       "wedding-march-mendelssohn-piano",
       "mendelssohn-opus-67-no.-2-aka-lost-illusions",
+      "mendelssohn-songs-without-words-no.-1-piano-solo",
     ],
   },
   {
@@ -2676,6 +2684,29 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "enya",
+    midis: [
+      "watermark-enya",
+      "caribbean-blue---enya",
+      "a-day-without-rain---enya",
+    ],
+  },
+  {
+    slug: "charles_villiers_stanford",
+    midis: [
+      "stanford-charles-villiers---the-blue-bird",
+      "when-mary-thro-the-garden-went---charles-villiers-stanford",
+    ],
+  },
+  {
+    slug: "2002_band",
+    midis: ["suddenly-yours---2002-band", "we-meet-again---2002-band"],
+  },
+  {
+    slug: "lyle_mays",
+    midis: ["lyle-mays-chorinho-arr.-for-solo-piano"],
+  },
+  {
     slug: "poulenc",
     midis: ["poulenc-melancolie-piano-solo"],
   },
@@ -2691,7 +2722,18 @@ export const corpora: Corpora[] = [
       "moments_musicaux_d_780_op_94_no_3_franz_schubert",
       "schubert-impromptu-op.-90-no.-4",
       "serenade---schubert",
+      "schubert-liszt---standchen",
       "schubert-waltz-in-b-minor-op.-18-no.-6-d.145",
+      "schubert-waltz-in-bb---d.783-op.-33-no.-7",
+      "schubert-waltz-in-a-minor-d.924-op.-91a-no.-9",
+      "waltz-ndeg-7---op.-18---d.145",
+      "12-graz-waltzes-ndeg3---schubert",
+      "franz-schubert---waltz-in-b-major-d.-145-nr2",
+      // "ecossaise-no-3-d.529---franz-schubert",
+      "schubert-ecossaise-no.-4-op-18-d.145",
+      "schubert-ecossaise-no-8-op-18-d.145",
+      "ecossaise-in-c-major-no-8-d.299---franz-schubert",
+      "schubert-german-dance-d.783-op.-33-no.-2",
     ],
   },
 
@@ -3014,6 +3056,7 @@ export const corpora: Corpora[] = [
       "Test_Drive_How_to_Train_Your_Dragon",
       "how-far-i-ll-go-~-moana-ost",
       "Vivaldi_-_Summer__The_Four_Seasons__-_Rousseau",
+      "vivaldi---summer---piano",
       "Im_Blue_Eiffel_65",
       "Ed_Sheeran_Shape_of_you",
       "chiquitita-abba---piano",
@@ -3055,6 +3098,11 @@ export const corpora: Corpora[] = [
       "itsumo-nando-demo-always-with-me---spirited-away",
       "fix-you---coldplay",
     ],
+  },
+
+  {
+    slug: "scarlatti",
+    midis: ["sonata_k159_scarlatti", "scarlatti-sonata-aria-k.32"],
   },
   {
     slug: "unsorted",
@@ -3285,7 +3333,7 @@ export const corpora: Corpora[] = [
       "shostakovich_symphony_no5_2nd_movement_for_piano_solo",
       "skyrim-theme-for-piano",
       "sonata_in_e_minor_hob_xvi_34_joseph_haydn_piano_sonata_hob_xvi_34_2_adagio",
-      "sonata_k159_scarlatti",
+
       "sonatina-in-c-major---dennis-alexander",
 
       "sorcerer_s_puppet_the_king_and_the_jester",

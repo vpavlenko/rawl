@@ -22,6 +22,7 @@ export type RawlProps = {
   ) => void;
   unregisterKeyboardHandler: (id: string) => void;
   sourceUrl: string | null;
+  isHiddenRoute?: boolean; // Add this line
 };
 
 export type CurrentMidi = {

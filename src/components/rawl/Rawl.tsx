@@ -268,25 +268,22 @@ const Rawl: React.FC<{
   isHiddenRoute = false,
 }) => {
   const location = useLocation();
-  const { currentMidi, setCurrentMidi } = useContext(AppContext);
+  const { currentMidi, setCurrentMidi, analyses, rawlProps } =
+    useContext(AppContext);
   const slug = currentMidi?.slug || "";
 
-  useEffect(() => {
-    document.title = `${song} - ${artist} - Rawl`;
-  }, [artist, song]);
-
   const [analysis, setAnalysis] = useState<Analysis>(
-    savedAnalysis || ANALYSIS_STUB,
+    savedAnalysis || rawlProps?.savedAnalysis || ANALYSIS_STUB,
   );
-  // useEffect(() => setAnalysis(ANALYSIS_STUB), [parsingResult]);
+
   useEffect(() => {
-    // this can be in a race if Firebase is slow
     if (savedAnalysis) {
       setAnalysis(savedAnalysis);
+    } else if (rawlProps?.savedAnalysis) {
+      setAnalysis(rawlProps.savedAnalysis);
     }
-  }, [savedAnalysis]);
+  }, [savedAnalysis, rawlProps?.savedAnalysis]);
 
-  // https://chat.openai.com/share/39958f7a-119d-43dc-b7a3-b2cd0958707b
   const analysisRef = useRef(analysis);
   useEffect(() => {
     analysisRef.current = analysis;

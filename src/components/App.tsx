@@ -690,6 +690,15 @@ class App extends React.Component<RouteComponentProps, AppState> {
         return;
       }
 
+      let analysisKey;
+      let fSlug = slug;
+      if (isHiddenRoute) {
+        fSlug = keySlugMapping[slug] || slug;
+        analysisKey = `f/${fSlug}`;
+      } else {
+        analysisKey = `f/${slug}`;
+      }
+
       console.log("Searching for MIDI info with slug:", slug);
       let midiInfo = indexData.midis.find(
         (midi) => midi.slug === slug || midi.id === slug,
@@ -716,18 +725,30 @@ class App extends React.Component<RouteComponentProps, AppState> {
         const currentMidi = {
           id: midiInfo.id,
           title: midiData.title,
-          slug: midiData.slug,
+          slug: fSlug, // Use fSlug here
           sourceUrl: midiData.url,
           isHiddenRoute: isHiddenRoute,
         };
-        this.setState({ currentMidi }, () => {
-          console.log(
-            "State updated with currentMidi:",
-            this.state.currentMidi,
-          );
-          console.log("Calling loadMidi with blob");
-          this.loadMidi(midiBlob);
-        });
+        const savedAnalysis = this.state.analyses[analysisKey];
+
+        this.setState(
+          {
+            currentMidi,
+            rawlProps: {
+              ...this.state.rawlProps,
+              savedAnalysis,
+              isHiddenRoute,
+            } as RawlProps, // Add type assertion here
+          },
+          () => {
+            console.log(
+              "State updated with currentMidi:",
+              this.state.currentMidi,
+            );
+            console.log("State updated with rawlProps:", this.state.rawlProps);
+            this.loadMidi(midiBlob);
+          },
+        );
       } else {
         console.error("No such document!");
       }

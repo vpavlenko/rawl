@@ -1,6 +1,6 @@
 import React from "react";
 import { VoiceMask } from "./App";
-import { Analyses, Analysis } from "./rawl/analysis";
+import { Analysis } from "./rawl/analysis";
 import { ParsingResult } from "./rawl/parseMidi";
 
 export type RawlProps = {
@@ -24,36 +24,29 @@ export type RawlProps = {
   sourceUrl: string | null;
 };
 
-export interface CurrentMidi {
+export type CurrentMidi = {
   id: string;
   title: string;
   slug: string;
   sourceUrl: string | null;
-}
+  isHiddenRoute: boolean;
+} | null;
 
-interface AppContextProps {
-  handleSongClick: (slug: string) => void; // Changed to accept slug directly
+export type AppContextType = {
+  handleSongClick: (slug: string, isHiddenRoute?: boolean) => Promise<void>;
   rawlProps: RawlProps | null;
-  analyses: Analyses;
+  analyses: Record<string, Analysis>;
   saveAnalysis: (analysis: Analysis) => void;
-  resetMidiPlayerState: () => void; // Add this line
+  resetMidiPlayerState: () => void;
   registerKeyboardHandler: (
     id: string,
     handler: (e: KeyboardEvent) => void,
   ) => void;
   unregisterKeyboardHandler: (id: string) => void;
-  currentMidi: CurrentMidi | null;
-  setCurrentMidi: (midi: CurrentMidi | null) => void;
-}
+  currentMidi: CurrentMidi;
+  setCurrentMidi: (currentMidi: CurrentMidi) => void;
+};
 
-export const AppContext = React.createContext<AppContextProps>({
-  handleSongClick: () => {}, // Changed to accept slug directly
-  rawlProps: null,
-  analyses: {},
-  saveAnalysis: () => {},
-  resetMidiPlayerState: () => {}, // Add this line
-  registerKeyboardHandler: () => {},
-  unregisterKeyboardHandler: () => {},
-  currentMidi: null,
-  setCurrentMidi: () => {},
-});
+export const AppContext = React.createContext<AppContextType | undefined>(
+  undefined,
+);

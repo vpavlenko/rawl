@@ -237,6 +237,7 @@ export type SystemLayoutProps = {
   frozenNotes: ColoredNote[][];
   enableManualRemeasuring?: boolean;
   measureStart?: number;
+  isHiddenRoute?: boolean;
 };
 
 export const StackedSystemLayout: React.FC<
@@ -254,6 +255,7 @@ export const StackedSystemLayout: React.FC<
   enableManualRemeasuring = false,
   measureStart,
   isEmbedded = false,
+  isHiddenRoute = false,
 }) => {
   const { registerKeyboardHandler, unregisterKeyboardHandler } =
     useContext(AppContext);
@@ -457,6 +459,7 @@ export const StackedSystemLayout: React.FC<
                 noteHeight={noteHeight}
                 secondsToX={secondsToX}
                 sectionSpan={sectionSpan}
+                isHiddenRoute={isHiddenRoute}
               />
               {voices.map(({ notes, voiceIndex }) => (
                 <div

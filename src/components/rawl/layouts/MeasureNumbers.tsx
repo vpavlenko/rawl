@@ -145,6 +145,7 @@ export const MeasureNumbers: React.FC<{
   noteHeight: number;
   secondsToX: SecondsConverter;
   sectionSpan?: MeasuresSpan;
+  isHiddenRoute?: boolean;
 }> = ({
   measuresAndBeats,
   analysis,
@@ -153,6 +154,7 @@ export const MeasureNumbers: React.FC<{
   noteHeight,
   secondsToX,
   sectionSpan,
+  isHiddenRoute = false,
 }) => (
   <div
     key="measure_header"
@@ -172,12 +174,14 @@ export const MeasureNumbers: React.FC<{
       top: 0,
     }}
   >
-    <InlineSnippets
-      measuresAndBeats={measuresAndBeats}
-      snippets={analysis.snippets || []}
-      secondsToX={secondsToX}
-      sectionSpan={sectionSpan}
-    />
+    {!isHiddenRoute && (
+      <InlineSnippets
+        measuresAndBeats={measuresAndBeats}
+        snippets={analysis.snippets || []}
+        secondsToX={secondsToX}
+        sectionSpan={sectionSpan}
+      />
+    )}
     <AnalysisGrid
       analysis={analysis}
       measuresAndBeats={measuresAndBeats}

@@ -248,6 +248,7 @@ const Rawl: React.FC<{
   sourceUrl: string | null;
   measureStart?: number;
   isEmbedded?: boolean;
+  isHiddenRoute?: boolean;
 }> = ({
   parsingResult,
   getCurrentPositionMs,
@@ -264,6 +265,7 @@ const Rawl: React.FC<{
   sourceUrl,
   measureStart,
   isEmbedded = false,
+  isHiddenRoute = false,
 }) => {
   const location = useLocation();
   const { currentMidi, setCurrentMidi } = useContext(AppContext);
@@ -742,7 +744,7 @@ const Rawl: React.FC<{
           }}
           className="Rawl"
         >
-          {slug && (
+          {slug && !isHiddenRoute && (
             <CompositionTitle
               slug={slug}
               sourceUrl={sourceUrl}

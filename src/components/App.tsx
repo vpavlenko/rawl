@@ -655,11 +655,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   handleSongClick = async (slug: string) => {
-    await this.loadMidiFromSlug(slug);
-  };
-
-  loadMidiFromSlug = async (slugOrId: string) => {
-    console.log("loadMidiFromSlug called with slugOrId:", slugOrId);
     const firestore = getFirestore();
     try {
       console.log("Fetching index document");
@@ -672,14 +667,14 @@ class App extends React.Component<RouteComponentProps, AppState> {
         return;
       }
 
-      console.log("Searching for MIDI info with slugOrId:", slugOrId);
+      console.log("Searching for MIDI info with slug:", slug);
       let midiInfo = indexData.midis.find(
-        (midi) => midi.slug === slugOrId || midi.id === slugOrId,
+        (midi) => midi.slug === slug || midi.id === slug,
       );
       console.log("Found MIDI info:", midiInfo);
 
       if (!midiInfo) {
-        console.error(`No MIDI found for slugOrId: ${slugOrId}`);
+        console.error(`No MIDI found for slug: ${slug}`);
         return;
       }
 

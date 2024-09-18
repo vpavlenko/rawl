@@ -809,22 +809,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   async fetchDirectory(path) {
-    if (path.startsWith("f")) {
-      // commenting out since this path is probably not needed anymore
-      //
-      // const index = await getDoc(doc(this.db, "indexes", "midis"));
-      // const firestoreMidiDirectory = (
-      //   index.data() as FirestoreMidiIndex
-      // ).midis.map(({ title, id, slug }, order) => ({
-      //   idx: order,
-      //   path: `/static/f/${title}`,
-      //   id,
-      //   slug,
-      //   size: 1337,
-      //   type: "file",
-      // }));
-      // return this.processFetchedDirectory(path, firestoreMidiDirectory);
-    } else if (!path.startsWith("link")) {
+    if (!path.startsWith("link")) {
       return fetch(`${API_BASE}/browse?path=%2F${encodeURIComponent(path)}`)
         .then((response) => response.json())
         .then((items) => {

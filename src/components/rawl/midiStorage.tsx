@@ -14,7 +14,6 @@ import { Location } from "history";
 import * as React from "react";
 import { useState } from "react";
 import { slugify } from "transliteration";
-import { CATALOG_PREFIX } from "../../config";
 
 export const processMidiUrls = (
   location: Location,
@@ -25,17 +24,11 @@ export const processMidiUrls = (
   const link = params.get("link");
   if (link) {
     saveMidiFromLink(link);
-    // handleSongClick(`https://corsproxy.io/?${atob(link)}`);
   }
 
   const [_, urlSlug] = location.pathname.split("/f/");
   if (urlSlug) {
-    handleSongClick(`f:${urlSlug}`);
-  } else {
-    const [_, chiptuneUrl] = location.pathname.split("/c/");
-    if (chiptuneUrl) {
-      handleSongClick(CATALOG_PREFIX + encodeURI(encodeURI(chiptuneUrl)));
-    }
+    handleSongClick(urlSlug);
   }
 };
 

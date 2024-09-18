@@ -654,15 +654,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
     });
   }
 
-  handleSongClick = async (url: string) => {
-    console.log("handleSongClick called with url:", url);
-    if (url.startsWith("f:")) {
-      const slugOrId = url.slice(2);
-      console.log("Extracted slugOrId:", slugOrId);
-      await this.loadMidiFromSlug(slugOrId);
-    } else {
-      console.log("Unhandled URL type:", url);
-    }
+  handleSongClick = async (slug: string) => {
+    await this.loadMidiFromSlug(slug);
   };
 
   loadMidiFromSlug = async (slugOrId: string) => {

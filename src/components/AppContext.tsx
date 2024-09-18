@@ -32,7 +32,7 @@ export interface CurrentMidi {
 }
 
 interface AppContextProps {
-  handleSongClick: (url: string) => void;
+  handleSongClick: (slug: string) => void; // Changed to accept slug directly
   rawlProps: RawlProps | null;
   analyses: Analyses;
   saveAnalysis: (analysis: Analysis) => void;
@@ -47,7 +47,7 @@ interface AppContextProps {
 }
 
 export const AppContext = React.createContext<AppContextProps>({
-  handleSongClick: () => {},
+  handleSongClick: () => {}, // Changed to accept slug directly
   rawlProps: null,
   analyses: {},
   saveAnalysis: () => {},

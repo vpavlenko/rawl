@@ -105,7 +105,7 @@ const PathView: React.FC = () => {
 
   const handleMidiClick = (slug: string) => {
     console.log("handleMidiClick called with slug:", slug);
-    handleSongClick(`f:${slug}`);
+    handleSongClick(slug);
   };
 
   const measureWidth = 100;

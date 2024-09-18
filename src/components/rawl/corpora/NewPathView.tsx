@@ -302,7 +302,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({
     resetMidiPlayerState();
 
     // Load the new MIDI
-    handleSongClick(`f:${slug}`);
+    handleSongClick(slug);
     setSelectedMeasureStart(measureStart);
 
     // Scroll to the topic

@@ -10,27 +10,9 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore/lite";
-import { Location } from "history";
 import * as React from "react";
 import { useState } from "react";
 import { slugify } from "transliteration";
-
-export const processMidiUrls = (
-  location: Location,
-  handleSongClick: (url: string) => void,
-) => {
-  const params = new URLSearchParams(location.search);
-
-  const link = params.get("link");
-  if (link) {
-    saveMidiFromLink(link);
-  }
-
-  const [_, urlSlug] = location.pathname.split("/f/");
-  if (urlSlug) {
-    handleSongClick(urlSlug);
-  }
-};
 
 const saveMidi = async (
   title: string,

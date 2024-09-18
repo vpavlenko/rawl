@@ -61,7 +61,7 @@ import { Analyses } from "./rawl/analysis";
 import Corpus from "./rawl/corpora/Corpus";
 import NewPathView, { NewPathViewProps } from "./rawl/corpora/NewPathView";
 import PathView from "./rawl/corpora/PathView";
-import { DropSaveForm, processMidiUrls } from "./rawl/midiStorage";
+import { DropSaveForm, saveMidiFromLink } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
 import { ParsingResult } from "./rawl/parseMidi";
 import transformMidi from "./rawl/transformMidi";
@@ -262,7 +262,19 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
     this.initChipCore(audioCtx, playerNode, bufferSize);
 
-    processMidiUrls(this.props.location, this.handleSongClick);
+    // Inline processMidiUrls here
+    const location = this.props.location;
+    const params = new URLSearchParams(location.search);
+
+    const link = params.get("link");
+    if (link) {
+      saveMidiFromLink(link);
+    }
+
+    const [_, urlSlug] = location.pathname.split("/f/");
+    if (urlSlug) {
+      this.handleSongClick(urlSlug);
+    }
   }
 
   loadUserAnalyses(userId: string) {

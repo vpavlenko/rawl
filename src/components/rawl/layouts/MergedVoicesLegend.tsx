@@ -70,7 +70,9 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                   verticalAlign: "middle",
                 }}
               />
-              {voiceName}
+              <span style={{ borderBottom: "0.5px dashed #ccc" }}>
+                {voiceName}
+              </span>
             </span>
           </div>
         ))}

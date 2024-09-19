@@ -2714,12 +2714,28 @@ export const corpora: Corpora[] = [
     slug: "chinese",
     midis: ["han-gong-chun-li-chun-ri---song-yu-ning", "shan-zhi-gao---song"],
   },
-
+  {
+    slug: "karel_svoboda",
+    midis: [
+      "drei-haselnusse-fur-aschenbrodel---karel-svoboda-by-jacroby",
+      "n-a-v-s-t-e-v-n-i-c-i",
+    ],
+  },
+  {
+    slug: "benjamin_wallfisch",
+    midis: [
+      "a-cure-for-wellness---benjamin-wallfisch",
+      "volmer-s-lab-a-cure-for-wellness",
+      "magnificent-isn-t-it-a-cure-for-wellness",
+      "blade-runner",
+      "we-can-fix-this-the-flash-movie.-2023-ost",
+    ],
+  },
   {
     slug: "schubert",
     midis: [
       "moments_musicaux_d_780_no_3_in_f_minor",
-      "moments_musicaux_d_780_op_94_no_3_franz_schubert",
+      // "moments_musicaux_d_780_op_94_no_3_franz_schubert",
       "schubert-impromptu-op.-90-no.-4",
       "serenade---schubert",
       "schubert-liszt---standchen",
@@ -2735,6 +2751,7 @@ export const corpora: Corpora[] = [
       "ecossaise-in-c-major-no-8-d.299---franz-schubert",
       "schubert-german-dance-d.783-op.-33-no.-2",
       "german-dance-and-ecossaise-d.643---franz-schubert",
+      "schubert---sonata-in-a-op.120-d.664-movement-i",
     ],
   },
 

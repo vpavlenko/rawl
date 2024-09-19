@@ -9,10 +9,10 @@ const keySlugMapping: Record<string, string> = {
   "match-8": "fear-not-this-night-guild-wars-2-piano-version",
   "match-9": "dragonborn---skyrim-theme-song-piano-solo",
   "match-10": "s.-xarhakos---mpoyrnovalia---greek-music-079",
-  "match-11": "claude-debussy---la-fille-aux-cheveux-de-lin",
+  "match-11": "Clair_de_Lune__Debussy",
   "match-12": "il-coure-mio---anoushiravan-rohani",
   "match-13": "philip-glass---pruit-igoe",
-  "match-14": "gladiolus-rag---scott-joplin---1907",
+  "match-14": "the_entertainer_scott_joplin",
   "match-15": "it-s-your-day---yiruma",
   "match-16": "dry-hands-minecraft",
 };

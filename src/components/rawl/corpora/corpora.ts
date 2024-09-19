@@ -343,6 +343,10 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "olafur_arnalds",
+    midis: ["saman---olafur-arnalds"],
+  },
+  {
     slug: "bach_wtc",
     midis: [
       "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
@@ -373,6 +377,7 @@ export const corpora: Corpora[] = [
       "prelude-no.-2-bwv-871-in-c-minor",
       "prelude-no.-3-bwv-872-in-c-major",
       "prelude-no.-4-bwv-873-in-c-minor",
+      "fugue-no.-3-bwv-848-in-c-major",
     ],
   },
   {
@@ -3012,7 +3017,8 @@ export const corpora: Corpora[] = [
       "solas---jamie-duffy",
       "autumn-leaves-jazz-piano",
       "clocks---coldplay",
-      "Sadness_and_Sorrow",
+      // "Sadness_and_Sorrow",
+      "sadness-and-sorrow-for-piano-solo",
       "Super_Mario_Bros_Main_Theme",
       "nocturne-in-c-sharp-minor",
       "gurenge--demon-slayer-kimetsu-no-yaiba-op",

@@ -23,6 +23,19 @@ const keySlugMapping: Record<string, string> = {
   "river-5": "river_flows_in_you_plus3",
   "river-6": "river_flows_in_you_plus4",
   "river-7": "river_flows_in_you_plus5",
+
+  "epoch-1": "sadness-and-sorrow-for-piano-solo",
+  "epoch-2":
+    "unravel-acoustic-ver-tokyo-ghoul-theishter-sheet-music-full-sheets",
+  "epoch-3":
+    "slow-waltz-24-pieces-for-children-op.39-no.-23---dmitry-kabalevsky",
+  "epoch-4": "souvenir-de-porto-rico-200-i.e.-206-follower-special",
+  "epoch-5": "lost-patrol-main-theme---chris-glaister-jonathan-dunn",
+  "epoch-6": "nocturne-op.21-no1---ignacy-feliks-dobrzynski",
+  "epoch-7": "grieg_lyric_2_waltz_yaskawa",
+  "epoch-8": "neon-mixtape-tour---choose-your-seeds",
+  "epoch-9": "saman---olafur-arnalds",
+  "epoch-10": "mendelssohn-opus-67-no.-2-aka-lost-illusions",
 };
 
 export default keySlugMapping;

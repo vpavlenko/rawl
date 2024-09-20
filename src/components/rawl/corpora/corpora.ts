@@ -1286,6 +1286,10 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "theo_northrup",
+    midis: ["the-two-happy-coons---theodore-h.-northrup-1891"],
+  },
+  {
     slug: "early_xx_century_single_pieces",
     midis: [
       "feuillet-d-album-no.1-in-f-minor---ludovic-lamothe-feuillet-d-album-no.1-in-f-minor",
@@ -1306,6 +1310,7 @@ export const corpora: Corpora[] = [
       "vizisi",
       "lost-patrol-main-theme---chris-glaister-jonathan-dunn",
       "none-of-them-knew-they-were-robots---mr.-bungle-mostly",
+      "joker-folie-a-deux---trailer-theme---hildur-gudnadottir",
     ],
   },
   {
@@ -2321,8 +2326,39 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "jared_emerson-johnson",
+    midis: [
+      "sam-and-max-save-the-world-the-office---jared-emerson-johnson",
+      "cruisin---jared-emerson-johnson",
+      "prologue---the-wolf-among-us",
+      "crane-s-business-office-the-wolf-among-us",
+    ],
+  },
+  {
+    slug: "andrew_prahlow",
+    midis: [
+      "andrew-prahlow---echoes-of-the-eye",
+      "andrew-prahlow---end-times",
+      "outer-wilds---main-theme---andrew-prahlow",
+      "outer-wilds---timber-hearth",
+      "andrew-prahlow---the-river",
+    ],
+  },
+  {
     slug: "bear_mccreary",
-    midis: [],
+    midis: [
+      "the-walking-dead---theme-song-tv-series-2010---bear-mccreary",
+      "god-of-war-ragnarok---raeb-s-lament---bear-mccreary",
+      "nori-brandyfoot---lord-of-the-rings-the-rings-of-power",
+      "this-wandering-day---bear-mccreary---the-rings-of-power",
+      "percy-jackson-and-the-olympians---bear-mccreary-piano-solo",
+      "god-of-war-ragnarok---giantess-of-ironwood---bear-mccreary",
+      "leonardo-s-theme",
+      "the-witcher-blood-origin---the-black-rose---bear-mccreary",
+      "the-day-will-come---bear-mccreary",
+      "the-veil-of-time---outlander-score",
+      "agents-of-s.h.i.e.l.d.-theme",
+    ],
   },
   {
     slug: "joe_hisaishi",

@@ -52,7 +52,7 @@ const BeatBar = styled(VerticalBar)`
 export type MeasureSelection = {
   selectedMeasure: number;
   selectMeasure: (number) => void;
-  splitAtMeasure: (boolean) => void;
+  splitAtMeasure: (boolean, number?) => void;
   mergeAtMeasure: () => void;
   renumberMeasure: RenumberMeasureCallback;
 };
@@ -76,7 +76,7 @@ const RemeasuringInput: React.FC<{
   selectedMeasure: number;
   selectMeasure: (number) => void;
   renumberMeasure: RenumberMeasureCallback;
-  splitAtMeasure: (boolean) => void;
+  splitAtMeasure: (boolean, number?) => void;
   mergeAtMeasure: () => void;
 }> = ({
   selectedMeasure,
@@ -366,18 +366,39 @@ const Measure: React.FC<{
                       style={{
                         position: "absolute",
                         top: -12,
-                        left: -40,
+                        left: -100,
                         color: "red",
                         fontSize: 14,
                         fontWeight: 700,
                         zIndex: 100,
-                      }}
-                      onClick={(e) => {
-                        splitAtMeasure(true);
-                        e.stopPropagation();
+                        display: "flex",
+                        gap: "5px",
                       }}
                     >
-                      /8
+                      <span
+                        onClick={(e) => {
+                          splitAtMeasure(true, 2);
+                          e.stopPropagation();
+                        }}
+                      >
+                        /8
+                      </span>
+                      <span
+                        onClick={(e) => {
+                          splitAtMeasure(true, 3);
+                          e.stopPropagation();
+                        }}
+                      >
+                        /12
+                      </span>
+                      <span
+                        onClick={(e) => {
+                          splitAtMeasure(true, 4);
+                          e.stopPropagation();
+                        }}
+                      >
+                        /16
+                      </span>
                     </div>
                   )}
                 {selectedPhraseStart === number &&

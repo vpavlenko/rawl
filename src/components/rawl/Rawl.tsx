@@ -372,7 +372,7 @@ const Rawl: React.FC<{
     [selectedMeasure, analysis, measuresAndBeats],
   );
   const splitAtMeasure = useCallback(
-    (groupByTwoPhrasesTillTheEnd: boolean) => {
+    (groupByPhrasesTillTheEnd: boolean, groupSize: number = 2) => {
       const phraseStarts = getPhraseStarts(
         analysis,
         measuresAndBeats.measures.length,
@@ -386,8 +386,12 @@ const Rawl: React.FC<{
           )}`,
         );
       } else {
-        if (groupByTwoPhrasesTillTheEnd) {
-          for (let i = newSections[0]; i < phraseStarts.length - 1; i += 2) {
+        if (groupByPhrasesTillTheEnd) {
+          for (
+            let i = newSections[0];
+            i < phraseStarts.length - 1;
+            i += groupSize
+          ) {
             newSections.push(i);
           }
         }

@@ -1235,16 +1235,12 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   !location.pathname.startsWith("/s/") &&
                   !this.state.loading && (
                     <Visualizer
-                      audioCtx={this.audioCtx}
-                      sourceNode={this.playerNode}
-                      chipCore={this.chipCore}
                       analysisEnabled={this.state.analysisEnabled}
                       handleToggleAnalysis={() =>
                         this.setState((state) => ({
                           analysisEnabled: !state.analysisEnabled,
                         }))
                       }
-                      paused={this.state.ejected || this.state.paused}
                       user={this.state.user}
                       handleLogout={this.handleLogout}
                       handleLogin={this.handleLogin}

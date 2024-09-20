@@ -2313,6 +2313,18 @@ export const corpora: Corpora[] = [
     midis: ["in-the-garden---c.-austin-miles"],
   },
   {
+    slug: "mikhail_glinka",
+    midis: [
+      "glinka---the-lark-from-a-farewell-to-saint-petersburg-no.-10",
+      "ya-pomnyu-chudnoe-mgnovene",
+      "noktyurn-razluka-nocturne-la-separation---m.-i.-glinka-m.-i.-glinka-razluka",
+    ],
+  },
+  {
+    slug: "bear_mccreary",
+    midis: [],
+  },
+  {
     slug: "joe_hisaishi",
     midis: [
       "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
@@ -2351,7 +2363,7 @@ export const corpora: Corpora[] = [
       "chopin---waltz-no.-1-in-d-flat-major-op.-64", // harmonic prototype for Scott Joplin
       "grand-march-from-the-opera-aida-by-giuseppe-verdi",
       "danse-macabre-opus-40-s.-555",
-      "glinka---the-lark-from-a-farewell-to-saint-petersburg-no.-10",
+
       "lyapunov-reverie-du-soir-op.3",
       "thema-aus-die-moldau---b-smetana-s-sitnikava",
       "mein-vaterland-nr2-moldau---bedrich-smetana-for-piano-solo",

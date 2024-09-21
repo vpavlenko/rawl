@@ -365,7 +365,7 @@ const Measure: React.FC<{
                     <div
                       style={{
                         position: "absolute",
-                        top: -12,
+                        top: -18,
                         left: -100,
                         color: "red",
                         fontSize: 14,

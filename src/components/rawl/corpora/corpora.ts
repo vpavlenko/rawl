@@ -2397,6 +2397,10 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "david_wise",
+    midis: ["gang-plank-galleon-donkey-kong-country"],
+  },
+  {
     slug: "andrew_prahlow",
     midis: [
       "andrew-prahlow---echoes-of-the-eye",

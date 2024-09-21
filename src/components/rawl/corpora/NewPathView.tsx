@@ -453,7 +453,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({
             </ChapterSection>
           </ContentArea>
         </ScrollableContent>
-        {currentMidi && rawlProps && (
+        {currentMidi && rawlProps && rawlProps?.parsingResult && (
           <RawlContainer>
             <Rawl
               parsingResult={rawlProps.parsingResult}

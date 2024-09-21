@@ -1277,6 +1277,12 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "dm_dokuro",
+    midis: [
+      "terraria-calamity-mod-ost-dm-dokuro---stained-brutal-calamity-piano-solo",
+    ],
+  },
+  {
     slug: "yoshito_sekigawa",
     midis: [
       "cafe-scene---paper-mario-the-origami-king",
@@ -1286,8 +1292,26 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "guns_n_roses",
+    midis: ["welcome-to-the-jungle"],
+  },
+  {
+    slug: "dominic_james_la_rocca",
+    midis: ["barnyard-blues---dominic-james-la-rocca-1917"],
+  },
+  {
+    slug: "oesterreichisch-magyar_dance_music",
+    midis: [
+      "dunapalota---rozsnyai-sandor-1919",
+      "the-star---rene-r.-schmal-1919",
+    ],
+  },
+  {
     slug: "theo_northrup",
-    midis: ["the-two-happy-coons---theodore-h.-northrup-1891"],
+    midis: [
+      "the-two-happy-coons---theodore-h.-northrup-1891",
+      "plantation-echoes---theodore-h.-northrup-1897",
+    ],
   },
   {
     slug: "early_xx_century_single_pieces",

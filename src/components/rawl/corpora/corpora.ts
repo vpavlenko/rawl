@@ -1280,6 +1280,7 @@ export const corpora: Corpora[] = [
     slug: "dm_dokuro",
     midis: [
       "terraria-calamity-mod-ost-dm-dokuro---stained-brutal-calamity-piano-solo",
+      "terraria-calamity-mod-ost-dm-dokuro---guardian-of-the-former-seas-piano-solo",
     ],
   },
   {
@@ -1317,6 +1318,23 @@ export const corpora: Corpora[] = [
     slug: "early_xx_century_single_pieces",
     midis: [
       "feuillet-d-album-no.1-in-f-minor---ludovic-lamothe-feuillet-d-album-no.1-in-f-minor",
+    ],
+  },
+  {
+    slug: "scott_bradlee",
+    midis: [
+      "i-wanna-be-like-you-ragtime---scott-bradlee",
+      "super-mario-bros.-ragtime-piano-medley---scott-bradlee",
+    ],
+  },
+  {
+    slug: "randy_newman",
+    midis: [
+      "you-ve-got-a-friend-in-me---randy-newman",
+      "dexter-s-tune---randy-newman",
+      "monsters-inc.-if-i-didn-t-have-you---randy-newman",
+      "boo-s-going-home-by-monsters-inc.-randy-newman-ofimaticagio2-v-2.0",
+      "its-a-jungle-out-there---randy-newman",
     ],
   },
   {
@@ -2251,6 +2269,26 @@ export const corpora: Corpora[] = [
       "wednesday---piano-opening-theme---danny-elfman-wednesday---piano-opening-theme",
       "alice-in-wonderland",
       "this-is-halloween-short-version---danny-elfman",
+    ],
+  },
+  {
+    slug: "george_bruns",
+    midis: [
+      "les-aristochats---george-bruns",
+      "overture-from-the-jungle-book---george-bruns-overture-the-jungle-book---george-bruns",
+      "yo-ho-a-pirate-s-life-for-me---george-bruns-xavier-atencio-yo-ho-a-pirates-life-for-me",
+    ],
+  },
+  {
+    slug: "yu-peng_chen",
+    midis: [
+      "rex-incognito-zhongli-s-theme-from-genshin-impact---yu-peng-chen-hoyo-mix",
+      "ganyu-radiant-dreams-genshin-impact---yu-peng-chen",
+      "kamisato-dance-cg-bgm-for-piano---genshin-impact-2.0-inazuma---yu-peng-chen",
+      "ruu-s-song---yu-peng-chen",
+      "yoimiya-dazzling-lights-in-the-summer-genshin-impact---yu-peng-chen",
+      "moonlike-smile---yu-peng-chen",
+      "genshin-impact---inazuma-miscellany---yu-peng-chen-genshin-impact-2.0-livestream-piano-part-1",
     ],
   },
   {
@@ -3296,8 +3334,6 @@ export const corpora: Corpora[] = [
       "Walking_On_a_dream",
 
       "Wellerman_Sea_Shanty",
-
-      "You_ve_got_a_friend_in_me",
 
       "alexey_bychkov_s_trio_goby_waltz",
       "all-major-scales-arpeggios",

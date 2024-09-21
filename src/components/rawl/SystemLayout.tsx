@@ -458,8 +458,10 @@ export const StackedSystemLayout: React.FC<
                 measureSelection={measureSelection}
                 noteHeight={noteHeight}
                 secondsToX={secondsToX}
+                xToSeconds={xToSeconds}
                 sectionSpan={sectionSpan}
                 isHiddenRoute={isHiddenRoute}
+                mouseHandlers={mouseHandlers}
               />
               {voices.map(({ notes, voiceIndex }) => (
                 <div

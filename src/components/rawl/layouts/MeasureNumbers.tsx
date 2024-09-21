@@ -2,6 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { Analysis, MeasuresSpan, Snippet } from "../analysis";
 import { AnalysisGrid, MeasureSelection } from "../AnalysisGrid";
+import { MouseHandlers } from "../getNoteRectangles";
 import { SecondsConverter } from "../Rawl";
 import { MeasuresAndBeats } from "../SystemLayout";
 
@@ -144,8 +145,10 @@ export const MeasureNumbers: React.FC<{
   measureSelection: MeasureSelection;
   noteHeight: number;
   secondsToX: SecondsConverter;
+  xToSeconds: SecondsConverter;
   sectionSpan?: MeasuresSpan;
   isHiddenRoute?: boolean;
+  mouseHandlers: MouseHandlers;
 }> = ({
   measuresAndBeats,
   analysis,
@@ -153,47 +156,54 @@ export const MeasureNumbers: React.FC<{
   measureSelection,
   noteHeight,
   secondsToX,
+  xToSeconds,
   sectionSpan,
   isHiddenRoute = false,
-}) => (
-  <div
-    key="measure_header"
-    style={{
-      width:
-        secondsToX(
-          Math.max(
-            measuresAndBeats.measures.at(-1),
-            measuresAndBeats.beats.at(-1),
-          ),
-        ) + 300,
-      height: 16,
-      marginBottom: "-15px",
-      marginLeft: "0px",
-      zIndex: 90000,
-      position: sectionSpan ? "relative" : "sticky",
-      top: 0,
-    }}
-  >
-    {!isHiddenRoute && (
-      <InlineSnippets
+  mouseHandlers,
+}) => {
+  const { systemClickHandler } = mouseHandlers;
+
+  return (
+    <div
+      key="measure_header"
+      style={{
+        width:
+          secondsToX(
+            Math.max(
+              measuresAndBeats.measures.at(-1),
+              measuresAndBeats.beats.at(-1),
+            ),
+          ) + 300,
+        height: 16,
+        marginBottom: "-15px",
+        marginLeft: "0px",
+        zIndex: 90000,
+        position: sectionSpan ? "relative" : "sticky",
+        top: 0,
+      }}
+      onClick={(e) => systemClickHandler(e, xToSeconds)}
+    >
+      {!isHiddenRoute && (
+        <InlineSnippets
+          measuresAndBeats={measuresAndBeats}
+          snippets={analysis.snippets || []}
+          secondsToX={secondsToX}
+          sectionSpan={sectionSpan}
+        />
+      )}
+      <AnalysisGrid
+        analysis={analysis}
         measuresAndBeats={measuresAndBeats}
-        snippets={analysis.snippets || []}
+        midiNumberToY={() => 0}
+        noteHeight={noteHeight}
+        measureSelection={measureSelection}
+        phraseStarts={phraseStarts}
+        midiRange={[0, 0]}
+        showHeader={true}
+        showTonalGrid={false}
         secondsToX={secondsToX}
         sectionSpan={sectionSpan}
       />
-    )}
-    <AnalysisGrid
-      analysis={analysis}
-      measuresAndBeats={measuresAndBeats}
-      midiNumberToY={() => 0}
-      noteHeight={noteHeight}
-      measureSelection={measureSelection}
-      phraseStarts={phraseStarts}
-      midiRange={[0, 0]}
-      showHeader={true}
-      showTonalGrid={false}
-      secondsToX={secondsToX}
-      sectionSpan={sectionSpan}
-    />
-  </div>
-);
+    </div>
+  );
+};

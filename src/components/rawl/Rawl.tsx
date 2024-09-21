@@ -775,13 +775,7 @@ const Rawl: React.FC<{
             </ErrorBoundary>
           )}
         </div>
-        {!isEmbedded && (
-          <LayoutSelector
-            systemLayout={systemLayout}
-            setSystemLayout={setSystemLayout}
-            onCopyPath={handleCopyPath}
-          />
-        )}
+        {!isEmbedded && <LayoutSelector setSystemLayout={setSystemLayout} />}
       </div>
     </div>
   );

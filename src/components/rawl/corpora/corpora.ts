@@ -1284,6 +1284,17 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "geza_horvath",
+    midis: ["petite-saltarelle---geza-horvath"],
+  },
+  {
+    slug: "nikolay_myaskovsky",
+    midis: [
+      "nikolai-myaskovsky---the-yellowed-leaves-op.-31-no-2",
+      "an-ancient-tale---drevnyaya-povest---nikolay-myaskovsky",
+    ],
+  },
+  {
     slug: "yoshito_sekigawa",
     midis: [
       "cafe-scene---paper-mario-the-origami-king",
@@ -1294,7 +1305,7 @@ export const corpora: Corpora[] = [
   },
   {
     slug: "guns_n_roses",
-    midis: ["welcome-to-the-jungle"],
+    midis: ["welcome-to-the-jungle", "november-rain---guns-n-roses"],
   },
   {
     slug: "dominic_james_la_rocca",
@@ -2398,7 +2409,11 @@ export const corpora: Corpora[] = [
   },
   {
     slug: "david_wise",
-    midis: ["gang-plank-galleon-donkey-kong-country"],
+    midis: [
+      "gang-plank-galleon-donkey-kong-country",
+      "aquatic-ambience",
+      "jib-jig-donkey-kong-country-2",
+    ],
   },
   {
     slug: "andrew_prahlow",
@@ -2883,6 +2898,7 @@ export const corpora: Corpora[] = [
     midis: [
       "aziza_mustafa_zadeh_dance_of_fire_2010_live_trio",
       "aziza_mustafa_zadeh_dance_of_fire_nicola_morali_solo_piano_cover",
+      "always---aziza-mustafa-zadeh",
     ],
   },
   {

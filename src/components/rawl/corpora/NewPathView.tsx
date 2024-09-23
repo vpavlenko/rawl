@@ -187,7 +187,6 @@ const NewPathView: React.FC<NewPathViewProps> = ({
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [chapterData, setChapterData] = useState<ChapterData[]>([]);
   const [activeChapter, setActiveChapter] = useState(0);
-  const [activeTopic, setActiveTopic] = useState<string | null>(null);
   const [selectedMeasureStart, setSelectedMeasureStart] = useState<
     number | undefined
   >(undefined);
@@ -252,7 +251,6 @@ const NewPathView: React.FC<NewPathViewProps> = ({
       if (chapterIndex !== -1) {
         setActiveChapter(chapterIndex);
         if (initialTopic) {
-          setActiveTopic(initialTopic);
           setTimeout(() => {
             topicRefs.current[initialTopic]?.scrollIntoView({
               behavior: "smooth",
@@ -267,13 +265,11 @@ const NewPathView: React.FC<NewPathViewProps> = ({
   const handleChapterSelect = (index: number) => {
     setActiveChapter(index);
     resetMidiPlayerState();
-    setActiveTopic(null);
     const chapter = chapterData[index].chapter;
     history.push(`/s/${encodeURIComponent(chapter)}`);
   };
 
   const handleTopicSelect = (topic: string) => {
-    setActiveTopic(topic);
     const chapter = chapterData[activeChapter].chapter;
     history.push(
       `/s/${encodeURIComponent(chapter)}/${encodeURIComponent(topic)}`,
@@ -306,7 +302,6 @@ const NewPathView: React.FC<NewPathViewProps> = ({
     setSelectedMeasureStart(measureStart);
 
     // Scroll to the topic
-    setActiveTopic(topic);
     topicRefs.current[topic]?.scrollIntoView({
       behavior: "smooth",
       block: "start",

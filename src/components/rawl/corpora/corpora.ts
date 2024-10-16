@@ -2202,6 +2202,7 @@ export const corpora: Corpora[] = [
   {
     slug: "chopin_misc",
     midis: [
+      "nocturnes-op.-9---no.-1-in-b-minor-d.-inoue",
       "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
       "chopin_nocturne_op9_no2_maestro_2011r3d3t5",
       "nocturne-in-c-minor-op.-posth.-d.-inoue",
@@ -3516,6 +3517,12 @@ export const corpora: Corpora[] = [
 
       "white_christmas",
       "wonder-wave-by-david-lanz",
+      "something-human---muse",
+      "priboi",
+      "marshmello-alone-sergio-moy-20201220161814-nonstop2k.com",
+      "maromis-theme---smoke",
+      "na-zare---alyans-na-zare",
+      "zappaguri",
     ],
   },
 ];

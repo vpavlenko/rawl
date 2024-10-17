@@ -2207,11 +2207,27 @@ export const corpora: Corpora[] = [
       "chopin_nocturne_op9_no2_maestro_2011r3d3t5",
       "nocturne-in-c-minor-op.-posth.-d.-inoue",
       "nocturne-in-c-sharp-minor",
+      "nocturnes-op.-9---no.-3-in-b-d.-inoue",
+      "nocturnes-op.-15---no.-1-in-f-d.-inoue",
+      "nocturnes-op.-15---no.-2-in-f-d.-inoue",
+      "nocturne-opus-15-no.-2-in-f-major",
+      "nocturne-opus-15-no.-3-in-g-minor",
+      "nocturne-opus-27-no.-1-in-c-minor",
+      "nocturne-opus-27-no.-2-in-d-major",
+      "nocturne-opus-32-no.-1-in-b-major",
+      "nocturne-opus-32-no.-2-in-a-major",
+      "nocturne-opus-48-no.-1-in-c-minor",
+      "nocturne-opus-55-no.-1-in-f-minor",
+      "nocturne-opus-62-no.-1-in-b-major",
 
+      "waltz-opus-18-in-e-major-grande-valse-brillante",
       "chopin---waltz-no.-1-in-d-flat-major-op.-64",
-      "chopin---waltz-no.-1-in-d-flat-major-op.-64",
-      "Waltz_in_A_MinorChopin",
       "waltz-opus-64-no.-2-in-c-minor",
+      "waltz-opus-69-no.-1-in-a-major",
+      "waltz-opus-69-no.-2-in-b-minor",
+      "waltz-opus-70-no.-1-in-g-major",
+      "waltz-b.-133-in-e-major---chopin",
+      "Waltz_in_A_MinorChopin",
 
       "chopin_ballade_fminor_op52",
       "chopin_ballade_no_1_in_g_minor_op_23",
@@ -2219,6 +2235,12 @@ export const corpora: Corpora[] = [
       "chopin_military_polonaise",
 
       "fantaisie-impromptu-in-c-minor---chopin",
+
+      "etude-opus-10-no.-1-in-c-major",
+      "etude-opus-10-no.-2-in-a-minor",
+
+      "mazurka-op.68-no.4---chopin---posth.",
+      "mazurkas-op.-63---no.-2-in-f-minor-r.-lubetsky",
     ],
   },
 
@@ -3523,6 +3545,8 @@ export const corpora: Corpora[] = [
       "maromis-theme---smoke",
       "na-zare---alyans-na-zare",
       "zappaguri",
+
+      "genesis-that-s-all-piano",
     ],
   },
 ];

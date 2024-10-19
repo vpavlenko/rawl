@@ -731,19 +731,7 @@ img {
 }
 
 .noteColor_11_colors {
-    background-color: #fffb00 !important;
-}
-
-.noteColor_11_colors:after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 2px;
-    height: 2px;
-    background-color: black !important;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
+    background-color: #ff0 !important;
 }
 
 .noteColor_disabled {

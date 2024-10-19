@@ -302,10 +302,25 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "masayoshi_soken",
+    midis: [
+      "each-drop-flow-piano-arrangement-ffxiv-endwalker---masayoshi-soken",
+      "finality-ffxiv-endwalker-dungeon-final-boss-theme---masayoshi-soken-ffxiv-endwalker---dungeon-final-boss-theme---masayoshi-soken",
+    ],
+  },
+  {
     // wrong approach. better continue chiptheory's approach with parsing NES files: better coverage
     // see https://vpavlenko.github.io/chiptheory
     slug: "nobuo_uematsu",
-    midis: ["final-fantasy-i-matoya-s-cave---nobuo-uematsu"],
+    midis: [
+      "final-fantasy-i-matoya-s-cave---nobuo-uematsu",
+      "final-fantasy-prelude---nobuo-uematsu",
+      "ffiv-theme-of-love-piano-collections-by-nobuo-uematsu",
+
+      "dragonsong---nobuo-uematsu-advanced-solo-piano",
+      "super-smash-bros.-brawl-main-theme-piano-transcription",
+      "dou-uzhe-da-fighting-those-who-fight---final-fantasy-vii-ps1---nobuo-uematsu",
+    ],
   },
   {
     slug: "mike_morasky",
@@ -551,6 +566,7 @@ export const corpora: Corpora[] = [
       "petite-melodie",
     ],
   },
+
   {
     slug: "happy_birthday",
     midis: [
@@ -773,6 +789,13 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "ravel",
+    midis: [
+      "pavane_pour_une_infante_defunte_ravel_recorder",
+      "ravel---miroirs-iii.-une-barque-sur-l-ocean",
+    ],
+  },
+  {
     slug: "tokyo_ghoul",
     midis: [
       "unravel-acoustic-ver-tokyo-ghoul-theishter-sheet-music-full-sheets",
@@ -905,6 +928,10 @@ export const corpora: Corpora[] = [
       "pesenka-krokodila-geny-iz-m-f-cheburashka---vladimir-shainskiy-perelozhenie-dlya-fortepiano-i-golosa",
       "kukla---v.-shainskiy",
     ],
+  },
+  {
+    slug: "kapustin",
+    midis: ["concert-etudes-op.-40-no.-1---prelude"],
   },
   {
     slug: "maksim_dunaevsky",
@@ -1364,6 +1391,7 @@ export const corpora: Corpora[] = [
       "lost-patrol-main-theme---chris-glaister-jonathan-dunn",
       "none-of-them-knew-they-were-robots---mr.-bungle-mostly",
       "joker-folie-a-deux---trailer-theme---hildur-gudnadottir",
+      "warsaw-concerto-dangerous-moonlight-theme-1941",
     ],
   },
   {
@@ -1476,6 +1504,14 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "shostakovich",
+    midis: [
+      "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
+      "shostakovich_symphony_no5_2nd_movement_for_piano_solo",
+      "symphony-no.-10-by-dmitri-shostakovich---piano-reduction",
+    ],
+  },
+  {
     slug: "jazz_standards",
     midis: [
       "recorda-me-no-me-esqueca",
@@ -1505,6 +1541,7 @@ export const corpora: Corpora[] = [
       "prelude_in_c_sharp_minor_opus_3_no_2_sergei_rachmaninoff",
       "rachmaninoff_piano_concerto_4_1",
       "Prelude_in_G_Minor_Opus_23_No._5",
+      "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---ii.-allegro-molto",
     ],
   },
   {
@@ -2190,13 +2227,18 @@ export const corpora: Corpora[] = [
       "fantasia_in_d_minor_k_397_385g_wolfgang_amadeus_mozart",
       "i_allegro_symphony_no_4_in_d_major_k_19_w_a_mozart",
       "mozart_rondo_in_d_major_k_485_professional_production_score",
-      "mozart_sonata_11_1st",
+
       "mozart_string_quartet_no_18_in_a_major_k464",
       "mozart_string_quartet_no_19_in_c_major_k465_dissonance",
-      "piano_sonata_no_16_in_c_major_k_545_wolfgang_amadeus_mozart_piano_solo",
+
       "string_quartet_no_23_in_f_major_k_590_wolfgang_amadeus_mozart",
-      "sonata_no_13_1st_movement_k_333",
+
       "sonata_no_9_3rd_movement_k_311",
+      "mozart_sonata_11_1st",
+      "sonata_no_13_1st_movement_k_333",
+      "piano_sonata_no_16_in_c_major_k_545_wolfgang_amadeus_mozart_piano_solo",
+
+      "wa-mozart-marche-turque-turkish-march-fingered",
     ],
   },
   {
@@ -3105,6 +3147,7 @@ export const corpora: Corpora[] = [
     slug: "musescore_top",
     midis: [
       "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
+      "ren-sheng-nomerigorando---jiu-shi-rang-jazz-arranged",
       // "River_Flows_In_You",
       "river-flows-in-you",
       // "yiruma_river_flows_in_you_easy",
@@ -3142,10 +3185,10 @@ export const corpora: Corpora[] = [
       "piano-man-piano",
       "All_I_Want_for_Christmas_is_You",
       "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
-      "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
+
       "a-thousand-years",
       "Disney_Pixar_Up_Theme",
-      "wa-mozart-marche-turque-turkish-march-fingered",
+
       "Viva_La_Vida_Coldplay",
       "Gravity_Falls_Opening",
       "the_entertainer_scott_joplin",
@@ -3215,7 +3258,7 @@ export const corpora: Corpora[] = [
       "happy-birthday-to-you-c-major",
       "Requiem_for_a_Dream",
       "Legend_of_Zelda_Great_Fairy_Fountain",
-      "piano_sonata_no_16_in_c_major_k_545_wolfgang_amadeus_mozart_piano_solo",
+
       "Cant_Help_Falling_In_Love",
       "Someone_You_Loved",
       "sonate-no.-17-tempest-3rd-movement",
@@ -3282,6 +3325,16 @@ export const corpora: Corpora[] = [
     slug: "scarlatti",
     midis: ["sonata_k159_scarlatti", "scarlatti-sonata-aria-k.32"],
   },
+
+  {
+    slug: "scarlatti",
+    midis: [
+      "Jupiter_-_arr._for_two_pianos_by_Gustav_Holst",
+      "neptune-the-mystic---gustav-holst-piano-reduction",
+      "the-planets-op.-32----ii.-venus-bringer-of-peace-for-piano",
+    ],
+  },
+
   {
     slug: "unsorted",
     midis: [
@@ -3325,7 +3378,6 @@ export const corpora: Corpora[] = [
       "Johnny_Cash_Hurt",
 
       "Jolene",
-      "Jupiter_-_arr._for_two_pianos_by_Gustav_Holst",
 
       "Krylya_Nautilus_duo",
       "Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki",
@@ -3468,7 +3520,6 @@ export const corpora: Corpora[] = [
       "never_gunna_give_you_up_barbershop",
       "now_voyager_suite_max_steiner",
       "opa-cupa",
-      "pavane_pour_une_infante_defunte_ravel_recorder",
 
       "piano_tutorial",
       "pirate_melody_16measures_chromatic",
@@ -3506,7 +3557,7 @@ export const corpora: Corpora[] = [
       "scott-joplin-s-new-rag---revised-edition---c1914----piano-tutorial",
 
       "shivers_ed_sheeran_shivers_ed_sheeran_mixed_ensemble",
-      "shostakovich_symphony_no5_2nd_movement_for_piano_solo",
+
       "skyrim-theme-for-piano",
       "sonata_in_e_minor_hob_xvi_34_joseph_haydn_piano_sonata_hob_xvi_34_2_adagio",
 

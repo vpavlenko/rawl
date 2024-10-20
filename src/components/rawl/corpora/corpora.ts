@@ -309,6 +309,13 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "masashi_hamauzu",
+    midis: [
+      "besaid-island-final-fantasy-x-piano-collection---masashi-hamauzu",
+      "wish---masashi-hamauzu-final-fantasy-xiii-2-piano",
+    ],
+  },
+  {
     // wrong approach. better continue chiptheory's approach with parsing NES files: better coverage
     // see https://vpavlenko.github.io/chiptheory
     slug: "nobuo_uematsu",
@@ -321,6 +328,19 @@ export const corpora: Corpora[] = [
       "super-smash-bros.-brawl-main-theme-piano-transcription",
       "dou-uzhe-da-fighting-those-who-fight---final-fantasy-vii-ps1---nobuo-uematsu",
     ],
+  },
+  {
+    slug: "elgar",
+    midis: [
+      "elgar_cello_concerto_1_adagio_moderato",
+      "salut-d-amour-op.12---edward-elgar",
+      "elgar---enigma-variations---xi.-nimrod",
+      "elgar-pomp-and-circumstance-march-no.-1-piano-solo-with-choral-finale",
+    ],
+  },
+  {
+    slug: "kotaro_nakagawa",
+    midis: ["the-master---code-geass"],
   },
   {
     slug: "mike_morasky",
@@ -651,6 +671,12 @@ export const corpora: Corpora[] = [
       "fascinating-rhythm---george-gershwin-ira-gershwin-1924-piano-vocal-arrangement",
       "do-it-again---george-gershwin-buddy-desylva",
       "the-man-i-love---george-gershwin-ira-gershwin-1924-piano-vocal-arrangement",
+
+      "s_wonderful",
+      "clap_yo-_hands",
+      "do_it_again",
+      "do-do-do",
+      "fascinating_rhythm",
     ],
   },
   {
@@ -1059,6 +1085,43 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "takahiro_unisuga",
+    midis: ["trails-of-cold-steel-iii----things-entrusted"],
+  },
+  {
+    slug: "gustavo_santaolalla",
+    midis: [
+      "the-last-of-us---gustavo-santaolalla---hbo-opening-theme",
+      "de-ushuaia-a-la-quiaca",
+      "all-gone-no-escape---gustavo-santaolalla-all-gone-no-escape",
+      "the-choice-last-of-us",
+    ],
+  },
+  {
+    slug: "tonci_huljic",
+    midis: [
+      "claudine---tonci-huljic",
+      "cubana",
+      "still-waters---tonci-huljic",
+      "wonderland---tonci-huljic",
+    ],
+  },
+  {
+    slug: "hayato_sonoda",
+    midis: [
+      "ys-viii---dana-arcanashift",
+      "ys-viii---the-sibylline-road",
+      "the-legend-of-heroes--trails-in-the-sky---the-whereabouts-of-light",
+    ],
+  },
+  {
+    slug: "ken_nakagawa",
+    midis: [
+      "nefertiti---k.-nakagawa-d.-achiwa-mana-khemia",
+      "atelier-totori---her-future-1",
+    ],
+  },
+  {
     slug: "nihoshika",
     midis: [
       "bu-wu-nizhao-rasaretaguang---nihosika-heyani-terasareta-hikari---nihoshika",
@@ -1165,6 +1228,18 @@ export const corpora: Corpora[] = [
       "kaqavik",
       "yar-jan-ari---komitas-vardapet",
       "a.03-01-vorti-assdoudzo-komitas",
+    ],
+  },
+  {
+    slug: "ivan_zajc",
+    midis: ["na-gondoli---ivan-pl.-zajc"],
+  },
+  {
+    slug: "stephen_rippy",
+    midis: [
+      "polyester-jammy-rome-2---age-of-empires",
+      "age-of-empires-ii-aoc-main-theme",
+      "music-9-operation-monkey-age-of-empires-ii-the-age-of-kings-for-piano----stephen-rippy",
     ],
   },
   {
@@ -1376,6 +1451,14 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "oleksii_omelchuk",
+    midis: [
+      "metro-2033-main-menu-theme",
+      "metro-exodus---race-against-fate",
+      "metro-last-light-ending-bad-ending",
+    ],
+  },
+  {
     slug: "modern_composers_of_single_pieces",
     midis: [
       "gray",
@@ -1392,6 +1475,7 @@ export const corpora: Corpora[] = [
       "none-of-them-knew-they-were-robots---mr.-bungle-mostly",
       "joker-folie-a-deux---trailer-theme---hildur-gudnadottir",
       "warsaw-concerto-dangerous-moonlight-theme-1941",
+      "machinarium",
     ],
   },
   {
@@ -2328,6 +2412,18 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "dora_pejacevic",
+    midis: ["the-life-of-flowers-violet---dora-pejacevic"],
+  },
+  {
+    slug: "mikulas_schneider_trnavsky",
+    midis: [
+      "otec-nebesky-jks017---mikulas-schneider-trnavsky",
+      "kriste-zo-srdca-celeho-jks272---mikulas-schneider-trnavsky",
+      "hospodine-vyslys-nas-jks527---mikulas-schneider-trnavsky",
+    ],
+  },
+  {
     slug: "mihail_krug",
     midis: ["prihodite-v-moy-dom", "fraer---mihail-krug", "kolshchik"],
   },
@@ -3141,6 +3237,22 @@ export const corpora: Corpora[] = [
       "les-fleurs-sauvages---richard-clayderman",
       "souvenirs-d-enfance---richard-clayderman",
       "concerto-des-etoiles---richard-clayderman",
+    ],
+  },
+  {
+    slug: "marc_streitenfeld",
+    midis: [
+      "honoring-the-dead---marc-streitenfeld",
+      "american-gangster-frank-lucas---marc-streitenfeld",
+      "the-grey",
+    ],
+  },
+  {
+    slug: "ramin_djawadi",
+    midis: [
+      "Game_of_Thrones_Easy_piano",
+      "light-of-the-seven---ramin-djawadi-complete-transcription",
+      "the-night-king---ramin-djawadi",
     ],
   },
   {

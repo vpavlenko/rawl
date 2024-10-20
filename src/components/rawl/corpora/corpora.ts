@@ -662,6 +662,14 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "leo_weiner",
+    midis: [
+      "fox-dance---leo-weiner",
+      "weiner-leo---esik-az-eso",
+      "magyar-nepdal---ungarischer-volkslieder---repulj-madar---weiner-leo",
+    ],
+  },
+  {
     slug: "gershwin_songbook",
     midis: [
       "oh-lady-be-good---george-gershwin-1924-public-domain-piano-voice-sheet-music-arrangement",
@@ -677,6 +685,7 @@ export const corpora: Corpora[] = [
       "do_it_again",
       "do-do-do",
       "fascinating_rhythm",
+      "i_got_rhythm_roll",
     ],
   },
   {
@@ -1686,6 +1695,10 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "fur_elise_covers",
+    midis: ["fur-elise-reharmonization-cover"],
+  },
+  {
     slug: "martha_mier",
     midis: [
       "to-catch-a-dream---martha-mier",
@@ -2413,7 +2426,10 @@ export const corpora: Corpora[] = [
   },
   {
     slug: "dora_pejacevic",
-    midis: ["the-life-of-flowers-violet---dora-pejacevic"],
+    midis: [
+      "the-life-of-flowers-violet---dora-pejacevic",
+      "papillon-op.-6---dora-pejacevic",
+    ],
   },
   {
     slug: "mikulas_schneider_trnavsky",
@@ -2833,6 +2849,21 @@ export const corpora: Corpora[] = [
   {
     slug: "krematoriy",
     midis: ["katmandu-polnaya-versiya", "musornyy-veter-gr.-krematoriy"],
+  },
+  {
+    slug: "wang_jian",
+    midis: ["fei-niao-he-chan-ren-ran"],
+  },
+  {
+    slug: "chinese_single_pieces",
+    midis: [
+      "spring-festival-overture-chun-jie-xu-qu---li-huan-zhi-piano-cover",
+      "cai-yun-zhui-yue-colorful-clouds-chasing-the-moon--piano-solo", // ren guang
+    ],
+  },
+  {
+    slug: "schumann",
+    midis: [],
   },
   {
     slug: "norbert_schultze",

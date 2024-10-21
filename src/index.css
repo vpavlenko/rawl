@@ -679,7 +679,7 @@ img {
     background-color: rgb(130, 0, 0) !important;
 }
 
-.noteColor_1_colors:after, .noteColor_6_colors:after {
+.noteColor_1_colors:after {
     content: '';
     position: absolute;
     top: 50%;
@@ -687,6 +687,18 @@ img {
     width: 1px;
     height: 1px;
     background-color: white !important;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.noteColor_6_colors:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 2px;
+    background-color: black !important;
     border-radius: 50%;
     transform: translate(-50%, -50%);
 }
@@ -704,14 +716,14 @@ img {
 }
 
 .noteColor_5_colors {
-    background-color: #df12ff !important;
+    background-color: #9500b3 !important;
 }
 
 .noteColor_6_colors {
-    background-color: black !important;
+    background-color:  #ea7eff !important;
     /* box-shadow: 0 0 3px white, 0 0 6px white, 0 0 9px white; */
-    border: 1px dotted white;
-    box-sizing: border-box;
+    /* border: 1px dotted black; */
+    /* box-sizing: border-box; */
 }
 
 .noteColor_7_colors {

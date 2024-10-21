@@ -3279,6 +3279,18 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "brian_eno",
+    midis: [
+      "music_for_airports_1_1-eno",
+      "by-this-river---brian-eno",
+      "harold-budd-brian-eno---not-yet-remembered",
+    ],
+  },
+  {
+    slug: "lofi",
+    midis: ["cool-lofi-hip-hop-song"],
+  },
+  {
     slug: "ramin_djawadi",
     midis: [
       "Game_of_Thrones_Easy_piano",

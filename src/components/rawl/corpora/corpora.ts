@@ -674,8 +674,11 @@ export const corpora: Corpora[] = [
     midis: [
       "oh-lady-be-good---george-gershwin-1924-public-domain-piano-voice-sheet-music-arrangement",
       "gershwin_swanee",
+
       "piano-i-ll-build-a-stairway-to-paradise",
       "stairway-to-paradise-lead-sheet-with-verse-and-lyrics",
+      "i-ll_build_a_stairway_to_paradise_roll",
+
       "fascinating-rhythm---george-gershwin-ira-gershwin-1924-piano-vocal-arrangement",
       "do-it-again---george-gershwin-buddy-desylva",
       "the-man-i-love---george-gershwin-ira-gershwin-1924-piano-vocal-arrangement",
@@ -686,6 +689,15 @@ export const corpora: Corpora[] = [
       "do-do-do",
       "fascinating_rhythm",
       "i_got_rhythm_roll",
+      "liza_-_all_the_clouds-ll_roll_away_roll",
+      "my_one_and_only_roll",
+      "nobody_but_you_sustain",
+      "somebody_loves_me_gershwin",
+      "strike_up_the_band_gershwin",
+      "sweet_and_low_down_gershwin",
+      "that-certain-feeling---george-gershwin",
+      "that_certain_feeling_gershwin",
+      "who_cares_as_long_as_you_care_for_me_gershwin",
     ],
   },
   {
@@ -3284,6 +3296,7 @@ export const corpora: Corpora[] = [
       "music_for_airports_1_1-eno",
       "by-this-river---brian-eno",
       "harold-budd-brian-eno---not-yet-remembered",
+      "blonde-by-roger-and-brian-eno",
     ],
   },
   {

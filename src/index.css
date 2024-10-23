@@ -762,7 +762,7 @@ img {
 }
 
 .landing_gradient_cool {
-    background: linear-gradient(to right, #df12ff,#0000ff, #03b9d5, #007000, #00fb47);
+    background: linear-gradient(to right,  #9500b3, #ea7eff, #0000ff, #03b9d5, #007000, #00fb47);
     -webkit-background-clip: text;
     /* background: linear-gradient(to right, #df12ff,#df12ff, #0000ff, #0000ff,#0000ff, #03b9d5, #03b9d5, #03b9d5, #007000, #00fb47); */
 
@@ -774,7 +774,7 @@ img {
 }
 
 .landing_gradient_warm {
-    background: linear-gradient(to right, #fffb00, #ff7328, red, #df12ff);
+    background: linear-gradient(to right, #ff0, #ff7328, red, #9500b3);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -784,7 +784,7 @@ img {
 }
 
 .landing_gradient_bright {
-    background: linear-gradient(to right, #00fb47, #03b9d5, #fffb00);
+    background: linear-gradient(to right, #00fb47, #03b9d5, #ff0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

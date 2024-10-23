@@ -58,6 +58,7 @@ export const CHORDS = {
   iø7: [0, 3, 6, 10],
   iio: [2, 5, 8],
   iio7: [2, 5, 8, 11],
+  iiø7: [2, 5, 8, 12],
   viio: [11, 2, 5],
   IPAC: [0, 4, 12],
   I6: [4, 7, 12],
@@ -90,7 +91,7 @@ export type Mode = { title: string; chords: Chord[] };
 export const MODES: Mode[] = [
   {
     title: "minor",
-    chords: ["iio7", "iv", "bVI", "i", "bIII", "v", "V", "V7", "bVII"],
+    chords: ["iiø7", "iv", "bVI", "i", "bIII", "v", "V", "V7", "bVII"],
   },
   { title: "major", chords: ["ii", "IV", "vi", "I", "iii", "V", "V7", "viio"] },
   {

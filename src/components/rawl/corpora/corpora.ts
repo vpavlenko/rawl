@@ -672,18 +672,24 @@ export const corpora: Corpora[] = [
   {
     slug: "gershwin_songbook",
     midis: [
-      "oh-lady-be-good---george-gershwin-1924-public-domain-piano-voice-sheet-music-arrangement",
       "gershwin_swanee",
+      "swanee_gershwin",
+
+      "oh-lady-be-good---george-gershwin-1924-public-domain-piano-voice-sheet-music-arrangement",
+      "oh-_lady_be_good_gershwin",
 
       "piano-i-ll-build-a-stairway-to-paradise",
       "stairway-to-paradise-lead-sheet-with-verse-and-lyrics",
       "i-ll_build_a_stairway_to_paradise_roll",
+      "i-ll_build_a_stairway_to_paradise_gershwin",
 
       "fascinating-rhythm---george-gershwin-ira-gershwin-1924-piano-vocal-arrangement",
       "fascinating_rhythm_gershwin",
       "do-it-again---george-gershwin-buddy-desylva",
-      "do_it_again",
+      // "do_it_again",
+      "do_it_again_gershwin",
       "the-man-i-love---george-gershwin-ira-gershwin-1924-piano-vocal-arrangement",
+      "the_man_i_love_gershwin",
 
       // "s_wonderful",
       "s_wonderful_gershwin",

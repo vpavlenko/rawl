@@ -457,6 +457,14 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "ferdinand_hiller",
+    midis: [
+      "reverie---ferdinand-hiller",
+      "tagebuch-no.-2---ferdinand-hiller",
+      "etude-op.-15-no.-4---ferdinand-hiller",
+    ],
+  },
+  {
     slug: "ennio_morricone",
     midis: [
       "ennio-morricone-chi-mai-from-le-professionnel-easy-piano-arr.-by-free-musickey",
@@ -1511,6 +1519,7 @@ export const corpora: Corpora[] = [
       "joker-folie-a-deux---trailer-theme---hildur-gudnadottir",
       "warsaw-concerto-dangerous-moonlight-theme-1941",
       "machinarium",
+      "chasing-kou---hidekazu-sakamoto-drowning-love---ni-rerunaihu-mule-bbajin-naipeu-ost",
     ],
   },
   {
@@ -1539,6 +1548,61 @@ export const corpora: Corpora[] = [
   {
     slug: "possibly_tango",
     midis: ["veinte-anos", "rio---g.-gladkov"],
+  },
+  {
+    slug: "dj_okawari",
+    midis: [
+      "flower-dance-dj-okawari",
+      "luv-letter-by-dj-okawari",
+      "perfect-blue---dj-okawari-piano-solo-hard",
+    ],
+  },
+  {
+    slug: "nujabes",
+    midis: [
+      "aruarian-dance---nujabes",
+      "feather---nujabes",
+      "shiki-no-uta---nujabes",
+      "horizon---nujabes",
+      "nujabes---counting-stars---loop-piano-cover",
+      "another-reflection---nujabes",
+      "mystline",
+      "eclipse---nujabes",
+      "think-different---nujabes",
+      "letter-from-yokosuka---nujabes-uyama-hiroto-piano-soprano-saxophone-vibraphone",
+      "flowers---nujabes",
+      "reflection_eternal",
+      "kumomi---nujabes",
+      "nujabes--blessing-it-remix",
+    ],
+  },
+  {
+    slug: "joao_mateus_junior_8_fados",
+    midis: ["beijos-de-mae---joao-mateus-junior"],
+  },
+  {
+    slug: "angelo_frondoni",
+    midis: [
+      "marcha-as-tres-rocas-de-crystal---angelo-frondoni",
+      "diz-tudo-amor---romance---angelo-frondoni",
+    ],
+  },
+  {
+    slug: "derek_fiechter",
+    midis: [
+      "cats-of-whisker-hollow-spooky-autumn---derek-fiechter",
+      "osiris---derek-fiechter",
+      "spooky-autumn-ii---halloween-carnival---derek-fiechter-brandon-fiechter",
+      "the-tale-of-the-firebird---derek-brandon-fiechter",
+    ],
+  },
+  {
+    slug: "ryuichi_sakamoto",
+    midis: [
+      "merry-christmas-mr.-lawrence-forbidden-colours---ryuichi-sakamoto",
+      "aqua---ryuichi-sakamoto-ryuichi-sakamoto", // ideal for beginners
+      "energy-flow---ryuichi-sakamoto",
+    ],
   },
   {
     slug: "gesualdo",

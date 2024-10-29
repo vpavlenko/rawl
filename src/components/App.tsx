@@ -1222,7 +1222,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                             <Corpus slug={match.params?.corpus} />
                           )}
                         />
-                        <Route path="/pages/daw" render={() => <DAW />} />
+                        <Route path="/daw" render={() => <DAW />} />
                         <Route path="/pirate" render={() => <Pirate />} />
                         {browseRoute}
                         {rawlRoute}

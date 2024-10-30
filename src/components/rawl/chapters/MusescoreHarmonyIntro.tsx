@@ -10,20 +10,37 @@ const MusescoreHarmonyIntro = () => {
       <a href="/corpus/musescore_top100">Top 100 Songs on MuseScore</a>
       We're gonna divide that corpus into several groups to make it easier to
       analyze them one by one.
-      <a href="/corpus/musescore_top100_c_major">C Major Songs</a>
       <br />
-      <a href="/corpus/musescore_top100_major">Major Key Songs</a>
+      <a href="/corpus/musescore_top100_c_major">musescore_top100_c_major</a>
       <br />
-      <a href="/corpus/musescore_top100_minor">Minor Key Songs</a>
+      <a href="/corpus/musescore_top100_major">musescore_top100_major</a>
+      <br />
+      <a href="/corpus/musescore_top100_minor">musescore_top100_minor</a>
       <br />
       <a href="/corpus/musescore_top100_progressions">
-        Songs with 4-chord Progressions
+        musescore_top100_progressions
       </a>
       <br />
-      <a href="/corpus/musescore_top100_modulation">Songs with Modulation</a>
+      <a href="/corpus/musescore_top100_double_tonic">
+        musescore_top100_double_tonic
+      </a>
+      <br />
+      <a href="/corpus/musescore_top100_modulation">
+        musescore_top100_modulation
+      </a>
+      <br />
+      <a href="/corpus/musescore_top100_chromatic_chords">
+        musescore_top100_chromatic_chords
+      </a>
+      <br />
+      <a href="/corpus/musescore_top100_chopin">musescore_top100_chopin</a>
       <br />
       <a href="/corpus/musescore_top100_extensions">
-        Songs with Extended Harmonies
+        musescore_top100_extensions
+      </a>
+      <br />
+      <a href="/corpus/musescore_top100_something_else">
+        musescore_top100_something_else
       </a>
     </div>
   );

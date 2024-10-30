@@ -3405,11 +3405,7 @@ export const corpora: Corpora[] = [
     midis: [
       "Canon_in_D",
       "a-thousand-years",
-      "All_I_Want_for_Christmas_is_You",
       "Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019",
-      "the_entertainer_scott_joplin",
-      "Maple_Leaf_Rag_Scott_Joplin",
-      "Wet_Hands_Minecraft",
     ],
   },
   {
@@ -3427,7 +3423,8 @@ export const corpora: Corpora[] = [
       "Bella_Ciao",
       "undertale-ost---nyeh-heh-heh-bonetrousle",
       "dragonborn---skyrim-theme-song-piano-solo",
-      "erik-satie---gnossienne-ndeg1",
+      // "erik-satie---gnossienne-ndeg1",
+      "satie-e.---gnossienne-no.-1",
     ],
   },
   {
@@ -3469,6 +3466,10 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "musescore_top100_double_tonic",
+    midis: [],
+  },
+  {
     slug: "musescore_top100_modulation",
     midis: [
       "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2",
@@ -3487,24 +3488,30 @@ export const corpora: Corpora[] = [
   {
     slug: "musescore_top100_chromatic_chords",
     midis: [
+      "All_I_Want_for_Christmas_is_You",
+      "Maple_Leaf_Rag_Scott_Joplin",
+      "the_entertainer_scott_joplin",
+
       "Fallen_Down_Undertale",
       "Omori_Duet",
+      "Super_Mario_Bros_Main_Theme",
+      "legend-of-zelda-main-theme-score",
 
+      "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
+      "Sonate_No._14_Moonlight_1st_Movement",
+      "Liebestraum_No._3_in_A_Major",
+    ],
+  },
+  {
+    slug: "musescore_top100_chopin",
+    midis: [
       "nocturne-in-c-sharp-minor",
       "waltz-opus-64-no.-2-in-c-minor",
       "Waltz_in_A_MinorChopin",
       "fantaisie-impromptu-in-c-minor---chopin",
       "etude-opus-25-no.-11-winter-wind-in-a-minor",
       "chopin_ballade_no_1_in_g_minor_op_23",
-
       "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
-
-      "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
-      "Sonate_No._14_Moonlight_1st_Movement",
-
-      "Liebestraum_No._3_in_A_Major",
-      "Super_Mario_Bros_Main_Theme",
-      "legend-of-zelda-main-theme-score",
     ],
   },
   {
@@ -3536,6 +3543,7 @@ export const corpora: Corpora[] = [
     midis: [
       "Undertale_-_Megalovania_Piano_ver._3",
       "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2",
+      "Wet_Hands_Minecraft",
       "Legend_of_Zelda_Great_Fairy_Fountain",
       "24-preludes-op.-28---no.-4-in-e-minor-suffocation-g.-d.-robertson",
     ],
@@ -3646,7 +3654,8 @@ export const corpora: Corpora[] = [
       "when-i-was-your-man---bruno-mars-600e3a",
       "liszt---hungarian-rhapsody-no.-2",
       "beethoven-symphony-no.-5-1st-movement-piano-solo",
-      "erik-satie---gnossienne-ndeg1",
+      // "erik-satie---gnossienne-ndeg1",
+      "satie-e.---gnossienne-no.-1",
       "waltz-opus-64-no.-2-in-c-minor",
       // "the-legend-of-zelda-main-theme-easy",
       // "main-theme---legend-of-zelda",

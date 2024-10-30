@@ -3390,10 +3390,161 @@ export const corpora: Corpora[] = [
     ],
   },
   {
-    slug: "musescore_top",
+    slug: "musescore_top100_c_major",
+    midis: [
+      "happy-birthday-to-you-c-major",
+      "John_Lennon_Imagine",
+      "ballade-pour-adeline---richard-clayderman",
+      "Dawn_Pride_and_Prejudice",
+      "when-i-was-your-man---bruno-mars-600e3a",
+      "piano-man-piano",
+    ],
+  },
+  {
+    slug: "musescore_top100_major",
+    midis: [
+      "Canon_in_D",
+      "a-thousand-years",
+      "All_I_Want_for_Christmas_is_You",
+      "Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019",
+      "the_entertainer_scott_joplin",
+      "Maple_Leaf_Rag_Scott_Joplin",
+      "Wet_Hands_Minecraft",
+    ],
+  },
+  {
+    slug: "musescore_top100_minor",
+    midis: [
+      "Pirates_of_the_Caribbean_-_Hes_a_Pirate",
+      "Carol_of_the_Bells",
+      "sadness-and-sorrow-for-piano-solo",
+      "mariage-d-amour---paul-de-senneville-marriage-d-amour",
+      "theme-from-schindler-s-list---piano-solo",
+      "g-minor-bach-original",
+      "passacaglia---handel-halvorsen",
+      "Game_of_Thrones_Easy_piano",
+      "Gravity_Falls_Opening",
+      "Bella_Ciao",
+      "undertale-ost---nyeh-heh-heh-bonetrousle",
+      "dragonborn---skyrim-theme-song-piano-solo",
+      "erik-satie---gnossienne-ndeg1",
+    ],
+  },
+  {
+    slug: "musescore_top100_progressions",
+    midis: [
+      "still-dre---variation-composition",
+      "Requiem_for_a_Dream",
+      "the-office-opening-theme",
+      "river-flows-in-you",
+      "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
+      "Viva_La_Vida_Coldplay",
+      "Mad_world_Piano",
+      "Believer_-_Imagine_Dragons",
+      "despacito-piano-cover-peter-bence",
+      "doki-doki-literature-club-ost---your-reality",
+
+      "clocks---coldplay",
+      "attack-on-titan-theme-guren-no-yumiya",
+
+      // two progressions
+      "Someone_Like_You_easy_piano",
+      "Ed_Sheeran_Perfect",
+      "my-heart-will-go-on", // double-tonic
+      "Lovely_Billie_Eilish",
+      "Never_Gonna_Give_You_Up",
+      "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
+      "Let_Her_Go_Passenger",
+      "Je_Te_Laisserai_Des_Mots_-_Patrick_Watson",
+      "Another_Love__-_Tom_Odell_Professional",
+
+      "gurenge--demon-slayer-kimetsu-no-yaiba-op",
+      "Take_on_me",
+      "solas---jamie-duffy",
+
+      "undertale-undertale-piano",
+
+      "Hallelujah",
+      "sia---snowman",
+    ],
+  },
+  {
+    slug: "musescore_top100_modulation",
+    midis: [
+      "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2",
+      "Cant_Help_Falling_In_Love",
+      "minuet-bwv-anhang-114-in-g-major",
+      "Interstellar",
+      "flight-of-the-bumblebee",
+      "Fr_Elise",
+      "tude_S._1413_in_G_Minor_La_Campanella__Liszt",
+      "liszt---hungarian-rhapsody-no.-2",
+      "bwv0565-toccata-and-fugue-in-dm-c",
+      "Sonate_No._14_Moonlight_3rd_Movement", // V/bII, sonata form
+      "beethoven-symphony-no.-5-1st-movement-piano-solo",
+    ],
+  },
+  {
+    slug: "musescore_top100_chromatic_chords",
+    midis: [
+      "Fallen_Down_Undertale",
+      "Omori_Duet",
+
+      "nocturne-in-c-sharp-minor",
+      "waltz-opus-64-no.-2-in-c-minor",
+      "Waltz_in_A_MinorChopin",
+      "fantaisie-impromptu-in-c-minor---chopin",
+      "etude-opus-25-no.-11-winter-wind-in-a-minor",
+      "chopin_ballade_no_1_in_g_minor_op_23",
+
+      "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
+
+      "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
+      "Sonate_No._14_Moonlight_1st_Movement",
+
+      "Liebestraum_No._3_in_A_Major",
+      "Super_Mario_Bros_Main_Theme",
+      "legend-of-zelda-main-theme-score",
+    ],
+  },
+  {
+    slug: "musescore_top100_extensions",
+    midis: [
+      "kimi-no-na-wa---sparkle-theishter-2016", // also Vsus4
+      "Disney_Pixar_Up_Theme",
+      "congratulations---mac-miller",
+      "the-scientist---coldplay-piano-arrangement",
+      "ylang-ylang---fkj-transcribed-by-lilroo",
+      "Gymnopdie_No._1__Satie",
+      "Zeldas_Lullaby",
+      "Sweden_Minecraft",
+      "Summer_Joe_Hisaishi",
+      "arabesque-l.-66-no.-1-in-e-major",
+      "Golden_Hour__JVKE_Updated_Ver.",
+      "One_Summers_Day_Spirited_Away",
+      "what-falling-in-love-feels-like---jake25.17-fanmade-extended-version",
+      "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
+      "undertale-ost---hopes-and-dreams-save-the-world",
+      "Clair_de_Lune__Debussy",
+
+      "Fly_Me_to_the_Moon",
+      "autumn-leaves-jazz-piano",
+    ],
+  },
+  {
+    slug: "musescore_top100_something_else",
+    midis: [
+      "Undertale_-_Megalovania_Piano_ver._3",
+      "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2",
+      "Legend_of_Zelda_Great_Fairy_Fountain",
+      "24-preludes-op.-28---no.-4-in-e-minor-suffocation-g.-d.-robertson",
+    ],
+  },
+  {
+    slug: "musescore_top100",
     midis: [
       "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
-      "ren-sheng-nomerigorando---jiu-shi-rang-jazz-arranged",
+
       // "River_Flows_In_You",
       "river-flows-in-you",
       // "yiruma_river_flows_in_you_easy",
@@ -3453,7 +3604,7 @@ export const corpora: Corpora[] = [
       "despacito-piano-cover-peter-bence",
       "Summer_Joe_Hisaishi",
       "arabesque-l.-66-no.-1-in-e-major",
-      "chopin-prelude-e-minor-op-28-no-4-w-chord-symbols",
+      // "chopin-prelude-e-minor-op-28-no-4-w-chord-symbols",
       "24-preludes-op.-28---no.-4-in-e-minor-suffocation-g.-d.-robertson",
       "still-dre---variation-composition",
       "what-falling-in-love-feels-like---jake25.17-fanmade-extended-version",
@@ -3489,9 +3640,9 @@ export const corpora: Corpora[] = [
       "kimi-no-na-wa---sparkle-theishter-2016",
       "undertale-undertale-piano",
       "etude-opus-25-no.-11-winter-wind-in-a-minor",
-      "when-i-was-your-man---bruno-mars",
-      "when-i-was-your-man",
-      "when-i-was-your-man-by-bruno-mars",
+      // "when-i-was-your-man---bruno-mars",
+      // "when-i-was-your-man",
+      // "when-i-was-your-man-by-bruno-mars",
       "when-i-was-your-man---bruno-mars-600e3a",
       "liszt---hungarian-rhapsody-no.-2",
       "beethoven-symphony-no.-5-1st-movement-piano-solo",
@@ -3510,8 +3661,14 @@ export const corpora: Corpora[] = [
       "happy-birthday-to-you-c-major",
       "Requiem_for_a_Dream",
       "Legend_of_Zelda_Great_Fairy_Fountain",
-
+      // "ren-sheng-nomerigorando---jiu-shi-rang-jazz-arranged",
       "Cant_Help_Falling_In_Love",
+    ],
+  },
+
+  {
+    slug: "musescore_top200",
+    midis: [
       "Someone_You_Loved",
       "sonate-no.-17-tempest-3rd-movement",
       "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night",

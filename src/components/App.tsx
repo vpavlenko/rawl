@@ -59,6 +59,7 @@ import Rawl from "./rawl/Rawl";
 import { ShortcutHelp } from "./rawl/ShortcutHelp";
 import Slicer from "./rawl/Slicer";
 import { Analyses } from "./rawl/analysis";
+import MusescoreHarmonyIntro from "./rawl/chapters/MusescoreHarmonyIntro";
 import Corpus from "./rawl/corpora/Corpus";
 import NewPathView, { NewPathViewProps } from "./rawl/corpora/NewPathView";
 import PathView from "./rawl/corpora/PathView";
@@ -1227,6 +1228,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
                         {browseRoute}
                         {rawlRoute}
                         <Route path="/path" render={() => <PathView />} />
+                        <Route
+                          path="/chapters/:chapter"
+                          render={() => <MusescoreHarmonyIntro />}
+                        />
                       </Switch>
                     </div>
                   </div>

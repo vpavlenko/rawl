@@ -112,7 +112,7 @@ const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
   return (
     <div>
       <h1>{slug}</h1>
-      {corpus.midis.map((midiSlug) => (
+      {corpus.midis.map((midiSlug, index) => (
         <div
           key={midiSlug}
           style={{
@@ -121,6 +121,7 @@ const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
             marginBottom: "10px",
           }}
         >
+          {`${index + 1}. `}
           <a href={`/f/${midiSlug}`} target="_blank" rel="noopener noreferrer">
             {midiSlug.replace(/---/g, " – ").replace(/-/g, " ")}
           </a>

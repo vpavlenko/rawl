@@ -3409,65 +3409,67 @@ export const corpora: Corpora[] = [
     ],
   },
   {
-    slug: "musescore_top100_minor",
+    slug: "musescore_top100_minor_with_V",
     midis: [
+      "Gravity_Falls_Opening",
       "Pirates_of_the_Caribbean_-_Hes_a_Pirate",
+      "Bella_Ciao",
       "Carol_of_the_Bells",
-      "sadness-and-sorrow-for-piano-solo",
       "mariage-d-amour---paul-de-senneville-marriage-d-amour",
       "theme-from-schindler-s-list---piano-solo",
       "g-minor-bach-original",
       "passacaglia---handel-halvorsen",
-      "Game_of_Thrones_Easy_piano",
-      "Gravity_Falls_Opening",
-      "Bella_Ciao",
-      "undertale-ost---nyeh-heh-heh-bonetrousle",
       "dragonborn---skyrim-theme-song-piano-solo",
-      // "erik-satie---gnossienne-ndeg1",
-      "satie-e.---gnossienne-no.-1",
+      "Hallelujah",
+      "attack-on-titan-theme-guren-no-yumiya",
+      "Game_of_Thrones_Easy_piano", // <- replace with V arrangement
+      "Je_Te_Laisserai_Des_Mots_-_Patrick_Watson",
+      "gurenge--demon-slayer-kimetsu-no-yaiba-op",
+    ],
+  },
+  {
+    slug: "musescore_top100_single_loop_fixed_tonic",
+    midis: [
+      "Requiem_for_a_Dream",
+      "Believer_-_Imagine_Dragons",
+      "Mad_world_Piano",
+      "clocks---coldplay",
+      "Lovely_Billie_Eilish",
+      "Never_Gonna_Give_You_Up",
+    ],
+  },
+  {
+    slug: "musescore_top100_single_loop_double_tonic",
+    midis: [
+      "sadness-and-sorrow-for-piano-solo", // natural
+      "still-dre---variation-composition",
+      "the-office-opening-theme", // meh, V/vi
+      "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
+      "Someone_Like_You_easy_piano",
+      "river-flows-in-you",
+      "Viva_La_Vida_Coldplay",
+      "despacito-piano-cover-peter-bence",
+      "doki-doki-literature-club-ost---your-reality",
+      "Ed_Sheeran_Perfect",
+      "my-heart-will-go-on", // double-tonic
     ],
   },
   {
     slug: "musescore_top100_progressions",
     midis: [
-      "still-dre---variation-composition",
-      "Requiem_for_a_Dream",
-      "the-office-opening-theme",
-      "river-flows-in-you",
-      "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
-      "Viva_La_Vida_Coldplay",
-      "Mad_world_Piano",
-      "Believer_-_Imagine_Dragons",
-      "despacito-piano-cover-peter-bence",
-      "doki-doki-literature-club-ost---your-reality",
-
-      "clocks---coldplay",
-      "attack-on-titan-theme-guren-no-yumiya",
-
       // two progressions
-      "Someone_Like_You_easy_piano",
-      "Ed_Sheeran_Perfect",
-      "my-heart-will-go-on", // double-tonic
-      "Lovely_Billie_Eilish",
-      "Never_Gonna_Give_You_Up",
-      "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
+
+      "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK", // can go to double tonic?
       "Let_Her_Go_Passenger",
-      "Je_Te_Laisserai_Des_Mots_-_Patrick_Watson",
+
       "Another_Love__-_Tom_Odell_Professional",
 
-      "gurenge--demon-slayer-kimetsu-no-yaiba-op",
       "Take_on_me",
-      "solas---jamie-duffy",
 
       "undertale-undertale-piano",
 
-      "Hallelujah",
-      "sia---snowman",
+      "sia---snowman", // applied?
     ],
-  },
-  {
-    slug: "musescore_top100_double_tonic",
-    midis: [],
   },
   {
     slug: "musescore_top100_modulation",
@@ -3495,6 +3497,7 @@ export const corpora: Corpora[] = [
       "Fallen_Down_Undertale",
       "Omori_Duet",
       "Super_Mario_Bros_Main_Theme",
+      "solas---jamie-duffy",
       "legend-of-zelda-main-theme-score",
 
       "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
@@ -3518,24 +3521,34 @@ export const corpora: Corpora[] = [
     slug: "musescore_top100_extensions",
     midis: [
       "kimi-no-na-wa---sparkle-theishter-2016", // also Vsus4
-      "Disney_Pixar_Up_Theme",
+      "Disney_Pixar_Up_Theme", // V/V V I that's it
       "congratulations---mac-miller",
       "the-scientist---coldplay-piano-arrangement",
       "ylang-ylang---fkj-transcribed-by-lilroo",
       "Gymnopdie_No._1__Satie",
-      "Zeldas_Lullaby",
-      "Sweden_Minecraft",
-      "Summer_Joe_Hisaishi",
-      "arabesque-l.-66-no.-1-in-e-major",
-      "Golden_Hour__JVKE_Updated_Ver.",
+
       "One_Summers_Day_Spirited_Away",
       "what-falling-in-love-feels-like---jake25.17-fanmade-extended-version",
-      "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
       "undertale-ost---hopes-and-dreams-save-the-world",
       "Clair_de_Lune__Debussy",
-
+    ],
+  },
+  {
+    slug: "musescore_top100_extensions_second_down",
+    midis: [
+      "Summer_Joe_Hisaishi", // doubt it's extensions at all
+      "Zeldas_Lullaby",
+      "arabesque-l.-66-no.-1-in-e-major",
+      "Golden_Hour__JVKE_Updated_Ver.",
+    ],
+  },
+  {
+    slug: "musescore_top100_extensions_ii_V",
+    midis: [
+      "Sweden_Minecraft",
       "Fly_Me_to_the_Moon",
       "autumn-leaves-jazz-piano",
+      "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
     ],
   },
   {
@@ -3546,6 +3559,8 @@ export const corpora: Corpora[] = [
       "Wet_Hands_Minecraft",
       "Legend_of_Zelda_Great_Fairy_Fountain",
       "24-preludes-op.-28---no.-4-in-e-minor-suffocation-g.-d.-robertson",
+      "undertale-ost---nyeh-heh-heh-bonetrousle",
+      "satie-e.---gnossienne-no.-1", // natural
     ],
   },
   {

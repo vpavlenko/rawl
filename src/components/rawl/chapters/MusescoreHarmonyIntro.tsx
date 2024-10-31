@@ -34,18 +34,6 @@ const MusescoreHarmonyIntro = () => {
       <br />
       <br />
       <br />
-      <h2>Missing Slugs in Chapters*</h2>
-      {missingSlugs.length > 0 ? (
-        missingSlugs.map((slug) => (
-          <div key={slug}>
-            <a href={`/f/${slug}`} target="_blank" rel="noopener noreferrer">
-              {slug.replace(/_/g, " ")}
-            </a>
-          </div>
-        ))
-      ) : (
-        <p>No missing slugs found.</p>
-      )}
     </div>
   );
 };

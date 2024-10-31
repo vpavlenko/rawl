@@ -3397,11 +3397,19 @@ export const corpora: Corpora[] = [
       "Dawn_Pride_and_Prejudice",
       "when-i-was-your-man---bruno-mars-600e3a",
       "piano-man-piano",
+      "la-vie-en-rose-solo-accordion", // or Imaj7
     ],
   },
   {
     slug: "chapters_major",
-    midis: ["Canon_in_D", "a-thousand-years"],
+    midis: [
+      "Canon_in_D",
+      "welcome-to-the-black-parade---my-chemical-romance",
+      "a-thousand-years",
+      "your-song-piano",
+      "Test_Drive_How_to_Train_Your_Dragon", // tonally unstable part inside
+      "calum-scott---you-are-the-reason-piano-sheet-lyrics-lyrics-version-link-in-description",
+    ],
   },
   {
     slug: "chapters_minor_with_V",
@@ -3420,6 +3428,9 @@ export const corpora: Corpora[] = [
       "Game_of_Thrones_Easy_piano", // <- replace with V arrangement
       "Je_Te_Laisserai_Des_Mots_-_Patrick_Watson",
       "gurenge--demon-slayer-kimetsu-no-yaiba-op",
+      "Pokemon_Theme_Song",
+      "nothing-else-matters---metallica",
+      "anastasia---once-upon-a-december",
     ],
   },
   {
@@ -3427,14 +3438,26 @@ export const corpora: Corpora[] = [
     midis: [
       "Requiem_for_a_Dream",
       "Believer_-_Imagine_Dragons",
+      "we-are-number-one-but-it-s-a-piano-transcript",
       "Mad_world_Piano",
       "Lovely_Billie_Eilish",
       "Never_Gonna_Give_You_Up",
+      "dont-stop-believing-piano",
+      "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night",
+      "sign-of-the-times---harry-styles",
+      "how-far-i-ll-go-~-moana-ost",
+      "Im_Blue_Eiffel_65",
     ],
   },
   {
     slug: "chapters_single_loop_double_tonic",
     midis: [
+      "alan-walker---alone-piano",
+      "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",
+      "fairy-tail-main-theme",
+      "africa---toto",
+      "Yann_Tiersen_Amelie",
+      "Someone_You_Loved",
       "sadness-and-sorrow-for-piano-solo", // natural
       "still-dre---variation-composition",
       "the-office-opening-theme", // meh, V/vi
@@ -3445,12 +3468,13 @@ export const corpora: Corpora[] = [
       "despacito-piano-cover-peter-bence",
       "doki-doki-literature-club-ost---your-reality",
       "Ed_Sheeran_Perfect",
-      "my-heart-will-go-on", // double-tonic
+      "my-heart-will-go-on",
     ],
   },
   {
     slug: "chapters_progressions",
     midis: [
+      "yuri-on-ice---piano-theme-full",
       "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
       "Let_Her_Go_Passenger",
       "Another_Love__-_Tom_Odell_Professional",
@@ -3468,19 +3492,25 @@ export const corpora: Corpora[] = [
       "Interstellar",
       "flight-of-the-bumblebee",
       "Fr_Elise",
+      "vivaldi---summer---piano",
+      "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
+      "wa-mozart-marche-turque-turkish-march-fingered",
     ],
   },
   {
     slug: "chapters_chromatic_chords",
     midis: [
+      "abba--the-winner-takes-it-all",
       "All_I_Want_for_Christmas_is_You",
       "the_entertainer_scott_joplin",
+      "it-s-been-a-long-long-time---harry-james",
       "Omori_Duet",
       "Super_Mario_Bros_Main_Theme",
       "solas---jamie-duffy",
       "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
       "Liebestraum_No._3_in_A_Major",
       "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
+      "dance-of-the-sugar-plum-fairy",
     ],
   },
   {
@@ -3494,6 +3524,8 @@ export const corpora: Corpora[] = [
       "what-falling-in-love-feels-like---jake25.17-fanmade-extended-version",
       "Clair_de_Lune__Debussy",
       "Golden_Hour__JVKE_Updated_Ver.",
+      "my-lie-watashi-no-uso---your-lie-in-april",
+      "Love_Like_You_Steven_Universe",
     ],
   },
   {
@@ -3503,6 +3535,7 @@ export const corpora: Corpora[] = [
       "Fly_Me_to_the_Moon",
       "autumn-leaves-jazz-piano",
       "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
+      "mii-channel-piano",
     ],
   },
   {
@@ -3606,7 +3639,7 @@ export const corpora: Corpora[] = [
       "yuri-on-ice---piano-theme-full", // Taro Umebayashi, Taku Matsushiba
       "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night", // Ayase
       "africa---toto", // Toto
-      "Vivaldi_-_Summer__The_Four_Seasons__-_Rousseau", // Vivaldi
+      "vivaldi---summer---piano", // Vivaldi
       "Love_Like_You_Steven_Universe", // Steven Universe
       "alan-walker---alone-piano", // Alan Walker
       "my-lie-watashi-no-uso---your-lie-in-april", // Masaru Yokoyama

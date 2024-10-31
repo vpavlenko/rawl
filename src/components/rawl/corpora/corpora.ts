@@ -3655,6 +3655,26 @@ export const corpora: Corpora[] = [
       "Requiem_for_a_Dream", // Clint Mansell
 
       "yuri-on-ice---piano-theme-full", // Taro Umebayashi, Taku Matsushiba
+      "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night", // Ayase
+      "africa---toto", // Toto
+      "Vivaldi_-_Summer__The_Four_Seasons__-_Rousseau", // Vivaldi
+      "Love_Like_You_Steven_Universe", // Steven Universe
+      "alan-walker---alone-piano", // Alan Walker
+      "my-lie-watashi-no-uso---your-lie-in-april", // Masaru Yokoyama
+      "anastasia---once-upon-a-december", // Stephen Flaherty
+      "Test_Drive_How_to_Train_Your_Dragon", // John Powell
+      "Pokemon_Theme_Song", // John Siegler
+
+      "your-song-piano", // Elton John
+      "nothing-else-matters---metallica", // Metallica
+      "calum-scott---you-are-the-reason-piano-sheet-lyrics-lyrics-version-link-in-description", // Calum Scott
+      "fairy-tail-main-theme", // Yasuharu Takanashi
+      "welcome-to-the-black-parade---my-chemical-romance", // My Chemical Romance
+      "how-far-i-ll-go-~-moana-ost", // Lin-Manuel Miranda
+      "la-vie-en-rose-solo-accordion", // Louiguy
+      "Im_Blue_Eiffel_65", // Eiffel 65
+      "old-town-road---lil-nas-x-ft.-billy-ray-cyrus", // Lil Nas X
+      "abba--the-winner-takes-it-all", // ABBA
     ],
   },
   {
@@ -3690,47 +3710,25 @@ export const corpora: Corpora[] = [
       "legend-of-zelda-main-theme-score",
       "undertale-ost---nyeh-heh-heh-bonetrousle",
       "bwv0565-toccata-and-fugue-in-dm-c",
-
       "Legend_of_Zelda_Great_Fairy_Fountain",
+      "sonate-no.-17-tempest-3rd-movement",
+      "lacrimosa---requiem",
+      "Billie_Eilish_Bad_Guy",
+      "vivaldi---summer---piano",
+      "Ed_Sheeran_Shape_of_you",
     ],
   },
 
   {
     slug: "musescore_top200",
     midis: [
-      "Someone_You_Loved",
-      "sonate-no.-17-tempest-3rd-movement",
-      "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night",
-      "africa---toto",
-
-      "lacrimosa---requiem",
-
-      "alan-walker---alone-piano",
-      "Love_Like_You_Steven_Universe",
-      "Pokemon_Theme_Song",
-      "Billie_Eilish_Bad_Guy",
-      "Test_Drive_How_to_Train_Your_Dragon",
-      "how-far-i-ll-go-~-moana-ost",
-      "Vivaldi_-_Summer__The_Four_Seasons__-_Rousseau",
-      "vivaldi---summer---piano",
-      "Im_Blue_Eiffel_65",
-      "Ed_Sheeran_Shape_of_you",
-      "chiquitita-abba---piano",
-      "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",
-      "nothing-else-matters---metallica",
-      "welcome-to-the-black-parade---my-chemical-romance",
-      "fairy-tail-main-theme",
-      "calum-scott---you-are-the-reason-piano-sheet-lyrics-lyrics-version-link-in-description",
-      "your-song-piano",
-      "my-lie-watashi-no-uso---your-lie-in-april",
-      "anastasia---once-upon-a-december",
       "bts-bangtansonyeondan---i-need-u-suga-piano-full-solo",
-      "la-vie-en-rose-solo-accordion",
+
       "A_Thousand_Miles",
       "Godfather",
       "Pink_Panther",
       "stranger-things-theme",
-      "abba--the-winner-takes-it-all",
+
       "20th-century-fox-fanfare-piano-arr.",
       "swan-lake-theme---tchaikovsky",
       "marshmello-ft.-bastille---happier",

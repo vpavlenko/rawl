@@ -3564,129 +3564,134 @@ export const corpora: Corpora[] = [
     ],
   },
   {
-    slug: "musescore_top100",
+    slug: "musescore_top100_100_composers",
     midis: [
-      "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
+      "river-flows-in-you", // Yiruma
+      "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_", // Joe Hisaishi
+      "Canon_in_D", // Pachelbel
+      "Clair_de_Lune__Debussy", // Debussy
+      "Fr_Elise", // Beethoven
+      "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major", // Chopin
+      "Gymnopdie_No._1__Satie", // Satie
+      "Undertale_-_Megalovania_Piano_ver._3", // Toby Fox
+      "Golden_Hour__JVKE_Updated_Ver.", // JVKE
+      "Je_Te_Laisserai_Des_Mots_-_Patrick_Watson", // Patrick Watson
 
-      // "River_Flows_In_You",
-      "river-flows-in-you",
-      // "yiruma_river_flows_in_you_easy",
-      "Canon_in_D",
-      "Fr_Elise",
-      "Clair_de_Lune__Debussy",
-      "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
-      "Gymnopdie_No._1__Satie",
-      "Hallelujah",
+      "Hallelujah", // Leonard Cohen
+      "Interstellar", // Hans Zimmer
+      "Another_Love__-_Tom_Odell_Professional", // Tom Odell
+      "Sweden_Minecraft", // C418 (Daniel Rosenfeld)
+      "Pirates_of_the_Caribbean_-_Hes_a_Pirate", // Klaus Badelt
+      "Game_of_Thrones_Easy_piano", // Ramin Djawadi
+      "Someone_You_Loved", // Lewis Capaldi
+      "Ed_Sheeran_Perfect", // Ed Sheeran
+      "Liebestraum_No._3_in_A_Major", // Liszt
+      "Believer_-_Imagine_Dragons", // Imagine Dragons
+
+      "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK", // John Legend
+      "Mad_world_Piano", // Roland Orzabal (Tears for Fears)
+      "mariage-d-amour---paul-de-senneville-marriage-d-amour", // Paul de Senneville
+      "Someone_Like_You_easy_piano", // Adele
+      "my-heart-will-go-on", // James Horner
+      "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2", // Yugo Kanno
+      "Carol_of_the_Bells", // Mykola Leontovych
+      "piano-man-piano", // Billy Joel
+      "Fly_Me_to_the_Moon", // Bart Howard
+      "passacaglia---handel-halvorsen", // Handel
+
+      "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book", // Bach
+      "All_I_Want_for_Christmas_is_You", // Mariah Carey
+      "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano", // Shostakovich
+      "wa-mozart-marche-turque-turkish-march-fingered", // Mozart
+      "Viva_La_Vida_Coldplay", // Coldplay
+      "Gravity_Falls_Opening", // Brad Breeck
+      "the_entertainer_scott_joplin", // Scott Joplin
+      "Disney_Pixar_Up_Theme", // Michael Giacchino
+      "a-thousand-years", // Christina Perri
+      "John_Lennon_Imagine", // John Lennon
+
+      "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience", // Emile Haynie
+      "Lovely_Billie_Eilish", // Billie Eilish
+      "Omori_Duet", // Pedro Silva
+      "Never_Gonna_Give_You_Up", // Mike Stock
+      "despacito-piano-cover-peter-bence", // Luis Fonsi
+      "solas---jamie-duffy", // Jamie Duffy
+      "autumn-leaves-jazz-piano", // Joseph Kosma
+      "still-dre---variation-composition", // Andre Young
+      "what-falling-in-love-feels-like---jake25.17-fanmade-extended-version", // Jake 25.17
+      "mii-channel-piano", // Kazumi Totaka
+
+      "sadness-and-sorrow-for-piano-solo", // Toshio Masuda
+      "Super_Mario_Bros_Main_Theme", // Koji Kondo
+      "Cant_Help_Falling_In_Love", // Jean-Paul-Égide Martini
+      "g-minor-bach-original", // Luo Ni
+      "when-i-was-your-man---bruno-mars-600e3a", // Bruno Mars
+      "gurenge--demon-slayer-kimetsu-no-yaiba-op", // Kayoko Kusano
+      "Let_Her_Go_Passenger", // Passenger
+      "we-are-number-one-but-it-s-a-piano-transcript", // Máni Svavarsson
+      "dragonborn---skyrim-theme-song-piano-solo", // Jeremy Soule
+      "doki-doki-literature-club-ost---your-reality", // Dan Salvato
+
+      "ylang-ylang---fkj-transcribed-by-lilroo", // FKJ
+      "attack-on-titan-theme-guren-no-yumiya", // Hiroyuki Sawano
+      "Bella_Ciao", // Italian folk
+      "minuet-bwv-anhang-114-in-g-major", // Christian Petzold
+      "Take_on_me", // a-ha
+      "congratulations---mac-miller", // Mac Miller
+      "the-office-opening-theme", // Jay Ferguson
+      "it-s-been-a-long-long-time---harry-james", // Jule Styne
+      "Dawn_Pride_and_Prejudice", // Dario Marianelli
+      "kimi-no-na-wa---sparkle-theishter-2016", // Radwimps
+
+      "Yann_Tiersen_Amelie", // Yann Tiersen
+      "sia---snowman", // Sia
+      "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2", // Takahiro Obata
+      "theme-from-schindler-s-list---piano-solo", // John Williams
+      "happy-birthday-to-you-c-major", // Patty Smith Hill
+      "flight-of-the-bumblebee", // Nikolai Rimsky-Korsakov
+      "dance-of-the-sugar-plum-fairy", // Pyotr Ilyich Tchaikovsky
+      "dont-stop-believing-piano", // Journey
+      "sign-of-the-times---harry-styles", // Harry Styles
+      "Requiem_for_a_Dream", // Clint Mansell
+
+      "yuri-on-ice---piano-theme-full", // Taro Umebayashi, Taku Matsushiba
+    ],
+  },
+  {
+    slug: "musescore_top100_more_works_same_composer",
+    midis: [
+      "ren-sheng-nomerigorando---jiu-shi-rang-jazz-arranged",
       "Waltz_in_A_MinorChopin",
-      "Pirates_of_the_Caribbean_-_Hes_a_Pirate",
       "Sonate_No._14_Moonlight_1st_Movement",
-      "passacaglia---handel-halvorsen",
-      "Je_Te_Laisserai_Des_Mots_-_Patrick_Watson",
       "One_Summers_Day_Spirited_Away",
-      "Undertale_-_Megalovania_Piano_ver._3",
-      "Carol_of_the_Bells",
       "Sonate_No._14_Moonlight_3rd_Movement",
-      "Sweden_Minecraft",
-      "Interstellar",
-      "Another_Love__-_Tom_Odell_Professional",
-      "Golden_Hour__JVKE_Updated_Ver.",
-      "Game_of_Thrones_Easy_piano",
-
-      "Believer_-_Imagine_Dragons",
       "Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019",
       "tude_S._1413_in_G_Minor_La_Campanella__Liszt",
-      "Liebestraum_No._3_in_A_Major",
-      "Mad_world_Piano",
-      "Someone_Like_You_easy_piano",
-      "my-heart-will-go-on", // double-tonic
-      "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2",
       "Wet_Hands_Minecraft",
-      "Fly_Me_to_the_Moon",
-      "piano-man-piano",
-      "All_I_Want_for_Christmas_is_You",
-      "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
-
-      "a-thousand-years",
-      "Disney_Pixar_Up_Theme",
-
-      "Viva_La_Vida_Coldplay",
-      "Gravity_Falls_Opening",
-      "the_entertainer_scott_joplin",
-      "John_Lennon_Imagine",
-      "Lovely_Billie_Eilish",
       "fantaisie-impromptu-in-c-minor---chopin",
-      "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
       "the-scientist---coldplay-piano-arrangement",
-      "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
       "ballade-pour-adeline---richard-clayderman",
-      "Ed_Sheeran_Perfect",
       "Fallen_Down_Undertale",
-      "Omori_Duet",
-      "Never_Gonna_Give_You_Up",
-      // "Despacito",
-      "despacito-piano-cover-peter-bence",
       "Summer_Joe_Hisaishi",
       "arabesque-l.-66-no.-1-in-e-major",
-      // "chopin-prelude-e-minor-op-28-no-4-w-chord-symbols",
       "24-preludes-op.-28---no.-4-in-e-minor-suffocation-g.-d.-robertson",
-      "still-dre---variation-composition",
-      "what-falling-in-love-feels-like---jake25.17-fanmade-extended-version",
-      "solas---jamie-duffy",
-      "autumn-leaves-jazz-piano",
       "clocks---coldplay",
-      // "Sadness_and_Sorrow",
-      "sadness-and-sorrow-for-piano-solo",
-      "Super_Mario_Bros_Main_Theme",
       "nocturne-in-c-sharp-minor",
-      "gurenge--demon-slayer-kimetsu-no-yaiba-op",
-      "Let_Her_Go_Passenger",
-      "dragonborn---skyrim-theme-song-piano-solo",
-      // "Michael_Giaccino_Married_Life",
       "undertale-ost---hopes-and-dreams-save-the-world",
       "Zeldas_Lullaby",
-      "doki-doki-literature-club-ost---your-reality",
-      "attack-on-titan-theme-guren-no-yumiya",
-      "Bella_Ciao",
-      // "Mariage_dAmour",
-      "mariage-d-amour---paul-de-senneville-marriage-d-amour",
       "Maple_Leaf_Rag_Scott_Joplin",
-      "the-office-opening-theme",
-      // "the-office---opening-titles-theme-song-for-piano",
-      "Take_on_me",
       "chopin_ballade_no_1_in_g_minor_op_23",
-      "Dawn_Pride_and_Prejudice",
-      "congratulations---mac-miller",
-      // "Schindlers_List",
-      "theme-from-schindler-s-list---piano-solo",
-      // "g-minor-bach",
-      "g-minor-bach-original",
-      "kimi-no-na-wa---sparkle-theishter-2016",
       "undertale-undertale-piano",
       "etude-opus-25-no.-11-winter-wind-in-a-minor",
-      // "when-i-was-your-man---bruno-mars",
-      // "when-i-was-your-man",
-      // "when-i-was-your-man-by-bruno-mars",
-      "when-i-was-your-man---bruno-mars-600e3a",
       "liszt---hungarian-rhapsody-no.-2",
       "beethoven-symphony-no.-5-1st-movement-piano-solo",
-      // "erik-satie---gnossienne-ndeg1",
       "satie-e.---gnossienne-no.-1",
       "waltz-opus-64-no.-2-in-c-minor",
-      // "the-legend-of-zelda-main-theme-easy",
-      // "main-theme---legend-of-zelda",
       "legend-of-zelda-main-theme-score",
       "undertale-ost---nyeh-heh-heh-bonetrousle",
-      "minuet-bwv-anhang-114-in-g-major",
-      "ylang-ylang---fkj-transcribed-by-lilroo",
-      "sia---snowman",
-      "flight-of-the-bumblebee",
-      "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2",
       "bwv0565-toccata-and-fugue-in-dm-c",
-      "happy-birthday-to-you-c-major",
-      "Requiem_for_a_Dream",
+
       "Legend_of_Zelda_Great_Fairy_Fountain",
-      // "ren-sheng-nomerigorando---jiu-shi-rang-jazz-arranged",
-      "Cant_Help_Falling_In_Love",
     ],
   },
 
@@ -3697,12 +3702,9 @@ export const corpora: Corpora[] = [
       "sonate-no.-17-tempest-3rd-movement",
       "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night",
       "africa---toto",
-      "yuri-on-ice---piano-theme-full",
-      "Yann_Tiersen_Amelie",
-      "dont-stop-believing-piano",
+
       "lacrimosa---requiem",
-      "dance-of-the-sugar-plum-fairy",
-      "sign-of-the-times---harry-styles",
+
       "alan-walker---alone-piano",
       "Love_Like_You_Steven_Universe",
       "Pokemon_Theme_Song",

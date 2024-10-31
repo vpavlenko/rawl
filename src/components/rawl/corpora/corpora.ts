@@ -3390,26 +3390,21 @@ export const corpora: Corpora[] = [
     ],
   },
   {
-    slug: "musescore_top100_c_major",
+    slug: "chapters_c_major",
     midis: [
       "happy-birthday-to-you-c-major",
       "John_Lennon_Imagine",
-      "ballade-pour-adeline---richard-clayderman",
       "Dawn_Pride_and_Prejudice",
       "when-i-was-your-man---bruno-mars-600e3a",
       "piano-man-piano",
     ],
   },
   {
-    slug: "musescore_top100_major",
-    midis: [
-      "Canon_in_D",
-      "a-thousand-years",
-      "Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019",
-    ],
+    slug: "chapters_major",
+    midis: ["Canon_in_D", "a-thousand-years"],
   },
   {
-    slug: "musescore_top100_minor_with_V",
+    slug: "chapters_minor_with_V",
     midis: [
       "Gravity_Falls_Opening",
       "Pirates_of_the_Caribbean_-_Hes_a_Pirate",
@@ -3428,18 +3423,17 @@ export const corpora: Corpora[] = [
     ],
   },
   {
-    slug: "musescore_top100_single_loop_fixed_tonic",
+    slug: "chapters_single_loop_fixed_tonic",
     midis: [
       "Requiem_for_a_Dream",
       "Believer_-_Imagine_Dragons",
       "Mad_world_Piano",
-      "clocks---coldplay",
       "Lovely_Billie_Eilish",
       "Never_Gonna_Give_You_Up",
     ],
   },
   {
-    slug: "musescore_top100_single_loop_double_tonic",
+    slug: "chapters_single_loop_double_tonic",
     midis: [
       "sadness-and-sorrow-for-piano-solo", // natural
       "still-dre---variation-composition",
@@ -3455,24 +3449,18 @@ export const corpora: Corpora[] = [
     ],
   },
   {
-    slug: "musescore_top100_progressions",
+    slug: "chapters_progressions",
     midis: [
-      // two progressions
-
-      "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK", // can go to double tonic?
+      "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
       "Let_Her_Go_Passenger",
-
       "Another_Love__-_Tom_Odell_Professional",
-
       "Take_on_me",
-
       "undertale-undertale-piano",
-
-      "sia---snowman", // applied?
+      "sia---snowman",
     ],
   },
   {
-    slug: "musescore_top100_modulation",
+    slug: "chapters_modulation",
     midis: [
       "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2",
       "Cant_Help_Falling_In_Love",
@@ -3480,70 +3468,36 @@ export const corpora: Corpora[] = [
       "Interstellar",
       "flight-of-the-bumblebee",
       "Fr_Elise",
-      "tude_S._1413_in_G_Minor_La_Campanella__Liszt",
-      "liszt---hungarian-rhapsody-no.-2",
-      "bwv0565-toccata-and-fugue-in-dm-c",
-      "Sonate_No._14_Moonlight_3rd_Movement", // V/bII, sonata form
-      "beethoven-symphony-no.-5-1st-movement-piano-solo",
     ],
   },
   {
-    slug: "musescore_top100_chromatic_chords",
+    slug: "chapters_chromatic_chords",
     midis: [
       "All_I_Want_for_Christmas_is_You",
-      "Maple_Leaf_Rag_Scott_Joplin",
       "the_entertainer_scott_joplin",
-
-      "Fallen_Down_Undertale",
       "Omori_Duet",
       "Super_Mario_Bros_Main_Theme",
       "solas---jamie-duffy",
-      "legend-of-zelda-main-theme-score",
-
       "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
-      "Sonate_No._14_Moonlight_1st_Movement",
       "Liebestraum_No._3_in_A_Major",
-    ],
-  },
-  {
-    slug: "musescore_top100_chopin",
-    midis: [
-      "nocturne-in-c-sharp-minor",
-      "waltz-opus-64-no.-2-in-c-minor",
-      "Waltz_in_A_MinorChopin",
-      "fantaisie-impromptu-in-c-minor---chopin",
-      "etude-opus-25-no.-11-winter-wind-in-a-minor",
-      "chopin_ballade_no_1_in_g_minor_op_23",
       "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
     ],
   },
   {
-    slug: "musescore_top100_extensions",
+    slug: "chapters_extensions",
     midis: [
       "kimi-no-na-wa---sparkle-theishter-2016", // also Vsus4
       "Disney_Pixar_Up_Theme", // V/V V I that's it
       "congratulations---mac-miller",
-      "the-scientist---coldplay-piano-arrangement",
       "ylang-ylang---fkj-transcribed-by-lilroo",
       "Gymnopdie_No._1__Satie",
-
-      "One_Summers_Day_Spirited_Away",
       "what-falling-in-love-feels-like---jake25.17-fanmade-extended-version",
-      "undertale-ost---hopes-and-dreams-save-the-world",
       "Clair_de_Lune__Debussy",
-    ],
-  },
-  {
-    slug: "musescore_top100_extensions_second_down",
-    midis: [
-      "Summer_Joe_Hisaishi", // doubt it's extensions at all
-      "Zeldas_Lullaby",
-      "arabesque-l.-66-no.-1-in-e-major",
       "Golden_Hour__JVKE_Updated_Ver.",
     ],
   },
   {
-    slug: "musescore_top100_extensions_ii_V",
+    slug: "chapters_extensions_ii_V",
     midis: [
       "Sweden_Minecraft",
       "Fly_Me_to_the_Moon",
@@ -3552,19 +3506,14 @@ export const corpora: Corpora[] = [
     ],
   },
   {
-    slug: "musescore_top100_something_else",
+    slug: "chapters_something_else",
     midis: [
       "Undertale_-_Megalovania_Piano_ver._3",
       "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2",
-      "Wet_Hands_Minecraft",
-      "Legend_of_Zelda_Great_Fairy_Fountain",
-      "24-preludes-op.-28---no.-4-in-e-minor-suffocation-g.-d.-robertson",
-      "undertale-ost---nyeh-heh-heh-bonetrousle",
-      "satie-e.---gnossienne-no.-1", // natural
     ],
   },
   {
-    slug: "musescore_top100_100_composers",
+    slug: "musescore_top100",
     midis: [
       "river-flows-in-you", // Yiruma
       "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_", // Joe Hisaishi
@@ -3720,7 +3669,7 @@ export const corpora: Corpora[] = [
   },
 
   {
-    slug: "musescore_top200",
+    slug: "musescore_top200_incomplete",
     midis: [
       "bts-bangtansonyeondan---i-need-u-suga-piano-full-solo",
 

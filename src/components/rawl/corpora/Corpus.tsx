@@ -123,7 +123,10 @@ const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
         >
           {`${index + 1}. `}
           <a href={`/f/${midiSlug}`} target="_blank" rel="noopener noreferrer">
-            {midiSlug.replace(/---/g, " – ").replace(/-/g, " ")}
+            {midiSlug
+              .replace(/---/g, " – ")
+              .replace(/-/g, " ")
+              .replace(/_/g, " ")}
           </a>
           {getTagsForMidi(midiSlug) && (
             <div

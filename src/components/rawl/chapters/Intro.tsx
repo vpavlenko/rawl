@@ -185,20 +185,9 @@ const TOP_100_COMPOSERS = [
   { slug: "abba--the-winner-takes-it-all", composer: "ABBA" },
 ];
 
-const MusescoreHarmonyIntro = () => {
-  const missingSlugs =
-    corpora
-      .find((corpus) => corpus.slug === "musescore_top100")
-      ?.midis.filter(
-        (midi) =>
-          !corpora.some(
-            (c) => c.slug.startsWith("chapters") && c.midis.includes(midi),
-          ),
-      ) || [];
-
+const IntroText = () => {
   return (
-    <div style={{ maxWidth: 800, paddingLeft: 20, color: "#ddd" }}>
-      <h1>Musescore Top 100 Harmony</h1>
+    <>
       <p>
         I went through{" "}
         <a
@@ -300,7 +289,15 @@ const MusescoreHarmonyIntro = () => {
         As I understand, the copyright takedowns of community scores didn't
         affect my corpus - even John Williams got represented.
       </p>
+    </>
+  );
+};
 
+const Intro = () => {
+  return (
+    <div>
+      <h1>Musescore Top 100 Harmony</h1>
+      <IntroText />
       {corpora
         .filter((corpus) => corpus.slug.startsWith("chapters"))
         .map((corpus) => (
@@ -314,11 +311,8 @@ const MusescoreHarmonyIntro = () => {
             <br />
           </div>
         ))}
-      <br />
-      <br />
-      <br />
     </div>
   );
 };
 
-export default MusescoreHarmonyIntro;
+export default Intro;

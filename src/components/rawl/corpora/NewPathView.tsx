@@ -10,8 +10,8 @@ import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import ErrorBoundary from "../../ErrorBoundary";
 import { Analysis, Snippet } from "../analysis";
+import InlineRawlPlayer from "../InlineRawlPlayer";
 import NewLandingPage from "../NewLandingPage";
-import Rawl from "../Rawl";
 import SnippetsForTopic from "../SnippetsForTopic";
 
 const PathContainer = styled.div`
@@ -128,17 +128,6 @@ const MidiButton = styled.button`
   &:hover {
     color: #4a90e2;
   }
-`;
-
-const RawlContainer = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 50vh;
-  background-color: #000;
-  z-index: 200000;
-  overflow: auto; // Enable scrolling
 `;
 
 const HomeChapter = styled.div`
@@ -285,23 +274,9 @@ const NewPathView: React.FC<NewPathViewProps> = ({
     measureStart: number,
     topic: string,
   ) => {
-    console.log(
-      "handleMidiClick called with slug:",
-      slug,
-      "measureStart:",
-      measureStart,
-      "and topic:",
-      topic,
-    );
-
-    // Reset the MIDI player state before loading a new MIDI
     resetMidiPlayerState();
-
-    // Load the new MIDI
     handleSongClick(slug);
     setSelectedMeasureStart(measureStart);
-
-    // Scroll to the topic
     topicRefs.current[topic]?.scrollIntoView({
       behavior: "smooth",
       block: "start",
@@ -382,93 +357,74 @@ const NewPathView: React.FC<NewPathViewProps> = ({
   return (
     <ErrorBoundary>
       <PathContainer>
-        <ScrollableContent>
-          <MenuContainer>
-            <ChapterRow>
-              {chapterData.map((chapter, index) => (
-                <ChapterButton
-                  key={chapter.chapter}
-                  active={index === activeChapter}
-                  onClick={() => handleChapterSelect(index)}
-                  title={chapter.chapter.replace(/_/g, " ")} // Add this line for tooltip
-                >
-                  {chapter.chapter.replace(/_/g, " ")}
-                </ChapterButton>
+        <InlineRawlPlayer measureStart={selectedMeasureStart}>
+          <ScrollableContent>
+            <MenuContainer>
+              <ChapterRow>
+                {chapterData.map((chapter, index) => (
+                  <ChapterButton
+                    key={chapter.chapter}
+                    active={index === activeChapter}
+                    onClick={() => handleChapterSelect(index)}
+                    title={chapter.chapter.replace(/_/g, " ")} // Add this line for tooltip
+                  >
+                    {chapter.chapter.replace(/_/g, " ")}
+                  </ChapterButton>
+                ))}
+              </ChapterRow>
+            </MenuContainer>
+            <ContentArea isRawlVisible={isRawlVisible}>
+              {errorMessages.map((error, index) => (
+                <ErrorMessage key={index}>{error}</ErrorMessage>
               ))}
-            </ChapterRow>
-          </MenuContainer>
-          <ContentArea isRawlVisible={isRawlVisible}>
-            {errorMessages.map((error, index) => (
-              <ErrorMessage key={index}>{error}</ErrorMessage>
-            ))}
-            <ChapterSection>
-              {chapterData[activeChapter].chapter === "🎨" ? (
-                <HomeChapter>
-                  <NewLandingPage />
-                </HomeChapter>
-              ) : (
-                <>
-                  {stickyTopic && (
-                    <StickyTopicTitle as="div">
-                      {stickyTopic.replace(/_/g, " ")}
-                    </StickyTopicTitle>
-                  )}
-                  {chapterData[activeChapter].topics.map((topic) => (
-                    <TopicContainer key={topic.topic}>
-                      <TopicTitleWithSticky topic={topic.topic} />
-                      <TopicCard>
-                        {topic.snippets.map(({ snippet, slug }, index) => (
-                          <ClickableContainer
-                            key={index}
-                            onClick={() =>
-                              handleMidiClick(
-                                slug,
-                                snippet.measuresSpan[0],
-                                topic.topic,
-                              )
-                            }
-                          >
-                            <MidiButton>
-                              {slug
-                                .replace(/---/g, " – ")
-                                .replace(/-/g, " ")
-                                .replace(/_/g, " ")}
-                            </MidiButton>
-                            <SnippetsForTopic
-                              snippets={[snippet]}
-                              noteHeight={3}
-                            />
-                          </ClickableContainer>
-                        ))}
-                      </TopicCard>
-                    </TopicContainer>
-                  ))}
-                </>
-              )}
-            </ChapterSection>
-          </ContentArea>
-        </ScrollableContent>
-        {currentMidi && rawlProps && rawlProps?.parsingResult && (
-          <RawlContainer>
-            <Rawl
-              parsingResult={rawlProps.parsingResult}
-              getCurrentPositionMs={rawlProps.getCurrentPositionMs}
-              savedAnalysis={rawlProps.savedAnalysis}
-              saveAnalysis={saveAnalysis}
-              voiceNames={rawlProps.voiceNames}
-              voiceMask={rawlProps.voiceMask}
-              setVoiceMask={rawlProps.setVoiceMask}
-              showAnalysisBox={rawlProps.showAnalysisBox}
-              seek={rawlProps.seek}
-              artist={rawlProps.artist}
-              song={rawlProps.song}
-              latencyCorrectionMs={rawlProps.latencyCorrectionMs}
-              sourceUrl={currentMidi.sourceUrl}
-              measureStart={selectedMeasureStart}
-              isEmbedded={true}
-            />
-          </RawlContainer>
-        )}
+              <ChapterSection>
+                {chapterData[activeChapter].chapter === "🎨" ? (
+                  <HomeChapter>
+                    <NewLandingPage />
+                  </HomeChapter>
+                ) : (
+                  <>
+                    {stickyTopic && (
+                      <StickyTopicTitle as="div">
+                        {stickyTopic.replace(/_/g, " ")}
+                      </StickyTopicTitle>
+                    )}
+                    {chapterData[activeChapter].topics.map((topic) => (
+                      <TopicContainer key={topic.topic}>
+                        <TopicTitleWithSticky topic={topic.topic} />
+                        <TopicCard>
+                          {topic.snippets.map(({ snippet, slug }, index) => (
+                            <ClickableContainer
+                              key={index}
+                              onClick={() =>
+                                handleMidiClick(
+                                  slug,
+                                  snippet.measuresSpan[0],
+                                  topic.topic,
+                                )
+                              }
+                            >
+                              <MidiButton>
+                                {slug
+                                  .replace(/---/g, " – ")
+                                  .replace(/-/g, " ")
+                                  .replace(/_/g, " ")}
+                              </MidiButton>
+                              <SnippetsForTopic
+                                snippets={[snippet]}
+                                noteHeight={3}
+                              />
+                            </ClickableContainer>
+                          ))}
+                        </TopicCard>
+                      </TopicContainer>
+                    ))}
+                  </>
+                )}
+              </ChapterSection>
+            </ContentArea>
+          </ScrollableContent>
+        </InlineRawlPlayer>
       </PathContainer>
     </ErrorBoundary>
   );

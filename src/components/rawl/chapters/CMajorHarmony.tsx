@@ -1,8 +1,9 @@
 import * as React from "react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import CorpusList from "../corpora/CorpusList";
+import InlineRawlPlayer from "../InlineRawlPlayer";
 import SnippetsForTopic from "../SnippetsForTopic";
 
 const TopicContainer = styled.div`
@@ -42,7 +43,11 @@ const MidiButton = styled.button`
 `;
 
 const CMajorHarmony = () => {
-  const { analyses, handleSongClick } = useContext(AppContext);
+  const { analyses, handleSongClick, resetMidiPlayerState } =
+    useContext(AppContext);
+  const [selectedMeasureStart, setSelectedMeasureStart] = useState<
+    number | undefined
+  >(undefined);
 
   // Helper function to get snippets for a specific topic
   const getSnippetsForTopic = (targetTag: string) => {
@@ -68,31 +73,41 @@ const CMajorHarmony = () => {
     return slug.replace(/---/g, " – ").replace(/-/g, " ").replace(/_/g, " ");
   };
 
-  return (
-    <div>
-      <h1>C Major Harmony</h1>
-      <p>This chapter explores harmony in the key of C major...</p>
-      <p>Here we analyze the corpus chapters_c_major:</p>
-      <CorpusList slug="chapters_c_major" />
-      <p>
-        First, let's notice which chords are in there. Each piece ends with the
-        same chord:
-      </p>
+  const handleSnippetClick = (slug: string, measureStart: number) => {
+    resetMidiPlayerState();
+    handleSongClick(slug);
+    setSelectedMeasureStart(measureStart);
+  };
 
-      <TopicContainer>
-        <TopicCard>
-          {lastISnippets.map(({ snippet, slug }, index) => (
-            <ClickableContainer
-              key={index}
-              onClick={() => handleSongClick(slug)}
-            >
-              <MidiButton>{formatSlug(slug)}</MidiButton>
-              <SnippetsForTopic snippets={[snippet]} noteHeight={3} />
-            </ClickableContainer>
-          ))}
-        </TopicCard>
-      </TopicContainer>
-    </div>
+  return (
+    <InlineRawlPlayer measureStart={selectedMeasureStart}>
+      <div>
+        <h1>C Major Harmony</h1>
+        <p>This chapter explores harmony in the key of C major...</p>
+        <p>Here we analyze the corpus chapters_c_major:</p>
+        <CorpusList slug="chapters_c_major" />
+        <p>
+          First, let's notice which chords are in there. Each piece ends with
+          the same chord:
+        </p>
+
+        <TopicContainer>
+          <TopicCard>
+            {lastISnippets.map(({ snippet, slug }, index) => (
+              <ClickableContainer
+                key={index}
+                onClick={() =>
+                  handleSnippetClick(slug, snippet.measuresSpan[0])
+                }
+              >
+                <MidiButton>{formatSlug(slug)}</MidiButton>
+                <SnippetsForTopic snippets={[snippet]} noteHeight={3} />
+              </ClickableContainer>
+            ))}
+          </TopicCard>
+        </TopicContainer>
+      </div>
+    </InlineRawlPlayer>
   );
 };
 

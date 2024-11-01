@@ -4,23 +4,28 @@ import styled from "styled-components";
 
 const BookContainer = styled.div`
   display: flex;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  gap: 40px;
+  width: 100%;
+  min-height: 100vh;
+  gap: 0;
 `;
 
 const Navigation = styled.nav`
-  flex: 0 0 200px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 250px;
   padding: 20px;
   background: #111;
-  border-radius: 8px;
-  height: fit-content;
+  overflow-y: auto;
 `;
 
 const Content = styled.main`
   flex: 1;
+  margin-left: 250px;
+  padding: 40px;
   color: #ddd;
+  max-width: 1200px;
 `;
 
 const NavLink = styled(Link)<{ active: boolean }>`

@@ -62,7 +62,6 @@ import { Analyses } from "./rawl/analysis";
 import BookLayout from "./rawl/chapters/BookLayout";
 import Corpus from "./rawl/corpora/Corpus";
 import NewPathView, { NewPathViewProps } from "./rawl/corpora/NewPathView";
-import PathView from "./rawl/corpora/PathView";
 import { DropSaveForm, saveMidiFromLink } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
 import { ParsingResult } from "./rawl/parseMidi";
@@ -1223,7 +1222,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                         <Route path="/pirate" render={() => <Pirate />} />
                         {browseRoute}
                         {rawlRoute}
-                        <Route path="/path" render={() => <PathView />} />
                         <Route path="/book/:chapter" component={BookLayout} />
                       </Switch>
                     </div>

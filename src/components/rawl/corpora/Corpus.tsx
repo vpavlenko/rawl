@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AppContext } from "../../AppContext";
 import { getSnippetTags } from "../analysis";
 import { corpora } from "./corpora";
+import { beautifySlug } from "./utils";
 
 const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
   const { analyses } = React.useContext(AppContext);
@@ -111,7 +112,7 @@ const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
 
   return (
     <div>
-      <h1>{slug}</h1>
+      <h1>{beautifySlug(slug)}</h1>
       {corpus.midis.map((midiSlug, index) => (
         <div
           key={midiSlug}
@@ -123,10 +124,7 @@ const Corpus: React.FC<{ slug: string }> = ({ slug }) => {
         >
           {`${index + 1}. `}
           <a href={`/f/${midiSlug}`} target="_blank" rel="noopener noreferrer">
-            {midiSlug
-              .replace(/---/g, " – ")
-              .replace(/-/g, " ")
-              .replace(/_/g, " ")}
+            {beautifySlug(midiSlug)}
           </a>
           {getTagsForMidi(midiSlug) && (
             <div

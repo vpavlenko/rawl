@@ -2,14 +2,12 @@ import * as React from "react";
 import {
   ReactNode,
   useCallback,
-  useContext,
   useEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
 import { DUMMY_CALLBACK, VoiceMask } from "../App";
-import { AppContext } from "../AppContext";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
 import { Analysis, getPhraseStarts, MeasuresSpan } from "./analysis";
@@ -257,9 +255,6 @@ export const StackedSystemLayout: React.FC<
   isEmbedded = false,
   isHiddenRoute = false,
 }) => {
-  const { registerKeyboardHandler, unregisterKeyboardHandler } =
-    useContext(AppContext);
-
   const [noteHeight, setNoteHeight] = useState<number>(3);
   const [secondWidth, setSecondWidth] = useState<number>(40);
   const setSecondWidthCalled = useRef(false);

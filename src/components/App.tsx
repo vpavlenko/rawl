@@ -47,7 +47,7 @@ import MIDIPlayer from "../players/MIDIPlayer";
 import promisify from "../promisify-xhr";
 import { ensureEmscFileWithData, unlockAudioContext } from "../util";
 import Alert from "./Alert";
-import { AppContext, RawlProps } from "./AppContext";
+import { AppContext } from "./AppContext";
 import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader";
 import Browse from "./Browse";
@@ -55,7 +55,7 @@ import DropMessage from "./DropMessage";
 import Visualizer from "./Visualizer";
 import OldLandingPage from "./rawl/OldLandingPage";
 import Pirate from "./rawl/Pirate";
-import Rawl from "./rawl/Rawl";
+import Rawl, { RawlProps } from "./rawl/Rawl";
 import { ShortcutHelp } from "./rawl/ShortcutHelp";
 import Slicer from "./rawl/Slicer";
 import { Analyses } from "./rawl/analysis";
@@ -1064,8 +1064,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
       artist: "",
       song: this.path,
       latencyCorrectionMs: this.state.latencyCorrectionMs * this.state.tempo,
-      registerKeyboardHandler: this.registerKeyboardHandler,
-      unregisterKeyboardHandler: this.unregisterKeyboardHandler,
       sourceUrl: this.state.currentMidi?.sourceUrl || null,
     };
     // const { hash } = this;
@@ -1118,8 +1116,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     seek={this.seekForRawl}
                     artist={""}
                     song={slug ?? keySlug ?? chiptuneUrl}
-                    registerKeyboardHandler={this.registerKeyboardHandler}
-                    unregisterKeyboardHandler={this.unregisterKeyboardHandler}
                     sourceUrl={this.state.currentMidi?.sourceUrl || null}
                     isHiddenRoute={!!keySlug}
                     {...rawlProps}

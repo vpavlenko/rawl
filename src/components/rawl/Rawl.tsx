@@ -232,14 +232,14 @@ const CompositionTitle: React.FC<{
   );
 };
 
-const Rawl: React.FC<{
+export type RawlProps = {
   parsingResult: ParsingResult;
   getCurrentPositionMs: () => number;
   savedAnalysis?: Analysis;
-  saveAnalysis: (Analysis) => void;
+  saveAnalysis: (analysis: Analysis) => void;
   voiceNames: string[];
   voiceMask: VoiceMask;
-  setVoiceMask: SetVoiceMask;
+  setVoiceMask: (mask: VoiceMask) => void;
   showAnalysisBox: boolean;
   seek: (ms: number) => void;
   artist: string;
@@ -249,7 +249,9 @@ const Rawl: React.FC<{
   measureStart?: number;
   isEmbedded?: boolean;
   isHiddenRoute?: boolean;
-}> = ({
+};
+
+const Rawl: React.FC<RawlProps> = ({
   parsingResult,
   getCurrentPositionMs,
   savedAnalysis,

@@ -277,6 +277,10 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "heitor_villa-lobos",
+    midis: [],
+  },
+  {
     slug: "peter_mcconnell",
     midis: [
       "plants-vs-zombies-2-modern-day-piano-transcription",
@@ -1710,9 +1714,11 @@ export const corpora: Corpora[] = [
       "straight-no-chaser-thelonious-monk",
       "blue-monk-piano",
       "round-midnight---thelonious-monk",
+      "well-you-needn-t",
       "footprints.mscz",
       "satin-doll",
       "lady_bird_piano_solo",
+      "a-night-in-tunisia---dizzy-gillespie-sarah-vaughan-a-night-in-tunisia",
     ],
   },
   {
@@ -2952,8 +2958,23 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "cornelius_gurlitt",
+    midis: [
+      "night-journey---cornelius-gurlitt",
+      "little-waltz---gurlitt-op.-205-no-10",
+      "gurlitt-cornelius---sonatina-in-a-minor-op.-76-no.-5-3rd-mvmt",
+    ],
+  },
+  {
+    slug: "clara_schumann",
+    midis: [
+      "schumann-clara---lieder-op.12-no.4---liebst-du-um-schonheit",
+      "clara-schumann--notturno",
+    ],
+  },
+  {
     slug: "schumann",
-    midis: [],
+    midis: ["schumann-carnaval---no.-12-chopin-piano-solo"],
   },
   {
     slug: "norbert_schultze",
@@ -3378,6 +3399,14 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "campyfire",
+    midis: ["greed---campyfire", "nut-cracker-march---arsenal-emote-music"],
+  },
+  {
+    slug: "gabriele_traietti",
+    midis: ["a-trip-to-rapture-i-in-the-bathysphere"],
+  },
+  {
     slug: "lofi",
     midis: ["cool-lofi-hip-hop-song"],
   },
@@ -3577,7 +3606,7 @@ export const corpora: Corpora[] = [
       "Hallelujah", // Leonard Cohen
       "Interstellar", // Hans Zimmer
       "Another_Love__-_Tom_Odell_Professional", // Tom Odell
-      "Sweden_Minecraft", // C418 (Daniel Rosenfeld)
+      "Sweden_Minecraft", // C418
       "Pirates_of_the_Caribbean_-_Hes_a_Pirate", // Klaus Badelt
       "Game_of_Thrones_Easy_piano", // Ramin Djawadi
       "Someone_You_Loved", // Lewis Capaldi
@@ -3586,7 +3615,7 @@ export const corpora: Corpora[] = [
       "Believer_-_Imagine_Dragons", // Imagine Dragons
 
       "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK", // John Legend
-      "Mad_world_Piano", // Roland Orzabal (Tears for Fears)
+      "Mad_world_Piano", // Roland Orzabal
       "mariage-d-amour---paul-de-senneville-marriage-d-amour", // Paul de Senneville
       "Someone_Like_You_easy_piano", // Adele
       "my-heart-will-go-on", // James Horner
@@ -3651,7 +3680,7 @@ export const corpora: Corpora[] = [
       "sign-of-the-times---harry-styles", // Harry Styles
       "Requiem_for_a_Dream", // Clint Mansell
 
-      "yuri-on-ice---piano-theme-full", // Taro Umebayashi, Taku Matsushiba
+      "yuri-on-ice---piano-theme-full", // Taro Umebayashi + Taku Matsushiba
       "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night", // Ayase
       "africa---toto", // Toto
       "vivaldi---summer---piano", // Vivaldi

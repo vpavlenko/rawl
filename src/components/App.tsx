@@ -134,14 +134,11 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private currUrl: string;
   private songRequest: (method: string, url: string) => Promise<any>;
   private db: Firestore;
-  private audioCtx: AudioContext;
   private mediaSessionAudio: HTMLAudioElement;
   private gainNode: GainNode;
-  private playerNode: ScriptProcessorNode;
   private chipCore: any;
   private path: string;
   private hash: string;
-  private browsePath: string;
   private midi: ArrayBuffer;
   private droppedFilename: string;
   private keyboardHandlers: Map<string, KeyboardHandler> = new Map();
@@ -154,7 +151,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.contentAreaRef = React.createRef();
     this.errorTimer = null;
     this.midiPlayer = null; // Need a reference to MIDIPlayer to handle SoundFont loading.
-    // window.ChipPlayer = this;
     this.currUrl = null;
     this.songRequest = null;
 
@@ -189,14 +185,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
     // ┌────────────┐      ┌────────────┐      ┌─────────────┐
     // │ playerNode ├─────>│  gainNode  ├─────>│ destination │
     // └────────────┘      └────────────┘      └─────────────┘
-    const audioCtx =
-      (this.audioCtx =
-      // @ts-ignore
-      window.audioCtx =
-        // @ts-ignore
-        new (window.AudioContext || window.webkitAudioContext)({
-          latencyHint: "playback",
-        }));
+    // @ts-ignore webkitAudioContext needed for Safari <=13
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)({
+      latencyHint: "playback",
+    });
     const bufferSize = Math.max(
       // Make sure script node bufferSize is at least baseLatency
       Math.pow(
@@ -210,11 +202,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     const gainNode = (this.gainNode = audioCtx.createGain());
     gainNode.gain.value = 1;
     gainNode.connect(audioCtx.destination);
-    const playerNode = (this.playerNode = audioCtx.createScriptProcessor(
-      bufferSize,
-      0,
-      2,
-    ));
+    const playerNode = audioCtx.createScriptProcessor(bufferSize, 0, 2);
     playerNode.connect(gainNode);
 
     unlockAudioContext(audioCtx);
@@ -893,7 +881,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
         // See https://reactjs.org/docs/integrating-with-other-libraries.html#integrating-with-model-layers
         this.forceUpdate();
       } else {
-        this.browsePath = "drop";
         this.props.history.push("/drop");
         this.currUrl = null;
         this.midi = result;
@@ -1073,7 +1060,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
         path={["/browse/:browsePath*"]}
         render={({ match }) => {
           const browsePath = match.params?.browsePath?.replace("%25", "%");
-          this.browsePath = browsePath;
           return (
             <Browse
               browsePath={browsePath}

@@ -278,7 +278,7 @@ export const corpora: Corpora[] = [
   },
   {
     slug: "heitor_villa-lobos",
-    midis: [],
+    midis: ["heitor-villa-lobos-prelude-no-1", "choros-ndeg1-h.-villa-lobos"],
   },
   {
     slug: "peter_mcconnell",
@@ -1040,6 +1040,10 @@ export const corpora: Corpora[] = [
       "beleet-moy-parus-a.-mironov---gennadiy-gladkov",
       "padal-proshlogodniy-sneg---grigoriy-gladkov", // cool stuff
     ],
+  },
+  {
+    slug: "yuki_hayashi",
+    midis: ["my-hero-academia---you-say-run---piano-solo"],
   },
   {
     slug: "mikael_tariverdiev",

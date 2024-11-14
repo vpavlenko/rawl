@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import CorpusList from "../corpora/CorpusList";
@@ -42,12 +42,9 @@ const MidiButton = styled.button`
   }
 `;
 
-const CMajorHarmony = () => {
+const SnippetList = ({ slug }) => {
   const { analyses, handleSongClick, resetMidiPlayerState } =
     useContext(AppContext);
-  const [selectedMeasureStart, setSelectedMeasureStart] = useState<
-    number | undefined
-  >(undefined);
 
   // Helper function to get snippets for a specific topic
   const getSnippetsForTopic = (targetTag: string) => {
@@ -67,7 +64,7 @@ const CMajorHarmony = () => {
     return snippets;
   };
 
-  const lastISnippets = getSnippetsForTopic("book:1_1_I_last");
+  const snippets = getSnippetsForTopic(slug);
 
   const formatSlug = (slug: string) => {
     return slug.replace(/---/g, " – ").replace(/-/g, " ").replace(/_/g, " ");
@@ -76,11 +73,30 @@ const CMajorHarmony = () => {
   const handleSnippetClick = (slug: string, measureStart: number) => {
     resetMidiPlayerState();
     handleSongClick(slug);
-    setSelectedMeasureStart(measureStart);
   };
 
   return (
-    <InlineRawlPlayer measureStart={selectedMeasureStart}>
+    <>
+      <h1>{slug.replace("book:1_1_", "")}</h1>
+      <TopicContainer>
+        <TopicCard>
+          {snippets.map(({ snippet, slug }, index) => (
+            <ClickableContainer
+              key={index}
+              onClick={() => handleSnippetClick(slug, snippet.measuresSpan[0])}
+            >
+              <MidiButton>{formatSlug(slug)}</MidiButton>
+              <SnippetsForTopic snippets={[snippet]} noteHeight={3} />
+            </ClickableContainer>
+          ))}
+        </TopicCard>
+      </TopicContainer>
+    </>
+  );
+};
+const CMajorHarmony = () => {
+  return (
+    <InlineRawlPlayer>
       <div>
         <h1>C Major Harmony</h1>
         <p>This chapter explores harmony in the key of C major...</p>
@@ -90,22 +106,15 @@ const CMajorHarmony = () => {
           First, let's notice which chords are in there. Each piece ends with
           the same chord:
         </p>
+        <SnippetList slug="book:1_1_I_last" />
 
-        <TopicContainer>
-          <TopicCard>
-            {lastISnippets.map(({ snippet, slug }, index) => (
-              <ClickableContainer
-                key={index}
-                onClick={() =>
-                  handleSnippetClick(slug, snippet.measuresSpan[0])
-                }
-              >
-                <MidiButton>{formatSlug(slug)}</MidiButton>
-                <SnippetsForTopic snippets={[snippet]} noteHeight={3} />
-              </ClickableContainer>
-            ))}
-          </TopicCard>
-        </TopicContainer>
+        <p>Also, all the pieces share several other chords:</p>
+        <SnippetList slug="book:1_1_I" />
+        <SnippetList slug="book:1_1_IV" />
+        <SnippetList slug="book:1_1_V" />
+        <SnippetList slug="book:1_1_ii" />
+        <SnippetList slug="book:1_1_major_II" />
+        <SnippetList slug="book:1_1_vi_iii" />
       </div>
     </InlineRawlPlayer>
   );

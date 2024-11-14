@@ -1076,6 +1076,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
             unregisterKeyboardHandler: this.unregisterKeyboardHandler,
             currentMidi: this.state.currentMidi,
             setCurrentMidi: (currentMidi) => this.setState({ currentMidi }),
+            user: this.state.user,
           }}
         >
           <Switch>
@@ -1108,6 +1109,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           unregisterKeyboardHandler: this.unregisterKeyboardHandler,
           currentMidi: this.state.currentMidi,
           setCurrentMidi: (currentMidi) => this.setState({ currentMidi }),
+          user: this.state.user,
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>

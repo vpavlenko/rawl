@@ -1,5 +1,7 @@
 import * as React from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AppContext } from "../../AppContext";
 import { Analysis, MeasuresSpan, Snippet } from "../analysis";
 import { AnalysisGrid, MeasureSelection } from "../AnalysisGrid";
 import { MouseHandlers } from "../getNoteRectangles";
@@ -12,13 +14,21 @@ const InlineSnippets: React.FC<{
   secondsToX: SecondsConverter;
   sectionSpan?: MeasuresSpan;
 }> = ({ measuresAndBeats, snippets, secondsToX, sectionSpan }) => {
+  const appContext = useContext(AppContext);
+  const isSignedIn = !!appContext?.user;
+
+  const filteredSnippets = snippets.filter((snippet) => {
+    const [chapter] = snippet.tag.split(":");
+    return isSignedIn || chapter.trim() !== "book";
+  });
+
   const [groupedSnippets, setGroupedSnippets] = React.useState<
     Record<number, Snippet[]>
   >({});
   const snippetRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
   React.useEffect(() => {
-    const grouped = snippets.reduce(
+    const grouped = filteredSnippets.reduce(
       (acc, snippet) => {
         const measureStart = snippet.measuresSpan[0];
         if (!acc[measureStart]) {
@@ -30,7 +40,7 @@ const InlineSnippets: React.FC<{
       {} as Record<number, Snippet[]>,
     );
     setGroupedSnippets(grouped);
-  }, [snippets]);
+  }, [filteredSnippets]);
 
   React.useEffect(() => {
     const checkOverlaps = () => {

@@ -1,3 +1,4 @@
+import { User } from "firebase/auth";
 import React from "react";
 import { Analysis } from "./rawl/analysis";
 import { RawlProps } from "./rawl/Rawl";
@@ -23,6 +24,7 @@ export type AppContextType = {
   unregisterKeyboardHandler: (id: string) => void;
   currentMidi: CurrentMidi;
   setCurrentMidi: (currentMidi: CurrentMidi) => void;
+  user: User | null;
 };
 
 export const AppContext = React.createContext<AppContextType | undefined>(

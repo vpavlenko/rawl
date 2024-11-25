@@ -3,7 +3,6 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import CorpusList from "../corpora/CorpusList";
-import InlineRawlPlayer from "../InlineRawlPlayer";
 import SnippetsForTopic from "../SnippetsForTopic";
 
 const TopicContainer = styled.div`
@@ -96,27 +95,27 @@ const SnippetList = ({ slug }) => {
 };
 const CMajorHarmony = () => {
   return (
-    <InlineRawlPlayer>
-      <div>
-        <h1>C Major Harmony</h1>
-        <p>This chapter explores harmony in the key of C major...</p>
-        <p>Here we analyze the corpus chapters_c_major:</p>
-        <CorpusList slug="chapters_c_major" />
-        <p>
-          First, let's notice which chords are in there. Each piece ends with
-          the same chord:
-        </p>
-        <SnippetList slug="book:1_1_I_last" />
+    // <InlineRawlPlayer>
+    <div>
+      <h1>C Major Harmony</h1>
+      <p>This chapter explores harmony in the key of C major...</p>
+      <p>Here we analyze the corpus chapters_c_major:</p>
+      <CorpusList slug="chapters_c_major" />
+      <p>
+        First, let's notice which chords are in there. Each piece ends with the
+        same chord:
+      </p>
+      <SnippetList slug="book:1_1_I_last" />
 
-        <p>Also, all the pieces share several other chords:</p>
-        <SnippetList slug="book:1_1_I" />
-        <SnippetList slug="book:1_1_IV" />
-        <SnippetList slug="book:1_1_V" />
-        <SnippetList slug="book:1_1_ii" />
-        <SnippetList slug="book:1_1_major_II" />
-        <SnippetList slug="book:1_1_vi_iii" />
-      </div>
-    </InlineRawlPlayer>
+      <p>Also, all the pieces share several other chords:</p>
+      <SnippetList slug="book:1_1_I" />
+      <SnippetList slug="book:1_1_IV" />
+      <SnippetList slug="book:1_1_V" />
+      <SnippetList slug="book:1_1_ii" />
+      <SnippetList slug="book:1_1_major_II" />
+      <SnippetList slug="book:1_1_vi_iii" />
+    </div>
+    // </InlineRawlPlayer>
   );
 };
 

@@ -17,10 +17,12 @@ const InlineSnippets: React.FC<{
   const appContext = useContext(AppContext);
   const isSignedIn = !!appContext?.user;
 
-  const filteredSnippets = snippets.filter((snippet) => {
-    const [chapter] = snippet.tag.split(":");
-    return isSignedIn || chapter.trim() !== "book";
-  });
+  const filteredSnippets = React.useMemo(() => {
+    return snippets.filter((snippet) => {
+      const [chapter] = snippet.tag.split(":");
+      return isSignedIn || chapter.trim() !== "book";
+    });
+  }, [snippets, isSignedIn]);
 
   const [groupedSnippets, setGroupedSnippets] = React.useState<
     Record<number, Snippet[]>

@@ -869,6 +869,13 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "masakazu_sugimori",
+    midis: [
+      "reminiscence-~-dl-6-incident---masakazu-sugimori-phoenix-wright-ace-attorney",
+      "ace-attorney-turnabout-sisters-ballad---masakazu-sugimori",
+    ],
+  },
+  {
     slug: "tokyo_ghoul",
     midis: [
       "unravel-acoustic-ver-tokyo-ghoul-theishter-sheet-music-full-sheets",
@@ -1044,6 +1051,24 @@ export const corpora: Corpora[] = [
   {
     slug: "yuki_hayashi",
     midis: ["my-hero-academia---you-say-run---piano-solo"],
+  },
+  {
+    slug: "brandon_hesslau",
+    midis: [
+      "our-happy-ending---brandon-hesslau---buddy-simulator-1984",
+      "a-lovely-little-town---brandon-hesslau---buddy-simulator-1984",
+    ],
+  },
+  {
+    slug: "studio_thumpy_puppy",
+    midis: [
+      "game-over---in-stars-and-time-ost---studio-thumpy-puppy",
+      "be-careful-everyone-boss-theme---in-stars-and-time",
+      "do-you-remember-king-s-theme---in-stars-and-time",
+      "thinking-time---in-stars-and-time-ost---studio-thumpy-puppy",
+      "frozen-in-time---studio-thumpy-puppy---in-stars-and-time-ost",
+      "friend-quest-solo---studio-thumpy-puppy-friend-quest-solo",
+    ],
   },
   {
     slug: "mikael_tariverdiev",
@@ -1510,6 +1535,17 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "alexander_goedicke",
+    midis: ["alexander-goedicke---dance"],
+  },
+  {
+    slug: "waldemar_kazanecki",
+    midis: [
+      "noce-i-dnie---walc-barbary---misc-soundtrack-walc-barbary",
+      "czarne-chmury-black-clouds-soundtrack-theme---waldemar-kazanecki",
+    ],
+  },
+  {
     slug: "modern_composers_of_single_pieces",
     midis: [
       "gray",
@@ -1528,6 +1564,7 @@ export const corpora: Corpora[] = [
       "warsaw-concerto-dangerous-moonlight-theme-1941",
       "machinarium",
       "chasing-kou---hidekazu-sakamoto-drowning-love---ni-rerunaihu-mule-bbajin-naipeu-ost",
+      "vostochnye-skazki---blestyashchie",
     ],
   },
   {
@@ -1733,6 +1770,7 @@ export const corpora: Corpora[] = [
       "piano_concerto_no_4_op_40_sergei_rachmaninoff_i_allegro_vivace_alla_breve",
       "prelude_in_c_sharp_minor_opus_3_no_2_sergei_rachmaninoff",
       "rachmaninoff_piano_concerto_4_1",
+      "serguei-rachmaninov---piano-concerto-ndeg4-in-g-minor---1st-mouvement-intro",
       "Prelude_in_G_Minor_Opus_23_No._5",
       "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---ii.-allegro-molto",
     ],
@@ -2108,6 +2146,7 @@ export const corpora: Corpora[] = [
       "eight-children-s-pieces-op.36---malcolm-arnold",
       "the-tom-and-jerry-show---hiromi-uehara",
       "irken-armada-invasion-zim-s-theme---mattias-hakulinen-and-pontus-askbrink",
+      "do-you-remember-king-s-theme---in-stars-and-time",
     ],
   },
   {

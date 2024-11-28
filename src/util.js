@@ -1,7 +1,7 @@
 import path from "path";
 import queryString from "querystring";
 
-import { API_BASE, CATALOG_PREFIX } from "./config";
+import { CATALOG_PREFIX } from "./config";
 
 export function updateQueryString(newParams) {
   // Merge new params with current query string
@@ -61,15 +61,6 @@ export function allOrNone(...args) {
 
 export function getFilepathFromUrl(url) {
   return url.replace(CATALOG_PREFIX, "/");
-}
-
-export function getMetadataUrlForFilepath(filepath) {
-  return `${API_BASE}/metadata?path=${encodeURIComponent(filepath)}`;
-}
-
-export function getMetadataUrlForCatalogUrl(url) {
-  const filepath = getFilepathFromUrl(url);
-  return getMetadataUrlForFilepath(filepath);
 }
 
 export function ensureEmscFileWithUrl(emscRuntime, filename, url) {

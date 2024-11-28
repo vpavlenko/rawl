@@ -1,10 +1,8 @@
 import debounce from "lodash/debounce";
 import MIDIFile from "midifile";
-import path from "path";
 
 import autoBind from "auto-bind";
 import range from "lodash/range";
-import requestCache from "../RequestCache";
 import { DUMMY_CALLBACK } from "../components/App";
 import {
   SOUNDFONTS,
@@ -12,12 +10,7 @@ import {
   SOUNDFONT_URL_PATH,
 } from "../config";
 import { GM_DRUM_KITS, GM_INSTRUMENTS } from "../gm-patch-map";
-import {
-  ensureEmscFileWithUrl,
-  getFilepathFromUrl,
-  getMetadataUrlForFilepath,
-  remap01,
-} from "../util";
+import { ensureEmscFileWithUrl, remap01 } from "../util";
 import MIDIFilePlayer from "./MIDIFilePlayer";
 import Player from "./Player";
 
@@ -341,49 +334,7 @@ export default class MIDIPlayer extends Player {
       this.getParameter("synthengine") === MIDI_ENGINE_LIBFLUIDLITE &&
       !filepath.startsWith("f:")
     ) {
-      const metadataUrl = getMetadataUrlForFilepath(filepath);
-      let useMelodicChannel10 = false;
-      // This will most certainly be cached by a preceding fetch in App.js.
-      const { soundfont: soundfontUrl } =
-        await requestCache.fetchCached(metadataUrl);
-      if (soundfontUrl) {
-        const soundfontBasename = path.basename(
-          getFilepathFromUrl(soundfontUrl),
-        );
-        const sf2Path = `user/${soundfontBasename}`;
-        newTransientParams["soundfont"] = sf2Path;
-        if (this.getParameter("soundfont") !== sf2Path) {
-          await ensureEmscFileWithUrl(
-            core,
-            `${SOUNDFONT_MOUNTPOINT}/${sf2Path}`,
-            soundfontUrl,
-          );
-          this.updateSoundfontParamDefs();
-        }
-        // Melodic mode mean CH 10 becomes like any other channel, using SoundFont bank 0 by default.
-        // The MIDI file *must* do an explicit bank select to get bank 128 on CH 10 for drums.
-        // This is list is a quick hack for N64 games that don't treat channel 10 like drums.
-        // The more correct alternative would be to make sure the MIDI files contain a reliable signal
-        // for melodic CH 10; perhaps borrowed from GS or XG standard.
-        const melodicDrumSoundfonts = [
-          "Centre Court Tennis",
-          "Goemon",
-          "Bomberman",
-          "GoldenEye",
-          "Perfect Dark",
-          "Banjo Kazooie",
-          "Diddy Kong",
-          "Zelda",
-        ];
-        if (melodicDrumSoundfonts.some((sf) => soundfontUrl.includes(sf))) {
-          console.debug(
-            "MIDI channel 10 melodic mode enabled for %s.",
-            soundfontBasename,
-          );
-          useMelodicChannel10 = true;
-        }
-      }
-      core._tp_set_ch10_melodic(useMelodicChannel10);
+      core._tp_set_ch10_melodic(false);
     }
 
     // Apply transient params. Avoid thrashing of params that haven't changed.

@@ -104,6 +104,8 @@ type AppState = {
     sourceUrl: string | null;
     isHiddenRoute: boolean;
   } | null;
+  audioContextLocked: boolean;
+  audioContextState: string;
 };
 
 export interface FirestoreMidiIndex {
@@ -143,6 +145,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private midi: ArrayBuffer;
   private droppedFilename: string;
   private keyboardHandlers: Map<string, KeyboardHandler> = new Map();
+  private audioContext: AudioContext;
 
   constructor(props) {
     super(props);
@@ -182,47 +185,13 @@ class App extends React.Component<RouteComponentProps, AppState> {
       }
     });
 
-    // Initialize audio graph
-    // ┌────────────┐      ┌────────────┐      ┌─────────────┐
-    // │ playerNode ├─────>│  gainNode  ├─────>│ destination │
-    // └────────────┘      └────────────┘      └─────────────┘
+    // Initialize audio context
     // @ts-ignore webkitAudioContext needed for Safari <=13
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)({
+    this.audioContext = new (window.AudioContext || window.webkitAudioContext)({
       latencyHint: "playback",
     });
-    const bufferSize = Math.max(
-      // Make sure script node bufferSize is at least baseLatency
-      Math.pow(
-        2,
-        Math.ceil(
-          Math.log2((audioCtx.baseLatency || 0.001) * audioCtx.sampleRate),
-        ),
-      ),
-      16384, // can set to 16384, but the cursor will lag. smooth is 2048
-    );
-    const gainNode = (this.gainNode = audioCtx.createGain());
-    gainNode.gain.value = 1;
-    gainNode.connect(audioCtx.destination);
-    const playerNode = audioCtx.createScriptProcessor(bufferSize, 0, 2);
-    playerNode.connect(gainNode);
 
-    unlockAudioContext(audioCtx);
-    console.log(
-      "Sample rate: %d hz. Base latency: %d. Buffer size: %d.",
-      audioCtx.sampleRate,
-      audioCtx.baseLatency * audioCtx.sampleRate,
-      bufferSize,
-    );
-
-    let latencyCorrectionMs = parseInt(
-      localStorage.getItem("latencyCorrectionMs"),
-      10,
-    );
-    latencyCorrectionMs =
-      !isNaN(latencyCorrectionMs) && latencyCorrectionMs !== null
-        ? latencyCorrectionMs
-        : 0;
-
+    // Initialize state with actual audio context state
     this.state = {
       loading: true,
       loadingUser: true,
@@ -244,14 +213,46 @@ class App extends React.Component<RouteComponentProps, AppState> {
       parsing: null,
       analysisEnabled: false,
       analyses: defaultAnalyses as unknown as Analyses,
-      latencyCorrectionMs,
+      latencyCorrectionMs: 0,
       fileToDownload: null,
       showShortcutHelp: false,
       rawlProps: null,
       currentMidi: null,
+      audioContextLocked: this.audioContext.state === "suspended",
+      audioContextState: this.audioContext.state,
     };
 
-    this.initChipCore(audioCtx, playerNode, bufferSize);
+    const bufferSize = Math.max(
+      Math.pow(
+        2,
+        Math.ceil(
+          Math.log2(
+            (this.audioContext.baseLatency || 0.001) *
+              this.audioContext.sampleRate,
+          ),
+        ),
+      ),
+      16384,
+    );
+    const gainNode = (this.gainNode = this.audioContext.createGain());
+    gainNode.gain.value = 1;
+    gainNode.connect(this.audioContext.destination);
+    const playerNode = this.audioContext.createScriptProcessor(
+      bufferSize,
+      0,
+      2,
+    );
+    playerNode.connect(gainNode);
+
+    unlockAudioContext(this.audioContext);
+    console.log(
+      "Sample rate: %d hz. Base latency: %d. Buffer size: %d.",
+      this.audioContext.sampleRate,
+      this.audioContext.baseLatency * this.audioContext.sampleRate,
+      bufferSize,
+    );
+
+    this.initChipCore(playerNode, bufferSize);
 
     // Inline processMidiUrls here
     const location = this.props.location;
@@ -303,7 +304,25 @@ class App extends React.Component<RouteComponentProps, AppState> {
       });
   }
 
-  async initChipCore(audioCtx, playerNode, bufferSize) {
+  async initChipCore(playerNode, bufferSize) {
+    const audioState = this.audioContext.state;
+    console.log("AudioContext initial state:", audioState);
+
+    this.setState({
+      audioContextLocked: audioState === "suspended",
+      audioContextState: audioState,
+    });
+
+    // Add event listener to track audio context state changes
+    this.audioContext.addEventListener("statechange", () => {
+      const newState = this.audioContext.state;
+      console.log("AudioContext state changed to:", newState);
+      this.setState({
+        audioContextLocked: newState === "suspended",
+        audioContextState: newState,
+      });
+    });
+
     // Load the chip-core Emscripten runtime
     try {
       // @ts-ignore
@@ -332,7 +351,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     const self = this;
     this.midiPlayer = new MIDIPlayer(
       this.chipCore,
-      audioCtx.sampleRate,
+      this.audioContext.sampleRate,
       bufferSize,
       debug,
       (parsing) =>
@@ -968,6 +987,16 @@ class App extends React.Component<RouteComponentProps, AppState> {
     });
   };
 
+  handleUnlockAudioContext = async () => {
+    if (this.audioContext) {
+      await this.audioContext.resume();
+      this.setState({
+        audioContextLocked: this.audioContext.state === "suspended",
+        audioContextState: this.audioContext.state,
+      });
+    }
+  };
+
   render() {
     const { location } = this.props;
     const rawlProps: RawlProps = {
@@ -1113,9 +1142,18 @@ class App extends React.Component<RouteComponentProps, AppState> {
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>
-          {/* @ts-ignore */}
           {(dropzoneProps) => (
             <div className="App">
+              {this.state.audioContextLocked && (
+                <div className="audio-context-overlay">
+                  <button
+                    className="unlock-audio-button"
+                    onClick={this.handleUnlockAudioContext}
+                  >
+                    Play
+                  </button>
+                </div>
+              )}
               <DropMessage dropzoneProps={dropzoneProps} />
               <Alert
                 handlePlayerError={this.handlePlayerError}

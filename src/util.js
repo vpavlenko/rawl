@@ -20,22 +20,24 @@ export function updateQueryString(newParams) {
 }
 
 export function unlockAudioContext(context) {
-  // https://hackernoon.com/unlocking-web-audio-the-smarter-way-8858218c0e09
-  console.log("AudioContext initial state is %s.", context.state);
-  if (context.state === "suspended") {
-    const events = ["touchstart", "touchend", "mousedown", "mouseup"];
-    const unlock = () =>
-      context
-        .resume()
-        .then(() =>
+  return new Promise((resolve) => {
+    if (context.state === "suspended") {
+      const events = ["touchstart", "touchend", "mousedown", "mouseup"];
+      const unlock = () => {
+        context.resume().then(() => {
           events.forEach((event) =>
             document.body.removeEventListener(event, unlock),
-          ),
-        );
-    events.forEach((event) =>
-      document.body.addEventListener(event, unlock, false),
-    );
-  }
+          );
+          resolve();
+        });
+      };
+      events.forEach((event) =>
+        document.body.addEventListener(event, unlock, false),
+      );
+    } else {
+      resolve();
+    }
+  });
 }
 
 export function titlesFromMetadata(metadata) {

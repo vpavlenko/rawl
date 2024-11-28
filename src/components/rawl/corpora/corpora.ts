@@ -3825,15 +3825,12 @@ export const corpora: Corpora[] = [
 
   {
     slug: "scarlatti",
-    midis: ["sonata_k159_scarlatti", "scarlatti-sonata-aria-k.32"],
-  },
-
-  {
-    slug: "scarlatti",
     midis: [
       "Jupiter_-_arr._for_two_pianos_by_Gustav_Holst",
       "neptune-the-mystic---gustav-holst-piano-reduction",
       "the-planets-op.-32----ii.-venus-bringer-of-peace-for-piano",
+      "sonata_k159_scarlatti",
+      "scarlatti-sonata-aria-k.32",
     ],
   },
 

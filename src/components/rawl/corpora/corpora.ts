@@ -446,6 +446,13 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "shamshi_kaldayakov",
+    midis: [
+      "my-kazakhstan",
+      "arys-zhagasynda---shamshi-kaldayakov-arys-zhag-asynda---sh-mshi-k-aldayak-ov-red.-ask-ar-lmak-tum",
+    ],
+  },
+  {
     slug: "malaguena",
     midis: [
       "malaguena---ernesto-lecuona",
@@ -459,6 +466,10 @@ export const corpora: Corpora[] = [
       "malaguena-facil",
       "rumores-de-la-caleta-malaguena",
     ],
+  },
+  {
+    slug: "vaqif_mustafazadeh",
+    midis: ["vaqif_mustafazade_-_dushunce_piano_tutorial"],
   },
   {
     slug: "ferdinand_hiller",
@@ -806,6 +817,16 @@ export const corpora: Corpora[] = [
   {
     slug: "ted_snyder",
     midis: ["the-sheik-of-araby-arr.-zez-confrey"],
+  },
+  {
+    slug: "nicholas_britell",
+    midis: [
+      "succession-main-theme",
+      "i-m-cruella---nicholas-britell",
+      "succession-scherzo-in-f-minor---nicholas-britell",
+      "don-t-look-up---main-title-theme---nicholas-britell",
+      "the-baroque-ball---nicholas-britell",
+    ],
   },
   {
     slug: "alex_thorn",
@@ -1546,8 +1567,13 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "yoasobi",
+    midis: ["anomeng-wonazotute-ano-yume-wo-nazotte-marasiiver."],
+  },
+  {
     slug: "modern_composers_of_single_pieces",
     midis: [
+      "after-school---weeekly",
       "gray",
       "changing-times---heather-hammond",
       "ma-lu-mitai-baka-mitai---mitsuharu-fukuyama-piano-arrangement",
@@ -3155,6 +3181,10 @@ export const corpora: Corpora[] = [
     midis: ["yksin-op.29b-no.4---toivo-kuula", "ekialde-dantza"],
   },
 
+  {
+    slug: "royal_road_progression",
+    midis: [],
+  },
   {
     slug: "dario_marianelli",
     midis: [

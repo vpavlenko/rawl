@@ -1142,9 +1142,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>
+          {/* @ts-ignore */}
           {(dropzoneProps) => (
             <div className="App">
-              {this.state.audioContextLocked && (
+              {this.state.audioContextLocked && this.state.parsing && (
                 <div className="audio-context-overlay">
                   <button
                     className="unlock-audio-button"

@@ -3572,7 +3572,8 @@ export const corpora: Corpora[] = [
     slug: "chapters_quasi_axis_C_Em_Am_F",
     midis: [
       "alan-walker---alone-piano",
-      "the-office-opening-theme",
+      // "the-office-opening-theme",
+      "the-office---opening-titles-theme-song-for-piano",
       "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
       "Someone_Like_You_easy_piano",
     ],
@@ -3737,7 +3738,7 @@ export const corpora: Corpora[] = [
       "minuet-bwv-anhang-114-in-g-major", // Christian Petzold
       "Take_on_me", // a-ha
       "congratulations---mac-miller", // Mac Miller
-      "the-office-opening-theme", // Jay Ferguson
+      "the-office---opening-titles-theme-song-for-piano", // Jay Ferguson
       "it-s-been-a-long-long-time---harry-james", // Jule Styne
       "Dawn_Pride_and_Prejudice", // Dario Marianelli
       "kimi-no-na-wa---sparkle-theishter-2016", // Radwimps
@@ -3780,6 +3781,7 @@ export const corpora: Corpora[] = [
     slug: "musescore_top100_more_works_same_composer",
     midis: [
       "ren-sheng-nomerigorando---jiu-shi-rang-jazz-arranged",
+      "the-office-opening-theme",
       "Waltz_in_A_MinorChopin",
       "Sonate_No._14_Moonlight_1st_Movement",
       "One_Summers_Day_Spirited_Away",

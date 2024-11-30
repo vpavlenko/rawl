@@ -163,6 +163,7 @@ export const TOP_100_COMPOSERS: {
     slug: "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
     composer: "Kanye West",
     order: 55,
+    chords: ["I", "iii", "IV", "vi"],
   },
   { slug: "Lovely_Billie_Eilish", composer: "Billie Eilish", order: 600 },
   { slug: "Omori_Duet", composer: "Pedro Silva", order: 2450 },
@@ -259,6 +260,7 @@ export const TOP_100_COMPOSERS: {
     composer: "Jay Ferguson",
     order: 50,
     chapter: "Single four-chord progression in major",
+    chords: ["I", "iii", "IV", "vi"],
   },
   {
     slug: "it-s-been-a-long-long-time---harry-james",

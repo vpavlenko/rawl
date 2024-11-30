@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
 import ChordStairs, { MODES } from "./ChordStairs";
+import { TOP_100_COMPOSERS } from "./chapters/Intro";
 
 const BLACK_KEYS = [1, 3, -1, 6, 8, 10, -1];
 const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
@@ -153,12 +154,14 @@ const FoldButton = styled.button`
 export const FoldablePianoLegend: React.FC<{ slug?: string }> = ({ slug }) => {
   const [showLegend, setShowLegend] = useLocalStorage("showLegend", true);
 
+  const chords = TOP_100_COMPOSERS.find(({ slug: _slug }) => slug === _slug)
+    ?.chords;
+
   return (
     <div
       key="piano-legend"
       style={{ position: "fixed", bottom: 90, right: 70, zIndex: 100000 }}
     >
-      {slug}
       {showLegend ? (
         <div>
           <FoldButton onClick={() => setShowLegend(false)}>X</FoldButton>
@@ -174,9 +177,9 @@ export const FoldablePianoLegend: React.FC<{ slug?: string }> = ({ slug }) => {
               zIndex: 100000,
             }}
           >
-            <ChordStairs mode={MODES[1]} />
-            <ChordStairs mode={MODES[0]} />
-            <ChordStairs mode={MODES[2]} />
+            <ChordStairs mode={MODES[1]} chapterChords={chords} />
+            <ChordStairs mode={MODES[0]} chapterChords={chords} />
+            <ChordStairs mode={MODES[2]} chapterChords={chords} />
             <div
               style={{ margin: "auto" }}
               onClick={() => setShowLegend(false)}

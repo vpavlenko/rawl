@@ -8,6 +8,7 @@ const TOP_100_COMPOSERS: { slug: string; composer: string; order?: number }[] =
     {
       slug: "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
       composer: "Joe Hisaishi",
+      order: 2800,
     },
     { slug: "Canon_in_D", composer: "Pachelbel", order: 1000 },
     { slug: "Clair_de_Lune__Debussy", composer: "Debussy" },
@@ -73,7 +74,7 @@ const TOP_100_COMPOSERS: { slug: string; composer: string; order?: number }[] =
     },
     { slug: "Carol_of_the_Bells", composer: "Mykola Leontovych", order: 1700 },
     { slug: "piano-man-piano", composer: "Billy Joel", order: 2300 },
-    { slug: "Fly_Me_to_the_Moon", composer: "Bart Howard" },
+    { slug: "Fly_Me_to_the_Moon", composer: "Bart Howard", order: 5300 },
     { slug: "passacaglia---handel-halvorsen", composer: "Handel", order: 1650 },
 
     {
@@ -124,7 +125,7 @@ const TOP_100_COMPOSERS: { slug: string; composer: string; order?: number }[] =
       order: 100,
     },
     { slug: "solas---jamie-duffy", composer: "Jamie Duffy", order: 870 },
-    { slug: "autumn-leaves-jazz-piano", composer: "Joseph Kosma" },
+    { slug: "autumn-leaves-jazz-piano", composer: "Joseph Kosma", order: 5400 },
     {
       slug: "still-dre---variation-composition",
       composer: "Andre Young",
@@ -205,6 +206,7 @@ const TOP_100_COMPOSERS: { slug: string; composer: string; order?: number }[] =
     {
       slug: "it-s-been-a-long-long-time---harry-james",
       composer: "Jule Styne",
+      order: 2700,
     },
     {
       slug: "Dawn_Pride_and_Prejudice",
@@ -227,6 +229,7 @@ const TOP_100_COMPOSERS: { slug: string; composer: string; order?: number }[] =
     {
       slug: "theme-from-schindler-s-list---piano-solo",
       composer: "John Williams",
+      order: 2430,
     },
     {
       slug: "happy_birthday_bass_and_chords",
@@ -258,6 +261,7 @@ const TOP_100_COMPOSERS: { slug: string; composer: string; order?: number }[] =
     {
       slug: "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night",
       composer: "Ayase",
+      order: 2600,
     },
     { slug: "africa---toto", composer: "Toto" },
     { slug: "vivaldi---summer---piano", composer: "Vivaldi", order: 1680 },
@@ -272,7 +276,11 @@ const TOP_100_COMPOSERS: { slug: string; composer: string; order?: number }[] =
       composer: "Masaru Yokoyama",
       order: 2497,
     },
-    { slug: "anastasia---once-upon-a-december", composer: "Stephen Flaherty" },
+    {
+      slug: "anastasia---once-upon-a-december",
+      composer: "Stephen Flaherty",
+      order: 2440,
+    },
     {
       slug: "Test_Drive_How_to_Train_Your_Dragon",
       composer: "John Powell",
@@ -442,15 +450,6 @@ const Intro = () => {
     <div>
       <h1>Musescore Top 100 Harmony</h1>
       <IntroText />
-      {corpora
-        .filter((corpus) => corpus.slug.startsWith("chapters"))
-        .map((corpus) => (
-          <Corpus
-            key={corpus.slug}
-            slug={corpus.slug}
-            composers={TOP_100_COMPOSERS}
-          />
-        ))}
       <p>This is the order in which I'll be talking about the composers:</p>
       <ul>
         {orderedComposers.map(({ slug, composer, order }) => (
@@ -462,6 +461,15 @@ const Intro = () => {
           </li>
         ))}
       </ul>
+      {corpora
+        .filter((corpus) => corpus.slug.startsWith("chapters"))
+        .map((corpus) => (
+          <Corpus
+            key={corpus.slug}
+            slug={corpus.slug}
+            composers={TOP_100_COMPOSERS}
+          />
+        ))}
     </div>
   );
 };

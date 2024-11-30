@@ -150,7 +150,7 @@ const FoldButton = styled.button`
   padding: 5px 15px;
 `;
 
-export const FoldablePianoLegend: React.FC = () => {
+export const FoldablePianoLegend: React.FC<{ slug?: string }> = ({ slug }) => {
   const [showLegend, setShowLegend] = useLocalStorage("showLegend", true);
 
   return (
@@ -158,6 +158,7 @@ export const FoldablePianoLegend: React.FC = () => {
       key="piano-legend"
       style={{ position: "fixed", bottom: 90, right: 70, zIndex: 100000 }}
     >
+      {slug}
       {showLegend ? (
         <div>
           <FoldButton onClick={() => setShowLegend(false)}>X</FoldButton>

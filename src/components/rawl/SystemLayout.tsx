@@ -236,6 +236,7 @@ export type SystemLayoutProps = {
   enableManualRemeasuring?: boolean;
   measureStart?: number;
   isHiddenRoute?: boolean;
+  slug?: string;
 };
 
 export const StackedSystemLayout: React.FC<
@@ -254,6 +255,7 @@ export const StackedSystemLayout: React.FC<
   measureStart,
   isEmbedded = false,
   isHiddenRoute = false,
+  slug,
 }) => {
   const [noteHeight, setNoteHeight] = useState<number>(3);
   const [secondWidth, setSecondWidth] = useState<number>(40);
@@ -513,6 +515,7 @@ export const StackedSystemLayout: React.FC<
             setNoteHeight={setNoteHeight}
             secondWidth={secondWidth}
             setSecondWidth={setSecondWidth}
+            slug={slug}
           />
         )}
       </div>
@@ -533,6 +536,7 @@ export const MergedSystemLayout: React.FC<
     setVoiceMask,
     enableManualRemeasuring,
     isEmbedded = false,
+    slug,
   } = props;
 
   const flattenedNotes = useMemo(
@@ -553,6 +557,7 @@ export const MergedSystemLayout: React.FC<
         voiceMask={MERGED_VOICE_MASK}
         enableManualRemeasuring={enableManualRemeasuring}
         isEmbedded={isEmbedded}
+        slug={slug}
       />
       {!isEmbedded && (
         <MergedVoicesLegend

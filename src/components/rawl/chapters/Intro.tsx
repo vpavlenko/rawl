@@ -1,10 +1,11 @@
 import * as React from "react";
 
-const TOP_100_COMPOSERS: {
+export const TOP_100_COMPOSERS: {
   slug: string;
   composer: string;
   order?: number;
   chapter?: string;
+  chords?: string[];
 }[] = [
   { slug: "river-flows-in-you", composer: "Yiruma", order: 200 },
   {
@@ -292,6 +293,7 @@ const TOP_100_COMPOSERS: {
     composer: "Patty Smith Hill",
     order: 20,
     chapter: "Intro",
+    chords: ["I", "IV", "V"],
   },
   {
     slug: "flight-of-the-bumblebee",

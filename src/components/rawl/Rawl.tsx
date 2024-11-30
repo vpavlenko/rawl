@@ -626,6 +626,7 @@ const Rawl: React.FC<RawlProps> = ({
       frozenNotes: coloredNotes,
       saveAnalysis,
       measureStart,
+      slug,
     }),
     [
       coloredNotes,
@@ -639,6 +640,7 @@ const Rawl: React.FC<RawlProps> = ({
       futureAnalysis,
       saveAnalysis,
       measureStart,
+      slug,
     ],
   );
 

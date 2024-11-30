@@ -1,5 +1,6 @@
 import * as React from "react";
 import { corpora } from "../corpora/corpora";
+import Corpus from "../corpora/Corpus";
 
 const TOP_100_COMPOSERS: { slug: string; composer: string; order?: number }[] =
   [
@@ -52,7 +53,7 @@ const TOP_100_COMPOSERS: { slug: string; composer: string; order?: number }[] =
       slug: "mariage-d-amour---paul-de-senneville-marriage-d-amour",
       composer: "Paul de Senneville",
     },
-    { slug: "Someone_Like_You_easy_piano", composer: "Adele" },
+    { slug: "Someone_Like_You_easy_piano", composer: "Adele", order: 350 },
     { slug: "my-heart-will-go-on", composer: "James Horner" },
     {
       slug: "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2",
@@ -377,6 +378,13 @@ const Intro = () => {
           </li>
         ))}
       </ul>
+      <p>
+        {corpora
+          .filter((corpus) => corpus.slug.startsWith("chapters"))
+          .map((corpus) => (
+            <Corpus key={corpus.slug} slug={corpus.slug} />
+          ))}
+      </p>
     </div>
   );
 };

@@ -3,9 +3,8 @@ import styled from "styled-components";
 
 const BookContainer = styled.div`
   width: 100%;
-  padding: 40px;
+  padding: 20px;
   color: #ddd;
-  max-width: 1200px;
   margin: 0 auto;
 `;
 

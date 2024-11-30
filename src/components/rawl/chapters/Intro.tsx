@@ -417,7 +417,8 @@ export const TOP_100_COMPOSERS: {
 
 const IntroText = () => {
   return (
-    <>
+    <div style={{ maxWidth: "50em", marginTop: "100px" }}>
+      <h2>How did I pick the pieces?</h2>
       <p>
         I went through{" "}
         <a
@@ -432,20 +433,8 @@ const IntroText = () => {
       </p>
 
       <p>
-        Here's a complete list of 100 composers in the corpus:{" "}
-        {TOP_100_COMPOSERS.map(({ slug, composer }, i) => (
-          <>
-            <a href={`/f/${slug}`} target="_blank" rel="noreferrer">
-              {composer}
-            </a>
-            {i < TOP_100_COMPOSERS.length - 1 && ", "}
-          </>
-        ))}
-      </p>
-
-      <p>
-        Many moderns works is a join work of several people, and for those I
-        name a single person as a composer arbitrarily.
+        Many moderns works is a joint work of several people, and for those I
+        arbitrarily pick a single person as a composer.
       </p>
 
       <p>
@@ -462,12 +451,12 @@ const IntroText = () => {
       </p>
 
       <p>
-        I've gathered the corpus on Oct 31, 2024. Now, the view count on the
-        most popular work doesn't equal the work's popularity even on MuseScore.
-        Eg. "River flows in you" has 7.3M on the most popular arrangement, but
-        their next top 5 arrangements (out of 687 community scores of this
-        title) have 1.5M more view counts. I don't add up all view counts across
-        all versions, I purely use the top 1.
+        I've gathered the corpus on Oct 31, 2024. The view count on the most
+        popular work doesn't equal the work's popularity even on MuseScore. Eg.
+        "River flows in you" has 7.3M on the most popular arrangement, but their
+        next top 5 arrangements (out of 687 community scores of this title) have
+        1.5M more view counts. I don't add up all view counts across all
+        versions, I purely use the top 1.
       </p>
 
       <p>
@@ -522,7 +511,7 @@ const IntroText = () => {
         As I understand, the copyright takedowns of community scores didn't
         affect my corpus - even John Williams got represented.
       </p>
-    </>
+    </div>
   );
 };
 

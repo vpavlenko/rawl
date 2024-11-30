@@ -6,6 +6,7 @@ export const TOP_100_COMPOSERS: {
   order?: number;
   chapter?: string;
   chords?: string[];
+  displayTitle?: string;
 }[] = [
   {
     slug: "river-flows-in-you",
@@ -245,7 +246,6 @@ export const TOP_100_COMPOSERS: {
   {
     slug: "ylang-ylang---fkj-transcribed-by-lilroo",
     composer: "FKJ",
-    order: 5900,
   },
   {
     slug: "attack-on-titan-theme-guren-no-yumiya",

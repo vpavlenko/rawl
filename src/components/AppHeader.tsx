@@ -11,6 +11,8 @@ const AppHeader: React.FC = () => {
       <a href="https://github.com/vpavlenko/rawl" target="_blank">
         <div className="octocat" />
       </a>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="/book">Book</a>
     </header>
   );
 };

@@ -99,34 +99,49 @@ export const TOP_100_COMPOSERS: {
     composer: "Paul de Senneville",
     order: 1800,
   },
-  { slug: "Someone_Like_You_easy_piano", composer: "Adele", order: 350 },
+  {
+    slug: "Someone_Like_You_easy_piano",
+    composer: "Adele",
+    displayTitle: "Someone Like You",
+    order: 350,
+  },
   {
     slug: "my-heart-will-go-on",
     composer: "James Horner",
+    displayTitle: "My Heart Will Go On (from Titanic)",
     order: 2910,
     chapter: "Double-tonic",
   },
   {
     slug: "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2",
     composer: "Yugo Kanno",
+    displayTitle: "Il vento d'oro (Giorno's Theme)",
     order: 2907,
   },
-  { slug: "Carol_of_the_Bells", composer: "Mykola Leontovych", order: 1620 },
+  {
+    slug: "Carol_of_the_Bells",
+    composer: "Mykola Leontovych",
+    displayTitle: "Carol of the Bells (Shchedryk)",
+    order: 1620,
+  },
   {
     slug: "piano-man-piano",
     composer: "Billy Joel",
+    displayTitle: "Piano Man",
     order: 2300,
     chapter: "V/V",
   },
   {
     slug: "Fly_Me_to_the_Moon",
     composer: "Bart Howard",
+    displayTitle: "Fly Me to the Moon (In Other Words)",
     order: 5300,
     chapter: "ii V I jazz",
   },
   {
     slug: "passacaglia---handel-halvorsen",
     composer: "Handel",
+    displayTitle: "Passacaglia in G minor (arr. Halvorsen)",
     order: 1650,
     chapter: "Circle of fifths",
   },
@@ -134,141 +149,227 @@ export const TOP_100_COMPOSERS: {
   {
     slug: "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
     composer: "Bach",
+    displayTitle: "Prelude in C major, BWV 846",
   },
   {
     slug: "All_I_Want_for_Christmas_is_You",
     composer: "Mariah Carey",
+    displayTitle: "All I Want for Christmas Is You",
     order: 2600,
   },
   {
     slug: "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
     composer: "Shostakovich",
+    displayTitle: "Waltz No. 2 (Suite for Variety Orchestra)",
     order: 2700,
   },
   {
     slug: "wa-mozart-marche-turque-turkish-march-fingered",
     composer: "Mozart",
+    displayTitle: "Turkish March (Rondo alla Turca)",
     order: 2420,
   },
-  { slug: "Viva_La_Vida_Coldplay", composer: "Coldplay", order: 280 },
-  { slug: "Gravity_Falls_Opening", composer: "Brad Breeck", order: 1500 },
+  {
+    slug: "Viva_La_Vida_Coldplay",
+    composer: "Coldplay",
+    displayTitle: "Viva la Vida",
+    order: 280,
+  },
+  {
+    slug: "Gravity_Falls_Opening",
+    composer: "Brad Breeck",
+    displayTitle: "Gravity Falls Theme",
+    order: 1500,
+  },
   {
     slug: "the_entertainer_scott_joplin",
     composer: "Scott Joplin",
+    displayTitle: "The Entertainer",
     order: 2900,
   },
   {
     slug: "Disney_Pixar_Up_Theme",
     composer: "Michael Giacchino",
+    displayTitle: "Married Life (from Up)",
     order: 2350,
   },
   {
     slug: "a-thousand-years",
     composer: "Christina Perri",
+    displayTitle: "A Thousand Years",
     order: 900,
     chapter: "Functional major",
   },
-  { slug: "John_Lennon_Imagine", composer: "John Lennon", order: 1100 },
+  {
+    slug: "John_Lennon_Imagine",
+    composer: "John Lennon",
+    displayTitle: "Imagine",
+    order: 1100,
+  },
 
   {
     slug: "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
     composer: "Kanye West",
+    displayTitle: "Runaway (arr. Ramin Djawadi for Westworld Season 2)",
     order: 55,
     chords: ["I", "iii", "IV", "vi"],
   },
-  { slug: "Lovely_Billie_Eilish", composer: "Billie Eilish", order: 600 },
-  { slug: "Omori_Duet", composer: "Pedro Silva", order: 2450 },
-  { slug: "Never_Gonna_Give_You_Up", composer: "Mike Stock", order: 650 },
+  {
+    slug: "Lovely_Billie_Eilish",
+    composer: "Billie Eilish",
+    displayTitle: "Lovely (with Khalid)",
+    order: 600,
+  },
+  {
+    slug: "Omori_Duet",
+    composer: "Pedro Silva",
+    displayTitle: "Duet (from Omori)",
+    order: 2450,
+  },
+  {
+    slug: "Never_Gonna_Give_You_Up",
+    composer: "Mike Stock",
+    displayTitle: "Never Gonna Give You Up",
+    order: 650,
+  },
   {
     slug: "despacito-piano-cover-peter-bence",
     composer: "Luis Fonsi",
+    displayTitle: "Despacito",
     order: 100,
     chords: ["vi", "I", "IV", "V"],
   },
-  { slug: "solas---jamie-duffy", composer: "Jamie Duffy", order: 870 },
-  { slug: "autumn-leaves-jazz-piano", composer: "Joseph Kosma", order: 5400 },
+  {
+    slug: "solas---jamie-duffy",
+    composer: "Jamie Duffy",
+    displayTitle: "Solas",
+    order: 870,
+  },
+  {
+    slug: "autumn-leaves-jazz-piano",
+    composer: "Joseph Kosma",
+    displayTitle: "Autumn Leaves (Les Feuilles mortes)",
+    order: 5400,
+  },
   {
     slug: "still-dre---variation-composition",
     composer: "Andre Young",
+    displayTitle: "Still D.R.E.",
     order: 400,
     chapter: "Natural minor",
   },
   {
     slug: "what-falling-in-love-feels-like---jake25.17-fanmade-extended-version",
     composer: "Jake 25.17",
+    displayTitle: "What Falling in Love Feels Like",
   },
-  { slug: "mii-channel-piano", composer: "Kazumi Totaka" },
+  {
+    slug: "mii-channel-piano",
+    composer: "Kazumi Totaka",
+    displayTitle: "Mii Channel Theme",
+  },
 
   {
     slug: "sadness-and-sorrow-for-piano-solo",
     composer: "Toshio Masuda",
+    displayTitle: "Sadness and Sorrow (from Naruto)",
     order: 700,
   },
   {
     slug: "Super_Mario_Bros_Main_Theme",
     composer: "Koji Kondo",
+    displayTitle: "Super Mario Bros. Main Theme",
     order: 5200,
   },
   {
     slug: "Cant_Help_Falling_In_Love",
     composer: "Jean-Paul-Égide Martini",
+    displayTitle: "Can't Help Falling in Love",
     order: 2490,
   },
-  { slug: "g-minor-bach-original", composer: "Luo Ni", order: 1670 },
+  {
+    slug: "g-minor-bach-original",
+    composer: "Luo Ni",
+    displayTitle: "G minor Bach (from Piano Tiles 2, an adaptation of BWV 847)",
+    order: 1670,
+  },
   {
     slug: "when-i-was-your-man---bruno-mars-600e3a",
     composer: "Bruno Mars",
+    displayTitle: "When I Was Your Man",
     order: 4950,
     chapter: "bVII in major",
   },
   {
     slug: "gurenge--demon-slayer-kimetsu-no-yaiba-op",
     composer: "Kayoko Kusano",
+    displayTitle: "Gurenge (Demon Slayer Opening)",
     order: 1640,
   },
-  { slug: "Let_Her_Go_Passenger", composer: "Passenger", order: 610 },
+  {
+    slug: "Let_Her_Go_Passenger",
+    composer: "Passenger",
+    displayTitle: "Let Her Go",
+    order: 610,
+  },
   {
     slug: "we-are-number-one-but-it-s-a-piano-transcript",
     composer: "Máni Svavarsson",
+    displayTitle: "We Are Number One (LazyTown)",
     order: 1300,
   },
   {
     slug: "dragonborn---skyrim-theme-song-piano-solo",
     composer: "Jeremy Soule",
+    displayTitle: "Dragonborn (Skyrim Theme)",
     order: 850,
   },
   {
     slug: "doki-doki-literature-club-ost---your-reality",
     composer: "Dan Salvato",
+    displayTitle: "Your Reality (from Doki Doki Literature Club)",
     order: 270,
   },
 
   {
     slug: "ylang-ylang---fkj-transcribed-by-lilroo",
     composer: "FKJ",
+    displayTitle: "Ylang Ylang",
   },
   {
     slug: "attack-on-titan-theme-guren-no-yumiya",
     composer: "Hiroyuki Sawano",
-    order: 1520,
+    displayTitle: "Guren no Yumiya (Attack on Titan Opening)",
   },
   {
     slug: "Bella_Ciao",
     composer: "Italian folk",
+    displayTitle: "Bella ciao",
     order: 1450,
     chapter: "Minor with V",
   },
   {
     slug: "minuet-bwv-anhang-114-in-g-major",
     composer: "Christian Petzold",
+    displayTitle: "Minuet in G major, BWV Anh. 114",
     order: 2400,
     chapter: "Modulations in classical music",
   },
-  { slug: "Take_on_me", composer: "a-ha", order: 5000 },
-  { slug: "congratulations---mac-miller", composer: "Mac Miller" },
+  {
+    slug: "Take_on_me",
+    composer: "a-ha",
+    displayTitle: "Take On Me",
+    order: 5000,
+  },
+  {
+    slug: "congratulations---mac-miller",
+    composer: "Mac Miller",
+    displayTitle: "Congratulations",
+  },
   {
     slug: "the-office---opening-titles-theme-song-for-piano",
     composer: "Jay Ferguson",
+    displayTitle: "The Office - Main Theme",
     order: 50,
     chapter: "Single four-chord progression in major",
     chords: ["I", "iii", "IV", "vi"],
@@ -276,30 +377,39 @@ export const TOP_100_COMPOSERS: {
   {
     slug: "it-s-been-a-long-long-time---harry-james",
     composer: "Jule Styne",
+    displayTitle: "It's Been a Long, Long Time",
     order: 5500,
   },
   {
     slug: "Dawn_Pride_and_Prejudice",
     composer: "Dario Marianelli",
+    displayTitle: "Dawn (from Pride & Prejudice)",
     order: 2100,
   },
   {
     slug: "kimi-no-na-wa---sparkle-theishter-2016",
     composer: "Radwimps",
+    displayTitle: "Sparkle (from Your Name 2016)",
     order: 5100,
   },
 
   {
     slug: "Yann_Tiersen_Amelie",
     composer: "Yann Tiersen",
+    displayTitle: "Comptine d'un autre été (from Amélie)",
     order: 1892,
     chords: ["vi", "I", "iii", "V"],
   },
-  { slug: "sia---snowman", composer: "Sia", order: 2470 },
+  {
+    slug: "sia---snowman",
+    composer: "Sia",
+    displayTitle: "Snowman",
+    order: 2470,
+  },
   {
     slug: "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2",
     composer: "Takahiro Obata",
-    order: 1895,
+    displayTitle: "Isabella's Lullaby (The Promised Neverland)",
   },
   {
     slug: "theme-from-schindler-s-list---piano-solo",
@@ -315,12 +425,12 @@ export const TOP_100_COMPOSERS: {
   },
   {
     slug: "flight-of-the-bumblebee",
-    composer: "Nikolai Rimsky-Korsakov",
+    composer: "Rimsky-Korsakov",
     order: 2800,
   },
   {
     slug: "dance-of-the-sugar-plum-fairy",
-    composer: "Pyotr Ilyich Tchaikovsky",
+    composer: "Tchaikovsky",
   },
   { slug: "dont-stop-believing-piano", composer: "Journey", order: 330 },
   {
@@ -554,7 +664,7 @@ const Intro = () => {
               margin: "10px 0 35px 0",
             }}
           >
-            {group.map(({ slug, composer }) => (
+            {group.map(({ slug, composer, displayTitle }) => (
               <li key={slug} style={{ marginLeft: "0" }}>
                 <a
                   href={`/f/${slug}`}
@@ -563,7 +673,7 @@ const Intro = () => {
                   style={{ color: "white" }}
                 >
                   <span style={{ color: "#999" }}>{composer}. </span>
-                  {slug.replace(/_|-/g, " ")}
+                  {displayTitle ?? slug.replace(/_|-/g, " ")}
                 </a>
               </li>
             ))}

@@ -625,6 +625,8 @@ export const corpora: Corpora[] = [
       "chopin-ish-happy-birthday-to-you",
       "happy-birthday-3-part-vocals",
       "happy-birthday-variations-in-g-minor",
+      "happy_birthday_bass_and_chords",
+      "Happy_Birthday_to_You",
     ],
   },
   {
@@ -3494,7 +3496,7 @@ export const corpora: Corpora[] = [
   {
     slug: "chapters_c_major",
     midis: [
-      "happy-birthday-to-you-c-major",
+      "happy_birthday_bass_and_chords",
       "John_Lennon_Imagine",
       "Dawn_Pride_and_Prejudice",
       "when-i-was-your-man---bruno-mars-600e3a",
@@ -3710,7 +3712,7 @@ export const corpora: Corpora[] = [
       "a-thousand-years", // Christina Perri
       "John_Lennon_Imagine", // John Lennon
 
-      "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience", // Emile Haynie
+      "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience", // Kanye West
       "Lovely_Billie_Eilish", // Billie Eilish
       "Omori_Duet", // Pedro Silva
       "Never_Gonna_Give_You_Up", // Mike Stock
@@ -3747,7 +3749,7 @@ export const corpora: Corpora[] = [
       "sia---snowman", // Sia
       "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2", // Takahiro Obata
       "theme-from-schindler-s-list---piano-solo", // John Williams
-      "happy-birthday-to-you-c-major", // Patty Smith Hill
+      "happy_birthday_bass_and_chords", // Patty Smith Hill
       "flight-of-the-bumblebee", // Nikolai Rimsky-Korsakov
       "dance-of-the-sugar-plum-fairy", // Pyotr Ilyich Tchaikovsky
       "dont-stop-believing-piano", // Journey
@@ -3900,7 +3902,6 @@ export const corpora: Corpora[] = [
 
       "Good_Bye_Hachiko",
 
-      "Happy_Birthday_to_You",
       "Hit_the_Road_Jack",
       "How_long_blues",
 

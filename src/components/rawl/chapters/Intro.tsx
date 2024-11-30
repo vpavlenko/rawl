@@ -85,7 +85,7 @@ const TOP_100_COMPOSERS: { slug: string; composer: string; order?: number }[] =
 
     {
       slug: "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
-      composer: "Emile Haynie",
+      composer: "Kanye West",
       order: 75,
     },
     { slug: "Lovely_Billie_Eilish", composer: "Billie Eilish", order: 600 },
@@ -168,7 +168,11 @@ const TOP_100_COMPOSERS: { slug: string; composer: string; order?: number }[] =
       slug: "theme-from-schindler-s-list---piano-solo",
       composer: "John Williams",
     },
-    { slug: "happy-birthday-to-you-c-major", composer: "Patty Smith Hill" },
+    {
+      slug: "happy_birthday_bass_and_chords",
+      composer: "Patty Smith Hill",
+      order: 20,
+    },
     { slug: "flight-of-the-bumblebee", composer: "Nikolai Rimsky-Korsakov" },
     {
       slug: "dance-of-the-sugar-plum-fairy",

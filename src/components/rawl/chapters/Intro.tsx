@@ -55,7 +55,7 @@ export const TOP_100_COMPOSERS: {
     composer: "Toby Fox",
     displayTitle: "Megalovania (from Undertale)",
     order: 2905,
-    chapter: "Blues scale",
+    chapter: "Blues scale and hexatonic minor",
   },
   {
     slug: "Golden_Hour__JVKE_Updated_Ver.",
@@ -536,6 +536,7 @@ export const TOP_100_COMPOSERS: {
     composer: "Rebecca Sugar",
     displayTitle: "Love Like You (from Steven Universe)",
     order: 2650,
+    chapter: "Modulations and applied chords combined",
   },
   {
     slug: "alan-walker---alone-piano",

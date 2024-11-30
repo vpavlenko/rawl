@@ -357,15 +357,11 @@ const Intro = () => {
       {corpora
         .filter((corpus) => corpus.slug.startsWith("chapters"))
         .map((corpus) => (
-          <div key={corpus.slug}>
-            <a href={`/corpus/${corpus.slug}`}>
-              {corpus.slug.replace(/_/g, " ")}{" "}
-              <span style={{ color: "white", fontSize: 10 }}>
-                {corpus.midis.length}
-              </span>
-            </a>
-            <br />
-          </div>
+          <Corpus
+            key={corpus.slug}
+            slug={corpus.slug}
+            composers={TOP_100_COMPOSERS}
+          />
         ))}
       <p>This is the order in which I'll be talking about the composers:</p>
       <ul>
@@ -378,13 +374,6 @@ const Intro = () => {
           </li>
         ))}
       </ul>
-      <p>
-        {corpora
-          .filter((corpus) => corpus.slug.startsWith("chapters"))
-          .map((corpus) => (
-            <Corpus key={corpus.slug} slug={corpus.slug} />
-          ))}
-      </p>
     </div>
   );
 };

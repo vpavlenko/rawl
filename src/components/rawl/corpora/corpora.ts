@@ -3499,9 +3499,7 @@ export const corpora: Corpora[] = [
       "happy_birthday_bass_and_chords",
       "John_Lennon_Imagine",
       "Dawn_Pride_and_Prejudice",
-      "when-i-was-your-man---bruno-mars-600e3a",
       "piano-man-piano",
-      "la-vie-en-rose-solo-accordion", // or Imaj7
     ],
   },
   {
@@ -3510,8 +3508,6 @@ export const corpora: Corpora[] = [
       "Canon_in_D",
       "welcome-to-the-black-parade---my-chemical-romance",
       "a-thousand-years",
-      "your-song-piano",
-      "Test_Drive_How_to_Train_Your_Dragon", // tonally unstable part inside
       "calum-scott---you-are-the-reason-piano-sheet-lyrics-lyrics-version-link-in-description",
     ],
   },
@@ -3544,7 +3540,6 @@ export const corpora: Corpora[] = [
       "Requiem_for_a_Dream",
       "Believer_-_Imagine_Dragons",
       "we-are-number-one-but-it-s-a-piano-transcript",
-      "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night",
     ],
   },
   {
@@ -3600,7 +3595,6 @@ export const corpora: Corpora[] = [
       "yuri-on-ice---piano-theme-full",
       "Let_Her_Go_Passenger",
       "Another_Love__-_Tom_Odell_Professional",
-      "undertale-undertale-piano",
       "sia---snowman",
       "my-heart-will-go-on",
     ],
@@ -3621,19 +3615,22 @@ export const corpora: Corpora[] = [
     slug: "chapters_applied",
     midis: [
       "Disney_Pixar_Up_Theme", // V/V V I that's it
-      "kimi-no-na-wa---sparkle-theishter-2016", // also Vsus4
+      "your-song-piano",
       "abba--the-winner-takes-it-all",
       "All_I_Want_for_Christmas_is_You",
       "Omori_Duet",
       "Liebestraum_No._3_in_A_Major",
       "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
       "the_entertainer_scott_joplin",
-      "it-s-been-a-long-long-time---harry-james", // ii V I jazz
+      "la-vie-en-rose-solo-accordion", // or Imaj7
     ],
   },
   {
     slug: "chapters_other_chromatic_chords",
     midis: [
+      "Test_Drive_How_to_Train_Your_Dragon", // tonally unstable part inside
+      "when-i-was-your-man---bruno-mars-600e3a",
+      "kimi-no-na-wa---sparkle-theishter-2016", // also Vsus4
       "Super_Mario_Bros_Main_Theme",
       "solas---jamie-duffy",
       "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
@@ -3661,6 +3658,8 @@ export const corpora: Corpora[] = [
       "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2",
       "Fly_Me_to_the_Moon",
       "autumn-leaves-jazz-piano",
+      "it-s-been-a-long-long-time---harry-james", // ii V I jazz
+      "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night",
       "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
       "mii-channel-piano",
     ],

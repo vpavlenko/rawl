@@ -6,7 +6,7 @@ export const TOP_100_COMPOSERS: {
   order?: number;
   chapter?: string;
   chords?: string[];
-  displayTitle?: string;
+  displayTitle: string;
 }[] = [
   {
     slug: "river-flows-in-you",
@@ -593,26 +593,45 @@ export const TOP_100_COMPOSERS: {
   {
     slug: "fairy-tail-main-theme",
     composer: "Yasuharu Takanashi",
+    displayTitle: "Fairy Tail Main Theme",
     order: 2909,
   },
   {
     slug: "welcome-to-the-black-parade---my-chemical-romance",
     composer: "My Chemical Romance",
+    displayTitle: "Welcome to the Black Parade",
     order: 5250,
   },
   {
     slug: "how-far-i-ll-go-~-moana-ost",
     composer: "Lin-Manuel Miranda",
+    displayTitle: "How Far I'll Go (from Moana)",
     order: 1950,
   },
-  { slug: "la-vie-en-rose-solo-accordion", composer: "Louiguy", order: 1970 },
-  { slug: "Im_Blue_Eiffel_65", composer: "Eiffel 65", order: 630 },
+  {
+    slug: "la-vie-en-rose-solo-accordion",
+    composer: "Louiguy",
+    displayTitle: "La Vie en rose",
+    order: 1970,
+  },
+  {
+    slug: "Im_Blue_Eiffel_65",
+    composer: "Eiffel 65",
+    displayTitle: "Blue (Da Ba Dee)",
+    order: 630,
+  },
   {
     slug: "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",
     composer: "Lil Nas X",
+    displayTitle: "Old Town Road",
     order: 360,
   },
-  { slug: "abba--the-winner-takes-it-all", composer: "ABBA", order: 2500 },
+  {
+    slug: "abba--the-winner-takes-it-all",
+    composer: "ABBA",
+    displayTitle: "The Winner Takes It All",
+    order: 2500,
+  },
 ];
 
 const IntroText = () => {
@@ -763,7 +782,7 @@ const Intro = () => {
                   style={{ color: "white" }}
                 >
                   <span style={{ color: "#999" }}>{composer}. </span>
-                  {displayTitle ?? slug.replace(/_|-/g, " ")}
+                  {displayTitle}
                 </a>
               </li>
             ))}

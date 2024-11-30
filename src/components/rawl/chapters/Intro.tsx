@@ -637,7 +637,7 @@ export const TOP_100_COMPOSERS: {
 
 const IntroText = () => {
   return (
-    <div style={{ maxWidth: "50em", marginTop: "100px" }}>
+    <div style={{ maxWidth: "40em", marginTop: "100px" }}>
       <h2>How did I pick the pieces?</h2>
       <p>
         I went through{" "}
@@ -653,37 +653,19 @@ const IntroText = () => {
       </p>
 
       <p>
-        Many moderns works is a joint work of several people, and for those I
-        arbitrarily pick a single person as a composer.
-      </p>
-
-      <p>
-        In most cases, I take the same arrangement that scored the most views.
-        Sometimes I find an arrangement that suits better to my narrative -
-        maybe by having less mistakes, original key, better MIDI sound or so.
-      </p>
-
-      <p>
-        I only take solo piano arrangements because I want to focus on harmony,
-        not on the arrangement. For "We Are Number One" the most popular version
-        is a band arrangement, and I represent this piece by its piano
-        arrangement.
-      </p>
-
-      <p>
         I've gathered the corpus on Oct 31, 2024. The view count on the most
         popular work doesn't equal the work's popularity even on MuseScore. Eg.
         "River flows in you" has 7.3M on the most popular arrangement, but their
         next top 5 arrangements (out of 687 community scores of this title) have
         1.5M more view counts. I don't add up all view counts across all
-        versions, I purely use the top 1.
+        versions, I purely use the top 1 - which makes a bit of a random
+        selection at the border of the top 100.
       </p>
 
       <p>
-        My method of gathering a corpus is less computationally intensive, and
-        may result in a bit of misrepresentation. Some compositions which almost
-        made it to top 100 by a very narrow margin are BTS's "I Need You", as
-        well as themes from "Godfather" and "The Pink Panther". Next time!
+        Some compositions which almost made it to top 100 by a very narrow
+        margin are BTS's "I Need You", as well as themes from "Godfather" and
+        "The Pink Panther". Next time!
       </p>
 
       <p>
@@ -701,6 +683,19 @@ const IntroText = () => {
         prelude. As a benefit, I don't get 7 works of Chopin into the top 100 as
         I would otherwise. Also we cut on Liszt, Joe Hisaishi, Koji Kondo, Ed
         Sheeran etc.
+      </p>
+
+      <p>
+        In most cases, I take the same arrangement that scored the most views.
+        Sometimes I find an arrangement that suits better to my narrative -
+        maybe by having less mistakes, original key, better MIDI sound or so.
+      </p>
+
+      <p>
+        I only take solo piano arrangements because I want to focus on harmony,
+        not on the arrangement. For "We Are Number One" the most popular version
+        is a band arrangement, and I represent this piece by its piano
+        arrangement.
       </p>
 
       <p>

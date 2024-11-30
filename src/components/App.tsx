@@ -1184,7 +1184,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                         <Route path="/pirate" render={() => <Pirate />} />
                         {browseRoute}
                         {rawlRoute}
-                        <Route path="/book/:chapter" component={BookLayout} />
+                        <Route path="/book" component={BookLayout} />
                       </Switch>
                     </div>
                   </div>

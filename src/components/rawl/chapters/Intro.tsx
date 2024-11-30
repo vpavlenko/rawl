@@ -7,7 +7,12 @@ export const TOP_100_COMPOSERS: {
   chapter?: string;
   chords?: string[];
 }[] = [
-  { slug: "river-flows-in-you", composer: "Yiruma", order: 200 },
+  {
+    slug: "river-flows-in-you",
+    composer: "Yiruma",
+    order: 200,
+    chords: ["vi", "I", "IV", "V"],
+  },
   {
     slug: "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
     composer: "Joe Hisaishi",
@@ -82,7 +87,12 @@ export const TOP_100_COMPOSERS: {
     composer: "John Legend",
     order: 380,
   },
-  { slug: "Mad_world_Piano", composer: "Roland Orzabal", order: 250 },
+  {
+    slug: "Mad_world_Piano",
+    composer: "Roland Orzabal",
+    order: 250,
+    chords: ["ii", "IV", "I", "V"],
+  },
   {
     slug: "mariage-d-amour---paul-de-senneville-marriage-d-amour",
     composer: "Paul de Senneville",
@@ -172,6 +182,7 @@ export const TOP_100_COMPOSERS: {
     slug: "despacito-piano-cover-peter-bence",
     composer: "Luis Fonsi",
     order: 100,
+    chords: ["vi", "I", "IV", "V"],
   },
   { slug: "solas---jamie-duffy", composer: "Jamie Duffy", order: 870 },
   { slug: "autumn-leaves-jazz-piano", composer: "Joseph Kosma", order: 5400 },
@@ -234,7 +245,7 @@ export const TOP_100_COMPOSERS: {
   {
     slug: "ylang-ylang---fkj-transcribed-by-lilroo",
     composer: "FKJ",
-    order: 2910,
+    order: 5900,
   },
   {
     slug: "attack-on-titan-theme-guren-no-yumiya",
@@ -278,7 +289,12 @@ export const TOP_100_COMPOSERS: {
     order: 5100,
   },
 
-  { slug: "Yann_Tiersen_Amelie", composer: "Yann Tiersen", order: 60 },
+  {
+    slug: "Yann_Tiersen_Amelie",
+    composer: "Yann Tiersen",
+    order: 1892,
+    chords: ["vi", "I", "iii", "V"],
+  },
   { slug: "sia---snowman", composer: "Sia", order: 2470 },
   {
     slug: "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2",
@@ -337,7 +353,12 @@ export const TOP_100_COMPOSERS: {
     composer: "Steven Universe",
     order: 2650,
   },
-  { slug: "alan-walker---alone-piano", composer: "Alan Walker", order: 150 },
+  {
+    slug: "alan-walker---alone-piano",
+    composer: "Alan Walker",
+    order: 150,
+    chords: ["vi", "I", "IV", "V", "iii"],
+  },
   {
     slug: "my-lie-watashi-no-uso---your-lie-in-april",
     composer: "Masaru Yokoyama",
@@ -372,7 +393,7 @@ export const TOP_100_COMPOSERS: {
   {
     slug: "fairy-tail-main-theme",
     composer: "Yasuharu Takanashi",
-    order: 230,
+    order: 2909,
   },
   {
     slug: "welcome-to-the-black-parade---my-chemical-romance",

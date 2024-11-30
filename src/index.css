@@ -893,3 +893,43 @@ img {
 .unlock-audio-button:hover {
     background: #0056b3;
 }
+
+/* Modern scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--button);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--clickable);
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--button) transparent;
+}
+
+/* Update the scrollable containers to show scrollbars only when hovering */
+.App-main-content-area,
+.AppFooter-main,
+.AppFooter-settings,
+.message-box-inner {
+    scrollbar-gutter: stable;
+}
+
+.App-main-content-area:hover,
+.AppFooter-main:hover,
+.AppFooter-settings:hover,
+.message-box-inner:hover {
+    scrollbar-gutter: stable;
+}

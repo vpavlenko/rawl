@@ -431,6 +431,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   async saveAnalysis(analysis) {
+    if (this.path === "drop") return;
+
     const user = this.state.user;
     if (user) {
       const userRef = doc(this.db, "users", user.uid);

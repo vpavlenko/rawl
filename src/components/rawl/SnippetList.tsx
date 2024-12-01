@@ -6,7 +6,7 @@ import SnippetItem from "./SnippetItem";
 const SnippetListContainer = styled.div<{ isPreview?: boolean }>`
   display: flex;
   flex-wrap: wrap;
-  gap: ${(props) => (props.isPreview ? "80px" : "20px")};
+  gap: ${(props) => (props.isPreview ? "60px" : "20px")};
   padding-bottom: 10px;
 `;
 

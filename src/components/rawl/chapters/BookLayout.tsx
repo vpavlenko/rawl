@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 const BookContainer = styled.div`
-  width: 100%;
+  width: 95%;
   padding: 20px;
   color: #ddd;
   margin: 0 auto;

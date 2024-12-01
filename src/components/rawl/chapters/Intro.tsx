@@ -84,8 +84,7 @@ export const TOP_100_COMPOSERS: {
     slug: "Interstellar",
     composer: "Hans Zimmer",
     displayTitle: "Interstellar Main Theme",
-    order: 1890,
-    chapter: "Minor and major",
+    order: 705,
   },
   {
     slug: "Another_Love__-_Tom_Odell_Professional",
@@ -205,6 +204,7 @@ export const TOP_100_COMPOSERS: {
     slug: "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
     composer: "Bach",
     displayTitle: "Prelude in C major, BWV 846",
+    order: 2602,
   },
   {
     slug: "All_I_Want_for_Christmas_is_You",
@@ -353,7 +353,7 @@ export const TOP_100_COMPOSERS: {
     composer: "Bruno Mars",
     displayTitle: "When I Was Your Man",
     order: 4950,
-    chapter: "bVII in major",
+    chapter: "♭VII in major",
   },
   {
     slug: "gurenge--demon-slayer-kimetsu-no-yaiba-op",
@@ -452,7 +452,7 @@ export const TOP_100_COMPOSERS: {
     slug: "Yann_Tiersen_Amelie",
     composer: "Yann Tiersen",
     displayTitle: "Comptine d'un autre été (from Amélie)",
-    order: 1892,
+    order: 2923,
     chords: ["vi", "I", "iii", "V"],
   },
   {
@@ -508,7 +508,7 @@ export const TOP_100_COMPOSERS: {
     composer: "Clint Mansell",
     displayTitle: "Lux Aeterna (from Requiem for a Dream)",
     order: 1200,
-    chapter: "bVI V i",
+    chapter: "♭VI V i",
   },
 
   {
@@ -762,11 +762,13 @@ const Intro = () => {
 
   return (
     <div style={{ position: "relative" }}>
-      <h1>Visual Harmony of Top 100 Composers on MuseScore.com</h1>
+      <h1 style={{ marginBottom: "50px" }}>
+        Visual Harmony of Top 100 Composers on MuseScore.com
+      </h1>
       <div
         style={{
           position: "absolute",
-          right: 20,
+          right: -10,
           top: -50,
           flexDirection: "column",
           transform: "scale(0.8)",
@@ -791,8 +793,8 @@ const Intro = () => {
               display: "flex",
               flexDirection: "row",
               alignItems: "start",
-              gap: "40px",
-              marginBottom: "50px",
+              gap: "60px",
+              marginBottom: "100px",
             }}
           >
             <div>

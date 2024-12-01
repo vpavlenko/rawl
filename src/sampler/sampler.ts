@@ -158,18 +158,28 @@ export const resumeAudioContext = async () => {
 // MIDI note number for C3
 const C3_MIDI_NUMBER = 48;
 
+let activeEvents: number[] = [];
+let activeNotes: string[] = [];
+
 export const playArpeggiatedChord = async (chordNumbers: number[]) => {
   await ensureSamplerLoaded();
 
-  // Stop all currently playing notes
-  sampler.releaseAll();
+  // 1. Stop all currently playing sounds immediately
+  sampler.releaseAll(0);
 
-  // Transform chord numbers into ascending sequence
+  // 2. Clear all scheduled events
+  activeEvents.forEach((id) => Tone.Transport.clear(id));
+  Tone.Transport.cancel(); // Belt and suspenders approach - clear everything
+
+  // 3. Reset our tracking arrays
+  activeEvents = [];
+  activeNotes = [];
+
+  // 4. Transform chord numbers into ascending sequence
   const ascendingChord = chordNumbers.reduce<number[]>((acc, note) => {
     if (acc.length === 0) {
       acc.push(note);
     } else {
-      // Add octaves until the note is higher than the previous note
       let adjustedNote = note;
       while (adjustedNote <= acc[acc.length - 1]) {
         adjustedNote += 12;
@@ -179,16 +189,37 @@ export const playArpeggiatedChord = async (chordNumbers: number[]) => {
     return acc;
   }, []);
 
-  // Convert to MIDI notes starting from C3
+  // 5. Convert to MIDI notes starting from C3
   const midiNotes = ascendingChord.map((note) => C3_MIDI_NUMBER + note);
-
-  // Convert MIDI numbers to note names (required by Tone.js)
   const noteNames = midiNotes.map((midi) =>
     Tone.Frequency(midi, "midi").toNote(),
   );
 
-  // Schedule the notes with 100ms gaps, each note lasting 1 second
+  // 6. Ensure Transport is started
+  if (Tone.Transport.state !== "started") {
+    Tone.Transport.start();
+  }
+
+  // 7. Schedule notes using Transport time
+  const currentTransportTime = Tone.Transport.seconds;
+
   noteNames.forEach((note, index) => {
-    sampler.triggerAttackRelease(note, 1, Tone.now() + index * 0.1);
+    const scheduleTime = currentTransportTime + index * 0.1;
+
+    const eventId = Tone.Transport.schedule((time) => {
+      activeNotes.push(note);
+      sampler.triggerAttackRelease(note, 0.5, time);
+    }, scheduleTime);
+
+    activeEvents.push(eventId);
   });
+};
+
+// Add a cleanup function that can be called when needed (e.g., component unmount)
+export const cleanupArpeggiator = () => {
+  sampler.releaseAll(0);
+  activeEvents.forEach((id) => Tone.Transport.clear(id));
+  Tone.Transport.cancel();
+  activeEvents = [];
+  activeNotes = [];
 };

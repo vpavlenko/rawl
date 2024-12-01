@@ -91,7 +91,7 @@ const fadeOut = keyframes`
   }
 `;
 
-const ChordName = styled.div<{ isPlaying?: boolean }>`
+const ChordName = styled.div<{ isPlaying?: boolean; key?: string }>`
   width: ${NOTE_WIDTH}px;
   height: 20px;
   font-size: 20px;
@@ -102,6 +102,7 @@ const ChordName = styled.div<{ isPlaying?: boolean }>`
     props.isPlaying &&
     css`
       animation: ${fadeOut} 2s ease-out;
+      animation-fill-mode: forwards;
     `}
   transition: background-color 0.2s;
   padding: 2px 4px;
@@ -203,6 +204,7 @@ const ChordStairs: React.FC<{
   const [disabledChords, setDisabledChords] = useState<Set<string>>(new Set());
   const [playingChord, setPlayingChord] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [animationKey, setAnimationKey] = useState(0);
 
   const handleChordHover = useCallback(
     (chord: Chord) => {
@@ -212,8 +214,9 @@ const ChordStairs: React.FC<{
           clearTimeout(timeoutRef.current);
         }
 
-        // Set the currently playing chord
+        // Set the currently playing chord and force animation restart
         setPlayingChord(chord);
+        setAnimationKey((prev) => prev + 1);
 
         // Clear the playing state after animation duration
         timeoutRef.current = setTimeout(() => {
@@ -338,7 +341,7 @@ const ChordStairs: React.FC<{
       )}
       {rehydratedChords.map(({ name, pitches }, index) => (
         <ChordName
-          key={`chord-name-${index}`}
+          key={`chord-name-${index}-${animationKey}`}
           style={{
             position: "absolute",
             top:

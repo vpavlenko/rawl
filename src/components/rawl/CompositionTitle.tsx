@@ -41,7 +41,7 @@ const CompositionTitle: React.FC<CompositionTitleProps> = ({
   const relatedCorpora = React.useMemo(() => {
     return corpora
       .filter((corpus) => corpus.midis.includes(slug))
-      .filter((corpus) => corpus.slug !== "musescoretop100")
+      .filter((corpus) => corpus.slug !== "musescore_top100")
       .map((corpus) => corpus.slug);
   }, [slug]);
 

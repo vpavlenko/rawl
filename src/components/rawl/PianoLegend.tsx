@@ -2,6 +2,7 @@ import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
 import { playArpeggiatedChord } from "../../sampler/sampler";
+import { PITCH_CLASS_TO_LETTER } from "./AnalysisGrid";
 import ChordStairs, { MODES } from "./ChordStairs";
 import { TOP_100_COMPOSERS } from "./chapters/Intro";
 
@@ -129,7 +130,27 @@ export const PianoLegend: React.FC<{
               }}
               onClick={() => playNote(WHITE_KEYS[i])}
             >
-              {!inline && i + 1}
+              {!inline && (
+                <>
+                  {i === 0 && (
+                    <span
+                      style={{
+                        position: "absolute",
+                        bottom: "25px",
+                        left: "13px",
+                        color: "black",
+                        fontWeight: "bold",
+                        fontSize: "16px",
+                        textShadow: "none",
+                        zIndex: 3,
+                      }}
+                    >
+                      {PITCH_CLASS_TO_LETTER[currentTonic]}
+                    </span>
+                  )}
+                  {i + 1}
+                </>
+              )}
             </PianoKey>
             {BLACK_KEYS[i] !== -1 ? (
               <PianoKey
@@ -213,11 +234,13 @@ export const FoldablePianoLegend: React.FC<{
               chapterChords={chords}
               currentTonic={currentTonic}
             />
-            <ChordStairs
-              mode={MODES[2]}
-              chapterChords={chords}
-              currentTonic={currentTonic}
-            />
+            {chords && (
+              <ChordStairs
+                mode={MODES[2]}
+                chapterChords={chords}
+                currentTonic={currentTonic}
+              />
+            )}
             <div style={{ margin: "auto" }}>
               <PianoLegend currentTonic={currentTonic} />
             </div>

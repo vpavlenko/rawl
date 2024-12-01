@@ -57,7 +57,7 @@ export type MeasureSelection = {
   renumberMeasure: RenumberMeasureCallback;
 };
 
-const PITCH_CLASS_TO_LETTER = {
+export const PITCH_CLASS_TO_LETTER = {
   0: "C",
   1: "Db",
   2: "D",

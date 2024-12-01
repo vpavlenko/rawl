@@ -195,165 +195,170 @@ const formatChordName = (name: string) => {
   );
 };
 
-const ChordStairs: React.FC<{ mode: Mode; chapterChords?: string[] }> =
-  React.memo(({ mode, chapterChords }) => {
-    const [disabledChords, setDisabledChords] = useState<Set<string>>(
-      new Set(),
-    );
-    const [playingChord, setPlayingChord] = useState<string | null>(null);
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+const ChordStairs: React.FC<{
+  mode: Mode;
+  chapterChords?: string[];
+  currentTonic?: number;
+}> = React.memo(({ mode, chapterChords, currentTonic = 0 }) => {
+  const [disabledChords, setDisabledChords] = useState<Set<string>>(new Set());
+  const [playingChord, setPlayingChord] = useState<string | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    const handleChordHover = useCallback(
-      (chord: Chord) => {
-        if (!disabledChords.has(chord)) {
-          // Clear any existing timeout
-          if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-          }
-
-          // Set the currently playing chord
-          setPlayingChord(chord);
-
-          // Clear the playing state after animation duration
-          timeoutRef.current = setTimeout(() => {
-            setPlayingChord(null);
-          }, 2000);
-
-          playArpeggiatedChord([...CHORDS[chord]]);
+  const handleChordHover = useCallback(
+    (chord: Chord) => {
+      if (!disabledChords.has(chord)) {
+        // Clear any existing timeout
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
         }
-      },
-      [disabledChords],
-    );
 
-    const toggleChord = useCallback(
-      (chord: string) => {
-        setDisabledChords(
-          new Set(
-            disabledChords.has(chord)
-              ? Array.from(disabledChords).filter((e) => e !== chord)
-              : [...disabledChords, chord],
-          ),
+        // Set the currently playing chord
+        setPlayingChord(chord);
+
+        // Clear the playing state after animation duration
+        timeoutRef.current = setTimeout(() => {
+          setPlayingChord(null);
+        }, 2000);
+
+        // Transpose chord notes by current tonic
+        const transposedNotes = CHORDS[chord].map(
+          (note) => (note + currentTonic) % 12,
         );
-      },
-      [disabledChords],
-    );
-
-    const { title, chords } = mode;
-
-    // Check if we should show the chord stairs
-    const chapterChordsSet = new Set(chapterChords || []) as Set<Chord>;
-    const modeChordSet = new Set(mode.chords);
-    // Only remove V for intersection check
-    const modeChordSetWithoutV = new Set(modeChordSet);
-    modeChordSetWithoutV.delete("V");
-    const hasIntersection = [...chapterChordsSet].some((chord) =>
-      modeChordSetWithoutV.has(chord),
-    );
-
-    if (!hasIntersection && chapterChords) {
-      return null;
-    }
-
-    // Use original modeChordSet (with V) for filtering
-    const filteredChords = chords.filter(
-      (chord) => !chapterChords || chapterChordsSet.has(chord),
-    );
-
-    const numChords = filteredChords.length;
-
-    const rehydratedChords: { name: Chord; pitches: number[] }[] =
-      filteredChords.map((chord) => ({
-        name: chord,
-        pitches: [...CHORDS[chord]],
-      }));
-    for (let i = 0; i < rehydratedChords.length; ++i) {
-      const { name, pitches } = rehydratedChords[i];
-      if (i > 0 && pitches[0] < rehydratedChords[i - 1].pitches[0]) {
-        pitches[0] += 12;
+        playArpeggiatedChord(transposedNotes);
       }
-      for (let j = 1; j < pitches.length; ++j) {
-        pitches[j] =
-          pitches[j - 1] + ((CHORDS[name][j] - CHORDS[name][j - 1] + 12) % 12);
-      }
+    },
+    [disabledChords, currentTonic],
+  );
+
+  const toggleChord = useCallback(
+    (chord: string) => {
+      setDisabledChords(
+        new Set(
+          disabledChords.has(chord)
+            ? Array.from(disabledChords).filter((e) => e !== chord)
+            : [...disabledChords, chord],
+        ),
+      );
+    },
+    [disabledChords],
+  );
+
+  const { title, chords } = mode;
+
+  // Check if we should show the chord stairs
+  const chapterChordsSet = new Set(chapterChords || []) as Set<Chord>;
+  const modeChordSet = new Set(mode.chords);
+  // Only remove V for intersection check
+  const modeChordSetWithoutV = new Set(modeChordSet);
+  modeChordSetWithoutV.delete("V");
+  const hasIntersection = [...chapterChordsSet].some((chord) =>
+    modeChordSetWithoutV.has(chord),
+  );
+
+  if (!hasIntersection && chapterChords) {
+    return null;
+  }
+
+  // Use original modeChordSet (with V) for filtering
+  const filteredChords = chords.filter(
+    (chord) => !chapterChords || chapterChordsSet.has(chord),
+  );
+
+  const numChords = filteredChords.length;
+
+  const rehydratedChords: { name: Chord; pitches: number[] }[] =
+    filteredChords.map((chord) => ({
+      name: chord,
+      pitches: [...CHORDS[chord]],
+    }));
+  for (let i = 0; i < rehydratedChords.length; ++i) {
+    const { name, pitches } = rehydratedChords[i];
+    if (i > 0 && pitches[0] < rehydratedChords[i - 1].pitches[0]) {
+      pitches[0] += 12;
     }
+    for (let j = 1; j < pitches.length; ++j) {
+      pitches[j] =
+        pitches[j - 1] + ((CHORDS[name][j] - CHORDS[name][j - 1] + 12) % 12);
+    }
+  }
 
-    const maxPitch = rehydratedChords.at(-1).pitches.at(-1);
+  const maxPitch = rehydratedChords.at(-1).pitches.at(-1);
 
-    const height = maxPitch - rehydratedChords[0].pitches[0] + 1;
+  const height = maxPitch - rehydratedChords[0].pitches[0] + 1;
 
-    // Calculate total height including margin top and text
-    const totalHeight = height * NOTE_HEIGHT + MARGIN_TOP + 40; // Add 40px for chord name text
+  // Calculate total height including margin top and text
+  const totalHeight = height * NOTE_HEIGHT + MARGIN_TOP + 40; // Add 40px for chord name text
 
-    const tonicChordPosition = filteredChords.findIndex((chord) =>
-      /^(i|I)$/.test(chord),
-    );
+  const tonicChordPosition = filteredChords.findIndex((chord) =>
+    /^(i|I)$/.test(chord),
+  );
 
-    return (
+  return (
+    <div
+      key={title}
+      style={{
+        width: numChords * NOTE_WIDTH + (numChords - 1) * HORIZONTAL_GAP,
+        height: totalHeight,
+        position: "relative",
+        fontSize: 16,
+      }}
+    >
       <div
-        key={title}
         style={{
-          width: numChords * NOTE_WIDTH + (numChords - 1) * HORIZONTAL_GAP,
-          height: totalHeight,
-          position: "relative",
-          fontSize: 16,
+          position: "absolute",
+          top: 0,
+          left: 0,
+          color: "#aaa",
+          userSelect: "none",
+          opacity:
+            disabledChords.size === mode.chords.length ? DISABLED_OPACITY : 1,
         }}
+        onClick={() =>
+          setDisabledChords(
+            disabledChords.size > 0 ? new Set() : new Set(mode.chords),
+          )
+        }
       >
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            color: "#aaa",
-            userSelect: "none",
-            opacity:
-              disabledChords.size === mode.chords.length ? DISABLED_OPACITY : 1,
-          }}
-          onClick={() =>
-            setDisabledChords(
-              disabledChords.size > 0 ? new Set() : new Set(mode.chords),
-            )
-          }
-        >
-          {title}
-        </div>
-        {rehydratedChords.flatMap(({ name, pitches }, chordIndex) =>
-          pitches.map((pitch, pitchIndex) => (
-            <ChordNote
-              key={`${chordIndex}-${pitchIndex}`}
-              className={`noteColor_${pitch % 12}_colors`}
-              style={{
-                position: "absolute",
-                left: chordIndex * (NOTE_WIDTH + HORIZONTAL_GAP),
-                top: (maxPitch - pitch) * NOTE_HEIGHT + MARGIN_TOP,
-                opacity: disabledChords.has(name) ? DISABLED_OPACITY : 1,
-              }}
-              onClick={() => toggleChord(name)}
-            />
-          )),
-        )}
-        {rehydratedChords.map(({ name, pitches }, index) => (
-          <ChordName
-            key={`chord-name-${index}`}
+        {title}
+      </div>
+      {rehydratedChords.flatMap(({ name, pitches }, chordIndex) =>
+        pitches.map((pitch, pitchIndex) => (
+          <ChordNote
+            key={`${chordIndex}-${pitchIndex}`}
+            className={`noteColor_${pitch % 12}_colors`}
             style={{
               position: "absolute",
-              top:
-                index < tonicChordPosition
-                  ? (maxPitch - pitches.at(-1)) * NOTE_HEIGHT - 29 + MARGIN_TOP
-                  : (maxPitch - pitches[0]) * NOTE_HEIGHT + 14 + MARGIN_TOP,
-              left: index * (NOTE_WIDTH + HORIZONTAL_GAP),
+              left: chordIndex * (NOTE_WIDTH + HORIZONTAL_GAP),
+              top: (maxPitch - pitch) * NOTE_HEIGHT + MARGIN_TOP,
               opacity: disabledChords.has(name) ? DISABLED_OPACITY : 1,
-              userSelect: "none",
-              cursor: disabledChords.has(name) ? "default" : "pointer",
             }}
-            isPlaying={playingChord === name}
             onClick={() => toggleChord(name)}
-            onMouseEnter={() => handleChordHover(name)}
-          >
-            {formatChordName(name)}
-          </ChordName>
-        ))}
-      </div>
-    );
-  });
+          />
+        )),
+      )}
+      {rehydratedChords.map(({ name, pitches }, index) => (
+        <ChordName
+          key={`chord-name-${index}`}
+          style={{
+            position: "absolute",
+            top:
+              index < tonicChordPosition
+                ? (maxPitch - pitches.at(-1)) * NOTE_HEIGHT - 29 + MARGIN_TOP
+                : (maxPitch - pitches[0]) * NOTE_HEIGHT + 14 + MARGIN_TOP,
+            left: index * (NOTE_WIDTH + HORIZONTAL_GAP),
+            opacity: disabledChords.has(name) ? DISABLED_OPACITY : 1,
+            userSelect: "none",
+            cursor: disabledChords.has(name) ? "default" : "pointer",
+          }}
+          isPlaying={playingChord === name}
+          onClick={() => toggleChord(name)}
+          onMouseEnter={() => handleChordHover(name)}
+        >
+          {formatChordName(name)}
+        </ChordName>
+      ))}
+    </div>
+  );
+});
 
 export default ChordStairs;

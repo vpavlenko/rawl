@@ -31,6 +31,7 @@ type ControlPanelProps = {
   secondWidth: number;
   setSecondWidth: (width: number) => void;
   slug?: string;
+  currentTonic?: number;
 };
 
 const ControlPanel: React.FC<ControlPanelProps> = ({
@@ -39,8 +40,9 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   secondWidth,
   setSecondWidth,
   slug,
+  currentTonic,
 }) => {
-  const { registerKeyboardHandler, unregisterKeyboardHandler, currentMidi } =
+  const { registerKeyboardHandler, unregisterKeyboardHandler } =
     useContext(AppContext);
 
   const debounceSetNoteHeight = useCallback(debounce(setNoteHeight, 50), []);
@@ -87,7 +89,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
 
   return (
     <>
-      <FoldablePianoLegend slug={slug} />
+      <FoldablePianoLegend slug={slug} currentTonic={currentTonic} />
       <div
         style={{
           position: "fixed",

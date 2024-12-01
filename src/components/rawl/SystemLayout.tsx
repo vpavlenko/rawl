@@ -237,6 +237,7 @@ export type SystemLayoutProps = {
   measureStart?: number;
   isHiddenRoute?: boolean;
   slug?: string;
+  currentTonic: number;
 };
 
 export const StackedSystemLayout: React.FC<
@@ -256,6 +257,7 @@ export const StackedSystemLayout: React.FC<
   isEmbedded = false,
   isHiddenRoute = false,
   slug,
+  currentTonic,
 }) => {
   const [noteHeight, setNoteHeight] = useState<number>(3);
   const [secondWidth, setSecondWidth] = useState<number>(40);
@@ -516,6 +518,7 @@ export const StackedSystemLayout: React.FC<
             secondWidth={secondWidth}
             setSecondWidth={setSecondWidth}
             slug={slug}
+            currentTonic={currentTonic}
           />
         )}
       </div>

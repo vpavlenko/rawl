@@ -564,6 +564,16 @@ const Rawl: React.FC<RawlProps> = ({
 
   const positionSeconds = positionMs / 1000;
 
+  // Calculate current tonic based on position
+  const currentTonic = useMemo(() => {
+    if (!measuresAndBeats?.measures) return 0;
+    const currentMeasure = getSecondsMeasure(
+      positionSeconds,
+      measuresAndBeats.measures,
+    );
+    return getTonic(currentMeasure, futureAnalysis);
+  }, [positionSeconds, measuresAndBeats, futureAnalysis]);
+
   const mouseHandlers: MouseHandlers = useMemo(
     () => ({
       handleNoteClick,
@@ -627,6 +637,7 @@ const Rawl: React.FC<RawlProps> = ({
       saveAnalysis,
       measureStart,
       slug,
+      currentTonic,
     }),
     [
       coloredNotes,
@@ -641,6 +652,7 @@ const Rawl: React.FC<RawlProps> = ({
       saveAnalysis,
       measureStart,
       slug,
+      currentTonic,
     ],
   );
 
@@ -656,14 +668,6 @@ const Rawl: React.FC<RawlProps> = ({
       }
     }
   }, [measureStart, measuresAndBeats, analysis.measureRenumbering, seek]);
-
-  const handleCopyPath = useCallback(() => {
-    navigator.clipboard.writeText(
-      `"${location.pathname.substring(
-        location.pathname.lastIndexOf("/") + 1,
-      )}", `,
-    );
-  }, [location.pathname]);
 
   const handleSourceUrlUpdate = async (newUrl: string) => {
     if (currentMidi) {

@@ -151,7 +151,10 @@ const FoldButton = styled.button`
   padding: 5px 15px;
 `;
 
-export const FoldablePianoLegend: React.FC<{ slug?: string }> = ({ slug }) => {
+export const FoldablePianoLegend: React.FC<{
+  slug?: string;
+  currentTonic?: number;
+}> = ({ slug, currentTonic }) => {
   const [showLegend, setShowLegend] = useLocalStorage("showLegend", true);
 
   const chords = TOP_100_COMPOSERS.find(({ slug: _slug }) => slug === _slug)
@@ -177,9 +180,21 @@ export const FoldablePianoLegend: React.FC<{ slug?: string }> = ({ slug }) => {
               zIndex: 100000,
             }}
           >
-            <ChordStairs mode={MODES[1]} chapterChords={chords} />
-            <ChordStairs mode={MODES[0]} chapterChords={chords} />
-            <ChordStairs mode={MODES[2]} chapterChords={chords} />
+            <ChordStairs
+              mode={MODES[1]}
+              chapterChords={chords}
+              currentTonic={currentTonic}
+            />
+            <ChordStairs
+              mode={MODES[0]}
+              chapterChords={chords}
+              currentTonic={currentTonic}
+            />
+            <ChordStairs
+              mode={MODES[2]}
+              chapterChords={chords}
+              currentTonic={currentTonic}
+            />
             <div
               style={{ margin: "auto" }}
               onClick={() => setShowLegend(false)}

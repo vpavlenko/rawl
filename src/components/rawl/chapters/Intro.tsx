@@ -1,5 +1,7 @@
 import * as React from "react";
 import { AppContext } from "../../AppContext";
+import ChordStairs, { MODES } from "../ChordStairs";
+import { PianoLegend } from "../PianoLegend";
 import SnippetList from "../SnippetList";
 
 export const TOP_100_COMPOSERS: {
@@ -759,8 +761,23 @@ const Intro = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Musescore Top 100 Harmony</h1>
+    <div style={{ position: "relative" }}>
+      <h1>Visual Harmony of Top 100 Composers on MuseScore.com</h1>
+      <div
+        style={{
+          position: "absolute",
+          right: 20,
+          top: -50,
+          flexDirection: "column",
+          transform: "scale(0.8)",
+        }}
+      >
+        <PianoLegend />
+        <div style={{ height: 200, marginTop: 40 }}>
+          <ChordStairs mode={MODES[1]} />
+        </div>
+        <ChordStairs mode={MODES[0]} />
+      </div>
 
       {composerGroups.map((group, groupIndex) => {
         const groupSnippets = group

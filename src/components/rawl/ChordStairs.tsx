@@ -154,6 +154,11 @@ export const MARIO_CADENCE: Mode = {
   chords: ["bVI", "bVII", "I"],
 };
 
+export const MINOR_WITH_V: Mode = {
+  title: "minor with V",
+  chords: ["iv", "bVI", "i", "bIII", "v", "Vsus4", "V", "V7", "bVII"],
+};
+
 const formatChordName = (name: string) => {
   const parts = name.split("ø");
   if (parts.length === 1) {

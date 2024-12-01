@@ -6,6 +6,7 @@ import ChordStairs, {
   EXTENSIONS,
   JAZZ_MODE,
   MARIO_CADENCE,
+  MINOR_WITH_V,
   Mode,
   NATURAL_MINOR,
   SIX_MAJOR_TRIADS,
@@ -417,6 +418,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Bella ciao",
     order: 1450,
     chapter: "Minor with V",
+    mode: MINOR_WITH_V,
   },
   {
     slug: "minuet-bwv-anhang-114-in-g-major",
@@ -782,7 +784,12 @@ const Intro = () => {
     <div style={{ position: "relative" }}>
       <h1>Visual Harmony of Top 100 Composers on MuseScore.com</h1>
       <div
-        style={{ marginTop: "70px", marginBottom: "70px", marginLeft: "200px" }}
+        style={{
+          marginTop: "70px",
+          marginBottom: "70px",
+          marginLeft: "150px",
+          transform: "scale(0.9)",
+        }}
       >
         <PianoLegend />
       </div>
@@ -798,7 +805,8 @@ const Intro = () => {
               style={{
                 marginBottom: "10px",
                 marginTop: "50px",
-                marginLeft: "200px",
+                marginLeft: "150px",
+                transform: "scale(0.9)",
               }}
             >
               {group[0].mode && <ChordStairs mode={group[0].mode} />}

@@ -73,7 +73,6 @@ export type Chord = keyof typeof CHORDS;
 const NOTE_HEIGHT = 4;
 const NOTE_WIDTH = 40;
 const HORIZONTAL_GAP = 12;
-const DISABLED_OPACITY = 0.2;
 
 const ChordNote = styled.div`
   user-select: none;
@@ -82,31 +81,48 @@ const ChordNote = styled.div`
   height: ${NOTE_HEIGHT * 2}px;
 `;
 
-const fadeOut = keyframes`
-  from {
-    background-color: rgba(169, 169, 169, 0.5);
+const scaleOut = keyframes`
+  0% {
+    transform: scale(1);
   }
-  to {
-    background-color: transparent;
+  30% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
   }
 `;
 
-const ChordName = styled.div<{ isPlaying?: boolean; key?: string }>`
+const ChordBoundingBox = styled.div<{ isPlaying?: boolean }>`
+  position: absolute;
+  cursor: pointer;
+  background: transparent;
+  z-index: 1;
+  transform-origin: center;
+  ${(props) =>
+    props.isPlaying &&
+    css`
+      animation: ${scaleOut} 0.4s ease-out;
+      animation-fill-mode: forwards;
+    `}
+`;
+
+const ChordContent = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+
+const ChordName = styled.div`
   width: ${NOTE_WIDTH}px;
   height: 20px;
   font-size: 20px;
   display: flex;
   justify-content: center;
   text-align: center;
-  ${(props) =>
-    props.isPlaying &&
-    css`
-      animation: ${fadeOut} 2s ease-out;
-      animation-fill-mode: forwards;
-    `}
-  transition: background-color 0.2s;
   padding: 2px 4px;
   border-radius: 4px;
+  position: absolute;
 `;
 
 export type Mode = { title: string; chords: Chord[] };
@@ -201,49 +217,29 @@ const ChordStairs: React.FC<{
   chapterChords?: string[];
   currentTonic?: number;
 }> = React.memo(({ mode, chapterChords, currentTonic = 0 }) => {
-  const [disabledChords, setDisabledChords] = useState<Set<string>>(new Set());
   const [playingChord, setPlayingChord] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [animationKey, setAnimationKey] = useState(0);
 
-  const handleChordHover = useCallback(
+  const handleChordClick = useCallback(
     (chord: Chord) => {
-      if (!disabledChords.has(chord)) {
-        // Clear any existing timeout
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-        }
-
-        // Set the currently playing chord and force animation restart
-        setPlayingChord(chord);
-        setAnimationKey((prev) => prev + 1);
-
-        // Clear the playing state after animation duration
-        timeoutRef.current = setTimeout(() => {
-          setPlayingChord(null);
-        }, 2000);
-
-        // Transpose chord notes by current tonic
-        const transposedNotes = CHORDS[chord].map(
-          (note) => (note + currentTonic) % 12,
-        );
-        playArpeggiatedChord(transposedNotes);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
-    },
-    [disabledChords, currentTonic],
-  );
 
-  const toggleChord = useCallback(
-    (chord: string) => {
-      setDisabledChords(
-        new Set(
-          disabledChords.has(chord)
-            ? Array.from(disabledChords).filter((e) => e !== chord)
-            : [...disabledChords, chord],
-        ),
+      setPlayingChord(chord);
+      setAnimationKey((prev) => prev + 1);
+
+      timeoutRef.current = setTimeout(() => {
+        setPlayingChord(null);
+      }, 2000);
+
+      const transposedNotes = CHORDS[chord].map(
+        (note) => (note + currentTonic) % 12,
       );
+      playArpeggiatedChord(transposedNotes);
     },
-    [disabledChords],
+    [currentTonic],
   );
 
   const { title, chords } = mode;
@@ -313,53 +309,71 @@ const ChordStairs: React.FC<{
           left: 0,
           color: "#aaa",
           userSelect: "none",
-          opacity:
-            disabledChords.size === mode.chords.length ? DISABLED_OPACITY : 1,
         }}
-        onClick={() =>
-          setDisabledChords(
-            disabledChords.size > 0 ? new Set() : new Set(mode.chords),
-          )
-        }
       >
         {title}
       </div>
-      {rehydratedChords.flatMap(({ name, pitches }, chordIndex) =>
-        pitches.map((pitch, pitchIndex) => (
-          <ChordNote
-            key={`${chordIndex}-${pitchIndex}`}
-            className={`noteColor_${pitch % 12}_colors`}
+      {rehydratedChords.map(({ name, pitches }, chordIndex) => {
+        const topPosition =
+          (maxPitch - pitches.at(-1)) * NOTE_HEIGHT + MARGIN_TOP;
+        const bottomPosition =
+          (maxPitch - pitches[0]) * NOTE_HEIGHT + MARGIN_TOP;
+        const chordNameOffset = chordIndex < tonicChordPosition ? -29 : 14;
+        const height =
+          bottomPosition -
+          topPosition +
+          NOTE_HEIGHT * 2 +
+          Math.abs(chordNameOffset) +
+          20;
+
+        return (
+          <ChordBoundingBox
+            key={`bounding-box-${chordIndex}-${animationKey}`}
+            onClick={() => handleChordClick(name)}
+            isPlaying={playingChord === name}
             style={{
-              position: "absolute",
               left: chordIndex * (NOTE_WIDTH + HORIZONTAL_GAP),
-              top: (maxPitch - pitch) * NOTE_HEIGHT + MARGIN_TOP,
-              opacity: disabledChords.has(name) ? DISABLED_OPACITY : 1,
+              top: Math.min(topPosition + chordNameOffset, topPosition),
+              width: NOTE_WIDTH,
+              height,
             }}
-            onClick={() => toggleChord(name)}
-          />
-        )),
-      )}
-      {rehydratedChords.map(({ name, pitches }, index) => (
-        <ChordName
-          key={`chord-name-${index}-${animationKey}`}
-          style={{
-            position: "absolute",
-            top:
-              index < tonicChordPosition
-                ? (maxPitch - pitches.at(-1)) * NOTE_HEIGHT - 29 + MARGIN_TOP
-                : (maxPitch - pitches[0]) * NOTE_HEIGHT + 14 + MARGIN_TOP,
-            left: index * (NOTE_WIDTH + HORIZONTAL_GAP),
-            opacity: disabledChords.has(name) ? DISABLED_OPACITY : 1,
-            userSelect: "none",
-            cursor: disabledChords.has(name) ? "default" : "pointer",
-          }}
-          isPlaying={playingChord === name}
-          onClick={() => toggleChord(name)}
-          onMouseEnter={() => handleChordHover(name)}
-        >
-          {formatChordName(name)}
-        </ChordName>
-      ))}
+          >
+            <ChordContent>
+              {pitches.map((pitch, pitchIndex) => (
+                <ChordNote
+                  key={`${chordIndex}-${pitchIndex}`}
+                  className={`noteColor_${pitch % 12}_colors`}
+                  style={{
+                    position: "absolute",
+                    top:
+                      (maxPitch - pitch) * NOTE_HEIGHT +
+                      MARGIN_TOP -
+                      Math.min(topPosition + chordNameOffset, topPosition),
+                  }}
+                />
+              ))}
+              <ChordName
+                style={{
+                  top:
+                    chordIndex < tonicChordPosition
+                      ? (maxPitch - pitches.at(-1)) * NOTE_HEIGHT -
+                        29 +
+                        MARGIN_TOP -
+                        Math.min(topPosition + chordNameOffset, topPosition)
+                      : (maxPitch - pitches[0]) * NOTE_HEIGHT +
+                        14 +
+                        MARGIN_TOP -
+                        Math.min(topPosition + chordNameOffset, topPosition),
+                  userSelect: "none",
+                  pointerEvents: "none",
+                }}
+              >
+                {formatChordName(name)}
+              </ChordName>
+            </ChordContent>
+          </ChordBoundingBox>
+        );
+      })}
     </div>
   );
 });

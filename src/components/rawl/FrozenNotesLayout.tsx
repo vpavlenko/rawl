@@ -607,9 +607,8 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
               <h3>Rehydrated Notes</h3>
               <SnippetItem
                 snippet={snippet}
-                index={-1} // Use a dummy index for preview
+                index={-1}
                 noteHeight={noteHeight}
-                isPreview={true}
               />
               <JsonDisplay onClick={copyToClipboard}>
                 {exportString}

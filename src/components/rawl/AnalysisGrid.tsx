@@ -146,6 +146,8 @@ const Measure: React.FC<{
   sectionSpan: MeasuresSpan;
   previousTonic: PitchClass | null;
   isLastSection: boolean;
+  isPreview?: boolean;
+  showTonicLetter: boolean;
 }> = ({
   span,
   number,
@@ -161,6 +163,8 @@ const Measure: React.FC<{
   sectionSpan,
   previousTonic,
   isLastSection,
+  isPreview = false,
+  showTonicLetter,
 }) => {
   const {
     selectedMeasure,
@@ -178,33 +182,41 @@ const Measure: React.FC<{
     modulationDiff = (tonicStart - previousTonic + 12) % 12;
   }
 
+  const isLastMeasure = number === sectionSpan[1] + 1;
+  const hasModulations = previousTonic !== null || number === 1;
+  const showMeasureBar = !isPreview || !isLastMeasure;
+
   return (
     <>
       {showHeader && tonicStart !== undefined && (
         <>
-          <span
-            style={{
-              color: "white",
-              position: "absolute",
-              top: -2,
-              left:
-                left +
-                (previousTonic === null ? String(number).length * 8 + 10 : 30),
-              fontSize: 12,
-              zIndex: 100,
-              fontWeight: 700,
-              userSelect: "none",
-            }}
-          >
-            {previousTonic !== null && (
-              <>{`${
-                modulationDiff > 6
-                  ? `↓${Math.abs(modulationDiff - 12)}`
-                  : `↑${modulationDiff}`
-              } `}</>
-            )}
-            {PITCH_CLASS_TO_LETTER[tonicStart]}
-          </span>
+          {showTonicLetter && (
+            <span
+              style={{
+                color: "white",
+                position: "absolute",
+                top: -2,
+                left:
+                  left +
+                  (previousTonic === null
+                    ? String(number).length * 8 + 10
+                    : 30),
+                fontSize: 12,
+                zIndex: 100,
+                fontWeight: 700,
+                userSelect: "none",
+              }}
+            >
+              {previousTonic !== null && (
+                <>{`${
+                  modulationDiff > 6
+                    ? `↓${Math.abs(modulationDiff - 12)}`
+                    : `↑${modulationDiff}`
+                } `}</>
+              )}
+              {PITCH_CLASS_TO_LETTER[tonicStart]}
+            </span>
+          )}
 
           <div
             className={`noteColor_${
@@ -226,7 +238,7 @@ const Measure: React.FC<{
           />
         </>
       )}
-      {(showNonPhraseStarts || isPhraseStart) && (
+      {(showNonPhraseStarts || isPhraseStart) && showMeasureBar && (
         <>
           <MeasureBar
             key={`db_${number}`}
@@ -237,7 +249,7 @@ const Measure: React.FC<{
                 : {}),
             }}
           />
-          {width && showHeader ? (
+          {width && showHeader && !isPreview ? (
             <>
               <div
                 key={`db_n_${number}`}
@@ -584,7 +596,7 @@ const renumberMeasure: (
   return measureStart + measureRenumbering[maxKey] - maxKey;
 };
 
-export const AnalysisGrid: React.FC<{
+interface AnalysisGridProps {
   analysis: Analysis;
   measuresAndBeats: MeasuresAndBeats;
   midiNumberToY: (number: number) => number;
@@ -596,7 +608,10 @@ export const AnalysisGrid: React.FC<{
   showTonalGrid?: boolean;
   secondsToX: (number) => number;
   sectionSpan?: MeasuresSpan;
-}> = React.memo(
+  isPreview?: boolean;
+}
+
+export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
   ({
     analysis,
     measuresAndBeats,
@@ -609,6 +624,7 @@ export const AnalysisGrid: React.FC<{
     showTonalGrid = true,
     secondsToX,
     sectionSpan = null,
+    isPreview = false,
   }) => {
     const { measures, beats } = measuresAndBeats;
     if (sectionSpan == null) {
@@ -618,6 +634,10 @@ export const AnalysisGrid: React.FC<{
     const modulations = new Map(
       modulationsArray.map(({ measure, tonic }) => [measure, tonic]),
     );
+
+    // Check if there are any modulations in this section
+    const hasModulations = modulationsArray.length > 1;
+
     const findPreviousTonic = (currentMeasure: number): PitchClass | null =>
       modulationsArray.reduce(
         (acc, { measure, tonic }) =>
@@ -686,6 +706,8 @@ export const AnalysisGrid: React.FC<{
               selectedPhraseStart={selectedPhraseStart}
               sectionSpan={sectionSpan}
               isLastSection={sectionSpan?.[1] + 1 === measures.length}
+              isPreview={isPreview}
+              showTonicLetter={!isPreview || hasModulations}
             />
           ) : null;
         })}

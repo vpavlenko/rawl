@@ -5,14 +5,14 @@ import EnhancedFrozenNotes from "./FrozenNotes";
 
 const PX_IN_MEASURE = 100;
 
-const SnippetItemContainer = styled.div<{ width: number }>`
+const SnippetItemContainer = styled.div<{ width: number; isPreview?: boolean }>`
   display: flex;
   flex-direction: column;
   width: ${(props) => props.width}px;
-  border-top: 1px solid #444;
-  border-bottom: 1px solid #444;
-  border-left: 1px solid #444;
-  border-radius: 5px;
+  border-top: ${(props) => (props.isPreview ? "none" : "1px solid #444")};
+  border-bottom: ${(props) => (props.isPreview ? "none" : "1px solid #444")};
+  border-left: ${(props) => (props.isPreview ? "none" : "1px solid #444")};
+  border-radius: ${(props) => (props.isPreview ? "0" : "5px")};
   overflow: hidden;
 `;
 
@@ -124,7 +124,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
   );
 
   return (
-    <SnippetItemContainer width={containerWidth}>
+    <SnippetItemContainer width={containerWidth} isPreview={isPreview}>
       {!isPreview && (
         <SnippetHeader>
           {deleteSnippet && (
@@ -151,6 +151,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
           startMeasure={snippet.measuresSpan[0]}
           toX={toX}
           timeRange={timeRange}
+          isPreview={isPreview}
         />
       </SnippetContent>
     </SnippetItemContainer>

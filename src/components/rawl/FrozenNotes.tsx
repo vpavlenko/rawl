@@ -17,6 +17,7 @@ interface EnhancedFrozenNotesProps {
   analysis: Analysis;
   measuresAndBeats: MeasuresAndBeats;
   startMeasure: number;
+  isPreview?: boolean;
 }
 
 const FrozenNotesContainer = styled.div`
@@ -40,6 +41,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
   startMeasure,
   toX,
   timeRange,
+  isPreview = false,
 }) => {
   const midiRange = useMemo(() => {
     let min = Infinity;
@@ -119,6 +121,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           showTonalGrid={false}
           secondsToX={toX}
           sectionSpan={sectionSpan}
+          isPreview={isPreview}
         />
       </HeaderStaff>
       <div
@@ -141,6 +144,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           showTonalGrid={true}
           secondsToX={toX}
           sectionSpan={sectionSpan}
+          isPreview={isPreview}
         />
         <div
           style={{

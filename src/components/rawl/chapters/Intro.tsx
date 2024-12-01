@@ -251,7 +251,7 @@ export const TOP_100_COMPOSERS: {
     composer: "Christina Perri",
     displayTitle: "A Thousand Years",
     order: 900,
-    chapter: "Functional major",
+    chapter: "Functional major with V7",
   },
   {
     slug: "John_Lennon_Imagine",
@@ -437,7 +437,7 @@ export const TOP_100_COMPOSERS: {
     slug: "Dawn_Pride_and_Prejudice",
     composer: "Dario Marianelli",
     displayTitle: "Dawn (from Pride & Prejudice)",
-    order: 2100,
+    order: 1105,
   },
   {
     slug: "kimi-no-na-wa---sparkle-theishter-2016",
@@ -499,8 +499,7 @@ export const TOP_100_COMPOSERS: {
     slug: "sign-of-the-times---harry-styles",
     composer: "Harry Styles",
     displayTitle: "Sign of the Times",
-    order: 2050,
-    chapter: "V7 in major",
+    order: 1103,
   },
   {
     slug: "Requiem_for_a_Dream",
@@ -775,8 +774,8 @@ const Intro = () => {
               display: "flex",
               flexDirection: "row",
               alignItems: "start",
-              gap: "20px",
-              marginBottom: "35px",
+              gap: "40px",
+              marginBottom: "50px",
             }}
           >
             <div>
@@ -807,7 +806,11 @@ const Intro = () => {
             </div>
             {groupSnippets.length > 0 && (
               <div>
-                <SnippetList snippets={groupSnippets} />
+                <SnippetList
+                  snippets={groupSnippets}
+                  noteHeight={3}
+                  isPreview={true}
+                />
               </div>
             )}
           </div>

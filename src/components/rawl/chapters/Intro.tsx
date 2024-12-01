@@ -827,7 +827,7 @@ const Intro = () => {
         );
 
         return (
-          <div>
+          <div key={`group-${groupIndex}`}>
             <div
               style={{
                 marginBottom: "10px",
@@ -839,7 +839,6 @@ const Intro = () => {
               {group[0].mode && <ChordStairs mode={group[0].mode} />}
             </div>
             <div
-              key={groupIndex}
               style={{
                 display: "flex",
                 flexDirection: "row",

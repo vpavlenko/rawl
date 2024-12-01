@@ -63,6 +63,7 @@ interface SnippetListProps {
   isPreview?: boolean;
   onSnippetClick?: (snippet: Snippet) => void;
   loadingSnippets?: Set<string>;
+  onSnippetHover?: (snippet: Snippet | null) => void;
 }
 
 const SnippetList: React.FC<SnippetListProps> = ({
@@ -72,6 +73,7 @@ const SnippetList: React.FC<SnippetListProps> = ({
   isPreview = false,
   onSnippetClick,
   loadingSnippets = new Set(),
+  onSnippetHover,
 }) => {
   return (
     <SnippetListContainer isPreview={isPreview}>
@@ -81,6 +83,8 @@ const SnippetList: React.FC<SnippetListProps> = ({
           isPreview={isPreview}
           style={{ cursor: onSnippetClick ? "pointer" : "default" }}
           onClick={() => onSnippetClick?.(snippet)}
+          onMouseEnter={() => onSnippetHover?.(snippet)}
+          onMouseLeave={() => onSnippetHover?.(null)}
           isLoading={loadingSnippets.has((snippet as any).composerSlug)}
         >
           <SnippetItem

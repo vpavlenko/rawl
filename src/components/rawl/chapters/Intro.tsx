@@ -14,6 +14,11 @@ import ChordStairs, {
 } from "../ChordStairs";
 import { PianoLegend } from "../PianoLegend";
 import SnippetList from "../SnippetList";
+import { Snippet } from "../analysis";
+
+type EnhancedSnippet = Snippet & {
+  composerSlug: string;
+};
 
 export const TOP_100_COMPOSERS: {
   slug: string;
@@ -761,6 +766,7 @@ const Intro = () => {
   const [loadingSnippets, setLoadingSnippets] = React.useState<Set<string>>(
     new Set(),
   );
+  const [hoveredSlug, setHoveredSlug] = React.useState<string | null>(null);
 
   // Sort composers with order first, then the rest
   const orderedComposers = [...TOP_100_COMPOSERS].sort((a, b) => {
@@ -785,7 +791,7 @@ const Intro = () => {
   }, []);
 
   // Handle snippet click with loading state
-  const handleSnippetClick = async (snippet: any) => {
+  const handleSnippetClick = async (snippet: EnhancedSnippet) => {
     const slug = snippet.composerSlug;
     setLoadingSnippets((prev) => new Set([...prev, slug]));
     try {
@@ -858,16 +864,43 @@ const Intro = () => {
                   {group.map(({ slug, composer, displayTitle }) => (
                     <li
                       key={slug}
-                      style={{ marginLeft: "0", whiteSpace: "nowrap" }}
+                      style={{
+                        marginLeft: "0",
+                        whiteSpace: "nowrap",
+                        transition: "all 0.3s ease",
+                        textShadow:
+                          hoveredSlug === slug
+                            ? "0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)"
+                            : "none",
+                        padding: "4px 8px",
+                        borderRadius: "4px",
+                        backgroundColor:
+                          hoveredSlug === slug
+                            ? "rgba(255, 255, 255, 0.1)"
+                            : "transparent",
+                      }}
                     >
                       <a
                         href={`/f/${slug}`}
                         target="_blank"
                         rel="noreferrer"
-                        style={{ color: "white" }}
+                        style={{
+                          color: hoveredSlug === slug ? "#fff" : "white",
+                          textDecoration: "none",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "8px",
+                        }}
                       >
-                        <span style={{ color: "#999" }}>{composer}. </span>
-                        {displayTitle}
+                        <span
+                          style={{
+                            color: hoveredSlug === slug ? "#ccc" : "#999",
+                            transition: "color 0.3s ease",
+                          }}
+                        >
+                          {composer}.{" "}
+                        </span>
+                        <span style={{ flex: 1 }}>{displayTitle}</span>
                       </a>
                     </li>
                   ))}
@@ -881,6 +914,13 @@ const Intro = () => {
                     isPreview={true}
                     onSnippetClick={handleSnippetClick}
                     loadingSnippets={loadingSnippets}
+                    onSnippetHover={(snippet) =>
+                      setHoveredSlug(
+                        snippet
+                          ? (snippet as EnhancedSnippet).composerSlug
+                          : null,
+                      )
+                    }
                   />
                 </div>
               )}

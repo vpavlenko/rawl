@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useCallback, useState } from "react";
 import styled from "styled-components";
+import { playArpeggiatedChord } from "../../sampler/sampler";
 
 const MARGIN_TOP = 40;
 
@@ -183,6 +184,15 @@ const ChordStairs: React.FC<{ mode: Mode; chapterChords?: string[] }> =
       new Set(),
     );
 
+    const handleChordHover = useCallback(
+      (chord: Chord) => {
+        if (!disabledChords.has(chord)) {
+          playArpeggiatedChord([...CHORDS[chord]]);
+        }
+      },
+      [disabledChords],
+    );
+
     const toggleChord = useCallback(
       (chord: string) => {
         setDisabledChords(
@@ -251,7 +261,7 @@ const ChordStairs: React.FC<{ mode: Mode; chapterChords?: string[] }> =
         key={title}
         style={{
           width: numChords * NOTE_WIDTH + (numChords - 1) * HORIZONTAL_GAP,
-          height: totalHeight, // Use the new totalHeight calculation
+          height: totalHeight,
           position: "relative",
           fontSize: 16,
         }}
@@ -301,8 +311,10 @@ const ChordStairs: React.FC<{ mode: Mode; chapterChords?: string[] }> =
               left: index * (NOTE_WIDTH + HORIZONTAL_GAP),
               opacity: disabledChords.has(name) ? DISABLED_OPACITY : 1,
               userSelect: "none",
+              cursor: disabledChords.has(name) ? "default" : "pointer",
             }}
             onClick={() => toggleChord(name)}
+            onMouseEnter={() => handleChordHover(name)}
           >
             {formatChordName(name)}
           </ChordName>

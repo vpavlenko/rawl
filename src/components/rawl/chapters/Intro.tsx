@@ -527,6 +527,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Lux Aeterna (from Requiem for a Dream)",
     order: 1200,
     chapter: "i ♭VI V",
+    chords: ["i", "bVI", "V"],
   },
 
   {

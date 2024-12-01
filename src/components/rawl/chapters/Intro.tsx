@@ -792,7 +792,7 @@ const Intro = () => {
           transform: "scale(0.9)",
         }}
       >
-        <PianoLegend />
+        <PianoLegend inline={false} />
       </div>
 
       {composerGroups.map((group, groupIndex) => {

@@ -63,74 +63,102 @@ const FoldButton = styled.button`
   z-index: 100001;
 `;
 
-export const PianoLegend: React.FC<{ currentTonic?: number }> = ({
+export const PianoLegend: React.FC<{
+  currentTonic?: number;
+  inline?: boolean;
+  enabledPitches?: number[];
+}> = ({
   currentTonic = 0,
+  inline = false,
+  enabledPitches = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
 }) => {
   const [playingNotes, setPlayingNotes] = React.useState<Set<number>>(
     new Set(),
   );
 
   const playNote = (note: number) => {
-    console.log("PLAY ", note, currentTonic);
-    const transposedNote = note + currentTonic;
-    playArpeggiatedChord([transposedNote]);
-    setPlayingNotes(new Set([...playingNotes, note]));
-    setTimeout(() => {
-      setPlayingNotes((prev) => {
-        const next = new Set(prev);
-        next.delete(note);
-        return next;
-      });
-    }, 200);
+    if (!inline) {
+      console.log("PLAY ", note, currentTonic);
+      const transposedNote = note + currentTonic;
+      playArpeggiatedChord([transposedNote]);
+      setPlayingNotes(new Set([...playingNotes, note]));
+      setTimeout(() => {
+        setPlayingNotes((prev) => {
+          const next = new Set(prev);
+          next.delete(note);
+          return next;
+        });
+      }, 200);
+    }
   };
+
+  const keyWidth = inline ? INLINE_KEY_WIDTH : KEY_WIDTH;
+  const keyHeight = inline ? INLINE_KEY_HEIGHT : KEY_HEIGHT;
+  const rowDistance = inline ? INLINE_ROW_DISTANCE : ROW_DISTANCE;
+  const padding = inline ? INLINE_PADDING : PADDING;
 
   return (
     <div style={{ backgroundColor: "black", padding: "10px", zIndex: 100000 }}>
       <div
         style={{
           position: "relative",
-          width: WHITE_KEYS.length * (KEY_WIDTH + PADDING),
-          height: KEY_HEIGHT + ROW_DISTANCE,
+          width: WHITE_KEYS.length * (keyWidth + padding),
+          height: keyHeight + rowDistance,
         }}
       >
         {[0, 1, 2, 3, 4, 5, 6].map((i) => (
           <React.Fragment key={i}>
             <PianoKey
               key={`w_${i}`}
-              className={`noteColor_${[WHITE_KEYS[i]]}_colors`}
+              className={
+                !inline || enabledPitches.includes(WHITE_KEYS[i])
+                  ? `noteColor_${[WHITE_KEYS[i]]}_colors`
+                  : `noteColor_disabled`
+              }
               isPlaying={playingNotes.has(WHITE_KEYS[i])}
               style={{
-                top: ROW_DISTANCE,
-                left: (KEY_WIDTH + PADDING) * i,
-                width: KEY_WIDTH,
-                height: KEY_HEIGHT,
-                borderRadius: "5px",
-                cursor: "pointer",
+                top: rowDistance,
+                left: (keyWidth + padding) * i,
+                width: keyWidth,
+                height: keyHeight,
+                borderRadius: inline ? "3px" : "5px",
+                cursor:
+                  !inline || enabledPitches.includes(WHITE_KEYS[i])
+                    ? "pointer"
+                    : "default",
               }}
               onClick={() => playNote(WHITE_KEYS[i])}
             >
-              {i + 1}
+              {!inline && i + 1}
             </PianoKey>
             {BLACK_KEYS[i] !== -1 ? (
               <PianoKey
                 key={`b_${i}`}
-                className={`noteColor_${[BLACK_KEYS[i]]}_colors`}
+                className={
+                  !inline || enabledPitches.includes(BLACK_KEYS[i])
+                    ? `noteColor_${[BLACK_KEYS[i]]}_colors`
+                    : `noteColor_disabled`
+                }
                 isPlaying={playingNotes.has(BLACK_KEYS[i])}
                 style={{
                   top: 0,
-                  left: (KEY_WIDTH + PADDING) * (i + 0.5),
+                  left: (keyWidth + padding) * (i + 0.5),
                   zIndex: 2,
-                  width: KEY_WIDTH,
-                  height: KEY_HEIGHT,
-                  borderRadius: "5px",
-                  cursor: "pointer",
+                  width: keyWidth,
+                  height: keyHeight,
+                  borderRadius: inline ? "3px" : "5px",
+                  cursor:
+                    !inline || enabledPitches.includes(BLACK_KEYS[i])
+                      ? "pointer"
+                      : "default",
                 }}
                 onClick={() => playNote(BLACK_KEYS[i])}
               >
-                {BLACK_KEY_LABELS[i]
-                  .toString()
-                  .replace("b", "♭")
-                  .replace("#", "♯")}
+                {!inline &&
+                  BLACK_KEY_LABELS[i]
+                    .toString()
+                    .replace("b", "♭")
+                    .replace("#", "♯")}
               </PianoKey>
             ) : null}
           </React.Fragment>
@@ -143,58 +171,7 @@ export const PianoLegend: React.FC<{ currentTonic?: number }> = ({
 export const InlinePianoLegend: React.FC<{ enabledPitches?: number[] }> = ({
   enabledPitches = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
 }) => {
-  return (
-    <div
-      style={{
-        backgroundColor: "black",
-        zIndex: 100000,
-        display: "inline-block",
-        position: "relative",
-        marginLeft: 10,
-        marginRight: 10,
-        width: WHITE_KEYS.length * (INLINE_KEY_WIDTH + INLINE_PADDING),
-        height: INLINE_KEY_HEIGHT + INLINE_ROW_DISTANCE,
-      }}
-    >
-      {[0, 1, 2, 3, 4, 5, 6].map((i) => (
-        <React.Fragment key={i}>
-          <PianoKey
-            key={`w_${i}`}
-            className={
-              enabledPitches.includes(WHITE_KEYS[i])
-                ? `noteColor_${[WHITE_KEYS[i]]}_colors`
-                : `noteColor_disabled`
-            }
-            style={{
-              top: INLINE_ROW_DISTANCE,
-              left: (INLINE_KEY_WIDTH + INLINE_PADDING) * i,
-              width: INLINE_KEY_WIDTH,
-              height: INLINE_KEY_HEIGHT,
-              borderRadius: "3px",
-            }}
-          />
-          {BLACK_KEYS[i] !== -1 && (
-            <PianoKey
-              key={`b_${i}`}
-              className={
-                enabledPitches.includes(BLACK_KEYS[i])
-                  ? `noteColor_${[BLACK_KEYS[i]]}_colors`
-                  : `noteColor_disabled`
-              }
-              style={{
-                top: 0,
-                left: (INLINE_KEY_WIDTH + INLINE_PADDING) * (i + 0.5),
-                zIndex: 2,
-                width: INLINE_KEY_WIDTH,
-                height: INLINE_KEY_HEIGHT,
-                borderRadius: "3px",
-              }}
-            />
-          )}
-        </React.Fragment>
-      ))}
-    </div>
-  );
+  return <PianoLegend inline enabledPitches={enabledPitches} />;
 };
 
 export const FoldablePianoLegend: React.FC<{

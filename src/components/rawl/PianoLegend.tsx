@@ -1,6 +1,7 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
+import { playArpeggiatedChord } from "../../sampler/sampler";
 import ChordStairs, { MODES } from "./ChordStairs";
 import { TOP_100_COMPOSERS } from "./chapters/Intro";
 
@@ -18,7 +19,19 @@ const INLINE_KEY_HEIGHT = 24;
 const INLINE_ROW_DISTANCE = 15;
 const INLINE_PADDING = 2;
 
-const PianoKey = styled.div`
+const keyPress = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
+const PianoKey = styled.div<{ isPlaying?: boolean }>`
   position: absolute;
   user-select: none;
   font-size: 20px;
@@ -31,9 +44,46 @@ const PianoKey = styled.div`
   display: grid;
   align-content: end;
   box-sizing: border-box;
+  transform-origin: top;
+  ${(props) =>
+    props.isPlaying &&
+    css`
+      animation: ${keyPress} 0.2s ease-out;
+    `}
 `;
 
-export const PianoLegend: React.FC = () => {
+const FoldButton = styled.button`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px 15px;
+  z-index: 100001;
+`;
+
+export const PianoLegend: React.FC<{ currentTonic?: number }> = ({
+  currentTonic = 0,
+}) => {
+  const [playingNotes, setPlayingNotes] = React.useState<Set<number>>(
+    new Set(),
+  );
+
+  const playNote = (note: number) => {
+    console.log("PLAY ", note, currentTonic);
+    const transposedNote = note + currentTonic;
+    playArpeggiatedChord([transposedNote]);
+    setPlayingNotes(new Set([...playingNotes, note]));
+    setTimeout(() => {
+      setPlayingNotes((prev) => {
+        const next = new Set(prev);
+        next.delete(note);
+        return next;
+      });
+    }, 200);
+  };
+
   return (
     <div style={{ backgroundColor: "black", padding: "10px", zIndex: 100000 }}>
       <div
@@ -48,13 +98,16 @@ export const PianoLegend: React.FC = () => {
             <PianoKey
               key={`w_${i}`}
               className={`noteColor_${[WHITE_KEYS[i]]}_colors`}
+              isPlaying={playingNotes.has(WHITE_KEYS[i])}
               style={{
                 top: ROW_DISTANCE,
                 left: (KEY_WIDTH + PADDING) * i,
                 width: KEY_WIDTH,
                 height: KEY_HEIGHT,
                 borderRadius: "5px",
+                cursor: "pointer",
               }}
+              onClick={() => playNote(WHITE_KEYS[i])}
             >
               {i + 1}
             </PianoKey>
@@ -62,6 +115,7 @@ export const PianoLegend: React.FC = () => {
               <PianoKey
                 key={`b_${i}`}
                 className={`noteColor_${[BLACK_KEYS[i]]}_colors`}
+                isPlaying={playingNotes.has(BLACK_KEYS[i])}
                 style={{
                   top: 0,
                   left: (KEY_WIDTH + PADDING) * (i + 0.5),
@@ -69,7 +123,9 @@ export const PianoLegend: React.FC = () => {
                   width: KEY_WIDTH,
                   height: KEY_HEIGHT,
                   borderRadius: "5px",
+                  cursor: "pointer",
                 }}
+                onClick={() => playNote(BLACK_KEYS[i])}
               >
                 {BLACK_KEY_LABELS[i]
                   .toString()
@@ -141,16 +197,6 @@ export const InlinePianoLegend: React.FC<{ enabledPitches?: number[] }> = ({
   );
 };
 
-const FoldButton = styled.button`
-  position: absolute;
-  top: 0;
-  right: 0;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  padding: 5px 15px;
-`;
-
 export const FoldablePianoLegend: React.FC<{
   slug?: string;
   currentTonic?: number;
@@ -195,11 +241,8 @@ export const FoldablePianoLegend: React.FC<{
               chapterChords={chords}
               currentTonic={currentTonic}
             />
-            <div
-              style={{ margin: "auto" }}
-              onClick={() => setShowLegend(false)}
-            >
-              <PianoLegend />
+            <div style={{ margin: "auto" }}>
+              <PianoLegend currentTonic={currentTonic} />
             </div>
           </div>
         </div>

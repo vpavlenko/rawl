@@ -187,8 +187,8 @@ export const playArpeggiatedChord = async (chordNumbers: number[]) => {
     Tone.Frequency(midi, "midi").toNote(),
   );
 
-  // Schedule the notes with 100ms gaps
+  // Schedule the notes with 100ms gaps, each note lasting 1 second
   noteNames.forEach((note, index) => {
-    sampler.triggerAttackRelease(note, "2n", Tone.now() + index * 0.1);
+    sampler.triggerAttackRelease(note, 1, Tone.now() + index * 0.1);
   });
 };

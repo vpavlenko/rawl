@@ -862,7 +862,7 @@ const Intro = () => {
                     noteHeight={3}
                     isPreview={true}
                     onSnippetClick={(snippet) => {
-                      alert((snippet as any).composerSlug);
+                      appContext.handleSongClick((snippet as any).composerSlug);
                     }}
                   />
                 </div>

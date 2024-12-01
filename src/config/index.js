@@ -1,9 +1,6 @@
 const API_BASE = "https://corsproxy.io/?https://gifx.co/chip";
 const CATALOG_PREFIX = "https://corsproxy.io/?https://gifx.co/music/";
-const SOUNDFONT_URL_PATH = "https://corsproxy.io/?https://gifx.co/soundfonts/";
-// const API_BASE = 'http://localhost:3000';                       // npm run server - Node.js server on port 8080
-//const CATALOG_PREFIX = 'http://localhost:3000/catalog/';        // python scripts/httpserver.py - Python file server
-// const SOUNDFONT_URL_PATH = 'http://localhost:3000/soundfonts/'; // Webpack dev server
+const SOUNDFONT_URL_PATH = "https://rawl.rocks";
 const MAX_VOICES = 64;
 const ERROR_FLASH_DURATION_MS = 6000;
 const FORMATS = [

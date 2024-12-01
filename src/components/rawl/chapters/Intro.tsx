@@ -664,6 +664,17 @@ export const TOP_100_COMPOSERS: {
   },
 ];
 
+export const ComposerTitle: React.FC<{
+  composer: string;
+  displayTitle: string;
+  style?: React.CSSProperties;
+}> = ({ composer, displayTitle, style }) => (
+  <span style={style}>
+    <span style={{ color: "#999" }}>{composer}. </span>
+    <span style={{ color: "white" }}>{displayTitle}</span>
+  </span>
+);
+
 const IntroText = () => {
   return (
     <div style={{ maxWidth: "40em", marginTop: "180px" }}>
@@ -871,7 +882,7 @@ const Intro = () => {
                           hoveredSlug === slug
                             ? "0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)"
                             : "none",
-                        padding: "4px 8px",
+                        padding: "4px 0px",
                         borderRadius: "4px",
                         backgroundColor:
                           hoveredSlug === slug
@@ -891,15 +902,10 @@ const Intro = () => {
                           gap: "8px",
                         }}
                       >
-                        <span
-                          style={{
-                            color: hoveredSlug === slug ? "#ccc" : "#999",
-                            transition: "color 0.3s ease",
-                          }}
-                        >
-                          {composer}.{" "}
-                        </span>
-                        <span style={{ flex: 1 }}>{displayTitle}</span>
+                        <ComposerTitle
+                          composer={composer}
+                          displayTitle={displayTitle}
+                        />
                       </a>
                     </li>
                   ))}

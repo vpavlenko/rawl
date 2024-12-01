@@ -74,7 +74,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
         notes,
         midiNumberToY,
         noteHeight,
-        () => {}, // handleNoteClick
+        null, // handleNoteClick
         () => {}, // handleMouseEnter
         () => {}, // handleMouseLeave
         toX,

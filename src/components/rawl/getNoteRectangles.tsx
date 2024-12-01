@@ -168,6 +168,13 @@ export const getNoteRectangles = (
       : null;
     const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
 
+    const cursorStyle =
+      enableManualRemeasuring && !isDrum
+        ? "e-resize"
+        : handleNoteClick && !isDrum
+        ? "pointer"
+        : "default";
+
     return (
       <div
         key={`nr_${note.id}`}
@@ -179,13 +186,8 @@ export const getNoteRectangles = (
           overflow: "visible",
           top: isActive ? top : top + noteHeight * 2 - 0.5,
           left,
-          pointerEvents: "auto",
-          cursor:
-            enableManualRemeasuring && !isDrum
-              ? "e-resize"
-              : handleNoteClick && !isDrum
-              ? "pointer"
-              : "default",
+          pointerEvents: handleNoteClick ? "auto" : "none",
+          cursor: cursorStyle,
           zIndex: Math.round(10 + (width > 0 ? 1000 / width : 1000)),
           boxSizing: "border-box",
           display: "grid",

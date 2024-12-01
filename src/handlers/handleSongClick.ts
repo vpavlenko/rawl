@@ -14,7 +14,7 @@ export const handleSongClick = async (
   deps: HandleSongClickDependencies,
   slug: string,
   isHiddenRoute: boolean = false,
-) => {
+): Promise<void> => {
   const firestore = getFirestore();
   try {
     console.log("Fetching index document");
@@ -68,24 +68,31 @@ export const handleSongClick = async (
       };
       const savedAnalysis = deps.state.analyses[analysisKey];
 
-      deps.setState(
-        {
-          currentMidi,
-          rawlProps: {
-            savedAnalysis,
-            isHiddenRoute,
+      return new Promise<void>((resolve) => {
+        deps.setState(
+          {
+            currentMidi,
+            rawlProps: {
+              savedAnalysis,
+              isHiddenRoute,
+            },
           },
-        },
-        () => {
-          console.log("State updated with currentMidi:", currentMidi);
-          console.log("State updated with rawlProps");
-          deps.loadMidi(midiBlob);
-        },
-      );
+          () => {
+            console.log("State updated with currentMidi:", currentMidi);
+            console.log("State updated with rawlProps");
+            deps.loadMidi(midiBlob);
+            // We resolve the promise here, which means the loading spinner will disappear
+            // when loadMidi is called. Ideally, we'd want to resolve this when the MIDI
+            // actually starts playing, but that would require modifying the MIDIPlayer class
+            resolve();
+          },
+        );
+      });
     } else {
       console.error("No such document!");
     }
   } catch (error) {
     console.error("Error loading MIDI:", error);
+    throw error; // Re-throw to trigger the finally block in the click handler
   }
 };

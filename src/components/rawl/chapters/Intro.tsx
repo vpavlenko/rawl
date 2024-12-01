@@ -758,6 +758,9 @@ const Intro = () => {
   const appContext = React.useContext(AppContext);
   if (!appContext) throw new Error("AppContext not found");
   const { analyses } = appContext;
+  const [loadingSnippets, setLoadingSnippets] = React.useState<Set<string>>(
+    new Set(),
+  );
 
   // Sort composers with order first, then the rest
   const orderedComposers = [...TOP_100_COMPOSERS].sort((a, b) => {
@@ -780,6 +783,21 @@ const Intro = () => {
     }
     return acc;
   }, []);
+
+  // Handle snippet click with loading state
+  const handleSnippetClick = async (snippet: any) => {
+    const slug = snippet.composerSlug;
+    setLoadingSnippets((prev) => new Set([...prev, slug]));
+    try {
+      await appContext.handleSongClick(slug);
+    } finally {
+      setLoadingSnippets((prev) => {
+        const next = new Set(prev);
+        next.delete(slug);
+        return next;
+      });
+    }
+  };
 
   return (
     <div style={{ position: "relative" }}>
@@ -861,9 +879,8 @@ const Intro = () => {
                     snippets={groupSnippets}
                     noteHeight={3}
                     isPreview={true}
-                    onSnippetClick={(snippet) => {
-                      appContext.handleSongClick((snippet as any).composerSlug);
-                    }}
+                    onSnippetClick={handleSnippetClick}
+                    loadingSnippets={loadingSnippets}
                   />
                 </div>
               )}

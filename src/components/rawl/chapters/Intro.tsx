@@ -764,59 +764,30 @@ const Intro = () => {
       <h1>Musescore Top 100 Harmony</h1>
 
       {composerGroups.map((group, groupIndex) => {
-        // Get snippets for this group that have the book:index tag
         const groupSnippets = group
           .flatMap((item) => analyses[`f/${item.slug}`]?.snippets || [])
           .filter((snippet) => snippet.tag === "book:index");
 
         return (
-          <React.Fragment key={groupIndex}>
-            {group[0].chapter && groupSnippets.length > 0 && (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  gridTemplateColumns: "1fr 300px",
-                  alignItems: "start",
-                  gap: "20px",
-                  marginBottom: "35px",
-                }}
-              >
-                <div>
-                  <h2 style={{ margin: "0 0 10px 0" }}>{group[0].chapter}</h2>
-                  <ul
-                    style={{
-                      listStyle: "none",
-                      paddingLeft: "0",
-                      margin: "0",
-                    }}
-                  >
-                    {group.map(({ slug, composer, displayTitle }) => (
-                      <li key={slug} style={{ marginLeft: "0" }}>
-                        <a
-                          href={`/f/${slug}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          style={{ color: "white" }}
-                        >
-                          <span style={{ color: "#999" }}>{composer}. </span>
-                          {displayTitle}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <SnippetList snippets={groupSnippets} />
-                </div>
-              </div>
-            )}
-            {(!group[0].chapter || groupSnippets.length === 0) && (
+          <div
+            key={groupIndex}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "start",
+              gap: "20px",
+              marginBottom: "35px",
+            }}
+          >
+            <div>
+              {group[0].chapter && (
+                <h2 style={{ margin: "0 0 10px 0" }}>{group[0].chapter}</h2>
+              )}
               <ul
                 style={{
                   listStyle: "none",
                   paddingLeft: "0",
-                  margin: "10px 0 35px 0",
+                  margin: "0",
                 }}
               >
                 {group.map(({ slug, composer, displayTitle }) => (
@@ -833,8 +804,13 @@ const Intro = () => {
                   </li>
                 ))}
               </ul>
+            </div>
+            {groupSnippets.length > 0 && (
+              <div>
+                <SnippetList snippets={groupSnippets} />
+              </div>
             )}
-          </React.Fragment>
+          </div>
         );
       })}
       <IntroText />

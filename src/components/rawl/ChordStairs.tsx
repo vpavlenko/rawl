@@ -2,7 +2,8 @@ import * as React from "react";
 import { useCallback, useState } from "react";
 import styled from "styled-components";
 
-const MARGIN_TOP = 30;
+const MARGIN_TOP = 40;
+
 export const CHORDS = {
   i: [0, 3, 7],
   ii: [2, 5, 9],
@@ -12,6 +13,7 @@ export const CHORDS = {
   iv: [5, 8, 0],
   I: [0, 4, 7],
   "V7/IV": [0, 4, 7, 10],
+  "V7/iv": [0, 4, 7, 10],
   I7: [0, 4, 7, 10],
   vi: [9, 0, 4],
   vi7: [9, 0, 4, 7],
@@ -19,6 +21,7 @@ export const CHORDS = {
   IV7: [5, 9, 0, 3],
   V: [7, 11, 2],
   V7: [7, 11, 2, 5],
+  V13: [7, 11, 2, 5, 9, 0, 4],
   V7b9: [7, 11, 2, 5, 8],
   "V/V": [2, 6, 9],
   "V7/V": [2, 6, 9, 0],
@@ -31,8 +34,8 @@ export const CHORDS = {
   "V/vi": [4, 8, 11],
   "V7/vi": [4, 8, 11, 2],
   Vsus4: [7, 0, 2],
-  "I△": [0, 4, 7, 11],
-  "IV△": [5, 9, 0, 4],
+  Imaj7: [0, 4, 7, 11],
+  IVmaj7: [5, 9, 0, 4],
   I5: [0, 7],
   IV5: [5, 0],
   V5: [7, 2],
@@ -54,7 +57,7 @@ export const CHORDS = {
   iiø65: [5, 8, 0, 2],
   io: [0, 3, 6],
   "I+": [0, 4, 8],
-  "i△": [0, 3, 7, 11],
+  imaj7: [0, 3, 7, 11],
   i7: [0, 3, 7, 10],
   iø7: [0, 3, 6, 10],
   iio: [2, 5, 8],
@@ -110,6 +113,64 @@ export const MODES: Mode[] = [
     ],
   },
 ];
+
+export const JAZZ_MODE: Mode = {
+  title: "jazz",
+  chords: ["ii7", "iiø7", "V7", "Imaj7", "i7"],
+};
+
+export const SIX_MAJOR_TRIADS: Mode = {
+  title: "6 common triads in a major mode",
+  chords: ["ii", "IV", "vi", "I", "iii", "V"],
+};
+
+export const NATURAL_MINOR: Mode = {
+  title: "natural minor",
+  chords: ["iv", "bVI", "i", "bIII", "v", "bVII"],
+};
+
+export const DORIAN_MINOR: Mode = {
+  title: "dorian minor",
+  chords: ["iv", "IV", "bVI", "i", "bIII", "v", "bVII"],
+};
+
+export const EXTENSIONS: Mode = {
+  title: "seventh chords and extensions in major",
+  chords: ["ii7", "IVmaj7", "vi7", "Imaj7", "iii7", "V13"],
+};
+
+export const V_of_V: Mode = {
+  title: "",
+  chords: ["V7/V", "V7", "I"],
+};
+
+export const APPLIED_CHORDS: Mode = {
+  title: "applied chords",
+  chords: ["V7/ii", "ii", "V7/iv", "iv", "V7/vi", "vi"],
+};
+
+export const MARIO_CADENCE: Mode = {
+  title: "Mario cadence",
+  chords: ["bVI", "bVII", "I"],
+};
+
+const formatChordName = (name: string) => {
+  const parts = name.split("ø");
+  if (parts.length === 1) {
+    return name
+      .replace("b", "♭")
+      .replace("7", "⁷")
+      .replace("1", "¹")
+      .replace("3", "³");
+  }
+  return (
+    <>
+      {parts[0].replace("b", "♭")}
+      <sup>ø</sup>
+      {parts[1].replace("7", "⁷").replace("1", "¹").replace("3", "³")}
+    </>
+  );
+};
 
 const ChordStairs: React.FC<{ mode: Mode; chapterChords?: string[] }> =
   React.memo(({ mode, chapterChords }) => {
@@ -173,6 +234,9 @@ const ChordStairs: React.FC<{ mode: Mode; chapterChords?: string[] }> =
 
     const height = maxPitch - rehydratedChords[0].pitches[0] + 1;
 
+    // Calculate total height including margin top and text
+    const totalHeight = height * NOTE_HEIGHT + MARGIN_TOP + 40; // Add 40px for chord name text
+
     const tonicChordPosition = filteredChords.findIndex((chord) =>
       /^(i|I)$/.test(chord),
     );
@@ -182,9 +246,9 @@ const ChordStairs: React.FC<{ mode: Mode; chapterChords?: string[] }> =
         key={title}
         style={{
           width: numChords * NOTE_WIDTH + (numChords - 1) * HORIZONTAL_GAP,
-          height: height * NOTE_HEIGHT,
+          height: totalHeight, // Use the new totalHeight calculation
           position: "relative",
-          fontSize: 20,
+          fontSize: 16,
         }}
       >
         <div
@@ -235,7 +299,7 @@ const ChordStairs: React.FC<{ mode: Mode; chapterChords?: string[] }> =
             }}
             onClick={() => toggleChord(name)}
           >
-            {name.replace("b", "♭").replace("o", "º").replace("7", "⁷")}
+            {formatChordName(name)}
           </ChordName>
         ))}
       </div>

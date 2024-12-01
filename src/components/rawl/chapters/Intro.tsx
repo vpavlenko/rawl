@@ -1,6 +1,16 @@
 import * as React from "react";
 import { AppContext } from "../../AppContext";
-import ChordStairs, { MODES } from "../ChordStairs";
+import ChordStairs, {
+  APPLIED_CHORDS,
+  DORIAN_MINOR,
+  EXTENSIONS,
+  JAZZ_MODE,
+  MARIO_CADENCE,
+  Mode,
+  NATURAL_MINOR,
+  SIX_MAJOR_TRIADS,
+  V_of_V,
+} from "../ChordStairs";
 import { PianoLegend } from "../PianoLegend";
 import SnippetList from "../SnippetList";
 
@@ -11,6 +21,7 @@ export const TOP_100_COMPOSERS: {
   chapter?: string;
   chords?: string[];
   displayTitle: string;
+  mode?: Mode;
 }[] = [
   {
     slug: "river-flows-in-you",
@@ -67,6 +78,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Golden Hour",
     order: 2030,
     chapter: "Seventh chords and extensions",
+    mode: EXTENSIONS,
   },
   {
     slug: "Je_Te_Laisserai_Des_Mots_-_Patrick_Watson",
@@ -78,7 +90,7 @@ export const TOP_100_COMPOSERS: {
     slug: "Hallelujah",
     composer: "Leonard Cohen",
     displayTitle: "Hallelujah",
-    order: 2920,
+    order: 1104,
   },
   {
     slug: "Interstellar",
@@ -163,8 +175,7 @@ export const TOP_100_COMPOSERS: {
     slug: "my-heart-will-go-on",
     composer: "James Horner",
     displayTitle: "My Heart Will Go On (from Titanic)",
-    order: 2910,
-    chapter: "Double-tonic",
+    order: 2670,
   },
   {
     slug: "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2",
@@ -184,6 +195,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Piano Man",
     order: 2300,
     chapter: "V/V",
+    mode: V_of_V,
   },
   {
     slug: "Fly_Me_to_the_Moon",
@@ -191,13 +203,14 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Fly Me to the Moon (In Other Words)",
     order: 5300,
     chapter: "ii V I jazz",
+    mode: JAZZ_MODE,
   },
   {
     slug: "passacaglia---handel-halvorsen",
     composer: "Handel",
     displayTitle: "Passacaglia in G minor (arr. Halvorsen)",
     order: 1650,
-    chapter: "Circle of fifths",
+    chapter: "Circle of fifths: i iv ♭VII ♭III ♭vi",
   },
 
   {
@@ -312,6 +325,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Still D.R.E.",
     order: 400,
     chapter: "Natural minor",
+    mode: NATURAL_MINOR,
   },
   {
     slug: "what-falling-in-love-feels-like---jake25.17-fanmade-extended-version",
@@ -354,6 +368,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "When I Was Your Man",
     order: 4950,
     chapter: "♭VII in major",
+    mode: MARIO_CADENCE,
   },
   {
     slug: "gurenge--demon-slayer-kimetsu-no-yaiba-op",
@@ -428,6 +443,7 @@ export const TOP_100_COMPOSERS: {
     order: 50,
     chapter: "Single four-chord progression in major",
     chords: ["I", "iii", "IV", "vi"],
+    mode: SIX_MAJOR_TRIADS,
   },
   {
     slug: "it-s-been-a-long-long-time---harry-james",
@@ -452,7 +468,7 @@ export const TOP_100_COMPOSERS: {
     slug: "Yann_Tiersen_Amelie",
     composer: "Yann Tiersen",
     displayTitle: "Comptine d'un autre été (from Amélie)",
-    order: 2923,
+    order: 270,
     chords: ["vi", "I", "iii", "V"],
   },
   {
@@ -508,7 +524,7 @@ export const TOP_100_COMPOSERS: {
     composer: "Clint Mansell",
     displayTitle: "Lux Aeterna (from Requiem for a Dream)",
     order: 1200,
-    chapter: "♭VI V i",
+    chapter: "i ♭VI V",
   },
 
   {
@@ -560,6 +576,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Once Upon a December (from Anastasia)",
     order: 2440,
     chapter: "Other applied chords",
+    mode: APPLIED_CHORDS,
   },
   {
     slug: "Test_Drive_How_to_Train_Your_Dragon",
@@ -586,6 +603,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Nothing Else Matters",
     order: 800,
     chapter: "Dorian IV",
+    mode: DORIAN_MINOR,
   },
   {
     slug: "calum-scott---you-are-the-reason-piano-sheet-lyrics-lyrics-version-link-in-description",
@@ -640,7 +658,7 @@ export const TOP_100_COMPOSERS: {
 
 const IntroText = () => {
   return (
-    <div style={{ maxWidth: "40em", marginTop: "100px" }}>
+    <div style={{ maxWidth: "40em", marginTop: "180px" }}>
       <h2>How did I pick the pieces?</h2>
       <p>
         I went through{" "}
@@ -662,7 +680,7 @@ const IntroText = () => {
         next top 5 arrangements (out of 687 community scores of this title) have
         1.5M more view counts. I don't add up all view counts across all
         versions, I purely use the top 1 - which makes a bit of a random
-        selection at the border of the top 100.
+        selection at the lower end of the top 100.
       </p>
 
       <p>
@@ -762,23 +780,11 @@ const Intro = () => {
 
   return (
     <div style={{ position: "relative" }}>
-      <h1 style={{ marginBottom: "50px" }}>
-        Visual Harmony of Top 100 Composers on MuseScore.com
-      </h1>
+      <h1>Visual Harmony of Top 100 Composers on MuseScore.com</h1>
       <div
-        style={{
-          position: "absolute",
-          right: -10,
-          top: -50,
-          flexDirection: "column",
-          transform: "scale(0.8)",
-        }}
+        style={{ marginTop: "70px", marginBottom: "70px", marginLeft: "200px" }}
       >
         <PianoLegend />
-        <div style={{ height: 200, marginTop: 40 }}>
-          <ChordStairs mode={MODES[1]} />
-        </div>
-        <ChordStairs mode={MODES[0]} />
       </div>
 
       {composerGroups.map((group, groupIndex) => {
@@ -787,51 +793,67 @@ const Intro = () => {
           .filter((snippet) => snippet.tag === "book:index");
 
         return (
-          <div
-            key={groupIndex}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "start",
-              gap: "60px",
-              marginBottom: "100px",
-            }}
-          >
-            <div>
-              {group[0].chapter && (
-                <h2 style={{ margin: "0 0 10px 0" }}>{group[0].chapter}</h2>
-              )}
-              <ul
-                style={{
-                  listStyle: "none",
-                  paddingLeft: "0",
-                  margin: "0",
-                }}
-              >
-                {group.map(({ slug, composer, displayTitle }) => (
-                  <li key={slug} style={{ marginLeft: "0" }}>
-                    <a
-                      href={`/f/${slug}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{ color: "white" }}
-                    >
-                      <span style={{ color: "#999" }}>{composer}. </span>
-                      {displayTitle}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+          <div>
+            <div
+              style={{
+                marginBottom: "10px",
+                marginTop: "50px",
+                marginLeft: "200px",
+              }}
+            >
+              {group[0].mode && <ChordStairs mode={group[0].mode} />}
             </div>
-            {groupSnippets.length > 0 && (
+            <div
+              key={groupIndex}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "start",
+                gap: "60px",
+                marginBottom: "80px",
+              }}
+            >
               <div>
-                <SnippetList
-                  snippets={groupSnippets}
-                  noteHeight={3}
-                  isPreview={true}
-                />
+                {group[0].chapter && (
+                  <>
+                    <h2 style={{ margin: "0 0 10px 0" }}>{group[0].chapter}</h2>
+                  </>
+                )}
+                <ul
+                  style={{
+                    listStyle: "none",
+                    paddingLeft: "0",
+                    margin: "0",
+                  }}
+                >
+                  {group.map(({ slug, composer, displayTitle }) => (
+                    <li
+                      key={slug}
+                      style={{ marginLeft: "0", whiteSpace: "nowrap" }}
+                    >
+                      <a
+                        href={`/f/${slug}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ color: "white" }}
+                      >
+                        <span style={{ color: "#999" }}>{composer}. </span>
+                        {displayTitle}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            )}
+              {groupSnippets.length > 0 && (
+                <div>
+                  <SnippetList
+                    snippets={groupSnippets}
+                    noteHeight={3}
+                    isPreview={true}
+                  />
+                </div>
+              )}
+            </div>
           </div>
         );
       })}

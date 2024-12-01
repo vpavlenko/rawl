@@ -796,9 +796,11 @@ const Intro = () => {
       </div>
 
       {composerGroups.map((group, groupIndex) => {
-        const groupSnippets = group
-          .flatMap((item) => analyses[`f/${item.slug}`]?.snippets || [])
-          .filter((snippet) => snippet.tag === "book:index");
+        const groupSnippets = group.flatMap((item) =>
+          (analyses[`f/${item.slug}`]?.snippets || [])
+            .filter((snippet) => snippet.tag === "book:index")
+            .map((snippet) => ({ ...snippet, composerSlug: item.slug })),
+        );
 
         return (
           <div>
@@ -859,6 +861,9 @@ const Intro = () => {
                     snippets={groupSnippets}
                     noteHeight={3}
                     isPreview={true}
+                    onSnippetClick={(snippet) => {
+                      alert((snippet as any).composerSlug);
+                    }}
                   />
                 </div>
               )}

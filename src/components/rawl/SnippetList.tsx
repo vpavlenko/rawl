@@ -20,6 +20,7 @@ interface SnippetListProps {
   deleteSnippet?: (index: number) => void;
   noteHeight?: number;
   isPreview?: boolean;
+  onSnippetClick?: (snippet: Snippet) => void;
 }
 
 const SnippetList: React.FC<SnippetListProps> = ({
@@ -27,11 +28,17 @@ const SnippetList: React.FC<SnippetListProps> = ({
   deleteSnippet,
   noteHeight = 3,
   isPreview = false,
+  onSnippetClick,
 }) => {
   return (
     <SnippetListContainer isPreview={isPreview}>
       {snippets.map((snippet, index) => (
-        <SnippetItemWrapper key={index} isPreview={isPreview}>
+        <SnippetItemWrapper
+          key={index}
+          isPreview={isPreview}
+          style={{ cursor: onSnippetClick ? "pointer" : "default" }}
+          onClick={() => onSnippetClick?.(snippet)}
+        >
           <SnippetItem
             snippet={snippet}
             index={index}

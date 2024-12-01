@@ -1,6 +1,6 @@
 import * as React from "react";
-import { useCallback, useState } from "react";
-import styled from "styled-components";
+import { useCallback, useRef, useState } from "react";
+import styled, { css, keyframes } from "styled-components";
 import { playArpeggiatedChord } from "../../sampler/sampler";
 
 const MARGIN_TOP = 40;
@@ -82,13 +82,30 @@ const ChordNote = styled.div`
   height: ${NOTE_HEIGHT * 2}px;
 `;
 
-const ChordName = styled.div`
+const fadeOut = keyframes`
+  from {
+    background-color: rgba(169, 169, 169, 0.5);
+  }
+  to {
+    background-color: transparent;
+  }
+`;
+
+const ChordName = styled.div<{ isPlaying?: boolean }>`
   width: ${NOTE_WIDTH}px;
   height: 20px;
   font-size: 20px;
   display: flex;
   justify-content: center;
   text-align: center;
+  ${(props) =>
+    props.isPlaying &&
+    css`
+      animation: ${fadeOut} 2s ease-out;
+    `}
+  transition: background-color 0.2s;
+  padding: 2px 4px;
+  border-radius: 4px;
 `;
 
 export type Mode = { title: string; chords: Chord[] };
@@ -183,10 +200,25 @@ const ChordStairs: React.FC<{ mode: Mode; chapterChords?: string[] }> =
     const [disabledChords, setDisabledChords] = useState<Set<string>>(
       new Set(),
     );
+    const [playingChord, setPlayingChord] = useState<string | null>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const handleChordHover = useCallback(
       (chord: Chord) => {
         if (!disabledChords.has(chord)) {
+          // Clear any existing timeout
+          if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+          }
+
+          // Set the currently playing chord
+          setPlayingChord(chord);
+
+          // Clear the playing state after animation duration
+          timeoutRef.current = setTimeout(() => {
+            setPlayingChord(null);
+          }, 2000);
+
           playArpeggiatedChord([...CHORDS[chord]]);
         }
       },
@@ -313,6 +345,7 @@ const ChordStairs: React.FC<{ mode: Mode; chapterChords?: string[] }> =
               userSelect: "none",
               cursor: disabledChords.has(name) ? "default" : "pointer",
             }}
+            isPlaying={playingChord === name}
             onClick={() => toggleChord(name)}
             onMouseEnter={() => handleChordHover(name)}
           >

@@ -161,6 +161,9 @@ const C3_MIDI_NUMBER = 48;
 export const playArpeggiatedChord = async (chordNumbers: number[]) => {
   await ensureSamplerLoaded();
 
+  // Stop all currently playing notes
+  sampler.releaseAll();
+
   // Transform chord numbers into ascending sequence
   const ascendingChord = chordNumbers.reduce<number[]>((acc, note) => {
     if (acc.length === 0) {

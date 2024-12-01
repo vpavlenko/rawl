@@ -1,4 +1,6 @@
 import * as React from "react";
+import { AppContext } from "../../AppContext";
+import SnippetList from "../SnippetList";
 
 export const TOP_100_COMPOSERS: {
   slug: string;
@@ -731,6 +733,10 @@ const IntroText = () => {
 };
 
 const Intro = () => {
+  const appContext = React.useContext(AppContext);
+  if (!appContext) throw new Error("AppContext not found");
+  const { analyses } = appContext;
+
   // Sort composers with order first, then the rest
   const orderedComposers = [...TOP_100_COMPOSERS].sort((a, b) => {
     if (a.order !== undefined && b.order !== undefined) {
@@ -746,10 +752,8 @@ const Intro = () => {
     Array<typeof TOP_100_COMPOSERS>
   >((acc, composer) => {
     if (composer.chapter || acc.length === 0) {
-      // Start a new group if composer has a chapter or it's the first composer
       acc.push([composer]);
     } else {
-      // Add to the last group
       acc[acc.length - 1].push(composer);
     }
     return acc;
@@ -759,32 +763,80 @@ const Intro = () => {
     <div>
       <h1>Musescore Top 100 Harmony</h1>
 
-      {composerGroups.map((group, groupIndex) => (
-        <React.Fragment key={groupIndex}>
-          {group[0].chapter && <h2>{group[0].chapter}</h2>}
-          <ul
-            style={{
-              listStyle: "none",
-              paddingLeft: "0",
-              margin: "10px 0 35px 0",
-            }}
-          >
-            {group.map(({ slug, composer, displayTitle }) => (
-              <li key={slug} style={{ marginLeft: "0" }}>
-                <a
-                  href={`/f/${slug}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ color: "white" }}
-                >
-                  <span style={{ color: "#999" }}>{composer}. </span>
-                  {displayTitle}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </React.Fragment>
-      ))}
+      {composerGroups.map((group, groupIndex) => {
+        // Get snippets for this group that have the book:index tag
+        const groupSnippets = group
+          .flatMap((item) => analyses[`f/${item.slug}`]?.snippets || [])
+          .filter((snippet) => snippet.tag === "book:index");
+
+        return (
+          <React.Fragment key={groupIndex}>
+            {group[0].chapter && groupSnippets.length > 0 && (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gridTemplateColumns: "1fr 300px",
+                  alignItems: "start",
+                  gap: "20px",
+                  marginBottom: "35px",
+                }}
+              >
+                <div>
+                  <h2 style={{ margin: "0 0 10px 0" }}>{group[0].chapter}</h2>
+                  <ul
+                    style={{
+                      listStyle: "none",
+                      paddingLeft: "0",
+                      margin: "0",
+                    }}
+                  >
+                    {group.map(({ slug, composer, displayTitle }) => (
+                      <li key={slug} style={{ marginLeft: "0" }}>
+                        <a
+                          href={`/f/${slug}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          style={{ color: "white" }}
+                        >
+                          <span style={{ color: "#999" }}>{composer}. </span>
+                          {displayTitle}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <SnippetList snippets={groupSnippets} />
+                </div>
+              </div>
+            )}
+            {(!group[0].chapter || groupSnippets.length === 0) && (
+              <ul
+                style={{
+                  listStyle: "none",
+                  paddingLeft: "0",
+                  margin: "10px 0 35px 0",
+                }}
+              >
+                {group.map(({ slug, composer, displayTitle }) => (
+                  <li key={slug} style={{ marginLeft: "0" }}>
+                    <a
+                      href={`/f/${slug}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ color: "white" }}
+                    >
+                      <span style={{ color: "#999" }}>{composer}. </span>
+                      {displayTitle}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </React.Fragment>
+        );
+      })}
       <IntroText />
     </div>
   );

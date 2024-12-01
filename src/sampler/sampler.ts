@@ -155,8 +155,8 @@ export const resumeAudioContext = async () => {
   console.log("resuming audio context");
 };
 
-// MIDI note number for C3
-const C3_MIDI_NUMBER = 48;
+// MIDI note number for C2
+const C3_MIDI_NUMBER = 36;
 
 let activeEvents: number[] = [];
 let activeNotes: string[] = [];
@@ -175,32 +175,18 @@ export const playArpeggiatedChord = async (chordNumbers: number[]) => {
   activeEvents = [];
   activeNotes = [];
 
-  // 4. Transform chord numbers into ascending sequence
-  const ascendingChord = chordNumbers.reduce<number[]>((acc, note) => {
-    if (acc.length === 0) {
-      acc.push(note);
-    } else {
-      let adjustedNote = note;
-      while (adjustedNote <= acc[acc.length - 1]) {
-        adjustedNote += 12;
-      }
-      acc.push(adjustedNote);
-    }
-    return acc;
-  }, []);
-
-  // 5. Convert to MIDI notes starting from C3
-  const midiNotes = ascendingChord.map((note) => C3_MIDI_NUMBER + note);
+  // 4. Convert to MIDI notes starting from C3
+  const midiNotes = chordNumbers.map((note) => C3_MIDI_NUMBER + note);
   const noteNames = midiNotes.map((midi) =>
     Tone.Frequency(midi, "midi").toNote(),
   );
 
-  // 6. Ensure Transport is started
+  // 5. Ensure Transport is started
   if (Tone.Transport.state !== "started") {
     Tone.Transport.start();
   }
 
-  // 7. Schedule notes using Transport time
+  // 6. Schedule notes using Transport time
   const currentTransportTime = Tone.Transport.seconds;
 
   noteNames.forEach((note, index) => {

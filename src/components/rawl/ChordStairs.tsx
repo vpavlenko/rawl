@@ -222,7 +222,7 @@ const ChordStairs: React.FC<{
   const [animationKey, setAnimationKey] = useState(0);
 
   const handleChordClick = useCallback(
-    (chord: Chord) => {
+    (chord: Chord, pitches: number[]) => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
@@ -234,9 +234,8 @@ const ChordStairs: React.FC<{
         setPlayingChord(null);
       }, 2000);
 
-      const transposedNotes = CHORDS[chord].map(
-        (note) => (note + currentTonic) % 12,
-      );
+      // Use the exact pitches from rehydratedChords and add current tonic
+      const transposedNotes = pitches.map((note) => note + currentTonic);
       playArpeggiatedChord(transposedNotes);
     },
     [currentTonic],
@@ -329,7 +328,7 @@ const ChordStairs: React.FC<{
         return (
           <ChordBoundingBox
             key={`bounding-box-${chordIndex}-${animationKey}`}
-            onClick={() => handleChordClick(name)}
+            onClick={() => handleChordClick(name, pitches)}
             isPlaying={playingChord === name}
             style={{
               left: chordIndex * (NOTE_WIDTH + HORIZONTAL_GAP),

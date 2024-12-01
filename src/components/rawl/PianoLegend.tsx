@@ -55,8 +55,8 @@ const PianoKey = styled.div<{ isPlaying?: boolean }>`
 
 const FoldButton = styled.button`
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  top: 0px;
+  right: 0px;
   border: none;
   font-size: 18px;
   cursor: pointer;

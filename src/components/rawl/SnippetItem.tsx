@@ -25,6 +25,13 @@ const SnippetHeader = styled.div`
   background-color: #222;
 `;
 
+const TimingInfo = styled.div`
+  color: #888;
+  font-size: 0.8em;
+  margin-top: 4px;
+  text-align: center;
+`;
+
 const SnippetContent = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
@@ -138,6 +145,12 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
               {snippet.measuresSpan.join("..")}
             </span>
           </span>
+          {snippet.secondsSpan && (
+            <TimingInfo>
+              {snippet.secondsSpan[0].toFixed(2)}s -{" "}
+              {snippet.secondsSpan[1].toFixed(2)}s
+            </TimingInfo>
+          )}
         </SnippetHeader>
       )}
       <SnippetContent>

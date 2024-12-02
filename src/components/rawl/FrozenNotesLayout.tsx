@@ -21,7 +21,7 @@ import {
   Snippet,
   TIME_SCALE_FACTOR,
 } from "./analysis";
-import { getModulations } from "./Rawl";
+import { getModulations, SecondsSpan } from "./Rawl";
 import SnippetItem from "./SnippetItem";
 import SnippetList from "./SnippetList";
 import { SystemLayoutProps } from "./SystemLayout";
@@ -561,6 +561,41 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
       measureStartRef.current.select(); // Select the content
     }
   }, []);
+
+  // Add useEffect to handle book:index tag on entry
+  useEffect(() => {
+    if (!measuresAndBeats || !analysis?.snippets) return;
+
+    const bookIndexSnippet = analysis.snippets.find((s) =>
+      s.tag.startsWith("book:index"),
+    );
+    if (bookIndexSnippet && bookIndexSnippet.measuresSpan) {
+      const [startMeasure, endMeasure] = bookIndexSnippet.measuresSpan;
+      const startTime = measuresAndBeats.measures[startMeasure - 1];
+      const endTime = measuresAndBeats.measures[endMeasure];
+
+      // Update the snippet with secondsSpan
+      const updatedSnippets = analysis.snippets.map((s) => {
+        if (s === bookIndexSnippet) {
+          return {
+            ...s,
+            secondsSpan: [startTime, endTime] as SecondsSpan,
+          };
+        }
+        return s;
+      });
+
+      // Save the updated analysis
+      saveAnalysis({
+        ...analysis,
+        snippets: updatedSnippets,
+      });
+
+      // Show toast notification
+      setCopyIndicatorVisible(true);
+      setTimeout(() => setCopyIndicatorVisible(false), 2000);
+    }
+  }, [analysis, measuresAndBeats, saveAnalysis]);
 
   // Add this check after all hooks have been called
   if (!frozenNotes || !measuresAndBeats || !analysis) {

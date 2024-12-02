@@ -54,13 +54,13 @@ import AppHeader from "./AppHeader";
 import Browse from "./Browse";
 import DropMessage from "./DropMessage";
 import Visualizer from "./Visualizer";
+import Book from "./rawl/Book";
 import OldLandingPage from "./rawl/OldLandingPage";
 import Pirate from "./rawl/Pirate";
 import Rawl, { RawlProps } from "./rawl/Rawl";
 import { ShortcutHelp } from "./rawl/ShortcutHelp";
 import Slicer from "./rawl/Slicer";
 import { Analyses } from "./rawl/analysis";
-import BookLayout from "./rawl/chapters/BookLayout";
 import Corpus from "./rawl/corpora/Corpus";
 import NewPathView, { NewPathViewProps } from "./rawl/corpora/NewPathView";
 import { DropSaveForm, saveMidiFromLink } from "./rawl/midiStorage";
@@ -1182,7 +1182,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                         <Route path="/pirate" render={() => <Pirate />} />
                         {browseRoute}
                         {rawlRoute}
-                        <Route path="/" component={BookLayout} />
+                        <Route path="/" component={Book} />
                       </Switch>
                     </div>
                   </div>

@@ -5,7 +5,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { ComposerTitle, TOP_100_COMPOSERS } from "./chapters/Intro";
+import { ComposerTitle, TOP_100_COMPOSERS } from "./Book";
 import { corpora } from "./corpora/corpora";
 
 export type CompositionTitleProps = {

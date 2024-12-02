@@ -3,8 +3,8 @@ import styled, { css, keyframes } from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
 import { playArpeggiatedChord } from "../../sampler/sampler";
 import { PITCH_CLASS_TO_LETTER } from "./AnalysisGrid";
+import { TOP_100_COMPOSERS } from "./Book";
 import ChordStairs, { MODES } from "./ChordStairs";
-import { TOP_100_COMPOSERS } from "./chapters/Intro";
 
 const BLACK_KEYS = [1, 3, -1, 6, 8, 10, -1];
 const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];

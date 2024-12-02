@@ -6,13 +6,26 @@ import EnhancedFrozenNotes from "./FrozenNotes";
 
 const PX_IN_MEASURE = 100;
 
-const SnippetItemContainer = styled.div<{ width: number; isPreview?: boolean }>`
+const SnippetItemContainer = styled.div<{
+  width: number;
+  isPreview?: boolean;
+  isPreviewWithoutTime?: boolean;
+}>`
   display: flex;
   flex-direction: column;
   width: ${(props) => props.width}px;
-  border-top: ${(props) => (props.isPreview ? "none" : "1px solid #444")};
-  border-bottom: ${(props) => (props.isPreview ? "none" : "1px solid #444")};
-  border-left: ${(props) => (props.isPreview ? "none" : "1px solid #444")};
+  border-top: ${(props) => {
+    if (props.isPreviewWithoutTime) return "1px solid red";
+    return props.isPreview ? "none" : "1px solid #444";
+  }};
+  border-bottom: ${(props) => {
+    if (props.isPreviewWithoutTime) return "1px solid red";
+    return props.isPreview ? "none" : "1px solid #444";
+  }};
+  border-left: ${(props) => {
+    if (props.isPreviewWithoutTime) return "1px solid red";
+    return props.isPreview ? "none" : "1px solid #444";
+  }};
   border-radius: ${(props) => (props.isPreview ? "0" : "5px")};
   overflow: hidden;
 `;
@@ -201,7 +214,11 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
   ]);
 
   return (
-    <SnippetItemContainer width={containerWidth} isPreview={isPreview}>
+    <SnippetItemContainer
+      width={containerWidth}
+      isPreview={isPreview}
+      isPreviewWithoutTime={isPreview && snippet.secondsSpan === undefined}
+    >
       {!isPreview && (
         <SnippetHeader>
           {deleteSnippet && (
@@ -215,12 +232,14 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
               {snippet.measuresSpan.join("..")}
             </span>
           </span>
-          {snippet.secondsSpan && (
-            <TimingInfo>
-              {snippet.secondsSpan[0].toFixed(2)}s -{" "}
-              {snippet.secondsSpan[1].toFixed(2)}s
-            </TimingInfo>
-          )}
+          {snippet.secondsSpan &&
+            Array.isArray(snippet.secondsSpan) &&
+            typeof snippet.secondsSpan[0] === "number" && (
+              <TimingInfo>
+                {snippet.secondsSpan[0].toFixed(2)}s -{" "}
+                {snippet.secondsSpan[1].toFixed(2)}s
+              </TimingInfo>
+            )}
         </SnippetHeader>
       )}
       <SnippetContent style={{ position: "relative" }}>

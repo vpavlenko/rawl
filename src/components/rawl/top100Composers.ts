@@ -24,7 +24,7 @@ export const TOP_100_COMPOSERS: {
     slug: "river-flows-in-you",
     composer: "Yiruma",
     displayTitle: "River Flows in You",
-    order: 200,
+    order: 725,
     chords: ["vi", "I", "IV", "V"],
   },
   {
@@ -87,7 +87,7 @@ export const TOP_100_COMPOSERS: {
     slug: "Hallelujah",
     composer: "Leonard Cohen",
     displayTitle: "Hallelujah",
-    order: 1104,
+    order: 1625,
   },
   {
     slug: "Interstellar",
@@ -153,7 +153,7 @@ export const TOP_100_COMPOSERS: {
     slug: "Mad_world_Piano",
     composer: "Roland Orzabal",
     displayTitle: "Mad World",
-    order: 250,
+    order: 760,
     chords: ["ii", "IV", "I", "V"],
   },
   {
@@ -263,7 +263,7 @@ export const TOP_100_COMPOSERS: {
     composer: "Christina Perri",
     displayTitle: "A Thousand Years",
     order: 900,
-    chapter: "Functional major with V7",
+    chapter: "Functional major",
   },
   {
     slug: "John_Lennon_Imagine",
@@ -301,8 +301,9 @@ export const TOP_100_COMPOSERS: {
     slug: "despacito-piano-cover-peter-bence",
     composer: "Luis Fonsi",
     displayTitle: "Despacito",
-    order: 100,
+    order: 720,
     chords: ["vi", "I", "IV", "V"],
+    chapter: "Four-chord progressions in minor / double-tonic",
   },
   {
     slug: "solas---jamie-duffy",
@@ -453,7 +454,7 @@ export const TOP_100_COMPOSERS: {
     slug: "Dawn_Pride_and_Prejudice",
     composer: "Dario Marianelli",
     displayTitle: "Dawn (from Pride & Prejudice)",
-    order: 1105,
+    order: 2385,
   },
   {
     slug: "kimi-no-na-wa---sparkle-theishter-2016",
@@ -466,7 +467,7 @@ export const TOP_100_COMPOSERS: {
     slug: "Yann_Tiersen_Amelie",
     composer: "Yann Tiersen",
     displayTitle: "Comptine d'un autre été (from Amélie)",
-    order: 270,
+    order: 750,
     chords: ["vi", "I", "iii", "V"],
   },
   {
@@ -560,7 +561,7 @@ export const TOP_100_COMPOSERS: {
     slug: "alan-walker---alone-piano",
     composer: "Alan Walker",
     displayTitle: "Alone",
-    order: 150,
+    order: 730,
     chords: ["vi", "I", "IV", "V", "iii"],
   },
   {
@@ -645,7 +646,7 @@ export const TOP_100_COMPOSERS: {
     slug: "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",
     composer: "Lil Nas X",
     displayTitle: "Old Town Road",
-    order: 360,
+    order: 755,
   },
   {
     slug: "abba--the-winner-takes-it-all",

@@ -25,6 +25,7 @@ export type AppContextType = {
   currentMidi: CurrentMidi;
   setCurrentMidi: (currentMidi: CurrentMidi) => void;
   user: User | null;
+  seek: (seekMs: number) => void;
 };
 
 export const AppContext = React.createContext<AppContextType | undefined>(

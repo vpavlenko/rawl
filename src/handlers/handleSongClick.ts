@@ -4,7 +4,7 @@ import keySlugMapping from "../keySlugMapping";
 
 type HandleSongClickDependencies = {
   setState: (state: any, callback?: () => void) => void;
-  loadMidi: (midiBlob: Blob) => void;
+  loadMidi: (midiBlob: Blob, callback?: () => void) => void;
   state: {
     analyses: any;
   };
@@ -80,11 +80,14 @@ export const handleSongClick = async (
           () => {
             console.log("State updated with currentMidi:", currentMidi);
             console.log("State updated with rawlProps");
-            deps.loadMidi(midiBlob);
-            // We resolve the promise here, which means the loading spinner will disappear
-            // when loadMidi is called. Ideally, we'd want to resolve this when the MIDI
-            // actually starts playing, but that would require modifying the MIDIPlayer class
-            resolve();
+            // Create a promise that resolves when playback starts
+            const playbackPromise = new Promise<void>((playbackResolve) => {
+              deps.loadMidi(midiBlob, playbackResolve);
+            });
+            // Wait for playback to start before resolving the main promise
+            playbackPromise.then(() => {
+              resolve();
+            });
           },
         );
       });

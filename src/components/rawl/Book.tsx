@@ -815,6 +815,11 @@ const Book = () => {
     setLoadingSnippets((prev) => new Set([...prev, slug]));
     try {
       await appContext.handleSongClick(slug);
+      // If the snippet has secondsSpan, seek to (secondsSpan - 1) seconds
+      if (snippet.secondsSpan) {
+        const seekPosition = Math.max(0, (snippet.secondsSpan[0] - 1) * 1000); // Convert to milliseconds
+        appContext.seek(seekPosition);
+      }
     } finally {
       setLoadingSnippets((prev) => {
         const next = new Set(prev);

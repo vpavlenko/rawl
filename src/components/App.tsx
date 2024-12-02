@@ -699,7 +699,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     );
   };
 
-  loadMidi = (midiBlob: Blob) => {
+  loadMidi = (midiBlob: Blob, playbackStartedCallback?: () => void) => {
     console.log("loadMidi called with blob:", midiBlob);
 
     if (this.midiPlayer) {
@@ -710,6 +710,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
         .then((arrayBuffer) => {
           const transformedBuffer = transformMidi(new Uint8Array(arrayBuffer));
 
+          this.midiPlayer.setPlaybackStartedCallback(playbackStartedCallback);
           this.midiPlayer
             .loadData(transformedBuffer, this.state.currentMidi?.slug || "")
             .then((parsingResult) => {
@@ -1107,6 +1108,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
             currentMidi: this.state.currentMidi,
             setCurrentMidi: (currentMidi) => this.setState({ currentMidi }),
             user: this.state.user,
+            seek: this.seekForRawl,
           }}
         >
           <Switch>
@@ -1140,6 +1142,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           currentMidi: this.state.currentMidi,
           setCurrentMidi: (currentMidi) => this.setState({ currentMidi }),
           user: this.state.user,
+          seek: this.seekForRawl,
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>
@@ -1203,7 +1206,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     />
                   )}
               </div>
-              {location.pathname !== "/" && (
+              {
                 <AppFooter
                   currentSongDurationMs={this.state.currentSongDurationMs}
                   ejected={this.state.ejected}
@@ -1219,7 +1222,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   tempo={this.state.tempo}
                   setTempo={this.handleTempoChange}
                 />
-              )}
+              }
               <Modal
                 isOpen={this.state.showShortcutHelp}
                 onRequestClose={this.toggleShortcutHelp}

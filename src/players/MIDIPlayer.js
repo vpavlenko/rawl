@@ -348,8 +348,15 @@ export default class MIDIPlayer extends Player {
     // Checking filepath doesn't work for dragged files. Force to true during development.
     const useTrackLoops = filepath.includes("SoundFont MIDI");
     const result = this.midiFilePlayer.load(midiFile, useTrackLoops);
-    this.midiFilePlayer.play(() =>
-      this.emit("playerStateUpdate", { isStopped: true }),
+    this.midiFilePlayer.play(
+      () => this.emit("playerStateUpdate", { isStopped: true }),
+      () => {
+        this.emit("playerStateUpdate", { isPlaying: true });
+        if (this.playbackStartedCallback) {
+          this.playbackStartedCallback();
+          this.playbackStartedCallback = null;
+        }
+      },
     );
 
     this.activeChannels = [];
@@ -628,5 +635,9 @@ export default class MIDIPlayer extends Player {
     this.stop();
     this.midiFilePlayer.reset();
     this.emit("playerStateUpdate", { isStopped: true });
+  }
+
+  setPlaybackStartedCallback(callback) {
+    this.playbackStartedCallback = callback;
   }
 }

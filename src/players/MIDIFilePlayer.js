@@ -193,7 +193,7 @@ MIDIPlayer.prototype.doSkipSilence = function () {
   }
 };
 
-MIDIPlayer.prototype.play = function (endCallback) {
+MIDIPlayer.prototype.play = function (endCallback, playbackStartedCallback) {
   if (0 === this.position) {
     this.endCallback = endCallback;
     this.reset();
@@ -204,6 +204,10 @@ MIDIPlayer.prototype.play = function (endCallback) {
     }
 
     this.resume();
+    if (playbackStartedCallback) {
+      // Call the callback on the next tick to ensure playback has started
+      setTimeout(playbackStartedCallback, 0);
+    }
     return 1;
   }
   return 0;

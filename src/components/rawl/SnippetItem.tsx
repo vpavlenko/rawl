@@ -171,18 +171,14 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     if (
       !isCurrentlyPlaying ||
       !snippet.secondsSpan ||
-      appContext.currentPlaybackTime === null
+      appContext.currentPlaybackTime === null ||
+      appContext.currentPlaybackTime < snippet.secondsSpan[0]
     ) {
       return null;
     }
 
     const [start, end] = snippet.secondsSpan;
     const currentTime = appContext.currentPlaybackTime;
-
-    if (currentTime < start || currentTime > end) {
-      console.log("Time out of range:", { currentTime, start, end });
-      return null;
-    }
 
     // Calculate position as a percentage of the time range
     const timeProgress = (currentTime - start) / (end - start);

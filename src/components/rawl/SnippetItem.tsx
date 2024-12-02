@@ -56,12 +56,13 @@ const PlaybackCursor = styled.div`
   height: 100%;
   background-color: #ff6b00;
   pointer-events: none;
-  transition: left 0.5s linear;
+  transition: transform 0.74s linear;
   z-index: 9999;
   opacity: 0.8;
   top: 0;
-  will-change: left;
-  transform: translateZ(0);
+  left: 0;
+  will-change: transform;
+  transform: translateX(0);
   backface-visibility: hidden;
 `;
 
@@ -230,7 +231,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
         {cursorPosition !== null && (
           <PlaybackCursor
             style={{
-              left: `${cursorPosition}px`,
+              transform: `translateX(${cursorPosition}px)`,
             }}
           />
         )}

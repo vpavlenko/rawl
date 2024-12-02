@@ -569,7 +569,11 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     const bookIndexSnippet = analysis.snippets.find((s) =>
       s.tag.startsWith("book:index"),
     );
-    if (bookIndexSnippet && bookIndexSnippet.measuresSpan) {
+    if (
+      bookIndexSnippet &&
+      bookIndexSnippet.measuresSpan &&
+      !bookIndexSnippet.secondsSpan
+    ) {
       const [startMeasure, endMeasure] = bookIndexSnippet.measuresSpan;
       const startTime = measuresAndBeats.measures[startMeasure - 1];
       const endTime = measuresAndBeats.measures[endMeasure];

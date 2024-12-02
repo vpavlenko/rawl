@@ -17,6 +17,8 @@ const SnippetItemWrapper = styled.div<{
   flex: 0 0 auto;
   margin-bottom: ${(props) => (props.isPreview ? "0px" : "20px")};
   position: relative;
+  height: 100%;
+  display: flex;
 
   ${(props) =>
     props.isLoading &&
@@ -40,18 +42,18 @@ const SnippetItemWrapper = styled.div<{
       position: absolute;
       top: 50%;
       left: 50%;
+      transform: translate(-50%, -50%);
       width: 20px;
       height: 20px;
-      margin: -10px 0 0 -10px;
       border: 2px solid #fff;
       border-top-color: transparent;
       border-radius: 50%;
       z-index: 10001;
-      animation: spinner 0.6s linear infinite;
+      animation: spinner 1s linear infinite;
     }
     
     @keyframes spinner {
-      to {transform: rotate(360deg);}
+      to {transform: translate(-50%, -50%) rotate(360deg);}
     }
   `}
 `;

@@ -26,6 +26,7 @@ export type AppContextType = {
   setCurrentMidi: (currentMidi: CurrentMidi) => void;
   user: User | null;
   seek: (seekMs: number) => void;
+  currentPlaybackTime: number | null;
 };
 
 export const AppContext = React.createContext<AppContextType | undefined>(

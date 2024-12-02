@@ -106,6 +106,7 @@ type AppState = {
   } | null;
   audioContextLocked: boolean;
   audioContextState: string;
+  currentPlaybackTime: number | null;
 };
 
 export interface FirestoreMidiIndex {
@@ -146,6 +147,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private droppedFilename: string;
   private keyboardHandlers: Map<string, KeyboardHandler> = new Map();
   private audioContext: AudioContext;
+  private playbackTimer: NodeJS.Timeout;
 
   constructor(props) {
     super(props);
@@ -220,6 +222,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       currentMidi: null,
       audioContextLocked: this.audioContext.state === "suspended",
       audioContextState: this.audioContext.state,
+      currentPlaybackTime: null,
     };
 
     const bufferSize = Math.max(
@@ -1000,6 +1003,30 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }
   };
 
+  // Add this method to update playback time
+  updatePlaybackTime = () => {
+    if (this.midiPlayer && this.midiPlayer.isPlaying()) {
+      const positionMs = this.midiPlayer.getPositionMs();
+      console.log("Position update:", {
+        positionMs,
+        positionSec: positionMs / 1000,
+      });
+      this.setState({ currentPlaybackTime: positionMs / 1000 });
+    }
+  };
+
+  componentDidMount() {
+    // Start the playback time update timer with a longer interval
+    this.playbackTimer = setInterval(this.updatePlaybackTime, 100); // Update every 100ms instead of 50ms
+  }
+
+  componentWillUnmount() {
+    // Clear the playback timer
+    if (this.playbackTimer) {
+      clearInterval(this.playbackTimer);
+    }
+  }
+
   render() {
     const { location } = this.props;
     const rawlProps: RawlProps = {
@@ -1109,6 +1136,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
             setCurrentMidi: (currentMidi) => this.setState({ currentMidi }),
             user: this.state.user,
             seek: this.seekForRawl,
+            currentPlaybackTime: this.state.currentPlaybackTime || null,
           }}
         >
           <Switch>
@@ -1143,6 +1171,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           setCurrentMidi: (currentMidi) => this.setState({ currentMidi }),
           user: this.state.user,
           seek: this.seekForRawl,
+          currentPlaybackTime: this.state.currentPlaybackTime || null,
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>

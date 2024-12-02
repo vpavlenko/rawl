@@ -1,5 +1,6 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useContext, useMemo } from "react";
 import styled from "styled-components";
+import { AppContext } from "../AppContext";
 import { Snippet, rehydrateSnippet } from "./analysis";
 import EnhancedFrozenNotes from "./FrozenNotes";
 
@@ -49,6 +50,21 @@ const DeleteButton = styled.button`
   }
 `;
 
+const PlaybackCursor = styled.div`
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background-color: #ff6b00;
+  pointer-events: none;
+  transition: left 0.5s linear;
+  z-index: 9999;
+  opacity: 0.8;
+  top: 0;
+  will-change: left;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+`;
+
 interface SnippetItemProps {
   snippet: Snippet;
   index: number;
@@ -64,6 +80,9 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
   noteHeight,
   isPreview = false,
 }) => {
+  const appContext = useContext(AppContext);
+  const { currentMidi } = appContext;
+
   const { rehydratedNotes, rehydratedAnalysis, rehydratedMeasuresAndBeats } =
     useMemo(() => rehydrateSnippet(snippet), [snippet]);
 
@@ -130,6 +149,60 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     [timeRange, containerWidth],
   );
 
+  const isCurrentlyPlaying = useMemo(() => {
+    const snippetSlug = (snippet as any).composerSlug;
+    if (!currentMidi || !snippet.secondsSpan) return false;
+
+    const isPlaying = currentMidi.slug === snippetSlug;
+    if (isPlaying && appContext.currentPlaybackTime !== null) {
+      console.log("Playing snippet:", {
+        tag: snippet.tag,
+        timeRange: snippet.secondsSpan,
+        currentTime: appContext.currentPlaybackTime,
+        snippetSlug,
+        currentMidiSlug: currentMidi.slug,
+      });
+    }
+    return isPlaying;
+  }, [currentMidi, snippet, appContext.currentPlaybackTime]);
+
+  const cursorPosition = useMemo(() => {
+    if (
+      !isCurrentlyPlaying ||
+      !snippet.secondsSpan ||
+      appContext.currentPlaybackTime === null
+    ) {
+      return null;
+    }
+
+    const [start, end] = snippet.secondsSpan;
+    const currentTime = appContext.currentPlaybackTime;
+
+    if (currentTime < start || currentTime > end) {
+      console.log("Time out of range:", { currentTime, start, end });
+      return null;
+    }
+
+    // Calculate position as a percentage of the time range
+    const timeProgress = (currentTime - start) / (end - start);
+    const xPos = timeProgress * containerWidth;
+
+    console.log("Cursor calculation:", {
+      currentTime,
+      timeRange: snippet.secondsSpan,
+      timeProgress,
+      xPos,
+      containerWidth,
+    });
+
+    return xPos;
+  }, [
+    isCurrentlyPlaying,
+    snippet.secondsSpan,
+    appContext.currentPlaybackTime,
+    containerWidth,
+  ]);
+
   return (
     <SnippetItemContainer width={containerWidth} isPreview={isPreview}>
       {!isPreview && (
@@ -153,7 +226,14 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
           )}
         </SnippetHeader>
       )}
-      <SnippetContent>
+      <SnippetContent style={{ position: "relative" }}>
+        {cursorPosition !== null && (
+          <PlaybackCursor
+            style={{
+              left: `${cursorPosition}px`,
+            }}
+          />
+        )}
         <EnhancedFrozenNotes
           notes={rehydratedNotes}
           midiNumberToY={snippetMidiNumberToY}

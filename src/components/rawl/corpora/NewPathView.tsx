@@ -261,7 +261,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({
   const handleTopicSelect = (topic: string) => {
     const chapter = chapterData[activeChapter].chapter;
     history.push(
-      `/s/${encodeURIComponent(chapter)}/${encodeURIComponent(topic)}`,
+      `/s/${encodeURIComponent(chapter)}#${encodeURIComponent(topic)}`,
     );
     topicRefs.current[topic]?.scrollIntoView({
       behavior: "smooth",
@@ -329,7 +329,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({
       <StickyTopicTitle
         to={`/s/${encodeURIComponent(
           chapterData[activeChapter].chapter,
-        )}/${encodeURIComponent(topic)}`}
+        )}#${encodeURIComponent(topic)}`}
         id={topic}
         ref={(el: HTMLAnchorElement | null) => {
           if (el) {

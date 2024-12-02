@@ -12,8 +12,6 @@ const AppHeader: React.FC = () => {
         <div className="octocat" />
       </a>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <a href="/book">Book</a>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <a href="https://vpavlenko.github.io/layouts">Layouts</a>
     </header>
   );

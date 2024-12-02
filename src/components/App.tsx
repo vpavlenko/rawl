@@ -1091,8 +1091,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     );
 
     // Check if the current route should render NewPathView
-    const isNewPathViewRoute =
-      location.pathname === "/" || location.pathname.startsWith("/s/");
+    const isNewPathViewRoute = location.pathname.startsWith("/s/");
 
     if (isNewPathViewRoute) {
       return (
@@ -1112,7 +1111,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
         >
           <Switch>
             <Route
-              path="/"
+              path="/s/"
               exact
               render={() => <NewPathView analyses={this.state.analyses} />}
             />
@@ -1163,8 +1162,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 playerError={this.state.playerError}
                 showPlayerError={this.state.showPlayerError}
               />
-              {location.pathname !== "/" &&
-                !location.pathname.startsWith("/s/") && <AppHeader />}
+              {!location.pathname.startsWith("/s/") && <AppHeader />}
               <div className="App-main">
                 <div className="App-main-inner">
                   <div className="App-main-content-and-settings">
@@ -1184,7 +1182,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                         <Route path="/pirate" render={() => <Pirate />} />
                         {browseRoute}
                         {rawlRoute}
-                        <Route path="/book" component={BookLayout} />
+                        <Route path="/" component={BookLayout} />
                       </Switch>
                     </div>
                   </div>

@@ -1,6 +1,7 @@
 import {
   faArrowUpRightFromSquare,
   faLink,
+  faList,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
@@ -52,6 +53,17 @@ const CompositionTitle: React.FC<CompositionTitleProps> = ({
   const searchQuery = encodeURIComponent(formattedTitle);
   const museScoreUrl = `https://musescore.com/sheetmusic?sort=view_count&text=${searchQuery}`;
 
+  const badgeStyle = {
+    container: {
+      fontSize: "0.9em",
+      letterSpacing: "0.05em",
+      marginLeft: "8px",
+      color: "#ddd",
+    } as const,
+    icon: faList,
+    iconColor: "#ddd",
+  };
+
   return (
     <div
       style={{
@@ -72,29 +84,6 @@ const CompositionTitle: React.FC<CompositionTitleProps> = ({
           />
         ) : (
           formattedTitle
-        )}
-        {relatedCorpora.length > 0 && (
-          <span style={{ fontWeight: "normal", marginLeft: "10px" }}>
-            (
-            {relatedCorpora.map((corpus, index) => (
-              <React.Fragment key={corpus}>
-                {index > 0 && ", "}
-                <Link
-                  to={`/corpus/${corpus}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: "inherit",
-                    textDecoration: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  {corpus.replace(/_/g, " ")}
-                </Link>
-              </React.Fragment>
-            ))}
-            )
-          </span>
         )}
         {sourceUrl ? (
           <a
@@ -146,6 +135,36 @@ const CompositionTitle: React.FC<CompositionTitleProps> = ({
               <FontAwesomeIcon icon={faLink} />
             </a>
           </>
+        )}
+
+        {relatedCorpora.length > 0 && (
+          <span style={{ marginLeft: "20px" }}>
+            <span style={{ fontWeight: "normal", marginLeft: "10px" }}>
+              {relatedCorpora.map((corpus, index) => (
+                <Link
+                  key={corpus}
+                  to={`/corpus/${corpus}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    ...badgeStyle.container,
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={badgeStyle.icon}
+                    style={{
+                      width: "12px",
+                      marginRight: "6px",
+                      color: badgeStyle.iconColor,
+                    }}
+                  />
+                  {corpus.replace(/_/g, " ")}
+                </Link>
+              ))}
+            </span>
+          </span>
         )}
       </h1>
     </div>

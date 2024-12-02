@@ -115,13 +115,9 @@ const ChordContent = styled.div`
 
 const ChordName = styled.div`
   width: ${NOTE_WIDTH}px;
-  height: 20px;
-  font-size: 20px;
   display: flex;
   justify-content: center;
   text-align: center;
-  padding: 2px 4px;
-  border-radius: 4px;
   position: absolute;
 `;
 

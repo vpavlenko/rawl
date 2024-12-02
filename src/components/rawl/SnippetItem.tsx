@@ -217,7 +217,9 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     <SnippetItemContainer
       width={containerWidth}
       isPreview={isPreview}
-      isPreviewWithoutTime={isPreview && snippet.secondsSpan === undefined}
+      isPreviewWithoutTime={
+        false && isPreview && snippet.secondsSpan === undefined
+      }
     >
       {!isPreview && (
         <SnippetHeader>

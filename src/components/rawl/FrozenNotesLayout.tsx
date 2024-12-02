@@ -248,6 +248,19 @@ const countTagOccurrences = (
   return tagCounts;
 };
 
+const MeasureTimesContainer = styled.div`
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+`;
+
+const MeasureTimesList = styled.pre`
+  font-size: 12px;
+  color: #888;
+  white-space: pre-wrap;
+  word-break: break-all;
+`;
+
 const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
   frozenNotes,
   measuresAndBeats,
@@ -651,6 +664,22 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
         <CopyIndicator visible={copyIndicatorVisible}>
           {copyIndicatorVisible ? "Snippet saved!" : "Copied to clipboard!"}
         </CopyIndicator>
+
+        <MeasureTimesContainer>
+          <h3>Measure Start Times (seconds)</h3>
+          <MeasureTimesList>
+            {JSON.stringify(
+              Object.fromEntries(
+                measuresAndBeats.measures.map((time, index) => [
+                  index + 1,
+                  time.toFixed(3),
+                ]),
+              ),
+              null,
+              2,
+            )}
+          </MeasureTimesList>
+        </MeasureTimesContainer>
       </Container>
     </ErrorBoundary>
   );

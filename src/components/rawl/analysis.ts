@@ -38,6 +38,7 @@ export interface Snippet {
   tag: string;
   frozenNotes: FrozenNotesType;
   measuresSpan: [number, number];
+  secondsSpan?: SecondsSpan;
 }
 
 export type MidiNumberToNoteSpans = {

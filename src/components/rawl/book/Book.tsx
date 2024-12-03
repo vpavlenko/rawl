@@ -21,7 +21,7 @@ const BookContainer = styled.div`
 const Title = styled.h1``;
 
 const ChordStairsWrapper = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 50px;
   margin-top: 50px;
   margin-left: 0px;
   transform: scale(0.9);
@@ -63,8 +63,8 @@ const ComposerWrapper = styled.div`
 `;
 
 const SnippetContainer = styled.div`
-  margin-top: 200px;
-  margin-bottom: 200px;
+  margin-top: 0px;
+  margin-bottom: 30px;
 `;
 
 const MoreSection = styled.div`

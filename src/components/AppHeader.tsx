@@ -13,6 +13,8 @@ const AppHeader: React.FC = () => {
       </a>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <a href="https://vpavlenko.github.io/layouts">Layouts</a>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="/s/">Structures & corpora</a>
     </header>
   );
 };

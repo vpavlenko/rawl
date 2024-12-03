@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import ChordStairs from "../ChordStairs";
+import { PianoLegend } from "../PianoLegend";
 import SnippetList from "../SnippetList";
 import { Snippet } from "../analysis";
 import { TOP_100_COMPOSERS } from "../top100Composers";
@@ -201,92 +202,106 @@ const Book = () => {
       (group) => group[0].chapter === selectedChapter,
     );
 
-    return filteredGroups.map((group, groupIndex) => (
-      <div key={`group-${groupIndex}`}>
-        {group[0].mode && (
-          <ChordStairsWrapper>
-            <ChordStairs mode={group[0].mode} />
-          </ChordStairsWrapper>
-        )}
-        <GroupContainer>
-          <ComposersGrid>
-            {group
-              .filter(
-                (item) =>
-                  analyses[`f/${item.slug}`]?.snippets?.some(
-                    (s) => s.tag === "book:index",
-                  ),
-              )
-              .map((item) => {
-                const { slug, composer, displayTitle } = item;
-                const snippets = (analyses[`f/${item.slug}`]?.snippets || [])
-                  .filter((snippet) => snippet.tag === "book:index")
-                  .map((snippet) => ({ ...snippet, composerSlug: slug }));
-
-                return (
-                  <ComposerItem key={slug}>
-                    <ComposerWrapper>
-                      <ComposerLink
-                        href={`/f/${slug}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <ComposerTitle
-                          composer={composer}
-                          displayTitle={displayTitle}
-                        />
-                      </ComposerLink>
-                    </ComposerWrapper>
-                    <SnippetContainer>
-                      <SnippetList
-                        snippets={snippets}
-                        noteHeight={3}
-                        isPreview={true}
-                        onSnippetClick={handleSnippetClick}
-                        loadingSnippets={loadingSnippets}
-                      />
-                    </SnippetContainer>
-                  </ComposerItem>
-                );
-              })}
-          </ComposersGrid>
-
-          {group.filter(
-            (item) =>
-              !analyses[`f/${item.slug}`]?.snippets?.some(
-                (s) => s.tag === "book:index",
-              ),
-          ).length > 0 && (
-            <>
-              <MoreSection>More:</MoreSection>
-              <ComposerList>
+    return (
+      <>
+        {filteredGroups.map((group, groupIndex) => (
+          <div key={`group-${groupIndex}`}>
+            {group[0].mode && (
+              <ChordStairsWrapper>
+                <ChordStairs
+                  mode={group[0].mode}
+                  {...(selectedChapter === "Intro" ? { currentTonic: 5 } : {})}
+                />
+              </ChordStairsWrapper>
+            )}
+            <GroupContainer>
+              <ComposersGrid>
                 {group
                   .filter(
                     (item) =>
-                      !analyses[`f/${item.slug}`]?.snippets?.some(
+                      analyses[`f/${item.slug}`]?.snippets?.some(
                         (s) => s.tag === "book:index",
                       ),
                   )
-                  .map(({ slug, composer, displayTitle }) => (
-                    <ComposerListItem key={slug}>
-                      <ComposerLink
-                        href={`/f/${slug}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <ComposerTitle
-                          composer={composer}
-                          displayTitle={displayTitle}
-                        />
-                      </ComposerLink>
-                    </ComposerListItem>
-                  ))}
-              </ComposerList>
-            </>
-          )}
-        </GroupContainer>
-      </div>
-    ));
+                  .map((item) => {
+                    const { slug, composer, displayTitle } = item;
+                    const snippets = (
+                      analyses[`f/${item.slug}`]?.snippets || []
+                    )
+                      .filter((snippet) => snippet.tag === "book:index")
+                      .map((snippet) => ({ ...snippet, composerSlug: slug }));
+
+                    return (
+                      <ComposerItem key={slug}>
+                        <ComposerWrapper>
+                          <ComposerLink
+                            href={`/f/${slug}`}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <ComposerTitle
+                              composer={composer}
+                              displayTitle={displayTitle}
+                            />
+                          </ComposerLink>
+                        </ComposerWrapper>
+                        <SnippetContainer>
+                          <SnippetList
+                            snippets={snippets}
+                            noteHeight={3}
+                            isPreview={true}
+                            onSnippetClick={handleSnippetClick}
+                            loadingSnippets={loadingSnippets}
+                          />
+                        </SnippetContainer>
+                      </ComposerItem>
+                    );
+                  })}
+              </ComposersGrid>
+
+              {group.filter(
+                (item) =>
+                  !analyses[`f/${item.slug}`]?.snippets?.some(
+                    (s) => s.tag === "book:index",
+                  ),
+              ).length > 0 && (
+                <>
+                  <MoreSection>More:</MoreSection>
+                  <ComposerList>
+                    {group
+                      .filter(
+                        (item) =>
+                          !analyses[`f/${item.slug}`]?.snippets?.some(
+                            (s) => s.tag === "book:index",
+                          ),
+                      )
+                      .map(({ slug, composer, displayTitle }) => (
+                        <ComposerListItem key={slug}>
+                          <ComposerLink
+                            href={`/f/${slug}`}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <ComposerTitle
+                              composer={composer}
+                              displayTitle={displayTitle}
+                            />
+                          </ComposerLink>
+                        </ComposerListItem>
+                      ))}
+                  </ComposerList>
+                </>
+              )}
+            </GroupContainer>
+          </div>
+        ))}
+        {selectedChapter === "Intro" && (
+          <div style={{ marginTop: "40px" }}>
+            <PianoLegend currentTonic={5} />
+          </div>
+        )}
+      </>
+    );
   };
 
   return (

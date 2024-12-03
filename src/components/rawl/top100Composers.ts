@@ -498,6 +498,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Happy Birthday to You",
     order: 20,
     chapter: "Intro",
+    mode: MODES[1],
     chords: ["I", "IV", "V"],
     description:
       "Uses seven notes only. The simplest arrangement uses three chords. There are more complex arrangements in different styles",

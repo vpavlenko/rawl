@@ -81,6 +81,7 @@ const CopyIndicator = styled.div<{ visible: boolean }>`
   border-radius: 5px;
   opacity: ${(props) => (props.visible ? 1 : 0)};
   transition: opacity 0.3s;
+  z-index: 9999;
 `;
 
 const SnippetListContainer = styled.div`
@@ -262,6 +263,26 @@ const MeasureTimesList = styled.pre`
   word-break: break-all;
 `;
 
+const updateSnippetPhraseStarts = (
+  snippet: Snippet,
+  analysis: Analysis,
+  maxMeasures: number,
+): Snippet => {
+  if (!snippet.phraseStarts) {
+    const allPhraseStarts = getPhraseStarts(analysis, maxMeasures);
+    const snippetPhraseStarts = allPhraseStarts.filter(
+      (measure) =>
+        measure >= snippet.measuresSpan[0] &&
+        measure <= snippet.measuresSpan[1],
+    );
+    return {
+      ...snippet,
+      phraseStarts: snippetPhraseStarts,
+    };
+  }
+  return snippet;
+};
+
 const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
   frozenNotes,
   measuresAndBeats,
@@ -281,6 +302,8 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
   const [tagError, setTagError] = useState<string | null>(null);
   const [unsavedChanges, setUnsavedChanges] = useState(false);
   const [flashVisible, setFlashVisible] = useState(false);
+  const [phraseStartsUpdated, setPhraseStartsUpdated] =
+    useState<boolean>(false);
 
   const maxMeasure = measuresAndBeats?.measures.length || 1;
 
@@ -618,6 +641,35 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     }
   }, [analysis, measuresAndBeats, saveAnalysis]);
 
+  useEffect(() => {
+    if (phraseStartsUpdated || !analysis?.snippets || !measuresAndBeats) return;
+
+    const snippetsNeedingUpdate = analysis.snippets.filter(
+      (s) => !s.phraseStarts,
+    );
+
+    if (snippetsNeedingUpdate.length > 0) {
+      const maxMeasures = measuresAndBeats.measures.length;
+      const updatedSnippets = analysis.snippets.map((s) =>
+        updateSnippetPhraseStarts(s, analysis, maxMeasures),
+      );
+
+      // Only update if there are actual changes
+      if (
+        JSON.stringify(updatedSnippets) !== JSON.stringify(analysis.snippets)
+      ) {
+        saveAnalysis({
+          ...analysis,
+          snippets: updatedSnippets,
+        });
+
+        setCopyIndicatorVisible(true);
+        setTimeout(() => setCopyIndicatorVisible(false), 2000);
+        setPhraseStartsUpdated(true);
+      }
+    }
+  }, [analysis, measuresAndBeats, phraseStartsUpdated, saveAnalysis]);
+
   // Add this check after all hooks have been called
   if (!frozenNotes || !measuresAndBeats || !analysis) {
     return <div>Loading...</div>;
@@ -704,7 +756,13 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
         </SnippetListContainer>
 
         <CopyIndicator visible={copyIndicatorVisible}>
-          {copyIndicatorVisible ? "Snippet saved!" : "Copied to clipboard!"}
+          {phraseStartsUpdated
+            ? `phraseStarts updated for ${analysis.snippets
+                ?.filter((s) => !s.phraseStarts || s.phraseStarts.length === 0)
+                .map((s) => s.tag)
+                .filter(Boolean)
+                .join(", ")}`
+            : "Copied to clipboard!"}
         </CopyIndicator>
       </Container>
     </ErrorBoundary>

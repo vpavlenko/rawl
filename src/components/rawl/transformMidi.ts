@@ -39,10 +39,21 @@ function hasOnlyChannelZeroNotesAndAtLeastOne(track: MidiEvent[]): boolean {
   return hasChannelZeroNote; // Must have at least one note in channel 0
 }
 
-function transformMidi(inputData: Uint8Array): Uint8Array {
+function transformMidi(
+  inputData: Uint8Array,
+  _forcedPanning?: boolean,
+): Uint8Array {
+  // Read forcedPanning directly from localStorage, fallback to false if not set
+  const forcedPanning = localStorage.getItem("forcedPanning") === "true";
+  console.log(
+    "[transformMidi] forcedPanning from localStorage:",
+    forcedPanning,
+  );
+
   const midi: MidiData = parseMidi(inputData);
 
   if (midi.tracks.length !== 2) {
+    console.log("[transformMidi] skipping - not 2 tracks");
     return inputData;
   }
 
@@ -50,6 +61,7 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
     hasOnlyChannelZeroNotesAndAtLeastOne,
   );
   if (!bothTracksValid) {
+    console.log("[transformMidi] skipping - tracks not valid");
     return inputData;
   }
 
@@ -79,6 +91,20 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
     absoluteTime: 0,
   });
 
+  if (forcedPanning) {
+    console.log("[transformMidi] adding right hand panning");
+    // Add pan right (CC #10 = 127) for right hand
+    rightHandEvents.push({
+      type: "controller",
+      controllerType: 10,
+      value: 127,
+      deltaTime: 0,
+      channel: 0,
+      originalTrack: 0,
+      absoluteTime: 0,
+    });
+  }
+
   leftHandEvents.push({
     type: "trackName",
     text: "left hand",
@@ -87,6 +113,20 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
     originalTrack: 1,
     absoluteTime: 0,
   });
+
+  if (forcedPanning) {
+    console.log("[transformMidi] adding left hand panning");
+    // Add pan left (CC #10 = 0) for left hand
+    leftHandEvents.push({
+      type: "controller",
+      controllerType: 10,
+      value: 0,
+      deltaTime: 0,
+      channel: 1,
+      originalTrack: 1,
+      absoluteTime: 0,
+    });
+  }
 
   let rightHandLastEventTime = 0;
   let leftHandLastEventTime = 0;
@@ -107,6 +147,16 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
         leftHandLastEventTime = event.absoluteTime;
       }
     } else {
+      // Skip any existing pan control messages only when forced panning is enabled
+      if (
+        forcedPanning &&
+        event.type === "controller" &&
+        event.controllerType === 10
+      ) {
+        console.log("[transformMidi] skipping existing pan event:", event);
+        return;
+      }
+
       // Meta and control events are copied to both tracks
       const deltaTimeRight = event.absoluteTime - rightHandLastEventTime;
       const deltaTimeLeft = event.absoluteTime - leftHandLastEventTime;

@@ -12,34 +12,32 @@ type EnhancedSnippet = Snippet & {
 };
 
 const BookContainer = styled.div`
-  width: 95%;
+  width: 97%;
   padding: 20px;
   color: #ddd;
   margin: 0 auto;
 `;
 
-const Title = styled.h1``;
+const Title = styled.h1`
+  font-size: 30px;
+`;
 
 const ChordStairsWrapper = styled.div`
-  margin-bottom: 50px;
-  margin-top: 50px;
   transform: scale(0.9);
   position: sticky;
-  top: 20px;
+  top: 0px;
   width: fit-content;
   z-index: 1000000;
   background: black;
   float: right;
   margin-left: 20px;
+  padding: 10px;
+  border: 0.5px solid #666;
 `;
 
 const GroupContainer = styled.div`
   margin-bottom: 80px;
-  clear: both;
-`;
-
-const ChapterTitle = styled.h2`
-  margin: 0 0 10px 0;
+  // clear: both;
 `;
 
 const ComposersGrid = styled.div`
@@ -205,9 +203,11 @@ const Book = () => {
 
     return filteredGroups.map((group, groupIndex) => (
       <div key={`group-${groupIndex}`}>
-        <ChordStairsWrapper>
-          {group[0].mode && <ChordStairs mode={group[0].mode} />}
-        </ChordStairsWrapper>
+        {group[0].mode && (
+          <ChordStairsWrapper>
+            <ChordStairs mode={group[0].mode} />
+          </ChordStairsWrapper>
+        )}
         <GroupContainer>
           <ComposersGrid>
             {group

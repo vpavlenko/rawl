@@ -6,7 +6,9 @@ import {
   MARIO_CADENCE,
   MINOR_WITH_V,
   Mode,
+  MODES,
   NATURAL_MINOR,
+  ONE_FLAT_SIX_FIVE,
   SIX_MAJOR_TRIADS,
   V_of_V,
 } from "./ChordStairs";
@@ -38,7 +40,9 @@ export const TOP_100_COMPOSERS: {
     slug: "Canon_in_D",
     composer: "Johann Pachelbel",
     displayTitle: "Canon in D major",
-    order: 1000,
+    chapter: "Functional major",
+    order: 895,
+    mode: MODES[1],
   },
   {
     slug: "Clair_de_Lune__Debussy",
@@ -132,6 +136,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Perfect",
     order: 300,
     chapter: "A mix of progressions in major",
+    mode: SIX_MAJOR_TRIADS,
   },
   {
     slug: "Liebestraum_No._3_in_A_Major",
@@ -264,7 +269,6 @@ export const TOP_100_COMPOSERS: {
     composer: "Christina Perri",
     displayTitle: "A Thousand Years",
     order: 900,
-    chapter: "Functional major",
   },
   {
     slug: "John_Lennon_Imagine",
@@ -527,6 +531,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Lux Aeterna (from Requiem for a Dream)",
     order: 1200,
     chapter: "i ♭VI V",
+    mode: ONE_FLAT_SIX_FIVE,
     chords: ["i", "bVI", "V"],
   },
 

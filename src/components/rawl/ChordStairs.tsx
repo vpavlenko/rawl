@@ -128,7 +128,7 @@ export const MODES: Mode[] = [
     title: "minor",
     chords: ["iiø7", "iv", "bVI", "i", "bIII", "v", "V", "V7", "bVII"],
   },
-  { title: "major", chords: ["ii", "IV", "vi", "I", "iii", "V", "V7", "viio"] },
+  { title: "major", chords: ["ii", "IV", "vi", "I", "iii", "V", "V7"] },
   {
     title: "chromatic",
     chords: [
@@ -148,6 +148,11 @@ export const MODES: Mode[] = [
 export const JAZZ_MODE: Mode = {
   title: "jazz",
   chords: ["ii7", "iiø7", "V7", "Imaj7", "i7"],
+};
+
+export const ONE_FLAT_SIX_FIVE: Mode = {
+  title: "",
+  chords: ["bVI", "i", "V"],
 };
 
 export const SIX_MAJOR_TRIADS: Mode = {

@@ -107,19 +107,15 @@ const ChapterSelector = styled.div`
 `;
 
 const ChapterButton = styled.button<{ isSelected: boolean }>`
-  background: ${(props) =>
-    props.isSelected ? "rgba(255, 255, 255, 0.2)" : "transparent"};
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: ${(props) => (props.isSelected ? "#fff" : "#ddd")};
-  padding: 8px 16px;
+  background: ${(props) => (props.isSelected ? "white" : "black")};
+  color: ${(props) => (props.isSelected ? "black" : "white")};
   border-radius: 20px;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.2s ease;
+  box-sizing: border-box;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    box-shadow: 0 0 0px 1px ${(props) => (props.isSelected ? "black" : "white")};
   }
 `;
 
@@ -184,7 +180,6 @@ const Book = () => {
         uniqueChapters.add(composer.chapter);
       }
     });
-    // Add "About This Selection" as the last chapter
     uniqueChapters.add("About This Selection");
     return Array.from(uniqueChapters);
   }, []);
@@ -220,8 +215,6 @@ const Book = () => {
           {group[0].mode && <ChordStairs mode={group[0].mode} />}
         </ChordStairsWrapper>
         <GroupContainer>
-          {group[0].chapter && <ChapterTitle>{group[0].chapter}</ChapterTitle>}
-
           <ComposersGrid>
             {group
               .filter(

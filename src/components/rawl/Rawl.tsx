@@ -11,6 +11,7 @@ import {
   useState,
 } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { playRawMidiNote } from "../../sampler/sampler";
 import { VoiceMask } from "../App";
 import { AppContext } from "../AppContext";
 import ErrorBoundary from "../ErrorBoundary";
@@ -184,14 +185,28 @@ const Rawl: React.FC<RawlProps> = ({
   const allNotes = useMemo(() => notes.flat(), [notes]);
 
   const [hoveredNote, setHoveredNote] = useState<Note | null>(null);
+
+  const playNote = useCallback((note: Note) => {
+    const duration = note.span[1] - note.span[0];
+    playRawMidiNote(note.note.midiNumber, duration * 1000);
+  }, []);
+
   const handleMouseEnter = useCallback(
     (note: Note) => {
-      if (!enableManualRemeasuring && selectedMeasureRef.current) {
-        setHoveredNote(note);
+      if (!enableManualRemeasuring) {
+        if (selectedMeasureRef.current) {
+          setHoveredNote(note);
+        } else if (
+          window.event instanceof MouseEvent &&
+          window.event.shiftKey
+        ) {
+          playNote(note);
+        }
       }
     },
-    [enableManualRemeasuring],
+    [enableManualRemeasuring, playNote],
   );
+
   const handleMouseLeave = useCallback(() => {
     if (!enableManualRemeasuring) {
       setHoveredNote(null);
@@ -348,16 +363,20 @@ const Rawl: React.FC<RawlProps> = ({
 
   const handleNoteClick = useCallback(
     (note: Note) => {
-      advanceAnalysis(
-        note,
-        selectedMeasureRef.current,
-        enableManualRemeasuring,
-        setSelectedMeasure,
-        analysisRef.current,
-        commitAnalysisUpdate,
-      );
+      if (selectedMeasureRef.current) {
+        advanceAnalysis(
+          note,
+          selectedMeasureRef.current,
+          enableManualRemeasuring,
+          setSelectedMeasure,
+          analysisRef.current,
+          commitAnalysisUpdate,
+        );
+      } else {
+        playNote(note);
+      }
     },
-    [enableManualRemeasuring, commitAnalysisUpdate],
+    [enableManualRemeasuring, commitAnalysisUpdate, playNote],
   );
 
   const [positionMs, setPositionMs] = useState(0);
@@ -655,6 +674,11 @@ const Rawl: React.FC<RawlProps> = ({
           )}
         </div>
         {!isEmbedded && <LayoutSelector setSystemLayout={setSystemLayout} />}
+      </div>
+      <div style={{ color: "gray" }}>
+        Shift+hover or click the note to play it separately
+        <br />
+        Press "Space" to play/pause
       </div>
     </div>
   );

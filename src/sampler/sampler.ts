@@ -169,7 +169,7 @@ export const playArpeggiatedChord = async (chordNumbers: number[]) => {
 
   // 2. Clear all scheduled events
   activeEvents.forEach((id) => Tone.Transport.clear(id));
-  Tone.Transport.cancel(); // Belt and suspenders approach - clear everything
+  Tone.Transport.cancel();
 
   // 3. Reset our tracking arrays
   activeEvents = [];
@@ -199,6 +199,31 @@ export const playArpeggiatedChord = async (chordNumbers: number[]) => {
 
     activeEvents.push(eventId);
   });
+};
+
+// Add new function for playing raw MIDI notes
+export const playRawMidiNote = async (midiNumber: number, duration: number) => {
+  await ensureSamplerLoaded();
+
+  sampler.releaseAll(0);
+  activeEvents.forEach((id) => Tone.Transport.clear(id));
+  Tone.Transport.cancel();
+
+  activeEvents = [];
+  activeNotes = [];
+
+  const noteName = Tone.Frequency(midiNumber, "midi").toNote();
+
+  if (Tone.Transport.state !== "started") {
+    Tone.Transport.start();
+  }
+
+  const eventId = Tone.Transport.schedule((time) => {
+    activeNotes.push(noteName);
+    sampler.triggerAttackRelease(noteName, duration / 1000, time);
+  }, Tone.Transport.seconds);
+
+  activeEvents.push(eventId);
 };
 
 // Add a cleanup function that can be called when needed (e.g., component unmount)

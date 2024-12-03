@@ -3,7 +3,11 @@ import { TOP_100_COMPOSERS } from "../top100Composers";
 
 const IntroText = () => {
   return (
-    <div style={{ maxWidth: "40em", marginTop: "180px" }}>
+    <div
+      style={{
+        width: "40em",
+      }}
+    >
       <h2>How did I pick the pieces?</h2>
       <p>
         I went through{" "}

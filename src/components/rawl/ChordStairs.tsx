@@ -3,7 +3,7 @@ import { useCallback, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { playArpeggiatedChord } from "../../sampler/sampler";
 
-const MARGIN_TOP = 40;
+const MARGIN_TOP = 0;
 
 export const CHORDS = {
   i: [0, 3, 7],
@@ -281,7 +281,7 @@ const ChordStairs: React.FC<{
   const height = maxPitch - rehydratedChords[0].pitches[0] + 1;
 
   // Calculate total height including margin top and text
-  const totalHeight = height * NOTE_HEIGHT + MARGIN_TOP + 40; // Add 40px for chord name text
+  const totalHeight = height * NOTE_HEIGHT + MARGIN_TOP; // Add 40px for chord name text
 
   const tonicChordPosition = filteredChords.findIndex((chord) =>
     /^(i|I)$/.test(chord),

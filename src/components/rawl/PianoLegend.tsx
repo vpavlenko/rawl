@@ -217,7 +217,7 @@ export const FoldablePianoLegend: React.FC<{
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: 50,
+              gap: 35,
               backgroundColor: "black",
               padding: 10,
               border: "1px solid #666",

@@ -19,6 +19,7 @@ export const TOP_100_COMPOSERS: {
   chords?: string[];
   displayTitle: string;
   mode?: Mode;
+  description?: string;
 }[] = [
   {
     slug: "river-flows-in-you",
@@ -494,6 +495,8 @@ export const TOP_100_COMPOSERS: {
     order: 20,
     chapter: "Intro",
     chords: ["I", "IV", "V"],
+    description:
+      "Uses seven notes only. The simplest arrangement uses three chords. There are more complex arrangements in different styles",
   },
   {
     slug: "flight-of-the-bumblebee",

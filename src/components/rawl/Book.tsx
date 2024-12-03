@@ -183,7 +183,7 @@ const Book = () => {
           style={{
             marginTop: "70px",
             marginBottom: "70px",
-            marginLeft: "150px",
+            marginLeft: "0px",
             transform: "scale(0.9)",
           }}
         >
@@ -191,19 +191,13 @@ const Book = () => {
         </div>
 
         {composerGroups.map((group, groupIndex) => {
-          const groupSnippets = group.flatMap((item) =>
-            (analyses[`f/${item.slug}`]?.snippets || [])
-              .filter((snippet) => snippet.tag === "book:index")
-              .map((snippet) => ({ ...snippet, composerSlug: item.slug })),
-          );
-
           return (
             <div key={`group-${groupIndex}`}>
               <div
                 style={{
                   marginBottom: "10px",
                   marginTop: "50px",
-                  marginLeft: "150px",
+                  marginLeft: "0px",
                   transform: "scale(0.9)",
                 }}
               >
@@ -211,85 +205,170 @@ const Book = () => {
               </div>
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "start",
-                  gap: "60px",
                   marginBottom: "80px",
                 }}
               >
-                <div>
-                  {group[0].chapter && (
-                    <>
-                      <h2 style={{ margin: "0 0 10px 0" }}>
-                        {group[0].chapter}
-                      </h2>
-                    </>
-                  )}
-                  <ul
-                    style={{
-                      listStyle: "none",
-                      paddingLeft: "0",
-                      margin: "0",
-                    }}
-                  >
-                    {group.map(({ slug, composer, displayTitle }) => (
-                      <li
-                        key={slug}
-                        style={{
-                          marginLeft: "0",
-                          whiteSpace: "nowrap",
-                          transition: "all 0.3s ease",
-                          textShadow:
-                            hoveredSlug === slug
-                              ? "0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)"
-                              : "none",
-                          padding: "4px 0px",
-                          borderRadius: "4px",
-                          backgroundColor:
-                            hoveredSlug === slug
-                              ? "rgba(255, 255, 255, 0.1)"
-                              : "transparent",
-                        }}
-                      >
-                        <a
-                          href={`/f/${slug}`}
-                          target="_blank"
-                          rel="noreferrer"
+                {group[0].chapter && (
+                  <h2 style={{ margin: "0 0 10px 0" }}>{group[0].chapter}</h2>
+                )}
+
+                {/* First show titles with snippets */}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "40px",
+                    marginBottom: "30px",
+                  }}
+                >
+                  {group
+                    .filter(
+                      (item) =>
+                        analyses[`f/${item.slug}`]?.snippets?.some(
+                          (s) => s.tag === "book:index",
+                        ),
+                    )
+                    .map((item) => {
+                      const { slug, composer, displayTitle } = item;
+                      const snippets = (
+                        analyses[`f/${item.slug}`]?.snippets || []
+                      )
+                        .filter((snippet) => snippet.tag === "book:index")
+                        .map((snippet) => ({ ...snippet, composerSlug: slug }));
+
+                      return (
+                        <div
+                          key={slug}
                           style={{
-                            color: hoveredSlug === slug ? "#fff" : "white",
-                            textDecoration: "none",
                             display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
+                            flexDirection: "column",
+                            gap: "10px",
                           }}
                         >
-                          <ComposerTitle
-                            composer={composer}
-                            displayTitle={displayTitle}
-                          />
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
+                          <div
+                            style={{
+                              transition: "all 0.3s ease",
+                              textShadow:
+                                hoveredSlug === slug
+                                  ? "0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)"
+                                  : "none",
+                              padding: "4px 0px",
+                              borderRadius: "4px",
+                              backgroundColor:
+                                hoveredSlug === slug
+                                  ? "rgba(255, 255, 255, 0.1)"
+                                  : "transparent",
+                            }}
+                          >
+                            <a
+                              href={`/f/${slug}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              style={{
+                                color: hoveredSlug === slug ? "#fff" : "white",
+                                textDecoration: "none",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px",
+                              }}
+                            >
+                              <ComposerTitle
+                                composer={composer}
+                                displayTitle={displayTitle}
+                              />
+                            </a>
+                          </div>
+                          <div
+                            style={{
+                              marginTop: "200px",
+                              marginBottom: "200px",
+                            }}
+                          >
+                            <SnippetList
+                              snippets={snippets}
+                              noteHeight={3}
+                              isPreview={true}
+                              onSnippetClick={handleSnippetClick}
+                              loadingSnippets={loadingSnippets}
+                              onSnippetHover={(snippet) =>
+                                setHoveredSlug(
+                                  snippet
+                                    ? (snippet as EnhancedSnippet).composerSlug
+                                    : null,
+                                )
+                              }
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
                 </div>
-                {groupSnippets.length > 0 && (
-                  <div>
-                    <SnippetList
-                      snippets={groupSnippets}
-                      noteHeight={3}
-                      isPreview={true}
-                      onSnippetClick={handleSnippetClick}
-                      loadingSnippets={loadingSnippets}
-                      onSnippetHover={(snippet) =>
-                        setHoveredSlug(
-                          snippet
-                            ? (snippet as EnhancedSnippet).composerSlug
-                            : null,
+
+                {/* Then show remaining titles */}
+                {group.filter(
+                  (item) =>
+                    !analyses[`f/${item.slug}`]?.snippets?.some(
+                      (s) => s.tag === "book:index",
+                    ),
+                ).length > 0 && (
+                  <>
+                    <div style={{ color: "#999", marginBottom: "10px" }}>
+                      More:
+                    </div>
+                    <ul
+                      style={{
+                        listStyle: "none",
+                        paddingLeft: "0",
+                        margin: "0",
+                      }}
+                    >
+                      {group
+                        .filter(
+                          (item) =>
+                            !analyses[`f/${item.slug}`]?.snippets?.some(
+                              (s) => s.tag === "book:index",
+                            ),
                         )
-                      }
-                    />
-                  </div>
+                        .map(({ slug, composer, displayTitle }) => (
+                          <li
+                            key={slug}
+                            style={{
+                              marginLeft: "0",
+                              whiteSpace: "nowrap",
+                              transition: "all 0.3s ease",
+                              textShadow:
+                                hoveredSlug === slug
+                                  ? "0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)"
+                                  : "none",
+                              padding: "4px 0px",
+                              borderRadius: "4px",
+                              backgroundColor:
+                                hoveredSlug === slug
+                                  ? "rgba(255, 255, 255, 0.1)"
+                                  : "transparent",
+                            }}
+                          >
+                            <a
+                              href={`/f/${slug}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              style={{
+                                color: hoveredSlug === slug ? "#fff" : "white",
+                                textDecoration: "none",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px",
+                              }}
+                            >
+                              <ComposerTitle
+                                composer={composer}
+                                displayTitle={displayTitle}
+                              />
+                            </a>
+                          </li>
+                        ))}
+                    </ul>
+                  </>
                 )}
               </div>
             </div>

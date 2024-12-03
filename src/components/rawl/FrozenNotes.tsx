@@ -121,7 +121,6 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           showTonalGrid={false}
           secondsToX={toX}
           sectionSpan={sectionSpan}
-          isPreview={isPreview}
         />
       </HeaderStaff>
       <div
@@ -144,7 +143,6 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           showTonalGrid={true}
           secondsToX={toX}
           sectionSpan={sectionSpan}
-          isPreview={isPreview}
         />
         <div
           style={{

@@ -48,24 +48,18 @@ const ComposerItem = styled.div`
   gap: 10px;
 `;
 
-const ComposerLink = styled.a<{ isHovered: boolean }>`
-  color: ${(props) => (props.isHovered ? "#fff" : "white")};
+const ComposerLink = styled.a`
+  color: white;
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 8px;
 `;
 
-const ComposerWrapper = styled.div<{ isHovered: boolean }>`
+const ComposerWrapper = styled.div`
   transition: all 0.3s ease;
-  text-shadow: ${(props) =>
-    props.isHovered
-      ? "0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)"
-      : "none"};
   padding: 4px 0px;
   border-radius: 4px;
-  background-color: ${(props) =>
-    props.isHovered ? "rgba(255, 255, 255, 0.1)" : "transparent"};
 `;
 
 const SnippetContainer = styled.div`
@@ -84,18 +78,12 @@ const ComposerList = styled.ul`
   margin: 0;
 `;
 
-const ComposerListItem = styled.li<{ isHovered: boolean }>`
+const ComposerListItem = styled.li`
   margin-left: 0;
   white-space: nowrap;
   transition: all 0.3s ease;
-  text-shadow: ${(props) =>
-    props.isHovered
-      ? "0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)"
-      : "none"};
   padding: 4px 0px;
   border-radius: 4px;
-  background-color: ${(props) =>
-    props.isHovered ? "rgba(255, 255, 255, 0.1)" : "transparent"};
 `;
 
 const ChapterSelector = styled.div`
@@ -137,7 +125,6 @@ const Book = () => {
   const [loadingSnippets, setLoadingSnippets] = React.useState<Set<string>>(
     new Set(),
   );
-  const [hoveredSlug, setHoveredSlug] = React.useState<string | null>(null);
   const [selectedChapter, setSelectedChapter] = React.useState<string>("Intro");
 
   // Handle snippet click with loading state
@@ -231,12 +218,11 @@ const Book = () => {
 
                 return (
                   <ComposerItem key={slug}>
-                    <ComposerWrapper isHovered={hoveredSlug === slug}>
+                    <ComposerWrapper>
                       <ComposerLink
                         href={`/f/${slug}`}
                         target="_blank"
                         rel="noreferrer"
-                        isHovered={hoveredSlug === slug}
                       >
                         <ComposerTitle
                           composer={composer}
@@ -251,13 +237,6 @@ const Book = () => {
                         isPreview={true}
                         onSnippetClick={handleSnippetClick}
                         loadingSnippets={loadingSnippets}
-                        onSnippetHover={(snippet) =>
-                          setHoveredSlug(
-                            snippet
-                              ? (snippet as EnhancedSnippet).composerSlug
-                              : null,
-                          )
-                        }
                       />
                     </SnippetContainer>
                   </ComposerItem>
@@ -282,15 +261,11 @@ const Book = () => {
                       ),
                   )
                   .map(({ slug, composer, displayTitle }) => (
-                    <ComposerListItem
-                      key={slug}
-                      isHovered={hoveredSlug === slug}
-                    >
+                    <ComposerListItem key={slug}>
                       <ComposerLink
                         href={`/f/${slug}`}
                         target="_blank"
                         rel="noreferrer"
-                        isHovered={hoveredSlug === slug}
                       >
                         <ComposerTitle
                           composer={composer}

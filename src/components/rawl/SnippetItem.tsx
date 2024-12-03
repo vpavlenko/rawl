@@ -69,7 +69,6 @@ const PlaybackCursor = styled.div`
   height: 100%;
   background-color: #ff6b00;
   pointer-events: none;
-  transition: transform 0.74s linear;
   z-index: 9999;
   opacity: 0.8;
   top: 0;
@@ -217,9 +216,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     <SnippetItemContainer
       width={containerWidth}
       isPreview={isPreview}
-      isPreviewWithoutTime={
-        false && isPreview && snippet.secondsSpan === undefined
-      }
+      isPreviewWithoutTime={isPreview && snippet.secondsSpan === undefined}
     >
       {!isPreview && (
         <SnippetHeader>
@@ -249,6 +246,10 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
           <PlaybackCursor
             style={{
               transform: `translateX(${cursorPosition}px)`,
+              transition:
+                appContext.currentPlaybackTime > snippet.secondsSpan[0]
+                  ? "transform 0.74s linear"
+                  : "none",
             }}
           />
         )}

@@ -59,7 +59,9 @@ const Corpus: React.FC<{
               marginBottom: "10px",
             }}
           >
-            {`${index + 1}. `}
+            <span style={{ marginRight: "0.3em", color: "gray" }}>{`${
+              index + 1
+            }. `}</span>
             <a
               href={`/f/${midiSlug}`}
               target="_blank"

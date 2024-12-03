@@ -93,8 +93,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       <div
         style={{
           position: "fixed",
-          bottom: 244,
-          right: -93,
+          bottom: 221,
+          right: -131,
           zIndex: 100000,
         }}
       >
@@ -126,8 +126,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       <div
         style={{
           position: "fixed",
-          bottom: 70,
-          right: 79,
+          bottom: 35,
+          right: 33,
           zIndex: 100000,
         }}
       >

@@ -207,7 +207,7 @@ export const FoldablePianoLegend: React.FC<{
   return (
     <div
       key="piano-legend"
-      style={{ position: "fixed", bottom: 90, right: 70, zIndex: 100000 }}
+      style={{ position: "fixed", bottom: 59, right: 36, zIndex: 100000 }}
     >
       {showLegend ? (
         <div>

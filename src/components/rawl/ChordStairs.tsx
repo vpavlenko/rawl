@@ -3,7 +3,7 @@ import { useCallback, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { playArpeggiatedChord } from "../../sampler/sampler";
 
-const MARGIN_TOP = 0;
+const MARGIN_TOP = 20;
 
 export const CHORDS = {
   i: [0, 3, 7],

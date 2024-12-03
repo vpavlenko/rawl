@@ -19,6 +19,93 @@ const BookContainer = styled.div`
   margin: 0 auto;
 `;
 
+const Title = styled.h1``;
+
+const LegendWrapper = styled.div`
+  margin-top: 70px;
+  margin-bottom: 70px;
+  margin-left: 0px;
+  transform: scale(0.9);
+`;
+
+const ChordStairsWrapper = styled.div`
+  margin-bottom: 10px;
+  margin-top: 50px;
+  margin-left: 0px;
+  transform: scale(0.9);
+`;
+
+const GroupContainer = styled.div`
+  margin-bottom: 80px;
+`;
+
+const ChapterTitle = styled.h2`
+  margin: 0 0 10px 0;
+`;
+
+const ComposersGrid = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-bottom: 30px;
+`;
+
+const ComposerItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const ComposerLink = styled.a<{ isHovered: boolean }>`
+  color: ${(props) => (props.isHovered ? "#fff" : "white")};
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const ComposerWrapper = styled.div<{ isHovered: boolean }>`
+  transition: all 0.3s ease;
+  text-shadow: ${(props) =>
+    props.isHovered
+      ? "0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)"
+      : "none"};
+  padding: 4px 0px;
+  border-radius: 4px;
+  background-color: ${(props) =>
+    props.isHovered ? "rgba(255, 255, 255, 0.1)" : "transparent"};
+`;
+
+const SnippetContainer = styled.div`
+  margin-top: 200px;
+  margin-bottom: 200px;
+`;
+
+const MoreSection = styled.div`
+  color: #999;
+  margin-bottom: 10px;
+`;
+
+const ComposerList = styled.ul`
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+`;
+
+const ComposerListItem = styled.li<{ isHovered: boolean }>`
+  margin-left: 0;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  text-shadow: ${(props) =>
+    props.isHovered
+      ? "0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)"
+      : "none"};
+  padding: 4px 0px;
+  border-radius: 4px;
+  background-color: ${(props) =>
+    props.isHovered ? "rgba(255, 255, 255, 0.1)" : "transparent"};
+`;
+
 export const ComposerTitle: React.FC<{
   composer: string;
   displayTitle: string;
@@ -84,202 +171,113 @@ const Book = () => {
   return (
     <BookContainer>
       <div style={{ position: "relative" }}>
-        <h1>Visual Harmony of Top 100 Composers on MuseScore.com</h1>
-        <div
-          style={{
-            marginTop: "70px",
-            marginBottom: "70px",
-            marginLeft: "0px",
-            transform: "scale(0.9)",
-          }}
-        >
+        <Title>Visual Harmony of Top 100 Composers on MuseScore.com</Title>
+        <LegendWrapper>
           <PianoLegend inline={false} />
-        </div>
+        </LegendWrapper>
 
-        {composerGroups.map((group, groupIndex) => {
-          return (
-            <div key={`group-${groupIndex}`}>
-              <div
-                style={{
-                  marginBottom: "10px",
-                  marginTop: "50px",
-                  marginLeft: "0px",
-                  transform: "scale(0.9)",
-                }}
-              >
-                {group[0].mode && <ChordStairs mode={group[0].mode} />}
-              </div>
-              <div
-                style={{
-                  marginBottom: "80px",
-                }}
-              >
-                {group[0].chapter && (
-                  <h2 style={{ margin: "0 0 10px 0" }}>{group[0].chapter}</h2>
-                )}
+        {composerGroups.map((group, groupIndex) => (
+          <div key={`group-${groupIndex}`}>
+            <ChordStairsWrapper>
+              {group[0].mode && <ChordStairs mode={group[0].mode} />}
+            </ChordStairsWrapper>
+            <GroupContainer>
+              {group[0].chapter && (
+                <ChapterTitle>{group[0].chapter}</ChapterTitle>
+              )}
 
-                {/* First show titles with snippets */}
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "40px",
-                    marginBottom: "30px",
-                  }}
-                >
-                  {group
-                    .filter(
-                      (item) =>
-                        analyses[`f/${item.slug}`]?.snippets?.some(
-                          (s) => s.tag === "book:index",
-                        ),
+              <ComposersGrid>
+                {group
+                  .filter(
+                    (item) =>
+                      analyses[`f/${item.slug}`]?.snippets?.some(
+                        (s) => s.tag === "book:index",
+                      ),
+                  )
+                  .map((item) => {
+                    const { slug, composer, displayTitle } = item;
+                    const snippets = (
+                      analyses[`f/${item.slug}`]?.snippets || []
                     )
-                    .map((item) => {
-                      const { slug, composer, displayTitle } = item;
-                      const snippets = (
-                        analyses[`f/${item.slug}`]?.snippets || []
-                      )
-                        .filter((snippet) => snippet.tag === "book:index")
-                        .map((snippet) => ({ ...snippet, composerSlug: slug }));
+                      .filter((snippet) => snippet.tag === "book:index")
+                      .map((snippet) => ({ ...snippet, composerSlug: slug }));
 
-                      return (
-                        <div
-                          key={slug}
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "10px",
-                          }}
-                        >
-                          <div
-                            style={{
-                              transition: "all 0.3s ease",
-                              textShadow:
-                                hoveredSlug === slug
-                                  ? "0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)"
-                                  : "none",
-                              padding: "4px 0px",
-                              borderRadius: "4px",
-                              backgroundColor:
-                                hoveredSlug === slug
-                                  ? "rgba(255, 255, 255, 0.1)"
-                                  : "transparent",
-                            }}
+                    return (
+                      <ComposerItem key={slug}>
+                        <ComposerWrapper isHovered={hoveredSlug === slug}>
+                          <ComposerLink
+                            href={`/f/${slug}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            isHovered={hoveredSlug === slug}
                           >
-                            <a
-                              href={`/f/${slug}`}
-                              target="_blank"
-                              rel="noreferrer"
-                              style={{
-                                color: hoveredSlug === slug ? "#fff" : "white",
-                                textDecoration: "none",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "8px",
-                              }}
-                            >
-                              <ComposerTitle
-                                composer={composer}
-                                displayTitle={displayTitle}
-                              />
-                            </a>
-                          </div>
-                          <div
-                            style={{
-                              marginTop: "200px",
-                              marginBottom: "200px",
-                            }}
-                          >
-                            <SnippetList
-                              snippets={snippets}
-                              noteHeight={3}
-                              isPreview={true}
-                              onSnippetClick={handleSnippetClick}
-                              loadingSnippets={loadingSnippets}
-                              onSnippetHover={(snippet) =>
-                                setHoveredSlug(
-                                  snippet
-                                    ? (snippet as EnhancedSnippet).composerSlug
-                                    : null,
-                                )
-                              }
+                            <ComposerTitle
+                              composer={composer}
+                              displayTitle={displayTitle}
                             />
-                          </div>
-                        </div>
-                      );
-                    })}
-                </div>
+                          </ComposerLink>
+                        </ComposerWrapper>
+                        <SnippetContainer>
+                          <SnippetList
+                            snippets={snippets}
+                            noteHeight={3}
+                            isPreview={true}
+                            onSnippetClick={handleSnippetClick}
+                            loadingSnippets={loadingSnippets}
+                            onSnippetHover={(snippet) =>
+                              setHoveredSlug(
+                                snippet
+                                  ? (snippet as EnhancedSnippet).composerSlug
+                                  : null,
+                              )
+                            }
+                          />
+                        </SnippetContainer>
+                      </ComposerItem>
+                    );
+                  })}
+              </ComposersGrid>
 
-                {/* Then show remaining titles */}
-                {group.filter(
-                  (item) =>
-                    !analyses[`f/${item.slug}`]?.snippets?.some(
-                      (s) => s.tag === "book:index",
-                    ),
-                ).length > 0 && (
-                  <>
-                    <div style={{ color: "#999", marginBottom: "10px" }}>
-                      More:
-                    </div>
-                    <ul
-                      style={{
-                        listStyle: "none",
-                        paddingLeft: "0",
-                        margin: "0",
-                      }}
-                    >
-                      {group
-                        .filter(
-                          (item) =>
-                            !analyses[`f/${item.slug}`]?.snippets?.some(
-                              (s) => s.tag === "book:index",
-                            ),
-                        )
-                        .map(({ slug, composer, displayTitle }) => (
-                          <li
-                            key={slug}
-                            style={{
-                              marginLeft: "0",
-                              whiteSpace: "nowrap",
-                              transition: "all 0.3s ease",
-                              textShadow:
-                                hoveredSlug === slug
-                                  ? "0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4)"
-                                  : "none",
-                              padding: "4px 0px",
-                              borderRadius: "4px",
-                              backgroundColor:
-                                hoveredSlug === slug
-                                  ? "rgba(255, 255, 255, 0.1)"
-                                  : "transparent",
-                            }}
+              {group.filter(
+                (item) =>
+                  !analyses[`f/${item.slug}`]?.snippets?.some(
+                    (s) => s.tag === "book:index",
+                  ),
+              ).length > 0 && (
+                <>
+                  <MoreSection>More:</MoreSection>
+                  <ComposerList>
+                    {group
+                      .filter(
+                        (item) =>
+                          !analyses[`f/${item.slug}`]?.snippets?.some(
+                            (s) => s.tag === "book:index",
+                          ),
+                      )
+                      .map(({ slug, composer, displayTitle }) => (
+                        <ComposerListItem
+                          key={slug}
+                          isHovered={hoveredSlug === slug}
+                        >
+                          <ComposerLink
+                            href={`/f/${slug}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            isHovered={hoveredSlug === slug}
                           >
-                            <a
-                              href={`/f/${slug}`}
-                              target="_blank"
-                              rel="noreferrer"
-                              style={{
-                                color: hoveredSlug === slug ? "#fff" : "white",
-                                textDecoration: "none",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "8px",
-                              }}
-                            >
-                              <ComposerTitle
-                                composer={composer}
-                                displayTitle={displayTitle}
-                              />
-                            </a>
-                          </li>
-                        ))}
-                    </ul>
-                  </>
-                )}
-              </div>
-            </div>
-          );
-        })}
+                            <ComposerTitle
+                              composer={composer}
+                              displayTitle={displayTitle}
+                            />
+                          </ComposerLink>
+                        </ComposerListItem>
+                      ))}
+                  </ComposerList>
+                </>
+              )}
+            </GroupContainer>
+          </div>
+        ))}
         <IntroText />
       </div>
     </BookContainer>

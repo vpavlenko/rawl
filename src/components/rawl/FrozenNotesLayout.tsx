@@ -686,39 +686,9 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
           />
         </SnippetListContainer>
 
-        {/* Debugging JSON */}
-        {!error && rehydratedSnippet && (
-          <DebugContainer>
-            <DebugColumn>
-              <h4>Frozen Snippet</h4>
-              <pre>{JSON.stringify(snippet, null, 2)}</pre>
-            </DebugColumn>
-            <DebugColumn>
-              <h4>Rehydrated Snippet</h4>
-              <pre>{JSON.stringify(rehydratedSnippet, null, 2)}</pre>
-            </DebugColumn>
-          </DebugContainer>
-        )}
-
         <CopyIndicator visible={copyIndicatorVisible}>
           {copyIndicatorVisible ? "Snippet saved!" : "Copied to clipboard!"}
         </CopyIndicator>
-
-        <MeasureTimesContainer>
-          <h3>Measure Start Times (seconds)</h3>
-          <MeasureTimesList>
-            {JSON.stringify(
-              Object.fromEntries(
-                measuresAndBeats.measures.map((time, index) => [
-                  index + 1,
-                  time.toFixed(3),
-                ]),
-              ),
-              null,
-              2,
-            )}
-          </MeasureTimesList>
-        </MeasureTimesContainer>
       </Container>
     </ErrorBoundary>
   );

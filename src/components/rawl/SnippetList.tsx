@@ -17,7 +17,6 @@ const SnippetItemWrapper = styled.div<{
   flex: 0 0 auto;
   margin-bottom: ${(props) => (props.isPreview ? "0px" : "20px")};
   position: relative;
-  height: 100%;
   display: flex;
 
   ${(props) =>

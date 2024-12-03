@@ -16,6 +16,7 @@ import {
   CompressedNotes,
   deltaCoding,
   FrozenNotesType,
+  getPhraseStarts,
   PitchClass,
   rehydrateSnippet,
   Snippet,
@@ -432,12 +433,28 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     const frozenNotesData = createFrozenNotes();
     if (!frozenNotesData) return null;
 
+    // Get phrase starts from the analysis for the current measure range
+    const allPhraseStarts = getPhraseStarts(
+      analysis,
+      measuresAndBeats.measures.length,
+    );
+    const snippetPhraseStarts = allPhraseStarts.filter(
+      (measure) => measure >= dataRange[0] && measure <= dataRange[1],
+    );
+
     return {
       tag: tagName?.value || "",
       frozenNotes: frozenNotesData,
       measuresSpan: dataRange,
+      phraseStarts: snippetPhraseStarts,
     };
-  }, [createFrozenNotes, tagName, dataRange]);
+  }, [
+    createFrozenNotes,
+    tagName,
+    dataRange,
+    analysis,
+    measuresAndBeats?.measures.length,
+  ]);
 
   const exportString = useMemo(() => {
     return snippet ? JSON.stringify(snippet) : "";

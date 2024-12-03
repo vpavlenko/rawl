@@ -17,6 +17,7 @@ interface EnhancedFrozenNotesProps {
   analysis: Analysis;
   measuresAndBeats: MeasuresAndBeats;
   startMeasure: number;
+  phraseStarts?: number[];
   isPreview?: boolean;
 }
 
@@ -41,6 +42,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
   startMeasure,
   toX,
   timeRange,
+  phraseStarts,
   isPreview = false,
 }) => {
   const midiRange = useMemo(() => {
@@ -114,7 +116,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={() => 0}
           noteHeight={16}
-          phraseStarts={[]}
+          phraseStarts={phraseStarts || []}
           midiRange={[0, 0]}
           measureSelection={dummyMeasureSelection}
           showHeader={true}
@@ -136,7 +138,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={midiNumberToY}
           noteHeight={noteHeight}
-          phraseStarts={[]}
+          phraseStarts={phraseStarts || []}
           midiRange={midiRange}
           measureSelection={dummyMeasureSelection}
           showHeader={false}

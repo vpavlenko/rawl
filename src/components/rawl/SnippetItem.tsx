@@ -264,6 +264,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
           toX={toX}
           timeRange={timeRange}
           isPreview={isPreview}
+          phraseStarts={snippet.phraseStarts || []}
         />
       </SnippetContent>
     </SnippetItemContainer>

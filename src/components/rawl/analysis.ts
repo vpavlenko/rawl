@@ -39,6 +39,7 @@ export interface Snippet {
   frozenNotes: FrozenNotesType;
   measuresSpan: [number, number];
   secondsSpan?: SecondsSpan;
+  phraseStarts?: number[];
 }
 
 export type MidiNumberToNoteSpans = {

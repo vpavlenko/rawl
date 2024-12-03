@@ -23,12 +23,19 @@ const Title = styled.h1``;
 const ChordStairsWrapper = styled.div`
   margin-bottom: 50px;
   margin-top: 50px;
-  margin-left: 0px;
   transform: scale(0.9);
+  position: sticky;
+  top: 20px;
+  width: fit-content;
+  z-index: 1000000;
+  background: black;
+  float: right;
+  margin-left: 20px;
 `;
 
 const GroupContainer = styled.div`
   margin-bottom: 80px;
+  clear: both;
 `;
 
 const ChapterTitle = styled.h2`

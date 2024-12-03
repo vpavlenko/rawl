@@ -33,17 +33,16 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
         style={{
           position: "fixed",
           top: 20,
-          right: 100,
+          right: 0,
           zIndex: 90000,
-          backgroundColor: "black",
+          backgroundColor: "transparent",
           padding: 10,
-          opacity: 0.8,
         }}
       >
         <div
           style={{
             marginBottom: 10,
-            borderBottom: "1px solid #333",
+            borderBottom: "0.5px solid #333",
             paddingBottom: 5,
           }}
         >
@@ -52,18 +51,16 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
             id="forcedPanning"
             checked={forcedPanning}
             onChange={handlePanningToggle}
-            style={{ marginRight: 5 }}
           />
           <label
             htmlFor="forcedPanning"
             style={{
-              cursor: "pointer",
-              userSelect: "none",
-              color: "#ccc",
-              fontSize: "0.6em",
+              margin: "0px 0px 0px 0px",
+              height: 11,
+              display: "inline",
             }}
           >
-            split hands to stereo
+            🔊⬅️👐➡️🔊
           </label>
         </div>
         {voiceNames.map((voiceName, voiceIndex) => (

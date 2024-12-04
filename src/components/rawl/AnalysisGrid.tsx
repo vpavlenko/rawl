@@ -131,6 +131,58 @@ const RemeasuringInput: React.FC<{
   );
 };
 
+const NewTonicSymbol: React.FC<{
+  left: number;
+  number: number;
+  previousTonic: PitchClass | null;
+  modulationDiff: number | null;
+  tonicStart: PitchClass;
+}> = ({ left, number, previousTonic, modulationDiff, tonicStart }) => (
+  <>
+    <span
+      style={{
+        color: "white",
+        position: "absolute",
+        top: -2,
+        left:
+          left + (previousTonic === null ? String(number).length * 8 + 10 : 30),
+        fontSize: 12,
+        zIndex: 100,
+        fontWeight: 700,
+        userSelect: "none",
+      }}
+    >
+      {previousTonic !== null && (
+        <>{`${
+          modulationDiff > 6
+            ? `↓${Math.abs(modulationDiff - 12)}`
+            : `↑${modulationDiff}`
+        } `}</>
+      )}
+      {PITCH_CLASS_TO_LETTER[tonicStart]}
+    </span>
+
+    <div
+      className={`noteColor_${
+        modulationDiff === 6 ? 0 : modulationDiff
+      }_colors`}
+      style={{
+        width: 80,
+        height: 12,
+        position: "absolute",
+        top: 0,
+        left: left,
+        zIndex: 3,
+        userSelect: "none",
+        maskImage:
+          "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
+        WebkitMaskImage:
+          "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
+      }}
+    />
+  </>
+);
+
 const Measure: React.FC<{
   span: [number, number];
   number: number;
@@ -184,50 +236,13 @@ const Measure: React.FC<{
   return (
     <>
       {showHeader && tonicStart !== undefined && (
-        <>
-          <span
-            style={{
-              color: "white",
-              position: "absolute",
-              top: -2,
-              left:
-                left +
-                (previousTonic === null ? String(number).length * 8 + 10 : 30),
-              fontSize: 12,
-              zIndex: 100,
-              fontWeight: 700,
-              userSelect: "none",
-            }}
-          >
-            {previousTonic !== null && (
-              <>{`${
-                modulationDiff > 6
-                  ? `↓${Math.abs(modulationDiff - 12)}`
-                  : `↑${modulationDiff}`
-              } `}</>
-            )}
-            {PITCH_CLASS_TO_LETTER[tonicStart]}
-          </span>
-
-          <div
-            className={`noteColor_${
-              modulationDiff === 6 ? 0 : modulationDiff
-            }_colors`}
-            style={{
-              width: 80,
-              height: 12,
-              position: "absolute",
-              top: 0,
-              left: left,
-              zIndex: 3,
-              userSelect: "none",
-              maskImage:
-                "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
-              WebkitMaskImage:
-                "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
-            }}
-          />
-        </>
+        <NewTonicSymbol
+          left={left}
+          number={number}
+          previousTonic={previousTonic}
+          modulationDiff={modulationDiff}
+          tonicStart={tonicStart}
+        />
       )}
       {(showNonPhraseStarts || isPhraseStart) && showMeasureBar && (
         <>

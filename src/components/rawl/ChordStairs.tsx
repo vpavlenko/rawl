@@ -268,6 +268,8 @@ const ChordStairs: React.FC<{
 
     const { title, chords } = mode;
 
+    const titleHeight = hideLabels ? 0 : MARGIN_TOP;
+
     // Check if we should show the chord stairs
     const chapterChordsSet = new Set(chapterChords || []) as Set<Chord>;
     const modeChordSet = new Set(mode.chords);
@@ -371,17 +373,20 @@ const ChordStairs: React.FC<{
         key={title}
         style={{
           width:
-            numChords * scaledNoteWidth + (numChords - 1) * scaledHorizontalGap,
+            numChords * scaledNoteWidth +
+            (numChords - 1) * scaledHorizontalGap +
+            titleHeight,
           height: totalHeight * scale,
           position: "relative",
           fontSize: scaledFontSize,
+          marginTop: titleHeight,
         }}
       >
         {!hideLabels && title && (
           <div
             style={{
               position: "absolute",
-              top: 0,
+              top: -titleHeight,
               left: 0,
               color: "#aaa",
               userSelect: "none",

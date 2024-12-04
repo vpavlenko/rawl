@@ -4,7 +4,7 @@ import { AppContext } from "../AppContext";
 import { Snippet, rehydrateSnippet } from "./analysis";
 import EnhancedFrozenNotes from "./FrozenNotes";
 
-const PX_IN_MEASURE = 100;
+const PX_IN_MEASURE = 90;
 
 const SnippetItemContainer = styled.div<{
   width: number;
@@ -14,18 +14,6 @@ const SnippetItemContainer = styled.div<{
   display: flex;
   flex-direction: column;
   width: ${(props) => props.width}px;
-  border-top: ${(props) => {
-    if (props.isPreviewWithoutTime) return "1px solid red";
-    return props.isPreview ? "none" : "1px solid #444";
-  }};
-  border-bottom: ${(props) => {
-    if (props.isPreviewWithoutTime) return "1px solid red";
-    return props.isPreview ? "none" : "1px solid #444";
-  }};
-  border-left: ${(props) => {
-    if (props.isPreviewWithoutTime) return "1px solid red";
-    return props.isPreview ? "none" : "1px solid #444";
-  }};
   border-radius: ${(props) => (props.isPreview ? "0" : "5px")};
   overflow: hidden;
 `;
@@ -167,17 +155,9 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     if (!currentMidi || !snippet.secondsSpan) return false;
 
     const isPlaying = currentMidi.slug === snippetSlug;
-    if (isPlaying && appContext.currentPlaybackTime !== null) {
-      console.log("Playing snippet:", {
-        tag: snippet.tag,
-        timeRange: snippet.secondsSpan,
-        currentTime: appContext.currentPlaybackTime,
-        snippetSlug,
-        currentMidiSlug: currentMidi.slug,
-      });
-    }
+
     return isPlaying;
-  }, [currentMidi, snippet, appContext.currentPlaybackTime]);
+  }, [currentMidi, snippet]);
 
   const cursorPosition = useMemo(() => {
     if (
@@ -195,14 +175,6 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     // Calculate position as a percentage of the time range
     const timeProgress = (currentTime - start) / (end - start);
     const xPos = timeProgress * containerWidth;
-
-    console.log("Cursor calculation:", {
-      currentTime,
-      timeRange: snippet.secondsSpan,
-      timeProgress,
-      xPos,
-      containerWidth,
-    });
 
     return xPos;
   }, [

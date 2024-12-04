@@ -1,19 +1,19 @@
 import {
-  APPLIED_CHORDS,
-  BLUES_SCALE,
-  Chord,
-  CIRCLE_OF_FIFTHS,
-  DORIAN_MINOR,
-  EXTENSIONS,
-  JAZZ_MODE,
-  MARIO_CADENCE,
-  MINOR_WITH_V,
-  Mode,
-  MODES,
-  NATURAL_MINOR,
-  ONE_FLAT_SIX_FIVE,
-  SIX_MAJOR_TRIADS,
-  V_of_V,
+    APPLIED_CHORDS,
+    BLUES_SCALE,
+    Chord,
+    CIRCLE_OF_FIFTHS,
+    DORIAN_MINOR,
+    EXTENSIONS,
+    JAZZ_MODE,
+    MARIO_CADENCE,
+    MINOR_WITH_V,
+    Mode,
+    MODES,
+    NATURAL_MINOR,
+    ONE_FLAT_SIX_FIVE,
+    SIX_MAJOR_TRIADS,
+    V_of_V,
 } from "./ChordStairs";
 
 export const MODULATIONS_CHAPTER_TITLE =
@@ -158,6 +158,7 @@ export const TOP_100_COMPOSERS: {
     slug: "Believer_-_Imagine_Dragons",
     composer: "Imagine Dragons",
     displayTitle: "Believer",
+    chords: ONE_FLAT_SIX_FIVE.chords,
     order: 1400,
   },
   {
@@ -407,6 +408,7 @@ export const TOP_100_COMPOSERS: {
     slug: "we-are-number-one-but-it-s-a-piano-transcript",
     composer: "Máni Svavarsson",
     displayTitle: "We Are Number One (LazyTown)",
+    chords: ONE_FLAT_SIX_FIVE.chords,
     order: 1300,
   },
   {
@@ -556,7 +558,7 @@ export const TOP_100_COMPOSERS: {
     chapter: "i ♭VI V",
     titleChords: ONE_FLAT_SIX_FIVE.chords,
     mode: ONE_FLAT_SIX_FIVE,
-    chords: ["i", "bVI", "V"],
+    chords: ONE_FLAT_SIX_FIVE.chords,
   },
 
   {

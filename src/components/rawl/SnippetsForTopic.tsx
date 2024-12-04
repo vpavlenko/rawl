@@ -35,6 +35,7 @@ const SnippetsForTopic: React.FC<SnippetsForTopicProps> = ({
             snippet={snippet}
             index={index}
             noteHeight={noteHeight}
+            isPreview={true}
           />
         </SnippetItemWrapper>
       ))}

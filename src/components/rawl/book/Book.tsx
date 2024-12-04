@@ -39,6 +39,7 @@ const ChordStairsWrapper = styled.div`
   float: right;
   margin-left: 20px;
   padding: 10px;
+  padding-bottom: 40px;
   border: 0.5px solid #666;
 `;
 

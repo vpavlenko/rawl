@@ -1,6 +1,7 @@
 import {
   APPLIED_CHORDS,
   Chord,
+  CIRCLE_OF_FIFTHS,
   DORIAN_MINOR,
   EXTENSIONS,
   JAZZ_MODE,
@@ -83,7 +84,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Golden Hour",
     order: 2030,
     chapter: "Seventh chords and extensions",
-    titleChords: ["ii7", "IVmaj7", "vi7", "Imaj7", "iii7", "V7"],
+    titleChords: ["Imaj7", "ii7", "iii7", "IVmaj7", "V7", "vi7"],
     mode: EXTENSIONS,
   },
   {
@@ -203,7 +204,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Piano Man",
     order: 2300,
     chapter: "V/V",
-    titleChords: ["V/V"],
+    titleChords: ["V7/V", "V"],
     mode: V_of_V,
   },
   {
@@ -220,8 +221,9 @@ export const TOP_100_COMPOSERS: {
     composer: "Handel",
     displayTitle: "Passacaglia in G minor (arr. Halvorsen)",
     order: 1650,
-    chapter: "Circle of fifths: i iv ♭VII ♭III ♭VI",
+    chapter: "Circle of fifths",
     titleChords: ["i", "iv", "bVII", "bIII", "bVI"],
+    mode: CIRCLE_OF_FIFTHS,
   },
 
   {
@@ -381,7 +383,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "When I Was Your Man",
     order: 4950,
     chapter: "♭VII in major",
-    titleChords: ["I", "bVII"],
+    titleChords: ["bVII", "I"],
     mode: MARIO_CADENCE,
   },
   {
@@ -458,7 +460,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "The Office - Main Theme",
     order: 50,
     chapter: "Single four-chord progression in major",
-    titleChords: ["I", "V", "vi", "IV"],
+    titleChords: ["I", "iii", "vi", "IV"],
     chords: ["I", "iii", "IV", "vi"],
     mode: SIX_MAJOR_TRIADS,
   },

@@ -102,7 +102,7 @@ const ChapterSelector = styled.div`
 
 const ChapterButton = styled.button<{ isSelected: boolean }>`
   background: black;
-  color: ${(props) => (props.isSelected ? "black" : "white")};
+  color: white;
   border-radius: 10px;
   cursor: pointer;
   white-space: nowrap;
@@ -134,6 +134,8 @@ export const ComposerTitle: React.FC<{
     <span style={{ color: "white" }}>{displayTitle}</span>
   </span>
 );
+
+const ABOUT_SELECTION = "About";
 
 const Book = () => {
   const appContext = React.useContext(AppContext);
@@ -184,7 +186,7 @@ const Book = () => {
         uniqueChapters.add(composer.chapter);
       }
     });
-    uniqueChapters.add("About This Selection");
+    uniqueChapters.add(ABOUT_SELECTION);
     return Array.from(uniqueChapters);
   }, []);
 
@@ -208,7 +210,7 @@ const Book = () => {
   };
 
   const renderContent = () => {
-    if (selectedChapter === "About This Selection") {
+    if (selectedChapter === ABOUT_SELECTION) {
       return (
         <div style={{ marginTop: "50px" }}>
           <IntroText />
@@ -223,20 +225,9 @@ const Book = () => {
     return (
       <>
         {filteredGroups.map((group, groupIndex) => {
-          const titleChords = getChapterTitleChords(selectedChapter);
-
           return (
-            <div key={`group-${groupIndex}`}>
-              <ChapterTitle>
-                {selectedChapter}
-                {titleChords && (
-                  <ChordStairs
-                    mode={{ title: "", chords: titleChords }}
-                    hideLabels={true}
-                    scale={0.5}
-                  />
-                )}
-              </ChapterTitle>
+            <div key={`group-${groupIndex}`} style={{ marginTop: "40px" }}>
+              <ChapterTitle>{selectedChapter}</ChapterTitle>
               {group[0].mode && (
                 <ChordStairsWrapper>
                   <ChordStairs

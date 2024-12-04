@@ -156,7 +156,7 @@ export const JAZZ_MODE: Mode = {
 
 export const ONE_FLAT_SIX_FIVE: Mode = {
   title: "",
-  chords: ["bVI", "i", "V"],
+  chords: ["i", "bVI", "V"],
 };
 
 export const SIX_MAJOR_TRIADS: Mode = {
@@ -187,6 +187,11 @@ export const V_of_V: Mode = {
 export const APPLIED_CHORDS: Mode = {
   title: "applied chords",
   chords: ["V7/ii", "ii", "V7/iv", "iv", "V7/vi", "vi"],
+};
+
+export const CIRCLE_OF_FIFTHS: Mode = {
+  title: "circle of fifths",
+  chords: ["i", "iv", "bVII", "bIII", "bVI"],
 };
 
 export const MARIO_CADENCE: Mode = {
@@ -280,9 +285,21 @@ const ChordStairs: React.FC<{
       }));
     for (let i = 0; i < rehydratedChords.length; ++i) {
       const { name, pitches } = rehydratedChords[i];
-      if (i > 0 && pitches[0] < rehydratedChords[i - 1].pitches[0]) {
-        pitches[0] += 12;
+      if (i > 0) {
+        // Compare current root with previous root to decide whether to place up or down
+        const prevRoot = rehydratedChords[i - 1].pitches[0];
+        const currentRoot = pitches[0];
+
+        // Calculate absolute differences for both up and down placement
+        const diffWithoutOctave = Math.abs(currentRoot - prevRoot);
+        const diffWithOctave = Math.abs(currentRoot + 12 - prevRoot);
+
+        // If placing up gives smaller or equal difference, add octave
+        if (diffWithOctave <= diffWithoutOctave) {
+          pitches[0] += 12;
+        }
       }
+      // Adjust remaining notes based on the root position
       for (let j = 1; j < pitches.length; ++j) {
         pitches[j] =
           pitches[j - 1] + ((CHORDS[name][j] - CHORDS[name][j - 1] + 12) % 12);
@@ -294,7 +311,7 @@ const ChordStairs: React.FC<{
     const height = maxPitch - rehydratedChords[0].pitches[0] + 1;
 
     // Calculate effective margin top based on title
-    const effective_margin_top = title ? MARGIN_TOP : 0;
+    const effective_margin_top = hideLabels ? 0 : MARGIN_TOP;
 
     // Calculate total height including margin top and text, plus half note height for last note
     const totalHeight =
@@ -354,7 +371,7 @@ const ChordStairs: React.FC<{
               key={`bounding-box-${chordIndex}-${animationKey}`}
               onClick={() => handleChordClick(name, pitches)}
               isPlaying={playingChord === name}
-              clickable={!!title}
+              clickable={!hideLabels}
               style={{
                 left: chordIndex * (scaledNoteWidth + scaledHorizontalGap),
                 top: Math.min(topPosition + chordNameOffset, topPosition),

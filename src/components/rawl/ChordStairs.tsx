@@ -362,7 +362,7 @@ const ChordStairs: React.FC<{
     // Scale the constants
     const scaledNoteHeight = NOTE_HEIGHT * scale;
     const scaledNoteWidth = NOTE_WIDTH * scale;
-    const scaledHorizontalGap = HORIZONTAL_GAP * scale;
+    const scaledHorizontalGap = (hideLabels ? 0 : HORIZONTAL_GAP) * scale;
     const scaledMarginTop = effective_margin_top * scale;
     const scaledFontSize = 16 * scale;
 

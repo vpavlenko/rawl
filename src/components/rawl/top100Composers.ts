@@ -215,7 +215,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Fly Me to the Moon (In Other Words)",
     order: 5300,
     chapter: "ii V I jazz",
-    titleChords: JAZZ_MODE.chords,
+    titleChords: ["ii7", "V7", "Imaj7"],
     mode: JAZZ_MODE,
   },
   {

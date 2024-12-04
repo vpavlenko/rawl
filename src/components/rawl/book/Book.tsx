@@ -101,22 +101,50 @@ const ChapterSelector = styled.div`
   margin: 20px 0;
 `;
 
+const ChapterTitleTooltip = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  padding: 4px 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1000;
+`;
+
+const SelectionArrow = styled.div`
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #bbb;
+`;
+
 const ChapterButton = styled.button<{ isSelected: boolean }>`
   background: black;
   color: white;
-  border-radius: 10px;
   cursor: pointer;
   white-space: nowrap;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   position: relative;
-  min-height: 50px;
-  padding: 4px 8px;
-  box-shadow: ${(props) => (props.isSelected ? "0 0 0px 0.5px #999" : "none")};
+  min-height: 80px;
+  padding: 10px 0px;
+  border-radius: 0;
+  box-sizing: border-box;
 
-  &:hover {
-    box-shadow: 0 0 0px 0.5px #999;
+  ${ChapterTitleTooltip} {
+    display: none;
+  }
+
+  &:hover ${ChapterTitleTooltip} {
+    display: block;
   }
 `;
 
@@ -126,6 +154,16 @@ const ChapterTitle = styled.h2`
   display: flex;
   align-items: center;
   gap: 16px;
+`;
+
+const ChapterStairsWrapper = styled.div`
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  margin: 0 0 10px 0;
+  position: relative;
 `;
 
 export const ComposerTitle: React.FC<{
@@ -346,67 +384,66 @@ const Book = () => {
                 isSelected={selectedChapter === chapter}
                 onClick={() => setSelectedChapter(chapter)}
               >
-                {chapter === "Modulations" ? (
-                  <div
-                    style={{
-                      position: "relative",
-                      width: "80px",
-                      height: "45px",
-                    }}
-                  >
-                    <div style={{ position: "absolute", top: "-5px" }}>
-                      <NewTonicSymbol
-                        left={0}
-                        number={1}
-                        previousTonic={0}
-                        modulationDiff={5}
-                        tonicStart={5}
-                      />
+                <ChapterStairsWrapper>
+                  {chapter === "Modulations" ? (
+                    <div
+                      style={{
+                        position: "relative",
+                        width: "80px",
+                        height: "45px",
+                      }}
+                    >
+                      <div style={{ position: "absolute", top: "-5px" }}>
+                        <NewTonicSymbol
+                          left={0}
+                          number={1}
+                          previousTonic={0}
+                          modulationDiff={5}
+                          tonicStart={5}
+                        />
+                      </div>
+                      <div style={{ position: "absolute", top: "10px" }}>
+                        <NewTonicSymbol
+                          left={0}
+                          number={1}
+                          previousTonic={0}
+                          modulationDiff={3}
+                          tonicStart={3}
+                        />
+                      </div>
+                      <div style={{ position: "absolute", top: "25px" }}>
+                        <NewTonicSymbol
+                          left={0}
+                          number={1}
+                          previousTonic={0}
+                          modulationDiff={9}
+                          tonicStart={9}
+                        />
+                      </div>
+                      <div style={{ position: "absolute", top: "40px" }}>
+                        <NewTonicSymbol
+                          left={0}
+                          number={1}
+                          previousTonic={0}
+                          modulationDiff={7}
+                          tonicStart={7}
+                        />
+                      </div>
                     </div>
-                    <div style={{ position: "absolute", top: "10px" }}>
-                      <NewTonicSymbol
-                        left={0}
-                        number={1}
-                        previousTonic={0}
-                        modulationDiff={3}
-                        tonicStart={3}
-                      />
-                    </div>
-                    <div style={{ position: "absolute", top: "25px" }}>
-                      <NewTonicSymbol
-                        left={0}
-                        number={1}
-                        previousTonic={0}
-                        modulationDiff={9}
-                        tonicStart={9}
-                      />
-                    </div>
-                    <div style={{ position: "absolute", top: "40px" }}>
-                      <NewTonicSymbol
-                        left={0}
-                        number={1}
-                        previousTonic={0}
-                        modulationDiff={7}
-                        tonicStart={7}
-                      />
-                    </div>
-                  </div>
-                ) : titleChords ? (
-                  <div
-                    style={{
-                      backgroundColor: "black",
-                      margin: "0 0 10 0",
-                    }}
-                  >
+                  ) : titleChords ? (
                     <ChordStairs
                       mode={{ title: "", chords: titleChords }}
                       hideLabels={true}
                       scale={0.5}
                     />
-                  </div>
-                ) : (
-                  chapter
-                )}
+                  ) : (
+                    chapter
+                  )}
+                  {!["Misc", "About"].includes(chapter) && (
+                    <ChapterTitleTooltip>{chapter}</ChapterTitleTooltip>
+                  )}
+                  {selectedChapter === chapter && <SelectionArrow />}
+                </ChapterStairsWrapper>
               </ChapterButton>
             );
           })}

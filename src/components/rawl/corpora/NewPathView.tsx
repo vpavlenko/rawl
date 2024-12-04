@@ -329,9 +329,13 @@ const NewPathView: React.FC<NewPathViewProps> = ({
             {chapterData[activeChapter].topics.map(({ topic }) => (
               <TopicBubble
                 key={topic}
-                to={`/s/${chapterData[activeChapter].chapter}/${topic}`}
                 active={activeTopic === topic}
-                onClick={() => handleTopicClick(topic)}
+                onClick={() => {
+                  handleTopicClick(topic);
+                  history.push(
+                    `/s/${chapterData[activeChapter].chapter}/${topic}`,
+                  );
+                }}
               >
                 {topic.replace(/_/g, " ")}
               </TopicBubble>

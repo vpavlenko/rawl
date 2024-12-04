@@ -131,7 +131,7 @@ const RemeasuringInput: React.FC<{
   );
 };
 
-const NewTonicSymbol: React.FC<{
+export const NewTonicSymbol: React.FC<{
   left: number;
   number: number;
   previousTonic: PitchClass | null;

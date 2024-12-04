@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
+import { NewTonicSymbol } from "../AnalysisGrid";
 import ChordStairs, { Chord } from "../ChordStairs";
 import { PianoLegend } from "../PianoLegend";
 import SnippetList from "../SnippetList";
@@ -109,6 +110,9 @@ const ChapterButton = styled.button<{ isSelected: boolean }>`
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  position: relative;
+  min-height: 50px;
+  padding: 4px 8px;
   box-shadow: ${(props) => (props.isSelected ? "0 0 0px 0.5px #999" : "none")};
 
   &:hover {
@@ -342,7 +346,52 @@ const Book = () => {
                 isSelected={selectedChapter === chapter}
                 onClick={() => setSelectedChapter(chapter)}
               >
-                {titleChords ? (
+                {chapter === "Modulations" ? (
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "80px",
+                      height: "45px",
+                    }}
+                  >
+                    <div style={{ position: "absolute", top: "-5px" }}>
+                      <NewTonicSymbol
+                        left={0}
+                        number={1}
+                        previousTonic={0}
+                        modulationDiff={5}
+                        tonicStart={5}
+                      />
+                    </div>
+                    <div style={{ position: "absolute", top: "10px" }}>
+                      <NewTonicSymbol
+                        left={0}
+                        number={1}
+                        previousTonic={0}
+                        modulationDiff={3}
+                        tonicStart={3}
+                      />
+                    </div>
+                    <div style={{ position: "absolute", top: "25px" }}>
+                      <NewTonicSymbol
+                        left={0}
+                        number={1}
+                        previousTonic={0}
+                        modulationDiff={9}
+                        tonicStart={9}
+                      />
+                    </div>
+                    <div style={{ position: "absolute", top: "40px" }}>
+                      <NewTonicSymbol
+                        left={0}
+                        number={1}
+                        previousTonic={0}
+                        modulationDiff={7}
+                        tonicStart={7}
+                      />
+                    </div>
+                  </div>
+                ) : titleChords ? (
                   <div
                     style={{
                       backgroundColor: "black",

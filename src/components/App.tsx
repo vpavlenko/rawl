@@ -24,6 +24,7 @@ import React from "react";
 import Dropzone from "react-dropzone";
 import Modal from "react-modal";
 import {
+  Redirect,
   Route,
   RouteComponentProps,
   Switch,
@@ -1214,7 +1215,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
                         <Route path="/pirate" render={() => <Pirate />} />
                         {browseRoute}
                         {rawlRoute}
-                        <Route path="/" component={Book} />
+                        <Route path="/100/:slug?" component={Book} />
+                        <Redirect exact from="/" to="/100" />
                       </Switch>
                     </div>
                   </div>

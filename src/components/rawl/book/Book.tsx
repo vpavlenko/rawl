@@ -1,5 +1,7 @@
 import * as React from "react";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { slugify } from "transliteration";
 import { AppContext } from "../../AppContext";
 import { NewTonicSymbol } from "../AnalysisGrid";
 import ChordStairs, { Chord } from "../ChordStairs";
@@ -179,14 +181,17 @@ export const ComposerTitle: React.FC<{
 
 const ABOUT_SELECTION = "About";
 
-const Book = () => {
+const getChapterSlug = (chapter: string) => slugify(chapter.toLowerCase());
+
+const Book: React.FC = () => {
+  const { slug } = useParams<{ slug?: string }>();
+  const history = useHistory();
   const appContext = React.useContext(AppContext);
   if (!appContext) throw new Error("AppContext not found");
   const { analyses } = appContext;
   const [loadingSnippets, setLoadingSnippets] = React.useState<Set<string>>(
     new Set(),
   );
-  const [selectedChapter, setSelectedChapter] = React.useState<string>("Intro");
 
   // Handle snippet click with loading state
   const handleSnippetClick = async (snippet: EnhancedSnippet) => {
@@ -221,7 +226,6 @@ const Book = () => {
   // Get unique chapters
   const chapters = React.useMemo(() => {
     const uniqueChapters = new Set<string>();
-    // Add "Intro" as the first chapter
     uniqueChapters.add("Intro");
     orderedComposers.forEach((composer) => {
       if (composer.chapter) {
@@ -231,6 +235,27 @@ const Book = () => {
     uniqueChapters.add(ABOUT_SELECTION);
     return Array.from(uniqueChapters);
   }, []);
+
+  // Find selected chapter based on slug
+  const selectedChapter = React.useMemo(() => {
+    if (!slug) return "Intro";
+    return (
+      chapters.find(
+        (chapter) => getChapterSlug(chapter) === slug.toLowerCase(),
+      ) || "Intro"
+    );
+  }, [slug, chapters]);
+
+  // Handle chapter selection
+  const handleChapterSelect = (chapter: string) => {
+    const newSlug = getChapterSlug(chapter);
+    history.push(`/100/${newSlug}`);
+  };
+
+  // Redirect from root to /100/intro
+  if (!slug) {
+    return <Redirect to="/100/intro" />;
+  }
 
   // Group composers by chapters
   const composerGroups = orderedComposers.reduce<
@@ -382,7 +407,7 @@ const Book = () => {
               <ChapterButton
                 key={chapter}
                 isSelected={selectedChapter === chapter}
-                onClick={() => setSelectedChapter(chapter)}
+                onClick={() => handleChapterSelect(chapter)}
               >
                 <ChapterStairsWrapper>
                   {chapter === "Modulations" ? (

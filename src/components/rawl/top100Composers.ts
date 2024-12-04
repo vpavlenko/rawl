@@ -205,7 +205,7 @@ export const TOP_100_COMPOSERS: {
     composer: "Billy Joel",
     displayTitle: "Piano Man",
     order: 2300,
-    chapter: "V/V",
+    chapter: "Applied dominant: V7/V",
     titleChords: ["V7/V", "V"],
     mode: V_of_V,
   },

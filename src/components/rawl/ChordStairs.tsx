@@ -191,7 +191,7 @@ export const APPLIED_CHORDS: Mode = {
 
 export const CIRCLE_OF_FIFTHS: Mode = {
   title: "circle of fifths",
-  chords: ["i", "iv", "bVII", "bIII", "bVI"],
+  chords: ["i", "iv", "bVII", "bIII", "bVI", "iio7", "bII", "V7"],
 };
 
 export const MARIO_CADENCE: Mode = {

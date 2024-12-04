@@ -5,14 +5,12 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
-import ErrorBoundary from "../../ErrorBoundary";
 import { Analysis, Snippet } from "../analysis";
 import InlineRawlPlayer from "../InlineRawlPlayer";
-import NewLandingPage from "../NewLandingPage";
-import SnippetsForTopic from "../SnippetsForTopic";
+import SnippetList from "../SnippetList";
 
 const PathContainer = styled.div`
   height: 100%;
@@ -65,69 +63,26 @@ const ContentArea = styled.div<{ isRawlVisible: boolean }>`
 
 const ChapterSection = styled.div`
   display: flex;
-  flex-direction: column; // Change to column to flow topics vertically
-  gap: 20px; // Add some space between topics
-  padding-bottom: 20px;
+  flex-direction: column;
+  padding: 20px;
 `;
 
 const TopicContainer = styled.div`
-  margin: 0; // Remove the top and bottom margin
-  padding: 20px 0; // Add padding instead of margin for spacing
+  padding: 0; // Remove padding since we don't need spacing between topics anymore
 `;
 
 const TopicCard = styled.div`
   background-color: #000000;
-  // margin: 5px 0;
-  // padding: 10px;
-  // border-radius: 5px;
   display: flex;
-  flex-wrap: wrap; // Allow wrapping of SnippetItem components
-  gap: 20px; // Add some space between SnippetItem components
-  width: 100%; // Ensure it takes the full width
-  box-sizing: border-box; // Include padding and border in the element's total width and height
-`;
-
-const TopicTitle = styled(Link)`
-  font-size: 18px;
-  margin: 0px 0px 10px 0px;
-  color: #ffffff;
-  text-decoration: none;
-  cursor: pointer;
-  display: block; // Change from inline to block
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const StickyTopicTitle = styled(TopicTitle)`
-  position: sticky;
-  top: 0;
-  background-color: #1a1a1a;
-  z-index: 100000;
-  padding: 10px 0;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 const ErrorMessage = styled.div`
   color: red;
   margin-bottom: 10px;
-`;
-
-const MidiButton = styled.button`
-  display: block;
-  padding: 3px 0;
-  font-size: 14px;
-  color: #ffffff;
-  text-decoration: none;
-  word-wrap: break-word;
-  padding-left: 1em;
-  text-indent: -1em;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-  &:hover {
-    color: #4a90e2;
-  }
 `;
 
 const HomeChapter = styled.div`
@@ -137,8 +92,31 @@ const HomeChapter = styled.div`
   padding: 20px;
 `;
 
-const ClickableContainer = styled.div`
+const TopicMenu = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 16px;
+  background-color: black;
+  position: sticky;
+  top: 0;
+  z-index: 100000;
+`;
+
+const TopicBubble = styled.span<{ active: boolean }>`
   cursor: pointer;
+  background-color: ${(props) => (props.active ? "white" : "black")};
+  color: ${(props) => (props.active ? "black" : "white")};
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  user-select: none;
+
+  &:hover {
+    background-color: ${(props) => (props.active ? "white" : "#666")};
+  }
 `;
 
 export interface NewPathViewProps {
@@ -182,6 +160,10 @@ const NewPathView: React.FC<NewPathViewProps> = ({
   const [isRawlVisible, setIsRawlVisible] = useState(false);
   const topicRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const history = useHistory();
+  const [activeTopic, setActiveTopic] = useState<string | undefined>(
+    initialTopic,
+  );
+  const [stickyTopic, setStickyTopic] = useState<string | null>(null);
 
   const processAnalyses = useCallback(() => {
     console.log("Processing analyses");
@@ -287,146 +269,154 @@ const NewPathView: React.FC<NewPathViewProps> = ({
     setIsRawlVisible(!!currentMidi);
   }, [currentMidi]);
 
-  const [stickyTopic, setStickyTopic] = useState<string | null>(null);
-
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const topic = entry.target.id;
-          if (entry.isIntersecting && entry.boundingClientRect.top <= 1) {
-            // Check if the top of the element is at or above the top of the viewport
-            setStickyTopic(topic);
-          } else if (
-            stickyTopic === topic &&
-            entry.boundingClientRect.top > 1
-          ) {
-            // Find the next visible topic when the current sticky topic is scrolled out of view
-            const nextVisibleTopic = Object.keys(topicRefs.current).find(
-              (t) => {
-                const ref = topicRefs.current[t];
-                return ref && ref.getBoundingClientRect().top <= 1;
-              },
-            );
-            setStickyTopic(nextVisibleTopic || null);
-          }
-        });
-      },
-      { threshold: [0, 1], rootMargin: "-1px 0px 0px 0px" },
-    );
+    const handleScroll = () => {
+      if (!topicRefs.current) return;
 
-    Object.values(topicRefs.current).forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
+      const scrollPosition = window.scrollY + 100; // Offset for the header
+      let currentTopic: string | null = null;
 
-    return () => {
-      observer.disconnect();
+      Object.entries(topicRefs.current).forEach(([topic, element]) => {
+        if (!element) return;
+        const { top } = element.getBoundingClientRect();
+        if (top <= scrollPosition) {
+          currentTopic = topic;
+        }
+      });
+
+      setStickyTopic(currentTopic);
     };
-  }, [chapterData, activeChapter, stickyTopic]);
 
-  const TopicTitleWithSticky: React.FC<{ topic: string }> = ({ topic }) => {
-    return (
-      <StickyTopicTitle
-        to={`/s/${encodeURIComponent(
-          chapterData[activeChapter].chapter,
-        )}#${encodeURIComponent(topic)}`}
-        id={topic}
-        ref={(el: HTMLAnchorElement | null) => {
-          if (el) {
-            topicRefs.current[topic] = el as unknown as HTMLDivElement;
-          }
-        }}
-        onClick={(e) => {
-          e.preventDefault();
-          handleTopicSelect(topic);
-        }}
-      >
-        <div>{topic.replace(/_/g, " ")}</div>
-      </StickyTopicTitle>
-    );
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [chapterData, activeChapter]);
+
+  const handleTopicClick = (topic: string) => {
+    setActiveTopic(topic);
+    topicRefs.current[topic]?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (chapterData.length === 0) {
-    return <div>No analyses with snippets found.</div>;
-  }
+  const handleSnippetClick = useCallback(
+    (slug: string, measureStart: number, topic: string) => {
+      handleSongClick(slug);
+      setSelectedMeasureStart(measureStart);
+      if (topic) {
+        handleTopicClick(topic);
+      }
+    },
+    [handleSongClick],
+  );
 
   return (
-    <ErrorBoundary>
-      <PathContainer>
-        <InlineRawlPlayer measureStart={selectedMeasureStart}>
+    <PathContainer>
+      <MenuContainer>
+        <ChapterRow>
+          {chapterData.map((chapter, index) => (
+            <ChapterButton
+              key={chapter.chapter}
+              active={activeChapter === index}
+              onClick={() => setActiveChapter(index)}
+            >
+              {chapter.chapter}
+            </ChapterButton>
+          ))}
+        </ChapterRow>
+        {!loading && chapterData[activeChapter] && (
+          <TopicMenu>
+            {chapterData[activeChapter].topics.map(({ topic }) => (
+              <TopicBubble
+                key={topic}
+                to={`/s/${chapterData[activeChapter].chapter}/${topic}`}
+                active={activeTopic === topic}
+                onClick={() => handleTopicClick(topic)}
+              >
+                {topic.replace(/_/g, " ")}
+              </TopicBubble>
+            ))}
+          </TopicMenu>
+        )}
+      </MenuContainer>
+      {isRawlVisible && currentMidi ? (
+        <InlineRawlPlayer {...rawlProps} measureStart={selectedMeasureStart}>
           <ScrollableContent>
-            <MenuContainer>
-              <ChapterRow>
-                {chapterData.map((chapter, index) => (
-                  <ChapterButton
-                    key={chapter.chapter}
-                    active={index === activeChapter}
-                    onClick={() => handleChapterSelect(index)}
-                    title={chapter.chapter.replace(/_/g, " ")} // Add this line for tooltip
+            {activeTopic &&
+              chapterData[activeChapter]?.topics
+                .filter(({ topic }) => topic === activeTopic)
+                .map(({ topic, snippets }) => (
+                  <TopicContainer
+                    key={topic}
+                    ref={(el) => (topicRefs.current[topic] = el)}
                   >
-                    {chapter.chapter.replace(/_/g, " ")}
-                  </ChapterButton>
+                    <TopicCard>
+                      <SnippetList
+                        snippets={snippets.map(({ snippet }) => snippet)}
+                        onSnippetClick={(snippet) => {
+                          const matchingSnippet = snippets.find(
+                            (s) => s.snippet === snippet,
+                          );
+                          if (matchingSnippet) {
+                            handleSnippetClick(
+                              matchingSnippet.slug,
+                              snippet.measuresSpan[0],
+                              topic,
+                            );
+                          }
+                        }}
+                        isPreview={true}
+                        noteHeight={3}
+                      />
+                    </TopicCard>
+                  </TopicContainer>
                 ))}
-              </ChapterRow>
-            </MenuContainer>
-            <ContentArea isRawlVisible={isRawlVisible}>
-              {errorMessages.map((error, index) => (
-                <ErrorMessage key={index}>{error}</ErrorMessage>
-              ))}
-              <ChapterSection>
-                {chapterData[activeChapter].chapter === "🎨" ? (
-                  <HomeChapter>
-                    <NewLandingPage />
-                  </HomeChapter>
-                ) : (
-                  <>
-                    {stickyTopic && (
-                      <StickyTopicTitle as="div">
-                        {stickyTopic.replace(/_/g, " ")}
-                      </StickyTopicTitle>
-                    )}
-                    {chapterData[activeChapter].topics.map((topic) => (
-                      <TopicContainer key={topic.topic}>
-                        <TopicTitleWithSticky topic={topic.topic} />
-                        <TopicCard>
-                          {topic.snippets.map(({ snippet, slug }, index) => (
-                            <ClickableContainer
-                              key={index}
-                              onClick={() =>
-                                handleMidiClick(
-                                  slug,
-                                  snippet.measuresSpan[0],
-                                  topic.topic,
-                                )
-                              }
-                            >
-                              <MidiButton>
-                                {slug
-                                  .replace(/---/g, " – ")
-                                  .replace(/-/g, " ")
-                                  .replace(/_/g, " ")}
-                              </MidiButton>
-                              <SnippetsForTopic
-                                snippets={[snippet]}
-                                noteHeight={3}
-                              />
-                            </ClickableContainer>
-                          ))}
-                        </TopicCard>
-                      </TopicContainer>
-                    ))}
-                  </>
-                )}
-              </ChapterSection>
-            </ContentArea>
           </ScrollableContent>
         </InlineRawlPlayer>
-      </PathContainer>
-    </ErrorBoundary>
+      ) : (
+        <ScrollableContent>
+          {loading ? (
+            <HomeChapter>Loading...</HomeChapter>
+          ) : errorMessages.length > 0 ? (
+            errorMessages.map((error, index) => (
+              <ErrorMessage key={index}>{error}</ErrorMessage>
+            ))
+          ) : (
+            <ChapterSection>
+              {activeTopic &&
+                chapterData[activeChapter]?.topics
+                  .filter(({ topic }) => topic === activeTopic)
+                  .map(({ topic, snippets }) => (
+                    <TopicContainer
+                      key={topic}
+                      ref={(el) => (topicRefs.current[topic] = el)}
+                    >
+                      <TopicCard>
+                        <SnippetList
+                          snippets={snippets.map(({ snippet }) => snippet)}
+                          onSnippetClick={(snippet) => {
+                            const matchingSnippet = snippets.find(
+                              (s) => s.snippet === snippet,
+                            );
+                            if (matchingSnippet) {
+                              handleSnippetClick(
+                                matchingSnippet.slug,
+                                snippet.measuresSpan[0],
+                                topic,
+                              );
+                            }
+                          }}
+                          isPreview={true}
+                          noteHeight={3}
+                        />
+                      </TopicCard>
+                    </TopicContainer>
+                  ))}
+            </ChapterSection>
+          )}
+        </ScrollableContent>
+      )}
+    </PathContainer>
   );
 };
 

@@ -1,5 +1,6 @@
 import {
   APPLIED_CHORDS,
+  BLUES_SCALE,
   Chord,
   CIRCLE_OF_FIFTHS,
   DORIAN_MINOR,
@@ -52,7 +53,7 @@ export const TOP_100_COMPOSERS: {
     slug: "Clair_de_Lune__Debussy",
     composer: "Claude Debussy",
     displayTitle: "Clair de Lune",
-    chapter: "Complicated mix",
+    chapter: "Misc",
   },
   {
     slug: "Fr_Elise",
@@ -76,6 +77,7 @@ export const TOP_100_COMPOSERS: {
     composer: "Toby Fox",
     displayTitle: "Megalovania (from Undertale)",
     order: 2905,
+    titleChords: BLUES_SCALE.chords,
     chapter: "Blues scale and hexatonic minor",
   },
   {
@@ -213,7 +215,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Fly Me to the Moon (In Other Words)",
     order: 5300,
     chapter: "ii V I jazz",
-    titleChords: ["ii7", "V7", "Imaj7"],
+    titleChords: JAZZ_MODE.chords,
     mode: JAZZ_MODE,
   },
   {
@@ -248,7 +250,7 @@ export const TOP_100_COMPOSERS: {
     slug: "wa-mozart-marche-turque-turkish-march-fingered",
     composer: "Mozart",
     displayTitle: "Turkish March (Rondo alla Turca)",
-    order: 2420,
+    order: 2840,
   },
   {
     slug: "Viva_La_Vida_Coldplay",
@@ -440,8 +442,7 @@ export const TOP_100_COMPOSERS: {
     slug: "minuet-bwv-anhang-114-in-g-major",
     composer: "Christian Petzold",
     displayTitle: "Minuet in G major, BWV Anh. 114",
-    order: 2400,
-    chapter: "Modulations in classical music",
+    order: 2830,
   },
   {
     slug: "Take_on_me",
@@ -505,7 +506,7 @@ export const TOP_100_COMPOSERS: {
     slug: "theme-from-schindler-s-list---piano-solo",
     composer: "John Williams",
     displayTitle: "Theme from Schindler's List",
-    order: 2430,
+    order: 2845,
   },
   {
     slug: "happy_birthday_bass_and_chords",
@@ -563,7 +564,7 @@ export const TOP_100_COMPOSERS: {
     slug: "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night",
     composer: "Ayase",
     displayTitle: "Yoru ni Kakeru (Racing into the Night)",
-    order: 2600,
+    order: 2601,
   },
   {
     slug: "africa---toto",
@@ -582,7 +583,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Love Like You (from Steven Universe)",
     order: 2650,
 
-    chapter: "Modulations and applied chords combined",
+    chapter: "Modulations",
   },
   {
     slug: "alan-walker---alone-piano",

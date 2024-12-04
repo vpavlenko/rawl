@@ -67,6 +67,12 @@ export const CHORDS = {
   viio: [11, 2, 5],
   IPAC: [0, 4, 12],
   I6: [4, 7, 12],
+  "1": [0],
+  b3: [3],
+  "4": [5],
+  "#4": [6],
+  "5": [7],
+  b7: [10],
 } as const;
 export type Chord = keyof typeof CHORDS;
 
@@ -149,9 +155,14 @@ export const MODES: Mode[] = [
   },
 ];
 
+export const BLUES_SCALE: Mode = {
+  title: "blues scale",
+  chords: ["1", "b3", "4", "#4", "5", "b7"],
+};
+
 export const JAZZ_MODE: Mode = {
   title: "jazz",
-  chords: ["ii7", "iiø7", "V7", "Imaj7", "i7"],
+  chords: ["ii7", "V7", "Imaj7", "iiø7", "V7b9", "i7"],
 };
 
 export const ONE_FLAT_SIX_FIVE: Mode = {
@@ -278,37 +289,64 @@ const ChordStairs: React.FC<{
 
     const numChords = filteredChords.length;
 
-    const rehydratedChords: { name: Chord; pitches: number[] }[] =
-      filteredChords.map((chord) => ({
-        name: chord,
-        pitches: [...CHORDS[chord]],
-      }));
+    const rehydratedChords: {
+      name: Chord;
+      pitches: number[]; // Original pitches for coloring
+      positions: number[]; // Positions for rendering
+    }[] = filteredChords.map((chord) => ({
+      name: chord,
+      pitches: [...CHORDS[chord]],
+      positions: [...CHORDS[chord]],
+    }));
+
+    // Calculate positions
     for (let i = 0; i < rehydratedChords.length; ++i) {
-      const { name, pitches } = rehydratedChords[i];
+      const { positions } = rehydratedChords[i];
       if (i > 0) {
-        // Compare current root with previous root to decide whether to place up or down
-        const prevRoot = rehydratedChords[i - 1].pitches[0];
-        const currentRoot = pitches[0];
+        const prevRoot = rehydratedChords[i - 1].positions[0];
+        const currentRoot = positions[0];
 
-        // Calculate absolute differences for both up and down placement
-        const diffWithoutOctave = Math.abs(currentRoot - prevRoot);
-        const diffWithOctave = Math.abs(currentRoot + 12 - prevRoot);
+        // Calculate the two possible minimal distances
+        const distanceUp = (currentRoot - prevRoot + 12) % 12;
+        const distanceDown = (prevRoot - currentRoot + 12) % 12;
 
-        // If placing up gives smaller or equal difference, add octave
-        if (diffWithOctave <= diffWithoutOctave) {
-          pitches[0] += 12;
+        // Choose whether to place the root up or down
+        if (distanceUp <= distanceDown) {
+          positions[0] = prevRoot + distanceUp;
+        } else {
+          positions[0] = prevRoot - distanceDown;
         }
       }
-      // Adjust remaining notes based on the root position
-      for (let j = 1; j < pitches.length; ++j) {
-        pitches[j] =
-          pitches[j - 1] + ((CHORDS[name][j] - CHORDS[name][j - 1] + 12) % 12);
+
+      // Stack the rest of the notes above the root
+      for (let j = 1; j < positions.length; ++j) {
+        positions[j] =
+          positions[j - 1] +
+          ((CHORDS[rehydratedChords[i].name][j] -
+            CHORDS[rehydratedChords[i].name][j - 1] +
+            12) %
+            12);
       }
     }
 
-    const maxPitch = rehydratedChords.at(-1).pitches.at(-1);
+    // Find minimum position
+    const minPosition = Math.min(
+      ...rehydratedChords.flatMap((chord) => chord.positions),
+    );
 
-    const height = maxPitch - rehydratedChords[0].pitches[0] + 1;
+    // Shift positions if needed
+    if (minPosition < 0) {
+      const shift = Math.abs(minPosition);
+      rehydratedChords.forEach((chord) => {
+        chord.positions = chord.positions.map((pos) => pos + shift);
+      });
+    }
+
+    const maxPosition = Math.max(
+      ...rehydratedChords.flatMap((chord) => chord.positions),
+    );
+
+    const height = maxPosition + 1;
 
     // Calculate effective margin top based on title
     const effective_margin_top = hideLabels ? 0 : MARGIN_TOP;
@@ -352,11 +390,12 @@ const ChordStairs: React.FC<{
             {title}
           </div>
         )}
-        {rehydratedChords.map(({ name, pitches }, chordIndex) => {
+        {rehydratedChords.map(({ name, pitches, positions }, chordIndex) => {
           const topPosition =
-            (maxPitch - pitches.at(-1)) * scaledNoteHeight + scaledMarginTop;
+            (maxPosition - positions.at(-1)) * scaledNoteHeight +
+            scaledMarginTop;
           const bottomPosition =
-            (maxPitch - pitches[0]) * scaledNoteHeight + scaledMarginTop;
+            (maxPosition - positions[0]) * scaledNoteHeight + scaledMarginTop;
           const chordNameOffset =
             (chordIndex < tonicChordPosition ? -29 : 14) * scale;
           const height =
@@ -389,7 +428,8 @@ const ChordStairs: React.FC<{
                       width: scaledNoteWidth,
                       height: scaledNoteHeight * 2,
                       top:
-                        (maxPitch - pitch) * scaledNoteHeight +
+                        (maxPosition - positions[pitchIndex]) *
+                          scaledNoteHeight +
                         scaledMarginTop -
                         Math.min(topPosition + chordNameOffset, topPosition),
                     }}
@@ -400,11 +440,12 @@ const ChordStairs: React.FC<{
                     style={{
                       top:
                         chordIndex < tonicChordPosition
-                          ? (maxPitch - pitches.at(-1)) * scaledNoteHeight -
+                          ? (maxPosition - positions.at(-1)) *
+                              scaledNoteHeight -
                             29 +
                             scaledMarginTop -
                             Math.min(topPosition + chordNameOffset, topPosition)
-                          : (maxPitch - pitches[0]) * scaledNoteHeight +
+                          : (maxPosition - positions[0]) * scaledNoteHeight +
                             14 +
                             scaledMarginTop -
                             Math.min(

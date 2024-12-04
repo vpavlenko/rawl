@@ -179,7 +179,6 @@ const Measure: React.FC<{
   }
 
   const isLastMeasure = number === sectionSpan[1] + 1;
-  const hasModulations = previousTonic !== null || number === 1;
   const showMeasureBar = !isLastMeasure;
 
   return (

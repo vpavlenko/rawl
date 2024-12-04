@@ -93,13 +93,17 @@ const scaleOut = keyframes`
   }
 `;
 
-const ChordBoundingBox = styled.div<{ isPlaying?: boolean }>`
+const ChordBoundingBox = styled.div<{
+  isPlaying?: boolean;
+  clickable?: boolean;
+}>`
   position: absolute;
-  cursor: pointer;
+  cursor: ${(props) => (props.clickable ? "pointer" : "inherit")};
   background: transparent;
   z-index: 1;
   transform-origin: center;
   ${(props) =>
+    props.clickable &&
     props.isPlaying &&
     css`
       animation: ${scaleOut} 0.4s ease-out;
@@ -217,165 +221,193 @@ const ChordStairs: React.FC<{
   mode: Mode;
   chapterChords?: string[];
   currentTonic?: number;
-}> = React.memo(({ mode, chapterChords, currentTonic = 0 }) => {
-  const [playingChord, setPlayingChord] = useState<string | null>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const [animationKey, setAnimationKey] = useState(0);
+  hideLabels?: boolean;
+  scale?: number;
+}> = React.memo(
+  ({ mode, chapterChords, currentTonic = 0, hideLabels, scale = 1 }) => {
+    const [playingChord, setPlayingChord] = useState<string | null>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const [animationKey, setAnimationKey] = useState(0);
 
-  const handleChordClick = useCallback(
-    (chord: Chord, pitches: number[]) => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
+    const handleChordClick = useCallback(
+      (chord: Chord, pitches: number[]) => {
+        if (!mode.title) return;
+
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+
+        setPlayingChord(chord);
+        setAnimationKey((prev) => prev + 1);
+
+        timeoutRef.current = setTimeout(() => {
+          setPlayingChord(null);
+        }, 2000);
+
+        const transposedNotes = pitches.map((note) => note + currentTonic);
+        playArpeggiatedChord(transposedNotes);
+      },
+      [currentTonic, mode.title],
+    );
+
+    const { title, chords } = mode;
+
+    // Check if we should show the chord stairs
+    const chapterChordsSet = new Set(chapterChords || []) as Set<Chord>;
+    const modeChordSet = new Set(mode.chords);
+    // Only remove V for intersection check
+    const modeChordSetWithoutV = new Set(modeChordSet);
+    modeChordSetWithoutV.delete("V");
+    const hasIntersection = [...chapterChordsSet].some((chord) =>
+      modeChordSetWithoutV.has(chord),
+    );
+
+    if (!hasIntersection && chapterChords) {
+      return null;
+    }
+
+    // Use original modeChordSet (with V) for filtering
+    const filteredChords = chords.filter(
+      (chord) => !chapterChords || chapterChordsSet.has(chord),
+    );
+
+    const numChords = filteredChords.length;
+
+    const rehydratedChords: { name: Chord; pitches: number[] }[] =
+      filteredChords.map((chord) => ({
+        name: chord,
+        pitches: [...CHORDS[chord]],
+      }));
+    for (let i = 0; i < rehydratedChords.length; ++i) {
+      const { name, pitches } = rehydratedChords[i];
+      if (i > 0 && pitches[0] < rehydratedChords[i - 1].pitches[0]) {
+        pitches[0] += 12;
       }
-
-      setPlayingChord(chord);
-      setAnimationKey((prev) => prev + 1);
-
-      timeoutRef.current = setTimeout(() => {
-        setPlayingChord(null);
-      }, 2000);
-
-      // Use the exact pitches from rehydratedChords and add current tonic
-      const transposedNotes = pitches.map((note) => note + currentTonic);
-      playArpeggiatedChord(transposedNotes);
-    },
-    [currentTonic],
-  );
-
-  const { title, chords } = mode;
-
-  // Check if we should show the chord stairs
-  const chapterChordsSet = new Set(chapterChords || []) as Set<Chord>;
-  const modeChordSet = new Set(mode.chords);
-  // Only remove V for intersection check
-  const modeChordSetWithoutV = new Set(modeChordSet);
-  modeChordSetWithoutV.delete("V");
-  const hasIntersection = [...chapterChordsSet].some((chord) =>
-    modeChordSetWithoutV.has(chord),
-  );
-
-  if (!hasIntersection && chapterChords) {
-    return null;
-  }
-
-  // Use original modeChordSet (with V) for filtering
-  const filteredChords = chords.filter(
-    (chord) => !chapterChords || chapterChordsSet.has(chord),
-  );
-
-  const numChords = filteredChords.length;
-
-  const rehydratedChords: { name: Chord; pitches: number[] }[] =
-    filteredChords.map((chord) => ({
-      name: chord,
-      pitches: [...CHORDS[chord]],
-    }));
-  for (let i = 0; i < rehydratedChords.length; ++i) {
-    const { name, pitches } = rehydratedChords[i];
-    if (i > 0 && pitches[0] < rehydratedChords[i - 1].pitches[0]) {
-      pitches[0] += 12;
+      for (let j = 1; j < pitches.length; ++j) {
+        pitches[j] =
+          pitches[j - 1] + ((CHORDS[name][j] - CHORDS[name][j - 1] + 12) % 12);
+      }
     }
-    for (let j = 1; j < pitches.length; ++j) {
-      pitches[j] =
-        pitches[j - 1] + ((CHORDS[name][j] - CHORDS[name][j - 1] + 12) % 12);
-    }
-  }
 
-  const maxPitch = rehydratedChords.at(-1).pitches.at(-1);
+    const maxPitch = rehydratedChords.at(-1).pitches.at(-1);
 
-  const height = maxPitch - rehydratedChords[0].pitches[0] + 1;
+    const height = maxPitch - rehydratedChords[0].pitches[0] + 1;
 
-  // Calculate total height including margin top and text
-  const totalHeight = height * NOTE_HEIGHT + MARGIN_TOP; // Add 40px for chord name text
+    // Calculate effective margin top based on title
+    const effective_margin_top = title ? MARGIN_TOP : 0;
 
-  const tonicChordPosition = filteredChords.findIndex((chord) =>
-    /^(i|I)$/.test(chord),
-  );
+    // Calculate total height including margin top and text, plus half note height for last note
+    const totalHeight =
+      height * NOTE_HEIGHT + effective_margin_top + NOTE_HEIGHT;
 
-  return (
-    <div
-      key={title}
-      style={{
-        width: numChords * NOTE_WIDTH + (numChords - 1) * HORIZONTAL_GAP,
-        height: totalHeight,
-        position: "relative",
-        fontSize: 16,
-      }}
-    >
+    const tonicChordPosition = filteredChords.findIndex((chord) =>
+      /^(i|I)$/.test(chord),
+    );
+
+    // Scale the constants
+    const scaledNoteHeight = NOTE_HEIGHT * scale;
+    const scaledNoteWidth = NOTE_WIDTH * scale;
+    const scaledHorizontalGap = HORIZONTAL_GAP * scale;
+    const scaledMarginTop = effective_margin_top * scale;
+    const scaledFontSize = 16 * scale;
+
+    return (
       <div
+        key={title}
         style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          color: "#aaa",
-          userSelect: "none",
+          width:
+            numChords * scaledNoteWidth + (numChords - 1) * scaledHorizontalGap,
+          height: totalHeight * scale,
+          position: "relative",
+          fontSize: scaledFontSize,
         }}
       >
-        {title}
-      </div>
-      {rehydratedChords.map(({ name, pitches }, chordIndex) => {
-        const topPosition =
-          (maxPitch - pitches.at(-1)) * NOTE_HEIGHT + MARGIN_TOP;
-        const bottomPosition =
-          (maxPitch - pitches[0]) * NOTE_HEIGHT + MARGIN_TOP;
-        const chordNameOffset = chordIndex < tonicChordPosition ? -29 : 14;
-        const height =
-          bottomPosition -
-          topPosition +
-          NOTE_HEIGHT * 2 +
-          Math.abs(chordNameOffset) +
-          20;
-
-        return (
-          <ChordBoundingBox
-            key={`bounding-box-${chordIndex}-${animationKey}`}
-            onClick={() => handleChordClick(name, pitches)}
-            isPlaying={playingChord === name}
+        {!hideLabels && title && (
+          <div
             style={{
-              left: chordIndex * (NOTE_WIDTH + HORIZONTAL_GAP),
-              top: Math.min(topPosition + chordNameOffset, topPosition),
-              width: NOTE_WIDTH,
-              height,
+              position: "absolute",
+              top: 0,
+              left: 0,
+              color: "#aaa",
+              userSelect: "none",
             }}
           >
-            <ChordContent>
-              {pitches.map((pitch, pitchIndex) => (
-                <ChordNote
-                  key={`${chordIndex}-${pitchIndex}`}
-                  className={`noteColor_${pitch % 12}_colors`}
-                  style={{
-                    position: "absolute",
-                    top:
-                      (maxPitch - pitch) * NOTE_HEIGHT +
-                      MARGIN_TOP -
-                      Math.min(topPosition + chordNameOffset, topPosition),
-                  }}
-                />
-              ))}
-              <ChordName
-                style={{
-                  top:
-                    chordIndex < tonicChordPosition
-                      ? (maxPitch - pitches.at(-1)) * NOTE_HEIGHT -
-                        29 +
-                        MARGIN_TOP -
-                        Math.min(topPosition + chordNameOffset, topPosition)
-                      : (maxPitch - pitches[0]) * NOTE_HEIGHT +
-                        14 +
-                        MARGIN_TOP -
+            {title}
+          </div>
+        )}
+        {rehydratedChords.map(({ name, pitches }, chordIndex) => {
+          const topPosition =
+            (maxPitch - pitches.at(-1)) * scaledNoteHeight + scaledMarginTop;
+          const bottomPosition =
+            (maxPitch - pitches[0]) * scaledNoteHeight + scaledMarginTop;
+          const chordNameOffset =
+            (chordIndex < tonicChordPosition ? -29 : 14) * scale;
+          const height =
+            bottomPosition -
+            topPosition +
+            scaledNoteHeight * 2 +
+            Math.abs(chordNameOffset) +
+            20 * scale;
+
+          return (
+            <ChordBoundingBox
+              key={`bounding-box-${chordIndex}-${animationKey}`}
+              onClick={() => handleChordClick(name, pitches)}
+              isPlaying={playingChord === name}
+              clickable={!!title}
+              style={{
+                left: chordIndex * (scaledNoteWidth + scaledHorizontalGap),
+                top: Math.min(topPosition + chordNameOffset, topPosition),
+                width: scaledNoteWidth,
+                height,
+              }}
+            >
+              <ChordContent>
+                {pitches.map((pitch, pitchIndex) => (
+                  <ChordNote
+                    key={`${chordIndex}-${pitchIndex}`}
+                    className={`noteColor_${pitch % 12}_colors`}
+                    style={{
+                      position: "absolute",
+                      width: scaledNoteWidth,
+                      height: scaledNoteHeight * 2,
+                      top:
+                        (maxPitch - pitch) * scaledNoteHeight +
+                        scaledMarginTop -
                         Math.min(topPosition + chordNameOffset, topPosition),
-                  userSelect: "none",
-                  pointerEvents: "none",
-                }}
-              >
-                {formatChordName(name)}
-              </ChordName>
-            </ChordContent>
-          </ChordBoundingBox>
-        );
-      })}
-    </div>
-  );
-});
+                    }}
+                  />
+                ))}
+                {!hideLabels && (
+                  <ChordName
+                    style={{
+                      top:
+                        chordIndex < tonicChordPosition
+                          ? (maxPitch - pitches.at(-1)) * scaledNoteHeight -
+                            29 +
+                            scaledMarginTop -
+                            Math.min(topPosition + chordNameOffset, topPosition)
+                          : (maxPitch - pitches[0]) * scaledNoteHeight +
+                            14 +
+                            scaledMarginTop -
+                            Math.min(
+                              topPosition + chordNameOffset,
+                              topPosition,
+                            ),
+                      userSelect: "none",
+                      pointerEvents: "none",
+                    }}
+                  >
+                    {formatChordName(name)}
+                  </ChordName>
+                )}
+              </ChordContent>
+            </ChordBoundingBox>
+          );
+        })}
+      </div>
+    );
+  },
+);
 
 export default ChordStairs;

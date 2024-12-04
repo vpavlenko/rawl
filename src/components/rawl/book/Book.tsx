@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
-import ChordStairs from "../ChordStairs";
+import ChordStairs, { Chord } from "../ChordStairs";
 import { PianoLegend } from "../PianoLegend";
 import SnippetList from "../SnippetList";
 import { Snippet } from "../analysis";
@@ -101,16 +101,27 @@ const ChapterSelector = styled.div`
 `;
 
 const ChapterButton = styled.button<{ isSelected: boolean }>`
-  background: ${(props) => (props.isSelected ? "white" : "black")};
+  background: black;
   color: ${(props) => (props.isSelected ? "black" : "white")};
-  border-radius: 20px;
+  border-radius: 10px;
   cursor: pointer;
   white-space: nowrap;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  box-shadow: ${(props) => (props.isSelected ? "0 0 0px 0.5px #999" : "none")};
 
   &:hover {
-    box-shadow: 0 0 0px 1px ${(props) => (props.isSelected ? "black" : "white")};
+    box-shadow: 0 0 0px 0.5px #999;
   }
+`;
+
+const ChapterTitle = styled.h2`
+  font-size: 24px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 `;
 
 export const ComposerTitle: React.FC<{
@@ -189,6 +200,13 @@ const Book = () => {
     return acc;
   }, []);
 
+  const getChapterTitleChords = (chapter: string): Chord[] | undefined => {
+    const composerWithChapter = TOP_100_COMPOSERS.find(
+      (composer) => composer.chapter === chapter && composer.titleChords,
+    );
+    return composerWithChapter?.titleChords;
+  };
+
   const renderContent = () => {
     if (selectedChapter === "About This Selection") {
       return (
@@ -204,97 +222,113 @@ const Book = () => {
 
     return (
       <>
-        {filteredGroups.map((group, groupIndex) => (
-          <div key={`group-${groupIndex}`}>
-            {group[0].mode && (
-              <ChordStairsWrapper>
-                <ChordStairs
-                  mode={group[0].mode}
-                  {...(selectedChapter === "Intro" ? { currentTonic: 5 } : {})}
-                />
-              </ChordStairsWrapper>
-            )}
-            <GroupContainer>
-              <ComposersGrid>
-                {group
-                  .filter(
-                    (item) =>
-                      analyses[`f/${item.slug}`]?.snippets?.some(
-                        (s) => s.tag === "book:index",
-                      ),
-                  )
-                  .map((item) => {
-                    const { slug, composer, displayTitle } = item;
-                    const snippets = (
-                      analyses[`f/${item.slug}`]?.snippets || []
-                    )
-                      .filter((snippet) => snippet.tag === "book:index")
-                      .map((snippet) => ({ ...snippet, composerSlug: slug }));
+        {filteredGroups.map((group, groupIndex) => {
+          const titleChords = getChapterTitleChords(selectedChapter);
 
-                    return (
-                      <ComposerItem key={slug}>
-                        <ComposerWrapper>
-                          <ComposerLink
-                            href={`/f/${slug}`}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <ComposerTitle
-                              composer={composer}
-                              displayTitle={displayTitle}
-                            />
-                          </ComposerLink>
-                        </ComposerWrapper>
-                        <SnippetContainer>
-                          <SnippetList
-                            snippets={snippets}
-                            noteHeight={3}
-                            isPreview={true}
-                            onSnippetClick={handleSnippetClick}
-                            loadingSnippets={loadingSnippets}
-                          />
-                        </SnippetContainer>
-                      </ComposerItem>
-                    );
-                  })}
-              </ComposersGrid>
-
-              {group.filter(
-                (item) =>
-                  !analyses[`f/${item.slug}`]?.snippets?.some(
-                    (s) => s.tag === "book:index",
-                  ),
-              ).length > 0 && (
-                <>
-                  <MoreSection>More:</MoreSection>
-                  <ComposerList>
-                    {group
-                      .filter(
-                        (item) =>
-                          !analyses[`f/${item.slug}`]?.snippets?.some(
-                            (s) => s.tag === "book:index",
-                          ),
-                      )
-                      .map(({ slug, composer, displayTitle }) => (
-                        <ComposerListItem key={slug}>
-                          <ComposerLink
-                            href={`/f/${slug}`}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <ComposerTitle
-                              composer={composer}
-                              displayTitle={displayTitle}
-                            />
-                          </ComposerLink>
-                        </ComposerListItem>
-                      ))}
-                  </ComposerList>
-                </>
+          return (
+            <div key={`group-${groupIndex}`}>
+              <ChapterTitle>
+                {selectedChapter}
+                {titleChords && (
+                  <ChordStairs
+                    mode={{ title: "", chords: titleChords }}
+                    hideLabels={true}
+                    scale={0.5}
+                  />
+                )}
+              </ChapterTitle>
+              {group[0].mode && (
+                <ChordStairsWrapper>
+                  <ChordStairs
+                    mode={group[0].mode}
+                    {...(selectedChapter === "Intro"
+                      ? { currentTonic: 5 }
+                      : {})}
+                  />
+                </ChordStairsWrapper>
               )}
-            </GroupContainer>
-          </div>
-        ))}
+              <GroupContainer>
+                <ComposersGrid>
+                  {group
+                    .filter(
+                      (item) =>
+                        analyses[`f/${item.slug}`]?.snippets?.some(
+                          (s) => s.tag === "book:index",
+                        ),
+                    )
+                    .map((item) => {
+                      const { slug, composer, displayTitle } = item;
+                      const snippets = (
+                        analyses[`f/${item.slug}`]?.snippets || []
+                      )
+                        .filter((snippet) => snippet.tag === "book:index")
+                        .map((snippet) => ({ ...snippet, composerSlug: slug }));
+
+                      return (
+                        <ComposerItem key={slug}>
+                          <ComposerWrapper>
+                            <ComposerLink
+                              href={`/f/${slug}`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <ComposerTitle
+                                composer={composer}
+                                displayTitle={displayTitle}
+                              />
+                            </ComposerLink>
+                          </ComposerWrapper>
+                          <SnippetContainer>
+                            <SnippetList
+                              snippets={snippets}
+                              noteHeight={3}
+                              isPreview={true}
+                              onSnippetClick={handleSnippetClick}
+                              loadingSnippets={loadingSnippets}
+                            />
+                          </SnippetContainer>
+                        </ComposerItem>
+                      );
+                    })}
+                </ComposersGrid>
+
+                {group.filter(
+                  (item) =>
+                    !analyses[`f/${item.slug}`]?.snippets?.some(
+                      (s) => s.tag === "book:index",
+                    ),
+                ).length > 0 && (
+                  <>
+                    <MoreSection>More:</MoreSection>
+                    <ComposerList>
+                      {group
+                        .filter(
+                          (item) =>
+                            !analyses[`f/${item.slug}`]?.snippets?.some(
+                              (s) => s.tag === "book:index",
+                            ),
+                        )
+                        .map(({ slug, composer, displayTitle }) => (
+                          <ComposerListItem key={slug}>
+                            <ComposerLink
+                              href={`/f/${slug}`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              <ComposerTitle
+                                composer={composer}
+                                displayTitle={displayTitle}
+                              />
+                            </ComposerLink>
+                          </ComposerListItem>
+                        ))}
+                    </ComposerList>
+                  </>
+                )}
+              </GroupContainer>
+            </div>
+          );
+        })}
         {selectedChapter === "Intro" && (
           <div style={{ marginTop: "40px" }}>
             <PianoLegend currentTonic={5} />
@@ -309,15 +343,33 @@ const Book = () => {
       <div style={{ position: "relative" }}>
         <Title>Visual Harmony of Top 100 Composers on MuseScore.com</Title>
         <ChapterSelector>
-          {chapters.map((chapter) => (
-            <ChapterButton
-              key={chapter}
-              isSelected={selectedChapter === chapter}
-              onClick={() => setSelectedChapter(chapter)}
-            >
-              {chapter}
-            </ChapterButton>
-          ))}
+          {chapters.map((chapter) => {
+            const titleChords = getChapterTitleChords(chapter);
+            return (
+              <ChapterButton
+                key={chapter}
+                isSelected={selectedChapter === chapter}
+                onClick={() => setSelectedChapter(chapter)}
+              >
+                {titleChords ? (
+                  <div
+                    style={{
+                      backgroundColor: "black",
+                      margin: "0 0 10 0",
+                    }}
+                  >
+                    <ChordStairs
+                      mode={{ title: "", chords: titleChords }}
+                      hideLabels={true}
+                      scale={0.5}
+                    />
+                  </div>
+                ) : (
+                  chapter
+                )}
+              </ChapterButton>
+            );
+          })}
         </ChapterSelector>
 
         {renderContent()}

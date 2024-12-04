@@ -1,5 +1,6 @@
 import {
   APPLIED_CHORDS,
+  Chord,
   DORIAN_MINOR,
   EXTENSIONS,
   JAZZ_MODE,
@@ -21,6 +22,7 @@ export const TOP_100_COMPOSERS: {
   chords?: string[];
   displayTitle: string;
   mode?: Mode;
+  titleChords?: Chord[];
   description?: string;
 }[] = [
   {
@@ -41,6 +43,7 @@ export const TOP_100_COMPOSERS: {
     composer: "Johann Pachelbel",
     displayTitle: "Canon in D major",
     chapter: "Functional major",
+    titleChords: ["V7", "I"],
     order: 895,
     mode: MODES[1],
   },
@@ -80,6 +83,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Golden Hour",
     order: 2030,
     chapter: "Seventh chords and extensions",
+    titleChords: ["ii7", "IVmaj7", "vi7", "Imaj7", "iii7", "V7"],
     mode: EXTENSIONS,
   },
   {
@@ -136,6 +140,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Perfect",
     order: 300,
     chapter: "A mix of progressions in major",
+    titleChords: ["I", "vi", "IV", "V"],
     mode: SIX_MAJOR_TRIADS,
   },
   {
@@ -198,6 +203,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Piano Man",
     order: 2300,
     chapter: "V/V",
+    titleChords: ["V/V"],
     mode: V_of_V,
   },
   {
@@ -206,6 +212,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Fly Me to the Moon (In Other Words)",
     order: 5300,
     chapter: "ii V I jazz",
+    titleChords: ["ii7", "V7", "Imaj7"],
     mode: JAZZ_MODE,
   },
   {
@@ -213,7 +220,8 @@ export const TOP_100_COMPOSERS: {
     composer: "Handel",
     displayTitle: "Passacaglia in G minor (arr. Halvorsen)",
     order: 1650,
-    chapter: "Circle of fifths: i iv ♭VII ♭III ♭vi",
+    chapter: "Circle of fifths: i iv ♭VII ♭III ♭VI",
+    titleChords: ["i", "iv", "bVII", "bIII", "bVI"],
   },
 
   {
@@ -308,6 +316,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Despacito",
     order: 720,
     chords: ["vi", "I", "IV", "V"],
+    titleChords: ["vi", "IV", "I", "V"],
     chapter: "Four-chord progressions in minor / double-tonic",
   },
   {
@@ -328,6 +337,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Still D.R.E.",
     order: 400,
     chapter: "Natural minor",
+    titleChords: ["i", "bIII", "iv", "v", "bVI", "bVII"],
     mode: NATURAL_MINOR,
   },
   {
@@ -371,6 +381,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "When I Was Your Man",
     order: 4950,
     chapter: "♭VII in major",
+    titleChords: ["I", "bVII"],
     mode: MARIO_CADENCE,
   },
   {
@@ -420,6 +431,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Bella ciao",
     order: 1450,
     chapter: "Minor with V",
+    titleChords: ["V7", "i"],
     mode: MINOR_WITH_V,
   },
   {
@@ -446,6 +458,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "The Office - Main Theme",
     order: 50,
     chapter: "Single four-chord progression in major",
+    titleChords: ["I", "V", "vi", "IV"],
     chords: ["I", "iii", "IV", "vi"],
     mode: SIX_MAJOR_TRIADS,
   },
@@ -499,6 +512,7 @@ export const TOP_100_COMPOSERS: {
     order: 20,
     chapter: "Intro",
     mode: MODES[1],
+    titleChords: ["I", "IV", "V"],
     chords: ["I", "IV", "V"],
     description:
       "Uses seven notes only. The simplest arrangement uses three chords. There are more complex arrangements in different styles",
@@ -532,6 +546,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Lux Aeterna (from Requiem for a Dream)",
     order: 1200,
     chapter: "i ♭VI V",
+    titleChords: ONE_FLAT_SIX_FIVE.chords,
     mode: ONE_FLAT_SIX_FIVE,
     chords: ["i", "bVI", "V"],
   },
@@ -564,6 +579,7 @@ export const TOP_100_COMPOSERS: {
     composer: "Rebecca Sugar",
     displayTitle: "Love Like You (from Steven Universe)",
     order: 2650,
+
     chapter: "Modulations and applied chords combined",
   },
   {
@@ -585,6 +601,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Once Upon a December (from Anastasia)",
     order: 2440,
     chapter: "Other applied chords",
+    titleChords: ["V/ii", "I7", "V/vi"],
     mode: APPLIED_CHORDS,
   },
   {
@@ -612,6 +629,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Nothing Else Matters",
     order: 800,
     chapter: "Dorian IV",
+    titleChords: ["i", "IV"],
     mode: DORIAN_MINOR,
   },
   {
@@ -620,6 +638,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "You Are the Reason",
     order: 1900,
     chapter: "iv in major",
+    titleChords: ["I", "iv"],
   },
   {
     slug: "fairy-tail-main-theme",

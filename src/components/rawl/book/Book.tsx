@@ -8,7 +8,10 @@ import ChordStairs, { Chord } from "../ChordStairs";
 import { PianoLegend } from "../PianoLegend";
 import SnippetList from "../SnippetList";
 import { Snippet } from "../analysis";
-import { TOP_100_COMPOSERS } from "../top100Composers";
+import {
+  MODULATIONS_CHAPTER_TITLE,
+  TOP_100_COMPOSERS,
+} from "../top100Composers";
 import IntroText from "./IntroText";
 
 type EnhancedSnippet = Snippet & {
@@ -410,7 +413,7 @@ const Book: React.FC = () => {
                 onClick={() => handleChapterSelect(chapter)}
               >
                 <ChapterStairsWrapper>
-                  {chapter === "Modulations" ? (
+                  {chapter === MODULATIONS_CHAPTER_TITLE ? (
                     <div
                       style={{
                         position: "relative",

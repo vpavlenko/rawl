@@ -16,6 +16,9 @@ import {
   V_of_V,
 } from "./ChordStairs";
 
+export const MODULATIONS_CHAPTER_TITLE =
+  "Modulations in classical music: endless V7 to I and V7 to i";
+
 export const TOP_100_COMPOSERS: {
   slug: string;
   composer: string;
@@ -244,7 +247,7 @@ export const TOP_100_COMPOSERS: {
     slug: "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
     composer: "Shostakovich",
     displayTitle: "Waltz No. 2 (Suite for Variety Orchestra)",
-    order: 2700,
+    order: 2820,
   },
   {
     slug: "wa-mozart-marche-turque-turkish-march-fingered",
@@ -441,8 +444,10 @@ export const TOP_100_COMPOSERS: {
   {
     slug: "minuet-bwv-anhang-114-in-g-major",
     composer: "Christian Petzold",
+    chapter: MODULATIONS_CHAPTER_TITLE,
     displayTitle: "Minuet in G major, BWV Anh. 114",
-    order: 2830,
+    mode: { chords: ["V7", "I", "i"], title: "" },
+    order: 2795,
   },
   {
     slug: "Take_on_me",
@@ -581,9 +586,7 @@ export const TOP_100_COMPOSERS: {
     slug: "Love_Like_You_Steven_Universe",
     composer: "Rebecca Sugar",
     displayTitle: "Love Like You (from Steven Universe)",
-    order: 2650,
-
-    chapter: "Modulations",
+    order: 2603,
   },
   {
     slug: "alan-walker---alone-piano",

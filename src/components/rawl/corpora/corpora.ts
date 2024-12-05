@@ -3486,6 +3486,14 @@ export const corpora: Corpora[] = [
     midis: ["cool-lofi-hip-hop-song"],
   },
   {
+    slug: "horace_silver",
+    midis: ["song-for-my-father---horace-silver"],
+  },
+  {
+    slug: "mulatu_astatke",
+    midis: ["yekermo_sew_-_mulatu_astatke-no-acc"],
+  },
+  {
     slug: "ramin_djawadi",
     midis: [
       "Game_of_Thrones_Easy_piano",

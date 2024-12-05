@@ -118,7 +118,7 @@ const ChapterTitleTooltip = styled.div`
   z-index: 1000;
 `;
 
-const SelectionArrow = styled.div`
+const SelectionArrow = styled.div<{ isHovered?: boolean }>`
   position: absolute;
   top: -10px;
   left: 50%;
@@ -127,7 +127,7 @@ const SelectionArrow = styled.div`
   height: 0;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-top: 8px solid #bbb;
+  border-top: 8px solid ${(props) => (props.isHovered ? "#777" : "#bbb")};
 `;
 
 const ChapterButton = styled.button<{ isSelected: boolean }>`
@@ -148,8 +148,13 @@ const ChapterButton = styled.button<{ isSelected: boolean }>`
     display: none;
   }
 
-  &:hover ${ChapterTitleTooltip} {
-    display: block;
+  &:hover {
+    ${ChapterTitleTooltip} {
+      display: block;
+    }
+    ${SelectionArrow} {
+      display: block;
+    }
   }
 `;
 
@@ -190,6 +195,9 @@ const Book: React.FC = () => {
   const { slug } = useParams<{ slug?: string }>();
   const history = useHistory();
   const appContext = React.useContext(AppContext);
+  const [hoveredChapter, setHoveredChapter] = React.useState<string | null>(
+    null,
+  );
   if (!appContext) throw new Error("AppContext not found");
   const { analyses } = appContext;
   const [loadingSnippets, setLoadingSnippets] = React.useState<Set<string>>(
@@ -411,6 +419,8 @@ const Book: React.FC = () => {
                 key={chapter}
                 isSelected={selectedChapter === chapter}
                 onClick={() => handleChapterSelect(chapter)}
+                onMouseEnter={() => setHoveredChapter(chapter)}
+                onMouseLeave={() => setHoveredChapter(null)}
               >
                 <ChapterStairsWrapper>
                   {chapter === MODULATIONS_CHAPTER_TITLE ? (
@@ -470,7 +480,10 @@ const Book: React.FC = () => {
                   {!["Misc", "About"].includes(chapter) && (
                     <ChapterTitleTooltip>{chapter}</ChapterTitleTooltip>
                   )}
-                  {selectedChapter === chapter && <SelectionArrow />}
+                  {(selectedChapter === chapter ||
+                    hoveredChapter === chapter) && (
+                    <SelectionArrow isHovered={hoveredChapter === chapter} />
+                  )}
                 </ChapterStairsWrapper>
               </ChapterButton>
             );

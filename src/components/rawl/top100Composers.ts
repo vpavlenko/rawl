@@ -81,6 +81,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Megalovania (from Undertale)",
     order: 2905,
     titleChords: BLUES_SCALE.chords,
+    mode: BLUES_SCALE,
     chapter: "Blues scale and hexatonic minor",
   },
   {

@@ -113,7 +113,8 @@
     "typescript": "^5.2.2",
     "unzipper": "^0.9.3",
     "webpack-bundle-analyzer": "^3.3.2",
-    "worker-loader": "^2.0.0"
+    "worker-loader": "^2.0.0",
+    "ts-node": "^10.9.1"
   },
   "homepage": "https://rawl.rocks",
   "scripts": {

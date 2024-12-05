@@ -152,6 +152,27 @@ const NewPathView: React.FC<NewPathViewProps> = ({
     return initialTopic;
   });
 
+  // Add this function to select first topic
+  const selectFirstTopicFromChapter = useCallback(
+    (chapterIndex: number) => {
+      if (chapterData[chapterIndex]?.topics.length > 0) {
+        const firstTopic = chapterData[chapterIndex].topics[0].topic;
+        setActiveTopic(firstTopic);
+        history.push(`/s/${chapterData[chapterIndex].chapter}/${firstTopic}`);
+      }
+    },
+    [chapterData, history],
+  );
+
+  // Modify the chapter selection handler
+  const handleChapterSelect = useCallback(
+    (index: number) => {
+      setActiveChapter(index);
+      selectFirstTopicFromChapter(index);
+    },
+    [selectFirstTopicFromChapter],
+  );
+
   const processAnalyses = useCallback(() => {
     const data: { [chapter: string]: ChapterData } = {};
     const errors: string[] = [];
@@ -207,16 +228,13 @@ const NewPathView: React.FC<NewPathViewProps> = ({
         setActiveChapter(chapterIndex);
         if (initialTopic) {
           setActiveTopic(initialTopic);
-          setTimeout(() => {
-            // topicRefs.current[initialTopic]?.scrollIntoView({
-            //   behavior: "smooth",
-            //   block: "start",
-            // });
-          }, 0);
+        } else {
+          // If no initial topic is provided, select the first topic
+          selectFirstTopicFromChapter(chapterIndex);
         }
       }
     }
-  }, [initialChapter, initialTopic, chapterData]);
+  }, [initialChapter, initialTopic, chapterData, selectFirstTopicFromChapter]);
 
   useEffect(() => {
     setIsRawlVisible(!!currentMidi);
@@ -245,7 +263,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({
             <ChapterButton
               key={chapter.chapter}
               active={activeChapter === index}
-              onClick={() => setActiveChapter(index)}
+              onClick={() => handleChapterSelect(index)}
             >
               {chapter.chapter}
             </ChapterButton>

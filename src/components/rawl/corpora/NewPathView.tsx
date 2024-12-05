@@ -36,8 +36,8 @@ const ChapterButton = styled.button<{ active: boolean }>`
   padding: 5px 10px;
   height: 100%; // Make buttons fill the ChapterRow height
   text-align: center;
-  background-color: ${(props) => (props.active ? "#4a90e2" : "transparent")};
-  color: white;
+  background-color: ${(props) => (props.active ? "white" : "black")};
+  color: ${(props) => (props.active ? "black" : "white")};
   border: none;
   cursor: pointer;
   white-space: nowrap;

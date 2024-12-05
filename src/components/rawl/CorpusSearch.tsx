@@ -16,7 +16,6 @@ const highlightMatch = (text: string, term: string) => {
 };
 
 const SearchContainer = styled.div`
-  width: 40em;
   max-width: 100%;
 `;
 
@@ -45,17 +44,10 @@ const ResultsContainer = styled.div`
 `;
 
 const ColumnContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-`;
-
-const Column = styled.div`
-  flex: 1;
-  min-width: 33%;
-  padding-right: 10px;
-  box-sizing: border-box;
-  text-align: left;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  width: 100%;
 `;
 
 const CorpusSearch: React.FC = () => {
@@ -92,24 +84,18 @@ const CorpusSearch: React.FC = () => {
     const sortedCorpora = filteredCorpora.sort(
       (a, b) => b.midis.length - a.midis.length,
     );
-    const columns = [[], [], []];
-    sortedCorpora.forEach(({ slug, midis }, index) => {
-      columns[index % 3].push(
-        <div key={slug}>
-          <Link to={`/corpus/${slug}`}>
-            {slug.replace(/_/g, " ")}{" "}
-            <span style={{ color: "white", fontSize: "0.6em" }}>
-              {midis.length}
-            </span>
-          </Link>
-        </div>,
-      );
-    });
 
     return (
       <ColumnContainer>
-        {columns.map((column, index) => (
-          <Column key={index}>{column}</Column>
+        {sortedCorpora.map(({ slug, midis }) => (
+          <div key={slug}>
+            <Link to={`/corpus/${slug}`}>
+              {slug.replace(/_/g, " ")}{" "}
+              <span style={{ color: "white", fontSize: "0.6em" }}>
+                {midis.length}
+              </span>
+            </Link>
+          </div>
         ))}
       </ColumnContainer>
     );

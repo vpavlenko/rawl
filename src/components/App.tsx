@@ -55,6 +55,7 @@ import AppHeader from "./AppHeader";
 import Browse from "./Browse";
 import DropMessage from "./DropMessage";
 import Visualizer from "./Visualizer";
+import CorpusSearch from "./rawl/CorpusSearch";
 import OldLandingPage from "./rawl/OldLandingPage";
 import Pirate from "./rawl/Pirate";
 import Rawl, { RawlProps } from "./rawl/Rawl";
@@ -1206,10 +1207,14 @@ class App extends React.Component<RouteComponentProps, AppState> {
                       <Switch>
                         <Route path="/old" render={() => <OldLandingPage />} />
                         <Route
-                          path="/corpus/:corpus*"
-                          render={({ match }) => (
-                            <Corpus slug={match.params?.corpus} />
-                          )}
+                          path="/corpus/:corpus?"
+                          render={({ match }) =>
+                            match.params.corpus ? (
+                              <Corpus slug={match.params.corpus} />
+                            ) : (
+                              <CorpusSearch />
+                            )
+                          }
                         />
                         <Route path="/daw" render={() => <DAW />} />
                         <Route path="/pirate" render={() => <Pirate />} />

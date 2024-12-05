@@ -14,7 +14,9 @@ const AppHeader: React.FC = () => {
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <a href="https://vpavlenko.github.io/layouts">Layouts</a>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <a href="/s/">Structures & corpora</a>
+      <a href="/s/">Structures</a>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="/corpus/">Corpus</a>
     </header>
   );
 };

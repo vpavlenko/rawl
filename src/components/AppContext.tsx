@@ -27,6 +27,7 @@ export type AppContextType = {
   user: User | null;
   seek: (seekMs: number) => void;
   currentPlaybackTime: number | null;
+  eject: () => void;
 };
 
 export const AppContext = React.createContext<AppContextType | undefined>(

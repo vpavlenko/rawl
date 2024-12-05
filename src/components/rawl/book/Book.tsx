@@ -66,6 +66,7 @@ const ComposerLink = styled.a`
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
 `;
 
 const ComposerWrapper = styled.div`
@@ -199,10 +200,15 @@ const Book: React.FC = () => {
     null,
   );
   if (!appContext) throw new Error("AppContext not found");
-  const { analyses } = appContext;
+  const { analyses, eject } = appContext;
   const [loadingSnippets, setLoadingSnippets] = React.useState<Set<string>>(
     new Set(),
   );
+
+  // Add handler for composer link clicks
+  const handleComposerLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    eject(); // Eject the current player before navigating
+  };
 
   // Handle snippet click with loading state
   const handleSnippetClick = async (snippet: EnhancedSnippet) => {
@@ -340,6 +346,7 @@ const Book: React.FC = () => {
                               href={`/f/${slug}`}
                               target="_blank"
                               rel="noreferrer"
+                              onClick={handleComposerLinkClick}
                             >
                               <ComposerTitle
                                 composer={composer}
@@ -383,6 +390,7 @@ const Book: React.FC = () => {
                               href={`/f/${slug}`}
                               target="_blank"
                               rel="noreferrer"
+                              onClick={handleComposerLinkClick}
                             >
                               <ComposerTitle
                                 composer={composer}

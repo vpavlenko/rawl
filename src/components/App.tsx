@@ -1029,6 +1029,13 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }
   }
 
+  eject = () => {
+    if (this.midiPlayer) {
+      this.midiPlayer.eject();
+      this.handleSequencerStateUpdate({ isEjected: true });
+    }
+  };
+
   render() {
     const { location } = this.props;
     const rawlProps: RawlProps = {
@@ -1139,6 +1146,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
             user: this.state.user,
             seek: this.seekForRawl,
             currentPlaybackTime: this.state.currentPlaybackTime || null,
+            eject: this.eject,
           }}
         >
           <Switch>
@@ -1180,6 +1188,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           user: this.state.user,
           seek: this.seekForRawl,
           currentPlaybackTime: this.state.currentPlaybackTime || null,
+          eject: this.eject,
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>

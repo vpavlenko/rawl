@@ -107,7 +107,7 @@ const CorpusSearch: React.FC = () => {
         <SearchInput
           ref={searchInputRef}
           type="text"
-          placeholder="Search composers or songs, eg. 'nocturne', 'entertainer', 'jaws', 'autumn leaves'"
+          placeholder="Search composers or songs, eg. 'nocturne', 'entertainer', 'jaws', 'autumn leaves', 'succession', 'bts', 'chopin', 'mario'"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />

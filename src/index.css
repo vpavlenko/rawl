@@ -8,8 +8,8 @@
     --charW3: 24px;
     --charW3neg: -24px;
 
-    --clickable: #fb0;
-    --visited: rgb(255, 115, 0);
+    --clickable: white;
+    /* --visited: rgb(129, 0, 129); */
     /* --active: #800; */
     --button: #66d;
     --focus: #00f;

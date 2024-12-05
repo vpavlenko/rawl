@@ -51,7 +51,11 @@ export const sampler = new Tone.Sampler({
     console.log("Audio Context State:", Tone.getContext().state);
     samplerLoaded = true;
   },
-}).toDestination();
+})
+  .toDestination()
+  .set({
+    volume: -6,
+  });
 
 // Enable Audio Worklet processing
 Tone.getContext().addAudioWorklet = async () => {

@@ -55,13 +55,22 @@ const PianoKey = styled.div<{ isPlaying?: boolean }>`
 
 const FoldButton = styled.button`
   position: absolute;
-  top: 0px;
+  bottom: 0px;
   right: 0px;
   border: none;
   font-size: 18px;
   cursor: pointer;
-  padding: 5px 15px;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 100001;
+  background: #ccc;
+  color: black;
+  &:hover {
+    background: #444;
+  }
 `;
 
 export const PianoLegend: React.FC<{
@@ -211,7 +220,7 @@ export const FoldablePianoLegend: React.FC<{
     >
       {showLegend ? (
         <div>
-          <FoldButton onClick={() => setShowLegend(false)}>X</FoldButton>
+          <FoldButton onClick={() => setShowLegend(false)}>x</FoldButton>
 
           <div
             style={{

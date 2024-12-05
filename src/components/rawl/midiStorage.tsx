@@ -68,7 +68,7 @@ export const saveMidiFromLink = async (link: string) => {
         .join(""),
     );
 
-    const response = await fetch(`https://corsproxy.io/?${link}`, {
+    const response = await fetch(`${link}`, {
       method: "GET",
     });
     if (!response.ok) {

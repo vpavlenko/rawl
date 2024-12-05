@@ -523,7 +523,7 @@ export const TOP_100_COMPOSERS: {
     order: 20,
     chapter: "Intro",
     mode: MODES[1],
-    titleChords: ["I", "IV", "V"],
+    titleChords: ["IV", "V", "I"],
     chords: ["I", "IV", "V"],
     description:
       "Uses seven notes only. The simplest arrangement uses three chords. There are more complex arrangements in different styles",

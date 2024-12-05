@@ -22,7 +22,7 @@ const BookContainer = styled.div`
   width: 97%;
   padding: 20px;
   color: #ddd;
-  margin: 0 auto;
+  margin: 0 auto 100px auto;
 `;
 
 const Title = styled.h1`
@@ -31,12 +31,12 @@ const Title = styled.h1`
 
 const ChordStairsWrapper = styled.div`
   transform: scale(0.9);
-  position: sticky;
-  top: 0px;
+  position: fixed;
+  bottom: 20px;
+  right: 0px;
   width: fit-content;
   z-index: 1000000;
   background: black;
-  float: right;
   margin-left: 20px;
   padding: 10px;
   padding-bottom: 40px;
@@ -45,7 +45,6 @@ const ChordStairsWrapper = styled.div`
 
 const GroupContainer = styled.div`
   margin-bottom: 80px;
-  // clear: both;
 `;
 
 const ComposersGrid = styled.div`

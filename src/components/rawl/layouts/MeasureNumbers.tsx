@@ -2,7 +2,12 @@ import * as React from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../AppContext";
-import { Analysis, MeasuresSpan, Snippet } from "../analysis";
+import {
+  Analysis,
+  MeasuresSpan,
+  Snippet,
+  filterSnippetsByAccess,
+} from "../analysis";
 import { AnalysisGrid, MeasureSelection } from "../AnalysisGrid";
 import { MouseHandlers } from "../getNoteRectangles";
 import { SecondsConverter } from "../Rawl";
@@ -18,10 +23,7 @@ const InlineSnippets: React.FC<{
   const isSignedIn = !!appContext?.user;
 
   const filteredSnippets = React.useMemo(() => {
-    return snippets.filter((snippet) => {
-      const [chapter] = snippet.tag.split(":");
-      return isSignedIn || chapter.trim() !== "book";
-    });
+    return filterSnippetsByAccess(snippets, isSignedIn);
   }, [snippets, isSignedIn]);
 
   const [groupedSnippets, setGroupedSnippets] = React.useState<

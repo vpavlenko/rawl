@@ -313,3 +313,13 @@ export function getSnippetsStartingAtMeasure(
     .filter((snippet) => snippet.measuresSpan[0] === measure)
     .map((snippet) => snippet.tag);
 }
+
+export function filterSnippetsByAccess(
+  snippets: Snippet[],
+  isSignedIn: boolean,
+): Snippet[] {
+  return snippets.filter((snippet) => {
+    const [chapter] = snippet.tag.split(":");
+    return isSignedIn || chapter.trim() !== "book";
+  });
+}

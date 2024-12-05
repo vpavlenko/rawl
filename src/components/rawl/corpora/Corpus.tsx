@@ -1,6 +1,6 @@
 import * as React from "react";
 import { AppContext } from "../../AppContext";
-import { getSnippetTags } from "../analysis";
+import { filterSnippetsByAccess, getSnippetTags } from "../analysis";
 import { corpora } from "./corpora";
 import { beautifySlug } from "./utils";
 
@@ -14,7 +14,7 @@ const Corpus: React.FC<{
   slug: string;
   composers?: ComposerInfo[];
 }> = ({ slug, composers }) => {
-  const { analyses } = React.useContext(AppContext);
+  const { analyses, user } = React.useContext(AppContext);
   const searchInputRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
@@ -26,7 +26,11 @@ const Corpus: React.FC<{
   const getTagsForMidi = (midiSlug: string) => {
     const analysis = analyses[`f/${midiSlug}`];
     if (analysis) {
-      const tags = getSnippetTags(analysis);
+      const filteredAnalysis = {
+        ...analysis,
+        snippets: filterSnippetsByAccess(analysis.snippets || [], !!user),
+      };
+      const tags = getSnippetTags(filteredAnalysis);
       return tags.length > 0 ? tags : null;
     }
     return null;

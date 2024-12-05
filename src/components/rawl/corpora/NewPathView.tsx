@@ -46,15 +46,6 @@ const ChapterButton = styled.button<{ active: boolean }>`
   max-width: 200px; // Adjust this value as needed
 `;
 
-const ContentArea = styled.div<{ isRawlVisible: boolean }>`
-  flex-grow: 1;
-  // background-color: #333333;
-  height: ${(props) =>
-    props.isRawlVisible ? "calc(50vh - 30px)" : "calc(100vh - 30px)"};
-  overflow-y: auto;
-  transition: height 0.3s ease-in-out;
-`;
-
 const ChapterSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -177,9 +168,6 @@ const NewPathView: React.FC<NewPathViewProps> = ({
     const data: { [chapter: string]: ChapterData } = {};
     const errors: string[] = [];
 
-    // Add special chapter "🎨"
-    data["🎨"] = { chapter: "🎨", topics: [] };
-
     Object.entries(analyses).forEach(([path, analysis]) => {
       // Strip the "f/" prefix from the path
       const slug = path.startsWith("f/") ? path.slice(2) : path;
@@ -229,10 +217,13 @@ const NewPathView: React.FC<NewPathViewProps> = ({
         if (initialTopic) {
           setActiveTopic(initialTopic);
         } else {
-          // If no initial topic is provided, select the first topic
           selectFirstTopicFromChapter(chapterIndex);
         }
       }
+    } else if (chapterData.length > 0) {
+      // If no initialChapter is provided and we have chapters, select the first one
+      setActiveChapter(0);
+      selectFirstTopicFromChapter(0);
     }
   }, [initialChapter, initialTopic, chapterData, selectFirstTopicFromChapter]);
 

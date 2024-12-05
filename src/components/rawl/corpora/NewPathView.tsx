@@ -160,13 +160,12 @@ const NewPathView: React.FC<NewPathViewProps> = ({
   const [isRawlVisible, setIsRawlVisible] = useState(false);
   const topicRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const history = useHistory();
-  const [activeTopic, setActiveTopic] = useState<string | undefined>(
-    initialTopic,
-  );
+  const [activeTopic, setActiveTopic] = useState<string | undefined>(() => {
+    return initialTopic;
+  });
   const [stickyTopic, setStickyTopic] = useState<string | null>(null);
 
   const processAnalyses = useCallback(() => {
-    console.log("Processing analyses");
     const data: { [chapter: string]: ChapterData } = {};
     const errors: string[] = [];
 
@@ -200,9 +199,6 @@ const NewPathView: React.FC<NewPathViewProps> = ({
       }
     });
 
-    console.log("Processed data:", data);
-    console.log("Errors:", errors);
-
     setErrorMessages(errors);
     setChapterData(
       Object.values(data).sort((a, b) => a.chapter.localeCompare(b.chapter)),
@@ -219,9 +215,11 @@ const NewPathView: React.FC<NewPathViewProps> = ({
       const chapterIndex = chapterData.findIndex(
         (c) => c.chapter === initialChapter,
       );
+
       if (chapterIndex !== -1) {
         setActiveChapter(chapterIndex);
         if (initialTopic) {
+          setActiveTopic(initialTopic);
           setTimeout(() => {
             topicRefs.current[initialTopic]?.scrollIntoView({
               behavior: "smooth",

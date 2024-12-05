@@ -1148,7 +1148,13 @@ class App extends React.Component<RouteComponentProps, AppState> {
               render={() => <NewPathView analyses={this.state.analyses} />}
             />
             <Route
-              path={["/s/:chapter", "/s/:chapter/:topic"]}
+              path="/s/:chapter/:topic"
+              render={() => (
+                <NewPathViewWithParams analyses={this.state.analyses} />
+              )}
+            />
+            <Route
+              path="/s/:chapter"
               render={() => (
                 <NewPathViewWithParams analyses={this.state.analyses} />
               )}

@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
@@ -158,12 +152,10 @@ const NewPathView: React.FC<NewPathViewProps> = ({
     number | undefined
   >(undefined);
   const [isRawlVisible, setIsRawlVisible] = useState(false);
-  const topicRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const history = useHistory();
   const [activeTopic, setActiveTopic] = useState<string | undefined>(() => {
     return initialTopic;
   });
-  const [stickyTopic, setStickyTopic] = useState<string | null>(null);
 
   const processAnalyses = useCallback(() => {
     const data: { [chapter: string]: ChapterData } = {};
@@ -221,10 +213,10 @@ const NewPathView: React.FC<NewPathViewProps> = ({
         if (initialTopic) {
           setActiveTopic(initialTopic);
           setTimeout(() => {
-            topicRefs.current[initialTopic]?.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
+            // topicRefs.current[initialTopic]?.scrollIntoView({
+            //   behavior: "smooth",
+            //   block: "start",
+            // });
           }, 0);
         }
       }
@@ -243,10 +235,6 @@ const NewPathView: React.FC<NewPathViewProps> = ({
     history.push(
       `/s/${encodeURIComponent(chapter)}#${encodeURIComponent(topic)}`,
     );
-    topicRefs.current[topic]?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
   };
 
   const handleMidiClick = (
@@ -257,44 +245,14 @@ const NewPathView: React.FC<NewPathViewProps> = ({
     resetMidiPlayerState();
     handleSongClick(slug);
     setSelectedMeasureStart(measureStart);
-    topicRefs.current[topic]?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
   };
 
   useEffect(() => {
     setIsRawlVisible(!!currentMidi);
   }, [currentMidi]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!topicRefs.current) return;
-
-      const scrollPosition = window.scrollY + 100; // Offset for the header
-      let currentTopic: string | null = null;
-
-      Object.entries(topicRefs.current).forEach(([topic, element]) => {
-        if (!element) return;
-        const { top } = element.getBoundingClientRect();
-        if (top <= scrollPosition) {
-          currentTopic = topic;
-        }
-      });
-
-      setStickyTopic(currentTopic);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [chapterData, activeChapter]);
-
   const handleTopicClick = (topic: string) => {
     setActiveTopic(topic);
-    topicRefs.current[topic]?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
   };
 
   const handleSnippetClick = useCallback(
@@ -348,10 +306,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({
               chapterData[activeChapter]?.topics
                 .filter(({ topic }) => topic === activeTopic)
                 .map(({ topic, snippets }) => (
-                  <TopicContainer
-                    key={topic}
-                    ref={(el) => (topicRefs.current[topic] = el)}
-                  >
+                  <TopicContainer key={topic}>
                     <TopicCard>
                       <SnippetList
                         snippets={snippets.map(({ snippet }) => snippet)}
@@ -389,10 +344,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({
                 chapterData[activeChapter]?.topics
                   .filter(({ topic }) => topic === activeTopic)
                   .map(({ topic, snippets }) => (
-                    <TopicContainer
-                      key={topic}
-                      ref={(el) => (topicRefs.current[topic] = el)}
-                    >
+                    <TopicContainer key={topic}>
                       <TopicCard>
                         <SnippetList
                           snippets={snippets.map(({ snippet }) => snippet)}

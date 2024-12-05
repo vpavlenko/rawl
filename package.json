@@ -14,9 +14,9 @@
     "@babel/plugin-transform-react-jsx": "^7.14.9",
     "@babel/preset-env": "^7.22.5",
     "@babel/preset-react": "^7.22.5",
-    "@fortawesome/fontawesome-svg-core": "^6.5.1",
-    "@fortawesome/free-solid-svg-icons": "^6.5.1",
-    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@fortawesome/fontawesome-svg-core": "^6.7.1",
+    "@fortawesome/free-solid-svg-icons": "^6.7.1",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "@types/styled-components": "^5.1.27",
     "@typescript-eslint/eslint-plugin": "5.59.9",
     "@typescript-eslint/parser": "5.59.9",
@@ -110,11 +110,11 @@
     "tmp": "^0.0.33",
     "trie-search": "1.2.8",
     "ts-loader": "^8.4.0",
+    "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
     "unzipper": "^0.9.3",
     "webpack-bundle-analyzer": "^3.3.2",
-    "worker-loader": "^2.0.0",
-    "ts-node": "^10.9.1"
+    "worker-loader": "^2.0.0"
   },
   "homepage": "https://rawl.rocks",
   "scripts": {

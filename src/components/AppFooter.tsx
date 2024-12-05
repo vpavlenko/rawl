@@ -1,6 +1,8 @@
-import React, { memo } from "react";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { memo, useContext } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import downloadImage from "../images/download.png";
+import { AppContext } from "./AppContext";
 import TimeSlider from "./TimeSlider";
 import VolumeSlider from "./VolumeSlider";
 
@@ -36,11 +38,20 @@ const AppFooter: React.FC<
   tempo,
   setTempo,
 }) => {
+  const context = useContext(AppContext);
+  const canDownload = context?.currentMidiBuffer && context?.currentMidi;
+
   const createBlobUrl = () => {
-    const blob = new Blob([fileToDownload], { type: "audio/midi" });
-    const url = URL.createObjectURL(blob);
-    return url;
+    if (!context?.currentMidiBuffer) return "";
+    const blob = new Blob([context.currentMidiBuffer], { type: "audio/midi" });
+    return URL.createObjectURL(blob);
   };
+
+  const getDownloadFilename = () => {
+    if (!context?.currentMidi) return "download.mid";
+    return `${context.currentMidi.title}.mid`;
+  };
+
   const { pathname } = location;
 
   const segments = pathname.split("/").filter(Boolean);
@@ -233,15 +244,20 @@ const AppFooter: React.FC<
               value={volume}
             />
             <a
-              style={{ color: "var(--neutral4)", margin: "0px 20px" }}
+              style={{
+                color: canDownload ? "var(--neutral4)" : "var(--neutral6)",
+                margin: "0px 20px",
+                cursor: canDownload ? "pointer" : "not-allowed",
+                pointerEvents: canDownload ? "auto" : "none",
+                opacity: canDownload ? 1 : 0.5,
+              }}
               href={createBlobUrl()}
-              download={lastSegment}
+              download={getDownloadFilename()}
+              title={
+                canDownload ? "Download MIDI file" : "No MIDI file to download"
+              }
             >
-              <img
-                alt="Download"
-                src={downloadImage}
-                style={{ verticalAlign: "bottom" }}
-              />
+              <FontAwesomeIcon icon={faDownload} />
             </a>
           </div>
         </div>

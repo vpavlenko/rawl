@@ -28,6 +28,7 @@ export type AppContextType = {
   seek: (seekMs: number) => void;
   currentPlaybackTime: number | null;
   eject: () => void;
+  currentMidiBuffer: ArrayBuffer | null;
 };
 
 export const AppContext = React.createContext<AppContextType | undefined>(

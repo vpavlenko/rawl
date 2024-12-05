@@ -109,6 +109,7 @@ type AppState = {
   audioContextLocked: boolean;
   audioContextState: string;
   currentPlaybackTime: number | null;
+  currentMidiBuffer: ArrayBuffer | null;
 };
 
 export interface FirestoreMidiIndex {
@@ -225,6 +226,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       audioContextLocked: this.audioContext.state === "suspended",
       audioContextState: this.audioContext.state,
       currentPlaybackTime: null,
+      currentMidiBuffer: null,
     };
 
     const bufferSize = Math.max(
@@ -715,6 +717,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
         .then((arrayBuffer) => {
           const transformedBuffer = transformMidi(new Uint8Array(arrayBuffer));
 
+          // Store the original MIDI buffer
+          this.setState({ currentMidiBuffer: arrayBuffer });
+
           this.midiPlayer.setPlaybackStartedCallback(playbackStartedCallback);
           this.midiPlayer
             .loadData(transformedBuffer, this.state.currentMidi?.slug || "")
@@ -1147,6 +1152,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
             seek: this.seekForRawl,
             currentPlaybackTime: this.state.currentPlaybackTime || null,
             eject: this.eject,
+            currentMidiBuffer: this.state.currentMidiBuffer,
           }}
         >
           <Switch>
@@ -1189,6 +1195,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           seek: this.seekForRawl,
           currentPlaybackTime: this.state.currentPlaybackTime || null,
           eject: this.eject,
+          currentMidiBuffer: this.state.currentMidiBuffer,
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>

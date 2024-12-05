@@ -3,7 +3,7 @@ import { useCallback, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { playArpeggiatedChord } from "../../sampler/sampler";
 
-const MARGIN_TOP = 20;
+const TITLE_HEIGHT = 27;
 
 export const CHORDS = {
   i: [0, 3, 7],
@@ -216,6 +216,7 @@ export const MINOR_WITH_V: Mode = {
 };
 
 const formatChordName = (name: string) => {
+  // note to AI: never change this function
   const parts = name.split("ø");
   if (parts.length === 1) {
     return name
@@ -233,6 +234,16 @@ const formatChordName = (name: string) => {
   );
 };
 
+const stackChordUp = (pitches: readonly number[]): number[] => {
+  const result = [...pitches];
+  for (let j = 1; j < result.length; j++) {
+    while (result[j] < result[j - 1]) {
+      result[j] += 12;
+    }
+  }
+  return result;
+};
+
 const ChordStairs: React.FC<{
   mode: Mode;
   chapterChords?: string[];
@@ -246,7 +257,7 @@ const ChordStairs: React.FC<{
     const [animationKey, setAnimationKey] = useState(0);
 
     const handleChordClick = useCallback(
-      (chord: Chord, pitches: number[]) => {
+      (chord: Chord, positions: number[], pitchOfMinPosition: number) => {
         if (!mode.title) return;
 
         if (timeoutRef.current) {
@@ -260,7 +271,9 @@ const ChordStairs: React.FC<{
           setPlayingChord(null);
         }, 2000);
 
-        const transposedNotes = pitches.map((note) => note + currentTonic);
+        const transposedNotes = positions.map(
+          (position) => position + pitchOfMinPosition + currentTonic,
+        );
         playArpeggiatedChord(transposedNotes);
       },
       [currentTonic, mode.title],
@@ -268,7 +281,7 @@ const ChordStairs: React.FC<{
 
     const { title, chords } = mode;
 
-    const titleHeight = hideLabels ? 0 : MARGIN_TOP;
+    const titleHeight = hideLabels ? 0 : TITLE_HEIGHT;
 
     // Check if we should show the chord stairs
     const chapterChordsSet = new Set(chapterChords || []) as Set<Chord>;
@@ -297,52 +310,53 @@ const ChordStairs: React.FC<{
       positions: number[]; // Positions for rendering
     }[] = filteredChords.map((chord) => ({
       name: chord,
-      pitches: [...CHORDS[chord]],
+      pitches: [...stackChordUp(CHORDS[chord])],
       positions: [...CHORDS[chord]],
     }));
 
     // Calculate positions
     for (let i = 0; i < rehydratedChords.length; ++i) {
-      const { positions } = rehydratedChords[i];
+      const { pitches, positions } = rehydratedChords[i];
       if (i > 0) {
-        const prevRoot = rehydratedChords[i - 1].positions[0];
-        const currentRoot = positions[0];
+        const prevRoot = rehydratedChords[i - 1].pitches[0];
+        const currentRoot = pitches[0];
 
         // Calculate the two possible minimal distances
-        const distanceUp = (currentRoot - prevRoot + 12) % 12;
-        const distanceDown = (prevRoot - currentRoot + 12) % 12;
+        const distanceUp =
+          (prevRoot < currentRoot ? 0 : 12) + currentRoot - prevRoot;
+        const distanceDown = 12 - distanceUp;
 
         // Choose whether to place the root up or down
         if (distanceUp <= distanceDown) {
-          positions[0] = prevRoot + distanceUp;
+          positions[0] = rehydratedChords[i - 1].positions[0] + distanceUp;
         } else {
-          positions[0] = prevRoot - distanceDown;
+          positions[0] = rehydratedChords[i - 1].positions[0] - distanceDown;
         }
+      } else {
+        positions[0] = 0;
       }
 
       // Stack the rest of the notes above the root
       for (let j = 1; j < positions.length; ++j) {
         positions[j] =
-          positions[j - 1] +
-          ((CHORDS[rehydratedChords[i].name][j] -
-            CHORDS[rehydratedChords[i].name][j - 1] +
-            12) %
-            12);
+          positions[j - 1] + ((pitches[j] - pitches[j - 1] + 12) % 12);
       }
     }
 
-    // Find minimum position
+    // Find minimum position across all chords
     const minPosition = Math.min(
       ...rehydratedChords.flatMap((chord) => chord.positions),
     );
 
-    // Shift positions if needed
-    if (minPosition < 0) {
-      const shift = Math.abs(minPosition);
-      rehydratedChords.forEach((chord) => {
-        chord.positions = chord.positions.map((pos) => pos + shift);
-      });
-    }
+    // Find which chord and which note has the minimum position
+    const pitchOfMinPosition = rehydratedChords.find((chord) =>
+      chord.positions.includes(minPosition),
+    )?.pitches[0];
+
+    // Shift all positions up by the minimum position (making the lowest note at position 0)
+    rehydratedChords.forEach((chord) => {
+      chord.positions = chord.positions.map((pos) => pos - minPosition);
+    });
 
     const maxPosition = Math.max(
       ...rehydratedChords.flatMap((chord) => chord.positions),
@@ -351,11 +365,10 @@ const ChordStairs: React.FC<{
     const height = maxPosition + 1;
 
     // Calculate effective margin top based on title
-    const effective_margin_top = hideLabels ? 0 : MARGIN_TOP;
+    const effective_margin_top = hideLabels ? 0 : titleHeight;
 
     // Calculate total height including margin top and text, plus half note height for last note
-    const totalHeight =
-      height * NOTE_HEIGHT + effective_margin_top + NOTE_HEIGHT;
+    const totalHeight = height * NOTE_HEIGHT + titleHeight + NOTE_HEIGHT;
 
     const tonicChordPosition = filteredChords.findIndex((chord) =>
       /^(i|I)$/.test(chord),
@@ -413,7 +426,9 @@ const ChordStairs: React.FC<{
           return (
             <ChordBoundingBox
               key={`bounding-box-${chordIndex}-${animationKey}`}
-              onClick={() => handleChordClick(name, pitches)}
+              onClick={() =>
+                handleChordClick(name, positions, pitchOfMinPosition)
+              }
               isPlaying={playingChord === name}
               clickable={!hideLabels}
               style={{

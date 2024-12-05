@@ -120,7 +120,7 @@ const InlineSnippets: React.FC<{
                     key={index}
                     to={`/s/${encodeURIComponent(
                       chapter.trim(),
-                    )}#${encodeURIComponent(topic.trim())}`}
+                    )}/${encodeURIComponent(topic.trim())}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{

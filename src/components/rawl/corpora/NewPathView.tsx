@@ -137,13 +137,8 @@ const NewPathView: React.FC<NewPathViewProps> = ({
   initialChapter,
   initialTopic,
 }) => {
-  const {
-    handleSongClick,
-    currentMidi,
-    resetMidiPlayerState,
-    rawlProps,
-    saveAnalysis,
-  } = useContext(AppContext);
+  const { handleSongClick, currentMidi, resetMidiPlayerState, rawlProps } =
+    useContext(AppContext);
   const [loading, setLoading] = useState(true);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [chapterData, setChapterData] = useState<ChapterData[]>([]);
@@ -222,30 +217,6 @@ const NewPathView: React.FC<NewPathViewProps> = ({
       }
     }
   }, [initialChapter, initialTopic, chapterData]);
-
-  const handleChapterSelect = (index: number) => {
-    setActiveChapter(index);
-    resetMidiPlayerState();
-    const chapter = chapterData[index].chapter;
-    history.push(`/s/${encodeURIComponent(chapter)}`);
-  };
-
-  const handleTopicSelect = (topic: string) => {
-    const chapter = chapterData[activeChapter].chapter;
-    history.push(
-      `/s/${encodeURIComponent(chapter)}#${encodeURIComponent(topic)}`,
-    );
-  };
-
-  const handleMidiClick = (
-    slug: string,
-    measureStart: number,
-    topic: string,
-  ) => {
-    resetMidiPlayerState();
-    handleSongClick(slug);
-    setSelectedMeasureStart(measureStart);
-  };
 
   useEffect(() => {
     setIsRawlVisible(!!currentMidi);

@@ -1,3 +1,5 @@
+// Metadata filled in using o1-mini on Dec 6, 2024.
+
 type Corpora = {
   slug: string;
   midis: string[];
@@ -323,10 +325,18 @@ export const corpora: Corpora[] = [
       "ach-bleib-bei-uns-herr-jesu-christ---j.-s.-bach---german-phrasing",
       "ach-gott-erhor-mein-seufzen-bwv-254-and-original-setting",
     ],
+    composerBirthYear: 1685, // Johann Sebastian Bach
+    genre: "Baroque, Sacred",
+    style: "Choral, Sacred Music",
+    country: "Germany", // Bach was German.
   },
   {
     slug: "heitor_villa-lobos",
     midis: ["heitor-villa-lobos-prelude-no-1", "choros-ndeg1-h.-villa-lobos"],
+    composerBirthYear: 1887, // Heitor Villa-Lobos
+    genre: "Classical, Brazilian Music",
+    style: "Choro, Modern Classical",
+    country: "Brazil", // Villa-Lobos was Brazilian.
   },
   {
     slug: "peter_mcconnell",
@@ -341,6 +351,10 @@ export const corpora: Corpora[] = [
       "swanky-maximo---grim-fandango",
       "plants-vs-zombies-2-ballad-jam",
     ],
+    composerBirthYear: 1969, // Peter McConnell
+    genre: "Video Game Music, Film Score",
+    style: "Orchestral, Cinematic, Jazz",
+    country: "USA", // Peter McConnell is American.
   },
   {
     slug: "ari_pulkkinen",
@@ -352,6 +366,10 @@ export const corpora: Corpora[] = [
       "brambelstoke-village---trine---ari-pulkkinen",
       "academy-hallways",
     ],
+    composerBirthYear: 1976, // Ari Pulkkinen
+    genre: "Video Game Music",
+    style: "Cinematic, Orchestral, Electronic",
+    country: "Finland", // Ari Pulkkinen is Finnish.
   },
   {
     slug: "masayoshi_soken",
@@ -359,6 +377,10 @@ export const corpora: Corpora[] = [
       "each-drop-flow-piano-arrangement-ffxiv-endwalker---masayoshi-soken",
       "finality-ffxiv-endwalker-dungeon-final-boss-theme---masayoshi-soken-ffxiv-endwalker---dungeon-final-boss-theme---masayoshi-soken",
     ],
+    composerBirthYear: 1976, // Masayoshi Soken
+    genre: "Video Game Music",
+    style: "Orchestral, Rock, Cinematic",
+    country: "Japan", // Masayoshi Soken is Japanese.
   },
   {
     slug: "masashi_hamauzu",
@@ -366,20 +388,25 @@ export const corpora: Corpora[] = [
       "besaid-island-final-fantasy-x-piano-collection---masashi-hamauzu",
       "wish---masashi-hamauzu-final-fantasy-xiii-2-piano",
     ],
+    composerBirthYear: 1971, // Masashi Hamauzu
+    genre: "Video Game Music",
+    style: "Orchestral, Piano, Cinematic",
+    country: "Japan", // Masashi Hamauzu is Japanese.
   },
   {
-    // wrong approach. better continue chiptheory's approach with parsing NES files: better coverage
-    // see https://vpavlenko.github.io/chiptheory
     slug: "nobuo_uematsu",
     midis: [
       "final-fantasy-i-matoya-s-cave---nobuo-uematsu",
       "final-fantasy-prelude---nobuo-uematsu",
       "ffiv-theme-of-love-piano-collections-by-nobuo-uematsu",
-
       "dragonsong---nobuo-uematsu-advanced-solo-piano",
       "super-smash-bros.-brawl-main-theme-piano-transcription",
       "dou-uzhe-da-fighting-those-who-fight---final-fantasy-vii-ps1---nobuo-uematsu",
     ],
+    composerBirthYear: 1959, // Nobuo Uematsu
+    genre: "Video Game Music",
+    style: "Orchestral, Rock, Cinematic",
+    country: "Japan", // Nobuo Uematsu is Japanese.
   },
   {
     slug: "elgar",
@@ -389,10 +416,18 @@ export const corpora: Corpora[] = [
       "elgar---enigma-variations---xi.-nimrod",
       "elgar-pomp-and-circumstance-march-no.-1-piano-solo-with-choral-finale",
     ],
+    composerBirthYear: 1857, // Edward Elgar
+    genre: "Classical",
+    style: "Romantic, Orchestral",
+    country: "United Kingdom", // Edward Elgar was British.
   },
   {
     slug: "kotaro_nakagawa",
     midis: ["the-master---code-geass"],
+    composerBirthYear: 1969, // Kotaro Nakagawa
+    genre: "Anime Music, Video Game Music",
+    style: "Orchestral, Electronic, Cinematic",
+    country: "Japan", // Kotaro Nakagawa is Japanese.
   },
   {
     slug: "mike_morasky",
@@ -417,10 +452,10 @@ export const corpora: Corpora[] = [
       "medic",
       "misfortune-teller---valve-studio-orchestra-.",
     ],
-  },
-  {
-    slug: "karen_khachaturian",
-    midis: [],
+    composerBirthYear: 1974, // Mike Morasky
+    genre: "Video Game Music",
+    style: "Electronic, Cinematic, Experimental",
+    country: "USA", // Mike Morasky is American.
   },
   {
     slug: "bach_misc",
@@ -428,10 +463,18 @@ export const corpora: Corpora[] = [
       "bach-goldberg-variation-00-aria",
       "bwv0565-toccata-and-fugue-in-dm-c",
     ],
+    composerBirthYear: 1685, // Johann Sebastian Bach
+    genre: "Baroque",
+    style: "Keyboard, Organ Music",
+    country: "Germany", // Bach was German.
   },
   {
     slug: "olafur_arnalds",
     midis: ["saman---olafur-arnalds"],
+    composerBirthYear: 1986, // Ólafur Arnalds
+    genre: "Classical, Electronic",
+    style: "Modern Classical, Ambient, Minimalist",
+    country: "Iceland", // Ólafur Arnalds is Icelandic.
   },
   {
     slug: "bach_wtc",
@@ -466,6 +509,10 @@ export const corpora: Corpora[] = [
       "prelude-no.-4-bwv-873-in-c-minor",
       "fugue-no.-3-bwv-848-in-c-major",
     ],
+    composerBirthYear: 1685, // Johann Sebastian Bach
+    genre: "Baroque",
+    style: "Fugue, Prelude, Keyboard Music",
+    country: "Germany", // Bach was German.
   },
   {
     slug: "bach_french_suite_no2",
@@ -473,6 +520,10 @@ export const corpora: Corpora[] = [
       "j.-s.-bach---sarabande-from-french-suite-no2-bwv-813",
       "bach-allemande-bwv-813-french-suite-ii",
     ],
+    composerBirthYear: 1685, // Johann Sebastian Bach
+    genre: "Baroque",
+    style: "Keyboard Suite",
+    country: "Germany", // Bach was German.
   },
   {
     slug: "lucrecia_roces_kasilag",
@@ -481,6 +532,10 @@ export const corpora: Corpora[] = [
       "prelude-etnika---piano-transcription",
       "luwalhati---lucrecia-r.-kasilag",
     ],
+    composerBirthYear: 1918, // Lucrecia R. Kasilag
+    genre: "Filipino Music, Classical",
+    style: "Folk, Ethno-Classical",
+    country: "Philippines", // Lucrecia Kasilag was Filipino.
   },
   {
     slug: "ernesto_lecuona",
@@ -492,6 +547,10 @@ export const corpora: Corpora[] = [
       "malaguena---ernesto-lecuona",
       "gitanerias",
     ],
+    composerBirthYear: 1895, // Ernesto Lecuona
+    genre: "Cuban, Classical",
+    style: "Cuban Dances, Classical, Latin",
+    country: "Cuba", // Ernesto Lecuona was Cuban.
   },
   {
     slug: "shamshi_kaldayakov",
@@ -499,6 +558,10 @@ export const corpora: Corpora[] = [
       "my-kazakhstan",
       "arys-zhagasynda---shamshi-kaldayakov-arys-zhag-asynda---sh-mshi-k-aldayak-ov-red.-ask-ar-lmak-tum",
     ],
+    composerBirthYear: 1924, // Shamshi Kaldayakov
+    genre: "Kazakh, Classical",
+    style: "Folk, National Music",
+    country: "Kazakhstan", // Shamshi Kaldayakov was Kazakh.
   },
   {
     slug: "malaguena",
@@ -514,10 +577,18 @@ export const corpora: Corpora[] = [
       "malaguena-facil",
       "rumores-de-la-caleta-malaguena",
     ],
+    composerBirthYear: 1895, // Ernesto Lecuona (primarily) for "Malagueña"
+    genre: "Classical, Latin",
+    style: "Cuban, Spanish",
+    country: "Cuba", // Lecuona's version is most well-known.
   },
   {
     slug: "vaqif_mustafazadeh",
     midis: ["vaqif_mustafazade_-_dushunce_piano_tutorial"],
+    composerBirthYear: 1940, // Vaqif Mustafazadeh
+    genre: "Jazz, Azerbaijani Music",
+    style: "Jazz, Mugham Fusion",
+    country: "Azerbaijan", // Vaqif Mustafazadeh was Azerbaijani.
   },
   {
     slug: "ferdinand_hiller",
@@ -526,6 +597,10 @@ export const corpora: Corpora[] = [
       "tagebuch-no.-2---ferdinand-hiller",
       "etude-op.-15-no.-4---ferdinand-hiller",
     ],
+    composerBirthYear: 1811, // Ferdinand Hiller
+    genre: "Classical, Romantic",
+    style: "Piano, Orchestral",
+    country: "Germany", // Ferdinand Hiller was German.
   },
   {
     slug: "ennio_morricone",
@@ -537,8 +612,11 @@ export const corpora: Corpora[] = [
       "gabriel-s-oboe---ennio-morricone",
       "cinema-paradiso-morricone",
     ],
-  },
-  // 1883
+    composerBirthYear: 1928, // Ennio Morricone
+    genre: "Film Music",
+    style: "Cinematic, Orchestral, Soundtrack",
+    country: "Italy", // Ennio Morricone was Italian.
+  }, // 1883
   {
     slug: "charlie_astin",
     midis: ["in-the-gloaming-1883", "clide-polka-1883"],

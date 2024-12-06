@@ -4339,6 +4339,10 @@ export const corpora: Corpora[] = [
       "liz-on-top-of-the-world",
       "your-hands-are-cold-from-pride-and-prejudice-2005-soundtrack",
     ],
+    composerBirthYear: 1963, // Dario Marianelli was born in 1963
+    genre: "Film Score", // Known for composing film scores
+    style: "Orchestral", // Marianelli is recognized for his orchestral and emotive compositions
+    country: "Italy", // Italian composer
   },
   {
     slug: "enya",
@@ -4347,6 +4351,10 @@ export const corpora: Corpora[] = [
       "caribbean-blue---enya",
       "a-day-without-rain---enya",
     ],
+    composerBirthYear: 1961, // Enya was born in 1961
+    genre: "New Age", // Enya is a prominent artist in the New Age genre
+    style: "Ambient, Celtic", // Known for ambient and Celtic musical influences
+    country: "Ireland", // Enya is from Ireland
   },
   {
     slug: "charles_villiers_stanford",
@@ -4354,22 +4362,42 @@ export const corpora: Corpora[] = [
       "stanford-charles-villiers---the-blue-bird",
       "when-mary-thro-the-garden-went---charles-villiers-stanford",
     ],
+    composerBirthYear: 1852, // Born in 1852
+    genre: "Classical", // Stanford was a classical composer
+    style: "Romantic", // His work is typically associated with the Romantic era
+    country: "United Kingdom", // Stanford was English
   },
   {
     slug: "2002_band",
     midis: ["suddenly-yours---2002-band", "we-meet-again---2002-band"],
+    composerBirthYear: undefined, // No clear composer is associated with the band
+    genre: "Pop", // The 2002 band is known for pop music
+    style: "Soft Pop", // Their music has a soft pop style
+    country: "South Korea", // 2002 was a South Korean band
   },
   {
     slug: "lyle_mays",
     midis: ["lyle-mays-chorinho-arr.-for-solo-piano"],
+    composerBirthYear: 1949, // Born in 1949
+    genre: "Jazz", // Lyle Mays was a jazz composer and pianist
+    style: "Jazz Fusion", // Known for his fusion of jazz with other styles
+    country: "USA", // Lyle Mays was American
   },
   {
     slug: "poulenc",
     midis: ["poulenc-melancolie-piano-solo"],
+    composerBirthYear: 1899, // Born in 1899
+    genre: "Classical", // Poulenc was a classical composer
+    style: "20th Century", // His works are characterized by 20th-century classical music styles
+    country: "France", // Poulenc was French
   },
   {
     slug: "chinese",
     midis: ["han-gong-chun-li-chun-ri---song-yu-ning", "shan-zhi-gao---song"],
+    composerBirthYear: undefined, // The specific composer is unclear for these tracks
+    genre: "Traditional Chinese", // The music is traditional Chinese
+    style: "Folk", // Folk music style with traditional Chinese instruments
+    country: "China", // Likely from China, given the titles
   },
   {
     slug: "karel_svoboda",
@@ -4377,6 +4405,10 @@ export const corpora: Corpora[] = [
       "drei-haselnusse-fur-aschenbrodel---karel-svoboda-by-jacroby",
       "n-a-v-s-t-e-v-n-i-c-i",
     ],
+    composerBirthYear: 1938, // Born in 1938
+    genre: "Film Score", // Known for composing film scores
+    style: "Orchestral", // His film scores are typically orchestral
+    country: "Czech Republic", // Svoboda was Czech
   },
   {
     slug: "benjamin_wallfisch",
@@ -4387,6 +4419,10 @@ export const corpora: Corpora[] = [
       "blade-runner",
       "we-can-fix-this-the-flash-movie.-2023-ost",
     ],
+    composerBirthYear: 1976, // Born in 1976
+    genre: "Film Score", // Known for composing film scores
+    style: "Modern Orchestral", // Modern orchestral style with electronic elements
+    country: "United Kingdom", // Benjamin Wallfisch is from the UK
   },
   {
     slug: "schubert",
@@ -4410,11 +4446,19 @@ export const corpora: Corpora[] = [
       "german-dance-and-ecossaise-d.643---franz-schubert",
       "schubert---sonata-in-a-op.120-d.664-movement-i",
     ],
+    composerBirthYear: 1797, // Franz Schubert was born in 1797
+    genre: "Classical", // Schubert is one of the most important composers of the Classical era
+    style: "Romantic", // Although his early works were Classical, Schubert's later works contributed significantly to the Romantic era
+    country: "Austria", // Schubert was Austrian
   },
 
   {
     slug: "brad_mehldau",
     midis: ["anthropology---brad-mehldau"],
+    composerBirthYear: 1970, // Brad Mehldau was born in 1970
+    genre: "Jazz", // Brad Mehldau is a jazz pianist
+    style: "Post-bop, Contemporary Jazz", // Known for blending post-bop with modern jazz styles
+    country: "USA", // Born in the United States
   },
   {
     slug: "aziza_mustafa_zadeh",
@@ -4423,6 +4467,10 @@ export const corpora: Corpora[] = [
       "aziza_mustafa_zadeh_dance_of_fire_nicola_morali_solo_piano_cover",
       "always---aziza-mustafa-zadeh",
     ],
+    composerBirthYear: 1969, // Aziza Mustafa Zadeh was born in 1969
+    genre: "Jazz", // She is a jazz pianist and composer
+    style: "Fusion, Avant-garde Jazz", // Known for jazz fusion and avant-garde styles
+    country: "Azerbaijan", // Born in Baku, Azerbaijan
   },
   {
     // https://musescore.com/user/24069/sets/5098783
@@ -4433,6 +4481,10 @@ export const corpora: Corpora[] = [
       "Symphony_No.9_From_The_New_World_3rd_movement_Scherzo",
       "Symphony_No9_From_The_New_World_4th_movement__Z_Novho_Svta",
     ],
+    composerBirthYear: 1841, // Antonín Dvořák was born in 1841
+    genre: "Classical", // He was a classical composer
+    style: "Romantic", // Part of the Romantic movement
+    country: "Czech Republic", // Born in what is now the Czech Republic
   },
   {
     // https://musescore.com/user/19710/sets
@@ -4453,6 +4505,10 @@ export const corpora: Corpora[] = [
       "Fr_Elise",
       "piano_sonata_no_3_in_c_major_op_2_no_3_ludwig_van_beethoven_piano_sonata_no_3_in_c_major_op_2_no_3_complete",
     ],
+    composerBirthYear: 1770, // Ludwig van Beethoven was born in 1770
+    genre: "Classical", // Beethoven bridged the Classical and Romantic eras, but is primarily associated with Classical music
+    style: "Romantic", // Beethoven's later works, particularly from his middle period onward, are often considered Romantic
+    country: "Germany", // Beethoven was German (born in Bonn, which was part of Electorate of Cologne, now Germany)
   },
   {
     slug: "einaudi",
@@ -4460,6 +4516,10 @@ export const corpora: Corpora[] = [
       "the_earth_prelude_ludovico_einaudi_piano_solo",
       "ludovico-einaudi-una-mattina",
     ],
+    composerBirthYear: 1955, // Ludovico Einaudi was born in 1955
+    genre: "Classical", // Modern classical music
+    style: "Minimalism, Contemporary Classical", // Known for minimalist and contemporary classical style
+    country: "Italy", // Born in Italy
   },
   {
     slug: "horo",
@@ -4590,6 +4650,7 @@ export const corpora: Corpora[] = [
       "daichovo-chara",
       "daichovo-hora",
     ],
+    country: "Bulgaria",
   },
   {
     slug: "richard_clayderman",
@@ -4600,6 +4661,10 @@ export const corpora: Corpora[] = [
       "souvenirs-d-enfance---richard-clayderman",
       "concerto-des-etoiles---richard-clayderman",
     ],
+    composerBirthYear: 1953, // Richard Clayderman was born in 1953
+    genre: "Easy Listening, Classical Crossover", // Known for his romantic and easy-listening style
+    style: "Romantic, Piano", // Often performs in a romantic piano style
+    country: "France", // Born in Paris, France
   },
   {
     slug: "marc_streitenfeld",
@@ -4608,6 +4673,10 @@ export const corpora: Corpora[] = [
       "american-gangster-frank-lucas---marc-streitenfeld",
       "the-grey",
     ],
+    composerBirthYear: 1968, // Marc Streitenfeld was born in 1968
+    genre: "Film Score", // Known for composing film scores
+    style: "Orchestral, Cinematic", // His style is orchestral and cinematic
+    country: "Germany", // Born in Frankfurt, Germany
   },
   {
     slug: "brian_eno",
@@ -4617,26 +4686,50 @@ export const corpora: Corpora[] = [
       "harold-budd-brian-eno---not-yet-remembered",
       "blonde-by-roger-and-brian-eno",
     ],
+    composerBirthYear: 1948, // Brian Eno was born in 1948
+    genre: "Ambient, Electronic", // Known for ambient and electronic music
+    style: "Ambient, Experimental", // Pioneer of ambient music and experimental sound
+    country: "UK", // Born in England
   },
   {
     slug: "campyfire",
     midis: ["greed---campyfire", "nut-cracker-march---arsenal-emote-music"],
+    composerBirthYear: undefined, // Birth year not available
+    genre: "Electronic", // Electronic music
+    style: "Chiptune, Lo-fi", // Lo-fi and chiptune elements are present in their music
+    country: undefined, // Country not available
   },
   {
     slug: "gabriele_traietti",
     midis: ["a-trip-to-rapture-i-in-the-bathysphere"],
+    composerBirthYear: undefined, // Birth year not available
+    genre: "Electronic", // Likely an electronic artist based on the music
+    style: "Ambient, Soundtrack", // The track suggests a cinematic and ambient style
+    country: undefined, // Country not available
   },
   {
     slug: "lofi",
     midis: ["cool-lofi-hip-hop-song"],
+    composerBirthYear: undefined, // No specific birth year for this genre
+    genre: "Lo-fi Hip Hop", // The genre is lo-fi hip hop
+    style: "Chill, Instrumental", // Lo-fi is typically chill and instrumental
+    country: undefined, // Country not available
   },
   {
     slug: "horace_silver",
     midis: ["song-for-my-father---horace-silver"],
+    composerBirthYear: 1928, // Horace Silver was born in 1928
+    genre: "Jazz", // A legendary jazz pianist and composer
+    style: "Hard Bop", // Known for the hard bop style of jazz
+    country: "USA", // Born in the United States
   },
   {
     slug: "mulatu_astatke",
     midis: ["yekermo_sew_-_mulatu_astatke-no-acc"],
+    composerBirthYear: 1943, // Mulatu Astatke was born in 1943
+    genre: "Jazz, Ethio-jazz", // Known for Ethio-jazz, a fusion of jazz and traditional Ethiopian music
+    style: "Fusion, Ethio-jazz", // Pioneer of Ethio-jazz
+    country: "Ethiopia", // Born in Addis Ababa, Ethiopia
   },
   {
     slug: "ramin_djawadi",
@@ -4645,7 +4738,12 @@ export const corpora: Corpora[] = [
       "light-of-the-seven---ramin-djawadi-complete-transcription",
       "the-night-king---ramin-djawadi",
     ],
+    composerBirthYear: 1973, // Ramin Djawadi was born in 1973
+    genre: "Film Score, Classical", // Known for his film scores
+    style: "Orchestral, Cinematic", // Orchestral and cinematic style, particularly in soundtracks
+    country: "Germany", // Born in Germany
   },
+
   {
     slug: "musescore_top100",
     midis: [
@@ -4847,6 +4945,10 @@ export const corpora: Corpora[] = [
       "sonata_k159_scarlatti",
       "scarlatti-sonata-aria-k.32",
     ],
+    composerBirthYear: 1685, // Domenico Scarlatti was born in 1685
+    genre: "Classical", // Classical composer
+    style: "Baroque", // Baroque period composer
+    country: "Italy", // Born in Naples, Italy
   },
 
   {

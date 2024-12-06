@@ -948,6 +948,10 @@ export const corpora: Corpora[] = [
       "Sweden_Minecraft",
       "Wet_Hands_Minecraft",
     ],
+    composerBirthYear: 1981, // Daniel Rosenfeld (C418)
+    genre: "Video game music",
+    style: "Ambient, Electronic",
+    country: "Germany",
   },
   {
     slug: "tom_lehrer",
@@ -973,11 +977,13 @@ export const corpora: Corpora[] = [
       "there-s-a-delta-for-every-epsilon---tom-lehrer",
       "hanukah-in-santa-monica---tom-lehrer",
       "so-long-mom----tom-lehrer",
-
       "we-will-all-go-together-when-we-go---tom-lehrer", //corrupt?
-
       "the-subway-song---tom-lehrer", // 1915, Theodore Morse!
     ],
+    composerBirthYear: 1928, // Tom Lehrer
+    genre: "Comedy, Musical",
+    style: "Satirical, Parody",
+    country: "USA",
   },
   {
     // todo: link "ragtime treasures" together
@@ -990,10 +996,18 @@ export const corpora: Corpora[] = [
       "chimes-of-dixie-c-1960",
       "cinders",
     ],
+    composerBirthYear: 1887, // Joseph Lamb
+    genre: "Ragtime",
+    style: "Classical",
+    country: "USA",
   },
   {
     slug: "ted_snyder",
     midis: ["the-sheik-of-araby-arr.-zez-confrey"],
+    composerBirthYear: 1881, // Ted Snyder
+    genre: "Jazz, Popular music",
+    style: "Ragtime, Early Jazz",
+    country: "USA",
   },
   {
     slug: "nicholas_britell",
@@ -1004,6 +1018,10 @@ export const corpora: Corpora[] = [
       "don-t-look-up---main-title-theme---nicholas-britell",
       "the-baroque-ball---nicholas-britell",
     ],
+    composerBirthYear: 1980, // Nicholas Britell
+    genre: "Film score",
+    style: "Orchestral, Cinematic",
+    country: "USA",
   },
   {
     slug: "alex_thorn",
@@ -1013,6 +1031,10 @@ export const corpora: Corpora[] = [
       "baroque-harpsichord",
       "cryin-in-the-rain-piano-solo",
     ],
+    composerBirthYear: 1984, // Alex Thorn
+    genre: "Classical, Film score",
+    style: "Classical, Baroque",
+    country: "USA",
   },
   {
     slug: "bts",
@@ -1020,32 +1042,35 @@ export const corpora: Corpora[] = [
       "bts-bangtansonyeondan---i-need-u-suga-piano-full-solo",
       "bts-jungkook-bangtansonyeondan-jeonggug---still-with-you",
       "bts-bangtansonyeondan---fake-love",
-
       "spring-day---bts",
       "the-truth-untold---bts",
       "bts-bangtansonyeondan---dynamite-piano-version",
     ],
+    composerBirthYear: 1993, // BTS Members (group)
+    genre: "Pop, K-pop",
+    style: "Pop, Dance, R&B",
+    country: "South Korea",
   },
   {
     slug: "homm",
     midis: [
       "heroes-of-might-and-magic-2--sorceress-town---paul-anthony-romero",
-
       "heroes-of-might-and-magic-iii---main-menu-theme",
       "heroes-of-might-and-magic-iii----waiting-theme",
       "heroes-of-might-and-magic-3---necropolis-town-theme",
       "heroes-of-might-magic-iii---tower-town-theme",
       "inferno-theme-by-paul-romero-from-heroes-of-might-and-magic-3",
       "heroes-of-might-magic-iii---fortress-town-theme",
-      "heroes-of-might-magic-iii---castle-town-theme",
-
+      "heroes-of-might-and-magic-iii---castle-town-theme",
       "dirt-theme-hope---heroes-of-might-and-magic-iv---celtic-harp",
       "academy-order-theme---heroes-and-might-and-magic-iv",
-
       "haven-theme-piano-form-heroes-of-might-and-magic-v",
-
       "heroes-of-might-and-magic-vi-unknown-title",
     ],
+    composerBirthYear: 1965, // Paul Anthony Romero
+    genre: "Video game music",
+    style: "Symphonic, Orchestral",
+    country: "USA",
   },
   {
     slug: "beauty_and_the_beast",
@@ -1058,6 +1083,10 @@ export const corpora: Corpora[] = [
       "gaston",
       "tale-as-old-as-time---beauty-and-the-beast---alan-menken---piano-solo",
     ],
+    composerBirthYear: 1949, // Alan Menken
+    genre: "Film score, Musical",
+    style: "Orchestral, Broadway",
+    country: "USA",
   },
   {
     slug: "ravel",
@@ -1065,6 +1094,10 @@ export const corpora: Corpora[] = [
       "pavane_pour_une_infante_defunte_ravel_recorder",
       "ravel---miroirs-iii.-une-barque-sur-l-ocean",
     ],
+    composerBirthYear: 1875, // Maurice Ravel
+    genre: "Classical",
+    style: "Impressionist",
+    country: "France",
   },
   {
     slug: "masakazu_sugimori",
@@ -1072,6 +1105,10 @@ export const corpora: Corpora[] = [
       "reminiscence-~-dl-6-incident---masakazu-sugimori-phoenix-wright-ace-attorney",
       "ace-attorney-turnabout-sisters-ballad---masakazu-sugimori",
     ],
+    composerBirthYear: 1968, // Masakazu Sugimori
+    genre: "Video game music",
+    style: "Orchestral, Piano",
+    country: "Japan",
   },
   {
     slug: "tokyo_ghoul",
@@ -1084,6 +1121,10 @@ export const corpora: Corpora[] = [
       "schmetterling---tokyo-ghoul-re-ep-7-bgm",
       "tokyo-ghoul-re-op--katharsis",
     ],
+    composerBirthYear: 1989, // Yutaka Yamada
+    genre: "Anime, Video game music",
+    style: "Orchestral, Contemporary",
+    country: "Japan",
   },
   {
     slug: "alan_silvestri",
@@ -1092,6 +1133,10 @@ export const corpora: Corpora[] = [
       "forest-gump---main-title-feather-theme",
       "back-to-the-future-theme-song",
     ],
+    composerBirthYear: 1950, // Alan Silvestri
+    genre: "Film score, TV music",
+    style: "Orchestral, Cinematic",
+    country: "USA",
   },
   {
     slug: "deltarune",
@@ -1099,14 +1144,26 @@ export const corpora: Corpora[] = [
       "deltarune-chapter-2-ost-toby-fox---my-castle-town-piano-solo",
       "attack-of-the-killer-queen---deltarune-chapter-2",
     ],
+    composerBirthYear: 1991, // Toby Fox
+    genre: "Video game music",
+    style: "Chiptune, Orchestral",
+    country: "USA",
   },
   {
     slug: "mieczyslaw_weinberg",
     midis: ["vstuplenie-iz-m-f-vinni-puh-m.-vaynberg"],
+    composerBirthYear: 1919, // Mieczysław Weinberg
+    genre: "Classical",
+    style: "Romantic, Soviet",
+    country: "Poland",
   },
   {
     slug: "rachel_portman",
     midis: ["we-had-today", "the-letterbox", "chocolat---main-titles"],
+    composerBirthYear: 1960, // Rachel Portman
+    genre: "Film score",
+    style: "Orchestral, Light Classical",
+    country: "UK",
   },
   {
     slug: "john_barry",
@@ -1114,6 +1171,10 @@ export const corpora: Corpora[] = [
       "places-out-of-africa---john-barry",
       "somewhere-in-time---john-barry",
     ],
+    composerBirthYear: 1933, // John Barry
+    genre: "Film score",
+    style: "Orchestral, Cinematic",
+    country: "UK",
   },
   {
     slug: "françois_couperin",
@@ -1121,6 +1182,10 @@ export const corpora: Corpora[] = [
       "francois-couperin---les-barricades-mysterieuses",
       "le-rossignol-en-amour---francois-couperin",
     ],
+    composerBirthYear: 1668, // François Couperin
+    genre: "Baroque",
+    style: "Baroque, French Classical",
+    country: "France",
   },
   {
     slug: "austin_wintory",
@@ -1133,15 +1198,27 @@ export const corpora: Corpora[] = [
       "journey-i-was-born-for-this---austin-wintory",
       "the-old-south-distillery",
     ],
+    composerBirthYear: 1984, // Austin Wintory
+    genre: "Video game music",
+    style: "Orchestral, Contemporary",
+    country: "USA",
   },
   {
     slug: "cyril_scott",
     midis: ["lotus-land", "cyril-scott-summerland-playtime-op.-54-no.1"],
+    composerBirthYear: 1879, // Cyril Scott
+    genre: "Classical",
+    style: "Impressionistic, British Classical",
+    country: "UK",
   },
-  // world pianists
+  // World pianists
   {
     slug: "darren_korb_hades",
     midis: ["on-the-coast---darren-korb-austin-wintory"],
+    composerBirthYear: 1985, // Darren Korb
+    genre: "Video game music",
+    style: "Ambient, Indie",
+    country: "USA",
   },
   {
     slug: "percy_grainger",
@@ -1150,6 +1227,10 @@ export const corpora: Corpora[] = [
       "spoon-river---percy-grainger",
       "country-gardens-for-brass-quintet",
     ],
+    composerBirthYear: 1882, // Percy Grainger
+    genre: "Classical, Folk",
+    style: "Folk music, Modern Classical",
+    country: "Australia",
   },
   {
     slug: "abdullah_ibrahim",
@@ -1162,6 +1243,10 @@ export const corpora: Corpora[] = [
       "thaba-bosigo",
       "maraba-blue---abdullah-ibrahim",
     ],
+    composerBirthYear: 1934, // Abdullah Ibrahim
+    genre: "Jazz, World music",
+    style: "Jazz, South African music",
+    country: "South Africa",
   },
   {
     slug: "elza_ibrahimova",
@@ -1170,14 +1255,18 @@ export const corpora: Corpora[] = [
       "ot-n-gunl-rimi-qaytaraydilar-azerbaijani-song-piano",
       "s-n-yadima-dus-nd", // iv-V7-i, three chord minor
     ],
+    composerBirthYear: 1949, // Elza Ibrahimova
+    genre: "World music, Folk",
+    style: "Azerbaijani music, Folk",
+    country: "Azerbaijan",
   },
-  // {
-  //   slug: "azerbaijani_single",
-  //   midis: [],
-  // },
   {
     slug: "bahram_dehghanyar",
     midis: ["zireh-gonbadeh-kabood", "grand-mother", "aghaye-hekayati"],
+    composerBirthYear: 1940, // Bahram Dehghanyar
+    genre: "World music",
+    style: "Persian music, Folk",
+    country: "Iran",
   },
   {
     slug: "jerry_goldsmith",
@@ -1189,6 +1278,10 @@ export const corpora: Corpora[] = [
       "theme-from-hoosiers",
       "it-s-a-long-road-from-first-blood---jerry-goldsmith",
     ],
+    composerBirthYear: 1929, // Jerry Goldsmith
+    genre: "Film score, TV music",
+    style: "Orchestral, Cinematic",
+    country: "USA",
   },
   {
     slug: "eduard_artemyev",
@@ -1197,6 +1290,10 @@ export const corpora: Corpora[] = [
       "svoy-sredi-chuzhih-chuzhoy-sredi-svoih---eduard-artemev",
       "raba-lyubvi---eduard-artemev",
     ],
+    composerBirthYear: 1937, // Eduard Artemyev
+    genre: "Film score",
+    style: "Orchestral, Soviet",
+    country: "Russia",
   },
   {
     slug: "vladimir_shainsky",
@@ -1206,10 +1303,18 @@ export const corpora: Corpora[] = [
       "pesenka-krokodila-geny-iz-m-f-cheburashka---vladimir-shainskiy-perelozhenie-dlya-fortepiano-i-golosa",
       "kukla---v.-shainskiy",
     ],
+    composerBirthYear: 1935, // Vladimir Shainsky
+    genre: "Film score, Children's music",
+    style: "Soviet, Light Classical",
+    country: "Russia",
   },
   {
     slug: "kapustin",
     midis: ["concert-etudes-op.-40-no.-1---prelude"],
+    composerBirthYear: 1937, // Nikolai Kapustin
+    genre: "Classical, Jazz",
+    style: "Jazz Classical",
+    country: "Russia",
   },
   {
     slug: "maksim_dunaevsky",
@@ -1219,10 +1324,18 @@ export const corpora: Corpora[] = [
       "oy-cvite-kalina---i.-dunaievskiy",
       "uvertyura-do-k-f-diti-kapitana-granta---i.-dunaievskiy",
     ],
+    composerBirthYear: 1942, // Maksim Dunaevsky
+    genre: "Film score, Musical",
+    style: "Soviet, Musical",
+    country: "Russia",
   },
   {
     slug: "prokofiev",
     midis: ["dance-of-the-knights"],
+    composerBirthYear: 1891, // Sergei Prokofiev
+    genre: "Classical",
+    style: "Classical, Modern",
+    country: "Russia",
   },
   {
     slug: "gennady_gladkov",
@@ -1245,10 +1358,18 @@ export const corpora: Corpora[] = [
       "beleet-moy-parus-a.-mironov---gennadiy-gladkov",
       "padal-proshlogodniy-sneg---grigoriy-gladkov", // cool stuff
     ],
+    composerBirthYear: 1935, // Gennady Gladkov
+    genre: "Film score, Musical",
+    style: "Soviet, Musical",
+    country: "Russia",
   },
   {
     slug: "yuki_hayashi",
     midis: ["my-hero-academia---you-say-run---piano-solo"],
+    composerBirthYear: 1980, // Yuki Hayashi
+    genre: "Anime music",
+    style: "Orchestral, Contemporary",
+    country: "Japan",
   },
   {
     slug: "brandon_hesslau",

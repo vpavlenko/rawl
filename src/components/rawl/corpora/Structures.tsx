@@ -20,9 +20,9 @@ const MenuContainer = styled.div`
 
 const ChapterRow = styled.div`
   display: flex;
-  flex-wrap: wrap; // Allow wrapping to the next line
+  flex-direction: column;
   background-color: black;
-  width: 100%; // Ensure it takes the full width
+  width: 100%;
 `;
 
 const ScrollableContent = styled.div`
@@ -33,8 +33,7 @@ const ScrollableContent = styled.div`
 `;
 
 const ChapterButton = styled.button<{ active: boolean }>`
-  padding: 5px 10px;
-  height: 100%; // Make buttons fill the ChapterRow height
+  padding: 2px 5px;
   text-align: center;
   background-color: ${(props) => (props.active ? "white" : "black")};
   color: ${(props) => (props.active ? "black" : "white")};
@@ -43,13 +42,50 @@ const ChapterButton = styled.button<{ active: boolean }>`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 200px; // Adjust this value as needed
+  max-width: 150px;
+  min-width: 80px;
+  font-size: 14px;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: ${(props) => (props.active ? "white" : "#333")};
+  }
 `;
 
-const ChapterSection = styled.div`
+const CategorySection = styled.div`
   display: flex;
-  flex-direction: column;
-  padding: 20px;
+  align-items: center;
+  padding: 0 8px;
+  min-width: 0;
+`;
+
+const CategoryLabel = styled.div`
+  color: #999;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 100px;
+  padding-right: 8px;
+`;
+
+const CategoryChapters = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+`;
+
+const ChapterCategories = styled.div`
+  display: grid;
+  width: 100%;
+  gap: 4px;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 500px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
 `;
 
 const TopicContainer = styled.div`
@@ -104,7 +140,68 @@ const TopicBubble = styled.span<{ active: boolean }>`
   }
 `;
 
-export interface NewPathViewProps {
+const CHAPTER_CATEGORIES = {
+  order_of_chords: {
+    major: [
+      "major_cadence",
+      "progression",
+      "cycle_root_motion",
+      "shuttle",
+      "stasis",
+      "chunks",
+      "rare_functional",
+    ],
+    minor: ["minor_cadence", "scale", "chords", "last_chords"],
+  },
+  texture: [
+    "bass",
+    "voicing",
+    "LH",
+    "RH",
+    "doubling",
+    "arpeggio",
+    "texture",
+    "voice_leading",
+    "interval",
+    "inversion",
+  ],
+  melody: [
+    "melody",
+    "nonchord_tone",
+    "chord_scale",
+    "ornament",
+    "reharmonization",
+  ],
+  chromaticism: ["applied", "6_b6", "chromatic_chords", "cto7"],
+  modulation: ["modulation", "relative", "parallel"],
+  modal_harmony: [
+    "dorian",
+    "mixolydian",
+    "modal_interchange",
+    "steady_scale",
+    "minor",
+    "predominants",
+    "pure_major",
+    "root_motion",
+  ],
+  chords_beyond_triads: [
+    "seventh_chords",
+    "V",
+    "extensions",
+    "ninth_chords",
+    "jazz",
+  ],
+  non_classical_chromaticism: [
+    "b2",
+    "constant_structures",
+    "symmetric_chords",
+    "vgm_chromatic",
+  ],
+  rhythm_and_meter: ["meter", "rhythm", "hypermeter", "harmonic_rhythm"],
+  misc: [],
+};
+
+export interface StructuresProps {
   analyses: { [key: string]: Analysis };
   initialChapter?: string;
   initialTopic?: string;
@@ -123,13 +220,42 @@ interface ChapterData {
   }[];
 }
 
-const NewPathView: React.FC<NewPathViewProps> = ({
+const formatCategoryLabel = (category: string) => {
+  return category
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
+const getMiscChapters = (
+  chapterData: ChapterData[],
+  categories: typeof CHAPTER_CATEGORIES,
+) => {
+  const allCategorizedChapters = new Set<string>();
+
+  Object.values(categories).forEach((contents) => {
+    if (typeof contents === "object" && !Array.isArray(contents)) {
+      Object.values(contents)
+        .flat()
+        .forEach((chapter) => allCategorizedChapters.add(chapter));
+    } else {
+      (contents as string[]).forEach((chapter) =>
+        allCategorizedChapters.add(chapter),
+      );
+    }
+  });
+
+  return chapterData.filter(
+    (chapter) => !allCategorizedChapters.has(chapter.chapter),
+  );
+};
+
+const Structures: React.FC<StructuresProps> = ({
   analyses,
   initialChapter,
   initialTopic,
 }) => {
-  const { handleSongClick, currentMidi, resetMidiPlayerState, rawlProps } =
-    useContext(AppContext);
+  const { handleSongClick, currentMidi, rawlProps } = useContext(AppContext);
   const [loading, setLoading] = useState(true);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [chapterData, setChapterData] = useState<ChapterData[]>([]);
@@ -250,15 +376,53 @@ const NewPathView: React.FC<NewPathViewProps> = ({
     <PathContainer>
       <MenuContainer>
         <ChapterRow>
-          {chapterData.map((chapter, index) => (
-            <ChapterButton
-              key={chapter.chapter}
-              active={activeChapter === index}
-              onClick={() => handleChapterSelect(index)}
-            >
-              {chapter.chapter}
-            </ChapterButton>
-          ))}
+          <ChapterCategories>
+            {Object.entries(CHAPTER_CATEGORIES).map(([category, contents]) => {
+              let categoryChapters = chapterData.filter((chapter) => {
+                if (category === "misc") {
+                  return false; // Skip misc category in normal filtering
+                }
+                if (typeof contents === "object" && !Array.isArray(contents)) {
+                  return Object.values(contents)
+                    .flat()
+                    .includes(chapter.chapter);
+                }
+                return (contents as string[]).includes(chapter.chapter);
+              });
+
+              // Handle misc category separately
+              if (category === "misc") {
+                categoryChapters = getMiscChapters(
+                  chapterData,
+                  CHAPTER_CATEGORIES,
+                );
+              }
+
+              if (categoryChapters.length === 0) return null;
+
+              return (
+                <CategorySection key={category}>
+                  <CategoryLabel>{formatCategoryLabel(category)}</CategoryLabel>
+                  <CategoryChapters>
+                    {categoryChapters.map((chapter) => {
+                      const index = chapterData.findIndex(
+                        (c) => c.chapter === chapter.chapter,
+                      );
+                      return (
+                        <ChapterButton
+                          key={chapter.chapter}
+                          active={activeChapter === index}
+                          onClick={() => handleChapterSelect(index)}
+                        >
+                          {chapter.chapter.replace(/_/g, " ")}
+                        </ChapterButton>
+                      );
+                    })}
+                  </CategoryChapters>
+                </CategorySection>
+              );
+            })}
+          </ChapterCategories>
         </ChapterRow>
         {!loading && chapterData[activeChapter] && (
           <TopicMenu>
@@ -319,7 +483,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({
               <ErrorMessage key={index}>{error}</ErrorMessage>
             ))
           ) : (
-            <ChapterSection>
+            <CategorySection>
               {activeTopic &&
                 chapterData[activeChapter]?.topics
                   .filter(({ topic }) => topic === activeTopic)
@@ -346,7 +510,7 @@ const NewPathView: React.FC<NewPathViewProps> = ({
                       </TopicCard>
                     </TopicContainer>
                   ))}
-            </ChapterSection>
+            </CategorySection>
           )}
         </ScrollableContent>
       )}
@@ -354,4 +518,4 @@ const NewPathView: React.FC<NewPathViewProps> = ({
   );
 };
 
-export default NewPathView;
+export default Structures;

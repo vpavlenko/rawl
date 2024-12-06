@@ -5,10 +5,7 @@ import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ChordStairs, { MODES } from "./ChordStairs";
-import CorpusSearch from "./CorpusSearch";
 import { InlinePianoLegend, PianoLegend } from "./PianoLegend";
-import landingLeftSideImage from "./landing_left_side.png";
-import landingRightSideImage from "./landing_right_side.png";
 
 const DropBox = styled.div`
   border: 4px dashed #0f0; /* Neon green dashed border */
@@ -176,8 +173,6 @@ const Section: React.FC<{
 
 const OldLandingPage = () => (
   <Container>
-    <LeftSide sideImage={landingLeftSideImage} />
-
     <Content>
       <div
         style={{
@@ -241,10 +236,6 @@ const OldLandingPage = () => (
         <ChordStairs mode={MODES[1]} />
         <ChordStairs mode={MODES[0]} />
       </ChordStairsContainer>
-
-      <Section title="">
-        <CorpusSearch />
-      </Section>
 
       <div style={{ margin: "100px 0 100px 0" }}>
         <iframe
@@ -944,7 +935,6 @@ const OldLandingPage = () => (
         </a>
       </div>
     </Content>
-    <RightSide sideImage={landingRightSideImage} />
   </Container>
 );
 

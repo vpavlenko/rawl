@@ -64,7 +64,7 @@ import Slicer from "./rawl/Slicer";
 import { Analyses } from "./rawl/analysis";
 import Book from "./rawl/book/Book";
 import Corpus from "./rawl/corpora/Corpus";
-import NewPathView, { NewPathViewProps } from "./rawl/corpora/NewPathView";
+import Structures, { StructuresProps } from "./rawl/corpora/Structures";
 import { DropSaveForm, saveMidiFromLink } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
 import { ParsingResult } from "./rawl/parseMidi";
@@ -1132,10 +1132,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
       />
     );
 
-    // Check if the current route should render NewPathView
-    const isNewPathViewRoute = location.pathname.startsWith("/s/");
+    const isStructuresRoute = location.pathname.startsWith("/s/");
 
-    if (isNewPathViewRoute) {
+    if (isStructuresRoute) {
       return (
         <AppContext.Provider
           value={{
@@ -1159,18 +1158,18 @@ class App extends React.Component<RouteComponentProps, AppState> {
             <Route
               path="/s/"
               exact
-              render={() => <NewPathView analyses={this.state.analyses} />}
+              render={() => <Structures analyses={this.state.analyses} />}
             />
             <Route
               path="/s/:chapter/:topic"
               render={() => (
-                <NewPathViewWithParams analyses={this.state.analyses} />
+                <StructuresWithParams analyses={this.state.analyses} />
               )}
             />
             <Route
               path="/s/:chapter"
               render={() => (
-                <NewPathViewWithParams analyses={this.state.analyses} />
+                <StructuresWithParams analyses={this.state.analyses} />
               )}
             />
           </Switch>
@@ -1306,11 +1305,11 @@ class App extends React.Component<RouteComponentProps, AppState> {
 }
 
 // New component to handle route params
-const NewPathViewWithParams: React.FC<NewPathViewProps> = ({ analyses }) => {
+const StructuresWithParams: React.FC<StructuresProps> = ({ analyses }) => {
   const { chapter, topic } = useParams<{ chapter: string; topic?: string }>();
 
   return (
-    <NewPathView
+    <Structures
       analyses={analyses}
       initialChapter={decodeURIComponent(chapter)}
       initialTopic={topic ? decodeURIComponent(topic) : undefined}

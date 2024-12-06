@@ -90,26 +90,22 @@ const Flags = styled.span`
   left: -0.2em;
 `;
 
-const PieceCount = styled.span`
-  font-size: 0.6em;
-  position: relative;
-  top: -0.6em;
-  left: -0.2em;
-  color: #666;
-`;
-
-const UnknownCountry = styled.span`
-  font-size: 0.8em;
-  color: #666;
-  font-style: italic;
-`;
-
 const GenreList = styled.div`
   font-size: 0.7rem;
   color: #999;
   display: flex;
   flex-direction: column;
 `;
+
+const getEmojis = (country: string): React.ReactNode[] => {
+  const countries = country?.split(",").map((c) => c.trim()) || [];
+  return countries
+    .map((c) => {
+      if (c.toLowerCase() === "scotland") return "🏴󠁧󠁢󠁳󠁣󠁴󠁿";
+      return <Flags>{flag(c)}</Flags>;
+    })
+    .filter(Boolean);
+};
 
 const Timeline: React.FC = () => {
   const getUniqueStyles = (genre?: string, style?: string) => {
@@ -145,17 +141,6 @@ const Timeline: React.FC = () => {
   const years = [...new Set(composers.map((c) => c.composerBirthYear))];
 
   const ComposerCardContent = ({ composer }: { composer: Composer }) => {
-    const countries = composer.country?.split(",").map((c) => c.trim()) || [];
-    const emojis = countries
-      .map((c) => {
-        if (c.toLowerCase() === "scotland") return "🏴󠁧󠁢󠁳󠁣󠁴󠁿";
-        return flag(c);
-      })
-      .filter(Boolean);
-    const unknown = countries.filter(
-      (c) => c.toLowerCase() !== "scotland" && !flag(c),
-    );
-
     const styles = getUniqueStyles(composer.genre, composer.style);
     const stylesList = styles.split(", ");
 
@@ -169,11 +154,7 @@ const Timeline: React.FC = () => {
                 .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
                 .join(" ")}
             </ComposerName>
-            {/* <PieceCount>{composer.midis.length}</PieceCount> */}
-            {emojis.length > 0 && <Flags>{emojis.join(" ")}</Flags>}
-            {unknown.length > 0 && (
-              <UnknownCountry>({unknown.join(", ")})</UnknownCountry>
-            )}
+            {getEmojis(composer.country)}
           </ComposerHeader>
         </ComposerLink>
         {stylesList.length > 0 && (

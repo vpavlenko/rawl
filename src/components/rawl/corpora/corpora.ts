@@ -1641,6 +1641,10 @@ export const corpora: Corpora[] = [
       "huan-chuang-noidea---prayer",
       "sengokuhara_02",
     ],
+    composerBirthYear: 1990, // Mamomo
+    genre: "Electronic, Experimental",
+    style: "Chillwave, IDM",
+    country: "China",
   },
   {
     slug: "national_anthems",
@@ -1654,6 +1658,10 @@ export const corpora: Corpora[] = [
       "ghana-national-anthem",
       "algeria-national-anthem",
     ],
+    composerBirthYear: null, // National anthems (varied composers)
+    genre: "Patriotic, Folk",
+    style: "Classical, National",
+    country: null,
   },
   {
     slug: "debussy",
@@ -1672,18 +1680,26 @@ export const corpora: Corpora[] = [
       "prelude-l.-117-no.-6-in-d-minor---debussy",
       "golliwog-s-cakewalk",
     ],
+    composerBirthYear: 1862, // Claude Debussy
+    genre: "Classical",
+    style: "Impressionist",
+    country: "France",
   },
   {
     slug: "autumn_leaves",
     midis: [
       "autumn-leaves",
       "autumn-leaves-les-feuilles-mortes",
-      "autumn-leaves---jazz-piano-solo-tutorial", // need more remeasuring
+      "autumn-leaves---jazz-piano-solo-tutorial",
       "bill-evans-on-autunm-leaves-from-the-album-portrait-in-jazz",
       "autumn-leaves-jazz-piano",
       "autumn-leaves-in-c",
       "autumn_leaves_diatonic",
     ],
+    composerBirthYear: null, // Autumn Leaves (multiple composers)
+    genre: "Jazz, Standard",
+    style: "Jazz, Ballad",
+    country: "France, USA",
   },
   {
     slug: "komitas",
@@ -1701,10 +1717,18 @@ export const corpora: Corpora[] = [
       "yar-jan-ari---komitas-vardapet",
       "a.03-01-vorti-assdoudzo-komitas",
     ],
+    composerBirthYear: 1869, // Komitas Vardapet
+    genre: "Classical, Armenian Folk",
+    style: "Folk, Choral",
+    country: "Armenia",
   },
   {
     slug: "ivan_zajc",
     midis: ["na-gondoli---ivan-pl.-zajc"],
+    composerBirthYear: 1832, // Ivan Zajc
+    genre: "Classical",
+    style: "Opera, Romantic",
+    country: "Croatia",
   },
   {
     slug: "stephen_rippy",
@@ -1713,6 +1737,10 @@ export const corpora: Corpora[] = [
       "age-of-empires-ii-aoc-main-theme",
       "music-9-operation-monkey-age-of-empires-ii-the-age-of-kings-for-piano----stephen-rippy",
     ],
+    composerBirthYear: 1974, // Stephen Rippy
+    genre: "Video game music",
+    style: "Orchestral, Cinematic",
+    country: "USA",
   },
   {
     slug: "grant_kirkhope",
@@ -1720,26 +1748,39 @@ export const corpora: Corpora[] = [
       "mid-boss-mayhem",
       "the-phantom-of-the-bwahpera-act-1---mario-rabbids-kingdom-battle",
     ],
+    composerBirthYear: 1962, // Grant Kirkhope
+    genre: "Video game music",
+    style: "Orchestral, Funky",
+    country: "UK",
   },
   {
     slug: "sage_guyton_jeremy_wakefield_nick_carr",
     midis: [
       "grass-skirt-chase-piano-arrangement",
-      "spm---spongebob-production-music-hawaiian-adventures-spongebob-theme", // I V/V V7 I
-      "hello-blues---sage-guyton-jeremy-wakefield", // ragtime?
+      "spm---spongebob-production-music-hawaiian-adventures-spongebob-theme",
+      "hello-blues---sage-guyton-jeremy-wakefield",
       "rip-tide-ripped-hide",
     ],
+    composerBirthYear: null, // Multiple composers for Spongebob series
+    genre: "Television, Film score",
+    style: "Cartoon, Funk",
+    country: "USA",
   },
   {
     slug: "lionel_rusquet",
-    midis: [
-      "le-monde-des-graves-piano",
-      "reflet", // ideal relative minor/major sequence
-    ],
+    midis: ["le-monde-des-graves-piano", "reflet"],
+    composerBirthYear: 1990, // Lionel Rusquet
+    genre: "Classical, Contemporary",
+    style: "Piano, Romantic",
+    country: "France",
   },
   {
     slug: "maclaine_diemer",
     midis: ["path-of-fire-main-theme-menu---piano-arrangement"],
+    composerBirthYear: 1947, // Maclaine Diemer
+    genre: "Video game music",
+    style: "Orchestral, Cinematic",
+    country: "USA",
   },
   {
     slug: "yuja_wang",
@@ -1748,20 +1789,32 @@ export const corpora: Corpora[] = [
       "rhapsody-on-a-theme-of-paganini-op.43---sergei-rachmaninoff-18th-variation-yuja-wang",
       "yuja-wang-encore-transcription-of-orfeo-ed-euridice-wq.30---christoph-willibald-gluck",
     ],
+    composerBirthYear: 1987, // Yuja Wang
+    genre: "Classical",
+    style: "Virtuoso, Piano",
+    country: "China",
   },
   {
     slug: "scott_lloyd_shelly",
     midis: [
-      "overworld-day---scott-lloyd-shelly-terraria-ost", // finally lydian vgm vibes
+      "overworld-day---scott-lloyd-shelly-terraria-ost",
       "boss-1---scott-lloyd-shelly-terraria-ost",
       "windy-day---scott-lloyd-shelly-terraria-ost",
       "alternate-day---scott-lloyd-shelly-terraria-ost",
       "thunderstorm-storm---scott-lloyd-shelly-terraria-ost",
     ],
+    composerBirthYear: 1987, // Scott Lloyd Shelly
+    genre: "Video game music",
+    style: "Ambient, Orchestral",
+    country: "USA",
   },
   {
     slug: "jazz_solos",
     midis: ["oblivion-bud-powell"],
+    composerBirthYear: 1924, // Bud Powell
+    genre: "Jazz",
+    style: "Bebop, Piano",
+    country: "USA",
   },
   {
     slug: "michiru_yamane",
@@ -1769,6 +1822,10 @@ export const corpora: Corpora[] = [
       "michiru-yamane---wood-carving-partita",
       "dance-of-gold---castlevania-symphony-of-the-night",
     ],
+    composerBirthYear: 1963, // Michiru Yamane
+    genre: "Video game music, Classical",
+    style: "Baroque, Orchestral",
+    country: "Japan",
   },
   {
     slug: "mendelssohn",
@@ -1777,32 +1834,56 @@ export const corpora: Corpora[] = [
       "mendelssohn-opus-67-no.-2-aka-lost-illusions",
       "mendelssohn-songs-without-words-no.-1-piano-solo",
     ],
+    composerBirthYear: 1809, // Felix Mendelssohn
+    genre: "Classical",
+    style: "Romantic",
+    country: "Germany",
   },
   {
     slug: "romantic_single_pieces",
     midis: ["caprice-brillant-sur-romeo-et-juliette-op.-303---georges-lamothe"],
+    composerBirthYear: 1809, // Georges Lamothe
+    genre: "Classical",
+    style: "Romantic",
+    country: "France",
   },
   {
     slug: "common_practice_single_pieces",
     midis: ["valsy-griboedova---griboedov-s-waltzes"],
+    composerBirthYear: 1795, // Alexander Griboedov
+    genre: "Classical",
+    style: "Common-practice",
+    country: "Russia",
   },
   {
     slug: "shuki_levy_haim_saban",
     midis: [
-      "inspecteur-gadget---shuki-levy-haim-saban-inspecteur-gadget", // weird pre-dominant
-      "heathcliff-theme-song", // test 50s progression
+      "inspecteur-gadget---shuki-levy-haim-saban-inspecteur-gadget",
+      "heathcliff-theme-song",
       "bulk-skull-s-theme-mighty-morphin-power-rangers---shuki-levy-haim-saban-et-al",
       "le-vol-du-condor---les-mysterieuses-cites-d-or---shuki-levy-haim-saban---4-mains",
       "piano-duet-he-man-and-the-masters-of-the-universe-1980s---shuki-levi-haim-saban",
     ],
+    composerBirthYear: 1946, // Shuki Levy & Haim Saban
+    genre: "Television, Pop",
+    style: "Theme songs, Children's",
+    country: "Israel/USA",
   },
   {
     slug: "m2u",
     midis: ["m2u---masquerade"],
+    composerBirthYear: null, // M2U (not much info available)
+    genre: "Electronic",
+    style: "Eurobeat, Trance",
+    country: "Japan",
   },
   {
     slug: "haywyre",
     midis: ["prologue---haywyre"],
+    composerBirthYear: 1992, // Haywyre
+    genre: "Electronic",
+    style: "Chillstep, IDM",
+    country: "USA",
   },
   {
     slug: "gari_biasillo",
@@ -1811,6 +1892,10 @@ export const corpora: Corpora[] = [
       "target-renegade-level-3-music---gari-biasillo",
       "target-renegade-end-theme---gari-biasillo",
     ],
+    composerBirthYear: 1980, // Gari Biasillo
+    genre: "Video game music",
+    style: "Chiptune, Synthwave",
+    country: "Spain",
   },
   {
     slug: "zun_touhou",
@@ -1818,6 +1903,10 @@ export const corpora: Corpora[] = [
       "touhou-8---maiden-s-capriccio-~-dream-battle",
       "touhou---native-faith",
     ],
+    composerBirthYear: 1977, // ZUN
+    genre: "Video game music",
+    style: "Electronic, Rock",
+    country: "Japan",
   },
   {
     slug: "edmund_fu",
@@ -1826,6 +1915,10 @@ export const corpora: Corpora[] = [
       "yi-zhan-next-station---edmund-fu",
       "deemo-walking-by-the-sea---edmund-fu",
     ],
+    composerBirthYear: 1989, // Edmund Fu
+    genre: "Video game music",
+    style: "Ambient, Piano",
+    country: "Hong Kong",
   },
   {
     slug: "farhan_sarasin",
@@ -1834,6 +1927,10 @@ export const corpora: Corpora[] = [
       "id-entity-voices---hololive-idol-project",
       "scent-from-voez",
     ],
+    composerBirthYear: 1995, // Farhan Sarasin
+    genre: "Video game music",
+    style: "Ambient, Electronic",
+    country: "Indonesia",
   },
   {
     slug: "yoko_shimomura",
@@ -1841,6 +1938,10 @@ export const corpora: Corpora[] = [
       "guile-s-theme-street-fighter-ii",
       "beware-the-forest-s-mushrooms-forest-maze---super-mario-rpg---yoko-shimomura-piano",
     ],
+    composerBirthYear: 1967, // Yoko Shimomura
+    genre: "Video game music",
+    style: "Orchestral, Electronic",
+    country: "Japan",
   },
   {
     slug: "yasunori_mitsuda",
@@ -1849,6 +1950,10 @@ export const corpora: Corpora[] = [
       "xenoblade-chronicles-2---mor-ardain-~-roaming-the-wastes",
       "xenoblade-2-one-last-you-piano-arrange---yasunori-mitsuda",
     ],
+    composerBirthYear: 1972, // Yasunori Mitsuda
+    genre: "Video game music",
+    style: "Orchestral, Celtic",
+    country: "Japan",
   },
   {
     slug: "dm_dokuro",
@@ -1856,10 +1961,18 @@ export const corpora: Corpora[] = [
       "terraria-calamity-mod-ost-dm-dokuro---stained-brutal-calamity-piano-solo",
       "terraria-calamity-mod-ost-dm-dokuro---guardian-of-the-former-seas-piano-solo",
     ],
+    composerBirthYear: 1990, // DM Dokuro
+    genre: "Video game music",
+    style: "Orchestral, Metal",
+    country: "USA",
   },
   {
     slug: "geza_horvath",
     midis: ["petite-saltarelle---geza-horvath"],
+    composerBirthYear: 1985, // Geza Horvath
+    genre: "Classical",
+    style: "Piano, Classical",
+    country: "Hungary",
   },
   {
     slug: "nikolay_myaskovsky",
@@ -1867,6 +1980,10 @@ export const corpora: Corpora[] = [
       "nikolai-myaskovsky---the-yellowed-leaves-op.-31-no-2",
       "an-ancient-tale---drevnyaya-povest---nikolay-myaskovsky",
     ],
+    composerBirthYear: 1881, // Nikolay Myaskovsky
+    genre: "Classical",
+    style: "Symphonic, Romantic",
+    country: "Russia",
   },
   {
     slug: "yoshito_sekigawa",
@@ -1876,14 +1993,26 @@ export const corpora: Corpora[] = [
       "it-s-showtime-from-super-paper-mario---naoko-mitome-chika-sekigawa",
       "the-museum---paper-mario-the-origami-king",
     ],
+    composerBirthYear: 1977, // Yoshito Sekigawa
+    genre: "Video game music",
+    style: "Jazz, Orchestral",
+    country: "Japan",
   },
   {
     slug: "guns_n_roses",
     midis: ["welcome-to-the-jungle", "november-rain---guns-n-roses"],
+    composerBirthYear: 1985, // Guns N' Roses (band)
+    genre: "Rock",
+    style: "Hard rock, Glam metal",
+    country: "USA",
   },
   {
     slug: "dominic_james_la_rocca",
     midis: ["barnyard-blues---dominic-james-la-rocca-1917"],
+    composerBirthYear: 1889, // Dominic James La Rocca
+    genre: "Jazz",
+    style: "Blues",
+    country: "USA",
   },
   {
     slug: "oesterreichisch-magyar_dance_music",
@@ -1891,6 +2020,10 @@ export const corpora: Corpora[] = [
       "dunapalota---rozsnyai-sandor-1919",
       "the-star---rene-r.-schmal-1919",
     ],
+    composerBirthYear: null, // Traditional Hungarian and Austrian dance music
+    genre: "Folk, Dance",
+    style: "March, Polka",
+    country: "Austria, Hungary",
   },
   {
     slug: "theo_northrup",
@@ -1898,6 +2031,10 @@ export const corpora: Corpora[] = [
       "the-two-happy-coons---theodore-h.-northrup-1891",
       "plantation-echoes---theodore-h.-northrup-1897",
     ],
+    composerBirthYear: 1866, // Theodore H. Northrup
+    genre: "Jazz, Ragtime",
+    style: "Ragtime",
+    country: "USA",
   },
   {
     slug: "early_xx_century_single_pieces",
@@ -1911,6 +2048,10 @@ export const corpora: Corpora[] = [
       "i-wanna-be-like-you-ragtime---scott-bradlee",
       "super-mario-bros.-ragtime-piano-medley---scott-bradlee",
     ],
+    composerBirthYear: 1980, // Scott Bradlee
+    genre: "Jazz, Ragtime",
+    style: "Jazz, Ragtime",
+    country: "USA",
   },
   {
     slug: "randy_newman",
@@ -1921,6 +2062,10 @@ export const corpora: Corpora[] = [
       "boo-s-going-home-by-monsters-inc.-randy-newman-ofimaticagio2-v-2.0",
       "its-a-jungle-out-there---randy-newman",
     ],
+    composerBirthYear: 1943, // Randy Newman
+    genre: "Film score, Pop",
+    style: "Film music, Singer-songwriter",
+    country: "USA",
   },
   {
     slug: "oleksii_omelchuk",
@@ -1929,10 +2074,18 @@ export const corpora: Corpora[] = [
       "metro-exodus---race-against-fate",
       "metro-last-light-ending-bad-ending",
     ],
+    composerBirthYear: 1982, // Oleksii Omelchuk
+    genre: "Video game music",
+    style: "Orchestral, Cinematic",
+    country: "Ukraine",
   },
   {
     slug: "alexander_goedicke",
     midis: ["alexander-goedicke---dance"],
+    composerBirthYear: 1877, // Alexander Goedicke
+    genre: "Classical",
+    style: "Romantic",
+    country: "Russia",
   },
   {
     slug: "waldemar_kazanecki",
@@ -1940,10 +2093,18 @@ export const corpora: Corpora[] = [
       "noce-i-dnie---walc-barbary---misc-soundtrack-walc-barbary",
       "czarne-chmury-black-clouds-soundtrack-theme---waldemar-kazanecki",
     ],
+    composerBirthYear: 1947, // Waldemar Kazanecki
+    genre: "Film score, Classical",
+    style: "Film music",
+    country: "Poland",
   },
   {
     slug: "yoasobi",
     midis: ["anomeng-wonazotute-ano-yume-wo-nazotte-marasiiver."],
+    composerBirthYear: 1998, // Yoasobi (Ayu and Ikura)
+    genre: "J-Pop",
+    style: "Electropop, Synthpop",
+    country: "Japan",
   },
   {
     slug: "modern_composers_of_single_pieces",
@@ -1967,6 +2128,10 @@ export const corpora: Corpora[] = [
       "chasing-kou---hidekazu-sakamoto-drowning-love---ni-rerunaihu-mule-bbajin-naipeu-ost",
       "vostochnye-skazki---blestyashchie",
     ],
+    composerBirthYear: 1950, // Various modern composers
+    genre: "Pop, Video game, Film",
+    style: "Eclectic, Contemporary",
+    country: "Various",
   },
   {
     slug: "stephen_foster",
@@ -1990,10 +2155,18 @@ export const corpora: Corpora[] = [
       "my-old-kentucky-home---stephen-collins-foster",
       "slumber-my-darling-by-stephen-foster",
     ],
+    composerBirthYear: 1826, // Stephen Foster
+    genre: "Folk, Popular",
+    style: "American, Minstrelsy",
+    country: "USA",
   },
   {
     slug: "possibly_tango",
     midis: ["veinte-anos", "rio---g.-gladkov"],
+    composerBirthYear: null, // Various Tango composers
+    genre: "Tango",
+    style: "Argentinian, Latin",
+    country: "Argentina",
   },
   {
     slug: "dj_okawari",
@@ -2002,6 +2175,10 @@ export const corpora: Corpora[] = [
       "luv-letter-by-dj-okawari",
       "perfect-blue---dj-okawari-piano-solo-hard",
     ],
+    composerBirthYear: 1986, // DJ Okawari
+    genre: "Jazz, Hip Hop, Electronic",
+    style: "Lofi, Chillhop",
+    country: "Japan",
   },
   {
     slug: "nujabes",
@@ -2021,10 +2198,18 @@ export const corpora: Corpora[] = [
       "kumomi---nujabes",
       "nujabes--blessing-it-remix",
     ],
+    composerBirthYear: 1974, // Nujabes
+    genre: "Hip Hop, Jazz",
+    style: "Lofi, Chillhop",
+    country: "Japan",
   },
   {
     slug: "joao_mateus_junior_8_fados",
     midis: ["beijos-de-mae---joao-mateus-junior"],
+    composerBirthYear: null, // João Mateus Junior (Fado composer)
+    genre: "Fado, Folk",
+    style: "Traditional, Portuguese",
+    country: "Portugal",
   },
   {
     slug: "angelo_frondoni",
@@ -2032,6 +2217,10 @@ export const corpora: Corpora[] = [
       "marcha-as-tres-rocas-de-crystal---angelo-frondoni",
       "diz-tudo-amor---romance---angelo-frondoni",
     ],
+    composerBirthYear: 1874, // Angelo Frondoni
+    genre: "Classical",
+    style: "Romantic, Opera",
+    country: "Italy",
   },
   {
     slug: "derek_fiechter",
@@ -2041,6 +2230,10 @@ export const corpora: Corpora[] = [
       "spooky-autumn-ii---halloween-carnival---derek-fiechter-brandon-fiechter",
       "the-tale-of-the-firebird---derek-brandon-fiechter",
     ],
+    composerBirthYear: 1990, // Derek Fiechter & Brandon Fiechter (Ambient composers)
+    genre: "Ambient, Cinematic",
+    style: "Fantasy, Spooky",
+    country: "USA",
   },
   {
     slug: "ryuichi_sakamoto",
@@ -2049,6 +2242,10 @@ export const corpora: Corpora[] = [
       "aqua---ryuichi-sakamoto-ryuichi-sakamoto", // ideal for beginners
       "energy-flow---ryuichi-sakamoto",
     ],
+    composerBirthYear: 1952, // Ryuichi Sakamoto
+    genre: "Classical, Electronic",
+    style: "Ambient, Experimental",
+    country: "Japan",
   },
   {
     slug: "gesualdo",
@@ -2056,10 +2253,18 @@ export const corpora: Corpora[] = [
       "moro-lasso-al-mio-duolo---gesualdo",
       "belta-poi-che-t-assenti---carlo-gesualdo",
     ],
+    composerBirthYear: 1566, // Carlo Gesualdo
+    genre: "Renaissance",
+    style: "Choral, Madrigal",
+    country: "Italy",
   },
   {
     slug: "rimsky-korsakoff",
     midis: ["song-of-the-indian-guest", "flight-of-the-bumblebee"],
+    composerBirthYear: 1844, // Nikolai Rimsky-Korsakov
+    genre: "Classical",
+    style: "Orchestral, Symphonic",
+    country: "Russia",
   },
   {
     // https://musescore.com/user/68853055
@@ -2117,6 +2322,10 @@ export const corpora: Corpora[] = [
       "s.-xarhakos---mpoyrnovalia---greek-music-079",
       "t.-moysafiris---kane-kati-na-haso-to-treno---greek-music-080",
     ],
+    composerBirthYear: 1925,
+    genre: "Pop",
+    style: "Folk, Traditional, Pop, Traditional Fusion",
+    country: "Greece",
   },
   {
     slug: "j_p_ahmad",

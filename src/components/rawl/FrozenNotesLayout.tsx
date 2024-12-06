@@ -752,6 +752,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
             snippets={analysis.snippets || []}
             deleteSnippet={deleteSnippet}
             noteHeight={noteHeight}
+            onSnippetClick={() => {}}
           />
         </SnippetListContainer>
 

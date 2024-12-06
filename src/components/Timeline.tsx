@@ -50,16 +50,14 @@ const ComposersGroup = styled.div`
   gap: 1rem;
 `;
 
-const ComposerCard = styled.span``;
+const ComposerCard = styled.div`
+  cursor: default;
+`;
 
 const ComposerLink = styled(Link)`
   text-decoration: none;
   color: inherit;
-
-  h3 {
-    margin: 0 0 0.5rem 0;
-    color: #fff;
-  }
+  display: inline-block;
 `;
 
 type Composer = {
@@ -75,6 +73,10 @@ const ComposerHeader = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
+  > a {
+    flex: 0 1 auto;
+  }
 `;
 
 const ComposerName = styled.h3`
@@ -86,7 +88,6 @@ const Flags = styled.span`
   font-size: 1.2rem;
   //   padding-left: 10px;
   position: relative;
-  top: -0.2em;
   left: -0.2em;
 `;
 
@@ -97,17 +98,56 @@ const GenreList = styled.div`
   flex-direction: column;
 `;
 
-const getEmojis = (country: string): React.ReactNode[] => {
+const FilterIndicator = styled.div`
+  position: fixed;
+  top: 30px;
+  right: 20px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const CloseFilter = styled.button`
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 1.2rem;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+const CountryFlag = styled.span`
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+const getEmojis = (
+  country: string,
+  onCountryClick: (country: string) => void,
+): React.ReactNode[] => {
   const countries = country?.split(",").map((c) => c.trim()) || [];
   return countries
-    .map((c) => {
-      if (c.toLowerCase() === "scotland") return "🏴󠁧󠁢󠁳󠁣󠁴󠁿";
-      return <Flags>{flag(c)}</Flags>;
-    })
+    .map((c) => (
+      <CountryFlag onClick={() => onCountryClick(c)} key={c}>
+        <Flags>{flag(c)}</Flags>
+      </CountryFlag>
+    ))
     .filter(Boolean);
 };
 
 const Timeline: React.FC = () => {
+  const [selectedCountry, setSelectedCountry] = React.useState<string | null>(
+    null,
+  );
+
   const getUniqueStyles = (genre?: string, style?: string) => {
     const styles = new Set<string>();
 
@@ -138,7 +178,26 @@ const Timeline: React.FC = () => {
     (composer) => typeof composer.composerBirthYear !== "number",
   );
 
-  const years = [...new Set(composers.map((c) => c.composerBirthYear))];
+  const handleCountryClick = (country: string) => {
+    setSelectedCountry(country);
+  };
+
+  const clearFilter = () => {
+    setSelectedCountry(null);
+  };
+
+  const filteredComposers = composers.filter(
+    (composer) =>
+      !selectedCountry ||
+      composer.country
+        ?.split(",")
+        .map((c) => c.trim())
+        .includes(selectedCountry),
+  );
+
+  const filteredYears = [
+    ...new Set(filteredComposers.map((c) => c.composerBirthYear)),
+  ];
 
   const ComposerCardContent = ({ composer }: { composer: Composer }) => {
     const styles = getUniqueStyles(composer.genre, composer.style);
@@ -146,17 +205,17 @@ const Timeline: React.FC = () => {
 
     return (
       <ComposerCard key={composer.slug}>
-        <ComposerLink to={`/corpus/${composer.slug}`}>
-          <ComposerHeader>
+        <ComposerHeader>
+          <ComposerLink to={`/corpus/${composer.slug}`}>
             <ComposerName>
               {composer.slug
                 .split("_")
                 .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
                 .join(" ")}
             </ComposerName>
-            {getEmojis(composer.country)}
-          </ComposerHeader>
-        </ComposerLink>
+          </ComposerLink>
+          <div>{getEmojis(composer.country, handleCountryClick)}</div>
+        </ComposerHeader>
         {stylesList.length > 0 && (
           <GenreList>
             {stylesList.map((style, index) => (
@@ -170,15 +229,23 @@ const Timeline: React.FC = () => {
 
   return (
     <TimelineContainer>
+      {selectedCountry && (
+        <FilterIndicator>
+          <span>
+            {selectedCountry} {flag(selectedCountry)}
+          </span>
+          <CloseFilter onClick={clearFilter}>×</CloseFilter>
+        </FilterIndicator>
+      )}
       <h1>Composer Timeline</h1>
       <TimelineWrapper>
-        {years.map((year) => (
+        {filteredYears.map((year) => (
           <TimelineYear key={year}>
             <YearMarker>
               <YearLabel>{year}</YearLabel>
             </YearMarker>
             <ComposersGroup>
-              {composers
+              {filteredComposers
                 .filter((composer) => composer.composerBirthYear === year)
                 .map((composer) => (
                   <ComposerCardContent
@@ -193,11 +260,19 @@ const Timeline: React.FC = () => {
 
       {composersWithoutYear.length > 0 && (
         <>
-          <h2>Composers with Unknown Birth Year</h2>
           <ComposersGroup>
-            {composersWithoutYear.map((composer) => (
-              <ComposerCardContent key={composer.slug} composer={composer} />
-            ))}
+            {composersWithoutYear
+              .filter(
+                (composer) =>
+                  !selectedCountry ||
+                  composer.country
+                    ?.split(",")
+                    .map((c) => c.trim())
+                    .includes(selectedCountry),
+              )
+              .map((composer) => (
+                <ComposerCardContent key={composer.slug} composer={composer} />
+              ))}
           </ComposersGroup>
         </>
       )}

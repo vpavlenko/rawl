@@ -1,6 +1,7 @@
 import * as React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { AppContext } from "../AppContext";
 import { RenumberMeasureCallback, getModulations } from "./Rawl";
 import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
 import {
@@ -233,6 +234,12 @@ const Measure: React.FC<{
   const isLastMeasure = number === sectionSpan[1] + 1;
   const showMeasureBar = !isLastMeasure;
 
+  const { hoveredMeasuresSpan } = useContext(AppContext);
+  const isHighlighted =
+    hoveredMeasuresSpan &&
+    number >= hoveredMeasuresSpan[0] &&
+    number <= hoveredMeasuresSpan[1];
+
   return (
     <>
       {showHeader && tonicStart !== undefined && (
@@ -269,6 +276,8 @@ const Measure: React.FC<{
                       : selectedPhraseStart !== -1 &&
                         Math.abs(number - selectedPhraseStart) <= 4
                       ? "orange"
+                      : isHighlighted
+                      ? "white"
                       : modulationDiff === null
                       ? "#666"
                       : "black",

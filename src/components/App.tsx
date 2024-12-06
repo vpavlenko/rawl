@@ -62,7 +62,7 @@ import Pirate from "./rawl/Pirate";
 import Rawl, { RawlProps } from "./rawl/Rawl";
 import { ShortcutHelp } from "./rawl/ShortcutHelp";
 import Slicer from "./rawl/Slicer";
-import { Analyses } from "./rawl/analysis";
+import { Analyses, MeasuresSpan } from "./rawl/analysis";
 import Book from "./rawl/book/Book";
 import Corpus from "./rawl/corpora/Corpus";
 import Structures, { StructuresProps } from "./rawl/corpora/Structures";
@@ -111,6 +111,7 @@ type AppState = {
   audioContextState: string;
   currentPlaybackTime: number | null;
   currentMidiBuffer: ArrayBuffer | null;
+  hoveredMeasuresSpan: MeasuresSpan | null;
 };
 
 export interface FirestoreMidiIndex {
@@ -228,6 +229,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       audioContextState: this.audioContext.state,
       currentPlaybackTime: null,
       currentMidiBuffer: null,
+      hoveredMeasuresSpan: null,
     };
 
     const bufferSize = Math.max(
@@ -1153,6 +1155,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
             currentPlaybackTime: this.state.currentPlaybackTime || null,
             eject: this.eject,
             currentMidiBuffer: this.state.currentMidiBuffer,
+            hoveredMeasuresSpan: this.state.hoveredMeasuresSpan,
+            setHoveredMeasuresSpan: (span) =>
+              this.setState({ hoveredMeasuresSpan: span }),
           }}
         >
           <AppHeader />
@@ -1197,6 +1202,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
           currentPlaybackTime: this.state.currentPlaybackTime || null,
           eject: this.eject,
           currentMidiBuffer: this.state.currentMidiBuffer,
+          hoveredMeasuresSpan: this.state.hoveredMeasuresSpan,
+          setHoveredMeasuresSpan: (span) =>
+            this.setState({ hoveredMeasuresSpan: span }),
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>

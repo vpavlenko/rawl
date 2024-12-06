@@ -21,6 +21,7 @@ const InlineSnippets: React.FC<{
 }> = ({ measuresAndBeats, snippets, secondsToX, sectionSpan }) => {
   const appContext = useContext(AppContext);
   const isSignedIn = !!appContext?.user;
+  const { setHoveredMeasuresSpan } = appContext;
 
   const filteredSnippets = React.useMemo(() => {
     return filterSnippetsByAccess(snippets, isSignedIn);
@@ -125,6 +126,10 @@ const InlineSnippets: React.FC<{
                     )}/${encodeURIComponent(topic.trim())}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onMouseEnter={() =>
+                      setHoveredMeasuresSpan(snippet.measuresSpan)
+                    }
+                    onMouseLeave={() => setHoveredMeasuresSpan(null)}
                     style={{
                       textDecoration: "none",
                       color: "inherit",

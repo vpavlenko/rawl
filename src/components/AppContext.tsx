@@ -1,6 +1,6 @@
 import { User } from "firebase/auth";
 import React from "react";
-import { Analysis } from "./rawl/analysis";
+import { Analysis, MeasuresSpan } from "./rawl/analysis";
 import { RawlProps } from "./rawl/Rawl";
 
 export type CurrentMidi = {
@@ -29,6 +29,8 @@ export type AppContextType = {
   currentPlaybackTime: number | null;
   eject: () => void;
   currentMidiBuffer: ArrayBuffer | null;
+  hoveredMeasuresSpan: MeasuresSpan | null;
+  setHoveredMeasuresSpan: (span: MeasuresSpan | null) => void;
 };
 
 export const AppContext = React.createContext<AppContextType | undefined>(

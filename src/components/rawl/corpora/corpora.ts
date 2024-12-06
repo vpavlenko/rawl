@@ -1,11 +1,10 @@
-// Comments are for Yiruma's "First Love".
-// I skip "14 I… 48:33" since it's basically track 1 with added violin.
-// For "05 Passing By 15:17", "09 Time Forgets… 29:52" and "15 Farewell 52:45"
-// I use versions without a cello, since it's doubling a piano melody anyways.
-
 type Corpora = {
   slug: string;
   midis: string[];
+  composerBirthYear?: number;
+  genre?: string;
+  style?: string;
+  country?: string;
 };
 
 export const corpora: Corpora[] = [
@@ -33,6 +32,10 @@ export const corpora: Corpora[] = [
       "yiruma_when_the_love_falls",
       "Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019",
     ],
+    composerBirthYear: 1978, // Yiruma
+    genre: "Classical Crossover", // His music blends classical with modern elements.
+    style: "New Age, Classical, Contemporary", // Known for emotionally evocative, piano-driven pieces.
+    country: "South Korea", // Yiruma is South Korean.
   },
   {
     slug: "first_love",
@@ -52,6 +55,10 @@ export const corpora: Corpora[] = [
       "dream-a-little-dream-of-me---yiruma", // cover
       "when-the-love-falls---yiruma", // cover
     ],
+    composerBirthYear: 1978, // Same as above.
+    genre: "Classical Crossover",
+    style: "New Age, Classical, Contemporary",
+    country: "South Korea",
   },
   {
     slug: "jim_brickman",
@@ -60,14 +67,21 @@ export const corpora: Corpora[] = [
       "beautiful",
       "jim-brickman---night-prayer-uoc-gi",
     ],
+    composerBirthYear: 1961, // Jim Brickman
+    genre: "Adult Contemporary, Pop", // Focuses on contemporary ballads and easy-listening music.
+    style: "Pop Piano, Contemporary Classical",
+    country: "USA", // Jim Brickman is American.
   },
   {
     slug: "ryan_elder",
     midis: ["rick-and-morty-main-theme---ryan-elder"],
+    composerBirthYear: 1978, // Ryan Elder
+    genre: "Television Music, Comedy",
+    style: "Electronic, Orchestral, Comedy Music",
+    country: "USA", // Ryan Elder is American.
   },
   {
     slug: "giovanni_allevi",
-    // https://musescore.com/user/77038780
     midis: [
       "amor-sacro---giovanni-allevi",
       "la-stanza-dei-giochi---giovanni-allevi",
@@ -75,23 +89,31 @@ export const corpora: Corpora[] = [
       "flowers---giovanni-allevi",
       "aria-~-giovanni-allevi",
     ],
+    composerBirthYear: 1969, // Giovanni Allevi
+    genre: "Classical, Contemporary Classical",
+    style: "Minimalist, Piano-driven Classical",
+    country: "Italy", // Giovanni Allevi is Italian.
   },
   {
-    // minimalism
     slug: "george_winston",
     midis: [
       "thanksgiving",
       "colors-dance---george-winston",
       "february-sea---george-winston-771567dfea6219c668f882216e7f8c356a9b6bc5",
       "longing-love---george-winston",
-      //       Lullaby (Sandman)
-      // January Stars
-      // Early Morning Range
     ],
+    composerBirthYear: 1949, // George Winston
+    genre: "New Age, Instrumental",
+    style: "Solo Piano, Minimalism",
+    country: "USA", // George Winston is American.
   },
   {
     slug: "tomohito_nishiura",
     midis: ["professor-layton-s-theme---piano"],
+    composerBirthYear: 1982, // Tomohito Nishiura
+    genre: "Video Game Music",
+    style: "Orchestral, Cinematic",
+    country: "Japan", // Tomohito Nishiura is Japanese.
   },
   {
     slug: "david_lanz",
@@ -100,6 +122,10 @@ export const corpora: Corpora[] = [
       "moonlight-lake-by-david-lanz",
       "angels-falling-by-david-lanz",
     ],
+    composerBirthYear: 1950, // David Lanz
+    genre: "New Age, Instrumental",
+    style: "Piano Solo, Contemporary Classical",
+    country: "USA", // David Lanz is American.
   },
   {
     slug: "philip_glass",
@@ -120,8 +146,19 @@ export const corpora: Corpora[] = [
       "philip-glass---floe",
       "philip-glass---satyagraha-act-3-ending",
     ],
+    composerBirthYear: 1937, // Philip Glass
+    genre: "Minimalism, Classical",
+    style: "Minimalist, Avant-garde",
+    country: "USA", // Philip Glass is American.
   },
-  { slug: "machaut", midis: ["machaut---messe-de-nostre-dame---kyrie"] },
+  {
+    slug: "machaut",
+    midis: ["machaut---messe-de-nostre-dame---kyrie"],
+    composerBirthYear: 1300, // Guillaume de Machaut (estimated)
+    genre: "Medieval, Sacred",
+    style: "Polyphonic Choral Music",
+    country: "France", // Machaut was French.
+  },
   {
     slug: "habanera",
     midis: [
@@ -134,6 +171,9 @@ export const corpora: Corpora[] = [
 
       "piece-en-forme-de-habanera",
     ],
+    genre: "Latin, Traditional",
+    style: "Habanera, Dance",
+    country: "Spain", // The Habanera is a Spanish genre.
   },
   {
     slug: "ernesto_nazareth",
@@ -142,6 +182,10 @@ export const corpora: Corpora[] = [
       "tango-habanera-vers-1925-by-ernesto-nazareth",
       "apanhei-te-cavanquinho---ernesto-nazareth",
     ],
+    composerBirthYear: 1863, // Ernesto Nazareth
+    genre: "Brazilian, Choro",
+    style: "Choro, Tango",
+    country: "Brazil", // Ernesto Nazareth is Brazilian.
   },
   {
     slug: "georgian",
@@ -153,6 +197,10 @@ export const corpora: Corpora[] = [
       "mival-guriashi",
       "kintouri",
     ],
+    composerBirthYear: undefined, // Traditional Georgian folk music
+    genre: "Folk, Traditional",
+    style: "Georgian Polyphonic Singing",
+    country: "Georgia", // The music is from Georgia (Caucasus region).
   },
   {
     // also https://musescore.com/sheetmusic?text=%D1%82%D0%B0%D0%BD%D0%B3%D0%BE&type=non-official

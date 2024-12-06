@@ -3440,18 +3440,33 @@ export const corpora: Corpora[] = [
   {
     slug: "grieg_lyric_pieces",
     midis: ["grieg_arietta_yaskawa", "grieg_lyric_2_waltz_yaskawa"],
+    composerBirthYear: 1843, // Edvard Grieg
+    genre: "Classical", // Late Romantic period
+    style: "Romantic", // Known for his expressive piano pieces
+    country: "Norway", // Grieg was Norwegian
   },
   {
     slug: "kaijura_yuki",
     midis: ["nara-no-kyoukai-vol.-2---m01"],
+    composerBirthYear: 1963, // Yuki Kajiura
+    genre: "Soundtrack", // Known for composing anime soundtracks
+    style: "Orchestral, Electronic", // Combines orchestral with electronic music
+    country: "Japan", // Yuki Kajiura is Japanese
   },
   {
     slug: "jacob_axel_josephson",
     midis: ["albumblad"],
+    composerBirthYear: 1850, // Jacob Axel Josephson
+    genre: "Classical", // Primarily known for his works in the classical genre
+    style: "Romantic", // Romantic era composer
+    country: "Sweden", // Josephson was Swedish
   },
   {
     slug: "christian_hymns_worldwide",
     midis: ["karibu-na-bwana"],
+    composerBirthYear: undefined, // No specific composer
+    genre: "Gospel", // Christian hymns are often gospel in style
+    style: "Gospel, Hymn", // Traditional Christian hymns
   },
   {
     slug: "medleys",
@@ -3462,6 +3477,10 @@ export const corpora: Corpora[] = [
     midis: [
       "zhao-he-aidorumedore", // Showa Era J-Pop Idol Medley
     ],
+    composerBirthYear: undefined, // Medley, no specific composer
+    genre: "Pop", // J-Pop, Japanese pop music
+    style: "J-Pop, Idol", // Showa era idol music
+    country: "Japan", // J-Pop is a genre from Japan
   },
   {
     slug: "dora_pejacevic",
@@ -3469,6 +3488,10 @@ export const corpora: Corpora[] = [
       "the-life-of-flowers-violet---dora-pejacevic",
       "papillon-op.-6---dora-pejacevic",
     ],
+    composerBirthYear: 1885, // Dora Pejacevic
+    genre: "Classical", // Primarily classical composer
+    style: "Romantic", // Works in the late Romantic style
+    country: "Croatia", // Dora Pejacevic was Croatian
   },
   {
     slug: "mikulas_schneider_trnavsky",
@@ -3477,10 +3500,18 @@ export const corpora: Corpora[] = [
       "kriste-zo-srdca-celeho-jks272---mikulas-schneider-trnavsky",
       "hospodine-vyslys-nas-jks527---mikulas-schneider-trnavsky",
     ],
+    composerBirthYear: 1881, // Mikuláš Schneider-Trnavský
+    genre: "Classical", // Classical music with folk influences
+    style: "Folk-inspired, Sacred", // Known for sacred and folk-inspired compositions
+    country: "Slovakia", // Schneider-Trnavský was Slovak
   },
   {
     slug: "mihail_krug",
     midis: ["prihodite-v-moy-dom", "fraer---mihail-krug", "kolshchik"],
+    composerBirthYear: 1962, // Mikhail Krug
+    genre: "Russian chanson", // Popular in Russian chanson genre
+    style: "Chanson", // Known for his distinctive style in Russian chanson
+    country: "Russia", // Mikhail Krug was Russian
   },
   {
     slug: "danny_elfman",
@@ -3497,6 +3528,10 @@ export const corpora: Corpora[] = [
       "alice-in-wonderland",
       "this-is-halloween-short-version---danny-elfman",
     ],
+    composerBirthYear: 1953, // Danny Elfman
+    genre: "Film Score", // Known for film scores and movie soundtracks
+    style: "Orchestral, Gothic, Pop", // A blend of orchestral, gothic, and sometimes pop elements
+    country: "USA", // Danny Elfman is American
   },
   {
     slug: "george_bruns",
@@ -3505,6 +3540,10 @@ export const corpora: Corpora[] = [
       "overture-from-the-jungle-book---george-bruns-overture-the-jungle-book---george-bruns",
       "yo-ho-a-pirate-s-life-for-me---george-bruns-xavier-atencio-yo-ho-a-pirates-life-for-me",
     ],
+    composerBirthYear: 1914, // George Bruns
+    genre: "Film Score", // Composer of film scores
+    style: "Orchestral", // Traditional orchestral film scoring
+    country: "USA", // George Bruns was American
   },
   {
     slug: "yu-peng_chen",
@@ -3517,6 +3556,10 @@ export const corpora: Corpora[] = [
       "moonlike-smile---yu-peng-chen",
       "genshin-impact---inazuma-miscellany---yu-peng-chen-genshin-impact-2.0-livestream-piano-part-1",
     ],
+    composerBirthYear: 1984,
+    genre: "Video Game Music", // Composer for video games, primarily Genshin Impact
+    style: "Orchestral, Cinematic", // Cinematic style with orchestral elements
+    country: "China", // Yu-Peng Chen is Chinese
   },
   {
     slug: "udo_jurgens",
@@ -3527,6 +3570,10 @@ export const corpora: Corpora[] = [
       "vielen-dank-fur-die-blumen---udo-jurgens",
       "ein-ehrenwertes-haus---udo-jurgens",
     ],
+    composerBirthYear: 1934, // Udo Jürgens
+    genre: "Schlager, Pop", // Schlager is a key genre he worked in
+    style: "Pop, Easy Listening", // His style was easy listening and pop
+    country: "Austria", // Udo Jürgens was Austrian
   },
   {
     slug: "geoffrey_gregoire_kargmax",
@@ -3535,6 +3582,10 @@ export const corpora: Corpora[] = [
       "menuet-en-mib-mineur",
       "espieglerie-grazioso-entre-violon-et-piano-mi-m",
     ],
+    composerBirthYear: undefined, // Not enough information to determine
+    genre: "Classical", // Classical genre
+    style: "Baroque, Classical", // Works in classical and baroque style
+    country: undefined, // Country of origin unclear
   },
   {
     slug: "emmerich_kalman",
@@ -3547,6 +3598,10 @@ export const corpora: Corpora[] = [
       "throw-me-a-rose---emmerich-kalman-throw-me-a-rose",
       "grafin-mariza.-no-3-wenn-es-abend-wird---emmerich-kalman-wenn-es-abend-wird",
     ],
+    composerBirthYear: 1882, // Emmerich Kálmán
+    genre: "Operetta", // Known for operettas and light opera
+    style: "Operetta, Classical", // Works in operetta and classical styles
+    country: "Hungary", // Emmerich Kálmán was Hungarian
   },
   {
     slug: "vicenzo_piano",
@@ -3562,6 +3617,10 @@ export const corpora: Corpora[] = [
       "a-dream-i-had---vicenzo-piano",
       "interstellar---vicenzo-piano",
     ],
+    composerBirthYear: undefined, // Information about Vicenzo Piano's birth year is unclear
+    genre: "New Age", // New Age piano compositions
+    style: "Instrumental, Classical Crossover", // Instrumental with elements of classical crossover
+    country: undefined, // Country of origin unclear
   },
   {
     slug: "todd_owen",
@@ -3572,6 +3631,10 @@ export const corpora: Corpora[] = [
       "when-i-am-dust-in-arcadia",
       "sincerest-betrayal",
     ],
+    composerBirthYear: undefined, // Not enough information available
+    genre: "Indie, Classical", // Indie-classical style music
+    style: "Minimalism", // Minimalist piano compositions
+    country: undefined, // Country not specified
   },
   {
     slug: "SIX",
@@ -3579,6 +3642,10 @@ export const corpora: Corpora[] = [
       "heart-of-stone-from-six-the-musical",
       "six-the-musical---broadway-six-medley",
     ],
+    composerBirthYear: 1984, // Toby Marlow & Lucy Moss (co-composers of Six)
+    genre: "Musical Theatre", // Broadway musical
+    style: "Pop Musical", // Pop-influenced musical style
+    country: "UK", // SIX originated in the UK
   },
   {
     slug: "xix_century_russian_romance",
@@ -3592,6 +3659,10 @@ export const corpora: Corpora[] = [
       "Canon_in_D",
       "johann-pachelbel-1653~1706---fugue-in-c-major-p.144",
     ],
+    composerBirthYear: 1653, // Johann Pachelbel's birth year
+    genre: "Baroque", // Pachelbel was a Baroque composer
+    style: "Classical", // Common style descriptor for Baroque music
+    country: "Germany", // Pachelbel was German
   },
   {
     slug: "bebu_silvetti",
@@ -3601,10 +3672,18 @@ export const corpora: Corpora[] = [
       "melissa---bebu-silvetti", // canon in D
       "bebu-silvetti---piano",
     ],
+    composerBirthYear: 1939, // Bebu Silvetti's birth year
+    genre: "Latin", // Bebu Silvetti was known for Latin music
+    style: "Pop", // Known for Latin pop arrangements
+    country: "Argentina", // Silvetti was from Argentina
   },
   {
-    slug: "early_20th_century_easy_american",
+    slug: "c_austin_miles",
     midis: ["in-the-garden---c.-austin-miles"],
+    composerBirthYear: 1868, // C. Austin Miles' birth year (composer of "In the Garden")
+    genre: "Gospel", // "In the Garden" is a Christian hymn
+    style: "Hymn", // Hymnal style music
+    country: "USA", // C. Austin Miles was American
   },
   {
     slug: "mikhail_glinka",
@@ -3613,6 +3692,10 @@ export const corpora: Corpora[] = [
       "ya-pomnyu-chudnoe-mgnovene",
       "noktyurn-razluka-nocturne-la-separation---m.-i.-glinka-m.-i.-glinka-razluka",
     ],
+    composerBirthYear: 1804, // Glinka's birth year
+    genre: "Romantic", // Glinka was a Romantic composer
+    style: "Classical", // Typical descriptor for his style
+    country: "Russia", // Glinka was Russian
   },
   {
     slug: "jared_emerson-johnson",
@@ -3622,6 +3705,10 @@ export const corpora: Corpora[] = [
       "prologue---the-wolf-among-us",
       "crane-s-business-office-the-wolf-among-us",
     ],
+    composerBirthYear: 1980, // Approximate birth year
+    genre: "Video Game", // Known for video game music
+    style: "Orchestral, Electronic", // Blend of orchestral and electronic styles
+    country: "USA", // Emerson-Johnson is American
   },
   {
     slug: "david_wise",
@@ -3630,6 +3717,10 @@ export const corpora: Corpora[] = [
       "aquatic-ambience",
       "jib-jig-donkey-kong-country-2",
     ],
+    composerBirthYear: 1967, // David Wise's birth year
+    genre: "Video Game", // Known for video game music, specifically Donkey Kong Country
+    style: "Electronic, Orchestral", // Known for a mix of electronic and orchestral elements in video game scores
+    country: "UK", // David Wise is from the UK
   },
   {
     slug: "andrew_prahlow",
@@ -3640,6 +3731,10 @@ export const corpora: Corpora[] = [
       "outer-wilds---timber-hearth",
       "andrew-prahlow---the-river",
     ],
+    composerBirthYear: 1988,
+    genre: "Video Game", // Known for video game music, particularly Outer Wilds
+    style: "Ambient, Electronic", // Prahlow's music is largely ambient with electronic influences
+    country: "USA", // Prahlow is American
   },
   {
     slug: "bear_mccreary",
@@ -3656,6 +3751,10 @@ export const corpora: Corpora[] = [
       "the-veil-of-time---outlander-score",
       "agents-of-s.h.i.e.l.d.-theme",
     ],
+    composerBirthYear: 1979, // Bear McCreary's birth year
+    genre: "Film, TV", // Known for composing for films and TV series
+    style: "Orchestral, Electronic, Rock", // McCreary blends orchestral, electronic, and rock styles
+    country: "USA", // McCreary is American
   },
   {
     slug: "joe_hisaishi",
@@ -3667,6 +3766,10 @@ export const corpora: Corpora[] = [
       "joe-hisaishi---hana-bi",
       "the-name-of-life-inochi-no-namae-joe-hisaishi",
     ],
+    composerBirthYear: 1950, // Joe Hisaishi's birth year
+    genre: "Film, Anime", // Known for composing music for films and anime
+    style: "Orchestral", // His compositions are often orchestral
+    country: "Japan", // Hisaishi is Japanese
   },
   {
     // https://musescore.com/user/19710/sets/3559241
@@ -3680,6 +3783,10 @@ export const corpora: Corpora[] = [
       "tuileries-dispute-d-enfants-apres-jeux",
       "bydlo",
     ],
+    composerBirthYear: 1834, // Modest Mussorgsky's birth year (composer of Pictures at an Exhibition)
+    genre: "Romantic", // Mussorgsky was a Romantic composer
+    style: "Classical", // Typical descriptor for Romantic era music
+    country: "Russia", // Mussorgsky was Russian
   },
   {
     // https://www.discogs.com/release/17759461-Various-%D0%A8%D0%B5%D0%B4%D0%B5%D0%B2%D1%80%D1%8B-%D0%9A%D0%BB%D0%B0%D1%81%D1%81%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B9-%D0%9C%D1%83%D0%B7%D1%8B%D0%BA%D0%B8-%D0%9A%D0%BE%D0%BB%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D1%8F-2-%D0%92%D1%8B%D0%BF%D1%83%D1%81%D0%BA-5

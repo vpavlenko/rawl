@@ -1,3 +1,4 @@
+import { flag } from "country-emoji";
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -37,7 +38,6 @@ const YearMarker = styled.div`
 `;
 
 const YearLabel = styled.span`
-  background: #333;
   padding: 4px 8px;
   border-radius: 4px;
   color: #fff;
@@ -45,20 +45,12 @@ const YearLabel = styled.span`
 `;
 
 const ComposersGroup = styled.div`
-  padding-left: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 `;
 
-const ComposerCard = styled.div`
-  background: #1a1a1a;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  transition: transform 0.2s;
-
-  &:hover {
-    transform: translateX(5px);
-  }
-`;
+const ComposerCard = styled.span``;
 
 const ComposerLink = styled(Link)`
   text-decoration: none;
@@ -67,15 +59,6 @@ const ComposerLink = styled(Link)`
   h3 {
     margin: 0 0 0.5rem 0;
     color: #fff;
-  }
-`;
-
-const ComposerDetails = styled.div`
-  font-size: 0.9rem;
-  color: #999;
-
-  p {
-    margin: 0.25rem 0;
   }
 `;
 
@@ -88,7 +71,66 @@ type Composer = {
   country?: string;
 };
 
+const ComposerHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const ComposerName = styled.h3`
+  margin: 0;
+  color: #fff;
+`;
+
+const Flags = styled.span`
+  font-size: 1.2rem;
+  //   padding-left: 10px;
+  position: relative;
+  top: -0.2em;
+  left: -0.2em;
+`;
+
+const PieceCount = styled.span`
+  font-size: 0.6em;
+  position: relative;
+  top: -0.6em;
+  left: -0.2em;
+  color: #666;
+`;
+
+const UnknownCountry = styled.span`
+  font-size: 0.8em;
+  color: #666;
+  font-style: italic;
+`;
+
+const GenreList = styled.div`
+  font-size: 0.7rem;
+  color: #999;
+  display: flex;
+  flex-direction: column;
+`;
+
 const Timeline: React.FC = () => {
+  const getUniqueStyles = (genre?: string, style?: string) => {
+    const styles = new Set<string>();
+
+    if (genre) {
+      genre
+        .split(",")
+        .map((s) => s.trim())
+        .forEach((s) => styles.add(s));
+    }
+    if (style) {
+      style
+        .split(",")
+        .map((s) => s.trim())
+        .forEach((s) => styles.add(s));
+    }
+
+    return Array.from(styles).join(", ");
+  };
+
   const composers = corpora
     .filter(
       (composer): composer is Composer & { composerBirthYear: number } =>
@@ -96,7 +138,54 @@ const Timeline: React.FC = () => {
     )
     .sort((a, b) => b.composerBirthYear - a.composerBirthYear);
 
+  const composersWithoutYear = corpora.filter(
+    (composer) => typeof composer.composerBirthYear !== "number",
+  );
+
   const years = [...new Set(composers.map((c) => c.composerBirthYear))];
+
+  const ComposerCardContent = ({ composer }: { composer: Composer }) => {
+    const countries = composer.country?.split(",").map((c) => c.trim()) || [];
+    const emojis = countries
+      .map((c) => {
+        if (c.toLowerCase() === "scotland") return "🏴󠁧󠁢󠁳󠁣󠁴󠁿";
+        return flag(c);
+      })
+      .filter(Boolean);
+    const unknown = countries.filter(
+      (c) => c.toLowerCase() !== "scotland" && !flag(c),
+    );
+
+    const styles = getUniqueStyles(composer.genre, composer.style);
+    const stylesList = styles.split(", ");
+
+    return (
+      <ComposerCard key={composer.slug}>
+        <ComposerLink to={`/corpus/${composer.slug}`}>
+          <ComposerHeader>
+            <ComposerName>
+              {composer.slug
+                .split("_")
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(" ")}
+            </ComposerName>
+            {/* <PieceCount>{composer.midis.length}</PieceCount> */}
+            {emojis.length > 0 && <Flags>{emojis.join(" ")}</Flags>}
+            {unknown.length > 0 && (
+              <UnknownCountry>({unknown.join(", ")})</UnknownCountry>
+            )}
+          </ComposerHeader>
+        </ComposerLink>
+        {stylesList.length > 0 && (
+          <GenreList>
+            {stylesList.map((style, index) => (
+              <span key={index}>{style}</span>
+            ))}
+          </GenreList>
+        )}
+      </ComposerCard>
+    );
+  };
 
   return (
     <TimelineContainer>
@@ -111,30 +200,26 @@ const Timeline: React.FC = () => {
               {composers
                 .filter((composer) => composer.composerBirthYear === year)
                 .map((composer) => (
-                  <ComposerCard key={composer.slug}>
-                    <ComposerLink to={`/corpus/${composer.slug}`}>
-                      <h3>
-                        {composer.slug
-                          .split("_")
-                          .map(
-                            (word) =>
-                              word.charAt(0).toUpperCase() + word.slice(1),
-                          )
-                          .join(" ")}
-                      </h3>
-                    </ComposerLink>
-                    <ComposerDetails>
-                      {composer.country && <p>Country: {composer.country}</p>}
-                      {composer.genre && <p>Genre: {composer.genre}</p>}
-                      {composer.style && <p>Style: {composer.style}</p>}
-                      <p>Number of pieces: {composer.midis.length}</p>
-                    </ComposerDetails>
-                  </ComposerCard>
+                  <ComposerCardContent
+                    key={composer.slug}
+                    composer={composer}
+                  />
                 ))}
             </ComposersGroup>
           </TimelineYear>
         ))}
       </TimelineWrapper>
+
+      {composersWithoutYear.length > 0 && (
+        <>
+          <h2>Composers with Unknown Birth Year</h2>
+          <ComposersGroup>
+            {composersWithoutYear.map((composer) => (
+              <ComposerCardContent key={composer.slug} composer={composer} />
+            ))}
+          </ComposersGroup>
+        </>
+      )}
     </TimelineContainer>
   );
 };

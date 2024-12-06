@@ -40,7 +40,9 @@ const YearMarker = styled.div`
 const YearLabel = styled.span`
   padding: 4px 8px;
   border-radius: 4px;
-  color: #fff;
+  position: relative;
+  top: 0.2rem;
+  color: #999;
   font-weight: bold;
 `;
 
@@ -52,6 +54,7 @@ const ComposersGroup = styled.div`
 
 const ComposerCard = styled.div`
   cursor: default;
+  font-size: 0.9rem;
 `;
 
 const ComposerLink = styled(Link)`
@@ -98,12 +101,21 @@ const GenreList = styled.div`
   flex-direction: column;
 `;
 
+const GenreItem = styled.span`
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
+`;
+
 const FilterIndicator = styled.div`
   position: fixed;
-  top: 30px;
+  top: 50px;
   right: 20px;
   padding: 8px 16px;
   border-radius: 4px;
+  background: #333;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -147,6 +159,7 @@ const Timeline: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = React.useState<string | null>(
     null,
   );
+  const [selectedStyle, setSelectedStyle] = React.useState<string | null>(null);
 
   const getUniqueStyles = (genre?: string, style?: string) => {
     const styles = new Set<string>();
@@ -179,21 +192,35 @@ const Timeline: React.FC = () => {
   );
 
   const handleCountryClick = (country: string) => {
+    setSelectedStyle(null);
     setSelectedCountry(country);
+  };
+
+  const handleStyleClick = (style: string) => {
+    setSelectedCountry(null);
+    setSelectedStyle(style);
   };
 
   const clearFilter = () => {
     setSelectedCountry(null);
+    setSelectedStyle(null);
   };
 
-  const filteredComposers = composers.filter(
-    (composer) =>
-      !selectedCountry ||
-      composer.country
+  const filteredComposers = composers.filter((composer) => {
+    if (selectedCountry) {
+      return composer.country
         ?.split(",")
         .map((c) => c.trim())
-        .includes(selectedCountry),
-  );
+        .includes(selectedCountry);
+    }
+    if (selectedStyle) {
+      const styles = getUniqueStyles(composer.genre, composer.style).split(
+        ", ",
+      );
+      return styles.includes(selectedStyle);
+    }
+    return true;
+  });
 
   const filteredYears = [
     ...new Set(filteredComposers.map((c) => c.composerBirthYear)),
@@ -219,7 +246,9 @@ const Timeline: React.FC = () => {
         {stylesList.length > 0 && (
           <GenreList>
             {stylesList.map((style, index) => (
-              <span key={index}>{style}</span>
+              <GenreItem key={index} onClick={() => handleStyleClick(style)}>
+                {style}
+              </GenreItem>
             ))}
           </GenreList>
         )}
@@ -229,10 +258,15 @@ const Timeline: React.FC = () => {
 
   return (
     <TimelineContainer>
-      {selectedCountry && (
+      {(selectedCountry || selectedStyle) && (
         <FilterIndicator>
           <span>
-            {selectedCountry} {flag(selectedCountry)}
+            {selectedCountry && (
+              <>
+                {selectedCountry} {flag(selectedCountry)}
+              </>
+            )}
+            {selectedStyle && selectedStyle}
           </span>
           <CloseFilter onClick={clearFilter}>×</CloseFilter>
         </FilterIndicator>

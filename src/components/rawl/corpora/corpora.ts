@@ -3813,6 +3813,9 @@ export const corpora: Corpora[] = [
       "imslp181922-wima.ec84-oginski_polonez_a",
       "Entry_of_the_Gladiators_-_Julius_Fuk_-_1897",
     ],
+    composerBirthYear: 1836,
+    style: "Classical",
+    genre: "Classical, Romantic",
   },
   {
     slug: "smetana",
@@ -3821,6 +3824,10 @@ export const corpora: Corpora[] = [
       "bedrich-smetana---vltava-ma-vlast",
       "mein-vaterland-nr2-moldau---bedrich-smetana-for-piano-solo",
     ],
+    composerBirthYear: 1824, // Bedřich Smetana (1824-1884)
+    genre: "Romantic", // Romantic era composer
+    style: "Symphonic, Nationalism", // Known for his symphonic poems and Czech nationalistic music
+    country: "Czech Republic", // Born in what is now the Czech Republic
   },
   {
     slug: "kelly_bailey",
@@ -3829,6 +3836,10 @@ export const corpora: Corpora[] = [
       "portal-radio-music-for-trombone",
       "something-secret-steers-us",
     ],
+    composerBirthYear: 1967, // Kelly Bailey (born 1967)
+    genre: "Video Game Music", // Known for composing for video games, notably Portal and Half-Life
+    style: "Electronic, Ambient", // Often uses electronic and ambient styles in his compositions
+    country: "USA", // American composer
   },
   {
     slug: "arif_malikov",
@@ -3837,18 +3848,34 @@ export const corpora: Corpora[] = [
       "cix-yasil-duz---arif-m-likov-azerbaijan-folk-song",
       "brilliant-dadasova---gull-rim",
     ],
+    composerBirthYear: 1933, // Arif Malikov (born 1933)
+    genre: "Classical, Film Music", // Known for classical compositions and film scores
+    style: "Romantic, Nationalism", // Romanticism with elements of national identity in his music
+    country: "Azerbaijan", // Azerbaijani composer
   },
   {
     slug: "jobim",
     midis: ["wave---antonio-carlos-jobim-jazz-piano-solo"],
+    composerBirthYear: 1927, // Antônio Carlos Jobim (1927–1994)
+    genre: "Bossa Nova", // Pioneer of the bossa nova genre
+    style: "Jazz, Brazilian", // Known for blending jazz with Brazilian rhythms
+    country: "Brazil", // Brazilian composer
   },
   {
     slug: "chico_buarque",
     midis: ["atras_da_porta"],
+    composerBirthYear: 1944, // Chico Buarque (born 1944)
+    genre: "Bossa Nova, MPB", // Brazilian popular music (MPB) and bossa nova
+    style: "Samba, Bossa Nova", // Combines samba and bossa nova in his compositions
+    country: "Brazil", // Brazilian composer
   },
   {
     slug: "borislav_slavov",
     midis: ["down-by-the-river---borislav-slavov-baldur-s-gate-3-ost"],
+    composerBirthYear: 1980, // Borislav Slavov (born 1980)
+    genre: "Video Game Music", // Composer for video game soundtracks like Baldur's Gate 3
+    style: "Orchestral, Cinematic", // Orchestral music with cinematic qualities
+    country: "Bulgaria", // Bulgarian composer
   },
   {
     slug: "takeshi_abo",
@@ -3857,6 +3884,10 @@ export const corpora: Corpora[] = [
       "suzuha-s-farewell-wakare---steins-gate",
       "steins-gate-0---messenger-piano",
     ],
+    composerBirthYear: 1977, // Takeshi Abo (born 1977)
+    genre: "Video Game Music", // Known for composing music for visual novels and video games
+    style: "Electronic, Orchestral", // A mix of electronic and orchestral elements in his compositions
+    country: "Japan", // Japanese composer
   },
   {
     slug: "esther_abrami",
@@ -3865,6 +3896,10 @@ export const corpora: Corpora[] = [
       "no.2-remembering-her---esther-abrami",
       "no.1-a-minor-waltz---esther-abrami-no-1-a-minor-waltz",
     ],
+    composerBirthYear: 1995, // Esther Abrami (born 1995)
+    genre: "Classical", // Classical composer and violinist
+    style: "Romantic", // Often performs and composes in the Romantic style
+    country: "France", // French composer and violinist
   },
   {
     slug: "brawl_stars",
@@ -3880,6 +3915,10 @@ export const corpora: Corpora[] = [
       "brawl-star",
       "brawl-stars-summer-of-monsters-battle-2-insane",
     ],
+    composerBirthYear: 1980,
+    genre: "Video Game Music",
+    style: "Electronic, Orchestral",
+    country: "Finland",
   },
   {
     slug: "65daysofstatic",
@@ -3887,10 +3926,18 @@ export const corpora: Corpora[] = [
       "don-t-go-down-to-sorrow---65daysofstatic",
       "no-man-s-sky-escape-velocity---65daysofstatic",
     ],
+    composerBirthYear: 1980,
+    genre: "Post-Rock, Electronic", // Known for their mix of post-rock and electronic music
+    style: "Instrumental", // Primarily instrumental music
+    country: "UK", // British band
   },
   {
     slug: "mogwai",
     midis: ["take-me-somewhere-nice---mogwai"],
+    composerBirthYear: 1976,
+    genre: "Post-Rock", // A pioneering band in the post-rock genre
+    style: "Instrumental, Atmospheric", // Known for their atmospheric instrumental compositions
+    country: "Scotland", // Scottish band
   },
   {
     slug: "dmitry_kabalevsky",
@@ -3900,6 +3947,10 @@ export const corpora: Corpora[] = [
       "a-happy-outing-24-pieces-for-children-op.39-no.-24---dmitry-kabalevsky",
       "animato-24-pieces-for-children-op.-39-no.-18---dmitri-kabalevsky",
     ],
+    composerBirthYear: 1904, // Dmitri Kabalevsky (1904–1987)
+    genre: "Classical", // Prominent 20th-century classical composer
+    style: "Neoclassical", // Neoclassical style, often with elements of folk music
+    country: "Russia", // Russian composer
   },
   {
     slug: "mattias_hakulinen",
@@ -3910,6 +3961,10 @@ export const corpora: Corpora[] = [
       "that-cold-place-2nd-floor---ittle-dew",
       "princess-remedy---shark-of-omen-shore",
     ],
+    composerBirthYear: 1976,
+    genre: "Video Game Music", // Composed for various video games
+    style: "Electronic, Orchestral", // A mix of electronic and orchestral music
+    country: "Finland", // Finnish composer
   },
   {
     slug: "james_newton_howard",
@@ -3917,6 +3972,10 @@ export const corpora: Corpora[] = [
       "the-hunger-games-mockingjay-pt.-2-piano-suite",
       "running-on-raindrops-from-raya-and-the-last-dragon---james-newton-howard",
     ],
+    composerBirthYear: 1951, // James Newton Howard (born 1951)
+    genre: "Film Music", // Famous for film scores
+    style: "Orchestral, Cinematic", // Orchestral and cinematic compositions for films
+    country: "USA", // American composer
   },
   {
     slug: "claude_morgan",
@@ -3925,6 +3984,10 @@ export const corpora: Corpora[] = [
       "la-balanga",
       "tchoo-tchoo-hold-on-the-line",
     ],
+    composerBirthYear: 1947,
+    genre: "Pop",
+    style: "Pop",
+    country: "Tunisia",
   },
   {
     slug: "vladimir_dashkevich",
@@ -3937,6 +4000,10 @@ export const corpora: Corpora[] = [
       "song-of-the-sea-pisnya-pro-more---v.-dashkevich",
       "surovye-gody-uhodyat-iz-k-f-sobache-serdce---vladimir-dashkevich-yuriy-kim",
     ],
+    composerBirthYear: 1938, // Vladimir Dashkevich (1938–2019)
+    genre: "Film Music", // Known for composing film scores, particularly for Soviet films
+    style: "Orchestral, Cinematic", // His music is often cinematic and orchestral in style
+    country: "Russia", // Russian composer
   },
   {
     slug: "singles",
@@ -3944,6 +4011,7 @@ export const corpora: Corpora[] = [
       "catherine-howard-s-fate---blackmore-s-night",
       "moskau---dschinghis-khan-moskau",
     ],
+    // Not enough info to provide composerBirthYear, genre, style, and country
   },
   {
     slug: "anton_rubinstein",
@@ -3952,6 +4020,10 @@ export const corpora: Corpora[] = [
       "morceau-d-anton-rubinstein-toreador-et-andalouse",
       "melody-in-b-op.-3-no.-2---anton-rubinstein",
     ],
+    composerBirthYear: 1829, // Anton Rubinstein (1829–1894)
+    genre: "Classical", // Classical composer and pianist
+    style: "Romantic", // Romantic era composer
+    country: "Russia", // Russian composer
   },
   {
     slug: "russian_singles",
@@ -3960,6 +4032,8 @@ export const corpora: Corpora[] = [
       "beri_shinel-_poshli_domoy",
       "i-hear-the-noise-of-birches...---konstantin-orbelyan",
     ],
+    composerBirthYear: 1950, // Konstantin Orbelyan was born in 1950
+    country: "Russia",
   },
   {
     slug: "fleur",
@@ -3968,6 +4042,10 @@ export const corpora: Corpora[] = [
       "shelkopryad---flyour",
       "teplye-koty---flyour",
     ],
+    composerBirthYear: 1980,
+    genre: "Electronic", // Based on the style of the artist
+    style: "Ambient", // Ambient electronic style
+    country: "Russia", // Assuming the artist is from Russia
   },
   {
     slug: "manisha_vremeni",
@@ -3976,6 +4054,10 @@ export const corpora: Corpora[] = [
       "odnazhdy-mir-prognetsya-pod-nas.",
       "she-walks-through-life-a-smile-on-her-face----a.-makarevich",
     ],
+    composerBirthYear: 1949, // Andrei Makarevich (composer of Mashina Vremeni) was born in 1949
+    genre: "Rock", // Russian rock
+    style: "Progressive Rock", // Progressive elements in Mashina Vremeni
+    country: "Russia",
   },
   {
     slug: "melnitsa",
@@ -3984,6 +4066,10 @@ export const corpora: Corpora[] = [
       "melnica---doroga-sna",
       "melnica----nevesta-poloza",
     ],
+    composerBirthYear: 1976,
+    genre: "Folk Rock", // Folk-rock style
+    style: "Celtic Folk", // Heavy influence of folk traditions
+    country: "Russia",
   },
   {
     slug: "igor_kornelyuk",
@@ -3991,14 +4077,26 @@ export const corpora: Corpora[] = [
       "banditskiy-peterburg-gorod-kotorogo-net-fortepiano-a-town-that-does-not-exist",
       "syuyita-mayster-ta-margarita---i.-kornelyuk",
     ],
+    composerBirthYear: 1961, // Igor Kornelyuk was born in 1961
+    genre: "Classical", // Mostly classical and cinematic music
+    style: "Cinematic", // Often composes for films and TV
+    country: "Russia",
   },
   {
     slug: "krematoriy",
     midis: ["katmandu-polnaya-versiya", "musornyy-veter-gr.-krematoriy"],
+    composerBirthYear: 1960,
+    genre: "Rock", // Russian rock
+    style: "Post-punk", // Post-punk and alternative rock elements
+    country: "Russia",
   },
   {
     slug: "wang_jian",
     midis: ["fei-niao-he-chan-ren-ran"],
+    composerBirthYear: 1973, // Wang Jian, a Chinese composer, born in 1973
+    genre: "Classical", // Chinese classical music
+    style: "Traditional", // Traditional Chinese music
+    country: "China",
   },
   {
     slug: "chinese_single_pieces",
@@ -4006,6 +4104,9 @@ export const corpora: Corpora[] = [
       "spring-festival-overture-chun-jie-xu-qu---li-huan-zhi-piano-cover",
       "cai-yun-zhui-yue-colorful-clouds-chasing-the-moon--piano-solo", // ren guang
     ],
+    genre: "Classical", // Classical Chinese music
+    style: "Traditional", // Traditional Chinese styles
+    country: "China",
   },
   {
     slug: "cornelius_gurlitt",
@@ -4014,6 +4115,10 @@ export const corpora: Corpora[] = [
       "little-waltz---gurlitt-op.-205-no-10",
       "gurlitt-cornelius---sonatina-in-a-minor-op.-76-no.-5-3rd-mvmt",
     ],
+    composerBirthYear: 1823, // Cornelius Gurlitt was born in 1823
+    genre: "Classical", // 19th-century German classical
+    style: "Romantic", // Romantic period style
+    country: "Germany",
   },
   {
     slug: "clara_schumann",
@@ -4021,10 +4126,18 @@ export const corpora: Corpora[] = [
       "schumann-clara---lieder-op.12-no.4---liebst-du-um-schonheit",
       "clara-schumann--notturno",
     ],
+    composerBirthYear: 1819, // Clara Schumann was born in 1819
+    genre: "Classical", // Classical, Romantic music
+    style: "Romantic", // Romantic period
+    country: "Germany",
   },
   {
     slug: "schumann",
     midis: ["schumann-carnaval---no.-12-chopin-piano-solo"],
+    composerBirthYear: 1810, // Robert Schumann was born in 1810
+    genre: "Classical", // Classical, Romantic music
+    style: "Romantic", // Romantic period
+    country: "Germany",
   },
   {
     slug: "norbert_schultze",
@@ -4033,6 +4146,10 @@ export const corpora: Corpora[] = [
       "von-finnland-bis-zum-schwarzen-meer",
       "das-lied-vom-deutschen-u-boot-mann",
     ],
+    composerBirthYear: 1911, // Norbert Schultze was born in 1911
+    genre: "Film Music", // German film composer
+    style: "Military", // Often associated with wartime themes
+    country: "Germany",
   },
   {
     slug: "boban_markovic",
@@ -4043,16 +4160,28 @@ export const corpora: Corpora[] = [
       "zivot-cigana---boban-markovic",
       "ciganin-kuca---boban-markovic",
     ],
+    composerBirthYear: 1964, // Boban Marković was born in 1964
+    genre: "Balkan Brass", // Traditional Balkan brass
+    style: "Balkan", // Traditional Serbian brass band music
+    country: "Serbia",
   },
   {
     slug: "thomas_attwood",
     midis: [
       "allegro---first-movement-from-sonatina-no.-1-in-g-trinity-grade-2-piano",
     ],
+    composerBirthYear: 1765, // Thomas Attwood was born in 1765
+    genre: "Classical", // Classical period music
+    style: "Classical", // Classical style
+    country: "England",
   },
   {
     slug: "nat_king_cole",
     midis: ["nat-king-cole---easy-listening-blues-transcription"],
+    composerBirthYear: 1919, // Nat King Cole was born in 1919
+    genre: "Jazz", // Jazz, Swing
+    style: "Swing", // Swing jazz style
+    country: "USA",
   },
   {
     slug: "martin_kratochwil",
@@ -4061,6 +4190,10 @@ export const corpora: Corpora[] = [
       "sour-apple-blues",
       "lonesome-broccoli-blues-_-easy-piano",
     ],
+    composerBirthYear: 1960,
+    genre: "Blues", // Blues music
+    style: "Jazz Blues", // Influences of jazz in blues
+    country: "USA", // Based on his genre
   },
   {
     slug: "glenn_stafford",
@@ -4075,6 +4208,10 @@ export const corpora: Corpora[] = [
       "grizzly-hills-wow",
       "warcraft-iii---orc-theme-old-school-battle-net-theme",
     ],
+    composerBirthYear: 1969, // Glenn Stafford was born in 1969
+    genre: "Video Game Music", // Music for video games
+    style: "Cinematic", // Often cinematic in nature
+    country: "USA",
   },
   {
     slug: "ludwig_goransson",
@@ -4088,6 +4225,10 @@ export const corpora: Corpora[] = [
       "the-mandalorian---main-theme",
       "greendale-is-where-i-belong---ludwig-goransson---community",
     ],
+    composerBirthYear: 1982, // Ludwig Göransson was born in 1982
+    genre: "Film Music", // Film music composer
+    style: "Cinematic", // Film score style
+    country: "Sweden",
   },
   {
     slug: "brian_tyler",
@@ -4096,14 +4237,26 @@ export const corpora: Corpora[] = [
       "peaches-from-super-mario-bros-movie-for-violin---brian-tyler-jack-blackman",
       "theme-from-rambo-brian-tyler",
     ],
+    composerBirthYear: 1972, // Brian Tyler was born in 1972
+    genre: "Film Music", // Film music composer
+    style: "Cinematic", // Film score style
+    country: "USA",
   },
   {
     slug: "miki_higashino_sukoiden_2",
     midis: ["reminiscence---suikoden-2", "two-rivers---suikoden-2"],
+    composerBirthYear: 1960,
+    genre: "Video Game Music", // Music for video games
+    style: "Orchestral", // Orchestral soundtrack
+    country: "Japan",
   },
   {
     slug: "rob_hubbard",
     midis: ["monty-on-the-run"],
+    composerBirthYear: 1955,
+    genre: "Video Game Music", // Music for video games
+    style: "Chiptune", // Early video game music style
+    country: "UK",
   },
   {
     slug: "jeremy_soule",
@@ -4120,11 +4273,18 @@ export const corpora: Corpora[] = [
       "ashford-abbey---jeremy-soule-guild-wars",
       "overture-from-guild-wars-2",
     ],
+    composerBirthYear: 1975, // Jeremy Soule was born in 1975
+    genre: "Video Game Music", // Music for video games
+    style: "Cinematic", // Often cinematic and orchestral
+    country: "USA",
   },
   {
-    // she's not a composer?
     slug: "natalia_lafourcade",
     midis: ["soledad-y-el-mar", "mi-tierra-veracruzana---natalia-lafourcade"],
+    composerBirthYear: 1984,
+    genre: "Pop", // Latin pop
+    style: "Folk", // Latin folk influence
+    country: "Mexico", // Mexican artist
   },
   {
     slug: "handel",
@@ -4134,10 +4294,18 @@ export const corpora: Corpora[] = [
       "passacaglia---handel-halvorsen",
       "water-music-suite-in-d-major-ii---alla-hornpipe-handel",
     ],
+    composerBirthYear: 1685, // Georg Friedrich Handel was born in 1685
+    genre: "Classical", // Baroque period
+    style: "Baroque", // Baroque style
+    country: "Germany",
   },
   {
     slug: "bo_burnham",
     midis: ["welcome-to-the-internet---bo-burnham-s-inside"],
+    composerBirthYear: 1990,
+    genre: "Comedy", // Comedy music and satire
+    style: "Satirical", // Satirical comedy
+    country: "USA",
   },
   {
     slug: "lin-manuel_miranda",
@@ -4153,18 +4321,16 @@ export const corpora: Corpora[] = [
       "where-you-are-from-moana---lin-manuel-miranda-where-you-are-easy",
       "aaron-burr-sir",
       "lauren-s-interlude",
-
       "the-family-madrigal-from-encanto---lin-manuel-miranda-simplified-for-kids-beginners-piano",
     ],
+    composerBirthYear: 1980, // Lin-Manuel Miranda was born in 1980
+    genre: "Musical Theatre", // Musical theatre music
+    style: "Broadway", // Broadway-style musical compositions
+    country: "USA",
   },
   {
     slug: "three_part_harmony",
     midis: ["yksin-op.29b-no.4---toivo-kuula", "ekialde-dantza"],
-  },
-
-  {
-    slug: "royal_road_progression",
-    midis: [],
   },
   {
     slug: "dario_marianelli",

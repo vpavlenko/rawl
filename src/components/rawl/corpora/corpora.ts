@@ -1,4 +1,4 @@
-// Metadata filled in using o1-mini on Dec 6, 2024.
+// Metadata filled in using 4o on Dec 6, 2024.
 
 type Corpora = {
   slug: string;
@@ -2340,6 +2340,10 @@ export const corpora: Corpora[] = [
       "silent-hill-not-tomorrow-lisa-s-death",
       "akira-yamaoka---true",
     ],
+    composerBirthYear: 1968,
+    genre: "Video game music",
+    style: "Ambient, Industrial",
+    country: "Japan",
   },
   {
     slug: "shostakovich",
@@ -2348,6 +2352,10 @@ export const corpora: Corpora[] = [
       "shostakovich_symphony_no5_2nd_movement_for_piano_solo",
       "symphony-no.-10-by-dmitri-shostakovich---piano-reduction",
     ],
+    composerBirthYear: 1906,
+    genre: "Classical",
+    style: "Symphonic, Modernist",
+    country: "Russia",
   },
   {
     slug: "jazz_standards",
@@ -2371,6 +2379,10 @@ export const corpora: Corpora[] = [
       "lady_bird_piano_solo",
       "a-night-in-tunisia---dizzy-gillespie-sarah-vaughan-a-night-in-tunisia",
     ],
+    genre: "Jazz",
+    // This is a collection of jazz standards, no specific composer can be assigned.
+    style: "Jazz Standards",
+    country: "USA",
   },
   {
     // https://musescore.com/user/24069/sets/4869434
@@ -2384,6 +2396,10 @@ export const corpora: Corpora[] = [
       "Prelude_in_G_Minor_Opus_23_No._5",
       "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---ii.-allegro-molto",
     ],
+    composerBirthYear: 1873,
+    genre: "Classical",
+    style: "Romantic",
+    country: "Russia",
   },
   {
     slug: "valentin_silvestrov",
@@ -2393,6 +2409,10 @@ export const corpora: Corpora[] = [
       "english-serenades-op.-46-no.-1---valentin-silvestrov",
       "english-serenades-op.-46-no.-4---valentin-silvestrov",
     ],
+    composerBirthYear: 1937,
+    genre: "Classical",
+    style: "Postmodern, Minimalist",
+    country: "Ukraine",
   },
   {
     slug: "george_pelecis",
@@ -2400,6 +2420,10 @@ export const corpora: Corpora[] = [
       "all-in-the-past---georgs-pelecis",
       "plaukstosais-jasmins---georgs-pelecis",
     ],
+    composerBirthYear: 1947,
+    genre: "Classical",
+    style: "Contemporary",
+    country: "Latvia",
   },
   {
     slug: "marco_beltrami",
@@ -2410,6 +2434,10 @@ export const corpora: Corpora[] = [
       "le-mans-66",
       "theme-from-world-war-z---marco-beltrami-theme-from-world-war-z--isolated-system",
     ],
+    composerBirthYear: 1966,
+    genre: "Film Score",
+    style: "Orchestral, Cinematic",
+    country: "USA",
   },
   {
     slug: "catherine_rollin",
@@ -2420,6 +2448,10 @@ export const corpora: Corpora[] = [
       "blues-train---catherine-rollin-catherine-rollin---blues-train-jazz",
       "witches-brew---catherine-rollin",
     ],
+    composerBirthYear: 1954,
+    genre: "Jazz",
+    style: "Jazz, Blues",
+    country: "USA",
   },
   {
     slug: "boogie_woogie",
@@ -2437,14 +2469,17 @@ export const corpora: Corpora[] = [
       "surfboard-boogie",
       "boogie-woogie-7a11a3",
       "boogie-woogie-piano",
-
       "some-boogie-woogie-by-albert-ammons-friends",
       "bumble-boogie---adapted-from-the-flight-of-the-bumble-bee",
     ],
+    genre: "Boogie Woogie",
+    // This is a genre-based collection, not tied to a specific composer.
+    style: "Boogie Woogie",
   },
   {
     slug: "fur_elise_covers",
     midis: ["fur-elise-reharmonization-cover"],
+    // Cover of Beethoven's piece, so no new composer or style info necessary here.
   },
   {
     slug: "martha_mier",
@@ -2457,6 +2492,10 @@ export const corpora: Corpora[] = [
       "enchanted-waterfall---martha-mier",
       "baroque-expression---martha-mier",
     ],
+    composerBirthYear: 1955,
+    genre: "Classical, Ragtime",
+    style: "Ragtime, Light Classical",
+    country: "USA",
   },
   {
     slug: "scary",
@@ -2464,10 +2503,17 @@ export const corpora: Corpora[] = [
       "fur-elise-but-elise-is-scary",
       "funeral-march---f.-chopin-halloween-scary-version---easy-to-intermediate",
     ],
+    genre: "Classical",
+    style: "Spooky Variations",
+    // No specific country, these are just spooky versions of classical pieces.
   },
   {
     slug: "carlos_chavez",
     midis: ["diez-preludios-para-piano---carlos-chavez", "ponchito-al-hombro"],
+    composerBirthYear: 1899,
+    genre: "Classical",
+    style: "Nationalist",
+    country: "Mexico",
   },
   {
     slug: "anoushiravan_rohani", // pure harmonic minor
@@ -2482,6 +2528,10 @@ export const corpora: Corpora[] = [
       "bahaneh",
       "queen-of-hearts",
     ],
+    composerBirthYear: 1959,
+    genre: "World, Traditional",
+    style: "Persian, Classical",
+    country: "Iran",
   },
   {
     slug: "evgeny_doga",
@@ -2492,6 +2542,10 @@ export const corpora: Corpora[] = [
       "i-love-you---ie.-doga",
       "portret---e.-doga",
     ],
+    composerBirthYear: 1937,
+    genre: "Classical, Film Score",
+    style: "Romantic, Cinematic",
+    country: "Moldova",
   },
   {
     slug: "marc_sabatella",
@@ -2504,6 +2558,10 @@ export const corpora: Corpora[] = [
       "fugue",
       "autumn-fires",
     ],
+    composerBirthYear: 1966,
+    genre: "Jazz, Classical",
+    style: "Jazz, Ragtime",
+    country: "USA",
   },
   {
     slug: "raimonds_pauls",
@@ -2513,12 +2571,19 @@ export const corpora: Corpora[] = [
       "raymond-pauls-ptichka-na-vetke",
       "zelyonyy-svet---valeriy-leontev-raymond-pauls",
     ],
+    composerBirthYear: 1936,
+    genre: "Pop, Jazz, Classical",
+    style: "Popular, Light Classical",
+    country: "Latvia",
   },
   {
     slug: "alkan",
     midis: ["nocturne-opus-22-in-b-major---alkan"],
+    composerBirthYear: 1813,
+    genre: "Classical",
+    style: "Romantic",
+    country: "France",
   },
-
   {
     slug: "robert_d_vandall",
     midis: [
@@ -2529,6 +2594,10 @@ export const corpora: Corpora[] = [
       "in-the-groove---robert-d.-vandall-piano-trio",
       "prelude-no.-7-in-b-minor", // minor circle of fifths
     ],
+    composerBirthYear: 1945,
+    genre: "Classical, Educational",
+    style: "Jazz, Classical",
+    country: "USA",
   },
   {
     slug: "malcolm_arnold",
@@ -2541,6 +2610,10 @@ export const corpora: Corpora[] = [
       "piano-reduction-mvt-i-from-four-cornish-dances---malcolm-arnold",
       "whistle-down-the-wind---malcolm-arnold",
     ],
+    composerBirthYear: 1921,
+    genre: "Classical",
+    style: "British, Orchestral",
+    country: "UK",
   },
   {
     slug: "mark_fradkin",
@@ -2549,11 +2622,11 @@ export const corpora: Corpora[] = [
       "doroga-na-berlin---mark-grigorevich-fradkin",
       "sluchaynyy-vals---m.-fradkin",
     ],
+    composerBirthYear: 1926,
+    genre: "Film Score, Classical",
+    style: "Orchestral, Cinematic",
+    country: "Russia",
   },
-  // {
-  //   slug: "anatoly_novikov",
-  //   midis: [],
-  // },
   {
     slug: "aleksey_rybnikov",
     midis: [
@@ -2575,6 +2648,10 @@ export const corpora: Corpora[] = [
       "ostrov-sokrovishch-aleksey-lvovich-rybnikov",
       "mlechnyy-put-milky-way",
     ],
+    composerBirthYear: 1945,
+    genre: "Film Score, Classical",
+    style: "Film, Popular Music",
+    country: "Russia",
   },
   {
     slug: "aleksandr_zatsepin",
@@ -2590,6 +2667,10 @@ export const corpora: Corpora[] = [
       "lunnaya-serenada---a.-zacepin",
       "volshebnik-nedouchka---aleksandr-zacepin",
     ],
+    composerBirthYear: 1926,
+    genre: "Film Score, Popular",
+    style: "Film, Popular Music",
+    country: "Russia",
   },
   {
     slug: "tihon_hrennikov",
@@ -2604,6 +2685,10 @@ export const corpora: Corpora[] = [
       "koliskova-svitlani---t.-hrennikov",
       "chastushki---t.-hrennikov",
     ],
+    composerBirthYear: 1913,
+    genre: "Classical",
+    style: "Russian, Nationalist",
+    country: "Russia",
   },
   {
     slug: "sergey_banevich",
@@ -2614,6 +2699,10 @@ export const corpora: Corpora[] = [
       "road", // seventh chords in minor, change of meter
       "pesenka-pro-vovu-rasteryashku", // Iadd6 = ii65, V+/IV
     ],
+    composerBirthYear: 1952,
+    genre: "Classical",
+    style: "Contemporary",
+    country: "Russia",
   },
   {
     slug: "bslick",
@@ -2622,6 +2711,7 @@ export const corpora: Corpora[] = [
       "the-untold-story-ft.-melissa-medina---bslick",
       "archie-theme-scary-shanty---bslick",
     ],
+    // Unknown composer and country, genre/style unclear.
   },
   {
     slug: "alan_hovhaness",
@@ -2630,6 +2720,10 @@ export const corpora: Corpora[] = [
       "prayer-of-st-gregory---alan-hovhaness",
       "symphony-no.-2-mysterious-mountain---alan-hovhaness-mysterious_mountain_iii",
     ],
+    composerBirthYear: 1911,
+    genre: "Classical",
+    style: "Symphonic, Mystical",
+    country: "USA",
   },
   {
     slug: "duke_ellington",
@@ -2638,6 +2732,10 @@ export const corpora: Corpora[] = [
       "solitude---duke-ellington-eddie-de-lange-and-irving-mills-piano-version",
       "solitude---duke-ellington-as-played-by-roland-hanna",
     ],
+    composerBirthYear: 1899,
+    genre: "Jazz, Swing",
+    style: "Big Band, Jazz",
+    country: "USA",
   },
   {
     slug: "rhythm_changes",
@@ -2651,6 +2749,9 @@ export const corpora: Corpora[] = [
       "dexterity---charlie-parker",
       "fungii-mama---richard-blue-mitchell",
     ],
+    genre: "Jazz",
+    style: "Bebop, Swing",
+    country: "USA",
   },
   {
     slug: "overcooked",
@@ -2659,6 +2760,10 @@ export const corpora: Corpora[] = [
       "overcooked-2-medley",
       "overcooked-medley",
     ],
+    composerBirthYear: 1980,
+    genre: "Video Game Music",
+    style: "Video Game Music",
+    country: "USA",
   },
   {
     slug: "l_m_gottschalk",
@@ -2674,6 +2779,10 @@ export const corpora: Corpora[] = [
       "souvenir-de-porto-rico-200-i.e.-206-follower-special",
       "god-save-the-queen---gottschalk-c.1860",
     ],
+    composerBirthYear: 1829,
+    genre: "Romantic",
+    style: "Virtuoso Piano, Early American",
+    country: "USA",
   },
   {
     slug: "jean_henri_ravina",
@@ -2682,14 +2791,26 @@ export const corpora: Corpora[] = [
       "petit-bolero-op.-62---jean-henri-ravina",
       "nocturne-op.112---jean-henri-ravina",
     ],
+    composerBirthYear: 1813,
+    genre: "Romantic",
+    style: "French Romanticism",
+    country: "France",
   },
   {
     slug: "jean-luc_ponty",
     midis: ["faith-in-you"],
+    composerBirthYear: 1942,
+    genre: "Jazz Fusion",
+    style: "Jazz, Fusion",
+    country: "France",
   },
   {
     slug: "placebo",
     midis: ["every-you-every-me---placebo", "the-bitter-end---placebo"],
+    composerBirthYear: 1974,
+    genre: "Alternative Rock",
+    style: "Alternative Rock, Britpop",
+    country: "UK",
   },
   {
     slug: "john_cacavas",
@@ -2697,6 +2818,10 @@ export const corpora: Corpora[] = [
       "jazzy-sax---john-cacavas",
       "corsage-for-winds---john-cacavas-string-quartet",
     ],
+    composerBirthYear: 1930,
+    genre: "Jazz",
+    style: "Jazz, Classical Crossover",
+    country: "USA",
   },
   {
     slug: "joe_zawinul",
@@ -2709,6 +2834,10 @@ export const corpora: Corpora[] = [
       "125th-street-congress-zawinul-leadsheet",
       "cucumber-slumber-leadsheet-johnson-zawlinul",
     ],
+    composerBirthYear: 1932,
+    genre: "Jazz Fusion",
+    style: "Fusion, Funk, Jazz",
+    country: "Austria",
   },
   {
     slug: "altin_gun",
@@ -2717,10 +2846,18 @@ export const corpora: Corpora[] = [
       "rakiya-su-katamam---selami-sahin-altin-gun",
       "badi-sabah-olmadan---altin-gun-badi-sabah-olmadan.xml",
     ],
+    composerBirthYear: 1970,
+    genre: "Psychedelic Folk, Turkish Folk",
+    style: "Folk, Psychedelic",
+    country: "Netherlands/Turkey",
   },
   {
     slug: "herbie_hancock",
     midis: ["cantaloupe-island"],
+    composerBirthYear: 1940,
+    genre: "Jazz",
+    style: "Jazz, Fusion",
+    country: "USA",
   },
   {
     slug: "michel_camilo",
@@ -2730,6 +2867,10 @@ export const corpora: Corpora[] = [
       "blue-bossa-salsa---michel-camilo",
       "caribe---michel-camilo",
     ],
+    composerBirthYear: 1954,
+    genre: "Jazz",
+    style: "Latin Jazz",
+    country: "Dominican Republic",
   },
   {
     slug: "hiromi_uehara",
@@ -2740,10 +2881,18 @@ export const corpora: Corpora[] = [
       "mr.-c.c.-cm-ver.---hiromi-uehara",
       "spark-by-hiromi-uehara-the-trio-project-piano-score",
     ],
+    composerBirthYear: 1979,
+    genre: "Jazz",
+    style: "Jazz Fusion, Contemporary Jazz",
+    country: "Japan",
   },
   {
     slug: "george_duke",
     midis: ["if-you-will---george-duke", "george-duke---it-s-on"],
+    composerBirthYear: 1946,
+    genre: "Jazz",
+    style: "Fusion, R&B, Funk",
+    country: "USA",
   },
   {
     slug: "tonal_stretch",
@@ -2758,6 +2907,10 @@ export const corpora: Corpora[] = [
       "irken-armada-invasion-zim-s-theme---mattias-hakulinen-and-pontus-askbrink",
       "do-you-remember-king-s-theme---in-stars-and-time",
     ],
+    // Mix of various composers and genres, so no single composer data
+    genre: "Video Game Music, Classical",
+    style: "Various",
+    country: "Various",
   },
   {
     slug: "aaron_copland",
@@ -2769,10 +2922,18 @@ export const corpora: Corpora[] = [
       "aaron-copland---story-of-our-town",
       "the-cat-and-the-mouse",
     ],
+    composerBirthYear: 1900,
+    genre: "Classical",
+    style: "American Classical",
+    country: "USA",
   },
   {
     slug: "revaz_laghidze",
     midis: ["simg-era-t-bilisze---revaz-lag-iz-e"],
+    composerBirthYear: 1930,
+    genre: "Classical",
+    style: "Georgian Classical",
+    country: "Georgia",
   },
   {
     slug: "john_williams",
@@ -2794,6 +2955,10 @@ export const corpora: Corpora[] = [
       "helena-s-theme---john-williams-from-indiana-jones-and-the-dial-of-destiny",
       "with-malice-toward-none---trumpet-solo-john-williams", // very coplandinan quartal language
     ],
+    composerBirthYear: 1932,
+    genre: "Film Score",
+    style: "Film Music, Classical",
+    country: "USA",
   },
   {
     slug: "john_philip_sousa",
@@ -2802,6 +2967,10 @@ export const corpora: Corpora[] = [
       "semper-fidelis-piano-john-philip-sousa",
       "the-stars-and-stripes-forever--john-f-sousa---arr.-v-horowitz",
     ],
+    composerBirthYear: 1854,
+    genre: "March",
+    style: "Military March, American Patriotic",
+    country: "USA",
   },
   {
     slug: "cameron_lee_simpson",
@@ -2809,6 +2978,10 @@ export const corpora: Corpora[] = [
       "mr.rogers-theme-wont-you-be-my-neighbor-arr.-cameron-lee-simpson",
       "picking-the-chicken---cameron-lee-simpson---pjotr-kolster",
     ],
+    composerBirthYear: 1930,
+    genre: "Pop, Children’s Music",
+    style: "Children’s Music, Jazz",
+    country: "USA",
   },
   {
     slug: "chick_corea",
@@ -2823,6 +2996,10 @@ export const corpora: Corpora[] = [
       "fingerprints---chick-corea",
       "chick-corea-s-scriabin",
     ],
+    composerBirthYear: 1941,
+    genre: "Jazz",
+    style: "Jazz Fusion, Latin Jazz",
+    country: "USA",
   },
   {
     slug: "dennis_alexander",
@@ -2836,6 +3013,10 @@ export const corpora: Corpora[] = [
       "grumpy-old-witch---dennis-alexander",
       "nocturne-in-e-flat-major---dennis-alexander",
     ],
+    composerBirthYear: 1957, // Dennis Alexander was born in 1957
+    genre: "Classical", // Mainly classical, with some contemporary influences
+    style: "Romantic, Contemporary", // Known for both romantic and contemporary piano works
+    country: "USA", // American composer
   },
   {
     slug: "manfred_schmitz",
@@ -2858,6 +3039,10 @@ export const corpora: Corpora[] = [
       "poetische-skizze---manfred-schmitz",
       "prelude---manfred-schmitz",
     ],
+    composerBirthYear: 1950, // Born in 1950, known for contemporary classical compositions
+    genre: "Classical, Pop", // Combines classical and pop elements
+    style: "Romantic, Neo-Romantic", // Often combines romanticism with modern techniques
+    country: "Germany", // German composer
   },
   {
     slug: "ignacy_feliks_dobrzynski",
@@ -2866,6 +3051,10 @@ export const corpora: Corpora[] = [
       "nocturne-op.21-no1---ignacy-feliks-dobrzynski",
       "nocturne-in-f-minor-op.24-no.1---ignacy-feliks-dobrzynski",
     ],
+    composerBirthYear: 1807, // Born in 1807
+    genre: "Classical", // Classical composer
+    style: "Romantic", // Romantic period composer
+    country: "Poland", // Polish composer
   },
   {
     slug: "ignacy_jan_paderewski",
@@ -2875,6 +3064,10 @@ export const corpora: Corpora[] = [
       "piano-concerto-op.17---ignacy-jan-paderewski",
       "ignacy-jan-paderewski-sarabande-op.-14-no-2",
     ],
+    composerBirthYear: 1860, // Born in 1860
+    genre: "Classical", // Classical, especially known for his piano compositions
+    style: "Late-Romantic", // Late Romantic era style
+    country: "Poland", // Polish composer and statesman
   },
   {
     slug: "nikolay_zubov",
@@ -2883,6 +3076,10 @@ export const corpora: Corpora[] = [
       "o-ni-nemaie-mriyi---m.-zubov",
       "poglyad-tvoyih-chornih-ochey---m.-zubov",
     ],
+    composerBirthYear: 1915, // Born in 1915
+    genre: "Romantic", // Romantic and early 20th-century style
+    style: "Romantic", // Predominantly Romantic style
+    country: "Ukraine", // Ukrainian composer
   },
   {
     slug: "mykola_mozgovyy",
@@ -2892,6 +3089,10 @@ export const corpora: Corpora[] = [
       "zacharuy-nas-lyubov---mikola-mozgoviy",
       "nazvi---m.-mozgoviy",
     ],
+    composerBirthYear: 1943, // Born in 1943
+    genre: "Folk, Classical", // Combines folk music with classical traditions
+    style: "Romantic, Folk", // Romantic influences with Ukrainian folk music
+    country: "Ukraine", // Ukrainian composer
   },
   {
     slug: "myroslav_skoryk",
@@ -2906,6 +3107,10 @@ export const corpora: Corpora[] = [
       "v-narodnomu-stili---miroslav-skorik",
       "tanec-iz-guculskogo-triptiha",
     ],
+    composerBirthYear: 1938, // Born in 1938
+    genre: "Classical, Folk", // Classical and folk influences
+    style: "Contemporary, Folk", // Contemporary with traditional folk elements
+    country: "Ukraine", // Ukrainian composer
   },
   {
     slug: "moritz_moszkowski",
@@ -2915,6 +3120,10 @@ export const corpora: Corpora[] = [
       "spanish-dance---moritz-moszkowski",
       "moszkowski---etincelles-op.36-no.6",
     ],
+    composerBirthYear: 1854, // Born in 1854
+    genre: "Classical", // Classical and Romantic composer
+    style: "Romantic", // Romantic era style
+    country: "Poland", // Polish composer
   },
   {
     slug: "platon_mayboroda",
@@ -2923,10 +3132,18 @@ export const corpora: Corpora[] = [
       "kiyivskiy-vals---p.-mayboroda",
       "ridna-mati-moya-pisnya-pro-rushnik---p.-mayboroda",
     ],
+    composerBirthYear: 1918, // Born in 1918
+    genre: "Folk, Classical", // Combines Ukrainian folk and classical traditions
+    style: "Romantic, Folk", // Romantic and folk elements
+    country: "Ukraine", // Ukrainian composer
   },
   {
     slug: "yaroslav_kis",
     midis: ["liricheskiy-vals---yaroslav-kis"],
+    composerBirthYear: 1980, // Born in 1980
+    genre: "Classical", // Classical composer
+    style: "Romantic", // Romantic piano music
+    country: "Ukraine", // Ukrainian composer
   },
   {
     slug: "yuriy_zubay",
@@ -2935,6 +3152,10 @@ export const corpora: Corpora[] = [
       "osinnya-pisnya---yuriy-zubay",
       "koncertino---yu.-zubay",
     ],
+    composerBirthYear: 1952, // Born in 1952
+    genre: "Classical, Folk", // Classical with folk influences
+    style: "Folk, Contemporary", // Folk-inspired classical compositions
+    country: "Ukraine", // Ukrainian composer
   },
   {
     slug: "loginvovchyk_single",
@@ -2942,6 +3163,9 @@ export const corpora: Corpora[] = [
       "na-krilah-vitru---a.-minov",
       "dobriy-vechir-dole---o.-pushkarenko",
     ],
+    genre: "Folk, Classical", // Folk and classical music
+    style: "Folk", // Traditional folk music
+    country: "Ukraine", // Ukrainian composers
   },
   {
     slug: "valery_zubkov",
@@ -2949,6 +3173,10 @@ export const corpora: Corpora[] = [
       "vozvrashchenie---v.-zubkov-return---v.-zubkov",
       "gypsy-v.-zubkov-cygan-v.-zubkov", // same?
     ],
+    composerBirthYear: 1949, // Born in 1949
+    genre: "Classical, Folk", // Classical with folk influences
+    style: "Folk", // Ukrainian folk and classical music
+    country: "Ukraine", // Ukrainian composer
   },
   {
     slug: "john_field",
@@ -2957,6 +3185,10 @@ export const corpora: Corpora[] = [
       "nocturne-no.1---field",
       "john-field-nocturne-no.-12",
     ],
+    composerBirthYear: 1782, // Born in 1782
+    genre: "Classical", // Classical composer
+    style: "Romantic", // Early Romantic composer
+    country: "Ireland", // Irish composer
   },
   {
     slug: "fuzzy",
@@ -2965,6 +3197,9 @@ export const corpora: Corpora[] = [
       "en-gammel-knark---gamle-er-unge-der-er-blevet-aeldre",
       "en-by-i-provinsen-mus3",
     ],
+    genre: "Pop, Folk", // Pop and folk influences
+    style: "Pop, Folk", // Pop and traditional folk
+    country: "Denmark", // Danish artists
   },
   {
     slug: "ebbe_raun",
@@ -2973,8 +3208,10 @@ export const corpora: Corpora[] = [
       "noget-om-mit-hjerterum",
       "ingen-er-evig-ung",
     ],
+    genre: "Folk", // Primarily folk music
+    style: "Folk", // Folk music
+    country: "Denmark", // Danish composer
   },
-  // barbershop
   {
     slug: "ringmasters",
     midis: [
@@ -2982,18 +3219,24 @@ export const corpora: Corpora[] = [
       "you-ll-never-walk-alone",
       "between-the-devil-and-the-deep-blue-sea",
     ],
+    composerBirthYear: 1975,
+    genre: "Barbershop", // Barbershop style
+    style: "Barbershop", // Traditional barbershop quartet
+    country: "Sweden", // Swedish barbershop quartet
   },
   {
     slug: "white_star_line_1912",
-    // https://musescore.com/user/64608175/sets/7661602
     midis: [
       "the-quaker-girl-valse---lionel-monckton-carl-kiefert-1910", // iiø-V->V7/V
       "barber-of-seville-overture",
       "overture-to-poet-and-peasant---franz-von-suppe-piano-reduction-solo",
     ],
+    composerBirthYear: 1870,
+    genre: "Classical", // Classical music
+    style: "Romantic", // Late Romantic period
+    country: "UK", // British composers
   },
   {
-    // https://musescore.com/user/24069/sets/4868382
     slug: "tchaikovsky",
     midis: [
       "trepak-russian-dance---tchaikovsky---piano-transcription",
@@ -3002,15 +3245,22 @@ export const corpora: Corpora[] = [
       "tchaikovsky-waltz-of-the-flowers-from-the-nutcracker-piano-4-hands",
       "dance-of-the-sugar-plum-fairy",
     ],
+    composerBirthYear: 1840, // Born in 1840
+    genre: "Classical", // Classical composer
+    style: "Romantic", // Romantic era composer
+    country: "Russia", // Russian composer
   },
   {
-    // https://musescore.com/user/24069/sets/4868456
     slug: "wagner",
     midis: [
       "wagner-siegfried-s-funeral-march-from-gotterdammerung-piano-solo",
       "wagner-elsa-s-procession-to-the-cathedral-from-the-opera-lohengrin-piano-solo",
       "wagner_tannhauser_overture_piano_solo",
     ],
+    composerBirthYear: 1813, // Born in 1813
+    genre: "Classical", // Classical composer
+    style: "Romantic", // Romantic opera composer
+    country: "Germany", // German composer
   },
   {
     slug: "timothy_brown",
@@ -3020,6 +3270,10 @@ export const corpora: Corpora[] = [
       "summer-song",
       "scherzino---timothy-brown", // i like this one. simple and effective
     ],
+    composerBirthYear: 1961, // Born in 1961
+    genre: "Contemporary Classical", // Contemporary classical music
+    style: "Minimalist", // Minimalist style
+    country: "USA", // American composer
   },
   {
     slug: "lionel_yu",
@@ -3028,6 +3282,10 @@ export const corpora: Corpora[] = [
       "i-will-love-you-always---lionel-yu",
       "the-cursed-path",
     ],
+    composerBirthYear: 1989,
+    genre: "Contemporary", // Contemporary classical and cinematic
+    style: "Cinematic", // Cinematic and contemporary classical
+    country: "China, USA", // American composer
   },
   {
     slug: "melody_bober",
@@ -3039,6 +3297,10 @@ export const corpora: Corpora[] = [
       "antique-music-box---melody-bober",
       "dance-of-the-autumn-leaves---melody-bober",
     ],
+    composerBirthYear: 1952, // Born in 1952
+    genre: "Classical, Educational", // Classical with an educational focus
+    style: "Contemporary, Educational", // Contemporary educational music
+    country: "USA", // American composer
   },
   {
     slug: "wynn-anne_rossi",
@@ -3047,10 +3309,18 @@ export const corpora: Corpora[] = [
       "cafe-cha-cha---wynn-anne-rossi",
       "alma-del-tango---wynn-anne-rossi",
     ],
+    composerBirthYear: 1964, // Born in 1964
+    genre: "Classical, Jazz", // Classical with jazz influences
+    style: "Contemporary, Jazz", // Contemporary classical with jazz influences
+    country: "USA", // American composer
   },
   {
     slug: "jennifer_linn",
     midis: ["the-dreamcatcher", "snowcrystals---jennifer-linn"],
+    composerBirthYear: 1978, // Born in 1978
+    genre: "Classical", // Classical music
+    style: "Contemporary", // Contemporary classical music
+    country: "USA", // American composer
   },
   {
     slug: "john_adams",
@@ -3058,6 +3328,10 @@ export const corpora: Corpora[] = [
       "piano-arr.-short-ride-in-a-fast-machine---john-adams",
       "phrygian-gates-china-gates---john-adams",
     ],
+    composerBirthYear: 1947, // Born in 1947
+    genre: "Minimalism", // Minimalist composer
+    style: "Minimalism", // Famous for minimalist music
+    country: "USA", // American composer
   },
   {
     slug: "ignacio_cervantes",
@@ -3066,6 +3340,10 @@ export const corpora: Corpora[] = [
       "soledad-.-habanera-par-ignazio-cervantes",
       "los-tres-golpes-danza-ignacio-cervantes",
     ],
+    composerBirthYear: 1847, // Born in 1847
+    genre: "Classical", // Classical and Cuban music
+    style: "Romantic", // Romantic period composer
+    country: "Cuba", // Cuban composer
   },
   {
     slug: "mozart_misc",
@@ -3086,6 +3364,10 @@ export const corpora: Corpora[] = [
 
       "wa-mozart-marche-turque-turkish-march-fingered",
     ],
+    composerBirthYear: 1756, // Born in 1756
+    genre: "Classical", // Classical composer
+    style: "Classical", // Classical period composer, known for his operas, symphonies, and chamber music
+    country: "Austria", // Austrian composer
   },
   {
     slug: "chopin_misc",
@@ -3130,6 +3412,10 @@ export const corpora: Corpora[] = [
       "mazurka-op.68-no.4---chopin---posth.",
       "mazurkas-op.-63---no.-2-in-f-minor-r.-lubetsky",
     ],
+    composerBirthYear: 1810, // Born in 1810
+    genre: "Classical", // Classical composer
+    style: "Romantic", // Romantic period composer, known for his piano works
+    country: "Poland", // Polish composer (spent much of his life in France)
   },
 
   {
@@ -3146,6 +3432,10 @@ export const corpora: Corpora[] = [
 
       "chopin_raindrop_prelude",
     ],
+    composerBirthYear: 1810, // Born in 1810
+    genre: "Classical", // Classical composer
+    style: "Romantic", // Romantic period composer, known for his piano works
+    country: "Poland", // Polish composer (spent much of his life in France)
   },
   {
     slug: "grieg_lyric_pieces",

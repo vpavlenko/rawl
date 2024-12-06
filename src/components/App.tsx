@@ -54,6 +54,7 @@ import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader";
 import Browse from "./Browse";
 import DropMessage from "./DropMessage";
+import Timeline from "./Timeline";
 import Visualizer from "./Visualizer";
 import CorpusSearch from "./rawl/CorpusSearch";
 import OldLandingPage from "./rawl/OldLandingPage";
@@ -1242,6 +1243,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                         {browseRoute}
                         {rawlRoute}
                         <Route path="/100/:slug?" component={Book} />
+                        <Route path="/timeline" component={Timeline} />
                         <Redirect exact from="/" to="/100" />
                       </Switch>
                     </div>

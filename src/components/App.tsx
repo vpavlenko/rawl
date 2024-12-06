@@ -1155,6 +1155,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
             currentMidiBuffer: this.state.currentMidiBuffer,
           }}
         >
+          <AppHeader />
           <Switch>
             <Route
               path="/s/"

@@ -9,7 +9,7 @@ import SnippetList from "../SnippetList";
 const PathContainer = styled.div`
   height: 100%;
   width: 100%;
-  margin: 0;
+  margin: 10px 0 0 0;
   padding: 0;
 `;
 
@@ -58,9 +58,6 @@ const CategorySection = styled.div`
 const CategoryLabel = styled.div`
   color: #999;
   font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  min-width: 100px;
   padding-right: 8px;
 `;
 
@@ -81,6 +78,11 @@ const ChapterCategories = styled.div`
   @media (min-width: 500px) {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
+  }
+
+  @media (min-width: 1000px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
   }
 `;
 

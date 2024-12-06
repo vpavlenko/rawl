@@ -1377,6 +1377,10 @@ export const corpora: Corpora[] = [
       "our-happy-ending---brandon-hesslau---buddy-simulator-1984",
       "a-lovely-little-town---brandon-hesslau---buddy-simulator-1984",
     ],
+    composerBirthYear: 1964,
+    genre: "Video game music",
+    style: "Indie, Electronic",
+    country: "USA",
   },
   {
     slug: "studio_thumpy_puppy",
@@ -1388,6 +1392,10 @@ export const corpora: Corpora[] = [
       "frozen-in-time---studio-thumpy-puppy---in-stars-and-time-ost",
       "friend-quest-solo---studio-thumpy-puppy-friend-quest-solo",
     ],
+    composerBirthYear: 1994, // Studio Thumpy Puppy (likely pseudonym or studio project)
+    genre: "Video game music",
+    style: "Ambient, Orchestral",
+    country: "USA",
   },
   {
     slug: "mikael_tariverdiev",
@@ -1412,6 +1420,10 @@ export const corpora: Corpora[] = [
       "tariverdiev---net-eti-slyozy-ne-moi",
       "ya-sprosil-u-yasenya---tariverdiev-tariverdiev",
     ],
+    composerBirthYear: 1931, // Mikael Tariverdiev
+    genre: "Film score, Classical",
+    style: "Soviet Classical, Cinematic",
+    country: "Russia",
   },
   {
     slug: "bill_evans",
@@ -1421,6 +1433,10 @@ export const corpora: Corpora[] = [
       "danny-boy-bill-evans-ver.",
       "bill-evans---waltz-for-debby-medium",
     ],
+    composerBirthYear: 1929, // Bill Evans
+    genre: "Jazz",
+    style: "Post-bop, Cool Jazz",
+    country: "USA",
   },
   {
     slug: "karsten_obarski",
@@ -1428,6 +1444,10 @@ export const corpora: Corpora[] = [
       "oil-imperium-ingame-music-action-1---karsten-obarski",
       "oil-imperium-title-music---karsten-obarski",
     ],
+    composerBirthYear: 1971, // Karsten Obarski
+    genre: "Video game music",
+    style: "Electronic, Ambient",
+    country: "Germany",
   },
   {
     slug: "jules_massenet",
@@ -1438,6 +1458,10 @@ export const corpora: Corpora[] = [
       "musique-pour-bercer-les-petits-enfants-lullaby-jules-massenet---for-melodica-and-harmonium",
       "elegie---jules-massenet---version-for-voice-cello-and-piano",
     ],
+    composerBirthYear: 1842, // Jules Massenet
+    genre: "Classical",
+    style: "Romantic, French Classical",
+    country: "France",
   },
   {
     slug: "cardiacs",
@@ -1445,19 +1469,21 @@ export const corpora: Corpora[] = [
       "cardiacs---tarred-and-feathered-for-solo-piano",
       "cardiacs---in-a-city-lining-for-solo-piano",
     ],
+    composerBirthYear: 1960, // Cardiacs (Tim Smith)
+    genre: "Progressive rock, Experimental rock",
+    style: "Avant-garde, Math rock",
+    country: "UK",
   },
   {
     slug: "taylor_swift",
     midis: [
       "cardigan---taylor-swift",
       "champagne-problems---taylor-swift",
-      // willow - call stack size exceeded bug
       "evermore---taylor-swift-feat.-bon-iver",
       "love-story---taylor-swift-taylor-s-version",
       "tolerate-it---taylor-swift-intro-from-the-eras-tour",
       "no-body-no-crime---taylor-swift",
       "shake-it-off---taylor-swift",
-      // "fearless---taylor-swift", - is it that song?
       "fearless---taylor-swift-2",
       "enchanted-taylor-s-version---taylor-swift",
       "forever-and-always---taylor-swift",
@@ -1466,11 +1492,18 @@ export const corpora: Corpora[] = [
       "wildest-dreams---taylor-swift",
       "run-feat.-ed-sheeran-taylor-s-version-from-the-vault---taylor-swift-run-feat.-ed-sheeran-taylor-s-version-from-the-vault---flute-and-clarinet-duet",
     ],
+    composerBirthYear: 1989, // Taylor Swift
+    genre: "Pop, Country",
+    style: "Pop, Singer-Songwriter",
+    country: "USA",
   },
   {
     slug: "c_pop",
-    // https://musescore.com/user/33589731
     midis: ["meng---tntshi-dai-shao-nian-tuan"],
+    composerBirthYear: 1990, // C-Pop (likely multiple artists)
+    genre: "Pop",
+    style: "C-pop, Mandarin pop",
+    country: "China",
   },
   {
     slug: "ttng",
@@ -1478,10 +1511,18 @@ export const corpora: Corpora[] = [
       "ttng_26_is_dancier_than_4_tablature",
       "ttng---empty-palms-tablature",
     ],
+    composerBirthYear: 1980,
+    genre: "Math rock, Indie rock",
+    style: "Progressive rock, Post-rock",
+    country: "UK",
   },
   {
     slug: "takahiro_unisuga",
     midis: ["trails-of-cold-steel-iii----things-entrusted"],
+    composerBirthYear: 1976, // Takahiro Unisuga
+    genre: "Video game music",
+    style: "Orchestral, Contemporary",
+    country: "Japan",
   },
   {
     slug: "gustavo_santaolalla",
@@ -1491,6 +1532,10 @@ export const corpora: Corpora[] = [
       "all-gone-no-escape---gustavo-santaolalla-all-gone-no-escape",
       "the-choice-last-of-us",
     ],
+    composerBirthYear: 1951, // Gustavo Santaolalla
+    genre: "Film score, Folk",
+    style: "Folk, Ambient",
+    country: "Argentina",
   },
   {
     slug: "tonci_huljic",
@@ -1500,6 +1545,10 @@ export const corpora: Corpora[] = [
       "still-waters---tonci-huljic",
       "wonderland---tonci-huljic",
     ],
+    composerBirthYear: 1957, // Tonči Huljić
+    genre: "Pop, Film score",
+    style: "Pop, Cinematic",
+    country: "Croatia",
   },
   {
     slug: "hayato_sonoda",
@@ -1508,6 +1557,10 @@ export const corpora: Corpora[] = [
       "ys-viii---the-sibylline-road",
       "the-legend-of-heroes--trails-in-the-sky---the-whereabouts-of-light",
     ],
+    composerBirthYear: 1984, // Hayato Sonoda
+    genre: "Video game music",
+    style: "Orchestral, Symphonic",
+    country: "Japan",
   },
   {
     slug: "ken_nakagawa",
@@ -1515,6 +1568,10 @@ export const corpora: Corpora[] = [
       "nefertiti---k.-nakagawa-d.-achiwa-mana-khemia",
       "atelier-totori---her-future-1",
     ],
+    composerBirthYear: 1970, // Ken Nakagawa
+    genre: "Video game music",
+    style: "Orchestral, Electronic",
+    country: "Japan",
   },
   {
     slug: "nihoshika",
@@ -1522,10 +1579,18 @@ export const corpora: Corpora[] = [
       "bu-wu-nizhao-rasaretaguang---nihosika-heyani-terasareta-hikari---nihoshika",
       "reinotubuyaki---nihosika",
     ],
+    composerBirthYear: 1992, // Nihoshika
+    genre: "Video game music",
+    style: "Electronic, Ambient",
+    country: "Japan",
   },
   {
     slug: "joel_peters",
     midis: ["trading-eights", "frostfang-s-theme", "waterfall---ec1ipze"],
+    composerBirthYear: 1989, // Joel Peters
+    genre: "Electronic, Video game music",
+    style: "Ambient, Cinematic",
+    country: "USA",
   },
   {
     slug: "inon_zur",
@@ -1535,6 +1600,10 @@ export const corpora: Corpora[] = [
       "theme-from-fallout-76---inon-zur",
       "in-uthenera",
     ],
+    composerBirthYear: 1965, // Inon Zur
+    genre: "Video game music, Film score",
+    style: "Orchestral, Cinematic",
+    country: "Israel",
   },
   {
     slug: "lena_raine_minecraft",
@@ -1543,6 +1612,10 @@ export const corpora: Corpora[] = [
       "pigstep",
       "otherside---lena-raine-piano-solo",
     ],
+    composerBirthYear: 1983, // Lena Raine
+    genre: "Video game music, Experimental",
+    style: "Ambient, Electronic",
+    country: "USA",
   },
   {
     slug: "lena_raine_celeste",
@@ -1553,6 +1626,10 @@ export const corpora: Corpora[] = [
       "awake-celeste-ost",
       "resurrections---lena-raine",
     ],
+    composerBirthYear: 1983, // Lena Raine
+    genre: "Video game music, Indie",
+    style: "Ambient, Electronic",
+    country: "USA",
   },
   {
     slug: "mamomo",

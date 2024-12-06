@@ -296,14 +296,22 @@ const Timeline: React.FC = () => {
         <>
           <ComposersGroup>
             {composersWithoutYear
-              .filter(
-                (composer) =>
-                  !selectedCountry ||
-                  composer.country
+              .filter((composer) => {
+                if (selectedCountry) {
+                  return composer.country
                     ?.split(",")
                     .map((c) => c.trim())
-                    .includes(selectedCountry),
-              )
+                    .includes(selectedCountry);
+                }
+                if (selectedStyle) {
+                  const styles = getUniqueStyles(
+                    composer.genre,
+                    composer.style,
+                  ).split(", ");
+                  return styles.includes(selectedStyle);
+                }
+                return true;
+              })
               .map((composer) => (
                 <ComposerCardContent key={composer.slug} composer={composer} />
               ))}

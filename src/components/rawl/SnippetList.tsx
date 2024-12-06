@@ -47,6 +47,7 @@ interface SnippetListProps {
   onSnippetClick: (snippet: Snippet) => void;
   isPreview?: boolean;
   noteHeight?: number;
+  loadingSnippets?: Set<string>;
 }
 
 const SnippetList: React.FC<SnippetListProps> = ({
@@ -55,6 +56,7 @@ const SnippetList: React.FC<SnippetListProps> = ({
   onSnippetClick,
   isPreview = false,
   noteHeight = 3,
+  loadingSnippets = new Set(),
 }) => {
   return (
     <SnippetListContainer isPreview={isPreview}>

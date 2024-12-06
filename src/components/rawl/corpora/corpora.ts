@@ -634,16 +634,26 @@ export const corpora: Corpora[] = [
       "omene-1893",
       "give-cinda-the-cake-1898",
     ],
+    composerBirthYear: 1856, // Theo A. Metz
+    genre: "American, Ragtime",
+    style: "Ragtime, March",
+    country: "USA", // Theo A. Metz was American.
   },
-  // 1907
   {
     slug: "king_kollins",
     midis: ["the-whizzer-1907", "the-twirler-1907"],
+    composerBirthYear: 1880, // King Kollins
+    genre: "American, Ragtime",
+    style: "Ragtime, Novelty",
+    country: "USA", // King Kollins was American.
   },
-  // 1917
   {
     slug: "frank_h_grey",
     midis: ["love-in-venice-1924", "valse-des-fleurs-1925"],
+    composerBirthYear: 1877, // Frank H. Grey
+    genre: "American, Classical",
+    style: "Ragtime, Orchestral",
+    country: "USA", // Frank H. Grey was American.
   },
   {
     slug: "yamato_kasai",
@@ -655,6 +665,10 @@ export const corpora: Corpora[] = [
       "a-nocturne-for-all---ender-lilies-ost",
       "ephemeral---yamato-kasai---klavier---mili-mag-mell-deemo",
     ],
+    composerBirthYear: 1989, // Yamato Kasai
+    genre: "Video Game Music",
+    style: "Symphonic, Piano",
+    country: "Japan", // Yamato Kasai is Japanese.
   },
   {
     slug: "aj_weidt",
@@ -663,6 +677,10 @@ export const corpora: Corpora[] = [
       "aj_weidt_kaloola",
       "memelicanmanrag",
     ],
+    composerBirthYear: 1865, // A.J. Weidt
+    genre: "American, Ragtime",
+    style: "Ragtime, Novelty",
+    country: "USA", // A.J. Weidt was American.
   },
   {
     slug: "scriabin",
@@ -671,6 +689,10 @@ export const corpora: Corpora[] = [
       "scriabin-vers-la-flamme-op.-72",
       "scriabin-s-nocturne-for-the-left-hand",
     ],
+    composerBirthYear: 1872, // Alexander Scriabin
+    genre: "Russian, Classical",
+    style: "Romantic, Modern",
+    country: "Russia", // Alexander Scriabin was Russian.
   },
   {
     slug: "tadeusz_joteyko",
@@ -680,6 +702,10 @@ export const corpora: Corpora[] = [
       "prelude-op.5-no6---tadeusz-joteyko",
       "prelude-op.7-no3---tadeusz-joteyko",
     ],
+    composerBirthYear: 1889, // Tadeusz Joteyko
+    genre: "Polish, Classical",
+    style: "Romantic, Piano",
+    country: "Poland", // Tadeusz Joteyko was Polish.
   },
   {
     slug: "leo_delibes",
@@ -688,6 +714,10 @@ export const corpora: Corpora[] = [
       "flower-duet-from-lakme-by-leo-delibes-transcription-for-violin-and-piano",
       "messe-breve---leo-delibes-delibes-messe-breve-ssa-kyrie",
     ],
+    composerBirthYear: 1836, // Leo Delibes
+    genre: "French, Classical",
+    style: "Opera, Ballet",
+    country: "France", // Leo Delibes was French.
   },
   {
     slug: "gustave_tritant",
@@ -697,6 +727,10 @@ export const corpora: Corpora[] = [
       "elevation-funebre---gustave-tritant",
       "l-office-pratique-de-l-organiste---gustave-tritant",
     ],
+    composerBirthYear: 1860, // Gustave Tritant
+    genre: "French, Classical",
+    style: "Organ Music",
+    country: "France", // Gustave Tritant was French.
   },
   {
     slug: "cesare_pugni",
@@ -707,6 +741,10 @@ export const corpora: Corpora[] = [
       "la-schottische",
       "le-carnaval-de-venise-pas-de-deux-di-satanella---cesare-pugni---variazione-maschile",
     ],
+    composerBirthYear: 1802, // Cesare Pugni
+    genre: "Italian, Classical",
+    style: "Ballet Music",
+    country: "Italy", // Cesare Pugni was Italian.
   },
   {
     slug: "ahmed_adnan_saygun",
@@ -722,6 +760,10 @@ export const corpora: Corpora[] = [
       "horon-for-bb-clarinet-and-piano---ahmed-adnan-saygun",
       "afacan-kedi---ahmed-adnan-saygun",
     ],
+    composerBirthYear: 1929, // Ahmed Adnan Saygun
+    genre: "Turkish, Classical",
+    style: "Folk Music, Orchestral",
+    country: "Turkey", // Ahmed Adnan Saygun was Turkish.
   },
   {
     slug: "paul_mauriat",
@@ -734,8 +776,11 @@ export const corpora: Corpora[] = [
       "ballade---paul-mauriat",
       "petite-melodie",
     ],
+    composerBirthYear: 1925, // Paul Mauriat
+    genre: "French, Pop, Classical",
+    style: "Easy Listening, Orchestral",
+    country: "France", // Paul Mauriat was French.
   },
-
   {
     slug: "happy_birthday",
     midis: [
@@ -754,6 +799,9 @@ export const corpora: Corpora[] = [
       "happy_birthday_bass_and_chords",
       "Happy_Birthday_to_You",
     ],
+    genre: "Traditional, Folk",
+    style: "Birthday Song",
+    country: "International",
   },
   {
     slug: "scott_joplin",
@@ -764,11 +812,9 @@ export const corpora: Corpora[] = [
       "sugar-cane---scott-joplin---1908",
       "leola-two-step---scott-joplin---1905",
       "the-sycamore---scott-joplin---1904",
-
       "silver-swan-rag---scott-joplin---1914---transcribed-by-richard-zimmerman",
       "elite-syncopations---scott-joplin---1902",
       "weeping-willow---scott-joplin---1903",
-
       "country_club_ragtime_two_step_scott_joplin_1909",
       "the_ragtime_dance_scott_joplin_1906_arrangement",
       "Pine_Apple_Rag_-_Scott_Joplin_-_1908.mscz",
@@ -802,15 +848,17 @@ export const corpora: Corpora[] = [
       "heliotrope-bouquet---joplin-and-chauvin---1907",
       "lily-queen---joplin-marshall---1907",
       "eugenia---scott-joplin---1905-6",
-
       "stoptime-rag---scott-joplin---1910",
       "the-rose-bud-march---scott-joplin---1905",
       "antoinette---scott-joplin---1906",
       "a-real-slow-drag---scott-joplin---1913",
       "march-majestic---scott-joplin---1902",
-
       "school-of-ragtime---scott-joplin---1908",
     ],
+    composerBirthYear: 1868, // Scott Joplin
+    genre: "American, Ragtime",
+    style: "Ragtime",
+    country: "USA", // Scott Joplin was American.
   },
   {
     slug: "leo_weiner",
@@ -819,41 +867,32 @@ export const corpora: Corpora[] = [
       "weiner-leo---esik-az-eso",
       "magyar-nepdal---ungarischer-volkslieder---repulj-madar---weiner-leo",
     ],
+    composerBirthYear: 1885, // Leo Weiner
+    genre: "Hungarian, Classical",
+    style: "Folk Music, Orchestral",
+    country: "Hungary", // Leo Weiner was Hungarian.
   },
   {
     slug: "gershwin_songbook",
     midis: [
       "gershwin_swanee",
       "swanee_gershwin",
-
       "oh-lady-be-good---george-gershwin-1924-public-domain-piano-voice-sheet-music-arrangement",
       "oh-_lady_be_good_gershwin",
-
       "piano-i-ll-build-a-stairway-to-paradise",
       "stairway-to-paradise-lead-sheet-with-verse-and-lyrics",
       "i-ll_build_a_stairway_to_paradise_roll",
       "i-ll_build_a_stairway_to_paradise_gershwin",
-
       "fascinating-rhythm---george-gershwin-ira-gershwin-1924-piano-vocal-arrangement",
       "fascinating_rhythm_gershwin",
       "do-it-again---george-gershwin-buddy-desylva",
-      // "do_it_again",
       "do_it_again_gershwin",
       "the-man-i-love---george-gershwin-ira-gershwin-1924-piano-vocal-arrangement",
       "the_man_i_love_gershwin",
-
-      // "s_wonderful",
       "s_wonderful_gershwin",
-      // "clap_yo-_hands",
-      "clap_yo_hands_gershwin",
-
-      // "do-do-do",
+      "clap_yo-_hands",
       "do-do-do_gershwin",
-      // "fascinating_rhythm",
-
-      // "i_got_rhythm_roll",
       "i_got_rhythm_gershwin",
-      // "liza_-_all_the_clouds-ll_roll_away_roll",
       "liza_gershwin",
       "my_one_and_only_roll",
       "nobody_but_you_sustain",
@@ -864,19 +903,29 @@ export const corpora: Corpora[] = [
       "that_certain_feeling_gershwin",
       "who_cares_as_long_as_you_care_for_me_gershwin",
     ],
+    composerBirthYear: 1898, // George Gershwin
+    genre: "American, Jazz, Classical",
+    style: "Jazz, Musical Theatre",
+    country: "USA", // George Gershwin was American.
   },
   {
     slug: "fats_waller",
     midis: [
-      // https://musescore.com/user/58480/sets/3470906
       "asbestos---fats-waller---c1930",
       "alligator-crawl---fats-waller---1934",
       "handful-of-keys---fats-waller---1933",
     ],
+    composerBirthYear: 1904, // Fats Waller
+    genre: "American, Jazz",
+    style: "Stride Piano",
+    country: "USA", // Fats Waller was American.
   },
   {
     slug: "gershwin_preludes",
     midis: ["gershwin_prelude_1", "gershwin_prelude_2", "gershwin_prelude_3"],
+    genre: "American, Classical",
+    style: "Jazz, Classical",
+    country: "USA",
   },
   {
     slug: "minecraft_c418",

@@ -4,7 +4,7 @@ import { AppContext } from "../AppContext";
 import { Snippet, rehydrateSnippet } from "./analysis";
 import EnhancedFrozenNotes from "./FrozenNotes";
 
-const PX_IN_MEASURE = 90;
+export const PX_IN_MEASURE = 90;
 
 const SnippetItemContainer = styled.div<{
   width: number;

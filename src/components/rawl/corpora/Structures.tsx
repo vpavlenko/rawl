@@ -40,10 +40,6 @@ const ChapterButton = styled.button<{ active: boolean }>`
   border: none;
   cursor: pointer;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 150px;
-  min-width: 80px;
   font-size: 14px;
   border-radius: 4px;
 
@@ -454,6 +450,7 @@ const Structures: React.FC<StructuresProps> = ({
                     <TopicCard>
                       <SnippetList
                         snippets={snippets.map(({ snippet }) => snippet)}
+                        slugs={snippets.map(({ slug }) => slug)}
                         onSnippetClick={(snippet) => {
                           const matchingSnippet = snippets.find(
                             (s) => s.snippet === snippet,
@@ -492,6 +489,7 @@ const Structures: React.FC<StructuresProps> = ({
                       <TopicCard>
                         <SnippetList
                           snippets={snippets.map(({ snippet }) => snippet)}
+                          slugs={snippets.map(({ slug }) => slug)}
                           onSnippetClick={(snippet) => {
                             const matchingSnippet = snippets.find(
                               (s) => s.snippet === snippet,

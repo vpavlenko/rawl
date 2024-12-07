@@ -20,12 +20,11 @@ const InlineSnippets: React.FC<{
   sectionSpan?: MeasuresSpan;
 }> = ({ measuresAndBeats, snippets, secondsToX, sectionSpan }) => {
   const appContext = useContext(AppContext);
-  const isSignedIn = !!appContext?.user;
   const { setHoveredMeasuresSpan } = appContext;
 
   const filteredSnippets = React.useMemo(() => {
-    return filterSnippetsByAccess(snippets, isSignedIn);
-  }, [snippets, isSignedIn]);
+    return filterSnippetsByAccess(snippets);
+  }, [snippets]);
 
   const [groupedSnippets, setGroupedSnippets] = React.useState<
     Record<number, Snippet[]>

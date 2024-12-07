@@ -314,12 +314,9 @@ export function getSnippetsStartingAtMeasure(
     .map((snippet) => snippet.tag);
 }
 
-export function filterSnippetsByAccess(
-  snippets: Snippet[],
-  isSignedIn: boolean,
-): Snippet[] {
+export function filterSnippetsByAccess(snippets: Snippet[]): Snippet[] {
   return snippets.filter((snippet) => {
     const [chapter] = snippet.tag.split(":");
-    return isSignedIn || chapter.trim() !== "book";
+    return chapter.trim() !== "book";
   });
 }

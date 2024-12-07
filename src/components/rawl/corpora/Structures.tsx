@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
-import { Analysis, Snippet } from "../analysis";
+import { Analysis, filterSnippetsByAccess, Snippet } from "../analysis";
 import InlineRawlPlayer from "../InlineRawlPlayer";
 import SnippetList from "../SnippetList";
 
@@ -297,7 +297,7 @@ const Structures: React.FC<StructuresProps> = ({
       const slug = path.startsWith("f/") ? path.slice(2) : path;
 
       if (analysis.snippets && analysis.snippets.length > 0) {
-        analysis.snippets.forEach((snippet) => {
+        filterSnippetsByAccess(analysis.snippets).forEach((snippet) => {
           const [chapter, topic] = snippet.tag.split(":");
           if (!chapter || !topic) {
             errors.push(`Invalid tag format: ${snippet.tag} in ${path}`);

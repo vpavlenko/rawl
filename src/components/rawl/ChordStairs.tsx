@@ -364,11 +364,8 @@ const ChordStairs: React.FC<{
 
     const height = maxPosition + 1;
 
-    // Calculate effective margin top based on title
-    const effective_margin_top = hideLabels ? 0 : titleHeight;
-
     // Calculate total height including margin top and text, plus half note height for last note
-    const totalHeight = height * NOTE_HEIGHT + titleHeight + NOTE_HEIGHT;
+    const totalHeight = (height + 1) * NOTE_HEIGHT;
 
     const tonicChordPosition = filteredChords.findIndex((chord) =>
       /^(i|I)$/.test(chord),
@@ -378,7 +375,6 @@ const ChordStairs: React.FC<{
     const scaledNoteHeight = NOTE_HEIGHT * scale;
     const scaledNoteWidth = NOTE_WIDTH * scale;
     const scaledHorizontalGap = (hideLabels ? 0 : HORIZONTAL_GAP) * scale;
-    const scaledMarginTop = effective_margin_top * scale;
     const scaledFontSize = 16 * scale;
 
     return (
@@ -386,34 +382,18 @@ const ChordStairs: React.FC<{
         key={title}
         style={{
           width:
-            numChords * scaledNoteWidth +
-            (numChords - 1) * scaledHorizontalGap +
-            titleHeight,
-          height: totalHeight * scale,
+            numChords * scaledNoteWidth + (numChords - 1) * scaledHorizontalGap,
+          height: totalHeight * scale + titleHeight,
           position: "relative",
           fontSize: scaledFontSize,
           marginTop: titleHeight,
         }}
       >
-        {!hideLabels && title && (
-          <div
-            style={{
-              position: "absolute",
-              top: -titleHeight,
-              left: 0,
-              color: "#aaa",
-              userSelect: "none",
-            }}
-          >
-            {title}
-          </div>
-        )}
         {rehydratedChords.map(({ name, pitches, positions }, chordIndex) => {
           const topPosition =
-            (maxPosition - positions.at(-1)) * scaledNoteHeight +
-            scaledMarginTop;
+            (maxPosition - positions.at(-1)) * scaledNoteHeight;
           const bottomPosition =
-            (maxPosition - positions[0]) * scaledNoteHeight + scaledMarginTop;
+            (maxPosition - positions[0]) * scaledNoteHeight;
           const chordNameOffset =
             (chordIndex < tonicChordPosition ? -29 : 14) * scale;
           const height =
@@ -450,8 +430,7 @@ const ChordStairs: React.FC<{
                       top:
                         (maxPosition - positions[pitchIndex]) *
                           scaledNoteHeight +
-                        scaledMarginTop -
-                        Math.min(topPosition + chordNameOffset, topPosition),
+                        -Math.min(topPosition + chordNameOffset, topPosition),
                     }}
                   />
                 ))}
@@ -463,12 +442,13 @@ const ChordStairs: React.FC<{
                           ? (maxPosition - positions.at(-1)) *
                               scaledNoteHeight -
                             29 +
-                            scaledMarginTop -
-                            Math.min(topPosition + chordNameOffset, topPosition)
+                            -Math.min(
+                              topPosition + chordNameOffset,
+                              topPosition,
+                            )
                           : (maxPosition - positions[0]) * scaledNoteHeight +
                             14 +
-                            scaledMarginTop -
-                            Math.min(
+                            -Math.min(
                               topPosition + chordNameOffset,
                               topPosition,
                             ),
@@ -483,6 +463,19 @@ const ChordStairs: React.FC<{
             </ChordBoundingBox>
           );
         })}
+        {!hideLabels && title && (
+          <div
+            style={{
+              position: "absolute",
+              bottom: -titleHeight / 2,
+              left: 0,
+              color: "#aaa",
+              userSelect: "none",
+            }}
+          >
+            {title}
+          </div>
+        )}
       </div>
     );
   },

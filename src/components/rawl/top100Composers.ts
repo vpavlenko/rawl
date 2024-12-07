@@ -134,6 +134,7 @@ export const TOP_100_COMPOSERS: {
     composer: "Ramin Djawadi",
     displayTitle: "Game of Thrones Main Theme",
     order: 500,
+    chords: [...NATURAL_MINOR.chords, "I"],
   },
   {
     slug: "Someone_You_Loved",
@@ -262,6 +263,7 @@ export const TOP_100_COMPOSERS: {
     composer: "Coldplay",
     displayTitle: "Viva la Vida",
     order: 280,
+    chords: ["IV", "V", "I", "vi"],
   },
   {
     slug: "Gravity_Falls_Opening",

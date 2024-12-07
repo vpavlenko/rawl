@@ -151,6 +151,7 @@ export const PianoLegend: React.FC<{
                         fontWeight: "bold",
                         fontSize: "16px",
                         textShadow: "none",
+                        letterSpacing: "-4px",
                         zIndex: 3,
                       }}
                     >

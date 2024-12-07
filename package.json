@@ -127,7 +127,7 @@
     "build-catalog": "node $NODE_DEBUG_OPTION scripts/build-catalog.js",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "deploy-lite": "npm run build-lite; gh-pages -d build",
+    "deploy-lite": "npm run build-lite && gh-pages -d build",
     "prepare": "patch-package",
     "server": "DEV=1 node public/index.js",
     "fixvgm": "node $NODE_DEBUG_OPTION scripts/fixvgm.js",

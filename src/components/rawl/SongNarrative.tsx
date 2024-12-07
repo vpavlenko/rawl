@@ -12,7 +12,7 @@ type QAPair = {
   a?: ReactNode;
 };
 
-const NARRATIVES: Record<string, { qa: QAPair[] }> = {
+export const NARRATIVES: Record<string, { qa: QAPair[] }> = {
   happy_birthday_bass_and_chords: {
     qa: [
       {

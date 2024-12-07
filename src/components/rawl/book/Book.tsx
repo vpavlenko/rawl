@@ -7,6 +7,7 @@ import { NewTonicSymbol } from "../AnalysisGrid";
 import ChordStairs, { Chord } from "../ChordStairs";
 import { PianoLegend } from "../PianoLegend";
 import SnippetList from "../SnippetList";
+import { NARRATIVES } from "../SongNarrative";
 import { Snippet } from "../analysis";
 import {
   MODULATIONS_CHAPTER_TITLE,
@@ -352,6 +353,13 @@ const Book: React.FC = () => {
                                 composer={composer}
                                 displayTitle={displayTitle}
                               />
+                              {NARRATIVES[slug] && (
+                                <span
+                                  style={{ marginLeft: "8px", color: "#999" }}
+                                >
+                                  {NARRATIVES[slug].qa.length}💬
+                                </span>
+                              )}
                             </ComposerLink>
                           </ComposerWrapper>
                           <SnippetContainer>
@@ -396,6 +404,13 @@ const Book: React.FC = () => {
                                 composer={composer}
                                 displayTitle={displayTitle}
                               />
+                              {NARRATIVES[slug] && (
+                                <span
+                                  style={{ marginLeft: "8px", color: "#999" }}
+                                >
+                                  {NARRATIVES[slug].qa.length}💬
+                                </span>
+                              )}
                             </ComposerLink>
                           </ComposerListItem>
                         ))}

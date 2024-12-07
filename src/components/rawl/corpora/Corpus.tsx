@@ -28,7 +28,7 @@ const Corpus: React.FC<{
     if (analysis) {
       const filteredAnalysis = {
         ...analysis,
-        snippets: filterSnippetsByAccess(analysis.snippets || [], !!user),
+        snippets: filterSnippetsByAccess(analysis.snippets || []),
       };
       const tags = getSnippetTags(filteredAnalysis);
       return tags.length > 0 ? tags : null;

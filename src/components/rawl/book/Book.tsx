@@ -355,9 +355,9 @@ const Book: React.FC = () => {
                               />
                               {NARRATIVES[slug] && (
                                 <span
-                                  style={{ marginLeft: "8px", color: "#999" }}
+                                  style={{ marginLeft: "12px", color: "#999" }}
                                 >
-                                  {NARRATIVES[slug].qa.length}💬
+                                  💬 {NARRATIVES[slug].qa.length}
                                 </span>
                               )}
                             </ComposerLink>
@@ -408,7 +408,7 @@ const Book: React.FC = () => {
                                 <span
                                   style={{ marginLeft: "8px", color: "#999" }}
                                 >
-                                  {NARRATIVES[slug].qa.length}💬
+                                  💬{NARRATIVES[slug].qa.length}
                                 </span>
                               )}
                             </ComposerLink>

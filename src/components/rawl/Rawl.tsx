@@ -18,11 +18,7 @@ import ErrorBoundary from "../ErrorBoundary";
 import { MeasureSelection } from "./AnalysisGrid";
 import CompositionTitle from "./CompositionTitle";
 import FrozenNotesLayout from "./FrozenNotesLayout";
-import {
-  MergedSystemLayout,
-  StackedSystemLayout,
-  SystemLayoutProps,
-} from "./SystemLayout";
+import { MergedSystemLayout, SystemLayoutProps } from "./SystemLayout";
 import {
   ANALYSIS_STUB,
   Analysis,
@@ -652,12 +648,6 @@ const Rawl: React.FC<RawlProps> = ({
           )}
           {systemLayout === "merged" ? (
             <MergedSystemLayout
-              {...systemLayoutProps}
-              enableManualRemeasuring={enableManualRemeasuring}
-              isEmbedded={isEmbedded}
-            />
-          ) : systemLayout === "stacked" ? (
-            <StackedSystemLayout
               {...systemLayoutProps}
               enableManualRemeasuring={enableManualRemeasuring}
               isEmbedded={isEmbedded}

@@ -1,8 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { AppContext } from "../../AppContext";
 
-// TODO: rename "stacked" to "split" - semantically
-export type SystemLayout = "merged" | "stacked" | "frozen";
+export type SystemLayout = "merged" | "frozen";
 
 interface LayoutSelectorProps {
   setSystemLayout: React.Dispatch<React.SetStateAction<SystemLayout>>;
@@ -16,8 +15,7 @@ const LayoutSelector: React.FC<LayoutSelectorProps> = ({ setSystemLayout }) => {
     const handleKeyPress = (e: KeyboardEvent) => {
       if (e.key === "f") {
         setSystemLayout((prevLayout) => {
-          if (prevLayout === "frozen" || prevLayout === "stacked")
-            return "merged";
+          if (prevLayout === "frozen") return "merged";
           return "frozen";
         });
       }

@@ -38,7 +38,7 @@ const ScrollableContent = styled.div`
 
 const ChapterButton = styled.button<{ active: boolean }>`
   padding: 2px 5px;
-  text-align: center;
+  text-align: left;
   background-color: ${(props) => (props.active ? "white" : "black")};
   color: ${(props) => (props.active ? "black" : "white")};
   border: none;
@@ -46,6 +46,7 @@ const ChapterButton = styled.button<{ active: boolean }>`
   white-space: nowrap;
   font-size: 14px;
   border-radius: 4px;
+  width: fit-content;
 
   &:hover {
     background-color: ${(props) => (props.active ? "white" : "#333")};
@@ -54,40 +55,38 @@ const ChapterButton = styled.button<{ active: boolean }>`
 
 const CategorySection = styled.div`
   display: flex;
-  align-items: center;
-  padding: 0 8px;
-  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+  width: fit-content;
 `;
 
-const CategoryLabel = styled.div`
+const CategoryHeader = styled.div`
+  padding-left: 5px;
   color: #999;
-  font-size: 12px;
-  padding-right: 8px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-align: left;
 `;
 
-const CategoryChapters = styled.div`
+const ChaptersContainer = styled.div<{ twoColumns?: boolean }>`
   display: flex;
-  flex-wrap: wrap;
-  gap: 2px;
-  flex: 1;
-  min-width: 0;
-`;
-
-const ChapterCategories = styled.div`
-  display: grid;
-  width: 100%;
+  flex-direction: column;
   gap: 4px;
-  grid-template-columns: 1fr;
+  width: fit-content;
 
-  @media (min-width: 500px) {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
-  @media (min-width: 1000px) {
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 12px;
-  }
+  ${(props) =>
+    props.twoColumns &&
+    `
+    flex-direction: row;
+    gap: 0px;
+    
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+  `}
 `;
 
 const TopicContainer = styled.div`
@@ -161,19 +160,29 @@ const EjectButton = styled.button`
   }
 `;
 
-const CHAPTER_CATEGORIES = {
-  order_of_chords: {
-    major: [
-      "major_cadence",
-      "progression",
-      "cycle_root_motion",
-      "shuttle",
-      "stasis",
-      "chunks",
-      "rare_functional",
-    ],
-    minor: ["minor_cadence", "scale", "chords", "last_chords"],
-  },
+const ChapterCategories = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 8px;
+`;
+
+type ChapterCategories = {
+  [category: string]: string[];
+};
+
+const CHAPTER_CATEGORIES: ChapterCategories = {
+  order_of_chords: [
+    "major_cadence",
+    "progression",
+    "cycle_root_motion",
+    "shuttle",
+    "stasis",
+    "chunks",
+    "minor_cadence",
+    "last_chords",
+  ],
   texture: [
     "bass",
     "voicing",
@@ -182,20 +191,26 @@ const CHAPTER_CATEGORIES = {
     "doubling",
     "arpeggio",
     "texture",
-    "voice_leading",
+    "voice-leading",
     "interval",
     "inversion",
   ],
-  melody: [
-    "melody",
-    "nonchord_tone",
+  melody: ["melody", "nonchord_tone", "ornament", "reharmonization"],
+  chromaticism: [
+    "applied",
+    "6_b6",
+    "chromatic_chords",
+    "cto7",
+    "rare_functional",
     "chord_scale",
-    "ornament",
-    "reharmonization",
+    "b2",
+    "constant_structures",
+    "symmetric_chords",
+    "vgm_chromatic",
   ],
-  chromaticism: ["applied", "6_b6", "chromatic_chords", "cto7"],
   modulation: ["modulation", "relative", "parallel"],
-  modal_harmony: [
+  scale: [
+    "scale",
     "dorian",
     "mixolydian",
     "modal_interchange",
@@ -205,18 +220,13 @@ const CHAPTER_CATEGORIES = {
     "pure_major",
     "root_motion",
   ],
-  chords_beyond_triads: [
+  chord_types: [
+    "chords",
     "seventh_chords",
     "V",
     "extensions",
     "ninth_chords",
     "jazz",
-  ],
-  non_classical_chromaticism: [
-    "b2",
-    "constant_structures",
-    "symmetric_chords",
-    "vgm_chromatic",
   ],
   rhythm_and_meter: ["meter", "rhythm", "hypermeter", "harmonic_rhythm"],
   misc: [],
@@ -250,20 +260,12 @@ const formatCategoryLabel = (category: string) => {
 
 const getMiscChapters = (
   chapterData: ChapterData[],
-  categories: typeof CHAPTER_CATEGORIES,
+  categories: ChapterCategories,
 ) => {
   const allCategorizedChapters = new Set<string>();
 
   Object.values(categories).forEach((contents) => {
-    if (typeof contents === "object" && !Array.isArray(contents)) {
-      Object.values(contents)
-        .flat()
-        .forEach((chapter) => allCategorizedChapters.add(chapter));
-    } else {
-      (contents as string[]).forEach((chapter) =>
-        allCategorizedChapters.add(chapter),
-      );
-    }
+    contents.forEach((chapter) => allCategorizedChapters.add(chapter));
   });
 
   return chapterData.filter(
@@ -402,45 +404,78 @@ const Structures: React.FC<StructuresProps> = ({
             {Object.entries(CHAPTER_CATEGORIES).map(([category, contents]) => {
               let categoryChapters = chapterData.filter((chapter) => {
                 if (category === "misc") {
-                  return false; // Skip misc category in normal filtering
+                  return getMiscChapters(chapterData, CHAPTER_CATEGORIES).some(
+                    (c) => c.chapter === chapter.chapter,
+                  );
                 }
-                if (typeof contents === "object" && !Array.isArray(contents)) {
-                  return Object.values(contents)
-                    .flat()
-                    .includes(chapter.chapter);
-                }
-                return (contents as string[]).includes(chapter.chapter);
+                return contents.includes(chapter.chapter);
               });
-
-              // Handle misc category separately
-              if (category === "misc") {
-                categoryChapters = getMiscChapters(
-                  chapterData,
-                  CHAPTER_CATEGORIES,
-                );
-              }
 
               if (categoryChapters.length === 0) return null;
 
+              const shouldUseTwoColumns = categoryChapters.length > 5;
+              const midPoint = Math.ceil(categoryChapters.length / 2);
+
               return (
                 <CategorySection key={category}>
-                  <CategoryLabel>{formatCategoryLabel(category)}</CategoryLabel>
-                  <CategoryChapters>
-                    {categoryChapters.map((chapter) => {
-                      const index = chapterData.findIndex(
-                        (c) => c.chapter === chapter.chapter,
-                      );
-                      return (
-                        <ChapterButton
-                          key={chapter.chapter}
-                          active={activeChapter === index}
-                          onClick={() => handleChapterSelect(index)}
-                        >
-                          {chapter.chapter.replace(/_/g, " ")}
-                        </ChapterButton>
-                      );
-                    })}
-                  </CategoryChapters>
+                  <CategoryHeader>
+                    {formatCategoryLabel(category)}
+                  </CategoryHeader>
+                  <ChaptersContainer twoColumns={shouldUseTwoColumns}>
+                    {shouldUseTwoColumns ? (
+                      <>
+                        <div>
+                          {categoryChapters
+                            .slice(0, midPoint)
+                            .map((chapter) => {
+                              const index = chapterData.findIndex(
+                                (c) => c.chapter === chapter.chapter,
+                              );
+                              return (
+                                <ChapterButton
+                                  key={chapter.chapter}
+                                  active={activeChapter === index}
+                                  onClick={() => handleChapterSelect(index)}
+                                >
+                                  {chapter.chapter.replace(/_/g, " ")}
+                                </ChapterButton>
+                              );
+                            })}
+                        </div>
+                        <div>
+                          {categoryChapters.slice(midPoint).map((chapter) => {
+                            const index = chapterData.findIndex(
+                              (c) => c.chapter === chapter.chapter,
+                            );
+                            return (
+                              <ChapterButton
+                                key={chapter.chapter}
+                                active={activeChapter === index}
+                                onClick={() => handleChapterSelect(index)}
+                              >
+                                {chapter.chapter.replace(/_/g, " ")}
+                              </ChapterButton>
+                            );
+                          })}
+                        </div>
+                      </>
+                    ) : (
+                      categoryChapters.map((chapter) => {
+                        const index = chapterData.findIndex(
+                          (c) => c.chapter === chapter.chapter,
+                        );
+                        return (
+                          <ChapterButton
+                            key={chapter.chapter}
+                            active={activeChapter === index}
+                            onClick={() => handleChapterSelect(index)}
+                          >
+                            {chapter.chapter.replace(/_/g, " ")}
+                          </ChapterButton>
+                        );
+                      })
+                    )}
+                  </ChaptersContainer>
                 </CategorySection>
               );
             })}

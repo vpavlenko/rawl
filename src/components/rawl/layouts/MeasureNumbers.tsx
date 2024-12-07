@@ -9,6 +9,7 @@ import {
   filterSnippetsByAccess,
 } from "../analysis";
 import { AnalysisGrid, MeasureSelection } from "../AnalysisGrid";
+import EXPLANATIONS from "../corpora/explanations";
 import { MouseHandlers } from "../getNoteRectangles";
 import { SecondsConverter } from "../Rawl";
 import { MeasuresAndBeats } from "../SystemLayout";
@@ -21,6 +22,9 @@ const InlineSnippets: React.FC<{
 }> = ({ measuresAndBeats, snippets, secondsToX, sectionSpan }) => {
   const appContext = useContext(AppContext);
   const { setHoveredMeasuresSpan } = appContext;
+  const [hoveredSnippetIndex, setHoveredSnippetIndex] = React.useState<
+    string | null
+  >(null);
 
   const filteredSnippets = React.useMemo(() => {
     return filterSnippetsByAccess(snippets);
@@ -117,6 +121,10 @@ const InlineSnippets: React.FC<{
             >
               {snippetsGroup.map((snippet, index) => {
                 const [chapter, topic] = snippet.tag.split(":");
+                const explanation = EXPLANATIONS[snippet.tag];
+                const snippetKey = `${measureStart}-${index}`;
+                const isHovered = hoveredSnippetIndex === snippetKey;
+
                 return (
                   <Link
                     key={index}
@@ -125,26 +133,53 @@ const InlineSnippets: React.FC<{
                     )}/${encodeURIComponent(topic.trim())}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onMouseEnter={() =>
-                      setHoveredMeasuresSpan(snippet.measuresSpan)
-                    }
-                    onMouseLeave={() => setHoveredMeasuresSpan(null)}
+                    onMouseEnter={() => {
+                      setHoveredMeasuresSpan(snippet.measuresSpan);
+                      setHoveredSnippetIndex(snippetKey);
+                    }}
+                    onMouseLeave={() => {
+                      setHoveredMeasuresSpan(null);
+                      setHoveredSnippetIndex(null);
+                    }}
                     style={{
                       textDecoration: "none",
                       color: "inherit",
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "flex-start",
-                      marginRight: "10px",
+                      marginRight: explanation && isHovered ? "150px" : "10px",
                       lineHeight: "0.9",
+                      position: "relative",
                     }}
                   >
-                    <span style={{ color: "#777" }}>
-                      {chapter.replace(/_/g, " ")}
-                    </span>
-                    <span style={{ color: "#ccc" }}>
-                      {topic.replace(/_/g, " ")}
-                    </span>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div>
+                        <span style={{ color: "#777" }}>
+                          {chapter.replace(/_/g, " ")}
+                        </span>
+                        <span style={{ color: "#ccc", display: "block" }}>
+                          {topic.replace(/_/g, " ")}
+                        </span>
+                      </div>
+                      {explanation && isHovered && (
+                        <span
+                          style={{
+                            color: "#999",
+                            marginLeft: "8px",
+                            fontSize: "11px",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          — {explanation}
+                        </span>
+                      )}
+                    </div>
                   </Link>
                 );
               })}

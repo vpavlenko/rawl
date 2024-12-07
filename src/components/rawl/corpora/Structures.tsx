@@ -5,6 +5,7 @@ import { AppContext } from "../../AppContext";
 import { Analysis, filterSnippetsByAccess, Snippet } from "../analysis";
 import InlineRawlPlayer from "../InlineRawlPlayer";
 import SnippetList from "../SnippetList";
+import EXPLANATIONS from "./explanations";
 
 const PathContainer = styled.div`
   height: 100%;
@@ -511,30 +512,46 @@ const Structures: React.FC<StructuresProps> = ({
               {activeTopic &&
                 chapterData[activeChapter]?.topics
                   .filter(({ topic }) => topic === activeTopic)
-                  .map(({ topic, snippets }) => (
-                    <TopicContainer key={topic}>
-                      <TopicCard>
-                        <SnippetList
-                          snippets={snippets.map(({ snippet }) => snippet)}
-                          slugs={snippets.map(({ slug }) => slug)}
-                          onSnippetClick={(snippet) => {
-                            const matchingSnippet = snippets.find(
-                              (s) => s.snippet === snippet,
-                            );
-                            if (matchingSnippet) {
-                              handleSnippetClick(
-                                matchingSnippet.slug,
-                                snippet.measuresSpan[0],
-                                topic,
+                  .map(({ topic, snippets }) => {
+                    const fullTag = `${chapterData[activeChapter].chapter}:${topic}`;
+                    const explanation = EXPLANATIONS[fullTag];
+
+                    return (
+                      <TopicContainer key={topic}>
+                        {explanation && (
+                          <div
+                            style={{
+                              color: "white",
+                              fontSize: "16px",
+                              padding: "16px 16px",
+                            }}
+                          >
+                            {explanation}
+                          </div>
+                        )}
+                        <TopicCard>
+                          <SnippetList
+                            snippets={snippets.map(({ snippet }) => snippet)}
+                            slugs={snippets.map(({ slug }) => slug)}
+                            onSnippetClick={(snippet) => {
+                              const matchingSnippet = snippets.find(
+                                (s) => s.snippet === snippet,
                               );
-                            }
-                          }}
-                          isPreview={true}
-                          noteHeight={3}
-                        />
-                      </TopicCard>
-                    </TopicContainer>
-                  ))}
+                              if (matchingSnippet) {
+                                handleSnippetClick(
+                                  matchingSnippet.slug,
+                                  snippet.measuresSpan[0],
+                                  topic,
+                                );
+                              }
+                            }}
+                            isPreview={true}
+                            noteHeight={3}
+                          />
+                        </TopicCard>
+                      </TopicContainer>
+                    );
+                  })}
             </CategorySection>
           )}
         </ScrollableContent>
@@ -554,30 +571,47 @@ const Structures: React.FC<StructuresProps> = ({
               {activeTopic &&
                 chapterData[activeChapter]?.topics
                   .filter(({ topic }) => topic === activeTopic)
-                  .map(({ topic, snippets }) => (
-                    <TopicContainer key={topic}>
-                      <TopicCard>
-                        <SnippetList
-                          snippets={snippets.map(({ snippet }) => snippet)}
-                          slugs={snippets.map(({ slug }) => slug)}
-                          onSnippetClick={(snippet) => {
-                            const matchingSnippet = snippets.find(
-                              (s) => s.snippet === snippet,
-                            );
-                            if (matchingSnippet) {
-                              handleSnippetClick(
-                                matchingSnippet.slug,
-                                snippet.measuresSpan[0],
-                                topic,
+                  .map(({ topic, snippets }) => {
+                    const fullTag = `${chapterData[activeChapter].chapter}:${topic}`;
+                    const explanation = EXPLANATIONS[fullTag];
+
+                    return (
+                      <TopicContainer key={topic}>
+                        {explanation && (
+                          <div
+                            style={{
+                              color: "#999",
+                              fontSize: "14px",
+                              padding: "8px 16px",
+                              borderBottom: "1px solid #333",
+                            }}
+                          >
+                            {explanation}
+                          </div>
+                        )}
+                        <TopicCard>
+                          <SnippetList
+                            snippets={snippets.map(({ snippet }) => snippet)}
+                            slugs={snippets.map(({ slug }) => slug)}
+                            onSnippetClick={(snippet) => {
+                              const matchingSnippet = snippets.find(
+                                (s) => s.snippet === snippet,
                               );
-                            }
-                          }}
-                          isPreview={true}
-                          noteHeight={3}
-                        />
-                      </TopicCard>
-                    </TopicContainer>
-                  ))}
+                              if (matchingSnippet) {
+                                handleSnippetClick(
+                                  matchingSnippet.slug,
+                                  snippet.measuresSpan[0],
+                                  topic,
+                                );
+                              }
+                            }}
+                            isPreview={true}
+                            noteHeight={3}
+                          />
+                        </TopicCard>
+                      </TopicContainer>
+                    );
+                  })}
             </ScrollableContent>
           </InlineRawlPlayer>
         </div>

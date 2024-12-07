@@ -13,9 +13,13 @@ const PathContainer = styled.div`
   padding: 0;
 `;
 
-const MenuContainer = styled.div`
+const MenuContainer = styled.div<{ isRawlVisible?: boolean }>`
   width: 100%;
-  background-color: #1a1a1a; // Ensure background color to avoid transparency issues
+  height: ${(props) =>
+    props.isRawlVisible ? "calc(50vh - 30px)" : "calc(100vh - 30px)"};
+  overflow-y: auto;
+  background-color: black;
+  transition: height 0.3s ease-in-out;
 `;
 
 const ChapterRow = styled.div`
@@ -138,6 +142,25 @@ const TopicBubble = styled.span<{ active: boolean }>`
   }
 `;
 
+const EjectButton = styled.button`
+  position: absolute;
+  top: -29px; // Position it above the player
+  right: 0;
+  background: #333;
+  color: white;
+  border: none;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  z-index: 100001; // Higher than TopicMenu
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: #444;
+  }
+`;
+
 const CHAPTER_CATEGORIES = {
   order_of_chords: {
     major: [
@@ -253,7 +276,8 @@ const Structures: React.FC<StructuresProps> = ({
   initialChapter,
   initialTopic,
 }) => {
-  const { handleSongClick, currentMidi, rawlProps } = useContext(AppContext);
+  const { handleSongClick, currentMidi, rawlProps, eject } =
+    useContext(AppContext);
   const [loading, setLoading] = useState(true);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [chapterData, setChapterData] = useState<ChapterData[]>([]);
@@ -372,7 +396,7 @@ const Structures: React.FC<StructuresProps> = ({
 
   return (
     <PathContainer>
-      <MenuContainer>
+      <MenuContainer isRawlVisible={isRawlVisible}>
         <ChapterRow>
           <ChapterCategories>
             {Object.entries(CHAPTER_CATEGORIES).map(([category, contents]) => {
@@ -440,40 +464,6 @@ const Structures: React.FC<StructuresProps> = ({
             ))}
           </TopicMenu>
         )}
-      </MenuContainer>
-      {isRawlVisible && currentMidi ? (
-        <InlineRawlPlayer {...rawlProps} measureStart={selectedMeasureStart}>
-          <ScrollableContent>
-            {activeTopic &&
-              chapterData[activeChapter]?.topics
-                .filter(({ topic }) => topic === activeTopic)
-                .map(({ topic, snippets }) => (
-                  <TopicContainer key={topic}>
-                    <TopicCard>
-                      <SnippetList
-                        snippets={snippets.map(({ snippet }) => snippet)}
-                        slugs={snippets.map(({ slug }) => slug)}
-                        onSnippetClick={(snippet) => {
-                          const matchingSnippet = snippets.find(
-                            (s) => s.snippet === snippet,
-                          );
-                          if (matchingSnippet) {
-                            handleSnippetClick(
-                              matchingSnippet.slug,
-                              snippet.measuresSpan[0],
-                              topic,
-                            );
-                          }
-                        }}
-                        isPreview={true}
-                        noteHeight={3}
-                      />
-                    </TopicCard>
-                  </TopicContainer>
-                ))}
-          </ScrollableContent>
-        </InlineRawlPlayer>
-      ) : (
         <ScrollableContent>
           {loading ? (
             <HomeChapter>Loading...</HomeChapter>
@@ -513,6 +503,49 @@ const Structures: React.FC<StructuresProps> = ({
             </CategorySection>
           )}
         </ScrollableContent>
+      </MenuContainer>
+      {isRawlVisible && currentMidi && (
+        <div style={{ position: "relative" }}>
+          <EjectButton
+            onClick={() => {
+              eject();
+              setIsRawlVisible(false);
+            }}
+          >
+            ×
+          </EjectButton>
+          <InlineRawlPlayer {...rawlProps} measureStart={selectedMeasureStart}>
+            <ScrollableContent>
+              {activeTopic &&
+                chapterData[activeChapter]?.topics
+                  .filter(({ topic }) => topic === activeTopic)
+                  .map(({ topic, snippets }) => (
+                    <TopicContainer key={topic}>
+                      <TopicCard>
+                        <SnippetList
+                          snippets={snippets.map(({ snippet }) => snippet)}
+                          slugs={snippets.map(({ slug }) => slug)}
+                          onSnippetClick={(snippet) => {
+                            const matchingSnippet = snippets.find(
+                              (s) => s.snippet === snippet,
+                            );
+                            if (matchingSnippet) {
+                              handleSnippetClick(
+                                matchingSnippet.slug,
+                                snippet.measuresSpan[0],
+                                topic,
+                              );
+                            }
+                          }}
+                          isPreview={true}
+                          noteHeight={3}
+                        />
+                      </TopicCard>
+                    </TopicContainer>
+                  ))}
+            </ScrollableContent>
+          </InlineRawlPlayer>
+        </div>
       )}
     </PathContainer>
   );

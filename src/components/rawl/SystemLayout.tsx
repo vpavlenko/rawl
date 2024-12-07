@@ -8,15 +8,16 @@ import {
   useState,
 } from "react";
 import { DUMMY_CALLBACK, VoiceMask } from "../App";
-import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
-import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
 import { Analysis, getPhraseStarts, MeasuresSpan } from "./analysis";
+import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { getNoteRectangles, MouseHandlers } from "./getNoteRectangles";
 import ControlPanel, { debounce } from "./layouts/ControlPanel";
 import { MeasureNumbers } from "./layouts/MeasureNumbers";
 import MergedVoicesLegend from "./layouts/MergedVoicesLegend";
 import { VoiceName } from "./layouts/VoiceName";
 import { ColoredNote, ColoredNotesInVoices, Note } from "./parseMidi";
+import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
+import { SongNarrative } from "./SongNarrative";
 
 export type MeasuresAndBeats = {
   measures: number[];
@@ -437,7 +438,7 @@ export const StackedSystemLayout: React.FC<
           overflowX: "scroll",
           overflowY: "scroll",
           width: "100%",
-          height: "100%",
+          // height: "100%",
           backgroundColor: "black",
         }}
         ref={parentRef}
@@ -509,7 +510,7 @@ export const StackedSystemLayout: React.FC<
           ),
         )}
 
-        <div style={{ height: 600 }} />
+        <div style={{ height: 100 }} />
 
         {!isEmbedded && (
           <ControlPanel
@@ -569,6 +570,7 @@ export const MergedSystemLayout: React.FC<
           setVoiceMask={setVoiceMask}
         />
       )}
+      <SongNarrative slug={slug} />
     </div>
   );
 };

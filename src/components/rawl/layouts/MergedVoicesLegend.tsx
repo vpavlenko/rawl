@@ -1,6 +1,8 @@
 import React from "react";
 import { useLocalStorage } from "usehooks-ts";
 
+export const FORCED_PANNING_LABEL = "🔊⬅️👐➡️🔊";
+
 type MergedVoicesLegendProps = {
   voiceNames: string[];
   voiceMask: boolean[];
@@ -60,7 +62,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
               display: "inline",
             }}
           >
-            🔊⬅️👐➡️🔊
+            {FORCED_PANNING_LABEL}
           </label>
         </div>
         {voiceNames.map((voiceName, voiceIndex) => (

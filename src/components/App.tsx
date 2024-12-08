@@ -58,7 +58,6 @@ import CorpusSearch from "./rawl/CorpusSearch";
 import OldLandingPage from "./rawl/OldLandingPage";
 import Rawl, { RawlProps } from "./rawl/Rawl";
 import { ShortcutHelp } from "./rawl/ShortcutHelp";
-import Slicer from "./rawl/Slicer";
 import { Analyses, MeasuresSpan } from "./rawl/analysis";
 import Book from "./rawl/book/Book";
 import Corpus from "./rawl/corpora/Corpus";
@@ -1090,13 +1089,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
     const rawlRoute = (
       <Route
-        path={[
-          "/f/:slug*",
-          "/h/:keySlug*",
-          "/c/:chiptuneUrl*",
-          "/drop",
-          "/slicer/:slug*",
-        ]}
+        path={["/f/:slug*", "/h/:keySlug*", "/c/:chiptuneUrl*", "/drop"]}
         render={({ match }) => {
           const { slug, keySlug, chiptuneUrl } = match.params as {
             slug?: string;
@@ -1129,13 +1122,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     />
                   )}
                 </>
-              )}
-              {match.path.startsWith("/slicer") && (
-                <Slicer
-                  playSongBuffer={this.playSongBuffer}
-                  analyses={this.state.analyses}
-                  slug={slug}
-                />
               )}
             </>
           );

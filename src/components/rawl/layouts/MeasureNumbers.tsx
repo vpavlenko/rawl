@@ -133,6 +133,7 @@ const InlineSnippets: React.FC<{
                     )}/${encodeURIComponent(topic.trim())}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
                     onMouseEnter={() => {
                       setHoveredMeasuresSpan(snippet.measuresSpan);
                       setHoveredSnippetIndex(snippetKey);

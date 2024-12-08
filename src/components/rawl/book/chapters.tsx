@@ -49,6 +49,22 @@ export const CHAPTERS: Array<{
   {
     title: "Intro",
     composers: ["happy_birthday_bass_and_chords"],
+    pretext: (
+      <>
+        <p>
+          There are twelve notes in each octave of a piano:{" "}
+          {c`1 b2 2 b3 3 4 #4 5 b6 6 b7 7`}
+        </p>
+        <p>
+          Some pieces are built entirely on a subset of seven notes called a
+          major scale: {c`1 2 3 4 5 6 7 1`}
+        </p>
+        <p>
+          Each color is present several times on a piano keyboard – in different
+          octaves: {c`1 3 5 1 3 5 1 3 5 1 3 5 1`}
+        </p>
+      </>
+    ),
   },
   {
     title: "Four-chord progressions in major",

@@ -577,6 +577,7 @@ const Rawl: React.FC<RawlProps> = ({
         display: "flex",
         flexDirection: "column",
         height: "100%",
+        paddingLeft: "30px",
         overflow: "hidden",
       }}
     >

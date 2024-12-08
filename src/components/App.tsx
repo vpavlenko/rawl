@@ -31,6 +31,7 @@ import {
   useParams,
   withRouter,
 } from "react-router-dom";
+import styled from "styled-components";
 import { slugify } from "transliteration";
 
 import ChipCore from "../chip-core";
@@ -53,7 +54,6 @@ import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader";
 import DropMessage from "./DropMessage";
 import Timeline from "./Timeline";
-import Visualizer from "./Visualizer";
 import CorpusSearch from "./rawl/CorpusSearch";
 import OldLandingPage from "./rawl/OldLandingPage";
 import Rawl, { RawlProps } from "./rawl/Rawl";
@@ -132,6 +132,10 @@ function mergeAnalyses(existingAnalyses, newAnalyses) {
     ...newAnalyses,
   };
 }
+
+const AppMainContent = styled.div`
+  margin-bottom: 25px; // Add space for fixed footer
+`;
 
 class App extends React.Component<RouteComponentProps, AppState> {
   private contentAreaRef: React.RefObject<HTMLDivElement>;
@@ -1230,50 +1234,38 @@ class App extends React.Component<RouteComponentProps, AppState> {
               />
               {!location.pathname.startsWith("/s/") && <AppHeader />}
               <div className="App-main">
-                <div className="App-main-inner">
-                  <div className="App-main-content-and-settings">
-                    <div
-                      className="App-main-content-area"
-                      ref={this.contentAreaRef}
-                    >
-                      <Switch>
-                        <Route path="/old" render={() => <OldLandingPage />} />
-                        <Route
-                          path="/corpus/:corpus?"
-                          render={({ match }) =>
-                            match.params.corpus ? (
-                              <Corpus slug={match.params.corpus} />
-                            ) : (
-                              <CorpusSearch />
-                            )
-                          }
-                        />
-                        <Route path="/daw" render={() => <DAW />} />
-                        {rawlRoute}
-                        <Route path="/100/:slug?" component={Book} />
-                        <Route path="/timeline" component={Timeline} />
-                        <Redirect exact from="/" to="/100" />
-                      </Switch>
+                <AppMainContent>
+                  <div className="App-main-inner">
+                    <div className="App-main-content-and-settings">
+                      <div
+                        className="App-main-content-area"
+                        ref={this.contentAreaRef}
+                      >
+                        <Switch>
+                          <Route
+                            path="/old"
+                            render={() => <OldLandingPage />}
+                          />
+                          <Route
+                            path="/corpus/:corpus?"
+                            render={({ match }) =>
+                              match.params.corpus ? (
+                                <Corpus slug={match.params.corpus} />
+                              ) : (
+                                <CorpusSearch />
+                              )
+                            }
+                          />
+                          <Route path="/daw" render={() => <DAW />} />
+                          {rawlRoute}
+                          <Route path="/100/:slug?" component={Book} />
+                          <Route path="/timeline" component={Timeline} />
+                          <Redirect exact from="/" to="/100" />
+                        </Switch>
+                      </div>
                     </div>
                   </div>
-                </div>
-                {location.pathname !== "/" &&
-                  !location.pathname.startsWith("/s/") &&
-                  !this.state.loading && (
-                    <Visualizer
-                      analysisEnabled={this.state.analysisEnabled}
-                      handleToggleAnalysis={() =>
-                        this.setState((state) => ({
-                          analysisEnabled: !state.analysisEnabled,
-                        }))
-                      }
-                      user={this.state.user}
-                      handleLogout={this.handleLogout}
-                      handleLogin={this.handleLogin}
-                    />
-                  )}
-              </div>
-              {
+                </AppMainContent>
                 <AppFooter
                   currentSongDurationMs={this.state.currentSongDurationMs}
                   ejected={this.state.ejected}
@@ -1288,7 +1280,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   tempo={this.state.tempo}
                   setTempo={this.handleTempoChange}
                 />
-              }
+              </div>
               <Modal
                 isOpen={this.state.showShortcutHelp}
                 onRequestClose={this.toggleShortcutHelp}

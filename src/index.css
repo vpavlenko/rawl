@@ -148,12 +148,7 @@ body,
 }
 
 .App-main {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: row;
-    overflow: hidden;
     height: 100%;
-    margin: 0 var(--charW2neg);
 }
 
 .App-main-inner {

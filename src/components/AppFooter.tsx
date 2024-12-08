@@ -8,28 +8,84 @@ import TimeSlider from "./TimeSlider";
 
 const StyledVolumeSlider = styled.div`
   flex-shrink: 0;
-  margin-left: var(--charW2);
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 10px;
 
-  @media screen and (max-width: 600px) {
-    display: none;
+  &::before {
+    content: "Vol";
+    margin-right: 10px;
+  }
+
+  input[type="range"] {
+    width: 100%;
   }
 `;
 
 const StyledAppFooter = styled.div`
-  margin: 0;
-  flex-shrink: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 25px;
+  background: var(--background);
   display: flex;
-  height: 24px;
+  align-items: center;
+  padding: 0 10px;
+  z-index: 1000;
+  border-top: 1px solid var(--border);
 `;
 
 const AppFooterMain = styled.div`
-  flex-grow: 1;
-  overflow: auto;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0; // Prevents flex items from overflowing
 `;
 
-const AppFooterMainInner = styled.div`
+const TempoSection = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 10%;
+  flex-shrink: 0;
+  margin: 0 10px;
+`;
+
+const LatencySection = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 10%;
+  flex-shrink: 0;
+  margin: 0 10px;
+`;
+
+const DownloadButton = styled.a`
+  width: 20px;
+  flex-shrink: 0;
+  text-align: center;
+  margin-left: 10px;
+`;
+
+const PauseButton = styled.button`
+  width: 25px;
+  height: 25px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  line-height: 1;
+  margin-right: 10px;
+`;
+
+const TimeSliderWrapper = styled.div`
+  flex: 2;
+  min-width: 300px;
+  margin: 0 10px;
 `;
 
 const StyledTempoButton = styled.button`
@@ -66,35 +122,6 @@ const StyledTempoButton = styled.button`
       inset 0 0 2px rgba(255, 255, 255, 0.5);
   }
 `;
-
-const VolumeSlider = memo(
-  ({
-    onChange,
-    handleReset,
-    value,
-  }: {
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleReset: (e: React.MouseEvent) => void;
-    value: number;
-  }) => {
-    return (
-      <StyledVolumeSlider>
-        <span style={{ marginRight: "10px" }}>Vol</span>
-        <input
-          type="range"
-          title="Volume"
-          min={0}
-          max={150}
-          step={1}
-          onChange={onChange}
-          onDoubleClick={handleReset}
-          onContextMenu={handleReset}
-          value={value}
-        />
-      </StyledVolumeSlider>
-    );
-  },
-);
 
 const AppFooter: React.FC<
   {
@@ -165,7 +192,25 @@ const AppFooter: React.FC<
   return (
     <StyledAppFooter>
       <AppFooterMain>
-        <AppFooterMainInner>
+        <PauseButton
+          onClick={togglePause}
+          title={paused ? "Resume (use Space)" : "Pause (use Space)"}
+          className="box-button"
+          disabled={ejected}
+        >
+          <FontAwesomeIcon icon={paused ? faPlay : faPause} />
+        </PauseButton>
+
+        <TimeSliderWrapper>
+          <TimeSlider
+            paused={paused}
+            currentSongDurationMs={currentSongDurationMs}
+            getCurrentPositionMs={getCurrentPositionMs}
+            onChange={handleTimeSliderChange}
+          />
+        </TimeSliderWrapper>
+
+        <TempoSection>
           <div
             style={{
               display: "flex",
@@ -173,170 +218,145 @@ const AppFooter: React.FC<
               alignItems: "center",
             }}
           >
-            <span>
-              <button
-                onClick={togglePause}
-                title={paused ? "Resume (use Space)" : "Pause (use Space)"}
-                className="box-button"
-                disabled={ejected}
+            <StyledTempoButton
+              onClick={() => handleTempoChange(-0.1)}
+              title={`Change tempo (Minus key)`}
+            >
+              <div
                 style={{
-                  width: "25px",
-                  height: "100%",
                   display: "flex",
-                  justifyContent: "center",
+                  flexDirection: "column",
                   alignItems: "center",
-                  fontSize: "16px",
-                  lineHeight: 1,
+                  justifyContent: "center",
+                  height: "100%",
+                  transform: "translateY(-1px)", // Fine-tuned adjustment
                 }}
               >
-                <FontAwesomeIcon icon={paused ? faPlay : faPause} />
-              </button>{" "}
-            </span>
-            <TimeSlider
-              paused={paused}
-              currentSongDurationMs={currentSongDurationMs}
-              getCurrentPositionMs={getCurrentPositionMs}
-              onChange={handleTimeSliderChange}
-            />
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginRight: "10px",
-              }}
-            >
-              <StyledTempoButton
-                onClick={() => handleTempoChange(-0.1)}
-                title={`Change tempo (Minus key)`}
-              >
-                <div
+                <span
                   style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    height: "100%",
-                    transform: "translateY(-1px)", // Fine-tuned adjustment
+                    fontSize: "16px",
+                    lineHeight: "0.8",
+                    fontWeight: "bold",
+                    marginBottom: "-3px", // Overlap adjustment
                   }}
                 >
-                  <span
-                    style={{
-                      fontSize: "16px",
-                      lineHeight: "0.8",
-                      fontWeight: "bold",
-                      marginBottom: "-3px", // Overlap adjustment
-                    }}
-                  >
-                    _
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "16px",
-                      lineHeight: "0.8",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    -
-                  </span>
-                </div>
-              </StyledTempoButton>
-              <span
+                  _
+                </span>
+                <span
+                  style={{
+                    fontSize: "16px",
+                    lineHeight: "0.8",
+                    fontWeight: "bold",
+                  }}
+                >
+                  -
+                </span>
+              </div>
+            </StyledTempoButton>
+            <span
+              style={{
+                margin: "0 15px",
+                fontFamily: "monospace",
+                width: "40px",
+                textAlign: "center",
+                display: "inline-block",
+              }}
+            >
+              {formatTempo(tempo)}x
+            </span>
+            <StyledTempoButton
+              onClick={() => handleTempoChange(0.1)}
+              title={`Change tempo (Plus key)`}
+            >
+              <div
                 style={{
-                  margin: "0 15px",
-                  fontFamily: "monospace",
-                  width: "40px",
-                  textAlign: "center",
-                  display: "inline-block",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "100%",
+                  transform: "translateY(-1px)", // Fine-tuned adjustment
                 }}
               >
-                {formatTempo(tempo)}x
-              </span>
-              <StyledTempoButton
-                onClick={() => handleTempoChange(0.1)}
-                title={`Change tempo (Plus key)`}
-              >
-                <div
+                <span
                   style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    height: "100%",
-                    transform: "translateY(-1px)", // Fine-tuned adjustment
+                    fontSize: "16px",
+                    lineHeight: "0.8",
+                    fontWeight: "bold",
+                    marginBottom: "-3px", // Overlap adjustment
                   }}
                 >
-                  <span
-                    style={{
-                      fontSize: "16px",
-                      lineHeight: "0.8",
-                      fontWeight: "bold",
-                      marginBottom: "-3px", // Overlap adjustment
-                    }}
-                  >
-                    +
-                  </span>
-                  <span
-                    style={{
-                      fontSize: "16px",
-                      lineHeight: "0.8",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    =
-                  </span>
-                </div>
-              </StyledTempoButton>
-            </div>
-            <button
-              onClick={() => setLatencyCorrectionMs(latencyCorrectionMs - 100)}
-            >
-              -lat
-            </button>
-            <span style={{ fontFamily: "monospace" }}>
-              {`${
-                Math.sign(latencyCorrectionMs / 1000) >= 0 ? "+" : "-"
-              }${Math.abs(latencyCorrectionMs / 1000)
-                .toFixed(2)
-                .charAt(0)}.${Math.abs(latencyCorrectionMs / 1000)
-                .toFixed(2)
-                .charAt(2)}`}
-              s
-            </span>
-            <button
-              onClick={() => setLatencyCorrectionMs(latencyCorrectionMs + 100)}
-            >
-              lat+
-            </button>
-
-            <VolumeSlider
-              onChange={(e) => {
-                handleVolumeChange(e.target.value);
-              }}
-              handleReset={(e) => {
-                handleVolumeChange(100);
-                e.preventDefault();
-                e.stopPropagation();
-              }}
-              value={volume}
-            />
-            <a
-              style={{
-                color: canDownload ? "var(--neutral4)" : "var(--neutral6)",
-                margin: "0px 20px",
-                cursor: canDownload ? "pointer" : "not-allowed",
-                pointerEvents: canDownload ? "auto" : "none",
-                opacity: canDownload ? 1 : 0.5,
-              }}
-              href={createBlobUrl()}
-              download={getDownloadFilename()}
-              title={
-                canDownload ? "Download MIDI file" : "No MIDI file to download"
-              }
-            >
-              <FontAwesomeIcon icon={faDownload} />
-            </a>
+                  +
+                </span>
+                <span
+                  style={{
+                    fontSize: "16px",
+                    lineHeight: "0.8",
+                    fontWeight: "bold",
+                  }}
+                >
+                  =
+                </span>
+              </div>
+            </StyledTempoButton>
           </div>
-        </AppFooterMainInner>
+        </TempoSection>
+
+        <LatencySection>
+          <button
+            onClick={() => setLatencyCorrectionMs(latencyCorrectionMs - 100)}
+          >
+            -lat
+          </button>
+          <span style={{ fontFamily: "monospace" }}>
+            {`${
+              Math.sign(latencyCorrectionMs / 1000) >= 0 ? "+" : "-"
+            }${Math.abs(latencyCorrectionMs / 1000)
+              .toFixed(2)
+              .charAt(0)}.${Math.abs(latencyCorrectionMs / 1000)
+              .toFixed(2)
+              .charAt(2)}`}
+            s
+          </span>
+          <button
+            onClick={() => setLatencyCorrectionMs(latencyCorrectionMs + 100)}
+          >
+            lat+
+          </button>
+        </LatencySection>
+
+        <StyledVolumeSlider>
+          <input
+            type="range"
+            title="Volume"
+            min={0}
+            max={150}
+            step={1}
+            onChange={(e) => handleVolumeChange(e.target.value)}
+            onDoubleClick={(e) => {
+              handleVolumeChange(100);
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+            value={volume}
+          />
+        </StyledVolumeSlider>
+
+        <DownloadButton
+          style={{
+            color: canDownload ? "var(--neutral4)" : "var(--neutral6)",
+            cursor: canDownload ? "pointer" : "not-allowed",
+            pointerEvents: canDownload ? "auto" : "none",
+            opacity: canDownload ? 1 : 0.5,
+          }}
+          href={createBlobUrl()}
+          download={getDownloadFilename()}
+          title={
+            canDownload ? "Download MIDI file" : "No MIDI file to download"
+          }
+        >
+          <FontAwesomeIcon icon={faDownload} />
+        </DownloadButton>
       </AppFooterMain>
     </StyledAppFooter>
   );

@@ -55,7 +55,7 @@ export default class TimeSlider extends React.Component {
     const sign = ms < 0 ? "-" : "";
     ms = Math.abs(ms);
     const min = Math.floor(ms / 60000);
-    const sec = (Math.floor((ms % 60000) / 100) / 10).toFixed(1);
+    const sec = (Math.floor((ms % 60000) / 100) / 10).toFixed(0);
     return `${sign}${min}:${pad(sec)}`;
   }
 

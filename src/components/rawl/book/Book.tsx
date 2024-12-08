@@ -3,16 +3,14 @@ import { Redirect, useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { slugify } from "transliteration";
 import { AppContext } from "../../AppContext";
+import { Snippet } from "../analysis";
 import { NewTonicSymbol } from "../AnalysisGrid";
-import ChordStairs, { Chord } from "../ChordStairs";
+import ChordStairs from "../ChordStairs";
 import { PianoLegend } from "../PianoLegend";
 import SnippetList from "../SnippetList";
 import { NARRATIVES } from "../SongNarrative";
-import { Snippet } from "../analysis";
-import {
-  MODULATIONS_CHAPTER_TITLE,
-  TOP_100_COMPOSERS,
-} from "../top100Composers";
+import { TOP_100_COMPOSERS } from "../top100Composers";
+import { CHAPTERS, MODULATIONS_CHAPTER_TITLE } from "./chapters";
 import IntroText from "./IntroText";
 
 type EnhancedSnippet = Snippet & {
@@ -217,9 +215,8 @@ const Book: React.FC = () => {
     setLoadingSnippets((prev) => new Set([...prev, slug]));
     try {
       await appContext.handleSongClick(slug);
-      // If the snippet has secondsSpan, seek to (secondsSpan - 1) seconds
       if (snippet.secondsSpan) {
-        const seekPosition = Math.max(0, (snippet.secondsSpan[0] - 1) * 1000); // Convert to milliseconds
+        const seekPosition = Math.max(0, (snippet.secondsSpan[0] - 1) * 1000);
         appContext.seek(seekPosition);
       }
     } finally {
@@ -231,67 +228,30 @@ const Book: React.FC = () => {
     }
   };
 
-  // Sort composers with order first, then the rest
-  const orderedComposers = [...TOP_100_COMPOSERS].sort((a, b) => {
-    if (a.order !== undefined && b.order !== undefined) {
-      return a.order - b.order;
-    }
-    if (a.order !== undefined) return -1;
-    if (b.order !== undefined) return 1;
-    return 0;
-  });
-
-  // Get unique chapters
-  const chapters = React.useMemo(() => {
-    const uniqueChapters = new Set<string>();
-    uniqueChapters.add("Intro");
-    orderedComposers.forEach((composer) => {
-      if (composer.chapter) {
-        uniqueChapters.add(composer.chapter);
-      }
-    });
-    uniqueChapters.add(ABOUT_SELECTION);
-    return Array.from(uniqueChapters);
+  // Get unique chapter titles
+  const chapterTitles = React.useMemo(() => {
+    return CHAPTERS.map((chapter) => chapter.title);
   }, []);
 
   // Find selected chapter based on slug
   const selectedChapter = React.useMemo(() => {
     if (!slug) return "Intro";
     return (
-      chapters.find(
+      chapterTitles.find(
         (chapter) => getChapterSlug(chapter) === slug.toLowerCase(),
       ) || "Intro"
     );
-  }, [slug, chapters]);
-
-  // Handle chapter selection
-  const handleChapterSelect = (chapter: string) => {
-    const newSlug = getChapterSlug(chapter);
-    history.push(`/100/${newSlug}`);
-  };
+  }, [slug, chapterTitles]);
 
   // Redirect from root to /100/intro
   if (!slug) {
     return <Redirect to="/100/intro" />;
   }
 
-  // Group composers by chapters
-  const composerGroups = orderedComposers.reduce<
-    Array<typeof TOP_100_COMPOSERS>
-  >((acc, composer) => {
-    if (composer.chapter || acc.length === 0) {
-      acc.push([composer]);
-    } else {
-      acc[acc.length - 1].push(composer);
-    }
-    return acc;
-  }, []);
-
-  const getChapterTitleChords = (chapter: string): Chord[] | undefined => {
-    const composerWithChapter = TOP_100_COMPOSERS.find(
-      (composer) => composer.chapter === chapter && composer.titleChords,
-    );
-    return composerWithChapter?.titleChords;
+  // Handle chapter selection
+  const handleChapterSelect = (chapter: string) => {
+    const newSlug = getChapterSlug(chapter);
+    history.push(`/100/${newSlug}`);
   };
 
   const renderContent = () => {
@@ -303,124 +263,128 @@ const Book: React.FC = () => {
       );
     }
 
-    const filteredGroups = composerGroups.filter(
-      (group) => group[0].chapter === selectedChapter,
+    const currentChapter = CHAPTERS.find(
+      (chapter) => chapter.title === selectedChapter,
     );
+    if (!currentChapter) return null;
 
     return (
       <>
-        {filteredGroups.map((group, groupIndex) => {
-          return (
-            <div key={`group-${groupIndex}`} style={{ marginTop: "40px" }}>
-              <ChapterTitle>{selectedChapter}</ChapterTitle>
-              {group[0].mode && (
-                <ChordStairsWrapper>
-                  <ChordStairs
-                    mode={group[0].mode}
-                    {...(selectedChapter === "Intro"
-                      ? { currentTonic: 5 }
-                      : {})}
-                  />
-                </ChordStairsWrapper>
-              )}
-              <GroupContainer>
-                <ComposersGrid>
-                  {group
+        <div style={{ marginTop: "40px" }}>
+          <ChapterTitle>{selectedChapter}</ChapterTitle>
+          {currentChapter.mode && (
+            <ChordStairsWrapper>
+              <ChordStairs
+                mode={currentChapter.mode}
+                {...(selectedChapter === "Intro" ? { currentTonic: 5 } : {})}
+              />
+            </ChordStairsWrapper>
+          )}
+          <GroupContainer>
+            <ComposersGrid>
+              {currentChapter.composers
+                .map((slug) => TOP_100_COMPOSERS.find((c) => c.slug === slug))
+                .filter(
+                  (composer): composer is (typeof TOP_100_COMPOSERS)[number] =>
+                    composer !== undefined &&
+                    analyses[`f/${composer.slug}`]?.snippets?.some(
+                      (s) => s.tag === "book:index",
+                    ),
+                )
+                .map((composer) => {
+                  const snippets = (
+                    analyses[`f/${composer.slug}`]?.snippets || []
+                  )
+                    .filter((snippet) => snippet.tag === "book:index")
+                    .map((snippet) => ({
+                      ...snippet,
+                      composerSlug: composer.slug,
+                    }));
+
+                  return (
+                    <ComposerItem key={composer.slug}>
+                      <ComposerWrapper>
+                        <ComposerLink
+                          href={`/f/${composer.slug}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={handleComposerLinkClick}
+                        >
+                          <ComposerTitle
+                            composer={composer.composer}
+                            displayTitle={composer.displayTitle}
+                          />
+                          {NARRATIVES[composer.slug] && (
+                            <span style={{ marginLeft: "12px", color: "#999" }}>
+                              💬 {NARRATIVES[composer.slug].qa.length}
+                            </span>
+                          )}
+                        </ComposerLink>
+                      </ComposerWrapper>
+                      <SnippetContainer>
+                        <SnippetList
+                          snippets={snippets}
+                          noteHeight={3}
+                          isPreview={true}
+                          onSnippetClick={handleSnippetClick}
+                          loadingSnippets={loadingSnippets}
+                        />
+                      </SnippetContainer>
+                    </ComposerItem>
+                  );
+                })}
+            </ComposersGrid>
+
+            {currentChapter.composers
+              .map((slug) => TOP_100_COMPOSERS.find((c) => c.slug === slug))
+              .filter(
+                (composer): composer is (typeof TOP_100_COMPOSERS)[number] =>
+                  composer !== undefined &&
+                  !analyses[`f/${composer.slug}`]?.snippets?.some(
+                    (s) => s.tag === "book:index",
+                  ),
+              ).length > 0 && (
+              <>
+                <MoreSection>More:</MoreSection>
+                <ComposerList>
+                  {currentChapter.composers
+                    .map((slug) =>
+                      TOP_100_COMPOSERS.find((c) => c.slug === slug),
+                    )
                     .filter(
-                      (item) =>
-                        analyses[`f/${item.slug}`]?.snippets?.some(
+                      (
+                        composer,
+                      ): composer is (typeof TOP_100_COMPOSERS)[number] =>
+                        composer !== undefined &&
+                        !analyses[`f/${composer.slug}`]?.snippets?.some(
                           (s) => s.tag === "book:index",
                         ),
                     )
-                    .map((item) => {
-                      const { slug, composer, displayTitle } = item;
-                      const snippets = (
-                        analyses[`f/${item.slug}`]?.snippets || []
-                      )
-                        .filter((snippet) => snippet.tag === "book:index")
-                        .map((snippet) => ({ ...snippet, composerSlug: slug }));
-
-                      return (
-                        <ComposerItem key={slug}>
-                          <ComposerWrapper>
-                            <ComposerLink
-                              href={`/f/${slug}`}
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={handleComposerLinkClick}
-                            >
-                              <ComposerTitle
-                                composer={composer}
-                                displayTitle={displayTitle}
-                              />
-                              {NARRATIVES[slug] && (
-                                <span
-                                  style={{ marginLeft: "12px", color: "#999" }}
-                                >
-                                  💬 {NARRATIVES[slug].qa.length}
-                                </span>
-                              )}
-                            </ComposerLink>
-                          </ComposerWrapper>
-                          <SnippetContainer>
-                            <SnippetList
-                              snippets={snippets}
-                              noteHeight={3}
-                              isPreview={true}
-                              onSnippetClick={handleSnippetClick}
-                              loadingSnippets={loadingSnippets}
-                            />
-                          </SnippetContainer>
-                        </ComposerItem>
-                      );
-                    })}
-                </ComposersGrid>
-
-                {group.filter(
-                  (item) =>
-                    !analyses[`f/${item.slug}`]?.snippets?.some(
-                      (s) => s.tag === "book:index",
-                    ),
-                ).length > 0 && (
-                  <>
-                    <MoreSection>More:</MoreSection>
-                    <ComposerList>
-                      {group
-                        .filter(
-                          (item) =>
-                            !analyses[`f/${item.slug}`]?.snippets?.some(
-                              (s) => s.tag === "book:index",
-                            ),
-                        )
-                        .map(({ slug, composer, displayTitle }) => (
-                          <ComposerListItem key={slug}>
-                            <ComposerLink
-                              href={`/f/${slug}`}
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={handleComposerLinkClick}
-                            >
-                              <ComposerTitle
-                                composer={composer}
-                                displayTitle={displayTitle}
-                              />
-                              {NARRATIVES[slug] && (
-                                <span
-                                  style={{ marginLeft: "8px", color: "#999" }}
-                                >
-                                  💬{NARRATIVES[slug].qa.length}
-                                </span>
-                              )}
-                            </ComposerLink>
-                          </ComposerListItem>
-                        ))}
-                    </ComposerList>
-                  </>
-                )}
-              </GroupContainer>
-            </div>
-          );
-        })}
+                    .map((composer) => (
+                      <ComposerListItem key={composer.slug}>
+                        <ComposerLink
+                          href={`/f/${composer.slug}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={handleComposerLinkClick}
+                        >
+                          <ComposerTitle
+                            composer={composer.composer}
+                            displayTitle={composer.displayTitle}
+                          />
+                          {NARRATIVES[composer.slug] && (
+                            <span style={{ marginLeft: "8px", color: "#999" }}>
+                              💬{NARRATIVES[composer.slug].qa.length}
+                            </span>
+                          )}
+                        </ComposerLink>
+                      </ComposerListItem>
+                    ))}
+                </ComposerList>
+              </>
+            )}
+          </GroupContainer>
+        </div>
         {selectedChapter === "Intro" && (
           <div style={{ marginTop: "40px" }}>
             <PianoLegend currentTonic={5} />
@@ -435,82 +399,81 @@ const Book: React.FC = () => {
       <div style={{ position: "relative" }}>
         <Title>Visual Harmony of Top 100 Composers on MuseScore.com</Title>
         <ChapterSelector>
-          {chapters.map((chapter) => {
-            const titleChords = getChapterTitleChords(chapter);
-            return (
-              <ChapterButton
-                key={chapter}
-                isSelected={selectedChapter === chapter}
-                onClick={() => handleChapterSelect(chapter)}
-                onMouseEnter={() => setHoveredChapter(chapter)}
-                onMouseLeave={() => setHoveredChapter(null)}
-              >
-                <ChapterStairsWrapper>
-                  {chapter === MODULATIONS_CHAPTER_TITLE ? (
-                    <div
-                      style={{
-                        position: "relative",
-                        width: "80px",
-                        height: "45px",
-                      }}
-                    >
-                      <div style={{ position: "absolute", top: "-5px" }}>
-                        <NewTonicSymbol
-                          left={0}
-                          number={1}
-                          previousTonic={0}
-                          modulationDiff={5}
-                          tonicStart={5}
-                        />
-                      </div>
-                      <div style={{ position: "absolute", top: "10px" }}>
-                        <NewTonicSymbol
-                          left={0}
-                          number={1}
-                          previousTonic={0}
-                          modulationDiff={3}
-                          tonicStart={3}
-                        />
-                      </div>
-                      <div style={{ position: "absolute", top: "25px" }}>
-                        <NewTonicSymbol
-                          left={0}
-                          number={1}
-                          previousTonic={0}
-                          modulationDiff={9}
-                          tonicStart={9}
-                        />
-                      </div>
-                      <div style={{ position: "absolute", top: "40px" }}>
-                        <NewTonicSymbol
-                          left={0}
-                          number={1}
-                          previousTonic={0}
-                          modulationDiff={7}
-                          tonicStart={7}
-                        />
-                      </div>
+          {CHAPTERS.map((chapter) => (
+            <ChapterButton
+              key={chapter.title}
+              isSelected={selectedChapter === chapter.title}
+              onClick={() => handleChapterSelect(chapter.title)}
+              onMouseEnter={() => setHoveredChapter(chapter.title)}
+              onMouseLeave={() => setHoveredChapter(null)}
+            >
+              <ChapterStairsWrapper>
+                {chapter.title === MODULATIONS_CHAPTER_TITLE ? (
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "80px",
+                      height: "45px",
+                    }}
+                  >
+                    <div style={{ position: "absolute", top: "-5px" }}>
+                      <NewTonicSymbol
+                        left={0}
+                        number={1}
+                        previousTonic={0}
+                        modulationDiff={5}
+                        tonicStart={5}
+                      />
                     </div>
-                  ) : titleChords ? (
-                    <ChordStairs
-                      mode={{ title: "", chords: titleChords }}
-                      hideLabels={true}
-                      scale={0.5}
-                    />
-                  ) : (
-                    chapter
-                  )}
-                  {!["Misc", "About"].includes(chapter) && (
-                    <ChapterTitleTooltip>{chapter}</ChapterTitleTooltip>
-                  )}
-                  {(selectedChapter === chapter ||
-                    hoveredChapter === chapter) && (
-                    <SelectionArrow isHovered={hoveredChapter === chapter} />
-                  )}
-                </ChapterStairsWrapper>
-              </ChapterButton>
-            );
-          })}
+                    <div style={{ position: "absolute", top: "10px" }}>
+                      <NewTonicSymbol
+                        left={0}
+                        number={1}
+                        previousTonic={0}
+                        modulationDiff={3}
+                        tonicStart={3}
+                      />
+                    </div>
+                    <div style={{ position: "absolute", top: "25px" }}>
+                      <NewTonicSymbol
+                        left={0}
+                        number={1}
+                        previousTonic={0}
+                        modulationDiff={9}
+                        tonicStart={9}
+                      />
+                    </div>
+                    <div style={{ position: "absolute", top: "40px" }}>
+                      <NewTonicSymbol
+                        left={0}
+                        number={1}
+                        previousTonic={0}
+                        modulationDiff={7}
+                        tonicStart={7}
+                      />
+                    </div>
+                  </div>
+                ) : chapter.titleChords ? (
+                  <ChordStairs
+                    mode={{ title: "", chords: chapter.titleChords }}
+                    hideLabels={true}
+                    scale={0.5}
+                  />
+                ) : (
+                  chapter.title
+                )}
+                {!["Misc", "About"].includes(chapter.title) && (
+                  <ChapterTitleTooltip>{chapter.title}</ChapterTitleTooltip>
+                )}
+                {(selectedChapter === chapter.title ||
+                  hoveredChapter === chapter.title) && (
+                  <SelectionArrow
+                    isHovered={hoveredChapter === chapter.title}
+                  />
+                )}
+              </ChapterStairsWrapper>
+            </ChapterButton>
+          ))}
         </ChapterSelector>
 
         {renderContent()}

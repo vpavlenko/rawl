@@ -190,48 +190,12 @@ body,
     flex-grow: 0;
 }
 
-.AppFooter {
-    margin: 0;
-    flex-shrink: 0;
-    display: flex;
-}
-
-@media screen and (max-width: 600px) {
-    .AppFooter-art {
-        display: none;
-    }
-}
-
-.AppFooter-main {
-    flex-grow: 1;
-    overflow: auto;
-}
-
-/*
- Required due to strange flexbox/padding behavior in Safari.
- https://stackoverflow.com/questions/42802717
-*/
-.AppFooter-main-inner {
-    /* padding: var(--charH) var(--charW2); */
-    display: flex;
-    flex-direction: column;
-}
-
-.AppFooter-settings {
-    border-left: 1px solid var(--clickable);
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
 .App-voice-label {
     width: 112px;
     white-space: nowrap;
     overflow-x: hidden;
 }
 
-.AppFooter-more-buttons {
-    float: right;
-}
 
 @media screen and (max-width: 600px) {
     .AppFooter-more-buttons {
@@ -900,15 +864,11 @@ img {
 
 /* Update the scrollable containers to show scrollbars only when hovering */
 .App-main-content-area,
-.AppFooter-main,
-.AppFooter-settings,
 .message-box-inner {
     scrollbar-gutter: stable;
 }
 
 .App-main-content-area:hover,
-.AppFooter-main:hover,
-.AppFooter-settings:hover,
 .message-box-inner:hover {
     scrollbar-gutter: stable;
 }

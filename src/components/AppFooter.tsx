@@ -1,10 +1,63 @@
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { memo, useContext } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import styled from "styled-components";
 import { AppContext } from "./AppContext";
 import TimeSlider from "./TimeSlider";
 import VolumeSlider from "./VolumeSlider";
+
+const StyledAppFooter = styled.div`
+  margin: 0;
+  flex-shrink: 0;
+  display: flex;
+  height: 24px;
+`;
+
+const AppFooterMain = styled.div`
+  flex-grow: 1;
+  overflow: auto;
+`;
+
+const AppFooterMainInner = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const StyledTempoButton = styled.button`
+  width: 24px;
+  height: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #333;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #f8f8f8 0%, #e0e0e0 100%);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 0 2px rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  padding: 2px 0;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: all 0.05s ease-in-out;
+  font-family:
+    Times New Roman,
+    serif;
+
+  &:active {
+    transform: translateY(1px);
+    box-shadow:
+      0 0 2px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8),
+      inset 0 0 2px rgba(255, 255, 255, 0.5);
+  }
+`;
 
 const AppFooter: React.FC<
   {
@@ -18,7 +71,6 @@ const AppFooter: React.FC<
     togglePause: any;
     latencyCorrectionMs: number;
     setLatencyCorrectionMs: (latency: number) => void;
-    fileToDownload: Uint8Array;
     tempo: number;
     setTempo: (tempo: number) => void;
   } & RouteComponentProps
@@ -33,7 +85,6 @@ const AppFooter: React.FC<
   togglePause,
   latencyCorrectionMs,
   setLatencyCorrectionMs,
-  fileToDownload,
   location,
   tempo,
   setTempo,
@@ -74,90 +125,10 @@ const AppFooter: React.FC<
     return fixed;
   };
 
-  const TempoButton: React.FC<{
-    delta: number;
-    topLabel: string;
-    bottomLabel: string;
-  }> = ({ delta, topLabel, bottomLabel }) => (
-    <button
-      onClick={() => handleTempoChange(delta)}
-      title={`Change tempo (${delta > 0 ? "Shift+Plus" : "Minus"} key)`}
-      className="tempo-button"
-      style={{
-        width: "24px",
-        height: "24px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        fontWeight: "bold",
-        color: "#333",
-        border: "1px solid #999",
-        borderRadius: "3px",
-        background: "linear-gradient(to bottom, #f8f8f8 0%, #e0e0e0 100%)",
-        boxShadow:
-          "0 1px 2px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.8), inset 0 0 2px rgba(255,255,255,0.5)",
-        cursor: "pointer",
-        position: "relative",
-        overflow: "hidden",
-        padding: "2px 0",
-        textShadow: "0 1px 0 rgba(255,255,255,0.8)",
-        transition: "all 0.05s ease-in-out",
-        fontFamily: "Times New Roman, serif",
-      }}
-      onMouseDown={(e) => {
-        e.currentTarget.style.transform = "translateY(1px)";
-        e.currentTarget.style.boxShadow =
-          "0 0 2px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.8), inset 0 0 2px rgba(255,255,255,0.5)";
-      }}
-      onMouseUp={(e) => {
-        e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.boxShadow =
-          "0 1px 2px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.8), inset 0 0 2px rgba(255,255,255,0.5)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.boxShadow =
-          "0 1px 2px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.8), inset 0 0 2px rgba(255,255,255,0.5)";
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100%",
-          transform: "translateY(-1px)", // Fine-tuned adjustment
-        }}
-      >
-        <span
-          style={{
-            fontSize: "16px",
-            lineHeight: "0.8",
-            fontWeight: "bold",
-            marginBottom: "-3px", // Overlap adjustment
-          }}
-        >
-          {topLabel}
-        </span>
-        <span
-          style={{
-            fontSize: "16px",
-            lineHeight: "0.8",
-            fontWeight: "bold",
-          }}
-        >
-          {bottomLabel}
-        </span>
-      </div>
-    </button>
-  );
-
   return (
-    <div className="AppFooter" style={{ height: 24 }}>
-      <div className="AppFooter-main">
-        <div className="AppFooter-main-inner">
+    <StyledAppFooter>
+      <AppFooterMain>
+        <AppFooterMainInner>
           <div
             style={{
               display: "flex",
@@ -165,15 +136,15 @@ const AppFooter: React.FC<
               alignItems: "center",
             }}
           >
-            <span style={{ whiteSpace: "nowrap" }}>
+            <span>
               <button
                 onClick={togglePause}
                 title={paused ? "Resume (use Space)" : "Pause (use Space)"}
                 className="box-button"
                 disabled={ejected}
                 style={{
-                  width: "30px",
-                  height: "22px",
+                  width: "25px",
+                  height: "100%",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -181,7 +152,7 @@ const AppFooter: React.FC<
                   lineHeight: 1,
                 }}
               >
-                {paused ? "►" : "⏸"}
+                <FontAwesomeIcon icon={paused ? faPlay : faPause} />
               </button>{" "}
             </span>
             <TimeSlider
@@ -197,7 +168,41 @@ const AppFooter: React.FC<
                 marginRight: "10px",
               }}
             >
-              <TempoButton delta={-0.1} topLabel="_" bottomLabel="-" />
+              <StyledTempoButton
+                onClick={() => handleTempoChange(-0.1)}
+                title={`Change tempo (Minus key)`}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "100%",
+                    transform: "translateY(-1px)", // Fine-tuned adjustment
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "16px",
+                      lineHeight: "0.8",
+                      fontWeight: "bold",
+                      marginBottom: "-3px", // Overlap adjustment
+                    }}
+                  >
+                    _
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "16px",
+                      lineHeight: "0.8",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    -
+                  </span>
+                </div>
+              </StyledTempoButton>
               <span
                 style={{
                   margin: "0 15px",
@@ -209,7 +214,41 @@ const AppFooter: React.FC<
               >
                 {formatTempo(tempo)}x
               </span>
-              <TempoButton delta={0.1} topLabel="+" bottomLabel="=" />
+              <StyledTempoButton
+                onClick={() => handleTempoChange(0.1)}
+                title={`Change tempo (Plus key)`}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "100%",
+                    transform: "translateY(-1px)", // Fine-tuned adjustment
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "16px",
+                      lineHeight: "0.8",
+                      fontWeight: "bold",
+                      marginBottom: "-3px", // Overlap adjustment
+                    }}
+                  >
+                    +
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "16px",
+                      lineHeight: "0.8",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    =
+                  </span>
+                </div>
+              </StyledTempoButton>
             </div>
             <button
               onClick={() => setLatencyCorrectionMs(latencyCorrectionMs - 100)}
@@ -260,9 +299,9 @@ const AppFooter: React.FC<
               <FontAwesomeIcon icon={faDownload} />
             </a>
           </div>
-        </div>
-      </div>
-    </div>
+        </AppFooterMainInner>
+      </AppFooterMain>
+    </StyledAppFooter>
   );
 };
 

@@ -1309,7 +1309,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   currentSongDurationMs={this.state.currentSongDurationMs}
                   ejected={this.state.ejected}
                   paused={this.state.paused}
-                  fileToDownload={this.state.fileToDownload}
                   volume={this.state.volume}
                   handleTimeSliderChange={this.handleTimeSliderChange}
                   handleVolumeChange={this.handleVolumeChange}

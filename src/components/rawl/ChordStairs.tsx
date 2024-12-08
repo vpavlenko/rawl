@@ -259,15 +259,36 @@ const ChordStairs: React.FC<{
   currentTonic?: number;
   hideLabels?: boolean;
   scale?: number;
+  playTogether?: boolean;
 }> = React.memo(
-  ({ mode, chapterChords, currentTonic = 0, hideLabels, scale = 1 }) => {
+  ({
+    mode,
+    chapterChords,
+    currentTonic = 0,
+    hideLabels,
+    scale = 1,
+    playTogether,
+  }) => {
     const [playingChord, setPlayingChord] = useState<string | null>(null);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const [animationKey, setAnimationKey] = useState(0);
 
+    const { title, chords } = mode;
+    const titleHeight = hideLabels ? 0 : TITLE_HEIGHT;
+
+    // Check if we should show the chord stairs
+    const chapterChordsSet = new Set(chapterChords || []) as Set<Chord>;
+    const modeChordSet = new Set(mode.chords);
+    // Only remove V for intersection check
+    const modeChordSetWithoutV = new Set(modeChordSet);
+    modeChordSetWithoutV.delete("V");
+    const hasIntersection = [...chapterChordsSet].some((chord) =>
+      modeChordSetWithoutV.has(chord),
+    );
+
     const handleChordClick = useCallback(
       (chord: Chord, positions: number[], pitchOfMinPosition: number) => {
-        if (!mode.title) return;
+        if (!mode.title && !playTogether) return;
 
         if (timeoutRef.current) {
           clearTimeout(timeoutRef.current);
@@ -280,26 +301,25 @@ const ChordStairs: React.FC<{
           setPlayingChord(null);
         }, 2000);
 
-        const transposedNotes = positions.map(
-          (position) => position + pitchOfMinPosition + currentTonic,
-        );
-        playArpeggiatedChord(transposedNotes);
+        if (playTogether) {
+          // Play all chords in sequence
+          rehydratedChords.forEach(({ positions: chordPositions }, index) => {
+            setTimeout(() => {
+              const transposedNotes = chordPositions.map(
+                (position) => position + pitchOfMinPosition + currentTonic,
+              );
+              playArpeggiatedChord(transposedNotes);
+            }, index * 1000); // 500ms delay between chords
+          });
+        } else {
+          // Original single chord playback
+          const transposedNotes = positions.map(
+            (position) => position + pitchOfMinPosition + currentTonic,
+          );
+          playArpeggiatedChord(transposedNotes);
+        }
       },
-      [currentTonic, mode.title],
-    );
-
-    const { title, chords } = mode;
-
-    const titleHeight = hideLabels ? 0 : TITLE_HEIGHT;
-
-    // Check if we should show the chord stairs
-    const chapterChordsSet = new Set(chapterChords || []) as Set<Chord>;
-    const modeChordSet = new Set(mode.chords);
-    // Only remove V for intersection check
-    const modeChordSetWithoutV = new Set(modeChordSet);
-    modeChordSetWithoutV.delete("V");
-    const hasIntersection = [...chapterChordsSet].some((chord) =>
-      modeChordSetWithoutV.has(chord),
+      [currentTonic, mode.title, playTogether],
     );
 
     if (!hasIntersection && chapterChords) {

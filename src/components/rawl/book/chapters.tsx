@@ -18,6 +18,7 @@ const C = ({ c }: { c: Chord[] }) => (
       mode={{ title: "", chords: c }}
       hideLabels={true}
       scale={0.5}
+      playTogether={true}
     />
   </span>
 );

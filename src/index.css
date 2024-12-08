@@ -236,121 +236,10 @@ body,
     white-space: initial;
 }
 
-/* message-box is used by Info box and DropMessage component. */
-.message-box-outer {
-    position: absolute;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    pointer-events: none;
-    top: 0;
-    left: 0;
-    padding: var(--charH) var(--charW2);
-    box-sizing: border-box;
-}
-
-.message-box-outer[hidden] {
-    visibility: hidden;
-}
-
-.message-box {
-    background-color: var(--button);
-    padding: var(--charH) var(--charW2);
-    box-shadow: var(--charW1) var(--charW1) var(--shadow);
-    box-sizing: border-box;
-    display: flex;
-    transition: all 250ms steps(5);
-    visibility: visible;
-    overflow: hidden;
-    max-height: 100%;
-    pointer-events: all;
-    flex-direction: column;
-    width: calc(90 * var(--charW1));
-    height: calc(40 * var(--charH));
-}
-
-.message-box[hidden] {
-    width: 0;
-    height: 0;
-    visibility: hidden;
-}
-
-.message-box[hidden] .message-box-inner {
-    overflow: hidden;
-}
-
-.message-box-inner {
-    color: var(--clickable);
-    border: 1px solid var(--clickable);
-    padding: var(--charH) var(--charW2);
-    overflow: auto;
-}
-
-.message-box-footer {
-    display: flex;
-    flex-direction: row-reverse;
-    align-content: end;
-    justify-content: space-between;
-    padding-top: var(--charH);
-}
-
-.drop-message {
-    height: calc(9 * var(--charH) + 1px);
-    width: calc(60 * var(--charW1));
-    text-align: center;
-}
-
-.drop-message .message-box-inner {
-    overflow: hidden;
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-}
-
-.message-box-button {
-    background: var(--background);
-    padding: 0 var(--charW2);
-    box-shadow: none;
-}
-
-.vertical-list-of-buttons {
-    margin-bottom: 20px;
-}
-
-.vertical-list-of-buttons li {
-    margin-bottom: 20px;
-}
-
 .modulation * {
     font-family: Helvetica, sans-serif;
     font-size: 12px;
     line-height: 1;
-}
-
-.course h2 {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-size: 42px;
-}
-
-.course h3 {
-    margin-top: 100px;
-    margin-bottom: 30px;
-    font-size: 36px;
-}
-
-.course h4, h5, h6 {
-    font-size: 24px;
-    margin-top: 40px;
-}
-
-.course div {
-    margin-bottom: 20px;
 }
 
 .octocat {
@@ -612,13 +501,3 @@ body,
     scrollbar-color: var(--button) transparent;
 }
 
-/* Update the scrollable containers to show scrollbars only when hovering */
-.App-main-content-area,
-.message-box-inner {
-    scrollbar-gutter: stable;
-}
-
-.App-main-content-area:hover,
-.message-box-inner:hover {
-    scrollbar-gutter: stable;
-}

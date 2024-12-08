@@ -3,7 +3,7 @@ import reaperImage from "../../../assets/images/reaper_colormap.png";
 
 const DAW = () => {
   return (
-    <div className="course" style={{ marginLeft: 250, width: 600 }}>
+    <div style={{ marginLeft: 250, width: 600 }}>
       <h2>DAWs with 12 colors</h2>
       <h3>REAPER</h3>
       <h4>How to use</h4>

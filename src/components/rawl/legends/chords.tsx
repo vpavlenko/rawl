@@ -1,0 +1,103 @@
+import React from "react";
+
+export const CHORDS = {
+  i: [0, 3, 7],
+  ii: [2, 5, 9],
+  ii7: [2, 5, 9, 0],
+  iii: [4, 7, 11],
+  iii7: [4, 7, 11, 2],
+  iv: [5, 8, 0],
+  I: [0, 4, 7],
+  "V7/IV": [0, 4, 7, 10],
+  "V7/iv": [0, 4, 7, 10],
+  I7: [0, 4, 7, 10],
+  vi: [9, 0, 4],
+  vi7: [9, 0, 4, 7],
+  IV: [5, 9, 0],
+  IV7: [5, 9, 0, 3],
+  V: [7, 11, 2],
+  V7: [7, 11, 2, 5],
+  V13: [7, 11, 2, 5, 9, 0, 4],
+  V7b9: [7, 11, 2, 5, 8],
+  "V/V": [2, 6, 9],
+  "V7/V": [2, 6, 9, 0],
+  "V/V/V": [9, 1, 4],
+  "V/ii": [9, 1, 4],
+  "V7/ii": [9, 1, 4, 7],
+  "V/iii": [11, 3, 6],
+  "V7/iii": [11, 3, 6, 9],
+  III: [4, 8, 11],
+  "V/vi": [4, 8, 11],
+  "V7/vi": [4, 8, 11, 2],
+  Vsus4: [7, 0, 2],
+  Imaj7: [0, 4, 7, 11],
+  IVmaj7: [5, 9, 0, 4],
+  I5: [0, 7],
+  IV5: [5, 0],
+  V5: [7, 2],
+  v: [7, 10, 2],
+  bVI: [8, 0, 3],
+  bVII: [10, 2, 5],
+  bIII: [3, 7, 10],
+  bII: [1, 5, 8],
+  "V+": [7, 11, 3],
+  viio7: [11, 2, 5, 8],
+  io7: [0, 3, 6, 9],
+  It: [8, 0, 6],
+  Fr: [8, 0, 2, 6],
+  Ger: [8, 0, 3, 6],
+  Cad64: [7, 0, 4],
+  cad64: [7, 0, 3],
+  "viio7/V": [6, 9, 0, 3],
+  ii65: [5, 9, 0, 2],
+  iiø65: [5, 8, 0, 2],
+  io: [0, 3, 6],
+  "I+": [0, 4, 8],
+  imaj7: [0, 3, 7, 11],
+  i7: [0, 3, 7, 10],
+  iø7: [0, 3, 6, 10],
+  iio: [2, 5, 8],
+  iio7: [2, 5, 8, 11],
+  iiø7: [2, 5, 8, 12],
+  viio: [11, 2, 5],
+  IPAC: [0, 4, 12],
+  I6: [4, 7, 12],
+  "1": [0],
+  b3: [3],
+  "4": [5],
+  "#4": [6],
+  "5": [7],
+  b7: [10],
+  "7": [11],
+  "=": [0],
+} as const;
+
+export type Chord = keyof typeof CHORDS;
+
+export const MODES: Mode[] = [
+  {
+    title: "minor",
+    chords: ["iiø7", "iv", "bVI", "i", "bIII", "v", "V", "V7", "bVII"],
+  },
+  { title: "major", chords: ["ii", "IV", "vi", "I", "iii", "V", "V7"] },
+];
+
+export type Mode = { title: string; chords: Chord[] };
+
+export const formatChordName = (name: string) => {
+  // note to AI: never change this function
+  const parts = name.split("ø");
+  if (parts.length === 1) {
+    return name.replace("b", "♭");
+    // .replace("7", "⁷")
+    // .replace("1", "¹")
+    // .replace("3", "³");
+  }
+  return (
+    <>
+      {parts[0].replace("b", "♭")}
+      <sup>ø</sup>
+      {parts[1].replace("7", "⁷").replace("1", "¹").replace("3", "³")}
+    </>
+  );
+};

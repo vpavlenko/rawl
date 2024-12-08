@@ -58,7 +58,6 @@ import Timeline from "./Timeline";
 import Visualizer from "./Visualizer";
 import CorpusSearch from "./rawl/CorpusSearch";
 import OldLandingPage from "./rawl/OldLandingPage";
-import Pirate from "./rawl/Pirate";
 import Rawl, { RawlProps } from "./rawl/Rawl";
 import { ShortcutHelp } from "./rawl/ShortcutHelp";
 import Slicer from "./rawl/Slicer";
@@ -1248,7 +1247,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                           }
                         />
                         <Route path="/daw" render={() => <DAW />} />
-                        <Route path="/pirate" render={() => <Pirate />} />
                         {browseRoute}
                         {rawlRoute}
                         <Route path="/100/:slug?" component={Book} />

@@ -1,11 +1,12 @@
 import * as React from "react";
 import styled from "styled-components";
-import ChordStairs, { MODES } from "./ChordStairs";
 import CorpusSearch from "./CorpusSearch";
 import Index from "./Index";
-import { PianoLegend } from "./PianoLegend";
 import landingLeftSideImage from "./landing_left_side.png";
 import landingRightSideImage from "./landing_right_side.png";
+import ChordStairs from "./legends/ChordStairs";
+import { PianoLegend } from "./legends/PianoLegend";
+import { MODES } from "./legends/chords";
 
 const TopSection = styled.div`
   display: flex;

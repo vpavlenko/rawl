@@ -4,8 +4,9 @@ import * as React from "react";
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import ChordStairs, { MODES } from "./ChordStairs";
-import { InlinePianoLegend, PianoLegend } from "./PianoLegend";
+import ChordStairs from "./legends/ChordStairs";
+import { InlinePianoLegend, PianoLegend } from "./legends/PianoLegend";
+import { MODES } from "./legends/chords";
 
 const DropBox = styled.div`
   border: 4px dashed #0f0; /* Neon green dashed border */

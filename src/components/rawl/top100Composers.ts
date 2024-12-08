@@ -1,5 +1,3 @@
-import { NATURAL_MINOR, ONE_FLAT_SIX_FIVE } from "./ChordStairs";
-
 export const TOP_100_COMPOSERS: {
   slug: string;
   composer: string;
@@ -86,7 +84,6 @@ export const TOP_100_COMPOSERS: {
     slug: "Game_of_Thrones_Easy_piano",
     composer: "Ramin Djawadi",
     displayTitle: "Game of Thrones Main Theme",
-    chords: [...NATURAL_MINOR.chords, "I"],
   },
   {
     slug: "Someone_You_Loved",
@@ -107,7 +104,6 @@ export const TOP_100_COMPOSERS: {
     slug: "Believer_-_Imagine_Dragons",
     composer: "Imagine Dragons",
     displayTitle: "Believer",
-    chords: ONE_FLAT_SIX_FIVE.chords,
   },
   {
     slug: "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
@@ -306,7 +302,6 @@ export const TOP_100_COMPOSERS: {
     slug: "we-are-number-one-but-it-s-a-piano-transcript",
     composer: "Máni Svavarsson",
     displayTitle: "We Are Number One (LazyTown)",
-    chords: ONE_FLAT_SIX_FIVE.chords,
   },
   {
     slug: "dragonborn---skyrim-theme-song-piano-solo",
@@ -422,7 +417,6 @@ export const TOP_100_COMPOSERS: {
     slug: "Requiem_for_a_Dream",
     composer: "Clint Mansell",
     displayTitle: "Lux Aeterna (from Requiem for a Dream)",
-    chords: ONE_FLAT_SIX_FIVE.chords,
   },
 
   {

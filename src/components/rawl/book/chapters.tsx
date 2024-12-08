@@ -1,5 +1,6 @@
 import React from "react";
-import ChordStairs, { Chord, Mode } from "../ChordStairs";
+import { Chord } from "../legends/chords";
+import ChordStairs from "../legends/ChordStairs";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 
 export const MODULATIONS_CHAPTER_TITLE =
@@ -308,3 +309,5 @@ export const CHAPTERS: Array<{
     composers: [],
   },
 ];
+
+export type Mode = { title: string; chords: Chord[] };

@@ -2,7 +2,7 @@ import clamp from "lodash/clamp";
 import React, { useCallback, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
-import { FoldablePianoLegend } from "../PianoLegend";
+import { FoldablePianoLegend } from "../legends/PianoLegend";
 
 const TinyLetter = styled.span`
   font-size: 10px;

@@ -48,6 +48,7 @@ const ChapterButton = styled.button<{ active: boolean }>`
   font-size: 14px;
   border-radius: 4px;
   width: fit-content;
+  user-select: none;
 
   &:hover {
     background-color: ${(props) => (props.active ? "white" : "#333")};
@@ -68,6 +69,7 @@ const CategoryHeader = styled.div`
   font-size: 14px;
   letter-spacing: 0.5px;
   text-align: left;
+  user-select: none;
 `;
 
 const ChaptersContainer = styled.div<{ twoColumns?: boolean }>`
@@ -134,11 +136,10 @@ const TopicBubble = styled.span<{ active: boolean }>`
   border-radius: 16px;
   font-size: 14px;
   text-decoration: none;
-  transition: all 0.2s ease;
   user-select: none;
 
   &:hover {
-    background-color: ${(props) => (props.active ? "white" : "#666")};
+    background-color: ${(props) => (props.active ? "white" : "#333")};
   }
 `;
 

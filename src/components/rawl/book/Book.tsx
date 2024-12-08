@@ -172,6 +172,11 @@ const NavChordWrapper = styled.div`
   position: relative;
 `;
 
+export const ReadableTextBlock = styled.div`
+  max-width: 40em;
+  padding: 0px 0px 40px 0px;
+`;
+
 export const ComposerTitle: React.FC<{
   composer: string;
   displayTitle: string;
@@ -297,6 +302,9 @@ const Book: React.FC = () => {
                 {...(selectedChapter === "Intro" ? { currentTonic: 5 } : {})}
               />
             </ChapterChordLegendWrapper>
+          )}
+          {currentChapter.pretext && (
+            <ReadableTextBlock>{currentChapter.pretext}</ReadableTextBlock>
           )}
           <GroupContainer>
             <ComposersGrid>

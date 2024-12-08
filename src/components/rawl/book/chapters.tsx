@@ -1,13 +1,32 @@
-import { Chord, Mode } from "../ChordStairs";
+import React from "react";
+import ChordStairs, { Chord, Mode } from "../ChordStairs";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 
 export const MODULATIONS_CHAPTER_TITLE =
   "Modulations in classical music: endless V7 to I and V7 to i";
 
+const C = ({ c }: { c: Chord[] }) => (
+  <span
+    style={{
+      display: "inline-block",
+      position: "relative",
+      top: "5px",
+      padding: "5px",
+    }}
+  >
+    <ChordStairs
+      mode={{ title: "", chords: c }}
+      hideLabels={true}
+      scale={0.5}
+    />
+  </span>
+);
+
 export const CHAPTERS: Array<{
   title: string;
   titleChords?: Chord[];
   mode?: Mode;
+  pretext?: React.ReactNode;
   composers: (typeof TOP_100_COMPOSERS)[number]["slug"][];
 }> = [
   {
@@ -59,6 +78,16 @@ export const CHAPTERS: Array<{
       title: "",
       chords: ["i", "bVI", "V"],
     },
+    pretext: (
+      <>
+        These songs exploit an endless loop of <C c={["i", "i", "bVI", "V"]} />.
+        So, they don't fit within the natural minor scale, since <C c={["V"]} />{" "}
+        uses a note <C c={["7"]} />. The pair <C c={["V", "i"]} /> acts as a
+        dominant-to-tonic motion. As we'll see later, <C c={["V"]} /> is
+        resolved to tonic chord (<C c={["i"]} /> or <C c={["I"]} /> ) in both
+        minor and major modes.
+      </>
+    ),
     composers: [
       "Requiem_for_a_Dream",
       "we-are-number-one-but-it-s-a-piano-transcript",

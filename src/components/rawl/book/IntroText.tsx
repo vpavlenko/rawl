@@ -1,13 +1,10 @@
 import * as React from "react";
 import { TOP_100_COMPOSERS } from "../top100Composers";
+import { ReadableTextBlock } from "./Book";
 
 const IntroText = () => {
   return (
-    <div
-      style={{
-        width: "40em",
-      }}
-    >
+    <ReadableTextBlock>
       <h2>How did I pick the pieces?</h2>
       <p>
         I went through{" "}
@@ -100,7 +97,7 @@ const IntroText = () => {
         As I understand, the copyright takedowns of community scores didn't
         affect my corpus - even John Williams got represented.
       </p>
-    </div>
+    </ReadableTextBlock>
   );
 };
 

@@ -2482,6 +2482,10 @@ export const corpora: Corpora[] = [
     // Cover of Beethoven's piece, so no new composer or style info necessary here.
   },
   {
+    slug: "rhcp_red_hot_chili_peppers",
+    midis: ["road-trippin---red-hot-chili-peppers"],
+  },
+  {
     slug: "martha_mier",
     midis: [
       "to-catch-a-dream---martha-mier",

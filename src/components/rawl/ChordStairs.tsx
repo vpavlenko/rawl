@@ -73,6 +73,7 @@ export const CHORDS = {
   "#4": [6],
   "5": [7],
   b7: [10],
+  "7": [11],
   "=": [0],
 } as const;
 export type Chord = keyof typeof CHORDS;
@@ -395,6 +396,7 @@ const ChordStairs: React.FC<{
           position: "relative",
           fontSize: scaledFontSize,
           marginTop: titleHeight,
+          display: "inline-block",
         }}
       >
         {rehydratedChords.map(({ name, pitches, positions }, chordIndex) => {

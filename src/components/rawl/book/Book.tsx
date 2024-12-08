@@ -25,7 +25,7 @@ const BookContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 30px;
+  font-size: 24px;
 `;
 
 const ChordStairsWrapper = styled.div`
@@ -37,8 +37,7 @@ const ChordStairsWrapper = styled.div`
   z-index: 1000000;
   background: black;
   margin-left: 20px;
-  padding: 10px;
-  padding-bottom: 40px;
+  padding: 0;
   border: 0.5px solid #666;
 `;
 
@@ -101,8 +100,8 @@ const ComposerListItem = styled.li`
 const ChapterSelector = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  padding: 16px 0;
+  gap: 25px;
+  padding: 0px 0;
   margin: 20px 0;
 `;
 
@@ -112,7 +111,7 @@ const ChapterTitleTooltip = styled.div`
   left: 50%;
   transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.9);
-  padding: 4px 8px;
+  padding: 0px 8px;
   white-space: nowrap;
   pointer-events: none;
   z-index: 1000;
@@ -120,7 +119,7 @@ const ChapterTitleTooltip = styled.div`
 
 const SelectionArrow = styled.div<{ isHovered?: boolean }>`
   position: absolute;
-  top: -10px;
+  top: 0px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
@@ -140,7 +139,7 @@ const ChapterButton = styled.button<{ isSelected: boolean }>`
   align-items: center;
   position: relative;
   min-height: 80px;
-  padding: 10px 0px;
+  padding: 0px 0px;
   border-radius: 0;
   box-sizing: border-box;
 
@@ -412,11 +411,17 @@ const Book: React.FC = () => {
                   <div
                     style={{
                       position: "relative",
-                      width: "80px",
+                      width: "65px",
                       height: "45px",
+                      overflow: "hidden",
                     }}
                   >
-                    <div style={{ position: "absolute", top: "-5px" }}>
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "10px",
+                      }}
+                    >
                       <NewTonicSymbol
                         left={0}
                         number={1}
@@ -425,25 +430,12 @@ const Book: React.FC = () => {
                         tonicStart={5}
                       />
                     </div>
-                    <div style={{ position: "absolute", top: "10px" }}>
-                      <NewTonicSymbol
-                        left={0}
-                        number={1}
-                        previousTonic={0}
-                        modulationDiff={3}
-                        tonicStart={3}
-                      />
-                    </div>
-                    <div style={{ position: "absolute", top: "25px" }}>
-                      <NewTonicSymbol
-                        left={0}
-                        number={1}
-                        previousTonic={0}
-                        modulationDiff={9}
-                        tonicStart={9}
-                      />
-                    </div>
-                    <div style={{ position: "absolute", top: "40px" }}>
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "25px",
+                      }}
+                    >
                       <NewTonicSymbol
                         left={0}
                         number={1}

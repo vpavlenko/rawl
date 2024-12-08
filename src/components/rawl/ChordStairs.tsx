@@ -73,6 +73,7 @@ export const CHORDS = {
   "#4": [6],
   "5": [7],
   b7: [10],
+  "=": [0],
 } as const;
 export type Chord = keyof typeof CHORDS;
 
@@ -129,6 +130,13 @@ const ChordName = styled.div`
   justify-content: center;
   text-align: center;
   position: absolute;
+`;
+
+const EqualsSign = styled.div`
+  position: relative;
+  top: -22px;
+  font-size: 24px;
+  user-select: none;
 `;
 
 export type Mode = { title: string; chords: Chord[] };
@@ -419,45 +427,55 @@ const ChordStairs: React.FC<{
               }}
             >
               <ChordContent>
-                {pitches.map((pitch, pitchIndex) => (
-                  <ChordNote
-                    key={`${chordIndex}-${pitchIndex}`}
-                    className={`noteColor_${pitch % 12}_colors`}
-                    style={{
-                      position: "absolute",
-                      width: scaledNoteWidth,
-                      height: scaledNoteHeight * 2,
-                      top:
-                        (maxPosition - positions[pitchIndex]) *
-                          scaledNoteHeight +
-                        -Math.min(topPosition + chordNameOffset, topPosition),
-                    }}
-                  />
-                ))}
-                {!hideLabels && (
-                  <ChordName
-                    style={{
-                      top:
-                        chordIndex < tonicChordPosition
-                          ? (maxPosition - positions.at(-1)) *
-                              scaledNoteHeight -
-                            29 +
-                            -Math.min(
-                              topPosition + chordNameOffset,
-                              topPosition,
-                            )
-                          : (maxPosition - positions[0]) * scaledNoteHeight +
-                            14 +
+                {name === "=" ? (
+                  <EqualsSign>=</EqualsSign>
+                ) : (
+                  <>
+                    {pitches.map((pitch, pitchIndex) => (
+                      <ChordNote
+                        key={`${chordIndex}-${pitchIndex}`}
+                        className={`noteColor_${pitch % 12}_colors`}
+                        style={{
+                          position: "absolute",
+                          width: scaledNoteWidth,
+                          height: scaledNoteHeight * 2,
+                          top:
+                            (maxPosition - positions[pitchIndex]) *
+                              scaledNoteHeight +
                             -Math.min(
                               topPosition + chordNameOffset,
                               topPosition,
                             ),
-                      userSelect: "none",
-                      pointerEvents: "none",
-                    }}
-                  >
-                    {formatChordName(name)}
-                  </ChordName>
+                        }}
+                      />
+                    ))}
+                    {!hideLabels && (
+                      <ChordName
+                        style={{
+                          top:
+                            chordIndex < tonicChordPosition
+                              ? (maxPosition - positions.at(-1)) *
+                                  scaledNoteHeight -
+                                29 +
+                                -Math.min(
+                                  topPosition + chordNameOffset,
+                                  topPosition,
+                                )
+                              : (maxPosition - positions[0]) *
+                                  scaledNoteHeight +
+                                14 +
+                                -Math.min(
+                                  topPosition + chordNameOffset,
+                                  topPosition,
+                                ),
+                          userSelect: "none",
+                          pointerEvents: "none",
+                        }}
+                      >
+                        {formatChordName(name)}
+                      </ChordName>
+                    )}
+                  </>
                 )}
               </ChordContent>
             </ChordBoundingBox>

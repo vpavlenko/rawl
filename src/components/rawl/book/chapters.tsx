@@ -15,8 +15,8 @@ export const CHAPTERS: Array<{
     composers: ["happy_birthday_bass_and_chords"],
   },
   {
-    title: "Single four-chord progression in major",
-    titleChords: ["I", "iii", "vi", "IV"],
+    title: "Four-chord progressions in major",
+    titleChords: ["I", "V", "vi", "IV"],
     mode: {
       title: "6 common triads in a major mode",
       chords: ["ii", "IV", "vi", "I", "iii", "V"],
@@ -26,16 +26,6 @@ export const CHAPTERS: Array<{
       "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
       "doki-doki-literature-club-ost---your-reality",
       "Viva_La_Vida_Coldplay",
-    ],
-  },
-  {
-    title: "A mix of progressions in major",
-    titleChords: ["I", "vi", "IV", "V"],
-    mode: {
-      title: "6 common triads in a major mode",
-      chords: ["ii", "IV", "vi", "I", "iii", "V"],
-    },
-    composers: [
       "Ed_Sheeran_Perfect",
       "dont-stop-believing-piano",
       "Someone_Like_You_easy_piano",
@@ -45,7 +35,7 @@ export const CHAPTERS: Array<{
   },
   {
     title: "Natural minor",
-    titleChords: ["i", "bIII", "iv", "v", "bVI", "bVII"],
+    titleChords: ["bVI", "bVII", "i"],
     mode: {
       title: "natural minor",
       chords: ["iv", "bVI", "i", "bIII", "v", "bVII"],
@@ -63,47 +53,8 @@ export const CHAPTERS: Array<{
     ],
   },
   {
-    title: "Four-chord progressions in minor / double-tonic",
-    titleChords: ["vi", "IV", "I", "V"],
-    composers: [
-      "despacito-piano-cover-peter-bence",
-      "river-flows-in-you",
-      "alan-walker---alone-piano",
-      "Yann_Tiersen_Amelie",
-      "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",
-      "Mad_world_Piano",
-    ],
-  },
-  {
-    title: "Dorian IV",
-    titleChords: ["i", "IV"],
-    mode: {
-      title: "dorian minor",
-      chords: ["iv", "IV", "bVI", "i", "bIII", "v", "bVII"],
-    },
-    composers: [
-      "nothing-else-matters---metallica",
-      "dragonborn---skyrim-theme-song-piano-solo",
-      "solas---jamie-duffy",
-    ],
-  },
-  {
-    title: "Functional major",
-    titleChords: ["V7", "I"],
-    mode: {
-      title: "major",
-      chords: ["ii", "IV", "vi", "I", "iii", "V", "V7"],
-    },
-    composers: [
-      "Canon_in_D",
-      "a-thousand-years",
-      "John_Lennon_Imagine",
-      "sign-of-the-times---harry-styles",
-    ],
-  },
-  {
     title: "i ♭VI V",
-    titleChords: ["i", "bVI", "V"],
+    titleChords: ["bVI", "V", "i"],
     mode: {
       title: "",
       chords: ["i", "bVI", "V"],
@@ -112,6 +63,20 @@ export const CHAPTERS: Array<{
       "Requiem_for_a_Dream",
       "we-are-number-one-but-it-s-a-piano-transcript",
       "Believer_-_Imagine_Dragons",
+    ],
+  },
+  {
+    title: "Circle of fifths",
+    titleChords: ["i", "iv", "bVII", "bIII"],
+    mode: {
+      title: "circle of fifths",
+      chords: ["i", "iv", "bVII", "bIII", "bVI", "iio7", "bII", "V7"],
+    },
+    composers: [
+      "passacaglia---handel-halvorsen",
+      "g-minor-bach-original",
+      "vivaldi---summer---piano",
+      "mariage-d-amour---paul-de-senneville-marriage-d-amour",
     ],
   },
   {
@@ -133,17 +98,30 @@ export const CHAPTERS: Array<{
     ],
   },
   {
-    title: "Circle of fifths",
-    titleChords: ["i", "iv", "bVII", "bIII", "bVI"],
+    title: "Functional major",
+    titleChords: ["V7", "I"],
     mode: {
-      title: "circle of fifths",
-      chords: ["i", "iv", "bVII", "bIII", "bVI", "iio7", "bII", "V7"],
+      title: "major",
+      chords: ["ii", "IV", "vi", "I", "iii", "V", "V7"],
     },
     composers: [
-      "passacaglia---handel-halvorsen",
-      "g-minor-bach-original",
-      "vivaldi---summer---piano",
-      "mariage-d-amour---paul-de-senneville-marriage-d-amour",
+      "Canon_in_D",
+      "a-thousand-years",
+      "John_Lennon_Imagine",
+      "sign-of-the-times---harry-styles",
+    ],
+  },
+  {
+    title: "Dorian IV",
+    titleChords: ["i", "IV"],
+    mode: {
+      title: "dorian minor",
+      chords: ["iv", "IV", "bVI", "i", "bIII", "v", "bVII"],
+    },
+    composers: [
+      "nothing-else-matters---metallica",
+      "dragonborn---skyrim-theme-song-piano-solo",
+      "solas---jamie-duffy",
     ],
   },
   {
@@ -157,7 +135,7 @@ export const CHAPTERS: Array<{
   },
   {
     title: "Seventh chords and extensions",
-    titleChords: ["Imaj7", "ii7", "iii7", "IVmaj7", "V7", "vi7"],
+    titleChords: ["IVmaj7", "Imaj7"],
     mode: {
       title: "seventh chords and extensions in major",
       chords: ["ii7", "IVmaj7", "vi7", "Imaj7", "iii7", "V13"],
@@ -261,6 +239,18 @@ export const CHAPTERS: Array<{
       "autumn-leaves-jazz-piano",
       "it-s-been-a-long-long-time---harry-james",
       "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
+    ],
+  },
+  {
+    title: "Four-chord progressions in minor / double-tonic",
+    titleChords: ["I", "=", "bIII"],
+    composers: [
+      "despacito-piano-cover-peter-bence",
+      "river-flows-in-you",
+      "alan-walker---alone-piano",
+      "Yann_Tiersen_Amelie",
+      "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",
+      "Mad_world_Piano",
     ],
   },
   {

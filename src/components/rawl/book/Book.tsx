@@ -110,7 +110,9 @@ const ChapterTitleTooltip = styled.div<{
   padding: 0px 8px;
   white-space: nowrap;
   pointer-events: none;
-  z-index: 1000;
+  z-index: ${(props) => {
+    return props.isHovered ? 2000 : 1000;
+  }};
   opacity: ${(props) => {
     return props.isSelected || props.isHovered ? 1 : 0;
   }};

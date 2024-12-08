@@ -3,7 +3,7 @@ import { useCallback, useRef, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import { playArpeggiatedChord } from "../../../sampler/sampler";
 import { Mode } from "../book/chapters";
-import { Chord, CHORDS, formatChordName } from "./chords";
+import { Chord, formatChordName, rehydrateChords } from "./chords";
 
 const TITLE_HEIGHT = 27;
 
@@ -69,16 +69,6 @@ const EqualsSign = styled.div`
   user-select: none;
 `;
 
-const stackChordUp = (pitches: readonly number[]): number[] => {
-  const result = [...pitches];
-  for (let j = 1; j < result.length; j++) {
-    while (result[j] < result[j - 1]) {
-      result[j] += 12;
-    }
-  }
-  return result;
-};
-
 const ChordStairs: React.FC<{
   mode: Mode;
   chapterChords?: string[];
@@ -112,46 +102,6 @@ const ChordStairs: React.FC<{
       modeChordSetWithoutV.has(chord),
     );
 
-    const handleChordClick = useCallback(
-      (chord: Chord, positions: number[], pitchOfMinPosition: number) => {
-        if (!mode.title && !playTogether) return;
-
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-        }
-
-        setPlayingChord(chord);
-        setAnimationKey((prev) => prev + 1);
-
-        timeoutRef.current = setTimeout(() => {
-          setPlayingChord(null);
-        }, 2000);
-
-        if (playTogether) {
-          // Play all chords in sequence
-          rehydratedChords.forEach(({ positions: chordPositions }, index) => {
-            setTimeout(() => {
-              const transposedNotes = chordPositions.map(
-                (position) => position + pitchOfMinPosition + currentTonic,
-              );
-              playArpeggiatedChord(transposedNotes);
-            }, index * 1000); // 500ms delay between chords
-          });
-        } else {
-          // Original single chord playback
-          const transposedNotes = positions.map(
-            (position) => position + pitchOfMinPosition + currentTonic,
-          );
-          playArpeggiatedChord(transposedNotes);
-        }
-      },
-      [currentTonic, mode.title, playTogether],
-    );
-
-    if (!hasIntersection && chapterChords) {
-      return null;
-    }
-
     // Use original modeChordSet (with V) for filtering
     const filteredChords = chords.filter(
       (chord) => !chapterChords || chapterChordsSet.has(chord),
@@ -159,44 +109,7 @@ const ChordStairs: React.FC<{
 
     const numChords = filteredChords.length;
 
-    const rehydratedChords: {
-      name: Chord;
-      pitches: number[]; // Original pitches for coloring
-      positions: number[]; // Positions for rendering
-    }[] = filteredChords.map((chord) => ({
-      name: chord,
-      pitches: [...stackChordUp(CHORDS[chord])],
-      positions: [...CHORDS[chord]],
-    }));
-
-    // Calculate positions
-    for (let i = 0; i < rehydratedChords.length; ++i) {
-      const { pitches, positions } = rehydratedChords[i];
-      if (i > 0) {
-        const prevRoot = rehydratedChords[i - 1].pitches[0];
-        const currentRoot = pitches[0];
-
-        // Calculate the two possible minimal distances
-        const distanceUp =
-          (prevRoot < currentRoot ? 0 : 12) + currentRoot - prevRoot;
-        const distanceDown = 12 - distanceUp;
-
-        // Choose whether to place the root up or down
-        if (distanceUp <= distanceDown) {
-          positions[0] = rehydratedChords[i - 1].positions[0] + distanceUp;
-        } else {
-          positions[0] = rehydratedChords[i - 1].positions[0] - distanceDown;
-        }
-      } else {
-        positions[0] = 0;
-      }
-
-      // Stack the rest of the notes above the root
-      for (let j = 1; j < positions.length; ++j) {
-        positions[j] =
-          positions[j - 1] + ((pitches[j] - pitches[j - 1] + 12) % 12);
-      }
-    }
+    const rehydratedChords = rehydrateChords(filteredChords);
 
     // Find minimum position across all chords
     const minPosition = Math.min(
@@ -232,7 +145,45 @@ const ChordStairs: React.FC<{
     const scaledHorizontalGap = (hideLabels ? 0 : HORIZONTAL_GAP) * scale;
     const scaledFontSize = 16 * scale;
 
-    return (
+    const handleChordClick = useCallback(
+      (chord: Chord, positions: number[], pitchOfMinPosition: number) => {
+        if (!mode.title && !playTogether) return;
+
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+
+        setPlayingChord(chord);
+        setAnimationKey((prev) => prev + 1);
+
+        timeoutRef.current = setTimeout(() => {
+          setPlayingChord(null);
+        }, 2000);
+
+        if (playTogether) {
+          // Play all chords in sequence
+          rehydratedChords.forEach(({ positions: chordPositions }, index) => {
+            setTimeout(() => {
+              const transposedNotes = chordPositions.map(
+                (position) => position + pitchOfMinPosition + currentTonic,
+              );
+              playArpeggiatedChord(transposedNotes);
+            }, index * 1000); // 500ms delay between chords
+          });
+        } else {
+          // Original single chord playback
+          const transposedNotes = positions.map(
+            (position) => position + pitchOfMinPosition + currentTonic,
+          );
+          playArpeggiatedChord(transposedNotes);
+        }
+      },
+      [currentTonic, mode.title, playTogether, rehydratedChords],
+    );
+
+    return !hasIntersection && chapterChords ? (
+      <></>
+    ) : (
       <div
         key={title}
         style={{

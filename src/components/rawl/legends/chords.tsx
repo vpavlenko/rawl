@@ -101,3 +101,58 @@ export const formatChordName = (name: string) => {
     </>
   );
 };
+
+const stackChordUp = (pitches: readonly number[]): number[] => {
+  const result = [...pitches];
+  for (let j = 1; j < result.length; j++) {
+    while (result[j] < result[j - 1]) {
+      result[j] += 12;
+    }
+  }
+  return result;
+};
+
+export interface RehydratedChord {
+  name: Chord;
+  pitches: number[];
+  positions: Array<number>;
+}
+
+export const rehydrateChords = (chords: Chord[]): RehydratedChord[] => {
+  const rehydratedChords = chords.map((chord) => ({
+    name: chord,
+    pitches: [...stackChordUp(CHORDS[chord])],
+    positions: new Array(CHORDS[chord].length).fill(0),
+  }));
+
+  // Calculate positions
+  for (let i = 0; i < rehydratedChords.length; ++i) {
+    const { pitches, positions } = rehydratedChords[i];
+    if (i > 0) {
+      const prevRoot = rehydratedChords[i - 1].pitches[0];
+      const currentRoot = pitches[0];
+
+      // Calculate the two possible minimal distances
+      const distanceUp =
+        (prevRoot < currentRoot ? 0 : 12) + currentRoot - prevRoot;
+      const distanceDown = 12 - distanceUp;
+
+      // Choose whether to place the root up or down
+      if (distanceUp <= distanceDown) {
+        positions[0] = rehydratedChords[i - 1].positions[0] + distanceUp;
+      } else {
+        positions[0] = rehydratedChords[i - 1].positions[0] - distanceDown;
+      }
+    } else {
+      positions[0] = 0;
+    }
+
+    // Stack the rest of the notes above the root
+    for (let j = 1; j < positions.length; ++j) {
+      positions[j] =
+        positions[j - 1] + ((pitches[j] - pitches[j - 1] + 12) % 12);
+    }
+  }
+
+  return rehydratedChords;
+};

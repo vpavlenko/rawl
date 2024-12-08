@@ -1266,20 +1266,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     </div>
                   </div>
                 </AppMainContent>
-                <AppFooter
-                  currentSongDurationMs={this.state.currentSongDurationMs}
-                  ejected={this.state.ejected}
-                  paused={this.state.paused}
-                  volume={this.state.volume}
-                  handleTimeSliderChange={this.handleTimeSliderChange}
-                  handleVolumeChange={this.handleVolumeChange}
-                  togglePause={this.togglePause}
-                  latencyCorrectionMs={this.state.latencyCorrectionMs}
-                  setLatencyCorrectionMs={this.setLatencyCorrectionMs}
-                  getCurrentPositionMs={this.midiPlayer?.getPositionMs}
-                  tempo={this.state.tempo}
-                  setTempo={this.handleTempoChange}
-                />
               </div>
               <Modal
                 isOpen={this.state.showShortcutHelp}
@@ -1300,6 +1286,20 @@ class App extends React.Component<RouteComponentProps, AppState> {
             </div>
           )}
         </Dropzone>
+        <AppFooter
+          currentSongDurationMs={this.state.currentSongDurationMs}
+          ejected={this.state.ejected}
+          paused={this.state.paused}
+          volume={this.state.volume}
+          handleTimeSliderChange={this.handleTimeSliderChange}
+          handleVolumeChange={this.handleVolumeChange}
+          togglePause={this.togglePause}
+          latencyCorrectionMs={this.state.latencyCorrectionMs}
+          setLatencyCorrectionMs={this.setLatencyCorrectionMs}
+          getCurrentPositionMs={this.midiPlayer?.getPositionMs}
+          tempo={this.state.tempo}
+          setTempo={this.handleTempoChange}
+        />
       </AppContext.Provider>
     );
   }

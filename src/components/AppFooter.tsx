@@ -33,7 +33,7 @@ const StyledAppFooter = styled.div`
   background: var(--background);
   display: flex;
   align-items: center;
-  padding: 0 10px;
+  padding: 0;
   z-index: 1000;
   border-top: 1px solid var(--border);
 `;
@@ -49,18 +49,18 @@ const TempoSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 10%;
+  width: 7em;
   flex-shrink: 0;
-  margin: 0 10px;
+  margin: 0 20px;
 `;
 
 const LatencySection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 10%;
+  width: 8em;
   flex-shrink: 0;
-  margin: 0 10px;
+  margin: 0 20px;
 `;
 
 const DownloadButton = styled.a`
@@ -71,7 +71,7 @@ const DownloadButton = styled.a`
 `;
 
 const PauseButton = styled.button`
-  width: 25px;
+  width: 50px;
   height: 25px;
   flex-shrink: 0;
   display: flex;

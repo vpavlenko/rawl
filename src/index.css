@@ -118,16 +118,6 @@ button:disabled {
     color: var(--neutral3);
 }
 
-.box-button {
-    padding: 0 var(--charW2);
-    box-shadow: var(--charW1) var(--charW1) var(--shadow);
-    white-space: pre;
-}
-
-.box-button:active {
-    box-shadow: none;
-}
-
 /* Component overrides */
 
 body,
@@ -337,18 +327,6 @@ body,
 .Visualizer-spectrogram {
     margin-left: 1px;
     /* Don't cover the right border of App-main-inner */
-}
-
-.TimeSlider {
-    flex-grow: 1;
-    margin-left: var(--charW2);
-    /* margin: var(--charH) 0; */
-}
-
-.TimeSlider-labels {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 }
 
 .Song-now-playing {

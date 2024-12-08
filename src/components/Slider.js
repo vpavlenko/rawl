@@ -7,7 +7,7 @@ const SliderContainer = styled.div`
   padding: 0;
   cursor: pointer;
   position: relative;
-  width: 80%;
+  width: 100%;
   box-sizing: border-box;
   border: 0;
   display: inline-block;

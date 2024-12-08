@@ -1,6 +1,24 @@
 import autoBindReact from "auto-bind/react";
 import React from "react";
+import styled from "styled-components";
 import Slider from "./Slider";
+
+const TimeSliderContainer = styled.div`
+  flex-grow: 1;
+  margin-left: var(--charW2);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 95%;
+`;
+
+const TimeLabel = styled.div`
+  margin-right: 15px;
+`;
+
+const DurationLabel = styled.div`
+  margin-left: 20px;
+`;
 
 //  46 ms = 2048/44100 sec or 21.7 fps
 // 400 ms = 2.5 fps
@@ -77,17 +95,17 @@ export default class TimeSlider extends React.Component {
 
   render() {
     return (
-      <div className="TimeSlider">
-        <span style={{ marginRight: "15px" }}>{this.getTimeLabel()}</span>
+      <TimeSliderContainer>
+        <TimeLabel>{this.getTimeLabel()}</TimeLabel>
         <Slider
           pos={this.getSongPos()}
           onDrag={this.handlePositionDrag}
           onChange={this.handlePositionDrop}
         />
-        <span style={{ marginLeft: "20px" }}>
+        <DurationLabel>
           {this.getTime(this.props.currentSongDurationMs)}
-        </span>
-      </div>
+        </DurationLabel>
+      </TimeSliderContainer>
     );
   }
 }

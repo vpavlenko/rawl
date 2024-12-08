@@ -82,11 +82,19 @@ const NOTE_HEIGHT = 4;
 const NOTE_WIDTH = 40;
 const HORIZONTAL_GAP = 12;
 
-const ChordNote = styled.div`
+const ChordNote = styled.div<{ isPlaying?: boolean; delay?: number }>`
   user-select: none;
   border-radius: 4px;
   width: ${NOTE_WIDTH}px;
   height: ${NOTE_HEIGHT * 2}px;
+  transform-origin: center;
+  ${(props) =>
+    props.isPlaying &&
+    css`
+      animation: ${scaleOut} 0.6s ease-out;
+      animation-delay: ${props.delay}ms;
+      animation-fill-mode: forwards;
+    `}
 `;
 
 const scaleOut = keyframes`
@@ -94,7 +102,7 @@ const scaleOut = keyframes`
     transform: scale(1);
   }
   30% {
-    transform: scale(1.1);
+    transform: scale(1.2);
   }
   100% {
     transform: scale(1);
@@ -102,7 +110,6 @@ const scaleOut = keyframes`
 `;
 
 const ChordBoundingBox = styled.div<{
-  isPlaying?: boolean;
   clickable?: boolean;
 }>`
   position: absolute;
@@ -110,13 +117,6 @@ const ChordBoundingBox = styled.div<{
   background: transparent;
   z-index: 1;
   transform-origin: center;
-  ${(props) =>
-    props.clickable &&
-    props.isPlaying &&
-    css`
-      animation: ${scaleOut} 0.4s ease-out;
-      animation-fill-mode: forwards;
-    `}
 `;
 
 const ChordContent = styled.div`
@@ -439,7 +439,6 @@ const ChordStairs: React.FC<{
               onClick={() =>
                 handleChordClick(name, positions, pitchOfMinPosition)
               }
-              isPlaying={playingChord === name}
               clickable={!hideLabels}
               style={{
                 left: chordIndex * (scaledNoteWidth + scaledHorizontalGap),
@@ -457,6 +456,8 @@ const ChordStairs: React.FC<{
                       <ChordNote
                         key={`${chordIndex}-${pitchIndex}`}
                         className={`noteColor_${pitch % 12}_colors`}
+                        isPlaying={playingChord === name}
+                        delay={pitchIndex * 100}
                         style={{
                           position: "absolute",
                           width: scaledNoteWidth,

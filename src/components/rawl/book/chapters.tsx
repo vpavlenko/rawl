@@ -28,6 +28,17 @@ const c = (strings: TemplateStringsArray) => {
   return <C c={chords as Chord[]} />;
 };
 
+const a = (href: string, text: string) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ color: "orange" }}
+  >
+    {text}
+  </a>
+);
+
 export const CHAPTERS: Array<{
   title: string;
   titleChords?: Chord[];
@@ -46,6 +57,48 @@ export const CHAPTERS: Array<{
       title: "6 common triads in a major mode",
       chords: ["ii", "IV", "vi", "I", "iii", "V"],
     },
+    pretext: (
+      <>
+        <p>
+          The easiest way of organizing chords is to put them in a loop. The
+          most common length of the loop is four chords.
+        </p>
+        <p>
+          There are six common chords that can be built on a major scale:{" "}
+          {c`I ii iii IV V vi`}
+        </p>
+        <p>
+          If you put {c`I`} on the first place, you can fill in the rest three
+          distinct chords in{" "}
+          <span style={{ whiteSpace: "nowrap" }}>5 × 4 × 3 = 60</span> ways.
+        </p>
+        <p>
+          However, historically just a few of these hypothetical loops take up
+          the majority of the songs. The most popular loops are:
+          <ol>
+            <li>
+              {c`I vi IV V`} and {c`IV V I vi`} are two rotations of a{" "}
+              {a(
+                "https://en.wikipedia.org/wiki/%2750s_progression",
+                "'50s progression",
+              )}
+            </li>
+            <li>
+              {c`I V vi IV`} and {c`vi IV I V`} are two rotations of a{" "}
+              {a(
+                "https://en.wikipedia.org/wiki/I%E2%80%93V%E2%80%93vi%E2%80%93IV_progression",
+                "I–V–vi–IV progression",
+              )}
+            </li>
+            <li>{c`I iii vi IV`}</li>
+          </ol>
+        </p>
+        <p>
+          Listen to the songs below and analyze the progressions they are built
+          upon.
+        </p>
+      </>
+    ),
     composers: [
       "the-office---opening-titles-theme-song-for-piano",
       "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",

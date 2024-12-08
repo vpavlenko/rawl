@@ -176,7 +176,8 @@ const NavChordWrapper = styled.div`
 
 export const ReadableTextBlock = styled.div`
   max-width: 40em;
-  padding: 0px 0px 40px 0px;
+  color: white;
+  padding: 100px 0px 100px 100px;
 `;
 
 export const ComposerTitle: React.FC<{

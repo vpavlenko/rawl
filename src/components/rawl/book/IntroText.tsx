@@ -65,7 +65,11 @@ const IntroText = () => {
         I only take solo piano arrangements because I want to focus on harmony,
         not on the arrangement. For "We Are Number One" the most popular version
         is a band arrangement, and I represent this piece by its piano
-        arrangement.
+        arrangement. "Solo piano" doesn't guarantee that the arrangement is
+        actually playable by a mortal two-handed human – some of them
+        incorporate more lines like octave bass + chords + melody. Since we
+        study structures and harmony in general, rather that a piano-specific
+        idiom, this is acceptable.
       </p>
 
       <p>

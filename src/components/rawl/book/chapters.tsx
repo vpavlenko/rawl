@@ -11,7 +11,7 @@ const C = ({ c }: { c: Chord[] }) => (
       display: "inline-block",
       position: "relative",
       top: "5px",
-      padding: "5px",
+      padding: "5px 3px",
     }}
   >
     <ChordStairs
@@ -21,6 +21,11 @@ const C = ({ c }: { c: Chord[] }) => (
     />
   </span>
 );
+
+const c = (strings: TemplateStringsArray) => {
+  const chords = strings[0].trim().split(/\s+/);
+  return <C c={chords as Chord[]} />;
+};
 
 export const CHAPTERS: Array<{
   title: string;
@@ -80,12 +85,11 @@ export const CHAPTERS: Array<{
     },
     pretext: (
       <>
-        These songs exploit an endless loop of <C c={["i", "i", "bVI", "V"]} />.
-        So, they don't fit within the natural minor scale, since <C c={["V"]} />{" "}
-        uses a note <C c={["7"]} />. The pair <C c={["V", "i"]} /> acts as a
-        dominant-to-tonic motion. As we'll see later, <C c={["V"]} /> is
-        resolved to tonic chord (<C c={["i"]} /> or <C c={["I"]} /> ) in both
-        minor and major modes.
+        These songs exploit an endless loop of {c`i i bVI V`}. So, they don't
+        fit within the natural minor scale, since {c`V`} uses a note {c`7`}. The
+        pair {c`V i`} acts as a dominant-to-tonic motion. As we'll see later,{" "}
+        {c`V`} is resolved to tonic chord ({c`i`} or {c`I`}) in both minor and
+        major modes.
       </>
     ),
     composers: [

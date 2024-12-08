@@ -105,7 +105,10 @@ const ChapterSelector = styled.div`
   margin: 20px 0;
 `;
 
-const ChapterTitleTooltip = styled.div`
+const ChapterTitleTooltip = styled.div<{
+  isSelected?: boolean;
+  isHovered?: boolean;
+}>`
   position: absolute;
   top: 100%;
   left: 50%;
@@ -115,9 +118,17 @@ const ChapterTitleTooltip = styled.div`
   white-space: nowrap;
   pointer-events: none;
   z-index: 1000;
+  opacity: ${(props) => {
+    return props.isSelected || props.isHovered ? 1 : 0;
+  }};
+  display: block !important;
+  color: ${(props) => (props.isSelected ? "white" : "#aaa")};
 `;
 
-const SelectionArrow = styled.div<{ isHovered?: boolean }>`
+const SelectionArrow = styled.div<{
+  isHovered?: boolean;
+  isSelected?: boolean;
+}>`
   position: absolute;
   top: 0px;
   left: 50%;
@@ -126,7 +137,8 @@ const SelectionArrow = styled.div<{ isHovered?: boolean }>`
   height: 0;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-top: 8px solid ${(props) => (props.isHovered ? "#777" : "#bbb")};
+  border-top: 8px solid
+    ${(props) => (props.isHovered && !props.isSelected ? "#777" : "#bbb")};
 `;
 
 const ChapterButton = styled.button<{ isSelected: boolean }>`
@@ -155,14 +167,6 @@ const ChapterButton = styled.button<{ isSelected: boolean }>`
       display: block;
     }
   }
-`;
-
-const ChapterTitle = styled.h2`
-  font-size: 24px;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
 `;
 
 const ChapterStairsWrapper = styled.div`
@@ -270,7 +274,6 @@ const Book: React.FC = () => {
     return (
       <>
         <div style={{ marginTop: "40px" }}>
-          <ChapterTitle>{selectedChapter}</ChapterTitle>
           {currentChapter.mode && (
             <ChordStairsWrapper>
               <ChordStairs
@@ -454,13 +457,19 @@ const Book: React.FC = () => {
                 ) : (
                   chapter.title
                 )}
-                {!["Misc", "About"].includes(chapter.title) && (
-                  <ChapterTitleTooltip>{chapter.title}</ChapterTitleTooltip>
+                {!["Intro", "Misc", "About"].includes(chapter.title) && (
+                  <ChapterTitleTooltip
+                    isSelected={selectedChapter === chapter.title}
+                    isHovered={hoveredChapter === chapter.title}
+                  >
+                    {chapter.title}
+                  </ChapterTitleTooltip>
                 )}
                 {(selectedChapter === chapter.title ||
                   hoveredChapter === chapter.title) && (
                   <SelectionArrow
                     isHovered={hoveredChapter === chapter.title}
+                    isSelected={selectedChapter === chapter.title}
                   />
                 )}
               </ChapterStairsWrapper>

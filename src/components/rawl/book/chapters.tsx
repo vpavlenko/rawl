@@ -112,7 +112,7 @@ export const CHAPTERS: Array<{
     ],
   },
   {
-    title: "Dorian IV",
+    title: "Dorian IV in minor",
     titleChords: ["i", "IV"],
     mode: {
       title: "dorian minor",

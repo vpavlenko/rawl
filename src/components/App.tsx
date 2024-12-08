@@ -35,7 +35,6 @@ import { slugify } from "transliteration";
 
 import ChipCore from "../chip-core";
 import {
-  API_BASE,
   CATALOG_PREFIX,
   ERROR_FLASH_DURATION_MS,
   MAX_VOICES,
@@ -52,7 +51,6 @@ import Alert from "./Alert";
 import { AppContext } from "./AppContext";
 import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader";
-import Browse from "./Browse";
 import DropMessage from "./DropMessage";
 import Timeline from "./Timeline";
 import Visualizer from "./Visualizer";
@@ -273,8 +271,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
       saveMidiFromLink(link);
     }
 
-    const [_, urlSlug] = location.pathname.split("/f/");
-    const [__, keySlug] = location.pathname.split("/h/");
+    const [, urlSlug] = location.pathname.split("/f/");
+    const [, keySlug] = location.pathname.split("/h/");
 
     if (urlSlug) {
       this.handleSongClick(urlSlug);
@@ -822,16 +820,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.setState({ directories });
   }
 
-  async fetchDirectory(path) {
-    if (!path.startsWith("link")) {
-      return fetch(`${API_BASE}/browse?path=%2F${encodeURIComponent(path)}`)
-        .then((response) => response.json())
-        .then((items) => {
-          return this.processFetchedDirectory(path, items);
-        });
-    }
-  }
-
   onDrop = (droppedFiles) => {
     const reader = new FileReader();
     const file = droppedFiles[0];
@@ -1090,25 +1078,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       latencyCorrectionMs: this.state.latencyCorrectionMs * this.state.tempo,
       sourceUrl: this.state.currentMidi?.sourceUrl || null,
     };
-    // const { hash } = this;
-    // const localAnalysis = hash && localStorage.getItem(hash);
-    // const parsedLocalAnalysis = localAnalysis && JSON.parse(localAnalysis);
-    const browseRoute = (
-      <Route
-        path={["/browse/:browsePath*"]}
-        render={({ match }) => {
-          const browsePath = match.params?.browsePath?.replace("%25", "%");
-          return (
-            <Browse
-              browsePath={browsePath}
-              listing={this.state.directories[browsePath]}
-              fetchDirectory={this.fetchDirectory}
-              analyses={this.state.analyses}
-            />
-          );
-        }}
-      />
-    );
+
     const rawlRoute = (
       <Route
         path={[
@@ -1279,7 +1249,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                           }
                         />
                         <Route path="/daw" render={() => <DAW />} />
-                        {browseRoute}
                         {rawlRoute}
                         <Route path="/100/:slug?" component={Book} />
                         <Route path="/timeline" component={Timeline} />

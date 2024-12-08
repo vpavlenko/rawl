@@ -1153,6 +1153,14 @@ class App extends React.Component<RouteComponentProps, AppState> {
             setHoveredMeasuresSpan: (span) =>
               this.setState({ hoveredMeasuresSpan: span }),
             togglePause: this.togglePause,
+            handleLogin: this.handleLogin,
+            handleLogout: this.handleLogout,
+            handleToggleAnalysis: () => {
+              this.setState((prevState) => ({
+                analysisEnabled: !prevState.analysisEnabled,
+              }));
+            },
+            analysisEnabled: this.state.analysisEnabled,
           }}
         >
           <AppHeader />
@@ -1201,6 +1209,14 @@ class App extends React.Component<RouteComponentProps, AppState> {
           setHoveredMeasuresSpan: (span) =>
             this.setState({ hoveredMeasuresSpan: span }),
           togglePause: this.togglePause,
+          handleLogin: this.handleLogin,
+          handleLogout: this.handleLogout,
+          handleToggleAnalysis: () => {
+            this.setState((prevState) => ({
+              analysisEnabled: !prevState.analysisEnabled,
+            }));
+          },
+          analysisEnabled: this.state.analysisEnabled,
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>

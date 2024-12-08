@@ -286,54 +286,6 @@ body,
     margin-bottom: var(--charH);
 }
 
-.Visualizer {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end
-}
-
-.Visualizer-overlay {
-    position: absolute;
-    top: calc(4 * var(--charH));
-    image-rendering: pixelated;
-}
-
-.Visualizer-options {
-    padding: var(--charH) var(--charW2) 0;
-    text-align: right;
-}
-
-.Visualizer-toggle {
-    position: fixed;
-    top: 5px;
-    right: 0;
-}
-
-.Visualizer-analyzer {
-    display: block;
-    image-rendering: pixelated;
-}
-
-.Visualizer-spectrogram {
-    display: block;
-    flex-grow: 1;
-    flex-shrink: 0;
-    min-height: 800px;
-    image-rendering: pixelated;
-}
-
-.Visualizer-analyzer,
-.Visualizer-spectrogram {
-    margin-left: 1px;
-    /* Don't cover the right border of App-main-inner */
-}
-
-.Song-now-playing {
-    background-color: var(--button);
-    color: var(--neutral3);
-}
-
 td {
     padding: 0
 }

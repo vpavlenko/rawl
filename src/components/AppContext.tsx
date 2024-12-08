@@ -32,6 +32,10 @@ export interface AppContextType {
   hoveredMeasuresSpan: MeasuresSpan | null;
   setHoveredMeasuresSpan: (span: MeasuresSpan | null) => void;
   togglePause: () => void;
+  handleLogin: () => void;
+  handleLogout: () => void;
+  handleToggleAnalysis: () => void;
+  analysisEnabled: boolean;
 }
 
 export const AppContext = React.createContext<AppContextType | undefined>(

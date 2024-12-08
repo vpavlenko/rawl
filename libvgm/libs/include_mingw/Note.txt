@@ -1,3 +1,0 @@
-XAudio2 headers, modified to work with MinGW
-
-The files were taken from: https://github.com/fundies/XAudio2-MinGW-test

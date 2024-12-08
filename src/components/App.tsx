@@ -152,6 +152,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private keyboardHandlers: Map<string, KeyboardHandler> = new Map();
   private audioContext: AudioContext;
   private playbackTimer: NodeJS.Timeout;
+  private prevPathRef = React.createRef<string>();
 
   constructor(props) {
     super(props);
@@ -697,15 +698,27 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   handleSongClick = async (slug: string, isHiddenRoute: boolean = false) => {
-    await handleSongClickUtil(
-      {
-        setState: this.setState.bind(this),
-        loadMidi: this.loadMidi,
-        state: this.state,
-      },
-      slug,
-      isHiddenRoute,
-    );
+    console.log("[App] handleSongClick:", { slug, isHiddenRoute });
+
+    try {
+      await handleSongClickUtil(
+        {
+          setState: this.setState.bind(this),
+          loadMidi: this.loadMidi,
+          state: this.state,
+        },
+        slug,
+        isHiddenRoute,
+      );
+
+      // After successful load, start playback automatically
+      console.log("[App] Starting playback after load");
+      if (this.midiPlayer && this.state.paused) {
+        this.togglePause();
+      }
+    } catch (error) {
+      console.error("[App] Error in handleSongClick:", error);
+    }
   };
 
   loadMidi = (midiBlob: Blob, playbackStartedCallback?: () => void) => {
@@ -1043,6 +1056,23 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }
   };
 
+  componentDidUpdate(prevProps: RouteComponentProps) {
+    const prevPath = prevProps.location.pathname;
+    const currentPath = this.props.location.pathname;
+    const isStructuresRoute = currentPath.startsWith("/s/");
+    const wasStructuresRoute = prevPath.startsWith("/s/");
+
+    // Only eject if navigating into Structures from a non-Structures route
+    if (isStructuresRoute && !wasStructuresRoute) {
+      this.eject();
+      // Reset rawlProps to hide InlineRawl
+      this.setState({
+        rawlProps: null,
+        currentMidi: null,
+      });
+    }
+  }
+
   render() {
     const { location } = this.props;
     const rawlProps: RawlProps = {
@@ -1157,6 +1187,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
             hoveredMeasuresSpan: this.state.hoveredMeasuresSpan,
             setHoveredMeasuresSpan: (span) =>
               this.setState({ hoveredMeasuresSpan: span }),
+            togglePause: this.togglePause,
           }}
         >
           <AppHeader />
@@ -1204,6 +1235,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           hoveredMeasuresSpan: this.state.hoveredMeasuresSpan,
           setHoveredMeasuresSpan: (span) =>
             this.setState({ hoveredMeasuresSpan: span }),
+          togglePause: this.togglePause,
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>

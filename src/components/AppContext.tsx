@@ -11,7 +11,7 @@ export type CurrentMidi = {
   isHiddenRoute: boolean;
 } | null;
 
-export type AppContextType = {
+export interface AppContextType {
   handleSongClick: (slug: string, isHiddenRoute?: boolean) => Promise<void>;
   rawlProps: RawlProps | null;
   analyses: Record<string, Analysis>;
@@ -22,8 +22,8 @@ export type AppContextType = {
     handler: (e: KeyboardEvent) => void,
   ) => void;
   unregisterKeyboardHandler: (id: string) => void;
-  currentMidi: CurrentMidi;
-  setCurrentMidi: (currentMidi: CurrentMidi) => void;
+  currentMidi: CurrentMidi | null;
+  setCurrentMidi: (currentMidi: CurrentMidi | null) => void;
   user: User | null;
   seek: (seekMs: number) => void;
   currentPlaybackTime: number | null;
@@ -31,7 +31,8 @@ export type AppContextType = {
   currentMidiBuffer: ArrayBuffer | null;
   hoveredMeasuresSpan: MeasuresSpan | null;
   setHoveredMeasuresSpan: (span: MeasuresSpan | null) => void;
-};
+  togglePause: () => void;
+}
 
 export const AppContext = React.createContext<AppContextType | undefined>(
   undefined,

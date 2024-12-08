@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import { Analysis, filterSnippetsByAccess, Snippet } from "../analysis";
@@ -38,7 +38,7 @@ const ScrollableContent = styled.div`
 `;
 
 const ChapterButton = styled.button<{ active: boolean }>`
-  padding: 2px 5px;
+  padding: 0px 5px;
   text-align: left;
   background-color: ${(props) => (props.active ? "white" : "black")};
   color: ${(props) => (props.active ? "black" : "white")};
@@ -119,7 +119,7 @@ const TopicMenu = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  padding: 16px;
+  padding: 0px 16px 16px 16px;
   background-color: black;
   position: sticky;
   top: 0;
@@ -363,8 +363,10 @@ const Structures: React.FC<StructuresProps> = ({
   initialChapter,
   initialTopic,
 }) => {
-  const { handleSongClick, currentMidi, rawlProps, eject } =
+  const { handleSongClick, currentMidi, rawlProps, eject, togglePause } =
     useContext(AppContext);
+  const location = useLocation();
+  const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [chapterData, setChapterData] = useState<ChapterData[]>([]);
@@ -373,7 +375,6 @@ const Structures: React.FC<StructuresProps> = ({
     number | undefined
   >(undefined);
   const [isRawlVisible, setIsRawlVisible] = useState(false);
-  const history = useHistory();
   const [activeTopic, setActiveTopic] = useState<string | undefined>(() => {
     return initialTopic;
   });
@@ -396,10 +397,12 @@ const Structures: React.FC<StructuresProps> = ({
   // Modify the chapter selection handler
   const handleChapterSelect = useCallback(
     (index: number) => {
+      eject(); // Eject current playback when changing chapter
+      setIsRawlVisible(false); // Hide the InlineRawl
       setActiveChapter(index);
       selectFirstTopicFromChapter(index);
     },
-    [selectFirstTopicFromChapter],
+    [selectFirstTopicFromChapter, eject],
   );
 
   const processAnalyses = useCallback(() => {
@@ -480,39 +483,70 @@ const Structures: React.FC<StructuresProps> = ({
     setIsRawlVisible(!!currentMidi);
   }, [currentMidi]);
 
+  // Modify handleTopicClick to eject current playback
   const handleTopicClick = (topic: string) => {
+    eject(); // Eject current playback when changing topic
+    setIsRawlVisible(false); // Hide the InlineRawl
     setActiveTopic(topic);
   };
 
   const handleSnippetClick = useCallback(
     async (slug: string, measureStart: number, topic: string) => {
-      console.log("Starting to load snippet:", slug);
-      console.log("Current loadingSnippets before:", loadingSnippets);
+      console.log("[Structures] handleSnippetClick - Starting with:", {
+        slug,
+        measureStart,
+        topic,
+      });
+
+      // Eject current playback before loading new snippet
+      if (currentMidi && currentMidi.slug !== slug) {
+        eject();
+      }
 
       setLoadingSnippets((prev) => {
         const next = new Set([...prev, slug]);
-        console.log("Setting loadingSnippets to:", next);
+        console.log("[Structures] Setting loadingSnippets to:", next);
         return next;
       });
 
       try {
+        console.log("[Structures] Calling handleSongClick...");
         await handleSongClick(slug);
+        console.log("[Structures] handleSongClick completed");
+
         setSelectedMeasureStart(measureStart);
-        if (topic) {
-          handleTopicClick(topic);
+        console.log("[Structures] Set measure start to:", measureStart);
+
+        // Don't call handleTopicClick here since it ejects the playback
+        if (topic && topic !== activeTopic) {
+          setActiveTopic(topic);
+        }
+
+        // Force playback to start
+        if (currentMidi?.slug === slug) {
+          console.log("[Structures] Starting playback for:", slug);
+          togglePause();
         }
       } finally {
-        console.log("Finished loading snippet:", slug);
         setLoadingSnippets((prev) => {
           const next = new Set(prev);
           next.delete(slug);
-          console.log("Removing from loadingSnippets:", next);
+          console.log("[Structures] Removing from loadingSnippets:", next);
           return next;
         });
       }
     },
-    [handleSongClick],
+    [handleSongClick, activeTopic, currentMidi, togglePause, eject],
   );
+
+  // Add useEffect to handle initial navigation into Structures
+  useEffect(() => {
+    const path = location.pathname;
+    if (!path.startsWith("/s/")) {
+      eject();
+      setIsRawlVisible(false); // Hide the InlineRawl
+    }
+  }, [location, eject]);
 
   return (
     <PathContainer>

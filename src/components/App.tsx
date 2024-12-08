@@ -135,6 +135,11 @@ function mergeAnalyses(existingAnalyses, newAnalyses) {
 
 const AppMainContent = styled.div`
   margin-bottom: 25px; // Add space for fixed footer
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  height: 100%;
 `;
 
 class App extends React.Component<RouteComponentProps, AppState> {
@@ -1232,8 +1237,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 playerError={this.state.playerError}
                 showPlayerError={this.state.showPlayerError}
               />
-              {!location.pathname.startsWith("/s/") && <AppHeader />}
+
               <div className="App-main">
+                <AppHeader />
                 <AppMainContent>
                   <div className="App-main-inner">
                     <div className="App-main-content-and-settings">

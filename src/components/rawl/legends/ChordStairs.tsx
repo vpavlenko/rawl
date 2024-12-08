@@ -85,7 +85,7 @@ const ChordStairs: React.FC<{
     scale = 1,
     playbackMode = "separate",
   }) => {
-    const [playingChords, setPlayingChords] = useState<string[]>([]);
+    const [playingChords, setPlayingChords] = useState<number[]>([]);
     const timeoutRef = useRef<NodeJS.Timeout[]>([]);
     const [animationKey, setAnimationKey] = useState(0);
 
@@ -159,32 +159,33 @@ const ChordStairs: React.FC<{
           setAnimationKey((prev) => prev + 1);
 
           // Schedule all chords to play in sequence
-          rehydratedChords.forEach(
-            ({ name, positions: chordPositions }, index) => {
-              // Schedule chord playback
-              const playTimeout = setTimeout(() => {
-                const transposedNotes = chordPositions.map(
-                  (position) => position + pitchOfMinPosition + currentTonic,
-                );
-                playArpeggiatedChord(transposedNotes);
+          rehydratedChords.forEach((chordData, index) => {
+            // Schedule chord playback
+            const playTimeout = setTimeout(() => {
+              const transposedNotes = chordData.positions.map(
+                (position) => position + pitchOfMinPosition + currentTonic,
+              );
+              playArpeggiatedChord(transposedNotes);
 
-                // Add chord to playing chords for animation
-                setPlayingChords((prev) => [...prev, name]);
+              // Add chord index to playing chords for animation
+              setPlayingChords((prev) => [...prev, index]);
 
-                // Remove chord from playing after animation
-                const clearTimeout = setTimeout(() => {
-                  setPlayingChords((prev) => prev.filter((c) => c !== name));
-                }, 600); // Match animation duration
+              // Remove chord from playing after animation
+              const clearTimeout = setTimeout(() => {
+                setPlayingChords((prev) => prev.filter((idx) => idx !== index));
+              }, 600); // Match animation duration
 
-                timeoutRef.current.push(clearTimeout);
-              }, index * 1000);
+              timeoutRef.current.push(clearTimeout);
+            }, index * 1000);
 
-              timeoutRef.current.push(playTimeout);
-            },
-          );
+            timeoutRef.current.push(playTimeout);
+          });
         } else {
-          // Original single chord behavior
-          setPlayingChords([chord]);
+          // For single chord playback, use the chord's index
+          const clickedChordIndex = rehydratedChords.findIndex(
+            (c) => c.name === chord && c.positions === positions,
+          );
+          setPlayingChords([clickedChordIndex]);
 
           const transposedNotes = positions.map(
             (position) => position + pitchOfMinPosition + currentTonic,
@@ -253,7 +254,7 @@ const ChordStairs: React.FC<{
                       <ChordNote
                         key={`${chordIndex}-${pitchIndex}`}
                         className={`noteColor_${pitch % 12}_colors`}
-                        isPlaying={playingChords.includes(name)}
+                        isPlaying={playingChords.includes(chordIndex)}
                         delay={pitchIndex * 100}
                         style={{
                           position: "absolute",

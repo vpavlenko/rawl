@@ -31,7 +31,7 @@ const scaleOut = keyframes`
     transform: scale(1);
   }
   30% {
-    transform: scale(1.2);
+    transform: scale(1.5);
   }
   100% {
     transform: scale(1);
@@ -73,7 +73,6 @@ const ChordStairs: React.FC<{
   mode: Mode;
   chapterChords?: string[];
   currentTonic?: number;
-  hideLabels?: boolean;
   scale?: number;
   playbackMode?: "separate" | "together" | "no";
 }> = React.memo(
@@ -81,15 +80,16 @@ const ChordStairs: React.FC<{
     mode,
     chapterChords,
     currentTonic = 0,
-    hideLabels,
     scale = 1,
     playbackMode = "separate",
   }) => {
-    const [playingChords, setPlayingChords] = useState<number[]>([]);
+    const [playingStates, setPlayingStates] = useState<{
+      [key: number]: number;
+    }>({});
     const timeoutRef = useRef<NodeJS.Timeout[]>([]);
-    const [animationKey, setAnimationKey] = useState(0);
 
     const { title, chords } = mode;
+    const hideLabels = playbackMode !== "separate";
     const titleHeight = hideLabels ? 0 : TITLE_HEIGHT;
 
     // Check if we should show the chord stairs
@@ -154,26 +154,31 @@ const ChordStairs: React.FC<{
         timeoutRef.current = [];
 
         if (playbackMode === "together") {
-          // Reset animation state
-          setPlayingChords([]);
-          setAnimationKey((prev) => prev + 1);
+          // Reset playing states
+          setPlayingStates({});
 
           // Schedule all chords to play in sequence
           rehydratedChords.forEach((chordData, index) => {
-            // Schedule chord playback
             const playTimeout = setTimeout(() => {
               const transposedNotes = chordData.positions.map(
                 (position) => position + pitchOfMinPosition + currentTonic,
               );
               playArpeggiatedChord(transposedNotes);
 
-              // Add chord index to playing chords for animation
-              setPlayingChords((prev) => [...prev, index]);
+              // Add chord index with current timestamp
+              setPlayingStates((prev) => ({
+                ...prev,
+                [index]: Date.now(),
+              }));
 
               // Remove chord from playing after animation
               const clearTimeout = setTimeout(() => {
-                setPlayingChords((prev) => prev.filter((idx) => idx !== index));
-              }, 600); // Match animation duration
+                setPlayingStates((prev) => {
+                  const newState = { ...prev };
+                  delete newState[index];
+                  return newState;
+                });
+              }, 600);
 
               timeoutRef.current.push(clearTimeout);
             }, index * 1000);
@@ -181,11 +186,15 @@ const ChordStairs: React.FC<{
             timeoutRef.current.push(playTimeout);
           });
         } else {
-          // For single chord playback, use the chord's index
+          // For single chord playback
           const clickedChordIndex = rehydratedChords.findIndex(
             (c) => c.name === chord && c.positions === positions,
           );
-          setPlayingChords([clickedChordIndex]);
+
+          // Set new timestamp for this chord
+          setPlayingStates((prev) => ({
+            [clickedChordIndex]: Date.now(),
+          }));
 
           const transposedNotes = positions.map(
             (position) => position + pitchOfMinPosition + currentTonic,
@@ -193,13 +202,13 @@ const ChordStairs: React.FC<{
           playArpeggiatedChord(transposedNotes);
 
           const timeout = setTimeout(() => {
-            setPlayingChords([]);
-          }, 2000);
+            setPlayingStates({});
+          }, 600);
 
           timeoutRef.current = [timeout];
         }
       },
-      [currentTonic, mode.title, playbackMode],
+      [currentTonic, playbackMode, rehydratedChords],
     );
 
     return !hasIntersection && chapterChords ? (
@@ -233,11 +242,11 @@ const ChordStairs: React.FC<{
 
           return (
             <ChordBoundingBox
-              key={`bounding-box-${chordIndex}-${animationKey}`}
+              key={`bounding-box-${chordIndex}`}
               onClick={() =>
                 handleChordClick(name, positions, pitchOfMinPosition)
               }
-              clickable={!hideLabels}
+              clickable={playbackMode !== "no"}
               style={{
                 left: chordIndex * (scaledNoteWidth + scaledHorizontalGap),
                 top: Math.min(topPosition + chordNameOffset, topPosition),
@@ -252,9 +261,11 @@ const ChordStairs: React.FC<{
                   <>
                     {pitches.map((pitch, pitchIndex) => (
                       <ChordNote
-                        key={`${chordIndex}-${pitchIndex}`}
+                        key={`${chordIndex}-${pitchIndex}-${
+                          playingStates[chordIndex] || 0
+                        }`}
                         className={`noteColor_${pitch % 12}_colors`}
-                        isPlaying={playingChords.includes(chordIndex)}
+                        isPlaying={chordIndex in playingStates}
                         delay={pitchIndex * 100}
                         style={{
                           position: "absolute",

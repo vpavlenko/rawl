@@ -17,7 +17,6 @@ const C = ({ c }: { c: Chord[] }) => (
   >
     <ChordStairs
       mode={{ title: "", chords: c }}
-      hideLabels={true}
       scale={0.5}
       playbackMode="together"
     />

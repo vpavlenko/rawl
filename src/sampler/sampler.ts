@@ -159,8 +159,7 @@ export const resumeAudioContext = async () => {
   console.log("resuming audio context");
 };
 
-// MIDI note number for C2
-const C3_MIDI_NUMBER = 36;
+const C3_MIDI_NUMBER = 48;
 
 let activeEvents: number[] = [];
 let activeNotes: string[] = [];

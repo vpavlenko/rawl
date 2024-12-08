@@ -453,7 +453,6 @@ const Book: React.FC = () => {
                 ) : chapter.titleChords ? (
                   <ChordStairs
                     mode={{ title: "", chords: chapter.titleChords }}
-                    hideLabels={true}
                     scale={0.5}
                     playbackMode="no"
                   />

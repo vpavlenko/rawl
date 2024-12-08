@@ -5,7 +5,15 @@ import { RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "./AppContext";
 import TimeSlider from "./TimeSlider";
-import VolumeSlider from "./VolumeSlider";
+
+const StyledVolumeSlider = styled.div`
+  flex-shrink: 0;
+  margin-left: var(--charW2);
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+`;
 
 const StyledAppFooter = styled.div`
   margin: 0;
@@ -58,6 +66,35 @@ const StyledTempoButton = styled.button`
       inset 0 0 2px rgba(255, 255, 255, 0.5);
   }
 `;
+
+const VolumeSlider = memo(
+  ({
+    onChange,
+    handleReset,
+    value,
+  }: {
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleReset: (e: React.MouseEvent) => void;
+    value: number;
+  }) => {
+    return (
+      <StyledVolumeSlider>
+        <span style={{ marginRight: "10px" }}>Vol</span>
+        <input
+          type="range"
+          title="Volume"
+          min={0}
+          max={150}
+          step={1}
+          onChange={onChange}
+          onDoubleClick={handleReset}
+          onContextMenu={handleReset}
+          value={value}
+        />
+      </StyledVolumeSlider>
+    );
+  },
+);
 
 const AppFooter: React.FC<
   {

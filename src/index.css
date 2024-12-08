@@ -383,24 +383,10 @@ body,
     /* margin: var(--charH) 0; */
 }
 
-.TimeSlider-labels,
-.VolumeSlider-labels {
+.TimeSlider-labels {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-
-.VolumeSlider {
-    flex-shrink: 0;
-    /* margin-top: var(--charH); */
-    /* margin-bottom: var(--charH); */
-    margin-left: var(--charW2);
-}
-
-@media screen and (max-width: 600px) {
-    .VolumeSlider {
-        display: none;
-    }
 }
 
 .Song-now-playing {

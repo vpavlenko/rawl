@@ -1,5 +1,41 @@
 import autoBindReact from "auto-bind/react";
 import React, { PureComponent } from "react";
+import styled from "styled-components";
+
+const SliderContainer = styled.div`
+  height: var(--charH);
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  width: 80%;
+  box-sizing: border-box;
+  border: 0;
+  display: inline-block;
+`;
+
+const SliderRail = styled.div`
+  width: calc(100% + var(--charW1));
+  height: 3px;
+  margin-top: -2px;
+  background: none;
+  position: absolute;
+  top: 50%;
+  box-sizing: border-box;
+  border: 1px solid var(--clickable);
+`;
+
+const SliderKnob = styled.div`
+  height: var(--charH);
+  width: var(--charW1);
+  margin: 0;
+  border-radius: 0;
+  background-color: var(--clickable);
+  position: absolute;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  left: ${(props) => props.pos};
+  transition: ${(props) => (props.dragging ? "none" : "left 0.37s linear")};
+`;
 
 export default class Slider extends PureComponent {
   constructor(props) {
@@ -56,17 +92,12 @@ export default class Slider extends PureComponent {
       ) *
         100 +
       "%";
+
     return (
-      <div ref={this.node} className="Slider" onMouseDown={this.onMouseDown}>
-        <div className="Slider-rail" />
-        <div
-          className="Slider-knob"
-          style={{
-            left: pos,
-            transition: this.state.dragging ? "none" : "left 0.37s linear",
-          }}
-        />
-      </div>
+      <SliderContainer ref={this.node} onMouseDown={this.onMouseDown}>
+        <SliderRail />
+        <SliderKnob pos={pos} dragging={this.state.dragging} />
+      </SliderContainer>
     );
   }
 }

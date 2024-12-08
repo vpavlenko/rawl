@@ -294,12 +294,17 @@ const TopicContent: React.FC<{
   handleSnippetClick,
   loadingSnippets,
 }) => {
+  console.log("TopicContent render, loadingSnippets:", loadingSnippets);
+
   return (
     <ScrollableContent>
       {activeTopic &&
         snippets
           .filter(({ topic }) => topic === activeTopic)
           .map(({ topic, snippets }) => {
+            console.log("Rendering snippets for topic:", topic);
+            console.log("Current loadingSnippets:", loadingSnippets);
+
             const fullTag = `${chapterData[activeChapter].chapter}:${topic}`;
             const explanation = EXPLANATIONS[fullTag];
 
@@ -319,12 +324,21 @@ const TopicContent: React.FC<{
                 <TopicCard>
                   <SnippetList
                     snippets={snippets.map(({ snippet }) => snippet)}
-                    slugs={snippets.map(({ slug }) => slug)}
+                    slugs={snippets.map(({ slug }) => {
+                      console.log(
+                        "Snippet slug:",
+                        slug,
+                        "isLoading:",
+                        loadingSnippets.has(slug),
+                      );
+                      return slug;
+                    })}
                     onSnippetClick={(snippet) => {
                       const matchingSnippet = snippets.find(
                         (s) => s.snippet === snippet,
                       );
                       if (matchingSnippet) {
+                        console.log("Snippet clicked:", matchingSnippet.slug);
                         handleSnippetClick(
                           matchingSnippet.slug,
                           snippet.measuresSpan[0],
@@ -363,6 +377,9 @@ const Structures: React.FC<StructuresProps> = ({
   const [activeTopic, setActiveTopic] = useState<string | undefined>(() => {
     return initialTopic;
   });
+  const [loadingSnippets, setLoadingSnippets] = useState<Set<string>>(
+    new Set(),
+  );
 
   // Add this function to select first topic
   const selectFirstTopicFromChapter = useCallback(
@@ -390,36 +407,47 @@ const Structures: React.FC<StructuresProps> = ({
     const errors: string[] = [];
 
     Object.entries(analyses).forEach(([path, analysis]) => {
-      // Strip the "f/" prefix from the path
       const slug = path.startsWith("f/") ? path.slice(2) : path;
 
       if (analysis.snippets && analysis.snippets.length > 0) {
         filterSnippetsByAccess(analysis.snippets).forEach((snippet) => {
+          const snippetWithSlug = {
+            ...snippet,
+            composerSlug: slug,
+          };
+
           const [chapter, topic] = snippet.tag.split(":");
           if (!chapter || !topic) {
-            errors.push(`Invalid tag format: ${snippet.tag} in ${path}`);
+            errors.push(`Invalid tag format: ${snippet.tag}`);
             return;
           }
 
           if (!data[chapter]) {
-            data[chapter] = { chapter, topics: [] };
+            data[chapter] = {
+              chapter,
+              topics: [],
+            };
           }
 
           let topicData = data[chapter].topics.find((t) => t.topic === topic);
           if (!topicData) {
-            topicData = { topic, snippets: [] };
+            topicData = {
+              topic,
+              snippets: [],
+            };
             data[chapter].topics.push(topicData);
           }
 
-          topicData.snippets.push({ snippet, slug });
+          topicData.snippets.push({
+            snippet: snippetWithSlug,
+            slug,
+          });
         });
       }
     });
 
     setErrorMessages(errors);
-    setChapterData(
-      Object.values(data).sort((a, b) => a.chapter.localeCompare(b.chapter)),
-    );
+    setChapterData(Object.values(data));
     setLoading(false);
   }, [analyses]);
 
@@ -457,11 +485,30 @@ const Structures: React.FC<StructuresProps> = ({
   };
 
   const handleSnippetClick = useCallback(
-    (slug: string, measureStart: number, topic: string) => {
-      handleSongClick(slug);
-      setSelectedMeasureStart(measureStart);
-      if (topic) {
-        handleTopicClick(topic);
+    async (slug: string, measureStart: number, topic: string) => {
+      console.log("Starting to load snippet:", slug);
+      console.log("Current loadingSnippets before:", loadingSnippets);
+
+      setLoadingSnippets((prev) => {
+        const next = new Set([...prev, slug]);
+        console.log("Setting loadingSnippets to:", next);
+        return next;
+      });
+
+      try {
+        await handleSongClick(slug);
+        setSelectedMeasureStart(measureStart);
+        if (topic) {
+          handleTopicClick(topic);
+        }
+      } finally {
+        console.log("Finished loading snippet:", slug);
+        setLoadingSnippets((prev) => {
+          const next = new Set(prev);
+          next.delete(slug);
+          console.log("Removing from loadingSnippets:", next);
+          return next;
+        });
       }
     },
     [handleSongClick],
@@ -585,7 +632,7 @@ const Structures: React.FC<StructuresProps> = ({
                 chapterData={chapterData}
                 snippets={chapterData[activeChapter]?.topics || []}
                 handleSnippetClick={handleSnippetClick}
-                loadingSnippets={new Set()}
+                loadingSnippets={loadingSnippets}
               />
             </CategorySection>
           )}
@@ -608,7 +655,7 @@ const Structures: React.FC<StructuresProps> = ({
               chapterData={chapterData}
               snippets={chapterData[activeChapter]?.topics || []}
               handleSnippetClick={handleSnippetClick}
-              loadingSnippets={new Set()}
+              loadingSnippets={loadingSnippets}
             />
           </InlineRawlPlayer>
         </div>

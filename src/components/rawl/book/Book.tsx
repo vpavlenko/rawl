@@ -78,11 +78,6 @@ const SnippetContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-const MoreSection = styled.div`
-  color: #999;
-  margin-bottom: 10px;
-`;
-
 const ComposerList = styled.ul`
   list-style: none;
   padding-left: 0;
@@ -193,6 +188,29 @@ export const ComposerTitle: React.FC<{
 const ABOUT_SELECTION = "About";
 
 const getChapterSlug = (chapter: string) => slugify(chapter.toLowerCase());
+
+const ComposerLinkWithChat: React.FC<{
+  composer: (typeof TOP_100_COMPOSERS)[number];
+  onLinkClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  chatIconStyle?: React.CSSProperties;
+}> = ({ composer, onLinkClick, chatIconStyle }) => (
+  <ComposerLink
+    href={`/f/${composer.slug}`}
+    target="_blank"
+    rel="noreferrer"
+    onClick={onLinkClick}
+  >
+    <ComposerTitle
+      composer={composer.composer}
+      displayTitle={composer.displayTitle}
+    />
+    {NARRATIVES[composer.slug] && (
+      <span style={{ marginLeft: "8px", color: "#999", ...chatIconStyle }}>
+        💬 {NARRATIVES[composer.slug].qa.length}
+      </span>
+    )}
+  </ComposerLink>
+);
 
 const Book: React.FC = () => {
   const { slug } = useParams<{ slug?: string }>();
@@ -306,22 +324,11 @@ const Book: React.FC = () => {
                   return (
                     <ComposerItem key={composer.slug}>
                       <ComposerWrapper>
-                        <ComposerLink
-                          href={`/f/${composer.slug}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={handleComposerLinkClick}
-                        >
-                          <ComposerTitle
-                            composer={composer.composer}
-                            displayTitle={composer.displayTitle}
-                          />
-                          {NARRATIVES[composer.slug] && (
-                            <span style={{ marginLeft: "12px", color: "#999" }}>
-                              💬 {NARRATIVES[composer.slug].qa.length}
-                            </span>
-                          )}
-                        </ComposerLink>
+                        <ComposerLinkWithChat
+                          composer={composer}
+                          onLinkClick={handleComposerLinkClick}
+                          chatIconStyle={{ marginLeft: "12px" }}
+                        />
                       </ComposerWrapper>
                       <SnippetContainer>
                         <SnippetList
@@ -347,7 +354,6 @@ const Book: React.FC = () => {
                   ),
               ).length > 0 && (
               <>
-                <MoreSection>More:</MoreSection>
                 <ComposerList>
                   {currentChapter.composers
                     .map((slug) =>
@@ -364,22 +370,10 @@ const Book: React.FC = () => {
                     )
                     .map((composer) => (
                       <ComposerListItem key={composer.slug}>
-                        <ComposerLink
-                          href={`/f/${composer.slug}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={handleComposerLinkClick}
-                        >
-                          <ComposerTitle
-                            composer={composer.composer}
-                            displayTitle={composer.displayTitle}
-                          />
-                          {NARRATIVES[composer.slug] && (
-                            <span style={{ marginLeft: "8px", color: "#999" }}>
-                              💬{NARRATIVES[composer.slug].qa.length}
-                            </span>
-                          )}
-                        </ComposerLink>
+                        <ComposerLinkWithChat
+                          composer={composer}
+                          onLinkClick={handleComposerLinkClick}
+                        />
                       </ComposerListItem>
                     ))}
                 </ComposerList>

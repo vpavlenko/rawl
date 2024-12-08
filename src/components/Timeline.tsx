@@ -271,7 +271,6 @@ const Timeline: React.FC = () => {
           <CloseFilter onClick={clearFilter}>×</CloseFilter>
         </FilterIndicator>
       )}
-      <h1>Composer Timeline</h1>
       <TimelineWrapper>
         {filteredYears.map((year) => (
           <TimelineYear key={year}>

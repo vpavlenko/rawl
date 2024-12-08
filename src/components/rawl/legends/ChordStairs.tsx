@@ -75,7 +75,7 @@ const ChordStairs: React.FC<{
   currentTonic?: number;
   hideLabels?: boolean;
   scale?: number;
-  playTogether?: boolean;
+  playbackMode?: "separate" | "together" | "no";
 }> = React.memo(
   ({
     mode,
@@ -83,10 +83,10 @@ const ChordStairs: React.FC<{
     currentTonic = 0,
     hideLabels,
     scale = 1,
-    playTogether,
+    playbackMode = "separate",
   }) => {
-    const [playingChord, setPlayingChord] = useState<string | null>(null);
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const [playingChords, setPlayingChords] = useState<string[]>([]);
+    const timeoutRef = useRef<NodeJS.Timeout[]>([]);
     const [animationKey, setAnimationKey] = useState(0);
 
     const { title, chords } = mode;
@@ -147,38 +147,58 @@ const ChordStairs: React.FC<{
 
     const handleChordClick = useCallback(
       (chord: Chord, positions: number[], pitchOfMinPosition: number) => {
-        if (!mode.title && !playTogether) return;
+        if (playbackMode === "no") return;
 
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-        }
+        // Clear any existing timeouts
+        timeoutRef.current.forEach((timeout) => clearTimeout(timeout));
+        timeoutRef.current = [];
 
-        setPlayingChord(chord);
-        setAnimationKey((prev) => prev + 1);
+        if (playbackMode === "together") {
+          // Reset animation state
+          setPlayingChords([]);
+          setAnimationKey((prev) => prev + 1);
 
-        timeoutRef.current = setTimeout(() => {
-          setPlayingChord(null);
-        }, 2000);
+          // Schedule all chords to play in sequence
+          rehydratedChords.forEach(
+            ({ name, positions: chordPositions }, index) => {
+              // Schedule chord playback
+              const playTimeout = setTimeout(() => {
+                const transposedNotes = chordPositions.map(
+                  (position) => position + pitchOfMinPosition + currentTonic,
+                );
+                playArpeggiatedChord(transposedNotes);
 
-        if (playTogether) {
-          // Play all chords in sequence
-          rehydratedChords.forEach(({ positions: chordPositions }, index) => {
-            setTimeout(() => {
-              const transposedNotes = chordPositions.map(
-                (position) => position + pitchOfMinPosition + currentTonic,
-              );
-              playArpeggiatedChord(transposedNotes);
-            }, index * 1000); // 500ms delay between chords
-          });
+                // Add chord to playing chords for animation
+                setPlayingChords((prev) => [...prev, name]);
+
+                // Remove chord from playing after animation
+                const clearTimeout = setTimeout(() => {
+                  setPlayingChords((prev) => prev.filter((c) => c !== name));
+                }, 600); // Match animation duration
+
+                timeoutRef.current.push(clearTimeout);
+              }, index * 1000);
+
+              timeoutRef.current.push(playTimeout);
+            },
+          );
         } else {
-          // Original single chord playback
+          // Original single chord behavior
+          setPlayingChords([chord]);
+
           const transposedNotes = positions.map(
             (position) => position + pitchOfMinPosition + currentTonic,
           );
           playArpeggiatedChord(transposedNotes);
+
+          const timeout = setTimeout(() => {
+            setPlayingChords([]);
+          }, 2000);
+
+          timeoutRef.current = [timeout];
         }
       },
-      [currentTonic, mode.title, playTogether, rehydratedChords],
+      [currentTonic, mode.title, playbackMode],
     );
 
     return !hasIntersection && chapterChords ? (
@@ -233,7 +253,7 @@ const ChordStairs: React.FC<{
                       <ChordNote
                         key={`${chordIndex}-${pitchIndex}`}
                         className={`noteColor_${pitch % 12}_colors`}
-                        isPlaying={playingChord === name}
+                        isPlaying={playingChords.includes(name)}
                         delay={pitchIndex * 100}
                         style={{
                           position: "absolute",

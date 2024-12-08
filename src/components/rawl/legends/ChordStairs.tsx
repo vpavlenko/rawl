@@ -7,8 +7,8 @@ import { Chord, formatChordName, rehydrateChords } from "./chords";
 
 const TITLE_HEIGHT = 27;
 
-const NOTE_HEIGHT = 4;
-const NOTE_WIDTH = 40;
+const NOTE_HEIGHT = 3;
+const NOTE_WIDTH = 30;
 const HORIZONTAL_GAP = 12;
 
 const ChordNote = styled.div<{ isPlaying?: boolean; delay?: number }>`
@@ -319,6 +319,7 @@ const ChordStairs: React.FC<{
               position: "absolute",
               bottom: -titleHeight / 2,
               left: 0,
+              fontSize: scaledFontSize * 0.9,
               color: "#aaa",
               userSelect: "none",
             }}

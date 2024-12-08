@@ -104,6 +104,7 @@ export const TOP_100_COMPOSERS: {
     slug: "Believer_-_Imagine_Dragons",
     composer: "Imagine Dragons",
     displayTitle: "Believer",
+    chords: ["i", "bVI", "V"],
   },
   {
     slug: "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
@@ -302,6 +303,7 @@ export const TOP_100_COMPOSERS: {
     slug: "we-are-number-one-but-it-s-a-piano-transcript",
     composer: "Máni Svavarsson",
     displayTitle: "We Are Number One (LazyTown)",
+    chords: ["i", "bVI", "V"],
   },
   {
     slug: "dragonborn---skyrim-theme-song-piano-solo",
@@ -417,6 +419,7 @@ export const TOP_100_COMPOSERS: {
     slug: "Requiem_for_a_Dream",
     composer: "Clint Mansell",
     displayTitle: "Lux Aeterna (from Requiem for a Dream)",
+    chords: ["i", "bVI", "V"],
   },
 
   {

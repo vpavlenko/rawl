@@ -80,6 +80,20 @@ export const MODES: Mode[] = [
     chords: ["iiø7", "iv", "bVI", "i", "bIII", "v", "V", "V7", "bVII"],
   },
   { title: "major", chords: ["ii", "IV", "vi", "I", "iii", "V", "V7"] },
+  {
+    title: "chromatic",
+    chords: [
+      "V7/IV",
+      "bII",
+      "V7/V",
+      "V7/vi",
+      "viio7/V",
+      "Fr",
+      "Ger",
+      "V7/ii",
+      "V7/iii",
+    ],
+  },
 ];
 
 export type Mode = { title: string; chords: Chord[] };

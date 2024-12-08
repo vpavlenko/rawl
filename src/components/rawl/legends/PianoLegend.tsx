@@ -244,13 +244,6 @@ export const FoldablePianoLegend: React.FC<{
               chapterChords={chords}
               currentTonic={currentTonic}
             />
-            {chords && (
-              <ChordStairs
-                mode={MODES[2]}
-                chapterChords={chords}
-                currentTonic={currentTonic}
-              />
-            )}
             <div style={{ margin: "auto" }}>
               <PianoLegend currentTonic={currentTonic} />
             </div>

@@ -453,7 +453,7 @@ const Book: React.FC = () => {
                 ) : chapter.titleChords ? (
                   <ChordStairs
                     mode={{ title: "", chords: chapter.titleChords }}
-                    scale={0.5}
+                    scale={0.7}
                     playbackMode="no"
                   />
                 ) : (

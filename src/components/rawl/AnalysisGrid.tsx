@@ -160,9 +160,7 @@ export const NewTonicSymbol: React.FC<{
             : `↑${modulationDiff}`
         } `}</>
       )}
-      <span style={{ letterSpacing: "-2px" }}>
-        {PITCH_CLASS_TO_LETTER[tonicStart]}
-      </span>
+      <span>{PITCH_CLASS_TO_LETTER[tonicStart]}</span>
     </span>
 
     <div

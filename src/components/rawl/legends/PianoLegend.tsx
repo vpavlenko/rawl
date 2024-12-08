@@ -151,7 +151,6 @@ export const PianoLegend: React.FC<{
                         fontWeight: "bold",
                         fontSize: "16px",
                         textShadow: "none",
-                        letterSpacing: "-4px",
                         zIndex: 3,
                       }}
                     >
@@ -244,6 +243,13 @@ export const FoldablePianoLegend: React.FC<{
               chapterChords={chords}
               currentTonic={currentTonic}
             />
+            {chords && (
+              <ChordStairs
+                mode={MODES[2]}
+                chapterChords={chords}
+                currentTonic={currentTonic}
+              />
+            )}
             <div style={{ margin: "auto" }}>
               <PianoLegend currentTonic={currentTonic} />
             </div>

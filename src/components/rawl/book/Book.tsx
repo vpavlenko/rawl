@@ -28,16 +28,14 @@ const Title = styled.h1`
   font-size: 24px;
 `;
 
-const ChordStairsWrapper = styled.div`
-  transform: scale(0.9);
+const ChapterChordLegendWrapper = styled.div`
   position: fixed;
-  bottom: 20px;
+  bottom: 40px;
   right: 0px;
   width: fit-content;
   z-index: 1000000;
   background: black;
-  margin-left: 20px;
-  padding: 0;
+  padding: 0px 10px 30px 10px;
   border: 0.5px solid #666;
 `;
 
@@ -164,7 +162,7 @@ const ChapterButton = styled.button<{ isSelected: boolean }>`
   }
 `;
 
-const ChapterStairsWrapper = styled.div`
+const NavChordWrapper = styled.div`
   height: 80px;
   display: flex;
   align-items: center;
@@ -293,12 +291,12 @@ const Book: React.FC = () => {
       <>
         <div style={{ marginTop: "40px" }}>
           {currentChapter.mode && (
-            <ChordStairsWrapper>
+            <ChapterChordLegendWrapper>
               <ChordStairs
                 mode={currentChapter.mode}
                 {...(selectedChapter === "Intro" ? { currentTonic: 5 } : {})}
               />
-            </ChordStairsWrapper>
+            </ChapterChordLegendWrapper>
           )}
           <GroupContainer>
             <ComposersGrid>
@@ -403,7 +401,7 @@ const Book: React.FC = () => {
               onMouseEnter={() => setHoveredChapter(chapter.title)}
               onMouseLeave={() => setHoveredChapter(null)}
             >
-              <ChapterStairsWrapper>
+              <NavChordWrapper>
                 {chapter.title === MODULATIONS_CHAPTER_TITLE ? (
                   <div
                     style={{
@@ -466,7 +464,7 @@ const Book: React.FC = () => {
                     isSelected={selectedChapter === chapter.title}
                   />
                 )}
-              </ChapterStairsWrapper>
+              </NavChordWrapper>
             </ChapterButton>
           ))}
         </ChapterSelector>

@@ -85,9 +85,6 @@ const AppHeader: React.FC = () => {
         <HeaderLink to="/timeline/" style={getLinkStyle("/timeline")}>
           Timeline
         </HeaderLink>
-        <HeaderLink to="/old/" style={getLinkStyle("/old")}>
-          Old Landing
-        </HeaderLink>
       </NavLinks>
 
       <ExternalLinks>

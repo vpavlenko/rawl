@@ -341,10 +341,10 @@ const Book: React.FC = () => {
                       <SnippetContainer>
                         <SnippetList
                           snippets={snippets}
-                          noteHeight={3}
-                          isPreview={true}
                           onSnippetClick={handleSnippetClick}
                           loadingSnippets={loadingSnippets}
+                          isPreview={true}
+                          noteHeight={3}
                         />
                       </SnippetContainer>
                     </ComposerItem>

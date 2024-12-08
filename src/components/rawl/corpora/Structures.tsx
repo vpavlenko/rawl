@@ -285,12 +285,14 @@ const TopicContent: React.FC<{
     measureStart: number,
     topic: string,
   ) => void;
+  loadingSnippets: Set<string>;
 }> = ({
   activeTopic,
   activeChapter,
   chapterData,
   snippets,
   handleSnippetClick,
+  loadingSnippets,
 }) => {
   return (
     <ScrollableContent>
@@ -332,6 +334,7 @@ const TopicContent: React.FC<{
                     }}
                     isPreview={true}
                     noteHeight={3}
+                    loadingSnippets={loadingSnippets}
                   />
                 </TopicCard>
               </TopicContainer>
@@ -582,6 +585,7 @@ const Structures: React.FC<StructuresProps> = ({
                 chapterData={chapterData}
                 snippets={chapterData[activeChapter]?.topics || []}
                 handleSnippetClick={handleSnippetClick}
+                loadingSnippets={new Set()}
               />
             </CategorySection>
           )}
@@ -604,6 +608,7 @@ const Structures: React.FC<StructuresProps> = ({
               chapterData={chapterData}
               snippets={chapterData[activeChapter]?.topics || []}
               handleSnippetClick={handleSnippetClick}
+              loadingSnippets={new Set()}
             />
           </InlineRawlPlayer>
         </div>

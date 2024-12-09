@@ -1,6 +1,8 @@
+import { flag } from "country-emoji";
 import React from "react";
 import styled from "styled-components";
 import { Snippet } from "./analysis";
+import { corpora } from "./corpora/corpora";
 import SnippetItem, { PX_IN_MEASURE } from "./SnippetItem";
 
 const SnippetListContainer = styled.div<{ isPreview?: boolean }>`
@@ -18,8 +20,8 @@ const SnippetItemWrapper = styled.div<{
   flex: 0 0 auto;
   margin-bottom: ${(props) => (props.isPreview ? "0px" : "20px")};
   position: relative;
-  display: grid;
-  grid-template-rows: auto 1fr;
+  display: flex;
+  flex-direction: column;
   cursor: pointer;
   width: ${(props) => props.measureCount * PX_IN_MEASURE}px;
   align-items: start;
@@ -64,7 +66,7 @@ const SnippetItemWrapper = styled.div<{
 `;
 
 const SlugLabel = styled.div`
-  color: #666;
+  color: #fff;
   font-size: 12px;
   white-space: nowrap;
   overflow: hidden;
@@ -79,6 +81,37 @@ const SnippetContainer = styled.div`
   margin: 0;
 `;
 
+const ComposerInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  font-size: 0.8rem;
+  color: #fff;
+  border-top: 1px solid #333;
+  margin-top: 4px;
+`;
+
+const ComposerName = styled.span`
+  color: #fff;
+`;
+
+const Flags = styled.span`
+  font-size: 1rem;
+  position: relative;
+  top: 1px;
+`;
+
+const GenreInfo = styled.span`
+  color: #fff;
+  font-size: 0.7rem;
+`;
+
+const YearInfo = styled.span`
+  color: #fff;
+  font-size: 0.7rem;
+`;
+
 interface SnippetListProps {
   snippets: Snippet[];
   slugs?: string[];
@@ -87,6 +120,24 @@ interface SnippetListProps {
   noteHeight?: number;
   loadingSnippets?: Set<string>;
 }
+
+const getComposerInfo = (midiSlug: string) => {
+  // Find all corpora that contain this midi
+  const matchingCorpora = corpora.filter((corpus) =>
+    corpus.midis.some((midi) => midi === midiSlug),
+  );
+
+  // Return the first corpus that has meaningful metadata
+  return (
+    matchingCorpora.find(
+      (corpus) =>
+        corpus.composerBirthYear ||
+        corpus.genre ||
+        corpus.style ||
+        corpus.country,
+    ) || null
+  );
+};
 
 const SnippetList: React.FC<SnippetListProps> = ({
   snippets,
@@ -101,15 +152,19 @@ const SnippetList: React.FC<SnippetListProps> = ({
       {snippets.map((snippet, index) => {
         const measureCount =
           snippet.measuresSpan[1] - snippet.measuresSpan[0] + 1;
+        const composerSlug = (snippet as any).composerSlug;
+        const midiSlug = slugs?.[index];
+        const composerInfo = midiSlug ? getComposerInfo(midiSlug) : null;
+
         return (
           <SnippetItemWrapper
             key={index}
             isPreview={isPreview}
             measureCount={measureCount}
             onClick={() => onSnippetClick(snippet)}
-            isLoading={loadingSnippets.has((snippet as any).composerSlug)}
+            isLoading={loadingSnippets.has(composerSlug)}
           >
-            {slugs && slugs[index] && <SlugLabel>{slugs[index]}</SlugLabel>}
+            {midiSlug && <SlugLabel>{midiSlug}</SlugLabel>}
             <SnippetContainer>
               <SnippetItem
                 snippet={snippet}
@@ -118,6 +173,34 @@ const SnippetList: React.FC<SnippetListProps> = ({
                 noteHeight={noteHeight}
               />
             </SnippetContainer>
+            {composerInfo && (
+              <ComposerInfo>
+                <ComposerName>
+                  {composerInfo.slug
+                    .split("_")
+                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(" ")}
+                </ComposerName>
+                {composerInfo.country && (
+                  <Flags>
+                    {composerInfo.country
+                      .split(",")
+                      .map((c) => flag(c.trim()))
+                      .join(" ")}
+                  </Flags>
+                )}
+                {composerInfo.composerBirthYear && (
+                  <YearInfo>({composerInfo.composerBirthYear})</YearInfo>
+                )}
+                {(composerInfo.genre || composerInfo.style) && (
+                  <GenreInfo>
+                    {[composerInfo.genre, composerInfo.style]
+                      .filter(Boolean)
+                      .join(", ")}
+                  </GenreInfo>
+                )}
+              </ComposerInfo>
+            )}
           </SnippetItemWrapper>
         );
       })}

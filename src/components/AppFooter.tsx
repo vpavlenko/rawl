@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { AppContext } from "./AppContext";
 import TimeSlider from "./TimeSlider";
 
+export const FOOTER_HEIGHT = 25;
+
 const StyledVolumeSlider = styled.div`
   flex-shrink: 0;
   width: 10%;
@@ -29,7 +31,7 @@ const StyledAppFooter = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  height: 25px;
+  height: ${FOOTER_HEIGHT}px;
   background: var(--background);
   display: flex;
   align-items: center;
@@ -72,7 +74,7 @@ const DownloadButton = styled.a`
 
 const PauseButton = styled.button`
   width: 50px;
-  height: 25px;
+  height: ${FOOTER_HEIGHT}px;
   flex-shrink: 0;
   display: flex;
   justify-content: center;

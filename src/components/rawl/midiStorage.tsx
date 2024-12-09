@@ -13,6 +13,7 @@ import {
 import * as React from "react";
 import { useState } from "react";
 import { slugify } from "transliteration";
+import { FOOTER_HEIGHT } from "../AppFooter";
 
 const saveMidi = async (
   title: string,
@@ -128,7 +129,7 @@ export const DropSaveForm: React.FC<{
   };
 
   return (
-    <div>
+    <div style={{ position: "fixed", bottom: FOOTER_HEIGHT }}>
       <input
         ref={titleInputRef}
         type="text"

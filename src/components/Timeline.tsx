@@ -258,6 +258,9 @@ const Timeline: React.FC = () => {
 
   return (
     <TimelineContainer>
+      <span style={{ color: "#999", marginBottom: 40 }}>
+        All years are approximate composer birth years.
+      </span>
       {(selectedCountry || selectedStyle) && (
         <FilterIndicator>
           <span>
@@ -290,7 +293,6 @@ const Timeline: React.FC = () => {
           </TimelineYear>
         ))}
       </TimelineWrapper>
-
       {composersWithoutYear.length > 0 && (
         <>
           <ComposersGroup>

@@ -2,11 +2,12 @@ import clamp from "lodash/clamp";
 import React, { useCallback, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
+import { StyledRangeInput } from "../../Slider";
 import { FoldablePianoLegend } from "../legends/PianoLegend";
 
 const TinyLetter = styled.span`
   font-size: 10px;
-  color: #999;
+  color: #fff;
 `;
 
 export const debounce = (func, delay) => {
@@ -98,20 +99,19 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           zIndex: 100000,
         }}
       >
-        <span style={{ position: "relative", top: -3, left: 18 }}>
+        <span style={{ position: "relative", top: -3, left: 12 }}>
           <TinyLetter>w</TinyLetter>
         </span>
         <span
           style={{
             position: "relative",
             top: 169,
-            left: 13,
+            left: 6,
           }}
         >
           <TinyLetter>s</TinyLetter>
         </span>
-        <input
-          type="range"
+        <StyledRangeInput
           min="1"
           max="10"
           value={noteHeight}
@@ -131,11 +131,10 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           zIndex: 100000,
         }}
       >
-        <span style={{ position: "relative", top: -5, left: 0 }}>
+        <span style={{ position: "relative", top: 0, left: 0 }}>
           <TinyLetter>a</TinyLetter>
         </span>
-        <input
-          type="range"
+        <StyledRangeInput
           min="2"
           max="150"
           value={secondWidth}
@@ -144,7 +143,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
             width: 240,
           }}
         />
-        <span style={{ position: "relative", top: -5, left: 0 }}>
+        <span style={{ position: "relative", top: 0, left: 0 }}>
           <TinyLetter>d</TinyLetter>
         </span>
       </div>

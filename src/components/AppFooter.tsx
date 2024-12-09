@@ -4,6 +4,7 @@ import React, { memo, useContext } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "./AppContext";
+import { StyledRangeInput } from "./Slider";
 import TimeSlider from "./TimeSlider";
 
 export const FOOTER_HEIGHT = 25;
@@ -21,7 +22,7 @@ const StyledVolumeSlider = styled.div`
     margin-right: 10px;
   }
 
-  input[type="range"] {
+  ${StyledRangeInput} {
     width: 100%;
   }
 `;
@@ -328,8 +329,7 @@ const AppFooter: React.FC<
         </LatencySection>
 
         <StyledVolumeSlider>
-          <input
-            type="range"
+          <StyledRangeInput
             title="Volume"
             min={0}
             max={150}

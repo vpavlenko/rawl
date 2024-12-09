@@ -2,6 +2,16 @@ import autoBindReact from "auto-bind/react";
 import React, { PureComponent } from "react";
 import styled from "styled-components";
 
+// Slider color constants
+const COLORS = {
+  TRACK_FILLED: "#fff", // Light gray for filled portion of track
+  TRACK_EMPTY: "#000", // Dark gray for empty portion of track
+  TRACK_BORDER: "#888", // Medium gray for borders
+  THUMB_BACKGROUND: "#fff", // Light gray for thumb (same as filled track)
+  THUMB_BORDER: "#aaa", // Medium gray for thumb border
+  THUMB_SHADOW: "rgba(0, 0, 0, 0.4)", // Semi-transparent black for shadow
+};
+
 const SliderContainer = styled.div`
   height: var(--charH);
   padding: 0;
@@ -29,12 +39,66 @@ const SliderKnob = styled.div`
   width: var(--charW1);
   margin: 0;
   border-radius: 0;
-  background-color: var(--clickable);
+  background-color: #fff;
   position: absolute;
   -webkit-box-shadow: none;
   box-shadow: none;
   left: ${(props) => props.pos};
   transition: ${(props) => (props.dragging ? "none" : "left 0.37s linear")};
+`;
+
+export const StyledRangeInput = styled.input.attrs({ type: "range" })`
+  -webkit-appearance: none;
+  background: transparent;
+  width: 100%;
+
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    background: ${(props) => `linear-gradient(to right, 
+      ${COLORS.TRACK_FILLED} ${(props.value / props.max) * 100}%, 
+      ${COLORS.TRACK_EMPTY} ${(props.value / props.max) * 100}%)`};
+    border-radius: 2px;
+    border: 1px solid ${COLORS.TRACK_BORDER};
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: ${COLORS.THUMB_BACKGROUND};
+    border: 1px solid ${COLORS.THUMB_BORDER};
+    margin-top: -7px; /* Centers the thumb on the track */
+    cursor: pointer;
+    box-shadow: 0 1px 3px ${COLORS.THUMB_SHADOW};
+  }
+
+  &::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    background: ${(props) => `linear-gradient(to right, 
+      ${COLORS.TRACK_FILLED} ${(props.value / props.max) * 100}%, 
+      ${COLORS.TRACK_EMPTY} ${(props.value / props.max) * 100}%)`};
+    border-radius: 2px;
+    border: 1px solid ${COLORS.TRACK_BORDER};
+  }
+
+  &::-moz-range-progress {
+    background-color: ${COLORS.TRACK_FILLED};
+    height: 4px;
+    border-radius: 2px;
+  }
+
+  &::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: ${COLORS.THUMB_BACKGROUND};
+    border: 1px solid ${COLORS.THUMB_BORDER};
+    cursor: pointer;
+    box-shadow: 0 1px 3px ${COLORS.THUMB_SHADOW};
+  }
 `;
 
 export default class Slider extends PureComponent {

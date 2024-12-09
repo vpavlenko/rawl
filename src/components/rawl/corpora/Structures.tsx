@@ -564,6 +564,11 @@ const Structures: React.FC<StructuresProps> = ({
                 return contents.includes(chapter.chapter);
               });
 
+              // Sort chapters alphabetically
+              categoryChapters.sort((a, b) =>
+                a.chapter.localeCompare(b.chapter),
+              );
+
               if (categoryChapters.length === 0) return null;
 
               const shouldUseTwoColumns = categoryChapters.length > 5;
@@ -636,20 +641,23 @@ const Structures: React.FC<StructuresProps> = ({
         </ChapterRow>
         {!loading && chapterData[activeChapter] && (
           <TopicMenu>
-            {chapterData[activeChapter].topics.map(({ topic }) => (
-              <TopicBubble
-                key={topic}
-                active={activeTopic === topic}
-                onClick={() => {
-                  handleTopicClick(topic);
-                  history.push(
-                    `/s/${chapterData[activeChapter].chapter}/${topic}`,
-                  );
-                }}
-              >
-                {topic.replace(/_/g, " ")}
-              </TopicBubble>
-            ))}
+            {chapterData[activeChapter].topics
+              .slice()
+              .sort((a, b) => a.topic.localeCompare(b.topic))
+              .map(({ topic }) => (
+                <TopicBubble
+                  key={topic}
+                  active={activeTopic === topic}
+                  onClick={() => {
+                    handleTopicClick(topic);
+                    history.push(
+                      `/s/${chapterData[activeChapter].chapter}/${topic}`,
+                    );
+                  }}
+                >
+                  {topic.replace(/_/g, " ")}
+                </TopicBubble>
+              ))}
           </TopicMenu>
         )}
         <ScrollableContent>

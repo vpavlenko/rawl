@@ -192,7 +192,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     >
       {!isPreview && (
         <SnippetHeader>
-          {deleteSnippet && (
+          {!isPreview && deleteSnippet && (
             <DeleteButton onClick={() => deleteSnippet(index)}>
               Delete
             </DeleteButton>

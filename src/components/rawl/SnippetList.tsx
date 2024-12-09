@@ -119,6 +119,7 @@ interface SnippetListProps {
   isPreview?: boolean;
   noteHeight?: number;
   loadingSnippets?: Set<string>;
+  deleteSnippet?: (index: number) => void;
 }
 
 const getComposerInfo = (midiSlug: string) => {
@@ -146,6 +147,7 @@ const SnippetList: React.FC<SnippetListProps> = ({
   isPreview = false,
   noteHeight = 3,
   loadingSnippets = new Set(),
+  deleteSnippet,
 }) => {
   return (
     <SnippetListContainer isPreview={isPreview}>
@@ -171,6 +173,7 @@ const SnippetList: React.FC<SnippetListProps> = ({
                 index={index}
                 isPreview={isPreview}
                 noteHeight={noteHeight}
+                deleteSnippet={deleteSnippet}
               />
             </SnippetContainer>
             {composerInfo && (

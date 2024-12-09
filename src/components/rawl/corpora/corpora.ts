@@ -4657,6 +4657,40 @@ export const corpora: Corpora[] = [
     country: "Bulgaria",
   },
   {
+    slug: "franz_xaver_gruber",
+    midis: ["stille-nacht-heilige-nacht-the-1818-original-silent-night"],
+    composerBirthYear: 1787,
+    country: "Austria",
+    genre: "Classical",
+    style: "Romantic",
+  },
+  {
+    slug: "r_bryan_anthony",
+    midis: [
+      "away-in-a-manger-by-william-j.-kirkpatrick-arranged-by-r-bryan-anthony",
+      "silent-night-holy-night-piano-solo---arranged-by-r-bryan-anthony",
+    ],
+    composerBirthYear: 1980,
+    style: "Modern Jazz",
+  },
+  {
+    slug: "ernest_shand",
+    midis: ["andante-espressivo-op-60---shand-ernest"],
+    composerBirthYear: 1868,
+    genre: "Classical Guitar",
+  },
+  {
+    slug: "william_j_kirkpatrick",
+    midis: [
+      "away-in-a-manger-cradle-song",
+      "crown-him-with-many-crowns-kirkpatrick---wm.-j.-kirkpatrick",
+    ],
+    composerBirthYear: 1838,
+    country: "Ireland, USA",
+    genre: "Classical",
+    style: "Hymn",
+  },
+  {
     slug: "richard_clayderman",
     midis: [
       "ballade-pour-adeline---richard-clayderman",

@@ -77,6 +77,12 @@ const IntroText = () => {
       </p>
 
       <p>
+        I attribute "Runaway" to Kanye West, since the melody and the bass line
+        was probably created by him first and only later arranged by Ramin
+        Djawadi.
+      </p>
+
+      <p>
         In the case of "G Minor Bach" the original harmony was modernized so
         much that I include this track under Luo Ni.
       </p>

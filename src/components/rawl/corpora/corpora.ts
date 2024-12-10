@@ -4774,6 +4774,16 @@ export const corpora: Corpora[] = [
     country: "Ethiopia", // Born in Addis Ababa, Ethiopia
   },
   {
+    slug: "kanye_west",
+    midis: [
+      "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
+      "kanye-west-homecoming-piano-cover",
+    ],
+    composerBirthYear: 1977,
+    genre: "Hip-hop",
+    country: "USA",
+  },
+  {
     slug: "ramin_djawadi",
     midis: [
       "Game_of_Thrones_Easy_piano",
@@ -4785,7 +4795,52 @@ export const corpora: Corpora[] = [
     style: "Orchestral, Cinematic", // Orchestral and cinematic style, particularly in soundtracks
     country: "Germany", // Born in Germany
   },
-
+  {
+    slug: "vivaldi",
+    midis: [
+      "vivaldi---summer---piano",
+      "vivaldi---winter-rousseau-version-original",
+    ],
+    composerBirthYear: 1678,
+    genre: "Classical",
+    style: "Baroque",
+    country: "Italy",
+  },
+  {
+    slug: "coldplay",
+    midis: [
+      "Viva_La_Vida_Coldplay",
+      "the-scientist---coldplay-piano-arrangement",
+      "clocks---coldplay",
+      "fix-you---coldplay",
+    ],
+    composerBirthYear: 1977,
+    genre: "Pop, Pop Rock, Alternative Rock",
+    country: "UK",
+  },
+  {
+    slug: "brad_breeck",
+    midis: [
+      "Gravity_Falls_Opening",
+      "eda-s-requiem---brad-breeck-piano",
+      "we-ll-meet-again---gravity-falls",
+    ],
+    composerBirthYear: 1978,
+    genre: "Animation",
+    country: "USA",
+  },
+  {
+    slug: "luo_ni",
+    midis: [
+      "g-minor-bach-original",
+      "crazy-pharaoh",
+      "miss-fox-piano-tiles-2",
+      "childhood-piano-tiles-2",
+    ],
+    composerBirthYear: 1980,
+    genre: "Music Game",
+    country: "China",
+  },
   {
     slug: "musescore_top100",
     midis: [
@@ -4898,6 +4953,7 @@ export const corpora: Corpora[] = [
       "Im_Blue_Eiffel_65", // Eiffel 65
       "old-town-road---lil-nas-x-ft.-billy-ray-cyrus", // Lil Nas X
       "abba--the-winner-takes-it-all", // ABBA
+      "A_Thousand_Miles", // Vanessa Carlton
     ],
   },
   {
@@ -4913,13 +4969,13 @@ export const corpora: Corpora[] = [
       "tude_S._1413_in_G_Minor_La_Campanella__Liszt",
       "Wet_Hands_Minecraft",
       "fantaisie-impromptu-in-c-minor---chopin",
-      "the-scientist---coldplay-piano-arrangement",
+
       "ballade-pour-adeline---richard-clayderman",
       "Fallen_Down_Undertale",
       "Summer_Joe_Hisaishi",
       "arabesque-l.-66-no.-1-in-e-major",
       "24-preludes-op.-28---no.-4-in-e-minor-suffocation-g.-d.-robertson",
-      "clocks---coldplay",
+
       "nocturne-in-c-sharp-minor",
       "undertale-ost---hopes-and-dreams-save-the-world",
       "Zeldas_Lullaby",
@@ -4938,7 +4994,6 @@ export const corpora: Corpora[] = [
       "sonate-no.-17-tempest-3rd-movement",
       "lacrimosa---requiem",
       "Billie_Eilish_Bad_Guy",
-      "vivaldi---summer---piano",
       "Ed_Sheeran_Shape_of_you",
     ],
   },
@@ -4946,11 +5001,10 @@ export const corpora: Corpora[] = [
   {
     slug: "musescore_top200_incomplete",
     midis: [
-      "bts-bangtansonyeondan---i-need-u-suga-piano-full-solo",
-
-      "A_Thousand_Miles",
       "Godfather",
       "Pink_Panther",
+      "bts-bangtansonyeondan---i-need-u-suga-piano-full-solo",
+
       "stranger-things-theme",
 
       "20th-century-fox-fanfare-piano-arr.",
@@ -4974,7 +5028,6 @@ export const corpora: Corpora[] = [
       // "river_flows_in_you_yiruma_10th_anniversary_version_piano",
       "lost-boy---ruth-b",
       "itsumo-nando-demo-always-with-me---spirited-away",
-      "fix-you---coldplay",
     ],
   },
 
@@ -5109,7 +5162,6 @@ export const corpora: Corpora[] = [
       "cheek_to_cheek",
 
       "classical_music_mashup",
-      "clocks---coldplay",
       "closed-topic----xiu-ti",
       "cody_fry_eleanor_rigby_no_lead_vocal",
 

@@ -113,7 +113,7 @@ export const TOP_100_COMPOSERS: {
   },
   {
     slug: "Mad_world_Piano",
-    composer: "Roland Orzabal",
+    composer: "Tears for Fears (Roland Orzabal)",
     displayTitle: "Mad World",
     chords: ["ii", "IV", "I", "V"],
   },
@@ -253,11 +253,7 @@ export const TOP_100_COMPOSERS: {
     displayTitle: "Still D.R.E.",
     chords: ["i", "iv"],
   },
-  {
-    slug: "what-falling-in-love-feels-like---jake25.17-fanmade-extended-version",
-    composer: "Jake 25.17",
-    displayTitle: "What Falling in Love Feels Like",
-  },
+
   {
     slug: "mii-channel-piano",
     composer: "Kazumi Totaka",
@@ -543,5 +539,35 @@ export const TOP_100_COMPOSERS: {
     slug: "tude_S._1413_in_G_Minor_La_Campanella__Liszt",
     composer: "Franz Liszt",
     displayTitle: "Étude S. 141/3 in G minor (La Campanella)",
+  },
+  {
+    slug: "Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019",
+    composer: "Yiruma",
+    displayTitle: "Kiss the Rain - 10th Anniversary Version",
+  },
+  {
+    slug: "Wet_Hands_Minecraft",
+    composer: "C418",
+    displayTitle: "Wet Hands (from Minecraft)",
+  },
+  {
+    slug: "eda-s-requiem---brad-breeck-piano",
+    composer: "Brad Breeck",
+    displayTitle: "Eda's Requiem",
+  },
+  {
+    slug: "Maple_Leaf_Rag_Scott_Joplin",
+    composer: "Scott Joplin",
+    displayTitle: "Maple Leaf Rag",
+  },
+  {
+    slug: "kanye-west-homecoming-piano-cover",
+    composer: "Kanye West",
+    displayTitle: "Homecoming",
+  },
+  {
+    slug: "what-falling-in-love-feels-like---jake25.17-fanmade-extended-version",
+    composer: "JVKE",
+    displayTitle: "What Falling in Love Feels Like",
   },
 ];

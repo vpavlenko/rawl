@@ -47,6 +47,10 @@ const a = (href: string, text: string) => (
   </a>
 );
 
+const s = (tag: TemplateStringsArray) => {
+  return a(`/s/${tag[0].replace(":", "/")}`, tag[0]);
+};
+
 const n = (text: TemplateStringsArray) => (
   <span style={{ whiteSpace: "nowrap" }}>{text}</span>
 );
@@ -441,6 +445,60 @@ export const CHAPTERS: Array<{
       title: "major",
       chords: ["ii", "IV", "vi", "I", "iii", "V", "V7"],
     },
+    pretext: (
+      <>
+        <h2>Functional major</h2>
+        <P>
+          There's a functional harmony for major mode as well. Some chord pairs
+          and longer sequences are more probable than other.
+        </P>
+        <P>
+          Interestingly, functional major and functional minor modes have some
+          parallels. The most solid ending in them is {c`V I`} or {c`V i`},
+          respectively.
+        </P>
+        <P>
+          In both of them you can use {c`V7`} as a synonym for {c`V`}. And the
+          endings like {c`V7 I`} or {c`V7 i`} are even more solid.
+        </P>
+        <P>
+          {c`IV`} in major has a similar distribution around those two chords as{" "}
+          {c`iv`}.
+        </P>
+        <P>
+          As you listen to the tracks, pay attention to chord pairs. Do you hear
+          some of them as "very common"?
+        </P>
+        <h2>Common types of chords</h2>
+        <P>
+          Most modern Western pieces are built as two parallel streams: chords
+          and melody. Chords are "aligned" with the melody. Some notes in melody
+          – downbeats, countour turnaround points – usually use one of the notes
+          of the current chord.
+        </P>
+        <P>
+          If we look at the intervals between notes of a chord, we'll see that
+          there are three types of chords that are used in modern Western music:
+          <ul>
+            <li>
+              Major chords (4 semitones + 3 semitones):{" "}
+              {c`I II bIII IV V bVI bVII`} etc. There are 12 different major
+              chords – you can build one on any of the twelve notes.
+            </li>
+            <li>
+              Minor chords (3 semitones + 4 semitones): {c`i ii iii iv v vi`}
+              etc. Again, there are 12 different minor chords.
+            </li>
+            <li>
+              Dominanth seventh chords (4 semitones + 3 semitones + 3
+              semitones): So far we've only seen {c`V7`}. However, there are
+              pieces where other chords of the same interval are used:{" "}
+              {c`I7 V7/V V7/vi IV7 V7 V7/ii V7/iii`}
+            </li>
+          </ul>
+        </P>
+      </>
+    ),
     composers: [
       "Canon_in_D",
       "a-thousand-years",
@@ -452,6 +510,69 @@ export const CHAPTERS: Array<{
   {
     title: "Dorian IV in minor",
     titleChords: ["i", "IV"],
+    pretext: (
+      <>
+        <h2>Recap with some terminology</h2>
+        <P>
+          Most modern Western pieces are structured as follows: their entire
+          sections are either in a major mode {c`I ii iii IV V vi V7 I`} or in a
+          minor mode {c`i bIII iv v V bVI bVII V7 i`}. This is called a{" "}
+          <i>diatonic harmony</i> – meaning that we build chords as three notes
+          taken <i>in thirds</i> (1-3-5, 2-4-6 etc.) from the mode's scale (with
+          the exception of {c`V`}/{c`V7`} in a minor mode).
+        </P>
+        <P>
+          One way of organizing chord changes is a loop or several loops. Loops
+          have a length of four measures. The time is therefore divided into
+          four-measure phrases which we show with white vertical bars.
+        </P>
+        <P>
+          Another way of organizing chord changes is a functional harmony: a
+          string of chords starts with a <i>tonic chord</i> {c`I`} or {c`i`} and
+          progresses according to local transition probabilities up to a
+          <i>cadential formula</i> (i.e. a typical ending) – most often ending
+          with {c`V I`} in a major mode and with {c`bVI bVII i`} or {c`V i`} in
+          minor mode.
+        </P>
+        <h2>Chromatic chords</h2>
+        <P>
+          A chromatic chord is a chord used in a mode where there's no way to
+          build it in thirds using mode's scale degrees. There are two popular
+          extensions of a diatonic harmony with chromatic chords: borrowed
+          chords and applied chords.
+        </P>
+        <P>
+          As we'll see further, chromatic chords are most often either major
+          chords, minor chords or dominant seventh chords. Therefore, the rule
+          "to use common types of chords" is more important for composers than
+          the rule "to stick to a certain scale of 7 or 8 notes".
+        </P>
+        <h2>Dorian IV in minor</h2>
+        <P>
+          Some pieces use a {c`IV`} chord inside an otherwise minor mode piece:{" "}
+          {c`i IV i`}. Therefore the total chord palette in that piece becomes{" "}
+          {c`i bIII iv IV v V bVI bVII V7 i`}
+        </P>
+        <P>Most pieces use this chord only at a single particular place.</P>
+        <P>
+          Some people say that {c`IV`} in {c`i IV i`} is <i>borrowed</i> from
+          major into minor. I'm not sure this is a helpful optics.
+        </P>
+        <P>
+          Some people call this chord a <i>dorian</i>. Here's what they mean:
+          there's a concept of a dorian scale {c`1 2 b3 4 5 6 b7 1`}. If a piece
+          is using this scale as a primary one, then {c`IV`} is a diatonic to
+          it: it's in the scale. This scale yields these chords:{" "}
+          {c`i bIII IV v bVI bVII i`}
+        </P>
+        <P>
+          There are no pieces throughout top 100 corpus that are built entirely
+          using a dorian mode. There are degrees to which a {c`6`} note is used
+          within a minor mode, most often as a {c`IV`} chord. See examples:{" "}
+          {s`dorian`}
+        </P>
+      </>
+    ),
     mode: {
       title: "dorian minor",
       chords: ["iv", "IV", "bVI", "i", "bIII", "v", "bVII"],

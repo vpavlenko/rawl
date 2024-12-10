@@ -504,3 +504,8 @@ body,
 .Book h2 {
     margin-top: 60px;
 }
+
+.Book p {
+    margin-bottom: 30px;
+    line-height: 1.6;
+}

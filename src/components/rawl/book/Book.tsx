@@ -175,9 +175,12 @@ const NavChordWrapper = styled.div`
 `;
 
 export const ReadableTextBlock = styled.div`
+  border: 1px solid #999;
   max-width: 40em;
   color: white;
-  padding: 100px 0px 100px 100px;
+  padding: 60px 60px 40px 60px;
+  border-radius: 10px;
+  margin: 100px 0px 100px 0px;
 `;
 
 export const ComposerTitle: React.FC<{

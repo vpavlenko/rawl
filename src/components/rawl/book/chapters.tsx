@@ -12,7 +12,7 @@ const C = ({ c, title }: { c: Chord[]; title: string }) => (
       display: "inline-block",
       position: "relative",
       top: "5px",
-      padding: "5px 3px",
+      padding: "3px 3px",
     }}
     title={title.replace(/b/g, "♭").replace(/#/g, "♯")}
   >
@@ -129,6 +129,12 @@ export const CHAPTERS: Array<{
         <p>
           Listen to the songs below and analyze the loops they are built upon.
         </p>
+        <h2>Historical context</h2>
+        <p>
+          Making tracks entirely of four-chord loops is a recent innovation – it
+          gained popularity in the 1950s. Neither Mozart nor Chopin didn't do
+          that.
+        </p>
       </>
     ),
     composers: [
@@ -240,6 +246,19 @@ export const CHAPTERS: Array<{
             </li>
           </ul>
         </p>
+        <h2>Historical context</h2>
+        <p>
+          Throughout the 19th century, there was no such thing as a natural
+          minor mode with solely {c`v`} chord and without any {c`7`} note in
+          minor. No composers wrote that way.
+        </p>
+        <p>
+          A modern natural minor is a recent invention – it gained popularity in
+          1970s. So, all examples below are pretty modern.
+        </p>
+        <p>
+          We'll look at the older version of minor in the next few chapters.
+        </p>
       </>
     ),
     composers: [
@@ -256,18 +275,41 @@ export const CHAPTERS: Array<{
   },
   {
     title: "i ♭VI V",
-    titleChords: ["bVI", "V", "i"],
+    titleChords: ["i", "i", "bVI", "V"],
     mode: {
       title: "",
       chords: ["i", "bVI", "V"],
     },
     pretext: (
       <>
-        These songs exploit an endless loop of {c`i i bVI V`}. So, they don't
-        fit within the natural minor scale, since {c`V`} uses a note {c`7`}. The
-        pair {c`V i`} acts as a dominant-to-tonic motion. As we'll see later,{" "}
-        {c`V`} is resolved to tonic chord ({c`i`} or {c`I`}) in both minor and
-        major modes.
+        <p>
+          These songs exploit an endless loop of {c`i i bVI V`}. So, they don't
+          fit within the natural minor scale {c`1 2 b3 4 5 b6 b7 1`}, since{" "}
+          {c`V`} uses a note {c`7`}
+        </p>
+        <p>
+          You might say that these songs are built on an extended minor scale:{" "}
+          {c`1 2 b3 4 5 b6 b7 7 1`}
+        </p>
+        <p>
+          Or you might say that the chord {c`V`} is drawn from a harmonic minor
+          scale, unlike all other chords: {c`1 2 b3 4 5 b6 7 1`}
+        </p>
+        <p>
+          Also,{" "}
+          {a(
+            "/f/road-trippin---red-hot-chili-peppers",
+            "Red Hot Chili Peppers. Road trippin'",
+          )}{" "}
+          has the same vibe.
+        </p>
+        <h2>Historical context</h2>
+        <p>
+          Until a natural minor mode gained popularity, a minor mode mostly used{" "}
+          {c`V`}. However, the examples below are modern, because they are made
+          of an endless four-measure loop – which is also a modern thing. The
+          truly old examples will appear in the next chapter.
+        </p>
       </>
     ),
     composers: [
@@ -279,6 +321,26 @@ export const CHAPTERS: Array<{
   {
     title: "Circle of fifths",
     titleChords: ["i", "iv", "bVII", "bIII"],
+    pretext: (
+      <>
+        <p>
+          If four-chord loops didn't quite appear throughout 17..19th centuries,
+          eight-chord loops did. The most important loop since Baroque era was
+          The Circle of Fifths progression.
+        </p>
+        <p>The model example: {c`i iv bVII bIII bVI iio V i`}</p>
+        <p>
+          The idea is to take the next chord's root down a fifth from a previous
+          chord's root.
+        </p>
+        <p>Here are the roots of these chords: {c`1 4 b7 b3 b6 2 5 1`}</p>
+        <p>
+          There are options. A rare {c`iio`} chord may be replaced with {c`iv`},
+          which sounds "similar": these chords share two notes. This way we'll
+          get {c`i iv bVII bIII bVI iv V i`}
+        </p>
+      </>
+    ),
     mode: {
       title: "circle of fifths",
       chords: ["i", "iv", "bVII", "bIII", "bVI", "iio7", "bII", "V7"],
@@ -286,8 +348,8 @@ export const CHAPTERS: Array<{
     composers: [
       "passacaglia---handel-halvorsen",
       "g-minor-bach-original",
-      "vivaldi---summer---piano",
       "mariage-d-amour---paul-de-senneville-marriage-d-amour",
+      "vivaldi---summer---piano",
     ],
   },
   {

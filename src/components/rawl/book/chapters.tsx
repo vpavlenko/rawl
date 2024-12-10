@@ -6,7 +6,7 @@ import { TOP_100_COMPOSERS } from "../top100Composers";
 export const MODULATIONS_CHAPTER_TITLE =
   "Modulations in classical music: endless V7 to I and V7 to i";
 
-const C = ({ c }: { c: Chord[] }) => (
+const C = ({ c, title }: { c: Chord[]; title: string }) => (
   <span
     style={{
       display: "inline-block",
@@ -14,18 +14,20 @@ const C = ({ c }: { c: Chord[] }) => (
       top: "5px",
       padding: "5px 3px",
     }}
+    title={title.replace(/b/g, "♭").replace(/#/g, "♯")}
   >
     <ChordStairs
       mode={{ title: "", chords: c }}
-      scale={0.8}
+      scale={0.85}
       playbackMode="together"
     />
   </span>
 );
 
 const c = (strings: TemplateStringsArray) => {
-  const chords = strings[0].trim().split(/\s+/);
-  return <C c={chords as Chord[]} />;
+  const chordString = strings[0].trim();
+  const chords = chordString.split(/\s+/);
+  return <C c={chords as Chord[]} title={chordString} />;
 };
 
 const a = (href: string, text: string) => (
@@ -39,6 +41,10 @@ const a = (href: string, text: string) => (
   </a>
 );
 
+const n = (text: TemplateStringsArray) => (
+  <span style={{ whiteSpace: "nowrap" }}>{text}</span>
+);
+
 export const CHAPTERS: Array<{
   title: string;
   titleChords?: Chord[];
@@ -49,6 +55,10 @@ export const CHAPTERS: Array<{
   {
     title: "Intro",
     composers: ["happy_birthday_bass_and_chords"],
+    mode: {
+      title: "",
+      chords: ["I", "IV", "V"],
+    },
     pretext: (
       <>
         <p>
@@ -63,6 +73,13 @@ export const CHAPTERS: Array<{
           Each color is present several times on a piano keyboard – in different
           octaves: {c`1 3 5 1 3 5 1 3 5 1 3 5 1`}
         </p>
+        <p>
+          If you play three colors in a certain pattern, it's called a chord.
+        </p>
+        <p>
+          This "Happy Birthday" arrangement uses three chords in the left hand:{" "}
+          {c`I`}, {c`IV`} and {c`V`}{" "}
+        </p>
       </>
     ),
   },
@@ -75,6 +92,7 @@ export const CHAPTERS: Array<{
     },
     pretext: (
       <>
+        <p>In Western music, chords usually change at regular times.</p>
         <p>
           The easiest way of organizing chords is to put them in a loop. The
           most common length of the loop is four chords.
@@ -85,8 +103,7 @@ export const CHAPTERS: Array<{
         </p>
         <p>
           If you put {c`I`} on the first place, you can fill in the rest three
-          distinct chords in{" "}
-          <span style={{ whiteSpace: "nowrap" }}>5 × 4 × 3 = 60</span> ways.
+          distinct chords in {n`5 × 4 × 3 = 60`} ways.
         </p>
         <p>
           However, historically just a few of these hypothetical loops take up
@@ -110,8 +127,7 @@ export const CHAPTERS: Array<{
           </ol>
         </p>
         <p>
-          Listen to the songs below and analyze the progressions they are built
-          upon.
+          Listen to the songs below and analyze the loops they are built upon.
         </p>
       </>
     ),
@@ -134,6 +150,98 @@ export const CHAPTERS: Array<{
       title: "natural minor",
       chords: ["iv", "bVI", "i", "bIII", "v", "bVII"],
     },
+    pretext: (
+      <>
+        <h2>6 chords in natural minor</h2>
+        <p>
+          Tracks in a natural minor mode also use seven notes. There are six
+          common chords that can be built on a natural minor scale:{" "}
+          {c`i bIII iv v bVI bVII`}
+        </p>
+        <p>
+          Some of these tracks have four-chord loops, while others have longer
+          strings of chords. As you analyze them, try to find the most common
+          pair of chords in natural minor that go together. Is there a frequent
+          triplet of chords? A frequent four-chord loop/phrase?
+        </p>
+        <h2>Major and minor chords</h2>
+        <p>
+          There are two types of triads commonly used in Western music: major
+          chords and minor chords.
+        </p>
+        <p>
+          Here are pairs of minor vs major chords - not in any particular mode,
+          just "in the air":
+          <ul>
+            <li>
+              {c`i`} {c`I`}
+            </li>
+            <li>
+              {c`ii`} {c`II`}
+            </li>
+            <li>
+              {c`biii`} {c`bIII`}
+            </li>
+            <li>
+              {c`iii`} {c`III`}
+            </li>
+            <li>
+              {c`iv`} {c`IV`}
+            </li>
+            <li>
+              {c`v`} {c`V`}
+            </li>
+            <li>
+              {c`bvi`} {c`bVI`}
+            </li>
+            <li>
+              {c`vi`} {c`VI`}
+            </li>
+            <li>
+              {c`bvii`} {c`bVII`}
+            </li>
+          </ul>
+        </p>
+        <p>
+          Minor chords have a smaller interval of three semitones at the bottom
+          and a bigger interval of four semitones at the top.
+        </p>
+        <p>
+          Major chords has a smaller interval of three semitones at the top and
+          a bigger interval of four semitones at the bottom.
+        </p>
+        <p>
+          This has nothing to do with major/minor modes. A mode is are a
+          separate thing – coincidentally also named minor or major, though.
+        </p>
+        <h2>Major and minor chords in modes</h2>
+        <p>
+          Recall: six common chords in a natural minor mode are{" "}
+          {c`i bIII iv v bVI
+          bVII`}
+          <ul>
+            <li>
+              Three minor chords in a minor mode are {c`i`}, {c`iv`} and {c`v`}
+            </li>
+            <li>
+              Three major chords in a minor mode are {c`bIII`}, {c`bVI`} and{" "}
+              {c`bVII`}
+            </li>
+          </ul>
+        </p>
+        <p>
+          Recall: six common chords in a major mode are {c`I ii iii IV V vi`}
+          <ul>
+            <li>
+              Three minor chords: {c`ii`}, {c`iii`} and {c`vi`}
+            </li>
+            <li>
+              Three major chords: {c`I`}, {c`IV`} and {c`V`}
+            </li>
+          </ul>
+        </p>
+      </>
+    ),
     composers: [
       "still-dre---variation-composition",
       "Game_of_Thrones_Easy_piano",

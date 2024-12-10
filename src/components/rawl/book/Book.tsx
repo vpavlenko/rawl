@@ -401,7 +401,7 @@ const Book: React.FC = () => {
 
   return (
     <BookContainer>
-      <div style={{ position: "relative" }}>
+      <div className="Book" style={{ position: "relative" }}>
         <Title>Visual Harmony of Top 100 Composers on MuseScore.com</Title>
         <ChapterSelector>
           {CHAPTERS.map((chapter) => (

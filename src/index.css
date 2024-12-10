@@ -501,3 +501,6 @@ body,
     scrollbar-color: var(--button) transparent;
 }
 
+.Book h2 {
+    margin-top: 60px;
+}

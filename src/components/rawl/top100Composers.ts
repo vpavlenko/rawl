@@ -524,4 +524,24 @@ export const TOP_100_COMPOSERS: {
     composer: "ABBA",
     displayTitle: "The Winner Takes It All",
   },
+  {
+    slug: "Sonate_No._14_Moonlight_1st_Movement",
+    composer: "Ludwig van Beethoven",
+    displayTitle: "Piano Sonata No. 14 'Moonlight', 1st Movement",
+  },
+  {
+    slug: "One_Summers_Day_Spirited_Away",
+    composer: "Joe Hisaishi",
+    displayTitle: "One Summer's Day (from Spirited Away)",
+  },
+  {
+    slug: "Waltz_in_A_MinorChopin",
+    composer: "Frédéric Chopin",
+    displayTitle: "Waltz No. 19 in A minor",
+  },
+  {
+    slug: "tude_S._1413_in_G_Minor_La_Campanella__Liszt",
+    composer: "Franz Liszt",
+    displayTitle: "Étude S. 141/3 in G minor (La Campanella)",
+  },
 ];

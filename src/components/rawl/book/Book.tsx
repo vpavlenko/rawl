@@ -460,7 +460,9 @@ const Book: React.FC = () => {
                 ) : (
                   chapter.title
                 )}
-                {!["Intro", "Misc", "About"].includes(chapter.title) && (
+                {!["Intro", "Misc", "Style", "About"].includes(
+                  chapter.title,
+                ) && (
                   <ChapterTitleTooltip
                     isSelected={selectedChapter === chapter.title}
                     isHovered={hoveredChapter === chapter.title}

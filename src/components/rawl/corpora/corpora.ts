@@ -4675,9 +4675,13 @@ export const corpora: Corpora[] = [
   },
   {
     slug: "ernest_shand",
-    midis: ["andante-espressivo-op-60---shand-ernest"],
+    midis: [
+      "andante-espressivo-op-60---shand-ernest",
+      "songes-d-ete-op-95---shand-ernest",
+    ],
     composerBirthYear: 1868,
     genre: "Classical Guitar",
+    country: "UK",
   },
   {
     slug: "william_j_kirkpatrick",

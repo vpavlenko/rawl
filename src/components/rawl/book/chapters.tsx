@@ -373,6 +373,26 @@ export const CHAPTERS: Array<{
     ],
   },
   {
+    title: "Style",
+    pretext: (
+      <>
+        Here we present two most popular pieces by each composers. Can you see
+        that pieces of the same composer look more similar to each other than to
+        other composers?
+      </>
+    ),
+    composers: [
+      "Fr_Elise",
+      "Sonate_No._14_Moonlight_1st_Movement",
+      "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
+      "One_Summers_Day_Spirited_Away",
+      "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
+      "Waltz_in_A_MinorChopin",
+      "Liebestraum_No._3_in_A_Major",
+      "tude_S._1413_in_G_Minor_La_Campanella__Liszt",
+    ],
+  },
+  {
     title: "About",
     composers: [],
   },

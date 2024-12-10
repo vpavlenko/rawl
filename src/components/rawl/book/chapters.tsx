@@ -411,15 +411,13 @@ export const CHAPTERS: Array<{
       "arabesque-l.-66-no.-1-in-e-major",
       "Super_Mario_Bros_Main_Theme",
       "Zeldas_Lullaby",
-
+      "Gymnopdie_No._1__Satie",
       "satie-e.---gnossienne-no.-1",
-
-      "bwv0565-toccata-and-fugue-in-dm-c",
-
+      "wa-mozart-marche-turque-turkish-march-fingered",
       "lacrimosa---requiem",
-
+      "Lovely_Billie_Eilish",
       "Billie_Eilish_Bad_Guy",
-
+      "Ed_Sheeran_Perfect",
       "Ed_Sheeran_Shape_of_you",
       "Golden_Hour__JVKE_Updated_Ver.",
       "what-falling-in-love-feels-like---jake25.17-fanmade-extended-version",
@@ -427,6 +425,10 @@ export const CHAPTERS: Array<{
       "secunda-the-elder-scrolls-v-skyrim",
       "Dawn_Pride_and_Prejudice",
       "liz-on-top-of-the-world",
+      "Canon_in_D",
+      "pachelbel-chaconne-in-f-minor",
+      "mii-channel-piano",
+      "wii-sports-theme-piano",
     ],
   },
   {

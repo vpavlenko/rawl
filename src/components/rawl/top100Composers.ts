@@ -570,4 +570,64 @@ export const TOP_100_COMPOSERS: {
     composer: "JVKE",
     displayTitle: "What Falling in Love Feels Like",
   },
+  {
+    slug: "pachelbel-chaconne-in-f-minor",
+    composer: "Johann Pachelbel",
+    displayTitle: "Chaconne in F minor",
+  },
+  {
+    slug: "wii-sports-theme-piano",
+    composer: "Kazumi Totaka",
+    displayTitle: "Wii Sports Theme (From 'Nintendo Wii')",
+  },
+  {
+    slug: "Billie_Eilish_Bad_Guy",
+    composer: "Billie Eilish",
+    displayTitle: "Bad Guy",
+  },
+  {
+    slug: "secunda-the-elder-scrolls-v-skyrim",
+    composer: "Jeremy Soule",
+    displayTitle: "Secunda (from The Elder Scrolls V: Skyrim)",
+  },
+  {
+    slug: "liz-on-top-of-the-world",
+    composer: "Dario Marianelli",
+    displayTitle: "Liz on Top of the World",
+  },
+  {
+    slug: "Zeldas_Lullaby",
+    composer: "Koji Kondo",
+    displayTitle: "Zelda's Lullaby",
+  },
+  {
+    slug: "lacrimosa---requiem",
+    composer: "Mozart",
+    displayTitle: "Lacrimosa",
+  },
+  {
+    slug: "satie-e.---gnossienne-no.-1",
+    composer: "Erik Satie",
+    displayTitle: "Gnossienne No. 1",
+  },
+  {
+    slug: "arabesque-l.-66-no.-1-in-e-major",
+    composer: "Claude Debussy",
+    displayTitle: "Arabesque L. 66 No. 1 in E major",
+  },
+  {
+    slug: "Fallen_Down_Undertale",
+    composer: "Toby Fox",
+    displayTitle: "Fallen Down (from Undertale)",
+  },
+  {
+    slug: "the-scientist---coldplay-piano-arrangement",
+    composer: "Coldplay",
+    displayTitle: "The Scientist",
+  },
+  {
+    slug: "ballade-pour-adeline---richard-clayderman",
+    composer: "Richard Clayderman",
+    displayTitle: "Ballade pour Adeline",
+  },
 ];

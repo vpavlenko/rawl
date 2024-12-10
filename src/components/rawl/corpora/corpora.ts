@@ -3367,6 +3367,8 @@ export const corpora: Corpora[] = [
       "piano_sonata_no_16_in_c_major_k_545_wolfgang_amadeus_mozart_piano_solo",
 
       "wa-mozart-marche-turque-turkish-march-fingered",
+
+      "lacrimosa---requiem",
     ],
     composerBirthYear: 1756, // Born in 1756
     genre: "Classical", // Classical composer
@@ -3412,6 +3414,7 @@ export const corpora: Corpora[] = [
 
       "etude-opus-10-no.-1-in-c-major",
       "etude-opus-10-no.-2-in-a-minor",
+      "etude-opus-25-no.-11-winter-wind-in-a-minor",
 
       "mazurka-op.68-no.4---chopin---posth.",
       "mazurkas-op.-63---no.-2-in-f-minor-r.-lubetsky",
@@ -3429,6 +3432,7 @@ export const corpora: Corpora[] = [
       "prelude-opus-28-no.-2-in-a-minor",
 
       "chopin-prelude-e-minor-op-28-no-4-w-chord-symbols",
+      "24-preludes-op.-28---no.-4-in-e-minor-suffocation-g.-d.-robertson",
 
       "prelude-opus-28-no.-6-in-b-minor",
       "prelude-opus-28-no.-7-in-a-major---chopin",
@@ -3662,6 +3666,7 @@ export const corpora: Corpora[] = [
     midis: [
       "Canon_in_D",
       "johann-pachelbel-1653~1706---fugue-in-c-major-p.144",
+      "pachelbel-chaconne-in-f-minor",
     ],
     composerBirthYear: 1653, // Johann Pachelbel's birth year
     genre: "Baroque", // Pachelbel was a Baroque composer
@@ -4830,6 +4835,16 @@ export const corpora: Corpora[] = [
     country: "USA",
   },
   {
+    slug: "bruno_mars",
+    midis: [
+      "when-i-was-your-man---bruno-mars-600e3a",
+      "bruno-mars-leave-the-door-open",
+    ],
+    composerBirthYear: 1985,
+    genre: "Pop",
+    country: "USA",
+  },
+  {
     slug: "luo_ni",
     midis: [
       "g-minor-bach-original",
@@ -4840,6 +4855,13 @@ export const corpora: Corpora[] = [
     composerBirthYear: 1980,
     genre: "Music Game",
     country: "China",
+  },
+  {
+    slug: "kazumi_totaka",
+    midis: ["mii-channel-piano", "wii-sports-theme-piano"],
+    composerBirthYear: 1967,
+    genre: "Video Game Music",
+    country: "Japan",
   },
   {
     slug: "musescore_top100",
@@ -4957,34 +4979,30 @@ export const corpora: Corpora[] = [
     ],
   },
   {
+    slug: "liszt",
+    midis: [
+      "tude_S._1413_in_G_Minor_La_Campanella__Liszt",
+      "liszt---hungarian-rhapsody-no.-2",
+      "Liebestraum_No._3_in_A_Major",
+    ],
+    composerBirthYear: 1811,
+    genre: "Classical",
+    style: "Romantic",
+    country: "Austria, Hungary",
+  },
+  {
     slug: "musescore_top100_more_works_same_composer",
     midis: [
       "ren-sheng-nomerigorando---jiu-shi-rang-jazz-arranged",
       "the-office-opening-theme",
-      "Waltz_in_A_MinorChopin",
-      "Sonate_No._14_Moonlight_1st_Movement",
-      "One_Summers_Day_Spirited_Away",
-      "Sonate_No._14_Moonlight_3rd_Movement",
-      "Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019",
-      "tude_S._1413_in_G_Minor_La_Campanella__Liszt",
-      "Wet_Hands_Minecraft",
-      "fantaisie-impromptu-in-c-minor---chopin",
 
-      "ballade-pour-adeline---richard-clayderman",
       "Fallen_Down_Undertale",
-      "Summer_Joe_Hisaishi",
-      "arabesque-l.-66-no.-1-in-e-major",
-      "24-preludes-op.-28---no.-4-in-e-minor-suffocation-g.-d.-robertson",
 
-      "nocturne-in-c-sharp-minor",
       "undertale-ost---hopes-and-dreams-save-the-world",
       "Zeldas_Lullaby",
-      "Maple_Leaf_Rag_Scott_Joplin",
-      "chopin_ballade_no_1_in_g_minor_op_23",
+
       "undertale-undertale-piano",
-      "etude-opus-25-no.-11-winter-wind-in-a-minor",
-      "liszt---hungarian-rhapsody-no.-2",
-      "beethoven-symphony-no.-5-1st-movement-piano-solo",
+
       "satie-e.---gnossienne-no.-1",
       "waltz-opus-64-no.-2-in-c-minor",
       "legend-of-zelda-main-theme-score",
@@ -4992,7 +5010,7 @@ export const corpora: Corpora[] = [
       "bwv0565-toccata-and-fugue-in-dm-c",
       "Legend_of_Zelda_Great_Fairy_Fountain",
       "sonate-no.-17-tempest-3rd-movement",
-      "lacrimosa---requiem",
+
       "Billie_Eilish_Bad_Guy",
       "Ed_Sheeran_Shape_of_you",
     ],

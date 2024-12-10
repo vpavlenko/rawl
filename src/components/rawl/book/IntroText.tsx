@@ -1,5 +1,4 @@
 import * as React from "react";
-import { TOP_100_COMPOSERS } from "../top100Composers";
 import { ReadableTextBlock } from "./Book";
 
 const IntroText = () => {
@@ -15,8 +14,8 @@ const IntroText = () => {
         >
           https://musescore.com/sheetmusic/non-official?sort=view_count
         </a>
-        . My goal was to find {TOP_100_COMPOSERS.length} most popular composers
-        and take the most popular score from each of them.
+        . My goal was to find 100 most popular composers and take the most
+        popular score from each of them.
       </p>
 
       <p>

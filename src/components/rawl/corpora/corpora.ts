@@ -2378,6 +2378,7 @@ export const corpora: Corpora[] = [
       "satin-doll",
       "lady_bird_piano_solo",
       "a-night-in-tunisia---dizzy-gillespie-sarah-vaughan-a-night-in-tunisia",
+      "Bags_Groove__Lead_sheet_",
     ],
     genre: "Jazz",
     // This is a collection of jazz standards, no specific composer can be assigned.
@@ -4864,6 +4865,18 @@ export const corpora: Corpora[] = [
     country: "Japan",
   },
   {
+    slug: "koji_kondo",
+    midis: [
+      "legend-of-zelda-main-theme-score",
+      "Legend_of_Zelda_Great_Fairy_Fountain",
+      "Super_Mario_Bros_Main_Theme",
+      "Zeldas_Lullaby",
+    ],
+    composerBirthYear: 1961,
+    genre: "Video Game Music",
+    country: "Japan",
+  },
+  {
     slug: "musescore_top100",
     midis: [
       "river-flows-in-you", // Yiruma
@@ -4991,28 +5004,49 @@ export const corpora: Corpora[] = [
     country: "Austria, Hungary",
   },
   {
+    slug: "billie_eilish",
+    midis: ["Billie_Eilish_Bad_Guy", "Lovely_Billie_Eilish"],
+    composerBirthYear: 2001,
+    genre: "Pop",
+    country: "USA",
+  },
+  {
+    slug: "toby_fox",
+    midis: [
+      "undertale-ost---hopes-and-dreams-save-the-world",
+      "undertale-undertale-piano",
+      "undertale-ost---nyeh-heh-heh-bonetrousle",
+      "Fallen_Down_Undertale",
+    ],
+    composerBirthYear: 1991,
+    genre: "Video Game Music",
+    country: "USA",
+  },
+  {
+    slug: "erik_satie",
+    midis: ["satie-e.---gnossienne-no.-1"],
+    composerBirthYear: 1866,
+    genre: "Classical",
+    style: "Romantic",
+    country: "France",
+  },
+  {
+    slug: "ed_sheeran",
+    midis: [
+      "Ed_Sheeran_Shape_of_you",
+      "Photograph_Ed_Sheeran",
+      "shivers_ed_sheeran_shivers_ed_sheeran_mixed_ensemble",
+      "Ed_Sheeran_Perfect",
+    ],
+    composerBirthYear: 1991,
+    genre: "Pop",
+    country: "UK",
+  },
+  {
     slug: "musescore_top100_more_works_same_composer",
     midis: [
       "ren-sheng-nomerigorando---jiu-shi-rang-jazz-arranged",
       "the-office-opening-theme",
-
-      "Fallen_Down_Undertale",
-
-      "undertale-ost---hopes-and-dreams-save-the-world",
-      "Zeldas_Lullaby",
-
-      "undertale-undertale-piano",
-
-      "satie-e.---gnossienne-no.-1",
-      "waltz-opus-64-no.-2-in-c-minor",
-      "legend-of-zelda-main-theme-score",
-      "undertale-ost---nyeh-heh-heh-bonetrousle",
-      "bwv0565-toccata-and-fugue-in-dm-c",
-      "Legend_of_Zelda_Great_Fairy_Fountain",
-      "sonate-no.-17-tempest-3rd-movement",
-
-      "Billie_Eilish_Bad_Guy",
-      "Ed_Sheeran_Shape_of_you",
     ],
   },
 
@@ -5075,7 +5109,6 @@ export const corpora: Corpora[] = [
       "Avicii_Wake_me_up",
       "Avril_14_Aphex_Twin",
       "Axel_F_Beverly_Hills_Cop_III",
-      "Bags_Groove__Lead_sheet_",
 
       "Billie_s_Bounce_Billies_Bounce",
       "Blue_Rondo_A_La_Turk",
@@ -5125,7 +5158,6 @@ export const corpora: Corpora[] = [
       "Numb_-_Linkin_Park",
 
       "Ophelia",
-      "Photograph_Ed_Sheeran",
 
       "Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet",
 
@@ -5282,8 +5314,6 @@ export const corpora: Corpora[] = [
 
       "sasha_2",
       "scott-joplin-s-new-rag---revised-edition---c1914----piano-tutorial",
-
-      "shivers_ed_sheeran_shivers_ed_sheeran_mixed_ensemble",
 
       "skyrim-theme-for-piano",
       "sonata_in_e_minor_hob_xvi_34_joseph_haydn_piano_sonata_hob_xvi_34_2_adagio",

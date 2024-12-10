@@ -1025,10 +1025,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
   updatePlaybackTime = () => {
     if (this.midiPlayer && this.midiPlayer.isPlaying()) {
       const positionMs = this.midiPlayer.getPositionMs();
-      console.log("Position update:", {
-        positionMs,
-        positionSec: positionMs / 1000,
-      });
       this.setState({ currentPlaybackTime: positionMs / 1000 });
     }
   };

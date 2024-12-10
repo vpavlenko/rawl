@@ -1,10 +1,16 @@
 import React from "react";
+import styled from "styled-components";
 import { Chord } from "../legends/chords";
 import ChordStairs from "../legends/ChordStairs";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 
 export const MODULATIONS_CHAPTER_TITLE =
   "Modulations in classical music: endless V7 to I and V7 to i";
+
+const P = styled.div`
+  margin-bottom: 30px;
+  line-height: 1.6;
+`;
 
 const C = ({ c, title }: { c: Chord[]; title: string }) => (
   <span
@@ -330,8 +336,8 @@ export const CHAPTERS: Array<{
         </p>
         <p>The model example: {c`i iv bVII bIII bVI iio V i`}</p>
         <p>
-          The idea is to take the next chord's root down a fifth from a previous
-          chord's root.
+          The idea is to take the next chord's root three notes up from a
+          previous chord's root, going around a scale.
         </p>
         <p>Here are the roots of these chords: {c`1 4 b7 b3 b6 2 5 1`}</p>
         <p>
@@ -355,6 +361,49 @@ export const CHAPTERS: Array<{
   {
     title: "Minor with V",
     titleChords: ["V7", "i"],
+    pretext: (
+      <>
+        <p>
+          So, an older version of a minor mode has these chords:{" "}
+          {c`i bIII iv v V bVI bVII`}
+        </p>
+        <p>
+          Most sections end with {c`V`} or {c`V i`} chords – you'll see a lot of{" "}
+          {c`7`} notes at the right border of the scores.
+        </p>
+        <p>
+          Some musicians call it "functional harmony". What does it mean? It
+          implies that chords aren't just being put at completely random orders
+          for each new piece.
+        </p>
+        <p>
+          Sections most often start with {c`i`}. They most often end with{" "}
+          {c`bVI bVII V i`}, {c`iv V i`}, {c`bVI V i`}.
+        </p>
+        <p>
+          Chord pairs {c`V i`} and {c`V bVI`} are frequent, whereas {c`V iv`} or{" "}
+          {`V bVII`} are rare.
+        </p>
+        <p>
+          A {c`i bVII`} will most likely be continued with {c`bVI`}
+        </p>
+        <p>
+          Some chord chunks are also frequent: {c`iv i V i`}, {c`i bVII bVI V`},{" "}
+          {c`bVII bIII`}. They are used like formulas.
+        </p>
+        <p>
+          Composers may use them consciously or subconsciously. All people learn
+          to "hear" them as "better" chord sequences because they are very
+          probably in music that we listened to throughout our whole life.
+        </p>
+        <p>
+          And our hearing system constantly tries to predict what will happen
+          next. So, if there are rules and any ways for a brain to memorize
+          pieces faster, a brain will extract those rules in background - during
+          our entire life.
+        </p>
+      </>
+    ),
     mode: {
       title: "minor with V",
       chords: ["iv", "bVI", "i", "bIII", "v", "Vsus4", "V", "V7", "bVII"],

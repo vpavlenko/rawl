@@ -67,25 +67,25 @@ export const CHAPTERS: Array<{
     },
     pretext: (
       <>
-        <p>
+        <P>
           There are twelve notes in each octave of a piano:{" "}
           {c`1 b2 2 b3 3 4 #4 5 b6 6 b7 7`}
-        </p>
-        <p>
+        </P>
+        <P>
           Some pieces are built entirely on a subset of seven notes called a
           major scale: {c`1 2 3 4 5 6 7 1`}
-        </p>
-        <p>
+        </P>
+        <P>
           Each color is present several times on a piano keyboard – in different
           octaves: {c`1 3 5 1 3 5 1 3 5 1 3 5 1`}
-        </p>
-        <p>
+        </P>
+        <P>
           If you play three colors in a certain pattern, it's called a chord.
-        </p>
-        <p>
+        </P>
+        <P>
           This "Happy Birthday" arrangement uses three chords in the left hand:{" "}
           {c`I`}, {c`IV`} and {c`V`}{" "}
-        </p>
+        </P>
       </>
     ),
   },
@@ -98,20 +98,20 @@ export const CHAPTERS: Array<{
     },
     pretext: (
       <>
-        <p>In Western music, chords usually change at regular times.</p>
-        <p>
+        <P>In Western music, chords usually change at regular times.</P>
+        <P>
           The easiest way of organizing chords is to put them in a loop. The
           most common length of the loop is four chords.
-        </p>
-        <p>
+        </P>
+        <P>
           There are six common chords that can be built on a major scale:{" "}
           {c`I ii iii IV V vi`}
-        </p>
-        <p>
+        </P>
+        <P>
           If you put {c`I`} on the first place, you can fill in the rest three
           distinct chords in {n`5 × 4 × 3 = 60`} ways.
-        </p>
-        <p>
+        </P>
+        <P>
           However, historically just a few of these hypothetical loops take up
           the majority of the songs. The most popular loops are:
           <ol>
@@ -131,16 +131,16 @@ export const CHAPTERS: Array<{
             </li>
             <li>{c`I iii vi IV`}</li>
           </ol>
-        </p>
-        <p>
+        </P>
+        <P>
           Listen to the songs below and analyze the loops they are built upon.
-        </p>
+        </P>
         <h2>Historical context</h2>
-        <p>
+        <P>
           Making tracks entirely of four-chord loops is a recent innovation – it
           gained popularity in the 1950s. Neither Mozart nor Chopin didn't do
           that.
-        </p>
+        </P>
       </>
     ),
     composers: [
@@ -165,23 +165,23 @@ export const CHAPTERS: Array<{
     pretext: (
       <>
         <h2>6 chords in natural minor</h2>
-        <p>
+        <P>
           Tracks in a natural minor mode also use seven notes. There are six
           common chords that can be built on a natural minor scale:{" "}
           {c`i bIII iv v bVI bVII`}
-        </p>
-        <p>
+        </P>
+        <P>
           Some of these tracks have four-chord loops, while others have longer
           strings of chords. As you analyze them, try to find the most common
           pair of chords in natural minor that go together. Is there a frequent
           triplet of chords? A frequent four-chord loop/phrase?
-        </p>
+        </P>
         <h2>Major and minor chords</h2>
-        <p>
+        <P>
           There are two types of triads commonly used in Western music: major
           chords and minor chords.
-        </p>
-        <p>
+        </P>
+        <P>
           Here are pairs of minor vs major chords - not in any particular mode,
           just "in the air":
           <ul>
@@ -213,21 +213,21 @@ export const CHAPTERS: Array<{
               {c`bvii`} {c`bVII`}
             </li>
           </ul>
-        </p>
-        <p>
+        </P>
+        <P>
           Minor chords have a smaller interval of three semitones at the bottom
           and a bigger interval of four semitones at the top.
-        </p>
-        <p>
+        </P>
+        <P>
           Major chords has a smaller interval of three semitones at the top and
           a bigger interval of four semitones at the bottom.
-        </p>
-        <p>
+        </P>
+        <P>
           This has nothing to do with major/minor modes. A mode is are a
           separate thing – coincidentally also named minor or major, though.
-        </p>
+        </P>
         <h2>Major and minor chords in modes</h2>
-        <p>
+        <P>
           Recall: six common chords in a natural minor mode are{" "}
           {c`i bIII iv v bVI
           bVII`}
@@ -240,8 +240,8 @@ export const CHAPTERS: Array<{
               {c`bVII`}
             </li>
           </ul>
-        </p>
-        <p>
+        </P>
+        <P>
           Recall: six common chords in a major mode are {c`I ii iii IV V vi`}
           <ul>
             <li>
@@ -251,20 +251,20 @@ export const CHAPTERS: Array<{
               Three major chords: {c`I`}, {c`IV`} and {c`V`}
             </li>
           </ul>
-        </p>
+        </P>
         <h2>Historical context</h2>
-        <p>
+        <P>
           Throughout the 19th century, there was no such thing as a natural
           minor mode with solely {c`v`} chord and without any {c`7`} note in
           minor. No composers wrote that way.
-        </p>
-        <p>
+        </P>
+        <P>
           A modern natural minor is a recent invention – it gained popularity in
           1970s. So, all examples below are pretty modern.
-        </p>
-        <p>
+        </P>
+        <P>
           We'll look at the older version of minor in the next few chapters.
-        </p>
+        </P>
       </>
     ),
     composers: [
@@ -288,34 +288,34 @@ export const CHAPTERS: Array<{
     },
     pretext: (
       <>
-        <p>
+        <P>
           These songs exploit an endless loop of {c`i i bVI V`}. So, they don't
           fit within the natural minor scale {c`1 2 b3 4 5 b6 b7 1`}, since{" "}
           {c`V`} uses a note {c`7`}
-        </p>
-        <p>
+        </P>
+        <P>
           You might say that these songs are built on an extended minor scale:{" "}
           {c`1 2 b3 4 5 b6 b7 7 1`}
-        </p>
-        <p>
+        </P>
+        <P>
           Or you might say that the chord {c`V`} is drawn from a harmonic minor
           scale, unlike all other chords: {c`1 2 b3 4 5 b6 7 1`}
-        </p>
-        <p>
+        </P>
+        <P>
           Also,{" "}
           {a(
             "/f/road-trippin---red-hot-chili-peppers",
             "Red Hot Chili Peppers. Road trippin'",
           )}{" "}
           has the same vibe.
-        </p>
+        </P>
         <h2>Historical context</h2>
-        <p>
+        <P>
           Until a natural minor mode gained popularity, a minor mode mostly used{" "}
           {c`V`}. However, the examples below are modern, because they are made
           of an endless four-measure loop – which is also a modern thing. The
           truly old examples will appear in the next chapter.
-        </p>
+        </P>
       </>
     ),
     composers: [
@@ -329,22 +329,22 @@ export const CHAPTERS: Array<{
     titleChords: ["i", "iv", "bVII", "bIII"],
     pretext: (
       <>
-        <p>
+        <P>
           If four-chord loops didn't quite appear throughout 17..19th centuries,
           eight-chord loops did. The most important loop since Baroque era was
           The Circle of Fifths progression.
-        </p>
-        <p>The model example: {c`i iv bVII bIII bVI iio V i`}</p>
-        <p>
+        </P>
+        <P>The model example: {c`i iv bVII bIII bVI iio V i`}</P>
+        <P>
           The idea is to take the next chord's root three notes up from a
           previous chord's root, going around a scale.
-        </p>
-        <p>Here are the roots of these chords: {c`1 4 b7 b3 b6 2 5 1`}</p>
-        <p>
+        </P>
+        <P>Here are the roots of these chords: {c`1 4 b7 b3 b6 2 5 1`}</P>
+        <P>
           There are options. A rare {c`iio`} chord may be replaced with {c`iv`},
           which sounds "similar": these chords share two notes. This way we'll
           get {c`i iv bVII bIII bVI iv V i`}
-        </p>
+        </P>
       </>
     ),
     mode: {
@@ -363,45 +363,60 @@ export const CHAPTERS: Array<{
     titleChords: ["V7", "i"],
     pretext: (
       <>
-        <p>
+        <h2>Chords in a minor with V</h2>
+        <P>
           So, an older version of a minor mode has these chords:{" "}
           {c`i bIII iv v V bVI bVII`}
-        </p>
-        <p>
+        </P>
+        <P>
           Most sections end with {c`V`} or {c`V i`} chords – you'll see a lot of{" "}
           {c`7`} notes at the right border of the scores.
-        </p>
-        <p>
+        </P>
+        <P>
+          The chord {c`v`} is usually used at the beginning of the section – eg.
+          as {c`i v`}. In most pieces it's not used at all.
+        </P>
+        <P>
+          In some pieces a {c`V`} is replaced with its synonym {c`V7`}.
+        </P>
+        <h2>Functional harmony</h2>
+        <P>
           Some musicians call it "functional harmony". What does it mean? It
           implies that chords aren't just being put at completely random orders
           for each new piece.
-        </p>
-        <p>
+        </P>
+        <P>
           Sections most often start with {c`i`}. They most often end with{" "}
           {c`bVI bVII V i`}, {c`iv V i`}, {c`bVI V i`}.
-        </p>
-        <p>
+        </P>
+        <P>
           Chord pairs {c`V i`} and {c`V bVI`} are frequent, whereas {c`V iv`} or{" "}
-          {`V bVII`} are rare.
-        </p>
-        <p>
+          {c`V bVII`} are rare. {c`V v`} is extremely rare, it almost "makes no
+          sense".
+        </P>
+        <P>
           A {c`i bVII`} will most likely be continued with {c`bVI`}
-        </p>
-        <p>
+        </P>
+        <P>
           Some chord chunks are also frequent: {c`iv i V i`}, {c`i bVII bVI V`},{" "}
           {c`bVII bIII`}. They are used like formulas.
-        </p>
-        <p>
-          Composers may use them consciously or subconsciously. All people learn
-          to "hear" them as "better" chord sequences because they are very
-          probably in music that we listened to throughout our whole life.
-        </p>
-        <p>
+        </P>
+        <P>
+          Composers may use them consciously or subconsciously. As they compose,
+          they play a draft and discard something that "doesn't sound well". But
+          how can anything sound well?
+        </P>
+        <P>
+          We hear something as "nice" because it was very probable in all pieces
+          of music that we have been listening to throughout our whole life.
+        </P>
+        <P>
           And our hearing system constantly tries to predict what will happen
-          next. So, if there are rules and any ways for a brain to memorize
-          pieces faster, a brain will extract those rules in background - during
-          our entire life.
-        </p>
+          next. So, if there are rules, probabilities, frequencies or other for
+          a brain to memorize pieces faster, then a brain will be constantly
+          extracting those rules and updating its model of Western music in
+          background - during our entire life.
+        </P>
       </>
     ),
     mode: {

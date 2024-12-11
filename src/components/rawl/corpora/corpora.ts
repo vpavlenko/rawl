@@ -9,6 +9,8 @@ type Corpora = {
   country?: string;
 };
 
+export const MUSESCORE_TOP_100_SLUG = "top_100_musescore_composers";
+
 export const corpora: Corpora[] = [
   {
     slug: "yiruma_misc",
@@ -4877,7 +4879,7 @@ export const corpora: Corpora[] = [
     country: "Japan",
   },
   {
-    slug: "musescore_top100",
+    slug: MUSESCORE_TOP_100_SLUG,
     midis: [
       "river-flows-in-you", // Yiruma
       "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_", // Joe Hisaishi
@@ -4931,7 +4933,7 @@ export const corpora: Corpora[] = [
       "solas---jamie-duffy", // Jamie Duffy
       "autumn-leaves-jazz-piano", // Joseph Kosma
       "still-dre---variation-composition", // Andre Young
-      "what-falling-in-love-feels-like---jake25.17-fanmade-extended-version", // Jake 25.17
+      // Jake 25.17 - duplicate, replaced
       "mii-channel-piano", // Kazumi Totaka
 
       "sadness-and-sorrow-for-piano-solo", // Toshio Masuda

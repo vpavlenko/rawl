@@ -1,9 +1,11 @@
-export const TOP_100_COMPOSERS: {
+export type Top100Composer = {
   slug: string;
   composer: string;
   chords?: string[];
   displayTitle: string;
-}[] = [
+};
+
+export const TOP_100_COMPOSERS: Top100Composer[] = [
   {
     slug: "river-flows-in-you",
     composer: "Yiruma",
@@ -509,6 +511,11 @@ export const TOP_100_COMPOSERS: {
     slug: "Im_Blue_Eiffel_65",
     composer: "Eiffel 65",
     displayTitle: "Blue (Da Ba Dee)",
+  },
+  {
+    slug: "A_Thousand_Miles",
+    composer: "Vanessa Carlton",
+    displayTitle: "A Thousand Miles",
   },
   {
     slug: "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",

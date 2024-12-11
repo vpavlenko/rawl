@@ -71,6 +71,13 @@ export const CHAPTERS: Array<{
     },
     pretext: (
       <>
+        <h2>Structures in Western music</h2>
+        <P>
+          I invite you to my journey through 100 pieces of composers whose music
+          is popular nowadays.
+        </P>
+
+        <h2>The alphabet: notes on piano</h2>
         <P>
           There are twelve notes in each octave of a piano:{" "}
           {c`1 b2 2 b3 3 4 #4 5 b6 6 b7 7`}
@@ -142,8 +149,7 @@ export const CHAPTERS: Array<{
         <h2>Historical context</h2>
         <P>
           Making tracks entirely of four-chord loops is a recent innovation – it
-          gained popularity in the 1950s. Neither Mozart nor Chopin didn't do
-          that.
+          gained popularity in the 1950s. Neither Mozart nor Chopin did that.
         </P>
       </>
     ),

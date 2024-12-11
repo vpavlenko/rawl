@@ -1,6 +1,8 @@
 import * as React from "react";
 import { AppContext } from "../../AppContext";
 import { filterSnippetsByAccess, getSnippetTags } from "../analysis";
+import { ComposerTitle } from "../book/Book";
+import { TOP_100_COMPOSERS, type Top100Composer } from "../top100Composers";
 import { corpora } from "./corpora";
 import { beautifySlug } from "./utils";
 
@@ -42,6 +44,10 @@ const Corpus: React.FC<{
     return composer?.order;
   };
 
+  const getComposerInfo = (midiSlug: string): Top100Composer | undefined => {
+    return TOP_100_COMPOSERS.find((c) => c.slug === midiSlug);
+  };
+
   const corpus = corpora.filter((corpus) => corpus.slug === slug)?.[0];
   if (!corpus) {
     return <div>Corpus {slug} not found</div>;
@@ -53,6 +59,7 @@ const Corpus: React.FC<{
       {corpus.midis.map((midiSlug, index) => {
         const order = getComposerOrder(midiSlug);
         const hasOrder = order !== undefined;
+        const composerInfo = getComposerInfo(midiSlug);
 
         return (
           <div
@@ -75,13 +82,23 @@ const Corpus: React.FC<{
                 color: hasOrder ? "gray" : "#ffaa00",
               }}
             >
-              {beautifySlug(midiSlug)}
+              {composerInfo ? (
+                <ComposerTitle
+                  composer={composerInfo.composer}
+                  displayTitle={composerInfo.displayTitle}
+                  style={{
+                    color: hasOrder ? "gray" : "inherit",
+                  }}
+                />
+              ) : (
+                beautifySlug(midiSlug)
+              )}
               {hasOrder && <span style={{ marginLeft: "5px" }}>({order})</span>}
             </a>
             {getTagsForMidi(midiSlug) && (
               <div
                 style={{
-                  marginLeft: "10px",
+                  marginLeft: "50px",
                   display: "flex",
                   flexWrap: "wrap",
                 }}
@@ -101,7 +118,9 @@ const Corpus: React.FC<{
                         lineHeight: "1.2",
                       }}
                     >
-                      <span>{chapter?.replace(/_/g, " ")}</span>
+                      <span style={{ color: "gray" }}>
+                        {chapter?.replace(/_/g, " ")}
+                      </span>
                       <span style={{ color: "white" }}>
                         {topic?.replace(/_/g, " ")}
                       </span>

@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { ComposerTitle } from "./book/Book";
-import { corpora } from "./corpora/corpora";
+import { corpora, MUSESCORE_TOP_100_SLUG } from "./corpora/corpora";
 import { TOP_100_COMPOSERS } from "./top100Composers";
 
 export type CompositionTitleProps = {
@@ -43,7 +43,7 @@ const CompositionTitle: React.FC<CompositionTitleProps> = ({
   const relatedCorpora = React.useMemo(() => {
     return corpora
       .filter((corpus) => corpus.midis.includes(slug))
-      .filter((corpus) => corpus.slug !== "musescore_top100")
+      .filter((corpus) => corpus.slug !== MUSESCORE_TOP_100_SLUG)
       .map((corpus) => corpus.slug);
   }, [slug]);
 

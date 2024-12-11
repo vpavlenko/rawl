@@ -135,10 +135,12 @@ body,
     right: 0;
     bottom: 0;
     left: 0;
+    margin-bottom: 35px;
 }
 
 .App-main {
     height: 100%;
+ 
 }
 
 .App-main-inner {
@@ -503,9 +505,4 @@ body,
 
 .Book h2 {
     margin-top: 60px;
-}
-
-.Book p {
-    margin-bottom: 30px;
-    line-height: 1.6;
 }

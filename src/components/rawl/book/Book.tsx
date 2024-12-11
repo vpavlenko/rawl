@@ -9,7 +9,11 @@ import ChordStairs from "../legends/ChordStairs";
 import SnippetList from "../SnippetList";
 import { NARRATIVES } from "../SongNarrative";
 import { TOP_100_COMPOSERS } from "../top100Composers";
-import { CHAPTERS, MODULATIONS_CHAPTER_TITLE } from "./chapters";
+import {
+  CHAPTERS,
+  DOUBLE_TONIC_CHAPTER_TITLE,
+  MODULATIONS_CHAPTER_TITLE,
+} from "./chapters";
 
 type EnhancedSnippet = Snippet & {
   composerSlug: string;
@@ -173,10 +177,8 @@ const NavChordWrapper = styled.div`
 `;
 
 export const ReadableTextBlock = styled.div`
-  border: 1px solid #999;
   max-width: 43em;
   color: white;
-  padding: 60px 60px 40px 60px;
   border-radius: 10px;
   margin: 20px 0px 100px 0px;
   position: relative;
@@ -438,6 +440,20 @@ const Book: React.FC = () => {
                       />
                     </div>
                   </div>
+                ) : chapter.title === DOUBLE_TONIC_CHAPTER_TITLE ? (
+                  <>
+                    <ChordStairs
+                      mode={{ title: "", chords: ["vi"] }}
+                      scale={0.8}
+                      playbackMode="no"
+                    />
+                    <span style={{ margin: 4, fontSize: "28px" }}>=</span>
+                    <ChordStairs
+                      mode={{ title: "", chords: ["i"] }}
+                      scale={0.8}
+                      playbackMode="no"
+                    />
+                  </>
                 ) : chapter.titleChords ? (
                   <ChordStairs
                     mode={{ title: "", chords: chapter.titleChords }}

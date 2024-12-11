@@ -83,16 +83,13 @@ export const Citation: React.FC<CitationProps> = ({ citeKey }) => {
     const year = data.issued?.["date-parts"]?.[0]?.[0] || "";
     const title = data.title || "";
 
-    // Format pages with optional chaining
-    const pages = CITES[citeKey]?.pages?.[0];
-    const pageText = pages
-      ? ` <span class="grey-text">${
-          pages.includes("-") ? "pp." : "p."
-        } ${pages}</span>`
+    // Format where field with optional chaining
+    const whereText = CITES[citeKey]?.where
+      ? ` <span class="grey-text">${CITES[citeKey].where}</span>`
       : "";
 
     // Combine with italics for authors and year
-    const formattedText = `<i>${authors}</i> (<i>${year}</i>). ${title}.${pageText}`;
+    const formattedText = `<i>${authors}</i> (<i>${year}</i>). ${title}.${whereText}`;
     setFormattedCitation(formattedText);
   }, [citeKey]);
 

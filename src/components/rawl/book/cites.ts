@@ -1,6 +1,6 @@
 interface Citation {
   bibtex: string;
-  pages?: string[];
+  where?: string;
 }
 
 export const CITES: Record<string, Citation> = {
@@ -16,17 +16,26 @@ export const CITES: Record<string, Citation> = {
    volume =    {},
    url = {https://annas-archive.org/md5/e157064be938ddab29b4aab7633dd0a5}
 }`,
-    pages: [`16-20`],
+    where: "pp. 16-20",
   },
   alf_aeolian: {
     bibtex: `@misc{bjornberg1984aeolian,
   author = {Alf Björnberg},
   title = {On Aeolian Harmony in Contemporary Popular Music},
   year = {1984},
-  note = {Scanned from typescript presented in conjunction with research seminar at the Department of Musicology, University of Göteborg, 1984. An extended Swedish version of this text appeared as "There’s Something Going On — Om Eolisk Harmonik i Rockmusik" in Tvärspel, pp. 371-386 (Göteborg, 1984). An English-language version of the text was published in 1989 as Nordic IASPM Working Paper DK, 1. The Italian version "Armonia Eolia nella 'Popular Music' Contemporanea" appeared in Musica/Realtà 46, pp. 41-50 (1995). Minor editorial comments by Philip Tagg (October 2001).},
-  howpublished = {Research Seminar, Department of Musicology, University of Göteborg},
   url = {https://www.tagg.org/xpdfs/bjbgeol.pdf}
 }
 `,
+  },
+  tagg_loops: {
+    bibtex: `@book{tagg2017everyday,
+  title ={Everyday Tonality II: Towards a Tonal Theory of what Most People Hear},
+  author={Tagg, Philip},
+  year={2017},
+  publisher={Mass Media Music Scholars' Press},
+  url={https://hugoribeiro.com.br/area-restrita/Tagg-Everyday_tonality.pdf}
+}
+`,
+    where: "ch. 13",
   },
 } as const;

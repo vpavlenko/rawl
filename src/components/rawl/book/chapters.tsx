@@ -15,6 +15,7 @@ import Metaphors from "./Metaphors";
 
 export const MODULATIONS_CHAPTER_TITLE =
   "Modulations in classical music: endless V7 to I and V7 to i";
+export const DOUBLE_TONIC_CHAPTER_TITLE = "Loops in minor / double-tonic";
 
 const P = styled.div`
   margin-bottom: 30px;
@@ -230,7 +231,7 @@ export const CHAPTERS: Array<{
     ),
   },
   {
-    title: "Four-chord progressions in major",
+    title: "Loops in major",
     titleChords: ["I", "V", "vi", "IV"],
     mode: {
       title: "6 common triads in a major mode",
@@ -280,10 +281,15 @@ export const CHAPTERS: Array<{
         <h2>Historical context</h2>
         <P>
           Making tracks entirely of four-chord loops is a recent innovation – it
-          gained popularity in the 1950s. Neither Mozart nor Chopin did that.
+          gained popularity in the 1950s. {q("tagg_loops")} Neither Mozart nor
+          Chopin did that.
         </P>
         <h2>Other resources</h2>
-        <P>https://www.lightnote.co/</P>
+        <P>
+          If you're lost in my narrative, try{" "}
+          {a("Lightnote", "https://www.lightnote.co/")} instead. Or{" "}
+          {a("Hooktheory", "https://book-one.hooktheory.com/")}
+        </P>
         <h2>Drop your MIDI files</h2>
         <P>
           <FileDropBox />
@@ -890,8 +896,7 @@ export const CHAPTERS: Array<{
     ],
   },
   {
-    title: "Four-chord progressions in minor / double-tonic",
-    titleChords: ["I", "=", "bIII"],
+    title: DOUBLE_TONIC_CHAPTER_TITLE,
     composers: [
       "despacito-piano-cover-peter-bence",
       "river-flows-in-you",

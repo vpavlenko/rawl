@@ -17,7 +17,6 @@ const badgeStyle = {
 };
 
 export const CorpusLink: React.FC<{ slug: string }> = ({ slug }) => {
-  debugger;
   return (
     <Link
       to={`/corpus/${slug}`}

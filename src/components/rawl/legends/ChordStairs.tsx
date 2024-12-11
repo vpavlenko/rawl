@@ -62,13 +62,6 @@ const ChordName = styled.div`
   position: absolute;
 `;
 
-const EqualsSign = styled.div`
-  position: relative;
-  top: -22px;
-  font-size: 24px;
-  user-select: none;
-`;
-
 const ChordStairs: React.FC<{
   mode: Mode;
   chapterChords?: string[];
@@ -255,60 +248,52 @@ const ChordStairs: React.FC<{
               }}
             >
               <ChordContent>
-                {name === "=" ? (
-                  <EqualsSign>=</EqualsSign>
-                ) : (
-                  <>
-                    {pitches.map((pitch, pitchIndex) => (
-                      <ChordNote
-                        key={`${chordIndex}-${pitchIndex}-${
-                          playingStates[chordIndex] || 0
-                        }`}
-                        className={`noteColor_${pitch % 12}_colors`}
-                        isPlaying={chordIndex in playingStates}
-                        delay={pitchIndex * 100}
-                        style={{
-                          position: "absolute",
-                          width: scaledNoteWidth,
-                          height: scaledNoteHeight * 2,
-                          top:
-                            (maxPosition - positions[pitchIndex]) *
-                              scaledNoteHeight +
-                            -Math.min(
-                              topPosition + chordNameOffset,
-                              topPosition,
-                            ),
-                        }}
-                      />
-                    ))}
-                    {!hideLabels && (
-                      <ChordName
-                        style={{
-                          top:
-                            chordIndex < tonicChordPosition
-                              ? (maxPosition - positions.at(-1)) *
-                                  scaledNoteHeight -
-                                29 +
-                                -Math.min(
-                                  topPosition + chordNameOffset,
-                                  topPosition,
-                                )
-                              : (maxPosition - positions[0]) *
-                                  scaledNoteHeight +
-                                14 +
-                                -Math.min(
-                                  topPosition + chordNameOffset,
-                                  topPosition,
-                                ),
-                          userSelect: "none",
-                          pointerEvents: "none",
-                        }}
-                      >
-                        {formatChordName(name)}
-                      </ChordName>
-                    )}
-                  </>
-                )}
+                <>
+                  {pitches.map((pitch, pitchIndex) => (
+                    <ChordNote
+                      key={`${chordIndex}-${pitchIndex}-${
+                        playingStates[chordIndex] || 0
+                      }`}
+                      className={`noteColor_${pitch % 12}_colors`}
+                      isPlaying={chordIndex in playingStates}
+                      delay={pitchIndex * 100}
+                      style={{
+                        position: "absolute",
+                        width: scaledNoteWidth,
+                        height: scaledNoteHeight * 2,
+                        top:
+                          (maxPosition - positions[pitchIndex]) *
+                            scaledNoteHeight +
+                          -Math.min(topPosition + chordNameOffset, topPosition),
+                      }}
+                    />
+                  ))}
+                  {!hideLabels && (
+                    <ChordName
+                      style={{
+                        top:
+                          chordIndex < tonicChordPosition
+                            ? (maxPosition - positions.at(-1)) *
+                                scaledNoteHeight -
+                              29 +
+                              -Math.min(
+                                topPosition + chordNameOffset,
+                                topPosition,
+                              )
+                            : (maxPosition - positions[0]) * scaledNoteHeight +
+                              14 +
+                              -Math.min(
+                                topPosition + chordNameOffset,
+                                topPosition,
+                              ),
+                        userSelect: "none",
+                        pointerEvents: "none",
+                      }}
+                    >
+                      {formatChordName(name)}
+                    </ChordName>
+                  )}
+                </>
               </ChordContent>
             </ChordBoundingBox>
           );

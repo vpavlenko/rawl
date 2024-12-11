@@ -138,14 +138,40 @@ module.exports = {
           },
           // Process JS with Babel.
           {
-            test: /\.(js|jsx|mjs)$/,
-            exclude: [/\.tsx?$/],
+            test: /\.js$/,
             include: [
-              paths.appSrc,
-              // Add usehooks-ts to the included packages
-              /node_modules\/usehooks-ts/,
+              /node_modules[\/\\]usehooks-ts/,
+              /node_modules[\/\\]@babel[\/\\]runtime/,
             ],
             loader: require.resolve("babel-loader"),
+            options: {
+              presets: [
+                ["@babel/preset-env", { modules: false }],
+                "@babel/preset-react",
+              ],
+              plugins: [
+                "@babel/plugin-transform-runtime",
+                "@babel/plugin-proposal-optional-chaining",
+                "@babel/plugin-proposal-nullish-coalescing-operator",
+              ],
+              sourceType: "unambiguous",
+              cacheDirectory: true,
+            },
+          },
+          {
+            test: /\.(js|jsx|mjs)$/,
+            exclude: [/\.tsx?$/, /node_modules/],
+            include: paths.appSrc,
+            loader: require.resolve("babel-loader"),
+            options: {
+              presets: ["@babel/preset-env", "@babel/preset-react"],
+              cacheDirectory: true,
+              plugins: [
+                "@babel/plugin-transform-runtime",
+                "@babel/plugin-proposal-optional-chaining",
+                "@babel/plugin-proposal-nullish-coalescing-operator",
+              ],
+            },
           },
           {
             test: /\.(ts|tsx)$/,

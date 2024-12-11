@@ -443,6 +443,18 @@ export const CHAPTERS: Array<{
     ],
   },
   {
+    title: DOUBLE_TONIC_CHAPTER_TITLE,
+    composers: [
+      "despacito-piano-cover-peter-bence",
+      "river-flows-in-you",
+      "alan-walker---alone-piano",
+      "Yann_Tiersen_Amelie",
+      "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",
+      "Mad_world_Piano",
+    ],
+  },
+
+  {
     title: "i ♭VI V",
     titleChords: ["i", "i", "bVI", "V"],
     mode: {
@@ -904,17 +916,6 @@ export const CHAPTERS: Array<{
       "autumn-leaves-jazz-piano",
       "it-s-been-a-long-long-time---harry-james",
       "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
-    ],
-  },
-  {
-    title: DOUBLE_TONIC_CHAPTER_TITLE,
-    composers: [
-      "despacito-piano-cover-peter-bence",
-      "river-flows-in-you",
-      "alan-walker---alone-piano",
-      "Yann_Tiersen_Amelie",
-      "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",
-      "Mad_world_Piano",
     ],
   },
   {

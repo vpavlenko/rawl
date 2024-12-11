@@ -1,3 +1,5 @@
+import { faKeyboard } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
 import { MUSESCORE_TOP_100_SLUG } from "../corpora/corpora";
@@ -58,6 +60,27 @@ const n = (text: TemplateStringsArray) => (
   <span style={{ whiteSpace: "nowrap" }}>{text}</span>
 );
 
+const k = (strings: TemplateStringsArray) => {
+  const layout = strings[0].trim();
+  return (
+    <a
+      href={`https://vpavlenko.github.io/layouts/${layout}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        color: "white",
+        margin: "10px 20px 10px 0",
+        padding: "7px",
+        borderRadius: "3px",
+        boxShadow: "0 0 0px 2px white",
+      }}
+    >
+      <FontAwesomeIcon icon={faKeyboard} style={{ marginRight: "5px" }} />
+      {layout.replace(/-/g, " ")}
+    </a>
+  );
+};
+
 export const CHAPTERS: Array<{
   title: string;
   titleChords?: Chord[];
@@ -116,19 +139,61 @@ export const CHAPTERS: Array<{
           {c`1 b2 2 b3 3 4 #4 5 b6 6 b7 7`}
         </P>
         <P>
+          Throughout the book I'll mention keyboard layouts to try out different
+          concepts by playing them directly from your computer keyboard. Here
+          are three keyboards showcasing all 12 notes:
+        </P>
+        <P>
+          {k`flat-chromatic-layout`} {k`chromatic-sequences`}{" "}
+          {k`traditional-layout`}
+        </P>
+        <P>
+          The distance between two consecutive keys is called a semitone.{" "}
+          {c`1 b2`}, {`4 #4`} and {`b6 6`} are one semitone apart. All distances
+          between two consecutive notes on a piano keyboard is the same since
+          early 19th century.
+        </P>
+        <P>
           Some pieces are built entirely on a subset of seven notes called a
           major scale: {c`1 2 3 4 5 6 7 1`}
         </P>
+        <P>{k`major-scale`}</P>
         <P>
           Each color is present several times on a piano keyboard – in different
           octaves: {c`1 3 5 1 3 5 1 3 5 1 3 5 1`}
         </P>
+        <h2>Chords</h2>
         <P>
           If you play three colors in a certain pattern, it's called a chord.
         </P>
         <P>
-          This "Happy Birthday" arrangement uses three chords in the left hand:{" "}
-          {c`I`}, {c`IV`} and {c`V`}{" "}
+          We care about the pattern 1-3-5 {c`1 3 5 I`}. This way we build chords
+          from a scale. We can take notes in this pattern from any note: 2-4-6{" "}
+          {c`2 4 6 ii`}, 3-5-7 {c`3 5 7 iii`}, 4-6-1 {c`4 6 1 IV`}, 5-7-2{" "}
+          {c`5 7 2 V`}, 6-1-3 {c`6 1 3 vi`}, 7-2-4 {c`7 2 4 viio`}.
+        </P>
+        <P>
+          Chords are words in the Western musical language. Western music is
+          melody plus chords.
+        </P>
+        <P>
+          In this intro we'll have a close look at "Happy Birthday". The
+          arrangement we're gonna analyze uses three chords played in the left
+          hand, underneath the melody: {c`I`}, {c`IV`} and {c`V`}
+        </P>
+        <P>
+          However, our arrangement builds a major scale starting from the note
+          F.
+        </P>
+        <P>
+          <PianoLegend currentTonic={5} />
+        </P>
+        <P>
+          This is legal: all musical structures are relative and can be shifted
+          up or down a fixed amount of semitones.
+        </P>
+        <P>
+          Now, open the score of "Happy Birthday" and let's start analyzing.
         </P>
       </>
     ),

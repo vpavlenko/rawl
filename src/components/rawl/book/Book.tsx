@@ -6,7 +6,6 @@ import { AppContext } from "../../AppContext";
 import { Snippet } from "../analysis";
 import { NewTonicSymbol } from "../AnalysisGrid";
 import ChordStairs from "../legends/ChordStairs";
-import { PianoLegend } from "../legends/PianoLegend";
 import SnippetList from "../SnippetList";
 import { NARRATIVES } from "../SongNarrative";
 import { TOP_100_COMPOSERS } from "../top100Composers";
@@ -175,11 +174,11 @@ const NavChordWrapper = styled.div`
 
 export const ReadableTextBlock = styled.div`
   border: 1px solid #999;
-  max-width: 40em;
+  max-width: 43em;
   color: white;
   padding: 60px 60px 40px 60px;
   border-radius: 10px;
-  margin: 100px 0px 100px 0px;
+  margin: 20px 0px 100px 0px;
 `;
 
 export const ComposerTitle: React.FC<{
@@ -382,11 +381,6 @@ const Book: React.FC = () => {
             )}
           </GroupContainer>
         </div>
-        {selectedChapter === "Intro" && (
-          <div style={{ marginTop: "40px" }}>
-            <PianoLegend currentTonic={5} />
-          </div>
-        )}
       </>
     );
   };

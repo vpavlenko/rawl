@@ -503,6 +503,6 @@ body,
     scrollbar-color: var(--button) transparent;
 }
 
-.Book h2 {
+.Book h2:not(:first-child) {
     margin-top: 60px;
 }

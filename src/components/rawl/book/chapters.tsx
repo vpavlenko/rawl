@@ -72,10 +72,10 @@ const k = (strings: TemplateStringsArray) => {
         margin: "10px 20px 10px 0",
         padding: "7px",
         borderRadius: "3px",
-        boxShadow: "0 0 0px 2px white",
+        boxShadow: "0 0 2px 2px gray",
       }}
     >
-      <FontAwesomeIcon icon={faKeyboard} style={{ marginRight: "5px" }} />
+      <FontAwesomeIcon icon={faKeyboard} style={{ marginRight: "10px" }} />
       {layout.replace(/-/g, " ")}
     </a>
   );
@@ -118,11 +118,14 @@ export const CHAPTERS: Array<{
           The chapters of this book go through pieces in order of increasing
           harmony. We start from pieces which use only seven notes (pitch
           classes) {c`1 2 3 4 5 6 7`} or {c`1 2 b3 4 5 b6 b7`} and three-four
-          chords – like {c`I vi IV V`} or {c`i i bVI V`}.
+          chords – like {c`I vi IV V I vi IV V`} or {c`i i bVI V i i bVI V`} –
+          the diatonic harmony.
         </P>
         <P>
-          Then we progress through diatonic and chromatic harmony all the way up
-          to the pieces which harmony is hard to explain.
+          Then we progress through chromatic harmony, like{" "}
+          {c`i iio7 V43 i6 Ger viio7/V i64 V7b9 i`} and
+          {c`Imaj7 V7/IV IVmaj7 iv7 Imaj7 V7/ii V7/V V7 Imaj7`} all the way up
+          to the pieces in which harmony is hard to explain.
         </P>
 
         <P>
@@ -149,9 +152,9 @@ export const CHAPTERS: Array<{
         </P>
         <P>
           The distance between two consecutive keys is called a semitone.{" "}
-          {c`1 b2`}, {`4 #4`} and {`b6 6`} are one semitone apart. All distances
-          between two consecutive notes on a piano keyboard is the same since
-          early 19th century.
+          {c`1 b2`}, {c`4 #4`}, {c`b6 6`} and {c`6 b7`} are one semitone apart.
+          All distances between two consecutive notes on a piano keyboard is the
+          same since early 19th century.
         </P>
         <P>
           Some pieces are built entirely on a subset of seven notes called a
@@ -167,10 +170,29 @@ export const CHAPTERS: Array<{
           If you play three colors in a certain pattern, it's called a chord.
         </P>
         <P>
-          We care about the pattern 1-3-5 {c`1 3 5 I`}. This way we build chords
-          from a scale. We can take notes in this pattern from any note: 2-4-6{" "}
-          {c`2 4 6 ii`}, 3-5-7 {c`3 5 7 iii`}, 4-6-1 {c`4 6 1 IV`}, 5-7-2{" "}
-          {c`5 7 2 V`}, 6-1-3 {c`6 1 3 vi`}, 7-2-4 {c`7 2 4 viio`}.
+          We care about the pattern {n`1-3-5`} {c`1 3 5`} {c`I`}. This way we
+          build chords from a scale: take note, skip note, take note, skip note,
+          take note. We can start from any note:{" "}
+          <ul>
+            <li>
+              {n`2-4-6`} {c`2 4 6`} {c`ii`},{" "}
+            </li>
+            <li>
+              {n`3-5-7`} {c`3 5 7`} {c`iii`},{" "}
+            </li>
+            <li>
+              {n`4-6-1`} {c`4 6 1`} {c`IV`},{" "}
+            </li>
+            <li>
+              {n`5-7-2`} {c`5 7 2`} {c`V`},{" "}
+            </li>
+            <li>
+              {n`6-1-3`} {c`6 1 3`} {c`vi`},{" "}
+            </li>
+            <li>
+              {n`7-2-4`} {c`7 2 4`} {c`viio`}.
+            </li>
+          </ul>
         </P>
         <P>
           Chords are words in the Western musical language. Western music is

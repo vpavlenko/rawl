@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { MUSESCORE_TOP_100_SLUG } from "../corpora/corpora";
 import { CorpusLink } from "../corpora/CorpusLink";
 import { Chord, MODES } from "../legends/chords";
-import ChordStairs from "../legends/ChordStairs";
+import ChordStairs, { TonicProvider } from "../legends/ChordStairs";
 import { PianoLegend } from "../legends/PianoLegend";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 import { Citation } from "./Citations";
@@ -185,22 +185,22 @@ export const CHAPTERS: Array<{
           take note. We can start from any note:{" "}
           <ul>
             <li>
-              {n`2-4-6`} {c`2 4 6`} {c`ii`},{" "}
+              {n`2-4-6`} {c`2 4 6`} {c`ii`}
             </li>
             <li>
-              {n`3-5-7`} {c`3 5 7`} {c`iii`},{" "}
+              {n`3-5-7`} {c`3 5 7`} {c`iii`}
             </li>
             <li>
-              {n`4-6-1`} {c`4 6 1`} {c`IV`},{" "}
+              {n`4-6-1`} {c`4 6 1`} {c`IV`} – in seven-note scales 8=1, 9=2 etc.
             </li>
             <li>
-              {n`5-7-2`} {c`5 7 2`} {c`V`},{" "}
+              {n`5-7-2`} {c`5 7 2`} {c`V`}
             </li>
             <li>
-              {n`6-1-3`} {c`6 1 3`} {c`vi`},{" "}
+              {n`6-1-3`} {c`6 1 3`} {c`vi`}
             </li>
             <li>
-              {n`7-2-4`} {c`7 2 4`} {c`viio`}.
+              {n`7-2-4`} {c`7 2 4`} {c`viio`}
             </li>
           </ul>
         </P>
@@ -223,6 +223,16 @@ export const CHAPTERS: Array<{
         <P>
           This is legal: all musical structures are relative and can be shifted
           up or down a fixed amount of semitones.
+        </P>
+        <P>
+          For instance, let's consider this string of chords in C major:{" "}
+          {c`I V V I I IV V I`}
+        </P>
+        <P>
+          <TonicProvider currentTonic={1}>
+            In C# major it looks the same but sounds differently:{" "}
+            {c`I V V I I IV V I`}
+          </TonicProvider>
         </P>
         <P>
           Now, open the score of "Happy Birthday" and let's start analyzing.
@@ -482,6 +492,7 @@ export const CHAPTERS: Array<{
     titleChords: ["i", "iv", "bVII", "bIII"],
     pretext: () => (
       <>
+        <h2>Circle of fifths in minor</h2>
         <P>
           If four-chord loops didn't quite appear throughout 17..19th centuries,
           eight-chord loops did. The most important loop since Baroque era was

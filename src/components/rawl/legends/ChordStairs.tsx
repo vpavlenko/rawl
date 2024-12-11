@@ -1,5 +1,11 @@
 import * as React from "react";
-import { useCallback, useRef, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useRef,
+  useState,
+} from "react";
 import styled, { css, keyframes } from "styled-components";
 import { playArpeggiatedChord } from "../../../sampler/sampler";
 import { Mode } from "../book/chapters";
@@ -62,6 +68,27 @@ const ChordName = styled.div`
   position: absolute;
 `;
 
+// Create the context
+const TonicContext = createContext<number>(0);
+
+// Create the provider component
+export const TonicProvider: React.FC<{
+  currentTonic: number;
+  children: React.ReactNode;
+}> = ({ currentTonic, children }) => {
+  return (
+    <TonicContext.Provider value={currentTonic}>
+      {children}
+    </TonicContext.Provider>
+  );
+};
+
+// Add a hook to use the context
+const useTonicContext = () => {
+  const context = useContext(TonicContext);
+  return context;
+};
+
 const ChordStairs: React.FC<{
   mode: Mode;
   chapterChords?: string[];
@@ -72,10 +99,14 @@ const ChordStairs: React.FC<{
   ({
     mode,
     chapterChords,
-    currentTonic = 0,
+    currentTonic: propTonic,
     scale = 1,
     playbackMode = "separate",
   }) => {
+    // Get tonic from context, fallback to prop value or default 0
+    const contextTonic = useTonicContext();
+    const currentTonic = propTonic ?? contextTonic;
+
     const [playingStates, setPlayingStates] = useState<{
       [key: number]: number;
     }>({});

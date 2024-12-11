@@ -1,40 +1,8 @@
-import { faMusic } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import ChordStairs from "./legends/ChordStairs";
-import { InlinePianoLegend, PianoLegend } from "./legends/PianoLegend";
-import { MODES } from "./legends/chords";
-
-const DropBox = styled.div`
-  border: 4px dashed #0f0; /* Neon green dashed border */
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-  transition: all 0.2s ease-in-out;
-  background: #000; /* Black background */
-  box-shadow: 0 0 10px #0f0; /* Neon glow effect */
-`;
-
-const Icon = styled(FontAwesomeIcon)`
-  font-size: 48px;
-  color: #0f0; /* Neon green color */
-`;
-
-const Text = styled.p`
-  margin-top: 15px;
-  font-size: 16px;
-  color: #0f0; /* Neon green text */
-`;
-
-const FileDropBox: React.FC = () => (
-  <DropBox>
-    <Icon icon={faMusic} />
-    <Text>Drag & Drop your MIDI files here</Text>
-  </DropBox>
-);
+import { InlinePianoLegend } from "./legends/PianoLegend";
 
 const NeonLink = styled.a`
   display: inline-block;
@@ -175,69 +143,6 @@ const Section: React.FC<{
 const OldLandingPage = () => (
   <Container>
     <Content>
-      <div
-        style={{
-          fontSize: 40,
-          fontFamily: "Verdana, serif",
-          marginTop: 40,
-          marginBottom: 30,
-          textAlign: "center",
-        }}
-      >
-        See Western music in 12 colors
-      </div>
-
-      <LegendAndMetaphorsContainer>
-        <div>
-          <PianoLegend />
-        </div>
-        <div>
-          <div
-            style={{
-              textAlign: "left",
-              display: "flex",
-              flexDirection: "column",
-              gap: 7,
-            }}
-          >
-            <span>
-              <span style={{ fontWeight: 900 }}>
-                the tonic note is always white
-              </span>
-            </span>
-            <span>
-              <span className="landing_gradient_green">
-                tonic chords have a green pitch
-              </span>
-            </span>
-            <span>
-              <span className="landing_gradient_cool">
-                predominants are in cool colors
-              </span>
-            </span>
-            <span>
-              <span className="landing_gradient_warm">
-                dominants are in warm colors
-              </span>
-            </span>
-            <span>
-              <span className="landing_gradient_bright">
-                major mode is brighter
-              </span>
-            </span>
-            <span>
-              <span className="landing_gradient_dark">
-                minor mode is darker
-              </span>
-            </span>
-          </div>
-        </div>
-      </LegendAndMetaphorsContainer>
-      <ChordStairsContainer>
-        <ChordStairs mode={MODES[1]} />
-        <ChordStairs mode={MODES[0]} />
-      </ChordStairsContainer>
-
       <div style={{ margin: "100px 0 100px 0" }}>
         <iframe
           width="560"
@@ -897,9 +802,7 @@ const OldLandingPage = () => (
             "f/Billie_Eilish_Bad_Guy"
           }
         /> */}
-      <div style={{ marginTop: 100 }}>
-        <FileDropBox />
-      </div>
+
       <div style={{ marginTop: 100 }}>
         <Link to={{ pathname: "/course" }} style={{ fontSize: 26 }}>
           A course on rock harmony and arrangement

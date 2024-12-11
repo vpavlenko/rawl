@@ -4,12 +4,14 @@ import React from "react";
 import styled from "styled-components";
 import { MUSESCORE_TOP_100_SLUG } from "../corpora/corpora";
 import { CorpusLink } from "../corpora/CorpusLink";
-import { Chord } from "../legends/chords";
+import { Chord, MODES } from "../legends/chords";
 import ChordStairs from "../legends/ChordStairs";
 import { PianoLegend } from "../legends/PianoLegend";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 import { Citation } from "./Citations";
 import { CITES } from "./cites";
+import { FileDropBox } from "./FileDropBox";
+import Metaphors from "./Metaphors";
 
 export const MODULATIONS_CHAPTER_TITLE =
   "Modulations in classical music: endless V7 to I and V7 to i";
@@ -94,6 +96,7 @@ export const CHAPTERS: Array<{
 }> = [
   {
     title: "Intro",
+    titleChords: ["I"],
     composers: ["happy_birthday_bass_and_chords"],
     mode: {
       title: "",
@@ -117,7 +120,10 @@ export const CHAPTERS: Array<{
         <P>
           <PianoLegend currentTonic={0} />
         </P>
-        <P>Therefore, I don't require any prior knowledge of standard </P>
+        <P>
+          You don't need any knowledge of standard notation throughout this
+          journey.
+        </P>
         <P>
           The chapters of this book go through pieces in order of increasing
           harmony. We start from pieces which use only seven notes (pitch
@@ -276,6 +282,12 @@ export const CHAPTERS: Array<{
         <P>
           Making tracks entirely of four-chord loops is a recent innovation – it
           gained popularity in the 1950s. Neither Mozart nor Chopin did that.
+        </P>
+        <h2>Other resources</h2>
+        <P>https://www.lightnote.co/</P>
+        <h2>Drop your MIDI files</h2>
+        <P>
+          <FileDropBox />
         </P>
       </>
     ),
@@ -629,6 +641,44 @@ export const CHAPTERS: Array<{
             </li>
           </ul>
         </P>
+        <h2>Why these colors?</h2>
+        <P>
+          Previously, people tried to design colored notations by assigning
+          colors to notes in a rainbow order. This is an obvious idea. However,
+          it doesn't help to highlight the structures that are actually frequent
+          in Western music.
+        </P>
+        <P>
+          There are three main groups of chords in functional harmony:
+          <ul>
+            <li>
+              tonic chords begin and end sections: {c`I`} and {c`i`}
+            </li>
+            <li>
+              dominants end sections or precede tonic chords at the end: {c`V`},{" "}
+              {c`V7`}, {c`bVII`}
+            </li>
+            <li>
+              predominants preced dominants at the end: {c`IV`}, {c`iv`},{" "}
+              {c`ii`} and others
+            </li>
+          </ul>
+        </P>
+        <P>
+          My coloring makes these three groups as visually distinct as possible.
+          And also, it makes colors of common chords to blend together. This is
+          because I also follow the rainbow, but in the order of thirds:
+          {c`b2 2 4 #4 b6 6 1 b3 3 5 b7 7`}
+        </P>
+        <P>
+          <Metaphors />
+        </P>
+        <P>
+          <ChordStairs mode={MODES[1]} />
+        </P>
+        <P>
+          <ChordStairs mode={MODES[0]} />
+        </P>
       </>
     ),
     composers: [
@@ -754,7 +804,7 @@ export const CHAPTERS: Array<{
   },
   {
     title: "Other applied chords",
-    titleChords: ["V/ii", "I7", "V/vi"],
+    titleChords: ["V7/vi", "vi", "V7/ii", "ii"],
     mode: {
       title: "applied chords",
       chords: ["V7/ii", "ii", "V7/iv", "iv", "V7/vi", "vi"],
@@ -845,7 +895,8 @@ export const CHAPTERS: Array<{
     ],
   },
   {
-    title: "Misc",
+    title: "Complex and diverse harmony",
+    titleChords: ["biio7", "io7", "viio7"],
     composers: [
       "Clair_de_Lune__Debussy",
       "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",

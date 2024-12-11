@@ -258,7 +258,7 @@ const Measure: React.FC<{
             style={{
               left,
               ...(showNonPhraseStarts && isPhraseStart
-                ? { backgroundColor: "#aaa" }
+                ? { backgroundColor: "#bbb" }
                 : {}),
             }}
           />

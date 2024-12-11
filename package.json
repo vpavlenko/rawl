@@ -92,7 +92,8 @@
     "webpack-dev-server": "^3.11.3",
     "webpack-manifest-plugin": "^2.2.0",
     "whatwg-fetch": "2.0.3",
-    "workbox-webpack-plugin": "^4.3.1"
+    "workbox-webpack-plugin": "^4.3.1",
+    "terser-webpack-plugin": "^4.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
@@ -141,7 +142,7 @@
     "backup-midis": "node scripts/rawl/backup-midis.js",
     "rename-tag": "node scripts/rawl/rename-tag.js",
     "upload-static-files-to-f": "ts-node --project tsconfig.json scripts/rawl/upload-static-files-to-f.ts",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+    "analyze": "source-map-explorer 'build/static/js/*.js' --html bundle-analysis.html --no-root"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -188,5 +189,11 @@
       "no-fallthrough": "off",
       "import/no-anonymous-default-export": "off"
     }
-  }
+  },
+  "sideEffects": [
+    "*.css",
+    "*.scss",
+    "*.sass",
+    "*.less"
+  ]
 }

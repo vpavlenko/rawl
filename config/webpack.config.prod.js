@@ -14,6 +14,7 @@ const getClientEnvironment = require("./env");
 const ESLintPlugin = require("eslint-webpack-plugin");
 const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const TerserPlugin = require("terser-webpack-plugin");
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -84,7 +85,7 @@ module.exports = {
   bail: true,
   // We generate sourcemaps in production. This is slow but gives good results.
   // You can exclude the *.map files from the build during deployment.
-  devtool: shouldUseSourceMap ? "source-map" : false,
+  devtool: shouldUseSourceMap ? "hidden-source-map" : false,
   // In production, we only want to load the polyfills and the app code.
   entry: [require.resolve("./polyfills"), paths.appIndexJs],
   output: {
@@ -295,7 +296,15 @@ module.exports = {
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // Added Aug 29, 2018 by Montag
     // https://www.npmjs.com/package/webpack-bundle-analyzer
-    // new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      reportFilename: "bundle-report.html",
+      generateStatsFile: true,
+      statsFilename: "bundle-stats.json",
+      statsOptions: {
+        source: true,
+      },
+    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
@@ -305,5 +314,55 @@ module.exports = {
     net: "empty",
     tls: "empty",
     child_process: "empty",
+  },
+  optimization: {
+    usedExports: true,
+    sideEffects: true,
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          parse: {
+            ecma: 8,
+          },
+          compress: {
+            ecma: 5,
+            warnings: false,
+            comparisons: false,
+            inline: 2,
+            unused: true,
+            dead_code: true,
+            pure_getters: true,
+            passes: 3,
+          },
+          mangle: {
+            safari10: true,
+          },
+          output: {
+            ecma: 5,
+            comments: false,
+            ascii_only: true,
+          },
+        },
+        parallel: true,
+        sourceMap: shouldUseSourceMap,
+        extractComments: false,
+      }),
+    ],
+    splitChunks: {
+      chunks: "all",
+      name: false,
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      },
+    },
   },
 };

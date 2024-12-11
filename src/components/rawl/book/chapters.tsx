@@ -4,6 +4,7 @@ import { MUSESCORE_TOP_100_SLUG } from "../corpora/corpora";
 import { CorpusLink } from "../corpora/CorpusLink";
 import { Chord } from "../legends/chords";
 import ChordStairs from "../legends/ChordStairs";
+import { PianoLegend } from "../legends/PianoLegend";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 
 export const MODULATIONS_CHAPTER_TITLE =
@@ -78,6 +79,35 @@ export const CHAPTERS: Array<{
           I invite you to my journey through 100 pieces of composers whose music
           is popular nowadays. The full list of pieces that we're gonna look at
           and analyze: <CorpusLink slug={MUSESCORE_TOP_100_SLUG} />
+        </P>
+        <P>
+          I use my own piano-roll-based notation with notes colored into 12
+          colors, always starting from the main note (<i>the tonic</i>). This
+          simplifies visual analysis: chords and other structures become
+          visible, scores become readable and interpretable.
+        </P>
+        <P>This is the color scheme we'll use through the entire book:</P>
+        <P>
+          <PianoLegend currentTonic={0} />
+        </P>
+        <P>Therefore, I don't require any prior knowledge of standard </P>
+        <P>
+          The chapters of this book go through pieces in order of increasing
+          harmony. We start from pieces which use only seven notes (pitch
+          classes) {c`1 2 3 4 5 6 7`} or {c`1 2 b3 4 5 b6 b7`} and three-four
+          chords – like {c`I vi IV V`} or {c`i i bVI V`}.
+        </P>
+        <P>
+          Then we progress through diatonic and chromatic harmony all the way up
+          to the pieces which harmony is hard to explain.
+        </P>
+
+        <P>
+          Many things influence each piece: a composer combines ideas of
+          harmony, melody, voice-leading, texture, rhythm, form. I picked
+          harmony as the main axis of this book. I discuss other aspects of
+          music as a set of questions and answers below the scores of each
+          piece.
         </P>
 
         <h2>The alphabet: notes on piano</h2>

@@ -179,6 +179,7 @@ export const ReadableTextBlock = styled.div`
   padding: 60px 60px 40px 60px;
   border-radius: 10px;
   margin: 20px 0px 100px 0px;
+  position: relative;
 `;
 
 export const ComposerTitle: React.FC<{

@@ -8,6 +8,8 @@ import { Chord } from "../legends/chords";
 import ChordStairs from "../legends/ChordStairs";
 import { PianoLegend } from "../legends/PianoLegend";
 import { TOP_100_COMPOSERS } from "../top100Composers";
+import { Citation } from "./Citations";
+import { CITES } from "./cites";
 
 export const MODULATIONS_CHAPTER_TITLE =
   "Modulations in classical music: endless V7 to I and V7 to i";
@@ -80,6 +82,8 @@ const k = (strings: TemplateStringsArray) => {
     </a>
   );
 };
+
+const q = (citeKey: keyof typeof CITES) => <Citation citeKey={citeKey} />;
 
 export const CHAPTERS: Array<{
   title: string;
@@ -154,7 +158,7 @@ export const CHAPTERS: Array<{
           The distance between two consecutive keys is called a semitone.{" "}
           {c`1 b2`}, {c`4 #4`}, {c`b6 6`} and {c`6 b7`} are one semitone apart.
           All distances between two consecutive notes on a piano keyboard is the
-          same since early 19th century.
+          same since mid-19th century. {q("rings_tuning")}
         </P>
         <P>
           Some pieces are built entirely on a subset of seven notes called a
@@ -229,6 +233,7 @@ export const CHAPTERS: Array<{
     },
     pretext: () => (
       <>
+        <h2>Loops</h2>
         <P>In Western music, chords usually change at regular times.</P>
         <P>
           The easiest way of organizing chords is to put them in a loop. The
@@ -239,8 +244,9 @@ export const CHAPTERS: Array<{
           {c`I ii iii IV V vi`}
         </P>
         <P>
-          If you put {c`I`} on the first place, you can fill in the rest three
-          distinct chords in {n`5 × 4 × 3 = 60`} ways.
+          We have four places to fill in with chords in a loop. If you put{" "}
+          {c`I`} on the first place, you can fill in the rest three distinct
+          chords in {n`5 × 4 × 3 = 60`} ways.
         </P>
         <P>
           However, historically just a few of these hypothetical loops take up

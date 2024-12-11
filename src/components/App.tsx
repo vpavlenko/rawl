@@ -158,7 +158,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private keyboardHandlers: Map<string, KeyboardHandler> = new Map();
   private audioContext: AudioContext;
   private playbackTimer: NodeJS.Timeout;
-  private prevPathRef = React.createRef<string>();
 
   constructor(props) {
     super(props);

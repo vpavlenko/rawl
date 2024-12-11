@@ -396,7 +396,7 @@ export const CHAPTERS: Array<{
         </P>
         <P>
           A modern natural minor is a recent invention – it gained popularity in
-          1970s. So, all examples below are pretty modern.
+          1970s. {q("alf_aeolian")} So, all examples below are pretty modern.
         </P>
         <P>
           We'll look at the older version of minor in the next few chapters.

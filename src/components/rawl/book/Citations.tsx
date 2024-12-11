@@ -8,9 +8,13 @@ import { CITES } from "./cites";
 const CitationContainer = styled.div`
   position: relative;
   display: inline-block;
+  width: 12px;
 `;
 
-const CitationIcon = styled.span`
+const CitationIcon = styled.span<{ hasUrl?: boolean }>`
+  position: relative;
+  left: -12px;
+  top: -8px;
   cursor: pointer;
   color: #666;
   margin-left: 8px;
@@ -22,7 +26,7 @@ const CitationIcon = styled.span`
 
 const CitationPopup = styled.div`
   position: absolute;
-  left: calc(100% + 20px);
+  left: calc(100% + 12px);
   top: 50%;
   transform: translateY(-50%);
   background: rgba(0, 0, 0, 0.95);
@@ -48,10 +52,6 @@ const CitationPopup = styled.div`
   }
 `;
 
-const GreyText = styled.span`
-  color: #888;
-`;
-
 interface CitationProps {
   citeKey: keyof typeof CITES;
 }
@@ -59,10 +59,14 @@ interface CitationProps {
 export const Citation: React.FC<CitationProps> = ({ citeKey }) => {
   const [showCitation, setShowCitation] = React.useState(false);
   const [formattedCitation, setFormattedCitation] = React.useState<string>("");
+  const [citationUrl, setCitationUrl] = React.useState<string | undefined>();
 
   React.useEffect(() => {
     const cite = new Cite(CITES[citeKey].bibtex);
     const data = cite.format("data", { format: "object" })[0];
+
+    // Store URL if it exists
+    setCitationUrl(data.URL || undefined);
 
     // Format authors/editors
     let authors = "";
@@ -79,8 +83,8 @@ export const Citation: React.FC<CitationProps> = ({ citeKey }) => {
     const year = data.issued?.["date-parts"]?.[0]?.[0] || "";
     const title = data.title || "";
 
-    // Format pages
-    const pages = CITES[citeKey].pages?.[0];
+    // Format pages with optional chaining
+    const pages = CITES[citeKey]?.pages?.[0];
     const pageText = pages
       ? ` <span class="grey-text">${
           pages.includes("-") ? "pp." : "p."
@@ -92,11 +96,20 @@ export const Citation: React.FC<CitationProps> = ({ citeKey }) => {
     setFormattedCitation(formattedText);
   }, [citeKey]);
 
+  const handleIconClick = (e: React.MouseEvent) => {
+    if (citationUrl) {
+      e.stopPropagation();
+      window.open(citationUrl, "_blank", "noopener,noreferrer");
+    }
+  };
+
   return (
     <CitationContainer>
       <CitationIcon
+        hasUrl={!!citationUrl}
         onMouseEnter={() => setShowCitation(true)}
         onMouseLeave={() => setShowCitation(false)}
+        onClick={handleIconClick}
       >
         <FontAwesomeIcon icon={faQuoteRight} size="sm" />
       </CitationIcon>

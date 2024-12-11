@@ -16,7 +16,7 @@ const Corpus: React.FC<{
   slug: string;
   composers?: ComposerInfo[];
 }> = ({ slug, composers }) => {
-  const { analyses, user } = React.useContext(AppContext);
+  const { analyses } = React.useContext(AppContext);
   const searchInputRef = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
@@ -132,6 +132,7 @@ const Corpus: React.FC<{
           </div>
         );
       })}
+      {corpus.posttext}
     </div>
   );
 };

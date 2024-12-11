@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { MUSESCORE_TOP_100_SLUG } from "../corpora/corpora";
+import { CorpusLink } from "../corpora/CorpusLink";
 import { Chord } from "../legends/chords";
 import ChordStairs from "../legends/ChordStairs";
 import { TOP_100_COMPOSERS } from "../top100Composers";
@@ -59,7 +61,7 @@ export const CHAPTERS: Array<{
   title: string;
   titleChords?: Chord[];
   mode?: Mode;
-  pretext?: React.ReactNode;
+  pretext?: () => React.JSX.Element;
   composers: (typeof TOP_100_COMPOSERS)[number]["slug"][];
 }> = [
   {
@@ -69,12 +71,13 @@ export const CHAPTERS: Array<{
       title: "",
       chords: ["I", "IV", "V"],
     },
-    pretext: (
+    pretext: () => (
       <>
         <h2>Structures in Western music</h2>
         <P>
           I invite you to my journey through 100 pieces of composers whose music
-          is popular nowadays.
+          is popular nowadays. The full list of pieces that we're gonna look at
+          and analyze: <CorpusLink slug={MUSESCORE_TOP_100_SLUG} />
         </P>
 
         <h2>The alphabet: notes on piano</h2>
@@ -107,7 +110,7 @@ export const CHAPTERS: Array<{
       title: "6 common triads in a major mode",
       chords: ["ii", "IV", "vi", "I", "iii", "V"],
     },
-    pretext: (
+    pretext: () => (
       <>
         <P>In Western music, chords usually change at regular times.</P>
         <P>
@@ -172,7 +175,7 @@ export const CHAPTERS: Array<{
       title: "natural minor",
       chords: ["iv", "bVI", "i", "bIII", "v", "bVII"],
     },
-    pretext: (
+    pretext: () => (
       <>
         <h2>6 chords in natural minor</h2>
         <P>
@@ -296,7 +299,7 @@ export const CHAPTERS: Array<{
       title: "",
       chords: ["i", "bVI", "V"],
     },
-    pretext: (
+    pretext: () => (
       <>
         <P>
           These songs exploit an endless loop of {c`i i bVI V`}. So, they don't
@@ -337,7 +340,7 @@ export const CHAPTERS: Array<{
   {
     title: "Circle of fifths",
     titleChords: ["i", "iv", "bVII", "bIII"],
-    pretext: (
+    pretext: () => (
       <>
         <P>
           If four-chord loops didn't quite appear throughout 17..19th centuries,
@@ -371,7 +374,7 @@ export const CHAPTERS: Array<{
   {
     title: "Minor with V",
     titleChords: ["V7", "i"],
-    pretext: (
+    pretext: () => (
       <>
         <h2>Chords in a minor with V</h2>
         <P>
@@ -451,7 +454,7 @@ export const CHAPTERS: Array<{
       title: "major",
       chords: ["ii", "IV", "vi", "I", "iii", "V", "V7"],
     },
-    pretext: (
+    pretext: () => (
       <>
         <h2>Functional major</h2>
         <P>
@@ -516,7 +519,7 @@ export const CHAPTERS: Array<{
   {
     title: "Dorian IV in minor",
     titleChords: ["i", "IV"],
-    pretext: (
+    pretext: () => (
       <>
         <h2>Recap with some terminology</h2>
         <P>
@@ -736,7 +739,7 @@ export const CHAPTERS: Array<{
   },
   {
     title: "Style",
-    pretext: (
+    pretext: () => (
       <>
         Here we present two most popular pieces by each composers. Can you see
         that pieces of the same composer look more similar to each other than to
@@ -791,10 +794,6 @@ export const CHAPTERS: Array<{
       "mii-channel-piano",
       "wii-sports-theme-piano",
     ],
-  },
-  {
-    title: "About",
-    composers: [],
   },
 ];
 

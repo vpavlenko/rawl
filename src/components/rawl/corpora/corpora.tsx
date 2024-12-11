@@ -1,17 +1,20 @@
 // Metadata filled in using 4o on Dec 6, 2024.
 
-type Corpora = {
+import AboutTop100Corpus from "../book/AboutTop100Corpus";
+
+export type CorpusEntry = {
   slug: string;
   midis: string[];
   composerBirthYear?: number;
   genre?: string;
   style?: string;
   country?: string;
+  posttext?: React.ReactNode;
 };
 
 export const MUSESCORE_TOP_100_SLUG = "top_100_musescore_composers";
 
-export const corpora: Corpora[] = [
+export const corpora: CorpusEntry[] = [
   {
     slug: "yiruma_misc",
     midis: [
@@ -4880,6 +4883,7 @@ export const corpora: Corpora[] = [
   },
   {
     slug: MUSESCORE_TOP_100_SLUG,
+    posttext: AboutTop100Corpus,
     midis: [
       "river-flows-in-you", // Yiruma
       "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_", // Joe Hisaishi

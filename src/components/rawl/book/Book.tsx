@@ -11,7 +11,6 @@ import SnippetList from "../SnippetList";
 import { NARRATIVES } from "../SongNarrative";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 import { CHAPTERS, MODULATIONS_CHAPTER_TITLE } from "./chapters";
-import IntroText from "./IntroText";
 
 type EnhancedSnippet = Snippet & {
   composerSlug: string;
@@ -194,8 +193,6 @@ export const ComposerTitle: React.FC<{
   </span>
 );
 
-const ABOUT_SELECTION = "About";
-
 const getChapterSlug = (chapter: string) => slugify(chapter.toLowerCase());
 
 const ComposerLinkWithChat: React.FC<{
@@ -285,14 +282,6 @@ const Book: React.FC = () => {
   };
 
   const renderContent = () => {
-    if (selectedChapter === ABOUT_SELECTION) {
-      return (
-        <div style={{ marginTop: "50px" }}>
-          <IntroText />
-        </div>
-      );
-    }
-
     const currentChapter = CHAPTERS.find(
       (chapter) => chapter.title === selectedChapter,
     );
@@ -310,7 +299,7 @@ const Book: React.FC = () => {
             </ChapterChordLegendWrapper>
           )}
           {currentChapter.pretext && (
-            <ReadableTextBlock>{currentChapter.pretext}</ReadableTextBlock>
+            <ReadableTextBlock>{currentChapter.pretext()}</ReadableTextBlock>
           )}
           <GroupContainer>
             <ComposersGrid>
@@ -463,9 +452,7 @@ const Book: React.FC = () => {
                 ) : (
                   chapter.title
                 )}
-                {!["Intro", "Misc", "Style", "About"].includes(
-                  chapter.title,
-                ) && (
+                {!["Intro", "Misc", "Style"].includes(chapter.title) && (
                   <ChapterTitleTooltip
                     isSelected={selectedChapter === chapter.title}
                     isHovered={hoveredChapter === chapter.title}

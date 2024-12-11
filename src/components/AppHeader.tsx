@@ -62,8 +62,12 @@ const AppHeader: React.FC = () => {
   } = useContext(AppContext);
 
   const getLinkStyle = (pathPrefix: string): React.CSSProperties => {
-    const isActive = path.startsWith(pathPrefix);
-    return isActive ? { background: "white", color: "black" } : {};
+    if (pathPrefix === "/corpus") {
+      return path === "/corpus/" ? { background: "white", color: "black" } : {};
+    }
+    return path.startsWith(pathPrefix)
+      ? { background: "white", color: "black" }
+      : {};
   };
 
   return (
@@ -80,7 +84,7 @@ const AppHeader: React.FC = () => {
           Structures
         </HeaderLink>
         <HeaderLink to="/corpus/" style={getLinkStyle("/corpus")}>
-          Corpus
+          Pieces
         </HeaderLink>
         <HeaderLink to="/timeline/" style={getLinkStyle("/timeline")}>
           Timeline

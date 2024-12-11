@@ -1,13 +1,12 @@
 import {
   faArrowUpRightFromSquare,
   faLink,
-  faList,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
-import { Link } from "react-router-dom";
 import { ComposerTitle } from "./book/Book";
 import { corpora, MUSESCORE_TOP_100_SLUG } from "./corpora/corpora";
+import { CorpusLink } from "./corpora/CorpusLink";
 import { TOP_100_COMPOSERS } from "./top100Composers";
 
 export type CompositionTitleProps = {
@@ -40,7 +39,7 @@ const CompositionTitle: React.FC<CompositionTitleProps> = ({
     .replace(/-/g, " ")
     .replace(/_/g, " ");
 
-  const relatedCorpora = React.useMemo(() => {
+  const relatedCorporaSlugs = React.useMemo(() => {
     return corpora
       .filter((corpus) => corpus.midis.includes(slug))
       .filter((corpus) => corpus.slug !== MUSESCORE_TOP_100_SLUG)
@@ -53,17 +52,6 @@ const CompositionTitle: React.FC<CompositionTitleProps> = ({
 
   const searchQuery = encodeURIComponent(formattedTitle);
   const museScoreUrl = `https://musescore.com/sheetmusic?sort=view_count&text=${searchQuery}`;
-
-  const badgeStyle = {
-    container: {
-      fontSize: "0.9em",
-      letterSpacing: "0.05em",
-      marginLeft: "8px",
-      color: "#ddd",
-    } as const,
-    icon: faList,
-    iconColor: "#ddd",
-  };
 
   return (
     <div
@@ -138,31 +126,13 @@ const CompositionTitle: React.FC<CompositionTitleProps> = ({
           </>
         )}
 
-        {relatedCorpora.length > 0 && (
+        {relatedCorporaSlugs.length > 0 && (
           <span style={{ marginLeft: "20px" }}>
-            <span style={{ fontWeight: "normal", marginLeft: "10px" }}>
-              {relatedCorpora.map((corpus, index) => (
-                <Link
-                  key={corpus}
-                  to={`/corpus/${corpus}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    textDecoration: "none",
-                    cursor: "pointer",
-                    ...badgeStyle.container,
-                  }}
-                >
-                  <FontAwesomeIcon
-                    icon={badgeStyle.icon}
-                    style={{
-                      width: "12px",
-                      marginRight: "6px",
-                      color: badgeStyle.iconColor,
-                    }}
-                  />
-                  {corpus.replace(/_/g, " ")}
-                </Link>
+            <span
+              style={{ fontWeight: "normal", marginLeft: "10px", gap: "8px" }}
+            >
+              {relatedCorporaSlugs.map((slug) => (
+                <CorpusLink key={slug} slug={slug} />
               ))}
             </span>
           </span>

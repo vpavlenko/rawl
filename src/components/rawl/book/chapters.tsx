@@ -64,8 +64,7 @@ const n = (text: TemplateStringsArray) => (
   <span style={{ whiteSpace: "nowrap" }}>{text}</span>
 );
 
-const k = (strings: TemplateStringsArray) => {
-  const layout = strings[0].trim();
+const k = (layout: string, title?: string) => {
   return (
     <a
       href={`https://vpavlenko.github.io/layouts/${layout}`}
@@ -80,7 +79,7 @@ const k = (strings: TemplateStringsArray) => {
       }}
     >
       <FontAwesomeIcon icon={faKeyboard} style={{ marginRight: "10px" }} />
-      {layout.replace(/-/g, " ")}
+      {title ?? layout.replace(/-/g, " ")}
     </a>
   );
 };
@@ -157,8 +156,8 @@ export const CHAPTERS: Array<{
           are three keyboards showcasing all 12 notes:
         </P>
         <P>
-          {k`flat-chromatic-layout`} {k`chromatic-sequences`}{" "}
-          {k`traditional-layout`}
+          {k("flat-chromatic-layout")} {k("chromatic-sequences")}
+          {k("traditional-layout")}
         </P>
         <P>
           The distance between two consecutive keys is called a semitone.{" "}
@@ -170,7 +169,7 @@ export const CHAPTERS: Array<{
           Some pieces are built entirely on a subset of seven notes called a
           major scale: {c`1 2 3 4 5 6 7 1`}
         </P>
-        <P>{k`major-scale`}</P>
+        <P>{k("major-scale")}</P>
         <P>
           Each color is present several times on a piano keyboard – in different
           octaves: {c`1 3 5 1 3 5 1 3 5 1 3 5 1`}
@@ -602,6 +601,9 @@ export const CHAPTERS: Array<{
           respectively.
         </P>
         <P>
+          {k("v7-to-major-i", "V7 to I")} {k("V7-to-minor-i", "V7 to i")}
+        </P>
+        <P>
           In both of them you can use {c`V7`} as a synonym for {c`V`}. And the
           endings like {c`V7 I`} or {c`V7 i`} are even more solid.
         </P>
@@ -843,6 +845,11 @@ export const CHAPTERS: Array<{
   {
     title: "Blues scale and hexatonic minor",
     titleChords: ["1", "b3", "4", "#4", "5", "b7"],
+    pretext: () => (
+      <>
+        <P>{k("blues-scale")}</P>
+      </>
+    ),
     mode: {
       title: "blues scale",
       chords: ["1", "b3", "4", "#4", "5", "b7"],

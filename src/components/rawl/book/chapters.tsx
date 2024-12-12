@@ -89,12 +89,12 @@ const q = (citeKey: keyof typeof CITES) => <Citation citeKey={citeKey} />;
 export const CHAPTER_GROUPS: Record<string, [number, number]> = {
   intro: [1, 1],
   loops: [2, 5],
-  "diatonic functional": [6, 8],
-  "borrowed chords": [9, 11],
-  "tonicization and modulation": [12, 15],
-  scales: [16, 16],
-  "seventh chords": [17, 19],
-  style: [20, 20],
+  "diatonic functional": [6, 10],
+  "borrowed chords": [11, 13],
+  "tonicization and modulation": [14, 17],
+  scales: [18, 18],
+  "seventh chords": [19, 21],
+  style: [22, 22],
 };
 
 export const CHAPTERS: Array<{
@@ -514,45 +514,19 @@ export const CHAPTERS: Array<{
       "Another_Love__-_Tom_Odell_Professional",
     ],
   },
-
   {
-    title: "Circle of fifths",
-    titleChords: ["i", "iv", "bVII", "bIII"],
-    pretext: () => (
-      <>
-        <h2>Circle of fifths in minor</h2>
-        <P>
-          If four-chord loops didn't quite appear throughout 17..19th centuries,
-          eight-chord loops did. The most important loop since Baroque era was
-          The Circle of Fifths progression.
-        </P>
-        <P>The model example: {c`i iv bVII bIII bVI iio V i`}</P>
-        <P>
-          The idea is to take the next chord's root three notes up from a
-          previous chord's root, going around a scale.
-        </P>
-        <P>Here are the roots of these chords: {c`1 4 b7 b3 b6 2 5 1`}</P>
-        <P>
-          There are options. A rare {c`iio`} chord may be replaced with {c`iv`},
-          which sounds "similar": these chords share two notes. This way we'll
-          get {c`i iv bVII bIII bVI iv V i`}
-        </P>
-      </>
-    ),
-    mode: {
-      title: "circle of fifths",
-      chords: ["i", "iv", "bVII", "bIII", "bVI", "iio7", "bII", "V7"],
-    },
+    title: "Functional natural minor",
+    titleChords: ["bVII", "V", "i"],
     composers: [
-      "passacaglia---handel-halvorsen",
-      "g-minor-bach-original",
-      "mariage-d-amour---paul-de-senneville-marriage-d-amour",
-      "vivaldi---summer---piano",
+      "Game_of_Thrones_Easy_piano",
+      "sadness-and-sorrow-for-piano-solo",
+      "gurenge--demon-slayer-kimetsu-no-yaiba-op",
+      "Hallelujah",
     ],
   },
   {
-    title: "Minor with V",
-    titleChords: ["V7", "i"],
+    title: "Triadic minor with V",
+    titleChords: ["V", "i"],
     pretext: () => (
       <>
         <h2>Chords in a minor with V</h2>
@@ -619,21 +593,14 @@ export const CHAPTERS: Array<{
       "Bella_Ciao",
       "Gravity_Falls_Opening",
       "Pirates_of_the_Caribbean_-_Hes_a_Pirate",
-      "Carol_of_the_Bells",
-      "Hallelujah",
-      "Je_Te_Laisserai_Des_Mots_-_Patrick_Watson",
-      "gurenge--demon-slayer-kimetsu-no-yaiba-op",
       "Pokemon_Theme_Song",
       "attack-on-titan-theme-guren-no-yumiya",
-      "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
-      "theme-from-schindler-s-list---piano-solo",
-      "Game_of_Thrones_Easy_piano",
-      "sadness-and-sorrow-for-piano-solo",
+      "Je_Te_Laisserai_Des_Mots_-_Patrick_Watson",
     ],
   },
   {
     title: "Functional major",
-    titleChords: ["V7", "I"],
+    titleChords: ["V", "V7", "I"],
     mode: {
       title: "major",
       chords: ["ii", "IV", "vi", "I", "iii", "V", "V7"],
@@ -739,6 +706,50 @@ export const CHAPTERS: Array<{
       "John_Lennon_Imagine",
       "sign-of-the-times---harry-styles",
       "Cant_Help_Falling_In_Love",
+    ],
+  },
+  {
+    title: "Classical V7 i",
+    titleChords: ["V7", "i"],
+    composers: [
+      "Carol_of_the_Bells",
+      "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
+      "theme-from-schindler-s-list---piano-solo",
+    ],
+  },
+  {
+    title: "Circle of fifths",
+    titleChords: ["i", "iv", "bVII", "bIII"],
+    pretext: () => (
+      <>
+        <h2>Circle of fifths in minor</h2>
+        <P>
+          If four-chord loops didn't quite appear throughout 17..19th centuries,
+          eight-chord loops did. The most important loop since Baroque era was
+          The Circle of Fifths progression.
+        </P>
+        <P>The model example: {c`i iv bVII bIII bVI iio V i`}</P>
+        <P>
+          The idea is to take the next chord's root three notes up from a
+          previous chord's root, going around a scale.
+        </P>
+        <P>Here are the roots of these chords: {c`1 4 b7 b3 b6 2 5 1`}</P>
+        <P>
+          There are options. A rare {c`iio`} chord may be replaced with {c`iv`},
+          which sounds "similar": these chords share two notes. This way we'll
+          get {c`i iv bVII bIII bVI iv V i`}
+        </P>
+      </>
+    ),
+    mode: {
+      title: "circle of fifths",
+      chords: ["i", "iv", "bVII", "bIII", "bVI", "iio7", "bII", "V7"],
+    },
+    composers: [
+      "passacaglia---handel-halvorsen",
+      "g-minor-bach-original",
+      "mariage-d-amour---paul-de-senneville-marriage-d-amour",
+      "vivaldi---summer---piano",
     ],
   },
   {
@@ -967,11 +978,11 @@ export const CHAPTERS: Array<{
     title: "viio7, io7, biio7",
     titleChords: ["viio7", "io7", "biio7"],
     composers: [
-      "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
+      "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
       "the_entertainer_scott_joplin",
+      "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
       "Liebestraum_No._3_in_A_Major",
       "dance-of-the-sugar-plum-fairy",
-      "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
     ],
   },
   {

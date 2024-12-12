@@ -1,3 +1,5 @@
+import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { Redirect, useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -16,7 +18,7 @@ import {
   MODULATIONS_CHAPTER_TITLE,
 } from "./chapters";
 
-const NAV_HORIZONTAL_GAP = 20;
+const NAV_HORIZONTAL_GAP = 15;
 const NAV_CHORD_STAIRS_SCALE = 0.7;
 
 type EnhancedSnippet = Snippet & {
@@ -507,7 +509,7 @@ const Book: React.FC = () => {
                                 scale={NAV_CHORD_STAIRS_SCALE}
                                 playbackMode="no"
                               />
-                              <span style={{ margin: 4, fontSize: "28px" }}>
+                              <span style={{ margin: 3, fontSize: "28px" }}>
                                 =
                               </span>
                               <ChordStairs
@@ -516,6 +518,11 @@ const Book: React.FC = () => {
                                 playbackMode="no"
                               />
                             </>
+                          ) : chapter.title === "Style" ? (
+                            <FontAwesomeIcon
+                              icon={faClockRotateLeft}
+                              style={{ fontSize: "20px", color: "white" }}
+                            />
                           ) : chapter.titleChords ? (
                             <ChordStairs
                               mode={{ title: "", chords: chapter.titleChords }}
@@ -526,14 +533,12 @@ const Book: React.FC = () => {
                             chapter.title
                           )}
                         </NavChordWrapper>
-                        {!["Style"].includes(chapter.title) && (
-                          <ChapterTitleTooltip
-                            isSelected={selectedChapter === chapter.title}
-                            isHovered={hoveredChapter === chapter.title}
-                          >
-                            {chapter.title}
-                          </ChapterTitleTooltip>
-                        )}
+                        <ChapterTitleTooltip
+                          isSelected={selectedChapter === chapter.title}
+                          isHovered={hoveredChapter === chapter.title}
+                        >
+                          {chapter.title}
+                        </ChapterTitleTooltip>
                       </ChapterButton>
                     ))}
                   </div>

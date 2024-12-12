@@ -809,21 +809,6 @@ export const CHAPTERS: Array<{
     ],
   },
   {
-    title: "Seventh chords and extensions",
-    titleChords: ["IVmaj7", "Imaj7"],
-    mode: {
-      title: "seventh chords and extensions in major",
-      chords: ["ii7", "IVmaj7", "vi7", "Imaj7", "iii7", "V13"],
-    },
-    composers: [
-      "Sweden_Minecraft",
-      "Golden_Hour__JVKE_Updated_Ver.",
-      "Gymnopdie_No._1__Satie",
-      "ylang-ylang---fkj-transcribed-by-lilroo",
-      "yuri-on-ice---piano-theme-full",
-    ],
-  },
-  {
     title: "Applied dominant: V7/V",
     titleChords: ["V7/V", "V"],
     mode: {
@@ -912,6 +897,21 @@ export const CHAPTERS: Array<{
       "kimi-no-na-wa---sparkle-theishter-2016",
       "Super_Mario_Bros_Main_Theme",
       "welcome-to-the-black-parade---my-chemical-romance",
+    ],
+  },
+  {
+    title: "Seventh chords and extensions",
+    titleChords: ["IVmaj7", "Imaj7"],
+    mode: {
+      title: "seventh chords and extensions in major",
+      chords: ["ii7", "IVmaj7", "vi7", "Imaj7", "iii7", "V13"],
+    },
+    composers: [
+      "Sweden_Minecraft",
+      "Golden_Hour__JVKE_Updated_Ver.",
+      "Gymnopdie_No._1__Satie",
+      "ylang-ylang---fkj-transcribed-by-lilroo",
+      "yuri-on-ice---piano-theme-full",
     ],
   },
   {

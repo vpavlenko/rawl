@@ -724,7 +724,7 @@ export const CHAPTERS: Array<{
   },
   {
     title: "Dorian IV in minor",
-    titleChords: ["i", "IV"],
+    titleChords: ["IV", "i"],
     pretext: () => (
       <>
         <h2>Recap with some terminology</h2>
@@ -801,11 +801,26 @@ export const CHAPTERS: Array<{
   },
   {
     title: "iv in major",
-    titleChords: ["I", "iv"],
+    titleChords: ["iv", "I"],
     composers: [
       "calum-scott---you-are-the-reason-piano-sheet-lyrics-lyrics-version-link-in-description",
       "how-far-i-ll-go-~-moana-ost",
       "la-vie-en-rose-solo-accordion",
+    ],
+  },
+  {
+    title: "♭VII in major",
+    titleChords: ["bVII", "I"],
+    mode: {
+      title: "Mario cadence",
+      chords: ["bVI", "bVII", "I"],
+    },
+    composers: [
+      "when-i-was-your-man---bruno-mars-600e3a",
+      "Take_on_me",
+
+      "Super_Mario_Bros_Main_Theme",
+      "welcome-to-the-black-parade---my-chemical-romance",
     ],
   },
   {
@@ -834,6 +849,7 @@ export const CHAPTERS: Array<{
       "sia---snowman",
       "my-lie-watashi-no-uso---your-lie-in-april",
       "my-heart-will-go-on",
+      "kimi-no-na-wa---sparkle-theishter-2016",
     ],
   },
   {
@@ -882,21 +898,6 @@ export const CHAPTERS: Array<{
       "Undertale_-_Megalovania_Piano_ver._3",
       "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2",
       "fairy-tail-main-theme",
-    ],
-  },
-  {
-    title: "♭VII in major",
-    titleChords: ["bVII", "I"],
-    mode: {
-      title: "Mario cadence",
-      chords: ["bVI", "bVII", "I"],
-    },
-    composers: [
-      "when-i-was-your-man---bruno-mars-600e3a",
-      "Take_on_me",
-      "kimi-no-na-wa---sparkle-theishter-2016",
-      "Super_Mario_Bros_Main_Theme",
-      "welcome-to-the-black-parade---my-chemical-romance",
     ],
   },
   {

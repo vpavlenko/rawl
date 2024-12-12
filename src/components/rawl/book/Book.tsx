@@ -124,22 +124,6 @@ const ChapterTitleTooltip = styled.div<{
   color: ${(props) => (props.isSelected ? "white" : "#aaa")};
 `;
 
-const SelectionArrow = styled.div<{
-  isHovered?: boolean;
-  isSelected?: boolean;
-}>`
-  position: absolute;
-  top: 0px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 8px solid
-    ${(props) => (props.isHovered && !props.isSelected ? "#777" : "#bbb")};
-`;
-
 const ChapterButton = styled.button<{ isSelected: boolean }>`
   background: black;
   color: white;
@@ -160,9 +144,6 @@ const ChapterButton = styled.button<{ isSelected: boolean }>`
 
   &:hover {
     ${ChapterTitleTooltip} {
-      display: block;
-    }
-    ${SelectionArrow} {
       display: block;
     }
   }
@@ -472,13 +453,6 @@ const Book: React.FC = () => {
                   >
                     {chapter.title}
                   </ChapterTitleTooltip>
-                )}
-                {(selectedChapter === chapter.title ||
-                  hoveredChapter === chapter.title) && (
-                  <SelectionArrow
-                    isHovered={hoveredChapter === chapter.title}
-                    isSelected={selectedChapter === chapter.title}
-                  />
                 )}
               </NavChordWrapper>
             </ChapterButton>

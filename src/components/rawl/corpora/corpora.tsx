@@ -1144,6 +1144,24 @@ export const corpora: CorpusEntry[] = [
     country: "USA",
   },
   {
+    slug: "karol_kurpinski",
+    midis: [
+      "polonaise-in-f-minor---karol-kurpinski",
+      "kurpinski-polonaise-in-a-major-polonez-a-dur",
+    ],
+    composerBirthYear: 1785,
+  },
+  {
+    slug: "wojciech_kilar",
+    midis: [
+      "wojciech-kilar-walc-z-filmu-tredowata-waltz-from-the-film-the-leper",
+      "polonaise-from-movie-master-thaddeus---wojciech-kilar",
+    ],
+    composerBirthYear: 1932,
+    genre: "Film score",
+    country: "Poland",
+  },
+  {
     slug: "deltarune",
     midis: [
       "deltarune-chapter-2-ost-toby-fox---my-castle-town-piano-solo",

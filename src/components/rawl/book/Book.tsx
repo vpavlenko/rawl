@@ -10,6 +10,7 @@ import SnippetList from "../SnippetList";
 import { NARRATIVES } from "../SongNarrative";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 import {
+  CHAPTER_GROUPS,
   CHAPTERS,
   DOUBLE_TONIC_CHAPTER_TITLE,
   MODULATIONS_CHAPTER_TITLE,
@@ -94,12 +95,12 @@ const ComposerListItem = styled.li`
   border-radius: 4px;
 `;
 
-const ChapterSelector = styled.div`
+const ChapterSelector = styled.div.attrs({ className: "ChapterSelector" })`
   display: flex;
   flex-wrap: wrap;
   gap: 25px;
-  padding: 0px 0;
-  margin: 20px 0;
+  padding: 0;
+  margin: 0;
 `;
 
 const ChapterTitleTooltip = styled.div<{
@@ -203,6 +204,37 @@ const ComposerLinkWithChat: React.FC<{
   </ComposerLink>
 );
 
+const ChapterGroupsContainer = styled.div`
+  display: flex;
+  width: 100%;
+  position: relative;
+  height: 30px;
+  top: 13px;
+  left: 1px;
+  z-index: 1000000;
+`;
+
+const ChapterGroup = styled.div`
+  white-space: nowrap;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  position: absolute;
+  padding-bottom: 12px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    border-top: 1px solid #666;
+    border-left: 1px solid #666;
+    border-right: 1px solid #666;
+  }
+`;
+
 const Book: React.FC = () => {
   const { slug } = useParams<{ slug?: string }>();
   const history = useHistory();
@@ -210,6 +242,10 @@ const Book: React.FC = () => {
   const [hoveredChapter, setHoveredChapter] = React.useState<string | null>(
     null,
   );
+  const [groupsPositions, setGroupsPositions] = React.useState<{
+    [key: string]: { left: number; width: number };
+  }>({});
+
   if (!appContext) throw new Error("AppContext not found");
   const { analyses, eject } = appContext;
   const [loadingSnippets, setLoadingSnippets] = React.useState<Set<string>>(
@@ -265,6 +301,39 @@ const Book: React.FC = () => {
     const newSlug = getChapterSlug(chapter);
     history.push(`/100/${newSlug}`);
   };
+
+  React.useEffect(() => {
+    const calculatePositions = () => {
+      const newPositions: typeof groupsPositions = {};
+
+      Object.entries(CHAPTER_GROUPS).forEach(([name, [from, to]]) => {
+        const startButton = document.querySelector(
+          `.ChapterSelector button:nth-child(${from})`,
+        ) as HTMLElement;
+        const endButton = document.querySelector(
+          `.ChapterSelector button:nth-child(${to})`,
+        ) as HTMLElement;
+
+        if (startButton && endButton) {
+          const startLeft = startButton.offsetLeft;
+          const endRight = endButton.offsetLeft + endButton.offsetWidth;
+          newPositions[name] = {
+            left: startLeft,
+            width: endRight - startLeft,
+          };
+        }
+      });
+
+      setGroupsPositions(newPositions);
+    };
+
+    // Calculate initial positions after render
+    setTimeout(calculatePositions, 100); // Increased timeout to ensure buttons are rendered
+
+    // Recalculate on window resize
+    window.addEventListener("resize", calculatePositions);
+    return () => window.removeEventListener("resize", calculatePositions);
+  }, []);
 
   const renderContent = () => {
     const currentChapter = CHAPTERS.find(
@@ -375,6 +444,24 @@ const Book: React.FC = () => {
     <BookContainer>
       <div className="Book" style={{ position: "relative" }}>
         <Title>Visual Harmony of Top 100 Composers on MuseScore.com</Title>
+        <ChapterGroupsContainer>
+          {Object.entries(CHAPTER_GROUPS).map(([name, [from, to]]) => {
+            const position = groupsPositions[name];
+            if (!position) return null;
+
+            return (
+              <ChapterGroup
+                key={name}
+                style={{
+                  left: position.left,
+                  width: position.width,
+                }}
+              >
+                {name}
+              </ChapterGroup>
+            );
+          })}
+        </ChapterGroupsContainer>
         <ChapterSelector>
           {CHAPTERS.map((chapter) => (
             <ChapterButton

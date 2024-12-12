@@ -13,9 +13,8 @@ import { CITES } from "./cites";
 import { FileDropBox } from "./FileDropBox";
 import Metaphors from "./Metaphors";
 
-export const MODULATIONS_CHAPTER_TITLE =
-  "Modulations in classical music: endless V7 to I and V7 to i";
-export const DOUBLE_TONIC_CHAPTER_TITLE = "Loops in minor / double-tonic";
+export const MODULATIONS_CHAPTER_TITLE = "Modulations";
+export const DOUBLE_TONIC_CHAPTER_TITLE = "Loops in minor";
 
 const P = styled.div`
   margin-bottom: 30px;
@@ -86,6 +85,14 @@ const k = (layout: string, title?: string) => {
 };
 
 const q = (citeKey: keyof typeof CITES) => <Citation citeKey={citeKey} />;
+
+export const CHAPTER_GROUPS = {
+  loops: [2, 5],
+  "diatonic functional": [6, 8],
+  "borrowed chords": [9, 11],
+  "tonicization/modulation": [12, 15],
+  "seventh chords": [17, 18],
+};
 
 export const CHAPTERS: Array<{
   title: string;
@@ -445,6 +452,11 @@ export const CHAPTERS: Array<{
   },
   {
     title: DOUBLE_TONIC_CHAPTER_TITLE,
+    pretext: () => (
+      <>
+        <h2>Double-tonic loops</h2>
+      </>
+    ),
     composers: [
       "despacito-piano-cover-peter-bence",
       "river-flows-in-you",
@@ -723,7 +735,7 @@ export const CHAPTERS: Array<{
     ],
   },
   {
-    title: "Dorian IV in minor",
+    title: "IV in minor",
     titleChords: ["IV", "i"],
     pretext: () => (
       <>
@@ -824,8 +836,13 @@ export const CHAPTERS: Array<{
     ],
   },
   {
-    title: "Applied dominant: V7/V",
+    title: "V7/V",
     titleChords: ["V7/V", "V"],
+    pretext: () => (
+      <>
+        <h2>Applied dominant: V7/V</h2>
+      </>
+    ),
     mode: {
       title: "",
       chords: ["V7/V", "V7", "I"],
@@ -872,6 +889,11 @@ export const CHAPTERS: Array<{
       chords: ["V7", "I", "i"],
       title: "",
     },
+    pretext: () => (
+      <>
+        <h2>Modulations in classical music: endless V7 to I and V7 to i</h2>
+      </>
+    ),
     composers: [
       "minuet-bwv-anhang-114-in-g-major",
       "flight-of-the-bumblebee",
@@ -901,7 +923,7 @@ export const CHAPTERS: Array<{
     ],
   },
   {
-    title: "Seventh chords and extensions",
+    title: "maj7",
     titleChords: ["IVmaj7", "Imaj7"],
     mode: {
       title: "seventh chords and extensions in major",
@@ -932,7 +954,7 @@ export const CHAPTERS: Array<{
     ],
   },
   {
-    title: "Complex and diverse harmony",
+    title: "Complex",
     titleChords: ["biio7", "io7", "viio7"],
     composers: [
       "Clair_de_Lune__Debussy",

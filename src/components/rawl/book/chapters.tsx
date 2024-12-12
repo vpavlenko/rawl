@@ -88,12 +88,12 @@ const q = (citeKey: keyof typeof CITES) => <Citation citeKey={citeKey} />;
 
 export const CHAPTER_GROUPS: Record<string, [number, number]> = {
   intro: [1, 1],
-  loops: [2, 5],
-  "diatonic functional": [6, 10],
+  "loops: four-chord progressions": [2, 5],
+  "diatonic functional harmony": [6, 10],
   "borrowed chords": [11, 13],
-  "tonicization and modulation": [14, 17],
+  "applied chords and modulation": [14, 17],
   scales: [18, 18],
-  "seventh chords": [19, 21],
+  "seventh and extended chords": [19, 21],
   style: [22, 22],
 };
 

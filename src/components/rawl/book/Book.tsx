@@ -320,6 +320,7 @@ const Book: React.FC = () => {
 
   // Handle chapter selection
   const handleChapterSelect = (chapter: string) => {
+    eject(); // Add this line to eject MIDI before changing chapters
     const newSlug = getChapterSlug(chapter);
     history.push(`/100/${newSlug}`);
   };

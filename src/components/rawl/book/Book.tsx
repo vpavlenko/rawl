@@ -78,8 +78,7 @@ const ComposerWrapper = styled.div`
 `;
 
 const SnippetContainer = styled.div`
-  margin-top: 0px;
-  margin-bottom: 30px;
+  margin: 0px 30px 30px 0px;
 `;
 
 const ComposerList = styled.ul`

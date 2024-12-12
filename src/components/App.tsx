@@ -134,11 +134,9 @@ function mergeAnalyses(existingAnalyses, newAnalyses) {
 
 const AppMainContent = styled.div`
   margin-bottom: 25px; // Add space for fixed footer
-  flex-grow: 1;
-  display: flex;
-  flex-direction: row;
-  overflow: hidden;
-  height: 100%;
+  height: 100vh; // Subtract header height and footer margin
+  overflow-y: auto; // Enable vertical scrolling
+  padding: 0; // Add some horizontal padding
 `;
 
 class App extends React.Component<RouteComponentProps, AppState> {
@@ -1217,7 +1215,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>
           {/* @ts-ignore */}
           {(dropzoneProps) => (
-            <div className="App">
+            <>
               {this.state.audioContextLocked && this.state.parsing && (
                 <div className="audio-context-overlay">
                   <button
@@ -1235,41 +1233,42 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 showPlayerError={this.state.showPlayerError}
               />
 
-              <div className="App-main">
-                <AppHeader />
-                <AppMainContent>
-                  <div className="App-main-inner">
-                    <div className="App-main-content-and-settings">
-                      <div
-                        className="App-main-content-area"
-                        ref={this.contentAreaRef}
-                      >
-                        <Switch>
-                          <Route
-                            path="/old"
-                            render={() => <OldLandingPage />}
-                          />
-                          <Route
-                            path="/corpus/:corpus?"
-                            render={({ match }) =>
-                              match.params.corpus ? (
-                                <Corpus slug={match.params.corpus} />
-                              ) : (
-                                <CorpusSearch />
-                              )
-                            }
-                          />
-                          <Route path="/daw" render={() => <DAW />} />
-                          {rawlRoute}
-                          <Route path="/100/:slug?" component={Book} />
-                          <Route path="/timeline" component={Timeline} />
-                          <Redirect exact from="/" to="/100" />
-                        </Switch>
-                      </div>
-                    </div>
-                  </div>
-                </AppMainContent>
-              </div>
+              <AppHeader />
+              <AppMainContent ref={this.contentAreaRef}>
+                <Switch>
+                  <Route path="/old" render={() => <OldLandingPage />} />
+                  <Route
+                    path="/corpus/:corpus?"
+                    render={({ match }) =>
+                      match.params.corpus ? (
+                        <Corpus slug={match.params.corpus} />
+                      ) : (
+                        <CorpusSearch />
+                      )
+                    }
+                  />
+                  <Route path="/daw" render={() => <DAW />} />
+                  {rawlRoute}
+                  <Route path="/100/:slug?" component={Book} />
+                  <Route path="/timeline" component={Timeline} />
+                  <Redirect exact from="/" to="/100" />
+                </Switch>
+              </AppMainContent>
+              <AppFooter
+                currentSongDurationMs={this.state.currentSongDurationMs}
+                ejected={this.state.ejected}
+                paused={this.state.paused}
+                volume={this.state.volume}
+                handleTimeSliderChange={this.handleTimeSliderChange}
+                handleVolumeChange={this.handleVolumeChange}
+                togglePause={this.togglePause}
+                latencyCorrectionMs={this.state.latencyCorrectionMs}
+                setLatencyCorrectionMs={this.setLatencyCorrectionMs}
+                getCurrentPositionMs={this.midiPlayer?.getPositionMs}
+                tempo={this.state.tempo}
+                setTempo={this.handleTempoChange}
+              />
+
               <Modal
                 isOpen={this.state.showShortcutHelp}
                 onRequestClose={this.toggleShortcutHelp}
@@ -1286,23 +1285,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
               >
                 <ShortcutHelp />
               </Modal>
-            </div>
+            </>
           )}
         </Dropzone>
-        <AppFooter
-          currentSongDurationMs={this.state.currentSongDurationMs}
-          ejected={this.state.ejected}
-          paused={this.state.paused}
-          volume={this.state.volume}
-          handleTimeSliderChange={this.handleTimeSliderChange}
-          handleVolumeChange={this.handleVolumeChange}
-          togglePause={this.togglePause}
-          latencyCorrectionMs={this.state.latencyCorrectionMs}
-          setLatencyCorrectionMs={this.setLatencyCorrectionMs}
-          getCurrentPositionMs={this.midiPlayer?.getPositionMs}
-          tempo={this.state.tempo}
-          setTempo={this.handleTempoChange}
-        />
       </AppContext.Provider>
     );
   }

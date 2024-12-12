@@ -316,6 +316,7 @@ export const CHAPTERS: Array<{
       "Someone_Like_You_easy_piano",
       "Someone_You_Loved",
       "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
+      "A_Thousand_Miles",
     ],
   },
   {
@@ -608,6 +609,7 @@ export const CHAPTERS: Array<{
       "Je_Te_Laisserai_Des_Mots_-_Patrick_Watson",
       "gurenge--demon-slayer-kimetsu-no-yaiba-op",
       "Pokemon_Theme_Song",
+      "attack-on-titan-theme-guren-no-yumiya",
     ],
   },
   {
@@ -717,7 +719,7 @@ export const CHAPTERS: Array<{
       "a-thousand-years",
       "John_Lennon_Imagine",
       "sign-of-the-times---harry-styles",
-      "A_Thousand_Miles",
+      "Cant_Help_Falling_In_Love",
     ],
   },
   {
@@ -794,6 +796,7 @@ export const CHAPTERS: Array<{
       "nothing-else-matters---metallica",
       "dragonborn---skyrim-theme-song-piano-solo",
       "solas---jamie-duffy",
+      "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2",
     ],
   },
   {
@@ -813,9 +816,10 @@ export const CHAPTERS: Array<{
       chords: ["ii7", "IVmaj7", "vi7", "Imaj7", "iii7", "V13"],
     },
     composers: [
-      "Golden_Hour__JVKE_Updated_Ver.",
       "Sweden_Minecraft",
+      "Golden_Hour__JVKE_Updated_Ver.",
       "Gymnopdie_No._1__Satie",
+      "ylang-ylang---fkj-transcribed-by-lilroo",
       "yuri-on-ice---piano-theme-full",
     ],
   },
@@ -834,25 +838,31 @@ export const CHAPTERS: Array<{
     ],
   },
   {
+    title: "V/vi",
+    titleChords: ["V7/vi", "vi"],
+    mode: {
+      title: "major with V/vi",
+      chords: ["ii", "IV", "vi", "I", "iii", "V/vi", "V", "V7"],
+    },
+    composers: [
+      "your-song-piano",
+      "sia---snowman",
+      "my-lie-watashi-no-uso---your-lie-in-april",
+      "my-heart-will-go-on",
+    ],
+  },
+  {
     title: "Other applied chords",
-    titleChords: ["V7/vi", "vi", "V7/ii", "ii"],
+    titleChords: ["V7/ii", "ii"],
     mode: {
       title: "applied chords",
       chords: ["V7/ii", "ii", "V7/iv", "iv", "V7/vi", "vi"],
     },
     composers: [
-      "anastasia---once-upon-a-december",
       "Omori_Duet",
-      "sia---snowman",
-      "Cant_Help_Falling_In_Love",
-      "your-song-piano",
-      "my-lie-watashi-no-uso---your-lie-in-april",
       "abba--the-winner-takes-it-all",
       "All_I_Want_for_Christmas_is_You",
-      "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night",
-      "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
-      "Love_Like_You_Steven_Universe",
-      "my-heart-will-go-on",
+      "anastasia---once-upon-a-december",
     ],
   },
   {
@@ -915,6 +925,8 @@ export const CHAPTERS: Array<{
       "Fly_Me_to_the_Moon",
       "autumn-leaves-jazz-piano",
       "it-s-been-a-long-long-time---harry-james",
+      "Love_Like_You_Steven_Universe",
+      "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night",
       "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
     ],
   },
@@ -925,12 +937,11 @@ export const CHAPTERS: Array<{
       "Clair_de_Lune__Debussy",
       "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
       "Liebestraum_No._3_in_A_Major",
-
+      "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
       "mii-channel-piano",
-      "ylang-ylang---fkj-transcribed-by-lilroo",
-      "attack-on-titan-theme-guren-no-yumiya",
+
       "congratulations---mac-miller",
-      "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2",
+
       "dance-of-the-sugar-plum-fairy",
       "africa---toto",
     ],

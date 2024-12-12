@@ -15,6 +15,8 @@ import {
   MODULATIONS_CHAPTER_TITLE,
 } from "./chapters";
 
+const NAV_CHORD_STAIRS_SCALE = 0.7;
+
 type EnhancedSnippet = Snippet & {
   composerSlug: string;
 };
@@ -444,20 +446,20 @@ const Book: React.FC = () => {
                   <>
                     <ChordStairs
                       mode={{ title: "", chords: ["vi"] }}
-                      scale={0.8}
+                      scale={NAV_CHORD_STAIRS_SCALE}
                       playbackMode="no"
                     />
                     <span style={{ margin: 4, fontSize: "28px" }}>=</span>
                     <ChordStairs
                       mode={{ title: "", chords: ["i"] }}
-                      scale={0.8}
+                      scale={NAV_CHORD_STAIRS_SCALE}
                       playbackMode="no"
                     />
                   </>
                 ) : chapter.titleChords ? (
                   <ChordStairs
                     mode={{ title: "", chords: chapter.titleChords }}
-                    scale={0.8}
+                    scale={NAV_CHORD_STAIRS_SCALE}
                     playbackMode="no"
                   />
                 ) : (

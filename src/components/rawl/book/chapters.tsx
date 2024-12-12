@@ -93,8 +93,7 @@ export const CHAPTER_GROUPS: Record<string, [number, number]> = {
   "borrowed chords": [9, 11],
   "tonicization and modulation": [12, 15],
   scales: [16, 16],
-  "seventh chords": [17, 18],
-  "?": [19, 19],
+  "seventh chords": [17, 19],
   style: [20, 20],
 };
 
@@ -333,8 +332,8 @@ export const CHAPTERS: Array<{
     title: "Loops in minor",
     titleChords: ["bVI", "bVII", "i"],
     mode: {
-      title: "natural minor",
-      chords: ["iv", "bVI", "i", "bIII", "v", "bVII"],
+      title: "natural minor without bIII",
+      chords: ["iv", "v", "bVI", "bVII", "i"],
     },
     pretext: () => (
       <>
@@ -447,27 +446,6 @@ export const CHAPTERS: Array<{
       "Never_Gonna_Give_You_Up",
       "Lovely_Billie_Eilish",
       "Interstellar",
-      "Let_Her_Go_Passenger",
-      "Another_Love__-_Tom_Odell_Professional",
-
-      "sadness-and-sorrow-for-piano-solo",
-    ],
-  },
-  {
-    title: DOUBLE_TONIC_CHAPTER_TITLE,
-    pretext: () => (
-      <>
-        <h2>Double-tonic loops</h2>
-      </>
-    ),
-    composers: [
-      "despacito-piano-cover-peter-bence",
-      "river-flows-in-you",
-      "alan-walker---alone-piano",
-      "Yann_Tiersen_Amelie",
-      "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",
-      "Mad_world_Piano",
-      "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
     ],
   },
 
@@ -516,6 +494,27 @@ export const CHAPTERS: Array<{
       "Believer_-_Imagine_Dragons",
     ],
   },
+
+  {
+    title: DOUBLE_TONIC_CHAPTER_TITLE,
+    pretext: () => (
+      <>
+        <h2>Double-tonic loops</h2>
+      </>
+    ),
+    composers: [
+      "despacito-piano-cover-peter-bence",
+      "river-flows-in-you",
+      "alan-walker---alone-piano",
+      "Yann_Tiersen_Amelie",
+      "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",
+      "Mad_world_Piano",
+      "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
+      "Let_Her_Go_Passenger",
+      "Another_Love__-_Tom_Odell_Professional",
+    ],
+  },
+
   {
     title: "Circle of fifths",
     titleChords: ["i", "iv", "bVII", "bIII"],
@@ -626,7 +625,10 @@ export const CHAPTERS: Array<{
       "gurenge--demon-slayer-kimetsu-no-yaiba-op",
       "Pokemon_Theme_Song",
       "attack-on-titan-theme-guren-no-yumiya",
+      "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
+      "theme-from-schindler-s-list---piano-solo",
       "Game_of_Thrones_Easy_piano",
+      "sadness-and-sorrow-for-piano-solo",
     ],
   },
   {
@@ -902,29 +904,29 @@ export const CHAPTERS: Array<{
     composers: [
       "minuet-bwv-anhang-114-in-g-major",
       "flight-of-the-bumblebee",
-      "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
+
       "wa-mozart-marche-turque-turkish-march-fingered",
-      "theme-from-schindler-s-list---piano-solo",
+
       "Fr_Elise",
-      "the_entertainer_scott_joplin",
     ],
   },
   {
-    title: "Blues scale and hexatonic minor",
-    titleChords: ["1", "b3", "4", "#4", "5", "b7"],
+    title: "blues, penta, hexa",
+    titleChords: ["1", "b3", "4", "5", "b7"],
     pretext: () => (
       <>
         <P>{k("blues-scale")}</P>
       </>
     ),
     mode: {
-      title: "blues scale",
+      title: "scales of 5 and 6 notes",
       chords: ["1", "b3", "4", "#4", "5", "b7"],
     },
     composers: [
       "Undertale_-_Megalovania_Piano_ver._3",
       "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2",
       "fairy-tail-main-theme",
+      "africa---toto",
     ],
   },
   {
@@ -940,6 +942,8 @@ export const CHAPTERS: Array<{
       "Gymnopdie_No._1__Satie",
       "ylang-ylang---fkj-transcribed-by-lilroo",
       "yuri-on-ice---piano-theme-full",
+      "congratulations---mac-miller",
+      "Clair_de_Lune__Debussy",
     ],
   },
   {
@@ -956,22 +960,18 @@ export const CHAPTERS: Array<{
       "Love_Like_You_Steven_Universe",
       "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night",
       "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
+      "mii-channel-piano",
     ],
   },
   {
-    title: "Complex",
-    titleChords: ["biio7", "io7", "viio7"],
+    title: "viio7, io7, biio7",
+    titleChords: ["viio7", "io7", "biio7"],
     composers: [
-      "Clair_de_Lune__Debussy",
       "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
+      "the_entertainer_scott_joplin",
       "Liebestraum_No._3_in_A_Major",
-      "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
-      "mii-channel-piano",
-
-      "congratulations---mac-miller",
-
       "dance-of-the-sugar-plum-fairy",
-      "africa---toto",
+      "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
     ],
   },
   {
@@ -998,7 +998,7 @@ export const CHAPTERS: Array<{
       "Wet_Hands_Minecraft",
       "Gravity_Falls_Opening",
       "eda-s-requiem---brad-breeck-piano",
-      "the_entertainer_scott_joplin",
+
       "Maple_Leaf_Rag_Scott_Joplin",
       "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
       "kanye-west-homecoming-piano-cover",

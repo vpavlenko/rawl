@@ -16,6 +16,7 @@ import {
   MODULATIONS_CHAPTER_TITLE,
 } from "./chapters";
 
+const NAV_HORIZONTAL_GAP = 20;
 const NAV_CHORD_STAIRS_SCALE = 0.7;
 
 type EnhancedSnippet = Snippet & {
@@ -97,8 +98,9 @@ const ComposerListItem = styled.li`
 
 const ChapterSelector = styled.div.attrs({ className: "ChapterSelector" })`
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  gap: 25px;
+  gap: 0px ${NAV_HORIZONTAL_GAP}px;
   padding: 0;
   margin: 0;
 `;
@@ -134,7 +136,6 @@ const ChapterButton = styled.button<{ isSelected: boolean }>`
   display: flex;
   align-items: center;
   position: relative;
-  min-height: 80px;
   padding: 0px 0px;
   border-radius: 0;
   box-sizing: border-box;
@@ -151,12 +152,10 @@ const ChapterButton = styled.button<{ isSelected: boolean }>`
 `;
 
 const NavChordWrapper = styled.div`
-  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: black;
-  margin: 0 0 10px 0;
   position: relative;
 `;
 
@@ -204,36 +203,48 @@ const ComposerLinkWithChat: React.FC<{
   </ComposerLink>
 );
 
-const ChapterGroupsContainer = styled.div`
-  display: flex;
-  width: 100%;
-  position: relative;
-  height: 30px;
-  top: 13px;
-  left: 1px;
-  z-index: 1000000;
-`;
-
 const ChapterGroup = styled.div<{ isActive: boolean }>`
-  white-space: nowrap;
-  text-align: center;
-  color: ${(props) => (props.isActive ? "#fff" : "#666")};
-  font-size: 14px;
-  position: absolute;
-  padding-bottom: 12px;
-  transition: color 0.3s ease;
+  display: inline-flex;
+  flex-direction: column;
+  width: fit-content;
+  min-width: min-content;
 
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 8px;
-    border-top: 1px solid ${(props) => (props.isActive ? "#fff" : "#666")};
-    border-left: 1px solid ${(props) => (props.isActive ? "#fff" : "#666")};
-    border-right: 1px solid ${(props) => (props.isActive ? "#fff" : "#666")};
-    transition: border-color 0.3s ease;
+  .group-header {
+    white-space: nowrap;
+    text-align: left;
+    color: ${(props) => (props.isActive ? "#fff" : "#666")};
+    font-size: 14px;
+    padding-bottom: 12px;
+    position: relative;
+    transition: color 0.3s ease;
+    width: 100%;
+    margin-bottom: 10px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      border-top: 1px solid ${(props) => (props.isActive ? "#fff" : "#666")};
+      border-left: 1px solid ${(props) => (props.isActive ? "#fff" : "#666")};
+      border-right: 1px solid ${(props) => (props.isActive ? "#fff" : "#666")};
+      transition: border-color 0.3s ease;
+    }
+  }
+
+  .group-content {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: ${NAV_HORIZONTAL_GAP}px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
@@ -254,9 +265,6 @@ const Book: React.FC = () => {
   const [hoveredChapter, setHoveredChapter] = React.useState<string | null>(
     null,
   );
-  const [groupsPositions, setGroupsPositions] = React.useState<{
-    [key: string]: { left: number; width: number };
-  }>({});
 
   if (!appContext) throw new Error("AppContext not found");
   const { analyses, eject } = appContext;
@@ -313,39 +321,6 @@ const Book: React.FC = () => {
     const newSlug = getChapterSlug(chapter);
     history.push(`/100/${newSlug}`);
   };
-
-  React.useEffect(() => {
-    const calculatePositions = () => {
-      const newPositions: typeof groupsPositions = {};
-
-      Object.entries(CHAPTER_GROUPS).forEach(([name, [from, to]]) => {
-        const startButton = document.querySelector(
-          `.ChapterSelector button:nth-child(${from})`,
-        ) as HTMLElement;
-        const endButton = document.querySelector(
-          `.ChapterSelector button:nth-child(${to})`,
-        ) as HTMLElement;
-
-        if (startButton && endButton) {
-          const startLeft = startButton.offsetLeft;
-          const endRight = endButton.offsetLeft + endButton.offsetWidth;
-          newPositions[name] = {
-            left: startLeft,
-            width: endRight - startLeft,
-          };
-        }
-      });
-
-      setGroupsPositions(newPositions);
-    };
-
-    // Calculate initial positions after render
-    setTimeout(calculatePositions, 100); // Increased timeout to ensure buttons are rendered
-
-    // Recalculate on window resize
-    window.addEventListener("resize", calculatePositions);
-    return () => window.removeEventListener("resize", calculatePositions);
-  }, []);
 
   const renderContent = () => {
     const currentChapter = CHAPTERS.find(
@@ -456,109 +431,106 @@ const Book: React.FC = () => {
     <BookContainer>
       <div className="Book" style={{ position: "relative" }}>
         <Title>Visual Harmony of Top 100 Composers on MuseScore.com</Title>
-        <ChapterGroupsContainer>
-          {Object.entries(CHAPTER_GROUPS).map(([name, range]) => {
-            const position = groupsPositions[name];
-            if (!position) return null;
-
-            const isActive = isChapterInGroup(selectedChapter, range);
-
-            return (
-              <ChapterGroup
-                key={name}
-                style={{
-                  left: position.left,
-                  width: position.width,
-                }}
-                isActive={isActive}
-              >
-                {name}
-              </ChapterGroup>
-            );
-          })}
-        </ChapterGroupsContainer>
         <ChapterSelector>
-          {CHAPTERS.map((chapter) => (
-            <ChapterButton
-              key={chapter.title}
-              isSelected={selectedChapter === chapter.title}
-              onClick={() => handleChapterSelect(chapter.title)}
-              onMouseEnter={() => setHoveredChapter(chapter.title)}
-              onMouseLeave={() => setHoveredChapter(null)}
-            >
-              <NavChordWrapper>
-                {chapter.title === MODULATIONS_CHAPTER_TITLE ? (
-                  <div
-                    style={{
-                      position: "relative",
-                      width: "65px",
-                      height: "45px",
-                      overflow: "hidden",
-                    }}
-                  >
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "10px",
-                      }}
-                    >
-                      <NewTonicSymbol
-                        left={0}
-                        number={1}
-                        previousTonic={0}
-                        modulationDiff={5}
-                        tonicStart={5}
-                      />
-                    </div>
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "25px",
-                      }}
-                    >
-                      <NewTonicSymbol
-                        left={0}
-                        number={1}
-                        previousTonic={0}
-                        modulationDiff={7}
-                        tonicStart={7}
-                      />
-                    </div>
+          {Object.entries(CHAPTER_GROUPS).map(
+            ([name, [startIndex, endIndex]]) => {
+              const groupChapters = CHAPTERS.slice(startIndex - 1, endIndex);
+              const isActive = groupChapters.some(
+                (chapter) => chapter.title === selectedChapter,
+              );
+
+              return (
+                <ChapterGroup key={name} isActive={isActive}>
+                  <div className="group-header">{name}</div>
+                  <div className="group-content">
+                    {groupChapters.map((chapter) => (
+                      <ChapterButton
+                        key={chapter.title}
+                        isSelected={selectedChapter === chapter.title}
+                        onClick={() => handleChapterSelect(chapter.title)}
+                        onMouseEnter={() => setHoveredChapter(chapter.title)}
+                        onMouseLeave={() => setHoveredChapter(null)}
+                      >
+                        <NavChordWrapper>
+                          {chapter.title === MODULATIONS_CHAPTER_TITLE ? (
+                            <div
+                              style={{
+                                position: "relative",
+                                width: "65px",
+                                height: "45px",
+                                overflow: "hidden",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  position: "absolute",
+                                  top: "10px",
+                                }}
+                              >
+                                <NewTonicSymbol
+                                  left={0}
+                                  number={1}
+                                  previousTonic={0}
+                                  modulationDiff={5}
+                                  tonicStart={5}
+                                />
+                              </div>
+                              <div
+                                style={{
+                                  position: "absolute",
+                                  top: "25px",
+                                }}
+                              >
+                                <NewTonicSymbol
+                                  left={0}
+                                  number={1}
+                                  previousTonic={0}
+                                  modulationDiff={7}
+                                  tonicStart={7}
+                                />
+                              </div>
+                            </div>
+                          ) : chapter.title === DOUBLE_TONIC_CHAPTER_TITLE ? (
+                            <>
+                              <ChordStairs
+                                mode={{ title: "", chords: ["vi"] }}
+                                scale={NAV_CHORD_STAIRS_SCALE}
+                                playbackMode="no"
+                              />
+                              <span style={{ margin: 4, fontSize: "28px" }}>
+                                =
+                              </span>
+                              <ChordStairs
+                                mode={{ title: "", chords: ["i"] }}
+                                scale={NAV_CHORD_STAIRS_SCALE}
+                                playbackMode="no"
+                              />
+                            </>
+                          ) : chapter.titleChords ? (
+                            <ChordStairs
+                              mode={{ title: "", chords: chapter.titleChords }}
+                              scale={NAV_CHORD_STAIRS_SCALE}
+                              playbackMode="no"
+                            />
+                          ) : (
+                            chapter.title
+                          )}
+                        </NavChordWrapper>
+                        {!["Style"].includes(chapter.title) && (
+                          <ChapterTitleTooltip
+                            isSelected={selectedChapter === chapter.title}
+                            isHovered={hoveredChapter === chapter.title}
+                          >
+                            {chapter.title}
+                          </ChapterTitleTooltip>
+                        )}
+                      </ChapterButton>
+                    ))}
                   </div>
-                ) : chapter.title === DOUBLE_TONIC_CHAPTER_TITLE ? (
-                  <>
-                    <ChordStairs
-                      mode={{ title: "", chords: ["vi"] }}
-                      scale={NAV_CHORD_STAIRS_SCALE}
-                      playbackMode="no"
-                    />
-                    <span style={{ margin: 4, fontSize: "28px" }}>=</span>
-                    <ChordStairs
-                      mode={{ title: "", chords: ["i"] }}
-                      scale={NAV_CHORD_STAIRS_SCALE}
-                      playbackMode="no"
-                    />
-                  </>
-                ) : chapter.titleChords ? (
-                  <ChordStairs
-                    mode={{ title: "", chords: chapter.titleChords }}
-                    scale={NAV_CHORD_STAIRS_SCALE}
-                    playbackMode="no"
-                  />
-                ) : (
-                  chapter.title
-                )}
-                {!["Style"].includes(chapter.title) && (
-                  <ChapterTitleTooltip
-                    isSelected={selectedChapter === chapter.title}
-                    isHovered={hoveredChapter === chapter.title}
-                  >
-                    {chapter.title}
-                  </ChapterTitleTooltip>
-                )}
-              </NavChordWrapper>
-            </ChapterButton>
-          ))}
+                </ChapterGroup>
+              );
+            },
+          )}
         </ChapterSelector>
 
         {renderContent()}

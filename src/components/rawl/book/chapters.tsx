@@ -87,6 +87,7 @@ const k = (layout: string, title?: string) => {
 const q = (citeKey: keyof typeof CITES) => <Citation citeKey={citeKey} />;
 
 export const CHAPTER_GROUPS: Record<string, [number, number]> = {
+  intro: [1, 1],
   loops: [2, 5],
   "diatonic functional": [6, 8],
   "borrowed chords": [9, 11],
@@ -94,6 +95,7 @@ export const CHAPTER_GROUPS: Record<string, [number, number]> = {
   scales: [16, 16],
   "seventh chords": [17, 18],
   "?": [19, 19],
+  style: [20, 20],
 };
 
 export const CHAPTERS: Array<{

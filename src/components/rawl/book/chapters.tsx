@@ -322,11 +322,10 @@ export const CHAPTERS: Array<{
       "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
       "doki-doki-literature-club-ost---your-reality",
       "Viva_La_Vida_Coldplay",
+      "someone-you-loved-lewis-capaldi",
       "Ed_Sheeran_Perfect",
       "dont-stop-believing-piano",
       "Someone_Like_You_easy_piano",
-      "Someone_You_Loved",
-
       "A_Thousand_Miles",
     ],
   },
@@ -445,16 +444,13 @@ export const CHAPTERS: Array<{
     composers: [
       "still-dre---variation-composition",
       "Im_Blue_Eiffel_65",
-
-      "Interstellar",
       "Never_Gonna_Give_You_Up",
       "Lovely_Billie_Eilish",
+      "Interstellar",
       "Let_Her_Go_Passenger",
       "Another_Love__-_Tom_Odell_Professional",
 
       "sadness-and-sorrow-for-piano-solo",
-
-      "Game_of_Thrones_Easy_piano",
     ],
   },
   {
@@ -630,6 +626,7 @@ export const CHAPTERS: Array<{
       "gurenge--demon-slayer-kimetsu-no-yaiba-op",
       "Pokemon_Theme_Song",
       "attack-on-titan-theme-guren-no-yumiya",
+      "Game_of_Thrones_Easy_piano",
     ],
   },
   {

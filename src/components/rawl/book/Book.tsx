@@ -100,7 +100,7 @@ const ChapterSelector = styled.div.attrs({ className: "ChapterSelector" })`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 0px ${NAV_HORIZONTAL_GAP}px;
+  gap: 10px ${NAV_HORIZONTAL_GAP}px;
   padding: 0;
   margin: 0;
   overflow: visible;
@@ -227,7 +227,6 @@ const ChapterGroup = styled.div<{ isActive: boolean; hideHeader?: boolean }>`
     position: relative;
     transition: color 0.3s ease;
     width: 100%;
-    margin-bottom: 10px;
     overflow: visible;
     visibility: ${(props) => (props.hideHeader ? "hidden" : "visible")};
 

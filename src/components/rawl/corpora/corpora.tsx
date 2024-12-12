@@ -4899,6 +4899,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Video Game Music",
     country: "Japan",
   },
+  { slug: "game_of_thrones_theme", midis: ["Game_of_Thrones_Easy_piano"] },
   {
     slug: MUSESCORE_TOP_100_SLUG,
     posttext: AboutTop100Corpus,
@@ -4920,7 +4921,7 @@ export const corpora: CorpusEntry[] = [
       "Sweden_Minecraft", // C418
       "Pirates_of_the_Caribbean_-_Hes_a_Pirate", // Klaus Badelt
       "Game_of_Thrones_Easy_piano", // Ramin Djawadi
-      "Someone_You_Loved", // Lewis Capaldi
+      "someone-you-loved-lewis-capaldi", // Lewis Capaldi
       "Ed_Sheeran_Perfect", // Ed Sheeran
       "Liebestraum_No._3_in_A_Major", // Liszt
       "Believer_-_Imagine_Dragons", // Imagine Dragons

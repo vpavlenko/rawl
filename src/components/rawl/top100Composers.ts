@@ -88,7 +88,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     displayTitle: "Game of Thrones Main Theme",
   },
   {
-    slug: "Someone_You_Loved",
+    slug: "someone-you-loved-lewis-capaldi",
     composer: "Lewis Capaldi",
     displayTitle: "Someone You Loved",
   },

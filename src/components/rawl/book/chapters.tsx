@@ -86,12 +86,12 @@ const k = (layout: string, title?: string) => {
 
 const q = (citeKey: keyof typeof CITES) => <Citation citeKey={citeKey} />;
 
-export const CHAPTER_GROUPS = {
+export const CHAPTER_GROUPS: Record<string, [number, number]> = {
   loops: [2, 5],
   "diatonic functional": [6, 8],
   "borrowed chords": [9, 11],
   "tonicization and modulation": [12, 15],
-  "blues scale": [16, 16],
+  scales: [16, 16],
   "seventh chords": [17, 18],
   "?": [19, 19],
 };
@@ -470,7 +470,7 @@ export const CHAPTERS: Array<{
   },
 
   {
-    title: "i ♭VI V",
+    title: "i i ♭VI V",
     titleChords: ["i", "i", "bVI", "V"],
     mode: {
       title: "",
@@ -857,7 +857,7 @@ export const CHAPTERS: Array<{
     ],
   },
   {
-    title: "V/vi",
+    title: "V7/vi",
     titleChords: ["V7/vi", "vi"],
     mode: {
       title: "major with V/vi",
@@ -872,7 +872,7 @@ export const CHAPTERS: Array<{
     ],
   },
   {
-    title: "Other applied chords",
+    title: "V7/ii, V7/iv",
     titleChords: ["V7/ii", "ii"],
     mode: {
       title: "applied chords",

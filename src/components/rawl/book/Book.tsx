@@ -103,27 +103,23 @@ const ChapterSelector = styled.div.attrs({ className: "ChapterSelector" })`
   gap: 0px ${NAV_HORIZONTAL_GAP}px;
   padding: 0;
   margin: 0;
+  overflow: visible;
 `;
 
 const ChapterTitleTooltip = styled.div<{
   isSelected?: boolean;
   isHovered?: boolean;
 }>`
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.9);
   padding: 0px 8px;
   white-space: nowrap;
   pointer-events: none;
   z-index: ${(props) => {
-    return props.isHovered ? 2000 : 1000;
+    return props.isHovered ? 20000 : 10000;
   }};
   opacity: ${(props) => {
     return props.isSelected || props.isHovered ? 1 : 0;
   }};
-  display: block !important;
   color: ${(props) => (props.isSelected ? "white" : "#aaa")};
 `;
 
@@ -131,22 +127,32 @@ const ChapterButton = styled.button<{ isSelected: boolean }>`
   background: black;
   color: white;
   cursor: pointer;
-  white-space: nowrap;
   box-sizing: border-box;
   display: flex;
+  flex-direction: column;
   align-items: center;
   position: relative;
-  padding: 0px 0px;
+  padding: 0;
   border-radius: 0;
-  box-sizing: border-box;
+  overflow: visible;
+  height: 80px;
+  overflow: visible;
 
   ${ChapterTitleTooltip} {
-    display: none;
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    white-space: nowrap;
   }
 
   &:hover {
     ${ChapterTitleTooltip} {
-      display: block;
+      display: flex;
     }
   }
 `;
@@ -157,6 +163,8 @@ const NavChordWrapper = styled.div`
   justify-content: center;
   background-color: black;
   position: relative;
+  height: 60px;
+  width: 100%;
 `;
 
 export const ReadableTextBlock = styled.div`
@@ -208,6 +216,7 @@ const ChapterGroup = styled.div<{ isActive: boolean }>`
   flex-direction: column;
   width: fit-content;
   min-width: min-content;
+  overflow: visible;
 
   .group-header {
     white-space: nowrap;
@@ -219,6 +228,7 @@ const ChapterGroup = styled.div<{ isActive: boolean }>`
     transition: color 0.3s ease;
     width: 100%;
     margin-bottom: 10px;
+    overflow: visible;
 
     &::after {
       content: "";
@@ -238,7 +248,7 @@ const ChapterGroup = styled.div<{ isActive: boolean }>`
     display: flex;
     flex-wrap: nowrap;
     gap: ${NAV_HORIZONTAL_GAP}px;
-    overflow-x: auto;
+    overflow: visible;
     scrollbar-width: none;
     -ms-overflow-style: none;
 
@@ -247,16 +257,6 @@ const ChapterGroup = styled.div<{ isActive: boolean }>`
     }
   }
 `;
-
-const isChapterInGroup = (
-  chapterTitle: string,
-  groupRange: [number, number],
-) => {
-  const chapterIndex = CHAPTERS.findIndex(
-    (chapter) => chapter.title === chapterTitle,
-  );
-  return chapterIndex >= groupRange[0] - 1 && chapterIndex <= groupRange[1] - 1;
-};
 
 const Book: React.FC = () => {
   const { slug } = useParams<{ slug?: string }>();
@@ -465,6 +465,7 @@ const Book: React.FC = () => {
                                 style={{
                                   position: "absolute",
                                   top: "10px",
+                                  width: "65px",
                                 }}
                               >
                                 <NewTonicSymbol
@@ -479,6 +480,7 @@ const Book: React.FC = () => {
                                 style={{
                                   position: "absolute",
                                   top: "25px",
+                                  width: "65px",
                                 }}
                               >
                                 <NewTonicSymbol

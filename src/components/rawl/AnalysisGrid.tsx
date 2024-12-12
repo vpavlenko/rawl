@@ -151,6 +151,7 @@ export const NewTonicSymbol: React.FC<{
         zIndex: 100,
         fontWeight: 700,
         userSelect: "none",
+        textAlign: "left",
       }}
     >
       {previousTonic !== null && (
@@ -160,7 +161,7 @@ export const NewTonicSymbol: React.FC<{
             : `↑${modulationDiff}`
         } `}</>
       )}
-      <span>{PITCH_CLASS_TO_LETTER[tonicStart]}</span>
+      {PITCH_CLASS_TO_LETTER[tonicStart]}
     </span>
 
     <div

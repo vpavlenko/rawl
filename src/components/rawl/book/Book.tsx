@@ -214,13 +214,14 @@ const ChapterGroupsContainer = styled.div`
   z-index: 1000000;
 `;
 
-const ChapterGroup = styled.div`
+const ChapterGroup = styled.div<{ isActive: boolean }>`
   white-space: nowrap;
   text-align: center;
-  color: #666;
+  color: ${(props) => (props.isActive ? "#fff" : "#666")};
   font-size: 14px;
   position: absolute;
   padding-bottom: 12px;
+  transition: color 0.3s ease;
 
   &::after {
     content: "";
@@ -229,11 +230,22 @@ const ChapterGroup = styled.div`
     left: 0;
     right: 0;
     height: 8px;
-    border-top: 1px solid #666;
-    border-left: 1px solid #666;
-    border-right: 1px solid #666;
+    border-top: 1px solid ${(props) => (props.isActive ? "#fff" : "#666")};
+    border-left: 1px solid ${(props) => (props.isActive ? "#fff" : "#666")};
+    border-right: 1px solid ${(props) => (props.isActive ? "#fff" : "#666")};
+    transition: border-color 0.3s ease;
   }
 `;
+
+const isChapterInGroup = (
+  chapterTitle: string,
+  groupRange: [number, number],
+) => {
+  const chapterIndex = CHAPTERS.findIndex(
+    (chapter) => chapter.title === chapterTitle,
+  );
+  return chapterIndex >= groupRange[0] - 1 && chapterIndex <= groupRange[1] - 1;
+};
 
 const Book: React.FC = () => {
   const { slug } = useParams<{ slug?: string }>();
@@ -445,9 +457,11 @@ const Book: React.FC = () => {
       <div className="Book" style={{ position: "relative" }}>
         <Title>Visual Harmony of Top 100 Composers on MuseScore.com</Title>
         <ChapterGroupsContainer>
-          {Object.entries(CHAPTER_GROUPS).map(([name, [from, to]]) => {
+          {Object.entries(CHAPTER_GROUPS).map(([name, range]) => {
             const position = groupsPositions[name];
             if (!position) return null;
+
+            const isActive = isChapterInGroup(selectedChapter, range);
 
             return (
               <ChapterGroup
@@ -456,6 +470,7 @@ const Book: React.FC = () => {
                   left: position.left,
                   width: position.width,
                 }}
+                isActive={isActive}
               >
                 {name}
               </ChapterGroup>

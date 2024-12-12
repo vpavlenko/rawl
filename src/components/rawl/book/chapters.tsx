@@ -90,8 +90,10 @@ export const CHAPTER_GROUPS = {
   loops: [2, 5],
   "diatonic functional": [6, 8],
   "borrowed chords": [9, 11],
-  "tonicization/modulation": [12, 15],
+  "tonicization and modulation": [12, 15],
+  "blues scale": [16, 16],
   "seventh chords": [17, 18],
+  "?": [19, 19],
 };
 
 export const CHAPTERS: Array<{

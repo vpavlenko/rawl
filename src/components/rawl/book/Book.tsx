@@ -211,7 +211,7 @@ const ComposerLinkWithChat: React.FC<{
   </ComposerLink>
 );
 
-const ChapterGroup = styled.div<{ isActive: boolean }>`
+const ChapterGroup = styled.div<{ isActive: boolean; hideHeader?: boolean }>`
   display: inline-flex;
   flex-direction: column;
   width: fit-content;
@@ -220,7 +220,7 @@ const ChapterGroup = styled.div<{ isActive: boolean }>`
 
   .group-header {
     white-space: nowrap;
-    text-align: left;
+    text-align: center;
     color: ${(props) => (props.isActive ? "#fff" : "#666")};
     font-size: 14px;
     padding-bottom: 12px;
@@ -229,6 +229,7 @@ const ChapterGroup = styled.div<{ isActive: boolean }>`
     width: 100%;
     margin-bottom: 10px;
     overflow: visible;
+    visibility: ${(props) => (props.hideHeader ? "hidden" : "visible")};
 
     &::after {
       content: "";
@@ -241,6 +242,7 @@ const ChapterGroup = styled.div<{ isActive: boolean }>`
       border-left: 1px solid ${(props) => (props.isActive ? "#fff" : "#666")};
       border-right: 1px solid ${(props) => (props.isActive ? "#fff" : "#666")};
       transition: border-color 0.3s ease;
+      visibility: ${(props) => (props.hideHeader ? "hidden" : "visible")};
     }
   }
 
@@ -438,9 +440,16 @@ const Book: React.FC = () => {
               const isActive = groupChapters.some(
                 (chapter) => chapter.title === selectedChapter,
               );
+              const hideHeader =
+                name.toLowerCase() === "intro" ||
+                name.toLowerCase() === "style";
 
               return (
-                <ChapterGroup key={name} isActive={isActive}>
+                <ChapterGroup
+                  key={name}
+                  isActive={isActive}
+                  hideHeader={hideHeader}
+                >
                   <div className="group-header">{name}</div>
                   <div className="group-content">
                     {groupChapters.map((chapter) => (

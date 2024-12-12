@@ -14,7 +14,7 @@ import { FileDropBox } from "./FileDropBox";
 import Metaphors from "./Metaphors";
 
 export const MODULATIONS_CHAPTER_TITLE = "Modulations";
-export const DOUBLE_TONIC_CHAPTER_TITLE = "Loops in minor";
+export const DOUBLE_TONIC_CHAPTER_TITLE = "Double-tonic";
 
 const P = styled.div`
   margin-bottom: 30px;
@@ -326,12 +326,12 @@ export const CHAPTERS: Array<{
       "dont-stop-believing-piano",
       "Someone_Like_You_easy_piano",
       "Someone_You_Loved",
-      "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
+
       "A_Thousand_Miles",
     ],
   },
   {
-    title: "Natural minor",
+    title: "Loops in minor",
     titleChords: ["bVI", "bVII", "i"],
     mode: {
       title: "natural minor",
@@ -444,14 +444,17 @@ export const CHAPTERS: Array<{
     ),
     composers: [
       "still-dre---variation-composition",
-      "Game_of_Thrones_Easy_piano",
+      "Im_Blue_Eiffel_65",
+
+      "Interstellar",
+      "Never_Gonna_Give_You_Up",
       "Lovely_Billie_Eilish",
       "Let_Her_Go_Passenger",
       "Another_Love__-_Tom_Odell_Professional",
-      "Im_Blue_Eiffel_65",
-      "Never_Gonna_Give_You_Up",
+
       "sadness-and-sorrow-for-piano-solo",
-      "Interstellar",
+
+      "Game_of_Thrones_Easy_piano",
     ],
   },
   {
@@ -468,6 +471,7 @@ export const CHAPTERS: Array<{
       "Yann_Tiersen_Amelie",
       "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",
       "Mad_world_Piano",
+      "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
     ],
   },
 

@@ -4,6 +4,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
+import styled from "styled-components";
+import {
+  GenreList,
+  getEmojis,
+  getUniqueStyles,
+  hasMetadata,
+} from "../../utils/corpusUtils";
 import { ComposerTitle } from "./book/Book";
 import { corpora, MUSESCORE_TOP_100_SLUG } from "./corpora/corpora";
 import { CorpusLink } from "./corpora/CorpusLink";
@@ -14,6 +21,26 @@ export type CompositionTitleProps = {
   sourceUrl: string | null;
   onSourceUrlUpdate: (newUrl: string) => void;
 };
+
+const MetadataContainer = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 10px;
+`;
+
+const RelatedCorpora = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-left: 20px;
+`;
+
+const CorpusRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
 
 const CompositionTitle: React.FC<CompositionTitleProps> = ({
   slug,
@@ -61,81 +88,110 @@ const CompositionTitle: React.FC<CompositionTitleProps> = ({
         color: "white",
         fontSize: "16px",
         display: "flex",
-        alignItems: "center",
+        alignItems: "flex-start",
         justifyContent: "space-between",
       }}
     >
-      <h1 style={{ margin: 0, fontSize: "1em" }}>
-        {composerInfo ? (
-          <ComposerTitle
-            composer={composerInfo.composer}
-            displayTitle={composerInfo.displayTitle}
-          />
-        ) : (
-          formattedTitle
-        )}
-        {sourceUrl ? (
-          <a
-            href={sourceUrl}
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              color: "gray",
-              textDecoration: "none",
-              cursor: "pointer",
-            }}
-          >
-            <FontAwesomeIcon
-              icon={faArrowUpRightFromSquare}
-              style={{ width: "15px", marginLeft: "10px" }}
+      <h1
+        style={{
+          margin: 0,
+          fontSize: "1em",
+          display: "flex",
+          alignItems: "flex-start",
+        }}
+      >
+        <div>
+          {composerInfo ? (
+            <ComposerTitle
+              composer={composerInfo.composer}
+              displayTitle={composerInfo.displayTitle}
             />
-          </a>
-        ) : (
-          <>
-            <input
-              type="text"
-              value={editedUrl}
-              onChange={(e) => setEditedUrl(e.target.value)}
-              onKeyDown={handleKeyDown}
-              onBlur={handleSave}
-              style={{
-                marginLeft: "10px",
-                fontSize: "0.8em",
-                width: "200px",
-                background: "rgba(255, 255, 255, 0.1)",
-                border: "none",
-                color: "white",
-                padding: "2px 5px",
-              }}
-              placeholder="Enter source URL"
-            />
+          ) : (
+            formattedTitle
+          )}
+          {sourceUrl ? (
             <a
-              href={museScoreUrl}
+              href={sourceUrl}
               target="_blank"
               rel="noreferrer"
               style={{
                 color: "gray",
                 textDecoration: "none",
                 cursor: "pointer",
-                marginLeft: "10px",
               }}
-              title="Search on MuseScore"
             >
-              <FontAwesomeIcon icon={faLink} />
+              <FontAwesomeIcon
+                icon={faArrowUpRightFromSquare}
+                style={{ width: "15px", marginLeft: "10px" }}
+              />
             </a>
-          </>
-        )}
+          ) : (
+            <>
+              <input
+                type="text"
+                value={editedUrl}
+                onChange={(e) => setEditedUrl(e.target.value)}
+                onKeyDown={handleKeyDown}
+                onBlur={handleSave}
+                style={{
+                  marginLeft: "10px",
+                  fontSize: "0.8em",
+                  width: "200px",
+                  background: "rgba(255, 255, 255, 0.1)",
+                  border: "none",
+                  color: "white",
+                  padding: "2px 5px",
+                }}
+                placeholder="Enter source URL"
+              />
+              <a
+                href={museScoreUrl}
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  color: "gray",
+                  textDecoration: "none",
+                  cursor: "pointer",
+                  marginLeft: "10px",
+                }}
+                title="Search on MuseScore"
+              >
+                <FontAwesomeIcon icon={faLink} />
+              </a>
+            </>
+          )}
+        </div>
 
         {relatedCorporaSlugs.length > 0 && (
-          <span style={{ marginLeft: "20px" }}>
-            <span
-              style={{ fontWeight: "normal", marginLeft: "10px", gap: "8px" }}
-            >
-              {relatedCorporaSlugs.map((slug) => (
-                <CorpusLink key={slug} slug={slug} />
-              ))}
-            </span>
-          </span>
+          <RelatedCorpora>
+            {relatedCorporaSlugs.map((corpusSlug) => {
+              const corpus = corpora.find((c) => c.slug === corpusSlug);
+              if (!corpus) return null;
+
+              return (
+                <CorpusRow key={corpusSlug}>
+                  <CorpusLink slug={corpusSlug} />
+                  {hasMetadata(corpus) && (
+                    <MetadataContainer>
+                      {corpus.country && <div>{getEmojis(corpus.country)}</div>}
+                      {(corpus.genre || corpus.style) && (
+                        <GenreList>
+                          {getUniqueStyles(corpus.genre, corpus.style).join(
+                            ", ",
+                          )}
+                        </GenreList>
+                      )}
+                      {corpus.composerBirthYear && (
+                        <span style={{ color: "#999" }}>
+                          *{corpus.composerBirthYear}
+                        </span>
+                      )}
+                    </MetadataContainer>
+                  )}
+                </CorpusRow>
+              );
+            })}
+          </RelatedCorpora>
         )}
       </h1>
     </div>

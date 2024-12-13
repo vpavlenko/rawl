@@ -4881,6 +4881,13 @@ export const corpora: CorpusEntry[] = [
     country: "China",
   },
   {
+    slug: "fujii_kaze",
+    midis: ["shinunoga-e-wa---fujii-kaze-si-nunogaiiwa"],
+    country: "Japan",
+    genre: "J-Pop",
+    composerBirthYear: 1997,
+  },
+  {
     slug: "kazumi_totaka",
     midis: ["mii-channel-piano", "wii-sports-theme-piano"],
     composerBirthYear: 1967,

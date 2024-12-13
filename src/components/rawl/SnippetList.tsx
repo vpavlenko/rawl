@@ -1,6 +1,12 @@
-import { flag } from "country-emoji";
 import React from "react";
 import styled from "styled-components";
+import {
+  GenreItem,
+  GenreList,
+  getEmojis,
+  getUniqueStyles,
+  hasMetadata,
+} from "../../utils/corpusUtils";
 import { Snippet } from "./analysis";
 import { corpora } from "./corpora/corpora";
 import SnippetItem, { PX_IN_MEASURE } from "./SnippetItem";
@@ -83,8 +89,8 @@ const SnippetContainer = styled.div`
 
 const ComposerInfo = styled.div`
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  gap: 4px;
   padding: 4px;
   font-size: 0.8rem;
   color: #fff;
@@ -92,24 +98,19 @@ const ComposerInfo = styled.div`
   margin-top: 4px;
 `;
 
+const ComposerHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
 const ComposerName = styled.span`
   color: #fff;
 `;
 
-const Flags = styled.span`
-  font-size: 1rem;
-  position: relative;
-  top: 1px;
-`;
-
-const GenreInfo = styled.span`
-  color: #fff;
-  font-size: 0.7rem;
-`;
-
 const YearInfo = styled.span`
-  color: #fff;
-  font-size: 0.7rem;
+  color: #999;
+  font-size: 0.8em;
 `;
 
 interface SnippetListProps {
@@ -123,21 +124,10 @@ interface SnippetListProps {
 }
 
 const getComposerInfo = (midiSlug: string) => {
-  // Find all corpora that contain this midi
   const matchingCorpora = corpora.filter((corpus) =>
     corpus.midis.some((midi) => midi === midiSlug),
   );
-
-  // Return the first corpus that has meaningful metadata
-  return (
-    matchingCorpora.find(
-      (corpus) =>
-        corpus.composerBirthYear ||
-        corpus.genre ||
-        corpus.style ||
-        corpus.country,
-    ) || null
-  );
+  return matchingCorpora.find(hasMetadata) || null;
 };
 
 const SnippetList: React.FC<SnippetListProps> = ({
@@ -178,29 +168,31 @@ const SnippetList: React.FC<SnippetListProps> = ({
             </SnippetContainer>
             {composerInfo && (
               <ComposerInfo>
-                <ComposerName>
-                  {composerInfo.slug
-                    .split("_")
-                    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(" ")}
-                </ComposerName>
-                {composerInfo.country && (
-                  <Flags>
-                    {composerInfo.country
-                      .split(",")
-                      .map((c) => flag(c.trim()))
+                <ComposerHeader>
+                  <ComposerName>
+                    {composerInfo.slug
+                      .split("_")
+                      .map(
+                        (word) => word.charAt(0).toUpperCase() + word.slice(1),
+                      )
                       .join(" ")}
-                  </Flags>
-                )}
-                {composerInfo.composerBirthYear && (
-                  <YearInfo>({composerInfo.composerBirthYear})</YearInfo>
-                )}
+                  </ComposerName>
+                  {composerInfo.country && (
+                    <div>{getEmojis(composerInfo.country)}</div>
+                  )}
+                  {composerInfo.composerBirthYear && (
+                    <YearInfo>({composerInfo.composerBirthYear})</YearInfo>
+                  )}
+                </ComposerHeader>
                 {(composerInfo.genre || composerInfo.style) && (
-                  <GenreInfo>
-                    {[composerInfo.genre, composerInfo.style]
-                      .filter(Boolean)
-                      .join(", ")}
-                  </GenreInfo>
+                  <GenreList>
+                    {getUniqueStyles(
+                      composerInfo.genre,
+                      composerInfo.style,
+                    ).map((style, index) => (
+                      <GenreItem key={index}>{style}</GenreItem>
+                    ))}
+                  </GenreList>
                 )}
               </ComposerInfo>
             )}

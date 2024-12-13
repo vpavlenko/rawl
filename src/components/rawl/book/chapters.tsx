@@ -330,7 +330,7 @@ export const CHAPTERS: Array<{
   },
   {
     title: "Loops in minor",
-    titleChords: ["bVI", "bVII", "i"],
+    titleChords: ["iv", "i"],
     mode: {
       title: "natural minor without bIII",
       chords: ["iv", "v", "bVI", "bVII", "i"],

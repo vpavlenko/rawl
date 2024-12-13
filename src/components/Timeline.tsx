@@ -1,7 +1,13 @@
-import { flag } from "country-emoji";
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import {
+  GenreItem,
+  GenreList,
+  getEmojis,
+  getUniqueStyles,
+  HasMetadata,
+} from "../utils/corpusUtils";
 import { corpora } from "./rawl/corpora/corpora";
 
 const TimelineContainer = styled.div`
@@ -63,13 +69,9 @@ const ComposerLink = styled(Link)`
   display: inline-block;
 `;
 
-type Composer = {
+type Composer = HasMetadata & {
   slug: string;
   midis: string[];
-  composerBirthYear?: number;
-  genre?: string;
-  style?: string;
-  country?: string;
 };
 
 const ComposerHeader = styled.div`
@@ -87,25 +89,10 @@ const ComposerName = styled.h3`
   color: #fff;
 `;
 
-const Flags = styled.span`
-  font-size: 1.2rem;
-  //   padding-left: 10px;
-  position: relative;
-  left: -0.2em;
-`;
-
-const GenreList = styled.div`
-  font-size: 0.7rem;
-  color: #999;
-  display: flex;
-  flex-direction: column;
-`;
-
-const GenreItem = styled.span`
+const CountryFlag = styled.span`
   cursor: pointer;
   &:hover {
     opacity: 0.8;
-    text-decoration: underline;
   }
 `;
 
@@ -134,51 +121,11 @@ const CloseFilter = styled.button`
   }
 `;
 
-const CountryFlag = styled.span`
-  cursor: pointer;
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
-const getEmojis = (
-  country: string,
-  onCountryClick: (country: string) => void,
-): React.ReactNode[] => {
-  const countries = country?.split(",").map((c) => c.trim()) || [];
-  return countries
-    .map((c) => (
-      <CountryFlag onClick={() => onCountryClick(c)} key={c}>
-        <Flags>{flag(c)}</Flags>
-      </CountryFlag>
-    ))
-    .filter(Boolean);
-};
-
 const Timeline: React.FC = () => {
   const [selectedCountry, setSelectedCountry] = React.useState<string | null>(
     null,
   );
   const [selectedStyle, setSelectedStyle] = React.useState<string | null>(null);
-
-  const getUniqueStyles = (genre?: string, style?: string) => {
-    const styles = new Set<string>();
-
-    if (genre) {
-      genre
-        .split(",")
-        .map((s) => s.trim())
-        .forEach((s) => styles.add(s));
-    }
-    if (style) {
-      style
-        .split(",")
-        .map((s) => s.trim())
-        .forEach((s) => styles.add(s));
-    }
-
-    return Array.from(styles).join(", ");
-  };
 
   const composers = corpora
     .filter(
@@ -214,9 +161,7 @@ const Timeline: React.FC = () => {
         .includes(selectedCountry);
     }
     if (selectedStyle) {
-      const styles = getUniqueStyles(composer.genre, composer.style).split(
-        ", ",
-      );
+      const styles = getUniqueStyles(composer.genre, composer.style);
       return styles.includes(selectedStyle);
     }
     return true;
@@ -228,7 +173,6 @@ const Timeline: React.FC = () => {
 
   const ComposerCardContent = ({ composer }: { composer: Composer }) => {
     const styles = getUniqueStyles(composer.genre, composer.style);
-    const stylesList = styles.split(", ");
 
     return (
       <ComposerCard key={composer.slug}>
@@ -241,13 +185,28 @@ const Timeline: React.FC = () => {
                 .join(" ")}
             </ComposerName>
           </ComposerLink>
-          <div>{getEmojis(composer.country, handleCountryClick)}</div>
+          {composer.country && (
+            <div>
+              {composer.country.split(",").map((c) => (
+                <CountryFlag
+                  key={c.trim()}
+                  onClick={() => handleCountryClick(c.trim())}
+                >
+                  {getEmojis(c.trim())}
+                </CountryFlag>
+              ))}
+            </div>
+          )}
         </ComposerHeader>
-        {stylesList.length > 0 && (
+        {styles.length > 0 && (
           <GenreList>
-            {stylesList.map((style, index) => (
-              <GenreItem key={index} onClick={() => handleStyleClick(style)}>
-                {style}
+            {styles.map((style, index) => (
+              <GenreItem
+                key={index}
+                onClick={() => handleStyleClick(style)}
+                style={{ cursor: "pointer" }}
+              >
+                {index === styles.length - 1 ? style : `${style},`}
               </GenreItem>
             ))}
           </GenreList>
@@ -266,7 +225,7 @@ const Timeline: React.FC = () => {
           <span>
             {selectedCountry && (
               <>
-                {selectedCountry} {flag(selectedCountry)}
+                {selectedCountry} {getEmojis(selectedCountry)}
               </>
             )}
             {selectedStyle && selectedStyle}
@@ -308,7 +267,7 @@ const Timeline: React.FC = () => {
                   const styles = getUniqueStyles(
                     composer.genre,
                     composer.style,
-                  ).split(", ");
+                  );
                   return styles.includes(selectedStyle);
                 }
                 return true;

@@ -2508,6 +2508,9 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "rhcp_red_hot_chili_peppers",
     midis: ["road-trippin---red-hot-chili-peppers"],
+    composerBirthYear: 1970,
+    genre: "Funk Rock, Alternative Rock",
+    country: "USA",
   },
   {
     slug: "martha_mier",
@@ -4881,8 +4884,16 @@ export const corpora: CorpusEntry[] = [
     country: "China",
   },
   {
+    slug: "yosuke_yamashita",
+    midis: ["never-ending-saga---yosuke-yamashita"],
+    country: "Japan",
+  },
+  {
     slug: "fujii_kaze",
-    midis: ["shinunoga-e-wa---fujii-kaze-si-nunogaiiwa"],
+    midis: [
+      "shinunoga-e-wa---fujii-kaze-si-nunogaiiwa",
+      "matsuri---fujii-kaze",
+    ],
     country: "Japan",
     genre: "J-Pop",
     composerBirthYear: 1997,

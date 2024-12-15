@@ -1523,6 +1523,14 @@ export const corpora: CorpusEntry[] = [
     country: "UK",
   },
   {
+    slug: "cecile_chaminade",
+    midis: ["arabesque-op.-61-cecile-chaminade"],
+    composerBirthYear: 1857, // Cecile Chaminade
+    genre: "Classical",
+    style: "Romantic, French Classical",
+    country: "France",
+  },
+  {
     slug: "taylor_swift",
     midis: [
       "cardigan---taylor-swift",
@@ -2378,7 +2386,11 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "jesse_novak",
-    midis: ["bojack-horseman-don-t-stop-dancing-piano-solo"],
+    midis: [
+      "bojack-horseman-don-t-stop-dancing-piano-solo",
+      "concerto-in-f-major",
+      "i-will-always-think-of-you-bojack-horseman---piano-arrangement",
+    ],
     composerBirthYear: 1979,
     country: "USA",
     genre: "Film Score",
@@ -5177,6 +5189,29 @@ export const corpora: CorpusEntry[] = [
   },
 
   {
+    slug: "bruckner",
+    midis: [
+      "bruckner_7_1",
+      "bruckner_7_2",
+      "bruckner_8",
+      "bruckner_8_a_j",
+      "bruckner_symphony_4_1",
+    ],
+  },
+
+  {
+    slug: "haydn",
+    midis: [
+      "sonata_in_e_minor_hob_xvi_34_joseph_haydn_piano_sonata_hob_xvi_34_2_adagio",
+      "string_quartet_in_g_major_hob_iii_75_op_76_no_1_joseph_haydn",
+      "haydn_100_1",
+    ],
+    composerBirthYear: 1732,
+    style: "Classical",
+    country: "Austria",
+  },
+
+  {
     slug: "unsorted",
     midis: [
       "Alice_DJ_Better_Off_Alone",
@@ -5281,11 +5316,6 @@ export const corpora: CorpusEntry[] = [
       "bheki_mseleku_angola",
       "brahms_118_1",
       "brahms_op118_1",
-      "bruckner_7_1",
-      "bruckner_7_2",
-      "bruckner_8",
-      "bruckner_8_a_j",
-      "bruckner_symphony_4_1",
       "bubamara",
       "cheek_to_cheek",
 
@@ -5323,7 +5353,7 @@ export const corpora: CorpusEntry[] = [
       "hanna-montana---poshlaya-molli-hannamontana---poshlaya-molli",
       "hannamontana---poshlaya-molli-agga",
       "hava-nagila",
-      "haydn_100_1",
+
       "he_s_a_pirate_easy_piano",
       "he_s_a_pirate_from_pirates_of_the_caribbean",
       "he_s_a_pirate_hans_zimmer_klaus_badelt",
@@ -5394,13 +5424,11 @@ export const corpora: CorpusEntry[] = [
       "scott-joplin-s-new-rag---revised-edition---c1914----piano-tutorial",
 
       "skyrim-theme-for-piano",
-      "sonata_in_e_minor_hob_xvi_34_joseph_haydn_piano_sonata_hob_xvi_34_2_adagio",
 
       "sonatina-in-c-major---dennis-alexander",
 
       "sorcerer_s_puppet_the_king_and_the_jester",
       "steve-reich---piano-phase",
-      "string_quartet_in_g_major_hob_iii_75_op_76_no_1_joseph_haydn",
 
       "string_quartet_no_8_in_e_minor_opus_59_rasumovsky_no_2",
       "sydameni_laulu",

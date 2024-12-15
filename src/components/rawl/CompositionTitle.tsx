@@ -31,9 +31,8 @@ const MetadataContainer = styled.div`
 
 const RelatedCorpora = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 8px;
-  margin-left: 20px;
 `;
 
 const CorpusRow = styled.div`
@@ -97,6 +96,8 @@ const CompositionTitle: React.FC<CompositionTitleProps> = ({
           margin: 0,
           fontSize: "1em",
           display: "flex",
+          flexDirection: "column",
+          gap: "8px",
           alignItems: "flex-start",
         }}
       >

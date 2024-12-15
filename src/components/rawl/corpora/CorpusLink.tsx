@@ -16,6 +16,13 @@ const badgeStyle = {
   iconColor: "#ddd",
 };
 
+const capitalizeWords = (text: string): string => {
+  return text
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
 export const CorpusLink: React.FC<{ slug: string }> = ({ slug }) => {
   return (
     <Link
@@ -36,7 +43,7 @@ export const CorpusLink: React.FC<{ slug: string }> = ({ slug }) => {
           color: badgeStyle.iconColor,
         }}
       />
-      {beautifySlug(slug)}
+      {capitalizeWords(beautifySlug(slug))}
     </Link>
   );
 };

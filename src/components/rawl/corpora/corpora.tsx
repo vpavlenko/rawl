@@ -115,6 +115,27 @@ export const corpora: CorpusEntry[] = [
     country: "USA", // George Winston is American.
   },
   {
+    slug: "jun_ishikawa",
+    midis: [
+      "marx-theme-from-kirby-super-star---jun-ishikawa",
+      "gourmet-race---kirby-super-star-ultra-solo-piano-arrangement",
+      "pitch-black-horror---jun-ishikawa---kirby-and-the-forgotten-land",
+      "masked-dedede-kirby-triple-deluxe",
+      "sand-canyon-1---kirby-s-dreamland-3",
+      "green-greens---jun-ishikawa",
+      "elfilin-from-kirby-and-the-forgotten-land---hirokazu-ando-jun-ishikawa",
+    ],
+    composerBirthYear: 1964,
+    genre: "Video Game Music",
+    country: "Japan",
+  },
+  {
+    slug: "george_l_cobb",
+    midis: ["russian-rag-by-george-cobb-1918", "twilight-in-benares-1923"],
+    composerBirthYear: 1886,
+    genre: "Ragtime",
+  },
+  {
     slug: "tomohito_nishiura",
     midis: ["professor-layton-s-theme---piano"],
     composerBirthYear: 1982, // Tomohito Nishiura
@@ -2937,11 +2958,9 @@ export const corpora: CorpusEntry[] = [
       "the-tom-and-jerry-show---hiromi-uehara",
       "irken-armada-invasion-zim-s-theme---mattias-hakulinen-and-pontus-askbrink",
       "do-you-remember-king-s-theme---in-stars-and-time",
+      "marx-theme-from-kirby-super-star---jun-ishikawa",
+      "twilight-in-benares-1923",
     ],
-    // Mix of various composers and genres, so no single composer data
-    genre: "Video Game Music, Classical",
-    style: "Various",
-    country: "Various",
   },
   {
     slug: "aaron_copland",
@@ -4885,7 +4904,11 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "yosuke_yamashita",
-    midis: ["never-ending-saga---yosuke-yamashita"],
+    midis: [
+      "never-ending-saga---yosuke-yamashita",
+      "hikari-e---franchouchou-hikari-e---yosuke-yamashita-zombieland-saga",
+      "ookami-blues-tv-size---seton-academy-ed",
+    ],
     country: "Japan",
   },
   {

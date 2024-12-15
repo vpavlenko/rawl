@@ -784,8 +784,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
           setVoiceMask: this.handleSetVoiceMask,
           showAnalysisBox: this.state.analysisEnabled,
           seek: this.seekForRawl,
-          artist: "",
-          song: prevState.currentMidi?.title || "",
           latencyCorrectionMs:
             this.state.latencyCorrectionMs * this.state.tempo,
           registerKeyboardHandler: this.registerKeyboardHandler,
@@ -1074,8 +1072,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
       setVoiceMask: this.handleSetVoiceMask,
       showAnalysisBox: this.state.analysisEnabled,
       seek: this.seekForRawl,
-      artist: "",
-      song: this.path,
       latencyCorrectionMs: this.state.latencyCorrectionMs * this.state.tempo,
       sourceUrl: this.state.currentMidi?.sourceUrl || null,
     };
@@ -1084,7 +1080,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       <Route
         path={["/f/:slug*", "/h/:keySlug*", "/c/:chiptuneUrl*", "/drop"]}
         render={({ match }) => {
-          const { slug, keySlug, chiptuneUrl } = match.params as {
+          const { keySlug } = match.params as {
             slug?: string;
             keySlug?: string;
             chiptuneUrl?: string;
@@ -1102,8 +1098,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     saveAnalysis={this.saveAnalysis}
                     showAnalysisBox={this.state.analysisEnabled}
                     seek={this.seekForRawl}
-                    artist={""}
-                    song={slug ?? keySlug ?? chiptuneUrl}
                     sourceUrl={this.state.currentMidi?.sourceUrl || null}
                     isHiddenRoute={!!keySlug}
                     {...rawlProps}

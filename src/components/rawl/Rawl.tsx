@@ -10,7 +10,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { playRawMidiNote } from "../../sampler/sampler";
 import { VoiceMask } from "../App";
 import { AppContext } from "../AppContext";
@@ -110,8 +110,6 @@ export type RawlProps = {
   setVoiceMask: (mask: VoiceMask) => void;
   showAnalysisBox: boolean;
   seek: (ms: number) => void;
-  artist: string;
-  song: string;
   latencyCorrectionMs: number;
   sourceUrl: string | null;
   measureStart?: number;
@@ -129,17 +127,13 @@ const Rawl: React.FC<RawlProps> = ({
   setVoiceMask,
   showAnalysisBox: enableManualRemeasuring,
   seek,
-  artist,
-  song,
   latencyCorrectionMs,
   sourceUrl,
   measureStart,
   isEmbedded = false,
   isHiddenRoute = false,
 }) => {
-  const location = useLocation();
-  const { currentMidi, setCurrentMidi, analyses, rawlProps } =
-    useContext(AppContext);
+  const { currentMidi, setCurrentMidi, rawlProps } = useContext(AppContext);
   const slug = currentMidi?.slug || "";
 
   const [analysis, setAnalysis] = useState<Analysis>(

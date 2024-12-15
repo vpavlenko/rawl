@@ -131,7 +131,11 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "george_l_cobb",
-    midis: ["russian-rag-by-george-cobb-1918", "twilight-in-benares-1923"],
+    midis: [
+      "russian-rag-by-george-cobb-1918",
+      "twilight-in-benares-1923",
+      "the-fakirs-1923",
+    ],
     composerBirthYear: 1886,
     genre: "Ragtime",
   },
@@ -2171,6 +2175,7 @@ export const corpora: CorpusEntry[] = [
       "machinarium",
       "chasing-kou---hidekazu-sakamoto-drowning-love---ni-rerunaihu-mule-bbajin-naipeu-ost",
       "vostochnye-skazki---blestyashchie",
+      "bomnal-beojggoc-geurigo-neo-spring-day-cherry-blossoms-you---epitone-project",
     ],
     composerBirthYear: 1950, // Various modern composers
     genre: "Pop, Video game, Film",
@@ -2370,6 +2375,13 @@ export const corpora: CorpusEntry[] = [
     genre: "Pop",
     style: "Folk, Traditional, Pop, Traditional Fusion",
     country: "Greece",
+  },
+  {
+    slug: "jesse_novak",
+    midis: ["bojack-horseman-don-t-stop-dancing-piano-solo"],
+    composerBirthYear: 1979,
+    country: "USA",
+    genre: "Film Score",
   },
   {
     slug: "j_p_ahmad",

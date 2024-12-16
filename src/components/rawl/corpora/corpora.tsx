@@ -148,6 +148,18 @@ export const corpora: CorpusEntry[] = [
     country: "Japan", // Tomohito Nishiura is Japanese.
   },
   {
+    slug: "juergen_moser",
+    midis: [
+      "the-groover---jurgen-moser",
+      "new-orleans-blues-extended-version---jurgen-moser",
+      "latin-special---jurgen-moser",
+    ],
+    composerBirthYear: 1949,
+    genre: "Teacher Music",
+    style: "Classical, Contemporary",
+    country: "Germany",
+  },
+  {
     slug: "david_lanz",
     midis: [
       "cristofari-s-dream",
@@ -3114,8 +3126,7 @@ export const corpora: CorpusEntry[] = [
       "prelude---manfred-schmitz",
     ],
     composerBirthYear: 1950, // Born in 1950, known for contemporary classical compositions
-    genre: "Classical, Pop", // Combines classical and pop elements
-    style: "Romantic, Neo-Romantic", // Often combines romanticism with modern techniques
+    genre: "Teacher Music, Classical, Pop", // Combines classical and pop elements
     country: "Germany", // German composer
   },
   {
@@ -5200,11 +5211,20 @@ export const corpora: CorpusEntry[] = [
   },
 
   {
+    slug: "irving_aaronson",
+    midis: ["jazz-classique-1919"],
+    genre: "Fox Trot",
+    composerBirthYear: 1895,
+    country: "USA",
+  },
+
+  {
     slug: "haydn",
     midis: [
       "sonata_in_e_minor_hob_xvi_34_joseph_haydn_piano_sonata_hob_xvi_34_2_adagio",
       "string_quartet_in_g_major_hob_iii_75_op_76_no_1_joseph_haydn",
       "haydn_100_1",
+      "1.-andante-grazioso-b-major-hob.xvii-anh---joseph-haydn",
     ],
     composerBirthYear: 1732,
     style: "Classical",

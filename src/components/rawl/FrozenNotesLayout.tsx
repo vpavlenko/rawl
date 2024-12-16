@@ -369,29 +369,34 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
     const startTime = measuresAndBeats.measures[startMeasure];
     const endTime = measuresAndBeats.measures[endMeasure + 1];
 
-    const notesInVoices: FrozenNotesType["notesInVoices"] = frozenNotes.map(
-      (voiceNotes) => {
+    const notesInVoices: FrozenNotesType["notesInVoices"] = frozenNotes
+      // First filter out any voice that only contains drum notes
+      .filter((voiceNotes) => voiceNotes.some((note) => !note.isDrum))
+      .map((voiceNotes) => {
         const lengthToNotes: CompressedNotes = {};
-        voiceNotes.forEach((note) => {
-          if (note.span[1] >= startTime && note.span[0] < endTime) {
-            const start = Math.round(
-              (note.span[0] - startTime) * TIME_SCALE_FACTOR,
-            );
-            const length = Math.round(
-              (note.span[1] - note.span[0]) * TIME_SCALE_FACTOR,
-            );
-            const midiNumber = note.note.midiNumber;
+        // Then filter out drum notes within each voice
+        voiceNotes
+          .filter((note) => !note.isDrum)
+          .forEach((note) => {
+            if (note.span[1] >= startTime && note.span[0] < endTime) {
+              const start = Math.round(
+                (note.span[0] - startTime) * TIME_SCALE_FACTOR,
+              );
+              const length = Math.round(
+                (note.span[1] - note.span[0]) * TIME_SCALE_FACTOR,
+              );
+              const midiNumber = note.note.midiNumber;
 
-            if (!lengthToNotes[length]) {
-              lengthToNotes[length] = {};
+              if (!lengthToNotes[length]) {
+                lengthToNotes[length] = {};
+              }
+              if (!lengthToNotes[length][midiNumber]) {
+                lengthToNotes[length][midiNumber] = [start];
+              } else {
+                (lengthToNotes[length][midiNumber] as number[]).push(start);
+              }
             }
-            if (!lengthToNotes[length][midiNumber]) {
-              lengthToNotes[length][midiNumber] = [start];
-            } else {
-              (lengthToNotes[length][midiNumber] as number[]).push(start);
-            }
-          }
-        });
+          });
 
         // Apply delta coding to the start times
         Object.values(lengthToNotes).forEach((midiNumbers) => {
@@ -402,8 +407,7 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
         });
 
         return lengthToNotes;
-      },
-    );
+      });
 
     const modulations = getModulations(analysis);
     // Find the latest modulation that occurs before or at the start measure

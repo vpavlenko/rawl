@@ -88,6 +88,25 @@ export const corpora: CorpusEntry[] = [
     country: "USA", // Ryan Elder is American.
   },
   {
+    slug: "eubie_blake",
+    midis: [
+      "charleston-rag-sounds-of-africa---james-hubert-eubie-blake-1899----copr.-1917",
+    ],
+    composerBirthYear: 1887,
+    genre: "Jazz, Ragtime",
+  },
+  {
+    slug: "matyas_seiber",
+    midis: [
+      "beast-of-england-animal-farm-1954---matyas-seiber-piano-transcription",
+      "dance-suite",
+      "jazz-etudiette",
+      "tango-ii-habanera---tango-ii-habanera",
+    ],
+    composerBirthYear: 1905,
+    country: "Hungary, UK",
+  },
+  {
     slug: "giovanni_allevi",
     midis: [
       "amor-sacro---giovanni-allevi",
@@ -153,6 +172,7 @@ export const corpora: CorpusEntry[] = [
       "the-groover---jurgen-moser",
       "new-orleans-blues-extended-version---jurgen-moser",
       "latin-special---jurgen-moser",
+      "the-snow-is-falling---jurgen-moser",
     ],
     composerBirthYear: 1949,
     genre: "Teacher Music",
@@ -202,6 +222,16 @@ export const corpora: CorpusEntry[] = [
     genre: "Medieval, Sacred",
     style: "Polyphonic Choral Music",
     country: "France", // Machaut was French.
+  },
+  {
+    slug: "bela_bartok",
+    midis: [
+      "six-dances-in-bulgarian-rhythm-no.6-from-mikrokosmos-sz.107-bb-105---bela-bartok",
+      "an-evening-at-the-village---bartok-bela",
+    ],
+    composerBirthYear: 1881,
+    genre: "Folk, Traditional",
+    country: "Hungary",
   },
   {
     slug: "habanera",
@@ -462,6 +492,25 @@ export const corpora: CorpusEntry[] = [
     genre: "Classical",
     style: "Romantic, Orchestral",
     country: "United Kingdom", // Edward Elgar was British.
+  },
+  {
+    slug: "toshio_kai",
+    midis: ["pacman"],
+    composerBirthYear: 1943,
+    country: "Japan",
+    genre: "Video Game Music",
+  },
+  {
+    slug: "masato_nakamura",
+    midis: [
+      "marble-zone-from-sonic-the-hedgehog",
+      "arrangement-special-stage-sonic-the-hedgehog---masato-nakamura",
+      "starlight-zone---sonic-the-hedgehog-1---masato-nakamura-sth-6-starlight-zone",
+      "sonic-the-hedgehog-2---chemical-plant-zone",
+    ],
+    composerBirthYear: 1958,
+    country: "Japan",
+    genre: "Video Game Music",
   },
   {
     slug: "kotaro_nakagawa",
@@ -773,6 +822,17 @@ export const corpora: CorpusEntry[] = [
     genre: "French, Classical",
     style: "Organ Music",
     country: "France", // Gustave Tritant was French.
+  },
+  {
+    slug: "mike_schoenmehl",
+    midis: [
+      "melancholy-reflections---mike-schoenmehl",
+      "criminal-music---mike-schoenmehl",
+      "marion-s-walk---mike-schoenmehl",
+    ],
+    composerBirthYear: 1957,
+    country: "Germany",
+    genre: "Teacher Music",
   },
   {
     slug: "cesare_pugni",
@@ -1291,6 +1351,14 @@ export const corpora: CorpusEntry[] = [
     genre: "Classical, Folk",
     style: "Folk music, Modern Classical",
     country: "Australia",
+  },
+  {
+    slug: "benvenuto_terzi",
+    midis: [
+      "carillon---benvenuto-terzi-carillon-benvenuto-terzi---guitar-etude",
+    ],
+    composerBirthYear: 1892,
+    country: "Italy",
   },
   {
     slug: "abdullah_ibrahim",
@@ -2196,6 +2264,7 @@ export const corpora: CorpusEntry[] = [
       "chasing-kou---hidekazu-sakamoto-drowning-love---ni-rerunaihu-mule-bbajin-naipeu-ost",
       "vostochnye-skazki---blestyashchie",
       "bomnal-beojggoc-geurigo-neo-spring-day-cherry-blossoms-you---epitone-project",
+      "starry-dome---no.-15-from-piano-meditation---george-nevada",
     ],
     composerBirthYear: 1950, // Various modern composers
     genre: "Pop, Video game, Film",
@@ -2459,6 +2528,7 @@ export const corpora: CorpusEntry[] = [
       "lady_bird_piano_solo",
       "a-night-in-tunisia---dizzy-gillespie-sarah-vaughan-a-night-in-tunisia",
       "Bags_Groove__Lead_sheet_",
+      "footprints_r",
     ],
     genre: "Jazz",
     // This is a collection of jazz standards, no specific composer can be assigned.
@@ -2530,6 +2600,14 @@ export const corpora: CorpusEntry[] = [
       "witches-brew---catherine-rollin",
     ],
     composerBirthYear: 1954,
+    genre: "Jazz",
+    style: "Jazz, Blues",
+    country: "USA",
+  },
+  {
+    slug: "jelly_roll_morton",
+    midis: ["king-porter-stomp---jelly-roll-morton---melrose-edition"],
+    composerBirthYear: 1890,
     genre: "Jazz",
     style: "Jazz, Blues",
     country: "USA",
@@ -2996,6 +3074,7 @@ export const corpora: CorpusEntry[] = [
       "do-you-remember-king-s-theme---in-stars-and-time",
       "marx-theme-from-kirby-super-star---jun-ishikawa",
       "twilight-in-benares-1923",
+      "alien-lair",
     ],
   },
   {
@@ -3320,6 +3399,10 @@ export const corpora: CorpusEntry[] = [
     genre: "Classical", // Classical music
     style: "Romantic", // Late Romantic period
     country: "UK", // British composers
+  },
+  {
+    slug: "louis_vierne",
+    midis: ["vierne-organ-symphony-no.-1-part-vi---final"],
   },
   {
     slug: "tchaikovsky",
@@ -4964,6 +5047,29 @@ export const corpora: CorpusEntry[] = [
     country: "Japan",
   },
   {
+    slug: "kohei_tanaka",
+    midis: [
+      "one-piece---bink-s-sake---kohei-tanaka",
+      "overtaken---kohei-tanaka-overtaken-one-piece---kohei-tanaka",
+      "if-you-live-one-piece-ost-bgm---kohei-tanaka-maranoch",
+    ],
+    composerBirthYear: 1954,
+    country: "Japan",
+    genre: "Video Game Music",
+  },
+  {
+    slug: "hidenori_maezawa",
+    midis: [
+      "prelude---castlevania-iii",
+      "aquarius---castlevania-iii-dracula-s-curse",
+      "alien-lair",
+      "stage-1-jungle",
+    ],
+    composerBirthYear: 1958,
+    country: "Japan",
+    genre: "Video Game Music",
+  },
+  {
     slug: "koji_kondo",
     midis: [
       "legend-of-zelda-main-theme-score",
@@ -5219,12 +5325,22 @@ export const corpora: CorpusEntry[] = [
   },
 
   {
+    slug: "niki_reiser",
+    midis: [
+      "nordsee---niki-reiser-punktchen-und-anton",
+      "das-fliegende-klassenzimmer---overture",
+    ],
+    composerBirthYear: 1958,
+    country: "Switzerland",
+  },
+  {
     slug: "haydn",
     midis: [
       "sonata_in_e_minor_hob_xvi_34_joseph_haydn_piano_sonata_hob_xvi_34_2_adagio",
       "string_quartet_in_g_major_hob_iii_75_op_76_no_1_joseph_haydn",
       "haydn_100_1",
       "1.-andante-grazioso-b-major-hob.xvii-anh---joseph-haydn",
+      "2.-allegro-f-major-hob.xvii-anh---joseph-haydn",
     ],
     composerBirthYear: 1732,
     style: "Classical",

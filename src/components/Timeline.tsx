@@ -181,7 +181,12 @@ const Timeline: React.FC = () => {
             <ComposerName>
               {composer.slug
                 .split("_")
-                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .map((word) =>
+                  word
+                    .split("-")
+                    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+                    .join("-"),
+                )
                 .join(" ")}
             </ComposerName>
           </ComposerLink>
@@ -217,9 +222,9 @@ const Timeline: React.FC = () => {
 
   return (
     <TimelineContainer>
-      <span style={{ color: "#999", marginBottom: 40 }}>
+      <div style={{ color: "#999", marginBottom: 40 }}>
         All years are approximate composer birth years.
-      </span>
+      </div>
       {(selectedCountry || selectedStyle) && (
         <FilterIndicator>
           <span>

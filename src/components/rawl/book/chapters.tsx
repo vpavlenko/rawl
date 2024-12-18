@@ -477,7 +477,12 @@ export const CHAPTERS: Array<{
             "/f/road-trippin---red-hot-chili-peppers",
             "Red Hot Chili Peppers. Road trippin'",
           )}{" "}
-          has the same vibe.
+          and{" "}
+          {a(
+            "/f/seven-nation-army-arr.-nikodem-lorenz",
+            "The White Stripes. Seven Nations Army",
+          )}{" "}
+          have the same vibe.
         </P>
         <h2>Historical context</h2>
         <P>

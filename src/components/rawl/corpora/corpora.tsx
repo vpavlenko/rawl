@@ -2288,6 +2288,9 @@ export const corpora: CorpusEntry[] = [
       "vostochnye-skazki---blestyashchie",
       "bomnal-beojggoc-geurigo-neo-spring-day-cherry-blossoms-you---epitone-project",
       "starry-dome---no.-15-from-piano-meditation---george-nevada",
+      "seven-nation-army-arr.-nikodem-lorenz",
+      "sing-hallelujah",
+      "amish-paradise---weird-al-yankovic-kaleidoscope",
     ],
     composerBirthYear: 1950, // Various modern composers
     genre: "Pop, Video game, Film",
@@ -2560,6 +2563,7 @@ export const corpora: CorpusEntry[] = [
       "a-night-in-tunisia---dizzy-gillespie-sarah-vaughan-a-night-in-tunisia",
       "Bags_Groove__Lead_sheet_",
       "footprints_r",
+      "armstrong-go-down-moses",
     ],
     genre: "Jazz",
     // This is a collection of jazz standards, no specific composer can be assigned.

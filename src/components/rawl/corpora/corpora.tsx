@@ -68,6 +68,27 @@ export const corpora: CorpusEntry[] = [
     country: "South Korea",
   },
   {
+    slug: "stephen_heller",
+    midis: [
+      "prelude-in-c-minor---stephen-heller-prelude-in-c-sharp-minor---stephen-heller",
+      "25-etudes-melodiques-op.-45-no.-2-avalanche-by-stephen-heller",
+    ],
+    composerBirthYear: 1813,
+    style: "Romantic",
+    country: "Hungary",
+  },
+  {
+    slug: "darius_milhaud",
+    midis: [
+      "darius-milhaud---scaramouche-op.-165b-iii.-brazileira",
+      "mazurka---darius-milhaud-1914",
+    ],
+    composerBirthYear: 1892,
+    genre: "Classical, Jazz",
+    style: "Jazz, Classical",
+    country: "France",
+  },
+  {
     slug: "jim_brickman",
     midis: [
       "valentine---jim-brickman-with-martina-mcbride",
@@ -2085,6 +2106,8 @@ export const corpora: CorpusEntry[] = [
       "where-we-used-to-be---xenoblade-chronicles-2",
       "xenoblade-chronicles-2---mor-ardain-~-roaming-the-wastes",
       "xenoblade-2-one-last-you-piano-arrange---yasunori-mitsuda",
+      "chrono-trigger---wind-scene---yasunori-mitsuda-wind-scene---chrono-trigger",
+      "chrono-trigger---02-crono-s-theme-main-theme",
     ],
     composerBirthYear: 1972, // Yasunori Mitsuda
     genre: "Video game music",
@@ -2339,6 +2362,14 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1974, // Nujabes
     genre: "Hip Hop, Jazz",
     style: "Lofi, Chillhop",
+    country: "Japan",
+  },
+  {
+    slug: "eri_sasaki",
+    midis: [
+      "ring-of-fortune---eri-sasaki-plastic-memories-op-reiva-piano-cover",
+    ],
+    composerBirthYear: 1989,
     country: "Japan",
   },
   {
@@ -5047,6 +5078,16 @@ export const corpora: CorpusEntry[] = [
     country: "Japan",
   },
   {
+    slug: "hirokazu_tanaka",
+    midis: [
+      "overworld-from-kid-icarus---hirokazu-tanaka",
+      "adobansuadobentiya-pokemon-ag-japanese-op1-piano---hirokazu-tanaka",
+    ],
+    composerBirthYear: 1957,
+    country: "Japan",
+    genre: "Video Game Music",
+  },
+  {
     slug: "kohei_tanaka",
     midis: [
       "one-piece---bink-s-sake---kohei-tanaka",
@@ -5231,7 +5272,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "erik_satie",
-    midis: ["satie-e.---gnossienne-no.-1"],
+    midis: ["satie-e.---gnossienne-no.-1", "Gymnopdie_No._1__Satie"],
     composerBirthYear: 1866,
     genre: "Classical",
     style: "Romantic",

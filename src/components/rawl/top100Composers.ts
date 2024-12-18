@@ -3,6 +3,7 @@ export type Top100Composer = {
   composer: string;
   chords?: string[];
   displayTitle: string;
+  isVocal?: boolean;
 };
 
 export const TOP_100_COMPOSERS: Top100Composer[] = [
@@ -51,16 +52,19 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "Golden_Hour__JVKE_Updated_Ver.",
     composer: "JVKE",
     displayTitle: "Golden Hour",
+    isVocal: true,
   },
   {
     slug: "Je_Te_Laisserai_Des_Mots_-_Patrick_Watson",
     composer: "Patrick Watson",
     displayTitle: "Je te laisserai des mots",
+    isVocal: true,
   },
   {
     slug: "Hallelujah",
     composer: "Leonard Cohen",
     displayTitle: "Hallelujah",
+    isVocal: true,
   },
   {
     slug: "Interstellar",
@@ -71,6 +75,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "Another_Love__-_Tom_Odell_Professional",
     composer: "Tom Odell",
     displayTitle: "Another Love",
+    isVocal: true,
   },
   {
     slug: "Sweden_Minecraft",
@@ -91,11 +96,13 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "someone-you-loved-lewis-capaldi",
     composer: "Lewis Capaldi",
     displayTitle: "Someone You Loved",
+    isVocal: true,
   },
   {
     slug: "Ed_Sheeran_Perfect",
     composer: "Ed Sheeran",
     displayTitle: "Perfect",
+    isVocal: true,
   },
   {
     slug: "Liebestraum_No._3_in_A_Major",
@@ -107,17 +114,20 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     composer: "Imagine Dragons",
     displayTitle: "Believer",
     chords: ["i", "bVI", "V"],
+    isVocal: true,
   },
   {
     slug: "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
     composer: "John Legend",
     displayTitle: "All of Me",
+    isVocal: true,
   },
   {
     slug: "Mad_world_Piano",
     composer: "Tears for Fears (Roland Orzabal)",
     displayTitle: "Mad World",
     chords: ["ii", "IV", "I", "V"],
+    isVocal: true,
   },
   {
     slug: "mariage-d-amour---paul-de-senneville-marriage-d-amour",
@@ -128,31 +138,37 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "Someone_Like_You_easy_piano",
     composer: "Adele",
     displayTitle: "Someone Like You",
+    isVocal: true,
   },
   {
     slug: "my-heart-will-go-on",
     composer: "James Horner",
     displayTitle: "My Heart Will Go On (from Titanic)",
+    isVocal: true,
   },
   {
     slug: "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2",
     composer: "Yugo Kanno",
     displayTitle: "Il vento d'oro (Giorno's Theme)",
+    isVocal: true,
   },
   {
     slug: "Carol_of_the_Bells",
     composer: "Mykola Leontovych",
     displayTitle: "Carol of the Bells (Shchedryk)",
+    isVocal: true,
   },
   {
     slug: "piano-man-piano",
     composer: "Billy Joel",
     displayTitle: "Piano Man",
+    isVocal: true,
   },
   {
     slug: "Fly_Me_to_the_Moon",
     composer: "Bart Howard",
     displayTitle: "Fly Me to the Moon (In Other Words)",
+    isVocal: true,
   },
   {
     slug: "passacaglia---handel-halvorsen",
@@ -169,6 +185,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "All_I_Want_for_Christmas_is_You",
     composer: "Mariah Carey",
     displayTitle: "All I Want for Christmas Is You",
+    isVocal: true,
   },
   {
     slug: "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
@@ -185,6 +202,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     composer: "Coldplay",
     displayTitle: "Viva la Vida",
     chords: ["IV", "V", "I", "vi"],
+    isVocal: true,
   },
   {
     slug: "Gravity_Falls_Opening",
@@ -205,11 +223,13 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "a-thousand-years",
     composer: "Christina Perri",
     displayTitle: "A Thousand Years",
+    isVocal: true,
   },
   {
     slug: "John_Lennon_Imagine",
     composer: "John Lennon",
     displayTitle: "Imagine",
+    isVocal: true,
   },
 
   {
@@ -217,11 +237,13 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     composer: "Kanye West",
     displayTitle: "Runaway (arr. Ramin Djawadi for Westworld Season 2)",
     chords: ["I", "iii", "IV", "vi"],
+    isVocal: true,
   },
   {
     slug: "Lovely_Billie_Eilish",
     composer: "Billie Eilish",
     displayTitle: "Lovely (with Khalid)",
+    isVocal: true,
   },
   {
     slug: "Omori_Duet",
@@ -232,12 +254,14 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "Never_Gonna_Give_You_Up",
     composer: "Mike Stock",
     displayTitle: "Never Gonna Give You Up",
+    isVocal: true,
   },
   {
     slug: "despacito-piano-cover-peter-bence",
     composer: "Luis Fonsi",
     displayTitle: "Despacito",
     chords: ["vi", "I", "IV", "V"],
+    isVocal: true,
   },
   {
     slug: "solas---jamie-duffy",
@@ -248,12 +272,14 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "autumn-leaves-jazz-piano",
     composer: "Joseph Kosma",
     displayTitle: "Autumn Leaves (Les Feuilles mortes)",
+    isVocal: true,
   },
   {
     slug: "still-dre---variation-composition",
     composer: "Andre Young",
     displayTitle: "Still D.R.E.",
     chords: ["i", "iv"],
+    isVocal: true,
   },
 
   {
@@ -276,6 +302,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "Cant_Help_Falling_In_Love",
     composer: "Jean-Paul-Égide Martini",
     displayTitle: "Can't Help Falling in Love",
+    isVocal: true,
   },
   {
     slug: "g-minor-bach-original",
@@ -286,27 +313,32 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "when-i-was-your-man---bruno-mars-600e3a",
     composer: "Bruno Mars",
     displayTitle: "When I Was Your Man",
+    isVocal: true,
   },
   {
     slug: "gurenge--demon-slayer-kimetsu-no-yaiba-op",
     composer: "Kayoko Kusano",
     displayTitle: "Gurenge (Demon Slayer Opening)",
+    isVocal: true,
   },
   {
     slug: "Let_Her_Go_Passenger",
     composer: "Passenger",
     displayTitle: "Let Her Go",
+    isVocal: true,
   },
   {
     slug: "we-are-number-one-but-it-s-a-piano-transcript",
     composer: "Máni Svavarsson",
     displayTitle: "We Are Number One (LazyTown)",
     chords: ["i", "bVI", "V"],
+    isVocal: true,
   },
   {
     slug: "dragonborn---skyrim-theme-song-piano-solo",
     composer: "Jeremy Soule",
     displayTitle: "Dragonborn (Skyrim Theme)",
+    isVocal: true,
   },
   {
     slug: "doki-doki-literature-club-ost---your-reality",
@@ -323,11 +355,13 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "attack-on-titan-theme-guren-no-yumiya",
     composer: "Hiroyuki Sawano",
     displayTitle: "Guren no Yumiya (Attack on Titan Opening)",
+    isVocal: true,
   },
   {
     slug: "Bella_Ciao",
     composer: "Italian folk",
     displayTitle: "Bella ciao",
+    isVocal: true,
   },
   {
     slug: "minuet-bwv-anhang-114-in-g-major",
@@ -338,11 +372,13 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "Take_on_me",
     composer: "a-ha",
     displayTitle: "Take On Me",
+    isVocal: true,
   },
   {
     slug: "congratulations---mac-miller",
     composer: "Mac Miller",
     displayTitle: "Congratulations",
+    isVocal: true,
   },
   {
     slug: "the-office---opening-titles-theme-song-for-piano",
@@ -354,6 +390,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "it-s-been-a-long-long-time---harry-james",
     composer: "Jule Styne",
     displayTitle: "It's Been a Long, Long Time",
+    isVocal: true,
   },
   {
     slug: "Dawn_Pride_and_Prejudice",
@@ -364,6 +401,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "kimi-no-na-wa---sparkle-theishter-2016",
     composer: "Radwimps",
     displayTitle: "Sparkle (from Your Name 2016)",
+    isVocal: true,
   },
 
   {
@@ -376,6 +414,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "sia---snowman",
     composer: "Sia",
     displayTitle: "Snowman",
+    isVocal: true,
   },
   {
     slug: "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2",
@@ -392,6 +431,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     composer: "Patty Smith Hill",
     displayTitle: "Happy Birthday to You",
     chords: ["I", "IV", "V"],
+    isVocal: true,
   },
   {
     slug: "flight-of-the-bumblebee",
@@ -407,11 +447,13 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "dont-stop-believing-piano",
     composer: "Journey",
     displayTitle: "Don't Stop Believin'",
+    isVocal: true,
   },
   {
     slug: "sign-of-the-times---harry-styles",
     composer: "Harry Styles",
     displayTitle: "Sign of the Times",
+    isVocal: true,
   },
   {
     slug: "Requiem_for_a_Dream",
@@ -429,11 +471,13 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night",
     composer: "Ayase",
     displayTitle: "Yoru ni Kakeru (Racing into the Night)",
+    isVocal: true,
   },
   {
     slug: "africa---toto",
     composer: "Toto (David Paich + Jeff Porcaro)",
     displayTitle: "Africa",
+    isVocal: true,
   },
   {
     slug: "vivaldi---summer---piano",
@@ -444,12 +488,14 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "Love_Like_You_Steven_Universe",
     composer: "Rebecca Sugar",
     displayTitle: "Love Like You (from Steven Universe)",
+    isVocal: true,
   },
   {
     slug: "alan-walker---alone-piano",
     composer: "Alan Walker",
     displayTitle: "Alone",
     chords: ["vi", "I", "IV", "V", "iii"],
+    isVocal: true,
   },
   {
     slug: "my-lie-watashi-no-uso---your-lie-in-april",
@@ -460,6 +506,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "anastasia---once-upon-a-december",
     composer: "Stephen Flaherty",
     displayTitle: "Once Upon a December (from Anastasia)",
+    isVocal: true,
   },
   {
     slug: "Test_Drive_How_to_Train_Your_Dragon",
@@ -470,22 +517,26 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "Pokemon_Theme_Song",
     composer: "John Siegler",
     displayTitle: "Pokémon Theme",
+    isVocal: true,
   },
 
   {
     slug: "your-song-piano",
     composer: "Elton John",
     displayTitle: "Your Song",
+    isVocal: true,
   },
   {
     slug: "nothing-else-matters---metallica",
     composer: "Metallica",
     displayTitle: "Nothing Else Matters",
+    isVocal: true,
   },
   {
     slug: "calum-scott---you-are-the-reason-piano-sheet-lyrics-lyrics-version-link-in-description",
     composer: "Calum Scott",
     displayTitle: "You Are the Reason",
+    isVocal: true,
   },
   {
     slug: "fairy-tail-main-theme",
@@ -496,36 +547,43 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "welcome-to-the-black-parade---my-chemical-romance",
     composer: "My Chemical Romance",
     displayTitle: "Welcome to the Black Parade",
+    isVocal: true,
   },
   {
     slug: "how-far-i-ll-go-~-moana-ost",
     composer: "Lin-Manuel Miranda",
     displayTitle: "How Far I'll Go (from Moana)",
+    isVocal: true,
   },
   {
     slug: "la-vie-en-rose-solo-accordion",
     composer: "Louiguy",
     displayTitle: "La Vie en rose",
+    isVocal: true,
   },
   {
     slug: "Im_Blue_Eiffel_65",
     composer: "Eiffel 65",
     displayTitle: "Blue (Da Ba Dee)",
+    isVocal: true,
   },
   {
     slug: "A_Thousand_Miles",
     composer: "Vanessa Carlton",
     displayTitle: "A Thousand Miles",
+    isVocal: true,
   },
   {
     slug: "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",
     composer: "Lil Nas X",
     displayTitle: "Old Town Road",
+    isVocal: true,
   },
   {
     slug: "abba--the-winner-takes-it-all",
     composer: "ABBA",
     displayTitle: "The Winner Takes It All",
+    isVocal: true,
   },
   {
     slug: "Sonate_No._14_Moonlight_1st_Movement",

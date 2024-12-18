@@ -5122,7 +5122,6 @@ export const corpora: CorpusEntry[] = [
     genre: "Video Game Music",
     country: "Japan",
   },
-  { slug: "game_of_thrones_theme", midis: ["Game_of_Thrones_Easy_piano"] },
   {
     slug: MUSESCORE_TOP_100_SLUG,
     posttext: AboutTop100Corpus,

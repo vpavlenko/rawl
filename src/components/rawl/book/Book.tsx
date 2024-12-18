@@ -179,11 +179,15 @@ export const ReadableTextBlock = styled.div`
 export const ComposerTitle: React.FC<{
   composer: string;
   displayTitle: string;
+  isVocal?: boolean;
   style?: React.CSSProperties;
-}> = ({ composer, displayTitle, style }) => (
+}> = ({ composer, displayTitle, isVocal, style }) => (
   <span style={style}>
     <span style={{ color: "#999" }}>{composer}. </span>
-    <span style={{ color: "white" }}>{displayTitle}</span>
+    <span style={{ color: "white" }}>
+      {displayTitle}
+      {isVocal && <span style={{ marginLeft: "4px" }}>🎤</span>}
+    </span>
   </span>
 );
 
@@ -203,6 +207,7 @@ const ComposerLinkWithChat: React.FC<{
     <ComposerTitle
       composer={composer.composer}
       displayTitle={composer.displayTitle}
+      isVocal={composer.isVocal}
     />
     {NARRATIVES[composer.slug] && (
       <span style={{ marginLeft: "8px", color: "#999", ...chatIconStyle }}>

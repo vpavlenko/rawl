@@ -165,9 +165,7 @@ export const NewTonicSymbol: React.FC<{
     </span>
 
     <div
-      className={`noteColor_${
-        modulationDiff === 6 ? 0 : modulationDiff
-      }_colors`}
+      className={`noteColor_${modulationDiff}_colors`}
       style={{
         width: 80,
         height: 12,

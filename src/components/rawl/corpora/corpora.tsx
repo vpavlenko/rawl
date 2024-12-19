@@ -128,6 +128,17 @@ export const corpora: CorpusEntry[] = [
     country: "Hungary, UK",
   },
   {
+    slug: "garry_schyman",
+    midis: [
+      "bioshock-cohen-s-masterpiece-cohen-s-scherzo-no.-7---andante-con-passionato",
+      "bioshock-infinite---lighter-than-air",
+      "bioshock-2-how-she-sees-the-world",
+    ],
+    composerBirthYear: 1955,
+    genre: "Video Game Music, Film Score",
+    country: "USA",
+  },
+  {
     slug: "giovanni_allevi",
     midis: [
       "amor-sacro---giovanni-allevi",
@@ -140,6 +151,27 @@ export const corpora: CorpusEntry[] = [
     genre: "Classical, Contemporary Classical",
     style: "Minimalist, Piano-driven Classical",
     country: "Italy", // Giovanni Allevi is Italian.
+  },
+
+  {
+    slug: "daisuke_kikuta",
+    midis: [
+      "michishirube---violet-evergarden-ed",
+      "theishter-arr.-sincerely---violet-evergarden-op",
+    ],
+    composerBirthYear: 1982,
+    genre: "J-Pop, Anime Song",
+    country: "Japan",
+  },
+  {
+    slug: "hiroki_kikuta",
+    midis: [
+      "phantom-and-...-a-rose---hiroki-kikuta-phantom-and-a-rose---hiroki-kikuta",
+      "angel-s-fear-secret-of-mana-soundtrack",
+    ],
+    composerBirthYear: 1962,
+    genre: "Video Game Music",
+    country: "Japan",
   },
   {
     slug: "george_winston",
@@ -1032,6 +1064,42 @@ export const corpora: CorpusEntry[] = [
     country: "USA", // George Gershwin was American.
   },
   {
+    slug: "hector_ayala",
+    midis: [
+      "el-coyuyo---hector-ayala",
+      "luna-y-sol---hector-ayala-luna-y-sol",
+      "celeste-y-blanco---hector-ayala",
+    ],
+    composerBirthYear: 1913,
+    genre: "Guitar",
+    country: "Argentina",
+  },
+  {
+    slug: "leo_brouwer",
+    midis: [
+      "un-dia-de-noviembre---leo-brouwer",
+      "berceuse---leo-brouwer",
+      "brouwer-etude-simple-vi",
+      "brouwer-leo-etudes-simples-no-02-coral",
+    ],
+    composerBirthYear: 1939,
+    genre: "Guitar, Classical, Folk, Aleatoric, Atonal",
+    country: "Cuba, USA",
+  },
+  {
+    slug: "jack_wall",
+    midis: [
+      "ends-justify-the-means---jack-wall-transcribed-by-christian-smith",
+      "mass-effect-2-suicide-mission-end-run",
+      "savimbi-s-pride",
+      "adrenaline-call-of-duty-black-ops-ii-organ-cover",
+    ],
+    composerBirthYear: 1963,
+    genre: "Video Game Music",
+    style: "Orchestral",
+    country: "USA",
+  },
+  {
     slug: "fats_waller",
     midis: [
       "asbestos---fats-waller---c1930",
@@ -1194,6 +1262,27 @@ export const corpora: CorpusEntry[] = [
     genre: "Video game music",
     style: "Symphonic, Orchestral",
     country: "USA",
+  },
+  {
+    slug: "kenji_ito",
+    midis: [
+      "si-dou-noguo-teni-struggle-to-the-death---saga-2-mi-bao-chuan-shuo-final-fantasy-legend-ii-gb---kenji-ito",
+      "opuningutaitoru-title-screen-romansingu-saga2-romancing-saga2-snes---kenji-ito",
+    ],
+    composerBirthYear: 1968,
+    country: "Japan",
+    genre: "Video game music",
+  },
+  {
+    slug: "kenji_kawai",
+    midis: [
+      "yun-ming-noye--piano-ver.----kenji-kawai",
+      "go-go-reigen-gogoling-huan---kenji-kawai-mp100",
+      "life-before-war---kenji-kawai---sad-song---apocalypse-the-second-world-war-soundtrack",
+    ],
+    composerBirthYear: 1957,
+    genre: "Anime, TV, Film score, Video game music",
+    country: "Japan",
   },
   {
     slug: "beauty_and_the_beast",
@@ -2395,6 +2484,10 @@ export const corpora: CorpusEntry[] = [
     country: "Italy",
   },
   {
+    slug: "yuzo_koshiro",
+    midis: [],
+  },
+  {
     slug: "derek_fiechter",
     midis: [
       "cats-of-whisker-hollow-spooky-autumn---derek-fiechter",
@@ -3041,6 +3134,16 @@ export const corpora: CorpusEntry[] = [
     country: "Austria",
   },
   {
+    slug: "manaka_kataoka",
+    midis: [
+      "main-theme---the-legend-of-zelda-tears-of-the-kingdom---manaka-kataoka-yasuaki-iwata-and-hajime-wakai-totk-sheet-music",
+      "attack-on-vah-naboris---manaka-kataoka",
+    ],
+    composerBirthYear: 1985,
+    genre: "Video Game Music",
+    country: "Japan",
+  },
+  {
     slug: "altin_gun",
     midis: [
       "goca-dunya---altin-gun-goca-dunya.xml",
@@ -3110,6 +3213,8 @@ export const corpora: CorpusEntry[] = [
       "marx-theme-from-kirby-super-star---jun-ishikawa",
       "twilight-in-benares-1923",
       "alien-lair",
+      "greenpath---christopher-larkin",
+      "qiao-shang-nozhan-i-battle-on-the-bridge---final-fantasy-tactics-ps1---hitoshi-sakimoto",
     ],
   },
   {
@@ -4404,6 +4509,16 @@ export const corpora: CorpusEntry[] = [
     country: "USA", // Based on his genre
   },
   {
+    slug: "hitoshi_sakimoto",
+    midis: [
+      "qiao-shang-nozhan-i-battle-on-the-bridge---final-fantasy-tactics-ps1---hitoshi-sakimoto",
+      "randam-waltz---final-fantasy-tactics-ps1---hitoshi-sakimoto",
+    ],
+    composerBirthYear: 1969,
+    genre: "Video Game Music",
+    country: "Japan",
+  },
+  {
     slug: "glenn_stafford",
     midis: [
       "starcraft-2---wings-of-liberty---piano-solo",
@@ -4688,6 +4803,7 @@ export const corpora: CorpusEntry[] = [
       "Symphony_No9__From_The_New_World__2nd_movement",
       "Symphony_No.9_From_The_New_World_3rd_movement_Scherzo",
       "Symphony_No9_From_The_New_World_4th_movement__Z_Novho_Svta",
+      "antonin-dvorak-serenade-for-string-orchestra-in-e-major-op.22-ii.-tempo-di-valse",
     ],
     composerBirthYear: 1841, // Antonín Dvořák was born in 1841
     genre: "Classical", // He was a classical composer
@@ -5056,6 +5172,16 @@ export const corpora: CorpusEntry[] = [
     country: "China",
   },
   {
+    slug: "laura_shigihara",
+    midis: [
+      "loonboon---laura-shigihara-arranged-by-piano-keyng",
+      "moongrains---laura-shigihara",
+    ],
+    composerBirthYear: 1980,
+    genre: "Music Game",
+    country: "US, Japan",
+  },
+  {
     slug: "yosuke_yamashita",
     midis: [
       "never-ending-saga---yosuke-yamashita",
@@ -5063,6 +5189,27 @@ export const corpora: CorpusEntry[] = [
       "ookami-blues-tv-size---seton-academy-ed",
     ],
     country: "Japan",
+  },
+  {
+    slug: "christopher_larkin",
+    midis: [
+      "hollow-knight-main-theme---christopher-larkin",
+      "greenpath---christopher-larkin",
+      "sealed-vessel---christopher-larkin",
+    ],
+    composerBirthYear: 1992,
+    genre: "Video Game Music",
+    country: "Australia",
+  },
+  {
+    slug: "jose_asuncion_flores",
+    midis: [
+      "panambi-vera---manuel-ortiz-guerrero-y-jose-asuncion-flores",
+      "nde-rendape-aju-jose-a-suncion-flores-manuel-ortiz-guerrero",
+    ],
+    composerBirthYear: 1904,
+    genre: "Guarania",
+    country: "Paraguay",
   },
   {
     slug: "fujii_kaze",

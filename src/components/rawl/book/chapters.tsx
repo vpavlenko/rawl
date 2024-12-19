@@ -56,6 +56,17 @@ const a = (href: string, text: string) => (
   </a>
 );
 
+const A = (href: string) => (
+  <a
+    href={`/f/${href}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ color: "orange" }}
+  >
+    {href}
+  </a>
+);
+
 const s = (tag: TemplateStringsArray) => {
   return a(`/s/${tag[0].replace(":", "/")}`, tag[0]);
 };
@@ -477,11 +488,16 @@ export const CHAPTERS: Array<{
             "/f/road-trippin---red-hot-chili-peppers",
             "Red Hot Chili Peppers. Road trippin'",
           )}{" "}
-          and{" "}
+          ,{" "}
           {a(
             "/f/seven-nation-army-arr.-nikodem-lorenz",
             "The White Stripes. Seven Nations Army",
           )}{" "}
+          and{" "}
+          {a(
+            "/f/loonboon---laura-shigihara-arranged-by-piano-keyng",
+            "Laura Shigihara. Loonboon",
+          )}
           have the same vibe.
         </P>
         <h2>Historical context</h2>
@@ -702,6 +718,9 @@ export const CHAPTERS: Array<{
         </P>
         <P>
           <ChordStairs mode={MODES[0]} />
+        </P>
+        <P>
+          Same vibe: <ul>{A("michishirube---violet-evergarden-ed")}</ul>
         </P>
       </>
     ),

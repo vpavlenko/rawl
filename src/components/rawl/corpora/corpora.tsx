@@ -2674,6 +2674,7 @@ export const corpora: CorpusEntry[] = [
       "serguei-rachmaninov---piano-concerto-ndeg4-in-g-minor---1st-mouvement-intro",
       "Prelude_in_G_Minor_Opus_23_No._5",
       "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---ii.-allegro-molto",
+      "prelude-in-c-sharp-minor-opus-3-no.-2---sergei-rachmaninoff",
     ],
     composerBirthYear: 1873,
     genre: "Classical",
@@ -3132,6 +3133,13 @@ export const corpora: CorpusEntry[] = [
     genre: "Jazz Fusion",
     style: "Fusion, Funk, Jazz",
     country: "Austria",
+  },
+  {
+    slug: "lucas_pope",
+    midis: ["papers-please"],
+    composerBirthYear: 1977,
+    genre: "Video Game Music",
+    country: "USA",
   },
   {
     slug: "manaka_kataoka",

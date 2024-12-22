@@ -512,12 +512,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
             e.target.blur();
           }
           break;
-        case "r":
-          this.setState((prevState) => ({
-            analysisEnabled: !prevState.analysisEnabled,
-          }));
-          e.preventDefault();
-          break;
         default:
       }
 
@@ -568,6 +562,12 @@ class App extends React.Component<RouteComponentProps, AppState> {
           break;
         case "h":
           this.toggleShortcutHelp();
+          e.preventDefault();
+          break;
+        case "r":
+          this.setState((prevState) => ({
+            analysisEnabled: !prevState.analysisEnabled,
+          }));
           e.preventDefault();
           break;
         default:

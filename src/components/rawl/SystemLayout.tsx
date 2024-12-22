@@ -324,7 +324,7 @@ export const StackedSystemLayout: React.FC<
       return currentLength > longestLength ? current : longest;
     }, sectionSpans[0]);
 
-    if (longestSection && annotatedSections.length > 1) {
+    if (longestSection && annotatedSections.length >= 1) {
       const longestSectionLength =
         measuresAndBeats.measures[longestSection[1]] -
         measuresAndBeats.measures[longestSection[0]];

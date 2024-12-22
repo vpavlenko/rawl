@@ -205,7 +205,7 @@ const ChordStairs: React.FC<{
               }, 600);
 
               timeoutRef.current.push(clearTimeout);
-            }, index * 1000);
+            }, index * 800);
 
             timeoutRef.current.push(playTimeout);
           });

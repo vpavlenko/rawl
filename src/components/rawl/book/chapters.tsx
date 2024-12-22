@@ -134,7 +134,7 @@ export const CHAPTERS: Array<{
         </P>
         <P>
           I use my own piano-roll-based notation with notes colored into 12
-          colors, always starting from the main note (<i>the tonic</i>). This
+          colors, always starting from the main note – <i>the tonic</i>. This
           simplifies visual analysis: chords and other structures become
           visible, scores become readable and interpretable.
         </P>
@@ -146,33 +146,17 @@ export const CHAPTERS: Array<{
           You don't need any knowledge of standard notation throughout this
           journey.
         </P>
-        <P>
-          The chapters of this book go through pieces in order of increasing
-          harmony. We start from pieces which use only seven notes (pitch
-          classes) {c`1 2 3 4 5 6 7 1`} or {c`1 2 b3 4 5 b6 b7 1`} and
-          three-four chords – like {c`I vi IV V I vi IV V`} or{" "}
-          {c`i i bVI V i i bVI V`} – the diatonic harmony.
-        </P>
-        <P>
-          Then we progress all the way to complex chromatic harmony, like{" "}
-          {c`i iio7 V43 i6 Ger viio7/V i64 V7b9 i`} and
-          {c`Imaj7 V7/IV IVmaj7 iv7 Imaj7 V7/ii V7/V V7 Imaj7`}.
-        </P>
 
-        <P>
-          Many things influence each piece: a composer combines ideas of
-          harmony, melody, voice-leading, texture, rhythm, form. I picked
-          harmony as the main axis of this book. I discuss other aspects of
-          music as a set of questions and answers below the scores of each
-          piece.
-        </P>
-
-        <h2>The alphabet: notes on piano</h2>
+        <h2>12 notes</h2>
         <P>
           There are twelve notes in each octave of a piano:{" "}
           {c`1 b2 2 b3 3 4 #4 5 b6 6 b7 7`}
         </P>
         <P>
+          Each color is present several times on a piano keyboard – in different
+          octaves: {c`1 3 5 1 3 5 1 3 5 1 3 5 1`}
+        </P>
+        {/* <P>
           Throughout the book I'll mention keyboard layouts to try out different
           concepts by playing them directly from your computer keyboard. Here
           are three keyboards showcasing all 12 notes:
@@ -186,24 +170,20 @@ export const CHAPTERS: Array<{
           {c`1 b2`}, {c`4 #4`}, {c`b6 6`} and {c`6 b7`} are one semitone apart.
           All distances between two consecutive notes on a piano keyboard is the
           same since mid-19th century. {q("rings_tuning")}
-        </P>
+        </P> */}
         <P>
           Some pieces are built entirely on a subset of seven notes called a
           major scale: {c`1 2 3 4 5 6 7 1`}
         </P>
         <P>{k("major-scale")}</P>
-        <P>
-          Each color is present several times on a piano keyboard – in different
-          octaves: {c`1 3 5 1 3 5 1 3 5 1 3 5 1`}
-        </P>
+
         <h2>Chords</h2>
         <P>
-          If you play three colors in a certain pattern, it's called a chord.
+          If you play three colors, it's called <i>a chord</i>.
         </P>
         <P>
-          We care about the pattern {n`1-3-5`} {c`1 3 5`} {c`I`}. This way we
-          build chords from a scale: take note, skip note, take note, skip note,
-          take note. We can start from any note:{" "}
+          We'll take three chord colors from the scale via the pattern{" "}
+          {n`1-3-5`} {c`1 3 5`} {c`I`}. We can start from any note:{" "}
           <ul>
             <li>
               {n`2-4-6`} {c`2 4 6`} {c`ii`}
@@ -270,6 +250,28 @@ export const CHAPTERS: Array<{
     },
     pretext: () => (
       <>
+        <h2>Our path</h2>
+        <P>
+          The chapters of this book go through pieces in order of increasing
+          harmony. We start from pieces which use only seven notes (pitch
+          classes) {c`1 2 3 4 5 6 7 1`} or {c`1 2 b3 4 5 b6 b7 1`} and
+          three-four chords – like {c`I vi IV V I vi IV V`} or{" "}
+          {c`i i bVI V i i bVI V`} – the diatonic harmony.
+        </P>
+        <P>
+          Then we progress all the way to complex chromatic harmony, like{" "}
+          {c`i iio7 V43 i6 Ger viio7/V i64 V7b9 i`} and{" "}
+          {c`Imaj7 V7/IV IVmaj7 iv7 Imaj7 V7/ii V7/V V7 Imaj7`}
+        </P>
+
+        <P>
+          Many things influence each piece: a composer combines ideas of
+          harmony, melody, voice-leading, texture, rhythm, form. I picked
+          harmony as the main axis of this book. I discuss other aspects of
+          music as a set of questions and answers below the scores of each
+          piece.
+        </P>
+
         <h2>Loops</h2>
         <P>In Western music, chords usually change at regular times.</P>
         <P>

@@ -427,7 +427,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     displayTitle: "Theme from Schindler's List",
   },
   {
-    slug: "happy_birthday_bass_and_chords",
+    slug: "happy-birthday",
     composer: "Patty Smith Hill",
     displayTitle: "Happy Birthday to You",
     chords: ["I", "IV", "V"],

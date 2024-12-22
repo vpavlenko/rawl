@@ -939,6 +939,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "happy_birthday",
     midis: [
+      "happy-birthday",
       "happy-birthday-to-you-c-major",
       "happy-birthday-song-in-jazz-arr.-by-jonny-may",
       "happy-birthday-tango",
@@ -5368,7 +5369,7 @@ export const corpora: CorpusEntry[] = [
       "sia---snowman", // Sia
       "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2", // Takahiro Obata
       "theme-from-schindler-s-list---piano-solo", // John Williams
-      "happy_birthday_bass_and_chords", // Patty Smith Hill
+      "happy-birthday", // Patty Smith Hill
       "flight-of-the-bumblebee", // Nikolai Rimsky-Korsakov
       "dance-of-the-sugar-plum-fairy", // Pyotr Ilyich Tchaikovsky
       "dont-stop-believing-piano", // Journey

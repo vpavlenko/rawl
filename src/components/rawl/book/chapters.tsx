@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { MUSESCORE_TOP_100_SLUG } from "../corpora/corpora";
 import { CorpusLink } from "../corpora/CorpusLink";
 import { Chord, MODES } from "../legends/chords";
-import ChordStairs, { TonicProvider } from "../legends/ChordStairs";
+import ChordStairs from "../legends/ChordStairs";
 import { PianoLegend } from "../legends/PianoLegend";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 import { Citation } from "./Citations";
@@ -75,13 +75,14 @@ const n = (text: TemplateStringsArray) => (
   <span style={{ whiteSpace: "nowrap" }}>{text}</span>
 );
 
-const k = (layout: string, title?: string) => {
+export const k = (layout: string, title?: string) => {
   return (
     <a
       href={`https://vpavlenko.github.io/layouts/${layout}`}
       target="_blank"
       rel="noopener noreferrer"
       style={{
+        display: "inline-block",
         color: "white",
         margin: "10px 20px 10px 0",
         padding: "7px",
@@ -118,7 +119,7 @@ export const CHAPTERS: Array<{
   {
     title: "Intro",
     titleChords: ["I"],
-    composers: ["happy_birthday_bass_and_chords"],
+    composers: ["happy-birthday"],
     mode: {
       title: "",
       chords: ["I", "IV", "V"],
@@ -148,15 +149,14 @@ export const CHAPTERS: Array<{
         <P>
           The chapters of this book go through pieces in order of increasing
           harmony. We start from pieces which use only seven notes (pitch
-          classes) {c`1 2 3 4 5 6 7`} or {c`1 2 b3 4 5 b6 b7`} and three-four
-          chords – like {c`I vi IV V I vi IV V`} or {c`i i bVI V i i bVI V`} –
-          the diatonic harmony.
+          classes) {c`1 2 3 4 5 6 7 1`} or {c`1 2 b3 4 5 b6 b7 1`} and
+          three-four chords – like {c`I vi IV V I vi IV V`} or{" "}
+          {c`i i bVI V i i bVI V`} – the diatonic harmony.
         </P>
         <P>
-          Then we progress through chromatic harmony, like{" "}
+          Then we progress all the way to complex chromatic harmony, like{" "}
           {c`i iio7 V43 i6 Ger viio7/V i64 V7b9 i`} and
-          {c`Imaj7 V7/IV IVmaj7 iv7 Imaj7 V7/ii V7/V V7 Imaj7`} all the way up
-          to the pieces in which harmony is hard to explain.
+          {c`Imaj7 V7/IV IVmaj7 iv7 Imaj7 V7/ii V7/V V7 Imaj7`}.
         </P>
 
         <P>
@@ -234,7 +234,7 @@ export const CHAPTERS: Array<{
           arrangement we're gonna analyze uses three chords played in the left
           hand, underneath the melody: {c`I`}, {c`IV`} and {c`V`}
         </P>
-        <P>
+        {/* <P>
           However, our arrangement builds a major scale starting from the note
           F.
         </P>
@@ -257,7 +257,7 @@ export const CHAPTERS: Array<{
         </P>
         <P>
           Now, open the score of "Happy Birthday" and let's start analyzing.
-        </P>
+        </P> */}
       </>
     ),
   },

@@ -381,7 +381,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     isVocal: true,
   },
   {
-    slug: "the-office---opening-titles-theme-song-for-piano",
+    slug: "the-office",
     composer: "Jay Ferguson",
     displayTitle: "The Office - Main Theme",
     chords: ["I", "iii", "IV", "vi"],

@@ -328,7 +328,7 @@ export const CHAPTERS: Array<{
       </>
     ),
     composers: [
-      "the-office---opening-titles-theme-song-for-piano",
+      "the-office",
       "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
       "doki-doki-literature-club-ost---your-reality",
       "Viva_La_Vida_Coldplay",

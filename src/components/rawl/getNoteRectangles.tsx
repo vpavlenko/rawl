@@ -133,31 +133,9 @@ export const getNoteRectangles = (
       isActive,
     } = note;
     const number = relativeNumber === undefined ? midiNumber : relativeNumber;
-    const top = midiNumberToY(number) - noteHeight;
+    const top = midiNumberToY(isDrum ? number + 12 : number) - noteHeight;
     const left = secondsToX(note.span[0]);
-    const drumEmoji = isDrum ? GM_DRUM_KIT[midiNumber] || midiNumber : null;
-    const noteElement = drumEmoji ? (
-      <span
-        className="noteText"
-        style={{
-          fontSize: isDrum
-            ? isActive
-              ? 4 +
-                (noteHeight - 5) * 0.4 +
-                (secondsToX(1) - secondsToX(0)) * 0.15
-              : 6
-            : `${Math.min(noteHeight + 2, 14)}px`,
-          position: "relative",
-          left: isDrum ? (isActive ? "-5px" : "-2.5px") : "0px",
-          lineHeight: `${Math.min(noteHeight, 14)}px`,
-          fontFamily: "Helvetica, sans-serif",
-          fontWeight: isDrum ? 100 : 700,
-          color: "white",
-        }}
-      >
-        {drumEmoji}
-      </span>
-    ) : null;
+
     const pathData = note.chipState?.on?.pitchBend
       ? convertPitchBendToPathData(
           note.chipState.on.pitchBend,
@@ -168,35 +146,53 @@ export const getNoteRectangles = (
       : null;
     const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
 
-    const cursorStyle =
-      enableManualRemeasuring && !isDrum
-        ? "e-resize"
-        : handleNoteClick && !isDrum
-        ? "pointer"
-        : "default";
-
-    return (
+    return isDrum ? (
+      isActive && (
+        <div
+          style={{
+            position: "absolute",
+            fontSize: "16px",
+            height: "10px",
+            width: "auto",
+            overflow: "visible",
+            left,
+            top,
+            fontFamily: "Helvetica, sans-serif",
+            color: "white",
+            placeItems: "center",
+            transform: "translateX(-50%)", // Shift the div left by half its width
+            whiteSpace: "nowrap", // Prevent text wrapping
+            zIndex: 1000,
+          }}
+        >
+          {GM_DRUM_KIT[midiNumber] || midiNumber}
+        </div>
+      )
+    ) : (
       <div
         key={`nr_${note.id}`}
         className={`${color} voiceShape-${voiceIndex}`}
         style={{
           position: "absolute",
           height: `${isActive ? noteHeight * 2 : 0.5}px`,
-          width: isDrum ? "0px" : width,
+          width,
           overflow: "visible",
           top: isActive ? top : top + noteHeight * 2 - 0.5,
           left,
           pointerEvents: handleNoteClick ? "auto" : "none",
-          cursor: cursorStyle,
           zIndex: Math.round(10 + (width > 0 ? 1000 / width : 1000)),
           boxSizing: "border-box",
           display: "grid",
-          placeItems: drumEmoji ? "center" : "",
           boxShadow: isActive ? "0 0 0px 0.5px black" : "",
+          cursor: enableManualRemeasuring
+            ? "e-resize"
+            : handleNoteClick
+            ? "pointer"
+            : "default",
         }}
         onClick={(e) => {
           e.stopPropagation();
-          if (handleNoteClick && !isDrum) {
+          if (handleNoteClick) {
             handleNoteClick(note);
           }
         }}
@@ -220,7 +216,6 @@ export const getNoteRectangles = (
             </svg>
           </div>
         )}
-        {noteElement}
       </div>
     );
   });

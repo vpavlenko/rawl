@@ -353,7 +353,8 @@ export const StackedSystemLayout: React.FC<
             notes: notes.filter(
               (note) =>
                 note.span[1] >= measuresAndBeats.measures[sectionSpan[0]] &&
-                note.span[0] + 1e-2 < measuresAndBeats.measures[sectionSpan[1]],
+                note.span[0] + (note.isDrum ? -0.01 : 1e-2) <
+                  measuresAndBeats.measures[sectionSpan[1]],
             ),
           }),
         ),

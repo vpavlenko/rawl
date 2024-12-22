@@ -2675,6 +2675,7 @@ export const corpora: CorpusEntry[] = [
       "Prelude_in_G_Minor_Opus_23_No._5",
       "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---ii.-allegro-molto",
       "prelude-in-c-sharp-minor-opus-3-no.-2---sergei-rachmaninoff",
+      "rachmaninoff-10-preludes-op.-23---no.-5-in-g-minor-m.-a.-deocariza",
     ],
     composerBirthYear: 1873,
     genre: "Classical",

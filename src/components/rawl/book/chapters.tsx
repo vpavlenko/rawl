@@ -10,7 +10,7 @@ import {
   MINOR_MODE,
   STRICT_NATURAL_MINOR,
 } from "../legends/chords";
-import ChordStairs from "../legends/ChordStairs";
+import ChordStairs, { TonicProvider } from "../legends/ChordStairs";
 import { PianoLegend } from "../legends/PianoLegend";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 import { Citation } from "./Citations";
@@ -607,9 +607,9 @@ export const CHAPTERS: Array<{
       <>
         <h2>i i ♭VI V</h2>
         <P>
-          These songs exploit an endless loop of {c`i i bVI V`}. So, they don't
-          fit within the natural minor scale {c`1 2 b3 4 5 b6 b7 1`}, since{" "}
-          {c`V`} uses a note {c`7`}
+          These songs exploit an endless loop of {c`i i bVI V i i bVI V`}. So,
+          they don't fit within the natural minor scale {c`1 2 b3 4 5 b6 b7 1`},
+          since {c`V`} uses a note {c`7`}
         </P>
         <P>
           You might say that these songs are using an extended minor scale:{" "}
@@ -662,7 +662,18 @@ export const CHAPTERS: Array<{
     title: DOUBLE_TONIC_CHAPTER_TITLE,
     pretext: () => (
       <>
-        <h2>Double-tonic loops</h2>
+        <h2>Natural minor = major</h2>
+        <P>Here's a C major scale: {c`1 2 3 4 5 6 7`}</P>
+        <P>
+          Here's an A minor scale:{" "}
+          <TonicProvider currentTonic={9}>{c`1 2 b3 4 5 b6 b7`}</TonicProvider>
+        </P>
+        <P>
+          Here's an A minor scale played the note b3:
+          <TonicProvider
+            currentTonic={9}
+          >{c`b3 4 5 b6 b7 1 2`}</TonicProvider>{" "}
+        </P>
       </>
     ),
     composers: [

@@ -239,3 +239,57 @@ export const cleanupArpeggiator = () => {
   activeEvents = [];
   activeNotes = [];
 };
+
+export const playArpeggiatedChordSequence = async (
+  chordSequence: number[][],
+  onChordStart?: (index: number) => void,
+  onChordEnd?: (index: number) => void,
+) => {
+  await ensureSamplerLoaded();
+
+  // Clear any existing events
+  Tone.Transport.cancel();
+  sampler.releaseAll(0);
+  activeEvents = [];
+  activeNotes = [];
+
+  // Ensure transport is started
+  if (Tone.Transport.state !== "started") {
+    Tone.Transport.start();
+  }
+
+  const currentTime = Tone.Transport.seconds;
+  const CHORD_SPACING = 0.7; // 700ms between chords
+
+  chordSequence.forEach((chord, chordIndex) => {
+    // Schedule each note in the chord
+    chord.forEach((note, noteIndex) => {
+      const noteTime =
+        currentTime +
+        chordIndex * CHORD_SPACING + // Delay for each chord
+        (noteIndex * ARPEGGIO_DELAY_MS) / 1000; // Arpeggio delay within chord
+
+      const eventId = Tone.Transport.schedule((time) => {
+        sampler.triggerAttackRelease(
+          Tone.Frequency(note + C3_MIDI_NUMBER, "midi").toNote(),
+          0.5,
+          time,
+        );
+
+        // Call onChordStart only for the first note of each chord
+        if (noteIndex === 0 && onChordStart) {
+          onChordStart(chordIndex);
+        }
+
+        // Schedule chord end callback after last note
+        if (noteIndex === chord.length - 1 && onChordEnd) {
+          Tone.Transport.schedule(() => {
+            onChordEnd(chordIndex);
+          }, time + 0.6); // 600ms animation duration
+        }
+      }, noteTime);
+
+      activeEvents.push(eventId);
+    });
+  });
+};

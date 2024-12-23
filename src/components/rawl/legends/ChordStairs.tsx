@@ -10,6 +10,7 @@ import styled, { css, keyframes } from "styled-components";
 import {
   ARPEGGIO_DELAY_MS,
   playArpeggiatedChord,
+  playArpeggiatedChordSequence,
 } from "../../../sampler/sampler";
 import { Mode } from "../book/chapters";
 import { Chord, formatChordName, rehydrateChords } from "./chords";
@@ -185,34 +186,30 @@ const ChordStairs: React.FC<{
           // Reset playing states
           setPlayingStates({});
 
-          // Schedule all chords to play in sequence
-          rehydratedChords.forEach((chordData, index) => {
-            const playTimeout = setTimeout(() => {
-              const transposedNotes = chordData.positions.map(
-                (position) => position + pitchOfMinPosition + currentTonic,
-              );
-              playArpeggiatedChord(transposedNotes);
+          // Prepare chord sequence
+          const chordSequence = rehydratedChords.map((chordData) =>
+            chordData.positions.map(
+              (position) => position + pitchOfMinPosition + currentTonic,
+            ),
+          );
 
-              // Add chord index with current timestamp
+          // Play the sequence with animation callbacks
+          playArpeggiatedChordSequence(
+            chordSequence,
+            (index) => {
               setPlayingStates((prev) => ({
                 ...prev,
                 [index]: Date.now(),
               }));
-
-              // Remove chord from playing after animation
-              const clearTimeout = setTimeout(() => {
-                setPlayingStates((prev) => {
-                  const newState = { ...prev };
-                  delete newState[index];
-                  return newState;
-                });
-              }, 600);
-
-              timeoutRef.current.push(clearTimeout);
-            }, index * 700);
-
-            timeoutRef.current.push(playTimeout);
-          });
+            },
+            (index) => {
+              setPlayingStates((prev) => {
+                const newState = { ...prev };
+                delete newState[index];
+                return newState;
+              });
+            },
+          );
         } else {
           // For single chord playback
           const clickedChordIndex = rehydratedChords.findIndex(

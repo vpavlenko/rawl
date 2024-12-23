@@ -38,4 +38,18 @@ export const CITES: Record<string, Citation> = {
 `,
     where: "ch. 13",
   },
+  nobile: {
+    bibtex: `@book{book:2586637,
+   title =     {Form as Harmony in Rock Music (Oxford Studies in Music Theory)},
+   author =    {Drew Nobile},
+   publisher = {},
+   isbn =      {2020932174,9780190948368,9780190948351},
+   year =      {2020},
+   series =    {},
+   edition =   {},
+   volume =    {},
+   url =       {https://annas-archive.org/md5/8e6e4c92afc8e11ac3ff486582c5d0c4}
+}
+`,
+  },
 } as const;

@@ -50,7 +50,7 @@ const a = (href: string, text: string) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    style={{ color: "orange" }}
+    style={{ color: "orange", whiteSpace: "nowrap" }}
   >
     {text}
   </a>
@@ -61,7 +61,7 @@ const A = (href: string) => (
     href={`/f/${href}`}
     target="_blank"
     rel="noopener noreferrer"
-    style={{ color: "orange" }}
+    style={{ color: "orange", whiteSpace: "nowrap" }}
   >
     {href}
   </a>
@@ -100,13 +100,13 @@ const q = (citeKey: keyof typeof CITES) => <Citation citeKey={citeKey} />;
 
 export const CHAPTER_GROUPS: Record<string, [number, number]> = {
   intro: [1, 1],
-  "loops: four-chord progressions": [2, 5],
-  "diatonic functional harmony": [6, 10],
-  "borrowed chords": [11, 13],
-  "applied chords and modulation": [14, 17],
-  scales: [18, 18],
-  "seventh and extended chords": [19, 21],
-  style: [22, 22],
+  "loops: four-chord progressions": [2, 6],
+  "diatonic functional harmony": [7, 11],
+  "borrowed chords": [12, 14],
+  "applied chords and modulation": [15, 18],
+  scales: [19, 19],
+  "seventh and extended chords": [20, 22],
+  style: [23, 23],
 };
 
 export const CHAPTERS: Array<{
@@ -130,7 +130,10 @@ export const CHAPTERS: Array<{
         <P>
           I invite you to my journey through 100 pieces of composers whose music
           is popular nowadays. The full list of pieces that we're gonna look at
-          and analyze: <CorpusLink slug={MUSESCORE_TOP_100_SLUG} />
+          and analyze:{" "}
+          <span style={{ marginLeft: "1em" }}>
+            <CorpusLink slug={MUSESCORE_TOP_100_SLUG} />
+          </span>
         </P>
         <P>
           I use my own piano-roll-based notation with notes colored into 12
@@ -151,6 +154,15 @@ export const CHAPTERS: Array<{
         <P>
           There are twelve notes in each octave of a piano:{" "}
           {c`1 b2 2 b3 3 4 #4 5 b6 6 b7 7`}
+        </P>
+        <P>
+          Throughout the book I'll mention keyboard layouts to try out different
+          concepts by playing them directly from your computer keyboard. Here
+          are two keyboards showcasing all 12 notes:
+        </P>
+        <P>
+          {k("traditional-layout")}
+          {k("flat-chromatic-layout")}
         </P>
         <P>
           Each color is present several times on a piano keyboard – in different
@@ -210,10 +222,16 @@ export const CHAPTERS: Array<{
           melody plus chords.
         </P>
         <P>
-          In this intro we'll have a close look at "Happy Birthday". The
-          arrangement we're gonna analyze uses three chords played in the left
-          hand, underneath the melody: {c`I`}, {c`IV`} and {c`V`}
+          Here are all seven chords that we can build on a major scale this way:{" "}
+          {c`I ii iii IV V vi viio I`}
         </P>
+        <P>
+          In this intro we'll have a close look at the song "Happy Birthday".
+          The arrangement we're gonna analyze uses three chords played in the
+          left hand, underneath the melody: {c`I`}, {c`IV`} and {c`V`}, in this
+          order: {c`I V V I I IV V I`}
+        </P>
+        <P>Click on the link below to open the score:</P>
         {/* <P>
           However, our arrangement builds a major scale starting from the note
           F.
@@ -242,8 +260,8 @@ export const CHAPTERS: Array<{
     ),
   },
   {
-    title: "Loops in major",
-    titleChords: ["I", "V", "vi", "IV"],
+    title: "Single loop in major",
+    titleChords: ["I", "iii", "vi", "IV"],
     mode: {
       title: "6 common triads in a major mode",
       chords: ["ii", "IV", "vi", "I", "iii", "V"],
@@ -252,11 +270,24 @@ export const CHAPTERS: Array<{
       <>
         <h2>Our path</h2>
         <P>
+          The word <i>harmony</i> in music theory means "which colors are
+          combined together in a given piece or a style". Usually colors are
+          organized in chords, so a talk on harmony means "which chords follow
+          each other".
+        </P>
+        <P>
           The chapters of this book go through pieces in order of increasing
-          harmony. We start from pieces which use only seven notes (pitch
-          classes) {c`1 2 3 4 5 6 7 1`} or {c`1 2 b3 4 5 b6 b7 1`} and
-          three-four chords – like {c`I vi IV V I vi IV V`} or{" "}
-          {c`i i bVI V i i bVI V`} – the diatonic harmony.
+          harmonic complexity. We start from pieces which use only seven notes
+          (pitch classes):
+          <ul>
+            <li>major scale: {c`1 2 3 4 5 6 7 1`}</li>
+            <li>minor scale: {c`1 2 b3 4 5 b6 b7 1`}</li>
+          </ul>
+        </P>
+        <P>
+          We begin with the pieces with simple harmony – like{" "}
+          {c`I vi IV V I vi IV V`} or {c`i i bVI V i i bVI V`} – the diatonic
+          harmony.
         </P>
         <P>
           Then we progress all the way to complex chromatic harmony, like{" "}
@@ -280,7 +311,7 @@ export const CHAPTERS: Array<{
         </P>
         <P>
           There are six common chords that can be built on a major scale:{" "}
-          {c`I ii iii IV V vi`}
+          {c`I ii iii IV V vi I`}
         </P>
         <P>
           We have four places to fill in with chords in a loop. If you put{" "}
@@ -289,43 +320,24 @@ export const CHAPTERS: Array<{
         </P>
         <P>
           However, historically just a few of these hypothetical loops take up
-          the majority of the songs. The most popular loops are:
+          the majority of the songs. Some popular loops are:
           <ol>
             <li>
-              {c`I vi IV V`} and {c`IV V I vi`} are two rotations of a{" "}
               {a(
                 "https://en.wikipedia.org/wiki/%2750s_progression",
                 "'50s progression",
-              )}
+              )}{" "}
+              has two common rotations:
+              <ul style={{ marginBottom: "1em" }}>
+                <li> {c`I vi IV V I vi IV V`}</li>
+                <li>{c`IV V I vi IV V I vi`}</li>
+              </ul>
             </li>
-            <li>
-              {c`I V vi IV`} and {c`vi IV I V`} are two rotations of a{" "}
-              {a(
-                "https://en.wikipedia.org/wiki/I%E2%80%93V%E2%80%93vi%E2%80%93IV_progression",
-                "I–V–vi–IV progression",
-              )}
-            </li>
-            <li>{c`I iii vi IV`}</li>
+            <li>{c`I iii vi IV I iii vi IV`}</li>
           </ol>
         </P>
         <P>
           Listen to the songs below and analyze the loops they are built upon.
-        </P>
-        <h2>Historical context</h2>
-        <P>
-          Making tracks entirely of four-chord loops is a recent innovation – it
-          gained popularity in the 1950s. {q("tagg_loops")} Neither Mozart nor
-          Chopin did that.
-        </P>
-        <h2>Other resources</h2>
-        <P>
-          If you're lost in my narrative, try{" "}
-          {a("Lightnote", "https://www.lightnote.co/")} instead. Or{" "}
-          {a("Hooktheory", "https://book-one.hooktheory.com/")}
-        </P>
-        <h2>Drop your MIDI files</h2>
-        <P>
-          <FileDropBox />
         </P>
       </>
     ),
@@ -334,10 +346,90 @@ export const CHAPTERS: Array<{
       "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
       "doki-doki-literature-club-ost---your-reality",
       "Viva_La_Vida_Coldplay",
+    ],
+  },
+  {
+    title: "Different loops for verse/chorus",
+    titleChords: ["I", "vi", "IV", "V"],
+    mode: {
+      title: "6 common triads in a major mode",
+      chords: ["ii", "IV", "vi", "I", "iii", "V"],
+    },
+    pretext: () => (
+      <>
+        <h2>Form</h2>
+        <P>
+          The word <i>form</i> in music theory means "how parts of a piece are
+          organized together". How are they different, and what is common in
+          them that holds the whole piece together.
+        </P>
+        <P>
+          A song may have several parts: intro, verse, pre-chorus, chorus,
+          bridge. Some songs use different loops for different parts. For
+          example, a verse can go like {c`I iii vi IV I iii vi IV`} and a chorus
+          can go like {c`I V vi IV I V vi IV`}
+        </P>
+        <P>
+          As you analyze pieces in this chapter, listen to them on YouTube and
+          read the lyrics to understand which parts they have. Then, as you
+          follow the score below, see if different parts use contrasting loops.
+        </P>
+        <h2>Timeline of loops</h2>
+        <P>
+          Making tracks entirely of four-chord loops is a recent innovation – it
+          gained popularity in the 1950s. {q("tagg_loops")} {q("nobile")}{" "}
+          Neither Mozart nor Chopin composed like that.
+        </P>
+        <P>In the songs below you'll find another popular loop: </P>
+        <P>
+          {a(
+            "https://en.wikipedia.org/wiki/I%E2%80%93V%E2%80%93vi%E2%80%93IV_progression",
+            "I–V–vi–IV progression",
+          )}{" "}
+          has two common rotations:
+          <ul style={{ marginBottom: "1em" }}>
+            <li>{c`I V vi IV I V vi IV`} </li>
+            <li> {c`vi IV I V vi IV I V`} </li>
+          </ul>
+        </P>
+        <P>
+          Unlike the{" "}
+          {a(
+            "https://en.wikipedia.org/wiki/%2750s_progression",
+            "'50s progression",
+          )}{" "}
+          {c`I vi IV V`}, the {c`I V vi IV`} only started gaining popularity
+          after the '70s and peaked in 2000s - as you can check on Wikipedia
+          sorting examples by year. This is an arbitrary cultural event - the
+          history might as well go the other way around.
+        </P>
+        <P>
+          As you have heard many old songs through radio and films during your
+          lifetime, you might have learned their precedence. Do you hear the
+          former progression as "older", "more ancient"?
+        </P>
+
+        <h2>Other resources</h2>
+        <P>
+          If you're lost in my narrative, try{" "}
+          {a("Lightnote", "https://www.lightnote.co/")} instead. Or{" "}
+          {a("Hooktheory", "https://book-one.hooktheory.com/")}
+        </P>
+        <h2>Drop your MIDI files</h2>
+        <P>
+          If you have your own MIDI file and you want to see it colored, drag
+          and drop it to this website.
+        </P>
+        <P>
+          <FileDropBox />
+        </P>
+      </>
+    ),
+    composers: [
+      "Someone_Like_You_easy_piano",
       "someone-you-loved-lewis-capaldi",
       "Ed_Sheeran_Perfect",
       "dont-stop-believing-piano",
-      "Someone_Like_You_easy_piano",
       "A_Thousand_Miles",
     ],
   },

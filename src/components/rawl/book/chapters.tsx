@@ -168,34 +168,29 @@ export const CHAPTERS: Array<{
           Each color is present several times on a piano keyboard – in different
           octaves: {c`1 3 5 1 3 5 1 3 5 1 3 5 1`}
         </P>
-        {/* <P>
-          Throughout the book I'll mention keyboard layouts to try out different
-          concepts by playing them directly from your computer keyboard. Here
-          are three keyboards showcasing all 12 notes:
-        </P>
-        <P>
-          {k("flat-chromatic-layout")} {k("chromatic-sequences")}
-          {k("traditional-layout")}
-        </P>
+        {/* 
         <P>
           The distance between two consecutive keys is called a semitone.{" "}
           {c`1 b2`}, {c`4 #4`}, {c`b6 6`} and {c`6 b7`} are one semitone apart.
           All distances between two consecutive notes on a piano keyboard is the
           same since mid-19th century. {q("rings_tuning")}
         </P> */}
+
+        <h2>Chords in a major scale</h2>
         <P>
           Some pieces are built entirely on a subset of seven notes called a
-          major scale: {c`1 2 3 4 5 6 7 1`}
+          major scale: {c`1 2 3 4 5 6 7 1 2 3 4 5 6 7 1`}
         </P>
         <P>{k("major-scale")}</P>
-
-        <h2>Chords</h2>
         <P>
-          If you play three colors, it's called <i>a chord</i>.
+          If you play three colors, it's called <i>a chord</i>. How to form a
+          nice chord? You pick a <i>root</i> color - eg. {c`1`}, and then you
+          pick every other note after it: skip {c`2`}, pick {c`3`}, skip {c`4`},
+          pick {c`5`}. This way we get a "one" chord - {n`1-3-5`} {c`1 3 5`}{" "}
+          {c`I`}.
         </P>
         <P>
-          We'll take three chord colors from the scale via the pattern{" "}
-          {n`1-3-5`} {c`1 3 5`} {c`I`}. We can start from any note:{" "}
+          We can do this from any note of the scale:
           <ul>
             <li>
               {n`2-4-6`} {c`2 4 6`} {c`ii`}
@@ -272,13 +267,13 @@ export const CHAPTERS: Array<{
         <P>
           The word <i>harmony</i> in music theory means "which colors are
           combined together in a given piece or a style". Usually colors are
-          organized in chords, so a talk on harmony means "which chords follow
-          each other".
+          organized in chords, so a talk on harmony starts with "what's the
+          order or chords".
         </P>
         <P>
           The chapters of this book go through pieces in order of increasing
-          harmonic complexity. We start from pieces which use only seven notes
-          (pitch classes):
+          harmonic complexity. We start with pieces which use only seven colors
+          (<i>pitch classes</i>):
           <ul>
             <li>major scale: {c`1 2 3 4 5 6 7 1`}</li>
             <li>minor scale: {c`1 2 b3 4 5 b6 b7 1`}</li>
@@ -336,6 +331,39 @@ export const CHAPTERS: Array<{
             <li>{c`I iii vi IV I iii vi IV`}</li>
           </ol>
         </P>
+        <h2>Roman numeral analysis</h2>
+        <P>
+          Let's notate six chords that we find in pieces built on a major scale
+          by using Roman numeral analysis.
+        </P>
+        <P>
+          <ChordStairs
+            mode={{
+              title: "",
+              chords: ["I", "ii", "iii", "IV", "V", "vi"],
+            }}
+          />
+        </P>
+        <P>
+          If we look at the intervals of each chord starting from the root,
+          there are two types of chords:
+          <ul>
+            <li>
+              I {c`I`}, IV {c`IV`}, V {c`V`} – intervals 4+3, major chords
+              written in uppercase Roman numerals
+            </li>
+            <li>
+              ii {c`ii`}, iii {c`iii`}, vi {c`vi`} – intervals 3+4, minor chords
+              written in lowercase Roman numeral
+            </li>
+          </ul>
+        </P>
+        <P>
+          Be careful: the terms "major chord" / "minor chord" are not the same
+          thing as "major scale" / "minor scale". As we see, in a major scale we
+          have three major chords and three minor chords. We'll clarify this
+          when we reach a chapter on pieces in a minor scale.
+        </P>
         <P>
           Listen to the songs below and analyze the loops they are built upon.
         </P>
@@ -350,7 +378,7 @@ export const CHAPTERS: Array<{
   },
   {
     title: "Different loops for verse/chorus",
-    titleChords: ["I", "vi", "IV", "V"],
+    titleChords: ["I", "V", "vi", "IV"],
     mode: {
       title: "6 common triads in a major mode",
       chords: ["ii", "IV", "vi", "I", "iii", "V"],
@@ -409,6 +437,8 @@ export const CHAPTERS: Array<{
           former progression as "older", "more ancient"?
         </P>
 
+        <h2>Intervals</h2>
+        <P>Major third, minor third, perfect fifth.</P>
         <h2>Other resources</h2>
         <P>
           If you're lost in my narrative, try{" "}

@@ -7,6 +7,7 @@ declare module "tone/build/esm/core/context/BaseContext" {
   }
 }
 
+export const ARPEGGIO_DELAY_MS = 70;
 let samplerLoaded = false;
 let loadingPromise: Promise<void> | null = null;
 
@@ -193,7 +194,8 @@ export const playArpeggiatedChord = async (chordNumbers: number[]) => {
   const currentTransportTime = Tone.Transport.seconds;
 
   noteNames.forEach((note, index) => {
-    const scheduleTime = currentTransportTime + index * 0.1;
+    const scheduleTime =
+      currentTransportTime + (index * ARPEGGIO_DELAY_MS) / 1000;
 
     const eventId = Tone.Transport.schedule((time) => {
       activeNotes.push(note);

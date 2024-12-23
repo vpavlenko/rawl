@@ -341,10 +341,7 @@ const Book: React.FC = () => {
         <div style={{ marginTop: "40px" }}>
           {currentChapter.mode && (
             <ChapterChordLegendWrapper>
-              <ChordStairs
-                mode={currentChapter.mode}
-                {...(selectedChapter === "Intro" ? { currentTonic: 5 } : {})}
-              />
+              <ChordStairs mode={currentChapter.mode} />
             </ChapterChordLegendWrapper>
           )}
           {currentChapter.pretext && (

@@ -7,7 +7,10 @@ import {
   useState,
 } from "react";
 import styled, { css, keyframes } from "styled-components";
-import { playArpeggiatedChord } from "../../../sampler/sampler";
+import {
+  ARPEGGIO_DELAY_MS,
+  playArpeggiatedChord,
+} from "../../../sampler/sampler";
 import { Mode } from "../book/chapters";
 import { Chord, formatChordName, rehydrateChords } from "./chords";
 
@@ -205,7 +208,7 @@ const ChordStairs: React.FC<{
               }, 600);
 
               timeoutRef.current.push(clearTimeout);
-            }, index * 800);
+            }, index * 700);
 
             timeoutRef.current.push(playTimeout);
           });
@@ -287,7 +290,7 @@ const ChordStairs: React.FC<{
                       }`}
                       className={`noteColor_${pitch % 12}_colors`}
                       isPlaying={chordIndex in playingStates}
-                      delay={pitchIndex * 100}
+                      delay={pitchIndex * ARPEGGIO_DELAY_MS}
                       style={{
                         position: "absolute",
                         width: scaledNoteWidth,

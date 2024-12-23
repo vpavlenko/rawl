@@ -1,10 +1,31 @@
 import React, { ReactNode, useState } from "react";
 import styled from "styled-components";
+import { useLocalStorage } from "usehooks-ts";
 import { a, c, k } from "./book/chapters";
 
 const Label = styled.span`
   font-weight: bold;
   color: #666;
+`;
+
+const FoldButton = styled.button`
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100001;
+  background: #ccc;
+  color: black;
+  &:hover {
+    background: #444;
+  }
 `;
 
 type QAPair = {
@@ -72,6 +93,10 @@ export const NARRATIVES: Record<string, { qa: QAPair[] }> = {
 
 export const SongNarrative: React.FC<{ slug: string }> = ({ slug }) => {
   const [lastOpenedIndex, setLastOpenedIndex] = useState(0);
+  const [showNarrative, setShowNarrative] = useLocalStorage(
+    "showNarrative",
+    true,
+  );
 
   const narrative = NARRATIVES[slug as keyof typeof NARRATIVES];
 
@@ -79,37 +104,87 @@ export const SongNarrative: React.FC<{ slug: string }> = ({ slug }) => {
     return null;
   }
 
-  return (
-    <div className="mt-4" style={{ maxWidth: "40em" }}>
-      {narrative.qa.map((qa, index) => {
-        if (index > lastOpenedIndex) {
-          return null;
-        }
+  const content = (
+    <div
+      style={{
+        position: "absolute",
+        top: 20,
+        right: 10,
+        width: "30em",
+        zIndex: 100000,
+      }}
+    >
+      {showNarrative ? (
+        <div>
+          <FoldButton onClick={() => setShowNarrative(false)}>x</FoldButton>
+          <div
+            style={{
+              backgroundColor: "black",
+              padding: 10,
+              border: "1px solid #666",
+              zIndex: 100000,
+              maxWidth: "40em",
+            }}
+          >
+            {narrative.qa.map((qa, index) => {
+              if (index > lastOpenedIndex) {
+                return null;
+              }
 
-        return (
-          <div key={index} className="mb-8" style={{ marginBottom: "2.5rem" }}>
-            <div className="mb-2">
-              <Label>Q:</Label> <span style={{ color: "#aaa" }}>{qa.q}</span>
-            </div>
+              return (
+                <div key={index} style={{ marginBottom: "2.5rem" }}>
+                  <div style={{ marginBottom: "0.5rem" }}>
+                    <Label>Q:</Label>{" "}
+                    <span style={{ color: "#aaa" }}>{qa.q}</span>
+                  </div>
 
-            {index < lastOpenedIndex ? (
-              qa.a && (
-                <div className="mt-2" style={{ paddingTop: "10px" }}>
-                  <Label>A:</Label> {qa.a}
+                  {index < lastOpenedIndex ? (
+                    qa.a && (
+                      <div style={{ paddingTop: "10px" }}>
+                        <Label>A:</Label>{" "}
+                        <span style={{ color: "#aaa" }}>{qa.a}</span>
+                      </div>
+                    )
+                  ) : (
+                    <button
+                      style={{
+                        padding: "10px",
+                        marginTop: "10px",
+                        backgroundColor: "#4a90e2",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "4px",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setLastOpenedIndex(index + 1)}
+                    >
+                      {qa.a ? "Show answer" : "Show next question"}
+                    </button>
+                  )}
                 </div>
-              )
-            ) : (
-              <button
-                className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-                style={{ padding: "10px", marginTop: "10px" }}
-                onClick={() => setLastOpenedIndex(index + 1)}
-              >
-                {qa.a ? "Show answer" : "Show next question"}
-              </button>
-            )}
+              );
+            })}
           </div>
-        );
-      })}
+        </div>
+      ) : (
+        <button
+          onClick={() => setShowNarrative(true)}
+          style={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontSize: "24px",
+            padding: 0,
+          }}
+        >
+          💬
+        </button>
+      )}
     </div>
   );
+
+  return content;
 };

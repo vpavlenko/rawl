@@ -120,17 +120,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
           </div>
         ))}
         <div style={{ position: "relative" }}>
-          💬
-          <div
-            style={{
-              position: "absolute",
-              top: 20,
-              right: 10,
-              width: "30em",
-            }}
-          >
-            <SongNarrative slug={slug} />
-          </div>
+          <SongNarrative slug={slug} />
         </div>
       </div>
     )

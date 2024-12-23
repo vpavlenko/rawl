@@ -690,7 +690,7 @@ export const CHAPTERS: Array<{
         </P>
         <P>
           This is a fundamental relation. Each major scale has a <i>relative</i>{" "}
-          minor scale. They both shared the exact set of piano notes. What's
+          minor scale. They both share the exact set of piano notes. What's
           different is the tonic note from which we start to count the scale.
         </P>
         <P>

@@ -17,7 +17,6 @@ import MergedVoicesLegend from "./layouts/MergedVoicesLegend";
 import { VoiceName } from "./layouts/VoiceName";
 import { ColoredNote, ColoredNotesInVoices, Note } from "./parseMidi";
 import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
-import { SongNarrative } from "./SongNarrative";
 
 export type MeasuresAndBeats = {
   measures: number[];
@@ -568,9 +567,9 @@ export const MergedSystemLayout: React.FC<
           voiceNames={voiceNames}
           voiceMask={voiceMask}
           setVoiceMask={setVoiceMask}
+          slug={slug}
         />
       )}
-      <SongNarrative slug={slug} />
     </div>
   );
 };

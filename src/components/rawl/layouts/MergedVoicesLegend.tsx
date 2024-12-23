@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocalStorage } from "usehooks-ts";
+import { SongNarrative } from "../SongNarrative";
 
 export const FORCED_PANNING_LABEL = "🔊⬅️👐➡️🔊";
 
@@ -8,6 +9,7 @@ type MergedVoicesLegendProps = {
   voiceMask: boolean[];
   setVoiceMask: (mask: boolean[]) => void;
   onForcedPanningChange?: (enabled: boolean) => void;
+  slug: string;
 };
 
 const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
@@ -15,6 +17,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
   voiceMask,
   setVoiceMask,
   onForcedPanningChange,
+  slug,
 }) => {
   const [forcedPanning, setForcedPanning] = useLocalStorage(
     "forcedPanning",
@@ -116,6 +119,19 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
             </span>
           </div>
         ))}
+        <div style={{ position: "relative" }}>
+          💬
+          <div
+            style={{
+              position: "absolute",
+              top: 20,
+              right: 10,
+              width: "30em",
+            }}
+          >
+            <SongNarrative slug={slug} />
+          </div>
+        </div>
       </div>
     )
   );

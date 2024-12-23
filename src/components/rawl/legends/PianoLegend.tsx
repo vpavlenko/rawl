@@ -11,10 +11,10 @@ const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
 
 const BLACK_KEY_LABELS = ["b2", "b3", -1, "#4", "b6", "b7", -1];
 
-const KEY_WIDTH = 40;
-const KEY_HEIGHT = 80;
-const ROW_DISTANCE = 50;
-const PADDING = 5;
+const KEY_WIDTH = 26;
+const KEY_HEIGHT = 70;
+const ROW_DISTANCE = 40;
+const PADDING = 2.5;
 const INLINE_KEY_WIDTH = 10;
 const INLINE_KEY_HEIGHT = 24;
 const INLINE_ROW_DISTANCE = 15;
@@ -35,13 +35,16 @@ const keyPress = keyframes`
 const PianoKey = styled.div<{ isPlaying?: boolean }>`
   position: absolute;
   user-select: none;
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: 700;
   text-align: center;
   vertical-align: bottom;
   color: white;
   text-shadow:
-    0px 0px 5px black,
-    0px 0px 3px black;
+    0.5px 0.5px 0px black,
+    -0.5px 0.5px 0px black,
+    0.5px -0.5px 0px black,
+    -0.5px -0.5px 0px black;
   display: grid;
   align-content: end;
   box-sizing: border-box;
@@ -88,9 +91,9 @@ export const PianoLegend: React.FC<{
 
   const playNote = (note: number) => {
     if (!inline) {
-      console.log("PLAY ", note, currentTonic);
+      debugger;
       const transposedNote = note + currentTonic;
-      playArpeggiatedChord([transposedNote + 12]);
+      playArpeggiatedChord([transposedNote]);
       setPlayingNotes(new Set([...playingNotes, note]));
       setTimeout(() => {
         setPlayingNotes((prev) => {
@@ -108,7 +111,9 @@ export const PianoLegend: React.FC<{
   const padding = inline ? INLINE_PADDING : PADDING;
 
   return (
-    <div style={{ backgroundColor: "black", padding: "10px", zIndex: 100000 }}>
+    <div
+      style={{ backgroundColor: "black", padding: "15px 0px", zIndex: 100000 }}
+    >
       <div
         style={{
           position: "relative",
@@ -139,27 +144,32 @@ export const PianoLegend: React.FC<{
               }}
               onClick={() => playNote(WHITE_KEYS[i])}
             >
-              {!inline && (
-                <>
-                  {i === 0 && (
-                    <span
-                      style={{
-                        position: "absolute",
-                        bottom: "25px",
-                        left: "13px",
-                        color: "black",
-                        fontWeight: "bold",
-                        fontSize: "16px",
-                        textShadow: "none",
-                        zIndex: 3,
-                      }}
-                    >
-                      {PITCH_CLASS_TO_LETTER[currentTonic]}
-                    </span>
-                  )}
-                  {i + 1}
-                </>
-              )}
+              <div style={{ position: "relative" }}>
+                {!inline && (
+                  <>
+                    {i === 0 && (
+                      <span
+                        style={{
+                          position: "absolute",
+                          bottom: "18px",
+                          left: "2px",
+                          color: "black",
+                          fontWeight: "bold",
+                          width: "0",
+                          overflow: "visible",
+                          textAlign: "center",
+                          fontSize: "14px",
+                          textShadow: "none",
+                          zIndex: 3,
+                        }}
+                      >
+                        {PITCH_CLASS_TO_LETTER[currentTonic]}
+                      </span>
+                    )}
+                    {i + 1}
+                  </>
+                )}
+              </div>
             </PianoKey>
             {BLACK_KEYS[i] !== -1 ? (
               <PianoKey
@@ -249,8 +259,15 @@ export const FoldablePianoLegend: React.FC<{
                   currentTonic={currentTonic}
                 />
               )}
-              <div style={{ margin: "auto" }}>
-                <PianoLegend currentTonic={currentTonic} />
+              <div
+                style={{
+                  margin: "auto",
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                <PianoLegend currentTonic={currentTonic ?? 0} />
+                <PianoLegend currentTonic={(currentTonic ?? 0) + 12} />
               </div>
             </div>
           </div>

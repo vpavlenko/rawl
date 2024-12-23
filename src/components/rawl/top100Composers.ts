@@ -1,4 +1,4 @@
-import { MAJOR_MODE } from "./legends/chords";
+import { MAJOR_MODE, STRICT_NATURAL_MINOR } from "./legends/chords";
 
 export type Top100Composer = {
   slug: string;
@@ -72,6 +72,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "Interstellar",
     composer: "Hans Zimmer",
     displayTitle: "Interstellar Main Theme",
+    chords: STRICT_NATURAL_MINOR.chords,
   },
   {
     slug: "Another_Love__-_Tom_Odell_Professional",
@@ -247,6 +248,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     composer: "Billie Eilish",
     displayTitle: "Lovely (with Khalid)",
     isVocal: true,
+    chords: STRICT_NATURAL_MINOR.chords,
   },
   {
     slug: "Omori_Duet",
@@ -258,6 +260,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     composer: "Mike Stock",
     displayTitle: "Never Gonna Give You Up",
     isVocal: true,
+    chords: STRICT_NATURAL_MINOR.chords,
   },
   {
     slug: "despacito-piano-cover-peter-bence",
@@ -569,6 +572,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     composer: "Eiffel 65",
     displayTitle: "Blue (Da Ba Dee)",
     isVocal: true,
+    chords: STRICT_NATURAL_MINOR.chords,
   },
   {
     slug: "A_Thousand_Miles",

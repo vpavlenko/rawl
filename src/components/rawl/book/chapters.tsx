@@ -4,7 +4,12 @@ import React from "react";
 import styled from "styled-components";
 import { MUSESCORE_TOP_100_SLUG } from "../corpora/corpora";
 import { CorpusLink } from "../corpora/CorpusLink";
-import { Chord, MAJOR_MODE, MINOR_MODE } from "../legends/chords";
+import {
+  Chord,
+  MAJOR_MODE,
+  MINOR_MODE,
+  STRICT_NATURAL_MINOR,
+} from "../legends/chords";
 import ChordStairs from "../legends/ChordStairs";
 import { PianoLegend } from "../legends/PianoLegend";
 import { TOP_100_COMPOSERS } from "../top100Composers";
@@ -183,11 +188,11 @@ export const CHAPTERS: Array<{
         </P>
         <P>{k("major-scale")}</P>
         <P>
-          If you play three colors, it's called <i>a chord</i>. How to form a
-          nice chord? You pick a <i>root</i> color - eg. {c`1`}, and then you
-          pick every other note after it: skip {c`2`}, pick {c`3`}, skip {c`4`},
-          pick {c`5`}. This way we get a "one" chord - {n`1-3-5`} {c`1 3 5`}{" "}
-          {c`I`}.
+          If you play three colors, it's called <i>a chord</i>. How to draw a
+          nice chord from a scale? You pick a <i>root</i> color - eg. {c`1`},
+          and then you pick every other note after it: skip {c`2`}, take {c`3`},
+          skip {c`4`}, take {c`5`}. This way we get a "one" chord - {n`1-3-5`}{" "}
+          {c`1 3 5`} {c`I`}.
         </P>
         <P>
           We can do this from any note of the scale:
@@ -345,6 +350,10 @@ export const CHAPTERS: Array<{
           />
         </P>
         <P>
+          Read: "one chord", "two chord", "three chord", "four chord", "five
+          chord", "six chord".
+        </P>
+        <P>
           If we look at the intervals of each chord starting from the root,
           there are two types of chords:
           <ul>
@@ -491,17 +500,28 @@ export const CHAPTERS: Array<{
     },
     pretext: () => (
       <>
-        <h2>6 chords in natural minor</h2>
+        <h2>Chords in natural minor</h2>
         <P>
-          Tracks in a natural minor mode also use seven notes. There are six
-          common chords that can be built on a natural minor scale:{" "}
-          {c`i bIII iv v bVI bVII`}
+          Another scale that's widely used in Western music is a natural minor
+          scale: {c`1 2 b3 4 5 b6 b7 1 2 b3 4 5 b6 b7 1`}
+        </P>
+        <P>
+          For this scale we can also form chords by taking every other note from
+          each root. This way we'll get seven chords:{" "}
+          {c`i iio bIII iv v bVI bVII i`}
+        </P>
+        <P>
+          In this chapter we'll look at pieces which have loops made of a subset
+          of these chords:
+        </P>
+        <P>
+          <ChordStairs mode={STRICT_NATURAL_MINOR} />
         </P>
         <P>
           Some of these tracks have four-chord loops, while others have longer
-          strings of chords. As you analyze them, try to find the most common
-          pair of chords in natural minor that go together. Is there a frequent
-          triplet of chords? A frequent four-chord loop/phrase?
+          strings of chords. As you analyze them, try to find any patterns. Is
+          there a pair of chords which often go together? Is there a frequent
+          sequence of three chords?
         </P>
         <h2>Major and minor chords</h2>
         <P>
@@ -550,47 +570,20 @@ export const CHAPTERS: Array<{
           a bigger interval of four semitones at the bottom.
         </P>
         <P>
-          This has nothing to do with major/minor modes. A mode is are a
-          separate thing – coincidentally also named minor or major, though.
-        </P>
-        <h2>Major and minor chords in modes</h2>
-        <P>
-          Recall: six common chords in a natural minor mode are{" "}
-          {c`i bIII iv v bVI
-          bVII`}
+          One interesting observation is that chords built on roots 1 {c`1`}, 4{" "}
+          {c`4`} and 5 {c`5`} are:
           <ul>
             <li>
-              Three minor chords in a minor mode are {c`i`}, {c`iv`} and {c`v`}
+              major chords {c`I`} {c`IV`} {c`V`} if built on a major scale
             </li>
             <li>
-              Three major chords in a minor mode are {c`bIII`}, {c`bVI`} and{" "}
-              {c`bVII`}
+              major chords {c`i`} {c`iv`} {c`v`} if built on a minor scale
             </li>
           </ul>
         </P>
         <P>
-          Recall: six common chords in a major mode are {c`I ii iii IV V vi`}
-          <ul>
-            <li>
-              Three minor chords: {c`ii`}, {c`iii`} and {c`vi`}
-            </li>
-            <li>
-              Three major chords: {c`I`}, {c`IV`} and {c`V`}
-            </li>
-          </ul>
-        </P>
-        <h2>Historical context</h2>
-        <P>
-          Throughout the 19th century, there was no such thing as a natural
-          minor mode with solely {c`v`} chord and without any {c`7`} note in
-          minor. No composers wrote that way.
-        </P>
-        <P>
-          A modern natural minor is a recent invention – it gained popularity in
-          1970s. {q("alf_aeolian")} So, all examples below are pretty modern.
-        </P>
-        <P>
-          We'll look at the older version of minor in the next few chapters.
+          So that's the connection between a major scale and major chords, and
+          also between a minor scale and minor chords.
         </P>
       </>
     ),
@@ -612,13 +605,14 @@ export const CHAPTERS: Array<{
     },
     pretext: () => (
       <>
+        <h2>i i ♭VI V</h2>
         <P>
           These songs exploit an endless loop of {c`i i bVI V`}. So, they don't
           fit within the natural minor scale {c`1 2 b3 4 5 b6 b7 1`}, since{" "}
           {c`V`} uses a note {c`7`}
         </P>
         <P>
-          You might say that these songs are built on an extended minor scale:{" "}
+          You might say that these songs are using an extended minor scale:{" "}
           {c`1 2 b3 4 5 b6 b7 7 1`}
         </P>
         <P>
@@ -626,22 +620,27 @@ export const CHAPTERS: Array<{
           scale, unlike all other chords: {c`1 2 b3 4 5 b6 7 1`}
         </P>
         <P>
-          Also,{" "}
-          {a(
-            "/f/road-trippin---red-hot-chili-peppers",
-            "Red Hot Chili Peppers. Road trippin'",
-          )}{" "}
-          ,{" "}
-          {a(
-            "/f/seven-nation-army-arr.-nikodem-lorenz",
-            "The White Stripes. Seven Nations Army",
-          )}{" "}
-          and{" "}
-          {a(
-            "/f/loonboon---laura-shigihara-arranged-by-piano-keyng",
-            "Laura Shigihara. Loonboon",
-          )}
-          have the same vibe.
+          Songs besides the top 100 that have the same pattern:
+          <ul>
+            <li>
+              {a(
+                "/f/road-trippin---red-hot-chili-peppers",
+                "Red Hot Chili Peppers. Road trippin'",
+              )}
+            </li>
+            <li>
+              {a(
+                "/f/seven-nation-army-arr.-nikodem-lorenz",
+                "The White Stripes. Seven Nations Army",
+              )}
+            </li>
+            <li>
+              {a(
+                "/f/loonboon---laura-shigihara-arranged-by-piano-keyng",
+                "Laura Shigihara. Loonboon",
+              )}
+            </li>
+          </ul>
         </P>
         <h2>Historical context</h2>
         <P>
@@ -687,6 +686,49 @@ export const CHAPTERS: Array<{
       "gurenge--demon-slayer-kimetsu-no-yaiba-op",
       "Hallelujah",
     ],
+    pretext: () => (
+      <>
+        <h2>Major and minor chords in modes</h2>
+        <P>
+          Recall: six common chords in a natural minor mode are{" "}
+          {c`i bIII iv v bVI
+        bVII`}
+          <ul>
+            <li>
+              Three minor chords in a minor mode are {c`i`}, {c`iv`} and {c`v`}
+            </li>
+            <li>
+              Three major chords in a minor mode are {c`bIII`}, {c`bVI`} and{" "}
+              {c`bVII`}
+            </li>
+          </ul>
+        </P>
+        <P>
+          Recall: six common chords in a major mode are {c`I ii iii IV V vi`}
+          <ul>
+            <li>
+              Three minor chords: {c`ii`}, {c`iii`} and {c`vi`}
+            </li>
+            <li>
+              Three major chords: {c`I`}, {c`IV`} and {c`V`}
+            </li>
+          </ul>
+        </P>
+        <h2>Historical context</h2>
+        <P>
+          Throughout the 19th century, there was no such thing as a natural
+          minor mode with solely {c`v`} chord and without any {c`7`} note in
+          minor. No composers wrote that way.
+        </P>
+        <P>
+          A modern natural minor is a recent invention – it gained popularity in
+          1970s. {q("alf_aeolian")} So, all examples below are pretty modern.
+        </P>
+        <P>
+          We'll look at the older version of minor in the next few chapters.
+        </P>
+      </>
+    ),
   },
   {
     title: "Triadic minor with V",

@@ -100,6 +100,11 @@ export const MINOR_MODE: Mode = {
   chords: ["iiø7", "iv", "bVI", "i", "bIII", "v", "V", "V7", "bVII"],
 };
 
+export const STRICT_NATURAL_MINOR: Mode = {
+  title: "",
+  chords: ["i", "iv", "v", "bVI", "bVII"],
+};
+
 export const CHROMATIC_CHORDS: Mode = {
   title: "chromatic",
   chords: [

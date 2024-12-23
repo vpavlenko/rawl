@@ -8,6 +8,7 @@ import { AppContext } from "../../AppContext";
 import { Snippet } from "../analysis";
 import { NewTonicSymbol } from "../AnalysisGrid";
 import ChordStairs from "../legends/ChordStairs";
+import { FoldablePianoLegend } from "../legends/PianoLegend";
 import SnippetList from "../SnippetList";
 import { NARRATIVES } from "../SongNarrative";
 import { TOP_100_COMPOSERS } from "../top100Composers";
@@ -34,17 +35,6 @@ const BookContainer = styled.div`
 
 const Title = styled.h1`
   font-size: 24px;
-`;
-
-const ChapterChordLegendWrapper = styled.div`
-  position: fixed;
-  bottom: 40px;
-  right: 0px;
-  width: fit-content;
-  z-index: 1000000;
-  background: black;
-  padding: 0px 10px 30px 10px;
-  border: 0.5px solid #666;
 `;
 
 const GroupContainer = styled.div`
@@ -339,11 +329,7 @@ const Book: React.FC = () => {
     return (
       <>
         <div style={{ marginTop: "40px" }}>
-          {currentChapter.mode && (
-            <ChapterChordLegendWrapper>
-              <ChordStairs mode={currentChapter.mode} />
-            </ChapterChordLegendWrapper>
-          )}
+          <FoldablePianoLegend mode={currentChapter.mode} />
           {currentChapter.pretext && (
             <ReadableTextBlock>{currentChapter.pretext()}</ReadableTextBlock>
           )}

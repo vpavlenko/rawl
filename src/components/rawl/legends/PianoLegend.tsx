@@ -5,7 +5,7 @@ import { playArpeggiatedChord } from "../../../sampler/sampler";
 import { PITCH_CLASS_TO_LETTER } from "../AnalysisGrid";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 import ChordStairs from "./ChordStairs";
-import { MODES } from "./chords";
+import { Mode, MODES } from "./chords";
 const BLACK_KEYS = [1, 3, -1, 6, 8, 10, -1];
 const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
 
@@ -206,8 +206,9 @@ export const InlinePianoLegend: React.FC<{ enabledPitches?: number[] }> = ({
 
 export const FoldablePianoLegend: React.FC<{
   slug?: string;
+  mode?: Mode;
   currentTonic?: number;
-}> = ({ slug, currentTonic }) => {
+}> = ({ slug, mode, currentTonic }) => {
   const [showLegend, setShowLegend] = useLocalStorage("showLegend", true);
 
   const chords = TOP_100_COMPOSERS.find(({ slug: _slug }) => slug === _slug)
@@ -233,16 +234,13 @@ export const FoldablePianoLegend: React.FC<{
               zIndex: 100000,
             }}
           >
-            <ChordStairs
-              mode={MODES[1]}
-              chapterChords={chords}
-              currentTonic={currentTonic}
-            />
-            <ChordStairs
-              mode={MODES[0]}
-              chapterChords={chords}
-              currentTonic={currentTonic}
-            />
+            {(mode ? [mode] : [MODES[1], MODES[0]]).map((mode) => (
+              <ChordStairs
+                mode={mode}
+                chapterChords={chords}
+                currentTonic={currentTonic}
+              />
+            ))}
             {chords && (
               <ChordStairs
                 mode={MODES[2]}

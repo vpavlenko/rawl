@@ -143,7 +143,7 @@ export const CHAPTERS: Array<{
         </P>
         <P>This is the color scheme we'll use through the entire book:</P>
         <P>
-          <PianoLegend currentTonic={0} />
+          <PianoLegend />
         </P>
         <P>
           You don't need any knowledge of standard notation throughout this
@@ -438,12 +438,26 @@ export const CHAPTERS: Array<{
         </P>
 
         <h2>Intervals</h2>
-        <P>Major third, minor third, perfect fifth.</P>
+        <P>
+          A smallest interval between the two notes in Western music is called a
+          semitone. Here are semitones built up from all notes of a major scale:{" "}
+          {c`1 b2`}, {c`2 b3`}, {c`3 4`}, {c`4 #4`}, {c`5 b6`}, {c`6 b7`},{" "}
+          {c`7 1`} Physically, all semitones between{" "}
+        </P>
+        <P></P>
         <h2>Other resources</h2>
         <P>
-          If you're lost in my narrative, try{" "}
-          {a("Lightnote", "https://www.lightnote.co/")} instead. Or{" "}
-          {a("Hooktheory", "https://book-one.hooktheory.com/")}
+          If you're lost in my narrative, try these instead:
+          <ul>
+            <li>{a("https://www.lightnote.co/", "Lightnote")}</li>
+            <li>{a("https://book-one.hooktheory.com/", "Hooktheory")}</li>
+            <li>
+              {a(
+                "https://learningmusic.ableton.com/",
+                "Ableton's Guide on Music",
+              )}
+            </li>
+          </ul>
         </P>
         <h2>Drop your MIDI files</h2>
         <P>
@@ -452,6 +466,11 @@ export const CHAPTERS: Array<{
         </P>
         <P>
           <FileDropBox />
+        </P>
+        <P>
+          If you want me to colorize a specific piece, reach out via{" "}
+          <a href="mailto:cxielamiko@gmail.com">cxielamiko@gmail.com</a> or{" "}
+          <a href="https://t.me/vitalypavlenko">https://t.me/vitalypavlenko</a>
         </P>
       </>
     ),
@@ -1092,7 +1111,7 @@ export const CHAPTERS: Array<{
     title: "maj7",
     titleChords: ["IVmaj7", "Imaj7"],
     mode: {
-      title: "seventh chords and extensions in major",
+      title: "",
       chords: ["ii7", "IVmaj7", "vi7", "Imaj7", "iii7", "V13"],
     },
     composers: [

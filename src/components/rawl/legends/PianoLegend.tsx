@@ -5,7 +5,7 @@ import { playArpeggiatedChord } from "../../../sampler/sampler";
 import { PITCH_CLASS_TO_LETTER } from "../AnalysisGrid";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 import ChordStairs from "./ChordStairs";
-import { Mode, MODES } from "./chords";
+import { CHROMATIC_CHORDS, MAJOR_MODE, MINOR_MODE, Mode } from "./chords";
 const BLACK_KEYS = [1, 3, -1, 6, 8, 10, -1];
 const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
 
@@ -214,53 +214,57 @@ export const FoldablePianoLegend: React.FC<{
   const chords = TOP_100_COMPOSERS.find(({ slug: _slug }) => slug === _slug)
     ?.chords;
 
-  return (
-    <div
-      key="piano-legend"
-      style={{ position: "fixed", bottom: 51, right: 36, zIndex: 100000 }}
-    >
-      {showLegend ? (
-        <div>
-          <FoldButton onClick={() => setShowLegend(false)}>x</FoldButton>
+  const content = React.useMemo(() => {
+    return (
+      <div
+        key="piano-legend"
+        style={{ position: "fixed", bottom: 51, right: 36, zIndex: 100000 }}
+      >
+        {showLegend ? (
+          <div>
+            <FoldButton onClick={() => setShowLegend(false)}>x</FoldButton>
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 35,
-              backgroundColor: "black",
-              padding: 10,
-              border: "1px solid #666",
-              zIndex: 100000,
-            }}
-          >
-            {(mode ? [mode] : [MODES[1], MODES[0]]).map((mode) => (
-              <ChordStairs
-                mode={mode}
-                chapterChords={chords}
-                currentTonic={currentTonic}
-              />
-            ))}
-            {chords && (
-              <ChordStairs
-                mode={MODES[2]}
-                chapterChords={chords}
-                currentTonic={currentTonic}
-              />
-            )}
-            <div style={{ margin: "auto" }}>
-              <PianoLegend currentTonic={currentTonic} />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 35,
+                backgroundColor: "black",
+                padding: 10,
+                border: "1px solid #666",
+                zIndex: 100000,
+              }}
+            >
+              {(mode ? [mode] : [MAJOR_MODE, MINOR_MODE]).map((mode) => (
+                <ChordStairs
+                  mode={mode}
+                  chapterChords={chords}
+                  currentTonic={currentTonic}
+                />
+              ))}
+              {chords && (
+                <ChordStairs
+                  mode={CHROMATIC_CHORDS}
+                  chapterChords={chords}
+                  currentTonic={currentTonic}
+                />
+              )}
+              <div style={{ margin: "auto" }}>
+                <PianoLegend currentTonic={currentTonic} />
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <button
-          onClick={() => setShowLegend(true)}
-          style={{ background: "none" }}
-        >
-          <InlinePianoLegend />
-        </button>
-      )}
-    </div>
-  );
+        ) : (
+          <button
+            onClick={() => setShowLegend(true)}
+            style={{ background: "none" }}
+          >
+            <InlinePianoLegend />
+          </button>
+        )}
+      </div>
+    );
+  }, [showLegend, slug, mode, currentTonic, chords, setShowLegend]);
+
+  return content;
 };

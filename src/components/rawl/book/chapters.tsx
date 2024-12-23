@@ -4,7 +4,7 @@ import React from "react";
 import styled from "styled-components";
 import { MUSESCORE_TOP_100_SLUG } from "../corpora/corpora";
 import { CorpusLink } from "../corpora/CorpusLink";
-import { Chord, MODES } from "../legends/chords";
+import { Chord, MAJOR_MODE, MINOR_MODE } from "../legends/chords";
 import ChordStairs from "../legends/ChordStairs";
 import { PianoLegend } from "../legends/PianoLegend";
 import { TOP_100_COMPOSERS } from "../top100Composers";
@@ -39,13 +39,13 @@ const C = ({ c, title }: { c: Chord[]; title: string }) => (
   </span>
 );
 
-const c = (strings: TemplateStringsArray) => {
+export const c = (strings: TemplateStringsArray) => {
   const chordString = strings[0].trim();
   const chords = chordString.split(/\s+/);
   return <C c={chords as Chord[]} title={chordString} />;
 };
 
-const a = (href: string, text: string) => (
+export const a = (href: string, text: string) => (
   <a
     href={href}
     target="_blank"
@@ -442,9 +442,9 @@ export const CHAPTERS: Array<{
           A smallest interval between the two notes in Western music is called a
           semitone. Here are semitones built up from all notes of a major scale:{" "}
           {c`1 b2`}, {c`2 b3`}, {c`3 4`}, {c`4 #4`}, {c`5 b6`}, {c`6 b7`},{" "}
-          {c`7 1`} Physically, all semitones between{" "}
+          {c`7 1`} Physically, all semitones between two consecutive notes are
+          the same.
         </P>
-        <P></P>
         <h2>Other resources</h2>
         <P>
           If you're lost in my narrative, try these instead:
@@ -857,10 +857,10 @@ export const CHAPTERS: Array<{
           <Metaphors />
         </P>
         <P>
-          <ChordStairs mode={MODES[1]} />
+          <ChordStairs mode={MAJOR_MODE} />
         </P>
         <P>
-          <ChordStairs mode={MODES[0]} />
+          <ChordStairs mode={MINOR_MODE} />
         </P>
         <P>
           Same vibe: <ul>{A("michishirube---violet-evergarden-ed")}</ul>

@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import styled from "styled-components";
-import { k } from "./book/chapters";
+import { a, c, k } from "./book/chapters";
 
 const Label = styled.span`
   font-weight: bold;
@@ -38,6 +38,21 @@ export const NARRATIVES: Record<string, { qa: QAPair[] }> = {
       //   ),
       //   a: "The melody is now in the right ear and the accompaniment in the left one.",
       // },
+    ],
+  },
+  Someone_Like_You_easy_piano: {
+    qa: [
+      {
+        q: (
+          <>
+            Which section of a song happens in mm. 5-16? Which loop does it
+            have? Also see{" "}
+            {a("https://www.youtube.com/watch?v=hLQl3WQQoQ0", "YouTube")} and{" "}
+            {a("https://genius.com/Adele-someone-like-you-lyrics", "Genius")}.
+          </>
+        ),
+        a: <>It's a verse built on a loop {c`I iii vi IV`}</>,
+      },
     ],
   },
 };

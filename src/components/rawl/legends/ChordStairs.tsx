@@ -125,6 +125,7 @@ const ChordStairs: React.FC<{
     // Only remove V for intersection check
     const modeChordSetWithoutV = new Set(modeChordSet);
     modeChordSetWithoutV.delete("V");
+    modeChordSetWithoutV.delete("V7");
     const hasIntersection = [...chapterChordsSet].some((chord) =>
       modeChordSetWithoutV.has(chord),
     );

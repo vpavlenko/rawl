@@ -1,3 +1,5 @@
+import { MAJOR_MODE } from "./legends/chords";
+
 export type Top100Composer = {
   slug: string;
   composer: string;
@@ -137,6 +139,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
   {
     slug: "Someone_Like_You_easy_piano",
     composer: "Adele",
+    chords: MAJOR_MODE.chords,
     displayTitle: "Someone Like You",
     isVocal: true,
   },

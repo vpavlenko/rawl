@@ -55,6 +55,19 @@ export const NARRATIVES: Record<string, { qa: QAPair[] }> = {
       },
     ],
   },
+  "despacito-piano-cover-peter-bence": {
+    qa: [
+      {
+        q: (
+          <>
+            Read the
+            https://www.vice.com/en/article/why-despacito-is-so-catchy-music-theory/.
+            Then I'll teach you how to recolor.
+          </>
+        ),
+      },
+    ],
+  },
 };
 
 export const SongNarrative: React.FC<{ slug: string }> = ({ slug }) => {

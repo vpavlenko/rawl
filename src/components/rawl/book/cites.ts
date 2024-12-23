@@ -52,4 +52,17 @@ export const CITES: Record<string, Citation> = {
 }
 `,
   },
+  richards: {
+    bibtex: `@article{richards2017tonal,
+  title={Tonal Ambiguity in Popular Music’s Axis Progressions},
+  author={Richards, Mark},
+  journal={Music Theory Online},
+  volume={23},
+  number={3},
+  year={2017},
+  publisher={Society for Music Theory},
+  url={https://mtosmt.org/issues/mto.17.23.3/mto.17.23.3.richards.html}
+}
+`,
+  },
 } as const;

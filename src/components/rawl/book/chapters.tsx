@@ -50,6 +50,10 @@ export const c = (strings: TemplateStringsArray) => {
   return <C c={chords as Chord[]} title={chordString} />;
 };
 
+const ct = (string: string, tonic: number) => (
+  <TonicProvider currentTonic={tonic}>{c([string] as any)}</TonicProvider>
+);
+
 export const a = (href: string, text: string) => (
   <a
     href={href}
@@ -665,15 +669,10 @@ export const CHAPTERS: Array<{
       <>
         <h2>Natural minor = major</h2>
         <P>Here's a C major scale: {c`1 2 3 4 5 6 7`}</P>
-        <P>
-          Here's an A minor scale:{" "}
-          <TonicProvider currentTonic={-3}>{c`1 2 b3 4 5 b6 b7`}</TonicProvider>
-        </P>
+        <P>Here's an A minor scale: {ct(`1 2 b3 4 5 b6 b7`, -3)}</P>
         <P>
           Here's an A minor scale played the note ♭3:
-          <TonicProvider
-            currentTonic={-3}
-          >{c`b3 4 5 b6 b7 1 2`}</TonicProvider>{" "}
+          {ct(`b3 4 5 b6 b7 1 2`, -3)}
         </P>
         <P>
           Notice that C major scale and A minor scale played from {c`b3`} sound
@@ -686,12 +685,7 @@ export const CHAPTERS: Array<{
         <P>
           <ul>
             <li>{c`I ii iii IV V vi`} - in a C major scale</li>
-            <li>
-              <TonicProvider
-                currentTonic={-3}
-              >{c`bIII iv v bVI bVII i`}</TonicProvider>{" "}
-              - in a A minor scale
-            </li>
+            <li>{ct(`bIII iv v bVI bVII i`, -3)} - in a A minor scale</li>
           </ul>
         </P>
         <P>
@@ -705,6 +699,27 @@ export const CHAPTERS: Array<{
           frequently. Melodies often start with {c`1`} and almost always end on
           it. The <i>tonic chord</i> - {c`I`} or {c`i`} - should be played at
           key moments within the piece. When exactly?
+        </P>
+        <h2>Double-tonic loops</h2>
+        <P>Consider this loop in C major: {c`vi IV I V vi IV I V`}</P>
+        <P>
+          I can reinterpret the same notes in A minor:{" "}
+          {ct(`i bVI bIII bVII i bVI bIII bVII`, -3)}
+        </P>
+        <P>When a piece uses this loop, what's the correct interpretation?</P>
+        <P>
+          In short, the situation is as complex as it is: there's no single
+          correct interpretation. You may hear it one way or the other. The
+          other people in the internet may hear it not the same way as you.
+          Those people may argue about the correct tonic in a particular song.
+          These arguments may or may not make sense to you. Should you even
+          bother?
+        </P>
+        <P>This situation is called "double-tonic". {q("richards")}</P>
+        <P>
+          In this chapter I've colored all pieces as being in major scale. In
+          the analysis of "Despacito" I'll teach you how to change this coloring
+          in any piece to your liking.
         </P>
       </>
     ),

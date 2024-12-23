@@ -107,7 +107,6 @@ const ChordStairs: React.FC<{
     scale = 1,
     playbackMode = "separate",
   }) => {
-    // Get tonic from context, fallback to prop value or default 0
     const contextTonic = useTonicContext();
     const currentTonic = propTonic ?? contextTonic;
 

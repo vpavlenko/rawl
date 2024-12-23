@@ -413,7 +413,7 @@ export const CHAPTERS: Array<{
         </P>
         <h2>Timeline of loops</h2>
         <P>
-          Making tracks entirely of four-chord loops is a recent innovation – it
+          Making pieces entirely of four-chord loops is a recent innovation – it
           gained popularity in the 1950s. {q("tagg_loops")} {q("nobile")}{" "}
           Neither Mozart nor Chopin composed like that.
         </P>
@@ -517,8 +517,9 @@ export const CHAPTERS: Array<{
         <P>
           <ChordStairs mode={STRICT_NATURAL_MINOR} />
         </P>
+        <P>A note on pronunciation: ♭VI is a "flat-six major chord"</P>
         <P>
-          Some of these tracks have four-chord loops, while others have longer
+          Some of these pieces have four-chord loops, while others have longer
           strings of chords. As you analyze them, try to find any patterns. Is
           there a pair of chords which often go together? Is there a frequent
           sequence of three chords?
@@ -642,13 +643,13 @@ export const CHAPTERS: Array<{
             </li>
           </ul>
         </P>
-        <h2>Historical context</h2>
+        {/* <h2>Historical context</h2>
         <P>
           Until a natural minor mode gained popularity, a minor mode mostly used{" "}
           {c`V`}. However, the examples below are modern, because they are made
           of an endless four-measure loop – which is also a modern thing. The
           truly old examples will appear in the next chapter.
-        </P>
+        </P> */}
       </>
     ),
     composers: [
@@ -666,13 +667,44 @@ export const CHAPTERS: Array<{
         <P>Here's a C major scale: {c`1 2 3 4 5 6 7`}</P>
         <P>
           Here's an A minor scale:{" "}
-          <TonicProvider currentTonic={9}>{c`1 2 b3 4 5 b6 b7`}</TonicProvider>
+          <TonicProvider currentTonic={-3}>{c`1 2 b3 4 5 b6 b7`}</TonicProvider>
         </P>
         <P>
-          Here's an A minor scale played the note b3:
+          Here's an A minor scale played the note ♭3:
           <TonicProvider
-            currentTonic={9}
+            currentTonic={-3}
           >{c`b3 4 5 b6 b7 1 2`}</TonicProvider>{" "}
+        </P>
+        <P>
+          Notice that C major scale and A minor scale played from {c`b3`} sound
+          exactly the same.
+        </P>
+        <P>
+          Therefore, these two sequences of chords sound the same even if they
+          look different:
+        </P>
+        <P>
+          <ul>
+            <li>{c`I ii iii IV V vi`} - in a C major scale</li>
+            <li>
+              <TonicProvider
+                currentTonic={-3}
+              >{c`bIII iv v bVI bVII i`}</TonicProvider>{" "}
+              - in a A minor scale
+            </li>
+          </ul>
+        </P>
+        <P>
+          This is a fundamental relation. Each major scale has a <i>relative</i>{" "}
+          minor scale. They both shared the exact set of piano notes. What's
+          different is the tonic note from which we start to count the scale.
+        </P>
+        <P>
+          So, a scale isn't just a set of notes. What makes a set of notes a
+          scale is a sense of tonic. The tonic note {c`1`} should be played
+          frequently. Melodies often start with {c`1`} and almost always end on
+          it. The <i>tonic chord</i> - {c`I`} or {c`i`} - should be played at
+          key moments within the piece. When exactly?
         </P>
       </>
     ),
@@ -846,7 +878,7 @@ export const CHAPTERS: Array<{
           {c`iv`}.
         </P>
         <P>
-          As you listen to the tracks, pay attention to chord pairs. Do you hear
+          As you listen to the pieces, pay attention to chord pairs. Do you hear
           some of them as "very common"?
         </P>
         <h2>Common types of chords</h2>

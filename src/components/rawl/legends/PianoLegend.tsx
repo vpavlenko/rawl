@@ -32,7 +32,7 @@ const keyPress = keyframes`
   }
 `;
 
-const PianoKey = styled.div<{ isPlaying?: boolean }>`
+const PianoKey = styled.div<{ isPlaying?: boolean; isEnabled?: boolean }>`
   position: absolute;
   user-select: none;
   font-size: 16px;
@@ -49,6 +49,7 @@ const PianoKey = styled.div<{ isPlaying?: boolean }>`
   align-content: end;
   box-sizing: border-box;
   transform-origin: top;
+  opacity: ${(props) => (props.isEnabled ? 1 : 0)};
   ${(props) =>
     props.isPlaying &&
     css`
@@ -76,6 +77,17 @@ const FoldButton = styled.button`
   }
 `;
 
+const ScaleLabel = styled.span`
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+`;
+
 export const PianoLegend: React.FC<{
   currentTonic?: number;
   inline?: boolean;
@@ -90,8 +102,7 @@ export const PianoLegend: React.FC<{
   );
 
   const playNote = (note: number) => {
-    if (!inline) {
-      debugger;
+    if (!inline && enabledPitches.includes(note)) {
       const transposedNote = note + currentTonic;
       playArpeggiatedChord([transposedNote]);
       setPlayingNotes(new Set([...playingNotes, note]));
@@ -111,9 +122,7 @@ export const PianoLegend: React.FC<{
   const padding = inline ? INLINE_PADDING : PADDING;
 
   return (
-    <div
-      style={{ backgroundColor: "black", padding: "15px 0px", zIndex: 100000 }}
-    >
+    <div style={{ backgroundColor: "black", padding: "0", zIndex: 100000 }}>
       <div
         style={{
           position: "relative",
@@ -126,10 +135,10 @@ export const PianoLegend: React.FC<{
             <PianoKey
               key={`w_${i}`}
               className={
-                !inline || enabledPitches.includes(WHITE_KEYS[i])
-                  ? `noteColor_${[WHITE_KEYS[i]]}_colors`
-                  : `noteColor_disabled`
+                (inline || enabledPitches.includes(WHITE_KEYS[i])) &&
+                `noteColor_${[WHITE_KEYS[i]]}_colors`
               }
+              isEnabled={inline || enabledPitches.includes(WHITE_KEYS[i])}
               isPlaying={playingNotes.has(WHITE_KEYS[i])}
               style={{
                 top: rowDistance,
@@ -138,7 +147,7 @@ export const PianoLegend: React.FC<{
                 height: keyHeight,
                 borderRadius: inline ? "3px" : "5px",
                 cursor:
-                  !inline || enabledPitches.includes(WHITE_KEYS[i])
+                  inline || enabledPitches.includes(WHITE_KEYS[i])
                     ? "pointer"
                     : "default",
               }}
@@ -175,10 +184,10 @@ export const PianoLegend: React.FC<{
               <PianoKey
                 key={`b_${i}`}
                 className={
-                  !inline || enabledPitches.includes(BLACK_KEYS[i])
-                    ? `noteColor_${[BLACK_KEYS[i]]}_colors`
-                    : `noteColor_disabled`
+                  (inline || enabledPitches.includes(BLACK_KEYS[i])) &&
+                  `noteColor_${[BLACK_KEYS[i]]}_colors`
                 }
+                isEnabled={inline || enabledPitches.includes(BLACK_KEYS[i])}
                 isPlaying={playingNotes.has(BLACK_KEYS[i])}
                 style={{
                   top: 0,
@@ -188,9 +197,10 @@ export const PianoLegend: React.FC<{
                   height: keyHeight,
                   borderRadius: inline ? "3px" : "5px",
                   cursor:
-                    !inline || enabledPitches.includes(BLACK_KEYS[i])
+                    inline || enabledPitches.includes(BLACK_KEYS[i])
                       ? "pointer"
                       : "default",
+                  backgroundColor: "black",
                 }}
                 onClick={() => playNote(BLACK_KEYS[i])}
               >
@@ -220,6 +230,18 @@ export const FoldablePianoLegend: React.FC<{
   currentTonic?: number;
 }> = ({ slug, mode, currentTonic }) => {
   const [showLegend, setShowLegend] = useLocalStorage("showLegend", true);
+  const [hoveredScale, setHoveredScale] = React.useState<
+    "major" | "minor" | null
+  >(null);
+
+  const getEnabledPitches = () => {
+    if (hoveredScale === "major") {
+      return WHITE_KEYS; // All white keys for major scale
+    } else if (hoveredScale === "minor") {
+      return [0, 2, 3, 5, 7, 8, 10]; // Natural minor scale pitches
+    }
+    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; // All pitches when not hovering
+  };
 
   const chords = TOP_100_COMPOSERS.find(({ slug: _slug }) => slug === _slug)
     ?.chords;
@@ -259,15 +281,46 @@ export const FoldablePianoLegend: React.FC<{
                   currentTonic={currentTonic}
                 />
               )}
-              <div
-                style={{
-                  margin: "auto",
-                  display: "flex",
-                  flexDirection: "row",
-                }}
-              >
-                <PianoLegend currentTonic={currentTonic ?? 0} />
-                <PianoLegend currentTonic={(currentTonic ?? 0) + 12} />
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <div
+                  style={{
+                    margin: "auto",
+                    display: "flex",
+                    flexDirection: "row",
+                  }}
+                >
+                  <PianoLegend
+                    currentTonic={currentTonic ?? 0}
+                    enabledPitches={getEnabledPitches()}
+                  />
+                  <PianoLegend
+                    currentTonic={(currentTonic ?? 0) + 12}
+                    enabledPitches={getEnabledPitches()}
+                  />
+                </div>
+                <div
+                  style={{
+                    overflow: "visible",
+                    color: "white",
+                    display: "flex",
+                    gap: "16px",
+                    justifyContent: "center",
+                    marginTop: "8px",
+                  }}
+                >
+                  <ScaleLabel
+                    onMouseEnter={() => setHoveredScale("major")}
+                    onMouseLeave={() => setHoveredScale(null)}
+                  >
+                    major
+                  </ScaleLabel>
+                  <ScaleLabel
+                    onMouseEnter={() => setHoveredScale("minor")}
+                    onMouseLeave={() => setHoveredScale(null)}
+                  >
+                    natural minor
+                  </ScaleLabel>
+                </div>
               </div>
             </div>
           </div>
@@ -281,7 +334,15 @@ export const FoldablePianoLegend: React.FC<{
         )}
       </div>
     );
-  }, [showLegend, slug, mode, currentTonic, chords, setShowLegend]);
+  }, [
+    showLegend,
+    slug,
+    mode,
+    currentTonic,
+    chords,
+    setShowLegend,
+    hoveredScale,
+  ]);
 
   return content;
 };

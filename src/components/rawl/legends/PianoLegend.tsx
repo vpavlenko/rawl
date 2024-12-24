@@ -82,9 +82,10 @@ const ScaleLabel = styled.span`
   padding: 2px 6px;
   border-radius: 4px;
   transition: background-color 0.2s;
+  color: gray;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
   }
 `;
 

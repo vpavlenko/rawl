@@ -144,10 +144,6 @@ export const CHAPTERS: Array<{
     title: "Intro",
     titleChords: ["I"],
     composers: ["happy-birthday"],
-    mode: {
-      title: "",
-      chords: ["I", "IV", "V"],
-    },
     pretext: () => (
       <>
         <h2>Structures in Western music</h2>

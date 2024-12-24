@@ -2,8 +2,6 @@ import { faKeyboard } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
-import { MUSESCORE_TOP_100_SLUG } from "../corpora/corpora";
-import { CorpusLink } from "../corpora/CorpusLink";
 import {
   Chord,
   MAJOR_MODE,
@@ -155,11 +153,7 @@ export const CHAPTERS: Array<{
         <h2>Structures in Western music</h2>
         <P>
           I invite you to my journey through 100 pieces of composers whose music
-          is popular nowadays. The full list of pieces that we're gonna look at
-          and analyze:{" "}
-          <span style={{ marginLeft: "1em" }}>
-            <CorpusLink slug={MUSESCORE_TOP_100_SLUG} />
-          </span>
+          is popular nowadays.
         </P>
         <P>
           I use my own piano-roll-based notation with notes colored into 12

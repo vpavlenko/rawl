@@ -7,6 +7,8 @@ import { slugify } from "transliteration";
 import { AppContext } from "../../AppContext";
 import { Snippet } from "../analysis";
 import { NewTonicSymbol } from "../AnalysisGrid";
+import { MUSESCORE_TOP_100_SLUG } from "../corpora/corpora";
+import { CorpusLink } from "../corpora/CorpusLink";
 import ChordStairs from "../legends/ChordStairs";
 import { FoldablePianoLegend } from "../legends/PianoLegend";
 import SnippetList from "../SnippetList";
@@ -159,11 +161,38 @@ const NavChordWrapper = styled.div`
 `;
 
 export const ReadableTextBlock = styled.div`
-  max-width: 43em;
+  min-width: 43em;
+  width: 43em;
   color: white;
   border-radius: 10px;
   margin: 20px 0px 100px 0px;
   position: relative;
+`;
+
+const ComposerListColumn = styled.div`
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5em 3em;
+  font-size: 13px;
+  align-items: start;
+  align-content: flex-start;
+  justify-content: start;
+  min-width: 15em;
+`;
+
+const TwoColumnLayout = styled.div`
+  display: flex;
+  gap: 10em;
+  margin: 20px 0px 100px 0px;
+  min-width: 43em;
+
+  @media (max-width: ${43 + 10 + 15}em) {
+    ${ComposerListColumn} {
+      display: none;
+    }
+  }
 `;
 
 export const ComposerTitle: React.FC<{
@@ -176,7 +205,7 @@ export const ComposerTitle: React.FC<{
     <span style={{ color: "#999" }}>{composer}. </span>
     <span style={{ color: "white" }}>
       {displayTitle}
-      {isVocal && <span style={{ marginLeft: "4px" }}>🎤</span>}
+      {/* {isVocal && <span style={{ marginLeft: "4px" }}>🎤</span>} */}
     </span>
   </span>
 );
@@ -330,89 +359,132 @@ const Book: React.FC = () => {
       <>
         <div style={{ marginTop: "40px" }}>
           <FoldablePianoLegend mode={currentChapter.mode} />
-          {currentChapter.pretext && (
-            <ReadableTextBlock>{currentChapter.pretext()}</ReadableTextBlock>
-          )}
-          <GroupContainer>
-            <ComposersGrid>
+          {currentChapter.pretext &&
+            (currentChapter.title === "Intro" ? (
+              <TwoColumnLayout>
+                <ReadableTextBlock>
+                  {currentChapter.pretext()}
+                  <GroupContainer>
+                    <ComposersGrid>
+                      <ComposerWrapper>
+                        <ComposerLinkWithChat
+                          composer={TOP_100_COMPOSERS.find(
+                            (c) => c.slug === "happy-birthday",
+                          )}
+                          onLinkClick={handleComposerLinkClick}
+                          chatIconStyle={{ marginLeft: "12px" }}
+                        />
+                      </ComposerWrapper>
+                    </ComposersGrid>
+                  </GroupContainer>
+                </ReadableTextBlock>
+                <ComposerListColumn>
+                  <div style={{ width: "100%", marginBottom: "1em" }}>
+                    <CorpusLink slug={MUSESCORE_TOP_100_SLUG} />
+                  </div>
+                  {TOP_100_COMPOSERS.slice(0, 100).map((composer) => (
+                    <ComposerLink
+                      href={`/f/${composer.slug}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <ComposerTitle
+                        key={composer.slug}
+                        composer={composer.composer}
+                        displayTitle={composer.displayTitle}
+                        isVocal={composer.isVocal}
+                      />
+                    </ComposerLink>
+                  ))}
+                </ComposerListColumn>
+              </TwoColumnLayout>
+            ) : (
+              <ReadableTextBlock>{currentChapter.pretext()}</ReadableTextBlock>
+            ))}
+          {currentChapter.title !== "Intro" && (
+            <GroupContainer>
+              <ComposersGrid>
+                {currentChapter.composers
+                  .map((slug) => TOP_100_COMPOSERS.find((c) => c.slug === slug))
+                  .filter(
+                    (
+                      composer,
+                    ): composer is (typeof TOP_100_COMPOSERS)[number] =>
+                      composer !== undefined &&
+                      analyses[`f/${composer.slug}`]?.snippets?.some(
+                        (s) => s.tag === "book:index",
+                      ),
+                  )
+                  .map((composer) => {
+                    const snippets = (
+                      analyses[`f/${composer.slug}`]?.snippets || []
+                    )
+                      .filter((snippet) => snippet.tag === "book:index")
+                      .map((snippet) => ({
+                        ...snippet,
+                        composerSlug: composer.slug,
+                      }));
+
+                    return (
+                      <ComposerItem key={composer.slug}>
+                        <ComposerWrapper>
+                          <ComposerLinkWithChat
+                            composer={composer}
+                            onLinkClick={handleComposerLinkClick}
+                            chatIconStyle={{ marginLeft: "12px" }}
+                          />
+                        </ComposerWrapper>
+                        <SnippetContainer>
+                          <SnippetList
+                            snippets={snippets}
+                            onSnippetClick={handleSnippetClick}
+                            loadingSnippets={loadingSnippets}
+                            isPreview={true}
+                            noteHeight={3}
+                          />
+                        </SnippetContainer>
+                      </ComposerItem>
+                    );
+                  })}
+              </ComposersGrid>
+
               {currentChapter.composers
                 .map((slug) => TOP_100_COMPOSERS.find((c) => c.slug === slug))
                 .filter(
                   (composer): composer is (typeof TOP_100_COMPOSERS)[number] =>
                     composer !== undefined &&
-                    analyses[`f/${composer.slug}`]?.snippets?.some(
+                    !analyses[`f/${composer.slug}`]?.snippets?.some(
                       (s) => s.tag === "book:index",
                     ),
-                )
-                .map((composer) => {
-                  const snippets = (
-                    analyses[`f/${composer.slug}`]?.snippets || []
-                  )
-                    .filter((snippet) => snippet.tag === "book:index")
-                    .map((snippet) => ({
-                      ...snippet,
-                      composerSlug: composer.slug,
-                    }));
-
-                  return (
-                    <ComposerItem key={composer.slug}>
-                      <ComposerWrapper>
-                        <ComposerLinkWithChat
-                          composer={composer}
-                          onLinkClick={handleComposerLinkClick}
-                          chatIconStyle={{ marginLeft: "12px" }}
-                        />
-                      </ComposerWrapper>
-                      <SnippetContainer>
-                        <SnippetList
-                          snippets={snippets}
-                          onSnippetClick={handleSnippetClick}
-                          loadingSnippets={loadingSnippets}
-                          isPreview={true}
-                          noteHeight={3}
-                        />
-                      </SnippetContainer>
-                    </ComposerItem>
-                  );
-                })}
-            </ComposersGrid>
-
-            {currentChapter.composers
-              .map((slug) => TOP_100_COMPOSERS.find((c) => c.slug === slug))
-              .filter(
-                (composer): composer is (typeof TOP_100_COMPOSERS)[number] =>
-                  composer !== undefined &&
-                  !analyses[`f/${composer.slug}`]?.snippets?.some(
-                    (s) => s.tag === "book:index",
-                  ),
-              ).length > 0 && (
-              <>
-                <ComposerList>
-                  {currentChapter.composers
-                    .map((slug) =>
-                      TOP_100_COMPOSERS.find((c) => c.slug === slug),
-                    )
-                    .filter(
-                      (
-                        composer,
-                      ): composer is (typeof TOP_100_COMPOSERS)[number] =>
-                        composer !== undefined &&
-                        !analyses[`f/${composer.slug}`]?.snippets?.some(
-                          (s) => s.tag === "book:index",
-                        ),
-                    )
-                    .map((composer) => (
-                      <ComposerListItem key={composer.slug}>
-                        <ComposerLinkWithChat
-                          composer={composer}
-                          onLinkClick={handleComposerLinkClick}
-                        />
-                      </ComposerListItem>
-                    ))}
-                </ComposerList>
-              </>
-            )}
-          </GroupContainer>
+                ).length > 0 && (
+                <>
+                  <ComposerList>
+                    {currentChapter.composers
+                      .map((slug) =>
+                        TOP_100_COMPOSERS.find((c) => c.slug === slug),
+                      )
+                      .filter(
+                        (
+                          composer,
+                        ): composer is (typeof TOP_100_COMPOSERS)[number] =>
+                          composer !== undefined &&
+                          !analyses[`f/${composer.slug}`]?.snippets?.some(
+                            (s) => s.tag === "book:index",
+                          ),
+                      )
+                      .map((composer) => (
+                        <ComposerListItem key={composer.slug}>
+                          <ComposerLinkWithChat
+                            composer={composer}
+                            onLinkClick={handleComposerLinkClick}
+                          />
+                        </ComposerListItem>
+                      ))}
+                  </ComposerList>
+                </>
+              )}
+            </GroupContainer>
+          )}
         </div>
       </>
     );

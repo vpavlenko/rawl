@@ -54,8 +54,9 @@ const Corpus: React.FC<{
   }
 
   return (
-    <div>
+    <div style={{ marginBottom: "100px" }}>
       <h1>{beautifySlug(slug)}</h1>
+      {corpus.posttext}
       {corpus.midis.map((midiSlug, index) => {
         const order = getComposerOrder(midiSlug);
         const hasOrder = order !== undefined;
@@ -132,7 +133,6 @@ const Corpus: React.FC<{
           </div>
         );
       })}
-      {corpus.posttext}
     </div>
   );
 };

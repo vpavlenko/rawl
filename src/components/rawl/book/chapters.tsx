@@ -342,7 +342,7 @@ export const CHAPTERS: Array<{
         <P>
           However, historically just a few of these hypothetical loops take up
           the majority of the songs. Some popular loops are:
-          <ol>
+          <ul>
             <li>
               {a(
                 "https://en.wikipedia.org/wiki/%2750s_progression",
@@ -355,7 +355,7 @@ export const CHAPTERS: Array<{
               </ul>
             </li>
             <li>{c`I iii vi IV I iii vi IV`}</li>
-          </ol>
+          </ul>
         </P>
         <h2>Roman numeral analysis</h2>
         <P>
@@ -424,8 +424,8 @@ export const CHAPTERS: Array<{
         <P>
           A song may have several parts: intro, verse, pre-chorus, chorus,
           bridge. Some songs use different loops for different parts. For
-          example, a verse can go like {c`I iii vi IV I iii vi IV`} and a chorus
-          can go like {c`I V vi IV I V vi IV`}
+          example, a verse can go like {c`I vi IV V`} and a chorus can go like{" "}
+          {c`vi IV I V`}
         </P>
         <P>
           As you analyze pieces in this chapter, listen to them on YouTube and
@@ -444,11 +444,7 @@ export const CHAPTERS: Array<{
             "https://en.wikipedia.org/wiki/I%E2%80%93V%E2%80%93vi%E2%80%93IV_progression",
             "I–V–vi–IV progression",
           )}{" "}
-          has two common rotations:
-          <ul style={{ marginBottom: "1em" }}>
-            <li>{c`I V vi IV I V vi IV`} </li>
-            <li> {c`vi IV I V vi IV I V`} </li>
-          </ul>
+          has two common rotations: {c`I V vi IV`} and {c`vi IV I V`}
         </P>
         <P>
           Unlike the{" "}
@@ -475,6 +471,7 @@ export const CHAPTERS: Array<{
           {c`7 1`} Physically, all semitones between two consecutive notes are
           the same.
         </P>
+        {/* <P>Another two intervals that are important are three semitones and four semitones</P> */}
         <h2>Other resources</h2>
         <P>
           If you're lost in my narrative, try these instead:

@@ -1120,6 +1120,20 @@ export const corpora: CorpusEntry[] = [
     country: "USA",
   },
   {
+    slug: "toru_minegishi",
+    midis: [
+      "kakariko-is-saved---the-legend-of-zelda-twilight-princess---toru-minegishi",
+      "results-low-ranking---wii-fit---toru-minegishi-manaka-tominaga-shiho-fujii",
+      "k.k.-bossa---animal-crossing-ost",
+      "k.k.-dirge---toru-minegishi",
+      "k.k.-salsa---toru-minegishi",
+      "k.k.-condor---toru-minegishi",
+    ],
+    composerBirthYear: 1975,
+    country: "Japan",
+    genre: "Video Game Music",
+  },
+  {
     slug: "minecraft_c418",
     midis: [
       "minecraft---dead-voxel",

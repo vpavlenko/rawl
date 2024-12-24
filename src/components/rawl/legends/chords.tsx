@@ -2,6 +2,14 @@ import React from "react";
 
 export const CHORDS = {
   i: [0, 3, 7],
+  biiio7: [3, 6, 9, 0],
+  "#ivo7": [6, 9, 0, 3],
+  vio7: [9, 0, 3, 6],
+  iiio7: [4, 7, 10, 1],
+  vo7: [7, 10, 1, 4],
+  bviio7: [10, 1, 4, 7],
+  ivo7: [5, 8, 11, 2],
+  bvio7: [8, 11, 2, 5],
   ii: [2, 5, 9],
   II: [2, 6, 9],
   ii7: [2, 5, 9, 0],

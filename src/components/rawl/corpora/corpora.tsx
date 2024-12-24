@@ -1926,6 +1926,7 @@ export const corpora: CorpusEntry[] = [
       "claude-debussy---la-fille-aux-cheveux-de-lin",
       "prelude-l.-117-no.-6-in-d-minor---debussy",
       "golliwog-s-cakewalk",
+      "reverie_galimberti",
     ],
     composerBirthYear: 1862, // Claude Debussy
     genre: "Classical",
@@ -2658,6 +2659,7 @@ export const corpora: CorpusEntry[] = [
       "Bags_Groove__Lead_sheet_",
       "footprints_r",
       "armstrong-go-down-moses",
+      "all-of-me---new-york-jazz-lounge",
     ],
     genre: "Jazz",
     // This is a collection of jazz standards, no specific composer can be assigned.
@@ -5536,6 +5538,12 @@ export const corpora: CorpusEntry[] = [
     country: "Switzerland",
   },
   {
+    slug: "jonathan_coulton",
+    midis: ["portal_still_alive", "re-your-brains-jonathan-coulton"],
+    composerBirthYear: 1970,
+    genre: "Folk Rock, Indie Rock, Comedy Rock",
+  },
+  {
     slug: "haydn",
     midis: [
       "sonata_in_e_minor_hob_xvi_34_joseph_haydn_piano_sonata_hob_xvi_34_2_adagio",
@@ -5747,12 +5755,10 @@ export const corpora: CorpusEntry[] = [
       "pornofilmy-ya_tak_soskuchilsya",
       "pornofilmy-ya_tak_soskuchilsya.1",
       "pornofilmy-ya_tak_soskuchilsya.2",
-      "portal_still_alive",
+
       "prelude_in_c_major_bach_piano_solo",
 
       "pyos",
-
-      "reverie_galimberti",
 
       "roumen-sirakov-s-daichevo",
 

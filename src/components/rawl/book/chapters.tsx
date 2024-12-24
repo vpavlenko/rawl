@@ -76,8 +76,25 @@ const A = (href: string) => (
   </a>
 );
 
-const s = (tag: TemplateStringsArray) => {
-  return a(`/s/${tag[0].replace(":", "/")}`, tag[0]);
+const s = (tags: TemplateStringsArray) => {
+  const tag = tags[0];
+  return (
+    <a
+      href={`/s/${tag.replace(":", "/")}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        borderRadius: "10px",
+        display: "inline-block",
+        margin: "2px",
+        border: "0.5px solid #888",
+        padding: "0px 10px",
+        cursor: "pointer",
+      }}
+    >
+      {tag.replace(":", ": ").replace(/_/g, " ")}
+    </a>
+  );
 };
 
 const n = (text: TemplateStringsArray) => (
@@ -1102,7 +1119,6 @@ export const CHAPTERS: Array<{
     composers: [
       "calum-scott---you-are-the-reason-piano-sheet-lyrics-lyrics-version-link-in-description",
       "how-far-i-ll-go-~-moana-ost",
-      "la-vie-en-rose-solo-accordion",
     ],
   },
   {
@@ -1244,7 +1260,43 @@ export const CHAPTERS: Array<{
   {
     title: "viio7, io7, biio7",
     titleChords: ["viio7", "io7", "biio7"],
+    pretext: () => (
+      <>
+        <h2>Fully diminished seventh chords</h2>
+        <P>
+          They have an intervalic structure 3+3+3(+3). There are exactly three
+          of them on a piano:
+        </P>
+        <P>
+          <ul>
+            <li>
+              {c`1 b3 #4 6`} {c`io7 biiio7 #ivo7 vio7`}
+            </li>
+            <li>
+              {c`b2 3 5 b7`} {c`biio7 iiio7 vo7 bviio7`}
+            </li>
+            <li>
+              {c`2 4 b6 7`} {c`iio7 ivo7 bvio7 viio7`}
+            </li>
+          </ul>
+        </P>
+        <P>
+          Or you can play them all together, which is even more fun:{" "}
+          {c`io7 biio7 iio7 biiio7 iiio7 ivo7 #ivo7 vo7 bvio7 vio7 bviio7 viio7`}
+        </P>
+        <P>
+          As you can see, they are fully symmetrical, so they don't have any{" "}
+          <i>root</i>. This makes them harder to notate.
+        </P>
+        <P>
+          They have many usages: {s`modulation:pivot`} {s`cto7:to_I`}{" "}
+          {s`cto7:to_V`} {s`applied:viio7/ii`} {s`applied:viio7/iv`}{" "}
+          {s`applied:viio7/V`}
+        </P>
+      </>
+    ),
     composers: [
+      "la-vie-en-rose-solo-accordion",
       "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
       "the_entertainer_scott_joplin",
       "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",

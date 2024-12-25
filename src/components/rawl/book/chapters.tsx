@@ -707,10 +707,10 @@ export const CHAPTERS: Array<{
           key moments within the piece. When exactly?
         </P>
         <h2>Double-tonic loops</h2>
-        <P>Consider this loop in C major: {c`vi IV I V vi IV I V`}</P>
+        <P>Consider this loop in C major: {c`vi IV I V`}</P>
         <P>
           I can reinterpret the same notes in A minor:{" "}
-          {ct(`i bVI bIII bVII i bVI bIII bVII`, -3)}
+          {ct(`i bVI bIII bVII`, -3)}
         </P>
         <P>When a piece uses this loop, what's the correct interpretation?</P>
         <P>
@@ -1046,7 +1046,7 @@ export const CHAPTERS: Array<{
         <P>
           Another way of organizing chord changes is a functional harmony: a
           string of chords starts with a <i>tonic chord</i> {c`I`} or {c`i`} and
-          progresses according to local transition probabilities up to a
+          progresses according to local transition probabilities up to a{" "}
           <i>cadential formula</i> (i.e. a typical ending) – most often ending
           with {c`V I`} in a major mode and with {c`bVI bVII i`} or {c`V i`} in
           minor mode.
@@ -1073,7 +1073,7 @@ export const CHAPTERS: Array<{
         <P>Most pieces use this chord only at a single particular place.</P>
         <P>
           Some people say that {c`IV`} in {c`i IV i`} is <i>borrowed</i> from
-          major into minor. I'm not sure this is a helpful optics.
+          major into minor.
         </P>
         <P>
           Some people call this chord a <i>dorian</i>. Here's what they mean:

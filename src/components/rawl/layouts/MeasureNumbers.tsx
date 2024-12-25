@@ -19,7 +19,8 @@ const InlineSnippets: React.FC<{
   snippets: Snippet[];
   secondsToX: SecondsConverter;
   sectionSpan?: MeasuresSpan;
-}> = ({ measuresAndBeats, snippets, secondsToX, sectionSpan }) => {
+  analysis: Analysis;
+}> = ({ measuresAndBeats, snippets, secondsToX, sectionSpan, analysis }) => {
   const appContext = useContext(AppContext);
   const { setHoveredMeasuresSpan } = appContext;
   const [hoveredSnippetIndex, setHoveredSnippetIndex] = React.useState<
@@ -30,44 +31,55 @@ const InlineSnippets: React.FC<{
     return filterSnippetsByAccess(snippets);
   }, [snippets]);
 
-  const [groupedSnippets, setGroupedSnippets] = React.useState<
-    Record<number, Snippet[]>
+  const [groupedItems, setGroupedItems] = React.useState<
+    Record<number, Array<{ type: "snippet" | "formSection"; content: any }>>
   >({});
-  const snippetRefs = React.useRef<(HTMLDivElement | null)[]>([]);
+  const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
   React.useEffect(() => {
-    const grouped = filteredSnippets.reduce(
-      (acc, snippet) => {
-        const measureStart = snippet.measuresSpan[0];
-        if (!acc[measureStart]) {
-          acc[measureStart] = [];
+    // Group both snippets and formSections by measure
+    const grouped = {} as Record<
+      number,
+      Array<{ type: "snippet" | "formSection"; content: any }>
+    >;
+
+    // Add formSections first (they take precedence)
+    if (analysis.form) {
+      Object.entries(analysis.form).forEach(([measure, section]) => {
+        const measureNum = parseInt(measure);
+        if (!grouped[measureNum]) {
+          grouped[measureNum] = [];
         }
-        acc[measureStart].push(snippet);
-        return acc;
-      },
-      {} as Record<number, Snippet[]>,
-    );
-    setGroupedSnippets(grouped);
-  }, [filteredSnippets]);
+        grouped[measureNum].push({ type: "formSection", content: section });
+      });
+    }
+
+    // Add snippets
+    filteredSnippets.forEach((snippet) => {
+      const measureStart = snippet.measuresSpan[0];
+      if (!grouped[measureStart]) {
+        grouped[measureStart] = [];
+      }
+      grouped[measureStart].push({ type: "snippet", content: snippet });
+    });
+
+    setGroupedItems(grouped);
+  }, [filteredSnippets, analysis.form]);
 
   React.useEffect(() => {
     const checkOverlaps = () => {
       let prevRight = -Infinity;
       let prevIndex = -1;
 
-      snippetRefs.current.forEach((ref, index) => {
+      itemRefs.current.forEach((ref, index) => {
         if (ref) {
           const rect = ref.getBoundingClientRect();
           if (rect.left < prevRight) {
             // Overlap detected
-            const prevMeasure = parseInt(
-              Object.keys(groupedSnippets)[prevIndex],
-            );
-            const currentMeasure = parseInt(
-              Object.keys(groupedSnippets)[index],
-            );
+            const prevMeasure = parseInt(Object.keys(groupedItems)[prevIndex]);
+            const currentMeasure = parseInt(Object.keys(groupedItems)[index]);
 
-            setGroupedSnippets((prev) => {
+            setGroupedItems((prev) => {
               const updated = { ...prev };
               updated[prevMeasure] = [
                 ...updated[prevMeasure],
@@ -84,42 +96,60 @@ const InlineSnippets: React.FC<{
       });
     };
 
-    // Run the check after a short delay to ensure rendering is complete
     const timeoutId = setTimeout(checkOverlaps, 100);
     return () => clearTimeout(timeoutId);
-  }, [groupedSnippets]);
+  }, [groupedItems]);
 
   return (
     <>
-      {Object.entries(groupedSnippets).map(
-        ([measureStart, snippetsGroup], groupIndex) => {
-          const start = parseInt(measureStart);
-          if (
-            sectionSpan &&
-            (start <= sectionSpan[0] || start > sectionSpan[1])
-          ) {
-            return null;
-          }
-          const left = secondsToX(measuresAndBeats.measures[start - 1]);
+      {Object.entries(groupedItems).map(([measureStart, items], groupIndex) => {
+        const start = parseInt(measureStart);
+        if (
+          sectionSpan &&
+          (start <= sectionSpan[0] || start > sectionSpan[1])
+        ) {
+          return null;
+        }
+        const left = secondsToX(measuresAndBeats.measures[start - 1]);
 
-          return (
-            <div
-              key={start}
-              ref={(el) => (snippetRefs.current[groupIndex] = el)}
-              style={{
-                position: "absolute",
-                top: "-20px",
-                left: `${left}px`,
-                textAlign: "left",
-                color: "#777",
-                fontSize: "11px",
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "row",
-                flexWrap: "nowrap",
-              }}
-            >
-              {snippetsGroup.map((snippet, index) => {
+        return (
+          <div
+            key={start}
+            ref={(el) => (itemRefs.current[groupIndex] = el)}
+            style={{
+              position: "absolute",
+              top: "-20px",
+              left: `${left}px`,
+              textAlign: "left",
+              color: "#777",
+              fontSize: "11px",
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "nowrap",
+            }}
+          >
+            {items.map((item, index) => {
+              if (item.type === "formSection") {
+                return (
+                  <div
+                    key={`form_${index}`}
+                    style={{
+                      // backgroundColor: "#3339",
+                      // padding: "5px 10px",
+                      color: "#bbb",
+                      userSelect: "none",
+                      pointerEvents: "none",
+                      marginRight: "10px",
+                      fontSize: "1.2em",
+                      position: "relative",
+                      top: "5px",
+                    }}
+                  >
+                    {item.content}
+                  </div>
+                );
+              } else {
+                const snippet = item.content;
                 const [chapter, topic] = snippet.tag.split(":");
                 const explanation = EXPLANATIONS[snippet.tag];
                 const snippetKey = `${measureStart}-${index}`;
@@ -127,7 +157,7 @@ const InlineSnippets: React.FC<{
 
                 return (
                   <Link
-                    key={index}
+                    key={`snippet_${index}`}
                     to={`/s/${encodeURIComponent(
                       chapter.trim(),
                     )}/${encodeURIComponent(topic.trim())}`}
@@ -183,11 +213,11 @@ const InlineSnippets: React.FC<{
                     </div>
                   </Link>
                 );
-              })}
-            </div>
-          );
-        },
-      )}
+              }
+            })}
+          </div>
+        );
+      })}
     </>
   );
 };
@@ -243,6 +273,7 @@ export const MeasureNumbers: React.FC<{
           snippets={analysis.snippets || []}
           secondsToX={secondsToX}
           sectionSpan={sectionSpan}
+          analysis={analysis}
         />
       )}
       <AnalysisGrid

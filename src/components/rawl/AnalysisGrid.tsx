@@ -188,7 +188,6 @@ const Measure: React.FC<{
   number: number;
   displayNumber: number;
   isPhraseStart: boolean;
-  formSection: string;
   measureSelection: MeasureSelection;
   showHeader: boolean;
   secondsToX: (number) => number;
@@ -203,7 +202,6 @@ const Measure: React.FC<{
   number,
   displayNumber,
   isPhraseStart,
-  formSection,
   measureSelection,
   showHeader,
   secondsToX,
@@ -456,24 +454,6 @@ const Measure: React.FC<{
                   {displayNumber}
                 </span>
               </div>
-              {formSection && (
-                <div
-                  key={`form_section_${number}`}
-                  style={{
-                    position: "absolute",
-                    left: left + 23,
-                    top: 0,
-                    zIndex: 95,
-                    backgroundColor: "#3339",
-                    padding: "5px 10px 5px 10px",
-                    color: "#ffe",
-                    userSelect: "none",
-                    pointerEvents: "none",
-                  }}
-                >
-                  {formSection}
-                </div>
-              )}
             </>
           ) : null}
         </>
@@ -693,7 +673,6 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
               showHeader={showHeader && i < sectionSpan[1]}
               span={[time, measures[number] ?? time]}
               isPhraseStart={phraseStarts.indexOf(number) !== -1}
-              formSection={(analysis.form ?? {})[number]}
               number={number}
               displayNumber={displayNumber}
               measureSelection={measureSelection}

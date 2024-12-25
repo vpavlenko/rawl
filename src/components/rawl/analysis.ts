@@ -81,7 +81,7 @@ export const ANALYSIS_STUB: Analysis = {
   modulations: { 1: null },
   comment: "",
   tags: [],
-  form: [],
+  form: {},
   phrasePatch: [],
   sections: [0], // in phrases
 };

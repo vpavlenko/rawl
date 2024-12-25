@@ -2,6 +2,7 @@ import React, { ReactNode, useState } from "react";
 import styled from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
 import { a, c, k, q } from "./book/chapters";
+import { TonicProvider } from "./legends/ChordStairs";
 
 const Pp = styled.div`
   margin-bottom: 15px;
@@ -11,6 +12,8 @@ const Label = styled.span`
   font-weight: bold;
   color: #666;
 `;
+
+const m = (n: number) => <>m. {n}</>;
 
 const FoldButton = styled.button`
   position: absolute;
@@ -90,6 +93,27 @@ export const NARRATIVES: Record<string, { qa: QAPair[] }> = {
         ),
         a: <>It's {c`I iii vi IV`}</>,
       },
+      {
+        q: <>The loop in the chorus is slightly different. Name its chords.</>,
+        a: <>It's {c`I V vi IV`}</>,
+      },
+      {
+        q: (
+          <>
+            Solo the vocal part - click on the "Choir Aahs" in the top right
+            voice legend. The main motive of the verse melody is one measure
+            long, starting from the end of {m(4)}. How many times does it repeat
+            almost verbatim and what happens with it afterwards?
+          </>
+        ),
+        a: (
+          <>
+            The {c`5 3 2 1 6`} repeats about five times and then mutates with
+            each measure - uses different contours for the same notes, gets more
+            shorter notes to the end.
+          </>
+        ),
+      },
     ],
   },
   "despacito-piano-cover-peter-bence": {
@@ -108,7 +132,10 @@ export const NARRATIVES: Record<string, { qa: QAPair[] }> = {
   },
 };
 
-export const SongNarrative: React.FC<{ slug: string }> = ({ slug }) => {
+export const SongNarrative: React.FC<{
+  slug: string;
+  currentTonic?: number;
+}> = ({ slug, currentTonic }) => {
   const [lastOpenedIndex, setLastOpenedIndex] = useState(0);
   const [showNarrative, setShowNarrative] = useLocalStorage(
     "showNarrative",
@@ -125,9 +152,9 @@ export const SongNarrative: React.FC<{ slug: string }> = ({ slug }) => {
     <div
       style={{
         position: "absolute",
-        top: 20,
-        right: 10,
-        width: "30em",
+        top: 10,
+        right: -10,
+        width: "457px",
         zIndex: 100000,
       }}
     >
@@ -149,36 +176,38 @@ export const SongNarrative: React.FC<{ slug: string }> = ({ slug }) => {
               }
 
               return (
-                <div key={index} style={{ marginBottom: "2.5rem" }}>
-                  <div style={{ marginBottom: "0.5rem" }}>
-                    <Label>Q:</Label>{" "}
-                    <span style={{ color: "#fff" }}>{qa.q}</span>
-                  </div>
+                <TonicProvider currentTonic={currentTonic}>
+                  <div key={index} style={{ marginBottom: "2.5rem" }}>
+                    <div style={{ marginBottom: "0.5rem" }}>
+                      <Label>Q:</Label>{" "}
+                      <span style={{ color: "#fff" }}>{qa.q}</span>
+                    </div>
 
-                  {index < lastOpenedIndex
-                    ? qa.a && (
-                        <div style={{ paddingTop: "10px" }}>
-                          <Label>A:</Label>{" "}
-                          <span style={{ color: "#fff" }}>{qa.a}</span>
-                        </div>
-                      )
-                    : (qa.a || index < narrative.qa.length - 1) && (
-                        <button
-                          style={{
-                            padding: "10px",
-                            marginTop: "10px",
-                            backgroundColor: "#4a90e2",
-                            color: "white",
-                            border: "none",
-                            borderRadius: "4px",
-                            cursor: "pointer",
-                          }}
-                          onClick={() => setLastOpenedIndex(index + 1)}
-                        >
-                          {qa.a ? "Show answer" : "Show next question"}
-                        </button>
-                      )}
-                </div>
+                    {index < lastOpenedIndex
+                      ? qa.a && (
+                          <div style={{ paddingTop: "10px" }}>
+                            <Label>A:</Label>{" "}
+                            <span style={{ color: "#fff" }}>{qa.a}</span>
+                          </div>
+                        )
+                      : (qa.a || index < narrative.qa.length - 1) && (
+                          <button
+                            style={{
+                              padding: "10px",
+                              marginTop: "10px",
+                              backgroundColor: "#4a90e2",
+                              color: "white",
+                              border: "none",
+                              borderRadius: "4px",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => setLastOpenedIndex(index + 1)}
+                          >
+                            {qa.a ? "Show answer" : "Show next question"}
+                          </button>
+                        )}
+                  </div>
+                </TonicProvider>
               );
             })}
           </div>

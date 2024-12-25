@@ -10,6 +10,7 @@ type MergedVoicesLegendProps = {
   setVoiceMask: (mask: boolean[]) => void;
   onForcedPanningChange?: (enabled: boolean) => void;
   slug: string;
+  currentTonic?: number;
 };
 
 const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
@@ -18,6 +19,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
   setVoiceMask,
   onForcedPanningChange,
   slug,
+  currentTonic,
 }) => {
   const [forcedPanning, setForcedPanning] = useLocalStorage(
     "forcedPanning",
@@ -120,7 +122,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
           </div>
         ))}
         <div style={{ position: "relative" }}>
-          <SongNarrative slug={slug} />
+          <SongNarrative slug={slug} currentTonic={currentTonic} />
         </div>
       </div>
     )

@@ -546,6 +546,7 @@ export const MergedSystemLayout: React.FC<
     enableManualRemeasuring,
     isEmbedded = false,
     slug,
+    currentTonic,
   } = props;
 
   const flattenedNotes = useMemo(
@@ -574,6 +575,7 @@ export const MergedSystemLayout: React.FC<
           voiceMask={voiceMask}
           setVoiceMask={setVoiceMask}
           slug={slug}
+          currentTonic={currentTonic}
         />
       )}
     </div>

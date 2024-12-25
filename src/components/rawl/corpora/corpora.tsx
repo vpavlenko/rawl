@@ -149,7 +149,7 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: 1969, // Giovanni Allevi
     genre: "Classical, Contemporary Classical",
-    style: "Minimalist, Piano-driven Classical",
+    style: "Minimalism, Piano-driven Classical",
     country: "Italy", // Giovanni Allevi is Italian.
   },
 
@@ -265,7 +265,7 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: 1937, // Philip Glass
     genre: "Minimalism, Classical",
-    style: "Minimalist, Avant-garde",
+    style: "Minimalism, Avant-garde",
     country: "USA", // Philip Glass is American.
   },
   {
@@ -617,7 +617,7 @@ export const corpora: CorpusEntry[] = [
     midis: ["saman---olafur-arnalds"],
     composerBirthYear: 1986, // Ólafur Arnalds
     genre: "Classical, Electronic",
-    style: "Modern Classical, Ambient, Minimalist",
+    style: "Modern Classical, Ambient, Minimalism",
     country: "Iceland", // Ólafur Arnalds is Icelandic.
   },
   {
@@ -2709,7 +2709,7 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: 1937,
     genre: "Classical",
-    style: "Postmodern, Minimalist",
+    style: "Postmodern, Minimalism",
     country: "Ukraine",
   },
   {
@@ -3607,7 +3607,7 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: 1961, // Born in 1961
     genre: "Contemporary Classical", // Contemporary classical music
-    style: "Minimalist", // Minimalist style
+    style: "Minimalism", // Minimalism style
     country: "USA", // American composer
   },
   {
@@ -3664,8 +3664,8 @@ export const corpora: CorpusEntry[] = [
       "phrygian-gates-china-gates---john-adams",
     ],
     composerBirthYear: 1947, // Born in 1947
-    genre: "Minimalism", // Minimalist composer
-    style: "Minimalism", // Famous for minimalist music
+    genre: "Minimalism", // Minimalism composer
+    style: "Minimalism", // Famous for Minimalism music
     country: "USA", // American composer
   },
   {
@@ -3972,7 +3972,7 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: undefined, // Not enough information available
     genre: "Indie, Classical", // Indie-classical style music
-    style: "Minimalism", // Minimalist piano compositions
+    style: "Minimalism", // Minimalism piano compositions
     country: undefined, // Country not specified
   },
   {
@@ -4869,7 +4869,7 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: 1955, // Ludovico Einaudi was born in 1955
     genre: "Classical", // Modern classical music
-    style: "Minimalism, Contemporary Classical", // Known for minimalist and contemporary classical style
+    style: "Minimalism, Contemporary Classical", // Known for Minimalism and contemporary classical style
     country: "Italy", // Born in Italy
   },
   {

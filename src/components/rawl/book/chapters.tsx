@@ -1234,13 +1234,13 @@ export const CHAPTERS: Array<{
     ],
   },
   {
-    title: "V7/ii, V7/iv",
+    title: "V7/ii",
     titleChords: ["V7/ii", "ii"],
     mode: [
       MAJOR_MODE,
       {
         title: "applied chords",
-        chords: ["V7/ii", "ii", "V7/iv", "iv", "V7/vi", "vi"],
+        chords: ["V7/ii", "ii", "V7/V", "V", "V7/vi", "vi"],
       },
     ],
     pretext: () => (
@@ -1259,11 +1259,11 @@ export const CHAPTERS: Array<{
         <P>
           {rn`V7/iii`} is a major chord on {c`7`}, so instead of a rarely used
           diminished 3+3 semitones chord {c`viio`} we get a {c`V/iii`} or a{" "}
-          {c`V7/iii`}: {c`V7/iii iii V7 I`}
+          {c`V7/iii`}: {c`I V7 I V7/iii iii V7 I`}
         </P>
         <p>
           {rn`V/IV`} is simply {rn`I`} {c`I`}. However, {rn`V7/IV`} {c`V7/IV`}{" "}
-          makes sense: it's a non-diatonic chord. {c`V7/IV IV V7 I`}
+          makes sense: it's a non-diatonic chord. {c`I V7 I V7/IV IV V7 I`}
         </p>
       </>
     ),
@@ -1271,7 +1271,6 @@ export const CHAPTERS: Array<{
       "Omori_Duet",
       "abba--the-winner-takes-it-all",
       "All_I_Want_for_Christmas_is_You",
-      "anastasia---once-upon-a-december",
     ],
   },
   {
@@ -1393,6 +1392,7 @@ export const CHAPTERS: Array<{
       </>
     ),
     composers: [
+      "anastasia---once-upon-a-december",
       "la-vie-en-rose-solo-accordion",
       "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
       "the_entertainer_scott_joplin",

@@ -361,6 +361,23 @@ const Book: React.FC = () => {
             (currentChapter.title === "Intro" ? (
               <TwoColumnLayout>
                 <ReadableTextBlock>
+                  <SnippetContainer>
+                    <SnippetList
+                      snippets={[
+                        analyses[`f/happy-birthday`]?.snippets.find(
+                          (snippet) => snippet.tag === "book:index",
+                        ),
+                      ].map((snippet) => ({
+                        ...snippet,
+                        composerSlug: "happy-birthday",
+                      }))}
+                      onSnippetClick={handleSnippetClick}
+                      loadingSnippets={loadingSnippets}
+                      isPreview={true}
+                      noteHeight={3}
+                    />
+                  </SnippetContainer>
+
                   {currentChapter.pretext()}
                   <GroupContainer>
                     <ComposersGrid>

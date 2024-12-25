@@ -434,15 +434,17 @@ const Book: React.FC = () => {
                             chatIconStyle={{ marginLeft: "12px" }}
                           />
                         </ComposerWrapper>
-                        <SnippetContainer>
-                          <SnippetList
-                            snippets={snippets}
-                            onSnippetClick={handleSnippetClick}
-                            loadingSnippets={loadingSnippets}
-                            isPreview={true}
-                            noteHeight={3}
-                          />
-                        </SnippetContainer>
+                        {snippets.map((snippet) => (
+                          <SnippetContainer>
+                            <SnippetList
+                              snippets={[snippet]}
+                              onSnippetClick={handleSnippetClick}
+                              loadingSnippets={loadingSnippets}
+                              isPreview={true}
+                              noteHeight={3}
+                            />
+                          </SnippetContainer>
+                        ))}
                       </ComposerItem>
                     );
                   })}

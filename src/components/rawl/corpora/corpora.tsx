@@ -3241,6 +3241,7 @@ export const corpora: CorpusEntry[] = [
       "alien-lair",
       "greenpath---christopher-larkin",
       "qiao-shang-nozhan-i-battle-on-the-bridge---final-fantasy-tactics-ps1---hitoshi-sakimoto",
+      "heroes-of-might-magic-iii---fortress-town-theme",
     ],
   },
   {

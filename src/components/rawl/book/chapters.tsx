@@ -1131,6 +1131,27 @@ export const CHAPTERS: Array<{
     pretext: () => (
       <>
         <h2>Applied dominant: V7/V</h2>
+        <P>
+          There are diatonic major pieces where the only chromatic chord is{" "}
+          {c`II7`} or {c`II`} - a major chord built on a {c`2`} root instead of
+          a diatonic {c`ii`} chord. How to explain this chord?
+        </P>
+        <P>
+          Most often it precedes the {c`V`} chord: {c`II7 V`}. Let's recolor it:
+          let's treat this {c`V`} as a brief {ct(`I`, -5)} tonic chord. So, a C
+          major's {c`II7 V`} is a G major's {ct(`V7 I`, -5)}. Because of that,
+          the {c`V7/V`} chord is called V7/V, especially when preceding the V
+          chord.
+        </P>
+        <P>
+          We briefly <i>tonicize</i> the V chord (or the {c`5`} scale degree) -
+          we make it a <i>local tonic</i> just for the duration of these two
+          chords. A V7/V chord is also called a <i>secondary dominant</i> or an{" "}
+          <i>applied dominant</i>.
+        </P>
+        <P>
+          Sometimes {c`II7`} appears without {c`V`} chord next to it.
+        </P>
       </>
     ),
     mode: {

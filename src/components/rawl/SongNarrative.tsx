@@ -139,29 +139,29 @@ export const SongNarrative: React.FC<{ slug: string }> = ({ slug }) => {
                     <span style={{ color: "#aaa" }}>{qa.q}</span>
                   </div>
 
-                  {index < lastOpenedIndex ? (
-                    qa.a && (
-                      <div style={{ paddingTop: "10px" }}>
-                        <Label>A:</Label>{" "}
-                        <span style={{ color: "#aaa" }}>{qa.a}</span>
-                      </div>
-                    )
-                  ) : (
-                    <button
-                      style={{
-                        padding: "10px",
-                        marginTop: "10px",
-                        backgroundColor: "#4a90e2",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "4px",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => setLastOpenedIndex(index + 1)}
-                    >
-                      {qa.a ? "Show answer" : "Show next question"}
-                    </button>
-                  )}
+                  {index < lastOpenedIndex
+                    ? qa.a && (
+                        <div style={{ paddingTop: "10px" }}>
+                          <Label>A:</Label>{" "}
+                          <span style={{ color: "#aaa" }}>{qa.a}</span>
+                        </div>
+                      )
+                    : (qa.a || index < narrative.qa.length - 1) && (
+                        <button
+                          style={{
+                            padding: "10px",
+                            marginTop: "10px",
+                            backgroundColor: "#4a90e2",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "4px",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => setLastOpenedIndex(index + 1)}
+                        >
+                          {qa.a ? "Show answer" : "Show next question"}
+                        </button>
+                      )}
                 </div>
               );
             })}

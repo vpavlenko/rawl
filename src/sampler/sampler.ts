@@ -7,7 +7,7 @@ declare module "tone/build/esm/core/context/BaseContext" {
   }
 }
 
-export const ARPEGGIO_DELAY_MS = 70;
+export const ARPEGGIO_DELAY_MS = 30;
 let samplerLoaded = false;
 let loadingPromise: Promise<void> | null = null;
 

@@ -43,6 +43,12 @@ const C = ({ c, title }: { c: Chord[]; title: string }) => (
   </span>
 );
 
+const rn = (strings: TemplateStringsArray) => (
+  <span style={{ fontFamily: "Verdana", fontWeight: "bold" }}>
+    {strings[0]}
+  </span>
+);
+
 const cl = (slug: string) => (
   <>
     “
@@ -149,7 +155,7 @@ export const CHAPTER_GROUPS: Record<string, [number, number]> = {
 export const CHAPTERS: Array<{
   title: string;
   titleChords?: Chord[];
-  mode?: Mode;
+  mode?: Mode | Mode[];
   pretext?: () => React.JSX.Element;
   composers: (typeof TOP_100_COMPOSERS)[number]["slug"][];
 }> = [
@@ -374,23 +380,24 @@ export const CHAPTERS: Array<{
           />
         </P>
         <P>
-          Read: "one chord", "two chord", "three chord", "four chord", "five
-          chord", "six chord".
+          Pronounced: "a one chord", "a two chord", "a three chord", "a four
+          chord", "a five chord", "a six chord".
         </P>
         <P>
           If we look at the intervals of each chord starting from the root,
           there are two types of chords:
           <ul>
             <li>
-              I {c`I`}, IV {c`IV`}, V {c`V`} – intervals 4+3, major chords
-              written in uppercase Roman numerals
+              {rn`I`} {c`I`}, {rn`IV`} {c`IV`}, {rn`V`} {c`V`} – intervals 4+3,
+              major chords written in uppercase Roman numerals
             </li>
             <li>
-              ii {c`ii`}, iii {c`iii`}, vi {c`vi`} – intervals 3+4, minor chords
-              written in lowercase Roman numeral
+              {rn`ii`} {c`ii`}, {rn`iii`} {c`iii`}, {rn`vi`} {c`vi`} – intervals
+              3+4, minor chords written in lowercase Roman numeral
             </li>
           </ul>
         </P>
+
         <P>
           Be careful: the terms "major chord" / "minor chord" are not the same
           thing as "major scale" / "minor scale". As we see, in a major scale we
@@ -429,6 +436,10 @@ export const CHAPTERS: Array<{
           bridge. Some songs use different loops for different parts. For
           example, a verse can go like {c`I vi IV V`} and a chorus can go like{" "}
           {c`vi IV I V`}
+        </P>
+        <P>
+          Throughout the book you can hover over colorful chords to see their
+          Roman numerals.
         </P>
         <P>
           As you analyze pieces in this chapter, listen to them on YouTube and
@@ -538,7 +549,7 @@ export const CHAPTERS: Array<{
         <P>
           <ChordStairs mode={STRICT_NATURAL_MINOR} />
         </P>
-        <P>A note on pronunciation: ♭VI is a "flat-six major chord"</P>
+        <P>A note on pronunciation: {rn`♭VI`} is a "flat-six major chord"</P>
         <P>
           Some of these pieces have four-chord loops, while others have longer
           strings of chords. As you analyze them, try to find any patterns. Is
@@ -809,7 +820,7 @@ export const CHAPTERS: Array<{
     titleChords: ["V", "i"],
     pretext: () => (
       <>
-        <h2>Chords in a minor with V</h2>
+        <h2>Chords in a minor with {rn`V`}</h2>
         <P>
           So, an older version of a minor mode has these chords:{" "}
           {c`i bIII iv v V bVI bVII`}
@@ -1075,7 +1086,7 @@ export const CHAPTERS: Array<{
           "to use common types of chords" is more important for composers than
           the rule "to stick to a certain scale of 7 or 8 notes".
         </P>
-        <h2>Dorian IV in minor</h2>
+        <h2>Dorian {rn`IV`} in minor</h2>
         <P>
           Some pieces use a {c`IV`} chord inside an otherwise minor mode piece:{" "}
           {c`i IV i`}. Therefore the total chord palette in that piece becomes{" "}
@@ -1141,27 +1152,31 @@ export const CHAPTERS: Array<{
     titleChords: ["V7/V", "V"],
     pretext: () => (
       <>
-        <h2>Applied dominant: V7/V</h2>
+        <h2>Applied dominant: {rn`V7/V`}</h2>
         <P>
           There are diatonic major pieces where the only chromatic chord is{" "}
           {c`II7`} or {c`II`} - a major chord built on a {c`2`} root instead of
           a diatonic {c`ii`} chord. How to explain this chord?
         </P>
         <P>
-          Most often it precedes the {c`V`} chord: {c`II7 V`}. Let's recolor it:
-          let's treat this {c`V`} as a brief {ct(`I`, -5)} tonic chord. So, a C
-          major's {c`II7 V`} is a G major's {ct(`V7 I`, -5)}. Because of that,
-          the {c`V7/V`} chord is called V7/V, especially when preceding the V
-          chord.
+          Most often it's followed by the {c`V`} chord: {c`II7 V`}. Or, as they
+          say, {c`II7`} is resolved to {c`V`}.{" "}
         </P>
         <P>
-          We briefly <i>tonicize</i> the V chord (or the {c`5`} scale degree) -
-          we make it a <i>local tonic</i> just for the duration of these two
-          chords. A V7/V chord is also called a <i>secondary dominant</i> or an{" "}
-          <i>applied dominant</i>.
+          Let's recolor it: let's treat this {c`V`} as a brief {ct(`I`, -5)}{" "}
+          tonic chord. So, a C major's {c`II7 V`} is a G major's{" "}
+          {ct(`V7 I`, -5)}. Because of that, the {c`V7/V`} chord is called{" "}
+          {rn`V7/V`} (pronounced "five seven of five"), especially when
+          preceding the {rn`V`} chord.
         </P>
         <P>
-          Sometimes {c`II7`} appears without {c`V`} chord next to it.
+          We briefly <i>tonicize</i> the {rn`V`} chord (or the {c`5`} scale
+          degree) - we make it a <i>local tonic</i> just for the duration of
+          these two chords. A {rn`V7/V`} chord is also called a{" "}
+          <i>secondary dominant</i> or an <i>applied dominant</i>.
+        </P>
+        <P>
+          Sometimes {c`II7`} is on its own, not followed by {c`V`}
         </P>
       </>
     ),
@@ -1185,7 +1200,7 @@ export const CHAPTERS: Array<{
     },
     pretext: () => (
       <>
-        <h2>V7/vi</h2>
+        <h2>{rn`V7/vi`}</h2>
         <P>
           Another applied chord that's common is {c`V/vi`} or {c`V7/vi`}. It's
           usually resolved as {c`V7/vi vi`}, therefore tonicizing a {c`vi`}{" "}
@@ -1193,7 +1208,7 @@ export const CHAPTERS: Array<{
           {ct(`V7 i`, -3)} in A minor. So, this applied chord tonicizes a
           relative minor.
         </P>
-        <h2>Vsus4</h2>
+        <h2>{rn`Vsus4`}</h2>
         <P>
           There's a frequent diatonic chord that isn't either minor or major
           chord: a {c`Vsus4`} chord. It has intervals of 5+2 semitones. It's
@@ -1221,10 +1236,37 @@ export const CHAPTERS: Array<{
   {
     title: "V7/ii, V7/iv",
     titleChords: ["V7/ii", "ii"],
-    mode: {
-      title: "applied chords",
-      chords: ["V7/ii", "ii", "V7/iv", "iv", "V7/vi", "vi"],
-    },
+    mode: [
+      MAJOR_MODE,
+      {
+        title: "applied chords",
+        chords: ["V7/ii", "ii", "V7/iv", "iv", "V7/vi", "vi"],
+      },
+    ],
+    pretext: () => (
+      <>
+        <h2>Applied chords in a major mode</h2>
+        <P>Let's list all possible applied chords in major.</P>
+        <P>
+          {rn`V7/I`} is just a {rn`V7`}: {c`V7 I`}
+        </P>
+        <P>
+          {rn`V7/ii`} is a major chord on {c`6`}, so instead of a diatonic{" "}
+          {c`vi`} we get a {c`V/ii`} or a {c`V7/ii`}. It's resolved to {c`ii`}.
+          I put it in a context to distinguish it from a standard {rn`V7`} in
+          another key: {c`I V7 I V7/ii ii V7 I`}
+        </P>
+        <P>
+          {rn`V7/iii`} is a major chord on {c`7`}, so instead of a rarely used
+          diminished 3+3 semitones chord {c`viio`} we get a {c`V/iii`} or a{" "}
+          {c`V7/iii`}: {c`V7/iii iii V7 I`}
+        </P>
+        <p>
+          {rn`V/IV`} is simply {rn`I`} {c`I`}. However, {rn`V7/IV`} {c`V7/IV`}{" "}
+          makes sense: it's a non-diatonic chord. {c`V7/IV IV V7 I`}
+        </p>
+      </>
+    ),
     composers: [
       "Omori_Duet",
       "abba--the-winner-takes-it-all",

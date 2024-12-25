@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
 import { a, c, k, q } from "./book/chapters";
 
+const Pp = styled.div`
+  margin-bottom: 15px;
+`;
+
 const Label = styled.span`
   font-weight: bold;
   color: #666;
@@ -61,18 +65,23 @@ export const NARRATIVES: Record<string, { qa: QAPair[] }> = {
       // },
     ],
   },
-  Someone_Like_You_easy_piano: {
+  "someone-like-you": {
     qa: [
       {
         q: (
           <>
-            Which section of a song happens in mm. 5-16? Which loop does it
-            have? Also see{" "}
-            {a("https://www.youtube.com/watch?v=hLQl3WQQoQ0", "YouTube")} and{" "}
-            {a("https://genius.com/Adele-someone-like-you-lyrics", "Genius")}.
+            <Pp>
+              Feel free to consult{" "}
+              {a("https://www.youtube.com/watch?v=hLQl3WQQoQ0", "YouTube")} and{" "}
+              {a("https://genius.com/Adele-someone-like-you-lyrics", "Genius")}.
+            </Pp>
+            <Pp>
+              Name the chords in the loop that's used in the intro and in all
+              verses.
+            </Pp>
           </>
         ),
-        a: <>It's a verse built on a loop {c`I iii vi IV`}</>,
+        a: <>It's {c`I iii vi IV`}</>,
       },
     ],
   },

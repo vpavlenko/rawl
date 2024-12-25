@@ -227,7 +227,7 @@ export const InlinePianoLegend: React.FC<{ enabledPitches?: number[] }> = ({
 
 export const FoldablePianoLegend: React.FC<{
   slug?: string;
-  mode?: Mode;
+  mode?: Mode | Mode[];
   currentTonic?: number;
 }> = ({ slug, mode, currentTonic }) => {
   const [showLegend, setShowLegend] = useLocalStorage("showLegend", true);
@@ -237,11 +237,11 @@ export const FoldablePianoLegend: React.FC<{
 
   const getEnabledPitches = () => {
     if (hoveredScale === "major") {
-      return WHITE_KEYS; // All white keys for major scale
+      return WHITE_KEYS;
     } else if (hoveredScale === "minor") {
-      return [0, 2, 3, 5, 7, 8, 10]; // Natural minor scale pitches
+      return [0, 2, 3, 5, 7, 8, 10];
     }
-    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; // All pitches when not hovering
+    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   };
 
   const chords = TOP_100_COMPOSERS.find(({ slug: _slug }) => slug === _slug)
@@ -268,9 +268,15 @@ export const FoldablePianoLegend: React.FC<{
                 zIndex: 100000,
               }}
             >
-              {(mode ? [mode] : [MAJOR_MODE, MINOR_MODE]).map((mode) => (
+              {(Array.isArray(mode)
+                ? mode
+                : mode
+                ? [mode]
+                : [MAJOR_MODE, MINOR_MODE]
+              ).map((modeItem, index) => (
                 <ChordStairs
-                  mode={mode}
+                  key={`mode-${index}`}
+                  mode={modeItem}
                   chapterChords={chords}
                   currentTonic={currentTonic}
                 />

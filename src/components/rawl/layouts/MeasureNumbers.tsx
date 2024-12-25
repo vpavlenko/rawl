@@ -20,7 +20,17 @@ const InlineSnippets: React.FC<{
   secondsToX: SecondsConverter;
   sectionSpan?: MeasuresSpan;
   analysis: Analysis;
-}> = ({ measuresAndBeats, snippets, secondsToX, sectionSpan, analysis }) => {
+  togglePause?: () => void;
+  seek?: (ms: number) => void;
+}> = ({
+  measuresAndBeats,
+  snippets,
+  secondsToX,
+  sectionSpan,
+  analysis,
+  togglePause,
+  seek,
+}) => {
   const appContext = useContext(AppContext);
   const { setHoveredMeasuresSpan } = appContext;
   const [hoveredSnippetIndex, setHoveredSnippetIndex] = React.useState<
@@ -134,15 +144,29 @@ const InlineSnippets: React.FC<{
                   <div
                     key={`form_${index}`}
                     style={{
-                      // backgroundColor: "#3339",
-                      // padding: "5px 10px",
                       color: "#bbb",
                       userSelect: "none",
-                      pointerEvents: "none",
                       marginRight: "10px",
                       fontSize: "1.2em",
                       position: "relative",
                       top: "5px",
+                      cursor: "pointer",
+                      transition: "color 0.2s ease",
+                    }}
+                    onClick={(e) => {
+                      if (seek && togglePause) {
+                        const seekTime =
+                          measuresAndBeats.measures[start - 1] * 1000 - 1000;
+                        seek(seekTime);
+                        // togglePause();
+                        e.stopPropagation();
+                      }
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.color = "#fff";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.color = "#bbb";
                     }}
                   >
                     {item.content}
@@ -233,6 +257,8 @@ export const MeasureNumbers: React.FC<{
   sectionSpan?: MeasuresSpan;
   isHiddenRoute?: boolean;
   mouseHandlers: MouseHandlers;
+  togglePause?: () => void;
+  seek?: (ms: number) => void;
 }> = ({
   measuresAndBeats,
   analysis,
@@ -244,6 +270,8 @@ export const MeasureNumbers: React.FC<{
   sectionSpan,
   isHiddenRoute = false,
   mouseHandlers,
+  togglePause,
+  seek,
 }) => {
   const { systemClickHandler } = mouseHandlers;
 
@@ -274,6 +302,8 @@ export const MeasureNumbers: React.FC<{
           secondsToX={secondsToX}
           sectionSpan={sectionSpan}
           analysis={analysis}
+          togglePause={togglePause}
+          seek={seek}
         />
       )}
       <AnalysisGrid

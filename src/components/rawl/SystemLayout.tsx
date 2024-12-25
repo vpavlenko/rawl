@@ -238,6 +238,8 @@ export type SystemLayoutProps = {
   isHiddenRoute?: boolean;
   slug?: string;
   currentTonic: number;
+  togglePause?: () => void;
+  seek?: (ms: number) => void;
 };
 
 export const StackedSystemLayout: React.FC<
@@ -258,6 +260,8 @@ export const StackedSystemLayout: React.FC<
   isHiddenRoute = false,
   slug,
   currentTonic,
+  togglePause,
+  seek,
 }) => {
   const [noteHeight, setNoteHeight] = useState<number>(3);
   const [secondWidth, setSecondWidth] = useState<number>(40);
@@ -461,6 +465,8 @@ export const StackedSystemLayout: React.FC<
                 sectionSpan={sectionSpan}
                 isHiddenRoute={isHiddenRoute}
                 mouseHandlers={mouseHandlers}
+                togglePause={togglePause}
+                seek={seek}
               />
               {voices.map(({ notes, voiceIndex }) => (
                 <div

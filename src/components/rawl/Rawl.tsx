@@ -133,7 +133,8 @@ const Rawl: React.FC<RawlProps> = ({
   isEmbedded = false,
   isHiddenRoute = false,
 }) => {
-  const { currentMidi, setCurrentMidi, rawlProps } = useContext(AppContext);
+  const { currentMidi, setCurrentMidi, rawlProps, togglePause } =
+    useContext(AppContext);
   const slug = currentMidi?.slug || "";
 
   const [analysis, setAnalysis] = useState<Analysis>(
@@ -518,6 +519,8 @@ const Rawl: React.FC<RawlProps> = ({
       measureStart,
       slug,
       currentTonic,
+      togglePause,
+      seek,
     }),
     [
       coloredNotes,
@@ -533,6 +536,8 @@ const Rawl: React.FC<RawlProps> = ({
       measureStart,
       slug,
       currentTonic,
+      togglePause,
+      seek,
     ],
   );
 

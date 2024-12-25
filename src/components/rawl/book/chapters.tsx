@@ -173,8 +173,8 @@ export const CHAPTERS: Array<{
         <P>
           I use my own piano-roll-based notation with notes colored into 12
           colors, always starting from the main note – <i>the tonic</i>. This
-          simplifies visual analysis: chords and other structures become
-          visible, scores become readable and interpretable.
+          simplifies visual analysis: chords like {c`IV V I`} and other
+          structures become visible, scores become readable and interpretable.
         </P>
         <P>This is the color scheme we'll use through the entire book:</P>
         <P>

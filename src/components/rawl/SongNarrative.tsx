@@ -71,12 +71,19 @@ export const NARRATIVES: Record<string, { qa: QAPair[] }> = {
         q: (
           <>
             <Pp>
-              Feel free to consult{" "}
-              {a("https://www.youtube.com/watch?v=hLQl3WQQoQ0", "YouTube")} and{" "}
-              {a("https://genius.com/Adele-someone-like-you-lyrics", "Genius")}.
+              This score follows{" "}
+              {a(
+                "https://www.youtube.com/watch?v=hLQl3WQQoQ0",
+                "the YouTube version",
+              )}{" "}
+              closely.{" "}
+              {a(
+                "https://genius.com/Adele-someone-like-you-lyrics",
+                "Lyrics on Genius",
+              )}
             </Pp>
             <Pp>
-              Name the chords in the loop that's used in the intro and in all
+              Name the chords of the loop that's used in the intro and in all
               verses.
             </Pp>
           </>
@@ -145,14 +152,14 @@ export const SongNarrative: React.FC<{ slug: string }> = ({ slug }) => {
                 <div key={index} style={{ marginBottom: "2.5rem" }}>
                   <div style={{ marginBottom: "0.5rem" }}>
                     <Label>Q:</Label>{" "}
-                    <span style={{ color: "#aaa" }}>{qa.q}</span>
+                    <span style={{ color: "#fff" }}>{qa.q}</span>
                   </div>
 
                   {index < lastOpenedIndex
                     ? qa.a && (
                         <div style={{ paddingTop: "10px" }}>
                           <Label>A:</Label>{" "}
-                          <span style={{ color: "#aaa" }}>{qa.a}</span>
+                          <span style={{ color: "#fff" }}>{qa.a}</span>
                         </div>
                       )
                     : (qa.a || index < narrative.qa.length - 1) && (

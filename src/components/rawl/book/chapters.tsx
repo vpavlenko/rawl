@@ -120,7 +120,9 @@ export const k = (layout: string, title?: string) => {
   );
 };
 
-const q = (citeKey: keyof typeof CITES) => <Citation citeKey={citeKey} />;
+export const q = (citeKey: keyof typeof CITES) => (
+  <Citation citeKey={citeKey} />
+);
 
 export const CHAPTER_GROUPS: Record<string, [number, number]> = {
   intro: [1, 1],
@@ -485,14 +487,14 @@ export const CHAPTERS: Array<{
           <FileDropBox />
         </P>
         <P>
-          If you want me to colorize a specific piece, reach out via{" "}
+          If you want me to color a specific piece, reach out via{" "}
           <a href="mailto:cxielamiko@gmail.com">cxielamiko@gmail.com</a> or{" "}
           <a href="https://t.me/vitalypavlenko">https://t.me/vitalypavlenko</a>
         </P>
       </>
     ),
     composers: [
-      "Someone_Like_You_easy_piano",
+      "someone-like-you",
       "someone-you-loved-lewis-capaldi",
       "Ed_Sheeran_Perfect",
       "dont-stop-believing-piano",
@@ -721,22 +723,21 @@ export const CHAPTERS: Array<{
         </P>
         <P>This situation is called "double-tonic". {q("richards")}</P>
         <P>
-          In this chapter I've colored all pieces as being in major scale. In
-          the analysis of "Despacito" I'll teach you how to change this coloring
-          in any piece to your liking.
+          Below I present two colorings: major next to minor. I've chosen the
+          minor coloring inside the scores. To learn how to change the coloring,
+          read instructions inside "Despacito".
         </P>
       </>
     ),
     composers: [
       "despacito-piano-cover-peter-bence",
       "river-flows-in-you",
-      "alan-walker---alone-piano",
       "Yann_Tiersen_Amelie",
-      "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",
-      "Mad_world_Piano",
       "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK",
       "Let_Her_Go_Passenger",
       "Another_Love__-_Tom_Odell_Professional",
+      "alan-walker---alone-piano",
+      "old-town-road---lil-nas-x-ft.-billy-ray-cyrus",
     ],
   },
   {
@@ -1098,6 +1099,7 @@ export const CHAPTERS: Array<{
       "dragonborn---skyrim-theme-song-piano-solo",
       "solas---jamie-duffy",
       "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2",
+      "Mad_world_Piano",
     ],
   },
   {

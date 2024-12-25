@@ -5329,7 +5329,7 @@ export const corpora: CorpusEntry[] = [
       "All_Of_Me_-_John_Legend_Piano_Cover_-_ReiK", // John Legend
       "Mad_world_Piano", // Roland Orzabal
       "mariage-d-amour---paul-de-senneville-marriage-d-amour", // Paul de Senneville
-      "Someone_Like_You_easy_piano", // Adele
+      "someone-like-you", // Adele
       "my-heart-will-go-on", // James Horner
       "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2", // Yugo Kanno
       "Carol_of_the_Bells", // Mykola Leontovych

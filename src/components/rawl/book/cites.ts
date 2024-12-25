@@ -65,4 +65,15 @@ export const CITES: Record<string, Citation> = {
 }
 `,
   },
+  vice_despacito: {
+    bibtex: `@online{vice_despacito,
+  author    = {Emily Bootle},
+  title     = {The Actual Science Behind Why “Despacito” Bangs So Damn Hard},
+  year      = {2017},
+  url       = {https://www.vice.com/en/article/why-despacito-is-so-catchy-music-theory},
+  urldate   = {2024-12-25},
+  note      = {Accessed: 2024-12-25}
+}
+`,
+  },
 } as const;

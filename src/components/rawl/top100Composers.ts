@@ -138,7 +138,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     displayTitle: "Mariage d'Amour",
   },
   {
-    slug: "Someone_Like_You_easy_piano",
+    slug: "someone-like-you",
     composer: "Adele",
     chords: MAJOR_MODE.chords,
     displayTitle: "Someone Like You",

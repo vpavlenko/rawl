@@ -24,11 +24,20 @@ const CitationIcon = styled.span<{ hasUrl?: boolean }>`
   }
 `;
 
-const CitationPopup = styled.div`
+const CitationPopup = styled.div<{ position: "right" | "below-left" }>`
   position: absolute;
-  left: calc(100% + 12px);
-  top: 50%;
-  transform: translateY(-50%);
+  ${(props) =>
+    props.position === "right"
+      ? `
+    left: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%);
+  `
+      : `
+    right: -12px;
+    top: calc(100% + 12px);
+    transform: none;
+  `}
   background: rgba(0, 0, 0, 0.95);
   padding: 20px;
   border-radius: 8px;
@@ -41,14 +50,28 @@ const CitationPopup = styled.div`
   &:before {
     content: "";
     position: absolute;
-    left: -6px;
-    top: 50%;
-    transform: translateY(-50%);
+    ${(props) =>
+      props.position === "right"
+        ? `
+      left: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-right: 6px solid #444;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: none;
+    `
+        : `
+      top: -6px;
+      right: 12px;
+      transform: none;
+      border-bottom: 6px solid #444;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: none;
+    `}
     width: 0;
     height: 0;
-    border-top: 6px solid transparent;
-    border-bottom: 6px solid transparent;
-    border-right: 6px solid #444;
   }
 `;
 
@@ -60,6 +83,10 @@ export const Citation: React.FC<CitationProps> = ({ citeKey }) => {
   const [showCitation, setShowCitation] = React.useState(false);
   const [formattedCitation, setFormattedCitation] = React.useState<string>("");
   const [citationUrl, setCitationUrl] = React.useState<string | undefined>();
+  const [position, setPosition] = React.useState<"right" | "below-left">(
+    "right",
+  );
+  const iconRef = React.useRef<HTMLSpanElement>(null);
 
   React.useEffect(() => {
     const cite = new Cite(CITES[citeKey].bibtex);
@@ -93,6 +120,16 @@ export const Citation: React.FC<CitationProps> = ({ citeKey }) => {
     setFormattedCitation(formattedText);
   }, [citeKey]);
 
+  const handleMouseEnter = () => {
+    if (iconRef.current) {
+      const rect = iconRef.current.getBoundingClientRect();
+      const rightSpace = window.innerWidth - rect.right;
+      // If there's not enough space on the right (300px for tooltip + 32px padding), show below-left
+      setPosition(rightSpace < 332 ? "below-left" : "right");
+    }
+    setShowCitation(true);
+  };
+
   const handleIconClick = (e: React.MouseEvent) => {
     if (citationUrl) {
       e.stopPropagation();
@@ -103,8 +140,9 @@ export const Citation: React.FC<CitationProps> = ({ citeKey }) => {
   return (
     <CitationContainer>
       <CitationIcon
+        ref={iconRef}
         hasUrl={!!citationUrl}
-        onMouseEnter={() => setShowCitation(true)}
+        onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setShowCitation(false)}
         onClick={handleIconClick}
       >
@@ -112,7 +150,7 @@ export const Citation: React.FC<CitationProps> = ({ citeKey }) => {
       </CitationIcon>
 
       {showCitation && (
-        <CitationPopup>
+        <CitationPopup position={position}>
           <style>{`.grey-text { color: #888; }`}</style>
           <span dangerouslySetInnerHTML={{ __html: formattedCitation }} />
         </CitationPopup>

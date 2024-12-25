@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import styled from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
-import { a, c, k } from "./book/chapters";
+import { a, c, k, q } from "./book/chapters";
 
 const Label = styled.span`
   font-weight: bold;
@@ -81,9 +81,10 @@ export const NARRATIVES: Record<string, { qa: QAPair[] }> = {
       {
         q: (
           <>
-            Read the
-            https://www.vice.com/en/article/why-despacito-is-so-catchy-music-theory/.
-            Then I'll teach you how to recolor.
+            People argue about the tonic here. {q("vice_despacito")} I'll teach
+            you how to recolor. Select the measure number 1. Then, hover any
+            note to make it a white tonic note. To apply the coloring, click on
+            the desired tonic.
           </>
         ),
       },

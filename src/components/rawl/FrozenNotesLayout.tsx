@@ -610,21 +610,23 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
   useEffect(() => {
     if (!measuresAndBeats || !analysis?.snippets) return;
 
-    const bookIndexSnippet = analysis.snippets.find((s) =>
+    const bookIndexSnippets = analysis.snippets.filter((s) =>
       s.tag.startsWith("book:index"),
     );
-    if (
-      bookIndexSnippet &&
-      bookIndexSnippet.measuresSpan &&
-      !bookIndexSnippet.secondsSpan
-    ) {
-      const [startMeasure, endMeasure] = bookIndexSnippet.measuresSpan;
-      const startTime = measuresAndBeats.measures[startMeasure - 1];
-      const endTime = measuresAndBeats.measures[endMeasure];
 
-      // Update the snippet with secondsSpan
+    const needsUpdate = bookIndexSnippets.some((s) => !s.secondsSpan);
+    if (needsUpdate) {
+      // Update all book:index snippets with secondsSpan
       const updatedSnippets = analysis.snippets.map((s) => {
-        if (s === bookIndexSnippet) {
+        if (
+          s.tag.startsWith("book:index") &&
+          s.measuresSpan &&
+          !s.secondsSpan
+        ) {
+          const [startMeasure, endMeasure] = s.measuresSpan;
+          const startTime = measuresAndBeats.measures[startMeasure - 1];
+          const endTime = measuresAndBeats.measures[endMeasure];
+
           return {
             ...s,
             secondsSpan: [startTime, endTime] as SecondsSpan,

@@ -59,10 +59,8 @@ const ComposerItem = styled.div`
 const ComposerLink = styled.a`
   color: white;
   text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 8px;
   cursor: pointer;
+  display: inline;
 `;
 
 const ComposerWrapper = styled.div`
@@ -212,11 +210,11 @@ export const ComposerTitle: React.FC<{
 
 const getChapterSlug = (chapter: string) => slugify(chapter.toLowerCase());
 
-const ComposerLinkWithChat: React.FC<{
+export const CompositionLink: React.FC<{
   composer: (typeof TOP_100_COMPOSERS)[number];
-  onLinkClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
-  chatIconStyle?: React.CSSProperties;
-}> = ({ composer, onLinkClick, chatIconStyle }) => (
+  onLinkClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  showNarrativeIcon?: boolean;
+}> = ({ composer, onLinkClick, showNarrativeIcon = false }) => (
   <ComposerLink
     href={`/f/${composer.slug}`}
     target="_blank"
@@ -228,8 +226,8 @@ const ComposerLinkWithChat: React.FC<{
       displayTitle={composer.displayTitle}
       isVocal={composer.isVocal}
     />
-    {NARRATIVES[composer.slug] && (
-      <span style={{ marginLeft: "8px", color: "#999", ...chatIconStyle }}>
+    {showNarrativeIcon && NARRATIVES[composer.slug] && (
+      <span style={{ marginLeft: "12px", color: "#999" }}>
         💬 {NARRATIVES[composer.slug].qa.length}
       </span>
     )}
@@ -367,12 +365,12 @@ const Book: React.FC = () => {
                   <GroupContainer>
                     <ComposersGrid>
                       <ComposerWrapper>
-                        <ComposerLinkWithChat
+                        <CompositionLink
                           composer={TOP_100_COMPOSERS.find(
                             (c) => c.slug === "happy-birthday",
                           )}
                           onLinkClick={handleComposerLinkClick}
-                          chatIconStyle={{ marginLeft: "12px" }}
+                          showNarrativeIcon={true}
                         />
                       </ComposerWrapper>
                     </ComposersGrid>
@@ -383,18 +381,7 @@ const Book: React.FC = () => {
                     <CorpusLink slug={MUSESCORE_TOP_100_SLUG} />
                   </div>
                   {TOP_100_COMPOSERS.slice(0, 100).map((composer) => (
-                    <ComposerLink
-                      href={`/f/${composer.slug}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <ComposerTitle
-                        key={composer.slug}
-                        composer={composer.composer}
-                        displayTitle={composer.displayTitle}
-                        isVocal={composer.isVocal}
-                      />
-                    </ComposerLink>
+                    <CompositionLink composer={composer} />
                   ))}
                 </ComposerListColumn>
               </TwoColumnLayout>
@@ -428,10 +415,10 @@ const Book: React.FC = () => {
                     return (
                       <ComposerItem key={composer.slug}>
                         <ComposerWrapper>
-                          <ComposerLinkWithChat
+                          <CompositionLink
                             composer={composer}
                             onLinkClick={handleComposerLinkClick}
-                            chatIconStyle={{ marginLeft: "12px" }}
+                            showNarrativeIcon={true}
                           />
                         </ComposerWrapper>
                         {snippets.map((snippet) => (
@@ -476,7 +463,7 @@ const Book: React.FC = () => {
                       )
                       .map((composer) => (
                         <ComposerListItem key={composer.slug}>
-                          <ComposerLinkWithChat
+                          <CompositionLink
                             composer={composer}
                             onLinkClick={handleComposerLinkClick}
                           />

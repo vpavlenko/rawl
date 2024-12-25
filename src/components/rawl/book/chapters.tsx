@@ -11,6 +11,7 @@ import {
 import ChordStairs, { TonicProvider } from "../legends/ChordStairs";
 import { PianoLegend } from "../legends/PianoLegend";
 import { TOP_100_COMPOSERS } from "../top100Composers";
+import { CompositionLink } from "./Book";
 import { Citation } from "./Citations";
 import { CITES } from "./cites";
 import { FileDropBox } from "./FileDropBox";
@@ -40,6 +41,16 @@ const C = ({ c, title }: { c: Chord[]; title: string }) => (
       playbackMode="together"
     />
   </span>
+);
+
+const cl = (slug: string) => (
+  <>
+    “
+    <CompositionLink
+      composer={TOP_100_COMPOSERS.find((c) => c.slug === slug)}
+    />
+    ”
+  </>
 );
 
 export const c = (strings: TemplateStringsArray) => {
@@ -1172,6 +1183,33 @@ export const CHAPTERS: Array<{
       title: "major with V/vi",
       chords: ["ii", "IV", "vi", "I", "iii", "V/vi", "V", "V7"],
     },
+    pretext: () => (
+      <>
+        <h2>V7/vi</h2>
+        <P>
+          Another applied chord that's common is {c`V/vi`} or {c`V7/vi`}. It's
+          usually resolved as {c`V7/vi vi`}, therefore tonicizing a {c`vi`}{" "}
+          chord making it a local tonic: {c`V7/vi vi`} in C major equals to{" "}
+          {ct(`V7 i`, -3)} in A minor. So, this applied chord tonicizes a
+          relative minor.
+        </P>
+        <h2>Vsus4</h2>
+        <P>
+          There's a frequent diatonic chord that isn't either minor or major
+          chord: a {c`Vsus4`} chord. It has intervals of 5+2 semitones. It's
+          most commonly resolved as {c`Vsus4 V`}, maybe further as{" "}
+          {c`Vsus4 V I`}. We've seen it previously in {cl("Pokemon_Theme_Song")}
+          . Sometimes it's used as {c`Vsus47`}: {c`Vsus47 V7 I`}
+        </P>
+        <P>
+          <i>sus4</i> means that a {ct(`1`, 12)} in it - so called a{" "}
+          <i>perfect fourth</i> (i.e. 5 semitones) over the root - is{" "}
+          <i>suspended</i> and then resolved into {c`7`}: {c`1 7 Vsus4 V`}.
+          Although in modern composition it's not necessarily resolved:{" "}
+          {s`V:sus4`} {s`V:sus4_unresolved`}
+        </P>
+      </>
+    ),
     composers: [
       "your-song-piano",
       "sia---snowman",
@@ -1219,7 +1257,14 @@ export const CHAPTERS: Array<{
     titleChords: ["1", "b3", "4", "5", "b7"],
     pretext: () => (
       <>
-        <P>{k("blues-scale")}</P>
+        <P>
+          {k("blues-scale")} {k("minor-pentatonic")}
+        </P>
+        <P>
+          {s`scale:blues`} {s`scale:minor_pentatonic`}{" "}
+          {s`scale:major_pentatonic`} {s`scale:hexatonic_minor`}{" "}
+          {s`scale:hexatonic_major`}
+        </P>
       </>
     ),
     mode: {

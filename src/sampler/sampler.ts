@@ -272,7 +272,7 @@ export const playArpeggiatedChordSequence = async (
       const eventId = Tone.Transport.schedule((time) => {
         sampler.triggerAttackRelease(
           Tone.Frequency(note + C3_MIDI_NUMBER, "midi").toNote(),
-          0.5,
+          0.7,
           time,
         );
 
@@ -285,7 +285,7 @@ export const playArpeggiatedChordSequence = async (
         if (noteIndex === chord.length - 1 && onChordEnd) {
           Tone.Transport.schedule(() => {
             onChordEnd(chordIndex);
-          }, time + 0.6); // 600ms animation duration
+          }, time + 0.7); // 600ms animation duration
         }
       }, noteTime);
 

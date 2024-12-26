@@ -1,4 +1,4 @@
-import { MAJOR_MODE, STRICT_NATURAL_MINOR } from "./legends/chords";
+import { MAJOR_MODE, MINOR_MODE, STRICT_NATURAL_MINOR } from "./legends/chords";
 
 export type Top100Composer = {
   slug: string;
@@ -13,7 +13,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "river-flows-in-you",
     composer: "Yiruma",
     displayTitle: "River Flows in You",
-    chords: ["vi", "I", "IV", "V"],
+    chords: MINOR_MODE.chords,
   },
   {
     slug: "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
@@ -266,7 +266,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "despacito-piano-cover-peter-bence",
     composer: "Luis Fonsi",
     displayTitle: "Despacito",
-    chords: ["vi", "I", "IV", "V"],
+    chords: ["i", "bVI", "bVII", "bIII"],
     isVocal: true,
   },
   {

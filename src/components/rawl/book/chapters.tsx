@@ -146,10 +146,10 @@ export const CHAPTER_GROUPS: Record<string, [number, number]> = {
   "loops: four-chord progressions": [2, 6],
   "diatonic functional harmony": [7, 11],
   "borrowed chords": [12, 14],
-  "applied chords and modulation": [15, 18],
-  scales: [19, 19],
-  "seventh and extended chords": [20, 22],
-  style: [23, 23],
+  "applied chords and modulation": [15, 19],
+  scales: [20, 20],
+  "seventh and extended chords": [21, 23],
+  style: [24, 24],
 };
 
 export const CHAPTERS: Array<{
@@ -1196,7 +1196,7 @@ export const CHAPTERS: Array<{
     titleChords: ["V7/vi", "vi"],
     mode: {
       title: "major with V/vi",
-      chords: ["ii", "IV", "vi", "I", "iii", "V/vi", "V", "V7"],
+      chords: ["ii", "IV", "vi", "I", "iii", "V/vi", "Vsus4", "V", "V7"],
     },
     pretext: () => (
       <>
@@ -1206,15 +1206,33 @@ export const CHAPTERS: Array<{
           usually resolved as {c`V7/vi vi`}, therefore tonicizing a {c`vi`}{" "}
           chord making it a local tonic: {c`V7/vi vi`} in C major equals to{" "}
           {ct(`V7 i`, -3)} in A minor. So, this applied chord tonicizes a
-          relative minor.
+          relative minor. In a context this sounds like{" "}
+          {ct(`I V7 I V7/vi vi V7 I`, -12)}
         </P>
+      </>
+    ),
+    composers: [
+      "your-song-piano",
+      "sia---snowman",
+      "my-lie-watashi-no-uso---your-lie-in-april",
+      "kimi-no-na-wa---sparkle-theishter-2016",
+    ],
+  },
+  {
+    title: "Vsus4",
+    titleChords: ["Vsus4", "V"],
+    mode: [
+      { title: "major", chords: [...MAJOR_MODE.chords, "Vsus4"] },
+      { title: "minor", chords: [...MINOR_MODE.chords, "Vsus4"] },
+    ],
+    pretext: () => (
+      <>
         <h2>{rn`Vsus4`}</h2>
         <P>
           There's a frequent diatonic chord that isn't either minor or major
           chord: a {c`Vsus4`} chord. It has intervals of 5+2 semitones. It's
           most commonly resolved as {c`Vsus4 V`}, maybe further as{" "}
-          {c`Vsus4 V I`}. We've seen it previously in {cl("Pokemon_Theme_Song")}
-          . Sometimes it's used as {c`Vsus47`}: {c`Vsus47 V7 I`}
+          {c`Vsus4 V I`}. Sometimes it's used as {c`Vsus47`}: {c`Vsus47 V7 I`}
         </P>
         <P>
           <i>sus4</i> means that a {ct(`1`, 12)} in it - so called a{" "}
@@ -1225,13 +1243,7 @@ export const CHAPTERS: Array<{
         </P>
       </>
     ),
-    composers: [
-      "your-song-piano",
-      "sia---snowman",
-      "my-lie-watashi-no-uso---your-lie-in-april",
-      "my-heart-will-go-on",
-      "kimi-no-na-wa---sparkle-theishter-2016",
-    ],
+    composers: ["Pokemon_Theme_Song", "my-heart-will-go-on"],
   },
   {
     title: "V7/ii",

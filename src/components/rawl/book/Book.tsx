@@ -132,7 +132,7 @@ const ChapterButton = styled.button<{ isSelected: boolean }>`
 
   ${ChapterTitleTooltip} {
     position: absolute;
-    top: 60px;
+    top: 53px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -291,7 +291,7 @@ const findChapterForComposer = (composerSlug: string): string | null => {
 
 const ChapterArrow = styled.div`
   position: absolute;
-  bottom: -35px;
+  bottom: -28px;
   left: 50%;
   transform: translateX(-50%);
   width: 1px;

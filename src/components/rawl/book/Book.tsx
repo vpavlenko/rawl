@@ -289,6 +289,8 @@ const Book: React.FC = () => {
   const [hoveredChapter, setHoveredChapter] = React.useState<string | null>(
     null,
   );
+  const [hoveredComposerSlug, setHoveredComposerSlug] =
+    React.useState<string>("happy-birthday");
 
   if (!appContext) throw new Error("AppContext not found");
   const { analyses, eject } = appContext;
@@ -359,49 +361,68 @@ const Book: React.FC = () => {
           <FoldablePianoLegend mode={currentChapter.mode} />
           {currentChapter.pretext &&
             (currentChapter.title === "Intro" ? (
-              <TwoColumnLayout>
-                <ReadableTextBlock>
-                  <SnippetContainer>
-                    <SnippetList
-                      snippets={[
-                        analyses[`f/happy-birthday`]?.snippets.find(
-                          (snippet) => snippet.tag === "book:index",
-                        ),
-                      ].map((snippet) => ({
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "20px",
+                }}
+              >
+                <SnippetContainer style={{ minHeight: "235px" }}>
+                  <SnippetList
+                    snippets={[
+                      analyses[`f/${hoveredComposerSlug}`]?.snippets.find(
+                        (snippet) => snippet.tag === "book:index",
+                      ),
+                    ]
+                      .filter(Boolean)
+                      .map((snippet) => ({
                         ...snippet,
-                        composerSlug: "happy-birthday",
+                        composerSlug: hoveredComposerSlug,
                       }))}
-                      onSnippetClick={handleSnippetClick}
-                      loadingSnippets={loadingSnippets}
-                      isPreview={true}
-                      noteHeight={3}
-                    />
-                  </SnippetContainer>
-
-                  {currentChapter.pretext()}
-                  <GroupContainer>
-                    <ComposersGrid>
-                      <ComposerWrapper>
-                        <CompositionLink
-                          composer={TOP_100_COMPOSERS.find(
-                            (c) => c.slug === "happy-birthday",
-                          )}
-                          onLinkClick={handleComposerLinkClick}
-                          showNarrativeIcon={true}
-                        />
-                      </ComposerWrapper>
-                    </ComposersGrid>
-                  </GroupContainer>
-                </ReadableTextBlock>
-                <ComposerListColumn>
-                  <div style={{ width: "100%", marginBottom: "1em" }}>
-                    <CorpusLink slug={MUSESCORE_TOP_100_SLUG} />
-                  </div>
-                  {TOP_100_COMPOSERS.slice(0, 100).map((composer) => (
-                    <CompositionLink composer={composer} />
-                  ))}
-                </ComposerListColumn>
-              </TwoColumnLayout>
+                    onSnippetClick={handleSnippetClick}
+                    loadingSnippets={loadingSnippets}
+                    isPreview={true}
+                    noteHeight={3}
+                  />
+                </SnippetContainer>
+                <TwoColumnLayout>
+                  <ReadableTextBlock>
+                    {currentChapter.pretext()}
+                    <GroupContainer>
+                      <ComposersGrid>
+                        <ComposerWrapper>
+                          <CompositionLink
+                            composer={TOP_100_COMPOSERS.find(
+                              (c) => c.slug === "happy-birthday",
+                            )}
+                            onLinkClick={handleComposerLinkClick}
+                            showNarrativeIcon={true}
+                          />
+                        </ComposerWrapper>
+                      </ComposersGrid>
+                    </GroupContainer>
+                  </ReadableTextBlock>
+                  <ComposerListColumn>
+                    <div style={{ width: "100%", marginBottom: "1em" }}>
+                      <CorpusLink slug={MUSESCORE_TOP_100_SLUG} />
+                    </div>
+                    {TOP_100_COMPOSERS.slice(0, 100).map((composer) => (
+                      <div
+                        key={composer.slug}
+                        onMouseEnter={() =>
+                          setHoveredComposerSlug(composer.slug)
+                        }
+                        onMouseLeave={() =>
+                          setHoveredComposerSlug("happy-birthday")
+                        }
+                      >
+                        <CompositionLink composer={composer} />
+                      </div>
+                    ))}
+                  </ComposerListColumn>
+                </TwoColumnLayout>
+              </div>
             ) : (
               <ReadableTextBlock>{currentChapter.pretext()}</ReadableTextBlock>
             ))}

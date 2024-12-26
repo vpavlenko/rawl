@@ -45,7 +45,7 @@ const C = ({ c, title }: { c: Chord[]; title: string }) => (
 
 const rn = (strings: TemplateStringsArray) => (
   <span style={{ fontFamily: "Verdana", fontWeight: "bold" }}>
-    {strings[0]}
+    {strings[0].replace("7", "⁷")}
   </span>
 );
 
@@ -1338,6 +1338,56 @@ export const CHAPTERS: Array<{
       title: "",
       chords: ["ii7", "IVmaj7", "vi7", "Imaj7", "iii7", "V13"],
     },
+    pretext: () => (
+      <>
+        <h2>Diatonic seventh chords</h2>
+        <P>
+          The most frequent chords in Western music are triads. They are built
+          on a scale by taking every other note starting from the root.
+        </P>
+        <P>
+          Let's see what we get if we take four notes instead of three using the
+          same idea. Here's a major scale: {c`1 2 3 4 5 6 7 1 2 3 4 5 6 7 1`}
+        </P>
+        <P>
+          <ul>
+            <li>
+              {c`1 3 5 7`} {c`Imaj7`} {rn`Imaj7`} – intervals 4+3+4, a
+              combination of {c`I iii`}, a major seventh chord
+            </li>
+            <li>
+              {c`2 4 6 1`} {c`ii7`} {rn`ii7`} – intervals 3+4+3, a combination
+              of {c`ii IV`}, a minor seventh chord
+            </li>
+            <li>
+              {c`3 5 7 2`} {c`iii7`} {rn`iii7`} – intervals 3+4+3, a combination
+              of {c`iii V`}, a minor seventh chord
+            </li>
+            <li>
+              {c`4 6 1 3`} {c`IVmaj7`} {rn`IVmaj7`} – intervals 4+3+4, a
+              combination of {c`IV vi`}
+            </li>
+            <li>
+              {c`5 7 2 4`} {c`V7`} {rn`V7`} – intervals 4+3+3, a combination of{" "}
+              {c`V viio`}, a dominant seventh chord
+            </li>
+            <li>
+              {c`6 1 3 5`} {c`vi7`} {rn`vi7`} – intervals 3+4+3, a combination
+              of {c`vi I`}, a minor seventh chord
+            </li>
+          </ul>
+        </P>
+        <P>
+          While it's easy to find minor seventh chords and dominanth seventh
+          chords in classical music (Mozart and Chopin), major seventh chords
+          emerged as a popular tool only since late 19th century. Erik Satie's
+          example below - {ct(`4 IVmaj7 IVmaj7 1 Imaj7 Imaj7`, 2)} - is the
+          earliest example I've found that consistently uses it as a main idea
+          of a piece.
+        </P>
+        <P></P>
+      </>
+    ),
     composers: [
       "Sweden_Minecraft",
       "Golden_Hour__JVKE_Updated_Ver.",

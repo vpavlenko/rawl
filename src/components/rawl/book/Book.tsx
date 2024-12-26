@@ -168,7 +168,6 @@ export const ReadableTextBlock = styled.div`
 `;
 
 const ComposerListColumn = styled.div`
-  margin-top: 30px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -183,7 +182,7 @@ const ComposerListColumn = styled.div`
 const TwoColumnLayout = styled.div`
   display: flex;
   gap: 10em;
-  margin: 20px 0px 100px 0px;
+  margin: 0px 0px 100px 0px;
   min-width: 43em;
 
   @media (max-width: ${43 + 10 + 15}em) {
@@ -292,6 +291,12 @@ const Book: React.FC = () => {
   const [hoveredComposerSlug, setHoveredComposerSlug] =
     React.useState<string>("happy-birthday");
 
+  React.useEffect(() => {
+    if (appContext.currentMidi?.slug) {
+      setHoveredComposerSlug(appContext.currentMidi.slug);
+    }
+  }, [appContext.currentMidi?.slug]);
+
   if (!appContext) throw new Error("AppContext not found");
   const { analyses, eject } = appContext;
   const [loadingSnippets, setLoadingSnippets] = React.useState<Set<string>>(
@@ -365,27 +370,43 @@ const Book: React.FC = () => {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: "20px",
+                  gap: "0px",
                 }}
               >
-                <SnippetContainer style={{ minHeight: "235px" }}>
-                  <SnippetList
-                    snippets={[
-                      analyses[`f/${hoveredComposerSlug}`]?.snippets.find(
-                        (snippet) => snippet.tag === "book:index",
-                      ),
-                    ]
-                      .filter(Boolean)
-                      .map((snippet) => ({
-                        ...snippet,
-                        composerSlug: hoveredComposerSlug,
-                      }))}
-                    onSnippetClick={handleSnippetClick}
-                    loadingSnippets={loadingSnippets}
-                    isPreview={true}
-                    noteHeight={3}
-                  />
-                </SnippetContainer>
+                <div>
+                  <div style={{ marginBottom: "10px" }}>
+                    <ComposerTitle
+                      composer={
+                        TOP_100_COMPOSERS.find(
+                          (c) => c.slug === hoveredComposerSlug,
+                        )?.composer || ""
+                      }
+                      displayTitle={
+                        TOP_100_COMPOSERS.find(
+                          (c) => c.slug === hoveredComposerSlug,
+                        )?.displayTitle || ""
+                      }
+                    />
+                  </div>
+                  <div style={{ minHeight: "235px" }}>
+                    <SnippetList
+                      snippets={[
+                        analyses[`f/${hoveredComposerSlug}`]?.snippets
+                          .filter((snippet) => snippet.tag === "book:index")
+                          .pop(),
+                      ]
+                        .filter(Boolean)
+                        .map((snippet) => ({
+                          ...snippet,
+                          composerSlug: hoveredComposerSlug,
+                        }))}
+                      onSnippetClick={handleSnippetClick}
+                      loadingSnippets={loadingSnippets}
+                      isPreview={true}
+                      noteHeight={3}
+                    />
+                  </div>
+                </div>
                 <TwoColumnLayout>
                   <ReadableTextBlock>
                     {currentChapter.pretext()}
@@ -414,10 +435,30 @@ const Book: React.FC = () => {
                           setHoveredComposerSlug(composer.slug)
                         }
                         onMouseLeave={() =>
-                          setHoveredComposerSlug("happy-birthday")
+                          setHoveredComposerSlug(
+                            appContext.currentMidi?.slug || "happy-birthday",
+                          )
                         }
+                        style={{ cursor: "pointer" }}
                       >
-                        <CompositionLink composer={composer} />
+                        <CompositionLink
+                          composer={composer}
+                          onLinkClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            const snippet = analyses[
+                              `f/${composer.slug}`
+                            ]?.snippets
+                              .filter((s) => s.tag === "book:index")
+                              .pop();
+                            if (snippet) {
+                              handleSnippetClick({
+                                ...snippet,
+                                composerSlug: composer.slug,
+                              });
+                            }
+                          }}
+                        />
                       </div>
                     ))}
                   </ComposerListColumn>

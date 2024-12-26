@@ -19,6 +19,7 @@ interface EnhancedFrozenNotesProps {
   startMeasure: number;
   phraseStarts?: number[];
   isPreview?: boolean;
+  hoveredColors?: string[] | null;
 }
 
 const FrozenNotesContainer = styled.div`
@@ -44,6 +45,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
   timeRange,
   phraseStarts,
   isPreview = false,
+  hoveredColors,
 }) => {
   const midiRange = useMemo(() => {
     let min = Infinity;
@@ -81,9 +83,9 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
         () => {}, // handleMouseLeave
         toX,
         false, // enableManualRemeasuring
-        null,
+        hoveredColors,
       ),
-    [midiNumberToY, noteHeight, toX],
+    [midiNumberToY, noteHeight, toX, hoveredColors],
   );
 
   const dummyMeasureSelection = useMemo(

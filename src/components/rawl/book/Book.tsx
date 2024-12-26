@@ -1,6 +1,7 @@
 import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
+import { useState } from "react";
 import { Redirect, useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { slugify } from "transliteration";
@@ -22,7 +23,7 @@ import {
 } from "./chapters";
 
 const NAV_HORIZONTAL_GAP = 15;
-const NAV_CHORD_STAIRS_SCALE = 0.7;
+const NAV_CHORD_STAIRS_SCALE = 0.6;
 
 type EnhancedSnippet = Snippet & {
   composerSlug: string;
@@ -319,6 +320,7 @@ const Book: React.FC = () => {
   );
   const [hoveredComposerSlug, setHoveredComposerSlug] =
     React.useState<string>("happy-birthday");
+  const [hoveredColors, setHoveredColors] = useState<string[] | null>(null);
 
   React.useEffect(() => {
     if (appContext.currentMidi?.slug) {
@@ -396,7 +398,10 @@ const Book: React.FC = () => {
     return (
       <>
         <div style={{ marginTop: "40px" }}>
-          <FoldablePianoLegend mode={currentChapter.mode} />
+          <FoldablePianoLegend
+            mode={currentChapter.mode}
+            setHoveredColors={setHoveredColors}
+          />
           {currentChapter.pretext &&
             (currentChapter.title === "Intro" ? (
               <div
@@ -437,6 +442,7 @@ const Book: React.FC = () => {
                       loadingSnippets={loadingSnippets}
                       isPreview={true}
                       noteHeight={3}
+                      hoveredColors={hoveredColors}
                     />
                   </div>
                 </div>
@@ -541,6 +547,7 @@ const Book: React.FC = () => {
                               loadingSnippets={loadingSnippets}
                               isPreview={true}
                               noteHeight={3}
+                              hoveredColors={hoveredColors}
                             />
                           </SnippetContainer>
                         ))}

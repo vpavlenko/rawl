@@ -72,6 +72,7 @@ interface SnippetItemProps {
   deleteSnippet?: (index: number) => void;
   noteHeight: number;
   isPreview?: boolean;
+  hoveredColors?: string[] | null;
 }
 
 const SnippetItem: React.FC<SnippetItemProps> = ({
@@ -80,6 +81,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
   deleteSnippet,
   noteHeight,
   isPreview = false,
+  hoveredColors,
 }) => {
   const appContext = useContext(AppContext);
   const { currentMidi } = appContext;
@@ -237,6 +239,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
           timeRange={timeRange}
           isPreview={isPreview}
           phraseStarts={snippet.phraseStarts || []}
+          hoveredColors={hoveredColors}
         />
       </SnippetContent>
     </SnippetItemContainer>

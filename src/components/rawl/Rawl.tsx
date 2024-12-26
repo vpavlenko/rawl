@@ -489,16 +489,22 @@ const Rawl: React.FC<RawlProps> = ({
     ],
   );
 
+  const [hoveredColors, setHoveredColors] = useState<string[] | null>(null);
+
   const coloredNotes: ColoredNotesInVoices = useMemo(
     () =>
       notes.map((notesInVoice, voiceIndex) =>
-        notesInVoice.map((note) => ({
-          ...note,
-          color: note.isDrum
-            ? "noteColor_drum"
-            : getNoteColor(note, futureAnalysis, measuresAndBeats.measures),
-          isActive: voiceMask[voiceIndex],
-        })),
+        notesInVoice.map((note) => {
+          const colorPitchClass = note.isDrum ? -1 : note.note.midiNumber % 12;
+          return {
+            ...note,
+            color: note.isDrum
+              ? "noteColor_drum"
+              : getNoteColor(note, futureAnalysis, measuresAndBeats.measures),
+            isActive: voiceMask[voiceIndex],
+            colorPitchClass,
+          };
+        }),
       ),
     [notes, futureAnalysis, measuresAndBeats, voiceMask],
   );
@@ -521,6 +527,8 @@ const Rawl: React.FC<RawlProps> = ({
       currentTonic,
       togglePause,
       seek,
+      hoveredColors,
+      setHoveredColors,
     }),
     [
       coloredNotes,
@@ -538,6 +546,8 @@ const Rawl: React.FC<RawlProps> = ({
       currentTonic,
       togglePause,
       seek,
+      hoveredColors,
+      setHoveredColors,
     ],
   );
 

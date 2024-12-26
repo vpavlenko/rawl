@@ -33,6 +33,7 @@ type ControlPanelProps = {
   setSecondWidth: (width: number) => void;
   slug?: string;
   currentTonic?: number;
+  setHoveredColors: (colors: string[] | null) => void;
 };
 
 const ControlPanel: React.FC<ControlPanelProps> = ({
@@ -42,6 +43,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   setSecondWidth,
   slug,
   currentTonic,
+  setHoveredColors,
 }) => {
   const { registerKeyboardHandler, unregisterKeyboardHandler } =
     useContext(AppContext);
@@ -90,7 +92,11 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
 
   return (
     <>
-      <FoldablePianoLegend slug={slug} currentTonic={currentTonic} />
+      <FoldablePianoLegend
+        slug={slug}
+        currentTonic={currentTonic}
+        setHoveredColors={setHoveredColors}
+      />
       <div
         style={{
           position: "fixed",

@@ -73,6 +73,7 @@ export const Voice: React.FC<{
   xToSeconds: SecondsConverter;
   sectionSpan?: MeasuresSpan;
   enableManualRemeasuring: boolean;
+  hoveredColors: string[] | null;
 }> = ({
   notes,
   measuresAndBeats,
@@ -92,6 +93,7 @@ export const Voice: React.FC<{
   xToSeconds,
   sectionSpan,
   enableManualRemeasuring,
+  hoveredColors,
 }) => {
   // To restore it, we need to lock the calculation of frozenRange and frozenHeight
   // and don't change it after loading the notes.
@@ -132,6 +134,7 @@ export const Voice: React.FC<{
         DUMMY_CALLBACK,
         secondsToX,
         enableManualRemeasuring,
+        hoveredColors,
       ),
       frozenHeight: height,
       frozenMidiRange: midiRange,
@@ -145,6 +148,7 @@ export const Voice: React.FC<{
       noteHeight,
       secondsToX,
       enableManualRemeasuring,
+      hoveredColors,
     ],
   );
 
@@ -240,6 +244,8 @@ export type SystemLayoutProps = {
   currentTonic: number;
   togglePause?: () => void;
   seek?: (ms: number) => void;
+  hoveredColors: string[] | null;
+  setHoveredColors: (colors: string[] | null) => void;
 };
 
 export const StackedSystemLayout: React.FC<
@@ -262,6 +268,8 @@ export const StackedSystemLayout: React.FC<
   currentTonic,
   togglePause,
   seek,
+  hoveredColors,
+  setHoveredColors,
 }) => {
   const [noteHeight, setNoteHeight] = useState<number>(3);
   const [secondWidth, setSecondWidth] = useState<number>(40);
@@ -508,6 +516,7 @@ export const StackedSystemLayout: React.FC<
                     xToSeconds={xToSeconds}
                     sectionSpan={sectionSpan}
                     enableManualRemeasuring={enableManualRemeasuring}
+                    hoveredColors={hoveredColors}
                   />
                 </div>
               ))}
@@ -525,6 +534,7 @@ export const StackedSystemLayout: React.FC<
             setSecondWidth={setSecondWidth}
             slug={slug}
             currentTonic={currentTonic}
+            setHoveredColors={setHoveredColors}
           />
         )}
       </div>
@@ -543,10 +553,12 @@ export const MergedSystemLayout: React.FC<
     voiceNames,
     voiceMask,
     setVoiceMask,
-    enableManualRemeasuring,
+    enableManualRemeasuring = false,
     isEmbedded = false,
     slug,
     currentTonic,
+    hoveredColors,
+    setHoveredColors,
   } = props;
 
   const flattenedNotes = useMemo(
@@ -568,6 +580,8 @@ export const MergedSystemLayout: React.FC<
         enableManualRemeasuring={enableManualRemeasuring}
         isEmbedded={isEmbedded}
         slug={slug}
+        hoveredColors={hoveredColors}
+        setHoveredColors={setHoveredColors}
       />
       {!isEmbedded && (
         <MergedVoicesLegend

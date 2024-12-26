@@ -229,7 +229,8 @@ export const FoldablePianoLegend: React.FC<{
   slug?: string;
   mode?: Mode | Mode[];
   currentTonic?: number;
-}> = ({ slug, mode, currentTonic }) => {
+  setHoveredColors?: (colors: string[] | null) => void;
+}> = ({ slug, mode, currentTonic, setHoveredColors }) => {
   const [showLegend, setShowLegend] = useLocalStorage("showLegend", true);
   const [hoveredScale, setHoveredScale] = React.useState<
     "major" | "minor" | null
@@ -279,6 +280,7 @@ export const FoldablePianoLegend: React.FC<{
                   mode={modeItem}
                   chapterChords={chords}
                   currentTonic={currentTonic}
+                  setHoveredColors={setHoveredColors}
                 />
               ))}
               {chords && (
@@ -286,6 +288,7 @@ export const FoldablePianoLegend: React.FC<{
                   mode={CHROMATIC_CHORDS}
                   chapterChords={chords}
                   currentTonic={currentTonic}
+                  setHoveredColors={setHoveredColors}
                 />
               )}
               <div style={{ display: "flex", flexDirection: "column" }}>

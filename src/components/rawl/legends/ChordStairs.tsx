@@ -99,6 +99,7 @@ const ChordStairs: React.FC<{
   currentTonic?: number;
   scale?: number;
   playbackMode?: "separate" | "together" | "no";
+  setHoveredColors?: (colors: string[] | null) => void;
 }> = React.memo(
   ({
     mode,
@@ -106,6 +107,7 @@ const ChordStairs: React.FC<{
     currentTonic: propTonic,
     scale = 1,
     playbackMode = "separate",
+    setHoveredColors,
   }) => {
     const contextTonic = useTonicContext();
     const currentTonic = propTonic ?? contextTonic;
@@ -235,6 +237,23 @@ const ChordStairs: React.FC<{
       [currentTonic, playbackMode, rehydratedChords],
     );
 
+    const handleChordMouseEnter = useCallback(
+      (pitches: number[]) => {
+        if (setHoveredColors) {
+          setHoveredColors(
+            pitches.map((pitch) => `noteColor_${pitch % 12}_colors`),
+          );
+        }
+      },
+      [setHoveredColors],
+    );
+
+    const handleChordMouseLeave = useCallback(() => {
+      if (setHoveredColors) {
+        setHoveredColors(null);
+      }
+    }, [setHoveredColors]);
+
     return !hasIntersection && chapterChords ? (
       <></>
     ) : (
@@ -270,6 +289,8 @@ const ChordStairs: React.FC<{
               onClick={() =>
                 handleChordClick(name, positions, pitchOfMinPosition)
               }
+              onMouseEnter={() => handleChordMouseEnter(pitches)}
+              onMouseLeave={handleChordMouseLeave}
               clickable={playbackMode !== "no"}
               style={{
                 left: chordIndex * (scaledNoteWidth + scaledHorizontalGap),

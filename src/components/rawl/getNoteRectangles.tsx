@@ -123,6 +123,7 @@ export const getNoteRectangles = (
   handleMouseLeave: () => void,
   secondsToX: SecondsConverter,
   enableManualRemeasuring: boolean,
+  hoveredColors: string[] | null,
 ) => {
   return notes.map((note) => {
     const {
@@ -145,6 +146,8 @@ export const getNoteRectangles = (
         )
       : null;
     const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
+
+    const isHighlighted = !hoveredColors || hoveredColors.includes(color);
 
     return isDrum ? (
       isActive && (
@@ -174,16 +177,16 @@ export const getNoteRectangles = (
         className={`${color} voiceShape-${voiceIndex}`}
         style={{
           position: "absolute",
-          height: `${isActive ? noteHeight * 2 : 0.5}px`,
+          height: `${isActive && isHighlighted ? noteHeight * 2 : 0.5}px`,
           width,
           overflow: "visible",
-          top: isActive ? top : top + noteHeight * 2 - 0.5,
+          top: isActive && isHighlighted ? top : top + noteHeight * 2 - 0.5,
           left,
           pointerEvents: handleNoteClick ? "auto" : "none",
           zIndex: Math.round(10 + (width > 0 ? 1000 / width : 1000)),
           boxSizing: "border-box",
           display: "grid",
-          boxShadow: isActive ? "0 0 0px 0.5px black" : "",
+          boxShadow: isActive && isHighlighted ? "0 0 0px 0.5px black" : "",
           cursor: enableManualRemeasuring
             ? "e-resize"
             : handleNoteClick
@@ -199,7 +202,7 @@ export const getNoteRectangles = (
         onMouseEnter={(e) => !isDrum && handleMouseEnter(note)}
         onMouseLeave={() => !isDrum && handleMouseLeave()}
       >
-        {pathData && isActive && (
+        {pathData && isActive && isHighlighted && (
           <div style={{ position: "relative", width: "100%", height: "100%" }}>
             <svg
               style={{

@@ -81,6 +81,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
         () => {}, // handleMouseLeave
         toX,
         false, // enableManualRemeasuring
+        null,
       ),
     [midiNumberToY, noteHeight, toX],
   );

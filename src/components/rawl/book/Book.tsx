@@ -132,7 +132,7 @@ const ChapterButton = styled.button<{ isSelected: boolean }>`
 
   ${ChapterTitleTooltip} {
     position: absolute;
-    top: 53px;
+    top: 55px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -291,7 +291,7 @@ const findChapterForComposer = (composerSlug: string): string | null => {
 
 const ChapterArrow = styled.div`
   position: absolute;
-  bottom: -28px;
+  bottom: -30px;
   left: 50%;
   transform: translateX(-50%);
   width: 1px;
@@ -413,17 +413,11 @@ const Book: React.FC = () => {
               >
                 <div>
                   <div style={{ marginBottom: "10px" }}>
-                    <ComposerTitle
-                      composer={
-                        TOP_100_COMPOSERS.find(
-                          (c) => c.slug === hoveredComposerSlug,
-                        )?.composer || ""
-                      }
-                      displayTitle={
-                        TOP_100_COMPOSERS.find(
-                          (c) => c.slug === hoveredComposerSlug,
-                        )?.displayTitle || ""
-                      }
+                    <CompositionLink
+                      composer={TOP_100_COMPOSERS.find(
+                        (c) => c.slug === hoveredComposerSlug,
+                      )}
+                      onLinkClick={handleComposerLinkClick}
                     />
                   </div>
                   <div style={{ minHeight: "235px" }}>

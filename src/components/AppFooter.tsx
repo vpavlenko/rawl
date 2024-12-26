@@ -37,7 +37,7 @@ const StyledAppFooter = styled.div`
   display: flex;
   align-items: center;
   padding: 0;
-  z-index: 1000;
+  z-index: 10000000;
   border-top: 1px solid var(--border);
 `;
 

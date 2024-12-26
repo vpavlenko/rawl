@@ -148,8 +148,8 @@ export const CHAPTER_GROUPS: Record<string, [number, number]> = {
   "borrowed chords": [12, 14],
   "applied chords and modulation": [15, 19],
   scales: [20, 20],
-  "seventh and extended chords": [21, 23],
-  style: [24, 24],
+  "seventh and extended chords": [21, 24],
+  style: [25, 25],
 };
 
 export const CHAPTERS: Array<{
@@ -1459,10 +1459,22 @@ export const CHAPTERS: Array<{
       "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book",
       "the_entertainer_scott_joplin",
       "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
+    ],
+  },
+  {
+    title: "V/V/V",
+    titleChords: ["V7/vi", "V7/ii", "V7/V", "V7"],
+    pretext: () => (
+      <>
+        <h2>Chain of dominants</h2>
+      </>
+    ),
+    composers: [
       "Liebestraum_No._3_in_A_Major",
       "dance-of-the-sugar-plum-fairy",
     ],
   },
+
   {
     title: "Style",
     pretext: () => (

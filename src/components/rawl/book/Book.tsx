@@ -281,6 +281,35 @@ const ChapterGroup = styled.div<{ isActive: boolean; hideHeader?: boolean }>`
   }
 `;
 
+const findChapterForComposer = (composerSlug: string): string | null => {
+  return (
+    CHAPTERS.find((chapter) => chapter.composers.includes(composerSlug))
+      ?.title ?? null
+  );
+};
+
+const ChapterArrow = styled.div`
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 30px;
+  background: #666;
+  pointer-events: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-bottom: 4px solid #666;
+  }
+`;
+
 const Book: React.FC = () => {
   const { slug } = useParams<{ slug?: string }>();
   const history = useHistory();
@@ -341,6 +370,10 @@ const Book: React.FC = () => {
       ) || "Intro"
     );
   }, [slug, chapterTitles]);
+
+  const hoveredComposerChapter = React.useMemo(() => {
+    return findChapterForComposer(hoveredComposerSlug);
+  }, [hoveredComposerSlug]);
 
   // Redirect from root to /100/intro
   if (!slug) {
@@ -663,10 +696,20 @@ const Book: React.FC = () => {
                         </NavChordWrapper>
                         <ChapterTitleTooltip
                           isSelected={selectedChapter === chapter.title}
-                          isHovered={hoveredChapter === chapter.title}
+                          isHovered={
+                            hoveredChapter === chapter.title ||
+                            (hoveredComposerChapter === chapter.title &&
+                              selectedChapter === "Intro" &&
+                              hoveredComposerChapter !== "Intro")
+                          }
                         >
                           {chapter.title}
                         </ChapterTitleTooltip>
+                        {hoveredComposerChapter === chapter.title &&
+                          selectedChapter === "Intro" &&
+                          hoveredComposerChapter !== "Intro" && (
+                            <ChapterArrow />
+                          )}
                       </ChapterButton>
                     ))}
                   </div>

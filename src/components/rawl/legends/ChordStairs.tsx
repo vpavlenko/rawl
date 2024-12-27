@@ -12,8 +12,10 @@ import {
   playArpeggiatedChord,
   playArpeggiatedChordSequence,
 } from "../../../sampler/sampler";
+import { PitchClass } from "../analysis";
 import { Mode } from "../book/chapters";
 import { Chord, formatChordName, rehydrateChords } from "./chords";
+import { convertChordToGuitarChord } from "./guitarChords";
 
 const TITLE_HEIGHT = 27;
 
@@ -100,6 +102,7 @@ const ChordStairs: React.FC<{
   scale?: number;
   playbackMode?: "separate" | "together" | "no";
   setHoveredColors?: (colors: string[] | null) => void;
+  showGuitarChords?: boolean;
 }> = React.memo(
   ({
     mode,
@@ -108,6 +111,7 @@ const ChordStairs: React.FC<{
     scale = 1,
     playbackMode = "separate",
     setHoveredColors,
+    showGuitarChords = false,
   }) => {
     const contextTonic = useTonicContext();
     const currentTonic = propTonic ?? contextTonic;
@@ -254,6 +258,21 @@ const ChordStairs: React.FC<{
       }
     }, [setHoveredColors]);
 
+    const getDisplayChordName = (name: string, pitches: number[]) => {
+      if (!showGuitarChords) return formatChordName(name);
+
+      const root = pitches[0];
+      const intervals = pitches.slice(1).map((p, i) => p - pitches[i]);
+      const intervalString = intervals.join(" ");
+
+      const guitarChord = convertChordToGuitarChord(
+        ((root + currentTonic) % 12) as PitchClass,
+        intervalString,
+      );
+
+      return guitarChord || formatChordName(name);
+    };
+
     return !hasIntersection && chapterChords ? (
       <></>
     ) : (
@@ -340,9 +359,10 @@ const ChordStairs: React.FC<{
                               ),
                         userSelect: "none",
                         pointerEvents: "none",
+                        fontFamily: "Tahoma",
                       }}
                     >
-                      {formatChordName(name)}
+                      {getDisplayChordName(name, pitches)}
                     </ChordName>
                   )}
                 </>

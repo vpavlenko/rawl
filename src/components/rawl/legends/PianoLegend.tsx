@@ -1,3 +1,5 @@
+import { faGuitar, faUserGraduate } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
@@ -87,6 +89,54 @@ const ScaleLabel = styled.span`
   &:hover {
     color: white;
   }
+`;
+
+const ToggleContainer = styled.div`
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 3;
+  padding: 2px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+`;
+
+const ToggleIcon = styled.div<{ active: boolean }>`
+  color: ${(props) => (props.active ? "white" : "#666")};
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ToggleSlider = styled.div`
+  width: 32px;
+  height: 16px;
+  background: #444;
+  border-radius: 8px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: #555;
+  }
+`;
+
+const SliderKnob = styled.div<{ isRight: boolean }>`
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+  transform: translateX(${(props) => (props.isRight ? "16px" : "0")});
 `;
 
 export const PianoLegend: React.FC<{
@@ -235,6 +285,7 @@ export const FoldablePianoLegend: React.FC<{
   const [hoveredScale, setHoveredScale] = React.useState<
     "major" | "minor" | null
   >(null);
+  const [showGuitarChords, setShowGuitarChords] = React.useState(false);
 
   const getEnabledPitches = () => {
     if (hoveredScale === "major") {
@@ -256,6 +307,26 @@ export const FoldablePianoLegend: React.FC<{
       >
         {showLegend ? (
           <div>
+            <ToggleContainer>
+              <ToggleIcon active={!showGuitarChords}>
+                <FontAwesomeIcon icon={faUserGraduate} />
+              </ToggleIcon>
+              <ToggleSlider
+                onClick={() => {
+                  setShowGuitarChords((prev) => !prev);
+                }}
+                title={
+                  showGuitarChords
+                    ? "Show Roman numerals"
+                    : "Show guitar chords"
+                }
+              >
+                <SliderKnob isRight={showGuitarChords} />
+              </ToggleSlider>
+              <ToggleIcon active={showGuitarChords}>
+                <FontAwesomeIcon icon={faGuitar} />
+              </ToggleIcon>
+            </ToggleContainer>
             <FoldButton onClick={() => setShowLegend(false)}>x</FoldButton>
 
             <div
@@ -281,6 +352,7 @@ export const FoldablePianoLegend: React.FC<{
                   chapterChords={chords}
                   currentTonic={currentTonic}
                   setHoveredColors={setHoveredColors}
+                  showGuitarChords={showGuitarChords}
                 />
               ))}
               {chords && (
@@ -289,6 +361,7 @@ export const FoldablePianoLegend: React.FC<{
                   chapterChords={chords}
                   currentTonic={currentTonic}
                   setHoveredColors={setHoveredColors}
+                  showGuitarChords={showGuitarChords}
                 />
               )}
               <div style={{ display: "flex", flexDirection: "column" }}>
@@ -352,6 +425,7 @@ export const FoldablePianoLegend: React.FC<{
     chords,
     setShowLegend,
     hoveredScale,
+    showGuitarChords,
   ]);
 
   return content;

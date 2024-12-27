@@ -417,87 +417,85 @@ const Book: React.FC = () => {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: "0px",
+                  gap: "10px",
                 }}
               >
-                <div>
-                  <CompositionLink
-                    composer={TOP_100_COMPOSERS.find(
-                      (c) => c.slug === hoveredComposerSlug,
-                    )}
-                    onLinkClick={handleComposerLinkClick}
-                  />
+                <CompositionLink
+                  composer={TOP_100_COMPOSERS.find(
+                    (c) => c.slug === hoveredComposerSlug,
+                  )}
+                  onLinkClick={handleComposerLinkClick}
+                />
 
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "20px",
+                    flexDirection: "row",
+                  }}
+                >
                   <div
                     style={{
+                      minHeight: "275px",
                       display: "flex",
-                      gap: "20px",
-                      flexDirection: "row",
+                      flexDirection: "column",
                     }}
                   >
+                    <SnippetList
+                      snippets={[
+                        analyses[`f/${hoveredComposerSlug}`]?.snippets
+                          .filter((snippet) => snippet.tag === "book:index")
+                          .pop(),
+                      ]
+                        .filter(Boolean)
+                        .map((snippet) => ({
+                          ...snippet,
+                          composerSlug: hoveredComposerSlug,
+                        }))}
+                      onSnippetClick={handleSnippetClick}
+                      loadingSnippets={loadingSnippets}
+                      isPreview={true}
+                      noteHeight={3}
+                      hoveredColors={hoveredColors}
+                    />
                     <div
                       style={{
-                        minHeight: "265px",
+                        marginBottom: "10px",
                         display: "flex",
-                        flexDirection: "column",
+                        flexDirection: "row",
+                        gap: "50px",
                       }}
                     >
-                      <SnippetList
-                        snippets={[
-                          analyses[`f/${hoveredComposerSlug}`]?.snippets
-                            .filter((snippet) => snippet.tag === "book:index")
-                            .pop(),
-                        ]
-                          .filter(Boolean)
-                          .map((snippet) => ({
-                            ...snippet,
-                            composerSlug: hoveredComposerSlug,
-                          }))}
-                        onSnippetClick={handleSnippetClick}
-                        loadingSnippets={loadingSnippets}
-                        isPreview={true}
-                        noteHeight={3}
-                        hoveredColors={hoveredColors}
-                      />
-                      <div
-                        style={{
-                          marginBottom: "10px",
-                          display: "flex",
-                          flexDirection: "row",
-                          gap: "50px",
-                        }}
-                      >
-                        <RelatedCorporaDisplay
-                          slug={hoveredComposerSlug}
-                          horizontal={true}
-                          showMetadata={false}
-                        />
-                        {analyses[`f/${hoveredComposerSlug}`]?.tags && (
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              gap: "5px",
-                              position: "relative",
-                              top: "-3px",
-                            }}
-                          >
-                            {analyses[`f/${hoveredComposerSlug}`].snippets
-                              .filter(
-                                (snippet: Snippet, index: number) =>
-                                  snippet.tag !== "book:index" &&
-                                  !snippet.tag.startsWith("last_chords"),
-                              )
-                              .slice(0, 4)
-                              .map((snippet: Snippet) => (
-                                <div key={snippet.tag}>
-                                  {s([snippet.tag] as any)}
-                                </div>
-                              ))}
-                          </div>
-                        )}
-                      </div>
+                      {analyses[`f/${hoveredComposerSlug}`]?.tags && (
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "5px",
+                            position: "relative",
+                            top: "-3px",
+                          }}
+                        >
+                          {analyses[`f/${hoveredComposerSlug}`].snippets
+                            .filter(
+                              (snippet: Snippet, index: number) =>
+                                snippet.tag !== "book:index" &&
+                                !snippet.tag.startsWith("last_chords"),
+                            )
+                            .slice(0, 7)
+                            .map((snippet: Snippet) => (
+                              <div key={snippet.tag}>
+                                {s([snippet.tag] as any)}
+                              </div>
+                            ))}
+                        </div>
+                      )}
                     </div>
+                    <RelatedCorporaDisplay
+                      slug={hoveredComposerSlug}
+                      horizontal={true}
+                      showMetadata={false}
+                    />
                   </div>
                 </div>
                 <TwoColumnLayout>

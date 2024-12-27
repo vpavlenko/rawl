@@ -107,19 +107,23 @@ export const s = (tags: TemplateStringsArray) => {
       style={{
         borderRadius: "10px",
         display: "inline-block",
-        margin: "0px 2px",
         // border: "0.5px solid #888",
-        padding: "0px 10px",
+        padding: "0px 15px 0px 0px",
         cursor: "pointer",
         whiteSpace: "nowrap",
       }}
     >
-      <span style={{ fontVariantCaps: "small-caps" }}>
-        {tag.split(":")[0].replace(/_/g, " ")}
-      </span>
-      :{" "}
-      <span style={{ color: "#888" }}>
-        {tag.split(":")[1].replace(/_/g, " ")}
+      <span style={{ fontVariantCaps: "small-caps", fontSize: "0.9em" }}>
+        {tag
+          .split(":")[0]
+          .replace(/_/g, " ")
+          .replace(/(?<![A-Za-z])b(?![A-Za-z])/g, "♭")}
+      </span>{" "}
+      <span style={{ color: "#888", fontSize: "0.9em" }}>
+        {tag
+          .split(":")[1]
+          .replace(/_/g, " ")
+          .replace(/(?<![A-Za-z])b(?![A-Za-z])/g, "♭")}
       </span>
     </a>
   );
@@ -1121,7 +1125,7 @@ export const CHAPTERS: Array<{
           There are no pieces throughout top 100 corpus that are built entirely
           using a dorian mode. There are degrees to which a {c`6`} note is used
           within a minor mode, most often as a {c`IV`} chord. See examples:{" "}
-          {s`dorian`}
+          {s`dorian: episodic`}
         </P>
       </>
     ),
@@ -1140,6 +1144,12 @@ export const CHAPTERS: Array<{
   {
     title: "iv in major",
     titleChords: ["iv", "I"],
+    pretext: () => (
+      <>
+        <h2>{rn`iv`} in major</h2>
+        <P>{s`chromatic_chords:iv`}</P>
+      </>
+    ),
     composers: [
       "calum-scott---you-are-the-reason-piano-sheet-lyrics-lyrics-version-link-in-description",
       "how-far-i-ll-go-~-moana-ost",

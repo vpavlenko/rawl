@@ -91,7 +91,7 @@ const A = (href: string) => (
   </a>
 );
 
-const s = (tags: TemplateStringsArray) => {
+export const s = (tags: TemplateStringsArray) => {
   const tag = tags[0];
   return (
     <a
@@ -101,13 +101,18 @@ const s = (tags: TemplateStringsArray) => {
       style={{
         borderRadius: "10px",
         display: "inline-block",
-        margin: "2px",
+        margin: "0px 2px",
         border: "0.5px solid #888",
         padding: "0px 10px",
         cursor: "pointer",
+        whiteSpace: "nowrap",
       }}
     >
-      {tag.replace(":", ": ").replace(/_/g, " ")}
+      <span style={{ fontVariantCaps: "small-caps" }}>{tag.split(":")[0]}</span>
+      :{" "}
+      <span style={{ color: "#888" }}>
+        {tag.split(":")[1].replace(/_/g, " ")}
+      </span>
     </a>
   );
 };

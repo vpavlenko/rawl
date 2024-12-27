@@ -20,6 +20,7 @@ import {
   CHAPTERS,
   DOUBLE_TONIC_CHAPTER_TITLE,
   MODULATIONS_CHAPTER_TITLE,
+  s,
 } from "./chapters";
 
 const NAV_HORIZONTAL_GAP = 15;
@@ -182,11 +183,11 @@ const ComposerListColumn = styled.div`
 
 const TwoColumnLayout = styled.div`
   display: flex;
-  gap: 10em;
+  gap: 3em;
   margin: 0px 0px 100px 0px;
   min-width: 43em;
 
-  @media (max-width: ${43 + 10 + 15}em) {
+  @media (max-width: ${43 + 10 + 3}em) {
     ${ComposerListColumn} {
       display: none;
     }
@@ -291,11 +292,11 @@ const findChapterForComposer = (composerSlug: string): string | null => {
 
 const ChapterArrow = styled.div`
   position: absolute;
-  bottom: -30px;
+  bottom: -20px;
   left: 50%;
   transform: translateX(-50%);
   width: 1px;
-  height: 30px;
+  height: 20px;
   background: #666;
   pointer-events: none;
 
@@ -412,32 +413,72 @@ const Book: React.FC = () => {
                 }}
               >
                 <div>
-                  <div style={{ marginBottom: "10px" }}>
+                  <div
+                    style={{
+                      marginBottom: "10px",
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: "50px",
+                    }}
+                  >
                     <CompositionLink
                       composer={TOP_100_COMPOSERS.find(
                         (c) => c.slug === hoveredComposerSlug,
                       )}
                       onLinkClick={handleComposerLinkClick}
                     />
+                    {analyses[`f/${hoveredComposerSlug}`]?.tags && (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          gap: "5px",
+                          position: "relative",
+                          top: "-3px",
+                        }}
+                      >
+                        {analyses[`f/${hoveredComposerSlug}`].snippets
+                          .filter(
+                            (snippet: Snippet, index: number) =>
+                              snippet.tag !== "book:index" && index < 3,
+                          )
+
+                          .map((snippet: Snippet) => (
+                            <div key={snippet.tag}>
+                              {s([snippet.tag] as any)}
+                            </div>
+                          ))}
+                      </div>
+                    )}
                   </div>
-                  <div style={{ minHeight: "235px" }}>
-                    <SnippetList
-                      snippets={[
-                        analyses[`f/${hoveredComposerSlug}`]?.snippets
-                          .filter((snippet) => snippet.tag === "book:index")
-                          .pop(),
-                      ]
-                        .filter(Boolean)
-                        .map((snippet) => ({
-                          ...snippet,
-                          composerSlug: hoveredComposerSlug,
-                        }))}
-                      onSnippetClick={handleSnippetClick}
-                      loadingSnippets={loadingSnippets}
-                      isPreview={true}
-                      noteHeight={3}
-                      hoveredColors={hoveredColors}
-                    />
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "20px",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <div>
+                      <div style={{ minHeight: "235px" }}>
+                        <SnippetList
+                          snippets={[
+                            analyses[`f/${hoveredComposerSlug}`]?.snippets
+                              .filter((snippet) => snippet.tag === "book:index")
+                              .pop(),
+                          ]
+                            .filter(Boolean)
+                            .map((snippet) => ({
+                              ...snippet,
+                              composerSlug: hoveredComposerSlug,
+                            }))}
+                          onSnippetClick={handleSnippetClick}
+                          loadingSnippets={loadingSnippets}
+                          isPreview={true}
+                          noteHeight={3}
+                          hoveredColors={hoveredColors}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <TwoColumnLayout>

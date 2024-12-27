@@ -42,18 +42,29 @@ const InlineSnippets: React.FC<{
   }, [snippets]);
 
   const [groupedItems, setGroupedItems] = React.useState<
-    Record<number, Array<{ type: "snippet" | "formSection"; content: any }>>
+    Record<
+      number,
+      Array<{
+        type: "snippet" | "formSection" | "explanation";
+        content: any;
+        sourceSnippet?: Snippet;
+      }>
+    >
   >({});
   const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
   React.useEffect(() => {
-    // Group both snippets and formSections by measure
+    // Group snippets, formSections, and explanations by measure
     const grouped = {} as Record<
       number,
-      Array<{ type: "snippet" | "formSection"; content: any }>
+      Array<{
+        type: "snippet" | "formSection" | "explanation";
+        content: any;
+        sourceSnippet?: Snippet;
+      }>
     >;
 
-    // Add formSections first (they take precedence)
+    // Add formSections first
     if (analysis.form) {
       Object.entries(analysis.form).forEach(([measure, section]) => {
         const measureNum = parseInt(measure);
@@ -64,17 +75,29 @@ const InlineSnippets: React.FC<{
       });
     }
 
-    // Add snippets
+    // Add snippets and their explanations
     filteredSnippets.forEach((snippet) => {
       const measureStart = snippet.measuresSpan[0];
       if (!grouped[measureStart]) {
         grouped[measureStart] = [];
       }
       grouped[measureStart].push({ type: "snippet", content: snippet });
+
+      // If this snippet is hovered and has an explanation, add it
+      if (
+        hoveredSnippetIndex === `${measureStart}-${snippet.tag}` &&
+        EXPLANATIONS[snippet.tag]
+      ) {
+        grouped[measureStart].push({
+          type: "explanation",
+          content: EXPLANATIONS[snippet.tag],
+          sourceSnippet: snippet,
+        });
+      }
     });
 
     setGroupedItems(grouped);
-  }, [filteredSnippets, analysis.form]);
+  }, [filteredSnippets, analysis.form, hoveredSnippetIndex]);
 
   React.useEffect(() => {
     const checkOverlaps = () => {
@@ -172,12 +195,25 @@ const InlineSnippets: React.FC<{
                     {item.content}
                   </div>
                 );
+              } else if (item.type === "explanation") {
+                return (
+                  <div
+                    key={`explanation_${index}`}
+                    style={{
+                      color: "#fff",
+                      marginRight: "10px",
+                      whiteSpace: "nowrap",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    — {item.content}
+                  </div>
+                );
               } else {
                 const snippet = item.content;
                 const [chapter, topic] = snippet.tag.split(":");
-                const explanation = EXPLANATIONS[snippet.tag];
-                const snippetKey = `${measureStart}-${index}`;
-                const isHovered = hoveredSnippetIndex === snippetKey;
+                const snippetKey = `${measureStart}-${snippet.tag}`;
 
                 return (
                   <Link
@@ -202,7 +238,7 @@ const InlineSnippets: React.FC<{
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "flex-start",
-                      marginRight: explanation && isHovered ? "150px" : "10px",
+                      marginRight: "10px",
                       lineHeight: "0.9",
                       position: "relative",
                     }}
@@ -222,18 +258,6 @@ const InlineSnippets: React.FC<{
                           {topic.replace(/_/g, " ")}
                         </span>
                       </div>
-                      {explanation && isHovered && (
-                        <span
-                          style={{
-                            color: "#999",
-                            marginLeft: "8px",
-                            fontSize: "11px",
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          — {explanation}
-                        </span>
-                      )}
                     </div>
                   </Link>
                 );

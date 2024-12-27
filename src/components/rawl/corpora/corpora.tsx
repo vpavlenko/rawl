@@ -2651,7 +2651,10 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "vince_guaraldi",
-    midis: ["linus-and-lucy-peanuts---vince-guaraldi"],
+    midis: [
+      "linus-and-lucy-peanuts---vince-guaraldi",
+      "christmas-time-is-here-for-jazz-piano---vince-guaraldi---arr.-elijah-hemingway",
+    ],
     composerBirthYear: 1928,
     genre: "Jazz",
     country: "USA",

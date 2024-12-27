@@ -1266,7 +1266,11 @@ export const CHAPTERS: Array<{
         </P>
       </>
     ),
-    composers: ["Pokemon_Theme_Song", "my-heart-will-go-on"],
+    composers: [
+      "Pokemon_Theme_Song",
+      "my-heart-will-go-on",
+      "Ed_Sheeran_Perfect",
+    ],
   },
   {
     title: "V7/ii",

@@ -94,7 +94,7 @@ const ScaleLabel = styled.span`
 const ToggleContainer = styled.div`
   position: absolute;
   top: 5px;
-  left: 5px;
+  right: 5px;
   display: flex;
   align-items: center;
   gap: 4px;

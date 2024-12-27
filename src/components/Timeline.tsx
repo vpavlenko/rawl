@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
+  formatComposerName,
   GenreItem,
   GenreList,
   getEmojis,
@@ -178,17 +179,7 @@ const Timeline: React.FC = () => {
       <ComposerCard key={composer.slug}>
         <ComposerHeader>
           <ComposerLink to={`/corpus/${composer.slug}`}>
-            <ComposerName>
-              {composer.slug
-                .split("_")
-                .map((word) =>
-                  word
-                    .split("-")
-                    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-                    .join("-"),
-                )
-                .join(" ")}
-            </ComposerName>
+            <ComposerName>{formatComposerName(composer.slug)}</ComposerName>
           </ComposerLink>
           {composer.country && (
             <div>

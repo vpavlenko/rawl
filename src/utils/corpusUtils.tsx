@@ -55,3 +55,15 @@ export const hasMetadata = (corpus: HasMetadata): boolean => {
     corpus.composerBirthYear || corpus.country || corpus.genre || corpus.style,
   );
 };
+
+export const formatComposerName = (slug: string): string => {
+  return slug
+    .split("_")
+    .map((word) =>
+      word
+        .split("-")
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join("-"),
+    )
+    .join(" ");
+};

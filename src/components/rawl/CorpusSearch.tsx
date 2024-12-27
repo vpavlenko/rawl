@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { formatComposerName, getEmojis } from "../../utils/corpusUtils";
 import { corpora } from "./corpora/corpora";
 
 const highlightMatch = (text: string, term: string) => {
@@ -85,19 +86,111 @@ const CorpusSearch: React.FC = () => {
       (a, b) => b.midis.length - a.midis.length,
     );
 
+    // Group corpora by country
+    const groupedCorpora = sortedCorpora.reduce(
+      (acc, corpus) => {
+        const group = corpus.country || "Styles";
+        if (!acc[group]) {
+          acc[group] = [];
+        }
+        acc[group].push(corpus);
+        return acc;
+      },
+      {} as Record<string, typeof corpora>,
+    );
+
+    // Sort countries by number of corpora (not pieces)
+    const sortedGroups = Object.entries(groupedCorpora).sort((a, b) => {
+      if (a[0] === "Styles") return -1;
+      if (b[0] === "Styles") return 1;
+      return b[1].length - a[1].length;
+    });
+
+    // Separate single-corpus countries
+    const multiCorpusGroups = sortedGroups.filter(
+      ([country, corpora]) => corpora.length > 1 || country === "Styles",
+    );
+    const singleCorpusEntries = sortedGroups
+      .filter(
+        ([country, corpora]) => corpora.length === 1 && country !== "Styles",
+      )
+      .flatMap(([country, corpora]) =>
+        corpora.map((corpus) => ({ country, corpus })),
+      )
+      .sort((a, b) => b.corpus.midis.length - a.corpus.midis.length);
+
     return (
-      <ColumnContainer>
-        {sortedCorpora.map(({ slug, midis }) => (
-          <div key={slug}>
-            <Link to={`/corpus/${slug}`}>
-              {slug.replace(/_/g, " ")}{" "}
-              <span style={{ color: "white", fontSize: "0.6em" }}>
-                {midis.length}
+      <div style={{ display: "flex", flexDirection: "column", gap: "50px" }}>
+        {/* Multi-corpus countries */}
+        {multiCorpusGroups.map(([country, corpora]) => (
+          <div key={country} style={{ textAlign: "left" }}>
+            <h3 style={{ marginBottom: "10px" }}>
+              {country} {country !== "Styles" && getEmojis(country)}
+              <span
+                style={{
+                  fontSize: "0.6em",
+                  color: "gray",
+                  marginLeft: "8px",
+                }}
+              >
+                {corpora.reduce((sum, corpus) => sum + corpus.midis.length, 0)}
               </span>
-            </Link>
+            </h3>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+              {corpora.map(({ slug, midis }) => (
+                <div key={slug} style={{ marginRight: "20px" }}>
+                  <Link to={`/corpus/${slug}`}>
+                    {formatComposerName(slug)}{" "}
+                    <span style={{ fontSize: "0.6em", color: "gray" }}>
+                      {midis.length}
+                    </span>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
-      </ColumnContainer>
+
+        {/* Single-corpus countries */}
+        {singleCorpusEntries.length > 0 && (
+          <div style={{ textAlign: "left" }}>
+            <h3 style={{ marginBottom: "10px" }}>Single Composers</h3>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "16px",
+                alignItems: "center",
+              }}
+            >
+              {singleCorpusEntries.map(({ country, corpus }) => (
+                <div
+                  key={corpus.slug}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    minWidth: "200px",
+                  }}
+                >
+                  {getEmojis(country)}
+                  <Link to={`/corpus/${corpus.slug}`}>
+                    {formatComposerName(corpus.slug)}
+                    <span
+                      style={{
+                        fontSize: "0.6em",
+                        color: "gray",
+                      }}
+                    >
+                      {corpus.midis.length}
+                    </span>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     );
   };
 

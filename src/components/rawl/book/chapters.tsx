@@ -43,8 +43,14 @@ const C = ({ c, title }: { c: Chord[]; title: string }) => (
   </span>
 );
 
-const rn = (strings: TemplateStringsArray) => (
-  <span style={{ fontFamily: "Verdana", fontWeight: "bold" }}>
+export const rn = (strings: TemplateStringsArray) => (
+  <span
+    style={{
+      fontFamily: "Fira Sans",
+      fontWeight: "700",
+      fontSize: "1.1em",
+    }}
+  >
     {strings[0].replace("7", "⁷")}
   </span>
 );

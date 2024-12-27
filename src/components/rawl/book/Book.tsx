@@ -396,12 +396,19 @@ const Book: React.FC = () => {
     );
     if (!currentChapter) return null;
 
+    const currentSnippet = analyses[`f/${hoveredComposerSlug}`]?.snippets.find(
+      (s) => s.tag === "book:index",
+    );
+    const initialTonic =
+      currentSnippet?.frozenNotes.analysis.modulations[1] ?? 0;
+
     return (
       <>
         <div style={{ marginTop: "40px" }}>
           <FoldablePianoLegend
             mode={currentChapter.mode}
             setHoveredColors={setHoveredColors}
+            currentTonic={initialTonic}
           />
           {currentChapter.pretext &&
             (currentChapter.title === "Intro" ? (

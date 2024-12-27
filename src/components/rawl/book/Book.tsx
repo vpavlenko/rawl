@@ -8,6 +8,7 @@ import { slugify } from "transliteration";
 import { AppContext } from "../../AppContext";
 import { Snippet } from "../analysis";
 import { NewTonicSymbol } from "../AnalysisGrid";
+import { RelatedCorporaDisplay } from "../CompositionTitle";
 import { MUSESCORE_TOP_100_SLUG } from "../corpora/corpora";
 import { CorpusLink } from "../corpora/CorpusLink";
 import ChordStairs from "../legends/ChordStairs";
@@ -420,44 +421,13 @@ const Book: React.FC = () => {
                 }}
               >
                 <div>
-                  <div
-                    style={{
-                      marginBottom: "10px",
-                      display: "flex",
-                      flexDirection: "row",
-                      gap: "50px",
-                    }}
-                  >
-                    <CompositionLink
-                      composer={TOP_100_COMPOSERS.find(
-                        (c) => c.slug === hoveredComposerSlug,
-                      )}
-                      onLinkClick={handleComposerLinkClick}
-                    />
-                    {analyses[`f/${hoveredComposerSlug}`]?.tags && (
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          gap: "5px",
-                          position: "relative",
-                          top: "-3px",
-                        }}
-                      >
-                        {analyses[`f/${hoveredComposerSlug}`].snippets
-                          .filter(
-                            (snippet: Snippet, index: number) =>
-                              snippet.tag !== "book:index" && index < 3,
-                          )
-
-                          .map((snippet: Snippet) => (
-                            <div key={snippet.tag}>
-                              {s([snippet.tag] as any)}
-                            </div>
-                          ))}
-                      </div>
+                  <CompositionLink
+                    composer={TOP_100_COMPOSERS.find(
+                      (c) => c.slug === hoveredComposerSlug,
                     )}
-                  </div>
+                    onLinkClick={handleComposerLinkClick}
+                  />
+
                   <div
                     style={{
                       display: "flex",
@@ -465,25 +435,67 @@ const Book: React.FC = () => {
                       flexDirection: "row",
                     }}
                   >
-                    <div>
-                      <div style={{ minHeight: "235px" }}>
-                        <SnippetList
-                          snippets={[
-                            analyses[`f/${hoveredComposerSlug}`]?.snippets
-                              .filter((snippet) => snippet.tag === "book:index")
-                              .pop(),
-                          ]
-                            .filter(Boolean)
-                            .map((snippet) => ({
-                              ...snippet,
-                              composerSlug: hoveredComposerSlug,
-                            }))}
-                          onSnippetClick={handleSnippetClick}
-                          loadingSnippets={loadingSnippets}
-                          isPreview={true}
-                          noteHeight={3}
-                          hoveredColors={hoveredColors}
+                    <div
+                      style={{
+                        minHeight: "265px",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <SnippetList
+                        snippets={[
+                          analyses[`f/${hoveredComposerSlug}`]?.snippets
+                            .filter((snippet) => snippet.tag === "book:index")
+                            .pop(),
+                        ]
+                          .filter(Boolean)
+                          .map((snippet) => ({
+                            ...snippet,
+                            composerSlug: hoveredComposerSlug,
+                          }))}
+                        onSnippetClick={handleSnippetClick}
+                        loadingSnippets={loadingSnippets}
+                        isPreview={true}
+                        noteHeight={3}
+                        hoveredColors={hoveredColors}
+                      />
+                      <div
+                        style={{
+                          marginBottom: "10px",
+                          display: "flex",
+                          flexDirection: "row",
+                          gap: "50px",
+                        }}
+                      >
+                        <RelatedCorporaDisplay
+                          slug={hoveredComposerSlug}
+                          horizontal={true}
+                          showMetadata={false}
                         />
+                        {analyses[`f/${hoveredComposerSlug}`]?.tags && (
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              gap: "5px",
+                              position: "relative",
+                              top: "-3px",
+                            }}
+                          >
+                            {analyses[`f/${hoveredComposerSlug}`].snippets
+                              .filter(
+                                (snippet: Snippet, index: number) =>
+                                  snippet.tag !== "book:index" &&
+                                  !snippet.tag.startsWith("last_chords"),
+                              )
+                              .slice(0, 4)
+                              .map((snippet: Snippet) => (
+                                <div key={snippet.tag}>
+                                  {s([snippet.tag] as any)}
+                                </div>
+                              ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

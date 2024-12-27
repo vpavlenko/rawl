@@ -108,13 +108,15 @@ export const s = (tags: TemplateStringsArray) => {
         borderRadius: "10px",
         display: "inline-block",
         margin: "0px 2px",
-        border: "0.5px solid #888",
+        // border: "0.5px solid #888",
         padding: "0px 10px",
         cursor: "pointer",
         whiteSpace: "nowrap",
       }}
     >
-      <span style={{ fontVariantCaps: "small-caps" }}>{tag.split(":")[0]}</span>
+      <span style={{ fontVariantCaps: "small-caps" }}>
+        {tag.split(":")[0].replace(/_/g, " ")}
+      </span>
       :{" "}
       <span style={{ color: "#888" }}>
         {tag.split(":")[1].replace(/_/g, " ")}

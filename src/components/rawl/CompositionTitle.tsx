@@ -36,17 +36,62 @@ const MetadataContainer = styled.div`
   margin-left: 10px;
 `;
 
-const RelatedCorpora = styled.div`
+export const RelatedCorpora = styled.div<{ horizontal?: boolean }>`
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  flex-direction: ${(props) => (props.horizontal ? "row" : "column")};
+  gap: ${(props) => (props.horizontal ? "30px" : "8px")};
 `;
 
-const CorpusRow = styled.div`
+export const CorpusRow = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
 `;
+
+export const RelatedCorporaDisplay: React.FC<{
+  slug: string;
+  horizontal?: boolean;
+  showMetadata?: boolean;
+}> = ({ slug, horizontal = false, showMetadata = true }) => {
+  const relatedCorporaSlugs = React.useMemo(() => {
+    return corpora
+      .filter((corpus) => corpus.midis.includes(slug))
+      .filter((corpus) => corpus.slug !== MUSESCORE_TOP_100_SLUG)
+      .map((corpus) => corpus.slug);
+  }, [slug]);
+
+  if (relatedCorporaSlugs.length === 0) return null;
+
+  return (
+    <RelatedCorpora horizontal={horizontal}>
+      {relatedCorporaSlugs.map((corpusSlug) => {
+        const corpus = corpora.find((c) => c.slug === corpusSlug);
+        if (!corpus) return null;
+
+        return (
+          <CorpusRow key={corpusSlug}>
+            <CorpusLink slug={corpusSlug} />
+            {showMetadata && hasMetadata(corpus) && (
+              <MetadataContainer>
+                {corpus.country && <div>{getEmojis(corpus.country)}</div>}
+                {(corpus.genre || corpus.style) && (
+                  <GenreList>
+                    {getUniqueStyles(corpus.genre, corpus.style).join(", ")}
+                  </GenreList>
+                )}
+                {corpus.composerBirthYear && (
+                  <span style={{ color: "#999" }}>
+                    *{corpus.composerBirthYear}
+                  </span>
+                )}
+              </MetadataContainer>
+            )}
+          </CorpusRow>
+        );
+      })}
+    </RelatedCorpora>
+  );
+};
 
 const CompositionTitle: React.FC<CompositionTitleProps> = ({
   slug,
@@ -71,13 +116,6 @@ const CompositionTitle: React.FC<CompositionTitleProps> = ({
     .replace(/---/g, " – ")
     .replace(/-/g, " ")
     .replace(/_/g, " ");
-
-  const relatedCorporaSlugs = React.useMemo(() => {
-    return corpora
-      .filter((corpus) => corpus.midis.includes(slug))
-      .filter((corpus) => corpus.slug !== MUSESCORE_TOP_100_SLUG)
-      .map((corpus) => corpus.slug);
-  }, [slug]);
 
   const composerInfo = React.useMemo(() => {
     return TOP_100_COMPOSERS.find((composer) => composer.slug === slug);
@@ -182,37 +220,7 @@ const CompositionTitle: React.FC<CompositionTitleProps> = ({
           )}
         </div>
 
-        {relatedCorporaSlugs.length > 0 && (
-          <RelatedCorpora>
-            {relatedCorporaSlugs.map((corpusSlug) => {
-              const corpus = corpora.find((c) => c.slug === corpusSlug);
-              if (!corpus) return null;
-
-              return (
-                <CorpusRow key={corpusSlug}>
-                  <CorpusLink slug={corpusSlug} />
-                  {hasMetadata(corpus) && (
-                    <MetadataContainer>
-                      {corpus.country && <div>{getEmojis(corpus.country)}</div>}
-                      {(corpus.genre || corpus.style) && (
-                        <GenreList>
-                          {getUniqueStyles(corpus.genre, corpus.style).join(
-                            ", ",
-                          )}
-                        </GenreList>
-                      )}
-                      {corpus.composerBirthYear && (
-                        <span style={{ color: "#999" }}>
-                          *{corpus.composerBirthYear}
-                        </span>
-                      )}
-                    </MetadataContainer>
-                  )}
-                </CorpusRow>
-              );
-            })}
-          </RelatedCorpora>
-        )}
+        <RelatedCorporaDisplay slug={slug} />
       </h1>
     </div>
   );

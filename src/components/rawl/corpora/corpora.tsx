@@ -2650,6 +2650,13 @@ export const corpora: CorpusEntry[] = [
     country: "Russia",
   },
   {
+    slug: "vince_guaraldi",
+    midis: ["linus-and-lucy-peanuts---vince-guaraldi"],
+    composerBirthYear: 1928,
+    genre: "Jazz",
+    country: "USA",
+  },
+  {
     slug: "jazz_standards",
     midis: [
       "recorda-me-no-me-esqueca",
@@ -2784,7 +2791,11 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "fur_elise_covers",
-    midis: ["fur-elise-reharmonization-cover"],
+    midis: [
+      "fur-elise-reharmonization-cover",
+      "fur-elise-but-elise-is-scary",
+      "Fr_Elise",
+    ],
     // Cover of Beethoven's piece, so no new composer or style info necessary here.
   },
   {
@@ -5710,7 +5721,6 @@ export const corpora: CorpusEntry[] = [
       "glavinishko-cetvorno",
       "god_only_knows_bioshock_infinite_2013",
       "gotye_feat_kimbra_somebody_that_i_used_to_know",
-      "gurenge--demon-slayer-kimetsu-no-yaiba-op",
       "hanna-montana---poshlaya-molli-hannamontana---poshlaya-molli",
       "hannamontana---poshlaya-molli-agga",
       "hava-nagila",

@@ -2808,6 +2808,13 @@ export const corpora: CorpusEntry[] = [
     country: "USA",
   },
   {
+    slug: "kensuke_ushio",
+    midis: ["to-a-kinder-world---kensuke-ushio"],
+    country: "Japan",
+    composerBirthYear: 1983,
+    genre: "Anime, EBM",
+  },
+  {
     slug: "boogie_woogie",
     midis: [
       "boogie-woogie",

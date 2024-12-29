@@ -52,9 +52,9 @@ const TempoSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 7em;
   flex-shrink: 0;
   margin: 0 20px;
+  flex-direction: row;
 `;
 
 const LatencySection = styled.div`
@@ -83,6 +83,10 @@ const PauseButton = styled.button`
   font-size: 16px;
   line-height: 1;
   margin-right: 10px;
+`;
+
+const LatencyButton = styled.button`
+  height: ${FOOTER_HEIGHT}px;
 `;
 
 const TimeSliderWrapper = styled.div`
@@ -198,7 +202,6 @@ const AppFooter: React.FC<
         <PauseButton
           onClick={togglePause}
           title={paused ? "Resume (use Space)" : "Pause (use Space)"}
-          className="box-button"
           disabled={ejected}
         >
           <FontAwesomeIcon icon={paused ? faPlay : faPause} />
@@ -214,103 +217,95 @@ const AppFooter: React.FC<
         </TimeSliderWrapper>
 
         <TempoSection>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
+          <StyledTempoButton
+            onClick={() => handleTempoChange(-0.1)}
+            title={`Change tempo (Minus key)`}
           >
-            <StyledTempoButton
-              onClick={() => handleTempoChange(-0.1)}
-              title={`Change tempo (Minus key)`}
-            >
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "100%",
-                  transform: "translateY(-1px)", // Fine-tuned adjustment
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: "16px",
-                    lineHeight: "0.8",
-                    fontWeight: "bold",
-                    marginBottom: "-3px", // Overlap adjustment
-                  }}
-                >
-                  _
-                </span>
-                <span
-                  style={{
-                    fontSize: "16px",
-                    lineHeight: "0.8",
-                    fontWeight: "bold",
-                  }}
-                >
-                  -
-                </span>
-              </div>
-            </StyledTempoButton>
-            <span
+            <div
               style={{
-                margin: "0 15px",
-                fontFamily: "monospace",
-                width: "40px",
-                textAlign: "center",
-                display: "inline-block",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
+                transform: "translateY(-1px)", // Fine-tuned adjustment
               }}
             >
-              {formatTempo(tempo)}x
-            </span>
-            <StyledTempoButton
-              onClick={() => handleTempoChange(0.1)}
-              title={`Change tempo (Plus key)`}
-            >
-              <div
+              <span
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "100%",
-                  transform: "translateY(-1px)", // Fine-tuned adjustment
+                  fontSize: "16px",
+                  lineHeight: "0.8",
+                  fontWeight: "bold",
+                  marginBottom: "-3px", // Overlap adjustment
                 }}
               >
-                <span
-                  style={{
-                    fontSize: "16px",
-                    lineHeight: "0.8",
-                    fontWeight: "bold",
-                    marginBottom: "-3px", // Overlap adjustment
-                  }}
-                >
-                  +
-                </span>
-                <span
-                  style={{
-                    fontSize: "16px",
-                    lineHeight: "0.8",
-                    fontWeight: "bold",
-                  }}
-                >
-                  =
-                </span>
-              </div>
-            </StyledTempoButton>
-          </div>
+                _
+              </span>
+              <span
+                style={{
+                  fontSize: "16px",
+                  lineHeight: "0.8",
+                  fontWeight: "bold",
+                }}
+              >
+                -
+              </span>
+            </div>
+          </StyledTempoButton>
+          <span
+            style={{
+              // margin: "0 15px",
+              fontFamily: "monospace",
+              width: "3em",
+              textAlign: "center",
+              display: "inline-block",
+            }}
+          >
+            {formatTempo(tempo)}x
+          </span>
+          <StyledTempoButton
+            onClick={() => handleTempoChange(0.1)}
+            title={`Change tempo (Plus key)`}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
+                transform: "translateY(-1px)", // Fine-tuned adjustment
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "16px",
+                  lineHeight: "0.8",
+                  fontWeight: "bold",
+                  marginBottom: "-3px", // Overlap adjustment
+                }}
+              >
+                +
+              </span>
+              <span
+                style={{
+                  fontSize: "16px",
+                  lineHeight: "0.8",
+                  fontWeight: "bold",
+                }}
+              >
+                =
+              </span>
+            </div>
+          </StyledTempoButton>
         </TempoSection>
 
         <LatencySection>
-          <button
+          <LatencyButton
             onClick={() => setLatencyCorrectionMs(latencyCorrectionMs - 100)}
           >
             ▼
-          </button>
+          </LatencyButton>
           <span style={{ fontFamily: "monospace" }}>
             {`${
               Math.sign(latencyCorrectionMs / 1000) >= 0 ? "+" : "-"
@@ -321,11 +316,11 @@ const AppFooter: React.FC<
               .charAt(2)}`}
             s
           </span>
-          <button
+          <LatencyButton
             onClick={() => setLatencyCorrectionMs(latencyCorrectionMs + 100)}
           >
             ▲
-          </button>
+          </LatencyButton>
         </LatencySection>
 
         <StyledVolumeSlider>

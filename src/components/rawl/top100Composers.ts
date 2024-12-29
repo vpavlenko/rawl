@@ -127,7 +127,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
   },
   {
     slug: "Mad_world_Piano",
-    composer: "Tears for Fears (Roland Orzabal)",
+    composer: "Tears for Fears",
     displayTitle: "Mad World",
     chords: ["ii", "IV", "I", "V"],
     isVocal: true,

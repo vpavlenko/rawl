@@ -500,8 +500,8 @@ export const CHAPTERS: Array<{
         <P>
           A song may have several parts: intro, verse, pre-chorus, chorus,
           bridge. Some songs use different loops for different parts. For
-          example, a verse can go like {c`I vi IV V`} and a chorus can go like{" "}
-          {c`vi IV I V`}
+          example, a verse can go like {c`I vi IV V I vi IV V`} and a chorus can
+          go like {c`vi IV I V vi IV I V`}
         </P>
         <P>
           Throughout the book you can hover over colorful chords to see their
@@ -524,7 +524,8 @@ export const CHAPTERS: Array<{
             "https://en.wikipedia.org/wiki/I%E2%80%93V%E2%80%93vi%E2%80%93IV_progression",
             "I–V–vi–IV progression",
           )}{" "}
-          has two common rotations: {c`I V vi IV`} and {c`vi IV I V`}
+          has two common rotations: {c`I V vi IV I V vi IV`} and{" "}
+          {c`vi IV I V vi IV I V`}
         </P>
         <P>
           Unlike the{" "}

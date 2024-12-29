@@ -44,7 +44,13 @@ export const BEYOND_CHAPTERS: Array<{
           </UL>
         </P>
         <P>
-          <CorpusLink slug={"boogie_woogie"} />
+          <UL>
+            <li>{s`scale:blues`}</li>
+            <li>{s`chord_scale:IV7`}</li>
+            <li>
+              <CorpusLink slug={"boogie_woogie"} />
+            </li>
+          </UL>
         </P>
       </>
     ),

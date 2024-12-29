@@ -540,7 +540,11 @@ const Book: React.FC = () => {
                                 !snippet.tag.startsWith("last_chords"),
                             )
                             .slice(0, 7)
-                            .map((snippet: Snippet) => s([snippet.tag] as any))}
+                            .map((snippet: Snippet, index: number) => (
+                              <div style={{ marginRight: "20px" }} key={index}>
+                                {s([snippet.tag] as any)}
+                              </div>
+                            ))}
                         </div>
                       )}
                     </div>

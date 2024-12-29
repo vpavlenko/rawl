@@ -330,6 +330,40 @@ export const corpora: CorpusEntry[] = [
     country: "Georgia", // The music is from Georgia (Caucasus region).
   },
   {
+    slug: "elissa_milne",
+    midis: [
+      "mozzie---elissa-milne",
+      "cockatoo---elissa-milne",
+      "indigo-moon---elissa-milne",
+      "deadline---elissa-milne",
+    ],
+    genre: "Teacher Music",
+    country: "Australia",
+    composerBirthYear: 1967,
+  },
+  {
+    slug: "chris_zabriskie",
+    midis: ["preludes-by-chris-zabriskie-full-album"],
+  },
+  {
+    slug: "pam_wedgwood",
+    midis: [
+      "hungarian-stomp---pam-wedgwood-hungarian-stomp",
+      "the-detective---pam-wedgwood",
+      "ragamuffin-by-pamela-wedgwood-for-brass-quintet",
+    ],
+    composerBirthYear: 1947,
+    genre: "Teacher Music",
+    country: "UK",
+  },
+  {
+    slug: "big_maceo_merriweather",
+    midis: ["chicago-breakup"],
+    composerBirthYear: 1905,
+    genre: "Chicago Blues",
+    country: "USA",
+  },
+  {
     // also https://musescore.com/sheetmusic?text=%D1%82%D0%B0%D0%BD%D0%B3%D0%BE&type=non-official
     // also https://musescore.com/sheetmusic?text=%E3%82%BF%E3%83%B3%E3%82%B4&type=non-official
     // also https://musescore.com/sheetmusic?text=%E6%8E%A2%E6%88%88&type=non-official
@@ -4826,9 +4860,36 @@ export const corpora: CorpusEntry[] = [
     country: "United Kingdom", // Benjamin Wallfisch is from the UK
   },
   {
+    slug: "takashi_yoshimatsu",
+    midis: [
+      "waltz-of-rainbow-colored-roses---takashi-yoshimatsu",
+      "waltz-in-green---takashi-yoshimatsu-lu-nowarutu",
+    ],
+    composerBirthYear: 1953,
+    country: "Japan",
+  },
+  {
+    slug: "shinichi_osawa",
+    midis: [
+      "the-last-waltz---banana-fish",
+      "liberty---banana-fish",
+      "blue-bird---banana-fish",
+    ],
+    composerBirthYear: 1967,
+    country: "Japan",
+  },
+  {
+    slug: "john_kander",
+    midis: ["cabaret---john-kander-and-fred-ebb-bb-clarinet-and-piano"],
+    composerBirthYear: 1927,
+    genre: "Broadway",
+    country: "USA",
+  },
+  {
     slug: "karol_szymanowski",
     midis: [
       "9-preludes-op.1---karol-szymanowski-9-preludes-op.-1-no.-1---karol-szymanowski",
+      "9-preludes-op.1---karol-szymanowski",
     ],
     composerBirthYear: 1882,
     style: "Romantic",

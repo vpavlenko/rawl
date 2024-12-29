@@ -64,14 +64,17 @@ function ensureTrackEnding(track: MidiEvent[]): MidiEvent[] {
   return [...eventsWithoutEnd, createEndOfTrackEvent()];
 }
 
-function findUnusedChannel(midi: MidiData, usedChannels: Set<number>): number {
+function findUnusedChannel(
+  midi: MidiData,
+  usedChannels: Set<number>,
+): number | null {
   // Find the first unused channel number between 0-15
   for (let channel = 0; channel < 16; channel++) {
     if (!usedChannels.has(channel)) {
       return channel;
     }
   }
-  throw new Error("No unused MIDI channels available");
+  return null;
 }
 
 function getUsedChannels(midi: MidiData): Set<number> {
@@ -153,10 +156,15 @@ function transformMidi(
   // Process multi-track channels
   for (const [channel, trackIndices] of channelTracks.entries()) {
     if (trackIndices.length <= 1) continue;
-    processedChannels.add(channel);
 
     // Find an unused channel for the left hand
     const leftHandChannel = findUnusedChannel(midi, usedChannels);
+    if (leftHandChannel === null) {
+      // Skip splitting this channel if no unused channels available
+      continue;
+    }
+
+    processedChannels.add(channel);
     usedChannels.add(leftHandChannel); // Reserve this channel
 
     const baseTrackName =

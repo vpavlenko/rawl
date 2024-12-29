@@ -216,25 +216,27 @@ export const CompositionLink: React.FC<{
   composer: (typeof TOP_100_COMPOSERS)[number];
   onLinkClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
   showNarrativeIcon?: boolean;
-}> = ({ composer, onLinkClick, showNarrativeIcon = false }) => (
-  <ComposerLink
-    href={`/f/${composer.slug}`}
-    target="_blank"
-    rel="noreferrer"
-    onClick={onLinkClick}
-  >
-    <ComposerTitle
-      composer={composer.composer}
-      displayTitle={composer.displayTitle}
-      isVocal={composer.isVocal}
-    />
-    {showNarrativeIcon && NARRATIVES[composer.slug] && (
-      <span style={{ marginLeft: "12px", color: "#999" }}>
-        💬 {NARRATIVES[composer.slug].qa.length}
-      </span>
-    )}
-  </ComposerLink>
-);
+}> = ({ composer, onLinkClick, showNarrativeIcon = false }) => {
+  return (
+    <ComposerLink
+      href={`/f/${composer.slug}`}
+      target="_blank"
+      rel="noreferrer"
+      onClick={onLinkClick}
+    >
+      <ComposerTitle
+        composer={composer.composer}
+        displayTitle={composer.displayTitle}
+        isVocal={composer.isVocal}
+      />
+      {showNarrativeIcon && NARRATIVES[composer.slug] && (
+        <span style={{ marginLeft: "12px", color: "#999" }}>
+          💬 {NARRATIVES[composer.slug].qa.length}
+        </span>
+      )}
+    </ComposerLink>
+  );
+};
 
 const ChapterGroup = styled.div<{ isActive: boolean; hideHeader?: boolean }>`
   display: inline-flex;

@@ -2071,9 +2071,9 @@ export const corpora: CorpusEntry[] = [
     country: "USA",
   },
   {
-    slug: "jazz_solos",
-    midis: ["oblivion-bud-powell"],
-    composerBirthYear: 1924, // Bud Powell
+    slug: "bud_powell",
+    midis: ["oblivion-bud-powell", "dusk-in-sandi---bud-powell"],
+    composerBirthYear: 1924,
     genre: "Jazz",
     style: "Bebop, Piano",
     country: "USA",
@@ -2654,6 +2654,10 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "linus-and-lucy-peanuts---vince-guaraldi",
       "christmas-time-is-here-for-jazz-piano---vince-guaraldi---arr.-elijah-hemingway",
+      "what-child-is-this---vince-guaraldi-trio",
+      "the-great-pumpkin-waltz-peanuts---vince-guaraldi",
+      "skating",
+      "o-christmas-tree-vince-guaraldi",
     ],
     composerBirthYear: 1928,
     genre: "Jazz",
@@ -4184,6 +4188,13 @@ export const corpora: CorpusEntry[] = [
     country: "Czech Republic", // Born in what is now the Czech Republic
   },
   {
+    slug: "hania_rani",
+    midis: ["glass---hania-rani", "eden---hania-rani", "sun---hania-rani"],
+    genre: "Minimalism",
+    composerBirthYear: 1990,
+    country: "Poland",
+  },
+  {
     slug: "kelly_bailey",
     midis: [
       "triage-at-dawn",
@@ -4208,8 +4219,27 @@ export const corpora: CorpusEntry[] = [
     country: "Azerbaijan", // Azerbaijani composer
   },
   {
+    slug: "alexander_nakarada",
+    midis: [
+      "adventure---alexander-nakarada",
+      "village-ambiance---alexander-nakarada",
+    ],
+  },
+  {
+    slug: "kevin_macleod",
+    midis: [
+      "monkey-spinning-monkeys---kevin-macleod",
+      "if-i-had-a-chicken---kevin-macleod",
+      "carefree---kevin-macleod",
+      "amazing-plan---kevin-macleod",
+    ],
+    composerBirthYear: 1972,
+    genre: "Stock Music, Video Game Music",
+    country: "USA",
+  },
+  {
     slug: "jobim",
-    midis: ["wave---antonio-carlos-jobim-jazz-piano-solo"],
+    midis: ["wave---antonio-carlos-jobim-jazz-piano-solo", "desafinado"],
     composerBirthYear: 1927, // Antônio Carlos Jobim (1927–1994)
     genre: "Bossa Nova", // Pioneer of the bossa nova genre
     style: "Jazz, Brazilian", // Known for blending jazz with Brazilian rhythms
@@ -4305,6 +4335,13 @@ export const corpora: CorpusEntry[] = [
     genre: "Classical", // Prominent 20th-century classical composer
     style: "Neoclassical", // Neoclassical style, often with elements of folk music
     country: "Russia", // Russian composer
+  },
+  {
+    slug: "nikolai_medtner",
+    midis: [
+      "medtner---2-skazki-op.20-no.1",
+      "medtner---6-skazki-op.-51-no.-6-fairy-tales",
+    ],
   },
   {
     slug: "mattias_hakulinen",
@@ -4787,6 +4824,15 @@ export const corpora: CorpusEntry[] = [
     genre: "Film Score", // Known for composing film scores
     style: "Modern Orchestral", // Modern orchestral style with electronic elements
     country: "United Kingdom", // Benjamin Wallfisch is from the UK
+  },
+  {
+    slug: "karol_szymanowski",
+    midis: [
+      "9-preludes-op.1---karol-szymanowski-9-preludes-op.-1-no.-1---karol-szymanowski",
+    ],
+    composerBirthYear: 1882,
+    style: "Romantic",
+    country: "Poland",
   },
   {
     slug: "schubert",

@@ -363,7 +363,53 @@ export const CHAPTERS: Array<{
         <P>
           We have four places to fill in with chords in a loop. If you put{" "}
           {c`I`} on the first place, you can fill in the rest three distinct
-          chords in {n`5 × 4 × 3 = 60`} ways.
+          chords in {n`5 × 4 × 3 = 60`} ways:
+        </P>
+        <P>
+          <ul
+            style={{ listStyleType: "none", marginLeft: "0", paddingLeft: "0" }}
+          >
+            <li>
+              {c`I ii iii IV`} {c`I ii iii V`} {c`I ii iii vi`} {c`I ii IV iii`}{" "}
+              {c`I ii IV V`} {c`I ii IV vi`}{" "}
+            </li>
+            <li>
+              {c`I ii V iii`} {c`I ii V IV`} {c`I ii V vi`} {c`I ii vi iii`}{" "}
+              {c`I ii vi IV`} {c`I ii vi V`}{" "}
+            </li>
+            <li>
+              {c`I iii ii IV`} {c`I iii ii V`} {c`I iii ii vi`} {c`I iii IV ii`}{" "}
+              {c`I iii IV V`} {c`I iii IV vi`}{" "}
+            </li>
+            <li>
+              {c`I iii V ii`} {c`I iii V IV`} {c`I iii V vi`} {c`I iii vi ii`}{" "}
+              {c`I iii vi IV`} {c`I iii vi V`}{" "}
+            </li>
+            <li>
+              {c`I IV ii iii`} {c`I IV ii V`} {c`I IV ii vi`} {c`I IV iii ii`}{" "}
+              {c`I IV iii V`} {c`I IV iii vi`}{" "}
+            </li>
+            <li>
+              {c`I IV V ii`} {c`I IV V iii`} {c`I IV V vi`} {c`I IV vi ii`}{" "}
+              {c`I IV vi iii`} {c`I IV vi V`}{" "}
+            </li>
+            <li>
+              {c`I V ii iii`} {c`I V ii IV`} {c`I V ii vi`} {c`I V iii ii`}{" "}
+              {c`I V iii IV`} {c`I V iii vi`}{" "}
+            </li>
+            <li>
+              {c`I V IV ii`} {c`I V IV iii`} {c`I V IV vi`} {c`I V vi ii`}{" "}
+              {c`I V vi iii`} {c`I V vi IV`}{" "}
+            </li>
+            <li>
+              {c`I vi ii iii`} {c`I vi ii IV`} {c`I vi ii V`} {c`I vi iii ii`}{" "}
+              {c`I vi iii IV`} {c`I vi iii V`}{" "}
+            </li>
+            <li>
+              {c`I vi IV ii`} {c`I vi IV iii`} {c`I vi IV V`} {c`I vi V ii`}{" "}
+              {c`I vi V iii`} {c`I vi V IV`}{" "}
+            </li>
+          </ul>
         </P>
         <P>
           However, historically just a few of these hypothetical loops take up
@@ -1432,6 +1478,11 @@ export const CHAPTERS: Array<{
       title: "jazz",
       chords: ["ii7", "V7", "Imaj7", "iiø7", "V7b9", "i7"],
     },
+    pretext: () => (
+      <>
+        <P>{s`cycle_root_motion:autumn_leaves`}</P>
+      </>
+    ),
     composers: [
       "Fly_Me_to_the_Moon",
       "autumn-leaves-jazz-piano",

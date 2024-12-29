@@ -70,6 +70,14 @@ export const c = (strings: TemplateStringsArray) => {
   return <C c={chords as Chord[]} title={chordString} />;
 };
 
+export const rnc = (strings: TemplateStringsArray) => (
+  <>
+    <span style={{ whiteSpace: "nowrap" }}>
+      {rn(strings)} {c(strings)}
+    </span>
+  </>
+);
+
 const ct = (string: string, tonic: number) => (
   <TonicProvider currentTonic={tonic}>{c([string] as any)}</TonicProvider>
 );

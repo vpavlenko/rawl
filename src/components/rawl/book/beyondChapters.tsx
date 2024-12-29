@@ -1,7 +1,7 @@
 import * as React from "react";
 import { CorpusLink } from "../corpora/CorpusLink";
 import { Chord } from "../legends/chords";
-import { A, c, Mode, P, s, UL } from "./chapters";
+import { A, c, Mode, P, rnc, s, UL } from "./chapters";
 
 export const BEYOND_CHAPTER_GROUPS: Record<string, [number, number]> = {
   intro: [1, 10],
@@ -24,6 +24,24 @@ export const BEYOND_CHAPTERS: Array<{
         <P>
           Surprisingly, there is no instance of {s`form:12-bar_blues`} inside
           the top 100.
+        </P>
+        <P>
+          The main harmonic ideas in the blues is the usage of three main
+          dominant seventh chords: {rnc`I7`}, {rnc`IV7`}, and {rnc`V7`}.
+        </P>
+        <P>There are several forms of a 12-bar blues progression:</P>
+        <P>
+          <UL>
+            <li>
+              {c`I7 I7 I7 I7 IV7 IV7 I7 I7 V7 V7 I7 I7`} - simple, ancient
+            </li>
+            <li>{c`I7 I7 I7 I7 IV7 IV7 I7 I7 V7 IV7 I7 I7`} - most common</li>
+            <li>
+              {c`Imaj7 Imaj7 Imaj7 I7 IV7 IV7 Imaj7 V7/ii ii7 V7 Imaj7 V7`} - a
+              possible blues in jazz
+            </li>
+            <li>{c`i7 i7 i7 i7 iv7 iv7 i7 i7 v7 iv7 i7 i7`} - a minor blues</li>
+          </UL>
         </P>
         <P>
           <CorpusLink slug={"boogie_woogie"} />

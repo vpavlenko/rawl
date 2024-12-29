@@ -282,7 +282,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
   },
   {
     slug: "still-dre---variation-composition",
-    composer: "Andre Young",
+    composer: "Dr. Dre",
     displayTitle: "Still D.R.E.",
     chords: ["i", "iv"],
     isVocal: true,

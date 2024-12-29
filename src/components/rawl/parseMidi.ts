@@ -201,6 +201,26 @@ export const parseNotes = ({
   const notes = activeChannels.map((channel, index) =>
     getNotes(events, channel, index),
   );
+
+  // Check if the last measure has any notes ending after its start
+  const lastMeasureStart =
+    measuresAndBeats.measures[measuresAndBeats.measures.length - 1];
+  const hasNotesInLastMeasure = notes.some((voiceNotes) =>
+    voiceNotes.some((note) => note.span[1] > lastMeasureStart),
+  );
+
+  if (!hasNotesInLastMeasure) {
+    // Remove the last measure
+    measuresAndBeats.measures.pop();
+    measuresAndBeats.ticks.measures.pop();
+    // Remove any beats that occur after the new last measure
+    const newLastMeasure =
+      measuresAndBeats.measures[measuresAndBeats.measures.length - 1];
+    measuresAndBeats.beats = measuresAndBeats.beats.filter(
+      (beat) => beat < newLastMeasure,
+    );
+  }
+
   return {
     measuresAndBeats,
     notes,

@@ -96,6 +96,9 @@ export const CHORDS = {
   "6": [9],
   b7: [10],
   "7": [11],
+  bii: [1, 4, 8],
+  "#iv": [6, 9, 1],
+  vii: [11, 2, 6],
 } as const;
 
 export type Chord = keyof typeof CHORDS;

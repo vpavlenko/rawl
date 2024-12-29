@@ -1,10 +1,10 @@
 import { faGuitar, faUserGraduate } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
 import { playArpeggiatedChord } from "../../../sampler/sampler";
 import { PITCH_CLASS_TO_LETTER } from "../AnalysisGrid";
+import { Toggle } from "../Toggle";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 import ChordStairs from "./ChordStairs";
 import { CHROMATIC_CHORDS, MAJOR_MODE, MINOR_MODE, Mode } from "./chords";
@@ -89,54 +89,6 @@ const ScaleLabel = styled.span`
   &:hover {
     color: white;
   }
-`;
-
-const ToggleContainer = styled.div`
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  z-index: 3;
-  padding: 2px;
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.2);
-`;
-
-const ToggleIcon = styled.div<{ active: boolean }>`
-  color: ${(props) => (props.active ? "white" : "#666")};
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const ToggleSlider = styled.div`
-  width: 32px;
-  height: 16px;
-  background: #444;
-  border-radius: 8px;
-  position: relative;
-  cursor: pointer;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background: #555;
-  }
-`;
-
-const SliderKnob = styled.div<{ isRight: boolean }>`
-  width: 12px;
-  height: 12px;
-  background: white;
-  border-radius: 50%;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  transition: transform 0.2s;
-  transform: translateX(${(props) => (props.isRight ? "16px" : "0")});
 `;
 
 export const PianoLegend: React.FC<{
@@ -307,26 +259,14 @@ export const FoldablePianoLegend: React.FC<{
       >
         {showLegend ? (
           <div>
-            <ToggleContainer>
-              <ToggleIcon active={!showGuitarChords}>
-                <FontAwesomeIcon icon={faUserGraduate} />
-              </ToggleIcon>
-              <ToggleSlider
-                onClick={() => {
-                  setShowGuitarChords((prev) => !prev);
-                }}
-                title={
-                  showGuitarChords
-                    ? "Show Roman numerals"
-                    : "Show guitar chords"
-                }
-              >
-                <SliderKnob isRight={showGuitarChords} />
-              </ToggleSlider>
-              <ToggleIcon active={showGuitarChords}>
-                <FontAwesomeIcon icon={faGuitar} />
-              </ToggleIcon>
-            </ToggleContainer>
+            <Toggle
+              leftIcon={faUserGraduate}
+              rightIcon={faGuitar}
+              isRight={showGuitarChords}
+              onToggle={() => setShowGuitarChords((prev) => !prev)}
+              leftTitle="Show Roman numerals"
+              rightTitle="Show guitar chords"
+            />
             <FoldButton onClick={() => setShowLegend(false)}>x</FoldButton>
 
             <div

@@ -1,8 +1,12 @@
-import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faClockRotateLeft,
+  faGlobe,
+  faHouse,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import { useState } from "react";
-import { Redirect, useHistory, useParams } from "react-router-dom";
+import { Redirect, useHistory, useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { slugify } from "transliteration";
 import { AppContext } from "../../AppContext";
@@ -15,7 +19,9 @@ import ChordStairs from "../legends/ChordStairs";
 import { FoldablePianoLegend } from "../legends/PianoLegend";
 import SnippetList from "../SnippetList";
 import { NARRATIVES } from "../SongNarrative";
+import { Toggle } from "../Toggle";
 import { TOP_100_COMPOSERS } from "../top100Composers";
+import { BEYOND_CHAPTER_GROUPS, BEYOND_CHAPTERS } from "./beyondChapters";
 import {
   CHAPTER_GROUPS,
   CHAPTERS,
@@ -36,6 +42,7 @@ const BookContainer = styled.div`
   padding: 20px;
   color: #ddd;
   margin: 0 auto 100px auto;
+  position: relative;
 `;
 
 const Title = styled.h1`
@@ -286,9 +293,12 @@ const ChapterGroup = styled.div<{ isActive: boolean; hideHeader?: boolean }>`
   }
 `;
 
-const findChapterForComposer = (composerSlug: string): string | null => {
+const findChapterForComposer = (
+  composerSlug: string,
+  chapters: typeof CHAPTERS,
+): string | null => {
   return (
-    CHAPTERS.find((chapter) => chapter.composers.includes(composerSlug))
+    chapters.find((chapter) => chapter.composers.includes(composerSlug))
       ?.title ?? null
   );
 };
@@ -315,9 +325,16 @@ const ChapterArrow = styled.div`
   }
 `;
 
+const ModeToggle = styled.div`
+  position: absolute;
+  top: 0px;
+  right: 0px;
+`;
+
 const Book: React.FC = () => {
   const { slug } = useParams<{ slug?: string }>();
   const history = useHistory();
+  const location = useLocation();
   const appContext = React.useContext(AppContext);
   const [hoveredChapter, setHoveredChapter] = React.useState<string | null>(
     null,
@@ -325,6 +342,17 @@ const Book: React.FC = () => {
   const [hoveredComposerSlug, setHoveredComposerSlug] =
     React.useState<string>("happy-birthday");
   const [hoveredColors, setHoveredColors] = useState<string[] | null>(null);
+  const [isBeyondMode, setIsBeyondMode] = useState(() =>
+    location.pathname.startsWith("/beyond"),
+  );
+
+  // Keep mode in sync with URL
+  React.useEffect(() => {
+    const shouldBeBeyondMode = location.pathname.startsWith("/beyond");
+    if (shouldBeBeyondMode !== isBeyondMode) {
+      setIsBeyondMode(shouldBeBeyondMode);
+    }
+  }, [location.pathname, isBeyondMode]);
 
   React.useEffect(() => {
     if (appContext.currentMidi?.slug) {
@@ -362,10 +390,16 @@ const Book: React.FC = () => {
     }
   };
 
+  // Get chapters and groups based on mode
+  const currentChapters = isBeyondMode ? BEYOND_CHAPTERS : CHAPTERS;
+  const currentChapterGroups = isBeyondMode
+    ? BEYOND_CHAPTER_GROUPS
+    : CHAPTER_GROUPS;
+
   // Get unique chapter titles
   const chapterTitles = React.useMemo(() => {
-    return CHAPTERS.map((chapter) => chapter.title);
-  }, []);
+    return currentChapters.map((chapter) => chapter.title);
+  }, [currentChapters]);
 
   // Find selected chapter based on slug
   const selectedChapter = React.useMemo(() => {
@@ -378,23 +412,44 @@ const Book: React.FC = () => {
   }, [slug, chapterTitles]);
 
   const hoveredComposerChapter = React.useMemo(() => {
-    return findChapterForComposer(hoveredComposerSlug);
-  }, [hoveredComposerSlug]);
+    return findChapterForComposer(hoveredComposerSlug, currentChapters);
+  }, [hoveredComposerSlug, currentChapters]);
 
-  // Redirect from root to /100/intro
+  // Redirect from root to /100/intro or /beyond/blues
   if (!slug) {
-    return <Redirect to="/100/intro" />;
+    const firstBeyondChapter = BEYOND_CHAPTERS[0]?.title || "intro";
+    return (
+      <Redirect
+        to={
+          isBeyondMode
+            ? `/beyond/${slugify(firstBeyondChapter.toLowerCase())}`
+            : "/100/intro"
+        }
+      />
+    );
   }
 
   // Handle chapter selection
   const handleChapterSelect = (chapter: string) => {
     eject(); // Add this line to eject MIDI before changing chapters
     const newSlug = getChapterSlug(chapter);
-    history.push(`/100/${newSlug}`);
+    history.push(`/${isBeyondMode ? "beyond" : "100"}/${newSlug}`);
+  };
+
+  // Add mode toggle handler
+  const handleModeToggle = () => {
+    eject();
+    setIsBeyondMode((prev) => !prev);
+    const firstBeyondChapter = BEYOND_CHAPTERS[0]?.title || "intro";
+    history.push(
+      `/${!isBeyondMode ? "beyond" : "100"}/${
+        !isBeyondMode ? slugify(firstBeyondChapter.toLowerCase()) : "intro"
+      }`,
+    );
   };
 
   const renderContent = () => {
-    const currentChapter = CHAPTERS.find(
+    const currentChapter = currentChapters.find(
       (chapter) => chapter.title === selectedChapter,
     );
     if (!currentChapter) return null;
@@ -485,11 +540,7 @@ const Book: React.FC = () => {
                                 !snippet.tag.startsWith("last_chords"),
                             )
                             .slice(0, 7)
-                            .map((snippet: Snippet) => (
-                              <div key={snippet.tag}>
-                                {s([snippet.tag] as any)}
-                              </div>
-                            ))}
+                            .map((snippet: Snippet) => s([snippet.tag] as any))}
                         </div>
                       )}
                     </div>
@@ -655,11 +706,28 @@ const Book: React.FC = () => {
   return (
     <BookContainer>
       <div className="Book" style={{ position: "relative" }}>
-        <Title>Visual Harmony of Top 100 Composers on MuseScore.com</Title>
+        <Title>
+          {isBeyondMode
+            ? "Visual Harmony Beyond the Top 100"
+            : "Visual Harmony of Top 100 Composers on MuseScore.com"}
+        </Title>
+        <ModeToggle>
+          <Toggle
+            leftIcon={faHouse}
+            rightIcon={faGlobe}
+            isRight={isBeyondMode}
+            onToggle={handleModeToggle}
+            leftTitle="Top 100 Composers"
+            rightTitle="Beyond Top 100"
+          />
+        </ModeToggle>
         <ChapterSelector>
-          {Object.entries(CHAPTER_GROUPS).map(
+          {Object.entries(currentChapterGroups).map(
             ([name, [startIndex, endIndex]]) => {
-              const groupChapters = CHAPTERS.slice(startIndex - 1, endIndex);
+              const groupChapters = currentChapters.slice(
+                startIndex - 1,
+                endIndex,
+              );
               const isActive = groupChapters.some(
                 (chapter) => chapter.title === selectedChapter,
               );

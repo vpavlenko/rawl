@@ -1250,6 +1250,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   <Route path="/daw" render={() => <DAW />} />
                   {rawlRoute}
                   <Route path="/100/:slug?" component={Book} />
+                  <Route path="/beyond/:slug?" component={Book} />
                   <Route path="/timeline" component={Timeline} />
                   <Redirect exact from="/" to="/100" />
                 </Switch>

@@ -11,7 +11,6 @@ import {
 import ChordStairs, { TonicProvider } from "../legends/ChordStairs";
 import { PianoLegend } from "../legends/PianoLegend";
 import { TOP_100_COMPOSERS } from "../top100Composers";
-import { CompositionLink } from "./Book";
 import { Citation } from "./Citations";
 import { CITES } from "./cites";
 import { FileDropBox } from "./FileDropBox";
@@ -20,9 +19,19 @@ import Metaphors from "./Metaphors";
 export const MODULATIONS_CHAPTER_TITLE = "Modulations";
 export const DOUBLE_TONIC_CHAPTER_TITLE = "Double-tonic";
 
-const P = styled.div`
+export const P = styled.div`
   margin-bottom: 30px;
   line-height: 1.6;
+`;
+
+export const UL = styled.ul`
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+
+  & > li {
+    margin-bottom: 30px;
+  }
 `;
 
 const C = ({ c, title }: { c: Chord[]; title: string }) => (
@@ -55,16 +64,6 @@ export const rn = (strings: TemplateStringsArray) => (
   </span>
 );
 
-const cl = (slug: string) => (
-  <>
-    “
-    <CompositionLink
-      composer={TOP_100_COMPOSERS.find((c) => c.slug === slug)}
-    />
-    ”
-  </>
-);
-
 export const c = (strings: TemplateStringsArray) => {
   const chordString = strings[0].trim();
   const chords = chordString.split(/\s+/);
@@ -86,7 +85,7 @@ export const a = (href: string, text: string) => (
   </a>
 );
 
-const A = (href: string) => (
+export const A = (href: string) => (
   <a
     href={`/f/${href}`}
     target="_blank"
@@ -97,35 +96,33 @@ const A = (href: string) => (
   </a>
 );
 
+const STag = styled.a`
+  cursor: pointer;
+  white-space: nowrap;
+`;
+
 export const s = (tags: TemplateStringsArray) => {
   const tag = tags[0];
   return (
-    <a
+    <STag
       href={`/s/${tag.replace(":", "/")}`}
       target="_blank"
       rel="noopener noreferrer"
-      style={{
-        borderRadius: "10px",
-        display: "inline-block",
-        // border: "0.5px solid #888",
-        padding: "0px 15px 0px 0px",
-        cursor: "pointer",
-        whiteSpace: "nowrap",
-      }}
     >
       <span style={{ fontVariantCaps: "small-caps", fontSize: "0.9em" }}>
         {tag
           .split(":")[0]
           .replace(/_/g, " ")
           .replace(/(?<![A-Za-z])b(?![A-Za-z])/g, "♭")}
-      </span>{" "}
+      </span>
       <span style={{ color: "#888", fontSize: "0.9em" }}>
+        :
         {tag
           .split(":")[1]
           .replace(/_/g, " ")
           .replace(/(?<![A-Za-z])b(?![A-Za-z])/g, "♭")}
       </span>
-    </a>
+    </STag>
   );
 };
 
@@ -366,9 +363,7 @@ export const CHAPTERS: Array<{
           chords in {n`5 × 4 × 3 = 60`} ways:
         </P>
         <P>
-          <ul
-            style={{ listStyleType: "none", marginLeft: "0", paddingLeft: "0" }}
-          >
+          <UL>
             <li>
               {c`I ii iii IV`} {c`I ii iii V`} {c`I ii iii vi`} {c`I ii IV iii`}{" "}
               {c`I ii IV V`} {c`I ii IV vi`}{" "}
@@ -409,7 +404,7 @@ export const CHAPTERS: Array<{
               {c`I vi IV ii`} {c`I vi IV iii`} {c`I vi IV V`} {c`I vi V ii`}{" "}
               {c`I vi V iii`} {c`I vi V IV`}{" "}
             </li>
-          </ul>
+          </UL>
         </P>
         <P>
           However, historically just a few of these hypothetical loops take up
@@ -670,10 +665,12 @@ export const CHAPTERS: Array<{
           {c`4`} and 5 {c`5`} are:
           <ul>
             <li>
-              major chords {c`I`} {c`IV`} {c`V`} if built on a major scale {c`1 2 3 4 5 6 7 1`}
+              major chords {c`I`} {c`IV`} {c`V`} if built on a major scale{" "}
+              {c`1 2 3 4 5 6 7 1`}
             </li>
             <li>
-              minor chords {c`i`} {c`iv`} {c`v`} if built on a minor scale {c`1 2 b3 4 5 b6 b7 1`}
+              minor chords {c`i`} {c`iv`} {c`v`} if built on a minor scale{" "}
+              {c`1 2 b3 4 5 b6 b7 1`}
             </li>
           </ul>
         </P>
@@ -1308,7 +1305,7 @@ export const CHAPTERS: Array<{
           <i>perfect fourth</i> (i.e. 5 semitones) over the root - is{" "}
           <i>suspended</i> and then resolved into {c`7`}: {c`1 7 Vsus4 V`}.
           Although in modern composition it's not necessarily resolved:{" "}
-          {s`V:sus4`} {s`V:sus4_unresolved`}
+          {s`V:sus4`}, {s`V:sus4_unresolved`}
         </P>
       </>
     ),

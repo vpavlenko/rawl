@@ -61,7 +61,7 @@ const LatencySection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 8em;
+  width: 6.5em;
   flex-shrink: 0;
   margin: 0 20px;
 `;
@@ -309,7 +309,7 @@ const AppFooter: React.FC<
           <button
             onClick={() => setLatencyCorrectionMs(latencyCorrectionMs - 100)}
           >
-            -lat
+            ▼
           </button>
           <span style={{ fontFamily: "monospace" }}>
             {`${
@@ -324,7 +324,7 @@ const AppFooter: React.FC<
           <button
             onClick={() => setLatencyCorrectionMs(latencyCorrectionMs + 100)}
           >
-            lat+
+            ▲
           </button>
         </LatencySection>
 

@@ -108,14 +108,14 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                 className={`voiceShape-${voiceIndex}`}
                 style={{
                   display: "inline-block",
-                  backgroundColor: "white",
-                  height: 8,
-                  width: 20,
+                  backgroundColor: voiceMask[voiceIndex] ? "white" : "black",
+                  padding: "0px 6px",
+                  fontSize: "12px",
                   marginRight: 5,
                   verticalAlign: "middle",
+                  color: voiceMask[voiceIndex] ? "black" : "white",
                 }}
-              />
-              <span style={{ borderBottom: "0.5px dashed #ccc" }}>
+              >
                 {voiceName}
               </span>
             </span>

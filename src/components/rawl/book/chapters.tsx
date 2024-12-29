@@ -624,10 +624,10 @@ export const CHAPTERS: Array<{
           {c`4`} and 5 {c`5`} are:
           <ul>
             <li>
-              major chords {c`I`} {c`IV`} {c`V`} if built on a major scale
+              major chords {c`I`} {c`IV`} {c`V`} if built on a major scale {c`1 2 3 4 5 6 7 1`}
             </li>
             <li>
-              major chords {c`i`} {c`iv`} {c`v`} if built on a minor scale
+              minor chords {c`i`} {c`iv`} {c`v`} if built on a minor scale {c`1 2 b3 4 5 b6 b7 1`}
             </li>
           </ul>
         </P>

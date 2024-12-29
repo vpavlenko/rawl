@@ -202,23 +202,23 @@ export const parseNotes = ({
     getNotes(events, channel, index),
   );
 
-  // Check if the last measure has any notes ending after its start
-  const lastMeasureStart =
-    measuresAndBeats.measures[measuresAndBeats.measures.length - 1];
-  const hasNotesInLastMeasure = notes.some((voiceNotes) =>
-    voiceNotes.some((note) => note.span[1] > lastMeasureStart),
-  );
-
-  if (!hasNotesInLastMeasure) {
-    // Remove the last measure
-    measuresAndBeats.measures.pop();
-    measuresAndBeats.ticks.measures.pop();
-    // Remove any beats that occur after the new last measure
-    const newLastMeasure =
-      measuresAndBeats.measures[measuresAndBeats.measures.length - 1];
-    measuresAndBeats.beats = measuresAndBeats.beats.filter(
-      (beat) => beat < newLastMeasure,
+  // Remove last measure if second-to-last measure is empty
+  if (measuresAndBeats.measures.length > 2) {
+    const secondToLastMeasureStart =
+      measuresAndBeats.measures[measuresAndBeats.measures.length - 2];
+    const hasNotesInSecondToLastMeasure = notes.some((voiceNotes) =>
+      voiceNotes.some((note) => note.span[1] > secondToLastMeasureStart),
     );
+
+    if (!hasNotesInSecondToLastMeasure) {
+      measuresAndBeats.measures.pop();
+      measuresAndBeats.ticks.measures.pop();
+      measuresAndBeats.beats = measuresAndBeats.beats.filter(
+        (beat) =>
+          beat <
+          measuresAndBeats.measures[measuresAndBeats.measures.length - 1],
+      );
+    }
   }
 
   return {

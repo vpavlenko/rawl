@@ -3320,6 +3320,7 @@ export const corpora: CorpusEntry[] = [
     slug: "aaron_copland",
     midis: [
       "copland_s_third_symphony_first_movement",
+      "copland_symphony_3_mov_1_rewired",
       "appalachian-spring---aaron-copland-appalachian-spring",
       "hoe-down---aaron-copland",
       "at-the-river-g",

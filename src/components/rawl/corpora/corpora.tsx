@@ -2808,8 +2808,21 @@ export const corpora: CorpusEntry[] = [
     country: "USA",
   },
   {
+    slug: "chen_gang",
+    midis: [
+      "liang-zhu---he-zhan-hao-chen-gang-liang-zhu---chen-gang-he-zhan-hao---butterfly-lovers-violin-concerto",
+    ],
+    composerBirthYear: 1935,
+    genre: "Classical",
+    country: "China",
+  },
+  {
     slug: "kensuke_ushio",
-    midis: ["to-a-kinder-world---kensuke-ushio"],
+    midis: [
+      "to-a-kinder-world---kensuke-ushio",
+      "chainsaw-man-ost---sweet-dreams-by-kensuke-ushio-arranged-by-thezewmusic",
+      "lit-a-silent-voice",
+    ],
     country: "Japan",
     composerBirthYear: 1983,
     genre: "Anime, EBM",

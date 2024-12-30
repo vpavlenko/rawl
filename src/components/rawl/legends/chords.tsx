@@ -177,19 +177,12 @@ export const rehydrateChords = (chords: Chord[]): RehydratedChord[] => {
     positions: new Array(CHORDS[chord].length).fill(0),
   }));
 
-  // Track root positions we've seen
-  const seenRootPositions = new Map<number, number>();
-
   // Calculate positions
   for (let i = 0; i < rehydratedChords.length; ++i) {
     const { pitches, positions } = rehydratedChords[i];
-    const currentRoot = pitches[0] % 12; // Normalize to 0-11 range
-
-    if (seenRootPositions.has(currentRoot)) {
-      // If we've seen this root before, use the same position
-      positions[0] = seenRootPositions.get(currentRoot)!;
-    } else if (i > 0) {
+    if (i > 0) {
       const prevRoot = rehydratedChords[i - 1].pitches[0];
+      const currentRoot = pitches[0];
 
       // Calculate the two possible minimal distances
       const distanceUp =
@@ -202,12 +195,8 @@ export const rehydrateChords = (chords: Chord[]): RehydratedChord[] => {
       } else {
         positions[0] = rehydratedChords[i - 1].positions[0] - distanceDown;
       }
-
-      // Remember this root's position
-      seenRootPositions.set(currentRoot, positions[0]);
     } else {
       positions[0] = 0;
-      seenRootPositions.set(currentRoot, 0);
     }
 
     // Stack the rest of the notes above the root

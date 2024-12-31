@@ -447,6 +447,7 @@ export const corpora: CorpusEntry[] = [
       "mr-zvonsky-s-freylekhs",
       "freylekh-zain---frohlich-sein",
       "lebedikh-un-freylekh---trad.-klezmer-for-flute-clarinet",
+      "varshaver-freylekhs-klezmer-tune",
     ],
   },
   {
@@ -712,6 +713,14 @@ export const corpora: CorpusEntry[] = [
     genre: "Filipino Music, Classical",
     style: "Folk, Ethno-Classical",
     country: "Philippines", // Lucrecia Kasilag was Filipino.
+  },
+  {
+    slug: "sibelius",
+    midis: ["sydameni_laulu", "jean-sibelius---etude-op.-76-n.2"],
+    composerBirthYear: 1865, // Jean Sibelius
+    genre: "Classical",
+    style: "Romantic, Orchestral",
+    country: "Finland", // Sibelius was Finnish.
   },
   {
     slug: "ernesto_lecuona",
@@ -1145,8 +1154,13 @@ export const corpora: CorpusEntry[] = [
     country: "USA", // Fats Waller was American.
   },
   {
-    slug: "gershwin_preludes",
-    midis: ["gershwin_prelude_1", "gershwin_prelude_2", "gershwin_prelude_3"],
+    slug: "gershwin",
+    midis: [
+      "gershwin_prelude_1",
+      "gershwin_prelude_2",
+      "gershwin_prelude_3",
+      "Gershwin_Rhapsody_in_Blue_Piano_solo",
+    ],
     genre: "American, Classical",
     style: "Jazz, Classical",
     country: "USA",
@@ -1332,7 +1346,7 @@ export const corpora: CorpusEntry[] = [
     country: "Japan",
   },
   {
-    slug: "beauty_and_the_beast",
+    slug: "alan_menken_beauty_and_the_beast",
     midis: [
       "beauty-and-the-beast-prologue",
       "evermore---alan-menken-evermore-from-beauty-and-the-beast---alan-menken-piano-voice",
@@ -1342,6 +1356,14 @@ export const corpora: CorpusEntry[] = [
       "gaston",
       "tale-as-old-as-time---beauty-and-the-beast---alan-menken---piano-solo",
     ],
+    composerBirthYear: 1949, // Alan Menken
+    genre: "Film Score, Musical",
+    style: "Orchestral, Broadway",
+    country: "USA",
+  },
+  {
+    slug: "alan_menken",
+    midis: ["i-see-the-light-from-disney-s-tangled"],
     composerBirthYear: 1949, // Alan Menken
     genre: "Film score, Musical",
     style: "Orchestral, Broadway",
@@ -2421,13 +2443,13 @@ export const corpora: CorpusEntry[] = [
       "joker-folie-a-deux---trailer-theme---hildur-gudnadottir",
       "warsaw-concerto-dangerous-moonlight-theme-1941",
       "machinarium",
-      "chasing-kou---hidekazu-sakamoto-drowning-love---ni-rerunaihu-mule-bbajin-naipeu-ost",
       "vostochnye-skazki---blestyashchie",
       "bomnal-beojggoc-geurigo-neo-spring-day-cherry-blossoms-you---epitone-project",
       "starry-dome---no.-15-from-piano-meditation---george-nevada",
       "seven-nation-army-arr.-nikodem-lorenz",
       "sing-hallelujah",
       "amish-paradise---weird-al-yankovic-kaleidoscope",
+      "na-zare---alyans-na-zare",
     ],
     composerBirthYear: 1950, // Various modern composers
     genre: "Pop, Video game, Film",
@@ -2721,6 +2743,7 @@ export const corpora: CorpusEntry[] = [
       "armstrong-go-down-moses",
       "all-of-me---new-york-jazz-lounge",
       "Misty_piano_solo",
+      "bheki_mseleku_angola",
     ],
     genre: "Jazz",
     // This is a collection of jazz standards, no specific composer can be assigned.
@@ -3658,6 +3681,7 @@ export const corpora: CorpusEntry[] = [
       "chinese-dance---the-nutcracker-suite---peter-tchaikovsky",
       "tchaikovsky-waltz-of-the-flowers-from-the-nutcracker-piano-4-hands",
       "dance-of-the-sugar-plum-fairy",
+      "swan-lake-theme---tchaikovsky",
     ],
     composerBirthYear: 1840, // Born in 1840
     genre: "Classical", // Classical composer
@@ -4184,6 +4208,7 @@ export const corpora: CorpusEntry[] = [
       "a-town-with-an-ocean-view--joe-hisaishi--natural-key-signature",
       "joe-hisaishi---hana-bi",
       "the-name-of-life-inochi-no-namae-joe-hisaishi",
+      "itsumo-nando-demo-always-with-me---spirited-away",
     ],
     composerBirthYear: 1950, // Joe Hisaishi's birth year
     genre: "Film, Anime", // Known for composing music for films and anime
@@ -5051,6 +5076,7 @@ export const corpora: CorpusEntry[] = [
       "daichovo-horo-2",
       "daichovo-horo-3",
       "daichovo_horo_1",
+      "roumen-sirakov-s-daichevo",
       "denjovo-horo",
       "devetorka-samokovsko-horo",
       "drjanovska-racenica-ii",
@@ -5341,6 +5367,7 @@ export const corpora: CorpusEntry[] = [
       "crazy-pharaoh",
       "miss-fox-piano-tiles-2",
       "childhood-piano-tiles-2",
+      "bluestone-alley-piano-tiles-2",
     ],
     composerBirthYear: 1980,
     genre: "Music Game",
@@ -5448,6 +5475,14 @@ export const corpora: CorpusEntry[] = [
     genre: "Video Game Music",
     country: "Japan",
   },
+  {
+    slug: "imagine_dragons",
+    midis: ["demons-imagine-dragons", "Believer_-_Imagine_Dragons"],
+    composerBirthYear: 1984,
+    country: "USA",
+    genre: "Rock",
+  },
+  { slug: "adele", midis: ["someone-like-you", "easy-on-me---adele"] },
   {
     slug: MUSESCORE_TOP_100_SLUG,
     posttext: AboutTop100Corpus,
@@ -5659,39 +5694,84 @@ export const corpora: CorpusEntry[] = [
     country: "USA",
   },
   {
+    slug: "marshmello",
+    midis: [
+      "marshmello-ft.-bastille---happier",
+      "Alone_Marshmello",
+      "marshmello-alone-sergio-moy-20201220161814-nonstop2k.com",
+    ],
+    composerBirthYear: 1992,
+    genre: "Electronic",
+    country: "USA",
+  },
+  {
+    slug: "go_shiina",
+    midis: [
+      "kamado-tanjiro-no-uta-~-demon-slayer-ep-19-ed-ost-fonzi-m-improvised-hard-version",
+      "code-vein---go-shiina",
+    ],
+    composerBirthYear: 1974,
+    genre: "Video Game Music",
+    country: "Japan",
+  },
+  {
+    slug: "carlos_gardel",
+    midis: ["tango-por-una-cabeza", "volver---carlos-gardel"],
+    composerBirthYear: 1890,
+    country: "Argentina",
+    genre: "Tango",
+  },
+  {
+    slug: "the_script",
+    midis: ["hall-of-fame", "the-script---superheroes"],
+    composerBirthYear: 1980,
+    genre: "Pop Rock",
+    country: "Ireland",
+  },
+  {
+    slug: "kyle_dixon_and_michael_stein",
+    midis: [
+      "stranger-things-theme",
+      "kids---kyle-dixon-michael-stein-stranger-things---arranged-by-nana",
+      "aftermath---kyle-dixon-and-michael-stein",
+    ],
+    composerBirthYear: 1983,
+    country: "USA",
+  },
+  {
+    slug: "dave_brubeck",
+    midis: ["take-five", "Blue_Rondo_A_La_Turk"],
+    composerBirthYear: 1920,
+    country: "USA",
+    genre: "Jazz",
+  },
+  {
     slug: "musescore_top200_incomplete",
     midis: [
       "Godfather", // Nino Rota
       "Pink_Panther", // Henry Mancini
       "Let_It_Go_Disney_Frozen", // Kristen Anderson-Lopez & Robert Lopez
-      "bts-bangtansonyeondan---i-need-u-suga-piano-full-solo",
+      "bts-bangtansonyeondan---i-need-u-suga-piano-full-solo", // BTS
+      "rihanna-ft.-mikky-echo---stay", // Mikky Echo
+      "kamado-tanjiro-no-uta-~-demon-slayer-ep-19-ed-ost-fonzi-m-improvised-hard-version", // Go Shiina
+      "marshmello-ft.-bastille---happier", // Marshmello
+      "linus-and-lucy-peanuts---vince-guaraldi", // Vince Guaraldi
+      "tango-por-una-cabeza", // Carlos Gardel
+      "chasing-kou---hidekazu-sakamoto-drowning-love---ni-rerunaihu-mule-bbajin-naipeu-ost", // Hidekazu Sakamoto
 
-      "stranger-things-theme",
+      "hall-of-fame", // The Script
+      "olivia-rodrigo---drivers-license", // Olivia Rodrigo
+      "stranger-things-theme", // Kyle Dixon & Michael Stein
+      "forest-gump---main-title-feather-theme", // Alan Silvestri
+      "senorita---shawn-mendes-camilla-cabello", // Shawn Mendes & Camila Cabello
+      "i-see-the-light-from-disney-s-tangled", // Alan Menken
+      "take-five", // Dave Brubeck
 
       "20th-century-fox-fanfare-piano-arr.",
-      "swan-lake-theme---tchaikovsky",
-      "marshmello-ft.-bastille---happier",
-      "kamado-tanjiro-no-uta-~-demon-slayer-ep-19-ed-ost-fonzi-m-improvised-hard-version",
-      "senorita---shawn-mendes-camilla-cabello",
-      "demons-imagine-dragons",
-      "easy-on-me---adele",
-      "bluestone-alley-piano-tiles-2",
-      "rihanna-ft.-mikky-echo---stay",
-      "olivia-rodrigo---drivers-license",
-      "forest-gump---main-title-feather-theme",
-      "the-avengers-theme---piano",
-      "hall-of-fame",
       "rush-e-but-it-s-as-difficult-as-humanly-possible",
-
-      "john-william---jurassic-park-theme",
-      "always-with-me-piano-cover.",
-      "spring-day---bts",
-      // "river_flows_in_you_yiruma_10th_anniversary_version_piano",
       "lost-boy---ruth-b",
-      "itsumo-nando-demo-always-with-me---spirited-away",
     ],
   },
-
   {
     slug: "scarlatti",
     midis: [
@@ -5768,7 +5848,7 @@ export const corpora: CorpusEntry[] = [
       "Axel_F_Beverly_Hills_Cop_III",
 
       "Billie_s_Bounce_Billies_Bounce",
-      "Blue_Rondo_A_La_Turk",
+
       "Blues_for_Alice",
       "Blues_in_the_Closet_Lead_sheet_",
 
@@ -5782,9 +5862,6 @@ export const corpora: CorpusEntry[] = [
       "Feliz_Navidad",
       "Flight_Facilities_Crave_You",
       "Flight_Facilities_Crave_You_2",
-
-      "Gershwin_Rhapsody_in_Blue_Piano_solo",
-      "Alone_Marshmello",
 
       "Good_Bye_Hachiko",
 
@@ -5801,13 +5878,10 @@ export const corpora: CorpusEntry[] = [
       "Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki",
       "Lady_Gaga_Always_remember_us_this_way",
 
-      "Lena_Raine_Pigstep",
-
       "Liana_Flores_Rises_the_Moon",
 
       "Love_Store_Francis_Lai",
 
-      "Moon_River_Breakfast_at_Tiffanys",
       "Morphine_Cure_for_Pain",
       "My_War_Attack_on_Titan",
 
@@ -5856,7 +5930,6 @@ export const corpora: CorpusEntry[] = [
       "average_rag_1",
       "average_rag_2",
 
-      "bheki_mseleku_angola",
       "brahms_118_1",
       "brahms_op118_1",
       "bubamara",
@@ -5896,12 +5969,12 @@ export const corpora: CorpusEntry[] = [
       "hannamontana---poshlaya-molli-agga",
       "hava-nagila",
 
-      "he_s_a_pirate_easy_piano",
-      "he_s_a_pirate_from_pirates_of_the_caribbean",
-      "he_s_a_pirate_hans_zimmer_klaus_badelt",
-      "he_s_a_pirate_hard_version",
-      "he_s_a_pirate_klaus_badelt_pirates_of_the_caribbean_ost_rock_version",
-      "he_s_a_pirate_ost_kalimba_cover",
+      // "he_s_a_pirate_easy_piano",
+      // "he_s_a_pirate_from_pirates_of_the_caribbean",
+      // "he_s_a_pirate_hans_zimmer_klaus_badelt",
+      // "he_s_a_pirate_hard_version",
+      // "he_s_a_pirate_klaus_badelt_pirates_of_the_caribbean_ost_rock_version",
+      // "he_s_a_pirate_ost_kalimba_cover",
       "hojnacki_1",
 
       "idotdotdot---yiruma",
@@ -5931,19 +6004,19 @@ export const corpora: CorpusEntry[] = [
       "opa-cupa",
 
       "piano_tutorial",
-      "pirate_melody_16measures_chromatic",
-      "pirate_melody_16measures_scales",
-      "pirate_melody_16measures_transpositions",
-      "pirate_melody_16measures_whole_tone",
-      "pirates_5ch",
-      "pirates_of_the_caribbean_easy_piano",
-      "pirates_of_the_caribbean_easy_piano_capa",
-      "pirates_of_the_caribbean_for_alto_saxophone",
-      "pirates_of_the_caribbean_hans_zimmer_virtuosic_piano_solo_movement_3",
-      "pirates_of_the_caribbean_he_s_a_pirate_hard_version",
-      "pirates_of_the_caribbean_main_theme",
-      "pirates_of_the_carribean_beginner",
-      "pirati_dei_caraibi_per_trio_di_flauti_pirates_of_the_carribean_for_flute_trio",
+      // "pirate_melody_16measures_chromatic",
+      // "pirate_melody_16measures_scales",
+      // "pirate_melody_16measures_transpositions",
+      // "pirate_melody_16measures_whole_tone",
+      // "pirates_5ch",
+      // "pirates_of_the_caribbean_easy_piano",
+      // "pirates_of_the_caribbean_easy_piano_capa",
+      // "pirates_of_the_caribbean_for_alto_saxophone",
+      // "pirates_of_the_caribbean_hans_zimmer_virtuosic_piano_solo_movement_3",
+      // "pirates_of_the_caribbean_he_s_a_pirate_hard_version",
+      // "pirates_of_the_caribbean_main_theme",
+      // "pirates_of_the_carribean_beginner",
+      // "pirati_dei_caraibi_per_trio_di_flauti_pirates_of_the_carribean_for_flute_trio",
       "pizzicati-from-sylvia-act-iii-no.-20---leo-delibes---1876",
       "pornofilmy-prosti_proshyay_privet",
       "pornofilmy-prosti_proshyay_privet.1",
@@ -5955,8 +6028,6 @@ export const corpora: CorpusEntry[] = [
       "prelude_in_c_major_bach_piano_solo",
 
       "pyos",
-
-      "roumen-sirakov-s-daichevo",
 
       "sadness-and-sorrow",
 
@@ -5971,7 +6042,7 @@ export const corpora: CorpusEntry[] = [
       "steve-reich---piano-phase",
 
       "string_quartet_no_8_in_e_minor_opus_59_rasumovsky_no_2",
-      "sydameni_laulu",
+
       "symphony_8_1",
       "symphony_no_1_k_16_2nd_movement",
 
@@ -5989,15 +6060,13 @@ export const corpora: CorpusEntry[] = [
 
       "underground-cocek",
 
-      "varshaver-freylekhs-klezmer-tune",
-
       "white_christmas",
       "wonder-wave-by-david-lanz",
       "something-human---muse",
       "priboi",
-      "marshmello-alone-sergio-moy-20201220161814-nonstop2k.com",
+
       "maromis-theme---smoke",
-      "na-zare---alyans-na-zare",
+
       "zappaguri",
 
       "genesis-that-s-all-piano",

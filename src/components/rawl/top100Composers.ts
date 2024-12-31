@@ -359,7 +359,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
   },
   {
     slug: "attack-on-titan-theme-guren-no-yumiya",
-    composer: "Hiroyuki Sawano",
+    composer: "Revo",
     displayTitle: "Guren no Yumiya (Attack on Titan Opening)",
     isVocal: true,
   },

@@ -40,12 +40,11 @@ export const corpora: CorpusEntry[] = [
       "Kiss_The_Rain_-_Yiruma_-_10th_Anniversary_Version_Piano_Updated_2019",
     ],
     composerBirthYear: 1978, // Yiruma
-    genre: "Classical Crossover", // His music blends classical with modern elements.
-    style: "New Age, Classical, Contemporary", // Known for emotionally evocative, piano-driven pieces.
-    country: "South Korea", // Yiruma is South Korean.
+    style: "21st Century Piano",
+    country: "South Korea",
   },
   {
-    slug: "first_love",
+    slug: "yiruma_first_love",
     midis: [
       "river-flows-in-you",
       "may-be---yiruma",
@@ -63,8 +62,7 @@ export const corpora: CorpusEntry[] = [
       "when-the-love-falls---yiruma", // cover
     ],
     composerBirthYear: 1978, // Same as above.
-    genre: "Classical Crossover",
-    style: "New Age, Classical, Contemporary",
+    style: "21st Century Piano",
     country: "South Korea",
   },
   {
@@ -2722,6 +2720,7 @@ export const corpora: CorpusEntry[] = [
       "footprints_r",
       "armstrong-go-down-moses",
       "all-of-me---new-york-jazz-lounge",
+      "Misty_piano_solo",
     ],
     genre: "Jazz",
     // This is a collection of jazz standards, no specific composer can be assigned.
@@ -3315,6 +3314,13 @@ export const corpora: CorpusEntry[] = [
       "qiao-shang-nozhan-i-battle-on-the-bridge---final-fantasy-tactics-ps1---hitoshi-sakimoto",
       "heroes-of-might-magic-iii---fortress-town-theme",
     ],
+  },
+  {
+    slug: "gibran_alcocer",
+    midis: ["idea-22---gibran-alcocer", "idea-n.10---gibran-alcocer"],
+    composerBirthYear: 2003,
+    genre: "21st Century Piano",
+    country: "Mexico",
   },
   {
     slug: "aaron_copland",
@@ -5011,7 +5017,7 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: 1955, // Ludovico Einaudi was born in 1955
     genre: "Classical", // Modern classical music
-    style: "Minimalism, Contemporary Classical", // Known for Minimalism and contemporary classical style
+    style: "Minimalism, 21st Century Piano", // Known for Minimalism and contemporary classical style
     country: "Italy", // Born in Italy
   },
   {
@@ -5619,10 +5625,45 @@ export const corpora: CorpusEntry[] = [
   },
 
   {
-    slug: "musescore_top200_incomplete",
+    slug: "henry_mancini",
+    midis: [
+      "Pink_Panther",
+      "lujon---henry-mancini",
+      "moon-river-for-flute---henry-mancini",
+    ],
+    composerBirthYear: 1924,
+    genre: "Film Score, Jazz, Pop, Easy Listening",
+    country: "USA",
+  },
+  {
+    slug: "nino_rota",
     midis: [
       "Godfather",
-      "Pink_Panther",
+      "romeo-and-juliet---nino-rota-a-time-for-us-flute-piano",
+      "fellini-8-1-2-rota-8-1-2-fellini-rota---nino-rota-8-1-2-fellini-rota---rota-fellini-8-1-2",
+    ],
+    composerBirthYear: 1911,
+    country: "Italy",
+    genre: "Film Score",
+  },
+  {
+    slug: "kristen_anderson_lopez_and_robert_lopez",
+    midis: [
+      "Let_It_Go_Disney_Frozen",
+      "remember-me---kristen-anderson-lopez-robert-lopez-from-disney-pixar-s-coco-arr-for-solo-piano",
+      "wandavision-from-wandavision-ep-2---kristen-anderson-lopez-robert-lopez",
+      "a-newlywed-couple-from-wandavision-ep-1---kristen-anderson-lopez-robert-lopez",
+    ],
+    composerBirthYear: 1972,
+    genre: "Animation Score",
+    country: "USA",
+  },
+  {
+    slug: "musescore_top200_incomplete",
+    midis: [
+      "Godfather", // Nino Rota
+      "Pink_Panther", // Henry Mancini
+      "Let_It_Go_Disney_Frozen", // Kristen Anderson-Lopez & Robert Lopez
       "bts-bangtansonyeondan---i-need-u-suga-piano-full-solo",
 
       "stranger-things-theme",
@@ -5641,7 +5682,7 @@ export const corpora: CorpusEntry[] = [
       "the-avengers-theme---piano",
       "hall-of-fame",
       "rush-e-but-it-s-as-difficult-as-humanly-possible",
-      "Let_It_Go_Disney_Frozen",
+
       "john-william---jurassic-park-theme",
       "always-with-me-piano-cover.",
       "spring-day---bts",
@@ -5766,7 +5807,6 @@ export const corpora: CorpusEntry[] = [
 
       "Love_Store_Francis_Lai",
 
-      "Misty_piano_solo",
       "Moon_River_Breakfast_at_Tiffanys",
       "Morphine_Cure_for_Pain",
       "My_War_Attack_on_Titan",

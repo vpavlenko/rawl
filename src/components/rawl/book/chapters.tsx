@@ -881,6 +881,7 @@ export const CHAPTERS: Array<{
         <P>
           We'll look at the older version of minor in the next few chapters.
         </P>
+        <P>{s`minor_cadence:minor_v`}</P>
       </>
     ),
   },

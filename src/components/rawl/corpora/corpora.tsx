@@ -3353,7 +3353,16 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "gibran_alcocer",
-    midis: ["idea-22---gibran-alcocer", "idea-n.10---gibran-alcocer"],
+    midis: [
+      "idea-22---gibran-alcocer",
+      "idea-n.10---gibran-alcocer",
+      "idea-15---gibran-alcocer",
+      "idea-5---gibran-alcocer",
+      "idea-20---gibran-alcocer",
+      "idea-7---gibran-alcocer",
+      "idea-9---gibran-alcocer",
+      "idea-1---gibran-alcocer",
+    ],
     composerBirthYear: 2003,
     genre: "21st Century Piano",
     country: "Mexico",

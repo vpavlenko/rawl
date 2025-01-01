@@ -78,7 +78,7 @@ export const rnc = (strings: TemplateStringsArray) => (
   </>
 );
 
-const ct = (string: string, tonic: number) => (
+export const ct = (string: string, tonic: number) => (
   <TonicProvider currentTonic={tonic}>{c([string] as any)}</TonicProvider>
 );
 

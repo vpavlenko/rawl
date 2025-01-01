@@ -5838,12 +5838,13 @@ export const corpora: CorpusEntry[] = [
       "czardas-by-vittorio-monti", // Vittorio Monti
       "a-wanderer-s-song-zigeunerweisen-gypsy-airs-op.20", // Pablo de Sarasate
       "ave-maria-d839---schubert---solo-piano-arrg.", // Schubert
-
       "liebesleid-piano-solo---kreisler-rachmaninoff-alt-wiener-tanzweisen", // Fritz Kreisler
-      "just-the-two-of-us",
+      "just-the-two-of-us", // Ralph MacDonald and William Salter
 
-      "20th-century-fox-fanfare-piano-arr.",
-      "rush-e-but-it-s-as-difficult-as-humanly-possible",
+      "to-build-a-home-~-the-cinematic-orchestra", // The Cinematic Orchestra
+      "great-balls-of-fire---jerry-lee-lewis", // Jerry Lee Lewis
+      "westlife---beautiful-in-white", // Westlife
+      "victory-piano-solo---two-steps-from-hell", // Thomas Bergersen
     ],
   },
   {
@@ -5971,6 +5972,8 @@ export const corpora: CorpusEntry[] = [
       "Johnny_Cash_Hurt",
 
       "Jolene",
+      "20th-century-fox-fanfare-piano-arr.",
+      "rush-e-but-it-s-as-difficult-as-humanly-possible",
 
       "Krylya_Nautilus_duo",
       "Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki",

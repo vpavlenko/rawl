@@ -1,7 +1,7 @@
 import * as React from "react";
 import { CorpusLink } from "../corpora/CorpusLink";
 import { Chord } from "../legends/chords";
-import { A, c, Mode, P, rnc, s, UL } from "./chapters";
+import { A, c, ct, Mode, P, rnc, s, UL } from "./chapters";
 
 export const BEYOND_CHAPTER_GROUPS: Record<string, [number, number]> = {
   intro: [1, 10],
@@ -47,6 +47,7 @@ export const BEYOND_CHAPTERS: Array<{
           <UL>
             <li>{s`scale:blues`}</li>
             <li>{s`chord_scale:IV7`}</li>
+            <li>{s`form:8-bar_blues`}</li>
             <li>
               <CorpusLink slug={"boogie_woogie"} />
             </li>
@@ -111,6 +112,39 @@ export const BEYOND_CHAPTERS: Array<{
         <h2>Parallel symmetry</h2>
         <P>{s`parallel:symmetry`}</P>
         <P>{s`parallel:picardy_third`}</P>
+      </>
+    ),
+  },
+  {
+    title: "Greek b2 natural 3",
+    titleChords: ["bvii", "I"],
+    composers: [],
+    pretext: () => (
+      <>
+        <h2>Greek b2</h2>
+        <P>
+          Let's consider the corpus <CorpusLink slug={"greek_music"} />. Some
+          songs in it are quite standard Western. However, there are others
+          which exploit a scale specific to the Balkans: {c`1 b2 3 4 5 b6 b7 1`}
+          . For a lack of better universal name, let's call it a C phrygian
+          dominant.
+        </P>
+        <P>
+          Technically, it's a rotation of a {ct("1 2 b3 4 5 b6 7 1", 5)}:{" "}
+          {ct("5 b6 7 1 2 b3 4 5", -7)}. However, due to the positioning of
+          chords within the section, due to cadential formulas (like {c`bvii I`}
+          ) and the structure of melodies another note is tonicized in it, and
+          therefore I recolor. The most common first and last chord in those
+          pieces is {c`I`}.
+        </P>
+        <P>
+          {c`iv I bvii I`}, {c`bII I bvii I`}
+        </P>
+        <P>
+          {A("a.-kaldaras---nyhtose-horis-feggari---greek-music-037")},{" "}
+          {A("s.-xarhakos---stoy-thoma---greek-music-055")},{" "}
+          {A("s.-xarhakos---mpoyrnovalia---greek-music-079")}
+        </P>
       </>
     ),
   },

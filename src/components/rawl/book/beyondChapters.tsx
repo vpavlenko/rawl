@@ -102,4 +102,16 @@ export const BEYOND_CHAPTERS: Array<{
       </>
     ),
   },
+  {
+    title: "Parallel symmetry",
+    titleChords: ["V7", "i", "V7", "I"],
+    composers: [],
+    pretext: () => (
+      <>
+        <h2>Parallel symmetry</h2>
+        <P>{s`parallel:symmetry`}</P>
+        <P>{s`parallel:picardy_third`}</P>
+      </>
+    ),
+  },
 ];

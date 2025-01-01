@@ -1103,6 +1103,7 @@ export const CHAPTERS: Array<{
           which sounds "similar": these chords share two notes. This way we'll
           get {c`i iv bVII bIII bVI iv V i`}
         </P>
+        <P>{s`cycle_root_motion:5`}</P>
       </>
     ),
     mode: {

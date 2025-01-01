@@ -403,7 +403,6 @@ export const corpora: CorpusEntry[] = [
       "tango-jealousy---jacob-gade",
       "beleet-moy-parus-a.-mironov---gennadiy-gladkov",
       "chicago---cell-block-tango---misc-soundtrack",
-      "underground-tango---goran-bregovic-string-quartet",
 
       "tango-de-la-muerte",
       "tango-pour-claude---richard-galliano",
@@ -448,6 +447,7 @@ export const corpora: CorpusEntry[] = [
       "freylekh-zain---frohlich-sein",
       "lebedikh-un-freylekh---trad.-klezmer-for-flute-clarinet",
       "varshaver-freylekhs-klezmer-tune",
+      "hava-nagila",
     ],
   },
   {
@@ -768,6 +768,15 @@ export const corpora: CorpusEntry[] = [
     country: "Cuba", // Lecuona's version is most well-known.
   },
   {
+    slug: "pablo_de_sarasate",
+    midis: [
+      "malaguena-sarasate",
+      "a-wanderer-s-song-zigeunerweisen-gypsy-airs-op.20",
+    ],
+    composerBirthYear: 1844,
+    country: "Spain",
+  },
+  {
     slug: "vaqif_mustafazadeh",
     midis: ["vaqif_mustafazade_-_dushunce_piano_tutorial"],
     composerBirthYear: 1940, // Vaqif Mustafazadeh
@@ -1051,6 +1060,7 @@ export const corpora: CorpusEntry[] = [
       "a-real-slow-drag---scott-joplin---1913",
       "march-majestic---scott-joplin---1902",
       "school-of-ragtime---scott-joplin---1908",
+      "maple_starts",
     ],
     composerBirthYear: 1868, // Scott Joplin
     genre: "American, Ragtime",
@@ -3338,6 +3348,7 @@ export const corpora: CorpusEntry[] = [
       "greenpath---christopher-larkin",
       "qiao-shang-nozhan-i-battle-on-the-bridge---final-fantasy-tactics-ps1---hitoshi-sakimoto",
       "heroes-of-might-magic-iii---fortress-town-theme",
+      "lavender-town-pokemon-r-b-y",
     ],
   },
   {
@@ -4969,20 +4980,21 @@ export const corpora: CorpusEntry[] = [
       "schubert-german-dance-d.783-op.-33-no.-2",
       "german-dance-and-ecossaise-d.643---franz-schubert",
       "schubert---sonata-in-a-op.120-d.664-movement-i",
+      "ave-maria-d839---schubert---solo-piano-arrg.",
     ],
-    composerBirthYear: 1797, // Franz Schubert was born in 1797
-    genre: "Classical", // Schubert is one of the most important composers of the Classical era
-    style: "Romantic", // Although his early works were Classical, Schubert's later works contributed significantly to the Romantic era
-    country: "Austria", // Schubert was Austrian
+    composerBirthYear: 1797,
+    genre: "Classical",
+    style: "Romantic",
+    country: "Austria",
   },
 
   {
     slug: "brad_mehldau",
     midis: ["anthropology---brad-mehldau"],
-    composerBirthYear: 1970, // Brad Mehldau was born in 1970
-    genre: "Jazz", // Brad Mehldau is a jazz pianist
-    style: "Post-bop, Contemporary Jazz", // Known for blending post-bop with modern jazz styles
-    country: "USA", // Born in the United States
+    composerBirthYear: 1970,
+    genre: "Jazz",
+    style: "Post-bop, Contemporary Jazz",
+    country: "USA",
   },
   {
     slug: "aziza_mustafa_zadeh",
@@ -5089,6 +5101,7 @@ export const corpora: CorpusEntry[] = [
       "gankino_horo",
       "gankino_horo_traditionnel_bulgare",
       "gjusevska-racenica",
+      "glavinishko-cetvorno",
       "gr-uan-vcarsko-horo",
       "gr-uan-vcarsko-horo-1",
       "gr-uan-vcarsko-horo-2",
@@ -5754,6 +5767,23 @@ export const corpora: CorpusEntry[] = [
     genre: "Jazz",
   },
   {
+    slug: "junichi_masuda",
+    midis: [
+      "pallet-town---pokemon-red-blue-green-yellow-by-junichi-masuda",
+      "viridian-pewter-saffron-city---pokemon-rby---junichi-masuda",
+      "pokemon-rse---route-101---junichi-masuda",
+      "lavender-town-pokemon-r-b-y",
+    ],
+  },
+  {
+    slug: "brahms",
+    midis: [
+      "hungarian-dance-no-5-in-g-minor",
+      "brahms_118_1",
+      "brahms_op118_1",
+    ],
+  },
+  {
     slug: "musescore_top200",
     midis: [
       "Godfather", // Nino Rota
@@ -5801,6 +5831,16 @@ export const corpora: CorpusEntry[] = [
       "one-piece---bink-s-sake---kohei-tanaka", // Kohei Tanaka
 
       "Hit_the_Road_Jack", // Percy Mayfield
+      "lavender-town-pokemon-r-b-y", // Junichi Masuda
+      "rachmaninoff-piano-concerto-no.-2-1st-mvmt.-arr.-for-2-pianos", // Rachmaninoff
+      "the-weeknd---blinding-lights---advanced-cover-by-majorandminor", // The Weeknd
+      "in-the-end---linkin-park", // Linkin Park
+      "czardas-by-vittorio-monti", // Vittorio Monti
+      "a-wanderer-s-song-zigeunerweisen-gypsy-airs-op.20", // Pablo de Sarasate
+      "ave-maria-d839---schubert---solo-piano-arrg.", // Schubert
+
+      "liebesleid-piano-solo---kreisler-rachmaninoff-alt-wiener-tanzweisen", // Fritz Kreisler
+      "just-the-two-of-us",
 
       "20th-century-fox-fanfare-piano-arr.",
       "rush-e-but-it-s-as-difficult-as-humanly-possible",
@@ -5872,7 +5912,31 @@ export const corpora: CorpusEntry[] = [
     style: "Classical",
     country: "Austria",
   },
-  { slug: "goran_bregovic", midis: ["bubamara", "underground-cocek"] },
+  {
+    slug: "goran_bregovic",
+    midis: [
+      "bubamara",
+      "underground-cocek",
+      "underground-tango---goran-bregovic-string-quartet",
+      "kalasnjikov",
+    ],
+  },
+  { slug: "exercises", midis: ["average_rag_1", "average_rag_2"] },
+  {
+    slug: "examples",
+    midis: [
+      "the_seven_diatonic_natural_minor_chords_in_a_minor",
+      "thirty_five_smallest_non_diatonic_chords_in_c_or_b",
+      "ii-v-i-jazz-voicings",
+      "ii-v-i-warmup",
+      "the-blues-scale-in-all-12-keys",
+    ],
+  },
+  {
+    slug: "linkin_park",
+    midis: ["Numb_-_Linkin_Park", "in-the-end---linkin-park"],
+  },
+  { slug: "thefatrat", midis: ["TheFatRat_Monody", "TheFatRat_Unity"] },
   {
     slug: "unsorted",
     midis: [
@@ -5919,8 +5983,6 @@ export const corpora: CorpusEntry[] = [
       "Morphine_Cure_for_Pain",
       "My_War_Attack_on_Titan",
 
-      "Numb_-_Linkin_Park",
-
       "Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet",
 
       "Saint_Saens_Symphony_3_1st",
@@ -5935,8 +5997,6 @@ export const corpora: CorpusEntry[] = [
       "Sweet_Dreams",
       "Sweet_home_Chicago",
 
-      "TheFatRat_Monody",
-      "TheFatRat_Unity",
       "The_Prince_of_Silence____Nautilus_Pompilius",
       "The_Strokes_Reptilia",
       "The_Strokes_Reptilia_2",
@@ -5954,12 +6014,6 @@ export const corpora: CorpusEntry[] = [
       "all_of_the_girls_you_loved_before_taylor_swift",
       "alto_sax_natural_minor_scales_and_arpeggios",
       "as_it_was_harry_styles",
-
-      "average_rag_1",
-      "average_rag_2",
-
-      "brahms_118_1",
-      "brahms_op118_1",
 
       "cheek_to_cheek",
 
@@ -5990,12 +6044,11 @@ export const corpora: CorpusEntry[] = [
 
       "gavotte",
       "gavotte_f_j_gossec",
-      "glavinishko-cetvorno",
+
       "god_only_knows_bioshock_infinite_2013",
       "gotye_feat_kimbra_somebody_that_i_used_to_know",
       "hanna-montana---poshlaya-molli-hannamontana---poshlaya-molli",
       "hannamontana---poshlaya-molli-agga",
-      "hava-nagila",
 
       // "he_s_a_pirate_easy_piano",
       // "he_s_a_pirate_from_pirates_of_the_caribbean",
@@ -6006,9 +6059,7 @@ export const corpora: CorpusEntry[] = [
       "hojnacki_1",
 
       "idotdotdot---yiruma",
-      "ii-v-i-jazz-voicings",
-      "ii-v-i-warmup",
-      "kalasnjikov",
+
       "kars_1_tigran_hamasyan",
 
       "kimigayo_national_anthem_of_japan",
@@ -6018,7 +6069,6 @@ export const corpora: CorpusEntry[] = [
       "major_diatonic_chords",
 
       "malenkiy-princ",
-      "maple_starts",
 
       "mesecina",
       "mihail-krug-vladimirskiy-central",
@@ -6074,14 +6124,12 @@ export const corpora: CorpusEntry[] = [
       "symphony_8_1",
       "symphony_no_1_k_16_2nd_movement",
 
-      "the-blues-scale-in-all-12-keys",
       "the-four-chord-song---axis-of-awesome",
 
       "the-washington-post-piano-john-philip-sousa",
 
       "the_lamp_is_low",
-      "the_seven_diatonic_natural_minor_chords_in_a_minor",
-      "thirty_five_smallest_non_diatonic_chords_in_c_or_b",
+
       "this_charming_man_the_smiths_piano_vocal_guitar",
       "tipichnaya_vecherinka_s_basseynom",
       "tomorrow---giovanni-allevi",

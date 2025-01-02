@@ -835,7 +835,7 @@ export const CHAPTERS: Array<{
     title: "Functional natural minor",
     titleChords: ["bVII", "V", "i"],
     composers: [
-      "Game_of_Thrones_Easy_piano",
+      "game-of-thrones-main-piano",
       "sadness-and-sorrow-for-piano-solo",
       "gurenge--demon-slayer-kimetsu-no-yaiba-op",
       "Hallelujah",

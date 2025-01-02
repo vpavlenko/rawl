@@ -493,7 +493,7 @@ const Book: React.FC = () => {
                 >
                   <div
                     style={{
-                      minHeight: "280px",
+                      minHeight: "300px",
                       display: "flex",
                       flexDirection: "column",
                     }}

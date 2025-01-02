@@ -91,7 +91,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     displayTitle: "He's a Pirate (from Pirates of the Caribbean)",
   },
   {
-    slug: "Game_of_Thrones_Easy_piano",
+    slug: "game-of-thrones-main-piano",
     composer: "Ramin Djawadi",
     displayTitle: "Game of Thrones Main Theme",
   },

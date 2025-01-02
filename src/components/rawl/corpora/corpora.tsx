@@ -2675,6 +2675,13 @@ export const corpora: CorpusEntry[] = [
     country: "Greece",
   },
   {
+    slug: "louis_couperin",
+    midis: [
+      "1626---1661-louis-couperin---fugue-ol-11",
+      "l.-couperin-la-piemontoise",
+    ],
+  },
+  {
     slug: "jesse_novak",
     midis: [
       "bojack-horseman-don-t-stop-dancing-piano-solo",
@@ -3266,10 +3273,29 @@ export const corpora: CorpusEntry[] = [
     country: "USA",
   },
   {
+    slug: "asuka_hayazaki",
+    midis: [
+      "daisy-circuit---mario-kart-wii",
+      "winning-results-race---mario-kart-wii",
+    ],
+    country: "Japan",
+    genre: "Video Game Music",
+    composerBirthYear: 1981,
+  },
+  {
+    slug: "selected",
+    midis: [
+      "monk-maz-koshia---the-legend-of-zelda-breath-of-the-wild-",
+      "vizisi",
+      "marx-theme-from-kirby-super-star---jun-ishikawa",
+    ],
+  },
+  {
     slug: "manaka_kataoka",
     midis: [
       "main-theme---the-legend-of-zelda-tears-of-the-kingdom---manaka-kataoka-yasuaki-iwata-and-hajime-wakai-totk-sheet-music",
       "attack-on-vah-naboris---manaka-kataoka",
+      "monk-maz-koshia---the-legend-of-zelda-breath-of-the-wild-",
     ],
     composerBirthYear: 1985,
     genre: "Video Game Music",
@@ -4795,6 +4821,16 @@ export const corpora: CorpusEntry[] = [
     country: "Mexico", // Mexican artist
   },
   {
+    slug: "inti-illimani",
+    midis: [
+      "el-pueblo-unido---inti-illimani",
+      "dolencias---inti-illimani-dolencias",
+      "huajra---inti-illimani",
+    ],
+    composerBirthYear: 1942,
+    country: "Chile",
+  },
+  {
     slug: "handel",
     midis: [
       "minuet-from-music-for-the-royal-fireworks---georg-friedrich-handel",
@@ -5068,6 +5104,10 @@ export const corpora: CorpusEntry[] = [
     country: "Italy", // Born in Italy
   },
   {
+    slug: "michel_petrucciani",
+    midis: ["home-1998-solo-live-transcription---michel-petrucciani"],
+  },
+  {
     slug: "horo",
     midis: [
       "aytoska-rchenica---unknown-aitoska_rachenitsa",
@@ -5330,7 +5370,8 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "ramin_djawadi",
     midis: [
-      "Game_of_Thrones_Easy_piano",
+      // "Game_of_Thrones_Easy_piano",
+      "game-of-thrones-main-piano",
       "light-of-the-seven---ramin-djawadi-complete-transcription",
       "the-night-king---ramin-djawadi",
     ],
@@ -5526,7 +5567,7 @@ export const corpora: CorpusEntry[] = [
       "Another_Love__-_Tom_Odell_Professional", // Tom Odell
       "Sweden_Minecraft", // C418
       "Pirates_of_the_Caribbean_-_Hes_a_Pirate", // Klaus Badelt
-      "Game_of_Thrones_Easy_piano", // Ramin Djawadi
+      "game-of-thrones-main-piano", // Ramin Djawadi
       "someone-you-loved-lewis-capaldi", // Lewis Capaldi
       "Ed_Sheeran_Perfect", // Ed Sheeran
       "Liebestraum_No._3_in_A_Major", // Liszt
@@ -5868,7 +5909,11 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "scarlatti",
-    midis: ["sonata_k159_scarlatti", "scarlatti-sonata-aria-k.32"],
+    midis: [
+      "sonata_k159_scarlatti",
+      "scarlatti-sonata-aria-k.32",
+      "sonata-in-e-major-k-380",
+    ],
     composerBirthYear: 1685, // Domenico Scarlatti was born in 1685
     genre: "Classical", // Classical composer
     style: "Baroque", // Baroque period composer

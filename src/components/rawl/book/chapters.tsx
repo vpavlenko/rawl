@@ -1230,6 +1230,7 @@ export const CHAPTERS: Array<{
     pretext: () => (
       <>
         <h2>Applied dominant: {rn`V7/V`}</h2>
+        <P>{c`I ii V7 I I V7/V V7 I`}</P>
         <P>
           There are diatonic major pieces where the only chromatic chord is{" "}
           {c`II7`} or {c`II`} - a major chord built on a {c`2`} root instead of
@@ -1278,13 +1279,13 @@ export const CHAPTERS: Array<{
     pretext: () => (
       <>
         <h2>{rn`V7/vi`}</h2>
+        <P>{ct(`I V7 I V7/vi vi V7 I`, -12)}</P>
         <P>
           Another applied chord that's common is {c`V/vi`} or {c`V7/vi`}. It's
           usually resolved as {c`V7/vi vi`}, therefore tonicizing a {c`vi`}{" "}
           chord making it a local tonic: {c`V7/vi vi`} in C major equals to{" "}
           {ct(`V7 i`, -3)} in A minor. So, this applied chord tonicizes a
-          relative minor. In a context this sounds like{" "}
-          {ct(`I V7 I V7/vi vi V7 I`, -12)}
+          relative minor.
         </P>
       </>
     ),

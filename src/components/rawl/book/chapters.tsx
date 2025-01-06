@@ -10,6 +10,7 @@ import {
 } from "../legends/chords";
 import ChordStairs, { TonicProvider } from "../legends/ChordStairs";
 import { PianoLegend } from "../legends/PianoLegend";
+import { SnippetLink } from "../snippets/SnippetLink";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 import { Citation } from "./Citations";
 import { CITES } from "./cites";
@@ -104,33 +105,13 @@ export const A = (href: string) => (
   </a>
 );
 
-const STag = styled.a`
-  cursor: pointer;
-  white-space: nowrap;
-`;
-
 export const s = (tags: TemplateStringsArray) => {
   const tag = tags[0];
+  const [chapter, topic] = tag.split(":");
   return (
-    <STag
-      href={`/s/${tag.replace(":", "/")}`}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <span style={{ fontVariantCaps: "small-caps", fontSize: "0.9em" }}>
-        {tag
-          .split(":")[0]
-          .replace(/_/g, " ")
-          .replace(/(?<![A-Za-z])b(?![A-Za-z])/g, "♭")}
-      </span>
-      <span style={{ color: "#888", fontSize: "0.9em" }}>
-        :
-        {tag
-          .split(":")[1]
-          .replace(/_/g, " ")
-          .replace(/(?<![A-Za-z])b(?![A-Za-z])/g, "♭")}
-      </span>
-    </STag>
+    <span style={{ position: "relative", top: "6px", margin: "0px 10px" }}>
+      <SnippetLink chapter={chapter} topic={topic} />
+    </span>
   );
 };
 

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
 import { AppContext } from "../../AppContext";
 import {
   Analysis,
@@ -12,6 +11,7 @@ import { AnalysisGrid, MeasureSelection } from "../AnalysisGrid";
 import EXPLANATIONS from "../corpora/explanations";
 import { MouseHandlers } from "../getNoteRectangles";
 import { SecondsConverter } from "../Rawl";
+import { SnippetLink } from "../snippets/SnippetLink";
 import { MeasuresAndBeats } from "../SystemLayout";
 
 const InlineSnippets: React.FC<{
@@ -216,50 +216,21 @@ const InlineSnippets: React.FC<{
                 const snippetKey = `${measureStart}-${snippet.tag}`;
 
                 return (
-                  <Link
-                    key={`snippet_${index}`}
-                    to={`/s/${encodeURIComponent(
-                      chapter.trim(),
-                    )}/${encodeURIComponent(topic.trim())}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    onMouseEnter={() => {
-                      setHoveredMeasuresSpan(snippet.measuresSpan);
-                      setHoveredSnippetIndex(snippetKey);
-                    }}
-                    onMouseLeave={() => {
-                      setHoveredMeasuresSpan(null);
-                      setHoveredSnippetIndex(null);
-                    }}
-                    style={{
-                      textDecoration: "none",
-                      color: "inherit",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "flex-start",
-                      marginRight: "10px",
-                      lineHeight: "0.9",
-                      position: "relative",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
+                  <div style={{ marginRight: "10px" }}>
+                    <SnippetLink
+                      key={`snippet_${index}`}
+                      chapter={chapter}
+                      topic={topic}
+                      onMouseEnter={() => {
+                        setHoveredMeasuresSpan(snippet.measuresSpan);
+                        setHoveredSnippetIndex(snippetKey);
                       }}
-                    >
-                      <div>
-                        <span style={{ color: "#777" }}>
-                          {chapter.replace(/_/g, " ")}
-                        </span>
-                        <span style={{ color: "#ccc", display: "block" }}>
-                          {topic.replace(/_/g, " ")}
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
+                      onMouseLeave={() => {
+                        setHoveredMeasuresSpan(null);
+                        setHoveredSnippetIndex(null);
+                      }}
+                    />
+                  </div>
                 );
               }
             })}

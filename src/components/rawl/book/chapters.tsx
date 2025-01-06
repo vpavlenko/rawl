@@ -1470,9 +1470,8 @@ export const CHAPTERS: Array<{
           emerged as a popular tool only since late 19th century. Erik Satie's
           example below - {ct(`4 IVmaj7 IVmaj7 1 Imaj7 Imaj7`, 2)} - is the
           earliest example I've found that consistently uses it as a main idea
-          of a piece.
+          of a piece. Also see {s`shuttle:IVmaj7_Imaj7`}
         </P>
-        <P></P>
       </>
     ),
     composers: [

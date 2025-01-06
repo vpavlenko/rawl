@@ -4499,6 +4499,9 @@ export const corpora: CorpusEntry[] = [
       "medtner---2-skazki-op.20-no.1",
       "medtner---6-skazki-op.-51-no.-6-fairy-tales",
     ],
+    composerBirthYear: 1880,
+    country: "Russia",
+    genre: "Romantic",
   },
   {
     slug: "mattias_hakulinen",
@@ -5443,6 +5446,7 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "when-i-was-your-man---bruno-mars-600e3a",
       "bruno-mars-leave-the-door-open",
+      "die-with-a-smile---lady-gaga-bruno-mars",
     ],
     composerBirthYear: 1985,
     genre: "Pop",

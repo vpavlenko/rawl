@@ -53,6 +53,7 @@ import { AppContext } from "./AppContext";
 import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader";
 import DropMessage from "./DropMessage";
+import Forge from "./Forge";
 import Timeline from "./Timeline";
 import CorpusSearch from "./rawl/CorpusSearch";
 import OldLandingPage from "./rawl/OldLandingPage";
@@ -1258,6 +1259,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   <Route path="/100/:slug?" component={Book} />
                   <Route path="/beyond/:slug?" component={Book} />
                   <Route path="/timeline" component={Timeline} />
+                  <Route path="/forge" component={Forge} />
                   <Redirect exact from="/" to="/100" />
                 </Switch>
               </AppMainContent>

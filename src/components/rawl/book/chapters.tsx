@@ -194,8 +194,10 @@ export const CHAPTERS: Array<{
         </P>
         <P>
           I use my own piano-roll-based notation with notes colored into 12
-          colors, always starting from the main note – <i>the tonic</i>. This
-          simplifies visual analysis: chords like {c`IV V I`} and other
+          colors, always starting from the main note – <i>the tonic</i>.
+        </P>
+        <P>
+          This simplifies visual analysis: chords like {c`IV V I`} and other
           structures become visible, scores become readable and interpretable.
         </P>
         <P>This is the color scheme we'll use through the entire book:</P>
@@ -1126,10 +1128,13 @@ export const CHAPTERS: Array<{
         <P>
           Most modern Western pieces are structured as follows: their entire
           sections are either in a major mode {c`I ii iii IV V vi V7 I`} or in a
-          minor mode {c`i bIII iv v V bVI bVII V7 i`}. This is called a{" "}
-          <i>diatonic harmony</i> – meaning that we build chords as three notes
-          taken <i>in thirds</i> (1-3-5, 2-4-6 etc.) from the mode's scale (with
-          the exception of {c`V`}/{c`V7`} in a minor mode).
+          minor mode {c`i bIII iv v V bVI bVII V7 i`}.
+        </P>
+        <P>
+          This is called a <i>diatonic harmony</i> – meaning that we build
+          chords as three notes taken <i>in thirds</i> (1-3-5, 2-4-6 etc.) from
+          the mode's scale (with the exception of {c`V`}/{c`V7`} in a minor
+          mode).
         </P>
         <P>
           One way of organizing chord changes is a loop or several loops. Loops

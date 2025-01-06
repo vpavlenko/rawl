@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ReadableTextBlock } from "./Book";
+import { A } from "./chapters";
 
 const AboutTop100Corpus = (
   <ReadableTextBlock>
@@ -82,7 +83,8 @@ const AboutTop100Corpus = (
 
     <p>
       In the case of "G Minor Bach" the original harmony was modernized so much
-      that I include this track under Luo Ni.
+      (departing from {A("prelude-no.-2-bwv-847-in-c-minor")}) that I include
+      this track under Luo Ni.
     </p>
 
     <p>

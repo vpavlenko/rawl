@@ -420,6 +420,7 @@ export const corpora: CorpusEntry[] = [
       "street-tango-for-clarinet-and-piano",
       "triunfal-tango-by-astor-piazzolla-in-edition-for-classical-guitar-from-victor-villadangos",
       "calambre-tango-piazzolla",
+      "libertango",
       "malena---tango", // exercise
       "tango-la-cumparsita---piano-solo-tutorial-parte-a",
       "tango-till-you-drop-abrsm-grade-5-saxophone-b-3", // melody for harmonization
@@ -2869,6 +2870,10 @@ export const corpora: CorpusEntry[] = [
     genre: "Anime, EBM",
   },
   {
+    slug: "oscar_peterson",
+    midis: ["oscar-peterson---jazz-exercises-for-piano---exercise-1"],
+  },
+  {
     slug: "boogie_woogie",
     midis: [
       "boogie-woogie",
@@ -3294,6 +3299,7 @@ export const corpora: CorpusEntry[] = [
     slug: "manaka_kataoka",
     midis: [
       "main-theme---the-legend-of-zelda-tears-of-the-kingdom---manaka-kataoka-yasuaki-iwata-and-hajime-wakai-totk-sheet-music",
+      "kass-theme--full-the-legend-of-zelda-breath-of-the-wild",
       "attack-on-vah-naboris---manaka-kataoka",
       "monk-maz-koshia---the-legend-of-zelda-breath-of-the-wild-",
     ],
@@ -3886,6 +3892,8 @@ export const corpora: CorpusEntry[] = [
       "waltz-opus-70-no.-1-in-g-major",
       "waltz-b.-133-in-e-major---chopin",
       "Waltz_in_A_MinorChopin",
+      "waltz-no.-11-in-g-flat-major-op.70-no.1---frederic-chopin",
+      "chopin---waltz-no.-1-in-d-flat-major-op.-64", // harmonic prototype for Scott Joplin
 
       "chopin_ballade_fminor_op52",
       "chopin_ballade_no_1_in_g_minor_op_23",
@@ -3900,6 +3908,8 @@ export const corpora: CorpusEntry[] = [
 
       "mazurka-op.68-no.4---chopin---posth.",
       "mazurkas-op.-63---no.-2-in-f-minor-r.-lubetsky",
+
+      "etudes-op.-10---no.-12-in-c-minor-revolutionary-n.-carter",
     ],
     composerBirthYear: 1810, // Born in 1810
     genre: "Classical", // Classical composer
@@ -3928,8 +3938,12 @@ export const corpora: CorpusEntry[] = [
     country: "Poland", // Polish composer (spent much of his life in France)
   },
   {
-    slug: "grieg_lyric_pieces",
-    midis: ["grieg_arietta_yaskawa", "grieg_lyric_2_waltz_yaskawa"],
+    slug: "grieg",
+    midis: [
+      "grieg_arietta_yaskawa",
+      "grieg_lyric_2_waltz_yaskawa",
+      "in-the-hall-of-the-mountain-king-dovregubbens-hall",
+    ],
     composerBirthYear: 1843, // Edvard Grieg
     genre: "Classical", // Late Romantic period
     style: "Romantic", // Known for his expressive piano pieces
@@ -4045,6 +4059,7 @@ export const corpora: CorpusEntry[] = [
       "yoimiya-dazzling-lights-in-the-summer-genshin-impact---yu-peng-chen",
       "moonlike-smile---yu-peng-chen",
       "genshin-impact---inazuma-miscellany---yu-peng-chen-genshin-impact-2.0-livestream-piano-part-1",
+      "genshin-impact-main-theme",
     ],
     composerBirthYear: 1984,
     genre: "Video Game Music", // Composer for video games, primarily Genshin Impact
@@ -4281,20 +4296,29 @@ export const corpora: CorpusEntry[] = [
     country: "Russia", // Mussorgsky was Russian
   },
   {
+    slug: "saint_saens",
+    midis: [
+      "danse-macabre-opus-40-s.-555",
+      "Saint_Saens_Symphony_3_1st",
+      "le-carnaval-des-animaux---aquarium",
+      "le-cygne-the-swan",
+    ],
+    composerBirthYear: 1835,
+    genre: "Romantic",
+    country: "France",
+  },
+  {
     // https://www.discogs.com/release/17759461-Various-%D0%A8%D0%B5%D0%B4%D0%B5%D0%B2%D1%80%D1%8B-%D0%9A%D0%BB%D0%B0%D1%81%D1%81%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B9-%D0%9C%D1%83%D0%B7%D1%8B%D0%BA%D0%B8-%D0%9A%D0%BE%D0%BB%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D1%8F-2-%D0%92%D1%8B%D0%BF%D1%83%D1%81%D0%BA-5
     // https://musescore.com/user/12163676
     slug: "popular_classics",
     midis: [
       "valse---coppelia---piano-solo---arr.-leo-delibes",
-      "le-carnaval-des-animaux---aquarium",
+
       "hungarian-march---hector-berlioz",
-      "waltz-no.-11-in-g-flat-major-op.70-no.1---frederic-chopin",
+
       "swan-lake-op.-20-act-iii-no.-20-danse-hongroise-hungarian-dance-czardas",
       "funiculi-funicula",
-      "chopin---waltz-no.-1-in-d-flat-major-op.-64", // harmonic prototype for Scott Joplin
       "grand-march-from-the-opera-aida-by-giuseppe-verdi",
-      "danse-macabre-opus-40-s.-555",
-
       "lyapunov-reverie-du-soir-op.3",
       "thema-aus-die-moldau---b-smetana-s-sitnikava",
       "mein-vaterland-nr2-moldau---bedrich-smetana-for-piano-solo",
@@ -5627,7 +5651,7 @@ export const corpora: CorpusEntry[] = [
       "the-office", // Jay Ferguson
       "it-s-been-a-long-long-time---harry-james", // Jule Styne
       "Dawn_Pride_and_Prejudice", // Dario Marianelli
-      "kimi-no-na-wa---sparkle-theishter-2016", // Radwimps
+      "kimi-no-na-wa---sparkle-theishter-2016", // Radwimps, Yojiro Noda
 
       "Yann_Tiersen_Amelie", // Yann Tiersen
       "sia---snowman", // Sia
@@ -5895,6 +5919,32 @@ export const corpora: CorpusEntry[] = [
       "great-balls-of-fire---jerry-lee-lewis", // Jerry Lee Lewis
       "westlife---beautiful-in-white", // Westlife
       "victory-piano-solo---two-steps-from-hell", // Thomas Bergersen
+      "hikaru-nara-your-lie-in-april", // Goose House
+      "seven-nation-army-arr.-nikodem-lorenz", // The White Stripes
+      "peaches---the-super-mario-bros.-movie-piano-solo-arrangement", // Jack Black
+      "alexander-rybak---fairytale", // Alexander Rybak
+      "libertango", // Astor Piazzolla
+      "amazing-grace-choir-saa---john-newton", // John Newton
+
+      "2---onerepublic---counting-stars", // OneRepublic
+      "genshin-impact-main-theme", // Yu-Peng Chen
+      "slander-dylan-matthew---love-is-gone-acoustic", // Slander
+      "national-anthem-of-the-ussr", // Alexander Alexandrov
+      "in-the-hall-of-the-mountain-king-dovregubbens-hall", // Edvard Grieg
+      "where-is-my-mind-solo-piano-by-pixies-maxence-cyrin", // Pixies
+      "evgeny-grinko---valse", // Evgeny Grinko
+      "barfuss-am-klavier---annenmaykantereit-69e4ae", // Annenmaykantereit
+      "arcade---duncan-laurence", // Duncan Laurence
+      "le-cygne-the-swan", // Saint-Saëns
+
+      "can-you-hear-the-music---ludwig-goransson-from-oppenheimer",
+      "all-star", // Smash Mouth
+      "to-the-moon-for-river-johnny-s-version", // Kan Gao
+      "time-travel-theme-by-jay-chou-from-secret-2007-film", // Jay Chou
+      "blue-bird", // Ikimono-gakari
+      "baby-shark-song", // folk
+      "My_War_Attack_on_Titan", // Shinsei Kamattechan
+      "kass-theme--full-the-legend-of-zelda-breath-of-the-wild", // Manaka Kataoka
     ],
   },
   {
@@ -6038,11 +6088,9 @@ export const corpora: CorpusEntry[] = [
       "Love_Store_Francis_Lai",
 
       "Morphine_Cure_for_Pain",
-      "My_War_Attack_on_Titan",
 
       "Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet",
 
-      "Saint_Saens_Symphony_3_1st",
       "Sandu",
 
       "Sorcerers_doll___-_The_King_and_the_Jester___",
@@ -6201,6 +6249,7 @@ export const corpora: CorpusEntry[] = [
       "zappaguri",
 
       "genesis-that-s-all-piano",
+      "home---edward-sharpe-and-the-magnetic-zeros-home---edward-sharpe",
     ],
   },
 ];

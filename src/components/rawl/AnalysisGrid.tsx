@@ -265,7 +265,7 @@ const Measure: React.FC<{
                 key={`db_n_${number}`}
                 style={{
                   position: "absolute",
-                  top: -6,
+                  top: -4,
                   left: left + 7,
                   color:
                     selectedMeasure === number

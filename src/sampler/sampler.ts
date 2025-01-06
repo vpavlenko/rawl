@@ -8,6 +8,7 @@ declare module "tone/build/esm/core/context/BaseContext" {
 }
 
 export const ARPEGGIO_DELAY_MS = 30;
+const CHORD_SPACING = 1; // 1 second
 let samplerLoaded = false;
 let loadingPromise: Promise<void> | null = null;
 
@@ -259,7 +260,6 @@ export const playArpeggiatedChordSequence = async (
   }
 
   const currentTime = Tone.Transport.seconds;
-  const CHORD_SPACING = 0.7; // 700ms between chords
 
   chordSequence.forEach((chord, chordIndex) => {
     // Schedule each note in the chord
@@ -272,7 +272,7 @@ export const playArpeggiatedChordSequence = async (
       const eventId = Tone.Transport.schedule((time) => {
         sampler.triggerAttackRelease(
           Tone.Frequency(note + C3_MIDI_NUMBER, "midi").toNote(),
-          0.7,
+          CHORD_SPACING,
           time,
         );
 

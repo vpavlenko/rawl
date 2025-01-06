@@ -1,16 +1,18 @@
 import * as React from "react";
 import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { AppContext } from "./AppContext";
 import SignIn from "./SignIn";
+
+const HEADER_HEIGHT = "30px";
 
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: black;
-  height: 30px;
+  height: ${HEADER_HEIGHT};
   overflow: hidden;
   z-index: 100000000;
 `;
@@ -20,29 +22,25 @@ const NavLinks = styled.div`
   align-items: center;
 `;
 
-const HeaderLink = styled(Link)`
+const baseLinkStyles = css`
   display: inline-flex;
   align-items: center;
   padding: 0px 24px;
   text-decoration: none;
-  height: 30px;
+  height: ${HEADER_HEIGHT};
 
   &:hover {
     text-decoration: none;
+    background: #333;
   }
 `;
 
-const ExternalLink = styled.a`
-  display: inline-flex;
-  align-items: center;
-  padding: 0px 24px;
-  text-decoration: none;
-  height: 100%;
-  color: inherit;
+const HeaderLink = styled(Link)`
+  ${baseLinkStyles}
+`;
 
-  &:hover {
-    text-decoration: none;
-  }
+const ExternalLink = styled.a`
+  ${baseLinkStyles}
 `;
 
 const ExternalLinks = styled.div`

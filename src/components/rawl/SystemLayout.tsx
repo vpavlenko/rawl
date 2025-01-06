@@ -11,10 +11,9 @@ import { DUMMY_CALLBACK, VoiceMask } from "../App";
 import { Analysis, getPhraseStarts, MeasuresSpan } from "./analysis";
 import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
 import { getNoteRectangles, MouseHandlers } from "./getNoteRectangles";
-import ControlPanel, { debounce } from "./layouts/ControlPanel";
+import ControlPanel from "./layouts/ControlPanel";
 import { MeasureNumbers } from "./layouts/MeasureNumbers";
 import MergedVoicesLegend from "./layouts/MergedVoicesLegend";
-import { VoiceName } from "./layouts/VoiceName";
 import { ColoredNote, ColoredNotesInVoices, Note } from "./parseMidi";
 import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
 
@@ -49,11 +48,6 @@ const getMidiRange = (notes: Note[], span?: SecondsSpan): MidiRange => {
   return [min, max];
 };
 
-export type ScrollInfo = {
-  left: number;
-  right: number;
-};
-
 export const Voice: React.FC<{
   notes: ColoredNote[];
   measuresAndBeats: MeasuresAndBeats;
@@ -62,9 +56,6 @@ export const Voice: React.FC<{
   phraseStarts: number[];
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
-  scrollInfo: ScrollInfo;
-  voiceName: string;
-  setVoiceMask: SetVoiceMask;
   voiceIndex: number;
   voiceMask: VoiceMask;
   showTonalGrid?: boolean;
@@ -82,10 +73,7 @@ export const Voice: React.FC<{
   measureSelection,
   cursor,
   phraseStarts,
-  scrollInfo,
-  voiceName,
   voiceIndex = -1,
-  setVoiceMask = (mask) => {},
   voiceMask,
   showTonalGrid = true,
   noteHeight,
@@ -98,14 +86,6 @@ export const Voice: React.FC<{
   // To restore it, we need to lock the calculation of frozenRange and frozenHeight
   // and don't change it after loading the notes.
 
-  const localMidiRange = useMemo(
-    () =>
-      getMidiRange(notes, [
-        xToSeconds(scrollInfo.left),
-        xToSeconds(scrollInfo.right),
-      ]),
-    [notes, scrollInfo, xToSeconds],
-  );
   const midiRange = useMemo(() => getMidiRange(notes), [notes]);
 
   const { systemClickHandler, handleNoteClick, handleMouseEnter } =
@@ -120,10 +100,7 @@ export const Voice: React.FC<{
     [height, midiRange, noteHeight],
   );
 
-  // The frozenHeight machinery was used when I experimented with smart
-  // collapse/expand of every Voice relative to its current range on a current screen.
-  // I'm not sure it's used anymore.
-  const { noteRectangles, frozenHeight, frozenMidiRange } = useMemo(
+  const { noteRectangles } = useMemo(
     () => ({
       noteRectangles: getNoteRectangles(
         notes,
@@ -136,8 +113,6 @@ export const Voice: React.FC<{
         enableManualRemeasuring,
         hoveredColors,
       ),
-      frozenHeight: height,
-      frozenMidiRange: midiRange,
     }),
     [
       notes,
@@ -153,68 +128,37 @@ export const Voice: React.FC<{
   );
 
   const { measures } = measuresAndBeats;
-  // TODO: make smarter once Stacked is implemented
-  const hasVisibleNotes =
-    voiceMask[voiceIndex] &&
-    (!!sectionSpan || localMidiRange[1] >= localMidiRange[0]);
 
   return (
     <div
-      key={`voice_${voiceIndex}_${measuresAndBeats.measures.at(-1)}_parent`}
+      key={`voice_${voiceIndex}_${measures.at(-1)}_parent`}
       style={{
         width: secondsToX(measures[sectionSpan?.[1] ?? measures.length - 1]),
-        height: hasVisibleNotes ? height : 1,
+        height,
         position: "relative",
-        marginTop: hasVisibleNotes ? "15px" : 0,
-        marginBottom: hasVisibleNotes ? "0px" : 0,
+        marginTop: "15px",
+        marginBottom: "0px",
         marginLeft: "0px",
-        // borderBottom: hasVisibleNotes ? "1px solid #888" : "",
         zIndex: 1,
         backgroundColor: "black",
       }}
       onClick={(e) => systemClickHandler(e, xToSeconds)}
     >
-      <div
-        style={{
-          position: "relative",
-          top:
-            height -
-            frozenHeight +
-            (midiRange[0] - frozenMidiRange[0]) * noteHeight,
-        }}
-      >
-        {voiceMask[voiceIndex] ? noteRectangles : null}
-      </div>
-      {hasVisibleNotes ? (
-        <AnalysisGrid
-          analysis={analysis}
-          measuresAndBeats={measuresAndBeats}
-          midiNumberToY={midiNumberToY}
-          noteHeight={noteHeight}
-          measureSelection={measureSelection}
-          phraseStarts={phraseStarts}
-          midiRange={midiRange}
-          showHeader={false}
-          showTonalGrid={showTonalGrid && !notes[0]?.isDrum}
-          secondsToX={secondsToX}
-          sectionSpan={sectionSpan}
-        />
-      ) : null}
+      {noteRectangles}
+      <AnalysisGrid
+        analysis={analysis}
+        measuresAndBeats={measuresAndBeats}
+        midiNumberToY={midiNumberToY}
+        noteHeight={noteHeight}
+        measureSelection={measureSelection}
+        phraseStarts={phraseStarts}
+        midiRange={midiRange}
+        showHeader={false}
+        showTonalGrid={showTonalGrid && !notes[0]?.isDrum}
+        secondsToX={secondsToX}
+        sectionSpan={sectionSpan}
+      />
       {cursor}
-      {hasVisibleNotes &&
-      voiceMask.length > 1 &&
-      (sectionSpan?.[0] ?? 0) === 0 &&
-      voiceName ? (
-        <VoiceName
-          voiceName={voiceName}
-          voiceMask={voiceMask}
-          setVoiceMask={setVoiceMask}
-          voiceIndex={voiceIndex}
-          scrollInfo={scrollInfo}
-          secondsToX={secondsToX}
-          midiNumberToY={midiNumberToY}
-        />
-      ) : null}
     </div>
   );
 };
@@ -249,19 +193,16 @@ export type SystemLayoutProps = {
 };
 
 export const StackedSystemLayout: React.FC<
-  SystemLayoutProps & { measureStart?: number; isEmbedded?: boolean }
+  SystemLayoutProps & { isEmbedded?: boolean }
 > = ({
   notes,
-  voiceNames,
   voiceMask,
   measuresAndBeats,
   positionSeconds,
   analysis,
   mouseHandlers,
   measureSelection,
-  setVoiceMask,
   enableManualRemeasuring = false,
-  measureStart,
   isEmbedded = false,
   isHiddenRoute = false,
   slug,
@@ -381,64 +322,6 @@ export const StackedSystemLayout: React.FC<
   const parentRef = useRef(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const [scrollInfo, setScrollInfo] = useState<ScrollInfo>({
-    left: -1,
-    right: 100000,
-  });
-
-  const debouncedScroll = useCallback(
-    debounce(
-      (left, right) =>
-        setScrollInfo({
-          left,
-          right,
-        }),
-      50,
-    ),
-    [],
-  );
-
-  const handleScroll = () => {
-    const { scrollLeft, offsetWidth } = parentRef.current;
-    const scrollRight = scrollLeft + offsetWidth;
-
-    debouncedScroll(scrollLeft, scrollRight);
-  };
-
-  useEffect(() => {
-    const parentDiv = parentRef.current;
-    if (parentDiv) {
-      parentDiv.addEventListener("scroll", handleScroll);
-      handleScroll();
-    }
-
-    return () => {
-      if (parentDiv) {
-        parentDiv.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (
-      measureStart !== undefined &&
-      parentRef.current &&
-      sectionRefs.current.length > 0
-    ) {
-      const sectionIndex = sections.findIndex(
-        ({ sectionSpan }) =>
-          measureStart >= sectionSpan[0] && measureStart <= sectionSpan[1],
-      );
-
-      if (sectionIndex !== -1) {
-        const sectionElement = sectionRefs.current[sectionIndex];
-        if (sectionElement) {
-          sectionElement.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }
-    }
-  }, [measureStart, sections]);
-
   return (
     <>
       <div
@@ -482,7 +365,6 @@ export const StackedSystemLayout: React.FC<
                   style={{ display: "flex", flexDirection: "row" }}
                 >
                   <Voice
-                    voiceName={voiceNames[voiceIndex]}
                     notes={notes}
                     measuresAndBeats={measuresAndBeats}
                     analysis={analysis}
@@ -507,9 +389,7 @@ export const StackedSystemLayout: React.FC<
                       )
                     }
                     phraseStarts={phraseStarts}
-                    scrollInfo={scrollInfo}
                     voiceMask={voiceMask}
-                    setVoiceMask={setVoiceMask}
                     voiceIndex={voiceIndex}
                     noteHeight={noteHeight}
                     secondsToX={secondsToX}

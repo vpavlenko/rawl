@@ -201,6 +201,12 @@ class App extends React.Component<RouteComponentProps, AppState> {
       latencyHint: "playback",
     });
 
+    // Get latency correction from localStorage
+    const savedLatencyCorrection = localStorage.getItem("latencyCorrectionMs");
+    const initialLatencyCorrection = savedLatencyCorrection
+      ? parseInt(savedLatencyCorrection, 10)
+      : 0;
+
     // Initialize state with actual audio context state
     this.state = {
       loading: true,
@@ -223,7 +229,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       parsing: null,
       analysisEnabled: false,
       analyses: defaultAnalyses as unknown as Analyses,
-      latencyCorrectionMs: 0,
+      latencyCorrectionMs: initialLatencyCorrection,
       fileToDownload: null,
       showShortcutHelp: false,
       rawlProps: null,

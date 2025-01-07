@@ -120,7 +120,7 @@ export const generateInitialAnalysis = (
     tags: ["generated", "alberti", mode],
     form: {},
     phrasePatch: [],
-    sections: [0, 1, 2, 3, 4, 5, 6, 7], // Mark each measure as a section
+    sections: [0],
   };
 };
 

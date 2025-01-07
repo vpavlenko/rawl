@@ -22,6 +22,14 @@ const ForgeContainer = styled.div`
   box-sizing: border-box;
 `;
 
+const TonicSelector = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-bottom: 20px;
+  align-items: center;
+`;
+
 const SelectorContainer = styled.div`
   display: flex;
   gap: 24px;
@@ -44,6 +52,10 @@ const CategoryHeader = styled.div`
   letter-spacing: 0.5px;
   text-align: left;
   user-select: none;
+`;
+
+const TonicHeader = styled(CategoryHeader)`
+  margin-right: 8px;
 `;
 
 const Button = styled.button<{ active: boolean }>`
@@ -261,23 +273,22 @@ const ForgeUI: React.FC = () => {
 
   return (
     <ForgeContainer>
+      <TonicSelector>
+        <TonicHeader>Tonic</TonicHeader>
+        {Object.entries(PITCH_CLASS_TO_LETTER).map(([pitchClass, letter]) => (
+          <Button
+            key={pitchClass}
+            active={tonic === parseInt(pitchClass)}
+            {...getInteractionProps(
+              { newTonic: parseInt(pitchClass) },
+              `Tonic ${letter}`,
+            )}
+          >
+            {letter}
+          </Button>
+        ))}
+      </TonicSelector>
       <SelectorContainer>
-        <CategorySection>
-          <CategoryHeader>Tonic</CategoryHeader>
-          {Object.entries(PITCH_CLASS_TO_LETTER).map(([pitchClass, letter]) => (
-            <Button
-              key={pitchClass}
-              active={tonic === parseInt(pitchClass)}
-              {...getInteractionProps(
-                { newTonic: parseInt(pitchClass) },
-                `Tonic ${letter}`,
-              )}
-            >
-              {letter}
-            </Button>
-          ))}
-        </CategorySection>
-
         <CategorySection>
           <CategoryHeader>Playback Style</CategoryHeader>
           <Button

@@ -624,7 +624,6 @@ const Rawl: React.FC<RawlProps> = ({
         height: "100%",
         paddingLeft: "30px",
         overflow: "hidden",
-        width: slug === "forge_mock" ? "100vw" : undefined,
       }}
     >
       {isEmbedded && (

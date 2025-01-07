@@ -315,7 +315,7 @@ export default class MIDIPlayer extends Player {
     // }
   }
 
-  async loadData(data, filepath) {
+  async loadData(data, filepath, shouldAutoPlay = true) {
     this.ensureWebMidiInitialized();
     this.filepathMeta = this.metadataFromFilepath(filepath);
 
@@ -345,19 +345,26 @@ export default class MIDIPlayer extends Player {
     });
 
     const midiFile = new MIDIFile(data);
-    // Checking filepath doesn't work for dragged files. Force to true during development.
     const useTrackLoops = filepath.includes("SoundFont MIDI");
     const result = this.midiFilePlayer.load(midiFile, useTrackLoops);
-    this.midiFilePlayer.play(
-      () => this.emit("playerStateUpdate", { isStopped: true }),
-      () => {
-        this.emit("playerStateUpdate", { isPlaying: true });
-        if (this.playbackStartedCallback) {
-          this.playbackStartedCallback();
-          this.playbackStartedCallback = null;
-        }
-      },
-    );
+
+    // Only start playback if shouldAutoPlay is true
+    if (shouldAutoPlay) {
+      this.midiFilePlayer.play(
+        () => this.emit("playerStateUpdate", { isStopped: true }),
+        () => {
+          this.emit("playerStateUpdate", { isPlaying: true });
+          if (this.playbackStartedCallback) {
+            this.playbackStartedCallback();
+            this.playbackStartedCallback = null;
+          }
+        },
+      );
+    } else {
+      // Just load but don't start playing
+      this.midiFilePlayer.paused = true;
+      this.emit("playerStateUpdate", { isPlaying: false });
+    }
 
     this.activeChannels = [];
     for (let i = 0; i < 16; i++) {
@@ -639,5 +646,10 @@ export default class MIDIPlayer extends Player {
 
   setPlaybackStartedCallback(callback) {
     this.playbackStartedCallback = callback;
+  }
+
+  pause() {
+    this.midiFilePlayer.paused = true;
+    this.emit("playerStateUpdate", { isPlaying: false });
   }
 }

@@ -39,6 +39,7 @@ export interface AppContextType {
   playSongBuffer: (
     filepath: string,
     buffer: ArrayBuffer | Uint8Array,
+    shouldAutoPlay?: boolean,
   ) => Promise<void>;
 }
 

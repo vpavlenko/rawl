@@ -1038,10 +1038,16 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }
   }
 
-  async playSongBuffer(filepath: string, buffer: ArrayBuffer | Uint8Array) {
+  async playSongBuffer(
+    filepath: string,
+    buffer: ArrayBuffer | Uint8Array,
+    shouldAutoPlay: boolean = true,
+  ) {
     console.log("[App.playSongBuffer] Starting with filepath:", filepath);
     console.log("[App.playSongBuffer] Buffer type:", buffer.constructor.name);
     console.log("[App.playSongBuffer] Buffer length:", buffer.byteLength);
+    console.log("[App.playSongBuffer] Should auto-play:", shouldAutoPlay);
+
     if (buffer instanceof Uint8Array) {
       console.log("[App.playSongBuffer] First 20 bytes:", buffer.slice(0, 20));
     }
@@ -1089,6 +1095,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       const parsingResult = await this.midiPlayer.loadData(
         uint8Array,
         filepath,
+        shouldAutoPlay,
       );
       console.log("[App.playSongBuffer] Data loaded successfully");
       console.log("[App.playSongBuffer] Parsing result details:", {
@@ -1126,6 +1133,17 @@ class App extends React.Component<RouteComponentProps, AppState> {
             "[App.playSongBuffer] Voice mask updated, setting up MIDI player",
           );
           this.setupMidiPlayer();
+
+          if (shouldAutoPlay) {
+            console.log(
+              "[App.playSongBuffer] Auto-play enabled, playback will start automatically",
+            );
+          } else {
+            console.log(
+              "[App.playSongBuffer] Auto-play disabled, waiting for user interaction",
+            );
+            this.midiPlayer.pause();
+          }
         });
       });
     } catch (e) {

@@ -1,6 +1,6 @@
 import MidiWriter from "midi-writer-js";
 import * as React from "react";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "./AppContext";
 import Rawl from "./rawl/Rawl";
@@ -79,11 +79,25 @@ const MINOR_PROGRESSION: Chord[] = ["i", "bVI", "iv", "V"];
 const Forge: React.FC = () => {
   const [mode, setMode] = useState<"major" | "minor">("major");
   const [pattern, setPattern] = useState<"classic" | "alternate">("classic");
-  const { currentMidi, rawlProps, setCurrentMidi, playSongBuffer } =
-    useContext(AppContext);
+  const [preparedMidi, setPreparedMidi] = useState<{
+    midiData: Uint8Array;
+    midiInfo: any;
+    analysis: Analysis;
+  } | null>(null);
+  const {
+    currentMidi,
+    rawlProps,
+    setCurrentMidi,
+    playSongBuffer,
+    togglePause,
+  } = useContext(AppContext);
 
   // Convert chord to Alberti pattern in IR
-  const generateAlbertiPattern = (chordProgression: number[][]): Note[] => {
+  const generateAlbertiPattern = (
+    chordProgression: number[][],
+    newMode: "major" | "minor",
+    newPattern: "classic" | "alternate",
+  ): Note[] => {
     const C3 = 48; // MIDI note number for C3
     const TICKS_PER_QUARTER = 128; // Standard MIDI ticks per quarter note
     const MEASURE_LENGTH = TICKS_PER_QUARTER * 4; // 4 quarter notes per measure
@@ -94,12 +108,12 @@ const Forge: React.FC = () => {
       classic: [0, 1, 2, 1, 2, 1, 2, 1], // r m u m u m u m
       alternate: [0, 1, 2, 1, 0, 1, 2, 1], // r m u m r m u m
     };
-    const selectedPattern = patterns[pattern];
+    const selectedPattern = patterns[newPattern];
     const notes: Note[] = [];
 
     // Get the progression for octave adjustment check
     const progression =
-      mode === "major" ? MAJOR_PROGRESSION : MINOR_PROGRESSION;
+      newMode === "major" ? MAJOR_PROGRESSION : MINOR_PROGRESSION;
 
     // Generate eight bars of Alberti pattern (4 bars repeated)
     for (let repeat = 0; repeat < 2; repeat++) {
@@ -124,7 +138,6 @@ const Forge: React.FC = () => {
       }
     }
 
-    console.log("[Forge.generateAlbertiPattern] Generated notes:", notes);
     return notes;
   };
 
@@ -184,79 +197,100 @@ const Forge: React.FC = () => {
     };
   };
 
-  const generatePattern = async () => {
-    console.log("[Forge] Starting MIDI generation");
+  const prepareMidi = async (
+    newMode: "major" | "minor",
+    newPattern: "classic" | "alternate",
+    shouldAutoPlay: boolean = false,
+  ) => {
+    console.log("[Forge] Preparing MIDI generation for:", newMode, newPattern);
 
-    // Get the chord progression based on mode
-    const progression =
-      mode === "major" ? MAJOR_PROGRESSION : MINOR_PROGRESSION;
-    const rehydratedProgression = rehydrateChords(progression);
-    const chords = rehydratedProgression.map((chord) => chord.pitches);
-
-    console.log("[Forge] Using progression:", progression);
-
-    // Generate Alberti pattern
-    const notes = generateAlbertiPattern(chords);
-    console.log("[Forge] Generated Alberti pattern:", notes);
-
-    // Generate MIDI file
-    const midiData = generateMidiFile(notes);
-    console.log("[Forge] Generated MIDI data:", midiData);
-
-    // Create a fake MIDI info object with analysis
-    const midiInfo = {
-      id: FORGE_MOCK_ID,
-      title: `Generated ${mode} Alberti Pattern`,
-      slug: FORGE_MOCK_ID,
-      sourceUrl: null,
-      isHiddenRoute: false,
-    };
-    console.log("[Forge] Created MIDI info:", midiInfo);
-
-    // Generate initial analysis
-    const initialAnalysis = generateInitialAnalysis(mode);
-    console.log("[Forge] Generated initial analysis:", initialAnalysis);
-
-    // Set current MIDI info
-    setCurrentMidi(midiInfo);
-
-    // Try to play the MIDI
     try {
-      console.log("[Forge] Attempting to play MIDI");
-      await playSongBuffer("generated-alberti.mid", midiData);
+      // Get the chord progression based on mode
+      const progression =
+        newMode === "major" ? MAJOR_PROGRESSION : MINOR_PROGRESSION;
+      const rehydratedProgression = rehydrateChords(progression);
+      const chords = rehydratedProgression.map((chord) => chord.pitches);
 
-      console.log("[Forge] MIDI loaded, checking rawlProps:", rawlProps);
-      if (rawlProps) {
-        console.log("[Forge] Current parsingResult:", rawlProps.parsingResult);
-        console.log("[Forge] Current savedAnalysis:", rawlProps.savedAnalysis);
+      // Generate Alberti pattern with new mode and pattern
+      const notes = generateAlbertiPattern(chords, newMode, newPattern);
+      console.log("[Forge] Generated notes:", notes.length);
 
-        // Update the analysis in rawlProps
-        if (rawlProps.saveAnalysis) {
-          console.log("[Forge] Saving initial analysis");
-          rawlProps.saveAnalysis(initialAnalysis);
-        }
-      }
+      // Generate MIDI file
+      const midiData = generateMidiFile(notes);
+      console.log("[Forge] Generated MIDI data:", midiData.length, "bytes");
 
-      console.log("[Forge] Starting playback after load");
+      // Create MIDI info object
+      const midiInfo = {
+        id: FORGE_MOCK_ID,
+        title: `Generated ${newMode} Alberti Pattern`,
+        slug: FORGE_MOCK_ID,
+        sourceUrl: null,
+        isHiddenRoute: false,
+      };
+
+      // Set the current MIDI info in global context
+      setCurrentMidi(midiInfo);
+
+      // Use playSongBuffer to load the MIDI data globally, with autoplay parameter
+      await playSongBuffer("generated-alberti.mid", midiData, shouldAutoPlay);
+
+      return { midiData, midiInfo };
     } catch (error) {
-      console.error("[Forge] Error loading MIDI:", error);
+      console.error("[Forge] Error preparing MIDI:", error);
+      return null;
     }
   };
 
-  // Generate on mode change
+  // Prepare MIDI on mode/pattern change
   useEffect(() => {
-    generatePattern();
+    console.log(
+      "[Forge] useEffect triggered for mode/pattern change:",
+      mode,
+      pattern,
+    );
+    // Only prepare if not from a click (which will handle its own preparation)
+    if (!isClickPending.current) {
+      prepareMidi(mode, pattern, false);
+    }
+    isClickPending.current = false;
   }, [mode, pattern]);
+
+  // Add ref to track if change is from click
+  const isClickPending = useRef(false);
 
   return (
     <ForgeContainer>
       <SelectorContainer>
         <CategorySection>
           <CategoryHeader>Mode</CategoryHeader>
-          <Button active={mode === "major"} onClick={() => setMode("major")}>
+          <Button
+            active={mode === "major"}
+            onClick={async () => {
+              console.log("[Forge] Major button clicked");
+              isClickPending.current = true;
+              setMode("major");
+              await prepareMidi("major", pattern, true);
+            }}
+            onMouseEnter={() => {
+              console.log("[Forge] Major button hover");
+              prepareMidi("major", pattern, false);
+            }}
+          >
             Major
           </Button>
-          <Button active={mode === "minor"} onClick={() => setMode("minor")}>
+          <Button
+            active={mode === "minor"}
+            onClick={async () => {
+              console.log("[Forge] Minor button clicked");
+              isClickPending.current = true;
+              setMode("minor");
+              await prepareMidi("minor", pattern, true);
+            }}
+            onMouseEnter={() => {
+              console.log("[Forge] Minor button hover");
+              prepareMidi("minor", pattern, false);
+            }}
+          >
             Minor
           </Button>
         </CategorySection>
@@ -265,13 +299,31 @@ const Forge: React.FC = () => {
           <CategoryHeader>Pattern</CategoryHeader>
           <Button
             active={pattern === "classic"}
-            onClick={() => setPattern("classic")}
+            onClick={async () => {
+              console.log("[Forge] Classic pattern clicked");
+              isClickPending.current = true;
+              setPattern("classic");
+              await prepareMidi(mode, "classic", true);
+            }}
+            onMouseEnter={() => {
+              console.log("[Forge] Classic pattern hover");
+              prepareMidi(mode, "classic", false);
+            }}
           >
             r m u m u m u m
           </Button>
           <Button
             active={pattern === "alternate"}
-            onClick={() => setPattern("alternate")}
+            onClick={async () => {
+              console.log("[Forge] Alternate pattern clicked");
+              isClickPending.current = true;
+              setPattern("alternate");
+              await prepareMidi(mode, "alternate", true);
+            }}
+            onMouseEnter={() => {
+              console.log("[Forge] Alternate pattern hover");
+              prepareMidi(mode, "alternate", false);
+            }}
           >
             r m u m r m u m
           </Button>

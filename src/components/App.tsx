@@ -1294,6 +1294,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           value={{
             handleSongClick: this.handleSongClick,
             rawlProps: this.state.rawlProps,
+            setRawlProps: (rawlProps) => this.setState({ rawlProps }),
             analyses: this.state.analyses,
             saveAnalysis: this.saveAnalysis,
             resetMidiPlayerState: this.resetMidiPlayerState,
@@ -1351,6 +1352,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
         value={{
           handleSongClick: this.handleSongClick,
           rawlProps: this.state.rawlProps,
+          setRawlProps: (rawlProps) => this.setState({ rawlProps }),
           analyses: this.state.analyses,
           saveAnalysis: this.saveAnalysis,
           resetMidiPlayerState: this.resetMidiPlayerState,

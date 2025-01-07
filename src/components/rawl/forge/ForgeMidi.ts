@@ -110,10 +110,11 @@ export const generateMidiFile = (notes: Note[]): Uint8Array => {
 
 export const generateInitialAnalysis = (
   mode: ForgeConfig["mode"],
+  tonic: number,
 ): Analysis => {
   return {
     modulations: {
-      1: mode === "major" ? (0 as PitchClass) : (9 as PitchClass), // C major or minor
+      1: tonic as PitchClass,
     },
     comment: `Generated ${mode} Alberti pattern - eight measures in 4/4 time`,
     tags: ["generated", "alberti", mode],
@@ -126,6 +127,7 @@ export const generateInitialAnalysis = (
 export const generateMidiWithMetadata = (
   notes: Note[],
   mode: ForgeConfig["mode"],
+  tonic: number,
 ): MidiGenerationResult => {
   const midiData = generateMidiFile(notes);
 
@@ -138,6 +140,6 @@ export const generateMidiWithMetadata = (
       sourceUrl: null,
       isHiddenRoute: false,
     },
-    analysis: generateInitialAnalysis(mode),
+    analysis: generateInitialAnalysis(mode, tonic),
   };
 };

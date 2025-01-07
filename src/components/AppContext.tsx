@@ -14,6 +14,7 @@ export type CurrentMidi = {
 export interface AppContextType {
   handleSongClick: (slug: string, isHiddenRoute?: boolean) => Promise<void>;
   rawlProps: RawlProps | null;
+  setRawlProps: (rawlProps: RawlProps | null) => void;
   analyses: Record<string, Analysis>;
   saveAnalysis: (analysis: Analysis) => void;
   resetMidiPlayerState: () => void;

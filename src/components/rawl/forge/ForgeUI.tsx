@@ -2,6 +2,7 @@ import * as React from "react";
 import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
+import { PITCH_CLASS_TO_LETTER } from "../AnalysisGrid";
 import Rawl from "../Rawl";
 import {
   ForgeConfig,
@@ -90,8 +91,14 @@ const ForgeUI: React.FC = () => {
     useState<ForgeConfig["wholeNoteStyle"]>("triad");
   const [alternationStyle, setAlternationStyle] =
     useState<ForgeConfig["alternationStyle"]>("half");
-  const { currentMidi, rawlProps, setCurrentMidi, playSongBuffer } =
-    useContext(AppContext);
+  const [tonic, setTonic] = useState<number>(0);
+  const {
+    currentMidi,
+    setCurrentMidi,
+    playSongBuffer,
+    rawlProps,
+    setRawlProps,
+  } = useContext(AppContext);
 
   // Add ref to track if change is from click
   const isClickPending = useRef(false);
@@ -105,6 +112,7 @@ const ForgeUI: React.FC = () => {
       newPlaybackStyle?: PlaybackStyle;
       newWholeNoteStyle?: ForgeConfig["wholeNoteStyle"];
       newAlternationStyle?: ForgeConfig["alternationStyle"];
+      newTonic?: number;
     },
     description: string,
   ) => {
@@ -123,6 +131,7 @@ const ForgeUI: React.FC = () => {
         setWholeNoteStyle(updates.newWholeNoteStyle);
       if (updates.newAlternationStyle)
         setAlternationStyle(updates.newAlternationStyle);
+      if (updates.newTonic) setTonic(updates.newTonic);
     }
 
     await prepareMidi(
@@ -134,6 +143,7 @@ const ForgeUI: React.FC = () => {
       updates.newPlaybackStyle || playbackStyle,
       updates.newWholeNoteStyle || wholeNoteStyle,
       updates.newAlternationStyle || alternationStyle,
+      updates.newTonic || tonic,
       shouldAutoPlay,
     );
   };
@@ -148,6 +158,7 @@ const ForgeUI: React.FC = () => {
     newPlaybackStyle: PlaybackStyle = playbackStyle,
     newWholeNoteStyle: ForgeConfig["wholeNoteStyle"] = wholeNoteStyle,
     newAlternationStyle: ForgeConfig["alternationStyle"] = alternationStyle,
+    newTonic: number = tonic,
     shouldAutoPlay: boolean = false,
   ) => {
     // Skip if all values are the same and it's not an autoplay request
@@ -158,7 +169,8 @@ const ForgeUI: React.FC = () => {
       newProgression === progression &&
       newPlaybackStyle === playbackStyle &&
       newWholeNoteStyle === wholeNoteStyle &&
-      newAlternationStyle === alternationStyle
+      newAlternationStyle === alternationStyle &&
+      newTonic === tonic
     ) {
       console.log("[Forge] Skipping MIDI generation - values unchanged");
       return null;
@@ -170,6 +182,7 @@ const ForgeUI: React.FC = () => {
       newPatternIndex,
       newProgression,
       newPlaybackStyle,
+      newTonic,
     );
 
     try {
@@ -181,16 +194,29 @@ const ForgeUI: React.FC = () => {
         playbackStyle: newPlaybackStyle,
         wholeNoteStyle: newWholeNoteStyle,
         alternationStyle: newAlternationStyle,
+        tonic: newTonic,
       };
       const notes = generateNotes(config);
       console.log("[Forge] Generated notes:", notes.length);
 
       // Generate MIDI with metadata
-      const { midiData, midiInfo } = generateMidiWithMetadata(notes, newMode);
+      const { midiData, midiInfo, analysis } = generateMidiWithMetadata(
+        notes,
+        newMode,
+        newTonic,
+      );
       console.log("[Forge] Generated MIDI data:", midiData.length, "bytes");
 
       // Set the current MIDI info in global context
       setCurrentMidi(midiInfo);
+
+      // Set rawlProps with the generated analysis
+      if (rawlProps) {
+        setRawlProps({
+          ...rawlProps,
+          savedAnalysis: analysis,
+        });
+      }
 
       // Use playSongBuffer to load the MIDI data globally, with autoplay parameter
       await playSongBuffer("generated-alberti.mid", midiData, shouldAutoPlay);
@@ -236,6 +262,22 @@ const ForgeUI: React.FC = () => {
   return (
     <ForgeContainer>
       <SelectorContainer>
+        <CategorySection>
+          <CategoryHeader>Tonic</CategoryHeader>
+          {Object.entries(PITCH_CLASS_TO_LETTER).map(([pitchClass, letter]) => (
+            <Button
+              key={pitchClass}
+              active={tonic === parseInt(pitchClass)}
+              {...getInteractionProps(
+                { newTonic: parseInt(pitchClass) },
+                `Tonic ${letter}`,
+              )}
+            >
+              {letter}
+            </Button>
+          ))}
+        </CategorySection>
+
         <CategorySection>
           <CategoryHeader>Playback Style</CategoryHeader>
           <Button
@@ -382,6 +424,7 @@ const ForgeUI: React.FC = () => {
         </CategorySection>
       </SelectorContainer>
       <ContentArea>
+        <div>Current tonic: {PITCH_CLASS_TO_LETTER[tonic]}</div>
         <div>Current mode: {mode}</div>
         <div>Current progression: {getProgressionDisplay(progression)}</div>
         <div>Playback style: {playbackStyle.replace("_", " ")}</div>

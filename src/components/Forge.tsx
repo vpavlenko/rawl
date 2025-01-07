@@ -78,7 +78,7 @@ const Forge: React.FC = () => {
   // Convert chord to Alberti pattern in IR
   const generateAlbertiPattern = (baseChord: number[]): Note[] => {
     const C3 = 48; // MIDI note number for C3
-    const TICKS_PER_QUARTER = 480;
+    const TICKS_PER_QUARTER = 128; // Standard MIDI ticks per quarter note
     const MEASURE_LENGTH = TICKS_PER_QUARTER * 4; // 4 quarter notes per measure
     const pattern = [0, 2, 1, 2]; // Alberti pattern indices (low, high, middle, high)
     const notes: Note[] = [];
@@ -111,12 +111,15 @@ const Forge: React.FC = () => {
     // Create a track
     const track = new MidiWriter.Track();
 
+    // Set tempo to 120 BPM (500,000 microseconds per quarter note)
+    track.setTempo(120);
+
     // Add notes with their start times
     sortedNotes.forEach((note) => {
       track.addEvent(
         new MidiWriter.NoteEvent({
           pitch: [note.pitch],
-          duration: "4",
+          duration: "T" + note.duration,
           startTick: note.startTime,
           velocity: note.velocity,
         }),

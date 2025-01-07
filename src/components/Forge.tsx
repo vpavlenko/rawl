@@ -18,22 +18,26 @@ const FORGE_MOCK_ID = "forge_mock";
 
 const SelectorContainer = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 8px;
   margin: 20px 0;
+  padding: 0px 16px;
 `;
 
 const Button = styled.button<{ active: boolean }>`
-  padding: 10px 20px;
-  border: 2px solid #333;
-  border-radius: 4px;
-  background: ${(props) => (props.active ? "#333" : "transparent")};
-  color: ${(props) => (props.active ? "white" : "white")};
+  padding: 6px 12px;
+  text-align: left;
+  background-color: ${(props) => (props.active ? "white" : "black")};
+  color: ${(props) => (props.active ? "black" : "white")};
+  border: none;
   cursor: pointer;
-  font-size: 16px;
-  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-size: 14px;
+  border-radius: 16px;
+  width: fit-content;
+  user-select: none;
 
   &:hover {
-    background: ${(props) => (props.active ? "#444" : "#222")};
+    background-color: ${(props) => (props.active ? "white" : "#333")};
   }
 `;
 
@@ -57,6 +61,7 @@ const MINOR_PROGRESSION: Chord[] = ["i", "bVI", "iv", "V"];
 
 const Forge: React.FC = () => {
   const [mode, setMode] = useState<"major" | "minor">("major");
+  const [pattern, setPattern] = useState<"classic" | "alternate">("classic");
   const { currentMidi, rawlProps, setCurrentMidi, playSongBuffer } =
     useContext(AppContext);
 
@@ -65,21 +70,29 @@ const Forge: React.FC = () => {
     const C3 = 48; // MIDI note number for C3
     const TICKS_PER_QUARTER = 128; // Standard MIDI ticks per quarter note
     const MEASURE_LENGTH = TICKS_PER_QUARTER * 4; // 4 quarter notes per measure
-    const pattern = [0, 2, 1, 2]; // Alberti pattern indices (low, high, middle, high)
+    const EIGHTH_NOTE = TICKS_PER_QUARTER / 2;
+
+    // Two different patterns: r m u m u m u m  or  r m u m r m u m
+    const patterns = {
+      classic: [0, 1, 2, 1, 2, 1, 2, 1], // r m u m u m u m
+      alternate: [0, 1, 2, 1, 0, 1, 2, 1], // r m u m r m u m
+    };
+    const selectedPattern = patterns[pattern];
     const notes: Note[] = [];
 
     // Generate eight bars of Alberti pattern (4 bars repeated)
     for (let repeat = 0; repeat < 2; repeat++) {
       for (let measure = 0; measure < 4; measure++) {
         const chord = chordProgression[measure];
-        for (let i = 0; i < 4; i++) {
-          const chordIndex = pattern[i] % chord.length;
+        for (let i = 0; i < 8; i++) {
+          // 8 eighth notes per measure
+          const chordIndex = selectedPattern[i] % chord.length;
           notes.push({
             pitch: C3 + chord[chordIndex],
             velocity: 80,
             startTime:
-              (repeat * 4 + measure) * MEASURE_LENGTH + i * TICKS_PER_QUARTER,
-            duration: TICKS_PER_QUARTER - 10, // Slightly shorter for articulation
+              (repeat * 4 + measure) * MEASURE_LENGTH + i * EIGHTH_NOTE,
+            duration: EIGHTH_NOTE - 10, // Slightly shorter for articulation
           });
         }
       }
@@ -207,7 +220,7 @@ const Forge: React.FC = () => {
   // Generate on mode change
   useEffect(() => {
     generatePattern();
-  }, [mode]);
+  }, [mode, pattern]);
 
   return (
     <ForgeContainer>
@@ -217,6 +230,18 @@ const Forge: React.FC = () => {
         </Button>
         <Button active={mode === "minor"} onClick={() => setMode("minor")}>
           Minor
+        </Button>
+        <Button
+          active={pattern === "classic"}
+          onClick={() => setPattern("classic")}
+        >
+          Pattern 1 (r m u m u m u m)
+        </Button>
+        <Button
+          active={pattern === "alternate"}
+          onClick={() => setPattern("alternate")}
+        >
+          Pattern 2 (r m u m r m u m)
         </Button>
       </SelectorContainer>
       <ContentArea>

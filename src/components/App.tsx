@@ -1161,6 +1161,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
               }));
             },
             analysisEnabled: this.state.analysisEnabled,
+            playSongBuffer: this.playSongBuffer,
           }}
         >
           <AppHeader />
@@ -1217,6 +1218,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
             }));
           },
           analysisEnabled: this.state.analysisEnabled,
+          playSongBuffer: this.playSongBuffer,
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>

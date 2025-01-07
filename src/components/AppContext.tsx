@@ -36,6 +36,10 @@ export interface AppContextType {
   handleLogout: () => void;
   handleToggleAnalysis: () => void;
   analysisEnabled: boolean;
+  playSongBuffer: (
+    filepath: string,
+    buffer: ArrayBuffer | Uint8Array,
+  ) => Promise<void>;
 }
 
 export const AppContext = React.createContext<AppContextType | undefined>(

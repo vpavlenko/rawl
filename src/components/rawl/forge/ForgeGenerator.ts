@@ -255,7 +255,7 @@ const generateRootChordAlternation = (
                 pitch:
                   quarter === 0
                     ? getAdjustedBasePitch(basePitch + chord[0], tonic)
-                    : getAdjustedBasePitch(basePitch + chord[0] - 5, tonic),
+                    : getAdjustedBasePitch(basePitch + chord[2] - 12, tonic),
                 velocity: DEFAULT_VELOCITY,
                 startTime: baseTime + quarter * TICKS_PER_QUARTER,
                 duration: TICKS_PER_QUARTER - DEFAULT_NOTE_DURATION_PADDING,

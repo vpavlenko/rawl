@@ -1,3 +1,4 @@
+import { isEqual } from "lodash";
 import * as React from "react";
 import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
@@ -104,6 +105,18 @@ const ForgeUI: React.FC = () => {
   const [alternationStyle, setAlternationStyle] =
     useState<ForgeConfig["alternationStyle"]>("half");
   const [tonic, setTonic] = useState<number>(0);
+
+  // Add state to track last generated configuration
+  const [lastGeneratedConfig, setLastGeneratedConfig] = useState({
+    mode: "major" as ForgeConfig["mode"],
+    patternIndex: 0 as PatternIndex,
+    progression: "CLASSIC" as ProgressionType,
+    playbackStyle: "arpeggio" as PlaybackStyle,
+    wholeNoteStyle: "triad" as ForgeConfig["wholeNoteStyle"],
+    alternationStyle: "half" as ForgeConfig["alternationStyle"],
+    tonic: 0,
+  });
+
   const {
     currentMidi,
     setCurrentMidi,
@@ -173,18 +186,22 @@ const ForgeUI: React.FC = () => {
     newTonic: number = tonic,
     shouldAutoPlay: boolean = false,
   ) => {
-    // Skip if all values are the same and it's not an autoplay request
-    if (
-      !shouldAutoPlay &&
-      newMode === mode &&
-      newPatternIndex === patternIndex &&
-      newProgression === progression &&
-      newPlaybackStyle === playbackStyle &&
-      newWholeNoteStyle === wholeNoteStyle &&
-      newAlternationStyle === alternationStyle &&
-      newTonic === tonic
-    ) {
-      console.log("[Forge] Skipping MIDI generation - values unchanged");
+    // Create new config object for comparison
+    const newConfig = {
+      mode: newMode,
+      patternIndex: newPatternIndex,
+      progression: newProgression,
+      playbackStyle: newPlaybackStyle,
+      wholeNoteStyle: newWholeNoteStyle,
+      alternationStyle: newAlternationStyle,
+      tonic: newTonic,
+    };
+
+    // Compare against last generated config using lodash isEqual
+    if (!shouldAutoPlay && isEqual(newConfig, lastGeneratedConfig)) {
+      console.log(
+        "[Forge] Skipping MIDI generation - values match last generated config",
+      );
       return null;
     }
 
@@ -218,6 +235,9 @@ const ForgeUI: React.FC = () => {
         newTonic,
       );
       console.log("[Forge] Generated MIDI data:", midiData.length, "bytes");
+
+      // Update last generated config
+      setLastGeneratedConfig(newConfig);
 
       // Set the current MIDI info in global context
       setCurrentMidi(midiInfo);

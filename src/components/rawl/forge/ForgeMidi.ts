@@ -3,6 +3,34 @@ import { Analysis, PitchClass } from "../analysis";
 import { DEFAULT_VELOCITY } from "./constants";
 import { ForgeConfig, Note } from "./ForgeGenerator";
 
+// Add type for MidiWriter
+declare module "midi-writer-js" {
+  export interface Track {
+    addTrackName(name: string): void;
+    setTempo(tempo: number): void;
+    addEvent(event: any): void;
+  }
+
+  export interface NoteEvent {
+    new (params: {
+      pitch: number[];
+      duration: string;
+      velocity: number;
+      startTick: number;
+      channel: number;
+    }): any;
+  }
+
+  export interface Writer {
+    new (tracks: Track[]): any;
+    dataUri(): string;
+  }
+
+  export const Track: { new (): Track };
+  export const NoteEvent: NoteEvent;
+  export const Writer: { new (tracks: Track[]): Writer };
+}
+
 export const FORGE_MOCK_ID = "forge_mock";
 
 // Mid-level representation of musical events
@@ -11,6 +39,7 @@ interface MusicalEvent {
   startTick: number;
   duration: number;
   velocity: number;
+  channel: number;
 }
 
 export interface MidiGenerationResult {
@@ -31,29 +60,41 @@ const convertToMusicalEvents = (notes: Note[]): MusicalEvent[] => {
   const events: MusicalEvent[] = [];
 
   let currentStartTime = -1;
+  let currentChannel = -1;
   let currentPitches: number[] = [];
 
-  const addEvent = (startTime: number, pitches: number[], duration: number) => {
+  const addEvent = (
+    startTime: number,
+    pitches: number[],
+    duration: number,
+    channel: number,
+  ) => {
     events.push({
       pitches,
       startTick: startTime,
       duration,
       velocity: DEFAULT_VELOCITY,
+      channel,
     });
   };
 
   sortedNotes.forEach((note, index) => {
-    if (note.startTime !== currentStartTime) {
+    if (
+      note.startTime !== currentStartTime ||
+      note.channel !== currentChannel
+    ) {
       // Add previous group if it exists
       if (currentPitches.length > 0) {
         addEvent(
           currentStartTime,
           currentPitches,
           sortedNotes[index - 1].duration,
+          sortedNotes[index - 1].channel || 0,
         );
       }
       // Start new group
       currentStartTime = note.startTime;
+      currentChannel = note.channel || 0;
       currentPitches = [note.pitch];
     } else {
       // Add to current group
@@ -67,6 +108,7 @@ const convertToMusicalEvents = (notes: Note[]): MusicalEvent[] => {
       currentStartTime,
       currentPitches,
       sortedNotes[sortedNotes.length - 1].duration,
+      sortedNotes[sortedNotes.length - 1].channel || 0,
     );
   }
 
@@ -75,21 +117,34 @@ const convertToMusicalEvents = (notes: Note[]): MusicalEvent[] => {
 
 // Convert musical events to MIDI file
 const generateMidiFromEvents = (events: MusicalEvent[]): Uint8Array => {
-  const track = new MidiWriter.Track();
-  track.setTempo(120);
+  // Create separate tracks for each channel
+  const tracks = new Map<number, MidiWriter.Track>();
 
   events.forEach((event) => {
+    if (!tracks.has(event.channel)) {
+      const track = new MidiWriter.Track();
+      if (event.channel === 0) {
+        track.addTrackName("Melody");
+      } else if (event.channel === 1) {
+        track.addTrackName("Chords");
+      }
+      track.setTempo(120);
+      tracks.set(event.channel, track);
+    }
+
+    const track = tracks.get(event.channel)!;
     track.addEvent(
       new MidiWriter.NoteEvent({
         pitch: event.pitches,
         duration: "T" + event.duration,
         velocity: event.velocity,
         startTick: event.startTick,
+        channel: event.channel,
       }),
     );
   });
 
-  const writer = new MidiWriter.Writer([track]);
+  const writer = new MidiWriter.Writer(Array.from(tracks.values()));
   const base64Data = writer.dataUri().split(",")[1];
 
   // Convert base64 to Uint8Array
@@ -125,17 +180,17 @@ export const generateInitialAnalysis = (
 };
 
 export const generateMidiWithMetadata = (
-  notes: Note[],
+  { melody, chords }: { melody: Note[]; chords: Note[] },
   mode: ForgeConfig["mode"],
   tonic: number,
 ): MidiGenerationResult => {
-  const midiData = generateMidiFile(notes);
+  const midiData = generateMidiFile([...melody, ...chords]);
 
   return {
     midiData,
     midiInfo: {
       id: FORGE_MOCK_ID,
-      title: `Generated ${mode} Alberti Pattern`,
+      title: `Generated ${mode} Pattern with Melody`,
       slug: FORGE_MOCK_ID,
       sourceUrl: null,
       isHiddenRoute: false,

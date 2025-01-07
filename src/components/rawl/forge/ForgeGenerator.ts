@@ -55,6 +55,7 @@ export interface Note {
   velocity: number;
   startTime: number; // in ticks (128 per quarter note)
   duration: number; // in ticks
+  channel?: number; // MIDI channel (0-15)
 }
 
 export type PlaybackStyle =
@@ -98,6 +99,82 @@ export const PATTERNS = [
   [0, 3, 5, 4, 6, 4, 5, 4], // New pattern 5
 ] as const;
 
+// Helper to create a note with common parameters
+const createNote = (
+  basePitch: number,
+  pitchOffset: number,
+  tonic: number,
+  startTime: number,
+  duration: number,
+  channel: number = 1,
+  isAccompaniment: boolean = true,
+): Note => ({
+  pitch: getAdjustedBasePitch(basePitch + pitchOffset, tonic),
+  velocity: isAccompaniment
+    ? Math.floor(DEFAULT_VELOCITY * 0.4)
+    : DEFAULT_VELOCITY,
+  startTime,
+  duration: duration - DEFAULT_NOTE_DURATION_PADDING,
+  channel,
+});
+
+// Find index of a pitch in scale degrees
+const findPitchInScale = (pitch: number, scaleDegrees: number[]): number => {
+  const normalizedPitch = pitch % 12;
+  return scaleDegrees.findIndex((deg) => deg % 12 === normalizedPitch);
+};
+
+// Generate melody notes going up the scale from each chord's root
+const generateMelody = (
+  progression: number[],
+  mode: ForgeConfig["mode"],
+  tonic: number = 0,
+): Note[] => {
+  const notes: Note[] = [];
+  const chords = progression.map((degree) => getChord(degree, mode));
+  const rehydratedChords = rehydrateChords(chords);
+  const chordPitches = rehydratedChords.map((chord) => chord.pitches);
+  const scaleDegrees = getScaleDegrees(mode);
+
+  for (let repeat = 0; repeat < 2; repeat++) {
+    for (let measure = 0; measure < 4; measure++) {
+      const chord = chordPitches[measure];
+      const currentChord = chords[measure];
+
+      const { baseTime, basePitch } = getBaseNoteParams(
+        measure,
+        repeat,
+        currentChord,
+        C3 + 12, // Move melody up one octave
+      );
+
+      // Find the root note's position in the scale
+      const rootPitch = chord[0] % 12;
+      let scaleIndex = findPitchInScale(rootPitch, scaleDegrees);
+
+      // Generate 8 eighth notes going up the scale from root
+      for (let i = 0; i < 8; i++) {
+        // Calculate next scale degree, handling octave wrapping
+        const octaveOffset = Math.floor((scaleIndex + i) / 7) * 12;
+        const currentDegree = scaleDegrees[(scaleIndex + i) % 7];
+
+        notes.push(
+          createNote(
+            basePitch,
+            currentDegree + octaveOffset,
+            tonic,
+            baseTime + i * (TICKS_PER_QUARTER / 2),
+            TICKS_PER_QUARTER / 2,
+            0,
+            false,
+          ),
+        );
+      }
+    }
+  }
+  return notes;
+};
+
 // Generate whole notes with different voicings
 const generateWholeNotes = (
   progression: number[],
@@ -106,7 +183,6 @@ const generateWholeNotes = (
   tonic: number = 0,
 ): Note[] => {
   const notes: Note[] = [];
-
   const chords = progression.map((degree) => getChord(degree, mode));
   const rehydratedChords = rehydrateChords(chords);
   const chordPitches = rehydratedChords.map((chord) => chord.pitches);
@@ -124,55 +200,50 @@ const generateWholeNotes = (
       );
 
       // Base note is always the root
-      notes.push({
-        pitch: getAdjustedBasePitch(basePitch + chord[0], tonic),
-        velocity: DEFAULT_VELOCITY,
-        startTime: baseTime,
-        duration: MEASURE_LENGTH - DEFAULT_NOTE_DURATION_PADDING,
-      });
+      notes.push(
+        createNote(basePitch, chord[0], tonic, baseTime, MEASURE_LENGTH),
+      );
 
       // Add additional notes based on style
       switch (style) {
         case "octave":
-          notes.push({
-            pitch: getAdjustedBasePitch(basePitch + chord[0] + 12, tonic),
-            velocity: DEFAULT_VELOCITY,
-            startTime: baseTime,
-            duration: MEASURE_LENGTH - DEFAULT_NOTE_DURATION_PADDING,
-          });
+          notes.push(
+            createNote(
+              basePitch,
+              chord[0] + 12,
+              tonic,
+              baseTime,
+              MEASURE_LENGTH,
+            ),
+          );
           break;
         case "power":
-          notes.push({
-            pitch: getAdjustedBasePitch(basePitch + chord[0] + 7, tonic),
-            velocity: DEFAULT_VELOCITY,
-            startTime: baseTime,
-            duration: MEASURE_LENGTH - DEFAULT_NOTE_DURATION_PADDING,
-          });
+          notes.push(
+            createNote(
+              basePitch,
+              chord[0] + 7,
+              tonic,
+              baseTime,
+              MEASURE_LENGTH,
+            ),
+          );
           break;
         case "triad":
         case "triad_octave":
-          // Add third and fifth
           notes.push(
-            {
-              pitch: getAdjustedBasePitch(basePitch + chord[1], tonic),
-              velocity: DEFAULT_VELOCITY,
-              startTime: baseTime,
-              duration: MEASURE_LENGTH - DEFAULT_NOTE_DURATION_PADDING,
-            },
-            {
-              pitch: getAdjustedBasePitch(basePitch + chord[2], tonic),
-              velocity: DEFAULT_VELOCITY,
-              startTime: baseTime,
-              duration: MEASURE_LENGTH - DEFAULT_NOTE_DURATION_PADDING,
-            },
+            createNote(basePitch, chord[1], tonic, baseTime, MEASURE_LENGTH),
+            createNote(basePitch, chord[2], tonic, baseTime, MEASURE_LENGTH),
           );
           if (style === "triad_octave") {
-            notes.push({
-              pitch: getAdjustedBasePitch(basePitch + chord[0] + 12, tonic),
-              velocity: DEFAULT_VELOCITY,
-              startTime: baseTime,
-              duration: MEASURE_LENGTH - DEFAULT_NOTE_DURATION_PADDING,
-            });
+            notes.push(
+              createNote(
+                basePitch,
+                chord[0] + 12,
+                tonic,
+                baseTime,
+                MEASURE_LENGTH,
+              ),
+            );
           }
           break;
       }
@@ -189,7 +260,6 @@ const generateRootChordAlternation = (
   tonic: number = 0,
 ): Note[] => {
   const notes: Note[] = [];
-
   const chords = progression.map((degree) => getChord(degree, mode));
   const rehydratedChords = rehydrateChords(chords);
   const chordPitches = rehydratedChords.map((chord) => chord.pitches);
@@ -208,66 +278,77 @@ const generateRootChordAlternation = (
 
       switch (style) {
         case "half":
-          // Root for first half note
-          notes.push({
-            pitch: getAdjustedBasePitch(basePitch + chord[0], tonic),
-            velocity: DEFAULT_VELOCITY,
-            startTime: baseTime,
-            duration: MEASURE_LENGTH / 2 - DEFAULT_NOTE_DURATION_PADDING,
-          });
-          // Full chord for second half note
+          notes.push(
+            createNote(
+              basePitch,
+              chord[0],
+              tonic,
+              baseTime,
+              MEASURE_LENGTH / 2,
+            ),
+          );
           chord.forEach((pitch) => {
-            notes.push({
-              pitch: getAdjustedBasePitch(basePitch + pitch, tonic),
-              velocity: DEFAULT_VELOCITY,
-              startTime: baseTime + MEASURE_LENGTH / 2,
-              duration: MEASURE_LENGTH / 2 - DEFAULT_NOTE_DURATION_PADDING,
-            });
+            notes.push(
+              createNote(
+                basePitch,
+                pitch,
+                tonic,
+                baseTime + MEASURE_LENGTH / 2,
+                MEASURE_LENGTH / 2,
+              ),
+            );
           });
           break;
         case "quarter":
-          // Root-chord-root-chord pattern
           for (let quarter = 0; quarter < 4; quarter++) {
             if (quarter % 2 === 0) {
-              notes.push({
-                pitch: getAdjustedBasePitch(basePitch + chord[0], tonic),
-                velocity: DEFAULT_VELOCITY,
-                startTime: baseTime + quarter * TICKS_PER_QUARTER,
-                duration: TICKS_PER_QUARTER - DEFAULT_NOTE_DURATION_PADDING,
-              });
+              notes.push(
+                createNote(
+                  basePitch,
+                  chord[0],
+                  tonic,
+                  baseTime + quarter * TICKS_PER_QUARTER,
+                  TICKS_PER_QUARTER,
+                ),
+              );
             } else {
               chord.forEach((pitch) => {
-                notes.push({
-                  pitch: getAdjustedBasePitch(basePitch + pitch, tonic),
-                  velocity: DEFAULT_VELOCITY,
-                  startTime: baseTime + quarter * TICKS_PER_QUARTER,
-                  duration: TICKS_PER_QUARTER - DEFAULT_NOTE_DURATION_PADDING,
-                });
+                notes.push(
+                  createNote(
+                    basePitch,
+                    pitch,
+                    tonic,
+                    baseTime + quarter * TICKS_PER_QUARTER,
+                    TICKS_PER_QUARTER,
+                  ),
+                );
               });
             }
           }
           break;
         case "quarter_fifth":
-          // Root-chord-fifth below-chord pattern
           for (let quarter = 0; quarter < 4; quarter++) {
             if (quarter % 2 === 0) {
-              notes.push({
-                pitch:
-                  quarter === 0
-                    ? getAdjustedBasePitch(basePitch + chord[0], tonic)
-                    : getAdjustedBasePitch(basePitch + chord[2] - 12, tonic),
-                velocity: DEFAULT_VELOCITY,
-                startTime: baseTime + quarter * TICKS_PER_QUARTER,
-                duration: TICKS_PER_QUARTER - DEFAULT_NOTE_DURATION_PADDING,
-              });
+              notes.push(
+                createNote(
+                  basePitch,
+                  quarter === 0 ? chord[0] : chord[2] - 12,
+                  tonic,
+                  baseTime + quarter * TICKS_PER_QUARTER,
+                  TICKS_PER_QUARTER,
+                ),
+              );
             } else {
               chord.forEach((pitch) => {
-                notes.push({
-                  pitch: getAdjustedBasePitch(basePitch + pitch, tonic),
-                  velocity: DEFAULT_VELOCITY,
-                  startTime: baseTime + quarter * TICKS_PER_QUARTER,
-                  duration: TICKS_PER_QUARTER - DEFAULT_NOTE_DURATION_PADDING,
-                });
+                notes.push(
+                  createNote(
+                    basePitch,
+                    pitch,
+                    tonic,
+                    baseTime + quarter * TICKS_PER_QUARTER,
+                    TICKS_PER_QUARTER,
+                  ),
+                );
               });
             }
           }
@@ -307,51 +388,85 @@ export const generateAlbertiPattern = (
 
       for (let i = 0; i < 8; i++) {
         const patternValue = selectedPattern[i];
-        // Calculate octave offset and chord index
         const octaveOffset =
           Math.floor(Math.abs(patternValue) / 3) * 12 * Math.sign(patternValue);
         const chordIndex = ((patternValue % 3) + 3) % 3;
 
-        notes.push({
-          pitch: getAdjustedBasePitch(
-            basePitch + chord[chordIndex] + octaveOffset,
+        notes.push(
+          createNote(
+            basePitch,
+            chord[chordIndex] + octaveOffset,
             tonic,
+            baseTime + i * EIGHTH_NOTE,
+            EIGHTH_NOTE,
           ),
-          velocity: DEFAULT_VELOCITY,
-          startTime: baseTime + i * EIGHTH_NOTE,
-          duration: EIGHTH_NOTE - DEFAULT_NOTE_DURATION_PADDING,
-        });
+        );
       }
     }
   }
   return notes;
 };
 
-export const generateNotes = (config: ForgeConfig): Note[] => {
-  const progression = PROGRESSIONS[config.progression];
-
-  switch (config.playbackStyle) {
-    case "whole_notes":
-      return generateWholeNotes(
-        progression,
-        config.mode,
-        config.wholeNoteStyle,
-        config.tonic,
-      );
-    case "root_chord_alternation":
-      return generateRootChordAlternation(
-        progression,
-        config.mode,
-        config.alternationStyle,
-        config.tonic,
-      );
-    case "arpeggio":
+// Get scale degrees based on mode
+const getScaleDegrees = (mode: ForgeConfig["mode"]): number[] => {
+  switch (mode) {
+    case "minor":
+      // Harmonic minor: W H W W H WH H
+      return [0, 2, 3, 5, 7, 8, 11, 12];
+    case "natural_minor":
+      // Natural minor: W H W W H W W
+      return [0, 2, 3, 5, 7, 8, 10, 12];
+    case "major":
     default:
-      return generateAlbertiPattern(
-        progression,
-        config.mode,
-        config.pattern,
-        config.tonic,
-      );
+      // Major scale: W W H W W W H
+      return [0, 2, 4, 5, 7, 9, 11, 12];
   }
+};
+
+export const generateNotes = (
+  config: ForgeConfig,
+): { melody: Note[]; chords: Note[] } => {
+  const progression = PROGRESSIONS[config.progression];
+  const chordNotes = (() => {
+    let notes: Note[];
+    switch (config.playbackStyle) {
+      case "whole_notes":
+        notes = generateWholeNotes(
+          progression,
+          config.mode,
+          config.wholeNoteStyle,
+          config.tonic,
+        );
+        break;
+      case "root_chord_alternation":
+        notes = generateRootChordAlternation(
+          progression,
+          config.mode,
+          config.alternationStyle,
+          config.tonic,
+        );
+        break;
+      case "arpeggio":
+      default:
+        notes = generateAlbertiPattern(
+          progression,
+          config.mode,
+          config.pattern,
+          config.tonic,
+        );
+    }
+    // Move accompaniment down an octave and set channel
+    return notes.map((note) => ({
+      ...note,
+      channel: 1,
+      pitch: note.pitch - 12, // Move down one octave
+    }));
+  })();
+
+  const melodyNotes = generateMelody(progression, config.mode, config.tonic);
+
+  return {
+    melody: melodyNotes,
+    chords: chordNotes,
+  };
 };

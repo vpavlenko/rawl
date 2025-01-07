@@ -95,6 +95,17 @@ const PatternButton = styled(Button)`
 // Add pattern type
 export type PatternIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
+interface ForgeUIState {
+  mode: ForgeConfig["mode"];
+  patternIndex: PatternIndex;
+  progression: ProgressionType;
+  playbackStyle: PlaybackStyle;
+  wholeNoteStyle: ForgeConfig["wholeNoteStyle"];
+  alternationStyle: ForgeConfig["alternationStyle"];
+  tonic: number;
+  includeMelody: boolean;
+}
+
 const ForgeUI: React.FC = () => {
   const [mode, setMode] = useState<ForgeConfig["mode"]>("major");
   const [patternIndex, setPatternIndex] = useState<PatternIndex>(0);
@@ -105,6 +116,7 @@ const ForgeUI: React.FC = () => {
   const [alternationStyle, setAlternationStyle] =
     useState<ForgeConfig["alternationStyle"]>("half");
   const [tonic, setTonic] = useState<number>(0);
+  const [includeMelody, setIncludeMelody] = useState<boolean>(false);
 
   // Add state to track last generated configuration
   const [lastGeneratedConfig, setLastGeneratedConfig] = useState({
@@ -138,6 +150,7 @@ const ForgeUI: React.FC = () => {
       newWholeNoteStyle?: ForgeConfig["wholeNoteStyle"];
       newAlternationStyle?: ForgeConfig["alternationStyle"];
       newTonic?: number;
+      newIncludeMelody?: boolean;
     },
     description: string,
   ) => {
@@ -156,7 +169,9 @@ const ForgeUI: React.FC = () => {
         setWholeNoteStyle(updates.newWholeNoteStyle);
       if (updates.newAlternationStyle)
         setAlternationStyle(updates.newAlternationStyle);
-      if (updates.newTonic) setTonic(updates.newTonic);
+      if (updates.newTonic !== undefined) setTonic(updates.newTonic);
+      if (updates.newIncludeMelody !== undefined)
+        setIncludeMelody(updates.newIncludeMelody);
     }
 
     await prepareMidi(
@@ -168,7 +183,7 @@ const ForgeUI: React.FC = () => {
       updates.newPlaybackStyle || playbackStyle,
       updates.newWholeNoteStyle || wholeNoteStyle,
       updates.newAlternationStyle || alternationStyle,
-      updates.newTonic || tonic,
+      updates.newTonic !== undefined ? updates.newTonic : tonic,
       shouldAutoPlay,
     );
   };
@@ -225,8 +240,9 @@ const ForgeUI: React.FC = () => {
         alternationStyle: newAlternationStyle,
         tonic: newTonic,
       };
-      const notes = generateNotes(config);
-      console.log("[Forge] Generated notes:", notes.length);
+      const { melody, chords } = generateNotes(config);
+      const notes = includeMelody ? { melody, chords } : { melody: [], chords };
+      console.log("[Forge] Generated notes:", notes);
 
       // Generate MIDI with metadata
       const { midiData, midiInfo, analysis } = generateMidiWithMetadata(
@@ -263,17 +279,18 @@ const ForgeUI: React.FC = () => {
   // Prepare MIDI on mode/pattern change
   useEffect(() => {
     console.log(
-      "[Forge] useEffect triggered for mode/patternIndex/progression change:",
+      "[Forge] useEffect triggered for mode/patternIndex/progression/melody change:",
       mode,
       patternIndex,
       progression,
+      includeMelody,
     );
     // Only prepare if not from a click (which will handle its own preparation)
     if (!isClickPending.current) {
       prepareMidi(mode, patternIndex, progression, playbackStyle);
     }
     isClickPending.current = false;
-  }, [mode, patternIndex, progression]);
+  }, [mode, patternIndex, progression, includeMelody]);
 
   const getProgressionDisplay = (prog: ProgressionType) => {
     const chords = PROGRESSIONS[prog].map(
@@ -452,12 +469,26 @@ const ForgeUI: React.FC = () => {
             ))}
           </CategorySection>
         )}
+
+        <CategorySection>
+          <CategoryHeader>Melody</CategoryHeader>
+          <Button
+            active={includeMelody}
+            {...getInteractionProps(
+              { newIncludeMelody: !includeMelody },
+              "Toggle melody",
+            )}
+          >
+            {includeMelody ? "Melody On" : "Melody Off"}
+          </Button>
+        </CategorySection>
       </SelectorContainer>
       <ContentArea>
         <div>Current tonic: {PITCH_CLASS_TO_LETTER[tonic]}</div>
         <div>Current mode: {mode}</div>
         <div>Current progression: {getProgressionDisplay(progression)}</div>
         <div>Playback style: {playbackStyle.replace("_", " ")}</div>
+        <div>Melody: {includeMelody ? "On" : "Off"}</div>
         {playbackStyle === "whole_notes" && (
           <div>Whole note style: {wholeNoteStyle?.replace("_", " ")}</div>
         )}

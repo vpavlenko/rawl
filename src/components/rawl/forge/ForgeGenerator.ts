@@ -51,7 +51,7 @@ export interface Note {
 
 export interface ForgeConfig {
   mode: "major" | "minor" | "natural_minor";
-  pattern: "classic" | "alternate";
+  pattern: number;
   progression: ProgressionType;
 }
 
@@ -62,23 +62,32 @@ const getChord = (scaleDegree: number, mode: ForgeConfig["mode"]): Chord => {
   ] as Chord;
 };
 
-// Convert chord to Alberti pattern in IR
+// Patterns defined as sequences where:
+// 0 is root, 1 is next chord tone up, 2 is next up, etc.
+// Negative numbers go down from root (-1 is fifth below root)
+// Numbers > 2 access next octave (3 is root octave up)
+export const PATTERNS = [
+  [0, 1, 2, 1, 2, 1, 2, 1], // Classic r m u m u m u m
+  [0, 1, 2, 1, 0, 1, 2, 1], // Alternate r m u m r m u m
+  [0, 2, 3, 2, 3, 2, 3, 2], // New pattern 1
+  [0, 2, 3, 2, 4, 2, 3, 2], // New pattern 2
+  [0, 2, 4, 2, 4, 2, 4, 2], // New pattern 3
+  [0, 2, 3, 2, 0, 2, 3, 2], // New pattern 4
+  [0, 3, 5, 4, 6, 4, 5, 4], // New pattern 5
+] as const;
+
+// Convert chord to pattern in IR
 export const generateAlbertiPattern = (
   progression: number[],
   mode: ForgeConfig["mode"],
-  pattern: "classic" | "alternate",
+  patternIndex: number,
 ): Note[] => {
   const C3 = 48; // MIDI note number for C3
   const TICKS_PER_QUARTER = 128; // Standard MIDI ticks per quarter note
   const MEASURE_LENGTH = TICKS_PER_QUARTER * 4; // 4 quarter notes per measure
   const EIGHTH_NOTE = TICKS_PER_QUARTER / 2;
 
-  // Two different patterns: r m u m u m u m u m  or  r m u m r m u m
-  const patterns = {
-    classic: [0, 1, 2, 1, 2, 1, 2, 1], // r m u m u m u m
-    alternate: [0, 1, 2, 1, 0, 1, 2, 1], // r m u m r m u m
-  };
-  const selectedPattern = patterns[pattern];
+  const selectedPattern = PATTERNS[patternIndex] || PATTERNS[0];
   const notes: Note[] = [];
 
   // Convert progression to chords and get their pitches
@@ -86,7 +95,7 @@ export const generateAlbertiPattern = (
   const rehydratedChords = rehydrateChords(chords);
   const chordPitches = rehydratedChords.map((chord) => chord.pitches);
 
-  // Generate eight bars of Alberti pattern (4 bars repeated)
+  // Generate eight bars of pattern (4 bars repeated)
   for (let repeat = 0; repeat < 2; repeat++) {
     for (let measure = 0; measure < 4; measure++) {
       const chord = chordPitches[measure];
@@ -96,10 +105,14 @@ export const generateAlbertiPattern = (
         currentChord === "vi" || currentChord === "bVI" ? -12 : 0;
 
       for (let i = 0; i < 8; i++) {
-        // 8 eighth notes per measure
-        const chordIndex = selectedPattern[i] % chord.length;
+        const patternValue = selectedPattern[i];
+        // Calculate octave offset and chord index
+        const octaveOffset =
+          Math.floor(Math.abs(patternValue) / 3) * 12 * Math.sign(patternValue);
+        const chordIndex = ((patternValue % 3) + 3) % 3;
+
         notes.push({
-          pitch: C3 + chord[chordIndex] + octaveAdjust,
+          pitch: C3 + chord[chordIndex] + octaveOffset + octaveAdjust,
           velocity: 80,
           startTime: (repeat * 4 + measure) * MEASURE_LENGTH + i * EIGHTH_NOTE,
           duration: EIGHTH_NOTE - 10, // Slightly shorter for articulation

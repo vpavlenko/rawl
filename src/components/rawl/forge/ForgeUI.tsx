@@ -6,6 +6,7 @@ import Rawl from "../Rawl";
 import {
   ForgeConfig,
   generateNotes,
+  PATTERNS,
   PROGRESSIONS,
   ProgressionType,
   SCALE_CHORDS,
@@ -72,23 +73,44 @@ const ProgressionButton = styled(Button)`
   font-family: monospace;
 `;
 
+const PatternButton = styled(Button)`
+  font-family: monospace;
+`;
+
+// Add pattern type
+export type PatternIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+
 const ForgeUI: React.FC = () => {
   const [mode, setMode] = useState<ForgeConfig["mode"]>("major");
-  const [pattern, setPattern] = useState<"classic" | "alternate">("classic");
+  const [patternIndex, setPatternIndex] = useState<PatternIndex>(0);
   const [progression, setProgression] = useState<ProgressionType>("CLASSIC");
   const { currentMidi, rawlProps, setCurrentMidi, playSongBuffer } =
     useContext(AppContext);
 
+  // Pattern sequences for display - derived directly from PATTERNS
+  const patternSequences = PATTERNS.map((pattern) => pattern.join(" "));
+
   const prepareMidi = async (
     newMode: ForgeConfig["mode"],
-    newPattern: "classic" | "alternate",
+    newPatternIndex: PatternIndex,
     newProgression: ProgressionType,
     shouldAutoPlay: boolean = false,
   ) => {
+    // Skip if all values are the same and it's not an autoplay request
+    if (
+      !shouldAutoPlay &&
+      newMode === mode &&
+      newPatternIndex === patternIndex &&
+      newProgression === progression
+    ) {
+      console.log("[Forge] Skipping MIDI generation - values unchanged");
+      return null;
+    }
+
     console.log(
       "[Forge] Preparing MIDI generation for:",
       newMode,
-      newPattern,
+      newPatternIndex,
       newProgression,
     );
 
@@ -96,7 +118,7 @@ const ForgeUI: React.FC = () => {
       // Generate notes using the configuration
       const config: ForgeConfig = {
         mode: newMode,
-        pattern: newPattern,
+        pattern: newPatternIndex,
         progression: newProgression,
       };
       const notes = generateNotes(config);
@@ -122,17 +144,17 @@ const ForgeUI: React.FC = () => {
   // Prepare MIDI on mode/pattern change
   useEffect(() => {
     console.log(
-      "[Forge] useEffect triggered for mode/pattern/progression change:",
+      "[Forge] useEffect triggered for mode/patternIndex/progression change:",
       mode,
-      pattern,
+      patternIndex,
       progression,
     );
     // Only prepare if not from a click (which will handle its own preparation)
     if (!isClickPending.current) {
-      prepareMidi(mode, pattern, progression, false);
+      prepareMidi(mode, patternIndex, progression, false);
     }
     isClickPending.current = false;
-  }, [mode, pattern, progression]);
+  }, [mode, patternIndex, progression]);
 
   // Add ref to track if change is from click
   const isClickPending = useRef(false);
@@ -156,11 +178,11 @@ const ForgeUI: React.FC = () => {
               console.log("[Forge] Major button clicked");
               isClickPending.current = true;
               setMode("major");
-              await prepareMidi("major", pattern, progression, true);
+              await prepareMidi("major", patternIndex, progression, true);
             }}
             onMouseEnter={() => {
               console.log("[Forge] Major button hover");
-              prepareMidi("major", pattern, progression, false);
+              prepareMidi("major", patternIndex, progression, false);
             }}
           >
             Major
@@ -171,11 +193,11 @@ const ForgeUI: React.FC = () => {
               console.log("[Forge] Minor button clicked");
               isClickPending.current = true;
               setMode("minor");
-              await prepareMidi("minor", pattern, progression, true);
+              await prepareMidi("minor", patternIndex, progression, true);
             }}
             onMouseEnter={() => {
               console.log("[Forge] Minor button hover");
-              prepareMidi("minor", pattern, progression, false);
+              prepareMidi("minor", patternIndex, progression, false);
             }}
           >
             Minor
@@ -186,11 +208,16 @@ const ForgeUI: React.FC = () => {
               console.log("[Forge] Natural minor button clicked");
               isClickPending.current = true;
               setMode("natural_minor");
-              await prepareMidi("natural_minor", pattern, progression, true);
+              await prepareMidi(
+                "natural_minor",
+                patternIndex,
+                progression,
+                true,
+              );
             }}
             onMouseEnter={() => {
               console.log("[Forge] Natural minor button hover");
-              prepareMidi("natural_minor", pattern, progression, false);
+              prepareMidi("natural_minor", patternIndex, progression, false);
             }}
           >
             Natural Minor
@@ -199,36 +226,24 @@ const ForgeUI: React.FC = () => {
 
         <CategorySection>
           <CategoryHeader>Pattern</CategoryHeader>
-          <Button
-            active={pattern === "classic"}
-            onClick={async () => {
-              console.log("[Forge] Classic pattern clicked");
-              isClickPending.current = true;
-              setPattern("classic");
-              await prepareMidi(mode, "classic", progression, true);
-            }}
-            onMouseEnter={() => {
-              console.log("[Forge] Classic pattern hover");
-              prepareMidi(mode, "classic", progression, false);
-            }}
-          >
-            r m u m u m u m
-          </Button>
-          <Button
-            active={pattern === "alternate"}
-            onClick={async () => {
-              console.log("[Forge] Alternate pattern clicked");
-              isClickPending.current = true;
-              setPattern("alternate");
-              await prepareMidi(mode, "alternate", progression, true);
-            }}
-            onMouseEnter={() => {
-              console.log("[Forge] Alternate pattern hover");
-              prepareMidi(mode, "alternate", progression, false);
-            }}
-          >
-            r m u m r m u m
-          </Button>
+          {patternSequences.map((seq, idx) => (
+            <PatternButton
+              key={idx}
+              active={patternIndex === idx}
+              onClick={async () => {
+                console.log("[Forge] Pattern clicked:", idx);
+                isClickPending.current = true;
+                setPatternIndex(idx as PatternIndex);
+                await prepareMidi(mode, idx as PatternIndex, progression, true);
+              }}
+              onMouseEnter={() => {
+                console.log("[Forge] Pattern hover:", idx);
+                prepareMidi(mode, idx as PatternIndex, progression, false);
+              }}
+            >
+              {seq}
+            </PatternButton>
+          ))}
         </CategorySection>
 
         <CategorySection>
@@ -241,11 +256,11 @@ const ForgeUI: React.FC = () => {
                 console.log("[Forge] Progression clicked:", prog);
                 isClickPending.current = true;
                 setProgression(prog);
-                await prepareMidi(mode, pattern, prog, true);
+                await prepareMidi(mode, patternIndex, prog, true);
               }}
               onMouseEnter={() => {
                 console.log("[Forge] Progression hover:", prog);
-                prepareMidi(mode, pattern, prog, false);
+                prepareMidi(mode, patternIndex, prog, false);
               }}
             >
               {getProgressionDisplay(prog)}

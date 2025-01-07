@@ -1,8 +1,10 @@
+import MidiWriter from "midi-writer-js";
 import * as React from "react";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "./AppContext";
-import InlineRawlPlayer from "./rawl/InlineRawlPlayer";
+import Rawl from "./rawl/Rawl";
+import { Analysis, PitchClass } from "./rawl/analysis";
 
 const ForgeContainer = styled.div`
   padding: 20px;
@@ -77,159 +79,96 @@ const Forge: React.FC = () => {
   const generateAlbertiPattern = (baseChord: number[]): Note[] => {
     const C3 = 48; // MIDI note number for C3
     const TICKS_PER_QUARTER = 480;
+    const MEASURE_LENGTH = TICKS_PER_QUARTER * 4; // 4 quarter notes per measure
     const pattern = [0, 2, 1, 2]; // Alberti pattern indices (low, high, middle, high)
     const notes: Note[] = [];
 
-    // Generate one bar of Alberti pattern
-    for (let i = 0; i < 4; i++) {
-      const chordIndex = pattern[i];
-      notes.push({
-        pitch: C3 + baseChord[chordIndex],
-        velocity: 80,
-        startTime: i * TICKS_PER_QUARTER,
-        duration: TICKS_PER_QUARTER - 10, // Slightly shorter for articulation
-      });
+    // Generate four bars of Alberti pattern
+    for (let measure = 0; measure < 4; measure++) {
+      for (let i = 0; i < 4; i++) {
+        const chordIndex = pattern[i];
+        notes.push({
+          pitch: C3 + baseChord[chordIndex],
+          velocity: 80,
+          startTime: measure * MEASURE_LENGTH + i * TICKS_PER_QUARTER,
+          duration: TICKS_PER_QUARTER - 10, // Slightly shorter for articulation
+        });
+      }
     }
 
+    console.log("[Forge.generateAlbertiPattern] Generated notes:", notes);
     return notes;
   };
 
-  // Convert IR to MIDI file
+  // Convert IR to MIDI file using MidiWriter
   const generateMidiFile = (notes: Note[]): Uint8Array => {
-    // Simple MIDI file format implementation
-    const header = new Uint8Array([
-      0x4d,
-      0x54,
-      0x68,
-      0x64, // MThd
-      0x00,
-      0x00,
-      0x00,
-      0x06, // Header size
-      0x00,
-      0x00, // Format 0
-      0x00,
-      0x01, // One track
-      0x01,
-      0xe0, // 480 ticks per quarter note
-    ]);
-
-    const trackEvents: number[] = [
-      0x4d,
-      0x54,
-      0x72,
-      0x6b, // MTrk
-      0x00,
-      0x00,
-      0x00,
-      0x00, // Track length (placeholder)
-    ];
-
-    // Add time signature and tempo meta events
-    trackEvents.push(
-      0x00, // Delta time
-      0xff,
-      0x58,
-      0x04, // Time signature
-      0x04,
-      0x02,
-      0x18,
-      0x08, // 4/4 time
-      0x00, // Delta time
-      0xff,
-      0x51,
-      0x03, // Tempo
-      0x07,
-      0xa1,
-      0x20, // 500,000 microseconds per quarter note (120 BPM)
-    );
+    console.log("[Forge.generateMidiFile] Input notes:", notes);
 
     // Sort notes by start time
     const sortedNotes = [...notes].sort((a, b) => a.startTime - b.startTime);
+    console.log("[Forge.generateMidiFile] Sorted notes:", sortedNotes);
 
-    let currentTime = 0;
+    // Create a track
+    const track = new MidiWriter.Track();
 
-    // Add note events
+    // Add notes with their start times
     sortedNotes.forEach((note) => {
-      // Calculate delta time for note on
-      const deltaTimeOn = note.startTime - currentTime;
-      currentTime = note.startTime;
-
-      // Note on event
-      if (deltaTimeOn > 127) {
-        // Handle variable-length quantity for delta time
-        const bytes = [];
-        let value = deltaTimeOn;
-        while (value > 0) {
-          bytes.unshift(value & 0x7f);
-          value = value >> 7;
-          if (value > 0) {
-            bytes[0] |= 0x80;
-          }
-        }
-        trackEvents.push(...bytes);
-      } else {
-        trackEvents.push(deltaTimeOn);
-      }
-
-      trackEvents.push(
-        0x90, // Note on, channel 0
-        note.pitch,
-        note.velocity,
-      );
-
-      // Calculate delta time for note off
-      const deltaTimeOff = note.duration;
-      currentTime += deltaTimeOff;
-
-      // Note off event
-      if (deltaTimeOff > 127) {
-        // Handle variable-length quantity for delta time
-        const bytes = [];
-        let value = deltaTimeOff;
-        while (value > 0) {
-          bytes.unshift(value & 0x7f);
-          value = value >> 7;
-          if (value > 0) {
-            bytes[0] |= 0x80;
-          }
-        }
-        trackEvents.push(...bytes);
-      } else {
-        trackEvents.push(deltaTimeOff);
-      }
-
-      trackEvents.push(
-        0x80, // Note off, channel 0
-        note.pitch,
-        0x00, // velocity for note off
+      track.addEvent(
+        new MidiWriter.NoteEvent({
+          pitch: [note.pitch],
+          duration: "4",
+          startTick: note.startTime,
+          velocity: note.velocity,
+        }),
       );
     });
 
-    // End of track
-    trackEvents.push(0x00, 0xff, 0x2f, 0x00);
+    // Create a writer and write the MIDI file
+    const writer = new MidiWriter.Writer([track]);
 
-    // Update track length
-    const trackLength = trackEvents.length - 8;
-    trackEvents[4] = (trackLength >> 24) & 0xff;
-    trackEvents[5] = (trackLength >> 16) & 0xff;
-    trackEvents[6] = (trackLength >> 8) & 0xff;
-    trackEvents[7] = trackLength & 0xff;
+    // Get the output as a base64 string
+    const base64Data = writer.dataUri().split(",")[1];
 
-    return new Uint8Array([...header, ...trackEvents]);
+    // Convert base64 to Uint8Array
+    const binaryString = window.atob(base64Data);
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    return bytes;
+  };
+
+  const generateInitialAnalysis = (mode: "major" | "minor"): Analysis => {
+    // Create an analysis object that matches our four measures
+    return {
+      modulations: {
+        1: mode === "major" ? (0 as PitchClass) : (9 as PitchClass), // C major or minor
+      },
+      comment: `Generated ${mode} Alberti pattern - four measures in 4/4 time`,
+      tags: ["generated", "alberti", mode],
+      form: {},
+      phrasePatch: [],
+      sections: [0, 1, 2, 3], // Mark each measure as a section
+    };
   };
 
   const handleGenerate = async () => {
+    console.log("[Forge] Starting MIDI generation");
+
     // Get the chord based on mode
     const chord = mode === "major" ? [0, 4, 7] : [0, 3, 7];
+    console.log("[Forge] Using chord:", chord);
 
     // Generate Alberti pattern
     const notes = generateAlbertiPattern(chord);
+    console.log("[Forge] Generated Alberti pattern:", notes);
 
     // Generate MIDI file
     const midiData = generateMidiFile(notes);
+    console.log("[Forge] Generated MIDI data:", midiData);
 
-    // Create a fake MIDI info object
+    // Create a fake MIDI info object with analysis
     const midiInfo = {
       id: "generated-alberti",
       title: `Generated ${mode} Alberti Pattern`,
@@ -237,27 +176,48 @@ const Forge: React.FC = () => {
       sourceUrl: null,
       isHiddenRoute: false,
     };
+    console.log("[Forge] Created MIDI info:", midiInfo);
+
+    // Generate initial analysis
+    const initialAnalysis = generateInitialAnalysis(mode);
+    console.log("[Forge] Generated initial analysis:", initialAnalysis);
 
     // Set current MIDI info
     setCurrentMidi(midiInfo);
 
     // Try to play the MIDI
     try {
-      // Load the MIDI data directly
+      console.log("[Forge] Attempting to play MIDI");
+      // Load the MIDI data directly - App.tsx will handle transformation
       await playSongBuffer("generated-alberti.mid", midiData);
 
-      // Update rawlProps
+      console.log("[Forge] MIDI loaded, checking rawlProps:", rawlProps);
       if (rawlProps) {
-        rawlProps.savedAnalysis = null;
-        rawlProps.isHiddenRoute = false;
-        rawlProps.parsingResult = null;
+        console.log("[Forge] Current parsingResult:", rawlProps.parsingResult);
+        console.log("[Forge] Current savedAnalysis:", rawlProps.savedAnalysis);
+
+        // Update the analysis in rawlProps
+        if (rawlProps.saveAnalysis) {
+          console.log("[Forge] Saving initial analysis");
+          rawlProps.saveAnalysis(initialAnalysis);
+        }
       }
 
-      console.log("[App] Starting playback after load");
+      console.log("[Forge] Starting playback after load");
     } catch (error) {
-      console.error("Error loading MIDI:", error);
+      console.error("[Forge] Error loading MIDI:", error);
     }
   };
+
+  // Add logging when rawlProps changes
+  useEffect(() => {
+    if (rawlProps) {
+      console.log("[Forge] rawlProps updated:", {
+        parsingResult: rawlProps.parsingResult,
+        savedAnalysis: rawlProps.savedAnalysis,
+      });
+    }
+  }, [rawlProps]);
 
   // Add useEffect for cleanup
   useEffect(() => {
@@ -278,6 +238,16 @@ const Forge: React.FC = () => {
     };
   }, [currentMidi]);
 
+  const memoizedProps = useMemo(() => {
+    if (!rawlProps) return null;
+    return {
+      parsingResult: rawlProps.parsingResult,
+      savedAnalysis: rawlProps.savedAnalysis,
+      voiceNames: rawlProps.voiceNames,
+      voiceMask: rawlProps.voiceMask,
+    };
+  }, [rawlProps]);
+
   return (
     <ForgeContainer>
       <h1>Forge</h1>
@@ -296,10 +266,21 @@ const Forge: React.FC = () => {
           Generate Alberti Pattern
         </GenerateButton>
       </ContentArea>
-      {currentMidi && rawlProps && (
-        <InlineRawlPlayer>
-          <div />
-        </InlineRawlPlayer>
+      {currentMidi && rawlProps && rawlProps.parsingResult && memoizedProps && (
+        <Rawl
+          parsingResult={memoizedProps.parsingResult}
+          getCurrentPositionMs={rawlProps.getCurrentPositionMs}
+          savedAnalysis={memoizedProps.savedAnalysis}
+          saveAnalysis={rawlProps.saveAnalysis}
+          voiceNames={memoizedProps.voiceNames}
+          voiceMask={memoizedProps.voiceMask}
+          setVoiceMask={rawlProps.setVoiceMask}
+          showAnalysisBox={rawlProps.showAnalysisBox}
+          seek={rawlProps.seek}
+          latencyCorrectionMs={rawlProps.latencyCorrectionMs}
+          sourceUrl={currentMidi.sourceUrl}
+          isHiddenRoute={false}
+        />
       )}
     </ForgeContainer>
   );

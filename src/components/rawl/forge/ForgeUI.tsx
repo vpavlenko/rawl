@@ -290,6 +290,46 @@ const ForgeUI: React.FC = () => {
       </TonicSelector>
       <SelectorContainer>
         <CategorySection>
+          <CategoryHeader>Mode</CategoryHeader>
+          <Button
+            active={mode === "major"}
+            {...getInteractionProps({ newMode: "major" }, "Major button")}
+          >
+            Major
+          </Button>
+          <Button
+            active={mode === "minor"}
+            {...getInteractionProps({ newMode: "minor" }, "Minor button")}
+          >
+            Minor
+          </Button>
+          <Button
+            active={mode === "natural_minor"}
+            {...getInteractionProps(
+              { newMode: "natural_minor" },
+              "Natural minor button",
+            )}
+          >
+            Natural Minor
+          </Button>
+        </CategorySection>
+
+        <CategorySection>
+          <CategoryHeader>Progression</CategoryHeader>
+          {(Object.keys(PROGRESSIONS) as ProgressionType[]).map((prog) => (
+            <ProgressionButton
+              key={prog}
+              active={progression === prog}
+              {...getInteractionProps(
+                { newProgression: prog },
+                `Progression ${prog}`,
+              )}
+            >
+              {getProgressionDisplay(prog)}
+            </ProgressionButton>
+          ))}
+        </CategorySection>
+        <CategorySection>
           <CategoryHeader>Playback Style</CategoryHeader>
           <Button
             active={playbackStyle === "arpeggio"}
@@ -392,47 +432,6 @@ const ForgeUI: React.FC = () => {
             ))}
           </CategorySection>
         )}
-
-        <CategorySection>
-          <CategoryHeader>Mode</CategoryHeader>
-          <Button
-            active={mode === "major"}
-            {...getInteractionProps({ newMode: "major" }, "Major button")}
-          >
-            Major
-          </Button>
-          <Button
-            active={mode === "minor"}
-            {...getInteractionProps({ newMode: "minor" }, "Minor button")}
-          >
-            Minor
-          </Button>
-          <Button
-            active={mode === "natural_minor"}
-            {...getInteractionProps(
-              { newMode: "natural_minor" },
-              "Natural minor button",
-            )}
-          >
-            Natural Minor
-          </Button>
-        </CategorySection>
-
-        <CategorySection>
-          <CategoryHeader>Progression</CategoryHeader>
-          {(Object.keys(PROGRESSIONS) as ProgressionType[]).map((prog) => (
-            <ProgressionButton
-              key={prog}
-              active={progression === prog}
-              {...getInteractionProps(
-                { newProgression: prog },
-                `Progression ${prog}`,
-              )}
-            >
-              {getProgressionDisplay(prog)}
-            </ProgressionButton>
-          ))}
-        </CategorySection>
       </SelectorContainer>
       <ContentArea>
         <div>Current tonic: {PITCH_CLASS_TO_LETTER[tonic]}</div>

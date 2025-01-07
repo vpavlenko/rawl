@@ -110,12 +110,10 @@ const createNote = (
   startTime: number,
   duration: number,
   channel: number = 1,
-  isAccompaniment: boolean = true,
 ): Note => ({
   pitch: getAdjustedBasePitch(basePitch + pitchOffset, tonic),
-  velocity: isAccompaniment
-    ? Math.floor(DEFAULT_VELOCITY * 0.4)
-    : DEFAULT_VELOCITY,
+  velocity:
+    channel === 1 ? Math.floor(DEFAULT_VELOCITY * 0.4) : DEFAULT_VELOCITY,
   startTime,
   duration: duration - DEFAULT_NOTE_DURATION_PADDING,
   channel,

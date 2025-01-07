@@ -1,6 +1,8 @@
 import MidiWriter from "midi-writer-js";
 import { Analysis, PitchClass } from "../analysis";
-import { FORGE_MOCK_ID, Note } from "./ForgeGenerator";
+import { ForgeConfig, Note } from "./ForgeGenerator";
+
+export const FORGE_MOCK_ID = "forge_mock";
 
 export interface MidiGenerationResult {
   midiData: Uint8Array;
@@ -53,7 +55,9 @@ export const generateMidiFile = (notes: Note[]): Uint8Array => {
   return bytes;
 };
 
-export const generateInitialAnalysis = (mode: "major" | "minor"): Analysis => {
+export const generateInitialAnalysis = (
+  mode: ForgeConfig["mode"],
+): Analysis => {
   return {
     modulations: {
       1: mode === "major" ? (0 as PitchClass) : (9 as PitchClass), // C major or minor
@@ -68,7 +72,7 @@ export const generateInitialAnalysis = (mode: "major" | "minor"): Analysis => {
 
 export const generateMidiWithMetadata = (
   notes: Note[],
-  mode: "major" | "minor",
+  mode: ForgeConfig["mode"],
 ): MidiGenerationResult => {
   const midiData = generateMidiFile(notes);
 

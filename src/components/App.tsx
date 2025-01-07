@@ -62,7 +62,7 @@ import { Analyses, MeasuresSpan } from "./rawl/analysis";
 import Book from "./rawl/book/Book";
 import Corpus from "./rawl/corpora/Corpus";
 import Structures, { StructuresProps } from "./rawl/corpora/Structures";
-import Forge from "./rawl/forge/Forge";
+import ForgeUI from "./rawl/forge/ForgeUI";
 import { DropSaveForm, saveMidiFromLink } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
 import { ParsingResult } from "./rawl/parseMidi";
@@ -1418,7 +1418,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   <Route path="/100/:slug?" component={Book} />
                   <Route path="/beyond/:slug?" component={Book} />
                   <Route path="/timeline" component={Timeline} />
-                  <Route path="/forge" component={Forge} />
+                  <Route path="/forge" component={ForgeUI} />
                   <Redirect exact from="/" to="/100" />
                 </Switch>
               </AppMainContent>

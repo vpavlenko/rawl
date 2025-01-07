@@ -1,11 +1,15 @@
-import MidiWriter from "midi-writer-js";
 import * as React from "react";
 import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import Rawl from "../Rawl";
-import { Analysis, PitchClass } from "../analysis";
-import { Chord, rehydrateChords } from "../legends/chords";
+import {
+  ForgeConfig,
+  generateNotes,
+  MAJOR_PROGRESSION,
+  MINOR_PROGRESSION,
+} from "./ForgeGenerator";
+import { generateMidiWithMetadata } from "./ForgeMidi";
 
 const ForgeContainer = styled.div`
   padding: 20px;
@@ -13,8 +17,6 @@ const ForgeContainer = styled.div`
   color: white;
   box-sizing: border-box;
 `;
-
-const FORGE_MOCK_ID = "forge_mock";
 
 const SelectorContainer = styled.div`
   display: flex;
@@ -65,137 +67,11 @@ const ContentArea = styled.div`
   border-radius: 4px;
 `;
 
-// Intermediate Representation type
-interface Note {
-  pitch: number; // MIDI note number
-  velocity: number;
-  startTime: number; // in ticks (128 per quarter note)
-  duration: number; // in ticks
-}
-
-const MAJOR_PROGRESSION: Chord[] = ["I", "vi", "IV", "V"];
-const MINOR_PROGRESSION: Chord[] = ["i", "bVI", "iv", "V"];
-
-const Forge: React.FC = () => {
+const ForgeUI: React.FC = () => {
   const [mode, setMode] = useState<"major" | "minor">("major");
   const [pattern, setPattern] = useState<"classic" | "alternate">("classic");
-  const [preparedMidi, setPreparedMidi] = useState<{
-    midiData: Uint8Array;
-    midiInfo: any;
-    analysis: Analysis;
-  } | null>(null);
-  const {
-    currentMidi,
-    rawlProps,
-    setCurrentMidi,
-    playSongBuffer,
-    togglePause,
-  } = useContext(AppContext);
-
-  // Convert chord to Alberti pattern in IR
-  const generateAlbertiPattern = (
-    chordProgression: number[][],
-    newMode: "major" | "minor",
-    newPattern: "classic" | "alternate",
-  ): Note[] => {
-    const C3 = 48; // MIDI note number for C3
-    const TICKS_PER_QUARTER = 128; // Standard MIDI ticks per quarter note
-    const MEASURE_LENGTH = TICKS_PER_QUARTER * 4; // 4 quarter notes per measure
-    const EIGHTH_NOTE = TICKS_PER_QUARTER / 2;
-
-    // Two different patterns: r m u m u m u m  or  r m u m r m u m
-    const patterns = {
-      classic: [0, 1, 2, 1, 2, 1, 2, 1], // r m u m u m u m
-      alternate: [0, 1, 2, 1, 0, 1, 2, 1], // r m u m r m u m
-    };
-    const selectedPattern = patterns[newPattern];
-    const notes: Note[] = [];
-
-    // Get the progression for octave adjustment check
-    const progression =
-      newMode === "major" ? MAJOR_PROGRESSION : MINOR_PROGRESSION;
-
-    // Generate eight bars of Alberti pattern (4 bars repeated)
-    for (let repeat = 0; repeat < 2; repeat++) {
-      for (let measure = 0; measure < 4; measure++) {
-        const chord = chordProgression[measure];
-        const currentChord = progression[measure];
-        // Lower vi and bVI chords by an octave
-        const octaveAdjust =
-          currentChord === "vi" || currentChord === "bVI" ? -12 : 0;
-
-        for (let i = 0; i < 8; i++) {
-          // 8 eighth notes per measure
-          const chordIndex = selectedPattern[i] % chord.length;
-          notes.push({
-            pitch: C3 + chord[chordIndex] + octaveAdjust,
-            velocity: 80,
-            startTime:
-              (repeat * 4 + measure) * MEASURE_LENGTH + i * EIGHTH_NOTE,
-            duration: EIGHTH_NOTE - 10, // Slightly shorter for articulation
-          });
-        }
-      }
-    }
-
-    return notes;
-  };
-
-  // Convert IR to MIDI file using MidiWriter
-  const generateMidiFile = (notes: Note[]): Uint8Array => {
-    console.log("[Forge.generateMidiFile] Input notes:", notes);
-
-    // Sort notes by start time
-    const sortedNotes = [...notes].sort((a, b) => a.startTime - b.startTime);
-    console.log("[Forge.generateMidiFile] Sorted notes:", sortedNotes);
-
-    // Create a track
-    const track = new MidiWriter.Track();
-
-    // Set tempo to 120 BPM (500,000 microseconds per quarter note)
-    track.setTempo(120);
-
-    // Add notes with their start times
-    sortedNotes.forEach((note) => {
-      track.addEvent(
-        new MidiWriter.NoteEvent({
-          pitch: [note.pitch],
-          duration: "T" + note.duration,
-          startTick: note.startTime,
-          velocity: note.velocity,
-        }),
-      );
-    });
-
-    // Create a writer and write the MIDI file
-    const writer = new MidiWriter.Writer([track]);
-
-    // Get the output as a base64 string
-    const base64Data = writer.dataUri().split(",")[1];
-
-    // Convert base64 to Uint8Array
-    const binaryString = window.atob(base64Data);
-    const bytes = new Uint8Array(binaryString.length);
-    for (let i = 0; i < binaryString.length; i++) {
-      bytes[i] = binaryString.charCodeAt(i);
-    }
-
-    return bytes;
-  };
-
-  const generateInitialAnalysis = (mode: "major" | "minor"): Analysis => {
-    // Create an analysis object that matches our eight measures
-    return {
-      modulations: {
-        1: mode === "major" ? (0 as PitchClass) : (9 as PitchClass), // C major or minor
-      },
-      comment: `Generated ${mode} Alberti pattern - eight measures in 4/4 time`,
-      tags: ["generated", "alberti", mode],
-      form: {},
-      phrasePatch: [],
-      sections: [0, 1, 2, 3, 4, 5, 6, 7], // Mark each measure as a section
-    };
-  };
+  const { currentMidi, rawlProps, setCurrentMidi, playSongBuffer } =
+    useContext(AppContext);
 
   const prepareMidi = async (
     newMode: "major" | "minor",
@@ -205,28 +81,14 @@ const Forge: React.FC = () => {
     console.log("[Forge] Preparing MIDI generation for:", newMode, newPattern);
 
     try {
-      // Get the chord progression based on mode
-      const progression =
-        newMode === "major" ? MAJOR_PROGRESSION : MINOR_PROGRESSION;
-      const rehydratedProgression = rehydrateChords(progression);
-      const chords = rehydratedProgression.map((chord) => chord.pitches);
-
-      // Generate Alberti pattern with new mode and pattern
-      const notes = generateAlbertiPattern(chords, newMode, newPattern);
+      // Generate notes using the configuration
+      const config: ForgeConfig = { mode: newMode, pattern: newPattern };
+      const notes = generateNotes(config);
       console.log("[Forge] Generated notes:", notes.length);
 
-      // Generate MIDI file
-      const midiData = generateMidiFile(notes);
+      // Generate MIDI with metadata
+      const { midiData, midiInfo } = generateMidiWithMetadata(notes, newMode);
       console.log("[Forge] Generated MIDI data:", midiData.length, "bytes");
-
-      // Create MIDI info object
-      const midiInfo = {
-        id: FORGE_MOCK_ID,
-        title: `Generated ${newMode} Alberti Pattern`,
-        slug: FORGE_MOCK_ID,
-        sourceUrl: null,
-        isHiddenRoute: false,
-      };
 
       // Set the current MIDI info in global context
       setCurrentMidi(midiInfo);
@@ -345,4 +207,4 @@ const Forge: React.FC = () => {
   );
 };
 
-export default Forge;
+export default ForgeUI;

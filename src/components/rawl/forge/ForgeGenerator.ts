@@ -71,6 +71,8 @@ export interface ForgeConfig {
   wholeNoteStyle?: "root" | "octave" | "power" | "triad" | "triad_octave";
   alternationStyle?: "half" | "quarter" | "quarter_fifth";
   tonic: number;
+  melodyRhythm: "eighth" | "quarter" | "sixteenth";
+  melodyType: "static" | "chord_based";
 }
 
 // Convert scale degree to chord
@@ -128,6 +130,8 @@ const findPitchInScale = (pitch: number, scaleDegrees: number[]): number => {
 const generateMelody = (
   progression: number[],
   mode: ForgeConfig["mode"],
+  melodyRhythm: ForgeConfig["melodyRhythm"],
+  melodyType: ForgeConfig["melodyType"],
   tonic: number = 0,
 ): Note[] => {
   const notes: Note[] = [];
@@ -135,6 +139,10 @@ const generateMelody = (
   const rehydratedChords = rehydrateChords(chords);
   const chordPitches = rehydratedChords.map((chord) => chord.pitches);
   const scaleDegrees = getScaleDegrees(mode);
+
+  const notesPerMeasure =
+    melodyRhythm === "sixteenth" ? 16 : melodyRhythm === "eighth" ? 8 : 4;
+  const noteDuration = TICKS_PER_QUARTER / (notesPerMeasure / 4);
 
   for (let repeat = 0; repeat < 2; repeat++) {
     for (let measure = 0; measure < 4; measure++) {
@@ -148,27 +156,45 @@ const generateMelody = (
         C3 + 12, // Move melody up one octave
       );
 
-      // Find the root note's position in the scale
-      const rootPitch = chord[0] % 12;
-      let scaleIndex = findPitchInScale(rootPitch, scaleDegrees);
+      if (melodyType === "static") {
+        // Generate notes going up the scale from tonic, same pattern each measure
+        for (let i = 0; i < notesPerMeasure; i++) {
+          const octaveOffset = Math.floor(i / 7) * 12;
+          const currentDegree = scaleDegrees[i % 7];
 
-      // Generate 8 eighth notes going up the scale from root
-      for (let i = 0; i < 8; i++) {
-        // Calculate next scale degree, handling octave wrapping
-        const octaveOffset = Math.floor((scaleIndex + i) / 7) * 12;
-        const currentDegree = scaleDegrees[(scaleIndex + i) % 7];
+          notes.push(
+            createNote(
+              basePitch,
+              currentDegree + octaveOffset,
+              tonic,
+              baseTime + i * noteDuration,
+              noteDuration,
+              0,
+              false,
+            ),
+          );
+        }
+      } else {
+        // Generate notes based on chord root
+        const rootPitch = chord[0] % 12;
+        let scaleIndex = findPitchInScale(rootPitch, scaleDegrees);
 
-        notes.push(
-          createNote(
-            basePitch,
-            currentDegree + octaveOffset,
-            tonic,
-            baseTime + i * (TICKS_PER_QUARTER / 2),
-            TICKS_PER_QUARTER / 2,
-            0,
-            false,
-          ),
-        );
+        for (let i = 0; i < notesPerMeasure; i++) {
+          const octaveOffset = Math.floor((scaleIndex + i) / 7) * 12;
+          const currentDegree = scaleDegrees[(scaleIndex + i) % 7];
+
+          notes.push(
+            createNote(
+              basePitch,
+              currentDegree + octaveOffset,
+              tonic,
+              baseTime + i * noteDuration,
+              noteDuration,
+              0,
+              false,
+            ),
+          );
+        }
       }
     }
   }
@@ -455,15 +481,25 @@ export const generateNotes = (
           config.tonic,
         );
     }
-    // Move accompaniment down an octave and set channel
+    // Move accompaniment down an octave only for scale degrees 4-7
     return notes.map((note) => ({
       ...note,
       channel: 1,
-      pitch: note.pitch - 12, // Move down one octave
+      pitch:
+        note.pitch -
+        (progression[Math.floor(note.startTime / MEASURE_LENGTH) % 4] >= 4
+          ? 12
+          : 0),
     }));
   })();
 
-  const melodyNotes = generateMelody(progression, config.mode, config.tonic);
+  const melodyNotes = generateMelody(
+    progression,
+    config.mode,
+    config.melodyRhythm,
+    config.melodyType,
+    config.tonic,
+  );
 
   return {
     melody: melodyNotes,

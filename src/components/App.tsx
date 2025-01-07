@@ -1080,8 +1080,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
     console.log("[App.playSongBuffer] Setting tempo to 1");
     this.midiPlayer.setTempo(1);
 
+    // Store the original MIDI buffer for download
+    console.log("[App.playSongBuffer] Setting currentMidiBuffer in state");
     this.setState({
-      fileToDownload: uint8Array,
+      currentMidiBuffer: buffer instanceof ArrayBuffer ? buffer : buffer.buffer,
     });
 
     try {

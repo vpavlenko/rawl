@@ -163,6 +163,13 @@ const AppFooter: React.FC<
   const context = useContext(AppContext);
   const canDownload = context?.currentMidiBuffer && context?.currentMidi;
 
+  console.log("[AppFooter] Download state:", {
+    hasCurrentMidiBuffer: !!context?.currentMidiBuffer,
+    hasCurrentMidi: !!context?.currentMidi,
+    canDownload,
+    currentMidi: context?.currentMidi,
+  });
+
   const createBlobUrl = () => {
     if (!context?.currentMidiBuffer) return "";
     const blob = new Blob([context.currentMidiBuffer], { type: "audio/midi" });

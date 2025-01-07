@@ -169,7 +169,6 @@ const generateMelody = (
               baseTime + i * noteDuration,
               noteDuration,
               0,
-              false,
             ),
           );
         }
@@ -190,7 +189,6 @@ const generateMelody = (
               baseTime + i * noteDuration,
               noteDuration,
               0,
-              false,
             ),
           );
         }

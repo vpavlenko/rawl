@@ -33,9 +33,20 @@ const SelectorContainer = styled.div`
 const CategorySection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
   margin-bottom: 16px;
   width: fit-content;
+`;
+
+const HorizontalCategorySection = styled(CategorySection)`
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  width: auto;
+
+  > button {
+    width: auto;
+    margin: 0;
+  }
 `;
 
 const CategoryHeader = styled.div`
@@ -45,10 +56,11 @@ const CategoryHeader = styled.div`
   letter-spacing: 0.5px;
   text-align: left;
   user-select: none;
+  margin-bottom: 4px;
 `;
 
 const Button = styled.button<{ active: boolean }>`
-  padding: 0px 5px;
+  padding: 8px 12px;
   text-align: left;
   background-color: ${(props) => (props.active ? "white" : "black")};
   color: ${(props) => (props.active ? "black" : "white")};
@@ -56,12 +68,42 @@ const Button = styled.button<{ active: boolean }>`
   cursor: pointer;
   white-space: nowrap;
   font-size: 14px;
-  border-radius: 4px;
-  width: fit-content;
   user-select: none;
 
   &:hover {
     background-color: ${(props) => (props.active ? "white" : "#333")};
+  }
+
+  ${CategorySection}:not(${HorizontalCategorySection}) & {
+    width: 100%;
+    border-radius: 0;
+
+    &:first-of-type {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+  }
+
+  ${HorizontalCategorySection} & {
+    display: inline-flex;
+    border-radius: 0;
+    margin: 0;
+    width: auto;
+
+    &:first-child {
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
   }
 `;
 
@@ -283,12 +325,6 @@ const ButtonSection = <T extends keyof ForgeUIState>({
   );
 };
 
-const HorizontalCategorySection = styled(CategorySection)`
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 4px;
-`;
-
 const TONIC_OPTIONS = Object.entries(PITCH_CLASS_TO_LETTER).map(
   ([pitchClass, letter]) => ({
     value: parseInt(pitchClass),
@@ -380,8 +416,19 @@ const ForgeUI: React.FC = () => {
       // Update last generated config
       setLastGeneratedConfig(newConfig);
 
-      // Set the current MIDI info in global context
-      setCurrentMidi(midiInfo);
+      // Set the current MIDI info in global context with download-friendly title
+      const downloadableInfo = {
+        ...midiInfo,
+        title: `${PROGRESSIONS[config.progression].join("-")} ${
+          config.playbackStyle === "arpeggio"
+            ? `arpeggio-${config.pattern + 1}`
+            : config.playbackStyle === "whole_notes"
+            ? config.wholeNoteStyle
+            : config.alternationStyle
+        } ${config.melodyType}-${config.melodyRhythm}`,
+      };
+      console.log("[Forge] Setting currentMidi:", downloadableInfo);
+      setCurrentMidi(downloadableInfo);
 
       // Set rawlProps with the generated analysis
       if (rawlProps) {
@@ -392,9 +439,18 @@ const ForgeUI: React.FC = () => {
       }
 
       // Use playSongBuffer to load the MIDI data globally, with autoplay parameter
-      await playSongBuffer("generated-alberti.mid", midiData, shouldAutoPlay);
+      console.log("[Forge] Calling playSongBuffer with:", {
+        filename: downloadableInfo.title + ".mid",
+        midiDataLength: midiData.length,
+        shouldAutoPlay,
+      });
+      await playSongBuffer(
+        downloadableInfo.title + ".mid",
+        midiData,
+        shouldAutoPlay,
+      );
 
-      return { midiData, midiInfo };
+      return { midiData, midiInfo: downloadableInfo };
     } catch (error) {
       console.error("[Forge] Error preparing MIDI:", error);
       return null;

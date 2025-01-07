@@ -18,13 +18,30 @@ const FORGE_MOCK_ID = "forge_mock";
 
 const SelectorContainer = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 24px;
   margin: 20px 0;
-  padding: 0px 16px;
+  padding: 8px;
+`;
+
+const CategorySection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+  width: fit-content;
+`;
+
+const CategoryHeader = styled.div`
+  padding-left: 5px;
+  color: #999;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-align: left;
+  user-select: none;
 `;
 
 const Button = styled.button<{ active: boolean }>`
-  padding: 6px 12px;
+  padding: 0px 5px;
   text-align: left;
   background-color: ${(props) => (props.active ? "white" : "black")};
   color: ${(props) => (props.active ? "black" : "white")};
@@ -32,7 +49,7 @@ const Button = styled.button<{ active: boolean }>`
   cursor: pointer;
   white-space: nowrap;
   font-size: 14px;
-  border-radius: 16px;
+  border-radius: 4px;
   width: fit-content;
   user-select: none;
 
@@ -80,15 +97,24 @@ const Forge: React.FC = () => {
     const selectedPattern = patterns[pattern];
     const notes: Note[] = [];
 
+    // Get the progression for octave adjustment check
+    const progression =
+      mode === "major" ? MAJOR_PROGRESSION : MINOR_PROGRESSION;
+
     // Generate eight bars of Alberti pattern (4 bars repeated)
     for (let repeat = 0; repeat < 2; repeat++) {
       for (let measure = 0; measure < 4; measure++) {
         const chord = chordProgression[measure];
+        const currentChord = progression[measure];
+        // Lower vi and bVI chords by an octave
+        const octaveAdjust =
+          currentChord === "vi" || currentChord === "bVI" ? -12 : 0;
+
         for (let i = 0; i < 8; i++) {
           // 8 eighth notes per measure
           const chordIndex = selectedPattern[i] % chord.length;
           notes.push({
-            pitch: C3 + chord[chordIndex],
+            pitch: C3 + chord[chordIndex] + octaveAdjust,
             velocity: 80,
             startTime:
               (repeat * 4 + measure) * MEASURE_LENGTH + i * EIGHTH_NOTE,
@@ -225,24 +251,31 @@ const Forge: React.FC = () => {
   return (
     <ForgeContainer>
       <SelectorContainer>
-        <Button active={mode === "major"} onClick={() => setMode("major")}>
-          Major
-        </Button>
-        <Button active={mode === "minor"} onClick={() => setMode("minor")}>
-          Minor
-        </Button>
-        <Button
-          active={pattern === "classic"}
-          onClick={() => setPattern("classic")}
-        >
-          Pattern 1 (r m u m u m u m)
-        </Button>
-        <Button
-          active={pattern === "alternate"}
-          onClick={() => setPattern("alternate")}
-        >
-          Pattern 2 (r m u m r m u m)
-        </Button>
+        <CategorySection>
+          <CategoryHeader>Mode</CategoryHeader>
+          <Button active={mode === "major"} onClick={() => setMode("major")}>
+            Major
+          </Button>
+          <Button active={mode === "minor"} onClick={() => setMode("minor")}>
+            Minor
+          </Button>
+        </CategorySection>
+
+        <CategorySection>
+          <CategoryHeader>Pattern</CategoryHeader>
+          <Button
+            active={pattern === "classic"}
+            onClick={() => setPattern("classic")}
+          >
+            r m u m u m u m
+          </Button>
+          <Button
+            active={pattern === "alternate"}
+            onClick={() => setPattern("alternate")}
+          >
+            r m u m r m u m
+          </Button>
+        </CategorySection>
       </SelectorContainer>
       <ContentArea>
         <div>Current mode: {mode}</div>

@@ -100,7 +100,19 @@ const ForgeButton = <T extends keyof ForgeUIState>({
     <Button
       className={className}
       active={state[propName] === value}
-      onClick={() => handleStyleInteraction({ [propName]: value }, description)}
+      onClick={() =>
+        handleStyleInteraction({ [propName]: value }, description, "click")
+      }
+      onMouseEnter={() =>
+        handleStyleInteraction({ [propName]: value }, description, "hover")
+      }
+      onMouseLeave={() =>
+        handleStyleInteraction(
+          { [propName]: state[propName] },
+          description,
+          "leave",
+        )
+      }
     >
       {children}
     </Button>
@@ -199,6 +211,7 @@ interface ForgeContextType {
   handleStyleInteraction: (
     updates: Partial<ForgeUIState>,
     description: string,
+    eventType?: "click" | "hover" | "leave",
   ) => void;
 }
 
@@ -270,6 +283,8 @@ const TONIC_OPTIONS = Object.entries(PITCH_CLASS_TO_LETTER).map(
 
 const ForgeUI: React.FC = () => {
   const [state, setState] = useState<ForgeUIState>(INITIAL_STATE);
+  const [lastClickedState, setLastClickedState] =
+    useState<ForgeUIState>(INITIAL_STATE);
   const [lastGeneratedConfig, setLastGeneratedConfig] =
     useState<ForgeUIState>(INITIAL_STATE);
 
@@ -290,11 +305,25 @@ const ForgeUI: React.FC = () => {
   const handleStyleInteraction = async (
     updates: Partial<ForgeUIState>,
     description: string,
+    eventType: "click" | "hover" | "leave" = "click",
   ) => {
-    console.log(`[Forge] ${description}`);
-    setState((prev) => ({ ...prev, ...updates }));
-    const newConfig = { ...state, ...updates };
-    await prepareMidi(newConfig, true);
+    console.log(`[Forge] ${description} ${eventType}`);
+    const shouldAutoPlay = eventType === "click";
+
+    if (eventType === "click") {
+      isClickPending.current = true;
+      const newState = { ...state, ...updates };
+      setState(newState);
+      setLastClickedState(newState);
+    } else if (eventType === "hover") {
+      setState((prev) => ({ ...prev, ...updates }));
+    } else if (eventType === "leave") {
+      setState(lastClickedState);
+    }
+
+    const newConfig =
+      eventType === "leave" ? lastClickedState : { ...state, ...updates };
+    await prepareMidi(newConfig, shouldAutoPlay);
   };
 
   const prepareMidi = async (

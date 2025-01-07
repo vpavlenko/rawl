@@ -23,14 +23,6 @@ const ForgeContainer = styled.div`
   box-sizing: border-box;
 `;
 
-const TonicSelector = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  margin-bottom: 20px;
-  align-items: center;
-`;
-
 const SelectorContainer = styled.div`
   display: flex;
   gap: 24px;
@@ -53,10 +45,6 @@ const CategoryHeader = styled.div`
   letter-spacing: 0.5px;
   text-align: left;
   user-select: none;
-`;
-
-const TonicHeader = styled(CategoryHeader)`
-  margin-right: 8px;
 `;
 
 const Button = styled.button<{ active: boolean }>`
@@ -84,16 +72,63 @@ const ContentArea = styled.div`
   border-radius: 4px;
 `;
 
-const ProgressionButton = styled(Button)`
+const TopControls = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+`;
+
+interface ForgeButtonProps<T extends keyof ForgeUIState> {
+  propName: T;
+  value: ForgeUIState[T];
+  children: React.ReactNode;
+  description: string;
+  className?: string;
+}
+
+const ForgeButton = <T extends keyof ForgeUIState>({
+  propName,
+  value,
+  children,
+  description,
+  className,
+}: ForgeButtonProps<T>) => {
+  const { state, handleStyleInteraction } = useForgeContext();
+  return (
+    <Button
+      className={className}
+      active={state[propName] === value}
+      onClick={() => handleStyleInteraction({ [propName]: value }, description)}
+    >
+      {children}
+    </Button>
+  );
+};
+
+const ProgressionButton = styled(ForgeButton)`
   font-family: monospace;
 `;
 
-const PatternButton = styled(Button)`
+const PatternButton = styled(ForgeButton)`
   font-family: monospace;
 `;
 
 // Add pattern type
 export type PatternIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+
+const INITIAL_STATE: ForgeUIState = {
+  mode: "major",
+  patternIndex: 0,
+  progression: "CLASSIC",
+  playbackStyle: "arpeggio",
+  wholeNoteStyle: "triad",
+  alternationStyle: "half",
+  tonic: 0,
+  melodyRhythm: "eighth",
+  melodyType: "static",
+};
 
 interface ForgeUIState {
   mode: ForgeConfig["mode"];
@@ -107,31 +142,136 @@ interface ForgeUIState {
   melodyType: ForgeConfig["melodyType"];
 }
 
-const ForgeUI: React.FC = () => {
-  const [state, setState] = useState<ForgeUIState>({
-    mode: "major",
-    patternIndex: 0,
-    progression: "CLASSIC",
-    playbackStyle: "arpeggio",
-    wholeNoteStyle: "triad",
-    alternationStyle: "half",
-    tonic: 0,
-    melodyRhythm: "eighth",
-    melodyType: "static",
-  });
+const MODE_OPTIONS: Array<{ value: ForgeUIState["mode"]; label: string }> = [
+  { value: "major", label: "Major" },
+  { value: "minor", label: "Minor" },
+  { value: "natural_minor", label: "Natural Minor" },
+];
 
-  // Add state to track last generated configuration
-  const [lastGeneratedConfig, setLastGeneratedConfig] = useState<ForgeUIState>({
-    mode: "major",
-    patternIndex: 0,
-    progression: "CLASSIC",
-    playbackStyle: "arpeggio",
-    wholeNoteStyle: "triad",
-    alternationStyle: "half",
-    tonic: 0,
-    melodyRhythm: "eighth",
-    melodyType: "static",
-  });
+const PLAYBACK_STYLES: Array<{
+  value: ForgeUIState["playbackStyle"];
+  label: string;
+}> = [
+  { value: "arpeggio", label: "Arpeggio" },
+  { value: "whole_notes", label: "Whole Notes" },
+  { value: "root_chord_alternation", label: "Root-Chord Alternation" },
+];
+
+const WHOLE_NOTE_STYLES: Array<{
+  value: ForgeUIState["wholeNoteStyle"];
+  label: string;
+}> = [
+  { value: "root", label: "Root" },
+  { value: "octave", label: "Octave" },
+  { value: "power", label: "Power" },
+  { value: "triad", label: "Triad" },
+  { value: "triad_octave", label: "Triad Octave" },
+];
+
+const ALTERNATION_STYLES: Array<{
+  value: ForgeUIState["alternationStyle"];
+  label: string;
+}> = [
+  { value: "half", label: "Half Notes" },
+  { value: "quarter", label: "Quarter Notes" },
+  { value: "quarter_fifth", label: "Quarter Notes with Fifth" },
+];
+
+const MELODY_RHYTHMS: Array<{
+  value: ForgeUIState["melodyRhythm"];
+  label: string;
+}> = [
+  { value: "quarter", label: "Quarter Notes" },
+  { value: "eighth", label: "Eighth Notes" },
+  { value: "sixteenth", label: "Sixteenth Notes" },
+];
+
+const MELODY_TYPES: Array<{
+  value: ForgeUIState["melodyType"];
+  label: string;
+}> = [
+  { value: "static", label: "Static Scale" },
+  { value: "chord_based", label: "Chord Based" },
+];
+
+interface ForgeContextType {
+  state: ForgeUIState;
+  handleStyleInteraction: (
+    updates: Partial<ForgeUIState>,
+    description: string,
+  ) => void;
+}
+
+const ForgeContext = React.createContext<ForgeContextType | null>(null);
+
+const useForgeContext = () => {
+  const context = useContext(ForgeContext);
+  if (!context) {
+    throw new Error(
+      "useForgeContext must be used within a ForgeContextProvider",
+    );
+  }
+  return context;
+};
+
+interface ButtonOption<T> {
+  value: T;
+  label: string;
+}
+
+interface ButtonSectionProps<T extends keyof ForgeUIState> {
+  title: string;
+  options: ButtonOption<ForgeUIState[T]>[];
+  propName: T;
+  customButton?: React.ComponentType<ForgeButtonProps<T>>;
+  horizontal?: boolean;
+}
+
+const ButtonSection = <T extends keyof ForgeUIState>({
+  title,
+  options,
+  propName,
+  customButton: CustomButton,
+  horizontal = false,
+}: ButtonSectionProps<T> & { horizontal?: boolean }) => {
+  const ButtonComponent = CustomButton || ForgeButton;
+  const SectionComponent = horizontal
+    ? HorizontalCategorySection
+    : CategorySection;
+  return (
+    <SectionComponent>
+      <CategoryHeader>{title}</CategoryHeader>
+      {options.map(({ value, label }) => (
+        <ButtonComponent
+          key={value.toString()}
+          propName={propName}
+          value={value}
+          description={`${title} ${label}`}
+        >
+          {label}
+        </ButtonComponent>
+      ))}
+    </SectionComponent>
+  );
+};
+
+const HorizontalCategorySection = styled(CategorySection)`
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 4px;
+`;
+
+const TONIC_OPTIONS = Object.entries(PITCH_CLASS_TO_LETTER).map(
+  ([pitchClass, letter]) => ({
+    value: parseInt(pitchClass),
+    label: letter,
+  }),
+);
+
+const ForgeUI: React.FC = () => {
+  const [state, setState] = useState<ForgeUIState>(INITIAL_STATE);
+  const [lastGeneratedConfig, setLastGeneratedConfig] =
+    useState<ForgeUIState>(INITIAL_STATE);
 
   const {
     currentMidi,
@@ -148,20 +288,13 @@ const ForgeUI: React.FC = () => {
   const patternSequences = PATTERNS.map((pattern) => pattern.join(" "));
 
   const handleStyleInteraction = async (
-    eventType: "click" | "hover",
     updates: Partial<ForgeUIState>,
     description: string,
   ) => {
-    console.log(`[Forge] ${description} ${eventType}`);
-    const shouldAutoPlay = eventType === "click";
-
-    if (shouldAutoPlay) {
-      isClickPending.current = true;
-      setState((prev) => ({ ...prev, ...updates }));
-    }
-
+    console.log(`[Forge] ${description}`);
+    setState((prev) => ({ ...prev, ...updates }));
     const newConfig = { ...state, ...updates };
-    await prepareMidi(newConfig, shouldAutoPlay);
+    await prepareMidi(newConfig, true);
   };
 
   const prepareMidi = async (
@@ -181,15 +314,8 @@ const ForgeUI: React.FC = () => {
     try {
       // Generate notes using the configuration
       const config: ForgeConfig = {
-        mode: newConfig.mode,
+        ...newConfig,
         pattern: newConfig.patternIndex,
-        progression: newConfig.progression,
-        playbackStyle: newConfig.playbackStyle,
-        wholeNoteStyle: newConfig.wholeNoteStyle,
-        alternationStyle: newConfig.alternationStyle,
-        tonic: newConfig.tonic,
-        melodyRhythm: newConfig.melodyRhythm,
-        melodyType: newConfig.melodyType,
       };
       const { melody, chords } = generateNotes(config);
       const notes = { melody, chords };
@@ -249,248 +375,114 @@ const ForgeUI: React.FC = () => {
     updates: Partial<ForgeUIState>,
     description: string,
   ) => ({
-    onClick: () => handleStyleInteraction("click", updates, description),
-    onMouseEnter: () => handleStyleInteraction("hover", updates, description),
+    onClick: () => handleStyleInteraction(updates, description),
   });
 
+  const contextValue = {
+    state,
+    handleStyleInteraction,
+  };
+
   return (
-    <ForgeContainer>
-      <TonicSelector>
-        <TonicHeader>Tonic</TonicHeader>
-        {Object.entries(PITCH_CLASS_TO_LETTER).map(([pitchClass, letter]) => (
-          <Button
-            key={pitchClass}
-            active={state.tonic === parseInt(pitchClass)}
-            {...getInteractionProps(
-              { tonic: parseInt(pitchClass) },
-              `Tonic ${letter}`,
-            )}
-          >
-            {letter}
-          </Button>
-        ))}
-      </TonicSelector>
-      <SelectorContainer>
-        <CategorySection>
-          <CategoryHeader>Mode</CategoryHeader>
-          <Button
-            active={state.mode === "major"}
-            {...getInteractionProps({ mode: "major" }, "Major button")}
-          >
-            Major
-          </Button>
-          <Button
-            active={state.mode === "minor"}
-            {...getInteractionProps({ mode: "minor" }, "Minor button")}
-          >
-            Minor
-          </Button>
-          <Button
-            active={state.mode === "natural_minor"}
-            {...getInteractionProps(
-              { mode: "natural_minor" },
-              "Natural minor button",
-            )}
-          >
-            Natural Minor
-          </Button>
-        </CategorySection>
+    <ForgeContext.Provider value={contextValue}>
+      <ForgeContainer>
+        <TopControls>
+          <ButtonSection
+            title="Tonic"
+            options={TONIC_OPTIONS}
+            propName="tonic"
+            horizontal
+          />
+          <ButtonSection
+            title="Mode"
+            options={MODE_OPTIONS}
+            propName="mode"
+            horizontal
+          />
+        </TopControls>
 
-        <CategorySection>
-          <CategoryHeader>Progression</CategoryHeader>
-          {(Object.keys(PROGRESSIONS) as ProgressionType[]).map((prog) => (
-            <ProgressionButton
-              key={prog}
-              active={state.progression === prog}
-              {...getInteractionProps(
-                { progression: prog },
-                `Progression ${prog}`,
-              )}
-            >
-              {getProgressionDisplay(prog)}
-            </ProgressionButton>
-          ))}
-        </CategorySection>
+        <SelectorContainer>
+          <ButtonSection
+            title="Progression"
+            options={Object.keys(PROGRESSIONS).map((prog) => ({
+              value: prog as ProgressionType,
+              label: getProgressionDisplay(prog as ProgressionType),
+            }))}
+            propName="progression"
+            customButton={ProgressionButton}
+          />
 
-        <CategorySection>
-          <CategoryHeader>Playback Style</CategoryHeader>
-          <Button
-            active={state.playbackStyle === "arpeggio"}
-            {...getInteractionProps(
-              { playbackStyle: "arpeggio" },
-              "Arpeggio style",
-            )}
-          >
-            Arpeggio
-          </Button>
-          <Button
-            active={state.playbackStyle === "whole_notes"}
-            {...getInteractionProps(
-              { playbackStyle: "whole_notes" },
-              "Whole notes style",
-            )}
-          >
-            Whole Notes
-          </Button>
-          <Button
-            active={state.playbackStyle === "root_chord_alternation"}
-            {...getInteractionProps(
-              { playbackStyle: "root_chord_alternation" },
-              "Root-chord alternation style",
-            )}
-          >
-            Root-Chord Alternation
-          </Button>
-        </CategorySection>
+          <ButtonSection
+            title="Playback Style"
+            options={PLAYBACK_STYLES}
+            propName="playbackStyle"
+          />
 
-        {state.playbackStyle === "whole_notes" && (
-          <CategorySection>
-            <CategoryHeader>Whole Note Style</CategoryHeader>
-            {["root", "octave", "power", "triad", "triad_octave"].map(
-              (style) => (
-                <Button
-                  key={style}
-                  active={state.wholeNoteStyle === style}
-                  {...getInteractionProps(
-                    {
-                      wholeNoteStyle: style as ForgeConfig["wholeNoteStyle"],
-                    },
-                    `Whole note style ${style}`,
-                  )}
-                >
-                  {style.replace("_", " ")}
-                </Button>
-              ),
-            )}
-          </CategorySection>
-        )}
+          {state.playbackStyle === "whole_notes" && (
+            <ButtonSection
+              title="Whole Note Style"
+              options={WHOLE_NOTE_STYLES}
+              propName="wholeNoteStyle"
+            />
+          )}
 
-        {state.playbackStyle === "root_chord_alternation" && (
-          <CategorySection>
-            <CategoryHeader>Alternation Style</CategoryHeader>
-            <Button
-              active={state.alternationStyle === "half"}
-              {...getInteractionProps(
-                { alternationStyle: "half" },
-                "Half note alternation",
-              )}
-            >
-              Half Notes
-            </Button>
-            <Button
-              active={state.alternationStyle === "quarter"}
-              {...getInteractionProps(
-                { alternationStyle: "quarter" },
-                "Quarter note alternation",
-              )}
-            >
-              Quarter Notes
-            </Button>
-            <Button
-              active={state.alternationStyle === "quarter_fifth"}
-              {...getInteractionProps(
-                { alternationStyle: "quarter_fifth" },
-                "Quarter note with fifth alternation",
-              )}
-            >
-              Quarter Notes with Fifth
-            </Button>
-          </CategorySection>
-        )}
+          {state.playbackStyle === "root_chord_alternation" && (
+            <ButtonSection
+              title="Alternation Style"
+              options={ALTERNATION_STYLES}
+              propName="alternationStyle"
+            />
+          )}
 
-        {state.playbackStyle === "arpeggio" && (
-          <CategorySection>
-            <CategoryHeader>Pattern</CategoryHeader>
-            {patternSequences.map((seq, idx) => (
-              <PatternButton
-                key={idx}
-                active={state.patternIndex === idx}
-                {...getInteractionProps(
-                  { patternIndex: idx as PatternIndex },
-                  `Pattern ${idx}`,
-                )}
-              >
-                {seq}
-              </PatternButton>
-            ))}
-          </CategorySection>
-        )}
+          {state.playbackStyle === "arpeggio" && (
+            <ButtonSection
+              title="Pattern"
+              options={patternSequences.map((seq, idx) => ({
+                value: idx as PatternIndex,
+                label: seq,
+              }))}
+              propName="patternIndex"
+              customButton={PatternButton}
+            />
+          )}
 
-        <CategorySection>
-          <CategoryHeader>Melody Rhythm</CategoryHeader>
-          <Button
-            active={state.melodyRhythm === "quarter"}
-            {...getInteractionProps(
-              { melodyRhythm: "quarter" },
-              "Quarter note melody",
-            )}
-          >
-            Quarter Notes
-          </Button>
-          <Button
-            active={state.melodyRhythm === "eighth"}
-            {...getInteractionProps(
-              { melodyRhythm: "eighth" },
-              "Eighth note melody",
-            )}
-          >
-            Eighth Notes
-          </Button>
-          <Button
-            active={state.melodyRhythm === "sixteenth"}
-            {...getInteractionProps(
-              { melodyRhythm: "sixteenth" },
-              "Sixteenth note melody",
-            )}
-          >
-            Sixteenth Notes
-          </Button>
-        </CategorySection>
+          <ButtonSection
+            title="Melody Rhythm"
+            options={MELODY_RHYTHMS}
+            propName="melodyRhythm"
+          />
 
-        <CategorySection>
-          <CategoryHeader>Melody Type</CategoryHeader>
-          <Button
-            active={state.melodyType === "static"}
-            {...getInteractionProps(
-              { melodyType: "static" },
-              "Static scale-based melody",
-            )}
-          >
-            Static Scale
-          </Button>
-          <Button
-            active={state.melodyType === "chord_based"}
-            {...getInteractionProps(
-              { melodyType: "chord_based" },
-              "Chord-based melody",
-            )}
-          >
-            Chord Based
-          </Button>
-        </CategorySection>
-      </SelectorContainer>
-      <ContentArea>
-        <div>Current tonic: {PITCH_CLASS_TO_LETTER[state.tonic]}</div>
-        <div>Current mode: {state.mode}</div>
-        <div>
-          Current progression: {getProgressionDisplay(state.progression)}
-        </div>
-        <div>Playback style: {state.playbackStyle.replace("_", " ")}</div>
-        <div>Melody rhythm: {state.melodyRhythm} notes</div>
-        <div>Melody type: {state.melodyType.replace("_", " ")}</div>
-        {state.playbackStyle === "whole_notes" && (
-          <div>Whole note style: {state.wholeNoteStyle?.replace("_", " ")}</div>
-        )}
-        {state.playbackStyle === "root_chord_alternation" && (
+          <ButtonSection
+            title="Melody Type"
+            options={MELODY_TYPES}
+            propName="melodyType"
+          />
+        </SelectorContainer>
+        <ContentArea>
+          <div>Current tonic: {PITCH_CLASS_TO_LETTER[state.tonic]}</div>
+          <div>Current mode: {state.mode}</div>
           <div>
-            Alternation style: {state.alternationStyle?.replace("_", " ")}
+            Current progression: {getProgressionDisplay(state.progression)}
           </div>
+          <div>Playback style: {state.playbackStyle.replace("_", " ")}</div>
+          <div>Melody rhythm: {state.melodyRhythm} notes</div>
+          <div>Melody type: {state.melodyType.replace("_", " ")}</div>
+          {state.playbackStyle === "whole_notes" && (
+            <div>
+              Whole note style: {state.wholeNoteStyle?.replace("_", " ")}
+            </div>
+          )}
+          {state.playbackStyle === "root_chord_alternation" && (
+            <div>
+              Alternation style: {state.alternationStyle?.replace("_", " ")}
+            </div>
+          )}
+        </ContentArea>
+        {currentMidi && rawlProps && rawlProps.parsingResult && (
+          <Rawl {...rawlProps} />
         )}
-      </ContentArea>
-      {currentMidi && rawlProps && rawlProps.parsingResult && (
-        <Rawl {...rawlProps} />
-      )}
-    </ForgeContainer>
+      </ForgeContainer>
+    </ForgeContext.Provider>
   );
 };
 

@@ -93,6 +93,51 @@ const ForgeUI: React.FC = () => {
   const { currentMidi, rawlProps, setCurrentMidi, playSongBuffer } =
     useContext(AppContext);
 
+  // Add ref to track if change is from click
+  const isClickPending = useRef(false);
+
+  const handleStyleInteraction = async (
+    eventType: "click" | "hover",
+    updates: {
+      newMode?: ForgeConfig["mode"];
+      newPatternIndex?: PatternIndex;
+      newProgression?: ProgressionType;
+      newPlaybackStyle?: PlaybackStyle;
+      newWholeNoteStyle?: ForgeConfig["wholeNoteStyle"];
+      newAlternationStyle?: ForgeConfig["alternationStyle"];
+    },
+    description: string,
+  ) => {
+    console.log(`[Forge] ${description} ${eventType}`);
+    const shouldAutoPlay = eventType === "click";
+
+    if (shouldAutoPlay) {
+      isClickPending.current = true;
+      // Apply state updates
+      if (updates.newMode) setMode(updates.newMode);
+      if (updates.newPatternIndex !== undefined)
+        setPatternIndex(updates.newPatternIndex);
+      if (updates.newProgression) setProgression(updates.newProgression);
+      if (updates.newPlaybackStyle) setPlaybackStyle(updates.newPlaybackStyle);
+      if (updates.newWholeNoteStyle)
+        setWholeNoteStyle(updates.newWholeNoteStyle);
+      if (updates.newAlternationStyle)
+        setAlternationStyle(updates.newAlternationStyle);
+    }
+
+    await prepareMidi(
+      updates.newMode || mode,
+      updates.newPatternIndex !== undefined
+        ? updates.newPatternIndex
+        : patternIndex,
+      updates.newProgression || progression,
+      updates.newPlaybackStyle || playbackStyle,
+      updates.newWholeNoteStyle || wholeNoteStyle,
+      updates.newAlternationStyle || alternationStyle,
+      shouldAutoPlay,
+    );
+  };
+
   // Pattern sequences for display - derived directly from PATTERNS
   const patternSequences = PATTERNS.map((pattern) => pattern.join(" "));
 
@@ -172,9 +217,6 @@ const ForgeUI: React.FC = () => {
     isClickPending.current = false;
   }, [mode, patternIndex, progression]);
 
-  // Add ref to track if change is from click
-  const isClickPending = useRef(false);
-
   const getProgressionDisplay = (prog: ProgressionType) => {
     const chords = PROGRESSIONS[prog].map(
       (degree) =>
@@ -183,6 +225,14 @@ const ForgeUI: React.FC = () => {
     return chords.join(" ");
   };
 
+  const getInteractionProps = (
+    updates: Parameters<typeof handleStyleInteraction>[1],
+    description: string,
+  ) => ({
+    onClick: () => handleStyleInteraction("click", updates, description),
+    onMouseEnter: () => handleStyleInteraction("hover", updates, description),
+  });
+
   return (
     <ForgeContainer>
       <SelectorContainer>
@@ -190,94 +240,28 @@ const ForgeUI: React.FC = () => {
           <CategoryHeader>Playback Style</CategoryHeader>
           <Button
             active={playbackStyle === "arpeggio"}
-            onClick={async () => {
-              console.log("[Forge] Arpeggio style clicked");
-              isClickPending.current = true;
-              setPlaybackStyle("arpeggio");
-              await prepareMidi(
-                mode,
-                patternIndex,
-                progression,
-                "arpeggio",
-                wholeNoteStyle,
-                alternationStyle,
-                true,
-              );
-            }}
-            onMouseEnter={() => {
-              console.log("[Forge] Arpeggio style hover");
-              prepareMidi(
-                mode,
-                patternIndex,
-                progression,
-                "arpeggio",
-                wholeNoteStyle,
-                alternationStyle,
-                false,
-              );
-            }}
+            {...getInteractionProps(
+              { newPlaybackStyle: "arpeggio" },
+              "Arpeggio style",
+            )}
           >
             Arpeggio
           </Button>
           <Button
             active={playbackStyle === "whole_notes"}
-            onClick={async () => {
-              console.log("[Forge] Whole notes style clicked");
-              isClickPending.current = true;
-              setPlaybackStyle("whole_notes");
-              await prepareMidi(
-                mode,
-                patternIndex,
-                progression,
-                "whole_notes",
-                wholeNoteStyle,
-                alternationStyle,
-                true,
-              );
-            }}
-            onMouseEnter={() => {
-              console.log("[Forge] Whole notes style hover");
-              prepareMidi(
-                mode,
-                patternIndex,
-                progression,
-                "whole_notes",
-                wholeNoteStyle,
-                alternationStyle,
-                false,
-              );
-            }}
+            {...getInteractionProps(
+              { newPlaybackStyle: "whole_notes" },
+              "Whole notes style",
+            )}
           >
             Whole Notes
           </Button>
           <Button
             active={playbackStyle === "root_chord_alternation"}
-            onClick={async () => {
-              console.log("[Forge] Root-chord alternation style clicked");
-              isClickPending.current = true;
-              setPlaybackStyle("root_chord_alternation");
-              await prepareMidi(
-                mode,
-                patternIndex,
-                progression,
-                "root_chord_alternation",
-                wholeNoteStyle,
-                alternationStyle,
-                true,
-              );
-            }}
-            onMouseEnter={() => {
-              console.log("[Forge] Root-chord alternation style hover");
-              prepareMidi(
-                mode,
-                patternIndex,
-                progression,
-                "root_chord_alternation",
-                wholeNoteStyle,
-                alternationStyle,
-                false,
-              );
-            }}
+            {...getInteractionProps(
+              { newPlaybackStyle: "root_chord_alternation" },
+              "Root-chord alternation style",
+            )}
           >
             Root-Chord Alternation
           </Button>
@@ -291,32 +275,12 @@ const ForgeUI: React.FC = () => {
                 <Button
                   key={style}
                   active={wholeNoteStyle === style}
-                  onClick={async () => {
-                    console.log("[Forge] Whole note style clicked:", style);
-                    isClickPending.current = true;
-                    setWholeNoteStyle(style as ForgeConfig["wholeNoteStyle"]);
-                    await prepareMidi(
-                      mode,
-                      patternIndex,
-                      progression,
-                      "whole_notes",
-                      style as ForgeConfig["wholeNoteStyle"],
-                      alternationStyle,
-                      true,
-                    );
-                  }}
-                  onMouseEnter={() => {
-                    console.log("[Forge] Whole note style hover:", style);
-                    prepareMidi(
-                      mode,
-                      patternIndex,
-                      progression,
-                      "whole_notes",
-                      style as ForgeConfig["wholeNoteStyle"],
-                      alternationStyle,
-                      false,
-                    );
-                  }}
+                  {...getInteractionProps(
+                    {
+                      newWholeNoteStyle: style as ForgeConfig["wholeNoteStyle"],
+                    },
+                    `Whole note style ${style}`,
+                  )}
                 >
                   {style.replace("_", " ")}
                 </Button>
@@ -330,98 +294,28 @@ const ForgeUI: React.FC = () => {
             <CategoryHeader>Alternation Style</CategoryHeader>
             <Button
               active={alternationStyle === "half"}
-              onClick={async () => {
-                console.log("[Forge] Half note alternation clicked");
-                isClickPending.current = true;
-                setAlternationStyle("half");
-                await prepareMidi(
-                  mode,
-                  patternIndex,
-                  progression,
-                  "root_chord_alternation",
-                  wholeNoteStyle,
-                  "half",
-                  true,
-                );
-              }}
-              onMouseEnter={() => {
-                console.log("[Forge] Half note alternation hover");
-                prepareMidi(
-                  mode,
-                  patternIndex,
-                  progression,
-                  "root_chord_alternation",
-                  wholeNoteStyle,
-                  "half",
-                  false,
-                );
-              }}
+              {...getInteractionProps(
+                { newAlternationStyle: "half" },
+                "Half note alternation",
+              )}
             >
               Half Notes
             </Button>
             <Button
               active={alternationStyle === "quarter"}
-              onClick={async () => {
-                console.log("[Forge] Quarter note alternation clicked");
-                isClickPending.current = true;
-                setAlternationStyle("quarter");
-                await prepareMidi(
-                  mode,
-                  patternIndex,
-                  progression,
-                  "root_chord_alternation",
-                  wholeNoteStyle,
-                  "quarter",
-                  true,
-                );
-              }}
-              onMouseEnter={() => {
-                console.log("[Forge] Quarter note alternation hover");
-                prepareMidi(
-                  mode,
-                  patternIndex,
-                  progression,
-                  "root_chord_alternation",
-                  wholeNoteStyle,
-                  "quarter",
-                  false,
-                );
-              }}
+              {...getInteractionProps(
+                { newAlternationStyle: "quarter" },
+                "Quarter note alternation",
+              )}
             >
               Quarter Notes
             </Button>
             <Button
               active={alternationStyle === "quarter_fifth"}
-              onClick={async () => {
-                console.log(
-                  "[Forge] Quarter note with fifth alternation clicked",
-                );
-                isClickPending.current = true;
-                setAlternationStyle("quarter_fifth");
-                await prepareMidi(
-                  mode,
-                  patternIndex,
-                  progression,
-                  "root_chord_alternation",
-                  wholeNoteStyle,
-                  "quarter_fifth",
-                  true,
-                );
-              }}
-              onMouseEnter={() => {
-                console.log(
-                  "[Forge] Quarter note with fifth alternation hover",
-                );
-                prepareMidi(
-                  mode,
-                  patternIndex,
-                  progression,
-                  "root_chord_alternation",
-                  wholeNoteStyle,
-                  "quarter_fifth",
-                  false,
-                );
-              }}
+              {...getInteractionProps(
+                { newAlternationStyle: "quarter_fifth" },
+                "Quarter note with fifth alternation",
+              )}
             >
               Quarter Notes with Fifth
             </Button>
@@ -435,32 +329,10 @@ const ForgeUI: React.FC = () => {
               <PatternButton
                 key={idx}
                 active={patternIndex === idx}
-                onClick={async () => {
-                  console.log("[Forge] Pattern clicked:", idx);
-                  isClickPending.current = true;
-                  setPatternIndex(idx as PatternIndex);
-                  await prepareMidi(
-                    mode,
-                    idx as PatternIndex,
-                    progression,
-                    "arpeggio",
-                    wholeNoteStyle,
-                    alternationStyle,
-                    true,
-                  );
-                }}
-                onMouseEnter={() => {
-                  console.log("[Forge] Pattern hover:", idx);
-                  prepareMidi(
-                    mode,
-                    idx as PatternIndex,
-                    progression,
-                    "arpeggio",
-                    wholeNoteStyle,
-                    alternationStyle,
-                    false,
-                  );
-                }}
+                {...getInteractionProps(
+                  { newPatternIndex: idx as PatternIndex },
+                  `Pattern ${idx}`,
+                )}
               >
                 {seq}
               </PatternButton>
@@ -472,94 +344,22 @@ const ForgeUI: React.FC = () => {
           <CategoryHeader>Mode</CategoryHeader>
           <Button
             active={mode === "major"}
-            onClick={async () => {
-              console.log("[Forge] Major button clicked");
-              isClickPending.current = true;
-              setMode("major");
-              await prepareMidi(
-                "major",
-                patternIndex,
-                progression,
-                playbackStyle,
-                wholeNoteStyle,
-                alternationStyle,
-                true,
-              );
-            }}
-            onMouseEnter={() => {
-              console.log("[Forge] Major button hover");
-              prepareMidi(
-                "major",
-                patternIndex,
-                progression,
-                playbackStyle,
-                wholeNoteStyle,
-                alternationStyle,
-                false,
-              );
-            }}
+            {...getInteractionProps({ newMode: "major" }, "Major button")}
           >
             Major
           </Button>
           <Button
             active={mode === "minor"}
-            onClick={async () => {
-              console.log("[Forge] Minor button clicked");
-              isClickPending.current = true;
-              setMode("minor");
-              await prepareMidi(
-                "minor",
-                patternIndex,
-                progression,
-                playbackStyle,
-                wholeNoteStyle,
-                alternationStyle,
-                true,
-              );
-            }}
-            onMouseEnter={() => {
-              console.log("[Forge] Minor button hover");
-              prepareMidi(
-                "minor",
-                patternIndex,
-                progression,
-                playbackStyle,
-                wholeNoteStyle,
-                alternationStyle,
-                false,
-              );
-            }}
+            {...getInteractionProps({ newMode: "minor" }, "Minor button")}
           >
             Minor
           </Button>
           <Button
             active={mode === "natural_minor"}
-            onClick={async () => {
-              console.log("[Forge] Natural minor button clicked");
-              isClickPending.current = true;
-              setMode("natural_minor");
-              await prepareMidi(
-                "natural_minor",
-                patternIndex,
-                progression,
-                playbackStyle,
-                wholeNoteStyle,
-                alternationStyle,
-                true,
-              );
-            }}
-            onMouseEnter={() => {
-              console.log("[Forge] Natural minor button hover");
-              prepareMidi(
-                "natural_minor",
-                patternIndex,
-                progression,
-                playbackStyle,
-                wholeNoteStyle,
-                alternationStyle,
-                false,
-              );
-            }}
+            {...getInteractionProps(
+              { newMode: "natural_minor" },
+              "Natural minor button",
+            )}
           >
             Natural Minor
           </Button>
@@ -571,32 +371,10 @@ const ForgeUI: React.FC = () => {
             <ProgressionButton
               key={prog}
               active={progression === prog}
-              onClick={async () => {
-                console.log("[Forge] Progression clicked:", prog);
-                isClickPending.current = true;
-                setProgression(prog);
-                await prepareMidi(
-                  mode,
-                  patternIndex,
-                  prog,
-                  playbackStyle,
-                  wholeNoteStyle,
-                  alternationStyle,
-                  true,
-                );
-              }}
-              onMouseEnter={() => {
-                console.log("[Forge] Progression hover:", prog);
-                prepareMidi(
-                  mode,
-                  patternIndex,
-                  prog,
-                  playbackStyle,
-                  wholeNoteStyle,
-                  alternationStyle,
-                  false,
-                );
-              }}
+              {...getInteractionProps(
+                { newProgression: prog },
+                `Progression ${prog}`,
+              )}
             >
               {getProgressionDisplay(prog)}
             </ProgressionButton>

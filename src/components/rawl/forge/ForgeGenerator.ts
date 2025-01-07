@@ -1,4 +1,12 @@
 import { Chord, rehydrateChords } from "../legends/chords";
+import {
+  C3,
+  DEFAULT_NOTE_DURATION_PADDING,
+  DEFAULT_VELOCITY,
+  MEASURE_LENGTH,
+  TICKS_PER_QUARTER,
+} from "./constants";
+import { getBaseNoteParams } from "./noteUtils";
 
 // Constants
 export const SCALE_CHORDS = {
@@ -84,28 +92,12 @@ export const PATTERNS = [
   [0, 3, 5, 4, 6, 4, 5, 4], // New pattern 5
 ] as const;
 
-// Helper function to get base note parameters
-const getBaseNoteParams = (
-  measure: number,
-  repeat: number,
-  chord: number[],
-  octaveAdjust: number,
-  C3: number,
-  MEASURE_LENGTH: number,
-) => ({
-  baseTime: (repeat * 4 + measure) * MEASURE_LENGTH,
-  basePitch: C3 + octaveAdjust,
-});
-
 // Generate whole notes with different voicings
 const generateWholeNotes = (
   progression: number[],
   mode: ForgeConfig["mode"],
   style: ForgeConfig["wholeNoteStyle"] = "triad",
 ): Note[] => {
-  const C3 = 48;
-  const TICKS_PER_QUARTER = 128;
-  const MEASURE_LENGTH = TICKS_PER_QUARTER * 4;
   const notes: Note[] = [];
 
   const chords = progression.map((degree) => getChord(degree, mode));
@@ -116,24 +108,20 @@ const generateWholeNotes = (
     for (let measure = 0; measure < 4; measure++) {
       const chord = chordPitches[measure];
       const currentChord = chords[measure];
-      const octaveAdjust =
-        currentChord === "vi" || currentChord === "bVI" ? -12 : 0;
 
       const { baseTime, basePitch } = getBaseNoteParams(
         measure,
         repeat,
-        chord,
-        octaveAdjust,
+        currentChord,
         C3,
-        MEASURE_LENGTH,
       );
 
       // Base note is always the root
       notes.push({
         pitch: basePitch + chord[0],
-        velocity: 80,
+        velocity: DEFAULT_VELOCITY,
         startTime: baseTime,
-        duration: MEASURE_LENGTH - 10,
+        duration: MEASURE_LENGTH - DEFAULT_NOTE_DURATION_PADDING,
       });
 
       // Add additional notes based on style
@@ -141,17 +129,17 @@ const generateWholeNotes = (
         case "octave":
           notes.push({
             pitch: basePitch + chord[0] + 12,
-            velocity: 80,
+            velocity: DEFAULT_VELOCITY,
             startTime: baseTime,
-            duration: MEASURE_LENGTH - 10,
+            duration: MEASURE_LENGTH - DEFAULT_NOTE_DURATION_PADDING,
           });
           break;
         case "power":
           notes.push({
             pitch: basePitch + chord[0] + 7,
-            velocity: 80,
+            velocity: DEFAULT_VELOCITY,
             startTime: baseTime,
-            duration: MEASURE_LENGTH - 10,
+            duration: MEASURE_LENGTH - DEFAULT_NOTE_DURATION_PADDING,
           });
           break;
         case "triad":
@@ -160,23 +148,23 @@ const generateWholeNotes = (
           notes.push(
             {
               pitch: basePitch + chord[1],
-              velocity: 80,
+              velocity: DEFAULT_VELOCITY,
               startTime: baseTime,
-              duration: MEASURE_LENGTH - 10,
+              duration: MEASURE_LENGTH - DEFAULT_NOTE_DURATION_PADDING,
             },
             {
               pitch: basePitch + chord[2],
-              velocity: 80,
+              velocity: DEFAULT_VELOCITY,
               startTime: baseTime,
-              duration: MEASURE_LENGTH - 10,
+              duration: MEASURE_LENGTH - DEFAULT_NOTE_DURATION_PADDING,
             },
           );
           if (style === "triad_octave") {
             notes.push({
               pitch: basePitch + chord[0] + 12,
-              velocity: 80,
+              velocity: DEFAULT_VELOCITY,
               startTime: baseTime,
-              duration: MEASURE_LENGTH - 10,
+              duration: MEASURE_LENGTH - DEFAULT_NOTE_DURATION_PADDING,
             });
           }
           break;
@@ -192,9 +180,6 @@ const generateRootChordAlternation = (
   mode: ForgeConfig["mode"],
   style: ForgeConfig["alternationStyle"] = "half",
 ): Note[] => {
-  const C3 = 48;
-  const TICKS_PER_QUARTER = 128;
-  const MEASURE_LENGTH = TICKS_PER_QUARTER * 4;
   const notes: Note[] = [];
 
   const chords = progression.map((degree) => getChord(degree, mode));
@@ -205,16 +190,12 @@ const generateRootChordAlternation = (
     for (let measure = 0; measure < 4; measure++) {
       const chord = chordPitches[measure];
       const currentChord = chords[measure];
-      const octaveAdjust =
-        currentChord === "vi" || currentChord === "bVI" ? -12 : 0;
 
       const { baseTime, basePitch } = getBaseNoteParams(
         measure,
         repeat,
-        chord,
-        octaveAdjust,
+        currentChord,
         C3,
-        MEASURE_LENGTH,
       );
 
       switch (style) {
@@ -222,17 +203,17 @@ const generateRootChordAlternation = (
           // Root for first half note
           notes.push({
             pitch: basePitch + chord[0],
-            velocity: 80,
+            velocity: DEFAULT_VELOCITY,
             startTime: baseTime,
-            duration: MEASURE_LENGTH / 2 - 10,
+            duration: MEASURE_LENGTH / 2 - DEFAULT_NOTE_DURATION_PADDING,
           });
           // Full chord for second half note
           chord.forEach((pitch) => {
             notes.push({
               pitch: basePitch + pitch,
-              velocity: 80,
+              velocity: DEFAULT_VELOCITY,
               startTime: baseTime + MEASURE_LENGTH / 2,
-              duration: MEASURE_LENGTH / 2 - 10,
+              duration: MEASURE_LENGTH / 2 - DEFAULT_NOTE_DURATION_PADDING,
             });
           });
           break;
@@ -242,17 +223,17 @@ const generateRootChordAlternation = (
             if (quarter % 2 === 0) {
               notes.push({
                 pitch: basePitch + chord[0],
-                velocity: 80,
+                velocity: DEFAULT_VELOCITY,
                 startTime: baseTime + quarter * TICKS_PER_QUARTER,
-                duration: TICKS_PER_QUARTER - 10,
+                duration: TICKS_PER_QUARTER - DEFAULT_NOTE_DURATION_PADDING,
               });
             } else {
               chord.forEach((pitch) => {
                 notes.push({
                   pitch: basePitch + pitch,
-                  velocity: 80,
+                  velocity: DEFAULT_VELOCITY,
                   startTime: baseTime + quarter * TICKS_PER_QUARTER,
-                  duration: TICKS_PER_QUARTER - 10,
+                  duration: TICKS_PER_QUARTER - DEFAULT_NOTE_DURATION_PADDING,
                 });
               });
             }
@@ -266,18 +247,18 @@ const generateRootChordAlternation = (
                 pitch:
                   quarter === 0
                     ? basePitch + chord[0]
-                    : basePitch + chord[0] - 7,
-                velocity: 80,
+                    : basePitch + chord[0] - 5,
+                velocity: DEFAULT_VELOCITY,
                 startTime: baseTime + quarter * TICKS_PER_QUARTER,
-                duration: TICKS_PER_QUARTER - 10,
+                duration: TICKS_PER_QUARTER - DEFAULT_NOTE_DURATION_PADDING,
               });
             } else {
               chord.forEach((pitch) => {
                 notes.push({
                   pitch: basePitch + pitch,
-                  velocity: 80,
+                  velocity: DEFAULT_VELOCITY,
                   startTime: baseTime + quarter * TICKS_PER_QUARTER,
-                  duration: TICKS_PER_QUARTER - 10,
+                  duration: TICKS_PER_QUARTER - DEFAULT_NOTE_DURATION_PADDING,
                 });
               });
             }
@@ -295,34 +276,24 @@ export const generateAlbertiPattern = (
   mode: ForgeConfig["mode"],
   patternIndex: number,
 ): Note[] => {
-  const C3 = 48; // MIDI note number for C3
-  const TICKS_PER_QUARTER = 128; // Standard MIDI ticks per quarter note
-  const MEASURE_LENGTH = TICKS_PER_QUARTER * 4; // 4 quarter notes per measure
   const EIGHTH_NOTE = TICKS_PER_QUARTER / 2;
-
   const selectedPattern = PATTERNS[patternIndex] || PATTERNS[0];
   const notes: Note[] = [];
 
-  // Convert progression to chords and get their pitches
   const chords = progression.map((degree) => getChord(degree, mode));
   const rehydratedChords = rehydrateChords(chords);
   const chordPitches = rehydratedChords.map((chord) => chord.pitches);
 
-  // Generate eight bars of pattern (4 bars repeated)
   for (let repeat = 0; repeat < 2; repeat++) {
     for (let measure = 0; measure < 4; measure++) {
       const chord = chordPitches[measure];
       const currentChord = chords[measure];
-      const octaveAdjust =
-        currentChord === "vi" || currentChord === "bVI" ? -12 : 0;
 
       const { baseTime, basePitch } = getBaseNoteParams(
         measure,
         repeat,
-        chord,
-        octaveAdjust,
+        currentChord,
         C3,
-        MEASURE_LENGTH,
       );
 
       for (let i = 0; i < 8; i++) {
@@ -334,14 +305,13 @@ export const generateAlbertiPattern = (
 
         notes.push({
           pitch: basePitch + chord[chordIndex] + octaveOffset,
-          velocity: 80,
+          velocity: DEFAULT_VELOCITY,
           startTime: baseTime + i * EIGHTH_NOTE,
-          duration: EIGHTH_NOTE - 10, // Slightly shorter for articulation
+          duration: EIGHTH_NOTE - DEFAULT_NOTE_DURATION_PADDING,
         });
       }
     }
   }
-
   return notes;
 };
 

@@ -1,8 +1,17 @@
 import MidiWriter from "midi-writer-js";
 import { Analysis, PitchClass } from "../analysis";
+import { DEFAULT_VELOCITY } from "./constants";
 import { ForgeConfig, Note } from "./ForgeGenerator";
 
 export const FORGE_MOCK_ID = "forge_mock";
+
+// Mid-level representation of musical events
+interface MusicalEvent {
+  pitches: number[];
+  startTick: number;
+  duration: number;
+  velocity: number;
+}
 
 export interface MidiGenerationResult {
   midiData: Uint8Array;
@@ -16,33 +25,71 @@ export interface MidiGenerationResult {
   analysis: Analysis;
 }
 
-// Convert IR to MIDI file using MidiWriter
-export const generateMidiFile = (notes: Note[]): Uint8Array => {
-  // Sort notes by start time
+// Convert raw notes to musical events (mid-level representation)
+const convertToMusicalEvents = (notes: Note[]): MusicalEvent[] => {
   const sortedNotes = [...notes].sort((a, b) => a.startTime - b.startTime);
+  const events: MusicalEvent[] = [];
 
-  // Create a track
+  let currentStartTime = -1;
+  let currentPitches: number[] = [];
+
+  const addEvent = (startTime: number, pitches: number[], duration: number) => {
+    events.push({
+      pitches,
+      startTick: startTime,
+      duration,
+      velocity: DEFAULT_VELOCITY,
+    });
+  };
+
+  sortedNotes.forEach((note, index) => {
+    if (note.startTime !== currentStartTime) {
+      // Add previous group if it exists
+      if (currentPitches.length > 0) {
+        addEvent(
+          currentStartTime,
+          currentPitches,
+          sortedNotes[index - 1].duration,
+        );
+      }
+      // Start new group
+      currentStartTime = note.startTime;
+      currentPitches = [note.pitch];
+    } else {
+      // Add to current group
+      currentPitches.push(note.pitch);
+    }
+  });
+
+  // Add the last group
+  if (currentPitches.length > 0) {
+    addEvent(
+      currentStartTime,
+      currentPitches,
+      sortedNotes[sortedNotes.length - 1].duration,
+    );
+  }
+
+  return events;
+};
+
+// Convert musical events to MIDI file
+const generateMidiFromEvents = (events: MusicalEvent[]): Uint8Array => {
   const track = new MidiWriter.Track();
-
-  // Set tempo to 120 BPM (500,000 microseconds per quarter note)
   track.setTempo(120);
 
-  // Add notes with their start times
-  sortedNotes.forEach((note) => {
+  events.forEach((event) => {
     track.addEvent(
       new MidiWriter.NoteEvent({
-        pitch: [note.pitch],
-        duration: "T" + note.duration,
-        startTick: note.startTime,
-        velocity: note.velocity,
+        pitch: event.pitches,
+        duration: "T" + event.duration,
+        velocity: event.velocity,
+        startTick: event.startTick,
       }),
     );
   });
 
-  // Create a writer and write the MIDI file
   const writer = new MidiWriter.Writer([track]);
-
-  // Get the output as a base64 string
   const base64Data = writer.dataUri().split(",")[1];
 
   // Convert base64 to Uint8Array
@@ -53,6 +100,12 @@ export const generateMidiFile = (notes: Note[]): Uint8Array => {
   }
 
   return bytes;
+};
+
+// Main MIDI generation function now uses the two-step process
+export const generateMidiFile = (notes: Note[]): Uint8Array => {
+  const musicalEvents = convertToMusicalEvents(notes);
+  return generateMidiFromEvents(musicalEvents);
 };
 
 export const generateInitialAnalysis = (

@@ -73,6 +73,7 @@ export interface ForgeConfig {
   tonic: number;
   melodyRhythm: "eighth" | "quarter" | "sixteenth";
   melodyType: "static" | "chord_based";
+  bpm: number;
 }
 
 // Convert scale degree to chord

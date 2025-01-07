@@ -65,19 +65,32 @@ const Button = styled.button<{ active: boolean }>`
   }
 `;
 
-const ContentArea = styled.div`
-  margin-top: 20px;
-  padding: 20px;
-  background: #111;
-  border-radius: 4px;
-`;
-
 const TopControls = styled.div`
   display: flex;
   flex-direction: row;
   gap: 24px;
   margin-bottom: 20px;
   align-items: flex-start;
+`;
+
+const BPMSlider = styled.input`
+  width: 200px;
+  margin: 0 10px;
+`;
+
+const BPMLabel = styled.span`
+  font-family: monospace;
+  color: #999;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+`;
+
+const BPMValue = styled.span`
+  font-family: monospace;
+  color: white;
+  width: 40px;
+  display: inline-block;
+  text-align: right;
 `;
 
 interface ForgeButtonProps<T extends keyof ForgeUIState> {
@@ -140,6 +153,7 @@ const INITIAL_STATE: ForgeUIState = {
   tonic: 0,
   melodyRhythm: "eighth",
   melodyType: "static",
+  bpm: 120,
 };
 
 interface ForgeUIState {
@@ -152,6 +166,7 @@ interface ForgeUIState {
   tonic: number;
   melodyRhythm: ForgeConfig["melodyRhythm"];
   melodyType: ForgeConfig["melodyType"];
+  bpm: number;
 }
 
 const MODE_OPTIONS: Array<{ value: ForgeUIState["mode"]; label: string }> = [
@@ -287,6 +302,7 @@ const ForgeUI: React.FC = () => {
     useState<ForgeUIState>(INITIAL_STATE);
   const [lastGeneratedConfig, setLastGeneratedConfig] =
     useState<ForgeUIState>(INITIAL_STATE);
+  const [isDraggingBPM, setIsDraggingBPM] = useState(false);
 
   const {
     currentMidi,
@@ -341,11 +357,13 @@ const ForgeUI: React.FC = () => {
     console.log("[Forge] Preparing MIDI generation for:", newConfig);
 
     try {
-      // Generate notes using the configuration
+      // Convert ForgeUIState to ForgeConfig
       const config: ForgeConfig = {
         ...newConfig,
         pattern: newConfig.patternIndex,
       };
+
+      // Generate notes using the configuration
       const { melody, chords } = generateNotes(config);
       const notes = { melody, chords };
       console.log("[Forge] Generated notes:", notes);
@@ -353,8 +371,9 @@ const ForgeUI: React.FC = () => {
       // Generate MIDI with metadata
       const { midiData, midiInfo, analysis } = generateMidiWithMetadata(
         notes,
-        newConfig.mode,
-        newConfig.tonic,
+        config.mode,
+        config.tonic,
+        config,
       );
       console.log("[Forge] Generated MIDI data:", midiData.length, "bytes");
 
@@ -407,6 +426,21 @@ const ForgeUI: React.FC = () => {
     onClick: () => handleStyleInteraction(updates, description),
   });
 
+  const handleBPMChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newBPM = parseInt(event.target.value);
+    setState((prev) => ({ ...prev, bpm: newBPM }));
+  };
+
+  const handleBPMDragStart = () => {
+    setIsDraggingBPM(true);
+  };
+
+  const handleBPMDragEnd = () => {
+    setIsDraggingBPM(false);
+    setLastClickedState(state);
+    prepareMidi(state, true);
+  };
+
   const contextValue = {
     state,
     handleStyleInteraction,
@@ -428,6 +462,19 @@ const ForgeUI: React.FC = () => {
             propName="mode"
             horizontal
           />
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <BPMLabel>BPM</BPMLabel>
+            <BPMSlider
+              type="range"
+              min="60"
+              max="240"
+              value={state.bpm}
+              onChange={handleBPMChange}
+              onMouseDown={handleBPMDragStart}
+              onMouseUp={handleBPMDragEnd}
+            />
+            <BPMValue>{state.bpm}</BPMValue>
+          </div>
         </TopControls>
 
         <SelectorContainer>
@@ -487,26 +534,6 @@ const ForgeUI: React.FC = () => {
             propName="melodyType"
           />
         </SelectorContainer>
-        <ContentArea>
-          <div>Current tonic: {PITCH_CLASS_TO_LETTER[state.tonic]}</div>
-          <div>Current mode: {state.mode}</div>
-          <div>
-            Current progression: {getProgressionDisplay(state.progression)}
-          </div>
-          <div>Playback style: {state.playbackStyle.replace("_", " ")}</div>
-          <div>Melody rhythm: {state.melodyRhythm} notes</div>
-          <div>Melody type: {state.melodyType.replace("_", " ")}</div>
-          {state.playbackStyle === "whole_notes" && (
-            <div>
-              Whole note style: {state.wholeNoteStyle?.replace("_", " ")}
-            </div>
-          )}
-          {state.playbackStyle === "root_chord_alternation" && (
-            <div>
-              Alternation style: {state.alternationStyle?.replace("_", " ")}
-            </div>
-          )}
-        </ContentArea>
         {currentMidi && rawlProps && rawlProps.parsingResult && (
           <Rawl {...rawlProps} />
         )}

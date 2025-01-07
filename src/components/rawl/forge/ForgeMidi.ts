@@ -116,7 +116,10 @@ const convertToMusicalEvents = (notes: Note[]): MusicalEvent[] => {
 };
 
 // Convert musical events to MIDI file
-const generateMidiFromEvents = (events: MusicalEvent[]): Uint8Array => {
+const generateMidiFromEvents = (
+  events: MusicalEvent[],
+  config: ForgeConfig,
+): Uint8Array => {
   // Create separate tracks for each channel
   const tracks = new Map<number, MidiWriter.Track>();
 
@@ -128,7 +131,7 @@ const generateMidiFromEvents = (events: MusicalEvent[]): Uint8Array => {
       } else if (event.channel === 1) {
         track.addTrackName("Chords");
       }
-      track.setTempo(120);
+      track.setTempo(config.bpm);
       tracks.set(event.channel, track);
     }
 
@@ -158,9 +161,12 @@ const generateMidiFromEvents = (events: MusicalEvent[]): Uint8Array => {
 };
 
 // Main MIDI generation function now uses the two-step process
-export const generateMidiFile = (notes: Note[]): Uint8Array => {
+export const generateMidiFile = (
+  notes: Note[],
+  config: ForgeConfig,
+): Uint8Array => {
   const musicalEvents = convertToMusicalEvents(notes);
-  return generateMidiFromEvents(musicalEvents);
+  return generateMidiFromEvents(musicalEvents, config);
 };
 
 export const generateInitialAnalysis = (
@@ -183,8 +189,9 @@ export const generateMidiWithMetadata = (
   { melody, chords }: { melody: Note[]; chords: Note[] },
   mode: ForgeConfig["mode"],
   tonic: number,
+  config: ForgeConfig,
 ): MidiGenerationResult => {
-  const midiData = generateMidiFile([...melody, ...chords]);
+  const midiData = generateMidiFile([...melody, ...chords], config);
 
   return {
     midiData,

@@ -2,10 +2,10 @@ import MidiWriter from "midi-writer-js";
 import * as React from "react";
 import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { AppContext } from "./AppContext";
-import Rawl from "./rawl/Rawl";
-import { Analysis, PitchClass } from "./rawl/analysis";
-import { Chord, rehydrateChords } from "./rawl/legends/chords";
+import { AppContext } from "../../AppContext";
+import Rawl from "../Rawl";
+import { Analysis, PitchClass } from "../analysis";
+import { Chord, rehydrateChords } from "../legends/chords";
 
 const ForgeContainer = styled.div`
   padding: 20px;

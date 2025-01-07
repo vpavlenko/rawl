@@ -1,17 +1,20 @@
 import MidiWriter from "midi-writer-js";
 import * as React from "react";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "./AppContext";
 import Rawl from "./rawl/Rawl";
 import { Analysis, PitchClass } from "./rawl/analysis";
+import { Chord, rehydrateChords } from "./rawl/legends/chords";
 
 const ForgeContainer = styled.div`
   padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
+  width: 100vw;
   color: white;
+  box-sizing: border-box;
 `;
+
+const FORGE_MOCK_ID = "forge_mock";
 
 const SelectorContainer = styled.div`
   display: flex;
@@ -34,21 +37,6 @@ const Button = styled.button<{ active: boolean }>`
   }
 `;
 
-const GenerateButton = styled.button`
-  padding: 10px 20px;
-  background: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 20px;
-
-  &:hover {
-    background: #45a049;
-  }
-`;
-
 const ContentArea = styled.div`
   margin-top: 20px;
   padding: 20px;
@@ -60,39 +48,40 @@ const ContentArea = styled.div`
 interface Note {
   pitch: number; // MIDI note number
   velocity: number;
-  startTime: number; // in ticks (480 per quarter note)
+  startTime: number; // in ticks (128 per quarter note)
   duration: number; // in ticks
 }
 
+const MAJOR_PROGRESSION: Chord[] = ["I", "vi", "IV", "V"];
+const MINOR_PROGRESSION: Chord[] = ["i", "bVI", "iv", "V"];
+
 const Forge: React.FC = () => {
   const [mode, setMode] = useState<"major" | "minor">("major");
-  const {
-    handleSongClick,
-    currentMidi,
-    rawlProps,
-    setCurrentMidi,
-    playSongBuffer,
-  } = useContext(AppContext);
-  const [generatedMidiUrl, setGeneratedMidiUrl] = useState<string | null>(null);
+  const { currentMidi, rawlProps, setCurrentMidi, playSongBuffer } =
+    useContext(AppContext);
 
   // Convert chord to Alberti pattern in IR
-  const generateAlbertiPattern = (baseChord: number[]): Note[] => {
+  const generateAlbertiPattern = (chordProgression: number[][]): Note[] => {
     const C3 = 48; // MIDI note number for C3
     const TICKS_PER_QUARTER = 128; // Standard MIDI ticks per quarter note
     const MEASURE_LENGTH = TICKS_PER_QUARTER * 4; // 4 quarter notes per measure
     const pattern = [0, 2, 1, 2]; // Alberti pattern indices (low, high, middle, high)
     const notes: Note[] = [];
 
-    // Generate four bars of Alberti pattern
-    for (let measure = 0; measure < 4; measure++) {
-      for (let i = 0; i < 4; i++) {
-        const chordIndex = pattern[i];
-        notes.push({
-          pitch: C3 + baseChord[chordIndex],
-          velocity: 80,
-          startTime: measure * MEASURE_LENGTH + i * TICKS_PER_QUARTER,
-          duration: TICKS_PER_QUARTER - 10, // Slightly shorter for articulation
-        });
+    // Generate eight bars of Alberti pattern (4 bars repeated)
+    for (let repeat = 0; repeat < 2; repeat++) {
+      for (let measure = 0; measure < 4; measure++) {
+        const chord = chordProgression[measure];
+        for (let i = 0; i < 4; i++) {
+          const chordIndex = pattern[i] % chord.length;
+          notes.push({
+            pitch: C3 + chord[chordIndex],
+            velocity: 80,
+            startTime:
+              (repeat * 4 + measure) * MEASURE_LENGTH + i * TICKS_PER_QUARTER,
+            duration: TICKS_PER_QUARTER - 10, // Slightly shorter for articulation
+          });
+        }
       }
     }
 
@@ -143,28 +132,32 @@ const Forge: React.FC = () => {
   };
 
   const generateInitialAnalysis = (mode: "major" | "minor"): Analysis => {
-    // Create an analysis object that matches our four measures
+    // Create an analysis object that matches our eight measures
     return {
       modulations: {
         1: mode === "major" ? (0 as PitchClass) : (9 as PitchClass), // C major or minor
       },
-      comment: `Generated ${mode} Alberti pattern - four measures in 4/4 time`,
+      comment: `Generated ${mode} Alberti pattern - eight measures in 4/4 time`,
       tags: ["generated", "alberti", mode],
       form: {},
       phrasePatch: [],
-      sections: [0, 1, 2, 3], // Mark each measure as a section
+      sections: [0, 1, 2, 3, 4, 5, 6, 7], // Mark each measure as a section
     };
   };
 
-  const handleGenerate = async () => {
+  const generatePattern = async () => {
     console.log("[Forge] Starting MIDI generation");
 
-    // Get the chord based on mode
-    const chord = mode === "major" ? [0, 4, 7] : [0, 3, 7];
-    console.log("[Forge] Using chord:", chord);
+    // Get the chord progression based on mode
+    const progression =
+      mode === "major" ? MAJOR_PROGRESSION : MINOR_PROGRESSION;
+    const rehydratedProgression = rehydrateChords(progression);
+    const chords = rehydratedProgression.map((chord) => chord.pitches);
+
+    console.log("[Forge] Using progression:", progression);
 
     // Generate Alberti pattern
-    const notes = generateAlbertiPattern(chord);
+    const notes = generateAlbertiPattern(chords);
     console.log("[Forge] Generated Alberti pattern:", notes);
 
     // Generate MIDI file
@@ -173,9 +166,9 @@ const Forge: React.FC = () => {
 
     // Create a fake MIDI info object with analysis
     const midiInfo = {
-      id: "generated-alberti",
+      id: FORGE_MOCK_ID,
       title: `Generated ${mode} Alberti Pattern`,
-      slug: "generated-alberti",
+      slug: FORGE_MOCK_ID,
       sourceUrl: null,
       isHiddenRoute: false,
     };
@@ -191,7 +184,6 @@ const Forge: React.FC = () => {
     // Try to play the MIDI
     try {
       console.log("[Forge] Attempting to play MIDI");
-      // Load the MIDI data directly - App.tsx will handle transformation
       await playSongBuffer("generated-alberti.mid", midiData);
 
       console.log("[Forge] MIDI loaded, checking rawlProps:", rawlProps);
@@ -212,48 +204,13 @@ const Forge: React.FC = () => {
     }
   };
 
-  // Add logging when rawlProps changes
+  // Generate on mode change
   useEffect(() => {
-    if (rawlProps) {
-      console.log("[Forge] rawlProps updated:", {
-        parsingResult: rawlProps.parsingResult,
-        savedAnalysis: rawlProps.savedAnalysis,
-      });
-    }
-  }, [rawlProps]);
-
-  // Add useEffect for cleanup
-  useEffect(() => {
-    return () => {
-      // Cleanup blob URL when component unmounts
-      if (generatedMidiUrl) {
-        URL.revokeObjectURL(generatedMidiUrl);
-      }
-    };
-  }, [generatedMidiUrl]);
-
-  // Add cleanup effect for blob URLs
-  useEffect(() => {
-    return () => {
-      if (currentMidi?.id.startsWith("blob:")) {
-        URL.revokeObjectURL(currentMidi.id);
-      }
-    };
-  }, [currentMidi]);
-
-  const memoizedProps = useMemo(() => {
-    if (!rawlProps) return null;
-    return {
-      parsingResult: rawlProps.parsingResult,
-      savedAnalysis: rawlProps.savedAnalysis,
-      voiceNames: rawlProps.voiceNames,
-      voiceMask: rawlProps.voiceMask,
-    };
-  }, [rawlProps]);
+    generatePattern();
+  }, [mode]);
 
   return (
     <ForgeContainer>
-      <h1>Forge</h1>
       <SelectorContainer>
         <Button active={mode === "major"} onClick={() => setMode("major")}>
           Major
@@ -264,26 +221,15 @@ const Forge: React.FC = () => {
       </SelectorContainer>
       <ContentArea>
         <div>Current mode: {mode}</div>
-        <div>Chord: {mode === "major" ? "[0, 4, 7]" : "[0, 3, 7]"}</div>
-        <GenerateButton onClick={handleGenerate}>
-          Generate Alberti Pattern
-        </GenerateButton>
+        <div>
+          Progression:{" "}
+          {mode === "major"
+            ? MAJOR_PROGRESSION.join(" ")
+            : MINOR_PROGRESSION.join(" ")}
+        </div>
       </ContentArea>
-      {currentMidi && rawlProps && rawlProps.parsingResult && memoizedProps && (
-        <Rawl
-          parsingResult={memoizedProps.parsingResult}
-          getCurrentPositionMs={rawlProps.getCurrentPositionMs}
-          savedAnalysis={memoizedProps.savedAnalysis}
-          saveAnalysis={rawlProps.saveAnalysis}
-          voiceNames={memoizedProps.voiceNames}
-          voiceMask={memoizedProps.voiceMask}
-          setVoiceMask={rawlProps.setVoiceMask}
-          showAnalysisBox={rawlProps.showAnalysisBox}
-          seek={rawlProps.seek}
-          latencyCorrectionMs={rawlProps.latencyCorrectionMs}
-          sourceUrl={currentMidi.sourceUrl}
-          isHiddenRoute={false}
-        />
+      {currentMidi && rawlProps && rawlProps.parsingResult && (
+        <Rawl {...rawlProps} />
       )}
     </ForgeContainer>
   );

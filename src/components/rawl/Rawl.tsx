@@ -624,6 +624,7 @@ const Rawl: React.FC<RawlProps> = ({
         height: "100%",
         paddingLeft: "30px",
         overflow: "hidden",
+        width: slug === "forge_mock" ? "100vw" : undefined,
       }}
     >
       {isEmbedded && (
@@ -685,7 +686,7 @@ const Rawl: React.FC<RawlProps> = ({
           }}
           className="Rawl"
         >
-          {slug && !isHiddenRoute && (
+          {slug && !isHiddenRoute && slug !== "forge_mock" && (
             <CompositionTitle
               slug={slug}
               sourceUrl={sourceUrl}
@@ -711,11 +712,13 @@ const Rawl: React.FC<RawlProps> = ({
         </div>
         {!isEmbedded && <LayoutSelector setSystemLayout={setSystemLayout} />}
       </div>
-      <div style={{ color: "gray" }}>
-        Shift+hover or click the note to play it separately
-        <br />
-        Press "Space" to play/pause
-      </div>
+      {slug !== "forge_mock" && (
+        <div style={{ color: "gray" }}>
+          Shift+hover or click the note to play it separately
+          <br />
+          Press "Space" to play/pause
+        </div>
+      )}
     </div>
   );
 };

@@ -345,6 +345,7 @@ const AppFooter: React.FC<
             cursor: canDownload ? "pointer" : "not-allowed",
             pointerEvents: canDownload ? "auto" : "none",
             opacity: canDownload ? 1 : 0.5,
+            height: "100%",
           }}
           href={createBlobUrl()}
           download={getDownloadFilename()}
@@ -352,7 +353,7 @@ const AppFooter: React.FC<
             canDownload ? "Download MIDI file" : "No MIDI file to download"
           }
         >
-          <FontAwesomeIcon icon={faDownload} />
+          <FontAwesomeIcon icon={faDownload} style={{ height: "100%" }} />
         </DownloadButton>
       </AppFooterMain>
     </StyledAppFooter>

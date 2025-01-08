@@ -3,33 +3,26 @@ import { Analysis, PitchClass } from "../analysis";
 import { DEFAULT_VELOCITY } from "./constants";
 import { ForgeConfig, Note } from "./ForgeGenerator";
 
-// Add type for MidiWriter
-declare module "midi-writer-js" {
-  export interface Track {
-    addTrackName(name: string): void;
-    setTempo(tempo: number): void;
-    addEvent(event: any): void;
-  }
+type Track = {
+  addTrackName(name: string): void;
+  setTempo(tempo: number): void;
+  addEvent(event: any): void;
+};
 
-  export interface NoteEvent {
-    new (params: {
-      pitch: number[];
-      duration: string;
-      velocity: number;
-      startTick: number;
-      channel: number;
-    }): any;
-  }
+type NoteEventParams = {
+  pitch: number[];
+  duration: string;
+  velocity: number;
+  startTick: number;
+  channel: number;
+};
 
-  export interface Writer {
-    new (tracks: Track[]): any;
-    dataUri(): string;
-  }
-
-  export const Track: { new (): Track };
-  export const NoteEvent: NoteEvent;
-  export const Writer: { new (tracks: Track[]): Writer };
-}
+// Type assertion for the imported MidiWriter
+const { Track, NoteEvent, Writer } = MidiWriter as {
+  Track: new () => Track;
+  NoteEvent: new (params: NoteEventParams) => any;
+  Writer: new (tracks: Track[]) => { dataUri(): string };
+};
 
 export const FORGE_MOCK_ID = "forge_mock";
 
@@ -121,11 +114,11 @@ const generateMidiFromEvents = (
   config: ForgeConfig,
 ): Uint8Array => {
   // Create separate tracks for each channel
-  const tracks = new Map<number, MidiWriter.Track>();
+  const tracks = new Map<number, Track>();
 
   events.forEach((event) => {
     if (!tracks.has(event.channel)) {
-      const track = new MidiWriter.Track();
+      const track = new Track();
       if (event.channel === 0) {
         track.addTrackName("Melody");
       } else if (event.channel === 1) {
@@ -137,7 +130,7 @@ const generateMidiFromEvents = (
 
     const track = tracks.get(event.channel)!;
     track.addEvent(
-      new MidiWriter.NoteEvent({
+      new NoteEvent({
         pitch: event.pitches,
         duration: "T" + event.duration,
         velocity: event.velocity,
@@ -147,7 +140,7 @@ const generateMidiFromEvents = (
     );
   });
 
-  const writer = new MidiWriter.Writer(Array.from(tracks.values()));
+  const writer = new Writer(Array.from(tracks.values()));
   const base64Data = writer.dataUri().split(",")[1];
 
   // Convert base64 to Uint8Array

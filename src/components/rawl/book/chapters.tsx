@@ -353,7 +353,7 @@ export const CHAPTERS: Array<{
           {c`I`} on the first place, you can fill in the rest three distinct
           chords in {n`5 × 4 × 3 = 60`} ways:
         </P>
-        <P>
+        <P style={{ width: "100vw" }}>
           <UL>
             <li>
               {c`I ii iii IV`} {c`I ii iii V`} {c`I ii iii vi`} {c`I ii IV iii`}{" "}
@@ -462,6 +462,7 @@ export const CHAPTERS: Array<{
       "the-office",
       "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
       "doki-doki-literature-club-ost---your-reality",
+
       "Viva_La_Vida_Coldplay",
     ],
   },
@@ -570,6 +571,7 @@ export const CHAPTERS: Array<{
       "someone-you-loved-lewis-capaldi",
       "Ed_Sheeran_Perfect",
       "dont-stop-believing-piano",
+      "sign-of-the-times---harry-styles",
       "A_Thousand_Miles",
     ],
   },
@@ -1051,7 +1053,7 @@ export const CHAPTERS: Array<{
       "Canon_in_D",
       "a-thousand-years",
       "John_Lennon_Imagine",
-      "sign-of-the-times---harry-styles",
+
       "Cant_Help_Falling_In_Love",
     ],
   },

@@ -202,6 +202,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
       latencyHint: "playback",
     });
 
+    this.audioContext.suspend();
+
     // Get latency correction from localStorage
     const savedLatencyCorrection = localStorage.getItem("latencyCorrectionMs");
     const initialLatencyCorrection = savedLatencyCorrection

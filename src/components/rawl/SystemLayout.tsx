@@ -499,7 +499,7 @@ export const StackedSystemLayout: React.FC<
                               Math.abs(
                                 prevPositionSeconds.current - positionSeconds,
                               ) < 2
-                                ? "left 0.74s linear"
+                                ? "left 0.37s linear"
                                 : "",
                             left: secondsToX(positionSeconds),
                           }}

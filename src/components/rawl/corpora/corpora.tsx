@@ -2440,6 +2440,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "modern_composers_of_single_pieces",
     midis: [
+      "mr-sandman-the-chordettes",
       "after-school---weeekly",
       "gray",
       "changing-times---heather-hammond",
@@ -2565,10 +2566,6 @@ export const corpora: CorpusEntry[] = [
     genre: "Classical",
     style: "Romantic, Opera",
     country: "Italy",
-  },
-  {
-    slug: "yuzo_koshiro",
-    midis: [],
   },
   {
     slug: "derek_fiechter",
@@ -2780,9 +2777,11 @@ export const corpora: CorpusEntry[] = [
       "rachmaninoff_piano_concerto_4_1",
       "serguei-rachmaninov---piano-concerto-ndeg4-in-g-minor---1st-mouvement-intro",
       "Prelude_in_G_Minor_Opus_23_No._5",
-      "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---ii.-allegro-molto",
       "prelude-in-c-sharp-minor-opus-3-no.-2---sergei-rachmaninoff",
       "rachmaninoff-10-preludes-op.-23---no.-5-in-g-minor-m.-a.-deocariza",
+
+      "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---i.-largo-allegro-moderato",
+      "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---ii.-allegro-molto",
     ],
     composerBirthYear: 1873,
     genre: "Classical",
@@ -5099,20 +5098,23 @@ export const corpora: CorpusEntry[] = [
     // https://musescore.com/user/19710/sets
     slug: "beethoven",
     midis: [
+      "sonatina_in_g_beethoven_anh_5_no_1_beethoven",
+      "bagatelle_in_g_minor_op_119_no_1_ludwig_van_beethoven_16_07_1770_26_03_1827_piano_solo",
+      "beethoven-symphony-no.-5-1st-movement-piano-solo",
       "beethoven---sonata-in-f-minor-op.2-no.1-movement-i",
+      "piano_sonata_no_3_in_c_major_op_2_no_3_ludwig_van_beethoven_piano_sonata_no_3_in_c_major_op_2_no_3_complete",
+      "beethoven_sonata_in_f_minor_op_2_no_1_movement_i",
+      "beethoven_sonate_5_1st",
+      "beethoven_sonata_8_pathetique_op_13_mov_1",
+      "beethoven_sonata_in_g_op_14_no_2_movement_i",
+      "beethoven_op_22_sonata_11_mov_1",
       "Sonate_No._14_Moonlight_1st_Movement",
       "moonlight_sonata_ludwig_van_beethoven_piano_solo",
       "Sonate_No._14_Moonlight_3rd_Movement",
       "sonate-no.-17-tempest-3rd-movement",
-      "sonatina_in_g_beethoven_anh_5_no_1_beethoven",
-      "bagatelle_in_g_minor_op_119_no_1_ludwig_van_beethoven_16_07_1770_26_03_1827_piano_solo",
-      "beethoven-symphony-no.-5-1st-movement-piano-solo",
-      "beethoven_sonata_in_f_minor_op_2_no_1_movement_i",
-      "beethoven_sonata_in_g_op_14_no_2_movement_i",
-      "beethoven_sonate_5_1st",
+
       "beethoven_trio_for_clarinet_cello_and_piano_no_4_op_11_2nd_movement",
       "Fr_Elise",
-      "piano_sonata_no_3_in_c_major_op_2_no_3_ludwig_van_beethoven_piano_sonata_no_3_in_c_major_op_2_no_3_complete",
     ],
     composerBirthYear: 1770, // Ludwig van Beethoven was born in 1770
     genre: "Classical", // Beethoven bridged the Classical and Romantic eras, but is primarily associated with Classical music
@@ -5306,17 +5308,28 @@ export const corpora: CorpusEntry[] = [
     style: "Hymn",
   },
   {
-    slug: "richard_clayderman",
+    slug: "paul_de_senneville",
     midis: [
+      "mariage-d-amour---paul-de-senneville-marriage-d-amour",
       "ballade-pour-adeline---richard-clayderman",
       "moon-tango---r.-clayderman",
       "les-fleurs-sauvages---richard-clayderman",
       "souvenirs-d-enfance---richard-clayderman",
       "concerto-des-etoiles---richard-clayderman",
+      "a-comme-amour-by-paul-de-senneville-arranged-richard-clayderman-for-piano",
+      "nostalgy-by-olivier-toussaint-arranged-richard-clayderman-for-piano",
+      "jardin-secret-by-paul-de-senneville-arranged-richard-clayderman-for-piano",
+      "lyphard-melody---richard-clayderman",
+      "dolannes-melody--richard-clayderman",
+      "les-premiers-sourires-de-vanessa-by-richard-clayderman-for-piano",
+      "coeur-fragile",
+      "lettre-a-ma-mere",
+      "coup-de-coeur-coup-de-coeur-serenade-de-l-etoile--richard-clayderman",
+      "les-oiseaux-tristes-du-zuiderzee",
+      "triste-coeur",
     ],
-    composerBirthYear: 1953, // Richard Clayderman was born in 1953
-    genre: "Easy Listening, Classical Crossover", // Known for his romantic and easy-listening style
-    style: "Romantic, Piano", // Often performs in a romantic piano style
+    composerBirthYear: 1933,
+    genre: "Easy Listening, Intrumental Pop", // Known for his romantic and easy-listening style
     country: "France", // Born in Paris, France
   },
   {

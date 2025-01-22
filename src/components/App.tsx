@@ -62,6 +62,7 @@ import { Analyses, MeasuresSpan } from "./rawl/analysis";
 import Book from "./rawl/book/Book";
 import Corpus from "./rawl/corpora/Corpus";
 import Structures, { StructuresProps } from "./rawl/corpora/Structures";
+import Editor from "./rawl/editor/Editor";
 import ForgeUI from "./rawl/forge/ForgeUI";
 import { DropSaveForm, saveMidiFromLink } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
@@ -503,6 +504,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }
 
     document.addEventListener("keydown", (e) => {
+      // Skip all keyboard shortcuts if globally disabled
+      if (window.__disableGlobalShortcuts) return;
+
       // Keyboard shortcuts: tricky to get it just right and keep the browser behavior intact.
       // The order of switch-cases matters. More privileged keys appear at the top.
       // More restricted keys appear at the bottom, after various input focus states are filtered out.
@@ -1257,6 +1261,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     }
                   />
                   <Route path="/daw" render={() => <DAW />} />
+                  <Route path="/e/:slug" component={Editor} />
                   {rawlRoute}
                   <Route path="/100/:slug?" component={Book} />
                   <Route path="/beyond/:slug?" component={Book} />

@@ -45,15 +45,19 @@ const EditorPanel = styled.div`
 const MelodyTextArea = styled.textarea`
   width: 100%;
   height: 120px;
-  font-family: monospace;
   padding: 10px;
   background: #1e1e1e;
   color: #d4d4d4;
   border: 1px solid #333;
   border-radius: 4px;
   flex-shrink: 0;
-  white-space: pre;
   resize: vertical;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
 `;
 
 const ErrorMessage = styled.div`
@@ -64,78 +68,99 @@ const ErrorMessage = styled.div`
 
 const parseMelodyString = (
   melodyString: string,
-): { pitch: number | null; duration: number }[] => {
-  // Match either a rest (space followed by duration) or a note (optional octave jump, optional accidental, number, and duration)
-  const notePattern = /(\s+|[v^]?[b#]?[1-7])([|+_\-=])/g;
-  const matches = Array.from(melodyString.matchAll(notePattern));
+): { pitch: number | null; duration: number; startMeasure: number }[] => {
+  // Split into lines and filter out empty lines
+  const lines = melodyString.split("\n").filter((line) => line.trim());
 
-  console.log("Matches:", matches); // Debug log
+  // Process each line
+  return lines.flatMap((line) => {
+    // Extract measure number and melody
+    const match = line.match(/^\s*(\d+)\s+(.+)$/);
+    if (!match) return [];
 
-  if (matches.length === 0) return [];
+    const [_, measureStr, melodyPart] = match;
+    const startMeasure = parseInt(measureStr);
 
-  let lastPitch: number | null = null;
+    // Match notes in the melody part
+    const notePattern = /(\s+|[v^]?[b#]?[1-7])([|+_\-=])/g;
+    const matches = Array.from(melodyPart.matchAll(notePattern));
 
-  return matches.map((match) => {
-    const [_, noteOrRest, durationMarker] = match;
-    console.log("Processing note:", { noteOrRest, durationMarker }); // Debug log
+    if (matches.length === 0) return [];
 
-    // Handle rests (spaces)
-    if (noteOrRest.trim() === "") {
-      return { pitch: null, duration: getDuration(durationMarker) };
-    }
+    let lastPitch: number | null = null;
+    let measureOffset = startMeasure - 1; // Convert to 0-based for calculations
 
-    // Handle notes
-    const note = noteOrRest;
+    return matches.map((match) => {
+      const [_, noteOrRest, durationMarker] = match;
 
-    // Check for octave modifiers
-    const hasUpOctave = note.startsWith("^");
-    const hasDownOctave = note.startsWith("v");
+      // Handle rests (spaces)
+      if (noteOrRest.trim() === "") {
+        return {
+          pitch: null,
+          duration: getDuration(durationMarker),
+          startMeasure: measureOffset,
+        };
+      }
 
-    // Handle accidentals after octave modifiers
-    let offset = 0;
-    const noteWithoutOctave = note.replace(/[v^]/, "");
-    if (noteWithoutOctave.startsWith("b")) offset = -1;
-    if (noteWithoutOctave.startsWith("#")) offset = 1;
+      // Handle notes
+      const note = noteOrRest;
 
-    // Get the base note number, removing any modifiers
-    const baseNote = parseInt(noteWithoutOctave.replace(/[b#]/, ""));
-    console.log("Parsed note:", { note, offset, baseNote }); // Debug log
+      // Check for octave modifiers
+      const hasUpOctave = note.startsWith("^");
+      const hasDownOctave = note.startsWith("v");
 
-    if (isNaN(baseNote) || baseNote < 1 || baseNote > 7) {
-      return { pitch: null, duration: TICKS_PER_QUARTER };
-    }
+      // Handle accidentals after octave modifiers
+      let offset = 0;
+      const noteWithoutOctave = note.replace(/[v^]/, "");
+      if (noteWithoutOctave.startsWith("b")) offset = -1;
+      if (noteWithoutOctave.startsWith("#")) offset = 1;
 
-    // Map scale degree to chromatic pitch (using major scale as reference)
-    const majorScaleMap = [0, 2, 4, 5, 7, 9, 11];
-    let pitch = majorScaleMap[baseNote - 1] + offset;
+      // Get the base note number, removing any modifiers
+      const baseNote = parseInt(noteWithoutOctave.replace(/[b#]/, ""));
 
-    // Adjust octave based on previous note for minimal interval movement
-    if (lastPitch !== null) {
-      // Calculate the three possible positions relative to the last note
-      const below = pitch - 12; // One octave below
-      const same = pitch; // Same octave
-      const above = pitch + 12; // One octave above
+      if (isNaN(baseNote) || baseNote < 1 || baseNote > 7) {
+        return {
+          pitch: null,
+          duration: TICKS_PER_QUARTER,
+          startMeasure: measureOffset,
+        };
+      }
 
-      // Find the position that minimizes the interval
-      const intervals = [
-        Math.abs(below - lastPitch),
-        Math.abs(same - lastPitch),
-        Math.abs(above - lastPitch),
-      ];
-      const minInterval = Math.min(...intervals);
-      const bestPosition = [below, same, above][intervals.indexOf(minInterval)];
-      pitch = bestPosition;
-    }
+      // Map scale degree to chromatic pitch (using major scale as reference)
+      const majorScaleMap = [0, 2, 4, 5, 7, 9, 11];
+      let pitch = majorScaleMap[baseNote - 1] + offset;
 
-    // Apply forced octave jumps after interval optimization
-    if (hasUpOctave) pitch += 12;
-    if (hasDownOctave) pitch -= 12;
+      // Adjust octave based on previous note for minimal interval movement
+      if (lastPitch !== null) {
+        // Calculate the three possible positions relative to the last note
+        const below = pitch - 12;
+        const same = pitch;
+        const above = pitch + 12;
 
-    lastPitch = pitch;
-    return {
-      pitch,
-      duration: getDuration(durationMarker),
-    };
+        // Find the position that minimizes the interval
+        const intervals = [
+          Math.abs(below - lastPitch),
+          Math.abs(same - lastPitch),
+          Math.abs(above - lastPitch),
+        ];
+        const minInterval = Math.min(...intervals);
+        const bestPosition = [below, same, above][
+          intervals.indexOf(minInterval)
+        ];
+        pitch = bestPosition;
+      }
+
+      // Apply forced octave jumps after interval optimization
+      if (hasUpOctave) pitch += 12;
+      if (hasDownOctave) pitch -= 12;
+
+      lastPitch = pitch;
+      return {
+        pitch,
+        duration: getDuration(durationMarker),
+        startMeasure: measureOffset,
+      };
+    });
   });
 };
 
@@ -157,15 +182,26 @@ const getDuration = (marker: string): number => {
 };
 
 const convertToMidiNotes = (
-  notes: { pitch: number | null; duration: number }[],
+  notes: { pitch: number | null; duration: number; startMeasure: number }[],
 ): Note[] => {
+  // Calculate start time based on measure number and accumulated duration
+  const measureToTime = new Map<number, number>();
   let currentTime = 0;
+
   return notes
     .map((note) => {
+      // Get or initialize the time for this measure
+      if (!measureToTime.has(note.startMeasure)) {
+        measureToTime.set(
+          note.startMeasure,
+          note.startMeasure * TICKS_PER_QUARTER * 4,
+        );
+      }
+      currentTime = measureToTime.get(note.startMeasure)!;
+
       if (note.pitch === null) {
         // For rests, just advance the time
-        const startTime = currentTime;
-        currentTime += note.duration;
+        measureToTime.set(note.startMeasure, currentTime + note.duration);
         return null;
       }
 
@@ -176,7 +212,9 @@ const convertToMidiNotes = (
         duration: note.duration - 1,
         channel: 0,
       };
-      currentTime += note.duration;
+
+      // Update the time for this measure
+      measureToTime.set(note.startMeasure, currentTime + note.duration);
       return midiNote;
     })
     .filter((n): n is Note => n !== null);
@@ -235,8 +273,8 @@ const Editor: React.FC = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    // Play on Enter
-    if (e.key === "Enter" && !e.shiftKey) {
+    // Play on Cmd+Enter (or Ctrl+Enter for non-Mac)
+    if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
       e.preventDefault();
       handleMelodyPlayback();
     }
@@ -253,14 +291,16 @@ const Editor: React.FC = () => {
           <br />
           | (whole), + (half), _ (quarter), - (eighth), = (16th)
           <br />
-          Use ^ for octave up, v for octave down. Use space for rests. Press
-          Enter to play.
+          Start each line with measure number. Use ^ for octave up, v for octave
+          down. Use space for rests. Press Cmd+Enter to play.
         </p>
         <MelodyTextArea
           ref={textareaRef}
-          defaultValue="1_^3_v7_1|"
+          defaultValue={`1 1-b3-
+5 6-7-1_`}
           onKeyDown={handleKeyDown}
-          placeholder="Enter melody (e.g. 1_^2_b3-v7-4+#4_5|)"
+          placeholder={`1 1-2-3-
+5 4-5-6-`}
           spellCheck={false}
         />
         {error && <ErrorMessage>{error}</ErrorMessage>}

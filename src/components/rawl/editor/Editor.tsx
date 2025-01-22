@@ -73,6 +73,8 @@ const parseMelodyString = (
 
   if (matches.length === 0) return [];
 
+  let lastPitch: number | null = null;
+
   return matches.map((match) => {
     const [_, noteOrRest, durationMarker] = match;
     console.log("Processing note:", { noteOrRest, durationMarker }); // Debug log
@@ -98,9 +100,27 @@ const parseMelodyString = (
 
     // Map scale degree to chromatic pitch (using major scale as reference)
     const majorScaleMap = [0, 2, 4, 5, 7, 9, 11];
-    const pitch = majorScaleMap[baseNote - 1] + offset;
-    console.log("Final pitch:", pitch); // Debug log
+    let pitch = majorScaleMap[baseNote - 1] + offset;
 
+    // Adjust octave based on previous note for minimal interval movement
+    if (lastPitch !== null) {
+      // Calculate the three possible positions relative to the last note
+      const below = pitch - 12; // One octave below
+      const same = pitch; // Same octave
+      const above = pitch + 12; // One octave above
+
+      // Find the position that minimizes the interval
+      const intervals = [
+        Math.abs(below - lastPitch),
+        Math.abs(same - lastPitch),
+        Math.abs(above - lastPitch),
+      ];
+      const minInterval = Math.min(...intervals);
+      const bestPosition = [below, same, above][intervals.indexOf(minInterval)];
+      pitch = bestPosition;
+    }
+
+    lastPitch = pitch;
     return {
       pitch,
       duration: getDuration(durationMarker),

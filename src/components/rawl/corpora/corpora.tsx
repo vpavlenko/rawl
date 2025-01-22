@@ -5414,6 +5414,7 @@ export const corpora: CorpusEntry[] = [
       "game-of-thrones-main-piano",
       "light-of-the-seven---ramin-djawadi-complete-transcription",
       "the-night-king---ramin-djawadi",
+      "ramin-djawadi---a-lannister-always-pays-his-debts-piano",
     ],
     composerBirthYear: 1973, // Ramin Djawadi was born in 1973
     genre: "Film Score, Classical", // Known for his film scores

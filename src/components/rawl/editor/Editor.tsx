@@ -56,18 +56,6 @@ const MelodyTextArea = styled.textarea`
   resize: vertical;
 `;
 
-const TestTextArea = styled.textarea`
-  width: 100%;
-  height: 80px;
-  font-family: monospace;
-  padding: 10px;
-  background: #2d2d2d;
-  color: #d4d4d4;
-  border: 1px solid #444;
-  border-radius: 4px;
-  margin-top: 10px;
-`;
-
 const ErrorMessage = styled.div`
   color: #ff6b6b;
   font-size: 12px;
@@ -184,9 +172,6 @@ const Editor: React.FC = () => {
           spellCheck={false}
         />
         {error && <ErrorMessage>{error}</ErrorMessage>}
-
-        <p>Test textarea (completely uncontrolled):</p>
-        <TestTextArea defaultValue="This is a test textarea. You should be able to type freely here." />
       </EditorPanel>
     </EditorContainer>
   );

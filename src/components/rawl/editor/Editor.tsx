@@ -65,8 +65,8 @@ const ErrorMessage = styled.div`
 const parseMelodyString = (
   melodyString: string,
 ): { pitch: number | null; duration: number }[] => {
-  // Match either a rest (space followed by duration) or a note (1-7 with optional accidental and required duration)
-  const notePattern = /(\s+|[b#]?[1-7])([|+_\-=])/g;
+  // Match either a rest (space followed by duration) or a note (optional octave jump, optional accidental, number, and duration)
+  const notePattern = /(\s+|[v^]?[b#]?[1-7])([|+_\-=])/g;
   const matches = Array.from(melodyString.matchAll(notePattern));
 
   console.log("Matches:", matches); // Debug log
@@ -86,12 +86,19 @@ const parseMelodyString = (
 
     // Handle notes
     const note = noteOrRest;
-    let offset = 0;
-    if (note.startsWith("b")) offset = -1;
-    if (note.startsWith("#")) offset = 1;
 
-    // Get the base note number, removing any accidental
-    const baseNote = parseInt(note.replace(/[b#]/, ""));
+    // Check for octave modifiers
+    const hasUpOctave = note.startsWith("^");
+    const hasDownOctave = note.startsWith("v");
+
+    // Handle accidentals after octave modifiers
+    let offset = 0;
+    const noteWithoutOctave = note.replace(/[v^]/, "");
+    if (noteWithoutOctave.startsWith("b")) offset = -1;
+    if (noteWithoutOctave.startsWith("#")) offset = 1;
+
+    // Get the base note number, removing any modifiers
+    const baseNote = parseInt(noteWithoutOctave.replace(/[b#]/, ""));
     console.log("Parsed note:", { note, offset, baseNote }); // Debug log
 
     if (isNaN(baseNote) || baseNote < 1 || baseNote > 7) {
@@ -119,6 +126,10 @@ const parseMelodyString = (
       const bestPosition = [below, same, above][intervals.indexOf(minInterval)];
       pitch = bestPosition;
     }
+
+    // Apply forced octave jumps after interval optimization
+    if (hasUpOctave) pitch += 12;
+    if (hasDownOctave) pitch -= 12;
 
     lastPitch = pitch;
     return {
@@ -242,13 +253,14 @@ const Editor: React.FC = () => {
           <br />
           | (whole), + (half), _ (quarter), - (eighth), = (16th)
           <br />
-          Use space for rests. Press Enter to play.
+          Use ^ for octave up, v for octave down. Use space for rests. Press
+          Enter to play.
         </p>
         <MelodyTextArea
           ref={textareaRef}
-          defaultValue="1_2_3-3-4+5|"
+          defaultValue="1_^3_v7_1|"
           onKeyDown={handleKeyDown}
-          placeholder="Enter melody (e.g. 1_2_b3-3-4+#4_5|)"
+          placeholder="Enter melody (e.g. 1_^2_b3-v7-4+#4_5|)"
           spellCheck={false}
         />
         {error && <ErrorMessage>{error}</ErrorMessage>}

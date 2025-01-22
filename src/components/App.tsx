@@ -328,8 +328,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
   async initChipCore(playerNode, bufferSize) {
     const audioState = this.audioContext.state;
-    console.log("AudioContext initial state:", audioState);
-
     this.setState({
       audioContextLocked: audioState === "suspended",
       audioContextState: audioState,
@@ -338,7 +336,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
     // Add event listener to track audio context state changes
     this.audioContext.addEventListener("statechange", () => {
       const newState = this.audioContext.state;
-      console.log("AudioContext state changed to:", newState);
       this.setState({
         audioContextLocked: newState === "suspended",
         audioContextState: newState,
@@ -398,9 +395,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
     // Populate all mounted IDBFS file systems from IndexedDB.
     this.chipCore.FS.syncfs(true, (err) => {
-      if (err) {
-        console.log("Error populating FS from indexeddb.", err);
-      }
       this.midiPlayer?.handleFileSystemReady();
     });
 
@@ -465,8 +459,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
         [this.path]: analysis,
       });
 
-      await setDoc(userRef, userData).catch((e) => {
-        console.log("Couldn't save analysis.", e);
+      await setDoc(userRef, userData).catch(() => {
         alert("Could not save analysis");
       });
 
@@ -608,7 +601,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
   handleSequencerStateUpdate(sequencerState) {
     const { isEjected } = sequencerState;
-    console.log("App.handleSequencerStateUpdate(isEjected=%s)", isEjected);
 
     if (isEjected) {
       this.setState({
@@ -618,8 +610,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
         currentSongDurationMs: 1,
         songUrl: null,
       });
-      // TODO: Disabled to support scroll restoration.
-      // updateQueryString({ play: undefined });
 
       if ("mediaSession" in navigator) {
         this.mediaSessionAudio.pause();
@@ -716,8 +706,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   handleSongClick = async (slug: string, isHiddenRoute: boolean = false) => {
-    console.log("[App] handleSongClick:", { slug, isHiddenRoute });
-
     try {
       await handleSongClickUtil(
         {
@@ -730,118 +718,50 @@ class App extends React.Component<RouteComponentProps, AppState> {
       );
 
       // After successful load, start playback automatically
-      console.log("[App] Starting playback after load");
       if (this.midiPlayer && this.state.paused) {
         this.togglePause();
       }
     } catch (error) {
-      console.error("[App] Error in handleSongClick:", error);
+      console.log(error);
     }
   };
 
   loadMidi = (midiBlob: Blob, playbackStartedCallback?: () => void) => {
-    console.log("[App.loadMidi] Called with blob:", midiBlob);
-
     if (this.midiPlayer) {
-      console.log("[App.loadMidi] MIDIPlayer exists, loading data");
-
       midiBlob
         .arrayBuffer()
         .then((arrayBuffer) => {
-          console.log(
-            "[App.loadMidi] Converted blob to arrayBuffer:",
-            arrayBuffer,
-          );
-
-          console.log("[App.loadMidi] About to transform MIDI data");
           const transformedBuffer = transformMidi(new Uint8Array(arrayBuffer));
-          console.log("[App.loadMidi] Transformed buffer:", transformedBuffer);
 
-          // Store the original MIDI buffer
-          console.log("[App.loadMidi] Storing original buffer in state");
           this.setState({ currentMidiBuffer: arrayBuffer });
 
-          console.log("[App.loadMidi] Setting playback callback");
           this.midiPlayer.setPlaybackStartedCallback(playbackStartedCallback);
 
-          console.log(
-            "[App.loadMidi] Loading data into MIDI player with slug:",
-            this.state.currentMidi?.slug,
-          );
           this.midiPlayer
             .loadData(transformedBuffer, this.state.currentMidi?.slug || "")
             .then((parsingResult) => {
-              console.log(
-                "[App.loadMidi] MIDI data loaded, parsing result:",
-                parsingResult,
-              );
-              console.log("[App.loadMidi] Updating state with parsing result");
               this.setState({ parsing: parsingResult }, () => {
-                console.log(
-                  "[App.loadMidi] State updated with parsing result:",
-                  this.state.parsing,
-                );
-                console.log("[App.loadMidi] Setting up MIDI player");
                 this.setupMidiPlayer();
               });
             })
             .catch((error) => {
-              console.error("[App.loadMidi] Error loading MIDI data:", error);
+              // Handle error silently
             });
         })
         .catch((error) => {
-          console.error(
-            "[App.loadMidi] Error converting Blob to ArrayBuffer:",
-            error,
-          );
+          // Handle error silently
         });
-    } else {
-      console.error("[App.loadMidi] MIDIPlayer not initialized");
     }
   };
 
   setupMidiPlayer = () => {
-    console.log("[App.setupMidiPlayer] Starting setup");
-    console.log("[App.setupMidiPlayer] Current state:", {
-      parsing: this.state.parsing,
-      currentMidi: this.state.currentMidi,
-      voiceMask: this.state.voiceMask,
-      voiceNames: this.state.voiceNames,
-      analysisEnabled: this.state.analysisEnabled,
-      latencyCorrectionMs: this.state.latencyCorrectionMs,
-      tempo: this.state.tempo,
-    });
-
-    console.log("[App.setupMidiPlayer] Setting up rawlProps");
     this.setState(
       (prevState) => {
         const slug = prevState.currentMidi?.slug;
-        console.log("[App.setupMidiPlayer] Current slug:", slug);
-
         const analysisKey = `f/${slug}`;
-        console.log("[App.setupMidiPlayer] Analysis key:", analysisKey);
-
         const savedAnalysis = prevState.analyses[analysisKey];
-        console.log(
-          "[App.setupMidiPlayer] Retrieved savedAnalysis:",
-          savedAnalysis,
-        );
-
-        console.log(
-          "[App.setupMidiPlayer] Current parsing state:",
-          this.state.parsing,
-        );
-        console.log(
-          "[App.setupMidiPlayer] Current voiceNames:",
-          this.state.voiceNames,
-        );
-        console.log(
-          "[App.setupMidiPlayer] Current voiceMask:",
-          this.state.voiceMask,
-        );
 
         if (!this.state.parsing) {
-          console.error("[App.setupMidiPlayer] No parsing result available!");
           return null;
         }
 
@@ -862,28 +782,17 @@ class App extends React.Component<RouteComponentProps, AppState> {
           sourceUrl: prevState.currentMidi?.sourceUrl || null,
           isHiddenRoute: prevState.currentMidi?.isHiddenRoute || false,
         };
-        console.log(
-          "[App.setupMidiPlayer] Created new rawlProps:",
-          newRawlProps,
-        );
         return { rawlProps: newRawlProps };
       },
       () => {
-        console.log(
-          "[App.setupMidiPlayer] State updated with rawlProps:",
-          this.state.rawlProps,
-        );
         this.startPlayback();
       },
     );
   };
 
   startPlayback = () => {
-    console.log("Starting playback");
-    if (this.midiPlayer) {
-      console.log("MIDIPlayer exists, starting playback");
-    } else {
-      console.error("MIDIPlayer not initialized");
+    if (!this.midiPlayer) {
+      // Handle error silently
     }
   };
 
@@ -1045,113 +954,41 @@ class App extends React.Component<RouteComponentProps, AppState> {
     buffer: ArrayBuffer | Uint8Array,
     shouldAutoPlay: boolean = true,
   ) {
-    console.log("[App.playSongBuffer] Starting with filepath:", filepath);
-    console.log("[App.playSongBuffer] Buffer type:", buffer.constructor.name);
-    console.log("[App.playSongBuffer] Buffer length:", buffer.byteLength);
-    console.log("[App.playSongBuffer] Should auto-play:", shouldAutoPlay);
-
-    if (buffer instanceof Uint8Array) {
-      console.log("[App.playSongBuffer] First 20 bytes:", buffer.slice(0, 20));
-    }
-
-    console.log("[App.playSongBuffer] Suspending MIDI player");
     this.midiPlayer.suspend();
 
-    console.log("[App.playSongBuffer] Converting buffer to Uint8Array");
     const inputArray =
       buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
-    console.log(
-      "[App.playSongBuffer] Input array first 20 bytes:",
-      inputArray.slice(0, 20),
-    );
 
-    console.log("[App.playSongBuffer] Transforming MIDI data");
     const uint8Array = transformMidi(inputArray);
-    console.log(
-      "[App.playSongBuffer] Transformed MIDI data first 20 bytes:",
-      uint8Array.slice(0, 20),
-    );
-    console.log(
-      "[App.playSongBuffer] Transformed MIDI data length:",
-      uint8Array.length,
-    );
 
     this.hash = md5(uint8Array);
-    console.log("[App.playSongBuffer] Generated MD5:", this.hash);
 
-    console.log("[App.playSongBuffer] Setting tempo to 1");
     this.midiPlayer.setTempo(1);
 
-    // Store the original MIDI buffer for download
-    console.log("[App.playSongBuffer] Setting currentMidiBuffer in state");
     this.setState({
       currentMidiBuffer: buffer instanceof ArrayBuffer ? buffer : buffer.buffer,
     });
 
     try {
-      console.log("[App.playSongBuffer] Loading data into MIDI player");
-      console.log("[App.playSongBuffer] MIDI player state before load:", {
-        numVoices: this.midiPlayer.getNumVoices(),
-        isPlaying: this.midiPlayer.isPlaying(),
-        position: this.midiPlayer.getPositionMs(),
-      });
-
       const parsingResult = await this.midiPlayer.loadData(
         uint8Array,
         filepath,
         shouldAutoPlay,
       );
-      console.log("[App.playSongBuffer] Data loaded successfully");
-      console.log("[App.playSongBuffer] Parsing result details:", {
-        notes: parsingResult.notes,
-        measuresAndBeats: parsingResult.measuresAndBeats,
-        notesCount: parsingResult.notes.map((voice) => voice.length),
-        totalNotes: parsingResult.notes.reduce(
-          (sum, voice) => sum + voice.length,
-          0,
-        ),
-      });
 
-      // Set the parsing result in state
       this.setState({ parsing: parsingResult }, () => {
-        console.log(
-          "[App.playSongBuffer] State updated with parsing result:",
-          this.state.parsing,
-        );
-
-        console.log("[App.playSongBuffer] Getting number of voices");
         const numVoices = this.midiPlayer.getNumVoices();
-        console.log("[App.playSongBuffer] Number of voices:", numVoices);
-        console.log("[App.playSongBuffer] MIDI player state after load:", {
-          numVoices: this.midiPlayer.getNumVoices(),
-          isPlaying: this.midiPlayer.isPlaying(),
-          position: this.midiPlayer.getPositionMs(),
-        });
-
-        // Update voice mask
-        console.log("[App.playSongBuffer] Setting voice mask");
         const voiceMask = [...Array(numVoices)].fill(true);
         this.midiPlayer.setVoiceMask(voiceMask);
         this.setState({ voiceMask }, () => {
-          console.log(
-            "[App.playSongBuffer] Voice mask updated, setting up MIDI player",
-          );
           this.setupMidiPlayer();
 
-          if (shouldAutoPlay) {
-            console.log(
-              "[App.playSongBuffer] Auto-play enabled, playback will start automatically",
-            );
-          } else {
-            console.log(
-              "[App.playSongBuffer] Auto-play disabled, waiting for user interaction",
-            );
+          if (!shouldAutoPlay) {
             this.midiPlayer.pause();
           }
         });
       });
     } catch (e) {
-      console.error("[App.playSongBuffer] Error loading data:", e);
       this.handlePlayerError(`Unable to play ${filepath} (${e.message}).`);
     }
   }

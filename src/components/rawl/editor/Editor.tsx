@@ -62,35 +62,93 @@ const ErrorMessage = styled.div`
   margin-top: 4px;
 `;
 
-const parseMelodyString = (melodyString: string): number[] => {
-  // Don't trim - split on one or more spaces but preserve trailing space in original input
-  const notes = melodyString.split(/\s+/).filter((n) => n.length > 0);
-  return notes
-    .map((note) => {
-      const baseNote = parseInt(note.replace(/[b#]/, ""));
-      if (isNaN(baseNote)) return null;
+const parseMelodyString = (
+  melodyString: string,
+): { pitch: number | null; duration: number }[] => {
+  // Match either a rest (space followed by duration) or a note (1-7 with optional accidental and required duration)
+  const notePattern = /(\s+|[b#]?[1-7])([|+_\-=])/g;
+  const matches = Array.from(melodyString.matchAll(notePattern));
 
-      let offset = 0;
-      if (note.includes("b")) offset = -1;
-      if (note.includes("#")) offset = 1;
+  console.log("Matches:", matches); // Debug log
 
-      // Map scale degree to chromatic pitch (using major scale as reference)
-      const majorScaleMap = [0, 2, 4, 5, 7, 9, 11];
-      const pitch = majorScaleMap[baseNote - 1] + offset;
+  if (matches.length === 0) return [];
 
-      return pitch;
-    })
-    .filter((n): n is number => n !== null);
+  return matches.map((match) => {
+    const [_, noteOrRest, durationMarker] = match;
+    console.log("Processing note:", { noteOrRest, durationMarker }); // Debug log
+
+    // Handle rests (spaces)
+    if (noteOrRest.trim() === "") {
+      return { pitch: null, duration: getDuration(durationMarker) };
+    }
+
+    // Handle notes
+    const note = noteOrRest;
+    let offset = 0;
+    if (note.startsWith("b")) offset = -1;
+    if (note.startsWith("#")) offset = 1;
+
+    // Get the base note number, removing any accidental
+    const baseNote = parseInt(note.replace(/[b#]/, ""));
+    console.log("Parsed note:", { note, offset, baseNote }); // Debug log
+
+    if (isNaN(baseNote) || baseNote < 1 || baseNote > 7) {
+      return { pitch: null, duration: TICKS_PER_QUARTER };
+    }
+
+    // Map scale degree to chromatic pitch (using major scale as reference)
+    const majorScaleMap = [0, 2, 4, 5, 7, 9, 11];
+    const pitch = majorScaleMap[baseNote - 1] + offset;
+    console.log("Final pitch:", pitch); // Debug log
+
+    return {
+      pitch,
+      duration: getDuration(durationMarker),
+    };
+  });
 };
 
-const convertToMidiNotes = (pitches: number[]): Note[] => {
-  return pitches.map((pitch, index) => ({
-    pitch: pitch + 60, // Middle C (60) as base
-    velocity: 100,
-    startTime: index * TICKS_PER_QUARTER,
-    duration: TICKS_PER_QUARTER - 1,
-    channel: 0,
-  }));
+const getDuration = (marker: string): number => {
+  switch (marker) {
+    case "|":
+      return TICKS_PER_QUARTER * 4; // whole note
+    case "+":
+      return TICKS_PER_QUARTER * 2; // half note
+    case "_":
+      return TICKS_PER_QUARTER; // quarter note
+    case "-":
+      return TICKS_PER_QUARTER / 2; // eighth note
+    case "=":
+      return TICKS_PER_QUARTER / 4; // sixteenth note
+    default:
+      return TICKS_PER_QUARTER; // default to quarter note
+  }
+};
+
+const convertToMidiNotes = (
+  notes: { pitch: number | null; duration: number }[],
+): Note[] => {
+  let currentTime = 0;
+  return notes
+    .map((note) => {
+      if (note.pitch === null) {
+        // For rests, just advance the time
+        const startTime = currentTime;
+        currentTime += note.duration;
+        return null;
+      }
+
+      const midiNote: Note = {
+        pitch: note.pitch + 60, // Middle C (60) as base
+        velocity: 100,
+        startTime: currentTime,
+        duration: note.duration - 1,
+        channel: 0,
+      };
+      currentTime += note.duration;
+      return midiNote;
+    })
+    .filter((n): n is Note => n !== null);
 };
 
 const Editor: React.FC = () => {
@@ -114,15 +172,15 @@ const Editor: React.FC = () => {
     const text = textareaRef.current.value;
 
     try {
-      const pitches = parseMelodyString(text);
-      if (pitches.length === 0) {
+      const notes = parseMelodyString(text);
+      if (notes.length === 0) {
         return;
       }
       setError(null);
-      const notes = convertToMidiNotes(pitches);
+      const midiNotes = convertToMidiNotes(notes);
 
       const midiResult = generateMidiWithMetadata(
-        { melody: notes, chords: [] },
+        { melody: midiNotes, chords: [] },
         "major",
         0,
         {
@@ -159,16 +217,18 @@ const Editor: React.FC = () => {
       <EditorPanel>
         <h3>Melody Editor</h3>
         <p>
-          Enter melody using scale degrees (1-7) with optional accidentals
-          (b/#).
+          Enter melody using scale degrees (1-7) with optional accidentals (b/#)
+          and durations:
           <br />
-          Press Enter to play.
+          | (whole), + (half), _ (quarter), - (eighth), = (16th)
+          <br />
+          Use space for rests. Press Enter to play.
         </p>
         <MelodyTextArea
           ref={textareaRef}
-          defaultValue="1 2 3 4 5"
+          defaultValue="1_2_3-3-4+5|"
           onKeyDown={handleKeyDown}
-          placeholder="Enter melody (e.g. 1 2 b3 3 4 #4 5)"
+          placeholder="Enter melody (e.g. 1_2_b3-3-4+#4_5|)"
           spellCheck={false}
         />
         {error && <ErrorMessage>{error}</ErrorMessage>}

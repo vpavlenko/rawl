@@ -133,31 +133,15 @@ const Rawl: React.FC<RawlProps> = ({
   isEmbedded = false,
   isHiddenRoute = false,
 }) => {
-  console.log("[Rawl] Rendering with props:", {
-    parsingResult,
-    savedAnalysis,
-    voiceNames,
-    voiceMask,
-    enableManualRemeasuring,
-    latencyCorrectionMs,
-    sourceUrl,
-    measureStart,
-    isEmbedded,
-    isHiddenRoute,
-  });
-
   const { currentMidi, setCurrentMidi, rawlProps, togglePause } =
     useContext(AppContext);
   const slug = currentMidi?.slug || "";
-  console.log("[Rawl] Current slug:", slug);
 
   const [analysis, setAnalysis] = useState<Analysis>(
     savedAnalysis || rawlProps?.savedAnalysis || ANALYSIS_STUB,
   );
-  console.log("[Rawl] Initial analysis state:", analysis);
 
   useEffect(() => {
-    console.log("[Rawl] savedAnalysis changed:", savedAnalysis);
     if (savedAnalysis) {
       setAnalysis(savedAnalysis);
     } else if (rawlProps?.savedAnalysis) {
@@ -167,7 +151,6 @@ const Rawl: React.FC<RawlProps> = ({
 
   const analysisRef = useRef(analysis);
   useEffect(() => {
-    console.log("[Rawl] Analysis updated:", analysis);
     analysisRef.current = analysis;
   }, [analysis]);
 
@@ -175,7 +158,6 @@ const Rawl: React.FC<RawlProps> = ({
 
   const commitAnalysisUpdate = useCallback(
     (analysisUpdate: Partial<Analysis>) => {
-      console.log("[Rawl] Committing analysis update:", analysisUpdate);
       const updatedAnalysis = { ...analysis, ...analysisUpdate };
       saveAnalysis(updatedAnalysis);
       setAnalysis(updatedAnalysis);
@@ -187,28 +169,23 @@ const Rawl: React.FC<RawlProps> = ({
 
   const selectedMeasureRef = useRef(selectedMeasure);
   useEffect(() => {
-    console.log("[Rawl] Selected measure changed:", selectedMeasure);
     selectedMeasureRef.current = selectedMeasure;
   }, [selectedMeasure]);
 
   const { notes } = parsingResult;
-  console.log("[Rawl] Parsed notes:", notes);
   const allNotes = useMemo(() => {
-    console.log("[Rawl] Computing allNotes");
     return notes.flat();
   }, [notes]);
 
   const [hoveredNote, setHoveredNote] = useState<Note | null>(null);
 
   const playNote = useCallback((note: Note) => {
-    console.log("[Rawl] Playing note:", note);
     const duration = note.span[1] - note.span[0];
     playRawMidiNote(note.note.midiNumber, duration * 1000);
   }, []);
 
   const handleMouseEnter = useCallback(
     (note: Note) => {
-      console.log("[Rawl] Mouse enter on note:", note);
       if (!enableManualRemeasuring) {
         if (selectedMeasureRef.current) {
           setHoveredNote(note);
@@ -224,19 +201,12 @@ const Rawl: React.FC<RawlProps> = ({
   );
 
   const handleMouseLeave = useCallback(() => {
-    console.log("[Rawl] Mouse leave");
     if (!enableManualRemeasuring) {
       setHoveredNote(null);
     }
   }, [enableManualRemeasuring]);
 
   const futureAnalysis = useMemo(() => {
-    console.log("[Rawl] Computing futureAnalysis with:", {
-      hoveredNote,
-      selectedMeasure: selectedMeasureRef.current,
-      enableManualRemeasuring,
-      analysis: analysisRef.current,
-    });
     return hoveredNote
       ? getNewAnalysis(
           hoveredNote,
@@ -248,11 +218,6 @@ const Rawl: React.FC<RawlProps> = ({
   }, [hoveredNote, analysis, enableManualRemeasuring]);
 
   const measuresAndBeats = useMemo(() => {
-    console.log("[Rawl] Computing measuresAndBeats with:", {
-      futureAnalysis,
-      allNotes,
-      parsingResult,
-    });
     if (futureAnalysis.measures) {
       return buildManualMeasuresAndBeats(futureAnalysis.measures, allNotes);
     }
@@ -588,13 +553,11 @@ const Rawl: React.FC<RawlProps> = ({
   );
 
   useEffect(() => {
-    console.log("Rawl: measureStart changed", measureStart);
     if (measureStart !== undefined && measuresAndBeats) {
       const absoluteMeasureStart =
         measureStart + (analysis.measureRenumbering?.[1] || 0) - 1;
       const seekTime = measuresAndBeats.measures[absoluteMeasureStart] - 1;
       if (seekTime !== undefined) {
-        console.log("Seeking to time:", seekTime * 1000);
         seek(seekTime * 1000);
       }
     }

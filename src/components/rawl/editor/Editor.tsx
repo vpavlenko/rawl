@@ -14,10 +14,8 @@ type KeySignature = {
 };
 
 type MeasureSpan = {
-  startMeasure: number; // 1-based measure number
-  startBeat: number; // 1-based beat number within measure
-  endMeasure: number; // 1-based measure number
-  endBeat: number; // 1-based beat number within measure
+  start: number; // e.g. 1.5 means measure 1, beat 3 in 4/4
+  end: number; // e.g. 2.0 means measure 2, beat 1 (downbeat)
 };
 
 type LogicalNote = {
@@ -32,6 +30,8 @@ type LogicalNote = {
 type CommandContext = {
   currentKey: KeySignature;
   measureToKey: Map<number, KeySignature>;
+  existingNotes?: LogicalNote[];
+  lastNoteIndex?: number; // Index of last note before current command
 };
 
 type Command =
@@ -142,15 +142,23 @@ const parseKey = (keyString: string): KeySignature | null => {
 };
 
 const parseCopyCommand = (line: string): Command | null => {
-  const match = line.match(/^(\d+)\s+copy\s+(\d+)(?:\s+(-?\d+))*$/);
+  // Match the command format: measure copy source shift1 shift2 ...
+  const match = line.match(/^(\d+)\s+copy\s+(\d+)(\s+-?\d+)*$/);
   if (!match) return null;
 
-  const [_, targetMeasureStr, sourceMeasureStr, ...shiftStrs] = match;
+  const [fullMatch, targetMeasureStr, sourceMeasureStr, shiftsStr] = match;
   const targetMeasure = parseInt(targetMeasureStr);
   const sourceMeasure = parseInt(sourceMeasureStr);
-  const shifts = shiftStrs
-    .filter((s) => s !== undefined)
+
+  // Extract all shifts by matching numbers after the source measure
+  const shifts = fullMatch
+    .slice(fullMatch.indexOf(sourceMeasureStr) + sourceMeasureStr.length)
+    .trim()
+    .split(/\s+/)
+    .filter((s) => s.length > 0)
     .map((s) => parseInt(s));
+
+  console.log("Parsed copy command - shifts:", shifts); // Debug output
 
   return {
     type: "copy",
@@ -176,10 +184,13 @@ const parseCommand = (
     return copyCmd;
   }
 
-  // Parse as note command (existing logic)
-  const notes = parseMelodyString(line, context);
-  if (notes.length > 0) {
-    return { type: "notes", notes };
+  // Parse as note command
+  const match = line.match(/^\s*(\d+)\s+(.+)$/);
+  if (match) {
+    const notes = parseMelodyString(line, context);
+    if (notes.length > 0) {
+      return { type: "notes", notes };
+    }
   }
 
   return null;
@@ -217,78 +228,153 @@ const calculateMidiNumber = (
   return pitch + octaveShift * 12 + 60; // Middle C (60) as base
 };
 
+// Helper to convert measure.beat to decimal position
+const toDecimalPosition = (measure: number, beat: number): number => {
+  return measure + (beat - 1) / 4; // Assuming 4/4 time signature
+};
+
+// Helper to convert decimal position to measure and beat
+const fromDecimalPosition = (
+  position: number,
+): { measure: number; beat: number } => {
+  const measure = Math.floor(position);
+  const beat = 1 + (position - measure) * 4; // Assuming 4/4 time signature
+  return { measure, beat };
+};
+
+// Helper to wrap scale degree shifts to stay within 1-7 range
+const wrapScaleDegree = (degree: number): number => {
+  // Convert to 0-6 range for modulo
+  const normalized = (((degree - 1) % 7) + 7) % 7;
+  // Convert back to 1-7 range
+  return normalized + 1;
+};
+
+// Helper to calculate semitone difference between two scale degrees in a major scale
+const getScaleDegreeDifference = (from: number, to: number): number => {
+  const majorScaleMap = [0, 2, 4, 5, 7, 9, 11];
+  const fromPitch = majorScaleMap[from - 1];
+  const toPitch = majorScaleMap[to - 1];
+
+  // If we're wrapping around downwards (e.g., 1 -> 7), subtract an octave
+  if (to < from && Math.abs(to - from) > 3) {
+    return toPitch - fromPitch - 12;
+  }
+  // If we're wrapping around upwards (e.g., 7 -> 1), add an octave
+  if (to > from && Math.abs(to - from) > 3) {
+    return toPitch - fromPitch + 12;
+  }
+  return toPitch - fromPitch;
+};
+
+// Helper to calculate scale degree shift and resulting MIDI number adjustment
+const calculateShiftedNote = (
+  originalDegree: number,
+  shift: number,
+  originalMidi: number,
+): { newDegree: number; newMidi: number } => {
+  const majorScaleMap = [0, 2, 4, 5, 7, 9, 11];
+
+  // Calculate raw shifted degree (can be negative or > 7)
+  const rawShiftedDegree = originalDegree + shift;
+
+  // Calculate complete octave shifts
+  const octaveShift = Math.floor((rawShiftedDegree - 1) / 7);
+
+  // Get wrapped degree in range 1-7
+  let wrappedDegree = rawShiftedDegree - octaveShift * 7;
+  if (wrappedDegree <= 0) {
+    wrappedDegree += 7;
+  }
+
+  // Calculate semitone difference within the octave
+  const fromPitch = majorScaleMap[originalDegree - 1];
+  const toPitch = majorScaleMap[wrappedDegree - 1];
+  const withinOctaveDiff = toPitch - fromPitch;
+
+  // Total MIDI adjustment is octave shift plus within-octave difference
+  const midiAdjustment = octaveShift * 12 + withinOctaveDiff;
+
+  return {
+    newDegree: wrappedDegree,
+    newMidi: originalMidi + midiAdjustment,
+  };
+};
+
 const handleCommand = (
   command: Command,
   context: CommandContext,
 ): LogicalNote[] => {
   switch (command.type) {
     case "key":
-      // Update context with new key - store for the next measure
       context.currentKey = command.key;
-      // Find the next measure number that doesn't have notes yet
       const nextMeasure =
         Math.max(0, ...Array.from(context.measureToKey.keys())) + 1;
       context.measureToKey.set(nextMeasure, command.key);
       return [];
 
     case "copy": {
-      // Find notes in the source measure
-      const sourceNotes = parseMelodyString(
-        `${command.sourceMeasure} 1_2_3_4_`,
-        context,
-      ).filter((n) => n.span.startMeasure === command.sourceMeasure);
+      // Find source notes
+      const sourceNotes =
+        context.existingNotes?.filter(
+          (n) => Math.floor(n.span.start) === command.sourceMeasure,
+        ) || [];
 
-      // Create copies with shifts
-      return [
-        // First copy is verbatim
-        ...sourceNotes.map((n) => {
-          const newSpan = {
-            startMeasure: command.targetMeasure,
-            startBeat: n.span.startBeat,
-            endMeasure: command.targetMeasure,
-            endBeat: n.span.endBeat,
-          };
-          const key =
-            context.measureToKey.get(command.targetMeasure) ||
-            context.currentKey;
-          return {
-            ...n,
-            span: newSpan,
-            midiNumber: calculateMidiNumber(
+      console.log("Copy command:", command);
+      console.log("Source notes found:", sourceNotes);
+
+      if (sourceNotes.length === 0) {
+        console.warn(
+          `No notes found in measure ${command.sourceMeasure} to copy`,
+        );
+        return [];
+      }
+
+      // Process each shift to its respective target measure
+      const allCopies = command.shifts
+        .map((shift, idx) => {
+          const targetMeasure = command.targetMeasure + idx;
+          console.log(
+            `Processing shift ${shift} to target measure ${targetMeasure}`,
+          );
+
+          // Create shifted copies of the source notes
+          return sourceNotes.map((n) => {
+            if (n.midiNumber === null) {
+              // For rests, just copy with new position
+              return {
+                ...n,
+                span: {
+                  start: n.span.start + (targetMeasure - command.sourceMeasure),
+                  end: n.span.end + (targetMeasure - command.sourceMeasure),
+                },
+              };
+            }
+
+            const { newDegree, newMidi } = calculateShiftedNote(
               n.scaleDegree,
-              n.accidental,
-              n.octaveShift,
-              key,
-            ),
-          };
-        }),
-        // Then apply shifts
-        ...command.shifts.flatMap((shift, idx) =>
-          sourceNotes.map((n) => {
-            const targetMeasure = command.targetMeasure + idx + 1;
-            const newSpan = {
-              startMeasure: targetMeasure,
-              startBeat: n.span.startBeat,
-              endMeasure: targetMeasure,
-              endBeat: n.span.endBeat,
-            };
-            const newScaleDegree = ((n.scaleDegree + shift - 1) % 7) + 1;
-            const key =
-              context.measureToKey.get(targetMeasure) || context.currentKey;
+              shift,
+              n.midiNumber,
+            );
+            console.log(
+              `  Note ${n.scaleDegree} shifted by ${shift} becomes ${newDegree} (MIDI ${n.midiNumber} -> ${newMidi})`,
+            );
+
             return {
               ...n,
-              span: newSpan,
-              scaleDegree: newScaleDegree,
-              midiNumber: calculateMidiNumber(
-                newScaleDegree,
-                n.accidental,
-                n.octaveShift,
-                key,
-              ),
+              span: {
+                start: n.span.start + (targetMeasure - command.sourceMeasure),
+                end: n.span.end + (targetMeasure - command.sourceMeasure),
+              },
+              scaleDegree: newDegree,
+              midiNumber: newMidi,
             };
-          }),
-        ),
-      ];
+          });
+        })
+        .flat();
+
+      console.log("All copies created:", allCopies);
+      return allCopies;
     }
 
     case "notes":
@@ -300,12 +386,9 @@ const parseMelodyString = (
   melodyString: string,
   context: CommandContext,
 ): LogicalNote[] => {
-  // Split into lines and filter out empty lines
   const lines = melodyString.split("\n").filter((line) => line.trim());
 
-  // Process each line
   return lines.flatMap((line) => {
-    // Extract measure number and melody
     const match = line.match(/^\s*(\d+)\s+(.+)$/);
     if (!match) return [];
 
@@ -313,14 +396,12 @@ const parseMelodyString = (
     const startMeasure = parseInt(measureStr);
     const key = context.measureToKey.get(startMeasure) || context.currentKey;
 
-    // Match notes in the melody part
     const notePattern = /(\s+|[v^]?[b#]?[1-7])([|+_\-=])/g;
     const matches = Array.from(melodyPart.matchAll(notePattern));
 
     if (matches.length === 0) return [];
 
-    let currentBeat = 1;
-    const BEATS_PER_MEASURE = 4;
+    let currentPosition = toDecimalPosition(startMeasure, 1);
 
     return matches.map((match) => {
       const [_, noteOrRest, durationMarker] = match;
@@ -328,28 +409,13 @@ const parseMelodyString = (
       const durationInBeats = duration / TICKS_PER_QUARTER;
 
       const span: MeasureSpan = {
-        startMeasure,
-        startBeat: currentBeat,
-        endMeasure: startMeasure,
-        endBeat: currentBeat + durationInBeats,
+        start: currentPosition,
+        end: currentPosition + durationInBeats / 4, // Convert beats to measure fraction
       };
 
-      // Handle measure overflow
-      if (span.endBeat > BEATS_PER_MEASURE + 1) {
-        const extraMeasures = Math.floor(
-          (span.endBeat - 1) / BEATS_PER_MEASURE,
-        );
-        span.endMeasure += extraMeasures;
-        span.endBeat = ((span.endBeat - 1) % BEATS_PER_MEASURE) + 1;
-      }
+      // Update position for next note
+      currentPosition = span.end;
 
-      // Update currentBeat for next note
-      currentBeat = span.endBeat;
-      if (currentBeat > BEATS_PER_MEASURE) {
-        currentBeat = 1;
-      }
-
-      // Handle rests (spaces)
       if (noteOrRest.trim() === "") {
         return {
           scaleDegree: 0,
@@ -420,9 +486,8 @@ const getDuration = (marker: string): number => {
 const logicalNoteToMidi = (note: LogicalNote): Note | null => {
   if (note.midiNumber === null) return null; // Rest
 
-  const startTicks =
-    ((note.span.startMeasure - 1) * 4 + (note.span.startBeat - 1)) *
-    TICKS_PER_QUARTER;
+  const { measure, beat } = fromDecimalPosition(note.span.start);
+  const startTicks = ((measure - 1) * 4 + (beat - 1)) * TICKS_PER_QUARTER;
 
   return {
     pitch: note.midiNumber,
@@ -460,10 +525,8 @@ const Editor: React.FC = () => {
     const text = textareaRef.current.value;
 
     try {
-      // Split into lines and process each line
       const lines = text.split("\n").filter((line) => line.trim());
-
-      let allNotes: LogicalNote[] = [];
+      let score: LogicalNote[] = []; // The final score we're building
       const newContext: CommandContext = {
         currentKey: { ...context.currentKey },
         measureToKey: new Map(context.measureToKey),
@@ -471,21 +534,112 @@ const Editor: React.FC = () => {
 
       for (const line of lines) {
         const command = parseCommand(line, newContext);
-        if (command) {
-          const notes = handleCommand(command, newContext);
-          allNotes = [...allNotes, ...notes];
+        if (!command) continue;
+
+        switch (command.type) {
+          case "key":
+            newContext.currentKey = command.key;
+            const nextMeasure =
+              Math.max(0, ...Array.from(newContext.measureToKey.keys())) + 1;
+            newContext.measureToKey.set(nextMeasure, command.key);
+            break;
+
+          case "notes":
+            // Simply append the notes to our score
+            score = [...score, ...command.notes];
+            break;
+
+          case "copy": {
+            // Find source notes
+            const sourceNotes = score.filter(
+              (n) => Math.floor(n.span.start) === command.sourceMeasure,
+            );
+
+            console.log("Copy command:", command);
+            console.log("Source notes found:", sourceNotes);
+
+            if (sourceNotes.length === 0) {
+              console.warn(
+                `No notes found in measure ${command.sourceMeasure} to copy`,
+              );
+              continue;
+            }
+
+            // Process each shift to its respective target measure
+            const allCopies = command.shifts
+              .map((shift, idx) => {
+                const targetMeasure = command.targetMeasure + idx;
+                console.log(
+                  `Processing shift ${shift} to target measure ${targetMeasure}`,
+                );
+
+                // Create shifted copies of the source notes
+                return sourceNotes.map((n) => {
+                  if (n.midiNumber === null) {
+                    // For rests, just copy with new position
+                    return {
+                      ...n,
+                      span: {
+                        start:
+                          n.span.start +
+                          (targetMeasure - command.sourceMeasure),
+                        end:
+                          n.span.end + (targetMeasure - command.sourceMeasure),
+                      },
+                    };
+                  }
+
+                  const { newDegree, newMidi } = calculateShiftedNote(
+                    n.scaleDegree,
+                    shift,
+                    n.midiNumber,
+                  );
+                  console.log(
+                    `  Note ${n.scaleDegree} shifted by ${shift} becomes ${newDegree} (MIDI ${n.midiNumber} -> ${newMidi})`,
+                  );
+
+                  return {
+                    ...n,
+                    span: {
+                      start:
+                        n.span.start + (targetMeasure - command.sourceMeasure),
+                      end: n.span.end + (targetMeasure - command.sourceMeasure),
+                    },
+                    scaleDegree: newDegree,
+                    midiNumber: newMidi,
+                  };
+                });
+              })
+              .flat();
+
+            console.log("All copies created:", allCopies);
+            score = [...score, ...allCopies];
+            break;
+          }
         }
       }
 
-      if (allNotes.length === 0) {
+      if (score.length === 0) {
         setError("No valid notes found");
         return;
       }
 
+      // Debug output
+      console.log(
+        "All notes:",
+        score.map((n) => ({
+          measure: Math.floor(n.span.start),
+          beat: 1 + (n.span.start - Math.floor(n.span.start)) * 4, // Convert decimal to beat
+          scaleDegree: n.scaleDegree,
+          midiNumber: n.midiNumber,
+          duration: n.duration / TICKS_PER_QUARTER + " beats",
+        })),
+      );
+
       setError(null);
       setContext(newContext);
 
-      const midiNotes = convertToMidiNotes(allNotes);
+      const midiNotes = convertToMidiNotes(score);
       const midiResult = generateMidiWithMetadata(
         midiNotes,
         `melody-${slug}`,
@@ -533,8 +687,8 @@ const Editor: React.FC = () => {
         <MelodyTextArea
           ref={textareaRef}
           defaultValue={`C major
-1 1-2-3-
-2 4-5-6-1_`}
+1 1-5-3-5-1-5-3-5-
+2 copy 1 -3 -2 -4 0 -3 -2 -4`}
           onKeyDown={handleKeyDown}
           spellCheck={false}
         />

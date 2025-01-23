@@ -690,9 +690,9 @@ const Editor: React.FC = () => {
         </p>
         <MelodyTextArea
           ref={textareaRef}
-          defaultValue={`C minor
-1 1_b3_5_b3_
-2 copy 1 -2`}
+          defaultValue={`A minor
+1 1-^1-5-b3-^1-b3-5-b3-
+2 copy 1 0 0 -4 -1 -5 -2 -4 -3 0`}
           onKeyDown={handleKeyDown}
           spellCheck={false}
         />

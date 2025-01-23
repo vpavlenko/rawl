@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import { TICKS_PER_QUARTER } from "../forge/constants";
 import { Note } from "../forge/ForgeGenerator";
-import { generateMidiWithMetadata } from "../forge/ForgeMidi";
 import Rawl from "../Rawl";
+import { generateMidiWithMetadata } from "./EditorMidi";
 
 // Add type declaration at the top of the file
 declare global {
@@ -249,23 +249,13 @@ const Editor: React.FC = () => {
       const midiNotes = convertToMidiNotes(notes);
 
       const midiResult = generateMidiWithMetadata(
-        { melody: midiNotes, chords: [] },
-        "major",
-        0,
-        {
-          mode: "major",
-          bpm: 120,
-          pattern: 0,
-          progression: "CLASSIC",
-          playbackStyle: "arpeggio",
-          tonic: 0,
-          melodyRhythm: "quarter",
-          melodyType: "static",
-        },
+        midiNotes,
+        `melody-${slug}`,
+        120,
       );
 
       if (playSongBuffer) {
-        playSongBuffer(`melody-${slug}`, midiResult.midiData, true);
+        playSongBuffer(midiResult.midiInfo.id, midiResult.midiData, true);
       }
     } catch (e) {
       console.log("Error during playback:", e);

@@ -214,6 +214,7 @@ const calculateMidiNumber = (
   accidental: number | undefined,
   octaveShift: number,
   key: KeySignature,
+  previousMidiNumber: number | null = null,
 ): number | null => {
   if (scaleDegree === 0) return null; // Rest
 
@@ -229,8 +230,34 @@ const calculateMidiNumber = (
   // Apply key signature offset
   pitch = (pitch + key.tonic) % 12;
 
-  // Apply octave shift
-  return pitch + octaveShift * 12 + 60; // Middle C (60) as base
+  // Start with middle C octave
+  let baseNote = pitch + 60;
+
+  // If there's a previous note, find the closest octave
+  if (previousMidiNumber !== null) {
+    // Try octaves up and down to find the smallest interval
+    let bestNote = baseNote;
+    let smallestInterval = Math.abs(baseNote - previousMidiNumber);
+
+    // Check up to 2 octaves up and down
+    for (let octave = -2; octave <= 2; octave++) {
+      const candidateNote = baseNote + octave * 12;
+      const interval = Math.abs(candidateNote - previousMidiNumber);
+      if (interval < smallestInterval) {
+        smallestInterval = interval;
+        bestNote = candidateNote;
+      }
+    }
+
+    baseNote = bestNote;
+  }
+
+  // Apply explicit octave shift after finding closest position
+  if (octaveShift !== 0) {
+    return baseNote + octaveShift * 12;
+  }
+
+  return baseNote;
 };
 
 // Helper to convert measure.beat to decimal position
@@ -307,6 +334,7 @@ const parseMelodyString = (
     if (matches.length === 0) return [];
 
     let currentPosition = toDecimalPosition(startMeasure, 1);
+    let previousMidiNumber: number | null = null;
 
     return matches.map((match) => {
       const [_, noteOrRest, durationMarker] = match;
@@ -353,18 +381,24 @@ const parseMelodyString = (
         };
       }
 
+      const midiNumber = calculateMidiNumber(
+        scaleDegree,
+        accidental,
+        octaveShift,
+        key,
+        previousMidiNumber,
+      );
+
+      // Update previous MIDI number for next iteration
+      previousMidiNumber = midiNumber;
+
       return {
         scaleDegree,
         duration,
         span,
         octaveShift,
         accidental,
-        midiNumber: calculateMidiNumber(
-          scaleDegree,
-          accidental,
-          octaveShift,
-          key,
-        ),
+        midiNumber,
       };
     });
   });
@@ -410,13 +444,13 @@ const Editor: React.FC = () => {
   const { playSongBuffer, rawlProps, analyses } = useContext(AppContext);
   const [melodyText, setMelodyText] = useState(`A minor
 rh
-1 1-^1-5-b3-^1-b3-5-b3-
+1 1-^1-^5-b3-^1-b3-5-b3-
 2 copy 1 0 0 -4 -1 -5 -2 -4 -3 0
 67 1|
 68 copy 67 -4 -1 -5 -2 -4 -3 0
 74 1-
 lh
-3 b3-^b3-2-b3-0-b3-b7-0-
+3 vb3-^b3-2-b3-1-b3-b7-b3-
 5 copy 3 -1`);
   const [context, setContext] = useState<CommandContext>({
     currentKey: { tonic: 0, mode: "major" }, // Default to C major

@@ -27,13 +27,6 @@ type LogicalNote = {
   midiNumber: number | null; // Calculated MIDI number at creation time (null for rests)
 };
 
-type CommandContext = {
-  currentKey: KeySignature;
-  measureToKey: Map<number, KeySignature>;
-  existingNotes?: LogicalNote[];
-  lastNoteIndex?: number; // Index of last note before current command
-};
-
 type Command =
   | { type: "key"; key: KeySignature }
   | { type: "notes"; notes: LogicalNote[] }
@@ -42,7 +35,16 @@ type Command =
       targetMeasure: number;
       sourceMeasure: number;
       shifts: number[]; // Array of diatonic shifts to apply
-    };
+    }
+  | { type: "track"; track: 1 | 2 }; // New command type for track switching
+
+type CommandContext = {
+  currentKey: KeySignature;
+  measureToKey: Map<number, KeySignature>;
+  existingNotes?: LogicalNote[];
+  lastNoteIndex?: number; // Index of last note before current command
+  currentTrack: 1 | 2; // Track 1 for left hand, 2 for right hand
+};
 
 // Add type declaration at the top of the file
 declare global {
@@ -174,6 +176,14 @@ const parseCommand = (
   line: string,
   context: CommandContext,
 ): Command | null => {
+  // Handle track switch commands
+  if (line.trim().toLowerCase() === "lh") {
+    return { type: "track", track: 1 };
+  }
+  if (line.trim().toLowerCase() === "rh") {
+    return { type: "track", track: 2 };
+  }
+
   // Try parsing as key command
   const key = parseKey(line);
   if (key) {
@@ -484,8 +494,8 @@ const getDuration = (marker: string): number => {
   }
 };
 
-// Simplified MIDI conversion that just uses pre-calculated MIDI numbers
-const logicalNoteToMidi = (note: LogicalNote): Note | null => {
+// Modify logicalNoteToMidi to include track information
+const logicalNoteToMidi = (note: LogicalNote, track: number): Note | null => {
   if (note.midiNumber === null) return null; // Rest
 
   const { measure, beat } = fromDecimalPosition(note.span.start);
@@ -496,12 +506,14 @@ const logicalNoteToMidi = (note: LogicalNote): Note | null => {
     velocity: 100,
     startTime: startTicks,
     duration: note.duration - 1,
-    channel: 0,
+    channel: track - 1, // Track 1 uses channel 0, Track 2 uses channel 1
   };
 };
 
 const convertToMidiNotes = (notes: LogicalNote[]): Note[] => {
-  return notes.map(logicalNoteToMidi).filter((n): n is Note => n !== null);
+  return notes
+    .map((n) => logicalNoteToMidi(n, 1))
+    .filter((n): n is Note => n !== null);
 };
 
 const Editor: React.FC = () => {
@@ -512,6 +524,7 @@ const Editor: React.FC = () => {
   const [context, setContext] = useState<CommandContext>({
     currentKey: { tonic: 0, mode: "major" }, // Default to C major
     measureToKey: new Map(),
+    currentTrack: 2, // Default to right hand (track 2)
   });
 
   // Signal to App that this route should not have global shortcuts
@@ -528,10 +541,12 @@ const Editor: React.FC = () => {
 
     try {
       const lines = text.split("\n").filter((line) => line.trim());
-      let score: LogicalNote[] = []; // The final score we're building
+      let scoreTrack1: LogicalNote[] = []; // Left hand score
+      let scoreTrack2: LogicalNote[] = []; // Right hand score
       const newContext: CommandContext = {
         currentKey: { ...context.currentKey },
         measureToKey: new Map(context.measureToKey),
+        currentTrack: context.currentTrack,
       };
 
       for (const line of lines) {
@@ -539,6 +554,10 @@ const Editor: React.FC = () => {
         if (!command) continue;
 
         switch (command.type) {
+          case "track":
+            newContext.currentTrack = command.track;
+            break;
+
           case "key":
             newContext.currentKey = command.key;
             const nextMeasure =
@@ -547,18 +566,19 @@ const Editor: React.FC = () => {
             break;
 
           case "notes":
-            // Simply append the notes to our score
-            score = [...score, ...command.notes];
+            // Add notes to the current track's score
+            if (newContext.currentTrack === 1) {
+              scoreTrack1 = [...scoreTrack1, ...command.notes];
+            } else {
+              scoreTrack2 = [...scoreTrack2, ...command.notes];
+            }
             break;
 
           case "copy": {
-            // Find source notes
-            const sourceNotes = score.filter(
-              (n) => Math.floor(n.span.start) === command.sourceMeasure,
-            );
-
-            console.log("Copy command:", command);
-            console.log("Source notes found:", sourceNotes);
+            // Find source notes from the current track
+            const sourceNotes = (
+              newContext.currentTrack === 1 ? scoreTrack1 : scoreTrack2
+            ).filter((n) => Math.floor(n.span.start) === command.sourceMeasure);
 
             if (sourceNotes.length === 0) {
               console.warn(
@@ -567,18 +587,11 @@ const Editor: React.FC = () => {
               continue;
             }
 
-            // Process each shift to its respective target measure
             const allCopies = command.shifts
               .map((shift, idx) => {
                 const targetMeasure = command.targetMeasure + idx;
-                console.log(
-                  `Processing shift ${shift} to target measure ${targetMeasure}`,
-                );
-
-                // Create shifted copies of the source notes
                 return sourceNotes.map((n) => {
                   if (n.midiNumber === null) {
-                    // For rests, just copy with new position
                     return {
                       ...n,
                       span: {
@@ -598,9 +611,6 @@ const Editor: React.FC = () => {
                     newContext.measureToKey.get(targetMeasure) ||
                       newContext.currentKey,
                   );
-                  console.log(
-                    `  Note ${n.scaleDegree} shifted by ${shift} becomes ${newDegree} (MIDI ${n.midiNumber} -> ${newMidi})`,
-                  );
 
                   return {
                     ...n,
@@ -616,36 +626,38 @@ const Editor: React.FC = () => {
               })
               .flat();
 
-            console.log("All copies created:", allCopies);
-            score = [...score, ...allCopies];
+            // Add copies to the current track's score
+            if (newContext.currentTrack === 1) {
+              scoreTrack1 = [...scoreTrack1, ...allCopies];
+            } else {
+              scoreTrack2 = [...scoreTrack2, ...allCopies];
+            }
             break;
           }
         }
       }
 
-      if (score.length === 0) {
+      if (scoreTrack1.length === 0 && scoreTrack2.length === 0) {
         setError("No valid notes found");
         return;
       }
 
-      // Debug output
-      console.log(
-        "All notes:",
-        score.map((n) => ({
-          measure: Math.floor(n.span.start),
-          beat: 1 + (n.span.start - Math.floor(n.span.start)) * 4, // Convert decimal to beat
-          scaleDegree: n.scaleDegree,
-          midiNumber: n.midiNumber,
-          duration: n.duration / TICKS_PER_QUARTER + " beats",
-        })),
-      );
-
       setError(null);
       setContext(newContext);
 
-      const midiNotes = convertToMidiNotes(score);
+      // Convert both tracks to MIDI notes
+      const midiNotesTrack1 = scoreTrack1
+        .map((n) => logicalNoteToMidi(n, 1))
+        .filter((n): n is Note => n !== null);
+      const midiNotesTrack2 = scoreTrack2
+        .map((n) => logicalNoteToMidi(n, 2))
+        .filter((n): n is Note => n !== null);
+
+      // Combine both tracks
+      const allMidiNotes = [...midiNotesTrack1, ...midiNotesTrack2];
+
       const midiResult = generateMidiWithMetadata(
-        midiNotes,
+        allMidiNotes,
         `melody-${slug}`,
         120,
       );
@@ -686,12 +698,18 @@ const Editor: React.FC = () => {
           <br />
           3. Copy: "11 copy 1 0 -4 -1" (copy measure 1 to 11-13 with shifts)
           <br />
+          4. Tracks: "lh" (left hand), "rh" (right hand)
+          <br />
           Press Cmd+Enter to play.
         </p>
         <MelodyTextArea
           ref={textareaRef}
           defaultValue={`A minor
+rh
 1 1-^1-5-b3-^1-b3-5-b3-
+lh
+1 1_5_
+rh
 2 copy 1 0 0 -4 -1 -5 -2 -4 -3 0`}
           onKeyDown={handleKeyDown}
           spellCheck={false}

@@ -524,9 +524,13 @@ const Editor: React.FC = () => {
   const [melodyText, setMelodyText] = useState(`A minor
 rh
 1 1-^1-5-b3-^1-b3-5-b3-
-2 copy 1 0
+2 copy 1 0 0 -4 -1 -5 -2 -4 -3 0
+67 1|
+68 copy 67 -4 -1 -5 -2 -4 -3 0
+74 1-
 lh
-1 7|`);
+3 b3-^b3-2-b3-0-b3-b7-0-
+5 copy 3 -1`);
   const [context, setContext] = useState<CommandContext>({
     currentKey: { tonic: 0, mode: "major" }, // Default to C major
     measureToKey: new Map(),

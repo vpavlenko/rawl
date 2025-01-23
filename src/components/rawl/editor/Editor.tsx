@@ -521,6 +521,12 @@ const Editor: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
   const { playSongBuffer, rawlProps, analyses } = useContext(AppContext);
+  const [melodyText, setMelodyText] = useState(`A minor
+rh
+1 1-^1-5-b3-^1-b3-5-b3-
+2 copy 1 0
+lh
+1 7|`);
   const [context, setContext] = useState<CommandContext>({
     currentKey: { tonic: 0, mode: "major" }, // Default to C major
     measureToKey: new Map(),
@@ -537,6 +543,17 @@ const Editor: React.FC = () => {
       delete window.__disableGlobalShortcuts;
     };
   }, []);
+
+  // Generate MIDI on initial load
+  React.useEffect(() => {
+    handleMelodyPlayback();
+  }, []);
+
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newText = e.target.value;
+    setMelodyText(newText);
+    handleMelodyPlayback();
+  };
 
   const handleMelodyPlayback = () => {
     if (!textareaRef.current) return;
@@ -709,12 +726,8 @@ const Editor: React.FC = () => {
         </p>
         <MelodyTextArea
           ref={textareaRef}
-          defaultValue={`A minor
-rh
-1 1-^1-5-b3-^1-b3-5-b3-
-2 copy 1 0
-lh
-1 7|`}
+          value={melodyText}
+          onChange={handleTextChange}
           onKeyDown={handleKeyDown}
           spellCheck={false}
         />

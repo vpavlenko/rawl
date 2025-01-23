@@ -247,31 +247,6 @@ const fromDecimalPosition = (
   return { measure, beat };
 };
 
-// Helper to wrap scale degree shifts to stay within 1-7 range
-const wrapScaleDegree = (degree: number): number => {
-  // Convert to 0-6 range for modulo
-  const normalized = (((degree - 1) % 7) + 7) % 7;
-  // Convert back to 1-7 range
-  return normalized + 1;
-};
-
-// Helper to calculate semitone difference between two scale degrees in a major scale
-const getScaleDegreeDifference = (from: number, to: number): number => {
-  const majorScaleMap = [0, 2, 4, 5, 7, 9, 11];
-  const fromPitch = majorScaleMap[from - 1];
-  const toPitch = majorScaleMap[to - 1];
-
-  // If we're wrapping around downwards (e.g., 1 -> 7), subtract an octave
-  if (to < from && Math.abs(to - from) > 3) {
-    return toPitch - fromPitch - 12;
-  }
-  // If we're wrapping around upwards (e.g., 7 -> 1), add an octave
-  if (to > from && Math.abs(to - from) > 3) {
-    return toPitch - fromPitch + 12;
-  }
-  return toPitch - fromPitch;
-};
-
 // Helper to calculate scale degree shift and resulting MIDI number adjustment
 const calculateShiftedNote = (
   originalDegree: number,
@@ -310,88 +285,6 @@ const calculateShiftedNote = (
     newDegree: newDegree + 1, // Convert back to 1-based
     newMidi: originalMidi + semitonesAdjust,
   };
-};
-
-const handleCommand = (
-  command: Command,
-  context: CommandContext,
-): LogicalNote[] => {
-  switch (command.type) {
-    case "key":
-      context.currentKey = command.key;
-      const nextMeasure =
-        Math.max(0, ...Array.from(context.measureToKey.keys())) + 1;
-      context.measureToKey.set(nextMeasure, command.key);
-      return [];
-
-    case "copy": {
-      // Find source notes
-      const sourceNotes =
-        context.existingNotes?.filter(
-          (n) => Math.floor(n.span.start) === command.sourceMeasure,
-        ) || [];
-
-      console.log("Copy command:", command);
-      console.log("Source notes found:", sourceNotes);
-
-      if (sourceNotes.length === 0) {
-        console.warn(
-          `No notes found in measure ${command.sourceMeasure} to copy`,
-        );
-        return [];
-      }
-
-      // Process each shift to its respective target measure
-      const allCopies = command.shifts
-        .map((shift, idx) => {
-          const targetMeasure = command.targetMeasure + idx;
-          console.log(
-            `Processing shift ${shift} to target measure ${targetMeasure}`,
-          );
-
-          // Create shifted copies of the source notes
-          return sourceNotes.map((n) => {
-            if (n.midiNumber === null) {
-              // For rests, just copy with new position
-              return {
-                ...n,
-                span: {
-                  start: n.span.start + (targetMeasure - command.sourceMeasure),
-                  end: n.span.end + (targetMeasure - command.sourceMeasure),
-                },
-              };
-            }
-
-            const { newDegree, newMidi } = calculateShiftedNote(
-              n.scaleDegree,
-              shift,
-              n.midiNumber,
-              context.currentKey,
-            );
-            console.log(
-              `  Note ${n.scaleDegree} shifted by ${shift} becomes ${newDegree} (MIDI ${n.midiNumber} -> ${newMidi})`,
-            );
-
-            return {
-              ...n,
-              span: {
-                start: n.span.start + (targetMeasure - command.sourceMeasure),
-                end: n.span.end + (targetMeasure - command.sourceMeasure),
-              },
-              scaleDegree: newDegree,
-              midiNumber: newMidi,
-            };
-          });
-        })
-        .flat();
-
-      console.log("All copies created:", allCopies);
-      return allCopies;
-    }
-
-    case "notes":
-      return command.notes;
-  }
 };
 
 const parseMelodyString = (
@@ -508,12 +401,6 @@ const logicalNoteToMidi = (note: LogicalNote, track: number): Note | null => {
     duration: note.duration - 1,
     channel: track - 1, // Track 1 uses channel 0, Track 2 uses channel 1
   };
-};
-
-const convertToMidiNotes = (notes: LogicalNote[]): Note[] => {
-  return notes
-    .map((n) => logicalNoteToMidi(n, 1))
-    .filter((n): n is Note => n !== null);
 };
 
 const Editor: React.FC = () => {

@@ -520,12 +520,15 @@ const Editor: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [error, setError] = useState<string | null>(null);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
-  const { playSongBuffer, rawlProps } = useContext(AppContext);
+  const { playSongBuffer, rawlProps, analyses } = useContext(AppContext);
   const [context, setContext] = useState<CommandContext>({
     currentKey: { tonic: 0, mode: "major" }, // Default to C major
     measureToKey: new Map(),
     currentTrack: 2, // Default to right hand (track 2)
   });
+
+  // Get the analysis for this slug if it exists
+  const analysis = analyses[`f/${slug}`];
 
   // Signal to App that this route should not have global shortcuts
   React.useEffect(() => {
@@ -682,7 +685,9 @@ const Editor: React.FC = () => {
 
   return (
     <EditorContainer>
-      <RawlContainer>{rawlProps && <Rawl {...rawlProps} />}</RawlContainer>
+      <RawlContainer>
+        {rawlProps && <Rawl {...rawlProps} savedAnalysis={analysis} />}
+      </RawlContainer>
       <EditorPanel>
         <h3>Melody Editor</h3>
         <p>
@@ -707,10 +712,9 @@ const Editor: React.FC = () => {
           defaultValue={`A minor
 rh
 1 1-^1-5-b3-^1-b3-5-b3-
+2 copy 1 0
 lh
-1 1_5_
-rh
-2 copy 1 0 0 -4 -1 -5 -2 -4 -3 0`}
+1 7|`}
           onKeyDown={handleKeyDown}
           spellCheck={false}
         />

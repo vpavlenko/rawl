@@ -104,6 +104,7 @@ const ErrorMessage = styled.div`
 `;
 
 const parseKey = (keyString: string): KeySignature | null => {
+  // Changed regex to make accidentals optional
   const match = keyString.match(/^([A-G][b#]?)\s+(major|minor)$/i);
   if (!match) return null;
 
@@ -130,6 +131,7 @@ const parseKey = (keyString: string): KeySignature | null => {
     B: 11,
   };
 
+  // Normalize the root note name
   const normalizedRoot = root.replace("b", "b").replace("#", "#");
   const tonic = noteToNumber[normalizedRoot];
 
@@ -209,20 +211,13 @@ const calculateMidiNumber = (
   const majorScaleMap = [0, 2, 4, 5, 7, 9, 11];
   let pitch = majorScaleMap[scaleDegree - 1];
 
-  // Apply accidental if any
+  // Apply accidental if any (this modifies from major scale reference)
   if (accidental) {
     pitch += accidental;
   }
 
   // Apply key signature offset
   pitch = (pitch + key.tonic) % 12;
-
-  // If minor key, adjust scale degrees 3, 6, and 7
-  if (key.mode === "minor") {
-    if (scaleDegree === 3) pitch--;
-    if (scaleDegree === 6) pitch--;
-    if (scaleDegree === 7) pitch--;
-  }
 
   // Apply octave shift
   return pitch + octaveShift * 12 + 60; // Middle C (60) as base
@@ -272,32 +267,38 @@ const calculateShiftedNote = (
   originalDegree: number,
   shift: number,
   originalMidi: number,
+  key: KeySignature,
 ): { newDegree: number; newMidi: number } => {
-  const majorScaleMap = [0, 2, 4, 5, 7, 9, 11];
+  // Map of chromatic steps between scale degrees in minor/major
+  const minorSteps = [2, 1, 2, 2, 1, 2, 2]; // Steps between degrees in minor
+  const majorSteps = [2, 2, 1, 2, 2, 2, 1]; // Steps between degrees in major
+  const steps = key.mode === "major" ? majorSteps : minorSteps;
 
-  // Calculate raw shifted degree (can be negative or > 7)
-  const rawShiftedDegree = originalDegree + shift;
+  // Convert scale degrees to 0-based for arithmetic
+  const zeroBased = originalDegree - 1;
 
-  // Calculate complete octave shifts
-  const octaveShift = Math.floor((rawShiftedDegree - 1) / 7);
+  // Calculate new scale degree (0-based)
+  let newDegree = (((zeroBased + shift) % 7) + 7) % 7;
 
-  // Get wrapped degree in range 1-7
-  let wrappedDegree = rawShiftedDegree - octaveShift * 7;
-  if (wrappedDegree <= 0) {
-    wrappedDegree += 7;
+  // Calculate semitone adjustment by walking through the scale
+  let semitonesAdjust = 0;
+  if (shift > 0) {
+    // Moving up
+    for (let i = 0; i < shift; i++) {
+      const fromDegree = (zeroBased + i) % 7;
+      semitonesAdjust += steps[fromDegree];
+    }
+  } else {
+    // Moving down
+    for (let i = 0; i > shift; i--) {
+      const fromDegree = (((zeroBased + i - 1) % 7) + 7) % 7;
+      semitonesAdjust -= steps[fromDegree];
+    }
   }
 
-  // Calculate semitone difference within the octave
-  const fromPitch = majorScaleMap[originalDegree - 1];
-  const toPitch = majorScaleMap[wrappedDegree - 1];
-  const withinOctaveDiff = toPitch - fromPitch;
-
-  // Total MIDI adjustment is octave shift plus within-octave difference
-  const midiAdjustment = octaveShift * 12 + withinOctaveDiff;
-
   return {
-    newDegree: wrappedDegree,
-    newMidi: originalMidi + midiAdjustment,
+    newDegree: newDegree + 1, // Convert back to 1-based
+    newMidi: originalMidi + semitonesAdjust,
   };
 };
 
@@ -355,6 +356,7 @@ const handleCommand = (
               n.scaleDegree,
               shift,
               n.midiNumber,
+              context.currentKey,
             );
             console.log(
               `  Note ${n.scaleDegree} shifted by ${shift} becomes ${newDegree} (MIDI ${n.midiNumber} -> ${newMidi})`,
@@ -593,6 +595,8 @@ const Editor: React.FC = () => {
                     n.scaleDegree,
                     shift,
                     n.midiNumber,
+                    newContext.measureToKey.get(targetMeasure) ||
+                      newContext.currentKey,
                   );
                   console.log(
                     `  Note ${n.scaleDegree} shifted by ${shift} becomes ${newDegree} (MIDI ${n.midiNumber} -> ${newMidi})`,
@@ -686,9 +690,9 @@ const Editor: React.FC = () => {
         </p>
         <MelodyTextArea
           ref={textareaRef}
-          defaultValue={`C major
-1 1-5-3-5-1-5-3-5-
-2 copy 1 -3 -2 -4 0 -3 -2 -4`}
+          defaultValue={`C minor
+1 1_b3_5_b3_
+2 copy 1 -2`}
           onKeyDown={handleKeyDown}
           spellCheck={false}
         />

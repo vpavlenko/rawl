@@ -338,8 +338,8 @@ const parseMelodyString = (
     const startMeasure = parseInt(measureStr);
     const key = context.currentKey;
 
-    // Updated regex to capture multiple ^ or v characters
-    const notePattern = /(\s+|[v^]+[b#]?[1-7]|[b#]?[1-7])([|+_\-=])/g;
+    // Updated regex to capture multiple ^ or v characters and optional dots after duration markers
+    const notePattern = /(\s+|[v^]+[b#]?[1-7]|[b#]?[1-7])([|+_\-=]\.?)/g;
     const matches = Array.from(melodyPart.matchAll(notePattern));
 
     if (matches.length === 0) return [];
@@ -414,20 +414,36 @@ const parseMelodyString = (
 };
 
 const getDuration = (marker: string): number => {
-  switch (marker) {
+  // Split marker into base duration and dot if present
+  const [baseDuration, dot] = marker.split(".");
+  let duration: number;
+
+  switch (baseDuration) {
     case "|":
-      return TICKS_PER_QUARTER * 4; // whole note
+      duration = TICKS_PER_QUARTER * 4; // whole note
+      break;
     case "+":
-      return TICKS_PER_QUARTER * 2; // half note
+      duration = TICKS_PER_QUARTER * 2; // half note
+      break;
     case "_":
-      return TICKS_PER_QUARTER; // quarter note
+      duration = TICKS_PER_QUARTER; // quarter note
+      break;
     case "-":
-      return TICKS_PER_QUARTER / 2; // eighth note
+      duration = TICKS_PER_QUARTER / 2; // eighth note
+      break;
     case "=":
-      return TICKS_PER_QUARTER / 4; // sixteenth note
+      duration = TICKS_PER_QUARTER / 4; // sixteenth note
+      break;
     default:
-      return TICKS_PER_QUARTER; // default to quarter note
+      duration = TICKS_PER_QUARTER; // default to quarter note
   }
+
+  // If there's a dot, multiply duration by 1.5
+  if (dot === "") {
+    duration = duration * 1.5;
+  }
+
+  return duration;
 };
 
 // Modify logicalNoteToMidi to include track information

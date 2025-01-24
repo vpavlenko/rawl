@@ -22,7 +22,6 @@ type LogicalNote = {
   scaleDegree: number; // 1-7 with optional accidentals (for copying)
   duration: number; // in MIDI ticks
   span: MeasureSpan; // When this note occurs
-  octaveShift: number; // Number of octaves to shift (from ^/v modifiers)
   accidental?: -1 | 0 | 1; // -1 for flat, 1 for sharp (for copying)
   midiNumber: number | null; // Calculated MIDI number at creation time (null for rests)
 };
@@ -233,7 +232,7 @@ const calculateMidiNumber = (
   // Start with middle C octave
   let baseNote = pitch + 60;
 
-  // If there's a previous note, find the closest octave
+  // If there's a previous note, find the closest octave BEFORE applying the octave shift
   if (previousMidiNumber !== null) {
     // Try octaves up and down to find the smallest interval
     let bestNote = baseNote;
@@ -253,11 +252,7 @@ const calculateMidiNumber = (
   }
 
   // Apply explicit octave shift after finding closest position
-  if (octaveShift !== 0) {
-    return baseNote + octaveShift * 12;
-  }
-
-  return baseNote;
+  return baseNote + octaveShift * 12;
 };
 
 // Helper to convert measure.beat to decimal position
@@ -328,7 +323,8 @@ const parseMelodyString = (
     const startMeasure = parseInt(measureStr);
     const key = context.measureToKey.get(startMeasure) || context.currentKey;
 
-    const notePattern = /(\s+|[v^]?[b#]?[1-7])([|+_\-=])/g;
+    // Updated regex to capture multiple ^ or v characters
+    const notePattern = /(\s+|[v^]+[b#]?[1-7]|[b#]?[1-7])([|+_\-=])/g;
     const matches = Array.from(melodyPart.matchAll(notePattern));
 
     if (matches.length === 0) return [];
@@ -354,18 +350,18 @@ const parseMelodyString = (
           scaleDegree: 0,
           duration,
           span,
-          octaveShift: 0,
           midiNumber: null,
         };
       }
 
       const note = noteOrRest;
-      const hasUpOctave = note.startsWith("^");
-      const hasDownOctave = note.startsWith("v");
-      const octaveShift = hasUpOctave ? 1 : hasDownOctave ? -1 : 0;
+      // Count the number of ^ and v characters
+      const upOctaves = (note.match(/\^/g) || []).length;
+      const downOctaves = (note.match(/v/g) || []).length;
+      const octaveShift = upOctaves - downOctaves;
 
       let accidental: -1 | 0 | 1 = 0;
-      const noteWithoutOctave = note.replace(/[v^]/, "");
+      const noteWithoutOctave = note.replace(/[v^]+/, "");
       if (noteWithoutOctave.startsWith("b")) accidental = -1;
       if (noteWithoutOctave.startsWith("#")) accidental = 1;
 
@@ -376,7 +372,6 @@ const parseMelodyString = (
           scaleDegree: 0,
           duration,
           span,
-          octaveShift: 0,
           midiNumber: null,
         };
       }
@@ -396,7 +391,6 @@ const parseMelodyString = (
         scaleDegree,
         duration,
         span,
-        octaveShift,
         accidental,
         midiNumber,
       };

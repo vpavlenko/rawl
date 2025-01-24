@@ -6,6 +6,7 @@ import { TICKS_PER_QUARTER } from "../forge/constants";
 import { Note } from "../forge/ForgeGenerator";
 import Rawl from "../Rawl";
 import { generateMidiWithMetadata } from "./EditorMidi";
+import { scores } from "./scores";
 
 // Types for command handling
 type KeySignature = {
@@ -467,24 +468,7 @@ const Editor: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
   const { playSongBuffer, rawlProps, analyses } = useContext(AppContext);
-  const [melodyText, setMelodyText] = useState(`A minor
-lh
-1 vv1-1-^5-b3-^1-vb3-5-b3-
-2 copy 1 0 0 -4 -1 -5 -2 -4 -3 0
-11 copy 3-10 0 0 0 0 0 0 0
-67 1|
-68 copy 67 -4 -1 -5 -2 -4 -3 0
-67 copy 67-74 7
-74 1-
-rh
-9 ^1_7-6-7_.1-1|
-11 copy 3-10 0 0 0 0 0
-3 ^b3-^b3-2-b3-1-b3-b7-b3-vb6-^b3-v5-^b3-v4-^b3-vb3-^b3-
-5 copy 3-4 -1 -2
-11 ^^b3-vb3-4-b3-5-b3-b6-b3-^b7-vb3-^1-vb3-^2-vb3-^b3-vb3-
-13 copy 11-12 -1 -2
-17 copy 9-10 0
-51 copy 3-18 0`);
+  const [score, setScore] = useState(scores[slug || ""] || "");
   const [context, setContext] = useState<CommandContext>({
     currentKey: { tonic: 0, mode: "major" }, // Default to C major
     currentTrack: 1, // Default to right hand (track 2)
@@ -507,8 +491,8 @@ rh
   }, []);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newText = e.target.value;
-    setMelodyText(newText);
+    const newScore = e.target.value;
+    setScore(newScore);
     handleMelodyPlayback();
   };
 
@@ -665,7 +649,7 @@ rh
         {rawlProps && <Rawl {...rawlProps} savedAnalysis={analysis} />}
       </RawlContainer>
       <EditorPanel>
-        <h3>Melody Editor</h3>
+        <h3>Score Editor</h3>
         <p>
           Commands:
           <br />
@@ -685,7 +669,7 @@ rh
         </p>
         <MelodyTextArea
           ref={textareaRef}
-          value={melodyText}
+          value={score}
           onChange={handleTextChange}
           onKeyDown={handleKeyDown}
           spellCheck={false}

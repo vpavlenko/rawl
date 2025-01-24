@@ -39,7 +39,6 @@ type Command =
 
 type CommandContext = {
   currentKey: KeySignature;
-  measureToKey: Map<number, KeySignature>;
   existingNotes?: LogicalNote[];
   lastNoteIndex?: number; // Index of last note before current command
   currentTrack: 1 | 2; // Track 1 for left hand, 2 for right hand
@@ -321,7 +320,7 @@ const parseMelodyString = (
 
     const [_, measureStr, melodyPart] = match;
     const startMeasure = parseInt(measureStr);
-    const key = context.measureToKey.get(startMeasure) || context.currentKey;
+    const key = context.currentKey;
 
     // Updated regex to capture multiple ^ or v characters
     const notePattern = /(\s+|[v^]+[b#]?[1-7]|[b#]?[1-7])([|+_\-=])/g;
@@ -437,18 +436,17 @@ const Editor: React.FC = () => {
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
   const { playSongBuffer, rawlProps, analyses } = useContext(AppContext);
   const [melodyText, setMelodyText] = useState(`A minor
-rh
+lh
 1 1-^1-^5-b3-^1-b3-5-b3-
 2 copy 1 0 0 -4 -1 -5 -2 -4 -3 0
 67 1|
 68 copy 67 -4 -1 -5 -2 -4 -3 0
 74 1-
-lh
-3 vb3-^b3-2-b3-1-b3-b7-b3-
+rh
+3 vvvb3-^b3-2-b3-1-b3-b7-b3-
 5 copy 3 -1`);
   const [context, setContext] = useState<CommandContext>({
     currentKey: { tonic: 0, mode: "major" }, // Default to C major
-    measureToKey: new Map(),
     currentTrack: 2, // Default to right hand (track 2)
   });
 
@@ -484,7 +482,6 @@ lh
       let scoreTrack2: LogicalNote[] = []; // Right hand score
       const newContext: CommandContext = {
         currentKey: { ...context.currentKey },
-        measureToKey: new Map(context.measureToKey),
         currentTrack: context.currentTrack,
       };
 
@@ -499,9 +496,6 @@ lh
 
           case "key":
             newContext.currentKey = command.key;
-            const nextMeasure =
-              Math.max(0, ...Array.from(newContext.measureToKey.keys())) + 1;
-            newContext.measureToKey.set(nextMeasure, command.key);
             break;
 
           case "notes":
@@ -547,8 +541,7 @@ lh
                     n.scaleDegree,
                     shift,
                     n.midiNumber,
-                    newContext.measureToKey.get(targetMeasure) ||
-                      newContext.currentKey,
+                    newContext.currentKey,
                   );
 
                   return {

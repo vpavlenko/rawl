@@ -231,13 +231,18 @@ const calculateMidiNumber = (
 
   // If there's a previous note, find the closest octave BEFORE applying the octave shift
   if (previousMidiNumber !== null) {
-    // Try octaves up and down to find the smallest interval
+    // Try all possible octaves within MIDI range to find the smallest interval
     let bestNote = baseNote;
     let smallestInterval = Math.abs(baseNote - previousMidiNumber);
 
-    // Check up to 2 octaves up and down
-    for (let octave = -2; octave <= 2; octave++) {
+    // Calculate how many octaves we can go up/down while staying in MIDI range
+    const pitchClass = baseNote % 12;
+    const minOctave = Math.floor(-pitchClass / 12); // To reach 0
+    const maxOctave = Math.floor((127 - pitchClass) / 12); // To reach 127
+
+    for (let octave = minOctave; octave <= maxOctave; octave++) {
       const candidateNote = baseNote + octave * 12;
+      if (candidateNote < 0 || candidateNote > 127) continue; // Safety check
       const interval = Math.abs(candidateNote - previousMidiNumber);
       if (interval < smallestInterval) {
         smallestInterval = interval;
@@ -435,13 +440,13 @@ const Editor: React.FC = () => {
   const { playSongBuffer, rawlProps, analyses } = useContext(AppContext);
   const [melodyText, setMelodyText] = useState(`A minor
 lh
-1 1-^1-^5-b3-^1-b3-5-b3-
+1 vv1-1-^5-b3-^1-vb3-5-b3-
 2 copy 1 0 0 -4 -1 -5 -2 -4 -3 0
 67 1|
 68 copy 67 -4 -1 -5 -2 -4 -3 0
 74 1-
 rh
-3 vb3-^b3-2-b3-1-b3-b7-b3-
+3 ^b3-^b3-2-b3-1-b3-b7-b3-
 5 copy 3 -1`);
   const [context, setContext] = useState<CommandContext>({
     currentKey: { tonic: 0, mode: "major" }, // Default to C major

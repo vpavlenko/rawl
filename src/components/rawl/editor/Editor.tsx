@@ -35,13 +35,13 @@ type Command =
       sourceMeasure: number;
       shifts: number[]; // Array of diatonic shifts to apply
     }
-  | { type: "track"; track: 1 | 2 }; // New command type for track switching
+  | { type: "track"; track: 1 | 2 };
 
 type CommandContext = {
   currentKey: KeySignature;
   existingNotes?: LogicalNote[];
   lastNoteIndex?: number; // Index of last note before current command
-  currentTrack: 1 | 2; // Track 1 for left hand, 2 for right hand
+  currentTrack: 1 | 2; // Track 1 for right hand, 2 for left hand
 };
 
 // Add type declaration at the top of the file
@@ -131,9 +131,7 @@ const parseKey = (keyString: string): KeySignature | null => {
     B: 11,
   };
 
-  // Normalize the root note name
-  const normalizedRoot = root.replace("b", "b").replace("#", "#");
-  const tonic = noteToNumber[normalizedRoot];
+  const tonic = noteToNumber[root];
 
   if (tonic === undefined) return null;
 
@@ -176,10 +174,10 @@ const parseCommand = (
 ): Command | null => {
   // Handle track switch commands
   if (line.trim().toLowerCase() === "lh") {
-    return { type: "track", track: 1 };
+    return { type: "track", track: 2 };
   }
   if (line.trim().toLowerCase() === "rh") {
-    return { type: "track", track: 2 };
+    return { type: "track", track: 1 };
   }
 
   // Try parsing as key command
@@ -426,7 +424,7 @@ const logicalNoteToMidi = (note: LogicalNote, track: number): Note | null => {
     velocity: 100,
     startTime: startTicks,
     duration: note.duration - 1,
-    channel: track - 1, // Track 1 uses channel 0, Track 2 uses channel 1
+    channel: track - 1, // Track 1 (rh) uses channel 1, Track 2 (lh) uses channel 0
   };
 };
 
@@ -443,11 +441,11 @@ lh
 68 copy 67 -4 -1 -5 -2 -4 -3 0
 74 1-
 rh
-3 vvvb3-^b3-2-b3-1-b3-b7-b3-
+3 vb3-^b3-2-b3-1-b3-b7-b3-
 5 copy 3 -1`);
   const [context, setContext] = useState<CommandContext>({
     currentKey: { tonic: 0, mode: "major" }, // Default to C major
-    currentTrack: 2, // Default to right hand (track 2)
+    currentTrack: 1, // Default to right hand (track 2)
   });
 
   // Get the analysis for this slug if it exists
@@ -577,6 +575,7 @@ rh
       setError(null);
       setContext(newContext);
 
+      debugger;
       // Convert both tracks to MIDI notes
       const midiNotesTrack1 = scoreTrack1
         .map((n) => logicalNoteToMidi(n, 1))

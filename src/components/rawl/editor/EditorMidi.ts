@@ -6,6 +6,17 @@ type Track = {
   addTrackName(name: string): void;
   setTempo(tempo: number): void;
   addEvent(event: any): void;
+  setTimeSignature(
+    numerator: number,
+    denominator: number,
+    midiclockspertick: number,
+    notespermidiclock: number,
+  ): Track;
+};
+
+type TimeSignature = {
+  numerator: number;
+  startMeasure: number;
 };
 
 type NoteEventParams = {
@@ -30,6 +41,7 @@ interface MusicalEvent {
   duration: number;
   velocity: number;
   channel: number;
+  measure: number; // Added to track which measure this event belongs to
 }
 
 export interface MidiGenerationResult {
@@ -59,12 +71,15 @@ const convertToMusicalEvents = (notes: Note[]): MusicalEvent[] => {
     duration: number,
     channel: number,
   ) => {
+    // Calculate measure number from startTime (assuming TICKS_PER_QUARTER = 128)
+    const measure = Math.floor(startTime / (128 * 4)) + 1;
     events.push({
       pitches,
       startTick: startTime,
       duration,
       velocity: 100,
       channel,
+      measure,
     });
   };
 
@@ -109,6 +124,7 @@ const convertToMusicalEvents = (notes: Note[]): MusicalEvent[] => {
 const generateMidiFromEvents = (
   events: MusicalEvent[],
   bpm: number,
+  timeSignatures: TimeSignature[],
 ): Uint8Array => {
   // Create separate tracks for each channel
   const tracks = new Map<number, Track>();
@@ -122,6 +138,15 @@ const generateMidiFromEvents = (
         track.addTrackName("Chords");
       }
       track.setTempo(bpm);
+
+      // Add time signatures to the track
+      timeSignatures.forEach((ts, index) => {
+        // Only add time signature if it affects this event's measure
+        if (ts.startMeasure <= event.measure) {
+          track.setTimeSignature(ts.numerator, 4, 24, 8);
+        }
+      });
+
       tracks.set(event.channel, track);
     }
 
@@ -151,9 +176,13 @@ const generateMidiFromEvents = (
 };
 
 // Main MIDI generation function now uses the two-step process
-export const generateMidiFile = (notes: Note[], bpm: number): Uint8Array => {
+export const generateMidiFile = (
+  notes: Note[],
+  bpm: number,
+  timeSignatures: TimeSignature[],
+): Uint8Array => {
   const musicalEvents = convertToMusicalEvents(notes);
-  return generateMidiFromEvents(musicalEvents, bpm);
+  return generateMidiFromEvents(musicalEvents, bpm, timeSignatures);
 };
 
 export const generateInitialAnalysis = (title: string): Analysis => {
@@ -173,8 +202,9 @@ export const generateMidiWithMetadata = (
   notes: Note[],
   title: string,
   bpm: number,
+  timeSignatures: TimeSignature[],
 ): MidiGenerationResult => {
-  const midiData = generateMidiFile(notes, bpm);
+  const midiData = generateMidiFile(notes, bpm, timeSignatures);
 
   return {
     midiData,

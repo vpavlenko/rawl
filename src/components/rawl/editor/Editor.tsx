@@ -27,6 +27,11 @@ type LogicalNote = {
   midiNumber: number | null; // Calculated MIDI number at creation time (null for rests)
 };
 
+type TimeSignature = {
+  numerator: number;
+  startMeasure: number;
+};
+
 type Command =
   | { type: "key"; key: KeySignature }
   | { type: "notes"; notes: LogicalNote[] }
@@ -37,13 +42,15 @@ type Command =
       sourceEnd: number;
       shifts: number[]; // Array of diatonic shifts to apply
     }
-  | { type: "track"; track: 1 | 2 };
+  | { type: "track"; track: 1 | 2 }
+  | { type: "timeSignature"; timeSignatures: TimeSignature[] };
 
 type CommandContext = {
   currentKey: KeySignature;
   existingNotes?: LogicalNote[];
   lastNoteIndex?: number; // Index of last note before current command
   currentTrack: 1 | 2; // Track 1 for right hand, 2 for left hand
+  timeSignatures: TimeSignature[]; // Array of time signatures in effect
 };
 
 // Add type declaration at the top of the file
@@ -182,10 +189,44 @@ const parseCopyCommand = (line: string): Command | null => {
   };
 };
 
+const parseTimeSignature = (line: string): Command | null => {
+  // Match time signature grid format
+  const parts = line.trim().split(/\s+/);
+  const timeSignatures: TimeSignature[] = [];
+  let currentMeasure = 1;
+
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i];
+    if (part.includes("/")) {
+      // Parse time signature (e.g. "3/4")
+      const [numerator] = part.split("/");
+      timeSignatures.push({
+        numerator: parseInt(numerator),
+        startMeasure: currentMeasure,
+      });
+    } else if (/^\d+$/.test(part)) {
+      // Next measure number
+      currentMeasure = parseInt(part);
+    }
+  }
+
+  return timeSignatures.length > 0
+    ? { type: "timeSignature", timeSignatures }
+    : null;
+};
+
 const parseCommand = (
   line: string,
   context: CommandContext,
 ): Command | null => {
+  // Try parsing as time signature first (if it's the first line)
+  if (line.includes("/")) {
+    const timeSignatureCmd = parseTimeSignature(line);
+    if (timeSignatureCmd) {
+      return timeSignatureCmd;
+    }
+  }
+
   // Handle track switch commands
   if (line.trim().toLowerCase() === "lh") {
     return { type: "track", track: 2 };
@@ -271,17 +312,48 @@ const calculateMidiNumber = (
   return baseNote + octaveShift * 12;
 };
 
-// Helper to convert measure.beat to decimal position
-const toDecimalPosition = (measure: number, beat: number): number => {
-  return measure + (beat - 1) / 4; // Assuming 4/4 time signature
+// Helper to get time signature for a given measure
+const getTimeSignatureForMeasure = (
+  measure: number,
+  timeSignatures: TimeSignature[],
+): number => {
+  // Default to 4/4 if no time signatures or measure before first time signature
+  if (timeSignatures.length === 0 || measure < timeSignatures[0].startMeasure) {
+    return 4;
+  }
+
+  // Find the last time signature that starts before or at this measure
+  for (let i = timeSignatures.length - 1; i >= 0; i--) {
+    if (timeSignatures[i].startMeasure <= measure) {
+      return timeSignatures[i].numerator;
+    }
+  }
+
+  return 4; // Default to 4/4 if no matching time signature found
 };
 
-// Helper to convert decimal position to measure and beat
+// Helper to convert measure.beat to decimal position with time signatures
+const toDecimalPosition = (
+  measure: number,
+  beat: number,
+  timeSignatures: TimeSignature[],
+): number => {
+  let position = measure;
+  const beatsPerMeasure = getTimeSignatureForMeasure(measure, timeSignatures);
+  // Each beat takes up 1/beatsPerMeasure of the measure
+  position += (beat - 1) / beatsPerMeasure;
+  return position;
+};
+
+// Helper to convert decimal position to measure and beat with time signatures
 const fromDecimalPosition = (
   position: number,
+  timeSignatures: TimeSignature[],
 ): { measure: number; beat: number } => {
   const measure = Math.floor(position);
-  const beat = 1 + (position - measure) * 4; // Assuming 4/4 time signature
+  const beatsPerMeasure = getTimeSignatureForMeasure(measure, timeSignatures);
+  // Convert decimal position back to beat number
+  const beat = 1 + (position - measure) * beatsPerMeasure;
   return { measure, beat };
 };
 
@@ -339,23 +411,26 @@ const parseMelodyString = (
     const startMeasure = parseInt(measureStr);
     const key = context.currentKey;
 
-    // Updated regex to capture multiple ^ or v characters and optional dots after duration markers
     const notePattern = /(\s+|[v^]+[b#]?[1-7]|[b#]?[1-7])([|+_\-=]\.?)/g;
     const matches = Array.from(melodyPart.matchAll(notePattern));
 
     if (matches.length === 0) return [];
 
-    let currentPosition = toDecimalPosition(startMeasure, 1);
+    let currentPosition = startMeasure;
     let previousMidiNumber: number | null = null;
 
     return matches.map((match) => {
       const [_, noteOrRest, durationMarker] = match;
       const duration = getDuration(durationMarker);
       const durationInBeats = duration / TICKS_PER_QUARTER;
+      const beatsPerMeasure = getTimeSignatureForMeasure(
+        Math.floor(currentPosition),
+        context.timeSignatures,
+      );
 
       const span: MeasureSpan = {
         start: currentPosition,
-        end: currentPosition + durationInBeats / 4, // Convert beats to measure fraction
+        end: currentPosition + durationInBeats / beatsPerMeasure,
       };
 
       // Update position for next note
@@ -371,7 +446,6 @@ const parseMelodyString = (
       }
 
       const note = noteOrRest;
-      // Count the number of ^ and v characters
       const upOctaves = (note.match(/\^/g) || []).length;
       const downOctaves = (note.match(/v/g) || []).length;
       const octaveShift = upOctaves - downOctaves;
@@ -400,7 +474,6 @@ const parseMelodyString = (
         previousMidiNumber,
       );
 
-      // Update previous MIDI number for next iteration
       previousMidiNumber = midiNumber;
 
       return {
@@ -447,20 +520,45 @@ const getDuration = (marker: string): number => {
   return duration;
 };
 
-// Modify logicalNoteToMidi to include track information
-const logicalNoteToMidi = (note: LogicalNote, track: number): Note | null => {
+// Modify logicalNoteToMidi to include track information and time signatures
+const logicalNoteToMidi = (
+  note: LogicalNote,
+  track: number,
+  timeSignatures: TimeSignature[],
+): Note | null => {
   if (note.midiNumber === null) return null; // Rest
 
-  const { measure, beat } = fromDecimalPosition(note.span.start);
-  const startTicks = ((measure - 1) * 4 + (beat - 1)) * TICKS_PER_QUARTER;
+  const { measure, beat } = fromDecimalPosition(
+    note.span.start,
+    timeSignatures,
+  );
 
-  return {
+  // Calculate total ticks by accumulating all previous measures' ticks
+  let startTicks = 0;
+  for (let m = 1; m < measure; m++) {
+    const beatsInMeasure = getTimeSignatureForMeasure(m, timeSignatures);
+    startTicks += beatsInMeasure * TICKS_PER_QUARTER;
+  }
+  // Add ticks for the current measure
+  startTicks += (beat - 1) * TICKS_PER_QUARTER;
+
+  const result = {
     pitch: note.midiNumber,
     velocity: 100,
     startTime: startTicks,
     duration: note.duration - 1,
-    channel: track - 1, // Track 1 (rh) uses channel 1, Track 2 (lh) uses channel 0
+    channel: track - 1,
   };
+
+  console.log(`Note: Track ${track}, Measure ${measure}, Beat ${beat}`);
+  console.log(
+    `  Span: ${note.span.start.toFixed(3)} to ${note.span.end.toFixed(3)}`,
+  );
+  console.log(
+    `  MIDI: pitch=${result.pitch}, start=${result.startTime}, duration=${result.duration}`,
+  );
+
+  return result;
 };
 
 const Editor: React.FC = () => {
@@ -469,34 +567,33 @@ const Editor: React.FC = () => {
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
   const { playSongBuffer, rawlProps, analyses } = useContext(AppContext);
   const [score, setScore] = useState(scores[slug || ""] || "");
-  const [context, setContext] = useState<CommandContext>({
+  const [editorContext, setEditorContext] = useState<CommandContext>({
     currentKey: { tonic: 0, mode: "major" }, // Default to C major
-    currentTrack: 1, // Default to right hand (track 2)
+    currentTrack: 1, // Default to right hand
+    timeSignatures: [], // Start with no time signatures (defaults to 4/4)
   });
+
+  // Keep a ref to the latest context to avoid dependency cycles
+  const contextRef = React.useRef(editorContext);
+  React.useEffect(() => {
+    contextRef.current = editorContext;
+  }, [editorContext]);
 
   // Get the analysis for this slug if it exists
   const analysis = analyses[`f/${slug}`];
 
   // Signal to App that this route should not have global shortcuts
   React.useEffect(() => {
+    console.log("Setting up global shortcuts effect");
     window.__disableGlobalShortcuts = true;
     return () => {
+      console.log("Cleaning up global shortcuts effect");
       delete window.__disableGlobalShortcuts;
     };
   }, []);
 
-  // Generate MIDI on initial load
-  React.useEffect(() => {
-    handleMelodyPlayback();
-  }, []);
-
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newScore = e.target.value;
-    setScore(newScore);
-    handleMelodyPlayback();
-  };
-
-  const handleMelodyPlayback = () => {
+  const handleMelodyPlayback = React.useCallback(() => {
+    console.log("handleMelodyPlayback called");
     if (!textareaRef.current) return;
     const text = textareaRef.current.value;
 
@@ -505,15 +602,22 @@ const Editor: React.FC = () => {
       let scoreTrack1: LogicalNote[] = []; // Left hand score
       let scoreTrack2: LogicalNote[] = []; // Right hand score
       const newContext: CommandContext = {
-        currentKey: { ...context.currentKey },
-        currentTrack: context.currentTrack,
+        currentKey: { ...contextRef.current.currentKey },
+        currentTrack: contextRef.current.currentTrack,
+        timeSignatures: [...contextRef.current.timeSignatures],
       };
 
       for (const line of lines) {
+        console.log("Processing line:", line);
         const command = parseCommand(line, newContext);
         if (!command) continue;
 
+        console.log("Parsed command:", command);
         switch (command.type) {
+          case "timeSignature":
+            newContext.timeSignatures = command.timeSignatures;
+            break;
+
           case "track":
             newContext.currentTrack = command.track;
             break;
@@ -531,7 +635,7 @@ const Editor: React.FC = () => {
             }
             break;
 
-          case "copy": {
+          case "copy":
             // Find source notes from the current track
             const sourceNotes = (
               newContext.currentTrack === 1 ? scoreTrack1 : scoreTrack2
@@ -595,7 +699,6 @@ const Editor: React.FC = () => {
               scoreTrack2 = [...scoreTrack2, ...allCopies];
             }
             break;
-          }
         }
       }
 
@@ -605,27 +708,30 @@ const Editor: React.FC = () => {
       }
 
       setError(null);
-      setContext(newContext);
+      console.log("Setting new context:", newContext);
+      setEditorContext(newContext);
 
-      debugger;
       // Convert both tracks to MIDI notes
       const midiNotesTrack1 = scoreTrack1
-        .map((n) => logicalNoteToMidi(n, 1))
+        .map((n) => logicalNoteToMidi(n, 1, newContext.timeSignatures))
         .filter((n): n is Note => n !== null);
       const midiNotesTrack2 = scoreTrack2
-        .map((n) => logicalNoteToMidi(n, 2))
+        .map((n) => logicalNoteToMidi(n, 2, newContext.timeSignatures))
         .filter((n): n is Note => n !== null);
 
       // Combine both tracks
       const allMidiNotes = [...midiNotesTrack1, ...midiNotesTrack2];
 
+      console.log("Generating MIDI with metadata");
       const midiResult = generateMidiWithMetadata(
         allMidiNotes,
         `melody-${slug}`,
         120,
+        newContext.timeSignatures,
       );
 
       if (playSongBuffer) {
+        console.log("Playing song buffer");
         playSongBuffer(midiResult.midiInfo.id, midiResult.midiData, true);
       }
     } catch (e) {
@@ -634,10 +740,18 @@ const Editor: React.FC = () => {
         e instanceof Error ? e.message : "Unknown error during playback",
       );
     }
+  }, [playSongBuffer, slug]); // Removed editorContext from dependencies
+
+  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    console.log("Text changed");
+    const newScore = e.target.value;
+    setScore(newScore);
+    handleMelodyPlayback();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
+      console.log("Cmd+Enter pressed");
       e.preventDefault();
       handleMelodyPlayback();
     }
@@ -653,17 +767,19 @@ const Editor: React.FC = () => {
         <p>
           Commands:
           <br />
-          1. Notes: Start line with measure number, then use scale degrees (1-7)
+          1. Time Signatures: Start with "N/4" (e.g. "3/4 13 4/4 19 3/4")
+          <br />
+          2. Notes: Start line with measure number, then use scale degrees (1-7)
           <br />
           Durations: | (whole), + (half), _ (quarter), - (eighth), = (16th)
           <br />
           Modifiers: ^ (octave up), v (octave down), b/# (flat/sharp)
           <br />
-          2. Key changes: "C major", "Ab minor", "F# major"
+          3. Key changes: "C major", "Ab minor", "F# major"
           <br />
-          3. Copy: "11 copy 1 0 -4 -1" (copy measure 1 to 11-13 with shifts)
+          4. Copy: "11 copy 1 0 -4 -1" (copy measure 1 to 11-13 with shifts)
           <br />
-          4. Tracks: "lh" (left hand), "rh" (right hand)
+          5. Tracks: "lh" (left hand), "rh" (right hand)
           <br />
           Press Cmd+Enter to play.
         </p>

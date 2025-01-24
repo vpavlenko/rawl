@@ -32,7 +32,8 @@ type Command =
   | {
       type: "copy";
       targetMeasure: number;
-      sourceMeasure: number;
+      sourceStart: number;
+      sourceEnd: number;
       shifts: number[]; // Array of diatonic shifts to apply
     }
   | { type: "track"; track: 1 | 2 };
@@ -142,28 +143,40 @@ const parseKey = (keyString: string): KeySignature | null => {
 };
 
 const parseCopyCommand = (line: string): Command | null => {
-  // Match the command format: measure copy source shift1 shift2 ...
-  const match = line.match(/^(\d+)\s+copy\s+(\d+)(\s+-?\d+)*$/);
+  // Match the command format: measure copy source-end shift1 shift2 ...
+  // source can be either a single number or a range like "3-4"
+  const match = line.match(
+    /^(\d+)\s+copy\s+(\d+(?:-\d+)?)\s+(-?\d+(?:\s+-?\d+)*)?$/,
+  );
   if (!match) return null;
 
-  const [fullMatch, targetMeasureStr, sourceMeasureStr, shiftsStr] = match;
+  const [fullMatch, targetMeasureStr, sourceStr, shiftsStr] = match;
   const targetMeasure = parseInt(targetMeasureStr);
-  const sourceMeasure = parseInt(sourceMeasureStr);
 
-  // Extract all shifts by matching numbers after the source measure
-  const shifts = fullMatch
-    .slice(fullMatch.indexOf(sourceMeasureStr) + sourceMeasureStr.length)
+  // Parse source measure(s)
+  let sourceStart: number;
+  let sourceEnd: number;
+  if (sourceStr.includes("-")) {
+    const [start, end] = sourceStr.split("-").map(Number);
+    sourceStart = start;
+    sourceEnd = end + 1; // Increment end by 1 to get actual slice coordinates
+  } else {
+    sourceStart = parseInt(sourceStr);
+    sourceEnd = sourceStart + 1;
+  }
+
+  // Extract all shifts by matching numbers
+  const shifts = (shiftsStr || "")
     .trim()
     .split(/\s+/)
-    .filter((s) => s.length > 0)
-    .map((s) => parseInt(s));
-
-  console.log("Parsed copy command - shifts:", shifts); // Debug output
+    .filter(Boolean)
+    .map(Number);
 
   return {
     type: "copy",
     targetMeasure,
-    sourceMeasure,
+    sourceStart,
+    sourceEnd,
     shifts,
   };
 };
@@ -442,12 +455,13 @@ const Editor: React.FC = () => {
 lh
 1 vv1-1-^5-b3-^1-vb3-5-b3-
 2 copy 1 0 0 -4 -1 -5 -2 -4 -3 0
+11 copy 3-10 0 0 0 0 0 0 0
 67 1|
 68 copy 67 -4 -1 -5 -2 -4 -3 0
 74 1-
 rh
-3 ^b3-^b3-2-b3-1-b3-b7-b3-
-5 copy 3 -1`);
+3 ^b3-^b3-2-b3-1-b3-b7-b3-vb6-^b3-v5-^b3-v4-^b3-vb3-^b3-
+5 copy 3-4 -1 -2`);
   const [context, setContext] = useState<CommandContext>({
     currentKey: { tonic: 0, mode: "major" }, // Default to C major
     currentTrack: 1, // Default to right hand (track 2)
@@ -514,28 +528,34 @@ rh
             // Find source notes from the current track
             const sourceNotes = (
               newContext.currentTrack === 1 ? scoreTrack1 : scoreTrack2
-            ).filter((n) => Math.floor(n.span.start) === command.sourceMeasure);
+            ).filter(
+              (n) =>
+                Math.floor(n.span.start) >= command.sourceStart &&
+                Math.floor(n.span.end) <= command.sourceEnd,
+            );
 
             if (sourceNotes.length === 0) {
               console.warn(
-                `No notes found in measure ${command.sourceMeasure} to copy`,
+                `No notes found in measure ${command.sourceStart} to ${command.sourceEnd} to copy`,
               );
               continue;
             }
 
+            // Calculate the length of the source span
+            const spanLength = command.sourceEnd - command.sourceStart;
+
             const allCopies = command.shifts
               .map((shift, idx) => {
-                const targetMeasure = command.targetMeasure + idx;
+                // Each copy block starts after previous blocks
+                const targetMeasure = command.targetMeasure + idx * spanLength;
                 return sourceNotes.map((n) => {
                   if (n.midiNumber === null) {
                     return {
                       ...n,
                       span: {
                         start:
-                          n.span.start +
-                          (targetMeasure - command.sourceMeasure),
-                        end:
-                          n.span.end + (targetMeasure - command.sourceMeasure),
+                          n.span.start + (targetMeasure - command.sourceStart),
+                        end: n.span.end + (targetMeasure - command.sourceStart),
                       },
                     };
                   }
@@ -551,8 +571,8 @@ rh
                     ...n,
                     span: {
                       start:
-                        n.span.start + (targetMeasure - command.sourceMeasure),
-                      end: n.span.end + (targetMeasure - command.sourceMeasure),
+                        n.span.start + (targetMeasure - command.sourceStart),
+                      end: n.span.end + (targetMeasure - command.sourceStart),
                     },
                     scaleDegree: newDegree,
                     midiNumber: newMidi,

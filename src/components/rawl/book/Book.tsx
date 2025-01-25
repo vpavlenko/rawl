@@ -181,7 +181,7 @@ const ComposerListColumn = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 0.5em 3em;
+  gap: 0 3em;
   font-size: 13px;
   align-items: start;
   align-content: flex-start;

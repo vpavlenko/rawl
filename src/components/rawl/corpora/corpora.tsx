@@ -580,6 +580,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic, Orchestral",
     country: "United Kingdom", // Edward Elgar was British.
   },
+
   {
     slug: "toshio_kai",
     midis: ["pacman"],
@@ -5327,6 +5328,18 @@ export const corpora: CorpusEntry[] = [
       "coup-de-coeur-coup-de-coeur-serenade-de-l-etoile--richard-clayderman",
       "les-oiseaux-tristes-du-zuiderzee",
       "triste-coeur",
+      "les-jours-triste",
+      "concerto-pour-une-jeune-fille-nommee-je-t-aime",
+      "la-fuite-du-temps-by-richard-clayderman-for-piano",
+      "hungarian-sonata---paul-de-senneville",
+      "voyage-a-venice---richard-clayderman",
+      "couleur-tendresse",
+      "revivre-sa-vie--richard-clayderman",
+      "eden-is-a-magic-world---paul-de-senneville-and-oliver-toussaint",
+      "promenade-dans-les-bois",
+      "murmures-murmullos",
+      "concerto-la-madrague----paul-de-senneville-jean-baudlot",
+      "le-deuxieme-slow----paul-de-senneville-jean-baudlot",
     ],
     composerBirthYear: 1933,
     genre: "Easy Listening, Intrumental Pop", // Known for his romantic and easy-listening style
@@ -5448,6 +5461,7 @@ export const corpora: CorpusEntry[] = [
     slug: "brad_breeck",
     midis: [
       "Gravity_Falls_Opening",
+      "gravity-falls---weirdmageddon-theme",
       "eda-s-requiem---brad-breeck-piano",
       "we-ll-meet-again---gravity-falls",
     ],
@@ -5589,6 +5603,70 @@ export const corpora: CorpusEntry[] = [
     genre: "Rock",
   },
   { slug: "adele", midis: ["someone-like-you", "easy-on-me---adele"] },
+  {
+    slug: "hans_zimmer",
+    midis: [
+      "Interstellar",
+      "molossus---batman-begins",
+      "eptesicus---batman-begins",
+      "antrozous---batman-begins",
+    ],
+  },
+  { slug: "bo_en", midis: ["bo-en---my-time", "tussle-among-trees---bo-en"] },
+  {
+    slug: "pedro_silva",
+    midis: [
+      "Omori_Duet",
+      "omori---gator-gambol---ost-no.-103---pedro-silva",
+      "omori---sugar-star-planetarium---ost-no.-21---pedro-silva",
+    ],
+  },
+  {
+    slug: "toshio_masuda",
+    midis: [
+      "sadness-and-sorrow-for-piano-solo",
+      "afternoon-of-konoha---toshio-masuda",
+      "tenten-s-theme---naruto",
+      "the-raising-fighting-spirit---toshio-masuda---jarvis-phan",
+      "gaara-s-childhood-theme---toshio-masuda",
+    ],
+  },
+  {
+    slug: "dan_salvato",
+    midis: [
+      "doki-doki-literature-club-ost---your-reality",
+      "okay-everyone---dan-salvato-okay-everyone",
+      "my-confession---dan-salvato-my-confession-ddlc",
+      "ohayou-sayori---dan-salvato-ohayou-sayori-ddlc",
+      "play-with-me---dan-salvato---doki-doki-literature-club",
+    ],
+  },
+  {
+    slug: "clint_mansell",
+    midis: [
+      "Requiem_for_a_Dream",
+      "dying-dream-arrangement-by-reik",
+      "the-last-man-by-clint-mansell",
+      "leaving-earth---mass-effect-3",
+      "first-sleep---clint-mansell",
+      "memories-someone-we-ll-never-know",
+    ],
+  },
+  {
+    slug: "yann_tiersen",
+    midis: [
+      "Yann_Tiersen_Amelie",
+      "rue-des-cascades---yann-tiersen",
+      "tiersen-yann----j-y-suis-jamais-alle",
+      "les-jours-triste",
+      "la-valse-d-amelie-piano",
+      "la-noyee---yann-tiersen-la-noyee",
+      "a-quai---yann-tiersen",
+      "le-moulin---yann-tiersen",
+
+      "l-autre-valse-d-amelie---yann-tiersen-l-autre-valse-d-amelie",
+    ],
+  },
   {
     slug: MUSESCORE_TOP_100_SLUG,
     posttext: AboutTop100Corpus,
@@ -5747,7 +5825,12 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "erik_satie",
-    midis: ["satie-e.---gnossienne-no.-1", "Gymnopdie_No._1__Satie"],
+    midis: [
+      "satie-e.---gnossienne-no.-1",
+      "gnossienne-no.-2-dery",
+      "gnossienne-no.-3-dery",
+      "Gymnopdie_No._1__Satie",
+    ],
     composerBirthYear: 1866,
     genre: "Classical",
     style: "Romantic",
@@ -6026,6 +6109,9 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "haydn",
     midis: [
+      "haydn_piano_sonata_c_major_xvi_7_1",
+      "haydn_piano_sonata_c_major_xvi_7_2",
+      "haydn_piano_sonata_c_major_xvi_7_3",
       "sonata_in_e_minor_hob_xvi_34_joseph_haydn_piano_sonata_hob_xvi_34_2_adagio",
       "string_quartet_in_g_major_hob_iii_75_op_76_no_1_joseph_haydn",
       "haydn_100_1",

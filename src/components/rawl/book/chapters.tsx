@@ -1486,7 +1486,6 @@ export const CHAPTERS: Array<{
       "Love_Like_You_Steven_Universe",
       "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night",
       "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
-      "mii-channel-piano",
     ],
   },
   {
@@ -1544,6 +1543,7 @@ export const CHAPTERS: Array<{
       </>
     ),
     composers: [
+      "mii-channel-piano",
       "Liebestraum_No._3_in_A_Major",
       "dance-of-the-sugar-plum-fairy",
     ],

@@ -107,7 +107,7 @@ export const PianoLegend: React.FC<{
   const playNote = (note: number) => {
     if (!inline && enabledPitches.includes(note)) {
       const transposedNote = note + currentTonic;
-      playArpeggiatedChord([transposedNote]);
+      playArpeggiatedChord([transposedNote], false);
       setPlayingNotes(new Set([...playingNotes, note]));
       setTimeout(() => {
         setPlayingNotes((prev) => {

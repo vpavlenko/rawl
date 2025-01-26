@@ -166,19 +166,25 @@ const C3_MIDI_NUMBER = 48;
 let activeEvents: number[] = [];
 let activeNotes: string[] = [];
 
-export const playArpeggiatedChord = async (chordNumbers: number[]) => {
+export const playArpeggiatedChord = async (
+  chordNumbers: number[],
+  cancelPreviousSounds = true,
+) => {
   await ensureSamplerLoaded();
 
-  // 1. Stop all currently playing sounds immediately
-  sampler.releaseAll(0);
+  // Only cancel previous sounds if explicitly requested
+  if (cancelPreviousSounds) {
+    // 1. Stop all currently playing sounds immediately
+    sampler.releaseAll(0);
 
-  // 2. Clear all scheduled events
-  activeEvents.forEach((id) => Tone.Transport.clear(id));
-  Tone.Transport.cancel();
+    // 2. Clear all scheduled events
+    activeEvents.forEach((id) => Tone.Transport.clear(id));
+    Tone.Transport.cancel();
 
-  // 3. Reset our tracking arrays
-  activeEvents = [];
-  activeNotes = [];
+    // 3. Reset our tracking arrays
+    activeEvents = [];
+    activeNotes = [];
+  }
 
   // 4. Convert to MIDI notes starting from C3
   const midiNotes = chordNumbers.map((note) => C3_MIDI_NUMBER + note);

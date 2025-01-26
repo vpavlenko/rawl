@@ -178,6 +178,7 @@ export const corpora: CorpusEntry[] = [
       "colors-dance---george-winston",
       "february-sea---george-winston-771567dfea6219c668f882216e7f8c356a9b6bc5",
       "longing-love---george-winston",
+      "variations-on-the-canon-qia-nong-bian-zou-qu",
     ],
     composerBirthYear: 1949, // George Winston
     genre: "New Age, Instrumental",
@@ -649,7 +650,13 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "olafur_arnalds",
-    midis: ["saman---olafur-arnalds"],
+    midis: [
+      "saman---olafur-arnalds",
+      "happiness-does-not-wait---olafur-arnalds",
+      "olafur-arnalds---tomorrow-s-song",
+      "olafur-arnalds---raein",
+      "erla-s-waltz-olafur-arnalds",
+    ],
     composerBirthYear: 1986, // Ólafur Arnalds
     genre: "Classical, Electronic",
     style: "Modern Classical, Ambient, Minimalism",
@@ -3381,19 +3388,21 @@ export const corpora: CorpusEntry[] = [
       "qiao-shang-nozhan-i-battle-on-the-bridge---final-fantasy-tactics-ps1---hitoshi-sakimoto",
       "heroes-of-might-magic-iii---fortress-town-theme",
       "lavender-town-pokemon-r-b-y",
+      "amor-sacro---giovanni-allevi",
     ],
   },
   {
     slug: "gibran_alcocer",
     midis: [
+      "idea-15---gibran-alcocer",
       "idea-22---gibran-alcocer",
       "idea-n.10---gibran-alcocer",
-      "idea-15---gibran-alcocer",
-      "idea-5---gibran-alcocer",
+      "idea-9---gibran-alcocer",
+
       "idea-20---gibran-alcocer",
       "idea-7---gibran-alcocer",
-      "idea-9---gibran-alcocer",
       "idea-1---gibran-alcocer",
+      "idea-5---gibran-alcocer",
     ],
     composerBirthYear: 2003,
     genre: "21st Century Piano",
@@ -3505,6 +3514,18 @@ export const corpora: CorpusEntry[] = [
     genre: "Classical", // Mainly classical, with some contemporary influences
     style: "Romantic, Contemporary", // Known for both romantic and contemporary piano works
     country: "USA", // American composer
+  },
+  {
+    slug: "fabrizio_paterlini",
+    midis: [
+      "fabrizio-paterlini---snow",
+      "waltz---fabrizio-paterlini",
+      "all-my-joy-all-my-pain---fabrizio-paterlini",
+      "rue-des-trois-freres---fabrizio-paterlini",
+      "fabrizio-paterlini---my-misty-mornings",
+    ],
+    composerBirthYear: 1973,
+    country: "Italy",
   },
   {
     slug: "manfred_schmitz",
@@ -3624,6 +3645,8 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic, Folk", // Romantic and folk elements
     country: "Ukraine", // Ukrainian composer
   },
+
+  { slug: "max_richter", midis: [] },
   {
     slug: "yaroslav_kis",
     midis: ["liricheskiy-vals---yaroslav-kis"],
@@ -3836,6 +3859,17 @@ export const corpora: CorpusEntry[] = [
     genre: "Classical", // Classical and Cuban music
     style: "Romantic", // Romantic period composer
     country: "Cuba", // Cuban composer
+  },
+  { slug: "borrtex", midis: ["flowing---borrtex"] },
+  {
+    slug: "kristofer_maddigan",
+    midis: [
+      "inkwell-hell-piano-from-cuphead---kristofer-maddigan",
+      "cuphead---kristofer-maddigan---die-house",
+      "inkwell-isle-four-piano---kristofer-maddigan",
+      "inkwell-isle-three",
+      "snow-cult-scuffle---kristofer-maddigan",
+    ],
   },
   {
     slug: "mozart_misc",
@@ -4345,8 +4379,23 @@ export const corpora: CorpusEntry[] = [
     country: "Czech Republic", // Born in what is now the Czech Republic
   },
   {
+    slug: "austin_farwell",
+    midis: [
+      "city-lights---austin-farwell",
+      "wedding-ballet---austin-farwell",
+      "once-upon-a-time---austin-farwell",
+    ],
+  },
+  { slug: "dylan_john_sparkes", midis: ["butterfly"] },
+  {
     slug: "hania_rani",
-    midis: ["glass---hania-rani", "eden---hania-rani", "sun---hania-rani"],
+    midis: [
+      "glass---hania-rani",
+      "eden---hania-rani",
+      "sun---hania-rani",
+      "silent-night---hania-rani",
+      "hania-rani---rurka",
+    ],
     genre: "Minimalism",
     composerBirthYear: 1990,
     country: "Poland",
@@ -5309,6 +5358,13 @@ export const corpora: CorpusEntry[] = [
     style: "Hymn",
   },
   {
+    slug: "franz_gordon",
+    midis: [
+      "the-french-library---franz-gordon",
+      "song-for-johanna---franz-gordon",
+    ],
+  },
+  {
     slug: "paul_de_senneville",
     midis: [
       "mariage-d-amour---paul-de-senneville-marriage-d-amour",
@@ -5340,6 +5396,7 @@ export const corpora: CorpusEntry[] = [
       "murmures-murmullos",
       "concerto-la-madrague----paul-de-senneville-jean-baudlot",
       "le-deuxieme-slow----paul-de-senneville-jean-baudlot",
+      "eleana",
     ],
     composerBirthYear: 1933,
     genre: "Easy Listening, Intrumental Pop", // Known for his romantic and easy-listening style
@@ -5960,6 +6017,19 @@ export const corpora: CorpusEntry[] = [
     ],
   },
   {
+    slug: "evgeny_grinko",
+    midis: [
+      "evgeny-grinko---valse",
+      "carousel---evgeny-grinko",
+      "it-s-foggy-today---evgeny-grinko---by-fatih-erol",
+      "melting---evgeny-grinko",
+      "wind-brought---evgeny-grinko",
+
+      "jane-maryam---evgeny-grinko", // Iranian song
+      "lullaby-for-erik---evgeny-grinko",
+    ],
+  },
+  {
     slug: "musescore_top200",
     midis: [
       "Godfather", // Nino Rota
@@ -6047,6 +6117,8 @@ export const corpora: CorpusEntry[] = [
       "baby-shark-song", // folk
       "My_War_Attack_on_Titan", // Shinsei Kamattechan
       "kass-theme--full-the-legend-of-zelda-breath-of-the-wild", // Manaka Kataoka
+
+      // somehow Gibran Alcocer is missing
     ],
   },
   {

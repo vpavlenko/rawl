@@ -2472,6 +2472,7 @@ export const corpora: CorpusEntry[] = [
       "sing-hallelujah",
       "amish-paradise---weird-al-yankovic-kaleidoscope",
       "na-zare---alyans-na-zare",
+      "aphrodites_child_rain_and_tears",
     ],
     composerBirthYear: 1950, // Various modern composers
     genre: "Pop, Video game, Film",

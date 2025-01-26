@@ -89,6 +89,21 @@ function getUsedChannels(midi: MidiData): Set<number> {
   return usedChannels;
 }
 
+function pushEventWithDeltaTime(
+  event: EnhancedMidiEvent,
+  events: EnhancedMidiEvent[],
+  lastEventTime: number,
+  targetChannel?: number,
+): number {
+  const deltaTime = event.absoluteTime - lastEventTime;
+  events.push({
+    ...event,
+    deltaTime,
+    ...(targetChannel !== undefined && { channel: targetChannel }),
+  } as EnhancedMidiEvent);
+  return event.absoluteTime;
+}
+
 function transformMidi(
   inputData: Uint8Array,
   _forcedPanning?: boolean,
@@ -235,18 +250,16 @@ function transformMidi(
       if (!("channel" in event)) {
         // Handle non-channel events (except global meta events which were handled earlier)
         if (!isGlobalMetaEvent(event)) {
-          const deltaTimeRight = event.absoluteTime - rightHandLastEventTime;
-          const deltaTimeLeft = event.absoluteTime - leftHandLastEventTime;
-          rightHandEvents.push({
-            ...event,
-            deltaTime: deltaTimeRight,
-          } as EnhancedMidiEvent);
-          leftHandEvents.push({
-            ...event,
-            deltaTime: deltaTimeLeft,
-          } as EnhancedMidiEvent);
-          rightHandLastEventTime = event.absoluteTime;
-          leftHandLastEventTime = event.absoluteTime;
+          rightHandLastEventTime = pushEventWithDeltaTime(
+            event,
+            rightHandEvents,
+            rightHandLastEventTime,
+          );
+          leftHandLastEventTime = pushEventWithDeltaTime(
+            event,
+            leftHandEvents,
+            leftHandLastEventTime,
+          );
         }
         return;
       }
@@ -256,44 +269,35 @@ function transformMidi(
       const isFirstTrack = event.originalTrack === trackIndices[0];
       if (isNoteOrPitchBendEvent(event)) {
         if (isFirstTrack || event.type === "noteOff") {
-          // Right hand (first track)
-          const deltaTime = event.absoluteTime - rightHandLastEventTime;
-          rightHandEvents.push({
-            ...event,
-            deltaTime,
+          rightHandLastEventTime = pushEventWithDeltaTime(
+            event,
+            rightHandEvents,
+            rightHandLastEventTime,
             channel,
-          } as EnhancedMidiEvent);
-          rightHandLastEventTime = event.absoluteTime;
+          );
         }
         if (!isFirstTrack || event.type === "noteOff") {
-          // Left hand (other tracks)
-          const deltaTime = event.absoluteTime - leftHandLastEventTime;
-          leftHandEvents.push({
-            ...event,
-            deltaTime,
-            channel: leftHandChannel,
-          } as EnhancedMidiEvent);
-          leftHandLastEventTime = event.absoluteTime;
+          leftHandLastEventTime = pushEventWithDeltaTime(
+            event,
+            leftHandEvents,
+            leftHandLastEventTime,
+            leftHandChannel,
+          );
         }
       } else if (event.type === "programChange") {
-        // Program changes stay with their respective hand
-        if (isFirstTrack) {
-          const deltaTime = event.absoluteTime - rightHandLastEventTime;
-          rightHandEvents.push({
-            ...event,
-            deltaTime,
-            channel,
-          } as EnhancedMidiEvent);
-          rightHandLastEventTime = event.absoluteTime;
-        } else {
-          const deltaTime = event.absoluteTime - leftHandLastEventTime;
-          leftHandEvents.push({
-            ...event,
-            deltaTime,
-            channel: leftHandChannel,
-          } as EnhancedMidiEvent);
-          leftHandLastEventTime = event.absoluteTime;
-        }
+        // Copy program changes to both hands to maintain the same instrument
+        rightHandLastEventTime = pushEventWithDeltaTime(
+          event,
+          rightHandEvents,
+          rightHandLastEventTime,
+          channel,
+        );
+        leftHandLastEventTime = pushEventWithDeltaTime(
+          event,
+          leftHandEvents,
+          leftHandLastEventTime,
+          leftHandChannel,
+        );
       } else {
         // Skip existing pan control messages when forced panning is enabled
         if (
@@ -305,20 +309,18 @@ function transformMidi(
         }
 
         // Copy other channel events to both tracks
-        const deltaTimeRight = event.absoluteTime - rightHandLastEventTime;
-        const deltaTimeLeft = event.absoluteTime - leftHandLastEventTime;
-        rightHandEvents.push({
-          ...event,
-          deltaTime: deltaTimeRight,
+        rightHandLastEventTime = pushEventWithDeltaTime(
+          event,
+          rightHandEvents,
+          rightHandLastEventTime,
           channel,
-        } as EnhancedMidiEvent);
-        leftHandEvents.push({
-          ...event,
-          deltaTime: deltaTimeLeft,
-          channel: leftHandChannel,
-        } as EnhancedMidiEvent);
-        rightHandLastEventTime = event.absoluteTime;
-        leftHandLastEventTime = event.absoluteTime;
+        );
+        leftHandLastEventTime = pushEventWithDeltaTime(
+          event,
+          leftHandEvents,
+          leftHandLastEventTime,
+          leftHandChannel,
+        );
       }
     });
 

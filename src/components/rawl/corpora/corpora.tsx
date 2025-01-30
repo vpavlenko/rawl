@@ -2445,6 +2445,7 @@ export const corpora: CorpusEntry[] = [
     style: "Electropop, Synthpop",
     country: "Japan",
   },
+  { slug: "yakov_feldman", midis: ["l2004_03---la-chanson-d-orphee"] },
   {
     slug: "modern_composers_of_single_pieces",
     midis: [
@@ -2473,6 +2474,7 @@ export const corpora: CorpusEntry[] = [
       "amish-paradise---weird-al-yankovic-kaleidoscope",
       "na-zare---alyans-na-zare",
       "aphrodites_child_rain_and_tears",
+      "want-you-gone-portal-2",
     ],
     composerBirthYear: 1950, // Various modern composers
     genre: "Pop, Video game, Film",
@@ -4445,8 +4447,18 @@ export const corpora: CorpusEntry[] = [
     country: "USA",
   },
   {
+    slug: "pete_johnson",
+    midis: ["boogie-woogie-jump---pete-johnson", "dive-bomber---pete-johnson"],
+    style: "Boogie Woogie",
+    country: "USA",
+  },
+  {
     slug: "jobim",
-    midis: ["wave---antonio-carlos-jobim-jazz-piano-solo", "desafinado"],
+    midis: [
+      "wave---antonio-carlos-jobim-jazz-piano-solo",
+      "desafinado",
+      "aguas-de-marco---elis-regina-e-tom-jobim",
+    ],
     composerBirthYear: 1927, // Antônio Carlos Jobim (1927–1994)
     genre: "Bossa Nova", // Pioneer of the bossa nova genre
     style: "Jazz, Brazilian", // Known for blending jazz with Brazilian rhythms
@@ -5150,7 +5162,7 @@ export const corpora: CorpusEntry[] = [
     slug: "beethoven",
     midis: [
       "sonatina_in_g_beethoven_anh_5_no_1_beethoven",
-      "bagatelle_in_g_minor_op_119_no_1_ludwig_van_beethoven_16_07_1770_26_03_1827_piano_solo",
+
       "beethoven-symphony-no.-5-1st-movement-piano-solo",
       "beethoven---sonata-in-f-minor-op.2-no.1-movement-i",
       "piano_sonata_no_3_in_c_major_op_2_no_3_ludwig_van_beethoven_piano_sonata_no_3_in_c_major_op_2_no_3_complete",
@@ -5166,6 +5178,13 @@ export const corpora: CorpusEntry[] = [
 
       "beethoven_trio_for_clarinet_cello_and_piano_no_4_op_11_2nd_movement",
       "Fr_Elise",
+
+      "bagatelle_in_g_minor_op_119_no_1_ludwig_van_beethoven_16_07_1770_26_03_1827_piano_solo",
+      "beethoven---bagatelle-no.-4-in-a-major-op.-119",
+      "beethoven---bagatelle-in-a-minor-no.-9---op.-119",
+      "beethoven---bagatelle-in-a-major-no.-10---op.-119",
+      "bagatelle-op.-119.-no-2---ludwig-van-beethoven",
+      "bagatelle-op.119-no.5-beethoven",
     ],
     composerBirthYear: 1770, // Ludwig van Beethoven was born in 1770
     genre: "Classical", // Beethoven bridged the Classical and Romantic eras, but is primarily associated with Classical music
@@ -5726,6 +5745,14 @@ export const corpora: CorpusEntry[] = [
     ],
   },
   {
+    slug: "michael_giacchino",
+    midis: [
+      "Disney_Pixar_Up_Theme",
+      "imperial-suite---michael-giacchino-~piano~",
+      "catwoman---michael-giacchino",
+    ],
+  },
+  {
     slug: MUSESCORE_TOP_100_SLUG,
     posttext: AboutTop100Corpus,
     midis: [
@@ -6220,6 +6247,7 @@ export const corpora: CorpusEntry[] = [
     midis: ["Numb_-_Linkin_Park", "in-the-end---linkin-park"],
   },
   { slug: "thefatrat", midis: ["TheFatRat_Monody", "TheFatRat_Unity"] },
+  { slug: "francis_lai", midis: ["Love_Store_Francis_Lai"] },
   {
     slug: "unsorted",
     midis: [
@@ -6262,8 +6290,6 @@ export const corpora: CorpusEntry[] = [
       "Lady_Gaga_Always_remember_us_this_way",
 
       "Liana_Flores_Rises_the_Moon",
-
-      "Love_Store_Francis_Lai",
 
       "Morphine_Cure_for_Pain",
 

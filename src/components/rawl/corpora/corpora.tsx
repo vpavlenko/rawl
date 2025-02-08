@@ -412,6 +412,28 @@ export const corpora: CorpusEntry[] = [
       // el tango de roxanne
       "tango-lyubvi",
 
+      "malena---tango", // exercise
+      "tango-la-cumparsita---piano-solo-tutorial-parte-a",
+      "tango-till-you-drop-abrsm-grade-5-saxophone-b-3", // melody for harmonization
+      "Habanera_-_Piano_Solo_-_Georges_Bizet",
+      "tango-lyubvi",
+      "tango-do-k-f-12-stulev---o.-zacepin",
+      "underground_tango_goran_bregovic_string_quartet",
+
+      "satumaa-fairytale-land-volshebnaya-strana",
+      "punatukkaiselle-tytolleni",
+    ],
+  },
+  {
+    slug: "charles_ancliffe",
+    midis: [
+      "the-valley-of-poppies---charles-ancliffe",
+      "nights-of-gladness---charles-ancliffe-1912",
+    ],
+  },
+  {
+    slug: "astor_piazzolla",
+    midis: [
       "piazzolla_histoire_du_tango_bordel_1900",
       "piazzolla_histoire_du_tango_cafe_1930",
       "piazzolla_histoire_du_tango_nightclub_1960",
@@ -422,13 +444,6 @@ export const corpora: CorpusEntry[] = [
       "triunfal-tango-by-astor-piazzolla-in-edition-for-classical-guitar-from-victor-villadangos",
       "calambre-tango-piazzolla",
       "libertango",
-      "malena---tango", // exercise
-      "tango-la-cumparsita---piano-solo-tutorial-parte-a",
-      "tango-till-you-drop-abrsm-grade-5-saxophone-b-3", // melody for harmonization
-      "Habanera_-_Piano_Solo_-_Georges_Bizet",
-      "tango-lyubvi",
-      "tango-do-k-f-12-stulev---o.-zacepin",
-      "underground_tango_goran_bregovic_string_quartet",
     ],
   },
   {
@@ -850,6 +865,7 @@ export const corpora: CorpusEntry[] = [
     style: "Ragtime, Novelty",
     country: "USA", // King Kollins was American.
   },
+  { slug: "los_kjarkas", midis: ["llorando-se-fue---los-kjarkas"] },
   {
     slug: "frank_h_grey",
     midis: ["love-in-venice-1924", "valse-des-fleurs-1925"],
@@ -2184,8 +2200,15 @@ export const corpora: CorpusEntry[] = [
     country: "France",
   },
   {
+    slug: "michael_price_and_david_arnold",
+    midis: [
+      "the-game-is-on-from-bbc-s-sherlock-for-piano",
+      "who-you-really-are-from-sherlock-bbc-series-4",
+    ],
+  },
+  {
     slug: "common_practice_single_pieces",
-    midis: ["valsy-griboedova---griboedov-s-waltzes"],
+    midis: ["valsy-griboedova---griboedov-s-waltzes", "chopsticks"],
     composerBirthYear: 1795, // Alexander Griboedov
     genre: "Classical",
     style: "Common-practice",
@@ -2280,6 +2303,7 @@ export const corpora: CorpusEntry[] = [
     style: "Orchestral, Electronic",
     country: "Japan",
   },
+  { slug: "muzio_clementi", midis: ["clementi-sonatina-no.-1-op-36"] },
   {
     slug: "yasunori_mitsuda",
     midis: [
@@ -2445,10 +2469,11 @@ export const corpora: CorpusEntry[] = [
     style: "Electropop, Synthpop",
     country: "Japan",
   },
-  { slug: "yakov_feldman", midis: ["l2004_03---la-chanson-d-orphee"] },
+  { slug: "yakov_feldman", midis: ["yamshchik-ne-goni-loshadey"] },
   {
     slug: "modern_composers_of_single_pieces",
     midis: [
+      "clubbed-to-death",
       "mr-sandman-the-chordettes",
       "after-school---weeekly",
       "gray",
@@ -2507,6 +2532,14 @@ export const corpora: CorpusEntry[] = [
     genre: "Folk, Popular",
     style: "American, Minstrelsy",
     country: "USA",
+  },
+  {
+    slug: "chet_baker",
+    midis: [
+      "autumn-leaves---joseph-kosma-autumn-leaves-chet-baker-paul-desmond",
+    ],
+    genre: "Jazz Solo",
+    composerBirthYear: 1929,
   },
   {
     slug: "possibly_tango",
@@ -2772,6 +2805,8 @@ export const corpora: CorpusEntry[] = [
       "all-of-me---new-york-jazz-lounge",
       "Misty_piano_solo",
       "bheki_mseleku_angola",
+      "donna-lee---charlie-parker---lead-sheet-bass-clef-up-8va-from-real-book-ver.",
+      "indiana-back-home-again-in-indiana-lead-sheet-with-lyrics-alternate",
     ],
     genre: "Jazz",
     // This is a collection of jazz standards, no specific composer can be assigned.
@@ -2823,6 +2858,19 @@ export const corpora: CorpusEntry[] = [
     style: "Contemporary",
     country: "Latvia",
   },
+  { slug: "jaco_pastorius", midis: ["donna-lee---jaco-pastorius"] },
+  {
+    slug: "frank_wildhorn",
+    midis: [
+      "master-of-the-strings-die-faden-in-der-hand-rudolf---affaire-mayerling-for-violin-and-piano",
+      "the-confrontation---frank-wildhorn",
+    ],
+  },
+  {
+    slug: "klaus_doldinger",
+    midis: ["erinnerung-from-das-boot---klaus-doldinger"],
+  },
+  { slug: "falco", midis: ["jeanny-falco"] },
   {
     slug: "marco_beltrami",
     midis: [
@@ -3194,6 +3242,7 @@ export const corpora: CorpusEntry[] = [
     style: "Bebop, Swing",
     country: "USA",
   },
+  { slug: "cherokee_changes", midis: [] },
   {
     slug: "overcooked",
     midis: [
@@ -3286,6 +3335,10 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1977,
     genre: "Video Game Music",
     country: "USA",
+  },
+  {
+    slug: "asuka_ota_and_ryo_nagamatsu",
+    midis: ["coconut-mall---mario-kart-wii"],
   },
   {
     slug: "asuka_hayazaki",
@@ -5750,6 +5803,8 @@ export const corpora: CorpusEntry[] = [
       "Disney_Pixar_Up_Theme",
       "imperial-suite---michael-giacchino-~piano~",
       "catwoman---michael-giacchino",
+      "ratatouille-main-theme---michael-giacchino",
+      "spider-man-far-from-home-suite---michael-giacchino-piano-arrangement",
     ],
   },
   {
@@ -6223,6 +6278,42 @@ export const corpora: CorpusEntry[] = [
     country: "Austria",
   },
   {
+    slug: "michel_legrand",
+    midis: [
+      "i-will-wait-for-you---michel-legrand",
+      "the-windmills-of-your-mind---michel-legrand",
+      "concerto-les-demoiselles-de-rochefort",
+      "the-summer-knows---michel-legrand",
+    ],
+  },
+  {
+    slug: "sebastian_yradier",
+    midis: [
+      "la-paloma-cancion-americana-sebastian-yradier-vers-1863",
+      "maria-dolores-1860-tango-du-maestro-sebastian-yradier",
+      "el-chin-chin-chan-cancion-habanera-de-sebastian-yradier",
+      "una-declaracion.-a-quema-ropa-....de-sebastian-yradier",
+      "el-arreglito---sebastian-yradier",
+    ],
+  },
+  {
+    slug: "manuel_saumell",
+    midis: [
+      "los-ojos-de-pepa-manuel-saumell-contradanza",
+      "el-panuelo-de-pepa-de-manuel-saumell",
+      "la-linda-contradanza-manuel-saumell",
+      "la-veleta-contradanza-by-manuel-saumell",
+      "saludo-a-cuba-contradanza-saumell",
+      "ayes-del-alma-contradanza-de-manuel-saumell",
+      "el-bazar-contradanza-saumell-robredo-manuel",
+      "pero-por-que-contradanza-de-manuel-saumell",
+      "dice-que-no-contradanza-saumell",
+    ],
+    country: "Cuba",
+    composerBirthYear: 1818,
+    genre: "Contradanza",
+  },
+  {
     slug: "goran_bregovic",
     midis: [
       "bubamara",
@@ -6247,7 +6338,17 @@ export const corpora: CorpusEntry[] = [
     midis: ["Numb_-_Linkin_Park", "in-the-end---linkin-park"],
   },
   { slug: "thefatrat", midis: ["TheFatRat_Monody", "TheFatRat_Unity"] },
-  { slug: "francis_lai", midis: ["Love_Store_Francis_Lai"] },
+  {
+    slug: "francis_lai",
+    midis: ["Love_Store_Francis_Lai", "un-homme-et-une-femme---francis-lai"],
+  },
+  {
+    slug: "luiz_bonfa",
+    midis: [
+      "la-chanson-d-orphee-manha-do-carnaval---luis-bonfa",
+      "l2004_03---la-chanson-d-orphee",
+    ],
+  },
   {
     slug: "unsorted",
     midis: [

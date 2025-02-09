@@ -2393,6 +2393,8 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "the-two-happy-coons---theodore-h.-northrup-1891",
       "plantation-echoes---theodore-h.-northrup-1897",
+      "louisiana-la-pas-ma-la---theodore-h.-northrup-1897",
+      "the-possum-patrol---theodore-h.-northrup-1892",
     ],
     composerBirthYear: 1866, // Theodore H. Northrup
     genre: "Jazz, Ragtime",
@@ -2535,7 +2537,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "jean_schwartz",
-    midis: ["chinatown-my-chinatown"],
+    midis: ["chinatown-my-chinatown", "the-popcorn-man-1910"],
     genre: "Ragtime",
     country: "USA",
     composerBirthYear: 1878,
@@ -5813,6 +5815,26 @@ export const corpora: CorpusEntry[] = [
       "ratatouille-main-theme---michael-giacchino",
       "spider-man-far-from-home-suite---michael-giacchino-piano-arrangement",
     ],
+  },
+  {
+    slug: "fkj",
+    midis: [
+      "ylang-ylang---fkj-transcribed-by-lilroo",
+      "sundays-just-piano-version---fkj---fkj",
+      "last-hour-just-piano-version---fkj",
+      "meeting-again-in-the-void-just-piano-version---fkj",
+      "fee-just-piano-version---fkj",
+    ],
+  },
+  {
+    slug: "mac_miller",
+    midis: [
+      "congratulations---mac-miller",
+      "good-news---mac-miller---easy-piano",
+      "come-back-to-earth-by-mac-miller",
+    ],
+    country: "USA",
+    composerBirthYear: 1992,
   },
   {
     slug: MUSESCORE_TOP_100_SLUG,

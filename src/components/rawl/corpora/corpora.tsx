@@ -2534,6 +2534,13 @@ export const corpora: CorpusEntry[] = [
     country: "USA",
   },
   {
+    slug: "jean_schwartz",
+    midis: ["chinatown-my-chinatown"],
+    genre: "Ragtime",
+    country: "USA",
+    composerBirthYear: 1878,
+  },
+  {
     slug: "chet_baker",
     midis: [
       "autumn-leaves---joseph-kosma-autumn-leaves-chet-baker-paul-desmond",
@@ -6005,6 +6012,26 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: 1924,
     genre: "Film Score, Jazz, Pop, Easy Listening",
+    country: "USA",
+  },
+  {
+    slug: "edward_macdowell",
+    midis: [
+      "to-a-humming-bird----edward-macdowell",
+      "to-a-water-lily-from-woodland-sketches-op.-51---edward-macdowell",
+      "in-autumn-from-woodland-sketches-op.-51---edward-macdowell",
+      "clair-de-lune----edward-macdowell",
+    ],
+    composerBirthYear: 1860,
+    country: "USA",
+  },
+  {
+    slug: "stephen_schwartz",
+    midis: [
+      "defying-gravity-from-wicked---stephen-schwartz",
+      "when-you-believe-film-version---stephen-schwartz",
+    ],
+    composerBirthYear: 1948,
     country: "USA",
   },
   {

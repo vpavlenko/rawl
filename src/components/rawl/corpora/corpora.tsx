@@ -2099,6 +2099,10 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "mid-boss-mayhem",
       "the-phantom-of-the-bwahpera-act-1---mario-rabbids-kingdom-battle",
+      "viva-pinata---night-3---grant-kirkhope-viva-pinata-night-3---grant-kirkhope",
+      "grant-kirkhope---chilli-willi-chilli-billi-battle",
+      "angry-aztec---donkey-kong-64---grant-kirkhope-dk64",
+      "cranky-s-lab---donkey-kong-64---grant-kirkhope-dk64",
     ],
     composerBirthYear: 1962, // Grant Kirkhope
     genre: "Video game music",
@@ -2564,6 +2568,14 @@ export const corpora: CorpusEntry[] = [
       "flower-dance-dj-okawari",
       "luv-letter-by-dj-okawari",
       "perfect-blue---dj-okawari-piano-solo-hard",
+      "engage-ring---dj-okawari-x-emily-styler",
+      "over-the-rain---dj-okawari-x-emily-styler",
+      "represent",
+      "the-bonds---dj-okawari",
+      "peacock---dj-okawari",
+      "lightning-moment---yuan-zuo",
+      "bluebird-story---dj-okawari-bluebird-story-for-2-pianos",
+      "ming-ri-fang-zhou-arknights---speed-of-light-piano-transcription",
     ],
     composerBirthYear: 1986, // DJ Okawari
     genre: "Jazz, Hip Hop, Electronic",
@@ -2958,6 +2970,8 @@ export const corpora: CorpusEntry[] = [
       "boogie-woogie-piano",
       "some-boogie-woogie-by-albert-ammons-friends",
       "bumble-boogie---adapted-from-the-flight-of-the-bumble-bee",
+      "jingle-bells-boogie-woogie-cover",
+      "jingle-bells-boogie",
     ],
     genre: "Boogie Woogie",
     // This is a genre-based collection, not tied to a specific composer.
@@ -3389,7 +3403,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1970,
     genre: "Psychedelic Folk, Turkish Folk",
     style: "Folk, Psychedelic",
-    country: "Netherlands/Turkey",
+    country: "Netherlands, Turkey",
   },
   {
     slug: "herbie_hancock",
@@ -4808,7 +4822,12 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "schumann",
-    midis: ["schumann-carnaval---no.-12-chopin-piano-solo"],
+    midis: [
+      "schumann-carnaval---no.-12-chopin-piano-solo",
+      "schumann-kinderszenen-no.7-op.15--dreaming-traumerei",
+      "schumann-the-wild-horseman-op.-68-no.-8",
+      "r.-schumann---kinderszenen-no.-1-von-fremden-landern-und-menschen.",
+    ],
     composerBirthYear: 1810, // Robert Schumann was born in 1810
     genre: "Classical", // Classical, Romantic music
     style: "Romantic", // Romantic period
@@ -5124,6 +5143,12 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "waltz-of-rainbow-colored-roses---takashi-yoshimatsu",
       "waltz-in-green---takashi-yoshimatsu-lu-nowarutu",
+      "velvet-waltz---takashi-yoshimatsu-berubetutowarutu",
+
+      "yoshimatsu---4-little-dream-songs-ii.-summer---distorted-waltz-on-august",
+      "pleiades-dances-book-2---takashi-yoshimatsu",
+      "yoshimatsu-waltz-in-obtuse-angle-from-pleiades-dances-ix",
+      "yoshimatsu---koo-s-waltz",
     ],
     composerBirthYear: 1953,
     country: "Japan",
@@ -5758,6 +5783,8 @@ export const corpora: CorpusEntry[] = [
       "Omori_Duet",
       "omori---gator-gambol---ost-no.-103---pedro-silva",
       "omori---sugar-star-planetarium---ost-no.-21---pedro-silva",
+      "by-your-side.---omori",
+      "omori-ost---006---let-s-get-together-now---pedro-silva",
     ],
   },
   {
@@ -5829,6 +5856,9 @@ export const corpora: CorpusEntry[] = [
       "pe---fkj",
       "does-it-exist---fkj",
     ],
+    genre: "Lofi",
+    composerBirthYear: 1990,
+    country: "France",
   },
   {
     slug: "mac_miller",
@@ -5842,6 +5872,41 @@ export const corpora: CorpusEntry[] = [
     ],
     country: "USA",
     composerBirthYear: 1992,
+  },
+  {
+    slug: "yasuharu_takanashi",
+    midis: [
+      "fairy-tail-main-theme",
+      "fairy-tail-ost---natsu-theme",
+      "fairy-tail--past-story",
+      "fairy-tail---mirajane-no-theme---yasuharu-takanashi-fairy-tail---mirajane-no-theme---yasuharu-takanashi-mira-s-theme",
+      "fairy-tail-sad-theme",
+      "dragon-slayer---fairy-tail",
+      "fairy-tail-opening-14---fairy-tail-yakusoku-no-hi",
+    ],
+    country: "Japan",
+    composerBirthYear: 1963,
+  },
+  {
+    slug: "taro_umebayashi",
+    midis: [
+      "yuri-on-ice---piano-theme-full",
+      "minako-s-mood-choose-your-costume---taro-umebayashi-yuri-on-ice",
+      "serenade-for-two-from-yuri-on-ice",
+    ],
+  },
+  {
+    slug: "yugo_kanno",
+    midis: [
+      "Jojo_s_Bizarre_Adventure_Golden_Wind_Giornos_Theme_Ver_2",
+      "jolyne-s-theme---yugo-kanno---stone-ocean-piano-solo",
+      "jotaro-s-theme---yugo-kanno-blue-devils-2023-marimba---jojo-s-bizarre-adventure",
+      "killer-yoshikage-kira-s-theme---jojo-s-bizarre-adventure-part-4-diamond-is-unbreakable---yugo-kanno-quiet-life",
+      "josuke-s-theme-for-piano-breakdown",
+      "pucci-theme---yugo-kanno-pale-snake-from-jojo-stone-ocean",
+    ],
+    composerBirthYear: 1977,
+    country: "Japan",
   },
   {
     slug: MUSESCORE_TOP_100_SLUG,
@@ -6087,6 +6152,14 @@ export const corpora: CorpusEntry[] = [
     country: "USA",
   },
   {
+    slug: "jingle_bells",
+    midis: [
+      "jingle-bells-boogie-woogie-cover",
+      "jingle-bells-boogie",
+      "jingle-bells---jazz-piano",
+    ],
+  },
+  {
     slug: "marshmello",
     midis: [
       "marshmello-ft.-bastille---happier",
@@ -6150,9 +6223,16 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "brahms",
     midis: [
+      "hungarian_dance_1_-c-yogore",
+      "hungarian-dance-no.-1",
+      "hungarian_dance_2_-c-yogore",
+      "hungarian_dance_3_-c-yogore",
       "hungarian-dance-no-5-in-g-minor",
       "brahms_118_1",
       "brahms_op118_1",
+      "waltz-in-a-major-op.39-no.15-by-johannes-brahms",
+      "brahms---waltz-op.39-no.3",
+      "waltz-in-d-minor-op.39-no.9---johannes-brahms",
     ],
   },
   {
@@ -6404,6 +6484,13 @@ export const corpora: CorpusEntry[] = [
       "la-chanson-d-orphee-manha-do-carnaval---luis-bonfa",
       "l2004_03---la-chanson-d-orphee",
     ],
+  },
+  {
+    slug: "joep_beving",
+    midis: ["ala---joep-beving", "sleeping-lotus---joep-beving"],
+    composerBirthYear: 1976,
+    country: "Netherlands",
+    genre: "Contemporary Classical",
   },
   {
     slug: "unsorted",

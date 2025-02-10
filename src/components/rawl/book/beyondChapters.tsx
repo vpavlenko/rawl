@@ -140,6 +140,7 @@ export const BEYOND_CHAPTERS: Array<{
         <P>
           {c`iv I bvii I`}, {c`bII I bvii I`}
         </P>
+        <P>{s`b2:3`}</P>
         <P>
           {A("a.-kaldaras---nyhtose-horis-feggari---greek-music-037")},{" "}
           {A("s.-xarhakos---stoy-thoma---greek-music-055")},{" "}

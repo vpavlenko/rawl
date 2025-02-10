@@ -75,6 +75,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic",
     country: "Hungary",
   },
+  { slug: "aram_khachaturian", midis: ["masquerade-waltz---khachaturian"] },
   {
     slug: "darius_milhaud",
     midis: [
@@ -1450,7 +1451,7 @@ export const corpora: CorpusEntry[] = [
       "forest-gump---main-title-feather-theme",
       "back-to-the-future-theme-song",
     ],
-    composerBirthYear: 1950, // Alan Silvestri
+    composerBirthYear: 1950,
     genre: "Film score, TV music",
     style: "Orchestral, Cinematic",
     country: "USA",
@@ -2299,10 +2300,17 @@ export const corpora: CorpusEntry[] = [
     slug: "yoko_shimomura",
     midis: [
       "guile-s-theme-street-fighter-ii",
+      "vega-s-theme-street-fighter-ssbu-remix-score-compacted-for-violin-and-piano",
+      "sutoritohuaitaii-taitorudemo~-v.s.hua-mian-street-fighter-ii-ac-title---v.s.---yoko-shimomura",
+      "e.ben-tian-e.honda-japan---sutoritohuaitaii-street-fighter-ii-ac---yoko-shimomura",
+      "chun-li-chun-li-china---sutoritohuaitaii-street-fighter-ii-ac---yoko-shimomura",
+      "buranka-blanka-brazil---sutoritohuaitaii-street-fighter-ii-ac---yoko-shimomura",
+      "ryu-s-theme-8beatsvgm---yoko-shimomura-street-fighter-2-ost-ryus-theme-reboot-arcade-cps1-stereo-by-8beatsvgm_320kbps",
+      "ken-ken-america---sutoritohuaitaii-street-fighter-ii-ac---yoko-shimomura",
       "beware-the-forest-s-mushrooms-forest-maze---super-mario-rpg---yoko-shimomura-piano",
       "dearly-beloved-piano-collections-kingdom-hearts",
     ],
-    composerBirthYear: 1967, // Yoko Shimomura
+    composerBirthYear: 1967,
     genre: "Video game music",
     style: "Orchestral, Electronic",
     country: "Japan",
@@ -5052,6 +5060,7 @@ export const corpora: CorpusEntry[] = [
       "Dawn_Pride_and_Prejudice",
       "liz-on-top-of-the-world",
       "your-hands-are-cold-from-pride-and-prejudice-2005-soundtrack",
+      "elegy-for-dunkirk---dario-marianelli",
     ],
     composerBirthYear: 1963, // Dario Marianelli was born in 1963
     genre: "Film Score", // Known for composing film scores
@@ -5662,6 +5671,7 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "loonboon---laura-shigihara-arranged-by-piano-keyng",
       "moongrains---laura-shigihara",
+      "to-the-moon-for-river-johnny-s-version-48aa2a",
     ],
     composerBirthYear: 1980,
     genre: "Music Game",
@@ -5682,6 +5692,12 @@ export const corpora: CorpusEntry[] = [
       "hollow-knight-main-theme---christopher-larkin",
       "greenpath---christopher-larkin",
       "sealed-vessel---christopher-larkin",
+      "the-grimm-troupe---christopher-larkin",
+      "soul-sanctum---christopher-larkin",
+      "crossroads---christopher-larkin-hollow-knight",
+      "dirtmouth---christopher-larkin-hollow-knight-7e5846",
+      "hive-knight---christopher-larkin-hive-knight---christopher-larkin",
+      "broken-vessel---christopher-larkin---theme-from-hollow-knight-for-piano",
     ],
     composerBirthYear: 1992,
     genre: "Video Game Music",
@@ -5754,6 +5770,7 @@ export const corpora: CorpusEntry[] = [
       "Legend_of_Zelda_Great_Fairy_Fountain",
       "Super_Mario_Bros_Main_Theme",
       "Zeldas_Lullaby",
+      "ocarina-of-time-lost-woods-piano",
     ],
     composerBirthYear: 1961,
     genre: "Video Game Music",
@@ -5805,6 +5822,14 @@ export const corpora: CorpusEntry[] = [
       "my-confession---dan-salvato-my-confession-ddlc",
       "ohayou-sayori---dan-salvato-ohayou-sayori-ddlc",
       "play-with-me---dan-salvato---doki-doki-literature-club",
+      "i-still-love-you",
+      "poem-panic---ddlc",
+      "daijoubu---doki-doki-literature-club",
+      "my-feelings",
+      "dreams-of-love-and-literature",
+      "my-song-your-note-piano---dan-salvato",
+
+      "your-obnoxious-reality---your-reality-but-sadder", // this piece does not exist!
     ],
   },
   {
@@ -5846,15 +5871,15 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "fkj",
     midis: [
-      "ylang-ylang---fkj-transcribed-by-lilroo",
-      "sundays-just-piano-version---fkj---fkj",
-      "last-hour-just-piano-version---fkj",
-      "meeting-again-in-the-void-just-piano-version---fkj",
       "fee-just-piano-version---fkj",
+      "meeting-again-in-the-void-just-piano-version---fkj",
+      "sundays-just-piano-version---fkj---fkj",
       "tui---fkj-tui",
+      "last-hour-just-piano-version---fkj",
+      "does-it-exist---fkj",
+      "ylang-ylang---fkj-transcribed-by-lilroo",
       "10-years-ago---fkj",
       "pe---fkj",
-      "does-it-exist---fkj",
     ],
     genre: "Lofi",
     composerBirthYear: 1990,
@@ -5907,6 +5932,41 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: 1977,
     country: "Japan",
+  },
+  {
+    slug: "jule_styne",
+    midis: [
+      "it-s-been-a-long-long-time---harry-james",
+      "let-it-snow---jule-styne",
+      "people---jule-styne",
+      "cornet-man---bob-merrill",
+    ],
+    composerBirthYear: 1905,
+    country: "USA",
+    genre: "Broadway",
+  },
+  {
+    slug: "takahiro_obata",
+    midis: [
+      "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2",
+      "norman-s-theme-22194",
+      "emma-s-sorrow---the-promised-neverland",
+      "krone-on-the-gf-string",
+      "shoshimin-ost---main-theme---takahiro-obata",
+    ],
+  },
+  {
+    slug: "masaru_yokoyama",
+    midis: [
+      "my-lie-watashi-no-uso---your-lie-in-april",
+      "again-your-lie-in-april---masaru-yokoyama",
+      "classroom-of-the-elite-season-2-theme---masaru-yokoyama-kana-hashiguchi",
+      "presence-otouto-mitai-na-sonzai---your-lie-in-april-si-yue-hajun-noxu",
+      "horimiya-ep-4-untitled-track---masaru-yokoyama-please-don-t-go",
+      "yi-yu-zhi-xian-qu-yiyu---shi-jie-zhi-wai-sheng-ri-wu-ming-pian-duan-beyond-the-world---heng-shan-ke-yokoyama-masaru",
+      "fate-apocrypha-hope---masaru-yokoyama",
+      "orange-your-lie-in-april-ed2",
+    ],
   },
   {
     slug: MUSESCORE_TOP_100_SLUG,
@@ -6037,6 +6097,7 @@ export const corpora: CorpusEntry[] = [
     slug: "liszt",
     midis: [
       "tude_S._1413_in_G_Minor_La_Campanella__Liszt",
+      "liszt---trois-etudes-de-concert-no.-3-un-sospiro",
       "liszt---hungarian-rhapsody-no.-2",
       "Liebestraum_No._3_in_A_Major",
     ],
@@ -6059,6 +6120,8 @@ export const corpora: CorpusEntry[] = [
       "undertale-undertale-piano",
       "undertale-ost---nyeh-heh-heh-bonetrousle",
       "Fallen_Down_Undertale",
+      "asgore-an-undertale-boss-theme",
+      "spider-dance---undertale",
     ],
     composerBirthYear: 1991,
     genre: "Video Game Music",
@@ -6182,7 +6245,14 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "carlos_gardel",
-    midis: ["tango-por-una-cabeza", "volver---carlos-gardel"],
+    midis: [
+      "tango-por-una-cabeza",
+      "volver---carlos-gardel",
+      "melodia-de-arrabal---carlos-gardel",
+      "cuesta-abajo---carlos-gardel",
+      "golondrinas---carlos-gardel",
+      "rubias-de-new-york---carlos-gardel",
+    ],
     composerBirthYear: 1890,
     country: "Argentina",
     genre: "Tango",
@@ -6249,6 +6319,16 @@ export const corpora: CorpusEntry[] = [
     ],
   },
   {
+    slug: "amachas_music_studio",
+    midis: [
+      "old-doll-puppet---ib-mad-father-old-doll",
+      "yu-nolian-ren-tati---gan-cha-noyin-le-gong-fang",
+      "kagayakuquan-a-shining-spring",
+      "still-in-memory-from-witch-s-heart",
+      "jin-yao-noye-ni-on-friday-night",
+    ],
+  },
+  {
     slug: "musescore_top200",
     midis: [
       "Godfather", // Nino Rota
@@ -6295,6 +6375,8 @@ export const corpora: CorpusEntry[] = [
       "7-years---lukas-graham", // Lukas Graham
       "one-piece---bink-s-sake---kohei-tanaka", // Kohei Tanaka
 
+      "Gershwin_Rhapsody_in_Blue_Piano_solo", // George Gershwin
+      "idea-22---gibran-alcocer", // Gibran Alcocer
       "Hit_the_Road_Jack", // Percy Mayfield
       "lavender-town-pokemon-r-b-y", // Junichi Masuda
       "rachmaninoff-piano-concerto-no.-2-1st-mvmt.-arr.-for-2-pianos", // Rachmaninoff
@@ -6303,9 +6385,9 @@ export const corpora: CorpusEntry[] = [
       "czardas-by-vittorio-monti", // Vittorio Monti
       "a-wanderer-s-song-zigeunerweisen-gypsy-airs-op.20", // Pablo de Sarasate
       "ave-maria-d839---schubert---solo-piano-arrg.", // Schubert
+
       "liebesleid-piano-solo---kreisler-rachmaninoff-alt-wiener-tanzweisen", // Fritz Kreisler
       "just-the-two-of-us", // Ralph MacDonald and William Salter
-
       "to-build-a-home-~-the-cinematic-orchestra", // The Cinematic Orchestra
       "great-balls-of-fire---jerry-lee-lewis", // Jerry Lee Lewis
       "westlife---beautiful-in-white", // Westlife
@@ -6314,9 +6396,10 @@ export const corpora: CorpusEntry[] = [
       "seven-nation-army-arr.-nikodem-lorenz", // The White Stripes
       "peaches---the-super-mario-bros.-movie-piano-solo-arrangement", // Jack Black
       "alexander-rybak---fairytale", // Alexander Rybak
-      "libertango", // Astor Piazzolla
-      "amazing-grace-choir-saa---john-newton", // John Newton
 
+      "libertango", // Astor Piazzolla
+      "old-doll-puppet---ib-mad-father-old-doll", // Amacha's Music Studio
+      "amazing-grace-choir-saa---john-newton", // John Newton
       "2---onerepublic---counting-stars", // OneRepublic
       "genshin-impact-main-theme", // Yu-Peng Chen
       "slander-dylan-matthew---love-is-gone-acoustic", // Slander
@@ -6325,19 +6408,40 @@ export const corpora: CorpusEntry[] = [
       "where-is-my-mind-solo-piano-by-pixies-maxence-cyrin", // Pixies
       "evgeny-grinko---valse", // Evgeny Grinko
       "barfuss-am-klavier---annenmaykantereit-69e4ae", // Annenmaykantereit
+
       "arcade---duncan-laurence", // Duncan Laurence
       "le-cygne-the-swan", // Saint-Saëns
-
-      "can-you-hear-the-music---ludwig-goransson-from-oppenheimer",
+      "can-you-hear-the-music---ludwig-goransson-from-oppenheimer", // Ludwig Göransson
       "all-star", // Smash Mouth
-      "to-the-moon-for-river-johnny-s-version", // Kan Gao
+      "succession-main-theme", // Nicholas Britell
+      "to-the-moon-for-river-johnny-s-version", // Kan Gao, Laura Shigihara
       "time-travel-theme-by-jay-chou-from-secret-2007-film", // Jay Chou
       "blue-bird", // Ikimono-gakari
       "baby-shark-song", // folk
       "My_War_Attack_on_Titan", // Shinsei Kamattechan
       "kass-theme--full-the-legend-of-zelda-breath-of-the-wild", // Manaka Kataoka
 
-      // somehow Gibran Alcocer is missing
+      "greensleeves-for-piano-easy-and-beautiful", // English folk song
+      "fukashigi-no-carte", // Kawai Luigi or Hidehiro Kawai
+      "from-the-start---laufey", // Laufey
+      "goner", // Twenty One Pilots
+      "titanium", // David Guetta feat. Sia
+      "Avril_14_Aphex_Twin", // Aphex Twin
+      "~beethoven-virus~", // Lee Pil-ho
+      "mystery-of-love-call-me-by-your-name", // Sufjan Stevens
+      "lose-yourself-by-eminem", // Eminem
+      "a-cruel-angel-s-thesis---neon-genesis-evangelion", // Hidetoshi Sato
+
+      "chasing-cars---snow-patrol", // Snow Patrol
+      // SpongeBob SquarePants
+      "Feliz_Navidad", // Jose Feliciano
+      "richard-marx---right-here-waiting", // Richard Marx
+      "Axel_F_Beverly_Hills_Cop_III", // Harold Faltermeyer
+
+      // skipped tons of vocal works beyond this point
+
+      "adagio-in-g-minor---for-solo-piano", // Remo Giazotto
+      "can-can", // Jacques Offenbach
     ],
   },
   {
@@ -6500,8 +6604,6 @@ export const corpora: CorpusEntry[] = [
       "Anders_Thue_Sonne",
 
       "Avicii_Wake_me_up",
-      "Avril_14_Aphex_Twin",
-      "Axel_F_Beverly_Hills_Cop_III",
 
       "Billie_s_Bounce_Billies_Bounce",
 
@@ -6515,7 +6617,6 @@ export const corpora: CorpusEntry[] = [
 
       "Dream_a_little_dream_of_me",
 
-      "Feliz_Navidad",
       "Flight_Facilities_Crave_You",
       "Flight_Facilities_Crave_You_2",
 

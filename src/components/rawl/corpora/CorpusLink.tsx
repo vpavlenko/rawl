@@ -16,12 +16,14 @@ const badgeStyle = {
   iconColor: "#ddd",
 };
 
+const LOWERCASE_WORDS = ["de", "and"];
+
 const capitalizeWords = (text: string): string => {
   return text
     .split(" ")
     .map((word, index) => {
-      if (word.toLowerCase() === "de" && index !== 0) {
-        return "de";
+      if (LOWERCASE_WORDS.includes(word.toLowerCase()) && index !== 0) {
+        return word.toLowerCase();
       }
       return word.charAt(0).toUpperCase() + word.slice(1);
     })

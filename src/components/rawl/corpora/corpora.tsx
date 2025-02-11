@@ -2576,17 +2576,17 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "dj_okawari",
     midis: [
-      "flower-dance-dj-okawari",
-      "luv-letter-by-dj-okawari",
-      "perfect-blue---dj-okawari-piano-solo-hard",
-      "engage-ring---dj-okawari-x-emily-styler",
-      "over-the-rain---dj-okawari-x-emily-styler",
       "represent",
-      "the-bonds---dj-okawari",
       "peacock---dj-okawari",
-      "lightning-moment---yuan-zuo",
-      "bluebird-story---dj-okawari-bluebird-story-for-2-pianos",
-      "ming-ri-fang-zhou-arknights---speed-of-light-piano-transcription",
+      "over-the-rain---dj-okawari-x-emily-styler",
+      "lightning-moment---yuan-zuo", // some chromaticism inside
+      "luv-letter-by-dj-okawari", // picardy, otherwise easy
+      "perfect-blue---dj-okawari-piano-solo-hard",
+      "engage-ring---dj-okawari-x-emily-styler", // V
+      "flower-dance-dj-okawari", // V, melodic minor, period
+      "ming-ri-fang-zhou-arknights---speed-of-light-piano-transcription", // pentatonic
+      "bluebird-story---dj-okawari-bluebird-story-for-2-pianos", // picardy
+      "the-bonds---dj-okawari", // seventh chords
     ],
     composerBirthYear: 1986, // DJ Okawari
     genre: "Jazz, Hip Hop, Electronic",
@@ -2920,19 +2920,27 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "catherine_rollin",
     midis: [
+      // major desc bass
       "sunlight-waltz---catherine-rollin",
-      "russian-waltz",
-      "winter-waltz---catherine-rollin",
-      "french-movie-waltz---catherine-rollin",
       "sweet-elegy---catherine-rollin",
-      "summer-s-dream---catherine-rollin",
       "tenderly---catherine-rollin",
-      "remembrance---catherine-rollin",
+      // minor desc bass
+      "french-movie-waltz---catherine-rollin",
+      "moonlight-nocturne---catherine-rollin",
+
+      // minor circle of fifths
+      "russian-waltz",
+      "lyric-nocturne---catherine-rollin", // bII, rel major
+
+      "winter-waltz---catherine-rollin", // autumn leaves exit
+
+      "summer-s-dream---catherine-rollin", // minor pachelbel, 50s
+
+      "remembrance---catherine-rollin", // reverse V/ii, bVII
       "pure-heart---catherine-rollin",
       "summer-splendor---catherine-rollin",
-      "lyric-nocturne---catherine-rollin",
-      "moonlight-nocturne---catherine-rollin",
-      "the-swan---catherine-rollin",
+
+      "the-swan---catherine-rollin", // line cliche
       "mah_g4.05",
       "ballad-for-our-time",
 
@@ -5254,6 +5262,9 @@ export const corpora: CorpusEntry[] = [
       "schubert-waltz-in-bb---d.783-op.-33-no.-7",
       "schubert-waltz-in-a-minor-d.924-op.-91a-no.-9",
       "waltz-ndeg-7---op.-18---d.145",
+      "36-original-dances-no.-27---franz-schubert",
+      "franz-schubert---waltz-in-d-flat-major-op.-9-no.-14",
+      "36-originaltanze-d.365---franz-schubert",
       "12-graz-waltzes-ndeg3---schubert",
       "franz-schubert---waltz-in-b-major-d.-145-nr2",
       // "ecossaise-no-3-d.529---franz-schubert",
@@ -5264,6 +5275,38 @@ export const corpora: CorpusEntry[] = [
       "german-dance-and-ecossaise-d.643---franz-schubert",
       "schubert---sonata-in-a-op.120-d.664-movement-i",
       "ave-maria-d839---schubert---solo-piano-arrg.",
+      "schubert_36_first_waltzes_op9_d365_-c-yogore",
+      "wima.8729-deut.tanz-d-365-nr.01",
+      "wima.3e58-schubert_deut.tanz-d.365.3",
+      "wima.3fc1-schubert_deut.tanz-d.365.05",
+      "wima.b3a9-schubert_deut.tanz-d.365.06",
+      "wima.c953-schubert_deut.tanz-d.365.07",
+      "wima.30c1-schubert_deut.tanz-d.365.08",
+      "wima.7e1e-schubert_deut.tanz-d.365.09",
+      "wima.ae09-schubert_deut.tanz-d.365.10",
+      "wima.8229-schubert_deut.tanz-d.365.11",
+      "wima.dc1e-schubert_deut.tanzd365.12",
+      "wima.d5ac-schubert_deut.tanzd365.13",
+      "wima.eac7-schubert_deut.tanzd365.14",
+      "wima.5ded-schubert_deut.tanzd365.15",
+      "wima.0384-schubert_deut.tanzd365.16",
+      "wima.e3f7-schubert_deut.tanzd365.17",
+      "wima.3657-schubert_deut.tanzd365.18",
+      "wima.7295-schubert_deut.tanzd365.19",
+      "wima.a880-schubert_deut.tanz-d.365.20",
+      "wima.3306-schubert_deut.tanz-d.365.21",
+
+      "wima.5426-schubert_de.-tanz-d.365.23",
+      "wima.28fc-schubert_de.-tanz-d.365.24",
+      "wima.e480-schubert_de.-tanz-d.365.25",
+      "wima.1124-schubert_de.-tanz-d.365.26",
+      "wima.738b-schubert_de.-tanz-d.365.27",
+      "wima.4be9-schubert_de.-tanz-d.365.28",
+      "wima.67e3-schubert_deut.tanz-d.365.32",
+      "wima.02f6-schubert_deut.tanz-d.365.33",
+      "wima.8469-schubert_deut.tanz-d.365.34",
+      "wima.7abe-schubert_deut.tanz-d.365.35",
+      "wima.a20b-schubert_deut.tanzd365.36",
     ],
     composerBirthYear: 1797,
     genre: "Classical",

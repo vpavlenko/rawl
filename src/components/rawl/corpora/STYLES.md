@@ -1,37 +1,53 @@
 <!-- Yehezkel Raz: Preludes Book 1, simple pieces - can't verify. -->
 
-Gibran Alcocer
+# Первые два занятия
 
-# Minor circle of fifths
+Gibran Alcocer и Schubert
 
-Paul de Senneville: four pieces, requires V7, not just circle of fifths, can be tough.
+Самостоятельно: http://localhost:3000/f/la-valse-d-amelie-piano
 
-# Tetris Kyle Landry's - V7 i, iv, III - four chords
+# Третье занятие: про V
 
-TheFatRat
+- Schubert, D. 365 #22, #27
+- Evgeny Grinko, Valse etc.
+- Gibran Alcocer, idea 20, idea 7, idea 1
+- Yann Tiersen, les-jours-triste, la-noyee, le-moulin, a-quai
 
-Lo-fi: DJ Okawari (can be, but there's violin), Fkj, Nujabes (not very language'y).
+# Четвертое занятие: DJ Okawari
 
-Circle of fifths: Bebu Silvetti, Paul de Senneville.
+# Пятое занятие: textures. Melodic minor on V7: Bella Ciao, Tetris (Kyle Landry), Comptine (Kyle Landry)
 
-Parov Stelar
+# Шестое занятие: minor circle of fifths: Bebu Silvetti, Paul de Senneville, Luo Ni, Handel
 
-Yiruma "First Love"
+# TheFatRat
 
-# Boogie
+# Parov Stelar
+
+# Седьмое занятие: autumn leaves
+
+# Восьмое занятие: Boogie Woogie
 
 start with https://rawl.rocks/f/surfboard-boogie
 
-Evgeny Grinko
-main problem: only Valse has V, 5 pieces, not very tight
+# Девятое занятие: pachelbel's canon
 
-# Classical style
+# Десятое занятие: Yiruma
 
-Schubert's First Waltzes
+# applieds - D. 365
 
-# Complex
+# Fkj
 
-Discuss Catherine Rollin - has bII, bVII, reverse applied, Vsus4, rel - not for beginners.
+# C418 Minecraft
+
+# Catherine Rollin
+
+has bII, bVII, reverse applied, Vsus4, rel - not for beginners.
+
+# Theo Northrup
+
+# Plants vs Zombies
+
+# Zequinha de Abreu
 
 # Fin de siecle American music
 

@@ -5299,8 +5299,6 @@ export const corpora: CorpusEntry[] = [
       "wima.5426-schubert_de.-tanz-d.365.23",
       "wima.28fc-schubert_de.-tanz-d.365.24", // reverse V/vi
 
-      "wima.738b-schubert_de.-tanz-d.365.27", // i V I V, rel minor
-
       "wima.67e3-schubert_deut.tanz-d.365.32",
       "wima.02f6-schubert_deut.tanz-d.365.33",
       "wima.8469-schubert_deut.tanz-d.365.34",
@@ -5312,6 +5310,10 @@ export const corpora: CorpusEntry[] = [
       "wima.e480-schubert_de.-tanz-d.365.25",
       "wima.1124-schubert_de.-tanz-d.365.26",
       "wima.4be9-schubert_de.-tanz-d.365.28",
+
+      // minor
+      "wima.01fa-schubert_deut.tanz-d.365.22",
+      "wima.738b-schubert_de.-tanz-d.365.27",
     ],
     composerBirthYear: 1797,
     genre: "Classical",
@@ -6071,6 +6073,13 @@ export const corpora: CorpusEntry[] = [
     ],
   },
   {
+    slug: "bella_ciao",
+    midis: [
+      "bella-ciao---sad-and-slow-piano-version-arranged-by-rafal-piwowarczuk-la-casa-de-papel",
+      "Bella_Ciao",
+    ],
+  },
+  {
     slug: "yehezkel_raz",
     midis: [
       "ballerina---yehezkel-raz",
@@ -6737,6 +6746,17 @@ export const corpora: CorpusEntry[] = [
     genre: "Contemporary Classical",
   },
   {
+    slug: "vasiliy_agapkin",
+    midis: ["march-slav-s-farewel-marsh-proshchanie-slavyanki"],
+  },
+  {
+    slug: "kyle_landry",
+    midis: [
+      "Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki",
+      "comptine-d-un-autre-ete-arr.-kyle-landry-2021",
+    ],
+  },
+  {
     slug: "unsorted",
     midis: [
       "Alice_DJ_Better_Off_Alone",
@@ -6771,7 +6791,7 @@ export const corpora: CorpusEntry[] = [
       "rush-e-but-it-s-as-difficult-as-humanly-possible",
 
       "Krylya_Nautilus_duo",
-      "Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki",
+
       "Lady_Gaga_Always_remember_us_this_way",
 
       "Liana_Flores_Rises_the_Moon",

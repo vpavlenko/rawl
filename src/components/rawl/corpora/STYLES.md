@@ -1,14 +1,22 @@
-Yehezkel Raz: Preludes Book 1, simple pieces - start with them.
+<!-- Yehezkel Raz: Preludes Book 1, simple pieces - can't verify. -->
 
-http://localhost:3000/corpus/thefatrat
+Gibran Alcocer
 
-http://localhost:3000/corpus/gibran_alcocer
-
-http://localhost:3000/corpus/paul_de_senneville
+TheFatRat
 
 Lo-fi: Fkj, DJ Okawari, Nujabes.
 
+Circle of fifths: Bebu Silvetti, Paul de Senneville.
+
 Parov Stelar
+
+# Boogie
+
+start with https://rawl.rocks/f/surfboard-boogie
+
+Yiruma "First Love"
+
+Discuss Catherine Rollin
 
 Zequinha de Abreu's chorinhos. (He also had tangos.)
 
@@ -19,6 +27,8 @@ Scott Joplin: Maple Leaf Rag and Entertainer are two separate classes of first s
 Other tango composers: Ernesto Nazareth, Carlos Gardel, Astor Piazzolla.
 
 Evgeny Doga
+
+Plants vs Zombies
 
 John Field's nocturnes
 

@@ -2925,10 +2925,37 @@ export const corpora: CorpusEntry[] = [
       "sneaky-skeleton---catherine-rollin",
       "blues-train---catherine-rollin-catherine-rollin---blues-train-jazz",
       "witches-brew---catherine-rollin",
+      "summer-s-dream---catherine-rollin",
+      "cool-ghoul---catherine-rollin-cool-ghoul",
+      "miami-blues---catherine-rollin",
+      "tenderly---catherine-rollin",
+      "remembrance---catherine-rollin",
+      "nashville-rag---catherine-rollin-nashville-rag",
+      "pure-heart---catherine-rollin",
+      "rock-it---catherine-rollin",
+      "summer-splendor---catherine-rollin",
+      "lyric-nocturne---catherine-rollin",
+      "the-swan---catherine-rollin",
+      "waltzing-the-blues---catherine-rollin",
+      "sunlight-waltz---catherine-rollin",
+      "winter-waltz---catherine-rollin",
+      "la-senorita---catherine-rollin",
+      "mah_g4.05",
+      "solar-wind",
+      "ballad-for-our-time",
+      "russian-waltz",
+      "blues-boulevard---catherine-rollin",
+      "tap-time---catherine-rollin",
+      "baroque-bop---catherine-rollin",
+      "back-beat-blues---catherine-rollin",
+      "motown-rag---catherine-rollin",
+      "circus-rag---catherine-rollin",
+      "sweet-elegy---catherine-rollin",
+      "jazzy-moves---catherine-rollin",
+      "hoe-down---catherine-rollin",
     ],
     composerBirthYear: 1954,
-    genre: "Jazz",
-    style: "Jazz, Blues",
+    style: "Jazz, Blues, Teacher Music",
     country: "USA",
   },
   {
@@ -4298,12 +4325,16 @@ export const corpora: CorpusEntry[] = [
     country: "Germany", // Pachelbel was German
   },
   {
-    slug: "bebu_silvetti",
+    slug: "bebu_silvetti_and_raul_di_blasio",
     midis: [
       "mexico-de-noche",
       "quiero-amanecer-con-alguien---daniela-romo",
       "melissa---bebu-silvetti", // canon in D
-      "bebu-silvetti---piano",
+      // "bebu-silvetti---piano",
+      "volviendo-a-casa-raul-di-blasio",
+      "barroco---raul-di-blasio",
+      "piano---raul-di-blasio",
+      "corazon-de-nino-child-s-heart-by-raul-di-blasio---raul-di-blasio-corazon-de-nino-child-s-heart-by-raul-di-blasio",
     ],
     composerBirthYear: 1939, // Bebu Silvetti's birth year
     genre: "Latin", // Bebu Silvetti was known for Latin music
@@ -5686,8 +5717,12 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "laura_shigihara",
     midis: [
+      "plants-vs-zombies-grasswalk",
+      "crazy-dave-intro-theme---laura-shigihara-from-plants-vs.-zombies",
       "loonboon---laura-shigihara-arranged-by-piano-keyng",
       "moongrains---laura-shigihara",
+      "plants-vs-zombies---watery-graves",
+
       "to-the-moon-for-river-johnny-s-version-48aa2a",
     ],
     composerBirthYear: 1980,
@@ -5986,14 +6021,14 @@ export const corpora: CorpusEntry[] = [
     slug: "yehezkel_raz",
     midis: [
       "ballerina---yehezkel-raz",
-      "laniakea---yehezkel-raz",
-      "carousel---yehezkel-raz",
+      "laniakea---yehezkel-raz", // does not exist
+      "carousel---yehezkel-raz", // it's called laniakea on youtube
       "continuance---yehezkel-raz",
       "slowly-understanding---yehezkel-raz",
       "breath-in---yehezkel-raz",
       "breath-out---yehezkel-raz",
       "after-you-came---yehezkel-raz",
-      "before-you-left---yehezkel-raz",
+      "before-you-left---yehezkel-raz", // does not exist
       "closing-time---yehezkel-raz",
       "milestone---yehezkel-raz",
       "early-morning-haze---yehezkel-raz",

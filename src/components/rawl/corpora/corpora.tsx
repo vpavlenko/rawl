@@ -1892,10 +1892,13 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "tonci_huljic",
     midis: [
+      "croatian-rhapsody-hard-piano",
+      "hana-s-eyes-by-maksim-mrvica",
       "claudine---tonci-huljic",
       "cubana",
       "still-waters---tonci-huljic",
       "wonderland---tonci-huljic",
+      "kolibre---maksim-mrvica",
     ],
     composerBirthYear: 1957, // Tonči Huljić
     genre: "Pop, Film score",
@@ -3061,6 +3064,7 @@ export const corpora: CorpusEntry[] = [
       "meditation---ie.-doga",
       "i-love-you---ie.-doga",
       "portret---e.-doga",
+      "pollyanna---ie.-doga",
     ],
     composerBirthYear: 1937,
     genre: "Classical, Film Score",
@@ -3846,6 +3850,8 @@ export const corpora: CorpusEntry[] = [
       "tchaikovsky-waltz-of-the-flowers-from-the-nutcracker-piano-4-hands",
       "dance-of-the-sugar-plum-fairy",
       "swan-lake-theme---tchaikovsky",
+
+      "the-seasons-op.-37b---1.-january-at-the-fireside-t.-yaskawa",
     ],
     composerBirthYear: 1840, // Born in 1840
     genre: "Classical", // Classical composer
@@ -4415,6 +4421,17 @@ export const corpora: CorpusEntry[] = [
     genre: "Romantic", // Mussorgsky was a Romantic composer
     style: "Classical", // Typical descriptor for Romantic era music
     country: "Russia", // Mussorgsky was Russian
+  },
+  {
+    slug: "zequinha_de_abreu",
+    midis: [
+      "tico-tico-no-fuba---zequinha-de-abreu",
+      "nao-me-toques-chorinho---zequinha-de-abreu",
+      "os-pintinhos-no-terreiro-zequinha-de-abreu",
+      "levanta-poeira-chorinho---zequinha-de-abreu",
+      "bafo-de-onca",
+      "sururu-na-cidade",
+    ],
   },
   {
     slug: "saint_saens",
@@ -5785,6 +5802,16 @@ export const corpora: CorpusEntry[] = [
   },
   { slug: "adele", midis: ["someone-like-you", "easy-on-me---adele"] },
   {
+    slug: "parov_stelar",
+    midis: [
+      "booty-swing---parov-stelar",
+      "chambermaid-swing---parov-stelar---piano-notes",
+      "catgroove-piano-solo",
+      "all-night",
+      "mojo-radio-gang---parov-stelar-parov-stelar---mojo-radio-gang-all-piano",
+    ],
+  },
+  {
     slug: "hans_zimmer",
     midis: [
       "Interstellar",
@@ -5953,6 +5980,23 @@ export const corpora: CorpusEntry[] = [
       "emma-s-sorrow---the-promised-neverland",
       "krone-on-the-gf-string",
       "shoshimin-ost---main-theme---takahiro-obata",
+    ],
+  },
+  {
+    slug: "yehezkel_raz",
+    midis: [
+      "ballerina---yehezkel-raz",
+      "laniakea---yehezkel-raz",
+      "carousel---yehezkel-raz",
+      "continuance---yehezkel-raz",
+      "slowly-understanding---yehezkel-raz",
+      "breath-in---yehezkel-raz",
+      "breath-out---yehezkel-raz",
+      "after-you-came---yehezkel-raz",
+      "before-you-left---yehezkel-raz",
+      "closing-time---yehezkel-raz",
+      "milestone---yehezkel-raz",
+      "early-morning-haze---yehezkel-raz",
     ],
   },
   {
@@ -6577,7 +6621,15 @@ export const corpora: CorpusEntry[] = [
     slug: "linkin_park",
     midis: ["Numb_-_Linkin_Park", "in-the-end---linkin-park"],
   },
-  { slug: "thefatrat", midis: ["TheFatRat_Monody", "TheFatRat_Unity"] },
+  {
+    slug: "thefatrat",
+    midis: [
+      "TheFatRat_Monody",
+      "TheFatRat_Unity",
+      "jackpot-thefatrat",
+      "thefatrat---close-to-the-sun",
+    ],
+  },
   {
     slug: "francis_lai",
     midis: ["Love_Store_Francis_Lai", "un-homme-et-une-femme---francis-lai"],

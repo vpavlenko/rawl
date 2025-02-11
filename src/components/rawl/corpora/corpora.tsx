@@ -5276,34 +5276,6 @@ export const corpora: CorpusEntry[] = [
       "schubert---sonata-in-a-op.120-d.664-movement-i",
       "ave-maria-d839---schubert---solo-piano-arrg.",
       "schubert_36_first_waltzes_op9_d365_-c-yogore",
-      "wima.8729-deut.tanz-d-365-nr.01",
-      "wima.3e58-schubert_deut.tanz-d.365.3",
-      "wima.3fc1-schubert_deut.tanz-d.365.05", // almost V I, b7
-      "wima.b3a9-schubert_deut.tanz-d.365.06",
-      "wima.c953-schubert_deut.tanz-d.365.07", // almost V I, chromatic 9 b9
-      "wima.30c1-schubert_deut.tanz-d.365.08",
-
-      "wima.ae09-schubert_deut.tanz-d.365.10",
-      "wima.8229-schubert_deut.tanz-d.365.11",
-      "wima.dc1e-schubert_deut.tanzd365.12", // ii7
-      "wima.d5ac-schubert_deut.tanzd365.13", // IV
-      "wima.eac7-schubert_deut.tanzd365.14",
-      "wima.5ded-schubert_deut.tanzd365.15",
-      "wima.0384-schubert_deut.tanzd365.16",
-      "wima.e3f7-schubert_deut.tanzd365.17", // IV
-      "wima.3657-schubert_deut.tanzd365.18", // ii
-      "wima.7295-schubert_deut.tanzd365.19", // V/ii
-      "wima.a880-schubert_deut.tanz-d.365.20", // V/V voice-leading
-      "wima.3306-schubert_deut.tanz-d.365.21",
-
-      "wima.5426-schubert_de.-tanz-d.365.23",
-      "wima.28fc-schubert_de.-tanz-d.365.24", // reverse V/vi
-
-      "wima.67e3-schubert_deut.tanz-d.365.32",
-      "wima.02f6-schubert_deut.tanz-d.365.33",
-      "wima.8469-schubert_deut.tanz-d.365.34",
-      "wima.7abe-schubert_deut.tanz-d.365.35",
-      "wima.a20b-schubert_deut.tanzd365.36",
 
       // simple V I
       "wima.7e1e-schubert_deut.tanz-d.365.09",
@@ -5311,9 +5283,44 @@ export const corpora: CorpusEntry[] = [
       "wima.1124-schubert_de.-tanz-d.365.26",
       "wima.4be9-schubert_de.-tanz-d.365.28",
 
+      // voice-leading chromatic tones
+      "wima.3fc1-schubert_deut.tanz-d.365.05",
+      "wima.c953-schubert_deut.tanz-d.365.07",
+      "wima.ae09-schubert_deut.tanz-d.365.10",
+      "wima.8229-schubert_deut.tanz-d.365.11",
+
       // minor
       "wima.01fa-schubert_deut.tanz-d.365.22",
       "wima.738b-schubert_de.-tanz-d.365.27",
+
+      // V/ii
+      "wima.b3a9-schubert_deut.tanz-d.365.06",
+      "wima.30c1-schubert_deut.tanz-d.365.08",
+      "wima.7295-schubert_deut.tanzd365.19",
+      "wima.5ded-schubert_deut.tanzd365.15",
+
+      // mix applieds
+      "wima.8729-deut.tanz-d-365-nr.01",
+      "wima.3e58-schubert_deut.tanz-d.365.3",
+      "wima.0384-schubert_deut.tanzd365.16",
+      "wima.3306-schubert_deut.tanz-d.365.21",
+      "wima.5426-schubert_de.-tanz-d.365.23",
+      "wima.28fc-schubert_de.-tanz-d.365.24", // reverse V/vi
+      "wima.8469-schubert_deut.tanz-d.365.34", // Ger
+      "wima.a20b-schubert_deut.tanzd365.36", // very chromatic
+
+      // subdominant
+      "wima.dc1e-schubert_deut.tanzd365.12", // ii65
+      "wima.d5ac-schubert_deut.tanzd365.13", // IV
+      "wima.e3f7-schubert_deut.tanzd365.17", // IV
+      "wima.3657-schubert_deut.tanzd365.18", // ii
+
+      // modulatory
+      "wima.02f6-schubert_deut.tanz-d.365.33",
+      "wima.eac7-schubert_deut.tanzd365.14",
+      "wima.a880-schubert_deut.tanz-d.365.20",
+      "wima.67e3-schubert_deut.tanz-d.365.32",
+      "wima.7abe-schubert_deut.tanz-d.365.35",
     ],
     composerBirthYear: 1797,
     genre: "Classical",
@@ -6358,6 +6365,8 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "jingle_bells",
     midis: [
+      "jingle-bells",
+      "jingle-bells---minor-ragtime-advanced---piano",
       "jingle-bells-boogie-woogie-cover",
       "jingle-bells-boogie",
       "jingle-bells---jazz-piano",

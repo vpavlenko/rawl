@@ -1,26 +1,31 @@
-# Первые два занятия
+# Первое занятие: Schubert 25, 26, 28
 
-Gibran Alcocer и Schubert
+TODO: развести LH и RH
+backup: flohwalzer, chopsticks
 
-Самостоятельно: http://localhost:3000/f/la-valse-d-amelie-piano
+# Второе занятие: Gibran Alcocer 15, 22, 10
 
-HT: flohwalzer, chopsticks
+TODO: перезалить более унифицированный аккомпанемент
+
+# Style
+
+- Grinko melting, wind brought, carousel
+- Yann Tiersen, je suis jamais alle, la valse d'Amelie, rue de cascades
 
 # Третье занятие: про V
 
 - Schubert, D. 365 #22, #27
-- Evgeny Grinko, Valse etc.
+- Evgeny Grinko, Valse
 - Gibran Alcocer, idea 20, idea 7, idea 1
 - Yann Tiersen, les-jours-triste, la-noyee, le-moulin, a-quai
-- Opening of
+- Opening of Gravity Falls
 - Attack on Titan
-- Gravity Falls
 
 # Четвертое занятие: DJ Okawari
 
-# Пятое занятие: textures. Melodic minor on V7: Bella Ciao, Tetris (Kyle Landry), Comptine (Kyle Landry) + third up, Slavianka
+# textures. Melodic minor on V7: Bella Ciao, Tetris (Kyle Landry), Comptine (Kyle Landry) + third up, Slavianka
 
-# Шестое занятие: minor circle of fifths: Bebu Silvetti, Paul de Senneville, Luo Ni, Handel
+# minor circle of fifths: Bebu Silvetti, Paul de Senneville, Luo Ni, Handel, Croatian Rhapsody
 
 # TheFatRat
 

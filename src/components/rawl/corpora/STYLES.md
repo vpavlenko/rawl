@@ -6,12 +6,17 @@ Gibran Alcocer и Schubert
 
 Самостоятельно: http://localhost:3000/f/la-valse-d-amelie-piano
 
+HT: flohwalzer, chopsticks
+
 # Третье занятие: про V
 
 - Schubert, D. 365 #22, #27
 - Evgeny Grinko, Valse etc.
 - Gibran Alcocer, idea 20, idea 7, idea 1
 - Yann Tiersen, les-jours-triste, la-noyee, le-moulin, a-quai
+- Opening of
+- Attack on Titan
+- Gravity Falls
 
 # Четвертое занятие: DJ Okawari
 
@@ -29,17 +34,23 @@ Gibran Alcocer и Schubert
 
 start with https://rawl.rocks/f/surfboard-boogie
 
+# Shuttles
+
+# IV iii ii I, Pedro Silva
+
 # Девятое занятие: pachelbel's canon
 
 # Десятое занятие: Yiruma
 
 # applieds - D. 365
 
+# On period and V/V: make minor ragtime jingle bells-like out of any period
+
 # Fkj
 
 # C418 Minecraft
 
-# Catherine Rollin
+# Catherine Rollin, descending bass
 
 has bII, bVII, reverse applied, Vsus4, rel - not for beginners.
 
@@ -48,6 +59,8 @@ has bII, bVII, reverse applied, Vsus4, rel - not for beginners.
 # Plants vs Zombies
 
 # Zequinha de Abreu
+
+# Malaguena
 
 # Fin de siecle American music
 

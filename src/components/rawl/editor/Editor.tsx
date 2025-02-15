@@ -388,7 +388,7 @@ const calculateMidiNumber = (
   track: number, // 1 for RH, 2 for LH
   context: CommandContext,
 ): number | null => {
-  if (scaleDegree === 0) return null; // Rest
+  if (scaleDegree === -Infinity) return null; // Rest
 
   // Define the mapping of scale degrees to semitones from tonic
   const majorScaleMap = [0, 2, 4, 5, 7, 9, 11];
@@ -529,7 +529,7 @@ const parseMelodyString = (
       }
 
       // Handle note or chord
-      const noteChars = token.match(/[1-9a-zA-Z0x]/g) || [];
+      const noteChars = token.match(/[a-zA-Z1-90x]/g) || [];
       const span: MeasureSpan = {
         start: currentPosition,
         end: currentPosition + 1, // Default to one beat duration
@@ -537,18 +537,22 @@ const parseMelodyString = (
 
       // Check if this is a rest (x)
       if (noteChars.length === 1 && noteChars[0] === "x") {
-        // For rests, just advance the position by one beat (will be adjusted by duration marker if present)
-        currentPosition = span.end;
+        result.push({
+          scaleDegree: -Infinity, // Use -Infinity for rests
+          duration: TICKS_PER_QUARTER,
+          span: { ...span },
+          midiNumber: null,
+        });
         continue;
       }
 
       // Process each note in the chord (or single note)
       for (const noteChar of noteChars) {
-        const absoluteScaleDegree =
-          NOTE_LETTER_MAP[noteChar.toLowerCase()] || 0;
+        const absoluteScaleDegree = NOTE_LETTER_MAP[noteChar.toLowerCase()];
+        if (absoluteScaleDegree === undefined) continue;
 
         const midiNumber = calculateMidiNumber(
-          absoluteScaleDegree, // Pass the absolute scale degree directly
+          absoluteScaleDegree,
           0, // No accidentals support yet
           0, // No octave shifts needed with new system
           key,
@@ -558,7 +562,7 @@ const parseMelodyString = (
 
         if (midiNumber !== null) {
           result.push({
-            scaleDegree: absoluteScaleDegree, // Store the absolute scale degree
+            scaleDegree: absoluteScaleDegree,
             duration: TICKS_PER_QUARTER,
             span: { ...span },
             midiNumber,
@@ -663,7 +667,7 @@ const processTokens = (melodyPart: string): string[] => {
       }
     } else {
       // Handle both numbers and letters - could be part of a chord or single note
-      const noteChars = token.match(/[1-9a-zA-Z0]/g);
+      const noteChars = token.match(/[a-zA-Z1-90]/g); // Changed regex to put letters first
       if (!noteChars) continue;
 
       if (noteChars.length > 1) {

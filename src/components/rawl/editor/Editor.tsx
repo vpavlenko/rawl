@@ -117,6 +117,43 @@ const ErrorMessage = styled.div`
   margin-top: 4px;
 `;
 
+const NOTE_LETTER_MAP: { [key: string]: number } = {
+  // First octave (numeric)
+  "1": 0,
+  "2": 1,
+  "3": 2,
+  "4": 3,
+  "5": 4,
+  "6": 5,
+  "7": 6,
+  "8": 7,
+  "9": 8,
+  "0": 9,
+
+  // Second octave (letters)
+  q: 7,
+  w: 8,
+  e: 9,
+  r: 10,
+  t: 11,
+  y: 12,
+  u: 13,
+
+  // Third octave
+  i: 14,
+  o: 15,
+  p: 16,
+  a: 14,
+  s: 15,
+  d: 16, // Alternative fingering
+  f: 17,
+  g: 18,
+  h: 19,
+  j: 20,
+  k: 21,
+  l: 22,
+};
+
 const parseKey = (keyString: string): KeySignature | null => {
   // Changed regex to make accidentals optional
   const match = keyString.match(/^([A-G][b#]?)\s+(major|minor)$/i);
@@ -358,52 +395,24 @@ const calculateMidiNumber = (
   const minorScaleMap = [0, 2, 3, 5, 7, 8, 10];
   const scaleMap = key.mode === "major" ? majorScaleMap : minorScaleMap;
 
-  // Function to convert a character input to a scale degree (1-based)
-  const charToScaleDegree = (char: string): number => {
-    if (char >= "1" && char <= "9") return parseInt(char);
-    if (char === "0") return 10;
-    const letterMap: { [key: string]: number } = {
-      q: 8,
-      w: 9,
-      e: 10,
-      r: 11,
-      t: 12,
-      y: 13,
-      u: 14,
-      i: 15,
-      o: 16,
-      p: 17,
-      a: 15,
-      s: 16,
-      d: 17,
-      f: 18,
-      g: 19,
-      h: 20,
-      j: 21,
-      k: 22,
-      l: 23,
-    };
-    return letterMap[char.toLowerCase()] || 0;
-  };
-
-  // Convert input to scale degree if it's a string
-  const degree =
+  // Get absolute scale degree
+  const absoluteScaleDegree =
     typeof scaleDegree === "string"
-      ? charToScaleDegree(scaleDegree as string)
+      ? NOTE_LETTER_MAP[scaleDegree.toLowerCase()] || 0
       : scaleDegree;
 
   // Calculate which octave this scale degree belongs to
-  let octave = Math.floor((degree - 1) / 7);
-  const degreeInOctave = ((degree - 1) % 7) + 1;
+  const baseDegree = absoluteScaleDegree % 7;
+  const octave = Math.floor(absoluteScaleDegree / 7);
 
   // Get the semitone offset for this scale degree
-  const semitoneOffset = scaleMap[degreeInOctave - 1];
+  const semitoneOffset = scaleMap[baseDegree];
 
   // Use the appropriate base octave from context
   const baseOctave = track === 1 ? context.baseOctaveRH : context.baseOctaveLH;
 
   // Calculate final MIDI number
-  const midiNumber = (baseOctave + octave) * 12 + semitoneOffset + key.tonic;
+  const midiNumber = key.tonic + semitoneOffset + (baseOctave + octave) * 12;
 
   // Ensure the note is within MIDI range (0-127)
   if (midiNumber < 0 || midiNumber > 127) return null;
@@ -535,8 +544,11 @@ const parseMelodyString = (
 
       // Process each note in the chord (or single note)
       for (const noteChar of noteChars) {
+        const absoluteScaleDegree =
+          NOTE_LETTER_MAP[noteChar.toLowerCase()] || 0;
+
         const midiNumber = calculateMidiNumber(
-          noteChar,
+          absoluteScaleDegree, // Pass the absolute scale degree directly
           0, // No accidentals support yet
           0, // No octave shifts needed with new system
           key,
@@ -546,11 +558,8 @@ const parseMelodyString = (
 
         if (midiNumber !== null) {
           result.push({
-            scaleDegree:
-              typeof noteChar === "string" && /[a-zA-Z]/.test(noteChar)
-                ? noteChar.charCodeAt(0) - "a".charCodeAt(0) + 1
-                : parseInt(noteChar),
-            duration: TICKS_PER_QUARTER, // Default duration, may be updated by subsequent duration marker
+            scaleDegree: absoluteScaleDegree, // Store the absolute scale degree
+            duration: TICKS_PER_QUARTER,
             span: { ...span },
             midiNumber,
           });
@@ -685,40 +694,27 @@ const processTokens = (melodyPart: string): string[] => {
 const calculateShiftedNote = (
   originalDegree: number,
   shift: number,
-  originalMidi: number,
   key: KeySignature,
+  accidental: number = 0,
+  track: number, // Add track parameter
+  context: CommandContext, // Add context parameter
 ): { newDegree: number; newMidi: number } => {
-  // Map of chromatic steps between scale degrees in minor/major
-  const minorSteps = [2, 1, 2, 2, 1, 2, 2]; // Steps between degrees in minor
-  const majorSteps = [2, 2, 1, 2, 2, 2, 1]; // Steps between degrees in major
-  const steps = key.mode === "major" ? majorSteps : minorSteps;
+  const newDegree = originalDegree + shift;
+  const baseDegree = newDegree % 7;
+  const octave = Math.floor(newDegree / 7);
 
-  // Convert scale degrees to 0-based for arithmetic
-  const zeroBased = originalDegree - 1;
+  const minorScaleMap = [0, 2, 3, 5, 7, 8, 10];
+  const majorScaleMap = [0, 2, 4, 5, 7, 9, 11];
+  const scaleMap = key.mode === "major" ? majorScaleMap : minorScaleMap;
 
-  // Calculate new scale degree (0-based)
-  let newDegree = (((zeroBased + shift) % 7) + 7) % 7;
+  // Use the appropriate base octave from context
+  const baseOctave = track === 1 ? context.baseOctaveRH : context.baseOctaveLH;
 
-  // Calculate semitone adjustment by walking through the scale
-  let semitonesAdjust = 0;
-  if (shift > 0) {
-    // Moving up
-    for (let i = 0; i < shift; i++) {
-      const fromDegree = (zeroBased + i) % 7;
-      semitonesAdjust += steps[fromDegree];
-    }
-  } else {
-    // Moving down
-    for (let i = 0; i > shift; i--) {
-      const fromDegree = (((zeroBased + i - 1) % 7) + 7) % 7;
-      semitonesAdjust -= steps[fromDegree];
-    }
-  }
+  // Include baseOctave in calculation
+  const newMidi =
+    key.tonic + scaleMap[baseDegree] + (baseOctave + octave) * 12 + accidental;
 
-  return {
-    newDegree: newDegree + 1, // Convert back to 1-based
-    newMidi: originalMidi + semitonesAdjust,
-  };
+  return { newDegree, newMidi };
 };
 
 const Editor: React.FC = () => {
@@ -853,8 +849,15 @@ const Editor: React.FC = () => {
             );
             const spanLengthInBeats = sourceEndBeat - sourceStartBeat;
 
+            console.log(
+              "Copy command source notes:",
+              JSON.stringify(sourceNotes, null, 2),
+            );
+
             const allCopies = command.shifts
               .map((shift, idx) => {
+                debugger;
+                console.log(`\nProcessing shift ${shift} at index ${idx}`);
                 // Each copy block starts after previous blocks
                 const targetStartBeat = calculateGlobalBeatPosition(
                   command.targetMeasure +
@@ -863,13 +866,17 @@ const Editor: React.FC = () => {
                   newContext.timeSignatures,
                 );
 
+                console.log("Target start beat:", targetStartBeat);
+
                 return sourceNotes.map((n) => {
+                  debugger;
+                  console.log("\nProcessing note:", JSON.stringify(n, null, 2));
                   // Calculate relative position within the source span
                   const relativePosition = n.span.start - sourceStartBeat;
                   const targetPosition = targetStartBeat + relativePosition;
 
                   if (n.midiNumber === null) {
-                    // Handle rests
+                    console.log("Skipping rest note");
                     return {
                       ...n,
                       span: {
@@ -883,11 +890,13 @@ const Editor: React.FC = () => {
                   const { newDegree, newMidi } = calculateShiftedNote(
                     n.scaleDegree,
                     shift,
-                    n.midiNumber,
                     newContext.currentKey,
+                    n.accidental || 0,
+                    newContext.currentTrack,
+                    newContext,
                   );
 
-                  return {
+                  const result = {
                     ...n,
                     span: {
                       start: targetPosition,
@@ -895,7 +904,14 @@ const Editor: React.FC = () => {
                     },
                     scaleDegree: newDegree,
                     midiNumber: newMidi,
+                    accidental: n.accidental, // Preserve the original accidental
                   };
+
+                  console.log(
+                    "Copied note result:",
+                    JSON.stringify(result, null, 2),
+                  );
+                  return result;
                 });
               })
               .flat();

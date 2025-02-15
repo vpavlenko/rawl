@@ -45,5 +45,12 @@ Db minor
 lh 3
 2 i 4r,ry,ry,q,ry,ry,
 4 c 2-3 2 4 3
-109 i 5tg,`,
+10 c 2-9 0
+20 c 2-19 0 0 0 0
+92 i h-d-a-h-d-a-
+93 c 92 0 0 0
+96 i g-d-a-g-d-a- g-d-a-g-d-a- f-s-u-f-s-u-g-s-u-g-s-u-
+100 c 92-99 0
+109 i 5tg,
+`,
 };

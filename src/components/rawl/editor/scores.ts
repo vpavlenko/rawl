@@ -40,4 +40,10 @@ rh 5
 5 c 1-5 0
 9 c 1-9 0
 `,
+  "idea-15---gibran-alcocer": `3/4
+Db minor
+lh 3
+2 i 4r,ry,ry,q,ry,ry,
+4 c 2-3 2 4 3
+109 i 5tg,`,
 };

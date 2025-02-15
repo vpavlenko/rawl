@@ -39,6 +39,7 @@ lh 3
 96 i g-d-a-g-d-a- g-d-a-g-d-a- f-s-u-f-s-u-g-s-u-g-s-u-
 100 c 92-99 0
 109 i 5tg,
+rh
+1 i x,x-8-8-7-6+
 `,
-: ``
 };

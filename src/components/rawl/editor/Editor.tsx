@@ -76,39 +76,65 @@ const RawlContainer = styled.div`
   height: 100%;
 `;
 
-const EditorPanel = styled.div`
+interface EditorPanelProps {
+  isFolded: boolean;
+}
+
+const EditorPanel = styled.div<EditorPanelProps>`
   position: absolute;
-  right: 20px;
-  bottom: 20px;
-  width: 25%;
-  height: 50%;
+  right: 0;
+  bottom: 0;
+  width: 50%;
+  height: 100%;
   background-color: #1e1e1e;
-  border: 1px solid #333;
-  border-radius: 4px;
+  border-left: 1px solid #333;
   padding: 15px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   z-index: 100;
   overflow: auto;
+  transition: transform 0.3s ease;
+  transform: translateX(${(props) => (props.isFolded ? "100%" : "0")});
 `;
 
 const MelodyTextArea = styled.textarea`
+  zindex: 10000000000;
   width: 100%;
-  height: 120px;
+  height: 100%;
   padding: 10px;
   background: #1e1e1e;
   color: #d4d4d4;
   border: 1px solid #333;
   border-radius: 4px;
-  flex-shrink: 0;
-  resize: vertical;
-  font-family:
-    system-ui,
-    -apple-system,
-    sans-serif;
+  flex: 1;
+  resize: none;
+  font-family: "Menlo", "Monaco", "Courier New", monospace;
   font-size: 14px;
   line-height: 1.4;
+`;
+
+const FoldButton = styled.button`
+  position: absolute;
+  left: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 60px;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  color: #d4d4d4;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #2d2d2d;
+  }
 `;
 
 const ErrorMessage = styled.div`
@@ -731,6 +757,7 @@ const calculateShiftedNote = (
 const Editor: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [error, setError] = useState<string | null>(null);
+  const [isFolded, setIsFolded] = useState(false);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
   const { playSongBuffer, rawlProps, analyses } = useContext(AppContext);
   const [score, setScore] = useState(scores[slug || ""] || "");
@@ -1000,28 +1027,10 @@ const Editor: React.FC = () => {
       <RawlContainer>
         {rawlProps && <Rawl {...rawlProps} savedAnalysis={analysis} />}
       </RawlContainer>
-      <EditorPanel>
-        <h3>Score Editor</h3>
-        <p>
-          Commands:
-          <br />
-          1. Insert notes: "measure i notes" (e.g. "1 i 1 2 3")
-          <br />
-          Durations: + (measure length), _ (half), space (quarter), - (eighth),
-          = (16th)
-          <br />
-          Modifiers: ^ (octave up), v (octave down), b/# (flat/sharp), x (rest)
-          <br />
-          2. Key changes: "C major", "Ab minor", "F# major"
-          <br />
-          3. Copy: "11 copy 1 0 -4 -1" (copy measure 1 to 11-13 with shifts)
-          <br />
-          4. Tracks: "lh" (left hand), "rh" (right hand)
-          <br />
-          5. Time signatures: "4/4 5 3/4 9 4/4"
-          <br />
-          Press Cmd+Enter to play.
-        </p>
+      <EditorPanel isFolded={isFolded}>
+        <FoldButton onClick={() => setIsFolded(!isFolded)}>
+          {isFolded ? ">" : "<"}
+        </FoldButton>
         <MelodyTextArea
           ref={textareaRef}
           value={score}

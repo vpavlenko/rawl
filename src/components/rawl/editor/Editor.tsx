@@ -453,7 +453,8 @@ const parseMelodyString = (
     const beatsPerMeasure = context.beatsPerMeasure || 4;
 
     // Updated regex to capture multiple ^ or v characters and optional dots after duration markers
-    const notePattern = /(\s+|[v^]+[b#]?[1-7]|[b#]?[1-7])([+_\-=\s]\.?)/g;
+    // Made the duration marker group optional with ? to handle last note properly
+    const notePattern = /(\s+|[v^]+[b#]?[1-7]|[b#]?[1-7]|x)([+_\-=\s]\.?)?/g;
     const matches = Array.from(melodyPart.matchAll(notePattern));
 
     if (matches.length === 0) return [];
@@ -462,7 +463,7 @@ const parseMelodyString = (
     let previousMidiNumber: number | null = null;
 
     return matches.map((match) => {
-      const [_, noteOrRest, durationMarker] = match;
+      const [_, noteOrRest, durationMarker = ""] = match; // Default to empty string for duration if not present
       const duration = getDuration(durationMarker, beatsPerMeasure);
       const durationInBeats = duration / TICKS_PER_QUARTER;
 
@@ -474,7 +475,8 @@ const parseMelodyString = (
       // Update position for next note
       currentPosition = span.end;
 
-      if (noteOrRest.trim() === "") {
+      // Handle rest cases: either empty space or 'x' marker
+      if (noteOrRest.trim() === "" || noteOrRest === "x") {
         return {
           scaleDegree: 0,
           duration,
@@ -843,7 +845,7 @@ const Editor: React.FC = () => {
           Durations: + (measure length), _ (half), space (quarter), - (eighth),
           = (16th)
           <br />
-          Modifiers: ^ (octave up), v (octave down), b/# (flat/sharp)
+          Modifiers: ^ (octave up), v (octave down), b/# (flat/sharp), x (rest)
           <br />
           2. Key changes: "C major", "Ab minor", "F# major"
           <br />

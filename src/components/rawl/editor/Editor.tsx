@@ -336,55 +336,70 @@ const parseCommand = (
 
 // Helper function to calculate MIDI number from scale degree and key
 const calculateMidiNumber = (
-  scaleDegree: number,
+  scaleDegree: number | string,
   accidental: number | undefined,
   octaveShift: number,
   key: KeySignature,
-  previousMidiNumber: number | null = null,
+  track: number, // 1 for RH, 2 for LH
 ): number | null => {
   if (scaleDegree === 0) return null; // Rest
 
-  // Map scale degree to chromatic pitch (using major scale as reference)
+  // Define the mapping of scale degrees to semitones from tonic
   const majorScaleMap = [0, 2, 4, 5, 7, 9, 11];
-  let pitch = majorScaleMap[scaleDegree - 1];
+  const minorScaleMap = [0, 2, 3, 5, 7, 8, 10];
+  const scaleMap = key.mode === "major" ? majorScaleMap : minorScaleMap;
 
-  // Apply accidental if any (this modifies from major scale reference)
-  if (accidental) {
-    pitch += accidental;
-  }
+  // Function to convert a character input to a scale degree (1-based)
+  const charToScaleDegree = (char: string): number => {
+    if (char >= "1" && char <= "9") return parseInt(char);
+    if (char === "0") return 10;
+    const letterMap: { [key: string]: number } = {
+      q: 8,
+      w: 9,
+      e: 10,
+      r: 11,
+      t: 12,
+      y: 13,
+      u: 14,
+      i: 15,
+      o: 16,
+      p: 17,
+      a: 15,
+      s: 16,
+      d: 17,
+      f: 18,
+      g: 19,
+      h: 20,
+      j: 21,
+      k: 22,
+      l: 23,
+    };
+    return letterMap[char.toLowerCase()] || 0;
+  };
 
-  // Apply key signature offset
-  pitch = (pitch + key.tonic) % 12;
+  // Convert input to scale degree if it's a string
+  const degree =
+    typeof scaleDegree === "string"
+      ? charToScaleDegree(scaleDegree as string)
+      : scaleDegree;
 
-  // Start with middle C octave
-  let baseNote = pitch + 60;
+  // Calculate which octave this scale degree belongs to
+  let octave = Math.floor((degree - 1) / 7);
+  const degreeInOctave = ((degree - 1) % 7) + 1;
 
-  // If there's a previous note, find the closest octave BEFORE applying the octave shift
-  if (previousMidiNumber !== null) {
-    // Try all possible octaves within MIDI range to find the smallest interval
-    let bestNote = baseNote;
-    let smallestInterval = Math.abs(baseNote - previousMidiNumber);
+  // Get the semitone offset for this scale degree
+  const semitoneOffset = scaleMap[degreeInOctave - 1];
 
-    // Calculate how many octaves we can go up/down while staying in MIDI range
-    const pitchClass = baseNote % 12;
-    const minOctave = Math.floor(-pitchClass / 12); // To reach 0
-    const maxOctave = Math.floor((127 - pitchClass) / 12); // To reach 127
+  // Base octave is different for LH and RH
+  const baseOctave = track === 1 ? 3 : 1; // RH starts at C3, LH starts at C1
 
-    for (let octave = minOctave; octave <= maxOctave; octave++) {
-      const candidateNote = baseNote + octave * 12;
-      if (candidateNote < 0 || candidateNote > 127) continue; // Safety check
-      const interval = Math.abs(candidateNote - previousMidiNumber);
-      if (interval < smallestInterval) {
-        smallestInterval = interval;
-        bestNote = candidateNote;
-      }
-    }
+  // Calculate final MIDI number
+  const midiNumber = (baseOctave + octave) * 12 + semitoneOffset + key.tonic;
 
-    baseNote = bestNote;
-  }
+  // Ensure the note is within MIDI range (0-127)
+  if (midiNumber < 0 || midiNumber > 127) return null;
 
-  // Apply explicit octave shift after finding closest position
-  return baseNote + octaveShift * 12;
+  return midiNumber;
 };
 
 // Helper to convert measure.beat to decimal position
@@ -509,24 +524,24 @@ const parseMelodyString = (
           tokens.push(token);
         }
       } else {
-        // Handle numbers - could be part of a chord or single note
-        const numbers = token.match(/\d+/g);
-        if (!numbers) continue;
+        // Handle both numbers and letters - could be part of a chord or single note
+        const noteChars = token.match(/[1-9a-zA-Z0]/g);
+        if (!noteChars) continue;
 
-        if (numbers.length > 1) {
+        if (noteChars.length > 1) {
           // This is a chord
           if (currentToken) {
             tokens.push(currentToken);
             currentToken = "";
           }
-          currentChord = numbers;
+          currentChord = noteChars;
         } else {
           // Single note
           if (currentChord.length > 0) {
             tokens.push(currentChord.join(""));
             currentChord = [];
           }
-          currentToken = numbers[0];
+          currentToken = noteChars[0];
         }
       }
     }
@@ -541,7 +556,6 @@ const parseMelodyString = (
     console.log("Processed tokens:", JSON.stringify(tokens));
 
     let currentPosition = toDecimalPosition(startMeasure, startBeat);
-    let previousMidiNumber: number | null = null;
     const result: LogicalNote[] = [];
 
     for (let i = 0; i < tokens.length; i++) {
@@ -596,7 +610,7 @@ const parseMelodyString = (
       }
 
       // Handle note or chord
-      const noteStrings = token.match(/\d/g) || [];
+      const noteChars = token.match(/[1-9a-zA-Z0]/g) || [];
       const span: MeasureSpan = {
         start: currentPosition,
         end: currentPosition + 1 / beatsPerMeasure, // Default to quarter note duration
@@ -606,35 +620,32 @@ const parseMelodyString = (
         "Creating notes for token:",
         JSON.stringify({
           token,
-          noteStrings,
+          noteChars,
           span,
           currentPosition,
         }),
       );
 
       // Process each note in the chord (or single note)
-      for (const noteStr of noteStrings) {
-        const scaleDegree = parseInt(noteStr);
-        if (isNaN(scaleDegree) || scaleDegree < 1 || scaleDegree > 7) continue;
-
+      for (const noteChar of noteChars) {
         const midiNumber = calculateMidiNumber(
-          scaleDegree,
-          0, // No accidentals support in chord notation yet
-          0, // No octave shifts in chord notation yet
+          noteChar,
+          0, // No accidentals support yet
+          0, // No octave shifts needed with new system
           key,
-          previousMidiNumber,
+          context.currentTrack,
         );
 
-        result.push({
-          scaleDegree,
-          duration: TICKS_PER_QUARTER, // Default duration, may be updated by subsequent duration marker
-          span: { ...span },
-          midiNumber,
-        });
-
-        // Only update previousMidiNumber for the last note in the chord
-        if (noteStr === noteStrings[noteStrings.length - 1]) {
-          previousMidiNumber = midiNumber;
+        if (midiNumber !== null) {
+          result.push({
+            scaleDegree:
+              typeof noteChar === "string" && /[a-zA-Z]/.test(noteChar)
+                ? noteChar.charCodeAt(0) - "a".charCodeAt(0) + 1
+                : parseInt(noteChar),
+            duration: TICKS_PER_QUARTER, // Default duration, may be updated by subsequent duration marker
+            span: { ...span },
+            midiNumber,
+          });
         }
       }
 

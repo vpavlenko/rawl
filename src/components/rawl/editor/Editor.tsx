@@ -453,7 +453,7 @@ const parseMelodyString = (
     const beatsPerMeasure = context.beatsPerMeasure || 4;
 
     // Updated regex to capture multiple ^ or v characters and optional dots after duration markers
-    const notePattern = /(\s+|[v^]+[b#]?[1-7]|[b#]?[1-7])([|+_\-=]\.?)/g;
+    const notePattern = /(\s+|[v^]+[b#]?[1-7]|[b#]?[1-7])([+_\-=\s]\.?)/g;
     const matches = Array.from(melodyPart.matchAll(notePattern));
 
     if (matches.length === 0) return [];
@@ -533,14 +533,15 @@ const getDuration = (marker: string, beatsPerMeasure: number = 4): number => {
   let duration: number;
 
   switch (baseDuration) {
-    case "|":
-      duration = TICKS_PER_QUARTER * beatsPerMeasure; // whole note matches measure length
-      break;
     case "+":
-      duration = TICKS_PER_QUARTER * Math.min(2, beatsPerMeasure); // half note, capped at measure length
+      duration = TICKS_PER_QUARTER * beatsPerMeasure; // length of time signature at insertion
       break;
     case "_":
-      duration = TICKS_PER_QUARTER; // quarter note
+      duration = TICKS_PER_QUARTER * 2; // half note
+      break;
+    case " ":
+    case "":
+      duration = TICKS_PER_QUARTER; // quarter note (space)
       break;
     case "-":
       duration = TICKS_PER_QUARTER / 2; // eighth note
@@ -837,9 +838,10 @@ const Editor: React.FC = () => {
         <p>
           Commands:
           <br />
-          1. Insert notes: "measure i notes" (e.g. "1 i 1_2_3_")
+          1. Insert notes: "measure i notes" (e.g. "1 i 1 2 3")
           <br />
-          Durations: | (whole), + (half), _ (quarter), - (eighth), = (16th)
+          Durations: + (measure length), _ (half), space (quarter), - (eighth),
+          = (16th)
           <br />
           Modifiers: ^ (octave up), v (octave down), b/# (flat/sharp)
           <br />

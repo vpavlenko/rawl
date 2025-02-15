@@ -1661,12 +1661,17 @@ export const corpora: CorpusEntry[] = [
     country: "Russia",
   },
   {
+    slug: "russian_garmon",
+    midis: ["cyganochka---misc-traditional-cyganochka"],
+  },
+  {
     slug: "maksim_dunaevsky",
     midis: [
       "misyachniy-vals---i.-dunaievskiy",
       "polka---i.-dunaievskiy",
       "oy-cvite-kalina---i.-dunaievskiy",
       "uvertyura-do-k-f-diti-kapitana-granta---i.-dunaievskiy",
+      "chastushki-babok-yozhek",
     ],
     composerBirthYear: 1942, // Maksim Dunaevsky
     genre: "Film score, Musical",
@@ -3564,6 +3569,10 @@ export const corpora: CorpusEntry[] = [
     country: "Georgia",
   },
   {
+    slug: "ralph_vaughan_williams",
+    midis: ["lark-ascending"],
+  },
+  {
     slug: "john_williams",
     midis: [
       "john-william---jurassic-park-theme",
@@ -4024,6 +4033,8 @@ export const corpora: CorpusEntry[] = [
       "wa-mozart-marche-turque-turkish-march-fingered",
 
       "lacrimosa---requiem",
+
+      "eine-kleine-nachtmusik",
     ],
     composerBirthYear: 1756, // Born in 1756
     genre: "Classical", // Classical composer
@@ -4549,6 +4560,13 @@ export const corpora: CorpusEntry[] = [
     country: "Poland",
   },
   {
+    slug: "johann_strauss_ii",
+    midis: [
+      "johann-strauss-jr.---an-der-schonen-blauen-donau",
+      "strauss---tritsch-tratsch-polka-piano",
+    ],
+  },
+  {
     slug: "kelly_bailey",
     midis: [
       "triage-at-dawn",
@@ -4927,6 +4945,18 @@ export const corpora: CorpusEntry[] = [
     genre: "Balkan Brass", // Traditional Balkan brass
     style: "Balkan", // Traditional Serbian brass band music
     country: "Serbia",
+  },
+  {
+    slug: "russian_folk",
+    midis: [
+      "vyydu-ya-na-ulicu---russkaya-narodnaya-pesnya-vyydu-ya-na-ulicu",
+      "poydu-l-ya-vyydu-l-ya-da.---russkaya-narodnaya",
+      "podgorka-russkaya-plyaska---narodnaya-plyasovaya-podgorka",
+      "ah-ty-nochenka.-russkaya-narodnaya-pesnya",
+      "kamarinskaya---russkaya-narodnaya-kamarinskaia",
+      "veselaya-kadril---russkaya-narodnaya-pesnya-folk-malenkaya-kadril",
+      "vo-lesochke-komarochkov-mnogo-urodilos---russkaya-narodnaya-pesnya",
+    ],
   },
   {
     slug: "thomas_attwood",

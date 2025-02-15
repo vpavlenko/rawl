@@ -2,6 +2,7 @@
 
 TODO: развести LH и RH
 backup: flohwalzer, chopsticks
+саратовская гармонь, flutina
 
 # Второе занятие: Gibran Alcocer 15, 22, 10
 
@@ -22,6 +23,14 @@ TODO: перезалить более унифицированный акком�
 - Attack on Titan
 
 # Четвертое занятие: DJ Okawari
+
+# Loops in major. Instrumentation
+
+Runaway, The Office, Salvato
+
+# Subdominant on Schubert, happy birthday
+
+гармонь 25 \* 12
 
 # textures. Melodic minor on V7: Bella Ciao, Tetris (Kyle Landry), Comptine (Kyle Landry) + third up, Slavianka
 
@@ -57,9 +66,13 @@ start with https://rawl.rocks/f/surfboard-boogie
 
 # C418 Minecraft
 
+# dorian IV
+
 # applieds - D. 365
 
 # On period and V/V: make minor ragtime jingle bells-like out of any period
+
+25 \* 16
 
 # 12 bar jazz blues
 
@@ -69,9 +82,9 @@ start with https://rawl.rocks/f/surfboard-boogie
 
 has bII, bVII, reverse applied, Vsus4, rel - not for beginners.
 
-# dorian IV
-
 # 6 b6
+
+# shostakovich waltz
 
 # Theo Northrup
 
@@ -94,8 +107,6 @@ has bII, bVII, reverse applied, Vsus4, rel - not for beginners.
 # bII
 
 # applied viio7/
-
-# shostakovich waltz
 
 # cto7
 

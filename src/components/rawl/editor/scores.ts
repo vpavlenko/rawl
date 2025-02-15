@@ -39,7 +39,24 @@ lh 3
 96 i g-d-a-g-d-a- g-d-a-g-d-a- f-s-u-f-s-u-g-s-u-g-s-u-
 100 c 92-99 0
 109 i 5tg,
-rh
-1 i x,x-8-8-7-6+
+rh 5
+1 i x,x-8-8-7-6+ x-q-q-w-e+ x,.q-t,t,t,t,e,e-w+ 
+20 i y-e-q- y-e-q- u-e-q- y-e-q-
+22 c 20-21 0
+24 i t-e-q- t-e-q-
+25 c 21 0
+26 c 24 -1
+27 c 22 -1
+28 c 20-27 0
+36 i y_.t_.
+56 c 20-37 0
 `,
+  "der-flohwalzer": `4/4
+Gb major
+lh 3
+2 i q,x_.q,x_.q,x,6,x,5_x_5,x_.5,x_.5,x,6,x,8_
+60 i 1_
+rh
+1 i x,x,x,y-t-x,ea,ea,
+2 c 1-2 0`,
 };

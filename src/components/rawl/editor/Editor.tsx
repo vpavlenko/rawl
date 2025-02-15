@@ -82,10 +82,10 @@ interface EditorPanelProps {
 
 const EditorPanel = styled.div<EditorPanelProps>`
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 20px;
+  bottom: 120px;
   width: 50%;
-  height: 100%;
+  height: 80%;
   background-color: #1e1e1e;
   border-left: 1px solid #333;
   padding: 15px;
@@ -99,8 +99,8 @@ const EditorPanel = styled.div<EditorPanelProps>`
 `;
 
 const MelodyTextArea = styled.textarea`
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
   padding: 10px;
   background: #1e1e1e;
   color: #d4d4d4;

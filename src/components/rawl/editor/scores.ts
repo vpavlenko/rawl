@@ -3,8 +3,7 @@ export const scores: { [key: string]: string } = {
 lh 3
 1 i 1-q-t-e-a-e-t-e-
 2 c 1 0 0 3 -1 2 -2 -4 -3 0
-11 c 2-10 0 0 0 0 0 0
-19 c 3-8 0
+11 c 3-10 0 0 0 0 0 0 0
 74 i qa+
 rh 5
 3 i 3-e-w-e-q-e-7-e-6-e-5-e-4-e-3-e-

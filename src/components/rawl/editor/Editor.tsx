@@ -700,11 +700,18 @@ const calculateShiftedNote = (
   shift: number,
   key: KeySignature,
   accidental: number = 0,
-  track: number, // Add track parameter
-  context: CommandContext, // Add context parameter
+  track: number,
+  context: CommandContext,
 ): { newDegree: number; newMidi: number } => {
   const newDegree = originalDegree + shift;
-  const baseDegree = newDegree % 7;
+
+  // Implement proper modulo that always gives positive result
+  const properModulo = (n: number, m: number): number => {
+    return ((n % m) + m) % m;
+  };
+
+  // Get positive base degree (0-6) and adjust octave accordingly
+  const baseDegree = properModulo(newDegree, 7);
   const octave = Math.floor(newDegree / 7);
 
   const minorScaleMap = [0, 2, 3, 5, 7, 8, 10];

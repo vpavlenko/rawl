@@ -54,9 +54,12 @@ rh 5
   "der-flohwalzer": `4/4
 Gb major
 lh 3
-2 i q,x_.q,x_.q,x,6,x,5_x_5,x_.5,x_.5,x,6,x,8_
 60 i 1_
-rh
-1 i x,x,x,y-t-x,ea,ea,
-2 c 1-2 0`,
+rh 3
+1b4 i y-t-
+2 c 1-2 0 0 x 0
+6 c 2-5 0
+21 c 1 0
+22 c 18-21 0 0
+`,
 };

@@ -40,9 +40,12 @@ type Command =
   | {
       type: "copy";
       targetMeasure: number;
+      targetBeat: number;
       sourceStart: number;
+      sourceStartBeat: number;
       sourceEnd: number;
-      shifts: number[]; // Array of diatonic shifts to apply
+      sourceEndBeat: number;
+      shifts: (number | "x")[]; // Allow 'x' in shifts array
     }
   | { type: "track"; track: 1 | 2; baseOctave?: number }
   | { type: "time"; signatures: TimeSignature[] };
@@ -83,9 +86,9 @@ interface EditorPanelProps {
 const EditorPanel = styled.div<EditorPanelProps>`
   position: absolute;
   right: 20px;
-  bottom: 120px;
+  bottom: 80px;
   width: 50%;
-  height: 80%;
+  height: 40%;
   background-color: #1e1e1e;
   border-left: 1px solid #333;
   padding: 15px;
@@ -99,7 +102,7 @@ const EditorPanel = styled.div<EditorPanelProps>`
 `;
 
 const MelodyTextArea = styled.textarea`
-  width: 90%;
+  width: 95%;
   height: 90%;
   padding: 10px;
   background: #1e1e1e;
@@ -219,40 +222,70 @@ const parseKey = (keyString: string): KeySignature | null => {
 
 const parseCopyCommand = (line: string): Command | null => {
   // Match the command format: coordinate c sourceMeasureSpan sequenceOfShifts
-  // Example: "2 c 1 -3 -2 -5 -4 -7 -4 -3" or "2 c 1-8 0"
+  // Examples:
+  // "2b1.5 c 1b1-8b4 0" - explicit beat positions
+  // "2 c 1-8 0" - implicit beat positions (1b1-9b0)
+  // "2 c 1 0" - single measure (1b1-2b0)
+  // "2 c 1 0 x 0" - with rest marker 'x' to skip a copy
   const match = line.match(
-    /^(\d+)(?:b(\d+(?:\.\d+)?))?\s+c\s+(\d+(?:-\d+)?)\s+(-?\d+(?:\s+-?\d+)*)?$/,
+    /^(\d+)(?:b(\d+(?:\.\d+)?))?\s+c\s+(\d+)(?:b(\d+(?:\.\d+)?))?(?:-(\d+)(?:b(\d+(?:\.\d+)?))?)?\s+([x\-\d](?:\s+[x\-\d]+)*)?$/,
   );
   if (!match) return null;
 
-  const [_, measureStr, beatStr, sourceStr, shiftsStr] = match;
+  const [
+    _,
+    measureStr,
+    beatStr,
+    sourceStartStr,
+    sourceStartBeatStr,
+    sourceEndStr,
+    sourceEndBeatStr,
+    shiftsStr,
+  ] = match;
   const targetMeasure = parseInt(measureStr);
   const targetBeat = beatStr ? parseFloat(beatStr) : 1;
 
   // Parse source measure(s)
-  let sourceStart: number;
+  const sourceStart = parseInt(sourceStartStr);
+  const sourceStartBeat = sourceStartBeatStr
+    ? parseFloat(sourceStartBeatStr)
+    : 1;
+
   let sourceEnd: number;
-  if (sourceStr.includes("-")) {
-    const [start, end] = sourceStr.split("-").map(Number);
-    sourceStart = start;
-    sourceEnd = end + 1; // Increment end by 1 to get actual slice coordinates
+  let sourceEndBeat: number;
+
+  if (sourceEndStr) {
+    // If there's an explicit end measure
+    sourceEnd = parseInt(sourceEndStr);
+    if (sourceEndBeatStr) {
+      // If there's an explicit end beat, use it
+      sourceEndBeat = parseFloat(sourceEndBeatStr);
+    } else {
+      // If no explicit end beat, use the convention: end at start of next measure
+      sourceEnd = sourceEnd + 1;
+      sourceEndBeat = 0;
+    }
   } else {
-    sourceStart = parseInt(sourceStr);
+    // Single measure specified - copy until start of next measure
     sourceEnd = sourceStart + 1;
+    sourceEndBeat = 0;
   }
 
-  // Extract all shifts by matching numbers
+  // Extract all shifts by matching numbers or 'x'
   const shifts = (shiftsStr || "")
     .trim()
     .split(/\s+/)
     .filter(Boolean)
-    .map(Number);
+    .map((token) => (token === "x" ? "x" : Number(token)));
 
   return {
     type: "copy",
     targetMeasure,
+    targetBeat,
     sourceStart,
+    sourceStartBeat,
     sourceEnd,
+    sourceEndBeat,
     shifts,
   };
 };
@@ -861,20 +894,42 @@ const Editor: React.FC = () => {
             const sourceNotes = (
               newContext.currentTrack === 1 ? scoreTrack1 : scoreTrack2
             ).filter((n) => {
-              // Convert note's global beat position to measure number
-              const noteMeasure = globalBeatToMeasureAndBeat(
+              // Convert note's global beat position to measure and beat
+              const { measure, beatInMeasure } = globalBeatToMeasureAndBeat(
                 n.span.start,
                 newContext.timeSignatures,
-              ).measure;
-              return (
-                noteMeasure >= command.sourceStart &&
-                noteMeasure < command.sourceEnd
               );
+
+              // Check if note is within the source range
+              if (
+                measure < command.sourceStart ||
+                measure > command.sourceEnd
+              ) {
+                return false;
+              }
+
+              // For start measure, check beat position
+              if (
+                measure === command.sourceStart &&
+                beatInMeasure < command.sourceStartBeat
+              ) {
+                return false;
+              }
+
+              // For end measure, check beat position
+              if (
+                measure === command.sourceEnd &&
+                beatInMeasure >= command.sourceEndBeat
+              ) {
+                return false;
+              }
+
+              return true;
             });
 
             if (sourceNotes.length === 0) {
               console.warn(
-                `No notes found in measure ${command.sourceStart} to ${command.sourceEnd} to copy`,
+                `No notes found in measure ${command.sourceStart}b${command.sourceStartBeat} to ${command.sourceEnd}b${command.sourceEndBeat} to copy`,
               );
               continue;
             }
@@ -882,12 +937,12 @@ const Editor: React.FC = () => {
             // Calculate the length of the source span in beats
             const sourceStartBeat = calculateGlobalBeatPosition(
               command.sourceStart,
-              1,
+              command.sourceStartBeat,
               newContext.timeSignatures,
             );
             const sourceEndBeat = calculateGlobalBeatPosition(
               command.sourceEnd,
-              1,
+              command.sourceEndBeat,
               newContext.timeSignatures,
             );
             const spanLengthInBeats = sourceEndBeat - sourceStartBeat;
@@ -899,20 +954,38 @@ const Editor: React.FC = () => {
 
             const allCopies = command.shifts
               .map((shift, idx) => {
-                debugger;
                 console.log(`\nProcessing shift ${shift} at index ${idx}`);
-                // Each copy block starts after previous blocks
+                // Each copy block starts at the target measure + idx measures
                 const targetStartBeat = calculateGlobalBeatPosition(
-                  command.targetMeasure +
-                    idx * (command.sourceEnd - command.sourceStart),
-                  1,
+                  command.targetMeasure + idx,
+                  command.targetBeat,
                   newContext.timeSignatures,
                 );
 
-                console.log("Target start beat:", targetStartBeat);
+                // If this is a rest marker ('x'), return a rest note for the span
+                if (shift === "x") {
+                  // Create a rest that spans the entire source duration
+                  return [
+                    {
+                      scaleDegree: -Infinity, // Use -Infinity for rests
+                      duration: spanLengthInBeats * TICKS_PER_QUARTER,
+                      span: {
+                        start: targetStartBeat,
+                        end: targetStartBeat + spanLengthInBeats,
+                      },
+                      midiNumber: null,
+                    },
+                  ];
+                }
+
+                // Convert back to measure and beat for logging
+                const targetPos = globalBeatToMeasureAndBeat(
+                  targetStartBeat,
+                  newContext.timeSignatures,
+                );
+                console.log("Target position:", targetPos);
 
                 return sourceNotes.map((n) => {
-                  debugger;
                   console.log("\nProcessing note:", JSON.stringify(n, null, 2));
                   // Calculate relative position within the source span
                   const relativePosition = n.span.start - sourceStartBeat;

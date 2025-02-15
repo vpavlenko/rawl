@@ -26,8 +26,18 @@ lh
 E major
 lh 3
 2 i 5,rtu,rtu,q,eti,eti,
+4 c 2-3 0 0
+8 c 2 0
 9 i qeti _
+10 c 2-9 0
+18 c 2-17 0
 rh 5
-1 i x,x,3,7-y-r-w-5=6=5- q-i-t-e--5=6=5- t-f-s-u-7=8=7-a_
-33 i 135^1+`,
+17 i x,x,e,y-7-w-r-s=d=s- a-q-e-t-d=f=d- s-t-u-o-g=h=g- d,
+21 c 17-20 0
+25 i a,
+25 c 17-25 0
+1 i x,x,e,7-y-r-w-5=6=5- q-i-t-e--5=6=5- t-f-s-u-7=8=7-q_
+5 c 1-5 0
+9 c 1-9 0
+`,
 };

@@ -156,15 +156,16 @@ const parseKey = (keyString: string): KeySignature | null => {
 };
 
 const parseCopyCommand = (line: string): Command | null => {
-  // Match the command format: measure copy source-end shift1 shift2 ...
-  // source can be either a single number or a range like "3-4"
+  // Match the command format: coordinate c sourceMeasureSpan sequenceOfShifts
+  // Example: "2 c 1 -3 -2 -5 -4 -7 -4 -3" or "2 c 1-8 0"
   const match = line.match(
-    /^(\d+)\s+copy\s+(\d+(?:-\d+)?)\s+(-?\d+(?:\s+-?\d+)*)?$/,
+    /^(\d+)(?:b(\d+(?:\.\d+)?))?\s+c\s+(\d+(?:-\d+)?)\s+(-?\d+(?:\s+-?\d+)*)?$/,
   );
   if (!match) return null;
 
-  const [fullMatch, targetMeasureStr, sourceStr, shiftsStr] = match;
-  const targetMeasure = parseInt(targetMeasureStr);
+  const [_, measureStr, beatStr, sourceStr, shiftsStr] = match;
+  const targetMeasure = parseInt(measureStr);
+  const targetBeat = beatStr ? parseFloat(beatStr) : 1;
 
   // Parse source measure(s)
   let sourceStart: number;
@@ -519,11 +520,18 @@ const parseMelodyString = (
       }
 
       // Handle note or chord
-      const noteChars = token.match(/[1-9a-zA-Z0]/g) || [];
+      const noteChars = token.match(/[1-9a-zA-Z0x]/g) || [];
       const span: MeasureSpan = {
         start: currentPosition,
         end: currentPosition + 1, // Default to one beat duration
       };
+
+      // Check if this is a rest (x)
+      if (noteChars.length === 1 && noteChars[0] === "x") {
+        // For rests, just advance the position by one beat (will be adjusted by duration marker if present)
+        currentPosition = span.end;
+        continue;
+      }
 
       // Process each note in the chord (or single note)
       for (const noteChar of noteChars) {
@@ -813,11 +821,17 @@ const Editor: React.FC = () => {
             // Find source notes from the current track
             const sourceNotes = (
               newContext.currentTrack === 1 ? scoreTrack1 : scoreTrack2
-            ).filter(
-              (n) =>
-                Math.floor(n.span.start) >= command.sourceStart &&
-                Math.floor(n.span.end) <= command.sourceEnd,
-            );
+            ).filter((n) => {
+              // Convert note's global beat position to measure number
+              const noteMeasure = globalBeatToMeasureAndBeat(
+                n.span.start,
+                newContext.timeSignatures,
+              ).measure;
+              return (
+                noteMeasure >= command.sourceStart &&
+                noteMeasure < command.sourceEnd
+              );
+            });
 
             if (sourceNotes.length === 0) {
               console.warn(
@@ -826,42 +840,46 @@ const Editor: React.FC = () => {
               continue;
             }
 
-            // Calculate the length of the source span
-            const spanLength = command.sourceEnd - command.sourceStart;
+            // Calculate the length of the source span in beats
+            const sourceStartBeat = calculateGlobalBeatPosition(
+              command.sourceStart,
+              1,
+              newContext.timeSignatures,
+            );
+            const sourceEndBeat = calculateGlobalBeatPosition(
+              command.sourceEnd,
+              1,
+              newContext.timeSignatures,
+            );
+            const spanLengthInBeats = sourceEndBeat - sourceStartBeat;
 
             const allCopies = command.shifts
               .map((shift, idx) => {
                 // Each copy block starts after previous blocks
-                const targetMeasure = command.targetMeasure + idx * spanLength;
-
-                // Get time signature for target measure
-                const targetBeatsPerMeasure = getTimeSignatureAt(
-                  targetMeasure,
+                const targetStartBeat = calculateGlobalBeatPosition(
+                  command.targetMeasure +
+                    idx * (command.sourceEnd - command.sourceStart),
+                  1,
                   newContext.timeSignatures,
                 );
 
                 return sourceNotes.map((n) => {
-                  // Adjust timing based on potentially different time signatures
-                  const sourcePosition = n.span.start - command.sourceStart;
-                  const targetPosition =
-                    targetMeasure +
-                    (sourcePosition * targetBeatsPerMeasure) /
-                      sourceBeatsPerMeasure;
+                  // Calculate relative position within the source span
+                  const relativePosition = n.span.start - sourceStartBeat;
+                  const targetPosition = targetStartBeat + relativePosition;
 
                   if (n.midiNumber === null) {
+                    // Handle rests
                     return {
                       ...n,
                       span: {
                         start: targetPosition,
-                        end:
-                          targetPosition +
-                          ((n.span.end - n.span.start) *
-                            targetBeatsPerMeasure) /
-                            sourceBeatsPerMeasure,
+                        end: targetPosition + (n.span.end - n.span.start),
                       },
                     };
                   }
 
+                  // Calculate new scale degree and MIDI number with the shift
                   const { newDegree, newMidi } = calculateShiftedNote(
                     n.scaleDegree,
                     shift,
@@ -873,10 +891,7 @@ const Editor: React.FC = () => {
                     ...n,
                     span: {
                       start: targetPosition,
-                      end:
-                        targetPosition +
-                        ((n.span.end - n.span.start) * targetBeatsPerMeasure) /
-                          sourceBeatsPerMeasure,
+                      end: targetPosition + (n.span.end - n.span.start),
                     },
                     scaleDegree: newDegree,
                     midiNumber: newMidi,

@@ -99,7 +99,6 @@ const EditorPanel = styled.div<EditorPanelProps>`
 `;
 
 const MelodyTextArea = styled.textarea`
-  zindex: 10000000000;
   width: 100%;
   height: 100%;
   padding: 10px;
@@ -532,7 +531,7 @@ const parseMelodyString = (
       if (isDurationMarker) {
         // Apply this duration to the previous note(s)
         const duration = getDuration(token);
-        const durationInBeats = duration / TICKS_PER_QUARTER;
+        const durationInBeats = ticksToBeats(duration);
 
         // Find the last group of notes (could be a single note or chord)
         let lastNoteIndex = result.length - 1;
@@ -608,8 +607,9 @@ const parseMelodyString = (
 };
 
 const getDuration = (marker: string, beatsPerMeasure: number = 4): number => {
-  // Split marker into base duration and dot if present
-  const [baseDuration, dot] = marker.split(".");
+  // Split marker into base duration and check for dot
+  const hasDot = marker.includes(".");
+  const baseDuration = marker.split(".")[0];
   let duration: number;
 
   switch (baseDuration) {
@@ -632,12 +632,17 @@ const getDuration = (marker: string, beatsPerMeasure: number = 4): number => {
       duration = TICKS_PER_QUARTER; // default to quarter note
   }
 
-  // If there's a dot, multiply duration by 1.5
-  if (dot === "") {
-    duration = duration * 1.5;
+  // If there's a dot, increase duration by half of the original duration
+  if (hasDot) {
+    duration = duration + duration / 2;
   }
 
   return duration;
+};
+
+// Helper to convert MIDI ticks to beats
+const ticksToBeats = (ticks: number): number => {
+  return ticks / TICKS_PER_QUARTER;
 };
 
 // Modify logicalNoteToMidi to use global beat positions
@@ -665,8 +670,8 @@ const processTokens = (melodyPart: string): string[] => {
   // Remove all spaces from melody part before processing
   const cleanMelodyPart = melodyPart.replace(/\s+/g, "");
 
-  // Split input into tokens, preserving only commas and other duration markers
-  const rawTokens = cleanMelodyPart.split(/([+_\-=,])/);
+  // Split input into tokens, preserving duration markers and their dots
+  const rawTokens = cleanMelodyPart.split(/([+_\-=,]\.?)/);
   console.log("Raw tokens:", JSON.stringify(rawTokens));
 
   // Split the melody part into tokens, handling both single notes and chords
@@ -677,8 +682,8 @@ const processTokens = (melodyPart: string): string[] => {
     const token = rawTokens[i];
     if (!token) continue;
 
-    // Check if this is a duration marker (including comma)
-    if (/^[+_\-=,]$/.test(token)) {
+    // Check if this is a duration marker (including comma and optional dot)
+    if (/^[+_\-=,]\.?$/.test(token)) {
       // Duration marker
       if (currentChord.length > 0) {
         tokens.push(currentChord.join(""));

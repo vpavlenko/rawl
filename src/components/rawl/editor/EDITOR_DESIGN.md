@@ -77,3 +77,47 @@ Assume we have a broken chord in 3/4:
 ```
 
 To turn it into a Pachelbel's progression, we do `2 c 1 -3 -2 -5 -4 -7 -4 -3`. To copy it further to mm. 9-16, we do `2 c 1-8 0`.
+
+## Time Representation
+
+Time is internally represented using a global beat-based timeline. Each measure maps to a specific beat position in this timeline:
+
+- In 4/4: measure 1 starts at beat 0, measure 2 at beat 4, measure 3 at beat 8, etc.
+- In 3/4: measure 1 starts at beat 0, measure 2 at beat 3, measure 3 at beat 6, etc.
+
+This mapping is constructed after parsing the time signature command. For example, given:
+
+```
+4/4 5 3/4 9 4/4
+```
+
+The measure-to-beat mapping would be:
+
+- Measure 1: beat 0 (4/4)
+- Measure 2: beat 4 (4/4)
+- Measure 3: beat 8 (4/4)
+- Measure 4: beat 12 (4/4)
+- Measure 5: beat 16 (3/4)
+- Measure 6: beat 19 (3/4)
+- Measure 7: beat 22 (3/4)
+- Measure 8: beat 25 (3/4)
+- Measure 9: beat 28 (4/4)
+  ...
+
+All note positions (both starts and ends) are stored as a single number where:
+
+- The integer part represents the global beat number
+- The fractional part represents the precise position within that beat
+
+For example:
+
+- 4.0 means exactly on beat 4
+- 4.5 means halfway through beat 4
+- 4.75 means three-quarters through beat 4
+
+This representation makes it easier to:
+
+1. Handle time signature changes
+2. Calculate precise note positions
+3. Convert to MIDI ticks
+4. Copy and paste across different time signatures

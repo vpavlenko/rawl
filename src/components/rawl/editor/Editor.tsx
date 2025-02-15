@@ -19,9 +19,11 @@ type KeySignature = {
   mode: "major" | "minor";
 };
 
+type BeatPosition = number; // Integer part is beat number, fraction is position within beat
+
 type MeasureSpan = {
-  start: number; // e.g. 1.5 means measure 1, beat 3 in 4/4
-  end: number; // e.g. 2.0 means measure 2, beat 1 (downbeat)
+  start: BeatPosition;
+  end: BeatPosition;
 };
 
 type LogicalNote = {
@@ -402,18 +404,268 @@ const calculateMidiNumber = (
   return midiNumber;
 };
 
-// Helper to convert measure.beat to decimal position
-const toDecimalPosition = (measure: number, beat: number): number => {
-  return measure + (beat - 1) / 4; // Assuming 4/4 time signature
+// Helper to calculate the global beat position for a measure and beat
+const calculateGlobalBeatPosition = (
+  measure: number,
+  beatInMeasure: number,
+  timeSignatures: TimeSignature[],
+): BeatPosition => {
+  let totalBeats = 0;
+  let currentMeasure = 1;
+
+  // Add up beats for all complete measures before the target measure
+  while (currentMeasure < measure) {
+    totalBeats += getTimeSignatureAt(currentMeasure, timeSignatures);
+    currentMeasure++;
+  }
+
+  // Add the beats within the target measure
+  return totalBeats + (beatInMeasure - 1);
 };
 
-// Helper to convert decimal position to measure and beat
-const fromDecimalPosition = (
-  position: number,
-): { measure: number; beat: number } => {
-  const measure = Math.floor(position);
-  const beat = 1 + (position - measure) * 4; // Assuming 4/4 time signature
-  return { measure, beat };
+// Helper to convert a global beat position back to measure and beat
+const globalBeatToMeasureAndBeat = (
+  globalBeat: BeatPosition,
+  timeSignatures: TimeSignature[],
+): { measure: number; beatInMeasure: number } => {
+  let measure = 1;
+  let remainingBeats = globalBeat;
+
+  // Subtract complete measures until we can't anymore
+  while (remainingBeats >= getTimeSignatureAt(measure, timeSignatures)) {
+    remainingBeats -= getTimeSignatureAt(measure, timeSignatures);
+    measure++;
+  }
+
+  return {
+    measure,
+    beatInMeasure: remainingBeats + 1,
+  };
+};
+
+const parseMelodyString = (
+  melodyString: string,
+  context: CommandContext,
+): LogicalNote[] => {
+  debugger;
+  const lines = melodyString.split("\n").filter((line) => line.trim());
+
+  return lines.flatMap((line) => {
+    debugger;
+    // Updated regex to match new syntax with explicit 'i' command
+    const match = line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/);
+    if (!match) return [];
+
+    const [_, measureStr, beatStr, melodyPart] = match;
+    const startMeasure = parseInt(measureStr);
+    const startBeat = beatStr ? parseFloat(beatStr) : 1;
+    const key = context.currentKey;
+
+    // Calculate the global beat position for the start
+    let currentPosition = calculateGlobalBeatPosition(
+      startMeasure,
+      startBeat,
+      context.timeSignatures,
+    );
+
+    // Process tokens as before...
+    const tokens = processTokens(melodyPart);
+    const result: LogicalNote[] = [];
+
+    for (let i = 0; i < tokens.length; i++) {
+      const token = tokens[i];
+      if (!token.trim()) continue;
+
+      console.log(
+        "\nProcessing token:",
+        JSON.stringify({
+          token,
+          currentPosition,
+          isDurationMarker: /^[+_\-=,]\.?$/.test(token),
+          resultLength: result.length,
+        }),
+      );
+
+      // Check if this token is a duration marker
+      const isDurationMarker = /^[+_\-=,]\.?$/.test(token);
+
+      if (isDurationMarker) {
+        // Apply this duration to the previous note(s)
+        const duration = getDuration(token);
+        const durationInBeats = duration / TICKS_PER_QUARTER;
+
+        // Find the last group of notes (could be a single note or chord)
+        let lastNoteIndex = result.length - 1;
+        while (
+          lastNoteIndex >= 0 &&
+          result[lastNoteIndex].span.start ===
+            result[result.length - 1].span.start
+        ) {
+          result[lastNoteIndex].duration = duration;
+          result[lastNoteIndex].span.end =
+            result[lastNoteIndex].span.start + durationInBeats;
+          lastNoteIndex--;
+        }
+
+        // Update position for next note
+        if (result.length > 0) {
+          currentPosition = result[result.length - 1].span.end;
+        }
+        continue;
+      }
+
+      // Handle note or chord
+      const noteChars = token.match(/[1-9a-zA-Z0]/g) || [];
+      const span: MeasureSpan = {
+        start: currentPosition,
+        end: currentPosition + 1, // Default to one beat duration
+      };
+
+      // Process each note in the chord (or single note)
+      for (const noteChar of noteChars) {
+        const midiNumber = calculateMidiNumber(
+          noteChar,
+          0, // No accidentals support yet
+          0, // No octave shifts needed with new system
+          key,
+          context.currentTrack,
+        );
+
+        if (midiNumber !== null) {
+          result.push({
+            scaleDegree:
+              typeof noteChar === "string" && /[a-zA-Z]/.test(noteChar)
+                ? noteChar.charCodeAt(0) - "a".charCodeAt(0) + 1
+                : parseInt(noteChar),
+            duration: TICKS_PER_QUARTER, // Default duration, may be updated by subsequent duration marker
+            span: { ...span },
+            midiNumber,
+          });
+        }
+      }
+
+      // If this is the last token and it's not a duration marker,
+      // advance the position by one beat
+      if (i === tokens.length - 1 && !isDurationMarker) {
+        currentPosition += 1;
+      }
+    }
+
+    return result;
+  });
+};
+
+const getDuration = (marker: string, beatsPerMeasure: number = 4): number => {
+  // Split marker into base duration and dot if present
+  const [baseDuration, dot] = marker.split(".");
+  let duration: number;
+
+  switch (baseDuration) {
+    case "+":
+      duration = TICKS_PER_QUARTER * beatsPerMeasure; // length of time signature at insertion
+      break;
+    case "_":
+      duration = TICKS_PER_QUARTER * 2; // half note
+      break;
+    case ",":
+      duration = TICKS_PER_QUARTER; // quarter note (comma)
+      break;
+    case "-":
+      duration = TICKS_PER_QUARTER / 2; // eighth note
+      break;
+    case "=":
+      duration = TICKS_PER_QUARTER / 4; // sixteenth note
+      break;
+    default:
+      duration = TICKS_PER_QUARTER; // default to quarter note
+  }
+
+  // If there's a dot, multiply duration by 1.5
+  if (dot === "") {
+    duration = duration * 1.5;
+  }
+
+  return duration;
+};
+
+// Modify logicalNoteToMidi to use global beat positions
+const logicalNoteToMidi = (
+  note: LogicalNote,
+  track: number,
+  timeSignatures: TimeSignature[],
+): Note | null => {
+  if (note.midiNumber === null) return null; // Rest
+
+  // Convert beat position directly to ticks
+  const startTicks = Math.floor(note.span.start * TICKS_PER_QUARTER);
+
+  return {
+    pitch: note.midiNumber,
+    velocity: 100,
+    startTime: startTicks,
+    duration: note.duration - 1,
+    channel: track - 1, // Track 1 (rh) uses channel 1, Track 2 (lh) uses channel 0
+  };
+};
+
+// Helper to process melody string into tokens
+const processTokens = (melodyPart: string): string[] => {
+  // Remove all spaces from melody part before processing
+  const cleanMelodyPart = melodyPart.replace(/\s+/g, "");
+
+  // Split input into tokens, preserving only commas and other duration markers
+  const rawTokens = cleanMelodyPart.split(/([+_\-=,])/);
+  console.log("Raw tokens:", JSON.stringify(rawTokens));
+
+  // Split the melody part into tokens, handling both single notes and chords
+  const tokens: string[] = [];
+  let currentChord: string[] = [];
+
+  for (let i = 0; i < rawTokens.length; i++) {
+    const token = rawTokens[i];
+    if (!token) continue;
+
+    // Check if this is a duration marker (including comma)
+    if (/^[+_\-=,]$/.test(token)) {
+      // Duration marker
+      if (currentChord.length > 0) {
+        tokens.push(currentChord.join(""));
+        tokens.push(token);
+        currentChord = [];
+      } else if (
+        tokens.length > 0 &&
+        !/^[+_\-=,]\.?$/.test(tokens[tokens.length - 1])
+      ) {
+        // If we have a previous note/chord but no duration marker, add this one
+        tokens.push(token);
+      }
+    } else {
+      // Handle both numbers and letters - could be part of a chord or single note
+      const noteChars = token.match(/[1-9a-zA-Z0]/g);
+      if (!noteChars) continue;
+
+      if (noteChars.length > 1) {
+        // This is a chord
+        if (currentChord.length > 0) {
+          tokens.push(currentChord.join(""));
+        }
+        currentChord = noteChars;
+      } else {
+        // Single note
+        if (currentChord.length > 0) {
+          tokens.push(currentChord.join(""));
+        }
+        currentChord = noteChars;
+      }
+    }
+  }
+
+  // Handle any remaining chord
+  if (currentChord.length > 0) {
+    tokens.push(currentChord.join(""));
+  }
+
+  return tokens;
 };
 
 // Helper to calculate scale degree shift and resulting MIDI number adjustment
@@ -453,290 +705,6 @@ const calculateShiftedNote = (
   return {
     newDegree: newDegree + 1, // Convert back to 1-based
     newMidi: originalMidi + semitonesAdjust,
-  };
-};
-
-const parseMelodyString = (
-  melodyString: string,
-  context: CommandContext,
-): LogicalNote[] => {
-  const lines = melodyString.split("\n").filter((line) => line.trim());
-
-  return lines.flatMap((line) => {
-    // Updated regex to match new syntax with explicit 'i' command
-    const match = line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/);
-    if (!match) return [];
-
-    const [_, measureStr, beatStr, melodyPart] = match;
-    const startMeasure = parseInt(measureStr);
-    const startBeat = beatStr ? parseFloat(beatStr) : 1;
-    const key = context.currentKey;
-    const beatsPerMeasure = context.beatsPerMeasure || 4;
-
-    // Remove all spaces from melody part before processing
-    const cleanMelodyPart = melodyPart.replace(/\s+/g, "");
-
-    // Split input into tokens, preserving only commas and other duration markers
-    const rawTokens = cleanMelodyPart.split(/([+_\-=,])/);
-    console.log("Raw tokens:", JSON.stringify(rawTokens));
-
-    // Split the melody part into tokens, handling both single notes and chords
-    const tokens: string[] = [];
-    let currentToken = "";
-    let currentChord: string[] = [];
-
-    for (let i = 0; i < rawTokens.length; i++) {
-      const token = rawTokens[i];
-      if (!token) continue;
-
-      if (token === ",") {
-        // If we have a pending chord, add it and its duration
-        if (currentChord.length > 0) {
-          tokens.push(currentChord.join(""));
-          tokens.push(token); // Comma as quarter note duration
-          currentChord = [];
-        } else if (currentToken) {
-          tokens.push(currentToken);
-          tokens.push(token); // Comma as quarter note duration
-          currentToken = "";
-        } else if (
-          tokens.length > 0 &&
-          !/^[+_\-=,]\.?$/.test(tokens[tokens.length - 1])
-        ) {
-          // If we have a previous note/chord but no duration marker, add this one
-          tokens.push(token);
-        }
-      } else if (/^[+_\-=]$/.test(token)) {
-        // Duration marker
-        if (currentChord.length > 0) {
-          tokens.push(currentChord.join(""));
-          tokens.push(token);
-          currentChord = [];
-        } else if (currentToken) {
-          tokens.push(currentToken);
-          tokens.push(token);
-          currentToken = "";
-        } else if (
-          tokens.length > 0 &&
-          !/^[+_\-=,]\.?$/.test(tokens[tokens.length - 1])
-        ) {
-          // If we have a previous note/chord but no duration marker, add this one
-          tokens.push(token);
-        }
-      } else {
-        // Handle both numbers and letters - could be part of a chord or single note
-        const noteChars = token.match(/[1-9a-zA-Z0]/g);
-        if (!noteChars) continue;
-
-        if (noteChars.length > 1) {
-          // This is a chord
-          if (currentToken) {
-            tokens.push(currentToken);
-            currentToken = "";
-          }
-          currentChord = noteChars;
-        } else {
-          // Single note
-          if (currentChord.length > 0) {
-            tokens.push(currentChord.join(""));
-            currentChord = [];
-          }
-          currentToken = noteChars[0];
-        }
-      }
-    }
-
-    // Handle any remaining tokens
-    if (currentChord.length > 0) {
-      tokens.push(currentChord.join(""));
-    } else if (currentToken) {
-      tokens.push(currentToken);
-    }
-
-    console.log("Processed tokens:", JSON.stringify(tokens));
-
-    let currentPosition = toDecimalPosition(startMeasure, startBeat);
-    const result: LogicalNote[] = [];
-
-    for (let i = 0; i < tokens.length; i++) {
-      const token = tokens[i];
-      if (!token.trim()) continue;
-
-      console.log(
-        "\nProcessing token:",
-        JSON.stringify({
-          token,
-          currentPosition,
-          isDurationMarker: /^[+_\-=,]\.?$/.test(token),
-          resultLength: result.length,
-        }),
-      );
-
-      // Check if this token is a duration marker
-      const isDurationMarker = /^[+_\-=,]\.?$/.test(token);
-
-      if (isDurationMarker) {
-        // Apply this duration to the previous note(s)
-        const duration = getDuration(token, beatsPerMeasure);
-        const durationInBeats = duration / TICKS_PER_QUARTER;
-
-        // Find the last group of notes (could be a single note or chord)
-        let lastNoteIndex = result.length - 1;
-        while (
-          lastNoteIndex >= 0 &&
-          result[lastNoteIndex].span.start ===
-            result[result.length - 1].span.start
-        ) {
-          result[lastNoteIndex].duration = duration;
-          result[lastNoteIndex].span.end =
-            result[lastNoteIndex].span.start +
-            durationInBeats / beatsPerMeasure;
-          lastNoteIndex--;
-        }
-
-        // Update position for next note
-        if (result.length > 0) {
-          currentPosition = result[result.length - 1].span.end;
-          console.log(
-            "Updated position after duration marker:",
-            JSON.stringify({
-              token,
-              newPosition: currentPosition,
-              lastNote: result[result.length - 1],
-            }),
-          );
-        }
-        continue;
-      }
-
-      // Handle note or chord
-      const noteChars = token.match(/[1-9a-zA-Z0]/g) || [];
-      const span: MeasureSpan = {
-        start: currentPosition,
-        end: currentPosition + 1 / beatsPerMeasure, // Default to quarter note duration
-      };
-
-      console.log(
-        "Creating notes for token:",
-        JSON.stringify({
-          token,
-          noteChars,
-          span,
-          currentPosition,
-        }),
-      );
-
-      // Process each note in the chord (or single note)
-      for (const noteChar of noteChars) {
-        const midiNumber = calculateMidiNumber(
-          noteChar,
-          0, // No accidentals support yet
-          0, // No octave shifts needed with new system
-          key,
-          context.currentTrack,
-        );
-
-        if (midiNumber !== null) {
-          result.push({
-            scaleDegree:
-              typeof noteChar === "string" && /[a-zA-Z]/.test(noteChar)
-                ? noteChar.charCodeAt(0) - "a".charCodeAt(0) + 1
-                : parseInt(noteChar),
-            duration: TICKS_PER_QUARTER, // Default duration, may be updated by subsequent duration marker
-            span: { ...span },
-            midiNumber,
-          });
-        }
-      }
-
-      // If this is the last token and it's not a duration marker,
-      // advance the position by the default quarter note duration
-      if (i === tokens.length - 1 && !isDurationMarker) {
-        const durationInBeats = TICKS_PER_QUARTER / TICKS_PER_QUARTER;
-        currentPosition += durationInBeats / beatsPerMeasure;
-        console.log(
-          "Advanced position for last note:",
-          JSON.stringify({
-            token,
-            newPosition: currentPosition,
-          }),
-        );
-      }
-    }
-
-    console.log("\nFinal result:", JSON.stringify(result, null, 2));
-    return result;
-  });
-};
-
-const getDuration = (marker: string, beatsPerMeasure: number = 4): number => {
-  // Split marker into base duration and dot if present
-  const [baseDuration, dot] = marker.split(".");
-  let duration: number;
-
-  switch (baseDuration) {
-    case "+":
-      duration = TICKS_PER_QUARTER * beatsPerMeasure; // length of time signature at insertion
-      break;
-    case "_":
-      duration = TICKS_PER_QUARTER * 2; // half note
-      break;
-    case ",":
-      duration = TICKS_PER_QUARTER; // quarter note (comma)
-      break;
-    case "-":
-      duration = TICKS_PER_QUARTER / 2; // eighth note
-      break;
-    case "=":
-      duration = TICKS_PER_QUARTER / 4; // sixteenth note
-      break;
-    default:
-      duration = TICKS_PER_QUARTER; // default to quarter note
-  }
-
-  // If there's a dot, multiply duration by 1.5
-  if (dot === "") {
-    duration = duration * 1.5;
-  }
-
-  return duration;
-};
-
-// Modify logicalNoteToMidi to include time signatures
-const logicalNoteToMidi = (
-  note: LogicalNote,
-  track: number,
-  timeSignatures: TimeSignature[],
-): Note | null => {
-  if (note.midiNumber === null) return null; // Rest
-
-  const { measure, beat } = fromDecimalPosition(note.span.start);
-  console.log("Converting logical note to MIDI:", {
-    note,
-    measure,
-    beat,
-    track,
-  });
-
-  // Get the time signature for this measure
-  const beatsPerMeasure = getTimeSignatureAt(measure, timeSignatures);
-  console.log("Time signature for measure:", { measure, beatsPerMeasure });
-
-  // Calculate total ticks up to this measure
-  let totalTicks = 0;
-  for (let m = 1; m < measure; m++) {
-    totalTicks += getTimeSignatureAt(m, timeSignatures) * TICKS_PER_QUARTER;
-  }
-
-  // Add ticks for beats within this measure
-  totalTicks += (beat - 1) * TICKS_PER_QUARTER;
-
-  return {
-    pitch: note.midiNumber,
-    velocity: 100,
-    startTime: totalTicks,
-    duration: note.duration - 1,
-    channel: track - 1, // Track 1 (rh) uses channel 1, Track 2 (lh) uses channel 0
   };
 };
 

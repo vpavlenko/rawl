@@ -2,26 +2,27 @@ import MidiWriter from "midi-writer-js";
 import { Analysis, PitchClass } from "../analysis";
 import { Note } from "../forge/ForgeGenerator";
 
+// Define TimeSignature type locally since we can't import it
+type TimeSignature = {
+  numerator: number;
+  measureStart: number;
+};
+
+// Define Track type with time signature method
 type Track = {
   addTrackName(name: string): void;
   setTempo(tempo: number): void;
   addEvent(event: any): void;
-};
-
-type NoteEventParams = {
-  pitch: number[];
-  duration: string;
-  velocity: number;
-  startTick: number;
-  channel: number;
+  setTimeSignature(
+    numerator: number,
+    denominator: number,
+    midiclockspertick: number,
+    notespermidiclock: number,
+  ): Track;
 };
 
 // Type assertion for the imported MidiWriter
-const { Track, NoteEvent, Writer } = MidiWriter as {
-  Track: new () => Track;
-  NoteEvent: new (params: NoteEventParams) => any;
-  Writer: new (tracks: Track[]) => { dataUri(): string };
-};
+const { Track: MidiTrack, NoteEvent, Writer } = MidiWriter;
 
 // Mid-level representation of musical events
 interface MusicalEvent {
@@ -31,6 +32,34 @@ interface MusicalEvent {
   velocity: number;
   channel: number;
 }
+
+// Constants for MIDI meta events
+const META_EVENT_TYPE = 0xff;
+const META_TIME_SIGNATURE = 0x58;
+
+// Helper to create a time signature meta event
+const createTimeSignatureEvent = (
+  numerator: number,
+  denominator: number = 4,
+) => {
+  // Time signature meta event format:
+  // FF 58 04 nn dd cc bb
+  // nn = numerator
+  // dd = denominator (as power of 2: 2 = quarter note, 3 = eighth note, etc.)
+  // cc = MIDI clocks per metronome click (usually 24)
+  // bb = number of 32nd notes per MIDI quarter note (usually 8)
+  return {
+    type: META_EVENT_TYPE,
+    subtype: META_TIME_SIGNATURE,
+    data: new Uint8Array([
+      numerator,
+      Math.log2(denominator), // 2 for quarter note (2^2 = 4)
+      24, // MIDI clocks per click
+      8, // 32nd notes per quarter
+    ]),
+    deltaTime: 0,
+  };
+};
 
 export interface MidiGenerationResult {
   midiData: Uint8Array;
@@ -109,19 +138,31 @@ const convertToMusicalEvents = (notes: Note[]): MusicalEvent[] => {
 const generateMidiFromEvents = (
   events: MusicalEvent[],
   bpm: number,
+  timeSignatures: TimeSignature[],
 ): Uint8Array => {
   // Create separate tracks for each channel
   const tracks = new Map<number, Track>();
 
+  // Create a tempo/time signature track (track 0)
+  const tempoTrack = new MidiTrack() as Track;
+  tempoTrack.addTrackName("Tempo and Time Signatures");
+  tempoTrack.setTempo(bpm);
+
+  // Add time signatures using the official API
+  timeSignatures.forEach((ts) => {
+    tempoTrack.setTimeSignature(ts.numerator, 4, 24, 8);
+  });
+
+  tracks.set(-1, tempoTrack); // Special track for tempo/time sig
+
   events.forEach((event) => {
     if (!tracks.has(event.channel)) {
-      const track = new Track();
+      const track = new MidiTrack() as Track;
       if (event.channel === 0) {
         track.addTrackName("Melody");
       } else if (event.channel === 1) {
         track.addTrackName("Chords");
       }
-      track.setTempo(bpm);
       tracks.set(event.channel, track);
     }
 
@@ -151,9 +192,13 @@ const generateMidiFromEvents = (
 };
 
 // Main MIDI generation function now uses the two-step process
-export const generateMidiFile = (notes: Note[], bpm: number): Uint8Array => {
+export const generateMidiFile = (
+  notes: Note[],
+  bpm: number,
+  timeSignatures: TimeSignature[],
+): Uint8Array => {
   const musicalEvents = convertToMusicalEvents(notes);
-  return generateMidiFromEvents(musicalEvents, bpm);
+  return generateMidiFromEvents(musicalEvents, bpm, timeSignatures);
 };
 
 export const generateInitialAnalysis = (title: string): Analysis => {
@@ -173,8 +218,9 @@ export const generateMidiWithMetadata = (
   notes: Note[],
   title: string,
   bpm: number,
+  timeSignatures: TimeSignature[],
 ): MidiGenerationResult => {
-  const midiData = generateMidiFile(notes, bpm);
+  const midiData = generateMidiFile(notes, bpm, timeSignatures);
 
   return {
     midiData,

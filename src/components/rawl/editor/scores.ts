@@ -17,7 +17,8 @@ rh
 13 copy 11-12 -1 -2
 17 copy 9-10 0
 51 copy 3-18 0`,
-  "idea-1---gibran-alcocer": `Ab minor
+  "idea-1---gibran-alcocer": `3/4
+Ab minor
 lh
 1 1_^1_^1_
 140 4b61|`,

@@ -9,6 +9,11 @@ import { generateMidiWithMetadata } from "./EditorMidi";
 import { scores } from "./scores";
 
 // Types for command handling
+type TimeSignature = {
+  numerator: number; // Only numerator is stored since denominator is always 4
+  measureStart: number; // Which measure this time signature starts at
+};
+
 type KeySignature = {
   tonic: number; // 0 = C, 1 = C#/Db, etc.
   mode: "major" | "minor";
@@ -37,13 +42,16 @@ type Command =
       sourceEnd: number;
       shifts: number[]; // Array of diatonic shifts to apply
     }
-  | { type: "track"; track: 1 | 2 };
+  | { type: "track"; track: 1 | 2 }
+  | { type: "time"; signatures: TimeSignature[] };
 
 type CommandContext = {
   currentKey: KeySignature;
   existingNotes?: LogicalNote[];
   lastNoteIndex?: number; // Index of last note before current command
   currentTrack: 1 | 2; // Track 1 for right hand, 2 for left hand
+  timeSignatures: TimeSignature[]; // List of time signatures in effect
+  beatsPerMeasure?: number; // Optional because only needed during note parsing
 };
 
 // Add type declaration at the top of the file
@@ -182,34 +190,136 @@ const parseCopyCommand = (line: string): Command | null => {
   };
 };
 
+const parseTimeSignatures = (line: string): TimeSignature[] | null => {
+  console.log("Parsing time signature line:", line);
+  const parts = line.trim().split(/\s+/);
+  const signatures: TimeSignature[] = [];
+  let currentMeasure = 1;
+
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i];
+
+    // Parse time signature format (numerator/4)
+    if (part.includes("/")) {
+      const [numerator, denominator] = part.split("/");
+      const num = parseInt(numerator);
+
+      // Validate format
+      if (isNaN(num) || denominator !== "4" || num <= 0) {
+        console.log("Invalid time signature format:", part);
+        return null;
+      }
+
+      signatures.push({
+        numerator: num,
+        measureStart: currentMeasure,
+      });
+      console.log("Added time signature:", {
+        numerator: num,
+        measureStart: currentMeasure,
+      });
+    } else {
+      // Must be a measure number
+      const measure = parseInt(part);
+      if (isNaN(measure) || measure <= currentMeasure) {
+        console.log("Invalid measure number:", part);
+        return null;
+      }
+
+      // Next part must be a time signature
+      if (i + 1 >= parts.length || !parts[i + 1].includes("/")) {
+        console.log("Missing time signature after measure number:", part);
+        return null;
+      }
+
+      currentMeasure = measure;
+    }
+  }
+
+  console.log("Final time signatures:", signatures);
+  return signatures.length > 0 ? signatures : null;
+};
+
+const getTimeSignatureAt = (
+  measure: number,
+  timeSignatures: TimeSignature[],
+): number => {
+  // Default to 4/4 if no time signatures defined
+  if (!timeSignatures.length) return 4;
+
+  // Find the last time signature that starts before or at this measure
+  for (let i = timeSignatures.length - 1; i >= 0; i--) {
+    if (timeSignatures[i].measureStart <= measure) {
+      return timeSignatures[i].numerator;
+    }
+  }
+
+  // If no time signature found before this measure, use the first one
+  return timeSignatures[0].numerator;
+};
+
 const parseCommand = (
   line: string,
   context: CommandContext,
 ): Command | null => {
+  // Remove comments
+  const cleanLine = line.split("#")[0].trim();
+  if (!cleanLine) return null;
+
+  console.log("Parsing command line:", cleanLine);
+
   // Handle track switch commands
-  if (line.trim().toLowerCase() === "lh") {
+  if (cleanLine.toLowerCase() === "lh") {
     return { type: "track", track: 2 };
   }
-  if (line.trim().toLowerCase() === "rh") {
+  if (cleanLine.toLowerCase() === "rh") {
     return { type: "track", track: 1 };
   }
 
+  // Try parsing as time signature command
+  if (cleanLine.includes("/4")) {
+    console.log("Attempting to parse time signature:", cleanLine);
+    const signatures = parseTimeSignatures(cleanLine);
+    if (signatures) {
+      console.log("Successfully parsed time signature command:", signatures);
+      return { type: "time", signatures };
+    }
+  }
+
   // Try parsing as key command
-  const key = parseKey(line);
+  const key = parseKey(cleanLine);
   if (key) {
     return { type: "key", key };
   }
 
   // Try parsing as copy command
-  const copyCmd = parseCopyCommand(line);
+  const copyCmd = parseCopyCommand(cleanLine);
   if (copyCmd) {
     return copyCmd;
   }
 
   // Parse as note command
-  const match = line.match(/^\s*(\d+)\s+(.+)$/);
+  const match = cleanLine.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+(.+)$/);
   if (match) {
-    const notes = parseMelodyString(line, context);
+    const [_, measureStr, beatStr, noteStr] = match;
+    const measure = parseInt(measureStr);
+    const beat = beatStr ? parseFloat(beatStr) : 1;
+
+    // Validate measure and beat
+    if (isNaN(measure) || measure < 1 || isNaN(beat) || beat < 1) {
+      return null;
+    }
+
+    // Get time signature for this measure
+    const beatsPerMeasure = context.beatsPerMeasure || 4;
+    if (beat > beatsPerMeasure) {
+      return null;
+    }
+
+    const notes = parseMelodyString(cleanLine, {
+      ...context,
+      beatsPerMeasure,
+    });
     if (notes.length > 0) {
       return { type: "notes", notes };
     }
@@ -332,12 +442,14 @@ const parseMelodyString = (
   const lines = melodyString.split("\n").filter((line) => line.trim());
 
   return lines.flatMap((line) => {
-    const match = line.match(/^\s*(\d+)\s+(.+)$/);
+    const match = line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+(.+)$/);
     if (!match) return [];
 
-    const [_, measureStr, melodyPart] = match;
+    const [_, measureStr, beatStr, melodyPart] = match;
     const startMeasure = parseInt(measureStr);
+    const startBeat = beatStr ? parseFloat(beatStr) : 1;
     const key = context.currentKey;
+    const beatsPerMeasure = context.beatsPerMeasure || 4;
 
     // Updated regex to capture multiple ^ or v characters and optional dots after duration markers
     const notePattern = /(\s+|[v^]+[b#]?[1-7]|[b#]?[1-7])([|+_\-=]\.?)/g;
@@ -345,17 +457,17 @@ const parseMelodyString = (
 
     if (matches.length === 0) return [];
 
-    let currentPosition = toDecimalPosition(startMeasure, 1);
+    let currentPosition = toDecimalPosition(startMeasure, startBeat);
     let previousMidiNumber: number | null = null;
 
     return matches.map((match) => {
       const [_, noteOrRest, durationMarker] = match;
-      const duration = getDuration(durationMarker);
+      const duration = getDuration(durationMarker, beatsPerMeasure);
       const durationInBeats = duration / TICKS_PER_QUARTER;
 
       const span: MeasureSpan = {
         start: currentPosition,
-        end: currentPosition + durationInBeats / 4, // Convert beats to measure fraction
+        end: currentPosition + durationInBeats / beatsPerMeasure, // Convert beats to measure fraction
       };
 
       // Update position for next note
@@ -414,17 +526,17 @@ const parseMelodyString = (
   });
 };
 
-const getDuration = (marker: string): number => {
+const getDuration = (marker: string, beatsPerMeasure: number = 4): number => {
   // Split marker into base duration and dot if present
   const [baseDuration, dot] = marker.split(".");
   let duration: number;
 
   switch (baseDuration) {
     case "|":
-      duration = TICKS_PER_QUARTER * 4; // whole note
+      duration = TICKS_PER_QUARTER * beatsPerMeasure; // whole note matches measure length
       break;
     case "+":
-      duration = TICKS_PER_QUARTER * 2; // half note
+      duration = TICKS_PER_QUARTER * Math.min(2, beatsPerMeasure); // half note, capped at measure length
       break;
     case "_":
       duration = TICKS_PER_QUARTER; // quarter note
@@ -447,17 +559,39 @@ const getDuration = (marker: string): number => {
   return duration;
 };
 
-// Modify logicalNoteToMidi to include track information
-const logicalNoteToMidi = (note: LogicalNote, track: number): Note | null => {
+// Modify logicalNoteToMidi to include time signatures
+const logicalNoteToMidi = (
+  note: LogicalNote,
+  track: number,
+  timeSignatures: TimeSignature[],
+): Note | null => {
   if (note.midiNumber === null) return null; // Rest
 
   const { measure, beat } = fromDecimalPosition(note.span.start);
-  const startTicks = ((measure - 1) * 4 + (beat - 1)) * TICKS_PER_QUARTER;
+  console.log("Converting logical note to MIDI:", {
+    note,
+    measure,
+    beat,
+    track,
+  });
+
+  // Get the time signature for this measure
+  const beatsPerMeasure = getTimeSignatureAt(measure, timeSignatures);
+  console.log("Time signature for measure:", { measure, beatsPerMeasure });
+
+  // Calculate total ticks up to this measure
+  let totalTicks = 0;
+  for (let m = 1; m < measure; m++) {
+    totalTicks += getTimeSignatureAt(m, timeSignatures) * TICKS_PER_QUARTER;
+  }
+
+  // Add ticks for beats within this measure
+  totalTicks += (beat - 1) * TICKS_PER_QUARTER;
 
   return {
     pitch: note.midiNumber,
     velocity: 100,
-    startTime: startTicks,
+    startTime: totalTicks,
     duration: note.duration - 1,
     channel: track - 1, // Track 1 (rh) uses channel 1, Track 2 (lh) uses channel 0
   };
@@ -471,7 +605,8 @@ const Editor: React.FC = () => {
   const [score, setScore] = useState(scores[slug || ""] || "");
   const [context, setContext] = useState<CommandContext>({
     currentKey: { tonic: 0, mode: "major" }, // Default to C major
-    currentTrack: 1, // Default to right hand (track 2)
+    currentTrack: 1, // Default to right hand
+    timeSignatures: [{ numerator: 4, measureStart: 1 }], // Default to 4/4 time
   });
 
   // Get the analysis for this slug if it exists
@@ -502,15 +637,20 @@ const Editor: React.FC = () => {
 
     try {
       const lines = text.split("\n").filter((line) => line.trim());
-      let scoreTrack1: LogicalNote[] = []; // Left hand score
-      let scoreTrack2: LogicalNote[] = []; // Right hand score
+      console.log("Processing score lines:", lines);
+
+      let scoreTrack1: LogicalNote[] = []; // Right hand score
+      let scoreTrack2: LogicalNote[] = []; // Left hand score
       const newContext: CommandContext = {
         currentKey: { ...context.currentKey },
         currentTrack: context.currentTrack,
+        timeSignatures: [...context.timeSignatures], // Start with default 4/4
       };
+      console.log("Initial context:", newContext);
 
       for (const line of lines) {
         const command = parseCommand(line, newContext);
+        console.log("Parsed command:", command);
         if (!command) continue;
 
         switch (command.type) {
@@ -520,6 +660,11 @@ const Editor: React.FC = () => {
 
           case "key":
             newContext.currentKey = command.key;
+            break;
+
+          case "time":
+            console.log("Applying time signature change:", command.signatures);
+            newContext.timeSignatures = command.signatures;
             break;
 
           case "notes":
@@ -532,6 +677,12 @@ const Editor: React.FC = () => {
             break;
 
           case "copy": {
+            // Get time signature for source measures
+            const sourceBeatsPerMeasure = getTimeSignatureAt(
+              command.sourceStart,
+              newContext.timeSignatures,
+            );
+
             // Find source notes from the current track
             const sourceNotes = (
               newContext.currentTrack === 1 ? scoreTrack1 : scoreTrack2
@@ -555,14 +706,31 @@ const Editor: React.FC = () => {
               .map((shift, idx) => {
                 // Each copy block starts after previous blocks
                 const targetMeasure = command.targetMeasure + idx * spanLength;
+
+                // Get time signature for target measure
+                const targetBeatsPerMeasure = getTimeSignatureAt(
+                  targetMeasure,
+                  newContext.timeSignatures,
+                );
+
                 return sourceNotes.map((n) => {
+                  // Adjust timing based on potentially different time signatures
+                  const sourcePosition = n.span.start - command.sourceStart;
+                  const targetPosition =
+                    targetMeasure +
+                    (sourcePosition * targetBeatsPerMeasure) /
+                      sourceBeatsPerMeasure;
+
                   if (n.midiNumber === null) {
                     return {
                       ...n,
                       span: {
-                        start:
-                          n.span.start + (targetMeasure - command.sourceStart),
-                        end: n.span.end + (targetMeasure - command.sourceStart),
+                        start: targetPosition,
+                        end:
+                          targetPosition +
+                          ((n.span.end - n.span.start) *
+                            targetBeatsPerMeasure) /
+                            sourceBeatsPerMeasure,
                       },
                     };
                   }
@@ -577,9 +745,11 @@ const Editor: React.FC = () => {
                   return {
                     ...n,
                     span: {
-                      start:
-                        n.span.start + (targetMeasure - command.sourceStart),
-                      end: n.span.end + (targetMeasure - command.sourceStart),
+                      start: targetPosition,
+                      end:
+                        targetPosition +
+                        ((n.span.end - n.span.start) * targetBeatsPerMeasure) /
+                          sourceBeatsPerMeasure,
                     },
                     scaleDegree: newDegree,
                     midiNumber: newMidi,
@@ -599,6 +769,9 @@ const Editor: React.FC = () => {
         }
       }
 
+      console.log("Final context:", newContext);
+      console.log("Final notes:", { scoreTrack1, scoreTrack2 });
+
       if (scoreTrack1.length === 0 && scoreTrack2.length === 0) {
         setError("No valid notes found");
         return;
@@ -607,29 +780,39 @@ const Editor: React.FC = () => {
       setError(null);
       setContext(newContext);
 
-      debugger;
       // Convert both tracks to MIDI notes
       const midiNotesTrack1 = scoreTrack1
-        .map((n) => logicalNoteToMidi(n, 1))
+        .map((n) => {
+          const midi = logicalNoteToMidi(n, 1, newContext.timeSignatures);
+          console.log("Converting to MIDI (track 1):", { note: n, midi });
+          return midi;
+        })
         .filter((n): n is Note => n !== null);
       const midiNotesTrack2 = scoreTrack2
-        .map((n) => logicalNoteToMidi(n, 2))
+        .map((n) => {
+          const midi = logicalNoteToMidi(n, 2, newContext.timeSignatures);
+          console.log("Converting to MIDI (track 2):", { note: n, midi });
+          return midi;
+        })
         .filter((n): n is Note => n !== null);
 
       // Combine both tracks
       const allMidiNotes = [...midiNotesTrack1, ...midiNotesTrack2];
+      console.log("All MIDI notes:", allMidiNotes);
 
       const midiResult = generateMidiWithMetadata(
         allMidiNotes,
         `melody-${slug}`,
         120,
+        newContext.timeSignatures,
       );
+      console.log("Generated MIDI result:", midiResult);
 
       if (playSongBuffer) {
         playSongBuffer(midiResult.midiInfo.id, midiResult.midiData, true);
       }
     } catch (e) {
-      console.log("Error during playback:", e);
+      console.error("Error during playback:", e);
       setError(
         e instanceof Error ? e.message : "Unknown error during playback",
       );
@@ -664,6 +847,8 @@ const Editor: React.FC = () => {
           3. Copy: "11 copy 1 0 -4 -1" (copy measure 1 to 11-13 with shifts)
           <br />
           4. Tracks: "lh" (left hand), "rh" (right hand)
+          <br />
+          5. Time signatures: "4/4 5 3/4 9 4/4"
           <br />
           Press Cmd+Enter to play.
         </p>

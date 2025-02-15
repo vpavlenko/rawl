@@ -24,8 +24,10 @@ lh
 140 4b61|`,
   "wima.e480-schubert_de.-tanz-d.365.25": `3/4
 E major
-rh
+lh 3
 2 i 5,rtu,rtu,q,eti,eti,
 9 i qeti _
+rh 5
+1 i x,x,3,7-y-r-w-5=6=5- q-i-t-e--5=6=5- t-f-s-u-7=8=7-a_
 33 i 135^1+`,
 };

@@ -44,7 +44,7 @@ type Command =
       sourceEnd: number;
       shifts: number[]; // Array of diatonic shifts to apply
     }
-  | { type: "track"; track: 1 | 2 }
+  | { type: "track"; track: 1 | 2; baseOctave?: number }
   | { type: "time"; signatures: TimeSignature[] };
 
 type CommandContext = {
@@ -54,6 +54,8 @@ type CommandContext = {
   currentTrack: 1 | 2; // Track 1 for right hand, 2 for left hand
   timeSignatures: TimeSignature[]; // List of time signatures in effect
   beatsPerMeasure?: number; // Optional because only needed during note parsing
+  baseOctaveRH: number; // Base octave for right hand
+  baseOctaveLH: number; // Base octave for left hand
 };
 
 // Add type declaration at the top of the file
@@ -270,12 +272,15 @@ const parseCommand = (
 
   console.log("Parsing command line:", cleanLine);
 
-  // Handle track switch commands
-  if (cleanLine.toLowerCase() === "lh") {
-    return { type: "track", track: 2 };
-  }
-  if (cleanLine.toLowerCase() === "rh") {
-    return { type: "track", track: 1 };
+  // Handle track switch commands with optional octave
+  const trackMatch = cleanLine.match(/^(lh|rh)(?:\s+(\d+))?$/i);
+  if (trackMatch) {
+    const [_, hand, octave] = trackMatch;
+    return {
+      type: "track",
+      track: hand.toLowerCase() === "lh" ? 2 : 1,
+      baseOctave: octave ? parseInt(octave) : undefined,
+    };
   }
 
   // Try parsing as time signature command
@@ -343,6 +348,7 @@ const calculateMidiNumber = (
   octaveShift: number,
   key: KeySignature,
   track: number, // 1 for RH, 2 for LH
+  context: CommandContext,
 ): number | null => {
   if (scaleDegree === 0) return null; // Rest
 
@@ -392,8 +398,8 @@ const calculateMidiNumber = (
   // Get the semitone offset for this scale degree
   const semitoneOffset = scaleMap[degreeInOctave - 1];
 
-  // Base octave is different for LH and RH
-  const baseOctave = track === 1 ? 3 : 1; // RH starts at C3, LH starts at C1
+  // Use the appropriate base octave from context
+  const baseOctave = track === 1 ? context.baseOctaveRH : context.baseOctaveLH;
 
   // Calculate final MIDI number
   const midiNumber = (baseOctave + octave) * 12 + semitoneOffset + key.tonic;
@@ -447,11 +453,9 @@ const parseMelodyString = (
   melodyString: string,
   context: CommandContext,
 ): LogicalNote[] => {
-  debugger;
   const lines = melodyString.split("\n").filter((line) => line.trim());
 
   return lines.flatMap((line) => {
-    debugger;
     // Updated regex to match new syntax with explicit 'i' command
     const match = line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/);
     if (!match) return [];
@@ -529,6 +533,7 @@ const parseMelodyString = (
           0, // No octave shifts needed with new system
           key,
           context.currentTrack,
+          context,
         );
 
         if (midiNumber !== null) {
@@ -718,6 +723,8 @@ const Editor: React.FC = () => {
     currentKey: { tonic: 0, mode: "major" }, // Default to C major
     currentTrack: 1, // Default to right hand
     timeSignatures: [{ numerator: 4, measureStart: 1 }], // Default to 4/4 time
+    baseOctaveRH: 3, // Base octave for right hand
+    baseOctaveLH: 1, // Base octave for left hand
   });
 
   // Get the analysis for this slug if it exists
@@ -756,6 +763,8 @@ const Editor: React.FC = () => {
         currentKey: { ...context.currentKey },
         currentTrack: context.currentTrack,
         timeSignatures: [...context.timeSignatures], // Start with default 4/4
+        baseOctaveRH: context.baseOctaveRH,
+        baseOctaveLH: context.baseOctaveLH,
       };
       console.log("Initial context:", newContext);
 
@@ -767,6 +776,13 @@ const Editor: React.FC = () => {
         switch (command.type) {
           case "track":
             newContext.currentTrack = command.track;
+            if (command.baseOctave !== undefined) {
+              if (command.track === 1) {
+                newContext.baseOctaveRH = command.baseOctave;
+              } else {
+                newContext.baseOctaveLH = command.baseOctave;
+              }
+            }
             break;
 
           case "key":

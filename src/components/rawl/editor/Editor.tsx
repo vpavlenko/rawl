@@ -298,10 +298,10 @@ const parseCommand = (
     return copyCmd;
   }
 
-  // Parse as note command
-  const match = cleanLine.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+(.+)$/);
+  // Parse as note insert command - new syntax: "{coordinate} i {notes}"
+  const match = cleanLine.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/);
   if (match) {
-    const [_, measureStr, beatStr, noteStr] = match;
+    const [_, measureStr, beatStr, melodyPart] = match;
     const measure = parseInt(measureStr);
     const beat = beatStr ? parseFloat(beatStr) : 1;
 
@@ -442,7 +442,8 @@ const parseMelodyString = (
   const lines = melodyString.split("\n").filter((line) => line.trim());
 
   return lines.flatMap((line) => {
-    const match = line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+(.+)$/);
+    // Updated regex to match new syntax with explicit 'i' command
+    const match = line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/);
     if (!match) return [];
 
     const [_, measureStr, beatStr, melodyPart] = match;
@@ -836,7 +837,7 @@ const Editor: React.FC = () => {
         <p>
           Commands:
           <br />
-          1. Notes: Start line with measure number, then use scale degrees (1-7)
+          1. Insert notes: "measure i notes" (e.g. "1 i 1_2_3_")
           <br />
           Durations: | (whole), + (half), _ (quarter), - (eighth), = (16th)
           <br />

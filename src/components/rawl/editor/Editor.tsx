@@ -955,9 +955,18 @@ const Editor: React.FC = () => {
             const allCopies = command.shifts
               .map((shift, idx) => {
                 console.log(`\nProcessing shift ${shift} at index ${idx}`);
-                // Each copy block starts at the target measure + idx measures
+
+                // Calculate how many measures the source spans
+                let sourceMeasureSpan = command.sourceEnd - command.sourceStart;
+                if (command.sourceEndBeat === 0) {
+                  // If ending at start of measure, subtract one from span
+                  // since sourceEnd points to the next measure
+                  sourceMeasureSpan--;
+                }
+
+                // Each copy block starts at the target measure + (idx * source span length)
                 const targetStartBeat = calculateGlobalBeatPosition(
-                  command.targetMeasure + idx,
+                  command.targetMeasure + idx * (sourceMeasureSpan + 1),
                   command.targetBeat,
                   newContext.timeSignatures,
                 );

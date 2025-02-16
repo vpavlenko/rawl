@@ -57,9 +57,34 @@ lh 3
 60 i 1_
 rh 3
 1b4 i y-t-
-2 c 1-2 0 0 x 0
+2 c 1 0 0 x 0 
 6 c 2-5 0
 21 c 1 0
-22 c 18-21 0 0
+22 c 18-21 0 
+42 c 2-17 0
 `,
+  "wima.1124-schubert_de.-tanz-d.365.26": `3/4
+E major
+
+lh 3
+2   i 5,rtu,
+2b3 c 2b2-2b3 0
+3   i q,eti,
+3b3 c 3b2-3b3 0
+4   c 2-3 0 0
+8   c 2 0
+9   i qeti_
+10  c 2-9 0 0 0
+
+rh 5
+1b3  i 5=t-.w,5,e=r-.7=q-.5,e,7-w-r-y-s-u-g,d-
+5    c 1-4 0
+9    i a_
+9    c 1-9 0
+17b3 i t,4-6-w-7-5-x- q-e-y-t-e-x-
+20   c 18 7
+21   i q=a=t-e-q-5-
+22   c 18-20b3 0
+24b3 i t=g-.a
+25b3 c 17b3-25 0`,
 };

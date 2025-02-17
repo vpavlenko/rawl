@@ -36,7 +36,7 @@ type LogicalNote = {
 
 type Command =
   | { type: "key"; key: KeySignature }
-  | { type: "notes"; notes: LogicalNote[] }
+  | { type: "insert"; notes: LogicalNote[] }
   | {
       type: "copy";
       targetMeasure: number;
@@ -417,7 +417,7 @@ const parseCommand = (
       beatsPerMeasure,
     });
     if (notes.length > 0) {
-      return { type: "notes", notes };
+      return { type: "insert", notes };
     }
   }
 
@@ -540,8 +540,7 @@ const parseMelodyString = (
 
       if (isDurationMarker) {
         // Apply this duration to the previous note(s)
-        const duration = getDuration(token);
-        const durationInBeats = ticksToBeats(duration);
+        const duration = getDuration(token, context.beatsPerMeasure || 4);
 
         // Find the last group of notes (could be a single note or chord)
         let lastNoteIndex = result.length - 1;
@@ -550,9 +549,9 @@ const parseMelodyString = (
           result[lastNoteIndex].span.start ===
             result[result.length - 1].span.start
         ) {
-          result[lastNoteIndex].duration = duration;
+          result[lastNoteIndex].duration = duration * TICKS_PER_QUARTER;
           result[lastNoteIndex].span.end =
-            result[lastNoteIndex].span.start + durationInBeats;
+            result[lastNoteIndex].span.start + duration;
           lastNoteIndex--;
         }
 
@@ -624,22 +623,22 @@ const getDuration = (marker: string, beatsPerMeasure: number = 4): number => {
 
   switch (baseDuration) {
     case "+":
-      duration = TICKS_PER_QUARTER * beatsPerMeasure; // length of time signature at insertion
+      duration = beatsPerMeasure; // length of time signature at insertion
       break;
     case "_":
-      duration = TICKS_PER_QUARTER * 2; // half note
+      duration = 2; // half note
       break;
     case ",":
-      duration = TICKS_PER_QUARTER; // quarter note (comma)
+      duration = 1; // quarter note (comma)
       break;
     case "-":
-      duration = TICKS_PER_QUARTER / 2; // eighth note
+      duration = 0.5; // eighth note
       break;
     case "=":
-      duration = TICKS_PER_QUARTER / 4; // sixteenth note
+      duration = 0.25; // sixteenth note
       break;
     default:
-      duration = TICKS_PER_QUARTER; // default to quarter note
+      duration = 1; // default to quarter note
   }
 
   // If there's a dot, increase duration by half of the original duration
@@ -648,31 +647,6 @@ const getDuration = (marker: string, beatsPerMeasure: number = 4): number => {
   }
 
   return duration;
-};
-
-// Helper to convert MIDI ticks to beats
-const ticksToBeats = (ticks: number): number => {
-  return ticks / TICKS_PER_QUARTER;
-};
-
-// Modify logicalNoteToMidi to use global beat positions
-const logicalNoteToMidi = (
-  note: LogicalNote,
-  track: number,
-  timeSignatures: TimeSignature[],
-): Note | null => {
-  if (note.midiNumber === null) return null; // Rest
-
-  // Convert beat position directly to ticks
-  const startTicks = Math.floor(note.span.start * TICKS_PER_QUARTER);
-
-  return {
-    pitch: note.midiNumber,
-    velocity: 100,
-    startTime: startTicks,
-    duration: note.duration - 1,
-    channel: track - 1, // Track 1 (rh) uses channel 1, Track 2 (lh) uses channel 0
-  };
 };
 
 // Helper to process melody string into tokens
@@ -768,6 +742,26 @@ const calculateShiftedNote = (
   return { newDegree, newMidi };
 };
 
+// Modify logicalNoteToMidi to use global beat positions
+const logicalNoteToMidi = (
+  note: LogicalNote,
+  track: number,
+  timeSignatures: TimeSignature[],
+): Note | null => {
+  if (note.midiNumber === null) return null; // Rest
+
+  // Convert beat position directly to ticks
+  const startTicks = Math.floor(note.span.start * TICKS_PER_QUARTER);
+
+  return {
+    pitch: note.midiNumber,
+    velocity: 100,
+    startTime: startTicks,
+    duration: note.duration - 1,
+    channel: track - 1, // Track 1 (rh) uses channel 1, Track 2 (lh) uses channel 0
+  };
+};
+
 const Editor: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [error, setError] = useState<string | null>(null);
@@ -846,7 +840,7 @@ const Editor: React.FC = () => {
             newContext.timeSignatures = command.signatures;
             break;
 
-          case "notes":
+          case "insert":
             // Add notes to the current track's score
             if (newContext.currentTrack === 1) {
               scoreTrack1 = [...scoreTrack1, ...command.notes];
@@ -856,12 +850,6 @@ const Editor: React.FC = () => {
             break;
 
           case "copy": {
-            // Get time signature for source measures
-            const sourceBeatsPerMeasure = getTimeSignatureAt(
-              command.sourceStart,
-              newContext.timeSignatures,
-            );
-
             // Find source notes from the current track
             const sourceNotes = (
               newContext.currentTrack === 1 ? scoreTrack1 : scoreTrack2

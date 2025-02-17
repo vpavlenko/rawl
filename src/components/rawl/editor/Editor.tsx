@@ -1,4 +1,12 @@
-import { githubDark } from "@uiw/codemirror-theme-github";
+import { RangeSetBuilder } from "@codemirror/state";
+import {
+  Decoration,
+  DecorationSet,
+  EditorView,
+  ViewPlugin,
+  ViewUpdate,
+} from "@codemirror/view";
+import { createTheme } from "@uiw/codemirror-themes";
 import CodeMirror from "@uiw/react-codemirror";
 import React, { useContext, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -9,6 +17,63 @@ import { Note } from "../forge/ForgeGenerator";
 import Rawl from "../Rawl";
 import { generateMidiWithMetadata } from "./EditorMidi";
 import { scores } from "./scores";
+
+// Scale maps and note mappings at the top level
+const MINOR_SCALE_MAP = [0, 2, 3, 5, 7, 8, 10];
+const MAJOR_SCALE_MAP = [0, 2, 4, 5, 7, 9, 11];
+
+const NOTE_LETTER_MAP: { [key: string]: number } = {
+  // First octave (numeric)
+  "1": 0,
+  "2": 1,
+  "3": 2,
+  "4": 3,
+  "5": 4,
+  "6": 5,
+  "7": 6,
+  "8": 7,
+  "9": 8,
+  "0": 9,
+
+  // Second octave (letters)
+  q: 7,
+  w: 8,
+  e: 9,
+  r: 10,
+  t: 11,
+  y: 12,
+  u: 13,
+
+  // Third octave
+  i: 14,
+  o: 15,
+  p: 16,
+  a: 14,
+  s: 15,
+  d: 16, // Alternative fingering
+  f: 17,
+  g: 18,
+  h: 19,
+  j: 20,
+  k: 21,
+  l: 22,
+};
+
+// Text color mapping based on background color darkness
+const NOTE_TEXT_COLORS: { [key: number]: string } = {
+  0: "#000000", // white bg -> black text
+  1: "#ffffff", // dark red -> white text
+  2: "#000000", // bright red -> black text
+  3: "#ffffff", // dark green -> white text
+  4: "#000000", // bright green -> black text
+  5: "#ffffff", // purple -> white text
+  6: "#000000", // light purple -> black text
+  7: "#ffffff", // gray -> white text
+  8: "#ffffff", // blue -> white text
+  9: "#000000", // cyan -> black text
+  10: "#000000", // orange -> black text
+  11: "#000000", // yellow -> black text
+};
 
 // Types for command handling
 type TimeSignature = {
@@ -140,6 +205,72 @@ const CodeMirrorWrapper = styled.div`
     position: relative;
     z-index: 100004;
   }
+
+  /* Override text colors for note backgrounds */
+  .noteColor_0_colors {
+    color: #000000 !important;
+  }
+  .noteColor_1_colors {
+    color: #ffffff !important;
+  }
+  .noteColor_2_colors {
+    color: #000000 !important;
+  }
+  .noteColor_3_colors {
+    color: #ffffff !important;
+  }
+  .noteColor_4_colors {
+    color: #000000 !important;
+  }
+  .noteColor_5_colors {
+    color: #ffffff !important;
+  }
+  .noteColor_6_colors {
+    color: #000000 !important;
+  }
+  .noteColor_7_colors {
+    color: #000000 !important;
+  }
+  .noteColor_8_colors {
+    color: #ffffff !important;
+  }
+  .noteColor_9_colors {
+    color: #000000 !important;
+  }
+  .noteColor_10_colors {
+    color: #000000 !important;
+  }
+  .noteColor_11_colors {
+    color: #000000 !important;
+  }
+
+  /* Add dot styles */
+  .dotAbove {
+    position: relative;
+  }
+  .dotAbove::before {
+    content: "·";
+    position: absolute;
+    font-family: serif;
+    color: white;
+    top: -0.75em;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2em;
+  }
+  .dotBelow {
+    position: relative;
+  }
+  .dotBelow::before {
+    content: "·";
+    position: absolute;
+    font-family: serif;
+    color: white;
+    bottom: -0.75em;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2em;
+  }
 `;
 
 const FoldButton = styled.button`
@@ -171,42 +302,20 @@ const ErrorMessage = styled.div`
   margin-top: 4px;
 `;
 
-const NOTE_LETTER_MAP: { [key: string]: number } = {
-  // First octave (numeric)
-  "1": 0,
-  "2": 1,
-  "3": 2,
-  "4": 3,
-  "5": 4,
-  "6": 5,
-  "7": 6,
-  "8": 7,
-  "9": 8,
-  "0": 9,
-
-  // Second octave (letters)
-  q: 7,
-  w: 8,
-  e: 9,
-  r: 10,
-  t: 11,
-  y: 12,
-  u: 13,
-
-  // Third octave
-  i: 14,
-  o: 15,
-  p: 16,
-  a: 14,
-  s: 15,
-  d: 16, // Alternative fingering
-  f: 17,
-  g: 18,
-  h: 19,
-  j: 20,
-  k: 21,
-  l: 22,
-};
+const customTheme = createTheme({
+  theme: "dark",
+  settings: {
+    background: "#1e1e1e",
+    foreground: "#ffffff",
+    caret: "#ffffff",
+    selection: "#036dd626",
+    selectionMatch: "#036dd626",
+    lineHighlight: "#8a91991a",
+    gutterBackground: "#1e1e1e",
+    gutterForeground: "#8a919966",
+  },
+  styles: [],
+});
 
 const parseKey = (keyString: string): KeySignature | null => {
   // Changed regex to make accidentals optional
@@ -461,11 +570,6 @@ const calculateMidiNumber = (
 ): number | null => {
   if (scaleDegree === -Infinity) return null; // Rest
 
-  // Define the mapping of scale degrees to semitones from tonic
-  const majorScaleMap = [0, 2, 4, 5, 7, 9, 11];
-  const minorScaleMap = [0, 2, 3, 5, 7, 8, 10];
-  const scaleMap = key.mode === "major" ? majorScaleMap : minorScaleMap;
-
   // Get absolute scale degree
   const absoluteScaleDegree =
     typeof scaleDegree === "string"
@@ -477,6 +581,7 @@ const calculateMidiNumber = (
   const octave = Math.floor(absoluteScaleDegree / 7);
 
   // Get the semitone offset for this scale degree
+  const scaleMap = key.mode === "major" ? MAJOR_SCALE_MAP : MINOR_SCALE_MAP;
   const semitoneOffset = scaleMap[baseDegree];
 
   // Use the appropriate base octave from context
@@ -754,9 +859,7 @@ const calculateShiftedNote = (
   const baseDegree = properModulo(newDegree, 7);
   const octave = Math.floor(newDegree / 7);
 
-  const minorScaleMap = [0, 2, 3, 5, 7, 8, 10];
-  const majorScaleMap = [0, 2, 4, 5, 7, 9, 11];
-  const scaleMap = key.mode === "major" ? majorScaleMap : minorScaleMap;
+  const scaleMap = key.mode === "major" ? MAJOR_SCALE_MAP : MINOR_SCALE_MAP;
 
   // Use the appropriate base octave from context
   const baseOctave = track === 1 ? context.baseOctaveRH : context.baseOctaveLH;
@@ -787,6 +890,178 @@ const logicalNoteToMidi = (
     channel: track - 1, // Track 1 (rh) uses channel 1, Track 2 (lh) uses channel 0
   };
 };
+
+// Function to get background colors for each character in a line
+const getBackgroundsForLine = (
+  line: string,
+  currentKey: KeySignature,
+  allLines: string[],
+  lineIndex: number,
+) => {
+  console.log("Processing line:", line);
+  console.log("Initial key:", currentKey);
+
+  // Process all previous lines to find the latest key signature
+  for (let i = 0; i < lineIndex; i++) {
+    const prevLine = allLines[i].trim();
+    console.log("Checking previous line for key:", prevLine);
+    const keyMatch = prevLine.match(/^([A-G][b#]?)\s+(major|minor)$/i);
+    if (keyMatch) {
+      const [_, root, mode] = keyMatch;
+      console.log("Found key change:", root, mode);
+      const noteToNumber: { [key: string]: number } = {
+        C: 0,
+        "C#": 1,
+        Db: 1,
+        D: 2,
+        "D#": 3,
+        Eb: 3,
+        E: 4,
+        F: 5,
+        "F#": 6,
+        Gb: 6,
+        G: 7,
+        "G#": 8,
+        Ab: 8,
+        A: 9,
+        "A#": 10,
+        Bb: 10,
+        B: 11,
+      };
+      currentKey = {
+        tonic: noteToNumber[root],
+        mode: mode.toLowerCase() as "major" | "minor",
+      };
+      console.log("Updated key:", currentKey);
+    }
+  }
+
+  // Check if this line is an insert command
+  const insertMatch = line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/);
+  console.log("Insert command match:", insertMatch);
+
+  if (!insertMatch) {
+    console.log("Not an insert command, returning null");
+    return Array.from(line).map(() => ({ class: null }));
+  }
+
+  const [fullMatch, measure, beat, melodyPart] = insertMatch;
+  console.log("Melody part:", melodyPart);
+
+  // Calculate where the melody part starts in the full line
+  const melodyStartIndex = line.indexOf(melodyPart);
+
+  // Process only the melody part
+  const melodyDecorations = Array.from(melodyPart).map((char, index) => {
+    console.log("\nProcessing char:", char, "at index:", index);
+
+    // Check if character is a note
+    const noteDegree = NOTE_LETTER_MAP[char.toLowerCase()];
+    console.log("Note degree from map:", noteDegree);
+
+    if (noteDegree === undefined) {
+      console.log("Not a note, returning null");
+      return { class: null };
+    }
+
+    // Calculate scale degree (0-6)
+    const scaleDegree = noteDegree % 7;
+    console.log("Scale degree (0-6):", scaleDegree);
+
+    // Get the semitone offset from the scale map which we'll use for coloring
+    const scaleMap =
+      currentKey.mode === "major" ? MAJOR_SCALE_MAP : MINOR_SCALE_MAP;
+    const colorIndex = scaleMap[scaleDegree];
+    console.log("Color index from scale map:", colorIndex);
+
+    // Add dot classes based on note degree
+    let dotClass = "";
+    if (noteDegree >= 14) {
+      dotClass = " dotAbove";
+    } else if (noteDegree <= 6) {
+      dotClass = " dotBelow";
+    }
+
+    return {
+      class: `noteColor_${colorIndex}_colors${dotClass}`,
+    };
+  });
+
+  return [
+    ...Array(melodyStartIndex).fill({ class: null }),
+    ...melodyDecorations,
+  ];
+};
+
+const characterBackgroundsPlugin = ViewPlugin.fromClass(
+  class {
+    decorations: DecorationSet;
+
+    constructor(view: EditorView) {
+      console.log("Plugin constructor called");
+      this.decorations = this.buildDecorations(view);
+    }
+
+    update(update: ViewUpdate) {
+      console.log("Plugin update called");
+      if (update.docChanged || update.viewportChanged) {
+        this.decorations = this.buildDecorations(update.view);
+      }
+    }
+
+    buildDecorations(view: EditorView) {
+      console.log("\nBuilding decorations");
+      const builder = new RangeSetBuilder<Decoration>();
+      const doc = view.state.doc;
+      const allLines = doc.toString().split("\n");
+      console.log("Total lines:", allLines.length);
+
+      // Start with C major as default
+      let currentKey: KeySignature = { tonic: 0, mode: "major" };
+      console.log("Starting with key:", currentKey);
+
+      // Iterate through visible lines
+      for (let { from, to } of view.visibleRanges) {
+        console.log("\nProcessing visible range:", from, "to", to);
+        let pos = from;
+        while (pos <= to) {
+          const line = view.state.doc.lineAt(pos);
+          const lineIndex = doc.lineAt(pos).number - 1;
+          console.log("\nProcessing line:", line.text, "at index:", lineIndex);
+
+          const backgrounds = getBackgroundsForLine(
+            line.text,
+            currentKey,
+            allLines,
+            lineIndex,
+          );
+          console.log("Got backgrounds:", backgrounds);
+
+          // Apply background to each character
+          for (let i = 0; i < line.length; i++) {
+            const charPos = line.from + i;
+            if (charPos < line.to) {
+              const decoration = backgrounds[i];
+              if (decoration.class) {
+                builder.add(
+                  charPos,
+                  charPos + 1,
+                  Decoration.mark({ class: decoration.class }),
+                );
+              }
+            }
+          }
+          pos = line.to + 1;
+        }
+      }
+
+      return builder.finish();
+    }
+  },
+  {
+    decorations: (v) => v.decorations,
+  },
+);
 
 const Editor: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -1083,9 +1358,10 @@ const Editor: React.FC = () => {
             ref={editorRef}
             value={score}
             onChange={handleTextChange}
-            theme={githubDark}
+            theme={customTheme}
             height="100%"
             style={{ flex: 1 }}
+            extensions={[characterBackgroundsPlugin]}
             basicSetup={{
               lineNumbers: true,
               highlightActiveLineGutter: true,

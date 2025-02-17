@@ -789,7 +789,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
         return { rawlProps: newRawlProps };
       },
       () => {
-        this.startPlayback();
+        // Remove automatic playback start - let user control it
+        // this.startPlayback();
       },
     );
   };
@@ -971,6 +972,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
     this.setState({
       currentMidiBuffer: buffer instanceof ArrayBuffer ? buffer : buffer.buffer,
+      paused: !shouldAutoPlay,
     });
 
     try {
@@ -1079,7 +1081,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     const { location } = this.props;
     const rawlProps: RawlProps = {
       parsingResult: this.state.parsing,
-      getCurrentPositionMs: this.midiPlayer?.getPositionMs || (() => 0),
+      getCurrentPositionMs: this.midiPlayer?.getPositionMs,
       savedAnalysis: this.state.analyses[this.path] ?? null,
       saveAnalysis: this.saveAnalysis,
       voiceNames: this.state.voiceNames,

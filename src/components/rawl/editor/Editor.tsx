@@ -256,7 +256,7 @@ const CodeMirrorWrapper = styled.div`
     top: -0.75em;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 1.2em;
+    font-size: 2em;
   }
   .dotBelow {
     position: relative;
@@ -269,7 +269,7 @@ const CodeMirrorWrapper = styled.div`
     bottom: -0.75em;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 1.2em;
+    font-size: 2em;
   }
 `;
 
@@ -1119,7 +1119,7 @@ const Editor: React.FC = () => {
   }, []);
 
   const handleMelodyPlayback = React.useCallback(
-    (text: string) => {
+    (text: string, autoplay: boolean) => {
       try {
         const lines = text.split("\n").filter((line) => line.trim());
 
@@ -1338,7 +1338,7 @@ const Editor: React.FC = () => {
         );
 
         if (playSongBuffer) {
-          playSongBuffer(midiResult.midiInfo.id, midiResult.midiData, true);
+          playSongBuffer(midiResult.midiInfo.id, midiResult.midiData, autoplay);
         }
       } catch (e) {
         console.error("Error during playback:", e);
@@ -1352,13 +1352,13 @@ const Editor: React.FC = () => {
 
   // Generate MIDI on initial load
   React.useEffect(() => {
-    handleMelodyPlayback(score);
+    handleMelodyPlayback(score, true);
   }, []); // Run only once on mount
 
   const handleTextChange = React.useCallback(
     (value: string) => {
       setScore(value);
-      handleMelodyPlayback(value);
+      handleMelodyPlayback(value, false);
     },
     [handleMelodyPlayback],
   );
@@ -1367,7 +1367,7 @@ const Editor: React.FC = () => {
     (e: React.KeyboardEvent) => {
       if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        handleMelodyPlayback(score);
+        handleMelodyPlayback(score, true);
       }
     },
     [handleMelodyPlayback, score],

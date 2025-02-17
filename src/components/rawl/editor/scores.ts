@@ -216,5 +216,34 @@ ch2 3
 1b2 i qet,
 1b3 c 1b2-1b3 0
 2 c 1 0 0 0
+
+Eb major
+rh 4 
+79 i q_.q_.q,7,6,5,
+95 c 79-82 2 1
+
 `,
+  "wima.4be9-schubert_de.-tanz-d.365.28": `A major
+3/4
+
+lh
+
+6 i 5_.
+6b2 i wrt,wrt,
+18 c 6 0 0
+
+33 i qea,
+
+
+rh 4
+1b3 i t=y=t-q,t-a-q,7_
+3 c 1-3 0
+5 c 1 0
+
+# triplets
+ch2 3
+8b2 i u-:s-:f-:
+20b2 i d-:g-:k-:
+18 c 8 2 9 x x 9 8 0
+21 c 20 7`,
 };

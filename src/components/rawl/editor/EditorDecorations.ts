@@ -209,7 +209,7 @@ export const characterBackgroundsPlugin = ViewPlugin.fromClass(
             const charPos = line.from + i;
             if (charPos < line.to) {
               const decoration = backgrounds[i];
-              if (decoration.class) {
+              if (decoration && decoration.class) {
                 builder.add(
                   charPos,
                   charPos + 1,

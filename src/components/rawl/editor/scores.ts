@@ -167,4 +167,54 @@ rh
 22   c 18-20b3 0
 24b3 i t=g-.a
 25b3 c 17b3-25 0`,
+  Gravity_Falls_Opening: `D minor
+lh
+
+1 i 1+3+5+5_5_
+1 c 1-4 7
+5 i 1-5-q-5-e-q-5-q-
+
+7 c 5 2 2 5 5
+11 c 5-5b4 6
+11b4 i r-7-7-w-t-w-u-t-w-5-
+13 i 1-5-q-5-
+13b3 c 13-13b3 0 0 x 2 2 2 2 5 5 5 5 6 x 4 4 0 x 2 2 5 5 6 6 4 4
+
+rh
+1 i e-q-5-q-x_ e-7-5-7-x_ w-7-5-7-
+1b3 c 1-3 0
+4 c 3-3b3 0
+4b3 i w,t,q_.w,e+t_r,t,7+q_x,w,e_w_r_t_r_e_
+
+13b2 i e,e,e,t,t,r,e,x,t,t,t,r,t,r,e,
+17 c 13-15 0
+21 c 13-14 0
+23b2 i y,y,y,r_u_t_u_
+
+5 c 5-25 -7
+27 i aq+`,
+  "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano": `C minor
+3/4
+
+lh 2
+1 i q,x_5,x_
+3 c 1-2 0 0 0 0
+11 i w,x_5,x_
+13 c 11-12 0 0 0
+
+
+
+1 c 1-77 7
+221 i 1q
+
+
+rh 4
+5 i t_.e_w,q+q,w,e,q,e,t_y,t_.r_.
+13 c 5-6 -1 x x x 0 x -1
+
+ch2 3
+1b2 i qet,
+1b3 c 1b2-1b3 0
+2 c 1 0 0 0
+`,
 };

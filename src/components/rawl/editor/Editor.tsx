@@ -326,7 +326,7 @@ const Editor: React.FC = () => {
       </RawlContainer>
       <EditorPanel isFolded={isFolded}>
         <FoldButton onClick={() => setIsFolded(!isFolded)}>
-          {isFolded ? ">" : "<"}
+          {isFolded ? "<" : ">"}
         </FoldButton>
         <CodeMirrorWrapper>
           <CodeMirror

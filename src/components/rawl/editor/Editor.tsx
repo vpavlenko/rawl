@@ -901,6 +901,35 @@ const getBackgroundsForLine = (
   console.log("Processing line:", line);
   console.log("Initial key:", currentKey);
 
+  // Check if this line is a key signature command
+  const keyMatch = line.match(/^([A-G][b#]?)\s+(major|minor)$/i);
+  if (keyMatch) {
+    const [_, root, mode] = keyMatch;
+    console.log("Processing key signature line with mode:", mode);
+
+    // Find where the mode word starts in the line
+    const modeStartIndex = line.toLowerCase().indexOf(mode.toLowerCase());
+
+    // Get the appropriate scale map based on the mode word itself
+    const scaleMap =
+      mode.toLowerCase() === "major" ? MAJOR_SCALE_MAP : MINOR_SCALE_MAP;
+
+    // Define unstable pitches for coloring mode letters
+    const UNSTABLE_PITCHES = [1, 2, 3, 5, 6];
+
+    // Create array of decorations for each character
+    return Array.from(line).map((char, index) => {
+      // If we're within the first 5 letters of the mode word
+      if (index >= modeStartIndex && index < modeStartIndex + 5) {
+        const letterIndex = index - modeStartIndex;
+        const unstablePitch = UNSTABLE_PITCHES[letterIndex];
+        const colorIndex = scaleMap[unstablePitch];
+        return { class: `noteColor_${colorIndex}_colors` };
+      }
+      return { class: null };
+    });
+  }
+
   // Process all previous lines to find the latest key signature
   for (let i = 0; i < lineIndex; i++) {
     const prevLine = allLines[i].trim();

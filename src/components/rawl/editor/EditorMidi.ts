@@ -140,30 +140,66 @@ const generateMidiFromEvents = (
   bpm: number,
   timeSignatures: TimeSignature[],
 ): Uint8Array => {
+  console.log("\n=== MIDI Generation Debug ===");
+  console.log("Events by channel:");
+  const eventsByChannel = new Map<number, MusicalEvent[]>();
+  const trackNames = new Map<number, string>();
+
+  events.forEach((event) => {
+    const channelEvents = eventsByChannel.get(event.channel) || [];
+    channelEvents.push(event);
+    eventsByChannel.set(event.channel, channelEvents);
+  });
+
+  eventsByChannel.forEach((channelEvents, channel) => {
+    console.log(`\nChannel ${channel}:`);
+    console.log(`- Note count: ${channelEvents.length}`);
+    console.log(
+      `- Sample notes: `,
+      channelEvents.slice(0, 3).map((e) => ({
+        pitches: e.pitches,
+        startTick: e.startTick,
+        duration: e.duration,
+      })),
+    );
+  });
+
   // Create separate tracks for each channel
   const tracks = new Map<number, Track>();
 
   // Create a tempo/time signature track (track 0)
   const tempoTrack = new MidiTrack() as Track;
-  tempoTrack.addTrackName("Tempo and Time Signatures");
+  const tempoTrackName = "Tempo and Time Signatures";
+  tempoTrack.addTrackName(tempoTrackName);
+  trackNames.set(-1, tempoTrackName);
   tempoTrack.setTempo(bpm);
+  console.log("\nTempo track:");
+  console.log(`- Tempo: ${bpm} BPM`);
 
   // Add time signatures using the official API
   timeSignatures.forEach((ts) => {
     tempoTrack.setTimeSignature(ts.numerator, 4, 24, 8);
   });
+  console.log(`- Time signatures:`, timeSignatures);
 
   tracks.set(-1, tempoTrack); // Special track for tempo/time sig
 
   events.forEach((event) => {
     if (!tracks.has(event.channel)) {
       const track = new MidiTrack() as Track;
-      if (event.channel === 0) {
-        track.addTrackName("Melody");
-      } else if (event.channel === 1) {
-        track.addTrackName("Chords");
-      }
+      // Give each track a name based on its channel
+      const trackName =
+        event.channel === 0
+          ? "Right Hand (Channel 0)"
+          : event.channel === 1
+          ? "Left Hand (Channel 1)"
+          : `Channel ${event.channel}`;
+
+      track.addTrackName(trackName);
+      trackNames.set(event.channel, trackName);
       tracks.set(event.channel, track);
+      console.log(`\nCreated track: ${trackName}`);
+      console.log(`- Channel: ${event.channel}`);
     }
 
     const track = tracks.get(event.channel)!;
@@ -173,12 +209,27 @@ const generateMidiFromEvents = (
         duration: "T" + event.duration,
         velocity: event.velocity,
         startTick: event.startTick,
-        channel: event.channel,
+        channel: event.channel, // Ensure channel number is preserved
       }),
     );
   });
 
-  const writer = new Writer(Array.from(tracks.values()));
+  // Sort tracks by channel number to ensure consistent order
+  const sortedTracks = Array.from(tracks.entries())
+    .sort(([a], [b]) => a - b)
+    .map(([channel, track]) => ({ channel, track }));
+
+  console.log("\nFinal track order:");
+  sortedTracks.forEach(({ channel, track }, index) => {
+    console.log(
+      `${index}: ${
+        trackNames.get(channel) || "Unnamed track"
+      } (Channel ${channel})`,
+    );
+  });
+  console.log("=== End MIDI Generation Debug ===\n");
+
+  const writer = new Writer(sortedTracks.map(({ track }) => track));
   const base64Data = writer.dataUri().split(",")[1];
 
   // Convert base64 to Uint8Array

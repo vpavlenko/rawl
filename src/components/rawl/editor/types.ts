@@ -79,17 +79,16 @@ export type Command =
       sourceEndBeat: number;
       shifts: (number | "x")[]; // Allow 'x' in shifts array
     }
-  | { type: "track"; track: 1 | 2; baseOctave?: number }
+  | { type: "track"; track: number; baseOctave?: number }
   | { type: "time"; signatures: TimeSignature[] };
 
-export type CommandContext = {
+export interface CommandContext {
   currentKey: KeySignature;
   existingNotes?: LogicalNote[];
   lastNoteIndex?: number; // Index of last note before current command
-  currentTrack: 1 | 2; // Track 1 for right hand, 2 for left hand
-  timeSignatures: TimeSignature[]; // List of time signatures in effect
+  currentTrack: number;
+  timeSignatures: TimeSignature[];
   beatsPerMeasure?: number; // Optional because only needed during note parsing
-  baseOctaveRH: number; // Base octave for right hand
-  baseOctaveLH: number; // Base octave for left hand
-  commentToEndOfFile?: boolean; // Whether a single # has been encountered, commenting out rest of file
-};
+  channelOctaves: { [channel: number]: number }; // Map of channel numbers to their base octaves
+  commentToEndOfFile?: boolean;
+}

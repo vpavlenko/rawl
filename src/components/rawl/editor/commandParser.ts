@@ -1,5 +1,4 @@
 import { TICKS_PER_QUARTER } from "../forge/constants";
-import { Note } from "../forge/ForgeGenerator";
 import {
   BeatPosition,
   Command,
@@ -12,6 +11,19 @@ import {
   NOTE_LETTER_MAP,
   TimeSignature,
 } from "./types";
+
+export interface Note {
+  midiNumber: number;
+  startTick: number;
+  durationTicks: number;
+  channel: number;
+}
+
+export interface TrackCommand {
+  type: "track";
+  track: number;
+  baseOctave: number;
+}
 
 export const parseKey = (keyString: string): KeySignature | null => {
   // Changed regex to make accidentals optional
@@ -188,36 +200,45 @@ export const parseCommand = (
   line: string,
   context: CommandContext,
 ): Command | null => {
+  console.log("\n=== Command Parser Debug ===");
+  console.log("Parsing line:", line);
+  console.log("Current context:", {
+    currentTrack: context.currentTrack,
+    channelOctaves: context.channelOctaves,
+  });
+
   // Handle single # comment that comments out everything to end of file
   if (line.trim() === "#") {
     context.commentToEndOfFile = true;
+    console.log("Comment to end of file");
     return null;
   }
 
   // If we're in comment-to-end-of-file mode, return null
   if (context.commentToEndOfFile) {
+    console.log("Skipping due to comment-to-end-of-file");
     return null;
   }
 
   // Remove comments
   const cleanLine = line.split("#")[0].trim();
-  if (!cleanLine) return null;
+  if (!cleanLine) {
+    console.log("Empty line after comment removal");
+    return null;
+  }
 
-  // Handle track switch commands with optional octave
-  const trackMatch = cleanLine.match(/^(lh|rh)(?:\s+(\d+))?$/i);
-  if (trackMatch) {
-    const [_, hand, octave] = trackMatch;
-    return {
-      type: "track",
-      track: hand.toLowerCase() === "lh" ? 2 : 1,
-      baseOctave: octave ? parseInt(octave) : undefined,
-    };
+  // Try parsing as track command first
+  const trackCommand = parseTrackCommand(cleanLine, context);
+  if (trackCommand) {
+    console.log("Parsed track command:", trackCommand);
+    return trackCommand;
   }
 
   // Try parsing as time signature command
   if (cleanLine.includes("/4")) {
     const signatures = parseTimeSignatures(cleanLine);
     if (signatures) {
+      console.log("Parsed time signatures:", signatures);
       return { type: "time", signatures };
     }
   }
@@ -225,16 +246,18 @@ export const parseCommand = (
   // Try parsing as key command
   const key = parseKey(cleanLine);
   if (key) {
+    console.log("Parsed key:", key);
     return { type: "key", key };
   }
 
   // Try parsing as copy command
   const copyCmd = parseCopyCommand(cleanLine, context.timeSignatures);
   if (copyCmd) {
+    console.log("Parsed copy command:", copyCmd);
     return copyCmd;
   }
 
-  // Parse as note insert command - new syntax: "{coordinate} i {notes}"
+  // Parse as note insert command
   const match = cleanLine.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/);
   if (match) {
     const [_, measureStr, beatStr, melodyPart] = match;
@@ -250,11 +273,13 @@ export const parseCommand = (
       isNaN(startBeat) ||
       startBeat < 1
     ) {
+      console.log("Invalid measure or beat");
       return null;
     }
 
     // Get time signature for this measure
     if (startBeat > beatsPerMeasure) {
+      console.log("Beat exceeds beats per measure");
       return null;
     }
 
@@ -263,10 +288,13 @@ export const parseCommand = (
       beatsPerMeasure,
     });
     if (notes.length > 0) {
+      console.log("Parsed insert command with notes:", notes.length);
       return { type: "insert", notes };
     }
   }
 
+  console.log("No command matched");
+  console.log("=== End Command Parser Debug ===\n");
   return null;
 };
 
@@ -296,7 +324,7 @@ export const calculateMidiNumber = (
   const semitoneOffset = scaleMap[baseDegree];
 
   // Use the appropriate base octave from context
-  const baseOctave = track === 1 ? context.baseOctaveRH : context.baseOctaveLH;
+  const baseOctave = getBaseOctaveForTrack(track, context);
 
   // Calculate final MIDI number
   const midiNumber = key.tonic + semitoneOffset + (baseOctave + octave) * 12;
@@ -577,7 +605,7 @@ export const calculateShiftedNote = (
   const scaleMap = key.mode === "major" ? MAJOR_SCALE_MAP : MINOR_SCALE_MAP;
 
   // Use the appropriate base octave from context
-  const baseOctave = track === 1 ? context.baseOctaveRH : context.baseOctaveLH;
+  const baseOctave = getBaseOctaveForTrack(track, context);
 
   // Include baseOctave in calculation
   const newMidi =
@@ -592,16 +620,74 @@ export const logicalNoteToMidi = (
   track: number,
   timeSignatures: TimeSignature[],
 ): Note | null => {
-  if (note.midiNumber === null) return null; // Rest
-
-  // Convert beat position directly to ticks
-  const startTicks = Math.floor(note.span.start * TICKS_PER_QUARTER);
+  if (note.midiNumber === null) return null;
 
   return {
-    pitch: note.midiNumber,
-    velocity: 100,
-    startTime: startTicks,
-    duration: note.duration - 1,
-    channel: track - 1, // Track 1 (rh) uses channel 1, Track 2 (lh) uses channel 0
+    midiNumber: note.midiNumber,
+    startTick: note.span.start * TICKS_PER_QUARTER,
+    durationTicks: note.duration,
+    channel: track - 1, // Convert 1-based track to 0-based channel
   };
 };
+
+function parseTrackCommand(
+  cleanLine: string,
+  context: CommandContext,
+): TrackCommand | null {
+  console.log("\n=== Track Command Debug ===");
+  console.log("Parsing line:", cleanLine);
+
+  // Try new channel syntax first
+  const channelMatch = cleanLine.match(/^ch(\d+)(?:\s+(\d+))?$/i);
+  if (channelMatch) {
+    const channel = parseInt(channelMatch[1], 10);
+    if (channel < 0 || channel > 15) {
+      throw new Error("MIDI channel must be between 0 and 15");
+    }
+    const baseOctave = channelMatch[2]
+      ? parseInt(channelMatch[2], 10)
+      : channel === 1
+      ? 3
+      : 5;
+    context.channelOctaves[channel] = baseOctave;
+    const track = channel + 1; // Convert channel to 1-based track number
+    console.log("Channel command parsed:");
+    console.log("- Channel:", channel);
+    console.log("- Track:", track);
+    console.log("- Base octave:", baseOctave);
+    return {
+      type: "track",
+      track,
+      baseOctave,
+    };
+  }
+
+  // Backward compatibility for lh/rh
+  const trackMatch = cleanLine.match(/^(lh|rh)(?:\s+(\d+))?$/i);
+  if (trackMatch) {
+    const [, hand, octave] = trackMatch;
+    const track = hand.toLowerCase() === "lh" ? 2 : 1;
+    const channel = track - 1;
+    const baseOctave = octave ? parseInt(octave, 10) : track === 2 ? 3 : 5;
+    context.channelOctaves[channel] = baseOctave;
+    console.log("Hand command parsed:");
+    console.log("- Hand:", hand);
+    console.log("- Channel:", channel);
+    console.log("- Track:", track);
+    console.log("- Base octave:", baseOctave);
+    return {
+      type: "track",
+      track,
+      baseOctave,
+    };
+  }
+
+  console.log("No track command matched");
+  console.log("=== End Track Command Debug ===\n");
+  return null;
+}
+
+function getBaseOctaveForTrack(track: number, context: CommandContext): number {
+  const channel = track - 1;
+  return context.channelOctaves[channel] ?? (channel === 1 ? 3 : 5);
+}

@@ -9,7 +9,6 @@ import React, {
 import { useParams } from "react-router-dom";
 import { AppContext } from "../../AppContext";
 import { TICKS_PER_QUARTER } from "../forge/constants";
-import { Note } from "../forge/ForgeGenerator";
 import Rawl from "../Rawl";
 import {
   calculateGlobalBeatPosition,
@@ -38,6 +37,14 @@ declare global {
   }
 }
 
+type MidiNote = {
+  pitch: number;
+  velocity: number;
+  startTime: number;
+  duration: number;
+  channel: number;
+};
+
 const Editor: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [error, setError] = useState<string | null>(null);
@@ -49,8 +56,10 @@ const Editor: React.FC = () => {
     currentKey: { tonic: 0, mode: "major" },
     currentTrack: 1,
     timeSignatures: [{ numerator: 4, measureStart: 1 }],
-    baseOctaveRH: 5,
-    baseOctaveLH: 3,
+    channelOctaves: {
+      0: 5, // RH default
+      1: 3, // LH default
+    },
     commentToEndOfFile: false,
   });
 
@@ -75,30 +84,49 @@ const Editor: React.FC = () => {
           try {
             const lines = text.split("\n").filter((line) => line.trim());
 
-            let scoreTrack1: LogicalNote[] = [];
-            let scoreTrack2: LogicalNote[] = [];
+            // Use a map to store notes for each track
+            const scoreByTrack = new Map<number, LogicalNote[]>();
+
             const newContext: CommandContext = {
               currentKey: { tonic: 0, mode: "major" },
               currentTrack: 1,
               timeSignatures: [{ numerator: 4, measureStart: 1 }],
-              baseOctaveRH: 5,
-              baseOctaveLH: 3,
+              channelOctaves: {
+                0: 5, // RH default
+                1: 3, // LH default
+              },
             };
 
             for (const line of lines) {
+              console.log("\n=== Processing line ===");
+              console.log("Line:", line);
+              console.log("Current track:", newContext.currentTrack);
+              console.log(
+                "Current channel octaves:",
+                newContext.channelOctaves,
+              );
+
               const command = parseCommand(line, newContext);
-              if (!command) continue;
+              if (!command) {
+                console.log("No command parsed");
+                continue;
+              }
+
+              console.log("Parsed command:", command);
 
               switch (command.type) {
                 case "track":
+                  const oldTrack = newContext.currentTrack;
                   newContext.currentTrack = command.track;
                   if (command.baseOctave !== undefined) {
-                    if (command.track === 1) {
-                      newContext.baseOctaveRH = command.baseOctave;
-                    } else {
-                      newContext.baseOctaveLH = command.baseOctave;
-                    }
+                    const channel = command.track - 1;
+                    newContext.channelOctaves[channel] = command.baseOctave;
                   }
+                  console.log(`Track changed: ${oldTrack} -> ${command.track}`);
+                  console.log(
+                    "Updated channel octaves:",
+                    newContext.channelOctaves,
+                  );
                   break;
 
                 case "key":
@@ -109,13 +137,28 @@ const Editor: React.FC = () => {
                   newContext.timeSignatures = command.signatures;
                   break;
 
-                case "insert":
-                  if (newContext.currentTrack === 1) {
-                    scoreTrack1 = [...scoreTrack1, ...command.notes];
-                  } else {
-                    scoreTrack2 = [...scoreTrack2, ...command.notes];
-                  }
+                case "insert": {
+                  console.log(
+                    "Insert command for track:",
+                    newContext.currentTrack,
+                  );
+                  const currentTrackNotes =
+                    scoreByTrack.get(newContext.currentTrack) || [];
+                  console.log(
+                    "Existing notes for track:",
+                    currentTrackNotes.length,
+                  );
+                  console.log("Adding notes:", command.notes.length);
+                  scoreByTrack.set(newContext.currentTrack, [
+                    ...currentTrackNotes,
+                    ...command.notes,
+                  ]);
+                  console.log(
+                    "Updated track note count:",
+                    scoreByTrack.get(newContext.currentTrack)?.length,
+                  );
                   break;
+                }
 
                 case "copy": {
                   console.log("=== COPY COMMAND DEBUG ===");
@@ -148,9 +191,9 @@ const Editor: React.FC = () => {
                   console.log("Span length:", spanLengthInBeats);
                   console.log("Shifts:", command.shifts);
 
-                  const sourceNotes = (
-                    newContext.currentTrack === 1 ? scoreTrack1 : scoreTrack2
-                  ).filter((n) => {
+                  const currentTrackNotes =
+                    scoreByTrack.get(newContext.currentTrack) || [];
+                  const sourceNotes = currentTrackNotes.filter((n) => {
                     return (
                       n.span.start >= sourceStartAbsBeat &&
                       n.span.start < sourceEndAbsBeat
@@ -241,17 +284,16 @@ const Editor: React.FC = () => {
                     allCopies.map((n) => [n.span.start, n.span.end]),
                   );
 
-                  if (newContext.currentTrack === 1) {
-                    scoreTrack1 = [...scoreTrack1, ...allCopies];
-                  } else {
-                    scoreTrack2 = [...scoreTrack2, ...allCopies];
-                  }
+                  scoreByTrack.set(newContext.currentTrack, [
+                    ...currentTrackNotes,
+                    ...allCopies,
+                  ]);
                   break;
                 }
               }
             }
 
-            if (scoreTrack1.length === 0 && scoreTrack2.length === 0) {
+            if (scoreByTrack.size === 0) {
               setError("No valid notes found");
               return;
             }
@@ -259,20 +301,87 @@ const Editor: React.FC = () => {
             setError(null);
             setContext(newContext);
 
-            const midiNotesTrack1 = scoreTrack1
-              .map((n) => logicalNoteToMidi(n, 1, newContext.timeSignatures))
-              .filter((n): n is Note => n !== null);
-            const midiNotesTrack2 = scoreTrack2
-              .map((n) => logicalNoteToMidi(n, 2, newContext.timeSignatures))
-              .filter((n): n is Note => n !== null);
+            // Convert all tracks to MIDI notes
+            console.log("\n=== Track to MIDI Conversion Debug ===");
+            console.log(
+              "Tracks in scoreByTrack:",
+              Array.from(scoreByTrack.keys()),
+            );
+            console.log("Track contents:");
+            scoreByTrack.forEach((notes, track) => {
+              console.log(`\nTrack ${track}:`);
+              console.log("- Note count:", notes.length);
+              console.log(
+                "- First 3 notes:",
+                notes.slice(0, 3).map((n) => ({
+                  midiNumber: n.midiNumber,
+                  span: n.span,
+                  scaleDegree: n.scaleDegree,
+                })),
+              );
+            });
 
-            const allMidiNotes = [...midiNotesTrack1, ...midiNotesTrack2];
+            const allMidiNotes = Array.from(scoreByTrack.entries()).flatMap(
+              ([track, notes]) => {
+                console.log(`\nProcessing track ${track} to MIDI:`);
+                const trackNotes = notes
+                  .map((n) => {
+                    const midiNote = logicalNoteToMidi(
+                      n,
+                      track,
+                      newContext.timeSignatures,
+                    );
+                    if (!midiNote) {
+                      console.log("- Skipping null MIDI note");
+                      return null;
+                    }
+                    const resultNote = {
+                      pitch: midiNote.midiNumber,
+                      velocity: 100,
+                      startTime: midiNote.startTick,
+                      duration: midiNote.durationTicks - 1,
+                      channel: track - 1, // Convert 1-based track number back to 0-based channel
+                    };
+                    console.log("- Converted note:", resultNote);
+                    return resultNote;
+                  })
+                  .filter((n): n is MidiNote => n !== null);
+                console.log(
+                  `- Generated ${trackNotes.length} MIDI notes for track ${track}`,
+                );
+                return trackNotes;
+              },
+            );
+
+            console.log("\nFinal MIDI notes by channel:");
+            const notesByChannel = new Map<number, MidiNote[]>();
+            allMidiNotes.forEach((note) => {
+              const channelNotes = notesByChannel.get(note.channel) || [];
+              channelNotes.push(note);
+              notesByChannel.set(note.channel, channelNotes);
+            });
+            notesByChannel.forEach((notes, channel) => {
+              console.log(`\nChannel ${channel}:`);
+              console.log("- Note count:", notes.length);
+              console.log("- Sample notes:", notes.slice(0, 3));
+            });
+            console.log("=== End Track to MIDI Conversion Debug ===\n");
 
             const midiResult = generateMidiWithMetadata(
               allMidiNotes,
               `melody-${slug}`,
               120,
               newContext.timeSignatures,
+            );
+
+            console.log("\n=== Final Context ===");
+            console.log("Channel octaves:", newContext.channelOctaves);
+            console.log("Tracks with notes:", Array.from(scoreByTrack.keys()));
+            console.log(
+              "Note counts by track:",
+              Array.from(scoreByTrack.entries()).map(
+                ([track, notes]) => `Track ${track}: ${notes.length} notes`,
+              ),
             );
 
             if (playSongBuffer) {

@@ -9,6 +9,18 @@ rh
 3 i 3-e-w-e-q-e-7-e-6-e-5-e-4-e-3-e-
 5 c 3-4 -1 -2
 19 c 3-8 7`,
+  //   "wima.e480-schubert_de.-tanz-d.365.25": `3/4
+  // E major
+
+  // lh
+  // 2   i 5rtu,
+
+  // rh
+  // 17  i x,x,e,
+
+  // ch2
+  // 2b3 i 5=6=5-
+  // `,
   "wima.e480-schubert_de.-tanz-d.365.25": `3/4
 E major
 
@@ -24,9 +36,6 @@ lh
 18  c 2-17      0
 
 rh
-2b3 i 5=6=5-
-3   c 2         0 2 x 2 3 2
-18  c 2         10 11 13
 17  i x,x,e,y-7-w-r-x, a-q-e-t-x, s-t-u-o-x, d,
 21  c 17-20 0
 25  i a,
@@ -34,6 +43,11 @@ rh
 1   i x,x,e,7-y-r-w-x, q-i-t-e-x, t-f-s-u-x,
 5   c 1-5 0
 9   c 1-9 0
+
+ch2
+2b3 i 5=6=5-
+3   c 2         0 2 x 2 3 2
+18  c 2         11 12 14
 `,
   "idea-22---gibran-alcocer": `3/4
 C minor

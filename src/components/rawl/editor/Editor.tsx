@@ -14,7 +14,6 @@ import Rawl from "../Rawl";
 import {
   calculateGlobalBeatPosition,
   calculateShiftedNote,
-  globalBeatToMeasureAndBeat,
   logicalNoteToMidi,
   parseCommand,
 } from "./commandParser";
@@ -119,73 +118,77 @@ const Editor: React.FC = () => {
                   break;
 
                 case "copy": {
-                  const sourceNotes = (
-                    newContext.currentTrack === 1 ? scoreTrack1 : scoreTrack2
-                  ).filter((n) => {
-                    const { measure, beatInMeasure } =
-                      globalBeatToMeasureAndBeat(
-                        n.span.start,
-                        newContext.timeSignatures,
-                      );
+                  console.log("=== COPY COMMAND DEBUG ===");
 
-                    if (
-                      measure < command.sourceStart ||
-                      measure > command.sourceEnd
-                    ) {
-                      return false;
-                    }
-
-                    if (
-                      measure === command.sourceStart &&
-                      beatInMeasure < command.sourceStartBeat
-                    ) {
-                      return false;
-                    }
-
-                    if (
-                      measure === command.sourceEnd &&
-                      beatInMeasure >= command.sourceEndBeat
-                    ) {
-                      return false;
-                    }
-
-                    return true;
-                  });
-
-                  if (sourceNotes.length === 0) {
-                    continue;
-                  }
-
-                  const sourceStartBeat = calculateGlobalBeatPosition(
+                  // Convert all positions to absolute beats first
+                  const sourceStartAbsBeat = calculateGlobalBeatPosition(
                     command.sourceStart,
                     command.sourceStartBeat,
                     newContext.timeSignatures,
                   );
-                  const sourceEndBeat = calculateGlobalBeatPosition(
+
+                  const sourceEndAbsBeat = calculateGlobalBeatPosition(
                     command.sourceEnd,
                     command.sourceEndBeat,
                     newContext.timeSignatures,
                   );
-                  const spanLengthInBeats = sourceEndBeat - sourceStartBeat;
+
+                  const targetStartAbsBeat = calculateGlobalBeatPosition(
+                    command.targetMeasure,
+                    command.targetBeat,
+                    newContext.timeSignatures,
+                  );
+
+                  const spanLengthInBeats =
+                    sourceEndAbsBeat - sourceStartAbsBeat;
+
+                  console.log("Source start (abs beats):", sourceStartAbsBeat);
+                  console.log("Source end (abs beats):", sourceEndAbsBeat);
+                  console.log("Target start (abs beats):", targetStartAbsBeat);
+                  console.log("Span length:", spanLengthInBeats);
+                  console.log("Shifts:", command.shifts);
+
+                  const sourceNotes = (
+                    newContext.currentTrack === 1 ? scoreTrack1 : scoreTrack2
+                  ).filter((n) => {
+                    return (
+                      n.span.start >= sourceStartAbsBeat &&
+                      n.span.start < sourceEndAbsBeat
+                    );
+                  });
+
+                  console.log("Found source notes:", sourceNotes.length);
+                  console.log(
+                    "Source notes spans:",
+                    sourceNotes.map((n) => [n.span.start, n.span.end]),
+                  );
+
+                  if (sourceNotes.length === 0) {
+                    console.log("No source notes found!");
+                    continue;
+                  }
 
                   const allCopies = command.shifts
                     .map((shift, idx) => {
-                      const targetStartBeat =
-                        calculateGlobalBeatPosition(
-                          command.targetMeasure,
-                          command.targetBeat,
-                          newContext.timeSignatures,
-                        ) +
-                        idx * spanLengthInBeats;
+                      const copyStartBeat =
+                        targetStartAbsBeat + idx * spanLengthInBeats;
+                      console.log(`\nCopy ${idx + 1}:`);
+                      console.log("Shift:", shift);
+                      console.log("Copy start beat:", copyStartBeat);
+                      console.log(
+                        "Copy end beat:",
+                        copyStartBeat + spanLengthInBeats,
+                      );
 
                       if (shift === "x") {
+                        console.log("Creating rest for this copy");
                         return [
                           {
                             scaleDegree: -Infinity,
                             duration: spanLengthInBeats * TICKS_PER_QUARTER,
                             span: {
-                              start: targetStartBeat,
-                              end: targetStartBeat + spanLengthInBeats,
+                              start: copyStartBeat,
+                              end: copyStartBeat + spanLengthInBeats,
                             },
                             midiNumber: null,
                           },
@@ -193,9 +196,12 @@ const Editor: React.FC = () => {
                       }
 
                       return sourceNotes.map((n) => {
-                        const relativePosition = n.span.start - sourceStartBeat;
-                        const targetPosition =
-                          targetStartBeat + relativePosition;
+                        const relativePosition =
+                          n.span.start - sourceStartAbsBeat;
+                        const targetPosition = copyStartBeat + relativePosition;
+
+                        console.log("Note relative pos:", relativePosition);
+                        console.log("Note target pos:", targetPosition);
 
                         if (n.midiNumber === null) {
                           return {
@@ -229,6 +235,11 @@ const Editor: React.FC = () => {
                       });
                     })
                     .flat();
+
+                  console.log(
+                    "\nFinal copies spans:",
+                    allCopies.map((n) => [n.span.start, n.span.end]),
+                  );
 
                   if (newContext.currentTrack === 1) {
                     scoreTrack1 = [...scoreTrack1, ...allCopies];

@@ -51,15 +51,19 @@ export const parseKey = (keyString: string): KeySignature | null => {
   };
 };
 
-export const parseCopyCommand = (line: string): Command | null => {
+export const parseCopyCommand = (
+  line: string,
+  timeSignatures: TimeSignature[] = [],
+): Command | null => {
   // Match the command format: coordinate c sourceMeasureSpan sequenceOfShifts
   // Examples:
   // "2b1.5 c 1b1-8b4 0" - explicit beat positions
   // "2 c 1-8 0" - implicit beat positions (1b1-9b0)
   // "2 c 1 0" - single measure (1b1-2b0)
   // "2 c 1 0 x 0" - with rest marker 'x' to skip a copy
+  // "2 c 1 -3 -2 -5 -4 -7 -4 -3" - with negative shifts for Pachelbel's progression
   const match = line.match(
-    /^(\d+)(?:b(\d+(?:\.\d+)?))?\s+c\s+(\d+)(?:b(\d+(?:\.\d+)?))?(?:-(\d+)(?:b(\d+(?:\.\d+)?))?)?\s+([x\-\d](?:\s+[x\-\d]+)*)?$/,
+    /^(\d+)(?:b(\d+(?:\.\d+)?))?\s+c\s+(\d+)(?:b(\d+(?:\.\d+)?))?(?:-(\d+)(?:b(\d+(?:\.\d+)?))?)?\s+((?:x|[+-]?\d+)(?:\s+(?:x|[+-]?\d+))*)$/,
   );
   if (!match) return null;
 
@@ -92,14 +96,14 @@ export const parseCopyCommand = (line: string): Command | null => {
       // If there's an explicit end beat, use it
       sourceEndBeat = parseFloat(sourceEndBeatStr);
     } else {
-      // If no explicit end beat, use the convention: end at start of next measure
+      // If no explicit end beat, convention is next measure beat 1 (exclusive)
       sourceEnd = sourceEnd + 1;
-      sourceEndBeat = 0;
+      sourceEndBeat = 1;
     }
   } else {
-    // Single measure specified - copy until start of next measure
+    // Single measure specified - copy until next measure beat 1 (exclusive)
     sourceEnd = sourceStart + 1;
-    sourceEndBeat = 0;
+    sourceEndBeat = 1;
   }
 
   // Extract all shifts by matching numbers or 'x'
@@ -225,7 +229,7 @@ export const parseCommand = (
   }
 
   // Try parsing as copy command
-  const copyCmd = parseCopyCommand(cleanLine);
+  const copyCmd = parseCopyCommand(cleanLine, context.timeSignatures);
   if (copyCmd) {
     return copyCmd;
   }
@@ -314,12 +318,16 @@ export const calculateGlobalBeatPosition = (
 
   // Add up beats for all complete measures before the target measure
   while (currentMeasure < measure) {
-    totalBeats += getTimeSignatureAt(currentMeasure, timeSignatures);
+    const beatsInMeasure = getTimeSignatureAt(currentMeasure, timeSignatures);
+    totalBeats += beatsInMeasure;
     currentMeasure++;
   }
 
   // Add the beats within the target measure
-  return totalBeats + (beatInMeasure - 1);
+  // Ensure we don't exceed the measure's time signature
+  const measureBeats = getTimeSignatureAt(measure, timeSignatures);
+  const clampedBeatInMeasure = Math.min(beatInMeasure, measureBeats);
+  return totalBeats + (clampedBeatInMeasure - 1);
 };
 
 // Helper to convert a global beat position back to measure and beat

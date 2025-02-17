@@ -291,7 +291,6 @@ const parseCopyCommand = (line: string): Command | null => {
 };
 
 const parseTimeSignatures = (line: string): TimeSignature[] | null => {
-  console.log("Parsing time signature line:", line);
   const parts = line.trim().split(/\s+/);
   const signatures: TimeSignature[] = [];
   let currentMeasure = 1;
@@ -306,7 +305,6 @@ const parseTimeSignatures = (line: string): TimeSignature[] | null => {
 
       // Validate format
       if (isNaN(num) || denominator !== "4" || num <= 0) {
-        console.log("Invalid time signature format:", part);
         return null;
       }
 
@@ -314,21 +312,15 @@ const parseTimeSignatures = (line: string): TimeSignature[] | null => {
         numerator: num,
         measureStart: currentMeasure,
       });
-      console.log("Added time signature:", {
-        numerator: num,
-        measureStart: currentMeasure,
-      });
     } else {
       // Must be a measure number
       const measure = parseInt(part);
       if (isNaN(measure) || measure <= currentMeasure) {
-        console.log("Invalid measure number:", part);
         return null;
       }
 
       // Next part must be a time signature
       if (i + 1 >= parts.length || !parts[i + 1].includes("/")) {
-        console.log("Missing time signature after measure number:", part);
         return null;
       }
 
@@ -336,7 +328,6 @@ const parseTimeSignatures = (line: string): TimeSignature[] | null => {
     }
   }
 
-  console.log("Final time signatures:", signatures);
   return signatures.length > 0 ? signatures : null;
 };
 
@@ -366,8 +357,6 @@ const parseCommand = (
   const cleanLine = line.split("#")[0].trim();
   if (!cleanLine) return null;
 
-  console.log("Parsing command line:", cleanLine);
-
   // Handle track switch commands with optional octave
   const trackMatch = cleanLine.match(/^(lh|rh)(?:\s+(\d+))?$/i);
   if (trackMatch) {
@@ -381,10 +370,8 @@ const parseCommand = (
 
   // Try parsing as time signature command
   if (cleanLine.includes("/4")) {
-    console.log("Attempting to parse time signature:", cleanLine);
     const signatures = parseTimeSignatures(cleanLine);
     if (signatures) {
-      console.log("Successfully parsed time signature command:", signatures);
       return { type: "time", signatures };
     }
   }
@@ -548,16 +535,6 @@ const parseMelodyString = (
       const token = tokens[i];
       if (!token.trim()) continue;
 
-      console.log(
-        "\nProcessing token:",
-        JSON.stringify({
-          token,
-          currentPosition,
-          isDurationMarker: /^[+_\-=,]\.?$/.test(token),
-          resultLength: result.length,
-        }),
-      );
-
       // Check if this token is a duration marker
       const isDurationMarker = /^[+_\-=,]\.?$/.test(token);
 
@@ -705,7 +682,6 @@ const processTokens = (melodyPart: string): string[] => {
 
   // Split input into tokens, preserving duration markers and their dots
   const rawTokens = cleanMelodyPart.split(/([+_\-=,]\.?)/);
-  console.log("Raw tokens:", JSON.stringify(rawTokens));
 
   // Split the melody part into tokens, handling both single notes and chords
   const tokens: string[] = [];
@@ -835,7 +811,6 @@ const Editor: React.FC = () => {
 
     try {
       const lines = text.split("\n").filter((line) => line.trim());
-      console.log("Processing score lines:", lines);
 
       let scoreTrack1: LogicalNote[] = []; // Right hand score
       let scoreTrack2: LogicalNote[] = []; // Left hand score
@@ -846,11 +821,9 @@ const Editor: React.FC = () => {
         baseOctaveRH: context.baseOctaveRH,
         baseOctaveLH: context.baseOctaveLH,
       };
-      console.log("Initial context:", newContext);
 
       for (const line of lines) {
         const command = parseCommand(line, newContext);
-        console.log("Parsed command:", command);
         if (!command) continue;
 
         switch (command.type) {
@@ -870,7 +843,6 @@ const Editor: React.FC = () => {
             break;
 
           case "time":
-            console.log("Applying time signature change:", command.signatures);
             newContext.timeSignatures = command.signatures;
             break;
 
@@ -928,9 +900,6 @@ const Editor: React.FC = () => {
             });
 
             if (sourceNotes.length === 0) {
-              console.warn(
-                `No notes found in measure ${command.sourceStart}b${command.sourceStartBeat} to ${command.sourceEnd}b${command.sourceEndBeat} to copy`,
-              );
               continue;
             }
 
@@ -947,15 +916,8 @@ const Editor: React.FC = () => {
             );
             const spanLengthInBeats = sourceEndBeat - sourceStartBeat;
 
-            console.log(
-              "Copy command source notes:",
-              JSON.stringify(sourceNotes, null, 2),
-            );
-
             const allCopies = command.shifts
               .map((shift, idx) => {
-                console.log(`\nProcessing shift ${shift} at index ${idx}`);
-
                 // Calculate how many measures the source spans
                 let sourceMeasureSpan = command.sourceEnd - command.sourceStart;
                 if (command.sourceEndBeat === 0) {
@@ -992,16 +954,13 @@ const Editor: React.FC = () => {
                   targetStartBeat,
                   newContext.timeSignatures,
                 );
-                console.log("Target position:", targetPos);
 
                 return sourceNotes.map((n) => {
-                  console.log("\nProcessing note:", JSON.stringify(n, null, 2));
                   // Calculate relative position within the source span
                   const relativePosition = n.span.start - sourceStartBeat;
                   const targetPosition = targetStartBeat + relativePosition;
 
                   if (n.midiNumber === null) {
-                    console.log("Skipping rest note");
                     return {
                       ...n,
                       span: {
@@ -1021,7 +980,7 @@ const Editor: React.FC = () => {
                     newContext,
                   );
 
-                  const result = {
+                  return {
                     ...n,
                     span: {
                       start: targetPosition,
@@ -1031,12 +990,6 @@ const Editor: React.FC = () => {
                     midiNumber: newMidi,
                     accidental: n.accidental, // Preserve the original accidental
                   };
-
-                  console.log(
-                    "Copied note result:",
-                    JSON.stringify(result, null, 2),
-                  );
-                  return result;
                 });
               })
               .flat();
@@ -1052,9 +1005,6 @@ const Editor: React.FC = () => {
         }
       }
 
-      console.log("Final context:", newContext);
-      console.log("Final notes:", { scoreTrack1, scoreTrack2 });
-
       if (scoreTrack1.length === 0 && scoreTrack2.length === 0) {
         setError("No valid notes found");
         return;
@@ -1065,23 +1015,14 @@ const Editor: React.FC = () => {
 
       // Convert both tracks to MIDI notes
       const midiNotesTrack1 = scoreTrack1
-        .map((n) => {
-          const midi = logicalNoteToMidi(n, 1, newContext.timeSignatures);
-          console.log("Converting to MIDI (track 1):", { note: n, midi });
-          return midi;
-        })
+        .map((n) => logicalNoteToMidi(n, 1, newContext.timeSignatures))
         .filter((n): n is Note => n !== null);
       const midiNotesTrack2 = scoreTrack2
-        .map((n) => {
-          const midi = logicalNoteToMidi(n, 2, newContext.timeSignatures);
-          console.log("Converting to MIDI (track 2):", { note: n, midi });
-          return midi;
-        })
+        .map((n) => logicalNoteToMidi(n, 2, newContext.timeSignatures))
         .filter((n): n is Note => n !== null);
 
       // Combine both tracks
       const allMidiNotes = [...midiNotesTrack1, ...midiNotesTrack2];
-      console.log("All MIDI notes:", allMidiNotes);
 
       const midiResult = generateMidiWithMetadata(
         allMidiNotes,
@@ -1089,7 +1030,6 @@ const Editor: React.FC = () => {
         120,
         newContext.timeSignatures,
       );
-      console.log("Generated MIDI result:", midiResult);
 
       if (playSongBuffer) {
         playSongBuffer(midiResult.midiInfo.id, midiResult.midiData, true);

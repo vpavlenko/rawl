@@ -90,6 +90,9 @@ const AppHeader: React.FC = () => {
         <HeaderLink to="/forge/" style={getLinkStyle("/forge")}>
           Forge
         </HeaderLink>
+        <HeaderLink to="/e/" style={getLinkStyle("/e")}>
+          Editor
+        </HeaderLink>
       </NavLinks>
 
       <ExternalLinks>

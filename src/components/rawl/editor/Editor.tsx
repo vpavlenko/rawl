@@ -253,7 +253,7 @@ const CodeMirrorWrapper = styled.div`
     position: absolute;
     font-family: serif;
     color: white;
-    top: -0.75em;
+    top: -0.7em;
     left: 50%;
     transform: translateX(-50%);
     font-size: 2em;
@@ -266,7 +266,7 @@ const CodeMirrorWrapper = styled.div`
     position: absolute;
     font-family: serif;
     color: white;
-    bottom: -0.75em;
+    bottom: -0.7em;
     left: 50%;
     transform: translateX(-50%);
     font-size: 2em;

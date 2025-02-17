@@ -773,8 +773,8 @@ const Editor: React.FC = () => {
     currentKey: { tonic: 0, mode: "major" }, // Default to C major
     currentTrack: 1, // Default to right hand
     timeSignatures: [{ numerator: 4, measureStart: 1 }], // Default to 4/4 time
-    baseOctaveRH: 3, // Base octave for right hand
-    baseOctaveLH: 1, // Base octave for left hand
+    baseOctaveRH: 5, // Base octave for right hand
+    baseOctaveLH: 3, // Base octave for left hand
   });
 
   // Get the analysis for this slug if it exists

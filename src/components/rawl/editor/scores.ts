@@ -1,11 +1,11 @@
 export const scores: { [key: string]: string } = {
   "passacaglia---handel-halvorsen": `A minor
-lh 3
+lh
 1 i 1-q-t-e-a-e-t-e-
 2 c 1 0 0 3 -1 2 -2 -4 -3 0
 11 c 3-10 0 0 0 0 0 0 0
 74 i qa+
-rh 5
+rh
 3 i 3-e-w-e-q-e-7-e-6-e-5-e-4-e-3-e-
 5 c 3-4 -1 -2
 19 c 3-8 7`,
@@ -29,7 +29,7 @@ rh 5
 `,
   "idea-15---gibran-alcocer": `3/4
 Db minor
-lh 3
+lh
 2 i 4r,ry,ry,q,ry,ry,
 4 c 2-3 2 4 3
 10 c 2-9 0
@@ -39,7 +39,7 @@ lh 3
 96 i g-d-a-g-d-a- g-d-a-g-d-a- f-s-u-f-s-u-g-s-u-g-s-u-
 100 c 92-99 0
 109 i 5tg,
-rh 5
+rh
 1 i x,x-8-8-7-6+ x-q-q-w-e+ x,.q-t,t,t,t,e,e-w+ 
 20 i y-e-q- y-e-q- u-e-q- y-e-q-
 22 c 20-21 0
@@ -66,7 +66,7 @@ rh 3
   "wima.1124-schubert_de.-tanz-d.365.26": `3/4
 E major
 
-lh 3
+lh
 2   i 5,rtu,
 2b3 c 2b2-2b3 0
 3   i q,eti,
@@ -76,7 +76,7 @@ lh 3
 9   i qeti_
 10  c 2-9 0 0 0
 
-rh 5
+rh
 1b3  i 5=t-.w,5,e=r-.7=q-.5,e,7-w-r-y-s-u-g,d-
 5    c 1-4 0
 9    i a_

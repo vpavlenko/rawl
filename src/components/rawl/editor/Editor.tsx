@@ -442,9 +442,11 @@ const Editor: React.FC = () => {
 
   return (
     <EditorContainer>
-      <RawlContainer>
-        {rawlProps && <Rawl {...rawlProps} savedAnalysis={analysis} />}
-      </RawlContainer>
+      <div style={{ paddingBottom: "100vh" }}>
+        <RawlContainer>
+          {rawlProps && <Rawl {...rawlProps} savedAnalysis={analysis} />}
+        </RawlContainer>
+      </div>
       <EditorPanel isFolded={isFolded}>
         <FoldButton onClick={() => setIsFolded(!isFolded)}>
           {isFolded ? "<" : ">"}

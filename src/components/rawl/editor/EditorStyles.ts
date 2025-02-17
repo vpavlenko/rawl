@@ -120,7 +120,7 @@ export const CodeMirrorWrapper = styled.div`
     color: #000000 !important;
   }
   .noteColor_10_colors {
-    color: #000000 !important;
+    color: #ffffff !important;
   }
   .noteColor_11_colors {
     color: #000000 !important;

@@ -32,63 +32,6 @@ import {
 import { scores } from "./scores";
 import { CommandContext, LogicalNote } from "./types";
 
-// Scale maps and note mappings at the top level
-const MINOR_SCALE_MAP = [0, 2, 3, 5, 7, 8, 10];
-const MAJOR_SCALE_MAP = [0, 2, 4, 5, 7, 9, 11];
-
-const NOTE_LETTER_MAP: { [key: string]: number } = {
-  // First octave (numeric)
-  "1": 0,
-  "2": 1,
-  "3": 2,
-  "4": 3,
-  "5": 4,
-  "6": 5,
-  "7": 6,
-  "8": 7,
-  "9": 8,
-  "0": 9,
-
-  // Second octave (letters)
-  q: 7,
-  w: 8,
-  e: 9,
-  r: 10,
-  t: 11,
-  y: 12,
-  u: 13,
-
-  // Third octave
-  i: 14,
-  o: 15,
-  p: 16,
-  a: 14,
-  s: 15,
-  d: 16, // Alternative fingering
-  f: 17,
-  g: 18,
-  h: 19,
-  j: 20,
-  k: 21,
-  l: 22,
-};
-
-// Text color mapping based on background color darkness
-const NOTE_TEXT_COLORS: { [key: number]: string } = {
-  0: "#000000", // white bg -> black text
-  1: "#ffffff", // dark red -> white text
-  2: "#000000", // bright red -> black text
-  3: "#ffffff", // dark green -> white text
-  4: "#000000", // bright green -> black text
-  5: "#ffffff", // purple -> white text
-  6: "#000000", // light purple -> black text
-  7: "#ffffff", // gray -> white text
-  8: "#ffffff", // blue -> white text
-  9: "#000000", // cyan -> black text
-  10: "#000000", // orange -> black text
-  11: "#000000", // yellow -> black text
-};
-
 // Types for command handling
 declare global {
   interface Window {
@@ -333,7 +276,7 @@ const Editor: React.FC = () => {
               e instanceof Error ? e.message : "Unknown error during playback",
             );
           }
-        }, 0); // 500ms debounce delay
+        }, 0);
       };
     })(),
     [playSongBuffer, slug],

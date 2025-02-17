@@ -8,8 +8,14 @@ import {
 } from "@codemirror/view";
 import { createTheme } from "@uiw/codemirror-themes";
 import CodeMirror from "@uiw/react-codemirror";
-import React, { useContext, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import { TICKS_PER_QUARTER } from "../forge/constants";
@@ -1105,286 +1111,340 @@ const characterBackgroundsPlugin = ViewPlugin.fromClass(
   },
 );
 
+const EditorIndexContainer = styled.div`
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+`;
+
+const EditorIndexTitle = styled.h1`
+  color: #d4d4d4;
+  margin-bottom: 20px;
+`;
+
+const EditorIndexList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const EditorIndexItem = styled.div`
+  padding: 10px;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 4px;
+
+  &:hover {
+    background: #2d2d2d;
+  }
+
+  a {
+    color: #d4d4d4;
+    text-decoration: none;
+    display: block;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+`;
+
+const EditorIndex: React.FC = () => {
+  return (
+    <EditorIndexContainer>
+      <EditorIndexTitle>Available Scores</EditorIndexTitle>
+      <EditorIndexList>
+        {Object.keys(scores).map((slug) => (
+          <EditorIndexItem key={slug}>
+            <Link to={`/e/${slug}`}>
+              {slug.replace(/---/g, " – ").replace(/-/g, " ")}
+            </Link>
+          </EditorIndexItem>
+        ))}
+      </EditorIndexList>
+    </EditorIndexContainer>
+  );
+};
+
 const Editor: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [error, setError] = useState<string | null>(null);
   const [isFolded, setIsFolded] = useState(false);
   const editorRef = useRef<any>(null);
   const { playSongBuffer, rawlProps, analyses } = useContext(AppContext);
-  const [score, setScore] = useState(scores[slug || ""] || "");
+  const [score, setScore] = useState("");
   const [context, setContext] = useState<CommandContext>({
-    currentKey: { tonic: 0, mode: "major" }, // Default to C major
-    currentTrack: 1, // Default to right hand
-    timeSignatures: [{ numerator: 4, measureStart: 1 }], // Default to 4/4 time
-    baseOctaveRH: 5, // Base octave for right hand
-    baseOctaveLH: 3, // Base octave for left hand
+    currentKey: { tonic: 0, mode: "major" },
+    currentTrack: 1,
+    timeSignatures: [{ numerator: 4, measureStart: 1 }],
+    baseOctaveRH: 5,
+    baseOctaveLH: 3,
   });
 
   // Get the analysis for this slug if it exists
   const analysis = analyses[`f/${slug}`];
 
   // Signal to App that this route should not have global shortcuts
-  React.useEffect(() => {
+  useEffect(() => {
     window.__disableGlobalShortcuts = true;
     return () => {
       delete window.__disableGlobalShortcuts;
     };
   }, []);
 
-  const handleMelodyPlayback = React.useCallback(
-    (text: string, autoplay: boolean) => {
-      try {
-        const lines = text.split("\n").filter((line) => line.trim());
+  // Create a debounced version of handleMelodyPlayback
+  const debouncedMelodyPlayback = useCallback(
+    (() => {
+      let timeoutId: NodeJS.Timeout;
+      return (text: string, autoplay: boolean) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          try {
+            const lines = text.split("\n").filter((line) => line.trim());
 
-        let scoreTrack1: LogicalNote[] = []; // Right hand score
-        let scoreTrack2: LogicalNote[] = []; // Left hand score
-        const newContext: CommandContext = {
-          currentKey: { ...context.currentKey },
-          currentTrack: context.currentTrack,
-          timeSignatures: [...context.timeSignatures], // Start with default 4/4
-          baseOctaveRH: context.baseOctaveRH,
-          baseOctaveLH: context.baseOctaveLH,
-        };
+            let scoreTrack1: LogicalNote[] = [];
+            let scoreTrack2: LogicalNote[] = [];
+            const newContext: CommandContext = {
+              currentKey: { tonic: 0, mode: "major" },
+              currentTrack: 1,
+              timeSignatures: [{ numerator: 4, measureStart: 1 }],
+              baseOctaveRH: 5,
+              baseOctaveLH: 3,
+            };
 
-        for (const line of lines) {
-          const command = parseCommand(line, newContext);
-          if (!command) continue;
+            for (const line of lines) {
+              const command = parseCommand(line, newContext);
+              if (!command) continue;
 
-          switch (command.type) {
-            case "track":
-              newContext.currentTrack = command.track;
-              if (command.baseOctave !== undefined) {
-                if (command.track === 1) {
-                  newContext.baseOctaveRH = command.baseOctave;
-                } else {
-                  newContext.baseOctaveLH = command.baseOctave;
-                }
-              }
-              break;
-
-            case "key":
-              newContext.currentKey = command.key;
-              break;
-
-            case "time":
-              newContext.timeSignatures = command.signatures;
-              break;
-
-            case "insert":
-              // Add notes to the current track's score
-              if (newContext.currentTrack === 1) {
-                scoreTrack1 = [...scoreTrack1, ...command.notes];
-              } else {
-                scoreTrack2 = [...scoreTrack2, ...command.notes];
-              }
-              break;
-
-            case "copy": {
-              // Find source notes from the current track
-              const sourceNotes = (
-                newContext.currentTrack === 1 ? scoreTrack1 : scoreTrack2
-              ).filter((n) => {
-                // Convert note's global beat position to measure and beat
-                const { measure, beatInMeasure } = globalBeatToMeasureAndBeat(
-                  n.span.start,
-                  newContext.timeSignatures,
-                );
-
-                // Check if note is within the source range
-                if (
-                  measure < command.sourceStart ||
-                  measure > command.sourceEnd
-                ) {
-                  return false;
-                }
-
-                // For start measure, check beat position
-                if (
-                  measure === command.sourceStart &&
-                  beatInMeasure < command.sourceStartBeat
-                ) {
-                  return false;
-                }
-
-                // For end measure, check beat position
-                if (
-                  measure === command.sourceEnd &&
-                  beatInMeasure >= command.sourceEndBeat
-                ) {
-                  return false;
-                }
-
-                return true;
-              });
-
-              if (sourceNotes.length === 0) {
-                continue;
-              }
-
-              // Calculate the length of the source span in beats
-              const sourceStartBeat = calculateGlobalBeatPosition(
-                command.sourceStart,
-                command.sourceStartBeat,
-                newContext.timeSignatures,
-              );
-              const sourceEndBeat = calculateGlobalBeatPosition(
-                command.sourceEnd,
-                command.sourceEndBeat,
-                newContext.timeSignatures,
-              );
-              const spanLengthInBeats = sourceEndBeat - sourceStartBeat;
-
-              const allCopies = command.shifts
-                .map((shift, idx) => {
-                  // Calculate how many measures the source spans
-                  let sourceMeasureSpan =
-                    command.sourceEnd - command.sourceStart;
-                  if (command.sourceEndBeat === 0) {
-                    // If ending at start of measure, subtract one from span
-                    // since sourceEnd points to the next measure
-                    sourceMeasureSpan--;
+              switch (command.type) {
+                case "track":
+                  newContext.currentTrack = command.track;
+                  if (command.baseOctave !== undefined) {
+                    if (command.track === 1) {
+                      newContext.baseOctaveRH = command.baseOctave;
+                    } else {
+                      newContext.baseOctaveLH = command.baseOctave;
+                    }
                   }
+                  break;
 
-                  // Each copy block starts at the target measure + (idx * source span length)
-                  const targetStartBeat = calculateGlobalBeatPosition(
-                    command.targetMeasure + idx * (sourceMeasureSpan + 1),
-                    command.targetBeat,
-                    newContext.timeSignatures,
-                  );
+                case "key":
+                  newContext.currentKey = command.key;
+                  break;
 
-                  // If this is a rest marker ('x'), return a rest note for the span
-                  if (shift === "x") {
-                    // Create a rest that spans the entire source duration
-                    return [
-                      {
-                        scaleDegree: -Infinity, // Use -Infinity for rests
-                        duration: spanLengthInBeats * TICKS_PER_QUARTER,
-                        span: {
-                          start: targetStartBeat,
-                          end: targetStartBeat + spanLengthInBeats,
-                        },
-                        midiNumber: null,
-                      },
-                    ];
+                case "time":
+                  newContext.timeSignatures = command.signatures;
+                  break;
+
+                case "insert":
+                  if (newContext.currentTrack === 1) {
+                    scoreTrack1 = [...scoreTrack1, ...command.notes];
+                  } else {
+                    scoreTrack2 = [...scoreTrack2, ...command.notes];
                   }
+                  break;
 
-                  // Convert back to measure and beat for logging
-                  const targetPos = globalBeatToMeasureAndBeat(
-                    targetStartBeat,
-                    newContext.timeSignatures,
-                  );
+                case "copy": {
+                  const sourceNotes = (
+                    newContext.currentTrack === 1 ? scoreTrack1 : scoreTrack2
+                  ).filter((n) => {
+                    const { measure, beatInMeasure } =
+                      globalBeatToMeasureAndBeat(
+                        n.span.start,
+                        newContext.timeSignatures,
+                      );
 
-                  return sourceNotes.map((n) => {
-                    // Calculate relative position within the source span
-                    const relativePosition = n.span.start - sourceStartBeat;
-                    const targetPosition = targetStartBeat + relativePosition;
-
-                    if (n.midiNumber === null) {
-                      return {
-                        ...n,
-                        span: {
-                          start: targetPosition,
-                          end: targetPosition + (n.span.end - n.span.start),
-                        },
-                      };
+                    if (
+                      measure < command.sourceStart ||
+                      measure > command.sourceEnd
+                    ) {
+                      return false;
                     }
 
-                    // Calculate new scale degree and MIDI number with the shift
-                    const { newDegree, newMidi } = calculateShiftedNote(
-                      n.scaleDegree,
-                      shift,
-                      newContext.currentKey,
-                      n.accidental || 0,
-                      newContext.currentTrack,
-                      newContext,
-                    );
+                    if (
+                      measure === command.sourceStart &&
+                      beatInMeasure < command.sourceStartBeat
+                    ) {
+                      return false;
+                    }
 
-                    return {
-                      ...n,
-                      span: {
-                        start: targetPosition,
-                        end: targetPosition + (n.span.end - n.span.start),
-                      },
-                      scaleDegree: newDegree,
-                      midiNumber: newMidi,
-                      accidental: n.accidental, // Preserve the original accidental
-                    };
+                    if (
+                      measure === command.sourceEnd &&
+                      beatInMeasure >= command.sourceEndBeat
+                    ) {
+                      return false;
+                    }
+
+                    return true;
                   });
-                })
-                .flat();
 
-              // Add copies to the current track's score
-              if (newContext.currentTrack === 1) {
-                scoreTrack1 = [...scoreTrack1, ...allCopies];
-              } else {
-                scoreTrack2 = [...scoreTrack2, ...allCopies];
+                  if (sourceNotes.length === 0) {
+                    continue;
+                  }
+
+                  const sourceStartBeat = calculateGlobalBeatPosition(
+                    command.sourceStart,
+                    command.sourceStartBeat,
+                    newContext.timeSignatures,
+                  );
+                  const sourceEndBeat = calculateGlobalBeatPosition(
+                    command.sourceEnd,
+                    command.sourceEndBeat,
+                    newContext.timeSignatures,
+                  );
+                  const spanLengthInBeats = sourceEndBeat - sourceStartBeat;
+
+                  const allCopies = command.shifts
+                    .map((shift, idx) => {
+                      const targetStartBeat =
+                        calculateGlobalBeatPosition(
+                          command.targetMeasure,
+                          command.targetBeat,
+                          newContext.timeSignatures,
+                        ) +
+                        idx * spanLengthInBeats;
+
+                      if (shift === "x") {
+                        return [
+                          {
+                            scaleDegree: -Infinity,
+                            duration: spanLengthInBeats * TICKS_PER_QUARTER,
+                            span: {
+                              start: targetStartBeat,
+                              end: targetStartBeat + spanLengthInBeats,
+                            },
+                            midiNumber: null,
+                          },
+                        ];
+                      }
+
+                      return sourceNotes.map((n) => {
+                        const relativePosition = n.span.start - sourceStartBeat;
+                        const targetPosition =
+                          targetStartBeat + relativePosition;
+
+                        if (n.midiNumber === null) {
+                          return {
+                            ...n,
+                            span: {
+                              start: targetPosition,
+                              end: targetPosition + (n.span.end - n.span.start),
+                            },
+                          };
+                        }
+
+                        const { newDegree, newMidi } = calculateShiftedNote(
+                          n.scaleDegree,
+                          shift,
+                          newContext.currentKey,
+                          n.accidental || 0,
+                          newContext.currentTrack,
+                          newContext,
+                        );
+
+                        return {
+                          ...n,
+                          span: {
+                            start: targetPosition,
+                            end: targetPosition + (n.span.end - n.span.start),
+                          },
+                          scaleDegree: newDegree,
+                          midiNumber: newMidi,
+                          accidental: n.accidental,
+                        };
+                      });
+                    })
+                    .flat();
+
+                  if (newContext.currentTrack === 1) {
+                    scoreTrack1 = [...scoreTrack1, ...allCopies];
+                  } else {
+                    scoreTrack2 = [...scoreTrack2, ...allCopies];
+                  }
+                  break;
+                }
               }
-              break;
             }
+
+            if (scoreTrack1.length === 0 && scoreTrack2.length === 0) {
+              setError("No valid notes found");
+              return;
+            }
+
+            setError(null);
+            setContext(newContext);
+
+            const midiNotesTrack1 = scoreTrack1
+              .map((n) => logicalNoteToMidi(n, 1, newContext.timeSignatures))
+              .filter((n): n is Note => n !== null);
+            const midiNotesTrack2 = scoreTrack2
+              .map((n) => logicalNoteToMidi(n, 2, newContext.timeSignatures))
+              .filter((n): n is Note => n !== null);
+
+            const allMidiNotes = [...midiNotesTrack1, ...midiNotesTrack2];
+
+            const midiResult = generateMidiWithMetadata(
+              allMidiNotes,
+              `melody-${slug}`,
+              120,
+              newContext.timeSignatures,
+            );
+
+            if (playSongBuffer) {
+              playSongBuffer(
+                midiResult.midiInfo.id,
+                midiResult.midiData,
+                autoplay,
+              );
+            }
+          } catch (e) {
+            console.error("Error during playback:", e);
+            setError(
+              e instanceof Error ? e.message : "Unknown error during playback",
+            );
           }
-        }
-
-        if (scoreTrack1.length === 0 && scoreTrack2.length === 0) {
-          setError("No valid notes found");
-          return;
-        }
-
-        setError(null);
-        setContext(newContext);
-
-        // Convert both tracks to MIDI notes
-        const midiNotesTrack1 = scoreTrack1
-          .map((n) => logicalNoteToMidi(n, 1, newContext.timeSignatures))
-          .filter((n): n is Note => n !== null);
-        const midiNotesTrack2 = scoreTrack2
-          .map((n) => logicalNoteToMidi(n, 2, newContext.timeSignatures))
-          .filter((n): n is Note => n !== null);
-
-        // Combine both tracks
-        const allMidiNotes = [...midiNotesTrack1, ...midiNotesTrack2];
-
-        const midiResult = generateMidiWithMetadata(
-          allMidiNotes,
-          `melody-${slug}`,
-          120,
-          newContext.timeSignatures,
-        );
-
-        if (playSongBuffer) {
-          playSongBuffer(midiResult.midiInfo.id, midiResult.midiData, autoplay);
-        }
-      } catch (e) {
-        console.error("Error during playback:", e);
-        setError(
-          e instanceof Error ? e.message : "Unknown error during playback",
-        );
-      }
-    },
-    [context, playSongBuffer, slug],
+        }, 0); // 500ms debounce delay
+      };
+    })(),
+    [playSongBuffer, slug],
   );
 
-  // Generate MIDI on initial load
-  React.useEffect(() => {
-    handleMelodyPlayback(score, true);
-  }, []); // Run only once on mount
-
-  const handleTextChange = React.useCallback(
+  const handleTextChange = useCallback(
     (value: string) => {
       setScore(value);
-      handleMelodyPlayback(value, false);
+      debouncedMelodyPlayback(value, false);
     },
-    [handleMelodyPlayback],
+    [debouncedMelodyPlayback],
   );
 
-  const handleKeyDown = React.useCallback(
+  // Update score when slug changes
+  useEffect(() => {
+    if (slug && scores[slug]) {
+      const newScore = scores[slug];
+      setScore(newScore);
+      // Trigger initial MIDI generation after a delay
+      setTimeout(() => {
+        debouncedMelodyPlayback(newScore, true);
+      }, 1000);
+    } else {
+      setScore("");
+    }
+  }, [slug, debouncedMelodyPlayback]);
+
+  const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        handleMelodyPlayback(score, true);
+        debouncedMelodyPlayback(score, true);
       }
     },
-    [handleMelodyPlayback, score],
+    [debouncedMelodyPlayback, score],
   );
+
+  // If no slug is provided, show the index
+  if (!slug) {
+    return <EditorIndex />;
+  }
 
   return (
     <EditorContainer>

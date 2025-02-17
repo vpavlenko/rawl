@@ -27,6 +27,12 @@ rh 5
 5 c 1-5 0
 9 c 1-9 0
 `,
+  "idea-22---gibran-alcocer": `3/4
+C minor
+lh
+1   i 6,yad,
+1b3 c 1b2-1b3 0 0 0 0
+101 i 7wr,`,
   "idea-15---gibran-alcocer": `3/4
 Db minor
 lh
@@ -41,6 +47,7 @@ lh
 109 i 5tg,
 rh
 1 i x,x-8-8-7-6+ x-q-q-w-e+ x,.q-t,t,t,t,e,e-w+ 
+9 i x,x-w-e-w-6+x-6-6-7-q_.t,.
 20 i y-e-q- y-e-q- u-e-q- y-e-q-
 22 c 20-21 0
 24 i t-e-q- t-e-q-

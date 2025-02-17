@@ -1263,7 +1263,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     }
                   />
                   <Route path="/daw" render={() => <DAW />} />
-                  <Route path="/e/:slug" component={Editor} />
+                  <Route path="/e/:slug?" component={Editor} />
                   {rawlRoute}
                   <Route path="/100/:slug?" component={Book} />
                   <Route path="/beyond/:slug?" component={Book} />

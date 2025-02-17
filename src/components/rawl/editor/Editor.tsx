@@ -160,7 +160,7 @@ const EditorPanel = styled.div<EditorPanelProps>`
   height: 40%;
   background-color: #1e1e1e;
   border-left: 1px solid #333;
-  padding: 15px;
+  padding: 0px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -216,6 +216,11 @@ const CodeMirrorWrapper = styled.div`
   .cm-editor .cm-gutters {
     position: relative;
     z-index: 100004;
+  }
+
+  /* Add padding to gutter line numbers */
+  .cm-lineNumbers .cm-gutterElement:not(:first-child) {
+    padding-top: 2px;
   }
 
   /* Override text colors for note backgrounds */

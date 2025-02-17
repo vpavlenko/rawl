@@ -188,8 +188,20 @@ const CodeMirrorWrapper = styled.div`
     height: 100%;
     font-family: "Menlo", "Monaco", "Courier New", monospace;
     font-size: 14px;
-    line-height: 1.4;
+    line-height: calc(1.4em + 4px);
     z-index: 100002;
+
+    .cm-cursor {
+      border-left: 1px solid #ffa500 !important;
+      border-left-width: 1px !important;
+      height: 2em !important;
+      margin-top: -0.5em !important;
+    }
+
+    .cm-line {
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
   }
 
   .cm-scroller,
@@ -249,27 +261,23 @@ const CodeMirrorWrapper = styled.div`
     position: relative;
   }
   .dotAbove::before {
-    content: "·";
+    content: " ̑";
     position: absolute;
-    font-family: serif;
     color: white;
     top: -0.7em;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 2em;
   }
   .dotBelow {
     position: relative;
   }
   .dotBelow::before {
-    content: "·";
+    content: "˘";
     position: absolute;
-    font-family: serif;
     color: white;
-    bottom: -0.7em;
+    bottom: -1.15em;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 2em;
   }
 `;
 
@@ -307,7 +315,7 @@ const customTheme = createTheme({
   settings: {
     background: "#1e1e1e",
     foreground: "#ffffff",
-    caret: "#ffffff",
+    caret: "#ffa500",
     selection: "#036dd626",
     selectionMatch: "#036dd626",
     lineHighlight: "#8a91991a",

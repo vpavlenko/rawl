@@ -246,4 +246,36 @@ ch2 3
 20b2 i d-:g-:k-:
 18 c 8 2 9 x x 9 8 0
 21 c 20 7`,
+  chopsticks: `C major
+bpm 184
+3/4
+
+lh
+1 i t,us,us,
+3 i t,da,da,
+4 c 3 0
+2 c 1 0 x x 0 0 -4 -4
+9 c 1-7 0
+16 i q,
+17 c 5-8 0 0 0 
+29 c 13-16 0
+49 i t,usf,usf,
+50 c 49 0
+51 i q,tad,tad,
+52 c 51 0
+53 c 49-52 0 0 
+61 c 49-51 0
+64 i q,
+33 c 17-32 0 x 0
+
+rh
+16b3 i d,s,x,a,u,x,y,t,x+t,r,
+22b3 i r,e,
+16 c 16-23 -2
+24 c 16-21 0
+48 c 16-32 0
+51b2 i t=y-:u=i-:s=d-:f=g
+
+
+`,
 };

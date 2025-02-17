@@ -104,7 +104,8 @@ export type Command =
       shifts: (number | "x")[]; // Allow 'x' in shifts array
     }
   | { type: "track"; track: number; baseOctave?: number }
-  | { type: "time"; signatures: TimeSignature[] };
+  | { type: "time"; signatures: TimeSignature[] }
+  | { type: "bpm"; tempo: number };
 
 export interface CommandContext {
   currentKey: KeySignature;
@@ -115,4 +116,5 @@ export interface CommandContext {
   beatsPerMeasure?: number; // Optional because only needed during note parsing
   channelOctaves: { [channel: number]: number }; // Map of channel numbers to their base octaves
   commentToEndOfFile?: boolean;
+  currentBpm: number; // Default will be 120
 }

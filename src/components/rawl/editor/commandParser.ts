@@ -228,6 +228,16 @@ export const parseCommand = (
   const key = parseKey(cleanLine);
   if (key) return { type: "key", key };
 
+  // Try parsing as BPM command
+  const bpmMatch = cleanLine.match(/^bpm\s+(\d+)$/i);
+  if (bpmMatch) {
+    const tempo = parseInt(bpmMatch[1], 10);
+    if (tempo > 0) {
+      return { type: "bpm", tempo };
+    }
+    return null;
+  }
+
   // Try parsing as copy command
   const copyCmd = parseCopyCommand(cleanLine, context.timeSignatures);
   if (copyCmd) return copyCmd;

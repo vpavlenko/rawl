@@ -61,6 +61,7 @@ const Editor: React.FC = () => {
       1: 3, // LH default
     },
     commentToEndOfFile: false,
+    currentBpm: 120, // Default BPM
   });
 
   // Get the analysis for this slug if it exists
@@ -95,6 +96,7 @@ const Editor: React.FC = () => {
                 0: 5, // RH default
                 1: 3, // LH default
               },
+              currentBpm: 120, // Default BPM
             };
 
             for (const line of lines) {
@@ -135,6 +137,11 @@ const Editor: React.FC = () => {
 
                 case "time":
                   newContext.timeSignatures = command.signatures;
+                  break;
+
+                case "bpm":
+                  newContext.currentBpm = command.tempo;
+                  console.log(`BPM changed to: ${command.tempo}`);
                   break;
 
                 case "insert": {
@@ -370,7 +377,7 @@ const Editor: React.FC = () => {
             const midiResult = generateMidiWithMetadata(
               allMidiNotes,
               `melody-${slug}`,
-              120,
+              newContext.currentBpm, // Use the current BPM from context
               newContext.timeSignatures,
             );
 

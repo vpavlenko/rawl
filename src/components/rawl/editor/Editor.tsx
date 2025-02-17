@@ -79,6 +79,8 @@ const EditorContainer = styled.div`
 const RawlContainer = styled.div`
   width: 100%;
   height: 100%;
+  position: relative;
+  z-index: 1;
 `;
 
 interface EditorPanelProps {
@@ -86,7 +88,7 @@ interface EditorPanelProps {
 }
 
 const EditorPanel = styled.div<EditorPanelProps>`
-  position: absolute;
+  position: fixed;
   right: 20px;
   bottom: 80px;
   width: 50%;
@@ -97,16 +99,46 @@ const EditorPanel = styled.div<EditorPanelProps>`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  z-index: 100;
-  overflow: auto;
-  transition: transform 0.3s ease;
+  z-index: 99999;
+  isolation: isolate;
   transform: translateX(${(props) => (props.isFolded ? "100%" : "0")});
+  transition: transform 0.3s ease;
+`;
+
+const CodeMirrorWrapper = styled.div`
+  position: relative;
+  flex: 1;
+  isolation: isolate;
+  background-color: #1e1e1e;
+  z-index: 100000;
+
+  /* Ensure all CodeMirror elements stay on top */
+  & * {
+    z-index: 100001;
+  }
 
   .cm-editor {
+    position: absolute !important;
+    inset: 0;
     height: 100%;
     font-family: "Menlo", "Monaco", "Courier New", monospace;
     font-size: 14px;
     line-height: 1.4;
+    z-index: 100002;
+  }
+
+  .cm-scroller,
+  .cm-content,
+  .cm-line,
+  .cm-activeLine,
+  .cm-activeLineGutter {
+    z-index: 100003;
+    position: relative;
+  }
+
+  .cm-editor .cm-gutters {
+    position: relative;
+    z-index: 100004;
   }
 `;
 
@@ -1046,20 +1078,22 @@ const Editor: React.FC = () => {
         <FoldButton onClick={() => setIsFolded(!isFolded)}>
           {isFolded ? ">" : "<"}
         </FoldButton>
-        <CodeMirror
-          ref={editorRef}
-          value={score}
-          onChange={handleTextChange}
-          theme={githubDark}
-          height="100%"
-          style={{ flex: 1 }}
-          basicSetup={{
-            lineNumbers: true,
-            highlightActiveLineGutter: true,
-            highlightActiveLine: true,
-            foldGutter: true,
-          }}
-        />
+        <CodeMirrorWrapper>
+          <CodeMirror
+            ref={editorRef}
+            value={score}
+            onChange={handleTextChange}
+            theme={githubDark}
+            height="100%"
+            style={{ flex: 1 }}
+            basicSetup={{
+              lineNumbers: true,
+              highlightActiveLineGutter: true,
+              highlightActiveLine: true,
+              foldGutter: true,
+            }}
+          />
+        </CodeMirrorWrapper>
         {error && <ErrorMessage>{error}</ErrorMessage>}
       </EditorPanel>
     </EditorContainer>

@@ -1,6 +1,30 @@
 // Scale maps for major and minor scales
 export const MINOR_SCALE_MAP = [0, 2, 3, 5, 7, 8, 10];
 export const MAJOR_SCALE_MAP = [0, 2, 4, 5, 7, 9, 11];
+export const LYDIAN_SCALE_MAP = [0, 2, 4, 6, 7, 9, 11]; // Major with #4
+export const MIXOLYDIAN_SCALE_MAP = [0, 2, 4, 5, 7, 9, 10]; // Major with b7
+export const DORIAN_SCALE_MAP = [0, 2, 3, 5, 7, 9, 10]; // Minor with natural 6
+export const PHRYGIAN_SCALE_MAP = [0, 1, 3, 5, 7, 8, 10]; // Minor with b2
+
+// Utility function to get scale map for a mode
+export function getScaleMapForMode(
+  mode: "major" | "minor" | "lydian" | "mixolydian" | "dorian" | "phrygian",
+): number[] {
+  switch (mode) {
+    case "major":
+      return MAJOR_SCALE_MAP;
+    case "minor":
+      return MINOR_SCALE_MAP;
+    case "lydian":
+      return LYDIAN_SCALE_MAP;
+    case "mixolydian":
+      return MIXOLYDIAN_SCALE_MAP;
+    case "dorian":
+      return DORIAN_SCALE_MAP;
+    case "phrygian":
+      return PHRYGIAN_SCALE_MAP;
+  }
+}
 
 // Note letter to number mapping
 export const NOTE_LETTER_MAP: { [key: string]: number } = {
@@ -48,7 +72,7 @@ export type TimeSignature = {
 
 export type KeySignature = {
   tonic: number; // 0 = C, 1 = C#/Db, etc.
-  mode: "major" | "minor";
+  mode: "major" | "minor" | "lydian" | "mixolydian" | "dorian" | "phrygian";
 };
 
 export type BeatPosition = number; // Integer part is beat number, fraction is position within beat

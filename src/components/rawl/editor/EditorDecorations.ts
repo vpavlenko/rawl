@@ -7,12 +7,7 @@ import {
   ViewUpdate,
 } from "@codemirror/view";
 import { createTheme } from "@uiw/codemirror-themes";
-import {
-  KeySignature,
-  MAJOR_SCALE_MAP,
-  MINOR_SCALE_MAP,
-  NOTE_LETTER_MAP,
-} from "./types";
+import { getScaleMapForMode, KeySignature, NOTE_LETTER_MAP } from "./types";
 
 // Function to get background colors for each character in a line
 export const getBackgroundsForLine = (
@@ -25,7 +20,11 @@ export const getBackgroundsForLine = (
   let baseDecorations = Array.from(line).map(() => ({ class: null }));
 
   // Process key signature and note colors first
-  if (line.match(/^([A-G][b#]?)\s+(major|minor)$/i)) {
+  if (
+    line.match(
+      /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian)$/i,
+    )
+  ) {
     baseDecorations = processKeySignature(line, currentKey);
   } else if (line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/)) {
     baseDecorations = processNoteColors(line, currentKey, allLines, lineIndex);
@@ -59,14 +58,17 @@ export const getBackgroundsForLine = (
 
 // Helper function to process key signature styling
 const processKeySignature = (line: string, currentKey: KeySignature) => {
-  const [_, root, mode] = line.match(/^([A-G][b#]?)\s+(major|minor)$/i)!;
+  const [_, root, mode] = line.match(
+    /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian)$/i,
+  )!;
   const modeStartIndex = line.toLowerCase().indexOf(mode.toLowerCase());
-  const scaleMap =
-    mode.toLowerCase() === "major" ? MAJOR_SCALE_MAP : MINOR_SCALE_MAP;
+  const scaleMap = getScaleMapForMode(
+    mode.toLowerCase() as KeySignature["mode"],
+  );
   const UNSTABLE_PITCHES = [1, 2, 3, 5, 6];
 
   return Array.from(line).map((char, index) => {
-    if (index >= modeStartIndex && index < modeStartIndex + 5) {
+    if (index >= modeStartIndex && index < modeStartIndex + mode.length) {
       const letterIndex = index - modeStartIndex;
       const unstablePitch = UNSTABLE_PITCHES[letterIndex];
       const colorIndex = scaleMap[unstablePitch];
@@ -86,7 +88,9 @@ const processNoteColors = (
   // Update current key based on previous lines
   for (let i = 0; i < lineIndex; i++) {
     const prevLine = allLines[i].trim();
-    const keyMatch = prevLine.match(/^([A-G][b#]?)\s+(major|minor)$/i);
+    const keyMatch = prevLine.match(
+      /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian)$/i,
+    );
     if (keyMatch) {
       const [_, root, mode] = keyMatch;
       const noteToNumber: { [key: string]: number } = {
@@ -110,7 +114,7 @@ const processNoteColors = (
       };
       currentKey = {
         tonic: noteToNumber[root],
-        mode: mode.toLowerCase() as "major" | "minor",
+        mode: mode.toLowerCase() as KeySignature["mode"],
       };
     }
   }
@@ -126,8 +130,7 @@ const processNoteColors = (
     if (noteDegree === undefined) return { class: null };
 
     const scaleDegree = noteDegree % 7;
-    const scaleMap =
-      currentKey.mode === "major" ? MAJOR_SCALE_MAP : MINOR_SCALE_MAP;
+    const scaleMap = getScaleMapForMode(currentKey.mode);
     const colorIndex = scaleMap[scaleDegree];
 
     let dotClass = "";

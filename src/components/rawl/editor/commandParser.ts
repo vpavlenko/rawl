@@ -3,11 +3,10 @@ import {
   BeatPosition,
   Command,
   CommandContext,
+  getScaleMapForMode,
   KeySignature,
   LogicalNote,
-  MAJOR_SCALE_MAP,
   MeasureSpan,
-  MINOR_SCALE_MAP,
   NOTE_LETTER_MAP,
   TimeSignature,
 } from "./types";
@@ -26,8 +25,10 @@ export interface TrackCommand {
 }
 
 export const parseKey = (keyString: string): KeySignature | null => {
-  // Changed regex to make accidentals optional
-  const match = keyString.match(/^([A-G][b#]?)\s+(major|minor)$/i);
+  // Changed regex to make accidentals optional and include new modes
+  const match = keyString.match(
+    /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian)$/i,
+  );
   if (!match) return null;
 
   const [_, root, mode] = match;
@@ -59,7 +60,7 @@ export const parseKey = (keyString: string): KeySignature | null => {
 
   return {
     tonic,
-    mode: mode.toLowerCase() as "major" | "minor",
+    mode: mode.toLowerCase() as KeySignature["mode"],
   };
 };
 
@@ -319,15 +320,16 @@ export const calculateMidiNumber = (
   const baseDegree = absoluteScaleDegree % 7;
   const octave = Math.floor(absoluteScaleDegree / 7);
 
-  // Get the semitone offset for this scale degree
-  const scaleMap = key.mode === "major" ? MAJOR_SCALE_MAP : MINOR_SCALE_MAP;
+  // Get the semitone offset for this scale degree based on mode
+  const scaleMap = getScaleMapForMode(key.mode);
   const semitoneOffset = scaleMap[baseDegree];
 
   // Use the appropriate base octave from context
   const baseOctave = getBaseOctaveForTrack(track, context);
 
   // Calculate final MIDI number
-  const midiNumber = key.tonic + semitoneOffset + (baseOctave + octave) * 12;
+  const midiNumber =
+    key.tonic + semitoneOffset + (baseOctave + octave) * 12 + (accidental || 0);
 
   // Ensure the note is within MIDI range (0-127)
   if (midiNumber < 0 || midiNumber > 127) return null;
@@ -602,7 +604,8 @@ export const calculateShiftedNote = (
   const baseDegree = properModulo(newDegree, 7);
   const octave = Math.floor(newDegree / 7);
 
-  const scaleMap = key.mode === "major" ? MAJOR_SCALE_MAP : MINOR_SCALE_MAP;
+  // Get the scale map based on mode
+  const scaleMap = getScaleMapForMode(key.mode);
 
   // Use the appropriate base octave from context
   const baseOctave = getBaseOctaveForTrack(track, context);

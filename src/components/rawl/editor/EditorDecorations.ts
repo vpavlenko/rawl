@@ -21,35 +21,69 @@ export const getBackgroundsForLine = (
   allLines: string[],
   lineIndex: number,
 ) => {
-  // Check if this line is a key signature command
-  const keyMatch = line.match(/^([A-G][b#]?)\s+(major|minor)$/i);
-  if (keyMatch) {
-    const [_, root, mode] = keyMatch;
+  // Get the base decorations first (for backgrounds)
+  let baseDecorations = Array.from(line).map(() => ({ class: null }));
 
-    // Find where the mode word starts in the line
-    const modeStartIndex = line.toLowerCase().indexOf(mode.toLowerCase());
-
-    // Get the appropriate scale map based on the mode word itself
-    const scaleMap =
-      mode.toLowerCase() === "major" ? MAJOR_SCALE_MAP : MINOR_SCALE_MAP;
-
-    // Define unstable pitches for coloring mode letters
-    const UNSTABLE_PITCHES = [1, 2, 3, 5, 6];
-
-    // Create array of decorations for each character
-    return Array.from(line).map((char, index) => {
-      // If we're within the first 5 letters of the mode word
-      if (index >= modeStartIndex && index < modeStartIndex + 5) {
-        const letterIndex = index - modeStartIndex;
-        const unstablePitch = UNSTABLE_PITCHES[letterIndex];
-        const colorIndex = scaleMap[unstablePitch];
-        return { class: `noteColor_${colorIndex}_colors` };
-      }
-      return { class: null };
-    });
+  // Process key signature and note colors first
+  if (line.match(/^([A-G][b#]?)\s+(major|minor)$/i)) {
+    baseDecorations = processKeySignature(line, currentKey);
+  } else if (line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/)) {
+    baseDecorations = processNoteColors(line, currentKey, allLines, lineIndex);
   }
 
-  // Process all previous lines to find the latest key signature
+  // Then handle comments, preserving any background colors
+  // Check if any previous line is just '#'
+  for (let i = 0; i < lineIndex; i++) {
+    if (allLines[i].trim() === "#") {
+      return baseDecorations.map((decoration) => ({
+        class: decoration.class ? `${decoration.class} comment` : "comment",
+      }));
+    }
+  }
+
+  // Check for comments in current line
+  const commentIndex = line.indexOf("#");
+  if (commentIndex !== -1) {
+    return baseDecorations.map((decoration, index) => ({
+      class:
+        index >= commentIndex
+          ? decoration.class
+            ? `${decoration.class} comment`
+            : "comment"
+          : decoration.class,
+    }));
+  }
+
+  return baseDecorations;
+};
+
+// Helper function to process key signature styling
+const processKeySignature = (line: string, currentKey: KeySignature) => {
+  const [_, root, mode] = line.match(/^([A-G][b#]?)\s+(major|minor)$/i)!;
+  const modeStartIndex = line.toLowerCase().indexOf(mode.toLowerCase());
+  const scaleMap =
+    mode.toLowerCase() === "major" ? MAJOR_SCALE_MAP : MINOR_SCALE_MAP;
+  const UNSTABLE_PITCHES = [1, 2, 3, 5, 6];
+
+  return Array.from(line).map((char, index) => {
+    if (index >= modeStartIndex && index < modeStartIndex + 5) {
+      const letterIndex = index - modeStartIndex;
+      const unstablePitch = UNSTABLE_PITCHES[letterIndex];
+      const colorIndex = scaleMap[unstablePitch];
+      return { class: `noteColor_${colorIndex}_colors` };
+    }
+    return { class: null };
+  });
+};
+
+// Helper function to process note colors
+const processNoteColors = (
+  line: string,
+  currentKey: KeySignature,
+  allLines: string[],
+  lineIndex: number,
+) => {
+  // Update current key based on previous lines
   for (let i = 0; i < lineIndex; i++) {
     const prevLine = allLines[i].trim();
     const keyMatch = prevLine.match(/^([A-G][b#]?)\s+(major|minor)$/i);
@@ -81,36 +115,21 @@ export const getBackgroundsForLine = (
     }
   }
 
-  // Check if this line is an insert command
-  const insertMatch = line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/);
+  const match = line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/);
+  if (!match) return Array.from(line).map(() => ({ class: null }));
 
-  if (!insertMatch) {
-    return Array.from(line).map(() => ({ class: null }));
-  }
-
-  const [fullMatch, measure, beat, melodyPart] = insertMatch;
-
-  // Calculate where the melody part starts in the full line
+  const [_, __, ___, melodyPart] = match;
   const melodyStartIndex = line.indexOf(melodyPart);
 
-  // Process only the melody part
   const melodyDecorations = Array.from(melodyPart).map((char) => {
-    // Check if character is a note
     const noteDegree = NOTE_LETTER_MAP[char.toLowerCase()];
+    if (noteDegree === undefined) return { class: null };
 
-    if (noteDegree === undefined) {
-      return { class: null };
-    }
-
-    // Calculate scale degree (0-6)
     const scaleDegree = noteDegree % 7;
-
-    // Get the semitone offset from the scale map which we'll use for coloring
     const scaleMap =
       currentKey.mode === "major" ? MAJOR_SCALE_MAP : MINOR_SCALE_MAP;
     const colorIndex = scaleMap[scaleDegree];
 
-    // Add dot classes based on note degree
     let dotClass = "";
     if (noteDegree >= 14) {
       dotClass = " dotAbove";

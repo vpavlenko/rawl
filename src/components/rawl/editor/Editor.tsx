@@ -52,6 +52,7 @@ const Editor: React.FC = () => {
     timeSignatures: [{ numerator: 4, measureStart: 1 }],
     baseOctaveRH: 5,
     baseOctaveLH: 3,
+    commentToEndOfFile: false,
   });
 
   // Get the analysis for this slug if it exists

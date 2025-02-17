@@ -184,6 +184,17 @@ export const parseCommand = (
   line: string,
   context: CommandContext,
 ): Command | null => {
+  // Handle single # comment that comments out everything to end of file
+  if (line.trim() === "#") {
+    context.commentToEndOfFile = true;
+    return null;
+  }
+
+  // If we're in comment-to-end-of-file mode, return null
+  if (context.commentToEndOfFile) {
+    return null;
+  }
+
   // Remove comments
   const cleanLine = line.split("#")[0].trim();
   if (!cleanLine) return null;

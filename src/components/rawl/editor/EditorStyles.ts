@@ -69,6 +69,12 @@ export const CodeMirrorWrapper = styled.div`
     }
   }
 
+  /* Comment styling */
+  .comment {
+    color: #666666 !important;
+    font-style: italic;
+  }
+
   .cm-scroller,
   .cm-content,
   .cm-line,

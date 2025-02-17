@@ -91,4 +91,5 @@ export type CommandContext = {
   beatsPerMeasure?: number; // Optional because only needed during note parsing
   baseOctaveRH: number; // Base octave for right hand
   baseOctaveLH: number; // Base octave for left hand
+  commentToEndOfFile?: boolean; // Whether a single # has been encountered, commenting out rest of file
 };

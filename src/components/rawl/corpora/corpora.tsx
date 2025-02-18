@@ -3901,6 +3901,8 @@ export const corpora: CorpusEntry[] = [
       "swan-lake-theme---tchaikovsky",
 
       "the-seasons-op.-37b---1.-january-at-the-fireside-t.-yaskawa",
+
+      "march-of-the-toy-soldiers---pyotr-ilyich-tchaikovsky",
     ],
     composerBirthYear: 1840, // Born in 1840
     genre: "Classical", // Classical composer
@@ -4505,6 +4507,7 @@ export const corpora: CorpusEntry[] = [
     // https://musescore.com/user/12163676
     slug: "popular_classics",
     midis: [
+      "offenbach---can-can-from-orpheus-in-the-underworld-piano-arrangement",
       "valse---coppelia---piano-solo---arr.-leo-delibes",
 
       "hungarian-march---hector-berlioz",

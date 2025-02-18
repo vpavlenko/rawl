@@ -97,39 +97,63 @@ export const CodeMirrorWrapper = styled.div`
   /* Override text colors for note backgrounds */
   .noteColor_0_colors {
     color: #000000 !important;
+    background-color: white !important;
+    --background-color: white;
   }
   .noteColor_1_colors {
     color: #ffffff !important;
+    background-color: rgb(130, 0, 0) !important;
+    --background-color: rgb(130, 0, 0);
   }
   .noteColor_2_colors {
     color: #000000 !important;
+    background-color: red !important;
+    --background-color: red;
   }
   .noteColor_3_colors {
     color: #ffffff !important;
+    background-color: #007000 !important;
+    --background-color: #007000;
   }
   .noteColor_4_colors {
     color: #000000 !important;
+    background-color: #00fb47 !important;
+    --background-color: #00fb47;
   }
   .noteColor_5_colors {
     color: #ffffff !important;
+    background-color: #9500b3 !important;
+    --background-color: #9500b3;
   }
   .noteColor_6_colors {
     color: #000000 !important;
+    background-color: #ea7eff !important;
+    --background-color: #ea7eff;
   }
   .noteColor_7_colors {
     color: #000000 !important;
+    background-color: rgb(120, 120, 120) !important;
+    --background-color: rgb(120, 120, 120);
   }
   .noteColor_8_colors {
     color: #ffffff !important;
+    background-color: rgb(0, 0, 255) !important;
+    --background-color: rgb(0, 0, 255);
   }
   .noteColor_9_colors {
     color: #000000 !important;
+    background-color: #03b9d5 !important;
+    --background-color: #03b9d5;
   }
   .noteColor_10_colors {
     color: #ffffff !important;
+    background-color: #ff7328 !important;
+    --background-color: #ff7328;
   }
   .noteColor_11_colors {
     color: #000000 !important;
+    background-color: yellow !important;
+    --background-color: yellow;
   }
 
   /* Add dot styles */
@@ -137,10 +161,15 @@ export const CodeMirrorWrapper = styled.div`
     position: relative;
   }
   .dotAbove::before {
-    content: " ̑";
+    content: "";
     position: absolute;
-    color: white;
-    top: -0.7em;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 5px solid;
+    border-bottom-color: var(--background-color, background-color);
+    top: -5px;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -148,10 +177,15 @@ export const CodeMirrorWrapper = styled.div`
     position: relative;
   }
   .dotBelow::before {
-    content: "˘";
+    content: "";
     position: absolute;
-    color: white;
-    bottom: -1.15em;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid;
+    border-top-color: var(--background-color, background-color);
+    bottom: -5px;
     left: 50%;
     transform: translateX(-50%);
   }

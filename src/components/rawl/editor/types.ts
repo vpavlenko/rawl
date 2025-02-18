@@ -101,7 +101,7 @@ export type Command =
       sourceStartBeat: number;
       sourceEnd: number;
       sourceEndBeat: number;
-      shifts: (number | "x")[]; // Allow 'x' in shifts array
+      shifts: { type: "group"; shifts: (number | "x")[] }[]; // Array of shift groups, each containing one or more shifts to be applied at the same position
     }
   | { type: "track"; track: number; baseOctave?: number }
   | { type: "time"; signatures: TimeSignature[] }

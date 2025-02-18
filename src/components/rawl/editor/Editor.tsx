@@ -211,7 +211,10 @@ const Editor: React.FC = () => {
                   console.log("Source end (abs beats):", sourceEndAbsBeat);
                   console.log("Target start (abs beats):", targetStartAbsBeat);
                   console.log("Span length:", spanLengthInBeats);
-                  console.log("Shifts:", command.shifts);
+                  console.log("Shift groups:", command.shifts);
+                  console.log(
+                    "Note: & syntax creates layered shifts at the same position",
+                  );
 
                   const currentTrackNotes =
                     scoreByTrack.get(newContext.currentTrack) || [];
@@ -234,19 +237,20 @@ const Editor: React.FC = () => {
                   }
 
                   const allCopies = command.shifts
-                    .map((shift, idx) => {
+                    .map((shiftGroup, idx) => {
                       const copyStartBeat =
                         targetStartAbsBeat + idx * spanLengthInBeats;
-                      console.log(`\nCopy ${idx + 1}:`);
-                      console.log("Shift:", shift);
+                      console.log(`\nCopy group ${idx + 1}:`);
+                      console.log("Shifts in group:", shiftGroup.shifts);
                       console.log("Copy start beat:", copyStartBeat);
                       console.log(
                         "Copy end beat:",
                         copyStartBeat + spanLengthInBeats,
                       );
 
-                      if (shift === "x") {
-                        console.log("Creating rest for this copy");
+                      // If any shift in the group is 'x', the entire group becomes a rest
+                      if (shiftGroup.shifts.includes("x")) {
+                        console.log("Creating rest for this copy group");
                         return [
                           {
                             scaleDegree: -Infinity,
@@ -260,43 +264,50 @@ const Editor: React.FC = () => {
                         ];
                       }
 
-                      return sourceNotes.map((n) => {
-                        const relativePosition =
-                          n.span.start - sourceStartAbsBeat;
-                        const targetPosition = copyStartBeat + relativePosition;
+                      // For each shift in the group, create a copy of all source notes with that shift
+                      return shiftGroup.shifts.flatMap((shift) => {
+                        console.log(
+                          `\nApplying shift ${shift} in group ${idx + 1}`,
+                        );
+                        return sourceNotes.map((n) => {
+                          // Calculate relative position from the start of the source
+                          const relativePosition =
+                            n.span.start - sourceStartAbsBeat;
+                          // Apply this relative position to the copy start
+                          const targetPosition =
+                            copyStartBeat + relativePosition;
 
-                        console.log("Note relative pos:", relativePosition);
-                        console.log("Note target pos:", targetPosition);
+                          if (n.midiNumber === null) {
+                            return {
+                              ...n,
+                              span: {
+                                start: targetPosition,
+                                end:
+                                  targetPosition + (n.span.end - n.span.start),
+                              },
+                            };
+                          }
 
-                        if (n.midiNumber === null) {
+                          const { newDegree, newMidi } = calculateShiftedNote(
+                            n.scaleDegree,
+                            shift as number,
+                            newContext.currentKey,
+                            n.accidental || 0,
+                            newContext.currentTrack,
+                            newContext,
+                          );
+
                           return {
                             ...n,
                             span: {
                               start: targetPosition,
                               end: targetPosition + (n.span.end - n.span.start),
                             },
+                            scaleDegree: newDegree,
+                            midiNumber: newMidi,
+                            accidental: n.accidental,
                           };
-                        }
-
-                        const { newDegree, newMidi } = calculateShiftedNote(
-                          n.scaleDegree,
-                          shift,
-                          newContext.currentKey,
-                          n.accidental || 0,
-                          newContext.currentTrack,
-                          newContext,
-                        );
-
-                        return {
-                          ...n,
-                          span: {
-                            start: targetPosition,
-                            end: targetPosition + (n.span.end - n.span.start),
-                          },
-                          scaleDegree: newDegree,
-                          midiNumber: newMidi,
-                          accidental: n.accidental,
-                        };
+                        });
                       });
                     })
                     .flat();

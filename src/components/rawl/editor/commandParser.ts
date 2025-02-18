@@ -75,8 +75,9 @@ export const parseCopyCommand = (
   // "2 c 1 0" - single measure (1b1-2b1)
   // "2 c 1 0 x 0" - with rest marker 'x' to skip a copy
   // "2 c 1 -3 -2 -5 -4 -7 -4 -3" - with negative shifts for Pachelbel's progression
+  // "2 c 1 2&5" - with & syntax to layer multiple shifts at same position
   const match = line.match(
-    /^(\d+)(?:b(\d+(?:\.\d+)?))?\s+c\s+(\d+)(?:b(\d+(?:\.\d+)?))?(?:-(\d+)(?:b(\d+(?:\.\d+)?))?)?\s+((?:x|[+-]?\d+)(?:\s+(?:x|[+-]?\d+))*)$/,
+    /^(\d+)(?:b(\d+(?:\.\d+)?))?\s+c\s+(\d+)(?:b(\d+(?:\.\d+)?))?(?:-(\d+)(?:b(\d+(?:\.\d+)?))?)?\s+((?:x|[+-]?\d+(?:&[+-]?\d+)*(?:\s+(?:x|[+-]?\d+(?:&[+-]?\d+)*))*)*)$/,
   );
   if (!match) return null;
 
@@ -120,12 +121,19 @@ export const parseCopyCommand = (
     sourceEndBeat = 1;
   }
 
-  // Extract all shifts by matching numbers or 'x'
+  // Extract all shifts by matching numbers or 'x', supporting & syntax for layered shifts
   const shifts = (shiftsStr || "")
     .trim()
     .split(/\s+/)
     .filter(Boolean)
-    .map((token) => (token === "x" ? "x" : Number(token)));
+    .map((token): (number | "x")[] => {
+      if (token === "x") return ["x"];
+      // If token contains &, it represents layered shifts at the same position
+      if (token.includes("&")) {
+        return token.split("&").map(Number);
+      }
+      return [Number(token)];
+    });
 
   return {
     type: "copy",
@@ -135,7 +143,7 @@ export const parseCopyCommand = (
     sourceStartBeat,
     sourceEnd,
     sourceEndBeat,
-    shifts,
+    shifts: shifts.map((shiftGroup) => ({ type: "group", shifts: shiftGroup })),
   };
 };
 

@@ -263,13 +263,22 @@ rh 4
 1b3 i t=y=t-q,t-a-q,7_
 3 c 1-3 0
 5 c 1 0
+6 i 7,r-s-7,q,e-a-
+9 c 1-9 0
+
+17b3 i q,7,x,7-
+19b3 i u-
+20 c 18-19 1
+22 c 18 7 5 -2
+25 c 17-25 0
 
 # triplets
 ch2 3
 8b2 i u-:s-:f-:
 20b2 i d-:g-:k-:
 18 c 8 2 9 x x 9 8 0
-21 c 20 7`,
+21 c 20 7
+25 c 17-25 0`,
   chopsticks: `C major
 bpm 184
 3/4
@@ -300,6 +309,19 @@ rh
 48 c 16-32 0
 51b2 i t=y-:u=i-:s=d-:f=g
 
+
+`,
+  "the-two-happy-coons---theodore-h.-northrup-1891": `G major
+
+rh
+3 i 7,q,w,e
+3 c 3 2&5
+
+
+
+
+C major
+93 i a
 
 `,
 };

@@ -157,15 +157,23 @@ lh
 10  c 2-9 0 0 0
 
 rh
-1b3  i 5=t-.w,5,e=r-.7=q-.5,e,7-w-r-y-s-u-g,d-
-5    c 1-4 0
-9    i a_
-9    c 1-9 0
-17b3 i t,4-6-w-7-5-x- q-e-y-t-e-x-
+2b2 i 5
+3   c 2 0
+1b3 i 5=t.-.
+5   c 1b3-2b1 7
+2   i bw=w-.
+2b3 c 2-2b2 2 -1
+3b3 i e=r=e- 7-w--r-y-o-u- x,d-
+5b3 c 1b3-4 0
+9   i a_
+9b3 c 1b3-9 0
+
+17b3 i t,4-6-9-7-5-x- q-e-y-t-e-x-
 20   c 18 7
 21   i q=a=t-e-q-5-
 22   c 18-20b3 0
-24b3 i t=g-.a
+24b3 c 1b3 7
+25   i a
 25b3 c 17b3-25 0`,
   Gravity_Falls_Opening: `D minor
 lh

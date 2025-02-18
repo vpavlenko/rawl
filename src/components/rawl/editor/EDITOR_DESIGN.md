@@ -1,6 +1,6 @@
 An editor parses a text-based notation and generates both a midi file and an analysis for it.
 
-A comment symbol is `#`, comments till the end of the line.
+A comment symbol is `%`, comments till the end of the line. A single `%` on an empty line comments out everything after it.
 
 A basic unit of time is a beat. There are three levels of grouping above it:
 
@@ -8,7 +8,7 @@ A basic unit of time is a beat. There are three levels of grouping above it:
 
 Eg. `4/4 5 3/4 9 4/4` means 4 beats per measure in mm. 1-4, 3 beats per measure in mm. 5-8, 4 beats per measure till the end of the piece.
 
-2. Measures are grouped in phrases. There's a four measure default. The change of this default is stored as a `(phrases [measureNumber:±measureDelta])*`, according to @analysis.ts phrasePatch logic. measureDelta is usually 1..3. They are applied consecutively in getPhraseStarts. For debugging purposes, comment the end of the line with `#`.
+2. Measures are grouped in phrases. There's a four measure default. The change of this default is stored as a `(phrases [measureNumber:±measureDelta])*`, according to @analysis.ts phrasePatch logic. measureDelta is usually 1..3. They are applied consecutively in getPhraseStarts. For debugging purposes, comment the end of the line with `%`.
 
 3. Phrases are grouped in sections. By default, there's a single section 1. Sections are defined as a list of phrase numbers which are their starts. `(sections [phraseNumber])*`.
 

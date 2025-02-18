@@ -50,9 +50,9 @@ export const getBackgroundsForLine = (
   }
 
   // Then handle comments, preserving any background colors
-  // Check if any previous line is just '#'
+  // Check if any previous line is just '%'
   for (let i = 0; i < lineIndex; i++) {
-    if (allLines[i].trim() === "#") {
+    if (allLines[i].trim() === "%") {
       return baseDecorations.map((decoration) => ({
         class: decoration.class ? `${decoration.class} comment` : "comment",
       }));
@@ -60,7 +60,7 @@ export const getBackgroundsForLine = (
   }
 
   // Check for comments in current line
-  const commentIndex = line.indexOf("#");
+  const commentIndex = line.indexOf("%");
   if (commentIndex !== -1) {
     return baseDecorations.map((decoration, index) => ({
       class:

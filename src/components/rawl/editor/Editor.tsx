@@ -83,11 +83,23 @@ const Editor: React.FC = () => {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
           try {
-            const lines = text.split("\n").filter((line) => line.trim());
+            // First pass: find if there's a % on empty line and where it is
+            const allLines = text.split("\n");
+            const commentLineIndex = allLines.findIndex(
+              (line) => line.trim() === "%",
+            );
 
-            // Use a map to store notes for each track
-            const scoreByTrack = new Map<number, LogicalNote[]>();
+            // Filter lines and stop at % if found
+            const lines = allLines
+              .slice(0, commentLineIndex >= 0 ? commentLineIndex : undefined)
+              .filter((line) => line.trim());
 
+            if (lines.length === 0) {
+              setError("No valid notes found");
+              return;
+            }
+
+            setError(null);
             const newContext: CommandContext = {
               currentKey: { tonic: 0, mode: "major" },
               currentTrack: 1,
@@ -98,6 +110,9 @@ const Editor: React.FC = () => {
               },
               currentBpm: 120, // Default BPM
             };
+
+            // Use a map to store notes for each track
+            const scoreByTrack = new Map<number, LogicalNote[]>();
 
             for (const line of lines) {
               console.log("\n=== Processing line ===");
@@ -305,7 +320,6 @@ const Editor: React.FC = () => {
               return;
             }
 
-            setError(null);
             setContext(newContext);
 
             // Convert all tracks to MIDI notes

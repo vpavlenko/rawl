@@ -9,6 +9,25 @@ import {
 import { createTheme } from "@uiw/codemirror-themes";
 import { getScaleMapForMode, KeySignature, NOTE_LETTER_MAP } from "./types";
 
+// Types for the new architecture
+interface ParsedNote {
+  pitch: string;
+  accidental?: "b" | "#";
+  duration?: string;
+  position: {
+    start: number;
+    end: number;
+    durationStart?: number; // Optional to indicate if this note is part of a chord
+  };
+  degree: number;
+  isPartOfChord?: boolean;
+}
+
+interface NoteColor {
+  colorIndex: number;
+  dotClass: string;
+}
+
 // Function to get background colors for each character in a line
 export const getBackgroundsForLine = (
   line: string,
@@ -78,13 +97,194 @@ const processKeySignature = (line: string, currentKey: KeySignature) => {
   });
 };
 
-// Helper function to process note colors
+// Parse a single note from a position in the melody string
+const parseNote = (
+  melody: string,
+  startIndex: number,
+  isPartOfChord: boolean = false,
+): { note: ParsedNote | null; nextIndex: number; hasDuration: boolean } => {
+  console.log(
+    `\nParsing note at index ${startIndex}: '${melody.slice(
+      startIndex,
+      startIndex + 10,
+    )}...'`,
+  );
+  let i = startIndex;
+
+  // Skip any whitespace
+  while (i < melody.length && /\s/.test(melody[i])) i++;
+  if (i >= melody.length)
+    return { note: null, nextIndex: i, hasDuration: false };
+
+  const noteStart = i;
+
+  // Check for accidental
+  let accidental: "b" | "#" | undefined;
+  if (melody[i] === "b" || melody[i] === "#") {
+    accidental = melody[i] as "b" | "#";
+    i++;
+  }
+
+  // Get pitch
+  if (i >= melody.length)
+    return { note: null, nextIndex: i, hasDuration: false };
+  const pitch = melody[i];
+  const degree = NOTE_LETTER_MAP[pitch.toLowerCase()];
+  if (degree === undefined)
+    return { note: null, nextIndex: startIndex + 1, hasDuration: false };
+  i++;
+
+  // Look for duration
+  let duration = "";
+  let durationStart: number | undefined;
+  let hasDuration = false;
+
+  while (i < melody.length) {
+    // Check for duration marker
+    if (/[+_\-=,]/.test(melody[i])) {
+      hasDuration = true;
+      if (!isPartOfChord) {
+        durationStart = i;
+        duration += melody[i];
+        i++;
+        // Check for dot or triplet
+        if (i < melody.length && (melody[i] === "." || melody[i] === ":")) {
+          duration += melody[i];
+          i++;
+        }
+      }
+      break;
+    }
+    // If we see another note or accidental, stop
+    if (/[a-zA-Z1-90x]|[b#]/.test(melody[i])) {
+      break;
+    }
+    i++;
+  }
+
+  const note: ParsedNote = {
+    pitch,
+    accidental,
+    duration: duration || undefined,
+    position: {
+      start: noteStart,
+      end: durationStart || i,
+      durationStart,
+    },
+    degree,
+    isPartOfChord,
+  };
+
+  console.log("Parsed note:", note);
+  return { note, nextIndex: i, hasDuration };
+};
+
+// Parse all notes from a melody string
+const parseMelody = (melody: string): ParsedNote[] => {
+  console.log("\nParsing melody:", melody);
+  const notes: ParsedNote[] = [];
+  let i = 0;
+
+  while (i < melody.length) {
+    // Try to parse as a chord first
+    let chordNotes: ParsedNote[] = [];
+    let currentIndex = i;
+    let isChord = false;
+    let lastNextIndex = i;
+
+    // Look ahead for multiple consecutive notes without duration markers
+    while (currentIndex < melody.length) {
+      const { note, nextIndex, hasDuration } = parseNote(
+        melody,
+        currentIndex,
+        true,
+      );
+      if (!note) break;
+
+      chordNotes.push(note);
+      lastNextIndex = nextIndex;
+
+      if (hasDuration) {
+        isChord = chordNotes.length > 1;
+        break;
+      }
+      currentIndex = nextIndex;
+    }
+
+    if (isChord) {
+      // Add all chord notes without the duration styling
+      notes.push(...chordNotes);
+      // Move past the last note and its duration
+      i = lastNextIndex;
+    } else {
+      // Parse as a single note
+      const { note, nextIndex } = parseNote(melody, i, false);
+      if (note) {
+        notes.push(note);
+      }
+      i = nextIndex;
+    }
+  }
+
+  console.log("Parsed notes:", notes);
+  return notes;
+};
+
+// Calculate color for a note based on its properties and key
+const calculateNoteColor = (note: ParsedNote, key: KeySignature): NoteColor => {
+  console.log("\nCalculating color for note:", note);
+  const scaleDegree = note.degree % 7;
+  const scaleMap = getScaleMapForMode(key.mode);
+  const accidentalValue =
+    note.accidental === "b" ? -1 : note.accidental === "#" ? 1 : 0;
+  const colorIndex = (scaleMap[scaleDegree] + accidentalValue + 12) % 12;
+
+  let dotClass = "";
+  if (note.degree >= 14) {
+    dotClass = " dotAbove";
+  } else if (note.degree <= 6) {
+    dotClass = " dotBelow";
+  }
+
+  console.log("Calculated color:", { colorIndex, dotClass });
+  return { colorIndex, dotClass };
+};
+
+// Apply colors to create decorations
+const applyNoteColors = (
+  notes: ParsedNote[],
+  colors: NoteColor[],
+  melodyStartIndex: number,
+  lineLength: number,
+): Array<{ class: string | null }> => {
+  console.log("\nApplying colors to notes");
+  const decorations = Array(lineLength).fill({ class: null });
+
+  notes.forEach((note, index) => {
+    const color = colors[index];
+    const colorClass = `noteColor_${color.colorIndex}_colors${color.dotClass}`;
+
+    // Color the entire note span (from start of accidental/pitch through duration)
+    for (let i = note.position.start; i < note.position.end; i++) {
+      decorations[melodyStartIndex + i] = { class: colorClass };
+    }
+  });
+
+  console.log("Applied decorations:", decorations);
+  return decorations;
+};
+
+// Main function to process note colors
 const processNoteColors = (
   line: string,
   currentKey: KeySignature,
   allLines: string[],
   lineIndex: number,
 ) => {
+  console.log("\n=== Processing Line for Colors ===");
+  console.log("Input line:", line);
+  console.log("Current key:", currentKey);
+
   // Update current key based on previous lines
   for (let i = 0; i < lineIndex; i++) {
     const prevLine = allLines[i].trim();
@@ -116,39 +316,27 @@ const processNoteColors = (
         tonic: noteToNumber[root],
         mode: mode.toLowerCase() as KeySignature["mode"],
       };
+      console.log("Updated key from previous line:", currentKey);
     }
   }
 
   const match = line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/);
-  if (!match) return Array.from(line).map(() => ({ class: null }));
+  if (!match) {
+    console.log("Line does not match insert command format");
+    return Array.from(line).map(() => ({ class: null }));
+  }
 
-  const [_, __, ___, melodyPart] = match;
+  const [_, measureStr, beatStr, melodyPart] = match;
   const melodyStartIndex = line.indexOf(melodyPart);
 
-  const melodyDecorations = Array.from(melodyPart).map((char) => {
-    const noteDegree = NOTE_LETTER_MAP[char.toLowerCase()];
-    if (noteDegree === undefined) return { class: null };
+  // Parse melody into structured notes
+  const notes = parseMelody(melodyPart);
 
-    const scaleDegree = noteDegree % 7;
-    const scaleMap = getScaleMapForMode(currentKey.mode);
-    const colorIndex = scaleMap[scaleDegree];
+  // Calculate colors for each note
+  const colors = notes.map((note) => calculateNoteColor(note, currentKey));
 
-    let dotClass = "";
-    if (noteDegree >= 14) {
-      dotClass = " dotAbove";
-    } else if (noteDegree <= 6) {
-      dotClass = " dotBelow";
-    }
-
-    return {
-      class: `noteColor_${colorIndex}_colors${dotClass}`,
-    };
-  });
-
-  return [
-    ...Array(melodyStartIndex).fill({ class: null }),
-    ...melodyDecorations,
-  ];
+  // Apply colors to create decorations
+  return applyNoteColors(notes, colors, melodyStartIndex, line.length);
 };
 
 // CodeMirror theme

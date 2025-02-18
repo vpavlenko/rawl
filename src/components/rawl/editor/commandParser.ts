@@ -432,7 +432,7 @@ export const parseMelodyString = (
       }
 
       // Handle note or chord
-      const noteChars = token.match(/[a-zA-Z1-90x]/g) || [];
+      const noteChars = token.match(/[b#]?[a-zA-Z1-90x]/g) || [];
       console.log("Note characters:", noteChars);
 
       const span: MeasureSpan = {
@@ -454,18 +454,31 @@ export const parseMelodyString = (
 
       // Process each note in the chord (or single note)
       for (const noteChar of noteChars) {
-        const absoluteScaleDegree = NOTE_LETTER_MAP[noteChar.toLowerCase()];
+        // Check for accidental
+        let accidental: -1 | 0 | 1 = 0;
+        let actualNoteChar = noteChar;
+        if (noteChar.startsWith("b")) {
+          accidental = -1;
+          actualNoteChar = noteChar.slice(1);
+        } else if (noteChar.startsWith("#")) {
+          accidental = 1;
+          actualNoteChar = noteChar.slice(1);
+        }
+
+        const absoluteScaleDegree =
+          NOTE_LETTER_MAP[actualNoteChar.toLowerCase()];
         if (absoluteScaleDegree === undefined) continue;
 
         console.log("Processing note:", {
-          char: noteChar,
+          char: actualNoteChar,
+          accidental,
           scaleDegree: absoluteScaleDegree,
           span,
         });
 
         const midiNumber = calculateMidiNumber(
           absoluteScaleDegree,
-          0,
+          accidental,
           0,
           key,
           context.currentTrack,
@@ -478,6 +491,7 @@ export const parseMelodyString = (
             duration: TICKS_PER_QUARTER,
             span: { ...span },
             midiNumber,
+            accidental,
           });
         }
       }

@@ -232,15 +232,31 @@ rh 4
 
 `,
   "wima.4be9-schubert_de.-tanz-d.365.28": `A major
+bpm 140
 3/4
 
 lh
 
 6 i 5_.
 6b2 i wrt,wrt,
-18 c 6 0 0
+18 c 6 0 0 x x 0
 
-33 i qea,
+2 i q_.
+2b2 i et,et,
+4 c 2 0
+20 c 2 0 0 x 0
+
+3 i w_.
+3b2 i rt,rt,
+5 c 3 0
+
+25 i qea,
+
+10 c 2-9 0
+26 c 18-25 0
+
+
+
 
 
 rh 4

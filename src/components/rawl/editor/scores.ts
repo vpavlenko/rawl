@@ -319,9 +319,15 @@ rh
 
 
 
+lh 2
+5 i q,tad,q,yaf,
+6 c 5 0
+7 c 5-5b3 0
+
 
 C major
 93 i a
+
 
 `,
 };

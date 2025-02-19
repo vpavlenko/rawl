@@ -2844,6 +2844,8 @@ export const corpora: CorpusEntry[] = [
       "bheki_mseleku_angola",
       "donna-lee---charlie-parker---lead-sheet-bass-clef-up-8va-from-real-book-ver.",
       "indiana-back-home-again-in-indiana-lead-sheet-with-lyrics-alternate",
+      "o-barquinho-little-boat---roberto-menescal",
+      "o-barquinho-little-boat---roberto-menescal-20ac8f",
     ],
     genre: "Jazz",
     // This is a collection of jazz standards, no specific composer can be assigned.
@@ -5308,7 +5310,8 @@ export const corpora: CorpusEntry[] = [
       "german-dance-and-ecossaise-d.643---franz-schubert",
       "schubert---sonata-in-a-op.120-d.664-movement-i",
       "ave-maria-d839---schubert---solo-piano-arrg.",
-      "schubert_36_first_waltzes_op9_d365_-c-yogore",
+      "wima.41cc-schubert_deut.tanz-d.820.3",
+      "wima.52f1-deut.tanz-d.820nr.6",
 
       // simple V I
       "wima.7e1e-schubert_deut.tanz-d.365.09",

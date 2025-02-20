@@ -1410,6 +1410,8 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "pavane_pour_une_infante_defunte_ravel_recorder",
       "ravel---miroirs-iii.-une-barque-sur-l-ocean",
+
+      "ma-mere-l-oye-m.-60-i.-pavane-de-la-belle-au-bois-dormant---maurice-ravel",
     ],
     composerBirthYear: 1875, // Maurice Ravel
     genre: "Classical",
@@ -5310,6 +5312,8 @@ export const corpora: CorpusEntry[] = [
       "german-dance-and-ecossaise-d.643---franz-schubert",
       "schubert---sonata-in-a-op.120-d.664-movement-i",
       "ave-maria-d839---schubert---solo-piano-arrg.",
+      "wima.d719-schubert_atzenbrugger-tanz-d.365.30",
+
       "wima.41cc-schubert_deut.tanz-d.820.3",
       "wima.52f1-deut.tanz-d.820nr.6",
 
@@ -5336,6 +5340,7 @@ export const corpora: CorpusEntry[] = [
       "wima.5ded-schubert_deut.tanzd365.15",
 
       // mix applieds
+      "wima.d719-schubert_atzenbrugger-tanz-d.365.30",
       "wima.8729-deut.tanz-d-365-nr.01",
       "wima.3e58-schubert_deut.tanz-d.365.3",
       "wima.0384-schubert_deut.tanzd365.16",
@@ -6358,6 +6363,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "edward_macdowell",
     midis: [
+      "to-a-wild-rose-from-woodland-sketches-op.-51---edward-macdowell",
       "to-a-humming-bird----edward-macdowell",
       "to-a-water-lily-from-woodland-sketches-op.-51---edward-macdowell",
       "in-autumn-from-woodland-sketches-op.-51---edward-macdowell",

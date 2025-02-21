@@ -1,14 +1,45 @@
 export const scores: { [key: string]: string } = {
-  "passacaglia---handel-halvorsen": `A minor
+  schubert_d365_09: `Ab major
+3/4
+bpm 160
+
+
 lh
-1 i 1-q-t-e-a-e-t-e-
-2 c 1 0 0 3 -1 2 -2 -4 -3 0
-11 c 3-10 0 0 0 0 0 0 0
-74 i qa+
+2   i 5,wtu,
+2b3 c 2b2 0
+3   c 2 0 x x 0
+7   c 6-6b3 0
+7b3 i rtu,
+
+4   i 5,eti,
+4b3 c 4b2 0
+8b2 c 4b2 0
+5   c 4 0
+8   i q,
+9   i q,eti-
+
+18b1 c 2-2b2 0
+18b2 c 7b3 0 0
+19   c 18 0 x x 0 0
+
+10   c 2-9 0
+20   c 8 0 0 x x 0
+25   c 9 0
+25b2 c 17b2-25 0
+
+
 rh
-3 i 3-e-w-e-q-e-7-e-6-e-5-e-4-e-3-e-
-5 c 3-4 -1 -2
-19 c 3-8 7`,
+1b2  i x=8=9=8=7-8-w,4,4,4_6-5-4,3,5-8-5,.
+5    c 1 0
+6    i e-w-4,4,4,.r-e-w-w,q,3-5-3,.
+9    c 1-9 0
+
+17b2 i x-5-b5-5-6,2,2,w,.q-7-6-5,e,3,q,.
+21b2 c 17b2-20b3 7
+24b3 i e-t-i,.
+25b2 c 17b2-25 0
+
+`,
   "wima.e480-schubert_de.-tanz-d.365.25": `3/4
 E major
 bpm 160
@@ -36,6 +67,94 @@ ch2
 9    ac 1-9     0
 25b3 ac 17b3-25 0
 `,
+  "wima.1124-schubert_de.-tanz-d.365.26": `3/4
+E major
+bpm 160
+
+lh
+2   i 5,rtu,
+2b3 c 2b2-2b3 0
+3   i q,eti,
+3b3 c 3b2-3b3 0
+4   c 2-3 0 0
+8   c 2 0
+9   i qeti_
+10  c 2-9 0 0 0
+
+rh
+2b2 i 5
+3   c 2 0
+1b3 i 5=t.-.
+5   c 1b3-2b1 7
+2   i bw=w-.
+2b3 c 2-2b2 2 -1
+3b3 i e=r=e- 7-w--r-y-o-u- x,d-
+5b3 c 1b3-4 0
+9   i a_
+9b3 c 1b3-9 0
+
+17b3 i t,4-6-9-7-5-x- q-e-y-t-e-x-
+20   c 18 7
+21   i q=a=t-e-q-5-
+22   c 18-20b3 0
+24b3 c 1b3 7
+25   i a
+25b3 c 17b3-25 0`,
+  "wima.4be9-schubert_de.-tanz-d.365.28": `A major
+bpm 160
+3/4
+
+lh
+
+6 i 5_.
+8 c 6 0
+6b2 i wrt,wrt,
+18 c 6 0 0 x x 0
+
+8b2 i wr,wr,
+24 c 8 0
+
+3 i w_.
+3b2 i rt,rt,
+5 c 3 0
+
+7 i q_.
+7b2 i et,e,
+2 c 7 0
+2b3 i t,
+4 c 2 0
+20 c 2 0 0 x 0
+
+9 i qe,
+25 c 9 0
+
+10 c 2-9 0
+26 c 18-25 0
+
+
+rh 4
+1b3 i t=y=t-q,t-a-q,7_
+3 c 1-3 0
+5 c 1 0
+6 i 7,r-s-7,q,e-a-5_x,5,q,
+9 c 1-9 0
+
+17b3 i q,7,x,7-
+19b3 i u-
+20 c 18-19 1
+22 c 18 7 5
+24 i 5,x,5,
+25 c 17-26 0
+33 c 25-25b2 0
+
+# triplets
+ch2 3
+8b2 i u-:s-:f-:
+20b2 i d-:g-:k-:
+18 c 8 2 9 x x 9 8 0
+16 c 8 0
+21 c 20 7
+25 c 17-25 0`,
   "idea-22---gibran-alcocer": `3/4
 C minor
 
@@ -124,39 +243,7 @@ rh 3
 22 c 18-21 0 
 42 c 2-17 0
 `,
-  "wima.1124-schubert_de.-tanz-d.365.26": `3/4
-E major
-bpm 160
 
-lh
-2   i 5,rtu,
-2b3 c 2b2-2b3 0
-3   i q,eti,
-3b3 c 3b2-3b3 0
-4   c 2-3 0 0
-8   c 2 0
-9   i qeti_
-10  c 2-9 0 0 0
-
-rh
-2b2 i 5
-3   c 2 0
-1b3 i 5=t.-.
-5   c 1b3-2b1 7
-2   i bw=w-.
-2b3 c 2-2b2 2 -1
-3b3 i e=r=e- 7-w--r-y-o-u- x,d-
-5b3 c 1b3-4 0
-9   i a_
-9b3 c 1b3-9 0
-
-17b3 i t,4-6-9-7-5-x- q-e-y-t-e-x-
-20   c 18 7
-21   i q=a=t-e-q-5-
-22   c 18-20b3 0
-24b3 c 1b3 7
-25   i a
-25b3 c 17b3-25 0`,
   Gravity_Falls_Opening: `D minor
 lh
 
@@ -213,61 +300,7 @@ rh 4
 95 c 79-82 2 1
 
 `,
-  "wima.4be9-schubert_de.-tanz-d.365.28": `A major
-bpm 160
-3/4
 
-lh
-
-6 i 5_.
-8 c 6 0
-6b2 i wrt,wrt,
-18 c 6 0 0 x x 0
-
-8b2 i wr,wr,
-24 c 8 0
-
-3 i w_.
-3b2 i rt,rt,
-5 c 3 0
-
-7 i q_.
-7b2 i et,e,
-2 c 7 0
-2b3 i t,
-4 c 2 0
-20 c 2 0 0 x 0
-
-9 i qe,
-25 c 9 0
-
-10 c 2-9 0
-26 c 18-25 0
-
-
-rh 4
-1b3 i t=y=t-q,t-a-q,7_
-3 c 1-3 0
-5 c 1 0
-6 i 7,r-s-7,q,e-a-5_x,5,q,
-9 c 1-9 0
-
-17b3 i q,7,x,7-
-19b3 i u-
-20 c 18-19 1
-22 c 18 7 5
-24 i 5,x,5,
-25 c 17-26 0
-33 c 25-25b2 0
-
-# triplets
-ch2 3
-8b2 i u-:s-:f-:
-20b2 i d-:g-:k-:
-18 c 8 2 9 x x 9 8 0
-16 c 8 0
-21 c 20 7
-25 c 17-25 0`,
   chopsticks: `C major
 bpm 184
 3/4
@@ -319,51 +352,15 @@ C major
 
 
 `,
-  new: `E major
-3/4
 
+  "passacaglia---handel-halvorsen": `A minor
 lh
-16 i 0,
-`,
-  schubert_d365_09: `Ab major
-3/4
-bpm 160
-
-
-lh
-2   i 5,wtu,
-2b3 c 2b2 0
-3   c 2 0 x x 0
-7   c 6-6b3 0
-7b3 i rtu,
-
-4   i 5,eti,
-4b3 c 4b2 0
-8b2 c 4b2 0
-5   c 4 0
-8   i q,
-9   i q,eti-
-
-18b1 c 2-2b2 0
-18b2 c 7b3 0 0
-19   c 18 0 x x 0 0
-
-10   c 2-9 0
-20   c 8 0 0 x x 0
-25   c 9 0
-25b2 c 17b2-25 0
-
-
+1 i 1-q-t-e-a-e-t-e-
+2 c 1 0 0 3 -1 2 -2 -4 -3 0
+11 c 3-10 0 0 0 0 0 0 0
+74 i qa+
 rh
-1b2  i x=8=9=8=7-8-w,4,4,4_6-5-4,3,5-8-5,.
-5    c 1 0
-6    i e-w-4,4,4,.r-e-w-w,q,3-5-3,.
-9    c 1-9 0
-
-17b2 i x-5-b5-5-6,2,2,w,.q-7-6-5,e,3,q,.
-21b2 c 17b2-20b3 7
-24b3 i e-t-i,.
-25b2 c 17b2-25 0
-
-`,
+3 i 3-e-w-e-q-e-7-e-6-e-5-e-4-e-3-e-
+5 c 3-4 -1 -2
+19 c 3-8 7`,
 };

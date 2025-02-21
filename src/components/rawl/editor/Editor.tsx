@@ -21,7 +21,9 @@ import EditorIndex from "./EditorIndex";
 import { generateMidiWithMetadata } from "./EditorMidi";
 import {
   CodeMirrorWrapper,
+  DebugPanel,
   EditorContainer,
+  EditorContent,
   EditorPanel,
   ErrorMessage,
   FoldButton,
@@ -473,24 +475,30 @@ const Editor: React.FC = () => {
         <FoldButton onClick={() => setIsFolded(!isFolded)}>
           {isFolded ? "<" : ">"}
         </FoldButton>
-        <CodeMirrorWrapper>
-          <CodeMirror
-            ref={editorRef}
-            value={score}
-            onChange={handleTextChange}
-            theme={customTheme}
-            height="100%"
-            style={{ flex: 1 }}
-            extensions={[characterBackgroundsPlugin]}
-            basicSetup={{
-              lineNumbers: true,
-              highlightActiveLineGutter: true,
-              highlightActiveLine: true,
-              foldGutter: true,
-            }}
-          />
-        </CodeMirrorWrapper>
-        {error && <ErrorMessage>{error}</ErrorMessage>}
+        <DebugPanel>
+          <h3>Analysis</h3>
+          <pre>{JSON.stringify(analysis, null, 2)}</pre>
+        </DebugPanel>
+        <EditorContent>
+          <CodeMirrorWrapper>
+            <CodeMirror
+              ref={editorRef}
+              value={score}
+              onChange={handleTextChange}
+              theme={customTheme}
+              height="100%"
+              style={{ flex: 1 }}
+              extensions={[characterBackgroundsPlugin]}
+              basicSetup={{
+                lineNumbers: true,
+                highlightActiveLineGutter: true,
+                highlightActiveLine: true,
+                foldGutter: true,
+              }}
+            />
+          </CodeMirrorWrapper>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+        </EditorContent>
       </EditorPanel>
     </EditorContainer>
   );

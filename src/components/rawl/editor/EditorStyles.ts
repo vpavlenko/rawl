@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FOOTER_HEIGHT } from "../../AppFooter";
 
 export const EditorContainer = styled.div`
   position: relative;
@@ -20,19 +21,36 @@ interface EditorPanelProps {
 export const EditorPanel = styled.div<EditorPanelProps>`
   position: fixed;
   right: 20px;
-  bottom: 80px;
-  width: 50%;
+  bottom: ${FOOTER_HEIGHT}px;
+  width: calc(100% - 50px);
   height: 40%;
   background-color: #1e1e1e;
   border-left: 1px solid #333;
   padding: 0px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 10px;
   z-index: 99999;
   isolation: isolate;
   transform: translateX(${(props) => (props.isFolded ? "100%" : "0")});
   transition: transform 0.3s ease;
+`;
+
+export const DebugPanel = styled.div`
+  flex: 1;
+  background-color: #1e1e1e;
+  border-right: 1px solid #333;
+  padding: 20px;
+  overflow: auto;
+  color: #d4d4d4;
+  font-family: "Menlo", "Monaco", "Courier New", monospace;
+  font-size: 12px;
+`;
+
+export const EditorContent = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const CodeMirrorWrapper = styled.div`

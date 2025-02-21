@@ -400,7 +400,7 @@ export const parseMelodyString = (
       if (!token.trim()) continue;
 
       // Check if this token is a duration marker
-      const isDurationMarker = /^[+_\-=,][.:]?$/.test(token);
+      const isDurationMarker = /^[+_\-=,'"][.:]?$/.test(token);
 
       if (isDurationMarker) {
         // Apply this duration to the previous note(s)
@@ -516,6 +516,12 @@ const getDuration = (marker: string, beatsPerMeasure: number = 4): number => {
     case "=":
       duration = 0.25; // sixteenth note
       break;
+    case "'":
+      duration = 0.125; // thirty-second note
+      break;
+    case '"':
+      duration = 0.0625; // sixty-fourth note
+      break;
     default:
       duration = 1; // default to quarter note
   }
@@ -545,7 +551,7 @@ const processTokens = (melodyPart: string): string[] => {
   for (let i = 0; i < cleanMelodyPart.length; i++) {
     const char = cleanMelodyPart[i];
 
-    if (/[+_\-=,]/.test(char)) {
+    if (/[+_\-=,'"]/.test(char)) {
       // If we have accumulated a token, push it
       if (currentToken) {
         tokens.push(currentToken);

@@ -5,40 +5,34 @@ bpm 160
 
 
 lh
-2   i 5,wtu,
-2b3 c 2b2 0
-3   c 2 0 x x 0
+2   i 5,wtu,wtu,
+3   c 2     0 x x 0
 7   c 6-6b3 0
 7b3 i rtu,
+18  i 5,rtu,rtu,
+19   c 18   0 x x 0 0
 
-4   i 5,eti,
-4b3 c 4b2 0
-8b2 c 4b2 0
-5   c 4 0
+4   i 5,eti,eti,
+5   c 4     0
 8   i q,
+8b2 c 4b2   0
 9   i q,eti-
-
-18b1 c 2-2b2 0
-18b2 c 7b3 0 0
-19   c 18 0 x x 0 0
-
-10   c 2-9 0
-20   c 8 0 0 x x 0
-25   c 9 0
-25b2 c 17b2-25 0
+20   c 8    0 0 x x 0
+25   c 9    0
 
 
 rh
-1b2  i x=8=9=8=7-8-w,4,4,4_6-5-4,3,5-8-5,.
+1b2  i x-8'9'8=7-8-w,4,4,4_6-5-4,3,5-8-5,.
 5    c 1 0
 6    i e-w-4,4,4,.r-e-w-w,q,3-5-3,.
-9    c 1-9 0
 
 17b2 i x-5-b5-5-6,2,2,w,.q-7-6-5,e,3,q,.
 21b2 c 17b2-20b3 7
 24b3 i e-t-i,.
-25b2 c 17b2-25 0
 
+
+9    ac 1-9     0
+25b2 ac 17b2-25 0
 `,
   "wima.e480-schubert_de.-tanz-d.365.25": `3/4
 E major
@@ -133,7 +127,7 @@ lh
 
 
 rh 4
-1b3 i t=y=t-q,t-a-q,7_
+1b3 i t'y't-.q,t-a-q,7_
 3 c 1-3 0
 5 c 1 0
 6 i 7,r-s-7,q,e-a-5_x,5,q,

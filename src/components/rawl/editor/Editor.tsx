@@ -55,6 +55,7 @@ const Editor: React.FC = () => {
   const editorRef = useRef<any>(null);
   const { playSongBuffer, rawlProps, analyses } = useContext(AppContext);
   const [score, setScore] = useState("");
+  const [isEditorFocused, setIsEditorFocused] = useState(false);
   const [context, setContext] = useState<CommandContext>({
     currentKey: { tonic: 0, mode: "major" },
     currentTrack: 1,
@@ -70,13 +71,14 @@ const Editor: React.FC = () => {
   // Get the analysis for this slug if it exists
   const analysis = analyses[`f/${slug}`];
 
-  // Signal to App that this route should not have global shortcuts
+  // Signal to App that this route should not have global shortcuts when editor is focused
   useEffect(() => {
-    window.__disableGlobalShortcuts = true;
-    return () => {
+    if (isEditorFocused) {
+      window.__disableGlobalShortcuts = true;
+    } else {
       delete window.__disableGlobalShortcuts;
-    };
-  }, []);
+    }
+  }, [isEditorFocused]);
 
   // Create a debounced version of handleMelodyPlayback
   const debouncedMelodyPlayback = useCallback(
@@ -320,6 +322,8 @@ const Editor: React.FC = () => {
                 highlightActiveLine: true,
                 foldGutter: true,
               }}
+              onFocus={() => setIsEditorFocused(true)}
+              onBlur={() => setIsEditorFocused(false)}
             />
           </CodeMirrorWrapper>
           {error && <ErrorMessage>{error}</ErrorMessage>}

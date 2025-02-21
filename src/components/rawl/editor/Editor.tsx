@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { useParams } from "react-router-dom";
 import { AppContext } from "../../AppContext";
+import { PitchClass } from "../analysis";
 import { TICKS_PER_QUARTER } from "../forge/constants";
 import Rawl from "../Rawl";
 import {
@@ -117,21 +118,10 @@ const Editor: React.FC = () => {
             const scoreByTrack = new Map<number, LogicalNote[]>();
 
             for (const line of lines) {
-              console.log("\n=== Processing line ===");
-              console.log("Line:", line);
-              console.log("Current track:", newContext.currentTrack);
-              console.log(
-                "Current channel octaves:",
-                newContext.channelOctaves,
-              );
-
               const command = parseCommand(line, newContext);
               if (!command) {
-                console.log("No command parsed");
                 continue;
               }
-
-              console.log("Parsed command:", command);
 
               switch (command.type) {
                 case "track":
@@ -141,15 +131,23 @@ const Editor: React.FC = () => {
                     const channel = command.track - 1;
                     newContext.channelOctaves[channel] = command.baseOctave;
                   }
-                  console.log(`Track changed: ${oldTrack} -> ${command.track}`);
-                  console.log(
-                    "Updated channel octaves:",
-                    newContext.channelOctaves,
-                  );
                   break;
 
                 case "key":
                   newContext.currentKey = command.key;
+                  // Store first key in analysis
+                  if (
+                    !analysis?.modulations ||
+                    Object.keys(analysis.modulations).length === 0
+                  ) {
+                    const newModulations = {
+                      "1": command.key.tonic as PitchClass,
+                    };
+                    // Update the analysis state directly
+                    if (analysis) {
+                      analysis.modulations = newModulations;
+                    }
+                  }
                   break;
 
                 case "time":
@@ -158,35 +156,19 @@ const Editor: React.FC = () => {
 
                 case "bpm":
                   newContext.currentBpm = command.tempo;
-                  console.log(`BPM changed to: ${command.tempo}`);
                   break;
 
                 case "insert": {
-                  console.log(
-                    "Insert command for track:",
-                    newContext.currentTrack,
-                  );
                   const currentTrackNotes =
                     scoreByTrack.get(newContext.currentTrack) || [];
-                  console.log(
-                    "Existing notes for track:",
-                    currentTrackNotes.length,
-                  );
-                  console.log("Adding notes:", command.notes.length);
                   scoreByTrack.set(newContext.currentTrack, [
                     ...currentTrackNotes,
                     ...command.notes,
                   ]);
-                  console.log(
-                    "Updated track note count:",
-                    scoreByTrack.get(newContext.currentTrack)?.length,
-                  );
                   break;
                 }
 
                 case "copy": {
-                  console.log("=== COPY COMMAND DEBUG ===");
-
                   // Convert all positions to absolute beats first
                   const sourceStartAbsBeat = calculateGlobalBeatPosition(
                     command.sourceStart,
@@ -209,15 +191,6 @@ const Editor: React.FC = () => {
                   const spanLengthInBeats =
                     sourceEndAbsBeat - sourceStartAbsBeat;
 
-                  console.log("Source start (abs beats):", sourceStartAbsBeat);
-                  console.log("Source end (abs beats):", sourceEndAbsBeat);
-                  console.log("Target start (abs beats):", targetStartAbsBeat);
-                  console.log("Span length:", spanLengthInBeats);
-                  console.log("Shift groups:", command.shifts);
-                  console.log(
-                    "Note: & syntax creates layered shifts at the same position",
-                  );
-
                   const currentTrackNotes =
                     scoreByTrack.get(newContext.currentTrack) || [];
                   const sourceNotes = currentTrackNotes.filter((n) => {
@@ -227,14 +200,7 @@ const Editor: React.FC = () => {
                     );
                   });
 
-                  console.log("Found source notes:", sourceNotes.length);
-                  console.log(
-                    "Source notes spans:",
-                    sourceNotes.map((n) => [n.span.start, n.span.end]),
-                  );
-
                   if (sourceNotes.length === 0) {
-                    console.log("No source notes found!");
                     continue;
                   }
 
@@ -242,17 +208,9 @@ const Editor: React.FC = () => {
                     .map((shiftGroup, idx) => {
                       const copyStartBeat =
                         targetStartAbsBeat + idx * spanLengthInBeats;
-                      console.log(`\nCopy group ${idx + 1}:`);
-                      console.log("Shifts in group:", shiftGroup.shifts);
-                      console.log("Copy start beat:", copyStartBeat);
-                      console.log(
-                        "Copy end beat:",
-                        copyStartBeat + spanLengthInBeats,
-                      );
 
                       // If any shift in the group is 'x', the entire group becomes a rest
                       if (shiftGroup.shifts.includes("x")) {
-                        console.log("Creating rest for this copy group");
                         return [
                           {
                             scaleDegree: -Infinity,
@@ -268,9 +226,6 @@ const Editor: React.FC = () => {
 
                       // For each shift in the group, create a copy of all source notes with that shift
                       return shiftGroup.shifts.flatMap((shift) => {
-                        console.log(
-                          `\nApplying shift ${shift} in group ${idx + 1}`,
-                        );
                         return sourceNotes.map((n) => {
                           // Calculate relative position from the start of the source
                           const relativePosition =
@@ -314,11 +269,6 @@ const Editor: React.FC = () => {
                     })
                     .flat();
 
-                  console.log(
-                    "\nFinal copies spans:",
-                    allCopies.map((n) => [n.span.start, n.span.end]),
-                  );
-
                   scoreByTrack.set(newContext.currentTrack, [
                     ...currentTrackNotes,
                     ...allCopies,
@@ -336,28 +286,8 @@ const Editor: React.FC = () => {
             setContext(newContext);
 
             // Convert all tracks to MIDI notes
-            console.log("\n=== Track to MIDI Conversion Debug ===");
-            console.log(
-              "Tracks in scoreByTrack:",
-              Array.from(scoreByTrack.keys()),
-            );
-            console.log("Track contents:");
-            scoreByTrack.forEach((notes, track) => {
-              console.log(`\nTrack ${track}:`);
-              console.log("- Note count:", notes.length);
-              console.log(
-                "- First 3 notes:",
-                notes.slice(0, 3).map((n) => ({
-                  midiNumber: n.midiNumber,
-                  span: n.span,
-                  scaleDegree: n.scaleDegree,
-                })),
-              );
-            });
-
             const allMidiNotes = Array.from(scoreByTrack.entries()).flatMap(
               ([track, notes]) => {
-                console.log(`\nProcessing track ${track} to MIDI:`);
                 const trackNotes = notes
                   .map((n) => {
                     const midiNote = logicalNoteToMidi(
@@ -366,7 +296,6 @@ const Editor: React.FC = () => {
                       newContext.timeSignatures,
                     );
                     if (!midiNote) {
-                      console.log("- Skipping null MIDI note");
                       return null;
                     }
                     const resultNote = {
@@ -376,46 +305,25 @@ const Editor: React.FC = () => {
                       duration: midiNote.durationTicks - 1,
                       channel: track - 1, // Convert 1-based track number back to 0-based channel
                     };
-                    console.log("- Converted note:", resultNote);
                     return resultNote;
                   })
                   .filter((n): n is MidiNote => n !== null);
-                console.log(
-                  `- Generated ${trackNotes.length} MIDI notes for track ${track}`,
-                );
                 return trackNotes;
               },
             );
 
-            console.log("\nFinal MIDI notes by channel:");
             const notesByChannel = new Map<number, MidiNote[]>();
             allMidiNotes.forEach((note) => {
               const channelNotes = notesByChannel.get(note.channel) || [];
               channelNotes.push(note);
               notesByChannel.set(note.channel, channelNotes);
             });
-            notesByChannel.forEach((notes, channel) => {
-              console.log(`\nChannel ${channel}:`);
-              console.log("- Note count:", notes.length);
-              console.log("- Sample notes:", notes.slice(0, 3));
-            });
-            console.log("=== End Track to MIDI Conversion Debug ===\n");
 
             const midiResult = generateMidiWithMetadata(
               allMidiNotes,
               `melody-${slug}`,
               newContext.currentBpm, // Use the current BPM from context
               newContext.timeSignatures,
-            );
-
-            console.log("\n=== Final Context ===");
-            console.log("Channel octaves:", newContext.channelOctaves);
-            console.log("Tracks with notes:", Array.from(scoreByTrack.keys()));
-            console.log(
-              "Note counts by track:",
-              Array.from(scoreByTrack.entries()).map(
-                ([track, notes]) => `Track ${track}: ${notes.length} notes`,
-              ),
             );
 
             if (playSongBuffer) {

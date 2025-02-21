@@ -143,8 +143,6 @@ const generateMidiFromEvents = (
   bpm: number,
   timeSignatures: TimeSignature[],
 ): Uint8Array => {
-  console.log("\n=== MIDI Generation Debug ===");
-  console.log("Events by channel:");
   const eventsByChannel = new Map<number, MusicalEvent[]>();
   const trackNames = new Map<number, string>();
 
@@ -152,19 +150,6 @@ const generateMidiFromEvents = (
     const channelEvents = eventsByChannel.get(event.channel) || [];
     channelEvents.push(event);
     eventsByChannel.set(event.channel, channelEvents);
-  });
-
-  eventsByChannel.forEach((channelEvents, channel) => {
-    console.log(`\nChannel ${channel}:`);
-    console.log(`- Note count: ${channelEvents.length}`);
-    console.log(
-      `- Sample notes: `,
-      channelEvents.slice(0, 3).map((e) => ({
-        pitches: e.pitches,
-        startTick: e.startTick,
-        duration: e.duration,
-      })),
-    );
   });
 
   // Create separate tracks for each channel
@@ -176,14 +161,11 @@ const generateMidiFromEvents = (
   tempoTrack.addTrackName(tempoTrackName);
   trackNames.set(-1, tempoTrackName);
   tempoTrack.setTempo(bpm);
-  console.log("\nTempo track:");
-  console.log(`- Tempo: ${bpm} BPM`);
 
   // Add time signatures using the official API
   timeSignatures.forEach((ts) => {
     tempoTrack.setTimeSignature(ts.numerator, 4, 24, 8);
   });
-  console.log(`- Time signatures:`, timeSignatures);
 
   tracks.set(-1, tempoTrack); // Special track for tempo/time sig
 
@@ -201,8 +183,6 @@ const generateMidiFromEvents = (
       track.addTrackName(trackName);
       trackNames.set(event.channel, trackName);
       tracks.set(event.channel, track);
-      console.log(`\nCreated track: ${trackName}`);
-      console.log(`- Channel: ${event.channel}`);
     }
 
     const track = tracks.get(event.channel)!;
@@ -221,16 +201,6 @@ const generateMidiFromEvents = (
   const sortedTracks = Array.from(tracks.entries())
     .sort(([a], [b]) => a - b)
     .map(([channel, track]) => ({ channel, track }));
-
-  console.log("\nFinal track order:");
-  sortedTracks.forEach(({ channel, track }, index) => {
-    console.log(
-      `${index}: ${
-        trackNames.get(channel) || "Unnamed track"
-      } (Channel ${channel})`,
-    );
-  });
-  console.log("=== End MIDI Generation Debug ===\n");
 
   const writer = new Writer(sortedTracks.map(({ track }) => track));
   const base64Data = writer.dataUri().split(",")[1];

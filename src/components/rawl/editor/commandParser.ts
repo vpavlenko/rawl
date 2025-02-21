@@ -367,21 +367,15 @@ export const parseMelodyString = (
   melodyString: string,
   context: CommandContext,
 ): LogicalNote[] => {
-  console.log("\n=== Melody String Parser Debug ===");
-  console.log("Input melody string:", melodyString);
-
   const lines = melodyString.split("\n").filter((line) => line.trim());
-  console.log("Filtered lines:", lines);
 
   return lines.flatMap((line) => {
     const match = line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/);
     if (!match) {
-      console.log("No match for line:", line);
       return [];
     }
 
     const [_, measureStr, beatStr, melodyPart] = match;
-    console.log("\nParsing melody part:", melodyPart);
 
     const startMeasure = parseInt(measureStr);
     const startBeat = beatStr ? parseFloat(beatStr) : 1;
@@ -394,31 +388,20 @@ export const parseMelodyString = (
       context.timeSignatures,
     );
 
-    console.log("Start position:", {
-      measure: startMeasure,
-      beat: startBeat,
-      globalBeat: currentPosition,
-    });
-
     // Process tokens
     const tokens = processTokens(melodyPart);
     const result: LogicalNote[] = [];
 
-    console.log("\nProcessing tokens:", tokens);
     for (let i = 0; i < tokens.length; i++) {
       const token = tokens[i];
       if (!token.trim()) continue;
 
-      console.log(`\nToken ${i}: '${token}'`);
-
       // Check if this token is a duration marker
       const isDurationMarker = /^[+_\-=,][.:]?$/.test(token);
-      console.log("Is duration marker:", isDurationMarker);
 
       if (isDurationMarker) {
         // Apply this duration to the previous note(s)
         const duration = getDuration(token, context.beatsPerMeasure || 4);
-        console.log("Duration value:", duration);
 
         // Find the last group of notes (could be a single note or chord)
         let lastNoteIndex = result.length - 1;
@@ -442,7 +425,6 @@ export const parseMelodyString = (
 
       // Handle note or chord
       const noteChars = token.match(/[b#]?[a-zA-Z1-90x]/g) || [];
-      console.log("Note characters:", noteChars);
 
       const span: MeasureSpan = {
         start: currentPosition,
@@ -451,7 +433,6 @@ export const parseMelodyString = (
 
       // Check if this is a rest (x)
       if (noteChars.length === 1 && noteChars[0] === "x") {
-        console.log("Adding rest");
         result.push({
           scaleDegree: -Infinity,
           duration: TICKS_PER_QUARTER,
@@ -477,13 +458,6 @@ export const parseMelodyString = (
         const absoluteScaleDegree =
           NOTE_LETTER_MAP[actualNoteChar.toLowerCase()];
         if (absoluteScaleDegree === undefined) continue;
-
-        console.log("Processing note:", {
-          char: actualNoteChar,
-          accidental,
-          scaleDegree: absoluteScaleDegree,
-          span,
-        });
 
         const midiNumber = calculateMidiNumber(
           absoluteScaleDegree,
@@ -512,25 +486,16 @@ export const parseMelodyString = (
       }
     }
 
-    console.log("\nFinal notes:", result);
-    console.log("=== End Melody String Parser Debug ===\n");
     return result;
   });
 };
 
 const getDuration = (marker: string, beatsPerMeasure: number = 4): number => {
-  console.log("\n=== Duration Parser Debug ===");
-  console.log("Input marker:", marker);
-
   // Split marker into base duration and check for dot and triplet
   const hasDot = marker.includes(".");
   const hasTriplet = marker.includes(":");
   const baseDuration = marker.split(/[.:]/, 1)[0];
   let duration: number;
-
-  console.log("Has dot:", hasDot);
-  console.log("Has triplet:", hasTriplet);
-  console.log("Base duration:", baseDuration);
 
   switch (baseDuration) {
     case "+":
@@ -552,49 +517,34 @@ const getDuration = (marker: string, beatsPerMeasure: number = 4): number => {
       duration = 1; // default to quarter note
   }
 
-  console.log("Initial duration:", duration);
-
   // If there's a dot, increase duration by half of the original duration
   if (hasDot) {
     duration = duration + duration / 2;
-    console.log("After dot:", duration);
   }
 
   // If there's a triplet marker, multiply duration by 2/3
   if (hasTriplet) {
     duration = duration * (2 / 3);
-    console.log("After triplet:", duration);
   }
-
-  console.log("Final duration:", duration);
-  console.log("=== End Duration Parser Debug ===\n");
 
   return duration;
 };
 
 // Helper to process melody string into tokens
 const processTokens = (melodyPart: string): string[] => {
-  console.log("\n=== Token Processing Debug ===");
-  console.log("Input melody part:", melodyPart);
-
   // Remove all spaces from melody part before processing
   const cleanMelodyPart = melodyPart.replace(/\s+/g, "");
-  console.log("Cleaned melody part:", cleanMelodyPart);
 
   // Split input into tokens, preserving duration markers and their modifiers
   const tokens: string[] = [];
   let currentToken = "";
 
-  console.log("\nProcessing characters:");
   for (let i = 0; i < cleanMelodyPart.length; i++) {
     const char = cleanMelodyPart[i];
-    console.log(`\nChar at ${i}: '${char}'`);
 
     if (/[+_\-=,]/.test(char)) {
-      console.log("- Found duration marker");
       // If we have accumulated a token, push it
       if (currentToken) {
-        console.log("- Pushing accumulated token:", currentToken);
         tokens.push(currentToken);
         currentToken = "";
       }
@@ -606,28 +556,21 @@ const processTokens = (melodyPart: string): string[] => {
         /[.:]/.test(cleanMelodyPart[i + 1])
       ) {
         durationToken += cleanMelodyPart[i + 1];
-        console.log("- Adding modifier to duration:", durationToken);
         i++; // Skip the modifier in next iteration
       }
-      console.log("- Pushing duration token:", durationToken);
       tokens.push(durationToken);
     } else if (/[.:]/.test(char)) {
-      console.log("- Skipping modifier (already handled)");
       continue;
     } else if (/[a-zA-Z1-90x]/.test(char)) {
-      console.log("- Adding to current token:", char);
       currentToken += char;
     }
   }
 
   // Push any remaining token
   if (currentToken) {
-    console.log("\nPushing final token:", currentToken);
     tokens.push(currentToken);
   }
 
-  console.log("\nFinal tokens:", tokens);
-  console.log("=== End Token Processing Debug ===\n");
   return tokens;
 };
 
@@ -684,9 +627,6 @@ function parseTrackCommand(
   cleanLine: string,
   context: CommandContext,
 ): TrackCommand | null {
-  console.log("\n=== Track Command Debug ===");
-  console.log("Parsing line:", cleanLine);
-
   // Try new channel syntax first
   const channelMatch = cleanLine.match(/^ch(\d+)(?:\s+(\d+))?$/i);
   if (channelMatch) {
@@ -701,10 +641,6 @@ function parseTrackCommand(
       : 5;
     context.channelOctaves[channel] = baseOctave;
     const track = channel + 1; // Convert channel to 1-based track number
-    console.log("Channel command parsed:");
-    console.log("- Channel:", channel);
-    console.log("- Track:", track);
-    console.log("- Base octave:", baseOctave);
     return {
       type: "track",
       track,
@@ -720,11 +656,6 @@ function parseTrackCommand(
     const channel = track - 1;
     const baseOctave = octave ? parseInt(octave, 10) : track === 2 ? 3 : 5;
     context.channelOctaves[channel] = baseOctave;
-    console.log("Hand command parsed:");
-    console.log("- Hand:", hand);
-    console.log("- Channel:", channel);
-    console.log("- Track:", track);
-    console.log("- Base octave:", baseOctave);
     return {
       type: "track",
       track,
@@ -732,8 +663,6 @@ function parseTrackCommand(
     };
   }
 
-  console.log("No track command matched");
-  console.log("=== End Track Command Debug ===\n");
   return null;
 }
 

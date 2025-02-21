@@ -103,12 +103,6 @@ const parseNote = (
   startIndex: number,
   isPartOfChord: boolean = false,
 ): { note: ParsedNote | null; nextIndex: number; hasDuration: boolean } => {
-  console.log(
-    `\nParsing note at index ${startIndex}: '${melody.slice(
-      startIndex,
-      startIndex + 10,
-    )}...'`,
-  );
   let i = startIndex;
 
   // Skip any whitespace
@@ -175,13 +169,11 @@ const parseNote = (
     isPartOfChord,
   };
 
-  console.log("Parsed note:", note);
   return { note, nextIndex: i, hasDuration };
 };
 
 // Parse all notes from a melody string
 const parseMelody = (melody: string): ParsedNote[] => {
-  console.log("\nParsing melody:", melody);
   const notes: ParsedNote[] = [];
   let i = 0;
 
@@ -226,13 +218,11 @@ const parseMelody = (melody: string): ParsedNote[] => {
     }
   }
 
-  console.log("Parsed notes:", notes);
   return notes;
 };
 
 // Calculate color for a note based on its properties and key
 const calculateNoteColor = (note: ParsedNote, key: KeySignature): NoteColor => {
-  console.log("\nCalculating color for note:", note);
   const scaleDegree = note.degree % 7;
   const scaleMap = getScaleMapForMode(key.mode);
   const accidentalValue =
@@ -246,7 +236,6 @@ const calculateNoteColor = (note: ParsedNote, key: KeySignature): NoteColor => {
     dotClass = " dotBelow";
   }
 
-  console.log("Calculated color:", { colorIndex, dotClass });
   return { colorIndex, dotClass };
 };
 
@@ -257,7 +246,6 @@ const applyNoteColors = (
   melodyStartIndex: number,
   lineLength: number,
 ): Array<{ class: string | null }> => {
-  console.log("\nApplying colors to notes");
   const decorations = Array(lineLength).fill({ class: null });
 
   notes.forEach((note, index) => {
@@ -270,7 +258,6 @@ const applyNoteColors = (
     }
   });
 
-  console.log("Applied decorations:", decorations);
   return decorations;
 };
 
@@ -281,10 +268,6 @@ const processNoteColors = (
   allLines: string[],
   lineIndex: number,
 ) => {
-  console.log("\n=== Processing Line for Colors ===");
-  console.log("Input line:", line);
-  console.log("Current key:", currentKey);
-
   // Update current key based on previous lines
   for (let i = 0; i < lineIndex; i++) {
     const prevLine = allLines[i].trim();
@@ -316,13 +299,11 @@ const processNoteColors = (
         tonic: noteToNumber[root],
         mode: mode.toLowerCase() as KeySignature["mode"],
       };
-      console.log("Updated key from previous line:", currentKey);
     }
   }
 
   const match = line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/);
   if (!match) {
-    console.log("Line does not match insert command format");
     return Array.from(line).map(() => ({ class: null }));
   }
 

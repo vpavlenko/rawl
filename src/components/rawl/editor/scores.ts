@@ -9,24 +9,13 @@ rh
 3 i 3-e-w-e-q-e-7-e-6-e-5-e-4-e-3-e-
 5 c 3-4 -1 -2
 19 c 3-8 7`,
-  //   "wima.e480-schubert_de.-tanz-d.365.25": `3/4
-  // E major
-
-  // lh
-  // 2   i 5rtu,
-
-  // rh
-  // 17  i x,x,e,
-
-  // ch2
-  // 2b3 i 5=6=5-
-  // `,
   "wima.e480-schubert_de.-tanz-d.365.25": `3/4
 E major
 bpm 160
 
 lh
 2   i 5,rtu,
+%
 2b3 c 2b2-2b3   0
 3   i q,eti,
 3b3 c 3b2-3b3   0

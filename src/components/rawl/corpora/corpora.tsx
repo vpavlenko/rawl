@@ -75,7 +75,29 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic",
     country: "Hungary",
   },
-  { slug: "aram_khachaturian", midis: ["masquerade-waltz---khachaturian"] },
+  {
+    slug: "greg_joy",
+    midis: ["greg-joy---wind-dance-of-the-fairies"],
+    style: "Guitar",
+  },
+  {
+    slug: "suzanne_ciani",
+    midis: [
+      "simple-song-~-suzanne-ciani",
+      "summer-s-day---suzanne-ciani",
+      "anthem---suzanne-ciani",
+      "turning",
+      "sargasso-sea-by-suzanne-ciani",
+    ],
+    style: "New Age",
+  },
+  {
+    slug: "aram_khachaturian",
+    midis: [
+      "masquerade-waltz---khachaturian",
+      "khachaturian---album-for-children-kinderalbum-no.-1-andantino",
+    ],
+  },
   {
     slug: "darius_milhaud",
     midis: [
@@ -238,6 +260,21 @@ export const corpora: CorpusEntry[] = [
       "cristofari-s-dream",
       "moonlight-lake-by-david-lanz",
       "angels-falling-by-david-lanz",
+      "wonder-wave-by-david-lanz",
+      "variations-on-a-theme-from-pachelbel-s-canon-in-d-major---david-lanz",
+      "a-whiter-shade-of-pale-~-david-lanz",
+      "what-child-is-this-~-david-lanz",
+      "david-lanz---lost_in_paradise",
+      "rain-dancer-returns-by-david-lanz",
+      "winter-sonata---david-lanz",
+      "as-rivers-flow-by-david-lanz",
+      "dream-of-the-forgotten-child---david-lanz",
+      "dark-horse---david-lanz-dark-horse",
+
+      // Valentine Hill (2024)
+      "david-lanz---the-bittersweet",
+      "david-lanz---and-again-more",
+      "david-lanz---a-valentine-moon",
     ],
     composerBirthYear: 1950, // David Lanz
     genre: "New Age, Instrumental",
@@ -2276,6 +2313,9 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "touhou-8---maiden-s-capriccio-~-dream-battle",
       "touhou---native-faith",
+
+      "touhou-6-eosd-complete-ost",
+      "touhou-8-in-complete-ost",
     ],
     composerBirthYear: 1977, // ZUN
     genre: "Video game music",
@@ -3895,6 +3935,14 @@ export const corpora: CorpusEntry[] = [
     midis: ["vierne-organ-symphony-no.-1-part-vi---final"],
   },
   {
+    slug: "roberto_cacciapaglia",
+    midis: [
+      "roberto-cacciapaglia---tema-celeste",
+      "roberto-cacciapaglia---seconda-navigazione",
+      "roberto-cacciapaglia---atlantico",
+    ],
+  },
+  {
     slug: "tchaikovsky",
     midis: [
       "trepak-russian-dance---tchaikovsky---piano-transcription",
@@ -3907,11 +3955,27 @@ export const corpora: CorpusEntry[] = [
       "the-seasons-op.-37b---1.-january-at-the-fireside-t.-yaskawa",
 
       "march-of-the-toy-soldiers---pyotr-ilyich-tchaikovsky",
+
+      "tchaikovsky---album-for-the-young-1.-morning-prayer",
+      "tchaikovsky---album-for-the-young-2.-winter-morning",
+      "tchaikovsky---album-for-the-young-3.-the-little-horseman",
     ],
     composerBirthYear: 1840, // Born in 1840
     genre: "Classical", // Classical composer
     style: "Romantic", // Romantic era composer
     country: "Russia", // Russian composer
+  },
+  { slug: "chad_lawson", midis: ["stay---chad-lawson"] },
+  {
+    slug: "rob_costlow",
+    midis: [
+      // Sophomore Jinx, 2005
+      "rob-costlow---bliss",
+      "rob-costlow---i-do",
+      "rob-costlow---forever",
+      "rob-costlow---goodbyes",
+      "rob-costlow---oceans",
+    ],
   },
   {
     slug: "wagner",
@@ -4501,6 +4565,7 @@ export const corpora: CorpusEntry[] = [
       "Saint_Saens_Symphony_3_1st",
       "le-carnaval-des-animaux---aquarium",
       "le-cygne-the-swan",
+      "feuillet-d-album-op.169---camille-saint-saens",
     ],
     composerBirthYear: 1835,
     genre: "Romantic",
@@ -5290,6 +5355,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "schubert",
     midis: [
+      "marche-militaire---franz-schubert",
       "moments_musicaux_d_780_no_3_in_f_minor",
       // "moments_musicaux_d_780_op_94_no_3_franz_schubert",
       "schubert-impromptu-op.-90-no.-4",
@@ -5318,7 +5384,8 @@ export const corpora: CorpusEntry[] = [
       "wima.52f1-deut.tanz-d.820nr.6",
 
       // simple V I
-      "wima.7e1e-schubert_deut.tanz-d.365.09",
+      // "wima.7e1e-schubert_deut.tanz-d.365.09",
+      "schubert_d365_09",
       "wima.e480-schubert_de.-tanz-d.365.25",
       "wima.1124-schubert_de.-tanz-d.365.26",
       "wima.4be9-schubert_de.-tanz-d.365.28",
@@ -6364,9 +6431,17 @@ export const corpora: CorpusEntry[] = [
     slug: "edward_macdowell",
     midis: [
       "to-a-wild-rose-from-woodland-sketches-op.-51---edward-macdowell",
-      "to-a-humming-bird----edward-macdowell",
-      "to-a-water-lily-from-woodland-sketches-op.-51---edward-macdowell",
+      "will-o-the-wisp-from-woodland-sketches-op.-51---edward-macdowell",
+      "at-an-old-trysting-place-from-woodland-sketches-op.-51---edward-macdowell",
       "in-autumn-from-woodland-sketches-op.-51---edward-macdowell",
+      "from-an-indian-lodge-from-woodland-sketches-op.-51---edward-macdowell",
+      "to-a-water-lily-from-woodland-sketches-op.-51---edward-macdowell",
+      "from-uncle-remus-from-woodland-sketches-op.-51---edward-macdowell",
+      "a-deserted-farm-from-woodland-sketches-op.-51---edward-macdowell",
+      "by-a-meadow-brook-from-woodland-sketches-op.-51---edward-macdowell",
+      "told-at-sunset-from-woodland-sketches-op.-51---edward-macdowell",
+
+      "to-a-humming-bird----edward-macdowell",
       "clair-de-lune----edward-macdowell",
     ],
     composerBirthYear: 1860,
@@ -7000,7 +7075,7 @@ export const corpora: CorpusEntry[] = [
       "tomorrow---giovanni-allevi",
 
       "white_christmas",
-      "wonder-wave-by-david-lanz",
+
       "something-human---muse",
       "priboi",
 

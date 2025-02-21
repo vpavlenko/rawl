@@ -87,12 +87,13 @@ const convertToMusicalEvents = (notes: Note[]): MusicalEvent[] => {
     pitches: number[],
     duration: number,
     channel: number,
+    velocity: number,
   ) => {
     events.push({
       pitches,
       startTick: startTime,
       duration,
-      velocity: 100,
+      velocity,
       channel,
     });
   };
@@ -109,6 +110,7 @@ const convertToMusicalEvents = (notes: Note[]): MusicalEvent[] => {
           currentPitches,
           sortedNotes[index - 1].duration,
           sortedNotes[index - 1].channel || 0,
+          sortedNotes[index - 1].velocity || 100,
         );
       }
       // Start new group
@@ -128,6 +130,7 @@ const convertToMusicalEvents = (notes: Note[]): MusicalEvent[] => {
       currentPitches,
       sortedNotes[sortedNotes.length - 1].duration,
       sortedNotes[sortedNotes.length - 1].channel || 0,
+      sortedNotes[sortedNotes.length - 1].velocity || 100,
     );
   }
 

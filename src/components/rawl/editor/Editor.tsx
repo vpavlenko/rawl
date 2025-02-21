@@ -369,7 +369,7 @@ const Editor: React.FC = () => {
                     }
                     const resultNote = {
                       pitch: midiNote.midiNumber,
-                      velocity: 100,
+                      velocity: track === 2 ? 70 : 100, // Set velocity to 70 for LH (track 2), 100 for others
                       startTime: midiNote.startTick,
                       duration: midiNote.durationTicks - 1,
                       channel: track - 1, // Convert 1-based track number back to 0-based channel
@@ -456,16 +456,6 @@ const Editor: React.FC = () => {
       setScore("");
     }
   }, [slug, debouncedMelodyPlayback]);
-
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        debouncedMelodyPlayback(score, true);
-      }
-    },
-    [debouncedMelodyPlayback, score],
-  );
 
   // If no slug is provided, show the index
   if (!slug) {

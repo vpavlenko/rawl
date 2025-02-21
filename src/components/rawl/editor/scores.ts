@@ -23,6 +23,7 @@ rh
   // `,
   "wima.e480-schubert_de.-tanz-d.365.25": `3/4
 E major
+bpm 160
 
 lh
 2   i 5,rtu,
@@ -145,6 +146,7 @@ rh 3
 `,
   "wima.1124-schubert_de.-tanz-d.365.26": `3/4
 E major
+bpm 160
 
 lh
 2   i 5,rtu,
@@ -232,51 +234,58 @@ rh 4
 
 `,
   "wima.4be9-schubert_de.-tanz-d.365.28": `A major
-bpm 140
+bpm 160
 3/4
 
 lh
 
 6 i 5_.
+8 c 6 0
 6b2 i wrt,wrt,
 18 c 6 0 0 x x 0
 
-2 i q_.
-2b2 i et,et,
-4 c 2 0
-20 c 2 0 0 x 0
+8b2 i wr,wr,
+24 c 8 0
 
 3 i w_.
 3b2 i rt,rt,
 5 c 3 0
 
-25 i qea,
+7 i q_.
+7b2 i et,e,
+2 c 7 0
+2b3 i t,
+4 c 2 0
+20 c 2 0 0 x 0
+
+9 i qe,
+25 c 9 0
 
 10 c 2-9 0
 26 c 18-25 0
-
-
-
 
 
 rh 4
 1b3 i t=y=t-q,t-a-q,7_
 3 c 1-3 0
 5 c 1 0
-6 i 7,r-s-7,q,e-a-
+6 i 7,r-s-7,q,e-a-5_x,5,q,
 9 c 1-9 0
 
 17b3 i q,7,x,7-
 19b3 i u-
 20 c 18-19 1
-22 c 18 7 5 -2
-25 c 17-25 0
+22 c 18 7 5
+24 i 5,x,5,
+25 c 17-26 0
+33 c 25-25b2 0
 
 # triplets
 ch2 3
 8b2 i u-:s-:f-:
 20b2 i d-:g-:k-:
 18 c 8 2 9 x x 9 8 0
+16 c 8 0
 21 c 20 7
 25 c 17-25 0`,
   chopsticks: `C major
@@ -337,9 +346,10 @@ lh
 2 i 1,38-5-38,
 3 c 2 3 4 0
 `,
-  "wima.7e1e-schubert_deut.tanz-d.365.09": `Ab major
+  schubert_d365_09: `Ab major
 3/4
 bpm 160
+
 
 lh
 2   i 5,wtu,
@@ -366,7 +376,7 @@ lh
 
 
 rh
-1b2  i x-8-7-8-w,4,4,4_6-5-4,3,5-8-5,.
+1b2  i x=8=9=8=7-8-w,4,4,4_6-5-4,3,5-8-5,.
 5    c 1 0
 6    i e-w-4,4,4,.r-e-w-w,q,3-5-3,.
 9    c 1-9 0
@@ -375,5 +385,6 @@ rh
 21b2 c 17b2-20b3 0
 24b3 i 3-5-8,.
 25b2 c 17b2-25 0
+
 `,
 };

@@ -135,17 +135,15 @@ const parseNote = (
 
   while (i < melody.length) {
     // Check for duration marker
-    if (/[+_\-=,]/.test(melody[i])) {
+    if (/[+_\-=,'"]/.test(melody[i])) {
       hasDuration = true;
-      if (!isPartOfChord) {
-        durationStart = i;
+      durationStart = i;
+      duration += melody[i];
+      i++;
+      // Check for dot or triplet
+      if (i < melody.length && (melody[i] === "." || melody[i] === ":")) {
         duration += melody[i];
         i++;
-        // Check for dot or triplet
-        if (i < melody.length && (melody[i] === "." || melody[i] === ":")) {
-          duration += melody[i];
-          i++;
-        }
       }
       break;
     }
@@ -162,7 +160,7 @@ const parseNote = (
     duration: duration || undefined,
     position: {
       start: noteStart,
-      end: durationStart || i,
+      end: i, // Now includes duration for single notes
       durationStart,
     },
     degree,
@@ -246,15 +244,58 @@ const applyNoteColors = (
   melodyStartIndex: number,
   lineLength: number,
 ): Array<{ class: string | null }> => {
+  // Validate input parameters
+  if (melodyStartIndex < 0 || lineLength <= 0) {
+    return [];
+  }
+
   const decorations = Array(lineLength).fill({ class: null });
+
+  // First, identify chord groups
+  const chordGroups = new Set<number>();
+  let currentChordStart = -1;
+
+  for (let i = 0; i < notes.length; i++) {
+    if (notes[i].isPartOfChord) {
+      if (currentChordStart === -1) {
+        currentChordStart = i;
+      }
+      chordGroups.add(i);
+    } else if (currentChordStart !== -1) {
+      // End of chord group
+      currentChordStart = -1;
+    }
+  }
 
   notes.forEach((note, index) => {
     const color = colors[index];
     const colorClass = `noteColor_${color.colorIndex}_colors${color.dotClass}`;
 
-    // Color the entire note span (from start of accidental/pitch through duration)
-    for (let i = note.position.start; i < note.position.end; i++) {
-      decorations[melodyStartIndex + i] = { class: colorClass };
+    // Calculate the absolute positions in the line
+    const absoluteStart = melodyStartIndex + note.position.start;
+    const absoluteEnd = melodyStartIndex + note.position.end;
+    const absoluteDurationStart =
+      note.position.durationStart !== undefined
+        ? melodyStartIndex + note.position.durationStart
+        : absoluteEnd;
+
+    // Ensure we don't exceed array bounds
+    if (absoluteStart >= lineLength) {
+      return;
+    }
+
+    if (chordGroups.has(index)) {
+      // For chord notes, only color the pitch and accidental
+      const end = Math.min(absoluteDurationStart, lineLength);
+      for (let i = absoluteStart; i < end; i++) {
+        decorations[i] = { class: colorClass };
+      }
+    } else {
+      // For single notes, color the entire span including duration
+      const end = Math.min(absoluteEnd, lineLength);
+      for (let i = absoluteStart; i < end; i++) {
+        decorations[i] = { class: colorClass };
+      }
     }
   });
 

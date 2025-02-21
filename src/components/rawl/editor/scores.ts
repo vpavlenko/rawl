@@ -14,36 +14,27 @@ E major
 bpm 160
 
 lh
-2   i 5,rtu,
-%
-2b3 c 2b2-2b3   0
-3   i q,eti,
-3b3 c 3b2-3b3   0
-4   c 2-3       0 0
-8   c 2         0
-9   i qeti _
-10  c 2-9       0
-18  c 2-17      0
+2   i 5,rtu,rtu, q,eti,eti,
+4   c 2-3 0 0
+8   c 2   0
+9   i qeti_
+18  c 2-9 0
 
 rh
-1   i x,x,e,7-y-r-w-x, q-i-t-e-x, t-f-s-u-
-5   c 1-5 0
-9   c 1-9 0
+1   i x,x,e,7-y-r-w-x, q-i-t-e-x, t-f-s-u-x, q_
 17  i x,x,e,y-7-w-r-x, a-q-e-t-x, s-t-u-o-x, d,
+5   c 1-5   0
 21  c 17-20 0
 25  i a,
-25  c 17-25 0
 
 ch2
 2b3 i 5=6=5-
-3   c 2         0 2 x 2 3 2
-10  c 2-9       0
-18  c 2         11 12 14
-22  c 18-21     0 0 0 
+3   c 2     0 2 x 2 3 2
+18  c 2     11 12 14
+22  c 18-21 0 0 0 
 
-ch3
-5   i q_
-6   c 2-5       0 0 0
+9    ac 1-9     0
+25b3 ac 17b3-25 0
 `,
   "idea-22---gibran-alcocer": `3/4
 C minor
@@ -328,12 +319,11 @@ C major
 
 
 `,
-  new: `C major
+  new: `E major
 3/4
 
 lh
-2 i 1,38-5-38,
-3 c 2 3 4 0
+16 i 0,
 `,
   schubert_d365_09: `Ab major
 3/4
@@ -371,8 +361,8 @@ rh
 9    c 1-9 0
 
 17b2 i x-5-b5-5-6,2,2,w,.q-7-6-5,e,3,q,.
-21b2 c 17b2-20b3 0
-24b3 i 3-5-8,.
+21b2 c 17b2-20b3 7
+24b3 i e-t-i,.
 25b2 c 17b2-25 0
 
 `,

@@ -77,7 +77,7 @@ export const parseCopyCommand = (
   // "2 c 1 -3 -2 -5 -4 -7 -4 -3" - with negative shifts for Pachelbel's progression
   // "2 c 1 2&5" - with & syntax to layer multiple shifts at same position
   const match = line.match(
-    /^(\d+)(?:b(\d+(?:\.\d+)?))?\s+c\s+(\d+)(?:b(\d+(?:\.\d+)?))?(?:-(\d+)(?:b(\d+(?:\.\d+)?))?)?\s+((?:x|[+-]?\d+(?:&[+-]?\d+)*(?:\s+(?:x|[+-]?\d+(?:&[+-]?\d+)*))*)*)$/,
+    /^(\d+)(?:b(\d+(?:\.\d+)?))?\s+(?:c|ac)\s+(\d+)(?:b(\d+(?:\.\d+)?))?(?:-(\d+)(?:b(\d+(?:\.\d+)?))?)?\s+((?:x|[+-]?\d+(?:&[+-]?\d+)*(?:\s+(?:x|[+-]?\d+(?:&[+-]?\d+)*))*)*)$/,
   );
   if (!match) return null;
 
@@ -135,8 +135,11 @@ export const parseCopyCommand = (
       return [Number(token)];
     });
 
+  // Determine if this is a regular copy or an all-channels copy
+  const isAllChannels = line.trim().split(/\s+/)[1] === "ac";
+
   return {
-    type: "copy",
+    type: isAllChannels ? "ac" : "copy",
     targetMeasure,
     targetBeat,
     sourceStart,

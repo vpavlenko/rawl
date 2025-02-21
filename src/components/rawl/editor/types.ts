@@ -103,6 +103,16 @@ export type Command =
       sourceEndBeat: number;
       shifts: { type: "group"; shifts: (number | "x")[] }[]; // Array of shift groups, each containing one or more shifts to be applied at the same position
     }
+  | {
+      type: "ac"; // All channels copy
+      targetMeasure: number;
+      targetBeat: number;
+      sourceStart: number;
+      sourceStartBeat: number;
+      sourceEnd: number;
+      sourceEndBeat: number;
+      shifts: { type: "group"; shifts: (number | "x")[] }[]; // Array of shift groups, each containing one or more shifts to be applied at the same position
+    }
   | { type: "track"; track: number; baseOctave?: number }
   | { type: "time"; signatures: TimeSignature[] }
   | { type: "bpm"; tempo: number };

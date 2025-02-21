@@ -31,7 +31,7 @@ import {
   RawlContainer,
 } from "./EditorStyles";
 import { scores } from "./scores";
-import { CommandContext, LogicalNote } from "./types";
+import { Command, CommandContext, LogicalNote } from "./types";
 
 // Types for command handling
 declare global {
@@ -169,110 +169,27 @@ const Editor: React.FC = () => {
                 }
 
                 case "copy": {
-                  // Convert all positions to absolute beats first
-                  const sourceStartAbsBeat = calculateGlobalBeatPosition(
-                    command.sourceStart,
-                    command.sourceStartBeat,
-                    newContext.timeSignatures,
+                  // Execute copy for just the current track
+                  executeCopyForChannels(
+                    command,
+                    [newContext.currentTrack],
+                    newContext,
+                    scoreByTrack,
                   );
+                  break;
+                }
 
-                  const sourceEndAbsBeat = calculateGlobalBeatPosition(
-                    command.sourceEnd,
-                    command.sourceEndBeat,
-                    newContext.timeSignatures,
+                case "ac": {
+                  // Get all non-empty channels
+                  const nonEmptyChannels = Array.from(scoreByTrack.keys());
+
+                  // Execute copy for all channels
+                  executeCopyForChannels(
+                    command,
+                    nonEmptyChannels,
+                    newContext,
+                    scoreByTrack,
                   );
-
-                  const targetStartAbsBeat = calculateGlobalBeatPosition(
-                    command.targetMeasure,
-                    command.targetBeat,
-                    newContext.timeSignatures,
-                  );
-
-                  const spanLengthInBeats =
-                    sourceEndAbsBeat - sourceStartAbsBeat;
-
-                  const currentTrackNotes =
-                    scoreByTrack.get(newContext.currentTrack) || [];
-                  const sourceNotes = currentTrackNotes.filter((n) => {
-                    return (
-                      n.span.start >= sourceStartAbsBeat &&
-                      n.span.start < sourceEndAbsBeat
-                    );
-                  });
-
-                  if (sourceNotes.length === 0) {
-                    continue;
-                  }
-
-                  const allCopies = command.shifts
-                    .map((shiftGroup, idx) => {
-                      const copyStartBeat =
-                        targetStartAbsBeat + idx * spanLengthInBeats;
-
-                      // If any shift in the group is 'x', the entire group becomes a rest
-                      if (shiftGroup.shifts.includes("x")) {
-                        return [
-                          {
-                            scaleDegree: -Infinity,
-                            duration: spanLengthInBeats * TICKS_PER_QUARTER,
-                            span: {
-                              start: copyStartBeat,
-                              end: copyStartBeat + spanLengthInBeats,
-                            },
-                            midiNumber: null,
-                          },
-                        ];
-                      }
-
-                      // For each shift in the group, create a copy of all source notes with that shift
-                      return shiftGroup.shifts.flatMap((shift) => {
-                        return sourceNotes.map((n) => {
-                          // Calculate relative position from the start of the source
-                          const relativePosition =
-                            n.span.start - sourceStartAbsBeat;
-                          // Apply this relative position to the copy start
-                          const targetPosition =
-                            copyStartBeat + relativePosition;
-
-                          if (n.midiNumber === null) {
-                            return {
-                              ...n,
-                              span: {
-                                start: targetPosition,
-                                end:
-                                  targetPosition + (n.span.end - n.span.start),
-                              },
-                            };
-                          }
-
-                          const { newDegree, newMidi } = calculateShiftedNote(
-                            n.scaleDegree,
-                            shift as number,
-                            newContext.currentKey,
-                            n.accidental || 0,
-                            newContext.currentTrack,
-                            newContext,
-                          );
-
-                          return {
-                            ...n,
-                            span: {
-                              start: targetPosition,
-                              end: targetPosition + (n.span.end - n.span.start),
-                            },
-                            scaleDegree: newDegree,
-                            midiNumber: newMidi,
-                            accidental: n.accidental,
-                          };
-                        });
-                      });
-                    })
-                    .flat();
-
-                  scoreByTrack.set(newContext.currentTrack, [
-                    ...currentTrackNotes,
-                    ...allCopies,
-                  ]);
                   break;
                 }
               }
@@ -411,5 +328,120 @@ const Editor: React.FC = () => {
     </EditorContainer>
   );
 };
+
+// Helper function to execute copy command for given channels
+function executeCopyForChannels(
+  command: Command & { type: "copy" | "ac" },
+  channels: number[],
+  context: CommandContext,
+  scoreByTrack: Map<number, LogicalNote[]>,
+) {
+  // Save current track
+  const originalTrack = context.currentTrack;
+
+  // Convert all positions to absolute beats first
+  const sourceStartAbsBeat = calculateGlobalBeatPosition(
+    command.sourceStart,
+    command.sourceStartBeat,
+    context.timeSignatures,
+  );
+
+  const sourceEndAbsBeat = calculateGlobalBeatPosition(
+    command.sourceEnd,
+    command.sourceEndBeat,
+    context.timeSignatures,
+  );
+
+  const targetStartAbsBeat = calculateGlobalBeatPosition(
+    command.targetMeasure,
+    command.targetBeat,
+    context.timeSignatures,
+  );
+
+  const spanLengthInBeats = sourceEndAbsBeat - sourceStartAbsBeat;
+
+  // For each channel, execute the copy
+  for (const track of channels) {
+    // Set current track
+    context.currentTrack = track;
+
+    const currentTrackNotes = scoreByTrack.get(track) || [];
+    const sourceNotes = currentTrackNotes.filter((n) => {
+      return (
+        n.span.start >= sourceStartAbsBeat && n.span.start < sourceEndAbsBeat
+      );
+    });
+
+    if (sourceNotes.length === 0) {
+      continue;
+    }
+
+    const allCopies = command.shifts
+      .map((shiftGroup, idx) => {
+        const copyStartBeat = targetStartAbsBeat + idx * spanLengthInBeats;
+
+        // If any shift in the group is 'x', the entire group becomes a rest
+        if (shiftGroup.shifts.includes("x")) {
+          return [
+            {
+              scaleDegree: -Infinity,
+              duration: spanLengthInBeats * TICKS_PER_QUARTER,
+              span: {
+                start: copyStartBeat,
+                end: copyStartBeat + spanLengthInBeats,
+              },
+              midiNumber: null,
+            },
+          ];
+        }
+
+        // For each shift in the group, create a copy of all source notes with that shift
+        return shiftGroup.shifts.flatMap((shift) => {
+          return sourceNotes.map((n) => {
+            // Calculate relative position from the start of the source
+            const relativePosition = n.span.start - sourceStartAbsBeat;
+            // Apply this relative position to the copy start
+            const targetPosition = copyStartBeat + relativePosition;
+
+            if (n.midiNumber === null) {
+              return {
+                ...n,
+                span: {
+                  start: targetPosition,
+                  end: targetPosition + (n.span.end - n.span.start),
+                },
+              };
+            }
+
+            const { newDegree, newMidi } = calculateShiftedNote(
+              n.scaleDegree,
+              shift as number,
+              context.currentKey,
+              n.accidental || 0,
+              track,
+              context,
+            );
+
+            return {
+              ...n,
+              span: {
+                start: targetPosition,
+                end: targetPosition + (n.span.end - n.span.start),
+              },
+              scaleDegree: newDegree,
+              midiNumber: newMidi,
+              accidental: n.accidental,
+            };
+          });
+        });
+      })
+      .flat();
+
+    scoreByTrack.set(track, [...currentTrackNotes, ...allCopies]);
+  }
+
+  // Restore original track
+  context.currentTrack = originalTrack;
+}
 
 export default Editor;

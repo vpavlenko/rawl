@@ -41,7 +41,7 @@ import { Command, CommandContext, LogicalNote } from "./types";
 const rawlLanguage = StreamLanguage.define({
   name: "rawl",
   languageData: {
-    commentTokens: { line: "% " },
+    commentTokens: { line: "%" },
   },
   // Basic token method required by StreamLanguage
   token(stream) {

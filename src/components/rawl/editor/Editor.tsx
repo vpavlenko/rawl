@@ -1,3 +1,6 @@
+import { toggleComment } from "@codemirror/commands";
+import { StreamLanguage } from "@codemirror/language";
+import { keymap } from "@codemirror/view";
 import CodeMirror from "@uiw/react-codemirror";
 import React, {
   useCallback,
@@ -33,6 +36,29 @@ import {
 } from "./EditorStyles";
 import { scores } from "./scores";
 import { Command, CommandContext, LogicalNote } from "./types";
+
+// Define a simple language for the editor that supports % comments
+const rawlLanguage = StreamLanguage.define({
+  name: "rawl",
+  languageData: {
+    commentTokens: { line: "% " },
+  },
+  // Basic token method required by StreamLanguage
+  token(stream) {
+    // Skip whitespace
+    if (stream.eatSpace()) return null;
+
+    // Handle comments
+    if (stream.match("%")) {
+      stream.skipToEnd();
+      return "comment";
+    }
+
+    // Skip to next token
+    stream.next();
+    return null;
+  },
+});
 
 // Types for command handling
 declare global {
@@ -442,7 +468,16 @@ const Editor: React.FC = () => {
               theme={customTheme}
               height="100%"
               style={{ flex: 1 }}
-              extensions={[characterBackgroundsPlugin]}
+              extensions={[
+                characterBackgroundsPlugin,
+                rawlLanguage,
+                keymap.of([
+                  {
+                    key: "Mod-/",
+                    run: toggleComment,
+                  },
+                ]),
+              ]}
               basicSetup={{
                 lineNumbers: true,
                 highlightActiveLineGutter: true,

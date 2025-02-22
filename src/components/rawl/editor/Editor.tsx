@@ -148,7 +148,7 @@ const KeyboardLayout = styled.div`
   }
 
   .section {
-    margin: 16px 0;
+    margin: 24px;
   }
 
   .section:first-child {
@@ -214,20 +214,6 @@ const NoteExample: React.FC<NoteExampleProps> = ({ beats, style }) => {
 
   return <NoteBase style={style}>{beatMarkers}</NoteBase>;
 };
-
-// Make sure EditorPanel has proper flex setup
-const EditorPanel = styled.div<{ isFolded: boolean }>`
-  position: fixed;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: ${(props) => (props.isFolded ? "40px" : "500px")};
-  background: #1e1e1e;
-  transition: width 0.3s ease;
-  display: flex;
-  flex-direction: row;
-  overflow: hidden;
-`;
 
 const Editor: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -598,10 +584,11 @@ const Editor: React.FC = () => {
                   </span>
 
                   <div className="note-col">
-                    <NoteExample beats={6} style={{ width: "180px" }} />
+                    <NoteExample beats={3} style={{ width: "90px" }} />
                   </div>
                   <span>
-                    <code>+.</code> 4 × 3/2 = 6 beats
+                    <code>_.</code> 2 × 3/2 = 3 beats (<code>.</code> elongates
+                    by half)
                   </span>
 
                   <div className="note-col">
@@ -615,7 +602,8 @@ const Editor: React.FC = () => {
                     <NoteExample beats={1.33} style={{ width: "40px" }} />
                   </div>
                   <span>
-                    <code>_:</code> 2 × ⅔ ≈ 1.33 beats (for triplets)
+                    <code>_:</code> 2 × ⅔ ≈ 1.33 beats (for triplets,{" "}
+                    <code>:</code> reduces by 1/3)
                   </span>
 
                   <div className="note-col">

@@ -11,7 +11,6 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/plugin-syntax-bigint": "^7.8.3",
     "@babel/plugin-syntax-flow": "^7.14.5",
-    "@babel/plugin-transform-optional-chaining": "^7.22.5",
     "@babel/plugin-transform-react-jsx": "^7.14.9",
     "@babel/plugin-transform-runtime": "^7.22.5",
     "@babel/preset-env": "^7.22.5",
@@ -103,6 +102,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
+    "@babel/plugin-transform-optional-chaining": "^7.25.9",
     "@babel/preset-env": "^7.26.0",
     "@firebase/app-types": "0.x",
     "@firebase/util": "0.x",

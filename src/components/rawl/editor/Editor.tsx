@@ -220,6 +220,8 @@ const Editor: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isFolded, setIsFolded] = useState(false);
   const editorRef = useRef<any>(null);
+  const cycleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { playSongBuffer, rawlProps, analyses, latencyCorrectionMs, tempo } =
     useContext(AppContext);
   const [score, setScore] = useState("");
@@ -498,6 +500,21 @@ const Editor: React.FC = () => {
       const lineNumber = viewUpdate.state.doc.lineAt(line).number;
 
       if (lineNumber !== currentLine) {
+        // Clear any existing timeouts
+        if (cycleTimeoutRef.current) {
+          clearTimeout(cycleTimeoutRef.current);
+          cycleTimeoutRef.current = null;
+        }
+        if (debounceTimeoutRef.current) {
+          clearTimeout(debounceTimeoutRef.current);
+          debounceTimeoutRef.current = null;
+        }
+
+        // Reset states immediately
+        setShadowScore(null);
+        setIsPlayingFromShadow(false);
+        debouncedMelodyPlayback(score, false);
+
         setCurrentLine(lineNumber);
 
         // Create shadow copy and start the comment/uncomment cycle
@@ -514,46 +531,70 @@ const Editor: React.FC = () => {
               command.type === "insert" ||
               command.type === "ac")
           ) {
-            let cycleCount = 0;
-            const startCycle = () => {
-              if (cycleCount < 4) {
-                // Toggle comment
-                const newLines = [...lines];
-                if (cycleCount % 2 === 0) {
-                  // Comment the line
-                  newLines[lineNumber - 1] = "% " + newLines[lineNumber - 1];
+            // Add debounce before starting the cycle
+            debounceTimeoutRef.current = setTimeout(() => {
+              let cycleCount = 0;
+
+              const startCycle = () => {
+                if (cycleCount < 4) {
+                  // Use requestAnimationFrame to ensure smooth timing
+                  requestAnimationFrame(() => {
+                    // Toggle comment
+                    const newLines = [...lines];
+                    if (cycleCount % 2 === 0) {
+                      // Comment the line
+                      newLines[lineNumber - 1] =
+                        "% " + newLines[lineNumber - 1];
+                    } else {
+                      // Uncomment the line
+                      newLines[lineNumber - 1] = newLines[
+                        lineNumber - 1
+                      ].replace(/^% /, "");
+                    }
+
+                    const newScore = newLines.join("\n");
+                    setShadowScore(newScore);
+                    setIsPlayingFromShadow(true);
+
+                    // Trigger MIDI generation with shadow score
+                    debouncedMelodyPlayback(newScore, false);
+
+                    cycleCount++;
+                    // Use setTimeout with requestAnimationFrame for next cycle
+                    cycleTimeoutRef.current = setTimeout(() => {
+                      requestAnimationFrame(startCycle);
+                    }, 200);
+                  });
                 } else {
-                  // Uncomment the line
-                  newLines[lineNumber - 1] = newLines[lineNumber - 1].replace(
-                    /^% /,
-                    "",
-                  );
+                  // Reset after 4 cycles
+                  cycleTimeoutRef.current = null;
+                  debounceTimeoutRef.current = null;
+                  setShadowScore(null);
+                  setIsPlayingFromShadow(false);
+                  debouncedMelodyPlayback(score, false);
                 }
+              };
 
-                const newScore = newLines.join("\n");
-                setShadowScore(newScore);
-                setIsPlayingFromShadow(true);
-
-                // Trigger MIDI generation with shadow score
-                debouncedMelodyPlayback(newScore, false);
-
-                cycleCount++;
-                setTimeout(startCycle, 200);
-              } else {
-                // Reset after 4 cycles
-                setShadowScore(null);
-                setIsPlayingFromShadow(false);
-                debouncedMelodyPlayback(score, false);
-              }
-            };
-
-            startCycle();
+              startCycle();
+            }, 300); // 300ms debounce
           }
         }
       }
     },
     [currentLine, score, debouncedMelodyPlayback, context],
   );
+
+  // Clean up timeouts on unmount
+  useEffect(() => {
+    return () => {
+      if (cycleTimeoutRef.current) {
+        clearTimeout(cycleTimeoutRef.current);
+      }
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
+      }
+    };
+  }, []);
 
   // Modified handleTextChange to use shadow score when active
   const handleTextChange = useCallback(

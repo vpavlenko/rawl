@@ -243,8 +243,7 @@ export const CodeMirrorWrapper = styled.div`
 export const FoldButton = styled.button`
   position: absolute;
   left: -30px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
   width: 30px;
   height: 60px;
   background: #1e1e1e;

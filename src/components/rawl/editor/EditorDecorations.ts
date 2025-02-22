@@ -7,7 +7,13 @@ import {
   ViewUpdate,
 } from "@codemirror/view";
 import { createTheme } from "@uiw/codemirror-themes";
-import { getScaleMapForMode, KeySignature, NOTE_LETTER_MAP } from "./types";
+import { parseCommand } from "./commandParser";
+import {
+  CommandContext,
+  getScaleMapForMode,
+  KeySignature,
+  NOTE_LETTER_MAP,
+} from "./types";
 
 // Types for the new architecture
 interface ParsedNote {
@@ -37,6 +43,40 @@ export const getBackgroundsForLine = (
 ) => {
   // Get the base decorations first (for backgrounds)
   let baseDecorations = Array.from(line).map(() => ({ class: null }));
+
+  // Skip empty lines and comments
+  const cleanLine = line.split("%")[0].trim();
+  if (!cleanLine) return baseDecorations;
+
+  // Create a context for command parsing
+  const context: CommandContext = {
+    currentKey,
+    currentTrack: 1,
+    timeSignatures: [{ numerator: 4, measureStart: 1 }],
+    channelOctaves: {
+      0: 5,
+      1: 3,
+    },
+    currentBpm: 120,
+  };
+
+  // Try to parse the line as a command
+  const isValidCommand = parseCommand(cleanLine, context) !== null;
+
+  // If the line is not a valid command, apply strikethrough to all non-whitespace characters
+  if (!isValidCommand) {
+    let inWhitespace = true;
+    baseDecorations = Array.from(line).map((char) => {
+      if (char.trim() === "") {
+        inWhitespace = true;
+        return { class: null };
+      }
+      if (inWhitespace) {
+        inWhitespace = false;
+      }
+      return { class: "invalid-command" };
+    });
+  }
 
   // Debug logging
   console.log("Processing line:", JSON.stringify(line));

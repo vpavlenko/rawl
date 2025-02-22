@@ -138,6 +138,11 @@ export const CodeMirrorWrapper = styled.div`
     text-underline-offset: 3px;
   }
 
+  .invalid-command {
+    text-decoration-color: white;
+    opacity: 0.5;
+  }
+
   /* Override text colors for note backgrounds */
   .noteColor_0_colors {
     color: #000000 !important;

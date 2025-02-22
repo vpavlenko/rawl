@@ -318,6 +318,10 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "six-dances-in-bulgarian-rhythm-no.6-from-mikrokosmos-sz.107-bb-105---bela-bartok",
       "an-evening-at-the-village---bartok-bela",
+      "b.-bartok-for-children-vol-1-nr-1-children-at-play",
+      "b.-bartok-for-children-vol.-1-nr-38-winter-solstice-song-sz42",
+      "b.-bartok-for-children-vol.-1-nr.3--quasi-adagio",
+      "b.-bartok-for-children-vol.-1-nr.29-pentatonic-tune-sz42",
     ],
     composerBirthYear: 1881,
     genre: "Folk, Traditional",

@@ -86,11 +86,17 @@ lh
 
 
 rh
-1b3 i 5=t-. bw=w-.5-,e=r-. 7=8-.5,e'r'e-. 7-w--r-y-o-u- t=g-.d-
+1b3 i 5=t-. 
+2   i bw=w-.5-,e=r-.
+3   i 7=8-.5,e'r'e-.
+4   i 7-w-r-y-o-u-
+5   i t=g-.d-
 5   c 1-4
 9   i a_
 
-17b3 i t,4-6-9-7-5-x- q-e-y-t-e-x-
+17b3 i t,
+18   i   4-6-9-7-5-
+19   i   q-e-y-t-e-
 20   c 18      7
 21   i a=k=g-d-a-t-
 22   c 18-20b3

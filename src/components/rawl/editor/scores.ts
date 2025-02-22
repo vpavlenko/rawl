@@ -46,11 +46,20 @@ lh
 
 
 rh
-1   i x,x,e,7-y-r-w-x, q-i-t-e-x, t-f-s-u-x, q_
-17  i x,x,e,y-7-w-r-x, a-q-e-t-x, s-t-u-o-x, d,
-5   c 1-5
-21  c 17-20
-25  i a,
+1b3  i e,
+2    i 7-y-r-w-
+3    i q-i-t-e-
+4    i t-f-s-u-
+5    i q_
+5    c 1-5
+
+17b3 i e,
+18   i y-7-w-r-
+19   i a-q-e-t-
+20   i s-t-u-o-
+21   i d,
+21   c 17-20
+25   i a,
 
 
 ch2

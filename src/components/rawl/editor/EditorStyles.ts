@@ -1,10 +1,15 @@
 import styled from "styled-components";
 import { FOOTER_HEIGHT } from "../../AppFooter";
 
-export const EditorContainer = styled.div`
+interface EditorContainerProps {
+  height?: string;
+}
+
+export const EditorContainer = styled.div<EditorContainerProps>`
   position: relative;
   width: 100%;
-  height: 100%;
+  height: ${(props) => props.height || "100%"};
+  min-height: 200px;
 `;
 
 export const RawlContainer = styled.div`
@@ -16,14 +21,15 @@ export const RawlContainer = styled.div`
 
 interface EditorPanelProps {
   isFolded: boolean;
+  height?: string;
 }
 
-export const EditorPanel = styled.div<{ isFolded: boolean }>`
+export const EditorPanel = styled.div<{ isFolded: boolean; height?: string }>`
   position: fixed;
   bottom: ${FOOTER_HEIGHT}px;
   right: 0;
   width: calc(100% - 40px);
-  height: 50vh;
+  height: ${(props) => props.height || "50vh"};
   background: #1e1e1e;
   display: grid;
   grid-template-columns: ${(props) => (props.isFolded ? "auto" : "1fr 1fr")};
@@ -262,4 +268,23 @@ export const ErrorMessage = styled.div`
   color: #ff6b6b;
   font-size: 12px;
   margin-top: 4px;
+`;
+
+export const ResizeHandle = styled.div`
+  position: absolute;
+  top: -3px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: transparent;
+  cursor: row-resize;
+  z-index: 1001;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &:active {
+    background: rgba(255, 255, 255, 0.2);
+  }
 `;

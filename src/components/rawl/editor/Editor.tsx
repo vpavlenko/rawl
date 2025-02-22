@@ -33,6 +33,7 @@ import {
   ErrorMessage,
   FoldButton,
   RawlContainer,
+  ResizeHandle,
 } from "./EditorStyles";
 import { scores } from "./scores";
 import { Command, CommandContext, LogicalNote } from "./types";
@@ -248,6 +249,13 @@ const Editor: React.FC = () => {
     commentToEndOfFile: false,
     currentBpm: 120, // Default BPM
   });
+  const [panelHeight, setPanelHeight] = useState(() => {
+    const saved = localStorage.getItem("editorPanelHeight");
+    return saved || "50vh";
+  });
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartY = useRef(0);
+  const dragStartHeight = useRef(0);
 
   // Get the analysis for this slug if it exists
   const analysis = analyses[`f/${slug}`];
@@ -260,6 +268,55 @@ const Editor: React.FC = () => {
       delete window.__disableGlobalShortcuts;
     }
   }, [isEditorFocused]);
+
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      console.log("Mouse down event triggered");
+      setIsDragging(true);
+      dragStartY.current = e.clientY;
+      const currentHeight = window.innerHeight * (parseInt(panelHeight) / 100);
+      dragStartHeight.current = currentHeight;
+      e.preventDefault();
+      e.stopPropagation();
+    },
+    [panelHeight],
+  );
+
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!isDragging) return;
+
+      const delta = e.clientY - dragStartY.current;
+      console.log("Dragging:", { delta, startHeight: dragStartHeight.current });
+      const newHeight = Math.max(200, dragStartHeight.current - delta);
+      const heightVh = Math.round((newHeight / window.innerHeight) * 100);
+      setPanelHeight(`${heightVh}vh`);
+      localStorage.setItem("editorPanelHeight", `${heightVh}vh`);
+    },
+    [isDragging],
+  );
+
+  const handleMouseUp = useCallback(() => {
+    console.log("Mouse up event triggered");
+    if (isDragging) {
+      setIsDragging(false);
+    }
+  }, [isDragging]);
+
+  useEffect(() => {
+    if (isDragging) {
+      console.log("Adding global mouse event listeners");
+      window.addEventListener("mousemove", handleMouseMove, { capture: true });
+      window.addEventListener("mouseup", handleMouseUp, { capture: true });
+      return () => {
+        console.log("Removing global mouse event listeners");
+        window.removeEventListener("mousemove", handleMouseMove, {
+          capture: true,
+        });
+        window.removeEventListener("mouseup", handleMouseUp, { capture: true });
+      };
+    }
+  }, [isDragging, handleMouseMove, handleMouseUp]);
 
   // Create a debounced version of handleMelodyPlayback
   const debouncedMelodyPlayback = useCallback(
@@ -474,7 +531,7 @@ const Editor: React.FC = () => {
 
   return (
     <EditorContainer>
-      <div style={{ paddingBottom: "100vh" }}>
+      <div style={{ paddingBottom: "100vh", position: "relative" }}>
         <RawlContainer>
           {rawlProps && (
             <Rawl
@@ -485,11 +542,11 @@ const Editor: React.FC = () => {
           )}
         </RawlContainer>
       </div>
-      <BaseEditorPanel isFolded={isFolded}>
+      <BaseEditorPanel isFolded={isFolded} height={panelHeight}>
+        <ResizeHandle onMouseDown={handleMouseDown} />
         <FoldButton onClick={() => setIsFolded(!isFolded)}>
           {isFolded ? "<" : ">"}
         </FoldButton>
-
         <EditorContent>
           <CodeMirrorWrapper>
             <CodeMirror

@@ -68,16 +68,17 @@ export const parseCopyCommand = (
   line: string,
   timeSignatures: TimeSignature[] = [],
 ): Command | null => {
-  // Match the command format: coordinate c sourceMeasureSpan sequenceOfShifts
+  // Match the command format: coordinate c sourceMeasureSpan [sequenceOfShifts]
   // Examples:
   // "2b1.5 c 1b1-8b4 0" - explicit beat positions
   // "2 c 1-8 0" - implicit beat positions (1b1-9b1)
   // "2 c 1 0" - single measure (1b1-2b1)
+  // "2 c 1" - single measure with default shift of 0
   // "2 c 1 0 x 0" - with rest marker 'x' to skip a copy
   // "2 c 1 -3 -2 -5 -4 -7 -4 -3" - with negative shifts for Pachelbel's progression
   // "2 c 1 2&5" - with & syntax to layer multiple shifts at same position
   const match = line.match(
-    /^(\d+)(?:b(\d+(?:\.\d+)?))?\s+(?:c|ac)\s+(\d+)(?:b(\d+(?:\.\d+)?))?(?:-(\d+)(?:b(\d+(?:\.\d+)?))?)?\s+((?:x|[+-]?\d+(?:&[+-]?\d+)*(?:\s+(?:x|[+-]?\d+(?:&[+-]?\d+)*))*)*)$/,
+    /^(\d+)(?:b(\d+(?:\.\d+)?))?\s+(?:c|ac)\s+(\d+)(?:b(\d+(?:\.\d+)?))?(?:-(\d+)(?:b(\d+(?:\.\d+)?))?)?\s*((?:x|[+-]?\d+(?:&[+-]?\d+)*(?:\s+(?:x|[+-]?\d+(?:&[+-]?\d+)*))*)*)$/,
   );
   if (!match) return null;
 
@@ -122,7 +123,8 @@ export const parseCopyCommand = (
   }
 
   // Extract all shifts by matching numbers or 'x', supporting & syntax for layered shifts
-  const shifts = (shiftsStr || "")
+  // If no shifts provided, default to ["0"]
+  const shifts = (shiftsStr || "0")
     .trim()
     .split(/\s+/)
     .filter(Boolean)

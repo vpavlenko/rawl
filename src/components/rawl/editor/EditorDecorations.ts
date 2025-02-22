@@ -84,8 +84,9 @@ export const getBackgroundsForLine = (
     // "21b2 c 17b2-20b3 7"
     // "7   c 6-6b3 0"
     // "9    ac 1-9     0"
+    // "2    c 1" - with default shift of 0
     const copyMatch = line.match(
-      /^\s*(\d+(?:b\d+(?:\.\d+)?)?)\s+(c|ac)\s+(\d+(?:b\d+)?(?:-\d+(?:b\d+)?)?)\s+/,
+      /^\s*(\d+(?:b\d+(?:\.\d+)?)?)\s+(c|ac)\s+(\d+(?:b\d+)?(?:-\d+(?:b\d+)?)?)\s*/,
     );
 
     if (copyMatch) {

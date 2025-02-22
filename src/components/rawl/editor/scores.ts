@@ -6,23 +6,23 @@ bpm 160
 lh
 2   i 5,wtu,wtu,
 3   c 2     0 x x 0
-7   c 6-6b3 0
+7   c 6-6b3
 7b3 i rtu,
 18  i 5,rtu,rtu,
 19  c 18    0 x x 0 0
 
 4   i 5,eti,eti,
-5   c 4     0
+5   c 4
 8   i q,
-8b2 c 4b2   0
+8b2 c 4b2
 9   i q,eti-
 20  c 8     0 0 x x 0
-25  c 9     0
+25  c 9
 
 
 rh
 1b2 i x-8'9'8=7-8-w,4,4,4_6-5-4,3,5-8-5,.
-5   c 1     0
+5   c 1
 6   i e-w-4,4,4,.r-e-w-w,q,3-5-3,.
 
 17b2 i x-5-b5-5-6,2,2,w,.q-7-6-5,e,3,q,.
@@ -30,8 +30,8 @@ rh
 24b3 i e-t-i,.
 
 
-9    ac 1-9     0
-25b2 ac 17b2-25 0
+9    ac 1-9
+25b2 ac 17b2-25
 `,
   "wima.e480-schubert_de.-tanz-d.365.25": `3/4
 E major
@@ -40,16 +40,16 @@ bpm 160
 lh
 2   i 5,rtu,rtu, q,eti,eti,
 4   c 2-3 0 0
-8   c 2   0
+8   c 2
 9   i qeti_
-18  c 2-9 0
+18  c 2-9
 
 
 rh
 1   i x,x,e,7-y-r-w-x, q-i-t-e-x, t-f-s-u-x, q_
 17  i x,x,e,y-7-w-r-x, a-q-e-t-x, s-t-u-o-x, d,
-5   c 1-5   0
-21  c 17-20 0
+5   c 1-5
+21  c 17-20
 25  i a,
 
 
@@ -60,8 +60,8 @@ ch2
 22  c 18-21 0 0 0 
 
 
-9    ac 1-9     0
-25b3 ac 17b3-25 0
+9    ac 1-9
+25b3 ac 17b3-25
 `,
   "wima.1124-schubert_de.-tanz-d.365.26": `3/4
 E major
@@ -73,23 +73,23 @@ lh
 4   c 2       0 x 0 x 0
 5   c 3       0 x 0
 9   i qeti_
-18  c 2-9     0
+18  c 2-9
 
 
 rh
 1b3 i 5=t-. bw=w-.5-,e=r-. 7=8-.5,e'r'e-. 7-w--r-y-o-u- t=g-.d-
-5   c 1-4      0
+5   c 1-4
 9   i a_
 
 17b3 i t,4-6-9-7-5-x- q-e-y-t-e-x-
 20   c 18      7
 21   i a=k=g-d-a-t-
-22   c 18-20b3 0
+22   c 18-20b3
 24b3 i t=g-.a,
 
 
-9b3  ac 1b3-9   0
-25b3 ac 17b3-25 0`,
+9b3  ac 1b3-9
+25b3 ac 17b3-25`,
   "wima.4be9-schubert_de.-tanz-d.365.28": `A major
 bpm 160
 3/4
@@ -99,7 +99,7 @@ lh
 2 i q_.      w_.      q_.      w_.      5_.        q_.     5_.      
 18 c 6    0 0 x x 0
 20 c 4        0 0 x 0 
-24 c 8-9              0
+24 c 8-9
 
 rh 4
 8b2  i 7-:w-:r-:
@@ -109,12 +109,13 @@ rh 4
 17b3 i q, 7,x,7-x- x_7-x- q,x,q-x- x_a-x- u,x,u-x- t,x,t-x- 5,x,5,q,
 
 1b3 i t'y't-. q,t-a-q, 7_
-3   c 1-3       0
+3   c 1-3
 5b3 i t'y't-. 7,r-s-7, q,e-a-5_x,5,q,
 
 
-25b2 ac 17b2-25 0
-9    ac 1-9     0`,
+9    ac 1-9
+25b2 ac 17b2-25
+`,
   "idea-22---gibran-alcocer": `3/4
 C minor
 
@@ -126,48 +127,48 @@ lh
 1b3 c 1b2-1b3 0 0 0 0
 3   i q,tip,
 3b3 c 3b2-3b3 0 0 0 0
-5   c 1-4 0
+5   c 1-4
 
 9   c 1 -2 x x 0
 10  c 3 0 -1
-13  c 9-12 0
+13  c 9-12
 17  c 16b2-16b3 0 0 0
 18  i yip_.
 
 19  c 9 2 0
-21  c 10-11 0
+21  c 10-11
 23  c 19-22 0 0 0
 35  c 34b2-34b3 0 0 0
 36  i ruo_.
 
-37  c 19 0
+37  c 19
 38  c 19b1-19b2 7
 38b2 c 37b2-37b3 0 0
-39  c 21 0
+39  c 21
 40  i t,
 40b2 c 39b2-39b3 0 0
 41  c 37-40 0 0
-49  c 37-39 0
+49  c 37-39
 52  i t_.
 
-53  c 9-18 0
+53  c 9-18
 
-64  c 19-35 0
+64  c 19-35
 
-81  c 19-34 0`,
+81  c 19-34`,
   "idea-15---gibran-alcocer": `3/4
 Db minor
 
 lh
 2 i 4r,ry,ry,q,ry,ry,
 4 c 2-3 2 4 3
-10 c 2-9 0
+10 c 2-9
 18 i uo+.
 20 c 2-19 0 0 0 0
 92 i h-d-a-h-d-a-
 93 c 92 0 0 0
 96 i g-d-a-g-d-a- g-d-a-g-d-a- f-s-u-f-s-u-g-s-u-g-s-u-
-100 c 92-99 0
+100 c 92-99
 
 rh
 16 i w_.e_.y_.t_.
@@ -176,19 +177,19 @@ rh
 9 i x,x-w-e-w-6+x-6-6-7-q_.t,. x-r-r-t_e_r_
 
 20 i y-e-q- y-e-q- u-e-q- y-e-q-
-22 c 20-21 0
+22 c 20-21
 24 i t-e-q- t-e-q-
-25 c 21 0
+25 c 21
 26 c 24 -1
 27 c 22 -1
-28 c 20-27 0
+28 c 20-27
 36 i y_.t_.
-56 c 20-37 0
+56 c 20-37
 
 38 i q_.y_t,
-40 c 38-39 0
+40 c 38-39
 42 i e_e,e_r,w_w,w,e,w,6_.
-47 c 39-43 0
+47 c 39-43
 92 c 38-55 7
 `,
   "der-flohwalzer": `4/4
@@ -198,10 +199,10 @@ lh 3
 rh 3
 1b4 i y-t-
 2 c 1 0 0 x 0 
-6 c 2-5 0
-21 c 1 0
-22 c 18-21 0 
-42 c 2-17 0
+6 c 2-5
+21 c 1
+22 c 18-21
+42 c 2-17
 `,
 
   Gravity_Falls_Opening: `D minor
@@ -219,13 +220,13 @@ lh
 
 rh
 1 i e-q-5-q-x_ e-7-5-7-x_ w-7-5-7-
-1b3 c 1-3 0
-4 c 3-3b3 0
+1b3 c 1-3
+4 c 3-3b3
 4b3 i w,t,q_.w,e+t_r,t,7+q_x,w,e_w_r_t_r_e_
 
 13b2 i e,e,e,t,t,r,e,x,t,t,t,r,t,r,e,
-17 c 13-15 0
-21 c 13-14 0
+17 c 13-15
+21 c 13-14
 23b2 i y,y,y,r_u_t_u_
 
 5 c 5-25 -7
@@ -251,15 +252,13 @@ rh 4
 
 ch2 3
 1b2 i qet,
-1b3 c 1b2-1b3 0
+1b3 c 1b2-1b3
 2 c 1 0 0 0
 
 Eb major
 rh 4 
 79 i q_.q_.q,7,6,5,
-95 c 79-82 2 1
-
-`,
+95 c 79-82 2 1`,
 
   chopsticks: `C major
 bpm 184
@@ -268,18 +267,18 @@ bpm 184
 lh
 1 i t,us,us,
 3 i t,da,da,
-4 c 3 0
+4 c 3
 2 c 1 0 x x 0 0 -4 -4
-9 c 1-7 0
+9 c 1-7
 16 i q,
 17 c 5-8 0 0 0 
-29 c 13-16 0
+29 c 13-16
 49 i t,usf,usf,
-50 c 49 0
+50 c 49
 51 i q,tad,tad,
-52 c 51 0
+52 c 51
 53 c 49-52 0 0 
-61 c 49-51 0
+61 c 49-51
 64 i q,
 33 c 17-32 0 x 0
 
@@ -287,8 +286,8 @@ rh
 16b3 i d,s,x,a,u,x,y,t,x+t,r,
 22b3 i r,e,
 16 c 16-23 -2
-24 c 16-21 0
-48 c 16-32 0
+24 c 16-21
+48 c 16-32
 51b2 i t=y-:u=i-:s=d-:f=g
 
 
@@ -303,8 +302,8 @@ rh
 
 lh 2
 5 i q,tad,q,yaf,
-6 c 5 0
-7 c 5-5b3 0
+6 c 5
+7 c 5-5b3
 
 
 C major

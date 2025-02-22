@@ -605,15 +605,18 @@ const Editor: React.FC = () => {
                 </span>
                 <code>5&nbsp;&nbsp;&nbsp;c 1-4&nbsp;&nbsp;&nbsp;0 -4 x 7</code>
                 <span>
-                  Copy measures 1..4 to measure 5 several times. 0 means "don't
-                  shift note pitches", -4 means "shift down 4 scale degrees", x
-                  means "rest for the duration of slice", 7 means "shift up 7
-                  scale degrees, i.e. one octave"
+                  Copy measures 1..4 to measure 5 several times. 0 means
+                  "verbatim copy, don't shift note pitches", -4 means "shift
+                  down 4 scale degrees", x means "rest for the duration of
+                  slice", 7 means "shift up 7 scale degrees, i.e. one octave"
                 </span>
-                <code>2b2 c 1b2-1b4&nbsp;&nbsp;&nbsp;0</code>
-                <span>Copy two beats (measure 1 beats 2 to 3)</span>
-                <code>9&nbsp;&nbsp;&nbsp;ac 1-8&nbsp;&nbsp;&nbsp;0</code>
-                <span>Copy notes in all channels</span>
+                <code>2b2 c 1b2-1b4</code>
+                <span>
+                  Copy two beats (measure 1 beats 2 to 3), no target defaults to
+                  "0" (one verbatim copy)
+                </span>
+                <code>9&nbsp;&nbsp;&nbsp;ac 1-8</code>
+                <span>All Copy: copy notes in all channels</span>
                 <code>1&nbsp;&nbsp;&nbsp;c 1&nbsp;&nbsp;&nbsp;2&5</code>
                 <span>
                   Layer multiple shifts at same position - for doubling in

@@ -536,10 +536,12 @@ const Editor: React.FC = () => {
             <div className="section">
               <h3>Insert/copy</h3>
               <div className="grid">
-                <code>2b2 i q,x,eti,</code>
+                <code>2b2 i q,.x-eti,</code>
                 <span>
-                  Insert at measure 2. x is rest. Several note pitches under one
-                  duration is a chord
+                  Insert at measure 2 beat 2: 1+1/2 beats (,.) of scale degree
+                  one (tonic) in middle octave, then a rest (x) of 1/2 beats,
+                  then a beat of a chord 3-5-1, where 1 is in upper octave.
+                  Several note pitches under one duration is a chord
                 </span>
                 <code>5&nbsp;&nbsp;&nbsp;c 1-4&nbsp;&nbsp;&nbsp;0 -4 x 7</code>
                 <span>
@@ -569,10 +571,16 @@ const Editor: React.FC = () => {
                 </span>
                 <code>3/4</code> <span>Time signature</span>
                 <code>bpm 120</code> <span>Tempo</span>
-                <code>lh</code> <span>Left hand (ch1, velocity 70)</span>
-                <code>rh</code> <span>Right hand (ch0, velocity 100)</span>
+                <code>lh</code>{" "}
+                <span>Left hand (ch1, velocity 70), octave range 2-4</span>
+                <code>rh</code>{" "}
+                <span>Right hand (ch0, velocity 100), octave range 4-6</span>
                 <code>ch2, ch3, ...</code>
-                <span>Channels 2 to 15 (velocity 100)</span>
+                <span>Channels 2 to 15 (velocity 100), octave range 4-6</span>
+                <code>rh 3</code>{" "}
+                <span>
+                  Change octave range to 3-5, can apply to lh, rh or ch2..15
+                </span>
               </div>
             </div>
           </div>

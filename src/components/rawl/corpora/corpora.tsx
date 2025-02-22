@@ -1352,6 +1352,7 @@ export const corpora: CorpusEntry[] = [
     style: "Orchestral, Cinematic",
     country: "USA",
   },
+  { slug: "claude_bolling", midis: [] },
   {
     slug: "alex_thorn",
     midis: [

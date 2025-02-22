@@ -72,6 +72,21 @@ export const CodeMirrorWrapper = styled.div`
     line-height: calc(1.4em + 4px);
     z-index: 100002;
 
+    /* Selection styles */
+    .cm-selectionBackground {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .cm-focused .cm-selectionBackground {
+      background-color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    &::selection,
+    *::selection {
+      background-color: rgba(255, 255, 255, 0.3) !important;
+      color: #ffffff !important;
+    }
+
     .cm-cursor {
       border-left: 1px solid #ffa500 !important;
       border-left-width: 1px !important;
@@ -108,6 +123,18 @@ export const CodeMirrorWrapper = styled.div`
   /* Add padding to gutter line numbers */
   .cm-lineNumbers .cm-gutterElement:not(:first-child) {
     padding-top: 2px;
+  }
+
+  /* Command styling */
+  .command-name {
+    font-weight: bold;
+  }
+
+  .source-span {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
   }
 
   /* Override text colors for note backgrounds */

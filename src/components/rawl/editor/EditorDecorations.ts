@@ -38,6 +38,9 @@ export const getBackgroundsForLine = (
   // Get the base decorations first (for backgrounds)
   let baseDecorations = Array.from(line).map(() => ({ class: null }));
 
+  // Debug logging
+  console.log("Processing line:", JSON.stringify(line));
+
   // Process key signature and note colors first
   if (
     line.match(
@@ -45,8 +48,78 @@ export const getBackgroundsForLine = (
     )
   ) {
     baseDecorations = processKeySignature(line, currentKey);
-  } else if (line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/)) {
-    baseDecorations = processNoteColors(line, currentKey, allLines, lineIndex);
+  } else if (line.match(/^\s*(\d+(?:b\d+(?:\.\d+)?)?)\s+i\s+/)) {
+    // Handle 'i' command with more flexible measure format
+    const match = line.match(/^\s*(\d+(?:b\d+(?:\.\d+)?)?)\s+(i)\s+/);
+    if (match) {
+      console.log("Found i command:", match);
+      // Use word boundary matching for 'i' command
+      const cmdMatch = line.match(/\bi\b/);
+      if (cmdMatch && cmdMatch.index !== undefined) {
+        console.log("Styling i command at index:", cmdMatch.index);
+        baseDecorations[cmdMatch.index] = { class: "command-name" };
+        console.log("Applied command-name class at index:", cmdMatch.index);
+      }
+    }
+    // Process note colors but preserve command styling
+    const noteDecorations = processNoteColors(
+      line,
+      currentKey,
+      allLines,
+      lineIndex,
+    );
+    baseDecorations = baseDecorations.map((dec, i) => {
+      const result = {
+        class: dec.class ? dec.class : noteDecorations[i].class,
+      };
+      if (dec.class === "command-name") {
+        console.log("Preserving command-name class at index:", i);
+      }
+      return result;
+    });
+  } else {
+    // Handle 'c' and 'ac' commands with more flexible patterns
+    // Match patterns like:
+    // "19  c 18    0 x x 0 0"
+    // "21b2 c 17b2-20b3 7"
+    // "7   c 6-6b3 0"
+    // "9    ac 1-9     0"
+    const copyMatch = line.match(
+      /^\s*(\d+(?:b\d+(?:\.\d+)?)?)\s+(c|ac)\s+(\d+(?:b\d+)?(?:-\d+(?:b\d+)?)?)\s+/,
+    );
+
+    if (copyMatch) {
+      console.log("Found copy command:", copyMatch);
+      const [fullMatch, targetMeasure, cmd, sourceSpan] = copyMatch;
+      console.log("Command details:", { targetMeasure, cmd, sourceSpan });
+
+      // Find exact indices to handle variable whitespace
+      const cmdMatch = line.match(new RegExp(`\\b${cmd}\\b`));
+      const spanMatch = line.match(new RegExp(`\\b${sourceSpan}\\b`));
+
+      if (cmdMatch && cmdMatch.index !== undefined) {
+        console.log("Styling command at index:", cmdMatch.index);
+        // Style the command
+        for (let i = cmdMatch.index; i < cmdMatch.index + cmd.length; i++) {
+          baseDecorations[i] = { class: "command-name" };
+        }
+      }
+
+      if (spanMatch && spanMatch.index !== undefined) {
+        console.log("Styling span at index:", spanMatch.index);
+        // Style the source span
+        for (
+          let i = spanMatch.index;
+          i < spanMatch.index + sourceSpan.length;
+          i++
+        ) {
+          baseDecorations[i] = { class: "source-span" };
+        }
+      }
+    } else {
+      // Debug when no match is found
+      console.log("No command match found for line");
+    }
   }
 
   // Then handle comments, preserving any background colors
@@ -368,8 +441,8 @@ export const customTheme = createTheme({
     background: "#1e1e1e",
     foreground: "#ffffff",
     caret: "#ffa500",
-    selection: "#036dd626",
-    selectionMatch: "#036dd626",
+    selection: "rgba(255, 255, 255, 0.2)",
+    selectionMatch: "rgba(255, 255, 255, 0.2)",
     lineHighlight: "#8a91991a",
     gutterBackground: "#1e1e1e",
     gutterForeground: "#8a919966",

@@ -5,6 +5,7 @@ import { useLocalStorage } from "usehooks-ts";
 import { playArpeggiatedChord } from "../../../sampler/sampler";
 import { PITCH_CLASS_TO_LETTER } from "../AnalysisGrid";
 import { Toggle } from "../Toggle";
+import { FoldButton } from "../editor/EditorStyles";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 import ChordStairs from "./ChordStairs";
 import { CHROMATIC_CHORDS, MAJOR_MODE, MINOR_MODE, Mode } from "./chords";
@@ -57,26 +58,6 @@ const PianoKey = styled.div<{ isPlaying?: boolean; isEnabled?: boolean }>`
     css`
       animation: ${keyPress} 0.2s ease-out;
     `}
-`;
-
-const FoldButton = styled.button`
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  width: 25px;
-  height: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100001;
-  background: #ccc;
-  color: black;
-  &:hover {
-    background: #444;
-  }
 `;
 
 const ScaleLabel = styled.span`
@@ -258,7 +239,7 @@ export const FoldablePianoLegend: React.FC<{
         style={{ position: "fixed", bottom: 51, right: 36, zIndex: 100000 }}
       >
         {showLegend ? (
-          <div>
+          <div style={{ position: "relative", marginTop: "30px" }}>
             <Toggle
               leftIcon={faUserGraduate}
               rightIcon={faGuitar}
@@ -267,7 +248,13 @@ export const FoldablePianoLegend: React.FC<{
               leftTitle="Show Roman numerals"
               rightTitle="Show guitar chords"
             />
-            <FoldButton onClick={() => setShowLegend(false)}>x</FoldButton>
+            <FoldButton
+              position="top"
+              isFolded={!showLegend}
+              onClick={() => setShowLegend(false)}
+            >
+              v
+            </FoldButton>
 
             <div
               style={{
@@ -348,12 +335,26 @@ export const FoldablePianoLegend: React.FC<{
             </div>
           </div>
         ) : (
-          <button
-            onClick={() => setShowLegend(true)}
-            style={{ background: "none" }}
-          >
-            <InlinePianoLegend />
-          </button>
+          <div style={{ position: "relative", marginTop: "30px" }}>
+            <FoldButton
+              position="top"
+              isFolded={!showLegend}
+              onClick={() => setShowLegend(true)}
+            >
+              ^
+            </FoldButton>
+            <button
+              onClick={() => setShowLegend(true)}
+              style={{
+                background: "black",
+                border: "1px solid #333",
+                padding: "10px",
+                cursor: "pointer",
+              }}
+            >
+              <InlinePianoLegend />
+            </button>
+          </div>
         )}
       </div>
     );

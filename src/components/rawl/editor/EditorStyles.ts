@@ -235,16 +235,13 @@ export const CodeMirrorWrapper = styled.div`
   }
 `;
 
-export const FoldButton = styled.button`
+export const FoldButton = styled.button<{
+  position?: "top" | "side";
+  isFolded?: boolean;
+}>`
   position: absolute;
-  left: -30px;
-  top: -1px;
-  width: 30px;
-  height: 60px;
   background: #1e1e1e;
   border: 1px solid #333;
-  border-right: none;
-  border-radius: 4px 0 0 4px;
   color: #d4d4d4;
   cursor: pointer;
   display: flex;
@@ -252,6 +249,25 @@ export const FoldButton = styled.button`
   justify-content: center;
   transition: background-color 0.2s;
   z-index: 1001;
+
+  ${(props) =>
+    props.position === "top"
+      ? `
+    top: -30px;
+    right: -1px;
+    width: 60px;
+    height: 30px;
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+  `
+      : `
+    left: -30px;
+    top: -1px;
+    width: 30px;
+    height: 60px;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+  `}
 
   &:hover {
     background-color: #2d2d2d;

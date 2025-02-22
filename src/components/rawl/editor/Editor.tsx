@@ -530,7 +530,11 @@ const Editor: React.FC = () => {
       </div>
       <BaseEditorPanel isFolded={isFolded} height={panelHeight}>
         <ResizeHandle onMouseDown={handleMouseDown} />
-        <FoldButton onClick={() => setIsFolded(!isFolded)}>
+        <FoldButton
+          position="side"
+          isFolded={isFolded}
+          onClick={() => setIsFolded(!isFolded)}
+        >
           {isFolded ? "<" : ">"}
         </FoldButton>
         <EditorContent>

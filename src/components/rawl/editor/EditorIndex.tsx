@@ -20,24 +20,18 @@ const EditorIndexList = styled.div`
   gap: 10px;
 `;
 
-const EditorIndexItem = styled.div`
+const EditorIndexItem = styled(Link)`
   padding: 10px;
   background: #1e1e1e;
   border: 1px solid #333;
   border-radius: 4px;
+  color: #d4d4d4;
+  text-decoration: none;
+  display: block;
 
   &:hover {
     background: #2d2d2d;
-  }
-
-  a {
-    color: #d4d4d4;
-    text-decoration: none;
-    display: block;
-
-    &:hover {
-      color: #fff;
-    }
+    color: #fff;
   }
 `;
 
@@ -47,10 +41,8 @@ const EditorIndex: React.FC = () => {
       <EditorIndexTitle>Available Scores</EditorIndexTitle>
       <EditorIndexList>
         {Object.keys(scores).map((slug) => (
-          <EditorIndexItem key={slug}>
-            <Link to={`/e/${slug}`}>
-              {slug.replace(/---/g, " – ").replace(/-/g, " ")}
-            </Link>
+          <EditorIndexItem key={slug} to={`/e/${slug}`}>
+            {slug.replace(/---/g, " – ").replace(/-/g, " ")}
           </EditorIndexItem>
         ))}
       </EditorIndexList>

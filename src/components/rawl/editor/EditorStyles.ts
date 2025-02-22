@@ -19,11 +19,6 @@ export const RawlContainer = styled.div`
   z-index: 1;
 `;
 
-interface EditorPanelProps {
-  isFolded: boolean;
-  height?: string;
-}
-
 export const EditorPanel = styled.div<{ isFolded: boolean; height?: string }>`
   position: fixed;
   bottom: ${FOOTER_HEIGHT}px;
@@ -243,7 +238,7 @@ export const CodeMirrorWrapper = styled.div`
 export const FoldButton = styled.button`
   position: absolute;
   left: -30px;
-  top: 0;
+  top: -1px;
   width: 30px;
   height: 60px;
   background: #1e1e1e;

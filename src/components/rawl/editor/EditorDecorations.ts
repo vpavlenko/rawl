@@ -134,9 +134,8 @@ export const getBackgroundsForLine = (
       const [fullMatch, targetMeasure, cmd, sourceSpan] = copyMatch;
       console.log("Command details:", { targetMeasure, cmd, sourceSpan });
 
-      // Find exact indices to handle variable whitespace
+      // Find exact indices to handle var
       const cmdMatch = line.match(new RegExp(`\\b${cmd}\\b`));
-      const spanMatch = line.match(new RegExp(`\\b${sourceSpan}\\b`));
 
       if (cmdMatch && cmdMatch.index !== undefined) {
         console.log("Styling command at index:", cmdMatch.index);
@@ -144,18 +143,26 @@ export const getBackgroundsForLine = (
         for (let i = cmdMatch.index; i < cmdMatch.index + cmd.length; i++) {
           baseDecorations[i] = { class: "command-name" };
         }
-      }
 
-      if (spanMatch && spanMatch.index !== undefined) {
-        console.log("Styling span at index:", spanMatch.index);
-        // Style the source span
-        for (
-          let i = spanMatch.index;
-          i < spanMatch.index + sourceSpan.length;
-          i++
-        ) {
-          baseDecorations[i] = { class: "source-span" };
+        // Find the source span after the command token
+        const afterCmd = line.slice(cmdMatch.index + cmd.length);
+        const spanMatch = afterCmd.match(new RegExp(`\\b${sourceSpan}\\b`));
+
+        if (spanMatch && spanMatch.index !== undefined) {
+          // Adjust the index to be relative to the full line
+          const spanStartIndex = cmdMatch.index + cmd.length + spanMatch.index;
+          // Style the source span
+          for (
+            let i = spanStartIndex;
+            i < spanStartIndex + sourceSpan.length;
+            i++
+          ) {
+            baseDecorations[i] = { class: "source-span" };
+          }
         }
+      } else {
+        // Debug when no match is found
+        console.log("No command match found for line");
       }
     } else {
       // Debug when no match is found

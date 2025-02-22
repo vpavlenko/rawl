@@ -252,9 +252,7 @@ export const FoldablePianoLegend: React.FC<{
               position="top"
               isFolded={!showLegend}
               onClick={() => setShowLegend(false)}
-            >
-              v
-            </FoldButton>
+            />
 
             <div
               style={{
@@ -340,9 +338,7 @@ export const FoldablePianoLegend: React.FC<{
               position="top"
               isFolded={!showLegend}
               onClick={() => setShowLegend(true)}
-            >
-              ^
-            </FoldButton>
+            />
             <button
               onClick={() => setShowLegend(true)}
               style={{

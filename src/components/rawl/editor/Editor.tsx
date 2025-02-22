@@ -534,9 +534,7 @@ const Editor: React.FC = () => {
           position="side"
           isFolded={isFolded}
           onClick={() => setIsFolded(!isFolded)}
-        >
-          {isFolded ? "<" : ">"}
-        </FoldButton>
+        />
         <EditorContent>
           <CodeMirrorWrapper>
             <CodeMirror

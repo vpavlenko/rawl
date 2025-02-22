@@ -28,7 +28,7 @@ export const EditorPanel = styled.div<{ isFolded: boolean; height?: string }>`
   background: #1e1e1e;
   display: grid;
   grid-template-columns: ${(props) => (props.isFolded ? "auto" : "1fr 1fr")};
-  transition: transform 0.3s ease;
+  transition: transform 0.1s ease;
   transform: translateX(${(props) => (props.isFolded ? "100%" : "0")});
   border-top: 1px solid #333;
   border-left: 1px solid #333;
@@ -249,6 +249,18 @@ export const FoldButton = styled.button<{
   justify-content: center;
   transition: background-color 0.2s;
   z-index: 1001;
+  font-size: 14px;
+
+  &::after {
+    content: "${(props) =>
+      props.position === "top"
+        ? props.isFolded
+          ? "▲"
+          : "▼"
+        : props.isFolded
+        ? "◀"
+        : "▶"}";
+  }
 
   ${(props) =>
     props.position === "top"

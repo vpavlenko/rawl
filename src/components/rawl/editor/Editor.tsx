@@ -224,6 +224,9 @@ const Editor: React.FC = () => {
     useContext(AppContext);
   const [score, setScore] = useState("");
   const [isEditorFocused, setIsEditorFocused] = useState(false);
+  const [currentLine, setCurrentLine] = useState<number | null>(null);
+  const [shadowScore, setShadowScore] = useState<string | null>(null);
+  const [isPlayingFromShadow, setIsPlayingFromShadow] = useState(false);
   const [context, setContext] = useState<CommandContext>({
     currentKey: { tonic: 0, mode: "major" },
     currentTrack: 1,
@@ -488,12 +491,79 @@ const Editor: React.FC = () => {
     [playSongBuffer, slug],
   );
 
+  // Function to handle cursor position changes
+  const handleCursorChange = useCallback(
+    (viewUpdate: any) => {
+      const line = viewUpdate.state.selection.main.head;
+      const lineNumber = viewUpdate.state.doc.lineAt(line).number;
+
+      if (lineNumber !== currentLine) {
+        setCurrentLine(lineNumber);
+
+        // Create shadow copy and start the comment/uncomment cycle
+        const lines = score.split("\n");
+        const currentLineText = lines[lineNumber - 1]?.trim();
+
+        // Only proceed if line is not empty and contains a command
+        if (currentLineText) {
+          // Parse the command to check if it's a c, i, or ac command
+          const command = parseCommand(currentLineText, context);
+          if (
+            command &&
+            (command.type === "copy" ||
+              command.type === "insert" ||
+              command.type === "ac")
+          ) {
+            let cycleCount = 0;
+            const startCycle = () => {
+              if (cycleCount < 4) {
+                // Toggle comment
+                const newLines = [...lines];
+                if (cycleCount % 2 === 0) {
+                  // Comment the line
+                  newLines[lineNumber - 1] = "% " + newLines[lineNumber - 1];
+                } else {
+                  // Uncomment the line
+                  newLines[lineNumber - 1] = newLines[lineNumber - 1].replace(
+                    /^% /,
+                    "",
+                  );
+                }
+
+                const newScore = newLines.join("\n");
+                setShadowScore(newScore);
+                setIsPlayingFromShadow(true);
+
+                // Trigger MIDI generation with shadow score
+                debouncedMelodyPlayback(newScore, false);
+
+                cycleCount++;
+                setTimeout(startCycle, 200);
+              } else {
+                // Reset after 4 cycles
+                setShadowScore(null);
+                setIsPlayingFromShadow(false);
+                debouncedMelodyPlayback(score, false);
+              }
+            };
+
+            startCycle();
+          }
+        }
+      }
+    },
+    [currentLine, score, debouncedMelodyPlayback, context],
+  );
+
+  // Modified handleTextChange to use shadow score when active
   const handleTextChange = useCallback(
     (value: string) => {
       setScore(value);
-      debouncedMelodyPlayback(value, false);
+      if (!isPlayingFromShadow) {
+        debouncedMelodyPlayback(value, false);
+      }
     },
-    [debouncedMelodyPlayback],
+    [debouncedMelodyPlayback, isPlayingFromShadow],
   );
 
   // Update score when slug changes
@@ -541,6 +611,7 @@ const Editor: React.FC = () => {
               ref={editorRef}
               value={score}
               onChange={handleTextChange}
+              onUpdate={handleCursorChange}
               theme={customTheme}
               height="100%"
               style={{ flex: 1 }}

@@ -118,8 +118,8 @@ const KeyboardLayout = styled.div`
 
   .image-caption {
     margin-top: 4px;
-    text-align: center;
-    font-size: 11px;
+    // text-align: center;
+    // font-size: 11px;
     color: #999;
   }
 
@@ -495,7 +495,8 @@ const Editor: React.FC = () => {
             <div className="left-column">
               <img src={editorMajorLayout} alt="Keyboard Layout" />
               <div className="image-caption">
-                b and # are flat/sharp (lower/raise by semitone)
+                Prepend note pitch with b and # to lower/raise by semitone, eg.
+                b2, #r
               </div>
             </div>
             <div className="right-column">
@@ -615,6 +616,11 @@ const Editor: React.FC = () => {
                 <code>rh 3</code>{" "}
                 <span>
                   Change octave range to 3-5, can apply to lh, rh or ch2..15
+                </span>
+                <code>% line</code>{" "}
+                <span>
+                  Comment using %. Select several lines and press Cmd+/ (Ctrl+/)
+                  to toggle
                 </span>
               </div>
             </div>

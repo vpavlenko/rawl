@@ -97,8 +97,8 @@ const KeyboardLayout = styled.div`
   }
 
   .left-column {
-    flex: 0 0 auto;
-    margin-right: 20px;
+    flex: 0 0 15vw;
+    margin-right: 5px;
   }
 
   .right-column {
@@ -110,7 +110,7 @@ const KeyboardLayout = styled.div`
   }
 
   img {
-    width: 300px;
+    width: 100%;
     height: auto;
     object-fit: contain;
     z-index: 1;
@@ -118,13 +118,12 @@ const KeyboardLayout = styled.div`
 
   .image-caption {
     margin-top: 4px;
-    // text-align: center;
-    // font-size: 11px;
+    width: 100%;
     color: #999;
   }
 
   code {
-    color: #9cdcfe;
+    color: white;
     background: #2a2a2a;
     padding: 1px 4px;
     border-radius: 3px;
@@ -133,7 +132,7 @@ const KeyboardLayout = styled.div`
 
   .grid {
     display: grid;
-    grid-template-columns: 160px 1fr;
+    grid-template-columns: 190px 1fr;
     gap: 4px 8px;
     margin: 8px 0;
     align-items: center;
@@ -178,7 +177,7 @@ const KeyboardLayout = styled.div`
   }
 `;
 
-const NoteExample = styled.div`
+const NoteBase = styled.div`
   position: relative;
   height: 6px;
   background: white;
@@ -189,6 +188,31 @@ const NoteExample = styled.div`
   vertical-align: middle;
   border-radius: 2px;
 `;
+
+const BeatMarker = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: gray;
+`;
+
+interface NoteExampleProps {
+  beats: number; // Number of beats (e.g. 4 for whole note, 2 for half note)
+  style?: { width: string };
+}
+
+const NoteExample: React.FC<NoteExampleProps> = ({ beats, style }) => {
+  const beatMarkers = [];
+
+  // Add a marker for each internal beat division
+  // For n beats we need n-1 markers
+  for (let i = 1; i < beats; i++) {
+    beatMarkers.push(<BeatMarker key={i} style={{ right: `${i * 30}px` }} />);
+  }
+
+  return <NoteBase style={style}>{beatMarkers}</NoteBase>;
+};
 
 // Make sure EditorPanel has proper flex setup
 const EditorPanel = styled.div<{ isFolded: boolean }>`
@@ -503,66 +527,66 @@ const Editor: React.FC = () => {
               <div className="section">
                 <div className="grid">
                   <div className="note-col">
-                    <NoteExample style={{ width: "80px" }} />
+                    <NoteExample beats={4} style={{ width: "120px" }} />
                   </div>
                   <span>
-                    <code>+</code> 4 beats
+                    <code>+</code> 4 beats (whole note)
                   </span>
 
                   <div className="note-col">
-                    <NoteExample style={{ width: "120px" }} />
+                    <NoteExample beats={6} style={{ width: "180px" }} />
                   </div>
                   <span>
                     <code>+.</code> 4 × 3/2 = 6 beats
                   </span>
 
                   <div className="note-col">
-                    <NoteExample style={{ width: "40px" }} />
+                    <NoteExample beats={2} style={{ width: "60px" }} />
                   </div>
                   <span>
-                    <code>_</code> 2 beats
+                    <code>_</code> 2 beats (half note)
                   </span>
 
                   <div className="note-col">
-                    <NoteExample style={{ width: "26.7px" }} />
+                    <NoteExample beats={1.33} style={{ width: "40px" }} />
                   </div>
                   <span>
                     <code>_:</code> 2 × ⅔ ≈ 1.33 beats (for triplets)
                   </span>
 
                   <div className="note-col">
-                    <NoteExample style={{ width: "20px" }} />
+                    <NoteExample beats={1} style={{ width: "30px" }} />
                   </div>
                   <span>
-                    <code>,</code> 1 beat
+                    <code>,</code> 1 beat (quarter note)
                   </span>
 
                   <div className="note-col">
-                    <NoteExample style={{ width: "10px" }} />
+                    <NoteExample beats={0.5} style={{ width: "15px" }} />
                   </div>
                   <span>
-                    <code>-</code> ½
+                    <code>-</code> ½ beat (eighth note)
                   </span>
 
                   <div className="note-col">
-                    <NoteExample style={{ width: "5px" }} />
+                    <NoteExample beats={0.25} style={{ width: "7.5px" }} />
                   </div>
                   <span>
-                    <code>=</code> ¼
+                    <code>=</code> ¼ beat (sixteenth note)
                   </span>
 
                   <div className="note-col">
-                    <NoteExample style={{ width: "2.5px" }} />
+                    <NoteExample beats={0.125} style={{ width: "3.75px" }} />
                   </div>
                   <span>
-                    <code>'</code> ⅛
+                    <code>'</code> ⅛ beat (thirty-second note)
                   </span>
 
                   <div className="note-col">
-                    <NoteExample style={{ width: "1.25px" }} />
+                    <NoteExample beats={0.0625} style={{ width: "1.875px" }} />
                   </div>
                   <span>
-                    <code>"</code> 1/16
+                    <code>"</code> 1/16 beat (sixty-fourth note)
                   </span>
                 </div>
               </div>

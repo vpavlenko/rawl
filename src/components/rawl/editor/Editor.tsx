@@ -7,6 +7,8 @@ import React, {
   useState,
 } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
+import editorMajorLayout from "../../../images/editor_major_layout.png";
 import { AppContext } from "../../AppContext";
 import { PitchClass } from "../analysis";
 import { TICKS_PER_QUARTER } from "../forge/constants";
@@ -21,11 +23,10 @@ import { characterBackgroundsPlugin, customTheme } from "./EditorDecorations";
 import EditorIndex from "./EditorIndex";
 import { generateMidiWithMetadata } from "./EditorMidi";
 import {
+  EditorPanel as BaseEditorPanel,
   CodeMirrorWrapper,
-  DebugPanel,
   EditorContainer,
   EditorContent,
-  EditorPanel,
   ErrorMessage,
   FoldButton,
   RawlContainer,
@@ -47,6 +48,135 @@ type MidiNote = {
   duration: number;
   channel: number;
 };
+
+// Add new styled component after EditorPanel
+const KeyboardLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background: #1e1e1e;
+  border-right: 1px solid #333;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  flex: 0 0 250px;
+  font-size: 12px;
+  color: #ccc;
+  line-height: 1.6;
+
+  .top-section {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+  }
+
+  .left-column {
+    flex: 0 0 auto;
+    margin-right: 20px;
+  }
+
+  .right-column {
+    flex: 1;
+  }
+
+  .full-width-section {
+    width: 100%;
+  }
+
+  img {
+    width: 300px;
+    height: auto;
+    object-fit: contain;
+    z-index: 1;
+  }
+
+  .image-caption {
+    margin-top: 4px;
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+  }
+
+  code {
+    color: #9cdcfe;
+    background: #2a2a2a;
+    padding: 1px 4px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 4px 8px;
+    margin: 8px 0;
+    align-items: center;
+  }
+
+  .note-col {
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+  }
+
+  .section {
+    margin: 16px 0;
+  }
+
+  .section:first-child {
+    margin-top: 0;
+  }
+
+  .section h3 {
+    margin: 0px;
+  }
+
+  /* Customize scrollbar */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #1e1e1e;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #444;
+  }
+`;
+
+const NoteExample = styled.div`
+  position: relative;
+  height: 6px;
+  background: white;
+  margin: 0 4px;
+  display: inline-block;
+  box-shadow: 0 0 0px 0.5px black;
+  cursor: pointer;
+  vertical-align: middle;
+  border-radius: 2px;
+`;
+
+// Make sure EditorPanel has proper flex setup
+const EditorPanel = styled.div<{ isFolded: boolean }>`
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: ${(props) => (props.isFolded ? "40px" : "500px")};
+  background: #1e1e1e;
+  transition: width 0.3s ease;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+`;
 
 const Editor: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -298,14 +428,11 @@ const Editor: React.FC = () => {
           {rawlProps && <Rawl {...rawlProps} savedAnalysis={analysis} />}
         </RawlContainer>
       </div>
-      <EditorPanel isFolded={isFolded}>
+      <BaseEditorPanel isFolded={isFolded}>
         <FoldButton onClick={() => setIsFolded(!isFolded)}>
           {isFolded ? "<" : ">"}
         </FoldButton>
-        <DebugPanel>
-          <h3>Analysis</h3>
-          <pre>{JSON.stringify(analysis, null, 2)}</pre>
-        </DebugPanel>
+
         <EditorContent>
           <CodeMirrorWrapper>
             <CodeMirror
@@ -328,7 +455,129 @@ const Editor: React.FC = () => {
           </CodeMirrorWrapper>
           {error && <ErrorMessage>{error}</ErrorMessage>}
         </EditorContent>
-      </EditorPanel>
+        <KeyboardLayout>
+          <div className="top-section">
+            <div className="left-column">
+              <img src={editorMajorLayout} alt="Keyboard Layout" />
+              <div className="image-caption">
+                b and # are flat/sharp (lower/raise by semitone)
+              </div>
+            </div>
+            <div className="right-column">
+              <div className="section">
+                <div className="grid">
+                  <div className="note-col">
+                    <NoteExample style={{ width: "80px" }} />
+                  </div>
+                  <span>
+                    <code>+</code> 4 beats
+                  </span>
+
+                  <div className="note-col">
+                    <NoteExample style={{ width: "120px" }} />
+                  </div>
+                  <span>
+                    <code>+.</code> 4 × 3/2 = 6 beats
+                  </span>
+
+                  <div className="note-col">
+                    <NoteExample style={{ width: "40px" }} />
+                  </div>
+                  <span>
+                    <code>_</code> 2 beats
+                  </span>
+
+                  <div className="note-col">
+                    <NoteExample style={{ width: "26.7px" }} />
+                  </div>
+                  <span>
+                    <code>_:</code> 2 × ⅔ ≈ 1.33 beats (for triplets)
+                  </span>
+
+                  <div className="note-col">
+                    <NoteExample style={{ width: "20px" }} />
+                  </div>
+                  <span>
+                    <code>,</code> 1 beat
+                  </span>
+
+                  <div className="note-col">
+                    <NoteExample style={{ width: "10px" }} />
+                  </div>
+                  <span>
+                    <code>-</code> ½
+                  </span>
+
+                  <div className="note-col">
+                    <NoteExample style={{ width: "5px" }} />
+                  </div>
+                  <span>
+                    <code>=</code> ¼
+                  </span>
+
+                  <div className="note-col">
+                    <NoteExample style={{ width: "2.5px" }} />
+                  </div>
+                  <span>
+                    <code>'</code> ⅛
+                  </span>
+
+                  <div className="note-col">
+                    <NoteExample style={{ width: "1.25px" }} />
+                  </div>
+                  <span>
+                    <code>"</code> 1/16
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="full-width-section">
+            <div className="section">
+              <h3>Insert/copy</h3>
+              <div className="grid">
+                <code>2b2 i q,x,eti,</code>
+                <span>
+                  Insert at measure 2. x is rest. Several note pitches under one
+                  duration is a chord
+                </span>
+                <code>5&nbsp;&nbsp;&nbsp;c 1-4&nbsp;&nbsp;&nbsp;0 -4 x 7</code>
+                <span>
+                  Copy measures 1..4 to measure 5 several times. 0 means "don't
+                  shift note pitches", -4 means "shift down 4 scale degrees", x
+                  means "rest for the duration of slice", 7 means "shift up 7
+                  scale degrees, i.e. one octave"
+                </span>
+                <code>2b2 c 1b2-1b4&nbsp;&nbsp;&nbsp;0</code>
+                <span>Copy two beats (measure 1 beats 2 to 3)</span>
+                <code>9&nbsp;&nbsp;&nbsp;ac 1-8&nbsp;&nbsp;&nbsp;0</code>
+                <span>Copy notes in all channels</span>
+                <code>1&nbsp;&nbsp;&nbsp;c 1&nbsp;&nbsp;&nbsp;2&5</code>
+                <span>
+                  Layer multiple shifts at same position - for doubling in
+                  thirds/sixths etc.
+                </span>
+              </div>
+            </div>
+            <div className="section">
+              <h3>Other commands</h3>
+              <div className="grid">
+                <code>C major, Ab minor</code>
+                <span>
+                  Key signature. Modes: major, minor, lydian, mixolydian,
+                  dorian, phrygian
+                </span>
+                <code>3/4</code> <span>Time signature</span>
+                <code>bpm 120</code> <span>Tempo</span>
+                <code>lh</code> <span>Left hand (ch1, velocity 70)</span>
+                <code>rh</code> <span>Right hand (ch0, velocity 100)</span>
+                <code>ch2, ch3, ...</code>
+                <span>Channels 2 to 15 (velocity 100)</span>
+              </div>
+            </div>
+          </div>
+        </KeyboardLayout>
+      </BaseEditorPanel>
     </EditorContainer>
   );
 };

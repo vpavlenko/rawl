@@ -18,22 +18,20 @@ interface EditorPanelProps {
   isFolded: boolean;
 }
 
-export const EditorPanel = styled.div<EditorPanelProps>`
+export const EditorPanel = styled.div<{ isFolded: boolean }>`
   position: fixed;
-  right: 20px;
   bottom: ${FOOTER_HEIGHT}px;
-  width: calc(100% - 50px);
-  height: 40%;
-  background-color: #1e1e1e;
-  border-left: 1px solid #333;
-  padding: 0px;
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  z-index: 99999;
-  isolation: isolate;
-  transform: translateX(${(props) => (props.isFolded ? "100%" : "0")});
+  right: 0;
+  width: calc(100% - 40px);
+  height: 50vh;
+  background: #1e1e1e;
+  display: grid;
+  grid-template-columns: ${(props) => (props.isFolded ? "auto" : "1fr 1fr")};
   transition: transform 0.3s ease;
+  transform: translateX(${(props) => (props.isFolded ? "100%" : "0")});
+  border-top: 1px solid #333;
+  border-left: 1px solid #333;
+  z-index: 1000;
 `;
 
 export const DebugPanel = styled.div`
@@ -226,6 +224,7 @@ export const FoldButton = styled.button`
   align-items: center;
   justify-content: center;
   transition: background-color 0.2s;
+  z-index: 1001;
 
   &:hover {
     background-color: #2d2d2d;

@@ -209,7 +209,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     const savedLatencyCorrection = localStorage.getItem("latencyCorrectionMs");
     const initialLatencyCorrection = savedLatencyCorrection
       ? parseInt(savedLatencyCorrection, 10)
-      : 0;
+      : 500;
 
     // Initialize state with actual audio context state
     this.state = {
@@ -1167,6 +1167,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
             },
             analysisEnabled: this.state.analysisEnabled,
             playSongBuffer: this.playSongBuffer,
+            latencyCorrectionMs: this.state.latencyCorrectionMs,
+            tempo: this.state.tempo,
           }}
         >
           <AppHeader />
@@ -1225,6 +1227,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
           },
           analysisEnabled: this.state.analysisEnabled,
           playSongBuffer: this.playSongBuffer,
+          latencyCorrectionMs: this.state.latencyCorrectionMs,
+          tempo: this.state.tempo,
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>

@@ -233,7 +233,8 @@ const Editor: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isFolded, setIsFolded] = useState(false);
   const editorRef = useRef<any>(null);
-  const { playSongBuffer, rawlProps, analyses } = useContext(AppContext);
+  const { playSongBuffer, rawlProps, analyses, latencyCorrectionMs, tempo } =
+    useContext(AppContext);
   const [score, setScore] = useState("");
   const [isEditorFocused, setIsEditorFocused] = useState(false);
   const [context, setContext] = useState<CommandContext>({
@@ -475,7 +476,13 @@ const Editor: React.FC = () => {
     <EditorContainer>
       <div style={{ paddingBottom: "100vh" }}>
         <RawlContainer>
-          {rawlProps && <Rawl {...rawlProps} savedAnalysis={analysis} />}
+          {rawlProps && (
+            <Rawl
+              {...rawlProps}
+              savedAnalysis={analysis}
+              latencyCorrectionMs={latencyCorrectionMs * tempo}
+            />
+          )}
         </RawlContainer>
       </div>
       <BaseEditorPanel isFolded={isFolded}>

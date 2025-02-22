@@ -42,6 +42,8 @@ export interface AppContextType {
     buffer: ArrayBuffer | Uint8Array,
     shouldAutoPlay?: boolean,
   ) => Promise<void>;
+  latencyCorrectionMs: number;
+  tempo: number;
 }
 
 export const AppContext = React.createContext<AppContextType | undefined>(

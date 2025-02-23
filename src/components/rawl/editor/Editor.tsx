@@ -2,6 +2,7 @@ import { toggleComment } from "@codemirror/commands";
 import { StreamLanguage } from "@codemirror/language";
 import { keymap } from "@codemirror/view";
 import CodeMirror from "@uiw/react-codemirror";
+import { addDoc, collection, getFirestore } from "firebase/firestore/lite";
 import React, {
   useCallback,
   useContext,
@@ -9,7 +10,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useParams } from "react-router-dom";
+import { RouteComponentProps, useParams, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import editorMajorLayout from "../../../images/editor_major_layout.png";
 import { AppContext } from "../../AppContext";
@@ -178,6 +179,32 @@ const KeyboardLayout = styled.div`
   }
 `;
 
+const ButtonBar = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #333;
+`;
+
+const PublishButton = styled.button`
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+
+  &:hover {
+    background: #45a049;
+  }
+
+  &:active {
+    background: #3d8b40;
+  }
+`;
+
 const NoteBase = styled.div`
   position: relative;
   height: 6px;
@@ -215,7 +242,11 @@ const NoteExample: React.FC<NoteExampleProps> = ({ beats, style }) => {
   return <NoteBase style={style}>{beatMarkers}</NoteBase>;
 };
 
-const Editor: React.FC = () => {
+interface EditorProps extends RouteComponentProps {
+  // Add any other props here if needed
+}
+
+const Editor: React.FC<EditorProps> = ({ history }) => {
   const { slug } = useParams<{ slug: string }>();
   const [error, setError] = useState<string | null>(null);
   const [isFolded, setIsFolded] = useState(false);
@@ -622,6 +653,31 @@ const Editor: React.FC = () => {
     }
   }, [slug, debouncedMelodyPlayback]);
 
+  const handlePublish = async () => {
+    try {
+      // Check if source has anacrusis
+      const hasAnacrusis = score.toLowerCase().includes("anacrusis");
+
+      // Prepend anacrusis if needed
+      const finalSource = hasAnacrusis ? score : `anacrusis 4\n${score}`;
+
+      // Get Firestore instance
+      const db = getFirestore();
+
+      // Add document to edits collection
+      const docRef = await addDoc(collection(db, "edits"), {
+        source: finalSource,
+        createdAt: new Date(),
+      });
+
+      // Redirect to the new document
+      history.push(`/ef/${docRef.id}`);
+    } catch (error) {
+      console.error("Error publishing:", error);
+      setError("Failed to publish. Please try again.");
+    }
+  };
+
   // If no slug is provided, show the index
   if (!slug) {
     return <EditorIndex />;
@@ -680,6 +736,9 @@ const Editor: React.FC = () => {
           {error && <ErrorMessage>{error}</ErrorMessage>}
         </EditorContent>
         <KeyboardLayout>
+          <ButtonBar>
+            <PublishButton onClick={handlePublish}>Publish</PublishButton>
+          </ButtonBar>
           <div className="top-section">
             <div className="left-column">
               <img src={editorMajorLayout} alt="Keyboard Layout" />
@@ -940,4 +999,4 @@ function executeCopyForChannels(
   context.currentTrack = originalTrack;
 }
 
-export default Editor;
+export default withRouter(Editor);

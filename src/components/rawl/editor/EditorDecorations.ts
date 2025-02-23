@@ -6,6 +6,7 @@ import {
   ViewPlugin,
   ViewUpdate,
 } from "@codemirror/view";
+import { tags } from "@lezer/highlight";
 import { createTheme } from "@uiw/codemirror-themes";
 import { parseCommand } from "./commandParser";
 import {
@@ -495,7 +496,7 @@ export const customTheme = createTheme({
     gutterBackground: "#1e1e1e",
     gutterForeground: "#8a919966",
   },
-  styles: [],
+  styles: [{ tag: tags.comment, color: "#666666", fontStyle: "italic" }],
 });
 
 // CodeMirror plugin for character backgrounds

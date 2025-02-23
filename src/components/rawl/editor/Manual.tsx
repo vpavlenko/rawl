@@ -5,7 +5,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addDoc, collection, getFirestore } from "firebase/firestore/lite";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import editorMajorLayout from "../../../images/editor_major_layout.png";
 
@@ -207,6 +207,26 @@ const PublishedUrl = styled.div`
   }
 `;
 
+const TelegramInput = styled.input`
+  background: #2a2a2a;
+  border: 1px solid #444;
+  color: #ddd;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 300px;
+  margin-right: auto;
+
+  &:focus {
+    outline: none;
+    border-color: #666;
+  }
+
+  &::placeholder {
+    color: #888;
+  }
+`;
+
 const NoteBase = styled.div`
   position: relative;
   height: 6px;
@@ -262,11 +282,39 @@ const Manual: React.FC<ManualProps> = ({
   const [isPublishing, setIsPublishing] = useState(false);
   const [publishedUrl, setPublishedUrl] = useState<string | null>(null);
   const [showCopyFeedback, setShowCopyFeedback] = useState(false);
+  const [telegramUsername, setTelegramUsername] = useState(
+    () => localStorage.getItem("telegramUsername") || "",
+  );
+  const [showUsernameInput, setShowUsernameInput] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Focus the input when it becomes visible
+  useEffect(() => {
+    if (showUsernameInput && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [showUsernameInput]);
+
+  const handlePublishClick = () => {
+    if (!telegramUsername) {
+      setShowUsernameInput(true);
+    } else {
+      handlePublish();
+    }
+  };
 
   const handlePublish = async () => {
+    // Don't proceed if username is required but empty
+    if (!telegramUsername) {
+      return;
+    }
+
     try {
       setIsPublishing(true);
       setPublishedUrl(null);
+
+      // Store username in localStorage
+      localStorage.setItem("telegramUsername", telegramUsername);
 
       // Check if source has anacrusis
       const hasAnacrusis = score.toLowerCase().includes("anacrusis");
@@ -277,16 +325,18 @@ const Manual: React.FC<ManualProps> = ({
       // Get Firestore instance
       const db = getFirestore();
 
-      // Add document to edits collection
+      // Add document to edits collection with username
       const docRef = await addDoc(collection(db, "edits"), {
         source: finalSource,
         createdAt: new Date(),
         parent: id ? `/ef/${id}` : slug ? `/e/${slug}` : null,
+        username: telegramUsername,
       });
 
       // Set the published URL
       const newUrl = `/ef/${docRef.id}`;
       setPublishedUrl(newUrl);
+      setShowUsernameInput(false);
 
       // Redirect to the new document
       history.push(newUrl);
@@ -295,6 +345,12 @@ const Manual: React.FC<ManualProps> = ({
       setError("Failed to publish. Please try again.");
     } finally {
       setIsPublishing(false);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && telegramUsername.trim()) {
+      handlePublish();
     }
   };
 
@@ -312,6 +368,15 @@ const Manual: React.FC<ManualProps> = ({
   return (
     <KeyboardLayout>
       <ButtonBar>
+        {showUsernameInput && (
+          <TelegramInput
+            ref={inputRef}
+            placeholder="What's your Telegram @username or email?"
+            value={telegramUsername}
+            onChange={(e) => setTelegramUsername(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+        )}
         {publishedUrl && (
           <PublishedUrl onClick={handleCopyUrl}>
             {showCopyFeedback
@@ -327,9 +392,13 @@ const Manual: React.FC<ManualProps> = ({
           </PublishedUrl>
         )}
         <PublishButton
-          onClick={handlePublish}
+          onClick={handlePublishClick}
           isPublishing={isPublishing}
-          disabled={isPublishing || score === initialSource}
+          disabled={
+            isPublishing ||
+            score === initialSource ||
+            (showUsernameInput && !telegramUsername.trim())
+          }
           hasChanges={score !== initialSource}
         >
           {isPublishing ? (

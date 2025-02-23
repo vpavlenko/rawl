@@ -498,8 +498,9 @@ const Editor: React.FC = () => {
     (viewUpdate: any) => {
       const line = viewUpdate.state.selection.main.head;
       const lineNumber = viewUpdate.state.doc.lineAt(line).number;
+      const hasSelection = !viewUpdate.state.selection.main.empty;
 
-      if (lineNumber !== currentLine) {
+      if (lineNumber !== currentLine && !hasSelection) {
         // Clear any existing timeouts
         if (cycleTimeoutRef.current) {
           clearTimeout(cycleTimeoutRef.current);

@@ -1354,6 +1354,10 @@ export const corpora: CorpusEntry[] = [
   },
   { slug: "claude_bolling", midis: [] },
   {
+    slug: "julius_schulhoff",
+    midis: ["piano-sonata-in-f-minor-opus-37-1st-movement---julius-schulhoff"],
+  },
+  {
     slug: "alex_thorn",
     midis: [
       "piano-serenade-in-a-flat",

@@ -1,12 +1,6 @@
 import { toggleComment } from "@codemirror/commands";
 import { StreamLanguage } from "@codemirror/language";
 import { keymap } from "@codemirror/view";
-import {
-  faCloudArrowUp,
-  faCopy,
-  faSpinner,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CodeMirror from "@uiw/react-codemirror";
 import {
   addDoc,
@@ -24,7 +18,6 @@ import React, {
 } from "react";
 import { RouteComponentProps, useParams, withRouter } from "react-router-dom";
 import styled from "styled-components";
-import editorMajorLayout from "../../../images/editor_major_layout.png";
 import { AppContext } from "../../AppContext";
 import { PitchClass } from "../analysis";
 import { TICKS_PER_QUARTER } from "../forge/constants";
@@ -48,6 +41,7 @@ import {
   RawlContainer,
   ResizeHandle,
 } from "./EditorStyles";
+import Manual from "./Manual";
 import { scores } from "./scores";
 import { Command, CommandContext, LogicalNote } from "./types";
 
@@ -897,181 +891,14 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
           </CodeMirrorWrapper>
           {error && <ErrorMessage>{error}</ErrorMessage>}
         </EditorContent>
-        <KeyboardLayout>
-          <ButtonBar>
-            {publishedUrl && (
-              <PublishedUrl onClick={handleCopyUrl}>
-                {showCopyFeedback
-                  ? score !== initialSource
-                    ? "Link to last published version is copied to clipboard"
-                    : "Link is copied to clipboard"
-                  : publishedUrl}
-                <FontAwesomeIcon
-                  icon={faCopy}
-                  className="copy-button"
-                  title="Copy URL to clipboard"
-                />
-              </PublishedUrl>
-            )}
-            <PublishButton
-              onClick={handlePublish}
-              isPublishing={isPublishing}
-              disabled={isPublishing || score === initialSource}
-              hasChanges={score !== initialSource}
-            >
-              {isPublishing ? (
-                <>
-                  Publishing
-                  <FontAwesomeIcon icon={faSpinner} className="spinner" />
-                </>
-              ) : (
-                <>
-                  Publish
-                  <FontAwesomeIcon icon={faCloudArrowUp} />
-                </>
-              )}
-            </PublishButton>
-          </ButtonBar>
-          <div className="top-section">
-            <div className="left-column">
-              <img src={editorMajorLayout} alt="Keyboard Layout" />
-              <div className="image-caption">
-                Prepend note pitch with b and # to lower/raise by semitone, eg.
-                b2, #r
-              </div>
-            </div>
-            <div className="right-column">
-              <div className="section">
-                <div className="grid">
-                  <div className="note-col">
-                    <NoteExample beats={4} style={{ width: "120px" }} />
-                  </div>
-                  <span>
-                    <code>+</code> 4 beats (whole note)
-                  </span>
-
-                  <div className="note-col">
-                    <NoteExample beats={3} style={{ width: "90px" }} />
-                  </div>
-                  <span>
-                    <code>_.</code> 2 × 3/2 = 3 beats (<code>.</code> elongates
-                    by half)
-                  </span>
-
-                  <div className="note-col">
-                    <NoteExample beats={2} style={{ width: "60px" }} />
-                  </div>
-                  <span>
-                    <code>_</code> 2 beats (half note)
-                  </span>
-
-                  <div className="note-col">
-                    <NoteExample beats={1.33} style={{ width: "40px" }} />
-                  </div>
-                  <span>
-                    <code>_:</code> 2 × ⅔ ≈ 1.33 beats (for triplets,{" "}
-                    <code>:</code> reduces by 1/3)
-                  </span>
-
-                  <div className="note-col">
-                    <NoteExample beats={1} style={{ width: "30px" }} />
-                  </div>
-                  <span>
-                    <code>,</code> 1 beat (quarter note)
-                  </span>
-
-                  <div className="note-col">
-                    <NoteExample beats={0.5} style={{ width: "15px" }} />
-                  </div>
-                  <span>
-                    <code>-</code> ½ beat (eighth note)
-                  </span>
-
-                  <div className="note-col">
-                    <NoteExample beats={0.25} style={{ width: "7.5px" }} />
-                  </div>
-                  <span>
-                    <code>=</code> ¼ beat (sixteenth note)
-                  </span>
-
-                  <div className="note-col">
-                    <NoteExample beats={0.125} style={{ width: "3.75px" }} />
-                  </div>
-                  <span>
-                    <code>'</code> ⅛ beat (thirty-second note)
-                  </span>
-
-                  <div className="note-col">
-                    <NoteExample beats={0.0625} style={{ width: "1.875px" }} />
-                  </div>
-                  <span>
-                    <code>"</code> 1/16 beat (sixty-fourth note)
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="full-width-section">
-            <div className="section">
-              <h3>Insert/copy</h3>
-              <div className="grid">
-                <code>2b2 i q,.x-eti,</code>
-                <span>
-                  Insert at measure 2 beat 2: 1+1/2 beats (,.) of scale degree
-                  one (tonic) in middle octave, then a rest (x) of 1/2 beats,
-                  then a beat of a chord 3-5-1, where 1 is in upper octave.
-                  Several note pitches under one duration is a chord
-                </span>
-                <code>5&nbsp;&nbsp;&nbsp;c 1-4&nbsp;&nbsp;&nbsp;0 -4 x 7</code>
-                <span>
-                  Copy measures 1..4 to measure 5 several times. 0 means
-                  "verbatim copy, don't shift note pitches", -4 means "shift
-                  down 4 scale degrees", x means "rest for the duration of
-                  slice", 7 means "shift up 7 scale degrees, i.e. one octave"
-                </span>
-                <code>2b2 c 1b2-1b4</code>
-                <span>
-                  Copy two beats (measure 1 beats 2 to 3), no target defaults to
-                  "0" (one verbatim copy)
-                </span>
-                <code>9&nbsp;&nbsp;&nbsp;ac 1-8</code>
-                <span>All Copy: copy notes in all channels</span>
-                <code>1&nbsp;&nbsp;&nbsp;c 1&nbsp;&nbsp;&nbsp;2&5</code>
-                <span>
-                  Layer multiple shifts at same position - for doubling in
-                  thirds/sixths etc.
-                </span>
-              </div>
-            </div>
-            <div className="section">
-              <h3>Other commands</h3>
-              <div className="grid">
-                <code>C major, Ab minor</code>
-                <span>
-                  Key signature. Modes: major, minor, lydian, mixolydian,
-                  dorian, phrygian
-                </span>
-                <code>3/4</code> <span>Time signature</span>
-                <code>bpm 120</code> <span>Tempo</span>
-                <code>lh</code>{" "}
-                <span>Left hand (ch1, velocity 70), octave range 2-4</span>
-                <code>rh</code>{" "}
-                <span>Right hand (ch0, velocity 100), octave range 4-6</span>
-                <code>ch2, ch3, ...</code>
-                <span>Channels 2 to 15 (velocity 100), octave range 4-6</span>
-                <code>rh 3</code>{" "}
-                <span>
-                  Change octave range to 3-5, can apply to lh, rh or ch2..15
-                </span>
-                <code>% line</code>{" "}
-                <span>
-                  Comment using %. Select several lines and press Cmd+/ (Ctrl+/)
-                  to toggle
-                </span>
-              </div>
-            </div>
-          </div>
-        </KeyboardLayout>
+        <Manual
+          score={score}
+          initialSource={initialSource}
+          id={id}
+          slug={slug}
+          history={history}
+          setError={setError}
+        />
       </BaseEditorPanel>
     </EditorContainer>
   );

@@ -2,7 +2,13 @@ import { toggleComment } from "@codemirror/commands";
 import { StreamLanguage } from "@codemirror/language";
 import { keymap } from "@codemirror/view";
 import CodeMirror from "@uiw/react-codemirror";
-import { addDoc, collection, getFirestore } from "firebase/firestore/lite";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getFirestore,
+} from "firebase/firestore/lite";
 import React, {
   useCallback,
   useContext,
@@ -247,7 +253,11 @@ interface EditorProps extends RouteComponentProps {
 }
 
 const Editor: React.FC<EditorProps> = ({ history }) => {
-  const { slug } = useParams<{ slug: string }>();
+  // Update useParams to handle both slug and id
+  const { slug, id } = useParams<{ slug?: string; id?: string }>();
+  // Use either id or slug as the effective slug
+  const effectiveSlug = id || slug;
+
   const [error, setError] = useState<string | null>(null);
   const [isFolded, setIsFolded] = useState(false);
   const editorRef = useRef<any>(null);
@@ -280,7 +290,11 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   const dragStartHeight = useRef(0);
 
   // Get the analysis for this slug if it exists
-  const analysis = analyses[`f/${slug}`];
+  // For /ef/<id> URLs, use the mocked analysis
+  const analysis =
+    effectiveSlug?.startsWith("ef/") || id
+      ? analyses["f/wima.e480-schubert_de.-tanz-d.365.25"]
+      : analyses[`f/${effectiveSlug}`];
 
   // Signal to App that this route should not have global shortcuts when editor is focused
   useEffect(() => {
@@ -500,7 +514,7 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
 
             const midiResult = generateMidiWithMetadata(
               allMidiNotes,
-              `melody-${slug}`,
+              `melody-${effectiveSlug}`,
               newContext.currentBpm, // Use the current BPM from context
               newContext.timeSignatures,
             );
@@ -521,7 +535,7 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
         }, 0);
       };
     })(),
-    [playSongBuffer, slug],
+    [playSongBuffer, effectiveSlug],
   );
 
   // Function to handle cursor position changes
@@ -639,19 +653,53 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
     [debouncedMelodyPlayback, isPlayingFromShadow],
   );
 
-  // Update score when slug changes
+  // Update score when effectiveSlug changes
   useEffect(() => {
-    if (slug && scores[slug]) {
-      const newScore = scores[slug];
-      setScore(newScore);
-      // Trigger initial MIDI generation after a delay
-      setTimeout(() => {
-        debouncedMelodyPlayback(newScore, true);
-      }, 1000);
-    } else {
-      setScore("");
-    }
-  }, [slug, debouncedMelodyPlayback]);
+    const loadScore = async () => {
+      if (effectiveSlug) {
+        if (id || effectiveSlug.startsWith("ef/")) {
+          // For /ef/<id> URLs, fetch from Firebase edits collection
+          const editId = id || effectiveSlug.replace("ef/", "");
+
+          try {
+            const db = getFirestore();
+            const docRef = doc(db, "edits", editId);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+              const data = docSnap.data();
+              const newScore = data.source;
+              setScore(newScore);
+              // Trigger initial MIDI generation after a delay
+              setTimeout(() => {
+                debouncedMelodyPlayback(newScore, true);
+              }, 1000);
+            } else {
+              setError("Edit not found");
+              setScore("");
+            }
+          } catch (error) {
+            console.error("Error fetching edit:", error);
+            setError("Failed to load edit");
+            setScore("");
+          }
+        } else if (scores[effectiveSlug]) {
+          const newScore = scores[effectiveSlug];
+          setScore(newScore);
+          // Trigger initial MIDI generation after a delay
+          setTimeout(() => {
+            debouncedMelodyPlayback(newScore, true);
+          }, 1000);
+        } else {
+          setScore("");
+        }
+      } else {
+        setScore("");
+      }
+    };
+
+    loadScore();
+  }, [effectiveSlug, debouncedMelodyPlayback]);
 
   const handlePublish = async () => {
     try {
@@ -678,8 +726,14 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
     }
   };
 
-  // If no slug is provided, show the index
-  if (!slug) {
+  // Add logging to verify rawlProps and analysis
+  useEffect(() => {
+    console.log("Current rawlProps:", rawlProps);
+    console.log("Current analysis:", analysis);
+  }, [rawlProps, analysis]);
+
+  // If no effectiveSlug is provided, show the index
+  if (!effectiveSlug) {
     return <EditorIndex />;
   }
 

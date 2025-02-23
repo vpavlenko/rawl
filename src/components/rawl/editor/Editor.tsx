@@ -722,6 +722,7 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
       const docRef = await addDoc(collection(db, "edits"), {
         source: finalSource,
         createdAt: new Date(),
+        parent: id ? `/ef/${id}` : slug ? `/e/${slug}` : null,
       });
 
       // Redirect to the new document

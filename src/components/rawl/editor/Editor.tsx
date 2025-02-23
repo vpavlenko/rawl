@@ -1,6 +1,8 @@
 import { toggleComment } from "@codemirror/commands";
 import { StreamLanguage } from "@codemirror/language";
 import { keymap } from "@codemirror/view";
+import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CodeMirror from "@uiw/react-codemirror";
 import {
   addDoc,
@@ -194,7 +196,7 @@ const ButtonBar = styled.div`
 `;
 
 const PublishButton = styled.button`
-  background: rgb(135, 135, 135);
+  background: #bbb;
   color: black;
   border: none;
   padding: 8px 16px;
@@ -202,9 +204,12 @@ const PublishButton = styled.button`
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
   &:hover {
-    background: rgb(197, 197, 197);
+    background: #ddd;
   }
 
   &:active {
@@ -792,7 +797,10 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
         </EditorContent>
         <KeyboardLayout>
           <ButtonBar>
-            <PublishButton onClick={handlePublish}>Publish</PublishButton>
+            <PublishButton onClick={handlePublish}>
+              Publish
+              <FontAwesomeIcon icon={faCloudArrowUp} />
+            </PublishButton>
           </ButtonBar>
           <div className="top-section">
             <div className="left-column">

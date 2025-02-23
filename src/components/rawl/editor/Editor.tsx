@@ -1,7 +1,11 @@
 import { toggleComment } from "@codemirror/commands";
 import { StreamLanguage } from "@codemirror/language";
 import { keymap } from "@codemirror/view";
-import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCloudArrowUp,
+  faCopy,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CodeMirror from "@uiw/react-codemirror";
 import {
@@ -193,15 +197,16 @@ const ButtonBar = styled.div`
   justify-content: flex-end;
   padding: 10px;
   border-bottom: 1px solid #333;
+  gap: 12px;
 `;
 
-const PublishButton = styled.button`
-  background: #bbb;
+const PublishButton = styled.button<{ isPublishing?: boolean }>`
+  background: ${(props) => (props.isPublishing ? "#999" : "#bbb")};
   color: black;
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
-  cursor: pointer;
+  cursor: ${(props) => (props.isPublishing ? "not-allowed" : "pointer")};
   font-size: 14px;
   font-weight: 500;
   display: flex;
@@ -209,11 +214,52 @@ const PublishButton = styled.button`
   gap: 8px;
 
   &:hover {
-    background: #ddd;
+    background: ${(props) => (props.isPublishing ? "#999" : "#ddd")};
   }
 
   &:active {
-    background: rgb(255, 255, 255);
+    background: ${(props) =>
+      props.isPublishing ? "#999" : "rgb(255, 255, 255)"};
+  }
+
+  .spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+const PublishedUrl = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #2a2a2a;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #ddd;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: #333;
+  }
+
+  .copy-button {
+    color: #999;
+    transition: color 0.2s;
+  }
+
+  &:hover .copy-button {
+    color: #fff;
   }
 `;
 
@@ -294,6 +340,9 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   const [isDragging, setIsDragging] = useState(false);
   const dragStartY = useRef(0);
   const dragStartHeight = useRef(0);
+  const [isPublishing, setIsPublishing] = useState(false);
+  const [publishedUrl, setPublishedUrl] = useState<string | null>(null);
+  const [showCopyFeedback, setShowCopyFeedback] = useState(false);
 
   // Get the analysis for this slug if it exists
   // For /ef/<id> URLs, use the mocked analysis
@@ -709,6 +758,9 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
 
   const handlePublish = async () => {
     try {
+      setIsPublishing(true);
+      setPublishedUrl(null);
+
       // Check if source has anacrusis
       const hasAnacrusis = score.toLowerCase().includes("anacrusis");
 
@@ -725,11 +777,28 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
         parent: id ? `/ef/${id}` : slug ? `/e/${slug}` : null,
       });
 
+      // Set the published URL
+      const newUrl = `/ef/${docRef.id}`;
+      setPublishedUrl(newUrl);
+
       // Redirect to the new document
-      history.push(`/ef/${docRef.id}`);
+      history.push(newUrl);
     } catch (error) {
       console.error("Error publishing:", error);
       setError("Failed to publish. Please try again.");
+    } finally {
+      setIsPublishing(false);
+    }
+  };
+
+  const handleCopyUrl = () => {
+    if (publishedUrl) {
+      const fullUrl = window.location.origin + publishedUrl;
+      navigator.clipboard.writeText(fullUrl);
+      setShowCopyFeedback(true);
+      setTimeout(() => {
+        setShowCopyFeedback(false);
+      }, 1000);
     }
   };
 
@@ -798,9 +867,34 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
         </EditorContent>
         <KeyboardLayout>
           <ButtonBar>
-            <PublishButton onClick={handlePublish}>
-              Publish
-              <FontAwesomeIcon icon={faCloudArrowUp} />
+            {publishedUrl && (
+              <PublishedUrl onClick={handleCopyUrl}>
+                {showCopyFeedback
+                  ? "Link is copied to clipboard"
+                  : publishedUrl}
+                <FontAwesomeIcon
+                  icon={faCopy}
+                  className="copy-button"
+                  title="Copy URL to clipboard"
+                />
+              </PublishedUrl>
+            )}
+            <PublishButton
+              onClick={handlePublish}
+              isPublishing={isPublishing}
+              disabled={isPublishing}
+            >
+              {isPublishing ? (
+                <>
+                  Publishing
+                  <FontAwesomeIcon icon={faSpinner} className="spinner" />
+                </>
+              ) : (
+                <>
+                  Publish
+                  <FontAwesomeIcon icon={faCloudArrowUp} />
+                </>
+              )}
             </PublishButton>
           </ButtonBar>
           <div className="top-section">

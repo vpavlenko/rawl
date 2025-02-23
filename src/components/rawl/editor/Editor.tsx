@@ -200,18 +200,22 @@ const ButtonBar = styled.div`
   gap: 12px;
 `;
 
-const PublishButton = styled.button<{ isPublishing?: boolean }>`
+const PublishButton = styled.button<{
+  isPublishing?: boolean;
+  hasChanges: boolean;
+}>`
   background: ${(props) => (props.isPublishing ? "#999" : "#bbb")};
   color: black;
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
-  cursor: ${(props) => (props.isPublishing ? "not-allowed" : "pointer")};
+  cursor: pointer;
   font-size: 14px;
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 8px;
+  position: relative;
 
   &:hover {
     background: ${(props) => (props.isPublishing ? "#999" : "#ddd")};
@@ -220,6 +224,27 @@ const PublishButton = styled.button<{ isPublishing?: boolean }>`
   &:active {
     background: ${(props) =>
       props.isPublishing ? "#999" : "rgb(255, 255, 255)"};
+  }
+
+  &:disabled {
+    background: #666;
+    cursor: not-allowed;
+    color: black;
+
+    &:hover::after {
+      content: "No changes made";
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+      pointer-events: none;
+    }
   }
 
   .spinner {
@@ -343,6 +368,7 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   const [isPublishing, setIsPublishing] = useState(false);
   const [publishedUrl, setPublishedUrl] = useState<string | null>(null);
   const [showCopyFeedback, setShowCopyFeedback] = useState(false);
+  const [initialSource, setInitialSource] = useState<string>("");
 
   // Get the analysis for this slug if it exists
   // For /ef/<id> URLs, use the mocked analysis
@@ -725,6 +751,7 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
               const data = docSnap.data();
               const newScore = data.source;
               setScore(newScore);
+              setInitialSource(newScore); // Save initial source
               // Trigger initial MIDI generation after a delay
               setTimeout(() => {
                 debouncedMelodyPlayback(newScore, true);
@@ -732,24 +759,29 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
             } else {
               setError("Edit not found");
               setScore("");
+              setInitialSource("");
             }
           } catch (error) {
             console.error("Error fetching edit:", error);
             setError("Failed to load edit");
             setScore("");
+            setInitialSource("");
           }
         } else if (scores[effectiveSlug]) {
           const newScore = scores[effectiveSlug];
           setScore(newScore);
+          setInitialSource(newScore); // Save initial source
           // Trigger initial MIDI generation after a delay
           setTimeout(() => {
             debouncedMelodyPlayback(newScore, true);
           }, 1000);
         } else {
           setScore("");
+          setInitialSource("");
         }
       } else {
         setScore("");
+        setInitialSource("");
       }
     };
 
@@ -798,7 +830,7 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
       setShowCopyFeedback(true);
       setTimeout(() => {
         setShowCopyFeedback(false);
-      }, 1000);
+      }, 2000); // Increased timeout since message is longer
     }
   };
 
@@ -870,7 +902,9 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
             {publishedUrl && (
               <PublishedUrl onClick={handleCopyUrl}>
                 {showCopyFeedback
-                  ? "Link is copied to clipboard"
+                  ? score !== initialSource
+                    ? "Link to last published version is copied to clipboard"
+                    : "Link is copied to clipboard"
                   : publishedUrl}
                 <FontAwesomeIcon
                   icon={faCopy}
@@ -882,7 +916,8 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
             <PublishButton
               onClick={handlePublish}
               isPublishing={isPublishing}
-              disabled={isPublishing}
+              disabled={isPublishing || score === initialSource}
+              hasChanges={score !== initialSource}
             >
               {isPublishing ? (
                 <>

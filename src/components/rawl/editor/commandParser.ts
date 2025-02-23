@@ -122,6 +122,18 @@ export const parseCopyCommand = (
     sourceEndBeat = 1;
   }
 
+  // Validate all measures and beats
+  if (
+    targetMeasure < 1 ||
+    sourceStart < 1 ||
+    sourceEnd < sourceStart ||
+    targetBeat < 1 ||
+    sourceStartBeat < 1 ||
+    sourceEndBeat < 1
+  ) {
+    return null;
+  }
+
   // Extract all shifts by matching numbers or 'x', supporting & syntax for layered shifts
   // If no shifts provided, default to ["0"]
   const shifts = (shiftsStr || "0")
@@ -165,7 +177,7 @@ export const parseTimeSignatures = (line: string): TimeSignature[] | null => {
       const [numerator, denominator] = part.split("/");
       const num = parseInt(numerator);
 
-      // Validate format
+      // Validate format - only check that numerator is positive and denominator is 4
       if (isNaN(num) || denominator !== "4" || num <= 0) {
         return null;
       }
@@ -263,7 +275,6 @@ export const parseCommand = (
     const startMeasure = parseInt(measureStr);
     const startBeat = beatStr ? parseFloat(beatStr) : 1;
     const key = context.currentKey;
-    const beatsPerMeasure = context.beatsPerMeasure || 4;
 
     // Validate measure and beat
     if (
@@ -274,8 +285,12 @@ export const parseCommand = (
     )
       return null;
 
-    // Get time signature for this measure
-    if (startBeat > beatsPerMeasure) return null;
+    // Get time signature for this measure and validate beat
+    const beatsInMeasure = getTimeSignatureAt(
+      startMeasure,
+      context.timeSignatures,
+    );
+    const beatsPerMeasure = beatsInMeasure || 4; // Fallback to 4/4 if no time signature
 
     const notes = parseMelodyString(cleanLine, {
       ...context,

@@ -188,13 +188,14 @@ const KeyboardLayout = styled.div`
 const ButtonBar = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   padding: 10px;
   border-bottom: 1px solid #333;
 `;
 
 const PublishButton = styled.button`
-  background: #4caf50;
-  color: white;
+  background: rgb(135, 135, 135);
+  color: black;
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
@@ -203,11 +204,11 @@ const PublishButton = styled.button`
   font-weight: 500;
 
   &:hover {
-    background: #45a049;
+    background: rgb(197, 197, 197);
   }
 
   &:active {
-    background: #3d8b40;
+    background: rgb(255, 255, 255);
   }
 `;
 

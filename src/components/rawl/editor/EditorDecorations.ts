@@ -572,114 +572,165 @@ export const customTheme = createTheme({
 export const characterBackgroundsPlugin = ViewPlugin.fromClass(
   class {
     decorations: DecorationSet;
+    lastValidDecorations: DecorationSet | null = null;
 
     constructor(view: EditorView) {
-      this.decorations = this.buildDecorations(view);
+      try {
+        this.decorations = this.buildDecorations(view);
+        this.lastValidDecorations = this.decorations;
+      } catch (error) {
+        console.error("Error initializing editor decorations:", error);
+        this.decorations = this.lastValidDecorations || Decoration.none;
+      }
     }
 
     update(update: ViewUpdate) {
-      if (update.docChanged || update.viewportChanged) {
-        // Clear cache for changed lines
-        if (update.docChanged) {
-          update.changes.iterChangedRanges((fromA, toA) => {
-            const fromLine = update.state.doc.lineAt(fromA).number;
-            const toLine = update.state.doc.lineAt(toA).number;
-            for (let i = fromLine; i <= toLine; i++) {
-              lineCache.delete(i);
-            }
-          });
+      try {
+        if (update.docChanged || update.viewportChanged) {
+          // Clear cache for changed lines
+          if (update.docChanged) {
+            update.changes.iterChangedRanges((fromA, toA) => {
+              try {
+                const fromLine = update.state.doc.lineAt(fromA).number;
+                const toLine = update.state.doc.lineAt(toA).number;
+                for (let i = fromLine; i <= toLine; i++) {
+                  lineCache.delete(i);
+                }
+              } catch (error) {
+                console.error("Error clearing line cache:", error);
+                // Clear entire cache if we can't determine specific lines
+                lineCache.clear();
+              }
+            });
+          }
+
+          const newDecorations = this.buildDecorations(update.view);
+          this.lastValidDecorations = newDecorations;
+          this.decorations = newDecorations;
         }
-        this.decorations = this.buildDecorations(update.view);
+      } catch (error) {
+        console.error("Error updating editor decorations:", error);
+        // Fallback to last valid decorations or empty set
+        this.decorations = this.lastValidDecorations || Decoration.none;
       }
     }
 
     buildDecorations(view: EditorView) {
-      const builder = new RangeSetBuilder<Decoration>();
-      const doc = view.state.doc;
-      const allLines = doc.toString().split("\n");
+      try {
+        const builder = new RangeSetBuilder<Decoration>();
+        const doc = view.state.doc;
+        const allLines = doc.toString().split("\n");
 
-      // Start with C major as default
-      let currentKey: KeySignature = { tonic: 0, mode: "major" };
+        // Start with C major as default
+        let currentKey: KeySignature = { tonic: 0, mode: "major" };
 
-      // Iterate through visible lines
-      for (let { from, to } of view.visibleRanges) {
-        let pos = from;
-        while (pos <= to) {
-          const line = view.state.doc.lineAt(pos);
-          const lineIndex = doc.lineAt(pos).number - 1;
+        // Iterate through visible lines
+        for (let { from, to } of view.visibleRanges) {
+          let pos = from;
+          while (pos <= to && pos < doc.length) {
+            // Add bounds check
+            try {
+              const line = view.state.doc.lineAt(pos);
+              const lineIndex = line.number - 1;
 
-          // Check cache first
-          let backgrounds: Array<{ class: string | null }>;
-          const cached = lineCache.get(lineIndex + 1);
+              // Check cache first
+              let backgrounds: Array<{ class: string | null }>;
+              const cached = lineCache.get(lineIndex + 1);
 
-          if (cached && !shouldInvalidateCache(lineIndex, allLines)) {
-            backgrounds = cached.decorations;
-          } else {
-            backgrounds = getBackgroundsForLine(
-              line.text,
-              currentKey,
-              allLines,
-              lineIndex,
-            );
-            // Cache the result
-            lineCache.set(lineIndex + 1, {
-              decorations: backgrounds,
-              key: { ...currentKey },
-            });
-          }
-
-          // Update current key if this is a key signature line
-          if (isKeySignatureLine(line.text)) {
-            const [_, root, mode] = line.text.match(
-              /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian)$/i,
-            )!;
-            const noteToNumber: { [key: string]: number } = {
-              C: 0,
-              "C#": 1,
-              Db: 1,
-              D: 2,
-              "D#": 3,
-              Eb: 3,
-              E: 4,
-              F: 5,
-              "F#": 6,
-              Gb: 6,
-              G: 7,
-              "G#": 8,
-              Ab: 8,
-              A: 9,
-              "A#": 10,
-              Bb: 10,
-              B: 11,
-            };
-            currentKey = {
-              tonic: noteToNumber[root],
-              mode: mode.toLowerCase() as KeySignature["mode"],
-            };
-          }
-
-          // Apply background to each character
-          for (let i = 0; i < line.length; i++) {
-            const charPos = line.from + i;
-            if (charPos < line.to) {
-              const decoration = backgrounds[i];
-              if (decoration && decoration.class) {
-                builder.add(
-                  charPos,
-                  charPos + 1,
-                  Decoration.mark({ class: decoration.class }),
+              if (cached && !shouldInvalidateCache(lineIndex, allLines)) {
+                backgrounds = cached.decorations;
+              } else {
+                backgrounds = getBackgroundsForLine(
+                  line.text,
+                  currentKey,
+                  allLines,
+                  lineIndex,
                 );
+                // Cache the result
+                lineCache.set(lineIndex + 1, {
+                  decorations: backgrounds,
+                  key: { ...currentKey },
+                });
               }
+
+              // Update current key if this is a key signature line
+              if (isKeySignatureLine(line.text)) {
+                const keyMatch = line.text.match(
+                  /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian)$/i,
+                );
+                if (keyMatch) {
+                  const [_, root, mode] = keyMatch;
+                  const noteToNumber: { [key: string]: number } = {
+                    C: 0,
+                    "C#": 1,
+                    Db: 1,
+                    D: 2,
+                    "D#": 3,
+                    Eb: 3,
+                    E: 4,
+                    F: 5,
+                    "F#": 6,
+                    Gb: 6,
+                    G: 7,
+                    "G#": 8,
+                    Ab: 8,
+                    A: 9,
+                    "A#": 10,
+                    Bb: 10,
+                    B: 11,
+                  };
+                  currentKey = {
+                    tonic: noteToNumber[root],
+                    mode: mode.toLowerCase() as KeySignature["mode"],
+                  };
+                }
+              }
+
+              // Apply background to each character with bounds checking
+              for (let i = 0; i < line.length && i < backgrounds.length; i++) {
+                const charPos = line.from + i;
+                if (charPos < line.to && charPos < doc.length) {
+                  const decoration = backgrounds[i];
+                  if (decoration && decoration.class) {
+                    builder.add(
+                      charPos,
+                      charPos + 1,
+                      Decoration.mark({ class: decoration.class }),
+                    );
+                  }
+                }
+              }
+              pos = line.to + 1;
+            } catch (error) {
+              console.error("Error processing line:", error);
+              pos++; // Move to next position on error
+              continue;
             }
           }
-          pos = line.to + 1;
         }
-      }
 
-      return builder.finish();
+        return builder.finish();
+      } catch (error) {
+        console.error("Error building decorations:", error);
+        return this.lastValidDecorations || Decoration.none;
+      }
     }
   },
   {
     decorations: (v) => v.decorations,
+    // Add plugin event handlers for error recovery
+    eventHandlers: {
+      focus(event: FocusEvent, view: EditorView) {
+        try {
+          // Attempt to rebuild decorations on focus
+          if (this.lastValidDecorations === null) {
+            this.decorations = this.buildDecorations(view);
+            this.lastValidDecorations = this.decorations;
+          }
+        } catch (error) {
+          console.error("Error handling focus event:", error);
+        }
+      },
+    },
   },
 );

@@ -528,7 +528,7 @@ const getDuration = (marker: string, beatsPerMeasure: number = 4): number => {
 
   switch (baseDuration) {
     case "+":
-      duration = beatsPerMeasure; // length of time signature at insertion
+      duration = 4; // Always 4 beats for whole note, regardless of time signature
       break;
     case "_":
       duration = 2; // half note

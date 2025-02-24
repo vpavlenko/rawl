@@ -613,119 +613,30 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
     [playSongBuffer, effectiveSlug],
   );
 
-  // Function to handle cursor position changes
-  const handleCursorChange = useCallback(
-    (viewUpdate: any) => {
-      const line = viewUpdate.state.selection.main.head;
-      const lineNumber = viewUpdate.state.doc.lineAt(line).number;
-      const hasSelection = !viewUpdate.state.selection.main.empty;
-
-      if (lineNumber !== currentLine && !hasSelection) {
-        // Clear any existing timeouts
-        if (cycleTimeoutRef.current) {
-          clearTimeout(cycleTimeoutRef.current);
-          cycleTimeoutRef.current = null;
-        }
-        if (debounceTimeoutRef.current) {
-          clearTimeout(debounceTimeoutRef.current);
-          debounceTimeoutRef.current = null;
-        }
-
-        // Reset states immediately
-        setShadowScore(null);
-        setIsPlayingFromShadow(false);
-        debouncedMelodyPlayback(score, false);
-
-        setCurrentLine(lineNumber);
-
-        // Create shadow copy and start the comment/uncomment cycle
-        const lines = score.split("\n");
-        const currentLineText = lines[lineNumber - 1]?.trim();
-
-        // Only proceed if line is not empty and contains a command
-        if (currentLineText) {
-          // Parse the command to check if it's a c, i, or ac command
-          const command = parseCommand(currentLineText, context);
-          if (
-            command &&
-            (command.type === "copy" ||
-              command.type === "insert" ||
-              command.type === "ac")
-          ) {
-            // Add debounce before starting the cycle
-            debounceTimeoutRef.current = setTimeout(() => {
-              let cycleCount = 0;
-
-              const startCycle = () => {
-                if (cycleCount < 4) {
-                  // Use requestAnimationFrame to ensure smooth timing
-                  requestAnimationFrame(() => {
-                    // Toggle comment
-                    const newLines = [...lines];
-                    if (cycleCount % 2 === 0) {
-                      // Comment the line
-                      newLines[lineNumber - 1] =
-                        "% " + newLines[lineNumber - 1];
-                    } else {
-                      // Uncomment the line
-                      newLines[lineNumber - 1] = newLines[
-                        lineNumber - 1
-                      ].replace(/^% /, "");
-                    }
-
-                    const newScore = newLines.join("\n");
-                    setShadowScore(newScore);
-                    setIsPlayingFromShadow(true);
-
-                    // Trigger MIDI generation with shadow score
-                    debouncedMelodyPlayback(newScore, false);
-
-                    cycleCount++;
-                    // Use setTimeout with requestAnimationFrame for next cycle
-                    cycleTimeoutRef.current = setTimeout(() => {
-                      requestAnimationFrame(startCycle);
-                    }, 200);
-                  });
-                } else {
-                  // Reset after 4 cycles
-                  cycleTimeoutRef.current = null;
-                  debounceTimeoutRef.current = null;
-                  setShadowScore(null);
-                  setIsPlayingFromShadow(false);
-                  debouncedMelodyPlayback(score, false);
-                }
-              };
-
-              startCycle();
-            }, 300); // 300ms debounce
-          }
-        }
-      }
-    },
-    [currentLine, score, debouncedMelodyPlayback, context],
-  );
-
-  // Clean up timeouts on unmount
-  useEffect(() => {
-    return () => {
-      if (cycleTimeoutRef.current) {
-        clearTimeout(cycleTimeoutRef.current);
-      }
-      if (debounceTimeoutRef.current) {
-        clearTimeout(debounceTimeoutRef.current);
-      }
-    };
+  // Add helper function to clean up blinking state
+  const cleanupBlinkingState = useCallback(() => {
+    if (cycleTimeoutRef.current) {
+      clearTimeout(cycleTimeoutRef.current);
+      cycleTimeoutRef.current = null;
+    }
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+      debounceTimeoutRef.current = null;
+    }
+    setShadowScore(null);
+    setIsPlayingFromShadow(false);
   }, []);
 
-  // Modified handleTextChange to use shadow score when active
+  // Modified handleTextChange to immediately flush blinking state
   const handleTextChange = useCallback(
     (value: string) => {
       setScore(value);
-      if (!isPlayingFromShadow) {
-        debouncedMelodyPlayback(value, false);
-      }
+      // Always clean up any pending or active blinking state on edit
+      cleanupBlinkingState();
+      // Always trigger MIDI playback with the new value
+      debouncedMelodyPlayback(value, false);
     },
-    [debouncedMelodyPlayback, isPlayingFromShadow],
+    [debouncedMelodyPlayback, cleanupBlinkingState],
   );
 
   // Update score when effectiveSlug changes
@@ -833,6 +744,96 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
     console.log("Current rawlProps:", rawlProps);
     console.log("Current analysis:", analysis);
   }, [rawlProps, analysis]);
+
+  // Update handleCursorChange to use the cleanup function
+  const handleCursorChange = useCallback(
+    (viewUpdate: any) => {
+      const line = viewUpdate.state.selection.main.head;
+      const lineNumber = viewUpdate.state.doc.lineAt(line).number;
+      const hasSelection = !viewUpdate.state.selection.main.empty;
+
+      if (lineNumber !== currentLine && !hasSelection) {
+        // Clean up any existing blinking state
+        cleanupBlinkingState();
+        debouncedMelodyPlayback(score, false);
+
+        setCurrentLine(lineNumber);
+
+        // Create shadow copy and start the comment/uncomment cycle
+        const lines = score.split("\n");
+        const currentLineText = lines[lineNumber - 1]?.trim();
+
+        // Only proceed if line is not empty and contains a command
+        if (currentLineText) {
+          // Parse the command to check if it's a c, i, or ac command
+          const command = parseCommand(currentLineText, context);
+          if (
+            command &&
+            (command.type === "copy" ||
+              command.type === "insert" ||
+              command.type === "ac")
+          ) {
+            // Add debounce before starting the cycle
+            debounceTimeoutRef.current = setTimeout(() => {
+              let cycleCount = 0;
+
+              const startCycle = () => {
+                if (cycleCount < 4) {
+                  // Use requestAnimationFrame to ensure smooth timing
+                  requestAnimationFrame(() => {
+                    // Toggle comment
+                    const newLines = [...lines];
+                    if (cycleCount % 2 === 0) {
+                      // Comment the line
+                      newLines[lineNumber - 1] =
+                        "% " + newLines[lineNumber - 1];
+                    } else {
+                      // Uncomment the line
+                      newLines[lineNumber - 1] = newLines[
+                        lineNumber - 1
+                      ].replace(/^% /, "");
+                    }
+
+                    const newScore = newLines.join("\n");
+                    setShadowScore(newScore);
+                    setIsPlayingFromShadow(true);
+
+                    // Trigger MIDI generation with shadow score
+                    debouncedMelodyPlayback(newScore, false);
+
+                    cycleCount++;
+                    // Use setTimeout with requestAnimationFrame for next cycle
+                    cycleTimeoutRef.current = setTimeout(() => {
+                      requestAnimationFrame(startCycle);
+                    }, 200);
+                  });
+                } else {
+                  cleanupBlinkingState();
+                  debouncedMelodyPlayback(score, false);
+                }
+              };
+
+              startCycle();
+            }, 300); // 300ms debounce
+          }
+        }
+      }
+    },
+    [
+      currentLine,
+      score,
+      debouncedMelodyPlayback,
+      context,
+      cleanupBlinkingState,
+    ],
+  );
+
+  // Update cleanup effect to use the cleanup function
+  useEffect(() => {
+    return () => {
+      cleanupBlinkingState();
+    };
+  }, [cleanupBlinkingState]);
 
   // If no effectiveSlug is provided, show the index
   if (!effectiveSlug) {

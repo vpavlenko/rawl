@@ -3064,6 +3064,8 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "boogie_woogie",
     midis: [
+      "easy-boogie-woogie",
+      "surfboard-boogie",
       "boogie-woogie",
       "original-boogie-woogie",
       "boogie-woogie---misc-traditional-boogie-woogie-_-basic-piano-solo-for-beginners",
@@ -3072,9 +3074,9 @@ export const corpora: CorpusEntry[] = [
       "boogie-blues-etude-1974---oscar-peterson-piano-solo-transcription",
       "boogie-woogie---monday-struggle---by-albert-ammons",
       "boogie-woogie-stomp",
-      "easy-boogie-woogie",
+
       "lewis-boogie-rock-n-roll-piano-arrangement",
-      "surfboard-boogie",
+
       "boogie-woogie-7a11a3",
       "boogie-woogie-piano",
       "some-boogie-woogie-by-albert-ammons-friends",
@@ -5498,6 +5500,8 @@ export const corpora: CorpusEntry[] = [
       "moonlight_sonata_ludwig_van_beethoven_piano_solo",
       "Sonate_No._14_Moonlight_3rd_Movement",
       "sonate-no.-17-tempest-3rd-movement",
+      "sonate-no.-19-1st-movement",
+      "sonate-no.-19-2nd-movement",
 
       "beethoven_trio_for_clarinet_cello_and_piano_no_4_op_11_2nd_movement",
       "Fr_Elise",

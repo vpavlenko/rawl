@@ -4708,7 +4708,12 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "pete_johnson",
-    midis: ["boogie-woogie-jump---pete-johnson", "dive-bomber---pete-johnson"],
+    midis: [
+      "boogie-woogie-jump---pete-johnson",
+      "dive-bomber---pete-johnson",
+      "boogie-woogie-7a11a3",
+      "shuffle-boogie---pete-johnson",
+    ],
     style: "Boogie Woogie",
     country: "USA",
   },

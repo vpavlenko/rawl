@@ -179,6 +179,30 @@ lh
 64  c 19-35
 
 81  c 19-34`,
+  "idea-n.10---gibran-alcocer": `G minor
+bpm 180
+3/4
+
+lh 2
+2 i r,fh,fh, a,fh,fh,
+4 i q,dg,dg, a,dg,gd,
+6 i 7,sg,sg, 7,sg,sg,
+8 c 4-5 -2
+
+10 c 2-8
+17 i y,af,af, y,gd,dg-x-dg_.
+
+20 c 2-19 0 0 0
+
+74 c 2-3
+76 i 7,sf,sf, u,sf,sf,
+78 i q,dg,dg, e,dg,dg,
+80 c 
+
+
+114 i 6qe+
+
+`,
   "idea-15---gibran-alcocer": `3/4
 Db minor
 

@@ -35,75 +35,6 @@ interface NoteColor {
   dotClass: string;
 }
 
-// Add cache types and helper functions
-interface LineCache {
-  decorations: Array<{ class: string | null }>;
-  key: KeySignature;
-}
-
-const lineCache = new Map<number, LineCache>();
-
-const isKeySignatureLine = (line: string): boolean => {
-  return !!line.match(
-    /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian)$/i,
-  );
-};
-
-const shouldInvalidateCache = (
-  lineNumber: number,
-  allLines: string[],
-): boolean => {
-  // Find the last key signature change before this line
-  for (let i = lineNumber - 1; i >= 0; i--) {
-    if (isKeySignatureLine(allLines[i])) {
-      // If we find a key signature change, check if it's cached
-      const cached = lineCache.get(lineNumber);
-      if (!cached) return true;
-
-      // Calculate what the key should be at this line
-      let currentKey: KeySignature = { tonic: 0, mode: "major" };
-      for (let j = 0; j <= i; j++) {
-        const keyMatch = allLines[j].match(
-          /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian)$/i,
-        );
-        if (keyMatch) {
-          const [_, root, mode] = keyMatch;
-          const noteToNumber: { [key: string]: number } = {
-            C: 0,
-            "C#": 1,
-            Db: 1,
-            D: 2,
-            "D#": 3,
-            Eb: 3,
-            E: 4,
-            F: 5,
-            "F#": 6,
-            Gb: 6,
-            G: 7,
-            "G#": 8,
-            Ab: 8,
-            A: 9,
-            "A#": 10,
-            Bb: 10,
-            B: 11,
-          };
-          currentKey = {
-            tonic: noteToNumber[root],
-            mode: mode.toLowerCase() as KeySignature["mode"],
-          };
-        }
-      }
-
-      // Compare with cached key
-      return (
-        cached.key.tonic !== currentKey.tonic ||
-        cached.key.mode !== currentKey.mode
-      );
-    }
-  }
-  return false;
-};
-
 // Function to get background colors for each character in a line
 export const getBackgroundsForLine = (
   line: string,
@@ -587,30 +518,12 @@ export const characterBackgroundsPlugin = ViewPlugin.fromClass(
     update(update: ViewUpdate) {
       try {
         if (update.docChanged || update.viewportChanged) {
-          // Clear cache for changed lines
-          if (update.docChanged) {
-            update.changes.iterChangedRanges((fromA, toA) => {
-              try {
-                const fromLine = update.state.doc.lineAt(fromA).number;
-                const toLine = update.state.doc.lineAt(toA).number;
-                for (let i = fromLine; i <= toLine; i++) {
-                  lineCache.delete(i);
-                }
-              } catch (error) {
-                console.error("Error clearing line cache:", error);
-                // Clear entire cache if we can't determine specific lines
-                lineCache.clear();
-              }
-            });
-          }
-
           const newDecorations = this.buildDecorations(update.view);
           this.lastValidDecorations = newDecorations;
           this.decorations = newDecorations;
         }
       } catch (error) {
         console.error("Error updating editor decorations:", error);
-        // Fallback to last valid decorations or empty set
         this.decorations = this.lastValidDecorations || Decoration.none;
       }
     }
@@ -628,62 +541,46 @@ export const characterBackgroundsPlugin = ViewPlugin.fromClass(
         for (let { from, to } of view.visibleRanges) {
           let pos = from;
           while (pos <= to && pos < doc.length) {
-            // Add bounds check
             try {
               const line = view.state.doc.lineAt(pos);
               const lineIndex = line.number - 1;
 
-              // Check cache first
-              let backgrounds: Array<{ class: string | null }>;
-              const cached = lineCache.get(lineIndex + 1);
-
-              if (cached && !shouldInvalidateCache(lineIndex, allLines)) {
-                backgrounds = cached.decorations;
-              } else {
-                backgrounds = getBackgroundsForLine(
-                  line.text,
-                  currentKey,
-                  allLines,
-                  lineIndex,
-                );
-                // Cache the result
-                lineCache.set(lineIndex + 1, {
-                  decorations: backgrounds,
-                  key: { ...currentKey },
-                });
-              }
+              const backgrounds = getBackgroundsForLine(
+                line.text,
+                currentKey,
+                allLines,
+                lineIndex,
+              );
 
               // Update current key if this is a key signature line
-              if (isKeySignatureLine(line.text)) {
-                const keyMatch = line.text.match(
-                  /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian)$/i,
-                );
-                if (keyMatch) {
-                  const [_, root, mode] = keyMatch;
-                  const noteToNumber: { [key: string]: number } = {
-                    C: 0,
-                    "C#": 1,
-                    Db: 1,
-                    D: 2,
-                    "D#": 3,
-                    Eb: 3,
-                    E: 4,
-                    F: 5,
-                    "F#": 6,
-                    Gb: 6,
-                    G: 7,
-                    "G#": 8,
-                    Ab: 8,
-                    A: 9,
-                    "A#": 10,
-                    Bb: 10,
-                    B: 11,
-                  };
-                  currentKey = {
-                    tonic: noteToNumber[root],
-                    mode: mode.toLowerCase() as KeySignature["mode"],
-                  };
-                }
+              const keyMatch = line.text.match(
+                /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian)$/i,
+              );
+              if (keyMatch) {
+                const [_, root, mode] = keyMatch;
+                const noteToNumber: { [key: string]: number } = {
+                  C: 0,
+                  "C#": 1,
+                  Db: 1,
+                  D: 2,
+                  "D#": 3,
+                  Eb: 3,
+                  E: 4,
+                  F: 5,
+                  "F#": 6,
+                  Gb: 6,
+                  G: 7,
+                  "G#": 8,
+                  Ab: 8,
+                  A: 9,
+                  "A#": 10,
+                  Bb: 10,
+                  B: 11,
+                };
+                currentKey = {
+                  tonic: noteToNumber[root],
+                  mode: mode.toLowerCase() as KeySignature["mode"],
+                };
               }
 
               // Apply background to each character with bounds checking

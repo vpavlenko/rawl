@@ -444,39 +444,48 @@ export const parseMelodyString = (
       }
 
       // Handle note or chord
-      const noteChars = token.match(/[b#]?[a-zA-Z1-90x]/g) || [];
+      // First split into tokens by commas and whitespace
+      const rawNoteTokens = token.split(/[,\s]+/);
+      const noteTokens = rawNoteTokens.filter(Boolean);
 
       const span: MeasureSpan = {
         start: currentPosition,
         end: currentPosition + 1, // Default to one beat duration
       };
 
-      // Check if this is a rest (x)
-      if (noteChars.length === 1 && noteChars[0] === "x") {
-        result.push({
-          scaleDegree: -Infinity,
-          duration: TICKS_PER_QUARTER,
-          span: { ...span },
-          midiNumber: null,
-        });
-        continue;
-      }
+      // Process each token
+      for (const noteToken of noteTokens) {
+        // Skip duration markers
+        if (/^[+_\-=,'"][.:]?$/.test(noteToken)) continue;
 
-      // Process each note in the chord (or single note)
-      for (const noteChar of noteChars) {
-        // Check for accidental
+        // Check for accidental prefix
         let accidental: -1 | 0 | 1 = 0;
-        let actualNoteChar = noteChar;
-        if (noteChar.startsWith("b")) {
+        let actualNote = noteToken;
+
+        // Handle accidentals at start of token
+        if (noteToken.startsWith("b")) {
           accidental = -1;
-          actualNoteChar = noteChar.slice(1);
-        } else if (noteChar.startsWith("#")) {
+          actualNote = noteToken.slice(1);
+        } else if (noteToken.startsWith("#")) {
           accidental = 1;
-          actualNoteChar = noteChar.slice(1);
+          actualNote = noteToken.slice(1);
         }
 
-        const absoluteScaleDegree =
-          NOTE_LETTER_MAP[actualNoteChar.toLowerCase()];
+        // Skip if not a valid note
+        if (!/^[a-zA-Z1-90x]$/.test(actualNote)) continue;
+
+        // Handle rest
+        if (actualNote === "x") {
+          result.push({
+            scaleDegree: -Infinity,
+            duration: TICKS_PER_QUARTER,
+            span: { ...span },
+            midiNumber: null,
+          });
+          continue;
+        }
+
+        const absoluteScaleDegree = NOTE_LETTER_MAP[actualNote.toLowerCase()];
         if (absoluteScaleDegree === undefined) continue;
 
         const midiNumber = calculateMidiNumber(
@@ -587,8 +596,24 @@ const processTokens = (melodyPart: string): string[] => {
       tokens.push(durationToken);
     } else if (/[.:]/.test(char)) {
       continue;
+    } else if (/[#b]/.test(char)) {
+      // Handle accidentals - they should be part of the next note
+      if (currentToken) {
+        // If we have a token already, push it before starting new one with accidental
+        tokens.push(currentToken);
+        currentToken = "";
+      }
+      currentToken = char;
     } else if (/[a-zA-Z1-90x]/.test(char)) {
       currentToken += char;
+      // If this is a complete note (accidental + note or just note), push it
+      if (
+        currentToken.length === 2 ||
+        (currentToken.length === 1 && !/[#b]/.test(currentToken))
+      ) {
+        tokens.push(currentToken);
+        currentToken = "";
+      }
     }
   }
 

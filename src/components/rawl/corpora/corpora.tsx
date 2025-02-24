@@ -3111,6 +3111,17 @@ export const corpora: CorpusEntry[] = [
     country: "USA",
   },
   {
+    slug: "george_antheil",
+    midis: [
+      "sonatina-death-of-the-machines-1922-i-movement-by-george-antheil",
+      "sonatina-death-of-the-machines-1922-ii-movement-by-george-antheil",
+      "sonatina-death-of-the-machines-1922-iii-movement-by-george-antheil",
+      "sonatina-death-of-the-machines-1922-iv-movement-by-george-antheil",
+      "jazz-sonata-no.-4---george-antheil-score",
+    ],
+    genre: "Post-Tonal",
+  },
+  {
     slug: "martha_mier",
     midis: [
       "to-catch-a-dream---martha-mier",
@@ -3767,6 +3778,8 @@ export const corpora: CorpusEntry[] = [
       "feliks-dobrzynski---farewell-nocturne",
       "nocturne-op.21-no1---ignacy-feliks-dobrzynski",
       "nocturne-in-f-minor-op.24-no.1---ignacy-feliks-dobrzynski",
+      "adagio---ignacy-feliks-dobrzynski",
+      "fantaisie-op.14---ignacy-feliks-dobrzynski",
     ],
     composerBirthYear: 1807, // Born in 1807
     genre: "Classical", // Classical composer
@@ -5731,6 +5744,26 @@ export const corpora: CorpusEntry[] = [
     ],
   },
   {
+    slug: "tetris_theme_a",
+    midis: [
+      "Tetris_Theme",
+      "tetris-theme",
+      "tetris-theme-for-piano",
+      "tetris-theme---impossible-piano",
+      "tetris-type-a",
+      "tetris-theme---epic-piano-arrangement",
+      "tetris-theme-a",
+      "Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki",
+      "korobeiniki-tetris",
+      "tetris-theme-korobeniki-easy-to-play",
+      "tetris-ragtime",
+      "murican-tetris-.rag...",
+      "tetris---a-theme-with-variations",
+      "tetris-theme---very-hard",
+      "korobeiniki-tetris-theme",
+    ],
+  },
+  {
     slug: "paul_de_senneville",
     midis: [
       "mariage-d-amour---paul-de-senneville-marriage-d-amour",
@@ -5750,7 +5783,6 @@ export const corpora: CorpusEntry[] = [
       "coup-de-coeur-coup-de-coeur-serenade-de-l-etoile--richard-clayderman",
       "les-oiseaux-tristes-du-zuiderzee",
       "triste-coeur",
-      "les-jours-triste",
       "concerto-pour-une-jeune-fille-nommee-je-t-aime",
       "la-fuite-du-temps-by-richard-clayderman-for-piano",
       "hungarian-sonata---paul-de-senneville",
@@ -6217,6 +6249,27 @@ export const corpora: CorpusEntry[] = [
       "emma-s-sorrow---the-promised-neverland",
       "krone-on-the-gf-string",
       "shoshimin-ost---main-theme---takahiro-obata",
+    ],
+  },
+  {
+    slug: "mdk",
+    midis: [
+      "fingerbang---mdk-mdk---fingerbang-piano-solo",
+      "dash---mdk",
+      "interlaced---mdk",
+      "dash-destroyer---mdk",
+      "fingerdash",
+      "space-invaders---teminite-mdk",
+      "press-start",
+    ],
+  },
+  {
+    slug: "yim_josef",
+    midis: [
+      "jim-yosef-link",
+      "jim-yosef--firefly",
+      "animal---jim-yosef",
+      "jim-yosef--eclipse-ncs-release",
     ],
   },
   {
@@ -6883,6 +6936,15 @@ export const corpora: CorpusEntry[] = [
       "TheFatRat_Unity",
       "jackpot-thefatrat",
       "thefatrat---close-to-the-sun",
+      "thefatrat---time-lapse-piano-arrangement",
+      "thefatrat---origin-reprise-dota-2-music-pack",
+      "thefatrat---windfall",
+      "xenogenesis---thefatrat",
+      "elegy---thefatrat-piano-cover",
+      "sunlight---thefatrat-phaera",
+      "thefatrat---envelope-dota-2-music-pack",
+      "rule-the-world---thefatrat-and-alexa-piano-cover",
+      "thefatrat-slaydit---solitude",
     ],
   },
   {
@@ -6912,6 +6974,22 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki",
       "comptine-d-un-autre-ete-arr.-kyle-landry-2021",
+    ],
+  },
+  {
+    slug: "misirlou",
+    midis: ["misirlou-pulp-fiction", "misirlou-pulp-fiction-f28e66"],
+  },
+  {
+    slug: "vangelis",
+    midis: [
+      "conquest-of-paradise-vangelis",
+      "chariots-of-fire-theme",
+      "alpha---vangelis",
+      "piano-in-an-empty-room---vangelis",
+      "messages-easy-piano---vangelis",
+      "love-theme-blade-runner---vangelis-for-keyboard",
+      "plelude---vangelis",
     ],
   },
   {
@@ -6977,8 +7055,6 @@ export const corpora: CorpusEntry[] = [
       "Titanic",
       "To_be_over",
 
-      "Vangelis_Chariots_of_fire",
-
       "Walking_On_a_dream",
 
       "alexey_bychkov_s_trio_goby_waltz",
@@ -7035,7 +7111,7 @@ export const corpora: CorpusEntry[] = [
       "kars_1_tigran_hamasyan",
 
       "kimigayo_national_anthem_of_japan",
-      "korobeiniki-tetris",
+
       "kukla_kolduna",
       "mahler_4_3",
       "major_diatonic_chords",

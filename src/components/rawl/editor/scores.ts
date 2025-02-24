@@ -183,6 +183,10 @@ lh
 bpm 180
 3/4
 
+
+rh 4
+16 i a_.s_.d+.
+
 lh 2
 2 i r,fh,fh, a,fh,fh,
 4 i q,dg,dg, a,dg,gd,
@@ -192,17 +196,13 @@ lh 2
 10 c 2-8
 17 i y,af,af, y,gd,dg-x-dg_.
 
-lh
 74 c 2-3
 76 i 7,sf,sf, u,sf,sf,
 78 i q,dg,dg, e,dg,dg,
 
-rh 4
-16 i q_.w_.e+.
-
 80 c 62-63
 82 c 74-79
-88 c 16-19
+88 ac 16-19
 
 92 c 2-9 0 0
 
@@ -212,9 +212,6 @@ rh 4
 
 20 ac 2-19 0 0 0
 
-
-rh 4
-16 i q_.w_.e+.
 
 
 rh 4
@@ -233,6 +230,9 @@ rh 4
 29 i               f-a-y- g-d-s-
 30 c 22-24
 33 i               s-u-t- u-s-g- 
+
+56 c 20-25
+108 c 20-25
 `,
   "idea-15---gibran-alcocer": `3/4
 Db minor
@@ -400,4 +400,40 @@ rh
 3 i 3-e-w-e-q-e-7-e-6-e-5-e-4-e-3-e-
 5 c 3-4 -1 -2
 19 c 3-8 7`,
+  "boogie-woogie-jump---pete-johnson": `F major
+bpm 200
+F major
+
+lh
+
+
+13 i 1-q-3-e-5-t-3-e-
+14 c 13 3 0 0 3 3 0 0 4 4 0 0
+5 c 17-24
+25 c 13-23
+41 c 5-35
+77 c 41-60
+97 c 85-96 0 0 0
+133 c 13-23
+
+
+rh
+9b3 i x-a-s-bd- a-s-u-i-t-bt-r-be- e-t-y-i-by-r-w-be- eti-
+25 c 1-12 0 0 0 0 0 0 0 0 0 0
+3 i bj-:j-:k-:
+3b2 c 3-3b2 0 0 0 0 0 0 0 0 0 0 0
+13 i  etyi- x_  etyi,
+14 i betyi- x_ betyi,
+15 c 13 0 0 x x 0 0 
+17 c 14 0 0
+21 i rtuo-
+22 c 5-5b3
+22b3 i r-:bt-:t-: be-:e-:r-:
+23 i q-bey-et-q-bebt-5-wr-5-qe-5-
+6 c 22-23
+  
+
+145 ac 1-8
+  
+  `,
 };

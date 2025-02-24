@@ -192,16 +192,47 @@ lh 2
 10 c 2-8
 17 i y,af,af, y,gd,dg-x-dg_.
 
-20 c 2-19 0 0 0
-
+lh
 74 c 2-3
 76 i 7,sf,sf, u,sf,sf,
 78 i q,dg,dg, e,dg,dg,
-80 c 
 
+rh 4
+16 i q_.w_.e+.
+
+80 c 62-63
+82 c 74-79
+88 c 16-19
+
+92 c 2-9 0 0
+
+108 i afh+. adg+. usf+.
 
 114 i 6qe+
 
+20 ac 2-19 0 0 0
+
+
+rh 4
+16 i q_.w_.e+.
+
+
+rh 4
+1 i x,.q-q-e-r-e-r_.
+3 i x,.q-q-w-e-w-e_. 
+5 i x,.q-q-e-w_x-q-q,q,.7-q+
+9 i x,.q-q-e-r-e-r_
+11 i x-t-r-e-q-w-e-w-e_.
+13 i x,e-e-e-r-w_x-q-w-q_7-
+
+20 i f-a-y- f-a-y- f-a-y- f-d-s-
+22 i d-s-t- d-s-t- d-s-t- d-s-a-
+24 i s-u-t- s-u-t- s-u-t- s-a-u- 
+26 i a+x-t-a-s-
+28 c 20
+29 i               f-a-y- g-d-s-
+30 c 22-24
+33 i               s-u-t- u-s-g- 
 `,
   "idea-15---gibran-alcocer": `3/4
 Db minor

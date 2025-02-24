@@ -66,10 +66,16 @@ export const corpora: CorpusEntry[] = [
     country: "South Korea",
   },
   {
+    slug: "milan_dvorak",
+    midis: ["jazz-piano-etudes-book-2-no.-12---milan-dvorak", "etude-1"],
+  },
+  {
     slug: "stephen_heller",
     midis: [
       "prelude-in-c-minor---stephen-heller-prelude-in-c-sharp-minor---stephen-heller",
       "25-etudes-melodiques-op.-45-no.-2-avalanche-by-stephen-heller",
+      "prelude-opus-81-no.-2-in-a-minor---heller",
+      "prelude-opus-81-no.-3-in-g-major---heller",
     ],
     composerBirthYear: 1813,
     style: "Romantic",
@@ -3155,6 +3161,14 @@ export const corpora: CorpusEntry[] = [
     genre: "World, Traditional",
     style: "Persian, Classical",
     country: "Iran",
+  },
+  {
+    slug: "alexei_stanchinsky",
+    midis: [
+      "song-without-words-no.-1-in-c-minor---stanchinsky",
+      "song-without-words-no.-2-in-d-minor---stanchinsky",
+      "song-without-words-no.-3-in-c-minor---stanchinsky",
+    ],
   },
   {
     slug: "evgeny_doga",

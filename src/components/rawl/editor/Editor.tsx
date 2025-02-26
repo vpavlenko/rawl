@@ -338,13 +338,22 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   // Use either id or slug as the effective slug
   const effectiveSlug = id || slug;
 
+  // Detect if user is on macOS to show Option vs Alt
+  const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
+
   const [error, setError] = useState<string | null>(null);
   const [isFolded, setIsFolded] = useState(false);
   const editorRef = useRef<any>(null);
   const cycleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const { playSongBuffer, rawlProps, analyses, latencyCorrectionMs, tempo } =
-    useContext(AppContext);
+  const {
+    playSongBuffer,
+    rawlProps,
+    analyses,
+    latencyCorrectionMs,
+    tempo,
+    togglePause,
+  } = useContext(AppContext);
   const [score, setScore] = useState("");
   const [isEditorFocused, setIsEditorFocused] = useState(false);
   const [currentLine, setCurrentLine] = useState<number | null>(null);
@@ -389,9 +398,76 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
     }
   }, [isEditorFocused]);
 
+  // Add keyboard event handler for Shift+Space when the editor is focused
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Only handle keyboard shortcut when editor is focused
+      if (!isEditorFocused) return;
+
+      // Check for Shift+Space
+      if (e.code === "Space" && e.shiftKey) {
+        // Different check for Alt/Option key on Mac vs other platforms
+        const altOptionPressed = isMac ? e.metaKey || e.altKey : e.altKey;
+
+        // If this is Shift+Space, prevent default to avoid inserting space
+        e.preventDefault();
+
+        // If this is Shift+Alt/Option+Space, handle measure coordinate seeking
+        if (altOptionPressed && editorRef.current) {
+          try {
+            const view = editorRef.current.view;
+            if (!view) return;
+
+            const cursor = view.state.selection.main;
+            const currentLine = view.state.doc.lineAt(cursor.from);
+            const lineText = currentLine.text.trim();
+
+            // Check if the line starts with a measure coordinate pattern (number + optional 'b' + optional number)
+            const measureCoordMatch = lineText.match(/^(\d+)(b\d+)?(\s+|$)/);
+
+            if (
+              measureCoordMatch &&
+              rawlProps?.parsingResult?.measuresAndBeats?.measures
+            ) {
+              // Extract the measure number
+              const measureNumber = parseInt(measureCoordMatch[1], 10);
+
+              // Account for renumbering if present
+              const absoluteMeasureNum =
+                measureNumber + ((analysis?.measureRenumbering?.[1] || 0) - 1);
+
+              // Get the time in seconds for this measure
+              const measureTime =
+                rawlProps.parsingResult.measuresAndBeats.measures[
+                  absoluteMeasureNum
+                ];
+
+              if (measureTime !== undefined) {
+                // Seek to slightly before the measure (200ms before)
+                const seekTime = Math.max(0, (measureTime - 0.2) * 1000);
+                rawlProps.seek(seekTime);
+              }
+            }
+          } catch (error) {
+            console.error("Error processing measure seek:", error);
+          }
+        }
+
+        // Toggle play/pause for both Shift+Space and Shift+Alt/Option+Space
+        if (togglePause) {
+          togglePause();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isEditorFocused, togglePause, rawlProps, analysis, isMac]);
+
   const handleMouseDown = useCallback(
     (e: React.MouseEvent) => {
-      console.log("Mouse down event triggered");
       setIsDragging(true);
       dragStartY.current = e.clientY;
       const currentHeight = window.innerHeight * (parseInt(panelHeight) / 100);
@@ -407,7 +483,6 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
       if (!isDragging) return;
 
       const delta = e.clientY - dragStartY.current;
-      console.log("Dragging:", { delta, startHeight: dragStartHeight.current });
       const newHeight = Math.max(200, dragStartHeight.current - delta);
       const heightVh = Math.round((newHeight / window.innerHeight) * 100);
       setPanelHeight(`${heightVh}vh`);
@@ -417,7 +492,6 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   );
 
   const handleMouseUp = useCallback(() => {
-    console.log("Mouse up event triggered");
     if (isDragging) {
       setIsDragging(false);
     }
@@ -425,11 +499,9 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
 
   useEffect(() => {
     if (isDragging) {
-      console.log("Adding global mouse event listeners");
       window.addEventListener("mousemove", handleMouseMove, { capture: true });
       window.addEventListener("mouseup", handleMouseUp, { capture: true });
       return () => {
-        console.log("Removing global mouse event listeners");
         window.removeEventListener("mousemove", handleMouseMove, {
           capture: true,
         });
@@ -789,12 +861,6 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
       }, 2000); // Increased timeout since message is longer
     }
   };
-
-  // Add logging to verify rawlProps and analysis
-  useEffect(() => {
-    console.log("Current rawlProps:", rawlProps);
-    console.log("Current analysis:", analysis);
-  }, [rawlProps, analysis]);
 
   // Update handleCursorChange to use the cleanup function
   const handleCursorChange = useCallback(

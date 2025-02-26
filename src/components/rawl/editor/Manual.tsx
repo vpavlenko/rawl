@@ -13,6 +13,10 @@ import editorMajorLayout from "../../../images/editor_major_layout.png";
 // Constants for localStorage
 const BACKUP_PREFIX = "rawl_backup_";
 
+// Detect if user is on macOS to show Option vs Alt
+const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
+const altKey = isMac ? "Option" : "Alt";
+
 // Interface for backup object
 interface BackupData {
   code: string;
@@ -603,6 +607,12 @@ const Manual: React.FC<ManualProps> = ({
           <div className="image-caption">
             Prepend note pitch with b and # to lower/raise by semitone, eg. b2,
             #r
+          </div>
+          <div style={{ marginTop: "12px", color: "#aaa", padding: "0 4px" }}>
+            <code>Shift+Space</code> Play/Pause while in editor
+          </div>
+          <div style={{ marginTop: "8px", color: "#aaa", padding: "0 4px" }}>
+            <code>Shift+{altKey}+Space</code> Play from current target measure
           </div>
         </div>
         <div className="right-column">

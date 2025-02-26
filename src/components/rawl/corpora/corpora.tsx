@@ -2252,6 +2252,13 @@ export const corpora: CorpusEntry[] = [
       "wedding-march-mendelssohn-piano",
       "mendelssohn-opus-67-no.-2-aka-lost-illusions",
       "mendelssohn-songs-without-words-no.-1-piano-solo",
+
+      "six-christmas-pieces-no.-1",
+      "six-christmas-pieces-no.-2",
+      "six-christmas-pieces-no.-3",
+      "six-christmas-pieces-no.-4",
+      "six-christmas-pieces-no.-5",
+      "six-christmas-pieces-no.-6",
     ],
     composerBirthYear: 1809, // Felix Mendelssohn
     genre: "Classical",
@@ -3767,6 +3774,7 @@ export const corpora: CorpusEntry[] = [
       "spieluhr-serenade---manfred-schmitz",
       "poetische-skizze---manfred-schmitz",
       "prelude---manfred-schmitz",
+      "in-double-time",
     ],
     composerBirthYear: 1950, // Born in 1950, known for contemporary classical compositions
     genre: "Teacher Music, Classical, Pop", // Combines classical and pop elements
@@ -4570,7 +4578,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     // https://musescore.com/user/19710/sets/3559241
-    slug: "pictures_at_the_exhibition",
+    slug: "mussorgsky",
     midis: [
       "promenade-i",
       "gnomus",
@@ -4579,6 +4587,8 @@ export const corpora: CorpusEntry[] = [
       "promenade-iii",
       "tuileries-dispute-d-enfants-apres-jeux",
       "bydlo",
+
+      "night-on-bald-mountain-noch-na-lysoy-gore",
     ],
     composerBirthYear: 1834, // Modest Mussorgsky's birth year (composer of Pictures at an Exhibition)
     genre: "Romantic", // Mussorgsky was a Romantic composer
@@ -4707,6 +4717,7 @@ export const corpora: CorpusEntry[] = [
       "village-ambiance---alexander-nakarada",
     ],
   },
+  { slug: "thelonius_monk", midis: ["thelonious-monk-dinah"] },
   {
     slug: "kevin_macleod",
     midis: [
@@ -5956,8 +5967,10 @@ export const corpora: CorpusEntry[] = [
       "loonboon---laura-shigihara-arranged-by-piano-keyng",
       "moongrains---laura-shigihara",
       "plants-vs-zombies---watery-graves",
-
       "to-the-moon-for-river-johnny-s-version-48aa2a",
+
+      "yours-rakuen-by-laura-shgihara", // vocal
+      "morizora-s-cave-rakuen",
     ],
     composerBirthYear: 1980,
     genre: "Music Game",
@@ -6280,6 +6293,25 @@ export const corpora: CorpusEntry[] = [
     ],
   },
   {
+    slug: "pedro_tintorer",
+    midis: [
+      "matilde---tintorer-pedro",
+      "i-que-place",
+      "i-que-gusto",
+      "neguita",
+      "panchita",
+    ],
+    genre: "Habanera",
+  },
+  {
+    slug: "danny_baranowsky",
+    midis: [
+      "c.h.a.d.-s-lullaby---super-meat-boy",
+      "betus-blues---super-meat-boy-hospital-light-world-theme",
+      "forest-funk-retro---super-meat-boy",
+    ],
+  },
+  {
     slug: "yehezkel_raz",
     midis: [
       "ballerina---yehezkel-raz",
@@ -6457,6 +6489,16 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "toby_fox",
     midis: [
+      "undertale-once-upon-a-time-piano-solo",
+      "undertale-battle-against-a-true-hero",
+      "temmie-village---undertale",
+      "undertale---ruins-piano",
+      "undertale-dog-song-piano-solo",
+      "undertale---his-theme-solo-free-dl",
+      "spear-of-justice---undertale-piano-solo",
+      "snowy-from-undertale",
+      "undertale---memory",
+
       "undertale-ost---hopes-and-dreams-save-the-world",
       "undertale-undertale-piano",
       "undertale-ost---nyeh-heh-heh-bonetrousle",

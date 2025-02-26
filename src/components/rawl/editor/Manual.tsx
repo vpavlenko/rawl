@@ -1,4 +1,5 @@
 import {
+  faClockRotateLeft,
   faCloudArrowUp,
   faCopy,
   faSpinner,
@@ -8,6 +9,15 @@ import { addDoc, collection, getFirestore } from "firebase/firestore/lite";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import editorMajorLayout from "../../../images/editor_major_layout.png";
+
+// Constants for localStorage
+const BACKUP_PREFIX = "rawl_backup_";
+
+// Interface for backup object
+interface BackupData {
+  code: string;
+  timestamp: number;
+}
 
 const KeyboardLayout = styled.div`
   display: flex;
@@ -113,7 +123,7 @@ const KeyboardLayout = styled.div`
 const ButtonBar = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid #333;
   gap: 12px;
@@ -207,6 +217,38 @@ const PublishedUrl = styled.div`
   }
 `;
 
+const RestoreButton = styled.button`
+  background: #999;
+  color: black;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  max-width: 280px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    background: #bbb;
+  }
+
+  &:active {
+    background: #ccc;
+  }
+
+  .icon {
+    margin-left: 6px;
+    flex-shrink: 0;
+  }
+`;
+
 const TelegramInput = styled.input`
   background: #2a2a2a;
   border: 1px solid #444;
@@ -286,7 +328,86 @@ const Manual: React.FC<ManualProps> = ({
     () => localStorage.getItem("telegramUsername") || "",
   );
   const [showUsernameInput, setShowUsernameInput] = useState(false);
+  const [hasLocalBackup, setHasLocalBackup] = useState(false);
+  const [localBackupTimestamp, setLocalBackupTimestamp] = useState<
+    number | null
+  >(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Get the current page URL key for storage
+  const getUrlKey = () => {
+    let urlKey = "";
+    if (id) {
+      urlKey = `/ef/${id}`;
+    } else if (slug) {
+      urlKey = `/e/${slug}`;
+    }
+    return urlKey;
+  };
+
+  // Save backup to localStorage
+  useEffect(() => {
+    const urlKey = getUrlKey();
+    if (!urlKey || score === initialSource) return;
+
+    const backupKey = BACKUP_PREFIX + urlKey;
+    const backup: BackupData = {
+      code: score,
+      timestamp: Date.now(),
+    };
+
+    localStorage.setItem(backupKey, JSON.stringify(backup));
+  }, [score, initialSource, id, slug]);
+
+  // Check for existing backup on load
+  useEffect(() => {
+    const urlKey = getUrlKey();
+    if (!urlKey) return;
+
+    const backupKey = BACKUP_PREFIX + urlKey;
+    const backupJson = localStorage.getItem(backupKey);
+
+    if (backupJson) {
+      try {
+        const backup: BackupData = JSON.parse(backupJson);
+        // Only show restore button if the backup differs from current score
+        if (backup.code !== score) {
+          setHasLocalBackup(true);
+          setLocalBackupTimestamp(backup.timestamp);
+        } else {
+          setHasLocalBackup(false);
+        }
+      } catch (e) {
+        console.error("Failed to parse backup:", e);
+        localStorage.removeItem(backupKey);
+      }
+    }
+  }, [score, id, slug]);
+
+  // Handle restore from backup
+  const handleRestore = () => {
+    const urlKey = getUrlKey();
+    if (!urlKey) return;
+
+    const backupKey = BACKUP_PREFIX + urlKey;
+    const backupJson = localStorage.getItem(backupKey);
+
+    if (backupJson) {
+      try {
+        const backup: BackupData = JSON.parse(backupJson);
+        // We need to modify the parent component's score
+        // This will be passed back up to Editor.tsx
+        const event = new CustomEvent("rawl-restore-backup", {
+          detail: { code: backup.code },
+        });
+        window.dispatchEvent(event);
+        setHasLocalBackup(false);
+      } catch (e) {
+        console.error("Failed to restore backup:", e);
+        setError("Failed to restore backup");
+      }
+    }
+  };
 
   // Focus the input when it becomes visible
   useEffect(() => {
@@ -365,54 +486,116 @@ const Manual: React.FC<ManualProps> = ({
     }
   };
 
+  // Format the backup timestamp in a readable format
+  const formatBackupTime = (timestamp: number | null) => {
+    if (!timestamp) return "";
+
+    const date = new Date(timestamp);
+    const now = new Date();
+
+    // Format the time part (3:12am)
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "pm" : "am";
+    const formattedHours = hours % 12 || 12; // Convert 0 to 12 for 12am
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const timeStr = `${formattedHours}:${formattedMinutes}${ampm}`;
+
+    // Calculate relative date
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
+    const diffMonths = Math.floor(diffDays / 30);
+    const diffYears = Math.floor(diffDays / 365);
+
+    // Determine relative date text
+    let relativeDate = "";
+
+    const isToday =
+      now.getDate() === date.getDate() &&
+      now.getMonth() === date.getMonth() &&
+      now.getFullYear() === date.getFullYear();
+
+    const isYesterday =
+      now.getDate() - 1 === date.getDate() &&
+      now.getMonth() === date.getMonth() &&
+      now.getFullYear() === date.getFullYear();
+
+    if (isToday) {
+      relativeDate = "today";
+    } else if (isYesterday) {
+      relativeDate = "yesterday";
+    } else if (diffDays < 30) {
+      relativeDate = `${diffDays}d ago`;
+    } else if (diffMonths < 12) {
+      relativeDate = `${diffMonths}m ago`;
+    } else {
+      relativeDate = `${diffYears}y ago`;
+    }
+
+    return `${timeStr} ${relativeDate}`;
+  };
+
   return (
     <KeyboardLayout>
       <ButtonBar>
-        {showUsernameInput && (
-          <TelegramInput
-            ref={inputRef}
-            placeholder="What's your Telegram @username or email?"
-            value={telegramUsername}
-            onChange={(e) => setTelegramUsername(e.target.value)}
-            onKeyDown={handleKeyDown}
-          />
+        {hasLocalBackup && (
+          <RestoreButton
+            onClick={handleRestore}
+            title={`Backup saved ${formatBackupTime(localBackupTimestamp)}`}
+          >
+            <span>Restore from {formatBackupTime(localBackupTimestamp)}</span>
+            <FontAwesomeIcon icon={faClockRotateLeft} className="icon" />
+          </RestoreButton>
         )}
-        {publishedUrl && (
-          <PublishedUrl onClick={handleCopyUrl}>
-            {showCopyFeedback
-              ? score !== initialSource
-                ? "Link to last published version is copied to clipboard"
-                : "Link is copied to clipboard"
-              : publishedUrl}
-            <FontAwesomeIcon
-              icon={faCopy}
-              className="copy-button"
-              title="Copy URL to clipboard"
+        <div style={{ display: "flex", gap: "12px", marginLeft: "auto" }}>
+          {showUsernameInput && (
+            <TelegramInput
+              ref={inputRef}
+              placeholder="What's your Telegram @username or email?"
+              value={telegramUsername}
+              onChange={(e) => setTelegramUsername(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
-          </PublishedUrl>
-        )}
-        <PublishButton
-          onClick={handlePublishClick}
-          isPublishing={isPublishing}
-          disabled={
-            isPublishing ||
-            score === initialSource ||
-            (showUsernameInput && !telegramUsername.trim())
-          }
-          hasChanges={score !== initialSource}
-        >
-          {isPublishing ? (
-            <>
-              Publishing
-              <FontAwesomeIcon icon={faSpinner} className="spinner" />
-            </>
-          ) : (
-            <>
-              Publish
-              <FontAwesomeIcon icon={faCloudArrowUp} />
-            </>
           )}
-        </PublishButton>
+          {publishedUrl && (
+            <PublishedUrl onClick={handleCopyUrl}>
+              {showCopyFeedback
+                ? score !== initialSource
+                  ? "Link to last published version is copied to clipboard"
+                  : "Link is copied to clipboard"
+                : publishedUrl}
+              <FontAwesomeIcon
+                icon={faCopy}
+                className="copy-button"
+                title="Copy URL to clipboard"
+              />
+            </PublishedUrl>
+          )}
+          <PublishButton
+            onClick={handlePublishClick}
+            isPublishing={isPublishing}
+            disabled={
+              isPublishing ||
+              score === initialSource ||
+              (showUsernameInput && !telegramUsername.trim())
+            }
+            hasChanges={score !== initialSource}
+          >
+            {isPublishing ? (
+              <>
+                Publishing
+                <FontAwesomeIcon icon={faSpinner} className="spinner" />
+              </>
+            ) : (
+              <>
+                Publish
+                <FontAwesomeIcon icon={faCloudArrowUp} />
+              </>
+            )}
+          </PublishButton>
+        </div>
       </ButtonBar>
       <div className="top-section">
         <div className="left-column">

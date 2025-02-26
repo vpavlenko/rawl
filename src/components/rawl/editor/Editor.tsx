@@ -323,6 +323,15 @@ interface EditorProps extends RouteComponentProps {
   // Add any other props here if needed
 }
 
+// Constants for localStorage
+const BACKUP_PREFIX = "rawl_backup_";
+
+// Interface for backup object
+interface BackupData {
+  code: string;
+  timestamp: number;
+}
+
 const Editor: React.FC<EditorProps> = ({ history }) => {
   // Update useParams to handle both slug and id
   const { slug, id } = useParams<{ slug?: string; id?: string }>();
@@ -627,6 +636,28 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
     setIsPlayingFromShadow(false);
   }, []);
 
+  // Setup listener for restore backup event
+  useEffect(() => {
+    const handleRestoreBackup = (e: CustomEvent<{ code: string }>) => {
+      if (e.detail && e.detail.code) {
+        setScore(e.detail.code);
+        debouncedMelodyPlayback(e.detail.code, false);
+      }
+    };
+
+    window.addEventListener(
+      "rawl-restore-backup",
+      handleRestoreBackup as EventListener,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "rawl-restore-backup",
+        handleRestoreBackup as EventListener,
+      );
+    };
+  }, [debouncedMelodyPlayback]);
+
   // Modified handleTextChange to immediately flush blinking state
   const handleTextChange = useCallback(
     (value: string) => {
@@ -635,8 +666,28 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
       cleanupBlinkingState();
       // Always trigger MIDI playback with the new value
       debouncedMelodyPlayback(value, false);
+
+      // Save to localStorage for backup
+      if (effectiveSlug && value !== initialSource) {
+        const urlKey = id ? `/ef/${id}` : slug ? `/e/${slug}` : "";
+        if (urlKey) {
+          const backupKey = BACKUP_PREFIX + urlKey;
+          const backup: BackupData = {
+            code: value,
+            timestamp: Date.now(),
+          };
+          localStorage.setItem(backupKey, JSON.stringify(backup));
+        }
+      }
     },
-    [debouncedMelodyPlayback, cleanupBlinkingState],
+    [
+      debouncedMelodyPlayback,
+      cleanupBlinkingState,
+      effectiveSlug,
+      id,
+      slug,
+      initialSource,
+    ],
   );
 
   // Update score when effectiveSlug changes

@@ -229,6 +229,43 @@ export interface ExtendedCommandContext extends CommandContext {
   analysis: Analysis;
 }
 
+// Add a new function to parse phrase patch information
+function parsePhrasesCommand(
+  cleanLine: string,
+  context: ExtendedCommandContext,
+): boolean {
+  const phrasesMatch = cleanLine.match(/^phrases\s+(.+)$/i);
+  if (!phrasesMatch) return false;
+
+  // Parse the phrases data part
+  const phrasesData = phrasesMatch[1].trim();
+  const phrasePairs = phrasesData.split(/\s+/);
+
+  // Create a new phrasePatch array
+  const phrasePatch: { measure: number; diff: number }[] = [];
+
+  // Process each phrase pair (e.g., "1+1", "18+2", "10-1")
+  for (const pair of phrasePairs) {
+    // Match for either +N or -N format
+    const pairMatch = pair.match(/^(\d+)([+-])(\d+)$/);
+    if (pairMatch) {
+      const measure = parseInt(pairMatch[1], 10);
+      const sign = pairMatch[2] === "+" ? 1 : -1;
+      const diff = parseInt(pairMatch[3], 10) * sign;
+
+      phrasePatch.push({ measure, diff });
+    }
+  }
+
+  // Update the analysis in the context
+  if (phrasePatch.length > 0) {
+    context.analysis.phrasePatch = phrasePatch;
+    return true;
+  }
+
+  return false;
+}
+
 export const parseCommand = (
   line: string,
   context: CommandContext,
@@ -251,6 +288,11 @@ export const parseCommand = (
   // Remove comments
   const cleanLine = line.split("%")[0].trim();
   if (!cleanLine) return null;
+
+  // Try parsing as phrases command first
+  if (parsePhrasesCommand(cleanLine, extendedContext)) {
+    return null; // Return null because it's an analysis command, not a playback command
+  }
 
   // Try parsing as track command first
   const trackCommand = parseTrackCommand(cleanLine, context);

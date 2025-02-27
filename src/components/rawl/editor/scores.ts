@@ -117,6 +117,8 @@ rh
 bpm 160
 3/4
 
+phrases 2+1 4-1 8+2 16-2
+
 lh
 2 i x,et,et, x,rt,rt, x,et,et, x,rt,rt, x,wrt,wrt, x,et,e, x,wr,wr, qe,
 2 i q_.      w_.      q_.      w_.      5_.        q_.     5_.      
@@ -237,6 +239,8 @@ rh 4
   "idea-15---gibran-alcocer": `3/4
 bpm 170
 Db minor
+
+phrases 1+1 18+2 36+2 54+2 72+2 90+2 108+2
 
 lh
 2 i 4r,ry,ry,q,ry,ry,

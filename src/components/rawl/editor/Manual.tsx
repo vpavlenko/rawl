@@ -723,22 +723,20 @@ const AnalysisDisplay: React.FC<{ analysis: Analysis }> = ({ analysis }) => {
                 <div className="analysis-key">Phrase Patch</div>
                 <div className="analysis-value">
                   {analysis.phrasePatch.map((patch, idx) => {
-                    const direction = patch.diff < 0 ? "left" : "right";
-                    const absAdjustment = Math.abs(patch.diff);
+                    const sign = patch.diff > 0 ? "+" : "";
                     return (
                       <div key={idx}>
-                        Measure {patch.measure}: four-measure white phrase bar
-                        moved {absAdjustment} measure
-                        {absAdjustment !== 1 ? "s" : ""} to the {direction}
+                        Measure {patch.measure}
+                        {": "}
+                        {sign}
+                        {patch.diff}
                       </div>
                     );
                   })}
                   <div className="analysis-explanation">
-                    {mt("Phrase patches")} adjust the default four-measure
-                    phrasing pattern when composers extend or contract phrases.
-                    Positive values move phrase boundaries forward, negative
-                    values move them backward, shifting the white phrase markers
-                    in the visualization.
+                    Phrase adjustments that affect the musical phrasing
+                    structure. Positive numbers indicate extended phrases,{" "}
+                    negative indicate shortened ones.
                   </div>
                 </div>
               </div>
@@ -1284,6 +1282,22 @@ const Manual: React.FC<ManualProps> = ({
                 <span>
                   Comment using %. Select several lines and press Cmd+/ (Ctrl+/)
                   to toggle
+                </span>
+              </div>
+            </div>
+
+            <div className="section">
+              <h3>Analysis commands</h3>
+              <div className="grid">
+                <code>phrases 1+1 18+2 36-1</code>
+                <span>
+                  Hypermeter adjustments: moves white bar of four-measure phrase
+                  defaults left or right. <code>1+1</code> is handy for
+                  anacrusis,
+                  <code>18+2</code> moves the phrase vertical bar two measures
+                  to the right from measure 18 (to measure 20),{" "}
+                  <code>36-1</code> moves the bar from measure 36 one measure to
+                  the left (to measure 35).
                 </span>
               </div>
             </div>

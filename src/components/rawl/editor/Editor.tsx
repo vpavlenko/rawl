@@ -482,6 +482,9 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   // Modified handleTextChange to update analysis during command parsing
   const handleTextChange = useCallback(
     (value: string) => {
+      // Replace "anacrusis 4" with "sections 2 6"
+      value = value.replace(/anacrusis 4/g, "sections 2 6");
+
       setScore(value);
       // Always clean up any pending or active blinking state on edit
       cleanupBlinkingState();
@@ -555,7 +558,11 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
 
             if (docSnap.exists()) {
               const data = docSnap.data();
-              const newScore = data.source;
+              let newScore = data.source;
+
+              // Replace "anacrusis 4" with "sections 2 6"
+              newScore = newScore.replace(/anacrusis 4/g, "sections 2 6");
+
               setScore(newScore);
               setInitialSource(newScore); // Save initial source
               // Trigger initial MIDI generation after a delay
@@ -574,7 +581,11 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
             setInitialSource("");
           }
         } else if (scores[effectiveSlug]) {
-          const newScore = scores[effectiveSlug];
+          let newScore = scores[effectiveSlug];
+
+          // Replace "anacrusis 4" with "sections 2 6"
+          newScore = newScore.replace(/anacrusis 4/g, "sections 2 6");
+
           setScore(newScore);
           setInitialSource(newScore); // Save initial source
           // Trigger initial MIDI generation after a delay

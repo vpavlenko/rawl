@@ -19,12 +19,13 @@ import React, {
 import { RouteComponentProps, useParams, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
-import { PitchClass } from "../analysis";
+import { ANALYSIS_STUB, PitchClass } from "../analysis";
 import { TICKS_PER_QUARTER } from "../forge/constants";
 import Rawl from "../Rawl";
 import {
   calculateGlobalBeatPosition,
   calculateShiftedNote,
+  ExtendedCommandContext,
   logicalNoteToMidi,
   parseCommand,
 } from "./commandParser";
@@ -359,7 +360,9 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   const [currentLine, setCurrentLine] = useState<number | null>(null);
   const [shadowScore, setShadowScore] = useState<string | null>(null);
   const [isPlayingFromShadow, setIsPlayingFromShadow] = useState(false);
-  const [context, setContext] = useState<CommandContext>({
+  const [context, setContext] = useState<
+    CommandContext & Partial<ExtendedCommandContext>
+  >({
     currentKey: { tonic: 0, mode: "major" },
     currentTrack: 1,
     timeSignatures: [{ numerator: 4, measureStart: 1 }],
@@ -369,6 +372,7 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
     },
     commentToEndOfFile: false,
     currentBpm: 120, // Default BPM
+    analysis: { ...ANALYSIS_STUB },
   });
   const [panelHeight, setPanelHeight] = useState(() => {
     const saved = localStorage.getItem("editorPanelHeight");
@@ -382,12 +386,8 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   const [showCopyFeedback, setShowCopyFeedback] = useState(false);
   const [initialSource, setInitialSource] = useState<string>("");
 
-  // Get the analysis for this slug if it exists
-  // For /ef/<id> URLs, use the mocked analysis
-  const analysis =
-    effectiveSlug?.startsWith("ef/") || id
-      ? analyses["f/wima.e480-schubert_de.-tanz-d.365.25"]
-      : analyses[`f/${effectiveSlug}`];
+  // Use the analysis from context rather than a separate extraction
+  const analysis = context.analysis || ANALYSIS_STUB;
 
   // Signal to App that this route should not have global shortcuts when editor is focused
   useEffect(() => {
@@ -535,16 +535,19 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
             }
 
             setError(null);
-            const newContext: CommandContext = {
-              currentKey: { tonic: 0, mode: "major" },
-              currentTrack: 1,
-              timeSignatures: [{ numerator: 4, measureStart: 1 }],
-              channelOctaves: {
-                0: 5, // RH default
-                1: 3, // LH default
-              },
-              currentBpm: 120, // Default BPM
-            };
+            const newContext: CommandContext & Partial<ExtendedCommandContext> =
+              {
+                currentKey: { tonic: 0, mode: "major" },
+                currentTrack: 1,
+                timeSignatures: [{ numerator: 4, measureStart: 1 }],
+                channelOctaves: {
+                  0: 5, // RH default
+                  1: 3, // LH default
+                },
+                commentToEndOfFile: false,
+                currentBpm: 120, // Default BPM,
+                analysis: { ...ANALYSIS_STUB },
+              };
 
             // Use a map to store notes for each track
             const scoreByTrack = new Map<number, LogicalNote[]>();
@@ -632,6 +635,7 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
               return;
             }
 
+            // Update the context state with the new context that includes the analysis
             setContext(newContext);
 
             // Convert all tracks to MIDI notes
@@ -730,14 +734,43 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
     };
   }, [debouncedMelodyPlayback]);
 
-  // Modified handleTextChange to immediately flush blinking state
+  // Modified handleTextChange to update analysis during command parsing
   const handleTextChange = useCallback(
     (value: string) => {
       setScore(value);
       // Always clean up any pending or active blinking state on edit
       cleanupBlinkingState();
-      // Always trigger MIDI playback with the new value
-      debouncedMelodyPlayback(value, false);
+
+      // Process the score to update context and analysis
+      try {
+        // Create a fresh context for this parsing pass
+        const newContext: CommandContext & Partial<ExtendedCommandContext> = {
+          currentKey: { tonic: 0, mode: "major" },
+          currentTrack: 1,
+          timeSignatures: [{ numerator: 4, measureStart: 1 }],
+          channelOctaves: {
+            0: 5, // RH default
+            1: 3, // LH default
+          },
+          commentToEndOfFile: false,
+          currentBpm: 120, // Default BPM
+          analysis: { ...ANALYSIS_STUB },
+        };
+
+        // Process each line of the score to build the analysis
+        const lines = value.split("\n");
+        for (const line of lines) {
+          parseCommand(line, newContext);
+        }
+
+        // Update context with new values (including the analysis)
+        setContext(newContext);
+
+        // Always trigger MIDI playback with the new value
+        debouncedMelodyPlayback(value, false);
+      } catch (e) {
+        console.error("Error processing score:", e);
+      }
 
       // Save to localStorage for backup
       if (effectiveSlug && value !== initialSource) {

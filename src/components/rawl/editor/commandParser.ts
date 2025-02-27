@@ -1,3 +1,4 @@
+import { Analysis, ANALYSIS_STUB, PitchClass } from "../analysis";
 import { TICKS_PER_QUARTER } from "../forge/constants";
 import {
   BeatPosition,
@@ -223,10 +224,21 @@ export const getTimeSignatureAt = (
   return timeSignatures[0].numerator;
 };
 
+// Extend CommandContext to include analysis
+export interface ExtendedCommandContext extends CommandContext {
+  analysis: Analysis;
+}
+
 export const parseCommand = (
   line: string,
   context: CommandContext,
 ): Command | null => {
+  // Make sure context has an analysis object
+  const extendedContext = context as ExtendedCommandContext;
+  if (!extendedContext.analysis) {
+    extendedContext.analysis = { ...ANALYSIS_STUB };
+  }
+
   // If we're in comment-to-end-of-file mode, return null immediately
   if (context.commentToEndOfFile) return null;
 
@@ -247,12 +259,27 @@ export const parseCommand = (
   // Try parsing as time signature command
   if (cleanLine.includes("/4")) {
     const signatures = parseTimeSignatures(cleanLine);
-    if (signatures) return { type: "time", signatures };
+    if (signatures) {
+      // Update the analysis with the time signature
+      if (extendedContext.analysis && signatures.length > 0) {
+        // For now, we don't store time signatures in the analysis
+        // but we could in the future
+      }
+      return { type: "time", signatures };
+    }
   }
 
   // Try parsing as key command
   const key = parseKey(cleanLine);
-  if (key) return { type: "key", key };
+  if (key) {
+    // Update the analysis with the key information
+    if (extendedContext.analysis) {
+      extendedContext.analysis.modulations = {
+        1: key.tonic as PitchClass,
+      };
+    }
+    return { type: "key", key };
+  }
 
   // Try parsing as BPM command
   const bpmMatch = cleanLine.match(/^bpm\s+(\d+)$/i);

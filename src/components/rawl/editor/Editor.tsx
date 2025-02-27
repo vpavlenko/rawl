@@ -3,13 +3,7 @@ import { StreamLanguage } from "@codemirror/language";
 import { keymap } from "@codemirror/view";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CodeMirror from "@uiw/react-codemirror";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  getFirestore,
-} from "firebase/firestore/lite";
+import { doc, getDoc, getFirestore } from "firebase/firestore/lite";
 import React, {
   useCallback,
   useContext,
@@ -18,7 +12,6 @@ import React, {
   useState,
 } from "react";
 import { RouteComponentProps, useParams, withRouter } from "react-router-dom";
-import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import { ANALYSIS_STUB, PitchClass } from "../analysis";
 import { TICKS_PER_QUARTER } from "../forge/constants";
@@ -86,242 +79,6 @@ type MidiNote = {
   channel: number;
 };
 
-// Add new styled component after EditorPanel
-const KeyboardLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  background: #1e1e1e;
-  border-right: 1px solid #333;
-  height: 100%;
-  min-height: 0;
-  overflow-y: auto;
-  flex: 0 0 250px;
-  font-size: 12px;
-  color: #ccc;
-  line-height: 1.6;
-
-  .top-section {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 20px;
-  }
-
-  .left-column {
-    flex: 0 0 15vw;
-    margin-right: 5px;
-  }
-
-  .right-column {
-    flex: 1;
-  }
-
-  .full-width-section {
-    width: 100%;
-  }
-
-  img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    z-index: 1;
-  }
-
-  .image-caption {
-    margin-top: 4px;
-    width: 100%;
-    color: #999;
-  }
-
-  code {
-    color: white;
-    background: #2a2a2a;
-    padding: 1px 4px;
-    border-radius: 3px;
-    white-space: nowrap;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: 190px 1fr;
-    gap: 4px 8px;
-    margin: 8px 0;
-    align-items: center;
-  }
-
-  .note-col {
-    text-align: right;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 4px;
-  }
-
-  .section {
-    margin: 24px;
-  }
-
-  .section:first-child {
-    margin-top: 0;
-  }
-
-  .section h3 {
-    margin: 0px;
-  }
-
-  /* Customize scrollbar */
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #1e1e1e;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: #444;
-  }
-`;
-
-const ButtonBar = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 10px;
-  border-bottom: 1px solid #333;
-  gap: 12px;
-`;
-
-const PublishButton = styled.button<{
-  isPublishing?: boolean;
-  hasChanges: boolean;
-}>`
-  background: ${(props) => (props.isPublishing ? "#999" : "#bbb")};
-  color: black;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  position: relative;
-
-  &:hover {
-    background: ${(props) => (props.isPublishing ? "#999" : "#ddd")};
-  }
-
-  &:active {
-    background: ${(props) =>
-      props.isPublishing ? "#999" : "rgb(255, 255, 255)"};
-  }
-
-  &:disabled {
-    background: #666;
-    cursor: not-allowed;
-    color: black;
-
-    &:hover::after {
-      content: "No changes made";
-      position: absolute;
-      bottom: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      white-space: nowrap;
-      pointer-events: none;
-    }
-  }
-
-  .spinner {
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-`;
-
-const PublishedUrl = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #2a2a2a;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 14px;
-  color: #ddd;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background: #333;
-  }
-
-  .copy-button {
-    color: #999;
-    transition: color 0.2s;
-  }
-
-  &:hover .copy-button {
-    color: #fff;
-  }
-`;
-
-const NoteBase = styled.div`
-  position: relative;
-  height: 6px;
-  background: white;
-  margin: 0 4px;
-  display: inline-block;
-  box-shadow: 0 0 0px 0.5px black;
-  cursor: pointer;
-  vertical-align: middle;
-  border-radius: 2px;
-`;
-
-const BeatMarker = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: gray;
-`;
-
-interface NoteExampleProps {
-  beats: number; // Number of beats (e.g. 4 for whole note, 2 for half note)
-  style?: { width: string };
-}
-
-const NoteExample: React.FC<NoteExampleProps> = ({ beats, style }) => {
-  const beatMarkers = [];
-
-  // Add a marker for each internal beat division
-  // For n beats we need n-1 markers
-  for (let i = 1; i < beats; i++) {
-    beatMarkers.push(<BeatMarker key={i} style={{ right: `${i * 30}px` }} />);
-  }
-
-  return <NoteBase style={style}>{beatMarkers}</NoteBase>;
-};
-
 interface EditorProps extends RouteComponentProps {
   // Add any other props here if needed
 }
@@ -349,19 +106,11 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   const editorRef = useRef<any>(null);
   const cycleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const {
-    playSongBuffer,
-    rawlProps,
-    analyses,
-    latencyCorrectionMs,
-    tempo,
-    togglePause,
-  } = useContext(AppContext);
+  const { playSongBuffer, rawlProps, latencyCorrectionMs, tempo, togglePause } =
+    useContext(AppContext);
   const [score, setScore] = useState("");
   const [isEditorFocused, setIsEditorFocused] = useState(false);
   const [currentLine, setCurrentLine] = useState<number | null>(null);
-  const [shadowScore, setShadowScore] = useState<string | null>(null);
-  const [isPlayingFromShadow, setIsPlayingFromShadow] = useState(false);
   const [context, setContext] = useState<
     CommandContext & Partial<ExtendedCommandContext>
   >({
@@ -383,9 +132,6 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   const [isDragging, setIsDragging] = useState(false);
   const dragStartY = useRef(0);
   const dragStartHeight = useRef(0);
-  const [isPublishing, setIsPublishing] = useState(false);
-  const [publishedUrl, setPublishedUrl] = useState<string | null>(null);
-  const [showCopyFeedback, setShowCopyFeedback] = useState(false);
   const [initialSource, setInitialSource] = useState<string>("");
 
   // Use the analysis from context rather than a separate extraction
@@ -562,7 +308,6 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
 
               switch (command.type) {
                 case "track":
-                  const oldTrack = newContext.currentTrack;
                   newContext.currentTrack = command.track;
                   if (command.baseOctave !== undefined) {
                     const channel = command.track - 1;
@@ -710,8 +455,6 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
       clearTimeout(debounceTimeoutRef.current);
       debounceTimeoutRef.current = null;
     }
-    setShadowScore(null);
-    setIsPlayingFromShadow(false);
   }, []);
 
   // Setup listener for restore backup event
@@ -851,49 +594,6 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
     loadScore();
   }, [effectiveSlug, debouncedMelodyPlayback]);
 
-  const handlePublish = async () => {
-    try {
-      setIsPublishing(true);
-      setPublishedUrl(null);
-
-      // Use the score as-is without adding anacrusis
-      const finalSource = score;
-
-      // Get Firestore instance
-      const db = getFirestore();
-
-      // Add document to edits collection
-      const docRef = await addDoc(collection(db, "edits"), {
-        source: finalSource,
-        createdAt: new Date(),
-        parent: id ? `/ef/${id}` : slug ? `/e/${slug}` : null,
-      });
-
-      // Set the published URL
-      const newUrl = `/ef/${docRef.id}`;
-      setPublishedUrl(newUrl);
-
-      // Redirect to the new document
-      history.push(newUrl);
-    } catch (error) {
-      console.error("Error publishing:", error);
-      setError("Failed to publish. Please try again.");
-    } finally {
-      setIsPublishing(false);
-    }
-  };
-
-  const handleCopyUrl = () => {
-    if (publishedUrl) {
-      const fullUrl = window.location.origin + publishedUrl;
-      navigator.clipboard.writeText(fullUrl);
-      setShowCopyFeedback(true);
-      setTimeout(() => {
-        setShowCopyFeedback(false);
-      }, 2000); // Increased timeout since message is longer
-    }
-  };
-
   // Update handleCursorChange to use the cleanup function
   const handleCursorChange = useCallback(
     (viewUpdate: any) => {
@@ -944,8 +644,6 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
                     }
 
                     const newScore = newLines.join("\n");
-                    setShadowScore(newScore);
-                    setIsPlayingFromShadow(true);
 
                     // Trigger MIDI generation with shadow score
                     debouncedMelodyPlayback(newScore, false);

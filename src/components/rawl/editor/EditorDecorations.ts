@@ -102,9 +102,11 @@ export const getBackgroundsForLine = (
   // Debug logging
   console.log("Processing line:", JSON.stringify(line));
 
-  // Check for analysis-related commands first (e.g., 'phrases')
+  // Check for analysis-related commands first (e.g., 'phrases', 'sections')
   // Note: Analysis commands should be styled with white and italic text
   // to distinguish them from playback-related commands
+
+  // Check for phrases command
   const phrasesMatch = line.match(/^\s*phrases\s+(.+)$/i);
   if (phrasesMatch && phrasesMatch.index !== undefined) {
     const cmdMatch = line.match(/\bphrases\b/i);
@@ -145,6 +147,25 @@ export const getBackgroundsForLine = (
           baseDecorations[i] = { class: "phrase-diff" };
         }
       }
+    }
+  }
+
+  // Check for sections command
+  const sectionsMatch = line.match(/^\s*sections\s+(.+)$/i);
+  if (sectionsMatch && sectionsMatch.index !== undefined) {
+    const cmdMatch = line.match(/\bsections\b/i);
+    if (cmdMatch && cmdMatch.index !== undefined) {
+      // Style the 'sections' command word
+      const sectionsWord = line.substring(cmdMatch.index, cmdMatch.index + 8); // "sections"
+      for (
+        let i = cmdMatch.index;
+        i < cmdMatch.index + sectionsWord.length;
+        i++
+      ) {
+        baseDecorations[i] = { class: "analysis-command" };
+      }
+
+      // The section numbers are kept as normal white text so no additional styling is needed
     }
   }
 

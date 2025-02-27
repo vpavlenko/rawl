@@ -241,6 +241,7 @@ bpm 170
 Db minor
 
 phrases 1+1 18+2 36+2 54+2 72+2 90+2 108+2
+sections 0 1 5 9 13 17 21
 
 lh
 2 i 4r,ry,ry,q,ry,ry,

@@ -271,6 +271,44 @@ function parsePhrasesCommand(
   return false;
 }
 
+// Add a new function to parse sections information
+function parseSectionsCommand(
+  cleanLine: string,
+  context: ExtendedCommandContext,
+): boolean {
+  const sectionsMatch = cleanLine.match(/^sections\s+(.+)$/i);
+  if (!sectionsMatch) return false;
+
+  // Parse the sections data part
+  const sectionsData = sectionsMatch[1].trim();
+  const sectionNumbers = sectionsData.split(/\s+/);
+
+  // Create a new sections array
+  const sections: number[] = [];
+
+  // Process each section number
+  for (const sectionStr of sectionNumbers) {
+    const section = parseInt(sectionStr, 10);
+    if (!isNaN(section)) {
+      sections.push(section);
+    }
+  }
+
+  // Update the analysis in the context
+  if (sections.length > 0) {
+    context.analysis.sections = sections;
+    return true;
+  }
+
+  return false;
+}
+
+// Find where ANALYSIS_STUB is imported and add more code to see its value
+const ANALYSIS_STUB_WITH_SECTIONS: Analysis = {
+  ...ANALYSIS_STUB,
+  sections: [],
+};
+
 export const parseCommand = (
   line: string,
   context: CommandContext,
@@ -278,7 +316,7 @@ export const parseCommand = (
   // Make sure context has an analysis object
   const extendedContext = context as ExtendedCommandContext;
   if (!extendedContext.analysis) {
-    extendedContext.analysis = { ...ANALYSIS_STUB };
+    extendedContext.analysis = { ...ANALYSIS_STUB_WITH_SECTIONS };
   }
 
   // If we're in comment-to-end-of-file mode, return null immediately
@@ -296,6 +334,11 @@ export const parseCommand = (
 
   // Try parsing as phrases command first
   if (parsePhrasesCommand(cleanLine, extendedContext)) {
+    return null; // Return null because it's an analysis command, not a playback command
+  }
+
+  // Try parsing as sections command
+  if (parseSectionsCommand(cleanLine, extendedContext)) {
     return null; // Return null because it's an analysis command, not a playback command
   }
 

@@ -948,11 +948,8 @@ const Manual: React.FC<ManualProps> = ({
       // Store username in localStorage
       localStorage.setItem("telegramUsername", telegramUsername);
 
-      // Check if source has anacrusis
-      const hasAnacrusis = score.toLowerCase().includes("anacrusis");
-
-      // Prepend anacrusis if needed
-      const finalSource = hasAnacrusis ? score : `anacrusis 4\n${score}`;
+      // Use the score as-is without adding anacrusis
+      const finalSource = score;
 
       // Get Firestore instance
       const db = getFirestore();

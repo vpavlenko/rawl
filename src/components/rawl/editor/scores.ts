@@ -2,6 +2,7 @@ export const scores: { [key: string]: string } = {
   schubert_d365_09: `Ab major
 3/4
 bpm 160
+sections 2 6
 
 lh
 2   i 5,wtu,wtu,
@@ -44,6 +45,7 @@ rh
   "wima.e480-schubert_de.-tanz-d.365.25": `3/4
 E major
 bpm 160
+sections 2 6
 
 lh
 2   i 5,rtu,rtu, q,eti,eti,
@@ -83,6 +85,7 @@ ch2
   "wima.1124-schubert_de.-tanz-d.365.26": `3/4
 E major
 bpm 180
+sections 2 6
 
 lh
 2   i 5,rtu,rtu,
@@ -116,8 +119,7 @@ rh
   "wima.4be9-schubert_de.-tanz-d.365.28": `A major
 bpm 160
 3/4
-
-phrases 2+1 4-1 8+2 16-2
+sections 2 6
 
 lh
 2 i x,et,et, x,rt,rt, x,et,et, x,rt,rt, x,wrt,wrt, x,et,e, x,wr,wr, qe,
@@ -236,12 +238,58 @@ rh 4
 56 c 20-25
 108 c 20-25
 `,
+  "idea-20---gibran-alcocer": `C minor
+3/4
+bpm 170
+
+phrases 9+2 43+2 69+2
+sections 3 7 11 15
+
+lh
+1 i 6,yi,yi,e,yi,yi
+3 i 4,yi,yi,r,yi,yi,
+5 c 1-2 2 1
+9 i t#u+.
+
+11 c 1-2
+13 c 5-6
+15 c 7-8
+17 c 3-4
+
+rh
+1 i q+x,q,r+t-y-t--r-e+r,e,w_.e_.r+.
+11 i e-q-6- r-q-6- t-q-6- u-q-6-
+13 i e-q-5- r-q-5- t-q-5- u-q-5-
+15 i w-7-4-w-7-4-w-7-e-7-w-7-q-6-4-q-6-4-
+18 c 17
+
+19 ac 11-18
+
+lh
+27 c 1-4
+31 i 5,us,us,t,us,us, 5,#us,#us, t,#us,#us,
+
+rh
+27 i t-e-q- y-e-q-
+28 c 27 0 0 0
+31 i t-w-7-t-w-7- 
+32 c 31
+33 i t-w-#7-t-w-#7-
+34 c 33
+42 i tw#7_.
+
+35 ac 27-33
+
+lh
+42 c 34 0 0 0
+
+61 ac 35-44`,
   "idea-15---gibran-alcocer": `3/4
 bpm 170
 Db minor
 
 phrases 1+1 18+2 36+2 54+2 72+2 90+2 108+2
-sections 0 1 5 9 13 17 21
+sections 1 5 9 13 17 21
 
 lh
 2 i 4r,ry,ry,q,ry,ry,

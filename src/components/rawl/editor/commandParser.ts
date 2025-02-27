@@ -296,7 +296,7 @@ function parseSectionsCommand(
 
   // Update the analysis in the context
   if (sections.length > 0) {
-    context.analysis.sections = sections;
+    context.analysis.sections = [0, ...sections.map((section) => section - 1)];
     return true;
   }
 

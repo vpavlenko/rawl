@@ -1,3 +1,5 @@
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { ReactNode, useState } from "react";
 import styled from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
@@ -19,19 +21,20 @@ const FoldButton = styled.button`
   position: absolute;
   top: 0px;
   right: 0px;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
   width: 25px;
   height: 25px;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  border: 1px solid #333;
+  font-size: 12px;
+  cursor: pointer;
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 100001;
-  background: #ccc;
-  color: black;
+  justify-content: center;
+  z-index: 1001;
+
   &:hover {
-    background: #444;
+    background-color: #2d2d2d;
   }
 `;
 
@@ -160,7 +163,9 @@ export const SongNarrative: React.FC<{
     >
       {showNarrative ? (
         <div>
-          <FoldButton onClick={() => setShowNarrative(false)}>x</FoldButton>
+          <FoldButton onClick={() => setShowNarrative(false)}>
+            <FontAwesomeIcon icon={faTimes} />
+          </FoldButton>
           <div
             style={{
               backgroundColor: "black",

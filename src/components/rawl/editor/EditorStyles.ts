@@ -1,3 +1,9 @@
+import {
+  faChevronDown,
+  faChevronLeft,
+  faChevronRight,
+  faChevronUp,
+} from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { FOOTER_HEIGHT } from "../../AppFooter";
 
@@ -28,7 +34,7 @@ export const EditorPanel = styled.div<{ isFolded: boolean; height?: string }>`
   background: #1e1e1e;
   display: grid;
   grid-template-columns: ${(props) => (props.isFolded ? "auto" : "1fr 1fr")};
-  transition: transform 0.1s ease;
+  transition: transform 1s ease;
   transform: translateX(${(props) => (props.isFolded ? "100%" : "0")});
   border-top: 1px solid #333;
   border-left: 1px solid #333;
@@ -271,17 +277,6 @@ export const FoldButton = styled.button<{
   z-index: 1001;
   font-size: 14px;
 
-  &::after {
-    content: "${(props) =>
-      props.position === "top"
-        ? props.isFolded
-          ? "▲"
-          : "▼"
-        : props.isFolded
-        ? "◀"
-        : "▶"}";
-  }
-
   ${(props) =>
     props.position === "top"
       ? `
@@ -305,6 +300,14 @@ export const FoldButton = styled.button<{
     background-color: #2d2d2d;
   }
 `;
+
+// Export the chevron icons for use in components
+export const chevronIcons = {
+  up: faChevronUp,
+  down: faChevronDown,
+  left: faChevronLeft,
+  right: faChevronRight,
+};
 
 export const ErrorMessage = styled.div`
   color: #ff6b6b;

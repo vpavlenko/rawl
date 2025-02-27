@@ -1,6 +1,7 @@
 import { toggleComment } from "@codemirror/commands";
 import { StreamLanguage } from "@codemirror/language";
 import { keymap } from "@codemirror/view";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CodeMirror from "@uiw/react-codemirror";
 import {
   addDoc,
@@ -34,6 +35,7 @@ import EditorIndex from "./EditorIndex";
 import { generateMidiWithMetadata } from "./EditorMidi";
 import {
   EditorPanel as BaseEditorPanel,
+  chevronIcons,
   CodeMirrorWrapper,
   EditorContainer,
   EditorContent,
@@ -1009,7 +1011,11 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
           position="side"
           isFolded={isFolded}
           onClick={() => setIsFolded(!isFolded)}
-        />
+        >
+          <FontAwesomeIcon
+            icon={isFolded ? chevronIcons.left : chevronIcons.right}
+          />
+        </FoldButton>
         <EditorContent>
           <CodeMirrorWrapper>
             <CodeMirror

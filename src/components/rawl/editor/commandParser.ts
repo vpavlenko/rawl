@@ -230,6 +230,11 @@ export interface ExtendedCommandContext extends CommandContext {
 }
 
 // Add a new function to parse phrase patch information
+// Note: All analysis-related commands (like 'phrases') should be
+// styled with white italic text in the editor to distinguish them
+// from playback commands.
+// For phrases command arguments (e.g., "1+1", "18+2"), the measure numbers
+// are kept as normal text color while the +/- diff parts are styled as white bold.
 function parsePhrasesCommand(
   cleanLine: string,
   context: ExtendedCommandContext,

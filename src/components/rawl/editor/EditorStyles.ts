@@ -126,8 +126,23 @@ export const CodeMirrorWrapper = styled.div`
     padding-top: 2px;
   }
 
-  /* Command styling */
+  /* Command styling:
+   * - Regular playback commands (c, ac, i, etc.) use bold styling
+   * - Analysis commands (phrases, etc.) use white italic styling (.analysis-command)
+   */
   .command-name {
+    font-weight: bold;
+  }
+
+  /* Analysis command styling - white and italic for all analysis-related commands */
+  .analysis-command {
+    color: #ffffff !important;
+    font-style: italic;
+  }
+
+  /* Phrases command diff styling */
+  .phrase-diff {
+    color: #ffffff !important;
     font-weight: bold;
   }
 

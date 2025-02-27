@@ -16,6 +16,26 @@ import {
   NOTE_LETTER_MAP,
 } from "./types";
 
+/**
+ * EDITOR STYLING GUIDELINES
+ *
+ * Command styling:
+ * - Regular playback commands (c, ac, i, etc.) use the 'command-name' class (bold)
+ * - Analysis-related commands (phrases, etc.) use the 'analysis-command' class (white + italic)
+ *
+ * Command argument styling:
+ * - For phrases command: measure numbers remain standard color, +/- diff values are white bold
+ *   Example: In "phrases 1+1 18+2", the numbers 1, 18 are standard color, while "+1", "+2" are white bold
+ *
+ * This distinction helps users differentiate between commands that affect playback
+ * and commands that only affect analysis/visualization.
+ *
+ * When adding new commands:
+ * - If it's a playback command, style it with 'command-name'
+ * - If it's an analysis command, style it with 'analysis-command'
+ * - Consider special styling for command arguments if it improves readability
+ */
+
 // Types for the new architecture
 interface ParsedNote {
   pitch: string;
@@ -81,6 +101,52 @@ export const getBackgroundsForLine = (
 
   // Debug logging
   console.log("Processing line:", JSON.stringify(line));
+
+  // Check for analysis-related commands first (e.g., 'phrases')
+  // Note: Analysis commands should be styled with white and italic text
+  // to distinguish them from playback-related commands
+  const phrasesMatch = line.match(/^\s*phrases\s+(.+)$/i);
+  if (phrasesMatch && phrasesMatch.index !== undefined) {
+    const cmdMatch = line.match(/\bphrases\b/i);
+    if (cmdMatch && cmdMatch.index !== undefined) {
+      // Style the 'phrases' command word
+      const phrasesWord = line.substring(cmdMatch.index, cmdMatch.index + 7); // "phrases"
+      for (
+        let i = cmdMatch.index;
+        i < cmdMatch.index + phrasesWord.length;
+        i++
+      ) {
+        baseDecorations[i] = { class: "analysis-command" };
+      }
+
+      // Style the arguments
+      // Extract the arguments part after "phrases"
+      const argsStr = phrasesMatch[1];
+      const argsStartIndex = line.indexOf(argsStr);
+
+      // Process each phrase argument (e.g., "1+1", "18+2", "10-1")
+      // Use a manual approach to find and style each argument since matchAll might not support all browsers
+      const argPattern = /(\d+)([+-])(\d+)/g;
+      let argMatch;
+      let searchStartIndex = argsStartIndex;
+
+      while ((argMatch = argPattern.exec(argsStr)) !== null) {
+        const [fullArg, measure, sign, diff] = argMatch;
+
+        // Calculate the absolute position in the line
+        const relativeArgIndex = argMatch.index;
+        const absoluteArgIndex = argsStartIndex + relativeArgIndex;
+
+        // Apply bold styling to the +/- diff part
+        const signIndex = absoluteArgIndex + measure.length;
+        const diffLength = sign.length + diff.length;
+
+        for (let i = signIndex; i < signIndex + diffLength; i++) {
+          baseDecorations[i] = { class: "phrase-diff" };
+        }
+      }
+    }
+  }
 
   // Process key signature and note colors first
   if (

@@ -1016,6 +1016,7 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
           slug={slug}
           history={history}
           setError={setError}
+          analysis={analysis}
         />
       </BaseEditorPanel>
     </EditorContainer>

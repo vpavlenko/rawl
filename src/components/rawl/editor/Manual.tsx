@@ -15,6 +15,8 @@ import editorMinorLayout from "../../../images/editor_minor_layout.png";
 import { AppContext } from "../../AppContext";
 import { Analysis } from "../analysis";
 import { parseKey } from "./commandParser";
+import { NoteColorLetter } from "./EditorStyles";
+import { getScaleMapForMode } from "./types";
 
 // Constants for localStorage
 const BACKUP_PREFIX = "rawl_backup_";
@@ -23,11 +25,17 @@ const BACKUP_PREFIX = "rawl_backup_";
 const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
 const altKey = isMac ? "Option" : "Alt";
 
+// Constants for common terms
+const UNSTABLE_PITCHES = [1, 2, 3, 5, 6];
+
 // Interface for backup object
 interface BackupData {
   code: string;
   timestamp: number;
 }
+
+// Helper for styling musical terms
+const mt = (term: string) => <span className="musical-term">{term}</span>;
 
 // Function to detect if the first key signature is minor
 const isMinorKey = (score: string): boolean => {
@@ -51,6 +59,32 @@ const isMinorKey = (score: string): boolean => {
   // Default to major if no key signature is found
   console.log("No key signature found in score, defaulting to major");
   return false;
+};
+
+// Helper function to decorate scale names with color and monospace
+const decorateScale = (scaleName: string) => {
+  const scaleMap = getScaleMapForMode(scaleName.toLowerCase() as any);
+
+  // Create colored spans for each letter
+  const styledLetters = Array.from(scaleName).map((letter, index) => {
+    if (index < 5) {
+      const unstablePitch = UNSTABLE_PITCHES[index];
+      const colorIndex = scaleMap?.[unstablePitch] || 0;
+      // Use the shared styled component with proper color contrasting
+      return (
+        <NoteColorLetter
+          key={index}
+          className={`noteColor_${colorIndex}_colors`}
+        >
+          {letter}
+        </NoteColorLetter>
+      );
+    }
+    return <span key={index}>{letter}</span>;
+  });
+
+  // Wrap everything in monospace
+  return <code className="scale-name">{styledLetters}</code>;
 };
 
 const KeyboardLayout = styled.div`
@@ -614,9 +648,6 @@ const AnalysisDisplay: React.FC<{ analysis: Analysis }> = ({ analysis }) => {
     ];
     return noteNames[pitchClass];
   };
-
-  // Helper to wrap terms in a musical-term span
-  const mt = (term: string) => <span className="musical-term">{term}</span>;
 
   if (!analysis) {
     return (
@@ -1291,8 +1322,15 @@ const Manual: React.FC<ManualProps> = ({
               <div className="grid">
                 <code>C major, Ab minor</code>
                 <span>
-                  Key signature. Modes: major, minor, lydian, mixolydian,
-                  dorian, phrygian
+                  Key signature. Modes:
+                  <ul>
+                    <li>{decorateScale("lydian")}</li>
+                    <li>{decorateScale("major")}</li>
+                    <li>{decorateScale("mixolydian")}</li>
+                    <li>{decorateScale("dorian")}</li>
+                    <li>{decorateScale("minor")}</li>
+                    <li>{decorateScale("phrygian")}</li>
+                  </ul>
                 </span>
                 <code>3/4</code> <span>Time signature</span>
                 <code>bpm 120</code> <span>Tempo</span>

@@ -18,17 +18,18 @@ export const EDITOR_CHAPTERS: Array<{
   {
     title: "Introduction",
     titleChords: ["I"],
-    description: "Introduction to the book",
-    scores: ["intro"],
+    description: `This is going to be a book that teaches you composition by pastiche. I'm gonna show you several pieces in a similar style and ask you to compose something similar.
+    
+    I don't require any previous knowledge of music theory or sheet music reading. However, right from the beginning we're going to analyze scores of real composers, classical and modern - Schubert, Gibran Alcocer, TheFatRat etc. And we'll build our path towards more sophisticated styles like that of Koji Kondo, Joe Hisaishi, Scott Joplin etc.
+    
+    I'll show you all scores in my 12-colored piano-roll-based relative notation. I'll teach you how to see chords and how to see patterns in melodies. We're going to extract the relevant music theory right from the scores and reuse it.`,
+    scores: ["wima.e480-schubert_de.-tanz-d.365.25"],
   },
   {
     title: "Schubert Dances",
     titleChords: ["V7", "I"],
-    description: "Schubert's dances featuring V7-I progressions",
     detailedDescription: [
-      "Franz Schubert composed hundreds of dances, primarily waltzes, for piano. These charming miniatures showcase his gift for melody and harmonic invention.",
-      "The pieces collected here demonstrate his characteristic use of V7-I cadential progressions, which create a strong sense of resolution and finality. Despite their brevity, these dances contain sophisticated harmonic movements and melodic invention.",
-      "Notice how Schubert creates interest by varying the texture and register while maintaining the fundamental waltz rhythm and harmonic structure. These works represent some of the earliest examples of the Viennese waltz style that would later flourish throughout the 19th century.",
+      `In 1821, when Schubert was 24, he published a set of 46 waltzes known as Originaltänze op. 9 (D 365).`,
     ],
     scores: [
       "schubert_d365_09",

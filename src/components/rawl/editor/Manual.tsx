@@ -189,12 +189,28 @@ const KeyboardLayout = styled.div`
 `;
 
 const ButtonBar = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr minmax(170px, auto) 1fr;
   align-items: center;
-  justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid #333;
-  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+
+  .left-section {
+    justify-self: start;
+  }
+
+  .center-section {
+    justify-self: center;
+  }
+
+  .right-section {
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 `;
 
 const PublishButton = styled.button<{
@@ -1105,17 +1121,19 @@ const Manual: React.FC<ManualProps> = ({
   return (
     <KeyboardLayout>
       <ButtonBar>
-        {hasLocalBackup && (
-          <RestoreButton
-            onClick={handleRestore}
-            title={`Backup saved ${formatBackupTime(localBackupTimestamp)}`}
-          >
-            <span>Restore from {formatBackupTime(localBackupTimestamp)}</span>
-            <FontAwesomeIcon icon={faClockRotateLeft} className="icon" />
-          </RestoreButton>
-        )}
+        <div className="left-section">
+          {hasLocalBackup && (
+            <RestoreButton
+              onClick={handleRestore}
+              title={`Backup saved ${formatBackupTime(localBackupTimestamp)}`}
+            >
+              <span>Restore from {formatBackupTime(localBackupTimestamp)}</span>
+              <FontAwesomeIcon icon={faClockRotateLeft} className="icon" />
+            </RestoreButton>
+          )}
+        </div>
 
-        <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+        <div className="center-section">
           {/* Show toggle for all users if analysis is available */}
           {analysis && (
             <ViewToggle>
@@ -1135,54 +1153,54 @@ const Manual: React.FC<ManualProps> = ({
               </ToggleButton>
             </ViewToggle>
           )}
+        </div>
 
-          <div style={{ display: "flex", gap: "12px" }}>
-            {showUsernameInput && (
-              <TelegramInput
-                ref={inputRef}
-                placeholder="What's your Telegram @username or email?"
-                value={telegramUsername}
-                onChange={(e) => setTelegramUsername(e.target.value)}
-                onKeyDown={handleKeyDown}
+        <div className="right-section">
+          {showUsernameInput && (
+            <TelegramInput
+              ref={inputRef}
+              placeholder="What's your Telegram @username or email?"
+              value={telegramUsername}
+              onChange={(e) => setTelegramUsername(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+          )}
+          {publishedUrl && (
+            <PublishedUrl onClick={handleCopyUrl}>
+              {showCopyFeedback
+                ? score !== initialSource
+                  ? "Link to last published version is copied to clipboard"
+                  : "Link is copied to clipboard"
+                : publishedUrl}
+              <FontAwesomeIcon
+                icon={faCopy}
+                className="copy-button"
+                title="Copy URL to clipboard"
               />
+            </PublishedUrl>
+          )}
+          <PublishButton
+            onClick={handlePublishClick}
+            isPublishing={isPublishing}
+            disabled={
+              isPublishing ||
+              score === initialSource ||
+              (showUsernameInput && !telegramUsername.trim())
+            }
+            hasChanges={score !== initialSource}
+          >
+            {isPublishing ? (
+              <>
+                Publishing
+                <FontAwesomeIcon icon={faSpinner} className="spinner" />
+              </>
+            ) : (
+              <>
+                Publish
+                <FontAwesomeIcon icon={faCloudArrowUp} />
+              </>
             )}
-            {publishedUrl && (
-              <PublishedUrl onClick={handleCopyUrl}>
-                {showCopyFeedback
-                  ? score !== initialSource
-                    ? "Link to last published version is copied to clipboard"
-                    : "Link is copied to clipboard"
-                  : publishedUrl}
-                <FontAwesomeIcon
-                  icon={faCopy}
-                  className="copy-button"
-                  title="Copy URL to clipboard"
-                />
-              </PublishedUrl>
-            )}
-            <PublishButton
-              onClick={handlePublishClick}
-              isPublishing={isPublishing}
-              disabled={
-                isPublishing ||
-                score === initialSource ||
-                (showUsernameInput && !telegramUsername.trim())
-              }
-              hasChanges={score !== initialSource}
-            >
-              {isPublishing ? (
-                <>
-                  Publishing
-                  <FontAwesomeIcon icon={faSpinner} className="spinner" />
-                </>
-              ) : (
-                <>
-                  Publish
-                  <FontAwesomeIcon icon={faCloudArrowUp} />
-                </>
-              )}
-            </PublishButton>
-          </div>
+          </PublishButton>
         </div>
       </ButtonBar>
 

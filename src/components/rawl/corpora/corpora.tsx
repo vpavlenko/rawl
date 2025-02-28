@@ -3794,6 +3794,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Romantic period composer
     country: "Poland", // Polish composer
   },
+  { slug: "jacob_do_bandolim", midis: ["vibracoes---jacob-do-bandolim"] },
   {
     slug: "ignacy_jan_paderewski",
     midis: [

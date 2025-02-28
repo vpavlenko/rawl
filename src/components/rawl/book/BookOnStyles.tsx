@@ -3,7 +3,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { slugify } from "transliteration";
 import ChordStairs from "../legends/ChordStairs";
-import { EDITOR_CHAPTERS } from "./editorChapters";
+import { STYLES_CHAPTERS } from "./stylesChapters";
 
 const NAV_HORIZONTAL_GAP = 15;
 const NAV_CHORD_STAIRS_SCALE = 0.6;
@@ -147,11 +147,11 @@ const BookOnStyles: React.FC = () => {
 
   // Find selected chapter based on slug or default to first chapter
   const selectedChapter = React.useMemo(() => {
-    if (!slug) return EDITOR_CHAPTERS[0].title;
+    if (!slug) return STYLES_CHAPTERS[0].title;
     return (
-      EDITOR_CHAPTERS.find(
+      STYLES_CHAPTERS.find(
         (chapter) => getChapterSlug(chapter.title) === slug.toLowerCase(),
-      )?.title || EDITOR_CHAPTERS[0].title
+      )?.title || STYLES_CHAPTERS[0].title
     );
   }, [slug]);
 
@@ -162,7 +162,7 @@ const BookOnStyles: React.FC = () => {
   };
 
   const renderChapterContent = () => {
-    const currentChapter = EDITOR_CHAPTERS.find(
+    const currentChapter = STYLES_CHAPTERS.find(
       (chapter) => chapter.title === selectedChapter,
     );
 
@@ -190,7 +190,7 @@ const BookOnStyles: React.FC = () => {
       </EditorIndexTitle>
 
       <ChapterSelector>
-        {EDITOR_CHAPTERS.map((chapter) => (
+        {STYLES_CHAPTERS.map((chapter) => (
           <ChapterButton
             key={chapter.title}
             isSelected={selectedChapter === chapter.title}

@@ -5433,6 +5433,14 @@ export const corpora: CorpusEntry[] = [
       "german-dance-and-ecossaise-d.643---franz-schubert",
       "schubert---sonata-in-a-op.120-d.664-movement-i",
       "ave-maria-d839---schubert---solo-piano-arrg.",
+    ],
+    composerBirthYear: 1797,
+    genre: "Classical",
+    country: "Austria",
+  },
+  {
+    slug: "schubert_op9_d365",
+    midis: [
       "wima.d719-schubert_atzenbrugger-tanz-d.365.30",
 
       "wima.41cc-schubert_deut.tanz-d.820.3",
@@ -5487,7 +5495,6 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: 1797,
     genre: "Classical",
-    style: "Romantic",
     country: "Austria",
   },
 

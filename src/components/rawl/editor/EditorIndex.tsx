@@ -234,7 +234,9 @@ const EditorIndex: React.FC = () => {
 
   return (
     <EditorIndexContainer>
-      <EditorIndexTitle>Book</EditorIndexTitle>
+      <EditorIndexTitle>
+        Structures and Styles of Western composers
+      </EditorIndexTitle>
 
       <ChapterSelector>
         {EDITOR_CHAPTERS.map((chapter) => (

@@ -24,7 +24,6 @@ import {
   parseCommand,
 } from "./commandParser";
 import { characterBackgroundsPlugin, customTheme } from "./EditorDecorations";
-import EditorIndex from "./EditorIndex";
 import { generateMidiWithMetadata } from "./EditorMidi";
 import {
   EditorPanel as BaseEditorPanel,
@@ -597,8 +596,32 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
           setInitialSource("");
         }
       } else {
-        setScore("");
-        setInitialSource("");
+        // When no slug is provided, use mock source
+        const mockSource = `% This is a sample code: feel free to erase it or comment it out.
+% Currently there's a bug: notes only show up if there are
+% at least two measures of music written.
+
+C major
+4/4
+bpm 120
+
+lh
+1 i 1,.qet,.qet,
+2 c 1 3 4 0
+
+rh
+1 i x-q-w,e-r,t,
+2 c 1 1 2
+4 i x,a_.
+
+5 ac 1-4`;
+
+        setScore(mockSource);
+        setInitialSource(mockSource);
+        // Trigger initial MIDI generation after a delay
+        setTimeout(() => {
+          debouncedMelodyPlayback(mockSource, true);
+        }, 1000);
       }
     };
 
@@ -692,11 +715,6 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
       cleanupBlinkingState();
     };
   }, [cleanupBlinkingState]);
-
-  // If no effectiveSlug is provided, show the index
-  if (!effectiveSlug) {
-    return <EditorIndex />;
-  }
 
   return (
     <EditorContainer>

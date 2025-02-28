@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { CorpusLink } from "../corpora/CorpusLink";
 import { Chord } from "../legends/chords";
 import { c, Mode } from "./chapters";
 
@@ -28,19 +29,9 @@ export const e = (slug: string) => (
 
 // Define the corpus() custom tag for corpus links
 export const corpus = (slug: string) => (
-  <a
-    href={`/corpus/${slug}`}
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-      display: "inline-block",
-      color: "magenta",
-      margin: "10px 10px 10px 0",
-      whiteSpace: "nowrap",
-    }}
-  >
-    {slug}
-  </a>
+  <span style={{ display: "inline-block", margin: "10px 10px 10px 0" }}>
+    <CorpusLink slug={slug} />
+  </span>
 );
 
 // Define the chapter groups (how they're organized in the UI)
@@ -120,7 +111,7 @@ export const STYLES_CHAPTERS: Array<{
     pretext: () => (
       <>
         <P>
-          {corpus("gibran_alcocer")}'s compositions () sound modern. They sound
+          {corpus("gibran_alcocer")}'s compositions sound modern. They sound
           like late 20th or early 21st century. Like {corpus("yann_tiersen")}'s
           music to Amélie. But how is that? Which structures are a core of that
           modern style?
@@ -128,10 +119,10 @@ export const STYLES_CHAPTERS: Array<{
         <P>
           Explore these pieces:
           <ul>
+            <li>{e("idea-15---gibran-alcocer")}</li>
             <li>{e("idea-22---gibran-alcocer")}</li>
             <li>{e("idea-n.10---gibran-alcocer")}</li>
             <li>{e("idea-20---gibran-alcocer")}</li>
-            <li>{e("idea-15---gibran-alcocer")}</li>
           </ul>
         </P>
       </>

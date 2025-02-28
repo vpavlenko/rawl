@@ -186,6 +186,8 @@ lh
   "idea-n.10---gibran-alcocer": `G minor
 bpm 180
 3/4
+sections 2 6 10 14 18 22 26
+phrases 1+1 18+2 36+2 54+2 72+2 90+2
 
 
 rh 4
@@ -243,7 +245,7 @@ rh 4
 bpm 170
 
 phrases 9+2 43+2 69+2
-sections 3 7 11 15
+sections 3 7 11 15 17 21 25
 
 lh
 1 i 6,yi,yi,e,yi,yi
@@ -282,14 +284,20 @@ rh
 
 lh
 42 c 34 0 0 0
+45 c 11-14 0 x 0
+49 c 31-34
+57 c 39-40
+59 i usg+.
 
-61 ac 35-44`,
+61 ac 35-44
+87 ac 11-18
+95 ac 23-42`,
   "idea-15---gibran-alcocer": `3/4
 bpm 170
 Db minor
 
 phrases 1+1 18+2 36+2 54+2 72+2 90+2 108+2
-sections 1 5 9 13 17 21
+sections 2 6 10 14 18 22
 
 lh
 2 i 4r,ry,ry,q,ry,ry,
@@ -299,7 +307,7 @@ lh
 20 c 2-19 0 0 0 0
 92 i h-d-a-h-d-a-
 93 c 92 0 0 0
-96 i g-d-a-g-d-a- g-d-a-g-d-a- f-s-u-f-s-u-g-s-u-g-s-u-
+96 i g-d-a-g-d-a- g-d-a-g-d-a- f-s-u-f-s-u- g-s-u-g-s-u-
 100 c 92-99
 
 lh 4

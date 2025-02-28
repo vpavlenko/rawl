@@ -173,48 +173,11 @@ const EditorIndex: React.FC = () => {
         <ChapterTitle>{currentChapter.title}</ChapterTitle>
 
         <ChapterDescription>
-          {currentChapter.title === "Schubert Dances" ? (
+          {currentChapter.detailedDescription ? (
             <ReadableTextBlock>
-              <p>
-                Franz Schubert composed hundreds of dances, primarily waltzes,
-                for piano. These charming miniatures showcase his gift for
-                melody and harmonic invention.
-              </p>
-              <p>
-                The pieces collected here demonstrate his characteristic use of
-                V7-I cadential progressions, which create a strong sense of
-                resolution and finality. Despite their brevity, these dances
-                contain sophisticated harmonic movements and melodic invention.
-              </p>
-              <p>
-                Notice how Schubert creates interest by varying the texture and
-                register while maintaining the fundamental waltz rhythm and
-                harmonic structure. These works represent some of the earliest
-                examples of the Viennese waltz style that would later flourish
-                throughout the 19th century.
-              </p>
-            </ReadableTextBlock>
-          ) : currentChapter.title === "Natural Minor" ? (
-            <ReadableTextBlock>
-              <p>
-                Gibran Alcocer's compositions explore the rich harmonic
-                landscape of the natural minor scale. Unlike the harmonic minor
-                that introduces a raised 7th degree, the natural minor retains
-                all the notes of its relative major scale.
-              </p>
-              <p>
-                The progression bVI-iv-i-bVII is particularly significant in
-                this context, representing a modal cadential pattern that
-                differs from the traditional V-i of common practice harmony. The
-                subdominant emphasis creates a distinctive sound that
-                characterizes many folk and popular music traditions.
-              </p>
-              <p>
-                These pieces showcase how contemporary composers can create
-                compelling harmonic movements within a modal framework,
-                challenging conventional tonal expectations while maintaining a
-                sense of coherence and direction.
-              </p>
+              {currentChapter.detailedDescription.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
             </ReadableTextBlock>
           ) : (
             <p>{currentChapter.description}</p>

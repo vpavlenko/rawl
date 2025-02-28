@@ -1,5 +1,13 @@
+import React from "react";
+import styled from "styled-components";
 import { Mode } from "../book/chapters";
 import { Chord } from "../legends/chords";
+
+// Import the P styled component from chapters.tsx
+export const P = styled.div`
+  margin-bottom: 30px;
+  line-height: 1.6;
+`;
 
 // Define the chapter groups (how they're organized in the UI)
 export const EDITOR_CHAPTER_GROUPS: Record<string, [number, number]> = {
@@ -11,26 +19,48 @@ export const EDITOR_CHAPTERS: Array<{
   title: string;
   titleChords?: Chord[];
   mode?: Mode | Mode[];
-  description?: string;
-  detailedDescription?: string[];
+  pretext?: () => React.JSX.Element;
   scores: string[];
 }> = [
   {
     title: "Introduction",
     titleChords: ["I"],
-    description: `This is going to be a book that teaches you composition by pastiche. I'm gonna show you several pieces in a similar style and ask you to compose something similar.
-    
-    I don't require any previous knowledge of music theory or sheet music reading. However, right from the beginning we're going to analyze scores of real composers, classical and modern - Schubert, Gibran Alcocer, TheFatRat etc. And we'll build our path towards more sophisticated styles like that of Koji Kondo, Joe Hisaishi, Scott Joplin etc.
-    
-    I'll show you all scores in my 12-colored piano-roll-based relative notation. I'll teach you how to see chords and how to see patterns in melodies. We're going to extract the relevant music theory right from the scores and reuse it.`,
+    pretext: () => (
+      <>
+        <P>
+          I'll teach you composition by pastiche. In each chapter I'm gonna show
+          you several pieces in a similar style and ask you to compose something
+          of the same vibe.
+        </P>
+        <P>
+          You won't need any previous knowledge of music theory or sheet music
+          reading. However, right from the beginning we're going to analyze
+          scores of real composers, classical and modern - Schubert, Gibran
+          Alcocer, TheFatRat etc. And we'll build our path towards more
+          sophisticated styles like that of Koji Kondo, Joe Hisaishi, Scott
+          Joplin etc.
+        </P>
+        <P>
+          I'll show you all scores in my 12-colored piano-roll-based relative
+          notation. I'll teach you how to see chords and how to see patterns in
+          melodies. We're going to extract the relevant music theory right from
+          the scores and reuse it.
+        </P>
+      </>
+    ),
     scores: ["wima.e480-schubert_de.-tanz-d.365.25"],
   },
   {
     title: "Schubert Dances",
     titleChords: ["V7", "I"],
-    detailedDescription: [
-      `In 1821, when Schubert was 24, he published a set of 46 waltzes known as Originaltänze op. 9 (D 365).`,
-    ],
+    pretext: () => (
+      <>
+        <P>
+          In 1821, when Schubert was 24, he published a set of 46 waltzes known
+          as Originaltänze op. 9 (D 365).
+        </P>
+      </>
+    ),
     scores: [
       "schubert_d365_09",
       "wima.e480-schubert_de.-tanz-d.365.25",
@@ -41,12 +71,30 @@ export const EDITOR_CHAPTERS: Array<{
   {
     title: "Natural Minor",
     titleChords: ["bVI", "iv", "i", "bVII"],
-    description: "Gibran Alcocer's compositions in natural minor",
-    detailedDescription: [
-      "Gibran Alcocer's compositions explore the rich harmonic landscape of the natural minor scale. Unlike the harmonic minor that introduces a raised 7th degree, the natural minor retains all the notes of its relative major scale.",
-      "The progression bVI-iv-i-bVII is particularly significant in this context, representing a modal cadential pattern that differs from the traditional V-i of common practice harmony. The subdominant emphasis creates a distinctive sound that characterizes many folk and popular music traditions.",
-      "These pieces showcase how contemporary composers can create compelling harmonic movements within a modal framework, challenging conventional tonal expectations while maintaining a sense of coherence and direction.",
-    ],
+    pretext: () => (
+      <>
+        <P>Gibran Alcocer's compositions in natural minor</P>
+        <P>
+          Gibran Alcocer's compositions explore the rich harmonic landscape of
+          the natural minor scale. Unlike the harmonic minor that introduces a
+          raised 7th degree, the natural minor retains all the notes of its
+          relative major scale.
+        </P>
+        <P>
+          The progression bVI-iv-i-bVII is particularly significant in this
+          context, representing a modal cadential pattern that differs from the
+          traditional V-i of common practice harmony. The subdominant emphasis
+          creates a distinctive sound that characterizes many folk and popular
+          music traditions.
+        </P>
+        <P>
+          These pieces showcase how contemporary composers can create compelling
+          harmonic movements within a modal framework, challenging conventional
+          tonal expectations while maintaining a sense of coherence and
+          direction.
+        </P>
+      </>
+    ),
     scores: [
       "idea-22---gibran-alcocer",
       "idea-n.10---gibran-alcocer",
@@ -57,7 +105,11 @@ export const EDITOR_CHAPTERS: Array<{
   {
     title: "Miscellaneous",
     titleChords: ["Imaj7", "i7"],
-    description: "A collection of various musical pieces",
+    pretext: () => (
+      <>
+        <P>A collection of various musical pieces</P>
+      </>
+    ),
     scores: [
       "der-flohwalzer",
       "Gravity_Falls_Opening",

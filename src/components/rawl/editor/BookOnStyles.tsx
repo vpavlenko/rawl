@@ -140,7 +140,7 @@ const ScoresList = styled.div`
 // Helper function to get chapter slug
 const getChapterSlug = (chapter: string) => slugify(chapter.toLowerCase());
 
-const EditorIndex: React.FC = () => {
+const BookOnStyles: React.FC = () => {
   const { slug } = useParams<{ slug?: string }>();
   const history = useHistory();
   const [hoveredChapter, setHoveredChapter] = useState<string | null>(null);
@@ -230,4 +230,4 @@ const EditorIndex: React.FC = () => {
   );
 };
 
-export default EditorIndex;
+export default BookOnStyles;

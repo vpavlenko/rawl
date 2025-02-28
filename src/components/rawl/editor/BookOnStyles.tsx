@@ -166,12 +166,12 @@ const BookOnStyles: React.FC = () => {
       (chapter) => chapter.title === selectedChapter,
     );
 
-    if (!currentChapter) return null;
+    if (!currentChapter) {
+      return <p>Select a chapter to view its content.</p>;
+    }
 
     return (
       <ChapterContent>
-        <ChapterTitle>{currentChapter.title}</ChapterTitle>
-
         <ChapterDescription>
           {currentChapter.pretext ? (
             currentChapter.pretext()
@@ -179,14 +179,6 @@ const BookOnStyles: React.FC = () => {
             <p>No description available.</p>
           )}
         </ChapterDescription>
-
-        <ScoresList>
-          {currentChapter.scores.map((slug) => (
-            <ScoreLink key={slug} to={`/e/${slug}`}>
-              {slug.replace(/---/g, " – ").replace(/-/g, " ")}
-            </ScoreLink>
-          ))}
-        </ScoresList>
       </ChapterContent>
     );
   };

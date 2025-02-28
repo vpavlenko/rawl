@@ -9,6 +9,23 @@ export const P = styled.div`
   line-height: 1.6;
 `;
 
+// Define the e() custom tag for scores
+export const e = (slug: string) => (
+  <a
+    href={`/e/${slug}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{
+      display: "inline-block",
+      color: "cyan",
+      margin: "10px 10px 10px 0",
+      whiteSpace: "nowrap",
+    }}
+  >
+    {slug}
+  </a>
+);
+
 // Define the chapter groups (how they're organized in the UI)
 export const EDITOR_CHAPTER_GROUPS: Record<string, [number, number]> = {
   all: [1, 3], // All 3 chapters are in a single group
@@ -20,7 +37,6 @@ export const EDITOR_CHAPTERS: Array<{
   titleChords?: Chord[];
   mode?: Mode | Mode[];
   pretext?: () => React.JSX.Element;
-  scores: string[];
 }> = [
   {
     title: "Introduction",
@@ -46,12 +62,14 @@ export const EDITOR_CHAPTERS: Array<{
           melodies. We're going to extract the relevant music theory right from
           the scores and reuse it.
         </P>
+        <P>
+          Check out this example: {e("wima.e480-schubert_de.-tanz-d.365.25")}
+        </P>
       </>
     ),
-    scores: ["wima.e480-schubert_de.-tanz-d.365.25"],
   },
   {
-    title: "Schubert Dances",
+    title: "Schubert, Two chords in major",
     titleChords: ["V7", "I"],
     pretext: () => (
       <>
@@ -59,17 +77,17 @@ export const EDITOR_CHAPTERS: Array<{
           In 1821, when Schubert was 24, he published a set of 46 waltzes known
           as Originaltänze op. 9 (D 365).
         </P>
+        <P>
+          Here are some examples: {e("schubert_d365_09")}
+          {e("wima.e480-schubert_de.-tanz-d.365.25")}
+          {e("wima.1124-schubert_de.-tanz-d.365.26")}
+          {e("wima.4be9-schubert_de.-tanz-d.365.28")}
+        </P>
       </>
     ),
-    scores: [
-      "schubert_d365_09",
-      "wima.e480-schubert_de.-tanz-d.365.25",
-      "wima.1124-schubert_de.-tanz-d.365.26",
-      "wima.4be9-schubert_de.-tanz-d.365.28",
-    ],
   },
   {
-    title: "Natural Minor",
+    title: "Gibran Alcocer, Triads in Natural Minor",
     titleChords: ["bVI", "iv", "i", "bVII"],
     pretext: () => (
       <>
@@ -78,14 +96,14 @@ export const EDITOR_CHAPTERS: Array<{
           or early 21st century. Like Yann Tiersen's music to Amélie. But how is
           that? Which structures are a core of that modern style?
         </P>
+        <P>
+          Explore these pieces: {e("idea-22---gibran-alcocer")}
+          {e("idea-n.10---gibran-alcocer")}
+          {e("idea-20---gibran-alcocer")}
+          {e("idea-15---gibran-alcocer")}
+        </P>
       </>
     ),
-    scores: [
-      "idea-22---gibran-alcocer",
-      "idea-n.10---gibran-alcocer",
-      "idea-20---gibran-alcocer",
-      "idea-15---gibran-alcocer",
-    ],
   },
   {
     title: "Miscellaneous",
@@ -93,16 +111,16 @@ export const EDITOR_CHAPTERS: Array<{
     pretext: () => (
       <>
         <P>A collection of various musical pieces</P>
+        <P>
+          Check out these examples: {e("der-flohwalzer")}
+          {e("Gravity_Falls_Opening")}
+          {e("Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano")}
+          {e("chopsticks")}
+          {e("the-two-happy-coons---theodore-h.-northrup-1891")}
+          {e("passacaglia---handel-halvorsen")}
+          {e("boogie-woogie-jump---pete-johnson")}
+        </P>
       </>
     ),
-    scores: [
-      "der-flohwalzer",
-      "Gravity_Falls_Opening",
-      "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
-      "chopsticks",
-      "the-two-happy-coons---theodore-h.-northrup-1891",
-      "passacaglia---handel-halvorsen",
-      "boogie-woogie-jump---pete-johnson",
-    ],
   },
 ];

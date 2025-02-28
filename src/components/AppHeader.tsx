@@ -78,23 +78,23 @@ const AppHeader: React.FC = () => {
         >
           Rawl
         </HeaderLink>
-        <HeaderLink to="/s/" style={getLinkStyle("/s")}>
-          Structures
+        <HeaderLink to="/book/" style={getLinkStyle("/book")}>
+          Book
+        </HeaderLink>
+        <HeaderLink to="/e/" style={getLinkStyle("/e")}>
+          Editor
         </HeaderLink>
         <HeaderLink to="/corpus/" style={getLinkStyle("/corpus")}>
           Pieces
+        </HeaderLink>
+        <HeaderLink to="/s/" style={getLinkStyle("/s")}>
+          Structures
         </HeaderLink>
         <HeaderLink to="/timeline/" style={getLinkStyle("/timeline")}>
           Timeline
         </HeaderLink>
         <HeaderLink to="/forge/" style={getLinkStyle("/forge")}>
           Forge
-        </HeaderLink>
-        <HeaderLink to="/book/" style={getLinkStyle("/book")}>
-          Book
-        </HeaderLink>
-        <HeaderLink to="/e/" style={getLinkStyle("/e")}>
-          Editor
         </HeaderLink>
       </NavLinks>
 

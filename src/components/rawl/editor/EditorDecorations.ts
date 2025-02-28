@@ -65,8 +65,24 @@ export const getBackgroundsForLine = (
   // Get the base decorations first (for backgrounds)
   let baseDecorations = Array.from(line).map(() => ({ class: null }));
 
-  // Skip empty lines and comments
-  const cleanLine = line.split("%")[0].trim();
+  // Check if any previous line is just '%' (handle commented section first)
+  for (let i = 0; i < lineIndex; i++) {
+    if (allLines[i].trim() === "%") {
+      return Array.from(line).map(() => ({ class: "comment" }));
+    }
+  }
+
+  // Check for comments in current line early
+  const commentIndex = line.indexOf("%");
+
+  // If the entire line is a comment, return immediately
+  if (commentIndex === 0) {
+    return Array.from(line).map(() => ({ class: "comment" }));
+  }
+
+  // Skip empty lines
+  const cleanLine =
+    commentIndex !== -1 ? line.substring(0, commentIndex).trim() : line.trim();
   if (!cleanLine) return baseDecorations;
 
   // Create a context for command parsing
@@ -87,7 +103,12 @@ export const getBackgroundsForLine = (
   // If the line is not a valid command, apply strikethrough to all non-whitespace characters
   if (!isValidCommand) {
     let inWhitespace = true;
-    baseDecorations = Array.from(line).map((char) => {
+    baseDecorations = Array.from(line).map((char, index) => {
+      // Don't style content after a comment marker
+      if (commentIndex !== -1 && index >= commentIndex) {
+        return { class: "comment" };
+      }
+
       if (char.trim() === "") {
         inWhitespace = true;
         return { class: null };
@@ -197,6 +218,11 @@ export const getBackgroundsForLine = (
       lineIndex,
     );
     baseDecorations = baseDecorations.map((dec, i) => {
+      // Apply comment styling over any other styling
+      if (commentIndex !== -1 && i >= commentIndex) {
+        return { class: "comment" };
+      }
+
       const result = {
         class: dec.class ? dec.class : noteDecorations[i].class,
       };
@@ -258,27 +284,11 @@ export const getBackgroundsForLine = (
     }
   }
 
-  // Then handle comments, preserving any background colors
-  // Check if any previous line is just '%'
-  for (let i = 0; i < lineIndex; i++) {
-    if (allLines[i].trim() === "%") {
-      return baseDecorations.map((decoration) => ({
-        class: decoration.class ? `${decoration.class} comment` : "comment",
-      }));
-    }
-  }
-
-  // Check for comments in current line
-  const commentIndex = line.indexOf("%");
+  // Apply comment styling at the end to override any other styling
   if (commentIndex !== -1) {
-    return baseDecorations.map((decoration, index) => ({
-      class:
-        index >= commentIndex
-          ? decoration.class
-            ? `${decoration.class} comment`
-            : "comment"
-          : decoration.class,
-    }));
+    for (let i = commentIndex; i < line.length; i++) {
+      baseDecorations[i] = { class: "comment" };
+    }
   }
 
   return baseDecorations;
@@ -319,6 +329,10 @@ const parseNote = (
   if (i >= melody.length)
     return { note: null, nextIndex: i, hasDuration: false };
 
+  // Stop if we hit a comment marker
+  if (melody[i] === "%")
+    return { note: null, nextIndex: i, hasDuration: false };
+
   const noteStart = i;
 
   // Check for accidental
@@ -331,6 +345,11 @@ const parseNote = (
   // Get pitch
   if (i >= melody.length)
     return { note: null, nextIndex: i, hasDuration: false };
+
+  // Stop if we hit a comment marker
+  if (melody[i] === "%")
+    return { note: null, nextIndex: i, hasDuration: false };
+
   const pitch = melody[i];
   const degree = NOTE_LETTER_MAP[pitch.toLowerCase()];
   if (degree === undefined)
@@ -343,6 +362,9 @@ const parseNote = (
   let hasDuration = false;
 
   while (i < melody.length) {
+    // Stop if we hit a comment marker
+    if (melody[i] === "%") break;
+
     // Check for duration marker
     if (/[+_\-=,'"]/.test(melody[i])) {
       hasDuration = true;
@@ -384,7 +406,11 @@ const parseMelody = (melody: string): ParsedNote[] => {
   const notes: ParsedNote[] = [];
   let i = 0;
 
-  while (i < melody.length) {
+  // Check for comment marker and ignore everything after it
+  const commentIndex = melody.indexOf("%");
+  const effectiveLength = commentIndex !== -1 ? commentIndex : melody.length;
+
+  while (i < effectiveLength) {
     // Try to parse as a chord first
     let chordNotes: ParsedNote[] = [];
     let currentIndex = i;
@@ -392,7 +418,7 @@ const parseMelody = (melody: string): ParsedNote[] => {
     let lastNextIndex = i;
 
     // Look ahead for multiple consecutive notes without duration markers
-    while (currentIndex < melody.length) {
+    while (currentIndex < effectiveLength) {
       const { note, nextIndex, hasDuration } = parseNote(
         melody,
         currentIndex,
@@ -558,10 +584,17 @@ const processNoteColors = (
   }
 
   const [_, measureStr, beatStr, melodyPart] = match;
+
+  // Remove any comment parts from the melody string
+  const commentIndex = melodyPart.indexOf("%");
+  const cleanMelodyPart =
+    commentIndex !== -1 ? melodyPart.substring(0, commentIndex) : melodyPart;
+
+  // Get the start index of the cleaned melody part
   const melodyStartIndex = line.indexOf(melodyPart);
 
   // Parse melody into structured notes
-  const notes = parseMelody(melodyPart);
+  const notes = parseMelody(cleanMelodyPart);
 
   // Calculate colors for each note
   const colors = notes.map((note) => calculateNoteColor(note, currentKey));

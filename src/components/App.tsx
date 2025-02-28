@@ -62,8 +62,8 @@ import { Analyses, MeasuresSpan } from "./rawl/analysis";
 import Book from "./rawl/book/Book";
 import Corpus from "./rawl/corpora/Corpus";
 import Structures, { StructuresProps } from "./rawl/corpora/Structures";
+import BookOnStyles from "./rawl/editor/BookOnStyles";
 import Editor from "./rawl/editor/Editor";
-import EditorIndex from "./rawl/editor/EditorIndex";
 import ForgeUI from "./rawl/forge/ForgeUI";
 import { DropSaveForm, saveMidiFromLink } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
@@ -1270,7 +1270,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   <Route path="/daw" render={() => <DAW />} />
                   <Route path="/e/:slug?" component={Editor} />
                   <Route path="/ef/:id?" component={Editor} />
-                  <Route path="/book/:slug?" component={EditorIndex} />
+                  <Route path="/book/:slug?" component={BookOnStyles} />
                   {rawlRoute}
                   <Route path="/100/:slug?" component={Book} />
                   <Route path="/beyond/:slug?" component={Book} />

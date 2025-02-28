@@ -73,25 +73,10 @@ export const EDITOR_CHAPTERS: Array<{
     titleChords: ["bVI", "iv", "i", "bVII"],
     pretext: () => (
       <>
-        <P>Gibran Alcocer's compositions in natural minor</P>
         <P>
-          Gibran Alcocer's compositions explore the rich harmonic landscape of
-          the natural minor scale. Unlike the harmonic minor that introduces a
-          raised 7th degree, the natural minor retains all the notes of its
-          relative major scale.
-        </P>
-        <P>
-          The progression bVI-iv-i-bVII is particularly significant in this
-          context, representing a modal cadential pattern that differs from the
-          traditional V-i of common practice harmony. The subdominant emphasis
-          creates a distinctive sound that characterizes many folk and popular
-          music traditions.
-        </P>
-        <P>
-          These pieces showcase how contemporary composers can create compelling
-          harmonic movements within a modal framework, challenging conventional
-          tonal expectations while maintaining a sense of coherence and
-          direction.
+          Gibran Alcocer's compositions sound modern. They sound like late 20th
+          or early 21st century. Like Yann Tiersen's music to Amélie. But how is
+          that? Which structures are a core of that modern style?
         </P>
       </>
     ),

@@ -11,8 +11,10 @@ import { addDoc, collection, getFirestore } from "firebase/firestore/lite";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import editorMajorLayout from "../../../images/editor_major_layout.png";
+import editorMinorLayout from "../../../images/editor_minor_layout.png";
 import { AppContext } from "../../AppContext";
 import { Analysis } from "../analysis";
+import { parseKey } from "./commandParser";
 
 // Constants for localStorage
 const BACKUP_PREFIX = "rawl_backup_";
@@ -26,6 +28,30 @@ interface BackupData {
   code: string;
   timestamp: number;
 }
+
+// Function to detect if the first key signature is minor
+const isMinorKey = (score: string): boolean => {
+  // Split the score into lines and look for key signature declarations
+  const lines = score.split("\n");
+
+  for (const line of lines) {
+    const cleanLine = line.split("%")[0].trim(); // Remove comments
+    if (!cleanLine) continue;
+
+    const key = parseKey(cleanLine);
+    if (key) {
+      // Found a key signature, check if it's minor
+      console.log(
+        `Detected key signature: ${key.mode} mode, tonic: ${key.tonic}`,
+      );
+      return key.mode === "minor";
+    }
+  }
+
+  // Default to major if no key signature is found
+  console.log("No key signature found in score, defaulting to major");
+  return false;
+};
 
 const KeyboardLayout = styled.div`
   display: flex;
@@ -1135,7 +1161,12 @@ const Manual: React.FC<ManualProps> = ({
         <>
           <div className="top-section">
             <div className="left-column">
-              <img src={editorMajorLayout} alt="Keyboard Layout" />
+              <img
+                src={isMinorKey(score) ? editorMinorLayout : editorMajorLayout}
+                alt={`${
+                  isMinorKey(score) ? "Minor" : "Major"
+                } Scale Keyboard Layout`}
+              />
               <div className="image-caption">
                 Prepend note pitch with b and # to lower/raise by semitone, eg.
                 b2, #r

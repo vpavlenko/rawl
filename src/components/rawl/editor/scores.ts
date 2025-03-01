@@ -1,4 +1,23 @@
 export const scores: { [key: string]: string } = {
+  new: `% Hello, world!
+% This is a sample code: feel free to erase it or comment it out.
+% Currently there's a bug: notes only show up if there are
+% at least two measures of music written.
+
+C major
+4/4
+bpm 120
+
+lh  % notes below are put in the left hand, which sounds softer than the right hand
+1 i 1,. qet,. qet,  % each note or chord is pitch(es)+duration
+2 c 1 3 4 0  % this copies notes from measure 1 applying scale-wise shifts to 3, 4 and 0 scale degrees
+
+rh
+1 i x-q-w,e-r,t,
+2 c 1 1 2  % this copies notes only in the right hand
+4 i x,a_.
+
+5 ac 1-4`,
   schubert_d365_09: `Ab major
 3/4
 bpm 160
@@ -184,14 +203,14 @@ lh
 
 81  c 19-34`,
   "idea-n.10---gibran-alcocer": `G minor
-bpm 180
+bpm 170
 3/4
 sections 2 6 10 14 18 22 26
-phrases 1+1 18+2 36+2 54+2 72+2 90+2
+phrases 1+1 18+2 36+2 54+2 72+2 90+2 116+2
 
 
 rh 4
-16 i a_.s_.d+.
+16 i a_.s_.
 
 lh 2
 2 i r,fh,fh, a,fh,fh,
@@ -206,7 +225,7 @@ lh 2
 76 i 7,sf,sf, u,sf,sf,
 78 i q,dg,dg, e,dg,dg,
 
-80 c 62-63
+80 c 8-9
 82 c 74-79
 88 ac 16-19
 
@@ -214,13 +233,18 @@ lh 2
 
 108 i afh+. adg+. usf+.
 
-114 i 6qe+
+114 i 6qe+.
 
 20 ac 2-19 0 0 0
 
 
-
 rh 4
+18 i d+.
+36 i d+.
+54 i d+.
+90 i d+.
+72 i d+x,a-d-
+
 1 i x,.q-q-e-r-e-r_.
 3 i x,.q-q-w-e-w-e_. 
 5 i x,.q-q-e-w_x-q-q,q,.7-q+
@@ -228,17 +252,41 @@ rh 4
 11 i x-t-r-e-q-w-e-w-e_.
 13 i x,e-e-e-r-w_x-q-w-q_7-
 
-20 i f-a-y- f-a-y- f-a-y- f-d-s-
-22 i d-s-t- d-s-t- d-s-t- d-s-a-
-24 i s-u-t- s-u-t- s-u-t- s-a-u- 
-26 i a+x-t-a-s-
-28 c 20
-29 i               f-a-y- g-d-s-
-30 c 22-24
-33 i               s-u-t- u-s-g- 
+38 i y_.x-t=y= t-r-e-r-t+x,e, w_t+ q_.x-q-w-e-r-t-
+46 c 38-40
+49b3 i t,u_s_d_
 
-56 c 20-25
-108 c 20-25
+74 i f_.x-g-f-d-s-a-s+s-s-s-s-d_.s_.a+x-a-a-d-
+82 c 74-77
+86 i d_.f_g,
+
+20 i f-a-y- f-a-y- f-a-y-
+22 i d-s-t- d-s-t- d-s-t- d-s-a-
+24 i s-u-t- s-u-t- s-u-t- 
+28 c 20-25
+33b2 i x-u-s-g-
+
+92 c 20-33
+
+21b2 i x-f-d-s-
+25b2 i x-s-a-u-
+29b2 i x-g-d-s-
+
+56 c 20-33
+108 c 56-61
+
+26 i a+x-t-a-s-
+
+62 i a_. x-s=d=s-a-s-d-
+98 c 62-63
+
+ch2 4
+93b2 i x-f=g=f-d-
+97 c 93 -3
+101 c 93
+
+106 i a+.
+114 i a_.s_.d+.
 `,
   "idea-20---gibran-alcocer": `C minor
 3/4

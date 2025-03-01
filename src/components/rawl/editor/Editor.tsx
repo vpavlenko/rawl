@@ -133,6 +133,13 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   const dragStartHeight = useRef(0);
   const [initialSource, setInitialSource] = useState<string>("");
 
+  // Redirect to /e/new if no slug is provided - using useEffect for proper hook ordering
+  useEffect(() => {
+    if (!effectiveSlug) {
+      history.push("/e/new");
+    }
+  }, [effectiveSlug, history]);
+
   // Use the analysis from context rather than a separate extraction
   const analysis = context.analysis || ANALYSIS_STUB;
 
@@ -595,34 +602,6 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
           setScore("");
           setInitialSource("");
         }
-      } else {
-        // When no slug is provided, use mock source
-        const mockSource = `% Hello, world!
-% This is a sample code: feel free to erase it or comment it out.
-% Currently there's a bug: notes only show up if there are
-% at least two measures of music written.
-
-C major
-4/4
-bpm 120
-
-lh  % notes below are put in the left hand, which sounds softer than the right hand
-1 i 1,. qet,. qet,  % each note or chord is pitch(es)+duration
-2 c 1 3 4 0  % this copies notes from measure 1 applying scale-wise shifts to 3, 4 and 0 scale degrees
-
-rh
-1 i x-q-w,e-r,t,
-2 c 1 1 2  % this copies notes only in the right hand
-4 i x,a_.
-
-5 ac 1-4`;
-
-        setScore(mockSource);
-        setInitialSource(mockSource);
-        // Trigger initial MIDI generation after a delay
-        setTimeout(() => {
-          debouncedMelodyPlayback(mockSource, true);
-        }, 1000);
       }
     };
 

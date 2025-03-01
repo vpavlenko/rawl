@@ -31,7 +31,7 @@ export const EditorPanel = styled.div<{ isFolded: boolean; height?: string }>`
   right: 0;
   width: calc(100% - 40px);
   height: ${(props) => props.height || "50vh"};
-  background: #1e1e1e;
+  background: #080808;
   display: grid;
   grid-template-columns: ${(props) => (props.isFolded ? "auto" : "1fr 1fr")};
   transition: transform 1s ease;
@@ -43,7 +43,7 @@ export const EditorPanel = styled.div<{ isFolded: boolean; height?: string }>`
 
 export const DebugPanel = styled.div`
   flex: 1;
-  background-color: #1e1e1e;
+  background-color: #080808;
   border-right: 1px solid #333;
   padding: 20px;
   overflow: auto;
@@ -62,7 +62,7 @@ export const CodeMirrorWrapper = styled.div`
   position: relative;
   flex: 1;
   isolation: isolate;
-  background-color: #1e1e1e;
+  background-color: #080808;
   z-index: 100000;
 
   /* Ensure all CodeMirror elements stay on top */
@@ -266,7 +266,7 @@ export const FoldButton = styled.button<{
   isFolded?: boolean;
 }>`
   position: absolute;
-  background: #1e1e1e;
+  background: #080808;
   border: 1px solid #333;
   color: #d4d4d4;
   cursor: pointer;

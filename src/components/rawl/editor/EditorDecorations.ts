@@ -607,7 +607,7 @@ const processNoteColors = (
 export const customTheme = createTheme({
   theme: "dark",
   settings: {
-    background: "#1e1e1e",
+    background: "#080808",
     foreground: "#ffffff",
     caret: "#ffa500",
     selection: "rgba(255, 255, 255, 0.2)",

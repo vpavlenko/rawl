@@ -351,7 +351,8 @@ export default class MIDIPlayer extends Player {
     // Only start playback if shouldAutoPlay is true
     if (shouldAutoPlay) {
       this.midiFilePlayer.play(
-        () => this.emit("playerStateUpdate", { isStopped: true }),
+        () =>
+          this.emit("playerStateUpdate", { isStopped: true, isPlaying: false }),
         () => {
           this.emit("playerStateUpdate", { isPlaying: true });
           if (this.playbackStartedCallback) {
@@ -445,7 +446,7 @@ export default class MIDIPlayer extends Player {
   stop() {
     this.suspend();
     console.debug("MIDIPlayer.stop()");
-    this.emit("playerStateUpdate", { isStopped: true });
+    this.emit("playerStateUpdate", { isStopped: true, isPlaying: false });
   }
 
   togglePause() {
@@ -641,7 +642,7 @@ export default class MIDIPlayer extends Player {
   eject() {
     this.stop();
     this.midiFilePlayer.reset();
-    this.emit("playerStateUpdate", { isStopped: true });
+    this.emit("playerStateUpdate", { isStopped: true, isPlaying: false });
   }
 
   setPlaybackStartedCallback(callback) {

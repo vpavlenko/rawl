@@ -859,12 +859,19 @@ class App extends React.Component<RouteComponentProps, AppState> {
   };
 
   handlePlayerStateUpdate(playerState) {
-    const { isStopped } = playerState;
+    const { isStopped, isPlaying } = playerState;
     console.debug("Sequencer.handlePlayerStateUpdate(isStopped=%s)", isStopped);
 
     if (isStopped) {
       this.currUrl = null;
+      // Set paused to true when playback has stopped/finished
+      this.setState({ paused: true });
     } else {
+      // Also update paused state when isPlaying flag is explicitly provided
+      if (isPlaying !== undefined) {
+        this.setState({ paused: !isPlaying });
+      }
+
       this.handleSequencerStateUpdate({
         url: this.currUrl,
         isEjected: false,

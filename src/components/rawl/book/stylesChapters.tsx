@@ -102,6 +102,11 @@ export const STYLES_CHAPTERS: Array<{
             <li>{e("wima.4be9-schubert_de.-tanz-d.365.28")}</li>
           </ul>
         </P>
+        <P>
+          Task: start with waltz #25, leave the left hand intact and compose a
+          new melody. You may either aim for it to be Schubert-like or of your
+          own style.
+        </P>
       </>
     ),
   },

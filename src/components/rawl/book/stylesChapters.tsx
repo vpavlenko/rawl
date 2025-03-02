@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { CorpusLink } from "../corpora/CorpusLink";
 import { Chord } from "../legends/chords";
-import { c, Mode } from "./chapters";
+import ChordStairs from "../legends/ChordStairs";
+import { c, Mode, s } from "./chapters";
 
 // Import the P styled component from chapters.tsx
 export const P = styled.div`
@@ -125,10 +126,29 @@ export const STYLES_CHAPTERS: Array<{
           Explore these pieces:
           <ul>
             <li>{e("idea-15---gibran-alcocer")}</li>
-            <li>{e("idea-22---gibran-alcocer")}</li>
             <li>{e("idea-n.10---gibran-alcocer")}</li>
-            <li>{e("idea-20---gibran-alcocer")}</li>
           </ul>
+        </P>
+        <P>
+          <ChordStairs
+            mode={{
+              title: "",
+              chords: ["i", "iio", "bIII", "iv", "v", "bVI", "bVII"],
+            }}
+          />
+        </P>
+        <P>
+          <ChordStairs
+            mode={{
+              title: "",
+              chords: ["iio", "iv", "bVI", "i", "bIII", "v", "bVII"],
+            }}
+          />
+        </P>
+        <P>
+          Gibran Alcocer uses {s`hypermeter:extra_bar_last_chord_in_loop`} in
+          every piece. This is a mark of his particular style: other composers
+          writing music in four-chord loops don't use it as often.
         </P>
       </>
     ),

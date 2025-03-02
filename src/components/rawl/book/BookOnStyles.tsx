@@ -15,13 +15,13 @@ const EditorIndexContainer = styled.div`
 `;
 
 const EditorIndexTitle = styled.h1`
-  color: #d4d4d4;
+  color: #fff;
   margin-bottom: 20px;
 `;
 
 // New lighter link style
 const ScoreLink = styled(Link)`
-  color: #d4d4d4;
+  color: #fff;
   text-decoration: none;
   padding: 6px 2px;
   border-radius: 2px;
@@ -45,12 +45,12 @@ const ChapterContent = styled.div`
 `;
 
 const ChapterTitle = styled.h2`
-  color: #d4d4d4;
+  color: #fff;
   margin: 0 0 15px 0;
 `;
 
 const ChapterDescription = styled.div`
-  color: #bbb;
+  color: #fff;
   margin: 15px 0 25px 0;
   line-height: 1.5;
   max-width: 700px;
@@ -84,7 +84,7 @@ const ChapterTitleTooltip = styled.div<{
   opacity: ${(props) => {
     return props.isSelected || props.isHovered ? 1 : 0;
   }};
-  color: ${(props) => (props.isSelected ? "white" : "#aaa")};
+  color: #fff;
 `;
 
 const ChapterButton = styled.button<{ isSelected: boolean }>`

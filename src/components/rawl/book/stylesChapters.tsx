@@ -9,6 +9,7 @@ import { c, Mode, s } from "./chapters";
 export const P = styled.div`
   margin-bottom: 30px;
   line-height: 1.6;
+  color: #fff;
 `;
 
 // Define the e() custom tag for scores

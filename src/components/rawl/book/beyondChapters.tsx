@@ -1,7 +1,12 @@
 import * as React from "react";
+import styled from "styled-components";
 import { CorpusLink } from "../corpora/CorpusLink";
 import { Chord } from "../legends/chords";
 import { A, c, ct, Mode, P, rnc, s, UL } from "./chapters";
+
+const H2 = styled.h2`
+  color: #fff;
+`;
 
 export const BEYOND_CHAPTER_GROUPS: Record<string, [number, number]> = {
   intro: [1, 10],
@@ -20,7 +25,7 @@ export const BEYOND_CHAPTERS: Array<{
     composers: [],
     pretext: () => (
       <>
-        <h2>Blues</h2>
+        <H2>Blues</H2>
         <P>
           Surprisingly, there is no instance of {s`form:12-bar_blues`} inside
           the top 100.
@@ -62,7 +67,7 @@ export const BEYOND_CHAPTERS: Array<{
     composers: [],
     pretext: () => (
       <>
-        <h2>Constant structures</h2>
+        <H2>Constant structures</H2>
         <P>{s`constant_structures:major_chords`}</P>
       </>
     ),
@@ -73,7 +78,7 @@ export const BEYOND_CHAPTERS: Array<{
     composers: [],
     pretext: () => (
       <>
-        <h2>Two minor triads</h2>
+        <H2>Two minor triads</H2>
         <P></P>
         <P>
           There are 11 ways to follow a minor triad with a minor triad. Some of
@@ -109,7 +114,7 @@ export const BEYOND_CHAPTERS: Array<{
     composers: [],
     pretext: () => (
       <>
-        <h2>Parallel symmetry</h2>
+        <H2>Parallel symmetry</H2>
         <P>{s`parallel:symmetry`}</P>
         <P>{s`parallel:picardy_third`}</P>
       </>
@@ -121,7 +126,7 @@ export const BEYOND_CHAPTERS: Array<{
     composers: [],
     pretext: () => (
       <>
-        <h2>Greek b2</h2>
+        <H2>Greek b2</H2>
         <P>
           Let's consider the corpus <CorpusLink slug={"greek_music"} />. Some
           songs in it are quite standard Western. However, there are others

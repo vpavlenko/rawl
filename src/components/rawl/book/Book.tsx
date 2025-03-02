@@ -40,13 +40,14 @@ type EnhancedSnippet = Snippet & {
 const BookContainer = styled.div`
   width: 97%;
   padding: 20px;
-  color: #ddd;
+  color: #fff;
   margin: 0 auto 100px auto;
   position: relative;
 `;
 
 const Title = styled.h1`
   font-size: 24px;
+  color: #fff;
 `;
 
 const GroupContainer = styled.div`
@@ -67,7 +68,7 @@ const ComposerItem = styled.div`
 `;
 
 const ComposerLink = styled.a`
-  color: white;
+  color: #fff;
   text-decoration: none;
   cursor: pointer;
   display: inline;
@@ -121,7 +122,7 @@ const ChapterTitleTooltip = styled.div<{
   opacity: ${(props) => {
     return props.isSelected || props.isHovered ? 1 : 0;
   }};
-  color: ${(props) => (props.isSelected ? "white" : "#aaa")};
+  color: #fff;
 `;
 
 const ChapterButton = styled.button<{ isSelected: boolean }>`
@@ -171,7 +172,7 @@ const NavChordWrapper = styled.div`
 export const ReadableTextBlock = styled.div`
   min-width: 43em;
   width: 43em;
-  color: white;
+  color: #fff;
   border-radius: 10px;
   margin: 20px 0px 100px 0px;
   position: relative;
@@ -210,7 +211,7 @@ export const ComposerTitle: React.FC<{
 }> = ({ composer, displayTitle, isVocal, style }) => (
   <span style={style}>
     <span style={{ color: "#999" }}>{composer}. </span>
-    <span style={{ color: "white" }}>
+    <span style={{ color: "#fff" }}>
       {displayTitle}
       {/* {isVocal && <span style={{ marginLeft: "4px" }}>🎤</span>} */}
     </span>

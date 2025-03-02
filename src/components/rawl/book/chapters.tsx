@@ -23,6 +23,7 @@ export const DOUBLE_TONIC_CHAPTER_TITLE = "Double-tonic";
 export const P = styled.div`
   margin-bottom: 30px;
   line-height: 1.6;
+  color: #fff;
 `;
 
 export const UL = styled.ul`
@@ -88,7 +89,7 @@ export const a = (href: string, text: string) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    style={{ color: "orange", whiteSpace: "nowrap" }}
+    style={{ color: "#fff", whiteSpace: "nowrap" }}
   >
     {text}
   </a>
@@ -99,7 +100,7 @@ export const A = (href: string) => (
     href={`/f/${href}`}
     target="_blank"
     rel="noopener noreferrer"
-    style={{ color: "orange", whiteSpace: "nowrap" }}
+    style={{ color: "#fff", whiteSpace: "nowrap" }}
   >
     {href}
   </a>
@@ -127,7 +128,7 @@ export const k = (layout: string, title?: string) => {
       rel="noopener noreferrer"
       style={{
         display: "inline-block",
-        color: "white",
+        color: "#fff",
         margin: "10px 20px 10px 0",
         padding: "7px",
         borderRadius: "3px",

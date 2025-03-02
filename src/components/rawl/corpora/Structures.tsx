@@ -549,6 +549,16 @@ const Structures: React.FC<StructuresProps> = ({
     }
   }, [location, eject]);
 
+  // Add cleanup effect to eject when unmounting
+  useEffect(() => {
+    return () => {
+      // Stop playback when component is unmounted
+      if (eject) {
+        eject();
+      }
+    };
+  }, [eject]);
+
   return (
     <PathContainer>
       <MenuContainer isRawlVisible={isRawlVisible}>

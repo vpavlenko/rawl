@@ -105,8 +105,14 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   const editorRef = useRef<any>(null);
   const cycleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const { playSongBuffer, rawlProps, latencyCorrectionMs, tempo, togglePause } =
-    useContext(AppContext);
+  const {
+    playSongBuffer,
+    rawlProps,
+    latencyCorrectionMs,
+    tempo,
+    togglePause,
+    eject,
+  } = useContext(AppContext);
   const [score, setScore] = useState("");
   const [isEditorFocused, setIsEditorFocused] = useState(false);
   const [currentLine, setCurrentLine] = useState<number | null>(null);
@@ -692,9 +698,15 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   // Update cleanup effect to use the cleanup function
   useEffect(() => {
     return () => {
+      // Clean up blinking state
       cleanupBlinkingState();
+
+      // Stop playback when component is unmounted
+      if (eject) {
+        eject();
+      }
     };
-  }, [cleanupBlinkingState]);
+  }, [cleanupBlinkingState, eject]);
 
   return (
     <EditorContainer>

@@ -339,7 +339,7 @@ lh
 87 ac 11-18
 95 ac 23-42`,
   "idea-15---gibran-alcocer": `3/4
-bpm 170
+bpm 180
 Db minor
 
 phrases 1+1 18+2 36+2 54+2 72+2 90+2 108+2
@@ -350,20 +350,23 @@ lh
 4 c 2-3 2 4 3
 10 c 2-9
 18 i uo+.
-20 c 2-19 0 0 0 0
+20 c 2-19 0 0 0
+74 c 2-7
+80 c 78-79 2
+82 c 10-19
 92 i h-d-a-h-d-a-
 93 c 92 0 0 0
 96 i g-d-a-g-d-a- g-d-a-g-d-a- f-s-u-f-s-u- g-s-u-g-s-u-
 100 c 92-99
 
 lh 4
-108 i sh_.tg_.
+108 i yh_.tg_.
 
 rh
 16 i w_.e_.y_.t_.
 38 c 2-19 0 x 0
 1 i x,x-8-8-7-6+ x-q-q-w-e+ x,.q-t,t,t,t,e,e-w+ 
-9 i x,x-w-e-w-6+x-6-6-7-q_.t,. x-r-r-t_e_r_
+9 i x,x-w-e-w-6+x-6-6-7-q_.t,. x-r-.r=t_e_r_
 
 20 i y-e-q- y-e-q- u-e-q- y-e-q-
 22 c 20-21
@@ -383,10 +386,10 @@ rh
 
 74 i e,q,r,q,t,q
 76 c 74-75 
-86 i e,q,r,q,y,e,
+86 i e,q,r,q,t,e,
 78b2 i u,u,u,y,t-r,x-e,.
 80b3 i x-e-y-t-r,e,q_
-82b3 i x-e-y-t-r,e-e-r_
+82b3 i x-e-y-t-r,e-.e=r_
 84b3 i x-e-y-t-r,e,
 `,
   "der-flohwalzer": `4/4

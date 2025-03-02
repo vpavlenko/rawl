@@ -1,16 +1,8 @@
 import React from "react";
-import styled from "styled-components";
 import { CorpusLink } from "../corpora/CorpusLink";
 import { Chord } from "../legends/chords";
 import ChordStairs from "../legends/ChordStairs";
-import { c, Mode, s } from "./chapters";
-
-// Import the P styled component from chapters.tsx
-export const P = styled.div`
-  margin-bottom: 30px;
-  line-height: 1.6;
-  color: #fff;
-`;
+import { c, Mode, P, s } from "./chapters";
 
 // Define the e() custom tag for scores
 export const e = (slug: string) => (
@@ -21,7 +13,6 @@ export const e = (slug: string) => (
     style={{
       display: "inline-block",
       color: "cyan",
-      margin: "10px 10px 10px 0",
       whiteSpace: "nowrap",
     }}
   >
@@ -30,11 +21,7 @@ export const e = (slug: string) => (
 );
 
 // Define the corpus() custom tag for corpus links
-export const corpus = (slug: string) => (
-  <span style={{ display: "inline-block", margin: "10px 10px 10px 0" }}>
-    <CorpusLink slug={slug} />
-  </span>
-);
+export const corpus = (slug: string) => <CorpusLink slug={slug} />;
 
 // Define the chapter groups (how they're organized in the UI)
 export const STYLES_CHAPTER_GROUPS: Record<string, [number, number]> = {
@@ -104,24 +91,26 @@ export const STYLES_CHAPTERS: Array<{
             <li>{e("wima.4be9-schubert_de.-tanz-d.365.28")}</li>
           </ul>
         </P>
+        <h2>Task</h2>
         <P>
-          Task: start with waltz #25, leave the left hand intact and compose a
-          new melody. You may either aim for it to be Schubert-like or of your
-          own style.
+          Start with waltz #25 {e("wima.e480-schubert_de.-tanz-d.365.25")},
+          leave the left hand intact and compose a new melody. You may either
+          aim for it to be Schubert-like or of your own style.
         </P>
       </>
     ),
   },
   {
-    title: "Gibran Alcocer, Triads in Natural Minor",
+    title: "Gibran Alcocer, Four-chord Loops of Triads in Natural Minor",
     titleChords: ["bVI", "iv", "i", "bVII"],
     pretext: () => (
       <>
         <P>
           {corpus("gibran_alcocer")}'s compositions sound modern. They sound
           like late 20th or early 21st century. Like {corpus("yann_tiersen")}'s
-          music to Amélie. But how is that? Which structures are a core of that
-          modern style?
+          music to Amélie. {corpus("evgeny_grinko")} also writes in a similar
+          style. But how is that? Which structures are a core of that modern
+          style?
         </P>
         <P>
           Explore these pieces:
@@ -147,9 +136,26 @@ export const STYLES_CHAPTERS: Array<{
           />
         </P>
         <P>
+          {s`progression:four_chords`} is a popular way of organizing chords in
+          modern music.
+        </P>
+        <P>
           Gibran Alcocer uses {s`hypermeter:extra_bar_last_chord_in_loop`} in
           every piece. This is a mark of his particular style: other composers
           writing music in four-chord loops don't use it as often.
+        </P>
+        <h2>Task</h2>
+        <P>
+          Compose a composition by reusing the style of ideas 15 and 10.
+          Restricted your vocabulary of chords to these five:
+        </P>
+        <P>
+          <ChordStairs
+            mode={{
+              title: "",
+              chords: ["i", "iv", "v", "bVI", "bVII"],
+            }}
+          />
         </P>
       </>
     ),

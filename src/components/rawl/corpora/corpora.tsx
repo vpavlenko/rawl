@@ -1741,6 +1741,10 @@ export const corpora: CorpusEntry[] = [
     country: "Russia",
   },
   {
+    slug: "ernesto_cortazar",
+    midis: ["beethovens-silence---ernesto-cortazar"],
+  },
+  {
     slug: "gennady_gladkov",
     midis: [
       "pesnya-genialnogo-syshchika---gennadiy-gladkov",
@@ -5962,11 +5966,25 @@ export const corpora: CorpusEntry[] = [
       "crazy-pharaoh",
       "miss-fox-piano-tiles-2",
       "childhood-piano-tiles-2",
-      "bluestone-alley-piano-tiles-2",
     ],
     composerBirthYear: 1980,
     genre: "Music Game",
     country: "China",
+  },
+  {
+    slug: "congfei_wei",
+    midis: [
+      "bluestone-alley-piano-tiles-2",
+      "aurora---congfei-wei-piano-tiles-2",
+      "monochrome-filter",
+      "don-t-be-shy---congfei-wei-from-pocket-3d-world",
+      "ji-mu-sen-lin-forest-of-blocks---wei-cong-fei-congfei-wei",
+    ],
+  },
+  { slug: "toshifumi_hinata", midis: [] },
+  {
+    slug: "syml",
+    midis: ["i-wanted-to-leave---syml", "bright-as-ever---syml"],
   },
   {
     slug: "laura_shigihara",
@@ -6448,7 +6466,7 @@ export const corpora: CorpusEntry[] = [
       "ye-niqu-keru-yoru-ni-kakeru---racing-into-the-night", // Ayase
       "africa---toto", // Toto
       "vivaldi---summer---piano", // Vivaldi
-      "Love_Like_You_Steven_Universe", // Steven Universe
+      "Love_Like_You_Steven_Universe", // Aivi & Surasshu
       "alan-walker---alone-piano", // Alan Walker
       "my-lie-watashi-no-uso---your-lie-in-april", // Masaru Yokoyama
       "anastasia---once-upon-a-december", // Stephen Flaherty

@@ -2,7 +2,7 @@ import React from "react";
 import { CorpusLink } from "../corpora/CorpusLink";
 import { Chord } from "../legends/chords";
 import ChordStairs from "../legends/ChordStairs";
-import { c, Mode, P, s } from "./chapters";
+import { A, c, Mode, P, s } from "./chapters";
 
 // Define the e() custom tag for scores
 export const e = (slug: string) => (
@@ -156,6 +156,28 @@ export const STYLES_CHAPTERS: Array<{
               chords: ["i", "iv", "v", "bVI", "bVII"],
             }}
           />
+        </P>
+        <P>{A("i-wanted-to-leave---syml")}</P>
+      </>
+    ),
+  },
+  {
+    title: "Triadic minor with V",
+    titleChords: ["V", "i"],
+    pretext: () => (
+      <>
+        <P>
+          <ChordStairs
+            mode={{
+              title: "",
+              chords: ["V", "i"],
+            }}
+          />
+        </P>
+        <P>
+          <ul>
+            <li>{e("papers-please")}</li>
+          </ul>
         </P>
       </>
     ),

@@ -1243,16 +1243,18 @@ class App extends React.Component<RouteComponentProps, AppState> {
           {/* @ts-ignore */}
           {(dropzoneProps) => (
             <>
-              {this.state.audioContextLocked && this.state.parsing && (
-                <div className="audio-context-overlay">
-                  <button
-                    className="unlock-audio-button"
-                    onClick={this.handleUnlockAudioContext}
-                  >
-                    Play
-                  </button>
-                </div>
-              )}
+              {this.state.audioContextLocked &&
+                this.state.parsing &&
+                !(this.props.location.pathname === "/e/new") && (
+                  <div className="audio-context-overlay">
+                    <button
+                      className="unlock-audio-button"
+                      onClick={this.handleUnlockAudioContext}
+                    >
+                      Play
+                    </button>
+                  </div>
+                )}
               <DropMessage dropzoneProps={dropzoneProps} />
               <Alert
                 handlePlayerError={this.handlePlayerError}

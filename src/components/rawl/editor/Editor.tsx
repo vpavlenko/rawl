@@ -439,10 +439,12 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
             );
 
             if (playSongBuffer) {
+              // Disable autoplay specifically for the /e/new route
+              const isNewRoute = effectiveSlug === "new";
               playSongBuffer(
                 midiResult.midiInfo.id,
                 midiResult.midiData,
-                autoplay,
+                !isNewRoute && autoplay, // Only autoplay if it's not /e/new and autoplay is true
               );
             }
           } catch (e) {
@@ -579,7 +581,9 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
               setInitialSource(newScore); // Save initial source
               // Trigger initial MIDI generation after a delay
               setTimeout(() => {
-                debouncedMelodyPlayback(newScore, true);
+                // Disable autoplay for /e/new route
+                const isNewRoute = effectiveSlug === "new";
+                debouncedMelodyPlayback(newScore, !isNewRoute);
               }, 1000);
             } else {
               setError("Edit not found");
@@ -602,7 +606,9 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
           setInitialSource(newScore); // Save initial source
           // Trigger initial MIDI generation after a delay
           setTimeout(() => {
-            debouncedMelodyPlayback(newScore, true);
+            // Disable autoplay for /e/new route
+            const isNewRoute = effectiveSlug === "new";
+            debouncedMelodyPlayback(newScore, !isNewRoute);
           }, 1000);
         } else {
           setScore("");

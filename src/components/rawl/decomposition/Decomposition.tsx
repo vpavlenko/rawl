@@ -1,11 +1,156 @@
+import {
+  faArrowLeft,
+  faArrowRight,
+  faCopy,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import styled from "styled-components";
 import { VoiceMask } from "../../App";
 import { AppContext } from "../../AppContext";
 import { Analysis } from "../analysis";
 import Editor from "../editor/Editor";
-import DecompositionGuide from "./DecompositionGuide";
 import { DecomposedScore, decomposeScores } from "./decomposeScores";
+
+// Styled components for the guide UI
+const GuideContainer = styled.div`
+  color: #e0e0e0;
+  padding: 20px;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #181818;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+`;
+
+const StepTitle = styled.h2`
+  color: #e0e0e0;
+  margin: 0;
+  font-size: 24px;
+`;
+
+const NavigationControls = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const NavigationButton = styled.button`
+  background-color: #3a3a3a;
+  color: #e0e0e0;
+  border: none;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:disabled {
+    background-color: #2a2a2a;
+    color: #606060;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: #4a4a4a;
+  }
+`;
+
+const StepInfo = styled.div`
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #a0a0a0;
+  margin: 0 10px;
+`;
+
+const ExplanationContainer = styled.div`
+  background-color: #232323;
+  border-radius: 4px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+`;
+
+const ExplanationText = styled.p`
+  margin: 0;
+  line-height: 1.6;
+  color: #cccccc;
+`;
+
+const ExplanationTextArea = styled.textarea`
+  width: 100%;
+  min-height: 150px;
+  padding: 12px;
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+  border: 1px solid #3a3a3a;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: vertical;
+
+  &:focus {
+    outline: none;
+    border-color: #4a90e2;
+  }
+`;
+
+const ActionsContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+  gap: 8px;
+`;
+
+const ActionButton = styled.button`
+  background-color: #3a3a3a;
+  color: #e0e0e0;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #4a4a4a;
+  }
+
+  &.primary {
+    background-color: #4a90e2;
+
+    &:hover {
+      background-color: #3a80d2;
+    }
+  }
+`;
+
+const CopySuccess = styled.div`
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4a90e2;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+`;
 
 interface DecompositionProps extends RouteComponentProps {
   slug: string;
@@ -50,6 +195,8 @@ const Decomposition: React.FC<DecompositionProps> = ({
   const [localScoreData, setLocalScoreData] = useState<DecomposedScore | null>(
     null,
   );
+  const [explanation, setExplanation] = useState("");
+  const [copySuccess, setCopySuccess] = useState(false);
 
   // Single function to handle all localStorage operations
   const updateLocalStorage = useCallback(
@@ -107,7 +254,7 @@ const Decomposition: React.FC<DecompositionProps> = ({
     }
   }, [currentStep, step, slug, history]);
 
-  // Handle step validation (simplified - removed the redundant localStorage check)
+  // Handle step validation
   useEffect(() => {
     if (localScoreData) {
       const maxSteps = localScoreData.steps.length;
@@ -123,10 +270,19 @@ const Decomposition: React.FC<DecompositionProps> = ({
     }
   }, [localScoreData, step]);
 
+  // Update currentCode when step changes
   useEffect(() => {
-    // Update currentCode when step changes
     if (localScoreData && currentStep <= localScoreData.steps.length) {
       setCurrentCode(localScoreData.steps[currentStep - 1].score);
+    }
+  }, [localScoreData, currentStep]);
+
+  // Update explanation state when step changes
+  useEffect(() => {
+    if (localScoreData && currentStep <= localScoreData.steps.length) {
+      setExplanation(localScoreData.steps[currentStep - 1].explanation || "");
+    } else {
+      setExplanation("");
     }
   }, [localScoreData, currentStep]);
 
@@ -134,14 +290,41 @@ const Decomposition: React.FC<DecompositionProps> = ({
     return <div>Score not found: {slug}</div>;
   }
 
+  const maxSteps = localScoreData.steps.length;
   const currentStepData =
     currentStep <= localScoreData.steps.length
       ? localScoreData.steps[currentStep - 1]
       : null;
 
-  // Handle step navigation
-  const handleStepChange = (newStep: number) => {
-    setCurrentStep(newStep);
+  // Handle previous step navigation
+  const handlePrevStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
+  // Handle next step navigation
+  const handleNextStep = () => {
+    if (currentStep <= maxSteps) {
+      // If we're at the last step, create a new one
+      if (currentStep === maxSteps && user) {
+        console.log(
+          `[handleNextStep] On last step (${currentStep}/${maxSteps}), duplicating...`,
+        );
+        const lastStep = localScoreData.steps[maxSteps - 1];
+        console.log(`[handleNextStep] Last step data:`, lastStep);
+
+        // Add a new step
+        handleAddStep(lastStep.score, lastStep.explanation || "");
+      } else {
+        console.log(
+          `[handleNextStep] Not on last step, moving to step ${
+            currentStep + 1
+          }`,
+        );
+        setCurrentStep(currentStep + 1);
+      }
+    }
   };
 
   // Handle editor content change
@@ -156,7 +339,7 @@ const Decomposition: React.FC<DecompositionProps> = ({
     }
   };
 
-  // Add a new step - this is the function we'll pass to DecompositionGuide
+  // Add a new step
   const handleAddStep = (score: string, explanation: string) => {
     if (!user || !localScoreData) return;
 
@@ -176,18 +359,92 @@ const Decomposition: React.FC<DecompositionProps> = ({
     setCurrentStep(newStep);
   };
 
-  // Update explanation for current step
-  const handleExplanationChange = (explanation: string) => {
-    if (!user || !localScoreData || currentStep > localScoreData.steps.length)
-      return;
+  // Handle explanation text changes
+  const handleExplanationChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    const newExplanation = e.target.value;
+    setExplanation(newExplanation);
 
-    console.log(`[Decomposition] Updating explanation for step ${currentStep}`);
+    if (user && localScoreData && currentStep <= localScoreData.steps.length) {
+      const updatedScoreData = { ...localScoreData };
+      updatedScoreData.steps[currentStep - 1].explanation = newExplanation;
+      updateLocalStorage(updatedScoreData);
+    }
+  };
 
-    const updatedScoreData = { ...localScoreData };
-    updatedScoreData.steps[currentStep - 1].explanation = explanation;
+  // Handle copy to clipboard
+  const copyToClipboard = () => {
+    // Format the data as TypeScript code
+    const formattedData = `export const decomposeScores: { [key: string]: DecomposedScore } = ${JSON.stringify(
+      { [slug]: localScoreData },
+      null,
+      2,
+    )}`;
 
-    // Update localStorage with new explanation
-    updateLocalStorage(updatedScoreData);
+    // Use the clipboard API to copy the formatted data
+    navigator.clipboard
+      .writeText(formattedData)
+      .then(() => {
+        setCopySuccess(true);
+        setTimeout(() => setCopySuccess(false), 2000);
+      })
+      .catch((err) => console.error("Failed to copy to clipboard:", err));
+  };
+
+  // Render the guide UI
+  const renderGuide = () => {
+    return (
+      <GuideContainer>
+        <HeaderContainer>
+          <StepTitle>{localScoreData.title}</StepTitle>
+          <NavigationControls>
+            <NavigationButton
+              onClick={handlePrevStep}
+              disabled={currentStep === 1}
+            >
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </NavigationButton>
+            <StepInfo>
+              {currentStep}/{maxSteps}
+            </StepInfo>
+            <NavigationButton
+              onClick={handleNextStep}
+              disabled={currentStep === maxSteps && !user}
+            >
+              <FontAwesomeIcon
+                icon={currentStep === maxSteps ? faPlus : faArrowRight}
+              />
+            </NavigationButton>
+          </NavigationControls>
+        </HeaderContainer>
+
+        <ExplanationContainer>
+          {user ? (
+            <ExplanationTextArea
+              value={explanation}
+              onChange={handleExplanationChange}
+              placeholder="Enter explanation for this step..."
+            />
+          ) : (
+            <ExplanationText>
+              {currentStepData?.explanation || ""}
+            </ExplanationText>
+          )}
+        </ExplanationContainer>
+
+        {user && (
+          <ActionsContainer>
+            <ActionButton onClick={copyToClipboard}>
+              <FontAwesomeIcon icon={faCopy} />
+              Copy Code
+            </ActionButton>
+          </ActionsContainer>
+        )}
+
+        {copySuccess && <CopySuccess>Copied to clipboard!</CopySuccess>}
+      </GuideContainer>
+    );
   };
 
   return (
@@ -209,17 +466,7 @@ const Decomposition: React.FC<DecompositionProps> = ({
         showProgrammingManual={false}
         isDecompositionMode={true}
         onEditorChange={handleEditorChange}
-        customChild={
-          <DecompositionGuide
-            slug={slug}
-            step={currentStep}
-            onStepChange={handleStepChange}
-            currentSource={currentCode}
-            decomposedScore={localScoreData}
-            onAddStep={handleAddStep}
-            onExplanationChange={handleExplanationChange}
-          />
-        }
+        customChild={renderGuide()}
       />
     </div>
   );

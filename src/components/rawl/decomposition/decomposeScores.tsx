@@ -28,7 +28,7 @@ export const decomposeScores: { [key: string]: DecomposedScore } = {
       },
       {
         score:
-          "Db minor\n6/4\nbpm 180\nphrases 5-1\nsections 2 4\n\nlh\n1 i qet_\n1b3 c 1-1b3 1 2 3 4 5 6 7\n4 i 1,qe,qe, 5,qe,qe,\n5 c 4 1 2 3 4 5 6 7\n\n12 c 7\n13 c 9\n14 c 11\n15 c 10\n\n16 c 12-15",
+          "Db minor\n6/4\nbpm 180\nphrases 5-1 12+1\nsections 2 4\n\nlh\n1 i qet_\n1b3 c 1-1b3 1 2 3 4 5 6 7\n4 i 1,qe,qe, 5,qe,qe,\n5 c 4 1 2 3 4 5 6 7\n\n13 c 7\n14 c 9\n15 c 11\n16 c 10\n\n17 c 13-16",
         explanation:
           "Let's play them together.\n\nThen let's play all of them in a pattern.\n\nAnd then let's only pick four chords we need: 4 - 6 - 1 - 7. Let's make it a loop and repeat it twice.",
       },

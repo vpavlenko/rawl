@@ -198,6 +198,20 @@ const Decomposition: React.FC<DecompositionProps> = ({
   const [explanation, setExplanation] = useState("");
   const [copySuccess, setCopySuccess] = useState(false);
 
+  // Handler for explanation textarea focus
+  const handleExplanationFocus = () => {
+    if (window) {
+      window.__disableGlobalShortcuts = true;
+    }
+  };
+
+  // Handler for explanation textarea blur
+  const handleExplanationBlur = () => {
+    if (window) {
+      window.__disableGlobalShortcuts = false;
+    }
+  };
+
   // Single function to handle all localStorage operations
   const updateLocalStorage = useCallback(
     (updatedData: DecomposedScore) => {
@@ -440,6 +454,8 @@ const Decomposition: React.FC<DecompositionProps> = ({
               value={explanation}
               onChange={handleExplanationChange}
               placeholder="Enter explanation for this step..."
+              onFocus={handleExplanationFocus}
+              onBlur={handleExplanationBlur}
             />
           ) : (
             <ExplanationText>

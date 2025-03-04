@@ -7049,6 +7049,10 @@ export const corpora: CorpusEntry[] = [
     midis: ["Numb_-_Linkin_Park", "in-the-end---linkin-park"],
   },
   {
+    slug: "ross_bagdasarian",
+    midis: ["christmas-don-t-be-late-the-chipmunk-song"],
+  },
+  {
     slug: "thefatrat",
     midis: [
       "TheFatRat_Monody",

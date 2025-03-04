@@ -247,10 +247,14 @@ const Decomposition: React.FC<DecompositionProps> = ({
     setLocalScoreData(decomposeScores[slug] || null);
   }, [slug]);
 
+  // Update URL when step changes
   useEffect(() => {
-    // Update URL when step changes
+    // Only update URL if the current step in state doesn't match the URL step
+    // and avoid navigation when a step was just added
     if (currentStep !== step) {
-      history.push(`/d/${slug}/${currentStep}`);
+      console.log(`[Decomposition] Updating URL to step ${currentStep}`);
+      // Use replace instead of push to avoid adding to browser history stack
+      history.replace(`/d/${slug}/${currentStep}`);
     }
   }, [currentStep, step, slug, history]);
 
@@ -299,6 +303,9 @@ const Decomposition: React.FC<DecompositionProps> = ({
   // Handle previous step navigation
   const handlePrevStep = () => {
     if (currentStep > 1) {
+      // Use history.replace for navigation to avoid state update cycles
+      history.replace(`/d/${slug}/${currentStep - 1}`);
+      // Update the state to match
       setCurrentStep(currentStep - 1);
     }
   };
@@ -322,6 +329,9 @@ const Decomposition: React.FC<DecompositionProps> = ({
             currentStep + 1
           }`,
         );
+        // Use history.replace for navigation to avoid state update cycles
+        history.replace(`/d/${slug}/${currentStep + 1}`);
+        // Update the state to match
         setCurrentStep(currentStep + 1);
       }
     }
@@ -354,8 +364,13 @@ const Decomposition: React.FC<DecompositionProps> = ({
     // Update localStorage with new step
     updateLocalStorage(updatedScoreData);
 
-    // Navigate to the new step
+    // Navigate to the new step directly using history.replace instead of setState
+    // This prevents multiple re-renders and potential infinite loops
     const newStep = updatedScoreData.steps.length;
+    console.log(`[Decomposition] Navigating directly to new step ${newStep}`);
+    history.replace(`/d/${slug}/${newStep}`);
+
+    // Set the current step state *after* navigation to match the URL
     setCurrentStep(newStep);
   };
 

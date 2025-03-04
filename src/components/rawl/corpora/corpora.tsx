@@ -2170,11 +2170,33 @@ export const corpora: CorpusEntry[] = [
       "grant-kirkhope---chilli-willi-chilli-billi-battle",
       "angry-aztec---donkey-kong-64---grant-kirkhope-dk64",
       "cranky-s-lab---donkey-kong-64---grant-kirkhope-dk64",
+
+      // banjo-kazooie:
+      "spiral-mountain",
+      "opening-banjo-kazooie",
+      "gruntilda-s-challenge-piano-arrangement",
+      "mad-monster-mansion---banjo-kazooie-piano",
+      "freezeezy-peak---banjo-kazooie-piano",
+      "rusty-bucket-bay",
     ],
     composerBirthYear: 1962, // Grant Kirkhope
     genre: "Video game music",
     style: "Orchestral, Funky",
     country: "UK",
+  },
+  {
+    slug: "waterflame",
+    midis: [
+      "waterflame---glorious-morning",
+      "field-of-memories---waterflame-stick-war-misterpiano92",
+      "blast-processing-a5ff67",
+      "clutterfunk",
+      "geometrical-dominator-geometry-dash-ost-by-waterflame",
+      "electroman-adventures-full",
+      "hexagon-force---geometry-dash-piano-solo",
+      "time-machine",
+      "jumper-piano-solo",
+    ],
   },
   {
     slug: "sage_guyton_jeremy_wakefield_nick_carr",
@@ -5290,6 +5312,7 @@ export const corpora: CorpusEntry[] = [
     style: "Orchestral", // Marianelli is recognized for his orchestral and emotive compositions
     country: "Italy", // Italian composer
   },
+  { slug: "robin_beanland", midis: ["bosun-bill---sea-of-thieves"] },
   {
     slug: "enya",
     midis: [
@@ -5981,10 +6004,24 @@ export const corpora: CorpusEntry[] = [
       "ji-mu-sen-lin-forest-of-blocks---wei-cong-fei-congfei-wei",
     ],
   },
-  { slug: "toshifumi_hinata", midis: [] },
+  {
+    slug: "toshifumi_hinata",
+    midis: [
+      "reflections---ri-xiang-min-wen-toshifumi-hinata",
+      "menuet---toshifumi-hinata-piano-and-violin-duet",
+      "epilogue---toshifumi-hinata",
+      "sarah-menuet---toshifumi-hinata-from-sarah-s-crime",
+    ],
+    composerBirthYear: 1955,
+    country: "Japan",
+  },
   {
     slug: "syml",
-    midis: ["i-wanted-to-leave---syml", "bright-as-ever---syml"],
+    midis: [
+      "i-wanted-to-leave---syml",
+      "bright-as-ever---syml",
+      "wildfire---syml",
+    ],
   },
   {
     slug: "laura_shigihara",
@@ -6097,6 +6134,8 @@ export const corpora: CorpusEntry[] = [
       "Super_Mario_Bros_Main_Theme",
       "Zeldas_Lullaby",
       "ocarina-of-time-lost-woods-piano",
+      "gerudo-valley",
+      "super-mario-galaxy---rosalina-in-the-observatory---piano",
     ],
     composerBirthYear: 1961,
     genre: "Video Game Music",
@@ -6369,6 +6408,16 @@ export const corpora: CorpusEntry[] = [
     ],
   },
   {
+    slug: "marcin_przybylowicz",
+    midis: [
+      "the-witcher-3---priscilla-s-song",
+      "the-witcher-3---geralt-of-rivia",
+      "kaer-morhen---the-witcher-3-wild-hunt-ost",
+      "hunt-or-be-hunted---the-witcher-3-wild-hunt",
+      "sword-of-destiny-the-witcher-3-wild-hunt",
+    ],
+  },
+  {
     slug: MUSESCORE_TOP_100_SLUG,
     posttext: AboutTop100Corpus,
     midis: [
@@ -6616,6 +6665,7 @@ export const corpora: CorpusEntry[] = [
       "Godfather",
       "romeo-and-juliet---nino-rota-a-time-for-us-flute-piano",
       "fellini-8-1-2-rota-8-1-2-fellini-rota---nino-rota-8-1-2-fellini-rota---rota-fellini-8-1-2",
+      "the-godfather-waltz",
     ],
     composerBirthYear: 1911,
     country: "Italy",
@@ -7016,6 +7066,7 @@ export const corpora: CorpusEntry[] = [
       "thefatrat-slaydit---solitude",
     ],
   },
+  { slug: "moka", midis: ["elfen-lied---lilium"] },
   {
     slug: "francis_lai",
     midis: ["Love_Store_Francis_Lai", "un-homme-et-une-femme---francis-lai"],

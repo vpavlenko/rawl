@@ -12,8 +12,9 @@ import React, {
   useState,
 } from "react";
 import { RouteComponentProps, useParams, withRouter } from "react-router-dom";
+import { VoiceMask } from "../../App";
 import { AppContext } from "../../AppContext";
-import { ANALYSIS_STUB, PitchClass } from "../analysis";
+import { Analysis, ANALYSIS_STUB, PitchClass } from "../analysis";
 import { TICKS_PER_QUARTER } from "../forge/constants";
 import Rawl from "../Rawl";
 import {
@@ -79,7 +80,26 @@ type MidiNote = {
 };
 
 interface EditorProps extends RouteComponentProps {
-  // Add any other props here if needed
+  initialSource?: string;
+  disableEditing?: boolean;
+  showProgrammingManual?: boolean;
+  isDecompositionMode?: boolean;
+  customChild?: React.ReactNode;
+  setVoiceMask?: (voiceMask: VoiceMask) => void;
+  voiceMask?: VoiceMask;
+  voiceNames?: string[];
+  registerKeyboardHandler?: (
+    id: string,
+    handler: (e: KeyboardEvent) => void,
+  ) => void;
+  unregisterKeyboardHandler?: (id: string) => void;
+  analysisEnabled?: boolean;
+  savedAnalysis?: Analysis | null;
+  saveAnalysis?: (analysis: Analysis) => Promise<void>;
+  getCurrentPositionMs?: () => number;
+  seek?: (ms: number) => void;
+  latencyCorrectionMs?: number;
+  onEditorChange?: (code: string) => void;
 }
 
 // Constants for localStorage
@@ -91,7 +111,26 @@ interface BackupData {
   timestamp: number;
 }
 
-const Editor: React.FC<EditorProps> = ({ history }) => {
+const Editor: React.FC<EditorProps> = ({
+  history,
+  initialSource,
+  disableEditing,
+  showProgrammingManual = true,
+  isDecompositionMode = false,
+  customChild,
+  setVoiceMask: propSetVoiceMask,
+  voiceMask: propVoiceMask,
+  voiceNames: propVoiceNames,
+  registerKeyboardHandler: propRegisterKeyboardHandler,
+  unregisterKeyboardHandler: propUnregisterKeyboardHandler,
+  analysisEnabled: propAnalysisEnabled,
+  savedAnalysis: propSavedAnalysis,
+  saveAnalysis: propSaveAnalysis,
+  getCurrentPositionMs: propGetCurrentPositionMs,
+  seek: propSeek,
+  latencyCorrectionMs: propLatencyCorrectionMs,
+  onEditorChange,
+}) => {
   // Update useParams to handle both slug and id
   const { slug, id } = useParams<{ slug?: string; id?: string }>();
   // Use either id or slug as the effective slug
@@ -101,7 +140,7 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
 
   const [error, setError] = useState<string | null>(null);
-  const [isFolded, setIsFolded] = useState(false);
+  const [foldEditor, setFoldEditor] = useState(false);
   const editorRef = useRef<any>(null);
   const cycleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -137,7 +176,7 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   const [isDragging, setIsDragging] = useState(false);
   const dragStartY = useRef(0);
   const dragStartHeight = useRef(0);
-  const [initialSource, setInitialSource] = useState<string>("");
+  const [codeValue, setCodeValue] = useState(initialSource || "");
 
   // Redirect to /e/new if no slug is provided - using useEffect for proper hook ordering
   useEffect(() => {
@@ -546,6 +585,10 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
           localStorage.setItem(backupKey, JSON.stringify(backup));
         }
       }
+
+      if (onEditorChange) {
+        onEditorChange(value);
+      }
     },
     [
       debouncedMelodyPlayback,
@@ -554,12 +597,22 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
       id,
       slug,
       initialSource,
+      onEditorChange,
     ],
   );
 
   // Update score when effectiveSlug changes
   useEffect(() => {
     const loadScore = async () => {
+      // If we're in decomposition mode and have an initial source, use that
+      if (isDecompositionMode && initialSource) {
+        setCodeValue(initialSource);
+        setScore(initialSource);
+        // Trigger MIDI generation with the new initialSource
+        debouncedMelodyPlayback(initialSource, true);
+        return;
+      }
+
       if (effectiveSlug) {
         if (id || effectiveSlug.startsWith("ef/")) {
           // For /ef/<id> URLs, fetch from Firebase edits collection
@@ -578,7 +631,7 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
               newScore = newScore.replace(/anacrusis 4/g, "sections 2 6");
 
               setScore(newScore);
-              setInitialSource(newScore); // Save initial source
+              setCodeValue(newScore);
               // Trigger initial MIDI generation after a delay
               setTimeout(() => {
                 // Disable autoplay for /e/new route
@@ -588,13 +641,13 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
             } else {
               setError("Edit not found");
               setScore("");
-              setInitialSource("");
+              setCodeValue("");
             }
           } catch (error) {
             console.error("Error fetching edit:", error);
             setError("Failed to load edit");
             setScore("");
-            setInitialSource("");
+            setCodeValue("");
           }
         } else if (scores[effectiveSlug]) {
           let newScore = scores[effectiveSlug];
@@ -603,7 +656,7 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
           newScore = newScore.replace(/anacrusis 4/g, "sections 2 6");
 
           setScore(newScore);
-          setInitialSource(newScore); // Save initial source
+          setCodeValue(newScore);
           // Trigger initial MIDI generation after a delay
           setTimeout(() => {
             // Disable autoplay for /e/new route
@@ -612,13 +665,13 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
           }, 1000);
         } else {
           setScore("");
-          setInitialSource("");
+          setCodeValue("");
         }
       }
     };
 
     loadScore();
-  }, [effectiveSlug, debouncedMelodyPlayback]);
+  }, [effectiveSlug, id, isDecompositionMode, initialSource]);
 
   // Update handleCursorChange to use the cleanup function
   const handleCursorChange = useCallback(
@@ -715,7 +768,9 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
   }, [cleanupBlinkingState, eject]);
 
   return (
-    <EditorContainer>
+    <EditorContainer
+      className={isDecompositionMode ? "decomposition-mode" : ""}
+    >
       <div style={{ paddingBottom: "100vh", position: "relative" }}>
         <RawlContainer>
           {rawlProps && (
@@ -727,19 +782,20 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
           )}
         </RawlContainer>
       </div>
-      <BaseEditorPanel isFolded={isFolded} height={panelHeight}>
+      <BaseEditorPanel isFolded={foldEditor} height={panelHeight}>
         <ResizeHandle onMouseDown={handleMouseDown} />
         <FoldButton
           position="side"
-          isFolded={isFolded}
-          onClick={() => setIsFolded(!isFolded)}
+          isFolded={foldEditor}
+          onClick={() => setFoldEditor(!foldEditor)}
         >
           <FontAwesomeIcon
-            icon={isFolded ? chevronIcons.left : chevronIcons.right}
+            icon={foldEditor ? chevronIcons.left : chevronIcons.right}
           />
         </FoldButton>
         <EditorContent>
-          <CodeMirrorWrapper>
+          {isDecompositionMode ? null : customChild}
+          <CodeMirrorWrapper className={foldEditor ? "folded" : ""}>
             <CodeMirror
               ref={editorRef}
               value={score}
@@ -766,19 +822,24 @@ const Editor: React.FC<EditorProps> = ({ history }) => {
               }}
               onFocus={() => setIsEditorFocused(true)}
               onBlur={() => setIsEditorFocused(false)}
+              readOnly={disableEditing || false}
             />
           </CodeMirrorWrapper>
           {error && <ErrorMessage>{error}</ErrorMessage>}
         </EditorContent>
-        <Manual
-          score={score}
-          initialSource={initialSource}
-          id={id}
-          slug={slug}
-          history={history}
-          setError={setError}
-          analysis={analysis}
-        />
+        {isDecompositionMode
+          ? customChild
+          : showProgrammingManual && (
+              <Manual
+                score={score}
+                initialSource={initialSource || ""}
+                id={id}
+                slug={slug}
+                history={history}
+                setError={setError}
+                analysis={analysis}
+              />
+            )}
       </BaseEditorPanel>
     </EditorContainer>
   );

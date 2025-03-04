@@ -63,6 +63,7 @@ import Book from "./rawl/book/Book";
 import BookOnStyles from "./rawl/book/BookOnStyles";
 import Corpus from "./rawl/corpora/Corpus";
 import Structures, { StructuresProps } from "./rawl/corpora/Structures";
+import Decomposition from "./rawl/decomposition/Decomposition";
 import Editor from "./rawl/editor/Editor";
 import ForgeUI from "./rawl/forge/ForgeUI";
 import { DropSaveForm, saveMidiFromLink } from "./rawl/midiStorage";
@@ -1141,6 +1142,42 @@ class App extends React.Component<RouteComponentProps, AppState> {
       />
     );
 
+    const decompositionRoute = (
+      <Route
+        path="/d/:slug/:step?"
+        render={({ match }) => {
+          const { slug, step } = match.params as {
+            slug: string;
+            step?: string;
+          };
+          const currentStep = step ? parseInt(step, 10) : 1;
+
+          // Set the path for analysis storage
+          this.path = match.url.slice(1);
+
+          return (
+            <Decomposition
+              slug={slug}
+              step={currentStep}
+              setVoiceMask={this.handleSetVoiceMask}
+              voiceMask={this.state.voiceMask}
+              voiceNames={this.state.voiceNames}
+              registerKeyboardHandler={this.registerKeyboardHandler}
+              unregisterKeyboardHandler={this.unregisterKeyboardHandler}
+              analysisEnabled={this.state.analysisEnabled}
+              savedAnalysis={this.state.analyses[this.path] ?? null}
+              saveAnalysis={this.saveAnalysis}
+              getCurrentPositionMs={this.midiPlayer?.getPositionMs}
+              seek={this.seekForRawl}
+              latencyCorrectionMs={
+                this.state.latencyCorrectionMs * this.state.tempo
+              }
+            />
+          );
+        }}
+      />
+    );
+
     const isStructuresRoute = location.pathname.startsWith("/s/");
 
     if (isStructuresRoute) {
@@ -1281,6 +1318,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   <Route path="/ef/:id?" component={Editor} />
                   <Route path="/book/:slug?" component={BookOnStyles} />
                   {rawlRoute}
+                  {decompositionRoute}
                   <Route path="/100/:slug?" component={Book} />
                   <Route path="/beyond/:slug?" component={Book} />
                   <Route path="/timeline" component={Timeline} />

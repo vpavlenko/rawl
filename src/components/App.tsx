@@ -33,6 +33,7 @@ import {
 } from "react-router-dom";
 import styled from "styled-components";
 import { slugify } from "transliteration";
+import { decomposeScores } from "./rawl/decomposition/decomposeScores";
 
 import ChipCore from "../chip-core";
 import {
@@ -1318,6 +1319,11 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   <Route path="/ef/:id?" component={Editor} />
                   <Route path="/book/:slug?" component={BookOnStyles} />
                   {rawlRoute}
+                  <Redirect
+                    exact
+                    from="/d/"
+                    to={`/d/${Object.keys(decomposeScores)[0]}/1`}
+                  />
                   {decompositionRoute}
                   <Route path="/100/:slug?" component={Book} />
                   <Route path="/beyond/:slug?" component={Book} />

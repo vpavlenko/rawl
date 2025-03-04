@@ -164,9 +164,35 @@ const DecompositionGuide: React.FC<DecompositionGuideProps> = ({
   const { user } = useContext(AppContext);
   const [localScores, setLocalScores] = useState<{
     [key: string]: DecomposedScore;
-  }>(JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"));
+  }>({});
   const [explanation, setExplanation] = useState("");
   const [copySuccess, setCopySuccess] = useState(false);
+
+  // Initialize localScores from localStorage on component mount
+  useEffect(() => {
+    try {
+      const storedData = localStorage.getItem(STORAGE_KEY);
+      const parsedData = storedData ? JSON.parse(storedData) : {};
+
+      // If there are no stored scores for this slug, initialize from decomposeScores
+      if (!parsedData[slug] && decomposeScores[slug]) {
+        parsedData[slug] = { ...decomposeScores[slug] };
+
+        // Only save to localStorage if user is logged in
+        if (user) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(parsedData));
+        }
+      }
+
+      setLocalScores(parsedData);
+    } catch (error) {
+      console.error(
+        "Error loading decomposition data from localStorage:",
+        error,
+      );
+      setLocalScores({});
+    }
+  }, [slug, user]);
 
   // Get the score data (either from localStorage or the original)
   const getScoreData = () => {
@@ -200,7 +226,7 @@ const DecompositionGuide: React.FC<DecompositionGuideProps> = ({
     if (currentStep && currentStep.score !== currentSource) {
       saveToLocalStorage(currentSource, currentStep.explanation);
     }
-  }, [currentSource, slug, step, user]);
+  }, [currentSource, slug, step, user, decomposedScore]);
 
   if (!decomposedScore) {
     return <GuideContainer>Score not found: {slug}</GuideContainer>;
@@ -229,14 +255,20 @@ const DecompositionGuide: React.FC<DecompositionGuideProps> = ({
   };
 
   const saveToLocalStorage = (score: string, expl: string) => {
+    // Only save if user is logged in
+    if (!user) return;
+
     // Create a copy of the current scores
     const updatedScores = { ...localScores };
 
-    // If this slug doesn't exist yet, create it
+    // If this slug doesn't exist yet, create it based on the default template
     if (!updatedScores[slug]) {
+      const defaultTemplate = decomposeScores[slug];
       updatedScores[slug] = {
-        title: decomposedScore.title,
-        steps: [...decomposedScore.steps],
+        title: defaultTemplate
+          ? defaultTemplate.title
+          : `Decomposition ${slug}`,
+        steps: defaultTemplate ? [...defaultTemplate.steps] : [],
       };
     }
 

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { VoiceMask } from "../../App";
+import { AppContext } from "../../AppContext";
 import { Analysis } from "../analysis";
 import Editor from "../editor/Editor";
 import DecompositionGuide from "./DecompositionGuide";
-import { decomposeScores } from "./decomposeScores";
+import { DecomposedScore, decomposeScores } from "./decomposeScores";
 
 interface DecompositionProps extends RouteComponentProps {
   slug: string;
@@ -25,6 +26,8 @@ interface DecompositionProps extends RouteComponentProps {
   latencyCorrectionMs: number;
 }
 
+const STORAGE_KEY = "decompositionData";
+
 const Decomposition: React.FC<DecompositionProps> = ({
   history,
   slug,
@@ -41,9 +44,34 @@ const Decomposition: React.FC<DecompositionProps> = ({
   seek,
   latencyCorrectionMs,
 }) => {
-  const decomposedScore = decomposeScores[slug];
+  const { user } = useContext(AppContext);
   const [currentStep, setCurrentStep] = useState(step);
   const [currentCode, setCurrentCode] = useState("");
+  const [localScoreData, setLocalScoreData] = useState<DecomposedScore | null>(
+    null,
+  );
+
+  // Load data from localStorage or fall back to decomposeScores
+  useEffect(() => {
+    try {
+      const storedData = localStorage.getItem(STORAGE_KEY);
+      if (storedData) {
+        const parsedData = JSON.parse(storedData);
+        if (parsedData[slug]) {
+          setLocalScoreData(parsedData[slug]);
+          return;
+        }
+      }
+    } catch (error) {
+      console.error(
+        "Error loading decomposition data from localStorage:",
+        error,
+      );
+    }
+
+    // Fall back to default data if not in localStorage
+    setLocalScoreData(decomposeScores[slug] || null);
+  }, [slug]);
 
   useEffect(() => {
     // Update URL when step changes
@@ -54,30 +82,30 @@ const Decomposition: React.FC<DecompositionProps> = ({
 
   // Redirect to step 1 if the requested step is out of bounds
   useEffect(() => {
-    if (decomposedScore) {
-      const maxSteps = decomposedScore.steps.length;
+    if (localScoreData) {
+      const maxSteps = localScoreData.steps.length;
       if (step < 1 || step > maxSteps) {
         setCurrentStep(1);
       } else {
         setCurrentStep(step);
       }
     }
-  }, [decomposedScore, step]);
+  }, [localScoreData, step]);
 
   useEffect(() => {
     // Update currentCode when step changes
-    if (decomposedScore && currentStep <= decomposedScore.steps.length) {
-      setCurrentCode(decomposedScore.steps[currentStep - 1].score);
+    if (localScoreData && currentStep <= localScoreData.steps.length) {
+      setCurrentCode(localScoreData.steps[currentStep - 1].score);
     }
-  }, [decomposedScore, currentStep]);
+  }, [localScoreData, currentStep]);
 
-  if (!decomposedScore) {
+  if (!localScoreData) {
     return <div>Score not found: {slug}</div>;
   }
 
   const currentStepData =
-    currentStep <= decomposedScore.steps.length
-      ? decomposedScore.steps[currentStep - 1]
+    currentStep <= localScoreData.steps.length
+      ? localScoreData.steps[currentStep - 1]
       : null;
 
   const handleStepChange = (newStep: number) => {

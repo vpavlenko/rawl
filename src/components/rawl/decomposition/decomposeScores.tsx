@@ -17,54 +17,25 @@ export const decomposeScores: { [key: string]: DecomposedScore } = {
   "gibran_alcocer_-_idea_15": {
     title: "Gibran Alcocer - Idea 15",
     steps: [
-      // Step 1: Basic structure
       {
-        score: `C major
-4/4
-bpm 120
-
-lh
-1 i 1,. qet,. qet,
-
-rh
-1 i x-q-w,e-r,t,`,
-        explanation:
-          "This is the most basic form of the piece, showing just the main melodic idea in the right hand and a simple accompaniment in the left hand.",
+        score:
+          "C major\n4/4\nbpm 120\n\nlh\n1 i 1,. qet,. qet,\n\nrh\n1 i x-q-w,e-r,t,",
+        explanation: "",
       },
-      // Step 2: Add more development
       {
-        score: `C major
-4/4
-bpm 120
-
-lh
-1 i 1,. qet,. qet,  
-2 c 1 3 4 0
-
-rh
-1 i x-q-w,e-r,t,
-2 c 1 1 2`,
-        explanation:
-          "In this step, we add measure 2 which copies the initial pattern with scale-wise shifts in both hands, creating harmonic development. The left hand applies shifts to scale degrees 3, 4, and 0, while the right hand copies with shifts to scale degrees 1 and 2.",
+        score:
+          "C major\n4/4\nbpm 120\n\nlh\n1 i 1,. qet,. qet,  \n2 c 1 3 4 0\n\nrh\n1 i x-q-w,e-r,t,\n2 c 1 1 2",
+        explanation: "Pick a bass line 4 - 6 - 1 - 7 in 6/4.",
       },
-      // Step 3: Complete piece
       {
-        score: `C major
-4/4
-bpm 120
-
-lh
-1 i 1,. qet,. qet,  
-2 c 1 3 4 0
-
-rh
-1 i x-q-w,e-r,t,
-2 c 1 1 2
-4 i x,a_.
-
-5 ac 1-4`,
-        explanation:
-          "The final step adds a contrasting idea in measure 4 with a longer note value (a_) and then uses the 'ac' command to create a complete 8-measure phrase by autocompleting measures 1-4.",
+        score:
+          "C major\n4/4\nbpm 120\n\nlh\n1 i 1,. qet,. qet,  \n2 c 1 3 4 0\n\nrh\n1 i x-q-w,e-r,t,\n2 c 1 1 2\n4 i x,a_.\n\n5 ac 1-4",
+        explanation: "",
+      },
+      {
+        score:
+          "C major\n4/4\nbpm 120\n\nlh\n1 i 1,. qet,. qet,  \n2 c 1 3 4 0\n\nrh\n1 i x-q-w,e-r,t,\n2 c 1 1 2\n4 i x,a_.\n\n5 ac 1-4",
+        explanation: "",
       },
     ],
   },

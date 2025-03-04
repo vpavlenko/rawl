@@ -2306,6 +2306,7 @@ export const corpora: CorpusEntry[] = [
       "who-you-really-are-from-sherlock-bbc-series-4",
     ],
   },
+  { slug: "folk", midis: ["jeux-interdits"] },
   {
     slug: "common_practice_single_pieces",
     midis: ["valsy-griboedova---griboedov-s-waltzes", "chopsticks"],
@@ -5319,6 +5320,8 @@ export const corpora: CorpusEntry[] = [
       "watermark-enya",
       "caribbean-blue---enya",
       "a-day-without-rain---enya",
+      "only-time---enya",
+      "shepherd-moons---enya",
     ],
     composerBirthYear: 1961, // Enya was born in 1961
     genre: "New Age", // Enya is a prominent artist in the New Age genre

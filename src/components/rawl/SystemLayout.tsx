@@ -339,10 +339,28 @@ export const StackedSystemLayout: React.FC<
       const longestSectionLength =
         measuresAndBeats.measures[longestSection[1]] -
         measuresAndBeats.measures[longestSection[0]];
-      return targetWidth / longestSectionLength;
+
+      // Calculate optimal width for the section
+      let calculatedWidth = targetWidth / longestSectionLength;
+
+      // If we don't have too many measures (using the same filter as above: < 25 measures)
+      // and we're in single time mode, limit to max 300px per measure
+      if (longestSection[1] - longestSection[0] < 25) {
+        // Calculate how many pixels per measure with current width
+        const measureCount = longestSection[1] - longestSection[0];
+        const secondsPerMeasure = longestSectionLength / measureCount;
+        const pixelsPerMeasure = calculatedWidth * secondsPerMeasure;
+
+        // Limit to max 300px per measure
+        if (pixelsPerMeasure > 300) {
+          calculatedWidth = 300 / secondsPerMeasure;
+        }
+      }
+
+      return calculatedWidth;
     }
     return secondWidth;
-  }, [notes]); // Only recalculate when notes change
+  }, [notes, measuresAndBeats, sectionSpans]); // Also depend on measuresAndBeats and sectionSpans
 
   useEffect(() => {
     setSecondWidth(optimalSecondWidth);
@@ -532,6 +550,7 @@ export const StackedSystemLayout: React.FC<
             setNoteHeight={setNoteHeight}
             secondWidth={secondWidth}
             setSecondWidth={setSecondWidth}
+            setSecondWidthCalled={setSecondWidthCalled}
             slug={slug}
             currentTonic={currentTonic}
             setHoveredColors={setHoveredColors}

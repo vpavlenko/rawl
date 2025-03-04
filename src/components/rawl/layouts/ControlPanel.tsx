@@ -31,6 +31,7 @@ type ControlPanelProps = {
   setNoteHeight: (height: number) => void;
   secondWidth: number;
   setSecondWidth: (width: number) => void;
+  setSecondWidthCalled?: React.MutableRefObject<boolean>;
   slug?: string;
   currentTonic?: number;
   setHoveredColors: (colors: string[] | null) => void;
@@ -41,6 +42,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   setNoteHeight,
   secondWidth,
   setSecondWidth,
+  setSecondWidthCalled,
   slug,
   currentTonic,
   setHoveredColors,
@@ -53,9 +55,12 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
 
   const handleSecondWidthChange = useCallback(
     (newWidth: number) => {
+      if (setSecondWidthCalled) {
+        setSecondWidthCalled.current = true;
+      }
       setSecondWidth(clamp(newWidth, 2, 150));
     },
-    [setSecondWidth],
+    [setSecondWidth, setSecondWidthCalled],
   );
 
   useEffect(() => {

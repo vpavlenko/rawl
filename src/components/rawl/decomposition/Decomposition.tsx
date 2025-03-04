@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { VoiceMask } from "../../App";
 import { AppContext } from "../../AppContext";
@@ -51,6 +51,33 @@ const Decomposition: React.FC<DecompositionProps> = ({
     null,
   );
 
+  // Single function to handle all localStorage operations
+  const updateLocalStorage = useCallback(
+    (updatedData: DecomposedScore) => {
+      try {
+        console.log(`[Decomposition] Updating localStorage for slug: ${slug}`);
+        // Get current stored data
+        const storedData = localStorage.getItem(STORAGE_KEY) || "{}";
+        const parsedData = JSON.parse(storedData);
+
+        // Update with new data
+        parsedData[slug] = updatedData;
+
+        // Save back to localStorage
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(parsedData));
+
+        // Update local state
+        setLocalScoreData(updatedData);
+        console.log(
+          `[Decomposition] Successfully updated localStorage and local state`,
+        );
+      } catch (error) {
+        console.error("Error updating localStorage:", error);
+      }
+    },
+    [slug],
+  );
+
   // Load data from localStorage or fall back to decomposeScores
   useEffect(() => {
     try {
@@ -80,11 +107,15 @@ const Decomposition: React.FC<DecompositionProps> = ({
     }
   }, [currentStep, step, slug, history]);
 
-  // Redirect to step 1 if the requested step is out of bounds
+  // Handle step validation (simplified - removed the redundant localStorage check)
   useEffect(() => {
     if (localScoreData) {
       const maxSteps = localScoreData.steps.length;
+
       if (step < 1 || step > maxSteps) {
+        console.log(
+          `[Decomposition] Step ${step} out of bounds (max: ${maxSteps}), redirecting to step 1`,
+        );
         setCurrentStep(1);
       } else {
         setCurrentStep(step);
@@ -108,12 +139,55 @@ const Decomposition: React.FC<DecompositionProps> = ({
       ? localScoreData.steps[currentStep - 1]
       : null;
 
+  // Handle step navigation
   const handleStepChange = (newStep: number) => {
     setCurrentStep(newStep);
   };
 
+  // Handle editor content change
   const handleEditorChange = (newCode: string) => {
     setCurrentCode(newCode);
+
+    // If we have current step data, update the score in localStorage
+    if (user && localScoreData && currentStep <= localScoreData.steps.length) {
+      const updatedScoreData = { ...localScoreData };
+      updatedScoreData.steps[currentStep - 1].score = newCode;
+      updateLocalStorage(updatedScoreData);
+    }
+  };
+
+  // Add a new step - this is the function we'll pass to DecompositionGuide
+  const handleAddStep = (score: string, explanation: string) => {
+    if (!user || !localScoreData) return;
+
+    console.log(`[Decomposition] Adding new step with score and explanation`);
+
+    const updatedScoreData = { ...localScoreData };
+    updatedScoreData.steps.push({
+      score,
+      explanation,
+    });
+
+    // Update localStorage with new step
+    updateLocalStorage(updatedScoreData);
+
+    // Navigate to the new step
+    const newStep = updatedScoreData.steps.length;
+    setCurrentStep(newStep);
+  };
+
+  // Update explanation for current step
+  const handleExplanationChange = (explanation: string) => {
+    if (!user || !localScoreData || currentStep > localScoreData.steps.length)
+      return;
+
+    console.log(`[Decomposition] Updating explanation for step ${currentStep}`);
+
+    const updatedScoreData = { ...localScoreData };
+    updatedScoreData.steps[currentStep - 1].explanation = explanation;
+
+    // Update localStorage with new explanation
+    updateLocalStorage(updatedScoreData);
   };
 
   return (
@@ -141,6 +215,9 @@ const Decomposition: React.FC<DecompositionProps> = ({
             step={currentStep}
             onStepChange={handleStepChange}
             currentSource={currentCode}
+            decomposedScore={localScoreData}
+            onAddStep={handleAddStep}
+            onExplanationChange={handleExplanationChange}
           />
         }
       />

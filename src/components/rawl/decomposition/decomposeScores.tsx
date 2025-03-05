@@ -51,6 +51,24 @@ export const decomposeScores: { [key: string]: DecomposedScore } = {
         explanation:
           "Now, for chorus 1 let's do the rapid stairs of chord notes: \"arpeggios\".\n\nTo make it more interesting, let's put the same arpeggio on chords 4 and 6. So that we repeat the same idea twice and only then change. Western music always repeats something twice and then changes, isn't it?\n\nAnd then let's make the top line of arpeggio notes a more interesting independent line with its mini story. We'll repeat it twice, of course :)",
       },
+      {
+        score:
+          "Db minor\n6/4\nbpm 180\nphrases 1+1 22-3 27+1 36+1\nsections 2 4 6 7 9\n\n\nrh\n1b5 i x-q-q-7-6+\n2b5 i x-q-q-w-e+\n3b6 i x-q-t,t,t,t,e,e-w+\n5b5 i x-w-e-w-6+\n6b5 i x-6-6-7-8_.t_r-r-t_e_r_w_.e_.\n\n10 i y-e-q-y-e-q-u-e-q-y-e-q-\n11 c 10\n12 i t-e-q-t-e-q-\n12b4 c 10b4\n13 i r-w-7-r-w-7-t-w-7-t-w-7-\n14 c 10-13\n\n27 i y_.t_.\n\n\nlh\n2 i 4r,ry,ry, q,ry,ry,\n3 c 2 2 4 3\n6 c 2-5 0 0 0\n27 i us+.\n\n18 ac 1-9\n28 ac 10-17\n36 ac 27\n",
+        explanation:
+          "Let's combine verse 1 and chorus 1. To align chord loops vertically, we'll leave measure 1 as an anacrusis on its own line.\n\nAnd then let's do a signature Gibran's thing: let's linger on the ends of each section by prolonging the last chord.",
+      },
+      {
+        score:
+          "Db minor\n6/4\nbpm 180\nphrases 13-3 22-3 27+1\nsections 4 7\n\nrh\n1 i q_.y_t,\n2 c 1\n3 i e_e,e_r,\n4 c 3 -1\n5 c 1-4\n\n10 c 1-8\n\n19 c 1-3\n22 i w_w,w,e,w,6_.y_t,\n24 c 20-21\n26 i w_.e_.y_.t_.\n\nlh\n10 i 4r,ry,ry, q,ry,ry,\n11 c 10 2 4 3\n14 c 10-13\n19 c 10-17\n27 i us+.\n\n",
+        explanation:
+          "Now let's compose a verse 2. It should have a single line, like a verse 1, but the motive can be simpler. m.2 = m.1 (measure 2 repeats measure 1), then again m.4 = m.3 one note down on the scale. Repeat the whole thing twice.\n\nThe colors are picked to go well with our chord loop. So let's combine melody and accompaniment.\n\nLet's make small adjustments to make melody more interesting. And also the ending should be like that of verse 1, with lingering on the last chord.",
+      },
+      {
+        score:
+          "Db minor\n6/4\nbpm 180\nphrases 13-3 22-3 27+1\nsections 4 7\n\nrh\n1 i q_.y_t,\n2 c 1\n3 i e_e,e_r,\n4 c 3 -1\n5 c 1-4\n\n10 c 1-8\n\n19 c 1-3\n22 i w_w,w,e,w,6_.y_t,\n24 c 20-21\n26 i w_.e_.y_.t_.\n\nlh\n10 i 4r,ry,ry, q,ry,ry,\n11 c 10 2 4 3\n14 c 10-13\n19 c 10-17\n27 i us+.\n\n",
+        explanation:
+          "As we combine verse 1, chorus 1, verse 2 and chorus 2 (which is chorus 1 verbatim), we already have 73 measures of a genuine 21 century neo-classical music. Let's enjoy it before we design verse 3 and the ending.",
+      },
     ],
   },
 };

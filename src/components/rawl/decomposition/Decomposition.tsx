@@ -82,10 +82,11 @@ const ExplanationContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-const ExplanationText = styled.p`
+const ExplanationText = styled.div`
   margin: 0;
   line-height: 1.6;
   color: #cccccc;
+  white-space: pre-line;
 `;
 
 const ExplanationTextArea = styled.textarea`
@@ -442,7 +443,7 @@ const Decomposition: React.FC<DecompositionProps> = ({
               disabled={currentStep === maxSteps && !user}
             >
               <FontAwesomeIcon
-                icon={currentStep === maxSteps ? faPlus : faArrowRight}
+                icon={currentStep === maxSteps && user ? faPlus : faArrowRight}
               />
             </NavigationButton>
           </NavigationControls>

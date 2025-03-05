@@ -1077,6 +1077,7 @@ export const corpora: CorpusEntry[] = [
       "happy-birthday-variations-in-g-minor",
       "happy_birthday_bass_and_chords",
       "Happy_Birthday_to_You",
+      "happy-birthday-insane",
     ],
     genre: "Traditional, Folk",
     style: "Birthday Song",
@@ -3557,6 +3558,7 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "main-theme---the-legend-of-zelda-tears-of-the-kingdom---manaka-kataoka-yasuaki-iwata-and-hajime-wakai-totk-sheet-music",
       "kass-theme--full-the-legend-of-zelda-breath-of-the-wild",
+      "mipha-s-theme---breath-of-the-wild-piano-solo",
       "attack-on-vah-naboris---manaka-kataoka",
       "monk-maz-koshia---the-legend-of-zelda-breath-of-the-wild-",
     ],
@@ -5322,6 +5324,7 @@ export const corpora: CorpusEntry[] = [
       "a-day-without-rain---enya",
       "only-time---enya",
       "shepherd-moons---enya",
+      "fairytale---enya",
     ],
     composerBirthYear: 1961, // Enya was born in 1961
     genre: "New Age", // Enya is a prominent artist in the New Age genre
@@ -6091,7 +6094,11 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "kazumi_totaka",
-    midis: ["mii-channel-piano", "wii-sports-theme-piano"],
+    midis: [
+      "mii-channel-piano",
+      "wii-sports-theme-piano",
+      "main-theme---animal-crossing-new-horizons",
+    ],
     composerBirthYear: 1967,
     genre: "Video Game Music",
     country: "Japan",
@@ -6139,6 +6146,8 @@ export const corpora: CorpusEntry[] = [
       "ocarina-of-time-lost-woods-piano",
       "gerudo-valley",
       "super-mario-galaxy---rosalina-in-the-observatory---piano",
+      "super-mario-world-athletic-theme",
+      "yoshi-s-island---athletic-theme",
     ],
     composerBirthYear: 1961,
     genre: "Video Game Music",
@@ -6192,6 +6201,14 @@ export const corpora: CorpusEntry[] = [
       "gaara-s-childhood-theme---toshio-masuda",
     ],
   },
+  {
+    slug: "go_ichinose",
+    midis: [
+      "littleroot-town---pokemon-oras-for-piano",
+      "national-park---pokemon-gold-silver-junichi-masuda-go-inchinose-transcribed-by-onakaru",
+    ],
+  },
+  { slug: "brian_crain", midis: ["song-for-sienna"] },
   {
     slug: "dan_salvato",
     midis: [
@@ -6262,6 +6279,10 @@ export const corpora: CorpusEntry[] = [
     genre: "Lofi",
     composerBirthYear: 1990,
     country: "France",
+  },
+  {
+    slug: "benny_goodman",
+    midis: ["sing-sing-sing-1938-carnegie-hall-piano-transcription"],
   },
   {
     slug: "mac_miller",

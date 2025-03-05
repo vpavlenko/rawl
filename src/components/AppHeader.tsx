@@ -93,6 +93,9 @@ const AppHeader: React.FC = () => {
         <HeaderLink to="/timeline/" style={getLinkStyle("/timeline")}>
           Timeline
         </HeaderLink>
+        <HeaderLink to="/d/" style={getLinkStyle("/d")}>
+          Decompose
+        </HeaderLink>
         <HeaderLink to="/forge/" style={getLinkStyle("/forge")}>
           Forge
         </HeaderLink>

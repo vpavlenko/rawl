@@ -159,6 +159,7 @@ export const STYLES_CHAPTERS: Array<{
           />
         </P>
         <P>{A("i-wanted-to-leave---syml")}</P>
+        <P>{A("fabrizio-paterlini---snow")}</P>
       </>
     ),
   },

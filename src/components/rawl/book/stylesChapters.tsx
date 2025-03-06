@@ -97,6 +97,7 @@ export const STYLES_CHAPTERS: Array<{
           leave the left hand intact and compose a new melody. You may either
           aim for it to be Schubert-like or of your own style.
         </P>
+        <P>"alfred-lefebure-wely---les-cloches-du-monastere-op.-54a", </P>
       </>
     ),
   },

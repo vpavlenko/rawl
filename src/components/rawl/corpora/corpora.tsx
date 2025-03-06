@@ -191,6 +191,14 @@ export const corpora: CorpusEntry[] = [
     country: "Japan",
   },
   {
+    slug: "yuji_ohno",
+    midis: [
+      "lupin-iii-jazz-version-~-yuji-ohno",
+      "theme-from-lupin-the-third-78-2002version",
+      "a-rose-tattoo---yuji-ohno---from-stolen-lupin",
+    ],
+  },
+  {
     slug: "hiroki_kikuta",
     midis: [
       "phantom-and-...-a-rose---hiroki-kikuta-phantom-and-a-rose---hiroki-kikuta",
@@ -1364,7 +1372,10 @@ export const corpora: CorpusEntry[] = [
     slug: "julius_schulhoff",
     midis: [
       "piano-sonata-in-f-minor-opus-37-1st-movement---julius-schulhoff",
+      "piano-sonata-in-f-minor-opus-37-3rd-movement---julius-schulhoff",
+      "polka-original-op.-4-no.-1-toplitz-polka---julius-schulhoff",
       "3-nocturnes-op.-2-no.-1-romanza---julius-schulhoff",
+      "nocturne-op.28---julius-schulhoff",
     ],
   },
   {
@@ -2297,11 +2308,21 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "romantic_single_pieces",
-    midis: ["caprice-brillant-sur-romeo-et-juliette-op.-303---georges-lamothe"],
+    midis: [
+      "caprice-brillant-sur-romeo-et-juliette-op.-303---georges-lamothe",
+      "huit-septembre-mazurka-op.-7---eugeniusz-zaluski",
+    ],
     composerBirthYear: 1809, // Georges Lamothe
     genre: "Classical",
     style: "Romantic",
     country: "France",
+  },
+  {
+    slug: "alfred_lefebure-wely",
+    midis: [
+      "alfred-lefebure-wely---les-cloches-du-monastere-op.-54a",
+      "prelude-in-a-minor---louis-james-alfred-lefebure-wely",
+    ],
   },
   {
     slug: "michael_price_and_david_arnold",
@@ -2623,6 +2644,7 @@ export const corpora: CorpusEntry[] = [
     style: "Eclectic, Contemporary",
     country: "Various",
   },
+  { slug: "jon_leifs", midis: ["icelandic-dance-op.-11-no.-1---jon-leifs"] },
   {
     slug: "stephen_foster",
     midis: [
@@ -3570,6 +3592,14 @@ export const corpora: CorpusEntry[] = [
     country: "Japan",
   },
   {
+    slug: "tj_hill",
+    midis: [
+      "owl-house-credits-theme",
+      "marcy-s-theme---t.j.-hill-amphibia-ost",
+      "the-owl-house-theme-song-piano",
+    ],
+  },
+  {
     slug: "altin_gun",
     midis: [
       "goca-dunya---altin-gun-goca-dunya.xml",
@@ -4285,6 +4315,7 @@ export const corpora: CorpusEntry[] = [
       "at-nightfall---yuki-kajiura",
       "demon-slayer-mugen-train-rengoku-theme-9th-form---yuki-kajiura",
       "melody-lacie-s-song---yuki-kajiura",
+      "decretum---yuki-kajiura-puella-magi-madoka-magica-ost",
     ],
     composerBirthYear: 1963, // Yuki Kajiura
     genre: "Soundtrack", // Known for composing anime soundtracks

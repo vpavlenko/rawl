@@ -1362,7 +1362,10 @@ export const corpora: CorpusEntry[] = [
   { slug: "claude_bolling", midis: [] },
   {
     slug: "julius_schulhoff",
-    midis: ["piano-sonata-in-f-minor-opus-37-1st-movement---julius-schulhoff"],
+    midis: [
+      "piano-sonata-in-f-minor-opus-37-1st-movement---julius-schulhoff",
+      "3-nocturnes-op.-2-no.-1-romanza---julius-schulhoff",
+    ],
   },
   {
     slug: "alex_thorn",
@@ -4275,8 +4278,14 @@ export const corpora: CorpusEntry[] = [
     country: "Norway", // Grieg was Norwegian
   },
   {
-    slug: "kaijura_yuki",
-    midis: ["nara-no-kyoukai-vol.-2---m01"],
+    slug: "yuki_kaijura",
+    midis: [
+      "nara-no-kyoukai-vol.-2---m01",
+      "a-tender-feeling-sword-art-online",
+      "at-nightfall---yuki-kajiura",
+      "demon-slayer-mugen-train-rengoku-theme-9th-form---yuki-kajiura",
+      "melody-lacie-s-song---yuki-kajiura",
+    ],
     composerBirthYear: 1963, // Yuki Kajiura
     genre: "Soundtrack", // Known for composing anime soundtracks
     style: "Orchestral, Electronic", // Combines orchestral with electronic music
@@ -4591,6 +4600,7 @@ export const corpora: CorpusEntry[] = [
     style: "Orchestral, Electronic, Rock", // McCreary blends orchestral, electronic, and rock styles
     country: "USA", // McCreary is American
   },
+  { slug: "tj_hill", midis: [] },
   {
     slug: "joe_hisaishi",
     midis: [
@@ -5217,6 +5227,10 @@ export const corpora: CorpusEntry[] = [
     genre: "Video Game Music", // Music for video games
     style: "Chiptune", // Early video game music style
     country: "UK",
+  },
+  {
+    slug: "yoshinao_nakada",
+    midis: ["the-song-of-twilight---yoshinao-nakada"],
   },
   {
     slug: "jeremy_soule",
@@ -6082,6 +6096,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Guarania",
     country: "Paraguay",
   },
+  { slug: "norihiro_tsuru", midis: ["norihiro-tsuru---last-carnival"] },
   {
     slug: "fujii_kaze",
     midis: [
@@ -6249,7 +6264,7 @@ export const corpora: CorpusEntry[] = [
       "la-noyee---yann-tiersen-la-noyee",
       "a-quai---yann-tiersen",
       "le-moulin---yann-tiersen",
-
+      "la-dispute---yann-tiersen",
       "l-autre-valse-d-amelie---yann-tiersen-l-autre-valse-d-amelie",
     ],
   },
@@ -6798,6 +6813,20 @@ export const corpora: CorpusEntry[] = [
       "waltz-in-a-major-op.39-no.15-by-johannes-brahms",
       "brahms---waltz-op.39-no.3",
       "waltz-in-d-minor-op.39-no.9---johannes-brahms",
+    ],
+  },
+  {
+    slug: "justin_hurwitz",
+    midis: ["gold-coast-rhythm-jack-s-party---justin-hurwitz"],
+  },
+  {
+    slug: "hikaru_shirosu",
+    midis: ["waltz-no.1-op.6-collapse---hikaru-shirosu"],
+  },
+  {
+    slug: "karl_jenkins",
+    midis: [
+      "karl-jenkins-concerto-grosso-for-string-orchestra-palladio-i.-allegretto---for-piano-solo",
     ],
   },
   {

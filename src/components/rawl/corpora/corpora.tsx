@@ -4150,27 +4150,29 @@ export const corpora: CorpusEntry[] = [
     midis: [
       // natural minor
       "distractions---fabrizio-paterlini",
-      "fabrizio-paterlini---snow",
       "waltz---fabrizio-paterlini",
       "fire---fabrizio-paterlini",
-      "there-s-a-light-we-might-see---fabrizio-paterlini",
+      "empty-room---fabrizio-paterlini",
       "rue-des-trois-freres---fabrizio-paterlini",
-      "week-8---fabrizio-paterlini-new-week8",
-      "dawn---fabrizio-paterlini",
-      "lost-song---fabrizio-paterlini",
-      "fabrizio-paterlini---racconto-di-luna",
-      "soffia-la-notte---fabrizio-paterlini",
       "fabrizio-paterlini---midsummer-tiny-song",
+      "fabrizio-paterlini---snow",
       "week-11---fabrizio-paterlini",
+      "week-8---fabrizio-paterlini-new-week8",
+      "there-s-a-light-we-might-see---fabrizio-paterlini",
+      "found-letters---fabrizio-paterlin",
+      "soffia-la-notte---fabrizio-paterlini",
       "white-forest-in-kazan---fabrizio-paterlini",
       "leave---fabrizio-paterlini",
-      "empty-room---fabrizio-paterlini",
-      "fabricio-paterlini--there-is-a-light-we-might-see---dernierpianista",
-      "found-letters---fabrizio-paterlin",
+
+      // "fabricio-paterlini--there-is-a-light-we-might-see---dernierpianista",
+
+      "fabrizio-paterlini---racconto-di-luna",
+      "dawn---fabrizio-paterlini",
       "pensieri-confusi---fabrizio-paterlini", // chord scale: v
       "the-hall-is-dancing---fabrizio-paterlini", // dorian
 
       // minor V
+      "lost-song---fabrizio-paterlini",
       "all-my-joy-all-my-pain---fabrizio-paterlini",
       "fabrizio-paterlini---my-misty-mornings",
       "if-only-i-could-tell---fabrizio-paterlini",

@@ -492,23 +492,48 @@ const Rawl: React.FC<RawlProps> = ({
 
   const [hoveredColors, setHoveredColors] = useState<string[] | null>(null);
 
-  const coloredNotes: ColoredNotesInVoices = useMemo(
-    () =>
-      notes.map((notesInVoice, voiceIndex) =>
-        notesInVoice.map((note) => {
-          const colorPitchClass = note.isDrum ? -1 : note.note.midiNumber % 12;
-          return {
-            ...note,
-            color: note.isDrum
-              ? "noteColor_drum"
-              : getNoteColor(note, futureAnalysis, measuresAndBeats.measures),
-            isActive: voiceMask[voiceIndex],
-            colorPitchClass,
-          };
-        }),
-      ),
-    [notes, futureAnalysis, measuresAndBeats, voiceMask],
-  );
+  const coloredNotes: ColoredNotesInVoices = useMemo(() => {
+    // Initialize array to count notes by color (0-11)
+    const noteColorCounts = Array(12).fill(0);
+
+    const result = notes.map((notesInVoice, voiceIndex) =>
+      notesInVoice.map((note) => {
+        const colorPitchClass = note.isDrum ? -1 : note.note.midiNumber % 12;
+
+        // Calculate color using the same logic as getNoteColor
+        const color = note.isDrum
+          ? "noteColor_drum"
+          : getNoteColor(note, futureAnalysis, measuresAndBeats.measures);
+
+        // Count the note by color if it's not a drum note and not a default note
+        if (!note.isDrum && futureAnalysis.modulations[1] !== null) {
+          const relativePosition =
+            (note.note.midiNumber -
+              getTonic(
+                getNoteMeasure(note, measuresAndBeats.measures),
+                futureAnalysis,
+              )) %
+            12;
+
+          // Ensure we get a positive index (JavaScript modulo can return negative)
+          const colorIndex = (relativePosition + 12) % 12;
+          noteColorCounts[colorIndex]++;
+        }
+
+        return {
+          ...note,
+          color,
+          isActive: voiceMask[voiceIndex],
+          colorPitchClass,
+        };
+      }),
+    );
+
+    // Log the counts of notes by color
+    console.log("Note counts by color (0-11):", noteColorCounts);
+
+    return result;
+  }, [notes, futureAnalysis, measuresAndBeats, voiceMask]);
 
   const systemLayoutProps: SystemLayoutProps = useMemo(
     () => ({

@@ -56,6 +56,7 @@ import AppHeader from "./AppHeader";
 import DropMessage from "./DropMessage";
 import Timeline from "./Timeline";
 import CorpusSearch from "./rawl/CorpusSearch";
+import Histograms from "./rawl/Histograms";
 import OldLandingPage from "./rawl/OldLandingPage";
 import Rawl, { RawlProps } from "./rawl/Rawl";
 import { ShortcutHelp } from "./rawl/ShortcutHelp";
@@ -1329,6 +1330,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   <Route path="/beyond/:slug?" component={Book} />
                   <Route path="/timeline" component={Timeline} />
                   <Route path="/forge" component={ForgeUI} />
+                  <Route path="/histograms" component={Histograms} />
                   <Redirect exact from="/" to="/100" />
                 </Switch>
               </AppMainContent>

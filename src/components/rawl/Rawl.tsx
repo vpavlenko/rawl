@@ -532,8 +532,24 @@ const Rawl: React.FC<RawlProps> = ({
     // Log the counts of notes by color
     console.log("Note counts by color (0-11):", noteColorCounts);
 
+    // Save to localStorage
+    try {
+      // Get current histograms or initialize empty object
+      const histogramsJSON = localStorage.getItem("NOTE_HISTOGRAMS") || "{}";
+      const histograms = JSON.parse(histogramsJSON);
+
+      // Save this histogram under the current slug
+      histograms[slug] = noteColorCounts;
+
+      // Save back to localStorage
+      localStorage.setItem("NOTE_HISTOGRAMS", JSON.stringify(histograms));
+      console.log(`Saved note histogram for ${slug} to localStorage`);
+    } catch (error) {
+      console.error("Failed to save note histogram to localStorage:", error);
+    }
+
     return result;
-  }, [notes, futureAnalysis, measuresAndBeats, voiceMask]);
+  }, [notes, futureAnalysis, measuresAndBeats, voiceMask, slug]);
 
   const systemLayoutProps: SystemLayoutProps = useMemo(
     () => ({

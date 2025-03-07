@@ -67,7 +67,14 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "milan_dvorak",
-    midis: ["jazz-piano-etudes-book-2-no.-12---milan-dvorak", "etude-1"],
+    midis: [
+      "jazz-piano-etudes-book-2-no.-12---milan-dvorak",
+      "etude-1",
+      "jazz-piano-etudes-book-2-no.-2---milan-dvorak",
+      "jazz-etude-no.6---milan-dvorak-book-2",
+    ],
+    composerBirthYear: 1934,
+    genre: "Teacher Music",
   },
   {
     slug: "stephen_heller",
@@ -85,6 +92,7 @@ export const corpora: CorpusEntry[] = [
     slug: "greg_joy",
     midis: ["greg-joy---wind-dance-of-the-fairies"],
     style: "Guitar",
+    composerBirthYear: 1954,
   },
   {
     slug: "suzanne_ciani",
@@ -96,6 +104,7 @@ export const corpora: CorpusEntry[] = [
       "sargasso-sea-by-suzanne-ciani",
     ],
     style: "New Age",
+    composerBirthYear: 1946,
   },
   {
     slug: "aram_khachaturian",
@@ -134,6 +143,14 @@ export const corpora: CorpusEntry[] = [
     genre: "Television Music, Comedy",
     style: "Electronic, Orchestral, Comedy Music",
     country: "USA", // Ryan Elder is American.
+  },
+  {
+    slug: "james_p_johnson",
+    midis: [
+      "james-p.-johnson---caprice-rag-1917",
+      "carolina-shout",
+      "charleston-james-johnson",
+    ],
   },
   {
     slug: "eubie_blake",
@@ -399,6 +416,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "chris_zabriskie",
     midis: ["preludes-by-chris-zabriskie-full-album"],
+    composerBirthYear: 1982,
   },
   {
     slug: "pam_wedgwood",
@@ -501,6 +519,7 @@ export const corpora: CorpusEntry[] = [
       "calambre-tango-piazzolla",
       "libertango",
     ],
+    composerBirthYear: 1921,
   },
   {
     slug: "musette",
@@ -1758,6 +1777,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "ernesto_cortazar",
     midis: ["beethovens-silence---ernesto-cortazar"],
+    composerBirthYear: 1940,
   },
   {
     slug: "gennady_gladkov",
@@ -2212,6 +2232,7 @@ export const corpora: CorpusEntry[] = [
       "time-machine",
       "jumper-piano-solo",
     ],
+    composerBirthYear: 1989,
   },
   {
     slug: "sage_guyton_jeremy_wakefield_nick_carr",
@@ -2439,7 +2460,11 @@ export const corpora: CorpusEntry[] = [
     style: "Orchestral, Electronic",
     country: "Japan",
   },
-  { slug: "muzio_clementi", midis: ["clementi-sonatina-no.-1-op-36"] },
+  {
+    slug: "muzio_clementi",
+    midis: ["clementi-sonatina-no.-1-op-36"],
+    composerBirthYear: 1752,
+  },
   {
     slug: "yasunori_mitsuda",
     midis: [
@@ -2607,7 +2632,11 @@ export const corpora: CorpusEntry[] = [
     style: "Electropop, Synthpop",
     country: "Japan",
   },
-  { slug: "yakov_feldman", midis: ["yamshchik-ne-goni-loshadey"] },
+  {
+    slug: "yakov_feldman",
+    midis: ["yamshchik-ne-goni-loshadey"],
+    composerBirthYear: 1884,
+  },
   {
     slug: "modern_composers_of_single_pieces",
     midis: [
@@ -2644,7 +2673,11 @@ export const corpora: CorpusEntry[] = [
     style: "Eclectic, Contemporary",
     country: "Various",
   },
-  { slug: "jon_leifs", midis: ["icelandic-dance-op.-11-no.-1---jon-leifs"] },
+  {
+    slug: "jon_leifs",
+    midis: ["icelandic-dance-op.-11-no.-1---jon-leifs"],
+    composerBirthYear: 1899,
+  },
   {
     slug: "stephen_foster",
     midis: [
@@ -2864,6 +2897,10 @@ export const corpora: CorpusEntry[] = [
       "d.-savvopoylos---dimosthenoys-lexis---greek-music-078",
       "s.-xarhakos---mpoyrnovalia---greek-music-079",
       "t.-moysafiris---kane-kati-na-haso-to-treno---greek-music-080",
+
+      "hr.-nikolopoylos---kai-geia-soy-ellada---greek-music-190",
+
+      "th.-mikroytsikos---armida---greek-music-199",
     ],
     composerBirthYear: 1925,
     genre: "Pop",
@@ -2876,6 +2913,7 @@ export const corpora: CorpusEntry[] = [
       "1626---1661-louis-couperin---fugue-ol-11",
       "l.-couperin-la-piemontoise",
     ],
+    composerBirthYear: 1626,
   },
   {
     slug: "jesse_novak",
@@ -3125,7 +3163,21 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "oscar_peterson",
-    midis: ["oscar-peterson---jazz-exercises-for-piano---exercise-1"],
+    midis: [
+      "oscar-peterson---jazz-exercises-for-piano---exercise-1",
+      "boogie-blues-etude-1974---oscar-peterson-piano-solo-transcription",
+      "oscar-peterson---jazz-exercises-for-piano---exercise-4",
+      "oscar-peterson---jazz-exercises-for-piano---exercise-6",
+    ],
+    composerBirthYear: 1925,
+  },
+  {
+    slug: "fitzwilliam_virginal_book",
+    midis: [
+      "pmlp12479-xlix_praeludium-_oldfield",
+      "pmlp12479-xcix_praeludium-_galeazzo",
+      "pmlp12479-clxi_why_aske_you_anonymous_1597",
+    ],
   },
   {
     slug: "boogie_woogie",
@@ -3180,6 +3232,7 @@ export const corpora: CorpusEntry[] = [
       "jazz-sonata-no.-4---george-antheil-score",
     ],
     genre: "Post-Tonal",
+    composerBirthYear: 1900,
   },
   {
     slug: "martha_mier",
@@ -3240,6 +3293,7 @@ export const corpora: CorpusEntry[] = [
       "song-without-words-no.-2-in-d-minor---stanchinsky",
       "song-without-words-no.-3-in-c-minor---stanchinsky",
     ],
+    composerBirthYear: 1888,
   },
   {
     slug: "evgeny_doga",
@@ -3598,6 +3652,7 @@ export const corpora: CorpusEntry[] = [
       "marcy-s-theme---t.j.-hill-amphibia-ost",
       "the-owl-house-theme-song-piano",
     ],
+    composerBirthYear: 1985,
   },
   {
     slug: "altin_gun",
@@ -3721,6 +3776,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "ralph_vaughan_williams",
     midis: ["lark-ascending"],
+    composerBirthYear: 1872,
   },
   {
     slug: "john_williams",
@@ -4082,6 +4138,7 @@ export const corpora: CorpusEntry[] = [
       "roberto-cacciapaglia---seconda-navigazione",
       "roberto-cacciapaglia---atlantico",
     ],
+    composerBirthYear: 1959,
   },
   {
     slug: "tchaikovsky",
@@ -4117,6 +4174,7 @@ export const corpora: CorpusEntry[] = [
       "rob-costlow---goodbyes",
       "rob-costlow---oceans",
     ],
+    composerBirthYear: 1973,
   },
   {
     slug: "wagner",
@@ -4213,7 +4271,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Romantic period composer
     country: "Cuba", // Cuban composer
   },
-  { slug: "borrtex", midis: ["flowing---borrtex"] },
+  { slug: "borrtex", midis: ["flowing---borrtex"], composerBirthYear: 1999 },
   {
     slug: "kristofer_maddigan",
     midis: [
@@ -4223,6 +4281,7 @@ export const corpora: CorpusEntry[] = [
       "inkwell-isle-three",
       "snow-cult-scuffle---kristofer-maddigan",
     ],
+    composerBirthYear: 1985,
   },
   {
     slug: "mozart_misc",
@@ -4518,10 +4577,8 @@ export const corpora: CorpusEntry[] = [
       "a-dream-i-had---vicenzo-piano",
       "interstellar---vicenzo-piano",
     ],
-    composerBirthYear: undefined, // Information about Vicenzo Piano's birth year is unclear
     genre: "New Age", // New Age piano compositions
-    style: "Instrumental, Classical Crossover", // Instrumental with elements of classical crossover
-    country: undefined, // Country of origin unclear
+    style: "Instrumental, Classical Crossover, Generative", // Instrumental with elements of classical crossover
   },
   {
     slug: "todd_owen",
@@ -4532,7 +4589,7 @@ export const corpora: CorpusEntry[] = [
       "when-i-am-dust-in-arcadia",
       "sincerest-betrayal",
     ],
-    composerBirthYear: undefined, // Not enough information available
+    composerBirthYear: 1970, // Information about Vicenzo Piano's birth year is unclear
     genre: "Indie, Classical", // Indie-classical style music
     style: "Minimalism", // Minimalism piano compositions
     country: undefined, // Country not specified
@@ -5293,6 +5350,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "yoshinao_nakada",
     midis: ["the-song-of-twilight---yoshinao-nakada"],
+    composerBirthYear: 1923,
   },
   {
     slug: "jeremy_soule",
@@ -6329,6 +6387,7 @@ export const corpora: CorpusEntry[] = [
       "la-dispute---yann-tiersen",
       "l-autre-valse-d-amelie---yann-tiersen-l-autre-valse-d-amelie",
     ],
+    composerBirthYear: 1970,
   },
   {
     slug: "michael_giacchino",
@@ -6876,10 +6935,12 @@ export const corpora: CorpusEntry[] = [
       "brahms---waltz-op.39-no.3",
       "waltz-in-d-minor-op.39-no.9---johannes-brahms",
     ],
+    composerBirthYear: 1833,
   },
   {
     slug: "justin_hurwitz",
     midis: ["gold-coast-rhythm-jack-s-party---justin-hurwitz"],
+    composerBirthYear: 1985,
   },
   {
     slug: "hikaru_shirosu",
@@ -6899,10 +6960,12 @@ export const corpora: CorpusEntry[] = [
       "it-s-foggy-today---evgeny-grinko---by-fatih-erol",
       "melting---evgeny-grinko",
       "wind-brought---evgeny-grinko",
+      "prologue---evgeny-grinko",
 
       "jane-maryam---evgeny-grinko", // Iranian song
       "lullaby-for-erik---evgeny-grinko",
     ],
+    composerBirthYear: 1984,
   },
   {
     slug: "amachas_music_studio",

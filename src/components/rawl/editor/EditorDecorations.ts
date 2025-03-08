@@ -13,6 +13,7 @@ import {
   CommandContext,
   getScaleMapForMode,
   KeySignature,
+  normalizeModeName,
   NOTE_LETTER_MAP,
 } from "./types";
 
@@ -294,7 +295,7 @@ export const getBackgroundsForLine = (
   return baseDecorations;
 };
 
-// Helper function to process key signature styling
+// Main function to process key signature styling
 const processKeySignature = (line: string, currentKey: KeySignature) => {
   const [_, root, modeStr] = line.match(
     /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian|harmonic\s+minor|melodic\s+minor)$/i,
@@ -302,38 +303,8 @@ const processKeySignature = (line: string, currentKey: KeySignature) => {
 
   const modeStartIndex = line.toLowerCase().indexOf(modeStr.toLowerCase());
 
-  // Convert mode string to the format used internally
-  let mode: KeySignature["mode"];
-  const normalizedMode = modeStr.toLowerCase().replace(/\s+/g, "_");
-
-  switch (normalizedMode) {
-    case "major":
-      mode = "major";
-      break;
-    case "minor":
-      mode = "minor";
-      break;
-    case "lydian":
-      mode = "lydian";
-      break;
-    case "mixolydian":
-      mode = "mixolydian";
-      break;
-    case "dorian":
-      mode = "dorian";
-      break;
-    case "phrygian":
-      mode = "phrygian";
-      break;
-    case "harmonic_minor":
-      mode = "harmonic_minor";
-      break;
-    case "melodic_minor":
-      mode = "melodic_minor";
-      break;
-    default:
-      mode = "major"; // Default to major if unrecognized
-  }
+  // Convert mode string to the format used internally using our utility
+  const mode = normalizeModeName(modeStr);
 
   const scaleMap = getScaleMapForMode(mode);
   const UNSTABLE_PITCHES = [1, 2, 3, 5, 6];
@@ -605,38 +576,8 @@ const processNoteColors = (
         B: 11,
       };
 
-      // Convert mode string to the format used internally
-      let mode: KeySignature["mode"];
-      const normalizedMode = modeStr.toLowerCase().replace(/\s+/g, "_");
-
-      switch (normalizedMode) {
-        case "major":
-          mode = "major";
-          break;
-        case "minor":
-          mode = "minor";
-          break;
-        case "lydian":
-          mode = "lydian";
-          break;
-        case "mixolydian":
-          mode = "mixolydian";
-          break;
-        case "dorian":
-          mode = "dorian";
-          break;
-        case "phrygian":
-          mode = "phrygian";
-          break;
-        case "harmonic_minor":
-          mode = "harmonic_minor";
-          break;
-        case "melodic_minor":
-          mode = "melodic_minor";
-          break;
-        default:
-          mode = "major"; // Default to major if unrecognized
-      }
+      // Use our utility function to normalize the mode name
+      const mode = normalizeModeName(modeStr);
 
       currentKey = {
         tonic: noteToNumber[root],
@@ -744,7 +685,7 @@ export const characterBackgroundsPlugin = ViewPlugin.fromClass(
                 /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian|harmonic\s+minor|melodic\s+minor)$/i,
               );
               if (keyMatch) {
-                const [_, root, mode] = keyMatch;
+                const [_, root, modeStr] = keyMatch;
                 const noteToNumber: { [key: string]: number } = {
                   C: 0,
                   "C#": 1,
@@ -766,7 +707,7 @@ export const characterBackgroundsPlugin = ViewPlugin.fromClass(
                 };
                 currentKey = {
                   tonic: noteToNumber[root],
-                  mode: mode.toLowerCase() as KeySignature["mode"],
+                  mode: normalizeModeName(modeStr),
                 };
               }
 

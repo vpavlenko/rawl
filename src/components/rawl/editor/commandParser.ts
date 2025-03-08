@@ -8,6 +8,10 @@ import {
   KeySignature,
   LogicalNote,
   MeasureSpan,
+  MODE_SHORTHAND_MAP,
+  ModeName,
+  ModeShorthand,
+  normalizeModeName,
   NOTE_LETTER_MAP,
   TimeSignature,
 } from "./types";
@@ -26,15 +30,13 @@ export interface TrackCommand {
 }
 
 export const parseKey = (keyString: string): KeySignature | null => {
-  // Changed regex to make accidentals optional and include new modes
+  // Match key signature pattern e.g. "C major", "Ab minor", or "F# phrygian"
   const match = keyString.match(
-    /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian)$/i,
+    /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian|harmonic\s+minor|melodic\s+minor)$/i,
   );
   if (!match) return null;
 
-  const [_, root, mode] = match;
-
-  // Map note names to numbers (0 = C, 1 = C#/Db, etc.)
+  const [_, rootNote, modeString] = match;
   const noteToNumber: { [key: string]: number } = {
     C: 0,
     "C#": 1,
@@ -55,14 +57,13 @@ export const parseKey = (keyString: string): KeySignature | null => {
     B: 11,
   };
 
-  const tonic = noteToNumber[root];
+  // Get the tonic number from the root note
+  const tonic = noteToNumber[rootNote];
 
-  if (tonic === undefined) return null;
+  // Get the mode
+  const mode = normalizeModeName(modeString);
 
-  return {
-    tonic,
-    mode: mode.toLowerCase() as KeySignature["mode"],
-  };
+  return { tonic, mode };
 };
 
 export const parseCopyCommand = (
@@ -144,7 +145,7 @@ export const parseCopyCommand = (
     .trim()
     .split(/\s+/)
     .filter(Boolean)
-    .map((token): { shift: number | "x"; mode?: string }[] => {
+    .map((token): { shift: number | "x"; mode?: ModeName }[] => {
       if (token === "x") return [{ shift: "x" }];
 
       // If token contains &, it represents layered shifts at the same position
@@ -157,22 +158,9 @@ export const parseCopyCommand = (
           const [_, shiftValue, modeModifier] = match;
           const shift = Number(shiftValue);
 
-          let mode: string | undefined;
+          let mode: ModeName | undefined;
           if (modeModifier) {
-            switch (modeModifier) {
-              case "h":
-                mode = "harmonic_minor";
-                break;
-              case "e":
-                mode = "melodic_minor";
-                break;
-              case "M":
-                mode = "major";
-                break;
-              case "m":
-                mode = "minor";
-                break;
-            }
+            mode = MODE_SHORTHAND_MAP[modeModifier as ModeShorthand];
           }
 
           return { shift, mode };
@@ -186,22 +174,9 @@ export const parseCopyCommand = (
       const [_, shiftValue, modeModifier] = match;
       const shift = Number(shiftValue);
 
-      let mode: string | undefined;
+      let mode: ModeName | undefined;
       if (modeModifier) {
-        switch (modeModifier) {
-          case "h":
-            mode = "harmonic_minor";
-            break;
-          case "e":
-            mode = "melodic_minor";
-            break;
-          case "M":
-            mode = "major";
-            break;
-          case "m":
-            mode = "minor";
-            break;
-        }
+        mode = MODE_SHORTHAND_MAP[modeModifier as ModeShorthand];
       }
 
       return [{ shift, mode }];
@@ -811,7 +786,7 @@ export const calculateShiftedNote = (
   accidental: number = 0,
   track: number,
   context: CommandContext,
-  targetMode?: string,
+  targetMode?: ModeName,
 ): { newDegree: number; newMidi: number } => {
   const newDegree = originalDegree + shift;
 
@@ -829,7 +804,7 @@ export const calculateShiftedNote = (
 
   // If a target mode is specified, use it instead of the original key's mode
   if (targetMode) {
-    effectiveKey.mode = targetMode as any; // Use type assertion to handle any mode
+    effectiveKey.mode = targetMode;
   }
 
   // Get the scale map based on mode

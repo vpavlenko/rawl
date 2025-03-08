@@ -8,18 +8,76 @@ export const PHRYGIAN_SCALE_MAP = [0, 1, 3, 5, 7, 8, 10]; // Minor with b2
 export const HARMONIC_MINOR_SCALE_MAP = [0, 2, 3, 5, 7, 8, 11]; // Harmonic minor
 export const MELODIC_MINOR_SCALE_MAP = [0, 2, 3, 5, 7, 9, 11]; // Melodic minor (ascending)
 
+// Define a type for all supported mode names (internal representation)
+export type ModeName =
+  | "major"
+  | "minor"
+  | "lydian"
+  | "mixolydian"
+  | "dorian"
+  | "phrygian"
+  | "harmonic_minor"
+  | "melodic_minor";
+
+// Define short mode identifiers used in copy commands
+export type ModeShorthand = "M" | "m" | "h" | "e";
+
+// Map from shorthand to full mode name
+export const MODE_SHORTHAND_MAP: Record<ModeShorthand, ModeName> = {
+  M: "major",
+  m: "minor",
+  h: "harmonic_minor",
+  e: "melodic_minor",
+};
+
+// Map from display string to internal mode name
+export const MODE_DISPLAY_MAP: Record<string, ModeName> = {
+  major: "major",
+  minor: "minor",
+  lydian: "lydian",
+  mixolydian: "mixolydian",
+  dorian: "dorian",
+  phrygian: "phrygian",
+  "harmonic minor": "harmonic_minor",
+  "melodic minor": "melodic_minor",
+};
+
+// Utility to normalize mode string (with spaces) to internal representation (with underscores)
+export function normalizeModeName(modeStr: string): ModeName {
+  const normalizedStr = modeStr.toLowerCase().trim();
+
+  // Check if it's already in our map
+  if (normalizedStr in MODE_DISPLAY_MAP) {
+    return MODE_DISPLAY_MAP[normalizedStr];
+  }
+
+  // If not, try replacing spaces with underscores
+  const withUnderscores = normalizedStr.replace(/\s+/g, "_");
+  if (isValidModeName(withUnderscores)) {
+    return withUnderscores as ModeName;
+  }
+
+  // Default to major if unrecognized
+  console.warn(`Unrecognized mode: ${modeStr}, defaulting to major`);
+  return "major";
+}
+
+// Type guard to check if a string is a valid ModeName
+export function isValidModeName(mode: string): mode is ModeName {
+  return [
+    "major",
+    "minor",
+    "lydian",
+    "mixolydian",
+    "dorian",
+    "phrygian",
+    "harmonic_minor",
+    "melodic_minor",
+  ].includes(mode);
+}
+
 // Utility function to get scale map for a mode
-export function getScaleMapForMode(
-  mode:
-    | "major"
-    | "minor"
-    | "lydian"
-    | "mixolydian"
-    | "dorian"
-    | "phrygian"
-    | "harmonic_minor"
-    | "melodic_minor",
-): number[] {
+export function getScaleMapForMode(mode: ModeName): number[] {
   switch (mode) {
     case "major":
       return MAJOR_SCALE_MAP;
@@ -86,15 +144,7 @@ export type TimeSignature = {
 
 export type KeySignature = {
   tonic: number; // 0 = C, 1 = C#/Db, etc.
-  mode:
-    | "major"
-    | "minor"
-    | "lydian"
-    | "mixolydian"
-    | "dorian"
-    | "phrygian"
-    | "harmonic_minor"
-    | "melodic_minor";
+  mode: ModeName;
 };
 
 export type BeatPosition = number; // Integer part is beat number, fraction is position within beat

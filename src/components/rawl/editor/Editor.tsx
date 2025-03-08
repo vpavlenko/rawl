@@ -39,7 +39,7 @@ import {
 } from "./EditorStyles";
 import Manual from "./Manual";
 import { scores } from "./scores";
-import { Command, CommandContext, LogicalNote } from "./types";
+import { Command, CommandContext, LogicalNote, ModeName } from "./types";
 
 // Define a simple language for the editor that supports % comments
 const rawlLanguage = StreamLanguage.define({
@@ -939,7 +939,7 @@ function executeCopyForChannels(
               n.accidental || 0,
               track,
               context,
-              targetMode,
+              targetMode as ModeName,
             );
 
             return {

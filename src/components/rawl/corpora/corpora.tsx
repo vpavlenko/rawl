@@ -4150,8 +4150,8 @@ export const corpora: CorpusEntry[] = [
     midis: [
       // natural minor
       "distractions---fabrizio-paterlini",
-      "waltz---fabrizio-paterlini",
       "fire---fabrizio-paterlini",
+      "waltz---fabrizio-paterlini",
       "empty-room---fabrizio-paterlini",
       "rue-des-trois-freres---fabrizio-paterlini",
       "fabrizio-paterlini---midsummer-tiny-song",
@@ -4173,11 +4173,12 @@ export const corpora: CorpusEntry[] = [
 
       // minor V
       "lost-song---fabrizio-paterlini",
-      "all-my-joy-all-my-pain---fabrizio-paterlini",
+      "my-piano-the-clouds---paterlini",
       "fabrizio-paterlini---my-misty-mornings",
+      "all-my-joy-all-my-pain---fabrizio-paterlini",
       "if-only-i-could-tell---fabrizio-paterlini",
       "week-10---fabrizio-paterlini",
-      "my-piano-the-clouds---paterlini",
+
       "primi-passi---fabrizio-paterlin",
       "silent-eyes---fabrizio-paterlini", // V/V
 

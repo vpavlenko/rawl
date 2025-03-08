@@ -892,7 +892,7 @@ function executeCopyForChannels(
       continue;
     }
 
-    const allCopies = command.shifts
+    const allCopies: LogicalNote[] = command.shifts
       .map((shiftGroup, idx) => {
         const copyStartBeat = targetStartAbsBeat + idx * spanLengthInBeats;
 
@@ -907,12 +907,15 @@ function executeCopyForChannels(
                 end: copyStartBeat + spanLengthInBeats,
               },
               midiNumber: null,
-            },
+            } as LogicalNote,
           ];
         }
 
         // For each shift in the group, create a copy of all source notes with that shift
-        return shiftGroup.shifts.flatMap((shift) => {
+        return shiftGroup.shifts.flatMap((shift, shiftIndex) => {
+          // Get the mode modifier for this shift, if any
+          const targetMode = shiftGroup.modes?.[shiftIndex];
+
           return sourceNotes.map((n) => {
             // Calculate relative position from the start of the source
             const relativePosition = n.span.start - sourceStartAbsBeat;
@@ -936,6 +939,7 @@ function executeCopyForChannels(
               n.accidental || 0,
               track,
               context,
+              targetMode,
             );
 
             return {

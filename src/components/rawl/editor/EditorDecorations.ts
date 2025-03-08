@@ -193,7 +193,7 @@ export const getBackgroundsForLine = (
   // Process key signature and note colors first
   if (
     line.match(
-      /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian)$/i,
+      /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian|harmonic\s+minor|melodic\s+minor)$/i,
     )
   ) {
     baseDecorations = processKeySignature(line, currentKey);
@@ -296,17 +296,50 @@ export const getBackgroundsForLine = (
 
 // Helper function to process key signature styling
 const processKeySignature = (line: string, currentKey: KeySignature) => {
-  const [_, root, mode] = line.match(
-    /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian)$/i,
+  const [_, root, modeStr] = line.match(
+    /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian|harmonic\s+minor|melodic\s+minor)$/i,
   )!;
-  const modeStartIndex = line.toLowerCase().indexOf(mode.toLowerCase());
-  const scaleMap = getScaleMapForMode(
-    mode.toLowerCase() as KeySignature["mode"],
-  );
+
+  const modeStartIndex = line.toLowerCase().indexOf(modeStr.toLowerCase());
+
+  // Convert mode string to the format used internally
+  let mode: KeySignature["mode"];
+  const normalizedMode = modeStr.toLowerCase().replace(/\s+/g, "_");
+
+  switch (normalizedMode) {
+    case "major":
+      mode = "major";
+      break;
+    case "minor":
+      mode = "minor";
+      break;
+    case "lydian":
+      mode = "lydian";
+      break;
+    case "mixolydian":
+      mode = "mixolydian";
+      break;
+    case "dorian":
+      mode = "dorian";
+      break;
+    case "phrygian":
+      mode = "phrygian";
+      break;
+    case "harmonic_minor":
+      mode = "harmonic_minor";
+      break;
+    case "melodic_minor":
+      mode = "melodic_minor";
+      break;
+    default:
+      mode = "major"; // Default to major if unrecognized
+  }
+
+  const scaleMap = getScaleMapForMode(mode);
   const UNSTABLE_PITCHES = [1, 2, 3, 5, 6];
 
   return Array.from(line).map((char, index) => {
-    if (index >= modeStartIndex && index < modeStartIndex + mode.length) {
+    if (index >= modeStartIndex && index < modeStartIndex + modeStr.length) {
       const letterIndex = index - modeStartIndex;
       const unstablePitch = UNSTABLE_PITCHES[letterIndex];
       const colorIndex = scaleMap[unstablePitch];
@@ -548,10 +581,10 @@ const processNoteColors = (
   for (let i = 0; i < lineIndex; i++) {
     const prevLine = allLines[i].trim();
     const keyMatch = prevLine.match(
-      /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian)$/i,
+      /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian|harmonic\s+minor|melodic\s+minor)$/i,
     );
     if (keyMatch) {
-      const [_, root, mode] = keyMatch;
+      const [_, root, modeStr] = keyMatch;
       const noteToNumber: { [key: string]: number } = {
         C: 0,
         "C#": 1,
@@ -571,9 +604,43 @@ const processNoteColors = (
         Bb: 10,
         B: 11,
       };
+
+      // Convert mode string to the format used internally
+      let mode: KeySignature["mode"];
+      const normalizedMode = modeStr.toLowerCase().replace(/\s+/g, "_");
+
+      switch (normalizedMode) {
+        case "major":
+          mode = "major";
+          break;
+        case "minor":
+          mode = "minor";
+          break;
+        case "lydian":
+          mode = "lydian";
+          break;
+        case "mixolydian":
+          mode = "mixolydian";
+          break;
+        case "dorian":
+          mode = "dorian";
+          break;
+        case "phrygian":
+          mode = "phrygian";
+          break;
+        case "harmonic_minor":
+          mode = "harmonic_minor";
+          break;
+        case "melodic_minor":
+          mode = "melodic_minor";
+          break;
+        default:
+          mode = "major"; // Default to major if unrecognized
+      }
+
       currentKey = {
         tonic: noteToNumber[root],
-        mode: mode.toLowerCase() as KeySignature["mode"],
+        mode: mode,
       };
     }
   }
@@ -674,7 +741,7 @@ export const characterBackgroundsPlugin = ViewPlugin.fromClass(
 
               // Update current key if this is a key signature line
               const keyMatch = line.text.match(
-                /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian)$/i,
+                /^([A-G][b#]?)\s+(major|minor|lydian|mixolydian|dorian|phrygian|harmonic\s+minor|melodic\s+minor)$/i,
               );
               if (keyMatch) {
                 const [_, root, mode] = keyMatch;

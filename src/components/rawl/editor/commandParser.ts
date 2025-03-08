@@ -78,8 +78,10 @@ export const parseCopyCommand = (
   // "2 c 1 0 x 0" - with rest marker 'x' to skip a copy
   // "2 c 1 -3 -2 -5 -4 -7 -4 -3" - with negative shifts for Pachelbel's progression
   // "2 c 1 2&5" - with & syntax to layer multiple shifts at same position
+  // "2 c 1 2h" - with modifier 'h' for harmonic minor
+  // "2 c 1 2h 3e 4M 5m" - with multiple modifiers for different modes
   const match = line.match(
-    /^(\d+)(?:b(\d+(?:\.\d+)?))?\s+(?:c|ac)\s+(\d+)(?:b(\d+(?:\.\d+)?))?(?:-(\d+)(?:b(\d+(?:\.\d+)?))?)?\s*((?:x|[+-]?\d+(?:&[+-]?\d+)*(?:\s+(?:x|[+-]?\d+(?:&[+-]?\d+)*))*)*)$/,
+    /^(\d+)(?:b(\d+(?:\.\d+)?))?\s+(?:c|ac)\s+(\d+)(?:b(\d+(?:\.\d+)?))?(?:-(\d+)(?:b(\d+(?:\.\d+)?))?)?\s*((?:x|[+-]?\d+(?:[heMm])?(?:&[+-]?\d+(?:[heMm])?)*(?:\s+(?:x|[+-]?\d+(?:[heMm])?(?:&[+-]?\d+(?:[heMm])?)*))*)*)$/,
   );
   if (!match) return null;
 
@@ -136,18 +138,73 @@ export const parseCopyCommand = (
   }
 
   // Extract all shifts by matching numbers or 'x', supporting & syntax for layered shifts
+  // and mode modifiers (h, e, M, m)
   // If no shifts provided, default to ["0"]
   const shifts = (shiftsStr || "0")
     .trim()
     .split(/\s+/)
     .filter(Boolean)
-    .map((token): (number | "x")[] => {
-      if (token === "x") return ["x"];
+    .map((token): { shift: number | "x"; mode?: string }[] => {
+      if (token === "x") return [{ shift: "x" }];
+
       // If token contains &, it represents layered shifts at the same position
       if (token.includes("&")) {
-        return token.split("&").map(Number);
+        return token.split("&").map((shiftToken) => {
+          // Parse shift and mode modifier
+          const match = shiftToken.match(/^([+-]?\d+)([heMm])?$/);
+          if (!match) return { shift: Number(shiftToken) };
+
+          const [_, shiftValue, modeModifier] = match;
+          const shift = Number(shiftValue);
+
+          let mode: string | undefined;
+          if (modeModifier) {
+            switch (modeModifier) {
+              case "h":
+                mode = "harmonic_minor";
+                break;
+              case "e":
+                mode = "melodic_minor";
+                break;
+              case "M":
+                mode = "major";
+                break;
+              case "m":
+                mode = "minor";
+                break;
+            }
+          }
+
+          return { shift, mode };
+        });
       }
-      return [Number(token)];
+
+      // Parse single shift with possible mode modifier
+      const match = token.match(/^([+-]?\d+)([heMm])?$/);
+      if (!match) return [{ shift: Number(token) }];
+
+      const [_, shiftValue, modeModifier] = match;
+      const shift = Number(shiftValue);
+
+      let mode: string | undefined;
+      if (modeModifier) {
+        switch (modeModifier) {
+          case "h":
+            mode = "harmonic_minor";
+            break;
+          case "e":
+            mode = "melodic_minor";
+            break;
+          case "M":
+            mode = "major";
+            break;
+          case "m":
+            mode = "minor";
+            break;
+        }
+      }
+
+      return [{ shift, mode }];
     });
 
   // Determine if this is a regular copy or an all-channels copy
@@ -161,7 +218,11 @@ export const parseCopyCommand = (
     sourceStartBeat,
     sourceEnd,
     sourceEndBeat,
-    shifts: shifts.map((shiftGroup) => ({ type: "group", shifts: shiftGroup })),
+    shifts: shifts.map((shiftGroup) => ({
+      type: "group",
+      shifts: shiftGroup.map((s) => s.shift),
+      modes: shiftGroup.map((s) => s.mode),
+    })),
   };
 };
 
@@ -750,6 +811,7 @@ export const calculateShiftedNote = (
   accidental: number = 0,
   track: number,
   context: CommandContext,
+  targetMode?: string,
 ): { newDegree: number; newMidi: number } => {
   const newDegree = originalDegree + shift;
 
@@ -762,15 +824,26 @@ export const calculateShiftedNote = (
   const baseDegree = properModulo(newDegree, 7);
   const octave = Math.floor(newDegree / 7);
 
+  // Create a copy of the key to avoid modifying the original
+  const effectiveKey = { ...key };
+
+  // If a target mode is specified, use it instead of the original key's mode
+  if (targetMode) {
+    effectiveKey.mode = targetMode as any; // Use type assertion to handle any mode
+  }
+
   // Get the scale map based on mode
-  const scaleMap = getScaleMapForMode(key.mode);
+  const scaleMap = getScaleMapForMode(effectiveKey.mode);
 
   // Use the appropriate base octave from context
   const baseOctave = getBaseOctaveForTrack(track, context);
 
   // Include baseOctave in calculation
   const newMidi =
-    key.tonic + scaleMap[baseDegree] + (baseOctave + octave) * 12 + accidental;
+    effectiveKey.tonic +
+    scaleMap[baseDegree] +
+    (baseOctave + octave) * 12 +
+    accidental;
 
   return { newDegree, newMidi };
 };

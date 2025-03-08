@@ -1321,6 +1321,15 @@ const Manual: React.FC<ManualProps> = ({
                   down 4 scale degrees", x means "rest for the duration of
                   slice", 7 means "shift up 7 scale degrees, i.e. one octave"
                 </span>
+                <code>2&nbsp;&nbsp;&nbsp;c 1&nbsp;&nbsp;&nbsp;0 4h 4e</code>
+                <span>
+                  Mode modifiers (after shift numbers): {mt("h")} = harmonic
+                  minor,
+                  {mt("e")} = melodic minor,
+                  {mt("M")} = major,
+                  {mt("m")} = natural minor. These change the mode while
+                  preserving the tonic.
+                </span>
                 <code>2b2 c 1b2-1b4</code>
                 <span>
                   Copy two beats (measure 1 beats 2 to 3), no target defaults to
@@ -1343,11 +1352,13 @@ const Manual: React.FC<ManualProps> = ({
                   Key signature. Modes:
                   <ul>
                     <li>{decorateScale("lydian")}</li>
-                    <li>{decorateScale("major")}</li>
+                    <li>{decorateScale("major")} (M)</li>
                     <li>{decorateScale("mixolydian")}</li>
                     <li>{decorateScale("dorian")}</li>
-                    <li>{decorateScale("minor")}</li>
+                    <li>{decorateScale("minor")} (m)</li>
                     <li>{decorateScale("phrygian")}</li>
+                    <li>{decorateScale("harmonic_minor")} (h)</li>
+                    <li>{decorateScale("melodic_minor")} (e)</li>
                   </ul>
                 </span>
                 <code>3/4</code> <span>Time signature</span>

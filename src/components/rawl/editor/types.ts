@@ -5,10 +5,20 @@ export const LYDIAN_SCALE_MAP = [0, 2, 4, 6, 7, 9, 11]; // Major with #4
 export const MIXOLYDIAN_SCALE_MAP = [0, 2, 4, 5, 7, 9, 10]; // Major with b7
 export const DORIAN_SCALE_MAP = [0, 2, 3, 5, 7, 9, 10]; // Minor with natural 6
 export const PHRYGIAN_SCALE_MAP = [0, 1, 3, 5, 7, 8, 10]; // Minor with b2
+export const HARMONIC_MINOR_SCALE_MAP = [0, 2, 3, 5, 7, 8, 11]; // Harmonic minor
+export const MELODIC_MINOR_SCALE_MAP = [0, 2, 3, 5, 7, 9, 11]; // Melodic minor (ascending)
 
 // Utility function to get scale map for a mode
 export function getScaleMapForMode(
-  mode: "major" | "minor" | "lydian" | "mixolydian" | "dorian" | "phrygian",
+  mode:
+    | "major"
+    | "minor"
+    | "lydian"
+    | "mixolydian"
+    | "dorian"
+    | "phrygian"
+    | "harmonic_minor"
+    | "melodic_minor",
 ): number[] {
   switch (mode) {
     case "major":
@@ -23,6 +33,10 @@ export function getScaleMapForMode(
       return DORIAN_SCALE_MAP;
     case "phrygian":
       return PHRYGIAN_SCALE_MAP;
+    case "harmonic_minor":
+      return HARMONIC_MINOR_SCALE_MAP;
+    case "melodic_minor":
+      return MELODIC_MINOR_SCALE_MAP;
   }
 }
 
@@ -72,7 +86,15 @@ export type TimeSignature = {
 
 export type KeySignature = {
   tonic: number; // 0 = C, 1 = C#/Db, etc.
-  mode: "major" | "minor" | "lydian" | "mixolydian" | "dorian" | "phrygian";
+  mode:
+    | "major"
+    | "minor"
+    | "lydian"
+    | "mixolydian"
+    | "dorian"
+    | "phrygian"
+    | "harmonic_minor"
+    | "melodic_minor";
 };
 
 export type BeatPosition = number; // Integer part is beat number, fraction is position within beat
@@ -101,7 +123,11 @@ export type Command =
       sourceStartBeat: number;
       sourceEnd: number;
       sourceEndBeat: number;
-      shifts: { type: "group"; shifts: (number | "x")[] }[]; // Array of shift groups, each containing one or more shifts to be applied at the same position
+      shifts: {
+        type: "group";
+        shifts: (number | "x")[];
+        modes?: (string | undefined)[]; // Mode modifiers corresponding to shifts
+      }[]; // Array of shift groups, each containing one or more shifts to be applied at the same position
     }
   | {
       type: "ac"; // All channels copy
@@ -111,7 +137,11 @@ export type Command =
       sourceStartBeat: number;
       sourceEnd: number;
       sourceEndBeat: number;
-      shifts: { type: "group"; shifts: (number | "x")[] }[]; // Array of shift groups, each containing one or more shifts to be applied at the same position
+      shifts: {
+        type: "group";
+        shifts: (number | "x")[];
+        modes?: (string | undefined)[]; // Mode modifiers corresponding to shifts
+      }[]; // Array of shift groups, each containing one or more shifts to be applied at the same position
     }
   | { type: "track"; track: number; baseOctave?: number }
   | { type: "time"; signatures: TimeSignature[] }

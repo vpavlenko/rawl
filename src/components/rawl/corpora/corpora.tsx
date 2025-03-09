@@ -4188,7 +4188,7 @@ export const corpora: CorpusEntry[] = [
       "lost-song---fabrizio-paterlini",
       "my-piano-the-clouds---paterlini",
       "fabrizio-paterlini---my-misty-mornings",
-      "all-my-joy-all-my-pain---fabrizio-paterlini",
+      // "all-my-joy-all-my-pain---fabrizio-paterlini",
       "all-my-joy-all-my-pain---fabrizio-paterlini-5f8e06",
       "week-10---fabrizio-paterlini",
 

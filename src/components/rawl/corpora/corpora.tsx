@@ -1744,6 +1744,8 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "si-dou-noguo-teni-struggle-to-the-death---saga-2-mi-bao-chuan-shuo-final-fantasy-legend-ii-gb---kenji-ito",
       "opuningutaitoru-title-screen-romansingu-saga2-romancing-saga2-snes---kenji-ito",
+      "podorui-podorui---romansingu-saga3-romancing-saga-3-sfc-snes---kenji-ito",
+      "batoru2-battle-2---romansingu-saga-romancing-saga-sfc-snes---kenji-ito",
     ],
     composerBirthYear: 1968,
     country: "Japan",

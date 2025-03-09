@@ -374,7 +374,16 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "greg_joy",
-    midis: ["greg-joy---wind-dance-of-the-fairies"],
+    midis: [
+      "greg-joy---wind-dance-of-the-fairies",
+      "greg-joy---breton-dance---douce-dame-jolie",
+      "greg-joy---lovely-joan---the-spirit-flies-free",
+      "greg-joy---sovay",
+      "greg-joy---ancient-sojourn",
+      "greg-joy---the-trees-they-do-grow",
+      "greg-joy---all-things-are-quite-silent",
+      "greg-joy---unquiet-grave",
+    ],
     style: "Guitar",
     composerBirthYear: 1954,
   },
@@ -6630,7 +6639,17 @@ export const corpora: CorpusEntry[] = [
       "national-park---pokemon-gold-silver-junichi-masuda-go-inchinose-transcribed-by-onakaru",
     ],
   },
-  { slug: "brian_crain", midis: ["song-for-sienna"] },
+  {
+    slug: "brian_crain",
+    midis: [
+      "song-for-sienna",
+      "butterfly-waltz---brian-crain",
+      "at-the-ivy-gate---brian-crain",
+      "dream-of-flying---brian-crain",
+      "wind---brian-crain-piano-and-violin-duet-please-see-videoscore",
+      "dream-of-dreams---brian-crain",
+    ],
+  },
   {
     slug: "dan_salvato",
     midis: [

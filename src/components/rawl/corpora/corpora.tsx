@@ -3933,6 +3933,7 @@ export const corpora: CorpusEntry[] = [
       "mipha-s-theme---breath-of-the-wild-piano-solo",
       "attack-on-vah-naboris---manaka-kataoka",
       "monk-maz-koshia---the-legend-of-zelda-breath-of-the-wild-",
+      "prince-sidon-the-legend-of-zelda-breath-of-the-wild",
     ],
     composerBirthYear: 1985,
     genre: "Video Game Music",
@@ -4024,6 +4025,7 @@ export const corpora: CorpusEntry[] = [
       "amor-sacro---giovanni-allevi",
     ],
   },
+  { slug: "ilmari_hakkola", midis: ["bad-piggies-theme"] },
   {
     slug: "gibran_alcocer",
     midis: [
@@ -4185,10 +4187,11 @@ export const corpora: CorpusEntry[] = [
       "my-piano-the-clouds---paterlini",
       "fabrizio-paterlini---my-misty-mornings",
       "all-my-joy-all-my-pain---fabrizio-paterlini",
-      "if-only-i-could-tell---fabrizio-paterlini",
+      "all-my-joy-all-my-pain---fabrizio-paterlini-5f8e06",
       "week-10---fabrizio-paterlini",
 
       "primi-passi---fabrizio-paterlin",
+      "if-only-i-could-tell---fabrizio-paterlini",
       "silent-eyes---fabrizio-paterlini", // V/V
 
       // major
@@ -5026,6 +5029,7 @@ export const corpora: CorpusEntry[] = [
       "joe-hisaishi---hana-bi",
       "the-name-of-life-inochi-no-namae-joe-hisaishi",
       "itsumo-nando-demo-always-with-me---spirited-away",
+      "howl-s-moving-castle---promise-of-the-world",
     ],
     composerBirthYear: 1950, // Joe Hisaishi's birth year
     genre: "Film, Anime", // Known for composing music for films and anime

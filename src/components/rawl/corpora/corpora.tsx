@@ -1740,12 +1740,39 @@ export const corpora: CorpusEntry[] = [
     country: "USA",
   },
   {
+    slug: "he_is_a_pirate_arrangements",
+    midis: [
+      "Pirates_of_the_Caribbean_-_Hes_a_Pirate", // Klaus Badelt
+      "he_s_a_pirate_easy_piano",
+      "he_s_a_pirate_from_pirates_of_the_caribbean",
+      "he_s_a_pirate_hans_zimmer_klaus_badelt",
+      "he_s_a_pirate_hard_version",
+      "he_s_a_pirate_klaus_badelt_pirates_of_the_caribbean_ost_rock_version",
+      "he_s_a_pirate_ost_kalimba_cover",
+      "pirate_melody_16measures_chromatic",
+      "pirate_melody_16measures_scales",
+      "pirate_melody_16measures_transpositions",
+      "pirate_melody_16measures_whole_tone",
+      "pirates_5ch",
+      "pirates_of_the_caribbean_easy_piano",
+      "pirates_of_the_caribbean_easy_piano_capa",
+      "pirates_of_the_caribbean_for_alto_saxophone",
+      "pirates_of_the_caribbean_hans_zimmer_virtuosic_piano_solo_movement_3",
+      "pirates_of_the_caribbean_he_s_a_pirate_hard_version",
+      "pirates_of_the_caribbean_main_theme",
+      "pirates_of_the_carribean_beginner",
+      "pirati_dei_caraibi_per_trio_di_flauti_pirates_of_the_carribean_for_flute_trio",
+    ],
+  },
+  {
     slug: "kenji_ito",
     midis: [
       "si-dou-noguo-teni-struggle-to-the-death---saga-2-mi-bao-chuan-shuo-final-fantasy-legend-ii-gb---kenji-ito",
       "opuningutaitoru-title-screen-romansingu-saga2-romancing-saga2-snes---kenji-ito",
       "podorui-podorui---romansingu-saga3-romancing-saga-3-sfc-snes---kenji-ito",
       "batoru2-battle-2---romansingu-saga-romancing-saga-sfc-snes---kenji-ito",
+      "never-give-up---saga-2-mi-bao-chuan-shuo-final-fantasy-legend-ii-gb---kenji-ito",
+      "battle-1---saga-frontier-ps1---kenji-ito",
     ],
     composerBirthYear: 1968,
     country: "Japan",
@@ -3296,6 +3323,7 @@ export const corpora: CorpusEntry[] = [
       "indiana-back-home-again-in-indiana-lead-sheet-with-lyrics-alternate",
       "o-barquinho-little-boat---roberto-menescal",
       "o-barquinho-little-boat---roberto-menescal-20ac8f",
+      "strangers-in-the-night-bert-kaempfert",
     ],
     genre: "Jazz",
     // This is a collection of jazz standards, no specific composer can be assigned.
@@ -4686,6 +4714,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Romantic period composer, known for his piano works
     country: "Poland", // Polish composer (spent much of his life in France)
   },
+  { slug: "dawid_bowie", midis: ["space-oddity---david-bowie"] },
   {
     slug: "grieg",
     midis: [
@@ -7923,12 +7952,6 @@ export const corpora: CorpusEntry[] = [
       "hanna-montana---poshlaya-molli-hannamontana---poshlaya-molli",
       "hannamontana---poshlaya-molli-agga",
 
-      // "he_s_a_pirate_easy_piano",
-      // "he_s_a_pirate_from_pirates_of_the_caribbean",
-      // "he_s_a_pirate_hans_zimmer_klaus_badelt",
-      // "he_s_a_pirate_hard_version",
-      // "he_s_a_pirate_klaus_badelt_pirates_of_the_caribbean_ost_rock_version",
-      // "he_s_a_pirate_ost_kalimba_cover",
       "hojnacki_1",
 
       "idotdotdot---yiruma",
@@ -7955,19 +7978,6 @@ export const corpora: CorpusEntry[] = [
       "opa-cupa",
 
       "piano_tutorial",
-      // "pirate_melody_16measures_chromatic",
-      // "pirate_melody_16measures_scales",
-      // "pirate_melody_16measures_transpositions",
-      // "pirate_melody_16measures_whole_tone",
-      // "pirates_5ch",
-      // "pirates_of_the_caribbean_easy_piano",
-      // "pirates_of_the_caribbean_easy_piano_capa",
-      // "pirates_of_the_caribbean_for_alto_saxophone",
-      // "pirates_of_the_caribbean_hans_zimmer_virtuosic_piano_solo_movement_3",
-      // "pirates_of_the_caribbean_he_s_a_pirate_hard_version",
-      // "pirates_of_the_caribbean_main_theme",
-      // "pirates_of_the_carribean_beginner",
-      // "pirati_dei_caraibi_per_trio_di_flauti_pirates_of_the_carribean_for_flute_trio",
       "pizzicati-from-sylvia-act-iii-no.-20---leo-delibes---1876",
       "pornofilmy-prosti_proshyay_privet",
       "pornofilmy-prosti_proshyay_privet.1",

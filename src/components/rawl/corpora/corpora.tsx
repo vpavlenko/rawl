@@ -3375,7 +3375,10 @@ export const corpora: CorpusEntry[] = [
     style: "Contemporary",
     country: "Latvia",
   },
-  { slug: "jaco_pastorius", midis: ["donna-lee---jaco-pastorius"] },
+  {
+    slug: "jaco_pastorius",
+    midis: ["donna-lee---jaco-pastorius", "the-chicken"],
+  },
   {
     slug: "frank_wildhorn",
     midis: [

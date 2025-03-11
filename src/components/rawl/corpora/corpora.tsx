@@ -5684,6 +5684,10 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1923,
   },
   {
+    slug: "tsukasa_saitoh",
+    midis: ["elden-ring-ost---the-final-battle---tsukasa-saitoh"],
+  },
+  {
     slug: "jeremy_soule",
     midis: [
       "harry-potter-ii-game-main-menu---jeremy-soule",

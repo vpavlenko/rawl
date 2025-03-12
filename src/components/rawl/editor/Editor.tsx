@@ -271,7 +271,10 @@ const Editor: React.FC<EditorProps> = ({
 
       const delta = e.clientY - dragStartY.current;
       const newHeight = Math.max(200, dragStartHeight.current - delta);
-      const heightVh = Math.round((newHeight / window.innerHeight) * 100);
+      const heightVh = Math.min(
+        95,
+        Math.round((newHeight / window.innerHeight) * 100),
+      );
       setPanelHeight(`${heightVh}vh`);
       localStorage.setItem("editorPanelHeight", `${heightVh}vh`);
     },

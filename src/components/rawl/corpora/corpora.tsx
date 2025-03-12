@@ -49,6 +49,7 @@ export const corpora: CorpusEntry[] = [
       "river-flows-in-you",
       "yiruma_river_flows_in_you_easy",
       "River_Flows_In_You",
+      "harmony-piano-arrangement-runescape-3",
       "b.-bartok-for-children-vol.-1-nr.29-pentatonic-tune-sz42",
       "moxevis-k-alo-t-inao",
       "deadline---elissa-milne",
@@ -1884,6 +1885,26 @@ export const corpora: CorpusEntry[] = [
     genre: "Film score",
     country: "Poland",
   },
+  {
+    slug: "ian_taylor",
+    midis: [
+      "harmony-piano-arrangement-runescape-3",
+      "runescape---medieval",
+      "autumn-voyage---runescape",
+    ],
+  },
+
+  {
+    slug: "james_hannigan",
+    midis: [
+      "command-conquer-red-alert-3---soviet-march-advanced-piano-solo",
+      "village-dance-runescape",
+      "to-catch-an-owl---james-hannigan-harry-potter-5-videogame-ost-piano",
+      "exploring-hogwarts---james-hannigan-piano",
+      "memories-of-guthix-runescape",
+    ],
+  },
+
   {
     slug: "deltarune",
     midis: [

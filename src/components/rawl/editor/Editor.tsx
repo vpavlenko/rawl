@@ -130,8 +130,6 @@ const Editor: React.FC<EditorProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [foldEditor, setFoldEditor] = useState(false);
   const editorRef = useRef<any>(null);
-  const cycleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const {
     playSongBuffer,
     rawlProps,
@@ -486,18 +484,6 @@ const Editor: React.FC<EditorProps> = ({
     [playSongBuffer, effectiveSlug],
   );
 
-  // Add helper function to clean up blinking state
-  const cleanupBlinkingState = useCallback(() => {
-    if (cycleTimeoutRef.current) {
-      clearTimeout(cycleTimeoutRef.current);
-      cycleTimeoutRef.current = null;
-    }
-    if (debounceTimeoutRef.current) {
-      clearTimeout(debounceTimeoutRef.current);
-      debounceTimeoutRef.current = null;
-    }
-  }, []);
-
   // Setup listener for restore backup event
   useEffect(() => {
     const handleRestoreBackup = (e: CustomEvent<{ code: string }>) => {
@@ -527,8 +513,6 @@ const Editor: React.FC<EditorProps> = ({
       value = value.replace(/anacrusis 4/g, "sections 2 6");
 
       setScore(value);
-      // Always clean up any pending or active blinking state on edit
-      cleanupBlinkingState();
 
       // Process the score to update context and analysis
       try {
@@ -580,7 +564,6 @@ const Editor: React.FC<EditorProps> = ({
     },
     [
       debouncedMelodyPlayback,
-      cleanupBlinkingState,
       effectiveSlug,
       id,
       slug,
@@ -661,7 +644,7 @@ const Editor: React.FC<EditorProps> = ({
     loadScore();
   }, [effectiveSlug, id, isDecompositionMode, initialSource]);
 
-  // Update handleCursorChange to use the cleanup function
+  // Track cursor position and trigger playback when cursor moves
   const handleCursorChange = useCallback(
     (viewUpdate: any) => {
       const line = viewUpdate.state.selection.main.head;
@@ -669,91 +652,25 @@ const Editor: React.FC<EditorProps> = ({
       const hasSelection = !viewUpdate.state.selection.main.empty;
 
       if (lineNumber !== currentLine && !hasSelection) {
-        // Clean up any existing blinking state
-        cleanupBlinkingState();
-        debouncedMelodyPlayback(score, false);
-
+        // Update current line tracking
         setCurrentLine(lineNumber);
 
-        // Create shadow copy and start the comment/uncomment cycle
-        const lines = score.split("\n");
-        const currentLineText = lines[lineNumber - 1]?.trim();
-
-        // Only proceed if line is not empty and contains a command
-        if (currentLineText) {
-          // Parse the command to check if it's a c, i, or ac command
-          const command = parseCommand(currentLineText, context);
-          if (
-            command &&
-            (command.type === "copy" ||
-              command.type === "insert" ||
-              command.type === "ac")
-          ) {
-            // Add debounce before starting the cycle
-            debounceTimeoutRef.current = setTimeout(() => {
-              let cycleCount = 0;
-
-              const startCycle = () => {
-                if (cycleCount < 4) {
-                  // Use requestAnimationFrame to ensure smooth timing
-                  requestAnimationFrame(() => {
-                    // Toggle comment
-                    const newLines = [...lines];
-                    if (cycleCount % 2 === 0) {
-                      // Comment the line
-                      newLines[lineNumber - 1] =
-                        "% " + newLines[lineNumber - 1];
-                    } else {
-                      // Uncomment the line
-                      newLines[lineNumber - 1] = newLines[
-                        lineNumber - 1
-                      ].replace(/^% /, "");
-                    }
-
-                    const newScore = newLines.join("\n");
-
-                    // Trigger MIDI generation with shadow score
-                    debouncedMelodyPlayback(newScore, false);
-
-                    cycleCount++;
-                    // Use setTimeout with requestAnimationFrame for next cycle
-                    cycleTimeoutRef.current = setTimeout(() => {
-                      requestAnimationFrame(startCycle);
-                    }, 200);
-                  });
-                } else {
-                  cleanupBlinkingState();
-                  debouncedMelodyPlayback(score, false);
-                }
-              };
-
-              startCycle();
-            }, 300); // 300ms debounce
-          }
-        }
+        // Play the current score when cursor position changes
+        debouncedMelodyPlayback(score, false);
       }
     },
-    [
-      currentLine,
-      score,
-      debouncedMelodyPlayback,
-      context,
-      cleanupBlinkingState,
-    ],
+    [currentLine, score, debouncedMelodyPlayback],
   );
 
-  // Update cleanup effect to use the cleanup function
+  // Cleanup when component unmounts
   useEffect(() => {
     return () => {
-      // Clean up blinking state
-      cleanupBlinkingState();
-
       // Stop playback when component is unmounted
       if (eject) {
         eject();
       }
     };
-  }, [cleanupBlinkingState, eject]);
+  }, [eject]);
 
   useEffect(() => {
     console.log(

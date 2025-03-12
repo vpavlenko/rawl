@@ -12,6 +12,7 @@ export type Note = {
   isDrum: boolean;
   id: number;
   span: SecondsSpan;
+  tickSpan: [number, number]; // [startTick, endTick]
   pitchBend?: PitchBendPoint[];
   voiceIndex: number;
 };
@@ -48,7 +49,12 @@ let id = 0;
 const getNotes = (events, channel, voiceIndex): Note[] => {
   const notes: Note[] = [];
   const noteOn = {};
+  let currentTick = 0;
+
   events.forEach((event) => {
+    // Accumulate delta for tick tracking
+    currentTick += event.delta || 0;
+
     if (event.channel === channel && event.type === MIDIEvents.EVENT_MIDI) {
       const midiNumber = event.param1;
       if (
@@ -71,6 +77,7 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
               id,
               isDrum: channel === DRUM_CHANNEL,
               span: [noteOn[midiNumber].playTime / 1000, event.playTime / 1000],
+              tickSpan: [noteOn[midiNumber].tickPosition, currentTick],
               pitchBend: noteOn[midiNumber].pitchBend,
               voiceIndex,
             });
@@ -92,6 +99,8 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
       }
       if (event.subtype === MIDIEvents.EVENT_MIDI_NOTE_ON) {
         noteOn[midiNumber] = event;
+        // Store the current tick position with the note-on event
+        noteOn[midiNumber].tickPosition = currentTick;
       }
     }
   });

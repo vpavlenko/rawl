@@ -3,6 +3,7 @@ import {
   faChartLine,
   faClockRotateLeft,
   faCloudArrowUp,
+  faCode,
   faCopy,
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
@@ -894,6 +895,155 @@ const AnalysisDisplay: React.FC<{ analysis: Analysis }> = ({ analysis }) => {
   );
 };
 
+const ParseMidiDisplay: React.FC = () => {
+  const { rawlProps } = useContext(AppContext);
+
+  if (!rawlProps?.parsingResult?.notes) {
+    return (
+      <AnalysisView>
+        <div className="empty-analysis">
+          <FontAwesomeIcon
+            icon={faCode}
+            style={{ fontSize: "24px", marginBottom: "12px", opacity: 0.5 }}
+          />
+          <div>No MIDI data available</div>
+          <div style={{ fontSize: "11px", marginTop: "8px" }}>
+            MIDI data would appear here when available
+          </div>
+        </div>
+      </AnalysisView>
+    );
+  }
+
+  // Flatten the 2D notes array (voices/channels)
+  const allNotes = rawlProps.parsingResult.notes.flat();
+
+  // Format note data in a readable way
+  const formatNote = (note) => {
+    const { midiNumber } = note.note;
+    const [startTime, endTime] = note.span;
+    const [startTick, endTick] = note.tickSpan || [0, 0];
+    const duration = endTime - startTime;
+    const tickDuration = endTick - startTick;
+
+    // Calculate the MIDI note name
+    const noteNames = [
+      "C",
+      "C#",
+      "D",
+      "D#",
+      "E",
+      "F",
+      "F#",
+      "G",
+      "G#",
+      "A",
+      "A#",
+      "B",
+    ];
+    const octave = Math.floor(midiNumber / 12) - 1;
+    const noteName = noteNames[midiNumber % 12];
+    const fullNoteName = `${noteName}${octave}`;
+
+    return {
+      id: note.id,
+      voice: note.voiceIndex,
+      note: fullNoteName,
+      midiNumber,
+      span: {
+        start: startTime.toFixed(3) + "s",
+        end: endTime.toFixed(3) + "s",
+        duration: duration.toFixed(3) + "s",
+      },
+      tickSpan: {
+        start: startTick,
+        end: endTick,
+        duration: tickDuration,
+      },
+      isDrum: note.isDrum,
+    };
+  };
+
+  const formattedNotes = allNotes.map(formatNote);
+
+  return (
+    <AnalysisView>
+      <div className="analysis-header">
+        <h2>Parsed MIDI Data</h2>
+        <p>Raw note events from the rendered score (one note per line)</p>
+      </div>
+
+      <div className="analysis-section">
+        <div className="section-divider">
+          Note Events ({allNotes.length} total)
+        </div>
+
+        <pre
+          style={{
+            maxHeight: "calc(100vh - 200px)",
+            overflowY: "auto",
+            fontSize: "12px",
+            padding: "10px",
+            background: "#1a1a1a",
+            borderRadius: "4px",
+            color: "#ddd",
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {formattedNotes.map((note, index) => (
+            <div
+              key={index}
+              style={{
+                padding: "8px 0",
+                borderBottom: "1px dotted #333",
+                marginBottom: "4px",
+              }}
+            >
+              <div style={{ color: "#88ccff", marginBottom: "4px" }}>
+                Note {note.id}: {note.note} (MIDI: {note.midiNumber}) - Voice:{" "}
+                {note.voice} {note.isDrum ? "🥁" : ""}
+              </div>
+              <div style={{ marginLeft: "12px", color: "#aaaaaa" }}>
+                Time: {note.span.start} → {note.span.end} (duration:{" "}
+                {note.span.duration})
+              </div>
+              <div style={{ marginLeft: "12px", color: "#aaffaa" }}>
+                Ticks: {note.tickSpan.start} → {note.tickSpan.end} (duration:{" "}
+                {note.tickSpan.duration})
+              </div>
+            </div>
+          ))}
+        </pre>
+
+        {allNotes.length === 0 && (
+          <div className="empty-analysis">
+            <div>No note events found in the parsed MIDI data.</div>
+          </div>
+        )}
+      </div>
+
+      {rawlProps.parsingResult.measuresAndBeats && (
+        <div className="analysis-section">
+          <div className="section-divider">Measures and Beats</div>
+          <pre
+            style={{
+              maxHeight: "300px",
+              overflowY: "auto",
+              fontSize: "12px",
+              padding: "10px",
+              background: "#1a1a1a",
+              borderRadius: "4px",
+              color: "#ddd",
+            }}
+          >
+            {JSON.stringify(rawlProps.parsingResult.measuresAndBeats, null, 2)}
+          </pre>
+        </div>
+      )}
+    </AnalysisView>
+  );
+};
+
 const Manual: React.FC<ManualProps> = ({
   score,
   initialSource,
@@ -916,7 +1066,7 @@ const Manual: React.FC<ManualProps> = ({
     number | null
   >(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [showAnalysis, setShowAnalysis] = useState(false);
+  const [showParseMidi, setShowParseMidi] = useState(false);
 
   // Get the current page URL key for storage
   const getUrlKey = () => {
@@ -1134,25 +1284,23 @@ const Manual: React.FC<ManualProps> = ({
         </div>
 
         <div className="center-section">
-          {/* Show toggle for all users if analysis is available */}
-          {analysis && (
-            <ViewToggle>
-              <ToggleButton
-                active={!showAnalysis}
-                onClick={() => setShowAnalysis(false)}
-              >
-                <FontAwesomeIcon icon={faBook} />
-                Manual
-              </ToggleButton>
-              <ToggleButton
-                active={showAnalysis}
-                onClick={() => setShowAnalysis(true)}
-              >
-                <FontAwesomeIcon icon={faChartLine} />
-                Analysis
-              </ToggleButton>
-            </ViewToggle>
-          )}
+          {/* Show toggle for all users */}
+          <ViewToggle>
+            <ToggleButton
+              active={!showParseMidi}
+              onClick={() => setShowParseMidi(false)}
+            >
+              <FontAwesomeIcon icon={faBook} />
+              Manual
+            </ToggleButton>
+            <ToggleButton
+              active={showParseMidi}
+              onClick={() => setShowParseMidi(true)}
+            >
+              <FontAwesomeIcon icon={faCode} />
+              ParseMidi
+            </ToggleButton>
+          </ViewToggle>
         </div>
 
         <div className="right-section">
@@ -1204,8 +1352,8 @@ const Manual: React.FC<ManualProps> = ({
         </div>
       </ButtonBar>
 
-      {showAnalysis && analysis ? (
-        <AnalysisDisplay analysis={analysis} />
+      {showParseMidi ? (
+        <ParseMidiDisplay />
       ) : (
         <>
           <div className="top-section">

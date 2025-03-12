@@ -755,6 +755,13 @@ const Editor: React.FC<EditorProps> = ({
     };
   }, [cleanupBlinkingState, eject]);
 
+  useEffect(() => {
+    console.log(
+      "rawlProps: parsingResult changed",
+      JSON.stringify(rawlProps?.parsingResult),
+    );
+  }, [rawlProps?.parsingResult]);
+
   return (
     <EditorContainer
       className={isDecompositionMode ? "decomposition-mode" : ""}

@@ -12,7 +12,7 @@ export type Note = {
   isDrum: boolean;
   id: number;
   span: SecondsSpan;
-  chipState?: { on: any; off: any };
+  pitchBend?: PitchBendPoint[];
   voiceIndex: number;
 };
 
@@ -71,7 +71,7 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
               id,
               isDrum: channel === DRUM_CHANNEL,
               span: [noteOn[midiNumber].playTime / 1000, event.playTime / 1000],
-              chipState: { on: noteOn[midiNumber], off: event },
+              pitchBend: noteOn[midiNumber].pitchBend,
               voiceIndex,
             });
 

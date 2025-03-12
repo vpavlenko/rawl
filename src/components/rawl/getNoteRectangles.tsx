@@ -137,9 +137,9 @@ export const getNoteRectangles = (
     const top = midiNumberToY(isDrum ? number + 12 : number) - noteHeight;
     const left = secondsToX(note.span[0]);
 
-    const pathData = note.chipState?.on?.pitchBend
+    const pathData = note.pitchBend
       ? convertPitchBendToPathData(
-          note.chipState.on.pitchBend,
+          note.pitchBend,
           note.span,
           noteHeight,
           secondsToX,

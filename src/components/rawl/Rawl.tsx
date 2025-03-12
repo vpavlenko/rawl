@@ -419,7 +419,6 @@ const Rawl: React.FC<RawlProps> = ({
             span: [time, -1],
             note: { midiNumber: -1 },
             isDrum: false,
-            chipState: { on: {}, off: {} },
             id: -1,
             voiceIndex: -1,
           },
@@ -525,6 +524,8 @@ const Rawl: React.FC<RawlProps> = ({
           color,
           isActive: voiceMask[voiceIndex],
           colorPitchClass,
+          // Include sourceLocation if it exists in the note
+          sourceLocation: note.sourceLocation,
         };
       }),
     );

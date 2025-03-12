@@ -132,6 +132,7 @@ export const getNoteRectangles = (
       color,
       voiceIndex,
       isActive,
+      sourceLocation,
     } = note;
     const number = relativeNumber === undefined ? midiNumber : relativeNumber;
     const top = midiNumberToY(isDrum ? number + 12 : number) - noteHeight;
@@ -148,6 +149,24 @@ export const getNoteRectangles = (
     const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
 
     const isHighlighted = !hoveredColors || hoveredColors.includes(color);
+
+    // Format source location string if it exists
+    let sourceLocationText = "";
+    if (sourceLocation) {
+      // Format the command type (i for insert, c for copy, ac for all-channels copy)
+      const commandType =
+        sourceLocation.command === "insert"
+          ? "i"
+          : sourceLocation.command === "copy"
+          ? "c"
+          : sourceLocation.command === "ac"
+          ? "ac"
+          : "";
+
+      if (commandType && sourceLocation.row && sourceLocation.col) {
+        sourceLocationText = `${commandType} ${sourceLocation.row},${sourceLocation.col}`;
+      }
+    }
 
     return isDrum ? (
       isActive && (
@@ -217,6 +236,24 @@ export const getNoteRectangles = (
               <path d={pathData} stroke="white" strokeWidth="4" fill="none" />
               <path d={pathData} stroke="black" strokeWidth="2" fill="none" />
             </svg>
+          </div>
+        )}
+        {sourceLocationText && isActive && isHighlighted && (
+          <div
+            style={{
+              position: "absolute",
+              top: "-16px",
+              left: 0,
+              color: "white",
+              fontSize: "10px",
+              whiteSpace: "nowrap",
+              backgroundColor: "rgba(0,0,0,0.5)",
+              padding: "1px 3px",
+              borderRadius: "2px",
+              pointerEvents: "none",
+            }}
+          >
+            {sourceLocationText}
           </div>
         )}
       </div>

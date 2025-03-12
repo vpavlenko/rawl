@@ -760,6 +760,7 @@ const Editor: React.FC<EditorProps> = ({
               {...rawlProps}
               savedAnalysis={analysis}
               latencyCorrectionMs={latencyCorrectionMs * tempo}
+              parsingResult={matchedParsingResult || rawlProps.parsingResult}
             />
           )}
         </RawlContainer>

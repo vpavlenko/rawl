@@ -4,6 +4,12 @@ import { MeasuresAndBeats } from "./SystemLayout";
 
 const DRUM_CHANNEL = 9;
 
+export interface SourceLocation {
+  row: number;
+  col: number;
+  command: string;
+}
+
 export type Note = {
   note: {
     midiNumber: number;
@@ -15,11 +21,14 @@ export type Note = {
   tickSpan: [number, number]; // [startTick, endTick]
   pitchBend?: PitchBendPoint[];
   voiceIndex: number;
+  sourceLocation?: SourceLocation;
 };
 
 export type ColoredNote = Note & {
   color: string;
   isActive: boolean;
+  colorPitchClass: number;
+  sourceLocation?: SourceLocation;
 };
 
 export type PitchBendPoint = {
@@ -80,6 +89,7 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
               tickSpan: [noteOn[midiNumber].tickPosition, currentTick],
               pitchBend: noteOn[midiNumber].pitchBend,
               voiceIndex,
+              sourceLocation: noteOn[midiNumber].sourceLocation,
             });
 
             id++;
@@ -101,6 +111,7 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
         noteOn[midiNumber] = event;
         // Store the current tick position with the note-on event
         noteOn[midiNumber].tickPosition = currentTick;
+        noteOn[midiNumber].sourceLocation = event.sourceLocation;
       }
     }
   });

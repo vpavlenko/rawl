@@ -35,8 +35,8 @@ export interface AppContextType {
   togglePause: () => void;
   handleLogin: () => void;
   handleLogout: () => void;
-  handleToggleAnalysis: () => void;
-  analysisEnabled: boolean;
+  handleToggleManualRemeasuring: () => void;
+  enableManualRemeasuring: boolean;
   playSongBuffer: (
     filepath: string,
     buffer: ArrayBuffer | Uint8Array,

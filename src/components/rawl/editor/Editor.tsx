@@ -93,7 +93,6 @@ interface EditorProps extends RouteComponentProps {
     handler: (e: KeyboardEvent) => void,
   ) => void;
   unregisterKeyboardHandler?: (id: string) => void;
-  analysisEnabled?: boolean;
   savedAnalysis?: Analysis | null;
   saveAnalysis?: (analysis: Analysis) => Promise<void>;
   getCurrentPositionMs?: () => number;
@@ -118,17 +117,6 @@ const Editor: React.FC<EditorProps> = ({
   showProgrammingManual = true,
   isDecompositionMode = false,
   customChild,
-  setVoiceMask: propSetVoiceMask,
-  voiceMask: propVoiceMask,
-  voiceNames: propVoiceNames,
-  registerKeyboardHandler: propRegisterKeyboardHandler,
-  unregisterKeyboardHandler: propUnregisterKeyboardHandler,
-  analysisEnabled: propAnalysisEnabled,
-  savedAnalysis: propSavedAnalysis,
-  saveAnalysis: propSaveAnalysis,
-  getCurrentPositionMs: propGetCurrentPositionMs,
-  seek: propSeek,
-  latencyCorrectionMs: propLatencyCorrectionMs,
   onEditorChange,
 }) => {
   // Update useParams to handle both slug and id

@@ -108,7 +108,7 @@ export type RawlProps = {
   voiceNames: string[];
   voiceMask: VoiceMask;
   setVoiceMask: (mask: VoiceMask) => void;
-  showAnalysisBox: boolean;
+  enableManualRemeasuring?: boolean;
   seek: (ms: number) => void;
   latencyCorrectionMs: number;
   sourceUrl: string | null;
@@ -125,7 +125,7 @@ const Rawl: React.FC<RawlProps> = ({
   voiceNames,
   voiceMask,
   setVoiceMask,
-  showAnalysisBox: enableManualRemeasuring,
+  enableManualRemeasuring = false,
   seek,
   latencyCorrectionMs,
   sourceUrl,

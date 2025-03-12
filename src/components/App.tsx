@@ -96,7 +96,7 @@ type AppState = {
   directories: any;
   paramDefs: any;
   parsing: ParsingResult;
-  analysisEnabled: boolean;
+  enableManualRemeasuring: boolean;
   analyses: Analyses;
   latencyCorrectionMs: number;
   fileToDownload: Uint8Array;
@@ -235,7 +235,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       directories: {},
       paramDefs: [],
       parsing: null,
-      analysisEnabled: false,
+      enableManualRemeasuring: false,
       analyses: defaultAnalyses as unknown as Analyses,
       latencyCorrectionMs: initialLatencyCorrection,
       fileToDownload: null,
@@ -576,7 +576,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           break;
         case "r":
           this.setState((prevState) => ({
-            analysisEnabled: !prevState.analysisEnabled,
+            enableManualRemeasuring: !prevState.enableManualRemeasuring,
           }));
           e.preventDefault();
           break;
@@ -781,7 +781,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           voiceNames: this.state.voiceNames,
           voiceMask: this.state.voiceMask,
           setVoiceMask: this.handleSetVoiceMask,
-          showAnalysisBox: this.state.analysisEnabled,
+          enableManualRemeasuring: this.state.enableManualRemeasuring,
           seek: this.seekForRawl,
           latencyCorrectionMs:
             this.state.latencyCorrectionMs * this.state.tempo,
@@ -1098,7 +1098,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       voiceNames: this.state.voiceNames,
       voiceMask: this.state.voiceMask,
       setVoiceMask: this.handleSetVoiceMask,
-      showAnalysisBox: this.state.analysisEnabled,
+      enableManualRemeasuring: this.state.enableManualRemeasuring,
       seek: this.seekForRawl,
       latencyCorrectionMs: this.state.latencyCorrectionMs * this.state.tempo,
       sourceUrl: this.state.currentMidi?.sourceUrl || null,
@@ -1124,7 +1124,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     getCurrentPositionMs={this.midiPlayer?.getPositionMs}
                     savedAnalysis={this.state.analyses[this.path] ?? null}
                     saveAnalysis={this.saveAnalysis}
-                    showAnalysisBox={this.state.analysisEnabled}
+                    enableManualRemeasuring={this.state.enableManualRemeasuring}
                     seek={this.seekForRawl}
                     sourceUrl={this.state.currentMidi?.sourceUrl || null}
                     isHiddenRoute={!!keySlug}
@@ -1166,7 +1166,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
               voiceNames={this.state.voiceNames}
               registerKeyboardHandler={this.registerKeyboardHandler}
               unregisterKeyboardHandler={this.unregisterKeyboardHandler}
-              analysisEnabled={this.state.analysisEnabled}
               savedAnalysis={this.state.analyses[this.path] ?? null}
               saveAnalysis={this.saveAnalysis}
               getCurrentPositionMs={this.midiPlayer?.getPositionMs}
@@ -1207,12 +1206,12 @@ class App extends React.Component<RouteComponentProps, AppState> {
             togglePause: this.togglePause,
             handleLogin: this.handleLogin,
             handleLogout: this.handleLogout,
-            handleToggleAnalysis: () => {
+            handleToggleManualRemeasuring: () => {
               this.setState((prevState) => ({
-                analysisEnabled: !prevState.analysisEnabled,
+                enableManualRemeasuring: !prevState.enableManualRemeasuring,
               }));
             },
-            analysisEnabled: this.state.analysisEnabled,
+            enableManualRemeasuring: this.state.enableManualRemeasuring,
             playSongBuffer: this.playSongBuffer,
             latencyCorrectionMs: this.state.latencyCorrectionMs,
             tempo: this.state.tempo,
@@ -1267,12 +1266,12 @@ class App extends React.Component<RouteComponentProps, AppState> {
           togglePause: this.togglePause,
           handleLogin: this.handleLogin,
           handleLogout: this.handleLogout,
-          handleToggleAnalysis: () => {
+          handleToggleManualRemeasuring: () => {
             this.setState((prevState) => ({
-              analysisEnabled: !prevState.analysisEnabled,
+              enableManualRemeasuring: !prevState.enableManualRemeasuring,
             }));
           },
-          analysisEnabled: this.state.analysisEnabled,
+          enableManualRemeasuring: this.state.enableManualRemeasuring,
           playSongBuffer: this.playSongBuffer,
           latencyCorrectionMs: this.state.latencyCorrectionMs,
           tempo: this.state.tempo,

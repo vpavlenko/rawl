@@ -164,7 +164,6 @@ interface DecompositionProps extends RouteComponentProps {
     handler: (e: KeyboardEvent) => void,
   ) => void;
   unregisterKeyboardHandler: (id: string) => void;
-  analysisEnabled: boolean;
   savedAnalysis: Analysis | null;
   saveAnalysis: (analysis: Analysis) => Promise<void>;
   getCurrentPositionMs?: () => number;
@@ -183,7 +182,6 @@ const Decomposition: React.FC<DecompositionProps> = ({
   voiceNames,
   registerKeyboardHandler,
   unregisterKeyboardHandler,
-  analysisEnabled,
   savedAnalysis,
   saveAnalysis,
   getCurrentPositionMs,
@@ -488,7 +486,6 @@ const Decomposition: React.FC<DecompositionProps> = ({
         voiceNames={voiceNames}
         registerKeyboardHandler={registerKeyboardHandler}
         unregisterKeyboardHandler={unregisterKeyboardHandler}
-        analysisEnabled={analysisEnabled}
         savedAnalysis={savedAnalysis}
         saveAnalysis={saveAnalysis}
         getCurrentPositionMs={getCurrentPositionMs}

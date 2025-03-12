@@ -55,8 +55,8 @@ const AppHeader: React.FC = () => {
     user,
     handleLogin,
     handleLogout,
-    analysisEnabled,
-    handleToggleAnalysis,
+    enableManualRemeasuring,
+    handleToggleManualRemeasuring,
   } = useContext(AppContext);
 
   const getLinkStyle = (pathPrefix: string): React.CSSProperties => {
@@ -127,8 +127,8 @@ const AppHeader: React.FC = () => {
           user={user}
           handleLogin={handleLogin}
           handleLogout={handleLogout}
-          handleToggleAnalysis={handleToggleAnalysis}
-          analysisEnabled={analysisEnabled}
+          handleToggleManualRemeasuring={handleToggleManualRemeasuring}
+          enableManualRemeasuring={enableManualRemeasuring}
         />
       </ExternalLinks>
     </HeaderContainer>

@@ -4,18 +4,18 @@ const SignIn = ({
   user,
   handleLogin,
   handleLogout,
-  handleToggleAnalysis,
-  analysisEnabled,
+  handleToggleManualRemeasuring,
+  enableManualRemeasuring,
 }) => {
   return (
     <div>
       {user && (
         <label className="inline">
           <input
-            onChange={handleToggleAnalysis}
+            onChange={handleToggleManualRemeasuring}
             type="checkbox"
-            checked={analysisEnabled}
-            name="analysis-enabled"
+            checked={enableManualRemeasuring}
+            name="manual-remeasuring"
           />
           Manual remeasuring
         </label>

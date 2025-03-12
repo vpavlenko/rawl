@@ -33,34 +33,6 @@ interface MusicalEvent {
   channel: number;
 }
 
-// Constants for MIDI meta events
-const META_EVENT_TYPE = 0xff;
-const META_TIME_SIGNATURE = 0x58;
-
-// Helper to create a time signature meta event
-const createTimeSignatureEvent = (
-  numerator: number,
-  denominator: number = 4,
-) => {
-  // Time signature meta event format:
-  // FF 58 04 nn dd cc bb
-  // nn = numerator
-  // dd = denominator (as power of 2: 2 = quarter note, 3 = eighth note, etc.)
-  // cc = MIDI clocks per metronome click (usually 24)
-  // bb = number of 32nd notes per MIDI quarter note (usually 8)
-  return {
-    type: META_EVENT_TYPE,
-    subtype: META_TIME_SIGNATURE,
-    data: new Uint8Array([
-      numerator,
-      Math.log2(denominator), // 2 for quarter note (2^2 = 4)
-      24, // MIDI clocks per click
-      8, // 32nd notes per quarter
-    ]),
-    deltaTime: 0,
-  };
-};
-
 export interface MidiGenerationResult {
   midiData: Uint8Array;
   midiInfo: {

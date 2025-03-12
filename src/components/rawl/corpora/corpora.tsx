@@ -2136,10 +2136,21 @@ export const corpora: CorpusEntry[] = [
     country: "Japan",
   },
   {
+    slug: "alexey_bychkov",
+    midis: ["alexey_bychkov_goby_waltz", "alexey_bychkov_s_trio_goby_waltz"],
+  },
+  {
     slug: "brandon_hesslau",
     midis: [
       "our-happy-ending---brandon-hesslau---buddy-simulator-1984",
       "a-lovely-little-town---brandon-hesslau---buddy-simulator-1984",
+      "a-house-with-a-heart---brandon-hesslau---buddy-simulator-1984",
+      "the-cauldron---brandon-hesslau---buddy-simulator-1984",
+      "left-or-right---brandon-hesslau---buddy-simulator-1984",
+      "palchumville---brandon-hesslau---buddy-simulator-1984",
+      "the-snoodlewonker---brandon-hesslau---buddy-simulator-1984",
+      "you-and-i---buddy-simulator-1984",
+      "family---brandon-hesslau---buddy-simulator-1984",
     ],
     composerBirthYear: 1964,
     genre: "Video game music",
@@ -6016,6 +6027,7 @@ export const corpora: CorpusEntry[] = [
     slug: "aziza_mustafa_zadeh",
     midis: [
       "aziza_mustafa_zadeh_dance_of_fire_2010_live_trio",
+      "aziza_mustafa_zadeh_dance_of_fire_2010",
       "aziza_mustafa_zadeh_dance_of_fire_nicola_morali_solo_piano_cover",
       "always---aziza-mustafa-zadeh",
     ],
@@ -7918,7 +7930,6 @@ export const corpora: CorpusEntry[] = [
 
       "Walking_On_a_dream",
 
-      "alexey_bychkov_s_trio_goby_waltz",
       "all-major-scales-arpeggios",
       "all_of_the_girls_you_loved_before_taylor_swift",
       "alto_sax_natural_minor_scales_and_arpeggios",

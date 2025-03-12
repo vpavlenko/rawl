@@ -45,8 +45,13 @@ export interface MidiGenerationResult {
   analysis: Analysis;
 }
 
-// Convert raw notes to musical events (mid-level representation)
-const convertToMusicalEvents = (notes: Note[]): MusicalEvent[] => {
+// Main MIDI generation function now uses the two-step process
+export const generateMidiFile = (
+  notes: Note[],
+  bpm: number,
+  timeSignatures: TimeSignature[],
+): Uint8Array => {
+  // Inline implementation of convertToMusicalEvents
   const sortedNotes = [...notes].sort((a, b) => a.startTime - b.startTime);
   const events: MusicalEvent[] = [];
 
@@ -106,15 +111,7 @@ const convertToMusicalEvents = (notes: Note[]): MusicalEvent[] => {
     );
   }
 
-  return events;
-};
-
-// Convert musical events to MIDI file
-const generateMidiFromEvents = (
-  events: MusicalEvent[],
-  bpm: number,
-  timeSignatures: TimeSignature[],
-): Uint8Array => {
+  // Inline implementation of generateMidiFromEvents
   const eventsByChannel = new Map<number, MusicalEvent[]>();
   const trackNames = new Map<number, string>();
 
@@ -185,16 +182,6 @@ const generateMidiFromEvents = (
   }
 
   return bytes;
-};
-
-// Main MIDI generation function now uses the two-step process
-export const generateMidiFile = (
-  notes: Note[],
-  bpm: number,
-  timeSignatures: TimeSignature[],
-): Uint8Array => {
-  const musicalEvents = convertToMusicalEvents(notes);
-  return generateMidiFromEvents(musicalEvents, bpm, timeSignatures);
 };
 
 export const generateInitialAnalysis = (title: string): Analysis => {

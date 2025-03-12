@@ -164,6 +164,7 @@ const Editor: React.FC<EditorProps> = ({
   const dragStartHeight = useRef(0);
   const [codeValue, setCodeValue] = useState(initialSource || "");
   const [extractedMidiNotes, setExtractedMidiNotes] = useState<any>(null);
+  const [matchedParsingResult, setMatchedParsingResult] = useState<any>(null);
 
   // Redirect to /e/new if no slug is provided - using useEffect for proper hook ordering
   useEffect(() => {
@@ -683,6 +684,54 @@ const Editor: React.FC<EditorProps> = ({
     );
   }, [rawlProps?.parsingResult]);
 
+  // Function to match notes between ParseMidi and MidiWriterJs data
+  const matchNotesWithMidiWriter = useCallback(() => {
+    if (!rawlProps?.parsingResult?.notes || !extractedMidiNotes) {
+      return null;
+    }
+
+    // Clone the parsing result to avoid mutating the original
+    const clonedResult = JSON.parse(JSON.stringify(rawlProps.parsingResult));
+
+    // Extract the MidiWriter notes by channel
+    const { eventsByChannel } = extractedMidiNotes;
+
+    // Process each note in the parsing result
+    clonedResult.notes.forEach((voiceNotes: any[], voiceIndex: number) => {
+      voiceNotes.forEach((note: any) => {
+        // Find matching note in MidiWriter data
+        // Voice index in parsing result corresponds to channel in MidiWriter
+        const channelEvents = eventsByChannel.get(voiceIndex);
+
+        if (channelEvents) {
+          // Look for a matching note in this channel
+          const matchingNote = channelEvents.find((event: any) => {
+            // Match by pitch and start tick
+            return (
+              event.pitches.includes(note.note.midiNumber) &&
+              event.startTick === note.tickSpan[0]
+            );
+          });
+
+          // Enhance the note with matching information
+          note.matchingMidiWriterNote = matchingNote || null;
+          note.hasMatch = !!matchingNote;
+        } else {
+          note.matchingMidiWriterNote = null;
+          note.hasMatch = false;
+        }
+      });
+    });
+
+    return clonedResult;
+  }, [rawlProps?.parsingResult?.notes, extractedMidiNotes]);
+
+  // Effect to update matched parsing result when either source changes
+  useEffect(() => {
+    const matchedResult = matchNotesWithMidiWriter();
+    setMatchedParsingResult(matchedResult);
+  }, [rawlProps?.parsingResult, extractedMidiNotes, matchNotesWithMidiWriter]);
+
   return (
     <EditorContainer
       className={isDecompositionMode ? "decomposition-mode" : ""}
@@ -755,6 +804,7 @@ const Editor: React.FC<EditorProps> = ({
                 setError={setError}
                 analysis={analysis}
                 extractedMidiNotes={extractedMidiNotes}
+                matchedParsingResult={matchedParsingResult}
               />
             )}
       </BaseEditorPanel>

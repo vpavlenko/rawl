@@ -644,6 +644,7 @@ interface ManualProps {
   setError: (error: string | null) => void;
   analysis?: Analysis;
   extractedMidiNotes?: any;
+  matchedParsingResult?: any;
 }
 
 const AnalysisDisplay: React.FC<{ analysis: Analysis }> = ({ analysis }) => {
@@ -897,10 +898,15 @@ const AnalysisDisplay: React.FC<{ analysis: Analysis }> = ({ analysis }) => {
   );
 };
 
-const ParseMidiDisplay: React.FC = () => {
+const ParseMidiDisplay: React.FC<{ matchedParsingResult?: any }> = ({
+  matchedParsingResult,
+}) => {
   const { rawlProps } = useContext(AppContext);
 
-  if (!rawlProps?.parsingResult?.notes) {
+  // Use matched parsing result if available, otherwise fall back to raw parsing result
+  const parsingResult = matchedParsingResult || rawlProps?.parsingResult;
+
+  if (!parsingResult?.notes) {
     return (
       <AnalysisView>
         <div className="empty-analysis">
@@ -918,7 +924,7 @@ const ParseMidiDisplay: React.FC = () => {
   }
 
   // Flatten the 2D notes array (voices/channels)
-  const allNotes = rawlProps.parsingResult.notes.flat();
+  const allNotes = parsingResult.notes.flat();
 
   // Format note data in a readable way
   const formatNote = (note) => {
@@ -963,10 +969,16 @@ const ParseMidiDisplay: React.FC = () => {
         duration: tickDuration,
       },
       isDrum: note.isDrum,
+      hasMatch: note.hasMatch,
+      matchingMidiWriterNote: note.matchingMidiWriterNote,
     };
   };
 
   const formattedNotes = allNotes.map(formatNote);
+
+  // Count matched and unmatched notes
+  const matchedCount = formattedNotes.filter((note) => note.hasMatch).length;
+  const unmatchedCount = formattedNotes.length - matchedCount;
 
   return (
     <AnalysisView>
@@ -980,9 +992,34 @@ const ParseMidiDisplay: React.FC = () => {
           Note Events ({allNotes.length} total)
         </div>
 
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            padding: "10px 15px",
+            backgroundColor: "#222",
+            borderRadius: "4px",
+            marginBottom: "10px",
+            fontSize: "13px",
+          }}
+        >
+          <div>
+            <span style={{ color: "#88ff88" }}>
+              ✓ Matched notes: {matchedCount}
+            </span>
+          </div>
+          {unmatchedCount > 0 && (
+            <div>
+              <span style={{ color: "#ff8888" }}>
+                ✗ Unmatched notes: {unmatchedCount}
+              </span>
+            </div>
+          )}
+        </div>
+
         <pre
           style={{
-            maxHeight: "calc(100vh - 200px)",
+            maxHeight: "calc(100vh - 260px)", // Adjusted to account for the new summary
             overflowY: "auto",
             fontSize: "12px",
             padding: "10px",
@@ -999,11 +1036,20 @@ const ParseMidiDisplay: React.FC = () => {
                 padding: "8px 0",
                 borderBottom: "1px dotted #333",
                 marginBottom: "4px",
+                backgroundColor: note.hasMatch
+                  ? "rgba(0, 128, 0, 0.15)"
+                  : "transparent",
               }}
             >
-              <div style={{ color: "#88ccff", marginBottom: "4px" }}>
+              <div
+                style={{
+                  color: note.hasMatch ? "#88ff88" : "#88ccff",
+                  marginBottom: "4px",
+                }}
+              >
                 Note {note.id}: {note.note} (MIDI: {note.midiNumber}) - Voice:{" "}
                 {note.voice} {note.isDrum ? "🥁" : ""}
+                {note.hasMatch && " ✓"}
               </div>
               <div style={{ marginLeft: "12px", color: "#aaaaaa" }}>
                 Time: {note.span.start} → {note.span.end} (duration:{" "}
@@ -1013,6 +1059,48 @@ const ParseMidiDisplay: React.FC = () => {
                 Ticks: {note.tickSpan.start} → {note.tickSpan.end} (duration:{" "}
                 {note.tickSpan.duration})
               </div>
+
+              {note.hasMatch && (
+                <div
+                  style={{
+                    marginLeft: "12px",
+                    color: "#88ff88",
+                    marginTop: "8px",
+                    padding: "4px 8px",
+                    borderLeft: "2px solid #4a4",
+                    background: "rgba(0, 64, 0, 0.2)",
+                  }}
+                >
+                  <div>✓ Matching MidiWriter-js Note:</div>
+                  <div style={{ marginLeft: "8px", fontSize: "11px" }}>
+                    Channel: {note.voice}, Pitch: {note.midiNumber}, StartTick:{" "}
+                    {note.tickSpan.start}
+                  </div>
+                  <div
+                    style={{
+                      marginLeft: "8px",
+                      fontSize: "11px",
+                      fontFamily: "monospace",
+                      marginTop: "4px",
+                    }}
+                  >
+                    {JSON.stringify(note.matchingMidiWriterNote, null, 2)}
+                  </div>
+                </div>
+              )}
+
+              {!note.hasMatch && (
+                <div
+                  style={{
+                    marginLeft: "12px",
+                    color: "#ff8888",
+                    marginTop: "8px",
+                    fontSize: "11px",
+                  }}
+                >
+                  ✗ No matching note found in MidiWriter-js data
+                </div>
+              )}
             </div>
           ))}
         </pre>
@@ -1024,7 +1112,7 @@ const ParseMidiDisplay: React.FC = () => {
         )}
       </div>
 
-      {rawlProps.parsingResult.measuresAndBeats && (
+      {parsingResult.measuresAndBeats && (
         <div className="analysis-section">
           <div className="section-divider">Measures and Beats</div>
           <pre
@@ -1038,7 +1126,7 @@ const ParseMidiDisplay: React.FC = () => {
               color: "#ddd",
             }}
           >
-            {JSON.stringify(rawlProps.parsingResult.measuresAndBeats, null, 2)}
+            {JSON.stringify(parsingResult.measuresAndBeats, null, 2)}
           </pre>
         </div>
       )}
@@ -1167,6 +1255,7 @@ const Manual: React.FC<ManualProps> = ({
   setError,
   analysis,
   extractedMidiNotes,
+  matchedParsingResult,
 }) => {
   const { user } = useContext(AppContext);
   const [isPublishing, setIsPublishing] = useState(false);
@@ -1476,7 +1565,7 @@ const Manual: React.FC<ManualProps> = ({
       </ButtonBar>
 
       {viewMode === "parseMidi" ? (
-        <ParseMidiDisplay />
+        <ParseMidiDisplay matchedParsingResult={matchedParsingResult} />
       ) : viewMode === "midiWriterJs" ? (
         <MidiWriterJsDisplay extractedMidiNotes={extractedMidiNotes} />
       ) : (

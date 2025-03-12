@@ -5,6 +5,7 @@ import {
   faCloudArrowUp,
   faCode,
   faCopy,
+  faMusic,
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -642,6 +643,7 @@ interface ManualProps {
   history: any;
   setError: (error: string | null) => void;
   analysis?: Analysis;
+  extractedMidiNotes?: any;
 }
 
 const AnalysisDisplay: React.FC<{ analysis: Analysis }> = ({ analysis }) => {
@@ -1044,6 +1046,118 @@ const ParseMidiDisplay: React.FC = () => {
   );
 };
 
+const MidiWriterJsDisplay: React.FC<{ extractedMidiNotes: any }> = ({
+  extractedMidiNotes,
+}) => {
+  if (!extractedMidiNotes) {
+    return (
+      <AnalysisView>
+        <div className="empty-analysis">
+          <FontAwesomeIcon
+            icon={faMusic}
+            style={{ fontSize: "24px", marginBottom: "12px", opacity: 0.5 }}
+          />
+          <div>No MidiWriter-js data available</div>
+          <div style={{ fontSize: "11px", marginTop: "8px" }}>
+            MidiWriter-js data would appear here when available
+          </div>
+        </div>
+      </AnalysisView>
+    );
+  }
+
+  // Extract data from the passed notes
+  const { eventsByChannel, trackNames } = extractedMidiNotes;
+
+  // Convert Map to array for rendering
+  const channelsData = Array.from(eventsByChannel.entries()).sort(
+    ([a], [b]) => a - b,
+  );
+
+  return (
+    <AnalysisView>
+      <div className="analysis-header">
+        <h2>MidiWriter-js Notes Data</h2>
+        <p>Raw musical events sent to MidiWriter-js for MIDI file generation</p>
+      </div>
+
+      <div className="analysis-section">
+        <div className="section-divider">Tracks and Channels</div>
+
+        {Array.from(trackNames.entries())
+          .sort(([a], [b]) => a - b)
+          .map(([channel, name]) => (
+            <div key={channel} style={{ margin: "4px 0" }}>
+              <strong>
+                Track {channel === -1 ? "0 (Tempo)" : Number(channel) + 1}:
+              </strong>{" "}
+              {name}
+            </div>
+          ))}
+      </div>
+
+      {channelsData.map(([channel, events]) => (
+        <div key={channel} className="analysis-section">
+          <div className="section-divider">
+            Channel {channel} Events ({events.length} notes)
+          </div>
+
+          <pre
+            style={{
+              maxHeight: "300px",
+              overflowY: "auto",
+              fontSize: "12px",
+              padding: "10px",
+              background: "#1a1a1a",
+              borderRadius: "4px",
+              color: "#ddd",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            {events.map((event, idx) => {
+              // Convert pitch numbers to note names
+              const noteNames = event.pitches.map((pitch) => {
+                const octave = Math.floor(pitch / 12) - 1;
+                const noteIndex = pitch % 12;
+                const noteLabels = [
+                  "C",
+                  "C#",
+                  "D",
+                  "D#",
+                  "E",
+                  "F",
+                  "F#",
+                  "G",
+                  "G#",
+                  "A",
+                  "A#",
+                  "B",
+                ];
+                return `${noteLabels[noteIndex]}${octave}`;
+              });
+
+              return (
+                <div
+                  key={idx}
+                  style={{ borderBottom: "1px dotted #333", padding: "6px 0" }}
+                >
+                  <div style={{ color: "#88ccff" }}>
+                    Note {idx + 1}: {noteNames.join(", ")}
+                  </div>
+                  <div style={{ marginLeft: "12px", color: "#aaa" }}>
+                    Start Tick: {event.startTick}, Duration: {event.duration},
+                    Velocity: {event.velocity}
+                  </div>
+                </div>
+              );
+            })}
+          </pre>
+        </div>
+      ))}
+    </AnalysisView>
+  );
+};
+
 const Manual: React.FC<ManualProps> = ({
   score,
   initialSource,
@@ -1052,6 +1166,7 @@ const Manual: React.FC<ManualProps> = ({
   history,
   setError,
   analysis,
+  extractedMidiNotes,
 }) => {
   const { user } = useContext(AppContext);
   const [isPublishing, setIsPublishing] = useState(false);
@@ -1066,7 +1181,9 @@ const Manual: React.FC<ManualProps> = ({
     number | null
   >(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [showParseMidi, setShowParseMidi] = useState(false);
+  const [viewMode, setViewMode] = useState<
+    "manual" | "parseMidi" | "midiWriterJs"
+  >("manual");
 
   // Get the current page URL key for storage
   const getUrlKey = () => {
@@ -1284,21 +1401,27 @@ const Manual: React.FC<ManualProps> = ({
         </div>
 
         <div className="center-section">
-          {/* Show toggle for all users */}
           <ViewToggle>
             <ToggleButton
-              active={!showParseMidi}
-              onClick={() => setShowParseMidi(false)}
+              active={viewMode === "manual"}
+              onClick={() => setViewMode("manual")}
             >
               <FontAwesomeIcon icon={faBook} />
               Manual
             </ToggleButton>
             <ToggleButton
-              active={showParseMidi}
-              onClick={() => setShowParseMidi(true)}
+              active={viewMode === "parseMidi"}
+              onClick={() => setViewMode("parseMidi")}
             >
               <FontAwesomeIcon icon={faCode} />
               ParseMidi
+            </ToggleButton>
+            <ToggleButton
+              active={viewMode === "midiWriterJs"}
+              onClick={() => setViewMode("midiWriterJs")}
+            >
+              <FontAwesomeIcon icon={faMusic} />
+              MidiWriterJs
             </ToggleButton>
           </ViewToggle>
         </div>
@@ -1352,8 +1475,10 @@ const Manual: React.FC<ManualProps> = ({
         </div>
       </ButtonBar>
 
-      {showParseMidi ? (
+      {viewMode === "parseMidi" ? (
         <ParseMidiDisplay />
+      ) : viewMode === "midiWriterJs" ? (
+        <MidiWriterJsDisplay extractedMidiNotes={extractedMidiNotes} />
       ) : (
         <>
           <div className="top-section">

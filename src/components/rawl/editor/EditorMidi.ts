@@ -43,6 +43,10 @@ export interface MidiGenerationResult {
     isHiddenRoute: boolean;
   };
   analysis: Analysis;
+  extractedNotes?: {
+    eventsByChannel: Map<number, MusicalEvent[]>;
+    trackNames: Map<number, string>;
+  };
 }
 
 // Main MIDI generation function now uses the two-step process
@@ -50,71 +54,33 @@ export const generateMidiFile = (
   notes: Note[],
   bpm: number,
   timeSignatures: TimeSignature[],
-): Uint8Array => {
-  // Inline implementation of convertToMusicalEvents
+): {
+  midiData: Uint8Array;
+  extractedNotes: {
+    eventsByChannel: Map<number, MusicalEvent[]>;
+    trackNames: Map<number, string>;
+  };
+} => {
+  // Sort the notes by start time for processing
   const sortedNotes = [...notes].sort((a, b) => a.startTime - b.startTime);
   const events: MusicalEvent[] = [];
 
-  let currentStartTime = -1;
-  let currentChannel = -1;
-  let currentPitches: number[] = [];
-
-  const addEvent = (
-    startTime: number,
-    pitches: number[],
-    duration: number,
-    channel: number,
-    velocity: number,
-  ) => {
+  // Create individual note events for each note, including separate events for each pitch in chords
+  sortedNotes.forEach((note) => {
     events.push({
-      pitches,
-      startTick: startTime,
-      duration,
-      velocity,
-      channel,
+      pitches: [note.pitch], // Each event has exactly one pitch
+      startTick: note.startTime,
+      duration: note.duration,
+      velocity: note.velocity || 100,
+      channel: note.channel || 0,
     });
-  };
-
-  sortedNotes.forEach((note, index) => {
-    if (
-      note.startTime !== currentStartTime ||
-      note.channel !== currentChannel
-    ) {
-      // Add previous group if it exists
-      if (currentPitches.length > 0) {
-        addEvent(
-          currentStartTime,
-          currentPitches,
-          sortedNotes[index - 1].duration,
-          sortedNotes[index - 1].channel || 0,
-          sortedNotes[index - 1].velocity || 100,
-        );
-      }
-      // Start new group
-      currentStartTime = note.startTime;
-      currentChannel = note.channel || 0;
-      currentPitches = [note.pitch];
-    } else {
-      // Add to current group
-      currentPitches.push(note.pitch);
-    }
   });
-
-  // Add the last group
-  if (currentPitches.length > 0) {
-    addEvent(
-      currentStartTime,
-      currentPitches,
-      sortedNotes[sortedNotes.length - 1].duration,
-      sortedNotes[sortedNotes.length - 1].channel || 0,
-      sortedNotes[sortedNotes.length - 1].velocity || 100,
-    );
-  }
 
   // Inline implementation of generateMidiFromEvents
   const eventsByChannel = new Map<number, MusicalEvent[]>();
   const trackNames = new Map<number, string>();
 
+  // Group events by channel
   events.forEach((event) => {
     const channelEvents = eventsByChannel.get(event.channel) || [];
     channelEvents.push(event);
@@ -181,7 +147,13 @@ export const generateMidiFile = (
     bytes[i] = binaryString.charCodeAt(i);
   }
 
-  return bytes;
+  return {
+    midiData: bytes,
+    extractedNotes: {
+      eventsByChannel,
+      trackNames,
+    },
+  };
 };
 
 export const generateInitialAnalysis = (title: string): Analysis => {
@@ -203,7 +175,11 @@ export const generateMidiWithMetadata = (
   bpm: number,
   timeSignatures: TimeSignature[],
 ): MidiGenerationResult => {
-  const midiData = generateMidiFile(notes, bpm, timeSignatures);
+  const { midiData, extractedNotes } = generateMidiFile(
+    notes,
+    bpm,
+    timeSignatures,
+  );
 
   return {
     midiData,
@@ -215,5 +191,6 @@ export const generateMidiWithMetadata = (
       isHiddenRoute: false,
     },
     analysis: generateInitialAnalysis(title),
+    extractedNotes,
   };
 };

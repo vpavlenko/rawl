@@ -163,6 +163,7 @@ const Editor: React.FC<EditorProps> = ({
   const dragStartY = useRef(0);
   const dragStartHeight = useRef(0);
   const [codeValue, setCodeValue] = useState(initialSource || "");
+  const [extractedMidiNotes, setExtractedMidiNotes] = useState<any>(null);
 
   // Redirect to /e/new if no slug is provided - using useEffect for proper hook ordering
   useEffect(() => {
@@ -463,6 +464,9 @@ const Editor: React.FC<EditorProps> = ({
               newContext.timeSignatures,
             );
 
+            // Store the extracted notes
+            setExtractedMidiNotes(midiResult.extractedNotes);
+
             if (playSongBuffer) {
               // Disable autoplay specifically for the /e/new route
               const isNewRoute = effectiveSlug === "new";
@@ -750,6 +754,7 @@ const Editor: React.FC<EditorProps> = ({
                 history={history}
                 setError={setError}
                 analysis={analysis}
+                extractedMidiNotes={extractedMidiNotes}
               />
             )}
       </BaseEditorPanel>

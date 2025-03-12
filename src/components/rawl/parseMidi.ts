@@ -18,7 +18,7 @@ export type Note = {
   isDrum: boolean;
   id: number;
   span: SecondsSpan;
-  tickSpan: [number, number]; // [startTick, endTick]
+  tickSpan?: [number, number]; // [startTick, endTick]
   pitchBend?: PitchBendPoint[];
   voiceIndex: number;
   sourceLocation?: SourceLocation;
@@ -86,7 +86,7 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
               id,
               isDrum: channel === DRUM_CHANNEL,
               span: [noteOn[midiNumber].playTime / 1000, event.playTime / 1000],
-              tickSpan: [noteOn[midiNumber].tickPosition, currentTick],
+              tickSpan: noteOn[midiNumber].tickSpan,
               pitchBend: noteOn[midiNumber].pitchBend,
               voiceIndex,
               sourceLocation: noteOn[midiNumber].sourceLocation,

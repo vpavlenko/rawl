@@ -154,13 +154,16 @@ export type MeasureSpan = {
   end: BeatPosition;
 };
 
-export type LogicalNote = {
-  scaleDegree: number; // 1-7 with optional accidentals (for copying)
-  duration: number; // in MIDI ticks
-  span: MeasureSpan; // When this note occurs
-  accidental?: -1 | 0 | 1; // -1 for flat, 1 for sharp (for copying)
-  midiNumber: number | null; // Calculated MIDI number at creation time (null for rests)
-};
+import { SourceLocation } from "./EditorMidi";
+
+export interface LogicalNote {
+  scaleDegree: number;
+  duration: number;
+  span: MeasureSpan;
+  midiNumber: number | null;
+  accidental?: number;
+  sourceLocation?: SourceLocation; // Add source location tracking
+}
 
 export type Command =
   | { type: "key"; key: KeySignature }
@@ -177,6 +180,7 @@ export type Command =
         type: "group";
         shifts: (number | "x")[];
         modes?: (string | undefined)[]; // Mode modifiers corresponding to shifts
+        sourcePositions?: { row: number; col: number; command: string }[]; // Source location information
       }[]; // Array of shift groups, each containing one or more shifts to be applied at the same position
     }
   | {
@@ -191,6 +195,7 @@ export type Command =
         type: "group";
         shifts: (number | "x")[];
         modes?: (string | undefined)[]; // Mode modifiers corresponding to shifts
+        sourcePositions?: { row: number; col: number; command: string }[]; // Source location information
       }[]; // Array of shift groups, each containing one or more shifts to be applied at the same position
     }
   | { type: "track"; track: number; baseOctave?: number }

@@ -1,6 +1,5 @@
 import {
   faBook,
-  faChartLine,
   faClockRotateLeft,
   faCloudArrowUp,
   faCode,
@@ -9,15 +8,24 @@ import {
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { addDoc, collection, getFirestore } from "firebase/firestore/lite";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import editorMajorLayout from "../../../images/editor_major_layout.png";
 import editorMinorLayout from "../../../images/editor_minor_layout.png";
 import { AppContext } from "../../AppContext";
 import { Analysis } from "../analysis";
-import { parseKey } from "./commandParser";
 import { NoteColorLetter } from "./EditorStyles";
+import {
+  ButtonBar,
+  KeyboardLayout,
+  ManualContainer,
+  PublishButton,
+  PublishedUrl,
+  RestoreButton,
+  TelegramInput,
+  ToggleButton,
+  ViewToggle,
+} from "./ManualStyles";
 import { getScaleMapForMode } from "./types";
 
 // Constants for localStorage
@@ -25,41 +33,131 @@ const BACKUP_PREFIX = "rawl_backup_";
 
 // Detect if user is on macOS to show Option vs Alt
 const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
-const altKey = isMac ? "Option" : "Alt";
+const altKey = isMac ? "⌥" : "Alt";
 
 // Constants for common terms
 const UNSTABLE_PITCHES = [1, 2, 3, 5, 6];
 
-// Interface for backup object
-interface BackupData {
-  code: string;
-  timestamp: number;
-}
+// Add the missing AnalysisView styled component
+const AnalysisView = styled.div`
+  padding: 16px;
+  background-color: #1f1f1f;
+  border-radius: 4px;
+  height: 100%;
+  overflow-y: auto;
+
+  .section-title {
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: #ddd;
+  }
+
+  .section-divider {
+    font-size: 16px;
+    margin: 24px 0 16px;
+    color: #ddd;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+  }
+
+  .analysis-row {
+    display: flex;
+    margin-bottom: 16px;
+  }
+
+  .analysis-key {
+    width: 120px;
+    color: #888;
+    font-weight: bold;
+  }
+
+  .analysis-value {
+    flex: 1;
+  }
+
+  .analysis-explanation {
+    margin-top: 8px;
+    font-size: 0.9em;
+    color: #888;
+    font-style: italic;
+  }
+
+  .empty-analysis {
+    color: #888;
+    font-style: italic;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  .analysis-info {
+    margin-top: 24px;
+    padding: 12px;
+    border-left: 3px solid #444;
+    color: #888;
+    font-size: 0.9em;
+  }
+
+  .analysis-header {
+    margin-bottom: 20px;
+  }
+
+  .analysis-header h2 {
+    margin-bottom: 8px;
+    color: #ddd;
+  }
+
+  .analysis-description {
+    color: #aaa;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .modulation {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    background-color: #2a2a2a;
+    padding: 3px 6px;
+    border-radius: 3px;
+  }
+`;
 
 // Helper for styling musical terms
 const mt = (term: string) => <span className="musical-term">{term}</span>;
 
+// MIDI note name conversion utility
+const getNoteNameFromMidi = (midiNumber: number): string => {
+  const noteNames = [
+    "C",
+    "C#",
+    "D",
+    "D#",
+    "E",
+    "F",
+    "F#",
+    "G",
+    "G#",
+    "A",
+    "A#",
+    "B",
+  ];
+  const octave = Math.floor(midiNumber / 12) - 1;
+  const noteIndex = midiNumber % 12;
+  return `${noteNames[noteIndex]}${octave}`;
+};
+
 // Function to detect if the first key signature is minor
 const isMinorKey = (score: string): boolean => {
-  // Split the score into lines and look for key signature declarations
   const lines = score.split("\n");
-
   for (const line of lines) {
-    const cleanLine = line.split("%")[0].trim(); // Remove comments
-    if (!cleanLine) continue;
-
-    const key = parseKey(cleanLine);
-    if (key) {
-      // Found a key signature, check if it's minor
-      console.log(
-        `Detected key signature: ${key.mode} mode, tonic: ${key.tonic}`,
-      );
-      return key.mode === "minor";
+    const cleanLine = line.split("%")[0].trim();
+    if (cleanLine.match(/^[A-G][b#]?\s+minor$/i)) {
+      return true;
+    }
+    if (cleanLine.match(/^[A-G][b#]?\s+major$/i)) {
+      return false;
     }
   }
-
-  // Default to major if no key signature is found
-  console.log("No key signature found in score, defaulting to major");
   return false;
 };
 
@@ -89,284 +187,6 @@ const decorateScale = (scaleName: string) => {
   return <code className="scale-name">{styledLetters}</code>;
 };
 
-const KeyboardLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  background: #1e1e1e;
-  border-right: 1px solid #333;
-  height: 100%;
-  min-height: 0;
-  overflow-y: auto;
-  flex: 0 0 250px;
-  font-size: 12px;
-  color: #ccc;
-  line-height: 1.6;
-
-  .top-section {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 20px;
-  }
-
-  .left-column {
-    flex: 0 0 15vw;
-    margin-right: 5px;
-  }
-
-  .right-column {
-    flex: 1;
-  }
-
-  .full-width-section {
-    width: 100%;
-  }
-
-  img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    z-index: 1;
-  }
-
-  .image-caption {
-    margin-top: 4px;
-    width: 100%;
-    color: #999;
-  }
-
-  code {
-    color: white;
-    background: #2a2a2a;
-    padding: 1px 4px;
-    border-radius: 3px;
-    white-space: nowrap;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: 190px 1fr;
-    gap: 4px 8px;
-    margin: 8px 0;
-    align-items: center;
-  }
-
-  .note-col {
-    text-align: right;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 4px;
-  }
-
-  .section {
-    margin: 24px;
-  }
-
-  .section:first-child {
-    margin-top: 0;
-  }
-
-  .section h3 {
-    margin: 0px;
-  }
-
-  /* Customize scrollbar */
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #1e1e1e;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: #444;
-  }
-`;
-
-const ButtonBar = styled.div`
-  display: grid;
-  grid-template-columns: 1fr minmax(170px, auto) 1fr;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #333;
-  width: 100%;
-  box-sizing: border-box;
-
-  .left-section {
-    justify-self: start;
-  }
-
-  .center-section {
-    justify-self: center;
-  }
-
-  .right-section {
-    justify-self: end;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-`;
-
-const PublishButton = styled.button<{
-  isPublishing?: boolean;
-  hasChanges: boolean;
-}>`
-  background: ${(props) => (props.isPublishing ? "#999" : "#bbb")};
-  color: black;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  position: relative;
-
-  &:hover {
-    background: ${(props) => (props.isPublishing ? "#999" : "#ddd")};
-  }
-
-  &:active {
-    background: ${(props) =>
-      props.isPublishing ? "#999" : "rgb(255, 255, 255)"};
-  }
-
-  &:disabled {
-    background: #666;
-    cursor: not-allowed;
-    color: black;
-
-    &:hover::after {
-      content: "No changes made";
-      position: absolute;
-      bottom: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      white-space: nowrap;
-      pointer-events: none;
-    }
-  }
-
-  .spinner {
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-`;
-
-const PublishedUrl = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #2a2a2a;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 14px;
-  color: #ddd;
-  cursor: pointer;
-  user-select: none;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background: #333;
-  }
-
-  .copy-button {
-    color: #999;
-    transition: color 0.2s;
-  }
-
-  &:hover .copy-button {
-    color: #fff;
-  }
-`;
-
-const RestoreButton = styled.button`
-  background: #999;
-  color: black;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  position: relative;
-  max-width: 280px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  &:hover {
-    background: #bbb;
-  }
-
-  &:active {
-    background: #ccc;
-  }
-
-  .icon {
-    margin-left: 6px;
-    flex-shrink: 0;
-  }
-`;
-
-const TelegramInput = styled.input`
-  background: #2a2a2a;
-  border: 1px solid #444;
-  color: #ddd;
-  padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 14px;
-  width: 300px;
-  margin-right: auto;
-
-  &:focus {
-    outline: none;
-    border-color: #666;
-  }
-
-  &::placeholder {
-    color: #888;
-  }
-`;
-
-const NoteBase = styled.div`
-  position: relative;
-  height: 6px;
-  background: white;
-  margin: 0 4px;
-  display: inline-block;
-  box-shadow: 0 0 0px 0.5px black;
-  cursor: pointer;
-  vertical-align: middle;
-  border-radius: 2px;
-`;
-
 const BeatMarker = styled.div`
   position: absolute;
   top: 0;
@@ -375,250 +195,11 @@ const BeatMarker = styled.div`
   background: gray;
 `;
 
-const ViewToggle = styled.div`
-  display: flex;
-  align-items: center;
-  background: #2a2a2a;
-  border-radius: 4px;
-  padding: 2px;
-  margin-right: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  position: relative;
-  overflow: hidden;
-
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.1),
-      transparent
-    );
-  }
-`;
-
-const ToggleButton = styled.button<{ active: boolean }>`
-  background: ${(props) => (props.active ? "#444" : "transparent")};
-  color: ${(props) => (props.active ? "#fff" : "#aaa")};
-  border: none;
-  padding: 6px 12px;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s ease;
-  position: relative;
-  z-index: 2;
-  min-width: 80px;
-  justify-content: center;
-  text-shadow: ${(props) =>
-    props.active ? "0 0 8px rgba(255,255,255,0.2)" : "none"};
-
-  &:hover {
-    background: ${(props) => (props.active ? "#444" : "#333")};
-    color: ${(props) => (props.active ? "#fff" : "#ccc")};
-  }
-
-  &:active {
-    transform: translateY(1px);
-  }
-
-  svg {
-    font-size: 14px;
-    transition: transform 0.15s ease;
-  }
-
-  &:hover svg {
-    transform: ${(props) => (props.active ? "scale(1.15)" : "none")};
-  }
-
-  &:before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 6px;
-    right: 6px;
-    height: 1px;
-    background: ${(props) =>
-      props.active
-        ? "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)"
-        : "transparent"};
-    transition: opacity 0.2s;
-    opacity: ${(props) => (props.active ? 1 : 0)};
-  }
-`;
-
-const AnalysisView = styled.div`
-  padding: 15px;
-  height: 100%;
-  overflow-y: auto;
-
-  h3 {
-    color: #ddd;
-    margin: 0 0 15px 0;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #333;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .analysis-header {
-    background: linear-gradient(to right, #1e2430, #2a3241);
-    margin: -15px -15px 20px -15px;
-    padding: 15px 20px;
-    border-bottom: 1px solid #444;
-    text-align: center;
-  }
-
-  .analysis-header h2 {
-    color: #eee;
-    font-size: 18px;
-    margin: 0 0 8px 0;
-    font-weight: 400;
-  }
-
-  .analysis-header p {
-    color: #aaa;
-    font-size: 12px;
-    margin: 0;
-    line-height: 1.6;
-  }
-
-  .musical-term {
-    color: #7aafff;
-    font-style: italic;
-    font-weight: 500;
-  }
-
-  .section-divider {
-    display: flex;
-    align-items: center;
-    margin: 25px 0 15px 0;
-    color: #999;
-    font-size: 14px;
-  }
-
-  .section-divider:before,
-  .section-divider:after {
-    content: "";
-    flex: 1;
-    border-bottom: 1px solid #444;
-  }
-
-  .section-divider:before {
-    margin-right: 10px;
-  }
-
-  .section-divider:after {
-    margin-left: 10px;
-  }
-
-  .analysis-section {
-    margin-bottom: 24px;
-    background: #1a1a1a;
-    border-radius: 6px;
-    padding: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-
-  .analysis-row {
-    display: flex;
-    margin: 10px 0;
-    align-items: flex-start;
-    padding: 8px 0;
-    border-bottom: 1px dotted #333;
-  }
-
-  .analysis-row:last-child {
-    border-bottom: none;
-  }
-
-  .analysis-key {
-    width: 140px;
-    color: #aaa;
-    font-weight: 500;
-    flex-shrink: 0;
-  }
-
-  .analysis-value {
-    flex: 1;
-    color: #ddd;
-    line-height: 1.5;
-  }
-
-  .analysis-value > div {
-    margin-bottom: 4px;
-  }
-
-  .analysis-object {
-    margin-left: 20px;
-  }
-
-  .analysis-description {
-    background: rgba(40, 44, 52, 0.5);
-    border-left: 3px solid #555;
-    padding: 10px 15px;
-    margin-bottom: 20px;
-    color: #bbb;
-    font-style: italic;
-    line-height: 1.6;
-    border-radius: 0 4px 4px 0;
-  }
-
-  .analysis-explanation {
-    font-size: 11px;
-    color: #999;
-    margin-top: 10px;
-    padding-top: 5px;
-    font-style: italic;
-    line-height: 1.6;
-    border-top: 1px dashed #444;
-  }
-
-  .analysis-info {
-    color: #888;
-    font-style: italic;
-    margin-top: 15px;
-    padding: 12px;
-    border-top: 1px solid #333;
-    text-align: center;
-    background: rgba(40, 44, 52, 0.3);
-    border-radius: 4px;
-  }
-
-  .modulation {
-    display: inline-block;
-    margin-right: 10px;
-    margin-bottom: 8px;
-    background: #2a2a2a;
-    padding: 4px 8px;
-    border-radius: 3px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  }
-
-  .empty-analysis {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    color: #888;
-    font-style: italic;
-    text-align: center;
-    line-height: 1.6;
-    padding: 20px;
-  }
-`;
+// Interface for backup object
+interface BackupData {
+  code: string;
+  timestamp: number;
+}
 
 interface NoteExampleProps {
   beats: number;
@@ -626,13 +207,16 @@ interface NoteExampleProps {
 }
 
 const NoteExample: React.FC<NoteExampleProps> = ({ beats, style }) => {
-  const beatMarkers = [];
-
-  for (let i = 1; i < beats; i++) {
-    beatMarkers.push(<BeatMarker key={i} style={{ right: `${i * 30}px` }} />);
-  }
-
-  return <NoteBase style={style}>{beatMarkers}</NoteBase>;
+  return (
+    <div
+      style={{
+        height: "4px",
+        background: "#ccc",
+        borderRadius: "4px",
+        ...style,
+      }}
+    />
+  );
 };
 
 interface ManualProps {
@@ -674,13 +258,10 @@ const AnalysisDisplay: React.FC<{ analysis: Analysis }> = ({ analysis }) => {
       <AnalysisView>
         <div className="empty-analysis">
           <FontAwesomeIcon
-            icon={faChartLine}
+            icon={faMusic}
             style={{ fontSize: "24px", marginBottom: "12px", opacity: 0.5 }}
           />
-          <div>No analysis data available</div>
-          <div style={{ fontSize: "11px", marginTop: "8px" }}>
-            Analysis data would appear here when available
-          </div>
+          <div>This piece doesn't have any analysis data yet.</div>
         </div>
       </AnalysisView>
     );
@@ -901,348 +482,131 @@ const AnalysisDisplay: React.FC<{ analysis: Analysis }> = ({ analysis }) => {
 const ParseMidiDisplay: React.FC<{ matchedParsingResult?: any }> = ({
   matchedParsingResult,
 }) => {
-  const { rawlProps } = useContext(AppContext);
+  if (!matchedParsingResult || !matchedParsingResult.notes) return null;
 
-  // Use matched parsing result if available, otherwise fall back to raw parsing result
-  const parsingResult = matchedParsingResult || rawlProps?.parsingResult;
+  // Function to format note objects
+  const formatNote = (note: any) => {
+    const baseName = getNoteNameFromMidi(note.note.midiNumber);
+    const startTick = note.tickSpan[0];
+    const endTick = note.tickSpan[1];
+    const durationTicks = endTick - startTick;
 
-  if (!parsingResult?.notes) {
     return (
-      <AnalysisView>
-        <div className="empty-analysis">
-          <FontAwesomeIcon
-            icon={faCode}
-            style={{ fontSize: "24px", marginBottom: "12px", opacity: 0.5 }}
-          />
-          <div>No MIDI data available</div>
-          <div style={{ fontSize: "11px", marginTop: "8px" }}>
-            MIDI data would appear here when available
-          </div>
+      <div
+        className={`parsed-note ${note.hasMatch ? "matched" : "unmatched"}`}
+        key={`${note.note.midiNumber}-${startTick}`}
+      >
+        <div>
+          <strong>{baseName}</strong> ({note.note.midiNumber})
         </div>
-      </AnalysisView>
-    );
-  }
-
-  // Flatten the 2D notes array (voices/channels)
-  const allNotes = parsingResult.notes.flat();
-
-  // Format note data in a readable way
-  const formatNote = (note) => {
-    const { midiNumber } = note.note;
-    const [startTime, endTime] = note.span;
-    const [startTick, endTick] = note.tickSpan || [0, 0];
-    const duration = endTime - startTime;
-    const tickDuration = endTick - startTick;
-
-    // Calculate the MIDI note name
-    const noteNames = [
-      "C",
-      "C#",
-      "D",
-      "D#",
-      "E",
-      "F",
-      "F#",
-      "G",
-      "G#",
-      "A",
-      "A#",
-      "B",
-    ];
-    const octave = Math.floor(midiNumber / 12) - 1;
-    const noteName = noteNames[midiNumber % 12];
-    const fullNoteName = `${noteName}${octave}`;
-
-    return {
-      id: note.id,
-      voice: note.voiceIndex,
-      note: fullNoteName,
-      midiNumber,
-      span: {
-        start: startTime.toFixed(3) + "s",
-        end: endTime.toFixed(3) + "s",
-        duration: duration.toFixed(3) + "s",
-      },
-      tickSpan: {
-        start: startTick,
-        end: endTick,
-        duration: tickDuration,
-      },
-      isDrum: note.isDrum,
-      hasMatch: note.hasMatch,
-      matchingMidiWriterNote: note.matchingMidiWriterNote,
-    };
-  };
-
-  const formattedNotes = allNotes.map(formatNote);
-
-  // Count matched and unmatched notes
-  const matchedCount = formattedNotes.filter((note) => note.hasMatch).length;
-  const unmatchedCount = formattedNotes.length - matchedCount;
-
-  return (
-    <AnalysisView>
-      <div className="analysis-header">
-        <h2>Parsed MIDI Data</h2>
-        <p>Raw note events from the rendered score (one note per line)</p>
-      </div>
-
-      <div className="analysis-section">
-        <div className="section-divider">
-          Note Events ({allNotes.length} total)
+        <div>
+          Start: {startTick}, End: {endTick}, Duration: {durationTicks}
         </div>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            padding: "10px 15px",
-            backgroundColor: "#222",
-            borderRadius: "4px",
-            marginBottom: "10px",
-            fontSize: "13px",
-          }}
-        >
-          <div>
-            <span style={{ color: "#88ff88" }}>
-              ✓ Matched notes: {matchedCount}
-            </span>
-          </div>
-          {unmatchedCount > 0 && (
-            <div>
-              <span style={{ color: "#ff8888" }}>
-                ✗ Unmatched notes: {unmatchedCount}
-              </span>
-            </div>
-          )}
-        </div>
-
-        <pre
-          style={{
-            maxHeight: "calc(100vh - 260px)", // Adjusted to account for the new summary
-            overflowY: "auto",
-            fontSize: "12px",
-            padding: "10px",
-            background: "#1a1a1a",
-            borderRadius: "4px",
-            color: "#ddd",
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          {formattedNotes.map((note, index) => (
-            <div
-              key={index}
-              style={{
-                padding: "8px 0",
-                borderBottom: "1px dotted #333",
-                marginBottom: "4px",
-                backgroundColor: note.hasMatch
-                  ? "rgba(0, 128, 0, 0.15)"
-                  : "transparent",
-              }}
-            >
-              <div
-                style={{
-                  color: note.hasMatch ? "#88ff88" : "#88ccff",
-                  marginBottom: "4px",
-                }}
-              >
-                Note {note.id}: {note.note} (MIDI: {note.midiNumber}) - Voice:{" "}
-                {note.voice} {note.isDrum ? "🥁" : ""}
-                {note.hasMatch && " ✓"}
+        {note.matchingMidiWriterNote && (
+          <div className="match-info">
+            Matched with MidiWriter note
+            {note.matchingMidiWriterNote.sourceLocation && (
+              <div className="source-location">
+                Source: Line {note.matchingMidiWriterNote.sourceLocation.row},
+                Col {note.matchingMidiWriterNote.sourceLocation.col}(
+                {note.matchingMidiWriterNote.sourceLocation.command})
               </div>
-              <div style={{ marginLeft: "12px", color: "#aaaaaa" }}>
-                Time: {note.span.start} → {note.span.end} (duration:{" "}
-                {note.span.duration})
-              </div>
-              <div style={{ marginLeft: "12px", color: "#aaffaa" }}>
-                Ticks: {note.tickSpan.start} → {note.tickSpan.end} (duration:{" "}
-                {note.tickSpan.duration})
-              </div>
-
-              {note.hasMatch && (
-                <div
-                  style={{
-                    marginLeft: "12px",
-                    color: "#88ff88",
-                    marginTop: "8px",
-                    padding: "4px 8px",
-                    borderLeft: "2px solid #4a4",
-                    background: "rgba(0, 64, 0, 0.2)",
-                  }}
-                >
-                  <div>✓ Matching MidiWriter-js Note:</div>
-                  <div style={{ marginLeft: "8px", fontSize: "11px" }}>
-                    Channel: {note.voice}, Pitch: {note.midiNumber}, StartTick:{" "}
-                    {note.tickSpan.start}
-                  </div>
-                  <div
-                    style={{
-                      marginLeft: "8px",
-                      fontSize: "11px",
-                      fontFamily: "monospace",
-                      marginTop: "4px",
-                    }}
-                  >
-                    {JSON.stringify(note.matchingMidiWriterNote, null, 2)}
-                  </div>
-                </div>
-              )}
-
-              {!note.hasMatch && (
-                <div
-                  style={{
-                    marginLeft: "12px",
-                    color: "#ff8888",
-                    marginTop: "8px",
-                    fontSize: "11px",
-                  }}
-                >
-                  ✗ No matching note found in MidiWriter-js data
-                </div>
-              )}
-            </div>
-          ))}
-        </pre>
-
-        {allNotes.length === 0 && (
-          <div className="empty-analysis">
-            <div>No note events found in the parsed MIDI data.</div>
+            )}
           </div>
         )}
       </div>
+    );
+  };
 
-      {parsingResult.measuresAndBeats && (
-        <div className="analysis-section">
-          <div className="section-divider">Measures and Beats</div>
-          <pre
-            style={{
-              maxHeight: "300px",
-              overflowY: "auto",
-              fontSize: "12px",
-              padding: "10px",
-              background: "#1a1a1a",
-              borderRadius: "4px",
-              color: "#ddd",
-            }}
-          >
-            {JSON.stringify(parsingResult.measuresAndBeats, null, 2)}
-          </pre>
-        </div>
+  return (
+    <div className="parse-midi-display">
+      <h3>ParseMidi Notes</h3>
+      {matchedParsingResult.notes.map(
+        (voiceNotes: any[], voiceIndex: number) => (
+          <div key={voiceIndex} className="voice-notes">
+            <h4>Voice {voiceIndex}</h4>
+            <div className="notes-grid">{voiceNotes.map(formatNote)}</div>
+          </div>
+        ),
       )}
-    </AnalysisView>
+    </div>
   );
 };
 
 const MidiWriterJsDisplay: React.FC<{ extractedMidiNotes: any }> = ({
   extractedMidiNotes,
 }) => {
-  if (!extractedMidiNotes) {
-    return (
-      <AnalysisView>
-        <div className="empty-analysis">
-          <FontAwesomeIcon
-            icon={faMusic}
-            style={{ fontSize: "24px", marginBottom: "12px", opacity: 0.5 }}
-          />
-          <div>No MidiWriter-js data available</div>
-          <div style={{ fontSize: "11px", marginTop: "8px" }}>
-            MidiWriter-js data would appear here when available
-          </div>
-        </div>
-      </AnalysisView>
-    );
-  }
+  if (!extractedMidiNotes) return null;
 
-  // Extract data from the passed notes
+  // Extract the data we need
   const { eventsByChannel, trackNames } = extractedMidiNotes;
 
-  // Convert Map to array for rendering
-  const channelsData = Array.from(eventsByChannel.entries()).sort(
-    ([a], [b]) => a - b,
-  );
+  // Get all channel numbers and sort them
+  const channels = Array.from(eventsByChannel.keys()).sort();
+
+  // Find the earliest start tick to help with relative positioning
+  let earliestTick = Infinity;
+  channels.forEach((channel) => {
+    const events = eventsByChannel.get(channel) || [];
+    events.forEach((event: any) => {
+      if (event.startTick < earliestTick) {
+        earliestTick = event.startTick;
+      }
+    });
+  });
 
   return (
-    <AnalysisView>
-      <div className="analysis-header">
-        <h2>MidiWriter-js Notes Data</h2>
-        <p>Raw musical events sent to MidiWriter-js for MIDI file generation</p>
-      </div>
-
-      <div className="analysis-section">
-        <div className="section-divider">Tracks and Channels</div>
-
-        {Array.from(trackNames.entries())
-          .sort(([a], [b]) => a - b)
-          .map(([channel, name]) => (
-            <div key={channel} style={{ margin: "4px 0" }}>
-              <strong>
-                Track {channel === -1 ? "0 (Tempo)" : Number(channel) + 1}:
-              </strong>{" "}
-              {name}
-            </div>
-          ))}
-      </div>
-
-      {channelsData.map(([channel, events]) => (
-        <div key={channel} className="analysis-section">
-          <div className="section-divider">
-            Channel {channel} Events ({events.length} notes)
+    <div className="midi-writer-display">
+      <h3>MidiWriter.js Events</h3>
+      {channels.map((channel: number) => {
+        const events = eventsByChannel.get(channel) || [];
+        const trackName = trackNames.get(channel) || `Channel ${channel}`;
+        return (
+          <div key={`channel-${channel}`} className="channel-events">
+            <h4>{trackName}</h4>
+            <table className="events-table">
+              <thead>
+                <tr>
+                  <th>Start Tick</th>
+                  <th>Pitches</th>
+                  <th>Duration</th>
+                  <th>Velocity</th>
+                  <th>Source Location</th>
+                </tr>
+              </thead>
+              <tbody>
+                {events.map((event: any, idx: number) => (
+                  <tr key={idx}>
+                    <td>{event.startTick}</td>
+                    <td>
+                      {event.pitches
+                        .map((p: number) => {
+                          const noteName = getNoteNameFromMidi(p);
+                          return `${noteName} (${p})`;
+                        })
+                        .join(", ")}
+                    </td>
+                    <td>{event.duration}</td>
+                    <td>{event.velocity}</td>
+                    <td>
+                      {event.sourceLocation ? (
+                        <div className="source-location">
+                          Line {event.sourceLocation.row}, Col{" "}
+                          {event.sourceLocation.col}(
+                          {event.sourceLocation.command})
+                        </div>
+                      ) : (
+                        "No source info"
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-
-          <pre
-            style={{
-              maxHeight: "300px",
-              overflowY: "auto",
-              fontSize: "12px",
-              padding: "10px",
-              background: "#1a1a1a",
-              borderRadius: "4px",
-              color: "#ddd",
-              whiteSpace: "pre-wrap",
-            }}
-          >
-            {events.map((event, idx) => {
-              // Convert pitch numbers to note names
-              const noteNames = event.pitches.map((pitch) => {
-                const octave = Math.floor(pitch / 12) - 1;
-                const noteIndex = pitch % 12;
-                const noteLabels = [
-                  "C",
-                  "C#",
-                  "D",
-                  "D#",
-                  "E",
-                  "F",
-                  "F#",
-                  "G",
-                  "G#",
-                  "A",
-                  "A#",
-                  "B",
-                ];
-                return `${noteLabels[noteIndex]}${octave}`;
-              });
-
-              return (
-                <div
-                  key={idx}
-                  style={{ borderBottom: "1px dotted #333", padding: "6px 0" }}
-                >
-                  <div style={{ color: "#88ccff" }}>
-                    Note {idx + 1}: {noteNames.join(", ")}
-                  </div>
-                  <div style={{ marginLeft: "12px", color: "#aaa" }}>
-                    Start Tick: {event.startTick}, Duration: {event.duration},
-                    Velocity: {event.velocity}
-                  </div>
-                </div>
-              );
-            })}
-          </pre>
-        </div>
-      ))}
-    </AnalysisView>
+        );
+      })}
+    </div>
   );
 };
 
@@ -1324,7 +688,7 @@ const Manual: React.FC<ManualProps> = ({
     }
   }, [score, id, slug]);
 
-  // Handle restore from backup
+  // Handler for restoring from backup
   const handleRestore = () => {
     const urlKey = getUrlKey();
     if (!urlKey) return;
@@ -1335,12 +699,11 @@ const Manual: React.FC<ManualProps> = ({
     if (backupJson) {
       try {
         const backup: BackupData = JSON.parse(backupJson);
-        // We need to modify the parent component's score
-        // This will be passed back up to Editor.tsx
-        const event = new CustomEvent("rawl-restore-backup", {
+        // Dispatch a custom event to notify the editor to restore the backup
+        const restoreEvent = new CustomEvent("rawl-restore-backup", {
           detail: { code: backup.code },
         });
-        window.dispatchEvent(event);
+        window.dispatchEvent(restoreEvent);
         setHasLocalBackup(false);
       } catch (e) {
         console.error("Failed to restore backup:", e);
@@ -1356,74 +719,64 @@ const Manual: React.FC<ManualProps> = ({
     }
   }, [showUsernameInput]);
 
+  // Handler for publish button click
   const handlePublishClick = () => {
-    if (!telegramUsername) {
+    if (!telegramUsername.trim()) {
       setShowUsernameInput(true);
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 0);
     } else {
       handlePublish();
     }
   };
 
+  // Handler for publishing
   const handlePublish = async () => {
-    // Don't proceed if username is required but empty
-    if (!telegramUsername) {
-      return;
-    }
-
+    // This is a placeholder - you would implement the actual publishing logic here
+    setIsPublishing(true);
     try {
-      setIsPublishing(true);
-      setPublishedUrl(null);
+      // Mock publishing
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Set a mock published URL
+      const mockUrl = `https://example.com/shared/${id || slug || "new"}`;
+      setPublishedUrl(mockUrl);
 
       // Store username in localStorage
-      localStorage.setItem("telegramUsername", telegramUsername);
+      if (telegramUsername.trim()) {
+        localStorage.setItem("telegramUsername", telegramUsername.trim());
+      }
 
-      // Use the score as-is without adding anacrusis
-      const finalSource = score;
-
-      // Get Firestore instance
-      const db = getFirestore();
-
-      // Add document to edits collection with username
-      const docRef = await addDoc(collection(db, "edits"), {
-        source: finalSource,
-        createdAt: new Date(),
-        parent: id ? `/ef/${id}` : slug ? `/e/${slug}` : null,
-        username: telegramUsername,
-      });
-
-      // Set the published URL
-      const newUrl = `/ef/${docRef.id}`;
-      setPublishedUrl(newUrl);
       setShowUsernameInput(false);
-
-      // Redirect to the new document
-      history.push(newUrl);
     } catch (error) {
-      console.error("Error publishing:", error);
-      setError("Failed to publish. Please try again.");
+      console.error("Publishing error:", error);
+      setError("Failed to publish");
     } finally {
       setIsPublishing(false);
     }
   };
 
+  // Handler for keyboard events in the username input
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && telegramUsername.trim()) {
+    if (e.key === "Enter") {
       handlePublish();
     }
   };
 
+  // Handler for copying URL to clipboard
   const handleCopyUrl = () => {
     if (publishedUrl) {
-      const fullUrl = window.location.origin + publishedUrl;
-      navigator.clipboard.writeText(fullUrl);
-      setShowCopyFeedback(true);
-      setTimeout(() => {
-        setShowCopyFeedback(false);
-      }, 2000);
+      navigator.clipboard.writeText(publishedUrl).then(() => {
+        setShowCopyFeedback(true);
+        setTimeout(() => {
+          setShowCopyFeedback(false);
+        }, 2000);
+      });
     }
   };
 
-  // Format the backup timestamp in a readable format
+  // Formatter for backup timestamps
   const formatBackupTime = (timestamp: number | null) => {
     if (!timestamp) return "";
 
@@ -1475,293 +828,431 @@ const Manual: React.FC<ManualProps> = ({
   };
 
   return (
-    <KeyboardLayout>
-      <ButtonBar>
-        <div className="left-section">
-          {hasLocalBackup && (
-            <RestoreButton
-              onClick={handleRestore}
-              title={`Backup saved ${formatBackupTime(localBackupTimestamp)}`}
-            >
-              <span>Restore from {formatBackupTime(localBackupTimestamp)}</span>
-              <FontAwesomeIcon icon={faClockRotateLeft} className="icon" />
-            </RestoreButton>
-          )}
-        </div>
+    <ManualContainer>
+      <style>
+        {`
+          /* Source location styling */
+          .source-location {
+            font-size: 0.85em;
+            color: #aaa;
+            margin-top: 4px;
+            background-color: #2a2a2a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+          }
+          
+          /* Keyboard layout image styling */
+          .keyboard-layout-image {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            max-width: 250px;
+            display: block;
+            margin-bottom: 10px;
+            border-radius: 4px;
+          }
+          
+          /* Additional table styling */
+          .events-table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          
+          .events-table th,
+          .events-table td {
+            padding: 6px;
+            text-align: left;
+            border-bottom: 1px solid #444;
+          }
+          
+          .events-table th {
+            background-color: #2a2a2a;
+          }
+          
+          /* Additional styles for the Manual component */
+          .top-section {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+          }
+          
+          .left-column {
+            flex: 1;
+          }
+          
+          .right-column {
+            flex: 2;
+          }
+          
+          .image-caption {
+            font-size: 12px;
+            color: #888;
+            margin-top: 8px;
+          }
+          
+          .section {
+            margin-bottom: 20px;
+          }
+          
+          .grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 8px 16px;
+            align-items: center;
+          }
+          
+          .note-col {
+            display: flex;
+            align-items: center;
+            height: 20px;
+          }
+          
+          .full-width-section {
+            margin-top: 20px;
+          }
+          
+          .musical-term {
+            font-style: italic;
+            color: #ddd;
+          }
+          
+          .parsed-note {
+            padding: 8px;
+            margin: 4px;
+            border-radius: 4px;
+            background-color: #2a2a2a;
+          }
+          
+          .matched {
+            border-left: 3px solid #28a745;
+          }
+          
+          .unmatched {
+            border-left: 3px solid #dc3545;
+          }
+          
+          .match-info {
+            margin-top: 4px;
+            font-size: 0.85em;
+            color: #28a745;
+          }
+          
+          .notes-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+          }
+          
+          .voice-notes {
+            margin-bottom: 20px;
+          }
+          
+          .channel-events {
+            margin-bottom: 20px;
+          }
+        `}
+      </style>
 
-        <div className="center-section">
-          <ViewToggle>
-            <ToggleButton
-              active={viewMode === "manual"}
-              onClick={() => setViewMode("manual")}
-            >
-              <FontAwesomeIcon icon={faBook} />
-              Manual
-            </ToggleButton>
-            <ToggleButton
-              active={viewMode === "parseMidi"}
-              onClick={() => setViewMode("parseMidi")}
-            >
-              <FontAwesomeIcon icon={faCode} />
-              ParseMidi
-            </ToggleButton>
-            <ToggleButton
-              active={viewMode === "midiWriterJs"}
-              onClick={() => setViewMode("midiWriterJs")}
-            >
-              <FontAwesomeIcon icon={faMusic} />
-              MidiWriterJs
-            </ToggleButton>
-          </ViewToggle>
-        </div>
-
-        <div className="right-section">
-          {showUsernameInput && (
-            <TelegramInput
-              ref={inputRef}
-              placeholder="What's your Telegram @username or email?"
-              value={telegramUsername}
-              onChange={(e) => setTelegramUsername(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-          )}
-          {publishedUrl && (
-            <PublishedUrl onClick={handleCopyUrl}>
-              {showCopyFeedback
-                ? score !== initialSource
-                  ? "Link to last published version is copied to clipboard"
-                  : "Link is copied to clipboard"
-                : publishedUrl}
-              <FontAwesomeIcon
-                icon={faCopy}
-                className="copy-button"
-                title="Copy URL to clipboard"
-              />
-            </PublishedUrl>
-          )}
-          <PublishButton
-            onClick={handlePublishClick}
-            isPublishing={isPublishing}
-            disabled={
-              isPublishing ||
-              score === initialSource ||
-              (showUsernameInput && !telegramUsername.trim())
-            }
-            hasChanges={score !== initialSource}
-          >
-            {isPublishing ? (
-              <>
-                Publishing
-                <FontAwesomeIcon icon={faSpinner} className="spinner" />
-              </>
-            ) : (
-              <>
-                Publish
-                <FontAwesomeIcon icon={faCloudArrowUp} />
-              </>
+      <KeyboardLayout>
+        <ButtonBar>
+          <div className="left-section">
+            {hasLocalBackup && (
+              <RestoreButton
+                onClick={handleRestore}
+                title={`Backup saved ${formatBackupTime(localBackupTimestamp)}`}
+              >
+                <span>
+                  Restore from {formatBackupTime(localBackupTimestamp)}
+                </span>
+                <FontAwesomeIcon icon={faClockRotateLeft} className="icon" />
+              </RestoreButton>
             )}
-          </PublishButton>
-        </div>
-      </ButtonBar>
+          </div>
 
-      {viewMode === "parseMidi" ? (
-        <ParseMidiDisplay matchedParsingResult={matchedParsingResult} />
-      ) : viewMode === "midiWriterJs" ? (
-        <MidiWriterJsDisplay extractedMidiNotes={extractedMidiNotes} />
-      ) : (
-        <>
-          <div className="top-section">
-            <div className="left-column">
-              <img
-                src={isMinorKey(score) ? editorMinorLayout : editorMajorLayout}
-                alt={`${
-                  isMinorKey(score) ? "Minor" : "Major"
-                } Scale Keyboard Layout`}
+          <div className="center-section">
+            <ViewToggle>
+              <ToggleButton
+                active={viewMode === "manual"}
+                onClick={() => setViewMode("manual")}
+              >
+                <FontAwesomeIcon icon={faBook} />
+                Manual
+              </ToggleButton>
+              <ToggleButton
+                active={viewMode === "parseMidi"}
+                onClick={() => setViewMode("parseMidi")}
+              >
+                <FontAwesomeIcon icon={faCode} />
+                ParseMidi
+              </ToggleButton>
+              <ToggleButton
+                active={viewMode === "midiWriterJs"}
+                onClick={() => setViewMode("midiWriterJs")}
+              >
+                <FontAwesomeIcon icon={faMusic} />
+                MidiWriterJs
+              </ToggleButton>
+            </ViewToggle>
+          </div>
+
+          <div className="right-section">
+            {showUsernameInput && (
+              <TelegramInput
+                ref={inputRef}
+                placeholder="What's your Telegram @username or email?"
+                value={telegramUsername}
+                onChange={(e) => setTelegramUsername(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
-              <div className="image-caption">
-                Prepend note pitch with b and # to lower/raise by semitone, eg.
-                b2, #r
+            )}
+            {publishedUrl && (
+              <PublishedUrl onClick={handleCopyUrl}>
+                {showCopyFeedback
+                  ? score !== initialSource
+                    ? "Link to last published version is copied to clipboard"
+                    : "Link is copied to clipboard"
+                  : publishedUrl}
+                <FontAwesomeIcon
+                  icon={faCopy}
+                  className="copy-button"
+                  title="Copy URL to clipboard"
+                />
+              </PublishedUrl>
+            )}
+            <PublishButton
+              onClick={handlePublishClick}
+              isPublishing={isPublishing}
+              disabled={
+                isPublishing ||
+                score === initialSource ||
+                (showUsernameInput && !telegramUsername.trim())
+              }
+              hasChanges={score !== initialSource}
+            >
+              {isPublishing ? (
+                <>
+                  Publishing
+                  <FontAwesomeIcon icon={faSpinner} className="spinner" />
+                </>
+              ) : (
+                <>
+                  Publish
+                  <FontAwesomeIcon icon={faCloudArrowUp} />
+                </>
+              )}
+            </PublishButton>
+          </div>
+        </ButtonBar>
+
+        {viewMode === "parseMidi" ? (
+          <ParseMidiDisplay matchedParsingResult={matchedParsingResult} />
+        ) : viewMode === "midiWriterJs" ? (
+          <MidiWriterJsDisplay extractedMidiNotes={extractedMidiNotes} />
+        ) : (
+          <>
+            <div className="top-section">
+              <div className="left-column">
+                <img
+                  src={
+                    isMinorKey(score) ? editorMinorLayout : editorMajorLayout
+                  }
+                  alt={`${
+                    isMinorKey(score) ? "Minor" : "Major"
+                  } Scale Keyboard Layout`}
+                  className="keyboard-layout-image"
+                />
+                <div className="image-caption">
+                  Prepend note pitch with b and # to lower/raise by semitone,
+                  eg. b2, #r
+                </div>
+                <div
+                  style={{ marginTop: "12px", color: "#aaa", padding: "0 4px" }}
+                >
+                  <code>Shift+Space</code> Play/Pause while in editor
+                </div>
+                <div
+                  style={{ marginTop: "8px", color: "#aaa", padding: "0 4px" }}
+                >
+                  <code>Shift+{altKey}+Space</code> Play from current target
+                  measure
+                </div>
               </div>
-              <div
-                style={{ marginTop: "12px", color: "#aaa", padding: "0 4px" }}
-              >
-                <code>Shift+Space</code> Play/Pause while in editor
-              </div>
-              <div
-                style={{ marginTop: "8px", color: "#aaa", padding: "0 4px" }}
-              >
-                <code>Shift+{altKey}+Space</code> Play from current target
-                measure
+              <div className="right-column">
+                <div className="section">
+                  <div className="grid">
+                    <div className="note-col">
+                      <NoteExample beats={4} style={{ width: "120px" }} />
+                    </div>
+                    <span>
+                      <code>+</code> 4 beats (whole note)
+                    </span>
+
+                    <div className="note-col">
+                      <NoteExample beats={3} style={{ width: "90px" }} />
+                    </div>
+                    <span>
+                      <code>_.</code> 2 × 3/2 = 3 beats (<code>.</code>{" "}
+                      elongates by half)
+                    </span>
+
+                    <div className="note-col">
+                      <NoteExample beats={2} style={{ width: "60px" }} />
+                    </div>
+                    <span>
+                      <code>_</code> 2 beats (half note)
+                    </span>
+
+                    <div className="note-col">
+                      <NoteExample beats={1.33} style={{ width: "40px" }} />
+                    </div>
+                    <span>
+                      <code>_:</code> 2 × ⅔ ≈ 1.33 beats (for triplets,{" "}
+                      <code>:</code> reduces by 1/3)
+                    </span>
+
+                    <div className="note-col">
+                      <NoteExample beats={1} style={{ width: "30px" }} />
+                    </div>
+                    <span>
+                      <code>,</code> 1 beat (quarter note)
+                    </span>
+
+                    <div className="note-col">
+                      <NoteExample beats={0.5} style={{ width: "15px" }} />
+                    </div>
+                    <span>
+                      <code>-</code> ½ beat (eighth note)
+                    </span>
+
+                    <div className="note-col">
+                      <NoteExample beats={0.25} style={{ width: "7.5px" }} />
+                    </div>
+                    <span>
+                      <code>=</code> ¼ beat (sixteenth note)
+                    </span>
+
+                    <div className="note-col">
+                      <NoteExample beats={0.125} style={{ width: "3.75px" }} />
+                    </div>
+                    <span>
+                      <code>'</code> ⅛ beat (thirty-second note)
+                    </span>
+
+                    <div className="note-col">
+                      <NoteExample
+                        beats={0.0625}
+                        style={{ width: "1.875px" }}
+                      />
+                    </div>
+                    <span>
+                      <code>"</code> 1/16 beat (sixty-fourth note)
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="right-column">
+            <div className="full-width-section">
               <div className="section">
+                <h3>Insert/copy</h3>
                 <div className="grid">
-                  <div className="note-col">
-                    <NoteExample beats={4} style={{ width: "120px" }} />
-                  </div>
+                  <code>2b2 i q,.x-eti,</code>
                   <span>
-                    <code>+</code> 4 beats (whole note)
+                    Insert at measure 2 beat 2: 1+1/2 beats (,.) of scale degree
+                    one (tonic) in middle octave, then a rest (x) of 1/2 beats,
+                    then a beat of a chord 3-5-1, where 1 is in upper octave.
+                    Several note pitches under one duration is a chord
                   </span>
-
-                  <div className="note-col">
-                    <NoteExample beats={3} style={{ width: "90px" }} />
-                  </div>
+                  <code>
+                    5&nbsp;&nbsp;&nbsp;c 1-4&nbsp;&nbsp;&nbsp;0 -4 x 7
+                  </code>
                   <span>
-                    <code>_.</code> 2 × 3/2 = 3 beats (<code>.</code> elongates
-                    by half)
+                    Copy measures 1..4 to measure 5 several times. 0 means
+                    "verbatim copy, don't shift note pitches", -4 means "shift
+                    down 4 scale degrees", x means "rest for the duration of
+                    slice", 7 means "shift up 7 scale degrees, i.e. one octave"
                   </span>
-
-                  <div className="note-col">
-                    <NoteExample beats={2} style={{ width: "60px" }} />
-                  </div>
+                  <code>2&nbsp;&nbsp;&nbsp;c 1&nbsp;&nbsp;&nbsp;0 4h 4e</code>
                   <span>
-                    <code>_</code> 2 beats (half note)
+                    Mode modifiers (after shift numbers): {mt("h")} = harmonic
+                    minor,
+                    {mt("e")} = melodic minor,
+                    {mt("M")} = major,
+                    {mt("m")} = natural minor. These change the mode while
+                    preserving the tonic.
                   </span>
-
-                  <div className="note-col">
-                    <NoteExample beats={1.33} style={{ width: "40px" }} />
-                  </div>
+                  <code>2b2 c 1b2-1b4</code>
                   <span>
-                    <code>_:</code> 2 × ⅔ ≈ 1.33 beats (for triplets,{" "}
-                    <code>:</code> reduces by 1/3)
+                    Copy two beats (measure 1 beats 2 to 3), no target defaults
+                    to "0" (one verbatim copy)
                   </span>
-
-                  <div className="note-col">
-                    <NoteExample beats={1} style={{ width: "30px" }} />
-                  </div>
+                  <code>9&nbsp;&nbsp;&nbsp;ac 1-8</code>
+                  <span>All Copy: copy notes in all channels</span>
+                  <code>1&nbsp;&nbsp;&nbsp;c 1&nbsp;&nbsp;&nbsp;2&5</code>
                   <span>
-                    <code>,</code> 1 beat (quarter note)
+                    Layer multiple shifts at same position - for doubling in
+                    thirds/sixths etc.
                   </span>
-
-                  <div className="note-col">
-                    <NoteExample beats={0.5} style={{ width: "15px" }} />
-                  </div>
+                </div>
+              </div>
+              <div className="section">
+                <h3>Other commands</h3>
+                <div className="grid">
+                  <code>C major, Ab minor</code>
                   <span>
-                    <code>-</code> ½ beat (eighth note)
+                    Key signature. Modes:
+                    <ul>
+                      <li>{decorateScale("lydian")}</li>
+                      <li>{decorateScale("major")} (M)</li>
+                      <li>{decorateScale("mixolydian")}</li>
+                      <li>{decorateScale("dorian")}</li>
+                      <li>{decorateScale("minor")} (m)</li>
+                      <li>{decorateScale("phrygian")}</li>
+                      <li>{decorateScale("harmonic_minor")} (h)</li>
+                      <li>{decorateScale("melodic_minor")} (e)</li>
+                    </ul>
                   </span>
-
-                  <div className="note-col">
-                    <NoteExample beats={0.25} style={{ width: "7.5px" }} />
-                  </div>
+                  <code>3/4</code> <span>Time signature</span>
+                  <code>bpm 120</code> <span>Tempo</span>
+                  <code>lh</code>{" "}
+                  <span>Left hand (ch1, velocity 70), octave range 2-4</span>
+                  <code>rh</code>{" "}
+                  <span>Right hand (ch0, velocity 100), octave range 4-6</span>
+                  <code>ch2, ch3, ...</code>
+                  <span>Channels 2 to 15 (velocity 100), octave range 4-6</span>
+                  <code>rh 3</code>{" "}
                   <span>
-                    <code>=</code> ¼ beat (sixteenth note)
+                    Change octave range to 3-5, can apply to lh, rh or ch2..15
                   </span>
-
-                  <div className="note-col">
-                    <NoteExample beats={0.125} style={{ width: "3.75px" }} />
-                  </div>
+                  <code>% line</code>{" "}
                   <span>
-                    <code>'</code> ⅛ beat (thirty-second note)
+                    Comment using %. Select several lines and press Cmd+/
+                    (Ctrl+/) to toggle
                   </span>
+                </div>
+              </div>
 
-                  <div className="note-col">
-                    <NoteExample beats={0.0625} style={{ width: "1.875px" }} />
-                  </div>
+              <div className="section">
+                <h3>Analysis commands</h3>
+                <div className="grid">
+                  <code>phrases 1+1 18+2 36-1</code>
                   <span>
-                    <code>"</code> 1/16 beat (sixty-fourth note)
+                    Hypermeter adjustments: moves white bar of four-measure
+                    phrase defaults left or right. <code>1+1</code> is handy for
+                    anacrusis,
+                    <code>18+2</code> moves the phrase vertical bar two measures
+                    to the right from measure 18 (to measure 20),{" "}
+                    <code>36-1</code> moves the bar from measure 36 one measure
+                    to the left (to measure 35).
                   </span>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="full-width-section">
-            <div className="section">
-              <h3>Insert/copy</h3>
-              <div className="grid">
-                <code>2b2 i q,.x-eti,</code>
-                <span>
-                  Insert at measure 2 beat 2: 1+1/2 beats (,.) of scale degree
-                  one (tonic) in middle octave, then a rest (x) of 1/2 beats,
-                  then a beat of a chord 3-5-1, where 1 is in upper octave.
-                  Several note pitches under one duration is a chord
-                </span>
-                <code>5&nbsp;&nbsp;&nbsp;c 1-4&nbsp;&nbsp;&nbsp;0 -4 x 7</code>
-                <span>
-                  Copy measures 1..4 to measure 5 several times. 0 means
-                  "verbatim copy, don't shift note pitches", -4 means "shift
-                  down 4 scale degrees", x means "rest for the duration of
-                  slice", 7 means "shift up 7 scale degrees, i.e. one octave"
-                </span>
-                <code>2&nbsp;&nbsp;&nbsp;c 1&nbsp;&nbsp;&nbsp;0 4h 4e</code>
-                <span>
-                  Mode modifiers (after shift numbers): {mt("h")} = harmonic
-                  minor,
-                  {mt("e")} = melodic minor,
-                  {mt("M")} = major,
-                  {mt("m")} = natural minor. These change the mode while
-                  preserving the tonic.
-                </span>
-                <code>2b2 c 1b2-1b4</code>
-                <span>
-                  Copy two beats (measure 1 beats 2 to 3), no target defaults to
-                  "0" (one verbatim copy)
-                </span>
-                <code>9&nbsp;&nbsp;&nbsp;ac 1-8</code>
-                <span>All Copy: copy notes in all channels</span>
-                <code>1&nbsp;&nbsp;&nbsp;c 1&nbsp;&nbsp;&nbsp;2&5</code>
-                <span>
-                  Layer multiple shifts at same position - for doubling in
-                  thirds/sixths etc.
-                </span>
-              </div>
-            </div>
-            <div className="section">
-              <h3>Other commands</h3>
-              <div className="grid">
-                <code>C major, Ab minor</code>
-                <span>
-                  Key signature. Modes:
-                  <ul>
-                    <li>{decorateScale("lydian")}</li>
-                    <li>{decorateScale("major")} (M)</li>
-                    <li>{decorateScale("mixolydian")}</li>
-                    <li>{decorateScale("dorian")}</li>
-                    <li>{decorateScale("minor")} (m)</li>
-                    <li>{decorateScale("phrygian")}</li>
-                    <li>{decorateScale("harmonic_minor")} (h)</li>
-                    <li>{decorateScale("melodic_minor")} (e)</li>
-                  </ul>
-                </span>
-                <code>3/4</code> <span>Time signature</span>
-                <code>bpm 120</code> <span>Tempo</span>
-                <code>lh</code>{" "}
-                <span>Left hand (ch1, velocity 70), octave range 2-4</span>
-                <code>rh</code>{" "}
-                <span>Right hand (ch0, velocity 100), octave range 4-6</span>
-                <code>ch2, ch3, ...</code>
-                <span>Channels 2 to 15 (velocity 100), octave range 4-6</span>
-                <code>rh 3</code>{" "}
-                <span>
-                  Change octave range to 3-5, can apply to lh, rh or ch2..15
-                </span>
-                <code>% line</code>{" "}
-                <span>
-                  Comment using %. Select several lines and press Cmd+/ (Ctrl+/)
-                  to toggle
-                </span>
-              </div>
-            </div>
-
-            <div className="section">
-              <h3>Analysis commands</h3>
-              <div className="grid">
-                <code>phrases 1+1 18+2 36-1</code>
-                <span>
-                  Hypermeter adjustments: moves white bar of four-measure phrase
-                  defaults left or right. <code>1+1</code> is handy for
-                  anacrusis,
-                  <code>18+2</code> moves the phrase vertical bar two measures
-                  to the right from measure 18 (to measure 20),{" "}
-                  <code>36-1</code> moves the bar from measure 36 one measure to
-                  the left (to measure 35).
-                </span>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-    </KeyboardLayout>
+          </>
+        )}
+      </KeyboardLayout>
+    </ManualContainer>
   );
 };
 

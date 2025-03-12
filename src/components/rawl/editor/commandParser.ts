@@ -1,5 +1,6 @@
 import { Analysis, ANALYSIS_STUB, PitchClass } from "../analysis";
 import { TICKS_PER_QUARTER } from "../forge/constants";
+import { SourceLocation } from "./EditorMidi";
 import {
   BeatPosition,
   Command,
@@ -21,6 +22,7 @@ export interface Note {
   startTick: number;
   durationTicks: number;
   channel: number;
+  sourceLocation?: SourceLocation;
 }
 
 export interface TrackCommand {
@@ -69,6 +71,7 @@ export const parseKey = (keyString: string): KeySignature | null => {
 export const parseCopyCommand = (
   line: string,
   timeSignatures: TimeSignature[] = [],
+  lineNumber?: number,
 ): Command | null => {
   // Match the command format: coordinate c sourceMeasureSpan [sequenceOfShifts]
   // Examples:
@@ -96,6 +99,7 @@ export const parseCopyCommand = (
     sourceEndBeatStr,
     shiftsStr,
   ] = match;
+
   const targetMeasure = parseInt(measureStr);
   const targetBeat = beatStr ? parseFloat(beatStr) : 1;
 
@@ -141,19 +145,46 @@ export const parseCopyCommand = (
   // Extract all shifts by matching numbers or 'x', supporting & syntax for layered shifts
   // and mode modifiers (h, e, M, m)
   // If no shifts provided, default to ["0"]
-  const shifts = (shiftsStr || "0")
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean)
-    .map((token): { shift: number | "x"; mode?: ModeName }[] => {
-      if (token === "x") return [{ shift: "x" }];
+  const shiftsStrTrimmed = (shiftsStr || "0").trim();
+  const shiftTokens = shiftsStrTrimmed.split(/\s+/).filter(Boolean);
+
+  // Find the column positions for each shift token in the original line
+  const shiftStartPositions: number[] = [];
+
+  if (shiftTokens.length > 0) {
+    // Find each shift token's position in the original line
+    let currentPos = line.indexOf(shiftsStrTrimmed);
+
+    for (const token of shiftTokens) {
+      currentPos = line.indexOf(token, currentPos);
+      if (currentPos !== -1) {
+        shiftStartPositions.push(currentPos + 1); // Convert to 1-based index
+        currentPos += token.length;
+      } else {
+        // Fallback if we can't find the exact position
+        shiftStartPositions.push(1);
+      }
+    }
+  } else {
+    // Default position for implicit shift 0
+    shiftStartPositions.push(1);
+  }
+
+  const shifts = shiftTokens.map(
+    (
+      token,
+      index,
+    ): { shift: number | "x"; mode?: ModeName; sourceCol: number }[] => {
+      const sourceCol = shiftStartPositions[index];
+
+      if (token === "x") return [{ shift: "x", sourceCol }];
 
       // If token contains &, it represents layered shifts at the same position
       if (token.includes("&")) {
         return token.split("&").map((shiftToken) => {
           // Parse shift and mode modifier
           const match = shiftToken.match(/^([+-]?\d+)([heMm])?$/);
-          if (!match) return { shift: Number(shiftToken) };
+          if (!match) return { shift: Number(shiftToken), sourceCol };
 
           const [_, shiftValue, modeModifier] = match;
           const shift = Number(shiftValue);
@@ -163,13 +194,13 @@ export const parseCopyCommand = (
             mode = MODE_SHORTHAND_MAP[modeModifier as ModeShorthand];
           }
 
-          return { shift, mode };
+          return { shift, mode, sourceCol };
         });
       }
 
       // Parse single shift with possible mode modifier
       const match = token.match(/^([+-]?\d+)([heMm])?$/);
-      if (!match) return [{ shift: Number(token) }];
+      if (!match) return [{ shift: Number(token), sourceCol }];
 
       const [_, shiftValue, modeModifier] = match;
       const shift = Number(shiftValue);
@@ -179,14 +210,16 @@ export const parseCopyCommand = (
         mode = MODE_SHORTHAND_MAP[modeModifier as ModeShorthand];
       }
 
-      return [{ shift, mode }];
-    });
+      return [{ shift, mode, sourceCol }];
+    },
+  );
 
   // Determine if this is a regular copy or an all-channels copy
   const isAllChannels = line.trim().split(/\s+/)[1] === "ac";
+  const commandType = isAllChannels ? "ac" : "copy";
 
   return {
-    type: isAllChannels ? "ac" : "copy",
+    type: commandType,
     targetMeasure,
     targetBeat,
     sourceStart,
@@ -197,6 +230,11 @@ export const parseCopyCommand = (
       type: "group",
       shifts: shiftGroup.map((s) => s.shift),
       modes: shiftGroup.map((s) => s.mode),
+      sourcePositions: shiftGroup.map((s) => ({
+        row: lineNumber || 0,
+        col: s.sourceCol,
+        command: commandType,
+      })),
     })),
   };
 };
@@ -348,6 +386,7 @@ const ANALYSIS_STUB_WITH_SECTIONS: Analysis = {
 export const parseCommand = (
   line: string,
   context: CommandContext,
+  lineNumber?: number,
 ): Command | null => {
   // Make sure context has an analysis object
   const extendedContext = context as ExtendedCommandContext;
@@ -418,7 +457,11 @@ export const parseCommand = (
   }
 
   // Try parsing as copy command
-  const copyCmd = parseCopyCommand(cleanLine, context.timeSignatures);
+  const copyCmd = parseCopyCommand(
+    cleanLine,
+    context.timeSignatures,
+    lineNumber,
+  );
   if (copyCmd) return copyCmd;
 
   // Parse as note insert command
@@ -445,10 +488,16 @@ export const parseCommand = (
     );
     const beatsPerMeasure = beatsInMeasure || 4; // Fallback to 4/4 if no time signature
 
-    const notes = parseMelodyString(cleanLine, {
-      ...context,
-      beatsPerMeasure,
-    });
+    // Pass the line number to parseMelodyString
+    const notes = parseMelodyString(
+      cleanLine,
+      {
+        ...context,
+        beatsPerMeasure,
+      },
+      lineNumber,
+    );
+
     if (notes.length > 0) return { type: "insert", notes };
   }
 
@@ -539,6 +588,7 @@ export const globalBeatToMeasureAndBeat = (
 export const parseMelodyString = (
   melodyString: string,
   context: CommandContext,
+  lineNumber?: number,
 ): LogicalNote[] => {
   const lines = melodyString.split("\n").filter((line) => line.trim());
 
@@ -561,20 +611,23 @@ export const parseMelodyString = (
       context.timeSignatures,
     );
 
-    // Process tokens
-    const tokens = processTokens(melodyPart);
+    // Find the start position of the melody part in the original line
+    const melodyPartStartIndex = line.indexOf(melodyPart);
+
+    // Process tokens with position information
+    const tokens = processTokens(melodyPart, melodyPartStartIndex);
     const result: LogicalNote[] = [];
 
     for (let i = 0; i < tokens.length; i++) {
       const token = tokens[i];
-      if (!token.trim()) continue;
+      if (!token.value.trim()) continue;
 
       // Check if this token is a duration marker
-      const isDurationMarker = /^[+_\-=,'"][.:]?$/.test(token);
+      const isDurationMarker = /^[+_\-=,'"][.:]?$/.test(token.value);
 
       if (isDurationMarker) {
         // Apply this duration to the previous note(s)
-        const duration = getDuration(token, context.beatsPerMeasure || 4);
+        const duration = getDuration(token.value, context.beatsPerMeasure || 4);
 
         // Find the last group of notes (could be a single note or chord)
         let lastNoteIndex = result.length - 1;
@@ -598,7 +651,7 @@ export const parseMelodyString = (
 
       // Handle note or chord
       // First split into tokens by commas and whitespace
-      const rawNoteTokens = token.split(/[,\s]+/);
+      const rawNoteTokens = token.value.split(/[,\s]+/);
       const noteTokens = rawNoteTokens.filter(Boolean);
 
       const span: MeasureSpan = {
@@ -627,6 +680,12 @@ export const parseMelodyString = (
         // Skip if not a valid note
         if (!/^[a-zA-Z1-90x]$/.test(actualNote)) continue;
 
+        // Find the exact position of this note in the original melody string
+        // We need to find where in the token string this note appears
+        const noteIndex = token.value.lastIndexOf(actualNote);
+        const notePosition =
+          noteIndex !== -1 ? token.position + noteIndex + 1 : token.position;
+
         // Handle rest
         if (actualNote === "x") {
           result.push({
@@ -634,6 +693,11 @@ export const parseMelodyString = (
             duration: TICKS_PER_QUARTER,
             span: { ...span },
             midiNumber: null,
+            sourceLocation: {
+              row: lineNumber || 0,
+              col: notePosition,
+              command: "insert",
+            },
           });
           continue;
         }
@@ -657,6 +721,11 @@ export const parseMelodyString = (
             span: { ...span },
             midiNumber,
             accidental,
+            sourceLocation: {
+              row: lineNumber || 0,
+              col: notePosition,
+              command: "insert",
+            },
           });
         }
       }
@@ -718,14 +787,23 @@ const getDuration = (marker: string, beatsPerMeasure: number = 4): number => {
   return duration;
 };
 
-// Helper to process melody string into tokens
-const processTokens = (melodyPart: string): string[] => {
+// Helper to process melody string into tokens, now with position tracking
+interface PositionedToken {
+  value: string;
+  position: number; // Position in original string
+}
+
+// Updated to track positions
+const processTokens = (
+  melodyPart: string,
+  startIndex: number = 0,
+): PositionedToken[] => {
+  const tokens: PositionedToken[] = [];
+  let currentToken = "";
+  let currentTokenStart = 0;
+
   // Remove all spaces from melody part before processing
   const cleanMelodyPart = melodyPart.replace(/\s+/g, "");
-
-  // Split input into tokens, preserving duration markers and their modifiers
-  const tokens: string[] = [];
-  let currentToken = "";
 
   for (let i = 0; i < cleanMelodyPart.length; i++) {
     const char = cleanMelodyPart[i];
@@ -733,12 +811,16 @@ const processTokens = (melodyPart: string): string[] => {
     if (/[+_\-=,'"]/.test(char)) {
       // If we have accumulated a token, push it
       if (currentToken) {
-        tokens.push(currentToken);
+        tokens.push({
+          value: currentToken,
+          position: startIndex + currentTokenStart + 1, // 1-based indexing
+        });
         currentToken = "";
       }
 
       // Look ahead for modifiers (. or :)
       let durationToken = char;
+      let durationTokenPos = i;
       if (
         i + 1 < cleanMelodyPart.length &&
         /[.:]/.test(cleanMelodyPart[i + 1])
@@ -746,25 +828,38 @@ const processTokens = (melodyPart: string): string[] => {
         durationToken += cleanMelodyPart[i + 1];
         i++; // Skip the modifier in next iteration
       }
-      tokens.push(durationToken);
+      tokens.push({
+        value: durationToken,
+        position: startIndex + durationTokenPos + 1, // 1-based indexing
+      });
     } else if (/[.:]/.test(char)) {
       continue;
     } else if (/[#b]/.test(char)) {
       // Handle accidentals - they should be part of the next note
       if (currentToken) {
         // If we have a token already, push it before starting new one with accidental
-        tokens.push(currentToken);
+        tokens.push({
+          value: currentToken,
+          position: startIndex + currentTokenStart + 1, // 1-based indexing
+        });
         currentToken = "";
       }
       currentToken = char;
+      currentTokenStart = i;
     } else if (/[a-zA-Z1-90x]/.test(char)) {
+      if (!currentToken) {
+        currentTokenStart = i;
+      }
       currentToken += char;
       // If this is a complete note (accidental + note or just note), push it
       if (
         currentToken.length === 2 ||
         (currentToken.length === 1 && !/[#b]/.test(currentToken))
       ) {
-        tokens.push(currentToken);
+        tokens.push({
+          value: currentToken,
+          position: startIndex + currentTokenStart + 1, // 1-based indexing
+        });
         currentToken = "";
       }
     }
@@ -772,7 +867,10 @@ const processTokens = (melodyPart: string): string[] => {
 
   // Push any remaining token
   if (currentToken) {
-    tokens.push(currentToken);
+    tokens.push({
+      value: currentToken,
+      position: startIndex + currentTokenStart + 1, // 1-based indexing
+    });
   }
 
   return tokens;
@@ -823,7 +921,7 @@ export const calculateShiftedNote = (
   return { newDegree, newMidi };
 };
 
-// Modify logicalNoteToMidi to use global beat positions
+// Modify logicalNoteToMidi to include source location
 export const logicalNoteToMidi = (
   note: LogicalNote,
   track: number,
@@ -836,6 +934,7 @@ export const logicalNoteToMidi = (
     startTick: note.span.start * TICKS_PER_QUARTER,
     durationTicks: note.duration,
     channel: track - 1, // Convert 1-based track to 0-based channel
+    sourceLocation: note.sourceLocation, // Pass through the source location
   };
 };
 

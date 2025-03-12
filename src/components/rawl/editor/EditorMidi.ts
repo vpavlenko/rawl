@@ -21,6 +21,13 @@ type Track = {
   ): Track;
 };
 
+// Source map information to track where a note came from in the original code
+export interface SourceLocation {
+  row: number; // 1-based line number
+  col: number; // 1-based column position
+  command: string; // 'insert', 'copy', or 'ac'
+}
+
 // Type assertion for the imported MidiWriter
 const { Track: MidiTrack, NoteEvent, Writer } = MidiWriter;
 
@@ -31,6 +38,7 @@ interface MusicalEvent {
   duration: number;
   velocity: number;
   channel: number;
+  sourceLocation?: SourceLocation; // Where this note originated in the source code
 }
 
 export interface MidiGenerationResult {
@@ -51,7 +59,7 @@ export interface MidiGenerationResult {
 
 // Main MIDI generation function now uses the two-step process
 export const generateMidiFile = (
-  notes: Note[],
+  notes: (Note & { sourceLocation?: SourceLocation })[],
   bpm: number,
   timeSignatures: TimeSignature[],
 ): {
@@ -73,6 +81,7 @@ export const generateMidiFile = (
       duration: note.duration,
       velocity: note.velocity || 100,
       channel: note.channel || 0,
+      sourceLocation: note.sourceLocation, // Pass through the source location
     });
   });
 

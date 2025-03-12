@@ -25,7 +25,7 @@ import {
   parseCommand,
 } from "./commandParser";
 import { characterBackgroundsPlugin, customTheme } from "./EditorDecorations";
-import { generateMidiWithMetadata } from "./EditorMidi";
+import { generateMidiWithMetadata, SourceLocation } from "./EditorMidi";
 import {
   EditorPanel as BaseEditorPanel,
   chevronIcons,
@@ -342,8 +342,10 @@ const Editor: React.FC<EditorProps> = ({
             // Use a map to store notes for each track
             const scoreByTrack = new Map<number, LogicalNote[]>();
 
-            for (const line of lines) {
-              const command = parseCommand(line, newContext);
+            for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+              const line = lines[lineIndex];
+              // Pass 1-based line number to parseCommand
+              const command = parseCommand(line, newContext, lineIndex + 1);
               if (!command) {
                 continue;
               }
@@ -399,6 +401,7 @@ const Editor: React.FC<EditorProps> = ({
                     [newContext.currentTrack],
                     newContext,
                     scoreByTrack,
+                    lineIndex + 1,
                   );
                   break;
                 }
@@ -413,6 +416,7 @@ const Editor: React.FC<EditorProps> = ({
                     nonEmptyChannels,
                     newContext,
                     scoreByTrack,
+                    lineIndex + 1,
                   );
                   break;
                 }
@@ -446,10 +450,14 @@ const Editor: React.FC<EditorProps> = ({
                       startTime: midiNote.startTick,
                       duration: midiNote.durationTicks - 1,
                       channel: track - 1, // Convert 1-based track number back to 0-based channel
+                      sourceLocation: midiNote.sourceLocation, // Preserve source location
                     };
                     return resultNote;
                   })
-                  .filter((n): n is MidiNote => n !== null);
+                  .filter(
+                    (n): n is typeof n & { sourceLocation?: SourceLocation } =>
+                      n !== null,
+                  );
                 return trackNotes;
               },
             );
@@ -540,8 +548,9 @@ const Editor: React.FC<EditorProps> = ({
 
         // Process each line of the score to build the analysis
         const lines = value.split("\n");
-        for (const line of lines) {
-          parseCommand(line, newContext);
+        for (let i = 0; i < lines.length; i++) {
+          // Pass the 1-based line number to parseCommand
+          parseCommand(lines[i], newContext, i + 1);
         }
 
         // Update context with new values (including the analysis)
@@ -719,6 +728,11 @@ const Editor: React.FC<EditorProps> = ({
           // Enhance the note with matching information
           note.matchingMidiWriterNote = matchingNote || null;
           note.hasMatch = !!matchingNote;
+
+          // Transfer source location information from MidiWriter note to parsing result note
+          if (matchingNote && matchingNote.sourceLocation) {
+            note.sourceLocation = matchingNote.sourceLocation;
+          }
         } else {
           note.matchingMidiWriterNote = null;
           note.hasMatch = false;
@@ -821,6 +835,7 @@ function executeCopyForChannels(
   channels: number[],
   context: CommandContext,
   scoreByTrack: Map<number, LogicalNote[]>,
+  lineNumber?: number,
 ) {
   // Save current track
   const originalTrack = context.currentTrack;
@@ -866,6 +881,9 @@ function executeCopyForChannels(
       .map((shiftGroup, idx) => {
         const copyStartBeat = targetStartAbsBeat + idx * spanLengthInBeats;
 
+        // Get the source positions for this shift group
+        const sourcePositions = shiftGroup.sourcePositions || [];
+
         // If any shift in the group is 'x', the entire group becomes a rest
         if (shiftGroup.shifts.includes("x")) {
           return [
@@ -877,6 +895,11 @@ function executeCopyForChannels(
                 end: copyStartBeat + spanLengthInBeats,
               },
               midiNumber: null,
+              sourceLocation: sourcePositions[0] || {
+                row: lineNumber || 0,
+                col: 1,
+                command: command.type,
+              },
             } as LogicalNote,
           ];
         }
@@ -885,6 +908,13 @@ function executeCopyForChannels(
         return shiftGroup.shifts.flatMap((shift, shiftIndex) => {
           // Get the mode modifier for this shift, if any
           const targetMode = shiftGroup.modes?.[shiftIndex];
+
+          // Get the source position for this specific shift
+          const sourcePosition = sourcePositions[shiftIndex] || {
+            row: lineNumber || 0,
+            col: 1,
+            command: command.type,
+          };
 
           return sourceNotes.map((n) => {
             // Calculate relative position from the start of the source
@@ -899,6 +929,7 @@ function executeCopyForChannels(
                   start: targetPosition,
                   end: targetPosition + (n.span.end - n.span.start),
                 },
+                sourceLocation: sourcePosition,
               };
             }
 
@@ -921,6 +952,7 @@ function executeCopyForChannels(
               scaleDegree: newDegree,
               midiNumber: newMidi,
               accidental: n.accidental,
+              sourceLocation: sourcePosition,
             };
           });
         });

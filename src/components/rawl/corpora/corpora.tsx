@@ -3005,6 +3005,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "modern_composers_of_single_pieces",
     midis: [
+      "ke-zai-wo-xin-di-de-ming-zi-your-name-engraved-herein-dian-ying-ke-zai-ni-xin-di-de-ming-zi-zhu-ti-qu-piano-cover",
       "clubbed-to-death",
       "mr-sandman-the-chordettes",
       "after-school---weeekly",

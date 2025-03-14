@@ -78,7 +78,7 @@ export type Analyses = {
 };
 
 export const ANALYSIS_STUB: Analysis = {
-  modulations: { 1: null },
+  modulations: { 1: 0 },
   comment: "",
   tags: [],
   form: {},

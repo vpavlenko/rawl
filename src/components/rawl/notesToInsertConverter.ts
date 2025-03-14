@@ -1200,8 +1200,9 @@ export const generateFormattedScore = (
   // Add sections if available - keep them as phrase indices, exclude 0 and 1
   if (analysis.sections && analysis.sections.length > 0) {
     const filteredSections = analysis.sections
-      .filter((section) => section > 1) // Exclude 0 and 1
-      .sort((a, b) => a - b);
+      .filter((section) => section > 0) // Exclude 0 and 1
+      .sort((a, b) => a - b)
+      .map((section) => section + 1);
 
     if (filteredSections.length > 0) {
       result += `sections ${filteredSections.join(" ")}\n\n`;

@@ -121,9 +121,18 @@ export const logNotesInformation = (
   console.log(
     `Beat-based timing representation: ${beatBasedTiming.linearRepresentation}`,
   );
+
+  // Prepare the Rawl syntax with "i " prefix and copy to clipboard
+  const rawlSyntaxWithI = "i " + beatBasedTiming.rawlSyntaxRepresentation;
   console.log(
-    `Rawl syntax representation: ${beatBasedTiming.rawlSyntaxRepresentation}`,
+    `Rawl syntax representation (copied to clipboard): ${rawlSyntaxWithI}`,
   );
+
+  // Copy to clipboard
+  navigator.clipboard
+    .writeText(rawlSyntaxWithI)
+    .then(() => console.log("Rawl syntax copied to clipboard!"))
+    .catch((err) => console.error("Failed to copy to clipboard:", err));
 };
 
 /**
@@ -604,20 +613,46 @@ export const convertNotesToRawlSyntax = (
   let previousNoteEnd = 0;
 
   // Determine if the notes are more likely in a minor key
-  // We'll use the fact that in a minor scale, the 3rd, 6th and 7th scale degrees are lowered
-  // Check if the collection has more minor 3rds (relative value 2 % 7 = 2) than major 3rds (relative value 3 % 7 = 3)
-  const minorThirdCount = notes.filter(
-    (n) => n.relativeMidiNumber % 7 === 2,
-  ).length;
-  const majorThirdCount = notes.filter(
-    (n) => n.relativeMidiNumber % 7 === 3,
-  ).length;
+  // We need a more accurate way to determine the key
+  const pitchClassCounts: { [key: number]: number } = {};
 
-  const isMinor = minorThirdCount > majorThirdCount;
+  // Count occurrences of each pitch class
+  for (const note of notes) {
+    const pitchClass = note.relativeMidiNumber % 12;
+    pitchClassCounts[pitchClass] = (pitchClassCounts[pitchClass] || 0) + 1;
+  }
+
+  console.log("Pitch class distribution:", pitchClassCounts);
+
+  // Check for minor third vs major third
+  const minorThirdCount = pitchClassCounts[3] || 0;
+  const majorThirdCount = pitchClassCounts[4] || 0;
+
+  // Check for minor sixth vs major sixth
+  const minorSixthCount = pitchClassCounts[8] || 0;
+  const majorSixthCount = pitchClassCounts[9] || 0;
+
+  // Check for minor seventh vs major seventh
+  const minorSeventhCount = pitchClassCounts[10] || 0;
+  const majorSeventhCount = pitchClassCounts[11] || 0;
+
+  // Score the evidence for minor scale
+  const minorEvidence = minorThirdCount + minorSixthCount + minorSeventhCount;
+  const majorEvidence = majorThirdCount + majorSixthCount + majorSeventhCount;
+
+  // Force major scale if all notes are diatonic to major scale
+  const majorScalePitchClasses = [0, 2, 4, 5, 7, 9, 11]; // C major scale pitch classes
+  const hasChromaticNotes = Object.keys(pitchClassCounts).some(
+    (pc) => !majorScalePitchClasses.includes(Number(pc)),
+  );
+
+  const isMinor = hasChromaticNotes ? minorEvidence > majorEvidence : false;
+
   console.log(
-    `Key determination: ${
-      isMinor ? "Minor" : "Major"
-    } (minor thirds: ${minorThirdCount}, major thirds: ${majorThirdCount})`,
+    `Key determination: ${isMinor ? "Minor" : "Major"} - ` +
+      `Minor evidence (b3=${minorThirdCount}, b6=${minorSixthCount}, b7=${minorSeventhCount}): ${minorEvidence}, ` +
+      `Major evidence (3=${majorThirdCount}, 6=${majorSixthCount}, 7=${majorSeventhCount}): ${majorEvidence}, ` +
+      `Has chromatic notes: ${hasChromaticNotes}`,
   );
 
   // Helper to find actual duration value from symbol
@@ -1048,11 +1083,20 @@ export const logNotesWithRawlSyntax = (
   console.log(
     `Beat-based timing representation: ${beatBasedTiming.linearRepresentation}`,
   );
-  console.log(
-    `Rawl syntax representation: ${beatBasedTiming.rawlSyntaxRepresentation}`,
-  );
 
   // Add encoded Rawl syntax representation
   const encodedRawlSyntax = convertNotesToEncodedRawlSyntax(notesInMeasure);
-  console.log(`Encoded Rawl syntax: ${encodedRawlSyntax}`);
+
+  // Prepare the Rawl syntax with "i " prefix and copy to clipboard
+  const rawlSyntaxWithI = " i " + beatBasedTiming.rawlSyntaxRepresentation;
+  console.log(
+    `Rawl syntax representation (copied to clipboard): ${rawlSyntaxWithI}`,
+  );
+  console.log(`Encoded Rawl syntax: i ${encodedRawlSyntax}`);
+
+  // Copy to clipboard
+  navigator.clipboard
+    .writeText(rawlSyntaxWithI)
+    .then(() => console.log("Rawl syntax copied to clipboard!"))
+    .catch((err) => console.error("Failed to copy to clipboard:", err));
 };

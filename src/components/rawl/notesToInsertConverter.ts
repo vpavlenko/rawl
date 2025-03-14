@@ -1,4 +1,4 @@
-import { ColoredNotesInVoices, Note } from "./parseMidi";
+import { ColoredNote, ColoredNotesInVoices, Note } from "./parseMidi";
 
 /**
  * Get the measure start and end times in seconds
@@ -51,7 +51,7 @@ export const getNotesInSameMeasureAndVoice = (
   coloredNotes: ColoredNotesInVoices,
   measuresAndBeats: { measures: number[]; beats: number[] },
 ): {
-  notesInMeasure: Note[];
+  notesInMeasure: ColoredNote[];
   measureSpan: [number, number];
   beatsInMeasure: number[];
   measureIndex: number;
@@ -118,10 +118,10 @@ export const logNotesInformation = (
  * This finds the lowest MIDI number note and uses its pitch class as a reference point.
  * All MIDI numbers are made relative to this base value (lowestMidi - basePitchClass).
  *
- * @param notes - Array of notes in a measure
+ * @param notes - Array of colored notes in a measure
  * @returns A JSON string representation of the notes
  */
-export const convertNotesToLinearFormat = (notes: Note[]): string => {
+export const convertNotesToLinearFormat = (notes: ColoredNote[]): string => {
   if (!notes || notes.length === 0) {
     return "[]";
   }

@@ -4486,6 +4486,14 @@ export const corpora: CorpusEntry[] = [
     country: "Denmark", // Danish artists
   },
   {
+    slug: "king_gnu",
+    midis: [
+      "specialz---king-gnu---jujutsu-kaisen-season-2-op2-full-version",
+      "banana-fish-ed-1-prayer-x",
+      "king-gnu-ni-meng-sakayume-zhou-shu-hui-zhan-0-ju-chang-ban-ed-piano-cover-sheet",
+    ],
+  },
+  {
     slug: "yoshimasa_terui",
     midis: [
       "if-i-am-with-you---yoshimasa-terui-jujutsu-kaisen-s2-ost-digital-sheet-music",

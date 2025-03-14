@@ -1,4 +1,11 @@
 export const scores: { [key: string]: string } = {
+  minimal: `1 i a,
+  
+  
+  
+  
+  
+5 i s,`,
   new: `% Hello, world!
 % This is a sample code: feel free to erase it or comment it out.
 % Currently there's a bug: notes only show up if there are

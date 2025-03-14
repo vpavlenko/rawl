@@ -310,16 +310,32 @@ const Editor: React.FC<EditorProps> = ({
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
           try {
+            console.log("[debouncedMelodyPlayback] Starting processing");
+
             // First pass: find if there's a % on empty line and where it is
             const allLines = text.split("\n");
+            console.log(
+              `[debouncedMelodyPlayback] Score has ${allLines.length} lines total`,
+            );
+
             const commentLineIndex = allLines.findIndex(
               (line) => line.trim() === "%",
             );
 
-            // Filter lines and stop at % if found
-            const lines = allLines
-              .slice(0, commentLineIndex >= 0 ? commentLineIndex : undefined)
-              .filter((line) => line.trim());
+            console.log(
+              `[debouncedMelodyPlayback] Found comment-only line at index: ${commentLineIndex}`,
+            );
+
+            // Important: Don't filter out empty lines as they affect line numbering
+            // Instead, simply stop processing at the % if found
+            const lines =
+              commentLineIndex >= 0
+                ? allLines.slice(0, commentLineIndex)
+                : allLines;
+
+            console.log(
+              `[debouncedMelodyPlayback] Processing ${lines.length} lines of score`,
+            );
 
             if (lines.length === 0) {
               setError("No valid notes found");
@@ -346,9 +362,22 @@ const Editor: React.FC<EditorProps> = ({
 
             for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
               const line = lines[lineIndex];
+
+              // Debug log the line being processed
+              console.log(
+                `[debouncedMelodyPlayback] Processing line ${
+                  lineIndex + 1
+                }: "${line}"`,
+              );
+
               // Pass 1-based line number to parseCommand
               const command = parseCommand(line, newContext, lineIndex + 1);
               if (!command) {
+                console.log(
+                  `[debouncedMelodyPlayback] No command found at line ${
+                    lineIndex + 1
+                  }`,
+                );
                 continue;
               }
 
@@ -389,6 +418,18 @@ const Editor: React.FC<EditorProps> = ({
                 case "insert": {
                   const currentTrackNotes =
                     scoreByTrack.get(newContext.currentTrack) || [];
+
+                  // Log the source locations of notes being added
+                  if (command.notes && command.notes.length > 0) {
+                    command.notes.forEach((note, idx) => {
+                      if (note.sourceLocation) {
+                        console.log(
+                          `[debouncedMelodyPlayback] Adding note ${idx} with sourceLocation = { row: ${note.sourceLocation.row}, col: ${note.sourceLocation.col} }`,
+                        );
+                      }
+                    });
+                  }
+
                   scoreByTrack.set(newContext.currentTrack, [
                     ...currentTrackNotes,
                     ...command.notes,
@@ -446,6 +487,14 @@ const Editor: React.FC<EditorProps> = ({
                     if (!midiNote) {
                       return null;
                     }
+
+                    // Log the source location being transferred to MIDI
+                    if (n.sourceLocation) {
+                      console.log(
+                        `[debouncedMelodyPlayback] Transferring sourceLocation = { row: ${n.sourceLocation.row}, col: ${n.sourceLocation.col} } to MIDI note`,
+                      );
+                    }
+
                     const resultNote = {
                       pitch: midiNote.midiNumber,
                       velocity: track === 2 ? 70 : 100, // Set velocity to 70 for LH (track 2), 100 for others
@@ -477,6 +526,26 @@ const Editor: React.FC<EditorProps> = ({
               newContext.currentBpm, // Use the current BPM from context
               newContext.timeSignatures,
             );
+
+            // Log information about the extracted notes and their source locations
+            if (midiResult.extractedNotes?.eventsByChannel) {
+              let totalEvents = 0;
+              midiResult.extractedNotes.eventsByChannel.forEach(
+                (events, channel) => {
+                  totalEvents += events.length;
+                  events.forEach((event, idx) => {
+                    if (event.sourceLocation) {
+                      console.log(
+                        `[debouncedMelodyPlayback] Channel ${channel}, Event ${idx}: sourceLocation = { row: ${event.sourceLocation.row}, col: ${event.sourceLocation.col} }`,
+                      );
+                    }
+                  });
+                },
+              );
+              console.log(
+                `[debouncedMelodyPlayback] Generated ${totalEvents} MIDI events total`,
+              );
+            }
 
             // Store the extracted notes
             setExtractedMidiNotes(midiResult.extractedNotes);
@@ -548,10 +617,24 @@ const Editor: React.FC<EditorProps> = ({
           analysis: { ...ANALYSIS_STUB },
         };
 
+        console.log(
+          `[handleTextChange] Processing ${value.length} chars, splitting into lines`,
+        );
+
         // Process each line of the score to build the analysis
+        // Don't filter out empty lines to preserve line numbers
         const lines = value.split("\n");
+        console.log(
+          `[handleTextChange] Processing ${lines.length} lines total`,
+        );
+
+        // Debug log the lines to see what we're dealing with
+        lines.forEach((line, idx) => {
+          console.log(`[handleTextChange] Line ${idx + 1}: "${line}"`);
+        });
+
         for (let i = 0; i < lines.length; i++) {
-          // Pass the 1-based line number to parseCommand
+          // Pass the exact 1-based line number to parseCommand
           parseCommand(lines[i], newContext, i + 1);
         }
 

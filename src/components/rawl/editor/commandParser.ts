@@ -154,21 +154,38 @@ export const parseCopyCommand = (
   if (shiftTokens.length > 0) {
     // Find each shift token's position in the original line
     let currentPos = line.indexOf(shiftsStrTrimmed);
+    console.log(
+      `[parseCopyCommand] Found shifts string "${shiftsStrTrimmed}" at position ${currentPos}`,
+    );
 
     for (const token of shiftTokens) {
       currentPos = line.indexOf(token, currentPos);
       if (currentPos !== -1) {
-        shiftStartPositions.push(currentPos + 1); // Convert to 1-based index
+        // Convert to 1-based column position for consistency with source locations
+        const columnPosition = currentPos + 1;
+        console.log(
+          `[parseCopyCommand] Found token "${token}" at position ${columnPosition}`,
+        );
+        shiftStartPositions.push(columnPosition);
         currentPos += token.length;
       } else {
         // Fallback if we can't find the exact position
+        console.log(
+          `[parseCopyCommand] Could not locate token "${token}", using fallback position 1`,
+        );
         shiftStartPositions.push(1);
       }
     }
   } else {
     // Default position for implicit shift 0
+    console.log(
+      `[parseCopyCommand] Using default position 1 for implicit shift 0`,
+    );
     shiftStartPositions.push(1);
   }
+
+  // Use the exact line number passed in (1-based) instead of relying on array indices
+  const actualLineNumber = lineNumber || 1;
 
   const shifts = shiftTokens.map(
     (
@@ -231,7 +248,7 @@ export const parseCopyCommand = (
       shifts: shiftGroup.map((s) => s.shift),
       modes: shiftGroup.map((s) => s.mode),
       sourcePositions: shiftGroup.map((s) => ({
-        row: lineNumber || 0,
+        row: actualLineNumber,
         col: s.sourceCol,
         command: commandType,
       })),
@@ -388,6 +405,9 @@ export const parseCommand = (
   context: CommandContext,
   lineNumber?: number,
 ): Command | null => {
+  // Add debug logging to track line number processing
+  console.log(`[parseCommand] Processing line ${lineNumber}: "${line}"`);
+
   // Make sure context has an analysis object
   const extendedContext = context as ExtendedCommandContext;
   if (!extendedContext.analysis) {
@@ -403,28 +423,41 @@ export const parseCommand = (
     return null;
   }
 
-  // Remove comments
+  // Remove comments but preserve the original line number
   const cleanLine = line.split("%")[0].trim();
-  if (!cleanLine) return null;
+  if (!cleanLine) {
+    console.log(
+      `[parseCommand] Line ${lineNumber} is empty or comment only, skipping`,
+    );
+    return null;
+  }
 
   // Try parsing as phrases command first
   if (parsePhrasesCommand(cleanLine, extendedContext)) {
+    console.log(`[parseCommand] Line ${lineNumber} is a phrases command`);
     return null; // Return null because it's an analysis command, not a playback command
   }
 
   // Try parsing as sections command
   if (parseSectionsCommand(cleanLine, extendedContext)) {
+    console.log(`[parseCommand] Line ${lineNumber} is a sections command`);
     return null; // Return null because it's an analysis command, not a playback command
   }
 
   // Try parsing as track command first
   const trackCommand = parseTrackCommand(cleanLine, context);
-  if (trackCommand) return trackCommand;
+  if (trackCommand) {
+    console.log(`[parseCommand] Line ${lineNumber} is a track command`);
+    return trackCommand;
+  }
 
   // Try parsing as time signature command
   if (cleanLine.includes("/4")) {
     const signatures = parseTimeSignatures(cleanLine);
     if (signatures) {
+      console.log(
+        `[parseCommand] Line ${lineNumber} is a time signature command`,
+      );
       // Update the analysis with the time signature
       if (extendedContext.analysis && signatures.length > 0) {
         // For now, we don't store time signatures in the analysis
@@ -437,6 +470,7 @@ export const parseCommand = (
   // Try parsing as key command
   const key = parseKey(cleanLine);
   if (key) {
+    console.log(`[parseCommand] Line ${lineNumber} is a key command`);
     // Update the analysis with the key information
     if (extendedContext.analysis) {
       extendedContext.analysis.modulations = {
@@ -449,6 +483,7 @@ export const parseCommand = (
   // Try parsing as BPM command
   const bpmMatch = cleanLine.match(/^bpm\s+(\d+)$/i);
   if (bpmMatch) {
+    console.log(`[parseCommand] Line ${lineNumber} is a BPM command`);
     const tempo = parseInt(bpmMatch[1], 10);
     if (tempo > 0) {
       return { type: "bpm", tempo };
@@ -462,11 +497,15 @@ export const parseCommand = (
     context.timeSignatures,
     lineNumber,
   );
-  if (copyCmd) return copyCmd;
+  if (copyCmd) {
+    console.log(`[parseCommand] Line ${lineNumber} is a copy command`);
+    return copyCmd;
+  }
 
   // Parse as note insert command
   const match = cleanLine.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/);
   if (match) {
+    console.log(`[parseCommand] Line ${lineNumber} is an insert command`);
     const [_, measureStr, beatStr, melodyPart] = match;
     const startMeasure = parseInt(measureStr);
     const startBeat = beatStr ? parseFloat(beatStr) : 1;
@@ -478,8 +517,12 @@ export const parseCommand = (
       startMeasure < 1 ||
       isNaN(startBeat) ||
       startBeat < 1
-    )
+    ) {
+      console.log(
+        `[parseCommand] Invalid measure or beat at line ${lineNumber}`,
+      );
       return null;
+    }
 
     // Get time signature for this measure and validate beat
     const beatsInMeasure = getTimeSignatureAt(
@@ -488,7 +531,10 @@ export const parseCommand = (
     );
     const beatsPerMeasure = beatsInMeasure || 4; // Fallback to 4/4 if no time signature
 
-    // Pass the line number to parseMelodyString
+    // Pass the exact line number to parseMelodyString
+    console.log(
+      `[parseCommand] Passing line number ${lineNumber} to parseMelodyString`,
+    );
     const notes = parseMelodyString(
       cleanLine,
       {
@@ -498,9 +544,17 @@ export const parseCommand = (
       lineNumber,
     );
 
-    if (notes.length > 0) return { type: "insert", notes };
+    if (notes.length > 0) {
+      console.log(
+        `[parseCommand] Generated ${notes.length} notes from line ${lineNumber}`,
+      );
+      return { type: "insert", notes };
+    }
   }
 
+  console.log(
+    `[parseCommand] Line ${lineNumber} didn't match any known command format`,
+  );
   return null;
 };
 
@@ -590,13 +644,47 @@ export const parseMelodyString = (
   context: CommandContext,
   lineNumber?: number,
 ): LogicalNote[] => {
-  const lines = melodyString.split("\n").filter((line) => line.trim());
+  // Keep track of all lines, including empty ones, to maintain correct line numbers
+  const lines = melodyString.split("\n");
 
-  return lines.flatMap((line) => {
+  // For debugging - log the line count and the base lineNumber
+  console.log(
+    `[parseMelodyString] Processing ${lines.length} lines, starting at line ${
+      lineNumber || 1
+    }`,
+  );
+
+  // Keep track of active line numbers (1-based) properly
+  const result: LogicalNote[] = [];
+
+  // Process each line with proper line numbering
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    // Calculate the correct line number (1-based) for this line
+    const actualLineNumber = (lineNumber || 1) + i;
+
+    // Log to help debug
+    console.log(`[parseMelodyString] Line ${actualLineNumber}: "${line}"`);
+
+    // Skip processing empty lines but maintain their count in line numbering
+    if (!line.trim()) {
+      console.log(
+        `[parseMelodyString] Skipping empty line ${actualLineNumber}`,
+      );
+      continue;
+    }
+
     const match = line.match(/^\s*(\d+)(?:b(\d+(?:\.\d+)?))?\s+i\s+(.+)$/);
     if (!match) {
-      return [];
+      console.log(
+        `[parseMelodyString] Line ${actualLineNumber} doesn't match pattern`,
+      );
+      continue;
     }
+
+    console.log(
+      `[parseMelodyString] Processing valid melody at line ${actualLineNumber}`,
+    );
 
     const [_, measureStr, beatStr, melodyPart] = match;
 
@@ -616,10 +704,10 @@ export const parseMelodyString = (
 
     // Process tokens with position information
     const tokens = processTokens(melodyPart, melodyPartStartIndex);
-    const result: LogicalNote[] = [];
+    const lineNotes: LogicalNote[] = [];
 
-    for (let i = 0; i < tokens.length; i++) {
-      const token = tokens[i];
+    for (let j = 0; j < tokens.length; j++) {
+      const token = tokens[j];
       if (!token.value.trim()) continue;
 
       // Check if this token is a duration marker
@@ -630,21 +718,21 @@ export const parseMelodyString = (
         const duration = getDuration(token.value, context.beatsPerMeasure || 4);
 
         // Find the last group of notes (could be a single note or chord)
-        let lastNoteIndex = result.length - 1;
+        let lastNoteIndex = lineNotes.length - 1;
         while (
           lastNoteIndex >= 0 &&
-          result[lastNoteIndex].span.start ===
-            result[result.length - 1].span.start
+          lineNotes[lastNoteIndex].span.start ===
+            lineNotes[lineNotes.length - 1].span.start
         ) {
-          result[lastNoteIndex].duration = duration * TICKS_PER_QUARTER;
-          result[lastNoteIndex].span.end =
-            result[lastNoteIndex].span.start + duration;
+          lineNotes[lastNoteIndex].duration = duration * TICKS_PER_QUARTER;
+          lineNotes[lastNoteIndex].span.end =
+            lineNotes[lastNoteIndex].span.start + duration;
           lastNoteIndex--;
         }
 
         // Update position for next note
-        if (result.length > 0) {
-          currentPosition = result[result.length - 1].span.end;
+        if (lineNotes.length > 0) {
+          currentPosition = lineNotes[lineNotes.length - 1].span.end;
         }
         continue;
       }
@@ -682,22 +770,35 @@ export const parseMelodyString = (
 
         // Find the exact position of this note in the original melody string
         // We need to find where in the token string this note appears
+        // Be careful not to double-count - the token.position is already 1-based
         const noteIndex = token.value.lastIndexOf(actualNote);
         const notePosition =
-          noteIndex !== -1 ? token.position + noteIndex + 1 : token.position;
+          noteIndex !== -1 ? token.position + noteIndex : token.position;
+
+        // Log the calculated position for debugging
+        console.log(
+          `[parseMelodyString] Note ${actualNote} found at index ${noteIndex} in token "${token.value}" with base position ${token.position}, final position: ${notePosition}`,
+        );
+
+        // Create source location with the EXACT line number
+        const sourceLocation = {
+          row: actualLineNumber,
+          col: notePosition,
+          command: "insert",
+        };
+
+        console.log(
+          `[parseMelodyString] Creating note with source location: line ${sourceLocation.row}, col ${sourceLocation.col}`,
+        );
 
         // Handle rest
         if (actualNote === "x") {
-          result.push({
+          lineNotes.push({
             scaleDegree: -Infinity,
             duration: TICKS_PER_QUARTER,
             span: { ...span },
             midiNumber: null,
-            sourceLocation: {
-              row: lineNumber || 0,
-              col: notePosition,
-              command: "insert",
-            },
+            sourceLocation,
           });
           continue;
         }
@@ -715,30 +816,40 @@ export const parseMelodyString = (
         );
 
         if (midiNumber !== null) {
-          result.push({
+          lineNotes.push({
             scaleDegree: absoluteScaleDegree,
             duration: TICKS_PER_QUARTER,
             span: { ...span },
             midiNumber,
             accidental,
-            sourceLocation: {
-              row: lineNumber || 0,
-              col: notePosition,
-              command: "insert",
-            },
+            sourceLocation,
           });
         }
       }
 
       // If this is the last token and it's not a duration marker,
       // advance the position by one beat
-      if (i === tokens.length - 1 && !isDurationMarker) {
+      if (j === tokens.length - 1 && !isDurationMarker) {
         currentPosition += 1;
       }
     }
 
-    return result;
+    // Add the notes from this line to the result
+    result.push(...lineNotes);
+  }
+
+  console.log(`[parseMelodyString] Total notes generated: ${result.length}`);
+
+  // Log the source locations for debugging
+  result.forEach((note, idx) => {
+    if (note.sourceLocation) {
+      console.log(
+        `[parseMelodyString] Note ${idx}: sourceLocation = { row: ${note.sourceLocation.row}, col: ${note.sourceLocation.col} }`,
+      );
+    }
   });
+
+  return result;
 };
 
 const getDuration = (marker: string, beatsPerMeasure: number = 4): number => {
@@ -793,7 +904,7 @@ interface PositionedToken {
   position: number; // Position in original string
 }
 
-// Updated to track positions
+// Updated to track positions more accurately
 const processTokens = (
   melodyPart: string,
   startIndex: number = 0,
@@ -802,78 +913,146 @@ const processTokens = (
   let currentToken = "";
   let currentTokenStart = 0;
 
-  // Remove all spaces from melody part before processing
-  const cleanMelodyPart = melodyPart.replace(/\s+/g, "");
+  // IMPORTANT: Don't remove spaces from the melody part as it affects column positions
+  // Instead, track them properly while parsing
 
-  for (let i = 0; i < cleanMelodyPart.length; i++) {
-    const char = cleanMelodyPart[i];
+  // Log the raw input to help debugging
+  console.log(
+    `[processTokens] Processing melody part: "${melodyPart}" starting at column ${startIndex}`,
+  );
+
+  let i = 0;
+  while (i < melodyPart.length) {
+    const char = melodyPart[i];
+
+    // Skip whitespace but track its position
+    if (/\s/.test(char)) {
+      // If we have a current token, push it before moving on
+      if (currentToken) {
+        console.log(
+          `[processTokens] Adding token "${currentToken}" at position ${
+            startIndex + currentTokenStart + 1
+          }`,
+        );
+        tokens.push({
+          value: currentToken,
+          position: startIndex + currentTokenStart, // Already 0-based index, we'll add 1 later
+        });
+        currentToken = "";
+      }
+      i++;
+      continue;
+    }
 
     if (/[+_\-=,'"]/.test(char)) {
       // If we have accumulated a token, push it
       if (currentToken) {
+        console.log(
+          `[processTokens] Adding token "${currentToken}" at position ${
+            startIndex + currentTokenStart + 1
+          }`,
+        );
         tokens.push({
           value: currentToken,
-          position: startIndex + currentTokenStart + 1, // 1-based indexing
+          position: startIndex + currentTokenStart, // Already 0-based index, we'll add 1 later
         });
         currentToken = "";
       }
 
       // Look ahead for modifiers (. or :)
       let durationToken = char;
-      let durationTokenPos = i;
-      if (
-        i + 1 < cleanMelodyPart.length &&
-        /[.:]/.test(cleanMelodyPart[i + 1])
-      ) {
-        durationToken += cleanMelodyPart[i + 1];
+      const durationTokenPos = i;
+      if (i + 1 < melodyPart.length && /[.:]/.test(melodyPart[i + 1])) {
+        durationToken += melodyPart[i + 1];
         i++; // Skip the modifier in next iteration
       }
+      console.log(
+        `[processTokens] Adding duration token "${durationToken}" at position ${
+          startIndex + durationTokenPos + 1
+        }`,
+      );
       tokens.push({
         value: durationToken,
-        position: startIndex + durationTokenPos + 1, // 1-based indexing
+        position: startIndex + durationTokenPos, // Already 0-based index, we'll add 1 later
       });
+      i++;
     } else if (/[.:]/.test(char)) {
-      continue;
+      // Skip standalone dots and colons (they should be handled with the duration markers)
+      i++;
     } else if (/[#b]/.test(char)) {
       // Handle accidentals - they should be part of the next note
       if (currentToken) {
         // If we have a token already, push it before starting new one with accidental
+        console.log(
+          `[processTokens] Adding token "${currentToken}" at position ${
+            startIndex + currentTokenStart + 1
+          }`,
+        );
         tokens.push({
           value: currentToken,
-          position: startIndex + currentTokenStart + 1, // 1-based indexing
+          position: startIndex + currentTokenStart, // Already 0-based index, we'll add 1 later
         });
         currentToken = "";
       }
       currentToken = char;
       currentTokenStart = i;
+      i++;
     } else if (/[a-zA-Z1-90x]/.test(char)) {
       if (!currentToken) {
         currentTokenStart = i;
       }
       currentToken += char;
+      i++;
+
       // If this is a complete note (accidental + note or just note), push it
       if (
         currentToken.length === 2 ||
         (currentToken.length === 1 && !/[#b]/.test(currentToken))
       ) {
+        console.log(
+          `[processTokens] Adding complete note "${currentToken}" at position ${
+            startIndex + currentTokenStart + 1
+          }`,
+        );
         tokens.push({
           value: currentToken,
-          position: startIndex + currentTokenStart + 1, // 1-based indexing
+          position: startIndex + currentTokenStart, // Already 0-based index, we'll add 1 later
         });
         currentToken = "";
       }
+    } else {
+      // Skip unrecognized characters
+      i++;
     }
   }
 
   // Push any remaining token
   if (currentToken) {
+    console.log(
+      `[processTokens] Adding final token "${currentToken}" at position ${
+        startIndex + currentTokenStart + 1
+      }`,
+    );
     tokens.push({
       value: currentToken,
-      position: startIndex + currentTokenStart + 1, // 1-based indexing
+      position: startIndex + currentTokenStart, // Already 0-based index, we'll add 1 later
     });
   }
 
-  return tokens;
+  // Log all tokens for debugging
+  tokens.forEach((token, idx) => {
+    console.log(
+      `[processTokens] Token ${idx}: "${token.value}" at position ${
+        token.position + 1
+      }`,
+    );
+  });
+
+  // Convert all positions to 1-based for source locations
+  return tokens.map((token) => ({
+    value: token.value,
+    position: token.position + 1, // Convert to 1-based column numbers for source locations
+  }));
 };
 
 // Helper to calculate scale degree shift and resulting MIDI number adjustment

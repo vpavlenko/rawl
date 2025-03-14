@@ -73,15 +73,28 @@ export const generateMidiFile = (
   const sortedNotes = [...notes].sort((a, b) => a.startTime - b.startTime);
   const events: MusicalEvent[] = [];
 
+  console.log(
+    `[generateMidiFile] Processing ${sortedNotes.length} notes for MIDI generation`,
+  );
+
   // Create individual note events for each note, including separate events for each pitch in chords
-  sortedNotes.forEach((note) => {
+  sortedNotes.forEach((note, idx) => {
+    // Log source location if available
+    if (note.sourceLocation) {
+      console.log(
+        `[generateMidiFile] Note ${idx} has sourceLocation = { row: ${note.sourceLocation.row}, col: ${note.sourceLocation.col} }`,
+      );
+    } else {
+      console.log(`[generateMidiFile] Note ${idx} has no sourceLocation`);
+    }
+
     events.push({
       pitches: [note.pitch], // Each event has exactly one pitch
       startTick: note.startTime,
       duration: note.duration,
       velocity: note.velocity || 100,
       channel: note.channel || 0,
-      sourceLocation: note.sourceLocation, // Pass through the source location
+      sourceLocation: note.sourceLocation, // Preserve the source location exactly as is
     });
   });
 
@@ -130,15 +143,21 @@ export const generateMidiFile = (
     }
 
     const track = tracks.get(event.channel)!;
-    track.addEvent(
-      new NoteEvent({
-        pitch: event.pitches,
-        duration: "T" + event.duration,
-        velocity: event.velocity,
-        startTick: event.startTick,
-        channel: event.channel, // Ensure channel number is preserved
-      }),
-    );
+
+    // Create the note event, preserving source location metadata
+    const noteEvent = new NoteEvent({
+      pitch: event.pitches,
+      duration: "T" + event.duration,
+      velocity: event.velocity,
+      startTick: event.startTick,
+      channel: event.channel, // Ensure channel number is preserved
+    });
+
+    // Manually attach source location to the note event
+    // This is the only way to ensure it's preserved through the MIDI writer
+    (noteEvent as any).sourceLocation = event.sourceLocation;
+
+    track.addEvent(noteEvent);
   });
 
   // Sort tracks by channel number to ensure consistent order
@@ -155,6 +174,25 @@ export const generateMidiFile = (
   for (let i = 0; i < binaryString.length; i++) {
     bytes[i] = binaryString.charCodeAt(i);
   }
+
+  // Log final event count by channel
+  eventsByChannel.forEach((events, channel) => {
+    console.log(
+      `[generateMidiFile] Channel ${channel} has ${events.length} events`,
+    );
+    // Log source location tracking for the first few events in each channel
+    events.slice(0, 5).forEach((event, idx) => {
+      if (event.sourceLocation) {
+        console.log(
+          `[generateMidiFile] Channel ${channel}, Event ${idx}: sourceLocation = { row: ${event.sourceLocation.row}, col: ${event.sourceLocation.col} }`,
+        );
+      } else {
+        console.log(
+          `[generateMidiFile] Channel ${channel}, Event ${idx}: No sourceLocation`,
+        );
+      }
+    });
+  });
 
   return {
     midiData: bytes,

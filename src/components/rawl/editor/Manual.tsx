@@ -486,21 +486,72 @@ const ParseMidiDisplay: React.FC<{ matchedParsingResult?: any }> = ({
 
   // Function to format note objects
   const formatNote = (note: any) => {
-    const baseName = getNoteNameFromMidi(note.note.midiNumber);
-    const startTick = note.tickSpan[0];
-    const endTick = note.tickSpan[1];
-    const durationTicks = endTick - startTick;
+    // Check if note or essential properties are missing
+    if (!note || !note.note) {
+      console.warn("Invalid note object:", note);
+      return (
+        <div className="parsed-note unmatched" key={`invalid-${Math.random()}`}>
+          Invalid note data
+        </div>
+      );
+    }
+
+    // Safely get MIDI note name
+    const baseName =
+      note.note.midiNumber !== undefined
+        ? getNoteNameFromMidi(note.note.midiNumber)
+        : "Unknown";
+
+    // Safely get timing information with fallbacks
+    const startTick =
+      note.tickSpan && Array.isArray(note.tickSpan) && note.tickSpan.length > 0
+        ? note.tickSpan[0]
+        : note.matchingMidiWriterNote?.startTick || "?";
+    const endTick =
+      note.tickSpan && Array.isArray(note.tickSpan) && note.tickSpan.length > 1
+        ? note.tickSpan[1]
+        : startTick !== "?" && note.matchingMidiWriterNote?.duration
+        ? startTick + note.matchingMidiWriterNote.duration
+        : "?";
+    const durationTicks =
+      startTick !== "?" && endTick !== "?" ? endTick - startTick : "?";
+
+    // Get span information for seconds display
+    const startSec =
+      note.span && Array.isArray(note.span) && note.span.length > 0
+        ? note.span[0].toFixed(2)
+        : "?";
+    const endSec =
+      note.span && Array.isArray(note.span) && note.span.length > 1
+        ? note.span[1].toFixed(2)
+        : "?";
+    const durationSec =
+      startSec !== "?" && endSec !== "?"
+        ? (parseFloat(endSec) - parseFloat(startSec)).toFixed(2)
+        : "?";
 
     return (
       <div
         className={`parsed-note ${note.hasMatch ? "matched" : "unmatched"}`}
-        key={`${note.note.midiNumber}-${startTick}`}
+        key={`${note.note.midiNumber || "unknown"}-${
+          startTick || Math.random()
+        }`}
       >
         <div>
-          <strong>{baseName}</strong> ({note.note.midiNumber})
+          <strong>{baseName}</strong> (
+          {note.note.midiNumber !== undefined ? note.note.midiNumber : "?"})
         </div>
         <div>
-          Start: {startTick}, End: {endTick}, Duration: {durationTicks}
+          <span className="note-timing-info">
+            <strong>Ticks:</strong> Start: {startTick}, End: {endTick},
+            Duration: {durationTicks}
+          </span>
+        </div>
+        <div>
+          <span className="note-timing-info">
+            <strong>Seconds:</strong> Start: {startSec}s, End: {endSec}s,
+            Duration: {durationSec}s
+          </span>
         </div>
         {note.matchingMidiWriterNote && (
           <div className="match-info">
@@ -522,12 +573,28 @@ const ParseMidiDisplay: React.FC<{ matchedParsingResult?: any }> = ({
     <div className="parse-midi-display">
       <h3>ParseMidi Notes</h3>
       {matchedParsingResult.notes.map(
-        (voiceNotes: any[], voiceIndex: number) => (
-          <div key={voiceIndex} className="voice-notes">
-            <h4>Voice {voiceIndex}</h4>
-            <div className="notes-grid">{voiceNotes.map(formatNote)}</div>
-          </div>
-        ),
+        (voiceNotes: any[], voiceIndex: number) => {
+          // Check if voiceNotes is actually an array
+          if (!Array.isArray(voiceNotes)) {
+            console.warn(
+              `Voice notes at index ${voiceIndex} is not an array:`,
+              voiceNotes,
+            );
+            return (
+              <div key={`voice-${voiceIndex}`} className="voice-notes">
+                <h4>Voice {voiceIndex}</h4>
+                <div>Invalid voice data</div>
+              </div>
+            );
+          }
+
+          return (
+            <div key={`voice-${voiceIndex}`} className="voice-notes">
+              <h4>Voice {voiceIndex}</h4>
+              <div className="notes-grid">{voiceNotes.map(formatNote)}</div>
+            </div>
+          );
+        },
       )}
     </div>
   );
@@ -539,7 +606,12 @@ const MidiWriterJsDisplay: React.FC<{ extractedMidiNotes: any }> = ({
   if (!extractedMidiNotes) return null;
 
   // Extract the data we need
-  const { eventsByChannel, trackNames } = extractedMidiNotes;
+  const { eventsByChannel, trackNames } = extractedMidiNotes || {};
+
+  // Check if eventsByChannel exists
+  if (!eventsByChannel || typeof eventsByChannel.keys !== "function") {
+    return <div>No valid MIDI event data available</div>;
+  }
 
   // Get all channel numbers and sort them
   const channels = Array.from(eventsByChannel.keys()).sort();
@@ -549,7 +621,11 @@ const MidiWriterJsDisplay: React.FC<{ extractedMidiNotes: any }> = ({
   channels.forEach((channel) => {
     const events = eventsByChannel.get(channel) || [];
     events.forEach((event: any) => {
-      if (event.startTick < earliestTick) {
+      if (
+        event &&
+        typeof event.startTick === "number" &&
+        event.startTick < earliestTick
+      ) {
         earliestTick = event.startTick;
       }
     });
@@ -558,54 +634,94 @@ const MidiWriterJsDisplay: React.FC<{ extractedMidiNotes: any }> = ({
   return (
     <div className="midi-writer-display">
       <h3>MidiWriter.js Events</h3>
-      {channels.map((channel: number) => {
-        const events = eventsByChannel.get(channel) || [];
-        const trackName = trackNames.get(channel) || `Channel ${channel}`;
-        return (
-          <div key={`channel-${channel}`} className="channel-events">
-            <h4>{trackName}</h4>
-            <table className="events-table">
-              <thead>
-                <tr>
-                  <th>Start Tick</th>
-                  <th>Pitches</th>
-                  <th>Duration</th>
-                  <th>Velocity</th>
-                  <th>Source Location</th>
-                </tr>
-              </thead>
-              <tbody>
-                {events.map((event: any, idx: number) => (
-                  <tr key={idx}>
-                    <td>{event.startTick}</td>
-                    <td>
-                      {event.pitches
-                        .map((p: number) => {
-                          const noteName = getNoteNameFromMidi(p);
-                          return `${noteName} (${p})`;
-                        })
-                        .join(", ")}
-                    </td>
-                    <td>{event.duration}</td>
-                    <td>{event.velocity}</td>
-                    <td>
-                      {event.sourceLocation ? (
-                        <div className="source-location">
-                          Line {event.sourceLocation.row}, Col{" "}
-                          {event.sourceLocation.col}(
-                          {event.sourceLocation.command})
-                        </div>
-                      ) : (
-                        "No source info"
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        );
-      })}
+      {channels.length === 0 ? (
+        <div>No channel data available</div>
+      ) : (
+        channels.map((channel: number) => {
+          const events = eventsByChannel.get(channel) || [];
+          const trackName =
+            trackNames && trackNames.get
+              ? trackNames.get(channel) || `Channel ${channel}`
+              : `Channel ${channel}`;
+
+          return (
+            <div key={`channel-${channel}`} className="channel-events">
+              <h4>{trackName}</h4>
+              {events.length === 0 ? (
+                <div>No events in this channel</div>
+              ) : (
+                <table className="events-table">
+                  <thead>
+                    <tr>
+                      <th>Start Tick</th>
+                      <th>Pitches</th>
+                      <th>Duration</th>
+                      <th>Velocity</th>
+                      <th>Source Location</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {events.map((event: any, idx: number) => {
+                      // Check if event has required properties
+                      if (!event) {
+                        return (
+                          <tr key={idx}>
+                            <td colSpan={5}>Invalid event data</td>
+                          </tr>
+                        );
+                      }
+
+                      return (
+                        <tr key={idx}>
+                          <td>
+                            {event.startTick !== undefined
+                              ? event.startTick
+                              : "N/A"}
+                          </td>
+                          <td>
+                            {event.pitches && Array.isArray(event.pitches)
+                              ? event.pitches
+                                  .map((p: number) => {
+                                    const noteName =
+                                      typeof p === "number"
+                                        ? getNoteNameFromMidi(p)
+                                        : "Unknown";
+                                    return `${noteName} (${p})`;
+                                  })
+                                  .join(", ")
+                              : "No pitch data"}
+                          </td>
+                          <td>
+                            {event.duration !== undefined
+                              ? event.duration
+                              : "N/A"}
+                          </td>
+                          <td>
+                            {event.velocity !== undefined
+                              ? event.velocity
+                              : "N/A"}
+                          </td>
+                          <td>
+                            {event.sourceLocation ? (
+                              <div className="source-location">
+                                Line {event.sourceLocation.row}, Col{" "}
+                                {event.sourceLocation.col}(
+                                {event.sourceLocation.command})
+                              </div>
+                            ) : (
+                              "No source info"
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          );
+        })
+      )}
     </div>
   );
 };
@@ -922,6 +1038,11 @@ const Manual: React.FC<ManualProps> = ({
             margin: 4px;
             border-radius: 4px;
             background-color: #2a2a2a;
+            transition: all 0.2s ease;
+          }
+          
+          .parsed-note:hover {
+            background-color: #333;
           }
           
           .matched {
@@ -951,6 +1072,34 @@ const Manual: React.FC<ManualProps> = ({
           
           .channel-events {
             margin-bottom: 20px;
+          }
+          
+          .no-data-message {
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 4px;
+            text-align: center;
+            color: #aaa;
+            margin: 20px 0;
+          }
+          
+          .note-timing-info {
+            font-size: 0.9em;
+            color: #bbb;
+            display: block;
+            margin: 2px 0;
+          }
+          
+          .note-timing-info strong {
+            display: inline-block;
+            width: 60px;
+            font-weight: normal;
+            color: #999;
+          }
+          
+          /* Add a special style to highlight when there's an issue with timing data */
+          .note-timing-info:has(+ .note-timing-info:contains("?")) {
+            color: #e69500;
           }
         `}
       </style>
@@ -983,6 +1132,7 @@ const Manual: React.FC<ManualProps> = ({
               <ToggleButton
                 active={viewMode === "parseMidi"}
                 onClick={() => setViewMode("parseMidi")}
+                disabled={!matchedParsingResult || !matchedParsingResult.notes}
               >
                 <FontAwesomeIcon icon={faCode} />
                 ParseMidi
@@ -990,6 +1140,7 @@ const Manual: React.FC<ManualProps> = ({
               <ToggleButton
                 active={viewMode === "midiWriterJs"}
                 onClick={() => setViewMode("midiWriterJs")}
+                disabled={!extractedMidiNotes}
               >
                 <FontAwesomeIcon icon={faMusic} />
                 MidiWriterJs
@@ -1047,9 +1198,23 @@ const Manual: React.FC<ManualProps> = ({
         </ButtonBar>
 
         {viewMode === "parseMidi" ? (
-          <ParseMidiDisplay matchedParsingResult={matchedParsingResult} />
+          matchedParsingResult && matchedParsingResult.notes ? (
+            <ParseMidiDisplay matchedParsingResult={matchedParsingResult} />
+          ) : (
+            <div className="no-data-message">
+              <p>No ParseMidi data available. Try playing some notes first.</p>
+            </div>
+          )
         ) : viewMode === "midiWriterJs" ? (
-          <MidiWriterJsDisplay extractedMidiNotes={extractedMidiNotes} />
+          extractedMidiNotes ? (
+            <MidiWriterJsDisplay extractedMidiNotes={extractedMidiNotes} />
+          ) : (
+            <div className="no-data-message">
+              <p>
+                No MidiWriter.js data available. Try playing some notes first.
+              </p>
+            </div>
+          )
         ) : (
           <>
             <div className="top-section">

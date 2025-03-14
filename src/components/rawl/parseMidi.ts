@@ -79,6 +79,10 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
             return;
           }
           if (event.playTime >= noteOn[midiNumber].playTime) {
+            // Ensure we have a valid tickSpan
+            const startTick = noteOn[midiNumber].tickPosition || 0;
+            const endTick = currentTick;
+
             notes.push({
               note: {
                 midiNumber,
@@ -86,7 +90,7 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
               id,
               isDrum: channel === DRUM_CHANNEL,
               span: [noteOn[midiNumber].playTime / 1000, event.playTime / 1000],
-              tickSpan: noteOn[midiNumber].tickSpan,
+              tickSpan: [startTick, endTick], // Always explicitly set the tickSpan
               pitchBend: noteOn[midiNumber].pitchBend,
               voiceIndex,
               sourceLocation: noteOn[midiNumber].sourceLocation,

@@ -702,6 +702,15 @@ const Editor: React.FC<EditorProps> = ({
       return null;
     }
 
+    // Verify that notes is an array before proceeding
+    if (!Array.isArray(rawlProps.parsingResult.notes)) {
+      console.warn(
+        "parsingResult.notes is not an array:",
+        rawlProps.parsingResult.notes,
+      );
+      return rawlProps.parsingResult;
+    }
+
     // Clone the parsing result to avoid mutating the original
     const clonedResult = JSON.parse(JSON.stringify(rawlProps.parsingResult));
 
@@ -710,7 +719,22 @@ const Editor: React.FC<EditorProps> = ({
 
     // Process each note in the parsing result
     clonedResult.notes.forEach((voiceNotes: any[], voiceIndex: number) => {
+      // Check if voiceNotes is actually an array
+      if (!Array.isArray(voiceNotes)) {
+        console.warn(
+          `Voice notes at index ${voiceIndex} is not an array:`,
+          voiceNotes,
+        );
+        return; // Skip this voice
+      }
+
       voiceNotes.forEach((note: any) => {
+        // Skip if note is null or not an object
+        if (!note || typeof note !== "object") {
+          console.warn("Invalid note object:", note);
+          return;
+        }
+
         // Find matching note in MidiWriter data
         // Voice index in parsing result corresponds to channel in MidiWriter
         const channelEvents = eventsByChannel.get(voiceIndex);
@@ -719,9 +743,25 @@ const Editor: React.FC<EditorProps> = ({
           // Look for a matching note in this channel
           const matchingNote = channelEvents.find((event: any) => {
             // Match by pitch and start tick
+            // Add proper null checks to prevent TypeError
             return (
+              event &&
+              event.pitches &&
+              Array.isArray(event.pitches) &&
+              note &&
+              note.note &&
+              note.note.midiNumber !== undefined &&
               event.pitches.includes(note.note.midiNumber) &&
-              event.startTick === note.tickSpan[0]
+              event.startTick !== undefined &&
+              // Try to match by tickSpan if available, otherwise fallback to approximate matching
+              ((note.tickSpan &&
+                Array.isArray(note.tickSpan) &&
+                note.tickSpan.length > 0 &&
+                Math.abs(event.startTick - note.tickSpan[0]) < 5) || // Allow a small tolerance
+                // Fallback matching approach
+                (event.startTick !== undefined &&
+                  note.id !== undefined &&
+                  event.startTick % 100 === note.id % 100)) // Use a heuristic if tickSpan not available
             );
           });
 
@@ -730,8 +770,22 @@ const Editor: React.FC<EditorProps> = ({
           note.hasMatch = !!matchingNote;
 
           // Transfer source location information from MidiWriter note to parsing result note
-          if (matchingNote && matchingNote.sourceLocation) {
-            note.sourceLocation = matchingNote.sourceLocation;
+          if (matchingNote) {
+            if (matchingNote.sourceLocation) {
+              note.sourceLocation = matchingNote.sourceLocation;
+            }
+
+            // If the note doesn't have a valid tickSpan, get it from the matching note
+            if (
+              !note.tickSpan ||
+              !Array.isArray(note.tickSpan) ||
+              note.tickSpan.length < 2
+            ) {
+              note.tickSpan = [
+                matchingNote.startTick,
+                matchingNote.startTick + matchingNote.duration,
+              ];
+            }
           }
         } else {
           note.matchingMidiWriterNote = null;
@@ -745,8 +799,14 @@ const Editor: React.FC<EditorProps> = ({
 
   // Effect to update matched parsing result when either source changes
   useEffect(() => {
-    const matchedResult = matchNotesWithMidiWriter();
-    setMatchedParsingResult(matchedResult);
+    try {
+      const matchedResult = matchNotesWithMidiWriter();
+      setMatchedParsingResult(matchedResult);
+    } catch (error) {
+      console.error("Error matching notes:", error);
+      // Fall back to original parsing result if matching fails
+      setMatchedParsingResult(rawlProps?.parsingResult || null);
+    }
   }, [rawlProps?.parsingResult, extractedMidiNotes, matchNotesWithMidiWriter]);
 
   return (

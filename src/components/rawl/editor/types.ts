@@ -1,3 +1,5 @@
+import { SourceLocation } from "../parseMidi";
+
 // Scale maps for major and minor scales
 export const MINOR_SCALE_MAP = [0, 2, 3, 5, 7, 8, 10];
 export const MAJOR_SCALE_MAP = [0, 2, 4, 5, 7, 9, 11];
@@ -153,8 +155,6 @@ export type MeasureSpan = {
   start: BeatPosition;
   end: BeatPosition;
 };
-
-import { SourceLocation } from "./EditorMidi";
 
 export interface LogicalNote {
   scaleDegree: number;

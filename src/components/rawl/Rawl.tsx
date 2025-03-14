@@ -513,7 +513,7 @@ const Rawl: React.FC<RawlProps> = ({
             span: [time, -1],
             note: { midiNumber: -1 },
             isDrum: false,
-            id: -1,
+            id: "-1",
             voiceIndex: -1,
           },
           selectedMeasureRef.current,

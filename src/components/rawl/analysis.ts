@@ -211,7 +211,7 @@ export const rehydrateNotes = (snippet: Snippet): Note[][] => {
           ];
           notes.push({
             note: { midiNumber: parseInt(midiNumber) },
-            id: notes.length + 1, // Unique ID for each note
+            id: `${voiceIndex}_${startTime}_${lengthTime}_${midiNumber}`,
             isDrum: false,
             span: absoluteSpan,
             voiceIndex,

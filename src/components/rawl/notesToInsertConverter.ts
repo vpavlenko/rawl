@@ -193,6 +193,106 @@ export const convertNotesToLinearFormat = (notes: ColoredNote[]): string => {
 };
 
 /**
+ * Interface for a chord - a group of notes that should be played simultaneously
+ */
+interface Chord {
+  notes: ColoredNote[];
+  span: [number, number]; // Combined span [start, end]
+}
+
+/**
+ * Group notes into chords based on their timing
+ *
+ * @param notes - Array of colored notes sorted by start time
+ * @param secondsPerBeat - Duration of one beat in seconds
+ * @returns Array of chords (groups of notes)
+ */
+const groupNotesIntoChords = (
+  notes: ColoredNote[],
+  secondsPerBeat: number,
+): Chord[] => {
+  if (!notes || notes.length === 0) {
+    return [];
+  }
+
+  // Calculate the chord threshold as 0.125 * 2/3 * beat length in seconds
+  // This is about a triplet 32nd note duration - allows for slight variation in chord note timings
+  const chordThreshold = 0.125 * (2 / 3) * secondsPerBeat;
+
+  const chords: Chord[] = [];
+  let currentChord: Chord | null = null;
+
+  // Debug information
+  console.log(`Chord detection threshold: ${chordThreshold.toFixed(4)}s`);
+
+  // Process each note in order (they're already sorted by start time)
+  for (const note of notes) {
+    // Skip drum notes or notes without MIDI numbers
+    if (note.isDrum || note.note.midiNumber === undefined) {
+      continue;
+    }
+
+    const noteStart = note.span[0];
+    const noteEnd = note.span[1];
+
+    if (!currentChord) {
+      // Start a new chord with this note
+      currentChord = {
+        notes: [note],
+        span: [noteStart, noteEnd],
+      };
+    } else {
+      // Get the current chord's end time
+      const currentChordEnd = currentChord.span[1];
+
+      // If this note starts after the current chord has ended (accounting for a small threshold),
+      // start a new chord. Otherwise, add it to the current chord.
+      if (noteStart >= currentChordEnd - chordThreshold) {
+        // Finalize the current chord
+        chords.push(currentChord);
+
+        // Start a new chord with this note
+        currentChord = {
+          notes: [note],
+          span: [noteStart, noteEnd],
+        };
+      } else {
+        // Add this note to the current chord
+        currentChord.notes.push(note);
+
+        // Update the end time of the chord if this note ends later
+        if (noteEnd > currentChord.span[1]) {
+          currentChord.span[1] = noteEnd;
+        }
+      }
+    }
+  }
+
+  // Add the last chord if it exists
+  if (currentChord) {
+    chords.push(currentChord);
+  }
+
+  // Log the detected chords
+  console.log(`Detected ${chords.length} chords from ${notes.length} notes`);
+  chords.forEach((chord, i) => {
+    console.log(
+      `Chord ${i + 1}: ${
+        chord.notes.length
+      } notes, span: [${chord.span[0].toFixed(3)}, ${chord.span[1].toFixed(
+        3,
+      )}]`,
+    );
+    // Log the actual notes in each chord for better debugging
+    console.log(
+      `  Notes: ${chord.notes.map((n) => n.note.midiNumber).join(", ")}`,
+    );
+  });
+
+  return chords;
+};
+
+/**
  * Convert notes from seconds-based timing to measure-dependent beat-based timing
  *
  * @param notes - Array of colored notes in a measure
@@ -211,6 +311,8 @@ export const convertNotesToBeatTiming = (
     beatDuration: number;
     distanceFromPrevious: number;
     colorPitchClass: number | string;
+    isChord?: boolean;
+    chordNotes?: number[];
   }>;
   linearRepresentation: string;
   rawlSyntaxRepresentation: string;
@@ -233,6 +335,7 @@ export const convertNotesToBeatTiming = (
     calculations: any[];
     secondsPerBeat?: number;
     measureDuration?: number;
+    chords?: any[];
   } = {
     measureSpan,
     beatsInMeasure,
@@ -262,6 +365,13 @@ export const convertNotesToBeatTiming = (
 
   debugInfo.secondsPerBeat = secondsPerBeat;
   debugInfo.measureDuration = measureDuration;
+
+  // Group notes into chords
+  const chords = groupNotesIntoChords(sortedNotes, secondsPerBeat);
+  debugInfo.chords = chords.map((chord) => ({
+    notes: chord.notes.map((n) => n.note.midiNumber),
+    span: chord.span,
+  }));
 
   // Simplified helper function for direct proportional conversion - ZERO-BASED
   const secondsToBeatPosition = (timeInSeconds: number): number => {
@@ -318,18 +428,13 @@ export const convertNotesToBeatTiming = (
       : 0;
   const baseValue = lowestMidi - basePitchClass;
 
-  // Process each note
+  // Process each chord
   const result = [];
-  let previousNoteEnd = measureStart; // The sentinel note ends at measure start
+  let previousChordEnd = measureStart; // The sentinel chord ends at measure start
 
-  for (const note of sortedNotes) {
-    // Skip drum notes or notes without MIDI numbers
-    if (note.isDrum || note.note.midiNumber === undefined) {
-      continue;
-    }
-
-    const startTime = note.span[0];
-    const endTime = note.span[1];
+  for (const chord of chords) {
+    const startTime = chord.span[0];
+    const endTime = chord.span[1];
 
     // Calculate beat position and duration with detailed logging
     const beatPosition = secondsToBeatPosition(startTime);
@@ -338,7 +443,7 @@ export const convertNotesToBeatTiming = (
 
     // Debug the duration calculation
     debugInfo.calculations.push({
-      note: note.note.midiNumber,
+      chord: chord.notes.map((n) => n.note.midiNumber),
       startTime,
       endTime,
       durationSeconds: endTime - startTime,
@@ -346,25 +451,55 @@ export const convertNotesToBeatTiming = (
       beatEnd,
       beatDuration,
       expectedBeatDuration: (endTime - startTime) / secondsPerBeat,
-      span: note.span,
+      span: chord.span,
     });
 
-    // Calculate distance from previous note in beats
-    const distanceFromPrevious = (startTime - previousNoteEnd) / secondsPerBeat;
+    // Calculate distance from previous chord in beats
+    const distanceFromPrevious =
+      (startTime - previousChordEnd) / secondsPerBeat;
 
-    // Update the previous note end for the next iteration
-    previousNoteEnd = endTime;
+    // Update the previous chord end for the next iteration
+    previousChordEnd = endTime;
 
-    // Calculate relative MIDI number
-    const relativeMidiNumber = note.note.midiNumber - baseValue;
+    // If this is a single-note chord, process it normally
+    if (chord.notes.length === 1) {
+      const note = chord.notes[0];
+      // Skip drum notes or notes without MIDI numbers (safety check)
+      if (note.isDrum || note.note.midiNumber === undefined) {
+        continue;
+      }
 
-    result.push({
-      relativeMidiNumber,
-      beatPosition: parseFloat(beatPosition.toFixed(3)),
-      beatDuration: parseFloat(beatDuration.toFixed(3)),
-      distanceFromPrevious: parseFloat(distanceFromPrevious.toFixed(3)),
-      colorPitchClass: note.colorPitchClass,
-    });
+      // Calculate relative MIDI number
+      const relativeMidiNumber = note.note.midiNumber - baseValue;
+
+      result.push({
+        relativeMidiNumber,
+        beatPosition: parseFloat(beatPosition.toFixed(3)),
+        beatDuration: parseFloat(beatDuration.toFixed(3)),
+        distanceFromPrevious: parseFloat(distanceFromPrevious.toFixed(3)),
+        colorPitchClass: note.colorPitchClass,
+        isChord: false,
+      });
+    } else {
+      // For multi-note chords, collect the relative MIDI numbers of all notes
+      const chordNotes = chord.notes
+        .filter((note) => !note.isDrum && note.note.midiNumber !== undefined)
+        .map((note) => note.note.midiNumber - baseValue)
+        .sort((a, b) => a - b); // Sort from lowest to highest
+
+      // Use the lowest note's MIDI number as the primary value
+      const relativeMidiNumber = chordNotes[0];
+
+      result.push({
+        relativeMidiNumber,
+        beatPosition: parseFloat(beatPosition.toFixed(3)),
+        beatDuration: parseFloat(beatDuration.toFixed(3)),
+        distanceFromPrevious: parseFloat(distanceFromPrevious.toFixed(3)),
+        colorPitchClass: chord.notes[0].colorPitchClass, // Use the first note's pitch class
+        isChord: true,
+        chordNotes: chordNotes,
+      });
+    }
   }
 
   // Generate Rawl syntax representation
@@ -452,6 +587,8 @@ export const convertNotesToRawlSyntax = (
     beatDuration: number;
     distanceFromPrevious: number;
     colorPitchClass: number | string;
+    isChord?: boolean;
+    chordNotes?: number[];
   }>,
   restThreshold: number = 0.125,
 ): string => {
@@ -497,6 +634,8 @@ export const convertNotesToRawlSyntax = (
 
     debugDetails.push({
       noteValue: note.relativeMidiNumber,
+      isChord: note.isChord,
+      chordNotes: note.chordNotes,
       beatPosition: note.beatPosition,
       previousNoteEnd,
       gap,
@@ -525,9 +664,15 @@ export const convertNotesToRawlSyntax = (
     const durationSymbol = getDurationCharacter(note.beatDuration);
     const actualNoteDuration = getDurationValue(durationSymbol);
 
-    // Add the note with its duration
-    const noteValue = note.relativeMidiNumber.toString();
-    result += noteValue + durationSymbol + " ";
+    // If this is a chord, output all notes together
+    if (note.isChord && note.chordNotes && note.chordNotes.length > 0) {
+      // Add all notes in the chord with no spaces between them
+      result += note.chordNotes.join("") + durationSymbol + " ";
+    } else {
+      // Add a single note with its duration
+      const noteValue = note.relativeMidiNumber.toString();
+      result += noteValue + durationSymbol + " ";
+    }
 
     // Update the previous note end position with the DISCRETIZED duration
     // This is the key change - we use the actual emitted duration, not the original

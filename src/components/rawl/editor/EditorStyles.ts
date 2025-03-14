@@ -19,10 +19,11 @@ export const EditorContainer = styled.div<EditorContainerProps>`
 `;
 
 export const RawlContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  position: relative;
-  z-index: 1;
 `;
 
 export const EditorPanel = styled.div<{ isFolded: boolean; height?: string }>`
@@ -64,6 +65,8 @@ export const CodeMirrorWrapper = styled.div`
   isolation: isolate;
   background-color: #080808;
   z-index: 100000;
+  display: flex;
+  flex-direction: column;
 
   /* Ensure all CodeMirror elements stay on top */
   & * {
@@ -73,7 +76,7 @@ export const CodeMirrorWrapper = styled.div`
   .cm-editor {
     position: absolute !important;
     inset: 0;
-    height: 100%;
+    height: calc(100% - 21px); /* Leave room for status bar */
     font-family: "Menlo", "Monaco", "Courier New", monospace;
     font-size: 14px;
     line-height: calc(1.4em + 4px);
@@ -397,4 +400,19 @@ export const NoteColorLetter = styled.span`
     background-color: yellow !important;
     --background-color: yellow;
   }
+`;
+
+export const StatusBar = styled.div`
+  height: 20px;
+  padding: 4px 8px;
+  background-color: #1e1e1e; /* Dark theme color to match editor */
+  color: #d4d4d4; /* Light text for dark background */
+  font-size: 12px;
+  font-family: monospace;
+  border-top: 1px solid #333;
+  display: flex;
+  align-items: center;
+  margin-top: auto; /* Push to bottom */
+  position: relative;
+  z-index: 100005; /* Higher than other editor elements */
 `;

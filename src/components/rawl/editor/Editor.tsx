@@ -36,6 +36,7 @@ import {
   FoldButton,
   RawlContainer,
   ResizeHandle,
+  StatusBar,
 } from "./EditorStyles";
 import Manual from "./Manual";
 import { scores } from "./scores";
@@ -141,6 +142,7 @@ const Editor: React.FC<EditorProps> = ({
   const [score, setScore] = useState("");
   const [isEditorFocused, setIsEditorFocused] = useState(false);
   const [currentLine, setCurrentLine] = useState<number | null>(null);
+  const [currentColumn, setCurrentColumn] = useState<number | null>(null);
   const [context, setContext] = useState<
     CommandContext & Partial<ExtendedCommandContext>
   >({
@@ -665,13 +667,17 @@ const Editor: React.FC<EditorProps> = ({
   const handleCursorChange = useCallback(
     (viewUpdate: any) => {
       const line = viewUpdate.state.selection.main.head;
-      const lineNumber = viewUpdate.state.doc.lineAt(line).number;
+      const doc = viewUpdate.state.doc;
+      const lineObj = doc.lineAt(line);
+      const lineNumber = lineObj.number;
+      const colPosition = line - lineObj.from + 1; // +1 because columns are 1-indexed for user display
       const hasSelection = !viewUpdate.state.selection.main.empty;
 
-      if (lineNumber !== currentLine && !hasSelection) {
-        // Update current line tracking
-        setCurrentLine(lineNumber);
+      // Update cursor position
+      setCurrentLine(lineNumber);
+      setCurrentColumn(colPosition);
 
+      if (lineNumber !== currentLine && !hasSelection) {
         // Play the current score when cursor position changes
         debouncedMelodyPlayback(score, false);
       }
@@ -859,7 +865,7 @@ const Editor: React.FC<EditorProps> = ({
               onChange={handleTextChange}
               onUpdate={handleCursorChange}
               theme={customTheme}
-              height="100%"
+              height="calc(100% - 21px)" /* Adjust height to make room for status bar */
               style={{ flex: 1 }}
               extensions={[
                 characterBackgroundsPlugin,
@@ -881,6 +887,11 @@ const Editor: React.FC<EditorProps> = ({
               onBlur={() => setIsEditorFocused(false)}
               readOnly={disableEditing || false}
             />
+            <StatusBar>
+              {currentLine !== null && currentColumn !== null
+                ? `Line: ${currentLine}, Column: ${currentColumn}`
+                : ""}
+            </StatusBar>
           </CodeMirrorWrapper>
           {error && <ErrorMessage>{error}</ErrorMessage>}
         </EditorContent>

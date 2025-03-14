@@ -807,18 +807,6 @@ const Editor: React.FC<EditorProps> = ({
         if (matchingNote) {
           if (matchingNote.sourceLocation) {
             note.sourceLocation = matchingNote.sourceLocation;
-
-            // Check for exact match with current cursor position
-            if (
-              currentLine !== null &&
-              currentColumn !== null &&
-              matchingNote.sourceLocation.row === currentLine &&
-              // Use exact matching - only match if cursor is exactly on the note's column
-              matchingNote.sourceLocation.col === currentColumn
-            ) {
-              note.noteUnderCursor = true;
-              foundExactMatch = true;
-            }
           }
 
           // If the note doesn't have a valid tickSpan, get it from the matching note
@@ -835,6 +823,82 @@ const Editor: React.FC<EditorProps> = ({
         }
       });
     });
+
+    // Collect all source locations with their notes for each row
+    const notesByRow = new Map<number, { col: number; note: any }[]>();
+
+    // Collect all source locations with row and column info
+    clonedResult.notes.forEach((voiceNotes: any[]) => {
+      if (!Array.isArray(voiceNotes)) return;
+
+      voiceNotes.forEach((note: any) => {
+        if (
+          note &&
+          note.sourceLocation &&
+          typeof note.sourceLocation.row === "number" &&
+          typeof note.sourceLocation.col === "number"
+        ) {
+          const row = note.sourceLocation.row;
+          const rowNotes = notesByRow.get(row) || [];
+          rowNotes.push({ col: note.sourceLocation.col, note });
+          notesByRow.set(row, rowNotes);
+        }
+      });
+    });
+
+    // Apply highlighting logic based on current cursor position
+    if (currentLine !== null && currentColumn !== null) {
+      const rowNotes = notesByRow.get(currentLine);
+
+      if (rowNotes && rowNotes.length > 0) {
+        // Sort notes by column position
+        rowNotes.sort((a, b) => a.col - b.col);
+
+        const leftmostCol = rowNotes[0].col;
+        const rightmostCol = rowNotes[rowNotes.length - 1].col;
+
+        let targetSourceCol = null;
+
+        // If cursor is at or before leftmost note column
+        if (currentColumn <= leftmostCol) {
+          targetSourceCol = leftmostCol;
+        }
+        // If cursor is at or after rightmost note column
+        else if (currentColumn >= rightmostCol) {
+          targetSourceCol = rightmostCol;
+        }
+        // If cursor is between note columns, find nearest left
+        else {
+          // Find the rightmost column that's still to the left of or equal to cursor
+          for (let i = rowNotes.length - 1; i >= 0; i--) {
+            if (rowNotes[i].col <= currentColumn) {
+              targetSourceCol = rowNotes[i].col;
+              break;
+            }
+          }
+        }
+
+        // Now highlight ALL notes with the same source location (row and column)
+        if (targetSourceCol !== null) {
+          // Highlight all notes across all voices that match this exact source location
+          clonedResult.notes.forEach((voiceNotes: any[]) => {
+            if (!Array.isArray(voiceNotes)) return;
+
+            voiceNotes.forEach((note: any) => {
+              if (
+                note &&
+                note.sourceLocation &&
+                note.sourceLocation.row === currentLine &&
+                note.sourceLocation.col === targetSourceCol
+              ) {
+                note.noteUnderCursor = true;
+                foundExactMatch = true;
+              }
+            });
+          });
+        }
+      }
+    }
 
     return clonedResult;
   }, [

@@ -1891,9 +1891,20 @@ export const corpora: CorpusEntry[] = [
       "harmony-piano-arrangement-runescape-3",
       "runescape---medieval",
       "autumn-voyage---runescape",
+      "sea-shanty-2---ian-taylor",
+      "runescape---yesteryear",
+      "garden-osrs---ian-taylor",
     ],
   },
-
+  {
+    slug: "nathan_hanover",
+    midis: [
+      "generation-loss-ost---ranboo-generation-loss-medley",
+      "spirit-of-the-slime---nathan-hanover-synthonic-orchestra",
+      "dialtown-theme---nathan-hanover-synthonic-orchestra-dialtown-theme",
+      "remnants-of-joy-tjoc-sm-bedroom---nathan-hanover-synthonic-orchestra",
+    ],
+  },
   {
     slug: "james_hannigan",
     midis: [
@@ -3311,6 +3322,23 @@ export const corpora: CorpusEntry[] = [
     country: "Russia",
   },
   {
+    slug: "amedeo_tommasi",
+    midis: [
+      "magic-waltz",
+      "madame-lulu---amedeo-tommasi-sampled-in-amend-by-j-p-n",
+      "1900-s-madness-2",
+    ],
+  },
+  { slug: "jeremy_zuckerman", midis: ["avatar-the-last-airbender-medley"] },
+  {
+    slug: "shinkonet",
+    midis: [
+      "dungeon-drama-hypixel-skyblock-dungeons---solo-piano-arrangement",
+      "hypixel-skyblock-ost-the-wither-king-boss-theme-4---shinkonet",
+      "blastin-banter-battle-battle-of-jerry-mountain---shinkonet-blastin-banter-battle",
+    ],
+  },
+  {
     slug: "vince_guaraldi",
     midis: [
       "linus-and-lucy-peanuts---vince-guaraldi",
@@ -4088,6 +4116,7 @@ export const corpora: CorpusEntry[] = [
       "heroes-of-might-magic-iii---fortress-town-theme",
       "lavender-town-pokemon-r-b-y",
       "amor-sacro---giovanni-allevi",
+      "blastin-banter-battle-battle-of-jerry-mountain---shinkonet-blastin-banter-battle",
     ],
   },
   { slug: "ilmari_hakkola", midis: ["bad-piggies-theme"] },
@@ -4455,6 +4484,14 @@ export const corpora: CorpusEntry[] = [
     genre: "Pop, Folk", // Pop and folk influences
     style: "Pop, Folk", // Pop and traditional folk
     country: "Denmark", // Danish artists
+  },
+  {
+    slug: "yoshimasa_terui",
+    midis: [
+      "if-i-am-with-you---yoshimasa-terui-jujutsu-kaisen-s2-ost-digital-sheet-music",
+      "vague-reasons---yoshimasa-terui---jujutsu-kaisen-s2-ost-nanami-theme",
+      "malevolent-shrine---yoshimasa-terui---jujutsu-kaisen-s2-ost-full-version",
+    ],
   },
   {
     slug: "ebbe_raun",

@@ -1,4 +1,7 @@
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowUpRightFromSquare,
+  faCopy,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { doc, getFirestore, updateDoc } from "firebase/firestore";
 import * as React from "react";
@@ -31,7 +34,10 @@ import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { MouseHandlers } from "./getNoteRectangles";
 import LayoutSelector, { SystemLayout } from "./layouts/LayoutSelector";
 import { buildManualMeasuresAndBeats } from "./measures";
-import { logNotesInformation } from "./notesToInsertConverter";
+import {
+  generateFormattedScore,
+  logNotesInformation,
+} from "./notesToInsertConverter";
 import { ColoredNotesInVoices, Note, ParsingResult } from "./parseMidi";
 
 export type SecondsSpan = [number, number];
@@ -665,6 +671,33 @@ const Rawl: React.FC<RawlProps> = ({
     }
   };
 
+  const [showCopyAnimation, setShowCopyAnimation] = useState(false);
+  const copyButtonRef = useRef<HTMLButtonElement>(null);
+
+  const handleCopySource = useCallback(() => {
+    if (!measuresAndBeats || !coloredNotes || coloredNotes.length === 0) {
+      console.error("No data to copy");
+      return;
+    }
+
+    // Trigger the animation
+    setShowCopyAnimation(true);
+    setTimeout(() => setShowCopyAnimation(false), 1000);
+
+    // Generate complete formatted score with all voices and analysis info
+    const formattedScore = generateFormattedScore(
+      coloredNotes,
+      measuresAndBeats,
+      analysis,
+    );
+
+    // Copy the formatted score to clipboard
+    navigator.clipboard
+      .writeText(formattedScore)
+      .then(() => console.log("Complete score copied to clipboard!"))
+      .catch((err) => console.error("Failed to copy to clipboard:", err));
+  }, [coloredNotes, measuresAndBeats, analysis]);
+
   return (
     <div
       style={{
@@ -736,11 +769,78 @@ const Rawl: React.FC<RawlProps> = ({
           className="Rawl"
         >
           {slug && !isHiddenRoute && slug !== "forge_mock" && (
-            <CompositionTitle
-              slug={slug}
-              sourceUrl={sourceUrl}
-              onSourceUrlUpdate={handleSourceUrlUpdate}
-            />
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                position: "relative",
+              }}
+            >
+              <CompositionTitle
+                slug={slug}
+                sourceUrl={sourceUrl}
+                onSourceUrlUpdate={handleSourceUrlUpdate}
+              />
+              <button
+                ref={copyButtonRef}
+                onClick={handleCopySource}
+                style={{
+                  background: "#333",
+                  color: "white",
+                  border: "none",
+                  padding: "4px 8px",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  fontSize: "12px",
+                  transition: "background-color 0.2s, transform 0.1s",
+                  position: "relative",
+                }}
+                className="copy-source-button"
+              >
+                Copy score
+              </button>
+              {showCopyAnimation && (
+                <div
+                  style={{
+                    position: "absolute",
+                    right: copyButtonRef.current
+                      ? copyButtonRef.current.offsetWidth / 2
+                      : 20,
+                    top: 0,
+                    animation: "flyUpAndFade 1s forwards",
+                    opacity: 0.8,
+                    color: "white",
+                    pointerEvents: "none",
+                  }}
+                >
+                  <FontAwesomeIcon icon={faCopy} />
+                </div>
+              )}
+              <style>
+                {`
+                  @keyframes flyUpAndFade {
+                    0% {
+                      transform: translate(0, 0);
+                      opacity: 0.8;
+                    }
+                    100% {
+                      transform: translate(0, -30px);
+                      opacity: 0;
+                    }
+                  }
+                  
+                  .copy-source-button:hover {
+                    background-color: #555 !important;
+                  }
+                  
+                  .copy-source-button:active {
+                    transform: scale(0.95);
+                    background-color: #222 !important;
+                  }
+                `}
+              </style>
+            </div>
           )}
           {systemLayout === "merged" ? (
             <MergedSystemLayout

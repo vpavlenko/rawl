@@ -1,3 +1,4 @@
+import { Analysis } from "./analysis";
 import { MAJOR_SCALE_MAP, MINOR_SCALE_MAP } from "./editor/types";
 import { ColoredNote, ColoredNotesInVoices, Note } from "./parseMidi";
 
@@ -85,18 +86,79 @@ export const getNotesInSameMeasureAndVoice = (
 };
 
 /**
- * Log information about notes in the same measure and voice
+ * Get all notes in a specific measure and voice
  */
-export const logNotesInformation = (
-  note: Note,
+export const getNotesInMeasureAndVoice = (
+  voiceIndex: number,
+  measureIndex: number,
   coloredNotes: ColoredNotesInVoices,
   measuresAndBeats: { measures: number[]; beats: number[] },
-): void => {
-  const { notesInMeasure, measureSpan, beatsInMeasure, measureIndex } =
-    getNotesInSameMeasureAndVoice(note, coloredNotes, measuresAndBeats);
+): {
+  notesInMeasure: ColoredNote[];
+  measureSpan: [number, number];
+  beatsInMeasure: number[];
+} => {
+  // Make sure voice index is valid
+  if (voiceIndex < 0 || voiceIndex >= coloredNotes.length) {
+    console.error(`Invalid voice index: ${voiceIndex}`);
+    return { notesInMeasure: [], measureSpan: [0, 0], beatsInMeasure: [] };
+  }
+
+  // Make sure measure index is valid
+  if (
+    measureIndex < 0 ||
+    measureIndex >= measuresAndBeats.measures.length - 1
+  ) {
+    console.error(`Invalid measure index: ${measureIndex}`);
+    return { notesInMeasure: [], measureSpan: [0, 0], beatsInMeasure: [] };
+  }
+
+  // Get all notes in the specified voice and measure
+  const notesInMeasure = coloredNotes[voiceIndex].filter(
+    (note) => getNoteMeasure(note, measuresAndBeats.measures) === measureIndex,
+  );
+
+  // Get measure span (start and end time)
+  const measureSpan = getMeasureSpan(measureIndex, measuresAndBeats.measures);
+
+  // Get all beats within this measure
+  const beatsInMeasure = getBeatsInMeasure(
+    measureIndex,
+    measuresAndBeats.measures,
+    measuresAndBeats.beats,
+  );
+
+  return {
+    notesInMeasure,
+    measureSpan,
+    beatsInMeasure,
+  };
+};
+
+/**
+ * Log information about notes in a specific measure and voice
+ */
+export const logMeasureNotesInformation = (
+  voiceIndex: number,
+  measureIndex: number,
+  coloredNotes: ColoredNotesInVoices,
+  measuresAndBeats: { measures: number[]; beats: number[] },
+): string | null => {
+  const { notesInMeasure, measureSpan, beatsInMeasure } =
+    getNotesInMeasureAndVoice(
+      voiceIndex,
+      measureIndex,
+      coloredNotes,
+      measuresAndBeats,
+    );
+
+  // If no notes found in this measure, return null
+  if (notesInMeasure.length === 0) {
+    return null;
+  }
 
   console.log(
-    `Notes in voice ${note.voiceIndex}, measure ${measureIndex}:`,
+    `Notes in voice ${voiceIndex}, measure ${measureIndex}:`,
     notesInMeasure,
   );
   console.log(
@@ -122,15 +184,35 @@ export const logNotesInformation = (
     `Beat-based timing representation: ${beatBasedTiming.linearRepresentation}`,
   );
 
-  // Prepare the Rawl syntax with "i " prefix and copy to clipboard
+  // Prepare the Rawl syntax with "i " prefix
   const rawlSyntaxWithI = "i " + beatBasedTiming.rawlSyntaxRepresentation;
-  console.log(
-    `Rawl syntax representation (copied to clipboard): ${rawlSyntaxWithI}`,
+  console.log(`Rawl syntax representation: ${rawlSyntaxWithI}`);
+
+  // Return the rawl syntax string
+  return rawlSyntaxWithI;
+};
+
+/**
+ * Log information about notes in the same measure and voice
+ */
+export const logNotesInformation = (
+  note: Note,
+  coloredNotes: ColoredNotesInVoices,
+  measuresAndBeats: { measures: number[]; beats: number[] },
+): void => {
+  const voiceIndex = note.voiceIndex;
+  const measureIndex = getNoteMeasure(note, measuresAndBeats.measures);
+
+  const rawlSyntax = logMeasureNotesInformation(
+    voiceIndex,
+    measureIndex,
+    coloredNotes,
+    measuresAndBeats,
   );
 
   // Copy to clipboard
   navigator.clipboard
-    .writeText(rawlSyntaxWithI)
+    .writeText(rawlSyntax)
     .then(() => console.log("Rawl syntax copied to clipboard!"))
     .catch((err) => console.error("Failed to copy to clipboard:", err));
 };
@@ -1099,4 +1181,95 @@ export const logNotesWithRawlSyntax = (
     .writeText(rawlSyntaxWithI)
     .then(() => console.log("Rawl syntax copied to clipboard!"))
     .catch((err) => console.error("Failed to copy to clipboard:", err));
+};
+
+/**
+ * Generate a complete formatted score with all voices and analysis information
+ * @param coloredNotes - All notes in all voices
+ * @param measuresAndBeats - Measure and beat information
+ * @param analysis - Analysis object with sections, phrasePatch, etc.
+ * @returns Formatted string with complete score
+ */
+export const generateFormattedScore = (
+  coloredNotes: ColoredNotesInVoices,
+  measuresAndBeats: { measures: number[]; beats: number[] },
+  analysis: Analysis,
+): string => {
+  let result = "";
+
+  // Add sections if available - keep them as phrase indices, exclude 0 and 1
+  if (analysis.sections && analysis.sections.length > 0) {
+    const filteredSections = analysis.sections
+      .filter((section) => section > 1) // Exclude 0 and 1
+      .sort((a, b) => a - b);
+
+    if (filteredSections.length > 0) {
+      result += `sections ${filteredSections.join(" ")}\n\n`;
+    }
+  }
+
+  // Add phrases if available
+  if (analysis.phrasePatch && analysis.phrasePatch.length > 0) {
+    const phrasePairs: string[] = [];
+
+    // Format appropriately and skip zero diffs
+    analysis.phrasePatch.forEach((patch) => {
+      // Skip if diff is zero
+      if (patch.diff === 0) return;
+
+      // Format as measure+diff or measure{diff} depending on sign
+      const formatted =
+        patch.diff > 0
+          ? `${patch.measure}+${patch.diff}`
+          : `${patch.measure}${patch.diff}`; // No need to add + for negative numbers
+
+      phrasePairs.push(formatted);
+    });
+
+    if (phrasePairs.length > 0) {
+      result += `phrases ${phrasePairs.join(" ")}\n\n`;
+    }
+  }
+
+  // Process each voice
+  for (let voiceIndex = 0; voiceIndex < coloredNotes.length; voiceIndex++) {
+    // Skip empty voices
+    if (coloredNotes[voiceIndex].length === 0) continue;
+
+    // Add appropriate voice label
+    if (voiceIndex === 0) {
+      result += "rh\n";
+    } else if (voiceIndex === 1) {
+      result += "\n\nlh\n";
+    } else if (voiceIndex === 2) {
+      result += "\n\nch2\n";
+    } else {
+      result += `\n\nch${voiceIndex}\n`;
+    }
+
+    // Process all measures for this voice
+    const measureCount = measuresAndBeats.measures.length - 1;
+    for (let measureIndex = 0; measureIndex < measureCount; measureIndex++) {
+      try {
+        const rawlSyntax = logMeasureNotesInformation(
+          voiceIndex,
+          measureIndex,
+          coloredNotes,
+          measuresAndBeats,
+        );
+
+        // Only add if there are notes in this measure
+        if (rawlSyntax !== null) {
+          result += `${measureIndex + 1} ${rawlSyntax}\n`;
+        }
+      } catch (error) {
+        console.error(
+          `Error processing voice ${voiceIndex}, measure ${measureIndex + 1}:`,
+          error,
+        );
+      }
+    }
+  }
+
+  return result;
 };

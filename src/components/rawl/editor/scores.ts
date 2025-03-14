@@ -209,6 +209,13 @@ lh
 64  c 19-35
 
 81  c 19-34`,
+  bug: `
+phrases 5+1
+
+lh
+1 i 1,
+2 i 2,
+`,
   "idea-n.10---gibran-alcocer": `G minor
 bpm 170
 3/4

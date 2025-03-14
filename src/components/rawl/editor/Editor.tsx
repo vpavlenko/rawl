@@ -892,7 +892,7 @@ const Editor: React.FC<EditorProps> = ({
               onChange={handleTextChange}
               onUpdate={handleCursorChange}
               theme={customTheme}
-              height="calc(100% - 21px)" /* Adjust height to make room for status bar */
+              height="100%" /* Remove the height adjustment since the bar is now absolute positioned */
               style={{ flex: 1 }}
               extensions={[
                 characterBackgroundsPlugin,
@@ -916,7 +916,7 @@ const Editor: React.FC<EditorProps> = ({
             />
             <StatusBar>
               {currentLine !== null && currentColumn !== null
-                ? `Line: ${currentLine}, Column: ${currentColumn}`
+                ? `${currentLine}, ${currentColumn}`
                 : ""}
             </StatusBar>
           </CodeMirrorWrapper>

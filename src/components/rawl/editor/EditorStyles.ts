@@ -19,11 +19,10 @@ export const EditorContainer = styled.div<EditorContainerProps>`
 `;
 
 export const RawlContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
+  position: relative;
+  z-index: 1;
 `;
 
 export const EditorPanel = styled.div<{ isFolded: boolean; height?: string }>`
@@ -40,6 +39,8 @@ export const EditorPanel = styled.div<{ isFolded: boolean; height?: string }>`
   border-top: 1px solid #333;
   border-left: 1px solid #333;
   z-index: 1000;
+  margin-bottom: 0;
+  padding-bottom: 0;
 `;
 
 export const DebugPanel = styled.div`
@@ -57,6 +58,8 @@ export const EditorContent = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  margin-bottom: 0;
+  padding-bottom: 0;
 `;
 
 export const CodeMirrorWrapper = styled.div`
@@ -64,23 +67,23 @@ export const CodeMirrorWrapper = styled.div`
   flex: 1;
   isolation: isolate;
   background-color: #080808;
-  z-index: 100000;
   display: flex;
   flex-direction: column;
+  margin-bottom: 0;
+  padding-bottom: 0;
 
   /* Ensure all CodeMirror elements stay on top */
   & * {
-    z-index: 100001;
+    position: relative;
   }
 
   .cm-editor {
     position: absolute !important;
     inset: 0;
-    height: calc(100% - 21px); /* Leave room for status bar */
+    height: 100%;
     font-family: "Menlo", "Monaco", "Courier New", monospace;
     font-size: 14px;
     line-height: calc(1.4em + 4px);
-    z-index: 100002;
 
     /* Selection styles */
     .cm-selectionBackground {
@@ -121,13 +124,11 @@ export const CodeMirrorWrapper = styled.div`
   .cm-line,
   .cm-activeLine,
   .cm-activeLineGutter {
-    z-index: 100003;
     position: relative;
   }
 
   .cm-editor .cm-gutters {
     position: relative;
-    z-index: 100004;
   }
 
   /* Add padding to gutter line numbers */
@@ -261,6 +262,12 @@ export const CodeMirrorWrapper = styled.div`
     bottom: -5px;
     left: 50%;
     transform: translateX(-50%);
+  }
+
+  /* Remove any potential gaps in the CM scroller */
+  .cm-scroller {
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
 `;
 
@@ -403,16 +410,18 @@ export const NoteColorLetter = styled.span`
 `;
 
 export const StatusBar = styled.div`
-  height: 20px;
-  padding: 4px 8px;
-  background-color: #1e1e1e; /* Dark theme color to match editor */
-  color: #d4d4d4; /* Light text for dark background */
-  font-size: 12px;
+  padding: 1px 4px;
+  color: #888; /* Subtle gray color */
+  font-size: 10px;
   font-family: monospace;
-  border-top: 1px solid #333;
   display: flex;
   align-items: center;
-  margin-top: auto; /* Push to bottom */
-  position: relative;
-  z-index: 100005; /* Higher than other editor elements */
+  justify-content: center;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 7em;
+  text-align: center;
+  z-index: 1000;
+  pointer-events: none;
 `;

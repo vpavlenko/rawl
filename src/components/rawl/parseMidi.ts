@@ -16,7 +16,7 @@ export type Note = {
     relativeNumber?: number;
   };
   isDrum: boolean;
-  id: number;
+  id: string;
   span: SecondsSpan;
   tickSpan?: [number, number]; // [startTick, endTick]
   pitchBend?: PitchBendPoint[];
@@ -55,8 +55,6 @@ export type ParsingResult = {
   measuresAndBeats?: MeasuresAndBeats;
 };
 
-let id = 0;
-
 const getNotes = (events, channel, voiceIndex): Note[] => {
   const notes: Note[] = [];
   const noteOn = {};
@@ -89,7 +87,9 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
               note: {
                 midiNumber,
               },
-              id,
+              id: `${voiceIndex}_${startTick}_${
+                endTick - startTick
+              }_${midiNumber}`,
               isDrum: channel === DRUM_CHANNEL,
               span: [noteOn[midiNumber].playTime / 1000, event.playTime / 1000],
               tickSpan: [startTick, endTick], // Always explicitly set the tickSpan
@@ -98,8 +98,6 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
               sourceLocation: noteOn[midiNumber].sourceLocation,
               noteUnderCursor: noteOn[midiNumber].noteUnderCursor,
             });
-
-            id++;
           }
           delete noteOn[midiNumber];
         }
@@ -226,9 +224,23 @@ export const parseNotes = ({
       console.log("KEY SIGNATURE" + JSON.stringify(event));
     }
   });
-  const notes = activeChannels.map((channel, index) =>
+
+  // Get notes for each voice
+  let notes = activeChannels.map((channel, index) =>
     getNotes(events, channel, index),
   );
+
+  // Filter out duplicate IDs, keeping only the first occurrence
+  notes = notes.map((voiceNotes) => {
+    const uniqueIds = new Set();
+    return voiceNotes.filter((note) => {
+      if (uniqueIds.has(note.id)) {
+        return false; // Skip this note as the ID already exists
+      }
+      uniqueIds.add(note.id);
+      return true;
+    });
+  });
 
   // Remove last measure if second-to-last measure is empty
   if (measuresAndBeats.measures.length > 2) {

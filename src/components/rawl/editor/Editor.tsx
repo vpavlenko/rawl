@@ -856,6 +856,49 @@ const Editor: React.FC<EditorProps> = ({
     }
   }, [rawlProps?.parsingResult, extractedMidiNotes, matchNotesWithMidiWriter]);
 
+  // Add a callback to navigate to source location
+  const navigateToSourceLocation = useCallback(
+    (sourceLocation: { row: number; col: number }) => {
+      if (!sourceLocation || !editorRef.current) return;
+
+      const { row, col } = sourceLocation;
+      const view = editorRef.current.view;
+
+      if (view) {
+        try {
+          // Calculate the position in the document from line and column
+          // CodeMirror is 0-indexed, but our row/col might be 1-indexed
+          const line = Math.max(0, row - 1);
+          const column = Math.max(0, col - 1);
+
+          // Get the position in the document
+          const lineObj = view.state.doc.line(line + 1);
+          const position = lineObj.from + column;
+
+          // Create a selection at the position
+          const selection = { anchor: position, head: position };
+
+          // Update the view with the new selection
+          view.dispatch({
+            selection,
+            // Scroll the position into view with some padding
+            scrollIntoView: true,
+          });
+
+          // Focus the editor
+          view.focus();
+
+          return true;
+        } catch (error) {
+          console.error("Error navigating to source location:", error);
+          return false;
+        }
+      }
+      return false;
+    },
+    [],
+  );
+
   return (
     <EditorContainer
       className={isDecompositionMode ? "decomposition-mode" : ""}
@@ -868,6 +911,8 @@ const Editor: React.FC<EditorProps> = ({
               savedAnalysis={analysis}
               latencyCorrectionMs={latencyCorrectionMs * tempo}
               parsingResult={matchedParsingResult || rawlProps.parsingResult}
+              editorRef={editorRef}
+              navigateToSourceLocation={navigateToSourceLocation}
             />
           )}
         </RawlContainer>

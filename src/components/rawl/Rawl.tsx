@@ -139,6 +139,11 @@ export type RawlProps = {
   measureStart?: number;
   isEmbedded?: boolean;
   isHiddenRoute?: boolean;
+  editorRef?: React.RefObject<any>;
+  navigateToSourceLocation?: (sourceLocation: {
+    row: number;
+    col: number;
+  }) => boolean;
 };
 
 const Rawl: React.FC<RawlProps> = ({
@@ -156,6 +161,8 @@ const Rawl: React.FC<RawlProps> = ({
   measureStart,
   isEmbedded = false,
   isHiddenRoute = false,
+  editorRef,
+  navigateToSourceLocation,
 }) => {
   const { currentMidi, setCurrentMidi, rawlProps, togglePause } =
     useContext(AppContext);
@@ -449,11 +456,15 @@ const Rawl: React.FC<RawlProps> = ({
           commitAnalysisUpdate,
         );
       } else {
-        // Use the new function from notesToInsertConverter
-        logNotesInformation(note, coloredNotes, measuresAndBeats);
-
-        // Still play the note as before
-        playNote(note);
+        // First check if we can navigate to the source location
+        if (note.sourceLocation && navigateToSourceLocation) {
+          // Try to navigate and check if it was successful
+          navigateToSourceLocation(note.sourceLocation);
+        } else {
+          // Default behavior when there's no source location or navigation function
+          logNotesInformation(note, coloredNotes, measuresAndBeats);
+          playNote(note);
+        }
       }
     },
     [
@@ -462,6 +473,7 @@ const Rawl: React.FC<RawlProps> = ({
       playNote,
       coloredNotes,
       measuresAndBeats,
+      navigateToSourceLocation,
     ],
   );
 

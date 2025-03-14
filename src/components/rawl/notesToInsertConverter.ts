@@ -120,6 +120,9 @@ export const logNotesInformation = (
   console.log(
     `Beat-based timing representation: ${beatBasedTiming.linearRepresentation}`,
   );
+  console.log(
+    `Rawl syntax representation: ${beatBasedTiming.rawlSyntaxRepresentation}`,
+  );
 };
 
 /**
@@ -210,10 +213,39 @@ export const convertNotesToBeatTiming = (
     colorPitchClass: number | string;
   }>;
   linearRepresentation: string;
+  rawlSyntaxRepresentation: string;
+  debugInfo?: any;
 } => {
   if (!notes || notes.length === 0) {
-    return { notesArray: [], linearRepresentation: "[]" };
+    return {
+      notesArray: [],
+      linearRepresentation: "[]",
+      rawlSyntaxRepresentation: "",
+    };
   }
+
+  // Debug info collection
+  const debugInfo: {
+    measureSpan: [number, number];
+    beatsInMeasure: number[];
+    totalBeats: number;
+    inputNotes: string;
+    calculations: any[];
+    secondsPerBeat?: number;
+    measureDuration?: number;
+  } = {
+    measureSpan,
+    beatsInMeasure,
+    totalBeats: beatsInMeasure.length + 1,
+    inputNotes: JSON.stringify(
+      notes.map((n) => ({
+        midiNum: n.note.midiNumber,
+        span: n.span,
+        colorPitchClass: n.colorPitchClass,
+      })),
+    ),
+    calculations: [],
+  };
 
   // Sort notes by start time
   const sortedNotes = [...notes].sort((a, b) => a.span[0] - b.span[0]);
@@ -225,35 +257,39 @@ export const convertNotesToBeatTiming = (
   // Compute total number of beats in the measure
   const totalBeats = beatsInMeasure.length + 1;
 
-  // Helper function to convert seconds to beat position
+  // Calculate seconds per beat based on the total measure duration
+  const secondsPerBeat = measureDuration / totalBeats;
+
+  debugInfo.secondsPerBeat = secondsPerBeat;
+  debugInfo.measureDuration = measureDuration;
+
+  // Simplified helper function for direct proportional conversion - ZERO-BASED
   const secondsToBeatPosition = (timeInSeconds: number): number => {
-    // Find the surrounding beat markers
-    let beforeBeatIndex = -1;
-    let beforeBeatTime = measureStart;
-    let afterBeatTime = measureEnd;
+    // Ensure the time is within the measure bounds
+    const clampedTime = Math.max(
+      measureStart,
+      Math.min(timeInSeconds, measureEnd),
+    );
 
-    for (let i = 0; i < beatsInMeasure.length; i++) {
-      if (beatsInMeasure[i] <= timeInSeconds) {
-        beforeBeatIndex = i;
-        beforeBeatTime = beatsInMeasure[i];
-      } else {
-        afterBeatTime = beatsInMeasure[i];
-        break;
-      }
-    }
+    // Calculate the beat number directly based on the proportion of the measure
+    // Now ZERO-BASED (removed the +1)
+    const proportionComplete = (clampedTime - measureStart) / measureDuration;
+    const beatPosition = proportionComplete * totalBeats;
 
-    // If time is after all beat markers, use measure end as the after beat
-    if (beforeBeatIndex === beatsInMeasure.length - 1) {
-      afterBeatTime = measureEnd;
-    }
+    // Log information for debugging
+    debugInfo.calculations.push({
+      timeInSeconds,
+      clampedTime,
+      proportionComplete,
+      beatPosition,
+      secondsPerBeat,
+      totalBeats,
+      notes: `Zero-based: ${
+        clampedTime - measureStart
+      }s / ${measureDuration}s * ${totalBeats} beats`,
+    });
 
-    // Calculate beat position using linear interpolation
-    const beatsBefore = beforeBeatIndex + 1; // +1 because the first beat is at index 0
-    const totalSegmentTime = afterBeatTime - beforeBeatTime;
-    const relativePosition =
-      (timeInSeconds - beforeBeatTime) / totalSegmentTime;
-
-    return beatsBefore + relativePosition;
+    return beatPosition;
   };
 
   // Find the lowest MIDI number note for reference
@@ -262,7 +298,11 @@ export const convertNotesToBeatTiming = (
   );
 
   if (notesWithMidi.length === 0) {
-    return { notesArray: [], linearRepresentation: "[]" };
+    return {
+      notesArray: [],
+      linearRepresentation: "[]",
+      rawlSyntaxRepresentation: "",
+    };
   }
 
   const lowestMidiNote = notesWithMidi.reduce(
@@ -291,14 +331,26 @@ export const convertNotesToBeatTiming = (
     const startTime = note.span[0];
     const endTime = note.span[1];
 
-    // Calculate beat position and duration
+    // Calculate beat position and duration with detailed logging
     const beatPosition = secondsToBeatPosition(startTime);
     const beatEnd = secondsToBeatPosition(endTime);
     const beatDuration = beatEnd - beatPosition;
 
+    // Debug the duration calculation
+    debugInfo.calculations.push({
+      note: note.note.midiNumber,
+      startTime,
+      endTime,
+      durationSeconds: endTime - startTime,
+      beatPosition,
+      beatEnd,
+      beatDuration,
+      expectedBeatDuration: (endTime - startTime) / secondsPerBeat,
+      span: note.span,
+    });
+
     // Calculate distance from previous note in beats
-    const distanceFromPrevious =
-      secondsToBeatPosition(startTime) - secondsToBeatPosition(previousNoteEnd);
+    const distanceFromPrevious = (startTime - previousNoteEnd) / secondsPerBeat;
 
     // Update the previous note end for the next iteration
     previousNoteEnd = endTime;
@@ -315,8 +367,219 @@ export const convertNotesToBeatTiming = (
     });
   }
 
+  // Generate Rawl syntax representation
+  const rawlSyntaxRepresentation = convertNotesToRawlSyntax(result);
+
+  console.log("DEBUG INFO: ", JSON.stringify(debugInfo, null, 2));
+
   return {
     notesArray: result,
     linearRepresentation: JSON.stringify(result),
+    rawlSyntaxRepresentation: rawlSyntaxRepresentation,
+    debugInfo,
   };
+};
+
+/**
+ * Map a duration value to the appropriate syntax character in Rawl
+ * Always selects the closest matching duration from the available options
+ * @param duration - Duration in beats
+ * @returns The corresponding syntax character
+ */
+const getDurationCharacter = (duration: number): string => {
+  // Define all possible durations and their symbols
+  const allDurations = [
+    { value: 0, symbol: "" }, // Zero duration (used as reference point)
+    { value: 0.0625, symbol: '"' }, // Sixty-fourth note
+    { value: 0.125, symbol: "'" }, // Thirty-second note
+    { value: 0.25, symbol: "=" }, // Sixteenth note
+    { value: 0.5, symbol: "-" }, // Eighth note
+    { value: 1, symbol: "," }, // Quarter note
+    { value: 2, symbol: "_" }, // Half note
+    { value: 4, symbol: "+" }, // Whole note
+    { value: 0.1875, symbol: "'." }, // Dotted thirty-second note
+    { value: 0.375, symbol: "=." }, // Dotted sixteenth note
+    { value: 0.75, symbol: "-." }, // Dotted eighth note
+    { value: 1.5, symbol: ",." }, // Dotted quarter note
+    { value: 3, symbol: "_." }, // Dotted half note
+    { value: 6, symbol: "+." }, // Dotted whole note
+    { value: (0.125 * 2) / 3, symbol: "':" }, // Triplet thirty-second note
+    { value: (0.25 * 2) / 3, symbol: "=:" }, // Triplet sixteenth note
+    { value: (0.5 * 2) / 3, symbol: "-:" }, // Triplet eighth note
+    { value: (1 * 2) / 3, symbol: ",:" }, // Triplet quarter note
+    { value: (2 * 2) / 3, symbol: "_:" }, // Triplet half note
+    { value: (4 * 2) / 3, symbol: "+:" }, // Triplet whole note
+  ];
+
+  // Special case for zero duration
+  if (duration === 0) return "";
+
+  // Find the duration with the minimum absolute difference
+  let closest = allDurations[1]; // Start with the first non-zero duration
+  let minDiff = Math.abs(duration - closest.value);
+
+  for (let i = 1; i < allDurations.length; i++) {
+    const diff = Math.abs(duration - allDurations[i].value);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closest = allDurations[i];
+    }
+  }
+
+  return closest.symbol;
+};
+
+/**
+ * Convert a MIDI number to a note letter (scale degree) based on C major
+ * This is a simple conversion without considering the actual key
+ */
+const midiNumberToNoteLetter = (midiNumber: number): string => {
+  const noteLetters = ["c", "d", "e", "f", "g", "a", "b"];
+  return noteLetters[(midiNumber % 12) % 7];
+};
+
+/**
+ * Convert notes from beat-based timing to Rawl editor syntax
+ *
+ * @param notes - Array of processed notes with beat timing
+ * @param restThreshold - Minimum duration (in beats) to output a rest
+ * @returns A string in Rawl syntax format
+ */
+export const convertNotesToRawlSyntax = (
+  notes: Array<{
+    relativeMidiNumber: number;
+    beatPosition: number;
+    beatDuration: number;
+    distanceFromPrevious: number;
+    colorPitchClass: number | string;
+  }>,
+  restThreshold: number = 0.125,
+): string => {
+  if (!notes || notes.length === 0) {
+    return "";
+  }
+
+  // For debug logging
+  const debugDetails: any[] = [];
+
+  let result = "";
+  let previousNoteEnd = 0;
+
+  // Helper to find actual duration value from symbol
+  const getDurationValue = (symbol: string): number => {
+    const durationMap: { [key: string]: number } = {
+      '"': 0.0625, // Sixty-fourth note
+      "'": 0.125, // Thirty-second note
+      "=": 0.25, // Sixteenth note
+      "-": 0.5, // Eighth note
+      ",": 1, // Quarter note
+      _: 2, // Half note
+      "+": 4, // Whole note
+      "'.": 0.1875, // Dotted thirty-second note
+      "=.": 0.375, // Dotted sixteenth note
+      "-.": 0.75, // Dotted eighth note
+      ",.": 1.5, // Dotted quarter note
+      "_.": 3, // Dotted half note
+      "+.": 6, // Dotted whole note
+      "':": (0.125 * 2) / 3, // Triplet thirty-second note
+      "=:": (0.25 * 2) / 3, // Triplet sixteenth note
+      "-:": (0.5 * 2) / 3, // Triplet eighth note
+      ",:": (1 * 2) / 3, // Triplet quarter note
+      "_:": (2 * 2) / 3, // Triplet half note
+      "+:": (4 * 2) / 3, // Triplet whole note
+    };
+    return durationMap[symbol] || 0;
+  };
+
+  for (const note of notes) {
+    // Calculate gap between previous note end and current note start
+    const gap = note.beatPosition - previousNoteEnd;
+
+    debugDetails.push({
+      noteValue: note.relativeMidiNumber,
+      beatPosition: note.beatPosition,
+      previousNoteEnd,
+      gap,
+      beatDuration: note.beatDuration,
+    });
+
+    // If there's a significant gap, emit a rest
+    if (gap >= restThreshold) {
+      // Discretize the gap duration
+      const restDuration = getDurationCharacter(gap);
+      const actualRestDuration = getDurationValue(restDuration);
+      result += "x" + restDuration + " ";
+
+      // Update previousNoteEnd based on the discretized rest duration
+      previousNoteEnd += actualRestDuration;
+
+      debugDetails[debugDetails.length - 1].emittedRest = true;
+      debugDetails[debugDetails.length - 1].restDuration = restDuration;
+      debugDetails[debugDetails.length - 1].actualRestDuration =
+        actualRestDuration;
+      debugDetails[debugDetails.length - 1].newPreviousNoteEnd =
+        previousNoteEnd;
+    }
+
+    // Get the discretized duration for the note
+    const durationSymbol = getDurationCharacter(note.beatDuration);
+    const actualNoteDuration = getDurationValue(durationSymbol);
+
+    // Add the note with its duration
+    const noteValue = note.relativeMidiNumber.toString();
+    result += noteValue + durationSymbol + " ";
+
+    // Update the previous note end position with the DISCRETIZED duration
+    // This is the key change - we use the actual emitted duration, not the original
+    previousNoteEnd = note.beatPosition + actualNoteDuration;
+
+    debugDetails[debugDetails.length - 1].emittedNote = true;
+    debugDetails[debugDetails.length - 1].durationSymbol = durationSymbol;
+    debugDetails[debugDetails.length - 1].actualNoteDuration =
+      actualNoteDuration;
+    debugDetails[debugDetails.length - 1].newPreviousNoteEnd = previousNoteEnd;
+  }
+
+  console.log("RAWL SYNTAX DEBUG: ", JSON.stringify(debugDetails, null, 2));
+
+  return result.trim();
+};
+
+/**
+ * Log notes information with Rawl syntax conversion
+ */
+export const logNotesWithRawlSyntax = (
+  note: Note,
+  coloredNotes: ColoredNotesInVoices,
+  measuresAndBeats: { measures: number[]; beats: number[] },
+): void => {
+  const { notesInMeasure, measureSpan, beatsInMeasure, measureIndex } =
+    getNotesInSameMeasureAndVoice(note, coloredNotes, measuresAndBeats);
+
+  console.log(
+    `Notes in voice ${note.voiceIndex}, measure ${measureIndex}:`,
+    notesInMeasure,
+  );
+  console.log(
+    `Measure span: [${measureSpan[0].toFixed(2)}s, ${measureSpan[1].toFixed(
+      2,
+    )}s]`,
+  );
+  console.log(
+    `Beats in measure: ${beatsInMeasure.map((b) => b.toFixed(2)).join(", ")}s`,
+  );
+
+  // Get the beat-based timing representation
+  const beatBasedTiming = convertNotesToBeatTiming(
+    notesInMeasure,
+    measureSpan,
+    beatsInMeasure,
+  );
+
+  console.log(
+    `Beat-based timing representation: ${beatBasedTiming.linearRepresentation}`,
+  );
+  console.log(
+    `Rawl syntax representation: ${beatBasedTiming.rawlSyntaxRepresentation}`,
+  );
 };

@@ -75,15 +75,6 @@ export const generateMidiFile = (
 
   // Create individual note events for each note, including separate events for each pitch in chords
   sortedNotes.forEach((note, idx) => {
-    // Log source location if available
-    if (note.sourceLocation) {
-      console.log(
-        `[generateMidiFile] Note ${idx} has sourceLocation = { row: ${note.sourceLocation.row}, col: ${note.sourceLocation.col} }`,
-      );
-    } else {
-      console.log(`[generateMidiFile] Note ${idx} has no sourceLocation`);
-    }
-
     events.push({
       pitches: [note.pitch], // Each event has exactly one pitch
       startTick: note.startTime,
@@ -173,21 +164,7 @@ export const generateMidiFile = (
 
   // Log final event count by channel
   eventsByChannel.forEach((events, channel) => {
-    console.log(
-      `[generateMidiFile] Channel ${channel} has ${events.length} events`,
-    );
-    // Log source location tracking for the first few events in each channel
-    events.slice(0, 5).forEach((event, idx) => {
-      if (event.sourceLocation) {
-        console.log(
-          `[generateMidiFile] Channel ${channel}, Event ${idx}: sourceLocation = { row: ${event.sourceLocation.row}, col: ${event.sourceLocation.col} }`,
-        );
-      } else {
-        console.log(
-          `[generateMidiFile] Channel ${channel}, Event ${idx}: No sourceLocation`,
-        );
-      }
-    });
+    // Remove console logs for channel events count and source locations
   });
 
   return {

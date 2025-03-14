@@ -218,7 +218,6 @@ bpm 170
 
 lh 2
 2 i r,fh,fh, a,fh,fh,
-%
 4 i q,dg,dg, a,dg,gd,
 6 i 7,sg,sg, 7,sg,sg,
 8 c 4-5 -2

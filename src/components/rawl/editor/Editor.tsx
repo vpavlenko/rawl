@@ -238,7 +238,7 @@ const Editor: React.FC<EditorProps> = ({
               }
             }
           } catch (error) {
-            console.error("Error processing measure seek:", error);
+            // Remove console.error for measure seek errors
           }
         }
 
@@ -497,7 +497,7 @@ const Editor: React.FC<EditorProps> = ({
               );
             }
           } catch (e) {
-            console.error("Error during playback:", e);
+            // Remove console.error for playback errors
             setError(
               e instanceof Error ? e.message : "Unknown error during playback",
             );
@@ -569,7 +569,7 @@ const Editor: React.FC<EditorProps> = ({
         // Always trigger MIDI playback with the new value
         debouncedMelodyPlayback(value, false);
       } catch (e) {
-        console.error("Error processing score:", e);
+        // Remove console.error for score processing
       }
 
       // Save to localStorage for backup
@@ -850,7 +850,7 @@ const Editor: React.FC<EditorProps> = ({
       const matchedResult = matchNotesWithMidiWriter();
       setMatchedParsingResult(matchedResult);
     } catch (error) {
-      console.error("Error matching notes:", error);
+      // Remove console.error for note matching
       // Fall back to original parsing result if matching fails
       setMatchedParsingResult(rawlProps?.parsingResult || null);
     }

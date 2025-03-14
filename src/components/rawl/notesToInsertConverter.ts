@@ -1,3 +1,4 @@
+import { MAJOR_SCALE_MAP, MINOR_SCALE_MAP } from "./editor/types";
 import { ColoredNote, ColoredNotesInVoices, Note } from "./parseMidi";
 
 /**
@@ -502,7 +503,7 @@ export const convertNotesToBeatTiming = (
     }
   }
 
-  // Generate Rawl syntax representation
+  // Generate Rawl syntax representation with proper pitch encoding
   const rawlSyntaxRepresentation = convertNotesToRawlSyntax(result);
 
   console.log("DEBUG INFO: ", JSON.stringify(debugInfo, null, 2));
@@ -602,6 +603,23 @@ export const convertNotesToRawlSyntax = (
   let result = "";
   let previousNoteEnd = 0;
 
+  // Determine if the notes are more likely in a minor key
+  // We'll use the fact that in a minor scale, the 3rd, 6th and 7th scale degrees are lowered
+  // Check if the collection has more minor 3rds (relative value 2 % 7 = 2) than major 3rds (relative value 3 % 7 = 3)
+  const minorThirdCount = notes.filter(
+    (n) => n.relativeMidiNumber % 7 === 2,
+  ).length;
+  const majorThirdCount = notes.filter(
+    (n) => n.relativeMidiNumber % 7 === 3,
+  ).length;
+
+  const isMinor = minorThirdCount > majorThirdCount;
+  console.log(
+    `Key determination: ${
+      isMinor ? "Minor" : "Major"
+    } (minor thirds: ${minorThirdCount}, major thirds: ${majorThirdCount})`,
+  );
+
   // Helper to find actual duration value from symbol
   const getDurationValue = (symbol: string): number => {
     const durationMap: { [key: string]: number } = {
@@ -626,6 +644,90 @@ export const convertNotesToRawlSyntax = (
       "+:": (4 * 2) / 3, // Triplet whole note
     };
     return durationMap[symbol] || 0;
+  };
+
+  // Helper to convert relative MIDI number to Rawl pitch notation
+  const getPitchNotation = (
+    relativeMidiNumber: number,
+    isChord: boolean = false,
+  ): string => {
+    // Get the scale map for major/minor
+    const scaleMap = isMinor ? MINOR_SCALE_MAP : MAJOR_SCALE_MAP;
+
+    // Convert relative MIDI number to semitones from the reference pitch
+    const semitones = relativeMidiNumber;
+
+    // Get the pitch class (0-11)
+    const pitchClass = semitones % 12;
+
+    // Calculate octave based on semitones
+    const octave = Math.floor(semitones / 12);
+
+    // Find the scale degree for this pitch class
+    let scaleDegree = -1;
+    let isChromatic = false;
+
+    // Check direct matches first
+    for (let i = 0; i < 7; i++) {
+      if (pitchClass === scaleMap[i]) {
+        scaleDegree = i;
+        break;
+      }
+    }
+
+    // If no direct match, it's a chromatic note
+    if (scaleDegree === -1) {
+      isChromatic = true;
+
+      // Special case for the 7th in minor scale (pitch class 11)
+      if (isMinor && pitchClass === 11) {
+        // This is the leading tone - represent as #7 (sharp of b7)
+        return "#6";
+      }
+
+      // For other chromatic notes, find the closest scale degree
+      let minDiff = 12;
+      for (let i = 0; i < 7; i++) {
+        const diff = Math.min(
+          Math.abs(pitchClass - scaleMap[i]),
+          Math.abs(pitchClass - (scaleMap[i] + 12)),
+        );
+        if (diff < minDiff) {
+          minDiff = diff;
+          scaleDegree = i;
+        }
+      }
+
+      // Determine if it's a sharp or flat based on distance
+      const diff = pitchClass - scaleMap[scaleDegree];
+      // Prefer flats except for the 7th in minor
+      if (diff === 1 || diff === -11) {
+        return "#" + (scaleDegree + 1);
+      } else {
+        return "b" + ((scaleDegree + 1) % 7 || 7); // Ensure 0 becomes 7
+      }
+    }
+
+    // Define mapping arrays for each octave
+    const octaveNotations = [
+      // First octave: 1-7
+      ["1", "2", "3", "4", "5", "6", "7"],
+      // Second octave: q-u
+      ["q", "w", "e", "r", "t", "y", "u"],
+      // Third octave: a-k
+      ["a", "s", "d", "f", "g", "h", "j"],
+    ];
+
+    // Handle diatonic notes based on octave
+    if (octave >= 0 && octave < octaveNotations.length) {
+      return octaveNotations[octave][scaleDegree];
+    } else if (octave >= octaveNotations.length) {
+      // Higher octaves - use numeric with octave indicator
+      return scaleDegree + 1 + "(" + octave + ")";
+    } else {
+      // Negative octaves - use flats
+      return "b" + (scaleDegree + 1);
+    }
   };
 
   for (const note of notes) {
@@ -664,14 +766,19 @@ export const convertNotesToRawlSyntax = (
     const durationSymbol = getDurationCharacter(note.beatDuration);
     const actualNoteDuration = getDurationValue(durationSymbol);
 
-    // If this is a chord, output all notes together
+    // If this is a chord, output all notes together with encoded pitch notation
     if (note.isChord && note.chordNotes && note.chordNotes.length > 0) {
-      // Add all notes in the chord with no spaces between them
-      result += note.chordNotes.join("") + durationSymbol + " ";
+      // Convert each chord note to its proper pitch notation
+      const encodedChordNotes = note.chordNotes
+        .map((n) => getPitchNotation(n, true))
+        .join("");
+
+      // Add all encoded notes in the chord with no spaces between them
+      result += encodedChordNotes + durationSymbol + " ";
     } else {
-      // Add a single note with its duration
-      const noteValue = note.relativeMidiNumber.toString();
-      result += noteValue + durationSymbol + " ";
+      // Add a single note with its encoded pitch and duration
+      const encodedPitch = getPitchNotation(note.relativeMidiNumber);
+      result += encodedPitch + durationSymbol + " ";
     }
 
     // Update the previous note end position with the DISCRETIZED duration
@@ -691,7 +798,224 @@ export const convertNotesToRawlSyntax = (
 };
 
 /**
- * Log notes information with Rawl syntax conversion
+ * Determine if a collection of notes is likely in a minor key based on the frequency of scale degrees
+ * @param notes - Array of colored notes to analyze
+ * @returns True if likely in minor, false if likely in major
+ */
+export const determineIfMinorKey = (notes: ColoredNote[]): boolean => {
+  // Filter out drum notes and notes without MIDI numbers
+  const notesWithMidi = notes.filter(
+    (note) => !note.isDrum && note.note.midiNumber !== undefined,
+  );
+
+  if (notesWithMidi.length === 0) return false;
+
+  // Count the occurrences of each pitch class
+  const pitchClassCounts: { [key: number]: number } = {};
+
+  notesWithMidi.forEach((note) => {
+    const pitchClass = note.note.midiNumber! % 12;
+    pitchClassCounts[pitchClass] = (pitchClassCounts[pitchClass] || 0) + 1;
+  });
+
+  // In minor keys, the third scale degree (pitch class 3 in a natural minor scale) occurs more frequently
+  // than the major third (pitch class 4)
+  const minorThirdCount = pitchClassCounts[3] || 0;
+  const majorThirdCount = pitchClassCounts[4] || 0;
+
+  console.log(
+    `Pitch class analysis - Minor third (3): ${minorThirdCount}, Major third (4): ${majorThirdCount}`,
+  );
+
+  return minorThirdCount > majorThirdCount;
+};
+
+/**
+ * Convert a MIDI number to Rawl pitch notation based on scale
+ * @param midiNumber - The MIDI number to convert
+ * @param baseValue - The base MIDI value (reference pitch)
+ * @param isMinor - Whether to use minor scale mapping
+ * @returns The Rawl pitch notation string
+ */
+export const midiNumberToRawlPitch = (
+  midiNumber: number,
+  baseValue: number,
+  isMinor: boolean = false,
+): string => {
+  // Calculate relative value from the base
+  const relativeValue = midiNumber - baseValue;
+
+  // Create octave-based encodings for pitches
+  // In Rawl: 1-7 are the first octave, q-u are the second, a-k are the third
+
+  // Define the pitch mappings
+  const majorMapping: { [key: number]: string } = {
+    // First octave (scale degrees 1-7)
+    0: "1",
+    1: "2",
+    2: "3",
+    3: "4",
+    4: "5",
+    5: "6",
+    6: "7",
+    // Second octave (q-u)
+    7: "q",
+    8: "w",
+    9: "e",
+    10: "r",
+    11: "t",
+    12: "y",
+    13: "u",
+    // Third octave (a-k)
+    14: "a",
+    15: "s",
+    16: "d",
+    17: "f",
+    18: "g",
+    19: "h",
+    20: "j",
+    21: "k",
+  };
+
+  const minorMapping: { [key: number]: string } = {
+    // Same mapping as major but shifted for the minor scale
+    // First octave
+    0: "1",
+    1: "2",
+    2: "b3",
+    3: "4",
+    4: "5",
+    5: "b6",
+    6: "b7",
+    // Second octave
+    7: "q",
+    8: "w",
+    9: "be",
+    10: "r",
+    11: "t",
+    12: "by",
+    13: "bu",
+    // Third octave
+    14: "a",
+    15: "s",
+    16: "bd",
+    17: "f",
+    18: "g",
+    19: "bh",
+    20: "bj",
+    21: "bk",
+  };
+
+  // Get the appropriate mapping based on scale type
+  const mapping = isMinor ? minorMapping : majorMapping;
+
+  // Handle pitch classes with accidentals
+  const octave = Math.floor(relativeValue / 7);
+  const scaleDegree = relativeValue % 7;
+
+  // For pitches outside our direct mapping, calculate relative position
+  if (relativeValue >= 28) {
+    // For very high notes, use numeric notation with octave indication
+    return (scaleDegree + 1).toString() + "(" + (octave + 1) + ")";
+  } else if (relativeValue < 0) {
+    // For notes below the reference pitch, use flats
+    const absValue = Math.abs(relativeValue);
+    const absOctave = Math.floor(absValue / 7);
+    const absScaleDegree = absValue % 7;
+
+    if (absOctave === 0) {
+      return "b" + (7 - absScaleDegree);
+    } else {
+      return "b" + mapping[7 * (absOctave - 1) + (7 - absScaleDegree)];
+    }
+  }
+
+  // Use direct mapping for normal cases
+  return mapping[relativeValue] || relativeValue.toString();
+};
+
+/**
+ * Convert notes to rawl syntax with proper pitch encoding
+ * @param notes - Array of colored notes to convert
+ * @returns Rawl syntax string
+ */
+export const convertNotesToEncodedRawlSyntax = (
+  notes: ColoredNote[],
+): string => {
+  if (!notes || notes.length === 0) {
+    return "";
+  }
+
+  // Find the lowest MIDI number note for reference
+  const notesWithMidi = notes.filter(
+    (note) => !note.isDrum && note.note.midiNumber !== undefined,
+  );
+
+  if (notesWithMidi.length === 0) {
+    return "";
+  }
+
+  const lowestMidiNote = notesWithMidi.reduce(
+    (lowest, current) =>
+      current.note.midiNumber < lowest.note.midiNumber ? current : lowest,
+    notesWithMidi[0],
+  );
+
+  const lowestMidi = lowestMidiNote.note.midiNumber;
+  const basePitchClass =
+    typeof lowestMidiNote.colorPitchClass === "number"
+      ? lowestMidiNote.colorPitchClass
+      : 0;
+  const baseValue = lowestMidi - basePitchClass;
+
+  // Determine if the collection is more likely in a minor key
+  const isMinor = determineIfMinorKey(notes);
+  console.log(`Key determination: ${isMinor ? "Minor" : "Major"}`);
+
+  // Sort notes by start time
+  const sortedNotes = [...notes].sort((a, b) => a.span[0] - b.span[0]);
+
+  // Generate Rawl syntax
+  let result = "";
+  let previousNoteEnd = 0;
+
+  for (const note of sortedNotes) {
+    // Skip drum notes or notes without MIDI numbers
+    if (note.isDrum || note.note.midiNumber === undefined) {
+      continue;
+    }
+
+    // Calculate encoded pitch
+    const encodedPitch = midiNumberToRawlPitch(
+      note.note.midiNumber,
+      baseValue,
+      isMinor,
+    );
+
+    // Calculate duration between previous note end and this note start
+    const gap = note.span[0] - previousNoteEnd;
+    if (gap >= 0.125) {
+      // Add a rest if there's a significant gap
+      const restDuration = getDurationCharacter(gap);
+      result += "x" + restDuration + " ";
+    }
+
+    // Calculate note duration
+    const duration = note.span[1] - note.span[0];
+    const durationChar = getDurationCharacter(duration);
+
+    // Add the note with duration
+    result += encodedPitch + durationChar + " ";
+
+    // Update previous note end time
+    previousNoteEnd = note.span[1];
+  }
+
+  return result.trim();
+};
+
+/**
+ * Update the existing logNotesWithRawlSyntax function to include the encoded version
  */
 export const logNotesWithRawlSyntax = (
   note: Note,
@@ -727,4 +1051,8 @@ export const logNotesWithRawlSyntax = (
   console.log(
     `Rawl syntax representation: ${beatBasedTiming.rawlSyntaxRepresentation}`,
   );
+
+  // Add encoded Rawl syntax representation
+  const encodedRawlSyntax = convertNotesToEncodedRawlSyntax(notesInMeasure);
+  console.log(`Encoded Rawl syntax: ${encodedRawlSyntax}`);
 };

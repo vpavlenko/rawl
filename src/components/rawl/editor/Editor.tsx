@@ -735,13 +735,21 @@ const Editor: React.FC<EditorProps> = ({
           return;
         }
 
-        // Find matching note in MidiWriter data
-        // Voice index in parsing result corresponds to channel in MidiWriter
-        const channelEvents = eventsByChannel.get(voiceIndex);
+        // MODIFICATION: Instead of only looking in the current voice's channel,
+        // search across all channels for a matching note
+        let matchingNote = null;
+        let matchFound = false;
 
-        if (channelEvents) {
+        // Get all channels and search through each one
+        const allChannels = Array.from(eventsByChannel.keys());
+
+        for (const channelIdx of allChannels) {
+          const channelEvents = eventsByChannel.get(channelIdx);
+
+          if (!channelEvents) continue;
+
           // Look for a matching note in this channel
-          const matchingNote = channelEvents.find((event: any) => {
+          const foundNote = channelEvents.find((event: any) => {
             // Match by pitch and start tick
             // Add proper null checks to prevent TypeError
             return (
@@ -753,43 +761,49 @@ const Editor: React.FC<EditorProps> = ({
               note.note.midiNumber !== undefined &&
               event.pitches.includes(note.note.midiNumber) &&
               event.startTick !== undefined &&
-              // Try to match by tickSpan if available, otherwise fallback to approximate matching
+              event.duration !== undefined &&
+              // Match by duration too for more accuracy
               ((note.tickSpan &&
                 Array.isArray(note.tickSpan) &&
-                note.tickSpan.length > 0 &&
-                Math.abs(event.startTick - note.tickSpan[0]) < 5) || // Allow a small tolerance
-                // Fallback matching approach
+                note.tickSpan.length > 1 &&
+                Math.abs(event.startTick - note.tickSpan[0]) < 5 && // Allow a small tolerance for start
+                Math.abs(note.tickSpan[1] - note.tickSpan[0] - event.duration) <
+                  5) || // And for duration
+                // Fallback matching approach if tickSpan not available
                 (event.startTick !== undefined &&
                   note.id !== undefined &&
-                  event.startTick % 100 === note.id % 100)) // Use a heuristic if tickSpan not available
+                  Math.abs(event.startTick - (note.id % 1000)) < 5)) // More flexible matching
             );
           });
 
-          // Enhance the note with matching information
-          note.matchingMidiWriterNote = matchingNote || null;
-          note.hasMatch = !!matchingNote;
-
-          // Transfer source location information from MidiWriter note to parsing result note
-          if (matchingNote) {
-            if (matchingNote.sourceLocation) {
-              note.sourceLocation = matchingNote.sourceLocation;
-            }
-
-            // If the note doesn't have a valid tickSpan, get it from the matching note
-            if (
-              !note.tickSpan ||
-              !Array.isArray(note.tickSpan) ||
-              note.tickSpan.length < 2
-            ) {
-              note.tickSpan = [
-                matchingNote.startTick,
-                matchingNote.startTick + matchingNote.duration,
-              ];
-            }
+          if (foundNote) {
+            matchingNote = foundNote;
+            matchFound = true;
+            break; // Found a match, no need to check other channels
           }
-        } else {
-          note.matchingMidiWriterNote = null;
-          note.hasMatch = false;
+        }
+
+        // Enhance the note with matching information
+        note.matchingMidiWriterNote = matchingNote || null;
+        note.hasMatch = matchFound;
+
+        // Transfer source location information from MidiWriter note to parsing result note
+        if (matchingNote) {
+          if (matchingNote.sourceLocation) {
+            note.sourceLocation = matchingNote.sourceLocation;
+          }
+
+          // If the note doesn't have a valid tickSpan, get it from the matching note
+          if (
+            !note.tickSpan ||
+            !Array.isArray(note.tickSpan) ||
+            note.tickSpan.length < 2
+          ) {
+            note.tickSpan = [
+              matchingNote.startTick,
+              matchingNote.startTick + matchingNote.duration,
+            ];
+          }
         }
       });
     });

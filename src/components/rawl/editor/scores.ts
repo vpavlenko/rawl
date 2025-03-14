@@ -205,12 +205,13 @@ lh
   "idea-n.10---gibran-alcocer": `G minor
 bpm 170
 3/4
-sections 2 6 10 14 18 22 26
-phrases 1+1 18+2 36+2 54+2 72+2 90+2 116+2
+% sections 2 6 10 14 18 22 26
+% phrases 1+1 18+2 36+2 54+2 72+2 90+2 116+2
 
 
 lh 2
 2 i r,fh,fh, a,fh,fh,
+%
 4 i q,dg,dg, a,dg,gd,
 6 i 7,sg,sg, 7,sg,sg,
 8 c 4-5 -2

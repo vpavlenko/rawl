@@ -31,6 +31,7 @@ import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { MouseHandlers } from "./getNoteRectangles";
 import LayoutSelector, { SystemLayout } from "./layouts/LayoutSelector";
 import { buildManualMeasuresAndBeats } from "./measures";
+import { logNotesInformation } from "./notesToInsertConverter";
 import { ColoredNotesInVoices, Note, ParsingResult } from "./parseMidi";
 
 export type SecondsSpan = [number, number];
@@ -376,6 +377,66 @@ const Rawl: React.FC<RawlProps> = ({
     setAnalysis({ ...analysis, ...diff });
   }, [allNotes]);
 
+  const coloredNotes: ColoredNotesInVoices = useMemo(() => {
+    // Initialize array to count notes by color (0-11)
+    const noteColorCounts = Array(12).fill(0);
+
+    const result = notes.map((notesInVoice, voiceIndex) =>
+      notesInVoice.map((note) => {
+        // Get the pitch class
+        const colorPitchClass = note.isDrum
+          ? "drum"
+          : getNoteColorPitchClass(
+              note,
+              futureAnalysis,
+              measuresAndBeats.measures,
+            );
+
+        // Get the CSS class name
+        const color = pitchClassToCssClass(colorPitchClass);
+
+        // Count the note by color if it's not a drum note and not a default note
+        if (
+          !note.isDrum &&
+          futureAnalysis.modulations[1] !== null &&
+          typeof colorPitchClass === "number"
+        ) {
+          noteColorCounts[colorPitchClass]++;
+        }
+
+        return {
+          ...note,
+          color,
+          isActive: voiceMask[voiceIndex],
+          colorPitchClass,
+          // Include sourceLocation if it exists in the note
+          sourceLocation: note.sourceLocation,
+        };
+      }),
+    );
+
+    // Log the counts of notes by color
+    console.log("Note counts by color (0-11):", noteColorCounts);
+
+    // Save to localStorage
+    try {
+      // Get current histograms or initialize empty object
+      const histogramsJSON = localStorage.getItem("NOTE_HISTOGRAMS") || "{}";
+      const histograms = JSON.parse(histogramsJSON);
+
+      // Save this histogram under the current slug
+      histograms[slug] = noteColorCounts;
+
+      // Save back to localStorage
+      localStorage.setItem("NOTE_HISTOGRAMS", JSON.stringify(histograms));
+      console.log(`Saved note histogram for ${slug} to localStorage`);
+    } catch (error) {
+      console.error("Failed to save note histogram to localStorage:", error);
+    }
+
+    return result;
+  }, [notes, futureAnalysis, measuresAndBeats, voiceMask, slug]);
+
   const handleNoteClick = useCallback(
     (note: Note) => {
       if (selectedMeasureRef.current) {
@@ -388,25 +449,8 @@ const Rawl: React.FC<RawlProps> = ({
           commitAnalysisUpdate,
         );
       } else {
-        // Find the measure of the clicked note
-        const noteMeasure = getNoteMeasure(note, measuresAndBeats.measures);
-        const voiceIndex = note.voiceIndex;
-
-        // Get colored notes at the time of execution (by this point coloredNotes will be defined)
-        // Find all colored notes in the same voice that start in the same measure
-        const coloredNotesInSameMeasureAndVoice = coloredNotes[
-          voiceIndex
-        ].filter(
-          (otherNote) =>
-            getNoteMeasure(otherNote, measuresAndBeats.measures) ===
-            noteMeasure,
-        );
-
-        // Print these colored notes to the console (including color information)
-        console.log(
-          `Colored notes in voice ${voiceIndex}, measure ${noteMeasure}:`,
-          coloredNotesInSameMeasureAndVoice,
-        );
+        // Use the new function from notesToInsertConverter
+        logNotesInformation(note, coloredNotes, measuresAndBeats);
 
         // Still play the note as before
         playNote(note);
@@ -416,7 +460,7 @@ const Rawl: React.FC<RawlProps> = ({
       enableManualRemeasuring,
       commitAnalysisUpdate,
       playNote,
-      notes, // Use notes instead of coloredNotes in the dependency array
+      coloredNotes,
       measuresAndBeats,
     ],
   );
@@ -540,66 +584,6 @@ const Rawl: React.FC<RawlProps> = ({
   );
 
   const [hoveredColors, setHoveredColors] = useState<string[] | null>(null);
-
-  const coloredNotes: ColoredNotesInVoices = useMemo(() => {
-    // Initialize array to count notes by color (0-11)
-    const noteColorCounts = Array(12).fill(0);
-
-    const result = notes.map((notesInVoice, voiceIndex) =>
-      notesInVoice.map((note) => {
-        // Get the pitch class
-        const colorPitchClass = note.isDrum
-          ? "drum"
-          : getNoteColorPitchClass(
-              note,
-              futureAnalysis,
-              measuresAndBeats.measures,
-            );
-
-        // Get the CSS class name
-        const color = pitchClassToCssClass(colorPitchClass);
-
-        // Count the note by color if it's not a drum note and not a default note
-        if (
-          !note.isDrum &&
-          futureAnalysis.modulations[1] !== null &&
-          typeof colorPitchClass === "number"
-        ) {
-          noteColorCounts[colorPitchClass]++;
-        }
-
-        return {
-          ...note,
-          color,
-          isActive: voiceMask[voiceIndex],
-          colorPitchClass,
-          // Include sourceLocation if it exists in the note
-          sourceLocation: note.sourceLocation,
-        };
-      }),
-    );
-
-    // Log the counts of notes by color
-    console.log("Note counts by color (0-11):", noteColorCounts);
-
-    // Save to localStorage
-    try {
-      // Get current histograms or initialize empty object
-      const histogramsJSON = localStorage.getItem("NOTE_HISTOGRAMS") || "{}";
-      const histograms = JSON.parse(histogramsJSON);
-
-      // Save this histogram under the current slug
-      histograms[slug] = noteColorCounts;
-
-      // Save back to localStorage
-      localStorage.setItem("NOTE_HISTOGRAMS", JSON.stringify(histograms));
-      console.log(`Saved note histogram for ${slug} to localStorage`);
-    } catch (error) {
-      console.error("Failed to save note histogram to localStorage:", error);
-    }
-
-    return result;
-  }, [notes, futureAnalysis, measuresAndBeats, voiceMask, slug]);
 
   const systemLayoutProps: SystemLayoutProps = useMemo(
     () => ({

@@ -28,7 +28,7 @@ export type Note = {
 export type ColoredNote = Note & {
   color: string;
   isActive: boolean;
-  colorPitchClass: number;
+  colorPitchClass: number | "default" | "drum";
   sourceLocation?: SourceLocation;
   noteUnderCursor?: boolean;
 };

@@ -82,18 +82,41 @@ const getSecondsMeasure = (
 const getNoteMeasure = (note: Note, measures: number[] | null): number =>
   getSecondsMeasure((note.span[0] + note.span[1]) / 2, measures);
 
+export const getNoteColorPitchClass = (
+  note: Note,
+  analysis: Analysis,
+  measures: number[],
+): number | "default" | "drum" => {
+  if (note.isDrum) {
+    return "drum";
+  }
+
+  if (analysis.modulations[1] === null) {
+    return "default";
+  }
+
+  // Calculate the note's pitch class relative to the tonic
+  const noteMeasure = getNoteMeasure(note, measures);
+  const tonic = getTonic(noteMeasure, analysis);
+  const pitchClass = (note.note.midiNumber - tonic) % 12;
+  // Ensure positive value (JavaScript's % can return negative values)
+  return (pitchClass + 12) % 12;
+};
+
+export const pitchClassToCssClass = (
+  pitchClass: number | "default" | "drum",
+): string => {
+  return `noteColor_${pitchClass}_colors`;
+};
+
 export const getNoteColor = (
   note: Note,
   analysis: Analysis,
   measures: number[],
-): string =>
-  `noteColor_${
-    analysis.modulations[1] === null
-      ? "default"
-      : (note.note.midiNumber -
-          getTonic(getNoteMeasure(note, measures), analysis)) %
-        12
-  }_colors`;
+): string => {
+  const pitchClass = getNoteColorPitchClass(note, analysis, measures);
+  return pitchClassToCssClass(pitchClass);
+};
 
 export type RenumberMeasureCallback = (
   measure: number,
@@ -365,10 +388,37 @@ const Rawl: React.FC<RawlProps> = ({
           commitAnalysisUpdate,
         );
       } else {
+        // Find the measure of the clicked note
+        const noteMeasure = getNoteMeasure(note, measuresAndBeats.measures);
+        const voiceIndex = note.voiceIndex;
+
+        // Get colored notes at the time of execution (by this point coloredNotes will be defined)
+        // Find all colored notes in the same voice that start in the same measure
+        const coloredNotesInSameMeasureAndVoice = coloredNotes[
+          voiceIndex
+        ].filter(
+          (otherNote) =>
+            getNoteMeasure(otherNote, measuresAndBeats.measures) ===
+            noteMeasure,
+        );
+
+        // Print these colored notes to the console (including color information)
+        console.log(
+          `Colored notes in voice ${voiceIndex}, measure ${noteMeasure}:`,
+          coloredNotesInSameMeasureAndVoice,
+        );
+
+        // Still play the note as before
         playNote(note);
       }
     },
-    [enableManualRemeasuring, commitAnalysisUpdate, playNote],
+    [
+      enableManualRemeasuring,
+      commitAnalysisUpdate,
+      playNote,
+      notes, // Use notes instead of coloredNotes in the dependency array
+      measuresAndBeats,
+    ],
   );
 
   const [positionMs, setPositionMs] = useState(0);
@@ -497,26 +547,25 @@ const Rawl: React.FC<RawlProps> = ({
 
     const result = notes.map((notesInVoice, voiceIndex) =>
       notesInVoice.map((note) => {
-        const colorPitchClass = note.isDrum ? -1 : note.note.midiNumber % 12;
+        // Get the pitch class
+        const colorPitchClass = note.isDrum
+          ? "drum"
+          : getNoteColorPitchClass(
+              note,
+              futureAnalysis,
+              measuresAndBeats.measures,
+            );
 
-        // Calculate color using the same logic as getNoteColor
-        const color = note.isDrum
-          ? "noteColor_drum"
-          : getNoteColor(note, futureAnalysis, measuresAndBeats.measures);
+        // Get the CSS class name
+        const color = pitchClassToCssClass(colorPitchClass);
 
         // Count the note by color if it's not a drum note and not a default note
-        if (!note.isDrum && futureAnalysis.modulations[1] !== null) {
-          const relativePosition =
-            (note.note.midiNumber -
-              getTonic(
-                getNoteMeasure(note, measuresAndBeats.measures),
-                futureAnalysis,
-              )) %
-            12;
-
-          // Ensure we get a positive index (JavaScript modulo can return negative)
-          const colorIndex = (relativePosition + 12) % 12;
-          noteColorCounts[colorIndex]++;
+        if (
+          !note.isDrum &&
+          futureAnalysis.modulations[1] !== null &&
+          typeof colorPitchClass === "number"
+        ) {
+          noteColorCounts[colorPitchClass]++;
         }
 
         return {

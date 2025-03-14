@@ -4,7 +4,7 @@ import { Analysis, MeasuresSpan } from "./analysis";
 import { AnalysisGrid } from "./AnalysisGrid";
 import { getNoteRectangles as getSystemNoteRectangles } from "./getNoteRectangles";
 import { ColoredNote, Note } from "./parseMidi";
-import { getNoteColor } from "./Rawl";
+import { getNoteColorPitchClass, pitchClassToCssClass } from "./Rawl";
 import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
 
 interface EnhancedFrozenNotesProps {
@@ -64,11 +64,19 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
 
   const adjustedNotes = useMemo(() => {
     return notes.map((voiceNotes) =>
-      voiceNotes.map((note) => ({
-        ...note,
-        color: getNoteColor(note, analysis, measuresAndBeats.measures),
-        isActive: true,
-      })),
+      voiceNotes.map((note) => {
+        const pitchClass = getNoteColorPitchClass(
+          note,
+          analysis,
+          measuresAndBeats.measures,
+        );
+        return {
+          ...note,
+          color: pitchClassToCssClass(pitchClass),
+          colorPitchClass: pitchClass,
+          isActive: true,
+        };
+      }),
     );
   }, [notes, analysis, measuresAndBeats.measures]);
 

@@ -16,7 +16,7 @@ import Player from "./Player";
 
 // Define the progressive soundfont loading sequence
 const PROGRESSIVE_SOUNDFONTS = [
-  { name: "pcbeep.sf2", size: "31 KB", qualityLevel: 1 },
+  // { name: "pcbeep.sf2", size: "31 KB", qualityLevel: 1 },
   { name: "2MBGMGS.SF2", size: "2.1 MB", qualityLevel: 2 },
   { name: "masquerade55v006.sf2", size: "18.4 MB", qualityLevel: 3 },
   // { name: "Abbey-Steinway-D-v1.9.sf2", size: "40.2 MB", qualityLevel: 4 },

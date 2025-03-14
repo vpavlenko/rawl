@@ -73,10 +73,6 @@ export const generateMidiFile = (
   const sortedNotes = [...notes].sort((a, b) => a.startTime - b.startTime);
   const events: MusicalEvent[] = [];
 
-  console.log(
-    `[generateMidiFile] Processing ${sortedNotes.length} notes for MIDI generation`,
-  );
-
   // Create individual note events for each note, including separate events for each pitch in chords
   sortedNotes.forEach((note, idx) => {
     // Log source location if available

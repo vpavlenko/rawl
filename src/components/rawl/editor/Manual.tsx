@@ -488,7 +488,6 @@ const ParseMidiDisplay: React.FC<{ matchedParsingResult?: any }> = ({
   const formatNote = (note: any) => {
     // Check if note or essential properties are missing
     if (!note || !note.note) {
-      console.warn("Invalid note object:", note);
       return (
         <div className="parsed-note unmatched" key={`invalid-${Math.random()}`}>
           Invalid note data
@@ -576,10 +575,6 @@ const ParseMidiDisplay: React.FC<{ matchedParsingResult?: any }> = ({
         (voiceNotes: any[], voiceIndex: number) => {
           // Check if voiceNotes is actually an array
           if (!Array.isArray(voiceNotes)) {
-            console.warn(
-              `Voice notes at index ${voiceIndex} is not an array:`,
-              voiceNotes,
-            );
             return (
               <div key={`voice-${voiceIndex}`} className="voice-notes">
                 <h4>Voice {voiceIndex}</h4>
@@ -798,7 +793,6 @@ const Manual: React.FC<ManualProps> = ({
           setHasLocalBackup(false);
         }
       } catch (e) {
-        console.error("Failed to parse backup:", e);
         localStorage.removeItem(backupKey);
       }
     }
@@ -822,7 +816,6 @@ const Manual: React.FC<ManualProps> = ({
         window.dispatchEvent(restoreEvent);
         setHasLocalBackup(false);
       } catch (e) {
-        console.error("Failed to restore backup:", e);
         setError("Failed to restore backup");
       }
     }
@@ -866,7 +859,6 @@ const Manual: React.FC<ManualProps> = ({
 
       setShowUsernameInput(false);
     } catch (error) {
-      console.error("Publishing error:", error);
       setError("Failed to publish");
     } finally {
       setIsPublishing(false);

@@ -124,6 +124,7 @@ export const getNoteRectangles = (
   secondsToX: SecondsConverter,
   enableManualRemeasuring: boolean,
   hoveredColors: string[] | null,
+  showSourceLocation: boolean = false,
 ) => {
   return notes.map((note) => {
     const {
@@ -133,10 +134,33 @@ export const getNoteRectangles = (
       voiceIndex,
       isActive,
       sourceLocation,
+      noteUnderCursor,
     } = note;
     const number = relativeNumber === undefined ? midiNumber : relativeNumber;
-    const top = midiNumberToY(isDrum ? number + 12 : number) - noteHeight;
+
+    // Calculate base height and top position
+    const baseHeight = noteHeight * 2;
+    const baseTop = midiNumberToY(isDrum ? number + 12 : number) - noteHeight;
+
     const left = secondsToX(note.span[0]);
+    const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
+
+    // Determine if the note is highlighted based on color selection
+    const isHighlighted = !hoveredColors || hoveredColors.includes(color);
+
+    // Adjust height and top position for notes under the cursor
+    const height =
+      isActive && isHighlighted
+        ? noteUnderCursor
+          ? baseHeight * 2
+          : baseHeight
+        : 0.5;
+    const top =
+      isActive && isHighlighted
+        ? noteUnderCursor
+          ? baseTop - baseHeight
+          : baseTop
+        : baseTop + baseHeight * 2 - 0.5;
 
     const pathData = note.pitchBend
       ? convertPitchBendToPathData(
@@ -146,9 +170,6 @@ export const getNoteRectangles = (
           secondsToX,
         )
       : null;
-    const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
-
-    const isHighlighted = !hoveredColors || hoveredColors.includes(color);
 
     // Format source location string if it exists
     let sourceLocationText = "";
@@ -193,16 +214,20 @@ export const getNoteRectangles = (
     ) : (
       <div
         key={`nr_${note.id}`}
-        className={`${color} voiceShape-${voiceIndex}`}
+        className={`${color} voiceShape-${voiceIndex} ${
+          noteUnderCursor ? "note-under-cursor" : ""
+        }`}
         style={{
           position: "absolute",
-          height: `${isActive && isHighlighted ? noteHeight * 2 : 0.5}px`,
+          height: `${height}px`,
           width,
           overflow: "visible",
-          top: isActive && isHighlighted ? top : top + noteHeight * 2 - 0.5,
+          top,
           left,
           pointerEvents: handleNoteClick ? "auto" : "none",
-          zIndex: Math.round(10 + (width > 0 ? 1000 / width : 1000)),
+          zIndex:
+            Math.round(10 + (width > 0 ? 1000 / width : 1000)) +
+            (noteUnderCursor ? 100 : 0),
           boxSizing: "border-box",
           display: "grid",
           boxShadow: isActive && isHighlighted ? "0 0 0px 0.5px black" : "",
@@ -211,6 +236,7 @@ export const getNoteRectangles = (
             : handleNoteClick
             ? "pointer"
             : "default",
+          opacity: noteUnderCursor ? 1 : undefined,
         }}
         onClick={(e) => {
           e.stopPropagation();
@@ -238,24 +264,27 @@ export const getNoteRectangles = (
             </svg>
           </div>
         )}
-        {sourceLocationText && isActive && isHighlighted && (
-          <div
-            style={{
-              position: "absolute",
-              top: "-16px",
-              left: 0,
-              color: "white",
-              fontSize: "10px",
-              whiteSpace: "nowrap",
-              backgroundColor: "rgba(0,0,0,0.5)",
-              padding: "1px 3px",
-              borderRadius: "2px",
-              pointerEvents: "none",
-            }}
-          >
-            {sourceLocationText}
-          </div>
-        )}
+        {showSourceLocation &&
+          sourceLocationText &&
+          isActive &&
+          isHighlighted && (
+            <div
+              style={{
+                position: "absolute",
+                top: "-16px",
+                left: 0,
+                color: "white",
+                fontSize: "10px",
+                whiteSpace: "nowrap",
+                backgroundColor: "rgba(0,0,0,0.5)",
+                padding: "1px 3px",
+                borderRadius: "2px",
+                pointerEvents: "none",
+              }}
+            >
+              {sourceLocationText}
+            </div>
+          )}
       </div>
     );
   });

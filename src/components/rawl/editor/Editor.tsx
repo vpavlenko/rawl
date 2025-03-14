@@ -806,6 +806,20 @@ const Editor: React.FC<EditorProps> = ({
     // Extract the MidiWriter notes by channel
     const { eventsByChannel } = extractedMidiNotes;
 
+    // Reset all noteUnderCursor flags to false first
+    clonedResult.notes.forEach((voiceNotes) => {
+      if (Array.isArray(voiceNotes)) {
+        voiceNotes.forEach((note) => {
+          if (note && typeof note === "object") {
+            note.noteUnderCursor = false;
+          }
+        });
+      }
+    });
+
+    // Find the exact note under cursor if it exists
+    let foundExactMatch = false;
+
     // Process each note in the parsing result
     clonedResult.notes.forEach((voiceNotes: any[], voiceIndex: number) => {
       // Check if voiceNotes is actually an array
@@ -880,6 +894,18 @@ const Editor: React.FC<EditorProps> = ({
         if (matchingNote) {
           if (matchingNote.sourceLocation) {
             note.sourceLocation = matchingNote.sourceLocation;
+
+            // Check for exact match with current cursor position
+            if (
+              currentLine !== null &&
+              currentColumn !== null &&
+              matchingNote.sourceLocation.row === currentLine &&
+              // Use exact matching - only match if cursor is exactly on the note's column
+              matchingNote.sourceLocation.col === currentColumn
+            ) {
+              note.noteUnderCursor = true;
+              foundExactMatch = true;
+            }
           }
 
           // If the note doesn't have a valid tickSpan, get it from the matching note
@@ -898,7 +924,12 @@ const Editor: React.FC<EditorProps> = ({
     });
 
     return clonedResult;
-  }, [rawlProps?.parsingResult?.notes, extractedMidiNotes]);
+  }, [
+    rawlProps?.parsingResult?.notes,
+    extractedMidiNotes,
+    currentLine,
+    currentColumn,
+  ]);
 
   // Effect to update matched parsing result when either source changes
   useEffect(() => {

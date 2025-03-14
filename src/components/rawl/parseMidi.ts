@@ -22,6 +22,7 @@ export type Note = {
   pitchBend?: PitchBendPoint[];
   voiceIndex: number;
   sourceLocation?: SourceLocation;
+  noteUnderCursor?: boolean;
 };
 
 export type ColoredNote = Note & {
@@ -29,6 +30,7 @@ export type ColoredNote = Note & {
   isActive: boolean;
   colorPitchClass: number;
   sourceLocation?: SourceLocation;
+  noteUnderCursor?: boolean;
 };
 
 export type PitchBendPoint = {
@@ -94,6 +96,7 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
               pitchBend: noteOn[midiNumber].pitchBend,
               voiceIndex,
               sourceLocation: noteOn[midiNumber].sourceLocation,
+              noteUnderCursor: noteOn[midiNumber].noteUnderCursor,
             });
 
             id++;
@@ -116,6 +119,7 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
         // Store the current tick position with the note-on event
         noteOn[midiNumber].tickPosition = currentTick;
         noteOn[midiNumber].sourceLocation = event.sourceLocation;
+        noteOn[midiNumber].noteUnderCursor = event.noteUnderCursor;
       }
     }
   });

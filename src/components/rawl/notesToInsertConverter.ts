@@ -172,7 +172,11 @@ export const logMeasureNotesInformation = (
   measureIndex: number,
   coloredNotes: ColoredNotesInVoices,
   measuresAndBeats: { measures: number[]; beats: number[] },
-  globalKeyInfo?: { isMinor: boolean; rootPitchClass: number },
+  globalKeyInfo?: {
+    isMinor: boolean;
+    rootPitchClass: number;
+    baseMidiNumber?: number; // Added baseMidiNumber parameter
+  },
 ): string | null => {
   const { notesInMeasure, measureSpan, beatsInMeasure } =
     getNotesInMeasureAndVoice(
@@ -406,7 +410,11 @@ export const convertNotesToBeatTiming = (
   notes: ColoredNote[],
   measureSpan: [number, number],
   beatsInMeasure: number[],
-  globalKeyInfo?: { isMinor: boolean; rootPitchClass: number },
+  globalKeyInfo?: {
+    isMinor: boolean;
+    rootPitchClass: number;
+    baseMidiNumber?: number; // Added baseMidiNumber parameter
+  },
 ): {
   notesArray: Array<{
     relativeMidiNumber: number;
@@ -440,6 +448,7 @@ export const convertNotesToBeatTiming = (
     measureDuration?: number;
     chords?: any[];
     globalKeyInfo?: any;
+    baseMidiNumber?: number; // Added for debugging
   } = {
     measureSpan,
     beatsInMeasure,
@@ -453,6 +462,7 @@ export const convertNotesToBeatTiming = (
     ),
     calculations: [],
     globalKeyInfo: globalKeyInfo,
+    baseMidiNumber: globalKeyInfo?.baseMidiNumber, // Added for debugging
   };
 
   // Sort notes by start time
@@ -507,34 +517,50 @@ export const convertNotesToBeatTiming = (
     return beatPosition;
   };
 
-  // Find the lowest MIDI number note for reference
-  const notesWithMidi = sortedNotes.filter(
-    (note) => !note.isDrum && note.note.midiNumber !== undefined,
-  );
+  // If a global base MIDI number is provided, use it instead of calculating per-measure
+  let baseValue: number;
 
-  if (notesWithMidi.length === 0) {
-    return {
-      notesArray: [],
-      linearRepresentation: "[]",
-      rawlSyntaxRepresentation: "",
-    };
+  if (globalKeyInfo?.baseMidiNumber !== undefined) {
+    // Use the voice-specific base MIDI number provided from the global key info
+    baseValue = globalKeyInfo.baseMidiNumber;
+    console.log(
+      `Using global base MIDI number for consistent pitch mapping: ${baseValue}`,
+    );
+  } else {
+    // Find the lowest MIDI number note for reference (legacy approach)
+    const notesWithMidi = sortedNotes.filter(
+      (note) => !note.isDrum && note.note.midiNumber !== undefined,
+    );
+
+    if (notesWithMidi.length === 0) {
+      return {
+        notesArray: [],
+        linearRepresentation: "[]",
+        rawlSyntaxRepresentation: "",
+      };
+    }
+
+    const lowestMidiNote = notesWithMidi.reduce(
+      (lowest, current) =>
+        current.note.midiNumber < lowest.note.midiNumber ? current : lowest,
+      notesWithMidi[0],
+    );
+
+    const lowestMidi = lowestMidiNote.note.midiNumber;
+
+    // Use colorPitchClass when available, calculating modulo 12
+    const basePitchClass =
+      typeof lowestMidiNote.colorPitchClass === "number"
+        ? lowestMidiNote.colorPitchClass % 12
+        : lowestMidi % 12;
+
+    baseValue = lowestMidi - basePitchClass;
+    console.log(
+      `Calculated per-measure base MIDI number: ${baseValue} (fallback method)`,
+    );
   }
 
-  const lowestMidiNote = notesWithMidi.reduce(
-    (lowest, current) =>
-      current.note.midiNumber < lowest.note.midiNumber ? current : lowest,
-    notesWithMidi[0],
-  );
-
-  const lowestMidi = lowestMidiNote.note.midiNumber;
-
-  // Use colorPitchClass when available, calculating modulo 12
-  const basePitchClass =
-    typeof lowestMidiNote.colorPitchClass === "number"
-      ? lowestMidiNote.colorPitchClass % 12
-      : lowestMidi % 12;
-
-  const baseValue = lowestMidi - basePitchClass;
+  debugInfo.baseMidiNumber = baseValue;
 
   // Process each chord
   const result = [];
@@ -577,7 +603,7 @@ export const convertNotesToBeatTiming = (
         continue;
       }
 
-      // Calculate relative MIDI number
+      // Calculate relative MIDI number using the base value
       const relativeMidiNumber = note.note.midiNumber - baseValue;
 
       result.push({
@@ -808,66 +834,11 @@ export const convertNotesToRawlSyntax = (
     // Convert relative MIDI number to semitones from the reference pitch
     const semitones = relativeMidiNumber;
 
-    // Get the pitch class (0-11)
+    // Get the pitch class (0-11) using modulo 12
     const pitchClass = semitones % 12;
 
-    // Calculate octave based on semitones
+    // Calculate octave based on integer division by 12
     const octave = Math.floor(semitones / 12);
-
-    // Find the scale degree for this pitch class
-    let scaleDegree = -1;
-    let isChromatic = false;
-
-    // Check direct matches first
-    for (let i = 0; i < 7; i++) {
-      if (pitchClass === scaleMap[i]) {
-        scaleDegree = i;
-        break;
-      }
-    }
-
-    // If no direct match, it's a chromatic note
-    if (scaleDegree === -1) {
-      isChromatic = true;
-
-      // Special case for the 7th in minor scale (pitch class 11)
-      if (isMinor && pitchClass === 11) {
-        // This is the leading tone - represent as "#7" (sharp of b7)
-        // Handle different octaves (1-7, q-u, a-k)
-        if (octave === 0) {
-          return "#7"; // First octave
-        } else if (octave === 1) {
-          return "#u"; // Second octave
-        } else if (octave === 2) {
-          return "#j"; // Third octave
-        } else if (octave >= 3) {
-          // Higher octaves
-          return "#7(" + octave + ")";
-        }
-      }
-
-      // For other chromatic notes, find the closest scale degree
-      let minDiff = 12;
-      for (let i = 0; i < 7; i++) {
-        const diff = Math.min(
-          Math.abs(pitchClass - scaleMap[i]),
-          Math.abs(pitchClass - (scaleMap[i] + 12)),
-        );
-        if (diff < minDiff) {
-          minDiff = diff;
-          scaleDegree = i;
-        }
-      }
-
-      // Determine if it's a sharp or flat based on distance
-      const diff = pitchClass - scaleMap[scaleDegree];
-      // Prefer flats except for the 7th in minor
-      if (diff === 1 || diff === -11) {
-        return "#" + (scaleDegree + 1);
-      } else {
-        return "b" + ((scaleDegree + 1) % 7 || 7); // Ensure 0 becomes 7
-      }
-    }
 
     // Define mapping arrays for each octave
     const octaveNotations = [
@@ -879,16 +850,47 @@ export const convertNotesToRawlSyntax = (
       ["a", "s", "d", "f", "g", "h", "j"],
     ];
 
-    // Handle diatonic notes based on octave
-    if (octave >= 0 && octave < octaveNotations.length) {
-      return octaveNotations[octave][scaleDegree];
-    } else if (octave >= octaveNotations.length) {
-      // Higher octaves - use numeric with octave indication
-      return scaleDegree + 1 + "(" + octave + ")";
-    } else {
-      // Negative octaves - use flats
-      return "b" + (scaleDegree + 1);
+    // Helper function to get notation for a diatonic note
+    const getDiatonicNotation = (scaleIndex: number, oct: number): string => {
+      if (oct >= 0 && oct < octaveNotations.length) {
+        return octaveNotations[oct][scaleIndex];
+      } else if (oct >= octaveNotations.length) {
+        return scaleIndex + 1 + "(" + oct + ")";
+      } else {
+        return scaleIndex + 1 + "(" + oct + ")";
+      }
+    };
+
+    // First check if this is a diatonic note
+    for (let i = 0; i < 7; i++) {
+      if (pitchClass === scaleMap[i]) {
+        return getDiatonicNotation(i, octave);
+      }
     }
+
+    // This is a chromatic note
+    // Find the next higher diatonic pitch class
+    let found = false;
+    let nextDiatonicIndex = -1;
+    let actualOctave = octave;
+
+    // First look within the same octave
+    for (let i = 0; i < 7; i++) {
+      if (scaleMap[i] > pitchClass) {
+        nextDiatonicIndex = i;
+        found = true;
+        break;
+      }
+    }
+
+    // If not found in this octave, it's the first degree of next octave
+    if (!found) {
+      nextDiatonicIndex = 0;
+      actualOctave = octave + 1;
+    }
+
+    // Get the notation for the diatonic note and prepend with "b"
+    return "b" + getDiatonicNotation(nextDiatonicIndex, actualOctave);
   };
 
   for (const note of notes) {
@@ -1204,9 +1206,11 @@ export const determineGlobalKey = (
   rootPitchClass: number;
   keyName: string;
   voiceOctaves: { [key: number]: number };
+  voiceBaseMidiNumbers: { [key: number]: number }; // Added: Store base MIDI numbers for each voice
 } => {
   // Process each voice separately for octave determination
   const voiceOctaves: { [key: number]: number } = {};
+  const voiceBaseMidiNumbers: { [key: number]: number } = {}; // Added: Store base MIDI for each voice
 
   // Collect all notes across all voices for combined key analysis
   const allNotes: ColoredNote[] = [];
@@ -1231,27 +1235,41 @@ export const determineGlobalKey = (
       continue;
     }
 
-    // Calculate the appropriate octave for this voice
-    // Default octaves: Right hand (0) = 5, Left hand (1) = 3, other voices adjust based on content
-    const defaultOctave = voiceIndex === 0 ? 5 : voiceIndex === 1 ? 3 : 4;
-
-    // Calculate the estimated octave based on MIDI range
-    const avgMidi =
-      notesWithMidi.reduce((sum, note) => sum + note.note.midiNumber!, 0) /
-      notesWithMidi.length;
-    const octaveEstimate = Math.max(
-      1,
-      Math.min(7, Math.floor(avgMidi / 12) - 1),
+    // MODIFIED: Find the lowest MIDI note in this voice for base MIDI number calculation
+    const lowestMidiNote = notesWithMidi.reduce(
+      (lowest, current) =>
+        current.note.midiNumber < lowest.note.midiNumber ? current : lowest,
+      notesWithMidi[0],
     );
 
-    // Store the estimated octave for this voice
-    voiceOctaves[voiceIndex] = voiceIndex <= 1 ? defaultOctave : octaveEstimate;
+    const lowestMidi = lowestMidiNote.note.midiNumber;
+
+    // Get the colorPitchClass of the lowest note
+    const basePitchClass =
+      typeof lowestMidiNote.colorPitchClass === "number"
+        ? lowestMidiNote.colorPitchClass % 12
+        : lowestMidi % 12;
+
+    // Calculate the base MIDI number by subtracting colorPitchClass from the lowest MIDI number
+    const baseMidiNumber = lowestMidi - basePitchClass;
+
+    // Store this base MIDI number for consistent use across all measures of this voice
+    voiceBaseMidiNumbers[voiceIndex] = baseMidiNumber;
+
+    // Calculate octave where "1" will be mapped (derived from base MIDI number)
+    const baseOctave = Math.floor(baseMidiNumber / 12);
+
+    // Still respect defaults for the first two voices if needed
+    const defaultOctave =
+      voiceIndex === 0 ? 5 : voiceIndex === 1 ? 3 : baseOctave;
+    voiceOctaves[voiceIndex] = defaultOctave;
 
     console.log(
-      `Voice ${voiceIndex} octave analysis - ` +
-        `Note count: ${notesWithMidi.length}, ` +
-        `Average MIDI: ${avgMidi.toFixed(1)}, ` +
-        `Estimated octave: ${octaveEstimate}, ` +
+      `Voice ${voiceIndex} base value analysis - ` +
+        `Lowest MIDI: ${lowestMidi}, ` +
+        `Base pitch class: ${basePitchClass}, ` +
+        `Base MIDI number: ${baseMidiNumber}, ` +
+        `Base octave: ${baseOctave}, ` +
         `Assigned octave: ${voiceOctaves[voiceIndex]}`,
     );
   }
@@ -1263,6 +1281,7 @@ export const determineGlobalKey = (
       rootPitchClass: rootPitchClass,
       keyName: `${PITCH_CLASS_TO_NOTE_NAME[rootPitchClass]} major`,
       voiceOctaves: { 0: 5, 1: 3 },
+      voiceBaseMidiNumbers: {}, // Added empty object for base MIDI numbers
     };
   }
 
@@ -1316,6 +1335,7 @@ export const determineGlobalKey = (
     rootPitchClass,
     keyName,
     voiceOctaves,
+    voiceBaseMidiNumbers, // Added: Return the base MIDI numbers
   };
 };
 
@@ -1414,6 +1434,8 @@ export const generateFormattedScore = (
           {
             isMinor: globalKeyInfo.isMinor,
             rootPitchClass: globalKeyInfo.rootPitchClass,
+            // Add the voice base MIDI number for consistent pitch calculation
+            baseMidiNumber: globalKeyInfo.voiceBaseMidiNumbers[voiceIndex],
           },
         );
 

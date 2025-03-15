@@ -646,21 +646,18 @@ export const convertNotesToBeatTiming = (
 
   // If we have measures and beats, calculate time signature
   if (notes.length > 0 && beatsInMeasure.length > 0) {
-    // Extract measures array from the first note that has it
-    const measuresArray = notes.find(
-      (note) => note.span && note.span.length >= 2,
-    )?.measures;
-    if (measuresArray && Array.isArray(measuresArray)) {
-      // Calculate and add time signature to the result
-      const timeSignature = emitTimeSignature(measuresArray, beatsInMeasure);
-      return {
-        notesArray: result,
-        linearRepresentation: JSON.stringify(result),
-        rawlSyntaxRepresentation: rawlSyntaxRepresentation,
-        timeSignature: timeSignature,
-        debugInfo,
-      };
-    }
+    // Calculate time signature using the provided measureSpan and beatsInMeasure
+    const timeSignature = emitTimeSignature(
+      [measureSpan[0], measureSpan[1]],
+      beatsInMeasure,
+    );
+    return {
+      notesArray: result,
+      linearRepresentation: JSON.stringify(result),
+      rawlSyntaxRepresentation: rawlSyntaxRepresentation,
+      timeSignature: timeSignature,
+      debugInfo,
+    };
   }
 
   return {

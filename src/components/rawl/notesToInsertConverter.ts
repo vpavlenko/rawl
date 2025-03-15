@@ -3,6 +3,35 @@ import { MAJOR_SCALE_MAP, MINOR_SCALE_MAP } from "./editor/types";
 import { ColoredNote, ColoredNotesInVoices, Note } from "./parseMidi";
 
 /**
+ * Mapping from pitch class number to note name
+ */
+export const PITCH_CLASS_TO_NOTE_NAME: { [key: number]: string } = {
+  0: "C",
+  1: "C#", // or Db
+  2: "D",
+  3: "D#", // or Eb
+  4: "E",
+  5: "F",
+  6: "F#", // or Gb
+  7: "G",
+  8: "G#", // or Ab
+  9: "A",
+  10: "A#", // or Bb
+  11: "B",
+};
+
+/**
+ * Mapping of flat note names (preferred in certain contexts)
+ */
+export const FLAT_NOTE_NAMES: { [key: number]: string } = {
+  1: "Db",
+  3: "Eb",
+  6: "Gb",
+  8: "Ab",
+  10: "Bb",
+};
+
+/**
  * Get the measure start and end times in seconds
  */
 export const getMeasureSpan = (
@@ -143,6 +172,7 @@ export const logMeasureNotesInformation = (
   measureIndex: number,
   coloredNotes: ColoredNotesInVoices,
   measuresAndBeats: { measures: number[]; beats: number[] },
+  globalKeyInfo?: { isMinor: boolean; rootPitchClass: number },
 ): string | null => {
   const { notesInMeasure, measureSpan, beatsInMeasure } =
     getNotesInMeasureAndVoice(
@@ -179,6 +209,7 @@ export const logMeasureNotesInformation = (
     notesInMeasure,
     measureSpan,
     beatsInMeasure,
+    globalKeyInfo, // Pass global key info to ensure consistent representation
   );
   console.log(
     `Beat-based timing representation: ${beatBasedTiming.linearRepresentation}`,
@@ -203,16 +234,93 @@ export const logNotesInformation = (
   const voiceIndex = note.voiceIndex;
   const measureIndex = getNoteMeasure(note, measuresAndBeats.measures);
 
+  // Analyze key information per voice
+  // For single voice analysis, we'll create a focused subset with just this voice
+  const singleVoiceColoredNotes: ColoredNotesInVoices = [];
+  singleVoiceColoredNotes[voiceIndex] = coloredNotes[voiceIndex];
+
+  // Analyze just this voice for a more accurate key determination
+  const voiceKeyInfo = determineGlobalKey(singleVoiceColoredNotes);
+
+  console.log(
+    `Voice ${voiceIndex} key analysis for copy operation: ${voiceKeyInfo.keyName}`,
+  );
+
   const rawlSyntax = logMeasureNotesInformation(
     voiceIndex,
     measureIndex,
     coloredNotes,
     measuresAndBeats,
+    {
+      isMinor: voiceKeyInfo.isMinor,
+      rootPitchClass: voiceKeyInfo.rootPitchClass,
+    },
   );
 
   // Copy to clipboard
   navigator.clipboard
     .writeText(rawlSyntax)
+    .then(() => console.log("Rawl syntax copied to clipboard!"))
+    .catch((err) => console.error("Failed to copy to clipboard:", err));
+};
+
+/**
+ * Log information about notes in this voice and measure, and add raw syntax
+ */
+export const logNotesWithRawlSyntax = (
+  note: Note,
+  coloredNotes: ColoredNotesInVoices,
+  measuresAndBeats: { measures: number[]; beats: number[] },
+): void => {
+  const { notesInMeasure, measureSpan, beatsInMeasure, measureIndex } =
+    getNotesInSameMeasureAndVoice(note, coloredNotes, measuresAndBeats);
+
+  console.log(
+    `Notes in voice ${note.voiceIndex}, measure ${measureIndex}:`,
+    notesInMeasure,
+  );
+  console.log(
+    `Measure span: [${measureSpan[0].toFixed(2)}s, ${measureSpan[1].toFixed(
+      2,
+    )}s]`,
+  );
+  console.log(
+    `Beats in measure: ${beatsInMeasure.map((b) => b.toFixed(2)).join(", ")}s`,
+  );
+
+  // Analyze key information per voice
+  // For single voice analysis, we'll create a focused subset with just this voice
+  const singleVoiceColoredNotes: ColoredNotesInVoices = [];
+  singleVoiceColoredNotes[note.voiceIndex] = coloredNotes[note.voiceIndex];
+
+  // Analyze just this voice for a more accurate key determination
+  const voiceKeyInfo = determineGlobalKey(singleVoiceColoredNotes);
+
+  // Get the beat-based timing representation with the voice-specific key information
+  const beatBasedTiming = convertNotesToBeatTiming(
+    notesInMeasure,
+    measureSpan,
+    beatsInMeasure,
+    {
+      isMinor: voiceKeyInfo.isMinor,
+      rootPitchClass: voiceKeyInfo.rootPitchClass,
+    },
+  );
+
+  console.log(
+    `Beat-based timing representation: ${beatBasedTiming.linearRepresentation}`,
+  );
+
+  // Prepare the Rawl syntax with "i " prefix and copy to clipboard
+  const rawlSyntaxWithI = " i " + beatBasedTiming.rawlSyntaxRepresentation;
+  console.log(
+    `Rawl syntax representation (copied to clipboard): ${rawlSyntaxWithI}`,
+  );
+  console.log(`Voice-specific key used: ${voiceKeyInfo.keyName}`);
+
+  // Copy to clipboard
+  navigator.clipboard
+    .writeText(rawlSyntaxWithI)
     .then(() => console.log("Rawl syntax copied to clipboard!"))
     .catch((err) => console.error("Failed to copy to clipboard:", err));
 };
@@ -250,8 +358,8 @@ export const convertNotesToLinearFormat = (notes: ColoredNote[]): string => {
   // Get the colorPitchClass of the lowest note
   const basePitchClass =
     typeof lowestMidiNote.colorPitchClass === "number"
-      ? lowestMidiNote.colorPitchClass
-      : 0;
+      ? lowestMidiNote.colorPitchClass % 12
+      : lowestMidi % 12;
 
   // Calculate the base value to subtract from all MIDI numbers
   const baseValue = lowestMidi - basePitchClass;
@@ -275,7 +383,10 @@ export const convertNotesToLinearFormat = (notes: ColoredNote[]): string => {
           parseFloat(note.span[0].toFixed(2)),
           parseFloat(note.span[1].toFixed(2)),
         ],
-        colorPitchClass: note.colorPitchClass,
+        colorPitchClass:
+          typeof note.colorPitchClass === "number"
+            ? note.colorPitchClass % 12
+            : note.note.midiNumber % 12,
         relativeMidiNumber,
       };
     })
@@ -390,12 +501,14 @@ const groupNotesIntoChords = (
  * @param notes - Array of colored notes in a measure
  * @param measureSpan - Start and end time of the measure in seconds [start, end]
  * @param beatsInMeasure - Array of beat times in seconds within the measure
+ * @param globalKeyInfo - Optional global key information to override per-measure detection
  * @returns An object containing both the array of processed notes and a JSON string representation
  */
 export const convertNotesToBeatTiming = (
   notes: ColoredNote[],
   measureSpan: [number, number],
   beatsInMeasure: number[],
+  globalKeyInfo?: { isMinor: boolean; rootPitchClass: number },
 ): {
   notesArray: Array<{
     relativeMidiNumber: number;
@@ -428,6 +541,7 @@ export const convertNotesToBeatTiming = (
     secondsPerBeat?: number;
     measureDuration?: number;
     chords?: any[];
+    globalKeyInfo?: any;
   } = {
     measureSpan,
     beatsInMeasure,
@@ -440,6 +554,7 @@ export const convertNotesToBeatTiming = (
       })),
     ),
     calculations: [],
+    globalKeyInfo: globalKeyInfo,
   };
 
   // Sort notes by start time
@@ -514,10 +629,13 @@ export const convertNotesToBeatTiming = (
   );
 
   const lowestMidi = lowestMidiNote.note.midiNumber;
+
+  // Use colorPitchClass when available, calculating modulo 12
   const basePitchClass =
     typeof lowestMidiNote.colorPitchClass === "number"
-      ? lowestMidiNote.colorPitchClass
-      : 0;
+      ? lowestMidiNote.colorPitchClass % 12
+      : lowestMidi % 12;
+
   const baseValue = lowestMidi - basePitchClass;
 
   // Process each chord
@@ -569,7 +687,10 @@ export const convertNotesToBeatTiming = (
         beatPosition: parseFloat(beatPosition.toFixed(3)),
         beatDuration: parseFloat(beatDuration.toFixed(3)),
         distanceFromPrevious: parseFloat(distanceFromPrevious.toFixed(3)),
-        colorPitchClass: note.colorPitchClass,
+        colorPitchClass:
+          typeof note.colorPitchClass === "number"
+            ? note.colorPitchClass % 12
+            : note.note.midiNumber % 12,
         isChord: false,
       });
     } else {
@@ -587,7 +708,10 @@ export const convertNotesToBeatTiming = (
         beatPosition: parseFloat(beatPosition.toFixed(3)),
         beatDuration: parseFloat(beatDuration.toFixed(3)),
         distanceFromPrevious: parseFloat(distanceFromPrevious.toFixed(3)),
-        colorPitchClass: chord.notes[0].colorPitchClass, // Use the first note's pitch class
+        colorPitchClass:
+          typeof chord.notes[0].colorPitchClass === "number"
+            ? chord.notes[0].colorPitchClass % 12
+            : chord.notes[0].note.midiNumber % 12,
         isChord: true,
         chordNotes: chordNotes,
       });
@@ -595,7 +719,15 @@ export const convertNotesToBeatTiming = (
   }
 
   // Generate Rawl syntax representation with proper pitch encoding
-  const rawlSyntaxRepresentation = convertNotesToRawlSyntax(result);
+  // Use global key info if provided, otherwise detect from this measure
+  const isMinor = globalKeyInfo
+    ? globalKeyInfo.isMinor
+    : determineIfMinorKey(notes);
+  const rawlSyntaxRepresentation = convertNotesToRawlSyntax(
+    result,
+    undefined,
+    isMinor,
+  );
 
   console.log("DEBUG INFO: ", JSON.stringify(debugInfo, null, 2));
 
@@ -670,6 +802,7 @@ const midiNumberToNoteLetter = (midiNumber: number): string => {
  *
  * @param notes - Array of processed notes with beat timing
  * @param restThreshold - Minimum duration (in beats) to output a rest
+ * @param isMinor - Whether to use minor scale mapping (from global analysis)
  * @returns A string in Rawl syntax format
  */
 export const convertNotesToRawlSyntax = (
@@ -683,6 +816,7 @@ export const convertNotesToRawlSyntax = (
     chordNotes?: number[];
   }>,
   restThreshold: number = 0.125,
+  isMinorOverride?: boolean,
 ): string => {
   if (!notes || notes.length === 0) {
     return "";
@@ -694,48 +828,50 @@ export const convertNotesToRawlSyntax = (
   let result = "";
   let previousNoteEnd = 0;
 
-  // Determine if the notes are more likely in a minor key
-  // We need a more accurate way to determine the key
-  const pitchClassCounts: { [key: number]: number } = {};
+  // Determine if the notes are in a minor key, unless overridden
+  let isMinor = isMinorOverride;
 
-  // Count occurrences of each pitch class
-  for (const note of notes) {
-    const pitchClass = note.relativeMidiNumber % 12;
-    pitchClassCounts[pitchClass] = (pitchClassCounts[pitchClass] || 0) + 1;
+  if (isMinor === undefined) {
+    // Count occurrences of each pitch class for key determination
+    const pitchClassCounts: { [key: number]: number } = {};
+
+    // Count occurrences of each pitch class using colorPitchClass when available
+    for (const note of notes) {
+      const pitchClass =
+        typeof note.colorPitchClass === "number"
+          ? note.colorPitchClass % 12
+          : note.relativeMidiNumber % 12;
+
+      pitchClassCounts[pitchClass] = (pitchClassCounts[pitchClass] || 0) + 1;
+    }
+
+    console.log(
+      "Pitch class distribution (from colorPitchClass):",
+      pitchClassCounts,
+    );
+
+    // Check for minor third vs major third
+    const minorThirdCount = pitchClassCounts[3] || 0;
+    const majorThirdCount = pitchClassCounts[4] || 0;
+
+    // Check for minor sixth vs major sixth
+    const minorSixthCount = pitchClassCounts[8] || 0;
+    const majorSixthCount = pitchClassCounts[9] || 0;
+
+    // Calculate total evidence for minor vs major according to user's requirements
+    const minorEvidence = minorThirdCount + minorSixthCount;
+    const majorEvidence = majorThirdCount + majorSixthCount;
+
+    isMinor = minorEvidence > majorEvidence;
+
+    console.log(
+      `Key determination (using colorPitchClass): ${
+        isMinor ? "Minor" : "Major"
+      } - ` +
+        `Minor evidence (b3=${minorThirdCount}, b6=${minorSixthCount}): ${minorEvidence}, ` +
+        `Major evidence (3=${majorThirdCount}, 6=${majorSixthCount}): ${majorEvidence}`,
+    );
   }
-
-  console.log("Pitch class distribution:", pitchClassCounts);
-
-  // Check for minor third vs major third
-  const minorThirdCount = pitchClassCounts[3] || 0;
-  const majorThirdCount = pitchClassCounts[4] || 0;
-
-  // Check for minor sixth vs major sixth
-  const minorSixthCount = pitchClassCounts[8] || 0;
-  const majorSixthCount = pitchClassCounts[9] || 0;
-
-  // Check for minor seventh vs major seventh
-  const minorSeventhCount = pitchClassCounts[10] || 0;
-  const majorSeventhCount = pitchClassCounts[11] || 0;
-
-  // Score the evidence for minor scale
-  const minorEvidence = minorThirdCount + minorSixthCount + minorSeventhCount;
-  const majorEvidence = majorThirdCount + majorSixthCount + majorSeventhCount;
-
-  // Force major scale if all notes are diatonic to major scale
-  const majorScalePitchClasses = [0, 2, 4, 5, 7, 9, 11]; // C major scale pitch classes
-  const hasChromaticNotes = Object.keys(pitchClassCounts).some(
-    (pc) => !majorScalePitchClasses.includes(Number(pc)),
-  );
-
-  const isMinor = hasChromaticNotes ? minorEvidence > majorEvidence : false;
-
-  console.log(
-    `Key determination: ${isMinor ? "Minor" : "Major"} - ` +
-      `Minor evidence (b3=${minorThirdCount}, b6=${minorSixthCount}, b7=${minorSeventhCount}): ${minorEvidence}, ` +
-      `Major evidence (3=${majorThirdCount}, 6=${majorSixthCount}, 7=${majorSeventhCount}): ${majorEvidence}, ` +
-      `Has chromatic notes: ${hasChromaticNotes}`,
-  );
 
   // Helper to find actual duration value from symbol
   const getDurationValue = (symbol: string): number => {
@@ -839,7 +975,7 @@ export const convertNotesToRawlSyntax = (
     if (octave >= 0 && octave < octaveNotations.length) {
       return octaveNotations[octave][scaleDegree];
     } else if (octave >= octaveNotations.length) {
-      // Higher octaves - use numeric with octave indicator
+      // Higher octaves - use numeric with octave indication
       return scaleDegree + 1 + "(" + octave + ")";
     } else {
       // Negative octaves - use flats
@@ -931,7 +1067,12 @@ export const determineIfMinorKey = (notes: ColoredNote[]): boolean => {
   const pitchClassCounts: { [key: number]: number } = {};
 
   notesWithMidi.forEach((note) => {
-    const pitchClass = note.note.midiNumber! % 12;
+    // Use colorPitchClass when available, otherwise fallback to midiNumber % 12
+    const pitchClass =
+      typeof note.colorPitchClass === "number"
+        ? note.colorPitchClass % 12
+        : note.note.midiNumber! % 12;
+
     pitchClassCounts[pitchClass] = (pitchClassCounts[pitchClass] || 0) + 1;
   });
 
@@ -940,11 +1081,20 @@ export const determineIfMinorKey = (notes: ColoredNote[]): boolean => {
   const minorThirdCount = pitchClassCounts[3] || 0;
   const majorThirdCount = pitchClassCounts[4] || 0;
 
+  // Check for minor sixth vs major sixth
+  const minorSixthCount = pitchClassCounts[8] || 0;
+  const majorSixthCount = pitchClassCounts[9] || 0;
+
+  // Calculate total evidence for minor vs major according to user's requirements
+  const minorEvidence = minorThirdCount + minorSixthCount;
+  const majorEvidence = majorThirdCount + majorSixthCount;
+
   console.log(
-    `Pitch class analysis - Minor third (3): ${minorThirdCount}, Major third (4): ${majorThirdCount}`,
+    `Pitch class analysis using colorPitchClass - Minor evidence (b3=${minorThirdCount}, b6=${minorSixthCount}): ${minorEvidence}, ` +
+      `Major evidence (3=${majorThirdCount}, 6=${majorSixthCount}): ${majorEvidence}`,
   );
 
-  return minorThirdCount > majorThirdCount;
+  return minorEvidence > majorEvidence;
 };
 
 /**
@@ -1132,55 +1282,177 @@ export const convertNotesToEncodedRawlSyntax = (
 };
 
 /**
- * Update the existing logNotesWithRawlSyntax function to include the encoded version
+ * Analyze notes per voice to determine the key signature
+ * @param coloredNotes - All notes in all voices
+ * @returns An object with the detected key information
  */
-export const logNotesWithRawlSyntax = (
-  note: Note,
+export const determineGlobalKey = (
   coloredNotes: ColoredNotesInVoices,
-  measuresAndBeats: { measures: number[]; beats: number[] },
-): void => {
-  const { notesInMeasure, measureSpan, beatsInMeasure, measureIndex } =
-    getNotesInSameMeasureAndVoice(note, coloredNotes, measuresAndBeats);
+): {
+  isMinor: boolean;
+  rootPitchClass: number;
+  keyName: string;
+  voiceOctaves: { [key: number]: number };
+} => {
+  // Analyze each voice separately
+  const voiceInfo: {
+    lowestMidi: number;
+    basePitchClass: number;
+    rootPitchClass: number;
+    minorEvidence: number;
+    majorEvidence: number;
+    noteCount: number;
+    estimatedOctave: number;
+  }[] = [];
+
+  const voiceOctaves: { [key: number]: number } = {};
+
+  // Process each voice separately
+  for (let voiceIndex = 0; voiceIndex < coloredNotes.length; voiceIndex++) {
+    const voiceNotes = coloredNotes[voiceIndex];
+
+    // Filter out drum notes and notes without MIDI numbers
+    const notesWithMidi = voiceNotes.filter(
+      (note) => !note.isDrum && note.note.midiNumber !== undefined,
+    );
+
+    if (notesWithMidi.length === 0) {
+      continue; // Skip empty voices
+    }
+
+    // Find the lowest MIDI number note in this voice
+    const lowestNote = notesWithMidi.reduce(
+      (lowest, current) =>
+        current.note.midiNumber! < lowest.note.midiNumber! ? current : lowest,
+      notesWithMidi[0],
+    );
+
+    const lowestMidi = lowestNote.note.midiNumber!;
+
+    // Get the base pitch class from the lowest note
+    const basePitchClass =
+      typeof lowestNote.colorPitchClass === "number"
+        ? lowestNote.colorPitchClass % 12
+        : lowestMidi % 12;
+
+    // Count occurrences of each pitch class using colorPitchClass
+    const pitchClassCounts: { [key: number]: number } = {};
+
+    notesWithMidi.forEach((note) => {
+      // Use colorPitchClass when available
+      const pitchClass =
+        typeof note.colorPitchClass === "number"
+          ? note.colorPitchClass % 12
+          : note.note.midiNumber! % 12;
+
+      pitchClassCounts[pitchClass] = (pitchClassCounts[pitchClass] || 0) + 1;
+    });
+
+    // Estimate if it's minor or major based on counting specific scale degrees
+    // - Count pitches where %12==3 and %12==8 (minor third and minor sixth)
+    // - Count pitches where %12==4 and %12==9 (major third and major sixth)
+    const minorThirdCount = pitchClassCounts[3] || 0;
+    const minorSixthCount = pitchClassCounts[8] || 0;
+    const majorThirdCount = pitchClassCounts[4] || 0;
+    const majorSixthCount = pitchClassCounts[9] || 0;
+
+    // Calculate total evidence for minor vs major
+    const minorEvidence = minorThirdCount + minorSixthCount;
+    const majorEvidence = majorThirdCount + majorSixthCount;
+
+    // Calculate the appropriate octave for this voice
+    // Default octaves: Right hand (0) = 5, Left hand (1) = 3, other voices adjust based on content
+    const defaultOctave = voiceIndex === 0 ? 5 : voiceIndex === 1 ? 3 : 4;
+
+    // Calculate the estimated octave based on MIDI range
+    const avgMidi =
+      notesWithMidi.reduce((sum, note) => sum + note.note.midiNumber!, 0) /
+      notesWithMidi.length;
+    const octaveEstimate = Math.max(
+      1,
+      Math.min(7, Math.floor(avgMidi / 12) - 1),
+    );
+
+    // Store the estimated octave for this voice
+    voiceOctaves[voiceIndex] = voiceIndex <= 1 ? defaultOctave : octaveEstimate;
+
+    // Store this voice's information
+    voiceInfo.push({
+      lowestMidi,
+      basePitchClass,
+      rootPitchClass: basePitchClass, // Use base pitch class as root
+      minorEvidence,
+      majorEvidence,
+      noteCount: notesWithMidi.length,
+      estimatedOctave: octaveEstimate,
+    });
+
+    console.log(
+      `Voice ${voiceIndex} analysis (using colorPitchClass) - ` +
+        `Root: ${PITCH_CLASS_TO_NOTE_NAME[basePitchClass]}, ` +
+        `Lowest MIDI: ${lowestMidi}, ` +
+        `Base pitch class: ${basePitchClass}, ` +
+        `Minor evidence: ${minorEvidence}, ` +
+        `Major evidence: ${majorEvidence}, ` +
+        `Note count: ${notesWithMidi.length}, ` +
+        `Estimated octave: ${octaveEstimate}`,
+    );
+  }
+
+  // If no valid voices with notes were found
+  if (voiceInfo.length === 0) {
+    return {
+      isMinor: false,
+      rootPitchClass: 0,
+      keyName: "C major",
+      voiceOctaves: { 0: 5, 1: 3 },
+    };
+  }
+
+  // Determine the overall key based on the voice with the most notes or is most likely the melody
+  // We prioritize the right hand (index 0) if it has a reasonable number of notes
+  let primaryVoiceIndex = 0;
+
+  if (voiceInfo.length > 1) {
+    // If RH has significantly fewer notes than LH, use LH as primary
+    if (voiceInfo[0].noteCount * 3 < voiceInfo[1].noteCount) {
+      primaryVoiceIndex = 1;
+    }
+
+    // If another voice has way more notes than either hand, consider it
+    for (let i = 2; i < voiceInfo.length; i++) {
+      if (voiceInfo[i].noteCount > voiceInfo[primaryVoiceIndex].noteCount * 2) {
+        primaryVoiceIndex = i;
+      }
+    }
+  }
+
+  // Use the selected voice's key determination
+  const primaryVoice = voiceInfo[primaryVoiceIndex];
+  const rootPitchClass = primaryVoice.rootPitchClass;
+  const isMinor = primaryVoice.minorEvidence > primaryVoice.majorEvidence;
+
+  // Get the note name, preferring flats for minor keys
+  let noteName =
+    isMinor && FLAT_NOTE_NAMES[rootPitchClass]
+      ? FLAT_NOTE_NAMES[rootPitchClass]
+      : PITCH_CLASS_TO_NOTE_NAME[rootPitchClass];
+
+  const keyName = `${noteName} ${isMinor ? "minor" : "major"}`;
 
   console.log(
-    `Notes in voice ${note.voiceIndex}, measure ${measureIndex}:`,
-    notesInMeasure,
-  );
-  console.log(
-    `Measure span: [${measureSpan[0].toFixed(2)}s, ${measureSpan[1].toFixed(
-      2,
-    )}s]`,
-  );
-  console.log(
-    `Beats in measure: ${beatsInMeasure.map((b) => b.toFixed(2)).join(", ")}s`,
+    `Global key determination (using colorPitchClass): ${keyName} - ` +
+      `Based on voice ${primaryVoiceIndex}, ` +
+      `Root pitch class: ${rootPitchClass}, ` +
+      `Is minor: ${isMinor}`,
   );
 
-  // Get the beat-based timing representation
-  const beatBasedTiming = convertNotesToBeatTiming(
-    notesInMeasure,
-    measureSpan,
-    beatsInMeasure,
-  );
-
-  console.log(
-    `Beat-based timing representation: ${beatBasedTiming.linearRepresentation}`,
-  );
-
-  // Add encoded Rawl syntax representation
-  const encodedRawlSyntax = convertNotesToEncodedRawlSyntax(notesInMeasure);
-
-  // Prepare the Rawl syntax with "i " prefix and copy to clipboard
-  const rawlSyntaxWithI = " i " + beatBasedTiming.rawlSyntaxRepresentation;
-  console.log(
-    `Rawl syntax representation (copied to clipboard): ${rawlSyntaxWithI}`,
-  );
-  console.log(`Encoded Rawl syntax: i ${encodedRawlSyntax}`);
-
-  // Copy to clipboard
-  navigator.clipboard
-    .writeText(rawlSyntaxWithI)
-    .then(() => console.log("Rawl syntax copied to clipboard!"))
-    .catch((err) => console.error("Failed to copy to clipboard:", err));
+  return {
+    isMinor,
+    rootPitchClass,
+    keyName,
+    voiceOctaves,
+  };
 };
 
 /**
@@ -1196,6 +1468,12 @@ export const generateFormattedScore = (
   analysis: Analysis,
 ): string => {
   let result = "";
+
+  // Determine the global key
+  const keyInfo = determineGlobalKey(coloredNotes);
+
+  // Add key signature at the beginning of the score
+  result += `${keyInfo.keyName}\n`;
 
   // Add sections if available - keep them as phrase indices, exclude 0 and 1
   if (analysis.sections && analysis.sections.length > 0) {
@@ -1237,15 +1515,19 @@ export const generateFormattedScore = (
     // Skip empty voices
     if (coloredNotes[voiceIndex].length === 0) continue;
 
-    // Add appropriate voice label
+    // Add appropriate voice label with octave
+    const octave =
+      keyInfo.voiceOctaves[voiceIndex] ||
+      (voiceIndex === 0 ? 5 : voiceIndex === 1 ? 3 : 4);
+
     if (voiceIndex === 0) {
-      result += "rh\n";
+      result += `rh ${octave}\n`;
     } else if (voiceIndex === 1) {
-      result += "\n\nlh\n";
+      result += `\n\nlh ${octave}\n`;
     } else if (voiceIndex === 2) {
-      result += "\n\nch2\n";
+      result += `\n\nch2 ${octave}\n`;
     } else {
-      result += `\n\nch${voiceIndex}\n`;
+      result += `\n\nch${voiceIndex} ${octave}\n`;
     }
 
     // Process all measures for this voice
@@ -1257,6 +1539,10 @@ export const generateFormattedScore = (
           measureIndex,
           coloredNotes,
           measuresAndBeats,
+          {
+            isMinor: keyInfo.isMinor,
+            rootPitchClass: keyInfo.rootPitchClass,
+          },
         );
 
         // Only add if there are notes in this measure

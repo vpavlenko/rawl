@@ -788,6 +788,78 @@ export const convertNotesToRawlSyntax = (
     return durationMap[symbol] || 0;
   };
 
+  // Get all duration symbols sorted by duration value (longest first)
+  const getAllDurationSymbolsSorted = (): {symbol: string, value: number}[] => {
+    const allSymbols = [
+      { symbol: "+.", value: 6 }, // Dotted whole note
+      { symbol: "+", value: 4 }, // Whole note
+      { symbol: "_.", value: 3 }, // Dotted half note
+      { symbol: "_", value: 2 }, // Half note
+      { symbol: ",.", value: 1.5 }, // Dotted quarter note
+      { symbol: ",", value: 1 }, // Quarter note
+      { symbol: "-.", value: 0.75 }, // Dotted eighth note
+      { symbol: "-", value: 0.5 }, // Eighth note
+      { symbol: "=.", value: 0.375 }, // Dotted sixteenth note
+      { symbol: "=", value: 0.25 }, // Sixteenth note
+      { symbol: "'.", value: 0.1875 }, // Dotted thirty-second note
+      { symbol: "'", value: 0.125 }, // Thirty-second note
+      { symbol: '"', value: 0.0625 }, // Sixty-fourth note
+      { symbol: "+:", value: (4 * 2) / 3 }, // Triplet whole note
+      { symbol: "_:", value: (2 * 2) / 3 }, // Triplet half note
+      { symbol: ",:", value: (1 * 2) / 3 }, // Triplet quarter note
+      { symbol: "-:", value: (0.5 * 2) / 3 }, // Triplet eighth note
+      { symbol: "=:", value: (0.25 * 2) / 3 }, // Triplet sixteenth note
+      { symbol: "':": value: (0.125 * 2) / 3 }, // Triplet thirty-second note
+    ];
+    return allSymbols.sort((a, b) => b.value - a.value); // Sort by duration value, longest first
+  };
+
+  // Function to emit multiple rests to achieve a more precise gap duration
+  const emitRests = (gap: number): { restString: string; actualDuration: number } => {
+    // If gap is below threshold, don't emit any rests
+    if (gap < restThreshold) {
+      return { restString: "", actualDuration: 0 };
+    }
+
+    let remainingDuration = gap;
+    let restString = "";
+    let actualTotalDuration = 0;
+    const sortedDurations = getAllDurationSymbolsSorted();
+
+    // First, try to emit the largest available rest (≥1 beat)
+    const largeRestDurations = sortedDurations.filter(d => d.value >= 1);
+    
+    // Then follow with smaller rests if needed
+    const smallRestDurations = sortedDurations.filter(d => d.value < 1);
+    
+    // Combine them with large durations first
+    const allDurations = [...largeRestDurations, ...smallRestDurations];
+    
+    // Add rests until we've used up the gap (or got close enough)
+    while (remainingDuration >= restThreshold) {
+      // Find the largest duration that fits in the remaining gap
+      const bestFit = allDurations.find(d => d.value <= remainingDuration);
+      
+      if (!bestFit) {
+        // If no duration fits, use the smallest available
+        const smallestDuration = allDurations[allDurations.length - 1];
+        restString += "x" + smallestDuration.symbol + " ";
+        actualTotalDuration += smallestDuration.value;
+        break; // Exit, we can't get more precise than this
+      } else {
+        // Add this rest
+        restString += "x" + bestFit.symbol + " ";
+        remainingDuration -= bestFit.value;
+        actualTotalDuration += bestFit.value;
+      }
+      
+      // Safety check to prevent infinite loops
+      if (remainingDuration < 0.001) break;
+    }
+
+    return { restString, actualDuration: actualTotalDuration };
+  };
+
   // Helper to convert relative MIDI number to Rawl pitch notation
   const getPitchNotation = (
     relativeMidiNumber: number,
@@ -872,22 +944,18 @@ export const convertNotesToRawlSyntax = (
       beatDuration: note.beatDuration,
     });
 
-    // If there's a significant gap, emit a rest
+    // If there's a significant gap, emit rests using the new function
     if (gap >= restThreshold) {
-      // Discretize the gap duration
-      const restDuration = getDurationCharacter(gap);
-      const actualRestDuration = getDurationValue(restDuration);
-      result += "x" + restDuration + " ";
+      const { restString, actualDuration } = emitRests(gap);
+      result += restString;
 
-      // Update previousNoteEnd based on the discretized rest duration
-      previousNoteEnd += actualRestDuration;
+      // Update previousNoteEnd based on the actual emitted rest durations
+      previousNoteEnd += actualDuration;
 
       debugDetails[debugDetails.length - 1].emittedRest = true;
-      debugDetails[debugDetails.length - 1].restDuration = restDuration;
-      debugDetails[debugDetails.length - 1].actualRestDuration =
-        actualRestDuration;
-      debugDetails[debugDetails.length - 1].newPreviousNoteEnd =
-        previousNoteEnd;
+      debugDetails[debugDetails.length - 1].restString = restString;
+      debugDetails[debugDetails.length - 1].actualRestDuration = actualDuration;
+      debugDetails[debugDetails.length - 1].newPreviousNoteEnd = previousNoteEnd;
     }
 
     // Get the discretized duration for the note

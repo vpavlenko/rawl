@@ -224,68 +224,6 @@ export const logMeasureNotesInformation = (
 };
 
 /**
- * Log information about notes in this voice and measure, and add raw syntax
- */
-export const logNotesWithRawlSyntax = (
-  note: Note,
-  coloredNotes: ColoredNotesInVoices,
-  measuresAndBeats: { measures: number[]; beats: number[] },
-): void => {
-  const { notesInMeasure, measureSpan, beatsInMeasure, measureIndex } =
-    getNotesInSameMeasureAndVoice(note, coloredNotes, measuresAndBeats);
-
-  console.log(
-    `Notes in voice ${note.voiceIndex}, measure ${measureIndex}:`,
-    notesInMeasure,
-  );
-  console.log(
-    `Measure span: [${measureSpan[0].toFixed(2)}s, ${measureSpan[1].toFixed(
-      2,
-    )}s]`,
-  );
-  console.log(
-    `Beats in measure: ${beatsInMeasure.map((b) => b.toFixed(2)).join(", ")}s`,
-  );
-
-  // Get the rootPitchClass from the first note's colorPitchClass
-  // This assumes colorPitchClass is already calculated relative to the analysis root
-  const rootPitchClass =
-    typeof note.colorPitchClass === "number" ? note.colorPitchClass % 12 : 0;
-
-  // Determine the global key once for consistency across all measures
-  const globalKeyInfo = determineGlobalKey(coloredNotes, rootPitchClass);
-  console.log(`Global key for rawl syntax: ${globalKeyInfo.keyName}`);
-
-  // Get the beat-based timing representation with the globally determined key information
-  const beatBasedTiming = convertNotesToBeatTiming(
-    notesInMeasure,
-    measureSpan,
-    beatsInMeasure,
-    {
-      isMinor: globalKeyInfo.isMinor,
-      rootPitchClass: globalKeyInfo.rootPitchClass,
-    },
-  );
-
-  console.log(
-    `Beat-based timing representation: ${beatBasedTiming.linearRepresentation}`,
-  );
-
-  // Prepare the Rawl syntax with "i " prefix and copy to clipboard
-  const rawlSyntaxWithI = " i " + beatBasedTiming.rawlSyntaxRepresentation;
-  console.log(
-    `Rawl syntax representation (copied to clipboard): ${rawlSyntaxWithI}`,
-  );
-  console.log(`Global key used: ${globalKeyInfo.keyName}`);
-
-  // Copy to clipboard
-  navigator.clipboard
-    .writeText(rawlSyntaxWithI)
-    .then(() => console.log("Rawl syntax copied to clipboard!"))
-    .catch((err) => console.error("Failed to copy to clipboard:", err));
-};
-
-/**
  * Convert notes in a measure to a linear textual format
  *
  * This finds the lowest MIDI number note and uses its pitch class as a reference point.

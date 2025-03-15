@@ -3600,6 +3600,7 @@ export const corpora: CorpusEntry[] = [
       "fur-elise-reharmonization-cover",
       "fur-elise-but-elise-is-scary",
       "Fr_Elise",
+      "fur-elise-but-elise-said-no",
     ],
     // Cover of Beethoven's piece, so no new composer or style info necessary here.
   },

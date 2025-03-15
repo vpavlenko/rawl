@@ -234,13 +234,34 @@ export const logNotesInformation = (
   const voiceIndex = note.voiceIndex;
   const measureIndex = getNoteMeasure(note, measuresAndBeats.measures);
 
-  // Analyze key information per voice
+  // For voice-specific operations, extract the rootPitchClass from colorPitchClass values
   // For single voice analysis, we'll create a focused subset with just this voice
   const singleVoiceColoredNotes: ColoredNotesInVoices = [];
   singleVoiceColoredNotes[voiceIndex] = coloredNotes[voiceIndex];
 
+  // Get the reference note to determine root
+  const voiceNotes = coloredNotes[voiceIndex].filter(
+    (note) => !note.isDrum && note.note.midiNumber !== undefined,
+  );
+
+  // Use 0 as default rootPitchClass if no notes exist
+  let rootPitchClass = 0;
+
+  if (voiceNotes.length > 0) {
+    // Use the first note's colorPitchClass as reference for the root
+    // Since colorPitchClass is already relative to the root from analysis.modulations[1]
+    const referenceNote = voiceNotes[0];
+    if (typeof referenceNote.colorPitchClass === "number") {
+      // We use colorPitchClass % 12 to get the proper pitch class value
+      rootPitchClass = referenceNote.colorPitchClass % 12;
+    }
+  }
+
   // Analyze just this voice for a more accurate key determination
-  const voiceKeyInfo = determineGlobalKey(singleVoiceColoredNotes);
+  const voiceKeyInfo = determineGlobalKey(
+    singleVoiceColoredNotes,
+    rootPitchClass,
+  );
 
   console.log(
     `Voice ${voiceIndex} key analysis for copy operation: ${voiceKeyInfo.keyName}`,
@@ -288,13 +309,34 @@ export const logNotesWithRawlSyntax = (
     `Beats in measure: ${beatsInMeasure.map((b) => b.toFixed(2)).join(", ")}s`,
   );
 
-  // Analyze key information per voice
+  // For voice-specific operations, extract the rootPitchClass from colorPitchClass values
   // For single voice analysis, we'll create a focused subset with just this voice
   const singleVoiceColoredNotes: ColoredNotesInVoices = [];
   singleVoiceColoredNotes[note.voiceIndex] = coloredNotes[note.voiceIndex];
 
+  // Get the reference note to determine root
+  const voiceNotes = coloredNotes[note.voiceIndex].filter(
+    (n) => !n.isDrum && n.note.midiNumber !== undefined,
+  );
+
+  // Use 0 as default rootPitchClass if no notes exist
+  let rootPitchClass = 0;
+
+  if (voiceNotes.length > 0 && notesInMeasure.length > 0) {
+    // Use the first note's colorPitchClass as reference for the root
+    // Since colorPitchClass is already relative to the root from analysis.modulations[1]
+    const referenceNote = notesInMeasure[0];
+    if (typeof referenceNote.colorPitchClass === "number") {
+      // We use colorPitchClass % 12 to get the proper pitch class value
+      rootPitchClass = referenceNote.colorPitchClass % 12;
+    }
+  }
+
   // Analyze just this voice for a more accurate key determination
-  const voiceKeyInfo = determineGlobalKey(singleVoiceColoredNotes);
+  const voiceKeyInfo = determineGlobalKey(
+    singleVoiceColoredNotes,
+    rootPitchClass,
+  );
 
   // Get the beat-based timing representation with the voice-specific key information
   const beatBasedTiming = convertNotesToBeatTiming(
@@ -1282,83 +1324,46 @@ export const convertNotesToEncodedRawlSyntax = (
 };
 
 /**
- * Analyze notes per voice to determine the key signature
+ * Analyze notes from all voices together to determine if the key is major or minor
+ * Using the tonic from analysis.modulations[1] rather than detecting it
  * @param coloredNotes - All notes in all voices
+ * @param rootPitchClass - The root pitch class from analysis.modulations[1]
  * @returns An object with the detected key information
  */
 export const determineGlobalKey = (
   coloredNotes: ColoredNotesInVoices,
+  rootPitchClass: number = 0, // Default to C if not provided
 ): {
   isMinor: boolean;
   rootPitchClass: number;
   keyName: string;
   voiceOctaves: { [key: number]: number };
 } => {
-  // Analyze each voice separately
-  const voiceInfo: {
-    lowestMidi: number;
-    basePitchClass: number;
-    rootPitchClass: number;
-    minorEvidence: number;
-    majorEvidence: number;
-    noteCount: number;
-    estimatedOctave: number;
-  }[] = [];
-
+  // Process each voice separately for octave determination
   const voiceOctaves: { [key: number]: number } = {};
 
-  // Process each voice separately
+  // Collect all notes across all voices for combined key analysis
+  const allNotes: ColoredNote[] = [];
+
+  // Process each voice for octave determination and collect all notes
   for (let voiceIndex = 0; voiceIndex < coloredNotes.length; voiceIndex++) {
     const voiceNotes = coloredNotes[voiceIndex];
 
-    // Filter out drum notes and notes without MIDI numbers
+    // Add all valid notes to the combined pool
+    allNotes.push(
+      ...voiceNotes.filter(
+        (note) => !note.isDrum && note.note.midiNumber !== undefined,
+      ),
+    );
+
+    // Skip empty voices for octave calculation
     const notesWithMidi = voiceNotes.filter(
       (note) => !note.isDrum && note.note.midiNumber !== undefined,
     );
 
     if (notesWithMidi.length === 0) {
-      continue; // Skip empty voices
+      continue;
     }
-
-    // Find the lowest MIDI number note in this voice
-    const lowestNote = notesWithMidi.reduce(
-      (lowest, current) =>
-        current.note.midiNumber! < lowest.note.midiNumber! ? current : lowest,
-      notesWithMidi[0],
-    );
-
-    const lowestMidi = lowestNote.note.midiNumber!;
-
-    // Get the base pitch class from the lowest note
-    const basePitchClass =
-      typeof lowestNote.colorPitchClass === "number"
-        ? lowestNote.colorPitchClass % 12
-        : lowestMidi % 12;
-
-    // Count occurrences of each pitch class using colorPitchClass
-    const pitchClassCounts: { [key: number]: number } = {};
-
-    notesWithMidi.forEach((note) => {
-      // Use colorPitchClass when available
-      const pitchClass =
-        typeof note.colorPitchClass === "number"
-          ? note.colorPitchClass % 12
-          : note.note.midiNumber! % 12;
-
-      pitchClassCounts[pitchClass] = (pitchClassCounts[pitchClass] || 0) + 1;
-    });
-
-    // Estimate if it's minor or major based on counting specific scale degrees
-    // - Count pitches where %12==3 and %12==8 (minor third and minor sixth)
-    // - Count pitches where %12==4 and %12==9 (major third and major sixth)
-    const minorThirdCount = pitchClassCounts[3] || 0;
-    const minorSixthCount = pitchClassCounts[8] || 0;
-    const majorThirdCount = pitchClassCounts[4] || 0;
-    const majorSixthCount = pitchClassCounts[9] || 0;
-
-    // Calculate total evidence for minor vs major
-    const minorEvidence = minorThirdCount + minorSixthCount;
-    const majorEvidence = majorThirdCount + majorSixthCount;
 
     // Calculate the appropriate octave for this voice
     // Default octaves: Right hand (0) = 5, Left hand (1) = 3, other voices adjust based on content
@@ -1376,61 +1381,51 @@ export const determineGlobalKey = (
     // Store the estimated octave for this voice
     voiceOctaves[voiceIndex] = voiceIndex <= 1 ? defaultOctave : octaveEstimate;
 
-    // Store this voice's information
-    voiceInfo.push({
-      lowestMidi,
-      basePitchClass,
-      rootPitchClass: basePitchClass, // Use base pitch class as root
-      minorEvidence,
-      majorEvidence,
-      noteCount: notesWithMidi.length,
-      estimatedOctave: octaveEstimate,
-    });
-
     console.log(
-      `Voice ${voiceIndex} analysis (using colorPitchClass) - ` +
-        `Root: ${PITCH_CLASS_TO_NOTE_NAME[basePitchClass]}, ` +
-        `Lowest MIDI: ${lowestMidi}, ` +
-        `Base pitch class: ${basePitchClass}, ` +
-        `Minor evidence: ${minorEvidence}, ` +
-        `Major evidence: ${majorEvidence}, ` +
+      `Voice ${voiceIndex} octave analysis - ` +
         `Note count: ${notesWithMidi.length}, ` +
-        `Estimated octave: ${octaveEstimate}`,
+        `Average MIDI: ${avgMidi.toFixed(1)}, ` +
+        `Estimated octave: ${octaveEstimate}, ` +
+        `Assigned octave: ${voiceOctaves[voiceIndex]}`,
     );
   }
 
-  // If no valid voices with notes were found
-  if (voiceInfo.length === 0) {
+  // If no valid notes were found across all voices
+  if (allNotes.length === 0) {
     return {
       isMinor: false,
-      rootPitchClass: 0,
-      keyName: "C major",
+      rootPitchClass: rootPitchClass,
+      keyName: `${PITCH_CLASS_TO_NOTE_NAME[rootPitchClass]} major`,
       voiceOctaves: { 0: 5, 1: 3 },
     };
   }
 
-  // Determine the overall key based on the voice with the most notes or is most likely the melody
-  // We prioritize the right hand (index 0) if it has a reasonable number of notes
-  let primaryVoiceIndex = 0;
+  // Now analyze all notes together for key determination
+  // Count occurrences of each pitch class using colorPitchClass
+  const pitchClassCounts: { [key: number]: number } = {};
 
-  if (voiceInfo.length > 1) {
-    // If RH has significantly fewer notes than LH, use LH as primary
-    if (voiceInfo[0].noteCount * 3 < voiceInfo[1].noteCount) {
-      primaryVoiceIndex = 1;
-    }
+  allNotes.forEach((note) => {
+    // Use colorPitchClass when available
+    const pitchClass =
+      typeof note.colorPitchClass === "number"
+        ? note.colorPitchClass % 12
+        : note.note.midiNumber! % 12;
 
-    // If another voice has way more notes than either hand, consider it
-    for (let i = 2; i < voiceInfo.length; i++) {
-      if (voiceInfo[i].noteCount > voiceInfo[primaryVoiceIndex].noteCount * 2) {
-        primaryVoiceIndex = i;
-      }
-    }
-  }
+    pitchClassCounts[pitchClass] = (pitchClassCounts[pitchClass] || 0) + 1;
+  });
 
-  // Use the selected voice's key determination
-  const primaryVoice = voiceInfo[primaryVoiceIndex];
-  const rootPitchClass = primaryVoice.rootPitchClass;
-  const isMinor = primaryVoice.minorEvidence > primaryVoice.majorEvidence;
+  // Estimate if it's minor or major based on counting specific scale degrees
+  // - Count pitches where %12==3 and %12==8 (minor third and minor sixth)
+  // - Count pitches where %12==4 and %12==9 (major third and major sixth)
+  const minorThirdCount = pitchClassCounts[3] || 0;
+  const minorSixthCount = pitchClassCounts[8] || 0;
+  const majorThirdCount = pitchClassCounts[4] || 0;
+  const majorSixthCount = pitchClassCounts[9] || 0;
+
+  // Calculate total evidence for minor vs major
+  const minorEvidence = minorThirdCount + minorSixthCount;
+  const majorEvidence = majorThirdCount + majorSixthCount;
+  const isMinor = minorEvidence > majorEvidence;
 
   // Get the note name, preferring flats for minor keys
   let noteName =
@@ -1441,10 +1436,13 @@ export const determineGlobalKey = (
   const keyName = `${noteName} ${isMinor ? "minor" : "major"}`;
 
   console.log(
-    `Global key determination (using colorPitchClass): ${keyName} - ` +
-      `Based on voice ${primaryVoiceIndex}, ` +
-      `Root pitch class: ${rootPitchClass}, ` +
-      `Is minor: ${isMinor}`,
+    `Global key determination: ${keyName} - ` +
+      `Total notes analyzed: ${allNotes.length}, ` +
+      `Root pitch class from analysis: ${rootPitchClass}, ` +
+      `Is minor: ${isMinor}, ` +
+      `Minor evidence: ${minorEvidence}, ` +
+      `Major evidence: ${majorEvidence}, ` +
+      `Pitch class distribution: ${JSON.stringify(pitchClassCounts)}`,
   );
 
   return {
@@ -1467,10 +1465,14 @@ export const generateFormattedScore = (
   measuresAndBeats: { measures: number[]; beats: number[] },
   analysis: Analysis,
 ): string => {
+  debugger;
   let result = "";
 
-  // Determine the global key
-  const keyInfo = determineGlobalKey(coloredNotes);
+  // Get the rootPitchClass from analysis.modulations[1]
+  const rootPitchClass = analysis.modulations[1] || 0;
+
+  // Determine the global key, passing the rootPitchClass from analysis
+  const keyInfo = determineGlobalKey(coloredNotes, rootPitchClass);
 
   // Add key signature at the beginning of the score
   result += `${keyInfo.keyName}\n`;

@@ -789,7 +789,10 @@ export const convertNotesToRawlSyntax = (
   };
 
   // Get all duration symbols sorted by duration value (longest first)
-  const getAllDurationSymbolsSorted = (): {symbol: string, value: number}[] => {
+  const getAllDurationSymbolsSorted = (): {
+    symbol: string;
+    value: number;
+  }[] => {
     const allSymbols = [
       { symbol: "+.", value: 6 }, // Dotted whole note
       { symbol: "+", value: 4 }, // Whole note
@@ -809,13 +812,15 @@ export const convertNotesToRawlSyntax = (
       { symbol: ",:", value: (1 * 2) / 3 }, // Triplet quarter note
       { symbol: "-:", value: (0.5 * 2) / 3 }, // Triplet eighth note
       { symbol: "=:", value: (0.25 * 2) / 3 }, // Triplet sixteenth note
-      { symbol: "':": value: (0.125 * 2) / 3 }, // Triplet thirty-second note
+      { symbol: "':", value: (0.125 * 2) / 3 }, // Triplet thirty-second note
     ];
     return allSymbols.sort((a, b) => b.value - a.value); // Sort by duration value, longest first
   };
 
   // Function to emit multiple rests to achieve a more precise gap duration
-  const emitRests = (gap: number): { restString: string; actualDuration: number } => {
+  const emitRests = (
+    gap: number,
+  ): { restString: string; actualDuration: number } => {
     // If gap is below threshold, don't emit any rests
     if (gap < restThreshold) {
       return { restString: "", actualDuration: 0 };
@@ -827,19 +832,19 @@ export const convertNotesToRawlSyntax = (
     const sortedDurations = getAllDurationSymbolsSorted();
 
     // First, try to emit the largest available rest (≥1 beat)
-    const largeRestDurations = sortedDurations.filter(d => d.value >= 1);
-    
+    const largeRestDurations = sortedDurations.filter((d) => d.value >= 1);
+
     // Then follow with smaller rests if needed
-    const smallRestDurations = sortedDurations.filter(d => d.value < 1);
-    
+    const smallRestDurations = sortedDurations.filter((d) => d.value < 1);
+
     // Combine them with large durations first
     const allDurations = [...largeRestDurations, ...smallRestDurations];
-    
+
     // Add rests until we've used up the gap (or got close enough)
     while (remainingDuration >= restThreshold) {
       // Find the largest duration that fits in the remaining gap
-      const bestFit = allDurations.find(d => d.value <= remainingDuration);
-      
+      const bestFit = allDurations.find((d) => d.value <= remainingDuration);
+
       if (!bestFit) {
         // If no duration fits, use the smallest available
         const smallestDuration = allDurations[allDurations.length - 1];
@@ -852,7 +857,7 @@ export const convertNotesToRawlSyntax = (
         remainingDuration -= bestFit.value;
         actualTotalDuration += bestFit.value;
       }
-      
+
       // Safety check to prevent infinite loops
       if (remainingDuration < 0.001) break;
     }
@@ -955,7 +960,8 @@ export const convertNotesToRawlSyntax = (
       debugDetails[debugDetails.length - 1].emittedRest = true;
       debugDetails[debugDetails.length - 1].restString = restString;
       debugDetails[debugDetails.length - 1].actualRestDuration = actualDuration;
-      debugDetails[debugDetails.length - 1].newPreviousNoteEnd = previousNoteEnd;
+      debugDetails[debugDetails.length - 1].newPreviousNoteEnd =
+        previousNoteEnd;
     }
 
     // Get the discretized duration for the note

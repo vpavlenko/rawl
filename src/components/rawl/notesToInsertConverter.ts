@@ -69,10 +69,36 @@ export const getNoteMeasure = (
   if (!measures) {
     return -1;
   }
-  // Use only the note start time to determine which measure it belongs to
-  const noteTime = note.span[0];
-  const result = measures.findIndex((time) => time > noteTime);
-  return (result === -1 ? measures.length - 1 : result) - 1;
+
+  // Get the note start time
+  const noteStart = note.span[0];
+
+  // If we have fewer than 2 measures, assign to the first measure
+  if (measures.length < 2) {
+    return 0;
+  }
+
+  // Define EPSILON in seconds by estimating the duration of a 64th note
+  // based on the tempo implied by the measure durations
+  // Estimate seconds per beat from the first two measures (assuming 4 beats per measure)
+  const firstMeasureDuration = measures[1] - measures[0];
+  const secondsPerBeat = firstMeasureDuration / 4; // Assuming 4/4 time signature
+
+  // A 64th note is 0.0625 beats, convert to seconds
+  const EPSILON = 0.0625 * secondsPerBeat;
+
+  // Find the leftmost measure for which noteStart < measureEnd - EPSILON
+  for (let i = 0; i < measures.length - 1; i++) {
+    const measureEnd = measures[i + 1];
+
+    // If the note starts before measureEnd - EPSILON, assign it to this measure
+    if (noteStart < measureEnd - EPSILON) {
+      return i;
+    }
+  }
+
+  // If we haven't found a measure yet, assign to the last measure
+  return measures.length - 2;
 };
 
 /**

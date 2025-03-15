@@ -1587,12 +1587,72 @@ export const generateFormattedScore = (
       }
     }
 
-    // Output the compressed commands
-    for (let measureIndex = 0; measureIndex < measureCount; measureIndex++) {
-      if (measureIndex in compressedCommands) {
-        result += `${measureIndex + 1} ${compressedCommands[measureIndex]}\n`;
+    // Apply a second compression step to find consecutive copy commands
+    // that reference consecutive measures, and combine them into ranges
+    const rangeCompressedOutput: string[] = [];
+    let currentIndex = 0;
+
+    while (currentIndex < measureCount) {
+      // Skip measures without commands
+      if (!(currentIndex in compressedCommands)) {
+        currentIndex++;
+        continue;
+      }
+
+      const currentCommand = compressedCommands[currentIndex];
+      // Check if this is a copy command
+      const copyMatch = currentCommand.match(/^c (\d+)$/);
+
+      if (!copyMatch) {
+        // Not a copy command, just add it as is
+        rangeCompressedOutput.push(`${currentIndex + 1} ${currentCommand}`);
+        currentIndex++;
+        continue;
+      }
+
+      // This is a copy command - check if we can find a consecutive sequence
+      const startCopiedMeasure = parseInt(copyMatch[1]);
+      let rangeLength = 1;
+      let nextIndex = currentIndex + 1;
+
+      while (nextIndex < measureCount && nextIndex in compressedCommands) {
+        const nextCommand = compressedCommands[nextIndex];
+        const nextCopyMatch = nextCommand.match(/^c (\d+)$/);
+
+        // Break if not a copy command
+        if (!nextCopyMatch) break;
+
+        const nextCopiedMeasure = parseInt(nextCopyMatch[1]);
+
+        // Check if this continues the sequence (next measure copies next consecutive source)
+        if (nextCopiedMeasure !== startCopiedMeasure + rangeLength) break;
+
+        // This is part of the sequence
+        rangeLength++;
+        nextIndex++;
+      }
+
+      // If we found a sequence of at least 2 copies, use range notation
+      if (rangeLength > 1) {
+        rangeCompressedOutput.push(
+          `${currentIndex + 1} c ${startCopiedMeasure}-${
+            startCopiedMeasure + rangeLength - 1
+          }`,
+        );
+        console.log(
+          `Range compression: Combined ${rangeLength} consecutive copy commands ` +
+            `starting at measure ${currentIndex + 1}`,
+        );
+        currentIndex = nextIndex;
+      } else {
+        // Just a single copy, add as is
+        rangeCompressedOutput.push(`${currentIndex + 1} ${currentCommand}`);
+        currentIndex++;
       }
     }
+
+    // Add the range-compressed output to the result
+    result += rangeCompressedOutput.join("\n") + "\n";
   }
 
   return result;

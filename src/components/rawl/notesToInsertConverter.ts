@@ -422,6 +422,7 @@ export const convertNotesToBeatTiming = (
   linearRepresentation: string;
   rawlSyntaxRepresentation: string;
   timeSignature?: string; // Add time signature to output
+  estimatedBpm?: number; // Add estimated BPM to output
   debugInfo?: any;
 } => {
   if (!notes || notes.length === 0) {
@@ -642,20 +643,27 @@ export const convertNotesToBeatTiming = (
     isMinor,
   );
 
-  console.log("DEBUG INFO: ", JSON.stringify(debugInfo, null, 2));
-
-  // If we have measures and beats, calculate time signature
+  // If we have measures and beats, calculate time signature and BPM
   if (notes.length > 0 && beatsInMeasure.length > 0) {
     // Calculate time signature using the provided measureSpan and beatsInMeasure
     const timeSignature = emitTimeSignature(
       [measureSpan[0], measureSpan[1]],
       beatsInMeasure,
     );
+
+    // Calculate estimated BPM based on user's formula
+    // In this context we use the beatsInMeasure.length + 2 for measures
+    // (representing the start and end points of a measure)
+    const totalBeats = 2 + beatsInMeasure.length;
+    const lastMeasureTime = measureSpan[1];
+    const estimatedBpm = Math.round(lastMeasureTime / totalBeats / 60);
+
     return {
       notesArray: result,
       linearRepresentation: JSON.stringify(result),
       rawlSyntaxRepresentation: rawlSyntaxRepresentation,
       timeSignature: timeSignature,
+      estimatedBpm: estimatedBpm,
       debugInfo,
     };
   }
@@ -1020,8 +1028,6 @@ export const convertNotesToRawlSyntax = (
       actualNoteDuration;
     debugDetails[debugDetails.length - 1].newPreviousNoteEnd = previousNoteEnd;
   }
-
-  console.log("RAWL SYNTAX DEBUG: ", JSON.stringify(debugDetails, null, 2));
 
   return result.trim();
 };
@@ -1426,6 +1432,67 @@ export const generateFormattedScore = (
     if (filteredSections.length > 0) {
       outputLines.push(`sections ${filteredSections.join(" ")}`);
     }
+  }
+
+  // Calculate and add estimated BPM after time signature
+  if (
+    measuresAndBeats.measures.length > 0 &&
+    measuresAndBeats.beats.length > 0
+  ) {
+    // Detailed logging for BPM calculation
+    console.log("BPM Calculation Debug:");
+    console.log("- Measures array:", measuresAndBeats.measures);
+    console.log("- Beats array:", measuresAndBeats.beats);
+
+    // Total beats = beats.length + measures.length as specified
+    const totalBeats =
+      measuresAndBeats.measures.length + measuresAndBeats.beats.length;
+    console.log("- Total beats:", totalBeats);
+
+    const lastMeasureTime =
+      measuresAndBeats.measures[measuresAndBeats.measures.length - 1];
+    console.log("- Last measure time (seconds):", lastMeasureTime);
+
+    const timePerBeat = lastMeasureTime / totalBeats;
+    console.log("- Time per beat (seconds):", timePerBeat);
+
+    const beatsPerSecond = 1 / timePerBeat;
+    console.log("- Beats per second:", beatsPerSecond);
+
+    const beatsPerMinute = beatsPerSecond * 60;
+    console.log("- Beats per minute (before rounding):", beatsPerMinute);
+
+    const estimatedBpm = Math.round(beatsPerMinute);
+    console.log("- Final estimated BPM (rounded):", estimatedBpm);
+    console.log(
+      "- Is BPM in reasonable range (50-300)?",
+      estimatedBpm >= 50 && estimatedBpm <= 300,
+    );
+
+    // Alternative calculation that might be more accurate for debugging
+    const altBpm = Math.round(60 / (lastMeasureTime / totalBeats));
+    console.log("- Alternative BPM calculation:", altBpm);
+
+    // Only add a reasonable BPM (between 50 and 300)
+    if (estimatedBpm >= 50 && estimatedBpm <= 300) {
+      outputLines.push(`bpm ${estimatedBpm}`);
+    } else {
+      console.log(
+        "WARNING: Calculated BPM outside reasonable range (50-300), not adding to output",
+      );
+
+      // Log raw inputs that might be causing issues
+      console.log("- Raw measures.length:", measuresAndBeats.measures.length);
+      console.log("- Raw beats.length:", measuresAndBeats.beats.length);
+      console.log("- First measure time:", measuresAndBeats.measures[0]);
+      console.log("- Last measure time:", lastMeasureTime);
+      console.log(
+        "- Measure time span:",
+        lastMeasureTime - measuresAndBeats.measures[0],
+      );
+    }
+  } else {
+    console.log("Cannot calculate BPM: Not enough measures or beats");
   }
 
   // Add phrases if available

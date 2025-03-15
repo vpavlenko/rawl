@@ -1399,6 +1399,7 @@ export const corpora: CorpusEntry[] = [
       "happy_birthday_bass_and_chords",
       "Happy_Birthday_to_You",
       "happy-birthday-insane",
+      "happy-birthday-jacob-koller",
     ],
     genre: "Traditional, Folk",
     style: "Birthday Song",
@@ -4802,6 +4803,7 @@ export const corpora: CorpusEntry[] = [
       "grieg_arietta_yaskawa",
       "grieg_lyric_2_waltz_yaskawa",
       "in-the-hall-of-the-mountain-king-dovregubbens-hall",
+      "piano-sonata-in-e-minor-op.-7-b.-hisamori",
     ],
     composerBirthYear: 1843, // Edvard Grieg
     genre: "Classical", // Late Romantic period
@@ -6666,6 +6668,15 @@ export const corpora: CorpusEntry[] = [
     genre: "Video Game Music",
   },
   {
+    slug: "tony_ann",
+    midis: [
+      "icarus---tony-ann",
+      "experience-flows-in-you---tony-ann",
+      "rain---tony-ann",
+      "my-neighbour-s-car-alarm",
+    ],
+  },
+  {
     slug: "kohei_tanaka",
     midis: [
       "one-piece---bink-s-sake---kohei-tanaka",
@@ -6880,6 +6891,14 @@ export const corpora: CorpusEntry[] = [
       "yuri-on-ice---piano-theme-full",
       "minako-s-mood-choose-your-costume---taro-umebayashi-yuri-on-ice",
       "serenade-for-two-from-yuri-on-ice",
+    ],
+  },
+  { slug: "jojomk2", midis: ["canon-in-c-jazz-piano-duets"] },
+  {
+    slug: "hayato_sumino",
+    midis: [
+      "new-birth-tai-dong---hayato-sumino-cateen",
+      "let-the-battles-begin-those-who-fight-cateen-version---final-fantasy-vii",
     ],
   },
   {

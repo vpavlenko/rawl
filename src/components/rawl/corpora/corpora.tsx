@@ -10,6 +10,7 @@ export type CorpusEntry = {
   style?: string;
   country?: string;
   posttext?: React.ReactNode;
+  similarTo?: string[];
 };
 
 export const MUSESCORE_TOP_100_SLUG = "top_100_musescore_composers";
@@ -42,6 +43,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1978, // Yiruma
     style: "21st Century Piano",
     country: "South Korea",
+    similarTo: ["yiruma_first_love"],
   },
 
   {
@@ -76,6 +78,7 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: 1934,
     genre: "Teacher Music",
+    similarTo: ["manfred_schmitz"],
   },
   {
     slug: "stephen_heller",
@@ -88,6 +91,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1813,
     style: "Romantic",
     country: "Hungary",
+    similarTo: ["john_field"],
   },
   {
     slug: "greg_joy",
@@ -103,6 +107,7 @@ export const corpora: CorpusEntry[] = [
     ],
     style: "Guitar",
     composerBirthYear: 1954,
+    similarTo: ["enya"],
   },
   {
     slug: "suzanne_ciani",
@@ -115,6 +120,7 @@ export const corpora: CorpusEntry[] = [
     ],
     style: "New Age",
     composerBirthYear: 1946,
+    similarTo: ["enya"],
   },
   {
     slug: "aram_khachaturian",
@@ -122,6 +128,8 @@ export const corpora: CorpusEntry[] = [
       "masquerade-waltz---khachaturian",
       "khachaturian---album-for-children-kinderalbum-no.-1-andantino",
     ],
+    composerBirthYear: 1903,
+    similarTo: ["prokofiev"],
   },
   {
     slug: "darius_milhaud",
@@ -133,6 +141,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Classical, Jazz",
     style: "Jazz, Classical",
     country: "France",
+    similarTo: ["debussy", "zequinha_de_abreu"],
   },
   {
     slug: "jim_brickman",
@@ -145,6 +154,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Adult Contemporary, Pop", // Focuses on contemporary ballads and easy-listening music.
     style: "Pop Piano, Contemporary Classical",
     country: "USA", // Jim Brickman is American.
+    similarTo: ["michael_giacchino"],
   },
   {
     slug: "ryan_elder",
@@ -153,6 +163,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Television Music, Comedy",
     style: "Electronic, Orchestral, Comedy Music",
     country: "USA", // Ryan Elder is American.
+    similarTo: ["derek_fiechter"],
   },
   {
     slug: "james_p_johnson",
@@ -161,6 +172,8 @@ export const corpora: CorpusEntry[] = [
       "carolina-shout",
       "charleston-james-johnson",
     ],
+    composerBirthYear: 1894,
+    similarTo: ["eubie_blake", "scott_joplin"],
   },
   {
     slug: "eubie_blake",
@@ -180,6 +193,7 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: 1905,
     country: "Hungary, UK",
+    similarTo: ["milan_dvorak"],
   },
   {
     slug: "garry_schyman",
@@ -191,6 +205,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1955,
     genre: "Video Game Music, Film Score",
     country: "USA",
+    similarTo: ["nikolai_medtner"],
   },
   {
     slug: "giovanni_allevi",
@@ -205,6 +220,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Classical, Contemporary Classical",
     style: "Minimalism, Piano-driven Classical",
     country: "Italy", // Giovanni Allevi is Italian.
+    similarTo: ["yiruma_first_love"],
   },
 
   {
@@ -216,6 +232,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1982,
     genre: "J-Pop, Anime Song",
     country: "Japan",
+    similarTo: ["bts"],
   },
   {
     slug: "yuji_ohno",
@@ -224,6 +241,7 @@ export const corpora: CorpusEntry[] = [
       "theme-from-lupin-the-third-78-2002version",
       "a-rose-tattoo---yuji-ohno---from-stolen-lupin",
     ],
+    similarTo: ["jule_styne"],
   },
   {
     slug: "hiroki_kikuta",
@@ -234,6 +252,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1962,
     genre: "Video Game Music",
     country: "Japan",
+    similarTo: ["taro_umebayashi"],
   },
   {
     slug: "george_winston",
@@ -248,6 +267,7 @@ export const corpora: CorpusEntry[] = [
     genre: "New Age, Instrumental",
     style: "Solo Piano, Minimalism",
     country: "USA", // George Winston is American.
+    similarTo: ["yiruma_first_love"],
   },
   {
     slug: "jun_ishikawa",
@@ -263,16 +283,26 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1964,
     genre: "Video Game Music",
     country: "Japan",
+    similarTo: ["grant_kirkhope"],
   },
   {
     slug: "george_l_cobb",
     midis: [
       "russian-rag-by-george-cobb-1918",
+      "the-new-russian-rag",
+      "hawaiian-sunset-1919",
+      "calcutta-1918",
+
+      // a night in india
       "twilight-in-benares-1923",
       "the-fakirs-1923",
+      "dance-of-the-flower-girls-1923",
+      "by-the-temple-of-siva-1923",
+      "march-of-the-brahman-priests-1923",
     ],
     composerBirthYear: 1886,
     genre: "Ragtime",
+    similarTo: ["debussy", "scott_joplin"],
   },
   {
     slug: "tomohito_nishiura",
@@ -1435,6 +1465,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Pop, K-pop",
     style: "Pop, Dance, R&B",
     country: "South Korea",
+    similarTo: ["dj_okawari"],
   },
   {
     slug: "homm",

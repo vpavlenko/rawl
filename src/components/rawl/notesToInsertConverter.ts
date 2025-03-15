@@ -932,8 +932,12 @@ export const convertNotesToRawlSyntax = (
       if (oct >= 0 && oct < octaveNotations.length) {
         return octaveNotations[oct][scaleIndex];
       } else if (oct >= octaveNotations.length) {
-        return scaleIndex + 1 + "(" + oct + ")";
+        // For higher octaves, use the ^ prefix notation with base letters from third octave
+        const baseNoteLetter = octaveNotations[2][scaleIndex];
+        const octavesAboveThird = oct - 2;
+        return "^".repeat(octavesAboveThird) + baseNoteLetter;
       } else {
+        // For octaves below the first, use numeric notation as before
         return scaleIndex + 1 + "(" + oct + ")";
       }
     };
@@ -1157,10 +1161,26 @@ export const midiNumberToRawlPitch = (
   const octave = Math.floor(relativeValue / 7);
   const scaleDegree = relativeValue % 7;
 
-  // For pitches outside our direct mapping, calculate relative position
-  if (relativeValue >= 28) {
-    // For very high notes, use numeric notation with octave indication
-    return (scaleDegree + 1).toString() + "(" + (octave + 1) + ")";
+  // For very high pitches, use the ^ prefix notation with base letters
+  if (relativeValue >= 21) {
+    // Use the third octave letters (a-k) with ^ prefixes for higher octaves
+    const baseNoteLetter = majorMapping[scaleDegree + 14]; // Map to indices 14-20 (a-k range)
+
+    // Calculate how many octaves above the 3rd octave
+    const octavesAboveThird = Math.floor((relativeValue - 14) / 7);
+
+    // Generate the appropriate number of ^ symbols
+    const prefixes = "^".repeat(octavesAboveThird);
+
+    // For minor keys, handle possible 'b' accidentals
+    if (
+      isMinor &&
+      (scaleDegree === 2 || scaleDegree === 5 || scaleDegree === 6)
+    ) {
+      return `${prefixes}b${baseNoteLetter}`;
+    }
+
+    return `${prefixes}${baseNoteLetter}`;
   } else if (relativeValue < 0) {
     // For notes below the reference pitch, use flats
     const absValue = Math.abs(relativeValue);

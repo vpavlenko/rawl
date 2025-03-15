@@ -200,7 +200,82 @@ export const getNotesInMeasureAndVoice = (
 };
 
 /**
+ * Split notes in a measure into multiple non-overlapping lines
+ * Notes are considered part of the same line if they don't overlap (except chords)
+ *
+ * @param notes Array of colored notes in a measure
+ * @param secondsPerBeat Duration of one beat in seconds (used for EPSILON calculation)
+ * @returns Array of note arrays, where each array represents a non-overlapping line
+ */
+export const splitNotesIntoLines = (
+  notes: ColoredNote[],
+  secondsPerBeat: number,
+): ColoredNote[][] => {
+  if (!notes || notes.length === 0) {
+    return [];
+  }
+
+  // Sort notes by start time
+  const sortedNotes = [...notes].sort((a, b) => a.span[0] - b.span[0]);
+
+  // Calculate EPSILON as 1/64th note or 0.015625 beats
+  const EPSILON = 0.015625 * secondsPerBeat;
+
+  // Array to hold each line of non-overlapping notes
+  const lines: ColoredNote[][] = [];
+  let currentLine: ColoredNote[] = [];
+
+  // Keep processing until all notes are assigned to a line
+  const remainingNotes = [...sortedNotes];
+
+  while (remainingNotes.length > 0) {
+    currentLine = [];
+    let previousNoteEnd = -Infinity;
+
+    // Try to assign as many non-overlapping notes as possible to the current line
+    for (let i = 0; i < remainingNotes.length; i++) {
+      const note = remainingNotes[i];
+
+      // Check if this note can be added to the current line
+      // Either it starts after the previous note ends (non-overlapping)
+      // Or it's part of a chord (same start and end times within EPSILON)
+      if (
+        previousNoteEnd === -Infinity || // First note in the line
+        note.span[0] >= previousNoteEnd - EPSILON || // Non-overlapping
+        (currentLine.length > 0 &&
+          Math.abs(currentLine[currentLine.length - 1].span[0] - note.span[0]) <
+            EPSILON &&
+          Math.abs(currentLine[currentLine.length - 1].span[1] - note.span[1]) <
+            EPSILON)
+      ) {
+        // Part of chord
+
+        // Add this note to the current line
+        currentLine.push(note);
+        // Update the previous note end time
+        previousNoteEnd = note.span[1];
+        // Remove it from remaining notes
+        remainingNotes.splice(i, 1);
+        // Adjust index since we removed an element
+        i--;
+      }
+    }
+
+    // If we managed to add notes to the current line, add it to our lines array
+    if (currentLine.length > 0) {
+      lines.push(currentLine);
+    } else {
+      // Safety check: if we couldn't add any notes, break to avoid infinite loop
+      break;
+    }
+  }
+
+  return lines;
+};
+
+/**
  * Log information about notes in a specific measure and voice
+ * Now returns an array of rawl insert commands for multiple lines
  */
 export const logMeasureNotesInformation = (
   voiceIndex: number,
@@ -210,9 +285,9 @@ export const logMeasureNotesInformation = (
   globalKeyInfo?: {
     isMinor: boolean;
     rootPitchClass: number;
-    baseMidiNumber?: number; // Added baseMidiNumber parameter
+    baseMidiNumber?: number;
   },
-): string | null => {
+): string[] => {
   const { notesInMeasure, measureSpan, beatsInMeasure } =
     getNotesInMeasureAndVoice(
       voiceIndex,
@@ -221,27 +296,41 @@ export const logMeasureNotesInformation = (
       measuresAndBeats,
     );
 
-  // If no notes found in this measure, return null
+  // If no notes found in this measure, return empty array
   if (notesInMeasure.length === 0) {
-    return null;
+    return [];
   }
 
-  // Display the original linear representation (seconds-based)
-  const linearRepresentation = convertNotesToLinearFormat(notesInMeasure);
+  // Calculate seconds per beat for EPSILON determination
+  const measureDuration = measureSpan[1] - measureSpan[0];
+  const totalBeats = beatsInMeasure.length + 1;
+  const secondsPerBeat = measureDuration / totalBeats;
 
-  // Also display the beat-based timing representation
-  const beatBasedTiming = convertNotesToBeatTiming(
-    notesInMeasure,
-    measureSpan,
-    beatsInMeasure,
-    globalKeyInfo, // Pass global key info to ensure consistent representation
-  );
+  // Split notes into multiple non-overlapping lines
+  const lines = splitNotesIntoLines(notesInMeasure, secondsPerBeat);
 
-  // Prepare the Rawl syntax with "i " prefix
-  const rawlSyntaxWithI = "i " + beatBasedTiming.rawlSyntaxRepresentation;
+  // Process each line separately
+  const commands: string[] = [];
 
-  // Return the rawl syntax string
-  return rawlSyntaxWithI;
+  for (const line of lines) {
+    // Convert line to beat timing
+    const beatBasedTiming = convertNotesToBeatTiming(
+      line,
+      measureSpan,
+      beatsInMeasure,
+      globalKeyInfo,
+    );
+
+    // Prepare the Rawl syntax with "i " prefix
+    const rawlSyntaxWithI = "i " + beatBasedTiming.rawlSyntaxRepresentation;
+
+    // Only add non-empty commands
+    if (beatBasedTiming.rawlSyntaxRepresentation.trim().length > 0) {
+      commands.push(rawlSyntaxWithI);
+    }
+  }
+
+  return commands;
 };
 
 /**
@@ -1564,14 +1653,14 @@ export const generateFormattedScore = (
     }
 
     // First, gather all measure commands for this voice
-    const measureCommands: { [measureIndex: number]: string | null } = {};
+    // Now each measure can have multiple commands (one per line)
+    const measureCommands: { [measureIndex: number]: string[] } = {};
     const measureCount = measuresAndBeats.measures.length - 1;
 
     // Use the global key info for all measure conversions to ensure consistency
-    // This is crucial - we use the same key for all measures to maintain consistency
     for (let measureIndex = 0; measureIndex < measureCount; measureIndex++) {
       try {
-        const rawlSyntax = logMeasureNotesInformation(
+        const rawlSyntaxCommands = logMeasureNotesInformation(
           voiceIndex,
           measureIndex,
           coloredNotes,
@@ -1579,30 +1668,48 @@ export const generateFormattedScore = (
           {
             isMinor: globalKeyInfo.isMinor,
             rootPitchClass: globalKeyInfo.rootPitchClass,
-            // Add the voice base MIDI number for consistent pitch calculation
             baseMidiNumber: globalKeyInfo.voiceBaseMidiNumbers[voiceIndex],
           },
         );
 
-        measureCommands[measureIndex] = rawlSyntax;
+        if (rawlSyntaxCommands.length > 0) {
+          measureCommands[measureIndex] = rawlSyntaxCommands;
+        }
       } catch (error) {
         console.error(
           `Error processing voice ${voiceIndex}, measure ${measureIndex + 1}:`,
           error,
         );
-        measureCommands[measureIndex] = null;
       }
     }
 
-    // Compress by finding duplicate insert commands and replacing with copy commands
+    // For measures with a single line, we can use compression
+    // For measures with multiple lines, we'll output them as separate insert commands
+
+    // First, identify which measures have single lines (candidates for compression)
+    const singleLineCommandsMap: { [measureIndex: number]: string } = {};
+    const multiLineCommandsMap: { [measureIndex: number]: string[] } = {};
+
+    for (const [measureIndexStr, commands] of Object.entries(measureCommands)) {
+      const measureIndex = parseInt(measureIndexStr);
+
+      if (commands.length === 1) {
+        // Measure with single line - candidate for compression
+        singleLineCommandsMap[measureIndex] = commands[0];
+      } else {
+        // Measure with multiple lines - will be output directly
+        multiLineCommandsMap[measureIndex] = commands;
+      }
+    }
+
+    // Apply compression only to single-line measures
     const insertToMeasureMap: { [insertCommand: string]: number } = {};
     const compressedCommands: { [measureIndex: number]: string } = {};
 
     for (let measureIndex = 0; measureIndex < measureCount; measureIndex++) {
-      const rawlSyntax = measureCommands[measureIndex];
+      if (!(measureIndex in singleLineCommandsMap)) continue;
 
-      // Skip measures without notes
-      if (rawlSyntax === null) continue;
+      const rawlSyntax = singleLineCommandsMap[measureIndex];
 
       // Check if we've seen this exact insert before
       if (rawlSyntax in insertToMeasureMap) {
@@ -1676,8 +1783,18 @@ export const generateFormattedScore = (
       }
     }
 
-    // Add the range-compressed output to the result
+    // Add the range-compressed output for single lines
     result += rangeCompressedOutput.join("\n") + "\n";
+
+    // Now add all multi-line commands directly without compression
+    for (const [measureIndexStr, commands] of Object.entries(
+      multiLineCommandsMap,
+    )) {
+      const measureIndex = parseInt(measureIndexStr);
+      for (const command of commands) {
+        result += `${measureIndex + 1} ${command}\n`;
+      }
+    }
   }
 
   return result;

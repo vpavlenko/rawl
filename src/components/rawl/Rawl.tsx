@@ -34,10 +34,7 @@ import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { MouseHandlers } from "./getNoteRectangles";
 import LayoutSelector, { SystemLayout } from "./layouts/LayoutSelector";
 import { buildManualMeasuresAndBeats } from "./measures";
-import {
-  generateFormattedScore,
-  logNotesInformation,
-} from "./notesToInsertConverter";
+import { generateFormattedScore } from "./notesToInsertConverter";
 import { ColoredNotesInVoices, Note, ParsingResult } from "./parseMidi";
 
 export type SecondsSpan = [number, number];
@@ -469,7 +466,6 @@ const Rawl: React.FC<RawlProps> = ({
           navigateToSourceLocation(note.sourceLocation);
         } else {
           // Default behavior when there's no source location or navigation function
-          logNotesInformation(note, coloredNotes, measuresAndBeats);
           playNote(note);
         }
       }
@@ -478,8 +474,6 @@ const Rawl: React.FC<RawlProps> = ({
       enableManualRemeasuring,
       commitAnalysisUpdate,
       playNote,
-      coloredNotes,
-      measuresAndBeats,
       navigateToSourceLocation,
     ],
   );

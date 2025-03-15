@@ -224,68 +224,6 @@ export const logMeasureNotesInformation = (
 };
 
 /**
- * Log information about notes in the same measure and voice
- */
-export const logNotesInformation = (
-  note: Note,
-  coloredNotes: ColoredNotesInVoices,
-  measuresAndBeats: { measures: number[]; beats: number[] },
-): void => {
-  const voiceIndex = note.voiceIndex;
-  const measureIndex = getNoteMeasure(note, measuresAndBeats.measures);
-
-  // For voice-specific operations, extract the rootPitchClass from colorPitchClass values
-  // For single voice analysis, we'll create a focused subset with just this voice
-  const singleVoiceColoredNotes: ColoredNotesInVoices = [];
-  singleVoiceColoredNotes[voiceIndex] = coloredNotes[voiceIndex];
-
-  // Get the reference note to determine root
-  const voiceNotes = coloredNotes[voiceIndex].filter(
-    (note) => !note.isDrum && note.note.midiNumber !== undefined,
-  );
-
-  // Use 0 as default rootPitchClass if no notes exist
-  let rootPitchClass = 0;
-
-  if (voiceNotes.length > 0) {
-    // Use the first note's colorPitchClass as reference for the root
-    // Since colorPitchClass is already relative to the root from analysis.modulations[1]
-    const referenceNote = voiceNotes[0];
-    if (typeof referenceNote.colorPitchClass === "number") {
-      // We use colorPitchClass % 12 to get the proper pitch class value
-      rootPitchClass = referenceNote.colorPitchClass % 12;
-    }
-  }
-
-  // Analyze just this voice for a more accurate key determination
-  const voiceKeyInfo = determineGlobalKey(
-    singleVoiceColoredNotes,
-    rootPitchClass,
-  );
-
-  console.log(
-    `Voice ${voiceIndex} key analysis for copy operation: ${voiceKeyInfo.keyName}`,
-  );
-
-  const rawlSyntax = logMeasureNotesInformation(
-    voiceIndex,
-    measureIndex,
-    coloredNotes,
-    measuresAndBeats,
-    {
-      isMinor: voiceKeyInfo.isMinor,
-      rootPitchClass: voiceKeyInfo.rootPitchClass,
-    },
-  );
-
-  // Copy to clipboard
-  navigator.clipboard
-    .writeText(rawlSyntax)
-    .then(() => console.log("Rawl syntax copied to clipboard!"))
-    .catch((err) => console.error("Failed to copy to clipboard:", err));
-};
-
-/**
  * Log information about notes in this voice and measure, and add raw syntax
  */
 export const logNotesWithRawlSyntax = (
@@ -309,43 +247,23 @@ export const logNotesWithRawlSyntax = (
     `Beats in measure: ${beatsInMeasure.map((b) => b.toFixed(2)).join(", ")}s`,
   );
 
-  // For voice-specific operations, extract the rootPitchClass from colorPitchClass values
-  // For single voice analysis, we'll create a focused subset with just this voice
-  const singleVoiceColoredNotes: ColoredNotesInVoices = [];
-  singleVoiceColoredNotes[note.voiceIndex] = coloredNotes[note.voiceIndex];
+  // Get the rootPitchClass from the first note's colorPitchClass
+  // This assumes colorPitchClass is already calculated relative to the analysis root
+  const rootPitchClass =
+    typeof note.colorPitchClass === "number" ? note.colorPitchClass % 12 : 0;
 
-  // Get the reference note to determine root
-  const voiceNotes = coloredNotes[note.voiceIndex].filter(
-    (n) => !n.isDrum && n.note.midiNumber !== undefined,
-  );
+  // Determine the global key once for consistency across all measures
+  const globalKeyInfo = determineGlobalKey(coloredNotes, rootPitchClass);
+  console.log(`Global key for rawl syntax: ${globalKeyInfo.keyName}`);
 
-  // Use 0 as default rootPitchClass if no notes exist
-  let rootPitchClass = 0;
-
-  if (voiceNotes.length > 0 && notesInMeasure.length > 0) {
-    // Use the first note's colorPitchClass as reference for the root
-    // Since colorPitchClass is already relative to the root from analysis.modulations[1]
-    const referenceNote = notesInMeasure[0];
-    if (typeof referenceNote.colorPitchClass === "number") {
-      // We use colorPitchClass % 12 to get the proper pitch class value
-      rootPitchClass = referenceNote.colorPitchClass % 12;
-    }
-  }
-
-  // Analyze just this voice for a more accurate key determination
-  const voiceKeyInfo = determineGlobalKey(
-    singleVoiceColoredNotes,
-    rootPitchClass,
-  );
-
-  // Get the beat-based timing representation with the voice-specific key information
+  // Get the beat-based timing representation with the globally determined key information
   const beatBasedTiming = convertNotesToBeatTiming(
     notesInMeasure,
     measureSpan,
     beatsInMeasure,
     {
-      isMinor: voiceKeyInfo.isMinor,
-      rootPitchClass: voiceKeyInfo.rootPitchClass,
+      isMinor: globalKeyInfo.isMinor,
+      rootPitchClass: globalKeyInfo.rootPitchClass,
     },
   );
 
@@ -358,7 +276,7 @@ export const logNotesWithRawlSyntax = (
   console.log(
     `Rawl syntax representation (copied to clipboard): ${rawlSyntaxWithI}`,
   );
-  console.log(`Voice-specific key used: ${voiceKeyInfo.keyName}`);
+  console.log(`Global key used: ${globalKeyInfo.keyName}`);
 
   // Copy to clipboard
   navigator.clipboard
@@ -1465,17 +1383,17 @@ export const generateFormattedScore = (
   measuresAndBeats: { measures: number[]; beats: number[] },
   analysis: Analysis,
 ): string => {
-  debugger;
   let result = "";
 
   // Get the rootPitchClass from analysis.modulations[1]
   const rootPitchClass = analysis.modulations[1] || 0;
 
-  // Determine the global key, passing the rootPitchClass from analysis
-  const keyInfo = determineGlobalKey(coloredNotes, rootPitchClass);
+  // Determine the global key once for the entire score, passing the rootPitchClass from analysis
+  const globalKeyInfo = determineGlobalKey(coloredNotes, rootPitchClass);
+  console.log(`Global key for score generation: ${globalKeyInfo.keyName}`);
 
   // Add key signature at the beginning of the score
-  result += `${keyInfo.keyName}\n`;
+  result += `${globalKeyInfo.keyName}\n`;
 
   // Add sections if available - keep them as phrase indices, exclude 0 and 1
   if (analysis.sections && analysis.sections.length > 0) {
@@ -1519,7 +1437,7 @@ export const generateFormattedScore = (
 
     // Add appropriate voice label with octave
     const octave =
-      keyInfo.voiceOctaves[voiceIndex] ||
+      globalKeyInfo.voiceOctaves[voiceIndex] ||
       (voiceIndex === 0 ? 5 : voiceIndex === 1 ? 3 : 4);
 
     if (voiceIndex === 0) {
@@ -1536,6 +1454,8 @@ export const generateFormattedScore = (
     const measureCommands: { [measureIndex: number]: string | null } = {};
     const measureCount = measuresAndBeats.measures.length - 1;
 
+    // Use the global key info for all measure conversions to ensure consistency
+    // This is crucial - we use the same key for all measures to maintain consistency
     for (let measureIndex = 0; measureIndex < measureCount; measureIndex++) {
       try {
         const rawlSyntax = logMeasureNotesInformation(
@@ -1544,8 +1464,8 @@ export const generateFormattedScore = (
           coloredNotes,
           measuresAndBeats,
           {
-            isMinor: keyInfo.isMinor,
-            rootPitchClass: keyInfo.rootPitchClass,
+            isMinor: globalKeyInfo.isMinor,
+            rootPitchClass: globalKeyInfo.rootPitchClass,
           },
         );
 

@@ -1532,8 +1532,10 @@ export const generateFormattedScore = (
       result += `\n\nch${voiceIndex} ${octave}\n`;
     }
 
-    // Process all measures for this voice
+    // First, gather all measure commands for this voice
+    const measureCommands: { [measureIndex: number]: string | null } = {};
     const measureCount = measuresAndBeats.measures.length - 1;
+
     for (let measureIndex = 0; measureIndex < measureCount; measureIndex++) {
       try {
         const rawlSyntax = logMeasureNotesInformation(
@@ -1547,15 +1549,48 @@ export const generateFormattedScore = (
           },
         );
 
-        // Only add if there are notes in this measure
-        if (rawlSyntax !== null) {
-          result += `${measureIndex + 1} ${rawlSyntax}\n`;
-        }
+        measureCommands[measureIndex] = rawlSyntax;
       } catch (error) {
         console.error(
           `Error processing voice ${voiceIndex}, measure ${measureIndex + 1}:`,
           error,
         );
+        measureCommands[measureIndex] = null;
+      }
+    }
+
+    // Compress by finding duplicate insert commands and replacing with copy commands
+    const insertToMeasureMap: { [insertCommand: string]: number } = {};
+    const compressedCommands: { [measureIndex: number]: string } = {};
+
+    for (let measureIndex = 0; measureIndex < measureCount; measureIndex++) {
+      const rawlSyntax = measureCommands[measureIndex];
+
+      // Skip measures without notes
+      if (rawlSyntax === null) continue;
+
+      // Check if we've seen this exact insert before
+      if (rawlSyntax in insertToMeasureMap) {
+        // We've seen this exact command before - use a copy instead
+        const originalMeasureIndex = insertToMeasureMap[rawlSyntax];
+        compressedCommands[measureIndex] = `c ${originalMeasureIndex + 1}`;
+
+        console.log(
+          `Compression: Replaced duplicate insert in voice ${voiceIndex}, measure ${
+            measureIndex + 1
+          } ` + `with copy of measure ${originalMeasureIndex + 1}`,
+        );
+      } else {
+        // This is the first time we've seen this command - store it
+        insertToMeasureMap[rawlSyntax] = measureIndex;
+        compressedCommands[measureIndex] = rawlSyntax;
+      }
+    }
+
+    // Output the compressed commands
+    for (let measureIndex = 0; measureIndex < measureCount; measureIndex++) {
+      if (measureIndex in compressedCommands) {
+        result += `${measureIndex + 1} ${compressedCommands[measureIndex]}\n`;
       }
     }
   }

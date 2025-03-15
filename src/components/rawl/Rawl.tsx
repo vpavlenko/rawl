@@ -13,7 +13,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { playRawMidiNote } from "../../sampler/sampler";
 import { VoiceMask } from "../App";
 import { AppContext } from "../AppContext";
@@ -173,6 +173,7 @@ const Rawl: React.FC<RawlProps> = ({
   const { currentMidi, setCurrentMidi, rawlProps, togglePause } =
     useContext(AppContext);
   const slug = currentMidi?.slug || "";
+  const history = useHistory();
 
   const [analysis, setAnalysis] = useState<Analysis>(
     savedAnalysis || rawlProps?.savedAnalysis || ANALYSIS_STUB,
@@ -680,10 +681,6 @@ const Rawl: React.FC<RawlProps> = ({
       return;
     }
 
-    // Trigger the animation
-    setShowCopyAnimation(true);
-    setTimeout(() => setShowCopyAnimation(false), 1000);
-
     // Generate complete formatted score with all voices and analysis info
     const formattedScore = generateFormattedScore(
       coloredNotes,
@@ -691,12 +688,16 @@ const Rawl: React.FC<RawlProps> = ({
       analysis,
     );
 
-    // Copy the formatted score to clipboard
-    navigator.clipboard
-      .writeText(formattedScore)
-      .then(() => console.log("Complete score copied to clipboard!"))
-      .catch((err) => console.error("Failed to copy to clipboard:", err));
-  }, [coloredNotes, measuresAndBeats, analysis]);
+    // Instead of copying to clipboard, navigate to /e/new and pass the score
+    // We'll use localStorage to pass the score data between pages
+    localStorage.setItem("new_editor_score", formattedScore);
+
+    // Navigate to the editor
+    history.push("/e/new");
+
+    // Optional: show a brief feedback animation before navigating
+    setShowCopyAnimation(true);
+  }, [coloredNotes, measuresAndBeats, analysis, history]);
 
   return (
     <div
@@ -798,7 +799,7 @@ const Rawl: React.FC<RawlProps> = ({
                 }}
                 className="copy-source-button"
               >
-                Copy score
+                Edit score
               </button>
               {showCopyAnimation && (
                 <div

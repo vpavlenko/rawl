@@ -612,6 +612,24 @@ const Editor: React.FC<EditorProps> = ({
       }
 
       if (effectiveSlug) {
+        // Check if we're on the /e/new route and have a score in localStorage
+        if (effectiveSlug === "new") {
+          const newEditorScore = localStorage.getItem("new_editor_score");
+          if (newEditorScore) {
+            // Clear the localStorage item to prevent it from being used again on refresh
+            localStorage.removeItem("new_editor_score");
+
+            setScore(newEditorScore);
+            setCodeValue(newEditorScore);
+
+            // Trigger MIDI generation after a delay but don't autoplay
+            setTimeout(() => {
+              debouncedMelodyPlayback(newEditorScore, false);
+            }, 500);
+            return;
+          }
+        }
+
         if (id || effectiveSlug.startsWith("ef/")) {
           // For /ef/<id> URLs, fetch from Firebase edits collection
           const editId = id || effectiveSlug.replace("ef/", "");
@@ -669,7 +687,13 @@ const Editor: React.FC<EditorProps> = ({
     };
 
     loadScore();
-  }, [effectiveSlug, id, isDecompositionMode, initialSource]);
+  }, [
+    effectiveSlug,
+    id,
+    isDecompositionMode,
+    initialSource,
+    debouncedMelodyPlayback,
+  ]);
 
   // Track cursor position and trigger playback when cursor moves
   const handleCursorChange = useCallback(

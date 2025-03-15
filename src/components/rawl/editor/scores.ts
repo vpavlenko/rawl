@@ -209,10 +209,6 @@ lh
 64  c 19-35
 
 81  c 19-34`,
-  bug: `
-1 i a^a+
-3 i a^a+
-`,
   "idea-n.10---gibran-alcocer": `G minor
 bpm 170
 3/4

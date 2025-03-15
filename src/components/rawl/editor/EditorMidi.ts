@@ -71,19 +71,57 @@ export const generateMidiFile = (
 } => {
   // Sort the notes by start time for processing
   const sortedNotes = [...notes].sort((a, b) => a.startTime - b.startTime);
-  const events: MusicalEvent[] = [];
 
-  // Create individual note events for each note, including separate events for each pitch in chords
-  sortedNotes.forEach((note, idx) => {
-    events.push({
-      pitches: [note.pitch], // Each event has exactly one pitch
-      startTick: note.startTime,
-      duration: note.duration,
-      velocity: note.velocity || 100,
-      channel: note.channel || 0,
-      sourceLocation: note.sourceLocation, // Preserve the source location exactly as is
-    });
+  // First, group notes by start time, duration, and channel to identify chords
+  const groupedNotes = new Map<
+    string,
+    {
+      startTime: number;
+      duration: number;
+      channel: number;
+      pitches: number[];
+      velocity: number;
+      sourceLocation?: SourceLocation;
+    }
+  >();
+
+  sortedNotes.forEach((note) => {
+    // Create a key from the note properties that should be identical for chord notes
+    const key = `${note.startTime}-${note.duration}-${note.channel || 0}`;
+
+    if (!groupedNotes.has(key)) {
+      groupedNotes.set(key, {
+        startTime: note.startTime,
+        duration: note.duration,
+        channel: note.channel || 0,
+        pitches: [note.pitch],
+        velocity: note.velocity || 100,
+        sourceLocation: note.sourceLocation,
+      });
+    } else {
+      // If we already have a group with this key, add the pitch to it (it's part of a chord)
+      const group = groupedNotes.get(key)!;
+      group.pitches.push(note.pitch);
+
+      // Keep the source location from the first note in the group
+      // or update if this note has source location and the group doesn't
+      if (note.sourceLocation && !group.sourceLocation) {
+        group.sourceLocation = note.sourceLocation;
+      }
+    }
   });
+
+  // Convert the grouped notes to events
+  const events: MusicalEvent[] = Array.from(groupedNotes.values()).map(
+    (group) => ({
+      pitches: group.pitches,
+      startTick: group.startTime,
+      duration: group.duration,
+      velocity: group.velocity,
+      channel: group.channel,
+      sourceLocation: group.sourceLocation,
+    }),
+  );
 
   // Inline implementation of generateMidiFromEvents
   const eventsByChannel = new Map<number, MusicalEvent[]>();
@@ -133,7 +171,7 @@ export const generateMidiFile = (
 
     // Create the note event, preserving source location metadata
     const noteEvent = new NoteEvent({
-      pitch: event.pitches,
+      pitch: event.pitches, // This now contains multiple pitches for chords
       duration: "T" + event.duration,
       velocity: event.velocity,
       startTick: event.startTick,

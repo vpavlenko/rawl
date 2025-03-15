@@ -156,7 +156,6 @@ export const getNotesInMeasureAndVoice = (
 } => {
   // Make sure voice index is valid
   if (voiceIndex < 0 || voiceIndex >= coloredNotes.length) {
-    console.error(`Invalid voice index: ${voiceIndex}`);
     return { notesInMeasure: [], measureSpan: [0, 0], beatsInMeasure: [] };
   }
 
@@ -165,7 +164,6 @@ export const getNotesInMeasureAndVoice = (
     measureIndex < 0 ||
     measureIndex >= measuresAndBeats.measures.length - 1
   ) {
-    console.error(`Invalid measure index: ${measureIndex}`);
     return { notesInMeasure: [], measureSpan: [0, 0], beatsInMeasure: [] };
   }
 
@@ -218,22 +216,8 @@ export const logMeasureNotesInformation = (
     return null;
   }
 
-  console.log(
-    `Notes in voice ${voiceIndex}, measure ${measureIndex}:`,
-    notesInMeasure,
-  );
-  console.log(
-    `Measure span: [${measureSpan[0].toFixed(2)}s, ${measureSpan[1].toFixed(
-      2,
-    )}s]`,
-  );
-  console.log(
-    `Beats in measure: ${beatsInMeasure.map((b) => b.toFixed(2)).join(", ")}s`,
-  );
-
   // Display the original linear representation (seconds-based)
   const linearRepresentation = convertNotesToLinearFormat(notesInMeasure);
-  console.log(`Linear representation (seconds-based): ${linearRepresentation}`);
 
   // Also display the beat-based timing representation
   const beatBasedTiming = convertNotesToBeatTiming(
@@ -242,13 +226,9 @@ export const logMeasureNotesInformation = (
     beatsInMeasure,
     globalKeyInfo, // Pass global key info to ensure consistent representation
   );
-  console.log(
-    `Beat-based timing representation: ${beatBasedTiming.linearRepresentation}`,
-  );
 
   // Prepare the Rawl syntax with "i " prefix
   const rawlSyntaxWithI = "i " + beatBasedTiming.rawlSyntaxRepresentation;
-  console.log(`Rawl syntax representation: ${rawlSyntaxWithI}`);
 
   // Return the rawl syntax string
   return rawlSyntaxWithI;
@@ -292,10 +272,6 @@ export const convertNotesToLinearFormat = (notes: ColoredNote[]): string => {
 
   // Calculate the base value to subtract from all MIDI numbers
   const baseValue = lowestMidi - basePitchClass;
-
-  console.log(
-    `Base reference: lowestMidi=${lowestMidi}, basePitchClass=${basePitchClass}, baseValue=${baseValue}`,
-  );
 
   // Create a serializable representation of each note
   const serializedNotes = notes
@@ -354,9 +330,6 @@ const groupNotesIntoChords = (
   const chords: Chord[] = [];
   let currentChord: Chord | null = null;
 
-  // Debug information
-  console.log(`Chord detection threshold: ${chordThreshold.toFixed(4)}s`);
-
   // Process each note in order (they're already sorted by start time)
   for (const note of notes) {
     // Skip drum notes or notes without MIDI numbers
@@ -404,22 +377,6 @@ const groupNotesIntoChords = (
   if (currentChord) {
     chords.push(currentChord);
   }
-
-  // Log the detected chords
-  console.log(`Detected ${chords.length} chords from ${notes.length} notes`);
-  chords.forEach((chord, i) => {
-    console.log(
-      `Chord ${i + 1}: ${
-        chord.notes.length
-      } notes, span: [${chord.span[0].toFixed(3)}, ${chord.span[1].toFixed(
-        3,
-      )}]`,
-    );
-    // Log the actual notes in each chord for better debugging
-    console.log(
-      `  Notes: ${chord.notes.map((n) => n.note.midiNumber).join(", ")}`,
-    );
-  });
 
   return chords;
 };
@@ -550,9 +507,6 @@ export const convertNotesToBeatTiming = (
   if (globalKeyInfo?.baseMidiNumber !== undefined) {
     // Use the voice-specific base MIDI number provided from the global key info
     baseValue = globalKeyInfo.baseMidiNumber;
-    console.log(
-      `Using global base MIDI number for consistent pitch mapping: ${baseValue}`,
-    );
   } else {
     // Find the lowest MIDI number note for reference (legacy approach)
     const notesWithMidi = sortedNotes.filter(
@@ -582,9 +536,6 @@ export const convertNotesToBeatTiming = (
         : lowestMidi % 12;
 
     baseValue = lowestMidi - basePitchClass;
-    console.log(
-      `Calculated per-measure base MIDI number: ${baseValue} (fallback method)`,
-    );
   }
 
   debugInfo.baseMidiNumber = baseValue;
@@ -796,11 +747,6 @@ export const convertNotesToRawlSyntax = (
       pitchClassCounts[pitchClass] = (pitchClassCounts[pitchClass] || 0) + 1;
     }
 
-    console.log(
-      "Pitch class distribution (from colorPitchClass):",
-      pitchClassCounts,
-    );
-
     // Check for minor third vs major third
     const minorThirdCount = pitchClassCounts[3] || 0;
     const majorThirdCount = pitchClassCounts[4] || 0;
@@ -814,14 +760,6 @@ export const convertNotesToRawlSyntax = (
     const majorEvidence = majorThirdCount + majorSixthCount;
 
     isMinor = minorEvidence > majorEvidence;
-
-    console.log(
-      `Key determination (using colorPitchClass): ${
-        isMinor ? "Minor" : "Major"
-      } - ` +
-        `Minor evidence (b3=${minorThirdCount}, b6=${minorSixthCount}): ${minorEvidence}, ` +
-        `Major evidence (3=${majorThirdCount}, 6=${majorSixthCount}): ${majorEvidence}`,
-    );
   }
 
   // Helper to find actual duration value from symbol
@@ -1026,11 +964,6 @@ export const determineIfMinorKey = (notes: ColoredNote[]): boolean => {
   const minorEvidence = minorThirdCount + minorSixthCount;
   const majorEvidence = majorThirdCount + majorSixthCount;
 
-  console.log(
-    `Pitch class analysis using colorPitchClass - Minor evidence (b3=${minorThirdCount}, b6=${minorSixthCount}): ${minorEvidence}, ` +
-      `Major evidence (3=${majorThirdCount}, 6=${majorSixthCount}): ${majorEvidence}`,
-  );
-
   return minorEvidence > majorEvidence;
 };
 
@@ -1174,7 +1107,6 @@ export const convertNotesToEncodedRawlSyntax = (
 
   // Determine if the collection is more likely in a minor key
   const isMinor = determineIfMinorKey(notes);
-  console.log(`Key determination: ${isMinor ? "Minor" : "Major"}`);
 
   // Sort notes by start time
   const sortedNotes = [...notes].sort((a, b) => a.span[0] - b.span[0]);
@@ -1288,15 +1220,6 @@ export const determineGlobalKey = (
 
     // Use the calculated baseOctave for all voices consistently
     voiceOctaves[voiceIndex] = baseOctave;
-
-    console.log(
-      `Voice ${voiceIndex} base value analysis - ` +
-        `Lowest MIDI: ${lowestMidi}, ` +
-        `Base pitch class: ${basePitchClass}, ` +
-        `Base MIDI number: ${baseMidiNumber}, ` +
-        `Base octave: ${baseOctave}, ` +
-        `Assigned octave: ${voiceOctaves[voiceIndex]}`,
-    );
   }
 
   // If no valid notes were found across all voices
@@ -1345,16 +1268,6 @@ export const determineGlobalKey = (
 
   const keyName = `${noteName} ${isMinor ? "minor" : "major"}`;
 
-  console.log(
-    `Global key determination: ${keyName} - ` +
-      `Total notes analyzed: ${allNotes.length}, ` +
-      `Root pitch class from analysis: ${rootPitchClass}, ` +
-      `Is minor: ${isMinor}, ` +
-      `Minor evidence: ${minorEvidence}, ` +
-      `Major evidence: ${majorEvidence}, ` +
-      `Pitch class distribution: ${JSON.stringify(pitchClassCounts)}`,
-  );
-
   return {
     isMinor,
     rootPitchClass,
@@ -1383,7 +1296,6 @@ export const generateFormattedScore = (
 
   // Determine the global key once for the entire score, passing the rootPitchClass from analysis
   const globalKeyInfo = determineGlobalKey(coloredNotes, rootPitchClass);
-  console.log(`Global key for score generation: ${globalKeyInfo.keyName}`);
 
   // Add key signature at the beginning of the score
   result += `${globalKeyInfo.keyName}\n`;
@@ -1489,12 +1401,6 @@ export const generateFormattedScore = (
         // We've seen this exact command before - use a copy instead
         const originalMeasureIndex = insertToMeasureMap[rawlSyntax];
         compressedCommands[measureIndex] = `c ${originalMeasureIndex + 1}`;
-
-        console.log(
-          `Compression: Replaced duplicate insert in voice ${voiceIndex}, measure ${
-            measureIndex + 1
-          } ` + `with copy of measure ${originalMeasureIndex + 1}`,
-        );
       } else {
         // This is the first time we've seen this command - store it
         insertToMeasureMap[rawlSyntax] = measureIndex;
@@ -1553,10 +1459,6 @@ export const generateFormattedScore = (
           `${currentIndex + 1} c ${startCopiedMeasure}-${
             startCopiedMeasure + rangeLength - 1
           }`,
-        );
-        console.log(
-          `Range compression: Combined ${rangeLength} consecutive copy commands ` +
-            `starting at measure ${currentIndex + 1}`,
         );
         currentIndex = nextIndex;
       } else {

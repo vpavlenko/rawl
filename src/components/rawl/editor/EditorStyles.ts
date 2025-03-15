@@ -82,7 +82,7 @@ export const CodeMirrorWrapper = styled.div`
     inset: 0;
     height: 100%;
     font-family: "Menlo", "Monaco", "Courier New", monospace;
-    font-size: 14px;
+    font-size: 12px;
     line-height: calc(1.4em + 4px);
 
     /* Selection styles */
@@ -321,7 +321,7 @@ export const chevronIcons = {
 
 export const ErrorMessage = styled.div`
   color: #ff6b6b;
-  font-size: 12px;
+  font-size: 11px;
   margin-top: 4px;
 `;
 
@@ -412,7 +412,7 @@ export const NoteColorLetter = styled.span`
 export const StatusBar = styled.div`
   padding: 1px 4px;
   color: #888; /* Subtle gray color */
-  font-size: 10px;
+  font-size: 9px;
   font-family: monospace;
   display: flex;
   align-items: center;

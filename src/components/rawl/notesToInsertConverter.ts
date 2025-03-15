@@ -54,9 +54,19 @@ export const getBeatsInMeasure = (
   measures: number[],
   beats: number[],
 ): number[] => {
-  const [measureStart, measureEnd] = getMeasureSpan(measureIndex, measures);
+  if (measures.length <= measureIndex + 1) {
+    return [];
+  }
 
-  return beats.filter((beat) => beat >= measureStart && beat < measureEnd);
+  // Get the time span of the measure
+  const measureSpan = getMeasureSpan(measureIndex, measures);
+
+  // Find all beats that fall within this measure
+  const beatsInMeasure = beats.filter(
+    (beat) => beat >= measureSpan[0] && beat < measureSpan[1],
+  );
+
+  return beatsInMeasure;
 };
 
 /**
@@ -411,6 +421,7 @@ export const convertNotesToBeatTiming = (
   }>;
   linearRepresentation: string;
   rawlSyntaxRepresentation: string;
+  timeSignature?: string; // Add time signature to output
   debugInfo?: any;
 } => {
   if (!notes || notes.length === 0) {
@@ -632,6 +643,25 @@ export const convertNotesToBeatTiming = (
   );
 
   console.log("DEBUG INFO: ", JSON.stringify(debugInfo, null, 2));
+
+  // If we have measures and beats, calculate time signature
+  if (notes.length > 0 && beatsInMeasure.length > 0) {
+    // Extract measures array from the first note that has it
+    const measuresArray = notes.find(
+      (note) => note.span && note.span.length >= 2,
+    )?.measures;
+    if (measuresArray && Array.isArray(measuresArray)) {
+      // Calculate and add time signature to the result
+      const timeSignature = emitTimeSignature(measuresArray, beatsInMeasure);
+      return {
+        notesArray: result,
+        linearRepresentation: JSON.stringify(result),
+        rawlSyntaxRepresentation: rawlSyntaxRepresentation,
+        timeSignature: timeSignature,
+        debugInfo,
+      };
+    }
+  }
 
   return {
     notesArray: result,
@@ -1363,16 +1393,31 @@ export const generateFormattedScore = (
   measuresAndBeats: { measures: number[]; beats: number[] },
   analysis: Analysis,
 ): string => {
+  // Get time signature from measures and beats
+  const timeSignature = emitTimeSignature(
+    measuresAndBeats.measures,
+    measuresAndBeats.beats,
+  );
+
+  // Initialize output
+  let outputLines: string[] = [];
   let result = "";
 
-  // Get the rootPitchClass from analysis.modulations[1]
-  const rootPitchClass = analysis.modulations[1] || 0;
+  // Get the rootPitchClass from analysis.modulations
+  const rootPitchClass =
+    analysis.modulations && analysis.modulations[1]
+      ? analysis.modulations[1]
+      : 0;
 
   // Determine the global key once for the entire score, passing the rootPitchClass from analysis
   const globalKeyInfo = determineGlobalKey(coloredNotes, rootPitchClass);
 
-  // Add key signature at the beginning of the score
-  result += `${globalKeyInfo.keyName}\n`;
+  // Add key information
+  const keyName = getKeyName(rootPitchClass, globalKeyInfo.isMinor);
+  outputLines.push(keyName);
+
+  // Add time signature right after key
+  outputLines.push(timeSignature);
 
   // Add sections if available - keep them as phrase indices, exclude 0 and 1
   if (analysis.sections && analysis.sections.length > 0) {
@@ -1382,7 +1427,7 @@ export const generateFormattedScore = (
       .map((section) => section + 1);
 
     if (filteredSections.length > 0) {
-      result += `sections ${filteredSections.join(" ")}\n\n`;
+      outputLines.push(`sections ${filteredSections.join(" ")}`);
     }
   }
 
@@ -1405,8 +1450,13 @@ export const generateFormattedScore = (
     });
 
     if (phrasePairs.length > 0) {
-      result += `phrases ${phrasePairs.join(" ")}\n\n`;
+      outputLines.push(`phrases ${phrasePairs.join(" ")}`);
     }
+  }
+
+  // Add blank line between header and voice definitions
+  if (outputLines.length > 0) {
+    result = outputLines.join("\n") + "\n\n";
   }
 
   // Process each voice
@@ -1547,4 +1597,52 @@ export const generateFormattedScore = (
   }
 
   return result;
+};
+
+/**
+ * Calculates and emits the time signature based on the number of beats in measure 2
+ * @param measures Array of measure boundary positions
+ * @param beats Array of beat positions
+ * @returns Time signature string in the format '{numBeats}/4'
+ */
+export const emitTimeSignature = (
+  measures: number[],
+  beats: number[],
+): string => {
+  // Use measure index 2 (third measure, index starts at 0)
+  const measureIndex = 2;
+
+  // Check if we have enough measures
+  if (measures.length <= measureIndex + 1) {
+    // Default to 4/4 if we don't have enough measures
+    return "4/4";
+  }
+
+  // Get beats in measure 2
+  const beatsInMeasure = getBeatsInMeasure(measureIndex, measures, beats);
+
+  // Number of beats is the length of beatsInMeasure array + 1 (as specified)
+  const numBeats = beatsInMeasure.length + 1;
+
+  // Return the time signature in the format 'numBeats/4'
+  return `${numBeats}/4`;
+};
+
+/**
+ * Converts a pitch class to a key name
+ * @param pitchClass Pitch class (0-11, where 0 is C)
+ * @param isMinor Whether the key is minor
+ * @returns Key name in the format like "C major" or "Eb minor"
+ */
+const getKeyName = (pitchClass: number, isMinor: boolean): string => {
+  // Use flat notation for keys that traditionally use flats
+  const useFlat = [1, 3, 6, 8, 10].includes(pitchClass);
+
+  // Get the key name
+  const keyLetter = useFlat
+    ? FLAT_NOTE_NAMES[pitchClass]
+    : PITCH_CLASS_TO_NOTE_NAME[pitchClass];
+
+  // Return formatted key name
+  return `${keyLetter} ${isMinor ? "minor" : "major"}`;
 };

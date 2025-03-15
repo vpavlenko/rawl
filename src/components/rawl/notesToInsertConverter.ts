@@ -69,7 +69,8 @@ export const getNoteMeasure = (
   if (!measures) {
     return -1;
   }
-  const noteTime = (note.span[0] + note.span[1]) / 2;
+  // Use only the note start time to determine which measure it belongs to
+  const noteTime = note.span[0];
   const result = measures.findIndex((time) => time > noteTime);
   return (result === -1 ? measures.length - 1 : result) - 1;
 };
@@ -1259,10 +1260,8 @@ export const determineGlobalKey = (
     // Calculate octave where "1" will be mapped (derived from base MIDI number)
     const baseOctave = Math.floor(baseMidiNumber / 12);
 
-    // Still respect defaults for the first two voices if needed
-    const defaultOctave =
-      voiceIndex === 0 ? 5 : voiceIndex === 1 ? 3 : baseOctave;
-    voiceOctaves[voiceIndex] = defaultOctave;
+    // Use the calculated baseOctave for all voices consistently
+    voiceOctaves[voiceIndex] = baseOctave;
 
     console.log(
       `Voice ${voiceIndex} base value analysis - ` +

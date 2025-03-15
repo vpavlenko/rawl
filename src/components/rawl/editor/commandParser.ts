@@ -540,9 +540,12 @@ export const calculateMidiNumber = (
   // Use the appropriate base octave from context
   const baseOctave = getBaseOctaveForTrack(track, context);
 
-  // Calculate final MIDI number
+  // Calculate final MIDI number, now including the octaveShift
   const midiNumber =
-    key.tonic + semitoneOffset + (baseOctave + octave) * 12 + (accidental || 0);
+    key.tonic +
+    semitoneOffset +
+    (baseOctave + octave + octaveShift) * 12 +
+    (accidental || 0);
 
   // Ensure the note is within MIDI range (0-127)
   if (midiNumber < 0 || midiNumber > 127) return null;
@@ -686,17 +689,34 @@ export const parseMelodyString = (
         // Skip duration markers
         if (/^[+_\-=,'"][.:]?$/.test(noteToken)) continue;
 
-        // Check for accidental prefix
+        // Extract octave shift and accidental prefixes
         let accidental: -1 | 0 | 1 = 0;
         let actualNote = noteToken;
 
-        // Handle accidentals at start of token
-        if (noteToken.startsWith("b")) {
+        // Count octave shifts (^ and v symbols)
+        const octaveUpMatches = noteToken.match(/\^/g);
+        const octaveDownMatches = noteToken.match(/v/g);
+
+        // The scale degree offset is calculated as octaves * 7 (7 scale degrees per octave)
+        let scaleDegreeOffset = 0;
+
+        if (octaveUpMatches) {
+          scaleDegreeOffset += octaveUpMatches.length * 7;
+          actualNote = actualNote.replace(/\^/g, "");
+        }
+
+        if (octaveDownMatches) {
+          scaleDegreeOffset -= octaveDownMatches.length * 7;
+          actualNote = actualNote.replace(/v/g, "");
+        }
+
+        // Handle accidentals after octave shifts
+        if (actualNote.startsWith("b")) {
           accidental = -1;
-          actualNote = noteToken.slice(1);
-        } else if (noteToken.startsWith("#")) {
+          actualNote = actualNote.slice(1);
+        } else if (actualNote.startsWith("#")) {
           accidental = 1;
-          actualNote = noteToken.slice(1);
+          actualNote = actualNote.slice(1);
         }
 
         // Skip if not a valid note
@@ -728,13 +748,16 @@ export const parseMelodyString = (
           continue;
         }
 
-        const absoluteScaleDegree = NOTE_LETTER_MAP[actualNote.toLowerCase()];
+        let absoluteScaleDegree = NOTE_LETTER_MAP[actualNote.toLowerCase()];
         if (absoluteScaleDegree === undefined) continue;
+
+        // Apply the octave shift directly to the scale degree
+        absoluteScaleDegree += scaleDegreeOffset;
 
         const midiNumber = calculateMidiNumber(
           absoluteScaleDegree,
           accidental,
-          0,
+          0, // No separate octaveShift needed, already incorporated in scale degree
           key,
           context.currentTrack,
           context,
@@ -873,10 +896,10 @@ const processTokens = (
     } else if (/[.:]/.test(char)) {
       // Skip standalone dots and colons (they should be handled with the duration markers)
       i++;
-    } else if (/[#b]/.test(char)) {
-      // Handle accidentals - they should be part of the next note
+    } else if (/[#b\^v]/.test(char)) {
+      // Handle accidentals and octave shifts - they should be part of the next note
       if (currentToken) {
-        // If we have a token already, push it before starting new one with accidental
+        // If we have a token already, push it before starting new one with accidental or octave shift
         tokens.push({
           value: currentToken,
           position: startIndex + currentTokenStart, // Already 0-based index, we'll add 1 later
@@ -886,6 +909,18 @@ const processTokens = (
       currentToken = char;
       currentTokenStart = i;
       i++;
+
+      // Continue collecting ^ or v symbols for octave shifts
+      while (i < melodyPart.length && /[\^v]/.test(melodyPart[i])) {
+        currentToken += melodyPart[i];
+        i++;
+      }
+
+      // If next character is an accidental, add it to the current token
+      if (i < melodyPart.length && /[#b]/.test(melodyPart[i])) {
+        currentToken += melodyPart[i];
+        i++;
+      }
     } else if (/[a-zA-Z1-90x]/.test(char)) {
       if (!currentToken) {
         currentTokenStart = i;
@@ -893,11 +928,11 @@ const processTokens = (
       currentToken += char;
       i++;
 
-      // If this is a complete note (accidental + note or just note), push it
-      if (
-        currentToken.length === 2 ||
-        (currentToken.length === 1 && !/[#b]/.test(currentToken))
-      ) {
+      // Check if we have a complete token to push
+      const hasOctaveOrAccidental = /^[#b\^v]+/.test(currentToken);
+      const noteChar = currentToken.match(/[a-zA-Z1-90x]$/);
+
+      if (noteChar && (hasOctaveOrAccidental || currentToken.length === 1)) {
         tokens.push({
           value: currentToken,
           position: startIndex + currentTokenStart, // Already 0-based index, we'll add 1 later

@@ -339,9 +339,20 @@ const parseNote = (
 
   const noteStart = i;
 
+  // Parse octave shift prefixes (^ for up, v for down)
+  let scaleDegreeOffset = 0;
+  while (i < melody.length && (melody[i] === "^" || melody[i] === "v")) {
+    if (melody[i] === "^") {
+      scaleDegreeOffset += 7; // Each ^ adds one octave (7 scale degrees)
+    } else if (melody[i] === "v") {
+      scaleDegreeOffset -= 7; // Each v subtracts one octave (7 scale degrees)
+    }
+    i++;
+  }
+
   // Check for accidental
   let accidental: "b" | "#" | undefined;
-  if (melody[i] === "b" || melody[i] === "#") {
+  if (i < melody.length && (melody[i] === "b" || melody[i] === "#")) {
     accidental = melody[i] as "b" | "#";
     i++;
   }
@@ -355,9 +366,13 @@ const parseNote = (
     return { note: null, nextIndex: i, hasDuration: false };
 
   const pitch = melody[i];
-  const degree = NOTE_LETTER_MAP[pitch.toLowerCase()];
+  let degree = NOTE_LETTER_MAP[pitch.toLowerCase()];
   if (degree === undefined)
     return { note: null, nextIndex: startIndex + 1, hasDuration: false };
+
+  // Apply the octave shift directly to the degree
+  degree += scaleDegreeOffset;
+
   i++;
 
   // Look for duration
@@ -383,7 +398,7 @@ const parseNote = (
       break;
     }
     // If we see another note or accidental, stop
-    if (/[a-zA-Z1-90x]|[b#]/.test(melody[i])) {
+    if (/[a-zA-Z1-90x]|[b#]|[\^v]/.test(melody[i])) {
       break;
     }
     i++;
@@ -467,6 +482,7 @@ const calculateNoteColor = (note: ParsedNote, key: KeySignature): NoteColor => {
   const colorIndex = (scaleMap[scaleDegree] + accidentalValue + 12) % 12;
 
   let dotClass = "";
+  // The octave shift is now directly incorporated in the degree
   if (note.degree >= 14) {
     dotClass = " dotAbove";
   } else if (note.degree <= 6) {

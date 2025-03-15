@@ -832,8 +832,18 @@ export const convertNotesToRawlSyntax = (
 
       // Special case for the 7th in minor scale (pitch class 11)
       if (isMinor && pitchClass === 11) {
-        // This is the leading tone - represent as #7 (sharp of b7)
-        return "#6";
+        // This is the leading tone - represent as "#7" (sharp of b7)
+        // Handle different octaves (1-7, q-u, a-k)
+        if (octave === 0) {
+          return "#7"; // First octave
+        } else if (octave === 1) {
+          return "#u"; // Second octave
+        } else if (octave === 2) {
+          return "#j"; // Third octave
+        } else if (octave >= 3) {
+          // Higher octaves
+          return "#7(" + octave + ")";
+        }
       }
 
       // For other chromatic notes, find the closest scale degree

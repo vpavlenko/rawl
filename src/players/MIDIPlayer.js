@@ -849,4 +849,248 @@ export default class MIDIPlayer extends Player {
         }
       });
   }
+
+  async renderToWav() {
+    // Return early if no file is loaded
+    if (!this.midiFilePlayer || this.midiFilePlayer.events.length === 0) {
+      console.error("No MIDI file loaded to render");
+      return null;
+    }
+
+    console.log("Starting MIDI to WAV rendering...");
+
+    // Create a buffer to hold the rendered audio
+    let renderBuffer = null;
+
+    try {
+      // Make sure we're using the best available soundfont
+      if (
+        this.getParameter("synthengine") === MIDI_ENGINE_LIBFLUIDLITE &&
+        this.highestLoadedSoundfontIndex >= 0
+      ) {
+        // Get the best soundfont we've loaded
+        const bestSoundfont =
+          PROGRESSIVE_SOUNDFONTS[this.highestLoadedSoundfontIndex].name;
+
+        // Only switch if not already using this soundfont
+        if (this.params["soundfont"] !== bestSoundfont) {
+          // Remember current playback state
+          const wasPlaying = this.isPlaying();
+          const currentPosition = this.getPositionMs();
+
+          // Switch to best soundfont
+          console.log(
+            `Switching to best soundfont for rendering: ${bestSoundfont}`,
+          );
+          await new Promise((resolve) => {
+            this.setParameter("soundfont", bestSoundfont);
+            // Give time for the soundfont to fully load before rendering
+            setTimeout(resolve, 1000);
+          });
+
+          // Restore playback state if needed
+          if (wasPlaying) {
+            this.seekMs(currentPosition);
+          }
+        }
+      }
+
+      // Get duration of the MIDI file plus some extra for reverb tail
+      const durationMs = this.getDurationMs() + 3000; // Add 3 seconds for reverb tail
+      const sampleRate = this.sampleRate;
+      const totalSamples = Math.ceil((durationMs * sampleRate) / 1000);
+
+      // Create an offline context to render audio to
+      const offlineCtx = new OfflineAudioContext(2, totalSamples, sampleRate);
+
+      // Validate that core is available
+      if (!this.core || typeof this.core._malloc !== "function") {
+        throw new Error("Core library not properly initialized");
+      }
+
+      // Create a buffer to hold the rendered audio
+      renderBuffer = this.core._malloc(totalSamples * 4 * 2); // Float32 * 2 channels
+
+      // Save current state
+      const wasPlaying = this.isPlaying();
+      const currentPosition = this.getPositionMs();
+
+      // Temporarily pause playback and mute audio output
+      this.midiFilePlayer.paused = true;
+      const originalBuffer = this.buffer;
+      this.buffer = renderBuffer;
+
+      // Reset position to beginning and prepare for rendering
+      this.midiFilePlayer.position = 0;
+      this.midiFilePlayer.elapsedTime = 0;
+      this.midiFilePlayer.paused = false;
+
+      // Process the entire file at once
+      console.log(`Rendering ${durationMs}ms of audio at ${sampleRate}Hz...`);
+      const channels = [
+        new Float32Array(totalSamples),
+        new Float32Array(totalSamples),
+      ];
+
+      let samplesRendered = 0;
+      const chunkSize = this.bufferSize;
+
+      // Process audio in chunks
+      while (samplesRendered < totalSamples) {
+        const samplesToRender = Math.min(
+          chunkSize,
+          totalSamples - samplesRendered,
+        );
+
+        // Process this chunk of audio
+        const success = this.midiFilePlayer.processPlaySynth(
+          this.buffer,
+          samplesToRender,
+        );
+
+        // Copy data to our channel buffers
+        for (let ch = 0; ch < 2; ch++) {
+          for (let i = 0; i < samplesToRender; i++) {
+            channels[ch][samplesRendered + i] = this.core.getValue(
+              this.buffer + i * 4 * 2 + ch * 4,
+              "float",
+            );
+          }
+        }
+
+        samplesRendered += samplesToRender;
+        console.log(
+          `Rendered ${samplesRendered}/${totalSamples} samples (${Math.floor(
+            (samplesRendered / totalSamples) * 100,
+          )}%)`,
+        );
+
+        // If playback completed before the end, fill the rest with silence
+        if (!success) {
+          console.log("Reached end of MIDI file, filling rest with silence");
+          break;
+        }
+      }
+
+      // Create audio buffer from the rendered audio
+      const audioBuffer = offlineCtx.createBuffer(2, totalSamples, sampleRate);
+      audioBuffer.getChannelData(0).set(channels[0]);
+      audioBuffer.getChannelData(1).set(channels[1]);
+
+      // Restore original state
+      this.buffer = originalBuffer;
+      this.midiFilePlayer.position = 0;
+      this.midiFilePlayer.elapsedTime = currentPosition;
+      this.midiFilePlayer.paused = true;
+
+      if (wasPlaying) {
+        this.seekMs(currentPosition);
+        this.midiFilePlayer.paused = false;
+      }
+
+      // Free the memory we allocated
+      if (renderBuffer && this.core && typeof this.core._free === "function") {
+        this.core._free(renderBuffer);
+        renderBuffer = null;
+      }
+
+      // Convert the audio buffer to a WAV file
+      console.log("Converting audio buffer to WAV format...");
+
+      // Encode WAV file using a utility function
+      return this.encodeWAV(audioBuffer);
+    } catch (error) {
+      console.error("Error in renderToWav:", error);
+
+      // Clean up resources if there was an error
+      if (renderBuffer && this.core && typeof this.core._free === "function") {
+        try {
+          this.core._free(renderBuffer);
+        } catch (cleanupError) {
+          console.error("Error during cleanup:", cleanupError);
+        }
+      }
+
+      throw error;
+    }
+  }
+
+  encodeWAV(audioBuffer) {
+    // Get audio data and properties
+    const numChannels = audioBuffer.numberOfChannels;
+    const sampleRate = audioBuffer.sampleRate;
+    const format = 1; // PCM
+    const bitDepth = 16;
+
+    // Interleave audio data
+    const interleaved = this.interleaveChannels(audioBuffer);
+
+    // Convert Float32 to Int16
+    const dataLength = interleaved.length * 2; // 16-bit = 2 bytes per sample
+    const buffer = new ArrayBuffer(44 + dataLength);
+    const view = new DataView(buffer);
+    const samples = new Int16Array(buffer, 44, interleaved.length);
+
+    // Convert float to int
+    for (let i = 0; i < interleaved.length; i++) {
+      const s = Math.max(-1, Math.min(1, interleaved[i]));
+      samples[i] = s < 0 ? s * 0x8000 : s * 0x7fff;
+    }
+
+    // Write WAV header
+    this.writeWAVHeader(view, dataLength, numChannels, sampleRate, bitDepth);
+
+    return new Blob([buffer], { type: "audio/wav" });
+  }
+
+  interleaveChannels(audioBuffer) {
+    const numChannels = audioBuffer.numberOfChannels;
+    const length = audioBuffer.length;
+    const result = new Float32Array(length * numChannels);
+
+    // Get all channel data
+    const channels = [];
+    for (let c = 0; c < numChannels; c++) {
+      channels.push(audioBuffer.getChannelData(c));
+    }
+
+    // Interleave channels
+    for (let i = 0; i < length; i++) {
+      for (let c = 0; c < numChannels; c++) {
+        result[i * numChannels + c] = channels[c][i];
+      }
+    }
+
+    return result;
+  }
+
+  writeWAVHeader(view, dataLength, numChannels, sampleRate, bitDepth) {
+    const byteRate = (sampleRate * numChannels * bitDepth) / 8;
+    const blockAlign = (numChannels * bitDepth) / 8;
+
+    // "RIFF" chunk descriptor
+    this.writeString(view, 0, "RIFF");
+    view.setUint32(4, 36 + dataLength, true);
+    this.writeString(view, 8, "WAVE");
+
+    // "fmt " sub-chunk
+    this.writeString(view, 12, "fmt ");
+    view.setUint32(16, 16, true); // fmt chunk size
+    view.setUint16(20, 1, true); // PCM format
+    view.setUint16(22, numChannels, true);
+    view.setUint32(24, sampleRate, true);
+    view.setUint32(28, byteRate, true);
+    view.setUint16(32, blockAlign, true);
+    view.setUint16(34, bitDepth, true);
+
+    // "data" sub-chunk
+    this.writeString(view, 36, "data");
+    view.setUint32(40, dataLength, true);
+  }
+
+  writeString(view, offset, string) {
+    for (let i = 0; i < string.length; i++) {
+      view.setUint8(offset + i, string.charCodeAt(i));
+    }
+  }
 }

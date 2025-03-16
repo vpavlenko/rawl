@@ -1,8 +1,14 @@
-import { faDownload, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDownload,
+  faFileAudio,
+  faPause,
+  faPlay,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { memo, useContext } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { AppContext } from "./AppContext";
 import { StyledRangeInput } from "./Slider";
 import TimeSlider from "./TimeSlider";
@@ -130,6 +136,17 @@ const StyledTempoButton = styled.button`
   }
 `;
 
+const SpinnerAnimation = createGlobalStyle`
+  @keyframes fa-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
 const AppFooter: React.FC<
   {
     currentSongDurationMs: number;
@@ -144,6 +161,8 @@ const AppFooter: React.FC<
     setLatencyCorrectionMs: (latency: number) => void;
     tempo: number;
     setTempo: (tempo: number) => void;
+    renderMidiToWav?: () => void;
+    isRenderingWav?: boolean;
   } & RouteComponentProps
 > = ({
   currentSongDurationMs,
@@ -159,6 +178,8 @@ const AppFooter: React.FC<
   location,
   tempo,
   setTempo,
+  renderMidiToWav,
+  isRenderingWav = false,
 }) => {
   const context = useContext(AppContext);
   const canDownload = context?.currentMidiBuffer && context?.currentMidi;
@@ -197,167 +218,207 @@ const AppFooter: React.FC<
   };
 
   return (
-    <StyledAppFooter>
-      <AppFooterMain>
-        <PauseButton
-          onClick={togglePause}
-          title={paused ? "Resume (use Space)" : "Pause (use Space)"}
-          disabled={ejected}
-        >
-          <FontAwesomeIcon icon={paused ? faPlay : faPause} />
-        </PauseButton>
-
-        <TimeSliderWrapper>
-          <TimeSlider
-            paused={paused}
-            currentSongDurationMs={currentSongDurationMs}
-            getCurrentPositionMs={getCurrentPositionMs}
-            onChange={handleTimeSliderChange}
-          />
-        </TimeSliderWrapper>
-
-        <TempoSection>
-          <StyledTempoButton
-            onClick={() => handleTempoChange(-0.1)}
-            title={`Change tempo (Minus key)`}
+    <>
+      <SpinnerAnimation />
+      <StyledAppFooter>
+        <AppFooterMain>
+          <PauseButton
+            onClick={togglePause}
+            title={paused ? "Resume (use Space)" : "Pause (use Space)"}
+            disabled={ejected}
           >
-            <div
+            <FontAwesomeIcon icon={paused ? faPlay : faPause} />
+          </PauseButton>
+
+          <TimeSliderWrapper>
+            <TimeSlider
+              paused={paused}
+              currentSongDurationMs={currentSongDurationMs}
+              getCurrentPositionMs={getCurrentPositionMs}
+              onChange={handleTimeSliderChange}
+            />
+          </TimeSliderWrapper>
+
+          <TempoSection>
+            <StyledTempoButton
+              onClick={() => handleTempoChange(-0.1)}
+              title={`Change tempo (Minus key)`}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "100%",
+                  transform: "translateY(-1px)", // Fine-tuned adjustment
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: "16px",
+                    lineHeight: "0.8",
+                    fontWeight: "bold",
+                    marginBottom: "-3px", // Overlap adjustment
+                  }}
+                >
+                  _
+                </span>
+                <span
+                  style={{
+                    fontSize: "16px",
+                    lineHeight: "0.8",
+                    fontWeight: "bold",
+                  }}
+                >
+                  -
+                </span>
+              </div>
+            </StyledTempoButton>
+            <span
               style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "100%",
-                transform: "translateY(-1px)", // Fine-tuned adjustment
+                // margin: "0 15px",
+                fontFamily: "monospace",
+                width: "3em",
+                textAlign: "center",
+                display: "inline-block",
               }}
             >
-              <span
+              {formatTempo(tempo)}x
+            </span>
+            <StyledTempoButton
+              onClick={() => handleTempoChange(0.1)}
+              title={`Change tempo (Plus key)`}
+            >
+              <div
                 style={{
-                  fontSize: "16px",
-                  lineHeight: "0.8",
-                  fontWeight: "bold",
-                  marginBottom: "-3px", // Overlap adjustment
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "100%",
+                  transform: "translateY(-1px)", // Fine-tuned adjustment
                 }}
               >
-                _
-              </span>
-              <span
-                style={{
-                  fontSize: "16px",
-                  lineHeight: "0.8",
-                  fontWeight: "bold",
-                }}
-              >
-                -
-              </span>
-            </div>
-          </StyledTempoButton>
-          <span
+                <span
+                  style={{
+                    fontSize: "16px",
+                    lineHeight: "0.8",
+                    fontWeight: "bold",
+                    marginBottom: "-3px", // Overlap adjustment
+                  }}
+                >
+                  +
+                </span>
+                <span
+                  style={{
+                    fontSize: "16px",
+                    lineHeight: "0.8",
+                    fontWeight: "bold",
+                  }}
+                >
+                  =
+                </span>
+              </div>
+            </StyledTempoButton>
+          </TempoSection>
+
+          <LatencySection>
+            <LatencyButton
+              onClick={() => setLatencyCorrectionMs(latencyCorrectionMs - 100)}
+            >
+              ▼
+            </LatencyButton>
+            <span style={{ fontFamily: "monospace" }}>
+              {`${
+                Math.sign(latencyCorrectionMs / 1000) >= 0 ? "+" : "-"
+              }${Math.abs(latencyCorrectionMs / 1000)
+                .toFixed(2)
+                .charAt(0)}.${Math.abs(latencyCorrectionMs / 1000)
+                .toFixed(2)
+                .charAt(2)}`}
+              s
+            </span>
+            <LatencyButton
+              onClick={() => setLatencyCorrectionMs(latencyCorrectionMs + 100)}
+            >
+              ▲
+            </LatencyButton>
+          </LatencySection>
+
+          <StyledVolumeSlider>
+            <StyledRangeInput
+              title="Volume"
+              min={0}
+              max={150}
+              step={1}
+              onChange={(e) => handleVolumeChange(e.target.value)}
+              onDoubleClick={(e) => {
+                handleVolumeChange(100);
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+              value={volume}
+            />
+          </StyledVolumeSlider>
+
+          <DownloadButton
+            as="button"
             style={{
-              // margin: "0 15px",
-              fontFamily: "monospace",
-              width: "3em",
-              textAlign: "center",
-              display: "inline-block",
+              color: canDownload ? "var(--neutral4)" : "var(--neutral6)",
+              cursor:
+                canDownload && !isRenderingWav ? "pointer" : "not-allowed",
+              pointerEvents: canDownload && !isRenderingWav ? "auto" : "none",
+              opacity: canDownload ? (isRenderingWav ? 0.7 : 1) : 0.5,
+              height: "100%",
+              marginRight: "10px",
+              background: "none",
+              border: "none",
+              padding: 0,
             }}
+            onClick={renderMidiToWav}
+            disabled={!canDownload || isRenderingWav}
+            title={
+              isRenderingWav
+                ? "Rendering MIDI to WAV... Please wait"
+                : canDownload
+                ? "Render MIDI to WAV file"
+                : "No MIDI file to render"
+            }
           >
-            {formatTempo(tempo)}x
-          </span>
-          <StyledTempoButton
-            onClick={() => handleTempoChange(0.1)}
-            title={`Change tempo (Plus key)`}
-          >
-            <div
+            <FontAwesomeIcon
+              icon={isRenderingWav ? faSpinner : faFileAudio}
               style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
                 height: "100%",
-                transform: "translateY(-1px)", // Fine-tuned adjustment
+                ...(isRenderingWav
+                  ? { animation: "fa-spin 2s infinite linear" }
+                  : {}),
               }}
-            >
-              <span
-                style={{
-                  fontSize: "16px",
-                  lineHeight: "0.8",
-                  fontWeight: "bold",
-                  marginBottom: "-3px", // Overlap adjustment
-                }}
-              >
-                +
-              </span>
-              <span
-                style={{
-                  fontSize: "16px",
-                  lineHeight: "0.8",
-                  fontWeight: "bold",
-                }}
-              >
-                =
-              </span>
-            </div>
-          </StyledTempoButton>
-        </TempoSection>
+            />
+          </DownloadButton>
 
-        <LatencySection>
-          <LatencyButton
-            onClick={() => setLatencyCorrectionMs(latencyCorrectionMs - 100)}
-          >
-            ▼
-          </LatencyButton>
-          <span style={{ fontFamily: "monospace" }}>
-            {`${
-              Math.sign(latencyCorrectionMs / 1000) >= 0 ? "+" : "-"
-            }${Math.abs(latencyCorrectionMs / 1000)
-              .toFixed(2)
-              .charAt(0)}.${Math.abs(latencyCorrectionMs / 1000)
-              .toFixed(2)
-              .charAt(2)}`}
-            s
-          </span>
-          <LatencyButton
-            onClick={() => setLatencyCorrectionMs(latencyCorrectionMs + 100)}
-          >
-            ▲
-          </LatencyButton>
-        </LatencySection>
-
-        <StyledVolumeSlider>
-          <StyledRangeInput
-            title="Volume"
-            min={0}
-            max={150}
-            step={1}
-            onChange={(e) => handleVolumeChange(e.target.value)}
-            onDoubleClick={(e) => {
-              handleVolumeChange(100);
-              e.preventDefault();
-              e.stopPropagation();
+          <DownloadButton
+            style={{
+              color: canDownload ? "var(--neutral4)" : "var(--neutral6)",
+              cursor: canDownload ? "pointer" : "not-allowed",
+              pointerEvents: canDownload ? "auto" : "none",
+              opacity: canDownload ? 1 : 0.5,
+              height: "100%",
             }}
-            value={volume}
-          />
-        </StyledVolumeSlider>
-
-        <DownloadButton
-          style={{
-            color: canDownload ? "var(--neutral4)" : "var(--neutral6)",
-            cursor: canDownload ? "pointer" : "not-allowed",
-            pointerEvents: canDownload ? "auto" : "none",
-            opacity: canDownload ? 1 : 0.5,
-            height: "100%",
-          }}
-          href={createBlobUrl()}
-          download={getDownloadFilename()}
-          title={
-            canDownload ? "Download MIDI file" : "No MIDI file to download"
-          }
-        >
-          <FontAwesomeIcon icon={faDownload} style={{ height: "100%" }} />
-        </DownloadButton>
-      </AppFooterMain>
-    </StyledAppFooter>
+            href={createBlobUrl()}
+            download={getDownloadFilename()}
+            title={
+              canDownload ? "Download MIDI file" : "No MIDI file to download"
+            }
+          >
+            <FontAwesomeIcon icon={faDownload} style={{ height: "100%" }} />
+          </DownloadButton>
+        </AppFooterMain>
+      </StyledAppFooter>
+    </>
   );
 };
+
+export default memo(withRouter(AppFooter));
 
 export default memo(withRouter(AppFooter));

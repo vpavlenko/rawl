@@ -117,6 +117,7 @@ type AppState = {
   currentPlaybackTime: number | null;
   currentMidiBuffer: ArrayBuffer | null;
   hoveredMeasuresSpan: MeasuresSpan | null;
+  isRenderingWav: boolean;
 };
 
 export interface FirestoreMidiIndex {
@@ -250,6 +251,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       currentPlaybackTime: null,
       currentMidiBuffer: null,
       hoveredMeasuresSpan: null,
+      isRenderingWav: false,
     };
 
     const bufferSize = Math.max(
@@ -1091,6 +1093,66 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }
   }
 
+  renderMidiToWav = async () => {
+    if (!this.midiPlayer) {
+      this.handlePlayerError("MIDI player not initialized");
+      return;
+    }
+
+    try {
+      // Set rendering status to true
+      this.setState({ isRenderingWav: true });
+
+      // Show a loading message (make sure playerError accepts strings)
+      this.setState({
+        showPlayerError: true,
+        playerError: "Rendering MIDI to WAV file... Please wait." as any, // Cast to any to handle type mismatch
+      });
+
+      // Render MIDI to WAV
+      const wavBlob = await this.midiPlayer.renderToWav();
+
+      if (!wavBlob) {
+        this.handlePlayerError("Failed to render MIDI file to WAV");
+        return;
+      }
+
+      // Create a URL for the blob
+      const url = URL.createObjectURL(wavBlob);
+
+      // Create a temporary download link
+      const a = document.createElement("a");
+      a.style.display = "none";
+      a.href = url;
+
+      // Generate a filename based on the current MIDI
+      const midiTitle = this.state.currentMidi?.title || "midi";
+      a.download = `${midiTitle}.wav`;
+
+      // Add to DOM, click it, then remove it
+      document.body.appendChild(a);
+      a.click();
+
+      // Clean up
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+
+      // Clear the loading message
+      this.setState({
+        showPlayerError: false,
+        playerError: null,
+      });
+    } catch (error) {
+      console.error("Error rendering MIDI to WAV:", error);
+      this.handlePlayerError(
+        `Error rendering WAV: ${error.message || "Unknown error"}`,
+      );
+    } finally {
+      // Set rendering status to false regardless of outcome
+      this.setState({ isRenderingWav: false });
+    }
+  };
+
   render() {
     const { location } = this.props;
     const rawlProps: RawlProps = {
@@ -1289,6 +1351,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 !(this.props.location.pathname === "/e/new") && (
                   <div className="audio-context-overlay">
                     <button
+                      id="unlock-audio-button"
                       className="unlock-audio-button"
                       onClick={this.handleUnlockAudioContext}
                     >
@@ -1350,6 +1413,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 getCurrentPositionMs={this.midiPlayer?.getPositionMs}
                 tempo={this.state.tempo}
                 setTempo={this.handleTempoChange}
+                renderMidiToWav={this.renderMidiToWav}
+                isRenderingWav={this.state.isRenderingWav}
               />
 
               <Modal

@@ -41,6 +41,7 @@ import {
   StatusBar,
 } from "./EditorStyles";
 import Manual, { MidiWriterJsDisplay, ParseMidiDisplay } from "./Manual";
+import { ManualContainer } from "./ManualStyles";
 import { scores } from "./scores";
 import { Command, CommandContext, LogicalNote, ModeName } from "./types";
 
@@ -129,11 +130,6 @@ const Tab = styled.div<{ active: boolean }>`
   &:hover {
     background-color: #333;
   }
-`;
-
-const ManualContainer = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 // Add CSS for admin panels
@@ -1097,12 +1093,12 @@ const Editor: React.FC<EditorProps> = ({
       <BaseEditorPanel isFolded={foldEditor} height={panelHeight}>
         <ResizeHandle onMouseDown={handleMouseDown} />
         <FoldButton
-          position="side"
+          position="top"
           isFolded={foldEditor}
           onClick={() => setFoldEditor(!foldEditor)}
         >
           <FontAwesomeIcon
-            icon={foldEditor ? chevronIcons.left : chevronIcons.right}
+            icon={foldEditor ? chevronIcons.up : chevronIcons.down}
           />
         </FoldButton>
         <EditorContent>

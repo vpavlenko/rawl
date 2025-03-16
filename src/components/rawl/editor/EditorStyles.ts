@@ -28,16 +28,16 @@ export const RawlContainer = styled.div`
 export const EditorPanel = styled.div<{ isFolded: boolean; height?: string }>`
   position: fixed;
   bottom: ${FOOTER_HEIGHT}px;
-  right: 0;
-  width: calc(100% - 40px);
+  left: 0;
+  width: calc(100% - 470px); /* Leave space for PianoLegend (about 280px) */
   height: ${(props) => props.height || "50vh"};
   background: #080808;
   display: grid;
-  grid-template-columns: ${(props) => (props.isFolded ? "auto" : "1fr 1fr")};
+  grid-template-columns: 1fr 1fr;
   transition: transform 1s ease;
-  transform: translateX(${(props) => (props.isFolded ? "100%" : "0")});
+  transform: translateY(${(props) => (props.isFolded ? "100%" : "0")});
   border-top: 1px solid #333;
-  border-left: 1px solid #333;
+  border-right: 1px solid #333;
   z-index: 1000;
   margin-bottom: 0;
   padding-bottom: 0;
@@ -55,16 +55,18 @@ export const DebugPanel = styled.div`
 `;
 
 export const EditorContent = styled.div`
-  flex: 1;
+  height: 100%;
   display: flex;
   flex-direction: column;
   margin-bottom: 0;
   padding-bottom: 0;
+  overflow: auto;
 `;
 
 export const CodeMirrorWrapper = styled.div`
   position: relative;
   flex: 1;
+  height: 100%;
   isolation: isolate;
   background-color: #080808;
   display: flex;
@@ -291,7 +293,7 @@ export const FoldButton = styled.button<{
     props.position === "top"
       ? `
     top: -30px;
-    right: -1px;
+    left: 0;
     width: 60px;
     height: 30px;
     border-bottom: none;

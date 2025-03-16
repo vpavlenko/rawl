@@ -13,6 +13,10 @@ import React, {
 } from "react";
 import { RouteComponentProps, useParams, withRouter } from "react-router-dom";
 import styled from "styled-components";
+import {
+  HighlightedNote,
+  playHighlightedNotes,
+} from "../../../sampler/sampler";
 import { ADMIN_USER_ID, VoiceMask } from "../../App";
 import { AppContext } from "../../AppContext";
 import { Analysis, ANALYSIS_STUB, PitchClass } from "../analysis";
@@ -256,6 +260,11 @@ const Editor: React.FC<EditorProps> = ({
   const [activeTab, setActiveTab] = useState<
     "manual" | "parseMidi" | "midiWriterJs"
   >("manual");
+
+  // Add state to track previously highlighted notes
+  const [previouslyHighlightedNotes, setPreviouslyHighlightedNotes] = useState<
+    HighlightedNote[]
+  >([]);
 
   // Redirect to /e/new if no slug is provided - using useEffect for proper hook ordering
   useEffect(() => {
@@ -1075,6 +1084,63 @@ const Editor: React.FC<EditorProps> = ({
     },
     [],
   );
+
+  // Effect to detect and play highlighted notes whenever matchedParsingResult changes
+  useEffect(() => {
+    if (!matchedParsingResult || !matchedParsingResult.notes) return;
+
+    // Extract highlighted notes from all voices/channels
+    const newHighlightedNotes: HighlightedNote[] = [];
+
+    // Verify notes is an array before processing
+    if (Array.isArray(matchedParsingResult.notes)) {
+      matchedParsingResult.notes.forEach((voiceNotes, voiceIndex) => {
+        // Check if voiceNotes is an array
+        if (Array.isArray(voiceNotes)) {
+          voiceNotes.forEach((note) => {
+            // Check if note is valid, has noteUnderCursor flag set, and has necessary properties
+            if (
+              note &&
+              typeof note === "object" &&
+              note.noteUnderCursor === true &&
+              note.matchingMidiWriterNote &&
+              typeof note.matchingMidiWriterNote.startTick === "number" &&
+              typeof note.matchingMidiWriterNote.duration === "number" &&
+              note.note &&
+              typeof note.note.midiNumber === "number"
+            ) {
+              // Extract required properties
+              newHighlightedNotes.push({
+                startTime: note.matchingMidiWriterNote.startTick,
+                duration: note.matchingMidiWriterNote.duration,
+                midiNumber: note.note.midiNumber,
+              });
+            }
+          });
+        }
+      });
+    }
+
+    // Check if highlighted notes have changed
+    const notesChanged =
+      newHighlightedNotes.length !== previouslyHighlightedNotes.length ||
+      newHighlightedNotes.some((note, index) => {
+        const prevNote = previouslyHighlightedNotes[index];
+        return (
+          !prevNote ||
+          note.midiNumber !== prevNote.midiNumber ||
+          note.startTime !== prevNote.startTime ||
+          note.duration !== prevNote.duration
+        );
+      });
+
+    // If highlighted notes have changed, play them
+    if (notesChanged && newHighlightedNotes.length > 0) {
+      console.log("Highlighted notes changed, playing:", newHighlightedNotes);
+      playHighlightedNotes(newHighlightedNotes);
+      setPreviouslyHighlightedNotes(newHighlightedNotes);
+    }
+  }, [matchedParsingResult, previouslyHighlightedNotes]);
 
   return (
     <EditorContainer

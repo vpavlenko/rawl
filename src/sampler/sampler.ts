@@ -299,3 +299,157 @@ export const playArpeggiatedChordSequence = async (
     });
   });
 };
+
+// Define a type for highlighted notes
+export interface HighlightedNote {
+  startTime: number; // Starting time in ticks
+  duration: number; // Duration in ticks
+  midiNumber: number; // MIDI note number
+}
+
+/**
+ * Plays a collection of highlighted notes with precise timing.
+ * Normalizes times by subtracting the earliest start time.
+ *
+ * @param highlightedNotes Array of notes with startTime, duration, and midiNumber
+ * @param cancelPrevious Whether to cancel previous sounds (default true)
+ * @returns A function to stop playback
+ */
+export const playHighlightedNotes = async (
+  highlightedNotes: HighlightedNote[],
+  cancelPrevious = true,
+): Promise<() => void> => {
+  console.log(
+    `playHighlightedNotes called with ${highlightedNotes.length} notes:`,
+    highlightedNotes.map((n) => ({
+      midi: n.midiNumber,
+      start: n.startTime,
+      dur: n.duration,
+    })),
+  );
+
+  // Ensure sampler is loaded
+  await ensureSamplerLoaded();
+  console.log("Sampler loaded, context state:", getAudioContextState());
+
+  // Only cancel previous sounds if requested
+  if (cancelPrevious) {
+    console.log("Cancelling previous sounds");
+    // Stop all currently playing sounds
+    sampler.releaseAll(0);
+
+    // Clear all scheduled events
+    activeEvents.forEach((id) => Tone.Transport.clear(id));
+    Tone.Transport.cancel();
+
+    // Reset tracking arrays
+    activeEvents = [];
+    activeNotes = [];
+  }
+
+  // If no notes provided, just return the cleanup function
+  if (!highlightedNotes.length) {
+    console.log("No highlighted notes provided, returning cleanup function");
+    return () => cleanupArpeggiator();
+  }
+
+  // Filter out invalid notes
+  const validNotes = highlightedNotes.filter(
+    (note) =>
+      note.duration > 0 && note.midiNumber >= 0 && note.midiNumber <= 127,
+  );
+
+  if (validNotes.length < highlightedNotes.length) {
+    console.warn(
+      `Filtered out ${
+        highlightedNotes.length - validNotes.length
+      } invalid notes`,
+    );
+  }
+
+  if (validNotes.length === 0) {
+    console.warn("No valid notes to play after filtering");
+    return () => cleanupArpeggiator();
+  }
+
+  // Find the minimum start time to normalize all times
+  const minStartTime = Math.min(...validNotes.map((note) => note.startTime));
+  console.log(`Minimum start time: ${minStartTime} ticks`);
+
+  // Ensure Transport is started
+  if (Tone.Transport.state !== "started") {
+    console.log(
+      `Starting Tone.Transport (current state: ${Tone.Transport.state})`,
+    );
+    Tone.Transport.start();
+  }
+
+  // Log current transport and BPM settings
+  console.log(
+    `Transport state: ${Tone.Transport.state}, BPM: ${Tone.Transport.bpm.value}, PPQ: ${Tone.Transport.PPQ}`,
+  );
+
+  // Current transport time as reference point
+  const currentTransportTime = Tone.Transport.seconds;
+  console.log(`Current transport time: ${currentTransportTime}s`);
+
+  // Schedule each note with precise timing
+  validNotes.forEach((note, index) => {
+    // Convert MIDI number to Tone.js note name
+    const noteName = Tone.Frequency(note.midiNumber, "midi").toNote();
+
+    // Calculate normalized start time in seconds
+    const normalizedStartTimeTicks = note.startTime - minStartTime;
+    const normalizedStartTimeSeconds =
+      (normalizedStartTimeTicks /
+        Tone.Transport.PPQ /
+        Tone.Transport.bpm.value) *
+      60;
+
+    // Calculate duration in seconds
+    const durationSeconds =
+      (note.duration / Tone.Transport.PPQ / Tone.Transport.bpm.value) * 60;
+
+    // Schedule the note
+    const scheduleTime = currentTransportTime + normalizedStartTimeSeconds;
+
+    console.log(`Scheduling note ${index + 1}/${validNotes.length}:
+      MIDI: ${note.midiNumber} (${noteName})
+      Original start: ${note.startTime} ticks
+      Normalized start: ${normalizedStartTimeTicks} ticks (${normalizedStartTimeSeconds.toFixed(
+        3,
+      )}s)
+      Duration: ${note.duration} ticks (${durationSeconds.toFixed(3)}s)
+      Schedule time: ${scheduleTime.toFixed(3)}s`);
+
+    const eventId = Tone.Transport.schedule((time) => {
+      console.log(
+        `▶️ PLAYING note at ${time.toFixed(
+          3,
+        )}s: ${noteName}, duration: ${durationSeconds.toFixed(3)}s`,
+      );
+      activeNotes.push(noteName);
+
+      // Use try/catch to log any errors during playback
+      try {
+        sampler.triggerAttackRelease(noteName, durationSeconds, time);
+      } catch (error) {
+        console.error(`Error playing note ${noteName}:`, error);
+      }
+    }, scheduleTime);
+
+    activeEvents.push(eventId);
+    console.log(`Note scheduled with event ID: ${eventId}`);
+  });
+
+  console.log(`Total scheduled events: ${activeEvents.length}`);
+
+  // Return a function to stop playback
+  return () => {
+    console.log("Cleanup function called, stopping playback");
+    sampler.releaseAll(0);
+    activeEvents.forEach((id) => Tone.Transport.clear(id));
+    activeEvents = [];
+    activeNotes = [];
+  };
+};

@@ -311,6 +311,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Video Game Music",
     style: "Orchestral, Cinematic",
     country: "Japan", // Tomohito Nishiura is Japanese.
+    similarTo: ["koji_kondo"],
   },
   {
     slug: "juergen_moser",
@@ -3804,8 +3805,21 @@ export const corpora: CorpusEntry[] = [
     country: "Netherlands, Turkey",
   },
   {
+    slug: "cesar_franck",
+    midis: [
+      "prelude-from-prelude-fugue-et-variation---op.-18-no.-3---cesar-franck",
+      "panis-angelicus",
+      "dextera-domini---franck",
+    ],
+    composerBirthYear: 1822,
+    similarTo: ["chopin_misc", "saint_saens"],
+  },
+  {
     slug: "herbie_hancock",
-    midis: ["cantaloupe-island"],
+    midis: [
+      "cantaloupe-island",
+      "cantaloupe-island-avec-les-solos-de-freddie-herbie",
+    ],
     composerBirthYear: 1940,
     genre: "Jazz",
     style: "Jazz, Fusion",
@@ -3845,6 +3859,12 @@ export const corpora: CorpusEntry[] = [
     genre: "Jazz",
     style: "Fusion, R&B, Funk",
     country: "USA",
+  },
+  {
+    slug: "gabriel_faure",
+    midis: ["pavane-op.50---faure"],
+    composerBirthYear: 1845,
+    similarTo: ["saint_saens"],
   },
   {
     slug: "tonal_stretch",
@@ -5518,6 +5538,7 @@ export const corpora: CorpusEntry[] = [
     slug: "tsukasa_saitoh",
     midis: ["elden-ring-ost---the-final-battle---tsukasa-saitoh"],
   },
+
   {
     slug: "jeremy_soule",
     midis: [
@@ -6560,6 +6581,17 @@ export const corpora: CorpusEntry[] = [
     ],
   },
   {
+    slug: "yanni",
+    midis: [
+      "yanni---one-man-s-dream",
+      "nostalgia---yanni-live-at-the-acropolis-live-the-symphony-concerts-1993",
+      "marching-season-yanni-piano-solo",
+    ],
+    similarTo: ["paul_de_senneville"],
+    composerBirthYear: 1954,
+    country: "Greece",
+  },
+  {
     slug: "yann_tiersen",
     midis: [
       "Yann_Tiersen_Amelie",
@@ -6683,6 +6715,13 @@ export const corpora: CorpusEntry[] = [
       "krone-on-the-gf-string",
       "shoshimin-ost---main-theme---takahiro-obata",
     ],
+  },
+  {
+    slug: "emin_sabitoglu",
+    midis: ["ols-m...-bagisla-1989---emin-sabitoglu"],
+    composerBirthYear: 1937,
+    country: "Azerbaijan",
+    similarTo: ["elza_ibrahimova"],
   },
   {
     slug: "mdk",

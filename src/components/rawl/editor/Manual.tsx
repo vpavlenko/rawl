@@ -777,6 +777,14 @@ const MidiWriterJsDisplay: React.FC<MidiWriterJsDisplayProps> = ({
   );
 };
 
+// Update the ManualContainer styled component
+const ManualContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-height: 600px; // Add max height constraint similar to DisplayContainer
+  overflow-y: auto; // Add vertical scrolling
+`;
+
 const Manual: React.FC<ManualProps> = ({
   score,
   initialSource,

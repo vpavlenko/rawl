@@ -325,6 +325,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Teacher Music",
     style: "Classical, Contemporary",
     country: "Germany",
+    similarTo: ["martha_mier", "elissa_milne"],
   },
   {
     slug: "david_lanz",
@@ -352,6 +353,7 @@ export const corpora: CorpusEntry[] = [
     genre: "New Age, Instrumental",
     style: "Piano Solo, Contemporary Classical",
     country: "USA", // David Lanz is American.
+    similarTo: ["george_winston", "paul_de_senneville"],
   },
   {
     slug: "philip_glass",
@@ -376,6 +378,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Minimalism, Classical",
     style: "Minimalism, Avant-garde",
     country: "USA", // Philip Glass is American.
+    similarTo: ["hania_rani"],
   },
   {
     slug: "machaut",
@@ -398,6 +401,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1881,
     genre: "Folk, Traditional",
     country: "Hungary",
+    similarTo: ["manfred_schmitz"],
   },
   {
     slug: "habanera",
@@ -414,6 +418,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Latin, Traditional",
     style: "Habanera, Dance",
     country: "Spain", // The Habanera is a Spanish genre.
+    similarTo: ["sebastian_yradier", "ernesto_nazareth"],
   },
   {
     slug: "ernesto_nazareth",
@@ -458,6 +463,7 @@ export const corpora: CorpusEntry[] = [
     slug: "chris_zabriskie",
     midis: ["preludes-by-chris-zabriskie-full-album"],
     composerBirthYear: 1982,
+    similarTo: ["brian_crain"],
   },
   {
     slug: "pam_wedgwood",
@@ -469,6 +475,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1947,
     genre: "Teacher Music",
     country: "UK",
+    similarTo: ["catherine_rollin"],
   },
   {
     slug: "big_maceo_merriweather",
@@ -476,6 +483,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1905,
     genre: "Chicago Blues",
     country: "USA",
+    similarTo: ["boogie_woogie"],
   },
   {
     // also https://musescore.com/sheetmusic?text=%D1%82%D0%B0%D0%BD%D0%B3%D0%BE&type=non-official
@@ -538,6 +546,16 @@ export const corpora: CorpusEntry[] = [
       "satumaa-fairytale-land-volshebnaya-strana",
       "punatukkaiselle-tytolleni",
     ],
+    similarTo: ["habanera"],
+  },
+  {
+    slug: "richard_galliano",
+    midis: [
+      "tango-pour-claude---richard-galliano",
+      "la-valse-a-margaux---richard-galliano-7eac27",
+      "french-touch",
+    ],
+    similarTo: ["tango", "musette"],
   },
   {
     slug: "charles_ancliffe",
@@ -545,6 +563,9 @@ export const corpora: CorpusEntry[] = [
       "the-valley-of-poppies---charles-ancliffe",
       "nights-of-gladness---charles-ancliffe-1912",
     ],
+    composerBirthYear: 1880,
+    country: "Ireland",
+    similarTo: ["stephen_foster"],
   },
   {
     slug: "astor_piazzolla",
@@ -561,10 +582,16 @@ export const corpora: CorpusEntry[] = [
       "libertango",
     ],
     composerBirthYear: 1921,
+    similarTo: ["carlos_gardel", "tango"],
   },
   {
     slug: "musette",
-    midis: ["sous-le-ciel-de-paris", "la-vie-en-rose-solo-accordion"],
+    midis: [
+      "sous-le-ciel-de-paris",
+      "la-vie-en-rose-solo-accordion",
+      "dolby---valse-marcel-azzola-joss-baselli",
+    ],
+    composerBirthYear: 1920,
   },
   {
     slug: "klezmer",
@@ -582,6 +609,7 @@ export const corpora: CorpusEntry[] = [
       "varshaver-freylekhs-klezmer-tune",
       "hava-nagila",
     ],
+    similarTo: ["boban_markovic", "horo"],
   },
   {
     slug: "fado",
@@ -608,6 +636,7 @@ export const corpora: CorpusEntry[] = [
       "fado---rosinha-dos-limoes-4-piano",
       "fado---cancao-do-mar-solidao---recorder",
     ],
+    similarTo: ["ernesto_nazareth"],
   },
   {
     slug: "bach_chorales",
@@ -628,6 +657,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Classical, Brazilian Music",
     style: "Choro, Modern Classical",
     country: "Brazil", // Villa-Lobos was Brazilian.
+    similarTo: ["astor_piazzolla"],
   },
   {
     slug: "peter_mcconnell",
@@ -646,6 +676,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Video Game Music, Film Score",
     style: "Orchestral, Cinematic, Jazz",
     country: "USA", // Peter McConnell is American.
+    similarTo: ["yoko_shimomura"],
   },
   {
     slug: "ari_pulkkinen",
@@ -661,6 +692,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Video Game Music",
     style: "Cinematic, Orchestral, Electronic",
     country: "Finland", // Ari Pulkkinen is Finnish.
+    similarTo: ["pedro_silva", "lena_raine"],
   },
   {
     slug: "masayoshi_soken",
@@ -2442,6 +2474,15 @@ export const corpora: CorpusEntry[] = [
     country: "Germany",
   },
   {
+    slug: "kartsy_hatakka_and_kimmo_kajasto",
+    midis: [
+      "max_payne_theme",
+      "max-payne-3---main-menu-theme-4.",
+      "max-payne-3---menu-theme-3---kartsy-hatakka-kimmo-kajasto",
+    ],
+    similarTo: ["shinichi_osawa"],
+  },
+  {
     slug: "romantic_single_pieces",
     midis: [
       "caprice-brillant-sur-romeo-et-juliette-op.-303---georges-lamothe",
@@ -3862,7 +3903,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "gabriel_faure",
-    midis: ["pavane-op.50---faure"],
+    midis: ["pavane-op.50---faure", "sicilienne-opus-78-in-g-minor"],
     composerBirthYear: 1845,
     similarTo: ["saint_saens"],
   },

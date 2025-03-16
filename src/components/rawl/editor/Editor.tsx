@@ -1181,48 +1181,39 @@ const Editor: React.FC<EditorProps> = ({
                   </TabsContainer>
                 )}
 
-                {/* Show content based on active tab for admins, or just Manual for others */}
-                {user && user.uid === ADMIN_USER_ID ? (
-                  <AdminContent>
-                    {activeTab === "manual" && (
-                      <Manual
-                        score={score}
-                        initialSource={initialSource || ""}
-                        id={id}
-                        slug={slug}
-                        history={history}
-                        setError={setError}
-                        analysis={analysis}
-                        extractedMidiNotes={extractedMidiNotes}
-                        matchedParsingResult={matchedParsingResult}
-                        showSaveOptions={false} // Don't show duplicate save options
-                      />
-                    )}
-                    {activeTab === "parseMidi" && matchedParsingResult && (
+                {/* Content area - show different content based on active tab */}
+                <AdminContent>
+                  {activeTab === "manual" && (
+                    <Manual
+                      score={score}
+                      initialSource={initialSource || ""}
+                      id={id}
+                      slug={slug}
+                      history={history}
+                      setError={setError}
+                      analysis={analysis}
+                      extractedMidiNotes={extractedMidiNotes}
+                      matchedParsingResult={matchedParsingResult}
+                      showSaveOptions={false} // Don't show duplicate save options
+                    />
+                  )}
+                  {user &&
+                    user.uid === ADMIN_USER_ID &&
+                    activeTab === "parseMidi" &&
+                    matchedParsingResult && (
                       <ParseMidiDisplay
                         matchedParsingResult={matchedParsingResult}
                       />
                     )}
-                    {activeTab === "midiWriterJs" && extractedMidiNotes && (
+                  {user &&
+                    user.uid === ADMIN_USER_ID &&
+                    activeTab === "midiWriterJs" &&
+                    extractedMidiNotes && (
                       <MidiWriterJsDisplay
                         extractedMidiNotes={extractedMidiNotes}
                       />
                     )}
-                  </AdminContent>
-                ) : (
-                  <Manual
-                    score={score}
-                    initialSource={initialSource || ""}
-                    id={id}
-                    slug={slug}
-                    history={history}
-                    setError={setError}
-                    analysis={analysis}
-                    extractedMidiNotes={extractedMidiNotes}
-                    matchedParsingResult={matchedParsingResult}
-                    showSaveOptions={false} // Don't show duplicate save options
-                  />
-                )}
+                </AdminContent>
               </ManualContainer>
             )}
       </BaseEditorPanel>

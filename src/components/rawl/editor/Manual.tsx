@@ -1,35 +1,14 @@
-import {
-  faBook,
-  faClockRotateLeft,
-  faCloudArrowUp,
-  faCode,
-  faCopy,
-  faMusic,
-  faSpinner,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMusic } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import editorMajorLayout from "../../../images/editor_major_layout.png";
 import editorMinorLayout from "../../../images/editor_minor_layout.png";
 import { AppContext } from "../../AppContext";
 import { Analysis } from "../analysis";
 import { NoteColorLetter } from "./EditorStyles";
-import {
-  ButtonBar,
-  KeyboardLayout,
-  ManualContainer,
-  PublishButton,
-  PublishedUrl,
-  RestoreButton,
-  TelegramInput,
-  ToggleButton,
-  ViewToggle,
-} from "./ManualStyles";
+import { ButtonBar, KeyboardLayout, ManualContainer } from "./ManualStyles";
 import { getScaleMapForMode } from "./types";
-
-// Constants for localStorage
-const BACKUP_PREFIX = "rawl_backup_";
 
 // Detect if user is on macOS to show Option vs Alt
 const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
@@ -229,6 +208,7 @@ interface ManualProps {
   analysis?: Analysis;
   extractedMidiNotes?: any;
   matchedParsingResult?: any;
+  showSaveOptions?: boolean;
 }
 
 const AnalysisDisplay: React.FC<{ analysis: Analysis }> = ({ analysis }) => {
@@ -479,7 +459,83 @@ const AnalysisDisplay: React.FC<{ analysis: Analysis }> = ({ analysis }) => {
   );
 };
 
-const ParseMidiDisplay: React.FC<{ matchedParsingResult?: any }> = ({
+// Add styled components for ParseMidi and MidiWriterJs displays
+const DisplayContainer = styled.div`
+  padding: 16px;
+  background-color: #1f1f1f;
+  border-radius: 4px;
+  max-height: 600px;
+  overflow-y: auto;
+  margin-top: 10px;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: #ddd;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+  }
+
+  h4 {
+    margin-top: 20px;
+    margin-bottom: 12px;
+    color: #bbb;
+  }
+
+  .voice-notes,
+  .channel-notes {
+    margin-bottom: 24px;
+  }
+
+  .notes-grid,
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 12px;
+  }
+
+  .note-item,
+  .event-item {
+    padding: 8px;
+    background-color: #2a2a2a;
+    border-radius: 4px;
+    border-left: 3px solid #444;
+    font-family: monospace;
+    font-size: 13px;
+    word-break: break-word;
+  }
+
+  .note-under-cursor {
+    border-left-color: #4a8cff;
+    background-color: #2a3a4a;
+  }
+
+  .has-match {
+    border-left-color: #4caf50;
+  }
+
+  .no-match {
+    border-left-color: #ff5252;
+    opacity: 0.7;
+  }
+
+  .source-location {
+    color: #4a8cff;
+    margin-top: 5px;
+    font-style: italic;
+  }
+`;
+
+// Define the interfaces for the display components
+interface ParseMidiDisplayProps {
+  matchedParsingResult: any;
+}
+
+interface MidiWriterJsDisplayProps {
+  extractedMidiNotes: any;
+}
+
+const ParseMidiDisplay: React.FC<ParseMidiDisplayProps> = ({
   matchedParsingResult,
 }) => {
   if (!matchedParsingResult || !matchedParsingResult.notes) return null;
@@ -569,7 +625,7 @@ const ParseMidiDisplay: React.FC<{ matchedParsingResult?: any }> = ({
   };
 
   return (
-    <div className="parse-midi-display">
+    <DisplayContainer className="parse-midi-display">
       <h3>ParseMidi Notes</h3>
       {matchedParsingResult.notes.map(
         (voiceNotes: any[], voiceIndex: number) => {
@@ -591,11 +647,11 @@ const ParseMidiDisplay: React.FC<{ matchedParsingResult?: any }> = ({
           );
         },
       )}
-    </div>
+    </DisplayContainer>
   );
 };
 
-const MidiWriterJsDisplay: React.FC<{ extractedMidiNotes: any }> = ({
+const MidiWriterJsDisplay: React.FC<MidiWriterJsDisplayProps> = ({
   extractedMidiNotes,
 }) => {
   if (!extractedMidiNotes) return null;
@@ -627,7 +683,7 @@ const MidiWriterJsDisplay: React.FC<{ extractedMidiNotes: any }> = ({
   });
 
   return (
-    <div className="midi-writer-display">
+    <DisplayContainer className="midi-writer-display">
       <h3>MidiWriter.js Events</h3>
       {channels.length === 0 ? (
         <div>No channel data available</div>
@@ -717,7 +773,7 @@ const MidiWriterJsDisplay: React.FC<{ extractedMidiNotes: any }> = ({
           );
         })
       )}
-    </div>
+    </DisplayContainer>
   );
 };
 
@@ -729,256 +785,213 @@ const Manual: React.FC<ManualProps> = ({
   history,
   setError,
   analysis,
-  extractedMidiNotes,
-  matchedParsingResult,
+  showSaveOptions = true,
 }) => {
   const { user } = useContext(AppContext);
-  const [isPublishing, setIsPublishing] = useState(false);
-  const [publishedUrl, setPublishedUrl] = useState<string | null>(null);
-  const [showCopyFeedback, setShowCopyFeedback] = useState(false);
-  const [telegramUsername, setTelegramUsername] = useState(
-    () => localStorage.getItem("telegramUsername") || "",
-  );
-  const [showUsernameInput, setShowUsernameInput] = useState(false);
-  const [hasLocalBackup, setHasLocalBackup] = useState(false);
-  const [localBackupTimestamp, setLocalBackupTimestamp] = useState<
-    number | null
-  >(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [viewMode, setViewMode] = useState<
-    "manual" | "parseMidi" | "midiWriterJs"
-  >("manual");
-
-  // Get the current page URL key for storage
-  const getUrlKey = () => {
-    let urlKey = "";
-    if (id) {
-      urlKey = `/ef/${id}`;
-    } else if (slug) {
-      urlKey = `/e/${slug}`;
-    }
-    return urlKey;
-  };
-
-  // Save backup to localStorage
-  useEffect(() => {
-    const urlKey = getUrlKey();
-    if (!urlKey || score === initialSource) return;
-
-    const backupKey = BACKUP_PREFIX + urlKey;
-    const backup: BackupData = {
-      code: score,
-      timestamp: Date.now(),
-    };
-
-    localStorage.setItem(backupKey, JSON.stringify(backup));
-  }, [score, initialSource, id, slug]);
-
-  // Check for existing backup on load
-  useEffect(() => {
-    const urlKey = getUrlKey();
-    if (!urlKey) return;
-
-    const backupKey = BACKUP_PREFIX + urlKey;
-    const backupJson = localStorage.getItem(backupKey);
-
-    if (backupJson) {
-      try {
-        const backup: BackupData = JSON.parse(backupJson);
-        // Only show restore button if the backup differs from current score
-        if (backup.code !== score) {
-          setHasLocalBackup(true);
-          setLocalBackupTimestamp(backup.timestamp);
-        } else {
-          setHasLocalBackup(false);
-        }
-      } catch (e) {
-        localStorage.removeItem(backupKey);
-      }
-    }
-  }, [score, id, slug]);
-
-  // Handler for restoring from backup
-  const handleRestore = () => {
-    const urlKey = getUrlKey();
-    if (!urlKey) return;
-
-    const backupKey = BACKUP_PREFIX + urlKey;
-    const backupJson = localStorage.getItem(backupKey);
-
-    if (backupJson) {
-      try {
-        const backup: BackupData = JSON.parse(backupJson);
-        // Dispatch a custom event to notify the editor to restore the backup
-        const restoreEvent = new CustomEvent("rawl-restore-backup", {
-          detail: { code: backup.code },
-        });
-        window.dispatchEvent(restoreEvent);
-        setHasLocalBackup(false);
-      } catch (e) {
-        setError("Failed to restore backup");
-      }
-    }
-  };
-
-  // Focus the input when it becomes visible
-  useEffect(() => {
-    if (showUsernameInput && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [showUsernameInput]);
-
-  // Handler for publish button click
-  const handlePublishClick = () => {
-    if (!telegramUsername.trim()) {
-      setShowUsernameInput(true);
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, 0);
-    } else {
-      handlePublish();
-    }
-  };
-
-  // Handler for publishing
-  const handlePublish = async () => {
-    // This is a placeholder - you would implement the actual publishing logic here
-    setIsPublishing(true);
-    try {
-      // Mock publishing
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Set a mock published URL
-      const mockUrl = `https://example.com/shared/${id || slug || "new"}`;
-      setPublishedUrl(mockUrl);
-
-      // Store username in localStorage
-      if (telegramUsername.trim()) {
-        localStorage.setItem("telegramUsername", telegramUsername.trim());
-      }
-
-      setShowUsernameInput(false);
-    } catch (error) {
-      setError("Failed to publish");
-    } finally {
-      setIsPublishing(false);
-    }
-  };
-
-  // Handler for keyboard events in the username input
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handlePublish();
-    }
-  };
-
-  // Handler for copying URL to clipboard
-  const handleCopyUrl = () => {
-    if (publishedUrl) {
-      navigator.clipboard.writeText(publishedUrl).then(() => {
-        setShowCopyFeedback(true);
-        setTimeout(() => {
-          setShowCopyFeedback(false);
-        }, 2000);
-      });
-    }
-  };
-
-  // Formatter for backup timestamps
-  const formatBackupTime = (timestamp: number | null) => {
-    if (!timestamp) return "";
-
-    const date = new Date(timestamp);
-    const now = new Date();
-
-    // Format the time part (3:12am)
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const ampm = hours >= 12 ? "pm" : "am";
-    const formattedHours = hours % 12 || 12; // Convert 0 to 12 for 12am
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-    const timeStr = `${formattedHours}:${formattedMinutes}${ampm}`;
-
-    // Calculate relative date
-    const diffMs = now.getTime() - date.getTime();
-    const diffMins = Math.floor(diffMs / (1000 * 60));
-    const diffHours = Math.floor(diffMins / 60);
-    const diffDays = Math.floor(diffHours / 24);
-    const diffMonths = Math.floor(diffDays / 30);
-    const diffYears = Math.floor(diffDays / 365);
-
-    // Determine relative date text
-    let relativeDate = "";
-
-    const isToday =
-      now.getDate() === date.getDate() &&
-      now.getMonth() === date.getMonth() &&
-      now.getFullYear() === date.getFullYear();
-
-    const isYesterday =
-      now.getDate() - 1 === date.getDate() &&
-      now.getMonth() === date.getMonth() &&
-      now.getFullYear() === date.getFullYear();
-
-    if (isToday) {
-      relativeDate = "today";
-    } else if (isYesterday) {
-      relativeDate = "yesterday";
-    } else if (diffDays < 30) {
-      relativeDate = `${diffDays}d ago`;
-    } else if (diffMonths < 12) {
-      relativeDate = `${diffMonths}m ago`;
-    } else {
-      relativeDate = `${diffYears}y ago`;
-    }
-
-    return `${timeStr} ${relativeDate}`;
-  };
 
   return (
     <ManualContainer>
+      <KeyboardLayout>
+        <ButtonBar>
+          <div className="left-section">
+            {/* Left section content can be empty now */}
+          </div>
+          <div className="right-section">
+            {/* Right section content can be empty now */}
+          </div>
+        </ButtonBar>
+
+        <div className="top-section">
+          <div className="left-column">
+            <img
+              src={isMinorKey(score) ? editorMinorLayout : editorMajorLayout}
+              alt={`${
+                isMinorKey(score) ? "Minor" : "Major"
+              } Scale Keyboard Layout`}
+              className="keyboard-layout-image"
+            />
+            <div className="image-caption">
+              Prepend note pitch with b and # to lower/raise by semitone, eg.
+              b2, #r
+            </div>
+            <div style={{ marginTop: "12px", color: "#aaa", padding: "0 4px" }}>
+              <code>Shift+Space</code> Play/Pause while in editor
+            </div>
+            <div style={{ marginTop: "8px", color: "#aaa", padding: "0 4px" }}>
+              <code>Shift+{altKey}+Space</code> Play from current target measure
+            </div>
+          </div>
+          <div className="right-column">
+            <div className="section">
+              <div className="grid">
+                <div className="note-col">
+                  <NoteExample beats={4} style={{ width: "120px" }} />
+                </div>
+                <span>
+                  <code>+</code> 4 beats (whole note)
+                </span>
+
+                <div className="note-col">
+                  <NoteExample beats={3} style={{ width: "90px" }} />
+                </div>
+                <span>
+                  <code>_.</code> 2 × 3/2 = 3 beats (<code>.</code> elongates by
+                  half)
+                </span>
+
+                <div className="note-col">
+                  <NoteExample beats={2} style={{ width: "60px" }} />
+                </div>
+                <span>
+                  <code>_</code> 2 beats (half note)
+                </span>
+
+                <div className="note-col">
+                  <NoteExample beats={1.33} style={{ width: "40px" }} />
+                </div>
+                <span>
+                  <code>_:</code> 2 × ⅔ ≈ 1.33 beats (for triplets,{" "}
+                  <code>:</code> reduces by 1/3)
+                </span>
+
+                <div className="note-col">
+                  <NoteExample beats={1} style={{ width: "30px" }} />
+                </div>
+                <span>
+                  <code>,</code> 1 beat (quarter note)
+                </span>
+
+                <div className="note-col">
+                  <NoteExample beats={0.5} style={{ width: "15px" }} />
+                </div>
+                <span>
+                  <code>-</code> ½ beat (eighth note)
+                </span>
+
+                <div className="note-col">
+                  <NoteExample beats={0.25} style={{ width: "7.5px" }} />
+                </div>
+                <span>
+                  <code>=</code> ¼ beat (sixteenth note)
+                </span>
+
+                <div className="note-col">
+                  <NoteExample beats={0.125} style={{ width: "3.75px" }} />
+                </div>
+                <span>
+                  <code>'</code> ⅛ beat (thirty-second note)
+                </span>
+
+                <div className="note-col">
+                  <NoteExample beats={0.0625} style={{ width: "1.875px" }} />
+                </div>
+                <span>
+                  <code>"</code> 1/16 beat (sixty-fourth note)
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="full-width-section">
+          <div className="section">
+            <h3>Insert/copy</h3>
+            <div className="grid">
+              <code>2b2 i q,.x-eti,</code>
+              <span>
+                Insert at measure 2 beat 2: 1+1/2 beats (,.) of scale degree one
+                (tonic) in middle octave, then a rest (x) of 1/2 beats, then a
+                beat of a chord 3-5-1, where 1 is in upper octave. Several note
+                pitches under one duration is a chord
+              </span>
+              <code>5&nbsp;&nbsp;&nbsp;c 1-4&nbsp;&nbsp;&nbsp;0 -4 x 7</code>
+              <span>
+                Copy measures 1..4 to measure 5 several times. 0 means "verbatim
+                copy, don't shift note pitches", -4 means "shift down 4 scale
+                degrees", x means "rest for the duration of slice", 7 means
+                "shift up 7 scale degrees, i.e. one octave"
+              </span>
+              <code>2&nbsp;&nbsp;&nbsp;c 1&nbsp;&nbsp;&nbsp;0 4h 4e</code>
+              <span>
+                Mode modifiers (after shift numbers): {mt("h")} = harmonic
+                minor,
+                {mt("e")} = melodic minor,
+                {mt("M")} = major,
+                {mt("m")} = natural minor. These change the mode while
+                preserving the tonic.
+              </span>
+              <code>2b2 c 1b2-1b4</code>
+              <span>
+                Copy two beats (measure 1 beats 2 to 3), no target defaults to
+                "0" (one verbatim copy)
+              </span>
+              <code>9&nbsp;&nbsp;&nbsp;ac 1-8</code>
+              <span>All Copy: copy notes in all channels</span>
+              <code>1&nbsp;&nbsp;&nbsp;c 1&nbsp;&nbsp;&nbsp;2&5</code>
+              <span>
+                Layer multiple shifts at same position - for doubling in
+                thirds/sixths etc.
+              </span>
+            </div>
+          </div>
+          <div className="section">
+            <h3>Other commands</h3>
+            <div className="grid">
+              <code>C major, Ab minor</code>
+              <span>
+                Key signature. Modes:
+                <ul>
+                  <li>{decorateScale("lydian")}</li>
+                  <li>{decorateScale("major")} (M)</li>
+                  <li>{decorateScale("mixolydian")}</li>
+                  <li>{decorateScale("dorian")}</li>
+                  <li>{decorateScale("minor")} (m)</li>
+                  <li>{decorateScale("phrygian")}</li>
+                  <li>{decorateScale("harmonic_minor")} (h)</li>
+                  <li>{decorateScale("melodic_minor")} (e)</li>
+                </ul>
+              </span>
+              <code>3/4</code> <span>Time signature</span>
+              <code>bpm 120</code> <span>Tempo</span>
+              <code>lh</code>{" "}
+              <span>Left hand (ch1, velocity 70), octave range 2-4</span>
+              <code>rh</code>{" "}
+              <span>Right hand (ch0, velocity 100), octave range 4-6</span>
+              <code>ch2, ch3, ...</code>
+              <span>Channels 2 to 15 (velocity 100), octave range 4-6</span>
+              <code>rh 3</code>{" "}
+              <span>
+                Change octave range to 3-5, can apply to lh, rh or ch2..15
+              </span>
+              <code>% line</code>{" "}
+              <span>
+                Comment using %. Select several lines and press Cmd+/ (Ctrl+/)
+                to toggle
+              </span>
+            </div>
+          </div>
+
+          <div className="section">
+            <h3>Analysis commands</h3>
+            <div className="grid">
+              <code>phrases 1+1 18+2 36-1</code>
+              <span>
+                Hypermeter adjustments: moves white bar of four-measure phrase
+                defaults left or right. <code>1+1</code> is handy for anacrusis,
+                <code>18+2</code> moves the phrase vertical bar two measures to
+                the right from measure 18 (to measure 20), <code>36-1</code>{" "}
+                moves the bar from measure 36 one measure to the left (to
+                measure 35).
+              </span>
+            </div>
+          </div>
+        </div>
+      </KeyboardLayout>
+
+      {/* Add styles for the manual component */}
       <style>
         {`
-          /* Source location styling */
-          .source-location {
-            font-size: 0.85em;
-            color: #aaa;
-            margin-top: 4px;
-            background-color: #2a2a2a;
-            padding: 2px 6px;
-            border-radius: 4px;
-            display: inline-block;
-          }
-          
-          /* Keyboard layout image styling */
-          .keyboard-layout-image {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            max-width: 250px;
-            display: block;
-            margin-bottom: 10px;
-            border-radius: 4px;
-          }
-          
-          /* Additional table styling */
-          .events-table {
-            width: 100%;
-            border-collapse: collapse;
-          }
-          
-          .events-table th,
-          .events-table td {
-            padding: 6px;
-            text-align: left;
-            border-bottom: 1px solid #444;
-          }
-          
-          .events-table th {
-            background-color: #2a2a2a;
-          }
-          
-          /* Additional styles for the Manual component */
+          /* Manual layout styles */
           .top-section {
             display: flex;
             gap: 20px;
@@ -999,8 +1012,24 @@ const Manual: React.FC<ManualProps> = ({
             margin-top: 8px;
           }
           
+          .keyboard-layout-image {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            max-width: 250px;
+            display: block;
+            margin-bottom: 10px;
+            border-radius: 4px;
+          }
+          
           .section {
             margin-bottom: 20px;
+          }
+          
+          .section h3 {
+            margin-top: 16px;
+            margin-bottom: 12px;
+            color: #ddd;
           }
           
           .grid {
@@ -1024,393 +1053,11 @@ const Manual: React.FC<ManualProps> = ({
             font-style: italic;
             color: #ddd;
           }
-          
-          .parsed-note {
-            padding: 8px;
-            margin: 4px;
-            border-radius: 4px;
-            background-color: #2a2a2a;
-            transition: all 0.2s ease;
-          }
-          
-          .parsed-note:hover {
-            background-color: #333;
-          }
-          
-          .matched {
-            border-left: 3px solid #28a745;
-          }
-          
-          .unmatched {
-            border-left: 3px solid #dc3545;
-          }
-          
-          .match-info {
-            margin-top: 4px;
-            font-size: 0.85em;
-            color: #28a745;
-          }
-          
-          .notes-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 8px;
-          }
-          
-          .voice-notes {
-            margin-bottom: 20px;
-          }
-          
-          .channel-events {
-            margin-bottom: 20px;
-          }
-          
-          .no-data-message {
-            padding: 20px;
-            background-color: #2a2a2a;
-            border-radius: 4px;
-            text-align: center;
-            color: #aaa;
-            margin: 20px 0;
-          }
-          
-          .note-timing-info {
-            font-size: 0.9em;
-            color: #bbb;
-            display: block;
-            margin: 2px 0;
-          }
-          
-          .note-timing-info strong {
-            display: inline-block;
-            width: 60px;
-            font-weight: normal;
-            color: #999;
-          }
-          
-          /* Add a special style to highlight when there's an issue with timing data */
-          .note-timing-info:has(+ .note-timing-info:contains("?")) {
-            color: #e69500;
-          }
         `}
       </style>
-
-      <KeyboardLayout>
-        <ButtonBar>
-          <div className="left-section">
-            {hasLocalBackup && (
-              <RestoreButton
-                onClick={handleRestore}
-                title={`Backup saved ${formatBackupTime(localBackupTimestamp)}`}
-              >
-                <span>
-                  Restore from {formatBackupTime(localBackupTimestamp)}
-                </span>
-                <FontAwesomeIcon icon={faClockRotateLeft} className="icon" />
-              </RestoreButton>
-            )}
-          </div>
-
-          <div className="center-section">
-            <ViewToggle>
-              <ToggleButton
-                active={viewMode === "manual"}
-                onClick={() => setViewMode("manual")}
-              >
-                <FontAwesomeIcon icon={faBook} />
-                Manual
-              </ToggleButton>
-              <ToggleButton
-                active={viewMode === "parseMidi"}
-                onClick={() => setViewMode("parseMidi")}
-                disabled={!matchedParsingResult || !matchedParsingResult.notes}
-              >
-                <FontAwesomeIcon icon={faCode} />
-                ParseMidi
-              </ToggleButton>
-              <ToggleButton
-                active={viewMode === "midiWriterJs"}
-                onClick={() => setViewMode("midiWriterJs")}
-                disabled={!extractedMidiNotes}
-              >
-                <FontAwesomeIcon icon={faMusic} />
-                MidiWriterJs
-              </ToggleButton>
-            </ViewToggle>
-          </div>
-
-          <div className="right-section">
-            {showUsernameInput && (
-              <TelegramInput
-                ref={inputRef}
-                placeholder="What's your Telegram @username or email?"
-                value={telegramUsername}
-                onChange={(e) => setTelegramUsername(e.target.value)}
-                onKeyDown={handleKeyDown}
-              />
-            )}
-            {publishedUrl && (
-              <PublishedUrl onClick={handleCopyUrl}>
-                {showCopyFeedback
-                  ? score !== initialSource
-                    ? "Link to last published version is copied to clipboard"
-                    : "Link is copied to clipboard"
-                  : publishedUrl}
-                <FontAwesomeIcon
-                  icon={faCopy}
-                  className="copy-button"
-                  title="Copy URL to clipboard"
-                />
-              </PublishedUrl>
-            )}
-            <PublishButton
-              onClick={handlePublishClick}
-              isPublishing={isPublishing}
-              disabled={
-                isPublishing ||
-                score === initialSource ||
-                (showUsernameInput && !telegramUsername.trim())
-              }
-              hasChanges={score !== initialSource}
-            >
-              {isPublishing ? (
-                <>
-                  Publishing
-                  <FontAwesomeIcon icon={faSpinner} className="spinner" />
-                </>
-              ) : (
-                <>
-                  Publish
-                  <FontAwesomeIcon icon={faCloudArrowUp} />
-                </>
-              )}
-            </PublishButton>
-          </div>
-        </ButtonBar>
-
-        {viewMode === "parseMidi" ? (
-          matchedParsingResult && matchedParsingResult.notes ? (
-            <ParseMidiDisplay matchedParsingResult={matchedParsingResult} />
-          ) : (
-            <div className="no-data-message">
-              <p>No ParseMidi data available. Try playing some notes first.</p>
-            </div>
-          )
-        ) : viewMode === "midiWriterJs" ? (
-          extractedMidiNotes ? (
-            <MidiWriterJsDisplay extractedMidiNotes={extractedMidiNotes} />
-          ) : (
-            <div className="no-data-message">
-              <p>
-                No MidiWriter.js data available. Try playing some notes first.
-              </p>
-            </div>
-          )
-        ) : (
-          <>
-            <div className="top-section">
-              <div className="left-column">
-                <img
-                  src={
-                    isMinorKey(score) ? editorMinorLayout : editorMajorLayout
-                  }
-                  alt={`${
-                    isMinorKey(score) ? "Minor" : "Major"
-                  } Scale Keyboard Layout`}
-                  className="keyboard-layout-image"
-                />
-                <div className="image-caption">
-                  Prepend note pitch with b and # to lower/raise by semitone,
-                  eg. b2, #r
-                </div>
-                <div
-                  style={{ marginTop: "12px", color: "#aaa", padding: "0 4px" }}
-                >
-                  <code>Shift+Space</code> Play/Pause while in editor
-                </div>
-                <div
-                  style={{ marginTop: "8px", color: "#aaa", padding: "0 4px" }}
-                >
-                  <code>Shift+{altKey}+Space</code> Play from current target
-                  measure
-                </div>
-              </div>
-              <div className="right-column">
-                <div className="section">
-                  <div className="grid">
-                    <div className="note-col">
-                      <NoteExample beats={4} style={{ width: "120px" }} />
-                    </div>
-                    <span>
-                      <code>+</code> 4 beats (whole note)
-                    </span>
-
-                    <div className="note-col">
-                      <NoteExample beats={3} style={{ width: "90px" }} />
-                    </div>
-                    <span>
-                      <code>_.</code> 2 × 3/2 = 3 beats (<code>.</code>{" "}
-                      elongates by half)
-                    </span>
-
-                    <div className="note-col">
-                      <NoteExample beats={2} style={{ width: "60px" }} />
-                    </div>
-                    <span>
-                      <code>_</code> 2 beats (half note)
-                    </span>
-
-                    <div className="note-col">
-                      <NoteExample beats={1.33} style={{ width: "40px" }} />
-                    </div>
-                    <span>
-                      <code>_:</code> 2 × ⅔ ≈ 1.33 beats (for triplets,{" "}
-                      <code>:</code> reduces by 1/3)
-                    </span>
-
-                    <div className="note-col">
-                      <NoteExample beats={1} style={{ width: "30px" }} />
-                    </div>
-                    <span>
-                      <code>,</code> 1 beat (quarter note)
-                    </span>
-
-                    <div className="note-col">
-                      <NoteExample beats={0.5} style={{ width: "15px" }} />
-                    </div>
-                    <span>
-                      <code>-</code> ½ beat (eighth note)
-                    </span>
-
-                    <div className="note-col">
-                      <NoteExample beats={0.25} style={{ width: "7.5px" }} />
-                    </div>
-                    <span>
-                      <code>=</code> ¼ beat (sixteenth note)
-                    </span>
-
-                    <div className="note-col">
-                      <NoteExample beats={0.125} style={{ width: "3.75px" }} />
-                    </div>
-                    <span>
-                      <code>'</code> ⅛ beat (thirty-second note)
-                    </span>
-
-                    <div className="note-col">
-                      <NoteExample
-                        beats={0.0625}
-                        style={{ width: "1.875px" }}
-                      />
-                    </div>
-                    <span>
-                      <code>"</code> 1/16 beat (sixty-fourth note)
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="full-width-section">
-              <div className="section">
-                <h3>Insert/copy</h3>
-                <div className="grid">
-                  <code>2b2 i q,.x-eti,</code>
-                  <span>
-                    Insert at measure 2 beat 2: 1+1/2 beats (,.) of scale degree
-                    one (tonic) in middle octave, then a rest (x) of 1/2 beats,
-                    then a beat of a chord 3-5-1, where 1 is in upper octave.
-                    Several note pitches under one duration is a chord
-                  </span>
-                  <code>
-                    5&nbsp;&nbsp;&nbsp;c 1-4&nbsp;&nbsp;&nbsp;0 -4 x 7
-                  </code>
-                  <span>
-                    Copy measures 1..4 to measure 5 several times. 0 means
-                    "verbatim copy, don't shift note pitches", -4 means "shift
-                    down 4 scale degrees", x means "rest for the duration of
-                    slice", 7 means "shift up 7 scale degrees, i.e. one octave"
-                  </span>
-                  <code>2&nbsp;&nbsp;&nbsp;c 1&nbsp;&nbsp;&nbsp;0 4h 4e</code>
-                  <span>
-                    Mode modifiers (after shift numbers): {mt("h")} = harmonic
-                    minor,
-                    {mt("e")} = melodic minor,
-                    {mt("M")} = major,
-                    {mt("m")} = natural minor. These change the mode while
-                    preserving the tonic.
-                  </span>
-                  <code>2b2 c 1b2-1b4</code>
-                  <span>
-                    Copy two beats (measure 1 beats 2 to 3), no target defaults
-                    to "0" (one verbatim copy)
-                  </span>
-                  <code>9&nbsp;&nbsp;&nbsp;ac 1-8</code>
-                  <span>All Copy: copy notes in all channels</span>
-                  <code>1&nbsp;&nbsp;&nbsp;c 1&nbsp;&nbsp;&nbsp;2&5</code>
-                  <span>
-                    Layer multiple shifts at same position - for doubling in
-                    thirds/sixths etc.
-                  </span>
-                </div>
-              </div>
-              <div className="section">
-                <h3>Other commands</h3>
-                <div className="grid">
-                  <code>C major, Ab minor</code>
-                  <span>
-                    Key signature. Modes:
-                    <ul>
-                      <li>{decorateScale("lydian")}</li>
-                      <li>{decorateScale("major")} (M)</li>
-                      <li>{decorateScale("mixolydian")}</li>
-                      <li>{decorateScale("dorian")}</li>
-                      <li>{decorateScale("minor")} (m)</li>
-                      <li>{decorateScale("phrygian")}</li>
-                      <li>{decorateScale("harmonic_minor")} (h)</li>
-                      <li>{decorateScale("melodic_minor")} (e)</li>
-                    </ul>
-                  </span>
-                  <code>3/4</code> <span>Time signature</span>
-                  <code>bpm 120</code> <span>Tempo</span>
-                  <code>lh</code>{" "}
-                  <span>Left hand (ch1, velocity 70), octave range 2-4</span>
-                  <code>rh</code>{" "}
-                  <span>Right hand (ch0, velocity 100), octave range 4-6</span>
-                  <code>ch2, ch3, ...</code>
-                  <span>Channels 2 to 15 (velocity 100), octave range 4-6</span>
-                  <code>rh 3</code>{" "}
-                  <span>
-                    Change octave range to 3-5, can apply to lh, rh or ch2..15
-                  </span>
-                  <code>% line</code>{" "}
-                  <span>
-                    Comment using %. Select several lines and press Cmd+/
-                    (Ctrl+/) to toggle
-                  </span>
-                </div>
-              </div>
-
-              <div className="section">
-                <h3>Analysis commands</h3>
-                <div className="grid">
-                  <code>phrases 1+1 18+2 36-1</code>
-                  <span>
-                    Hypermeter adjustments: moves white bar of four-measure
-                    phrase defaults left or right. <code>1+1</code> is handy for
-                    anacrusis,
-                    <code>18+2</code> moves the phrase vertical bar two measures
-                    to the right from measure 18 (to measure 20),{" "}
-                    <code>36-1</code> moves the bar from measure 36 one measure
-                    to the left (to measure 35).
-                  </span>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-      </KeyboardLayout>
     </ManualContainer>
   );
 };
 
+export { MidiWriterJsDisplay, ParseMidiDisplay };
 export default Manual;

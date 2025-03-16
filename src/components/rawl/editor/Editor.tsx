@@ -12,7 +12,8 @@ import React, {
   useState,
 } from "react";
 import { RouteComponentProps, useParams, withRouter } from "react-router-dom";
-import { VoiceMask } from "../../App";
+import styled from "styled-components";
+import { ADMIN_USER_ID, VoiceMask } from "../../App";
 import { AppContext } from "../../AppContext";
 import { Analysis, ANALYSIS_STUB, PitchClass } from "../analysis";
 import { TICKS_PER_QUARTER } from "../forge/constants";
@@ -26,6 +27,7 @@ import {
 } from "./commandParser";
 import { characterBackgroundsPlugin, customTheme } from "./EditorDecorations";
 import { generateMidiWithMetadata, SourceLocation } from "./EditorMidi";
+import EditorSavingMenu from "./EditorSavingMenu";
 import {
   EditorPanel as BaseEditorPanel,
   chevronIcons,
@@ -38,7 +40,7 @@ import {
   ResizeHandle,
   StatusBar,
 } from "./EditorStyles";
-import Manual from "./Manual";
+import Manual, { MidiWriterJsDisplay, ParseMidiDisplay } from "./Manual";
 import { scores } from "./scores";
 import { Command, CommandContext, LogicalNote, ModeName } from "./types";
 
@@ -111,6 +113,89 @@ interface BackupData {
   timestamp: number;
 }
 
+// New styled components for tabs
+const TabsContainer = styled.div`
+  display: flex;
+  border-bottom: 1px solid #444;
+  margin-bottom: 10px;
+`;
+
+const Tab = styled.div<{ active: boolean }>`
+  padding: 8px 16px;
+  cursor: pointer;
+  background-color: ${({ active }) => (active ? "#2a2a2a" : "transparent")};
+  border-bottom: 2px solid
+    ${({ active }) => (active ? "#4a8cff" : "transparent")};
+  &:hover {
+    background-color: #333;
+  }
+`;
+
+const ManualContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+// Add CSS for admin panels
+const AdminContent = styled.div`
+  height: 100%;
+  overflow: auto;
+
+  /* Additional styling for manual */
+  .musical-term {
+    font-style: italic;
+    color: #ddd;
+  }
+
+  .keyboard-layout-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    max-width: 250px;
+    display: block;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+
+  .key-layout img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* Essential grid styling */
+  .grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 16px;
+    align-items: center;
+  }
+
+  .note-col {
+    display: flex;
+    align-items: center;
+    height: 20px;
+  }
+
+  .section {
+    margin-bottom: 20px;
+  }
+
+  .section h3 {
+    margin-top: 16px;
+    margin-bottom: 12px;
+    color: #ddd;
+    font-size: 18px;
+  }
+
+  code {
+    font-family: monospace;
+    background-color: #2a2a2a;
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
+`;
+
 const Editor: React.FC<EditorProps> = ({
   history,
   initialSource,
@@ -138,6 +223,7 @@ const Editor: React.FC<EditorProps> = ({
     tempo,
     togglePause,
     eject,
+    user,
   } = useContext(AppContext);
   const [score, setScore] = useState("");
   const [isEditorFocused, setIsEditorFocused] = useState(false);
@@ -167,6 +253,9 @@ const Editor: React.FC<EditorProps> = ({
   const [codeValue, setCodeValue] = useState(initialSource || "");
   const [extractedMidiNotes, setExtractedMidiNotes] = useState<any>(null);
   const [matchedParsingResult, setMatchedParsingResult] = useState<any>(null);
+  const [activeTab, setActiveTab] = useState<
+    "manual" | "parseMidi" | "midiWriterJs"
+  >("manual");
 
   // Redirect to /e/new if no slug is provided - using useEffect for proper hook ordering
   useEffect(() => {
@@ -1058,17 +1147,83 @@ const Editor: React.FC<EditorProps> = ({
         {isDecompositionMode
           ? customChild
           : showProgrammingManual && (
-              <Manual
-                score={score}
-                initialSource={initialSource || ""}
-                id={id}
-                slug={slug}
-                history={history}
-                setError={setError}
-                analysis={analysis}
-                extractedMidiNotes={extractedMidiNotes}
-                matchedParsingResult={matchedParsingResult}
-              />
+              <ManualContainer>
+                <EditorSavingMenu
+                  score={score}
+                  initialSource={initialSource || ""}
+                  id={id}
+                  slug={slug}
+                  history={history}
+                  setError={setError}
+                />
+
+                {/* Admin-only tabs */}
+                {user && user.uid === ADMIN_USER_ID && (
+                  <TabsContainer>
+                    <Tab
+                      active={activeTab === "manual"}
+                      onClick={() => setActiveTab("manual")}
+                    >
+                      Manual
+                    </Tab>
+                    <Tab
+                      active={activeTab === "parseMidi"}
+                      onClick={() => setActiveTab("parseMidi")}
+                    >
+                      ParseMidi
+                    </Tab>
+                    <Tab
+                      active={activeTab === "midiWriterJs"}
+                      onClick={() => setActiveTab("midiWriterJs")}
+                    >
+                      MidiWriterJs
+                    </Tab>
+                  </TabsContainer>
+                )}
+
+                {/* Show content based on active tab for admins, or just Manual for others */}
+                {user && user.uid === ADMIN_USER_ID ? (
+                  <AdminContent>
+                    {activeTab === "manual" && (
+                      <Manual
+                        score={score}
+                        initialSource={initialSource || ""}
+                        id={id}
+                        slug={slug}
+                        history={history}
+                        setError={setError}
+                        analysis={analysis}
+                        extractedMidiNotes={extractedMidiNotes}
+                        matchedParsingResult={matchedParsingResult}
+                        showSaveOptions={false} // Don't show duplicate save options
+                      />
+                    )}
+                    {activeTab === "parseMidi" && matchedParsingResult && (
+                      <ParseMidiDisplay
+                        matchedParsingResult={matchedParsingResult}
+                      />
+                    )}
+                    {activeTab === "midiWriterJs" && extractedMidiNotes && (
+                      <MidiWriterJsDisplay
+                        extractedMidiNotes={extractedMidiNotes}
+                      />
+                    )}
+                  </AdminContent>
+                ) : (
+                  <Manual
+                    score={score}
+                    initialSource={initialSource || ""}
+                    id={id}
+                    slug={slug}
+                    history={history}
+                    setError={setError}
+                    analysis={analysis}
+                    extractedMidiNotes={extractedMidiNotes}
+                    matchedParsingResult={matchedParsingResult}
+                    showSaveOptions={false} // Don't show duplicate save options
+                  />
+                )}
+              </ManualContainer>
             )}
       </BaseEditorPanel>
     </EditorContainer>

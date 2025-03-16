@@ -74,7 +74,9 @@ import DAW from "./rawl/pages/DAW";
 import { ParsingResult } from "./rawl/parseMidi";
 import transformMidi from "./rawl/transformMidi";
 
+// Constants
 export const DUMMY_CALLBACK = () => {};
+export const ADMIN_USER_ID = "RK31rsh4tDdUGlNYQvakXW4AYbB3"; // Admin user ID
 
 export type VoiceMask = boolean[];
 
@@ -181,7 +183,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.db = getFirestore(firebaseApp);
 
     // Load the admin analyses
-    const adminDocRef = doc(this.db, "users", "RK31rsh4tDdUGlNYQvakXW4AYbB3");
+    const adminDocRef = doc(this.db, "users", ADMIN_USER_ID);
     getDoc(adminDocRef).then((adminSnapshot) => {
       if (adminSnapshot.exists() && adminSnapshot.data().analyses) {
         this.setState({

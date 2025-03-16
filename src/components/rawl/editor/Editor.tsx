@@ -25,7 +25,11 @@ import {
   logicalNoteToMidi,
   parseCommand,
 } from "./commandParser";
-import { characterBackgroundsPlugin, customTheme } from "./EditorDecorations";
+import {
+  activeLineGutterTheme,
+  characterBackgroundsPlugin,
+  customTheme,
+} from "./EditorDecorations";
 import { generateMidiWithMetadata, SourceLocation } from "./EditorMidi";
 import EditorSavingMenu from "./EditorSavingMenu";
 import {
@@ -1115,6 +1119,7 @@ const Editor: React.FC<EditorProps> = ({
               extensions={[
                 characterBackgroundsPlugin,
                 rawlLanguage,
+                activeLineGutterTheme,
                 keymap.of([
                   {
                     key: "Mod-/",

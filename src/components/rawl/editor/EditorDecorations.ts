@@ -643,6 +643,14 @@ export const customTheme = createTheme({
   styles: [{ tag: tags.comment, color: "#666666", fontStyle: "italic" }],
 });
 
+// Additional theme extension for the active line gutter
+export const activeLineGutterTheme = EditorView.theme({
+  ".cm-gutterElement.cm-activeLineGutter": {
+    color: "#fff !important",
+    fontWeight: "bold",
+  },
+});
+
 // CodeMirror plugin for character backgrounds
 export const characterBackgroundsPlugin = ViewPlugin.fromClass(
   class {

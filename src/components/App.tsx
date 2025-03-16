@@ -67,6 +67,7 @@ import Corpus from "./rawl/corpora/Corpus";
 import Structures, { StructuresProps } from "./rawl/corpora/Structures";
 import Decomposition from "./rawl/decomposition/Decomposition";
 import Editor from "./rawl/editor/Editor";
+import EditorLandingPage from "./rawl/editor/EditorLandingPage";
 import ForgeUI from "./rawl/forge/ForgeUI";
 import { DropSaveForm, saveMidiFromLink } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
@@ -1315,6 +1316,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     }
                   />
                   <Route path="/daw" render={() => <DAW />} />
+                  <Route exact path="/e" component={EditorLandingPage} />
                   <Route path="/e/:slug?" component={Editor} />
                   <Route path="/ef/:id?" component={Editor} />
                   <Route path="/book/:slug?" component={BookOnStyles} />

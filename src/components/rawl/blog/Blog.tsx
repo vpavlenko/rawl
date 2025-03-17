@@ -76,6 +76,10 @@ const BackToList = styled(Link)`
   }
 `;
 
+const BlogPostContainer = styled.div`
+  margin-bottom: 200px;
+`;
+
 // Utility function to format dates
 const formatDisplayDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -111,7 +115,9 @@ const Blog: React.FC = () => {
         <BackToList to="/blog">← Back to all posts</BackToList>
         <BlogTitle>{post.title}</BlogTitle>
         <BlogPostDate>{formatDisplayDate(post.date)}</BlogPostDate>
-        <BlogPostContent>{post.content()}</BlogPostContent>
+        <BlogPostContainer>
+          <BlogPostContent>{post.content()}</BlogPostContent>
+        </BlogPostContainer>
       </BlogContainer>
     );
   }

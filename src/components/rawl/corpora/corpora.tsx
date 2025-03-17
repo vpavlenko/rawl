@@ -5124,8 +5124,9 @@ export const corpora: CorpusEntry[] = [
     style: "Boogie Woogie",
     country: "USA",
   },
+  { slug: "stevie_wonder", midis: ["a-place-in-the-sun"] },
   {
-    slug: "jobim",
+    slug: "tom_jobim",
     midis: [
       "wave---antonio-carlos-jobim-jazz-piano-solo",
       "desafinado",

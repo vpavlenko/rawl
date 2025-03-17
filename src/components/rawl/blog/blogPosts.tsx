@@ -9,7 +9,14 @@ const P = styled.p`
   font-size: 12pt;
 `;
 
-const H = styled.h2``;
+const H = styled.h2`
+  margin-top: 40px;
+`;
+
+// Blog post container with bottom margin
+export const BlogPostContainer = styled.div`
+  margin-bottom: 200px;
+`;
 
 // Helper components similar to chapters.tsx
 export const c = (strings: TemplateStringsArray) => {
@@ -20,6 +27,18 @@ export const c = (strings: TemplateStringsArray) => {
 export const a = (href: string, text: string) => (
   <a href={href} target="_blank" rel="noopener noreferrer">
     {text}
+  </a>
+);
+
+// Corpus link function similar to A function in chapters.tsx
+export const Corpus = (href: string) => (
+  <a
+    href={`/corpus/${href}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ color: "#fff", whiteSpace: "nowrap" }}
+  >
+    {href}
   </a>
 );
 
@@ -91,8 +110,8 @@ export const BLOG_POSTS: BlogPost[] = [
         </P>
         <P>
           I didn't believe it. I've never heard of Stevie Wonder being as unique
-          as Tom Jobim or Frank Zappa. I was without a laptop, so I coulnd't
-          start investigating on the spot.
+          as {Corpus("tom_jobim")} or Frank Zappa. I was without a laptop, so I
+          coulnd't start investigating on the spot.
         </P>
         <P>
           <Direct>– How would you approach this puzzle?</Direct> – I asked her.
@@ -110,7 +129,9 @@ export const BLOG_POSTS: BlogPost[] = [
           <Direct>
             – I can answer that in 10 minutes, if we have MIDI files.
           </Direct>{" "}
-          – I said.
+          – I said. Well, maybe it'll take three hours, but energetically it
+          would feel like 10 minutes, like the most pleasant activity I can
+          imagine.
         </P>
         <P>
           I opened Chiptune on my iPad and searched for Stevie Wonder. I didn't
@@ -122,7 +143,23 @@ export const BLOG_POSTS: BlogPost[] = [
           know what's going on.
         </P>
         <H>Building the corpus</H>
-        <P></P>
+        <P>
+          Lakh has several versions for many songs. I speculate that in the 90s
+          and 2000s karaoke arrangers encoded music in MIDI. The more popular
+          the track was, the more versions were created.
+        </P>
+        <P>
+          Ideally I should pick the best file overall by listening to them all
+          and comparing to the original recordings. But I don't even have time
+          to listen original recordings. And if the mode actually exists, it
+          should be so pronounced that I will see it even in dirty data.
+        </P>
+        <P>
+          So for each song I've picked a file with the biggest size. I've
+          colored them and marked phrases (white four-bar vertical lines) and
+          sections (vertically stacked note staves).
+        </P>
+        <P>Here's what I've got: {Corpus("stevie_wonder")}</P>
       </>
     ),
   },

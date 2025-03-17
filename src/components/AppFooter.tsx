@@ -420,5 +420,3 @@ const AppFooter: React.FC<
 };
 
 export default memo(withRouter(AppFooter));
-
-export default memo(withRouter(AppFooter));

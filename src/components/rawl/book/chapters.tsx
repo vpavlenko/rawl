@@ -1168,7 +1168,7 @@ export const CHAPTERS: Array<{
           There are no pieces throughout top 100 corpus that are built entirely
           using a dorian mode. There are degrees to which a {c`6`} note is used
           within a minor mode, most often as a {c`IV`} chord. See examples:{" "}
-          {s`dorian: episodic`}
+          {s`dorian:IV`}
         </P>
       </>
     ),

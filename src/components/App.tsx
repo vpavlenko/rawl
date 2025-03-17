@@ -61,6 +61,7 @@ import OldLandingPage from "./rawl/OldLandingPage";
 import Rawl, { RawlProps } from "./rawl/Rawl";
 import { ShortcutHelp } from "./rawl/ShortcutHelp";
 import { Analyses, MeasuresSpan } from "./rawl/analysis";
+import Blog from "./rawl/blog/Blog";
 import Book from "./rawl/book/Book";
 import BookOnStyles from "./rawl/book/BookOnStyles";
 import Corpus from "./rawl/corpora/Corpus";
@@ -1385,6 +1386,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   <Route path="/e/:slug?" component={Editor} />
                   <Route path="/ef/:id?" component={Editor} />
                   <Route path="/book/:slug?" component={BookOnStyles} />
+                  <Route path="/blog/:postId?" component={Blog} />
                   {rawlRoute}
                   <Redirect
                     exact

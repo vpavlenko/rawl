@@ -25,7 +25,7 @@ const NavLinks = styled.div`
 const baseLinkStyles = css`
   display: inline-flex;
   align-items: center;
-  padding: 0px 24px;
+  padding: 0px 18px;
   text-decoration: none;
   height: ${HEADER_HEIGHT};
 
@@ -92,6 +92,9 @@ const AppHeader: React.FC = () => {
         </HeaderLink>
         <HeaderLink to="/timeline/" style={getLinkStyle("/timeline")}>
           Timeline
+        </HeaderLink>
+        <HeaderLink to="/blog/" style={getLinkStyle("/blog")}>
+          Blog
         </HeaderLink>
         <HeaderLink to="/d/" style={getLinkStyle("/d")}>
           Decompose

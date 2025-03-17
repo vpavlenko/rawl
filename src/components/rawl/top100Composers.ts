@@ -13,7 +13,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "river-flows-in-you",
     composer: "Yiruma",
     displayTitle: "River Flows in You",
-    chords: MINOR_MODE.chords,
+    chords: ["i", "bIII", "bVI", "bVII"],
   },
   {
     slug: "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_",
@@ -24,6 +24,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "Canon_in_D",
     composer: "Johann Pachelbel",
     displayTitle: "Canon in D major",
+    chords: MAJOR_MODE.chords,
   },
   {
     slug: "Clair_de_Lune__Debussy",
@@ -61,12 +62,14 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     composer: "Patrick Watson",
     displayTitle: "Je te laisserai des mots",
     isVocal: true,
+    chords: MINOR_MODE.chords,
   },
   {
     slug: "Hallelujah",
     composer: "Leonard Cohen",
     displayTitle: "Hallelujah",
     isVocal: true,
+    chords: MINOR_MODE.chords,
   },
   {
     slug: "Interstellar",
@@ -79,16 +82,19 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     composer: "Tom Odell",
     displayTitle: "Another Love",
     isVocal: true,
+    chords: MINOR_MODE.chords,
   },
   {
     slug: "Sweden_Minecraft",
     composer: "C418",
     displayTitle: "Sweden (from Minecraft)",
+    chords: MAJOR_MODE.chords,
   },
   {
     slug: "Pirates_of_the_Caribbean_-_Hes_a_Pirate",
     composer: "Klaus Badelt",
     displayTitle: "He's a Pirate (from Pirates of the Caribbean)",
+    chords: MINOR_MODE.chords,
   },
   {
     slug: "game-of-thrones-main-piano",
@@ -100,12 +106,14 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     composer: "Lewis Capaldi",
     displayTitle: "Someone You Loved",
     isVocal: true,
+    chords: MAJOR_MODE.chords,
   },
   {
     slug: "Ed_Sheeran_Perfect",
     composer: "Ed Sheeran",
     displayTitle: "Perfect",
     isVocal: true,
+    chords: MAJOR_MODE.chords,
   },
   {
     slug: "Liebestraum_No._3_in_A_Major",
@@ -124,6 +132,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     composer: "John Legend",
     displayTitle: "All of Me",
     isVocal: true,
+    chords: MINOR_MODE.chords,
   },
   {
     slug: "Mad_world_Piano",
@@ -136,6 +145,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "mariage-d-amour---paul-de-senneville-marriage-d-amour",
     composer: "Paul de Senneville",
     displayTitle: "Mariage d'Amour",
+    chords: MINOR_MODE.chords,
   },
   {
     slug: "someone-like-you",
@@ -155,18 +165,21 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     composer: "Yugo Kanno",
     displayTitle: "Il vento d'oro (Giorno's Theme)",
     isVocal: true,
+    chords: MINOR_MODE.chords,
   },
   {
     slug: "Carol_of_the_Bells",
     composer: "Mykola Leontovych",
     displayTitle: "Carol of the Bells (Shchedryk)",
     isVocal: true,
+    chords: MINOR_MODE.chords,
   },
   {
     slug: "piano-man-piano",
     composer: "Billy Joel",
     displayTitle: "Piano Man",
     isVocal: true,
+    chords: MAJOR_MODE.chords,
   },
   {
     slug: "Fly_Me_to_the_Moon",

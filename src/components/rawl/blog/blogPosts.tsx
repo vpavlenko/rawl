@@ -217,8 +217,20 @@ export const BLOG_POSTS: BlogPost[] = [
         </P>
         <H>Modes</H>
         <P>
-          As the very second step, I grouped similar tracks together: minors{" "}
-          {c`i`} with minors and majors {c`I`} with majors.
+          As the very second step, I've listed tonic chords for each track:
+          {A("boogie-on-reggae-woman.1")} {c`I7`},{A("do-i-do")} {c`Imaj9`},
+          {A("don-t-you-worry-bout-a-thing")} {c`i`},{A("for-your-love")}{" "}
+          {c`Imaj7`},{A("golden-lady.1")} {c`Imaj9`},
+          {A("happy-birthday-stevie-wonder")} {c`I`},{A("higher-ground.2")}{" "}
+          {c`i7`},{A("i-just-called-to-say-i-love-you.6")} {c`I`},
+          {A("i-wish.1")} {c`i7`},{A("isn-t-she-lovely-2")} {c`I`},
+          {A("master-blaster")} {c`i`},{A("my-cherie-amour.1")} {c`Imaj7`},
+          {A("overjoyed.1")} {c`I`},{A("part-time-lover.3")} {c`i7`},
+          {A("ribbon-in-the-sky.1")} {c`I`},{A("send-one-your-love")} {c`Imaj7`}
+          ,{A("signed-sealed-delivered-i-m-yours.1")} {c`I7`},{A("sir-duke")}{" "}
+          {c`I`},{A("superstition")} {c`i7`},{A("uptight-everything-s-alright")}{" "}
+          {c`I`} ({s`shuttle:mixolydian`}),
+          {A("you-are-the-sunshine-of-my-life.5")} {c`Imaj9`},
         </P>
         <H>Dominant V</H>
         <P>

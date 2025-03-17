@@ -103,7 +103,6 @@ export const A = (href: string) => (
     style={{
       color: "#fff",
       whiteSpace: "nowrap",
-      textDecoration: "gray underline",
     }}
   >
     {beautifySlug(href)}
@@ -114,6 +113,7 @@ const STRUCTURES_TO_CHORDS: { [key: string]: Chord[] } = {
   "V:9": ["V9"],
   "V:b9": ["Vb9"],
   "dorian:IV": ["i", "IV", "i"],
+  "shuttle:mixolydian": ["I", "bVII", "I", "bVII"],
   "scale:minor_pentatonic": ["1", "b3", "4", "5", "b7"],
   "V:sus4": ["Vsus4", "V"],
   "V:sus4_unresolved": ["Vsus4"],

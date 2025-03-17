@@ -21,7 +21,7 @@ const TITLE_HEIGHT = 27;
 
 const NOTE_HEIGHT = 3;
 const NOTE_WIDTH = 30;
-const HORIZONTAL_GAP = 12;
+const HORIZONTAL_GAP = 7;
 
 const ChordNote = styled.div<{ isPlaying?: boolean; delay?: number }>`
   user-select: none;

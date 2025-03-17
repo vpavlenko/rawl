@@ -8,6 +8,7 @@ const P = styled.p`
   margin-bottom: 1.5em;
   line-height: 1.3;
   font-size: 12pt;
+  color: #c8c8c8;
 `;
 
 const H = styled.h2`
@@ -36,7 +37,7 @@ const CL = (strings: TemplateStringsArray, ...values: any[]) => {
 };
 
 const Direct = styled.span`
-  // color: #ddd;
+  color: #fff;
   font-weight: 700;
   font-size: 14pt;
   letter-spacing: 0.03em;
@@ -134,12 +135,17 @@ export const BLOG_POSTS: BlogPost[] = [
           activity I can imagine. And like something certainly doable.
         </P>
         <P>
-          I opened Chiptune on my iPad and searched for Stevie Wonder. I didn't
-          remember how much tracks we have for him on Lakh MIDI dataset - one or
-          fifty? Was he as popular as The Beatles?
+          I didn't remember how much tracks we have for him on{" "}
+          {a("https://colinraffel.com/projects/lmd/", "Lakh MIDI dataset")} -
+          one or fifty? Was he as popular as The Beatles?
         </P>
         <P>
-          Luckily, I've found 25 songs. Therefore, by the end of today I will
+          I opened{" "}
+          {a(
+            "https://chiptune.app/browse/MIDI/Stevie%20Wonder/",
+            "Stevie Wonder on Chiptune",
+          )}
+          . Luckily, I've found 25 songs. Therefore, by the end of today I will
           know what's going on.
         </P>
         <H>Building the corpus</H>

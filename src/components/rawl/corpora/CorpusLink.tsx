@@ -40,6 +40,9 @@ export const CorpusLink: React.FC<{ slug: string }> = ({ slug }) => {
         ...badgeStyle.container,
         whiteSpace: "nowrap",
         cursor: "pointer",
+        color: "white",
+        fontWeight: "bold",
+        letterSpacing: "0.07em",
       }}
     >
       <FontAwesomeIcon

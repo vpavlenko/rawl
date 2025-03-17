@@ -10,6 +10,9 @@ import { FoldButton, chevronIcons } from "../editor/EditorStyles";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 import ChordStairs from "./ChordStairs";
 import { CHROMATIC_CHORDS, MAJOR_MODE, MINOR_MODE, Mode } from "./chords";
+
+const PIANO_KEYBOARD_REPETITIONS = 2;
+
 const BLACK_KEYS = [1, 3, -1, 6, 8, 10, -1];
 const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
 
@@ -302,14 +305,15 @@ export const FoldablePianoLegend: React.FC<{
                     flexDirection: "row",
                   }}
                 >
-                  <PianoLegend
-                    currentTonic={currentTonic ?? 0}
-                    enabledPitches={getEnabledPitches()}
-                  />
-                  <PianoLegend
-                    currentTonic={(currentTonic ?? 0) + 12}
-                    enabledPitches={getEnabledPitches()}
-                  />
+                  {Array.from({ length: PIANO_KEYBOARD_REPETITIONS }).map(
+                    (_, index) => (
+                      <PianoLegend
+                        key={`piano-${index}`}
+                        currentTonic={(currentTonic ?? 0) + index * 12}
+                        enabledPitches={getEnabledPitches()}
+                      />
+                    ),
+                  )}
                 </div>
                 <div
                   style={{

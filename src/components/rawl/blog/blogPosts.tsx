@@ -16,7 +16,12 @@ const H = styled.h2`
 `;
 
 const a = (href: string, text: string) => (
-  <a href={href} target="_blank" rel="noopener noreferrer">
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ textDecoration: "underline" }}
+  >
     {text}
   </a>
 );
@@ -31,8 +36,10 @@ const CL = (strings: TemplateStringsArray, ...values: any[]) => {
 };
 
 const Direct = styled.span`
-  color: #ffa;
+  // color: #ddd;
+  font-weight: 700;
   font-size: 14pt;
+  letter-spacing: 0.03em;
   // font-family: "Playfair Display", serif;
   font-family: "Alegreya", serif;
   // font-family: "Merriweather", serif;
@@ -64,11 +71,11 @@ export const BLOG_POSTS: BlogPost[] = [
         <H>Hooked</H>
         <P>
           <Direct>
-            – Stevie Wonder composed in a unique way, he used his own special{" "}
+            — Stevie Wonder composed in a unique way, he used his own special{" "}
             <i>wonderful</i> mode. I'm not sure exactly which one, but I hear
             it.
           </Direct>{" "}
-          – Natasha told me over coffee earlier today as we were sitting in
+          — Natasha told me over coffee earlier today as we were sitting in
           Pulp, an expat coffee shop in Tbilisi. (There was no pun in Russian.)
         </P>
         <P>
@@ -77,11 +84,11 @@ export const BLOG_POSTS: BlogPost[] = [
         </P>
         <P>
           <Direct>
-            – Well, if I play {A("superstition")} in my head, it uses{" "}
+            — Well, if I play {A("superstition")} in my head, it uses{" "}
             {s`scale:minor_pentatonic`}
             plus {s`dorian:IV`}, like soul on average.
           </Direct>{" "}
-          – I replied.
+          — I replied.
         </P>
         <P>
           “Maybe also a {s`V:soul_dominant`}, as Mark Spicer cleverly{" "}
@@ -95,7 +102,7 @@ export const BLOG_POSTS: BlogPost[] = [
         </P>
         <P>
           <Direct>
-            – No, there's something deeper. He has some simple tracks, right,
+            — No, there's something deeper. He has some simple tracks, right,
             but in some others he's doing idiosyncratic complex harmonies which
             I couldn't indentify by ear yet.
           </Direct>
@@ -106,11 +113,12 @@ export const BLOG_POSTS: BlogPost[] = [
           coulnd't start investigating on the spot.
         </P>
         <P>
-          <Direct>– How would you approach this puzzle?</Direct> – I asked her.
+          <Direct>— How would you approach this puzzle?</Direct> — I asked her.
         </P>
         <P>
           <Direct>
-            – Well, I'll play his tracks and start transcribing them on a piano.
+            — Well, I'll listen to his tracks and start transcribing them on a
+            piano.
           </Direct>
         </P>
         <P>
@@ -119,9 +127,9 @@ export const BLOG_POSTS: BlogPost[] = [
         </P>
         <P>
           <Direct>
-            – I can answer that in 10 minutes, if we have MIDI files.
+            — I can answer that in 10 minutes, if we have MIDI files.
           </Direct>{" "}
-          – I said. Well, maybe it'll take three hours or a day, but
+          — I said. Well, maybe it'll take three hours or a day, but
           energetically it would feel like 10 minutes, like the most pleasant
           activity I can imagine. And like something certainly doable.
         </P>
@@ -172,9 +180,27 @@ export const BLOG_POSTS: BlogPost[] = [
           wonderful mode. Also disable the "Bird Tweet" track if you find one -
           it isn't as equally temperamental.
         </P>
+        <H>No Wonder</H>
+        <P>
+          As the very first step, I asked{" "}
+          {a(
+            "https://chatgpt.com/share/67d85b2d-af54-8005-bae8-3c1f8ad7a2ba",
+            "GPT",
+          )}{" "}
+          and{" "}
+          {a(
+            "https://claude.ai/share/860a44ca-0946-4292-9e32-ba3c4145cf18",
+            "Claude",
+          )}{" "}
+          to exclude covers. It may be that Natasha specifically loves his
+          covers – as I haven't asked her to name any tracks that are
+          particularly wonderful. But for the sake of time, to make the corpus
+          as stylistically tight as possible (in a Caplinian way), I'm gonna
+          exclude what's not coming directly from his harmonic brain.
+        </P>
         <H>Modes</H>
         <P>
-          As the very first step, I grouped similar tracks together: minors{" "}
+          As the very second step, I grouped similar tracks together: minors{" "}
           {c`i`} with minors and majors {c`I`} with majors.
         </P>
         <H>Dominant V</H>

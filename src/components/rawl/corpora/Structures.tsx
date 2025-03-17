@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import { Analysis, filterSnippetsByAccess, Snippet } from "../analysis";
 import InlineRawlPlayer from "../InlineRawlPlayer";
-import { Chord } from "../legends/chords";
 import SnippetList from "../SnippetList";
 import EXPLANATIONS from "./explanations";
 
@@ -233,12 +232,6 @@ const CHAPTER_CATEGORIES: ChapterCategories = {
   ],
   rhythm_and_meter: ["meter", "rhythm", "hypermeter", "harmonic_rhythm"],
   misc: [],
-};
-
-export const STRUCTURES_TO_CHORDS: { [key: string]: Chord[] } = {
-  "V:9": ["V9"],
-  "V:sus4": ["Vsus4", "V"],
-  "V:sus4_unresolved": ["Vsus4"],
 };
 
 export interface StructuresProps {

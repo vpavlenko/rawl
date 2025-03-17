@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { c, s } from "../book/chapters";
+import { A, c, s } from "../book/chapters";
 import { CorpusLink } from "../corpora/CorpusLink";
 
 // Reuse styling components
@@ -77,20 +77,21 @@ export const BLOG_POSTS: BlogPost[] = [
         </P>
         <P>
           <Direct>
-            – Well, if I play Superstition in my head, it uses{" "}
+            – Well, if I play {A("superstition")} in my head, it uses{" "}
             {s`scale:minor_pentatonic`}
-            plus {s`dorian:IV`}, just like in soul on average.
-          </Direct>
+            plus {s`dorian:IV`}, like soul on average.
+          </Direct>{" "}
+          – I replied.
         </P>
         <P>
-          Maybe also a {s`V:soul_dominant`}, as Mark Spicer cleverly{" "}
+          “Maybe also a {s`V:soul_dominant`}, as Mark Spicer cleverly{" "}
           {a(
             "https://mtosmt.org/issues/mto.17.23.2/mto.17.23.2.spicer.html",
             "christened it",
           )}
-          . I've thought that but I didn't say that because Natasha got a degree
-          in Soviet music theory long ago, and people haven't talked about soul
-          dominants back then yet.
+          .” I've thought that but I didn't say that because Natasha got a
+          degree in Soviet music theory long ago, and people haven't talked
+          about soul dominants back then yet.
         </P>
         <P>
           <Direct>
@@ -168,7 +169,13 @@ export const BLOG_POSTS: BlogPost[] = [
           Here's what I've got: {CL`stevie_wonder`}. As you open each track,
           uncheck (mute) the "Std Drum Kit" / "Drums" in the top right - drum
           parts are very noisy and unrelated to our quest of describing the
-          wonderful mode.
+          wonderful mode. Also disable the "Bird Tweet" track if you find one -
+          it isn't as equally temperamental.
+        </P>
+        <H>Modes</H>
+        <P>
+          As the very first step, I grouped similar tracks together: minors{" "}
+          {c`i`} with minors and majors {c`I`} with majors.
         </P>
         <H>Dominant V</H>
         <P>

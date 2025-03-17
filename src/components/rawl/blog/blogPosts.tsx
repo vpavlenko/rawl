@@ -303,10 +303,28 @@ export const BLOG_POSTS: BlogPost[] = [
         <P>
           Maybe looking at these modes will be fruitful eventually. For now I
           want to group together some harmonic devices that Stevie Wonder uses
-          throughout.
+          throughout. {s`blog_1:line_clichee`}
         </P>
 
-        <H>Line clichés</H>
+        <H>One-liner analyses</H>
+
+        <P>
+          Next I want to briefly analyse harmony of each track. I'll go from
+          easiest to trickiest. The easiest group is {c`I7`}:
+        </P>
+        <P>
+          {A("boogie-on-reggae-woman.1")}: {c`II7 V7 I7 IV7 bVII7`} – mostly
+          dominant seventh chords
+        </P>
+        <P>
+          {A("uptight-everything-s-alright")}: {s`shuttle:mixolydian`}{" "}
+          throughout
+        </P>
+        <P>
+          {A("signed-sealed-delivered-i-m-yours.1")}:{" "}
+          {c`I I7 vi7 ii7 IV Vsoulii I`}, diatonic major with {c`b7`} instead of{" "}
+          {c`7`}
+        </P>
 
         <H>Dominant V</H>
         <P>

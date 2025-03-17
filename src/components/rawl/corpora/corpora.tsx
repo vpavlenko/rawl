@@ -5156,6 +5156,9 @@ export const corpora: CorpusEntry[] = [
       "heaven-help-us-all",
       "that-s-what-friends-are-for",
     ],
+    composerBirthYear: 1950,
+    genre: "Soul, R&B, Funk",
+    country: "USA, Ghana",
   },
   {
     slug: "tom_jobim",

@@ -92,12 +92,12 @@ export const BLOG_POSTS: BlogPost[] = [
           — I replied.
         </P>
         <P>
-          “Maybe also a {s`V:soul_dominant`}, as Mark Spicer cleverly{" "}
+          "Maybe also a {s`V:soul_dominant`}, as Mark Spicer cleverly{" "}
           {a(
             "https://mtosmt.org/issues/mto.17.23.2/mto.17.23.2.spicer.html",
             "christened it",
           )}
-          .” I've thought that but I didn't say that because Natasha got a
+          ." I've thought that but I didn't say that because Natasha got a
           degree in Soviet music theory long ago, and people haven't talked
           about soul dominants back then yet.
         </P>
@@ -216,22 +216,34 @@ export const BLOG_POSTS: BlogPost[] = [
           Wonder's style rather than of soul in general.
         </P>
         <H>Modes</H>
-        <P>
-          As the very second step, I've listed tonic chords for each track:
-          {A("boogie-on-reggae-woman.1")} {c`I7`},{A("do-i-do")} {c`Imaj9`},
-          {A("don-t-you-worry-bout-a-thing")} {c`i`},{A("for-your-love")}{" "}
-          {c`Imaj7`},{A("golden-lady.1")} {c`Imaj9`},
-          {A("happy-birthday-stevie-wonder")} {c`I`},{A("higher-ground.2")}{" "}
-          {c`i7`},{A("i-just-called-to-say-i-love-you.6")} {c`I`},
-          {A("i-wish.1")} {c`i7`},{A("isn-t-she-lovely-2")} {c`I`},
-          {A("master-blaster")} {c`i`},{A("my-cherie-amour.1")} {c`Imaj7`},
-          {A("overjoyed.1")} {c`I`},{A("part-time-lover.3")} {c`i7`},
-          {A("ribbon-in-the-sky.1")} {c`I`},{A("send-one-your-love")} {c`Imaj7`}
-          ,{A("signed-sealed-delivered-i-m-yours.1")} {c`I7`},{A("sir-duke")}{" "}
-          {c`I`},{A("superstition")} {c`i7`},{A("uptight-everything-s-alright")}{" "}
-          {c`I`} ({s`shuttle:mixolydian`}),
-          {A("you-are-the-sunshine-of-my-life.5")} {c`Imaj9`},
-        </P>
+        <P>As the very second step, I've listed tonic chords for each track:</P>
+        <ul>
+          <li>
+            {c`Imaj9`} {A("do-i-do")}, {A("golden-lady.1")},{" "}
+            {A("you-are-the-sunshine-of-my-life.5")}
+          </li>
+          <li>
+            {c`Imaj7`} {A("for-your-love")}, {A("my-cherie-amour.1")},{" "}
+            {A("send-one-your-love")}
+          </li>
+          <li>
+            {c`I`} {A("happy-birthday-stevie-wonder")},{" "}
+            {A("i-just-called-to-say-i-love-you.6")}, {A("isn-t-she-lovely-2")},{" "}
+            {A("overjoyed.1")}, {A("ribbon-in-the-sky.1")}, {A("sir-duke")},{" "}
+            {A("uptight-everything-s-alright")} ({s`shuttle:mixolydian`})
+          </li>
+          <li>
+            {c`I7`} {A("boogie-on-reggae-woman.1")},{" "}
+            {A("signed-sealed-delivered-i-m-yours.1")}
+          </li>
+          <li>
+            {c`i7`} {A("higher-ground.2")}, {A("i-wish.1")},{" "}
+            {A("part-time-lover.3")}, {A("superstition")}
+          </li>
+          <li>
+            {c`i`} {A("don-t-you-worry-bout-a-thing")}, {A("master-blaster")}
+          </li>
+        </ul>
         <H>Dominant V</H>
         <P>
           The most common harmonic motion observed by any Western music

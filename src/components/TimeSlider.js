@@ -102,7 +102,7 @@ export default class TimeSlider extends React.Component {
           onDrag={this.handlePositionDrag}
           onChange={this.handlePositionDrop}
         />
-        <DurationLabel>
+        <DurationLabel id="duration-label">
           {this.getTime(this.props.currentSongDurationMs)}
         </DurationLabel>
       </TimeSliderContainer>

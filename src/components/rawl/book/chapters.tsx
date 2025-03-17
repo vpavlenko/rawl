@@ -117,7 +117,7 @@ const STRUCTURES_TO_CHORDS: { [key: string]: Chord[] } = {
   "scale:minor_pentatonic": ["1", "b3", "4", "5", "b7"],
   "V:sus4": ["Vsus4", "V"],
   "V:sus4_unresolved": ["Vsus4"],
-  "V:soul_dominant": ["5", "Vsoul", "V"],
+  "V:soul_dominant": ["Vsoul", "I"],
 };
 
 export const s = (tags: TemplateStringsArray) => {
@@ -135,6 +135,9 @@ export const s = (tags: TemplateStringsArray) => {
         top: "6px",
         margin: "0 10px 2px 0",
         whiteSpace: "nowrap",
+        fontFamily: "Lato, sans-serif",
+        fontWeight: "100",
+        fontSize: "12pt",
       }}
     >
       {chords && (

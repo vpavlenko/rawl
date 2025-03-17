@@ -4,6 +4,13 @@ import { A, c, s } from "../book/chapters";
 import { CorpusLink } from "../corpora/CorpusLink";
 
 // Reuse styling components
+
+const SPAN = styled.span`
+  line-height: 1.3;
+  font-size: 12pt;
+  color: #c8c8c8;
+`;
+
 const P = styled.p`
   margin-bottom: 1.5em;
   line-height: 1.3;
@@ -49,8 +56,16 @@ const Direct = styled.span`
   // font-family: 'Roboto Mono', monospace;
   // font-family: "Josefin Slab", serif;
   // font-family: "Cormorant Garamond", serif;
-  // font-family: 'DM Serif Display', serif;
+  // font-family: "DM Serif Display", serif;
   // font-family: 'Source Code Pro', monospace;
+`;
+
+const DirectMe = styled.span`
+  color: #fff;
+  font-weight: 700;
+  font-size: 14pt;
+  letter-spacing: 0.05em;
+  font-family: "Times New Roman", serif;
 `;
 
 // Blog post interface
@@ -84,11 +99,11 @@ export const BLOG_POSTS: BlogPost[] = [
           culture, so I tried to come up with a speculative stub answer:
         </P>
         <P>
-          <Direct>
+          <DirectMe>
             — Well, if I play {A("superstition")} in my head, it uses{" "}
-            {s`scale:minor_pentatonic`}
-            plus {s`dorian:IV`}, like soul on average.
-          </Direct>{" "}
+            {s`scale:minor_pentatonic`}. Plus I'd expect {s`dorian:IV`}, like in
+            soul on average.
+          </DirectMe>{" "}
           — I replied.
         </P>
         <P>
@@ -114,7 +129,8 @@ export const BLOG_POSTS: BlogPost[] = [
           coulnd't start investigating on the spot.
         </P>
         <P>
-          <Direct>— How would you approach this puzzle?</Direct> — I asked her.
+          <DirectMe>— How would you approach this puzzle?</DirectMe> — I asked
+          her.
         </P>
         <P>
           <Direct>
@@ -127,9 +143,9 @@ export const BLOG_POSTS: BlogPost[] = [
           machinery.
         </P>
         <P>
-          <Direct>
+          <DirectMe>
             — I can answer that in 10 minutes, if we have MIDI files.
-          </Direct>{" "}
+          </DirectMe>{" "}
           — I said. Well, maybe it'll take three hours or a day, but
           energetically it would feel like 10 minutes, like the most pleasant
           activity I can imagine. And like something certainly doable.
@@ -217,33 +233,81 @@ export const BLOG_POSTS: BlogPost[] = [
         </P>
         <H>Modes</H>
         <P>As the very second step, I've listed tonic chords for each track:</P>
-        <ul>
-          <li>
-            {c`Imaj9`} {A("do-i-do")}, {A("golden-lady.1")},{" "}
-            {A("you-are-the-sunshine-of-my-life.5")}
-          </li>
-          <li>
-            {c`Imaj7`} {A("for-your-love")}, {A("my-cherie-amour.1")},{" "}
-            {A("send-one-your-love")}
-          </li>
-          <li>
-            {c`I`} {A("happy-birthday-stevie-wonder")},{" "}
-            {A("i-just-called-to-say-i-love-you.6")}, {A("isn-t-she-lovely-2")},{" "}
-            {A("overjoyed.1")}, {A("ribbon-in-the-sky.1")}, {A("sir-duke")},{" "}
-            {A("uptight-everything-s-alright")} ({s`shuttle:mixolydian`})
-          </li>
-          <li>
-            {c`I7`} {A("boogie-on-reggae-woman.1")},{" "}
-            {A("signed-sealed-delivered-i-m-yours.1")}
-          </li>
-          <li>
-            {c`i7`} {A("higher-ground.2")}, {A("i-wish.1")},{" "}
-            {A("part-time-lover.3")}, {A("superstition")}
-          </li>
-          <li>
-            {c`i`} {A("don-t-you-worry-bout-a-thing")}, {A("master-blaster")}
-          </li>
-        </ul>
+
+        <div style={{ position: "relative", width: "100%", margin: "2em 0" }}>
+          <table
+            style={{
+              position: "relative",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "100vw",
+              maxWidth: "100vw",
+              borderCollapse: "collapse",
+              marginBottom: "1.5em",
+            }}
+          >
+            <thead>
+              <tr>
+                <th
+                  style={{ textAlign: "left", padding: "8px" }}
+                >{c`Imaj9`}</th>
+                <th
+                  style={{ textAlign: "left", padding: "8px" }}
+                >{c`Imaj7`}</th>
+                <th style={{ textAlign: "left", padding: "8px" }}>{c`I`}</th>
+                <th style={{ textAlign: "left", padding: "8px" }}>{c`I7`}</th>
+                <th style={{ textAlign: "left", padding: "8px" }}>{c`i7`}</th>
+                <th style={{ textAlign: "left", padding: "8px" }}>{c`i`}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style={{ verticalAlign: "top" }}>
+                <td style={{ textAlign: "left", padding: "8px" }}>
+                  <div>{A("do-i-do")}</div>
+                  <div>{A("golden-lady.1")}</div>
+                  <div>{A("you-are-the-sunshine-of-my-life.5")}</div>
+                </td>
+                <td style={{ textAlign: "left", padding: "8px" }}>
+                  <div>{A("for-your-love")}</div>
+                  <div>{A("my-cherie-amour.1")}</div>
+                  <div>{A("send-one-your-love")}</div>
+                </td>
+                <td style={{ textAlign: "left", padding: "8px" }}>
+                  <div>{A("happy-birthday-stevie-wonder")}</div>
+                  <div>{A("i-just-called-to-say-i-love-you.6")}</div>
+                  <div>{A("isn-t-she-lovely-2")}</div>
+                  <div>{A("overjoyed.1")}</div>
+                  <div>{A("ribbon-in-the-sky.1")}</div>
+                  <div>{A("sir-duke")}</div>
+                </td>
+                <td style={{ textAlign: "left", padding: "8px" }}>
+                  <div>{A("boogie-on-reggae-woman.1")}</div>
+                  <div>{A("signed-sealed-delivered-i-m-yours.1")}</div>
+                  <div>{A("uptight-everything-s-alright")}</div>
+                </td>
+                <td style={{ textAlign: "left", padding: "8px" }}>
+                  <div>{A("higher-ground.2")}</div>
+                  <div>{A("i-wish.1")}</div>
+                  <div>{A("part-time-lover.3")}</div>
+                  <div>{A("superstition")}</div>
+                </td>
+                <td style={{ textAlign: "left", padding: "8px" }}>
+                  <div>{A("don-t-you-worry-bout-a-thing")}</div>
+                  <div>{A("master-blaster")}</div>
+                  <div>{A("golden-lady.1")} (last section)</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <P>
+          Maybe looking at these modes will be fruitful eventually. For now I
+          want to group together some harmonic devices that Stevie Wonder uses
+          throughout.
+        </P>
+
+        <H>Line clichés</H>
+
         <H>Dominant V</H>
         <P>
           The most common harmonic motion observed by any Western music

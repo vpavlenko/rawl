@@ -64,13 +64,12 @@ export const BLOG_POSTS: BlogPost[] = [
         <H>Hooked</H>
         <P>
           <Direct>
-            – Stevie Wonder composed a unique music, he used his own special{" "}
-            <i>wonderful</i> mode. I'm not sure exactly which one, but there is
-            one.
+            – Stevie Wonder composed in a unique way, he used his own special{" "}
+            <i>wonderful</i> mode. I'm not sure exactly which one, but I hear
+            it.
           </Direct>{" "}
           – Natasha told me over coffee earlier today as we were sitting in
-          Pulp, an expat coffee shop in Tbilisi. There wasn't a pun in her
-          Russian phrase.
+          Pulp, an expat coffee shop in Tbilisi. (There was no pun in Russian.)
         </P>
         <P>
           I had very poor resolution in my memory around that part of musical
@@ -81,13 +80,17 @@ export const BLOG_POSTS: BlogPost[] = [
             – Well, if I play Superstition in my head, it uses{" "}
             {s`scale:minor_pentatonic`}
             plus {s`dorian:IV`}, just like in soul on average.
-          </Direct>{" "}
-          – Maybe also a {s`V:soul_dominant`}, as Mark Spicer cleverly{" "}
+          </Direct>
+        </P>
+        <P>
+          Maybe also a {s`V:soul_dominant`}, as Mark Spicer cleverly{" "}
           {a(
             "https://mtosmt.org/issues/mto.17.23.2/mto.17.23.2.spicer.html",
             "christened it",
           )}
-          .
+          . I've thought that but I didn't say that because Natasha got a degree
+          in Soviet music theory long ago, and people haven't talked about soul
+          dominants back then yet.
         </P>
         <P>
           <Direct>

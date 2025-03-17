@@ -109,8 +109,11 @@ export const A = (href: string) => (
 const STRUCTURES_TO_CHORDS: { [key: string]: Chord[] } = {
   "V:9": ["V9"],
   "V:b9": ["Vb9"],
+  "dorian:IV": ["i", "IV", "i"],
+  "scale:minor_pentatonic": ["1", "b3", "4", "5", "b7"],
   "V:sus4": ["Vsus4", "V"],
   "V:sus4_unresolved": ["Vsus4"],
+  "V:soul_dominant": ["5", "Vsoul", "V"],
 };
 
 export const s = (tags: TemplateStringsArray) => {
@@ -121,9 +124,17 @@ export const s = (tags: TemplateStringsArray) => {
   const chords = STRUCTURES_TO_CHORDS[tag];
 
   return (
-    <span style={{ position: "relative", top: "6px", margin: "0px 10px" }}>
+    <span
+      style={{
+        display: "inline-block",
+        position: "relative",
+        top: "6px",
+        margin: "0 10px 2px 0",
+        whiteSpace: "nowrap",
+      }}
+    >
       {chords && (
-        <span style={{ marginRight: "5px" }}>
+        <span style={{ marginRight: "5px", transform: "scale(0.9)" }}>
           {c([chords.join(" ")] as any)}
         </span>
       )}

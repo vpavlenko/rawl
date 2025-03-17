@@ -303,7 +303,7 @@ export const BLOG_POSTS: BlogPost[] = [
         <P>
           Maybe looking at these modes will be fruitful eventually. For now I
           want to group together some harmonic devices that Stevie Wonder uses
-          throughout. {s`blog_1:line_clichee`}
+          throughout: {s`blog_1:line_clichee`} {s`blog_1:mario_cadence`}
         </P>
 
         <H>One-liner analyses</H>

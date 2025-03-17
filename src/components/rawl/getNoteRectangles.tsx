@@ -194,9 +194,9 @@ export const getNoteRectangles = (
         <div
           style={{
             position: "absolute",
-            fontSize: "16px",
-            height: "10px",
-            width: "auto",
+            fontSize: `${height}px`,
+            height: `${height}px`,
+            width: `${height}px`,
             overflow: "visible",
             left,
             top,

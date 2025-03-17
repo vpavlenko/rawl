@@ -2,6 +2,7 @@ import { faKeyboard } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
+import { beautifySlug } from "../corpora/utils";
 import {
   Chord,
   MAJOR_MODE,
@@ -16,7 +17,6 @@ import { Citation } from "./Citations";
 import { CITES } from "./cites";
 import { FileDropBox } from "./FileDropBox";
 import Metaphors from "./Metaphors";
-
 export const MODULATIONS_CHAPTER_TITLE = "Modulations";
 export const DOUBLE_TONIC_CHAPTER_TITLE = "Double-tonic";
 
@@ -100,9 +100,13 @@ export const A = (href: string) => (
     href={`/f/${href}`}
     target="_blank"
     rel="noopener noreferrer"
-    style={{ color: "#fff", whiteSpace: "nowrap" }}
+    style={{
+      color: "#fff",
+      whiteSpace: "nowrap",
+      textDecoration: "gray underline",
+    }}
   >
-    {href}
+    {beautifySlug(href)}
   </a>
 );
 

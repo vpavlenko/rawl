@@ -5127,16 +5127,12 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "stevie_wonder",
     midis: [
-      "a-place-in-the-sun",
       "boogie-on-reggae-woman.1",
       "do-i-do",
       "don-t-you-worry-bout-a-thing",
-      "ebony-ivory",
-      "for-once-in-my-life.2",
       "for-your-love",
       "golden-lady.1",
       "happy-birthday-stevie-wonder",
-      "heaven-help-us-all",
       "higher-ground.2",
       "i-just-called-to-say-i-love-you.6",
       "i-wish.1",
@@ -5150,9 +5146,15 @@ export const corpora: CorpusEntry[] = [
       "signed-sealed-delivered-i-m-yours.1",
       "sir-duke",
       "superstition",
-      "that-s-what-friends-are-for",
       "uptight-everything-s-alright",
       "you-are-the-sunshine-of-my-life.5",
+
+      // no wonder
+      "a-place-in-the-sun",
+      "ebony-ivory",
+      "for-once-in-my-life.2",
+      "heaven-help-us-all",
+      "that-s-what-friends-are-for",
     ],
   },
   {

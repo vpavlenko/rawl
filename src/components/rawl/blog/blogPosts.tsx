@@ -195,8 +195,19 @@ export const BLOG_POSTS: BlogPost[] = [
           to exclude covers. It may be that Natasha specifically loves his
           covers – as I haven't asked her to name any tracks that are
           particularly wonderful. But for the sake of time, to make the corpus
-          as stylistically tight as possible (in a Caplinian way), I'm gonna
-          exclude what's not coming directly from his harmonic brain.
+          as stylistically coherent as possible, I'm gonna exclude what's not
+          coming directly from his harmonic brain.
+        </P>
+        <P>
+          I've excluded {A("a-place-in-the-sun")}, {A("ebony-ivory")},{" "}
+          {A("for-once-in-my-life.2")}, {A("heaven-help-us-all")} and{" "}
+          {A("that-s-what-friends-are-for")}.
+        </P>
+        <P>
+          We can also think of them as hold-outs: we can later validate that
+          excluded tracks are stylistically far from Stevie Wonder's own tracks.
+          This way we can check if our findings present discoveries of Stevie
+          Wonder's style rather than of soul in general.
         </P>
         <H>Modes</H>
         <P>

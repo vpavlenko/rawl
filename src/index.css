@@ -355,9 +355,9 @@ body,
 .unlock-audio-button {
     padding: 15px 30px;
     font-size: 18px;
-    background: #007bff;
+    background: black;
     color: white;
-    border: none;
+    border: 1px solid white;
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.2s;
@@ -365,7 +365,7 @@ body,
 }
 
 .unlock-audio-button:hover {
-    background: #0056b3;
+    background: #444;
 }
 
 /* Modern scrollbar styling */

@@ -191,6 +191,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "passacaglia---handel-halvorsen",
     composer: "Handel",
     displayTitle: "Passacaglia in G minor (arr. Halvorsen)",
+    chords: MINOR_MODE.chords,
   },
 
   {
@@ -203,6 +204,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     composer: "Mariah Carey",
     displayTitle: "All I Want for Christmas Is You",
     isVocal: true,
+    chords: MAJOR_MODE.chords,
   },
   {
     slug: "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano",
@@ -327,6 +329,7 @@ export const TOP_100_COMPOSERS: Top100Composer[] = [
     slug: "g-minor-bach-original",
     composer: "Luo Ni",
     displayTitle: "G minor Bach (from Piano Tiles 2, an adaptation of BWV 847)",
+    chords: MINOR_MODE.chords,
   },
   {
     slug: "when-i-was-your-man---bruno-mars-600e3a",

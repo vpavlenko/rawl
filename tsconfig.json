@@ -2,7 +2,8 @@
     "compilerOptions": {
         "sourceMap": true,
         "module": "CommonJS",
-        "target": "es2015",
+        "target": "es2018",
+        "lib": ["dom", "dom.iterable", "esnext"],
         "jsx": "react",
         "allowJs": true,
         "moduleResolution": "node",

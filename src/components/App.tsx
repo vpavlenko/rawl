@@ -986,6 +986,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.midiPlayer.setTempo(1);
 
     this.setState({
+      // @ts-ignore
       currentMidiBuffer: buffer instanceof ArrayBuffer ? buffer : buffer.buffer,
       paused: !shouldAutoPlay,
     });

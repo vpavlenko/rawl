@@ -5135,6 +5135,8 @@ export const corpora: CorpusEntry[] = [
       "for-once-in-my-life.2",
       "for-your-love",
       "golden-lady.1",
+      "happy-birthday-stevie-wonder",
+      "heaven-help-us-all",
     ],
   },
   {

@@ -235,7 +235,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       showPlayerError: false,
       user: null,
       songUrl: null,
-      volume: 100,
+      volume: 150,
       directories: {},
       paramDefs: [],
       parsing: null,

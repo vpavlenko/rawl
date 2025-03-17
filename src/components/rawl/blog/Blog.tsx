@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { BLOG_POSTS } from "./blogPosts";
 
@@ -93,7 +93,6 @@ const formatDisplayDate = (dateString: string) => {
 // Blog component
 const Blog: React.FC = () => {
   const { postId } = useParams<{ postId?: string }>();
-  const history = useHistory();
 
   // If postId is provided, show that post, otherwise show the index
   if (postId) {
@@ -135,9 +134,6 @@ const Blog: React.FC = () => {
           <BlogPostPreview key={post.id}>
             <BlogPostTitle to={`/blog/${post.id}`}>{post.title}</BlogPostTitle>
             <BlogPostDate>{formatDisplayDate(post.date)}</BlogPostDate>
-            <BlogPostExcerpt>
-              {post.excerpt || post.content().props.children[0].props.children}
-            </BlogPostExcerpt>
           </BlogPostPreview>
         ))}
       </BlogPostList>

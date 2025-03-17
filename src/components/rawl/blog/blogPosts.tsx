@@ -1,48 +1,36 @@
 import React from "react";
 import styled from "styled-components";
-import { s } from "../book/chapters";
+import { c, s } from "../book/chapters";
+import { CorpusLink } from "../corpora/CorpusLink";
 
 // Reuse styling components
 const P = styled.p`
   margin-bottom: 1.5em;
-  line-height: 1.2;
+  line-height: 1.3;
   font-size: 12pt;
 `;
 
 const H = styled.h2`
-  margin-top: 40px;
+  margin-top: 70px;
+  font-family: "Inter", sans-serif;
 `;
 
-// Blog post container with bottom margin
-export const BlogPostContainer = styled.div`
-  margin-bottom: 200px;
-`;
-
-// Helper components similar to chapters.tsx
-export const c = (strings: TemplateStringsArray) => {
-  const chord = strings.join("");
-  return <span className="chord">{chord}</span>;
-};
-
-export const a = (href: string, text: string) => (
+const a = (href: string, text: string) => (
   <a href={href} target="_blank" rel="noopener noreferrer">
     {text}
   </a>
 );
 
-// Corpus link function similar to A function in chapters.tsx
-export const Corpus = (href: string) => (
-  <a
-    href={`/corpus/${href}`}
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{ color: "#fff", whiteSpace: "nowrap" }}
-  >
-    {href}
-  </a>
-);
+// Template string proxy for CorpusLink
+const CL = (strings: TemplateStringsArray, ...values: any[]) => {
+  // Combine the strings and values to get the full slug
+  const slug = strings.reduce((result, str, i) => {
+    return result + str + (values[i] || "");
+  }, "");
+  return <CorpusLink slug={slug} />;
+};
 
-export const Direct = styled.span`
+const Direct = styled.span`
   color: #ffa;
   font-size: 14pt;
   // font-family: "Playfair Display", serif;
@@ -58,7 +46,7 @@ export const Direct = styled.span`
 `;
 
 // Blog post interface
-export interface BlogPost {
+interface BlogPost {
   id: number;
   title: string;
   date: string; // Format: "YYYY-MM-DD"
@@ -85,12 +73,12 @@ export const BLOG_POSTS: BlogPost[] = [
           Russian phrase.
         </P>
         <P>
-          I have very poor resolution in my memory around that part of musical
-          culture, so I tried to come up with a stub answer:
+          I had very poor resolution in my memory around that part of musical
+          culture, so I tried to come up with a speculative stub answer:
         </P>
         <P>
           <Direct>
-            – Well, if I play Superstition in my head, it's{" "}
+            – Well, if I play Superstition in my head, it uses{" "}
             {s`scale:minor_pentatonic`}
             plus {s`dorian:IV`}, just like in soul on average.
           </Direct>{" "}
@@ -110,7 +98,7 @@ export const BLOG_POSTS: BlogPost[] = [
         </P>
         <P>
           I didn't believe it. I've never heard of Stevie Wonder being as unique
-          as {Corpus("tom_jobim")} or Frank Zappa. I was without a laptop, so I
+          as {CL`tom_jobim`} or Frank Zappa. I was without a laptop, so I
           coulnd't start investigating on the spot.
         </P>
         <P>
@@ -129,9 +117,9 @@ export const BLOG_POSTS: BlogPost[] = [
           <Direct>
             – I can answer that in 10 minutes, if we have MIDI files.
           </Direct>{" "}
-          – I said. Well, maybe it'll take three hours, but energetically it
-          would feel like 10 minutes, like the most pleasant activity I can
-          imagine.
+          – I said. Well, maybe it'll take three hours or a day, but
+          energetically it would feel like 10 minutes, like the most pleasant
+          activity I can imagine. And like something certainly doable.
         </P>
         <P>
           I opened Chiptune on my iPad and searched for Stevie Wonder. I didn't
@@ -145,21 +133,57 @@ export const BLOG_POSTS: BlogPost[] = [
         <H>Building the corpus</H>
         <P>
           Lakh has several versions for many songs. I speculate that in the 90s
-          and 2000s karaoke arrangers encoded music in MIDI. The more popular
-          the track was, the more versions were created.
+          and 2000s many karaoke arrangers encoded music in MIDI. One of them
+          was even teaching me computer arrangement in 2022 in MCIM. The more
+          popular the track was, the more versions of it were circulating in the
+          early internet.
         </P>
         <P>
           Ideally I should pick the best file overall by listening to them all
           and comparing to the original recordings. But I don't even have time
-          to listen original recordings. And if the mode actually exists, it
+          to listen original recordings. And if The Mode actually exists, it
           should be so pronounced that I will see it even in dirty data.
         </P>
         <P>
-          So for each song I've picked a file with the biggest size. I've
-          colored them and marked phrases (white four-bar vertical lines) and
-          sections (vertically stacked note staves).
+          So for each song I've simply picked a file with the biggest size. I
+          considered that it's a good proxy metric for transcription accuracy.
+          Much like when I trust a chord transcriber more if they notate
+          something like Am7b5 or Csus2 – over the one who only uses Am and Dm.
         </P>
-        <P>Here's what I've got: {Corpus("stevie_wonder")}</P>
+        <P>
+          I've uploaded 25 tracks to Rawl. Next I've annotated them:
+          <ul>
+            <li>marked tonicizations/modulations ("colorized the notes")</li>
+            <li>
+              marked phrases (moved white four-bar vertical lines here and
+              there)
+            </li>
+            <li>marked sections (vertically stacked repeating chunks).</li>
+          </ul>
+        </P>
+        <P>
+          Here's what I've got: {CL`stevie_wonder`}. As you open each track,
+          uncheck (mute) the "Std Drum Kit" / "Drums" in the top right - drum
+          parts are very noisy and unrelated to our quest of describing the
+          wonderful mode.
+        </P>
+        <H>Dominant V</H>
+        <P>
+          The most common harmonic motion observed by any Western music
+          theoriests is dominant to tonic: {c`V I`} and {c`V7 I`} in major,{" "}
+          {c`V i`} and {c`V7 i`} in minor. It usually happens at the end of the
+          phrase or a section.
+        </P>
+        <P>
+          There are various extra notes that can be stacked upon {c`V`} in this
+          context. In common practice harmony, it's either {c`V`} or {c`V7`}, in
+          Romantic style {s`V:9`} and {s`V:b9`} is frequent, in jazz harmony
+          various tension tones are added: {s`V:augmented`}, {s`V:aug_s9`}. Plus
+          there's a ubiquitous voice-leading-turned-chord {s`V:sus4`} which, in
+          last decades, can be left {s`V:sus4_unresolved`}. In soul there's{" "}
+          {s`V:soul_dominant`}.
+        </P>
+        <P>What notes does Stevie Wonder prefer upon the trailing {c`V`}?</P>
       </>
     ),
   },

@@ -106,11 +106,27 @@ export const A = (href: string) => (
   </a>
 );
 
+const STRUCTURES_TO_CHORDS: { [key: string]: Chord[] } = {
+  "V:9": ["V9"],
+  "V:b9": ["Vb9"],
+  "V:sus4": ["Vsus4", "V"],
+  "V:sus4_unresolved": ["Vsus4"],
+};
+
 export const s = (tags: TemplateStringsArray) => {
   const tag = tags[0];
   const [chapter, topic] = tag.split(":");
+
+  // Check if the tag exists in STRUCTURES_TO_CHORDS
+  const chords = STRUCTURES_TO_CHORDS[tag];
+
   return (
     <span style={{ position: "relative", top: "6px", margin: "0px 10px" }}>
+      {chords && (
+        <span style={{ marginRight: "5px" }}>
+          {c([chords.join(" ")] as any)}
+        </span>
+      )}
       <SnippetLink chapter={chapter} topic={topic} />
     </span>
   );

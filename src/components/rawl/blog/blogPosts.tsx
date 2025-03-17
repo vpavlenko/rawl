@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import { s } from "../book/chapters";
 
 // Reuse styling components
 const P = styled.p`
   margin-bottom: 1.5em;
-  line-height: 1.6;
+  line-height: 1.2;
+  font-size: 12pt;
 `;
 
 const H = styled.h2``;
@@ -22,7 +24,18 @@ export const a = (href: string, text: string) => (
 );
 
 export const Direct = styled.span`
-  font-style: italic;
+  color: #ffa;
+  font-size: 14pt;
+  // font-family: "Playfair Display", serif;
+  font-family: "Alegreya", serif;
+  // font-family: "Merriweather", serif;
+  // font-family: 'Crimson Text', serif;
+  // font-family: 'Bitter', serif;
+  // font-family: 'Roboto Mono', monospace;
+  // font-family: "Josefin Slab", serif;
+  // font-family: "Cormorant Garamond", serif;
+  // font-family: 'DM Serif Display', serif;
+  // font-family: 'Source Code Pro', monospace;
 `;
 
 // Blog post interface
@@ -44,53 +57,72 @@ export const BLOG_POSTS: BlogPost[] = [
         <H>Hooked</H>
         <P>
           <Direct>
-            – Stevie Wonder composed a unique music, he uses his own special{" "}
+            – Stevie Wonder composed a unique music, he used his own special{" "}
             <i>wonderful</i> mode. I'm not sure exactly which one, but there is
             one.
           </Direct>{" "}
           – Natasha told me over coffee earlier today as we were sitting in
-          Pulp, an expat coffee shop in Tbilisi. There wasn't a pun in how she
-          told that in Russian, originally.
+          Pulp, an expat coffee shop in Tbilisi. There wasn't a pun in her
+          Russian phrase.
         </P>
         <P>
           I have very poor resolution in my memory around that part of musical
           culture, so I tried to come up with a stub answer:
         </P>
         <P>
-          – Well, if I play Superstition in my head, it's minor pentatonic plus
-          dorian IV, just like in soul on average. Maybe also a soul dominant,
-          as Mark Spicer it cleverly christened.
+          <Direct>
+            – Well, if I play Superstition in my head, it's{" "}
+            {s`scale:minor_pentatonic`}
+            plus {s`dorian:IV`}, just like in soul on average.
+          </Direct>{" "}
+          – Maybe also a {s`V:soul_dominant`}, as Mark Spicer cleverly{" "}
+          {a(
+            "https://mtosmt.org/issues/mto.17.23.2/mto.17.23.2.spicer.html",
+            "christened it",
+          )}
+          .
         </P>
         <P>
-          – No, there's something deeper. He has some basic tracks, right, but
-          in some others he's doing idiosyncratic complex harmonies which I
-          couldn't indentify by ear yet.
+          <Direct>
+            – No, there's something deeper. He has some simple tracks, right,
+            but in some others he's doing idiosyncratic complex harmonies which
+            I couldn't indentify by ear yet.
+          </Direct>
         </P>
         <P>
           I didn't believe it. I've never heard of Stevie Wonder being as unique
           as Tom Jobim or Frank Zappa. I was without a laptop, so I coulnd't
           start investigating on the spot.
         </P>
-        <P>– How would you approach this puzzle? – I asked.</P>
         <P>
-          – Well, I'll play his tracks and start transcribing them on a piano.
+          <Direct>– How would you approach this puzzle?</Direct> – I asked her.
+        </P>
+        <P>
+          <Direct>
+            – Well, I'll play his tracks and start transcribing them on a piano.
+          </Direct>
         </P>
         <P>
           I was hooked. These tasks are exactly what I can easily snipe with my
           machinery.
         </P>
         <P>
-          – I can answer that in 10 minutes, if we have MIDI files. – I said.
+          <Direct>
+            – I can answer that in 10 minutes, if we have MIDI files.
+          </Direct>{" "}
+          – I said.
         </P>
         <P>
           I opened Chiptune on my iPad and searched for Stevie Wonder. I didn't
-          remember how much tracks we have for him on Lakh - one or fifty? Was
-          he as popular as The Beatles?
+          remember how much tracks we have for him on Lakh MIDI dataset - one or
+          fifty? Was he as popular as The Beatles?
         </P>
         <P>
           Luckily, I've found 25 songs. Therefore, by the end of today I will
           know what's going on.
         </P>
+        <H>Building the corpus</H>
+        <P></P>
       </>
     ),
   },

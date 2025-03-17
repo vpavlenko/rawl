@@ -38,9 +38,18 @@ dependencies:
   '@babel/runtime':
     specifier: ^7.22.5
     version: 7.26.0
+  '@codemirror/commands':
+    specifier: ^6.8.0
+    version: 6.8.0
   '@codemirror/lang-javascript':
     specifier: ^6.2.3
     version: 6.2.3
+  '@codemirror/language':
+    specifier: ^6.11.0
+    version: 6.11.0
+  '@codemirror/state':
+    specifier: ^6.5.2
+    version: 6.5.2
   '@codemirror/view':
     specifier: ^6.36.2
     version: 6.36.4

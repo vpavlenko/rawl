@@ -80,7 +80,7 @@ interface BlogPost {
 export const BLOG_POSTS: BlogPost[] = [
   {
     id: 1,
-    title: "Stevie Wonder's wonderful mode",
+    title: "I gathered a corpus of Stevie Wonder",
     date: "2025-03-17",
     content: () => (
       <>
@@ -326,6 +326,23 @@ export const BLOG_POSTS: BlogPost[] = [
           {c`7`}
         </P>
 
+        <H>Conclusion</H>
+
+        <P>
+          This turned out to be a longer project than I expected. I've spent a
+          day gathering a corpus, but it'll take more days to process all
+          harmonies in it and make detailed descriptions on what Stevie Wonder
+          does.
+        </P>
+      </>
+    ),
+  },
+  {
+    id: 2,
+    title: "Dominant V",
+    date: "2025-03-18",
+    content: () => (
+      <>
         <H>Dominant V</H>
         <P>
           The most common harmonic motion observed by any Western music
@@ -342,9 +359,7 @@ export const BLOG_POSTS: BlogPost[] = [
           last decades, can be left {s`V:sus4_unresolved`}. In soul there's{" "}
           {s`V:soul_dominant`}.
         </P>
-        <P>What notes does Stevie Wonder prefer upon the trailing {c`V`}?</P>
       </>
     ),
   },
-  // More blog posts can be added here
 ];

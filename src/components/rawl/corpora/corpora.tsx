@@ -5020,7 +5020,6 @@ export const corpora: CorpusEntry[] = [
     // https://musescore.com/user/12163676
     slug: "popular_classics",
     midis: [
-      "offenbach---can-can-from-orpheus-in-the-underworld-piano-arrangement",
       "valse---coppelia---piano-solo---arr.-leo-delibes",
 
       "hungarian-march---hector-berlioz",
@@ -7471,6 +7470,7 @@ export const corpora: CorpusEntry[] = [
 
       "adagio-in-g-minor---for-solo-piano", // Remo Giazotto
       "can-can", // Jacques Offenbach
+      "offenbach---can-can-from-orpheus-in-the-underworld-piano-arrangement",
     ],
   },
   {

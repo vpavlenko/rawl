@@ -371,7 +371,7 @@ export const BLOG_POSTS: BlogPost[] = [
     id: 3,
     title: "Whole-tone scale",
     date: "2025-03-19",
-    titleChords: ["1", "2", "3", "#4", "b6", "b7"],
+    titleChords: ["WT1", "WT2"],
     content: () => (
       <>
         <H>Two variants</H>

@@ -414,27 +414,30 @@ rh 3
 
   Gravity_Falls_Opening: `D minor
 lh
+bpm 170
+sections 2 4 6
 
 1 i 1+3+5+5_5_
 1 c 1-4 7
 5 i 1-5-q-5-e-q-5-q-
 
-7 c 5 2 2 5 5
+6 c 5 0 2 2 5 5
 11 c 5-5b4 6
-11b4 i r-7-7-w-t-w-u-t-w-5-
+11b4 i r-7-#7-w-t-w-#u-t-w-5-
 13 i 1-5-q-5-
 13b3 c 13-13b3 0 0 x 2 2 2 2 5 5 5 5 6 x 4 4 0 x 2 2 5 5 6 6 4 4
+14b3 i 1-q-2-q-
 
 rh
-1 i e-q-5-q-x_ e-7-5-7-x_ w-7-5-7-
+1 i e-q-5-q-x_ e-7-5-7-x_ w-#7-5-#7-
 1b3 c 1-3
 4 c 3-3b3
-4b3 i w,t,q_.w,e+t_r,t,7+q_x,w,e_w_r_t_r_e_
+4b3 i w,t,q_.w,e+t,.r,.t,7+q_.w,e_w_r_t_r_e_
 
 13b2 i e,e,e,t,t,r,e,x,t,t,t,r,t,r,e,
 17 c 13-15
 21 c 13-14
-23b2 i y,y,y,r_u_t_u_
+23b2 i y,y,y,r_u_t_#u_
 
 5 c 5-25 -7
 27 i aq+`,

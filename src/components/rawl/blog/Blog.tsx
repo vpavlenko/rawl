@@ -29,16 +29,40 @@ const BlogPostList = styled.div`
 const BlogPostTitle = styled.div`
   color: #fff;
   font-size: 1.5rem;
-  font-weight: bold;
-  width: 80%;
+  // font-weight: 100;
+  min-width: 40em;
+  max-width: 100%;
   text-align: left;
+  white-space: nowrap;
+
+  @media (max-width: 768px) {
+    min-width: unset;
+    white-space: normal;
+  }
 `;
 
-// Updated BlogPostPreview to use column layout
+// New BlogPostItem component to replace the inline div style
+const BlogPostItem = styled.div`
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: center;
+  margin-bottom: 1.5em;
+  gap: 15px;
+`;
+
+// Redefine BlogPostChords to align with grid
+const BlogPostChords = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  cursor: pointer;
+`;
+
+// Updated BlogPostPreview to fit the new grid layout
 const BlogPostPreview = styled(Link)`
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.5em;
   text-decoration: none;
   color: inherit;
 
@@ -47,22 +71,6 @@ const BlogPostPreview = styled(Link)`
       color: #ffffff;
     }
   }
-`;
-
-// New container for the title row with two columns
-const TitleRow = styled.div`
-  display: flex;
-  width: 100%;
-  margin-bottom: 8px;
-`;
-
-// Modified BlogPostChords to be outside the link and playable
-const BlogPostChords = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  width: 20%;
-  padding-right: 15px;
-  cursor: pointer;
 `;
 
 // Updated BlogPostDate to go under the title and be left-aligned
@@ -216,25 +224,23 @@ const Blog: React.FC = () => {
       <BlogTitle>Structures and Styles in Western Music</BlogTitle>
       <BlogPostList>
         {sortedPosts.map((post) => (
-          <div key={post.id} style={{ display: "flex", marginBottom: "1.5em" }}>
-            {post.titleChords && (
-              <BlogPostChords>
+          <BlogPostItem key={post.id}>
+            <BlogPostChords>
+              {post.titleChords && (
                 <ChordStairs
                   mode={{ title: "", chords: post.titleChords }}
                   scale={0.85}
                   playbackMode="together"
                 />
-              </BlogPostChords>
-            )}
+              )}
+            </BlogPostChords>
             <BlogPostPreview to={`/blog/${post.id}/${slugify(post.title)}`}>
-              <TitleRow>
-                <BlogPostTitle>
-                  {post.title}
-                  <BlogPostDate>{formatDisplayDate(post.date)}</BlogPostDate>
-                </BlogPostTitle>
-              </TitleRow>
+              <BlogPostTitle>
+                {post.title}
+                <BlogPostDate>{formatDisplayDate(post.date)}</BlogPostDate>
+              </BlogPostTitle>
             </BlogPostPreview>
-          </div>
+          </BlogPostItem>
         ))}
       </BlogPostList>
     </BlogContainer>

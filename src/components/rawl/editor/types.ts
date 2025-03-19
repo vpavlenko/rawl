@@ -102,19 +102,18 @@ export function getScaleMapForMode(mode: ModeName): number[] {
 
 // Note letter to number mapping
 export const NOTE_LETTER_MAP: { [key: string]: number } = {
-  // First octave (numeric)
-  "1": 0,
-  "2": 1,
-  "3": 2,
-  "4": 3,
-  "5": 4,
-  "6": 5,
-  "7": 6,
-  "8": 7,
-  "9": 8,
-  "0": 9,
+  // First octave (letters) - now low octave
+  a: 0,
+  s: 1,
+  d: 2,
+  f: 3,
+  g: 4,
+  h: 5,
+  j: 6,
+  k: 7,
+  l: 8,
 
-  // Second octave (letters)
+  // Second octave (using q-u)
   q: 7,
   w: 8,
   e: 9,
@@ -123,19 +122,22 @@ export const NOTE_LETTER_MAP: { [key: string]: number } = {
   y: 12,
   u: 13,
 
-  // Third octave
+  // Third octave (numeric) - now high octave
+  "1": 14,
+  "2": 15,
+  "3": 16,
+  "4": 17,
+  "5": 18,
+  "6": 19,
+  "7": 20,
+  "8": 21,
+  "9": 22,
+  "0": 23,
+
+  // Keep the alternative fingering for backward compatibility
   i: 14,
   o: 15,
   p: 16,
-  a: 14,
-  s: 15,
-  d: 16, // Alternative fingering
-  f: 17,
-  g: 18,
-  h: 19,
-  j: 20,
-  k: 21,
-  l: 22,
 };
 
 // Type definitions

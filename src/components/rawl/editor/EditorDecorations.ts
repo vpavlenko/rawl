@@ -484,8 +484,10 @@ const calculateNoteColor = (note: ParsedNote, key: KeySignature): NoteColor => {
   let dotClass = "";
   // The octave shift is now directly incorporated in the degree
   if (note.degree >= 14) {
+    // This threshold is still correct, but now refers to numeric keys
     dotClass = " dotAbove";
   } else if (note.degree <= 6) {
+    // This threshold is still correct, but now refers to letter keys
     dotClass = " dotBelow";
   }
 

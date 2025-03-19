@@ -1183,18 +1183,20 @@ export const midiNumberToRawlPitch = (
   const relativeValue = midiNumber - baseValue;
 
   // Create octave-based encodings for pitches
-  // In Rawl: 1-7 are the first octave, q-u are the second, a-k are the third
+  // In Rawl: a-l are the first octave, q-u are the second, 1-0 are the third
 
   // Define the pitch mappings
   const majorMapping: { [key: number]: string } = {
-    // First octave (scale degrees 1-7)
-    0: "1",
-    1: "2",
-    2: "3",
-    3: "4",
-    4: "5",
-    5: "6",
-    6: "7",
+    // First octave (scale degrees 0-8)
+    0: "a",
+    1: "s",
+    2: "d",
+    3: "f",
+    4: "g",
+    5: "h",
+    6: "j",
+    7: "k",
+    8: "l",
     // Second octave (q-u)
     7: "q",
     8: "w",
@@ -1203,27 +1205,31 @@ export const midiNumberToRawlPitch = (
     11: "t",
     12: "y",
     13: "u",
-    // Third octave (a-k)
-    14: "a",
-    15: "s",
-    16: "d",
-    17: "f",
-    18: "g",
-    19: "h",
-    20: "j",
-    21: "k",
+    // Third octave (1-0)
+    14: "1",
+    15: "2",
+    16: "3",
+    17: "4",
+    18: "5",
+    19: "6",
+    20: "7",
+    21: "8",
+    22: "9",
+    23: "0",
   };
 
   const minorMapping: { [key: number]: string } = {
     // Same mapping as major but shifted for the minor scale
     // First octave
-    0: "1",
-    1: "2",
-    2: "b3",
-    3: "4",
-    4: "5",
-    5: "b6",
-    6: "b7",
+    0: "a",
+    1: "s",
+    2: "bd",
+    3: "f",
+    4: "g",
+    5: "bh",
+    6: "bj",
+    7: "k",
+    8: "l",
     // Second octave
     7: "q",
     8: "w",
@@ -1233,14 +1239,16 @@ export const midiNumberToRawlPitch = (
     12: "by",
     13: "bu",
     // Third octave
-    14: "a",
-    15: "s",
-    16: "bd",
-    17: "f",
-    18: "g",
-    19: "bh",
-    20: "bj",
-    21: "bk",
+    14: "1",
+    15: "2",
+    16: "b3",
+    17: "4",
+    18: "5",
+    19: "b6",
+    20: "b7",
+    21: "8",
+    22: "9",
+    23: "0",
   };
 
   // Get the appropriate mapping based on scale type

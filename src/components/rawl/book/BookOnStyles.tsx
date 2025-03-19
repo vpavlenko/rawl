@@ -56,10 +56,6 @@ const ChapterDescription = styled.div`
   max-width: 700px;
 `;
 
-const ReadableTextBlock = styled.div`
-  margin-bottom: 30px;
-`;
-
 const ChapterSelector = styled.div`
   display: flex;
   flex-direction: row;

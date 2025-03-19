@@ -418,4 +418,132 @@ export const BLOG_POSTS: BlogPost[] = [
       </>
     ),
   },
+  {
+    id: 4,
+    title: "Schubert, Two chords in major",
+    date: "2025-02-23",
+    content: () => (
+      <>
+        <H>Schubert's Originaltänze op. 9</H>
+        <P>
+          In 1821, when Schubert was 24, he published a set of 36 waltzes known
+          as Originaltänze op. 9 (D 365). Most of them are here:{" "}
+          {CL`schubert_op9_d365`}
+        </P>
+        <P>
+          I've hand-picked four of them which have the simplest organization:
+          they consist of just two chords: {c`I`} and {c`V7`}.
+        </P>
+        <P>
+          Here they are:
+          <ul>
+            <li>{A("schubert_d365_09")}</li>
+            <li>{A("wima.e480-schubert_de.-tanz-d.365.25")}</li>
+            <li>{A("wima.1124-schubert_de.-tanz-d.365.26")}</li>
+            <li>{A("wima.4be9-schubert_de.-tanz-d.365.28")}</li>
+          </ul>
+        </P>
+        <H>Analysis</H>
+        <P>
+          These waltzes are remarkable for their simplicity, yet they remain
+          charming and musically interesting. Schubert manages to create melodic
+          variety while restricting himself to just two chords: the tonic (I)
+          and dominant seventh (V7).
+        </P>
+        <P>
+          Waltz #25 is particularly interesting in how it establishes a clear
+          rhythmic pattern in the left hand while the right hand melody dances
+          above it with grace.
+        </P>
+        <P>
+          For composers, these pieces demonstrate how much can be achieved with
+          minimal harmonic material when combined with thoughtful melodic
+          writing and rhythmic consistency.
+        </P>
+        <P>
+          I recommend studying waltz #25{" "}
+          {A("wima.e480-schubert_de.-tanz-d.365.25")} in detail. The left hand
+          provides a steady rhythmic foundation while the melody contains both
+          stepwise motion and elegant leaps.
+        </P>
+        <P>
+          For another example in a similar style, check out "Les Cloches du
+          Monastère" by Alfred Lefébure-Wély.
+        </P>
+      </>
+    ),
+  },
+  {
+    id: 5,
+    title: "Gibran Alcocer, Four-chord Loops of Triads in Natural Minor",
+    date: "2025-03-02",
+    content: () => (
+      <>
+        <H>The Modern Sound of Looping Minor Triads</H>
+        <P>
+          {CL`gibran_alcocer`}'s compositions sound distinctly modern. They
+          evoke the same feeling as {CL`yann_tiersen`}'s music for Amélie or{" "}
+          {CL`evgeny_grinko`}'s compositions. But what makes this style so
+          recognizable?
+        </P>
+        <P>
+          After analyzing several pieces, I've identified some key
+          characteristics that define this modern piano style.
+        </P>
+        <H>Musical Analysis</H>
+        <P>
+          Two pieces in particular showcase these elements clearly:
+          <ul>
+            <li>{A("idea-15---gibran-alcocer")}</li>
+            <li>{A("idea-10---gibran-alcocer")}</li>
+          </ul>
+        </P>
+        <P>
+          The harmonic foundation of these pieces lies in natural minor triads:
+        </P>
+        <P>
+          These compositions rely on a limited selection of chords from the
+          natural minor scale:
+        </P>
+        <P>
+          <ul>
+            <li>{c`i`} - minor tonic</li>
+            <li>{c`iio`} - diminished supertonic</li>
+            <li>{c`bIII`} - flat mediant</li>
+            <li>{c`iv`} - minor subdominant</li>
+            <li>{c`v`} - minor dominant</li>
+            <li>{c`bVI`} - flat submediant</li>
+            <li>{c`bVII`} - flat subtonic</li>
+          </ul>
+        </P>
+        <P>
+          What's particularly distinctive is Alcocer's use of{" "}
+          {s`progression:four_chords`} as the structural foundation. This
+          approach creates a hypnotic, repeating framework that's both
+          predictable and emotionally evocative.
+        </P>
+        <H>Rhythmic Structure</H>
+        <P>
+          Another distinctive feature in Alcocer's work is his use of{" "}
+          {s`hypermeter:extra_bar_last_chord_in_loop`}. This technique adds a
+          slight asymmetry to what would otherwise be perfectly square phrases,
+          creating a sense of gentle forward momentum.
+        </P>
+        <P>
+          For those interested in exploring similar sounds, I recommend studying
+          these additional examples from other composers:
+        </P>
+        <P>
+          <ul>
+            <li>{A("i-wanted-to-leave---syml")}</li>
+            <li>{A("fabrizio-paterlini---snow")}</li>
+          </ul>
+        </P>
+        <P>
+          These pieces share a similar emotional quality and harmonic approach,
+          though each composer brings their own unique voice to the style.
+        </P>
+      </>
+    ),
+  },
 ];

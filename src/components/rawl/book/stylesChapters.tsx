@@ -2,7 +2,7 @@ import React from "react";
 import { CorpusLink } from "../corpora/CorpusLink";
 import { Chord } from "../legends/chords";
 import ChordStairs from "../legends/ChordStairs";
-import { A, c, Mode, P, s } from "./chapters";
+import { Mode, P } from "./chapters";
 
 // Define the e() custom tag for scores
 export const e = (slug: string) => (
@@ -65,101 +65,6 @@ export const STYLES_CHAPTERS: Array<{
             <li>{e("wima.e480-schubert_de.-tanz-d.365.25")}</li>
           </ul>
         </P>
-      </>
-    ),
-  },
-  {
-    title: "Schubert, Two chords in major",
-    titleChords: ["V7", "I"],
-    pretext: () => (
-      <>
-        <P>
-          In 1821, when Schubert was 24, he published a set of 36 waltzes known
-          as Originaltänze op. 9 (D 365). Most of them are here:{" "}
-          {corpus("schubert_op9_d365")}
-        </P>
-        <P>
-          I've hand-picked four of them which have the simplest organization:
-          they consist of just two chords: {c`I`} and {c`V7`}.
-        </P>
-        <P>
-          Here they are:
-          <ul>
-            <li>{e("schubert_d365_09")}</li>
-            <li>{e("wima.e480-schubert_de.-tanz-d.365.25")}</li>
-            <li>{e("wima.1124-schubert_de.-tanz-d.365.26")}</li>
-            <li>{e("wima.4be9-schubert_de.-tanz-d.365.28")}</li>
-          </ul>
-        </P>
-        <h2>Task</h2>
-        <P>
-          Start with waltz #25 {e("wima.e480-schubert_de.-tanz-d.365.25")},
-          leave the left hand intact and compose a new melody. You may either
-          aim for it to be Schubert-like or of your own style.
-        </P>
-        <P>"alfred-lefebure-wely---les-cloches-du-monastere-op.-54a", </P>
-      </>
-    ),
-  },
-  {
-    title: "Gibran Alcocer, Four-chord Loops of Triads in Natural Minor",
-    titleChords: ["bVI", "iv", "i", "bVII"],
-    pretext: () => (
-      <>
-        <P>
-          {corpus("gibran_alcocer")}'s compositions sound modern. They sound
-          like late 20th or early 21st century. Like {corpus("yann_tiersen")}'s
-          music to Amélie. {corpus("evgeny_grinko")} also writes in a similar
-          style. But how is that? Which structures are a core of that modern
-          style?
-        </P>
-        <P>
-          Explore these pieces:
-          <ul>
-            <li>{e("idea-15---gibran-alcocer")}</li>
-            <li>{e("idea-n.10---gibran-alcocer")}</li>
-          </ul>
-        </P>
-        <P>
-          <ChordStairs
-            mode={{
-              title: "",
-              chords: ["i", "iio", "bIII", "iv", "v", "bVI", "bVII"],
-            }}
-          />
-        </P>
-        <P>
-          <ChordStairs
-            mode={{
-              title: "",
-              chords: ["iio", "iv", "bVI", "i", "bIII", "v", "bVII"],
-            }}
-          />
-        </P>
-        <P>
-          {s`progression:four_chords`} is a popular way of organizing chords in
-          modern music.
-        </P>
-        <P>
-          Gibran Alcocer uses {s`hypermeter:extra_bar_last_chord_in_loop`} in
-          every piece. This is a mark of his particular style: other composers
-          writing music in four-chord loops don't use it as often.
-        </P>
-        <h2>Task</h2>
-        <P>
-          Compose a composition by reusing the style of ideas 15 and 10.
-          Restricted your vocabulary of chords to these five:
-        </P>
-        <P>
-          <ChordStairs
-            mode={{
-              title: "",
-              chords: ["i", "iv", "v", "bVI", "bVII"],
-            }}
-          />
-        </P>
-        <P>{A("i-wanted-to-leave---syml")}</P>
-        <P>{A("fabrizio-paterlini---snow")}</P>
       </>
     ),
   },

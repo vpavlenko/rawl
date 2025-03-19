@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { formatComposerName, getEmojis } from "../../utils/corpusUtils";
 import { corpora } from "./corpora/corpora";
+import { TOP_100_COMPOSERS } from "./top100Composers";
 
 const highlightMatch = (text: string, term: string) => {
   if (!term) return text;
@@ -14,6 +15,17 @@ const highlightMatch = (text: string, term: string) => {
   return parts.map((part, index) =>
     regex.test(part) ? <mark key={index}>{part}</mark> : part,
   );
+};
+
+// Get nice name for a MIDI slug if it exists in TOP_100_COMPOSERS
+const getNiceName = (slug: string) => {
+  const composerInfo = TOP_100_COMPOSERS.find(
+    (composer) => composer.slug === slug,
+  );
+  if (composerInfo) {
+    return `${composerInfo.composer} - ${composerInfo.displayTitle}`;
+  }
+  return slug.replace(/---/g, " – ").replace(/-/g, " ").replace(/_/g, " ");
 };
 
 const SearchContainer = styled.div`
@@ -44,13 +56,6 @@ const ResultsContainer = styled.div`
   text-align: left;
 `;
 
-const ColumnContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  width: 100%;
-`;
-
 const CorpusSearch: React.FC = () => {
   const [searchTerm, setSearchTerm] = React.useState("");
   const searchInputRef = React.useRef<HTMLInputElement>(null);
@@ -70,9 +75,12 @@ const CorpusSearch: React.FC = () => {
 
     const searchTerms = searchTerm.toLowerCase().split(/\s+/);
     const corpusWords = corpus.slug.toLowerCase().split(/[-_\s]+/);
-    const midiWords = corpus.midis.flatMap((midi) =>
-      midi.toLowerCase().split(/[-_\s]+/),
-    );
+
+    // Include nice names in the search for midis
+    const midiWords = corpus.midis.flatMap((midi) => {
+      const niceName = getNiceName(midi).toLowerCase();
+      return [...midi.toLowerCase().split(/[-_\s]+/), ...niceName.split(/\s+/)];
+    });
 
     return searchTerms.every(
       (term) =>
@@ -217,14 +225,21 @@ const CorpusSearch: React.FC = () => {
                   .split(/[-_\s]+/)
                   .some((word) => word.includes(term)),
               );
-              const matchingMidis = midis.filter((midi) =>
-                searchTerms.every((term) =>
-                  midi
-                    .toLowerCase()
-                    .split(/[-_\s]+/)
-                    .some((word) => word.includes(term)),
-                ),
-              );
+
+              // Update the matching logic to also check nice names
+              const matchingMidis = midis.filter((midi) => {
+                const niceName = getNiceName(midi).toLowerCase();
+                const niceNameWords = niceName.split(/\s+/);
+
+                return searchTerms.every(
+                  (term) =>
+                    midi
+                      .toLowerCase()
+                      .split(/[-_\s]+/)
+                      .some((word) => word.includes(term)) ||
+                    niceNameWords.some((word) => word.includes(term)),
+                );
+              });
 
               return (
                 <div
@@ -244,16 +259,16 @@ const CorpusSearch: React.FC = () => {
                   </Link>
                   {(composerMatched || searchTerm) &&
                     matchingMidis.map((midi) => (
-                      <div key={midi} style={{ paddingLeft: "20px" }}>
+                      <div
+                        key={`${slug}_${midi}`}
+                        style={{ paddingLeft: "20px" }}
+                      >
                         <a
                           href={`/f/${midi}`}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          {highlightMatch(
-                            midi.replace(/---/g, " – ").replace(/-/g, " "),
-                            searchTerm,
-                          )}
+                          {highlightMatch(getNiceName(midi), searchTerm)}
                         </a>
                       </div>
                     ))}

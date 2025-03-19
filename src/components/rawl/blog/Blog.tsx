@@ -41,10 +41,18 @@ const BlogPostTitle = styled.div`
   }
 `;
 
+// Constants for chord visualization width calculation
+const NOTE_WIDTH = 30; // From ChordStairs.tsx
+const CHORD_SCALE = 0.85; // Scale factor used in the ChordStairs component
+const MAX_CHORD_COUNT = Math.max(
+  ...BLOG_POSTS.map((post) => post.titleChords?.length || 0),
+);
+const CHORD_COLUMN_WIDTH = MAX_CHORD_COUNT * NOTE_WIDTH * CHORD_SCALE;
+
 // New BlogPostItem component to replace the inline div style
 const BlogPostItem = styled.div`
   display: grid;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: ${CHORD_COLUMN_WIDTH}px 1fr;
   align-items: center;
   margin-bottom: 1.5em;
   gap: 15px;
@@ -57,6 +65,7 @@ const BlogPostChords = styled.div`
   align-items: center;
   height: 100%;
   cursor: pointer;
+  width: 100%; /* Take up all available space in the column */
 `;
 
 // Updated BlogPostPreview to fit the new grid layout
@@ -86,20 +95,6 @@ const BlogPostContent = styled.div`
   color: #fff;
 `;
 
-const BackToList = styled(Link)`
-  display: inline-block;
-  color: #fff;
-  margin-bottom: 20px;
-  text-decoration: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.1);
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
-`;
-
 const BlogPostContainer = styled.div`
   margin-bottom: 200px;
 `;
@@ -123,17 +118,16 @@ const SidebarDate = styled.div`
   width: 100%;
 `;
 
-// Updated SidebarChords to be clickable
-const SidebarChords = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  cursor: pointer;
-`;
-
 // New wrapper for title to provide positioning context
 const TitleContainer = styled.div`
   position: relative;
+`;
+
+// Add a new styled component for title chords
+const TitleChords = styled.div`
+  margin-top: 15px;
+  margin-bottom: 30px;
+  display: flex;
 `;
 
 // Utility function to format dates
@@ -179,39 +173,30 @@ const Blog: React.FC = () => {
     const id = parseInt(postId, 10);
     const post = BLOG_POSTS.find((post) => post.id === id);
 
-    if (!post) {
+    if (post) {
       return (
         <BlogContainer>
-          <BackToList to="/blog">← Back to all posts</BackToList>
-          <BlogTitle>Post Not Found</BlogTitle>
-          <p>The requested blog post could not be found.</p>
+          <TitleContainer>
+            <BlogPostDateSidebar>
+              <SidebarDate>{formatDisplayDate(post.date)}</SidebarDate>
+            </BlogPostDateSidebar>
+            <BlogTitle>{post.title}</BlogTitle>
+            {post.titleChords && (
+              <TitleChords className="title-chords">
+                <ChordStairs
+                  mode={{ title: "", chords: post.titleChords }}
+                  scale={2}
+                  playbackMode="together"
+                />
+              </TitleChords>
+            )}
+          </TitleContainer>
+          <BlogPostContainer>
+            <BlogPostContent>{post.content()}</BlogPostContent>
+          </BlogPostContainer>
         </BlogContainer>
       );
     }
-
-    return (
-      <BlogContainer>
-        <BackToList to="/blog">← Back to all posts</BackToList>
-        <TitleContainer>
-          <BlogPostDateSidebar>
-            <SidebarDate>{formatDisplayDate(post.date)}</SidebarDate>
-            {post.titleChords && (
-              <SidebarChords>
-                <ChordStairs
-                  mode={{ title: "", chords: post.titleChords }}
-                  scale={0.85}
-                  playbackMode="together"
-                />
-              </SidebarChords>
-            )}
-          </BlogPostDateSidebar>
-          <BlogTitle>{post.title}</BlogTitle>
-        </TitleContainer>
-        <BlogPostContainer>
-          <BlogPostContent>{post.content()}</BlogPostContent>
-        </BlogPostContainer>
-      </BlogContainer>
-    );
   }
 
   // Sort posts by date (newest first)

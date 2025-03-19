@@ -344,7 +344,7 @@ export const BLOG_POSTS: BlogPost[] = [
     id: 2,
     title: "Types of dominant V",
     date: "2025-03-18",
-    titleChords: ["V9", "Vb9", "V+", "V+s9", "Vsus4", "Vsoul"],
+    titleChords: ["Vsus4", "V", "V7", "V9", "Vb9", "V+", "V+s9", "Vsoul"],
     content: () => (
       <>
         <H>Dominant V</H>

@@ -5,6 +5,8 @@ import { slugify } from "transliteration";
 import ChordStairs from "../legends/ChordStairs";
 import { BLOG_POSTS } from "./blogPosts";
 
+const DATE_COLOR = "#666";
+
 // Styled components for the blog
 const BlogContainer = styled.div`
   padding: 20px;
@@ -84,7 +86,7 @@ const BlogPostPreview = styled(Link)`
 
 // Updated BlogPostDate to go under the title and be left-aligned
 const BlogPostDate = styled.div`
-  color: #666;
+  color: ${DATE_COLOR};
   font-size: 0.9rem;
   font-weight: 100;
   margin-top: 7px;
@@ -99,19 +101,14 @@ const BlogPostContainer = styled.div`
   margin-bottom: 200px;
 `;
 
-// Updated date sidebar component to include date and chords in a column
+// Updated sidebar component for horizontal alignment
 const BlogPostDateSidebar = styled.div`
-  position: absolute;
-  left: -150px;
-  top: 0;
-  color: #aaa;
+  color: ${DATE_COLOR};
   font-size: 0.9rem;
   width: 120px;
   text-align: right;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 15px;
+  margin-right: 30px;
+  margin-left: -150px; // Keeps it hanging to the left
 `;
 
 const SidebarDate = styled.div`
@@ -121,6 +118,8 @@ const SidebarDate = styled.div`
 // New wrapper for title to provide positioning context
 const TitleContainer = styled.div`
   position: relative;
+  display: flex;
+  align-items: baseline;
 `;
 
 // Add a new styled component for title chords
@@ -181,16 +180,16 @@ const Blog: React.FC = () => {
               <SidebarDate>{formatDisplayDate(post.date)}</SidebarDate>
             </BlogPostDateSidebar>
             <BlogTitle>{post.title}</BlogTitle>
-            {post.titleChords && (
-              <TitleChords className="title-chords">
-                <ChordStairs
-                  mode={{ title: "", chords: post.titleChords }}
-                  scale={2}
-                  playbackMode="together"
-                />
-              </TitleChords>
-            )}
           </TitleContainer>
+          {post.titleChords && (
+            <TitleChords className="title-chords">
+              <ChordStairs
+                mode={{ title: "", chords: post.titleChords }}
+                scale={2}
+                playbackMode="together"
+              />
+            </TitleChords>
+          )}
           <BlogPostContainer>
             <BlogPostContent>{post.content()}</BlogPostContent>
           </BlogPostContainer>

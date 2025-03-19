@@ -2,6 +2,7 @@ import * as React from "react";
 import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
+import { ADMIN_USER_ID } from "./App";
 import { AppContext } from "./AppContext";
 import SignIn from "./SignIn";
 
@@ -22,7 +23,7 @@ const NavLinks = styled.div`
   align-items: center;
 `;
 
-const baseLinkStyles = css`
+export const baseLinkStyles = css`
   display: inline-flex;
   align-items: center;
   padding: 0px 18px;
@@ -129,6 +130,7 @@ const AppHeader: React.FC = () => {
           handleLogout={handleLogout}
           handleToggleManualRemeasuring={handleToggleManualRemeasuring}
           enableManualRemeasuring={enableManualRemeasuring}
+          adminUserId={ADMIN_USER_ID}
         />
       </ExternalLinks>
     </HeaderContainer>

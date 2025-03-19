@@ -1,4 +1,11 @@
 import React from "react";
+import styled from "styled-components";
+import { baseLinkStyles } from "./AppHeader";
+
+const HeaderDiv = styled.div`
+  ${baseLinkStyles}
+  color: #888
+`;
 
 const SignIn = ({
   user,
@@ -6,10 +13,14 @@ const SignIn = ({
   handleLogout,
   handleToggleManualRemeasuring,
   enableManualRemeasuring,
+  adminUserId,
 }) => {
+  // Only show checkbox for admin user
+  const isAdmin = user && user.uid === adminUserId;
+
   return (
-    <div>
-      {user && (
+    <HeaderDiv>
+      {isAdmin && (
         <label className="inline">
           <input
             onChange={handleToggleManualRemeasuring}
@@ -22,20 +33,28 @@ const SignIn = ({
       )}
       {user ? (
         <>
-          {" • "}
-          Logged in as {user.email}.{" "}
-          <a href="#" onClick={handleLogout}>
-            Logout
+          {isAdmin && " • "}
+          {user.email}
+          {"   "}
+          <a
+            href="#"
+            onClick={handleLogout}
+            style={{
+              marginLeft: "15px",
+              textDecoration: "underline dotted #444",
+            }}
+          >
+            Sign out
           </a>
         </>
       ) : (
         <>
-          <a href="#" onClick={handleLogin} style={{ color: "#222" }}>
-            {"."}
+          <a href="#" onClick={handleLogin} style={{ color: "#fff" }}>
+            Sign in
           </a>{" "}
         </>
       )}
-    </div>
+    </HeaderDiv>
   );
 };
 

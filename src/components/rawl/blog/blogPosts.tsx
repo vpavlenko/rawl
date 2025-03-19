@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { A, c, E, k, s } from "../book/chapters";
 import { CorpusLink } from "../corpora/CorpusLink";
-import type { Chord } from "../legends/chords";
+import { BlogPost } from "./Blog";
 
 // Reuse styling components
 
@@ -69,20 +69,42 @@ const DirectMe = styled.span`
   font-family: "Times New Roman", serif;
 `;
 
-// Blog post interface
-interface BlogPost {
-  id: number;
-  title: string;
-  date: string; // Format: "YYYY-MM-DD"
-  titleChords?: Chord[]; // Added titleChords property
-  content: () => React.ReactNode;
-}
+// Utility function to extract text content from JSX
+const extractTextFromJsx = (element: React.ReactNode): string => {
+  if (element === null || element === undefined) {
+    return "";
+  }
+
+  if (typeof element === "string" || typeof element === "number") {
+    return String(element);
+  }
+
+  if (typeof element === "boolean") {
+    return "";
+  }
+
+  if (Array.isArray(element)) {
+    return element.map(extractTextFromJsx).join("");
+  }
+
+  if (React.isValidElement(element)) {
+    // Extract text from children
+    const children = element.props.children;
+    return extractTextFromJsx(children);
+  }
+
+  return "";
+};
 
 // Blog posts collection
 export const BLOG_POSTS: BlogPost[] = [
   {
     id: 1,
-    title: "I gathered a corpus of Stevie Wonder",
+    title: (
+      <>
+        I gathered a corpus of <i>Stevie Wonder</i>
+      </>
+    ),
     date: "2025-03-17",
     titleChords: ["Imaj9", "I7", "i7"],
     content: () => (
@@ -425,7 +447,11 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 4,
-    title: "Schubert, Two chords in major",
+    title: (
+      <>
+        <i>Schubert</i>, Two chords in major
+      </>
+    ),
     date: "2025-02-23",
     titleChords: ["V7", "I", "V7", "I"],
     content: () => (
@@ -481,7 +507,11 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 5,
-    title: "Gibran Alcocer, Four-chord Loops of Triads in Natural Minor",
+    title: (
+      <>
+        <i>Gibran Alcocer</i>, Four-chord Loops of Triads in Natural Minor
+      </>
+    ),
     date: "2025-03-02",
     titleChords: ["iv", "bVI", "i", "bVII"],
     content: () => (
@@ -554,3 +584,6 @@ export const BLOG_POSTS: BlogPost[] = [
     ),
   },
 ];
+
+// Export the utility function so it can be used in Blog.tsx
+export { extractTextFromJsx };

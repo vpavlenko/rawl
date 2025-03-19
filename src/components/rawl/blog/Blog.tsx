@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { slugify } from "transliteration";
+import { Chord } from "../legends/chords";
 import ChordStairs from "../legends/ChordStairs";
-import { BLOG_POSTS } from "./blogPosts";
+import { BLOG_POSTS, extractTextFromJsx } from "./blogPosts";
 
 const DATE_COLOR = "#666";
 
@@ -124,8 +125,8 @@ const TitleContainer = styled.div`
 
 // Add a new styled component for title chords
 const TitleChords = styled.div`
-  margin-top: 15px;
-  margin-bottom: 30px;
+  margin-top: 100px;
+  margin-bottom: 130px;
   display: flex;
 `;
 
@@ -145,6 +146,25 @@ interface BlogParams {
   slug?: string;
 }
 
+// Updated BlogPost interface to accommodate JSX titles
+export interface BlogPost {
+  id: number;
+  title: string | React.ReactNode;
+  date: string;
+  titleChords?: Chord[];
+  content: () => React.ReactNode;
+}
+
+// Utility function to handle title rendering
+const renderTitle = (title: string | React.ReactNode) => {
+  if (typeof title === "string") {
+    // For backward compatibility with string titles
+    return title;
+  }
+  // If it's already JSX, just return it
+  return title;
+};
+
 // Blog component
 const Blog: React.FC = () => {
   const { postId, slug } = useParams<BlogParams>();
@@ -157,7 +177,11 @@ const Blog: React.FC = () => {
       const post = BLOG_POSTS.find((p) => p.id === id);
 
       if (post) {
-        const correctSlug = slugify(post.title);
+        const correctSlug = slugify(
+          typeof post.title === "string"
+            ? post.title
+            : extractTextFromJsx(post.title),
+        );
 
         // Redirect if slug is missing or doesn't match the correct one
         if (!slug || slug !== correctSlug) {
@@ -179,7 +203,7 @@ const Blog: React.FC = () => {
             <BlogPostDateSidebar>
               <SidebarDate>{formatDisplayDate(post.date)}</SidebarDate>
             </BlogPostDateSidebar>
-            <BlogTitle>{post.title}</BlogTitle>
+            <BlogTitle>{renderTitle(post.title)}</BlogTitle>
           </TitleContainer>
           {post.titleChords && (
             <TitleChords className="title-chords">
@@ -218,9 +242,15 @@ const Blog: React.FC = () => {
                 />
               )}
             </BlogPostChords>
-            <BlogPostPreview to={`/blog/${post.id}/${slugify(post.title)}`}>
+            <BlogPostPreview
+              to={`/blog/${post.id}/${slugify(
+                typeof post.title === "string"
+                  ? post.title
+                  : extractTextFromJsx(post.title),
+              )}`}
+            >
               <BlogPostTitle>
-                {post.title}
+                {renderTitle(post.title)}
                 <BlogPostDate>{formatDisplayDate(post.date)}</BlogPostDate>
               </BlogPostTitle>
             </BlogPostPreview>

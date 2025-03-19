@@ -90,6 +90,8 @@ const EditorLandingPage: React.FC = () => {
     "Gravity_Falls_Opening",
     "passacaglia---handel-halvorsen",
     "papers-please",
+    "idea-15---gibran-alcocer",
+    "idea-n.10---gibran-alcocer",
   ];
 
   return (

@@ -533,14 +533,11 @@ export const corpora: CorpusEntry[] = [
       "tango-pour-claude---richard-galliano",
       "tango-from-schnittke-s-concerto-grosso-1",
 
-      // el tango de roxanne
-      "tango-lyubvi",
-
       "malena---tango", // exercise
       "tango-la-cumparsita---piano-solo-tutorial-parte-a",
       "tango-till-you-drop-abrsm-grade-5-saxophone-b-3", // melody for harmonization
       "Habanera_-_Piano_Solo_-_Georges_Bizet",
-      "tango-lyubvi",
+      "tango-lyubvi", // el tango de roxanne
       "tango-do-k-f-12-stulev---o.-zacepin",
       "underground_tango_goran_bregovic_string_quartet",
 
@@ -4570,7 +4567,6 @@ export const corpora: CorpusEntry[] = [
       "nocturne-opus-62-no.-1-in-b-major",
 
       "waltz-opus-18-in-e-major-grande-valse-brillante",
-      "chopin---waltz-no.-1-in-d-flat-major-op.-64",
       "waltz-opus-64-no.-2-in-c-minor",
       "waltz-opus-69-no.-1-in-a-major",
       "waltz-opus-69-no.-2-in-b-minor",

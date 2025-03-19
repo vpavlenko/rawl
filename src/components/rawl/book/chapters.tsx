@@ -109,6 +109,20 @@ export const A = (href: string) => (
   </a>
 );
 
+export const E = (href: string) => (
+  <a
+    href={`/e/${href}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{
+      color: "#fff",
+      whiteSpace: "nowrap",
+    }}
+  >
+    {beautifySlug(href)}
+  </a>
+);
+
 const STRUCTURES_TO_CHORDS: { [key: string]: Chord[] } = {
   "V:9": ["V9"],
   "V:b9": ["Vb9"],

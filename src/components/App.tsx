@@ -1324,7 +1324,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   <Route path="/e/:slug?" component={Editor} />
                   <Route path="/ef/:id?" component={Editor} />
                   <Route path="/book/:slug?" component={BookOnStyles} />
-                  <Route path="/blog/:postId?" component={Blog} />
+                  <Route path="/blog/:postId?/:slug?" component={Blog} />
                   {rawlRoute}
                   <Redirect
                     exact

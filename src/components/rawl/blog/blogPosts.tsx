@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { A, c, k, s } from "../book/chapters";
+import { A, c, E, k, s } from "../book/chapters";
 import { CorpusLink } from "../corpora/CorpusLink";
 import type { Chord } from "../legends/chords";
 
@@ -483,7 +483,7 @@ export const BLOG_POSTS: BlogPost[] = [
     id: 5,
     title: "Gibran Alcocer, Four-chord Loops of Triads in Natural Minor",
     date: "2025-03-02",
-    titleChords: ["i", "bVI", "bVII", "iv"],
+    titleChords: ["iv", "bVI", "i", "bVII"],
     content: () => (
       <>
         <H>The Modern Sound of Looping Minor Triads</H>
@@ -501,8 +501,8 @@ export const BLOG_POSTS: BlogPost[] = [
         <P>
           Two pieces in particular showcase these elements clearly:
           <ul>
-            <li>{A("idea-15---gibran-alcocer")}</li>
-            <li>{A("idea-10---gibran-alcocer")}</li>
+            <li>{E("idea-15---gibran-alcocer")}</li>
+            <li>{E("idea-n.10---gibran-alcocer")}</li>
           </ul>
         </P>
         <P>

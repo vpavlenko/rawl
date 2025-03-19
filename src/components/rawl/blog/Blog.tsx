@@ -1,6 +1,7 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { slugify } from "transliteration";
 import ChordStairs from "../legends/ChordStairs";
 import { BLOG_POSTS } from "./blogPosts";
 
@@ -137,9 +138,33 @@ const formatDisplayDate = (dateString: string) => {
   });
 };
 
+// Updated interface for URL parameters
+interface BlogParams {
+  postId?: string;
+  slug?: string;
+}
+
 // Blog component
 const Blog: React.FC = () => {
-  const { postId } = useParams<{ postId?: string }>();
+  const { postId, slug } = useParams<BlogParams>();
+  const history = useHistory();
+
+  // Update redirect logic to always ensure correct slug
+  useEffect(() => {
+    if (postId) {
+      const id = parseInt(postId, 10);
+      const post = BLOG_POSTS.find((p) => p.id === id);
+
+      if (post) {
+        const correctSlug = slugify(post.title);
+
+        // Redirect if slug is missing or doesn't match the correct one
+        if (!slug || slug !== correctSlug) {
+          history.replace(`/blog/${postId}/${correctSlug}`);
+        }
+      }
+    }
+  }, [postId, slug, history]);
 
   // If postId is provided, show that post, otherwise show the index
   if (postId) {
@@ -201,7 +226,7 @@ const Blog: React.FC = () => {
                 />
               </BlogPostChords>
             )}
-            <BlogPostPreview to={`/blog/${post.id}`}>
+            <BlogPostPreview to={`/blog/${post.id}/${slugify(post.title)}`}>
               <TitleRow>
                 <BlogPostTitle>
                   {post.title}

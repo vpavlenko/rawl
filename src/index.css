@@ -352,22 +352,6 @@ body,
     z-index: 100000;
 }
 
-.unlock-audio-button {
-    padding: 15px 30px;
-    font-size: 18px;
-    background: black;
-    color: white;
-    border: 1px solid white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.2s;
-    z-index: 100001;
-}
-
-.unlock-audio-button:hover {
-    background: #444;
-}
-
 /* Modern scrollbar styling */
 ::-webkit-scrollbar {
     width: 8px;

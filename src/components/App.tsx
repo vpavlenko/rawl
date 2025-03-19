@@ -68,7 +68,9 @@ import Corpus from "./rawl/corpora/Corpus";
 import Structures, { StructuresProps } from "./rawl/corpora/Structures";
 import Decomposition from "./rawl/decomposition/Decomposition";
 import Editor from "./rawl/editor/Editor";
-import EditorLandingPage from "./rawl/editor/EditorLandingPage";
+import EditorLandingPage, {
+  StyledButton,
+} from "./rawl/editor/EditorLandingPage";
 import ForgeUI from "./rawl/forge/ForgeUI";
 import { DropSaveForm, saveMidiFromLink } from "./rawl/midiStorage";
 import DAW from "./rawl/pages/DAW";
@@ -1284,12 +1286,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 this.state.parsing &&
                 !(this.props.location.pathname === "/e/new") && (
                   <div className="audio-context-overlay">
-                    <button
-                      className="unlock-audio-button"
-                      onClick={this.handleUnlockAudioContext}
-                    >
+                    <StyledButton onClick={this.handleUnlockAudioContext}>
                       Play
-                    </button>
+                    </StyledButton>
                   </div>
                 )}
               <DropMessage dropzoneProps={dropzoneProps} />

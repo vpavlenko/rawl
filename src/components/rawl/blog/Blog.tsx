@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
+import ChordStairs from "../legends/ChordStairs";
 import { BLOG_POSTS } from "./blogPosts";
 
 // Styled components for the blog
@@ -9,6 +10,7 @@ const BlogContainer = styled.div`
   max-width: 800px;
   margin: 0 auto;
   color: #fff;
+  position: relative;
 `;
 
 const BlogTitle = styled.h1`
@@ -22,40 +24,52 @@ const BlogPostList = styled.div`
   gap: 25px;
 `;
 
-const BlogPostPreview = styled(Link)`
-  padding: 15px;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.05);
-  transition: all 0.2s ease;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-`;
-
+// Define BlogPostTitle before using it in BlogPostPreview
 const BlogPostTitle = styled.div`
   color: #fff;
   font-size: 1.5rem;
   font-weight: bold;
-  flex: 1;
+  width: 80%;
+  text-align: left;
 `;
 
+// Updated BlogPostPreview to use column layout
+const BlogPostPreview = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5em;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    ${BlogPostTitle} {
+      color: #ffffff;
+    }
+  }
+`;
+
+// New container for the title row with two columns
+const TitleRow = styled.div`
+  display: flex;
+  width: 100%;
+  margin-bottom: 8px;
+`;
+
+// Modified BlogPostChords to be outside the link and playable
+const BlogPostChords = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 20%;
+  padding-right: 15px;
+  cursor: pointer;
+`;
+
+// Updated BlogPostDate to go under the title and be left-aligned
 const BlogPostDate = styled.div`
-  color: #aaa;
+  color: #666;
   font-size: 0.9rem;
-  width: 120px;
-  text-align: right;
-  margin-right: 15px;
-`;
-
-const BlogPostExcerpt = styled.div`
-  color: #ddd;
-  line-height: 1.5;
+  font-weight: 100;
+  margin-top: 7px;
 `;
 
 const BlogPostContent = styled.div`
@@ -79,6 +93,38 @@ const BackToList = styled(Link)`
 
 const BlogPostContainer = styled.div`
   margin-bottom: 200px;
+`;
+
+// Updated date sidebar component to include date and chords in a column
+const BlogPostDateSidebar = styled.div`
+  position: absolute;
+  left: -150px;
+  top: 0;
+  color: #aaa;
+  font-size: 0.9rem;
+  width: 120px;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 15px;
+`;
+
+const SidebarDate = styled.div`
+  width: 100%;
+`;
+
+// Updated SidebarChords to be clickable
+const SidebarChords = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+`;
+
+// New wrapper for title to provide positioning context
+const TitleContainer = styled.div`
+  position: relative;
 `;
 
 // Utility function to format dates
@@ -113,8 +159,21 @@ const Blog: React.FC = () => {
     return (
       <BlogContainer>
         <BackToList to="/blog">← Back to all posts</BackToList>
-        <BlogTitle>{post.title}</BlogTitle>
-        <BlogPostDate>{formatDisplayDate(post.date)}</BlogPostDate>
+        <TitleContainer>
+          <BlogPostDateSidebar>
+            <SidebarDate>{formatDisplayDate(post.date)}</SidebarDate>
+            {post.titleChords && (
+              <SidebarChords>
+                <ChordStairs
+                  mode={{ title: "", chords: post.titleChords }}
+                  scale={0.85}
+                  playbackMode="together"
+                />
+              </SidebarChords>
+            )}
+          </BlogPostDateSidebar>
+          <BlogTitle>{post.title}</BlogTitle>
+        </TitleContainer>
         <BlogPostContainer>
           <BlogPostContent>{post.content()}</BlogPostContent>
         </BlogPostContainer>
@@ -132,10 +191,25 @@ const Blog: React.FC = () => {
       <BlogTitle>Structures and Styles in Western Music</BlogTitle>
       <BlogPostList>
         {sortedPosts.map((post) => (
-          <BlogPostPreview key={post.id} to={`/blog/${post.id}`}>
-            <BlogPostDate>{formatDisplayDate(post.date)}</BlogPostDate>
-            <BlogPostTitle>{post.title}</BlogPostTitle>
-          </BlogPostPreview>
+          <div key={post.id} style={{ display: "flex", marginBottom: "1.5em" }}>
+            {post.titleChords && (
+              <BlogPostChords>
+                <ChordStairs
+                  mode={{ title: "", chords: post.titleChords }}
+                  scale={0.85}
+                  playbackMode="together"
+                />
+              </BlogPostChords>
+            )}
+            <BlogPostPreview to={`/blog/${post.id}`}>
+              <TitleRow>
+                <BlogPostTitle>
+                  {post.title}
+                  <BlogPostDate>{formatDisplayDate(post.date)}</BlogPostDate>
+                </BlogPostTitle>
+              </TitleRow>
+            </BlogPostPreview>
+          </div>
         ))}
       </BlogPostList>
     </BlogContainer>

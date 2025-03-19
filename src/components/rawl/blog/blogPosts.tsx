@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { A, c, k, s } from "../book/chapters";
 import { CorpusLink } from "../corpora/CorpusLink";
+import type { Chord } from "../legends/chords";
 
 // Reuse styling components
 
@@ -73,6 +74,7 @@ interface BlogPost {
   id: number;
   title: string;
   date: string; // Format: "YYYY-MM-DD"
+  titleChords?: Chord[]; // Added titleChords property
   content: () => React.ReactNode;
 }
 
@@ -82,6 +84,7 @@ export const BLOG_POSTS: BlogPost[] = [
     id: 1,
     title: "I gathered a corpus of Stevie Wonder",
     date: "2025-03-17",
+    titleChords: ["Imaj9", "I7", "i7"],
     content: () => (
       <>
         <H>Hooked</H>
@@ -339,8 +342,9 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     id: 2,
-    title: "Dominant V",
+    title: "Types of dominant V",
     date: "2025-03-18",
+    titleChords: ["V9", "Vb9", "V+", "V+s9", "Vsus4", "Vsoul"],
     content: () => (
       <>
         <H>Dominant V</H>
@@ -367,6 +371,7 @@ export const BLOG_POSTS: BlogPost[] = [
     id: 3,
     title: "Whole-tone scale",
     date: "2025-03-19",
+    titleChords: ["1", "2", "3", "#4", "b6", "b7"],
     content: () => (
       <>
         <H>Two variants</H>
@@ -422,6 +427,7 @@ export const BLOG_POSTS: BlogPost[] = [
     id: 4,
     title: "Schubert, Two chords in major",
     date: "2025-02-23",
+    titleChords: ["V7", "I", "V7", "I"],
     content: () => (
       <>
         <H>Schubert's Originaltänze op. 9</H>
@@ -477,6 +483,7 @@ export const BLOG_POSTS: BlogPost[] = [
     id: 5,
     title: "Gibran Alcocer, Four-chord Loops of Triads in Natural Minor",
     date: "2025-03-02",
+    titleChords: ["i", "bVI", "bVII", "iv"],
     content: () => (
       <>
         <H>The Modern Sound of Looping Minor Triads</H>

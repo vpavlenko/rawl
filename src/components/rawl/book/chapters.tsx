@@ -112,6 +112,8 @@ export const A = (href: string) => (
 const STRUCTURES_TO_CHORDS: { [key: string]: Chord[] } = {
   "V:9": ["V9"],
   "V:b9": ["Vb9"],
+  "V:aug_s9": ["V+s9"],
+  "V:augmented": ["V+"],
   "dorian:IV": ["i", "IV", "i"],
   "shuttle:mixolydian": ["I", "bVII", "I", "bVII"],
   "scale:minor_pentatonic": ["1", "b3", "4", "5", "b7"],

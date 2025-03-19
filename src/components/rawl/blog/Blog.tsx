@@ -22,34 +22,35 @@ const BlogPostList = styled.div`
   gap: 25px;
 `;
 
-const BlogPostPreview = styled.div`
+const BlogPostPreview = styled(Link)`
   padding: 15px;
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.05);
   transition: all 0.2s ease;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
 
   &:hover {
     background: rgba(255, 255, 255, 0.1);
   }
 `;
 
-const BlogPostTitle = styled(Link)`
+const BlogPostTitle = styled.div`
   color: #fff;
   font-size: 1.5rem;
   font-weight: bold;
-  text-decoration: none;
-  margin-bottom: 8px;
-  display: block;
-
-  &:hover {
-    text-decoration: underline;
-  }
+  flex: 1;
 `;
 
 const BlogPostDate = styled.div`
   color: #aaa;
   font-size: 0.9rem;
-  margin-bottom: 10px;
+  width: 120px;
+  text-align: right;
+  margin-right: 15px;
 `;
 
 const BlogPostExcerpt = styled.div`
@@ -128,12 +129,12 @@ const Blog: React.FC = () => {
 
   return (
     <BlogContainer>
-      <BlogTitle>Music Theory Blog</BlogTitle>
+      <BlogTitle>Structures and Styles in Western Music</BlogTitle>
       <BlogPostList>
         {sortedPosts.map((post) => (
-          <BlogPostPreview key={post.id}>
-            <BlogPostTitle to={`/blog/${post.id}`}>{post.title}</BlogPostTitle>
+          <BlogPostPreview key={post.id} to={`/blog/${post.id}`}>
             <BlogPostDate>{formatDisplayDate(post.date)}</BlogPostDate>
+            <BlogPostTitle>{post.title}</BlogPostTitle>
           </BlogPostPreview>
         ))}
       </BlogPostList>

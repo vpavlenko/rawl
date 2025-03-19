@@ -28,7 +28,7 @@ import {
   Route,
   RouteComponentProps,
   Switch,
-  useParams,
+  useLocation,
   withRouter,
 } from "react-router-dom";
 import styled from "styled-components";
@@ -1230,13 +1230,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
               render={() => <Structures analyses={this.state.analyses} />}
             />
             <Route
-              path="/s/:chapter/:topic"
-              render={() => (
-                <StructuresWithParams analyses={this.state.analyses} />
-              )}
-            />
-            <Route
-              path="/s/:chapter"
+              path="/s/:rest*"
               render={() => (
                 <StructuresWithParams analyses={this.state.analyses} />
               )}
@@ -1379,9 +1373,18 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 }
 
-// New component to handle route params
+// Update the StructuresWithParams component to parse the URL manually
 const StructuresWithParams: React.FC<StructuresProps> = ({ analyses }) => {
-  const { chapter, topic } = useParams<{ chapter: string; topic?: string }>();
+  const location = useLocation();
+  const path = location.pathname.slice(3); // Remove '/s/' prefix
+
+  // Find the first slash after the chapter
+  const firstSlashIndex = path.indexOf("/");
+
+  // Extract chapter and topic
+  const chapter = firstSlashIndex > -1 ? path.slice(0, firstSlashIndex) : path;
+  const topic =
+    firstSlashIndex > -1 ? path.slice(firstSlashIndex + 1) : undefined;
 
   return (
     <Structures

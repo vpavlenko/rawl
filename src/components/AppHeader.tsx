@@ -81,9 +81,6 @@ const AppHeader: React.FC = () => {
         <HeaderLink to="/blog/" style={getLinkStyle("/blog")}>
           Blog
         </HeaderLink>
-        <HeaderLink to="/e/" style={getLinkStyle("/e")}>
-          Editor
-        </HeaderLink>
         <HeaderLink to="/corpus/" style={getLinkStyle("/corpus")}>
           Pieces
         </HeaderLink>
@@ -92,6 +89,9 @@ const AppHeader: React.FC = () => {
         </HeaderLink>
         <HeaderLink to="/timeline/" style={getLinkStyle("/timeline")}>
           Timeline
+        </HeaderLink>
+        <HeaderLink to="/e/" style={getLinkStyle("/e")}>
+          Editor
         </HeaderLink>
         <HeaderLink to="/d/" style={getLinkStyle("/d")}>
           Decompose

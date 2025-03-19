@@ -389,6 +389,8 @@ const Structures: React.FC<StructuresProps> = ({
       if (chapterData[chapterIndex]?.topics.length > 0) {
         const firstTopic = chapterData[chapterIndex].topics[0].topic;
         setActiveTopic(firstTopic);
+
+        // Use the raw topic without encoding
         history.push(`/s/${chapterData[chapterIndex].chapter}/${firstTopic}`);
       }
     },
@@ -489,6 +491,9 @@ const Structures: React.FC<StructuresProps> = ({
     eject(); // Eject current playback when changing topic
     setIsRawlVisible(false); // Hide the InlineRawl
     setActiveTopic(topic);
+
+    // Use the raw topic without encoding for cleaner URLs
+    history.push(`/s/${chapterData[activeChapter].chapter}/${topic}`);
   };
 
   const handleSnippetClick = useCallback(
@@ -660,9 +665,6 @@ const Structures: React.FC<StructuresProps> = ({
                   active={activeTopic === topic}
                   onClick={() => {
                     handleTopicClick(topic);
-                    history.push(
-                      `/s/${chapterData[activeChapter].chapter}/${topic}`,
-                    );
                   }}
                 >
                   {topic.replace(/_/g, " ")}

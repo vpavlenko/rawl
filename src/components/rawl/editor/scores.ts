@@ -1,11 +1,4 @@
 export const scores: { [key: string]: string } = {
-  minimal: `1 i a,
-  
-  
-  
-  
-  
-5 i s,`,
   new: `% Hello, world!
 % This is a sample code: feel free to erase it or comment it out.
 % Currently there's a bug: notes only show up if there are
@@ -16,7 +9,7 @@ C major
 bpm 120
 
 lh  % notes below are put in the left hand, which sounds softer than the right hand
-1 i 1,. qet,. qet,  % each note or chord is pitch(es)+duration
+1 i a,. qet,. qet,  % each note or chord is pitch(es)+duration
 2 c 1 3 4 0  % this copies notes from measure 1 applying scale-wise shifts to 3, 4 and 0 scale degrees
 
 rh
@@ -31,14 +24,14 @@ bpm 160
 sections 2 6
 
 lh
-2   i 5,wtu,wtu,
+2   i g,wtu,wtu,
 3   c 2     0 x x 0
 7   c 6-6b3
 7b3 i rtu,
-18  i 5,rtu,rtu,
+18  i g,rtu,rtu,
 19  c 18    0 x x 0 0
 
-4   i 5,eti,eti,
+4   i g,eti,eti,
 5   c 4
 8   i q,
 8b2 c 4b2
@@ -48,19 +41,19 @@ lh
 
 
 rh
-1b2 i x-8'9'8=7-8-
-2   i w,4,4,
-3   i 4_6-5-
-4   i 4,3,5-8-5,.
+1b2 i x-k'l'k=j-k-
+2   i w,f,f,
+3   i f_h-g-
+4   i f,d,g-k-g,.
 5   c 1
-6   i e-w-4,4,
-7   i 4,.r-e-w-
-8   i w,q,3-5-3,.
+6   i e-w-f,f,
+7   i f,.r-e-w-
+8   i w,q,d-g-d,.
 
-17b2 i x-5-b5-5-
-18   i 6,2,2,
-19   i w,.q-7-6-
-20   i 5,e,3,q,.
+17b2 i x-g-bg-g-
+18   i h,s,s,
+19   i w,.q-j-h-
+20   i g,e,d,q,.
 21b2 c 17b2-20b3 7
 24b3 i e-t-i,.
 
@@ -74,7 +67,7 @@ bpm 160
 sections 2 6
 
 lh
-2   i 5,rtu,rtu, q,eti,eti,
+2   i g,rtu,rtu, q,eti,eti,
 4   c 2-3 0 0
 8   c 2
 9   i qeti_
@@ -83,14 +76,14 @@ lh
 
 rh
 1b3  i e,
-2    i 7-y-r-w-
+2    i j-y-r-w-
 3    i q-i-t-e-
 4    i t-f-s-u-
 5    i q_
 5    c 1-5
 
 17b3 i e,
-18   i y-7-w-r-
+18   i y-j-w-r-
 19   i a-q-e-t-
 20   i s-t-u-o-
 21   i d,
@@ -99,7 +92,7 @@ rh
 
 
 ch2
-2b3 i 5'6'5-.
+2b3 i g'h'g-.
 3   c 2     0 2 x 2 3 2
 18  c 2     11 12 14
 22  c 18-21 0 0 0 
@@ -114,7 +107,7 @@ bpm 180
 sections 2 6
 
 lh
-2   i 5,rtu,rtu,
+2   i g,rtu,rtu,
 3   i q,eti,eti,
 4   c 2       0 x 0 x 0
 5   c 3       0 x 0
@@ -123,16 +116,16 @@ lh
 
 
 rh
-1b3 i 5=t-. 
-2   i bw=w-.5-,e=r-.
-3   i 7=8-.5,e'r'e-.
-4   i 7-w-r-y-o-u-
+1b3 i g=t-. 
+2   i bw=w-.g-,e=r-.
+3   i j=k-.g,e'r'e-.
+4   i j-w-r-y-o-u-
 5   i t=g-.d-
 5   c 1-4
 9   i a_
 
 17b3 i t,
-18   i   4-6-9-7-5-
+18   i   f-h-l-j-g-
 19   i   q-e-y-t-e-
 20   c 18      7
 21   i a=k=g-d-a-t-
@@ -149,21 +142,21 @@ sections 2 6
 
 lh
 2 i x,et,et, x,rt,rt, x,et,et, x,rt,rt, x,wrt,wrt, x,et,e, x,wr,wr, qe,
-2 i q_.      w_.      q_.      w_.      5_.        q_.     5_.      
+2 i q_.      w_.      q_.      w_.      g_.        q_.     g_.      
 18 c 6    0 0 x x 0
 20 c 4        0 0 x 0 
 24 c 8-9
 
 rh 4
-8b2  i 7-:w-:r-:
+8b2  i j-:w-:r-:
 18   c 8        2 9 x x 9 8 0
 20b2 i e-:t-:i-:
 21   c 20 7
-17b3 i q, 7,x,7-x- x_7-x- q,x,q-x- x_a-x- u,x,u-x- t,x,t-x- 5,x,5,q,
+17b3 i q, j,x,j-x- x_j-x- q,x,q-x- x_a-x- u,x,u-x- t,x,t-x- g,x,g,q,
 
-1b3 i t'y't-. q,t-a-q, 7_
+1b3 i t'y't-. q,t-a-q, j_
 3   c 1-3
-5b3 i t'y't-. 7,r-s-7, q,e-a-5_x,5,q,
+5b3 i t'y't-. j,r-s-j, q,e-a-g_x,g,q,
 
 
 9    ac 1-9
@@ -173,10 +166,10 @@ rh 4
 C minor
 
 lh
-99 i 7wr_.
+99 i jwr_.
 100 c 99 0 0
 
-1   i 6,yad,
+1   i h,yad,
 1b3 c 1b2-1b3 0 0 0 0
 3   i q,tip,
 3b3 c 3b2-3b3 0 0 0 0
@@ -219,14 +212,14 @@ phrases 1+1 18+2 36+2 54+2 72+2 90+2 116+2
 lh 2
 2 i r,fh,fh, a,fh,fh,
 4 i q,dg,dg, a,dg,dg,
-6 i 7,sg,sg, 7,sg,sg,
+6 i j,sg,sg, j,sg,sg,
 8 c 4-5 -2
 
 10 c 2-8
 17 i y,af,af, y,gd,dg-x-dg_.
 
 74 c 2-3
-76 i 7,sf,sf, u,sf,sf,
+76 i j,sf,sf, u,sf,sf,
 78 i q,dg,dg, e,dg,dg,
 
 80 c 8-9
@@ -237,7 +230,7 @@ lh 2
 
 108 i afh+. adg+. usf+.
 
-114 i 6qe+.
+114 i hqe+.
 
 20 c 2-19 0 0 0
 
@@ -252,10 +245,10 @@ rh 4
 
 1 i x,.q-q-e-r-e-r_.
 3 i x,.q-q-w-e-w-e_. 
-5 i x,.q-q-e-w_x-q-q,q,.7-q+
+5 i x,.q-q-e-w_x-q-q,q,.j-q+
 9 i x,.q-q-e-r-e-r_
 11 i x-t-r-e-q-w-e-w-e_.
-13 i x,e-e-e-r-w_x-q-w-q_7-
+13 i x,e-e-e-r-w_x-q-w-q_j-
 
 38 i y_.x-t=y= t-r-e-r-t+x,e, w_t+ q_.x-q-w-e-r-t-
 46 c 38-40
@@ -301,8 +294,8 @@ phrases 9+2 43+2 69+2
 sections 3 7 11 15 17 21 25
 
 lh
-1 i 6,yi,yi,e,yi,yi
-3 i 4,yi,yi,r,yi,yi,
+1 i h,yi,yi,e,yi,yi
+3 i f,yi,yi,r,yi,yi,
 5 c 1-2 2 1
 9 i t#u+.
 
@@ -313,25 +306,25 @@ lh
 
 rh
 1 i q+x,q,r+t-y-t--r-e+r,e,w_.e_.r+.
-11 i e-q-6- r-q-6- t-q-6- u-q-6-
-13 i e-q-5- r-q-5- t-q-5- u-q-5-
-15 i w-7-4-w-7-4-w-7-e-7-w-7-q-6-4-q-6-4-
+11 i e-q-h- r-q-h- t-q-h- u-q-h-
+13 i e-q-g- r-q-g- t-q-g- u-q-g-
+15 i w-j-f-w-j-f-w-j-e-j-w-j-q-h-f-q-h-f-
 18 c 17
 
 19 ac 11-18
 
 lh
 27 c 1-4
-31 i 5,us,us,t,us,us, 5,#us,#us, t,#us,#us,
+31 i g,us,us,t,us,us, g,#us,#us, t,#us,#us,
 
 rh
 27 i t-e-q- y-e-q-
 28 c 27 0 0 0
-31 i t-w-7-t-w-7- 
+31 i t-w-j-t-w-j- 
 32 c 31
-33 i t-w-#7-t-w-#7-
+33 i t-w-#j-t-w-#j-
 34 c 33
-42 i tw#7_.
+42 i tw#j_.
 
 35 ac 27-33
 
@@ -353,7 +346,7 @@ phrases 1+1 18+2 36+2 54+2 72+2 90+2 108+2
 sections 2 6 10 14 18 22
 
 lh
-2 i 4r,ry,ry,q,ry,ry,
+2 i fr,ry,ry,q,ry,ry,
 4 c 2-3 2 4 3
 10 c 2-9
 18 i uo+.
@@ -372,8 +365,8 @@ lh 4
 rh
 16 i w_.e_.y_.t_.
 38 c 2-19 0 x 0
-1 i x,x-8-8-7-6+ x-q-q-w-e+ x,.q-t,t,t,t,e,e-w+ 
-9 i x,x-w-e-w-6+x-6-6-7-q_.t,. x-r-.r=t_e_r_
+1 i x,x-k-k-j-h+ x-q-q-w-e+ x,.q-t,t,t,t,e,e-w+ 
+9 i x,x-w-e-w-j+x-j-j-k-q_.t,. x-r-.r=t_e_r_
 
 20 i y-e-q- y-e-q- u-e-q- y-e-q-
 22 c 20-21
@@ -387,7 +380,7 @@ rh
 
 38 i q_.y_t,
 40 c 38-39
-42 i e_e,e_r,w_w,w,e,w,6_.
+42 i e_e,e_r,w_w,w,e,w,h_.
 47 c 39-43
 92 c 38-55 7
 
@@ -402,7 +395,7 @@ rh
   "der-flohwalzer": `4/4
 Gb major
 lh 3
-60 i 1_
+60 i a_
 rh 3
 1b4 i y-t-
 2 c 1 0 0 x 0 
@@ -417,43 +410,44 @@ lh
 bpm 170
 sections 2 4 6
 
-1 i 1+3+5+5_5_
+1 i a+d+g+g_g_
 1 c 1-4 7
-5 i 1-5-q-5-e-q-5-q-
+5 i a-g-q-g-e-q-g-q-
 
 6 c 5 0 2 2 5 5
 11 c 5-5b4 6
-11b4 i r-7-#7-w-t-w-#u-t-w-5-
-13 i 1-5-q-5-
+11b4 i r-j-#j-w-t-w-#u-t-w-g-
+13 i a-g-q-g-
 13b3 c 13-13b3 0 0 x 2 2 2 2 5 5 5 5 6 x 4 4 0 x 2 2 5 5 6 6 4 4
-14b3 i 1-q-2-q-
+14b3 i a-q-s-q-
 
 rh
-1 i e-q-5-q-x_ e-7-5-7-x_ w-#7-5-#7-
-1b3 c 1-3
-4 c 3-3b3
-4b3 i w,t,q_.w,e+t,.r,.t,7+q_.w,e_w_r_t_r_e_
+5 i d,d,:d-:
+5b3 c 5-5b3 2 5 x x x x x 5 4 2
 
-13b2 i e,e,e,t,t,r,e,x,t,t,t,r,t,r,e,
-17 c 13-15
-21 c 13-14
-23b2 i y,y,y,r_u_t_#u_
+37 i q,e-:q-:x-: q,:q-:
+37b4 c 37b2-37b3
+38 c 37-37b3 1 1 2 2 -2 -1
+41 c 37-40
 
-5 c 5-25 -7
-27 i aq+`,
+ch2
+21b4 i x,:g-:
+22 c 21 0 0 0 0 0 0 0
+29 c 21-28 0 0
+36b3 c 21-28`,
   "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano": `C minor
 3/4
 
 lh 2
-1 i q,x_5,x_
+1 i q,x_g,x_
 3 c 1-2 0 0 0 0
-11 i w,x_5,x_
+11 i w,x_g,x_
 13 c 11-12 0 0 0
 
 
 
 1 c 1-77 7
-221 i 1q
+221 i aq
 
 
 rh 4
@@ -467,7 +461,7 @@ ch2 3
 
 Eb major
 rh 4 
-79 i q_.q_.q,7,6,5,
+79 i q_.q_.q,j,h,g,
 95 c 79-82 2 1`,
 
   chopsticks: `C major
@@ -505,7 +499,7 @@ rh
   "the-two-happy-coons---theodore-h.-northrup-1891": `G major
 
 rh
-3 i 7,q,w,e
+3 i j,q,w,e
 3 c 3 2&5
 
 
@@ -524,12 +518,12 @@ C major
 
   "passacaglia---handel-halvorsen": `A minor
 lh
-1 i 1-q-t-e-a-e-t-e-
+1 i a-q-t-e-a-e-t-e-
 2 c 1 0 0 3 -1 2 -2 -4 -3 0
 11 c 3-10 0 0 0 0 0 0 0
 74 i qa+
 rh
-3 i 3-e-w-e-q-e-7-e-6-e-5-e-4-e-3-e-
+3 i d-e-w-e-q-e-j-e-h-e-g-e-f-e-d-e-
 5 c 3-4 -1 -2
 19 c 3-8 7`,
   "boogie-woogie-jump---pete-johnson": `F major
@@ -539,7 +533,7 @@ F major
 lh
 
 
-13 i 1-q-3-e-5-t-3-e-
+13 i a-q-d-e-g-t-d-e-
 14 c 13 3 0 0 3 3 0 0 4 4 0 0
 5 c 17-24
 25 c 13-23
@@ -561,7 +555,7 @@ rh
 21 i rtuo-
 22 c 5-5b3
 22b3 i r-:bt-:t-: be-:e-:r-:
-23 i q-bey-et-q-bebt-5-wr-5-qe-5-
+23 i q-bey-et-q-bebt-g-wr-g-qe-g-
 6 c 22-23
   
 
@@ -574,7 +568,7 @@ sections 4 7 9 11 14 16 18
 phrases 5-2 15-2 49-2 67-2
 
 lh 2
-1 i qa, x, 5t, x, 
+1 i qa, x, gt, x, 
 2 c 1 0 0 0 0 0 2 2 2 2
 11 c 1-10
 21 c 1-1b3 0 -3 0 -3 1 -3 1 -3 2 -3 2 -3 -2 -4 -1 -3
@@ -587,7 +581,7 @@ lh 2
 65 i qa+.
 
 rh
-5 i 3,3,:3-:
+5 i d,d,:d-:
 5b3 c 5-5b3 2 5 x x x x x 5 4 2
 
 37 i q,e-:q-:x-: q,:q-:
@@ -596,7 +590,7 @@ rh
 41 c 37-40
 
 ch2
-21b4 i x,:5-:
+21b4 i x,:g-:
 22 c 21 0 0 0 0 0 0 0
 29 c 21-28 0 0
 36b3 c 21-28`,

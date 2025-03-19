@@ -118,6 +118,7 @@ const STRUCTURES_TO_CHORDS: { [key: string]: Chord[] } = {
   "V:sus4": ["Vsus4", "V"],
   "V:sus4_unresolved": ["Vsus4"],
   "V:soul_dominant": ["Vsoul", "I"],
+  "scale:whole-tone": ["WT1", "WT2"],
 };
 
 export const s = (tags: TemplateStringsArray) => {

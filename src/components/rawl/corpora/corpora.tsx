@@ -301,6 +301,7 @@ export const corpora: CorpusEntry[] = [
       "march-of-the-brahman-priests-1923",
     ],
     composerBirthYear: 1886,
+    country: "USA",
     genre: "Ragtime",
     similarTo: ["debussy", "scott_joplin"],
   },
@@ -704,6 +705,16 @@ export const corpora: CorpusEntry[] = [
     genre: "Video Game Music",
     style: "Orchestral, Rock, Cinematic",
     country: "Japan", // Masayoshi Soken is Japanese.
+  },
+  {
+    slug: "koichi_sugiyama",
+    midis: [
+      "dragon-quest-overture-piano",
+      "heaven-s-prayer---dragon-quest-ix",
+      "adventure---dragon-quest-iii",
+      "dragon-quest-viii-bar-theme",
+      "unflinching-courage---dragon-quest-xi-battle-theme-solo-piano-original-arrangement",
+    ],
   },
   {
     slug: "masashi_hamauzu",
@@ -3119,6 +3130,8 @@ export const corpora: CorpusEntry[] = [
       "madame-lulu---amedeo-tommasi-sampled-in-amend-by-j-p-n",
       "1900-s-madness-2",
     ],
+    composerBirthYear: 1935,
+    country: "Italy",
   },
   { slug: "jeremy_zuckerman", midis: ["avatar-the-last-airbender-medley"] },
   {
@@ -3369,6 +3382,7 @@ export const corpora: CorpusEntry[] = [
       "boogie-blues-etude-1974---oscar-peterson-piano-solo-transcription",
       "boogie-woogie---monday-struggle---by-albert-ammons",
       "boogie-woogie-stomp",
+      "dragon-quest-viii-bar-theme",
 
       "lewis-boogie-rock-n-roll-piano-arrangement",
 
@@ -3791,6 +3805,9 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "asuka_ota_and_ryo_nagamatsu",
     midis: ["coconut-mall---mario-kart-wii"],
+    composerBirthYear: 1980,
+    genre: "Video Game Music",
+    country: "Japan",
   },
   {
     slug: "asuka_hayazaki",
@@ -6408,6 +6425,9 @@ export const corpora: CorpusEntry[] = [
       "don-t-be-shy---congfei-wei-from-pocket-3d-world",
       "ji-mu-sen-lin-forest-of-blocks---wei-cong-fei-congfei-wei",
     ],
+    composerBirthYear: 1992,
+    genre: "Video Game Music",
+    country: "China",
   },
   {
     slug: "toshifumi_hinata",
@@ -6749,6 +6769,8 @@ export const corpora: CorpusEntry[] = [
       "minako-s-mood-choose-your-costume---taro-umebayashi-yuri-on-ice",
       "serenade-for-two-from-yuri-on-ice",
     ],
+    composerBirthYear: 1980,
+    country: "Japan",
   },
   { slug: "jojomk2", midis: ["canon-in-c-jazz-piano-duets"] },
   {
@@ -7655,6 +7677,8 @@ export const corpora: CorpusEntry[] = [
       "love-theme-blade-runner---vangelis-for-keyboard",
       "plelude---vangelis",
     ],
+    composerBirthYear: 1943,
+    country: "Greece",
   },
   {
     slug: "unsorted",

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { A, c, s } from "../book/chapters";
+import { A, c, k, s } from "../book/chapters";
 import { CorpusLink } from "../corpora/CorpusLink";
 
 // Reuse styling components
@@ -359,6 +359,62 @@ export const BLOG_POSTS: BlogPost[] = [
           last decades, can be left {s`V:sus4_unresolved`}. In soul there's{" "}
           {s`V:soul_dominant`}.
         </P>
+      </>
+    ),
+  },
+
+  {
+    id: 3,
+    title: "Whole-tone scale",
+    date: "2025-03-19",
+    content: () => (
+      <>
+        <H>Two variants</H>
+        <P>
+          If a chromatic scale is the alphabet of Western music, whole-tone
+          scale is the easiest object to build on it. You should simply omit all
+          even notes. Or, equivalently, omit all odd notes.
+        </P>
+        <P>
+          So, from {c`1 b2 2 b3 3 4 #4 5 b6 6 b7 7`} we get two scales:
+          <ul>
+            <li>{c`1 2 3 #4 b6 b7`}</li>
+            <li>{c`b2 b3 4 5 6 7`}</li>
+          </ul>
+        </P>
+        <P>Try it: {k("major-seconds")}</P>
+        <P>
+          The most important property of it is its complete symmetry. All
+          intervals are the same. Therefore, out of context there's no way to
+          decide, which of its six notes should be chosen as the main, {c`1`}{" "}
+          note. This happens for{" "}
+          {a(
+            "https://en.wikipedia.org/wiki/Mode_of_limited_transposition",
+            "Modes of limited transposition",
+          )}
+        </P>
+        <P>
+          This isn't a typical object in Western functional harmony. Therefore,
+          in my color scheme both scales look like random sets of colors. That's
+          because they are used rarely - mostly in 20th century. A modern,
+          fresh, spicy beast.
+        </P>
+        <P>Examples in my corpus: {s`scale:whole-tone`}</P>
+        <P>
+          In jazz, it can be played over a {c`V7`} chord:{" "}
+          <ul>
+            <li>{A("coconut-mall---mario-kart-wii")}</li>
+            <li>
+              {A("oscar-peterson---jazz-exercises-for-piano---exercise-4")}
+            </li>
+            <li>{A("magic-waltz")}</li>
+            <li>
+              {A("vizisi")} over an applied {c`V7/ii`}
+            </li>
+          </ul>
+        </P>
+
+        <P>It's usually used once in a piece.</P>
       </>
     ),
   },

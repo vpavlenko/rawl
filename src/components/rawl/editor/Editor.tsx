@@ -1,7 +1,6 @@
 import { toggleComment } from "@codemirror/commands";
 import { StreamLanguage } from "@codemirror/language";
 import { keymap } from "@codemirror/view";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CodeMirror from "@uiw/react-codemirror";
 import { doc, getDoc, getFirestore } from "firebase/firestore/lite";
 import React, {
@@ -38,16 +37,15 @@ import { generateMidiWithMetadata, SourceLocation } from "./EditorMidi";
 import EditorSavingMenu from "./EditorSavingMenu";
 import {
   EditorPanel as BaseEditorPanel,
-  chevronIcons,
   CodeMirrorWrapper,
   EditorContainer,
   EditorContent,
   ErrorMessage,
-  FoldButton,
   RawlContainer,
   ResizeHandle,
   StatusBar,
 } from "./EditorStyles";
+import { FoldButtonWithIcon } from "./FoldButtonWithIcon";
 import Manual, { MidiWriterJsDisplay, ParseMidiDisplay } from "./Manual";
 import { ManualContainer } from "./ManualStyles";
 import { scores } from "./scores";
@@ -1204,15 +1202,11 @@ const Editor: React.FC<EditorProps> = ({
       </div>
       <BaseEditorPanel isFolded={foldEditor} height={panelHeight}>
         <ResizeHandle onMouseDown={handleMouseDown} />
-        <FoldButton
+        <FoldButtonWithIcon
           position="top"
           isFolded={foldEditor}
           onClick={() => setFoldEditor(!foldEditor)}
-        >
-          <FontAwesomeIcon
-            icon={foldEditor ? chevronIcons.up : chevronIcons.down}
-          />
-        </FoldButton>
+        />
         <EditorContent>
           {isDecompositionMode ? null : customChild}
           <CodeMirrorWrapper className={foldEditor ? "folded" : ""}>

@@ -272,7 +272,6 @@ const ChordStairs: React.FC<{
 
       return guitarChord || formatChordName(name);
     };
-    debugger;
     return !hasIntersection && chapterChords ? (
       <></>
     ) : (

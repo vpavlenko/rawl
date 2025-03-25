@@ -1,9 +1,3 @@
-import {
-  faChevronDown,
-  faChevronLeft,
-  faChevronRight,
-  faChevronUp,
-} from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { FOOTER_HEIGHT } from "../../AppFooter";
 
@@ -312,14 +306,6 @@ export const FoldButton = styled.button<{
     background-color: #2d2d2d;
   }
 `;
-
-// Export the chevron icons for use in components
-export const chevronIcons = {
-  up: faChevronUp,
-  down: faChevronDown,
-  left: faChevronLeft,
-  right: faChevronRight,
-};
 
 export const ErrorMessage = styled.div`
   color: #ff6b6b;

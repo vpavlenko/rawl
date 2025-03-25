@@ -1,12 +1,11 @@
 import { faGuitar, faUserGraduate } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
 import { playArpeggiatedChord } from "../../../sampler/sampler";
 import { PITCH_CLASS_TO_LETTER } from "../AnalysisGrid";
 import { Toggle } from "../Toggle";
-import { FoldButton, chevronIcons } from "../editor/EditorStyles";
+import { FoldButtonWithIcon } from "../editor/FoldButtonWithIcon";
 import { TOP_100_COMPOSERS } from "../top100Composers";
 import ChordStairs from "./ChordStairs";
 import { CHROMATIC_CHORDS, MAJOR_MODE, MINOR_MODE, Mode } from "./chords";
@@ -252,15 +251,11 @@ export const FoldablePianoLegend: React.FC<{
               leftTitle="Show Roman numerals"
               rightTitle="Show guitar chords"
             />
-            <FoldButton
+            <FoldButtonWithIcon
               position="top"
               isFolded={!showLegend}
               onClick={() => setShowLegend(false)}
-            >
-              <FontAwesomeIcon
-                icon={!showLegend ? chevronIcons.up : chevronIcons.down}
-              />
-            </FoldButton>
+            />
 
             <div
               style={{
@@ -343,15 +338,11 @@ export const FoldablePianoLegend: React.FC<{
           </div>
         ) : (
           <div style={{ position: "relative", marginTop: "30px" }}>
-            <FoldButton
+            <FoldButtonWithIcon
               position="top"
               isFolded={!showLegend}
               onClick={() => setShowLegend(true)}
-            >
-              <FontAwesomeIcon
-                icon={!showLegend ? chevronIcons.down : chevronIcons.up}
-              />
-            </FoldButton>
+            />
             <button
               onClick={() => setShowLegend(true)}
               style={{

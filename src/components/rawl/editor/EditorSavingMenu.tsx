@@ -3,8 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   addDoc,
   collection,
+  doc,
+  getDoc,
   getFirestore,
   serverTimestamp,
+  updateDoc,
 } from "firebase/firestore/lite";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -24,6 +27,7 @@ interface EditorSavingMenuProps {
   initialSource: string;
   id?: string;
   slug?: string;
+  version?: number;
   history: any;
   setError: (error: string | null) => void;
   analysis?: Analysis;
@@ -70,11 +74,30 @@ const BackupInfo = styled.div`
   margin-bottom: 10px;
 `;
 
+// Add new styled component for version links
+const VersionLinks = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+`;
+
+const VersionLink = styled.a<{ isActive: boolean }>`
+  color: white;
+  text-decoration: ${(props) => (props.isActive ? "none" : "underline")};
+  font-weight: ${(props) => (props.isActive ? "bold" : "normal")};
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
 const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   score,
   initialSource,
   id,
   slug,
+  version,
   history,
   setError,
 }) => {
@@ -82,6 +105,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   const [shortLink, setShortLink] = useState<string | null>(null);
   const [publishTitle, setPublishTitle] = useState("");
   const [isPublishing, setIsPublishing] = useState(false);
+  const [versions, setVersions] = useState<number>(version || 0);
 
   // Get URL key for localStorage
   const getUrlKey = () => {
@@ -111,6 +135,31 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
     }
   }, [id, slug, initialSource, score]);
 
+  // Update to load existing versions if id is provided
+  useEffect(() => {
+    if (id) {
+      // If we have an ID, fetch the document to get versions count
+      const fetchVersions = async () => {
+        try {
+          const db = getFirestore();
+          const docRef = doc(db, "edits", id);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            // Set the versions count and the title from the existing document
+            setVersions(data.versions?.length || 0);
+            setPublishTitle(data.title || "");
+          }
+        } catch (error) {
+          console.error("Error fetching versions:", error);
+        }
+      };
+
+      fetchVersions();
+    }
+  }, [id]);
+
   // Handle restore from backup
   const handleRestore = () => {
     if (backup && backup.code) {
@@ -130,19 +179,19 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
     }
   };
 
-  // Handle publish button click
-  const handlePublishClick = () => {
+  // Handle publish button click - renamed to handleSaveClick
+  const handleSaveClick = () => {
     if (!publishTitle.trim()) {
       setError("Please enter a title for your score");
       return;
     }
-    handlePublish();
+    handleSave();
   };
 
-  // Handle publishing to firestore
-  const handlePublish = async () => {
+  // Handle saving to firestore with versions
+  const handleSave = async () => {
     if (!score.trim()) {
-      setError("Cannot publish empty score");
+      setError("Cannot save empty score");
       return;
     }
 
@@ -151,19 +200,52 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
       const db = getFirestore();
       const editsCollection = collection(db, "edits");
 
-      const docRef = await addDoc(editsCollection, {
-        title: publishTitle.trim(),
-        source: score,
-        createdAt: serverTimestamp(),
-      });
+      if (id) {
+        // Update existing document with new version
+        const docRef = doc(db, "edits", id);
+        const docSnap = await getDoc(docRef);
 
-      const newShortLink = `/ef/${docRef.id}`;
-      setShortLink(newShortLink);
-      history.push(newShortLink);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          const versions = data.versions || [];
+
+          // Add the new version
+          versions.push(score);
+
+          // Update the document
+          await updateDoc(docRef, {
+            title: publishTitle.trim(),
+            versions,
+            updatedAt: serverTimestamp(),
+          });
+
+          // Redirect to the new version URL
+          const newVersionNumber = versions.length;
+          const newShortLink = `/ef/${id}/${newVersionNumber}`;
+          setShortLink(newShortLink);
+          history.push(newShortLink);
+          setVersions(newVersionNumber);
+        }
+      } else {
+        // Create new document with first version
+        const docRef = await addDoc(editsCollection, {
+          title: publishTitle.trim(),
+          versions: [score], // Initialize versions array with current score
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        });
+
+        // Redirect to the new version URL
+        const newShortLink = `/ef/${docRef.id}/1`;
+        setShortLink(newShortLink);
+        history.push(newShortLink);
+        setVersions(1);
+      }
+
       setError(null);
     } catch (error) {
-      console.error("Error publishing score:", error);
-      setError("Failed to publish score");
+      console.error("Error saving score:", error);
+      setError("Failed to save score");
     } finally {
       setIsPublishing(false);
     }
@@ -172,7 +254,15 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   // Handle key down for publish input
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handlePublishClick();
+      handleSaveClick();
+    }
+  };
+
+  // New function to handle version navigation
+  const handleVersionClick = (versionNumber: number) => {
+    if (id) {
+      const versionLink = `/ef/${id}/${versionNumber}`;
+      history.push(versionLink);
     }
   };
 
@@ -262,15 +352,31 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
       <MenuRow>
         <Input
           type="text"
-          placeholder="Enter title to publish..."
+          placeholder="Enter title to save..."
           value={publishTitle}
           onChange={(e) => setPublishTitle(e.target.value)}
           onKeyDown={handleKeyDown}
         />
-        <Button onClick={handlePublishClick} disabled={isPublishing}>
-          {isPublishing ? "Publishing..." : "Publish"}
+        <Button onClick={handleSaveClick} disabled={isPublishing}>
+          {isPublishing ? "Saving..." : "Save"}
         </Button>
       </MenuRow>
+
+      {id && versions > 0 && (
+        <VersionLinks>
+          {Array.from({ length: versions }, (_, i) => i + 1).map(
+            (versionNumber) => (
+              <VersionLink
+                key={versionNumber}
+                isActive={version === versionNumber}
+                onClick={() => handleVersionClick(versionNumber)}
+              >
+                {versionNumber}
+              </VersionLink>
+            ),
+          )}
+        </VersionLinks>
+      )}
 
       {shortLink && (
         <MenuRow>

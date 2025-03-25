@@ -210,9 +210,15 @@ const Editor: React.FC<EditorProps> = ({
   onEditorChange,
 }) => {
   // Update useParams to handle both slug and id
-  const { slug, id } = useParams<{ slug?: string; id?: string }>();
+  const { slug, id, version } = useParams<{
+    slug?: string;
+    id?: string;
+    version?: string;
+  }>();
   // Use either id or slug as the effective slug
   const effectiveSlug = id || slug;
+  // Parse version parameter to number if present
+  const versionNum = version ? parseInt(version, 10) : undefined;
 
   // Detect if user is on macOS to show Option vs Alt
   const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
@@ -739,19 +745,54 @@ const Editor: React.FC<EditorProps> = ({
 
             if (docSnap.exists()) {
               const data = docSnap.data();
-              let newScore = data.source;
 
-              // Replace "anacrusis 4" with "sections 2 6"
-              newScore = newScore.replace(/anacrusis 4/g, "sections 2 6");
+              // Handle versions array instead of source field
+              if (data.versions && Array.isArray(data.versions)) {
+                // Get the specific version or the latest if not specified
+                const versionIndex = versionNum
+                  ? Math.min(versionNum - 1, data.versions.length - 1)
+                  : data.versions.length - 1;
 
-              setScore(newScore);
-              setCodeValue(newScore);
-              // Trigger initial MIDI generation after a delay
-              setTimeout(() => {
-                // Disable autoplay for /e/new route
-                const isNewRoute = effectiveSlug === "new";
-                debouncedMelodyPlayback(newScore, !isNewRoute);
-              }, 1000);
+                let newScore = data.versions[versionIndex] || "";
+
+                // If there's a legacy source field and no versions, use that
+                if (!newScore && data.source) {
+                  newScore = data.source;
+                }
+
+                // Replace "anacrusis 4" with "sections 2 6"
+                newScore = newScore.replace(/anacrusis 4/g, "sections 2 6");
+
+                setScore(newScore);
+                setCodeValue(newScore);
+
+                // Trigger initial MIDI generation after a delay
+                setTimeout(() => {
+                  // Disable autoplay for /e/new route
+                  const isNewRoute = effectiveSlug === "new";
+                  debouncedMelodyPlayback(newScore, !isNewRoute);
+                }, 1000);
+              } else if (data.source) {
+                // Handle legacy documents with just a source field
+                let newScore = data.source;
+
+                // Replace "anacrusis 4" with "sections 2 6"
+                newScore = newScore.replace(/anacrusis 4/g, "sections 2 6");
+
+                setScore(newScore);
+                setCodeValue(newScore);
+
+                // Trigger initial MIDI generation after a delay
+                setTimeout(() => {
+                  // Disable autoplay for /e/new route
+                  const isNewRoute = effectiveSlug === "new";
+                  debouncedMelodyPlayback(newScore, !isNewRoute);
+                }, 1000);
+              } else {
+                setError("No content found in edit");
+                setScore("");
+                setCodeValue("");
+              }
             } else {
               setError("Edit not found");
               setScore("");
@@ -791,6 +832,7 @@ const Editor: React.FC<EditorProps> = ({
     isDecompositionMode,
     initialSource,
     debouncedMelodyPlayback,
+    versionNum,
   ]);
 
   // Track cursor position and trigger playback when cursor moves
@@ -1220,6 +1262,7 @@ const Editor: React.FC<EditorProps> = ({
                   initialSource={initialSource || ""}
                   id={id}
                   slug={slug}
+                  version={versionNum}
                   history={history}
                   setError={setError}
                 />

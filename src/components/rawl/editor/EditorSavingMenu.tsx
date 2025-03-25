@@ -122,8 +122,8 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
       if (savedBackup) {
         try {
           const parsed = JSON.parse(savedBackup);
-          // Only show if backup is different from current code
-          if (parsed.code !== initialSource) {
+          // Only show if backup is different from both initial source and current code
+          if (parsed.code !== initialSource && parsed.code !== score) {
             setBackup(parsed);
           } else {
             setBackup(null);
@@ -342,12 +342,15 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
 
   return (
     <SavingMenuContainer>
-      {backup && backup.timestamp !== null && backup.code !== initialSource && (
-        <BackupInfo>
-          Backup from {formatBackupTime(backup.timestamp)}{" "}
-          <Button onClick={handleRestore}>Restore</Button>
-        </BackupInfo>
-      )}
+      {backup &&
+        backup.timestamp !== null &&
+        backup.code !== initialSource &&
+        backup.code !== score && (
+          <BackupInfo>
+            Backup from {formatBackupTime(backup.timestamp)}{" "}
+            <Button onClick={handleRestore}>Restore</Button>
+          </BackupInfo>
+        )}
 
       <MenuRow>
         <Input

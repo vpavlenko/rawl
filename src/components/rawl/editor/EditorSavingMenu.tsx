@@ -106,40 +106,19 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   const [publishTitle, setPublishTitle] = useState("");
   const [isPublishing, setIsPublishing] = useState(false);
   const [versions, setVersions] = useState<number>(version || 0);
+  const [allVersionsContent, setAllVersionsContent] = useState<string[]>([]);
+  const [documentUpdatedAt, setDocumentUpdatedAt] = useState<Date | null>(null);
 
   // Get URL key for localStorage
   const getUrlKey = () => {
     return id ? `/ef/${id}` : slug ? `/e/${slug}` : "";
   };
 
-  // Initialize component
-  useEffect(() => {
-    // Check for backup
-    const urlKey = getUrlKey();
-    if (urlKey) {
-      const backupKey = BACKUP_PREFIX + urlKey;
-      const savedBackup = localStorage.getItem(backupKey);
-      if (savedBackup) {
-        try {
-          const parsed = JSON.parse(savedBackup);
-          // Only show if backup is different from both initial source and current code
-          if (parsed.code !== initialSource && parsed.code !== score) {
-            setBackup(parsed);
-          } else {
-            setBackup(null);
-          }
-        } catch (e) {
-          console.error("Failed to parse backup:", e);
-        }
-      }
-    }
-  }, [id, slug, initialSource, score]);
-
-  // Update to load existing versions if id is provided
+  // Initialize component and fetch document details
   useEffect(() => {
     if (id) {
-      // If we have an ID, fetch the document to get versions count
-      const fetchVersions = async () => {
+      // If we have an ID, fetch the document to get versions count, updatedAt and all versions content
+      const fetchDocumentDetails = async () => {
         try {
           const db = getFirestore();
           const docRef = doc(db, "edits", id);
@@ -150,15 +129,66 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
             // Set the versions count and the title from the existing document
             setVersions(data.versions?.length || 0);
             setPublishTitle(data.title || "");
+
+            // Store all versions content for comparison with backup
+            if (data.versions && Array.isArray(data.versions)) {
+              setAllVersionsContent(data.versions);
+            }
+
+            // Store document's updatedAt timestamp
+            if (data.updatedAt) {
+              setDocumentUpdatedAt(data.updatedAt.toDate());
+            }
           }
         } catch (error) {
-          console.error("Error fetching versions:", error);
+          console.error("Error fetching document details:", error);
         }
       };
 
-      fetchVersions();
+      fetchDocumentDetails();
     }
   }, [id]);
+
+  // Check for backup once we have document details
+  useEffect(() => {
+    // Check for backup
+    const urlKey = getUrlKey();
+    if (urlKey) {
+      const backupKey = BACKUP_PREFIX + urlKey;
+      const savedBackup = localStorage.getItem(backupKey);
+      if (savedBackup) {
+        try {
+          const parsed = JSON.parse(savedBackup);
+
+          // Don't show backup if it's identical to initial source or current code
+          if (parsed.code === initialSource || parsed.code === score) {
+            setBackup(null);
+            return;
+          }
+
+          // Don't show backup if it matches any version of the document
+          if (allVersionsContent.some((version) => version === parsed.code)) {
+            setBackup(null);
+            return;
+          }
+
+          // Don't show backup if it was saved before document was last updated
+          if (
+            documentUpdatedAt &&
+            parsed.timestamp < documentUpdatedAt.getTime()
+          ) {
+            setBackup(null);
+            return;
+          }
+
+          // If we've passed all checks, show the backup
+          setBackup(parsed);
+        } catch (e) {
+          console.error("Failed to parse backup:", e);
+        }
+      }
+    }
+  }, [id, slug, initialSource, score, documentUpdatedAt, allVersionsContent]);
 
   // Handle restore from backup
   const handleRestore = () => {
@@ -332,25 +362,39 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
     if (!urlKey || score === initialSource) return;
 
     const backupKey = BACKUP_PREFIX + urlKey;
+
+    // Check if we already have a backup that matches this code
+    const existingBackup = localStorage.getItem(backupKey);
+    if (existingBackup) {
+      try {
+        const parsed = JSON.parse(existingBackup);
+        // Don't update if the code is the same
+        if (parsed.code === score) return;
+      } catch (e) {
+        // If parsing fails, continue with saving the new backup
+        console.error("Failed to parse existing backup:", e);
+      }
+    }
+
+    // Don't save backup if it matches any version of the document
+    if (allVersionsContent.some((version) => version === score)) return;
+
     const backup: BackupData = {
       code: score,
       timestamp: Date.now(),
     };
 
     localStorage.setItem(backupKey, JSON.stringify(backup));
-  }, [score, initialSource, id, slug]);
+  }, [score, initialSource, id, slug, allVersionsContent]);
 
   return (
     <SavingMenuContainer>
-      {backup &&
-        backup.timestamp !== null &&
-        backup.code !== initialSource &&
-        backup.code !== score && (
-          <BackupInfo>
-            Backup from {formatBackupTime(backup.timestamp)}{" "}
-            <Button onClick={handleRestore}>Restore</Button>
-          </BackupInfo>
-        )}
+      {backup && backup.timestamp !== null && (
+        <BackupInfo>
+          Backup from {formatBackupTime(backup.timestamp)}{" "}
+          <Button onClick={handleRestore}>Restore</Button>
+        </BackupInfo>
+      )}
 
       <MenuRow>
         <Input

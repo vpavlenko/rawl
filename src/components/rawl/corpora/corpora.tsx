@@ -692,6 +692,7 @@ export const corpora: CorpusEntry[] = [
     country: "Finland", // Ari Pulkkinen is Finnish.
     similarTo: ["pedro_silva", "lena_raine"],
   },
+  { slug: "katamari", midis: ["fugue-7777---katamari-damacy"] },
   {
     slug: "masayoshi_soken",
     midis: [
@@ -3942,6 +3943,7 @@ export const corpora: CorpusEntry[] = [
       "lavender-town-pokemon-r-b-y",
       "amor-sacro---giovanni-allevi",
       "blastin-banter-battle-battle-of-jerry-mountain---shinkonet-blastin-banter-battle",
+      "fantasiestuck---oskar-schuster",
     ],
   },
   { slug: "ilmari_hakkola", midis: ["bad-piggies-theme"] },
@@ -3951,6 +3953,7 @@ export const corpora: CorpusEntry[] = [
       "idea-15---gibran-alcocer",
       "idea-n.10---gibran-alcocer",
       "idea-22---gibran-alcocer",
+      "idea-25-piano-solo-version---gibran-alcocer-andrea-vanzo",
 
       "idea-7---gibran-alcocer",
       "idea-20---gibran-alcocer",
@@ -3962,6 +3965,36 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 2003,
     genre: "21st Century Piano",
     country: "Mexico",
+  },
+  {
+    slug: "andrea_vanzo",
+    midis: [
+      "intimacy---andrea-vanzo",
+      "soulmate---andrea-vanzo",
+      "spring---andrea-vanzo",
+      "valzer-d-inverno---andrea-vanzo",
+      "one-little-waltz-tonight---andrea-vanzo",
+      "sunlight---andrea-vanzo",
+      "snowflakes---andrea-vanzo",
+      "valzer-d-autunno---andrea-vanzo",
+      "fire-burns-inside-me---andrea-vanzo",
+      "il-tuo-profumo---andrea-vanzo",
+    ],
+    similarTo: ["gibran_alcocer"],
+    genre: "Felt Piano",
+    composerBirthYear: 1989,
+    country: "Italy",
+  },
+  {
+    slug: "oskar_schuster",
+    midis: [
+      "les-sablons---oskar-schuster",
+      "fantasiestuck---oskar-schuster",
+      "fjarlaegur-distant---oskar-schuster",
+      "eftir-sneeuwland---oskar-schuster",
+      "matilda---oskar-schuster",
+    ],
+    similarTo: ["andrea_vanzo"],
   },
   {
     slug: "aaron_copland",
@@ -6879,7 +6912,9 @@ export const corpora: CorpusEntry[] = [
       "closing-time---yehezkel-raz",
       "milestone---yehezkel-raz",
       "early-morning-haze---yehezkel-raz",
+      "komorebi-piano-solo-version---yehezkel-raz-andrea-vanzo",
     ],
+    similarTo: ["andrea_vanzo"],
   },
   {
     slug: "penta_hexa",

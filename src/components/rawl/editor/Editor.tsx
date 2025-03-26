@@ -661,39 +661,9 @@ const Editor: React.FC<EditorProps> = ({
 
       setScore(value);
 
-      // Process the score to update context and analysis
-      try {
-        // Create a fresh context for this parsing pass
-        const newContext: CommandContext & Partial<ExtendedCommandContext> = {
-          currentKey: { tonic: 0, mode: "major" },
-          currentTrack: 1,
-          timeSignatures: [{ numerator: 4, measureStart: 1 }],
-          channelOctaves: {
-            0: 4, // RH default
-            1: 2, // LH default
-          },
-          commentToEndOfFile: false,
-          currentBpm: 120, // Default BPM
-          analysis: { ...ANALYSIS_STUB },
-        };
-
-        // Process each line of the score to build the analysis
-        // Don't filter out empty lines to preserve line numbers
-        const lines = value.split("\n");
-
-        for (let i = 0; i < lines.length; i++) {
-          // Pass the exact 1-based line number to parseCommand
-          parseCommand(lines[i], newContext, i + 1);
-        }
-
-        // Update context with new values (including the analysis)
-        setContext(newContext);
-
-        // Always trigger MIDI playback with the new value
-        parseScore(value, false);
-      } catch (e) {
-        // Remove console.error for score processing
-      }
+      // Always trigger MIDI playback with the new value
+      // Let parseScore handle both analysis and MIDI generation
+      parseScore(value, false);
 
       // Only save backup if we're not in preview mode
       if (!isPreviewingBackup && effectiveSlug && value !== initialSource) {

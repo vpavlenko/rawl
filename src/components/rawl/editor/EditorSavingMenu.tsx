@@ -315,37 +315,24 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   // Handle restore from backup
   const handleRestore = () => {
     if (backup && backup.code) {
-      const confirmed = window.confirm(
-        "Are you sure you want to restore from backup? This will replace your current code.",
-      );
-      if (confirmed) {
-        // Dispatch a custom event with the backup code
-        const event = new CustomEvent("rawl-restore-backup", {
-          detail: { code: backup.code },
-        });
-        window.dispatchEvent(event);
+      // Dispatch a custom event with the backup code
+      const event = new CustomEvent("rawl-restore-backup", {
+        detail: { code: backup.code },
+      });
+      window.dispatchEvent(event);
 
-        // Clear the backup after restoration
-        setBackup(null);
-      }
+      // Clear the backup after restoration
+      setBackup(null);
     }
   };
 
   // Add new handler to discard backup
   const handleDiscardBackup = () => {
-    if (backup) {
-      const confirmed = window.confirm(
-        "Are you sure you want to discard this backup? This cannot be undone.",
-      );
-      if (confirmed) {
-        // Remove from localStorage
-        const urlKey = getUrlKey();
-        if (urlKey) {
-          const backupKey = BACKUP_PREFIX + urlKey;
-          localStorage.removeItem(backupKey);
-          setBackup(null);
-        }
-      }
+    const urlKey = getUrlKey();
+    if (urlKey) {
+      const backupKey = BACKUP_PREFIX + urlKey;
+      localStorage.removeItem(backupKey);
+      setBackup(null);
     }
   };
 

@@ -659,12 +659,21 @@ const Editor: React.FC<EditorProps> = ({
     };
   }, [score, isPreviewingBackup]);
 
-  // Setup listener for restore backup event - existing code, keep it
+  const getUrlKey = useCallback(() => id ?? slug, [id, slug]);
+
+  // Setup listener for restore backup event
   useEffect(() => {
     const handleRestoreBackup = (e: CustomEvent<{ code: string }>) => {
       if (e.detail && e.detail.code) {
         setScore(e.detail.code);
         debouncedMelodyPlayback(e.detail.code, false);
+
+        // Also remove the backup from localStorage
+        const urlKey = getUrlKey();
+        if (urlKey) {
+          const backupKey = BACKUP_PREFIX + urlKey;
+          localStorage.removeItem(backupKey);
+        }
       }
     };
 
@@ -679,7 +688,7 @@ const Editor: React.FC<EditorProps> = ({
         handleRestoreBackup as EventListener,
       );
     };
-  }, [debouncedMelodyPlayback]);
+  }, [debouncedMelodyPlayback, getUrlKey]); // Use getUrlKey in dependencies
 
   // Modify the event handler for backing up code
   useEffect(() => {
@@ -740,7 +749,7 @@ const Editor: React.FC<EditorProps> = ({
 
       // Only save backup if we're not in preview mode
       if (!isPreviewingBackup && effectiveSlug && value !== initialSource) {
-        const urlKey = id ? `/ef/${id}` : slug ? `/e/${slug}` : "";
+        const urlKey = getUrlKey();
         if (urlKey) {
           const backupKey = BACKUP_PREFIX + urlKey;
           const backup: BackupData = {
@@ -765,6 +774,7 @@ const Editor: React.FC<EditorProps> = ({
       onEditorChange,
       isPreviewingBackup,
       editorMountTime, // Add editor mount time to dependencies
+      getUrlKey,
     ],
   );
 

@@ -124,6 +124,26 @@ const ToastNotification = styled.div`
   }
 `;
 
+// Add a new styled component for the sign-in message
+const SignInMessage = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #888;
+`;
+
+const SignInLink = styled.a`
+  color: #fff;
+  cursor: pointer;
+  margin-left: 5px;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   score,
   initialSource,
@@ -450,18 +470,27 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
         </BackupInfo>
       )}
 
-      <MenuRow>
-        <Input
-          type="text"
-          placeholder="Enter title to save..."
-          value={publishTitle}
-          onChange={(e) => setPublishTitle(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
-        <Button onClick={handleSaveClick} disabled={isPublishing}>
-          {isPublishing ? "Saving..." : "Save"}
-        </Button>
-      </MenuRow>
+      {user ? (
+        <MenuRow>
+          <Input
+            type="text"
+            placeholder="Enter title to save..."
+            value={publishTitle}
+            onChange={(e) => setPublishTitle(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+          <Button onClick={handleSaveClick} disabled={isPublishing}>
+            {isPublishing ? "Saving..." : "Save"}
+          </Button>
+        </MenuRow>
+      ) : (
+        <SignInMessage>
+          <SignInLink href="#" onClick={appContext?.handleLogin}>
+            Sign in
+          </SignInLink>
+          &nbsp;to save scores
+        </SignInMessage>
+      )}
 
       {id && versions > 1 && (
         <VersionLinks>
@@ -480,7 +509,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
         </VersionLinks>
       )}
 
-      {shortLink && (
+      {shortLink && id && versions > 0 && (
         <div style={{ position: "relative" }}>
           <ClickableLink onClick={handleCopyUrl}>
             {window.location.origin + shortLink}

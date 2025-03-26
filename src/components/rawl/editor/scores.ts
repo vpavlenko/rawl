@@ -9,15 +9,15 @@ C major
 bpm 120
 
 lh  % notes below are put in the left hand, which sounds softer than the right hand
-1 i a,. qet,. qet,  % each note or chord is pitch(es)+duration
+1 i q,. 135,. 135,  % each note or chord is pitch(es)+duration
 2 c 1 3 4 0  % this copies notes from measure 1 applying scale-wise shifts to 3, 4 and 0 scale degrees
 
 rh
 1 i x-q-w,e-r,t,
 2 c 1 1 2  % this copies notes only in the right hand
-4 i x,a_.
+4 i x,1_.
 
-5 ac 1-4`,
+5 ac 1-4  % this copies notes in both hands`,
   schubert_d365_09: `Ab major
 3/4
 bpm 160

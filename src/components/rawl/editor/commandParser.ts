@@ -1053,7 +1053,7 @@ function parseTrackCommand(
     const [, hand, octave] = trackMatch;
     const track = hand.toLowerCase() === "lh" ? 2 : 1;
     const channel = track - 1;
-    const baseOctave = octave ? parseInt(octave, 10) : track === 2 ? 3 : 5;
+    const baseOctave = octave ? parseInt(octave, 10) : track === 2 ? 2 : 4;
     context.channelOctaves[channel] = baseOctave;
     return {
       type: "track",

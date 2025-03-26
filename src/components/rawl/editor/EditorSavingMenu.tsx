@@ -355,10 +355,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
 
   // Handle publish button click - renamed to handleSaveClick
   const handleSaveClick = () => {
-    if (!publishTitle.trim()) {
-      setError("Please enter a title for your score");
-      return;
-    }
+    // Remove validation that requires a title
     handleSave();
   };
 
@@ -386,9 +383,9 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
           // Add the new version
           versions.push(score);
 
-          // Update the document
+          // Update the document - use title or empty string
           await updateDoc(docRef, {
-            title: publishTitle.trim(),
+            title: publishTitle.trim(), // This can be empty now
             versions,
             updatedAt: serverTimestamp(),
           });
@@ -403,7 +400,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
       } else {
         // Create new document with first version
         const docRef = await addDoc(editsCollection, {
-          title: publishTitle.trim(),
+          title: publishTitle.trim(), // This can be empty now
           versions: [score], // Initialize versions array with current score
           createdAt: serverTimestamp(),
           updatedAt: serverTimestamp(),
@@ -527,7 +524,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
         <MenuRow>
           <Input
             type="text"
-            placeholder="Enter title to save..."
+            placeholder="Title (optional)"
             value={publishTitle}
             onChange={(e) => setPublishTitle(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -565,7 +562,9 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
       {shortLink && id && versions > 0 && (
         <div style={{ position: "relative" }}>
           <ClickableLink onClick={handleCopyUrl}>
-            {window.location.origin + shortLink}
+            {publishTitle.trim()
+              ? publishTitle
+              : window.location.origin + shortLink}
           </ClickableLink>
           {showToast && (
             <ToastNotification>Copied to clipboard</ToastNotification>

@@ -6259,6 +6259,7 @@ export const corpora: CorpusEntry[] = [
       "tetris---a-theme-with-variations",
       "tetris-theme---very-hard",
       "korobeiniki-tetris-theme",
+      "korobeiniki-simple",
     ],
   },
   {

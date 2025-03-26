@@ -20,10 +20,11 @@ rh
 5 ac 1-4  % this copies notes in both hands`,
   schubert_d365_09: `Ab major
 3/4
-bpm 160
+bpm 180
 sections 2 6
+phrases 1+1
 
-lh
+lh 3
 2   i g,wtu,wtu,
 3   c 2     0 x x 0
 7   c 6-6b3
@@ -40,7 +41,7 @@ lh
 25  c 9
 
 
-rh
+rh 5
 1b2 i x-k'l'k=j-k-
 2   i w,f,f,
 3   i f_h-g-

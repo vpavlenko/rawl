@@ -175,7 +175,17 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   const { backup, removeBackup } = useBackup(effectiveSlug);
 
   const [shortLink, setShortLink] = useState<string | null>(null);
-  const [publishTitle, setPublishTitle] = useState("");
+  // Initialize publishTitle from localStorage if available
+  const [publishTitle, setPublishTitle] = useState(() => {
+    // If there's a title in localStorage, use it
+    const storedTitle = localStorage.getItem("new_editor_title");
+    if (storedTitle) {
+      // Remove the title from localStorage after retrieving it
+      localStorage.removeItem("new_editor_title");
+      return storedTitle;
+    }
+    return "";
+  });
   const [isPublishing, setIsPublishing] = useState(false);
   const [versions, setVersions] = useState<number>(version || 0);
   const [allVersionsContent, setAllVersionsContent] = useState<string[]>([]);
@@ -571,7 +581,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
         </MenuRow>
       ) : (
         <SignInMessage>
-          <SignInLink href="#" onClick={appContext?.handleLogin}>
+          <SignInLink href="#" onClick={() => appContext?.handleLogin()}>
             Sign in
           </SignInLink>
           &nbsp;to save scores

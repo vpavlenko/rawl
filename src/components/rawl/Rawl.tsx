@@ -31,6 +31,7 @@ import {
   getPhraseStarts,
 } from "./analysis";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
+import { beautifySlug } from "./corpora/utils";
 import { MouseHandlers } from "./getNoteRectangles";
 import LayoutSelector, { SystemLayout } from "./layouts/LayoutSelector";
 import { buildManualMeasuresAndBeats } from "./measures";
@@ -657,16 +658,19 @@ const Rawl: React.FC<RawlProps> = ({
       analysis,
     );
 
-    // Instead of copying to clipboard, navigate to /e/new and pass the score
-    // We'll use localStorage to pass the score data between pages
+    // Get the beautified title to use in the editor
+    const beautifiedTitle = beautifySlug(slug);
+
+    // Store both the score and the beautified title
     localStorage.setItem("new_editor_score", formattedScore);
+    localStorage.setItem("new_editor_title", beautifiedTitle);
 
     // Navigate to the editor
     history.push("/e/new");
 
     // Optional: show a brief feedback animation before navigating
     setShowCopyAnimation(true);
-  }, [coloredNotes, measuresAndBeats, analysis, history]);
+  }, [coloredNotes, measuresAndBeats, analysis, history, slug]);
 
   return (
     <div

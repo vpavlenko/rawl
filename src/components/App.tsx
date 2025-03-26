@@ -431,6 +431,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
     signInWithPopup(auth, provider)
       .then((result) => {
         console.log("Firebase auth result:", result);
+        // Execute callback if provided, or refresh the page
+        window.location.reload();
       })
       .catch((error) => {
         console.log("Firebase auth error:", error);

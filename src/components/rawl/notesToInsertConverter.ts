@@ -2,10 +2,7 @@ import { Analysis } from "./analysis";
 import { MAJOR_SCALE_MAP, MINOR_SCALE_MAP } from "./editor/types";
 import { ColoredNote, ColoredNotesInVoices, Note } from "./parseMidi";
 
-/**
- * Mapping from pitch class number to note name
- */
-export const PITCH_CLASS_TO_NOTE_NAME: { [key: number]: string } = {
+const PITCH_CLASS_TO_NOTE_NAME: { [key: number]: string } = {
   0: "C",
   1: "C#", // or Db
   2: "D",
@@ -20,10 +17,7 @@ export const PITCH_CLASS_TO_NOTE_NAME: { [key: number]: string } = {
   11: "B",
 };
 
-/**
- * Mapping of flat note names (preferred in certain contexts)
- */
-export const FLAT_NOTE_NAMES: { [key: number]: string } = {
+const FLAT_NOTE_NAMES: { [key: number]: string } = {
   1: "Db",
   3: "Eb",
   6: "Gb",
@@ -34,7 +28,7 @@ export const FLAT_NOTE_NAMES: { [key: number]: string } = {
 /**
  * Get the measure start and end times in seconds
  */
-export const getMeasureSpan = (
+const getMeasureSpan = (
   measureIndex: number,
   measures: number[],
 ): [number, number] => {
@@ -49,7 +43,7 @@ export const getMeasureSpan = (
 /**
  * Get all beats within a measure
  */
-export const getBeatsInMeasure = (
+const getBeatsInMeasure = (
   measureIndex: number,
   measures: number[],
   beats: number[],
@@ -72,10 +66,7 @@ export const getBeatsInMeasure = (
 /**
  * Get the measure index for a note
  */
-export const getNoteMeasure = (
-  note: Note,
-  measures: number[] | null,
-): number => {
+const getNoteMeasure = (note: Note, measures: number[] | null): number => {
   if (!measures) {
     return -1;
   }
@@ -114,7 +105,7 @@ export const getNoteMeasure = (
 /**
  * Get all notes in the same measure and voice as the clicked note
  */
-export const getNotesInSameMeasureAndVoice = (
+const getNotesInSameMeasureAndVoice = (
   note: Note,
   coloredNotes: ColoredNotesInVoices,
   measuresAndBeats: { measures: number[]; beats: number[] },
@@ -154,7 +145,7 @@ export const getNotesInSameMeasureAndVoice = (
 /**
  * Get all notes in a specific measure and voice
  */
-export const getNotesInMeasureAndVoice = (
+const getNotesInMeasureAndVoice = (
   voiceIndex: number,
   measureIndex: number,
   coloredNotes: ColoredNotesInVoices,
@@ -207,7 +198,7 @@ export const getNotesInMeasureAndVoice = (
  * @param secondsPerBeat Duration of one beat in seconds (used for EPSILON calculation)
  * @returns Array of note arrays, where each array represents a non-overlapping line
  */
-export const splitNotesIntoLines = (
+const splitNotesIntoLines = (
   notes: ColoredNote[],
   secondsPerBeat: number,
 ): ColoredNote[][] => {
@@ -277,7 +268,7 @@ export const splitNotesIntoLines = (
  * Log information about notes in a specific measure and voice
  * Now returns an array of rawl insert commands for multiple lines
  */
-export const logMeasureNotesInformation = (
+const logMeasureNotesInformation = (
   voiceIndex: number,
   measureIndex: number,
   coloredNotes: ColoredNotesInVoices,
@@ -342,7 +333,7 @@ export const logMeasureNotesInformation = (
  * @param notes - Array of colored notes in a measure
  * @returns A JSON string representation of the notes
  */
-export const convertNotesToLinearFormat = (notes: ColoredNote[]): string => {
+const convertNotesToLinearFormat = (notes: ColoredNote[]): string => {
   if (!notes || notes.length === 0) {
     return "[]";
   }
@@ -489,7 +480,7 @@ const groupNotesIntoChords = (
  * @param globalKeyInfo - Optional global key information to override per-measure detection
  * @returns An object containing both the array of processed notes and a JSON string representation
  */
-export const convertNotesToBeatTiming = (
+const convertNotesToBeatTiming = (
   notes: ColoredNote[],
   measureSpan: [number, number],
   beatsInMeasure: number[],
@@ -815,15 +806,6 @@ const getDurationCharacter = (duration: number): string => {
 };
 
 /**
- * Convert a MIDI number to a note letter (scale degree) based on C major
- * This is a simple conversion without considering the actual key
- */
-const midiNumberToNoteLetter = (midiNumber: number): string => {
-  const noteLetters = ["c", "d", "e", "f", "g", "a", "b"];
-  return noteLetters[(midiNumber % 12) % 7];
-};
-
-/**
  * Convert notes from beat-based timing to Rawl editor syntax
  *
  * @param notes - Array of processed notes with beat timing
@@ -831,7 +813,7 @@ const midiNumberToNoteLetter = (midiNumber: number): string => {
  * @param isMinor - Whether to use minor scale mapping (from global analysis)
  * @returns A string in Rawl syntax format
  */
-export const convertNotesToRawlSyntax = (
+const convertNotesToRawlSyntax = (
   notes: Array<{
     relativeMidiNumber: number;
     beatPosition: number;
@@ -1130,7 +1112,7 @@ export const convertNotesToRawlSyntax = (
  * @param notes - Array of colored notes to analyze
  * @returns True if likely in minor, false if likely in major
  */
-export const determineIfMinorKey = (notes: ColoredNote[]): boolean => {
+const determineIfMinorKey = (notes: ColoredNote[]): boolean => {
   // Filter out drum notes and notes without MIDI numbers
   const notesWithMidi = notes.filter(
     (note) => !note.isDrum && note.note.midiNumber !== undefined,
@@ -1168,218 +1150,13 @@ export const determineIfMinorKey = (notes: ColoredNote[]): boolean => {
 };
 
 /**
- * Convert a MIDI number to Rawl pitch notation based on scale
- * @param midiNumber - The MIDI number to convert
- * @param baseValue - The base MIDI value (reference pitch)
- * @param isMinor - Whether to use minor scale mapping
- * @returns The Rawl pitch notation string
- */
-export const midiNumberToRawlPitch = (
-  midiNumber: number,
-  baseValue: number,
-  isMinor: boolean = false,
-): string => {
-  // Calculate relative value from the base
-  const relativeValue = midiNumber - baseValue;
-
-  // Create octave-based encodings for pitches
-  // In Rawl: a-l are the first octave, q-u are the second, 1-0 are the third
-
-  // Define the pitch mappings
-  const majorMapping: { [key: number]: string } = {
-    // First octave (scale degrees 0-8)
-    0: "a",
-    1: "s",
-    2: "d",
-    3: "f",
-    4: "g",
-    5: "h",
-    6: "j",
-    7: "k",
-    // Second octave (q-u)
-    8: "q",
-    9: "w",
-    10: "e",
-    11: "r",
-    12: "t",
-    13: "y",
-    14: "u",
-    // Third octave (1-0)
-    15: "1",
-    16: "2",
-    17: "3",
-    18: "4",
-    19: "5",
-    20: "6",
-    21: "7",
-    22: "8",
-    23: "9",
-    24: "0",
-  };
-
-  const minorMapping: { [key: number]: string } = {
-    // Same mapping as major but shifted for the minor scale
-    // First octave
-    0: "a",
-    1: "s",
-    2: "bd",
-    3: "f",
-    4: "g",
-    5: "bh",
-    6: "bj",
-    7: "k",
-    // Second octave
-    8: "q",
-    9: "w",
-    10: "be",
-    11: "r",
-    12: "t",
-    13: "by",
-    14: "bu",
-    // Third octave
-    15: "1",
-    16: "2",
-    17: "b3",
-    18: "4",
-    19: "5",
-    20: "b6",
-    21: "b7",
-    22: "8",
-    23: "9",
-    24: "0",
-  };
-
-  // Get the appropriate mapping based on scale type
-  const mapping = isMinor ? minorMapping : majorMapping;
-
-  // Handle pitch classes with accidentals
-  const octave = Math.floor(relativeValue / 7);
-  const scaleDegree = relativeValue % 7;
-
-  // For very high pitches, use the ^ prefix notation with base letters
-  if (relativeValue >= 21) {
-    // Use the third octave letters (a-k) with ^ prefixes for higher octaves
-    const baseNoteLetter = majorMapping[scaleDegree + 14]; // Map to indices 14-20 (a-k range)
-
-    // Calculate how many octaves above the 3rd octave
-    const octavesAboveThird = Math.floor((relativeValue - 14) / 7);
-
-    // Generate the appropriate number of ^ symbols
-    const prefixes = "^".repeat(octavesAboveThird);
-
-    // For minor keys, handle possible 'b' accidentals
-    if (
-      isMinor &&
-      (scaleDegree === 2 || scaleDegree === 5 || scaleDegree === 6)
-    ) {
-      return `${prefixes}b${baseNoteLetter}`;
-    }
-
-    return `${prefixes}${baseNoteLetter}`;
-  } else if (relativeValue < 0) {
-    // For notes below the reference pitch, use flats
-    const absValue = Math.abs(relativeValue);
-    const absOctave = Math.floor(absValue / 7);
-    const absScaleDegree = absValue % 7;
-
-    if (absOctave === 0) {
-      return "b" + (7 - absScaleDegree);
-    } else {
-      return "b" + mapping[7 * (absOctave - 1) + (7 - absScaleDegree)];
-    }
-  }
-
-  // Use direct mapping for normal cases
-  return mapping[relativeValue] || relativeValue.toString();
-};
-
-/**
- * Convert notes to rawl syntax with proper pitch encoding
- * @param notes - Array of colored notes to convert
- * @returns Rawl syntax string
- */
-export const convertNotesToEncodedRawlSyntax = (
-  notes: ColoredNote[],
-): string => {
-  if (!notes || notes.length === 0) {
-    return "";
-  }
-
-  // Find the lowest MIDI number note for reference
-  const notesWithMidi = notes.filter(
-    (note) => !note.isDrum && note.note.midiNumber !== undefined,
-  );
-
-  if (notesWithMidi.length === 0) {
-    return "";
-  }
-
-  const lowestMidiNote = notesWithMidi.reduce(
-    (lowest, current) =>
-      current.note.midiNumber < lowest.note.midiNumber ? current : lowest,
-    notesWithMidi[0],
-  );
-
-  const lowestMidi = lowestMidiNote.note.midiNumber;
-  const basePitchClass =
-    typeof lowestMidiNote.colorPitchClass === "number"
-      ? lowestMidiNote.colorPitchClass
-      : 0;
-  const baseValue = lowestMidi - basePitchClass;
-
-  // Determine if the collection is more likely in a minor key
-  const isMinor = determineIfMinorKey(notes);
-
-  // Sort notes by start time
-  const sortedNotes = [...notes].sort((a, b) => a.span[0] - b.span[0]);
-
-  // Generate Rawl syntax
-  let result = "";
-  let previousNoteEnd = 0;
-
-  for (const note of sortedNotes) {
-    // Skip drum notes or notes without MIDI numbers
-    if (note.isDrum || note.note.midiNumber === undefined) {
-      continue;
-    }
-
-    // Calculate encoded pitch
-    const encodedPitch = midiNumberToRawlPitch(
-      note.note.midiNumber,
-      baseValue,
-      isMinor,
-    );
-
-    // Calculate duration between previous note end and this note start
-    const gap = note.span[0] - previousNoteEnd;
-    if (gap >= 0.125) {
-      // Add a rest if there's a significant gap
-      const restDuration = getDurationCharacter(gap);
-      result += "x" + restDuration + " ";
-    }
-
-    // Calculate note duration
-    const duration = note.span[1] - note.span[0];
-    const durationChar = getDurationCharacter(duration);
-
-    // Add the note with duration
-    result += encodedPitch + durationChar + " ";
-
-    // Update previous note end time
-    previousNoteEnd = note.span[1];
-  }
-
-  return result.trim();
-};
-
-/**
  * Analyze notes from all voices together to determine if the key is major or minor
  * Using the tonic from analysis.modulations[1] rather than detecting it
  * @param coloredNotes - All notes in all voices
  * @param rootPitchClass - The root pitch class from analysis.modulations[1]
  * @returns An object with the detected key information
  */
-export const determineGlobalKey = (
+const determineGlobalKey = (
   coloredNotes: ColoredNotesInVoices,
   rootPitchClass: number = 0, // Default to C if not provided
 ): {
@@ -1812,10 +1589,7 @@ export const generateFormattedScore = (
  * @param beats Array of beat positions
  * @returns Time signature string in the format '{numBeats}/4'
  */
-export const emitTimeSignature = (
-  measures: number[],
-  beats: number[],
-): string => {
+const emitTimeSignature = (measures: number[], beats: number[]): string => {
   // Use measure index 2 (third measure, index starts at 0)
   const measureIndex = 2;
 

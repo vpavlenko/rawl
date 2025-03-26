@@ -304,28 +304,6 @@ const AnalysisDisplay: React.FC<{ analysis: Analysis }> = ({ analysis }) => {
                 </div>
               </div>
             )}
-
-            {hasMeasureRenumbering && (
-              <div className="analysis-row">
-                <div className="analysis-key">Measure Renumbering</div>
-                <div className="analysis-value">
-                  {Object.entries(analysis.measureRenumbering).map(
-                    ([source, target]) => (
-                      <div key={source}>
-                        Source {source} → Target {target}
-                      </div>
-                    ),
-                  )}
-                  <div className="analysis-explanation">
-                    Measure renumbering adjusts the displayed measure numbers,
-                    often to account for
-                    {mt(" anacrusis")} (pickup measures) or editorial
-                    conventions. This helps align the visualization with
-                    standard score editions.
-                  </div>
-                </div>
-              </div>
-            )}
           </>
         )}
 

@@ -250,7 +250,6 @@ const Editor: React.FC<EditorProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const dragStartY = useRef(0);
   const dragStartHeight = useRef(0);
-  const [codeValue, setCodeValue] = useState(initialSource || "");
   const [extractedMidiNotes, setExtractedMidiNotes] = useState<any>(null);
   const [matchedParsingResult, setMatchedParsingResult] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<
@@ -656,9 +655,6 @@ const Editor: React.FC<EditorProps> = ({
   // Update handleTextChange to use the hook
   const handleTextChange = useCallback(
     (value: string) => {
-      // Replace "anacrusis 4" with "sections 2 6"
-      value = value.replace(/anacrusis 4/g, "sections 2 6");
-
       setScore(value);
 
       // Always trigger MIDI playback with the new value
@@ -694,7 +690,6 @@ const Editor: React.FC<EditorProps> = ({
     const loadScore = async () => {
       // If we're in decomposition mode and have an initial source, use that
       if (isDecompositionMode && initialSource) {
-        setCodeValue(initialSource);
         setScore(initialSource);
         // Trigger MIDI generation with the new initialSource
         parseScore(initialSource, true);
@@ -710,7 +705,6 @@ const Editor: React.FC<EditorProps> = ({
             localStorage.removeItem("new_editor_score");
 
             setScore(newEditorScore);
-            setCodeValue(newEditorScore);
 
             // Trigger MIDI generation after a delay but don't autoplay
             setTimeout(() => {
@@ -746,11 +740,7 @@ const Editor: React.FC<EditorProps> = ({
                   newScore = data.source;
                 }
 
-                // Replace "anacrusis 4" with "sections 2 6"
-                newScore = newScore.replace(/anacrusis 4/g, "sections 2 6");
-
                 setScore(newScore);
-                setCodeValue(newScore);
 
                 // Trigger initial MIDI generation after a delay
                 setTimeout(() => {
@@ -762,11 +752,7 @@ const Editor: React.FC<EditorProps> = ({
                 // Handle legacy documents with just a source field
                 let newScore = data.source;
 
-                // Replace "anacrusis 4" with "sections 2 6"
-                newScore = newScore.replace(/anacrusis 4/g, "sections 2 6");
-
                 setScore(newScore);
-                setCodeValue(newScore);
 
                 // Trigger initial MIDI generation after a delay
                 setTimeout(() => {
@@ -777,27 +763,20 @@ const Editor: React.FC<EditorProps> = ({
               } else {
                 setError("No content found in edit");
                 setScore("");
-                setCodeValue("");
               }
             } else {
               setError("Edit not found");
               setScore("");
-              setCodeValue("");
             }
           } catch (error) {
             console.error("Error fetching edit:", error);
             setError("Failed to load edit");
             setScore("");
-            setCodeValue("");
           }
         } else if (scores[effectiveSlug]) {
           let newScore = scores[effectiveSlug];
 
-          // Replace "anacrusis 4" with "sections 2 6"
-          newScore = newScore.replace(/anacrusis 4/g, "sections 2 6");
-
           setScore(newScore);
-          setCodeValue(newScore);
           // Trigger initial MIDI generation after a delay
           setTimeout(() => {
             // Disable autoplay for /e/new route
@@ -806,7 +785,6 @@ const Editor: React.FC<EditorProps> = ({
           }, 1000);
         } else {
           setScore("");
-          setCodeValue("");
         }
       }
     };

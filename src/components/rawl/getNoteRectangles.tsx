@@ -126,6 +126,7 @@ export const getNoteRectangles = (
   hoveredColors: string[] | null,
   showSourceLocation: boolean = false,
 ) => {
+  console.log("run getNoteRectangles on ", notes.length, " notes");
   return notes.map((note) => {
     const {
       isDrum,

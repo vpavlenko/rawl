@@ -24,6 +24,9 @@ interface EditorSavingMenuProps {
   history: any;
   setError: (error: string | null) => void;
   analysis?: Analysis;
+  onRestoreBackup?: (code: string) => void;
+  onPreviewBackup?: (code: string) => void;
+  onRestorePreview?: (code: string) => void;
 }
 
 // Styled components
@@ -144,6 +147,7 @@ const SignInLink = styled.a`
 const BackupText = styled.span`
   color: #4a9eff;
   cursor: pointer;
+  display: inline-block;
   &:hover {
     text-decoration: underline;
   }
@@ -158,6 +162,9 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   version,
   history,
   setError,
+  onRestoreBackup,
+  onPreviewBackup,
+  onRestorePreview,
 }) => {
   // Replace the direct use of getBackupKey and useLocalStorage with the custom hook
   const { backup, removeBackup } = useBackup(effectiveSlug);
@@ -244,10 +251,19 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
     };
   }, []);
 
-  // Update the backup check logic to use the hook
+  // Update the backup check logic to use the hook and respect preview mode
   useEffect(() => {
+    // Skip backup checks while we're hovering/previewing
+    if (isHoveringBackup) {
+      console.log("DEBUG: Skipping backup removal check during hover preview");
+      return;
+    }
+
     // Don't show backup if it's identical to initial source or current code
     if (backup && (backup.score === initialSource || backup.score === score)) {
+      console.log(
+        "DEBUG: Removing backup - matches current code or initial source",
+      );
       removeBackup();
       return;
     }
@@ -257,6 +273,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
       backup &&
       allVersionsContent.some((version) => version === backup.score)
     ) {
+      console.log("DEBUG: Removing backup - matches a saved version");
       removeBackup();
       return;
     }
@@ -267,6 +284,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
       documentUpdatedAt &&
       backup.timestamp < documentUpdatedAt.getTime()
     ) {
+      console.log("DEBUG: Removing backup - older than document update time");
       removeBackup();
       return;
     }
@@ -278,6 +296,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
       backup.sessionTime &&
       backup.sessionTime >= editorMountTime
     ) {
+      console.log("DEBUG: Removing backup - created in current session");
       removeBackup();
       return;
     }
@@ -289,16 +308,16 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
     documentUpdatedAt,
     allVersionsContent,
     editorMountTime,
+    isHoveringBackup,
   ]);
 
   // Handle restore from backup
   const handleRestore = () => {
     if (backup && backup.score) {
-      // Dispatch a custom event with the backup code
-      const event = new CustomEvent("rawl-restore-backup", {
-        detail: { code: backup.score },
-      });
-      window.dispatchEvent(event);
+      // Use callback instead of dispatching event
+      if (onRestoreBackup) {
+        onRestoreBackup(backup.score);
+      }
 
       // Clear the backup after restoration
       removeBackup();
@@ -313,27 +332,33 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   // Add handlers for hover events
   const handleBackupMouseEnter = () => {
     if (backup && backup.score) {
+      console.log("DEBUG: Backup mouse enter triggered");
       setIsHoveringBackup(true);
       setOriginalScore(score);
 
-      // Dispatch event to temporarily show backup in editor
-      const event = new CustomEvent("rawl-preview-backup", {
-        detail: { code: backup.score },
-      });
-      window.dispatchEvent(event);
+      // Use callback instead of dispatching event
+      if (onPreviewBackup) {
+        console.log("DEBUG: Calling onPreviewBackup with backup score");
+        onPreviewBackup(backup.score);
+      }
     }
   };
 
   const handleBackupMouseLeave = () => {
-    if (isHoveringBackup && originalScore) {
+    console.log("DEBUG: Backup mouse leave triggered", {
+      isHoveringBackup,
+      hasOriginalScore: Boolean(originalScore),
+    });
+
+    if (isHoveringBackup) {
       setIsHoveringBackup(false);
 
-      // Restore original code
-      const event = new CustomEvent("rawl-restore-preview", {
-        detail: { code: originalScore },
-      });
-      window.dispatchEvent(event);
-      setOriginalScore(null);
+      // Only restore preview if we have an original score saved
+      if (originalScore && onRestorePreview) {
+        console.log("DEBUG: Calling onRestorePreview with original score");
+        onRestorePreview(originalScore);
+        setOriginalScore(null);
+      }
     }
   };
 
@@ -579,5 +604,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
     </SavingMenuContainer>
   );
 };
+
+export default EditorSavingMenu;
 
 export default EditorSavingMenu;

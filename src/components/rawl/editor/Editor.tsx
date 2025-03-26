@@ -415,6 +415,10 @@ const Editor: React.FC<EditorProps> = ({
       return (text: string, autoplay: boolean) => {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => {
+          if (!text || text.trim() === "") {
+            console.log("DEBUG: Skipping parseScore for empty text");
+            return;
+          }
           try {
             // First pass: find if there's a % on empty line and where it is
             const allLines = text.split("\n");
@@ -603,51 +607,13 @@ const Editor: React.FC<EditorProps> = ({
     [playSongBuffer, effectiveSlug],
   );
 
-  // Setup listeners for backup preview events
-  useEffect(() => {
-    const handlePreviewBackup = (e: CustomEvent<{ code: string }>) => {
-      if (e.detail && e.detail.code) {
-        // Store current score in ref
-        tempScoreRef.current = score;
-        // Update UI with backup code
-        setIsPreviewingBackup(true);
-        setScore(e.detail.code);
-      }
-    };
-
-    const handleRestorePreview = (e: CustomEvent<{ code: string }>) => {
-      if (e.detail && e.detail.code && isPreviewingBackup) {
-        // Restore original code
-        setIsPreviewingBackup(false);
-        setScore(e.detail.code);
-      }
-    };
-
-    window.addEventListener(
-      "rawl-preview-backup",
-      handlePreviewBackup as EventListener,
-    );
-    window.addEventListener(
-      "rawl-restore-preview",
-      handleRestorePreview as EventListener,
-    );
-
-    return () => {
-      window.removeEventListener(
-        "rawl-preview-backup",
-        handlePreviewBackup as EventListener,
-      );
-      window.removeEventListener(
-        "rawl-restore-preview",
-        handleRestorePreview as EventListener,
-      );
-    };
-  }, [score, isPreviewingBackup]);
-
   // Update handleTextChange to use the hook
   const handleTextChange = useCallback(
     (value: string) => {
-      console.log("handleTextChange");
+      console.log(
+        "DEBUG: handleTextChange called, isPreviewingBackup:",
+        isPreviewingBackup,
+      );
       setScore(value);
 
       // Always trigger MIDI playback with the new value
@@ -656,11 +622,17 @@ const Editor: React.FC<EditorProps> = ({
 
       // Only save backup if we're not in preview mode
       if (!isPreviewingBackup && effectiveSlug && value !== initialSource) {
+        console.log("DEBUG: Setting backup in handleTextChange");
         setBackup({
           score: value,
           timestamp: Date.now(),
           sessionTime: editorMountTime,
         });
+      } else {
+        console.log(
+          "DEBUG: Skipping backup in handleTextChange, isPreviewingBackup:",
+          isPreviewingBackup,
+        );
       }
 
       if (onEditorChange) {
@@ -1141,6 +1113,54 @@ const Editor: React.FC<EditorProps> = ({
     }
   }, [matchedParsingResult, previouslyHighlightedNotes]);
 
+  // In the Editor component, add these callback handlers
+  const handleRestoreBackup = (code: string) => {
+    console.log(
+      "DEBUG: handleRestoreBackup called with code length:",
+      code.length,
+    );
+    setScore(code);
+    // Also parse the code to update MIDI
+    parseScore(code, false);
+  };
+
+  const handlePreviewBackup = (code: string) => {
+    console.log(
+      "DEBUG: handlePreviewBackup called, current score length:",
+      score.length,
+      "tempScoreRef:",
+      tempScoreRef.current?.length,
+    );
+
+    // Store current score in ref
+    tempScoreRef.current = score;
+    // Update UI with backup code
+    setIsPreviewingBackup(true);
+    setScore(code);
+
+    console.log("DEBUG: After preview - isPreviewingBackup:", true);
+  };
+
+  const handleRestorePreview = (code: string) => {
+    console.log(
+      "DEBUG: handleRestorePreview called, isPreviewingBackup:",
+      isPreviewingBackup,
+      "code length:",
+      code.length,
+    );
+
+    if (isPreviewingBackup) {
+      // Restore original code
+      setIsPreviewingBackup(false);
+      setScore(code);
+      console.log("DEBUG: Original score restored");
+    } else {
+      console.log(
+        "DEBUG: NOT restoring preview because isPreviewingBackup is false",
+      );
+    }
+  };
+
   return (
     <EditorContainer
       className={isDecompositionMode ? "decomposition-mode" : ""}
@@ -1219,6 +1239,9 @@ const Editor: React.FC<EditorProps> = ({
                   version={versionNum}
                   history={history}
                   setError={setError}
+                  onRestoreBackup={handleRestoreBackup}
+                  onPreviewBackup={handlePreviewBackup}
+                  onRestorePreview={handleRestorePreview}
                 />
 
                 {/* Admin-only tabs */}

@@ -558,6 +558,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
           >
             Backup
           </BackupText>
+          &nbsp;
           {" from "}
           {formatBackupTime(backup.timestamp)} ({formatDiffLength()})
           <Button onClick={handleRestore}>Restore</Button>

@@ -1,6 +1,15 @@
-import React from "react";
+import { formatDistanceToNow } from "date-fns";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore/lite";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { AppContext } from "../../AppContext";
 import { beautifySlug } from "../corpora/utils";
 
 export const StyledButton = styled.button`
@@ -40,19 +49,37 @@ const StyledButtonLink = styled(Link)`
 
 const LandingContainer = styled.div`
   display: flex;
+  flex-direction: row;
+  padding: 50px 20px;
+  margin-top: 30px;
+  min-height: calc(100vh - 30px);
+  box-sizing: border-box;
+`;
+
+// Two column layout
+const LeftColumn = styled.div`
+  flex: 1;
+  margin-right: 20px;
+  max-width: 350px;
+`;
+
+const RightColumn = styled.div`
+  flex: 2;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 20px;
-  margin-top: 30px; /* Add space below the header */
-  min-height: calc(100vh - 30px); /* Subtract header height */
-  box-sizing: border-box;
+`;
+
+// Styling for the user's scores
+const UserScoresContainer = styled.div`
+  width: 100%;
+  margin-bottom: 30px;
 `;
 
 // Styled components for the scores list
 const ScoresContainer = styled.div`
   width: 100%;
   max-width: 600px;
-  margin-top: 30px;
   text-align: left;
 `;
 
@@ -68,14 +95,13 @@ const ScoresList = styled.ul`
 `;
 
 const ScoreItem = styled.li`
-  margin: 8px 0;
+  margin: 12px 0;
 `;
 
 const ScoreLink = styled(Link)`
   color: white;
   text-decoration: none;
   font-size: 16px;
-  padding: 5px 0;
   display: block;
 
   &:hover {
@@ -83,7 +109,33 @@ const ScoreLink = styled(Link)`
   }
 `;
 
+const ScoreTimestamp = styled.span`
+  color: #888;
+  font-size: 12px;
+  display: block;
+  margin-top: 2px;
+`;
+
+const VersionBadge = styled.span`
+  display: inline-block;
+  background-color: transparent;
+  color: #888;
+  font-size: 11px;
+  margin-left: 8px;
+`;
+
+interface UserScore {
+  id: string;
+  title: string;
+  updatedAt: Date;
+  versions: number;
+}
+
 const EditorLandingPage: React.FC = () => {
+  const [userScores, setUserScores] = useState<UserScore[]>([]);
+  const appContext = useContext(AppContext);
+  const user = appContext?.user;
+
   // Hard-coded list of featured scores
   const featuredScores = [
     "schubert_d365_09",
@@ -94,20 +146,84 @@ const EditorLandingPage: React.FC = () => {
     "idea-n.10---gibran-alcocer",
   ];
 
+  // Fetch user scores when component mounts and user is available
+  useEffect(() => {
+    const fetchUserScores = async () => {
+      if (!user) {
+        setUserScores([]);
+        return;
+      }
+
+      try {
+        const db = getFirestore();
+        const editsCollection = collection(db, "edits");
+        const q = query(editsCollection, where("owner", "==", user.uid));
+        const querySnapshot = await getDocs(q);
+
+        const scores: UserScore[] = [];
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          scores.push({
+            id: doc.id,
+            title: data.title || "",
+            updatedAt: data.updatedAt?.toDate() || new Date(),
+            versions: data.versions?.length || 0,
+          });
+        });
+
+        // Sort by most recently updated
+        scores.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
+        setUserScores(scores);
+      } catch (error) {
+        console.error("Error fetching user scores:", error);
+      }
+    };
+
+    fetchUserScores();
+  }, [user]);
+
   return (
     <LandingContainer>
-      <StyledButtonLink to="/e/new">New Score</StyledButtonLink>
+      <LeftColumn>
+        {user && (
+          <UserScoresContainer>
+            <ScoresTitle>My Scores</ScoresTitle>
+            <ScoresList>
+              {userScores.length > 0 ? (
+                userScores.map((score) => (
+                  <ScoreItem key={score.id}>
+                    <ScoreLink to={`/ef/${score.id}/${score.versions}`}>
+                      {score.title || score.id}
+                      <VersionBadge>v{score.versions}</VersionBadge>
+                    </ScoreLink>
+                    <ScoreTimestamp>
+                      {formatDistanceToNow(score.updatedAt, {
+                        addSuffix: true,
+                      })}
+                    </ScoreTimestamp>
+                  </ScoreItem>
+                ))
+              ) : (
+                <ScoreItem>No saved scores yet</ScoreItem>
+              )}
+            </ScoresList>
+          </UserScoresContainer>
+        )}
+        <StyledButtonLink to="/e/new">New Score</StyledButtonLink>
+      </LeftColumn>
 
-      <ScoresContainer>
-        <ScoresTitle>Featured Scores</ScoresTitle>
-        <ScoresList>
-          {featuredScores.map((name) => (
-            <ScoreItem key={name}>
-              <ScoreLink to={`/e/${name}`}>{beautifySlug(name)}</ScoreLink>
-            </ScoreItem>
-          ))}
-        </ScoresList>
-      </ScoresContainer>
+      <RightColumn>
+        <ScoresContainer>
+          <ScoresTitle>Examples</ScoresTitle>
+          <ScoresList>
+            {featuredScores.map((name) => (
+              <ScoreItem key={name}>
+                <ScoreLink to={`/e/${name}`}>{beautifySlug(name)}</ScoreLink>
+              </ScoreItem>
+            ))}
+          </ScoresList>
+        </ScoresContainer>
+      </RightColumn>
     </LandingContainer>
   );
 };

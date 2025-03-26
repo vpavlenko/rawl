@@ -142,6 +142,7 @@ module.exports = {
             include: [
               /node_modules[\/\\]usehooks-ts/,
               /node_modules[\/\\]@babel[\/\\]runtime/,
+              /node_modules[\/\\]date-fns/,
             ],
             loader: require.resolve("babel-loader"),
             options: {

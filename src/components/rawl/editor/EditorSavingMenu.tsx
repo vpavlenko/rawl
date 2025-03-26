@@ -64,6 +64,11 @@ const Input = styled.input`
   flex: 1;
 `;
 
+const Label = styled.span`
+  color: white;
+  margin-right: 8px;
+`;
+
 const BackupInfo = styled.div`
   font-size: 12px;
   color: #888;
@@ -552,9 +557,10 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
 
       {user ? (
         <MenuRow>
+          <Label>Title:</Label>
           <Input
             type="text"
-            placeholder="Title (optional)"
+            placeholder="(optional)"
             value={publishTitle}
             onChange={(e) => setPublishTitle(e.target.value)}
             onKeyDown={handleKeyDown}

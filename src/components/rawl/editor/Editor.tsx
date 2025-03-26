@@ -12,6 +12,7 @@ import React, {
 } from "react";
 import { RouteComponentProps, useParams, withRouter } from "react-router-dom";
 import styled from "styled-components";
+import { useLocalStorage } from "usehooks-ts";
 import {
   HighlightedNote,
   playHighlightedNotes,
@@ -278,6 +279,13 @@ const Editor: React.FC<EditorProps> = ({
 
   // Add this near the top of the component with other state declarations
   const [editorMountTime] = useState<number>(Date.now());
+
+  // Replace direct localStorage access with useLocalStorage hook
+  const backupKey = getBackupKey(id, slug);
+  const [backup, setBackup, removeBackup] = useLocalStorage<BackupData | null>(
+    backupKey,
+    null,
+  );
 
   // Redirect to /e/new if no slug is provided - using useEffect for proper hook ordering
   useEffect(() => {
@@ -707,7 +715,7 @@ const Editor: React.FC<EditorProps> = ({
     };
   }, [editorMountTime]);
 
-  // In the handleTextChange callback, update the reference
+  // Update handleTextChange to use the hook
   const handleTextChange = useCallback(
     (value: string) => {
       // Replace "anacrusis 4" with "sections 2 6"
@@ -751,13 +759,11 @@ const Editor: React.FC<EditorProps> = ({
 
       // Only save backup if we're not in preview mode
       if (!isPreviewingBackup && effectiveSlug && value !== initialSource) {
-        const backupKey = memoizedGetBackupKey();
-        const backup: BackupData = {
+        setBackup({
           code: value,
           timestamp: Date.now(),
-          sessionTime: editorMountTime, // Add the session time to the backup
-        };
-        localStorage.setItem(backupKey, JSON.stringify(backup));
+          sessionTime: editorMountTime,
+        });
       }
 
       if (onEditorChange) {
@@ -771,7 +777,7 @@ const Editor: React.FC<EditorProps> = ({
       onEditorChange,
       isPreviewingBackup,
       editorMountTime,
-      memoizedGetBackupKey, // Update dependency here
+      setBackup,
     ],
   );
 

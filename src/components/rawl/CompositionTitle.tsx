@@ -119,6 +119,19 @@ const CompositionTitle: React.FC<CompositionTitleProps> = ({
     return TOP_100_COMPOSERS.find((composer) => composer.slug === slug);
   }, [slug]);
 
+  // Update document title when formattedTitle changes
+  React.useEffect(() => {
+    const title = composerInfo
+      ? `${composerInfo.composer} - ${composerInfo.displayTitle}`
+      : formattedTitle;
+    document.title = title;
+
+    // Restore original title when component unmounts
+    return () => {
+      document.title = "Rawl: Visual Music Theory";
+    };
+  }, [formattedTitle, composerInfo]);
+
   const searchQuery = encodeURIComponent(formattedTitle);
   const museScoreUrl = `https://musescore.com/sheetmusic?sort=view_count&text=${searchQuery}`;
 

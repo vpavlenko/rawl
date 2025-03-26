@@ -121,9 +121,6 @@ export const getBackgroundsForLine = (
     });
   }
 
-  // Debug logging
-  console.log("Processing line:", JSON.stringify(line));
-
   // Check for analysis-related commands first (e.g., 'phrases', 'sections')
   // Note: Analysis commands should be styled with white and italic text
   // to distinguish them from playback-related commands
@@ -202,13 +199,10 @@ export const getBackgroundsForLine = (
     // Handle 'i' command with more flexible measure format
     const match = line.match(/^\s*(\d+(?:b\d+(?:\.\d+)?)?)\s+(i)\s+/);
     if (match) {
-      console.log("Found i command:", match);
       // Use word boundary matching for 'i' command
       const cmdMatch = line.match(/\bi\b/);
       if (cmdMatch && cmdMatch.index !== undefined) {
-        console.log("Styling i command at index:", cmdMatch.index);
         baseDecorations[cmdMatch.index] = { class: "command-name" };
-        console.log("Applied command-name class at index:", cmdMatch.index);
       }
     }
     // Process note colors but preserve command styling
@@ -227,9 +221,6 @@ export const getBackgroundsForLine = (
       const result = {
         class: dec.class ? dec.class : noteDecorations[i].class,
       };
-      if (dec.class === "command-name") {
-        console.log("Preserving command-name class at index:", i);
-      }
       return result;
     });
   } else {
@@ -245,15 +236,12 @@ export const getBackgroundsForLine = (
     );
 
     if (copyMatch) {
-      console.log("Found copy command:", copyMatch);
       const [fullMatch, targetMeasure, cmd, sourceSpan] = copyMatch;
-      console.log("Command details:", { targetMeasure, cmd, sourceSpan });
 
       // Find exact indices to handle var
       const cmdMatch = line.match(new RegExp(`\\b${cmd}\\b`));
 
       if (cmdMatch && cmdMatch.index !== undefined) {
-        console.log("Styling command at index:", cmdMatch.index);
         // Style the command
         for (let i = cmdMatch.index; i < cmdMatch.index + cmd.length; i++) {
           baseDecorations[i] = { class: "command-name" };
@@ -275,13 +263,7 @@ export const getBackgroundsForLine = (
             baseDecorations[i] = { class: "source-span" };
           }
         }
-      } else {
-        // Debug when no match is found
-        console.log("No command match found for line");
       }
-    } else {
-      // Debug when no match is found
-      console.log("No command match found for line");
     }
   }
 
@@ -664,7 +646,6 @@ export const characterBackgroundsPlugin = ViewPlugin.fromClass(
         this.decorations = this.buildDecorations(view);
         this.lastValidDecorations = this.decorations;
       } catch (error) {
-        console.error("Error initializing editor decorations:", error);
         this.decorations = this.lastValidDecorations || Decoration.none;
       }
     }
@@ -677,7 +658,6 @@ export const characterBackgroundsPlugin = ViewPlugin.fromClass(
           this.decorations = newDecorations;
         }
       } catch (error) {
-        console.error("Error updating editor decorations:", error);
         this.decorations = this.lastValidDecorations || Decoration.none;
       }
     }
@@ -753,7 +733,6 @@ export const characterBackgroundsPlugin = ViewPlugin.fromClass(
               }
               pos = line.to + 1;
             } catch (error) {
-              console.error("Error processing line:", error);
               pos++; // Move to next position on error
               continue;
             }
@@ -762,7 +741,6 @@ export const characterBackgroundsPlugin = ViewPlugin.fromClass(
 
         return builder.finish();
       } catch (error) {
-        console.error("Error building decorations:", error);
         return this.lastValidDecorations || Decoration.none;
       }
     }

@@ -647,6 +647,7 @@ const Editor: React.FC<EditorProps> = ({
   // Update handleTextChange to use the hook
   const handleTextChange = useCallback(
     (value: string) => {
+      console.log("handleTextChange");
       setScore(value);
 
       // Always trigger MIDI playback with the new value
@@ -656,7 +657,7 @@ const Editor: React.FC<EditorProps> = ({
       // Only save backup if we're not in preview mode
       if (!isPreviewingBackup && effectiveSlug && value !== initialSource) {
         setBackup({
-          code: value,
+          score: value,
           timestamp: Date.now(),
           sessionTime: editorMountTime,
         });

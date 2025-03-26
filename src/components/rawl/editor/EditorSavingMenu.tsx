@@ -247,7 +247,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   // Update the backup check logic to use the hook
   useEffect(() => {
     // Don't show backup if it's identical to initial source or current code
-    if (backup && (backup.code === initialSource || backup.code === score)) {
+    if (backup && (backup.score === initialSource || backup.score === score)) {
       removeBackup();
       return;
     }
@@ -255,7 +255,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
     // Don't show backup if it matches any version of the document
     if (
       backup &&
-      allVersionsContent.some((version) => version === backup.code)
+      allVersionsContent.some((version) => version === backup.score)
     ) {
       removeBackup();
       return;
@@ -293,10 +293,10 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
 
   // Handle restore from backup
   const handleRestore = () => {
-    if (backup && backup.code) {
+    if (backup && backup.score) {
       // Dispatch a custom event with the backup code
       const event = new CustomEvent("rawl-restore-backup", {
-        detail: { code: backup.code },
+        detail: { code: backup.score },
       });
       window.dispatchEvent(event);
 
@@ -312,13 +312,13 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
 
   // Add handlers for hover events
   const handleBackupMouseEnter = () => {
-    if (backup && backup.code) {
+    if (backup && backup.score) {
       setIsHoveringBackup(true);
       setOriginalScore(score);
 
       // Dispatch event to temporarily show backup in editor
       const event = new CustomEvent("rawl-preview-backup", {
-        detail: { code: backup.code },
+        detail: { code: backup.score },
       });
       window.dispatchEvent(event);
     }
@@ -339,9 +339,9 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
 
   // Calculate diff length between current score and backup
   const calculateDiffLength = () => {
-    if (!backup || !backup.code) return 0;
+    if (!backup || !backup.score) return 0;
 
-    const backupLength = backup.code.length;
+    const backupLength = backup.score.length;
     const currentLength = score.length;
 
     return backupLength - currentLength;
@@ -395,8 +395,8 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
           const newVersionNumber = versions.length;
           const newShortLink = `/ef/${id}/${newVersionNumber}`;
           setShortLink(newShortLink);
-          history.push(newShortLink);
           setVersions(newVersionNumber);
+          history.push(newShortLink); // never remove this statement
         }
       } else {
         // Create new document with first version
@@ -415,8 +415,8 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
         // Redirect to the new version URL
         const newShortLink = `/ef/${docRef.id}/1`;
         setShortLink(newShortLink);
-        history.push(newShortLink);
         setVersions(1);
+        history.push(newShortLink); // never remove this statement
       }
 
       setError(null);

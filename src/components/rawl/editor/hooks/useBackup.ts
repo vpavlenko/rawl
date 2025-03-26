@@ -1,7 +1,7 @@
 import { useLocalStorage } from "usehooks-ts";
 
 export interface BackupData {
-  code: string;
+  score: string;
   timestamp: number;
   sessionTime: number;
 }

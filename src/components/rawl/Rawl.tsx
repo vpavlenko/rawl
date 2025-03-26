@@ -371,7 +371,12 @@ const Rawl: React.FC<RawlProps> = ({
   );
 
   useEffect(() => {
-    if (analysis.phrasePatch?.length > 0) {
+    // Only run auto-analysis if phrasePatch is empty AND sections is either not present or just [0]
+    if (
+      analysis.phrasePatch?.length > 0 ||
+      (analysis.sections &&
+        (analysis.sections.length > 1 || analysis.sections[0] !== 0))
+    ) {
       return;
     }
 
@@ -380,9 +385,8 @@ const Rawl: React.FC<RawlProps> = ({
     if (firstPhraseStart !== -1) {
       diff.phrasePatch = [{ measure: 1, diff: firstPhraseStart }];
     }
-
-    const tonic = findTonic(allNotes);
-    if (tonic !== -1 && analysis.modulations[1] === null) {
+    if (analysis.modulations[1] === null) {
+      const tonic = findTonic(allNotes);
       diff.modulations = { 1: tonic };
     }
     setAnalysis({ ...analysis, ...diff });

@@ -111,9 +111,6 @@ interface EditorProps extends RouteComponentProps {
   onEditorChange?: (code: string) => void;
 }
 
-// Constants for localStorage
-const BACKUP_PREFIX = "rawl_backup_";
-
 // Interface for backup object
 interface BackupData {
   code: string;
@@ -198,6 +195,10 @@ const AdminContent = styled.div`
     border-radius: 3px;
   }
 `;
+
+// Export the getBackupKey function
+export const getBackupKey = (id?: string, slug?: string) =>
+  `rawl_backup_${id ?? slug}`;
 
 const Editor: React.FC<EditorProps> = ({
   history,
@@ -659,9 +660,9 @@ const Editor: React.FC<EditorProps> = ({
     };
   }, [score, isPreviewingBackup]);
 
-  // Update this function to be renamed getBackupKey and inline the prefix
-  const getBackupKey = useCallback(
-    () => `rawl_backup_${id ?? slug}`,
+  // Update this function to use the exported version
+  const memoizedGetBackupKey = useCallback(
+    () => getBackupKey(id, slug),
     [id, slug],
   );
 
@@ -673,7 +674,7 @@ const Editor: React.FC<EditorProps> = ({
         debouncedMelodyPlayback(e.detail.code, false);
 
         // Also remove the backup from localStorage
-        const backupKey = getBackupKey();
+        const backupKey = memoizedGetBackupKey();
         localStorage.removeItem(backupKey);
       }
     };
@@ -689,7 +690,7 @@ const Editor: React.FC<EditorProps> = ({
         handleRestoreBackup as EventListener,
       );
     };
-  }, [debouncedMelodyPlayback, getBackupKey]); // Update dependency here
+  }, [debouncedMelodyPlayback, memoizedGetBackupKey]); // Update dependency here
 
   // Modify the event handler for backing up code
   useEffect(() => {
@@ -750,7 +751,7 @@ const Editor: React.FC<EditorProps> = ({
 
       // Only save backup if we're not in preview mode
       if (!isPreviewingBackup && effectiveSlug && value !== initialSource) {
-        const backupKey = getBackupKey();
+        const backupKey = memoizedGetBackupKey();
         const backup: BackupData = {
           code: value,
           timestamp: Date.now(),
@@ -770,7 +771,7 @@ const Editor: React.FC<EditorProps> = ({
       onEditorChange,
       isPreviewingBackup,
       editorMountTime,
-      getBackupKey, // Update dependency here
+      memoizedGetBackupKey, // Update dependency here
     ],
   );
 

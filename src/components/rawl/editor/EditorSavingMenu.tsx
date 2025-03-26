@@ -11,6 +11,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import { Analysis } from "../analysis";
+import { getBackupKey } from "./Editor"; // Import the function
 
 // Constants
 const BACKUP_PREFIX = "rawl_backup_";
@@ -181,11 +182,6 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   const appContext = useContext(AppContext);
   const user = appContext?.user;
 
-  // Get URL key for localStorage
-  const getUrlKey = () => {
-    return id ? `/ef/${id}` : slug ? `/e/${slug}` : "";
-  };
-
   // Initialize short link based on current ID and version
   useEffect(() => {
     if (id && version) {
@@ -253,53 +249,49 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
     };
   }, []);
 
-  // Update the backup check logic to filter by session time
+  // Update the backup check logic to use getBackupKey instead
   useEffect(() => {
     // Check for backup
-    const urlKey = getUrlKey();
-    if (urlKey) {
-      const backupKey = BACKUP_PREFIX + urlKey;
-      const savedBackup = localStorage.getItem(backupKey);
-      if (savedBackup) {
-        try {
-          const parsed = JSON.parse(savedBackup);
-
-          // Don't show backup if it's identical to initial source or current code
-          if (parsed.code === initialSource || parsed.code === score) {
-            setBackup(null);
-            return;
-          }
-
-          // Don't show backup if it matches any version of the document
-          if (allVersionsContent.some((version) => version === parsed.code)) {
-            setBackup(null);
-            return;
-          }
-
-          // Don't show backup if it was saved before document was last updated
-          if (
-            documentUpdatedAt &&
-            parsed.timestamp < documentUpdatedAt.getTime()
-          ) {
-            setBackup(null);
-            return;
-          }
-
-          // Don't show backup if it was created in this editing session
-          if (
-            editorMountTime &&
-            parsed.sessionTime &&
-            parsed.sessionTime >= editorMountTime
-          ) {
-            setBackup(null);
-            return;
-          }
-
-          // If we've passed all checks, show the backup
-          setBackup(parsed);
-        } catch (e) {
-          console.error("Failed to parse backup:", e);
+    const backupKey = getBackupKey(id, slug);
+    const savedBackup = localStorage.getItem(backupKey);
+    if (savedBackup) {
+      try {
+        const parsed = JSON.parse(savedBackup);
+        // Don't show backup if it's identical to initial source or current code
+        if (parsed.code === initialSource || parsed.code === score) {
+          setBackup(null);
+          return;
         }
+
+        // Don't show backup if it matches any version of the document
+        if (allVersionsContent.some((version) => version === parsed.code)) {
+          setBackup(null);
+          return;
+        }
+
+        // Don't show backup if it was saved before document was last updated
+        if (
+          documentUpdatedAt &&
+          parsed.timestamp < documentUpdatedAt.getTime()
+        ) {
+          setBackup(null);
+          return;
+        }
+
+        // Don't show backup if it was created in this editing session
+        if (
+          editorMountTime &&
+          parsed.sessionTime &&
+          parsed.sessionTime >= editorMountTime
+        ) {
+          setBackup(null);
+          return;
+        }
+
+        // If we've passed all checks, show the backup
+        setBackup(parsed);
+      } catch (e) {
+        console.error("Failed to parse backup:", e);
       }
     }
   }, [
@@ -326,14 +318,11 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
     }
   };
 
-  // Add new handler to discard backup
+  // Update handleDiscardBackup to use getBackupKey
   const handleDiscardBackup = () => {
-    const urlKey = getUrlKey();
-    if (urlKey) {
-      const backupKey = BACKUP_PREFIX + urlKey;
-      localStorage.removeItem(backupKey);
-      setBackup(null);
-    }
+    const backupKey = getBackupKey(id, slug);
+    localStorage.removeItem(backupKey);
+    setBackup(null);
   };
 
   // Add handlers for hover events
@@ -535,10 +524,9 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
 
   // Also save backups automatically when the score changes
   useEffect(() => {
-    const urlKey = getUrlKey();
-    if (!urlKey || score === initialSource) return;
+    if (score === initialSource) return;
 
-    const backupKey = BACKUP_PREFIX + urlKey;
+    const backupKey = getBackupKey(id, slug);
 
     // Check if we already have a backup that matches this code
     const existingBackup = localStorage.getItem(backupKey);

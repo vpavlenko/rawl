@@ -9,22 +9,12 @@ import {
 } from "firebase/firestore/lite";
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { useLocalStorage } from "usehooks-ts";
 import { AppContext } from "../../AppContext";
 import { Analysis } from "../analysis";
-import { getBackupKey } from "./Editor"; // Import the function
-
-// Constants
-const BACKUP_PREFIX = "rawl_backup_";
-
-// Interfaces
-interface BackupData {
-  code: string;
-  timestamp: number;
-  sessionTime?: number; // When this backup was created (which editor session)
-}
+import { useBackup } from "./hooks/useBackup"; // Import the new hook
 
 interface EditorSavingMenuProps {
+  effectiveSlug: string;
   score: string;
   initialSource: string;
   id?: string;
@@ -163,15 +153,13 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   initialSource,
   id,
   slug,
+  effectiveSlug,
   version,
   history,
   setError,
 }) => {
-  const backupKey = getBackupKey(id, slug);
-  const [backup, setBackup, removeBackup] = useLocalStorage<BackupData | null>(
-    backupKey,
-    null,
-  );
+  // Replace the direct use of getBackupKey and useLocalStorage with the custom hook
+  const { backup, removeBackup } = useBackup(effectiveSlug);
 
   const [shortLink, setShortLink] = useState<string | null>(null);
   const [publishTitle, setPublishTitle] = useState("");
@@ -255,7 +243,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
     };
   }, []);
 
-  // Update the backup check logic to use the hook instead
+  // Update the backup check logic to use the hook
   useEffect(() => {
     // Don't show backup if it's identical to initial source or current code
     if (backup && (backup.code === initialSource || backup.code === score)) {

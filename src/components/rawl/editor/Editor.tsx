@@ -12,7 +12,6 @@ import React, {
 } from "react";
 import { RouteComponentProps, useParams, withRouter } from "react-router-dom";
 import styled from "styled-components";
-import { useLocalStorage } from "usehooks-ts";
 import {
   HighlightedNote,
   playHighlightedNotes,
@@ -47,6 +46,7 @@ import {
   StatusBar,
 } from "./EditorStyles";
 import { FoldButtonWithIcon } from "./FoldButtonWithIcon";
+import { useBackup } from "./hooks/useBackup";
 import Manual, { MidiWriterJsDisplay, ParseMidiDisplay } from "./Manual";
 import { ManualContainer } from "./ManualStyles";
 import { scores } from "./scores";
@@ -110,13 +110,6 @@ interface EditorProps extends RouteComponentProps {
   seek?: (ms: number) => void;
   latencyCorrectionMs?: number;
   onEditorChange?: (code: string) => void;
-}
-
-// Interface for backup object
-interface BackupData {
-  code: string;
-  timestamp: number;
-  sessionTime: number;
 }
 
 // New styled components for tabs
@@ -197,10 +190,6 @@ const AdminContent = styled.div`
   }
 `;
 
-// Export the getBackupKey function
-export const getBackupKey = (id?: string, slug?: string) =>
-  `rawl_backup_${id ?? slug}`;
-
 const Editor: React.FC<EditorProps> = ({
   history,
   initialSource,
@@ -217,7 +206,7 @@ const Editor: React.FC<EditorProps> = ({
     version?: string;
   }>();
   // Use either id or slug as the effective slug
-  const effectiveSlug = id || slug;
+  const effectiveSlug = id ?? slug;
   // Parse version parameter to number if present
   const versionNum = version ? parseInt(version, 10) : undefined;
 
@@ -280,12 +269,8 @@ const Editor: React.FC<EditorProps> = ({
   // Add this near the top of the component with other state declarations
   const [editorMountTime] = useState<number>(Date.now());
 
-  // Replace direct localStorage access with useLocalStorage hook
-  const backupKey = getBackupKey(id, slug);
-  const [backup, setBackup, removeBackup] = useLocalStorage<BackupData | null>(
-    backupKey,
-    null,
-  );
+  // Replace direct localStorage access with useBackup hook
+  const { setBackup } = useBackup(effectiveSlug);
 
   // Redirect to /e/new if no slug is provided - using useEffect for proper hook ordering
   useEffect(() => {
@@ -667,53 +652,6 @@ const Editor: React.FC<EditorProps> = ({
       );
     };
   }, [score, isPreviewingBackup]);
-
-  // Update this function to use the exported version
-  const memoizedGetBackupKey = useCallback(
-    () => getBackupKey(id, slug),
-    [id, slug],
-  );
-
-  // In the handleRestoreBackup effect, update the reference
-  useEffect(() => {
-    const handleRestoreBackup = (e: CustomEvent<{ code: string }>) => {
-      if (e.detail && e.detail.code) {
-        setScore(e.detail.code);
-        debouncedMelodyPlayback(e.detail.code, false);
-
-        // Also remove the backup from localStorage
-        const backupKey = memoizedGetBackupKey();
-        localStorage.removeItem(backupKey);
-      }
-    };
-
-    window.addEventListener(
-      "rawl-restore-backup",
-      handleRestoreBackup as EventListener,
-    );
-
-    return () => {
-      window.removeEventListener(
-        "rawl-restore-backup",
-        handleRestoreBackup as EventListener,
-      );
-    };
-  }, [debouncedMelodyPlayback, memoizedGetBackupKey]); // Update dependency here
-
-  // Modify the event handler for backing up code
-  useEffect(() => {
-    // Create a custom event to inform other components of the mount time
-    const mountTimeEvent = new CustomEvent("rawl-editor-mounted", {
-      detail: { mountTime: editorMountTime },
-    });
-
-    // Dispatch the event when mounted
-    window.dispatchEvent(mountTimeEvent);
-
-    return () => {
-      // Nothing to clean up here
-    };
-  }, [editorMountTime]);
 
   // Update handleTextChange to use the hook
   const handleTextChange = useCallback(
@@ -1332,6 +1270,7 @@ const Editor: React.FC<EditorProps> = ({
           : showProgrammingManual && (
               <ManualContainer>
                 <EditorSavingMenu
+                  effectiveSlug={effectiveSlug}
                   score={score}
                   initialSource={initialSource || ""}
                   id={id}

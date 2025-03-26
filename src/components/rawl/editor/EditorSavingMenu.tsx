@@ -606,5 +606,3 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
 };
 
 export default EditorSavingMenu;
-
-export default EditorSavingMenu;

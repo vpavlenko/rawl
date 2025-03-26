@@ -6243,6 +6243,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "tetris_theme_a",
     midis: [
+      "tetris---very-accessible-arrangement-w-intermediate-options",
       "Tetris_Theme",
       "tetris-theme",
       "tetris-theme-for-piano",

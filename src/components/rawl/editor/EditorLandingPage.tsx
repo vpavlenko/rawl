@@ -9,6 +9,7 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { FirestoreEditDocument } from "../../../types/firestore";
 import { AppContext } from "../../AppContext";
 import { beautifySlug } from "../corpora/utils";
 
@@ -162,7 +163,7 @@ const EditorLandingPage: React.FC = () => {
 
         const scores: UserScore[] = [];
         querySnapshot.forEach((doc) => {
-          const data = doc.data();
+          const data = doc.data() as FirestoreEditDocument;
           scores.push({
             id: doc.id,
             title: data.title || "",

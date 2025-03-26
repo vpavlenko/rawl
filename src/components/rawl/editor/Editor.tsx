@@ -16,6 +16,7 @@ import {
   HighlightedNote,
   playHighlightedNotes,
 } from "../../../sampler/sampler";
+import { FirestoreEditDocument } from "../../../types/firestore";
 import { ADMIN_USER_ID, VoiceMask } from "../../App";
 import { AppContext } from "../../AppContext";
 import { Analysis, ANALYSIS_STUB, PitchClass } from "../analysis";
@@ -715,9 +716,9 @@ const Editor: React.FC<EditorProps> = ({
             const docSnap = await getDoc(docRef);
 
             if (docSnap.exists()) {
-              const data = docSnap.data();
+              const data = docSnap.data() as FirestoreEditDocument;
 
-              // Handle versions array instead of source field
+              // Handle versions array if it exists
               if (data.versions && Array.isArray(data.versions)) {
                 // Get the specific version or the latest if not specified
                 const versionIndex = versionNum
@@ -726,7 +727,7 @@ const Editor: React.FC<EditorProps> = ({
 
                 let newScore = data.versions[versionIndex] || "";
 
-                // If there's a legacy source field and no versions, use that
+                // If there's a legacy source field and no versions or empty version, use that
                 if (!newScore && data.source) {
                   newScore = data.source;
                 }

@@ -13,8 +13,9 @@ export interface FirestoreMidiDocument {
 
 // Add Firestore edit document type definitions
 export interface FirestoreEditDocument {
-  title?: string; // Title is now optional
-  versions: string[]; // Array of score versions
+  title?: string;
+  versions?: string[]; // Make versions optional for legacy documents
+  source?: string; // Optional legacy field
   createdAt: Timestamp;
   updatedAt: Timestamp;
   owner: string | null;

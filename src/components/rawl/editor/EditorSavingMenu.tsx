@@ -9,6 +9,7 @@ import {
 } from "firebase/firestore/lite";
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { FirestoreEditDocument } from "../../../types/firestore"; // Import the type definition
 import { AppContext } from "../../AppContext";
 import { Analysis } from "../analysis";
 import { useBackup } from "./hooks/useBackup"; // Import the new hook
@@ -198,7 +199,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
-            const data = docSnap.data();
+            const data = docSnap.data() as FirestoreEditDocument;
             // Set the versions count and the title from the existing document
             setVersions(data.versions?.length || 0);
             setPublishTitle(data.title || "");
@@ -377,7 +378,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          const data = docSnap.data();
+          const data = docSnap.data() as FirestoreEditDocument;
           const versions = data.versions || [];
 
           // Add the new version
@@ -399,12 +400,16 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
         }
       } else {
         // Create new document with first version
-        const docRef = await addDoc(editsCollection, {
+        const newDoc: Omit<FirestoreEditDocument, "createdAt" | "updatedAt"> = {
           title: publishTitle.trim(), // This can be empty now
           versions: [score], // Initialize versions array with current score
+          owner: user ? user.uid : null, // Use user from context
+        };
+
+        const docRef = await addDoc(editsCollection, {
+          ...newDoc,
           createdAt: serverTimestamp(),
           updatedAt: serverTimestamp(),
-          owner: user ? user.uid : null, // Use user from context
         });
 
         // Redirect to the new version URL

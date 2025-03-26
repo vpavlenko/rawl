@@ -49,8 +49,6 @@ export const sampler = new Tone.Sampler({
   },
   baseUrl: BASE_URL,
   onload: () => {
-    console.log("Sampler loaded");
-    console.log("Audio Context State:", Tone.getContext().state);
     samplerLoaded = true;
   },
 })
@@ -87,7 +85,6 @@ Tone.getContext().addAudioWorklet = async () => {
       const workletNode = new AudioWorkletNode(context, "tone-processor");
       sampler.connect(workletNode);
       workletNode.connect(context.destination);
-      console.log("Audio Worklet enabled successfully");
     } catch (error) {
       console.error("Failed to add Audio Worklet:", error);
     }
@@ -96,13 +93,11 @@ Tone.getContext().addAudioWorklet = async () => {
 
 const originalTriggerAttack = sampler.triggerAttack;
 sampler.triggerAttack = function (...args) {
-  console.log("Audio Context State:", Tone.getContext().state);
   return originalTriggerAttack.apply(this, args);
 };
 
 const originalTriggerRelease = sampler.triggerRelease;
 sampler.triggerRelease = function (...args) {
-  console.log("Audio Context State:", Tone.getContext().state);
   return originalTriggerRelease.apply(this, args);
 };
 
@@ -114,7 +109,6 @@ export const startAudioContext = async () => {
   try {
     await Tone.start();
     await Tone.getContext().addAudioWorklet();
-    console.log("Audio context started successfully with Audio Worklet");
     return true;
   } catch (error) {
     console.error("Failed to start audio context:", error);
@@ -133,7 +127,6 @@ export const ensureSamplerLoaded = async () => {
 
   loadingPromise = new Promise((resolve) => {
     if (sampler.loaded) {
-      console.log("Sampler already loaded");
       samplerLoaded = true;
       resolve();
       return;
@@ -141,7 +134,6 @@ export const ensureSamplerLoaded = async () => {
 
     const checkLoaded = () => {
       if (sampler.loaded) {
-        console.log("Sampler loaded successfully");
         samplerLoaded = true;
         resolve();
       } else {
@@ -153,12 +145,10 @@ export const ensureSamplerLoaded = async () => {
   });
 
   await loadingPromise;
-  console.log("Sampler loaded, audio context state:", getAudioContextState());
 };
 
 export const resumeAudioContext = async () => {
   await Tone.start();
-  console.log("resuming audio context");
 };
 
 const C3_MIDI_NUMBER = 48;
@@ -319,22 +309,11 @@ export const playHighlightedNotes = async (
   highlightedNotes: HighlightedNote[],
   cancelPrevious = true,
 ): Promise<() => void> => {
-  console.log(
-    `playHighlightedNotes called with ${highlightedNotes.length} notes:`,
-    highlightedNotes.map((n) => ({
-      midi: n.midiNumber,
-      start: n.startTime,
-      dur: n.duration,
-    })),
-  );
-
   // Ensure sampler is loaded
   await ensureSamplerLoaded();
-  console.log("Sampler loaded, context state:", getAudioContextState());
 
   // Only cancel previous sounds if requested
   if (cancelPrevious) {
-    console.log("Cancelling previous sounds");
     // Stop all currently playing sounds
     sampler.releaseAll(0);
 
@@ -349,7 +328,6 @@ export const playHighlightedNotes = async (
 
   // If no notes provided, just return the cleanup function
   if (!highlightedNotes.length) {
-    console.log("No highlighted notes provided, returning cleanup function");
     return () => cleanupArpeggiator();
   }
 
@@ -374,27 +352,17 @@ export const playHighlightedNotes = async (
 
   // Find the minimum start time to normalize all times
   const minStartTime = Math.min(...validNotes.map((note) => note.startTime));
-  console.log(`Minimum start time: ${minStartTime} ticks`);
 
   // Ensure Transport is started
   if (Tone.Transport.state !== "started") {
-    console.log(
-      `Starting Tone.Transport (current state: ${Tone.Transport.state})`,
-    );
     Tone.Transport.start();
   }
 
-  // Log current transport and BPM settings
-  console.log(
-    `Transport state: ${Tone.Transport.state}, BPM: ${Tone.Transport.bpm.value}, PPQ: ${Tone.Transport.PPQ}`,
-  );
-
   // Current transport time as reference point
   const currentTransportTime = Tone.Transport.seconds;
-  console.log(`Current transport time: ${currentTransportTime}s`);
 
   // Schedule each note with precise timing
-  validNotes.forEach((note, index) => {
+  validNotes.forEach((note) => {
     // Convert MIDI number to Tone.js note name
     const noteName = Tone.Frequency(note.midiNumber, "midi").toNote();
 
@@ -413,21 +381,7 @@ export const playHighlightedNotes = async (
     // Schedule the note
     const scheduleTime = currentTransportTime + normalizedStartTimeSeconds;
 
-    console.log(`Scheduling note ${index + 1}/${validNotes.length}:
-      MIDI: ${note.midiNumber} (${noteName})
-      Original start: ${note.startTime} ticks
-      Normalized start: ${normalizedStartTimeTicks} ticks (${normalizedStartTimeSeconds.toFixed(
-        3,
-      )}s)
-      Duration: ${note.duration} ticks (${durationSeconds.toFixed(3)}s)
-      Schedule time: ${scheduleTime.toFixed(3)}s`);
-
     const eventId = Tone.Transport.schedule((time) => {
-      console.log(
-        `▶️ PLAYING note at ${time.toFixed(
-          3,
-        )}s: ${noteName}, duration: ${durationSeconds.toFixed(3)}s`,
-      );
       activeNotes.push(noteName);
 
       // Use try/catch to log any errors during playback
@@ -439,14 +393,10 @@ export const playHighlightedNotes = async (
     }, scheduleTime);
 
     activeEvents.push(eventId);
-    console.log(`Note scheduled with event ID: ${eventId}`);
   });
-
-  console.log(`Total scheduled events: ${activeEvents.length}`);
 
   // Return a function to stop playback
   return () => {
-    console.log("Cleanup function called, stopping playback");
     sampler.releaseAll(0);
     activeEvents.forEach((id) => Tone.Transport.clear(id));
     activeEvents = [];

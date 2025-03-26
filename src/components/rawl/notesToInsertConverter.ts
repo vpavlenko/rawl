@@ -990,12 +990,12 @@ const convertNotesToRawlSyntax = (
 
     // Define mapping arrays for each octave
     const octaveNotations = [
-      // First octave: 1-7
-      ["1", "2", "3", "4", "5", "6", "7"],
+      // First octave: a-j
+      ["a", "s", "d", "f", "g", "h", "j"],
       // Second octave: q-u
       ["q", "w", "e", "r", "t", "y", "u"],
-      // Third octave: a-k
-      ["a", "s", "d", "f", "g", "h", "j"],
+      // Third octave: 1-7
+      ["1", "2", "3", "4", "5", "6", "7"],
     ];
 
     // Helper function to get notation for a diatonic note

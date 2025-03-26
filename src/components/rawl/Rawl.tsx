@@ -390,7 +390,6 @@ const Rawl: React.FC<RawlProps> = ({
 
   const coloredNotes: ColoredNotesInVoices = useMemo(() => {
     // Initialize array to count notes by color (0-11)
-    const noteColorCounts = Array(12).fill(0);
 
     const result = notes.map((notesInVoice, voiceIndex) =>
       notesInVoice.map((note) => {
@@ -406,15 +405,6 @@ const Rawl: React.FC<RawlProps> = ({
         // Get the CSS class name
         const color = pitchClassToCssClass(colorPitchClass);
 
-        // Count the note by color if it's not a drum note and not a default note
-        if (
-          !note.isDrum &&
-          futureAnalysis.modulations[1] !== null &&
-          typeof colorPitchClass === "number"
-        ) {
-          noteColorCounts[colorPitchClass]++;
-        }
-
         return {
           ...note,
           color,
@@ -425,25 +415,6 @@ const Rawl: React.FC<RawlProps> = ({
         };
       }),
     );
-
-    // Log the counts of notes by color
-    console.log("Note counts by color (0-11):", noteColorCounts);
-
-    // Save to localStorage
-    try {
-      // Get current histograms or initialize empty object
-      const histogramsJSON = localStorage.getItem("NOTE_HISTOGRAMS") || "{}";
-      const histograms = JSON.parse(histogramsJSON);
-
-      // Save this histogram under the current slug
-      histograms[slug] = noteColorCounts;
-
-      // Save back to localStorage
-      localStorage.setItem("NOTE_HISTOGRAMS", JSON.stringify(histograms));
-      console.log(`Saved note histogram for ${slug} to localStorage`);
-    } catch (error) {
-      console.error("Failed to save note histogram to localStorage:", error);
-    }
 
     return result;
   }, [notes, futureAnalysis, measuresAndBeats, voiceMask, slug]);

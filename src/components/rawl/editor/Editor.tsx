@@ -190,6 +190,19 @@ const AdminContent = styled.div`
   }
 `;
 
+const CONTEXT_STUB: ExtendedCommandContext = {
+  currentKey: { tonic: 0, mode: "major" },
+  currentTrack: 1,
+  timeSignatures: [{ numerator: 4, measureStart: 1 }],
+  channelOctaves: {
+    0: 4, // RH default
+    1: 2, // LH default
+  },
+  commentToEndOfFile: false,
+  currentBpm: 120, // Default BPM
+  analysis: { ...ANALYSIS_STUB },
+};
+
 const Editor: React.FC<EditorProps> = ({
   history,
   initialSource,
@@ -229,20 +242,9 @@ const Editor: React.FC<EditorProps> = ({
   const [isEditorFocused, setIsEditorFocused] = useState(false);
   const [currentLine, setCurrentLine] = useState<number | null>(null);
   const [currentColumn, setCurrentColumn] = useState<number | null>(null);
-  const [context, setContext] = useState<
-    CommandContext & Partial<ExtendedCommandContext>
-  >({
-    currentKey: { tonic: 0, mode: "major" },
-    currentTrack: 1,
-    timeSignatures: [{ numerator: 4, measureStart: 1 }],
-    channelOctaves: {
-      0: 4, // RH default
-      1: 2, // LH default
-    },
-    commentToEndOfFile: false,
-    currentBpm: 120, // Default BPM
-    analysis: { ...ANALYSIS_STUB },
-  });
+  const [context, setContext] = useState<ExtendedCommandContext>(
+    structuredClone(CONTEXT_STUB),
+  );
   const [panelHeight, setPanelHeight] = useState(() => {
     const saved = localStorage.getItem("editorPanelHeight");
     return saved || "50vh";
@@ -433,19 +435,8 @@ const Editor: React.FC<EditorProps> = ({
             }
 
             setError(null);
-            const newContext: CommandContext & Partial<ExtendedCommandContext> =
-              {
-                currentKey: { tonic: 0, mode: "major" },
-                currentTrack: 1,
-                timeSignatures: [{ numerator: 4, measureStart: 1 }],
-                channelOctaves: {
-                  0: 4, // RH default
-                  1: 2, // LH default
-                },
-                commentToEndOfFile: false,
-                currentBpm: 120, // Default BPM,
-                analysis: { ...ANALYSIS_STUB },
-              };
+            const newContext: ExtendedCommandContext =
+              structuredClone(CONTEXT_STUB);
 
             // Use a map to store notes for each track
             const scoreByTrack = new Map<number, LogicalNote[]>();

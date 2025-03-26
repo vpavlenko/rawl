@@ -592,9 +592,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
       {shortLink && id && versions > 0 && (
         <div style={{ position: "relative" }}>
           <ClickableLink onClick={handleCopyUrl}>
-            {publishTitle.trim()
-              ? publishTitle
-              : window.location.origin + shortLink}
+            {window.location.origin + shortLink}
           </ClickableLink>
           {showToast && (
             <ToastNotification>Copied to clipboard</ToastNotification>

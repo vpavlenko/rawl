@@ -1,5 +1,3 @@
-import { faClipboard } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   addDoc,
   collection,
@@ -83,13 +81,46 @@ const VersionLinks = styled.div`
 `;
 
 const VersionLink = styled.a<{ isActive: boolean }>`
-  color: white;
+  color: ${(props) => (props.isActive ? "white" : "gray")};
   text-decoration: ${(props) => (props.isActive ? "none" : "underline")};
   font-weight: ${(props) => (props.isActive ? "bold" : "normal")};
   cursor: pointer;
 
   &:hover {
     opacity: 0.8;
+  }
+`;
+
+// Add these new styled components
+const ClickableLink = styled.div`
+  color: #4a9eff;
+  cursor: pointer;
+  text-decoration: underline;
+  display: inline-block;
+  margin-bottom: 10px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+const ToastNotification = styled.div`
+  background-color: #333;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  position: absolute;
+  margin-top: 5px;
+  animation: fadeIn 0.3s;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 `;
 
@@ -109,6 +140,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   const [versions, setVersions] = useState<number>(version || 0);
   const [allVersionsContent, setAllVersionsContent] = useState<string[]>([]);
   const [documentUpdatedAt, setDocumentUpdatedAt] = useState<Date | null>(null);
+  const [showToast, setShowToast] = useState(false);
 
   // Get user from context instead of directly from Firebase
   const appContext = useContext(AppContext);
@@ -118,6 +150,17 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   const getUrlKey = () => {
     return id ? `/ef/${id}` : slug ? `/e/${slug}` : "";
   };
+
+  // Initialize short link based on current ID and version
+  useEffect(() => {
+    if (id && version) {
+      setShortLink(`/ef/${id}/${version}`);
+    } else if (id) {
+      setShortLink(`/ef/${id}`);
+    } else if (slug) {
+      setShortLink(`/e/${slug}`);
+    }
+  }, [id, slug, version]);
 
   // Initialize component and fetch document details
   useEffect(() => {
@@ -307,7 +350,12 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
     if (shortLink) {
       const fullUrl = window.location.origin + shortLink;
       navigator.clipboard.writeText(fullUrl);
-      alert("URL copied to clipboard!");
+      setShowToast(true);
+
+      // Hide toast after 1 second
+      setTimeout(() => {
+        setShowToast(false);
+      }, 1000);
     }
   };
 
@@ -415,8 +463,9 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
         </Button>
       </MenuRow>
 
-      {id && versions > 0 && (
+      {id && versions > 1 && (
         <VersionLinks>
+          Versions:
           {Array.from({ length: versions }, (_, i) => i + 1).map(
             (versionNumber) => (
               <VersionLink
@@ -432,12 +481,14 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
       )}
 
       {shortLink && (
-        <MenuRow>
-          <Input type="text" value={shortLink} readOnly />
-          <Button onClick={handleCopyUrl}>
-            <FontAwesomeIcon icon={faClipboard} /> Copy
-          </Button>
-        </MenuRow>
+        <div style={{ position: "relative" }}>
+          <ClickableLink onClick={handleCopyUrl}>
+            {window.location.origin + shortLink}
+          </ClickableLink>
+          {showToast && (
+            <ToastNotification>Copied to clipboard</ToastNotification>
+          )}
+        </div>
       )}
     </SavingMenuContainer>
   );

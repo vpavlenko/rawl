@@ -1246,20 +1246,7 @@ const Editor: React.FC<EditorProps> = ({
 
                 {/* Content area - show different content based on active tab */}
                 <AdminContent>
-                  {activeTab === "manual" && (
-                    <Manual
-                      score={score}
-                      initialSource={initialSource || ""}
-                      id={id}
-                      slug={slug}
-                      history={history}
-                      setError={setError}
-                      analysis={analysis}
-                      extractedMidiNotes={extractedMidiNotes}
-                      matchedParsingResult={matchedParsingResult}
-                      showSaveOptions={false} // Don't show duplicate save options
-                    />
-                  )}
+                  {activeTab === "manual" && <Manual score={score} />}
                   {user &&
                     user.uid === ADMIN_USER_ID &&
                     activeTab === "parseMidi" &&

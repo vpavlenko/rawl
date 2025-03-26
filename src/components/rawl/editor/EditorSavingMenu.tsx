@@ -19,6 +19,7 @@ const BACKUP_PREFIX = "rawl_backup_";
 interface BackupData {
   code: string;
   timestamp: number;
+  sessionTime?: number; // When this backup was created (which editor session)
 }
 
 interface EditorSavingMenuProps {
@@ -71,6 +72,8 @@ const BackupInfo = styled.div`
   font-size: 12px;
   color: #888;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
 `;
 
 // Add new styled component for version links
@@ -144,6 +147,15 @@ const SignInLink = styled.a`
   }
 `;
 
+// Add new styled component for the interactive backup text
+const BackupText = styled.span`
+  color: #4a9eff;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   score,
   initialSource,
@@ -161,6 +173,9 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   const [allVersionsContent, setAllVersionsContent] = useState<string[]>([]);
   const [documentUpdatedAt, setDocumentUpdatedAt] = useState<Date | null>(null);
   const [showToast, setShowToast] = useState(false);
+  const [isHoveringBackup, setIsHoveringBackup] = useState(false);
+  const [originalScore, setOriginalScore] = useState<string | null>(null);
+  const [editorMountTime, setEditorMountTime] = useState<number | null>(null);
 
   // Get user from context instead of directly from Firebase
   const appContext = useContext(AppContext);
@@ -217,7 +232,28 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
     }
   }, [id]);
 
-  // Check for backup once we have document details
+  // Listen for the editor mount time event
+  useEffect(() => {
+    const handleEditorMounted = (e: CustomEvent<{ mountTime: number }>) => {
+      if (e.detail && e.detail.mountTime) {
+        setEditorMountTime(e.detail.mountTime);
+      }
+    };
+
+    window.addEventListener(
+      "rawl-editor-mounted",
+      handleEditorMounted as EventListener,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "rawl-editor-mounted",
+        handleEditorMounted as EventListener,
+      );
+    };
+  }, []);
+
+  // Update the backup check logic to filter by session time
   useEffect(() => {
     // Check for backup
     const urlKey = getUrlKey();
@@ -249,6 +285,16 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
             return;
           }
 
+          // Don't show backup if it was created in this editing session
+          if (
+            editorMountTime &&
+            parsed.sessionTime &&
+            parsed.sessionTime >= editorMountTime
+          ) {
+            setBackup(null);
+            return;
+          }
+
           // If we've passed all checks, show the backup
           setBackup(parsed);
         } catch (e) {
@@ -256,7 +302,15 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
         }
       }
     }
-  }, [id, slug, initialSource, score, documentUpdatedAt, allVersionsContent]);
+  }, [
+    id,
+    slug,
+    initialSource,
+    score,
+    documentUpdatedAt,
+    allVersionsContent,
+    editorMountTime,
+  ]);
 
   // Handle restore from backup
   const handleRestore = () => {
@@ -275,6 +329,68 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
         setBackup(null);
       }
     }
+  };
+
+  // Add new handler to discard backup
+  const handleDiscardBackup = () => {
+    if (backup) {
+      const confirmed = window.confirm(
+        "Are you sure you want to discard this backup? This cannot be undone.",
+      );
+      if (confirmed) {
+        // Remove from localStorage
+        const urlKey = getUrlKey();
+        if (urlKey) {
+          const backupKey = BACKUP_PREFIX + urlKey;
+          localStorage.removeItem(backupKey);
+          setBackup(null);
+        }
+      }
+    }
+  };
+
+  // Add handlers for hover events
+  const handleBackupMouseEnter = () => {
+    if (backup && backup.code) {
+      setIsHoveringBackup(true);
+      setOriginalScore(score);
+
+      // Dispatch event to temporarily show backup in editor
+      const event = new CustomEvent("rawl-preview-backup", {
+        detail: { code: backup.code },
+      });
+      window.dispatchEvent(event);
+    }
+  };
+
+  const handleBackupMouseLeave = () => {
+    if (isHoveringBackup && originalScore) {
+      setIsHoveringBackup(false);
+
+      // Restore original code
+      const event = new CustomEvent("rawl-restore-preview", {
+        detail: { code: originalScore },
+      });
+      window.dispatchEvent(event);
+      setOriginalScore(null);
+    }
+  };
+
+  // Calculate diff length between current score and backup
+  const calculateDiffLength = () => {
+    if (!backup || !backup.code) return 0;
+
+    const backupLength = backup.code.length;
+    const currentLength = score.length;
+
+    return backupLength - currentLength;
+  };
+
+  // Format diff length as a string
+  const formatDiffLength = () => {
+    const diff = calculateDiffLength();
+    if (diff === 0) return "same length";
+    return diff > 0 ? `+${diff} chars` : `${diff} chars`;
   };
 
   // Handle publish button click - renamed to handleSaveClick
@@ -465,8 +581,16 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
     <SavingMenuContainer>
       {backup && backup.timestamp !== null && (
         <BackupInfo>
-          Backup from {formatBackupTime(backup.timestamp)}{" "}
+          <BackupText
+            onMouseEnter={handleBackupMouseEnter}
+            onMouseLeave={handleBackupMouseLeave}
+          >
+            Backup
+          </BackupText>
+          {" from "}
+          {formatBackupTime(backup.timestamp)} ({formatDiffLength()})
           <Button onClick={handleRestore}>Restore</Button>
+          <Button onClick={handleDiscardBackup}>Discard</Button>
         </BackupInfo>
       )}
 

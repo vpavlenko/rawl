@@ -118,6 +118,7 @@ const BACKUP_PREFIX = "rawl_backup_";
 interface BackupData {
   code: string;
   timestamp: number;
+  sessionTime: number;
 }
 
 // New styled components for tabs
@@ -269,6 +270,13 @@ const Editor: React.FC<EditorProps> = ({
   const [previouslyHighlightedNotes, setPreviouslyHighlightedNotes] = useState<
     HighlightedNote[]
   >([]);
+
+  // Add new state to track if we're in backup preview mode
+  const [isPreviewingBackup, setIsPreviewingBackup] = useState(false);
+  const tempScoreRef = useRef<string | null>(null);
+
+  // Add this near the top of the component with other state declarations
+  const [editorMountTime] = useState<number>(Date.now());
 
   // Redirect to /e/new if no slug is provided - using useEffect for proper hook ordering
   useEffect(() => {
@@ -610,7 +618,48 @@ const Editor: React.FC<EditorProps> = ({
     [playSongBuffer, effectiveSlug],
   );
 
-  // Setup listener for restore backup event
+  // Setup listeners for backup preview events
+  useEffect(() => {
+    const handlePreviewBackup = (e: CustomEvent<{ code: string }>) => {
+      if (e.detail && e.detail.code) {
+        // Store current score in ref
+        tempScoreRef.current = score;
+        // Update UI with backup code
+        setIsPreviewingBackup(true);
+        setScore(e.detail.code);
+      }
+    };
+
+    const handleRestorePreview = (e: CustomEvent<{ code: string }>) => {
+      if (e.detail && e.detail.code && isPreviewingBackup) {
+        // Restore original code
+        setIsPreviewingBackup(false);
+        setScore(e.detail.code);
+      }
+    };
+
+    window.addEventListener(
+      "rawl-preview-backup",
+      handlePreviewBackup as EventListener,
+    );
+    window.addEventListener(
+      "rawl-restore-preview",
+      handleRestorePreview as EventListener,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "rawl-preview-backup",
+        handlePreviewBackup as EventListener,
+      );
+      window.removeEventListener(
+        "rawl-restore-preview",
+        handleRestorePreview as EventListener,
+      );
+    };
+  }, [score, isPreviewingBackup]);
+
+  // Setup listener for restore backup event - existing code, keep it
   useEffect(() => {
     const handleRestoreBackup = (e: CustomEvent<{ code: string }>) => {
       if (e.detail && e.detail.code) {
@@ -632,7 +681,22 @@ const Editor: React.FC<EditorProps> = ({
     };
   }, [debouncedMelodyPlayback]);
 
-  // Modified handleTextChange to update analysis during command parsing
+  // Modify the event handler for backing up code
+  useEffect(() => {
+    // Create a custom event to inform other components of the mount time
+    const mountTimeEvent = new CustomEvent("rawl-editor-mounted", {
+      detail: { mountTime: editorMountTime },
+    });
+
+    // Dispatch the event when mounted
+    window.dispatchEvent(mountTimeEvent);
+
+    return () => {
+      // Nothing to clean up here
+    };
+  }, [editorMountTime]);
+
+  // In the handleTextChange callback, pass the mount time with the backup
   const handleTextChange = useCallback(
     (value: string) => {
       // Replace "anacrusis 4" with "sections 2 6"
@@ -674,14 +738,15 @@ const Editor: React.FC<EditorProps> = ({
         // Remove console.error for score processing
       }
 
-      // Save to localStorage for backup
-      if (effectiveSlug && value !== initialSource) {
+      // Only save backup if we're not in preview mode
+      if (!isPreviewingBackup && effectiveSlug && value !== initialSource) {
         const urlKey = id ? `/ef/${id}` : slug ? `/e/${slug}` : "";
         if (urlKey) {
           const backupKey = BACKUP_PREFIX + urlKey;
           const backup: BackupData = {
             code: value,
             timestamp: Date.now(),
+            sessionTime: editorMountTime, // Add the session time to the backup
           };
           localStorage.setItem(backupKey, JSON.stringify(backup));
         }
@@ -698,6 +763,8 @@ const Editor: React.FC<EditorProps> = ({
       slug,
       initialSource,
       onEditorChange,
+      isPreviewingBackup,
+      editorMountTime, // Add editor mount time to dependencies
     ],
   );
 

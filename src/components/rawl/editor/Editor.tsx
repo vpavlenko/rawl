@@ -236,8 +236,8 @@ const Editor: React.FC<EditorProps> = ({
     currentTrack: 1,
     timeSignatures: [{ numerator: 4, measureStart: 1 }],
     channelOctaves: {
-      0: 5, // RH default
-      1: 3, // LH default
+      0: 4, // RH default
+      1: 2, // LH default
     },
     commentToEndOfFile: false,
     currentBpm: 120, // Default BPM
@@ -407,7 +407,7 @@ const Editor: React.FC<EditorProps> = ({
   }, [isDragging, handleMouseMove, handleMouseUp]);
 
   // Create a debounced version of handleMelodyPlayback
-  const debouncedMelodyPlayback = useCallback(
+  const parseScore = useCallback(
     (() => {
       let timeoutId: NodeJS.Timeout;
       return (text: string, autoplay: boolean) => {
@@ -440,8 +440,8 @@ const Editor: React.FC<EditorProps> = ({
                 currentTrack: 1,
                 timeSignatures: [{ numerator: 4, measureStart: 1 }],
                 channelOctaves: {
-                  0: 5, // RH default
-                  1: 3, // LH default
+                  0: 4, // RH default
+                  1: 2, // LH default
                 },
                 commentToEndOfFile: false,
                 currentBpm: 120, // Default BPM,
@@ -669,8 +669,8 @@ const Editor: React.FC<EditorProps> = ({
           currentTrack: 1,
           timeSignatures: [{ numerator: 4, measureStart: 1 }],
           channelOctaves: {
-            0: 5, // RH default
-            1: 3, // LH default
+            0: 4, // RH default
+            1: 2, // LH default
           },
           commentToEndOfFile: false,
           currentBpm: 120, // Default BPM
@@ -690,7 +690,7 @@ const Editor: React.FC<EditorProps> = ({
         setContext(newContext);
 
         // Always trigger MIDI playback with the new value
-        debouncedMelodyPlayback(value, false);
+        parseScore(value, false);
       } catch (e) {
         // Remove console.error for score processing
       }
@@ -709,7 +709,7 @@ const Editor: React.FC<EditorProps> = ({
       }
     },
     [
-      debouncedMelodyPlayback,
+      parseScore,
       effectiveSlug,
       initialSource,
       onEditorChange,
@@ -727,7 +727,7 @@ const Editor: React.FC<EditorProps> = ({
         setCodeValue(initialSource);
         setScore(initialSource);
         // Trigger MIDI generation with the new initialSource
-        debouncedMelodyPlayback(initialSource, true);
+        parseScore(initialSource, true);
         return;
       }
 
@@ -744,7 +744,7 @@ const Editor: React.FC<EditorProps> = ({
 
             // Trigger MIDI generation after a delay but don't autoplay
             setTimeout(() => {
-              debouncedMelodyPlayback(newEditorScore, false);
+              parseScore(newEditorScore, false);
             }, 500);
             return;
           }
@@ -786,7 +786,7 @@ const Editor: React.FC<EditorProps> = ({
                 setTimeout(() => {
                   // Disable autoplay for /e/new route
                   const isNewRoute = effectiveSlug === "new";
-                  debouncedMelodyPlayback(newScore, !isNewRoute);
+                  parseScore(newScore, !isNewRoute);
                 }, 1000);
               } else if (data.source) {
                 // Handle legacy documents with just a source field
@@ -802,7 +802,7 @@ const Editor: React.FC<EditorProps> = ({
                 setTimeout(() => {
                   // Disable autoplay for /e/new route
                   const isNewRoute = effectiveSlug === "new";
-                  debouncedMelodyPlayback(newScore, !isNewRoute);
+                  parseScore(newScore, !isNewRoute);
                 }, 1000);
               } else {
                 setError("No content found in edit");
@@ -832,7 +832,7 @@ const Editor: React.FC<EditorProps> = ({
           setTimeout(() => {
             // Disable autoplay for /e/new route
             const isNewRoute = effectiveSlug === "new";
-            debouncedMelodyPlayback(newScore, !isNewRoute);
+            parseScore(newScore, !isNewRoute);
           }, 1000);
         } else {
           setScore("");
@@ -847,7 +847,7 @@ const Editor: React.FC<EditorProps> = ({
     id,
     isDecompositionMode,
     initialSource,
-    debouncedMelodyPlayback,
+    parseScore,
     versionNum,
   ]);
 
@@ -867,10 +867,10 @@ const Editor: React.FC<EditorProps> = ({
 
       if (lineNumber !== currentLine && !hasSelection) {
         // Play the current score when cursor position changes
-        debouncedMelodyPlayback(score, false);
+        parseScore(score, false);
       }
     },
-    [currentLine, score, debouncedMelodyPlayback],
+    [currentLine, score, parseScore],
   );
 
   // Cleanup when component unmounts

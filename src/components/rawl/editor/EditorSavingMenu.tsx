@@ -9,8 +9,9 @@ import {
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore/lite";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { AppContext } from "../../AppContext";
 import { Analysis } from "../analysis";
 
 // Constants
@@ -108,6 +109,10 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
   const [versions, setVersions] = useState<number>(version || 0);
   const [allVersionsContent, setAllVersionsContent] = useState<string[]>([]);
   const [documentUpdatedAt, setDocumentUpdatedAt] = useState<Date | null>(null);
+
+  // Get user from context instead of directly from Firebase
+  const appContext = useContext(AppContext);
+  const user = appContext?.user;
 
   // Get URL key for localStorage
   const getUrlKey = () => {
@@ -263,6 +268,7 @@ const EditorSavingMenu: React.FC<EditorSavingMenuProps> = ({
           versions: [score], // Initialize versions array with current score
           createdAt: serverTimestamp(),
           updatedAt: serverTimestamp(),
+          owner: user ? user.uid : null, // Use user from context
         });
 
         // Redirect to the new version URL

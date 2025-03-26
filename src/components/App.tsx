@@ -8,7 +8,6 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { Bytes } from "firebase/firestore";
 import {
   Firestore,
   doc,
@@ -48,6 +47,7 @@ import { handleSongClick as handleSongClickUtil } from "../handlers/handleSongCl
 import keySlugMapping from "../keySlugMapping";
 import MIDIPlayer from "../players/MIDIPlayer";
 import promisify from "../promisify-xhr";
+import { FirestoreMidiDocument } from "../types/firestore";
 import { ensureEmscFileWithData, unlockAudioContext } from "../util";
 import Alert from "./Alert";
 import { AppContext } from "./AppContext";
@@ -121,17 +121,6 @@ type AppState = {
   currentMidiBuffer: ArrayBuffer | null;
   hoveredMeasuresSpan: MeasuresSpan | null;
 };
-
-export interface FirestoreMidiIndex {
-  midis: { id: string; slug: string; title: string }[];
-}
-
-export interface FirestoreMidiDocument {
-  blob: Bytes;
-  slug: string;
-  title: string;
-  url: string | null; // This is named 'url' in Firestore but we use it as 'sourceUrl' internally
-}
 
 type KeyboardHandler = (e: KeyboardEvent) => void;
 

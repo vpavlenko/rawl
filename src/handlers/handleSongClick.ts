@@ -1,6 +1,6 @@
 import { doc, getDoc, getFirestore } from "firebase/firestore/lite";
-import { FirestoreMidiDocument, FirestoreMidiIndex } from "../components/App";
 import keySlugMapping from "../keySlugMapping";
+import { FirestoreMidiDocument, FirestoreMidiIndex } from "../types/firestore";
 
 type HandleSongClickDependencies = {
   setState: (state: any, callback?: () => void) => void;

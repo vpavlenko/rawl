@@ -14,6 +14,7 @@ import {
 import { ComposerTitle } from "./book/Book";
 import { corpora, MUSESCORE_TOP_100_SLUG } from "./corpora/corpora";
 import { CorpusLink } from "./corpora/CorpusLink";
+import { beautifySlug } from "./corpora/utils";
 import { TOP_100_COMPOSERS } from "./top100Composers";
 
 const MUSESCORE_ICON = `
@@ -112,10 +113,7 @@ const CompositionTitle: React.FC<CompositionTitleProps> = ({
     }
   };
 
-  const formattedTitle = slug
-    .replace(/---/g, " – ")
-    .replace(/-/g, " ")
-    .replace(/_/g, " ");
+  const formattedTitle = beautifySlug(slug);
 
   const composerInfo = React.useMemo(() => {
     return TOP_100_COMPOSERS.find((composer) => composer.slug === slug);

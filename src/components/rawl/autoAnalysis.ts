@@ -6,7 +6,7 @@ import { MeasuresAndBeats } from "./SystemLayout";
 import { PitchClass } from "./analysis";
 import { Note } from "./parseMidi";
 
-export const findTonic = (notes: Note[]): PitchClass => {
+export const findTonic = (notes: Note[]): PitchClass | -1 => {
   const countPitchClasses = [];
   for (let i = 0; i < 12; ++i) {
     countPitchClasses.push(0);
@@ -42,7 +42,7 @@ export const findTonic = (notes: Note[]): PitchClass => {
   console.log("scores", scores);
   console.log("bestValue", bestValue);
   console.log("bestTonic", bestTonic);
-  return bestTonic as PitchClass | 0;
+  return bestTonic as PitchClass | -1;
 };
 
 export const findFirstPhraseStart = (

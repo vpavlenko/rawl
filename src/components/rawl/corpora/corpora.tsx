@@ -328,6 +328,7 @@ export const corpora: CorpusEntry[] = [
     country: "Germany",
     similarTo: ["martha_mier", "elissa_milne"],
   },
+  { slug: "isaac_shepard", midis: ["letting-go-isaac-shepard"] },
   {
     slug: "david_lanz",
     midis: [
@@ -6236,6 +6237,26 @@ export const corpora: CorpusEntry[] = [
       "the-french-library---franz-gordon",
       "song-for-johanna---franz-gordon",
     ],
+  },
+  {
+    slug: "kevin_kern",
+    midis: [
+      "sundial-dreams---kevin-kern",
+      "the-enchanted-garden-kevin-kern",
+      "kevin-kern---through-the-arbor",
+      "pearls-of-joy---kevin-kern",
+      "remembering-the-light---kevin-kern",
+      "pastel-reflections---kevin-kern",
+      "fairy-wings---kevin-kern",
+      "the-winding-path---kevin-kern",
+      "kevin-kern-the-silence-of-knowing",
+      "always-near---kevin-kern",
+      "dance-of-the-dragonfly",
+      "endless-blue-sky---kevin-kern",
+      "kevin-kern-through-your-eyes",
+    ],
+    genre: "New Age",
+    composerBirthYear: 1958,
   },
   {
     slug: "tetris_theme_a",

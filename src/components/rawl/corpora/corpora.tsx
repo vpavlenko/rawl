@@ -1540,11 +1540,6 @@ export const corpora: CorpusEntry[] = [
       "he_s_a_pirate_hard_version",
       "he_s_a_pirate_klaus_badelt_pirates_of_the_caribbean_ost_rock_version",
       "he_s_a_pirate_ost_kalimba_cover",
-      "pirate_melody_16measures_chromatic",
-      "pirate_melody_16measures_scales",
-      "pirate_melody_16measures_transpositions",
-      "pirate_melody_16measures_whole_tone",
-      "pirates_5ch",
       "pirates_of_the_caribbean_easy_piano",
       "pirates_of_the_caribbean_easy_piano_capa",
       "pirates_of_the_caribbean_for_alto_saxophone",
@@ -3392,18 +3387,17 @@ export const corpora: CorpusEntry[] = [
       "jingle-bells-boogie",
     ],
     genre: "Boogie Woogie",
-    // This is a genre-based collection, not tied to a specific composer.
     style: "Boogie Woogie",
   },
   {
     slug: "fur_elise_covers",
     midis: [
+      "fur-elise-super-easy",
+      "Fr_Elise",
       "fur-elise-reharmonization-cover",
       "fur-elise-but-elise-is-scary",
-      "Fr_Elise",
       "fur-elise-but-elise-said-no",
     ],
-    // Cover of Beethoven's piece, so no new composer or style info necessary here.
   },
   {
     slug: "rhcp_red_hot_chili_peppers",
@@ -6243,9 +6237,11 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "tetris_theme_a",
     midis: [
-      "tetris---very-accessible-arrangement-w-intermediate-options",
-      "Tetris_Theme",
       "tetris-theme",
+      "tetris---very-accessible-arrangement-w-intermediate-options",
+      "korobeiniki-simple",
+      "tetris-theme-korobeniki-easy-to-play",
+      "Tetris_Theme",
       "tetris-theme-for-piano",
       "tetris-theme---impossible-piano",
       "tetris-type-a",
@@ -6253,13 +6249,12 @@ export const corpora: CorpusEntry[] = [
       "tetris-theme-a",
       "Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki",
       "korobeiniki-tetris",
-      "tetris-theme-korobeniki-easy-to-play",
+
       "tetris-ragtime",
       "murican-tetris-.rag...",
       "tetris---a-theme-with-variations",
       "tetris-theme---very-hard",
       "korobeiniki-tetris-theme",
-      "korobeiniki-simple",
     ],
   },
   {
@@ -6415,6 +6410,7 @@ export const corpora: CorpusEntry[] = [
     slug: "brad_breeck",
     midis: [
       "Gravity_Falls_Opening",
+      "gravity-falls-theme-easy-piano-version-digital-sheet-music",
       "gravity-falls---weirdmageddon-theme",
       "eda-s-requiem---brad-breeck-piano",
       "we-ll-meet-again---gravity-falls",
@@ -6694,6 +6690,19 @@ export const corpora: CorpusEntry[] = [
       "my-song-your-note-piano---dan-salvato",
 
       "your-obnoxious-reality---your-reality-but-sadder", // this piece does not exist!
+    ],
+  },
+  {
+    slug: "requiem_for_a_dream",
+    midis: [
+      "requiem-for-a-dream-easy",
+      "requiem-for-a-dream-easy-version",
+      "Requiem_for_a_Dream",
+      "dying-dream-arrangement-by-reik",
+
+      "lux-aeterna---clint-mansell-my-arrangment-of-requiem-of-a-dream",
+      "requiem-for-a-dream-4hands-v1",
+      "requiem-for-a-dream-very-difficult",
     ],
   },
   {

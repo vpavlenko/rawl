@@ -51,6 +51,7 @@ import { useBackup } from "./hooks/useBackup";
 import Manual, { MidiWriterJsDisplay, ParseMidiDisplay } from "./Manual";
 import { ManualContainer } from "./ManualStyles";
 import { scores } from "./scores";
+import { convertSourceToVersions } from "./sourceConverter";
 import { Command, CommandContext, LogicalNote, ModeName } from "./types";
 
 // Define a simple language for the editor that supports % comments
@@ -691,6 +692,10 @@ const Editor: React.FC<EditorProps> = ({
             if (docSnap.exists()) {
               const data = docSnap.data() as FirestoreEditDocument;
 
+              if (data.source && !data.versions) {
+                convertSourceToVersions(data);
+              }
+
               // Handle versions array if it exists
               if (data.versions && Array.isArray(data.versions)) {
                 // Get the specific version or the latest if not specified
@@ -699,23 +704,6 @@ const Editor: React.FC<EditorProps> = ({
                   : data.versions.length - 1;
 
                 let newScore = data.versions[versionIndex] || "";
-
-                // If there's a legacy source field and no versions or empty version, use that
-                if (!newScore && data.source) {
-                  newScore = data.source;
-                }
-
-                setScore(newScore);
-
-                // Trigger initial MIDI generation after a delay
-                setTimeout(() => {
-                  // Disable autoplay for /e/new route
-                  const isNewRoute = effectiveSlug === "new";
-                  parseScore(newScore, !isNewRoute);
-                }, 1000);
-              } else if (data.source) {
-                // Handle legacy documents with just a source field
-                let newScore = data.source;
 
                 setScore(newScore);
 

@@ -50,8 +50,8 @@ export const corpora: CorpusEntry[] = [
     slug: "yiruma_first_love",
     midis: [
       "river-flows-in-you",
-      "may-be---yiruma",
       "it-s-your-day---yiruma",
+      "may-be---yiruma",
       "yiruma---love-me",
       "farewell---yiruma",
       "time-forgets---yiruma",
@@ -149,6 +149,8 @@ export const corpora: CorpusEntry[] = [
       "valentine---jim-brickman-with-martina-mcbride",
       "beautiful",
       "jim-brickman---night-prayer-uoc-gi",
+      "angel-eyes---jim-brickman",
+      "tsunami---jim-brickman",
     ],
     composerBirthYear: 1961, // Jim Brickman
     genre: "Adult Contemporary, Pop", // Focuses on contemporary ballads and easy-listening music.
@@ -1545,6 +1547,7 @@ export const corpora: CorpusEntry[] = [
       "Pirates_of_the_Caribbean_-_Hes_a_Pirate", // Klaus Badelt
       "pirates_of_the_caribbean_hans_zimmer_virtuosic_piano_solo_movement_3",
       "pirates_of_the_caribbean_he_s_a_pirate_hard_version",
+      "pirates-of-the-caribbean---he-s-a-pirate-orchestra-cover",
 
       "pirates_of_the_caribbean_easy_piano",
       "pirates_of_the_caribbean_for_alto_saxophone",
@@ -4834,13 +4837,16 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "winter---lucia-salieri-vicenzo-piano",
       "letter-to-my-mother---vicenzo-piano",
-      "introspection---vicenzo-piano",
-      "day-off---vicenzo-piano",
       "awakening---vicenzo-piano",
+
+      "day-off---vicenzo-piano",
+      "a-dream-i-had---vicenzo-piano",
+
+      // minor
+      "introspection---vicenzo-piano",
       "farewell---vicenzo-piano",
       "the-golden-waltz---vicenzo-piano",
       "the-midnight-waltz---vicenzo-piano",
-      "a-dream-i-had---vicenzo-piano",
       "interstellar---vicenzo-piano",
     ],
     genre: "New Age", // New Age piano compositions
@@ -6241,19 +6247,24 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "kevin_kern",
     midis: [
+      // diatonic major
+      "kevin-kern---through-the-arbor",
+      "remembering-the-light---kevin-kern",
+      "kevin-kern-the-silence-of-knowing",
+      "kevin-kern-through-your-eyes",
+
+      // chromatic major
       "sundial-dreams---kevin-kern",
       "the-enchanted-garden-kevin-kern",
-      "kevin-kern---through-the-arbor",
-      "pearls-of-joy---kevin-kern",
-      "remembering-the-light---kevin-kern",
       "pastel-reflections---kevin-kern",
-      "fairy-wings---kevin-kern",
-      "the-winding-path---kevin-kern",
-      "kevin-kern-the-silence-of-knowing",
       "always-near---kevin-kern",
       "dance-of-the-dragonfly",
       "endless-blue-sky---kevin-kern",
-      "kevin-kern-through-your-eyes",
+
+      // minor
+      "pearls-of-joy---kevin-kern",
+      "fairy-wings---kevin-kern",
+      "the-winding-path---kevin-kern",
     ],
     genre: "New Age",
     composerBirthYear: 1958,

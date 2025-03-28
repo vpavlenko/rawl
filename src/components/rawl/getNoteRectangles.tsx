@@ -161,7 +161,7 @@ export const getNoteRectangles = (
         ? noteUnderCursor
           ? baseTop - baseHeight
           : baseTop
-        : baseTop + baseHeight * 2 - 0.5;
+        : baseTop + baseHeight - 0.5;
 
     const pathData = note.pitchBend
       ? convertPitchBendToPathData(

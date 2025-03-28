@@ -1548,6 +1548,10 @@ export const corpora: CorpusEntry[] = [
       "pirates_of_the_caribbean_hans_zimmer_virtuosic_piano_solo_movement_3",
       "pirates_of_the_caribbean_he_s_a_pirate_hard_version",
       "pirates-of-the-caribbean---he-s-a-pirate-orchestra-cover",
+      "he-s-a-pirate---pirates-of-the-caribbean-orchestral",
+      "the-pirates-of-the-caribbean-end-credit-he-s-a-pirate",
+      "he-s-a-pirate-david-garrett-x-jarrod-radnich",
+      "he-s-a-pirate",
 
       "pirates_of_the_caribbean_easy_piano",
       "pirates_of_the_caribbean_for_alto_saxophone",

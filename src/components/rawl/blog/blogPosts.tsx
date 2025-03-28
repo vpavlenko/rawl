@@ -583,6 +583,55 @@ export const BLOG_POSTS: BlogPost[] = [
       </>
     ),
   },
+  {
+    id: 6,
+    title: <>Chord scales iii, v and melodic minor</>,
+    date: "2025-03-28",
+    titleChords: ["iii", "3", "#4", "5", "v", "5", "6", "b7"],
+    content: () => (
+      <>
+        <P>
+          {s`chord_scale:iii`} - a chromatic pitch {c`#4`} is used as a single
+          chromatic pitch melodically in a diatonic major context. It happens
+          over {c`iii`} chord.
+        </P>
+        <P>In relative minor we observe the same for {s`chord_scale:v`}</P>
+        <P>
+          I suspect that this can be linked to {s`chord_scale:melodic_minor`}.
+          In there we have {c`6`} chromatic pitch that is only played over{" "}
+          {c`V`} in a diatonic minor context.
+        </P>
+        <P>
+          All three cases have the single explanation: the diatonic context has
+          a pitch which is b2 ({c`b2`}) relative to chord's root. {c`b2`} isn't
+          a standard pitch (that's why we label it with a center dot): both
+          minor scale {c`1 2 b3`} and major scale {c`1 2 3`} don't have it.
+        </P>
+        <P>
+          So, both chords rectify b2 {c`b2`} to 2 {c`2`} (relative to their
+          roots) to make a smallest melodic tonicization:
+          <ul>
+            <li>
+              During {c`1 2 3 4 5 6 7 1`} the {c`iii`} changes {c`3 4 5`} to{" "}
+              {c`3 #4 5`}
+            </li>
+            <li>
+              During {c`1 2 b3 4 5 b6 b7 1`} the {c`v`} changes {c`5 b6 b7`} to{" "}
+              {c`5 6 b7`}
+            </li>
+            <li>
+              During {c`1 2 b3 4 5 b6 b7 1`} the {c`V`} changes {c`5 b6 7`} to{" "}
+              {c`5 6 7`}
+            </li>
+          </ul>
+        </P>
+        <P>
+          I suspect that a melodic minor scale {c`1 2 b3 4 5 6 7 1`} isn't
+          observed anywhere outside the {c`V`} chord.
+        </P>
+      </>
+    ),
+  },
 ];
 
 // Export the utility function so it can be used in Blog.tsx

@@ -135,6 +135,9 @@ const STRUCTURES_TO_CHORDS: { [key: string]: Chord[] } = {
   "V:sus4_unresolved": ["Vsus4"],
   "V:soul_dominant": ["Vsoul", "I"],
   "scale:whole-tone": ["WT1", "WT2"],
+  "chord_scale:iii": ["iii", "3", "#4", "5"],
+  "chord_scale:v": ["v", "5", "6", "b7"],
+  "chord_scale:melodic_minor": ["iv", "V", "6", "7"],
 };
 
 export const s = (tags: TemplateStringsArray) => {

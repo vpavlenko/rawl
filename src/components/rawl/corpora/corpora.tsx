@@ -6261,6 +6261,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "tetris_theme_a",
     midis: [
+      "tetris---ukulele",
       "tetris-theme",
       "tetris---very-accessible-arrangement-w-intermediate-options",
       "korobeiniki-simple",
@@ -6274,6 +6275,8 @@ export const corpora: CorpusEntry[] = [
       "Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki",
       "tetris-theme---very-hard",
 
+      "tetris-duet-ukulele",
+      "tetris---theme-a---ukulele-tab",
       "korobeiniki-tetris",
       "tetris-ragtime",
       "murican-tetris-.rag...",

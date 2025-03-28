@@ -94,9 +94,9 @@ const AppHeader: React.FC = () => {
         <HeaderLink to="/e/" style={getLinkStyle("/e")}>
           Editor
         </HeaderLink>
-        <HeaderLink to="/d/" style={getLinkStyle("/d")}>
+        {/* <HeaderLink to="/d/" style={getLinkStyle("/d")}>
           Decompose
-        </HeaderLink>
+        </HeaderLink> */}
         <HeaderLink to="/forge/" style={getLinkStyle("/forge")}>
           Forge
         </HeaderLink>

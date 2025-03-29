@@ -67,6 +67,7 @@ import BookOnStyles from "./rawl/book/BookOnStyles";
 import Corpus from "./rawl/corpora/Corpus";
 import Structures, { StructuresProps } from "./rawl/corpora/Structures";
 import Decomposition from "./rawl/decomposition/Decomposition";
+import Converter from "./rawl/editor/Converter";
 import Editor from "./rawl/editor/Editor";
 import EditorLandingPage, {
   StyledButton,
@@ -1309,6 +1310,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   <Route path="/ef/:id/:version?" component={Editor} />
                   <Route path="/book/:slug?" component={BookOnStyles} />
                   <Route path="/blog/:postId?/:slug?" component={Blog} />
+                  <Route path="/convert" component={Converter} />
                   {rawlRoute}
                   <Redirect
                     exact

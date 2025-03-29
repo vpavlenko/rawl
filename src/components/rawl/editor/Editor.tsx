@@ -1093,10 +1093,9 @@ const Editor: React.FC<EditorProps> = ({
         );
       });
 
-    // If highlighted notes have changed, play them
+    // If notes have changed, play them with the current BPM from context
     if (notesChanged && newHighlightedNotes.length > 0) {
-      console.log("Highlighted notes changed, playing:", newHighlightedNotes);
-      playHighlightedNotes(newHighlightedNotes);
+      playHighlightedNotes(newHighlightedNotes, context.currentBpm);
       setPreviouslyHighlightedNotes(newHighlightedNotes);
     }
   }, [matchedParsingResult, previouslyHighlightedNotes]);

@@ -302,11 +302,13 @@ export interface HighlightedNote {
  * Normalizes times by subtracting the earliest start time.
  *
  * @param highlightedNotes Array of notes with startTime, duration, and midiNumber
+ * @param bpm The tempo to use for timing calculations (beats per minute)
  * @param cancelPrevious Whether to cancel previous sounds (default true)
  * @returns A function to stop playback
  */
 export const playHighlightedNotes = async (
   highlightedNotes: HighlightedNote[],
+  bpm: number = Tone.Transport.bpm.value,
   cancelPrevious = true,
 ): Promise<() => void> => {
   // Ensure sampler is loaded
@@ -361,32 +363,43 @@ export const playHighlightedNotes = async (
   // Current transport time as reference point
   const currentTransportTime = Tone.Transport.seconds;
 
+  // Set Tone.js BPM to match our BPM - critical for accurate timing!
+  // Store original BPM to restore later
+  const originalBpm = Tone.Transport.bpm.value;
+  Tone.Transport.bpm.value = bpm;
+
+  // Define constants for MIDI timing
+  // MidiWriter uses 128 ticks per quarter by default
+  const MIDI_WRITER_PPQ = 128;
+
   // Schedule each note with precise timing
   validNotes.forEach((note) => {
     // Convert MIDI number to Tone.js note name
     const noteName = Tone.Frequency(note.midiNumber, "midi").toNote();
 
     // Calculate normalized start time in seconds
+    // First normalize the ticks (make everything relative to the first note)
     const normalizedStartTimeTicks = note.startTime - minStartTime;
-    const normalizedStartTimeSeconds =
-      (normalizedStartTimeTicks /
-        Tone.Transport.PPQ /
-        Tone.Transport.bpm.value) *
-      60;
 
-    // Calculate duration in seconds
-    const durationSeconds =
-      (note.duration / Tone.Transport.PPQ / Tone.Transport.bpm.value) * 60;
+    // Convert ticks to beats (quarter notes) by dividing by PPQ
+    const startTimeInBeats = normalizedStartTimeTicks / MIDI_WRITER_PPQ;
+
+    // Convert beats to seconds based on tempo (BPM)
+    const startTimeInSeconds = (60 / bpm) * startTimeInBeats;
+
+    // Similarly for duration
+    const durationInBeats = note.duration / MIDI_WRITER_PPQ;
+    const durationInSeconds = (60 / bpm) * durationInBeats;
 
     // Schedule the note
-    const scheduleTime = currentTransportTime + normalizedStartTimeSeconds;
+    const scheduleTime = currentTransportTime + startTimeInSeconds;
 
     const eventId = Tone.Transport.schedule((time) => {
       activeNotes.push(noteName);
 
       // Use try/catch to log any errors during playback
       try {
-        sampler.triggerAttackRelease(noteName, durationSeconds, time);
+        sampler.triggerAttackRelease(noteName, durationInSeconds, time);
       } catch (error) {
         console.error(`Error playing note ${noteName}:`, error);
       }
@@ -395,11 +408,14 @@ export const playHighlightedNotes = async (
     activeEvents.push(eventId);
   });
 
-  // Return a function to stop playback
+  // Return a function to stop playback and restore original BPM
   return () => {
     sampler.releaseAll(0);
     activeEvents.forEach((id) => Tone.Transport.clear(id));
     activeEvents = [];
     activeNotes = [];
+
+    // Restore original BPM
+    Tone.Transport.bpm.value = originalBpm;
   };
 };

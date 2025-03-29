@@ -3949,6 +3949,7 @@ export const corpora: CorpusEntry[] = [
       "blastin-banter-battle-battle-of-jerry-mountain---shinkonet-blastin-banter-battle",
       "fantasiestuck---oskar-schuster",
       "papers-please---death-theme",
+      "pastorale---marcelle-taillefesse-germaine-tailleferre-1919",
     ],
   },
   { slug: "ilmari_hakkola", midis: ["bad-piggies-theme"] },
@@ -5922,6 +5923,13 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1797,
     genre: "Classical",
     country: "Austria",
+  },
+  {
+    slug: "germaine_tailleferre",
+    midis: ["pastorale---marcelle-taillefesse-germaine-tailleferre-1919"],
+    composerBirthYear: 1892,
+    genre: "Classical",
+    country: "France",
   },
   {
     slug: "schubert_op9_d365",

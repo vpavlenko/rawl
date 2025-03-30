@@ -1537,20 +1537,22 @@ export const corpora: CorpusEntry[] = [
     slug: "he_is_a_pirate_arrangements",
     midis: [
       "he_s_a_pirate_ost_kalimba_cover",
-
       "he_s_a_pirate_easy_piano",
+      "pirates_of_the_caribbean_hans_zimmer_virtuosic_piano_solo_movement_3",
+      "Pirates_of_the_Caribbean_-_Hes_a_Pirate", // Klaus Badelt
+      "he-s-a-pirate---hans-zimmer-he-s-a-pirate",
+      "he-s-a-pirate-david-garrett-x-jarrod-radnich",
+
       "he_s_a_pirate_from_pirates_of_the_caribbean",
       "he_s_a_pirate_hans_zimmer_klaus_badelt",
       "he_s_a_pirate_hard_version",
       "pirates_of_the_carribean_beginner",
       "pirates_of_the_caribbean_easy_piano_capa",
-      "Pirates_of_the_Caribbean_-_Hes_a_Pirate", // Klaus Badelt
-      "pirates_of_the_caribbean_hans_zimmer_virtuosic_piano_solo_movement_3",
       "pirates_of_the_caribbean_he_s_a_pirate_hard_version",
       "pirates-of-the-caribbean---he-s-a-pirate-orchestra-cover",
       "he-s-a-pirate---pirates-of-the-caribbean-orchestral",
       "the-pirates-of-the-caribbean-end-credit-he-s-a-pirate",
-      "he-s-a-pirate-david-garrett-x-jarrod-radnich",
+
       "he-s-a-pirate",
 
       "pirates_of_the_caribbean_easy_piano",
@@ -6285,19 +6287,19 @@ export const corpora: CorpusEntry[] = [
     slug: "tetris_theme_a",
     midis: [
       "tetris---ukulele",
-      "tetris-theme",
-      "tetris---very-accessible-arrangement-w-intermediate-options",
-      "korobeiniki-simple",
-      "tetris-theme-korobeniki-easy-to-play",
-      "tetris-theme-for-piano",
-      "Tetris_Theme",
-      "tetris-theme---impossible-piano",
       "tetris-type-a",
+      "tetris-theme-korobeniki-easy-to-play",
+      "korobeiniki-simple",
+      "tetris-theme---impossible-piano",
+      "Tetris_Theme",
+      "Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki",
+
+      "tetris---very-accessible-arrangement-w-intermediate-options",
+      "tetris-theme-for-piano",
+      "tetris-theme",
       "tetris-theme---epic-piano-arrangement",
       "tetris-theme-a",
-      "Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki",
       "tetris-theme---very-hard",
-
       "tetris-duet-ukulele",
       "tetris---theme-a---ukulele-tab",
       "korobeiniki-tetris",

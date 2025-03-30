@@ -605,25 +605,32 @@ const Structures: React.FC<StructuresProps> = ({
     <PathContainer>
       {isRawlVisible ? (
         // Breadcrumb navigation when Rawl is visible
-        <BreadcrumbContainer>
-          <BreadcrumbItem onClick={handleBreadcrumbClick}>
+        <div
+          style={{
+            display: "flex",
+            backgroundColor: "black",
+            padding: "8px 16px",
+            alignItems: "center",
+            gap: "8px",
+          }}
+        >
+          <CategoryHeader
+            onClick={handleBreadcrumbClick}
+            style={{ cursor: "pointer" }}
+          >
             {formatCategoryLabel(
               getCategoryForChapter(chapterData[activeChapter]?.chapter || ""),
             )}
-          </BreadcrumbItem>
-          <BreadcrumbSeparator>›</BreadcrumbSeparator>
-          <BreadcrumbItem onClick={handleBreadcrumbClick}>
+          </CategoryHeader>
+          <ChapterButton active={true} onClick={handleBreadcrumbClick}>
             {(chapterData[activeChapter]?.chapter || "").replace(/_/g, " ")}
-          </BreadcrumbItem>
+          </ChapterButton>
           {activeTopic && (
-            <>
-              <BreadcrumbSeparator>›</BreadcrumbSeparator>
-              <BreadcrumbItem onClick={handleBreadcrumbClick}>
-                {activeTopic.replace(/_/g, " ")}
-              </BreadcrumbItem>
-            </>
+            <TopicBubble active={true} onClick={handleBreadcrumbClick}>
+              {activeTopic.replace(/_/g, " ")}
+            </TopicBubble>
           )}
-        </BreadcrumbContainer>
+        </div>
       ) : (
         // Regular menu when Rawl is not visible
         <MenuContainer isRawlVisible={isRawlVisible}>

@@ -144,8 +144,8 @@ const TopicBubble = styled.span<{ active: boolean }>`
 `;
 
 const EjectButton = styled.button`
-  position: absolute;
-  top: -29px; // Position it above the player
+  position: fixed;
+  bottom: 50vh; // Position it just above the RawlContainer which is 50vh tall
   right: 0;
   background: #333;
   color: white;
@@ -154,7 +154,7 @@ const EjectButton = styled.button`
   border-top-right-radius: 4px;
   padding: 4px 8px;
   cursor: pointer;
-  z-index: 100001; // Higher than TopicMenu
+  z-index: 200001; // Higher than RawlContainer to ensure it's clickable
   transition: background-color 0.2s;
 
   &:hover {
@@ -355,6 +355,28 @@ const TopicContent = React.memo<{
     );
   },
 );
+
+const BreadcrumbContainer = styled.div`
+  background-color: black;
+  color: white;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  border-bottom: 1px solid #333;
+`;
+
+const BreadcrumbItem = styled.span`
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const BreadcrumbSeparator = styled.span`
+  margin: 0 8px;
+  color: #666;
+`;
 
 const Structures: React.FC<StructuresProps> = ({
   analyses,
@@ -561,59 +583,121 @@ const Structures: React.FC<StructuresProps> = ({
     };
   }, [eject]);
 
+  // Function to find category of current chapter
+  const getCategoryForChapter = useCallback((chapterName: string) => {
+    for (const [category, chapters] of Object.entries(CHAPTER_CATEGORIES)) {
+      if (chapters.includes(chapterName)) {
+        return category;
+      }
+    }
+    return "misc";
+  }, []);
+
+  // Function to close breadcrumbs and return to full menu
+  const handleBreadcrumbClick = useCallback(() => {
+    if (isRawlVisible) {
+      eject();
+      setIsRawlVisible(false);
+    }
+  }, [isRawlVisible, eject]);
+
   return (
     <PathContainer>
-      <MenuContainer isRawlVisible={isRawlVisible}>
-        <ChapterRow>
-          <ChapterCategories>
-            {Object.entries(CHAPTER_CATEGORIES).map(([category, contents]) => {
-              let categoryChapters = chapterData.filter((chapter) => {
-                if (category === "misc") {
-                  return getMiscChapters(chapterData, CHAPTER_CATEGORIES).some(
-                    (c) => c.chapter === chapter.chapter,
+      {isRawlVisible ? (
+        // Breadcrumb navigation when Rawl is visible
+        <BreadcrumbContainer>
+          <BreadcrumbItem onClick={handleBreadcrumbClick}>
+            {formatCategoryLabel(
+              getCategoryForChapter(chapterData[activeChapter]?.chapter || ""),
+            )}
+          </BreadcrumbItem>
+          <BreadcrumbSeparator>›</BreadcrumbSeparator>
+          <BreadcrumbItem onClick={handleBreadcrumbClick}>
+            {(chapterData[activeChapter]?.chapter || "").replace(/_/g, " ")}
+          </BreadcrumbItem>
+          {activeTopic && (
+            <>
+              <BreadcrumbSeparator>›</BreadcrumbSeparator>
+              <BreadcrumbItem onClick={handleBreadcrumbClick}>
+                {activeTopic.replace(/_/g, " ")}
+              </BreadcrumbItem>
+            </>
+          )}
+        </BreadcrumbContainer>
+      ) : (
+        // Regular menu when Rawl is not visible
+        <MenuContainer isRawlVisible={isRawlVisible}>
+          <ChapterRow>
+            <ChapterCategories>
+              {Object.entries(CHAPTER_CATEGORIES).map(
+                ([category, contents]) => {
+                  let categoryChapters = chapterData.filter((chapter) => {
+                    if (category === "misc") {
+                      return getMiscChapters(
+                        chapterData,
+                        CHAPTER_CATEGORIES,
+                      ).some((c) => c.chapter === chapter.chapter);
+                    }
+                    return contents.includes(chapter.chapter);
+                  });
+
+                  // Sort chapters alphabetically
+                  categoryChapters.sort((a, b) =>
+                    a.chapter.localeCompare(b.chapter),
                   );
-                }
-                return contents.includes(chapter.chapter);
-              });
 
-              // Sort chapters alphabetically
-              categoryChapters.sort((a, b) =>
-                a.chapter.localeCompare(b.chapter),
-              );
+                  if (categoryChapters.length === 0) return null;
 
-              if (categoryChapters.length === 0) return null;
+                  const shouldUseTwoColumns = categoryChapters.length > 5;
+                  const midPoint = Math.ceil(categoryChapters.length / 2);
 
-              const shouldUseTwoColumns = categoryChapters.length > 5;
-              const midPoint = Math.ceil(categoryChapters.length / 2);
-
-              return (
-                <CategorySection key={category}>
-                  <CategoryHeader>
-                    {formatCategoryLabel(category)}
-                  </CategoryHeader>
-                  <ChaptersContainer twoColumns={shouldUseTwoColumns}>
-                    {shouldUseTwoColumns ? (
-                      <>
-                        <div>
-                          {categoryChapters
-                            .slice(0, midPoint)
-                            .map((chapter) => {
-                              const index = chapterData.findIndex(
-                                (c) => c.chapter === chapter.chapter,
-                              );
-                              return (
-                                <ChapterButton
-                                  key={chapter.chapter}
-                                  active={activeChapter === index}
-                                  onClick={() => handleChapterSelect(index)}
-                                >
-                                  {chapter.chapter.replace(/_/g, " ")}
-                                </ChapterButton>
-                              );
-                            })}
-                        </div>
-                        <div>
-                          {categoryChapters.slice(midPoint).map((chapter) => {
+                  return (
+                    <CategorySection key={category}>
+                      <CategoryHeader>
+                        {formatCategoryLabel(category)}
+                      </CategoryHeader>
+                      <ChaptersContainer twoColumns={shouldUseTwoColumns}>
+                        {shouldUseTwoColumns ? (
+                          <>
+                            <div>
+                              {categoryChapters
+                                .slice(0, midPoint)
+                                .map((chapter) => {
+                                  const index = chapterData.findIndex(
+                                    (c) => c.chapter === chapter.chapter,
+                                  );
+                                  return (
+                                    <ChapterButton
+                                      key={chapter.chapter}
+                                      active={activeChapter === index}
+                                      onClick={() => handleChapterSelect(index)}
+                                    >
+                                      {chapter.chapter.replace(/_/g, " ")}
+                                    </ChapterButton>
+                                  );
+                                })}
+                            </div>
+                            <div>
+                              {categoryChapters
+                                .slice(midPoint)
+                                .map((chapter) => {
+                                  const index = chapterData.findIndex(
+                                    (c) => c.chapter === chapter.chapter,
+                                  );
+                                  return (
+                                    <ChapterButton
+                                      key={chapter.chapter}
+                                      active={activeChapter === index}
+                                      onClick={() => handleChapterSelect(index)}
+                                    >
+                                      {chapter.chapter.replace(/_/g, " ")}
+                                    </ChapterButton>
+                                  );
+                                })}
+                            </div>
+                          </>
+                        ) : (
+                          categoryChapters.map((chapter) => {
                             const index = chapterData.findIndex(
                               (c) => c.chapter === chapter.chapter,
                             );
@@ -626,72 +710,58 @@ const Structures: React.FC<StructuresProps> = ({
                                 {chapter.chapter.replace(/_/g, " ")}
                               </ChapterButton>
                             );
-                          })}
-                        </div>
-                      </>
-                    ) : (
-                      categoryChapters.map((chapter) => {
-                        const index = chapterData.findIndex(
-                          (c) => c.chapter === chapter.chapter,
-                        );
-                        return (
-                          <ChapterButton
-                            key={chapter.chapter}
-                            active={activeChapter === index}
-                            onClick={() => handleChapterSelect(index)}
-                          >
-                            {chapter.chapter.replace(/_/g, " ")}
-                          </ChapterButton>
-                        );
-                      })
-                    )}
-                  </ChaptersContainer>
-                </CategorySection>
-              );
-            })}
-          </ChapterCategories>
-        </ChapterRow>
-        {!loading && chapterData[activeChapter] && (
-          <TopicMenu>
-            {chapterData[activeChapter].topics
-              .slice()
-              .sort((a, b) => a.topic.localeCompare(b.topic))
-              .map(({ topic }) => (
-                <TopicBubble
-                  key={topic}
-                  active={activeTopic === topic}
-                  onClick={() => {
-                    handleTopicClick(topic);
-                  }}
-                >
-                  {topic.replace(/_/g, " ")}
-                </TopicBubble>
-              ))}
-          </TopicMenu>
-        )}
-        <ScrollableContent>
-          {loading ? (
-            <HomeChapter>Loading...</HomeChapter>
-          ) : errorMessages.length > 0 ? (
-            errorMessages.map((error, index) => (
-              <ErrorMessage key={index}>{error}</ErrorMessage>
-            ))
-          ) : (
-            <CategorySection>
-              <TopicContent
-                activeTopic={activeTopic}
-                activeChapter={activeChapter}
-                chapterData={chapterData}
-                snippets={chapterData[activeChapter]?.topics || []}
-                handleSnippetClick={handleSnippetClick}
-                loadingSnippets={loadingSnippets}
-              />
-            </CategorySection>
+                          })
+                        )}
+                      </ChaptersContainer>
+                    </CategorySection>
+                  );
+                },
+              )}
+            </ChapterCategories>
+          </ChapterRow>
+          {!loading && chapterData[activeChapter] && (
+            <TopicMenu>
+              {chapterData[activeChapter].topics
+                .slice()
+                .sort((a, b) => a.topic.localeCompare(b.topic))
+                .map(({ topic }) => (
+                  <TopicBubble
+                    key={topic}
+                    active={activeTopic === topic}
+                    onClick={() => {
+                      handleTopicClick(topic);
+                    }}
+                  >
+                    {topic.replace(/_/g, " ")}
+                  </TopicBubble>
+                ))}
+            </TopicMenu>
           )}
-        </ScrollableContent>
-      </MenuContainer>
+          <ScrollableContent>
+            {loading ? (
+              <HomeChapter>Loading...</HomeChapter>
+            ) : errorMessages.length > 0 ? (
+              errorMessages.map((error, index) => (
+                <ErrorMessage key={index}>{error}</ErrorMessage>
+              ))
+            ) : (
+              <CategorySection>
+                <TopicContent
+                  activeTopic={activeTopic}
+                  activeChapter={activeChapter}
+                  chapterData={chapterData}
+                  snippets={chapterData[activeChapter]?.topics || []}
+                  handleSnippetClick={handleSnippetClick}
+                  loadingSnippets={loadingSnippets}
+                />
+              </CategorySection>
+            )}
+          </ScrollableContent>
+        </MenuContainer>
+      )}
+
       {isRawlVisible && currentMidi && (
-        <div style={{ position: "relative" }}>
+        <>
           <EjectButton
             onClick={() => {
               eject();
@@ -710,7 +780,7 @@ const Structures: React.FC<StructuresProps> = ({
               loadingSnippets={loadingSnippets}
             />
           </InlineRawlPlayer>
-        </div>
+        </>
       )}
     </PathContainer>
   );

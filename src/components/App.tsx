@@ -1088,7 +1088,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   render() {
-    const { location } = this.props;
     const rawlProps: RawlProps = {
       parsingResult: this.state.parsing,
       getCurrentPositionMs: this.midiPlayer?.getPositionMs,
@@ -1178,77 +1177,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       />
     );
 
-    const isStructuresRoute = location.pathname.startsWith("/s/");
-
-    if (isStructuresRoute) {
-      return (
-        <AppContext.Provider
-          value={{
-            handleSongClick: this.handleSongClick,
-            rawlProps: this.state.rawlProps,
-            setRawlProps: (rawlProps) => this.setState({ rawlProps }),
-            analyses: this.state.analyses,
-            saveAnalysis: this.saveAnalysis,
-            resetMidiPlayerState: this.resetMidiPlayerState,
-            registerKeyboardHandler: this.registerKeyboardHandler,
-            unregisterKeyboardHandler: this.unregisterKeyboardHandler,
-            currentMidi: this.state.currentMidi,
-            setCurrentMidi: (currentMidi) => this.setState({ currentMidi }),
-            user: this.state.user,
-            seek: this.seekForRawl,
-            currentPlaybackTime: this.state.currentPlaybackTime || null,
-            eject: this.eject,
-            currentMidiBuffer: this.state.currentMidiBuffer,
-            hoveredMeasuresSpan: this.state.hoveredMeasuresSpan,
-            setHoveredMeasuresSpan: (span) =>
-              this.setState({ hoveredMeasuresSpan: span }),
-            togglePause: this.togglePause,
-            handleLogin: this.handleLogin,
-            handleLogout: this.handleLogout,
-            handleToggleManualRemeasuring: () => {
-              this.setState((prevState) => ({
-                enableManualRemeasuring: !prevState.enableManualRemeasuring,
-              }));
-            },
-            enableManualRemeasuring: this.state.enableManualRemeasuring,
-            playSongBuffer: this.playSongBuffer,
-            latencyCorrectionMs: this.state.latencyCorrectionMs,
-            tempo: this.state.tempo,
-          }}
-        >
-          <AppHeader />
-          <Switch>
-            <Route
-              path="/s/"
-              exact
-              render={() => <Structures analyses={this.state.analyses} />}
-            />
-            <Route
-              path="/s/:rest*"
-              render={() => (
-                <StructuresWithParams analyses={this.state.analyses} />
-              )}
-            />
-          </Switch>
-          <AppFooter
-            currentSongDurationMs={this.state.currentSongDurationMs}
-            ejected={this.state.ejected}
-            paused={this.state.paused}
-            volume={this.state.volume}
-            handleTimeSliderChange={this.handleTimeSliderChange}
-            handleVolumeChange={this.handleVolumeChange}
-            togglePause={this.togglePause}
-            latencyCorrectionMs={this.state.latencyCorrectionMs}
-            setLatencyCorrectionMs={this.setLatencyCorrectionMs}
-            getCurrentPositionMs={this.midiPlayer?.getPositionMs}
-            tempo={this.state.tempo}
-            setTempo={this.handleTempoChange}
-          />
-        </AppContext.Provider>
-      );
-    }
-
-    // The rest of your existing render method for other routes
+    // Combined render for all routes
     return (
       <AppContext.Provider
         value={{
@@ -1325,6 +1254,18 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   <Route path="/book/:slug?" component={BookOnStyles} />
                   <Route path="/blog/:postId?/:slug?" component={Blog} />
                   <Route path="/convert" component={Converter} />
+                  {/* Structures routes */}
+                  <Route
+                    path="/s/"
+                    exact
+                    render={() => <Structures analyses={this.state.analyses} />}
+                  />
+                  <Route
+                    path="/s/:rest*"
+                    render={() => (
+                      <StructuresWithParams analyses={this.state.analyses} />
+                    )}
+                  />
                   {rawlRoute}
                   <Redirect
                     exact

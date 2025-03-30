@@ -276,7 +276,7 @@ const getMiscChapters = (
 };
 
 // Add this new component to render topic content
-const TopicContent: React.FC<{
+const TopicContent = React.memo<{
   activeTopic: string;
   activeChapter: number;
   chapterData: ChapterData[];
@@ -287,77 +287,74 @@ const TopicContent: React.FC<{
     topic: string,
   ) => void;
   loadingSnippets: Set<string>;
-}> = ({
-  activeTopic,
-  activeChapter,
-  chapterData,
-  snippets,
-  handleSnippetClick,
-  loadingSnippets,
-}) => {
-  console.log("TopicContent render, loadingSnippets:", loadingSnippets);
+}>(
+  ({
+    activeTopic,
+    activeChapter,
+    chapterData,
+    snippets,
+    handleSnippetClick,
+    loadingSnippets,
+  }) => {
+    return (
+      <ScrollableContent>
+        {activeTopic &&
+          snippets
+            .filter(({ topic }) => topic === activeTopic)
+            .map(({ topic, snippets }) => {
+              const fullTag = `${chapterData[activeChapter].chapter}:${topic}`;
+              const explanation = EXPLANATIONS[fullTag];
 
-  return (
-    <ScrollableContent>
-      {activeTopic &&
-        snippets
-          .filter(({ topic }) => topic === activeTopic)
-          .map(({ topic, snippets }) => {
-            console.log("Rendering snippets for topic:", topic);
-            console.log("Current loadingSnippets:", loadingSnippets);
-
-            const fullTag = `${chapterData[activeChapter].chapter}:${topic}`;
-            const explanation = EXPLANATIONS[fullTag];
-
-            return (
-              <TopicContainer key={topic}>
-                {explanation && (
-                  <div
-                    style={{
-                      color: "white",
-                      fontSize: "16px",
-                      padding: "16px 16px",
-                    }}
-                  >
-                    {explanation}
-                  </div>
-                )}
-                <TopicCard>
-                  <SnippetList
-                    snippets={snippets.map(({ snippet }) => snippet)}
-                    slugs={snippets.map(({ slug }) => {
-                      console.log(
-                        "Snippet slug:",
-                        slug,
-                        "isLoading:",
-                        loadingSnippets.has(slug),
-                      );
-                      return slug;
-                    })}
-                    onSnippetClick={(snippet) => {
-                      const matchingSnippet = snippets.find(
-                        (s) => s.snippet === snippet,
-                      );
-                      if (matchingSnippet) {
-                        console.log("Snippet clicked:", matchingSnippet.slug);
-                        handleSnippetClick(
-                          matchingSnippet.slug,
-                          snippet.measuresSpan[0],
-                          topic,
+              return (
+                <TopicContainer key={topic}>
+                  {explanation && (
+                    <div
+                      style={{
+                        color: "white",
+                        fontSize: "16px",
+                        padding: "16px 16px",
+                      }}
+                    >
+                      {explanation}
+                    </div>
+                  )}
+                  <TopicCard>
+                    <SnippetList
+                      snippets={snippets.map(({ snippet }) => snippet)}
+                      slugs={snippets.map(({ slug }) => {
+                        return slug;
+                      })}
+                      onSnippetClick={(snippet) => {
+                        const matchingSnippet = snippets.find(
+                          (s) => s.snippet === snippet,
                         );
-                      }
-                    }}
-                    isPreview={true}
-                    noteHeight={3}
-                    loadingSnippets={loadingSnippets}
-                  />
-                </TopicCard>
-              </TopicContainer>
-            );
-          })}
-    </ScrollableContent>
-  );
-};
+                        if (matchingSnippet) {
+                          handleSnippetClick(
+                            matchingSnippet.slug,
+                            snippet.measuresSpan[0],
+                            topic,
+                          );
+                        }
+                      }}
+                      isPreview={true}
+                      noteHeight={3}
+                      loadingSnippets={loadingSnippets}
+                    />
+                  </TopicCard>
+                </TopicContainer>
+              );
+            })}
+      </ScrollableContent>
+    );
+  },
+  (prevProps, nextProps) => {
+    return (
+      prevProps.activeTopic === nextProps.activeTopic &&
+      prevProps.activeChapter === nextProps.activeChapter &&
+      prevProps.loadingSnippets === nextProps.loadingSnippets
+    );
+  },
+);
 
 const Structures: React.FC<StructuresProps> = ({
   analyses,

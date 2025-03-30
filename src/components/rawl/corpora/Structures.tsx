@@ -35,6 +35,7 @@ const ScrollableContent = styled.div`
   overflow-y: auto;
   overflow-x: hidden; // Remove horizontal scrolling
   padding-top: 0; // Adjust padding to account for fixed menus
+  padding-bottom: 100px; // Add padding at the bottom to avoid content being hidden behind the footer
 `;
 
 const ChapterButton = styled.button<{ active: boolean }>`

@@ -17,7 +17,7 @@ const PathContainer = styled.div`
 const MenuContainer = styled.div<{ isRawlVisible?: boolean }>`
   width: 100%;
   height: ${(props) =>
-    props.isRawlVisible ? "calc(50vh - 30px)" : "calc(100vh - 30px)"};
+    props.isRawlVisible ? "calc(50vh - 30px)" : "calc(100vh - 55px)"};
   overflow-y: auto;
   background-color: black;
   transition: height 0.3s ease-in-out;

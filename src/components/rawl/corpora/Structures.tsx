@@ -1,3 +1,5 @@
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -153,10 +155,11 @@ const EjectButton = styled.button`
   border: none;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  padding: 4px 8px;
+  padding: 8px 16px;
   cursor: pointer;
   z-index: 200001; // Higher than RawlContainer to ensure it's clickable
   transition: background-color 0.2s;
+  font-size: 16px;
 
   &:hover {
     background: #444;
@@ -776,7 +779,7 @@ const Structures: React.FC<StructuresProps> = ({
               setIsRawlVisible(false);
             }}
           >
-            ×
+            <FontAwesomeIcon icon={faTimes} size="lg" />
           </EjectButton>
           <InlineRawlPlayer {...rawlProps} measureStart={selectedMeasureStart}>
             <TopicContent

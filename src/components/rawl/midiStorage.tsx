@@ -21,6 +21,8 @@ const saveMidi = async (
   midi: ArrayBuffer,
 ) => {
   let slug = slugify(title);
+  // Ensure slug ends with an alphanumeric character by removing trailing special characters
+  slug = slug.replace(/[^a-zA-Z0-9]+$/, "");
   const firestore = getFirestore();
 
   // Check if the slug already exists

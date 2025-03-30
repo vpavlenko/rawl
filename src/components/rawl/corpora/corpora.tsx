@@ -6305,6 +6305,8 @@ export const corpora: CorpusEntry[] = [
       "murican-tetris-.rag...",
       "tetris---a-theme-with-variations",
       "korobeiniki-tetris-theme",
+      "tetris-remix",
+      "tetris-medley",
     ],
   },
   {

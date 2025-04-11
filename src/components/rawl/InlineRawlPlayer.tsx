@@ -31,12 +31,19 @@ const InlineRawlPlayer: React.FC<InlineRawlPlayerProps> = ({
   children,
   measureStart,
 }) => {
-  const { currentMidi, rawlProps, saveAnalysis } = useContext(AppContext);
+  const { currentMidi, rawlProps, saveAnalysis, eject } =
+    useContext(AppContext);
   const [isRawlVisible, setIsRawlVisible] = useState(false);
 
   useEffect(() => {
     setIsRawlVisible(!!currentMidi);
   }, [currentMidi]);
+
+  // Combined eject callback
+  const handleEject = () => {
+    eject();
+    setIsRawlVisible(false);
+  };
 
   return (
     <>
@@ -57,6 +64,7 @@ const InlineRawlPlayer: React.FC<InlineRawlPlayerProps> = ({
             sourceUrl={currentMidi.sourceUrl}
             measureStart={measureStart}
             isEmbedded={true}
+            onEject={handleEject}
           />
         </RawlContainer>
       )}

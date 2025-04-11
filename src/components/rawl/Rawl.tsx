@@ -148,6 +148,7 @@ export type RawlProps = {
     row: number;
     col: number;
   }) => boolean;
+  onEject?: () => void;
 };
 
 const Rawl: React.FC<RawlProps> = ({
@@ -167,6 +168,7 @@ const Rawl: React.FC<RawlProps> = ({
   isHiddenRoute = false,
   editorRef,
   navigateToSourceLocation,
+  onEject,
 }) => {
   const { currentMidi, setCurrentMidi, rawlProps, togglePause } =
     useContext(AppContext);
@@ -705,6 +707,9 @@ const Rawl: React.FC<RawlProps> = ({
               gap: "5px",
               zIndex: 100000000,
               fontSize: "14px",
+            }}
+            onClick={() => {
+              onEject?.();
             }}
           >
             <span>

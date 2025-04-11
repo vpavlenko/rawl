@@ -3832,6 +3832,12 @@ export const corpora: CorpusEntry[] = [
     ],
   },
   {
+    slug: "taku_iwasaki",
+    midis: [
+      "il-mare-eterno-nella-mia-anima-piano-arrangement---caesar-death-theme",
+    ],
+  },
+  {
     slug: "manaka_kataoka",
     midis: [
       "main-theme---the-legend-of-zelda-tears-of-the-kingdom---manaka-kataoka-yasuaki-iwata-and-hajime-wakai-totk-sheet-music",
@@ -4162,6 +4168,14 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: 1973,
     country: "Italy",
+  },
+  {
+    slug: "johan_soderqvist",
+    midis: [
+      "devastation---johan-soderqvist-and-patrik-andren-devastation---johan-soderqvist-patrik-andren",
+      "homing-pigeon-violin-piano---in-d-major-b-minor",
+      "then-we-are-together---johan-soderqvist",
+    ],
   },
   {
     slug: "manfred_schmitz",
@@ -6687,8 +6701,10 @@ export const corpora: CorpusEntry[] = [
       "molossus---batman-begins",
       "eptesicus---batman-begins",
       "antrozous---batman-begins",
+      "tennessee-piano---in-c-major-a-minor",
     ],
   },
+  { slug: "chris_allen", midis: ["nurture-piano---in-eb-major-c-minor"] },
   { slug: "bo_en", midis: ["bo-en---my-time", "tussle-among-trees---bo-en"] },
   {
     slug: "pedro_silva",

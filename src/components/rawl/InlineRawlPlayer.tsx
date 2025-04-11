@@ -31,7 +31,7 @@ const InlineRawlPlayer: React.FC<InlineRawlPlayerProps> = ({
   children,
   measureStart,
 }) => {
-  const { currentMidi, rawlProps, saveAnalysis, eject } =
+  const { currentMidi, rawlProps, saveAnalysis, eject, latencyCorrectionMs } =
     useContext(AppContext);
   const [isRawlVisible, setIsRawlVisible] = useState(false);
 
@@ -60,7 +60,7 @@ const InlineRawlPlayer: React.FC<InlineRawlPlayerProps> = ({
             setVoiceMask={rawlProps.setVoiceMask}
             enableManualRemeasuring={rawlProps.enableManualRemeasuring}
             seek={rawlProps.seek}
-            latencyCorrectionMs={rawlProps.latencyCorrectionMs}
+            latencyCorrectionMs={latencyCorrectionMs}
             sourceUrl={currentMidi.sourceUrl}
             measureStart={measureStart}
             isEmbedded={true}

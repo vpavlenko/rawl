@@ -1067,6 +1067,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
     if (this.midiPlayer) {
       this.midiPlayer.eject();
       this.handleSequencerStateUpdate({ isEjected: true });
+      // Reset tempo to 1.0 when ejecting
+      this.midiPlayer.setTempo(1.0);
+      this.setState({ tempo: 1.0 });
     }
   };
 

@@ -1,12 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { AppContext } from "../AppContext";
 import Rawl from "./Rawl";
 
-const ContentArea = styled.div<{ isRawlVisible: boolean }>`
+const ContentArea = styled.div`
   flex-grow: 1;
-  height: ${(props) =>
-    props.isRawlVisible ? "calc(50vh - 30px)" : "calc(100vh - 30px)"};
+  height: calc(50vh - 30px);
   overflow-y: auto;
   transition: height 0.3s ease-in-out;
 `;
@@ -25,29 +24,26 @@ const RawlContainer = styled.div`
 interface InlineRawlPlayerProps {
   children: React.ReactNode;
   measureStart?: number;
+  onEject?: () => void;
 }
 
 const InlineRawlPlayer: React.FC<InlineRawlPlayerProps> = ({
   children,
   measureStart,
+  onEject,
 }) => {
   const { currentMidi, rawlProps, saveAnalysis, eject, latencyCorrectionMs } =
     useContext(AppContext);
-  const [isRawlVisible, setIsRawlVisible] = useState(false);
-
-  useEffect(() => {
-    setIsRawlVisible(!!currentMidi);
-  }, [currentMidi]);
 
   // Combined eject callback
   const handleEject = () => {
     eject();
-    setIsRawlVisible(false);
+    if (onEject) onEject();
   };
 
   return (
     <>
-      <ContentArea isRawlVisible={isRawlVisible}>{children}</ContentArea>
+      <ContentArea>{children}</ContentArea>
       {currentMidi && rawlProps && rawlProps?.parsingResult && (
         <RawlContainer>
           <Rawl

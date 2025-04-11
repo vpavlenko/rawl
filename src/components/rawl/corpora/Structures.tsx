@@ -360,28 +360,6 @@ const TopicContent = React.memo<{
   },
 );
 
-const BreadcrumbContainer = styled.div`
-  background-color: black;
-  color: white;
-  padding: 8px 16px;
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  border-bottom: 1px solid #333;
-`;
-
-const BreadcrumbItem = styled.span`
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const BreadcrumbSeparator = styled.span`
-  margin: 0 8px;
-  color: #666;
-`;
-
 const Structures: React.FC<StructuresProps> = ({
   analyses,
   initialChapter,
@@ -781,7 +759,11 @@ const Structures: React.FC<StructuresProps> = ({
           >
             <FontAwesomeIcon icon={faTimes} size="lg" />
           </EjectButton>
-          <InlineRawlPlayer {...rawlProps} measureStart={selectedMeasureStart}>
+          <InlineRawlPlayer
+            {...rawlProps}
+            measureStart={selectedMeasureStart}
+            onEject={() => setIsRawlVisible(false)}
+          >
             <TopicContent
               activeTopic={activeTopic}
               activeChapter={activeChapter}

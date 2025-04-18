@@ -4598,6 +4598,7 @@ export const corpora: CorpusEntry[] = [
       "lacrimosa---requiem",
 
       "eine-kleine-nachtmusik",
+      "serenade-no.-13-_eine-kleine-nachtmusik_-k525---ii.-romanze",
     ],
     composerBirthYear: 1756, // Born in 1756
     genre: "Classical", // Classical composer
@@ -7077,6 +7078,25 @@ export const corpora: CorpusEntry[] = [
     ],
   },
   {
+    slug: "shoji_meguro",
+    midis: [
+      "beneath-the-mask-piano-arr.---persona-5-royal",
+      "velvet-room-theme---aria-of-the-soul---solo-piano",
+      "persona-4---heaven",
+      "alleycat----persona-5",
+      "persona-3---memories-of-you-kimi-no-kioku",
+    ],
+    composerBirthYear: 1971,
+    country: "Japan",
+  },
+  {
+    slug: "christian_petzold",
+    midis: [
+      "minuet-bwv-anhang-114-in-g-major",
+      "bach-minuet-in-g-minor-bwv-anh.-115",
+    ],
+  },
+  {
     slug: MUSESCORE_TOP_100_SLUG,
     posttext: AboutTop100Corpus,
     midis: [
@@ -7591,6 +7611,15 @@ export const corpora: CorpusEntry[] = [
       "adagio-in-g-minor---for-solo-piano", // Remo Giazotto
       "can-can", // Jacques Offenbach
       "offenbach---can-can-from-orpheus-in-the-underworld-piano-arrangement",
+    ],
+  },
+  {
+    slug: "jacques_offenbach",
+    midis: [
+      "can-can", // Jacques Offenbach
+      "offenbach---can-can-from-orpheus-in-the-underworld-piano-arrangement",
+      "barcarolle---offenbach---arr.-bazille",
+      "les-oiseaux-dans-la-charmille---jacques-offenbach",
     ],
   },
   {

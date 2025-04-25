@@ -796,7 +796,7 @@ export const corpora: CorpusEntry[] = [
       "team-fortress---rise-of-the-living-bread---mike-morasky",
       "team-fortress-2-main-theme---mike-morasky-team-fortress-2-piano-solo", // blues scale
       "saxton-s-dilemma-sax-quartet---mike-morasky",
-      "machiavellian-bach",
+
       "the-parish---mike-morasky",
       "tf2---mannrobics---piano",
       "counter-strike-2---main-menu-theme---mike-morasky-counter-strike-2---main-menu-theme-for-solo-piano",
@@ -817,6 +817,8 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "bach-goldberg-variation-00-aria",
       "bwv0565-toccata-and-fugue-in-dm-c",
+      "machiavellian-bach", // bwv 934
+      "prelude-in-c-minor---bwv-999---bach",
     ],
     composerBirthYear: 1685, // Johann Sebastian Bach
     genre: "Baroque",
@@ -1576,6 +1578,7 @@ export const corpora: CorpusEntry[] = [
     country: "Japan",
     genre: "Video game music",
   },
+  { slug: "ken_arai", midis: ["next-to-you-parasite-ost-by-ken-arai"] },
   {
     slug: "kenji_kawai",
     midis: [
@@ -3199,6 +3202,24 @@ export const corpora: CorpusEntry[] = [
     style: "Jazz Standards",
     country: "USA",
   },
+  {
+    slug: "josef_huber_midis",
+    midis: [
+      "solar",
+      "soulman",
+      "sowhat",
+      "stella",
+      "stompsav",
+      "riofunk",
+      "penstiva",
+      "how_insensitive_insensatez",
+      "corcovado",
+      "a_felicidade",
+      "meditation",
+      "once_i_loved",
+    ],
+  },
+  { slug: "jazz_midi", midis: ["carchase"] },
   {
     // https://musescore.com/user/24069/sets/4869434
     slug: "rachmaninoff",
@@ -5241,6 +5262,9 @@ export const corpora: CorpusEntry[] = [
       "wave---antonio-carlos-jobim-jazz-piano-solo",
       "desafinado",
       "aguas-de-marco---elis-regina-e-tom-jobim",
+      "how_insensitive_insensatez",
+      "corcovado",
+      "a_felicidade",
     ],
     composerBirthYear: 1927, // Antônio Carlos Jobim (1927–1994)
     genre: "Bossa Nova", // Pioneer of the bossa nova genre
@@ -6011,10 +6035,10 @@ export const corpora: CorpusEntry[] = [
     genre: "Classical",
     country: "Austria",
   },
-
+  { slug: "aaron_parks", midis: ["doors-open---aaron-parks"] },
   {
     slug: "brad_mehldau",
-    midis: ["anthropology---brad-mehldau"],
+    midis: ["anthropology---brad-mehldau", "i.-waking-up---brad-mehldau"],
     composerBirthYear: 1970,
     genre: "Jazz",
     style: "Post-bop, Contemporary Jazz",

@@ -217,6 +217,8 @@ export const corpora: CorpusEntry[] = [
       "come-sei-veramente-~-giovani-allevi",
       "flowers---giovanni-allevi",
       "aria-~-giovanni-allevi",
+      "giovanni-allevi---back-to-life",
+      "kiss-me-again---giovanni-allevi",
     ],
     composerBirthYear: 1969, // Giovanni Allevi
     genre: "Classical, Contemporary Classical",
@@ -889,11 +891,17 @@ export const corpora: CorpusEntry[] = [
     country: "Germany", // Bach was German.
   },
   {
+    slug: "joaquin_turina",
+    midis: ["joaquin-turina---garrotin-homenaje-a-tarrega"],
+    style: "Flamenco",
+  },
+  {
     slug: "lucrecia_roces_kasilag",
     midis: [
       "fantasia---lucrecia-roces-kasilag",
       "prelude-etnika---piano-transcription",
       "luwalhati---lucrecia-r.-kasilag",
+      "scherzino---lucrecia-kasilag",
     ],
     composerBirthYear: 1918, // Lucrecia R. Kasilag
     genre: "Filipino Music, Classical",
@@ -1160,11 +1168,13 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "paul_mauriat",
     midis: [
-      "toccata---paul-mauriat",
+      "toccata",
+      "el-bimbo",
+      "el-bimbo-fc6ed0",
       "minuetto",
       "nocturne---paul-mauriat",
       "alouette---paul-mauriat",
-      "love-is-blue---paul-mauriat",
+      "love-is-blue---paul-mauriat-love-is-blue-easyish",
       "ballade---paul-mauriat",
       "petite-melodie",
     ],
@@ -2007,6 +2017,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "mikael_tariverdiev",
     midis: [
+      "malenkiy-princ",
       "malenkiy-princ-m.-tariverdiev",
       "vals-iz-ironii-sudby-ili-s-legkim-parom-the-waltz-from-the-irony-of-fate",
       "dvoe-v-kafe",
@@ -2174,8 +2185,16 @@ export const corpora: CorpusEntry[] = [
       "ys-viii---dana-arcanashift",
       "ys-viii---the-sibylline-road",
       "the-legend-of-heroes--trails-in-the-sky---the-whereabouts-of-light",
+      "the-guidance-of-a-white-tower---hayato-sonoda-ys-origin",
+      "heated-mind---falcom-sound-team-jdk",
+      "ys-viii---a-modest-banquet-at-lombardia",
+      "ys-viii-ost---being-slow-on-the-waves",
+      "ys-viii---alone-on-the-deserted-island",
+      "a-cat-relaxing-in-the-sun-trails-in-the-sky-ost",
+      "~madrigal-of-the-white-magnolia~-duel---hayato-sonoda---trails-in-the-sky-fc",
+      "the-caged-crossbell---hayato-sonoda",
     ],
-    composerBirthYear: 1984, // Hayato Sonoda
+    composerBirthYear: 1976, // Hayato Sonoda
     genre: "Video game music",
     style: "Orchestral, Symphonic",
     country: "Japan",
@@ -2486,6 +2505,8 @@ export const corpora: CorpusEntry[] = [
       "six-christmas-pieces-no.-4",
       "six-christmas-pieces-no.-5",
       "six-christmas-pieces-no.-6",
+
+      "piano-concerto-no-1-mvt.-1--felix-mendelssohn---solo-piano-arrangement-8d67cc",
     ],
     composerBirthYear: 1809, // Felix Mendelssohn
     genre: "Classical",
@@ -2998,6 +3019,7 @@ export const corpora: CorpusEntry[] = [
     style: "Ambient, Experimental",
     country: "Japan",
   },
+  { slug: "neil_young", midis: ["neil-young---harvest-moon-piano-solo"] },
   {
     slug: "gesualdo",
     midis: [
@@ -3177,16 +3199,12 @@ export const corpora: CorpusEntry[] = [
       "my-funny-valentine-lead-sheet-with-lyrics",
       "tea-for-two---vincent-youmans-and-irving-caesar-1924-piano-voice-sheet-music-arrangement",
       "tea-for-two-er-ren-deocha-wo---vincent-youmans",
-      "straight-no-chaser-thelonious-monk",
-      "blue-monk-piano",
-      "round-midnight---thelonious-monk",
-      "well-you-needn-t",
-      "footprints.mscz",
+
       "satin-doll",
       "lady_bird_piano_solo",
       "a-night-in-tunisia---dizzy-gillespie-sarah-vaughan-a-night-in-tunisia",
       "Bags_Groove__Lead_sheet_",
-      "footprints_r",
+
       "armstrong-go-down-moses",
       "all-of-me---new-york-jazz-lounge",
       "Misty_piano_solo",
@@ -3202,6 +3220,7 @@ export const corpora: CorpusEntry[] = [
     style: "Jazz Standards",
     country: "USA",
   },
+
   {
     slug: "josef_huber_midis",
     midis: [
@@ -3217,6 +3236,7 @@ export const corpora: CorpusEntry[] = [
       "a_felicidade",
       "meditation",
       "once_i_loved",
+      "afro_blue",
     ],
   },
   { slug: "jazz_midi", midis: ["carchase"] },
@@ -3607,6 +3627,7 @@ export const corpora: CorpusEntry[] = [
     style: "Orchestral, Cinematic",
     country: "Russia",
   },
+  { slug: "arkady_ostrovsky", midis: ["good_night_kids_-vitalis"] },
   {
     slug: "aleksey_rybnikov",
     midis: [
@@ -3732,6 +3753,18 @@ export const corpora: CorpusEntry[] = [
     genre: "Jazz",
     style: "Bebop, Swing",
     country: "USA",
+  },
+  {
+    slug: "charlie_parker",
+    midis: [
+      "anthropology",
+      "ornithology",
+      "moose_the_mooche",
+      "confirmation",
+      "billies_bounce",
+      "straight_no_chaser",
+      "au_privave",
+    ],
   },
   { slug: "cherokee_changes", midis: [] },
   {
@@ -3980,6 +4013,13 @@ export const corpora: CorpusEntry[] = [
       "papers-please---death-theme",
       "pastorale---marcelle-taillefesse-germaine-tailleferre-1919",
       "jaws-theme",
+      "criss_cross",
+      "in-double-time",
+      "super-paper-mario---naoko-mitome-and-chika-sekigawa-staff-roll-",
+      "fantasia---lucrecia-roces-kasilag",
+      "manhattan-skyline---david-shire-manhattan-skyline---piano-interpretation",
+      "heroes-of-might-and-magic-3---necropolis-town-theme",
+      "gnomus",
     ],
   },
   { slug: "ilmari_hakkola", midis: ["bad-piggies-theme"] },
@@ -4080,6 +4120,16 @@ export const corpora: CorpusEntry[] = [
       "the-fabelmans---john-williams",
       "helena-s-theme---john-williams-from-indiana-jones-and-the-dial-of-destiny",
       "with-malice-toward-none---trumpet-solo-john-williams", // very coplandinan quartal language
+
+      "a-new-hope---approaching-the-death-star",
+      "a-new-hope---the-moisture-farm",
+      "a-new-hope---princess-leia-s-theme",
+      "a-new-hope---chasm-crossfire",
+      "a-new-hope---cantina-band-1",
+      "a-new-hope---end-title",
+      "a-new-hope---the-dune-sea-of-tatooine---jawa-sandcrawler",
+
+      "the-empire-strikes-back---may-the-force-be-with-you",
     ],
     composerBirthYear: 1932,
     genre: "Film Score",
@@ -4201,6 +4251,10 @@ export const corpora: CorpusEntry[] = [
       "battlefield-1-lacrimosa---johan-soderqvist",
       "under-no-flag-battlefield-v---johan-soderqvist-patrik-andren",
     ],
+  },
+  {
+    slug: "wayne_shorter",
+    midis: ["footprints.mscz", "footprints_r", "nefertiti"],
   },
   {
     slug: "manfred_schmitz",
@@ -4666,12 +4720,12 @@ export const corpora: CorpusEntry[] = [
 
       "etude-opus-10-no.-1-in-c-major",
       "etude-opus-10-no.-2-in-a-minor",
+      "etudes-op.-10---no.-12-in-c-minor-revolutionary-n.-carter",
+      "etude-op.25-no.9-butterfly---f.-chopin",
       "etude-opus-25-no.-11-winter-wind-in-a-minor",
 
       "mazurka-op.68-no.4---chopin---posth.",
       "mazurkas-op.-63---no.-2-in-f-minor-r.-lubetsky",
-
-      "etudes-op.-10---no.-12-in-c-minor-revolutionary-n.-carter",
     ],
     composerBirthYear: 1810, // Born in 1810
     genre: "Classical", // Classical composer
@@ -4814,6 +4868,10 @@ export const corpora: CorpusEntry[] = [
       "les-aristochats---george-bruns",
       "overture-from-the-jungle-book---george-bruns-overture-the-jungle-book---george-bruns",
       "yo-ho-a-pirate-s-life-for-me---george-bruns-xavier-atencio-yo-ho-a-pirates-life-for-me",
+      "prince-john-s-march-robin-hood-ost-disney---george-bruns",
+      "animal-robin-hood-parade-tune",
+      "love-walt-disney-s-robin-hood-organ-cover",
+      "animal-robin-hood-parade-tune",
     ],
     composerBirthYear: 1914, // George Bruns
     genre: "Film Score", // Composer of film scores
@@ -5111,18 +5169,31 @@ export const corpora: CorpusEntry[] = [
       "swan-lake-op.-20-act-iii-no.-20-danse-hongroise-hungarian-dance-czardas",
       "funiculi-funicula",
       "grand-march-from-the-opera-aida-by-giuseppe-verdi",
-      "lyapunov-reverie-du-soir-op.3",
+
       "thema-aus-die-moldau---b-smetana-s-sitnikava",
       "mein-vaterland-nr2-moldau---bedrich-smetana-for-piano-solo",
       "fantasia-on-greensleeves---ralph-vaughan-williams",
       "der-flohwalzer",
-      "stanley-myers---cavatina-arranged-for-piano",
+
       "imslp181922-wima.ec84-oginski_polonez_a",
       "Entry_of_the_Gladiators_-_Julius_Fuk_-_1897",
     ],
     composerBirthYear: 1836,
     style: "Classical",
     genre: "Classical, Romantic",
+  },
+  {
+    slug: "sergei_lyapunov",
+    midis: [
+      "lyapunov-reverie-du-soir-op.3",
+      "tarantelle-opus-25-in-b-minor",
+      "the-vulture---children-s-game-op.35---lyapunov",
+    ],
+  },
+  {
+    slug: "stanley_myers",
+    midis: ["stanley-myers---cavatina-arranged-for-piano"],
+    composerBirthYear: 1930,
   },
   {
     slug: "smetana",
@@ -5196,7 +5267,19 @@ export const corpora: CorpusEntry[] = [
       "village-ambiance---alexander-nakarada",
     ],
   },
-  { slug: "thelonius_monk", midis: ["thelonious-monk-dinah"] },
+  {
+    slug: "thelonius_monk",
+    midis: [
+      "thelonious-monk-dinah",
+      "criss_cross",
+      "straight-no-chaser-thelonious-monk",
+      "blue-monk-piano",
+      "round-midnight---thelonious-monk",
+      "epistrophy",
+      "well_you_needn-t",
+      "well-you-needn-t",
+    ],
+  },
   {
     slug: "kevin_macleod",
     midis: [
@@ -5321,9 +5404,11 @@ export const corpora: CorpusEntry[] = [
       "brawl-stars---draw-theme",
       "brawl-stars---lose-theme",
       "brawl-stars-ost---battle-8",
+      "brawl-stars-brawl-oween-battle-1",
       "brawl-stars---brawl-o-ween-battle-2",
       "brawl-star",
       "brawl-stars-summer-of-monsters-battle-2-insane",
+      "theme-from-starr-toon-studios---brawl-stars",
     ],
     composerBirthYear: 1980,
     genre: "Video Game Music",
@@ -5491,6 +5576,7 @@ export const corpora: CorpusEntry[] = [
     style: "Celtic Folk", // Heavy influence of folk traditions
     country: "Russia",
   },
+  { slug: "erich_korngold", midis: ["neil-young---harvest-moon-piano-solo"] },
   {
     slug: "igor_kornelyuk",
     midis: [
@@ -6123,6 +6209,7 @@ export const corpora: CorpusEntry[] = [
     slug: "michel_petrucciani",
     midis: ["home-1998-solo-live-transcription---michel-petrucciani"],
   },
+  { slug: "andrey_petrov", midis: ["a_naposledok_ya_skazhu"] },
   {
     slug: "horo",
     midis: [
@@ -6743,6 +6830,16 @@ export const corpora: CorpusEntry[] = [
       "omori---sugar-star-planetarium---ost-no.-21---pedro-silva",
       "by-your-side.---omori",
       "omori-ost---006---let-s-get-together-now---pedro-silva",
+    ],
+  },
+  {
+    slug: "chikayo_fukuda",
+    midis: [
+      "solatorobo-ost_re-coda",
+      "mau---the-bower-from-solatorobo-red-the-hunter",
+      "solatorobo--slums-of-basset",
+      "yasashii-ryoute---chikayo-fukuda",
+      "he-who-howls-and-rages",
     ],
   },
   {
@@ -7374,6 +7471,7 @@ export const corpora: CorpusEntry[] = [
     country: "Italy",
     genre: "Film Score",
   },
+  { slug: "miles_davis", midis: ["nardis"] },
   {
     slug: "kristen_anderson_lopez_and_robert_lopez",
     midis: [
@@ -7484,6 +7582,14 @@ export const corpora: CorpusEntry[] = [
     slug: "justin_hurwitz",
     midis: ["gold-coast-rhythm-jack-s-party---justin-hurwitz"],
     composerBirthYear: 1985,
+  },
+  {
+    slug: "david_shire",
+    midis: [
+      "the-conversation",
+      "manhattan-skyline---david-shire-manhattan-skyline---piano-interpretation",
+      "the-village-stompers---washington-square",
+    ],
   },
   {
     slug: "hikaru_shirosu",
@@ -7762,6 +7868,7 @@ export const corpora: CorpusEntry[] = [
       "underground-cocek",
       "underground-tango---goran-bregovic-string-quartet",
       "kalasnjikov",
+      "mesecina",
     ],
   },
   { slug: "exercises", midis: ["average_rag_1", "average_rag_2"] },
@@ -7811,7 +7918,9 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "la-chanson-d-orphee-manha-do-carnaval---luis-bonfa",
       "l2004_03---la-chanson-d-orphee",
+      "gentle_rain",
     ],
+    genre: "Bossa Nova",
   },
   {
     slug: "joep_beving",
@@ -7850,6 +7959,15 @@ export const corpora: CorpusEntry[] = [
     country: "Greece",
   },
   {
+    slug: "georgy_sviridov",
+    midis: [
+      "Sviridov_Snowstorm_Waltz",
+      "Sviridov_Time_Foward",
+      "Sviridov_Time_Foward.1",
+    ],
+  },
+  { slug: "jan_a_p_kaczmarek", midis: ["goodbye-hachiko"] },
+  {
     slug: "unsorted",
     midis: [
       "Alice_DJ_Better_Off_Alone",
@@ -7872,8 +7990,6 @@ export const corpora: CorpusEntry[] = [
 
       "Flight_Facilities_Crave_You",
       "Flight_Facilities_Crave_You_2",
-
-      "Good_Bye_Hachiko",
 
       "How_long_blues",
 
@@ -7898,9 +8014,7 @@ export const corpora: CorpusEntry[] = [
       "Sorcerers_doll___-_The_King_and_the_Jester___",
 
       "Super_Mario_Bros_Peaches",
-      "Sviridov_Snowstorm_Waltz",
-      "Sviridov_Time_Foward",
-      "Sviridov_Time_Foward.1",
+
       "Sweet_Dreams",
       "Sweet_home_Chicago",
 
@@ -7966,9 +8080,6 @@ export const corpora: CorpusEntry[] = [
       "mahler_4_3",
       "major_diatonic_chords",
 
-      "malenkiy-princ",
-
-      "mesecina",
       "mihail-krug-vladimirskiy-central",
 
       "motion-sickness---phoebe-bridgers",

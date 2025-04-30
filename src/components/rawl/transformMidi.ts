@@ -68,8 +68,9 @@ function findUnusedChannel(
   midi: MidiData,
   usedChannels: Set<number>,
 ): number | null {
-  // Find the first unused channel number between 0-15
+  // Find the first unused channel number between 0-15, skipping channel 9 (drums)
   for (let channel = 0; channel < 16; channel++) {
+    if (channel === 9) continue; // Skip drum channel
     if (!usedChannels.has(channel)) {
       return channel;
     }

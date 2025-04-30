@@ -1260,6 +1260,7 @@ export const corpora: CorpusEntry[] = [
       "march-majestic---scott-joplin---1902",
       "school-of-ragtime---scott-joplin---1908",
       "maple_starts",
+      "scott-joplin-s-new-rag---revised-edition---c1914----piano-tutorial",
     ],
     composerBirthYear: 1868, // Scott Joplin
     genre: "American, Ragtime",
@@ -2022,6 +2023,7 @@ export const corpora: CorpusEntry[] = [
       "vals-iz-ironii-sudby-ili-s-legkim-parom-the-waltz-from-the-irony-of-fate",
       "dvoe-v-kafe",
       "mne-nravitsya-chto-vy-bolny-ne-mnoy---mikael-tariverdie",
+      "mne-nravitsya-karaoke",
       "mgnoveniya---m.-tariverdiiev",
       "tihaya-muzyka-regtaym-no-9---m.-tariverdiev",
       "tariverdiev-sudba-rezidenta-prelyudiya",
@@ -2235,6 +2237,8 @@ export const corpora: CorpusEntry[] = [
       "dragon-age-origins-theme-song",
       "hymn-of-vaghen---inon-zur",
       "theme-from-fallout-76---inon-zur",
+      "fallout-4-main-theme",
+      "fallout-new-vegas---main-theme",
       "in-uthenera",
     ],
     composerBirthYear: 1965, // Inon Zur
@@ -2527,6 +2531,7 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "caprice-brillant-sur-romeo-et-juliette-op.-303---georges-lamothe",
       "huit-septembre-mazurka-op.-7---eugeniusz-zaluski",
+      "kimigayo_national_anthem_of_japan",
     ],
     composerBirthYear: 1809, // Georges Lamothe
     genre: "Classical",
@@ -2789,6 +2794,10 @@ export const corpora: CorpusEntry[] = [
     country: "USA",
   },
   {
+    slug: "jung_jae-il",
+    midis: ["zappaguri", "opening-sijag-parasite-gisaengcung-ost"],
+  },
+  {
     slug: "oleksii_omelchuk",
     midis: [
       "metro-2033-main-menu-theme",
@@ -2846,7 +2855,7 @@ export const corpora: CorpusEntry[] = [
       "tom-and-jerry-theme-piano-solo",
       "pilot-for-hire--microsoft-flight-simulator-x",
       "thundercats-theme",
-      "mighty-morphin-power-rangers-sheet-music-easy-piano",
+
       "digimon-main-theme-organ-cover",
       "vizisi",
       "lost-patrol-main-theme---chris-glaister-jonathan-dunn",
@@ -2966,6 +2975,13 @@ export const corpora: CorpusEntry[] = [
     genre: "Hip Hop, Jazz",
     style: "Lofi, Chillhop",
     country: "Japan",
+  },
+  {
+    slug: "soushi_sakiyama",
+    midis: [
+      "my-hero-academia-ed-9---uso-janai-soushi-sakiyama-piano-sheet-music",
+      "akari---soushi-sakiyama---jujutsu-kaisen-season-2-ed",
+    ],
   },
   {
     slug: "eri_sasaki",
@@ -3886,6 +3902,13 @@ export const corpora: CorpusEntry[] = [
     ],
   },
   {
+    slug: "ron_wasserman",
+    midis: [
+      "mighty-morphin-power-rangers-sheet-music-easy-piano",
+      "x-men-97-opening-theme",
+    ],
+  },
+  {
     slug: "taku_iwasaki",
     midis: [
       "il-mare-eterno-nella-mia-anima-piano-arrangement---caesar-death-theme",
@@ -4020,6 +4043,7 @@ export const corpora: CorpusEntry[] = [
       "manhattan-skyline---david-shire-manhattan-skyline---piano-interpretation",
       "heroes-of-might-and-magic-3---necropolis-town-theme",
       "gnomus",
+      "opening-sijag-parasite-gisaengcung-ost",
     ],
   },
   { slug: "ilmari_hakkola", midis: ["bad-piggies-theme"] },
@@ -5846,6 +5870,7 @@ export const corpora: CorpusEntry[] = [
       "gavotte_in_g_major_hwv_491_handel_george_frideric",
       "passacaglia---handel-halvorsen",
       "water-music-suite-in-d-major-ii---alla-hornpipe-handel",
+      "the-arrival-of-the-queen-of-sheba---handel",
     ],
     composerBirthYear: 1685, // Georg Friedrich Handel was born in 1685
     genre: "Classical", // Baroque period
@@ -5854,7 +5879,10 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "bo_burnham",
-    midis: ["welcome-to-the-internet---bo-burnham-s-inside"],
+    midis: [
+      "welcome-to-the-internet---bo-burnham-s-inside",
+      "straight-white-male-bo-burnham",
+    ],
     composerBirthYear: 1990,
     genre: "Comedy", // Comedy music and satire
     style: "Satirical", // Satirical comedy
@@ -7966,7 +7994,20 @@ export const corpora: CorpusEntry[] = [
       "Sviridov_Time_Foward.1",
     ],
   },
-  { slug: "jan_a_p_kaczmarek", midis: ["goodbye-hachiko"] },
+  {
+    slug: "jan_a_p_kaczmarek",
+    midis: ["goodbye---jan-a.p-kaczmarek-from-the-movie-hachi-a-dog-s-tale"],
+  },
+  { slug: "chauncey_olcott", midis: ["my_wild_irish_rose"] },
+  {
+    slug: "cody_fry",
+    midis: [
+      "cody_fry_eleanor_rigby_no_lead_vocal",
+      "eleanor_rigby_cody_fry_no_perc1",
+      "cody-fry-i-hear-a-symphony-arr.-ej-marcos",
+      "photograph---cody-fry",
+    ],
+  },
   {
     slug: "unsorted",
     midis: [
@@ -8037,7 +8078,6 @@ export const corpora: CorpusEntry[] = [
 
       "classical_music_mashup",
       "closed-topic----xiu-ti",
-      "cody_fry_eleanor_rigby_no_lead_vocal",
 
       "contract---poshlaya-molly-easy-piano",
       "corelli_op1_no8_ii",
@@ -8052,7 +8092,7 @@ export const corpora: CorpusEntry[] = [
 
       "earth_wind_fire_september",
       "ederlezi",
-      "eleanor_rigby_cody_fry_no_perc1",
+
       "etude-op.-10-no.-5-black-keys-pentatonic-arrangement",
       "examples_of_chord_progressions_in_a_minor",
 
@@ -8074,8 +8114,6 @@ export const corpora: CorpusEntry[] = [
 
       "kars_1_tigran_hamasyan",
 
-      "kimigayo_national_anthem_of_japan",
-
       "kukla_kolduna",
       "mahler_4_3",
       "major_diatonic_chords",
@@ -8085,7 +8123,7 @@ export const corpora: CorpusEntry[] = [
       "motion-sickness---phoebe-bridgers",
 
       "mpaintoyska",
-      "my_wild_irish_rose",
+
       "never_gunna_give_you_up_barbershop",
       "now_voyager_suite_max_steiner",
       "opa-cupa",
@@ -8106,7 +8144,6 @@ export const corpora: CorpusEntry[] = [
       "sadness-and-sorrow",
 
       "sasha_2",
-      "scott-joplin-s-new-rag---revised-edition---c1914----piano-tutorial",
 
       "skyrim-theme-for-piano",
 
@@ -8136,8 +8173,6 @@ export const corpora: CorpusEntry[] = [
       "priboi",
 
       "maromis-theme---smoke",
-
-      "zappaguri",
 
       "genesis-that-s-all-piano",
       "home---edward-sharpe-and-the-magnetic-zeros-home---edward-sharpe",

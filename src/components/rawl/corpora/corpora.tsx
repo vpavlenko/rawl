@@ -4044,6 +4044,7 @@ export const corpora: CorpusEntry[] = [
       "heroes-of-might-and-magic-3---necropolis-town-theme",
       "gnomus",
       "opening-sijag-parasite-gisaengcung-ost",
+      "perplexing-pool---pikmin-2",
     ],
   },
   { slug: "ilmari_hakkola", midis: ["bad-piggies-theme"] },
@@ -5395,11 +5396,23 @@ export const corpora: CorpusEntry[] = [
     country: "Bulgaria", // Bulgarian composer
   },
   {
+    slug: "hajime_wakai",
+    midis: [
+      "forest-of-hope-pikmin",
+      "the-legend-of-zelda-skyward-sword",
+      "perplexing-pool---pikmin-2",
+    ],
+  },
+  {
     slug: "takeshi_abo",
     midis: [
       "gate-of-steiner",
       "suzuha-s-farewell-wakare---steins-gate",
       "steins-gate-0---messenger-piano",
+      "hacking-to-the-gate-steins-gate",
+      "karma",
+      "steins-gate-amadeus",
+      "christina-steins-gate",
     ],
     composerBirthYear: 1977, // Takeshi Abo (born 1977)
     genre: "Video Game Music", // Known for composing music for visual novels and video games

@@ -1526,7 +1526,7 @@ export const corpora: CorpusEntry[] = [
     similarTo: ["dj_okawari"],
   },
   {
-    slug: "homm",
+    slug: "paul_romero",
     midis: [
       "heroes-of-might-and-magic-2--sorceress-town---paul-anthony-romero",
       "heroes-of-might-and-magic-iii---main-menu-theme",
@@ -1538,8 +1538,10 @@ export const corpora: CorpusEntry[] = [
       "heroes-of-might-and-magic-iii---castle-town-theme",
       "dirt-theme-hope---heroes-of-might-and-magic-iv---celtic-harp",
       "academy-order-theme---heroes-and-might-and-magic-iv",
+      "order-theme-academy---heroes-of-might-and-magic-iv---celtic-harp",
       "haven-theme-piano-form-heroes-of-might-and-magic-v",
       "heroes-of-might-and-magic-vi-unknown-title",
+      "heroes-of-might-and-magic-v---academy-town-theme",
     ],
     composerBirthYear: 1965, // Paul Anthony Romero
     genre: "Video game music",

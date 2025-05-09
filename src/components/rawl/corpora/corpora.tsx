@@ -3264,11 +3264,14 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "rachmaninoff-piano-concerto-no.-2-1st-mvmt.-arr.-for-2-pianos",
       "piano_concerto_no_4_op_40_sergei_rachmaninoff_i_allegro_vivace_alla_breve",
-      "prelude_in_c_sharp_minor_opus_3_no_2_sergei_rachmaninoff",
       "rachmaninoff_piano_concerto_4_1",
       "serguei-rachmaninov---piano-concerto-ndeg4-in-g-minor---1st-mouvement-intro",
-      "Prelude_in_G_Minor_Opus_23_No._5",
+
+      "prelude_in_c_sharp_minor_opus_3_no_2_sergei_rachmaninoff",
       "prelude-in-c-sharp-minor-opus-3-no.-2---sergei-rachmaninoff",
+      "morceaux-de-fantaisie-op.-3---no.-3.-melodie-in-e",
+
+      "Prelude_in_G_Minor_Opus_23_No._5",
       "rachmaninoff-10-preludes-op.-23---no.-5-in-g-minor-m.-a.-deocariza",
 
       "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---i.-largo-allegro-moderato",
@@ -4869,6 +4872,7 @@ export const corpora: CorpusEntry[] = [
     style: "Chanson", // Known for his distinctive style in Russian chanson
     country: "Russia", // Mikhail Krug was Russian
   },
+  { slug: "eagles", midis: ["hotel-california.7"] },
   {
     slug: "danny_elfman",
     midis: [
@@ -6005,6 +6009,7 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "drei-haselnusse-fur-aschenbrodel---karel-svoboda-by-jacroby",
       "n-a-v-s-t-e-v-n-i-c-i",
+      "cirkus-humberto",
     ],
     composerBirthYear: 1938, // Born in 1938
     genre: "Film Score", // Known for composing film scores
@@ -6572,7 +6577,12 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "horace_silver",
-    midis: ["song-for-my-father---horace-silver"],
+    midis: [
+      "song-for-my-father---horace-silver",
+      "senor-blues",
+      "nica-s-dream",
+      "nica-s-dream.1",
+    ],
     composerBirthYear: 1928, // Horace Silver was born in 1928
     genre: "Jazz", // A legendary jazz pianist and composer
     style: "Hard Bop", // Known for the hard bop style of jazz
@@ -6770,7 +6780,11 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "mii-channel-piano",
       "wii-sports-theme-piano",
+      "wii-shop-theme-piano-solo",
       "main-theme---animal-crossing-new-horizons",
+      "kazumi-totaka---k.k.ragtime-animal-crossing",
+      "bubblegum-k.k",
+      "animal-crossing-the-roost-piano-cover",
     ],
     composerBirthYear: 1967,
     genre: "Video Game Music",
@@ -6795,6 +6809,7 @@ export const corpora: CorpusEntry[] = [
       "my-neighbour-s-car-alarm",
     ],
   },
+  { slug: "akeboshi", midis: ["wind-piano-sheet-music-naruto-ending-1"] },
   {
     slug: "kohei_tanaka",
     midis: [
@@ -7254,6 +7269,10 @@ export const corpora: CorpusEntry[] = [
     country: "Japan",
   },
   {
+    slug: "osman_zeki_ungor",
+    midis: ["istiklal-marsi-turkish-national-anthem"],
+  },
+  {
     slug: "christian_petzold",
     midis: [
       "minuet-bwv-anhang-114-in-g-major",
@@ -7376,6 +7395,18 @@ export const corpora: CorpusEntry[] = [
       "old-town-road---lil-nas-x-ft.-billy-ray-cyrus", // Lil Nas X
       "abba--the-winner-takes-it-all", // ABBA
       "A_Thousand_Miles", // Vanessa Carlton
+    ],
+  },
+  {
+    slug: "aivi_surasshu_and_rebecca_sugar",
+    midis: [
+      "Love_Like_You_Steven_Universe",
+      "steven-universe-full-theme-song-for-piano",
+      "it-s-over-isn-t-it-steven-universe-ost",
+      "here-comes-a-thought",
+      "drift-away-steven-universe-the-movie---piano-arrangement",
+      "other-friends-steven-universe-the-movie",
+      "happily-ever-after-steven-universe-the-movie",
     ],
   },
   {

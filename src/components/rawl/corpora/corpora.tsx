@@ -4050,6 +4050,7 @@ export const corpora: CorpusEntry[] = [
       "gnomus",
       "opening-sijag-parasite-gisaengcung-ost",
       "perplexing-pool---pikmin-2",
+      "pitch-black-horror---jun-ishikawa---kirby-and-the-forgotten-land",
     ],
   },
   { slug: "ilmari_hakkola", midis: ["bad-piggies-theme"] },
@@ -4284,7 +4285,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "wayne_shorter",
-    midis: ["footprints.mscz", "footprints_r", "nefertiti"],
+    midis: ["footprints.mscz", "footprints_r", "footprints", "nefertiti"],
   },
   {
     slug: "manfred_schmitz",
@@ -7118,13 +7119,13 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "mdk",
     midis: [
+      "press-start",
       "fingerbang---mdk-mdk---fingerbang-piano-solo",
       "dash---mdk",
       "interlaced---mdk",
       "dash-destroyer---mdk",
       "fingerdash",
       "space-invaders---teminite-mdk",
-      "press-start",
     ],
   },
   {

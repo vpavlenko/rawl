@@ -3219,6 +3219,7 @@ export const corpora: CorpusEntry[] = [
       "tea-for-two-er-ren-deocha-wo---vincent-youmans",
 
       "satin-doll",
+      "satindol",
       "lady_bird_piano_solo",
       "a-night-in-tunisia---dizzy-gillespie-sarah-vaughan-a-night-in-tunisia",
       "Bags_Groove__Lead_sheet_",
@@ -6114,8 +6115,6 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "schubert_op9_d365",
     midis: [
-      "wima.d719-schubert_atzenbrugger-tanz-d.365.30",
-
       "wima.41cc-schubert_deut.tanz-d.820.3",
       "wima.52f1-deut.tanz-d.820nr.6",
 
@@ -6132,7 +6131,7 @@ export const corpora: CorpusEntry[] = [
       "wima.ae09-schubert_deut.tanz-d.365.10",
       "wima.8229-schubert_deut.tanz-d.365.11",
 
-      // minor
+      // minor (relative symmetry)
       "wima.01fa-schubert_deut.tanz-d.365.22",
       "wima.738b-schubert_de.-tanz-d.365.27",
 
@@ -6227,6 +6226,8 @@ export const corpora: CorpusEntry[] = [
       "sonate-no.-17-tempest-3rd-movement",
       "sonate-no.-19-1st-movement",
       "sonate-no.-19-2nd-movement",
+      "beethoven---piano-sonata-no.-20-in-g-major-op.-49-1st-movement",
+      "sonate-no.-20-2nd-movement",
 
       "beethoven_trio_for_clarinet_cello_and_piano_no_4_op_11_2nd_movement",
       "Fr_Elise",

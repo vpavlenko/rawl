@@ -1757,6 +1757,13 @@ export const corpora: CorpusEntry[] = [
     country: "UK",
   },
   {
+    slug: "the_cinematic_orchestra",
+    midis: [
+      "arrival-of-the-birds---the-cinematic-orchestra",
+      "to-build-a-home-by-the-cinematic-orchestra",
+    ],
+  },
+  {
     slug: "john_barry",
     midis: [
       "places-out-of-africa---john-barry",
@@ -6115,9 +6122,6 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "schubert_op9_d365",
     midis: [
-      "wima.41cc-schubert_deut.tanz-d.820.3",
-      "wima.52f1-deut.tanz-d.820nr.6",
-
       // simple V I
       // "wima.7e1e-schubert_deut.tanz-d.365.09",
       "schubert_d365_09",
@@ -6125,45 +6129,56 @@ export const corpora: CorpusEntry[] = [
       "wima.1124-schubert_de.-tanz-d.365.26",
       "wima.4be9-schubert_de.-tanz-d.365.28",
 
-      // voice-leading chromatic tones
-      "wima.3fc1-schubert_deut.tanz-d.365.05",
-      "wima.c953-schubert_deut.tanz-d.365.07",
-      "wima.ae09-schubert_deut.tanz-d.365.10",
-      "wima.8229-schubert_deut.tanz-d.365.11",
-
-      // minor (relative symmetry)
-      "wima.01fa-schubert_deut.tanz-d.365.22",
-      "wima.738b-schubert_de.-tanz-d.365.27",
-
-      // V/ii
-      "wima.b3a9-schubert_deut.tanz-d.365.06",
-      "wima.30c1-schubert_deut.tanz-d.365.08",
-      "wima.7295-schubert_deut.tanzd365.19",
-      "wima.5ded-schubert_deut.tanzd365.15",
-
-      // mix applieds
-      "wima.d719-schubert_atzenbrugger-tanz-d.365.30",
-      "wima.8729-deut.tanz-d-365-nr.01",
-      "wima.3e58-schubert_deut.tanz-d.365.3",
-      "wima.0384-schubert_deut.tanzd365.16",
-      "wima.3306-schubert_deut.tanz-d.365.21",
-      "wima.5426-schubert_de.-tanz-d.365.23",
-      "wima.28fc-schubert_de.-tanz-d.365.24", // reverse V/vi
-      "wima.8469-schubert_deut.tanz-d.365.34", // Ger
-      "wima.a20b-schubert_deut.tanzd365.36", // very chromatic
-
       // subdominant
       "wima.dc1e-schubert_deut.tanzd365.12", // ii65
       "wima.d5ac-schubert_deut.tanzd365.13", // IV
       "wima.e3f7-schubert_deut.tanzd365.17", // IV
       "wima.3657-schubert_deut.tanzd365.18", // ii
 
+      // minor (relative symmetry)
+      "wima.738b-schubert_de.-tanz-d.365.27",
+      "wima.01fa-schubert_deut.tanz-d.365.22",
+
       // modulatory
       "wima.02f6-schubert_deut.tanz-d.365.33",
-      "wima.eac7-schubert_deut.tanzd365.14",
+
       "wima.a880-schubert_deut.tanz-d.365.20",
       "wima.67e3-schubert_deut.tanz-d.365.32",
+
+      // V/V and V/vi
+      "wima.d719-schubert_atzenbrugger-tanz-d.365.30",
+      "wima.8729-deut.tanz-d-365-nr.01",
+      "wima.3e58-schubert_deut.tanz-d.365.3",
+      "wima.28fc-schubert_de.-tanz-d.365.24", // reverse V/vi
+
+      // V/IV
+      "wima.3306-schubert_deut.tanz-d.365.21",
+      "wima.5426-schubert_de.-tanz-d.365.23",
+      "wima.3fc1-schubert_deut.tanz-d.365.05",
+      "wima.ae09-schubert_deut.tanz-d.365.10",
+      "wima.8229-schubert_deut.tanz-d.365.11",
+      "wima.0384-schubert_deut.tanzd365.16", // V/IV and all
+
+      // V/ii
+      "wima.7295-schubert_deut.tanzd365.19",
+      "wima.b3a9-schubert_deut.tanz-d.365.06",
+      "wima.5ded-schubert_deut.tanzd365.15",
+      "wima.30c1-schubert_deut.tanz-d.365.08",
+
+      // nowhere
       "wima.7abe-schubert_deut.tanz-d.365.35",
+
+      // Ger, chromatic
+      "wima.8469-schubert_deut.tanz-d.365.34", // Ger
+      "wima.eac7-schubert_deut.tanzd365.14",
+      "wima.a20b-schubert_deut.tanzd365.36", // very chromatic
+
+      // voice-leading chromatic tones
+      "wima.c953-schubert_deut.tanz-d.365.07",
+
+      // diminished
+      "wima.41cc-schubert_deut.tanz-d.820.3",
+      "wima.52f1-deut.tanz-d.820nr.6",
     ],
     composerBirthYear: 1797,
     genre: "Classical",

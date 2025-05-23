@@ -6151,6 +6151,12 @@ export const corpora: CorpusEntry[] = [
       "wima.3e58-schubert_deut.tanz-d.365.3",
       "wima.28fc-schubert_de.-tanz-d.365.24", // reverse V/vi
 
+      // V/ii
+      "wima.7295-schubert_deut.tanzd365.19",
+      "wima.b3a9-schubert_deut.tanz-d.365.06",
+      "wima.5ded-schubert_deut.tanzd365.15",
+      "wima.30c1-schubert_deut.tanz-d.365.08",
+
       // V/IV
       "wima.3306-schubert_deut.tanz-d.365.21",
       "wima.5426-schubert_de.-tanz-d.365.23",
@@ -6158,12 +6164,6 @@ export const corpora: CorpusEntry[] = [
       "wima.ae09-schubert_deut.tanz-d.365.10",
       "wima.8229-schubert_deut.tanz-d.365.11",
       "wima.0384-schubert_deut.tanzd365.16", // V/IV and all
-
-      // V/ii
-      "wima.7295-schubert_deut.tanzd365.19",
-      "wima.b3a9-schubert_deut.tanz-d.365.06",
-      "wima.5ded-schubert_deut.tanzd365.15",
-      "wima.30c1-schubert_deut.tanz-d.365.08",
 
       // nowhere
       "wima.7abe-schubert_deut.tanz-d.365.35",

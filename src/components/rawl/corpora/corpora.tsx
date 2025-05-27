@@ -1357,6 +1357,7 @@ export const corpora: CorpusEntry[] = [
       "asbestos---fats-waller---c1930",
       "alligator-crawl---fats-waller---1934",
       "handful-of-keys---fats-waller---1933",
+      "dallas-blues---fats-waller",
     ],
     composerBirthYear: 1904, // Fats Waller
     genre: "American, Jazz",
@@ -2009,6 +2010,7 @@ export const corpora: CorpusEntry[] = [
     style: "Indie, Electronic",
     country: "USA",
   },
+
   {
     slug: "studio_thumpy_puppy",
     midis: [
@@ -2024,6 +2026,20 @@ export const corpora: CorpusEntry[] = [
     style: "Ambient, Orchestral",
     country: "USA",
   },
+  {
+    slug: "bill_haley_and_the_comets",
+    midis: ["s3005_09---rock-around-the-clock"],
+  },
+  {
+    slug: "little_richard",
+    midis: [
+      "good-golly-miss-molly",
+      "long-tall-sally",
+      "lucille",
+      "tutti-frutti",
+    ],
+  },
+
   {
     slug: "mikael_tariverdiev",
     midis: [
@@ -2313,6 +2329,7 @@ export const corpora: CorpusEntry[] = [
     style: "Classical, National",
     country: null,
   },
+  { slug: "w_c_handy", midis: ["the-memphis-blues-w.c-handy-1912"] },
   {
     slug: "debussy",
     midis: [
@@ -4374,6 +4391,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic, Folk", // Romantic influences with Ukrainian folk music
     country: "Ukraine", // Ukrainian composer
   },
+  { slug: "hart_a_wand", midis: ["dallas-blues-1912"] },
   {
     slug: "myroslav_skoryk",
     midis: [
@@ -4547,6 +4565,7 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: 1959,
   },
+  { slug: "nat_d_ayer", midis: ["oh-you-beautiful-doll---nat-d.-ayer"] },
   {
     slug: "tchaikovsky",
     midis: [
@@ -4806,6 +4825,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Known for his expressive piano pieces
     country: "Norway", // Grieg was Norwegian
   },
+  { slug: "anthony_maggio", midis: ["i-got-the-blues-1908"] },
   {
     slug: "yuki_kaijura",
     midis: [
@@ -4861,6 +4881,8 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Works in the late Romantic style
     country: "Croatia", // Dora Pejacevic was Croatian
   },
+  { slug: "bessie_smith", midis: ["backwater-blues"] },
+  { slug: "michael_gundlach", midis: [] },
   {
     slug: "mikulas_schneider_trnavsky",
     midis: [
@@ -5655,6 +5677,14 @@ export const corpora: CorpusEntry[] = [
     genre: "Classical", // Chinese classical music
     style: "Traditional", // Traditional Chinese music
     country: "China",
+  },
+  { slug: "gene_vincent", midis: ["be-bop-a-lula"] },
+  {
+    slug: "chuck_berry",
+    midis: [
+      "johnny-b.-goode-rock-n-roll-piano-solo-arr",
+      "roll-over-beethoven",
+    ],
   },
   {
     slug: "chinese_single_pieces",
@@ -7413,6 +7443,10 @@ export const corpora: CorpusEntry[] = [
       "abba--the-winner-takes-it-all", // ABBA
       "A_Thousand_Miles", // Vanessa Carlton
     ],
+  },
+  {
+    slug: "abba",
+    midis: ["abba--the-winner-takes-it-all", "the-winner-takes-it-all.6"],
   },
   {
     slug: "aivi_surasshu_and_rebecca_sugar",

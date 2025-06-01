@@ -2028,7 +2028,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "bill_haley_and_the_comets",
-    midis: ["s3005_09---rock-around-the-clock"],
+    midis: ["s3005_09---rock-around-the-clock", "shake-rattle-and-roll.1"],
   },
   {
     slug: "little_richard",
@@ -3017,6 +3017,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1989,
     country: "Japan",
   },
+  { slug: "danny_and_the_juniors", midis: ["at-the-hop.2"] },
   {
     slug: "joao_mateus_junior_8_fados",
     midis: ["beijos-de-mae---joao-mateus-junior"],
@@ -3517,6 +3518,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Post-Tonal",
     composerBirthYear: 1900,
   },
+  { slug: "carl_perkins", midis: ["blue-suede-shoes"] },
   {
     slug: "martha_mier",
     midis: [
@@ -4882,7 +4884,7 @@ export const corpora: CorpusEntry[] = [
     country: "Croatia", // Dora Pejacevic was Croatian
   },
   { slug: "bessie_smith", midis: ["backwater-blues"] },
-  { slug: "michael_gundlach", midis: [] },
+  { slug: "michael_gundlach", midis: ["crazy-blues"] },
   {
     slug: "mikulas_schneider_trnavsky",
     midis: [
@@ -7228,6 +7230,8 @@ export const corpora: CorpusEntry[] = [
     ],
     similarTo: ["andrea_vanzo"],
   },
+  { slug: "johnny_cash", midis: ["Johnny_Cash_Hurt", "folsom-prison-blues.1"] },
+  { slug: "led_zeppelin", midis: ["rock-and-roll.3"] },
   {
     slug: "penta_hexa",
     midis: [
@@ -7273,7 +7277,7 @@ export const corpora: CorpusEntry[] = [
       "stranger-things-theme",
       "kids---kyle-dixon-michael-stein-stranger-things---arranged-by-nana",
       "Alice_DJ_Better_Off_Alone",
-      "Johnny_Cash_Hurt",
+
       "etude-op.-10-no.-5-black-keys-pentatonic-arrangement",
       "pyos",
       "steve-reich---piano-phase",

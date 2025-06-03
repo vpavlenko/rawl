@@ -325,6 +325,7 @@ export const corpora: CorpusEntry[] = [
       "new-orleans-blues-extended-version---jurgen-moser",
       "latin-special---jurgen-moser",
       "the-snow-is-falling---jurgen-moser",
+      "manhattan-skyline---jurgen-moser",
     ],
     composerBirthYear: 1949,
     genre: "Teacher Music",
@@ -550,6 +551,13 @@ export const corpora: CorpusEntry[] = [
       "punatukkaiselle-tytolleni",
     ],
     similarTo: ["habanera"],
+  },
+  {
+    slug: "george_bizet",
+    midis: [
+      "Habanera_-_Piano_Solo_-_Georges_Bizet",
+      "Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet",
+    ],
   },
   {
     slug: "richard_galliano",
@@ -1909,6 +1917,7 @@ export const corpora: CorpusEntry[] = [
       "chemu-uchat-v-shkole----vladimir-shainskiy",
       "pesenka-krokodila-geny-iz-m-f-cheburashka---vladimir-shainskiy-perelozhenie-dlya-fortepiano-i-golosa",
       "kukla---v.-shainskiy",
+      "pesenka_mamontenka",
     ],
     composerBirthYear: 1935, // Vladimir Shainsky
     genre: "Film score, Children's music",
@@ -1927,6 +1936,7 @@ export const corpora: CorpusEntry[] = [
     slug: "russian_garmon",
     midis: ["cyganochka---misc-traditional-cyganochka"],
   },
+  { slug: "isaak_dunaevsky", midis: ["kakim-ty-byl"] },
   {
     slug: "maksim_dunaevsky",
     midis: [
@@ -1935,6 +1945,9 @@ export const corpora: CorpusEntry[] = [
       "oy-cvite-kalina---i.-dunaievskiy",
       "uvertyura-do-k-f-diti-kapitana-granta---i.-dunaievskiy",
       "chastushki-babok-yozhek",
+      "pozvoni-mne-pozvoni-2",
+      "cvetnye-sny-2",
+      "kolorovi-sni-cvetnye-sny---m.-dunaievskiy",
     ],
     composerBirthYear: 1942, // Maksim Dunaevsky
     genre: "Film score, Musical",
@@ -3705,11 +3718,12 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "aleksandr_zatsepin",
     midis: [
+      "island-of-misfortune-ostrov-nevezeniya---o.-zacepin",
       "pesenka-o-medvedyah---a.-zacepin",
       "s-lyubovyu-vstretitsya---a.-zacepin",
-      "volki-gonyat-olenya---a.-zacepin",
       "hudozhniki---a.-zacepin",
-      "island-of-misfortune-ostrov-nevezeniya---o.-zacepin",
+      "volki-gonyat-olenya---a.-zacepin",
+      "pesnya_pro_zaycev",
       "proshchay---a.-zacepin",
       "tango-do-k-f-12-stulev---o.-zacepin",
       "kak-zhe-mne-teper-tebya-lyubit---a.-zacepin", // triton sub
@@ -3801,6 +3815,13 @@ export const corpora: CorpusEntry[] = [
     genre: "Jazz",
     style: "Bebop, Swing",
     country: "USA",
+  },
+  {
+    slug: "georgy_firtich",
+    midis: [
+      "ne-hodit-diti-v-afriku-gulyati---georgiy-firtich",
+      "captain-wrongel-s-song----g.-firtich----easy-violin",
+    ],
   },
   {
     slug: "charlie_parker",
@@ -4885,6 +4906,7 @@ export const corpora: CorpusEntry[] = [
   },
   { slug: "bessie_smith", midis: ["backwater-blues"] },
   { slug: "michael_gundlach", midis: ["crazy-blues"] },
+  { slug: "vladimir_vysotsky", midis: ["beda"] },
   {
     slug: "mikulas_schneider_trnavsky",
     midis: [
@@ -4897,9 +4919,17 @@ export const corpora: CorpusEntry[] = [
     style: "Folk-inspired, Sacred", // Known for sacred and folk-inspired compositions
     country: "Slovakia", // Schneider-Trnavský was Slovak
   },
+
   {
     slug: "mihail_krug",
-    midis: ["prihodite-v-moy-dom", "fraer---mihail-krug", "kolshchik"],
+    midis: [
+      "prihodite-v-moy-dom",
+      "fraer---mihail-krug",
+      "kolshchik",
+      "devochka---pai",
+      "vladimirskiy_tsentral_-katerinskiy_andrei",
+      "mihail-krug-vladimirskiy-central",
+    ],
     composerBirthYear: 1962, // Mikhail Krug
     genre: "Russian chanson", // Popular in Russian chanson genre
     style: "Chanson", // Known for his distinctive style in Russian chanson
@@ -5610,11 +5640,20 @@ export const corpora: CorpusEntry[] = [
     slug: "russian_singles",
     midis: [
       "belym-snegom---muzyka-e-rodygina-belym-snegom---muzyka-e.-rodygina",
-      "beri_shinel-_poshli_domoy",
+      "elochka_lesnoy_aromat",
       "i-hear-the-noise-of-birches...---konstantin-orbelyan",
+      "vot_kto-to_s_gorochki_spustilsya",
     ],
     composerBirthYear: 1950, // Konstantin Orbelyan was born in 1950
     country: "Russia",
+  },
+  {
+    slug: "bulat_okudzhava",
+    midis: [
+      "beri_shinel-_poshli_domoy",
+      "beri_shinel_poshli_domoi",
+      "nam-nuzhna-odna-pobeda---dudakovmv",
+    ],
   },
   {
     slug: "fleur",
@@ -8150,8 +8189,6 @@ export const corpora: CorpusEntry[] = [
 
       "Morphine_Cure_for_Pain",
 
-      "Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet",
-
       "Sandu",
 
       "Sorcerers_doll___-_The_King_and_the_Jester___",
@@ -8219,8 +8256,6 @@ export const corpora: CorpusEntry[] = [
       "kukla_kolduna",
       "mahler_4_3",
       "major_diatonic_chords",
-
-      "mihail-krug-vladimirskiy-central",
 
       "motion-sickness---phoebe-bridgers",
 

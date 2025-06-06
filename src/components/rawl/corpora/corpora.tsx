@@ -1985,6 +1985,7 @@ export const corpora: CorpusEntry[] = [
       "tango-lyubvi",
       "a-mozhet-byt-vorona---g.-gladkov",
       "dzhentlmeny-udachi---g.-gladkov",
+
       "beleet-moy-parus-a.-mironov---gennadiy-gladkov",
       "padal-proshlogodniy-sneg---grigoriy-gladkov", // cool stuff
     ],
@@ -2067,7 +2068,7 @@ export const corpora: CorpusEntry[] = [
       "tariverdiev-sudba-rezidenta-prelyudiya",
       "po-ulice-moey---m.-tariverdiev",
       "snow-above-leningrad-sneg-nad-leningradom---mikael-tariverdiev",
-      "pesnya-o-dalyokoy-rodine",
+      "somewhere-far-away----m.-tariverdiev",
       "tvoy-golos---mikael-tariverdiev",
       "ne-zhaleyu-ne-zovu-ne-plachu",
       "pesnya-tartali",
@@ -2077,6 +2078,7 @@ export const corpora: CorpusEntry[] = [
       "mikael-tariverdiev-michael-tariverdiyev---nikogo-ne-budet-v-dome-no-one-will-be-at-home",
       "tariverdiev---net-eti-slyozy-ne-moi",
       "ya-sprosil-u-yasenya---tariverdiev-tariverdiev",
+      "i_have_asked_ashtree_-nikiforov_vladimir",
     ],
     composerBirthYear: 1931, // Mikael Tariverdiev
     genre: "Film score, Classical",
@@ -3729,6 +3731,7 @@ export const corpora: CorpusEntry[] = [
       "kak-zhe-mne-teper-tebya-lyubit---a.-zacepin", // triton sub
       "lunnaya-serenada---a.-zacepin",
       "volshebnik-nedouchka---aleksandr-zacepin",
+      "talk_with_happyness",
     ],
     composerBirthYear: 1926,
     genre: "Film Score, Popular",
@@ -3742,6 +3745,7 @@ export const corpora: CorpusEntry[] = [
       "vals-davnim-davno---t.-hrennikov",
       "prelyudiya---t.-hrennikov",
       "moskovskie-okna-bossa-nova",
+      "moskovskie-okna-ansambl",
       "chto-tak-serdce-rastrevozheno",
       "marsh-artilleristov---t.-n.-hrennikov",
       "proshchanie---tihon-hrennikov-proshchanie",
@@ -4099,6 +4103,7 @@ export const corpora: CorpusEntry[] = [
       "opening-sijag-parasite-gisaengcung-ost",
       "perplexing-pool---pikmin-2",
       "pitch-black-horror---jun-ishikawa---kirby-and-the-forgotten-land",
+      "uvertyura--a.-petrov",
     ],
   },
   { slug: "ilmari_hakkola", midis: ["bad-piggies-theme"] },
@@ -4919,7 +4924,19 @@ export const corpora: CorpusEntry[] = [
     style: "Folk-inspired, Sacred", // Known for sacred and folk-inspired compositions
     country: "Slovakia", // Schneider-Trnavský was Slovak
   },
-
+  {
+    slug: "boris_mokrousov",
+    midis: [
+      "neulovimye-mstiteli---pogonya---misc-soundtrack-pogonya-k-f-novye-priklyucheniya-neulovimyh",
+      "vesna-na-zarechnoy-ulice---kogda-vesna-pridet",
+      "odinokaya-garmon---misc-traditional-obr.-dlya-bayana",
+      "kuplety-kurochkina---b.-mokrousov",
+      "pesnya-neulovimyh-mstiteley---boris-mokrousov",
+      "osinnie-listya-full-version---b.-mokrousov",
+    ],
+    country: "Russia",
+    composerBirthYear: 1909,
+  },
   {
     slug: "mihail_krug",
     midis: [
@@ -5643,9 +5660,18 @@ export const corpora: CorpusEntry[] = [
       "elochka_lesnoy_aromat",
       "i-hear-the-noise-of-birches...---konstantin-orbelyan",
       "vot_kto-to_s_gorochki_spustilsya",
+      "saundtrek-k-filmu-brat-2-brother-2-movie-ost",
+      "kaby-ne-bylo-zimy-iz-m-f-zima-v-prostokvashino---evgeniy-krylatov-kaby-ne-bylo-zimy-iz-m-f-zima-v-prostokvashino",
     ],
     composerBirthYear: 1950, // Konstantin Orbelyan was born in 1950
     country: "Russia",
+  },
+  {
+    slug: "agata_kristi",
+    midis: [
+      "skazochnaya-tayga-fabulous-taiga---agata-kristi-agatha-christie",
+      "chyornaya-luna---agata-kristi",
+    ],
   },
   {
     slug: "bulat_okudzhava",
@@ -5673,6 +5699,8 @@ export const corpora: CorpusEntry[] = [
       "moy-drug---mashina-vremeni",
       "odnazhdy-mir-prognetsya-pod-nas.",
       "she-walks-through-life-a-smile-on-her-face----a.-makarevich",
+      "povorot",
+      "razgovor_v_poezde",
     ],
     composerBirthYear: 1949, // Andrei Makarevich (composer of Mashina Vremeni) was born in 1949
     genre: "Rock", // Russian rock
@@ -5697,6 +5725,7 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "banditskiy-peterburg-gorod-kotorogo-net-fortepiano-a-town-that-does-not-exist",
       "syuyita-mayster-ta-margarita---i.-kornelyuk",
+      "banditskii-peterburg---baron",
     ],
     composerBirthYear: 1961, // Igor Kornelyuk was born in 1961
     genre: "Classical", // Mostly classical and cinematic music
@@ -5773,6 +5802,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Romantic period
     country: "Germany",
   },
+  { slug: "mikhail_meerovich", midis: ["yozhik_v_tumane"] },
   {
     slug: "norbert_schultze",
     midis: [
@@ -6345,7 +6375,26 @@ export const corpora: CorpusEntry[] = [
     slug: "michel_petrucciani",
     midis: ["home-1998-solo-live-transcription---michel-petrucciani"],
   },
-  { slug: "andrey_petrov", midis: ["a_naposledok_ya_skazhu"] },
+  {
+    slug: "andrey_petrov",
+    midis: [
+      "a_naposledok_ya_skazhu",
+      "sluzhebnyy_roman",
+      "osinnie-listya-full-version---b.-mokrousov",
+      "ya-shagayu-po-moskve---a.-petrov",
+      "uvertyura--a.-petrov",
+      "ranok-morning---a.-petrov",
+      "poyizd-the-train---a.-petrov",
+      "pisnya-pro-pogodu---a.-petrov",
+      "a-cygan-idyot",
+      "and-the-gypsy-is-coming-a-cygan-idet",
+      "pisnya-pro-druga---a.-petrov",
+      "waltz-from-beware-of-the-car----a.-petrov-vals-iz-k-f-beregis-avtomobilya----a.-petrov",
+      "moey-dushe-pokoya-net---a.-petrov",
+    ],
+    country: "Russia",
+    composerBirthYear: 1930,
+  },
   {
     slug: "horo",
     midis: [
@@ -8148,6 +8197,12 @@ export const corpora: CorpusEntry[] = [
       "photograph---cody-fry",
       "underground-by-cody-fry",
     ],
+  },
+  {
+    slug: "kirill_molchanov",
+    midis: ["zhuravlina-pisnya---k.-molchanov", "ogney-tak-mnogo-zolotyh"],
+    composerBirthYear: 1922,
+    country: "Russia",
   },
   {
     slug: "unsorted",

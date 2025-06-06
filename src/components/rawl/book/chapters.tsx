@@ -782,6 +782,12 @@ export const CHAPTERS: Array<{
                 "Laura Shigihara. Loonboon",
               )}
             </li>
+            <li>
+              {a(
+                "/f/chyornaya-luna---agata-kristi",
+                "Agata Kristi. Chornaya luna",
+              )}
+            </li>
           </ul>
         </P>
         {/* <h2>Historical context</h2>

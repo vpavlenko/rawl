@@ -5654,6 +5654,20 @@ export const corpora: CorpusEntry[] = [
     country: "Russia", // Russian composer
   },
   {
+    slug: "evgeny_krylatov",
+    midis: [
+      "kaby-ne-bylo-zimy-iz-m-f-zima-v-prostokvashino---evgeniy-krylatov-kaby-ne-bylo-zimy-iz-m-f-zima-v-prostokvashino",
+      "prekrasnoe-dalyoko---ievgen-krilatov",
+      "krylatye-kacheli-priklyucheniya-elektronika",
+      "tema-pirativ---ie.-krilatov",
+      "lullaby-for-a-polar-bear-cub----e.-krylatov----easy-violin-and-piano",
+      "troe-iz-prostokvashino",
+      "poyavlenie-alisy-gostya-iz-budushchego",
+      "lesnoy-olen",
+      "tri-belyh-konya---e.-krylatov",
+    ],
+  },
+  {
     slug: "russian_singles",
     midis: [
       "belym-snegom---muzyka-e-rodygina-belym-snegom---muzyka-e.-rodygina",
@@ -5661,7 +5675,8 @@ export const corpora: CorpusEntry[] = [
       "i-hear-the-noise-of-birches...---konstantin-orbelyan",
       "vot_kto-to_s_gorochki_spustilsya",
       "saundtrek-k-filmu-brat-2-brother-2-movie-ost",
-      "kaby-ne-bylo-zimy-iz-m-f-zima-v-prostokvashino---evgeniy-krylatov-kaby-ne-bylo-zimy-iz-m-f-zima-v-prostokvashino",
+      "pyat-minut",
+      "pyat-minut-cdd7e6",
     ],
     composerBirthYear: 1950, // Konstantin Orbelyan was born in 1950
     country: "Russia",

@@ -2378,6 +2378,8 @@ export const corpora: CorpusEntry[] = [
       "autumn-leaves-jazz-piano",
       "autumn-leaves-in-c",
       "autumn_leaves_diatonic",
+      "autumn_leaves_-lev_fiterman",
+      "autumnleaves_bushgrafts",
     ],
     composerBirthYear: null, // Autumn Leaves (multiple composers)
     genre: "Jazz, Standard",
@@ -3273,6 +3275,9 @@ export const corpora: CorpusEntry[] = [
       "o-barquinho-little-boat---roberto-menescal",
       "o-barquinho-little-boat---roberto-menescal-20ac8f",
       "strangers-in-the-night-bert-kaempfert",
+
+      "stella-by-starlight---victor-young",
+      "stella-by-starlight---victor-young-515402",
     ],
     genre: "Jazz",
     // This is a collection of jazz standards, no specific composer can be assigned.
@@ -6353,6 +6358,7 @@ export const corpora: CorpusEntry[] = [
       "beethoven_op_22_sonata_11_mov_1",
       "Sonate_No._14_Moonlight_1st_Movement",
       "moonlight_sonata_ludwig_van_beethoven_piano_solo",
+      "sonata-no.-14-moonlight-2nd-movement",
       "Sonate_No._14_Moonlight_3rd_Movement",
       "sonate-no.-17-tempest-3rd-movement",
       "sonate-no.-19-1st-movement",
@@ -7165,6 +7171,7 @@ export const corpora: CorpusEntry[] = [
       "fee-just-piano-version---fkj",
       "meeting-again-in-the-void-just-piano-version---fkj",
       "sundays-just-piano-version---fkj---fkj",
+      "way-out---fkj",
       "tui---fkj-tui",
       "last-hour-just-piano-version---fkj",
       "does-it-exist---fkj",

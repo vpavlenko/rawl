@@ -7169,9 +7169,9 @@ export const corpora: CorpusEntry[] = [
     slug: "fkj",
     midis: [
       "fee-just-piano-version---fkj",
+      "way-out---fkj",
       "meeting-again-in-the-void-just-piano-version---fkj",
       "sundays-just-piano-version---fkj---fkj",
-      "way-out---fkj",
       "tui---fkj-tui",
       "last-hour-just-piano-version---fkj",
       "does-it-exist---fkj",

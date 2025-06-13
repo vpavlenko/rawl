@@ -60,7 +60,15 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
   const noteOn = {};
   let currentTick = 0;
 
-  events.forEach((event) => {
+  // Sort events by [playTime, subtype] - as _ON > _OFF
+  const sortedEvents = [...events].sort((a, b) => {
+    if (a.playTime !== b.playTime) {
+      return a.playTime - b.playTime;
+    }
+    return a.subtype - b.subtype;
+  });
+
+  sortedEvents.forEach((event) => {
     // Accumulate delta for tick tracking
     currentTick += event.delta || 0;
 

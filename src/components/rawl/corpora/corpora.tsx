@@ -1130,6 +1130,10 @@ export const corpora: CorpusEntry[] = [
     country: "France", // Gustave Tritant was French.
   },
   {
+    slug: "arnold_schonberg",
+    midis: ["schoenberg-opus-25-suite-for-piano---prelude-original"],
+  },
+  {
     slug: "mike_schoenmehl",
     midis: [
       "melancholy-reflections---mike-schoenmehl",
@@ -4595,6 +4599,11 @@ export const corpora: CorpusEntry[] = [
       "roberto-cacciapaglia---tema-celeste",
       "roberto-cacciapaglia---seconda-navigazione",
       "roberto-cacciapaglia---atlantico",
+      "oceano---roberto-cacciapaglia-piano-and-violin",
+      "wild-side---roberto-cacciapaglia",
+      "roberto-cacciapaglia---floating",
+      "roberto-cacciapaglia---nuvole-di-luce",
+      "luminous-night",
     ],
     composerBirthYear: 1959,
   },
@@ -4811,7 +4820,10 @@ export const corpora: CorpusEntry[] = [
 
       "etude-opus-10-no.-1-in-c-major",
       "etude-opus-10-no.-2-in-a-minor",
+      "etude-opus-10-no.-5-in-g-major",
+      "etude-op.-10-no.-5-black-keys-pentatonic-arrangement",
       "etudes-op.-10---no.-12-in-c-minor-revolutionary-n.-carter",
+      "etude-opus-10-no.-8-in-f-major",
       "etude-op.25-no.9-butterfly---f.-chopin",
       "etude-opus-25-no.-11-winter-wind-in-a-minor",
 
@@ -6655,7 +6667,7 @@ export const corpora: CorpusEntry[] = [
       "moon-tango---r.-clayderman",
       "les-fleurs-sauvages---richard-clayderman",
       "souvenirs-d-enfance---richard-clayderman",
-      "concerto-des-etoiles---richard-clayderman",
+      "concerto-des-etoiles",
       "a-comme-amour-by-paul-de-senneville-arranged-richard-clayderman-for-piano",
       "nostalgy-by-olivier-toussaint-arranged-richard-clayderman-for-piano",
       "jardin-secret-by-paul-de-senneville-arranged-richard-clayderman-for-piano",

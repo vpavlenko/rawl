@@ -2630,6 +2630,7 @@ export const corpora: CorpusEntry[] = [
     style: "Eurobeat, Trance",
     country: "Japan",
   },
+  { slug: "the_beatles", midis: [] },
   {
     slug: "haywyre",
     midis: ["prologue---haywyre"],
@@ -3326,12 +3327,16 @@ export const corpora: CorpusEntry[] = [
 
       "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---i.-largo-allegro-moderato",
       "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---ii.-allegro-molto",
+
+      "daisies-op.-38-no.-3-for-solo-piano",
     ],
     composerBirthYear: 1873,
     genre: "Classical",
     style: "Romantic",
     country: "Russia",
   },
+  { slug: "sergio_mendes", midis: ["never-gonna-let-you-go"] },
+  { slug: "soundgarden", midis: ["black-hole-sun.1"] },
   {
     slug: "valentin_silvestrov",
     midis: [
@@ -4592,6 +4597,10 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "louis_vierne",
     midis: ["vierne-organ-symphony-no.-1-part-vi---final"],
+  },
+  {
+    slug: "bobby_prince",
+    midis: ["04---episode-1---the-city-streets-robert-prince"],
   },
   {
     slug: "roberto_cacciapaglia",
@@ -6907,6 +6916,7 @@ export const corpora: CorpusEntry[] = [
     ],
     country: "Japan",
   },
+  { slug: "bobby_darin", midis: [] },
   {
     slug: "christopher_larkin",
     midis: [

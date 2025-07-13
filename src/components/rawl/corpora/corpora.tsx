@@ -2630,7 +2630,15 @@ export const corpora: CorpusEntry[] = [
     style: "Eurobeat, Trance",
     country: "Japan",
   },
-  { slug: "the_beatles", midis: [] },
+  {
+    slug: "def_leppard",
+    midis: ["pour-some-sugar-on-me---def-leppard-lucky-chops-version"],
+  },
+  { slug: "the_beatles", midis: ["penny-lane.2"] },
+  {
+    slug: "sarah_mclachlan",
+    midis: ["building-a-mystery---sarah-mclachlan-piano-vocal-guitar"],
+  },
   {
     slug: "haywyre",
     midis: ["prologue---haywyre"],
@@ -2746,6 +2754,7 @@ export const corpora: CorpusEntry[] = [
     style: "Piano, Classical",
     country: "Hungary",
   },
+  { slug: "lynyrd_skynyrd", midis: ["sweet-home-alabama.1"] },
   {
     slug: "nikolay_myaskovsky",
     midis: [
@@ -2931,6 +2940,7 @@ export const corpora: CorpusEntry[] = [
     midis: ["icelandic-dance-op.-11-no.-1---jon-leifs"],
     composerBirthYear: 1899,
   },
+  { slug: "beyonce", midis: ["texas-hold-em---beyonce"] },
   {
     slug: "stephen_foster",
     midis: [

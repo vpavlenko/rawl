@@ -4,7 +4,7 @@ import iconv from "iconv-lite";
 import { parseNotes } from "../components/rawl/parseMidi";
 
 const MIDIEvents = require("midievents");
-require("./midi/midi-helpers");
+require("./midi-helpers");
 
 /**
  * The MIDIFilePlayer is the engine that parses MIDI file data, and fires

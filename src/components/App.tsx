@@ -371,8 +371,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
       for (let i = 0; i < e.outputBuffer.numberOfChannels; i++) {
         channels.push(e.outputBuffer.getChannelData(i));
       }
-      if (!this.midiPlayer?.stopped) {
-        this.midiPlayer?.processAudio(channels);
+      if (this.midiPlayer?.isPlaying()) {
+        this.midiPlayer?.processAudioInner(channels);
       }
     };
 

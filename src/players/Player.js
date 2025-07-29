@@ -158,10 +158,6 @@ export default class Player extends EventEmitter {
     this.seekMs(0);
   }
 
-  processAudio(output) {
-    this.processAudioInner(output);
-  }
-
   processAudioInner() {
     throw Error("Player.processAudioInner() must be implemented.");
   }

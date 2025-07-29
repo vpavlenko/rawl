@@ -373,12 +373,6 @@ export default class MIDIPlayer extends Player {
         value = parseInt(value, 10);
         core._tp_set_polyphony(value);
         break;
-      case "mididevice":
-        this.midiFilePlayer.setOutput(midiDevices[value]);
-        break;
-      case "gmreset":
-        this.midiFilePlayer.reset();
-        break;
       default:
         console.warn('MIDIPlayer has no parameter with id "%s".', id);
     }

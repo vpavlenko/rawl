@@ -28,8 +28,6 @@ const midiDevices = [dummyMidiOutput];
 
 const fileExtensions = ["mid", "midi", "smf"];
 
-const MIDI_ENGINE_LIBFLUIDLITE = 0;
-
 export default class MIDIPlayer extends Player {
   constructor(...args) {
     super(...args);
@@ -75,9 +73,6 @@ export default class MIDIPlayer extends Player {
 
     // Initialize parameters
     this.params = {};
-    // Transient parameters hold a parameter that is valid only for the current song.
-    // They are reset when another song is loaded.
-    this.transientParams = {};
 
     // Initialize parameters with default values
     this.setParameter("synthengine", 0);
@@ -199,13 +194,8 @@ export default class MIDIPlayer extends Player {
   async loadData(data, filepath, shouldAutoPlay = true) {
     this.filepathMeta = this.metadataFromFilepath(filepath);
 
-    const newTransientParams = {};
-
     // Load custom Soundfont if present in the metadata response.
-    if (
-      this.getParameter("synthengine") === MIDI_ENGINE_LIBFLUIDLITE &&
-      !filepath.startsWith("f:")
-    ) {
+    if (!filepath.startsWith("f:")) {
       core._tp_set_ch10_melodic(false);
 
       // Use the best available soundfont based on current loading state
@@ -241,13 +231,6 @@ export default class MIDIPlayer extends Player {
         this.startProgressiveSoundfontLoading();
       }
     }
-
-    // Apply transient params. Avoid thrashing of params that haven't changed.
-    Object.keys(this.params).forEach((key) => {
-      if (newTransientParams[key] !== this.transientParams[key]) {
-        this.setTransientParameter(key, newTransientParams[key]);
-      }
-    });
 
     const midiFile = new MIDIFile(data);
     const useTrackLoops = filepath.includes("SoundFont MIDI");
@@ -362,21 +345,6 @@ export default class MIDIPlayer extends Player {
     };
   }
 
-  getParameter(id) {
-    if (id === "fluidpoly") return core._tp_get_polyphony();
-    if (this.transientParams[id] != null) return this.transientParams[id];
-    return this.params[id];
-  }
-
-  setTransientParameter(id, value) {
-    if (value == null) {
-      // Unset the transient parameter.
-      this.setParameter(id, this.params[id]);
-    } else {
-      this.setParameter(id, value, true);
-    }
-  }
-
   setFluidChorus(value) {
     const fluidSynth = core._tp_get_fluid_synth();
     if (value === 0) {
@@ -400,7 +368,7 @@ export default class MIDIPlayer extends Player {
     }
   }
 
-  setParameter(id, value, isTransient = false) {
+  setParameter(id, value) {
     switch (id) {
       case "synthengine":
         value = parseInt(value, 10);
@@ -459,13 +427,8 @@ export default class MIDIPlayer extends Player {
       default:
         console.warn('MIDIPlayer has no parameter with id "%s".', id);
     }
-    // This should be the only place we modify transientParams.
-    if (isTransient) {
-      this.transientParams[id] = value;
-    } else {
-      delete this.transientParams[id];
-      this.params[id] = value;
-    }
+
+    this.params[id] = value;
   }
 
   _loadSoundfont(filename) {
@@ -506,58 +469,52 @@ export default class MIDIPlayer extends Player {
         console.log(`Preloaded soundfont ${soundfontName}, switching to it...`);
 
         // Only switch if we're using the FluidLite engine
-        if (this.getParameter("synthengine") === MIDI_ENGINE_LIBFLUIDLITE) {
-          // Find quality level of the new soundfont
-          const sfIndex = PROGRESSIVE_SOUNDFONTS.findIndex(
-            (sf) => sf.name === soundfontName,
-          );
 
-          // Check if this is a progressive soundfont and if it has a higher or equal quality level
-          // than the current one before applying it
-          const newQualityLevel =
-            sfIndex >= 0 ? PROGRESSIVE_SOUNDFONTS[sfIndex].qualityLevel : 0;
-          if (newQualityLevel >= this.soundfontQualityLevel) {
-            // Save current playback state
-            const wasPlaying = this.isPlaying();
-            const currentPositionMs = this.getPositionMs();
+        // Find quality level of the new soundfont
+        const sfIndex = PROGRESSIVE_SOUNDFONTS.findIndex(
+          (sf) => sf.name === soundfontName,
+        );
 
-            // Load the new soundfont
-            this.muteAudioDuringCall(this.audioNode, () => {
-              const err = core.ccall(
-                "tp_load_soundfont",
-                "number",
-                ["string"],
-                [filename],
-              );
-              if (err !== -1) {
-                console.log(`Switched to soundfont ${soundfontName}`);
-                // Update the parameter value without triggering another load
-                this.params["soundfont"] = soundfontName;
+        // Check if this is a progressive soundfont and if it has a higher or equal quality level
+        // than the current one before applying it
+        const newQualityLevel =
+          sfIndex >= 0 ? PROGRESSIVE_SOUNDFONTS[sfIndex].qualityLevel : 0;
+        if (newQualityLevel >= this.soundfontQualityLevel) {
+          // Save current playback state
+          const wasPlaying = this.isPlaying();
+          const currentPositionMs = this.getPositionMs();
 
-                // If we were playing, seek to the previous position
-                if (wasPlaying) {
-                  this.seekMs(currentPositionMs);
-                }
-
-                // Call the callback if provided
-                if (onLoadCallback) {
-                  onLoadCallback();
-                }
-              } else {
-                console.error(`Failed to load soundfont ${soundfontName}`);
-              }
-            });
-          } else {
-            console.log(
-              `Not switching to soundfont ${soundfontName} because it has lower quality (${newQualityLevel}) than current (${this.soundfontQualityLevel})`,
+          // Load the new soundfont
+          this.muteAudioDuringCall(this.audioNode, () => {
+            const err = core.ccall(
+              "tp_load_soundfont",
+              "number",
+              ["string"],
+              [filename],
             );
-            // Still call the callback to continue the loading sequence
-            if (onLoadCallback) {
-              onLoadCallback();
+            if (err !== -1) {
+              console.log(`Switched to soundfont ${soundfontName}`);
+              // Update the parameter value without triggering another load
+              this.params["soundfont"] = soundfontName;
+
+              // If we were playing, seek to the previous position
+              if (wasPlaying) {
+                this.seekMs(currentPositionMs);
+              }
+
+              // Call the callback if provided
+              if (onLoadCallback) {
+                onLoadCallback();
+              }
+            } else {
+              console.error(`Failed to load soundfont ${soundfontName}`);
             }
-          }
+          });
         } else {
-          // Not using FluidLite engine, just call the callback
+          console.log(
+            `Not switching to soundfont ${soundfontName} because it has lower quality (${newQualityLevel}) than current (${this.soundfontQualityLevel})`,
+          );
+          // Still call the callback to continue the loading sequence
           if (onLoadCallback) {
             onLoadCallback();
           }

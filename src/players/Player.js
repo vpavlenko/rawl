@@ -153,35 +153,13 @@ export default class Player extends EventEmitter {
   }
 
   suspend() {
-    // // this.stopped = true;
     this.paused = true;
     this.appTogglePause();
     this.seekMs(0);
   }
 
   processAudio(output) {
-    const start = performance.now();
     this.processAudioInner(output);
-    const end = performance.now();
-
-    if (this.debug) {
-      this.renderTime += end - start;
-      this.timeCount++;
-      if (this.timeCount >= this.perfLoggingInterval) {
-        const cost = this.renderTime / this.timeCount;
-        const budget = (1000 * this.bufferSize) / this.sampleRate;
-        console.log(
-          "[%s] %s ms to render %d frames (%s ms) (%s% utilization)",
-          this.constructor.name,
-          cost.toFixed(2),
-          this.bufferSize,
-          budget.toFixed(1),
-          ((100 * cost) / budget).toFixed(1),
-        );
-        this.renderTime = 0.0;
-        this.timeCount = 0;
-      }
-    }
   }
 
   processAudioInner() {

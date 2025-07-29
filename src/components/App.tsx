@@ -74,7 +74,7 @@ import EditorLandingPage, {
 } from "./rawl/editor/EditorLandingPage";
 import ForgeUI from "./rawl/forge/ForgeUI";
 import { DropSaveForm, saveMidiFromLink } from "./rawl/midiStorage";
-import DAW from "./rawl/pages/DAW";
+
 import { ParsingResult } from "./rawl/parseMidi";
 import transformMidi from "./rawl/transformMidi";
 
@@ -1250,7 +1250,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                       )
                     }
                   />
-                  <Route path="/daw" render={() => <DAW />} />
                   <Route exact path="/e" component={EditorLandingPage} />
                   <Route path="/e/:slug?" component={Editor} />
                   <Route path="/ef/:id/:version?" component={Editor} />

@@ -9,8 +9,8 @@ import {
   SOUNDFONT_MOUNTPOINT,
   SOUNDFONT_URL_PATH,
 } from "../config";
-import { GM_DRUM_KITS, GM_INSTRUMENTS } from "../gm-patch-map";
 import { ensureEmscFileWithUrl, remap01 } from "../util";
+import { GM_DRUM_KITS, GM_INSTRUMENTS } from "./gm-patch-map";
 import MIDIFilePlayer from "./MIDIFilePlayer";
 import Player from "./Player";
 

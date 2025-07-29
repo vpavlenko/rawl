@@ -36,7 +36,6 @@ import { decomposeScores } from "./rawl/decomposition/decomposeScores";
 
 import ChipCore from "../chip-core";
 import {
-  CATALOG_PREFIX,
   ERROR_FLASH_DURATION_MS,
   MAX_VOICES,
   SOUNDFONT_MOUNTPOINT,
@@ -45,8 +44,6 @@ import firebaseConfig from "../config/firebaseConfig";
 import defaultAnalyses from "../corpus/analyses.json";
 import { handleSongClick as handleSongClickUtil } from "../handlers/handleSongClick";
 import MIDIPlayer from "../players/MIDIPlayer";
-import promisify from "../promisify-xhr";
-import { FirestoreMidiDocument } from "../types/firestore";
 import { ensureEmscFileWithData, unlockAudioContext } from "../util";
 import Alert from "./Alert";
 import { AppContext } from "./AppContext";
@@ -144,7 +141,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private errorTimer: number;
   private midiPlayer: MIDIPlayer;
   private currUrl: string;
-  private songRequest: (method: string, url: string) => Promise<any>;
   private db: Firestore;
   private mediaSessionAudio: HTMLAudioElement;
   private gainNode: GainNode;
@@ -166,7 +162,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.errorTimer = null;
     this.midiPlayer = null; // Need a reference to MIDIPlayer to handle SoundFont loading.
     this.currUrl = null;
-    this.songRequest = null;
 
     // Initialize Firebase
     const firebaseApp = firebaseInitializeApp(firebaseConfig);
@@ -874,82 +869,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
       showShortcutHelp: !prevState.showShortcutHelp,
     }));
   };
-
-  playSong(url) {
-    if (url.startsWith("static/f")) return;
-
-    if (url.startsWith("static")) {
-      url = url.replace("static", "https://rawl.rocks/midi");
-    } else {
-      // Normalize url - paths are assumed to live under CATALOG_PREFIX
-      url =
-        url.startsWith("http") || url.startsWith("f:")
-          ? url
-          : CATALOG_PREFIX + encodeURIComponent(encodeURIComponent(url));
-    }
-
-    // Find a player that can play this filetype
-    const ext =
-      url.includes("score.mid") || url.startsWith("f:")
-        ? "mid"
-        : url.split(".").pop().toLowerCase();
-
-    if (!this.midiPlayer.canPlay(ext)) {
-      this.handlePlayerError(`The file format ".${ext}" was not recognized.`);
-      return;
-    }
-
-    if (url.startsWith("f:")) {
-      const playFromFirestore = async () => {
-        const firestore = getFirestore();
-        const { blob, url: sourceUrl } = (
-          await getDoc(doc(firestore, "midis", url.slice(2)))
-        ).data() as FirestoreMidiDocument;
-
-        // Update the state with sourceUrl
-        this.setState((prevState) => ({
-          currentMidi: {
-            ...prevState.currentMidi,
-            sourceUrl: sourceUrl || null, // Use null if sourceUrl is undefined or empty
-          },
-        }));
-
-        const transformedMidi = transformMidi(
-          Uint8Array.from(blob.toUint8Array()),
-        );
-
-        this.playSongBuffer(url, transformedMidi);
-      };
-      playFromFirestore();
-    } else {
-      // Fetch the song file (cancelable request)
-      // Cancel any outstanding request so that playback doesn't happen out of order
-      if (this.songRequest) {
-        // @ts-ignore
-        this.songRequest.abort();
-      }
-      // TODO: rewrite on fetch()
-      this.songRequest = promisify(new XMLHttpRequest());
-      // @ts-ignore
-      this.songRequest.responseType = "arraybuffer";
-      // @ts-ignore
-      this.songRequest.open("GET", url);
-      this.songRequest
-        // @ts-ignore
-        .send()
-        .then((xhr) => xhr.response)
-        .then((buffer) => {
-          this.currUrl = url;
-          const filepath = url.replace(CATALOG_PREFIX, "");
-          this.playSongBuffer(filepath, buffer);
-        })
-        .catch((e) => {
-          this.handlePlayerError(
-            e.message || `HTTP ${e.status} ${e.statusText} ${url}`,
-          );
-        });
-    }
-  }
 
   async playSongBuffer(
     filepath: string,

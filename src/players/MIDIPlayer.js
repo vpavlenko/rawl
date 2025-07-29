@@ -11,12 +11,10 @@ import MIDIFilePlayer from "./MIDIFilePlayer";
 import Player from "./Player";
 
 // Define the progressive soundfont loading sequence
-const PROGRESSIVE_SOUNDFONTS = [
-  // { name: "pcbeep.sf2", size: "31 KB", qualityLevel: 1 },
-  { name: "2MBGMGS.SF2", size: "2.1 MB", qualityLevel: 2 },
-  { name: "masquerade55v006.sf2", size: "18.4 MB", qualityLevel: 3 },
-  // { name: "Abbey-Steinway-D-v1.9.sf2", size: "40.2 MB", qualityLevel: 4 },
-];
+const SOUNDFONTS = {
+  FAST: { name: "2MBGMGS.SF2", size: "2.1 MB" },
+  BEST: { name: "masquerade55v006.sf2", size: "18.4 MB" },
+};
 
 let core = null;
 
@@ -80,71 +78,36 @@ export default class MIDIPlayer extends Player {
     this.setParameter("chorus", 0.0);
     this.setParameter("fluidpoly", 128);
 
-    // Track the currently loaded soundfont quality level
-    this.soundfontQualityLevel = 0; // 0=none, 1=pcbeep, 2=2MBGMGS, 3=masquerade
-
-    // Track which soundfonts are currently loading
-    this.loadingSoundfonts = new Set();
-
-    // Track the highest quality soundfont that has been loaded
-    this.highestLoadedSoundfontIndex = -1;
+    // Track soundfont loading state
+    this.currentSoundfont = null;
+    this.isLoadingBestSoundfont = false;
+    this.bestSoundfontLoaded = false;
   }
 
   handleFileSystemReady() {
-    // Start with the lowest quality soundfont for fast initial loading
-    const initialSoundfont = PROGRESSIVE_SOUNDFONTS[0].name;
-    this.setParameter("soundfont", initialSoundfont);
+    // Start with the fast soundfont for immediate playback
+    this.setParameter("soundfont", SOUNDFONTS.FAST.name);
 
-    // Begin the progressive loading sequence
-    this.startProgressiveSoundfontLoading();
+    // Start loading the best soundfont in background
+    this.loadBestSoundfontInBackground();
   }
 
-  // Start the progressive loading of better quality soundfonts
-  startProgressiveSoundfontLoading() {
-    // If nothing has been loaded yet, start from the beginning
-    if (this.highestLoadedSoundfontIndex < 0) {
-      this.highestLoadedSoundfontIndex = 0;
+  // Load the best quality soundfont in the background
+  loadBestSoundfontInBackground() {
+    if (this.isLoadingBestSoundfont || this.bestSoundfontLoaded) {
+      return;
     }
 
-    // Load the next soundfont in the sequence if we haven't loaded them all
-    this.loadNextSoundfont();
-  }
+    this.isLoadingBestSoundfont = true;
+    console.log(
+      `Starting to load ${SOUNDFONTS.BEST.name} (${SOUNDFONTS.BEST.size}) in background`,
+    );
 
-  // Load the next soundfont in the sequence
-  loadNextSoundfont() {
-    const nextIndex = this.highestLoadedSoundfontIndex + 1;
-
-    // Check if there are more soundfonts to load
-    if (nextIndex < PROGRESSIVE_SOUNDFONTS.length) {
-      const nextSoundfont = PROGRESSIVE_SOUNDFONTS[nextIndex];
-
-      // Skip if already loading this soundfont
-      if (this.loadingSoundfonts.has(nextSoundfont.name)) {
-        return;
-      }
-
-      // Mark this soundfont as loading
-      this.loadingSoundfonts.add(nextSoundfont.name);
-
-      console.log(
-        `Starting to load ${nextSoundfont.name} (${nextSoundfont.size})`,
-      );
-
-      // Start loading the next soundfont
-      this.preloadSoundfont(nextSoundfont.name, () => {
-        // Update the highest loaded soundfont index
-        this.highestLoadedSoundfontIndex = nextIndex;
-
-        // Update the quality level
-        this.soundfontQualityLevel = nextSoundfont.qualityLevel;
-
-        // Remove from loading set
-        this.loadingSoundfonts.delete(nextSoundfont.name);
-
-        // Load the next one in sequence
-        this.loadNextSoundfont();
-      });
-    }
+    this.preloadSoundfont(SOUNDFONTS.BEST.name, () => {
+      this.bestSoundfontLoaded = true;
+      this.isLoadingBestSoundfont = false;
+      console.log(`${SOUNDFONTS.BEST.name} loaded and ready`);
+    });
   }
 
   processAudioInner(channels) {
@@ -202,9 +165,8 @@ export default class MIDIPlayer extends Player {
       const currentSoundfont = this.params["soundfont"];
 
       // Find the best loaded soundfont
-      if (this.highestLoadedSoundfontIndex >= 0) {
-        const bestSoundfont =
-          PROGRESSIVE_SOUNDFONTS[this.highestLoadedSoundfontIndex].name;
+      if (this.bestSoundfontLoaded) {
+        const bestSoundfont = SOUNDFONTS.BEST.name;
 
         // If we're not already using the best available soundfont, switch to it
         if (currentSoundfont !== bestSoundfont) {
@@ -213,22 +175,15 @@ export default class MIDIPlayer extends Player {
           );
           this.setParameter("soundfont", bestSoundfont);
         }
-
-        // If we haven't started loading sequence or it stopped, restart it
-        if (
-          this.loadingSoundfonts.size === 0 &&
-          this.highestLoadedSoundfontIndex < PROGRESSIVE_SOUNDFONTS.length - 1
-        ) {
-          this.loadNextSoundfont();
-        }
       }
       // If no soundfonts have been loaded yet, start the sequence
       else {
-        const initialSoundfont = PROGRESSIVE_SOUNDFONTS[0].name;
+        const initialSoundfont = SOUNDFONTS.FAST.name;
         console.log(`Starting with ${initialSoundfont} for fast loading`);
         this.setParameter("soundfont", initialSoundfont);
-        this.highestLoadedSoundfontIndex = 0;
-        this.startProgressiveSoundfontLoading();
+        this.bestSoundfontLoaded = false;
+        this.isLoadingBestSoundfont = false;
+        this.loadBestSoundfontInBackground();
       }
     }
 
@@ -378,23 +333,23 @@ export default class MIDIPlayer extends Player {
 
         break;
       case "soundfont":
-        // Handle soundfont quality level tracking
-        const sfIndex = PROGRESSIVE_SOUNDFONTS.findIndex(
-          (sf) => sf.name === value,
-        );
-        if (sfIndex >= 0) {
-          // If this is one of our progressive soundfonts, update quality level
-          this.soundfontQualityLevel =
-            PROGRESSIVE_SOUNDFONTS[sfIndex].qualityLevel;
+        // Don't downgrade from BEST to FAST
+        if (
+          this.currentSoundfont === SOUNDFONTS.BEST.name &&
+          value === SOUNDFONTS.FAST.name
+        ) {
+          console.log(
+            `Not downgrading from ${SOUNDFONTS.BEST.name} to ${SOUNDFONTS.FAST.name}`,
+          );
+          return; // Don't update params or load the soundfont
+        }
 
-          // Update the highest loaded index if this is a higher quality soundfont
-          if (sfIndex > this.highestLoadedSoundfontIndex) {
-            this.highestLoadedSoundfontIndex = sfIndex;
-          }
-        } else {
-          // If user explicitly selects another soundfont, mark as custom
-          this.soundfontQualityLevel = 0;
-          this.highestLoadedSoundfontIndex = -1;
+        // Track which soundfont is currently set
+        this.currentSoundfont = value;
+
+        // If setting the best soundfont, mark it as loaded
+        if (value === SOUNDFONTS.BEST.name) {
+          this.bestSoundfontLoaded = true;
         }
 
         const url = `${SOUNDFONT_URL_PATH}/${value}`;
@@ -470,16 +425,12 @@ export default class MIDIPlayer extends Player {
 
         // Only switch if we're using the FluidLite engine
 
-        // Find quality level of the new soundfont
-        const sfIndex = PROGRESSIVE_SOUNDFONTS.findIndex(
-          (sf) => sf.name === soundfontName,
-        );
+        // Only switch to the best soundfont if we're not already using it
+        const isBestSoundfont = soundfontName === SOUNDFONTS.BEST.name;
+        const shouldSwitch =
+          isBestSoundfont && this.currentSoundfont !== SOUNDFONTS.BEST.name;
 
-        // Check if this is a progressive soundfont and if it has a higher or equal quality level
-        // than the current one before applying it
-        const newQualityLevel =
-          sfIndex >= 0 ? PROGRESSIVE_SOUNDFONTS[sfIndex].qualityLevel : 0;
-        if (newQualityLevel >= this.soundfontQualityLevel) {
+        if (shouldSwitch) {
           // Save current playback state
           const wasPlaying = this.isPlaying();
           const currentPositionMs = this.getPositionMs();
@@ -512,7 +463,7 @@ export default class MIDIPlayer extends Player {
           });
         } else {
           console.log(
-            `Not switching to soundfont ${soundfontName} because it has lower quality (${newQualityLevel}) than current (${this.soundfontQualityLevel})`,
+            `Not switching to soundfont ${soundfontName} - already using best available`,
           );
           // Still call the callback to continue the loading sequence
           if (onLoadCallback) {

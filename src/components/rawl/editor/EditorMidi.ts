@@ -1,6 +1,13 @@
 import MidiWriter from "midi-writer-js";
 import { Analysis, PitchClass } from "../analysis";
-import { Note } from "../forge/ForgeGenerator";
+
+interface Note {
+  pitch: number; // MIDI note number
+  velocity: number;
+  startTime: number; // in ticks (128 per quarter note)
+  duration: number; // in ticks
+  channel?: number; // MIDI channel (0-15)
+}
 
 // Define TimeSignature type locally since we can't import it
 type TimeSignature = {

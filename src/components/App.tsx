@@ -68,7 +68,6 @@ import Editor from "./rawl/editor/Editor";
 import EditorLandingPage, {
   StyledButton,
 } from "./rawl/editor/EditorLandingPage";
-import ForgeUI from "./rawl/forge/ForgeUI";
 import { DropSaveForm, saveMidiFromLink } from "./rawl/midiStorage";
 
 import { ParsingResult } from "./rawl/parseMidi";
@@ -1179,7 +1178,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   <Route path="/100/:slug?" component={Book} />
                   <Route path="/beyond/:slug?" component={Book} />
                   <Route path="/timeline" component={Timeline} />
-                  <Route path="/forge" component={ForgeUI} />
                   <Route path="/histograms" component={Histograms} />
                   <Redirect exact from="/" to="/100" />
                 </Switch>

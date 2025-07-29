@@ -20,7 +20,6 @@ import { FirestoreEditDocument } from "../../../types/firestore";
 import { ADMIN_USER_ID, VoiceMask } from "../../App";
 import { AppContext } from "../../AppContext";
 import { Analysis, ANALYSIS_STUB, PitchClass } from "../analysis";
-import { TICKS_PER_QUARTER } from "../forge/constants";
 import Rawl from "../Rawl";
 import {
   calculateGlobalBeatPosition,
@@ -28,6 +27,7 @@ import {
   ExtendedCommandContext,
   logicalNoteToMidi,
   parseCommand,
+  TICKS_PER_QUARTER,
 } from "./commandParser";
 import {
   activeLineGutterTheme,

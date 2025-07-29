@@ -1,5 +1,4 @@
 import { Analysis, ANALYSIS_STUB, PitchClass } from "../analysis";
-import { TICKS_PER_QUARTER } from "../forge/constants";
 import { SourceLocation } from "./EditorMidi";
 import {
   BeatPosition,
@@ -16,6 +15,8 @@ import {
   NOTE_LETTER_MAP,
   TimeSignature,
 } from "./types";
+
+export const TICKS_PER_QUARTER = 128;
 
 export interface Note {
   midiNumber: number;

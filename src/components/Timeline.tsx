@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { corpora } from "./rawl/corpora/corpora";
 import {
   formatComposerName,
   GenreItem,
@@ -8,8 +9,7 @@ import {
   getEmojis,
   getUniqueStyles,
   HasMetadata,
-} from "../utils/corpusUtils";
-import { corpora } from "./rawl/corpora/corpora";
+} from "./rawl/corpusUtils";
 
 const TimelineContainer = styled.div`
   padding: 2rem;

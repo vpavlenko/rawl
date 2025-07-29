@@ -5,16 +5,16 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import styled from "styled-components";
+import { ComposerTitle } from "./book/Book";
+import { corpora, MUSESCORE_TOP_100_SLUG } from "./corpora/corpora";
+import { CorpusLink } from "./corpora/CorpusLink";
+import { beautifySlug } from "./corpora/utils";
 import {
   GenreList,
   getEmojis,
   getUniqueStyles,
   hasMetadata,
-} from "../../utils/corpusUtils";
-import { ComposerTitle } from "./book/Book";
-import { corpora, MUSESCORE_TOP_100_SLUG } from "./corpora/corpora";
-import { CorpusLink } from "./corpora/CorpusLink";
-import { beautifySlug } from "./corpora/utils";
+} from "./corpusUtils";
 import { TOP_100_COMPOSERS } from "./top100Composers";
 
 const MUSESCORE_ICON = `

@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import { Snippet } from "./analysis";
+import { corpora } from "./corpora/corpora";
 import {
   GenreItem,
   GenreList,
   getEmojis,
   getUniqueStyles,
   hasMetadata,
-} from "../../utils/corpusUtils";
-import { Snippet } from "./analysis";
-import { corpora } from "./corpora/corpora";
+} from "./corpusUtils";
 import SnippetItem, { PX_IN_MEASURE } from "./SnippetItem";
 
 const SnippetListContainer = styled.div<{ isPreview?: boolean }>`

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { formatComposerName, getEmojis } from "../../utils/corpusUtils";
 import { corpora } from "./corpora/corpora";
+import { formatComposerName, getEmojis } from "./corpusUtils";
 import { TOP_100_COMPOSERS } from "./top100Composers";
 
 const highlightMatch = (text: string, term: string) => {

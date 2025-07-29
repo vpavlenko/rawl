@@ -46,8 +46,7 @@ function printSysex(data) {
   ).toUpperCase();
 }
 
-// MIDIPlayer constructor
-function MIDIPlayer(options) {
+function MIDIFilePlayer(options) {
   autoBind(this);
   options = options || {};
   this.output = options.output || null; // Web MIDI output device (has a .send() method)
@@ -72,7 +71,7 @@ function MIDIPlayer(options) {
 }
 
 // Parsing all tracks and add their events in a single event queue
-MIDIPlayer.prototype.load = function (midiFile, useTrackLoops = false) {
+MIDIFilePlayer.prototype.load = function (midiFile, useTrackLoops = false) {
   this.stop();
   this.position = 0;
   this.elapsedTime = 0;
@@ -104,7 +103,7 @@ MIDIPlayer.prototype.load = function (midiFile, useTrackLoops = false) {
   return result;
 };
 
-MIDIPlayer.prototype.doSkipSilence = function () {
+MIDIFilePlayer.prototype.doSkipSilence = function () {
   const firstNote = this.events.find(
     (e) => e.subtype === MIDIEvents.EVENT_MIDI_NOTE_ON,
   );
@@ -114,7 +113,10 @@ MIDIPlayer.prototype.doSkipSilence = function () {
   }
 };
 
-MIDIPlayer.prototype.play = function (endCallback, playbackStartedCallback) {
+MIDIFilePlayer.prototype.play = function (
+  endCallback,
+  playbackStartedCallback,
+) {
   if (0 === this.position) {
     this.endCallback = endCallback;
     this.reset();
@@ -134,7 +136,7 @@ MIDIPlayer.prototype.play = function (endCallback, playbackStartedCallback) {
   return 0;
 };
 
-MIDIPlayer.prototype.processPlaySynth = function (buffer, bufferSize) {
+MIDIFilePlayer.prototype.processPlaySynth = function (buffer, bufferSize) {
   this.lastProcessPlayTimestamp = performance.now();
   const bufferStart = buffer;
   let bytesWritten = 0;
@@ -222,7 +224,7 @@ MIDIPlayer.prototype.processPlaySynth = function (buffer, bufferSize) {
   return bytesWritten;
 };
 
-MIDIPlayer.prototype.processPlay = function () {
+MIDIFilePlayer.prototype.processPlay = function () {
   const now = performance.now();
   const deltaTime = (now - this.lastProcessPlayTimestamp) * this.speed;
   this.lastProcessPlayTimestamp = now;
@@ -305,12 +307,12 @@ MIDIPlayer.prototype.processPlay = function () {
   }
 };
 
-MIDIPlayer.prototype.handleProgramChange = function (channel, program) {
+MIDIFilePlayer.prototype.handleProgramChange = function (channel, program) {
   this.channelProgramNums[channel] = program;
   this.programChangeCb?.();
 };
 
-MIDIPlayer.prototype.togglePause = function () {
+MIDIFilePlayer.prototype.togglePause = function () {
   this.paused = !this.paused;
   if (this.paused === true) {
     this.panic(this.lastSendTimestamp + 10);
@@ -318,16 +320,16 @@ MIDIPlayer.prototype.togglePause = function () {
   return this.paused;
 };
 
-MIDIPlayer.prototype.resume = function () {
+MIDIFilePlayer.prototype.resume = function () {
   this.paused = false;
 };
 
-MIDIPlayer.prototype.stop = function () {
+MIDIFilePlayer.prototype.stop = function () {
   this.paused = true;
   this.panic();
 };
 
-MIDIPlayer.prototype.send = function (message, timestamp) {
+MIDIFilePlayer.prototype.send = function (message, timestamp) {
   try {
     this.output.send(message, timestamp);
   } catch (e) {
@@ -337,7 +339,7 @@ MIDIPlayer.prototype.send = function (message, timestamp) {
 };
 
 // TODO: fix confusion between reset and panic
-MIDIPlayer.prototype.panic = function (timestamp) {
+MIDIFilePlayer.prototype.panic = function (timestamp) {
   // Release sustain pedal on all channels
   for (let ch = 0; ch < 16; ch++) {
     this.synth?.controlChange(ch, CC_SUSTAIN_PEDAL, 0);
@@ -345,7 +347,7 @@ MIDIPlayer.prototype.panic = function (timestamp) {
   this.synth?.panic();
 };
 
-MIDIPlayer.prototype.reset = function (timestamp) {
+MIDIFilePlayer.prototype.reset = function (timestamp) {
   this.synth.reset();
   this.position = 0;
   this.paused = true;
@@ -353,33 +355,33 @@ MIDIPlayer.prototype.reset = function (timestamp) {
 
 // --- Chip Player JS support ---
 
-MIDIPlayer.prototype.getDuration = function () {
+MIDIFilePlayer.prototype.getDuration = function () {
   if (this.events && this.events.length > 0) {
     return this.events[this.events.length - 1].playTime;
   }
   return 0;
 };
 
-MIDIPlayer.prototype.getPosition = function () {
+MIDIFilePlayer.prototype.getPosition = function () {
   return this.elapsedTime;
 };
 
-MIDIPlayer.prototype.setOutput = function (output) {
+MIDIFilePlayer.prototype.setOutput = function (output) {
   this.panic(this.lastSendTimestamp + 10);
   this.output = output;
   // Trigger replay of all program change events
   this.setPosition(this.getPosition() - 10);
 };
 
-MIDIPlayer.prototype.getSpeed = function () {
+MIDIFilePlayer.prototype.getSpeed = function () {
   return this.speed;
 };
 
-MIDIPlayer.prototype.setSpeed = function (speed) {
+MIDIFilePlayer.prototype.setSpeed = function (speed) {
   this.speed = Math.max(0.1, Math.min(4, speed));
 };
 
-MIDIPlayer.prototype.setPositionSynth = function (eventList) {
+MIDIFilePlayer.prototype.setPositionSynth = function (eventList) {
   const synth = this.synth;
   eventList.forEach((event) => {
     switch (event.subtype) {
@@ -395,7 +397,7 @@ MIDIPlayer.prototype.setPositionSynth = function (eventList) {
   });
 };
 
-MIDIPlayer.prototype.setPosition = function (ms) {
+MIDIFilePlayer.prototype.setPosition = function (ms) {
   if (ms < 0 || ms > this.getDuration()) return;
 
   this.lastProcessPlayTimestamp = performance.now();
@@ -440,15 +442,15 @@ MIDIPlayer.prototype.setPosition = function (ms) {
   this.position = pos;
 };
 
-MIDIPlayer.prototype.getChannelInUse = function (ch) {
+MIDIFilePlayer.prototype.getChannelInUse = function (ch) {
   return !!this.channelsInUse[ch];
 };
 
-MIDIPlayer.prototype.getChannelProgramNum = function (ch) {
+MIDIFilePlayer.prototype.getChannelProgramNum = function (ch) {
   return this.channelProgramNums[ch];
 };
 
-MIDIPlayer.prototype.summarizeMidiEvents = function () {
+MIDIFilePlayer.prototype.summarizeMidiEvents = function () {
   this.textInfo = [];
   const channelsInUse = this.channelsInUse;
   const channelProgramNums = this.channelProgramNums;
@@ -499,7 +501,7 @@ MIDIPlayer.prototype.summarizeMidiEvents = function () {
   }
 };
 
-MIDIPlayer.prototype.setChannelMute = function (ch, isMuted) {
+MIDIFilePlayer.prototype.setChannelMute = function (ch, isMuted) {
   this.channelMask[ch] = !isMuted;
   if (isMuted) {
     // TODO separate synth from webMidi
@@ -516,9 +518,9 @@ MIDIPlayer.prototype.setChannelMute = function (ch, isMuted) {
   }
 };
 
-MIDIPlayer.prototype.setUseWebMIDI = function () {
+MIDIFilePlayer.prototype.setUseWebMIDI = function () {
   // Trigger replay of all program change events
   this.setPosition(this.getPosition() - 10);
 };
 
-export default MIDIPlayer;
+export default MIDIFilePlayer;

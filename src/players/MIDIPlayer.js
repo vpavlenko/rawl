@@ -22,8 +22,6 @@ const dummyMidiOutput = {
   send: DUMMY_CALLBACK,
 };
 
-const midiDevices = [dummyMidiOutput];
-
 const fileExtensions = ["mid", "midi", "smf"];
 
 export default class MIDIPlayer extends Player {

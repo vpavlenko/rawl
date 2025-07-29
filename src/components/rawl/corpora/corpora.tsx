@@ -35,6 +35,7 @@ export const corpora: CorpusEntry[] = [
       "yiruma_river_flows_in_you_easy",
       "River_Flows_In_You",
       "yiruma-river-flows-in-you-youtube-bytedance-transcription",
+      "yiruma_river_flows_in_you_from_first_love_bytedance_transcription",
       "yiruma_room_with_a_view",
       "yiruma_spring_time",
       "yiruma_wait_there",

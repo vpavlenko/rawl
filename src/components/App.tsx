@@ -810,14 +810,13 @@ class App extends React.Component<RouteComponentProps, AppState> {
       if (ext === ".sf2" && this.midiPlayer) {
         const sf2Path = `user/${file.name}`;
         const forceWrite = true;
-        const isTransient = false;
         await ensureEmscFileWithData(
           this.chipCore,
           `${SOUNDFONT_MOUNTPOINT}/${sf2Path}`,
           new Uint8Array(result),
           forceWrite,
         );
-        this.midiPlayer?.setParameter("soundfont", sf2Path, isTransient);
+        this.midiPlayer?.setParameter("soundfont", sf2Path);
         this.forceUpdate();
       } else {
         this.props.history.push("/drop");

@@ -72,7 +72,6 @@ function MIDIPlayer(options) {
   this.channelMask = [];
   this.channelProgramNums = [];
   this.textInfo = [];
-  this.setChipStateDump = options.setChipStateDump;
   this.trackNames = {};
   this.channelToTrack = {};
 
@@ -108,8 +107,6 @@ MIDIPlayer.prototype.load = function (midiFile, useTrackLoops = false) {
     timebase: midiFile.header.datas.getUint16(12),
     timeEvents,
   });
-
-  this.setChipStateDump?.(result);
 
   return result;
 };
@@ -673,8 +670,7 @@ MIDIPlayer.prototype.setChannelMute = function (ch, isMuted) {
   }
 };
 
-MIDIPlayer.prototype.setUseWebMIDI = function (useWebMIDI) {
-  this.useWebMIDI = useWebMIDI;
+MIDIPlayer.prototype.setUseWebMIDI = function () {
   // Trigger replay of all program change events
   this.setPosition(this.getPosition() - 10);
 };

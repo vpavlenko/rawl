@@ -31,7 +31,6 @@ export default class Player extends EventEmitter {
     sampleRate,
     bufferSize = 2048,
     debug = false,
-    setChipStateDump,
     appTogglePause,
   ) {
     super();
@@ -48,7 +47,6 @@ export default class Player extends EventEmitter {
     this.renderTime = 0;
     this.perfLoggingInterval = 100;
     this.params = {};
-    this.setChipStateDump = setChipStateDump;
     this.appTogglePause = appTogglePause;
   }
 

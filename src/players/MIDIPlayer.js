@@ -71,7 +71,6 @@ export default class MIDIPlayer extends Player {
         reset: core._tp_reset,
         getValue: core.getValue,
       },
-      setChipStateDump: this.setChipStateDump,
     });
 
     // Initialize parameters

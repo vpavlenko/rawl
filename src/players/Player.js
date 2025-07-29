@@ -47,7 +47,6 @@ export default class Player extends EventEmitter {
     this.timeCount = 0;
     this.renderTime = 0;
     this.perfLoggingInterval = 100;
-    this.paramDefs = [];
     this.params = {};
     this.setChipStateDump = setChipStateDump;
     this.appTogglePause = appTogglePause;
@@ -139,17 +138,12 @@ export default class Player extends EventEmitter {
     };
   }
 
-  getParamDefs() {
-    return this.paramDefs;
-  }
-
   getBasePlayerState() {
     return {
       metadata: this.getMetadata(),
       durationMs: this.getDurationMs(),
       positionMs: this.getPositionMs(),
       numVoices: this.getNumVoices(),
-      paramDefs: this.getParamDefs(),
       tempo: this.getTempo(),
       voiceMask: this.getVoiceMask(),
       voiceNames: [...Array(this.getNumVoices())].map((_, i) =>

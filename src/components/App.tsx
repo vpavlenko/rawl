@@ -96,7 +96,6 @@ type AppState = {
   songUrl: string;
   volume: number;
   directories: any;
-  paramDefs: any;
   parsing: ParsingResult;
   enableManualRemeasuring: boolean;
   analyses: Analyses;
@@ -221,7 +220,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
       songUrl: null,
       volume: 150,
       directories: {},
-      paramDefs: [],
       parsing: null,
       enableManualRemeasuring: false,
       analyses: defaultAnalyses as unknown as Analyses,
@@ -397,8 +395,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
       voiceNames: "voiceNames",
       voiceMask: "voiceMask",
       songUrl: "url",
-      // TODO: add param values? move to paramStateUpdate?
-      paramDefs: "paramDefs",
     };
     const appState = {};
     for (let prop in map) {
@@ -821,10 +817,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           new Uint8Array(result),
           forceWrite,
         );
-        this.midiPlayer?.updateSoundfontParamDefs();
         this.midiPlayer?.setParameter("soundfont", sf2Path, isTransient);
-        // TODO: emit "paramDefsChanged" from player.
-        // See https://reactjs.org/docs/integrating-with-other-libraries.html#integrating-with-model-layers
         this.forceUpdate();
       } else {
         this.props.history.push("/drop");

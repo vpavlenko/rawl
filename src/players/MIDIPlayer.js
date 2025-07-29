@@ -4,11 +4,7 @@ import MIDIFile from "midifile";
 import autoBind from "auto-bind";
 import range from "lodash/range";
 import { DUMMY_CALLBACK } from "../components/App";
-import {
-  SOUNDFONTS,
-  SOUNDFONT_MOUNTPOINT,
-  SOUNDFONT_URL_PATH,
-} from "../config";
+import { SOUNDFONT_MOUNTPOINT, SOUNDFONT_URL_PATH } from "../config";
 import { ensureEmscFileWithUrl, remap01 } from "../util";
 import { GM_DRUM_KITS, GM_INSTRUMENTS } from "./gm-patch-map";
 import MIDIFilePlayer from "./MIDIFilePlayer";
@@ -35,83 +31,6 @@ const fileExtensions = ["mid", "midi", "smf"];
 const MIDI_ENGINE_LIBFLUIDLITE = 0;
 
 export default class MIDIPlayer extends Player {
-  paramDefs = [
-    {
-      id: "synthengine",
-      label: "Synth Engine",
-      type: "enum",
-      options: [
-        {
-          label: "MIDI Synthesis Engine",
-          items: [
-            {
-              label: "SoundFont (libFluidLite)",
-              value: MIDI_ENGINE_LIBFLUIDLITE,
-            },
-          ],
-        },
-      ],
-      defaultValue: 0,
-    },
-    {
-      id: "soundfont",
-      label: "Soundfont",
-      type: "enum",
-      options: SOUNDFONTS,
-      defaultValue: SOUNDFONTS[2].items[0].value,
-      // defaultValue: SOUNDFONTS[1].items[0].value,
-      dependsOn: {
-        param: "synthengine",
-        value: MIDI_ENGINE_LIBFLUIDLITE,
-      },
-    },
-    {
-      id: "reverb",
-      label: "Reverb",
-      type: "number",
-      min: 0.0,
-      max: 1.0,
-      step: 0.01,
-      defaultValue: 0.0,
-      dependsOn: {
-        param: "synthengine",
-        value: MIDI_ENGINE_LIBFLUIDLITE,
-      },
-    },
-    {
-      id: "chorus",
-      label: "Chorus",
-      type: "number",
-      min: 0.0,
-      max: 1.0,
-      step: 0.01,
-      defaultValue: 0.0,
-      dependsOn: {
-        param: "synthengine",
-        value: MIDI_ENGINE_LIBFLUIDLITE,
-      },
-    },
-    {
-      id: "fluidpoly",
-      label: "Polyphony",
-      type: "number",
-      min: 4,
-      max: 256,
-      step: 4,
-      defaultValue: 128,
-      dependsOn: {
-        param: "synthengine",
-        value: MIDI_ENGINE_LIBFLUIDLITE,
-      },
-    },
-    {
-      id: "gmreset",
-      label: "GM Reset",
-      hint: "Send a GM Reset sysex and reset all controllers on all channels.",
-      type: "button",
-    },
-  ];
-
   constructor(...args) {
     super(...args);
     autoBind(this);
@@ -160,9 +79,12 @@ export default class MIDIPlayer extends Player {
     // Transient parameters hold a parameter that is valid only for the current song.
     // They are reset when another song is loaded.
     this.transientParams = {};
-    this.paramDefs
-      .filter((p) => p.id !== "soundfont")
-      .forEach((p) => this.setParameter(p.id, p.defaultValue));
+
+    // Initialize parameters with default values
+    this.setParameter("synthengine", 0);
+    this.setParameter("reverb", 0.0);
+    this.setParameter("chorus", 0.0);
+    this.setParameter("fluidpoly", 128);
 
     // Track the currently loaded soundfont quality level
     this.soundfontQualityLevel = 0; // 0=none, 1=pcbeep, 2=2MBGMGS, 3=masquerade
@@ -181,8 +103,6 @@ export default class MIDIPlayer extends Player {
 
     // Begin the progressive loading sequence
     this.startProgressiveSoundfontLoading();
-
-    this.updateSoundfontParamDefs();
   }
 
   // Start the progressive loading of better quality soundfonts
@@ -447,24 +367,6 @@ export default class MIDIPlayer extends Player {
     if (id === "fluidpoly") return core._tp_get_polyphony();
     if (this.transientParams[id] != null) return this.transientParams[id];
     return this.params[id];
-  }
-
-  updateSoundfontParamDefs() {
-    this.paramDefs = this.paramDefs.map((paramDef) => {
-      if (paramDef.id === "soundfont") {
-        const userSoundfonts = paramDef.options[0];
-        const userSoundfontPath = `${SOUNDFONT_MOUNTPOINT}/user/`;
-        if (core.FS.analyzePath(userSoundfontPath).exists) {
-          userSoundfonts.items = core.FS.readdir(userSoundfontPath)
-            .filter((f) => f.match(/\.sf2$/i))
-            .map((f) => ({
-              label: f,
-              value: `user/${f}`,
-            }));
-        }
-      }
-      return paramDef;
-    });
   }
 
   setTransientParameter(id, value) {

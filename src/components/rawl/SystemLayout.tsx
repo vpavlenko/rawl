@@ -239,7 +239,6 @@ export type SystemLayoutProps = {
   frozenNotes: ColoredNote[][];
   enableManualRemeasuring?: boolean;
   measureStart?: number;
-  isHiddenRoute?: boolean;
   slug?: string;
   currentTonic: number;
   togglePause?: () => void;
@@ -263,7 +262,6 @@ export const StackedSystemLayout: React.FC<
   enableManualRemeasuring = false,
   measureStart,
   isEmbedded = false,
-  isHiddenRoute = false,
   slug,
   currentTonic,
   togglePause,
@@ -489,7 +487,6 @@ export const StackedSystemLayout: React.FC<
                 secondsToX={secondsToX}
                 xToSeconds={xToSeconds}
                 sectionSpan={sectionSpan}
-                isHiddenRoute={isHiddenRoute}
                 mouseHandlers={mouseHandlers}
                 togglePause={togglePause}
                 seek={seek}

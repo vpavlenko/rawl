@@ -8,11 +8,10 @@ export type CurrentMidi = {
   title: string;
   slug: string;
   sourceUrl: string | null;
-  isHiddenRoute: boolean;
 } | null;
 
 export interface AppContextType {
-  handleSongClick: (slug: string, isHiddenRoute?: boolean) => Promise<void>;
+  handleSongClick: (slug: string) => Promise<void>;
   rawlProps: RawlProps | null;
   setRawlProps: (rawlProps: RawlProps | null) => void;
   analyses: Record<string, Analysis>;

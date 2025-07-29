@@ -44,7 +44,6 @@ import {
 import firebaseConfig from "../config/firebaseConfig";
 import defaultAnalyses from "../corpus/analyses.json";
 import { handleSongClick as handleSongClickUtil } from "../handlers/handleSongClick";
-import keySlugMapping from "../keySlugMapping";
 import MIDIPlayer from "../players/MIDIPlayer";
 import promisify from "../promisify-xhr";
 import { FirestoreMidiDocument } from "../types/firestore";
@@ -114,7 +113,6 @@ type AppState = {
     title: string;
     slug: string;
     sourceUrl: string | null;
-    isHiddenRoute: boolean;
   } | null;
   audioContextLocked: boolean;
   audioContextState: string;
@@ -287,17 +285,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }
 
     const [, urlSlug] = location.pathname.split("/f/");
-    const [, keySlug] = location.pathname.split("/h/");
 
     if (urlSlug) {
       this.handleSongClick(urlSlug);
-    } else if (keySlug) {
-      const valueSlug = keySlugMapping[keySlug];
-      if (valueSlug) {
-        this.handleSongClick(valueSlug, true);
-      } else {
-        console.error(`No mapping found for key slug: ${keySlug}`);
-      }
     }
   }
 
@@ -711,7 +701,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     });
   }
 
-  handleSongClick = async (slug: string, isHiddenRoute: boolean = false) => {
+  handleSongClick = async (slug: string) => {
     try {
       await handleSongClickUtil(
         {
@@ -720,7 +710,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
           state: this.state,
         },
         slug,
-        isHiddenRoute,
       );
 
       // After successful load, start playback automatically
@@ -786,7 +775,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
           registerKeyboardHandler: this.registerKeyboardHandler,
           unregisterKeyboardHandler: this.unregisterKeyboardHandler,
           sourceUrl: prevState.currentMidi?.sourceUrl || null,
-          isHiddenRoute: prevState.currentMidi?.isHiddenRoute || false,
         };
         return { rawlProps: newRawlProps };
       },
@@ -1107,13 +1095,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
     const rawlRoute = (
       <Route
-        path={["/f/:slug*", "/h/:keySlug*", "/c/:chiptuneUrl*", "/drop"]}
+        path={["/f/:slug*", "/c/:chiptuneUrl*", "/drop"]}
         render={({ match }) => {
-          const { keySlug } = match.params as {
-            slug?: string;
-            keySlug?: string;
-            chiptuneUrl?: string;
-          };
           const { parsing } = this.state;
           this.path = match.url.slice(1);
           return (
@@ -1128,7 +1111,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     enableManualRemeasuring={this.state.enableManualRemeasuring}
                     seek={this.seekForRawl}
                     sourceUrl={this.state.currentMidi?.sourceUrl || null}
-                    isHiddenRoute={!!keySlug}
                     {...rawlProps}
                   />
                   {match.path === "/drop" && (

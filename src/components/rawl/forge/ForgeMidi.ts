@@ -42,7 +42,6 @@ export interface MidiGenerationResult {
     title: string;
     slug: string;
     sourceUrl: null;
-    isHiddenRoute: boolean;
   };
   analysis: Analysis;
 }
@@ -193,7 +192,6 @@ export const generateMidiWithMetadata = (
       title: `Generated ${mode} Pattern with Melody`,
       slug: FORGE_MOCK_ID,
       sourceUrl: null,
-      isHiddenRoute: false,
     },
     analysis: generateInitialAnalysis(mode, tonic),
   };

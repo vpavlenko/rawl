@@ -142,7 +142,6 @@ export type RawlProps = {
   sourceUrl: string | null;
   measureStart?: number;
   isEmbedded?: boolean;
-  isHiddenRoute?: boolean;
   editorRef?: React.RefObject<any>;
   navigateToSourceLocation?: (sourceLocation: {
     row: number;
@@ -165,7 +164,6 @@ const Rawl: React.FC<RawlProps> = ({
   sourceUrl,
   measureStart,
   isEmbedded = false,
-  isHiddenRoute = false,
   editorRef,
   navigateToSourceLocation,
   onEject,
@@ -743,7 +741,7 @@ const Rawl: React.FC<RawlProps> = ({
           }}
           className="Rawl"
         >
-          {slug && !isHiddenRoute && slug !== "forge_mock" && (
+          {slug && (
             <div
               style={{
                 display: "flex",

@@ -250,7 +250,6 @@ export const MeasureNumbers: React.FC<{
   secondsToX: SecondsConverter;
   xToSeconds: SecondsConverter;
   sectionSpan?: MeasuresSpan;
-  isHiddenRoute?: boolean;
   mouseHandlers: MouseHandlers;
   togglePause?: () => void;
   seek?: (ms: number) => void;
@@ -263,7 +262,6 @@ export const MeasureNumbers: React.FC<{
   secondsToX,
   xToSeconds,
   sectionSpan,
-  isHiddenRoute = false,
   mouseHandlers,
   togglePause,
   seek,
@@ -290,17 +288,15 @@ export const MeasureNumbers: React.FC<{
       }}
       onClick={(e) => systemClickHandler(e, xToSeconds)}
     >
-      {!isHiddenRoute && (
-        <InlineSnippets
-          measuresAndBeats={measuresAndBeats}
-          snippets={analysis.snippets || []}
-          secondsToX={secondsToX}
-          sectionSpan={sectionSpan}
-          analysis={analysis}
-          togglePause={togglePause}
-          seek={seek}
-        />
-      )}
+      <InlineSnippets
+        measuresAndBeats={measuresAndBeats}
+        snippets={analysis.snippets || []}
+        secondsToX={secondsToX}
+        sectionSpan={sectionSpan}
+        analysis={analysis}
+        togglePause={togglePause}
+        seek={seek}
+      />
       <AnalysisGrid
         analysis={analysis}
         measuresAndBeats={measuresAndBeats}

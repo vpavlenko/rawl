@@ -48,7 +48,6 @@ export interface MidiGenerationResult {
     title: string;
     slug: string;
     sourceUrl: null;
-    isHiddenRoute: boolean;
   };
   analysis: Analysis;
   extractedNotes?: {
@@ -246,7 +245,6 @@ export const generateMidiWithMetadata = (
       title,
       slug: title,
       sourceUrl: null,
-      isHiddenRoute: false,
     },
     analysis: generateInitialAnalysis(title),
     extractedNotes,

@@ -1,5 +1,4 @@
 import { doc, getDoc, getFirestore } from "firebase/firestore/lite";
-import keySlugMapping from "../keySlugMapping";
 import { FirestoreMidiDocument, FirestoreMidiIndex } from "../types/firestore";
 
 type HandleSongClickDependencies = {
@@ -13,7 +12,6 @@ type HandleSongClickDependencies = {
 export const handleSongClick = async (
   deps: HandleSongClickDependencies,
   slug: string,
-  isHiddenRoute: boolean = false,
 ): Promise<void> => {
   const firestore = getFirestore();
   try {
@@ -27,14 +25,7 @@ export const handleSongClick = async (
       return;
     }
 
-    let analysisKey;
-    let fSlug = slug;
-    if (isHiddenRoute) {
-      fSlug = keySlugMapping[slug] || slug;
-      analysisKey = `f/${fSlug}`;
-    } else {
-      analysisKey = `f/${slug}`;
-    }
+    const analysisKey = `f/${slug}`;
 
     console.log("Searching for MIDI info with slug:", slug);
     let midiInfo = indexData.midis.find(
@@ -62,9 +53,8 @@ export const handleSongClick = async (
       const currentMidi = {
         id: midiInfo.id,
         title: midiData.title,
-        slug: fSlug,
+        slug: slug,
         sourceUrl: midiData.url,
-        isHiddenRoute: isHiddenRoute,
       };
       const savedAnalysis = deps.state.analyses[analysisKey];
 
@@ -74,7 +64,6 @@ export const handleSongClick = async (
             currentMidi,
             rawlProps: {
               savedAnalysis,
-              isHiddenRoute,
             },
           },
           () => {

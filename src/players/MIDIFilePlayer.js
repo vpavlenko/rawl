@@ -64,6 +64,7 @@ function MIDIFilePlayer(options) {
   this.channelMask = [];
   this.channelProgramNums = [];
   this.textInfo = [];
+  this.setChipStateDump = options.setChipStateDump;
   this.trackNames = {};
   this.channelToTrack = {};
 
@@ -99,6 +100,8 @@ MIDIFilePlayer.prototype.load = function (midiFile, useTrackLoops = false) {
     timebase: midiFile.header.datas.getUint16(12),
     timeEvents,
   });
+
+  this.setChipStateDump?.(result);
 
   return result;
 };

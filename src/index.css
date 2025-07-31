@@ -202,7 +202,7 @@ body,
 }
 
 .noteColor_1_colors {
-    background-color: rgb(130, 0, 0) !important;
+    background-color: #820000 !important;
 }
 
 .noteColor_1_colors:after {
@@ -250,11 +250,11 @@ body,
 }
 
 .noteColor_7_colors {
-    background-color: rgb(120, 120, 120) !important;
+    background-color: #787878 !important;
 }
 
 .noteColor_8_colors {
-    background-color: rgb(0, 0, 255) !important;
+    background-color: #0000ff !important;
 }
 
 .noteColor_9_colors {
@@ -266,7 +266,7 @@ body,
 }
 
 .noteColor_11_colors {
-    background-color: #ff0 !important;
+    background-color: #ffff00 !important;
 }
 
 .noteColor_disabled {

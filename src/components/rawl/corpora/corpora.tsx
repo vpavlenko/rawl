@@ -1962,7 +1962,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "prokofiev",
-    midis: ["dance-of-the-knights"],
+    midis: ["dance-of-the-knights", "prokofiev-piano-concerto-2-mov1-cadenza"],
     composerBirthYear: 1891, // Sergei Prokofiev
     genre: "Classical",
     style: "Classical, Modern",
@@ -1991,9 +1991,9 @@ export const corpora: CorpusEntry[] = [
       "tango-lyubvi",
       "a-mozhet-byt-vorona---g.-gladkov",
       "dzhentlmeny-udachi---g.-gladkov",
-
       "beleet-moy-parus-a.-mironov---gennadiy-gladkov",
       "padal-proshlogodniy-sneg---grigoriy-gladkov", // cool stuff
+      "solnce-vzoidet_luch_solnca_zolotogo",
     ],
     composerBirthYear: 1935, // Gennady Gladkov
     genre: "Film score, Musical",
@@ -3341,6 +3341,8 @@ export const corpora: CorpusEntry[] = [
       "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---ii.-allegro-molto",
 
       "daisies-op.-38-no.-3-for-solo-piano",
+
+      "vocalise",
     ],
     composerBirthYear: 1873,
     genre: "Classical",
@@ -3389,6 +3391,18 @@ export const corpora: CorpusEntry[] = [
     midis: ["erinnerung-from-das-boot---klaus-doldinger"],
   },
   { slug: "falco", midis: ["jeanny-falco"] },
+  {
+    slug: "system_of_a_down",
+    midis: [
+      "system_of_a_down_-_chop_suey_piano",
+      "atwa",
+      "toxicity",
+      "lonely_day",
+      "3_byob",
+      "hypnotize",
+      "soad_pachelbel",
+    ],
+  },
   {
     slug: "marco_beltrami",
     midis: [
@@ -7068,6 +7082,7 @@ export const corpora: CorpusEntry[] = [
       "eptesicus---batman-begins",
       "antrozous---batman-begins",
       "tennessee-piano---in-c-major-a-minor",
+      "davy_jones_theme",
     ],
   },
   { slug: "chris_allen", midis: ["nurture-piano---in-eb-major-c-minor"] },
@@ -7248,6 +7263,8 @@ export const corpora: CorpusEntry[] = [
     country: "Japan",
     composerBirthYear: 1963,
   },
+  { slug: "john_stump", midis: ["faerie-s-aire-and-death-waltz"] },
+
   {
     slug: "taro_umebayashi",
     midis: [

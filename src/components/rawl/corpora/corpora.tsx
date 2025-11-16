@@ -760,6 +760,7 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "elgar_cello_concerto_1_adagio_moderato",
       "salut-d-amour-op.12---edward-elgar",
+      "salut-d-amour-op.12-in-d-major---edward-elgar",
       "elgar---enigma-variations---xi.-nimrod",
       "elgar-pomp-and-circumstance-march-no.-1-piano-solo-with-choral-finale",
     ],

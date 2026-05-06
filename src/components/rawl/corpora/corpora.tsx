@@ -1039,6 +1039,19 @@ export const corpora: CorpusEntry[] = [
     country: "USA", // Theo A. Metz was American.
   },
   {
+    slug: "ron_saltmarsh",
+    midis: [
+      "noctropolis_01",
+      "noctropolis_001",
+      "noctropolis_002",
+      "noctropolis_003",
+      "noctropolis_004",
+      "noctropolis_045",
+    ],
+    composerBirthYear: 1962,
+    country: "USA",
+  },
+  {
     slug: "king_kollins",
     midis: ["the-whizzer-1907", "the-twirler-1907"],
     composerBirthYear: 1880, // King Kollins
@@ -3327,6 +3340,7 @@ export const corpora: CorpusEntry[] = [
     slug: "rachmaninoff",
     midis: [
       "rachmaninoff-piano-concerto-no.-2-1st-mvmt.-arr.-for-2-pianos",
+      "rach3_1_op30",
       "piano_concerto_no_4_op_40_sergei_rachmaninoff_i_allegro_vivace_alla_breve",
       "rachmaninoff_piano_concerto_4_1",
       "serguei-rachmaninov---piano-concerto-ndeg4-in-g-minor---1st-mouvement-intro",
@@ -3337,6 +3351,8 @@ export const corpora: CorpusEntry[] = [
 
       "Prelude_in_G_Minor_Opus_23_No._5",
       "rachmaninoff-10-preludes-op.-23---no.-5-in-g-minor-m.-a.-deocariza",
+
+      "prelude-in-b-minor-opus-32-no.-10---sergei-rachmaninoff",
 
       "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---i.-largo-allegro-moderato",
       "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---ii.-allegro-molto",
@@ -4865,6 +4881,8 @@ export const corpora: CorpusEntry[] = [
 
       "mazurka-op.68-no.4---chopin---posth.",
       "mazurkas-op.-63---no.-2-in-f-minor-r.-lubetsky",
+
+      "chpn_op35_1_piano_sonata_no2_mov1",
     ],
     composerBirthYear: 1810, // Born in 1810
     genre: "Classical", // Classical composer
@@ -5950,6 +5968,10 @@ export const corpora: CorpusEntry[] = [
     country: "Japan",
   },
   {
+    slug: "dan_forden",
+    midis: ["mortal_kombat_1_character_zb", "mk_genesis_gorolair_zb"],
+  },
+  {
     slug: "glenn_stafford",
     midis: [
       "starcraft-2---wings-of-liberty---piano-solo",
@@ -6397,9 +6419,11 @@ export const corpora: CorpusEntry[] = [
       "sonatina_in_g_beethoven_anh_5_no_1_beethoven",
 
       "beethoven-symphony-no.-5-1st-movement-piano-solo",
+
       "beethoven---sonata-in-f-minor-op.2-no.1-movement-i",
-      "piano_sonata_no_3_in_c_major_op_2_no_3_ludwig_van_beethoven_piano_sonata_no_3_in_c_major_op_2_no_3_complete",
       "beethoven_sonata_in_f_minor_op_2_no_1_movement_i",
+      "beethoven_sonate_02_hisamori",
+      "piano_sonata_no_3_in_c_major_op_2_no_3_ludwig_van_beethoven_piano_sonata_no_3_in_c_major_op_2_no_3_complete",
       "beethoven_sonate_5_1st",
       "beethoven_sonata_8_pathetique_op_13_mov_1",
       "beethoven_sonata_in_g_op_14_no_2_movement_i",
@@ -6413,6 +6437,7 @@ export const corpora: CorpusEntry[] = [
       "sonate-no.-19-2nd-movement",
       "beethoven---piano-sonata-no.-20-in-g-major-op.-49-1st-movement",
       "sonate-no.-20-2nd-movement",
+      "beethoven_sonata_27_opus90_1",
 
       "beethoven_trio_for_clarinet_cello_and_piano_no_4_op_11_2nd_movement",
       "Fr_Elise",

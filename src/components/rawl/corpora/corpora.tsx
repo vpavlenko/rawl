@@ -6298,6 +6298,7 @@ export const corpora: CorpusEntry[] = [
       "german-dance-and-ecossaise-d.643---franz-schubert",
       "schubert---sonata-in-a-op.120-d.664-movement-i",
       "ave-maria-d839---schubert---solo-piano-arrg.",
+      'schubert_d960_1',
     ],
     composerBirthYear: 1797,
     genre: "Classical",

@@ -4128,39 +4128,48 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "tonal_stretch",
     midis: [
-      "jurassic-park---journey-to-the-island",
-      "na-krilah-vitru---a.-minov",
+      
+      "heroes-of-might-magic-iii---fortress-town-theme",
+      "jaws-theme",
       "narodniy-tanec---miroslav-skorik",
+      "na-krilah-vitru---a.-minov",
+      "uvertyura--a.-petrov",
+      "pitch-black-horror---jun-ishikawa---kirby-and-the-forgotten-land",
+      "marx-theme-from-kirby-super-star---jun-ishikawa",
+      "gnomus",
+      "piazzolla_histoire_du_tango_concert_aujourdhui",
+      
       "skyscraper---wynn-anne-rossi",
       "team-fortress---rise-of-the-living-bread---mike-morasky",
       "eight-children-s-pieces-op.36---malcolm-arnold",
       "the-tom-and-jerry-show---hiromi-uehara",
       "irken-armada-invasion-zim-s-theme---mattias-hakulinen-and-pontus-askbrink",
       "do-you-remember-king-s-theme---in-stars-and-time",
-      "marx-theme-from-kirby-super-star---jun-ishikawa",
+      
       "twilight-in-benares-1923",
       "alien-lair",
       "greenpath---christopher-larkin",
       "qiao-shang-nozhan-i-battle-on-the-bridge---final-fantasy-tactics-ps1---hitoshi-sakimoto",
-      "heroes-of-might-magic-iii---fortress-town-theme",
+      
       "lavender-town-pokemon-r-b-y",
       "amor-sacro---giovanni-allevi",
       "blastin-banter-battle-battle-of-jerry-mountain---shinkonet-blastin-banter-battle",
       "fantasiestuck---oskar-schuster",
       "papers-please---death-theme",
       "pastorale---marcelle-taillefesse-germaine-tailleferre-1919",
-      "jaws-theme",
+      
       "criss_cross",
       "in-double-time",
       "super-paper-mario---naoko-mitome-and-chika-sekigawa-staff-roll-",
       "fantasia---lucrecia-roces-kasilag",
       "manhattan-skyline---david-shire-manhattan-skyline---piano-interpretation",
       "heroes-of-might-and-magic-3---necropolis-town-theme",
-      "gnomus",
+      
       "opening-sijag-parasite-gisaengcung-ost",
       "perplexing-pool---pikmin-2",
-      "pitch-black-horror---jun-ishikawa---kirby-and-the-forgotten-land",
-      "uvertyura--a.-petrov",
+      
+      
+      "jurassic-park---journey-to-the-island",
     ],
   },
   { slug: "ilmari_hakkola", midis: ["bad-piggies-theme"] },
@@ -6438,7 +6447,10 @@ export const corpora: CorpusEntry[] = [
       "sonate-no.-19-2nd-movement",
       "beethoven---piano-sonata-no.-20-in-g-major-op.-49-1st-movement",
       "sonate-no.-20-2nd-movement",
+      "beethoven_sonata_26_op81a_mov1_les_adieux", 
       "beethoven_sonata_27_opus90_1",
+      "beethoven_piano_sonata_n32_op111_mov1", 
+      
 
       "beethoven_trio_for_clarinet_cello_and_piano_no_4_op_11_2nd_movement",
       "Fr_Elise",

@@ -832,6 +832,8 @@ export const corpora: CorpusEntry[] = [
       "bwv0565-toccata-and-fugue-in-dm-c",
       "machiavellian-bach", // bwv 934
       "prelude-in-c-minor---bwv-999---bach",
+      "j.s.-bach-invention-no.-14-in-b-flat-major", 
+      "bach---invention-no-9-in-f-minor-bwv-780", 
     ],
     composerBirthYear: 1685, // Johann Sebastian Bach
     genre: "Baroque",
@@ -865,6 +867,7 @@ export const corpora: CorpusEntry[] = [
       "prelude-no.-8-bwv-853-in-e-minor",
       "prelude-no.-9-bwv-854-in-e-major",
       "prelude-no.-10-bwv-855-in-e-minor",
+      "bach-siloti-prelude-b-minor", 
       "prelude-no.-11-bwv-856-in-f-major", // decent
       "prelude-no.-12-bwv-857-in-f-minor",
       "prelude-no.-13-bwv-858-in-f-major",
@@ -3601,6 +3604,7 @@ export const corpora: CorpusEntry[] = [
       "surfboard-boogie",
       "enchanted-waterfall---martha-mier",
       "baroque-expression---martha-mier",
+      "martha_mier_worrisome_blues", 
     ],
     composerBirthYear: 1955,
     genre: "Classical, Ragtime",
@@ -4125,6 +4129,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1845,
     similarTo: ["saint_saens"],
   },
+  {slug: "aleksey_nikolaev", midis: ["aleksey_nikolaev_tarantella_26", ]},
   {
     slug: "tonal_stretch",
     midis: [
@@ -4146,6 +4151,8 @@ export const corpora: CorpusEntry[] = [
       "irken-armada-invasion-zim-s-theme---mattias-hakulinen-and-pontus-askbrink",
       "do-you-remember-king-s-theme---in-stars-and-time",
       
+      "aleksey_nikolaev_tarantella_26", 
+
       "twilight-in-benares-1923",
       "alien-lair",
       "greenpath---christopher-larkin",
@@ -4168,6 +4175,7 @@ export const corpora: CorpusEntry[] = [
       "opening-sijag-parasite-gisaengcung-ost",
       "perplexing-pool---pikmin-2",
       
+
       
       "jurassic-park---journey-to-the-island",
     ],
@@ -4460,6 +4468,9 @@ export const corpora: CorpusEntry[] = [
     style: "Late-Romantic", // Late Romantic era style
     country: "Poland", // Polish composer and statesman
   },
+  {slug: 'anatoly_lyadov', midis: [
+"anatoly_lyadov_valse_op_9_1", 
+  ]},
   {
     slug: "nikolay_zubov",
     midis: [
@@ -4654,6 +4665,7 @@ export const corpora: CorpusEntry[] = [
     slug: "bobby_prince",
     midis: ["04---episode-1---the-city-streets-robert-prince"],
   },
+  {slug: 'reinhold_gliere', midis:["reinhold_gliere---12-pieces-enfantines-op.31no7-romance", ]},
   {
     slug: "roberto_cacciapaglia",
     midis: [
@@ -5299,6 +5311,8 @@ export const corpora: CorpusEntry[] = [
       "the-name-of-life-inochi-no-namae-joe-hisaishi",
       "itsumo-nando-demo-always-with-me---spirited-away",
       "howl-s-moving-castle---promise-of-the-world",
+      "princess-mononoke-theme", 
+      "hutatabi-qian-xun-nowarutu-qian-toqian-xun-noshen-yin-si-yori-waltz-of-chihiro-spirited-away---joe-hisaishi", 
     ],
     composerBirthYear: 1950, // Joe Hisaishi's birth year
     genre: "Film, Anime", // Known for composing music for films and anime
@@ -5318,6 +5332,9 @@ export const corpora: CorpusEntry[] = [
       "bydlo",
 
       "night-on-bald-mountain-noch-na-lysoy-gore",
+
+      "une-larme-a-teardrop---modest-mussorgsky-une-larme-a-teardrop", 
+      "mussorgsky_une_larme", 
     ],
     composerBirthYear: 1834, // Modest Mussorgsky's birth year (composer of Pictures at an Exhibition)
     genre: "Romantic", // Mussorgsky was a Romantic composer
@@ -5530,6 +5547,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Soul, R&B, Funk",
     country: "USA, Ghana",
   },
+  {slug: "robert_fripp", midis: ["king_crimson_red"]},
   {
     slug: "tom_jobim",
     midis: [
@@ -5885,12 +5903,13 @@ export const corpora: CorpusEntry[] = [
     country: "Germany",
   },
   {
-    slug: "schumann",
+    slug: "robert_schumann",
     midis: [
       "schumann-carnaval---no.-12-chopin-piano-solo",
       "schumann-kinderszenen-no.7-op.15--dreaming-traumerei",
       "schumann-the-wild-horseman-op.-68-no.-8",
       "r.-schumann---kinderszenen-no.-1-von-fremden-landern-und-menschen.",
+      "the-merry-peasant---robert-schumann-frohlicher-landmann-von-der-arbeit-zuruckkehrend", 
     ],
     composerBirthYear: 1810, // Robert Schumann was born in 1810
     genre: "Classical", // Classical, Romantic music
@@ -6213,6 +6232,7 @@ export const corpora: CorpusEntry[] = [
     style: "Folk", // Folk music style with traditional Chinese instruments
     country: "China", // Likely from China, given the titles
   },
+  {slug: 'mykola_dremliuha', midis: ["lirichna-pisnya---mikola-dremlyuga", ]},
   {
     slug: "karel_svoboda",
     midis: [
@@ -8144,6 +8164,7 @@ export const corpora: CorpusEntry[] = [
       "haydn_piano_sonata_c_major_xvi_7_1",
       "haydn_piano_sonata_c_major_xvi_7_2",
       "haydn_piano_sonata_c_major_xvi_7_3",
+      "haydn_xvi_10_c_major_sonata_6_mov1_moderato", 
       "sonata_in_e_minor_hob_xvi_34_joseph_haydn_piano_sonata_hob_xvi_34_2_adagio",
       "string_quartet_in_g_major_hob_iii_75_op_76_no_1_joseph_haydn",
       "haydn_100_1",

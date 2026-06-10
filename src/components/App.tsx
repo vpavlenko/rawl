@@ -460,6 +460,74 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }
   }
 
+  async getFirebaseAnnotation(analysisKey: string) {
+    const user = this.state.user;
+    if (!user || user.uid !== ADMIN_USER_ID || !analysisKey) return null;
+
+    const userRef = doc(this.db, "users", user.uid);
+    const userDoc = await getDoc(userRef);
+    const userData = userDoc.exists() ? userDoc.data() : {};
+    return userData.analyses?.[analysisKey] ?? null;
+  }
+
+  async saveFirebaseAnnotation(analysisKey: string, analysis) {
+    const user = this.state.user;
+    if (!user || user.uid !== ADMIN_USER_ID || !analysisKey) return;
+
+    const userRef = doc(this.db, "users", user.uid);
+    const userDoc = await getDoc(userRef);
+    const userData = userDoc.exists() ? userDoc.data() : {};
+    userData.analyses = mergeAnalyses(userData.analyses ?? {}, {
+      [analysisKey]: analysis,
+    });
+
+    await setDoc(userRef, userData);
+
+    this.setState((prevState) => ({
+      analyses: mergeAnalyses(prevState.analyses, {
+        [analysisKey]: analysis,
+      }),
+      rawlProps: prevState.rawlProps
+        ? { ...prevState.rawlProps, savedAnalysis: analysis }
+        : prevState.rawlProps,
+    }));
+  }
+
+  async deleteFirebaseAnnotation(analysisKey: string) {
+    const user = this.state.user;
+    if (!user || user.uid !== ADMIN_USER_ID || !analysisKey) return;
+
+    const userRef = doc(this.db, "users", user.uid);
+    const userDoc = await getDoc(userRef);
+    const userData = userDoc.exists() ? userDoc.data() : {};
+    const analyses = { ...(userData.analyses ?? {}) };
+    delete analyses[analysisKey];
+
+    await setDoc(userRef, {
+      ...userData,
+      analyses,
+    });
+
+    this.setState((prevState) => {
+      const nextAnalyses = { ...prevState.analyses };
+      delete nextAnalyses[analysisKey];
+
+      if (defaultAnalyses[analysisKey]) {
+        nextAnalyses[analysisKey] = defaultAnalyses[analysisKey];
+      }
+
+      return {
+        analyses: nextAnalyses,
+        rawlProps: prevState.rawlProps
+          ? {
+              ...prevState.rawlProps,
+              savedAnalysis: nextAnalyses[analysisKey] ?? null,
+            }
+          : prevState.rawlProps,
+      };
+    });
+  }
+
   attachMediaKeyHandlers() {
     if ("mediaSession" in navigator) {
       console.log("Attaching Media Key event handlers.");
@@ -1081,6 +1149,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
           setRawlProps: (rawlProps) => this.setState({ rawlProps }),
           analyses: this.state.analyses,
           saveAnalysis: this.saveAnalysis,
+          getFirebaseAnnotation: this.getFirebaseAnnotation,
+          saveFirebaseAnnotation: this.saveFirebaseAnnotation,
+          deleteFirebaseAnnotation: this.deleteFirebaseAnnotation,
           resetMidiPlayerState: this.resetMidiPlayerState,
           registerKeyboardHandler: this.registerKeyboardHandler,
           unregisterKeyboardHandler: this.unregisterKeyboardHandler,

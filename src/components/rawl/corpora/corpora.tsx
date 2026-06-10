@@ -3346,6 +3346,7 @@ export const corpora: CorpusEntry[] = [
       "rach3_1_op30",
       "piano_concerto_no_4_op_40_sergei_rachmaninoff_i_allegro_vivace_alla_breve",
       "rachmaninoff_piano_concerto_4_1",
+      "rach4-1",
       "serguei-rachmaninov---piano-concerto-ndeg4-in-g-minor---1st-mouvement-intro",
 
       "prelude_in_c_sharp_minor_opus_3_no_2_sergei_rachmaninoff",
@@ -3357,6 +3358,7 @@ export const corpora: CorpusEntry[] = [
 
       "prelude-in-b-minor-opus-32-no.-10---sergei-rachmaninoff",
 
+      "rachmaninoff_symphony_1_mov_1",
       "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---i.-largo-allegro-moderato",
       "symphony-no.-2-in-e-minor-op.-27-for-piano-duet---ii.-allegro-molto",
 

@@ -16,6 +16,12 @@ export interface AppContextType {
   setRawlProps: (rawlProps: RawlProps | null) => void;
   analyses: Record<string, Analysis>;
   saveAnalysis: (analysis: Analysis) => void;
+  getFirebaseAnnotation: (analysisKey: string) => Promise<Analysis | null>;
+  saveFirebaseAnnotation: (
+    analysisKey: string,
+    analysis: Analysis,
+  ) => Promise<void>;
+  deleteFirebaseAnnotation: (analysisKey: string) => Promise<void>;
   resetMidiPlayerState: () => void;
   registerKeyboardHandler: (
     id: string,

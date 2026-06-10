@@ -123,10 +123,7 @@ export const getNoteColor = (
   return pitchClassToCssClass(pitchClass);
 };
 
-export type RenumberMeasureCallback = (
-  measure: number,
-  isShift: boolean,
-) => void;
+export type SetBeatsPerMeasureCallback = (beatsPerMeasure: number) => void;
 
 export type RawlProps = {
   parsingResult: ParsingResult;
@@ -346,29 +343,22 @@ const Rawl: React.FC<RawlProps> = ({
     }
   }, [selectedMeasure, analysis, measuresAndBeats]);
 
-  const renumberMeasure = useCallback(
-    (displayNumber, isShift) => {
+  const setBeatsPerMeasure = useCallback(
+    (beatsPerMeasure) => {
       setSelectedMeasure(null);
 
-      const analysisUpdate =
-        enableManualRemeasuring && isShift
-          ? {
-              measures: {
-                beatsPerMeasure: {
-                  ...(analysis.measures?.beatsPerMeasure ?? {}),
-                  [selectedMeasure]: displayNumber,
-                },
-                measureStarts: analysis.measures?.measureStarts ?? {},
-              },
-            }
-          : {
-              measureRenumbering: {
-                [selectedMeasure]: displayNumber,
-              },
-            };
+      const analysisUpdate = {
+        measures: {
+          beatsPerMeasure: {
+            ...(analysis.measures?.beatsPerMeasure ?? {}),
+            [selectedMeasure]: beatsPerMeasure,
+          },
+          measureStarts: analysis.measures?.measureStarts ?? {},
+        },
+      };
       commitAnalysisUpdate(analysisUpdate);
     },
-    [selectMeasure, analysis, selectedMeasure, enableManualRemeasuring],
+    [analysis, selectedMeasure, commitAnalysisUpdate],
   );
 
   useEffect(() => {
@@ -557,14 +547,14 @@ const Rawl: React.FC<RawlProps> = ({
       selectMeasure,
       splitAtMeasure,
       mergeAtMeasure,
-      renumberMeasure,
+      setBeatsPerMeasure,
     }),
     [
       selectedMeasure,
       selectMeasure,
       splitAtMeasure,
       mergeAtMeasure,
-      renumberMeasure,
+      setBeatsPerMeasure,
     ],
   );
 

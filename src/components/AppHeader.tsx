@@ -58,7 +58,14 @@ const AppHeader: React.FC = () => {
     handleLogout,
     enableManualRemeasuring,
     handleToggleManualRemeasuring,
+    currentMidi,
   } = useContext(AppContext);
+  const currentAnnotationKey =
+    currentMidi?.slug && currentMidi.slug !== ""
+      ? `f/${currentMidi.slug}`
+      : path.startsWith("/f/")
+        ? path.slice(1)
+        : null;
 
   const getLinkStyle = (pathPrefix: string): React.CSSProperties => {
     if (pathPrefix === "/corpus") {
@@ -128,6 +135,7 @@ const AppHeader: React.FC = () => {
           handleToggleManualRemeasuring={handleToggleManualRemeasuring}
           enableManualRemeasuring={enableManualRemeasuring}
           adminUserId={ADMIN_USER_ID}
+          currentAnnotationKey={currentAnnotationKey}
         />
       </ExternalLinks>
     </HeaderContainer>

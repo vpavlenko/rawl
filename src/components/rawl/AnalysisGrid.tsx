@@ -2,7 +2,7 @@ import * as React from "react";
 import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "../AppContext";
-import { RenumberMeasureCallback, getModulations } from "./Rawl";
+import { SetBeatsPerMeasureCallback, getModulations } from "./Rawl";
 import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
 import {
   Analysis,
@@ -56,7 +56,7 @@ export type MeasureSelection = {
   selectMeasure: (number) => void;
   splitAtMeasure: (boolean, number?) => void;
   mergeAtMeasure: () => void;
-  renumberMeasure: RenumberMeasureCallback;
+  setBeatsPerMeasure: SetBeatsPerMeasureCallback;
 };
 
 export const PITCH_CLASS_TO_LETTER = {
@@ -77,13 +77,13 @@ export const PITCH_CLASS_TO_LETTER = {
 const RemeasuringInput: React.FC<{
   selectedMeasure: number;
   selectMeasure: (number) => void;
-  renumberMeasure: RenumberMeasureCallback;
+  setBeatsPerMeasure: SetBeatsPerMeasureCallback;
   splitAtMeasure: (boolean, number?) => void;
   mergeAtMeasure: () => void;
 }> = ({
   selectedMeasure,
   selectMeasure,
-  renumberMeasure,
+  setBeatsPerMeasure,
   splitAtMeasure,
   mergeAtMeasure,
 }) => {
@@ -111,7 +111,7 @@ const RemeasuringInput: React.FC<{
       } else {
         const parsedValue = parseInt(value, 10);
         if (!isNaN(parsedValue)) {
-          renumberMeasure(parsedValue, event.shiftKey);
+          setBeatsPerMeasure(parsedValue);
         }
       }
     }
@@ -127,7 +127,7 @@ const RemeasuringInput: React.FC<{
       onChange={handleChange}
       onKeyDown={handleKeyDown}
       style={{ fontSize: "10px", width: "3em" }}
-      aria-label="Renumber measure"
+      aria-label="Set beats per measure"
       autoFocus
     />
   );
@@ -218,7 +218,7 @@ const Measure: React.FC<{
     selectMeasure,
     splitAtMeasure,
     mergeAtMeasure,
-    renumberMeasure,
+    setBeatsPerMeasure,
   } = measureSelection;
 
   const left = secondsToX(span[0]) - 1;
@@ -315,7 +315,7 @@ const Measure: React.FC<{
                       }}
                     >
                       <RemeasuringInput
-                        renumberMeasure={renumberMeasure}
+                        setBeatsPerMeasure={setBeatsPerMeasure}
                         splitAtMeasure={splitAtMeasure}
                         mergeAtMeasure={mergeAtMeasure}
                         selectMeasure={selectMeasure}
@@ -329,14 +329,15 @@ const Measure: React.FC<{
                           whiteSpace: "nowrap",
                         }}
                       >
-                        hover the new tonic, click to save modulation
+                        Hover a note for tonic, click to save. Type beats,
+                        Enter to set beats/measure
                         {selectedPhraseStart === number &&
                         sectionSpan?.[0] === number - 1 ? (
                           <span>
-                            . Shift+Enter to merge back to previous section
+                            . Empty Shift+Enter merges with previous section
                           </span>
                         ) : (
-                          <span>. Enter to split into two sections</span>
+                          <span>. Empty Enter splits into two sections</span>
                         )}
                       </div>
                     </div>

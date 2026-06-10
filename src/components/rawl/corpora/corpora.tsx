@@ -3401,6 +3401,9 @@ export const corpora: CorpusEntry[] = [
     slug: "jaco_pastorius",
     midis: ["donna-lee---jaco-pastorius", "the-chicken"],
   },
+  {slug: 'brian_wilshere', 
+    midis: ["brian-wilshere--vibraphone-sonata-mov-1", ]
+  },
   {
     slug: "frank_wildhorn",
     midis: [
@@ -4132,6 +4135,7 @@ export const corpora: CorpusEntry[] = [
     similarTo: ["saint_saens"],
   },
   {slug: "aleksey_nikolaev", midis: ["aleksey_nikolaev_tarantella_26", ]},
+  {slug: 'aleon_raven', midis: ['aleon-raven-vertigo']},
   {
     slug: "tonal_stretch",
     midis: [
@@ -8184,6 +8188,7 @@ export const corpora: CorpusEntry[] = [
       "the-windmills-of-your-mind---michel-legrand",
       "concerto-les-demoiselles-de-rochefort",
       "the-summer-knows---michel-legrand",
+      'legrand_le_messager_may_december',
     ],
   },
   {

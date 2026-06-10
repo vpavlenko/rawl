@@ -23,6 +23,7 @@ const dummyMidiOutput = {
 };
 
 const fileExtensions = ["mid", "midi", "smf"];
+const DEFAULT_VISUAL_LEAD_MS = 32;
 
 export default class MIDIPlayer extends Player {
   constructor(...args) {
@@ -39,6 +40,12 @@ export default class MIDIPlayer extends Player {
     this.name = "MIDI Player";
     this.fileExtensions = fileExtensions;
     this.activeChannels = [];
+    this.audioContext = null;
+    this.audioClockFrames = [];
+    this.audioTimingDebug = false;
+    this.lastAudioTimingLogTime = 0;
+    this.audioClockSource = "current";
+    this.visualLeadMs = DEFAULT_VISUAL_LEAD_MS;
     this.buffer = core._malloc(this.bufferSize * 4 * 2); // f32 * 2 channels
     this.filepathMeta = {};
     this.midiFilePlayer = new MIDIFilePlayer({
@@ -109,8 +116,11 @@ export default class MIDIPlayer extends Player {
     });
   }
 
-  processAudioInner(channels) {
+  processAudioInner(channels, timing = null) {
+    const midiStartMs = this.midiFilePlayer.getPosition();
     if (this.midiFilePlayer.processPlaySynth(this.buffer, this.bufferSize)) {
+      const midiEndMs = this.midiFilePlayer.getPosition();
+      this.recordAudioClockFrame(timing, midiStartMs, midiEndMs);
       for (let ch = 0; ch < channels.length; ch++) {
         for (let i = 0; i < this.bufferSize; i++) {
           channels[ch][i] = core.getValue(
@@ -124,6 +134,176 @@ export default class MIDIPlayer extends Player {
     } else {
       this.stop();
     }
+  }
+
+  setAudioContext(audioContext) {
+    this.audioContext = audioContext;
+  }
+
+  setAudioTimingOptions(options = {}) {
+    this.audioTimingDebug = !!options.debug;
+    if (options.clockSource === "current" || options.clockSource === "output") {
+      this.audioClockSource = options.clockSource;
+    }
+    if (Number.isFinite(options.visualLeadMs)) {
+      this.visualLeadMs = Math.max(0, options.visualLeadMs);
+    }
+  }
+
+  recordAudioClockFrame(timing, midiStartMs, midiEndMs) {
+    if (!timing || typeof timing.playbackTime !== "number") {
+      return;
+    }
+
+    const audioStartTime = timing.playbackTime;
+    const audioEndTime = audioStartTime + this.bufferSize / this.sampleRate;
+    this.audioClockFrames.push({
+      audioStartTime,
+      audioEndTime,
+      midiStartMs,
+      midiEndMs,
+    });
+
+    const currentTime = this.getCurrentOutputContextTime();
+    this.audioClockFrames = this.audioClockFrames
+      .filter((frame) => frame.audioEndTime >= currentTime - 1)
+      .slice(-12);
+  }
+
+  getOutputTimestampContextTime() {
+    if (!this.audioContext) {
+      return null;
+    }
+
+    if (typeof this.audioContext.getOutputTimestamp === "function") {
+      const timestamp = this.audioContext.getOutputTimestamp();
+      if (
+        typeof timestamp.contextTime === "number" &&
+        typeof timestamp.performanceTime === "number"
+      ) {
+        return (
+          timestamp.contextTime +
+          (performance.now() - timestamp.performanceTime) / 1000
+        );
+      }
+    }
+
+    return null;
+  }
+
+  getCurrentOutputContextTime() {
+    if (this.audioClockSource === "current") {
+      return this.audioContext?.currentTime ?? null;
+    }
+
+    return (
+      this.getOutputTimestampContextTime() ??
+      this.audioContext?.currentTime ??
+      null
+    );
+  }
+
+  getAudiblePositionMs() {
+    const outputContextTime = this.getCurrentOutputContextTime();
+    const contextTime =
+      outputContextTime === null
+        ? null
+        : outputContextTime + this.visualLeadMs / 1000;
+    if (contextTime === null || this.audioClockFrames.length === 0) {
+      return this.midiFilePlayer.getPosition();
+    }
+
+    const frame =
+      this.audioClockFrames.find(
+        ({ audioStartTime, audioEndTime }) =>
+          contextTime >= audioStartTime && contextTime <= audioEndTime,
+      ) ||
+      this.audioClockFrames.reduce((closest, candidate) => {
+        if (!closest) return candidate;
+        const closestDistance = Math.min(
+          Math.abs(contextTime - closest.audioStartTime),
+          Math.abs(contextTime - closest.audioEndTime),
+        );
+        const candidateDistance = Math.min(
+          Math.abs(contextTime - candidate.audioStartTime),
+          Math.abs(contextTime - candidate.audioEndTime),
+        );
+        return candidateDistance < closestDistance ? candidate : closest;
+      }, null);
+
+    if (!frame) {
+      return this.midiFilePlayer.getPosition();
+    }
+
+    const audioDuration = frame.audioEndTime - frame.audioStartTime;
+    if (audioDuration <= 0) {
+      return frame.midiEndMs;
+    }
+
+    const progress = Math.max(
+      0,
+      Math.min((contextTime - frame.audioStartTime) / audioDuration, 1),
+    );
+
+    const positionMs =
+      frame.midiStartMs + (frame.midiEndMs - frame.midiStartMs) * progress;
+    this.logAudioTimingDebug({
+      contextTime,
+      frame,
+      outputContextTime,
+      positionMs,
+      progress,
+    });
+
+    return positionMs;
+  }
+
+  logAudioTimingDebug({
+    contextTime,
+    frame,
+    outputContextTime,
+    positionMs,
+    progress,
+  }) {
+    if (!this.audioTimingDebug) {
+      return;
+    }
+
+    const now = performance.now();
+    if (now - this.lastAudioTimingLogTime < 1000) {
+      return;
+    }
+    this.lastAudioTimingLogTime = now;
+
+    const currentTime = this.audioContext?.currentTime ?? null;
+    const rawRenderedMs = this.midiFilePlayer.getPosition();
+    const outputLagMs =
+      currentTime === null || outputContextTime === null
+        ? null
+        : (currentTime - outputContextTime) * 1000;
+    const renderAheadMs = rawRenderedMs - positionMs;
+    const queuedAudioMs = (frame.audioEndTime - contextTime) * 1000;
+
+    console.debug("[midi timing]", {
+      positionMs: Math.round(positionMs),
+      rawRenderedMs: Math.round(rawRenderedMs),
+      clockSource: this.audioClockSource,
+      renderAheadMs: Math.round(renderAheadMs),
+      visualLeadMs: this.visualLeadMs,
+      outputLagMs: outputLagMs === null ? null : Math.round(outputLagMs),
+      queuedAudioMs: Math.round(queuedAudioMs),
+      frameProgress: Number(progress.toFixed(3)),
+      currentTime:
+        currentTime === null ? null : Number(currentTime.toFixed(3)),
+      outputContextTime:
+        outputContextTime === null
+          ? null
+          : Number(outputContextTime.toFixed(3)),
+      visualContextTime: Number(contextTime.toFixed(3)),
+      frameStartTime: Number(frame.audioStartTime.toFixed(3)),
+      frameEndTime: Number(frame.audioEndTime.toFixed(3)),
+      framesTracked: this.audioClockFrames.length,
+    });
   }
 
   metadataFromFilepath(filepath) {
@@ -232,13 +412,18 @@ export default class MIDIPlayer extends Player {
   }
 
   stop() {
+    this.audioClockFrames = [];
     this.suspend();
     console.debug("MIDIPlayer.stop()");
     this.emit("playerStateUpdate", { isStopped: true, isPlaying: false });
   }
 
   togglePause() {
-    return this.midiFilePlayer.togglePause();
+    const paused = this.midiFilePlayer.togglePause();
+    if (paused) {
+      this.audioClockFrames = [];
+    }
+    return paused;
   }
 
   getDurationMs() {
@@ -246,10 +431,14 @@ export default class MIDIPlayer extends Player {
   }
 
   getPositionMs() {
-    return this.midiFilePlayer.getPosition();
+    if (!this.isPlaying()) {
+      return this.midiFilePlayer.getPosition();
+    }
+    return this.getAudiblePositionMs();
   }
 
   seekMs(ms) {
+    this.audioClockFrames = [];
     return this.midiFilePlayer.setPosition(ms);
   }
 
@@ -393,6 +582,7 @@ export default class MIDIPlayer extends Player {
   }
 
   eject() {
+    this.audioClockFrames = [];
     this.stop();
     this.midiFilePlayer.reset();
     this.emit("playerStateUpdate", { isStopped: true, isPlaying: false });
@@ -403,6 +593,7 @@ export default class MIDIPlayer extends Player {
   }
 
   pause() {
+    this.audioClockFrames = [];
     this.midiFilePlayer.paused = true;
     this.emit("playerStateUpdate", { isPlaying: false });
   }

@@ -348,7 +348,12 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }
 
     // Get debug from location.search
+    const queryParams = new URLSearchParams(window.location.search);
     const debug = queryString.parse(window.location.search.substring(1)).debug;
+    const syncLeadMsParam = queryParams.get("syncLeadMs");
+    const syncLeadMs =
+      syncLeadMsParam === null ? 32 : Number.parseFloat(syncLeadMsParam);
+    const syncClock = queryParams.get("syncClock");
     // Create all the players. Players will set up IDBFS mount points.
     const self = this;
     this.midiPlayer = new MIDIPlayer(
@@ -362,6 +367,12 @@ class App extends React.Component<RouteComponentProps, AppState> {
         }),
       this.togglePause,
     );
+    this.midiPlayer.setAudioContext(this.audioContext);
+    this.midiPlayer.setAudioTimingOptions({
+      debug: debug === "timing",
+      clockSource: syncClock === "output" ? "output" : "current",
+      visualLeadMs: Number.isFinite(syncLeadMs) ? syncLeadMs : 32,
+    });
     this.midiPlayer.on("playerStateUpdate", this.handlePlayerStateUpdate);
     this.midiPlayer.on("playerError", this.handlePlayerError);
 
@@ -372,7 +383,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
         channels.push(e.outputBuffer.getChannelData(i));
       }
       if (this.midiPlayer?.isPlaying()) {
-        this.midiPlayer?.processAudioInner(channels);
+        this.midiPlayer?.processAudioInner(channels, {
+          playbackTime: e.playbackTime,
+        });
       }
     };
 
@@ -604,18 +617,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
         case "+":
           this.setSpeedRelative(0.01);
           break;
-        case "p":
-          this.setLatencyCorrectionMs(0);
-          e.preventDefault();
-          break;
-        case "[":
-          this.setLatencyCorrectionMs(200);
-          e.preventDefault();
-          break;
-        case "]":
-          this.setLatencyCorrectionMs(800);
-          e.preventDefault();
-          break;
         case "h":
           this.toggleShortcutHelp();
           e.preventDefault();
@@ -828,8 +829,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           setVoiceMask: this.handleSetVoiceMask,
           enableManualRemeasuring: this.state.enableManualRemeasuring,
           seek: this.seekForRawl,
-          latencyCorrectionMs:
-            this.state.latencyCorrectionMs * this.state.tempo,
+          latencyCorrectionMs: 0,
           registerKeyboardHandler: this.registerKeyboardHandler,
           unregisterKeyboardHandler: this.unregisterKeyboardHandler,
           sourceUrl: prevState.currentMidi?.sourceUrl || null,
@@ -1067,7 +1067,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       setVoiceMask: this.handleSetVoiceMask,
       enableManualRemeasuring: this.state.enableManualRemeasuring,
       seek: this.seekForRawl,
-      latencyCorrectionMs: this.state.latencyCorrectionMs * this.state.tempo,
+      latencyCorrectionMs: 0,
       sourceUrl: this.state.currentMidi?.sourceUrl || null,
     };
 
@@ -1131,9 +1131,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
               saveAnalysis={this.saveAnalysis}
               getCurrentPositionMs={this.midiPlayer?.getPositionMs}
               seek={this.seekForRawl}
-              latencyCorrectionMs={
-                this.state.latencyCorrectionMs * this.state.tempo
-              }
+              latencyCorrectionMs={0}
             />
           );
         }}
@@ -1175,7 +1173,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           },
           enableManualRemeasuring: this.state.enableManualRemeasuring,
           playSongBuffer: this.playSongBuffer,
-          latencyCorrectionMs: this.state.latencyCorrectionMs,
+          latencyCorrectionMs: 0,
           tempo: this.state.tempo,
         }}
       >
@@ -1253,8 +1251,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 handleTimeSliderChange={this.handleTimeSliderChange}
                 handleVolumeChange={this.handleVolumeChange}
                 togglePause={this.togglePause}
-                latencyCorrectionMs={this.state.latencyCorrectionMs}
-                setLatencyCorrectionMs={this.setLatencyCorrectionMs}
                 getCurrentPositionMs={this.midiPlayer?.getPositionMs}
                 tempo={this.state.tempo}
                 setTempo={this.handleTempoChange}

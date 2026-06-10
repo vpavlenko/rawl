@@ -57,15 +57,6 @@ const TempoSection = styled.div`
   flex-direction: row;
 `;
 
-const LatencySection = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 6.5em;
-  flex-shrink: 0;
-  margin: 0 20px;
-`;
-
 const DownloadButton = styled.a`
   width: 20px;
   flex-shrink: 0;
@@ -83,10 +74,6 @@ const PauseButton = styled.button`
   font-size: 16px;
   line-height: 1;
   margin-right: 10px;
-`;
-
-const LatencyButton = styled.button`
-  height: ${FOOTER_HEIGHT}px;
 `;
 
 const TimeSliderWrapper = styled.div`
@@ -140,8 +127,6 @@ const AppFooter: React.FC<
     handleVolumeChange: any;
     getCurrentPositionMs: any;
     togglePause: any;
-    latencyCorrectionMs: number;
-    setLatencyCorrectionMs: (latency: number) => void;
     tempo: number;
     setTempo: (tempo: number) => void;
   } & RouteComponentProps
@@ -154,8 +139,6 @@ const AppFooter: React.FC<
   handleVolumeChange,
   getCurrentPositionMs,
   togglePause,
-  latencyCorrectionMs,
-  setLatencyCorrectionMs,
   location,
   tempo,
   setTempo,
@@ -299,29 +282,6 @@ const AppFooter: React.FC<
             </div>
           </StyledTempoButton>
         </TempoSection>
-
-        <LatencySection>
-          <LatencyButton
-            onClick={() => setLatencyCorrectionMs(latencyCorrectionMs - 100)}
-          >
-            ▼
-          </LatencyButton>
-          <span style={{ fontFamily: "monospace" }}>
-            {`${
-              Math.sign(latencyCorrectionMs / 1000) >= 0 ? "+" : "-"
-            }${Math.abs(latencyCorrectionMs / 1000)
-              .toFixed(2)
-              .charAt(0)}.${Math.abs(latencyCorrectionMs / 1000)
-              .toFixed(2)
-              .charAt(2)}`}
-            s
-          </span>
-          <LatencyButton
-            onClick={() => setLatencyCorrectionMs(latencyCorrectionMs + 100)}
-          >
-            ▲
-          </LatencyButton>
-        </LatencySection>
 
         <StyledVolumeSlider>
           <StyledRangeInput

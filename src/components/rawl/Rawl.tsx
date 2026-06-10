@@ -53,7 +53,7 @@ export type AppStateForRawl = {
   voiceNames: string[];
   voiceMask: VoiceMask;
   setVoiceMask: SetVoiceMask;
-  latencyCorrectionMs: number;
+  latencyCorrectionMs?: number;
 };
 
 export const getTonic = (measure: number, analysis: Analysis): PitchClass => {
@@ -157,7 +157,6 @@ const Rawl: React.FC<RawlProps> = ({
   setVoiceMask,
   enableManualRemeasuring = false,
   seek,
-  latencyCorrectionMs,
   sourceUrl,
   measureStart,
   isEmbedded = false,
@@ -450,7 +449,7 @@ const Rawl: React.FC<RawlProps> = ({
         return;
       }
 
-      setPositionMs(getCurrentPositionMs() - latencyCorrectionMs);
+      setPositionMs(getCurrentPositionMs());
       requestAnimationFrame(animate);
     };
 
@@ -459,7 +458,7 @@ const Rawl: React.FC<RawlProps> = ({
     return () => {
       running = false;
     };
-  }, [latencyCorrectionMs]);
+  }, [getCurrentPositionMs]);
 
   useEffect(() => {
     const handleEscapePress = (event) => {

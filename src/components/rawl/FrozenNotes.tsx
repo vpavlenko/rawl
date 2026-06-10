@@ -102,7 +102,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
       selectMeasure: () => {},
       splitAtMeasure: () => {},
       mergeAtMeasure: () => {},
-      renumberMeasure: () => {},
+      setBeatsPerMeasure: () => {},
     }),
     [],
   );

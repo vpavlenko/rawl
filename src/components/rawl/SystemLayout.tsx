@@ -74,6 +74,9 @@ export const Voice: React.FC<{
   sectionSpan?: MeasuresSpan;
   enableManualRemeasuring: boolean;
   hoveredColors: string[] | null;
+  positionSeconds: number;
+  playbackMeasure: number | null;
+  showPlaybackMeasureBottomBorder: boolean;
 }> = ({
   notes,
   measuresAndBeats,
@@ -94,6 +97,9 @@ export const Voice: React.FC<{
   sectionSpan,
   enableManualRemeasuring,
   hoveredColors,
+  positionSeconds,
+  playbackMeasure,
+  showPlaybackMeasureBottomBorder,
 }) => {
   // To restore it, we need to lock the calculation of frozenRange and frozenHeight
   // and don't change it after loading the notes.
@@ -120,13 +126,33 @@ export const Voice: React.FC<{
     [height, midiRange, noteHeight],
   );
 
+  const playingNoteIds = useMemo(
+    () =>
+      notes
+        .filter(
+          (note) =>
+            positionSeconds >= note.span[0] && positionSeconds < note.span[1],
+        )
+        .map((note) => note.id)
+        .join("\0"),
+    [notes, positionSeconds],
+  );
+
+  const playingNoteIdSet = useMemo(
+    () => new Set(playingNoteIds ? playingNoteIds.split("\0") : []),
+    [playingNoteIds],
+  );
+
   // The frozenHeight machinery was used when I experimented with smart
   // collapse/expand of every Voice relative to its current range on a current screen.
   // I'm not sure it's used anymore.
   const { noteRectangles, frozenHeight, frozenMidiRange } = useMemo(
     () => ({
       noteRectangles: getNoteRectangles(
-        notes,
+        notes.map((note) => ({
+          ...note,
+          isPlayingNow: playingNoteIdSet.has(note.id),
+        })),
         midiNumberToY,
         noteHeight,
         handleNoteClick,
@@ -147,6 +173,7 @@ export const Voice: React.FC<{
       voiceMask,
       noteHeight,
       secondsToX,
+      playingNoteIdSet,
       enableManualRemeasuring,
       hoveredColors,
     ],
@@ -169,7 +196,7 @@ export const Voice: React.FC<{
         marginBottom: hasVisibleNotes ? "0px" : 0,
         marginLeft: "0px",
         // borderBottom: hasVisibleNotes ? "1px solid #888" : "",
-        zIndex: 1,
+        zIndex: 10,
         backgroundColor: "black",
       }}
       onClick={(e) => systemClickHandler(e, xToSeconds)}
@@ -198,6 +225,8 @@ export const Voice: React.FC<{
           showTonalGrid={showTonalGrid && !notes[0]?.isDrum}
           secondsToX={secondsToX}
           sectionSpan={sectionSpan}
+          playbackMeasure={playbackMeasure}
+          showPlaybackMeasureBottomBorder={showPlaybackMeasureBottomBorder}
         />
       ) : null}
       {cursor}
@@ -245,6 +274,7 @@ export type SystemLayoutProps = {
   seek?: (ms: number) => void;
   hoveredColors: string[] | null;
   setHoveredColors: (colors: string[] | null) => void;
+  showPlaybackCursor?: boolean;
 };
 
 export const StackedSystemLayout: React.FC<
@@ -268,6 +298,7 @@ export const StackedSystemLayout: React.FC<
   seek,
   hoveredColors,
   setHoveredColors,
+  showPlaybackCursor = true,
 }) => {
   const [noteHeight, setNoteHeight] = useState<number>(3);
   const [secondWidth, setSecondWidth] = useState<number>(40);
@@ -363,6 +394,15 @@ export const StackedSystemLayout: React.FC<
   useEffect(() => {
     setSecondWidth(optimalSecondWidth);
   }, [optimalSecondWidth]);
+
+  const playbackMeasure = useMemo(() => {
+    const measureIndex = measuresAndBeats.measures.findIndex(
+      (measureStart, index, measures) =>
+        positionSeconds >= measureStart &&
+        positionSeconds < (measures[index + 1] ?? Infinity),
+    );
+    return measureIndex === -1 ? null : measureIndex + 1;
+  }, [measuresAndBeats.measures, positionSeconds]);
 
   const sections: Section[] = useMemo(() => {
     return sectionSpans.map((sectionSpan) => {
@@ -490,6 +530,7 @@ export const StackedSystemLayout: React.FC<
                 mouseHandlers={mouseHandlers}
                 togglePause={togglePause}
                 seek={seek}
+                playbackMeasure={playbackMeasure}
               />
               {voices.map(({ notes, voiceIndex }) => (
                 <div
@@ -504,6 +545,7 @@ export const StackedSystemLayout: React.FC<
                     mouseHandlers={mouseHandlers}
                     measureSelection={measureSelection}
                     cursor={
+                      showPlaybackCursor &&
                       positionSeconds <
                         measuresAndBeats.measures[sectionSpan[1]] && (
                         <Cursor
@@ -532,6 +574,18 @@ export const StackedSystemLayout: React.FC<
                     sectionSpan={sectionSpan}
                     enableManualRemeasuring={enableManualRemeasuring}
                     hoveredColors={hoveredColors}
+                    positionSeconds={positionSeconds}
+                    playbackMeasure={playbackMeasure}
+                    showPlaybackMeasureBottomBorder={
+                      voiceIndex ===
+                      voices.reduce(
+                        (lastVisibleVoiceIndex, voice) =>
+                          voiceMask[voice.voiceIndex]
+                            ? voice.voiceIndex
+                            : lastVisibleVoiceIndex,
+                        -1,
+                      )
+                    }
                   />
                 </div>
               ))}

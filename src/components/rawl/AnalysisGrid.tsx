@@ -198,6 +198,8 @@ const Measure: React.FC<{
   sectionSpan: MeasuresSpan;
   previousTonic: PitchClass | null;
   isLastSection: boolean;
+  playbackMeasure?: number | null;
+  showPlaybackMeasureBottomBorder?: boolean;
 }> = ({
   span,
   number,
@@ -212,6 +214,8 @@ const Measure: React.FC<{
   sectionSpan,
   previousTonic,
   isLastSection,
+  playbackMeasure = null,
+  showPlaybackMeasureBottomBorder = false,
 }) => {
   const {
     selectedMeasure,
@@ -231,6 +235,7 @@ const Measure: React.FC<{
 
   const isLastMeasure = number === sectionSpan[1] + 1;
   const showMeasureBar = !isLastMeasure;
+  const isPlaybackMeasure = playbackMeasure === number && !isLastMeasure;
 
   const { hoveredMeasuresSpan } = useContext(AppContext);
   const isHighlighted =
@@ -240,6 +245,36 @@ const Measure: React.FC<{
 
   return (
     <>
+      {showHeader && isPlaybackMeasure && (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left,
+            width: width + 1,
+            height: 0,
+            borderTop: "1px solid #444",
+            transform: "translateY(-1px)",
+            pointerEvents: "none",
+            zIndex: 4,
+          }}
+        />
+      )}
+      {showPlaybackMeasureBottomBorder && isPlaybackMeasure && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left,
+            width: width + 1,
+            height: 0,
+            borderBottom: "1px solid #444",
+            transform: "translateY(1px)",
+            pointerEvents: "none",
+            zIndex: 4,
+          }}
+        />
+      )}
       {showHeader && tonicStart !== undefined && (
         <NewTonicSymbol
           left={left}
@@ -255,9 +290,8 @@ const Measure: React.FC<{
             key={`db_${number}`}
             style={{
               left,
-              ...(showNonPhraseStarts && isPhraseStart
-                ? { backgroundColor: "#bbb" }
-                : {}),
+              backgroundColor:
+                showNonPhraseStarts && isPhraseStart ? "#bbb" : undefined,
             }}
           />
           {width && showHeader ? (
@@ -604,6 +638,8 @@ interface AnalysisGridProps {
   showTonalGrid?: boolean;
   secondsToX: (number) => number;
   sectionSpan?: MeasuresSpan;
+  playbackMeasure?: number | null;
+  showPlaybackMeasureBottomBorder?: boolean;
 }
 
 export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
@@ -619,6 +655,8 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
     showTonalGrid = true,
     secondsToX,
     sectionSpan = null,
+    playbackMeasure = null,
+    showPlaybackMeasureBottomBorder = false,
   }) => {
     const { measures, beats } = measuresAndBeats;
     if (sectionSpan == null) {
@@ -685,6 +723,10 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
               selectedPhraseStart={selectedPhraseStart}
               sectionSpan={sectionSpan}
               isLastSection={sectionSpan?.[1] + 1 === measures.length}
+              playbackMeasure={playbackMeasure}
+              showPlaybackMeasureBottomBorder={
+                showPlaybackMeasureBottomBorder
+              }
             />
           ) : null;
         })}

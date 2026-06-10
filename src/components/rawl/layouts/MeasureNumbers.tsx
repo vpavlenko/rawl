@@ -253,6 +253,7 @@ export const MeasureNumbers: React.FC<{
   mouseHandlers: MouseHandlers;
   togglePause?: () => void;
   seek?: (ms: number) => void;
+  playbackMeasure: number | null;
 }> = ({
   measuresAndBeats,
   analysis,
@@ -265,6 +266,7 @@ export const MeasureNumbers: React.FC<{
   mouseHandlers,
   togglePause,
   seek,
+  playbackMeasure,
 }) => {
   const { systemClickHandler } = mouseHandlers;
 
@@ -282,7 +284,7 @@ export const MeasureNumbers: React.FC<{
         height: 16,
         marginBottom: "-15px",
         marginLeft: "0px",
-        zIndex: 90000,
+        zIndex: 2,
         position: sectionSpan ? "relative" : "sticky",
         top: 0,
       }}
@@ -309,6 +311,7 @@ export const MeasureNumbers: React.FC<{
         showTonalGrid={false}
         secondsToX={secondsToX}
         sectionSpan={sectionSpan}
+        playbackMeasure={playbackMeasure}
       />
     </div>
   );

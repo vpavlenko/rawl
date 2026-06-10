@@ -1,4 +1,8 @@
-import { faDownload, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDownload,
+  faPause,
+  faPlay,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { memo, useContext } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
@@ -76,6 +80,43 @@ const PauseButton = styled.button`
   margin-right: 10px;
 `;
 
+const CursorToggleButton = styled.button<{ $enabled: boolean }>`
+  width: 32px;
+  height: ${FOOTER_HEIGHT}px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${(props) => (props.$enabled ? "orange" : "#777")};
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  appearance: none;
+  line-height: 0;
+`;
+
+const TextCursorInputIcon: React.FC<{ size?: number }> = ({ size = 32 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M12 20h-1a2 2 0 0 1-2-2 2 2 0 0 1-2 2H6" />
+    <path d="M13 8h7a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-7" />
+    <path d="M5 16H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h1" />
+    <path d="M6 4h1a2 2 0 0 1 2 2 2 2 0 0 1 2-2h1" />
+    <path d="M9 6v12" />
+  </svg>
+);
+
 const TimeSliderWrapper = styled.div`
   flex: 2;
   min-width: 300px;
@@ -127,6 +168,8 @@ const AppFooter: React.FC<
     handleVolumeChange: any;
     getCurrentPositionMs: any;
     togglePause: any;
+    showPlaybackCursor: boolean;
+    togglePlaybackCursor: () => void;
     tempo: number;
     setTempo: (tempo: number) => void;
   } & RouteComponentProps
@@ -139,6 +182,8 @@ const AppFooter: React.FC<
   handleVolumeChange,
   getCurrentPositionMs,
   togglePause,
+  showPlaybackCursor,
+  togglePlaybackCursor,
   location,
   tempo,
   setTempo,
@@ -282,6 +327,18 @@ const AppFooter: React.FC<
             </div>
           </StyledTempoButton>
         </TempoSection>
+
+        <CursorToggleButton
+          $enabled={showPlaybackCursor}
+          onClick={togglePlaybackCursor}
+          title={
+            showPlaybackCursor
+              ? "Hide playback cursor"
+              : "Show playback cursor"
+          }
+        >
+          <TextCursorInputIcon />
+        </CursorToggleButton>
 
         <StyledVolumeSlider>
           <StyledRangeInput

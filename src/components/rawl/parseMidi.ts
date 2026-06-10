@@ -23,6 +23,7 @@ export type Note = {
   voiceIndex: number;
   sourceLocation?: SourceLocation;
   noteUnderCursor?: boolean;
+  isPlayingNow?: boolean;
 };
 
 export type ColoredNote = Note & {
@@ -31,6 +32,7 @@ export type ColoredNote = Note & {
   colorPitchClass: number | "default" | "drum";
   sourceLocation?: SourceLocation;
   noteUnderCursor?: boolean;
+  isPlayingNow?: boolean;
 };
 
 export type PitchBendPoint = {

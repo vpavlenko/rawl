@@ -136,6 +136,7 @@ export const getNoteRectangles = (
       isActive,
       sourceLocation,
       noteUnderCursor,
+      isPlayingNow,
     } = note;
     const number = relativeNumber === undefined ? midiNumber : relativeNumber;
 
@@ -150,17 +151,18 @@ export const getNoteRectangles = (
     const isHighlighted = !hoveredColors || hoveredColors.includes(color);
 
     // Adjust height and top position for notes under the cursor
+    const activeHeight = isPlayingNow ? baseHeight * 1.5 : baseHeight;
     const height =
       isActive && isHighlighted
         ? noteUnderCursor
           ? baseHeight * 2
-          : baseHeight
+          : activeHeight
         : 0.5;
     const top =
       isActive && isHighlighted
         ? noteUnderCursor
           ? baseTop - baseHeight
-          : baseTop
+          : baseTop - (activeHeight - baseHeight)
         : baseTop + baseHeight - 0.5;
 
     const pathData = note.pitchBend

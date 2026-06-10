@@ -11,6 +11,7 @@ import ChordStairs from "./ChordStairs";
 import { CHROMATIC_CHORDS, MAJOR_MODE, MINOR_MODE, Mode } from "./chords";
 
 const PIANO_KEYBOARD_REPETITIONS = 2;
+const MOBILE_PIANO_LEGEND_MEDIA_QUERY = "(max-width: 767px)";
 
 const BLACK_KEYS = [1, 3, -1, 6, 8, 10, -1];
 const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
@@ -74,6 +75,11 @@ const ScaleLabel = styled.span`
     color: white;
   }
 `;
+
+const isMobilePianoLegend = () =>
+  typeof window !== "undefined" &&
+  typeof window.matchMedia === "function" &&
+  window.matchMedia(MOBILE_PIANO_LEGEND_MEDIA_QUERY).matches;
 
 export const PianoLegend: React.FC<{
   currentTonic?: number;
@@ -217,7 +223,11 @@ export const FoldablePianoLegend: React.FC<{
   currentTonic?: number;
   setHoveredColors?: (colors: string[] | null) => void;
 }> = ({ slug, mode, currentTonic, setHoveredColors }) => {
-  const [showLegend, setShowLegend] = useLocalStorage("showLegend", true);
+  const isMobileLegend = isMobilePianoLegend();
+  const [showLegend, setShowLegend] = useLocalStorage(
+    isMobileLegend ? "showLegendMobile" : "showLegend",
+    !isMobileLegend,
+  );
   const [hoveredScale, setHoveredScale] = React.useState<
     "major" | "minor" | null
   >(null);

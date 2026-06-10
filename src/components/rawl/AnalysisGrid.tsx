@@ -14,6 +14,7 @@ import {
 export const STACKED_RN_HEIGHT = 20;
 const MIN_WIDTH_BETWEEN_BEATS = 10;
 const GRADIENT_HEIGHT_IN_NOTES = 0.5;
+const MOBILE_MEASURE_CLICK_MEDIA_QUERY = "(max-width: 767px)";
 
 const KEY_TO_OFFSET = {
   z: -4,
@@ -50,6 +51,11 @@ const BeatBar = styled(VerticalBar)`
   border-left: 0.5px dashed #333;
   z-index: 1;
 `;
+
+const isMobileMeasureClick = () =>
+  typeof window !== "undefined" &&
+  typeof window.matchMedia === "function" &&
+  window.matchMedia(MOBILE_MEASURE_CLICK_MEDIA_QUERY).matches;
 
 export type MeasureSelection = {
   selectedMeasure: number;
@@ -319,6 +325,7 @@ const Measure: React.FC<{
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
+                  if (isMobileMeasureClick()) return;
                   selectMeasure(number);
                 }}
               >
@@ -333,8 +340,9 @@ const Measure: React.FC<{
                         fontSize: 12,
                       }}
                       onClick={(e) => {
-                        selectMeasure(null);
                         e.stopPropagation();
+                        if (isMobileMeasureClick()) return;
+                        selectMeasure(null);
                       }}
                     >
                       Esc
@@ -412,8 +420,9 @@ const Measure: React.FC<{
                         zIndex: 100,
                       }}
                       onClick={(e) => {
-                        splitAtMeasure(false);
                         e.stopPropagation();
+                        if (isMobileMeasureClick()) return;
+                        splitAtMeasure(false);
                       }}
                     >
                       ↵
@@ -437,24 +446,27 @@ const Measure: React.FC<{
                     >
                       <span
                         onClick={(e) => {
-                          splitAtMeasure(true, 2);
                           e.stopPropagation();
+                          if (isMobileMeasureClick()) return;
+                          splitAtMeasure(true, 2);
                         }}
                       >
                         /8
                       </span>
                       <span
                         onClick={(e) => {
-                          splitAtMeasure(true, 3);
                           e.stopPropagation();
+                          if (isMobileMeasureClick()) return;
+                          splitAtMeasure(true, 3);
                         }}
                       >
                         /12
                       </span>
                       <span
                         onClick={(e) => {
-                          splitAtMeasure(true, 4);
                           e.stopPropagation();
+                          if (isMobileMeasureClick()) return;
+                          splitAtMeasure(true, 4);
                         }}
                       >
                         /16
@@ -474,8 +486,9 @@ const Measure: React.FC<{
                         zIndex: 100,
                       }}
                       onClick={(e) => {
-                        mergeAtMeasure();
                         e.stopPropagation();
+                        if (isMobileMeasureClick()) return;
+                        mergeAtMeasure();
                       }}
                     >
                       ↱

@@ -116,6 +116,8 @@ export const Voice: React.FC<{
 
   const { systemClickHandler, handleNoteClick, handleMouseEnter } =
     mouseHandlers;
+  const emptySpaceCursor =
+    !enableManualRemeasuring && systemClickHandler ? "text" : "default";
 
   const height =
     (midiRange[0] === +Infinity ? 0 : midiRange[1] - midiRange[0] + 1) *
@@ -198,6 +200,7 @@ export const Voice: React.FC<{
         // borderBottom: hasVisibleNotes ? "1px solid #888" : "",
         zIndex: 10,
         backgroundColor: "black",
+        cursor: emptySpaceCursor,
       }}
       onClick={(e) => systemClickHandler(e, xToSeconds)}
     >

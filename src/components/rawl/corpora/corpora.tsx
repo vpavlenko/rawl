@@ -854,6 +854,7 @@ export const corpora: CorpusEntry[] = [
     style: "Modern Classical, Ambient, Minimalism",
     country: "Iceland", // Ólafur Arnalds is Icelandic.
   },
+  {slug: 'david_temperley', midis:["david-temperley---preludes-for-piano-ii-1", ]},
   {
     slug: "bach_wtc",
     midis: [
@@ -1062,6 +1063,7 @@ export const corpora: CorpusEntry[] = [
     style: "Ragtime, Novelty",
     country: "USA", // King Kollins was American.
   },
+  {slug: "masashi_sada", midis: ["yamaguchi-momoe-kosumosu", ]},
   { slug: "los_kjarkas", midis: ["llorando-se-fue---los-kjarkas"] },
   {
     slug: "frank_h_grey",
@@ -3229,6 +3231,7 @@ export const corpora: CorpusEntry[] = [
       "never-forgive-me-never-forget-me---akira-yamaoka",
       "silent-hill-not-tomorrow-lisa-s-death",
       "akira-yamaoka---true",
+      "promise-by-akira-yamaoka-from-silent-hill-2", 
     ],
     composerBirthYear: 1968,
     genre: "Video game music",
@@ -3280,6 +3283,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Jazz",
     country: "USA",
   },
+  {slug: "bheki_mseleku", midis: ["bheki_mseleku_angola", "one-for-all-all-for-one---bheki-mseleku", ]},
   {
     slug: "jazz_standards",
     midis: [
@@ -3346,7 +3350,6 @@ export const corpora: CorpusEntry[] = [
       "rach3_1_op30",
       "piano_concerto_no_4_op_40_sergei_rachmaninoff_i_allegro_vivace_alla_breve",
       "rachmaninoff_piano_concerto_4_1",
-      "rach4-1",
       "serguei-rachmaninov---piano-concerto-ndeg4-in-g-minor---1st-mouvement-intro",
 
       "prelude_in_c_sharp_minor_opus_3_no_2_sergei_rachmaninoff",
@@ -4860,7 +4863,7 @@ export const corpora: CorpusEntry[] = [
     country: "Austria", // Austrian composer
   },
   {
-    slug: "chopin_misc",
+    slug: "chopin",
     midis: [
       "nocturnes-op.-9---no.-1-in-b-minor-d.-inoue",
       "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major",
@@ -4910,16 +4913,7 @@ export const corpora: CorpusEntry[] = [
       "mazurkas-op.-63---no.-2-in-f-minor-r.-lubetsky",
 
       "chpn_op35_1_piano_sonata_no2_mov1",
-    ],
-    composerBirthYear: 1810, // Born in 1810
-    genre: "Classical", // Classical composer
-    style: "Romantic", // Romantic period composer, known for his piano works
-    country: "Poland", // Polish composer (spent much of his life in France)
-  },
 
-  {
-    slug: "chopin_24_preludes",
-    midis: [
       "prelude-opus-28-no.-1-in-c-major",
       "prelude-opus-28-no.-2-in-a-minor",
 
@@ -4927,6 +4921,7 @@ export const corpora: CorpusEntry[] = [
       "24-preludes-op.-28---no.-4-in-e-minor-suffocation-g.-d.-robertson",
 
       "prelude-opus-28-no.-6-in-b-minor",
+      "chopin_preludes_op_28_no_6_in_b_minor_e_falzone", 
       "prelude-opus-28-no.-7-in-a-major---chopin",
       "prelude-opus-28-no.-8-in-f-minor",
 
@@ -4937,6 +4932,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Romantic period composer, known for his piano works
     country: "Poland", // Polish composer (spent much of his life in France)
   },
+  {slug: "elemer_balazs", midis: ["elemer_balazs_chopin_reflection_6", "balazs_chopin_reflection_iv",  ]},
   { slug: "dawid_bowie", midis: ["space-oddity---david-bowie"] },
   {
     slug: "grieg",
@@ -8344,6 +8340,8 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1922,
     country: "Russia",
   },
+  {slug: "tom_hojnacki", midis: ["tom_hojnacki_it_could_have_been_the_summertime",
+    "tom_hojnacki_lucky_secondary_dominants", ]},
   {
     slug: "unsorted",
     midis: [

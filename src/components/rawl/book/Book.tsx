@@ -355,11 +355,14 @@ const Book: React.FC = () => {
     }
   }, [location.pathname, isBeyondMode]);
 
+  const currentComposerSlug =
+    TOP_100_COMPOSERS.find(
+      (composer) => composer.slug === appContext.currentMidi?.slug,
+    )?.slug || "happy-birthday";
+
   React.useEffect(() => {
-    if (appContext.currentMidi?.slug) {
-      setHoveredComposerSlug(appContext.currentMidi.slug);
-    }
-  }, [appContext.currentMidi?.slug]);
+    setHoveredComposerSlug(currentComposerSlug);
+  }, [currentComposerSlug]);
 
   if (!appContext) throw new Error("AppContext not found");
   const { analyses, eject } = appContext;
@@ -455,7 +458,9 @@ const Book: React.FC = () => {
     );
     if (!currentChapter) return null;
 
-    const currentSnippet = analyses[`f/${hoveredComposerSlug}`]?.snippets.find(
+    const hoveredSnippets =
+      analyses[`f/${hoveredComposerSlug}`]?.snippets ?? [];
+    const currentSnippet = hoveredSnippets.find(
       (s) => s.tag === "book:index",
     );
     const initialTonic =
@@ -501,7 +506,7 @@ const Book: React.FC = () => {
                   >
                     <SnippetList
                       snippets={[
-                        analyses[`f/${hoveredComposerSlug}`]?.snippets
+                        hoveredSnippets
                           .filter((snippet) => snippet.tag === "book:index")
                           .pop(),
                       ]
@@ -534,7 +539,7 @@ const Book: React.FC = () => {
                             top: "-3px",
                           }}
                         >
-                          {analyses[`f/${hoveredComposerSlug}`].snippets
+                          {hoveredSnippets
                             .filter(
                               (snippet: Snippet, index: number) =>
                                 snippet.tag !== "book:index" &&
@@ -584,9 +589,7 @@ const Book: React.FC = () => {
                           setHoveredComposerSlug(composer.slug)
                         }
                         onMouseLeave={() =>
-                          setHoveredComposerSlug(
-                            appContext.currentMidi?.slug || "happy-birthday",
-                          )
+                          setHoveredComposerSlug(currentComposerSlug)
                         }
                         style={{ cursor: "pointer" }}
                       >
@@ -598,7 +601,7 @@ const Book: React.FC = () => {
                             const snippet = analyses[
                               `f/${composer.slug}`
                             ]?.snippets
-                              .filter((s) => s.tag === "book:index")
+                              ?.filter((s) => s.tag === "book:index")
                               .pop();
                             if (snippet) {
                               handleSnippetClick({

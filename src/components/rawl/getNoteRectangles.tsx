@@ -125,6 +125,7 @@ export const getNoteRectangles = (
   enableManualRemeasuring: boolean,
   hoveredColors: string[] | null,
   showSourceLocation: boolean = false,
+  drumNoteToY?: (note: Note) => number,
 ) => {
   console.log("run getNoteRectangles on ", notes.length, " notes");
   return notes.map((note) => {
@@ -142,7 +143,10 @@ export const getNoteRectangles = (
 
     // Calculate base height and top position
     const baseHeight = noteHeight * 2;
-    const baseTop = midiNumberToY(isDrum ? number + 12 : number) - noteHeight;
+    const baseTop =
+      (isDrum && drumNoteToY
+        ? drumNoteToY(note)
+        : midiNumberToY(isDrum ? number + 12 : number)) - noteHeight;
 
     const left = secondsToX(note.span[0]);
     const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
@@ -195,14 +199,16 @@ export const getNoteRectangles = (
     return isDrum ? (
       isActive && (
         <div
+          key={`nr_${note.id}`}
           style={{
             position: "absolute",
-            fontSize: `${height}px`,
-            height: `${height}px`,
-            width: `${height}px`,
+            fontSize: `${baseHeight}px`,
+            height: `${baseHeight}px`,
+            width: `${baseHeight}px`,
+            lineHeight: 1,
             overflow: "visible",
             left,
-            top,
+            top: baseTop,
             fontFamily: "Helvetica, sans-serif",
             color: "white",
             placeItems: "center",

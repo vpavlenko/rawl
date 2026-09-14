@@ -34,6 +34,30 @@ const getAverageMidiNumber = (notes: Note[]) =>
 
 export type MidiRange = [number, number];
 
+// Keep each track's drum rows stable across sections, using only sounds in the file.
+type DrumRows = Map<number, Map<number, number>>;
+
+const getDrumRows = (notes: Note[]): DrumRows => {
+  const sounds = new Map<number, Set<number>>();
+  notes.forEach((note) => {
+    if (!note.isDrum) return;
+    if (!sounds.has(note.voiceIndex)) sounds.set(note.voiceIndex, new Set());
+    sounds.get(note.voiceIndex)!.add(note.note.midiNumber);
+  });
+  let row = 0;
+  const drumRows: DrumRows = new Map();
+  [...sounds.entries()]
+    .sort(([a], [b]) => a - b)
+    .forEach(([voiceIndex, midiNumbers]) => {
+      const rows = new Map<number, number>();
+      [...midiNumbers].sort((a, b) => b - a).forEach((number) => {
+        rows.set(number, row++);
+      });
+      drumRows.set(voiceIndex, rows);
+    });
+  return drumRows;
+};
+
 const getMidiRange = (notes: Note[], span?: SecondsSpan): MidiRange => {
   let min = +Infinity;
   let max = -Infinity;
@@ -56,6 +80,7 @@ export type ScrollInfo = {
 
 export const Voice: React.FC<{
   notes: ColoredNote[];
+  drumRows: DrumRows;
   measuresAndBeats: MeasuresAndBeats;
   analysis: Analysis;
   cursor: ReactNode;
@@ -79,6 +104,7 @@ export const Voice: React.FC<{
   showPlaybackMeasureBottomBorder: boolean;
 }> = ({
   notes,
+  drumRows,
   measuresAndBeats,
   analysis,
   mouseHandlers,
@@ -112,20 +138,42 @@ export const Voice: React.FC<{
       ]),
     [notes, scrollInfo, xToSeconds],
   );
-  const midiRange = useMemo(() => getMidiRange(notes), [notes]);
+  const pitchedNotes = useMemo(
+    () => notes.filter((note) => !note.isDrum),
+    [notes],
+  );
+  const midiRange = useMemo<MidiRange>(
+    () => (pitchedNotes.length ? getMidiRange(pitchedNotes) : [0, 0]),
+    [pitchedNotes],
+  );
 
   const { systemClickHandler, handleNoteClick, handleMouseEnter } =
     mouseHandlers;
   const emptySpaceCursor =
     !enableManualRemeasuring && systemClickHandler ? "text" : "default";
 
-  const height =
-    (midiRange[0] === +Infinity ? 0 : midiRange[1] - midiRange[0] + 1) *
+  const pitchedHeight =
+    (pitchedNotes.length ? midiRange[1] - midiRange[0] + 1 : 0) *
     noteHeight;
+  const drumRowCount = [...drumRows.values()].reduce(
+    (sum, rows) => sum + rows.size,
+    0,
+  );
+  const drumTop = pitchedHeight + (pitchedNotes.length ? noteHeight * 2 : 0);
+  const height = drumRowCount
+    ? drumTop + drumRowCount * 2 * noteHeight
+    : pitchedHeight;
 
   const midiNumberToY = useCallback(
-    (midiNumber) => height - (midiNumber - midiRange[0] + 1) * noteHeight,
-    [height, midiRange, noteHeight],
+    (midiNumber) => pitchedHeight - (midiNumber - midiRange[0] + 1) * noteHeight,
+    [pitchedHeight, midiRange, noteHeight],
+  );
+  const drumNoteToY = useCallback(
+    (note: Note) =>
+      drumTop +
+      (drumRows.get(note.voiceIndex)!.get(note.note.midiNumber)! * 2 + 1) *
+        noteHeight,
+    [drumTop, drumRows, noteHeight],
   );
 
   const playingNoteIds = useMemo(
@@ -163,6 +211,8 @@ export const Voice: React.FC<{
         secondsToX,
         enableManualRemeasuring,
         hoveredColors,
+        false,
+        drumNoteToY,
       ),
       frozenHeight: height,
       frozenMidiRange: midiRange,
@@ -178,6 +228,10 @@ export const Voice: React.FC<{
       playingNoteIdSet,
       enableManualRemeasuring,
       hoveredColors,
+      midiNumberToY,
+      drumNoteToY,
+      height,
+      midiRange,
     ],
   );
 
@@ -225,7 +279,7 @@ export const Voice: React.FC<{
           phraseStarts={phraseStarts}
           midiRange={midiRange}
           showHeader={false}
-          showTonalGrid={showTonalGrid && !notes[0]?.isDrum}
+          showTonalGrid={showTonalGrid && pitchedNotes.length > 0}
           secondsToX={secondsToX}
           sectionSpan={sectionSpan}
           playbackMeasure={playbackMeasure}
@@ -305,6 +359,7 @@ export const StackedSystemLayout: React.FC<
 }) => {
   const [noteHeight, setNoteHeight] = useState<number>(3);
   const [secondWidth, setSecondWidth] = useState<number>(40);
+  const drumRowsByVoice = useMemo(() => notes.map(getDrumRows), [notes]);
   const setSecondWidthCalled = useRef(false);
 
   useEffect(() => {
@@ -543,6 +598,7 @@ export const StackedSystemLayout: React.FC<
                   <Voice
                     voiceName={voiceNames[voiceIndex]}
                     notes={notes}
+                    drumRows={drumRowsByVoice[voiceIndex]}
                     measuresAndBeats={measuresAndBeats}
                     analysis={analysis}
                     mouseHandlers={mouseHandlers}
@@ -637,7 +693,9 @@ export const MergedSystemLayout: React.FC<
   const flattenedNotes = useMemo(
     () => [
       notes
-        .filter((notes) => (notes && notes[0].isActive) || !notes[0].isDrum)
+        .filter(
+          (notes) => notes.length > 0 && (notes[0].isActive || !notes[0].isDrum),
+        )
         .flat(),
     ],
     [notes],

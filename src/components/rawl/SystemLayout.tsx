@@ -160,8 +160,9 @@ export const Voice: React.FC<{
     0,
   );
   const drumTop = pitchedHeight + (pitchedNotes.length ? noteHeight * 2 : 0);
+  const drumRowHeight = noteHeight * 3;
   const height = drumRowCount
-    ? drumTop + drumRowCount * 2 * noteHeight
+    ? drumTop + drumRowCount * drumRowHeight
     : pitchedHeight;
 
   const midiNumberToY = useCallback(
@@ -171,22 +172,38 @@ export const Voice: React.FC<{
   const drumNoteToY = useCallback(
     (note: Note) =>
       drumTop +
-      (drumRows.get(note.voiceIndex)!.get(note.note.midiNumber)! * 2 + 1) *
-        noteHeight,
-    [drumTop, drumRows, noteHeight],
+      (drumRows.get(note.voiceIndex)!.get(note.note.midiNumber)! + 0.5) *
+        drumRowHeight,
+    [drumTop, drumRows, drumRowHeight],
   );
 
+  const previousPlaybackPosition = useRef(positionSeconds);
   const playingNoteIds = useMemo(
-    () =>
-      notes
+    () => {
+      const previousPosition = previousPlaybackPosition.current;
+      // Catch short drum hits between rendered frames. Treat large jumps and
+      // backwards movement as seeks rather than playing all intervening hits.
+      const crossedPlaybackInterval =
+        positionSeconds > previousPosition &&
+        positionSeconds - previousPosition <= 0.5;
+      return notes
         .filter(
           (note) =>
-            positionSeconds >= note.span[0] && positionSeconds < note.span[1],
+            (positionSeconds >= note.span[0] && positionSeconds < note.span[1]) ||
+            (note.isDrum &&
+              crossedPlaybackInterval &&
+              note.span[0] > previousPosition &&
+              note.span[0] <= positionSeconds),
         )
         .map((note) => note.id)
-        .join("\0"),
+        .join("\0");
+    },
     [notes, positionSeconds],
   );
+
+  React.useLayoutEffect(() => {
+    previousPlaybackPosition.current = positionSeconds;
+  }, [positionSeconds]);
 
   const playingNoteIdSet = useMemo(
     () => new Set(playingNoteIds ? playingNoteIds.split("\0") : []),

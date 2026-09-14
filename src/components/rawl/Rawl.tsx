@@ -21,6 +21,7 @@ import ErrorBoundary from "../ErrorBoundary";
 import { MeasureSelection } from "./AnalysisGrid";
 import CompositionTitle from "./CompositionTitle";
 import FrozenNotesLayout from "./FrozenNotesLayout";
+import { DrumPlaybackContext, useDrumPlaybackClock } from "./drumPlayback";
 import { MergedSystemLayout, SystemLayoutProps } from "./SystemLayout";
 import {
   ANALYSIS_STUB,
@@ -442,16 +443,20 @@ const Rawl: React.FC<RawlProps> = ({
   );
 
   const [positionMs, setPositionMs] = useState(0);
+  const drumPlaybackClock = useDrumPlaybackClock();
 
   useEffect(() => {
     let running = true;
+    drumPlaybackClock.reset();
 
     const animate = () => {
       if (!running) {
         return;
       }
 
-      setPositionMs(getCurrentPositionMs());
+      const position = getCurrentPositionMs();
+      drumPlaybackClock.advance(position / 1000);
+      setPositionMs(position);
       requestAnimationFrame(animate);
     };
 
@@ -460,7 +465,7 @@ const Rawl: React.FC<RawlProps> = ({
     return () => {
       running = false;
     };
-  }, [getCurrentPositionMs]);
+  }, [getCurrentPositionMs, drumPlaybackClock, parsingResult]);
 
   useEffect(() => {
     const handleEscapePress = (event) => {
@@ -809,11 +814,13 @@ const Rawl: React.FC<RawlProps> = ({
             </div>
           )}
           {systemLayout === "merged" ? (
-            <MergedSystemLayout
-              {...systemLayoutProps}
-              enableManualRemeasuring={enableManualRemeasuring}
-              isEmbedded={isEmbedded}
-            />
+            <DrumPlaybackContext.Provider value={drumPlaybackClock.register}>
+              <MergedSystemLayout
+                {...systemLayoutProps}
+                enableManualRemeasuring={enableManualRemeasuring}
+                isEmbedded={isEmbedded}
+              />
+            </DrumPlaybackContext.Provider>
           ) : (
             <ErrorBoundary
               fallback={<div>Error loading Frozen Notes Layout</div>}

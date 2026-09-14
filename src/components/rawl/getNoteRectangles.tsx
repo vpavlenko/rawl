@@ -1,6 +1,7 @@
 import * as React from "react";
 import { SecondsConverter, SecondsSpan } from "./Rawl";
 import { ColoredNote, Note, PitchBendPoint } from "./parseMidi";
+import { DrumPlaybackContext } from "./drumPlayback";
 
 // Also useful emojis
 // 🤯 🎯 🪤 💣 🔫 💢
@@ -65,6 +66,78 @@ const GM_DRUM_KIT = {
 };
 
 type MouseEventHanlder = (note: Note) => void;
+
+const DrumEmoji: React.FC<{
+  isPlayingNow?: boolean;
+  startSeconds: number;
+  size: number;
+  left: number;
+  top: number;
+  children: React.ReactNode;
+}> = ({ isPlayingNow, startSeconds, size, left, top, children }) => {
+  const elementRef = React.useRef<HTMLDivElement>(null);
+  const animationRef = React.useRef<Animation | null>(null);
+  const registerDrum = React.useContext(DrumPlaybackContext);
+
+  const pulse = React.useCallback(() => {
+    if (!elementRef.current) return;
+    animationRef.current?.cancel();
+    // Apply the maximum size before paint, then release around the resting center.
+    // Let the pulse finish even when the MIDI hit is shorter than 1 second.
+    animationRef.current = elementRef.current.animate(
+      [
+        {
+          fontSize: `${size * 4}px`,
+          width: `${size * 4}px`,
+          height: `${size * 4}px`,
+          top: `${top - (size * 3) / 2}px`,
+        },
+        {
+          fontSize: `${size}px`,
+          width: `${size}px`,
+          height: `${size}px`,
+          top: `${top}px`,
+        },
+      ],
+      { duration: 1000, easing: "ease-out", fill: "backwards" },
+    );
+  }, [size, top]);
+
+  React.useLayoutEffect(() => {
+    if (registerDrum) return registerDrum(startSeconds, pulse);
+  }, [registerDrum, startSeconds, pulse]);
+
+  React.useLayoutEffect(() => {
+    if (!registerDrum && isPlayingNow) pulse();
+  }, [registerDrum, isPlayingNow, pulse]);
+
+  React.useEffect(() => () => animationRef.current?.cancel(), []);
+
+  return (
+    <div
+      ref={elementRef}
+      style={{
+        position: "absolute",
+        fontSize: size,
+        height: size,
+        width: size,
+        lineHeight: 1,
+        overflow: "visible",
+        left,
+        top,
+        fontFamily: "Helvetica, sans-serif",
+        color: "white",
+        transform: "translateX(-50%)",
+        transition: "none",
+        whiteSpace: "nowrap",
+        zIndex: 1000,
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
 export type MouseHandlers = {
   handleNoteClick: MouseEventHanlder | null;
   handleMouseEnter: MouseEventHanlder;
@@ -198,27 +271,16 @@ export const getNoteRectangles = (
 
     return isDrum ? (
       isActive && (
-        <div
+        <DrumEmoji
           key={`nr_${note.id}`}
-          style={{
-            position: "absolute",
-            fontSize: `${baseHeight}px`,
-            height: `${baseHeight}px`,
-            width: `${baseHeight}px`,
-            lineHeight: 1,
-            overflow: "visible",
-            left,
-            top: baseTop,
-            fontFamily: "Helvetica, sans-serif",
-            color: "white",
-            placeItems: "center",
-            transform: "translateX(-50%)", // Shift the div left by half its width
-            whiteSpace: "nowrap", // Prevent text wrapping
-            zIndex: 1000,
-          }}
+          isPlayingNow={isPlayingNow}
+          startSeconds={note.span[0]}
+          size={baseHeight * 1.5}
+          left={left}
+          top={baseTop - noteHeight / 2}
         >
           {GM_DRUM_KIT[midiNumber] || midiNumber}
-        </div>
+        </DrumEmoji>
       )
     ) : (
       <div

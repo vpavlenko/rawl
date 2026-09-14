@@ -51,21 +51,6 @@ const DeleteButton = styled.button`
   }
 `;
 
-const PlaybackCursor = styled.div`
-  position: absolute;
-  width: 2px;
-  height: 100%;
-  background-color: #ff6b00;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.8;
-  top: 0;
-  left: 0;
-  will-change: transform;
-  transform: translateX(0);
-  backface-visibility: hidden;
-`;
-
 interface SnippetItemProps {
   snippet: Snippet;
   index: number;
@@ -161,29 +146,23 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     return isPlaying;
   }, [currentMidi, snippet]);
 
-  const cursorPosition = useMemo(() => {
+  const playbackTime = useMemo(() => {
     if (
       !isCurrentlyPlaying ||
       !snippet.secondsSpan ||
       appContext.currentPlaybackTime === null ||
-      appContext.currentPlaybackTime < snippet.secondsSpan[0]
+      appContext.currentPlaybackTime < snippet.secondsSpan[0] ||
+      appContext.currentPlaybackTime >= snippet.secondsSpan[1]
     ) {
       return null;
     }
 
-    const [start, end] = snippet.secondsSpan;
-    const currentTime = appContext.currentPlaybackTime;
-
-    // Calculate position as a percentage of the time range
-    const timeProgress = (currentTime - start) / (end - start);
-    const xPos = timeProgress * containerWidth;
-
-    return xPos;
+    // Frozen note spans are relative to the beginning of the snippet.
+    return appContext.currentPlaybackTime - snippet.secondsSpan[0];
   }, [
     isCurrentlyPlaying,
     snippet.secondsSpan,
     appContext.currentPlaybackTime,
-    containerWidth,
   ]);
 
   return (
@@ -216,17 +195,6 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
         </SnippetHeader>
       )}
       <SnippetContent style={{ position: "relative" }}>
-        {cursorPosition !== null && (
-          <PlaybackCursor
-            style={{
-              transform: `translateX(${cursorPosition}px)`,
-              transition:
-                appContext.currentPlaybackTime > snippet.secondsSpan[0]
-                  ? "transform 0.74s linear"
-                  : "none",
-            }}
-          />
-        )}
         <EnhancedFrozenNotes
           notes={rehydratedNotes}
           midiNumberToY={snippetMidiNumberToY}
@@ -240,6 +208,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
           isPreview={isPreview}
           phraseStarts={snippet.phraseStarts || []}
           hoveredColors={hoveredColors}
+          playbackTime={playbackTime}
         />
       </SnippetContent>
     </SnippetItemContainer>

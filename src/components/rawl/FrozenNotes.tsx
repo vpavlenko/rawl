@@ -20,6 +20,7 @@ interface EnhancedFrozenNotesProps {
   phraseStarts?: number[];
   isPreview?: boolean;
   hoveredColors?: string[] | null;
+  playbackTime?: number | null;
 }
 
 const FrozenNotesContainer = styled.div`
@@ -46,6 +47,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
   phraseStarts,
   isPreview = false,
   hoveredColors,
+  playbackTime = null,
 }) => {
   const midiRange = useMemo(() => {
     let min = Infinity;
@@ -75,10 +77,14 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           color: pitchClassToCssClass(pitchClass),
           colorPitchClass: pitchClass,
           isActive: true,
+          isPlayingNow:
+            playbackTime !== null &&
+            playbackTime >= note.span[0] &&
+            playbackTime < note.span[1],
         };
       }),
     );
-  }, [notes, analysis, measuresAndBeats.measures]);
+  }, [notes, analysis, measuresAndBeats.measures, playbackTime]);
 
   const getNoteRectangles = useCallback(
     (notes: ColoredNote[]) =>

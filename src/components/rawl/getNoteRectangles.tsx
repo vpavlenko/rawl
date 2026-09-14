@@ -228,7 +228,7 @@ export const getNoteRectangles = (
     const isHighlighted = !hoveredColors || hoveredColors.includes(color);
 
     // Adjust height and top position for notes under the cursor
-    const activeHeight = isPlayingNow ? baseHeight * 1.5 : baseHeight;
+    const activeHeight = isPlayingNow ? baseHeight * 2 : baseHeight;
     const height =
       isActive && isHighlighted
         ? noteUnderCursor

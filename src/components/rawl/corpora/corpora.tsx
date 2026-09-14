@@ -2364,10 +2364,8 @@ export const corpora: CorpusEntry[] = [
       "ghana-national-anthem",
       "algeria-national-anthem",
     ],
-    composerBirthYear: null, // National anthems (varied composers)
     genre: "Patriotic, Folk",
     style: "Classical, National",
-    country: null,
   },
   { slug: "w_c_handy", midis: ["the-memphis-blues-w.c-handy-1912"] },
   {
@@ -2406,11 +2404,13 @@ export const corpora: CorpusEntry[] = [
       "autumn_leaves_-lev_fiterman",
       "autumnleaves_bushgrafts",
     ],
-    composerBirthYear: null, // Autumn Leaves (multiple composers)
     genre: "Jazz, Standard",
     style: "Jazz, Ballad",
     country: "France, USA",
   },
+  {slug: 'bushgrafts', midis: ["autumnleaves_bushgrafts",'my_funny_valentine',
+    "desafinado_bushgrafts", 
+  ]},
   {
     slug: "komitas",
     midis: [
@@ -2498,7 +2498,6 @@ export const corpora: CorpusEntry[] = [
       "hello-blues---sage-guyton-jeremy-wakefield",
       "rip-tide-ripped-hide",
     ],
-    composerBirthYear: null, // Multiple composers for Spongebob series
     genre: "Television, Film score",
     style: "Cartoon, Funk",
     country: "USA",
@@ -2646,7 +2645,6 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "m2u",
     midis: ["m2u---masquerade"],
-    composerBirthYear: null, // M2U (not much info available)
     genre: "Electronic",
     style: "Eurobeat, Trance",
     country: "Japan",
@@ -2822,7 +2820,6 @@ export const corpora: CorpusEntry[] = [
       "dunapalota---rozsnyai-sandor-1919",
       "the-star---rene-r.-schmal-1919",
     ],
-    composerBirthYear: null, // Traditional Hungarian and Austrian dance music
     genre: "Folk, Dance",
     style: "March, Polka",
     country: "Austria, Hungary",
@@ -3007,7 +3004,6 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "possibly_tango",
     midis: ["veinte-anos", "rio---g.-gladkov"],
-    composerBirthYear: null, // Various Tango composers
     genre: "Tango",
     style: "Argentinian, Latin",
     country: "Argentina",
@@ -3074,7 +3070,6 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "joao_mateus_junior_8_fados",
     midis: ["beijos-de-mae---joao-mateus-junior"],
-    composerBirthYear: null, // João Mateus Junior (Fado composer)
     genre: "Fado, Folk",
     style: "Traditional, Portuguese",
     country: "Portugal",
@@ -3613,6 +3608,8 @@ export const corpora: CorpusEntry[] = [
       "enchanted-waterfall---martha-mier",
       "baroque-expression---martha-mier",
       "martha_mier_worrisome_blues", 
+      "sneaky-business-marta-mier", 
+      "jazz-finale---martha-mier", 
     ],
     composerBirthYear: 1955,
     genre: "Classical, Ragtime",
@@ -4338,6 +4335,8 @@ export const corpora: CorpusEntry[] = [
       "tones-for-joan-s-bones",
       "fingerprints---chick-corea",
       "chick-corea-s-scriabin",
+
+      "pijama_chick-corea_plays_desafinado---live-in-berlin-2018", 
     ],
     composerBirthYear: 1941,
     genre: "Jazz",
@@ -4674,7 +4673,7 @@ export const corpora: CorpusEntry[] = [
     slug: "bobby_prince",
     midis: ["04---episode-1---the-city-streets-robert-prince"],
   },
-  {slug: 'reinhold_gliere', midis:["reinhold_gliere---12-pieces-enfantines-op.31no7-romance", ]},
+  {slug: 'reinhold_gliere', midis:["reinhold_gliere---12-pieces-enfantines-op.31no7-romance","walzer-op-31-no-6---reinhold-gliere",  ]},
   {
     slug: "roberto_cacciapaglia",
     midis: [
@@ -5405,6 +5404,9 @@ export const corpora: CorpusEntry[] = [
     midis: ["stanley-myers---cavatina-arranged-for-piano"],
     composerBirthYear: 1930,
   },
+  {slug: 'carl_czerny', midis:["czerny_op740_no50_g_minor", 
+    "czerny---school-of-velocity---op.-299-no.-1", 
+    "czerny---op-740-the-art-of-finger-dexterity---no-14", ]},
   {
     slug: "smetana",
     midis: [
@@ -8341,7 +8343,7 @@ export const corpora: CorpusEntry[] = [
     country: "Russia",
   },
   {slug: "tom_hojnacki", midis: ["tom_hojnacki_it_could_have_been_the_summertime",
-    "tom_hojnacki_lucky_secondary_dominants", ]},
+    "tom_hojnacki_lucky_secondary_dominants", "tom_hojnacki_lucky_substitute_dominants", "tom_hojnacki_to_the_bitter_dregs", ]},
   {
     slug: "unsorted",
     midis: [

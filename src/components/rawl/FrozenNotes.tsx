@@ -30,6 +30,7 @@ const FrozenNotesContainer = styled.div`
 
 const HeaderStaff = styled.div`
   position: relative;
+  z-index: 0;
   height: 16px;
   margin-bottom: 0px;
 `;
@@ -127,7 +128,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
 
   return (
     <FrozenNotesContainer>
-      <HeaderStaff>
+      <HeaderStaff style={{ height: Math.max(16, noteHeight * 2 + 1) }}>
         <AnalysisGrid
           analysis={analysis}
           measuresAndBeats={measuresAndBeats}
@@ -147,7 +148,9 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           width: `${maxWidth}px`,
           height: `${height}px`,
           position: "relative",
-          overflow: "hidden",
+          // Playing notes grow upward into the header; clip only at the outer container.
+          overflow: "visible",
+          zIndex: 1,
         }}
       >
         <AnalysisGrid
@@ -168,7 +171,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
             position: "relative",
             height: `${height}px`,
             width: `${maxWidth}px`,
-            overflow: "hidden",
+            overflow: "visible",
           }}
         >
           {memoizedNoteRectangles.map((voiceRectangles, index) => (

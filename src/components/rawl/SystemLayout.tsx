@@ -34,7 +34,7 @@ const getAverageMidiNumber = (notes: Note[]) =>
 
 export type MidiRange = [number, number];
 
-// Keep each track's drum rows stable across sections, using only sounds in the file.
+// Pack each track's drum rows using only sounds present in the section.
 type DrumRows = Map<number, Map<number, number>>;
 
 const getDrumRows = (notes: Note[]): DrumRows => {
@@ -80,7 +80,6 @@ export type ScrollInfo = {
 
 export const Voice: React.FC<{
   notes: ColoredNote[];
-  drumRows: DrumRows;
   measuresAndBeats: MeasuresAndBeats;
   analysis: Analysis;
   cursor: ReactNode;
@@ -104,7 +103,6 @@ export const Voice: React.FC<{
   showPlaybackMeasureBottomBorder: boolean;
 }> = ({
   notes,
-  drumRows,
   measuresAndBeats,
   analysis,
   mouseHandlers,
@@ -142,6 +140,7 @@ export const Voice: React.FC<{
     () => notes.filter((note) => !note.isDrum),
     [notes],
   );
+  const drumRows = useMemo(() => getDrumRows(notes), [notes]);
   const midiRange = useMemo<MidiRange>(
     () => (pitchedNotes.length ? getMidiRange(pitchedNotes) : [0, 0]),
     [pitchedNotes],
@@ -381,7 +380,6 @@ export const StackedSystemLayout: React.FC<
 }) => {
   const [noteHeight, setNoteHeight] = useState<number>(3);
   const [secondWidth, setSecondWidth] = useState<number>(40);
-  const drumRowsByVoice = useMemo(() => notes.map(getDrumRows), [notes]);
   const setSecondWidthCalled = useRef(false);
 
   useEffect(() => {
@@ -620,7 +618,6 @@ export const StackedSystemLayout: React.FC<
                   <Voice
                     voiceName={voiceNames[voiceIndex]}
                     notes={notes}
-                    drumRows={drumRowsByVoice[voiceIndex]}
                     measuresAndBeats={measuresAndBeats}
                     analysis={analysis}
                     mouseHandlers={mouseHandlers}

@@ -50,8 +50,7 @@ import { AppContext } from "./AppContext";
 import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader";
 import DropMessage from "./DropMessage";
-import Timeline from "./Timeline";
-import CorpusSearch from "./rawl/CorpusSearch";
+import Pieces from "./Pieces";
 import Histograms from "./rawl/Histograms";
 import OldLandingPage from "./rawl/OldLandingPage";
 import Rawl, { RawlProps } from "./rawl/Rawl";
@@ -1226,7 +1225,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                       match.params.corpus ? (
                         <Corpus slug={match.params.corpus} />
                       ) : (
-                        <CorpusSearch />
+                        <Pieces />
                       )
                     }
                   />
@@ -1257,7 +1256,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   {decompositionRoute}
                   <Route path="/100/:slug?" component={Book} />
                   <Route path="/beyond/:slug?" component={Book} />
-                  <Route path="/timeline" component={Timeline} />
+                  <Redirect from="/timeline" to="/corpus/" />
                   <Route path="/histograms" component={Histograms} />
                   <Redirect exact from="/" to="/100" />
                 </Switch>

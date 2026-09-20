@@ -92,9 +92,6 @@ const AppHeader: React.FC = () => {
         <HeaderLink to="/s/" style={getLinkStyle("/s")}>
           Structures
         </HeaderLink>
-        <HeaderLink to="/timeline/" style={getLinkStyle("/timeline")}>
-          Timeline
-        </HeaderLink>
         <HeaderLink to="/e/" style={getLinkStyle("/e")}>
           Editor
         </HeaderLink>

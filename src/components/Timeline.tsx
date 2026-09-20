@@ -12,9 +12,7 @@ import {
 } from "./rawl/corpusUtils";
 
 const TimelineContainer = styled.div`
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  min-width: 0;
 `;
 
 const TimelineWrapper = styled.div`
@@ -98,9 +96,7 @@ const CountryFlag = styled.span`
 `;
 
 const FilterIndicator = styled.div`
-  position: fixed;
-  top: 50px;
-  right: 20px;
+  margin-bottom: 24px;
   padding: 8px 16px;
   border-radius: 4px;
   background: #333;

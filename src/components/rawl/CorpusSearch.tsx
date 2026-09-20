@@ -40,6 +40,7 @@ const SearchInputContainer = styled.div`
 
 const SearchInput = styled.input`
   flex-grow: 1;
+  min-width: 0;
   padding: 10px;
   box-sizing: border-box;
 `;
@@ -52,7 +53,6 @@ const TotalCount = styled.span`
 
 const ResultsContainer = styled.div`
   width: 100%;
-  overflow-y: auto;
   text-align: left;
 `;
 

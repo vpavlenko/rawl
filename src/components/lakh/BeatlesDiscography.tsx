@@ -1,45 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { beatlesVariantNumber, groupBeatlesTracks } from "./beatlesReleases";
 
-const Table = styled.table`
-  width: 100%;
-  max-width: 1050px;
-  border-collapse: collapse;
-  text-align: left;
+const Discography = styled.div`
   font-size: 14px;
-  caption {
-    text-align: left;
+  .description {
     color: #999;
     font-size: 12px;
     line-height: 1.6;
-    padding-bottom: 16px;
+    margin-bottom: 16px;
   }
-  thead th {
-    color: #999;
-    font-size: 12px;
-    font-weight: normal;
-    padding: 0 16px 10px 0;
+  .albums {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+    gap: 28px 32px;
+    align-items: start;
   }
-  tbody {
+  .album {
+    min-width: 0;
     border-top: 1px solid #333;
+    padding-top: 16px;
   }
-  tbody th {
-    width: 28%;
-    padding: 14px 24px 14px 0;
-    vertical-align: top;
+  .album header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  h2 {
+    margin: 0;
+    font-size: 17px;
     font-weight: normal;
-    color: #eee;
-    line-height: 1.5;
+    line-height: 1.4;
   }
-  tbody th small {
+  .date {
     display: block;
     color: #999;
-    margin-top: 5px;
+    margin-top: 6px;
+    font-size: 12px;
   }
-  td {
-    padding: 14px 0;
-    vertical-align: top;
+  .cover {
+    width: 112px;
+    height: auto;
+    border-radius: 3px;
+    flex-shrink: 0;
   }
   ul {
     list-style: none;
@@ -55,37 +59,57 @@ const Table = styled.table`
     color: #777;
     font-size: 11px;
     min-width: 18px;
-    text-align: right;
+    text-align: left;
   }
   .song {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: 0 12px;
+    gap: 0 6px;
+    min-width: 0;
+  }
+  .title,
+  .song a {
+    line-height: 20px;
   }
   .title {
-    line-height: 26px;
+    overflow-wrap: anywhere;
   }
   .versions {
-    display: inline-flex;
-    flex-wrap: wrap;
-    gap: 0 4px;
+    display: inline;
   }
-  .versions a {
+  .versions a,
+  .more {
     display: inline-block;
-    min-width: 24px;
     text-align: center;
     font-size: 14px;
     font-variant-numeric: tabular-nums;
   }
-  @media (max-width: 600px) {
-    tbody th {
-      width: 32%;
-      padding-right: 12px;
-      font-size: 13px;
-    }
-    li {
-      gap: 6px;
+  .more {
+    appearance: none;
+    border: 0;
+    background: none;
+    color: #888;
+    padding: 0;
+    line-height: 20px;
+    cursor: pointer;
+    opacity: 0;
+  }
+  .song:hover .more,
+  .song:focus-within .more,
+  .more[aria-expanded="true"] {
+    opacity: 1;
+  }
+  .more:hover {
+    color: #ddd;
+  }
+  .more:focus-visible {
+    outline: 1px solid currentColor;
+    outline-offset: 2px;
+  }
+  @media (hover: none) {
+    .more {
+      opacity: 1;
     }
   }
 `;
@@ -103,6 +127,14 @@ export default function BeatlesDiscography({
   renderTitle: (title: string) => React.ReactNode;
   renderTrack: (file: string, label?: string) => React.ReactNode;
 }) {
+  const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
+  const toggleVersions = (key: string) =>
+    setExpanded((previous) => {
+      const next = new Set(previous);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
   const visible = new Set(files);
   const groups = groupBeatlesTracks(allFiles)
     .map((group) => ({
@@ -112,6 +144,8 @@ export default function BeatlesDiscography({
           ...song,
           title: song.files[0].replace(/(?:\.\d+)?\.mid$/i, ""),
           annotatedFile: song.files.find(isAnnotated),
+          singleFile: song.files.length === 1 ? song.files[0] : undefined,
+          annotatedCount: song.files.filter(isAnnotated).length,
           files: song.files.filter((file) => visible.has(file)),
         }))
         .filter((song) => song.files.length),
@@ -119,54 +153,97 @@ export default function BeatlesDiscography({
     .filter((group) => group.songs.length);
   if (!groups.length) return null;
   return (
-    <Table>
-      <caption>
-        Albums in release order; songs in album order. Repeated songs appear
-        once. Numbers link to MIDI versions; titles link to an annotated version
-        when available. Singles follow under Past Masters.
-      </caption>
-      <thead>
-        <tr>
-          <th scope="col">Release</th>
-          <th scope="col">Tracks</th>
-        </tr>
-      </thead>
-      {groups.map((group) => (
-        <tbody key={group.title}>
-          <tr>
-            <th scope="row">
-              {group.title}
-              <small>{group.date}</small>
-            </th>
-            <td>
-              <ul>
-                {group.songs.map((song) => (
-                  <li key={song.files[0]}>
+    <Discography>
+      <p className="description">
+        Albums in release order; songs in album order. Numbers link to MIDI
+        versions. Annotated songs show their annotated versions; hover a song
+        and select … for the rest.
+      </p>
+      <div className="albums">
+        {groups.map((group) => (
+          <section className="album" key={group.title} aria-label={group.title}>
+            <header>
+              {group.cover && (
+                <img
+                  className="cover"
+                  src={group.cover}
+                  alt={`${group.title} album cover`}
+                  width={112}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(event) => {
+                    event.currentTarget.style.display = "none";
+                  }}
+                />
+              )}
+              <div>
+                <h2>{group.title}</h2>
+                <span className="date">{group.date}</span>
+              </div>
+            </header>
+            <ul>
+              {group.songs.map((song) => {
+                const key = `${group.title}/${song.title}`;
+                const hasHiddenVersions =
+                  !!song.annotatedFile &&
+                  song.files.some((file) => !isAnnotated(file));
+                const isExpanded = expanded.has(key);
+                const shownFiles = song.files.filter(
+                  (file) =>
+                    !song.singleFile &&
+                    (isExpanded ||
+                      !song.annotatedFile ||
+                      (song.annotatedCount > 1 && isAnnotated(file))),
+                );
+                return (
+                  <li key={key}>
                     <span className="number">{song.number || "·"}</span>
                     <span className="song">
                       <span className="title">
-                        {song.annotatedFile
-                          ? renderTrack(song.annotatedFile, song.title)
+                        {song.annotatedFile || song.singleFile
+                          ? renderTrack(song.annotatedFile || song.singleFile, song.title)
                           : renderTitle(song.title)}
                       </span>
                       <span className="versions">
-                        {song.files.map((file) => (
+                        {shownFiles.map((file, index) => (
                           <React.Fragment key={file}>
+                            {index > 0 ? " " : null}
                             {renderTrack(
                               file,
                               String(beatlesVariantNumber(file)),
                             )}
                           </React.Fragment>
                         ))}
+                        {hasHiddenVersions && (
+                          <>
+                            {shownFiles.length > 0 ? " " : null}
+                            <button
+                              type="button"
+                              className="more"
+                              aria-expanded={isExpanded}
+                              aria-label={`${
+                                isExpanded ? "Hide" : "Show"
+                              } unannotated versions of ${song.title}`}
+                              title={
+                                isExpanded
+                                  ? "Hide other versions"
+                                  : "Show other versions"
+                              }
+                              onClick={() => toggleVersions(key)}
+                            >
+                              …
+                            </button>
+                          </>
+                        )}
                       </span>
                     </span>
                   </li>
-                ))}
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      ))}
-    </Table>
+                );
+              })}
+            </ul>
+          </section>
+        ))}
+      </div>
+    </Discography>
   );
 }

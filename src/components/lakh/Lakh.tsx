@@ -113,12 +113,16 @@ const MatchingTracks = styled(Entries)`
   padding-left: 16px;
   font-size: 14px;
 `;
-const Entry = styled(Link)<{ $annotated: boolean; $folder: boolean }>`
+const Entry = styled(Link)<{ $annotated: boolean; $folder: boolean; $version?: boolean }>`
   display: inline;
   line-height: 26px;
   overflow-wrap: anywhere;
-  color: ${({ $annotated, $folder }) =>
-    !$annotated ? "#ddd" : $folder ? "#f2d18d" : "#8ee8d0"};
+  /* Keep annotation colors after navigation: global a:visited is more
+     specific than a styled-component class on its own. */
+  &, &:link, &:visited {
+    color: ${({ $annotated, $folder, $version }) =>
+      !$annotated ? ($version ? "#888" : "#ddd") : $folder ? "#f2d18d" : "#ffe45c"};
+  }
   text-decoration: none;
   &:hover {
     text-decoration: underline;
@@ -408,7 +412,7 @@ const Directory = React.memo(function Directory({
       <Legend>
         {artist ? (
           <>
-            <span style={{ color: "#8ee8d0" }}>Green</span> tracks have an
+            <span style={{ color: "#ffe45c" }}>Yellow</span> tracks have an
             analysis.
           </>
         ) : (
@@ -435,6 +439,7 @@ const Directory = React.memo(function Directory({
                 to={lakhTrackUrl(artist, file)}
                 $folder={false}
                 $annotated={hasAnalysis}
+                $version={label !== undefined && /^\d+$/.test(label)}
                 title={`${file}${hasAnalysis ? " · Annotated" : ""}`}
                 aria-label={`${file.replace(/\.mid$/i, "")}${
                   hasAnalysis ? " · Annotated" : ""

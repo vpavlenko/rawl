@@ -1,3 +1,6 @@
+import beatlesCovers from "./beatlesCovers.json";
+
+// Remote thumbnails from https://www.thebeatles.com/albums.
 // Canonical album sequence: https://www.thebeatles.com/albums
 // Track sequences: https://www.beatlesbible.com/albums/
 // This is song-level organization, not a claim about the recording used by a MIDI.
@@ -113,14 +116,16 @@ export function groupBeatlesTracks(files: string[]) {
     songs.set(key, [...(songs.get(key) || []), file]);
   });
   songs.forEach((variants) =>
-    variants.sort((a, b) =>
-      beatlesVariantNumber(a) - beatlesVariantNumber(b) ||
-      a.localeCompare(b, undefined, { numeric: true }),
+    variants.sort(
+      (a, b) =>
+        beatlesVariantNumber(a) - beatlesVariantNumber(b) ||
+        a.localeCompare(b, undefined, { numeric: true }),
     ),
   );
   const groups = releases.map(([title, date, titles]) => ({
     title,
     date,
+    cover: (beatlesCovers as Record<string, string>)[title] || null,
     songs: titles.split("|").flatMap((song, index) => {
       const key = keyFor(song);
       const variants = songs.get(key);
@@ -137,6 +142,7 @@ export function groupBeatlesTracks(files: string[]) {
   groups.push({
     title: "Other recordings & medleys",
     date: "Unassigned to an album",
+    cover: null,
     songs: Array.from(songs.values()).map((variants) => ({
       number: 0,
       files: variants,

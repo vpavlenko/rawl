@@ -178,9 +178,19 @@ class App extends React.Component<RouteComponentProps, AppState> {
     const adminDocRef = doc(this.db, "users", ADMIN_USER_ID);
     getDoc(adminDocRef).then((adminSnapshot) => {
       if (adminSnapshot.exists() && adminSnapshot.data().analyses) {
-        this.setState({
-          analyses: { ...defaultAnalyses, ...adminSnapshot.data().analyses },
-        });
+        this.setState((prevState) => ({
+          analyses: {
+            ...defaultAnalyses,
+            ...adminSnapshot.data().analyses,
+            // Personal annotations and edits may have loaded while this
+            // request was pending. Only replace the bundled defaults.
+            ...Object.fromEntries(
+              Object.entries(prevState.analyses).filter(
+                ([key, analysis]) => analysis !== defaultAnalyses[key],
+              ),
+            ),
+          },
+        }));
       }
     });
 

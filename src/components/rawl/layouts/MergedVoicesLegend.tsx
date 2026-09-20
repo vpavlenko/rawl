@@ -50,6 +50,7 @@ type MergedVoicesLegendProps = {
   voiceNames: string[];
   voiceMask: boolean[];
   setVoiceMask: (mask: boolean[]) => void;
+  onVoiceHover: (voiceIndex: number | null) => void;
   onForcedPanningChange?: (enabled: boolean) => void;
   slug: string;
   excludedVoices?: number[];
@@ -64,6 +65,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
   voiceNames,
   voiceMask,
   setVoiceMask,
+  onVoiceHover,
   onForcedPanningChange,
   slug,
   currentTonic,
@@ -129,7 +131,11 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
         {voiceNames.map(
           (voiceName, voiceIndex) =>
             !excluded.has(voiceIndex) && (
-              <VoiceRow key={voiceIndex}>
+              <VoiceRow
+                key={voiceIndex}
+                onMouseEnter={() => onVoiceHover(voiceIndex)}
+                onMouseLeave={() => onVoiceHover(null)}
+              >
                 <input
                   title="active"
                   type="checkbox"
@@ -211,6 +217,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                     aria-label={`Remove voice ${voiceIndex + 1}: ${voiceName}`}
                     onClick={(event) => {
                       event.stopPropagation();
+                      onVoiceHover(null);
                       onToggleVoiceExcluded(voiceIndex);
                     }}
                   >

@@ -98,6 +98,7 @@ export const Voice: React.FC<{
   sectionSpan?: MeasuresSpan;
   enableManualRemeasuring: boolean;
   hoveredColors: string[] | null;
+  hoveredVoiceIndex?: number | null;
   positionSeconds: number;
   playbackMeasure: number | null;
   showPlaybackMeasureBottomBorder: boolean;
@@ -121,6 +122,7 @@ export const Voice: React.FC<{
   sectionSpan,
   enableManualRemeasuring,
   hoveredColors,
+  hoveredVoiceIndex = null,
   positionSeconds,
   playbackMeasure,
   showPlaybackMeasureBottomBorder,
@@ -229,6 +231,7 @@ export const Voice: React.FC<{
         hoveredColors,
         false,
         drumNoteToY,
+        hoveredVoiceIndex,
       ),
       frozenHeight: height,
       frozenMidiRange: midiRange,
@@ -244,6 +247,7 @@ export const Voice: React.FC<{
       playingNoteIdSet,
       enableManualRemeasuring,
       hoveredColors,
+      hoveredVoiceIndex,
       midiNumberToY,
       drumNoteToY,
       height,
@@ -353,6 +357,7 @@ export type SystemLayoutProps = {
   seek?: (ms: number) => void;
   hoveredColors: string[] | null;
   setHoveredColors: (colors: string[] | null) => void;
+  hoveredVoiceIndex?: number | null;
   showPlaybackCursor?: boolean;
 };
 
@@ -377,6 +382,7 @@ export const StackedSystemLayout: React.FC<
   seek,
   hoveredColors,
   setHoveredColors,
+  hoveredVoiceIndex = null,
   showPlaybackCursor = true,
 }) => {
   const [noteHeight, setNoteHeight] = useState<number>(3);
@@ -654,6 +660,7 @@ export const StackedSystemLayout: React.FC<
                     sectionSpan={sectionSpan}
                     enableManualRemeasuring={enableManualRemeasuring}
                     hoveredColors={hoveredColors}
+                    hoveredVoiceIndex={hoveredVoiceIndex}
                     positionSeconds={positionSeconds}
                     playbackMeasure={playbackMeasure}
                     showPlaybackMeasureBottomBorder={
@@ -711,6 +718,8 @@ export const MergedSystemLayout: React.FC<
     setHoveredColors,
   } = props;
 
+  const [hoveredVoiceIndex, setHoveredVoiceIndex] = useState<number | null>(null);
+
   const flattenedNotes = useMemo(
     () => [
       notes
@@ -734,12 +743,14 @@ export const MergedSystemLayout: React.FC<
         slug={slug}
         hoveredColors={hoveredColors}
         setHoveredColors={setHoveredColors}
+        hoveredVoiceIndex={hoveredVoiceIndex}
       />
       {!isEmbedded && (
         <MergedVoicesLegend
           voiceNames={voiceNames}
           voiceMask={voiceMask}
           setVoiceMask={setVoiceMask}
+          onVoiceHover={setHoveredVoiceIndex}
           drumVoices={props.drumVoices}
           nativeDrumVoices={props.nativeDrumVoices}
           onToggleVoiceDrum={props.onToggleVoiceDrum}

@@ -199,6 +199,7 @@ export const getNoteRectangles = (
   hoveredColors: string[] | null,
   showSourceLocation: boolean = false,
   drumNoteToY?: (note: Note) => number,
+  hoveredVoiceIndex: number | null = null,
 ) => {
   console.log("run getNoteRectangles on ", notes.length, " notes");
   return notes.map((note) => {
@@ -224,23 +225,29 @@ export const getNoteRectangles = (
     const left = secondsToX(note.span[0]);
     const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
 
-    // Determine if the note is highlighted based on color selection
-    const isHighlighted = !hoveredColors || hoveredColors.includes(color);
+    const isOtherPitchedVoice =
+      !isDrum && hoveredVoiceIndex !== null && voiceIndex !== hoveredVoiceIndex;
+    const isHighlighted =
+      !isOtherPitchedVoice && (!hoveredColors || hoveredColors.includes(color));
+    const showFullNote =
+      (!isDrum && voiceIndex === hoveredVoiceIndex) ||
+      (isActive && isHighlighted);
+    const collapsedHeight = isOtherPitchedVoice ? 1 : 0.5;
 
     // Adjust height and top position for notes under the cursor
     const activeHeight = isPlayingNow ? baseHeight * 2 : baseHeight;
     const height =
-      isActive && isHighlighted
+      showFullNote
         ? noteUnderCursor
           ? baseHeight * 2
           : activeHeight
-        : 0.5;
+        : collapsedHeight;
     const top =
-      isActive && isHighlighted
+      showFullNote
         ? noteUnderCursor
           ? baseTop - baseHeight
           : baseTop - (activeHeight - baseHeight)
-        : baseTop + baseHeight - 0.5;
+        : baseTop + baseHeight - collapsedHeight;
 
     const pathData = note.pitchBend
       ? convertPitchBendToPathData(
@@ -301,7 +308,7 @@ export const getNoteRectangles = (
             (noteUnderCursor ? 100 : 0),
           boxSizing: "border-box",
           display: "grid",
-          boxShadow: isActive && isHighlighted ? "0 0 0px 0.5px black" : "",
+          boxShadow: showFullNote ? "0 0 0px 0.5px black" : "",
           cursor: enableManualRemeasuring
             ? "e-resize"
             : handleNoteClick
@@ -318,7 +325,7 @@ export const getNoteRectangles = (
         onMouseEnter={(e) => !isDrum && handleMouseEnter(note)}
         onMouseLeave={() => !isDrum && handleMouseLeave()}
       >
-        {pathData && isActive && isHighlighted && (
+        {pathData && showFullNote && (
           <div style={{ position: "relative", width: "100%", height: "100%" }}>
             <svg
               style={{
@@ -337,8 +344,7 @@ export const getNoteRectangles = (
         )}
         {showSourceLocation &&
           sourceLocationText &&
-          isActive &&
-          isHighlighted && (
+          showFullNote && (
             <div
               style={{
                 position: "absolute",

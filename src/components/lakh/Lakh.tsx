@@ -617,6 +617,7 @@ const Directory = React.memo(function Directory({
         {!artist && (
           <ArtistSearch
             type="search"
+            autoFocus
             aria-label="Search artists and songs"
             placeholder="Search artists and songs"
             value={artistQuery}

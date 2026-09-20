@@ -16,6 +16,11 @@ const BundleAnalyzerPlugin =
   require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const TerserPlugin = require("terser-webpack-plugin");
 
+// Bundle reports are useful on demand, but their treemap can be expensive for
+// this application's large production bundle. Keep normal builds free of the
+// analyzer and enable it explicitly with ANALYZE=true.
+const shouldAnalyzeBundle = process.env.ANALYZE === "true";
+
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
 const publicPath = paths.servedPath;
@@ -295,17 +300,22 @@ module.exports = {
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    // Added Aug 29, 2018 by Montag
-    // https://www.npmjs.com/package/webpack-bundle-analyzer
-    new BundleAnalyzerPlugin({
-      analyzerMode: "static",
-      reportFilename: "bundle-report.html",
-      generateStatsFile: true,
-      statsFilename: "bundle-stats.json",
-      statsOptions: {
-        source: true,
-      },
-    }),
+    // Generate this only when explicitly requested: ANALYZE=true npm run build-lite
+    // The report is saved without opening a browser tab automatically.
+    ...(shouldAnalyzeBundle
+      ? [
+          new BundleAnalyzerPlugin({
+            analyzerMode: "static",
+            openAnalyzer: false,
+            reportFilename: "bundle-report.html",
+            generateStatsFile: true,
+            statsFilename: "bundle-stats.json",
+            statsOptions: {
+              source: false,
+            },
+          }),
+        ]
+      : []),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

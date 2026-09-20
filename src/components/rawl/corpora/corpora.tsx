@@ -72,6 +72,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "milan_dvorak",
+    country: "Czech Republic",
     midis: [
       "jazz-piano-etudes-book-2-no.-12---milan-dvorak",
       "etude-1",
@@ -97,6 +98,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "greg_joy",
+    country: "Canada",
     midis: [
       "greg-joy---wind-dance-of-the-fairies",
       "greg-joy---breton-dance---douce-dame-jolie",
@@ -113,6 +115,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "suzanne_ciani",
+    country: "USA",
     midis: [
       "simple-song-~-suzanne-ciani",
       "summer-s-day---suzanne-ciani",
@@ -126,6 +129,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "aram_khachaturian",
+    country: "Armenia",
     midis: [
       "masquerade-waltz---khachaturian",
       "khachaturian---album-for-children-kinderalbum-no.-1-andantino",
@@ -171,6 +175,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "james_p_johnson",
+    country: "USA",
     midis: [
       "james-p.-johnson---caprice-rag-1917",
       "carolina-shout",
@@ -181,6 +186,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "eubie_blake",
+    country: "USA",
     midis: [
       "charleston-rag-sounds-of-africa---james-hubert-eubie-blake-1899----copr.-1917",
     ],
@@ -242,6 +248,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "yuji_ohno",
+    country: "Japan",
     midis: [
       "lupin-iii-jazz-version-~-yuji-ohno",
       "theme-from-lupin-the-third-78-2002version",
@@ -335,7 +342,7 @@ export const corpora: CorpusEntry[] = [
     country: "Germany",
     similarTo: ["martha_mier", "elissa_milne"],
   },
-  { slug: "isaac_shepard", midis: ["letting-go-isaac-shepard"] },
+  { slug: "isaac_shepard", country: "USA", midis: ["letting-go-isaac-shepard"] },
   {
     slug: "david_lanz",
     midis: [
@@ -470,6 +477,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "chris_zabriskie",
+    country: "USA",
     midis: ["preludes-by-chris-zabriskie-full-album"],
     composerBirthYear: 1982,
     similarTo: ["brian_crain"],
@@ -556,6 +564,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "george_bizet",
+    country: "France",
     midis: [
       "Habanera_-_Piano_Solo_-_Georges_Bizet",
       "Prlude_to_Act_1_of_Carmen_-_Piano_Solo_-_Bizet",
@@ -563,6 +572,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "richard_galliano",
+    country: "France",
     midis: [
       "tango-pour-claude---richard-galliano",
       "la-valse-a-margaux---richard-galliano-7eac27",
@@ -582,6 +592,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "astor_piazzolla",
+    country: "Argentina",
     midis: [
       "piazzolla_histoire_du_tango_bordel_1900",
       "piazzolla_histoire_du_tango_cafe_1930",
@@ -721,6 +732,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "koichi_sugiyama",
+    country: "Japan",
     midis: [
       "dragon-quest-overture-piano",
       "heaven-s-prayer---dragon-quest-ix",
@@ -854,7 +866,7 @@ export const corpora: CorpusEntry[] = [
     style: "Modern Classical, Ambient, Minimalism",
     country: "Iceland", // Ólafur Arnalds is Icelandic.
   },
-  {slug: 'david_temperley', midis:["david-temperley---preludes-for-piano-ii-1", ]},
+  {slug: 'david_temperley', country: "USA", midis:["david-temperley---preludes-for-piano-ii-1", ]},
   {
     slug: "bach_wtc",
     midis: [
@@ -907,6 +919,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "joaquin_turina",
+    country: "Spain",
     midis: ["joaquin-turina---garrotin-homenaje-a-tarrega"],
     style: "Flamenco",
   },
@@ -1022,6 +1035,7 @@ export const corpora: CorpusEntry[] = [
   }, // 1883
   {
     slug: "charlie_astin",
+    country: "USA", // Best guess; country not independently confirmed.
     midis: ["in-the-gloaming-1883", "clide-polka-1883"],
   },
   // 1897, first three annotated, then just preserved
@@ -1063,8 +1077,8 @@ export const corpora: CorpusEntry[] = [
     style: "Ragtime, Novelty",
     country: "USA", // King Kollins was American.
   },
-  {slug: "masashi_sada", midis: ["yamaguchi-momoe-kosumosu", ]},
-  { slug: "los_kjarkas", midis: ["llorando-se-fue---los-kjarkas"] },
+  {slug: "masashi_sada", country: "Japan", midis: ["yamaguchi-momoe-kosumosu", ]},
+  { slug: "los_kjarkas", country: "Bolivia", midis: ["llorando-se-fue---los-kjarkas"] },
   {
     slug: "frank_h_grey",
     midis: ["love-in-venice-1924", "valse-des-fleurs-1925"],
@@ -1152,6 +1166,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "arnold_schonberg",
+    country: "Austria",
     midis: ["schoenberg-opus-25-suite-for-piano---prelude-original"],
   },
   {
@@ -1519,9 +1534,10 @@ export const corpora: CorpusEntry[] = [
     style: "Orchestral, Cinematic",
     country: "USA",
   },
-  { slug: "claude_bolling", midis: [] },
+  { slug: "claude_bolling", country: "France", midis: [] },
   {
     slug: "julius_schulhoff",
+    country: "Czech Republic",
     midis: [
       "piano-sonata-in-f-minor-opus-37-1st-movement---julius-schulhoff",
       "piano-sonata-in-f-minor-opus-37-3rd-movement---julius-schulhoff",
@@ -1625,7 +1641,7 @@ export const corpora: CorpusEntry[] = [
     country: "Japan",
     genre: "Video game music",
   },
-  { slug: "ken_arai", midis: ["next-to-you-parasite-ost-by-ken-arai"] },
+  { slug: "ken_arai", country: "Japan", midis: ["next-to-you-parasite-ost-by-ken-arai"] },
   {
     slug: "kenji_kawai",
     midis: [
@@ -1716,6 +1732,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "karol_kurpinski",
+    country: "Poland",
     midis: [
       "polonaise-in-f-minor---karol-kurpinski",
       "kurpinski-polonaise-in-a-major-polonez-a-dur",
@@ -1734,6 +1751,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "ian_taylor",
+    country: "UK",
     midis: [
       "harmony-piano-arrangement-runescape-3",
       "runescape---medieval",
@@ -1745,6 +1763,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "nathan_hanover",
+    country: "UK",
     midis: [
       "generation-loss-ost---ranboo-generation-loss-medley",
       "spirit-of-the-slime---nathan-hanover-synthonic-orchestra",
@@ -1754,6 +1773,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "james_hannigan",
+    country: "UK",
     midis: [
       "command-conquer-red-alert-3---soviet-march-advanced-piano-solo",
       "village-dance-runescape",
@@ -1792,6 +1812,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "the_cinematic_orchestra",
+    country: "UK",
     midis: [
       "arrival-of-the-birds---the-cinematic-orchestra",
       "to-build-a-home-by-the-cinematic-orchestra",
@@ -1961,7 +1982,7 @@ export const corpora: CorpusEntry[] = [
     slug: "russian_garmon",
     midis: ["cyganochka---misc-traditional-cyganochka"],
   },
-  { slug: "isaak_dunaevsky", midis: ["kakim-ty-byl"] },
+  { slug: "isaak_dunaevsky", country: "Russia", midis: ["kakim-ty-byl"] },
   {
     slug: "maksim_dunaevsky",
     midis: [
@@ -1989,6 +2010,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "ernesto_cortazar",
+    country: "Mexico",
     midis: ["beethovens-silence---ernesto-cortazar"],
     composerBirthYear: 1940,
   },
@@ -2029,6 +2051,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "alexey_bychkov",
+    country: "Russia",
     midis: ["alexey_bychkov_goby_waltz", "alexey_bychkov_s_trio_goby_waltz"],
   },
   {
@@ -2067,10 +2090,12 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "bill_haley_and_the_comets",
+    country: "USA",
     midis: ["s3005_09---rock-around-the-clock", "shake-rattle-and-roll.1"],
   },
   {
     slug: "little_richard",
+    country: "USA",
     midis: [
       "good-golly-miss-molly",
       "long-tall-sally",
@@ -2367,7 +2392,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Patriotic, Folk",
     style: "Classical, National",
   },
-  { slug: "w_c_handy", midis: ["the-memphis-blues-w.c-handy-1912"] },
+  { slug: "w_c_handy", country: "USA", midis: ["the-memphis-blues-w.c-handy-1912"] },
   {
     slug: "debussy",
     midis: [
@@ -2477,6 +2502,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "waterflame",
+    country: "Norway",
     midis: [
       "waterflame---glorious-morning",
       "field-of-memories---waterflame-stick-war-misterpiano92",
@@ -2586,6 +2612,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "kartsy_hatakka_and_kimmo_kajasto",
+    country: "Finland",
     midis: [
       "max_payne_theme",
       "max-payne-3---main-menu-theme-4.",
@@ -2607,6 +2634,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "alfred_lefebure-wely",
+    country: "France",
     midis: [
       "alfred-lefebure-wely---les-cloches-du-monastere-op.-54a",
       "prelude-in-a-minor---louis-james-alfred-lefebure-wely",
@@ -2614,6 +2642,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "michael_price_and_david_arnold",
+    country: "UK",
     midis: [
       "the-game-is-on-from-bbc-s-sherlock-for-piano",
       "who-you-really-are-from-sherlock-bbc-series-4",
@@ -2651,11 +2680,13 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "def_leppard",
+    country: "UK",
     midis: ["pour-some-sugar-on-me---def-leppard-lucky-chops-version"],
   },
-  { slug: "the_beatles", midis: ["penny-lane.2"] },
+  { slug: "the_beatles", country: "UK", midis: ["penny-lane.2"] },
   {
     slug: "sarah_mclachlan",
+    country: "Canada",
     midis: ["building-a-mystery---sarah-mclachlan-piano-vocal-guitar"],
   },
   {
@@ -2737,6 +2768,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "muzio_clementi",
+    country: "Italy",
     midis: ["clementi-sonatina-no.-1-op-36"],
     composerBirthYear: 1752,
   },
@@ -2773,7 +2805,7 @@ export const corpora: CorpusEntry[] = [
     style: "Piano, Classical",
     country: "Hungary",
   },
-  { slug: "lynyrd_skynyrd", midis: ["sweet-home-alabama.1"] },
+  { slug: "lynyrd_skynyrd", country: "USA", midis: ["sweet-home-alabama.1"] },
   {
     slug: "nikolay_myaskovsky",
     midis: [
@@ -2870,6 +2902,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "jung_jae-il",
+    country: "South Korea",
     midis: ["zappaguri", "opening-sijag-parasite-gisaengcung-ost"],
   },
   {
@@ -2913,6 +2946,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "yakov_feldman",
+    country: "Russia",
     midis: ["yamshchik-ne-goni-loshadey"],
     composerBirthYear: 1884,
   },
@@ -2955,10 +2989,11 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "jon_leifs",
+    country: "Iceland",
     midis: ["icelandic-dance-op.-11-no.-1---jon-leifs"],
     composerBirthYear: 1899,
   },
-  { slug: "beyonce", midis: ["texas-hold-em---beyonce"] },
+  { slug: "beyonce", country: "USA", midis: ["texas-hold-em---beyonce"] },
   {
     slug: "stephen_foster",
     midis: [
@@ -2995,6 +3030,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "chet_baker",
+    country: "USA",
     midis: [
       "autumn-leaves---joseph-kosma-autumn-leaves-chet-baker-paul-desmond",
     ],
@@ -3053,6 +3089,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "soushi_sakiyama",
+    country: "Japan",
     midis: [
       "my-hero-academia-ed-9---uso-janai-soushi-sakiyama-piano-sheet-music",
       "akari---soushi-sakiyama---jujutsu-kaisen-season-2-ed",
@@ -3066,7 +3103,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1989,
     country: "Japan",
   },
-  { slug: "danny_and_the_juniors", midis: ["at-the-hop.2"] },
+  { slug: "danny_and_the_juniors", country: "USA", midis: ["at-the-hop.2"] },
   {
     slug: "joao_mateus_junior_8_fados",
     midis: ["beijos-de-mae---joao-mateus-junior"],
@@ -3110,7 +3147,7 @@ export const corpora: CorpusEntry[] = [
     style: "Ambient, Experimental",
     country: "Japan",
   },
-  { slug: "neil_young", midis: ["neil-young---harvest-moon-piano-solo"] },
+  { slug: "neil_young", country: "Canada", midis: ["neil-young---harvest-moon-piano-solo"] },
   {
     slug: "gesualdo",
     midis: [
@@ -3197,6 +3234,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "louis_couperin",
+    country: "France",
     midis: [
       "1626---1661-louis-couperin---fugue-ol-11",
       "l.-couperin-la-piemontoise",
@@ -3216,6 +3254,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "j_p_ahmad",
+    country: "USA", // Best guess; country not independently confirmed.
     midis: ["castlemania", "ninja-runner", "super-bounce"],
   },
   {
@@ -3255,9 +3294,10 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1935,
     country: "Italy",
   },
-  { slug: "jeremy_zuckerman", midis: ["avatar-the-last-airbender-medley"] },
+  { slug: "jeremy_zuckerman", country: "USA", midis: ["avatar-the-last-airbender-medley"] },
   {
     slug: "shinkonet",
+    country: "Australia",
     midis: [
       "dungeon-drama-hypixel-skyblock-dungeons---solo-piano-arrangement",
       "hypixel-skyblock-ost-the-wither-king-boss-theme-4---shinkonet",
@@ -3278,7 +3318,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Jazz",
     country: "USA",
   },
-  {slug: "bheki_mseleku", midis: ["bheki_mseleku_angola", "one-for-all-all-for-one---bheki-mseleku", ]},
+  {slug: "bheki_mseleku", country: "South Africa", midis: ["bheki_mseleku_angola", "one-for-all-all-for-one---bheki-mseleku", ]},
   {
     slug: "jazz_standards",
     midis: [
@@ -3369,8 +3409,8 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic",
     country: "Russia",
   },
-  { slug: "sergio_mendes", midis: ["never-gonna-let-you-go"] },
-  { slug: "soundgarden", midis: ["black-hole-sun.1"] },
+  { slug: "sergio_mendes", country: "Brazil", midis: ["never-gonna-let-you-go"] },
+  { slug: "soundgarden", country: "USA", midis: ["black-hole-sun.1"] },
   {
     slug: "valentin_silvestrov",
     midis: [
@@ -3397,13 +3437,15 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "jaco_pastorius",
+    country: "USA",
     midis: ["donna-lee---jaco-pastorius", "the-chicken"],
   },
-  {slug: 'brian_wilshere', 
+  {slug: 'brian_wilshere', country: "UK", 
     midis: ["brian-wilshere--vibraphone-sonata-mov-1", ]
   },
   {
     slug: "frank_wildhorn",
+    country: "USA",
     midis: [
       "master-of-the-strings-die-faden-in-der-hand-rudolf---affaire-mayerling-for-violin-and-piano",
       "the-confrontation---frank-wildhorn",
@@ -3411,11 +3453,13 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "klaus_doldinger",
+    country: "Germany",
     midis: ["erinnerung-from-das-boot---klaus-doldinger"],
   },
-  { slug: "falco", midis: ["jeanny-falco"] },
+  { slug: "falco", country: "Austria", midis: ["jeanny-falco"] },
   {
     slug: "system_of_a_down",
+    country: "USA",
     midis: [
       "system_of_a_down_-_chop_suey_piano",
       "atwa",
@@ -3524,6 +3568,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "oscar_peterson",
+    country: "Canada",
     midis: [
       "oscar-peterson---jazz-exercises-for-piano---exercise-1",
       "boogie-blues-etude-1974---oscar-peterson-piano-solo-transcription",
@@ -3586,6 +3631,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "george_antheil",
+    country: "USA",
     midis: [
       "sonatina-death-of-the-machines-1922-i-movement-by-george-antheil",
       "sonatina-death-of-the-machines-1922-ii-movement-by-george-antheil",
@@ -3596,7 +3642,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Post-Tonal",
     composerBirthYear: 1900,
   },
-  { slug: "carl_perkins", midis: ["blue-suede-shoes"] },
+  { slug: "carl_perkins", country: "USA", midis: ["blue-suede-shoes"] },
   {
     slug: "martha_mier",
     midis: [
@@ -3654,6 +3700,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "alexei_stanchinsky",
+    country: "Russia",
     midis: [
       "song-without-words-no.-1-in-c-minor---stanchinsky",
       "song-without-words-no.-2-in-d-minor---stanchinsky",
@@ -3756,7 +3803,7 @@ export const corpora: CorpusEntry[] = [
     style: "Orchestral, Cinematic",
     country: "Russia",
   },
-  { slug: "arkady_ostrovsky", midis: ["good_night_kids_-vitalis"] },
+  { slug: "arkady_ostrovsky", country: "Russia", midis: ["good_night_kids_-vitalis"] },
   {
     slug: "aleksey_rybnikov",
     midis: [
@@ -3839,6 +3886,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "bslick",
+    country: "USA",
     midis: [
       "let-go-piggy-book-2-soundtrack---bslick",
       "the-untold-story-ft.-melissa-medina---bslick",
@@ -3888,6 +3936,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "georgy_firtich",
+    country: "Russia",
     midis: [
       "ne-hodit-diti-v-afriku-gulyati---georgiy-firtich",
       "captain-wrongel-s-song----g.-firtich----easy-violin",
@@ -3895,6 +3944,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "charlie_parker",
+    country: "USA",
     midis: [
       "anthropology",
       "ornithology",
@@ -4026,6 +4076,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "ron_wasserman",
+    country: "USA",
     midis: [
       "mighty-morphin-power-rangers-sheet-music-easy-piano",
       "x-men-97-opening-theme",
@@ -4033,6 +4084,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "taku_iwasaki",
+    country: "Japan",
     midis: [
       "il-mare-eterno-nella-mia-anima-piano-arrangement---caesar-death-theme",
     ],
@@ -4053,6 +4105,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "tj_hill",
+    country: "USA",
     midis: [
       "owl-house-credits-theme",
       "marcy-s-theme---t.j.-hill-amphibia-ost",
@@ -4074,6 +4127,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "cesar_franck",
+    country: "Belgium, France",
     midis: [
       "prelude-from-prelude-fugue-et-variation---op.-18-no.-3---cesar-franck",
       "panis-angelicus",
@@ -4130,12 +4184,13 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "gabriel_faure",
+    country: "France",
     midis: ["pavane-op.50---faure", "sicilienne-opus-78-in-g-minor"],
     composerBirthYear: 1845,
     similarTo: ["saint_saens"],
   },
-  {slug: "aleksey_nikolaev", midis: ["aleksey_nikolaev_tarantella_26", ]},
-  {slug: 'aleon_raven', midis: ['aleon-raven-vertigo']},
+  {slug: "aleksey_nikolaev", country: "Russia", midis: ["aleksey_nikolaev_tarantella_26", ]},
+  {slug: 'aleon_raven', country: "Bulgaria", midis: ['aleon-raven-vertigo']},
   {
     slug: "tonal_stretch",
     midis: [
@@ -4186,7 +4241,7 @@ export const corpora: CorpusEntry[] = [
       "jurassic-park---journey-to-the-island",
     ],
   },
-  { slug: "ilmari_hakkola", midis: ["bad-piggies-theme"] },
+  { slug: "ilmari_hakkola", country: "Finland", midis: ["bad-piggies-theme"] },
   {
     slug: "gibran_alcocer",
     midis: [
@@ -4227,6 +4282,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "oskar_schuster",
+    country: "Germany",
     midis: [
       "les-sablons---oskar-schuster",
       "fantasiestuck---oskar-schuster",
@@ -4262,6 +4318,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "ralph_vaughan_williams",
+    country: "UK",
     midis: ["lark-ascending"],
     composerBirthYear: 1872,
   },
@@ -4409,6 +4466,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "johan_soderqvist_and_patrik_andren",
+    country: "Sweden",
     midis: [
       "devastation---johan-soderqvist-and-patrik-andren-devastation---johan-soderqvist-patrik-andren",
       "homing-pigeon-violin-piano---in-d-major-b-minor",
@@ -4420,6 +4478,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "wayne_shorter",
+    country: "USA",
     midis: ["footprints.mscz", "footprints_r", "footprints", "nefertiti"],
   },
   {
@@ -4462,7 +4521,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Romantic period composer
     country: "Poland", // Polish composer
   },
-  { slug: "jacob_do_bandolim", midis: ["vibracoes---jacob-do-bandolim"] },
+  { slug: "jacob_do_bandolim", country: "Brazil", midis: ["vibracoes---jacob-do-bandolim"] },
   {
     slug: "ignacy_jan_paderewski",
     midis: [
@@ -4476,7 +4535,7 @@ export const corpora: CorpusEntry[] = [
     style: "Late-Romantic", // Late Romantic era style
     country: "Poland", // Polish composer and statesman
   },
-  {slug: 'anatoly_lyadov', midis: [
+  {slug: 'anatoly_lyadov', country: "Russia", midis: [
 "anatoly_lyadov_valse_op_9_1", 
   ]},
   {
@@ -4504,7 +4563,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic, Folk", // Romantic influences with Ukrainian folk music
     country: "Ukraine", // Ukrainian composer
   },
-  { slug: "hart_a_wand", midis: ["dallas-blues-1912"] },
+  { slug: "hart_a_wand", country: "USA", midis: ["dallas-blues-1912"] },
   {
     slug: "myroslav_skoryk",
     midis: [
@@ -4549,7 +4608,7 @@ export const corpora: CorpusEntry[] = [
     country: "Ukraine", // Ukrainian composer
   },
 
-  { slug: "max_richter", midis: [] },
+  { slug: "max_richter", country: "Germany, UK", midis: [] },
   {
     slug: "yaroslav_kis",
     midis: ["liricheskiy-vals---yaroslav-kis"],
@@ -4616,6 +4675,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "king_gnu",
+    country: "Japan",
     midis: [
       "specialz---king-gnu---jujutsu-kaisen-season-2-op2-full-version",
       "banana-fish-ed-1-prayer-x",
@@ -4624,6 +4684,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "yoshimasa_terui",
+    country: "Japan",
     midis: [
       "if-i-am-with-you---yoshimasa-terui-jujutsu-kaisen-s2-ost-digital-sheet-music",
       "vague-reasons---yoshimasa-terui---jujutsu-kaisen-s2-ost-nanami-theme",
@@ -4667,15 +4728,18 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "louis_vierne",
+    country: "France",
     midis: ["vierne-organ-symphony-no.-1-part-vi---final"],
   },
   {
     slug: "bobby_prince",
+    country: "USA",
     midis: ["04---episode-1---the-city-streets-robert-prince"],
   },
-  {slug: 'reinhold_gliere', midis:["reinhold_gliere---12-pieces-enfantines-op.31no7-romance","walzer-op-31-no-6---reinhold-gliere",  ]},
+  {slug: 'reinhold_gliere', country: "Russia", midis:["reinhold_gliere---12-pieces-enfantines-op.31no7-romance","walzer-op-31-no-6---reinhold-gliere",  ]},
   {
     slug: "roberto_cacciapaglia",
+    country: "Italy",
     midis: [
       "roberto-cacciapaglia---tema-celeste",
       "roberto-cacciapaglia---seconda-navigazione",
@@ -4688,7 +4752,7 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: 1959,
   },
-  { slug: "nat_d_ayer", midis: ["oh-you-beautiful-doll---nat-d.-ayer"] },
+  { slug: "nat_d_ayer", country: "USA", midis: ["oh-you-beautiful-doll---nat-d.-ayer"] },
   {
     slug: "tchaikovsky",
     midis: [
@@ -4712,9 +4776,10 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Romantic era composer
     country: "Russia", // Russian composer
   },
-  { slug: "chad_lawson", midis: ["stay---chad-lawson"] },
+  { slug: "chad_lawson", country: "USA", midis: ["stay---chad-lawson"] },
   {
     slug: "rob_costlow",
+    country: "USA",
     midis: [
       // Sophomore Jinx, 2005
       "rob-costlow---bliss",
@@ -4820,9 +4885,10 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Romantic period composer
     country: "Cuba", // Cuban composer
   },
-  { slug: "borrtex", midis: ["flowing---borrtex"], composerBirthYear: 1999 },
+  { slug: "borrtex", country: "Czech Republic", midis: ["flowing---borrtex"], composerBirthYear: 1999 },
   {
     slug: "kristofer_maddigan",
+    country: "Canada",
     midis: [
       "inkwell-hell-piano-from-cuphead---kristofer-maddigan",
       "cuphead---kristofer-maddigan---die-house",
@@ -4931,8 +4997,8 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Romantic period composer, known for his piano works
     country: "Poland", // Polish composer (spent much of his life in France)
   },
-  {slug: "elemer_balazs", midis: ["elemer_balazs_chopin_reflection_6", "balazs_chopin_reflection_iv",  ]},
-  { slug: "dawid_bowie", midis: ["space-oddity---david-bowie"] },
+  {slug: "elemer_balazs", country: "Hungary", midis: ["elemer_balazs_chopin_reflection_6", "balazs_chopin_reflection_iv",  ]},
+  { slug: "dawid_bowie", country: "UK", midis: ["space-oddity---david-bowie"] },
   {
     slug: "grieg",
     midis: [
@@ -4946,7 +5012,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Known for his expressive piano pieces
     country: "Norway", // Grieg was Norwegian
   },
-  { slug: "anthony_maggio", midis: ["i-got-the-blues-1908"] },
+  { slug: "anthony_maggio", country: "USA", midis: ["i-got-the-blues-1908"] },
   {
     slug: "yuki_kaijura",
     midis: [
@@ -5002,9 +5068,9 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Works in the late Romantic style
     country: "Croatia", // Dora Pejacevic was Croatian
   },
-  { slug: "bessie_smith", midis: ["backwater-blues"] },
-  { slug: "michael_gundlach", midis: ["crazy-blues"] },
-  { slug: "vladimir_vysotsky", midis: ["beda"] },
+  { slug: "bessie_smith", country: "USA", midis: ["backwater-blues"] },
+  { slug: "michael_gundlach", country: "Germany", midis: ["crazy-blues"] },
+  { slug: "vladimir_vysotsky", country: "Russia", midis: ["beda"] },
   {
     slug: "mikulas_schneider_trnavsky",
     midis: [
@@ -5045,7 +5111,7 @@ export const corpora: CorpusEntry[] = [
     style: "Chanson", // Known for his distinctive style in Russian chanson
     country: "Russia", // Mikhail Krug was Russian
   },
-  { slug: "eagles", midis: ["hotel-california.7"] },
+  { slug: "eagles", country: "USA", midis: ["hotel-california.7"] },
   {
     slug: "danny_elfman",
     midis: [
@@ -5123,7 +5189,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: undefined, // Not enough information to determine
     genre: "Classical", // Classical genre
     style: "Baroque, Classical", // Works in classical and baroque style
-    country: undefined, // Country of origin unclear
+    country: "France", // Best guess; country not independently confirmed.
   },
   {
     slug: "emmerich_kalman",
@@ -5143,6 +5209,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "vicenzo_piano",
+    country: "Italy", // Best guess; country not independently confirmed.
     midis: [
       "winter---lucia-salieri-vicenzo-piano",
       "letter-to-my-mother---vicenzo-piano",
@@ -5173,7 +5240,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1970, // Information about Vicenzo Piano's birth year is unclear
     genre: "Indie, Classical", // Indie-classical style music
     style: "Minimalism", // Minimalism piano compositions
-    country: undefined, // Country not specified
+    country: "USA", // Best guess; country not independently confirmed.
   },
   {
     slug: "SIX",
@@ -5300,7 +5367,7 @@ export const corpora: CorpusEntry[] = [
     style: "Orchestral, Electronic, Rock", // McCreary blends orchestral, electronic, and rock styles
     country: "USA", // McCreary is American
   },
-  { slug: "tj_hill", midis: [] },
+  { slug: "tj_hill", country: "USA", midis: [] },
   {
     slug: "joe_hisaishi",
     midis: [
@@ -5344,6 +5411,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "zequinha_de_abreu",
+    country: "Brazil",
     midis: [
       "tico-tico-no-fuba---zequinha-de-abreu",
       "nao-me-toques-chorinho---zequinha-de-abreu",
@@ -5393,6 +5461,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "sergei_lyapunov",
+    country: "Russia",
     midis: [
       "lyapunov-reverie-du-soir-op.3",
       "tarantelle-opus-25-in-b-minor",
@@ -5401,10 +5470,11 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "stanley_myers",
+    country: "UK",
     midis: ["stanley-myers---cavatina-arranged-for-piano"],
     composerBirthYear: 1930,
   },
-  {slug: 'carl_czerny', midis:["czerny_op740_no50_g_minor", 
+  {slug: 'carl_czerny', country: "Austria", midis:["czerny_op740_no50_g_minor", 
     "czerny---school-of-velocity---op.-299-no.-1", 
     "czerny---op-740-the-art-of-finger-dexterity---no-14", ]},
   {
@@ -5421,13 +5491,14 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "austin_farwell",
+    country: "USA",
     midis: [
       "city-lights---austin-farwell",
       "wedding-ballet---austin-farwell",
       "once-upon-a-time---austin-farwell",
     ],
   },
-  { slug: "dylan_john_sparkes", midis: ["butterfly"] },
+  { slug: "dylan_john_sparkes", country: "UK", midis: ["butterfly"] },
   {
     slug: "hania_rani",
     midis: [
@@ -5443,6 +5514,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "johann_strauss_ii",
+    country: "Austria",
     midis: [
       "johann-strauss-jr.---an-der-schonen-blauen-donau",
       "strauss---tritsch-tratsch-polka-piano",
@@ -5474,6 +5546,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "alexander_nakarada",
+    country: "Norway",
     midis: [
       "adventure---alexander-nakarada",
       "village-ambiance---alexander-nakarada",
@@ -5481,6 +5554,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "thelonius_monk",
+    country: "USA",
     midis: [
       "thelonious-monk-dinah",
       "criss_cross",
@@ -5551,7 +5625,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Soul, R&B, Funk",
     country: "USA, Ghana",
   },
-  {slug: "robert_fripp", midis: ["king_crimson_red"]},
+  {slug: "robert_fripp", country: "UK", midis: ["king_crimson_red"]},
   {
     slug: "tom_jobim",
     midis: [
@@ -5585,6 +5659,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "hajime_wakai",
+    country: "Japan",
     midis: [
       "forest-of-hope-pikmin",
       "the-legend-of-zelda-skyward-sword",
@@ -5757,6 +5832,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "evgeny_krylatov",
+    country: "Russia",
     midis: [
       "kaby-ne-bylo-zimy-iz-m-f-zima-v-prostokvashino---evgeniy-krylatov-kaby-ne-bylo-zimy-iz-m-f-zima-v-prostokvashino",
       "prekrasnoe-dalyoko---ievgen-krilatov",
@@ -5785,6 +5861,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "agata_kristi",
+    country: "Russia",
     midis: [
       "skazochnaya-tayga-fabulous-taiga---agata-kristi-agatha-christie",
       "chyornaya-luna---agata-kristi",
@@ -5792,6 +5869,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "bulat_okudzhava",
+    country: "Russia",
     midis: [
       "beri_shinel-_poshli_domoy",
       "beri_shinel_poshli_domoi",
@@ -5836,7 +5914,7 @@ export const corpora: CorpusEntry[] = [
     style: "Celtic Folk", // Heavy influence of folk traditions
     country: "Russia",
   },
-  { slug: "erich_korngold", midis: ["neil-young---harvest-moon-piano-solo"] },
+  { slug: "erich_korngold", country: "Austria", midis: ["neil-young---harvest-moon-piano-solo"] },
   {
     slug: "igor_kornelyuk",
     midis: [
@@ -5865,9 +5943,10 @@ export const corpora: CorpusEntry[] = [
     style: "Traditional", // Traditional Chinese music
     country: "China",
   },
-  { slug: "gene_vincent", midis: ["be-bop-a-lula"] },
+  { slug: "gene_vincent", country: "USA", midis: ["be-bop-a-lula"] },
   {
     slug: "chuck_berry",
+    country: "USA",
     midis: [
       "johnny-b.-goode-rock-n-roll-piano-solo-arr",
       "roll-over-beethoven",
@@ -5920,7 +5999,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Romantic period
     country: "Germany",
   },
-  { slug: "mikhail_meerovich", midis: ["yozhik_v_tumane"] },
+  { slug: "mikhail_meerovich", country: "Russia", midis: ["yozhik_v_tumane"] },
   {
     slug: "norbert_schultze",
     midis: [
@@ -6001,6 +6080,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "dan_forden",
+    country: "USA",
     midis: ["mortal_kombat_1_character_zb", "mk_genesis_gorolair_zb"],
   },
   {
@@ -6068,11 +6148,13 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "yoshinao_nakada",
+    country: "Japan",
     midis: ["the-song-of-twilight---yoshinao-nakada"],
     composerBirthYear: 1923,
   },
   {
     slug: "tsukasa_saitoh",
+    country: "Japan",
     midis: ["elden-ring-ost---the-final-battle---tsukasa-saitoh"],
   },
 
@@ -6177,7 +6259,7 @@ export const corpora: CorpusEntry[] = [
     style: "Orchestral", // Marianelli is recognized for his orchestral and emotive compositions
     country: "Italy", // Italian composer
   },
-  { slug: "robin_beanland", midis: ["bosun-bill---sea-of-thieves"] },
+  { slug: "robin_beanland", country: "UK", midis: ["bosun-bill---sea-of-thieves"] },
   {
     slug: "enya",
     midis: [
@@ -6236,7 +6318,7 @@ export const corpora: CorpusEntry[] = [
     style: "Folk", // Folk music style with traditional Chinese instruments
     country: "China", // Likely from China, given the titles
   },
-  {slug: 'mykola_dremliuha', midis: ["lirichna-pisnya---mikola-dremlyuga", ]},
+  {slug: 'mykola_dremliuha', country: "Ukraine", midis: ["lirichna-pisnya---mikola-dremlyuga", ]},
   {
     slug: "karel_svoboda",
     midis: [
@@ -6409,7 +6491,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Classical",
     country: "Austria",
   },
-  { slug: "aaron_parks", midis: ["doors-open---aaron-parks"] },
+  { slug: "aaron_parks", country: "USA", midis: ["doors-open---aaron-parks"] },
   {
     slug: "brad_mehldau",
     midis: ["anthropology---brad-mehldau", "i.-waking-up---brad-mehldau"],
@@ -6504,6 +6586,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "michel_petrucciani",
+    country: "France",
     midis: ["home-1998-solo-live-transcription---michel-petrucciani"],
   },
   {
@@ -6669,6 +6752,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "r_bryan_anthony",
+    country: "USA", // Best guess; country not independently confirmed.
     midis: [
       "away-in-a-manger-by-william-j.-kirkpatrick-arranged-by-r-bryan-anthony",
       "silent-night-holy-night-piano-solo---arranged-by-r-bryan-anthony",
@@ -6699,6 +6783,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "franz_gordon",
+    country: "Sweden",
     midis: [
       "the-french-library---franz-gordon",
       "song-for-johanna---franz-gordon",
@@ -6706,6 +6791,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "kevin_kern",
+    country: "USA",
     midis: [
       // diatonic major
       "kevin-kern---through-the-arbor",
@@ -6825,7 +6911,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: undefined, // Birth year not available
     genre: "Electronic", // Electronic music
     style: "Chiptune, Lo-fi", // Lo-fi and chiptune elements are present in their music
-    country: undefined, // Country not available
+    country: "USA", // Best guess; country not independently confirmed.
   },
   {
     slug: "gabriele_traietti",
@@ -6833,7 +6919,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: undefined, // Birth year not available
     genre: "Electronic", // Likely an electronic artist based on the music
     style: "Ambient, Soundtrack", // The track suggests a cinematic and ambient style
-    country: undefined, // Country not available
+    country: "Italy", // Best guess; country not independently confirmed.
   },
   {
     slug: "lofi",
@@ -6973,6 +7059,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "syml",
+    country: "USA",
     midis: [
       "i-wanted-to-leave---syml",
       "bright-as-ever---syml",
@@ -7005,7 +7092,7 @@ export const corpora: CorpusEntry[] = [
     ],
     country: "Japan",
   },
-  { slug: "bobby_darin", midis: [] },
+  { slug: "bobby_darin", country: "USA", midis: [] },
   {
     slug: "christopher_larkin",
     midis: [
@@ -7033,7 +7120,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Guarania",
     country: "Paraguay",
   },
-  { slug: "norihiro_tsuru", midis: ["norihiro-tsuru---last-carnival"] },
+  { slug: "norihiro_tsuru", country: "Japan", midis: ["norihiro-tsuru---last-carnival"] },
   {
     slug: "fujii_kaze",
     midis: [
@@ -7071,6 +7158,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "tony_ann",
+    country: "Canada",
     midis: [
       "icarus---tony-ann",
       "experience-flows-in-you---tony-ann",
@@ -7078,7 +7166,7 @@ export const corpora: CorpusEntry[] = [
       "my-neighbour-s-car-alarm",
     ],
   },
-  { slug: "akeboshi", midis: ["wind-piano-sheet-music-naruto-ending-1"] },
+  { slug: "akeboshi", country: "Japan", midis: ["wind-piano-sheet-music-naruto-ending-1"] },
   {
     slug: "kohei_tanaka",
     midis: [
@@ -7126,9 +7214,10 @@ export const corpora: CorpusEntry[] = [
     country: "USA",
     genre: "Rock",
   },
-  { slug: "adele", midis: ["someone-like-you", "easy-on-me---adele"] },
+  { slug: "adele", country: "UK", midis: ["someone-like-you", "easy-on-me---adele"] },
   {
     slug: "parov_stelar",
+    country: "Austria",
     midis: [
       "booty-swing---parov-stelar",
       "chambermaid-swing---parov-stelar---piano-notes",
@@ -7139,6 +7228,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "hans_zimmer",
+    country: "Germany",
     midis: [
       "Interstellar",
       "molossus---batman-begins",
@@ -7148,10 +7238,15 @@ export const corpora: CorpusEntry[] = [
       "davy_jones_theme",
     ],
   },
-  { slug: "chris_allen", midis: ["nurture-piano---in-eb-major-c-minor"] },
-  { slug: "bo_en", midis: ["bo-en---my-time", "tussle-among-trees---bo-en"] },
+  {
+    slug: "chris_allen",
+    country: "UK", // Best guess; country not independently confirmed.
+    midis: ["nurture-piano---in-eb-major-c-minor"],
+  },
+  { slug: "bo_en", country: "UK", midis: ["bo-en---my-time", "tussle-among-trees---bo-en"] },
   {
     slug: "pedro_silva",
+    country: "USA",
     midis: [
       "Omori_Duet",
       "omori---gator-gambol---ost-no.-103---pedro-silva",
@@ -7162,6 +7257,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "chikayo_fukuda",
+    country: "Japan",
     midis: [
       "solatorobo-ost_re-coda",
       "mau---the-bower-from-solatorobo-red-the-hunter",
@@ -7172,6 +7268,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "toshio_masuda",
+    country: "Japan",
     midis: [
       "sadness-and-sorrow-for-piano-solo",
       "afternoon-of-konoha---toshio-masuda",
@@ -7182,6 +7279,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "go_ichinose",
+    country: "Japan",
     midis: [
       "littleroot-town---pokemon-oras-for-piano",
       "national-park---pokemon-gold-silver-junichi-masuda-go-inchinose-transcribed-by-onakaru",
@@ -7189,6 +7287,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "brian_crain",
+    country: "USA",
     midis: [
       "song-for-sienna",
       "butterfly-waltz---brian-crain",
@@ -7200,6 +7299,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "dan_salvato",
+    country: "USA",
     midis: [
       "doki-doki-literature-club-ost---your-reality",
       "okay-everyone---dan-salvato-okay-everyone",
@@ -7231,6 +7331,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "clint_mansell",
+    country: "UK",
     midis: [
       "Requiem_for_a_Dream",
       "dying-dream-arrangement-by-reik",
@@ -7253,6 +7354,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "yann_tiersen",
+    country: "France",
     midis: [
       "Yann_Tiersen_Amelie",
       "rue-des-cascades---yann-tiersen",
@@ -7269,6 +7371,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "michael_giacchino",
+    country: "USA",
     midis: [
       "Disney_Pixar_Up_Theme",
       "imperial-suite---michael-giacchino-~piano~",
@@ -7297,6 +7400,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "benny_goodman",
+    country: "USA",
     midis: ["sing-sing-sing-1938-carnegie-hall-piano-transcription"],
   },
   {
@@ -7326,7 +7430,7 @@ export const corpora: CorpusEntry[] = [
     country: "Japan",
     composerBirthYear: 1963,
   },
-  { slug: "john_stump", midis: ["faerie-s-aire-and-death-waltz"] },
+  { slug: "john_stump", country: "USA", midis: ["faerie-s-aire-and-death-waltz"] },
 
   {
     slug: "taro_umebayashi",
@@ -7341,6 +7445,7 @@ export const corpora: CorpusEntry[] = [
   { slug: "jojomk2", midis: ["canon-in-c-jazz-piano-duets"] },
   {
     slug: "hayato_sumino",
+    country: "Japan",
     midis: [
       "new-birth-tai-dong---hayato-sumino-cateen",
       "let-the-battles-begin-those-who-fight-cateen-version---final-fantasy-vii",
@@ -7373,6 +7478,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "takahiro_obata",
+    country: "Japan",
     midis: [
       "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2",
       "norman-s-theme-22194",
@@ -7390,6 +7496,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "mdk",
+    country: "Canada",
     midis: [
       "press-start",
       "fingerbang---mdk-mdk---fingerbang-piano-solo",
@@ -7401,7 +7508,8 @@ export const corpora: CorpusEntry[] = [
     ],
   },
   {
-    slug: "yim_josef",
+    slug: "jim_yosef",
+    country: "Sweden",
     midis: [
       "jim-yosef-link",
       "jim-yosef--firefly",
@@ -7418,6 +7526,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "pedro_tintorer",
+    country: "Spain",
     midis: [
       "matilde---tintorer-pedro",
       "i-que-place",
@@ -7429,6 +7538,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "danny_baranowsky",
+    country: "USA",
     midis: [
       "c.h.a.d.-s-lullaby---super-meat-boy",
       "betus-blues---super-meat-boy-hospital-light-world-theme",
@@ -7437,6 +7547,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "yehezkel_raz",
+    country: "Israel",
     midis: [
       "ballerina---yehezkel-raz",
       "laniakea---yehezkel-raz", // does not exist
@@ -7454,8 +7565,8 @@ export const corpora: CorpusEntry[] = [
     ],
     similarTo: ["andrea_vanzo"],
   },
-  { slug: "johnny_cash", midis: ["Johnny_Cash_Hurt", "folsom-prison-blues.1"] },
-  { slug: "led_zeppelin", midis: ["rock-and-roll.3"] },
+  { slug: "johnny_cash", country: "USA", midis: ["Johnny_Cash_Hurt", "folsom-prison-blues.1"] },
+  { slug: "led_zeppelin", country: "UK", midis: ["rock-and-roll.3"] },
   {
     slug: "penta_hexa",
     midis: [
@@ -7510,6 +7621,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "masaru_yokoyama",
+    country: "Japan",
     midis: [
       "my-lie-watashi-no-uso---your-lie-in-april",
       "again-your-lie-in-april---masaru-yokoyama",
@@ -7523,6 +7635,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "marcin_przybylowicz",
+    country: "Poland",
     midis: [
       "the-witcher-3---priscilla-s-song",
       "the-witcher-3---geralt-of-rivia",
@@ -7545,10 +7658,12 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "osman_zeki_ungor",
+    country: "Turkey",
     midis: ["istiklal-marsi-turkish-national-anthem"],
   },
   {
     slug: "christian_petzold",
+    country: "Germany",
     midis: [
       "minuet-bwv-anhang-114-in-g-major",
       "bach-minuet-in-g-minor-bwv-anh.-115",
@@ -7674,10 +7789,12 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "abba",
+    country: "Sweden",
     midis: ["abba--the-winner-takes-it-all", "the-winner-takes-it-all.6"],
   },
   {
     slug: "aivi_surasshu_and_rebecca_sugar",
+    country: "USA, Netherlands",
     midis: [
       "Love_Like_You_Steven_Universe",
       "steven-universe-full-theme-song-for-piano",
@@ -7690,6 +7807,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "revo",
+    country: "Japan",
     midis: [
       "Attack_on_Titan_Shinzou_wo_Sasageyo",
       "attack-on-titan-theme-guren-no-yumiya",
@@ -7824,7 +7942,7 @@ export const corpora: CorpusEntry[] = [
     country: "Italy",
     genre: "Film Score",
   },
-  { slug: "miles_davis", midis: ["nardis"] },
+  { slug: "miles_davis", country: "USA", midis: ["nardis"] },
   {
     slug: "kristen_anderson_lopez_and_robert_lopez",
     midis: [
@@ -7908,6 +8026,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "junichi_masuda",
+    country: "Japan",
     midis: [
       "pallet-town---pokemon-red-blue-green-yellow-by-junichi-masuda",
       "viridian-pewter-saffron-city---pokemon-rby---junichi-masuda",
@@ -7917,6 +8036,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "brahms",
+    country: "Germany",
     midis: [
       "hungarian_dance_1_-c-yogore",
       "hungarian-dance-no.-1",
@@ -7933,11 +8053,13 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "justin_hurwitz",
+    country: "USA",
     midis: ["gold-coast-rhythm-jack-s-party---justin-hurwitz"],
     composerBirthYear: 1985,
   },
   {
     slug: "david_shire",
+    country: "USA",
     midis: [
       "the-conversation",
       "manhattan-skyline---david-shire-manhattan-skyline---piano-interpretation",
@@ -7946,16 +8068,19 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "hikaru_shirosu",
+    country: "Japan",
     midis: ["waltz-no.1-op.6-collapse---hikaru-shirosu"],
   },
   {
     slug: "karl_jenkins",
+    country: "UK",
     midis: [
       "karl-jenkins-concerto-grosso-for-string-orchestra-palladio-i.-allegretto---for-piano-solo",
     ],
   },
   {
     slug: "evgeny_grinko",
+    country: "Russia",
     midis: [
       "evgeny-grinko---valse",
       "carousel---evgeny-grinko",
@@ -7971,6 +8096,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "amachas_music_studio",
+    country: "Japan",
     midis: [
       "old-doll-puppet---ib-mad-father-old-doll",
       "yu-nolian-ren-tati---gan-cha-noyin-le-gong-fang",
@@ -8098,6 +8224,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "jacques_offenbach",
+    country: "France",
     midis: [
       "can-can", // Jacques Offenbach
       "offenbach---can-can-from-orpheus-in-the-underworld-piano-arrangement",
@@ -8130,6 +8257,7 @@ export const corpora: CorpusEntry[] = [
 
   {
     slug: "bruckner",
+    country: "Austria",
     midis: [
       "bruckner_7_1",
       "bruckner_7_2",
@@ -8158,6 +8286,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "jonathan_coulton",
+    country: "USA",
     midis: ["portal_still_alive", "re-your-brains-jonathan-coulton"],
     composerBirthYear: 1970,
     genre: "Folk Rock, Indie Rock, Comedy Rock",
@@ -8181,6 +8310,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "michel_legrand",
+    country: "France",
     midis: [
       "i-will-wait-for-you---michel-legrand",
       "the-windmills-of-your-mind---michel-legrand",
@@ -8191,6 +8321,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "sebastian_yradier",
+    country: "Spain",
     midis: [
       "la-paloma-cancion-americana-sebastian-yradier-vers-1863",
       "maria-dolores-1860-tango-du-maestro-sebastian-yradier",
@@ -8218,6 +8349,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "goran_bregovic",
+    country: "Bosnia and Herzegovina",
     midis: [
       "bubamara",
       "underground-cocek",
@@ -8239,14 +8371,17 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "linkin_park",
+    country: "USA",
     midis: ["Numb_-_Linkin_Park", "in-the-end---linkin-park"],
   },
   {
     slug: "ross_bagdasarian",
+    country: "USA",
     midis: ["christmas-don-t-be-late-the-chipmunk-song"],
   },
   {
     slug: "thefatrat",
+    country: "Germany",
     midis: [
       "TheFatRat_Monody",
       "TheFatRat_Unity",
@@ -8263,13 +8398,15 @@ export const corpora: CorpusEntry[] = [
       "thefatrat-slaydit---solitude",
     ],
   },
-  { slug: "moka", midis: ["elfen-lied---lilium"] },
+  { slug: "moka", country: "Japan", midis: ["elfen-lied---lilium"] },
   {
     slug: "francis_lai",
+    country: "France",
     midis: ["Love_Store_Francis_Lai", "un-homme-et-une-femme---francis-lai"],
   },
   {
     slug: "luiz_bonfa",
+    country: "Brazil",
     midis: [
       "la-chanson-d-orphee-manha-do-carnaval---luis-bonfa",
       "l2004_03---la-chanson-d-orphee",
@@ -8286,10 +8423,12 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "vasiliy_agapkin",
+    country: "Russia",
     midis: ["march-slav-s-farewel-marsh-proshchanie-slavyanki"],
   },
   {
     slug: "kyle_landry",
+    country: "USA",
     midis: [
       "Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki",
       "comptine-d-un-autre-ete-arr.-kyle-landry-2021",
@@ -8315,6 +8454,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "georgy_sviridov",
+    country: "Russia",
     midis: [
       "Sviridov_Snowstorm_Waltz",
       "Sviridov_Time_Foward",
@@ -8323,11 +8463,13 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "jan_a_p_kaczmarek",
+    country: "Poland",
     midis: ["goodbye---jan-a.p-kaczmarek-from-the-movie-hachi-a-dog-s-tale"],
   },
-  { slug: "chauncey_olcott", midis: ["my_wild_irish_rose"] },
+  { slug: "chauncey_olcott", country: "USA", midis: ["my_wild_irish_rose"] },
   {
     slug: "cody_fry",
+    country: "USA",
     midis: [
       "cody_fry_eleanor_rigby_no_lead_vocal",
       "eleanor_rigby_cody_fry_no_perc1",
@@ -8342,7 +8484,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1922,
     country: "Russia",
   },
-  {slug: "tom_hojnacki", midis: ["tom_hojnacki_it_could_have_been_the_summertime",
+  {slug: "tom_hojnacki", country: "USA", midis: ["tom_hojnacki_it_could_have_been_the_summertime",
     "tom_hojnacki_lucky_secondary_dominants", "tom_hojnacki_lucky_substitute_dominants", "tom_hojnacki_to_the_bitter_dregs", ]},
   {
     slug: "unsorted",

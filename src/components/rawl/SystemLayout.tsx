@@ -427,9 +427,10 @@ export const StackedSystemLayout: React.FC<
     const viewportWidth = window.innerWidth;
     const targetWidthPercentage = 0.92;
     const targetWidth = viewportWidth * targetWidthPercentage;
+    const maxMeasuresToFit = 34;
 
     const annotatedSections = sectionSpans.filter(
-      (span) => span[1] - span[0] < 25,
+      (span) => span[1] - span[0] <= maxMeasuresToFit,
     );
 
     const longestSection = annotatedSections.reduce((longest, current) => {
@@ -440,7 +441,7 @@ export const StackedSystemLayout: React.FC<
         measuresAndBeats.measures[longest[1]] -
         measuresAndBeats.measures[longest[0]];
       return currentLength > longestLength ? current : longest;
-    }, sectionSpans[0]);
+    }, annotatedSections[0]);
 
     if (longestSection && annotatedSections.length >= 1) {
       const longestSectionLength =
@@ -450,9 +451,9 @@ export const StackedSystemLayout: React.FC<
       // Calculate optimal width for the section
       let calculatedWidth = targetWidth / longestSectionLength;
 
-      // If we don't have too many measures (using the same filter as above: < 25 measures)
+      // If the section fits within the measure limit
       // and we're in single time mode, limit to max 300px per measure
-      if (longestSection[1] - longestSection[0] < 25) {
+      if (longestSection[1] - longestSection[0] <= maxMeasuresToFit) {
         // Calculate how many pixels per measure with current width
         const measureCount = longestSection[1] - longestSection[0];
         const secondsPerMeasure = longestSectionLength / measureCount;

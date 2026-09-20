@@ -99,7 +99,6 @@ export const Voice: React.FC<{
   enableManualRemeasuring: boolean;
   hoveredColors: string[] | null;
   hoveredVoiceIndex?: number | null;
-  positionSeconds: number;
   playbackMeasure: number | null;
   showPlaybackMeasureBottomBorder: boolean;
 }> = ({
@@ -123,7 +122,6 @@ export const Voice: React.FC<{
   enableManualRemeasuring,
   hoveredColors,
   hoveredVoiceIndex = null,
-  positionSeconds,
   playbackMeasure,
   showPlaybackMeasureBottomBorder,
 }) => {
@@ -178,49 +176,13 @@ export const Voice: React.FC<{
     [drumTop, drumRows, drumRowHeight],
   );
 
-  const previousPlaybackPosition = useRef(positionSeconds);
-  const playingNoteIds = useMemo(
-    () => {
-      const previousPosition = previousPlaybackPosition.current;
-      // Catch short drum hits between rendered frames. Treat large jumps and
-      // backwards movement as seeks rather than playing all intervening hits.
-      const crossedPlaybackInterval =
-        positionSeconds > previousPosition &&
-        positionSeconds - previousPosition <= 0.5;
-      return notes
-        .filter(
-          (note) =>
-            (positionSeconds >= note.span[0] && positionSeconds < note.span[1]) ||
-            (note.isDrum &&
-              crossedPlaybackInterval &&
-              note.span[0] > previousPosition &&
-              note.span[0] <= positionSeconds),
-        )
-        .map((note) => note.id)
-        .join("\0");
-    },
-    [notes, positionSeconds],
-  );
-
-  React.useLayoutEffect(() => {
-    previousPlaybackPosition.current = positionSeconds;
-  }, [positionSeconds]);
-
-  const playingNoteIdSet = useMemo(
-    () => new Set(playingNoteIds ? playingNoteIds.split("\0") : []),
-    [playingNoteIds],
-  );
-
   // The frozenHeight machinery was used when I experimented with smart
   // collapse/expand of every Voice relative to its current range on a current screen.
   // I'm not sure it's used anymore.
   const { noteRectangles, frozenHeight, frozenMidiRange } = useMemo(
     () => ({
       noteRectangles: getNoteRectangles(
-        notes.map((note) => ({
-          ...note,
-          isPlayingNow: playingNoteIdSet.has(note.id),
-        })),
+        notes,
         midiNumberToY,
         noteHeight,
         handleNoteClick,
@@ -244,7 +206,6 @@ export const Voice: React.FC<{
       voiceMask,
       noteHeight,
       secondsToX,
-      playingNoteIdSet,
       enableManualRemeasuring,
       hoveredColors,
       hoveredVoiceIndex,
@@ -664,7 +625,6 @@ export const StackedSystemLayout: React.FC<
                     enableManualRemeasuring={enableManualRemeasuring}
                     hoveredColors={hoveredColors}
                     hoveredVoiceIndex={hoveredVoiceIndex}
-                    positionSeconds={positionSeconds}
                     playbackMeasure={playbackMeasure}
                     showPlaybackMeasureBottomBorder={
                       voiceIndex ===

@@ -2,6 +2,7 @@ import * as React from "react";
 import { SecondsConverter, SecondsSpan } from "./Rawl";
 import { ColoredNote, Note, PitchBendPoint } from "./parseMidi";
 import { DrumPlaybackContext } from "./drumPlayback";
+import { NotePlaybackContext } from "./notePlayback";
 
 // Also useful emojis
 // 🤯 🎯 🪤 💣 🔫 💢
@@ -310,166 +311,217 @@ export const getNoteRectangles = (
   drumNoteToY?: (note: Note) => number,
   hoveredVoiceIndex: number | null = null,
 ) => {
-  console.log("run getNoteRectangles on ", notes.length, " notes");
-  return notes.map((note) => {
-    const {
-      isDrum,
-      note: { midiNumber, relativeNumber },
-      color,
-      voiceIndex,
-      isActive,
-      sourceLocation,
-      noteUnderCursor,
-      isPlayingNow,
-    } = note;
-    const number = relativeNumber === undefined ? midiNumber : relativeNumber;
-
-    // Calculate base height and top position
-    const baseHeight = noteHeight * 2;
-    const baseTop =
-      (isDrum && drumNoteToY
-        ? drumNoteToY(note)
-        : midiNumberToY(isDrum ? number + 12 : number)) - noteHeight;
-
-    const left = secondsToX(note.span[0]);
-    const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
-
-    const isOtherVoice =
-      hoveredVoiceIndex !== null && voiceIndex !== hoveredVoiceIndex;
-    const isHighlighted =
-      !isOtherVoice &&
-      (isDrum || !hoveredColors || hoveredColors.includes(color));
-    const showFullNote =
-      voiceIndex === hoveredVoiceIndex || (isActive && isHighlighted);
-    const collapsedHeight = isOtherVoice ? 1 : 0.5;
-
-    // Adjust height and top position for notes under the cursor
-    const activeHeight = isPlayingNow ? baseHeight * 2 : baseHeight;
-    const height = showFullNote
-      ? noteUnderCursor
-        ? baseHeight * 2
-        : activeHeight
-      : collapsedHeight;
-    const top = showFullNote
-      ? noteUnderCursor
-        ? baseTop - baseHeight
-        : baseTop - (activeHeight - baseHeight)
-      : baseTop + baseHeight - collapsedHeight;
-
-    const hasPitchBend =
-      !isDrum &&
-      width > 0 &&
-      note.pitchBend?.some(
-        (point) =>
-          Number.isFinite(point.time) &&
-          Number.isFinite(point.value) &&
-          point.value !== 8192,
-      );
-
-    // Format source location string if it exists
-    let sourceLocationText = "";
-    if (sourceLocation) {
-      // Format the command type (i for insert, c for copy, ac for all-channels copy)
-      const commandType =
-        sourceLocation.command === "insert"
-          ? "i"
-          : sourceLocation.command === "copy"
-          ? "c"
-          : sourceLocation.command === "ac"
-          ? "ac"
-          : "";
-
-      if (commandType && sourceLocation.row && sourceLocation.col) {
-        sourceLocationText = `${commandType} ${sourceLocation.row},${sourceLocation.col}`;
-      }
-    }
-
-    return isDrum ? (
-      (isActive || voiceIndex === hoveredVoiceIndex) && (
-        <DrumEmoji
-          key={`nr_${note.id}`}
-          collapsed={!showFullNote}
-          isPlayingNow={isPlayingNow}
-          startSeconds={note.span[0]}
-          size={baseHeight * 1.5}
-          left={left}
-          top={baseTop - noteHeight / 2}
-        >
-          {GM_DRUM_KIT[midiNumber] || midiNumber}
-        </DrumEmoji>
-      )
-    ) : (
-      <div
-        key={`nr_${note.id}`}
-        className={`${
-          hasPitchBend ? "pitch-bend-note" : color
-        } voiceShape-${voiceIndex} ${
-          noteUnderCursor ? "note-under-cursor" : ""
-        }`}
-        style={{
-          position: "absolute",
-          height: `${height}px`,
-          width,
-          overflow: "visible",
-          top,
-          left,
-          pointerEvents: handleNoteClick && !hasPitchBend ? "auto" : "none",
-          zIndex:
-            Math.round(10 + (width > 0 ? 1000 / width : 1000)) +
-            (noteUnderCursor ? 100 : 0),
-          boxSizing: "border-box",
-          display: "grid",
-          boxShadow: showFullNote && !hasPitchBend ? "0 0 0px 0.5px black" : "",
-          cursor: enableManualRemeasuring
-            ? "e-resize"
-            : handleNoteClick
-            ? "pointer"
-            : "default",
-          opacity: noteUnderCursor ? 1 : undefined,
-        }}
-        onClick={(e) => {
-          e.stopPropagation();
-          if (handleNoteClick) {
-            handleNoteClick(note);
-          }
-        }}
-        onMouseEnter={(e) => !isDrum && handleMouseEnter(note)}
-        onMouseLeave={() => !isDrum && handleMouseLeave()}
-      >
-        {hasPitchBend && (
-          <PitchBendNote
-            points={note.pitchBend!}
-            span={note.span}
-            height={height}
-            width={width}
-            secondsToX={secondsToX}
-            pitchToOffset={(bend) =>
-              midiNumberToY(number + bend) - midiNumberToY(number)
-            }
-            colorPitchClass={note.colorPitchClass}
-            outlined={showFullNote}
-            interactive={!!handleNoteClick}
-          />
-        )}
-        {showSourceLocation && sourceLocationText && showFullNote && (
-          <div
-            style={{
-              position: "absolute",
-              top: "-16px",
-              left: 0,
-              color: "white",
-              fontSize: "10px",
-              whiteSpace: "nowrap",
-              backgroundColor: "rgba(0,0,0,0.5)",
-              padding: "1px 3px",
-              borderRadius: "2px",
-              pointerEvents: "none",
-            }}
-          >
-            {sourceLocationText}
-          </div>
-        )}
-      </div>
-    );
-  });
+  return notes.map((note) => (
+    <NoteRectangle
+      key={`nr_${note.id}`}
+      note={note}
+      midiNumberToY={midiNumberToY}
+      noteHeight={noteHeight}
+      handleNoteClick={handleNoteClick}
+      handleMouseEnter={handleMouseEnter}
+      handleMouseLeave={handleMouseLeave}
+      secondsToX={secondsToX}
+      enableManualRemeasuring={enableManualRemeasuring}
+      hoveredColors={hoveredColors}
+      showSourceLocation={showSourceLocation}
+      drumNoteToY={drumNoteToY}
+      hoveredVoiceIndex={hoveredVoiceIndex}
+    />
+  ));
 };
+
+const NoteRectangle = React.memo(({
+  note,
+  midiNumberToY,
+  noteHeight,
+  handleNoteClick,
+  handleMouseEnter,
+  handleMouseLeave,
+  secondsToX,
+  enableManualRemeasuring,
+  hoveredColors,
+  showSourceLocation,
+  drumNoteToY,
+  hoveredVoiceIndex,
+}: {
+  note: ColoredNote;
+  midiNumberToY: (number: number) => number;
+  noteHeight: number;
+  handleNoteClick: MouseEventHanlder | null;
+  handleMouseEnter: MouseEventHanlder;
+  handleMouseLeave: () => void;
+  secondsToX: SecondsConverter;
+  enableManualRemeasuring: boolean;
+  hoveredColors: string[] | null;
+  showSourceLocation: boolean;
+  drumNoteToY?: (note: Note) => number;
+  hoveredVoiceIndex: number | null;
+}) => {
+  const registerNote = React.useContext(NotePlaybackContext);
+  const [playing, setPlaying] = React.useState(false);
+  React.useLayoutEffect(() => {
+    if (registerNote && !note.isDrum) {
+      return registerNote(note.span[0], note.span[1], setPlaying);
+    }
+  }, [registerNote, note.isDrum, note.span[0], note.span[1]]);
+  const isPlayingNow =
+    registerNote && !note.isDrum ? playing : note.isPlayingNow;
+  const {
+    isDrum,
+    note: { midiNumber, relativeNumber },
+    color,
+    voiceIndex,
+    isActive,
+    sourceLocation,
+    noteUnderCursor,
+  } = note;
+  const number = relativeNumber === undefined ? midiNumber : relativeNumber;
+
+  // Calculate base height and top position
+  const baseHeight = noteHeight * 2;
+  const baseTop =
+    (isDrum && drumNoteToY
+      ? drumNoteToY(note)
+      : midiNumberToY(isDrum ? number + 12 : number)) - noteHeight;
+
+  const left = secondsToX(note.span[0]);
+  const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
+
+  const isOtherVoice =
+    hoveredVoiceIndex !== null && voiceIndex !== hoveredVoiceIndex;
+  const isHighlighted =
+    !isOtherVoice &&
+    (isDrum || !hoveredColors || hoveredColors.includes(color));
+  const showFullNote =
+    voiceIndex === hoveredVoiceIndex || (isActive && isHighlighted);
+  const collapsedHeight = isOtherVoice ? 1 : 0.5;
+
+  // Adjust height and top position for notes under the cursor
+  const activeHeight = isPlayingNow ? baseHeight * 2 : baseHeight;
+  const height = showFullNote
+    ? noteUnderCursor
+      ? baseHeight * 2
+      : activeHeight
+    : collapsedHeight;
+  const top = showFullNote
+    ? noteUnderCursor
+      ? baseTop - baseHeight
+      : baseTop - (activeHeight - baseHeight)
+    : baseTop + baseHeight - collapsedHeight;
+
+  const hasPitchBend =
+    !isDrum &&
+    width > 0 &&
+    note.pitchBend?.some(
+      (point) =>
+        Number.isFinite(point.time) &&
+        Number.isFinite(point.value) &&
+        point.value !== 8192,
+    );
+
+  // Format source location string if it exists
+  let sourceLocationText = "";
+  if (sourceLocation) {
+    // Format the command type (i for insert, c for copy, ac for all-channels copy)
+    const commandType =
+      sourceLocation.command === "insert"
+        ? "i"
+        : sourceLocation.command === "copy"
+        ? "c"
+        : sourceLocation.command === "ac"
+        ? "ac"
+        : "";
+
+    if (commandType && sourceLocation.row && sourceLocation.col) {
+      sourceLocationText = `${commandType} ${sourceLocation.row},${sourceLocation.col}`;
+    }
+  }
+
+  return isDrum ? (
+    isActive || voiceIndex === hoveredVoiceIndex ? (
+      <DrumEmoji
+        key={`nr_${note.id}`}
+        collapsed={!showFullNote}
+        isPlayingNow={isPlayingNow}
+        startSeconds={note.span[0]}
+        size={baseHeight * 1.5}
+        left={left}
+        top={baseTop - noteHeight / 2}
+      >
+        {GM_DRUM_KIT[midiNumber] || midiNumber}
+      </DrumEmoji>
+    ) : null
+  ) : (
+    <div
+      key={`nr_${note.id}`}
+      className={`${
+        hasPitchBend ? "pitch-bend-note" : color
+      } voiceShape-${voiceIndex} ${
+        noteUnderCursor ? "note-under-cursor" : ""
+      }`}
+      style={{
+        position: "absolute",
+        height: `${height}px`,
+        width,
+        overflow: "visible",
+        top,
+        left,
+        pointerEvents: handleNoteClick && !hasPitchBend ? "auto" : "none",
+        zIndex:
+          Math.round(10 + (width > 0 ? 1000 / width : 1000)) +
+          (noteUnderCursor ? 100 : 0),
+        boxSizing: "border-box",
+        display: "grid",
+        boxShadow: showFullNote && !hasPitchBend ? "0 0 0px 0.5px black" : "",
+        cursor: enableManualRemeasuring
+          ? "e-resize"
+          : handleNoteClick
+          ? "pointer"
+          : "default",
+        opacity: noteUnderCursor ? 1 : undefined,
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+        if (handleNoteClick) {
+          handleNoteClick(note);
+        }
+      }}
+      onMouseEnter={(e) => !isDrum && handleMouseEnter(note)}
+      onMouseLeave={() => !isDrum && handleMouseLeave()}
+    >
+      {hasPitchBend && (
+        <PitchBendNote
+          points={note.pitchBend!}
+          span={note.span}
+          height={height}
+          width={width}
+          secondsToX={secondsToX}
+          pitchToOffset={(bend) =>
+            midiNumberToY(number + bend) - midiNumberToY(number)
+          }
+          colorPitchClass={note.colorPitchClass}
+          outlined={showFullNote}
+          interactive={!!handleNoteClick}
+        />
+      )}
+      {showSourceLocation && sourceLocationText && showFullNote && (
+        <div
+          style={{
+            position: "absolute",
+            top: "-16px",
+            left: 0,
+            color: "white",
+            fontSize: "10px",
+            whiteSpace: "nowrap",
+            backgroundColor: "rgba(0,0,0,0.5)",
+            padding: "1px 3px",
+            borderRadius: "2px",
+            pointerEvents: "none",
+          }}
+        >
+          {sourceLocationText}
+        </div>
+      )}
+    </div>
+  );
+});

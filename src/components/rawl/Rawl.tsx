@@ -14,6 +14,7 @@ import {
   useState,
 } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { unstable_batchedUpdates } from "react-dom";
 import { playRawMidiNote } from "../../sampler/sampler";
 import { VoiceMask } from "../App";
 import { AppContext } from "../AppContext";
@@ -22,6 +23,7 @@ import { MeasureSelection } from "./AnalysisGrid";
 import CompositionTitle from "./CompositionTitle";
 import FrozenNotesLayout from "./FrozenNotesLayout";
 import { DrumPlaybackContext, useDrumPlaybackClock } from "./drumPlayback";
+import { NotePlaybackContext, useNotePlaybackClock } from "./notePlayback";
 import { MergedSystemLayout, SystemLayoutProps } from "./SystemLayout";
 import {
   ANALYSIS_STUB,
@@ -567,10 +569,12 @@ const Rawl: React.FC<RawlProps> = ({
 
   const [positionMs, setPositionMs] = useState(0);
   const drumPlaybackClock = useDrumPlaybackClock();
+  const notePlaybackClock = useNotePlaybackClock();
 
   useEffect(() => {
     let running = true;
     drumPlaybackClock.reset();
+    notePlaybackClock.reset();
 
     const animate = () => {
       if (!running) {
@@ -578,8 +582,12 @@ const Rawl: React.FC<RawlProps> = ({
       }
 
       const position = getCurrentPositionMs();
-      drumPlaybackClock.advance(position / 1000);
-      setPositionMs(position);
+      // React 16 does not automatically batch requestAnimationFrame updates.
+      unstable_batchedUpdates(() => {
+        drumPlaybackClock.advance(position / 1000);
+        notePlaybackClock.advance(position / 1000);
+        setPositionMs(position);
+      });
       requestAnimationFrame(animate);
     };
 
@@ -588,7 +596,7 @@ const Rawl: React.FC<RawlProps> = ({
     return () => {
       running = false;
     };
-  }, [getCurrentPositionMs, drumPlaybackClock, parsingResult]);
+  }, [getCurrentPositionMs, drumPlaybackClock, notePlaybackClock, parsingResult]);
 
   useEffect(() => {
     const handleEscapePress = (event) => {
@@ -954,14 +962,16 @@ const Rawl: React.FC<RawlProps> = ({
             </div>
           )}
           {systemLayout === "merged" ? (
-            <DrumPlaybackContext.Provider value={drumPlaybackClock.register}>
-              <MergedSystemLayout
-                {...systemLayoutProps}
-                enableManualRemeasuring={enableManualRemeasuring}
-                isEmbedded={isEmbedded}
-                usePageScroll={usePageScroll}
-              />
-            </DrumPlaybackContext.Provider>
+            <NotePlaybackContext.Provider value={notePlaybackClock.register}>
+              <DrumPlaybackContext.Provider value={drumPlaybackClock.register}>
+                <MergedSystemLayout
+                  {...systemLayoutProps}
+                  enableManualRemeasuring={enableManualRemeasuring}
+                  isEmbedded={isEmbedded}
+                  usePageScroll={usePageScroll}
+                />
+              </DrumPlaybackContext.Provider>
+            </NotePlaybackContext.Provider>
           ) : (
             <ErrorBoundary
               fallback={<div>Error loading Frozen Notes Layout</div>}

@@ -47,8 +47,8 @@ import MIDIPlayer from "../players/MIDIPlayer";
 import { ensureEmscFileWithData, unlockAudioContext } from "../util";
 import Alert from "./Alert";
 import { AppContext } from "./AppContext";
-import AppFooter from "./AppFooter";
-import AppHeader from "./AppHeader";
+import AppFooter, { FOOTER_HEIGHT } from "./AppFooter";
+import AppHeader, { HEADER_HEIGHT } from "./AppHeader";
 import DropMessage from "./DropMessage";
 import Pieces from "./Pieces";
 import Lakh from "./lakh/Lakh";
@@ -136,10 +136,10 @@ function mergeAnalyses(existingAnalyses, newAnalyses) {
 }
 
 const AppMainContent = styled.div`
-  margin-bottom: 25px; // Add space for fixed footer
-  height: 100vh; // Subtract header height and footer margin
-  overflow-y: auto; // Enable vertical scrolling
-  padding: 0; // Add some horizontal padding
+  height: calc(100vh - ${HEADER_HEIGHT} - ${FOOTER_HEIGHT + 1}px);
+  height: calc(100dvh - ${HEADER_HEIGHT} - ${FOOTER_HEIGHT + 1}px);
+  overflow-y: auto;
+  padding: 0;
 `;
 
 class App extends React.Component<RouteComponentProps, AppState> {

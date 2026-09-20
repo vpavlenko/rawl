@@ -121,6 +121,182 @@ const assignments: {
   era: RockPopEra;
   artists: string[];
 }[] = [
+  // Re-reviewed folder names; multi-artist folders keep only a broad common genre.
+  {
+    genre: "soft",
+    era: "1963",
+    artists: [
+      "Alive",
+    ],
+  },
+  {
+    genre: "roots",
+    era: "1963",
+    artists: [
+      "Band",
+    ],
+  },
+  {
+    genre: "traditional",
+    era: "before1955",
+    artists: [
+      "Bennett",
+      "Sinatra",
+    ],
+  },
+  {
+    genre: "rockabilly",
+    era: "1955",
+    artists: [
+      "Bumble B",
+      "Haley",
+    ],
+  },
+  {
+    genre: "soft",
+    era: "1970",
+    artists: [
+      "Carmen",
+      "John Robert",
+      "Lucifer",
+      "Ocean",
+      "Skylark",
+    ],
+  },
+  {
+    genre: "mainstream",
+    era: "1980",
+    artists: [
+      "Charlie Makes The Cook",
+      "Trio Rio",
+    ],
+  },
+  {
+    genre: "bluesrock",
+    era: "1970",
+    artists: [
+      "Cocker",
+    ],
+  },
+  {
+    genre: "garage",
+    era: "1963",
+    artists: [
+      "Creation",
+      "Revere",
+      "SAM",
+    ],
+  },
+  {
+    genre: "mainstream",
+    era: "unassigned",
+    artists: [
+      "Dee",
+    ],
+  },
+  {
+    genre: "harmony",
+    era: "1963",
+    artists: [
+      "Elliot",
+      "Keith",
+      "Mamas",
+      "Oliver",
+      "Puckett",
+    ],
+  },
+  {
+    genre: "vocal",
+    era: "1955",
+    artists: [
+      "Flamingos",
+      "Tokens",
+    ],
+  },
+  {
+    genre: "mainstream",
+    era: "1990",
+    artists: [
+      "Good Shape",
+      "Izabella",
+      "Stone & Stone",
+      "The Dinky Toys",
+    ],
+  },
+  {
+    genre: "powerpop",
+    era: "1980",
+    artists: [
+      "Jett",
+    ],
+  },
+  {
+    genre: "earlypop",
+    era: "1963",
+    artists: [
+      "Kramer",
+      "Lewis",
+    ],
+  },
+  {
+    genre: "soft",
+    era: "1980",
+    artists: [
+      "Masquerade",
+      "Rea",
+    ],
+  },
+  {
+    genre: "traditional",
+    era: "1955",
+    artists: [
+      "Mathis",
+      "Streisand",
+    ],
+  },
+  {
+    genre: "roots",
+    era: "1970",
+    artists: [
+      "Petty",
+    ],
+  },
+  {
+    genre: "synth",
+    era: "1980",
+    artists: [
+      "Propaganda",
+      "Robin Cock",
+    ],
+  },
+  {
+    genre: "glam",
+    era: "1970",
+    artists: [
+      "Quatro",
+    ],
+  },
+  {
+    genre: "rockabilly",
+    era: "1970",
+    artists: [
+      "Sharpe",
+    ],
+  },
+  {
+    genre: "traditional",
+    era: "1970",
+    artists: [
+      "Telly Savalas",
+    ],
+  },
+  {
+    genre: "soft",
+    era: "1955",
+    artists: [
+      "Vicki Brown",
+    ],
+  },
   {
     genre: "traditional",
     era: "before1955",

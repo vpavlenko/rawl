@@ -111,13 +111,14 @@ const Artists = styled.ul<{ $table?: boolean }>`
     }
   `}
 `;
-const ComposerSection = styled.section`
-  margin-top: 24px;
-  h2 {
-    margin: 0 0 10px;
-    color: #eee;
-    font-size: 17px;
-    font-weight: normal;
+const MergedArtists = styled(Artists)`
+  display: block;
+  column-width: 180px;
+  column-gap: 24px;
+  white-space: normal;
+  > li {
+    break-inside: avoid;
+    overflow-wrap: anywhere;
   }
 `;
 
@@ -143,13 +144,6 @@ export default function ArtistTable<T extends { name: string }>({
     annotated: hasAnnotations(artist),
     ...artistProfile(artist.name),
   }));
-  const composers = profiles
-    .filter((item) => item.genre === "shelf-classical")
-    .sort(
-      (a, b) =>
-        songCount(b.artist) - songCount(a.artist) ||
-        a.artist.name.localeCompare(b.artist.name),
-    );
   const matches = profiles.filter((item) => item.genre !== "shelf-classical");
   const columns = ARTIST_ERAS.filter((column) => column.id !== "unassigned");
   const rows = ARTIST_GENRES.map((row) => {
@@ -168,12 +162,16 @@ export default function ArtistTable<T extends { name: string }>({
         a.occupied[0] - b.occupied[0] ||
         a.occupied[a.occupied.length - 1] - b.occupied[b.occupied.length - 1],
     );
-  // Generic folders remain accessible without inventing an era or adding a
-  // separate undated column. They span the era columns below the dated rows.
-  const undatedRows = ARTIST_GENRES.map((row) => ({
+  // Classical composers and undated folders span the era columns below
+  // the dated rows, with all entries visible in multiple columns.
+  const mergedRows = ARTIST_GENRES.map((row) => ({
     ...row,
-    artists: matches
-      .filter((item) => item.genre === row.id && item.era === "unassigned")
+    artists: profiles
+      .filter(
+        (item) =>
+          item.genre === row.id &&
+          (row.id === "shelf-classical" || item.era === "unassigned"),
+      )
       .sort(
         (a, b) =>
           Number(b.annotated) - Number(a.annotated) ||
@@ -186,7 +184,7 @@ export default function ArtistTable<T extends { name: string }>({
       {artists.length === 0 ? (
         <p>No artists.</p>
       ) : (
-        matches.length > 0 && (
+        (matches.length > 0 || mergedRows.length > 0) && (
           <Matrix
             role="region"
             aria-label="Artists by genre and era"
@@ -252,35 +250,25 @@ export default function ArtistTable<T extends { name: string }>({
                     })}
                   </tr>
                 ))}
-                {undatedRows.map((row) => {
-                  const cellKey = `${row.id}/undated`;
-                  const expanded = expandedCells.has(cellKey);
+                {mergedRows.map((row) => {
+                  const cellKey = `${row.id}/merged`;
                   return (
                     <tr key={cellKey}>
                       <th scope="row">{formatGenreLabel(row.label)}</th>
                       <td
                         colSpan={columns.length}
-                        aria-label="Entries without a dated era"
+                        aria-label={
+                          row.id === "shelf-classical"
+                            ? row.label
+                            : "Entries without a dated era"
+                        }
                       >
-                        <Artists $table>
-                          {(expanded || row.artists.length <= 11
-                            ? row.artists
-                            : row.artists.slice(0, 10)
-                          ).map(({ artist }) => renderArtist(artist))}
-                        </Artists>
-                        {!expanded && row.artists.length > 11 && (
-                          <button
-                            type="button"
-                            aria-label={`Show all ${row.artists.length} undated ${row.label} entries`}
-                            onClick={() =>
-                              setExpandedCells(
-                                (current) => new Set([...current, cellKey]),
-                              )
-                            }
-                          >
-                            ...
-                          </button>
-                        )}
+                        <MergedArtists
+                          $table
+                          style={{ columnCount: columns.length }}
+                        >
+                          {row.artists.map(({ artist }) => renderArtist(artist))}
+                        </MergedArtists>
                       </td>
                     </tr>
                   );
@@ -289,14 +277,6 @@ export default function ArtistTable<T extends { name: string }>({
             </table>
           </Matrix>
         )
-      )}
-      {composers.length > 0 && (
-        <ComposerSection aria-labelledby="classical-composers">
-          <h2 id="classical-composers">Classical & historical composers</h2>
-          <Artists>
-            {composers.map(({ artist }) => renderArtist(artist))}
-          </Artists>
-        </ComposerSection>
       )}
     </>
   );

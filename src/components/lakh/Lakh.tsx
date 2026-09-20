@@ -119,35 +119,6 @@ const ArtistSearch = styled.input`
     width: 100%;
   }
 `;
-const Filters = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 20px;
-  margin-bottom: 10px;
-  input[type="search"] {
-    flex: 0 1 560px;
-    min-width: 0;
-    width: 100%;
-    box-sizing: border-box;
-    background: transparent;
-    color: #ddd;
-    border: 1px solid #666;
-    border-radius: 0;
-    padding: 8px 10px;
-    font: inherit;
-    &::placeholder {
-      color: #999;
-    }
-  }
-  select {
-    background: #111;
-    color: #ddd;
-    border: 1px solid #555;
-    padding: 5px;
-    font: inherit;
-  }
-`;
 const Entries = styled.ul`
   list-style: none;
   margin: 0;
@@ -486,16 +457,6 @@ const Directory = React.memo(function Directory({
       ),
     [artistSongCounts],
   );
-  const songCounts = useMemo(() => {
-    if (artist?.name !== "The Beatles") return null;
-    const groups = groupBeatlesTracks(artist.tracks);
-    const ungrouped =
-      groups.find((group) => group.title === "Other recordings & medleys")
-        ?.songs.length || 0;
-    const total = groups.reduce((sum, group) => sum + group.songs.length, 0);
-    return { total, grouped: total - ungrouped, ungrouped };
-  }, [artist]);
-  const [query, setQuery] = useState("");
   const [artistQuery, setArtistQuery] = useState("");
   const artistSearch = artistQuery.trim().toLocaleLowerCase();
   const matchingSongs = useMemo(() => {
@@ -537,9 +498,6 @@ const Directory = React.memo(function Directory({
     () => new Set(Object.keys(analyses).filter((key) => !!analyses[key])),
     [analyses],
   );
-  const search = query.trim().toLocaleLowerCase();
-  const counts = (name: string, tracks: string[]) =>
-    tracks.filter((file) => annotated.has(lakhAnalysisKey(name, file))).length;
   const annotatedSongs = (item: DirectoryArtist) =>
     countSongs(
       item.members.flatMap((member) =>
@@ -575,9 +533,7 @@ const Directory = React.memo(function Directory({
       !!track && annotated.has(lakhAnalysisKey(track.source.name, track.file))
     );
   };
-  const visibleTracks = Array.from(trackSources.keys()).filter(
-    (file) => file.toLocaleLowerCase().includes(search),
-  );
+  const tracks = Array.from(trackSources.keys());
   const renderArtist = (item: DirectoryArtist) => {
     const count = annotatedSongs(item);
     const songCount = artistSongCounts.get(item.name)!;
@@ -623,37 +579,11 @@ const Directory = React.memo(function Directory({
       <Heading $directory={!artist}>
         <div>
           <h1>{artistName ? canonicalArtistName(artistName) : "Lakh"}</h1>
-          <span>
-            {artist ? (
-              <>
-                {(
-                  artist.tracks.length +
-                  relatedArtists.reduce(
-                    (sum, source) => sum + source.tracks.length,
-                    0,
-                  )
-                ).toLocaleString()}{" "}
-                files ·{" "}
-                {songCounts && (
-                  <>
-                    {songCounts.total.toLocaleString()} songs (
-                    {songCounts.grouped} in albums, {songCounts.ungrouped}{" "}
-                    ungrouped) ·{" "}
-                  </>
-                )}
-                <span style={{ color: "#ffe45c" }}>
-                  {counts(artist.name, artist.tracks) +
-                    relatedArtists.reduce(
-                      (sum, source) => sum + counts(source.name, source.tracks),
-                      0,
-                    )}{" "}
-                  annotated
-                </span>
-              </>
-            ) : (
-              `${directoryArtists.length.toLocaleString()} artists · ${totalSongs.toLocaleString()} songs`
-            )}
-          </span>
+          {!artist && (
+            <span>
+              {`${directoryArtists.length.toLocaleString()} artists · ${totalSongs.toLocaleString()} songs`}
+            </span>
+          )}
         </div>
         {!artist && (
           <ArtistSearch
@@ -665,17 +595,6 @@ const Directory = React.memo(function Directory({
           />
         )}
       </Heading>
-      {artist && (
-        <Filters>
-          <input
-            type="search"
-            aria-label="Search tracks"
-            placeholder="Search tracks"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-          />
-        </Filters>
-      )}
       {artist ? (
         <>
           <BeatlesDiscography
@@ -683,10 +602,10 @@ const Directory = React.memo(function Directory({
               artist.name === "The Beatles" || !!albumGroups?.length
             }
             albumGroups={albumGroups?.length ? albumGroups : null}
-            files={visibleTracks}
-            allFiles={Array.from(trackSources.keys())}
+            files={tracks}
+            allFiles={tracks}
             isAnnotated={isAnnotatedTrack}
-            renderTitle={(title) => highlightMatches(title, search)}
+            renderTitle={(title) => title}
             renderTrack={(file, label) => {
               const original = trackSources.get(file)!;
               const hasAnalysis = isAnnotatedTrack(file);
@@ -701,10 +620,7 @@ const Directory = React.memo(function Directory({
                     hasAnalysis ? " · Annotated" : ""
                   }`}
                 >
-                  {highlightMatches(
-                    label || file.replace(/\.mid$/i, ""),
-                    search,
-                  )}
+                  {label || file.replace(/\.mid$/i, "")}
                 </Entry>
               );
             }}
@@ -722,7 +638,7 @@ const Directory = React.memo(function Directory({
           hasAnnotations={(item) => annotatedSongs(item) > 0}
         />
       )}
-      {artist && visibleTracks.length === 0 && <p>No matches.</p>}
+      {artist && tracks.length === 0 && <p>No tracks.</p>}
       <p
         style={{ color: "#888", fontSize: 13, lineHeight: 1.5, marginTop: 24 }}
       >

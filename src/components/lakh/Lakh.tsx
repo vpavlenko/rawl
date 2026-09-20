@@ -5,6 +5,8 @@ import { AppContext } from "../AppContext";
 import { Analysis } from "../rawl/analysis";
 import Rawl from "../rawl/Rawl";
 import BeatlesDiscography from "./BeatlesDiscography";
+import RockPopShelf from "./RockPopShelf";
+import { rockPopProfile } from "./rockPopFacets";
 import { groupBeatlesTracks } from "./beatlesReleases";
 import { useAlbumMetadata } from "./albumMetadata";
 import {
@@ -669,6 +671,59 @@ const Directory = React.memo(function Directory({
     artistGroups.set(shelf, [...(artistGroups.get(shelf) || []), item]);
   });
 
+  const renderArtist = (item: DirectoryArtist) => {
+    const count = annotatedSongs(item);
+    const songCount = artistSongCounts.get(item.name)!;
+    const tracks = matchingTracks.get(item.name) || [];
+    const tags = rockPopProfile(item.name).tags;
+    return (
+      <ArtistResult key={item.name} $hasTracks={tracks.length > 0}>
+        <Entry
+          to={lakhArtistUrl(item)}
+          $folder
+          $annotated={count > 0}
+          title={`${songCount} ${
+            songCount === 1 ? "song" : "songs"
+          } · ${count} annotated${tags.length ? ` · ${tags.join(" · ")}` : ""}${
+            item.members.length > 1
+              ? ` · Also filed as: ${item.members
+                  .map((member) => member.name)
+                  .join(", ")}`
+              : ""
+          }`}
+        >
+          {highlightMatches(item.name, search)}
+          {songCount > 1 && (
+            <small aria-label={`${songCount} songs, ${count} annotated`}>
+              {songCount}
+            </small>
+          )}
+        </Entry>
+        {tracks.length > 0 && (
+          <MatchingTracks aria-label={`Matching tracks by ${item.name}`}>
+            {tracks.map(({ source, file }) => {
+              const hasAnalysis = annotated.has(
+                lakhAnalysisKey(source.name, file),
+              );
+              return (
+                <li key={`${source.name}/${file}`}>
+                  <Entry
+                    to={lakhTrackUrl(source, file)}
+                    $folder={false}
+                    $annotated={hasAnalysis}
+                    title={hasAnalysis ? "Annotated" : undefined}
+                  >
+                    {highlightMatches(file.replace(/\.mid$/i, ""), search)}
+                  </Entry>
+                </li>
+              );
+            })}
+          </MatchingTracks>
+        )}
+      </ArtistResult>
+    );
+  };
+
   return (
     <>
       <Heading>
@@ -908,66 +963,15 @@ const Directory = React.memo(function Directory({
                 {artistGroups.get(shelf.id)!.length.toLocaleString()} artists
               </small>
             </h2>
-            <Entries>
-              {artistGroups.get(shelf.id)!.map((item) => {
-                const count = annotatedSongs(item);
-                const songCount = artistSongCounts.get(item.name)!;
-                const tracks = matchingTracks.get(item.name) || [];
-                return (
-                  <ArtistResult key={item.name} $hasTracks={tracks.length > 0}>
-                    <Entry
-                      to={lakhArtistUrl(item)}
-                      $folder
-                      $annotated={count > 0}
-                      title={`${songCount} ${
-                        songCount === 1 ? "song" : "songs"
-                      } · ${count} annotated${
-                        item.members.length > 1
-                          ? ` · Also filed as: ${item.members
-                              .map((member) => member.name)
-                              .join(", ")}`
-                          : ""
-                      }`}
-                    >
-                      {highlightMatches(item.name, search)}
-                      {songCount > 1 && (
-                        <small
-                          aria-label={`${songCount} songs, ${count} annotated`}
-                        >
-                          {songCount}
-                        </small>
-                      )}
-                    </Entry>
-                    {tracks.length > 0 && (
-                      <MatchingTracks
-                        aria-label={`Matching tracks by ${item.name}`}
-                      >
-                        {tracks.map(({ source, file }) => {
-                          const hasAnalysis = annotated.has(
-                            lakhAnalysisKey(source.name, file),
-                          );
-                          return (
-                            <li key={`${source.name}/${file}`}>
-                              <Entry
-                                to={lakhTrackUrl(source, file)}
-                                $folder={false}
-                                $annotated={hasAnalysis}
-                                title={hasAnalysis ? "Annotated" : undefined}
-                              >
-                                {highlightMatches(
-                                  file.replace(/\.mid$/i, ""),
-                                  search,
-                                )}
-                              </Entry>
-                            </li>
-                          );
-                        })}
-                      </MatchingTracks>
-                    )}
-                  </ArtistResult>
-                );
-              })}
-            </Entries>
+            {shelf.id === "rock" ? (
+              <RockPopShelf
+                artists={artistGroups.get(shelf.id)!}
+                renderArtist={renderArtist}
+                songCount={(item) => artistSongCounts.get(item.name) || 0}
+              />
+            ) : (
+              <Entries>{artistGroups.get(shelf.id)!.map(renderArtist)}</Entries>
+            )}
           </ArtistGroup>
         ))
       )}

@@ -4,8 +4,6 @@ import styled from "styled-components";
 import { corpora } from "./rawl/corpora/corpora";
 import {
   formatComposerName,
-  GenreItem,
-  GenreList,
   getEmojis,
   getUniqueStyles,
   HasMetadata,
@@ -17,55 +15,78 @@ const TimelineContainer = styled.div`
 
 const TimelineWrapper = styled.div`
   position: relative;
-  padding-left: 100px;
+  padding-left: 78px;
 
   &::before {
     content: "";
     position: absolute;
-    left: 80px;
+    left: 60px;
     top: 0;
     bottom: 0;
-    width: 2px;
-    background: #666;
+    width: 1px;
+    background: #333;
   }
 `;
 
 const TimelineYear = styled.div`
   position: relative;
-  margin-bottom: 2rem;
+  padding: 0 0 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid #202020;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: -21px;
+    top: 7px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #888;
+    box-shadow: 0 0 0 3px black;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+    border-bottom: 0;
+  }
 `;
 
 const YearMarker = styled.div`
   position: absolute;
-  left: -100px;
-  width: 80px;
+  left: -78px;
+  width: 48px;
   text-align: right;
 `;
 
 const YearLabel = styled.span`
-  padding: 4px 8px;
-  border-radius: 4px;
-  position: relative;
-  top: 0.2rem;
-  color: #999;
-  font-weight: bold;
+  color: #bbb;
+  font-size: 13px;
+  line-height: 22px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 `;
 
 const ComposersGroup = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  gap: 12px 20px;
 `;
 
 const ComposerCard = styled.div`
   cursor: default;
-  font-size: 0.9rem;
+  min-width: 0;
 `;
 
 const ComposerLink = styled(Link)`
   text-decoration: none;
   color: inherit;
   display: inline-block;
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
 `;
 
 type Composer = HasMetadata & {
@@ -75,6 +96,7 @@ type Composer = HasMetadata & {
 
 const ComposerHeader = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
 
@@ -85,14 +107,56 @@ const ComposerHeader = styled.div`
 
 const ComposerName = styled.h3`
   margin: 0;
-  color: #fff;
+  color: #eee;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+  overflow-wrap: anywhere;
 `;
 
-const CountryFlag = styled.span`
+const CountryFlag = styled.button`
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
   cursor: pointer;
   &:hover {
     opacity: 0.8;
   }
+`;
+
+const ComposerStyles = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 6px;
+  margin-top: 0;
+`;
+
+const StyleFilter = styled.button`
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #777;
+  font: inherit;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  line-height: 15px;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    color: white;
+    text-decoration: underline;
+  }
+`;
+
+const UndatedHeading = styled.h3`
+  margin: 24px 0 16px;
+  padding-top: 16px;
+  border-top: 1px solid #333;
+  color: #aaa;
+  font-size: 14px;
+  font-weight: 500;
 `;
 
 const FilterIndicator = styled.div`
@@ -150,7 +214,7 @@ const Timeline: React.FC = () => {
     setSelectedStyle(null);
   };
 
-  const filteredComposers = composers.filter((composer) => {
+  const matchesFilter = (composer: Composer) => {
     if (selectedCountry) {
       return composer.country
         ?.split(",")
@@ -162,7 +226,10 @@ const Timeline: React.FC = () => {
       return styles.includes(selectedStyle);
     }
     return true;
-  });
+  };
+
+  const filteredComposers = composers.filter(matchesFilter);
+  const filteredComposersWithoutYear = composersWithoutYear.filter(matchesFilter);
 
   const filteredYears = [
     ...new Set(filteredComposers.map((c) => c.composerBirthYear)),
@@ -182,6 +249,9 @@ const Timeline: React.FC = () => {
               {composer.country.split(",").map((c) => (
                 <CountryFlag
                   key={c.trim()}
+                  type="button"
+                  aria-label={`Filter by ${c.trim()}`}
+                  title={`Filter by ${c.trim()}`}
                   onClick={() => handleCountryClick(c.trim())}
                 >
                   {getEmojis(c.trim())}
@@ -191,17 +261,17 @@ const Timeline: React.FC = () => {
           )}
         </ComposerHeader>
         {styles.length > 0 && (
-          <GenreList>
+          <ComposerStyles>
             {styles.map((style, index) => (
-              <GenreItem
+              <StyleFilter
                 key={index}
+                type="button"
                 onClick={() => handleStyleClick(style)}
-                style={{ cursor: "pointer" }}
               >
                 {index === styles.length - 1 ? style : `${style},`}
-              </GenreItem>
+              </StyleFilter>
             ))}
-          </GenreList>
+          </ComposerStyles>
         )}
       </ComposerCard>
     );
@@ -209,7 +279,14 @@ const Timeline: React.FC = () => {
 
   return (
     <TimelineContainer>
-      <div style={{ color: "#999", marginBottom: 40, textAlign: "right" }}>
+      <div
+        style={{
+          color: "#999",
+          marginBottom: 24,
+          textAlign: "right",
+          fontSize: 12,
+        }}
+      >
         All years are approximate composer birth years.
       </div>
       {(selectedCountry || selectedStyle) && (
@@ -222,7 +299,9 @@ const Timeline: React.FC = () => {
             )}
             {selectedStyle && selectedStyle}
           </span>
-          <CloseFilter onClick={clearFilter}>×</CloseFilter>
+          <CloseFilter onClick={clearFilter} aria-label="Clear filter">
+            ×
+          </CloseFilter>
         </FilterIndicator>
       )}
       <TimelineWrapper>
@@ -244,27 +323,11 @@ const Timeline: React.FC = () => {
           </TimelineYear>
         ))}
       </TimelineWrapper>
-      {composersWithoutYear.length > 0 && (
+      {filteredComposersWithoutYear.length > 0 && (
         <>
+          <UndatedHeading>Without a birth year</UndatedHeading>
           <ComposersGroup>
-            {composersWithoutYear
-              .filter((composer) => {
-                if (selectedCountry) {
-                  return composer.country
-                    ?.split(",")
-                    .map((c) => c.trim())
-                    .includes(selectedCountry);
-                }
-                if (selectedStyle) {
-                  const styles = getUniqueStyles(
-                    composer.genre,
-                    composer.style,
-                  );
-                  return styles.includes(selectedStyle);
-                }
-                return true;
-              })
-              .map((composer) => (
+            {filteredComposersWithoutYear.map((composer) => (
                 <ComposerCardContent key={composer.slug} composer={composer} />
               ))}
           </ComposersGroup>

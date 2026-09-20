@@ -1,0 +1,756 @@
+{
+  "artist": "Brassens Georges",
+  "artistId": "b58165ba-ac55-49a1-8855-caf16c68f5f2",
+  "groups": [
+    {
+      "id": "9b32ec2d-fa6c-31e0-9a18-cd836548df71",
+      "releaseId": "d2a7c779-7807-3a80-acff-5e2c3e2bb5b6",
+      "title": "Nº1 : Georges Brassens chante… les chansons poétiques (… et souvent gaillardes) de… Georges Brassens",
+      "date": "1952-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9b32ec2d-fa6c-31e0-9a18-cd836548df71/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Le parapluie.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Le Petit Cheval.mid",
+            "Le Petit Cheval.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Le Fossoyeur.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Le Gorille.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Hecatombe.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4f0e657a-ad8e-335f-860e-bb3ecd72ab97",
+      "releaseId": "0797632e-44ad-3243-9ead-ce6fda9c220c",
+      "title": "Nº2 : Georges Brassens interprète ses dernières compositions",
+      "date": "1953-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4f0e657a-ad8e-335f-860e-bb3ecd72ab97/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Le Vent.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "J'ai rendez-vous avec vous.mid",
+            "J'ai rendez-vous avec vous.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Les amoureux des bancs publics.mid",
+            "Les amoureux des bancs publics.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Ballade des dames du temps jadis.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Comme hier.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Pauvre Martin.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Brave Margot.mid",
+            "Brave Margot.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Il suffit de passer le pont.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4b4fb390-a4c9-34c0-9545-8ad2fdb9d1cd",
+      "releaseId": "d121691d-acb4-475b-9b21-2bf5887f2457",
+      "title": "Nº3 : Georges Brassens, sa guitare et les rythmes",
+      "date": "1954",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4b4fb390-a4c9-34c0-9545-8ad2fdb9d1cd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Les sabots d'Helene.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Chanson pour l'Auvergnat.mid",
+            "Chanson pour l'Auvergnat.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Je Suis un Voyou.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Le mauvais sujet repenti.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "083d5621-52d8-325c-87ff-045cd42eaae9",
+      "releaseId": "39e97b27-6e65-4d1a-95e7-e930cf6ced65",
+      "title": "Nº4 : Georges Brassens et sa guitare",
+      "date": "1956-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/083d5621-52d8-325c-87ff-045cd42eaae9/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Je me suis fait tout petit.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Marinette.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "01a5da18-0dcf-3976-9684-3569b71792de",
+      "releaseId": "3fd42686-366c-3824-90d0-35c7449c0acc",
+      "title": "Nº5 : Georges Brassens et sa guitare",
+      "date": "1957-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/01a5da18-0dcf-3976-9684-3569b71792de/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Oncle Archibald.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "L'amandier.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Celui qui a mal tourne.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Grand-Pere.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Les Lilas.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Les philistins.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Le Vin.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ec0b022c-2fd0-3c4d-b1e8-3d6cffd24888",
+      "releaseId": "aecb80f7-dfde-384e-a9e2-0d34b8ae23ef",
+      "title": "Nº6 : Georges Brassens",
+      "date": "1958-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ec0b022c-2fd0-3c4d-b1e8-3d6cffd24888/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Le Vieux Leon.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Le Cocu.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7cc6e883-1721-38dc-9041-480b59548b77",
+      "releaseId": "504f6d64-8810-4018-af65-e5f36812a57f",
+      "title": "Nº7 : Georges Brassens",
+      "date": "1960-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7cc6e883-1721-38dc-9041-480b59548b77/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Les Funerailles D'Antan.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Le mecreant.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Embrasse-les tous.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Le Bistrot.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "L'Orage.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Penelope.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Le verger du roi Louis.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "23b2c87d-c2a9-3383-ad75-215aaef17c3e",
+      "releaseId": "861f9cf5-bd56-4e24-80be-91ee7d297a05",
+      "title": "Nº8 : Georges Brassens, à la basse : Pierre Nicolas",
+      "date": "1961-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/23b2c87d-c2a9-3383-ad75-215aaef17c3e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Le temps ne fait rien a l'affaire.mid",
+            "Le temps ne fait rien a l'affaire.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Dans l'eau de la claire Fontaine.mid",
+            "Dans l'eau de la claire Fontaine.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Tonton Nestor (La Noce de Jeannette).mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Le Temps passe.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1476ba0e-2e25-3ffc-bd4f-2595ceebd260",
+      "releaseId": "ad268c90-346f-4539-8342-6e0e3755422c",
+      "title": "Nº9 : Les Trompettes de la renommée",
+      "date": "1962-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1476ba0e-2e25-3ffc-bd4f-2595ceebd260/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Jeanne.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Je rejoindrai ma belle.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Marquise.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Les Amours d'antan.mid",
+            "Les Amours d'antan.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "L'Assassinat.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f8335795-a806-3bfc-8113-8b0fc7f1ea8e",
+      "releaseId": "deff1c6c-ba19-497d-8375-98b5ecdd8a1d",
+      "title": "Nº10 : Les Copains d'abord",
+      "date": "1964-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f8335795-a806-3bfc-8113-8b0fc7f1ea8e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Les Copains d'abord.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Les Quat'z'arts.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Le petit joueur de fluteau.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Le 22 Septembre.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Venus callipyge.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Le Mouton de Panurge.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Saturne.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Le Grand Pan.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "67b62826-e985-3fbf-a3a5-65e8c168aac7",
+      "releaseId": "91c700ef-968d-3b6a-a5e3-25b33bc1d169",
+      "title": "Volume 3 : Chanson pour l’Auvergnat",
+      "date": "1965",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/67b62826-e985-3fbf-a3a5-65e8c168aac7/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Gastibelza.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cd6f1da3-5749-3bd2-961b-09d4f696c8e6",
+      "releaseId": "062b66c4-d994-4339-a2fc-3b5b0c5b69fa",
+      "title": "Volume 9 : Supplique pour être enterré à la plage de Sète",
+      "date": "1966-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/cd6f1da3-5749-3bd2-961b-09d4f696c8e6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Supplique pour etre enterre a la plage de Sete.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Le Fantome.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Le Pluriel.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Les Quatre Bacheliers.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Le Bulletin de sante.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Le Grand Chene.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Concurrence deloyale.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "L'Epave.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0794e68e-7620-309a-9f1d-775b035a4b97",
+      "releaseId": "7b7a3cf7-dadd-408f-9611-23d1ca783d08",
+      "title": "Volume 10 : La Religieuse",
+      "date": "1969-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0794e68e-7620-309a-9f1d-775b035a4b97/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Misogynie a part.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "L'Ancetre.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Rien a jeter.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Les oiseaux de passage.mid",
+            "Les oiseaux de passage.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Pensees des morts.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Sale petit bonhomme.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "536c13f7-c29c-3c83-bdf2-d7b88001505c",
+      "releaseId": "5636cfd5-99e9-3d98-8efb-66bcbb27d808",
+      "title": "Volume 11 : Fernande",
+      "date": "1972-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/536c13f7-c29c-3c83-bdf2-d7b88001505c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Fernande.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Stances a un cambrioleur.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Sauf le respect que je vous dois.mid",
+            "Sauf le respect que je vous dois.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Mourir pour des Idees.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Les Passantes.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Le Roi.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d4f1b21b-a32d-3d78-b75b-7c61a09d942e",
+      "releaseId": "4f648544-a9a0-4238-a473-411be1d289f5",
+      "title": "Volume 12 : Don Juan",
+      "date": "1976",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d4f1b21b-a32d-3d78-b75b-7c61a09d942e/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Les ricochets.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Tempete dans un benitier.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Le modeste.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Don Juan.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Les casseuses.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Cupidon s'en fout.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Montelimar.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Histoire de faussaire.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Leche-cocu.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Les patriotes.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Melanie.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3102e3c9-aa32-3e4e-a147-77e4db28192d",
+      "releaseId": "4087fff2-30e8-4f46-bd1d-b9ac1b25c229",
+      "title": "Les Dernières Chansons inédites",
+      "date": "1982",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3102e3c9-aa32-3e4e-a147-77e4db28192d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Quand les cons sont braves.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Mechante avec de jolis seins.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Dieu s'il existe.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Le Vieux Normand.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Le Passeiste.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Ceux qui ne pensent pas comme nous.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Entre l'Espagne et l'Italie.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Ce n'est pas tout d'etre mon pere.mid"
+          ]
+        },
+        {
+          "number": 15,
+          "files": [
+            "Le Sceptique.mid"
+          ]
+        },
+        {
+          "number": 17,
+          "files": [
+            "Le Pecheur.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e3aaad9d-1a3d-3cc7-b0d2-e08f0f71716e",
+      "releaseId": "2955ff09-9208-426e-972d-98c90f3e9506",
+      "title": "Brassens chante Bruant, Colpi, Musset, Nadaud, Norge",
+      "date": "1984",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e3aaad9d-1a3d-3cc7-b0d2-e08f0f71716e/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Le Roi boiteux.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

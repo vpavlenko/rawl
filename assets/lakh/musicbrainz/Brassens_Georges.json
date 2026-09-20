@@ -1,0 +1,608 @@
+{
+  "artist": "Brassens Georges",
+  "status": "processed",
+  "totalSongs": 99,
+  "matched": [
+    {
+      "song": "Ballade des dames du temps jadis",
+      "album": "Nº2 : Georges Brassens interprète ses dernières compositions",
+      "albumId": "4f0e657a-ad8e-335f-860e-bb3ecd72ab97",
+      "track": 4
+    },
+    {
+      "song": "Brave Margot",
+      "album": "Nº2 : Georges Brassens interprète ses dernières compositions",
+      "albumId": "4f0e657a-ad8e-335f-860e-bb3ecd72ab97",
+      "track": 7
+    },
+    {
+      "song": "Ce n'est pas tout d'etre mon pere",
+      "album": "Les Dernières Chansons inédites",
+      "albumId": "3102e3c9-aa32-3e4e-a147-77e4db28192d",
+      "track": 14
+    },
+    {
+      "song": "Celui qui a mal tourne",
+      "album": "Nº5 : Georges Brassens et sa guitare",
+      "albumId": "01a5da18-0dcf-3976-9684-3569b71792de",
+      "track": 5
+    },
+    {
+      "song": "Ceux qui ne pensent pas comme nous",
+      "album": "Les Dernières Chansons inédites",
+      "albumId": "3102e3c9-aa32-3e4e-a147-77e4db28192d",
+      "track": 6
+    },
+    {
+      "song": "Chanson pour l'Auvergnat",
+      "album": "Nº3 : Georges Brassens, sa guitare et les rythmes",
+      "albumId": "4b4fb390-a4c9-34c0-9545-8ad2fdb9d1cd",
+      "track": 2
+    },
+    {
+      "song": "Comme hier",
+      "album": "Nº2 : Georges Brassens interprète ses dernières compositions",
+      "albumId": "4f0e657a-ad8e-335f-860e-bb3ecd72ab97",
+      "track": 5
+    },
+    {
+      "song": "Concurrence deloyale",
+      "album": "Volume 9 : Supplique pour être enterré à la plage de Sète",
+      "albumId": "cd6f1da3-5749-3bd2-961b-09d4f696c8e6",
+      "track": 9
+    },
+    {
+      "song": "Cupidon s'en fout",
+      "album": "Volume 12 : Don Juan",
+      "albumId": "d4f1b21b-a32d-3d78-b75b-7c61a09d942e",
+      "track": 8
+    },
+    {
+      "song": "Dans l'eau de la claire Fontaine",
+      "album": "Nº8 : Georges Brassens, à la basse : Pierre Nicolas",
+      "albumId": "23b2c87d-c2a9-3383-ad75-215aaef17c3e",
+      "track": 2
+    },
+    {
+      "song": "Dieu s'il existe",
+      "album": "Les Dernières Chansons inédites",
+      "albumId": "3102e3c9-aa32-3e4e-a147-77e4db28192d",
+      "track": 3
+    },
+    {
+      "song": "Don Juan",
+      "album": "Volume 12 : Don Juan",
+      "albumId": "d4f1b21b-a32d-3d78-b75b-7c61a09d942e",
+      "track": 6
+    },
+    {
+      "song": "Embrasse-les tous",
+      "album": "Nº7 : Georges Brassens",
+      "albumId": "7cc6e883-1721-38dc-9041-480b59548b77",
+      "track": 3
+    },
+    {
+      "song": "Entre l'Espagne et l'Italie",
+      "album": "Les Dernières Chansons inédites",
+      "albumId": "3102e3c9-aa32-3e4e-a147-77e4db28192d",
+      "track": 12
+    },
+    {
+      "song": "Fernande",
+      "album": "Volume 11 : Fernande",
+      "albumId": "536c13f7-c29c-3c83-bdf2-d7b88001505c",
+      "track": 1
+    },
+    {
+      "song": "Gastibelza",
+      "album": "Volume 3 : Chanson pour l’Auvergnat",
+      "albumId": "67b62826-e985-3fbf-a3a5-65e8c168aac7",
+      "track": 8
+    },
+    {
+      "song": "Grand-Pere",
+      "album": "Nº5 : Georges Brassens et sa guitare",
+      "albumId": "01a5da18-0dcf-3976-9684-3569b71792de",
+      "track": 6
+    },
+    {
+      "song": "Hecatombe",
+      "album": "Nº1 : Georges Brassens chante… les chansons poétiques (… et souvent gaillardes) de… Georges Brassens",
+      "albumId": "9b32ec2d-fa6c-31e0-9a18-cd836548df71",
+      "track": 8
+    },
+    {
+      "song": "Histoire de faussaire",
+      "album": "Volume 12 : Don Juan",
+      "albumId": "d4f1b21b-a32d-3d78-b75b-7c61a09d942e",
+      "track": 10
+    },
+    {
+      "song": "Il suffit de passer le pont",
+      "album": "Nº2 : Georges Brassens interprète ses dernières compositions",
+      "albumId": "4f0e657a-ad8e-335f-860e-bb3ecd72ab97",
+      "track": 8
+    },
+    {
+      "song": "J'ai rendez-vous avec vous",
+      "album": "Nº2 : Georges Brassens interprète ses dernières compositions",
+      "albumId": "4f0e657a-ad8e-335f-860e-bb3ecd72ab97",
+      "track": 2
+    },
+    {
+      "song": "Je me suis fait tout petit",
+      "album": "Nº4 : Georges Brassens et sa guitare",
+      "albumId": "083d5621-52d8-325c-87ff-045cd42eaae9",
+      "track": 1
+    },
+    {
+      "song": "Je rejoindrai ma belle",
+      "album": "Nº9 : Les Trompettes de la renommée",
+      "albumId": "1476ba0e-2e25-3ffc-bd4f-2595ceebd260",
+      "track": 3
+    },
+    {
+      "song": "Je Suis un Voyou",
+      "album": "Nº3 : Georges Brassens, sa guitare et les rythmes",
+      "albumId": "4b4fb390-a4c9-34c0-9545-8ad2fdb9d1cd",
+      "track": 8
+    },
+    {
+      "song": "Jeanne",
+      "album": "Nº9 : Les Trompettes de la renommée",
+      "albumId": "1476ba0e-2e25-3ffc-bd4f-2595ceebd260",
+      "track": 2
+    },
+    {
+      "song": "L'amandier",
+      "album": "Nº5 : Georges Brassens et sa guitare",
+      "albumId": "01a5da18-0dcf-3976-9684-3569b71792de",
+      "track": 2
+    },
+    {
+      "song": "L'Ancetre",
+      "album": "Volume 10 : La Religieuse",
+      "albumId": "0794e68e-7620-309a-9f1d-775b035a4b97",
+      "track": 3
+    },
+    {
+      "song": "L'Assassinat",
+      "album": "Nº9 : Les Trompettes de la renommée",
+      "albumId": "1476ba0e-2e25-3ffc-bd4f-2595ceebd260",
+      "track": 7
+    },
+    {
+      "song": "L'Epave",
+      "album": "Volume 9 : Supplique pour être enterré à la plage de Sète",
+      "albumId": "cd6f1da3-5749-3bd2-961b-09d4f696c8e6",
+      "track": 10
+    },
+    {
+      "song": "L'Orage",
+      "album": "Nº7 : Georges Brassens",
+      "albumId": "7cc6e883-1721-38dc-9041-480b59548b77",
+      "track": 6
+    },
+    {
+      "song": "Le 22 Septembre",
+      "album": "Nº10 : Les Copains d'abord",
+      "albumId": "f8335795-a806-3bfc-8113-8b0fc7f1ea8e",
+      "track": 5
+    },
+    {
+      "song": "Le Bistrot",
+      "album": "Nº7 : Georges Brassens",
+      "albumId": "7cc6e883-1721-38dc-9041-480b59548b77",
+      "track": 5
+    },
+    {
+      "song": "Le Bulletin de sante",
+      "album": "Volume 9 : Supplique pour être enterré à la plage de Sète",
+      "albumId": "cd6f1da3-5749-3bd2-961b-09d4f696c8e6",
+      "track": 6
+    },
+    {
+      "song": "Le Cocu",
+      "album": "Nº6 : Georges Brassens",
+      "albumId": "ec0b022c-2fd0-3c4d-b1e8-3d6cffd24888",
+      "track": 5
+    },
+    {
+      "song": "Le Fantome",
+      "album": "Volume 9 : Supplique pour être enterré à la plage de Sète",
+      "albumId": "cd6f1da3-5749-3bd2-961b-09d4f696c8e6",
+      "track": 2
+    },
+    {
+      "song": "Le Fossoyeur",
+      "album": "Nº1 : Georges Brassens chante… les chansons poétiques (… et souvent gaillardes) de… Georges Brassens",
+      "albumId": "9b32ec2d-fa6c-31e0-9a18-cd836548df71",
+      "track": 4
+    },
+    {
+      "song": "Le Gorille",
+      "album": "Nº1 : Georges Brassens chante… les chansons poétiques (… et souvent gaillardes) de… Georges Brassens",
+      "albumId": "9b32ec2d-fa6c-31e0-9a18-cd836548df71",
+      "track": 5
+    },
+    {
+      "song": "Le Grand Chene",
+      "album": "Volume 9 : Supplique pour être enterré à la plage de Sète",
+      "albumId": "cd6f1da3-5749-3bd2-961b-09d4f696c8e6",
+      "track": 8
+    },
+    {
+      "song": "Le Grand Pan",
+      "album": "Nº10 : Les Copains d'abord",
+      "albumId": "f8335795-a806-3bfc-8113-8b0fc7f1ea8e",
+      "track": 11
+    },
+    {
+      "song": "Le mauvais sujet repenti",
+      "album": "Nº3 : Georges Brassens, sa guitare et les rythmes",
+      "albumId": "4b4fb390-a4c9-34c0-9545-8ad2fdb9d1cd",
+      "track": 9
+    },
+    {
+      "song": "Le mecreant",
+      "album": "Nº7 : Georges Brassens",
+      "albumId": "7cc6e883-1721-38dc-9041-480b59548b77",
+      "track": 2
+    },
+    {
+      "song": "Le modeste",
+      "album": "Volume 12 : Don Juan",
+      "albumId": "d4f1b21b-a32d-3d78-b75b-7c61a09d942e",
+      "track": 5
+    },
+    {
+      "song": "Le Mouton de Panurge",
+      "album": "Nº10 : Les Copains d'abord",
+      "albumId": "f8335795-a806-3bfc-8113-8b0fc7f1ea8e",
+      "track": 8
+    },
+    {
+      "song": "Le parapluie",
+      "album": "Nº1 : Georges Brassens chante… les chansons poétiques (… et souvent gaillardes) de… Georges Brassens",
+      "albumId": "9b32ec2d-fa6c-31e0-9a18-cd836548df71",
+      "track": 2
+    },
+    {
+      "song": "Le Passeiste",
+      "album": "Les Dernières Chansons inédites",
+      "albumId": "3102e3c9-aa32-3e4e-a147-77e4db28192d",
+      "track": 5
+    },
+    {
+      "song": "Le Pecheur",
+      "album": "Les Dernières Chansons inédites",
+      "albumId": "3102e3c9-aa32-3e4e-a147-77e4db28192d",
+      "track": 17
+    },
+    {
+      "song": "Le Petit Cheval",
+      "album": "Nº1 : Georges Brassens chante… les chansons poétiques (… et souvent gaillardes) de… Georges Brassens",
+      "albumId": "9b32ec2d-fa6c-31e0-9a18-cd836548df71",
+      "track": 3
+    },
+    {
+      "song": "Le petit joueur de fluteau",
+      "album": "Nº10 : Les Copains d'abord",
+      "albumId": "f8335795-a806-3bfc-8113-8b0fc7f1ea8e",
+      "track": 3
+    },
+    {
+      "song": "Le Pluriel",
+      "album": "Volume 9 : Supplique pour être enterré à la plage de Sète",
+      "albumId": "cd6f1da3-5749-3bd2-961b-09d4f696c8e6",
+      "track": 4
+    },
+    {
+      "song": "Le Roi boiteux",
+      "album": "Brassens chante Bruant, Colpi, Musset, Nadaud, Norge",
+      "albumId": "e3aaad9d-1a3d-3cc7-b0d2-e08f0f71716e",
+      "track": 8
+    },
+    {
+      "song": "Le Roi",
+      "album": "Volume 11 : Fernande",
+      "albumId": "536c13f7-c29c-3c83-bdf2-d7b88001505c",
+      "track": 10
+    },
+    {
+      "song": "Le Sceptique",
+      "album": "Les Dernières Chansons inédites",
+      "albumId": "3102e3c9-aa32-3e4e-a147-77e4db28192d",
+      "track": 15
+    },
+    {
+      "song": "Le temps ne fait rien a l'affaire",
+      "album": "Nº8 : Georges Brassens, à la basse : Pierre Nicolas",
+      "albumId": "23b2c87d-c2a9-3383-ad75-215aaef17c3e",
+      "track": 1
+    },
+    {
+      "song": "Le Temps passe",
+      "album": "Nº8 : Georges Brassens, à la basse : Pierre Nicolas",
+      "albumId": "23b2c87d-c2a9-3383-ad75-215aaef17c3e",
+      "track": 7
+    },
+    {
+      "song": "Le Vent",
+      "album": "Nº2 : Georges Brassens interprète ses dernières compositions",
+      "albumId": "4f0e657a-ad8e-335f-860e-bb3ecd72ab97",
+      "track": 1
+    },
+    {
+      "song": "Le verger du roi Louis",
+      "album": "Nº7 : Georges Brassens",
+      "albumId": "7cc6e883-1721-38dc-9041-480b59548b77",
+      "track": 8
+    },
+    {
+      "song": "Le Vieux Leon",
+      "album": "Nº6 : Georges Brassens",
+      "albumId": "ec0b022c-2fd0-3c4d-b1e8-3d6cffd24888",
+      "track": 2
+    },
+    {
+      "song": "Le Vieux Normand",
+      "album": "Les Dernières Chansons inédites",
+      "albumId": "3102e3c9-aa32-3e4e-a147-77e4db28192d",
+      "track": 4
+    },
+    {
+      "song": "Le Vin",
+      "album": "Nº5 : Georges Brassens et sa guitare",
+      "albumId": "01a5da18-0dcf-3976-9684-3569b71792de",
+      "track": 9
+    },
+    {
+      "song": "Leche-cocu",
+      "album": "Volume 12 : Don Juan",
+      "albumId": "d4f1b21b-a32d-3d78-b75b-7c61a09d942e",
+      "track": 12
+    },
+    {
+      "song": "Les amoureux des bancs publics",
+      "album": "Nº2 : Georges Brassens interprète ses dernières compositions",
+      "albumId": "4f0e657a-ad8e-335f-860e-bb3ecd72ab97",
+      "track": 3
+    },
+    {
+      "song": "Les Amours d'antan",
+      "album": "Nº9 : Les Trompettes de la renommée",
+      "albumId": "1476ba0e-2e25-3ffc-bd4f-2595ceebd260",
+      "track": 6
+    },
+    {
+      "song": "Les casseuses",
+      "album": "Volume 12 : Don Juan",
+      "albumId": "d4f1b21b-a32d-3d78-b75b-7c61a09d942e",
+      "track": 7
+    },
+    {
+      "song": "Les Copains d'abord",
+      "album": "Nº10 : Les Copains d'abord",
+      "albumId": "f8335795-a806-3bfc-8113-8b0fc7f1ea8e",
+      "track": 1
+    },
+    {
+      "song": "Les Funerailles D'Antan",
+      "album": "Nº7 : Georges Brassens",
+      "albumId": "7cc6e883-1721-38dc-9041-480b59548b77",
+      "track": 1
+    },
+    {
+      "song": "Les Lilas",
+      "album": "Nº5 : Georges Brassens et sa guitare",
+      "albumId": "01a5da18-0dcf-3976-9684-3569b71792de",
+      "track": 7
+    },
+    {
+      "song": "Les oiseaux de passage",
+      "album": "Volume 10 : La Religieuse",
+      "albumId": "0794e68e-7620-309a-9f1d-775b035a4b97",
+      "track": 5
+    },
+    {
+      "song": "Les Passantes",
+      "album": "Volume 11 : Fernande",
+      "albumId": "536c13f7-c29c-3c83-bdf2-d7b88001505c",
+      "track": 9
+    },
+    {
+      "song": "Les patriotes",
+      "album": "Volume 12 : Don Juan",
+      "albumId": "d4f1b21b-a32d-3d78-b75b-7c61a09d942e",
+      "track": 13
+    },
+    {
+      "song": "Les philistins",
+      "album": "Nº5 : Georges Brassens et sa guitare",
+      "albumId": "01a5da18-0dcf-3976-9684-3569b71792de",
+      "track": 8
+    },
+    {
+      "song": "Les Quat'z'arts",
+      "album": "Nº10 : Les Copains d'abord",
+      "albumId": "f8335795-a806-3bfc-8113-8b0fc7f1ea8e",
+      "track": 2
+    },
+    {
+      "song": "Les Quatre Bacheliers",
+      "album": "Volume 9 : Supplique pour être enterré à la plage de Sète",
+      "albumId": "cd6f1da3-5749-3bd2-961b-09d4f696c8e6",
+      "track": 5
+    },
+    {
+      "song": "Les ricochets",
+      "album": "Volume 12 : Don Juan",
+      "albumId": "d4f1b21b-a32d-3d78-b75b-7c61a09d942e",
+      "track": 2
+    },
+    {
+      "song": "Les sabots d'Helene",
+      "album": "Nº3 : Georges Brassens, sa guitare et les rythmes",
+      "albumId": "4b4fb390-a4c9-34c0-9545-8ad2fdb9d1cd",
+      "track": 1
+    },
+    {
+      "song": "Marinette",
+      "album": "Nº4 : Georges Brassens et sa guitare",
+      "albumId": "083d5621-52d8-325c-87ff-045cd42eaae9",
+      "track": 3
+    },
+    {
+      "song": "Marquise",
+      "album": "Nº9 : Les Trompettes de la renommée",
+      "albumId": "1476ba0e-2e25-3ffc-bd4f-2595ceebd260",
+      "track": 4
+    },
+    {
+      "song": "Mechante avec de jolis seins",
+      "album": "Les Dernières Chansons inédites",
+      "albumId": "3102e3c9-aa32-3e4e-a147-77e4db28192d",
+      "track": 2
+    },
+    {
+      "song": "Melanie",
+      "album": "Volume 12 : Don Juan",
+      "albumId": "d4f1b21b-a32d-3d78-b75b-7c61a09d942e",
+      "track": 14
+    },
+    {
+      "song": "Misogynie a part",
+      "album": "Volume 10 : La Religieuse",
+      "albumId": "0794e68e-7620-309a-9f1d-775b035a4b97",
+      "track": 1
+    },
+    {
+      "song": "Montelimar",
+      "album": "Volume 12 : Don Juan",
+      "albumId": "d4f1b21b-a32d-3d78-b75b-7c61a09d942e",
+      "track": 9
+    },
+    {
+      "song": "Mourir pour des Idees",
+      "album": "Volume 11 : Fernande",
+      "albumId": "536c13f7-c29c-3c83-bdf2-d7b88001505c",
+      "track": 7
+    },
+    {
+      "song": "Oncle Archibald",
+      "album": "Nº5 : Georges Brassens et sa guitare",
+      "albumId": "01a5da18-0dcf-3976-9684-3569b71792de",
+      "track": 1
+    },
+    {
+      "song": "Pauvre Martin",
+      "album": "Nº2 : Georges Brassens interprète ses dernières compositions",
+      "albumId": "4f0e657a-ad8e-335f-860e-bb3ecd72ab97",
+      "track": 6
+    },
+    {
+      "song": "Penelope",
+      "album": "Nº7 : Georges Brassens",
+      "albumId": "7cc6e883-1721-38dc-9041-480b59548b77",
+      "track": 7
+    },
+    {
+      "song": "Pensees des morts",
+      "album": "Volume 10 : La Religieuse",
+      "albumId": "0794e68e-7620-309a-9f1d-775b035a4b97",
+      "track": 7
+    },
+    {
+      "song": "Quand les cons sont braves",
+      "album": "Les Dernières Chansons inédites",
+      "albumId": "3102e3c9-aa32-3e4e-a147-77e4db28192d",
+      "track": 1
+    },
+    {
+      "song": "Rien a jeter",
+      "album": "Volume 10 : La Religieuse",
+      "albumId": "0794e68e-7620-309a-9f1d-775b035a4b97",
+      "track": 4
+    },
+    {
+      "song": "Sale petit bonhomme",
+      "album": "Volume 10 : La Religieuse",
+      "albumId": "0794e68e-7620-309a-9f1d-775b035a4b97",
+      "track": 9
+    },
+    {
+      "song": "Saturne",
+      "album": "Nº10 : Les Copains d'abord",
+      "albumId": "f8335795-a806-3bfc-8113-8b0fc7f1ea8e",
+      "track": 10
+    },
+    {
+      "song": "Sauf le respect que je vous dois",
+      "album": "Volume 11 : Fernande",
+      "albumId": "536c13f7-c29c-3c83-bdf2-d7b88001505c",
+      "track": 5
+    },
+    {
+      "song": "Stances a un cambrioleur",
+      "album": "Volume 11 : Fernande",
+      "albumId": "536c13f7-c29c-3c83-bdf2-d7b88001505c",
+      "track": 2
+    },
+    {
+      "song": "Supplique pour etre enterre a la plage de Sete",
+      "album": "Volume 9 : Supplique pour être enterré à la plage de Sète",
+      "albumId": "cd6f1da3-5749-3bd2-961b-09d4f696c8e6",
+      "track": 1
+    },
+    {
+      "song": "Tempete dans un benitier",
+      "album": "Volume 12 : Don Juan",
+      "albumId": "d4f1b21b-a32d-3d78-b75b-7c61a09d942e",
+      "track": 3
+    },
+    {
+      "song": "Tonton Nestor (La Noce de Jeannette)",
+      "album": "Nº8 : Georges Brassens, à la basse : Pierre Nicolas",
+      "albumId": "23b2c87d-c2a9-3383-ad75-215aaef17c3e",
+      "track": 6
+    },
+    {
+      "song": "Venus callipyge",
+      "album": "Nº10 : Les Copains d'abord",
+      "albumId": "f8335795-a806-3bfc-8113-8b0fc7f1ea8e",
+      "track": 7
+    }
+  ],
+  "unmatched": [
+    "Comme une sur",
+    "Corne d'Aurochs",
+    "Elegie a un rat de cave (feat. Les Petits Francais)",
+    "Le moyennageux"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Comme une sur": [
+      {
+        "title": "Comme une sœur",
+        "album": "Nº6 : Georges Brassens",
+        "albumId": "ec0b022c-2fd0-3c4d-b1e8-3d6cffd24888"
+      }
+    ],
+    "Corne d'Aurochs": [
+      {
+        "title": "Corne d’Auroch",
+        "album": "Nº1 : Georges Brassens chante… les chansons poétiques (… et souvent gaillardes) de… Georges Brassens",
+        "albumId": "9b32ec2d-fa6c-31e0-9a18-cd836548df71"
+      }
+    ],
+    "Elegie a un rat de cave (feat. Les Petits Francais)": [],
+    "Le moyennageux": [
+      {
+        "title": "Le Moyenâgeux",
+        "album": "Volume 9 : Supplique pour être enterré à la plage de Sète",
+        "albumId": "cd6f1da3-5749-3bd2-961b-09d4f696c8e6"
+      }
+    ]
+  }
+}

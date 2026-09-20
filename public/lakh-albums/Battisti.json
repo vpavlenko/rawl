@@ -1,0 +1,755 @@
+{
+  "artist": "Battisti",
+  "artistId": "c0c0de23-d9c1-4776-97e0-0c2529402622",
+  "groups": [
+    {
+      "id": "b4e5ae19-2578-3be5-95bb-82fc620a684b",
+      "releaseId": "1c9be57e-8bc9-45e1-9f20-0d888e92761a",
+      "title": "Lucio Battisti",
+      "date": "1969-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b4e5ae19-2578-3be5-95bb-82fc620a684b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Un'avventura.mid",
+            "Un'avventura.1.mid",
+            "Un'avventura.2.mid",
+            "Un'avventura.3.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "29 Settembre.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Nel sole, nel vento, nel sorriso e nel pianto.mid",
+            "Nel sole, nel vento, nel sorriso e nel pianto.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Non e Francesca.mid",
+            "Non e Francesca.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Balla Linda.mid",
+            "Balla Linda.1.mid",
+            "Balla Linda.2.mid",
+            "Balla Linda.3.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Per una lira.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Io vivro (senza te).mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Nel cuore, nell'anima.mid",
+            "Nel cuore, nell'anima.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Il vento.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aeee8029-d8a4-3017-8aa7-4f245e9cda6c",
+      "releaseId": "77b239cb-5502-471b-b93b-3b93a68dac35",
+      "title": "Emozioni",
+      "date": "1970-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/aeee8029-d8a4-3017-8aa7-4f245e9cda6c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Fiori rosa, fiori di pesco.mid",
+            "Fiori rosa, fiori di pesco.1.mid",
+            "Fiori rosa, fiori di pesco.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Dolce di giorno.mid",
+            "Dolce di giorno.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Il tempo di morire.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Mi ritorni in mente.mid",
+            "Mi ritorni in mente.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Emozioni.mid",
+            "Emozioni.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Acqua azzurra, acqua chiara.mid",
+            "Acqua azzurra, acqua chiara.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Anna.mid",
+            "Anna.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "215929ec-7343-3768-83c9-d86e77c85d47",
+      "releaseId": "ce3e6205-26cd-4f89-8004-b299a780ec29",
+      "title": "Amore e non amore",
+      "date": "1971-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/215929ec-7343-3768-83c9-d86e77c85d47/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Dio mio no.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Supermarket.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0ef8fbe0-9e3b-3219-9f69-d7964c915b1b",
+      "releaseId": "6c24af12-aa84-4e3e-a6d8-64fd32bc81e5",
+      "title": "Vol. 4",
+      "date": "1971-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0ef8fbe0-9e3b-3219-9f69-d7964c915b1b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Le tre verita.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Pensieri e parole.mid",
+            "Pensieri e parole.1.mid",
+            "Pensieri e parole.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Insieme a te sto bene.mid",
+            "Insieme a te sto bene.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6564d49a-db20-331c-a3b5-aa55b28e8e53",
+      "releaseId": "e481771e-0752-4b45-abc5-672dbfcf44cb",
+      "title": "La canzone del sole / Anche per te",
+      "date": "1971-11",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/6564d49a-db20-331c-a3b5-aa55b28e8e53/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Anche per te.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6ceec4d6-b0cc-354b-be94-ca1f0a0cdad5",
+      "releaseId": "be87a06f-a4e2-4b61-9ac5-bbac097c97c7",
+      "title": "Elena no / Una",
+      "date": "1972",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/6ceec4d6-b0cc-354b-be94-ca1f0a0cdad5/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Elena no.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4fcb50bc-505a-3c18-a47d-648860cc774f",
+      "releaseId": "31628598-9872-4974-a16e-fa83c0bd1a7d",
+      "title": "Umanamente uomo: il sogno",
+      "date": "1972-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4fcb50bc-505a-3c18-a47d-648860cc774f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I giardini di marzo.mid",
+            "I giardini di marzo.1.mid",
+            "I giardini di marzo.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Innocenti evasioni.mid",
+            "Innocenti evasioni.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "E penso a te.mid",
+            "E penso a te.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Umanamente uomo: il sogno.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Comunque bella.mid",
+            "Comunque bella.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Sognando e risognando.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aa853943-7372-3334-8981-6bc87a2179ea",
+      "releaseId": "a2355959-2613-4dd3-8797-80cc8a3faff2",
+      "title": "Il mio canto libero",
+      "date": "1972-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/aa853943-7372-3334-8981-6bc87a2179ea/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "La luce dell'Est.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Luci-ah.mid",
+            "Luci-ah.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "L'aquila.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Vento nel vento.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Io vorrei... non vorrei... ma se vuoi.mid",
+            "Io vorrei... non vorrei... ma se vuoi.1.mid",
+            "Io vorrei... non vorrei... ma se vuoi.2.mid",
+            "Io vorrei... non vorrei... ma se vuoi.3.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Il mio canto libero.mid",
+            "Il mio canto libero.1.mid",
+            "Il mio canto libero.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bf259286-5a32-3b2c-8c4b-718a86631c78",
+      "releaseId": "74706fc2-039b-4671-b920-2a301fe30635",
+      "title": "Il nostro caro angelo",
+      "date": "1973-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/bf259286-5a32-3b2c-8c4b-718a86631c78/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "La collina dei ciliegi.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Il nostro caro angelo.mid",
+            "Il nostro caro angelo.1.mid",
+            "Il nostro caro angelo.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Le allettanti promesse.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Io gli ho detto no.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Questo inferno rosa.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "987fe70b-943f-36fe-a057-f8d9b838d920",
+      "releaseId": "91178a55-478f-40fa-850c-744d31e3f9de",
+      "title": "Anima latina",
+      "date": "1974-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/987fe70b-943f-36fe-a057-f8d9b838d920/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Anima latina.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Due mondi.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d35c9dd7-ef4f-3c48-aa78-5bf5d76697b9",
+      "releaseId": "52857a89-6840-4445-8b1f-077e84f11abc",
+      "title": "Lucio Battisti, la batteria, il contrabbasso, eccetera",
+      "date": "1976-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d35c9dd7-ef4f-3c48-aa78-5bf5d76697b9/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Un uomo che ti ama.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "La compagnia.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Io ti venderei.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Dove arriva quel cespuglio.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Respirando.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "No dottore.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Il veliero.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Ancora tu (coda).mid",
+            "Ancora tu (coda).1.mid",
+            "Ancora tu (coda).2.mid",
+            "Ancora tu (coda).3.mid",
+            "Ancora tu (coda).4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "876a4899-ea58-3318-9fa4-e917b225a224",
+      "releaseId": "809e74cc-6594-4871-96b0-490745819bd3",
+      "title": "Io tu noi tutti",
+      "date": "1977-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/876a4899-ea58-3318-9fa4-e917b225a224/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Amarsi un po'.mid",
+            "Amarsi un po'.1.mid",
+            "Amarsi un po'.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Soli.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Ami ancora Elisa.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Si, viaggiare.mid",
+            "Si, viaggiare.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Questione di cellule.mid",
+            "Questione di cellule.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "97bc5858-a018-3fc4-92cf-a7f712acc615",
+      "releaseId": "62be39be-277a-43eb-839b-5dbfcebd79fe",
+      "title": "Una donna per amico",
+      "date": "1978-09-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/97bc5858-a018-3fc4-92cf-a7f712acc615/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Prendila cosi.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Donna selvaggia donna.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Aver paura d'innamorarsi troppo.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Nessun dolore.mid",
+            "Nessun dolore.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Una donna per amico.mid",
+            "Una donna per amico.1.mid",
+            "Una donna per amico.2.mid",
+            "Una donna per amico.3.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Al cinema.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "85515bb7-8092-30e3-b635-99692390e3ed",
+      "releaseId": "8e761353-2511-4277-98ab-a6b3ccd4ee63",
+      "title": "Una giornata uggiosa",
+      "date": "1980-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/85515bb7-8092-30e3-b635-99692390e3ed/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Il monolocale.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Arrivederci a questa sera.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Gelosa cara.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Orgoglio e dignita.mid",
+            "Orgoglio e dignita.1.mid",
+            "Orgoglio e dignita.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Una vita viva.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Amore mio di provincia.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Questo amore.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Una giornata uggiosa.mid",
+            "Una giornata uggiosa.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Con il nastro rosa.mid",
+            "Con il nastro rosa.1.mid",
+            "Con il nastro rosa.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ed212575-2041-3979-bfed-42a5941ac139",
+      "releaseId": "33b42eca-6b48-4fd5-a1b1-3722bd8321db",
+      "title": "E già",
+      "date": "1982-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ed212575-2041-3979-bfed-42a5941ac139/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Scrivi il tuo nome.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Mistero.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Windsurf Windsurf.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Rilassati e ascolta.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Straniero.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Slow Motion.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Una montagna.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7a3f439e-11f9-3fcd-a398-2340da3c38bf",
+      "releaseId": "f6de9eda-4506-4dd8-909d-12e941f9b758",
+      "title": "Don Giovanni",
+      "date": "1986-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7a3f439e-11f9-3fcd-a398-2340da3c38bf/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Il diluvio.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "48efcce2-0e27-3e6c-9925-4161e14e1bb9",
+      "releaseId": "6178e722-820b-4427-a815-930fa7799f5b",
+      "title": "L'apparenza",
+      "date": "1988-10-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/48efcce2-0e27-3e6c-9925-4161e14e1bb9/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Specchi opposti.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Per altri motivi.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Per nome.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "89bf83bc-fc9f-33de-99b7-dd3557bbea1e",
+      "releaseId": "3e1f4158-0690-3c58-b87c-7f3b9ae53955",
+      "title": "Cosa succederà alla ragazza",
+      "date": "1992-09-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/89bf83bc-fc9f-33de-99b7-dd3557bbea1e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Cosa succedera alla ragazza.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d37187a7-6640-30a1-b397-c53e48238797",
+      "releaseId": "bb3e77e5-47c9-4433-aeac-3e1df17dd1cf",
+      "title": "Hegel",
+      "date": "1994-09-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d37187a7-6640-30a1-b397-c53e48238797/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Almeno l'inizio.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Tubinga.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Estetica.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

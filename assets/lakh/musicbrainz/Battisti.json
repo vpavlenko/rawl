@@ -1,0 +1,530 @@
+{
+  "artist": "Battisti",
+  "status": "processed",
+  "totalSongs": 89,
+  "matched": [
+    {
+      "song": "29 Settembre",
+      "album": "Lucio Battisti",
+      "albumId": "b4e5ae19-2578-3be5-95bb-82fc620a684b",
+      "track": 2
+    },
+    {
+      "song": "Acqua azzurra, acqua chiara",
+      "album": "Emozioni",
+      "albumId": "aeee8029-d8a4-3017-8aa7-4f245e9cda6c",
+      "track": 8
+    },
+    {
+      "song": "Al cinema",
+      "album": "Una donna per amico",
+      "albumId": "97bc5858-a018-3fc4-92cf-a7f712acc615",
+      "track": 8
+    },
+    {
+      "song": "Almeno l'inizio",
+      "album": "Hegel",
+      "albumId": "d37187a7-6640-30a1-b397-c53e48238797",
+      "track": 1
+    },
+    {
+      "song": "Amarsi un po'",
+      "album": "Io tu noi tutti",
+      "albumId": "876a4899-ea58-3318-9fa4-e917b225a224",
+      "track": 1
+    },
+    {
+      "song": "Ami ancora Elisa",
+      "album": "Io tu noi tutti",
+      "albumId": "876a4899-ea58-3318-9fa4-e917b225a224",
+      "track": 4
+    },
+    {
+      "song": "Amore mio di provincia",
+      "album": "Una giornata uggiosa",
+      "albumId": "85515bb7-8092-30e3-b635-99692390e3ed",
+      "track": 6
+    },
+    {
+      "song": "Anche per te",
+      "album": "La canzone del sole / Anche per te",
+      "albumId": "6564d49a-db20-331c-a3b5-aa55b28e8e53",
+      "track": 2
+    },
+    {
+      "song": "Ancora tu (coda)",
+      "album": "Lucio Battisti, la batteria, il contrabbasso, eccetera",
+      "albumId": "d35c9dd7-ef4f-3c48-aa78-5bf5d76697b9",
+      "track": 9
+    },
+    {
+      "song": "Anima latina",
+      "album": "Anima latina",
+      "albumId": "987fe70b-943f-36fe-a057-f8d9b838d920",
+      "track": 1
+    },
+    {
+      "song": "Anna",
+      "album": "Emozioni",
+      "albumId": "aeee8029-d8a4-3017-8aa7-4f245e9cda6c",
+      "track": 12
+    },
+    {
+      "song": "Arrivederci a questa sera",
+      "album": "Una giornata uggiosa",
+      "albumId": "85515bb7-8092-30e3-b635-99692390e3ed",
+      "track": 2
+    },
+    {
+      "song": "Aver paura d'innamorarsi troppo",
+      "album": "Una donna per amico",
+      "albumId": "97bc5858-a018-3fc4-92cf-a7f712acc615",
+      "track": 3
+    },
+    {
+      "song": "Balla Linda",
+      "album": "Lucio Battisti",
+      "albumId": "b4e5ae19-2578-3be5-95bb-82fc620a684b",
+      "track": 7
+    },
+    {
+      "song": "Comunque bella",
+      "album": "Umanamente uomo: il sogno",
+      "albumId": "4fcb50bc-505a-3c18-a47d-648860cc774f",
+      "track": 5
+    },
+    {
+      "song": "Con il nastro rosa",
+      "album": "Una giornata uggiosa",
+      "albumId": "85515bb7-8092-30e3-b635-99692390e3ed",
+      "track": 10
+    },
+    {
+      "song": "Cosa succedera alla ragazza",
+      "album": "Cosa succederà alla ragazza",
+      "albumId": "89bf83bc-fc9f-33de-99b7-dd3557bbea1e",
+      "track": 1
+    },
+    {
+      "song": "Dio mio no",
+      "album": "Amore e non amore",
+      "albumId": "215929ec-7343-3768-83c9-d86e77c85d47",
+      "track": 1
+    },
+    {
+      "song": "Dolce di giorno",
+      "album": "Emozioni",
+      "albumId": "aeee8029-d8a4-3017-8aa7-4f245e9cda6c",
+      "track": 2
+    },
+    {
+      "song": "Donna selvaggia donna",
+      "album": "Una donna per amico",
+      "albumId": "97bc5858-a018-3fc4-92cf-a7f712acc615",
+      "track": 2
+    },
+    {
+      "song": "Dove arriva quel cespuglio",
+      "album": "Lucio Battisti, la batteria, il contrabbasso, eccetera",
+      "albumId": "d35c9dd7-ef4f-3c48-aa78-5bf5d76697b9",
+      "track": 5
+    },
+    {
+      "song": "Due mondi",
+      "album": "Anima latina",
+      "albumId": "987fe70b-943f-36fe-a057-f8d9b838d920",
+      "track": 2
+    },
+    {
+      "song": "E penso a te",
+      "album": "Umanamente uomo: il sogno",
+      "albumId": "4fcb50bc-505a-3c18-a47d-648860cc774f",
+      "track": 3
+    },
+    {
+      "song": "Elena no",
+      "album": "Elena no / Una",
+      "albumId": "6ceec4d6-b0cc-354b-be94-ca1f0a0cdad5",
+      "track": 1
+    },
+    {
+      "song": "Emozioni",
+      "album": "Emozioni",
+      "albumId": "aeee8029-d8a4-3017-8aa7-4f245e9cda6c",
+      "track": 6
+    },
+    {
+      "song": "Estetica",
+      "album": "Hegel",
+      "albumId": "d37187a7-6640-30a1-b397-c53e48238797",
+      "track": 7
+    },
+    {
+      "song": "Fiori rosa, fiori di pesco",
+      "album": "Emozioni",
+      "albumId": "aeee8029-d8a4-3017-8aa7-4f245e9cda6c",
+      "track": 1
+    },
+    {
+      "song": "Gelosa cara",
+      "album": "Una giornata uggiosa",
+      "albumId": "85515bb7-8092-30e3-b635-99692390e3ed",
+      "track": 3
+    },
+    {
+      "song": "I giardini di marzo",
+      "album": "Umanamente uomo: il sogno",
+      "albumId": "4fcb50bc-505a-3c18-a47d-648860cc774f",
+      "track": 1
+    },
+    {
+      "song": "Il diluvio",
+      "album": "Don Giovanni",
+      "albumId": "7a3f439e-11f9-3fcd-a398-2340da3c38bf",
+      "track": 8
+    },
+    {
+      "song": "Il mio canto libero",
+      "album": "Il mio canto libero",
+      "albumId": "aa853943-7372-3334-8981-6bc87a2179ea",
+      "track": 8
+    },
+    {
+      "song": "Il monolocale",
+      "album": "Una giornata uggiosa",
+      "albumId": "85515bb7-8092-30e3-b635-99692390e3ed",
+      "track": 1
+    },
+    {
+      "song": "Il nostro caro angelo",
+      "album": "Il nostro caro angelo",
+      "albumId": "bf259286-5a32-3b2c-8c4b-718a86631c78",
+      "track": 4
+    },
+    {
+      "song": "Il tempo di morire",
+      "album": "Emozioni",
+      "albumId": "aeee8029-d8a4-3017-8aa7-4f245e9cda6c",
+      "track": 3
+    },
+    {
+      "song": "Il veliero",
+      "album": "Lucio Battisti, la batteria, il contrabbasso, eccetera",
+      "albumId": "d35c9dd7-ef4f-3c48-aa78-5bf5d76697b9",
+      "track": 8
+    },
+    {
+      "song": "Il vento",
+      "album": "Lucio Battisti",
+      "albumId": "b4e5ae19-2578-3be5-95bb-82fc620a684b",
+      "track": 12
+    },
+    {
+      "song": "Innocenti evasioni",
+      "album": "Umanamente uomo: il sogno",
+      "albumId": "4fcb50bc-505a-3c18-a47d-648860cc774f",
+      "track": 2
+    },
+    {
+      "song": "Insieme a te sto bene",
+      "album": "Vol. 4",
+      "albumId": "0ef8fbe0-9e3b-3219-9f69-d7964c915b1b",
+      "track": 8
+    },
+    {
+      "song": "Io gli ho detto no",
+      "album": "Il nostro caro angelo",
+      "albumId": "bf259286-5a32-3b2c-8c4b-718a86631c78",
+      "track": 6
+    },
+    {
+      "song": "Io ti venderei",
+      "album": "Lucio Battisti, la batteria, il contrabbasso, eccetera",
+      "albumId": "d35c9dd7-ef4f-3c48-aa78-5bf5d76697b9",
+      "track": 4
+    },
+    {
+      "song": "Io vivro (senza te)",
+      "album": "Lucio Battisti",
+      "albumId": "b4e5ae19-2578-3be5-95bb-82fc620a684b",
+      "track": 10
+    },
+    {
+      "song": "Io vorrei... non vorrei... ma se vuoi",
+      "album": "Il mio canto libero",
+      "albumId": "aa853943-7372-3334-8981-6bc87a2179ea",
+      "track": 6
+    },
+    {
+      "song": "L'aquila",
+      "album": "Il mio canto libero",
+      "albumId": "aa853943-7372-3334-8981-6bc87a2179ea",
+      "track": 3
+    },
+    {
+      "song": "La collina dei ciliegi",
+      "album": "Il nostro caro angelo",
+      "albumId": "bf259286-5a32-3b2c-8c4b-718a86631c78",
+      "track": 1
+    },
+    {
+      "song": "La compagnia",
+      "album": "Lucio Battisti, la batteria, il contrabbasso, eccetera",
+      "albumId": "d35c9dd7-ef4f-3c48-aa78-5bf5d76697b9",
+      "track": 3
+    },
+    {
+      "song": "La luce dell'Est",
+      "album": "Il mio canto libero",
+      "albumId": "aa853943-7372-3334-8981-6bc87a2179ea",
+      "track": 1
+    },
+    {
+      "song": "Le allettanti promesse",
+      "album": "Il nostro caro angelo",
+      "albumId": "bf259286-5a32-3b2c-8c4b-718a86631c78",
+      "track": 5
+    },
+    {
+      "song": "Le tre verita",
+      "album": "Vol. 4",
+      "albumId": "0ef8fbe0-9e3b-3219-9f69-d7964c915b1b",
+      "track": 1
+    },
+    {
+      "song": "Luci-ah",
+      "album": "Il mio canto libero",
+      "albumId": "aa853943-7372-3334-8981-6bc87a2179ea",
+      "track": 2
+    },
+    {
+      "song": "Mi ritorni in mente",
+      "album": "Emozioni",
+      "albumId": "aeee8029-d8a4-3017-8aa7-4f245e9cda6c",
+      "track": 4
+    },
+    {
+      "song": "Mistero",
+      "album": "E già",
+      "albumId": "ed212575-2041-3979-bfed-42a5941ac139",
+      "track": 2
+    },
+    {
+      "song": "Nel cuore, nell'anima",
+      "album": "Lucio Battisti",
+      "albumId": "b4e5ae19-2578-3be5-95bb-82fc620a684b",
+      "track": 11
+    },
+    {
+      "song": "Nel sole, nel vento, nel sorriso e nel pianto",
+      "album": "Lucio Battisti",
+      "albumId": "b4e5ae19-2578-3be5-95bb-82fc620a684b",
+      "track": 4
+    },
+    {
+      "song": "Nessun dolore",
+      "album": "Una donna per amico",
+      "albumId": "97bc5858-a018-3fc4-92cf-a7f712acc615",
+      "track": 5
+    },
+    {
+      "song": "No dottore",
+      "album": "Lucio Battisti, la batteria, il contrabbasso, eccetera",
+      "albumId": "d35c9dd7-ef4f-3c48-aa78-5bf5d76697b9",
+      "track": 7
+    },
+    {
+      "song": "Non e Francesca",
+      "album": "Lucio Battisti",
+      "albumId": "b4e5ae19-2578-3be5-95bb-82fc620a684b",
+      "track": 6
+    },
+    {
+      "song": "Orgoglio e dignita",
+      "album": "Una giornata uggiosa",
+      "albumId": "85515bb7-8092-30e3-b635-99692390e3ed",
+      "track": 4
+    },
+    {
+      "song": "Pensieri e parole",
+      "album": "Vol. 4",
+      "albumId": "0ef8fbe0-9e3b-3219-9f69-d7964c915b1b",
+      "track": 6
+    },
+    {
+      "song": "Per altri motivi",
+      "album": "L'apparenza",
+      "albumId": "48efcce2-0e27-3e6c-9925-4161e14e1bb9",
+      "track": 5
+    },
+    {
+      "song": "Per nome",
+      "album": "L'apparenza",
+      "albumId": "48efcce2-0e27-3e6c-9925-4161e14e1bb9",
+      "track": 6
+    },
+    {
+      "song": "Per una lira",
+      "album": "Lucio Battisti",
+      "albumId": "b4e5ae19-2578-3be5-95bb-82fc620a684b",
+      "track": 8
+    },
+    {
+      "song": "Prendila cosi",
+      "album": "Una donna per amico",
+      "albumId": "97bc5858-a018-3fc4-92cf-a7f712acc615",
+      "track": 1
+    },
+    {
+      "song": "Questione di cellule",
+      "album": "Io tu noi tutti",
+      "albumId": "876a4899-ea58-3318-9fa4-e917b225a224",
+      "track": 6
+    },
+    {
+      "song": "Questo amore",
+      "album": "Una giornata uggiosa",
+      "albumId": "85515bb7-8092-30e3-b635-99692390e3ed",
+      "track": 7
+    },
+    {
+      "song": "Questo inferno rosa",
+      "album": "Il nostro caro angelo",
+      "albumId": "bf259286-5a32-3b2c-8c4b-718a86631c78",
+      "track": 8
+    },
+    {
+      "song": "Respirando",
+      "album": "Lucio Battisti, la batteria, il contrabbasso, eccetera",
+      "albumId": "d35c9dd7-ef4f-3c48-aa78-5bf5d76697b9",
+      "track": 6
+    },
+    {
+      "song": "Rilassati e ascolta",
+      "album": "E già",
+      "albumId": "ed212575-2041-3979-bfed-42a5941ac139",
+      "track": 4
+    },
+    {
+      "song": "Scrivi il tuo nome",
+      "album": "E già",
+      "albumId": "ed212575-2041-3979-bfed-42a5941ac139",
+      "track": 1
+    },
+    {
+      "song": "Si, viaggiare",
+      "album": "Io tu noi tutti",
+      "albumId": "876a4899-ea58-3318-9fa4-e917b225a224",
+      "track": 5
+    },
+    {
+      "song": "Slow Motion",
+      "album": "E già",
+      "albumId": "ed212575-2041-3979-bfed-42a5941ac139",
+      "track": 10
+    },
+    {
+      "song": "Sognando e risognando",
+      "album": "Umanamente uomo: il sogno",
+      "albumId": "4fcb50bc-505a-3c18-a47d-648860cc774f",
+      "track": 7
+    },
+    {
+      "song": "Soli",
+      "album": "Io tu noi tutti",
+      "albumId": "876a4899-ea58-3318-9fa4-e917b225a224",
+      "track": 3
+    },
+    {
+      "song": "Specchi opposti",
+      "album": "L'apparenza",
+      "albumId": "48efcce2-0e27-3e6c-9925-4161e14e1bb9",
+      "track": 2
+    },
+    {
+      "song": "Straniero",
+      "album": "E già",
+      "albumId": "ed212575-2041-3979-bfed-42a5941ac139",
+      "track": 6
+    },
+    {
+      "song": "Supermarket",
+      "album": "Amore e non amore",
+      "albumId": "215929ec-7343-3768-83c9-d86e77c85d47",
+      "track": 7
+    },
+    {
+      "song": "Tubinga",
+      "album": "Hegel",
+      "albumId": "d37187a7-6640-30a1-b397-c53e48238797",
+      "track": 3
+    },
+    {
+      "song": "Umanamente uomo: il sogno",
+      "album": "Umanamente uomo: il sogno",
+      "albumId": "4fcb50bc-505a-3c18-a47d-648860cc774f",
+      "track": 4
+    },
+    {
+      "song": "Un uomo che ti ama",
+      "album": "Lucio Battisti, la batteria, il contrabbasso, eccetera",
+      "albumId": "d35c9dd7-ef4f-3c48-aa78-5bf5d76697b9",
+      "track": 2
+    },
+    {
+      "song": "Un'avventura",
+      "album": "Lucio Battisti",
+      "albumId": "b4e5ae19-2578-3be5-95bb-82fc620a684b",
+      "track": 1
+    },
+    {
+      "song": "Una donna per amico",
+      "album": "Una donna per amico",
+      "albumId": "97bc5858-a018-3fc4-92cf-a7f712acc615",
+      "track": 6
+    },
+    {
+      "song": "Una giornata uggiosa",
+      "album": "Una giornata uggiosa",
+      "albumId": "85515bb7-8092-30e3-b635-99692390e3ed",
+      "track": 9
+    },
+    {
+      "song": "Una montagna",
+      "album": "E già",
+      "albumId": "ed212575-2041-3979-bfed-42a5941ac139",
+      "track": 11
+    },
+    {
+      "song": "Una vita viva",
+      "album": "Una giornata uggiosa",
+      "albumId": "85515bb7-8092-30e3-b635-99692390e3ed",
+      "track": 5
+    },
+    {
+      "song": "Vento nel vento",
+      "album": "Il mio canto libero",
+      "albumId": "aa853943-7372-3334-8981-6bc87a2179ea",
+      "track": 4
+    },
+    {
+      "song": "Windsurf Windsurf",
+      "album": "E già",
+      "albumId": "ed212575-2041-3979-bfed-42a5941ac139",
+      "track": 3
+    }
+  ],
+  "unmatched": [
+    "Davanti a un distributore automatico di fiori",
+    "Il mio bambino",
+    "Una poltrona",
+    "Vendo casa"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Davanti a un distributore automatico di fiori": [],
+    "Il mio bambino": [],
+    "Una poltrona": [],
+    "Vendo casa": []
+  }
+}

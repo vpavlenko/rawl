@@ -6,6 +6,7 @@ import { Analysis } from "../rawl/analysis";
 import Rawl from "../rawl/Rawl";
 import BeatlesDiscography from "./BeatlesDiscography";
 import { groupBeatlesTracks } from "./beatlesReleases";
+import { useAlbumMetadata } from "./albumMetadata";
 import {
   LakhCatalog,
   LakhArtist,
@@ -247,14 +248,17 @@ export default function Lakh({ ready, loadTrack }: Props) {
     resolveLakhRoute(catalog, window.location.pathname);
   const artistName = artist?.name || artistSegment;
   const trackName = track?.replace(/(?:\.\d+)?\.mid$/i, "") || trackSegment;
+  const albumGroups = useAlbumMetadata(artist);
   const album = useMemo(() => {
-    if (artist?.name !== "The Beatles" || !track) return null;
-    return groupBeatlesTracks(artist.tracks).find(
+    if (!artist || !track) return null;
+    const groups = artist.name === "The Beatles"
+      ? groupBeatlesTracks(artist.tracks) : albumGroups || [];
+    return groups.find(
       (group) =>
         group.title !== "Other recordings & medleys" &&
         group.songs.some((song) => song.files.includes(track)),
     );
-  }, [artist, track]);
+  }, [artist, track, albumGroups]);
   const analysisKey = track ? lakhAnalysisKey(artistName, track) : "";
   const redirecting = !!canonicalPath && pathname !== canonicalPath;
   const pageTitle =
@@ -422,6 +426,7 @@ const Directory = React.memo(function Directory({
   analyses: Record<string, Analysis>;
 }) {
   const artistName = artist?.name || "";
+  const albumGroups = useAlbumMetadata(artist);
   const artistSongCounts = useMemo(
     () => new Map(catalog.artists.map((item) => [item.name, countSongs(item.tracks)])),
     [catalog],
@@ -561,7 +566,8 @@ const Directory = React.memo(function Directory({
       )}
       {artist ? (
         <BeatlesDiscography
-          groupByAlbum={artist.name === "The Beatles"}
+          groupByAlbum={artist.name === "The Beatles" || !!albumGroups?.length}
+          albumGroups={albumGroups?.length ? albumGroups : null}
           files={visibleTracks}
           allFiles={artist.tracks}
           isAnnotated={(file) =>

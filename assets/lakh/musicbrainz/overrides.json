@@ -1,0 +1,43 @@
+{
+  "The Beatles": {
+    "skip": "Existing curated album assignments"
+  },
+  "Brassens Georges": {
+    "name": "Georges Brassens",
+    "mbid": "b58165ba-ac55-49a1-8855-caf16c68f5f2",
+    "country": "FR"
+  },
+  "Battisti": {
+    "name": "Lucio Battisti",
+    "mbid": "c0c0de23-d9c1-4776-97e0-0c2529402622",
+    "country": "IT"
+  },
+  "Bach Johann Sebastian": {
+    "skip": "Needs work-based grouping"
+  },
+  "Scott Joplin": {
+    "skip": "Needs work-based grouping"
+  },
+  "John Elton": {
+    "name": "Elton John"
+  },
+  "Rossi Vasco": {
+    "name": "Vasco Rossi"
+  },
+  "Jackson Michael": {
+    "name": "Michael Jackson"
+  },
+  "Celentano": {
+    "name": "Adriano Celentano"
+  },
+  "Daniele": {
+    "name": "Pino Daniele"
+  },
+  "McCartney": {
+    "name": "Paul McCartney"
+  },
+  "Pooh": {
+    "mbid": "3d6563ff-0dc7-4306-a05f-d68ad7a02964",
+    "country": "IT"
+  }
+}

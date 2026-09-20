@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { beatlesVariantNumber, groupBeatlesTracks } from "./beatlesReleases";
+import { AlbumGroup } from "./albumMetadata";
 
 const Discography = styled.div`
   font-size: 14px;
@@ -115,6 +116,7 @@ export default function BeatlesDiscography({
   renderTitle,
   renderTrack,
   groupByAlbum = true,
+  albumGroups,
 }: {
   files: string[];
   allFiles: string[];
@@ -122,6 +124,7 @@ export default function BeatlesDiscography({
   renderTitle: (title: string) => React.ReactNode;
   renderTrack: (file: string, label?: string) => React.ReactNode;
   groupByAlbum?: boolean;
+  albumGroups?: AlbumGroup[] | null;
 }) {
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
   const toggleVersions = (key: string) =>
@@ -133,16 +136,20 @@ export default function BeatlesDiscography({
     });
   const visible = new Set(files);
   const songsByTitle = new Map<string, string[]>();
-  if (!groupByAlbum) {
+  const assignedFiles = new Set(albumGroups?.flatMap((group) =>
+    group.songs.flatMap((song) => song.files),
+  ));
+  if (!groupByAlbum || albumGroups) {
     allFiles.forEach((file) => {
+      if (assignedFiles.has(file)) return;
       const title = file.replace(/(?:\.\d+)?\.mid$/i, "");
       const versions = songsByTitle.get(title) || [];
       versions.push(file);
       songsByTitle.set(title, versions);
     });
   }
-  const sourceGroups = groupByAlbum ? groupBeatlesTracks(allFiles) : [{
-    title: "Songs",
+  const remainingGroup = {
+    title: albumGroups ? "Other songs" : "Songs",
     date: "",
     cover: null,
     songs: Array.from(songsByTitle)
@@ -153,7 +160,10 @@ export default function BeatlesDiscography({
           beatlesVariantNumber(a) - beatlesVariantNumber(b) || a.localeCompare(b),
         ),
       })),
-  }];
+  };
+  const sourceGroups: AlbumGroup[] = albumGroups
+    ? [...albumGroups, remainingGroup]
+    : groupByAlbum ? groupBeatlesTracks(allFiles) : [remainingGroup];
   const groups = sourceGroups
     .map((group) => ({
       ...group,
@@ -191,7 +201,10 @@ export default function BeatlesDiscography({
               )}
               <div>
                 <h2>{group.title}</h2>
-                <span className="date">{group.date}</span>
+                <span className="date">
+                  {group.date}
+                  {group.type && group.type !== "Album" ? ` · ${group.type}` : ""}
+                </span>
               </div>
             </header>}
             <ul>

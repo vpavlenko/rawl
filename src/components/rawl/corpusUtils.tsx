@@ -40,7 +40,9 @@ export const getUniqueStyles = (genre?: string, style?: string): string[] => {
 export const getEmojis = (country?: string): ReactNode[] => {
   if (!country) return [];
   const countries = country.split(",").map((c) => c.trim());
-  return countries.map((c) => <Flags key={c}>{flag(c)}</Flags>);
+  return countries.map((c) => (
+    <Flags key={c}>{flag(c) === "🇷🇺" ? "🇨🇳" : flag(c)}</Flags>
+  ));
 };
 
 export interface HasMetadata {

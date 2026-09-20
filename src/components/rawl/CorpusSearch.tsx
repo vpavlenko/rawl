@@ -56,8 +56,96 @@ const ResultsContainer = styled.div`
   text-align: left;
 `;
 
+const CountryGroups = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+`;
+
+const CountryRow = styled.div`
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+`;
+
+const CountryFlag = styled.div`
+  align-self: center;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  font-size: 30px;
+  line-height: 1;
+
+  > span {
+    margin-right: 0;
+  }
+`;
+
+const StylesLabel = styled.div`
+  align-self: center;
+  text-align: center;
+  color: #999;
+`;
+
+const SingleComposerList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+`;
+
+const SingleComposerRow = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+
+  ${CountryFlag} {
+    flex-shrink: 0;
+    font-size: 24px;
+  }
+`;
+
+const PieceCount = styled.span`
+  color: #888;
+  font-size: 0.8em;
+  font-variant-numeric: tabular-nums;
+`;
+
+const ComposerLinks = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+  min-width: 0;
+`;
+
+const ExpandButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  padding: 2px;
+  border: 0;
+  background: none;
+  color: #999;
+  font: inherit;
+  cursor: pointer;
+
+  &:hover {
+    color: white;
+    text-decoration: underline;
+  }
+`;
+
+const INITIAL_COMPOSERS_PER_COUNTRY = 15;
+
 const CorpusSearch: React.FC = () => {
   const [searchTerm, setSearchTerm] = React.useState("");
+  const [expandedCountries, setExpandedCountries] = React.useState<
+    Record<string, boolean>
+  >({});
   const searchInputRef = React.useRef<HTMLInputElement>(null);
   const [totalMidis, setTotalMidis] = React.useState(0);
 
@@ -113,92 +201,104 @@ const CorpusSearch: React.FC = () => {
       if (b[0] === "Styles") return 1;
       return b[1].length - a[1].length;
     });
-
-    // Separate single-corpus countries
-    const multiCorpusGroups = sortedGroups.filter(
-      ([country, corpora]) => corpora.length > 1 || country === "Styles",
+    const multiComposerGroups = sortedGroups.filter(
+      ([country, entries]) => country === "Styles" || entries.length > 1,
     );
-    const singleCorpusEntries = sortedGroups
-      .filter(
-        ([country, corpora]) => corpora.length === 1 && country !== "Styles",
-      )
-      .flatMap(([country, corpora]) =>
-        corpora.map((corpus) => ({ country, corpus })),
-      )
-      .sort((a, b) => b.corpus.midis.length - a.corpus.midis.length);
+    const singleComposerGroups = sortedGroups
+      .filter(([country, entries]) => country !== "Styles" && entries.length === 1)
+      .sort((a, b) => b[1][0].midis.length - a[1][0].midis.length);
 
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "50px" }}>
-        {/* Multi-corpus countries */}
-        {multiCorpusGroups.map(([country, corpora]) => (
-          <div key={country} style={{ textAlign: "left" }}>
-            <h3 style={{ marginBottom: "10px" }}>
-              {country} {country !== "Styles" && getEmojis(country)}
-              <span
-                style={{
-                  fontSize: "0.6em",
-                  color: "gray",
-                  marginLeft: "8px",
-                }}
-              >
-                {corpora.reduce((sum, corpus) => sum + corpus.midis.length, 0)}
-              </span>
-            </h3>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-              {corpora.map(({ slug, midis }) => (
-                <div key={slug} style={{ marginRight: "20px" }}>
-                  <Link to={`/corpus/${slug}`}>
+      <CountryGroups>
+        {multiComposerGroups.map(([country, countryCorpora]) => {
+          const expanded = !!expandedCountries[country];
+          const collapsedCorpora =
+            country === "Styles"
+              ? countryCorpora.filter((corpus) => corpus.midis.length >= 5)
+              : countryCorpora.slice(0, INITIAL_COMPOSERS_PER_COUNTRY);
+          const visibleCorpora = expanded
+            ? countryCorpora
+            : collapsedCorpora;
+
+          return (
+            <CountryRow key={country}>
+              {country === "Styles" ? (
+                <StylesLabel>Styles</StylesLabel>
+              ) : (
+                <CountryFlag
+                  role="img"
+                  aria-label={country}
+                  title={country}
+                  style={{
+                    justifyContent: "center",
+                    fontSize: country.includes(",") ? 24 : undefined,
+                  }}
+                >
+                  {getEmojis(country)}
+                </CountryFlag>
+              )}
+              <ComposerLinks>
+                {visibleCorpora.map(({ slug, midis }, index) => (
+                  <Link key={`${slug}-${index}`} to={`/corpus/${slug}`}>
                     {formatComposerName(slug)}{" "}
                     <span style={{ fontSize: "0.6em", color: "gray" }}>
                       {midis.length}
                     </span>
                   </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-
-        {/* Single-corpus countries */}
-        {singleCorpusEntries.length > 0 && (
-          <div style={{ textAlign: "left" }}>
-            <h3 style={{ marginBottom: "10px" }}>Single Composers</h3>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "16px",
-                alignItems: "center",
-              }}
-            >
-              {singleCorpusEntries.map(({ country, corpus }) => (
-                <div
-                  key={corpus.slug}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                    minWidth: "200px",
-                  }}
-                >
-                  {getEmojis(country)}
-                  <Link to={`/corpus/${corpus.slug}`}>
-                    {formatComposerName(corpus.slug)}
-                    <span
-                      style={{
-                        fontSize: "0.6em",
-                        color: "gray",
-                      }}
+                ))}
+                {!expanded && countryCorpora.length > collapsedCorpora.length && (
+                  <ExpandButton
+                    type="button"
+                    aria-expanded={expanded}
+                    aria-label={`Show more ${country === "Styles" ? "styles" : `composers from ${country}`}`}
+                    title="Show more"
+                    onClick={() =>
+                      setExpandedCountries((previous) => ({
+                        ...previous,
+                        [country]: true,
+                      }))
+                    }
+                  >
+                    {/* Lucide chevrons-down icon. */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
                     >
-                      {corpus.midis.length}
-                    </span>
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
+                      <path d="m7 6 5 5 5-5" />
+                      <path d="m7 13 5 5 5-5" />
+                    </svg>
+                  </ExpandButton>
+                )}
+              </ComposerLinks>
+            </CountryRow>
+          );
+        })}
+        {singleComposerGroups.length > 0 && (
+          <SingleComposerList>
+            {singleComposerGroups.map(([country, [composer]]) => (
+              <SingleComposerRow key={country}>
+                <CountryFlag role="img" aria-label={country} title={country}>
+                  {getEmojis(country)}
+                </CountryFlag>
+                <Link to={`/corpus/${composer.slug}`}>
+                  {formatComposerName(composer.slug)}{" "}
+                  <PieceCount aria-label={`${composer.midis.length} pieces`}>
+                    {composer.midis.length}
+                  </PieceCount>
+                </Link>
+              </SingleComposerRow>
+            ))}
+          </SingleComposerList>
         )}
-      </div>
+      </CountryGroups>
     );
   };
 

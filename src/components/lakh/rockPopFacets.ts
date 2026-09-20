@@ -20,10 +20,6 @@ export const ROCK_POP_GENRES = [
     label: "Early-1960s pop & teen idols",
   },
   {
-    id: "beat",
-    label: "Beat, Merseybeat & British Invasion",
-  },
-  {
     id: "harmony",
     label: "Sunshine, harmony & orchestral pop",
   },
@@ -307,7 +303,7 @@ const assignments: {
     ],
   },
   {
-    genre: "beat",
+    genre: "arena",
     era: "1963",
     artists: [
       "Equals",

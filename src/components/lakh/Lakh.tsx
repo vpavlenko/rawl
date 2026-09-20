@@ -31,12 +31,27 @@ const Page = styled.div`
     padding: 16px 12px;
   }
 `;
-const Heading = styled.div`
+const Heading = styled.div<{ $directory: boolean }>`
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 8px 16px;
   margin-bottom: 14px;
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 16px;
+  }
+  @media (min-width: 900px) {
+    ${({ $directory }) =>
+      $directory &&
+      `
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px minmax(0, 1fr);
+      align-items: center;
+    `}
+  }
   h1 {
     margin: 0;
     font-size: 24px;
@@ -79,6 +94,29 @@ const TrackHeading = styled.nav`
     height: 28px;
     object-fit: cover;
     border-radius: 2px;
+  }
+`;
+const ArtistSearch = styled.input`
+  margin-inline: auto;
+  width: 280px;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  background: transparent;
+  color: #ddd;
+  border: 1px solid #666;
+  border-radius: 0;
+  padding: 8px 10px;
+  font: inherit;
+  &::placeholder {
+    color: #999;
+  }
+  &:focus-visible {
+    outline: 2px solid #ffe45c;
+    outline-offset: 2px;
+  }
+  @media (max-width: 600px) {
+    width: 100%;
   }
 `;
 const Filters = styled.div`
@@ -457,6 +495,15 @@ const Directory = React.memo(function Directory({
     return { total, grouped: total - ungrouped, ungrouped };
   }, [artist]);
   const [query, setQuery] = useState("");
+  const [artistQuery, setArtistQuery] = useState("");
+  const artistSearch = artistQuery.trim().toLocaleLowerCase();
+  const visibleArtists = directoryArtists.filter(
+    (item) =>
+      item.name.toLocaleLowerCase().includes(artistSearch) ||
+      item.members.some((member) =>
+        member.name.toLocaleLowerCase().includes(artistSearch),
+      ),
+  );
   const [annotatedOnly, setAnnotatedOnly] = useState(false);
   const annotated = useMemo(
     () => new Set(Object.keys(analyses).filter((key) => !!analyses[key])),
@@ -519,7 +566,7 @@ const Directory = React.memo(function Directory({
             songCount === 1 ? "song" : "songs"
           } · ${count} annotated${tags.length ? ` · ${tags.join(" · ")}` : ""}`}
         >
-          {item.name}
+          {highlightMatches(item.name, artistSearch)}
           {songCount > 1 && (
             <small aria-label={`${songCount} songs, ${count} annotated`}>
               {songCount}
@@ -532,39 +579,50 @@ const Directory = React.memo(function Directory({
 
   return (
     <>
-      <Heading>
-        <h1>{artistName ? canonicalArtistName(artistName) : "Lakh"}</h1>
-        <span>
-          {artist ? (
-            <>
-              {(
-                artist.tracks.length +
-                relatedArtists.reduce(
-                  (sum, source) => sum + source.tracks.length,
-                  0,
-                )
-              ).toLocaleString()}{" "}
-              files ·{" "}
-              {songCounts && (
-                <>
-                  {songCounts.total.toLocaleString()} songs (
-                  {songCounts.grouped} in albums, {songCounts.ungrouped}{" "}
-                  ungrouped) ·{" "}
-                </>
-              )}
-              <span style={{ color: "#ffe45c" }}>
-                {counts(artist.name, artist.tracks) +
+      <Heading $directory={!artist}>
+        <div>
+          <h1>{artistName ? canonicalArtistName(artistName) : "Lakh"}</h1>
+          <span>
+            {artist ? (
+              <>
+                {(
+                  artist.tracks.length +
                   relatedArtists.reduce(
-                    (sum, source) => sum + counts(source.name, source.tracks),
+                    (sum, source) => sum + source.tracks.length,
                     0,
-                  )}{" "}
-                annotated
-              </span>
-            </>
-          ) : (
-            `${directoryArtists.length.toLocaleString()} artists · ${totalSongs.toLocaleString()} songs`
-          )}
-        </span>
+                  )
+                ).toLocaleString()}{" "}
+                files ·{" "}
+                {songCounts && (
+                  <>
+                    {songCounts.total.toLocaleString()} songs (
+                    {songCounts.grouped} in albums, {songCounts.ungrouped}{" "}
+                    ungrouped) ·{" "}
+                  </>
+                )}
+                <span style={{ color: "#ffe45c" }}>
+                  {counts(artist.name, artist.tracks) +
+                    relatedArtists.reduce(
+                      (sum, source) => sum + counts(source.name, source.tracks),
+                      0,
+                    )}{" "}
+                  annotated
+                </span>
+              </>
+            ) : (
+              `${directoryArtists.length.toLocaleString()} artists · ${totalSongs.toLocaleString()} songs`
+            )}
+          </span>
+        </div>
+        {!artist && (
+          <ArtistSearch
+            type="search"
+            aria-label="Search artists"
+            placeholder="Search artists"
+            value={artistQuery}
+            onChange={(event) => setArtistQuery(event.target.value)}
+          />
+        )}
       </Heading>
       {artist && (
         <Filters>
@@ -619,9 +677,11 @@ const Directory = React.memo(function Directory({
             }}
           />
         </>
+      ) : visibleArtists.length === 0 ? (
+        <p role="status">No matching artists.</p>
       ) : (
         <ArtistTable
-          artists={directoryArtists}
+          artists={visibleArtists}
           renderArtist={renderArtist}
           songCount={(item) => artistSongCounts.get(item.name) || 0}
         />

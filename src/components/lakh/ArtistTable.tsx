@@ -29,7 +29,7 @@ const Matrix = styled.div`
   th {
     background: #000;
     font-weight: normal;
-    color: #eee;
+    color: lightblue;
   }
   thead {
     position: sticky;

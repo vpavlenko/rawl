@@ -11,6 +11,7 @@ import hashlib
 import json
 import pathlib
 import sys
+import subprocess
 import tarfile
 import zipfile
 
@@ -96,6 +97,7 @@ def package(archive, unpacked):
                     for name, tracks in sorted(artists.items(), key=lambda item: item[0].casefold())],
     }
     (ROOT / 'public' / 'lakh-index.json').write_text(json.dumps(catalog, ensure_ascii=False, separators=(',', ':')) + '\n')
+    subprocess.run(['node', str(ROOT / 'scripts' / 'generate-lakh-routes.js')], check=True)
     analyses = json.loads((ROOT / 'src' / 'corpus' / 'analyses.json').read_text())
     available = {f'c/MIDI/{artist}/{track}' for artist, tracks in artists.items() for track in tracks}
     keys = [key for key in analyses if key.startswith('c/MIDI/')]

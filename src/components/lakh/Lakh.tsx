@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "../AppContext";
 import { Analysis } from "../rawl/analysis";
@@ -11,6 +11,7 @@ import {
   lakhArtistUrl,
   lakhTrackUrl,
   loadLakhCatalog,
+  resolveLakhRoute,
 } from "./catalog";
 
 const Page = styled.div`
@@ -73,29 +74,34 @@ type Props = {
 };
 
 export default function Lakh({ ready, loadTrack }: Props) {
-  const { pathname } = useLocation();
+  const { pathname, search: locationSearch, hash } = useLocation();
   const { analyses, rawlProps, currentMidi, eject } = useContext(AppContext);
   const [catalog, setCatalog] = useState<LakhCatalog | null>(null);
   const [error, setError] = useState("");
   const [loadedKey, setLoadedKey] = useState("");
   const [retry, setRetry] = useState(0);
-  const parts = pathname
-    .replace(/^\/lakh\/?/, "")
-    .replace(/\/$/, "")
-    .split("/");
-  let artistName = "",
-    trackName = "";
-  try {
-    artistName = decodeURIComponent(parts[0] || "");
-    trackName = decodeURIComponent(parts.slice(1).join("/"));
-  } catch {
-    /* Invalid URLs fall through to the not-found message. */
-  }
-  const artist = catalog?.artists.find((item) => item.name === artistName);
-  const track = artist?.tracks.find(
-    (name) => name.replace(/\.mid$/i, "") === trackName,
-  );
+  const { artist, track, artistSegment, trackSegment, invalid, canonicalPath } =
+    // Browser history has already decoded some escapes. Read the original URL
+    // here so filenames containing literal percent sequences decode only once.
+    resolveLakhRoute(catalog, window.location.pathname);
+  const artistName = artist?.name || artistSegment;
+  const trackName = track?.replace(/\.mid$/i, "") || trackSegment;
   const analysisKey = track ? lakhAnalysisKey(artistName, track) : "";
+  const redirecting = !!canonicalPath && pathname !== canonicalPath;
+  const pageTitle =
+    track && artist
+      ? `${trackName} - ${artist.name}`
+      : artist
+      ? `${artist.name} - Lakh`
+      : "Lakh - Rawl";
+
+  useEffect(() => {
+    const previousTitle = document.title;
+    document.title = pageTitle;
+    return () => {
+      document.title = previousTitle;
+    };
+  }, [pageTitle]);
 
   useEffect(() => {
     let active = true;
@@ -116,7 +122,7 @@ export default function Lakh({ ready, loadTrack }: Props) {
     setError("");
   }, [pathname]);
   useEffect(() => {
-    if (!ready || !track) return;
+    if (!ready || !track || redirecting) return;
     const controller = new AbortController();
     setLoadedKey("");
     loadTrack(artistName, track, controller.signal)
@@ -130,7 +136,24 @@ export default function Lakh({ ready, loadTrack }: Props) {
       controller.abort();
       eject();
     };
-  }, [ready, artistName, track, analysisKey, loadTrack, eject, retry]);
+  }, [
+    ready,
+    artistName,
+    track,
+    analysisKey,
+    loadTrack,
+    eject,
+    retry,
+    redirecting,
+  ]);
+
+  if (redirecting) {
+    return (
+      <Redirect
+        to={{ pathname: canonicalPath, search: locationSearch, hash }}
+      />
+    );
+  }
 
   return (
     <>
@@ -140,7 +163,12 @@ export default function Lakh({ ready, loadTrack }: Props) {
           {artistName && (
             <>
               {" "}
-              / <Link to={lakhArtistUrl(artistName)}>{artistName}</Link>
+              /{" "}
+              {artist ? (
+                <Link to={lakhArtistUrl(artist)}>{artistName}</Link>
+              ) : (
+                artistName
+              )}
             </>
           )}
           {track && <> / {track.replace(/\.mid$/i, "")}</>}
@@ -159,6 +187,10 @@ export default function Lakh({ ready, loadTrack }: Props) {
           </p>
         ) : !catalog ? (
           <p>Loading Lakh…</p>
+        ) : invalid ? (
+          <p>
+            Invalid Lakh URL. <Link to="/lakh/">Browse artists</Link>
+          </p>
         ) : artistName && !artist ? (
           <p>
             Artist not found. <Link to="/lakh/">Browse artists</Link>
@@ -267,7 +299,7 @@ const Directory = React.memo(function Directory({
               return (
                 <li key={file}>
                   <Entry
-                    to={lakhTrackUrl(artistName, file)}
+                    to={lakhTrackUrl(artist, file)}
                     $folder={false}
                     $annotated={hasAnalysis}
                   >
@@ -284,7 +316,7 @@ const Directory = React.memo(function Directory({
               return (
                 <li key={item.name}>
                   <Entry
-                    to={lakhArtistUrl(item.name)}
+                    to={lakhArtistUrl(item)}
                     $folder
                     $annotated={count > 0}
                   >

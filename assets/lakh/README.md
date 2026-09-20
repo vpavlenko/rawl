@@ -25,7 +25,7 @@ of the source and every part. Original MIDI copyright meta-events are retained.
   directly into `build/lakh-data`; development uses ignored `public/lakh-data`.
 - Run `npm run prepare-lakh` to supply files to an already-running dev server.
 - Playback fetches just the selected MIDI from `/lakh-data/<artist>/<filename>`.
-- SPA pages use `/lakh/`, `/lakh/<artist>`, and `/lakh/<artist>/<track>`;
+- SPA pages use `/lakh/`, `/lakh/<artist_slug>`, and `/lakh/<artist_slug>/<track_slug>`;
   track pages omit the `.mid` extension. Hosts must use the app's usual SPA fallback.
 - `/c/MIDI/...` bookmarks redirect while preserving query strings and fragments.
   Analysis storage keeps the exact `c/MIDI/<artist>/<filename>` key, so existing
@@ -67,3 +67,23 @@ The served catalog has 17,266 paths and 2,203 artist folders, including those
 compatibility additions. The ZIPs occupy approximately 225 MB; the extracted
 MIDI data occupies approximately 800 MB. Files with nonstandard MIDI headers
 are preserved from the source; the player reports an error if it cannot load one.
+
+## Readable, persistent URLs
+
+`node scripts/generate-lakh-routes.js` enriches the catalog with ASCII slugs.
+It transliterates names, replaces punctuation and whitespace with underscores,
+retains capitalization and arrangement numbers, and adds a stable hash suffix
+when names collide. For example, `ABBA/Money, Money, Money.mid` becomes
+`/lakh/ABBA/Money_Money_Money`.
+
+`assets/lakh/routes.json` is the persistent registry. Keep it in version control:
+imports reuse its slugs and retain removed entries to prevent URL reuse. The
+importer invokes the generator automatically; it can also be run independently
+without downloading or repackaging the MIDI archives. New slugs cannot shadow
+another existing filename URL. The browser uses the generated catalog mapping
+for playback and annotation keys, never a guessed filename derived from a slug.
+
+Both the previous encoded `/lakh/...` links and `/c/MIDI/...` bookmarks resolve
+through the catalog and redirect to canonical URLs, preserving query strings
+and fragments. Track page titles use `Title - Musician` with original labels;
+artist pages use `Musician - Lakh`. Leaving Lakh restores the previous title.

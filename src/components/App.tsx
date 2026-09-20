@@ -52,7 +52,7 @@ import AppHeader from "./AppHeader";
 import DropMessage from "./DropMessage";
 import Pieces from "./Pieces";
 import Lakh from "./lakh/Lakh";
-import { lakhAnalysisKey, legacyLakhUrl } from "./lakh/catalog";
+import { lakhAnalysisKey } from "./lakh/catalog";
 import Histograms from "./rawl/Histograms";
 import OldLandingPage from "./rawl/OldLandingPage";
 import Rawl, { RawlProps } from "./rawl/Rawl";
@@ -746,8 +746,16 @@ class App extends React.Component<RouteComponentProps, AppState> {
   seekForRawl = (seekMs: number) => this.seekRelativeInner(seekMs);
 
   handleSetVoiceMask(voiceMask: VoiceMask) {
-    this.midiPlayer?.setVoiceMask(voiceMask);
-    this.setState({ voiceMask: [...voiceMask] });
+    const nextVoiceMask = [...voiceMask];
+    this.midiPlayer?.setVoiceMask(nextVoiceMask);
+    // Lakh and embedded players consume rawlProps rather than the route props.
+    // Keep their controls in sync so subsequent clicks use the current mask.
+    this.setState((prevState) => ({
+      voiceMask: nextVoiceMask,
+      rawlProps: prevState.rawlProps
+        ? { ...prevState.rawlProps, voiceMask: nextVoiceMask }
+        : prevState.rawlProps,
+    }));
   }
 
   handleTempoChange(event) {
@@ -1298,20 +1306,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     )}
                   />
                   <Route
-                    path="/c/MIDI/:rest*"
-                    render={({ location }) => {
-                      const target = legacyLakhUrl(location.pathname);
-                      return target ? (
-                        <Redirect
-                          to={`${target}${location.search}${location.hash}`}
-                        />
-                      ) : (
-                        <p>Invalid Lakh URL.</p>
-                      );
-                    }}
-                  />
-                  <Route
-                    path="/lakh"
+                    path={["/lakh", "/c/MIDI"]}
                     render={() => (
                       <Lakh
                         ready={!this.state.loading}

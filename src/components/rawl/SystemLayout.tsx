@@ -330,6 +330,11 @@ type Section = {
 };
 
 export type SystemLayoutProps = {
+  drumVoices?: number[];
+  nativeDrumVoices?: number[];
+  onToggleVoiceDrum?: (voiceIndex: number) => void;
+  excludedVoices?: number[];
+  onToggleVoiceExcluded?: (voiceIndex: number) => void;
   notes: ColoredNotesInVoices;
   voiceNames: string[];
   voiceMask: VoiceMask;
@@ -736,6 +741,11 @@ export const MergedSystemLayout: React.FC<
           voiceNames={voiceNames}
           voiceMask={voiceMask}
           setVoiceMask={setVoiceMask}
+          drumVoices={props.drumVoices}
+          nativeDrumVoices={props.nativeDrumVoices}
+          onToggleVoiceDrum={props.onToggleVoiceDrum}
+          excludedVoices={props.excludedVoices}
+          onToggleVoiceExcluded={props.onToggleVoiceExcluded}
           slug={slug}
           currentTonic={currentTonic}
         />

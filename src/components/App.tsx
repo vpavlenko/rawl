@@ -57,7 +57,12 @@ import Histograms from "./rawl/Histograms";
 import OldLandingPage from "./rawl/OldLandingPage";
 import Rawl, { RawlProps } from "./rawl/Rawl";
 import { ShortcutHelp } from "./rawl/ShortcutHelp";
-import { Analyses, MeasuresSpan } from "./rawl/analysis";
+import {
+  Analyses,
+  MeasuresSpan,
+  getExcludedVoices,
+  getDrumVoices,
+} from "./rawl/analysis";
 import Blog from "./rawl/blog/Blog";
 import Book from "./rawl/book/Book";
 import BookOnStyles from "./rawl/book/BookOnStyles";
@@ -758,6 +763,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }));
   }
 
+  handleSetDrumVoices = (voices: number[]) => {
+    this.midiPlayer?.setDrumVoices(voices);
+  };
+
   handleTempoChange(event) {
     const tempo = parseFloat(event.target ? event.target.value : event) || 1.0;
     this.midiPlayer?.setTempo(tempo);
@@ -883,6 +892,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           voiceNames: this.state.voiceNames,
           voiceMask: this.state.voiceMask,
           setVoiceMask: this.handleSetVoiceMask,
+          setDrumVoices: this.handleSetDrumVoices,
           enableManualRemeasuring: this.state.enableManualRemeasuring,
           seek: this.seekForRawl,
           latencyCorrectionMs: 0,
@@ -1024,17 +1034,37 @@ class App extends React.Component<RouteComponentProps, AppState> {
       paused: !shouldAutoPlay,
     });
 
+    // Apply saved Lakh exclusions before playback can emit any notes.
+    const lakhAnalysisKey = this.state.currentMidi?.analysisKey;
+    const isLakh = lakhAnalysisKey?.startsWith("c/MIDI/");
     try {
       const parsingResult = await this.midiPlayer.loadData(
         uint8Array,
         filepath,
         shouldAutoPlay,
+        getExcludedVoices(
+          isLakh ? this.state.analyses[lakhAnalysisKey] : undefined,
+          MAX_VOICES,
+        ),
+        getDrumVoices(
+          isLakh ? this.state.analyses[lakhAnalysisKey] : undefined,
+          MAX_VOICES,
+        ),
       );
 
       if (signal?.aborted) return;
       this.setState({ parsing: parsingResult }, () => {
         const numVoices = this.midiPlayer.getNumVoices();
-        const voiceMask = [...Array(numVoices)].fill(true);
+        const excludedVoices = new Set(
+          getExcludedVoices(
+            isLakh ? this.state.analyses[lakhAnalysisKey] : undefined,
+            numVoices,
+          ),
+        );
+        const voiceMask = Array.from(
+          { length: numVoices },
+          (_, index) => !excludedVoices.has(index),
+        );
         this.midiPlayer.setVoiceMask(voiceMask);
         this.setState({ voiceMask }, () => {
           this.setupMidiPlayer();
@@ -1140,6 +1170,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       voiceNames: this.state.voiceNames,
       voiceMask: this.state.voiceMask,
       setVoiceMask: this.handleSetVoiceMask,
+      setDrumVoices: this.handleSetDrumVoices,
       enableManualRemeasuring: this.state.enableManualRemeasuring,
       seek: this.seekForRawl,
       latencyCorrectionMs: 0,

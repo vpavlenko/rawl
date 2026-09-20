@@ -87,3 +87,38 @@ Both the previous encoded `/lakh/...` links and `/c/MIDI/...` bookmarks resolve
 through the catalog and redirect to canonical URLs, preserving query strings
 and fragments. Track page titles use `Title - Musician` with original labels;
 artist pages use `Musician - Lakh`. Leaving Lakh restores the previous title.
+
+## Removing voices from an arrangement
+
+For signed-in users, hovering a voice's controls reveals a Lucide trash button
+that removes that voice. Keyboard focus also reveals it. **Restore** is available
+under **Removed voices** while signed in.
+The annotation field `excludedVoices` stores zero-based original parsed voice
+indices, e.g. `"excludedVoices": [1, 4]` removes the second and fifth voices.
+It is independent of the temporary solo/mute mask: unmuting or unsoloing never
+reenables excluded voices. Removing a voice hides its notes and silences playback;
+restoring it restores its notes and enables playback. The original MIDI is not
+modified, and remaining voices retain their indices and colors. Timing and
+manual measure boundaries are retained. New snippet exports use the filtered
+arrangement; existing frozen snippets remain snapshots of when they were saved.
+
+Exclusions use the existing annotation saving flow (Firebase for signed-in users;
+session state when signed out) and the existing `c/MIDI/...` annotation key.
+Missing `excludedVoices` means no exclusions. Invalid, repeated, or out-of-range
+indices are ignored. The current schema and bundled analyses had no existing
+voice-exclusion field; `issues:mute_voices` was only an issue tag.
+
+## Interpreting a voice as GM drums
+
+The Lucide drum button beside the trash button toggles a pitched voice's
+interpretation. It shares the signed-in and per-voice hover/focus rules. The
+annotation field `drumVoices` stores original zero-based voice indices. Selected
+voices use the existing GM drum labels and percussion rows instead of pitched
+note rows; note numbers are unchanged. They use the standard percussion preset
+in the SoundFont player while retaining separate source channels for solo/mute.
+Source bank/program changes and pitch bends cannot override that interpretation.
+The override is reapplied after seeking, player resets, and SoundFont changes.
+Clicking again restores the original pitched interpretation and instrument.
+Native drum voices do not need this override and do not show this toggle.
+Removal and drum interpretation are independent: restoring an excluded drum
+voice keeps its drum interpretation. The original MIDI remains unchanged.

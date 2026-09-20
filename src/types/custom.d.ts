@@ -21,6 +21,8 @@ declare module "*/MIDIPlayer" {
       data: Uint8Array,
       filepath: string,
       shouldAutoPlay?: boolean,
+      excludedVoices?: number[],
+      drumVoices?: number[],
     ): Promise<any>;
     isPlaying(): boolean;
     togglePause(): boolean;
@@ -29,6 +31,7 @@ declare module "*/MIDIPlayer" {
     setTempo(tempo: number): void;
     getNumVoices(): number;
     setVoiceMask(voiceMask: boolean[]): void;
+    setDrumVoices(voices: number[]): void;
     setParameter(id: string, value: any): void;
     suspend(): void;
     eject(): void;

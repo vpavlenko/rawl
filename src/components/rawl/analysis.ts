@@ -66,12 +66,45 @@ export type Analysis = {
   measureRenumbering?: MeasureRenumbering;
   measures?: ManualMeasures;
   snippets?: Snippet[];
+  // Zero-based indices in the original parsed MIDI voices, never renumbered.
+  // Excluded voices are silent and absent from the arrangement's displayed notes.
+  excludedVoices?: number[];
+  // Interpret these original voice indices as GM percussion without remapping notes.
+  drumVoices?: number[];
 
   // outdated, was used in winter 2023..24 for rock prototype
   comment: string;
   tags: string[];
   form: { [oneIndexedMeasureStart: number]: string };
 };
+
+function validVoiceIndices(
+  indices: number[] | undefined,
+  voiceCount: number,
+): number[] {
+  if (!Array.isArray(indices)) return [];
+  return [
+    ...new Set(
+      indices.filter(
+        (index) => Number.isInteger(index) && index >= 0 && index < voiceCount,
+      ),
+    ),
+  ].sort((a, b) => a - b);
+}
+
+export function getExcludedVoices(
+  analysis: Partial<Analysis> | null | undefined,
+  voiceCount: number,
+): number[] {
+  return validVoiceIndices(analysis?.excludedVoices, voiceCount);
+}
+
+export function getDrumVoices(
+  analysis: Partial<Analysis> | null | undefined,
+  voiceCount: number,
+): number[] {
+  return validVoiceIndices(analysis?.drumVoices, voiceCount);
+}
 
 export type Analyses = {
   [path: string]: Analysis;

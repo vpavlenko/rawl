@@ -1,8 +1,50 @@
-import React from "react";
+import React, { useContext } from "react";
+import styled from "styled-components";
+import { AppContext } from "../../AppContext";
+import Trash2 from "../../icons/Trash2";
+import Drum from "../../icons/Drum";
 import { useLocalStorage } from "usehooks-ts";
 import { SongNarrative } from "../SongNarrative";
 
 export const FORCED_PANNING_LABEL = "🔊⬅️👐➡️🔊";
+
+const VoiceActionButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-left: 3px;
+  padding: 2px;
+  border: none;
+  border-radius: 3px;
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+
+  &[aria-pressed="true"] {
+    color: #8ee8d0;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: #333;
+    color: white;
+  }
+`;
+
+const VoiceRow = styled.div`
+  display: flex;
+  align-items: center;
+  width: fit-content;
+
+  &:hover ${VoiceActionButton}, &:focus-within ${VoiceActionButton} {
+    opacity: 1;
+    pointer-events: auto;
+  }
+`;
 
 type MergedVoicesLegendProps = {
   voiceNames: string[];
@@ -10,6 +52,11 @@ type MergedVoicesLegendProps = {
   setVoiceMask: (mask: boolean[]) => void;
   onForcedPanningChange?: (enabled: boolean) => void;
   slug: string;
+  excludedVoices?: number[];
+  drumVoices?: number[];
+  nativeDrumVoices?: number[];
+  onToggleVoiceDrum?: (voiceIndex: number) => void;
+  onToggleVoiceExcluded?: (voiceIndex: number) => void;
   currentTonic?: number;
 };
 
@@ -20,11 +67,20 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
   onForcedPanningChange,
   slug,
   currentTonic,
+  excludedVoices = [],
+  drumVoices = [],
+  nativeDrumVoices = [],
+  onToggleVoiceDrum,
+  onToggleVoiceExcluded,
 }) => {
+  const { user } = useContext(AppContext);
+  const canEditArrangement = !!user && !!onToggleVoiceExcluded;
   const [forcedPanning, setForcedPanning] = useLocalStorage(
     "forcedPanning",
     false,
   );
+  const excluded = new Set(excludedVoices);
+  const allIncluded = voiceMask.map((_, index) => !excluded.has(index));
   const isSingleActive = voiceMask.filter((voice) => voice).length === 1;
 
   const handlePanningToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +91,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
   };
 
   return (
-    voiceNames.length > 1 && (
+    (voiceNames.length > 1 || canEditArrangement) && (
       <div
         style={{
           position: "fixed",
@@ -70,57 +126,121 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
             {FORCED_PANNING_LABEL}
           </label>
         </div>
-        {voiceNames.map((voiceName, voiceIndex) => (
-          <div key={voiceIndex}>
-            <input
-              title="active"
-              type="checkbox"
-              onChange={(e) => {
-                e.stopPropagation();
-                let newVoiceMask = voiceMask.map((value, i) =>
-                  i === voiceIndex ? !value : value,
-                );
-                if (newVoiceMask.filter((voice) => voice).length === 0) {
-                  newVoiceMask = voiceMask.map(() => true);
-                }
-                setVoiceMask(newVoiceMask);
-              }}
-              checked={voiceMask[voiceIndex]}
-              style={{
-                margin: "0px 0px 0px 17px",
-                height: 11,
-                display: "inline",
-              }}
-            />{" "}
-            <span
-              style={{
-                cursor: "pointer",
-                userSelect: "none",
-              }}
-              onClick={(e) => {
-                e.stopPropagation();
-                isSingleActive && voiceMask[voiceIndex]
-                  ? setVoiceMask(voiceMask.map(() => true))
-                  : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
-              }}
-            >
-              <span
-                className={`voiceShape-${voiceIndex}`}
-                style={{
-                  display: "inline-block",
-                  backgroundColor: voiceMask[voiceIndex] ? "white" : "black",
-                  padding: "0px 6px",
-                  fontSize: "12px",
-                  marginRight: 5,
-                  verticalAlign: "middle",
-                  color: voiceMask[voiceIndex] ? "black" : "white",
-                }}
-              >
-                {voiceName}
-              </span>
-            </span>
-          </div>
-        ))}
+        {voiceNames.map(
+          (voiceName, voiceIndex) =>
+            !excluded.has(voiceIndex) && (
+              <VoiceRow key={voiceIndex}>
+                <input
+                  title="active"
+                  type="checkbox"
+                  onChange={(e) => {
+                    e.stopPropagation();
+                    let newVoiceMask = voiceMask.map((value, i) =>
+                      i === voiceIndex ? !value : value,
+                    );
+                    if (newVoiceMask.filter((voice) => voice).length === 0) {
+                      newVoiceMask = allIncluded;
+                    }
+                    setVoiceMask(newVoiceMask);
+                  }}
+                  checked={voiceMask[voiceIndex]}
+                  style={{
+                    margin: "0px 0px 0px 17px",
+                    height: 11,
+                    display: "inline",
+                  }}
+                />{" "}
+                <span
+                  style={{
+                    cursor: "pointer",
+                    userSelect: "none",
+                  }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    isSingleActive && voiceMask[voiceIndex]
+                      ? setVoiceMask(allIncluded)
+                      : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
+                  }}
+                >
+                  <span
+                    className={`voiceShape-${voiceIndex}`}
+                    style={{
+                      display: "inline-block",
+                      backgroundColor: voiceMask[voiceIndex]
+                        ? "white"
+                        : "black",
+                      padding: "0px 6px",
+                      fontSize: "12px",
+                      marginRight: 5,
+                      verticalAlign: "middle",
+                      color: voiceMask[voiceIndex] ? "black" : "white",
+                    }}
+                  >
+                    {voiceName}
+                    {drumVoices.includes(voiceIndex) ? " (GM drums)" : ""}
+                  </span>
+                </span>
+                {!!user &&
+                  onToggleVoiceDrum &&
+                  !nativeDrumVoices.includes(voiceIndex) && (
+                    <VoiceActionButton
+                      type="button"
+                      title={
+                        drumVoices.includes(voiceIndex)
+                          ? "Restore pitched voice"
+                          : "Make drum: interpret notes as GM drum codes"
+                      }
+                      aria-label={`${
+                        drumVoices.includes(voiceIndex)
+                          ? "Restore pitched"
+                          : "Make drum"
+                      } voice ${voiceIndex + 1}: ${voiceName}`}
+                      aria-pressed={drumVoices.includes(voiceIndex)}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        onToggleVoiceDrum(voiceIndex);
+                      }}
+                    >
+                      <Drum />
+                    </VoiceActionButton>
+                  )}
+                {canEditArrangement && (
+                  <VoiceActionButton
+                    type="button"
+                    title={`Remove ${voiceName} from the arrangement and save in annotations`}
+                    aria-label={`Remove voice ${voiceIndex + 1}: ${voiceName}`}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      onToggleVoiceExcluded(voiceIndex);
+                    }}
+                  >
+                    <Trash2 />
+                  </VoiceActionButton>
+                )}
+              </VoiceRow>
+            ),
+        )}
+        {excludedVoices.length > 0 && canEditArrangement && (
+          <details style={{ marginTop: 8, background: "#111", padding: 6 }}>
+            <summary style={{ cursor: "pointer" }}>
+              Removed voices ({excludedVoices.length})
+            </summary>
+            {excludedVoices.map((index) => (
+              <div key={index} style={{ marginTop: 6 }}>
+                {index + 1}. {voiceNames[index] || `Voice ${index + 1}`}{" "}
+                <button
+                  type="button"
+                  onClick={() => onToggleVoiceExcluded(index)}
+                  aria-label={`Restore voice ${index + 1}: ${
+                    voiceNames[index] || ""
+                  }`}
+                >
+                  Restore
+                </button>
+              </div>
+            ))}
+          </details>
+        )}
         <div style={{ position: "relative" }}>
           <SongNarrative slug={slug} currentTonic={currentTonic} />
         </div>

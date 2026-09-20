@@ -29,6 +29,8 @@ import {
   PitchClass,
   advanceAnalysis,
   getNewAnalysis,
+  getExcludedVoices,
+  getDrumVoices,
   getPhraseStarts,
 } from "./analysis";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
@@ -134,6 +136,7 @@ export type RawlProps = {
   voiceNames: string[];
   voiceMask: VoiceMask;
   setVoiceMask: (mask: VoiceMask) => void;
+  setDrumVoices?: (voices: number[]) => void;
   enableManualRemeasuring?: boolean;
   seek: (ms: number) => void;
   latencyCorrectionMs: number;
@@ -157,6 +160,7 @@ const Rawl: React.FC<RawlProps> = ({
   voiceNames,
   voiceMask,
   setVoiceMask,
+  setDrumVoices,
   enableManualRemeasuring = false,
   seek,
   sourceUrl,
@@ -207,7 +211,117 @@ const Rawl: React.FC<RawlProps> = ({
     selectedMeasureRef.current = selectedMeasure;
   }, [selectedMeasure]);
 
-  const { notes } = parsingResult;
+  const drumVoices = useMemo(
+    () => getDrumVoices(analysis, parsingResult.notes.length),
+    [analysis.drumVoices, parsingResult.notes.length],
+  );
+  const drumVoiceSet = useMemo(() => new Set(drumVoices), [drumVoices]);
+  const nativeDrumVoices = useMemo(
+    () =>
+      parsingResult.notes.flatMap((voice, index) =>
+        voice.some((note) => note.isDrum) ? [index] : [],
+      ),
+    [parsingResult.notes],
+  );
+  useEffect(() => {
+    setDrumVoices?.(drumVoices);
+  }, [drumVoices, setDrumVoices]);
+
+  const toggleVoiceDrum = useCallback(
+    (voiceIndex: number) => {
+      if (
+        !Number.isInteger(voiceIndex) ||
+        voiceIndex < 0 ||
+        voiceIndex >= parsingResult.notes.length ||
+        nativeDrumVoices.includes(voiceIndex)
+      )
+        return;
+      const next = new Set(drumVoices);
+      if (next.has(voiceIndex)) next.delete(voiceIndex);
+      else next.add(voiceIndex);
+      commitAnalysisUpdate({ drumVoices: [...next].sort((a, b) => a - b) });
+      setHoveredNote(null);
+    },
+    [
+      drumVoices,
+      parsingResult.notes.length,
+      nativeDrumVoices,
+      commitAnalysisUpdate,
+    ],
+  );
+
+  const excludedVoices = useMemo(
+    () => getExcludedVoices(analysis, parsingResult.notes.length),
+    [analysis.excludedVoices, parsingResult.notes.length],
+  );
+  const excludedVoiceSet = useMemo(
+    () => new Set(excludedVoices),
+    [excludedVoices],
+  );
+  const previousExcludedVoices = useRef(new Set<number>());
+  const arrangementVoiceMask = useMemo(
+    () =>
+      voiceMask.map((active, index) => active && !excludedVoiceSet.has(index)),
+    [voiceMask, excludedVoiceSet],
+  );
+  const setArrangementVoiceMask = useCallback(
+    (mask: VoiceMask) => {
+      setVoiceMask(
+        mask.map((active, index) => active && !excludedVoiceSet.has(index)),
+      );
+    },
+    [setVoiceMask, excludedVoiceSet],
+  );
+
+  useEffect(() => {
+    const previous = previousExcludedVoices.current;
+    previousExcludedVoices.current = excludedVoiceSet;
+    const mask = voiceMask.map(
+      (active, index) =>
+        !excludedVoiceSet.has(index) && (active || previous.has(index)),
+    );
+    if (mask.some((active, index) => active !== voiceMask[index]))
+      setVoiceMask(mask);
+  }, [excludedVoiceSet, voiceMask, setVoiceMask]);
+
+  const toggleVoiceExcluded = useCallback(
+    (voiceIndex: number) => {
+      if (
+        !Number.isInteger(voiceIndex) ||
+        voiceIndex < 0 ||
+        voiceIndex >= parsingResult.notes.length
+      )
+        return;
+      const next = new Set(excludedVoices);
+      if (next.has(voiceIndex)) next.delete(voiceIndex);
+      else next.add(voiceIndex);
+      commitAnalysisUpdate({ excludedVoices: [...next].sort((a, b) => a - b) });
+      setHoveredNote(null);
+    },
+    [excludedVoices, parsingResult.notes.length, commitAnalysisUpdate],
+  );
+
+  // Preserve slots and note.voiceIndex so MIDI channels, colors and saved indices
+  // continue to refer to the original voices, including after restoration.
+  const notes = useMemo(
+    () =>
+      parsingResult.notes.map((voice, index) =>
+        excludedVoiceSet.has(index)
+          ? []
+          : drumVoiceSet.has(index)
+          ? voice.map((note) => ({
+              ...note,
+              isDrum: true,
+              pitchBend: undefined,
+            }))
+          : voice,
+      ),
+    [parsingResult.notes, excludedVoiceSet, drumVoiceSet],
+  );
+  const timingNotes = useMemo(
+    () => parsingResult.notes.flat(),
+    [parsingResult.notes],
+  );
   const allNotes = useMemo(() => {
     return notes.flat();
   }, [notes]);
@@ -254,10 +368,10 @@ const Rawl: React.FC<RawlProps> = ({
 
   const measuresAndBeats = useMemo(() => {
     if (futureAnalysis.measures) {
-      return buildManualMeasuresAndBeats(futureAnalysis.measures, allNotes);
+      return buildManualMeasuresAndBeats(futureAnalysis.measures, timingNotes);
     }
     return parsingResult?.measuresAndBeats;
-  }, [futureAnalysis, allNotes, parsingResult]);
+  }, [futureAnalysis, timingNotes, parsingResult]);
 
   const selectMeasure = useCallback(
     (measure) => {
@@ -364,17 +478,22 @@ const Rawl: React.FC<RawlProps> = ({
   );
 
   useEffect(() => {
-    if (analysis.phrasePatch?.length > 0) {
+    if (analysis.phrasePatch?.length > 0 || allNotes.length === 0) {
       return;
     }
 
-    const firstPhraseStart = findFirstPhraseStart(allNotes, measuresAndBeats);
+    const pitchedNotes = allNotes.filter((note) => !note.isDrum);
+    if (pitchedNotes.length === 0) return;
+    const firstPhraseStart = findFirstPhraseStart(
+      pitchedNotes,
+      measuresAndBeats,
+    );
     const diff: Partial<Analysis> = {};
     if (firstPhraseStart !== -1) {
       diff.phrasePatch = [{ measure: 1, diff: firstPhraseStart }];
     }
 
-    const tonic = findTonic(allNotes);
+    const tonic = findTonic(pitchedNotes);
     if (tonic !== -1 && analysis.modulations[1] === null) {
       diff.modulations = { 1: tonic };
     }
@@ -401,7 +520,7 @@ const Rawl: React.FC<RawlProps> = ({
         return {
           ...note,
           color,
-          isActive: voiceMask[voiceIndex],
+          isActive: arrangementVoiceMask[voiceIndex],
           colorPitchClass,
           // Include sourceLocation if it exists in the note
           sourceLocation: note.sourceLocation,
@@ -410,7 +529,7 @@ const Rawl: React.FC<RawlProps> = ({
     );
 
     return result;
-  }, [notes, futureAnalysis, measuresAndBeats, voiceMask, slug]);
+  }, [notes, futureAnalysis, measuresAndBeats, arrangementVoiceMask, slug]);
 
   const handleNoteClick = useCallback(
     (note: Note) => {
@@ -569,9 +688,18 @@ const Rawl: React.FC<RawlProps> = ({
   const systemLayoutProps: SystemLayoutProps = useMemo(
     () => ({
       notes: coloredNotes,
-      voiceMask,
+      voiceMask: arrangementVoiceMask,
       voiceNames,
-      setVoiceMask,
+      setVoiceMask: setArrangementVoiceMask,
+      excludedVoices,
+      drumVoices,
+      nativeDrumVoices,
+      onToggleVoiceDrum: currentMidi?.analysisKey?.startsWith("c/MIDI/")
+        ? toggleVoiceDrum
+        : undefined,
+      onToggleVoiceExcluded: currentMidi?.analysisKey?.startsWith("c/MIDI/")
+        ? toggleVoiceExcluded
+        : undefined,
       measuresAndBeats,
       positionSeconds,
       mouseHandlers,
@@ -590,9 +718,15 @@ const Rawl: React.FC<RawlProps> = ({
     }),
     [
       coloredNotes,
-      voiceMask,
+      arrangementVoiceMask,
       voiceNames,
-      setVoiceMask,
+      setArrangementVoiceMask,
+      excludedVoices,
+      drumVoices,
+      nativeDrumVoices,
+      toggleVoiceDrum,
+      toggleVoiceExcluded,
+      currentMidi?.analysisKey,
       measuresAndBeats,
       positionSeconds,
       mouseHandlers,

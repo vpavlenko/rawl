@@ -209,7 +209,7 @@ const Timeline: React.FC = () => {
 
   return (
     <TimelineContainer>
-      <div style={{ color: "#999", marginBottom: 40 }}>
+      <div style={{ color: "#999", marginBottom: 40, textAlign: "right" }}>
         All years are approximate composer birth years.
       </div>
       {(selectedCountry || selectedStyle) && (

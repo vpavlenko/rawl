@@ -248,6 +248,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "yuji_ohno",
+    composerBirthYear: 1941,
     country: "Japan",
     midis: [
       "lupin-iii-jazz-version-~-yuji-ohno",
@@ -342,7 +343,7 @@ export const corpora: CorpusEntry[] = [
     country: "Germany",
     similarTo: ["martha_mier", "elissa_milne"],
   },
-  { slug: "isaac_shepard", country: "USA", midis: ["letting-go-isaac-shepard"] },
+  { slug: "isaac_shepard", composerBirthYear: 1978, country: "USA", midis: ["letting-go-isaac-shepard"] },
   {
     slug: "david_lanz",
     midis: [
@@ -564,6 +565,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "george_bizet",
+    composerBirthYear: 1838,
     country: "France",
     midis: [
       "Habanera_-_Piano_Solo_-_Georges_Bizet",
@@ -572,6 +574,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "richard_galliano",
+    composerBirthYear: 1950,
     country: "France",
     midis: [
       "tango-pour-claude---richard-galliano",
@@ -732,6 +735,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "koichi_sugiyama",
+    composerBirthYear: 1931,
     country: "Japan",
     midis: [
       "dragon-quest-overture-piano",
@@ -866,7 +870,7 @@ export const corpora: CorpusEntry[] = [
     style: "Modern Classical, Ambient, Minimalism",
     country: "Iceland", // Ólafur Arnalds is Icelandic.
   },
-  {slug: 'david_temperley', country: "USA", midis:["david-temperley---preludes-for-piano-ii-1", ]},
+  {slug: 'david_temperley', composerBirthYear: 1963, country: "USA", midis:["david-temperley---preludes-for-piano-ii-1", ]},
   {
     slug: "bach_wtc",
     midis: [
@@ -919,6 +923,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "joaquin_turina",
+    composerBirthYear: 1882,
     country: "Spain",
     midis: ["joaquin-turina---garrotin-homenaje-a-tarrega"],
     style: "Flamenco",
@@ -1035,6 +1040,7 @@ export const corpora: CorpusEntry[] = [
   }, // 1883
   {
     slug: "charlie_astin",
+    composerBirthYear: 1850, // Estimated birth year for timeline placement; unverified.
     country: "USA", // Best guess; country not independently confirmed.
     midis: ["in-the-gloaming-1883", "clide-polka-1883"],
   },
@@ -1077,8 +1083,10 @@ export const corpora: CorpusEntry[] = [
     style: "Ragtime, Novelty",
     country: "USA", // King Kollins was American.
   },
-  {slug: "masashi_sada", country: "Japan", midis: ["yamaguchi-momoe-kosumosu", ]},
-  { slug: "los_kjarkas", country: "Bolivia", midis: ["llorando-se-fue---los-kjarkas"] },
+  {slug: "masashi_sada", composerBirthYear: 1952, country: "Japan", midis: ["yamaguchi-momoe-kosumosu", ]},
+  { slug: "los_kjarkas",
+    composerBirthYear: 1950, // Timeline reference: Gonzalo Hermosa's birth year.
+    country: "Bolivia", midis: ["llorando-se-fue---los-kjarkas"] },
   {
     slug: "frank_h_grey",
     midis: ["love-in-venice-1924", "valse-des-fleurs-1925"],
@@ -1166,6 +1174,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "arnold_schonberg",
+    composerBirthYear: 1874,
     country: "Austria",
     midis: ["schoenberg-opus-25-suite-for-piano---prelude-original"],
   },
@@ -1414,6 +1423,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "gershwin",
+    composerBirthYear: 1898,
     midis: [
       "gershwin_prelude_1",
       "gershwin_prelude_2",
@@ -1534,9 +1544,10 @@ export const corpora: CorpusEntry[] = [
     style: "Orchestral, Cinematic",
     country: "USA",
   },
-  { slug: "claude_bolling", country: "France", midis: [] },
+  { slug: "claude_bolling", composerBirthYear: 1930, country: "France", midis: [] },
   {
     slug: "julius_schulhoff",
+    composerBirthYear: 1825,
     country: "Czech Republic",
     midis: [
       "piano-sonata-in-f-minor-opus-37-1st-movement---julius-schulhoff",
@@ -1641,7 +1652,7 @@ export const corpora: CorpusEntry[] = [
     country: "Japan",
     genre: "Video game music",
   },
-  { slug: "ken_arai", country: "Japan", midis: ["next-to-you-parasite-ost-by-ken-arai"] },
+  { slug: "ken_arai", composerBirthYear: 1980, country: "Japan", midis: ["next-to-you-parasite-ost-by-ken-arai"] },
   {
     slug: "kenji_kawai",
     midis: [
@@ -1751,6 +1762,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "ian_taylor",
+    composerBirthYear: 1968, // Estimated birth year for timeline placement; unverified.
     country: "UK",
     midis: [
       "harmony-piano-arrangement-runescape-3",
@@ -1763,6 +1775,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "nathan_hanover",
+    composerBirthYear: 1995, // Estimated birth year for timeline placement; unverified.
     country: "UK",
     midis: [
       "generation-loss-ost---ranboo-generation-loss-medley",
@@ -1773,6 +1786,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "james_hannigan",
+    composerBirthYear: 1965,
     country: "UK",
     midis: [
       "command-conquer-red-alert-3---soviet-march-advanced-piano-solo",
@@ -1812,6 +1826,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "the_cinematic_orchestra",
+    composerBirthYear: 1970, // Timeline reference: Jason Swinscoe's birth year.
     country: "UK",
     midis: [
       "arrival-of-the-birds---the-cinematic-orchestra",
@@ -1982,7 +1997,7 @@ export const corpora: CorpusEntry[] = [
     slug: "russian_garmon",
     midis: ["cyganochka---misc-traditional-cyganochka"],
   },
-  { slug: "isaak_dunaevsky", country: "Russia", midis: ["kakim-ty-byl"] },
+  { slug: "isaak_dunaevsky", composerBirthYear: 1900, country: "Russia", midis: ["kakim-ty-byl"] },
   {
     slug: "maksim_dunaevsky",
     midis: [
@@ -2051,6 +2066,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "alexey_bychkov",
+    composerBirthYear: 1985, // Estimated birth year for timeline placement; unverified.
     country: "Russia",
     midis: ["alexey_bychkov_goby_waltz", "alexey_bychkov_s_trio_goby_waltz"],
   },
@@ -2090,11 +2106,13 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "bill_haley_and_the_comets",
+    composerBirthYear: 1925, // Timeline reference: Bill Haley's birth year.
     country: "USA",
     midis: ["s3005_09---rock-around-the-clock", "shake-rattle-and-roll.1"],
   },
   {
     slug: "little_richard",
+    composerBirthYear: 1932,
     country: "USA",
     midis: [
       "good-golly-miss-molly",
@@ -2392,7 +2410,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Patriotic, Folk",
     style: "Classical, National",
   },
-  { slug: "w_c_handy", country: "USA", midis: ["the-memphis-blues-w.c-handy-1912"] },
+  { slug: "w_c_handy", composerBirthYear: 1873, country: "USA", midis: ["the-memphis-blues-w.c-handy-1912"] },
   {
     slug: "debussy",
     midis: [
@@ -2518,6 +2536,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "sage_guyton_jeremy_wakefield_nick_carr",
+    composerBirthYear: 1959, // Timeline reference: Sage Guyton's birth year.
     midis: [
       "grass-skirt-chase-piano-arrangement",
       "spm---spongebob-production-music-hawaiian-adventures-spongebob-theme",
@@ -2612,6 +2631,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "kartsy_hatakka_and_kimmo_kajasto",
+    composerBirthYear: 1967, // Timeline reference: Kartsy Hatakka's birth year.
     country: "Finland",
     midis: [
       "max_payne_theme",
@@ -2634,6 +2654,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "alfred_lefebure-wely",
+    composerBirthYear: 1817,
     country: "France",
     midis: [
       "alfred-lefebure-wely---les-cloches-du-monastere-op.-54a",
@@ -2642,6 +2663,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "michael_price_and_david_arnold",
+    composerBirthYear: 1962, // Timeline reference: David Arnold's birth year.
     country: "UK",
     midis: [
       "the-game-is-on-from-bbc-s-sherlock-for-piano",
@@ -2673,6 +2695,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "m2u",
+    composerBirthYear: 1985,
     midis: ["m2u---masquerade"],
     genre: "Electronic",
     style: "Eurobeat, Trance",
@@ -2680,12 +2703,16 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "def_leppard",
+    composerBirthYear: 1959, // Timeline reference: Joe Elliott's birth year.
     country: "UK",
     midis: ["pour-some-sugar-on-me---def-leppard-lucky-chops-version"],
   },
-  { slug: "the_beatles", country: "UK", midis: ["penny-lane.2"] },
+  { slug: "the_beatles",
+    composerBirthYear: 1942, // Timeline reference: Paul McCartney's birth year.
+    country: "UK", midis: ["penny-lane.2"] },
   {
     slug: "sarah_mclachlan",
+    composerBirthYear: 1968,
     country: "Canada",
     midis: ["building-a-mystery---sarah-mclachlan-piano-vocal-guitar"],
   },
@@ -2805,7 +2832,9 @@ export const corpora: CorpusEntry[] = [
     style: "Piano, Classical",
     country: "Hungary",
   },
-  { slug: "lynyrd_skynyrd", country: "USA", midis: ["sweet-home-alabama.1"] },
+  { slug: "lynyrd_skynyrd",
+    composerBirthYear: 1948, // Timeline reference: Ronnie Van Zant's birth year.
+    country: "USA", midis: ["sweet-home-alabama.1"] },
   {
     slug: "nikolay_myaskovsky",
     midis: [
@@ -2902,6 +2931,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "jung_jae-il",
+    composerBirthYear: 1982,
     country: "South Korea",
     midis: ["zappaguri", "opening-sijag-parasite-gisaengcung-ost"],
   },
@@ -2993,7 +3023,7 @@ export const corpora: CorpusEntry[] = [
     midis: ["icelandic-dance-op.-11-no.-1---jon-leifs"],
     composerBirthYear: 1899,
   },
-  { slug: "beyonce", country: "USA", midis: ["texas-hold-em---beyonce"] },
+  { slug: "beyonce", composerBirthYear: 1981, country: "USA", midis: ["texas-hold-em---beyonce"] },
   {
     slug: "stephen_foster",
     midis: [
@@ -3089,6 +3119,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "soushi_sakiyama",
+    composerBirthYear: 2002,
     country: "Japan",
     midis: [
       "my-hero-academia-ed-9---uso-janai-soushi-sakiyama-piano-sheet-music",
@@ -3103,9 +3134,12 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1989,
     country: "Japan",
   },
-  { slug: "danny_and_the_juniors", country: "USA", midis: ["at-the-hop.2"] },
+  { slug: "danny_and_the_juniors",
+    composerBirthYear: 1940, // Timeline reference: Dave White's birth year.
+    country: "USA", midis: ["at-the-hop.2"] },
   {
     slug: "joao_mateus_junior_8_fados",
+    composerBirthYear: 1870, // Estimated birth year for timeline placement; unverified.
     midis: ["beijos-de-mae---joao-mateus-junior"],
     genre: "Fado, Folk",
     style: "Traditional, Portuguese",
@@ -3147,7 +3181,7 @@ export const corpora: CorpusEntry[] = [
     style: "Ambient, Experimental",
     country: "Japan",
   },
-  { slug: "neil_young", country: "Canada", midis: ["neil-young---harvest-moon-piano-solo"] },
+  { slug: "neil_young", composerBirthYear: 1945, country: "Canada", midis: ["neil-young---harvest-moon-piano-solo"] },
   {
     slug: "gesualdo",
     midis: [
@@ -3254,6 +3288,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "j_p_ahmad",
+    composerBirthYear: 1970, // Estimated birth year for timeline placement; unverified.
     country: "USA", // Best guess; country not independently confirmed.
     midis: ["castlemania", "ninja-runner", "super-bounce"],
   },
@@ -3294,9 +3329,10 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1935,
     country: "Italy",
   },
-  { slug: "jeremy_zuckerman", country: "USA", midis: ["avatar-the-last-airbender-medley"] },
+  { slug: "jeremy_zuckerman", composerBirthYear: 1975, country: "USA", midis: ["avatar-the-last-airbender-medley"] },
   {
     slug: "shinkonet",
+    composerBirthYear: 1995, // Estimated birth year for timeline placement; unverified.
     country: "Australia",
     midis: [
       "dungeon-drama-hypixel-skyblock-dungeons---solo-piano-arrangement",
@@ -3318,7 +3354,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Jazz",
     country: "USA",
   },
-  {slug: "bheki_mseleku", country: "South Africa", midis: ["bheki_mseleku_angola", "one-for-all-all-for-one---bheki-mseleku", ]},
+  {slug: "bheki_mseleku", composerBirthYear: 1955, country: "South Africa", midis: ["bheki_mseleku_angola", "one-for-all-all-for-one---bheki-mseleku", ]},
   {
     slug: "jazz_standards",
     midis: [
@@ -3409,8 +3445,10 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic",
     country: "Russia",
   },
-  { slug: "sergio_mendes", country: "Brazil", midis: ["never-gonna-let-you-go"] },
-  { slug: "soundgarden", country: "USA", midis: ["black-hole-sun.1"] },
+  { slug: "sergio_mendes", composerBirthYear: 1941, country: "Brazil", midis: ["never-gonna-let-you-go"] },
+  { slug: "soundgarden",
+    composerBirthYear: 1964, // Timeline reference: Chris Cornell's birth year.
+    country: "USA", midis: ["black-hole-sun.1"] },
   {
     slug: "valentin_silvestrov",
     midis: [
@@ -3437,14 +3475,16 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "jaco_pastorius",
+    composerBirthYear: 1951,
     country: "USA",
     midis: ["donna-lee---jaco-pastorius", "the-chicken"],
   },
-  {slug: 'brian_wilshere', country: "UK", 
+  {slug: 'brian_wilshere', composerBirthYear: 1960, country: "UK", 
     midis: ["brian-wilshere--vibraphone-sonata-mov-1", ]
   },
   {
     slug: "frank_wildhorn",
+    composerBirthYear: 1958,
     country: "USA",
     midis: [
       "master-of-the-strings-die-faden-in-der-hand-rudolf---affaire-mayerling-for-violin-and-piano",
@@ -3453,12 +3493,14 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "klaus_doldinger",
+    composerBirthYear: 1936,
     country: "Germany",
     midis: ["erinnerung-from-das-boot---klaus-doldinger"],
   },
-  { slug: "falco", country: "Austria", midis: ["jeanny-falco"] },
+  { slug: "falco", composerBirthYear: 1957, country: "Austria", midis: ["jeanny-falco"] },
   {
     slug: "system_of_a_down",
+    composerBirthYear: 1975, // Timeline reference: Daron Malakian's birth year.
     country: "USA",
     midis: [
       "system_of_a_down_-_chop_suey_piano",
@@ -3642,7 +3684,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Post-Tonal",
     composerBirthYear: 1900,
   },
-  { slug: "carl_perkins", country: "USA", midis: ["blue-suede-shoes"] },
+  { slug: "carl_perkins", composerBirthYear: 1932, country: "USA", midis: ["blue-suede-shoes"] },
   {
     slug: "martha_mier",
     midis: [
@@ -3803,7 +3845,7 @@ export const corpora: CorpusEntry[] = [
     style: "Orchestral, Cinematic",
     country: "Russia",
   },
-  { slug: "arkady_ostrovsky", country: "Russia", midis: ["good_night_kids_-vitalis"] },
+  { slug: "arkady_ostrovsky", composerBirthYear: 1914, country: "Russia", midis: ["good_night_kids_-vitalis"] },
   {
     slug: "aleksey_rybnikov",
     midis: [
@@ -3886,6 +3928,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "bslick",
+    composerBirthYear: 1990,
     country: "USA",
     midis: [
       "let-go-piggy-book-2-soundtrack---bslick",
@@ -3936,6 +3979,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "georgy_firtich",
+    composerBirthYear: 1938,
     country: "Russia",
     midis: [
       "ne-hodit-diti-v-afriku-gulyati---georgiy-firtich",
@@ -3944,6 +3988,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "charlie_parker",
+    composerBirthYear: 1920,
     country: "USA",
     midis: [
       "anthropology",
@@ -4076,6 +4121,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "ron_wasserman",
+    composerBirthYear: 1961,
     country: "USA",
     midis: [
       "mighty-morphin-power-rangers-sheet-music-easy-piano",
@@ -4084,6 +4130,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "taku_iwasaki",
+    composerBirthYear: 1968,
     country: "Japan",
     midis: [
       "il-mare-eterno-nella-mia-anima-piano-arrangement---caesar-death-theme",
@@ -4189,8 +4236,10 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1845,
     similarTo: ["saint_saens"],
   },
-  {slug: "aleksey_nikolaev", country: "Russia", midis: ["aleksey_nikolaev_tarantella_26", ]},
-  {slug: 'aleon_raven', country: "Bulgaria", midis: ['aleon-raven-vertigo']},
+  {slug: "aleksey_nikolaev", composerBirthYear: 1931, country: "Russia", midis: ["aleksey_nikolaev_tarantella_26", ]},
+  {slug: 'aleon_raven',
+    composerBirthYear: 1990, // Estimated birth year for timeline placement; unverified.
+    country: "Bulgaria", midis: ['aleon-raven-vertigo']},
   {
     slug: "tonal_stretch",
     midis: [
@@ -4241,7 +4290,8 @@ export const corpora: CorpusEntry[] = [
       "jurassic-park---journey-to-the-island",
     ],
   },
-  { slug: "ilmari_hakkola", country: "Finland", midis: ["bad-piggies-theme"] },
+  { slug: "ilmari_hakkola", composerBirthYear: 1979, // Estimated birth year for timeline placement; unverified.
+    country: "Finland", midis: ["bad-piggies-theme"] },
   {
     slug: "gibran_alcocer",
     midis: [
@@ -4282,6 +4332,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "oskar_schuster",
+    composerBirthYear: 1987,
     country: "Germany",
     midis: [
       "les-sablons---oskar-schuster",
@@ -4466,6 +4517,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "johan_soderqvist_and_patrik_andren",
+    composerBirthYear: 1966, // Timeline reference: Johan Soderqvist's birth year.
     country: "Sweden",
     midis: [
       "devastation---johan-soderqvist-and-patrik-andren-devastation---johan-soderqvist-patrik-andren",
@@ -4478,6 +4530,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "wayne_shorter",
+    composerBirthYear: 1933,
     country: "USA",
     midis: ["footprints.mscz", "footprints_r", "footprints", "nefertiti"],
   },
@@ -4521,7 +4574,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Romantic period composer
     country: "Poland", // Polish composer
   },
-  { slug: "jacob_do_bandolim", country: "Brazil", midis: ["vibracoes---jacob-do-bandolim"] },
+  { slug: "jacob_do_bandolim", composerBirthYear: 1918, country: "Brazil", midis: ["vibracoes---jacob-do-bandolim"] },
   {
     slug: "ignacy_jan_paderewski",
     midis: [
@@ -4535,7 +4588,7 @@ export const corpora: CorpusEntry[] = [
     style: "Late-Romantic", // Late Romantic era style
     country: "Poland", // Polish composer and statesman
   },
-  {slug: 'anatoly_lyadov', country: "Russia", midis: [
+  {slug: 'anatoly_lyadov', composerBirthYear: 1855, country: "Russia", midis: [
 "anatoly_lyadov_valse_op_9_1", 
   ]},
   {
@@ -4563,7 +4616,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic, Folk", // Romantic influences with Ukrainian folk music
     country: "Ukraine", // Ukrainian composer
   },
-  { slug: "hart_a_wand", country: "USA", midis: ["dallas-blues-1912"] },
+  { slug: "hart_a_wand", composerBirthYear: 1887, country: "USA", midis: ["dallas-blues-1912"] },
   {
     slug: "myroslav_skoryk",
     midis: [
@@ -4608,7 +4661,7 @@ export const corpora: CorpusEntry[] = [
     country: "Ukraine", // Ukrainian composer
   },
 
-  { slug: "max_richter", country: "Germany, UK", midis: [] },
+  { slug: "max_richter", composerBirthYear: 1966, country: "Germany, UK", midis: [] },
   {
     slug: "yaroslav_kis",
     midis: ["liricheskiy-vals---yaroslav-kis"],
@@ -4664,6 +4717,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "fuzzy",
+    composerBirthYear: 1939,
     midis: [
       "julenat",
       "en-gammel-knark---gamle-er-unge-der-er-blevet-aeldre",
@@ -4675,6 +4729,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "king_gnu",
+    composerBirthYear: 1992, // Timeline reference: Daiki Tsuneta's birth year.
     country: "Japan",
     midis: [
       "specialz---king-gnu---jujutsu-kaisen-season-2-op2-full-version",
@@ -4684,6 +4739,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "yoshimasa_terui",
+    composerBirthYear: 1987,
     country: "Japan",
     midis: [
       "if-i-am-with-you---yoshimasa-terui-jujutsu-kaisen-s2-ost-digital-sheet-music",
@@ -4693,6 +4749,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "ebbe_raun",
+    composerBirthYear: 1950, // Estimated birth year for timeline placement; unverified.
     midis: [
       "melodien-som-evert-taube-aldrig-skrev",
       "noget-om-mit-hjerterum",
@@ -4728,15 +4785,17 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "louis_vierne",
+    composerBirthYear: 1870,
     country: "France",
     midis: ["vierne-organ-symphony-no.-1-part-vi---final"],
   },
   {
     slug: "bobby_prince",
+    composerBirthYear: 1947,
     country: "USA",
     midis: ["04---episode-1---the-city-streets-robert-prince"],
   },
-  {slug: 'reinhold_gliere', country: "Russia", midis:["reinhold_gliere---12-pieces-enfantines-op.31no7-romance","walzer-op-31-no-6---reinhold-gliere",  ]},
+  {slug: 'reinhold_gliere', composerBirthYear: 1875, country: "Russia", midis:["reinhold_gliere---12-pieces-enfantines-op.31no7-romance","walzer-op-31-no-6---reinhold-gliere",  ]},
   {
     slug: "roberto_cacciapaglia",
     country: "Italy",
@@ -4752,7 +4811,7 @@ export const corpora: CorpusEntry[] = [
     ],
     composerBirthYear: 1959,
   },
-  { slug: "nat_d_ayer", country: "USA", midis: ["oh-you-beautiful-doll---nat-d.-ayer"] },
+  { slug: "nat_d_ayer", composerBirthYear: 1887, country: "USA", midis: ["oh-you-beautiful-doll---nat-d.-ayer"] },
   {
     slug: "tchaikovsky",
     midis: [
@@ -4776,7 +4835,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Romantic era composer
     country: "Russia", // Russian composer
   },
-  { slug: "chad_lawson", country: "USA", midis: ["stay---chad-lawson"] },
+  { slug: "chad_lawson", composerBirthYear: 1969, country: "USA", midis: ["stay---chad-lawson"] },
   {
     slug: "rob_costlow",
     country: "USA",
@@ -4997,8 +5056,8 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Romantic period composer, known for his piano works
     country: "Poland", // Polish composer (spent much of his life in France)
   },
-  {slug: "elemer_balazs", country: "Hungary", midis: ["elemer_balazs_chopin_reflection_6", "balazs_chopin_reflection_iv",  ]},
-  { slug: "dawid_bowie", country: "UK", midis: ["space-oddity---david-bowie"] },
+  {slug: "elemer_balazs", composerBirthYear: 1967, country: "Hungary", midis: ["elemer_balazs_chopin_reflection_6", "balazs_chopin_reflection_iv",  ]},
+  { slug: "dawid_bowie", composerBirthYear: 1947, country: "UK", midis: ["space-oddity---david-bowie"] },
   {
     slug: "grieg",
     midis: [
@@ -5012,7 +5071,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Known for his expressive piano pieces
     country: "Norway", // Grieg was Norwegian
   },
-  { slug: "anthony_maggio", country: "USA", midis: ["i-got-the-blues-1908"] },
+  { slug: "anthony_maggio", composerBirthYear: 1876, country: "USA", midis: ["i-got-the-blues-1908"] },
   {
     slug: "yuki_kaijura",
     midis: [
@@ -5068,9 +5127,9 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Works in the late Romantic style
     country: "Croatia", // Dora Pejacevic was Croatian
   },
-  { slug: "bessie_smith", country: "USA", midis: ["backwater-blues"] },
-  { slug: "michael_gundlach", country: "Germany", midis: ["crazy-blues"] },
-  { slug: "vladimir_vysotsky", country: "Russia", midis: ["beda"] },
+  { slug: "bessie_smith", composerBirthYear: 1894, country: "USA", midis: ["backwater-blues"] },
+  { slug: "michael_gundlach", composerBirthYear: 1963, country: "Germany", midis: ["crazy-blues"] },
+  { slug: "vladimir_vysotsky", composerBirthYear: 1938, country: "Russia", midis: ["beda"] },
   {
     slug: "mikulas_schneider_trnavsky",
     midis: [
@@ -5111,7 +5170,9 @@ export const corpora: CorpusEntry[] = [
     style: "Chanson", // Known for his distinctive style in Russian chanson
     country: "Russia", // Mikhail Krug was Russian
   },
-  { slug: "eagles", country: "USA", midis: ["hotel-california.7"] },
+  { slug: "eagles",
+    composerBirthYear: 1948, // Timeline reference: Glenn Frey's birth year.
+    country: "USA", midis: ["hotel-california.7"] },
   {
     slug: "danny_elfman",
     midis: [
@@ -5186,7 +5247,7 @@ export const corpora: CorpusEntry[] = [
       "menuet-en-mib-mineur",
       "espieglerie-grazioso-entre-violon-et-piano-mi-m",
     ],
-    composerBirthYear: undefined, // Not enough information to determine
+    composerBirthYear: 1985, // Estimated birth year for timeline placement; unverified.
     genre: "Classical", // Classical genre
     style: "Baroque, Classical", // Works in classical and baroque style
     country: "France", // Best guess; country not independently confirmed.
@@ -5209,6 +5270,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "vicenzo_piano",
+    composerBirthYear: 1985, // Estimated birth year for timeline placement; unverified.
     country: "Italy", // Best guess; country not independently confirmed.
     midis: [
       "winter---lucia-salieri-vicenzo-piano",
@@ -5367,7 +5429,7 @@ export const corpora: CorpusEntry[] = [
     style: "Orchestral, Electronic, Rock", // McCreary blends orchestral, electronic, and rock styles
     country: "USA", // McCreary is American
   },
-  { slug: "tj_hill", country: "USA", midis: [] },
+  { slug: "tj_hill", composerBirthYear: 1985, country: "USA", midis: [] },
   {
     slug: "joe_hisaishi",
     midis: [
@@ -5411,6 +5473,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "zequinha_de_abreu",
+    composerBirthYear: 1880,
     country: "Brazil",
     midis: [
       "tico-tico-no-fuba---zequinha-de-abreu",
@@ -5461,6 +5524,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "sergei_lyapunov",
+    composerBirthYear: 1859,
     country: "Russia",
     midis: [
       "lyapunov-reverie-du-soir-op.3",
@@ -5474,7 +5538,7 @@ export const corpora: CorpusEntry[] = [
     midis: ["stanley-myers---cavatina-arranged-for-piano"],
     composerBirthYear: 1930,
   },
-  {slug: 'carl_czerny', country: "Austria", midis:["czerny_op740_no50_g_minor", 
+  {slug: 'carl_czerny', composerBirthYear: 1791, country: "Austria", midis:["czerny_op740_no50_g_minor", 
     "czerny---school-of-velocity---op.-299-no.-1", 
     "czerny---op-740-the-art-of-finger-dexterity---no-14", ]},
   {
@@ -5491,6 +5555,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "austin_farwell",
+    composerBirthYear: 1999,
     country: "USA",
     midis: [
       "city-lights---austin-farwell",
@@ -5498,7 +5563,9 @@ export const corpora: CorpusEntry[] = [
       "once-upon-a-time---austin-farwell",
     ],
   },
-  { slug: "dylan_john_sparkes", country: "UK", midis: ["butterfly"] },
+  { slug: "dylan_john_sparkes",
+    composerBirthYear: 1990, // Estimated birth year for timeline placement; unverified.
+    country: "UK", midis: ["butterfly"] },
   {
     slug: "hania_rani",
     midis: [
@@ -5514,6 +5581,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "johann_strauss_ii",
+    composerBirthYear: 1825,
     country: "Austria",
     midis: [
       "johann-strauss-jr.---an-der-schonen-blauen-donau",
@@ -5546,6 +5614,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "alexander_nakarada",
+    composerBirthYear: 1992,
     country: "Norway",
     midis: [
       "adventure---alexander-nakarada",
@@ -5554,6 +5623,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "thelonius_monk",
+    composerBirthYear: 1917,
     country: "USA",
     midis: [
       "thelonious-monk-dinah",
@@ -5580,6 +5650,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "pete_johnson",
+    composerBirthYear: 1904,
     midis: [
       "boogie-woogie-jump---pete-johnson",
       "dive-bomber---pete-johnson",
@@ -5625,7 +5696,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Soul, R&B, Funk",
     country: "USA, Ghana",
   },
-  {slug: "robert_fripp", country: "UK", midis: ["king_crimson_red"]},
+  {slug: "robert_fripp", composerBirthYear: 1946, country: "UK", midis: ["king_crimson_red"]},
   {
     slug: "tom_jobim",
     midis: [
@@ -5659,6 +5730,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "hajime_wakai",
+    composerBirthYear: 1969,
     country: "Japan",
     midis: [
       "forest-of-hope-pikmin",
@@ -5832,6 +5904,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "evgeny_krylatov",
+    composerBirthYear: 1934,
     country: "Russia",
     midis: [
       "kaby-ne-bylo-zimy-iz-m-f-zima-v-prostokvashino---evgeniy-krylatov-kaby-ne-bylo-zimy-iz-m-f-zima-v-prostokvashino",
@@ -5861,6 +5934,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "agata_kristi",
+    composerBirthYear: 1964, // Timeline reference: Vadim Samoylov's birth year.
     country: "Russia",
     midis: [
       "skazochnaya-tayga-fabulous-taiga---agata-kristi-agatha-christie",
@@ -5869,6 +5943,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "bulat_okudzhava",
+    composerBirthYear: 1924,
     country: "Russia",
     midis: [
       "beri_shinel-_poshli_domoy",
@@ -5914,7 +5989,7 @@ export const corpora: CorpusEntry[] = [
     style: "Celtic Folk", // Heavy influence of folk traditions
     country: "Russia",
   },
-  { slug: "erich_korngold", country: "Austria", midis: ["neil-young---harvest-moon-piano-solo"] },
+  { slug: "erich_korngold", composerBirthYear: 1897, country: "Austria", midis: ["neil-young---harvest-moon-piano-solo"] },
   {
     slug: "igor_kornelyuk",
     midis: [
@@ -5943,9 +6018,10 @@ export const corpora: CorpusEntry[] = [
     style: "Traditional", // Traditional Chinese music
     country: "China",
   },
-  { slug: "gene_vincent", country: "USA", midis: ["be-bop-a-lula"] },
+  { slug: "gene_vincent", composerBirthYear: 1935, country: "USA", midis: ["be-bop-a-lula"] },
   {
     slug: "chuck_berry",
+    composerBirthYear: 1926,
     country: "USA",
     midis: [
       "johnny-b.-goode-rock-n-roll-piano-solo-arr",
@@ -5999,7 +6075,7 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Romantic period
     country: "Germany",
   },
-  { slug: "mikhail_meerovich", country: "Russia", midis: ["yozhik_v_tumane"] },
+  { slug: "mikhail_meerovich", composerBirthYear: 1920, country: "Russia", midis: ["yozhik_v_tumane"] },
   {
     slug: "norbert_schultze",
     midis: [
@@ -6080,6 +6156,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "dan_forden",
+    composerBirthYear: 1963,
     country: "USA",
     midis: ["mortal_kombat_1_character_zb", "mk_genesis_gorolair_zb"],
   },
@@ -6154,6 +6231,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "tsukasa_saitoh",
+    composerBirthYear: 1974,
     country: "Japan",
     midis: ["elden-ring-ost---the-final-battle---tsukasa-saitoh"],
   },
@@ -6259,7 +6337,7 @@ export const corpora: CorpusEntry[] = [
     style: "Orchestral", // Marianelli is recognized for his orchestral and emotive compositions
     country: "Italy", // Italian composer
   },
-  { slug: "robin_beanland", country: "UK", midis: ["bosun-bill---sea-of-thieves"] },
+  { slug: "robin_beanland", composerBirthYear: 1968, country: "UK", midis: ["bosun-bill---sea-of-thieves"] },
   {
     slug: "enya",
     midis: [
@@ -6289,7 +6367,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "2002_band",
     midis: ["suddenly-yours---2002-band", "we-meet-again---2002-band"],
-    composerBirthYear: undefined, // No clear composer is associated with the band
+    composerBirthYear: 1960, // Estimated birth year of Randy Copus, used as the band's timeline reference.
     genre: "Pop", // The 2002 band is known for pop music
     style: "Soft Pop", // Their music has a soft pop style
     country: "South Korea", // 2002 was a South Korean band
@@ -6318,7 +6396,7 @@ export const corpora: CorpusEntry[] = [
     style: "Folk", // Folk music style with traditional Chinese instruments
     country: "China", // Likely from China, given the titles
   },
-  {slug: 'mykola_dremliuha', country: "Ukraine", midis: ["lirichna-pisnya---mikola-dremlyuga", ]},
+  {slug: 'mykola_dremliuha', composerBirthYear: 1917, country: "Ukraine", midis: ["lirichna-pisnya---mikola-dremlyuga", ]},
   {
     slug: "karel_svoboda",
     midis: [
@@ -6491,7 +6569,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Classical",
     country: "Austria",
   },
-  { slug: "aaron_parks", country: "USA", midis: ["doors-open---aaron-parks"] },
+  { slug: "aaron_parks", composerBirthYear: 1983, country: "USA", midis: ["doors-open---aaron-parks"] },
   {
     slug: "brad_mehldau",
     midis: ["anthropology---brad-mehldau", "i.-waking-up---brad-mehldau"],
@@ -6586,6 +6664,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "michel_petrucciani",
+    composerBirthYear: 1962,
     country: "France",
     midis: ["home-1998-solo-live-transcription---michel-petrucciani"],
   },
@@ -6783,6 +6862,8 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "franz_gordon",
+    composerBirthYear: 1971, // Estimated birth year for timeline placement; unverified.
+   
     country: "Sweden",
     midis: [
       "the-french-library---franz-gordon",
@@ -6908,7 +6989,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "campyfire",
     midis: ["greed---campyfire", "nut-cracker-march---arsenal-emote-music"],
-    composerBirthYear: undefined, // Birth year not available
+    composerBirthYear: 2000, // Estimated birth year for timeline placement; unverified.
     genre: "Electronic", // Electronic music
     style: "Chiptune, Lo-fi", // Lo-fi and chiptune elements are present in their music
     country: "USA", // Best guess; country not independently confirmed.
@@ -6916,7 +6997,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "gabriele_traietti",
     midis: ["a-trip-to-rapture-i-in-the-bathysphere"],
-    composerBirthYear: undefined, // Birth year not available
+    composerBirthYear: 1990, // Estimated birth year for timeline placement; unverified.
     genre: "Electronic", // Likely an electronic artist based on the music
     style: "Ambient, Soundtrack", // The track suggests a cinematic and ambient style
     country: "Italy", // Best guess; country not independently confirmed.
@@ -7059,6 +7140,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "syml",
+    composerBirthYear: 1983,
     country: "USA",
     midis: [
       "i-wanted-to-leave---syml",
@@ -7085,6 +7167,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "yosuke_yamashita",
+    composerBirthYear: 1942,
     midis: [
       "never-ending-saga---yosuke-yamashita",
       "hikari-e---franchouchou-hikari-e---yosuke-yamashita-zombieland-saga",
@@ -7092,7 +7175,7 @@ export const corpora: CorpusEntry[] = [
     ],
     country: "Japan",
   },
-  { slug: "bobby_darin", country: "USA", midis: [] },
+  { slug: "bobby_darin", composerBirthYear: 1936, country: "USA", midis: [] },
   {
     slug: "christopher_larkin",
     midis: [
@@ -7120,7 +7203,7 @@ export const corpora: CorpusEntry[] = [
     genre: "Guarania",
     country: "Paraguay",
   },
-  { slug: "norihiro_tsuru", country: "Japan", midis: ["norihiro-tsuru---last-carnival"] },
+  { slug: "norihiro_tsuru", composerBirthYear: 1959, country: "Japan", midis: ["norihiro-tsuru---last-carnival"] },
   {
     slug: "fujii_kaze",
     midis: [
@@ -7158,6 +7241,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "tony_ann",
+    composerBirthYear: 1994,
     country: "Canada",
     midis: [
       "icarus---tony-ann",
@@ -7166,7 +7250,7 @@ export const corpora: CorpusEntry[] = [
       "my-neighbour-s-car-alarm",
     ],
   },
-  { slug: "akeboshi", country: "Japan", midis: ["wind-piano-sheet-music-naruto-ending-1"] },
+  { slug: "akeboshi", composerBirthYear: 1978, country: "Japan", midis: ["wind-piano-sheet-music-naruto-ending-1"] },
   {
     slug: "kohei_tanaka",
     midis: [
@@ -7214,9 +7298,10 @@ export const corpora: CorpusEntry[] = [
     country: "USA",
     genre: "Rock",
   },
-  { slug: "adele", country: "UK", midis: ["someone-like-you", "easy-on-me---adele"] },
+  { slug: "adele", composerBirthYear: 1988, country: "UK", midis: ["someone-like-you", "easy-on-me---adele"] },
   {
     slug: "parov_stelar",
+    composerBirthYear: 1974,
     country: "Austria",
     midis: [
       "booty-swing---parov-stelar",
@@ -7228,6 +7313,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "hans_zimmer",
+    composerBirthYear: 1957,
     country: "Germany",
     midis: [
       "Interstellar",
@@ -7240,12 +7326,14 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "chris_allen",
+    composerBirthYear: 1970, // Estimated birth year for timeline placement; unverified.
     country: "UK", // Best guess; country not independently confirmed.
     midis: ["nurture-piano---in-eb-major-c-minor"],
   },
-  { slug: "bo_en", country: "UK", midis: ["bo-en---my-time", "tussle-among-trees---bo-en"] },
+  { slug: "bo_en", composerBirthYear: 1991, country: "UK", midis: ["bo-en---my-time", "tussle-among-trees---bo-en"] },
   {
     slug: "pedro_silva",
+    composerBirthYear: 1986, // Estimated birth year for timeline placement; unverified.
     country: "USA",
     midis: [
       "Omori_Duet",
@@ -7257,6 +7345,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "chikayo_fukuda",
+    composerBirthYear: 1971,
     country: "Japan",
     midis: [
       "solatorobo-ost_re-coda",
@@ -7268,6 +7357,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "toshio_masuda",
+    composerBirthYear: 1959,
     country: "Japan",
     midis: [
       "sadness-and-sorrow-for-piano-solo",
@@ -7279,6 +7369,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "go_ichinose",
+    composerBirthYear: 1969,
     country: "Japan",
     midis: [
       "littleroot-town---pokemon-oras-for-piano",
@@ -7287,6 +7378,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "brian_crain",
+    composerBirthYear: 1961,
     country: "USA",
     midis: [
       "song-for-sienna",
@@ -7299,6 +7391,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "dan_salvato",
+    composerBirthYear: 1989,
     country: "USA",
     midis: [
       "doki-doki-literature-club-ost---your-reality",
@@ -7331,6 +7424,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "clint_mansell",
+    composerBirthYear: 1963,
     country: "UK",
     midis: [
       "Requiem_for_a_Dream",
@@ -7371,6 +7465,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "michael_giacchino",
+    composerBirthYear: 1967,
     country: "USA",
     midis: [
       "Disney_Pixar_Up_Theme",
@@ -7400,6 +7495,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "benny_goodman",
+    composerBirthYear: 1909,
     country: "USA",
     midis: ["sing-sing-sing-1938-carnegie-hall-piano-transcription"],
   },
@@ -7430,7 +7526,7 @@ export const corpora: CorpusEntry[] = [
     country: "Japan",
     composerBirthYear: 1963,
   },
-  { slug: "john_stump", country: "USA", midis: ["faerie-s-aire-and-death-waltz"] },
+  { slug: "john_stump", composerBirthYear: 1944, country: "USA", midis: ["faerie-s-aire-and-death-waltz"] },
 
   {
     slug: "taro_umebayashi",
@@ -7445,6 +7541,7 @@ export const corpora: CorpusEntry[] = [
   { slug: "jojomk2", midis: ["canon-in-c-jazz-piano-duets"] },
   {
     slug: "hayato_sumino",
+    composerBirthYear: 1995,
     country: "Japan",
     midis: [
       "new-birth-tai-dong---hayato-sumino-cateen",
@@ -7478,6 +7575,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "takahiro_obata",
+    composerBirthYear: 1984,
     country: "Japan",
     midis: [
       "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2",
@@ -7496,6 +7594,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "mdk",
+    composerBirthYear: 1991,
     country: "Canada",
     midis: [
       "press-start",
@@ -7509,6 +7608,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "jim_yosef",
+    composerBirthYear: 1991,
     country: "Sweden",
     midis: [
       "jim-yosef-link",
@@ -7526,6 +7626,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "pedro_tintorer",
+    composerBirthYear: 1803,
     country: "Spain",
     midis: [
       "matilde---tintorer-pedro",
@@ -7538,6 +7639,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "danny_baranowsky",
+    composerBirthYear: 1984,
     country: "USA",
     midis: [
       "c.h.a.d.-s-lullaby---super-meat-boy",
@@ -7547,6 +7649,8 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "yehezkel_raz",
+    composerBirthYear: 1978, // Estimated birth year for timeline placement; unverified.
+   
     country: "Israel",
     midis: [
       "ballerina---yehezkel-raz",
@@ -7565,8 +7669,10 @@ export const corpora: CorpusEntry[] = [
     ],
     similarTo: ["andrea_vanzo"],
   },
-  { slug: "johnny_cash", country: "USA", midis: ["Johnny_Cash_Hurt", "folsom-prison-blues.1"] },
-  { slug: "led_zeppelin", country: "UK", midis: ["rock-and-roll.3"] },
+  { slug: "johnny_cash", composerBirthYear: 1932, country: "USA", midis: ["Johnny_Cash_Hurt", "folsom-prison-blues.1"] },
+  { slug: "led_zeppelin",
+    composerBirthYear: 1944, // Timeline reference: Jimmy Page's birth year.
+    country: "UK", midis: ["rock-and-roll.3"] },
   {
     slug: "penta_hexa",
     midis: [
@@ -7621,6 +7727,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "masaru_yokoyama",
+    composerBirthYear: 1982,
     country: "Japan",
     midis: [
       "my-lie-watashi-no-uso---your-lie-in-april",
@@ -7635,6 +7742,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "marcin_przybylowicz",
+    composerBirthYear: 1985,
     country: "Poland",
     midis: [
       "the-witcher-3---priscilla-s-song",
@@ -7658,11 +7766,13 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "osman_zeki_ungor",
+    composerBirthYear: 1880,
     country: "Turkey",
     midis: ["istiklal-marsi-turkish-national-anthem"],
   },
   {
     slug: "christian_petzold",
+    composerBirthYear: 1677,
     country: "Germany",
     midis: [
       "minuet-bwv-anhang-114-in-g-major",
@@ -7789,11 +7899,13 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "abba",
+    composerBirthYear: 1946, // Timeline reference: Benny Andersson's birth year.
     country: "Sweden",
     midis: ["abba--the-winner-takes-it-all", "the-winner-takes-it-all.6"],
   },
   {
     slug: "aivi_surasshu_and_rebecca_sugar",
+    composerBirthYear: 1987, // Timeline reference: Rebecca Sugar's birth year.
     country: "USA, Netherlands",
     midis: [
       "Love_Like_You_Steven_Universe",
@@ -7807,6 +7919,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "revo",
+    composerBirthYear: 1978,
     country: "Japan",
     midis: [
       "Attack_on_Titan_Shinzou_wo_Sasageyo",
@@ -7942,7 +8055,7 @@ export const corpora: CorpusEntry[] = [
     country: "Italy",
     genre: "Film Score",
   },
-  { slug: "miles_davis", country: "USA", midis: ["nardis"] },
+  { slug: "miles_davis", composerBirthYear: 1926, country: "USA", midis: ["nardis"] },
   {
     slug: "kristen_anderson_lopez_and_robert_lopez",
     midis: [
@@ -8026,6 +8139,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "junichi_masuda",
+    composerBirthYear: 1968,
     country: "Japan",
     midis: [
       "pallet-town---pokemon-red-blue-green-yellow-by-junichi-masuda",
@@ -8059,6 +8173,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "david_shire",
+    composerBirthYear: 1937,
     country: "USA",
     midis: [
       "the-conversation",
@@ -8068,11 +8183,14 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "hikaru_shirosu",
+    composerBirthYear: 1987, // Estimated birth year for timeline placement; unverified.
+   
     country: "Japan",
     midis: ["waltz-no.1-op.6-collapse---hikaru-shirosu"],
   },
   {
     slug: "karl_jenkins",
+    composerBirthYear: 1944,
     country: "UK",
     midis: [
       "karl-jenkins-concerto-grosso-for-string-orchestra-palladio-i.-allegretto---for-piano-solo",
@@ -8096,6 +8214,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "amachas_music_studio",
+    composerBirthYear: 1965, // Estimated birth year for timeline placement; unverified.
     country: "Japan",
     midis: [
       "old-doll-puppet---ib-mad-father-old-doll",
@@ -8224,6 +8343,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "jacques_offenbach",
+    composerBirthYear: 1819,
     country: "France",
     midis: [
       "can-can", // Jacques Offenbach
@@ -8257,6 +8377,7 @@ export const corpora: CorpusEntry[] = [
 
   {
     slug: "bruckner",
+    composerBirthYear: 1824,
     country: "Austria",
     midis: [
       "bruckner_7_1",
@@ -8310,6 +8431,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "michel_legrand",
+    composerBirthYear: 1932,
     country: "France",
     midis: [
       "i-will-wait-for-you---michel-legrand",
@@ -8321,6 +8443,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "sebastian_yradier",
+    composerBirthYear: 1809,
     country: "Spain",
     midis: [
       "la-paloma-cancion-americana-sebastian-yradier-vers-1863",
@@ -8349,6 +8472,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "goran_bregovic",
+    composerBirthYear: 1950,
     country: "Bosnia and Herzegovina",
     midis: [
       "bubamara",
@@ -8371,16 +8495,19 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "linkin_park",
+    composerBirthYear: 1977, // Timeline reference: Mike Shinoda's birth year.
     country: "USA",
     midis: ["Numb_-_Linkin_Park", "in-the-end---linkin-park"],
   },
   {
     slug: "ross_bagdasarian",
+    composerBirthYear: 1919,
     country: "USA",
     midis: ["christmas-don-t-be-late-the-chipmunk-song"],
   },
   {
     slug: "thefatrat",
+    composerBirthYear: 1979,
     country: "Germany",
     midis: [
       "TheFatRat_Monody",
@@ -8398,14 +8525,18 @@ export const corpora: CorpusEntry[] = [
       "thefatrat-slaydit---solitude",
     ],
   },
-  { slug: "moka", country: "Japan", midis: ["elfen-lied---lilium"] },
+  { slug: "moka",
+    composerBirthYear: 1961, // Timeline reference: Yukio Kondo's birth year.
+    country: "Japan", midis: ["elfen-lied---lilium"] },
   {
     slug: "francis_lai",
+    composerBirthYear: 1932,
     country: "France",
     midis: ["Love_Store_Francis_Lai", "un-homme-et-une-femme---francis-lai"],
   },
   {
     slug: "luiz_bonfa",
+    composerBirthYear: 1922,
     country: "Brazil",
     midis: [
       "la-chanson-d-orphee-manha-do-carnaval---luis-bonfa",
@@ -8423,11 +8554,13 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "vasiliy_agapkin",
+    composerBirthYear: 1884,
     country: "Russia",
     midis: ["march-slav-s-farewel-marsh-proshchanie-slavyanki"],
   },
   {
     slug: "kyle_landry",
+    composerBirthYear: 1990,
     country: "USA",
     midis: [
       "Kyle_Landrys_Tetris_Theme_Variations_for_Piano_SoloKorobeiniki",
@@ -8454,6 +8587,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "georgy_sviridov",
+    composerBirthYear: 1915,
     country: "Russia",
     midis: [
       "Sviridov_Snowstorm_Waltz",
@@ -8463,12 +8597,14 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "jan_a_p_kaczmarek",
+    composerBirthYear: 1953,
     country: "Poland",
     midis: ["goodbye---jan-a.p-kaczmarek-from-the-movie-hachi-a-dog-s-tale"],
   },
-  { slug: "chauncey_olcott", country: "USA", midis: ["my_wild_irish_rose"] },
+  { slug: "chauncey_olcott", composerBirthYear: 1858, country: "USA", midis: ["my_wild_irish_rose"] },
   {
     slug: "cody_fry",
+    composerBirthYear: 1990,
     country: "USA",
     midis: [
       "cody_fry_eleanor_rigby_no_lead_vocal",
@@ -8484,7 +8620,8 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1922,
     country: "Russia",
   },
-  {slug: "tom_hojnacki", country: "USA", midis: ["tom_hojnacki_it_could_have_been_the_summertime",
+  {slug: "tom_hojnacki", composerBirthYear: 1960, // Estimated birth year for timeline placement; unverified.
+    country: "USA", midis: ["tom_hojnacki_it_could_have_been_the_summertime",
     "tom_hojnacki_lucky_secondary_dominants", "tom_hojnacki_lucky_substitute_dominants", "tom_hojnacki_to_the_bitter_dregs", ]},
   {
     slug: "unsorted",

@@ -375,7 +375,7 @@ export default function Lakh({ ready, loadTrack }: Props) {
   return (
     <>
       <Page>
-        {artistName && (
+        {artistName && trackName && (
           <TrackHeading aria-label="Track information">
             <h1>
               <span className="artist">

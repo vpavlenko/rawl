@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { AppContext } from "../AppContext";
 import { Analysis } from "../rawl/analysis";
 import Rawl from "../rawl/Rawl";
+import BeatlesDiscography from "./BeatlesDiscography";
 import {
   LakhCatalog,
   LakhArtist,
@@ -15,54 +16,142 @@ import {
 } from "./catalog";
 
 const Page = styled.div`
-  padding: 24px;
-  max-width: 1100px;
-  margin: 0 auto;
+  padding: 20px 24px;
   color: #ddd;
-  input {
-    background: #181818;
-    color: white;
-    border: 1px solid #666;
-    padding: 10px;
-    width: min(420px, 90%);
-    margin: 12px 0;
-  }
   nav {
-    margin-bottom: 18px;
+    margin-bottom: 12px;
+    color: #999;
+  }
+  @media (max-width: 600px) {
+    padding: 16px 12px;
+  }
+`;
+const Heading = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 16px;
+  margin-bottom: 14px;
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: normal;
+  }
+  span {
+    color: #999;
+    font-size: 14px;
+  }
+`;
+const Filters = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-bottom: 10px;
+  input[type="search"] {
+    flex: 0 1 560px;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: transparent;
+    color: #ddd;
+    border: 1px solid #666;
+    border-radius: 0;
+    padding: 8px 10px;
+    font: inherit;
+    &::placeholder {
+      color: #999;
+    }
+  }
+  label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  input[type="checkbox"] {
+    margin: 0;
+    accent-color: #dcb869;
+  }
+`;
+const Legend = styled.p`
+  margin: 0 0 18px;
+  color: #999;
+  font-size: 13px;
+`;
+const ArtistGroup = styled.section`
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+  h2 {
+    margin: 0;
+    color: #888;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 26px;
   }
 `;
 const Entries = styled.ul`
   list-style: none;
+  margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 20px;
+  li {
+    max-width: 100%;
+  }
+`;
+const ArtistResult = styled.li<{ $hasTracks: boolean }>`
+  ${({ $hasTracks }) => $hasTracks && "width: 100%; margin-bottom: 8px;"}
+`;
+const MatchingTracks = styled(Entries)`
+  padding-left: 16px;
+  font-size: 14px;
 `;
 const Entry = styled(Link)<{ $annotated: boolean; $folder: boolean }>`
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 12px 14px;
-  height: 100%;
-  box-sizing: border-box;
-  border-radius: 4px;
-  border-left: 3px solid
-    ${({ $annotated, $folder }) =>
-      !$annotated ? "#444" : $folder ? "#dcb869" : "#6acbb5"};
-  background: ${({ $annotated, $folder }) =>
-    !$annotated ? "#191919" : $folder ? "#30291b" : "#16332d"};
+  display: inline;
+  line-height: 26px;
+  overflow-wrap: anywhere;
   color: ${({ $annotated, $folder }) =>
     !$annotated ? "#ddd" : $folder ? "#f2d18d" : "#8ee8d0"};
   text-decoration: none;
-  &:hover,
-  &:focus {
+  &:hover {
+    text-decoration: underline;
+  }
+  &:focus-visible {
     outline: 1px solid currentColor;
-    text-decoration: none;
+    outline-offset: 3px;
+  }
+  mark {
+    background: #ffe45c;
+    color: #000;
   }
   small {
-    color: #aaa;
+    margin-left: 4px;
+    color: #999;
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
   }
 `;
+
+function highlightMatches(text: string, search: string): React.ReactNode {
+  if (!search) return text;
+  const pattern = new RegExp(
+    `(${search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
+    "gi",
+  );
+  return text
+    .split(pattern)
+    .map((part, index) =>
+      index % 2 === 1 ? <mark key={index}>{part}</mark> : part,
+    );
+}
 
 type Props = {
   ready: boolean;
@@ -158,21 +247,23 @@ export default function Lakh({ ready, loadTrack }: Props) {
   return (
     <>
       <Page>
-        <nav>
-          <Link to="/lakh/">Lakh</Link>
-          {artistName && (
-            <>
-              {" "}
-              /{" "}
-              {artist ? (
-                <Link to={lakhArtistUrl(artist)}>{artistName}</Link>
-              ) : (
-                artistName
-              )}
-            </>
-          )}
-          {track && <> / {track.replace(/\.mid$/i, "")}</>}
-        </nav>
+        {artistName && (
+          <nav aria-label="Breadcrumb">
+            <Link to="/lakh/">Lakh</Link>
+            {artistName && (
+              <>
+                {" "}
+                /{" "}
+                {artist ? (
+                  <Link to={lakhArtistUrl(artist)}>{artistName}</Link>
+                ) : (
+                  artistName
+                )}
+              </>
+            )}
+            {track && <> / {track.replace(/\.mid$/i, "")}</>}
+          </nav>
+        )}
         {error ? (
           <p role="alert">
             {error}{" "}
@@ -245,14 +336,25 @@ const Directory = React.memo(function Directory({
   const search = query.trim().toLocaleLowerCase();
   const counts = (name: string, tracks: string[]) =>
     tracks.filter((file) => annotated.has(lakhAnalysisKey(name, file))).length;
+  const matchingTracks = new Map<string, string[]>();
+  if (search && !artist) {
+    catalog.artists.forEach((item) => {
+      matchingTracks.set(
+        item.name,
+        item.tracks.filter(
+          (file) =>
+            file.toLocaleLowerCase().includes(search) &&
+            (!annotatedOnly || annotated.has(lakhAnalysisKey(item.name, file))),
+        ),
+      );
+    });
+  }
   const visibleArtists =
     catalog?.artists.filter(
       (item) =>
         (!annotatedOnly || counts(item.name, item.tracks) > 0) &&
         (item.name.toLocaleLowerCase().includes(search) ||
-          item.tracks.some((file) =>
-            file.toLocaleLowerCase().includes(search),
-          )),
+          !!matchingTracks.get(item.name)?.length),
     ) || [];
   const visibleTracks =
     artist?.tracks.filter(
@@ -261,78 +363,177 @@ const Directory = React.memo(function Directory({
         file.toLocaleLowerCase().includes(search),
     ) || [];
 
+  const artistGroups = new Map<string, LakhArtist[]>();
+  visibleArtists.forEach((item) => {
+    const initial = item.name
+      .replace(/^[^a-z0-9]+/i, "")
+      .charAt(0)
+      .toUpperCase();
+    const letter = /^[A-Z]$/.test(initial) ? initial : "#";
+    const group = artistGroups.get(letter) || [];
+    group.push(item);
+    artistGroups.set(letter, group);
+  });
+
   return (
     <>
-      <h1>{artistName || "Lakh"}</h1>
-      <p>
-        {artist
-          ? `${artist.tracks.length.toLocaleString()} tracks · ${counts(
-              artist.name,
-              artist.tracks,
-            )} annotated`
-          : `${catalog.artists.length.toLocaleString()} artists · ${catalog.trackCount.toLocaleString()} tracks`}
-      </p>
-      <p>
-        Gold folders contain annotated tracks. Green tracks have an analysis.
-      </p>
-      <input
-        aria-label={artist ? "Search tracks" : "Search artists or tracks"}
-        placeholder={artist ? "Search tracks" : "Search artists or tracks"}
-        value={query}
-        onChange={(event) => setQuery(event.target.value)}
-      />
-      <label style={{ display: "block" }}>
+      <Heading>
+        <h1>{artistName || "Lakh"}</h1>
+        <span>
+          {artist
+            ? `${artist.tracks.length.toLocaleString()} tracks · ${counts(
+                artist.name,
+                artist.tracks,
+              )} annotated`
+            : `${catalog.artists.length.toLocaleString()} artists · ${catalog.trackCount.toLocaleString()} tracks`}
+        </span>
+      </Heading>
+      <Filters>
         <input
-          type="checkbox"
-          style={{ width: "auto", marginRight: 8 }}
-          checked={annotatedOnly}
-          onChange={(event) => setAnnotatedOnly(event.target.checked)}
+          type="search"
+          aria-label={artist ? "Search tracks" : "Search artists or tracks"}
+          placeholder={artist ? "Search tracks" : "Search artists or tracks"}
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
         />
-        Annotated only
-      </label>
-      <Entries>
-        {artist
-          ? visibleTracks.map((file) => {
-              const hasAnalysis = annotated.has(
-                lakhAnalysisKey(artistName, file),
-              );
-              return (
-                <li key={file}>
-                  <Entry
-                    to={lakhTrackUrl(artist, file)}
-                    $folder={false}
-                    $annotated={hasAnalysis}
-                  >
-                    {file.replace(/\.mid$/i, "")}
-                    <small>
-                      {hasAnalysis ? "Annotated" : "No analysis yet"}
-                    </small>
-                  </Entry>
-                </li>
-              );
-            })
-          : visibleArtists.map((item) => {
-              const count = counts(item.name, item.tracks);
-              return (
-                <li key={item.name}>
-                  <Entry
-                    to={lakhArtistUrl(item)}
-                    $folder
-                    $annotated={count > 0}
-                  >
-                    {item.name}
-                    <small>
-                      {item.tracks.length} tracks · {count} annotated
-                    </small>
-                  </Entry>
-                </li>
-              );
-            })}
-      </Entries>
+        <label>
+          <input
+            type="checkbox"
+            checked={annotatedOnly}
+            onChange={(event) => setAnnotatedOnly(event.target.checked)}
+          />
+          Annotated only
+        </label>
+      </Filters>
+      <Legend>
+        {artist ? (
+          <>
+            <span style={{ color: "#8ee8d0" }}>Green</span> tracks have an
+            analysis.
+          </>
+        ) : (
+          <>
+            <span style={{ color: "#f2d18d" }}>Gold</span> artists have
+            annotated tracks · Numbers show track counts.
+          </>
+        )}
+      </Legend>
+      {artist?.name === "The Beatles" ? (
+        <BeatlesDiscography
+          files={visibleTracks}
+          allFiles={artist.tracks}
+          isAnnotated={(file) =>
+            annotated.has(lakhAnalysisKey(artist.name, file))
+          }
+          renderTitle={(title) => highlightMatches(title, search)}
+          renderTrack={(file, label) => {
+            const hasAnalysis = annotated.has(
+              lakhAnalysisKey(artist.name, file),
+            );
+            return (
+              <Entry
+                to={lakhTrackUrl(artist, file)}
+                $folder={false}
+                $annotated={hasAnalysis}
+                title={`${file}${hasAnalysis ? " · Annotated" : ""}`}
+                aria-label={`${file.replace(/\.mid$/i, "")}${
+                  hasAnalysis ? " · Annotated" : ""
+                }`}
+              >
+                {highlightMatches(label || file.replace(/\.mid$/i, ""), search)}
+              </Entry>
+            );
+          }}
+        />
+      ) : artist ? (
+        <Entries>
+          {visibleTracks.map((file) => {
+            const hasAnalysis = annotated.has(
+              lakhAnalysisKey(artistName, file),
+            );
+            return (
+              <li key={file}>
+                <Entry
+                  to={lakhTrackUrl(artist, file)}
+                  $folder={false}
+                  $annotated={hasAnalysis}
+                  title={hasAnalysis ? "Annotated" : undefined}
+                >
+                  {highlightMatches(file.replace(/\.mid$/i, ""), search)}
+                </Entry>
+              </li>
+            );
+          })}
+        </Entries>
+      ) : (
+        Array.from(artistGroups)
+          .sort(([a], [b]) => a.localeCompare(b))
+          .map(([letter, items]) => (
+            <ArtistGroup key={letter} aria-label={`${letter} artists`}>
+              <h2>{letter}</h2>
+              <Entries>
+                {items.map((item) => {
+                  const count = counts(item.name, item.tracks);
+                  const tracks = matchingTracks.get(item.name) || [];
+                  return (
+                    <ArtistResult
+                      key={item.name}
+                      $hasTracks={tracks.length > 0}
+                    >
+                      <Entry
+                        to={lakhArtistUrl(item)}
+                        $folder
+                        $annotated={count > 0}
+                        title={`${item.tracks.length} ${
+                          item.tracks.length === 1 ? "track" : "tracks"
+                        } · ${count} annotated`}
+                      >
+                        {highlightMatches(item.name, search)}
+                        <small
+                          aria-label={`${item.tracks.length} tracks, ${count} annotated`}
+                        >
+                          {item.tracks.length}
+                        </small>
+                      </Entry>
+                      {tracks.length > 0 && (
+                        <MatchingTracks
+                          aria-label={`Matching tracks by ${item.name}`}
+                        >
+                          {tracks.map((file) => {
+                            const hasAnalysis = annotated.has(
+                              lakhAnalysisKey(item.name, file),
+                            );
+                            return (
+                              <li key={file}>
+                                <Entry
+                                  to={lakhTrackUrl(item, file)}
+                                  $folder={false}
+                                  $annotated={hasAnalysis}
+                                  title={hasAnalysis ? "Annotated" : undefined}
+                                >
+                                  {highlightMatches(
+                                    file.replace(/\.mid$/i, ""),
+                                    search,
+                                  )}
+                                </Entry>
+                              </li>
+                            );
+                          })}
+                        </MatchingTracks>
+                      )}
+                    </ArtistResult>
+                  );
+                })}
+              </Entries>
+            </ArtistGroup>
+          ))
+      )}
       {(artist ? visibleTracks : visibleArtists).length === 0 && (
         <p>No matches.</p>
       )}
-      <p style={{ color: "#aaa", marginTop: 32 }}>
+      <p
+        style={{ color: "#888", fontSize: 13, lineHeight: 1.5, marginTop: 24 }}
+      >
         Clean subset of the{" "}
         <a href="https://colinraffel.com/projects/lmd/">Lakh MIDI Dataset</a>,
         Colin Raffel (2016).{" "}

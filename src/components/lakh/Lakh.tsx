@@ -122,28 +122,6 @@ const Filters = styled.div`
     accent-color: #dcb869;
   }
 `;
-const Legend = styled.p`
-  margin: 0 0 18px;
-  color: #999;
-  font-size: 13px;
-`;
-const ArtistGroup = styled.section`
-  margin-bottom: 28px;
-  h2 {
-    margin: 0 0 10px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #333;
-    color: #eee;
-    font-size: 17px;
-    font-weight: normal;
-    line-height: 26px;
-    small {
-      margin-left: 10px;
-      color: #888;
-      font-size: 12px;
-    }
-  }
-`;
 const Entries = styled.ul`
   list-style: none;
   margin: 0;
@@ -352,7 +330,9 @@ export default function Lakh({ ready, loadTrack }: Props) {
             <h1>
               <span className="artist">
                 {artist ? (
-                  <Link to={lakhArtistUrl(artist)}>{artistName}</Link>
+                  <Link to={lakhArtistUrl(artist)}>
+                    {canonicalArtistName(artistName)}
+                  </Link>
                 ) : (
                   artistName
                 )}
@@ -493,20 +473,38 @@ const Directory = React.memo(function Directory({
         ),
       ),
     );
-  const visibleTracks =
-    artist?.tracks.filter(
-      (file) =>
-        (!annotatedOnly || annotated.has(lakhAnalysisKey(artistName, file))) &&
-        file.toLocaleLowerCase().includes(search),
-    ) || [];
-  const relatedTracks = relatedArtists.map((source) => ({
-    source,
-    files: source.tracks.filter(
-      (file) =>
-        (!annotatedOnly || annotated.has(lakhAnalysisKey(source.name, file))) &&
-        file.toLocaleLowerCase().includes(search),
-    ),
-  }));
+  // Display one song list while retaining each file's source for playback and
+  // annotations. Colliding filenames become additional display-only versions.
+  const trackSources = new Map<string, { source: LakhArtist; file: string }>();
+  const sources = artist ? [artist, ...relatedArtists] : [];
+  const reservedNames = new Set(sources.flatMap((source) => source.tracks));
+  sources.forEach((source) =>
+    source.tracks.forEach((file) => {
+      let displayFile = file;
+      if (trackSources.has(displayFile)) {
+        const title = file.replace(/(?:\.\d+)?\.mid$/i, "");
+        let version = 1;
+        do {
+          displayFile = `${title}.${version++}.mid`;
+        } while (
+          reservedNames.has(displayFile) ||
+          trackSources.has(displayFile)
+        );
+      }
+      trackSources.set(displayFile, { source, file });
+    }),
+  );
+  const isAnnotatedTrack = (displayFile: string) => {
+    const track = trackSources.get(displayFile);
+    return (
+      !!track && annotated.has(lakhAnalysisKey(track.source.name, track.file))
+    );
+  };
+  const visibleTracks = Array.from(trackSources.keys()).filter(
+    (file) =>
+      (!annotatedOnly || isAnnotatedTrack(file)) &&
+      file.toLocaleLowerCase().includes(search),
+  );
   const renderArtist = (item: DirectoryArtist) => {
     const count = annotatedSongs(item);
     const songCount = artistSongCounts.get(item.name)!;
@@ -519,13 +517,7 @@ const Directory = React.memo(function Directory({
           $annotated={count > 0}
           title={`${songCount} ${
             songCount === 1 ? "song" : "songs"
-          } · ${count} annotated${tags.length ? ` · ${tags.join(" · ")}` : ""}${
-            item.members.length > 1
-              ? ` · Also filed as: ${item.members
-                  .map((member) => member.name)
-                  .join(", ")}`
-              : ""
-          }`}
+          } · ${count} annotated${tags.length ? ` · ${tags.join(" · ")}` : ""}`}
         >
           {item.name}
           {songCount > 1 && (
@@ -593,13 +585,6 @@ const Directory = React.memo(function Directory({
           </label>
         </Filters>
       )}
-      {!artist && (
-        <Legend>
-          <span style={{ color: "#f2d18d" }}>Gold</span> artists have annotated
-          songs · Numbers beside artists show song counts. Known aliases are
-          combined; song counts group matching titles and MIDI versions.
-        </Legend>
-      )}
       {artist ? (
         <>
           <BeatlesDiscography
@@ -608,18 +593,15 @@ const Directory = React.memo(function Directory({
             }
             albumGroups={albumGroups?.length ? albumGroups : null}
             files={visibleTracks}
-            allFiles={artist.tracks}
-            isAnnotated={(file) =>
-              annotated.has(lakhAnalysisKey(artist.name, file))
-            }
+            allFiles={Array.from(trackSources.keys())}
+            isAnnotated={isAnnotatedTrack}
             renderTitle={(title) => highlightMatches(title, search)}
             renderTrack={(file, label) => {
-              const hasAnalysis = annotated.has(
-                lakhAnalysisKey(artist.name, file),
-              );
+              const original = trackSources.get(file)!;
+              const hasAnalysis = isAnnotatedTrack(file);
               return (
                 <Entry
-                  to={lakhTrackUrl(artist, file)}
+                  to={lakhTrackUrl(original.source, original.file)}
                   $folder={false}
                   $annotated={hasAnalysis}
                   $version={label !== undefined && /^\d+$/.test(label)}
@@ -636,40 +618,6 @@ const Directory = React.memo(function Directory({
               );
             }}
           />
-          {relatedTracks
-            .filter(({ files }) => files.length > 0)
-            .map(({ source, files }) => (
-              <ArtistGroup key={source.name}>
-                <h2>
-                  Also filed as{" "}
-                  <Link to={lakhArtistUrl(source)}>{source.name}</Link>
-                </h2>
-                <BeatlesDiscography
-                  groupByAlbum={false}
-                  files={files}
-                  allFiles={source.tracks}
-                  isAnnotated={(file) =>
-                    annotated.has(lakhAnalysisKey(source.name, file))
-                  }
-                  renderTitle={(title) => highlightMatches(title, search)}
-                  renderTrack={(file, label) => (
-                    <Entry
-                      to={lakhTrackUrl(source, file)}
-                      $folder={false}
-                      $annotated={annotated.has(
-                        lakhAnalysisKey(source.name, file),
-                      )}
-                      $version={label !== undefined && /^\d+$/.test(label)}
-                    >
-                      {highlightMatches(
-                        label || file.replace(/\.mid$/i, ""),
-                        search,
-                      )}
-                    </Entry>
-                  )}
-                />
-              </ArtistGroup>
-            ))}
         </>
       ) : (
         <ArtistTable
@@ -678,10 +626,7 @@ const Directory = React.memo(function Directory({
           songCount={(item) => artistSongCounts.get(item.name) || 0}
         />
       )}
-      {artist &&
-        visibleTracks.length +
-          relatedTracks.reduce((sum, group) => sum + group.files.length, 0) ===
-          0 && <p>No matches.</p>}
+      {artist && visibleTracks.length === 0 && <p>No matches.</p>}
       <p
         style={{ color: "#888", fontSize: 13, lineHeight: 1.5, marginTop: 24 }}
       >

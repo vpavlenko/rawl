@@ -17,11 +17,6 @@ const Matrix = styled.div`
     width: max-content;
     font-size: 13px;
   }
-  caption {
-    text-align: left;
-    padding: 10px;
-    color: #aaa;
-  }
   th,
   td {
     padding: 10px 12px;
@@ -112,6 +107,16 @@ const Artists = styled.ul<{ $table?: boolean }>`
     }
   `}
 `;
+const ComposerSection = styled.section`
+  margin-top: 24px;
+  h2 {
+    margin: 0 0 10px;
+    color: #eee;
+    font-size: 17px;
+    font-weight: normal;
+  }
+`;
+
 export default function ArtistTable<T extends { name: string }>({
   artists,
   renderArtist,
@@ -124,10 +129,18 @@ export default function ArtistTable<T extends { name: string }>({
   const [expandedCells, setExpandedCells] = useState<Set<string>>(
     () => new Set(),
   );
-  const matches = artists.map((artist) => ({
+  const profiles = artists.map((artist) => ({
     artist,
     ...artistProfile(artist.name),
   }));
+  const composers = profiles
+    .filter((item) => item.genre === "shelf-classical")
+    .sort(
+      (a, b) =>
+        songCount(b.artist) - songCount(a.artist) ||
+        a.artist.name.localeCompare(b.artist.name),
+    );
+  const matches = profiles.filter((item) => item.genre !== "shelf-classical");
   const columns = ARTIST_ERAS.filter((column) => column.id !== "unassigned");
   const rows = ARTIST_GENRES.map((row) => {
     const occupied = columns
@@ -159,110 +172,119 @@ export default function ArtistTable<T extends { name: string }>({
   })).filter((row) => row.artists.length > 0);
   return (
     <>
-      {matches.length === 0 ? (
+      {artists.length === 0 ? (
         <p>No artists.</p>
       ) : (
-        <Matrix
-          role="region"
-          aria-label="Artists by genre and era"
-          tabIndex={0}
-        >
-          <table>
-            <caption>
-              Genre × era · Scroll to explore eras. Each cell previews up to
-              five artists by song count; choose “...” to expand a cell.
-            </caption>
-            <thead>
-              <tr>
-                <th scope="col">Genre / era</th>
-                {columns.map((column) => (
-                  <th key={column.id} scope="col">
-                    {column.label}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.id}>
-                  <th scope="row">{row.label}</th>
-                  {columns.map((column) => {
-                    const cell = matches
-                      .filter(
-                        (item) =>
-                          item.genre === row.id && item.era === column.id,
-                      )
-                      .sort(
-                        (a, b) =>
-                          songCount(b.artist) - songCount(a.artist) ||
-                          a.artist.name.localeCompare(b.artist.name),
-                      );
-                    const cellKey = `${row.id}/${column.id}`;
-                    const expanded = expandedCells.has(cellKey);
-                    return (
-                      <td key={column.id}>
-                        {cell.length > 0 && (
-                          <>
-                            <Artists $table>
-                              {(expanded ? cell : cell.slice(0, 5)).map(
-                                ({ artist }) => renderArtist(artist),
+        matches.length > 0 && (
+          <Matrix
+            role="region"
+            aria-label="Artists by genre and era"
+            tabIndex={0}
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col" aria-label="Genre" />
+                  {columns.map((column) => (
+                    <th key={column.id} scope="col">
+                      {column.label}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row) => (
+                  <tr key={row.id}>
+                    <th scope="row">{row.label}</th>
+                    {columns.map((column) => {
+                      const cell = matches
+                        .filter(
+                          (item) =>
+                            item.genre === row.id && item.era === column.id,
+                        )
+                        .sort(
+                          (a, b) =>
+                            songCount(b.artist) - songCount(a.artist) ||
+                            a.artist.name.localeCompare(b.artist.name),
+                        );
+                      const cellKey = `${row.id}/${column.id}`;
+                      const expanded = expandedCells.has(cellKey);
+                      return (
+                        <td key={column.id}>
+                          {cell.length > 0 && (
+                            <>
+                              <Artists $table>
+                                {(expanded || cell.length <= 11
+                                  ? cell
+                                  : cell.slice(0, 10)
+                                ).map(({ artist }) => renderArtist(artist))}
+                              </Artists>
+                              {!expanded && cell.length > 11 && (
+                                <button
+                                  type="button"
+                                  aria-label={`Show all ${cell.length} ${row.label} artists, ${column.label}`}
+                                  onClick={() => {
+                                    setExpandedCells(
+                                      (current) =>
+                                        new Set([...current, cellKey]),
+                                    );
+                                  }}
+                                >
+                                  ...
+                                </button>
                               )}
-                            </Artists>
-                            {!expanded && cell.length > 5 && (
-                              <button
-                                type="button"
-                                aria-label={`Show all ${cell.length} ${row.label} artists, ${column.label}`}
-                                onClick={() => {
-                                  setExpandedCells(
-                                    (current) => new Set([...current, cellKey]),
-                                  );
-                                }}
-                              >
-                                ...
-                              </button>
-                            )}
-                          </>
+                            </>
+                          )}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+                {undatedRows.map((row) => {
+                  const cellKey = `${row.id}/undated`;
+                  const expanded = expandedCells.has(cellKey);
+                  return (
+                    <tr key={cellKey}>
+                      <th scope="row">{row.label}</th>
+                      <td
+                        colSpan={columns.length}
+                        aria-label="Entries without a dated era"
+                      >
+                        <Artists $table>
+                          {(expanded || row.artists.length <= 11
+                            ? row.artists
+                            : row.artists.slice(0, 10)
+                          ).map(({ artist }) => renderArtist(artist))}
+                        </Artists>
+                        {!expanded && row.artists.length > 11 && (
+                          <button
+                            type="button"
+                            aria-label={`Show all ${row.artists.length} undated ${row.label} entries`}
+                            onClick={() =>
+                              setExpandedCells(
+                                (current) => new Set([...current, cellKey]),
+                              )
+                            }
+                          >
+                            ...
+                          </button>
                         )}
                       </td>
-                    );
-                  })}
-                </tr>
-              ))}
-              {undatedRows.map((row) => {
-                const cellKey = `${row.id}/undated`;
-                const expanded = expandedCells.has(cellKey);
-                return (
-                  <tr key={cellKey}>
-                    <th scope="row">{row.label}</th>
-                    <td
-                      colSpan={columns.length}
-                      aria-label="Entries without a dated era"
-                    >
-                      <Artists $table>
-                        {(expanded ? row.artists : row.artists.slice(0, 5)).map(
-                          ({ artist }) => renderArtist(artist),
-                        )}
-                      </Artists>
-                      {!expanded && row.artists.length > 5 && (
-                        <button
-                          type="button"
-                          aria-label={`Show all ${row.artists.length} undated ${row.label} entries`}
-                          onClick={() =>
-                            setExpandedCells(
-                              (current) => new Set([...current, cellKey]),
-                            )
-                          }
-                        >
-                          ...
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </Matrix>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </Matrix>
+        )
+      )}
+      {composers.length > 0 && (
+        <ComposerSection aria-labelledby="classical-composers">
+          <h2 id="classical-composers">Classical & historical composers</h2>
+          <Artists>
+            {composers.map(({ artist }) => renderArtist(artist))}
+          </Artists>
+        </ComposerSection>
       )}
     </>
   );

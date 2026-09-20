@@ -189,6 +189,9 @@ const AppFooter: React.FC<
   setTempo,
 }) => {
   const context = useContext(AppContext);
+
+  if (ejected) return null;
+
   const canDownload = context?.currentMidiBuffer && context?.currentMidi;
 
   const createBlobUrl = () => {

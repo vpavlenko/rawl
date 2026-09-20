@@ -4,12 +4,6 @@ import { beatlesVariantNumber, groupBeatlesTracks } from "./beatlesReleases";
 
 const Discography = styled.div`
   font-size: 14px;
-  .description {
-    color: #999;
-    font-size: 12px;
-    line-height: 1.6;
-    margin-bottom: 16px;
-  }
   .albums {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
@@ -154,11 +148,6 @@ export default function BeatlesDiscography({
   if (!groups.length) return null;
   return (
     <Discography>
-      <p className="description">
-        Albums in release order; songs in album order. Numbers link to MIDI
-        versions. Annotated songs show their annotated versions; hover a song
-        and select … for the rest.
-      </p>
       <div className="albums">
         {groups.map((group) => (
           <section className="album" key={group.title} aria-label={group.title}>

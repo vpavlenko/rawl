@@ -5,6 +5,7 @@ import { AppContext } from "../AppContext";
 import { Analysis } from "../rawl/analysis";
 import Rawl from "../rawl/Rawl";
 import BeatlesDiscography from "./BeatlesDiscography";
+import { groupBeatlesTracks } from "./beatlesReleases";
 import {
   LakhCatalog,
   LakhArtist,
@@ -40,6 +41,40 @@ const Heading = styled.div`
   span {
     color: #999;
     font-size: 14px;
+  }
+`;
+const TrackHeading = styled.nav`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  h1 {
+    margin: 0;
+    font-size: 16px;
+    color: #fff;
+  }
+  .artist {
+    color: #999;
+  }
+  .artist a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .artist a:hover {
+    text-decoration: underline;
+  }
+  .album {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #999;
+    font-size: 14px;
+  }
+  .album img {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    border-radius: 2px;
   }
 `;
 const Filters = styled.div`
@@ -178,7 +213,15 @@ export default function Lakh({ ready, loadTrack }: Props) {
     // here so filenames containing literal percent sequences decode only once.
     resolveLakhRoute(catalog, window.location.pathname);
   const artistName = artist?.name || artistSegment;
-  const trackName = track?.replace(/\.mid$/i, "") || trackSegment;
+  const trackName = track?.replace(/(?:\.\d+)?\.mid$/i, "") || trackSegment;
+  const album = useMemo(() => {
+    if (artist?.name !== "The Beatles" || !track) return null;
+    return groupBeatlesTracks(artist.tracks).find(
+      (group) =>
+        group.title !== "Other recordings & medleys" &&
+        group.songs.some((song) => song.files.includes(track)),
+    );
+  }, [artist, track]);
   const analysisKey = track ? lakhAnalysisKey(artistName, track) : "";
   const redirecting = !!canonicalPath && pathname !== canonicalPath;
   const pageTitle =
@@ -252,21 +295,36 @@ export default function Lakh({ ready, loadTrack }: Props) {
     <>
       <Page>
         {artistName && (
-          <nav aria-label="Breadcrumb">
-            <Link to="/lakh/">Lakh</Link>
-            {artistName && (
-              <>
-                {" "}
-                /{" "}
+          <TrackHeading aria-label="Track information">
+            <h1>
+              <span className="artist">
                 {artist ? (
                   <Link to={lakhArtistUrl(artist)}>{artistName}</Link>
                 ) : (
                   artistName
                 )}
-              </>
+                {track && ". "}
+              </span>
+              {track && trackName}
+            </h1>
+            {album && (
+              <span className="album">
+                {album.cover && (
+                  <img
+                    key={album.cover}
+                    src={album.cover}
+                    alt={`${album.title} album cover`}
+                    width={28}
+                    height={28}
+                    onError={(event) => {
+                      event.currentTarget.style.display = "none";
+                    }}
+                  />
+                )}
+                {album.title} ({album.date.slice(0, 4)})
+              </span>
             )}
-            {track && <> / {track.replace(/\.mid$/i, "")}</>}
-          </nav>
+          </TrackHeading>
         )}
         {error ? (
           <p role="alert">
@@ -331,6 +389,15 @@ const Directory = React.memo(function Directory({
   analyses: Record<string, Analysis>;
 }) {
   const artistName = artist?.name || "";
+  const songCounts = useMemo(() => {
+    if (artist?.name !== "The Beatles") return null;
+    const groups = groupBeatlesTracks(artist.tracks);
+    const ungrouped = groups.find(
+      (group) => group.title === "Other recordings & medleys",
+    )?.songs.length || 0;
+    const total = groups.reduce((sum, group) => sum + group.songs.length, 0);
+    return { total, grouped: total - ungrouped, ungrouped };
+  }, [artist]);
   const [query, setQuery] = useState("");
   const [annotatedOnly, setAnnotatedOnly] = useState(false);
   const annotated = useMemo(
@@ -384,12 +451,22 @@ const Directory = React.memo(function Directory({
       <Heading>
         <h1>{artistName || "Lakh"}</h1>
         <span>
-          {artist
-            ? `${artist.tracks.length.toLocaleString()} tracks · ${counts(
-                artist.name,
-                artist.tracks,
-              )} annotated`
-            : `${catalog.artists.length.toLocaleString()} artists · ${catalog.trackCount.toLocaleString()} tracks`}
+          {artist ? (
+            <>
+              {artist.tracks.length.toLocaleString()} files ·{" "}
+              {songCounts && (
+                <>
+                  {songCounts.total.toLocaleString()} songs ({songCounts.grouped} in
+                  albums, {songCounts.ungrouped} ungrouped) ·{" "}
+                </>
+              )}
+              <span style={{ color: "#ffe45c" }}>
+                {counts(artist.name, artist.tracks)} annotated
+              </span>
+            </>
+          ) : (
+            `${catalog.artists.length.toLocaleString()} artists · ${catalog.trackCount.toLocaleString()} tracks`
+          )}
         </span>
       </Heading>
       <Filters>
@@ -409,19 +486,12 @@ const Directory = React.memo(function Directory({
           Annotated only
         </label>
       </Filters>
-      <Legend>
-        {artist ? (
-          <>
-            <span style={{ color: "#ffe45c" }}>Yellow</span> tracks have an
-            analysis.
-          </>
-        ) : (
-          <>
-            <span style={{ color: "#f2d18d" }}>Gold</span> artists have
-            annotated tracks · Numbers show track counts.
-          </>
-        )}
-      </Legend>
+      {!artist && (
+        <Legend>
+          <span style={{ color: "#f2d18d" }}>Gold</span> artists have
+          annotated tracks · Numbers show track counts.
+        </Legend>
+      )}
       {artist?.name === "The Beatles" ? (
         <BeatlesDiscography
           files={visibleTracks}

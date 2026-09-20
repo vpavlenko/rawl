@@ -61,6 +61,7 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
   const notes: Note[] = [];
   const noteOn = {};
   let currentTick = 0;
+  let currentPitchBend = 8192;
 
   // Sort events by [playTime, subtype] - as _ON > _OFF
   const sortedEvents = [...events].sort((a, b) => {
@@ -115,15 +116,32 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
       if (event.subtype === MIDIEvents.EVENT_MIDI_PITCH_BEND) {
         // TODO: Process pitch bend range change messages.
         // https://chat.openai.com/share/8332f454-6d52-4911-a40c-f11c251fea1b
+        currentPitchBend = (event.param2 << 7) + event.param1;
         for (const midiNumber in noteOn) {
-          (noteOn[midiNumber].pitchBend ||= []).push({
+          (noteOn[midiNumber].pitchBend ||= [
+            {
+              time: noteOn[midiNumber].playTime / 1000,
+              value: 8192,
+            },
+          ]).push({
             time: event.playTime / 1000,
-            value: (event.param2 << 7) + event.param1,
+            value: currentPitchBend,
           });
         }
       }
       if (event.subtype === MIDIEvents.EVENT_MIDI_NOTE_ON) {
-        noteOn[midiNumber] = event;
+        noteOn[midiNumber] = {
+          ...event,
+          pitchBend:
+            currentPitchBend === 8192
+              ? undefined
+              : [
+                  {
+                    time: event.playTime / 1000,
+                    value: currentPitchBend,
+                  },
+                ],
+        };
         // Store the current tick position with the note-on event
         noteOn[midiNumber].tickPosition = currentTick;
         noteOn[midiNumber].sourceLocation = event.sourceLocation;

@@ -149,42 +149,143 @@ export type MouseHandlers = {
   ) => void;
 };
 
-const convertPitchBendToPathData = (
-  pitchBendData: PitchBendPoint[],
-  span: SecondsSpan,
-  noteHeight: number,
-  secondsToX: SecondsConverter,
-): string => {
-  const pitchBendRange = 8192;
-  const noteDuration = span[1] - span[0];
-  const noteStartX = secondsToX(span[0]);
+let nextPitchBendGradientId = 0;
 
-  const pitchBendToY = (value) => {
-    const normalizedValue = (value + pitchBendRange) / (2 * pitchBendRange); // Normalize to 0-1
-    return noteHeight * (1 - normalizedValue) * 4 + noteHeight / 2; // Invert because SVG's Y increases downwards
-  };
+const pitchBendToSemitones = (value: number) =>
+  ((Math.max(0, Math.min(16383, value)) - 8192) / 8192) * 2;
 
-  // Map a time value to the SVG's X coordinate, relative to the note's duration
-  const timeToX = (time) => {
-    const relativeTime = time - span[0]; // Time relative to the note's start
-    const normalizedTime = relativeTime / noteDuration; // Normalize to 0-1
-    return normalizedTime * (secondsToX(span[1]) - noteStartX); // Scale to note's width
-  };
+const pitchColor = (pitch: number) => {
+  const lower = Math.floor(pitch);
+  const fraction = pitch - lower;
+  const color = (index: number) =>
+    `var(--pitch-color-${((index % 12) + 12) % 12})`;
+  return fraction === 0
+    ? color(lower)
+    : `color-mix(in srgb, ${color(lower)} ${(1 - fraction) * 100}%, ${color(
+        lower + 1,
+      )})`;
+};
 
-  // Start the path data string at the first pitch bend point
-  let pathData = `M ${timeToX(pitchBendData[0].time)} ${pitchBendToY(
-    pitchBendData[0].value,
-  )}`;
+const PitchBendNote: React.FC<{
+  points: PitchBendPoint[];
+  span: SecondsSpan;
+  height: number;
+  width: number;
+  secondsToX: SecondsConverter;
+  pitchToOffset: (semitones: number) => number;
+  colorPitchClass: ColoredNote["colorPitchClass"];
+  outlined: boolean;
+  interactive: boolean;
+}> = ({
+  points,
+  span,
+  height,
+  width,
+  secondsToX,
+  pitchToOffset,
+  colorPitchClass,
+  outlined,
+  interactive,
+}) => {
+  const [gradientId] = React.useState(
+    () => `pitch-bend-gradient-${nextPitchBendGradientId++}`,
+  );
+  const startX = secondsToX(span[0]);
+  const samples = points
+    .filter(
+      (point) => Number.isFinite(point.time) && Number.isFinite(point.value),
+    )
+    .map((point) => ({
+      x: Math.max(0, Math.min(width, secondsToX(point.time) - startX)),
+      bend: pitchBendToSemitones(point.value),
+    }))
+    .sort((a, b) => a.x - b.x);
+  if (!samples.length || width <= 0) return null;
 
-  // Add line segments to each subsequent pitch bend point
-  pitchBendData.forEach((point, index) => {
+  // Cover the entire note, including time before/after the bend events.
+  if (samples[0].x > 0) samples.unshift({ x: 0, bend: 0 });
+  samples.push({ x: width, bend: samples[samples.length - 1].bend });
+  const edge = (sample: (typeof samples)[number], bottom: boolean) =>
+    `${sample.x} ${pitchToOffset(sample.bend) + (bottom ? height : 0)}`;
+  const path = `M ${samples
+    .map((sample) => edge(sample, false))
+    .join(" L ")} L ${[...samples]
+    .reverse()
+    .map((sample) => edge(sample, true))
+    .join(" L ")} Z`;
+
+  // Add a stop at every crossed semitone so large bends visit all palette anchors.
+  const stops: { x: number; pitch: number }[] = [];
+  const basePitch = typeof colorPitchClass === "number" ? colorPitchClass : 0;
+  samples.forEach((sample, index) => {
+    const pitch = basePitch + sample.bend;
     if (index > 0) {
-      // Skip the first point as it's already used in 'M'
-      pathData += ` L ${timeToX(point.time)} ${pitchBendToY(point.value)}`;
+      const previous = samples[index - 1];
+      const previousPitch = basePitch + previous.bend;
+      const crossings: { x: number; pitch: number }[] = [];
+      for (
+        let anchor = Math.floor(Math.min(previousPitch, pitch)) + 1;
+        anchor < Math.max(previousPitch, pitch);
+        anchor++
+      ) {
+        crossings.push({
+          x:
+            previous.x +
+            (sample.x - previous.x) *
+              ((anchor - previousPitch) / (pitch - previousPitch)),
+          pitch: anchor,
+        });
+      }
+      if (pitch < previousPitch) crossings.reverse();
+      stops.push(...crossings);
     }
+    stops.push({ x: sample.x, pitch });
   });
 
-  return pathData;
+  return (
+    <svg
+      width={width}
+      height={height}
+      style={{
+        position: "absolute",
+        inset: 0,
+        overflow: "visible",
+        pointerEvents: "none",
+      }}
+    >
+      <defs>
+        <linearGradient
+          id={gradientId}
+          gradientUnits="userSpaceOnUse"
+          x1={0}
+          y1={0}
+          x2={width}
+          y2={0}
+          colorInterpolation="sRGB"
+        >
+          {stops.map((stop, index) => (
+            <stop
+              key={index}
+              offset={stop.x / width}
+              stopColor={
+                typeof colorPitchClass === "number"
+                  ? pitchColor(stop.pitch)
+                  : "white"
+              }
+            />
+          ))}
+        </linearGradient>
+      </defs>
+      <path
+        d={path}
+        fill={`url(#${gradientId})`}
+        stroke={outlined ? "black" : "none"}
+        strokeWidth={0.5}
+        strokeLinejoin="round"
+        style={{ pointerEvents: interactive ? "visiblePainted" : "none" }}
+      />
+    </svg>
+  );
 };
 
 export const getNoteRectangles = (
@@ -236,27 +337,26 @@ export const getNoteRectangles = (
 
     // Adjust height and top position for notes under the cursor
     const activeHeight = isPlayingNow ? baseHeight * 2 : baseHeight;
-    const height =
-      showFullNote
-        ? noteUnderCursor
-          ? baseHeight * 2
-          : activeHeight
-        : collapsedHeight;
-    const top =
-      showFullNote
-        ? noteUnderCursor
-          ? baseTop - baseHeight
-          : baseTop - (activeHeight - baseHeight)
-        : baseTop + baseHeight - collapsedHeight;
+    const height = showFullNote
+      ? noteUnderCursor
+        ? baseHeight * 2
+        : activeHeight
+      : collapsedHeight;
+    const top = showFullNote
+      ? noteUnderCursor
+        ? baseTop - baseHeight
+        : baseTop - (activeHeight - baseHeight)
+      : baseTop + baseHeight - collapsedHeight;
 
-    const pathData = note.pitchBend
-      ? convertPitchBendToPathData(
-          note.pitchBend,
-          note.span,
-          noteHeight,
-          secondsToX,
-        )
-      : null;
+    const hasPitchBend =
+      !isDrum &&
+      width > 0 &&
+      note.pitchBend?.some(
+        (point) =>
+          Number.isFinite(point.time) &&
+          Number.isFinite(point.value) &&
+          point.value !== 8192,
+      );
 
     // Format source location string if it exists
     let sourceLocationText = "";
@@ -292,7 +392,9 @@ export const getNoteRectangles = (
     ) : (
       <div
         key={`nr_${note.id}`}
-        className={`${color} voiceShape-${voiceIndex} ${
+        className={`${
+          hasPitchBend ? "pitch-bend-note" : color
+        } voiceShape-${voiceIndex} ${
           noteUnderCursor ? "note-under-cursor" : ""
         }`}
         style={{
@@ -302,13 +404,13 @@ export const getNoteRectangles = (
           overflow: "visible",
           top,
           left,
-          pointerEvents: handleNoteClick ? "auto" : "none",
+          pointerEvents: handleNoteClick && !hasPitchBend ? "auto" : "none",
           zIndex:
             Math.round(10 + (width > 0 ? 1000 / width : 1000)) +
             (noteUnderCursor ? 100 : 0),
           boxSizing: "border-box",
           display: "grid",
-          boxShadow: showFullNote ? "0 0 0px 0.5px black" : "",
+          boxShadow: showFullNote && !hasPitchBend ? "0 0 0px 0.5px black" : "",
           cursor: enableManualRemeasuring
             ? "e-resize"
             : handleNoteClick
@@ -325,43 +427,39 @@ export const getNoteRectangles = (
         onMouseEnter={(e) => !isDrum && handleMouseEnter(note)}
         onMouseLeave={() => !isDrum && handleMouseLeave()}
       >
-        {pathData && showFullNote && (
-          <div style={{ position: "relative", width: "100%", height: "100%" }}>
-            <svg
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                height: "100%",
-                width: "100%",
-                overflow: "visible",
-              }}
-            >
-              <path d={pathData} stroke="white" strokeWidth="4" fill="none" />
-              <path d={pathData} stroke="black" strokeWidth="2" fill="none" />
-            </svg>
+        {hasPitchBend && (
+          <PitchBendNote
+            points={note.pitchBend!}
+            span={note.span}
+            height={height}
+            width={width}
+            secondsToX={secondsToX}
+            pitchToOffset={(bend) =>
+              midiNumberToY(number + bend) - midiNumberToY(number)
+            }
+            colorPitchClass={note.colorPitchClass}
+            outlined={showFullNote}
+            interactive={!!handleNoteClick}
+          />
+        )}
+        {showSourceLocation && sourceLocationText && showFullNote && (
+          <div
+            style={{
+              position: "absolute",
+              top: "-16px",
+              left: 0,
+              color: "white",
+              fontSize: "10px",
+              whiteSpace: "nowrap",
+              backgroundColor: "rgba(0,0,0,0.5)",
+              padding: "1px 3px",
+              borderRadius: "2px",
+              pointerEvents: "none",
+            }}
+          >
+            {sourceLocationText}
           </div>
         )}
-        {showSourceLocation &&
-          sourceLocationText &&
-          showFullNote && (
-            <div
-              style={{
-                position: "absolute",
-                top: "-16px",
-                left: 0,
-                color: "white",
-                fontSize: "10px",
-                whiteSpace: "nowrap",
-                backgroundColor: "rgba(0,0,0,0.5)",
-                padding: "1px 3px",
-                borderRadius: "2px",
-                pointerEvents: "none",
-              }}
-            >
-              {sourceLocationText}
-            </div>
-          )}
       </div>
     );
   });

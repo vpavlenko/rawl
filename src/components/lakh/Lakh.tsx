@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "../AppContext";
+import { FOOTER_HEIGHT } from "../AppFooter";
 import { Analysis } from "../rawl/analysis";
 import Rawl from "../rawl/Rawl";
 import BeatlesDiscography from "./BeatlesDiscography";
@@ -29,6 +30,22 @@ const Page = styled.div`
   }
   @media (max-width: 600px) {
     padding: 16px 12px;
+  }
+`;
+const Attribution = styled.p`
+  position: fixed;
+  bottom: ${FOOTER_HEIGHT + 1}px;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  margin: 0;
+  padding: 8px 24px;
+  background: var(--background, #000);
+  color: #888;
+  font-size: 13px;
+  line-height: 1.5;
+  @media (max-width: 600px) {
+    padding-inline: 12px;
   }
 `;
 const Heading = styled.div<{ $directory: boolean }>`
@@ -431,6 +448,18 @@ const Directory = React.memo(function Directory({
   artist?: LakhArtist;
   analyses: Record<string, Analysis>;
 }) {
+  const attributionRef = useRef<HTMLParagraphElement>(null);
+  const [attributionHeight, setAttributionHeight] = useState(0);
+  useEffect(() => {
+    const element = attributionRef.current;
+    if (!element) return;
+    const updateHeight = () =>
+      setAttributionHeight(element.getBoundingClientRect().height);
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
   const artistName = artist?.name || "";
   const albumGroups = useAlbumMetadata(artist);
   const directoryArtists = useMemo(
@@ -639,9 +668,11 @@ const Directory = React.memo(function Directory({
         />
       )}
       {artist && tracks.length === 0 && <p>No tracks.</p>}
-      <p
-        style={{ color: "#888", fontSize: 13, lineHeight: 1.5, marginTop: 24 }}
-      >
+      <div
+        aria-hidden="true"
+        style={{ height: attributionHeight + FOOTER_HEIGHT + 1 }}
+      />
+      <Attribution ref={attributionRef}>
         Clean subset of the{" "}
         <a href="https://colinraffel.com/projects/lmd/">Lakh MIDI Dataset</a>,
         Colin Raffel (2016).{" "}
@@ -649,7 +680,7 @@ const Directory = React.memo(function Directory({
         Artist and title labels are supplied by the dataset and may be
         inaccurate. Includes additional tracks from{" "}
         <a href="https://chiptune.app/browse/MIDI">chiptune.app</a>.
-      </p>
+      </Attribution>
     </>
   );
 });

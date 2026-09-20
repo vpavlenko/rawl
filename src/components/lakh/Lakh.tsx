@@ -111,14 +111,44 @@ const Filters = styled.div`
     accent-color: #dcb869;
   }
 `;
+const SortSwitch = styled.div`
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid #555;
+  border-radius: 999px;
+  background: #111;
+  button {
+    border: 0;
+    border-radius: 999px;
+    padding: 6px 12px;
+    background: transparent;
+    color: #aaa;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    &:hover {
+      color: #fff;
+    }
+    &[aria-pressed="true"] {
+      background: #ddd;
+      color: #111;
+    }
+    &:focus-visible {
+      outline: 2px solid #ffe45c;
+      outline-offset: 2px;
+    }
+  }
+`;
 const Legend = styled.p`
   margin: 0 0 18px;
   color: #999;
   font-size: 13px;
 `;
-const ArtistGroup = styled.section`
+const ArtistGroup = styled.section<{ $ranked?: boolean }>`
   display: grid;
-  grid-template-columns: 24px minmax(0, 1fr);
+  grid-template-columns: ${({ $ranked }) =>
+    $ranked ? "minmax(0, 1fr)" : "24px minmax(0, 1fr)"};
   gap: 12px;
   margin-bottom: 16px;
   h2 {
@@ -178,6 +208,9 @@ const Entry = styled(Link)<{ $annotated: boolean; $folder: boolean; $version?: b
     white-space: nowrap;
   }
 `;
+
+const countSongs = (files: string[]) =>
+  new Set(files.map((file) => file.replace(/(?:\.\d+)?\.mid$/i, ""))).size;
 
 function highlightMatches(text: string, search: string): React.ReactNode {
   if (!search) return text;
@@ -389,6 +422,14 @@ const Directory = React.memo(function Directory({
   analyses: Record<string, Analysis>;
 }) {
   const artistName = artist?.name || "";
+  const artistSongCounts = useMemo(
+    () => new Map(catalog.artists.map((item) => [item.name, countSongs(item.tracks)])),
+    [catalog],
+  );
+  const totalSongs = useMemo(
+    () => Array.from(artistSongCounts.values()).reduce((sum, count) => sum + count, 0),
+    [artistSongCounts],
+  );
   const songCounts = useMemo(() => {
     if (artist?.name !== "The Beatles") return null;
     const groups = groupBeatlesTracks(artist.tracks);
@@ -400,6 +441,7 @@ const Directory = React.memo(function Directory({
   }, [artist]);
   const [query, setQuery] = useState("");
   const [annotatedOnly, setAnnotatedOnly] = useState(false);
+  const [artistSort, setArtistSort] = useState("name");
   const annotated = useMemo(
     () => new Set(Object.keys(analyses).filter((key) => !!analyses[key])),
     [analyses],
@@ -435,12 +477,19 @@ const Directory = React.memo(function Directory({
     ) || [];
 
   const artistGroups = new Map<string, LakhArtist[]>();
+  if (artistSort === "songs") {
+    visibleArtists.sort(
+      (a, b) =>
+        artistSongCounts.get(b.name)! - artistSongCounts.get(a.name)! ||
+        a.name.localeCompare(b.name),
+    );
+  }
   visibleArtists.forEach((item) => {
     const initial = item.name
       .replace(/^[^a-z0-9]+/i, "")
       .charAt(0)
       .toUpperCase();
-    const letter = /^[A-Z]$/.test(initial) ? initial : "#";
+    const letter = artistSort === "songs" ? "" : /^[A-Z]$/.test(initial) ? initial : "#";
     const group = artistGroups.get(letter) || [];
     group.push(item);
     artistGroups.set(letter, group);
@@ -465,7 +514,7 @@ const Directory = React.memo(function Directory({
               </span>
             </>
           ) : (
-            `${catalog.artists.length.toLocaleString()} artists · ${catalog.trackCount.toLocaleString()} tracks`
+            `${catalog.artists.length.toLocaleString()} artists · ${totalSongs.toLocaleString()} songs`
           )}
         </span>
       </Heading>
@@ -485,15 +534,34 @@ const Directory = React.memo(function Directory({
           />
           Annotated only
         </label>
+        {!artist && (
+          <SortSwitch role="group" aria-label="Sort artists by">
+            <button
+              type="button"
+              aria-pressed={artistSort === "name"}
+              onClick={() => setArtistSort("name")}
+            >
+              Artist name
+            </button>
+            <button
+              type="button"
+              aria-pressed={artistSort === "songs"}
+              onClick={() => setArtistSort("songs")}
+            >
+              Songs (most first)
+            </button>
+          </SortSwitch>
+        )}
       </Filters>
       {!artist && (
         <Legend>
           <span style={{ color: "#f2d18d" }}>Gold</span> artists have
-          annotated tracks · Numbers show track counts.
+          annotated songs · Numbers show song counts.
         </Legend>
       )}
-      {artist?.name === "The Beatles" ? (
+      {artist ? (
         <BeatlesDiscography
+          groupByAlbum={artist.name === "The Beatles"}
           files={visibleTracks}
           allFiles={artist.tracks}
           isAnnotated={(file) =>
@@ -520,35 +588,22 @@ const Directory = React.memo(function Directory({
             );
           }}
         />
-      ) : artist ? (
-        <Entries>
-          {visibleTracks.map((file) => {
-            const hasAnalysis = annotated.has(
-              lakhAnalysisKey(artistName, file),
-            );
-            return (
-              <li key={file}>
-                <Entry
-                  to={lakhTrackUrl(artist, file)}
-                  $folder={false}
-                  $annotated={hasAnalysis}
-                  title={hasAnalysis ? "Annotated" : undefined}
-                >
-                  {highlightMatches(file.replace(/\.mid$/i, ""), search)}
-                </Entry>
-              </li>
-            );
-          })}
-        </Entries>
       ) : (
         Array.from(artistGroups)
           .sort(([a], [b]) => a.localeCompare(b))
           .map(([letter, items]) => (
-            <ArtistGroup key={letter} aria-label={`${letter} artists`}>
-              <h2>{letter}</h2>
+            <ArtistGroup
+              key={letter}
+              $ranked={artistSort === "songs"}
+              aria-label={artistSort === "songs" ? "Artists by song count" : `${letter} artists`}
+            >
+              {letter && <h2>{letter}</h2>}
               <Entries>
                 {items.map((item) => {
-                  const count = counts(item.name, item.tracks);
+                  const count = countSongs(item.tracks.filter(
+                    (file) => annotated.has(lakhAnalysisKey(item.name, file)),
+                  ));
+                  const songCount = artistSongCounts.get(item.name)!;
                   const tracks = matchingTracks.get(item.name) || [];
                   return (
                     <ArtistResult
@@ -559,16 +614,18 @@ const Directory = React.memo(function Directory({
                         to={lakhArtistUrl(item)}
                         $folder
                         $annotated={count > 0}
-                        title={`${item.tracks.length} ${
-                          item.tracks.length === 1 ? "track" : "tracks"
+                        title={`${songCount} ${
+                          songCount === 1 ? "song" : "songs"
                         } · ${count} annotated`}
                       >
                         {highlightMatches(item.name, search)}
-                        <small
-                          aria-label={`${item.tracks.length} tracks, ${count} annotated`}
-                        >
-                          {item.tracks.length}
-                        </small>
+                        {songCount > 1 && (
+                          <small
+                            aria-label={`${songCount} songs, ${count} annotated`}
+                          >
+                            {songCount}
+                          </small>
+                        )}
                       </Entry>
                       {tracks.length > 0 && (
                         <MatchingTracks

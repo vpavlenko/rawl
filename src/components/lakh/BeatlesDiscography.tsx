@@ -114,12 +114,14 @@ export default function BeatlesDiscography({
   isAnnotated,
   renderTitle,
   renderTrack,
+  groupByAlbum = true,
 }: {
   files: string[];
   allFiles: string[];
   isAnnotated: (file: string) => boolean;
   renderTitle: (title: string) => React.ReactNode;
   renderTrack: (file: string, label?: string) => React.ReactNode;
+  groupByAlbum?: boolean;
 }) {
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
   const toggleVersions = (key: string) =>
@@ -130,7 +132,29 @@ export default function BeatlesDiscography({
       return next;
     });
   const visible = new Set(files);
-  const groups = groupBeatlesTracks(allFiles)
+  const songsByTitle = new Map<string, string[]>();
+  if (!groupByAlbum) {
+    allFiles.forEach((file) => {
+      const title = file.replace(/(?:\.\d+)?\.mid$/i, "");
+      const versions = songsByTitle.get(title) || [];
+      versions.push(file);
+      songsByTitle.set(title, versions);
+    });
+  }
+  const sourceGroups = groupByAlbum ? groupBeatlesTracks(allFiles) : [{
+    title: "Songs",
+    date: "",
+    cover: null,
+    songs: Array.from(songsByTitle)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([, versions]) => ({
+        number: 0,
+        files: versions.sort((a, b) =>
+          beatlesVariantNumber(a) - beatlesVariantNumber(b) || a.localeCompare(b),
+        ),
+      })),
+  }];
+  const groups = sourceGroups
     .map((group) => ({
       ...group,
       songs: group.songs
@@ -148,10 +172,10 @@ export default function BeatlesDiscography({
   if (!groups.length) return null;
   return (
     <Discography>
-      <div className="albums">
+      <div className={groupByAlbum ? "albums" : undefined}>
         {groups.map((group) => (
-          <section className="album" key={group.title} aria-label={group.title}>
-            <header>
+          <section className={groupByAlbum ? "album" : undefined} key={group.title} aria-label={group.title}>
+            {groupByAlbum && <header>
               {group.cover && (
                 <img
                   className="cover"
@@ -169,7 +193,7 @@ export default function BeatlesDiscography({
                 <h2>{group.title}</h2>
                 <span className="date">{group.date}</span>
               </div>
-            </header>
+            </header>}
             <ul>
               {group.songs.map((song) => {
                 const key = `${group.title}/${song.title}`;
@@ -186,7 +210,7 @@ export default function BeatlesDiscography({
                 );
                 return (
                   <li key={key}>
-                    <span className="number">{song.number || "·"}</span>
+                    {groupByAlbum && <span className="number">{song.number || "·"}</span>}
                     <span className="song">
                       <span className="title">
                         {song.annotatedFile || song.singleFile

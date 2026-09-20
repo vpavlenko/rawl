@@ -602,7 +602,7 @@ const Rawl: React.FC<RawlProps> = ({
 
   const systemClickHandler = useCallback(
     (e: React.MouseEvent, xToSeconds = xToSeconds__) => {
-      const targetElement = e.target as HTMLElement;
+      const targetElement = e.currentTarget as HTMLElement;
       const rect = targetElement.getBoundingClientRect();
       const distance = e.clientX - rect.left + targetElement.scrollLeft;
       const time = xToSeconds(distance);

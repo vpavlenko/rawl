@@ -262,6 +262,7 @@ export const Voice: React.FC<{
       key={`voice_${voiceIndex}_${measuresAndBeats.measures.at(-1)}_parent`}
       style={{
         width: secondsToX(measures[sectionSpan?.[1] ?? measures.length - 1]),
+        flexShrink: 0,
         height: hasVisibleNotes ? height : 1,
         position: "relative",
         marginTop: hasVisibleNotes ? "15px" : 0,

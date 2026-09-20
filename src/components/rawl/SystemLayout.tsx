@@ -741,9 +741,17 @@ export const MergedSystemLayout: React.FC<
     };
   }, [handleVoiceHover, onVoiceHover, slug, isEmbedded]);
 
-  // Retain muted drum rows so hover previews never change section geometry.
-  // Individual drum hits handle visibility in getNoteRectangles.
-  const flattenedNotes = useMemo(() => [notes.flat()], [notes]);
+  // Only reserve space for enabled instruments and the current hover preview.
+  const flattenedNotes = useMemo(
+    () => [
+      notes.flatMap((voiceNotes, voiceIndex) =>
+        voiceMask[voiceIndex] || voiceIndex === hoveredVoiceIndex
+          ? voiceNotes
+          : [],
+      ),
+    ],
+    [notes, voiceMask, hoveredVoiceIndex],
+  );
 
   return (
     <div style={{ position: "relative" }}>

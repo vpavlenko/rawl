@@ -4958,7 +4958,7 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1985,
   },
   {
-    slug: "mozart_misc",
+    slug: "mozart",
     midis: [
       "fantasia_in_d_minor_k_397_385g_wolfgang_amadeus_mozart",
       "i_allegro_symphony_no_4_in_d_major_k_19_w_a_mozart",

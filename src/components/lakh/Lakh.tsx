@@ -5,16 +5,11 @@ import { AppContext } from "../AppContext";
 import { Analysis } from "../rawl/analysis";
 import Rawl from "../rawl/Rawl";
 import BeatlesDiscography from "./BeatlesDiscography";
-import RockPopShelf from "./RockPopShelf";
-import { rockPopProfile } from "./rockPopFacets";
+import ArtistTable from "./ArtistTable";
+import { artistProfile } from "./artistFacets";
 import { groupBeatlesTracks } from "./beatlesReleases";
 import { useAlbumMetadata } from "./albumMetadata";
-import {
-  artistShelves,
-  canonicalArtistName,
-  LAKH_SHELVES,
-  LAKH_SHELF_GROUPS,
-} from "./artistShelves";
+import { canonicalArtistName } from "./artistShelves";
 import {
   LakhCatalog,
   LakhArtist,
@@ -127,72 +122,10 @@ const Filters = styled.div`
     accent-color: #dcb869;
   }
 `;
-const SortSwitch = styled.div`
-  display: inline-flex;
-  padding: 3px;
-  border: 1px solid #555;
-  border-radius: 999px;
-  background: #111;
-  button {
-    border: 0;
-    border-radius: 999px;
-    padding: 6px 12px;
-    background: transparent;
-    color: #aaa;
-    font: inherit;
-    font-size: 14px;
-    cursor: pointer;
-    white-space: nowrap;
-    &:hover {
-      color: #fff;
-    }
-    &[aria-pressed="true"] {
-      background: #ddd;
-      color: #111;
-    }
-    &:focus-visible {
-      outline: 2px solid #ffe45c;
-      outline-offset: 2px;
-    }
-  }
-`;
 const Legend = styled.p`
   margin: 0 0 18px;
   color: #999;
   font-size: 13px;
-`;
-const ShelfFilters = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: 16px 0;
-  button {
-    border: 1px solid #444;
-    border-radius: 4px;
-    background: transparent;
-    color: #bbb;
-    padding: 6px 10px;
-    font: inherit;
-    font-size: 13px;
-    cursor: pointer;
-    small {
-      margin-left: 6px;
-      opacity: 0.65;
-    }
-    &:hover {
-      border-color: #999;
-      color: #fff;
-    }
-    &[aria-pressed="true"] {
-      border-color: #dcb869;
-      background: #30291c;
-      color: #f2d18d;
-    }
-    &:focus-visible {
-      outline: 2px solid #ffe45c;
-      outline-offset: 2px;
-    }
-  }
 `;
 const ArtistGroup = styled.section`
   margin-bottom: 28px;
@@ -222,13 +155,6 @@ const Entries = styled.ul`
   li {
     max-width: 100%;
   }
-`;
-const ArtistResult = styled.li<{ $hasTracks: boolean }>`
-  ${({ $hasTracks }) => $hasTracks && "width: 100%; margin-bottom: 8px;"}
-`;
-const MatchingTracks = styled(Entries)`
-  padding-left: 16px;
-  font-size: 14px;
 `;
 const Entry = styled(Link)<{
   $annotated: boolean;
@@ -552,10 +478,6 @@ const Directory = React.memo(function Directory({
   }, [artist]);
   const [query, setQuery] = useState("");
   const [annotatedOnly, setAnnotatedOnly] = useState(false);
-  const [artistSort, setArtistSort] = useState("name");
-  const [selectedShelf, setSelectedShelf] = useState("all");
-  const [selectedGroup, setSelectedGroup] = useState("all");
-  const [songRange, setSongRange] = useState("all");
   const annotated = useMemo(
     () => new Set(Object.keys(analyses).filter((key) => !!analyses[key])),
     [analyses],
@@ -571,50 +493,6 @@ const Directory = React.memo(function Directory({
         ),
       ),
     );
-  const matchingTracks = new Map<
-    string,
-    { source: LakhArtist; file: string }[]
-  >();
-  if (search && !artist) {
-    directoryArtists.forEach((item) => {
-      matchingTracks.set(
-        item.name,
-        item.members.flatMap((source) =>
-          source.tracks
-            .filter(
-              (file) =>
-                file.toLocaleLowerCase().includes(search) &&
-                (!annotatedOnly ||
-                  annotated.has(lakhAnalysisKey(source.name, file))),
-            )
-            .map((file) => ({ source, file })),
-        ),
-      );
-    });
-  }
-  const matchingArtists = directoryArtists.filter((item) => {
-    const songs = artistSongCounts.get(item.name)!;
-    const inRange =
-      songRange === "all" ||
-      (songRange === "50"
-        ? songs >= 50
-        : songRange === "20"
-        ? songs >= 20 && songs < 50
-        : songRange === "10"
-        ? songs >= 10 && songs < 20
-        : songRange === "5"
-        ? songs >= 5 && songs < 10
-        : songs < 5);
-    return (
-      inRange &&
-      (!annotatedOnly || annotatedSongs(item) > 0) &&
-      (item.name.toLocaleLowerCase().includes(search) ||
-        item.members.some((member) =>
-          member.name.toLocaleLowerCase().includes(search),
-        ) ||
-        !!matchingTracks.get(item.name)?.length)
-    );
-  });
   const visibleTracks =
     artist?.tracks.filter(
       (file) =>
@@ -629,55 +507,12 @@ const Directory = React.memo(function Directory({
         file.toLocaleLowerCase().includes(search),
     ),
   }));
-  const shelfCounts = new Map<string, number>();
-  matchingArtists.forEach((item) =>
-    artistShelves(item.name).forEach((id) =>
-      shelfCounts.set(id, (shelfCounts.get(id) || 0) + 1),
-    ),
-  );
-  const belongsToGroup = (item: DirectoryArtist, group: string) =>
-    group === "all" ||
-    artistShelves(item.name).some((id) =>
-      LAKH_SHELVES.some((shelf) => shelf.id === id && shelf.group === group),
-    );
-  const visibleArtists = matchingArtists
-    .filter(
-      (item) =>
-        belongsToGroup(item, selectedGroup) &&
-        (selectedShelf === "all" ||
-          artistShelves(item.name).includes(
-            selectedShelf as (typeof LAKH_SHELVES)[number]["id"],
-          )),
-    )
-    .sort(
-      (a, b) =>
-        (artistSort === "songs"
-          ? artistSongCounts.get(b.name)! - artistSongCounts.get(a.name)!
-          : 0) || a.name.localeCompare(b.name),
-    );
-  const artistGroups = new Map<string, DirectoryArtist[]>();
-  visibleArtists.forEach((item) => {
-    const memberships = artistShelves(item.name);
-    const shelf =
-      selectedShelf !== "all"
-        ? selectedShelf
-        : selectedGroup === "all"
-        ? memberships[0]
-        : memberships.find((id) =>
-            LAKH_SHELVES.some(
-              (shelf) => shelf.id === id && shelf.group === selectedGroup,
-            ),
-          )!;
-    artistGroups.set(shelf, [...(artistGroups.get(shelf) || []), item]);
-  });
-
   const renderArtist = (item: DirectoryArtist) => {
     const count = annotatedSongs(item);
     const songCount = artistSongCounts.get(item.name)!;
-    const tracks = matchingTracks.get(item.name) || [];
-    const tags = rockPopProfile(item.name).tags;
+    const tags = artistProfile(item.name).tags;
     return (
-      <ArtistResult key={item.name} $hasTracks={tracks.length > 0}>
+      <li key={item.name}>
         <Entry
           to={lakhArtistUrl(item)}
           $folder
@@ -692,35 +527,14 @@ const Directory = React.memo(function Directory({
               : ""
           }`}
         >
-          {highlightMatches(item.name, search)}
+          {item.name}
           {songCount > 1 && (
             <small aria-label={`${songCount} songs, ${count} annotated`}>
               {songCount}
             </small>
           )}
         </Entry>
-        {tracks.length > 0 && (
-          <MatchingTracks aria-label={`Matching tracks by ${item.name}`}>
-            {tracks.map(({ source, file }) => {
-              const hasAnalysis = annotated.has(
-                lakhAnalysisKey(source.name, file),
-              );
-              return (
-                <li key={`${source.name}/${file}`}>
-                  <Entry
-                    to={lakhTrackUrl(source, file)}
-                    $folder={false}
-                    $annotated={hasAnalysis}
-                    title={hasAnalysis ? "Annotated" : undefined}
-                  >
-                    {highlightMatches(file.replace(/\.mid$/i, ""), search)}
-                  </Entry>
-                </li>
-              );
-            })}
-          </MatchingTracks>
-        )}
-      </ArtistResult>
+      </li>
     );
   };
 
@@ -760,123 +574,30 @@ const Directory = React.memo(function Directory({
           )}
         </span>
       </Heading>
-      <Filters>
-        <input
-          type="search"
-          aria-label={artist ? "Search tracks" : "Search artists or tracks"}
-          placeholder={artist ? "Search tracks" : "Search artists or tracks"}
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-        />
-        <label>
+      {artist && (
+        <Filters>
           <input
-            type="checkbox"
-            checked={annotatedOnly}
-            onChange={(event) => setAnnotatedOnly(event.target.checked)}
+            type="search"
+            aria-label="Search tracks"
+            placeholder="Search tracks"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
           />
-          Annotated only
-        </label>
-        {!artist && (
           <label>
-            Songs
-            <select
-              value={songRange}
-              onChange={(event) => setSongRange(event.target.value)}
-            >
-              <option value="all">Any count</option>
-              <option value="50">50+</option>
-              <option value="20">20–49</option>
-              <option value="10">10–19</option>
-              <option value="5">5–9</option>
-              <option value="1">1–4</option>
-            </select>
+            <input
+              type="checkbox"
+              checked={annotatedOnly}
+              onChange={(event) => setAnnotatedOnly(event.target.checked)}
+            />
+            Annotated only
           </label>
-        )}
-        {!artist && (
-          <SortSwitch role="group" aria-label="Sort artists by">
-            <button
-              type="button"
-              aria-pressed={artistSort === "name"}
-              onClick={() => setArtistSort("name")}
-            >
-              Artist name
-            </button>
-            <button
-              type="button"
-              aria-pressed={artistSort === "songs"}
-              onClick={() => setArtistSort("songs")}
-            >
-              Songs (most first)
-            </button>
-          </SortSwitch>
-        )}
-      </Filters>
-      {!artist && (
-        <>
-          <ShelfFilters role="group" aria-label="Browse artist shelves">
-            <button
-              type="button"
-              aria-pressed={selectedGroup === "all"}
-              onClick={() => {
-                setSelectedGroup("all");
-                setSelectedShelf("all");
-              }}
-            >
-              All <small>{matchingArtists.length.toLocaleString()}</small>
-            </button>
-            {LAKH_SHELF_GROUPS.map((group) => (
-              <button
-                key={group.id}
-                type="button"
-                aria-pressed={selectedGroup === group.id}
-                onClick={() => {
-                  setSelectedGroup(group.id);
-                  setSelectedShelf("all");
-                }}
-              >
-                {group.label}
-                <small>
-                  {matchingArtists
-                    .filter((item) => belongsToGroup(item, group.id))
-                    .length.toLocaleString()}
-                </small>
-              </button>
-            ))}
-          </ShelfFilters>
-          {selectedGroup !== "all" && (
-            <ShelfFilters role="group" aria-label="Filter by narrower shelf">
-              <button
-                type="button"
-                aria-pressed={selectedShelf === "all"}
-                onClick={() => setSelectedShelf("all")}
-              >
-                All in this group
-              </button>
-              {LAKH_SHELVES.filter(
-                (shelf) => shelf.group === selectedGroup,
-              ).map((shelf) => (
-                <button
-                  key={shelf.id}
-                  type="button"
-                  aria-pressed={selectedShelf === shelf.id}
-                  onClick={() => setSelectedShelf(shelf.id)}
-                >
-                  {shelf.label}
-                  <small>
-                    {(shelfCounts.get(shelf.id) || 0).toLocaleString()}
-                  </small>
-                </button>
-              ))}
-            </ShelfFilters>
-          )}
-        </>
+        </Filters>
       )}
       {!artist && (
         <Legend>
           <span style={{ color: "#f2d18d" }}>Gold</span> artists have annotated
-          songs · Numbers beside artists show song counts. Artists appear once
-          in All; related shelves can overlap. Known aliases are combined; song
-          counts group matching titles and MIDI versions.
+          songs · Numbers beside artists show song counts. Known aliases are
+          combined; song counts group matching titles and MIDI versions.
         </Legend>
       )}
       {artist ? (
@@ -951,34 +672,16 @@ const Directory = React.memo(function Directory({
             ))}
         </>
       ) : (
-        LAKH_SHELVES.filter(
-          (shelf) =>
-            (selectedShelf === "all" || selectedShelf === shelf.id) &&
-            !!artistGroups.get(shelf.id)?.length,
-        ).map((shelf) => (
-          <ArtistGroup key={shelf.id} aria-labelledby={`shelf-${shelf.id}`}>
-            <h2 id={`shelf-${shelf.id}`}>
-              {shelf.label}
-              <small>
-                {artistGroups.get(shelf.id)!.length.toLocaleString()} artists
-              </small>
-            </h2>
-            {shelf.id === "rock" ? (
-              <RockPopShelf
-                artists={artistGroups.get(shelf.id)!}
-                renderArtist={renderArtist}
-                songCount={(item) => artistSongCounts.get(item.name) || 0}
-              />
-            ) : (
-              <Entries>{artistGroups.get(shelf.id)!.map(renderArtist)}</Entries>
-            )}
-          </ArtistGroup>
-        ))
+        <ArtistTable
+          artists={directoryArtists}
+          renderArtist={renderArtist}
+          songCount={(item) => artistSongCounts.get(item.name) || 0}
+        />
       )}
-      {(artist
-        ? visibleTracks.length +
-          relatedTracks.reduce((sum, group) => sum + group.files.length, 0)
-        : visibleArtists.length) === 0 && <p>No matches.</p>}
+      {artist &&
+        visibleTracks.length +
+          relatedTracks.reduce((sum, group) => sum + group.files.length, 0) ===
+          0 && <p>No matches.</p>}
       <p
         style={{ color: "#888", fontSize: 13, lineHeight: 1.5, marginTop: 24 }}
       >

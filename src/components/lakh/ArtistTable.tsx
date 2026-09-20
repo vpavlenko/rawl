@@ -5,8 +5,6 @@ import { ARTIST_ERAS, ARTIST_GENRES, artistProfile } from "./artistFacets";
 const Matrix = styled.div`
   background: #000;
   width: fit-content;
-  border: 1px solid #383838;
-  border-radius: 4px;
   &:focus-visible {
     outline: 2px solid #ffe45c;
     outline-offset: 2px;
@@ -44,11 +42,16 @@ const Matrix = styled.div`
     z-index: 2;
   }
   tbody th {
+    white-space: pre-line;
+    border-right: 1px solid #888;
+    box-shadow: 1px 0 0 #888;
     position: sticky;
     left: 0;
     z-index: 1;
   }
   thead th:first-child {
+    border-right: 1px solid #888;
+    box-shadow: 0 1px 0 #888, 1px 0 0 #888;
     left: 0;
     z-index: 3;
   }
@@ -116,6 +119,9 @@ const ComposerSection = styled.section`
     font-weight: normal;
   }
 `;
+
+const formatGenreLabel = (label: string) =>
+  label.toLowerCase().replace(/\s*[,&]\s*/g, "\n");
 
 export default function ArtistTable<T extends { name: string }>({
   artists,
@@ -199,7 +205,7 @@ export default function ArtistTable<T extends { name: string }>({
               <tbody>
                 {rows.map((row) => (
                   <tr key={row.id}>
-                    <th scope="row">{row.label}</th>
+                    <th scope="row">{formatGenreLabel(row.label)}</th>
                     {columns.map((column) => {
                       const cell = matches
                         .filter(
@@ -250,7 +256,7 @@ export default function ArtistTable<T extends { name: string }>({
                   const expanded = expandedCells.has(cellKey);
                   return (
                     <tr key={cellKey}>
-                      <th scope="row">{row.label}</th>
+                      <th scope="row">{formatGenreLabel(row.label)}</th>
                       <td
                         colSpan={columns.length}
                         aria-label="Entries without a dated era"

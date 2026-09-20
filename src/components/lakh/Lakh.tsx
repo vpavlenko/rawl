@@ -172,6 +172,18 @@ const Entries = styled.ul`
     max-width: 100%;
   }
 `;
+const SearchResults = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  > li {
+    margin-bottom: 14px;
+  }
+  ul {
+    list-style: none;
+    padding-left: 20px;
+  }
+`;
 const Entry = styled(Link)<{
   $annotated: boolean;
   $folder: boolean;
@@ -497,12 +509,40 @@ const Directory = React.memo(function Directory({
   const [query, setQuery] = useState("");
   const [artistQuery, setArtistQuery] = useState("");
   const artistSearch = artistQuery.trim().toLocaleLowerCase();
+  const matchingSongs = useMemo(() => {
+    const matches = new Map<
+      string,
+      { source: LakhArtist; file: string; title: string }[]
+    >();
+    if (!artistSearch) return matches;
+    directoryArtists.forEach((item) => {
+      const songs = new Map<
+        string,
+        { source: LakhArtist; file: string; title: string }
+      >();
+      item.members.forEach((source) =>
+        source.tracks.forEach((file) => {
+          const title = file.replace(/(?:\.\d+)?\.mid$/i, "");
+          const identity = songIdentity(file);
+          if (
+            title.toLocaleLowerCase().includes(artistSearch) &&
+            !songs.has(identity)
+          ) {
+            songs.set(identity, { source, file, title });
+          }
+        }),
+      );
+      if (songs.size) matches.set(item.name, Array.from(songs.values()));
+    });
+    return matches;
+  }, [directoryArtists, artistSearch]);
   const visibleArtists = directoryArtists.filter(
     (item) =>
       item.name.toLocaleLowerCase().includes(artistSearch) ||
       item.members.some((member) =>
         member.name.toLocaleLowerCase().includes(artistSearch),
-      ),
+      ) ||
+      matchingSongs.has(item.name),
   );
   const [annotatedOnly, setAnnotatedOnly] = useState(false);
   const annotated = useMemo(
@@ -573,6 +613,21 @@ const Directory = React.memo(function Directory({
             </small>
           )}
         </Entry>
+        {!artist && !!matchingSongs.get(item.name)?.length && (
+          <ul>
+            {matchingSongs.get(item.name)!.map(({ source, file, title }) => (
+              <li key={songIdentity(file)}>
+                <Entry
+                  to={lakhTrackUrl(source, file)}
+                  $folder={false}
+                  $annotated={annotated.has(lakhAnalysisKey(source.name, file))}
+                >
+                  {highlightMatches(title, artistSearch)}
+                </Entry>
+              </li>
+            ))}
+          </ul>
+        )}
       </li>
     );
   };
@@ -617,8 +672,8 @@ const Directory = React.memo(function Directory({
         {!artist && (
           <ArtistSearch
             type="search"
-            aria-label="Search artists"
-            placeholder="Search artists"
+            aria-label="Search artists and songs"
+            placeholder="Search artists and songs"
             value={artistQuery}
             onChange={(event) => setArtistQuery(event.target.value)}
           />
@@ -678,7 +733,9 @@ const Directory = React.memo(function Directory({
           />
         </>
       ) : visibleArtists.length === 0 ? (
-        <p role="status">No matching artists.</p>
+        <p role="status">No matching artists or songs.</p>
+      ) : artistSearch ? (
+        <SearchResults>{visibleArtists.map(renderArtist)}</SearchResults>
       ) : (
         <ArtistTable
           artists={visibleArtists}

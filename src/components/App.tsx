@@ -608,9 +608,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
       if (
         e.target instanceof HTMLInputElement &&
         e.target.tagName === "INPUT" &&
-        e.target.type === "text"
+        (e.target.type === "text" || e.target.type === "search")
       )
-        return; // text input has focus
+        return; // text or search input has focus
 
       switch (e.key) {
         case " ":

@@ -3,6 +3,7 @@ import { PitchClass } from "../analysis";
 const CHORD_TYPES: { [key: string]: string } = {
   "4 3": "",
   "3 4": "m",
+  "3 3": "dim",
   "3 4 3": "m7",
   "4 3 3": "7",
   "4 3 4": "maj7",

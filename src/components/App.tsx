@@ -760,9 +760,24 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
   seekForRawl = (seekMs: number) => this.seekRelativeInner(seekMs);
 
+  hoveredVoiceIndex: number | null = null;
+
+  handleVoiceHover = (voiceIndex: number | null) => {
+    this.hoveredVoiceIndex = voiceIndex;
+    this.midiPlayer?.setVoiceMask(
+      voiceIndex === null
+        ? this.state.voiceMask
+        : this.state.voiceMask.map((_, index) => index === voiceIndex),
+    );
+  };
+
   handleSetVoiceMask(voiceMask: VoiceMask) {
     const nextVoiceMask = [...voiceMask];
-    this.midiPlayer?.setVoiceMask(nextVoiceMask);
+    this.midiPlayer?.setVoiceMask(
+      this.hoveredVoiceIndex === null
+        ? nextVoiceMask
+        : nextVoiceMask.map((_, index) => index === this.hoveredVoiceIndex),
+    );
     // Lakh and embedded players consume rawlProps rather than the route props.
     // Keep their controls in sync so subsequent clicks use the current mask.
     this.setState((prevState) => ({
@@ -902,6 +917,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           voiceNames: this.state.voiceNames,
           voiceMask: this.state.voiceMask,
           setVoiceMask: this.handleSetVoiceMask,
+          onVoiceHover: this.handleVoiceHover,
           setDrumVoices: this.handleSetDrumVoices,
           enableManualRemeasuring: this.state.enableManualRemeasuring,
           seek: this.seekForRawl,
@@ -1075,6 +1091,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           { length: numVoices },
           (_, index) => !excludedVoices.has(index),
         );
+        this.hoveredVoiceIndex = null;
         this.midiPlayer.setVoiceMask(voiceMask);
         this.setState({ voiceMask }, () => {
           this.setupMidiPlayer();
@@ -1180,6 +1197,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       voiceNames: this.state.voiceNames,
       voiceMask: this.state.voiceMask,
       setVoiceMask: this.handleSetVoiceMask,
+      onVoiceHover: this.handleVoiceHover,
       setDrumVoices: this.handleSetDrumVoices,
       enableManualRemeasuring: this.state.enableManualRemeasuring,
       seek: this.seekForRawl,

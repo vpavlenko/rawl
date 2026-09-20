@@ -69,18 +69,19 @@ type MouseEventHanlder = (note: Note) => void;
 
 const DrumEmoji: React.FC<{
   isPlayingNow?: boolean;
+  collapsed: boolean;
   startSeconds: number;
   size: number;
   left: number;
   top: number;
   children: React.ReactNode;
-}> = ({ isPlayingNow, startSeconds, size, left, top, children }) => {
+}> = ({ isPlayingNow, collapsed, startSeconds, size, left, top, children }) => {
   const elementRef = React.useRef<HTMLDivElement>(null);
   const animationRef = React.useRef<Animation | null>(null);
   const registerDrum = React.useContext(DrumPlaybackContext);
 
   const pulse = React.useCallback(() => {
-    if (!elementRef.current) return;
+    if (!elementRef.current || collapsed) return;
     animationRef.current?.cancel();
     // Apply the maximum size before paint, then release around the resting center.
     // Let the pulse finish even when the MIDI hit is shorter than 1 second.
@@ -101,7 +102,12 @@ const DrumEmoji: React.FC<{
       ],
       { duration: 1000, easing: "ease-out", fill: "backwards" },
     );
-  }, [size, top]);
+  }, [size, top, collapsed]);
+
+  React.useLayoutEffect(() => {
+    // Stop an in-flight pulse before painting the collapsed timing mark.
+    if (collapsed) animationRef.current?.cancel();
+  }, [collapsed]);
 
   React.useLayoutEffect(() => {
     if (registerDrum) return registerDrum(startSeconds, pulse);
@@ -118,19 +124,21 @@ const DrumEmoji: React.FC<{
       ref={elementRef}
       style={{
         position: "absolute",
-        fontSize: size,
-        height: size,
+        fontSize: collapsed ? 0 : size,
+        height: collapsed ? 1 : size,
         width: size,
         lineHeight: 1,
         overflow: "visible",
         left,
-        top,
+        top: collapsed ? top + size / 2 : top,
+        backgroundColor: collapsed ? "#888" : undefined,
+        pointerEvents: "none",
         fontFamily: "Helvetica, sans-serif",
         color: "white",
         transform: "translateX(-50%)",
         transition: "none",
         whiteSpace: "nowrap",
-        zIndex: 1000,
+        zIndex: collapsed ? 1 : 1000,
       }}
     >
       {children}
@@ -326,14 +334,14 @@ export const getNoteRectangles = (
     const left = secondsToX(note.span[0]);
     const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
 
-    const isOtherPitchedVoice =
-      !isDrum && hoveredVoiceIndex !== null && voiceIndex !== hoveredVoiceIndex;
+    const isOtherVoice =
+      hoveredVoiceIndex !== null && voiceIndex !== hoveredVoiceIndex;
     const isHighlighted =
-      !isOtherPitchedVoice && (!hoveredColors || hoveredColors.includes(color));
+      !isOtherVoice &&
+      (isDrum || !hoveredColors || hoveredColors.includes(color));
     const showFullNote =
-      (!isDrum && voiceIndex === hoveredVoiceIndex) ||
-      (isActive && isHighlighted);
-    const collapsedHeight = isOtherPitchedVoice ? 1 : 0.5;
+      voiceIndex === hoveredVoiceIndex || (isActive && isHighlighted);
+    const collapsedHeight = isOtherVoice ? 1 : 0.5;
 
     // Adjust height and top position for notes under the cursor
     const activeHeight = isPlayingNow ? baseHeight * 2 : baseHeight;
@@ -377,9 +385,10 @@ export const getNoteRectangles = (
     }
 
     return isDrum ? (
-      isActive && (
+      (isActive || voiceIndex === hoveredVoiceIndex) && (
         <DrumEmoji
           key={`nr_${note.id}`}
+          collapsed={!showFullNote}
           isPlayingNow={isPlayingNow}
           startSeconds={note.span[0]}
           size={baseHeight * 1.5}

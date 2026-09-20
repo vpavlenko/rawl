@@ -360,6 +360,7 @@ export type SystemLayoutProps = {
   hoveredVoiceIndex?: number | null;
   showPlaybackCursor?: boolean;
   usePageScroll?: boolean;
+  onVoiceHover?: (voiceIndex: number | null) => void;
 };
 
 export const StackedSystemLayout: React.FC<
@@ -721,17 +722,28 @@ export const MergedSystemLayout: React.FC<
   } = props;
 
   const [hoveredVoiceIndex, setHoveredVoiceIndex] = useState<number | null>(null);
-
-  const flattenedNotes = useMemo(
-    () => [
-      notes
-        .filter(
-          (notes) => notes.length > 0 && (notes[0].isActive || !notes[0].isDrum),
-        )
-        .flat(),
-    ],
-    [notes],
+  const { onVoiceHover } = props;
+  const handleVoiceHover = useCallback(
+    (voiceIndex: number | null) => {
+      setHoveredVoiceIndex(voiceIndex);
+      onVoiceHover?.(voiceIndex);
+    },
+    [onVoiceHover],
   );
+
+  useEffect(() => {
+    const clearHover = () => handleVoiceHover(null);
+    clearHover();
+    window.addEventListener("blur", clearHover);
+    return () => {
+      window.removeEventListener("blur", clearHover);
+      onVoiceHover?.(null);
+    };
+  }, [handleVoiceHover, onVoiceHover, slug, isEmbedded]);
+
+  // Retain muted drum rows so hover previews never change section geometry.
+  // Individual drum hits handle visibility in getNoteRectangles.
+  const flattenedNotes = useMemo(() => [notes.flat()], [notes]);
 
   return (
     <div style={{ position: "relative" }}>
@@ -752,7 +764,7 @@ export const MergedSystemLayout: React.FC<
           voiceNames={voiceNames}
           voiceMask={voiceMask}
           setVoiceMask={setVoiceMask}
-          onVoiceHover={setHoveredVoiceIndex}
+          onVoiceHover={handleVoiceHover}
           drumVoices={props.drumVoices}
           nativeDrumVoices={props.nativeDrumVoices}
           onToggleVoiceDrum={props.onToggleVoiceDrum}

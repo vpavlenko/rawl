@@ -153,6 +153,49 @@ export const resumeAudioContext = async () => {
 
 const C3_MIDI_NUMBER = 48;
 
+export const playScale = (
+  pitches: number[],
+  onNote: (index: number | null) => void,
+): (() => void) => {
+  let cancelled = false;
+  const events: number[] = [];
+  const notes = pitches.map((pitch) =>
+    Tone.Frequency(C3_MIDI_NUMBER + pitch, "midi").toNote(),
+  );
+
+  void (async () => {
+    await Tone.start();
+    await ensureSamplerLoaded();
+    if (cancelled) return;
+
+    if (Tone.Transport.state !== "started") Tone.Transport.start();
+    const start = Tone.Transport.seconds + 0.05;
+    notes.forEach((note, index) => {
+      events.push(Tone.Transport.schedule((time) => {
+        if (cancelled) return;
+        sampler.triggerAttackRelease(note, 0.5, time);
+        Tone.Draw.schedule(() => {
+          if (!cancelled) onNote(index);
+        }, time);
+      }, start + index * 0.5));
+    });
+    events.push(Tone.Transport.schedule((time) => {
+      Tone.Draw.schedule(() => {
+        if (!cancelled) onNote(null);
+      }, time);
+    }, start + notes.length * 0.5));
+  })().catch((error) => {
+    if (!cancelled) onNote(null);
+    console.error("Failed to play scale:", error);
+  });
+
+  return () => {
+    cancelled = true;
+    events.forEach((event) => Tone.Transport.clear(event));
+    notes.forEach((note) => sampler.triggerRelease(note));
+  };
+};
+
 let activeEvents: number[] = [];
 let activeNotes: string[] = [];
 

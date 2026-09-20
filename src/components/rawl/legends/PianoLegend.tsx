@@ -2,7 +2,7 @@ import { faGuitar, faUserGraduate } from "@fortawesome/free-solid-svg-icons";
 import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
-import { playArpeggiatedChord } from "../../../sampler/sampler";
+import { playArpeggiatedChord, playScale } from "../../../sampler/sampler";
 import { PITCH_CLASS_TO_LETTER } from "../AnalysisGrid";
 import { Toggle } from "../Toggle";
 import { FoldButtonWithIcon } from "../editor/FoldButtonWithIcon";
@@ -15,6 +15,27 @@ const MOBILE_PIANO_LEGEND_MEDIA_QUERY = "(max-width: 767px)";
 
 const BLACK_KEYS = [1, 3, -1, 6, 8, 10, -1];
 const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
+
+const SCALE_GROUPS = [
+  {
+    label: "minor",
+    scales: [
+      { label: "phrygian", pitches: [0, 1, 3, 5, 7, 8, 10] },
+      { label: "natural", pitches: [0, 2, 3, 5, 7, 8, 10] },
+      { label: "harmonic", pitches: [0, 2, 3, 5, 7, 8, 11] },
+      { label: "dorian", pitches: [0, 2, 3, 5, 7, 9, 10] },
+    ],
+  },
+  {
+    label: "major",
+    scales: [
+      { label: "mixolydian", pitches: [0, 2, 4, 5, 7, 9, 10] },
+      { label: "natural", pitches: WHITE_KEYS },
+      { label: "lydian", pitches: [0, 2, 4, 6, 7, 9, 11] },
+      { label: "hijaz", pitches: [0, 1, 4, 5, 7, 8, 10] },
+    ],
+  },
+];
 
 const BLACK_KEY_LABELS = ["b2", "b3", -1, "#4", "b6", "b7", -1];
 
@@ -39,7 +60,7 @@ const keyPress = keyframes`
   }
 `;
 
-const PianoKey = styled.div<{ isPlaying?: boolean; isEnabled?: boolean }>`
+const PianoKey = styled.div<{ isPlaying?: boolean; isEnabled?: boolean; $active?: boolean }>`
   position: absolute;
   user-select: none;
   font-size: 16px;
@@ -57,6 +78,11 @@ const PianoKey = styled.div<{ isPlaying?: boolean; isEnabled?: boolean }>`
   box-sizing: border-box;
   transform-origin: top;
   opacity: ${(props) => (props.isEnabled ? 1 : 0)};
+  ${(props) => props.$active && css`
+    transform: scale(1.2);
+    z-index: 4 !important;
+    opacity: 1;
+  `}
   ${(props) =>
     props.isPlaying &&
     css`
@@ -64,14 +90,18 @@ const PianoKey = styled.div<{ isPlaying?: boolean; isEnabled?: boolean }>`
     `}
 `;
 
-const ScaleLabel = styled.span`
+const ScaleLabel = styled.button`
+  background: none;
+  border: none;
+  font: inherit;
   cursor: pointer;
   padding: 2px 6px;
   border-radius: 4px;
   transition: background-color 0.2s;
   color: gray;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     color: white;
   }
 `;
@@ -85,9 +115,11 @@ export const PianoLegend: React.FC<{
   currentTonic?: number;
   inline?: boolean;
   enabledPitches?: number[];
+  activePitch?: number | null;
 }> = ({
   currentTonic = 0,
   inline = false,
+  activePitch = null,
   enabledPitches = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
 }) => {
   const [playingNotes, setPlayingNotes] = React.useState<Set<number>>(
@@ -133,6 +165,7 @@ export const PianoLegend: React.FC<{
               }
               isEnabled={inline || enabledPitches.includes(WHITE_KEYS[i])}
               isPlaying={playingNotes.has(WHITE_KEYS[i])}
+              $active={activePitch === WHITE_KEYS[i]}
               style={{
                 top: rowDistance,
                 left: (keyWidth + padding) * i,
@@ -182,6 +215,7 @@ export const PianoLegend: React.FC<{
                 }
                 isEnabled={inline || enabledPitches.includes(BLACK_KEYS[i])}
                 isPlaying={playingNotes.has(BLACK_KEYS[i])}
+                $active={activePitch === BLACK_KEYS[i]}
                 style={{
                   top: 0,
                   left: (keyWidth + padding) * (i + 0.5),
@@ -228,18 +262,29 @@ export const FoldablePianoLegend: React.FC<{
     isMobileLegend ? "showLegendMobile" : "showLegend",
     !isMobileLegend,
   );
-  const [hoveredScale, setHoveredScale] = React.useState<
-    "major" | "minor" | null
-  >(null);
+  const [hoveredScale, setHoveredScale] = React.useState<number[] | null>(null);
+  const [activePitch, setActivePitch] = React.useState<number | null>(null);
+  const stopScale = React.useRef<(() => void) | null>(null);
+  React.useEffect(() => {
+    setActivePitch(null);
+    return () => {
+      stopScale.current?.();
+    };
+  }, [currentTonic, showLegend]);
+
+  const handlePlayScale = React.useCallback((pitches: number[]) => {
+    stopScale.current?.();
+    setActivePitch(null);
+    const sequence = [...pitches, 12];
+    stopScale.current = playScale(
+      sequence.map((pitch) => pitch + (currentTonic ?? 0)),
+      (index) => setActivePitch(index === null ? null : sequence[index]),
+    );
+  }, [currentTonic]);
   const [showGuitarChords, setShowGuitarChords] = React.useState(false);
 
   const getEnabledPitches = () => {
-    if (hoveredScale === "major") {
-      return WHITE_KEYS;
-    } else if (hoveredScale === "minor") {
-      return [0, 2, 3, 5, 7, 8, 10];
-    }
-    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    return hoveredScale ?? [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   };
 
   const chords = TOP_100_COMPOSERS.find(({ slug: _slug }) => slug === _slug)
@@ -316,6 +361,7 @@ export const FoldablePianoLegend: React.FC<{
                         key={`piano-${index}`}
                         currentTonic={(currentTonic ?? 0) + index * 12}
                         enabledPitches={getEnabledPitches()}
+                        activePitch={activePitch === null ? null : activePitch - index * 12}
                       />
                     ),
                   )}
@@ -325,23 +371,46 @@ export const FoldablePianoLegend: React.FC<{
                     overflow: "visible",
                     color: "white",
                     display: "flex",
-                    gap: "16px",
-                    justifyContent: "center",
+                    flexDirection: "column",
+                    gap: "8px",
+                    alignItems: "stretch",
                     marginTop: "8px",
                   }}
                 >
-                  <ScaleLabel
-                    onMouseEnter={() => setHoveredScale("major")}
-                    onMouseLeave={() => setHoveredScale(null)}
-                  >
-                    major
-                  </ScaleLabel>
-                  <ScaleLabel
-                    onMouseEnter={() => setHoveredScale("minor")}
-                    onMouseLeave={() => setHoveredScale(null)}
-                  >
-                    natural minor
-                  </ScaleLabel>
+                  {SCALE_GROUPS.map((group) => (
+                    <div
+                      key={group.label}
+                      style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                    >
+                      <div
+                        className={`noteColor_${group.label === "minor" ? 3 : 4}_colors`}
+                        style={{
+                          fontSize: "12px",
+                          flexShrink: 0,
+                          padding: "2px 4px",
+                          boxSizing: "border-box",
+                          borderRadius: "4px",
+                          color: group.label === "minor" ? "white" : "black",
+                        }}
+                      >
+                        {group.label}
+                      </div>
+                      <div style={{ display: "flex" }}>
+                        {group.scales.map((scale) => (
+                          <ScaleLabel
+                            key={scale.label}
+                            type="button"
+                            aria-label={`Play ${scale.label} ${group.label} scale`}
+                            onClick={() => handlePlayScale(scale.pitches)}
+                            onMouseEnter={() => setHoveredScale(scale.pitches)}
+                            onMouseLeave={() => setHoveredScale(null)}
+                          >
+                            {scale.label}
+                          </ScaleLabel>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -376,6 +445,8 @@ export const FoldablePianoLegend: React.FC<{
     chords,
     setShowLegend,
     hoveredScale,
+    activePitch,
+    handlePlayScale,
     showGuitarChords,
   ]);
 

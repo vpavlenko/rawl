@@ -6,7 +6,7 @@ import { ADMIN_USER_ID } from "./App";
 import { AppContext } from "./AppContext";
 import SignIn from "./SignIn";
 
-const HEADER_HEIGHT = "30px";
+export const HEADER_HEIGHT = "30px";
 
 const HeaderContainer = styled.div`
   display: flex;

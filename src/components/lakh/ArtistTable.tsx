@@ -69,7 +69,8 @@ const Matrix = styled.div`
   }
   button {
     border: 0;
-    padding: 5px 0;
+    padding: 0;
+    margin-left: 6px;
     background: transparent;
     color: #999;
     font: inherit;
@@ -91,7 +92,7 @@ const Artists = styled.ul<{ $table?: boolean }>`
   list-style: none;
   padding: 0;
   margin: 0;
-  display: ${({ $table }) => ($table ? "block" : "flex")};
+  display: ${({ $table }) => ($table ? "inline-block" : "flex")};
   flex-wrap: wrap;
   gap: 0 20px;
   li {

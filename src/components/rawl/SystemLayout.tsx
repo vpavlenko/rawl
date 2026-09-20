@@ -359,6 +359,7 @@ export type SystemLayoutProps = {
   setHoveredColors: (colors: string[] | null) => void;
   hoveredVoiceIndex?: number | null;
   showPlaybackCursor?: boolean;
+  usePageScroll?: boolean;
 };
 
 export const StackedSystemLayout: React.FC<
@@ -384,6 +385,7 @@ export const StackedSystemLayout: React.FC<
   setHoveredColors,
   hoveredVoiceIndex = null,
   showPlaybackCursor = true,
+  usePageScroll = false,
 }) => {
   const [noteHeight, setNoteHeight] = useState<number>(3);
   const [secondWidth, setSecondWidth] = useState<number>(40);
@@ -590,7 +592,7 @@ export const StackedSystemLayout: React.FC<
           padding: 0,
           position: "relative",
           overflowX: "scroll",
-          overflowY: "scroll",
+          overflowY: usePageScroll ? "hidden" : "scroll",
           width: "100%",
           backgroundColor: "black",
         }}

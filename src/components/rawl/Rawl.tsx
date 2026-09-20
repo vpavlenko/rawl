@@ -144,6 +144,7 @@ export type RawlProps = {
   showPlaybackCursor?: boolean;
   measureStart?: number;
   isEmbedded?: boolean;
+  usePageScroll?: boolean;
   editorRef?: React.RefObject<any>;
   navigateToSourceLocation?: (sourceLocation: {
     row: number;
@@ -167,6 +168,7 @@ const Rawl: React.FC<RawlProps> = ({
   showPlaybackCursor = true,
   measureStart,
   isEmbedded = false,
+  usePageScroll = false,
   editorRef,
   navigateToSourceLocation,
   onEject,
@@ -806,9 +808,9 @@ const Rawl: React.FC<RawlProps> = ({
         position: "relative",
         display: "flex",
         flexDirection: "column",
-        height: "100%",
+        height: usePageScroll ? "auto" : "100%",
         paddingLeft: "30px",
-        overflow: "hidden",
+        overflow: usePageScroll ? "visible" : "hidden",
       }}
     >
       {isEmbedded && (
@@ -857,7 +859,7 @@ const Rawl: React.FC<RawlProps> = ({
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
-          overflow: "hidden",
+          overflow: usePageScroll ? "visible" : "hidden",
         }}
       >
         <div
@@ -866,8 +868,8 @@ const Rawl: React.FC<RawlProps> = ({
             margin: 0,
             padding: 0,
             position: "relative",
-            overflowX: "scroll",
-            overflowY: "scroll",
+            overflowX: usePageScroll ? "visible" : "scroll",
+            overflowY: usePageScroll ? "visible" : "scroll",
             flexGrow: 1,
             backgroundColor: "black",
           }}
@@ -953,6 +955,7 @@ const Rawl: React.FC<RawlProps> = ({
                 {...systemLayoutProps}
                 enableManualRemeasuring={enableManualRemeasuring}
                 isEmbedded={isEmbedded}
+                usePageScroll={usePageScroll}
               />
             </DrumPlaybackContext.Provider>
           ) : (

@@ -452,6 +452,7 @@ export default function Lakh({ ready, loadTrack }: Props) {
         rawlProps && (
           <Rawl
             {...rawlProps}
+            usePageScroll
             key={analysisKey}
             savedAnalysis={analyses[analysisKey] ?? null}
           />

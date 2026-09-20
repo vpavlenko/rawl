@@ -86,9 +86,6 @@ const AppHeader: React.FC = () => {
         >
           Rawl
         </HeaderLink>
-        <HeaderLink to="/blog/" style={getLinkStyle("/blog")}>
-          Blog
-        </HeaderLink>
         <HeaderLink to="/corpus/" style={getLinkStyle("/corpus")}>
           Pieces
         </HeaderLink>
@@ -100,6 +97,9 @@ const AppHeader: React.FC = () => {
         </HeaderLink>
         <HeaderLink to="/e/" style={getLinkStyle("/e")}>
           Editor
+        </HeaderLink>
+        <HeaderLink to="/blog/" style={getLinkStyle("/blog")}>
+          Blog
         </HeaderLink>
         {/* <HeaderLink to="/d/" style={getLinkStyle("/d")}>
           Decompose
@@ -120,6 +120,14 @@ const AppHeader: React.FC = () => {
           rel="noreferrer"
         >
           Layouts
+        </ExternalLink>
+        <ExternalLink
+          href="https://vpavlenko.github.io/d/"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Decompose"
+        >
+          🔮
         </ExternalLink>
         <ExternalLink
           href="https://github.com/vpavlenko/study-music"

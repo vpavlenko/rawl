@@ -1,0 +1,298 @@
+{
+  "artist": "ABBA",
+  "status": "processed",
+  "totalSongs": 51,
+  "matched": [
+    {
+      "song": "Andante, Andante",
+      "album": "Super Trouper",
+      "albumId": "24944755-2f68-3778-974e-f572a9e30108",
+      "track": 4
+    },
+    {
+      "song": "Angeleyes",
+      "album": "Voulez‐vous",
+      "albumId": "7401fb97-46e6-32cd-bd59-6c49debaa3ae",
+      "track": 4
+    },
+    {
+      "song": "Another Town, Another Train",
+      "album": "Ring Ring",
+      "albumId": "506764b9-89d4-357a-8c66-a9d0bf526fd1",
+      "track": 11
+    },
+    {
+      "song": "Chiquitita",
+      "album": "Voulez‐vous",
+      "albumId": "7401fb97-46e6-32cd-bd59-6c49debaa3ae",
+      "track": 8
+    },
+    {
+      "song": "Dance (While the Music Still Goes on)",
+      "album": "Waterloo",
+      "albumId": "1f78ea53-5e9c-46b6-8cd4-9d8a9c547a85",
+      "track": 6
+    },
+    {
+      "song": "Dancing Queen",
+      "album": "Arrival",
+      "albumId": "e464e167-83ab-3b59-88bd-262cf552056e",
+      "track": 2
+    },
+    {
+      "song": "Does Your Mother Know",
+      "album": "Voulez‐vous",
+      "albumId": "7401fb97-46e6-32cd-bd59-6c49debaa3ae",
+      "track": 6
+    },
+    {
+      "song": "Eagle",
+      "album": "The Album",
+      "albumId": "819a08ac-170e-3c0e-8a1d-8e3138d56f77",
+      "track": 1
+    },
+    {
+      "song": "Fernando",
+      "album": "Fernando",
+      "albumId": "e2559dbb-e1dc-3eff-b88c-37bab8e46133",
+      "track": 1
+    },
+    {
+      "song": "Gimme! Gimme! Gimme!",
+      "album": "Gimme! Gimme! Gimme!",
+      "albumId": "f5216018-b26a-33b1-baa6-ed69c41be17e",
+      "track": 1
+    },
+    {
+      "song": "Hasta Manana",
+      "album": "Waterloo",
+      "albumId": "1f78ea53-5e9c-46b6-8cd4-9d8a9c547a85",
+      "track": 4
+    },
+    {
+      "song": "Hey, Hey Helen",
+      "album": "ABBA",
+      "albumId": "5ee43a5f-94eb-3f0c-a1ec-e0476251d95f",
+      "track": 2
+    },
+    {
+      "song": "Hole In Your Soul",
+      "album": "The Album",
+      "albumId": "819a08ac-170e-3c0e-8a1d-8e3138d56f77",
+      "track": 6
+    },
+    {
+      "song": "Honey Honey",
+      "album": "Waterloo",
+      "albumId": "1f78ea53-5e9c-46b6-8cd4-9d8a9c547a85",
+      "track": 7
+    },
+    {
+      "song": "I Do, I Do, I Do, I Do",
+      "album": "ABBA",
+      "albumId": "5ee43a5f-94eb-3f0c-a1ec-e0476251d95f",
+      "track": 7
+    },
+    {
+      "song": "I Have a Dream",
+      "album": "Voulez‐vous",
+      "albumId": "7401fb97-46e6-32cd-bd59-6c49debaa3ae",
+      "track": 3
+    },
+    {
+      "song": "I Wonder (Departure)",
+      "album": "The Album",
+      "albumId": "819a08ac-170e-3c0e-8a1d-8e3138d56f77",
+      "track": 8
+    },
+    {
+      "song": "I'm a Marionette",
+      "album": "The Album",
+      "albumId": "819a08ac-170e-3c0e-8a1d-8e3138d56f77",
+      "track": 9
+    },
+    {
+      "song": "I've Been Waiting For You",
+      "album": "ABBA",
+      "albumId": "5ee43a5f-94eb-3f0c-a1ec-e0476251d95f",
+      "track": 10
+    },
+    {
+      "song": "Kisses of Fire",
+      "album": "Voulez‐vous",
+      "albumId": "7401fb97-46e6-32cd-bd59-6c49debaa3ae",
+      "track": 10
+    },
+    {
+      "song": "Knowing Me, Knowing You",
+      "album": "Arrival",
+      "albumId": "e464e167-83ab-3b59-88bd-262cf552056e",
+      "track": 5
+    },
+    {
+      "song": "Lay All Your Love on Me",
+      "album": "Super Trouper",
+      "albumId": "24944755-2f68-3778-974e-f572a9e30108",
+      "track": 9
+    },
+    {
+      "song": "Like an Angel Passing Through My Room",
+      "album": "The Visitors",
+      "albumId": "76bb9f69-b5c1-31be-9bbf-b4b3d98988b0",
+      "track": 9
+    },
+    {
+      "song": "Lovers (Live a Little Longer)",
+      "album": "Voulez‐vous",
+      "albumId": "7401fb97-46e6-32cd-bd59-6c49debaa3ae",
+      "track": 9
+    },
+    {
+      "song": "Mamma Mia",
+      "album": "ABBA",
+      "albumId": "5ee43a5f-94eb-3f0c-a1ec-e0476251d95f",
+      "track": 1
+    },
+    {
+      "song": "Money, Money, Money",
+      "album": "Arrival",
+      "albumId": "e464e167-83ab-3b59-88bd-262cf552056e",
+      "track": 6
+    },
+    {
+      "song": "Move On",
+      "album": "The Album",
+      "albumId": "819a08ac-170e-3c0e-8a1d-8e3138d56f77",
+      "track": 5
+    },
+    {
+      "song": "My Love My Life",
+      "album": "Arrival",
+      "albumId": "e464e167-83ab-3b59-88bd-262cf552056e",
+      "track": 3
+    },
+    {
+      "song": "Name of the Game",
+      "album": "The Album",
+      "albumId": "819a08ac-170e-3c0e-8a1d-8e3138d56f77",
+      "track": 4
+    },
+    {
+      "song": "Nina Pretty Ballerina",
+      "album": "Ring Ring",
+      "albumId": "506764b9-89d4-357a-8c66-a9d0bf526fd1",
+      "track": 6
+    },
+    {
+      "song": "One Of Us",
+      "album": "The Visitors",
+      "albumId": "76bb9f69-b5c1-31be-9bbf-b4b3d98988b0",
+      "track": 6
+    },
+    {
+      "song": "Rock Me",
+      "album": "ABBA",
+      "albumId": "5ee43a5f-94eb-3f0c-a1ec-e0476251d95f",
+      "track": 8
+    },
+    {
+      "song": "S.O.S",
+      "album": "ABBA",
+      "albumId": "5ee43a5f-94eb-3f0c-a1ec-e0476251d95f",
+      "track": 4
+    },
+    {
+      "song": "Summer Night City",
+      "album": "Summer Night City",
+      "albumId": "a908ee25-5e74-3de2-a8a2-6bf26bdf8396",
+      "track": 1
+    },
+    {
+      "song": "Super Trooper",
+      "album": "Super Trouper",
+      "albumId": "24944755-2f68-3778-974e-f572a9e30108",
+      "track": 1
+    },
+    {
+      "song": "Super Trouper",
+      "album": "Super Trouper",
+      "albumId": "24944755-2f68-3778-974e-f572a9e30108",
+      "track": 1
+    },
+    {
+      "song": "Take a Chance on Me",
+      "album": "The Album",
+      "albumId": "819a08ac-170e-3c0e-8a1d-8e3138d56f77",
+      "track": 2
+    },
+    {
+      "song": "Thank You for the Music",
+      "album": "The Album",
+      "albumId": "819a08ac-170e-3c0e-8a1d-8e3138d56f77",
+      "track": 7
+    },
+    {
+      "song": "That's Me",
+      "album": "Arrival",
+      "albumId": "e464e167-83ab-3b59-88bd-262cf552056e",
+      "track": 7
+    },
+    {
+      "song": "The Visitors",
+      "album": "The Visitors",
+      "albumId": "76bb9f69-b5c1-31be-9bbf-b4b3d98988b0",
+      "track": 1
+    },
+    {
+      "song": "The Winner Takes It All",
+      "album": "Super Trouper",
+      "albumId": "24944755-2f68-3778-974e-f572a9e30108",
+      "track": 2
+    },
+    {
+      "song": "Tiger",
+      "album": "Arrival",
+      "albumId": "e464e167-83ab-3b59-88bd-262cf552056e",
+      "track": 9
+    },
+    {
+      "song": "Two for the Price of One",
+      "album": "The Visitors",
+      "albumId": "76bb9f69-b5c1-31be-9bbf-b4b3d98988b0",
+      "track": 7
+    },
+    {
+      "song": "Voulez Vous",
+      "album": "Voulez‐vous",
+      "albumId": "7401fb97-46e6-32cd-bd59-6c49debaa3ae",
+      "track": 2
+    },
+    {
+      "song": "Waterloo",
+      "album": "Waterloo",
+      "albumId": "1f78ea53-5e9c-46b6-8cd4-9d8a9c547a85",
+      "track": 12
+    },
+    {
+      "song": "Why Did It Have to Be Me",
+      "album": "Arrival",
+      "albumId": "e464e167-83ab-3b59-88bd-262cf552056e",
+      "track": 8
+    }
+  ],
+  "unmatched": [
+    "Hamlet III, Part 2",
+    "I Am the City",
+    "Just Like That (Full Sax version) (1983)",
+    "Medley",
+    "Opus 10"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Hamlet III, Part 2": [],
+    "I Am the City": [],
+    "Just Like That (Full Sax version) (1983)": [],
+    "Medley": [],
+    "Opus 10": []
+  }
+}

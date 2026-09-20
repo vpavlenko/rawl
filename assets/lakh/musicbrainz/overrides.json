@@ -1,4 +1,15 @@
 {
+  "ABBA": {
+    "mbid": "d87e52c5-bb8d-4da8-b941-9f4928627dc8",
+    "country": "SE",
+    "songs": {
+      "Gimme! Gimme! Gimme!": { "title": "Gimme! Gimme! Gimme! (A Man After Midnight)" },
+      "I Do, I Do, I Do, I Do": { "title": "I Do, I Do, I Do, I Do, I Do" },
+      "Name of the Game": { "title": "The Name of the Game" },
+      "Super Trooper": { "title": "Super Trouper" },
+      "Waterloo": { "title": "Waterloo (English version)" }
+    }
+  },
   "The Beatles": {
     "skip": "Existing curated album assignments"
   },

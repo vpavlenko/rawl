@@ -147,18 +147,6 @@ const Filters = styled.div`
     padding: 5px;
     font: inherit;
   }
-  label {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  input[type="checkbox"] {
-    margin: 0;
-    accent-color: #dcb869;
-  }
 `;
 const Entries = styled.ul`
   list-style: none;
@@ -545,7 +533,6 @@ const Directory = React.memo(function Directory({
       ) ||
       matchingSongs.has(item.name),
   );
-  const [annotatedOnly, setAnnotatedOnly] = useState(false);
   const annotated = useMemo(
     () => new Set(Object.keys(analyses).filter((key) => !!analyses[key])),
     [analyses],
@@ -589,9 +576,7 @@ const Directory = React.memo(function Directory({
     );
   };
   const visibleTracks = Array.from(trackSources.keys()).filter(
-    (file) =>
-      (!annotatedOnly || isAnnotatedTrack(file)) &&
-      file.toLocaleLowerCase().includes(search),
+    (file) => file.toLocaleLowerCase().includes(search),
   );
   const renderArtist = (item: DirectoryArtist) => {
     const count = annotatedSongs(item);
@@ -689,14 +674,6 @@ const Directory = React.memo(function Directory({
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
-          <label>
-            <input
-              type="checkbox"
-              checked={annotatedOnly}
-              onChange={(event) => setAnnotatedOnly(event.target.checked)}
-            />
-            Annotated only
-          </label>
         </Filters>
       )}
       {artist ? (

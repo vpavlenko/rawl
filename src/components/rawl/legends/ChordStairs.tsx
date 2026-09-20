@@ -268,6 +268,11 @@ const ChordStairs: React.FC<{
       const guitarChord = convertChordToGuitarChord(
         ((root + currentTonic) % 12) as PitchClass,
         intervalString,
+        {
+          tonic: currentTonic,
+          romanNumeral: name,
+          minor: title.toLowerCase().includes("minor") || chords.includes("i"),
+        },
       );
 
       return guitarChord || formatChordName(name);

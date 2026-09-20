@@ -1,0 +1,1065 @@
+{
+  "artist": "Pooh",
+  "artistId": "3d6563ff-0dc7-4306-a05f-d68ad7a02964",
+  "groups": [
+    {
+      "id": "b2525306-ff11-3671-907c-90fe5b9a8c07",
+      "releaseId": "2f3fcd40-66ff-4e3d-a03f-fc6b54ce104d",
+      "title": "Contrasto",
+      "date": "1968",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b2525306-ff11-3671-907c-90fe5b9a8c07/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Piccola Katy.mid",
+            "Piccola Katy.1.mid",
+            "Piccola Katy.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "In silenzio.mid",
+            "In silenzio.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e6cad47f-b378-3e43-91e0-3712e5a16214",
+      "releaseId": "3b5fc8f1-dc5e-452a-a261-8ca99614be29",
+      "title": "Memorie",
+      "date": "1970",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e6cad47f-b378-3e43-91e0-3712e5a16214/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Mary Ann.mid",
+            "Mary Ann.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5eb5c062-69e9-3095-b4fb-d995cbad3561",
+      "releaseId": "0fb992fc-3a79-4210-9eb2-e853a7b27832",
+      "title": "Opera prima",
+      "date": "1971",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5eb5c062-69e9-3095-b4fb-d995cbad3561/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Pensiero.mid",
+            "Pensiero.1.mid",
+            "Pensiero.2.mid",
+            "Pensiero.3.mid",
+            "Pensiero.4.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Un caffe da Jennifer.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Tutto alle tre.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "A un minuto dall'amore.mid",
+            "A un minuto dall'amore.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Tanta voglia di lei.mid",
+            "Tanta voglia di lei.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "51881fb1-5703-3233-95a9-c8d04b79ec16",
+      "releaseId": "96a4ef27-80e6-4f97-b54b-fdc7f1096719",
+      "title": "Alessandra",
+      "date": "1972",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/51881fb1-5703-3233-95a9-c8d04b79ec16/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Noi due nel mondo e nell'anima.mid",
+            "Noi due nel mondo e nell'anima.1.mid",
+            "Noi due nel mondo e nell'anima.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Col tempo, con l'eta e nel vento.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Cosa si puo dire di te?.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Quando una lei va via.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Alessandra.mid",
+            "Alessandra.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "41366b71-77dd-3cde-b6de-006ed0404c9c",
+      "releaseId": "51c8ba50-8774-46e2-a714-6c506c0c42ae",
+      "title": "Parsifal",
+      "date": "1973",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/41366b71-77dd-3cde-b6de-006ed0404c9c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "L'anno, il posto, l'ora.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Solo cari ricordi.mid",
+            "Solo cari ricordi.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Io e te per altri giorni.mid",
+            "Io e te per altri giorni.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Lei e lei.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Come si fa.mid",
+            "Come si fa.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Infiniti noi.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Dialoghi.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "22e19bd7-132a-3822-bb3f-06f1eb88d16d",
+      "releaseId": "be153fbf-89e6-4e48-9e41-fac1fd836d72",
+      "title": "Forse ancora poesia",
+      "date": "1975",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/22e19bd7-132a-3822-bb3f-06f1eb88d16d/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Ninna nanna.mid",
+            "Ninna nanna.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Quinta stagione.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Cara bellissima.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "61a5dda0-f448-3b6a-8148-c3685ee57eb3",
+      "releaseId": "3e55fb49-bd9b-4c3d-a499-5ee8b225abe0",
+      "title": "Un po’ del nostro tempo migliore",
+      "date": "1975-04-14",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/61a5dda0-f448-3b6a-8148-c3685ee57eb3/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Credo.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Una storia che fa ridere.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Fantasia.mid",
+            "Fantasia.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Eleonora mia madre.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a9a0617a-c7f0-3759-a28b-ea906fee6d72",
+      "releaseId": "09ac043a-abfb-4903-93f7-179e1786d638",
+      "title": "Poohlover",
+      "date": "1976-07-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a9a0617a-c7f0-3759-a28b-ea906fee6d72/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Pierre.mid",
+            "Pierre.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Storia di una lacrima.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Linda.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Padre del fuoco padre del tuono padre del nulla.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e046fa04-8b0a-3158-9934-6e80a192fb3b",
+      "releaseId": "c51e11f7-d7de-4d61-8017-e5930a063645",
+      "title": "Rotolando respirando",
+      "date": "1977",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e046fa04-8b0a-3158-9934-6e80a192fb3b/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "In diretta nel vento.mid",
+            "In diretta nel vento.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Che ne fai di te.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Rotolando respirando.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Dammi solo un minuto.mid",
+            "Dammi solo un minuto.1.mid",
+            "Dammi solo un minuto.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2470174c-f0e8-34f9-b164-3b733ef4aac5",
+      "releaseId": "7b8eda24-bf2f-4442-9f5a-216332d7b51a",
+      "title": "Boomerang",
+      "date": "1978",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2470174c-f0e8-34f9-b164-3b733ef4aac5/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Ci pensero domani.mid",
+            "Ci pensero domani.1.mid",
+            "Ci pensero domani.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Cercami.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Air India.mid",
+            "Air India.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Quaderno di donna.mid",
+            "Quaderno di donna.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Classe '58.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b57b5a23-d9bf-3b18-a694-5759e191dd72",
+      "releaseId": "64ca9ae2-f951-44b2-ac4a-8144f7279b2f",
+      "title": "Viva",
+      "date": "1979",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b57b5a23-d9bf-3b18-a694-5759e191dd72/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Io sono vivo.mid",
+            "Io sono vivo.1.mid",
+            "Io sono vivo.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Notte a sorpresa.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "...in concerto.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Cosi ti vorrei.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Susanna e basta.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "L'ultima notte di caccia.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bc4444d5-473c-3d62-9b01-a18df16dc126",
+      "releaseId": "8f73ab71-1ea4-44e6-846d-307fd40a7c82",
+      "title": "...Stop",
+      "date": "1980",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/bc4444d5-473c-3d62-9b01-a18df16dc126/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Caro me stesso mio.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Stagione di vento.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Cantero per te.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Aria di mezzanotte.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Gatto di strada.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Inca.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4af9605a-002f-3a94-bdf7-36ebf9ff6ed7",
+      "releaseId": "79bb6a98-b17b-4c64-8b11-154c46bf3cc0",
+      "title": "Buona fortuna",
+      "date": "1981",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4af9605a-002f-3a94-bdf7-36ebf9ff6ed7/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Buona fortuna.mid",
+            "Buona fortuna.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Lascia che sia.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Compleanno di maggio.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Fuori stagione.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Dove sto domani.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Fotografie.mid",
+            "Fotografie.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Chi fermera la musica.mid",
+            "Chi fermera la musica.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a69ad131-2f37-3364-a1d1-30c8d7adac87",
+      "releaseId": "006001d3-3450-4759-803d-75213f4b9125",
+      "title": "Tropico del nord",
+      "date": "1983",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a69ad131-2f37-3364-a1d1-30c8d7adac87/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Cara sconosciuta.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Cosa dici di me.mid",
+            "Cosa dici di me.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Lettera da Berlino est.mid",
+            "Lettera da Berlino est.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f2a9b329-1e3d-3dbf-a07b-6db0cef50190",
+      "releaseId": "817661f2-89d5-4d38-ba1f-9d0db37a028b",
+      "title": "Aloha",
+      "date": "1984",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f2a9b329-1e3d-3dbf-a07b-6db0cef50190/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ragazzi Del Mondo.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Io Vicino Io Lontano.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Stella Del Sud.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Come Saremo.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Il Giorno Prima.mid",
+            "Il Giorno Prima.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "73bdae12-8ced-37e1-adf0-f12fbda2556d",
+      "releaseId": "d5f652ba-dfa6-4497-8731-b81bd182243e",
+      "title": "Asia non Asia",
+      "date": "1985-06-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/73bdae12-8ced-37e1-adf0-f12fbda2556d/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Gli anni piu importanti della nostra vita.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Asia non Asia.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "08110736-6e16-396a-ac15-3ded51eea9c6",
+      "releaseId": "53f12578-c240-4622-ba62-f8386b2a379e",
+      "title": "Giorni infiniti",
+      "date": "1986",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/08110736-6e16-396a-ac15-3ded51eea9c6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Giorni infiniti.mid",
+            "Giorni infiniti.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Terry B.mid",
+            "Terry B.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Amore e dintorni.mid",
+            "Amore e dintorni.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Goodbye.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e4428c18-f487-35c5-99de-d9050c1aa1ff",
+      "releaseId": "cbaa2de6-4f39-4c1a-a1ad-5fd098276584",
+      "title": "Il colore dei pensieri",
+      "date": "1987",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e4428c18-f487-35c5-99de-d9050c1aa1ff/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Mai dire mai.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Santa Lucia.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Tu dov'eri.mid",
+            "Tu dov'eri.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Citta di donne.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Siamo ancora sulla strada.mid",
+            "Siamo ancora sulla strada.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e21988b2-5266-36a7-901f-99a624697efc",
+      "releaseId": "36994886-dfd7-4a8f-828a-e806b8dbdb92",
+      "title": "Oasi",
+      "date": "1988",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e21988b2-5266-36a7-901f-99a624697efc/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Che vuoi che sia.mid",
+            "Che vuoi che sia.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Due donne.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e9e3c48e-ddbf-30b1-85a6-697acac4b9b4",
+      "releaseId": "79e7a8d1-91e0-4f7d-9f7b-4fe3246fac61",
+      "title": "Uomini soli",
+      "date": "1990-03-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e9e3c48e-ddbf-30b1-85a6-697acac4b9b4/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Uomini soli.mid",
+            "Uomini soli.1.mid",
+            "Uomini soli.2.mid",
+            "Uomini soli.3.mid",
+            "Uomini soli.4.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "L'altra donna.mid",
+            "L'altra donna.1.mid",
+            "L'altra donna.2.mid",
+            "L'altra donna.3.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Donne italiane.mid",
+            "Donne italiane.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Giulia si sposa.mid",
+            "Giulia si sposa.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d14474d9-7520-3168-bd95-81046a656688",
+      "releaseId": "789f8d83-af30-4ec9-8e60-097b3750f40f",
+      "title": "Il cielo è blu sopra le nuvole",
+      "date": "1992",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d14474d9-7520-3168-bd95-81046a656688/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Il cielo e blu sopra le nuvole.mid",
+            "Il cielo e blu sopra le nuvole.1.mid",
+            "Il cielo e blu sopra le nuvole.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Balliamo balliamo.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Stare senza di te.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "La mia faccia.mid",
+            "La mia faccia.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Maria Marea.mid",
+            "Maria Marea.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "50 primavere.mid",
+            "50 primavere.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "La donna infinita.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8c919995-1d86-34ed-a7ea-6342e5ef5f76",
+      "releaseId": "e289053a-bed9-4b06-aaf4-e2cb44b7f605",
+      "title": "Musicadentro",
+      "date": "1994",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8c919995-1d86-34ed-a7ea-6342e5ef5f76/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Le canzoni di domani.mid",
+            "Le canzoni di domani.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Senza musica e senza parole.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Un leone in paradiso.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Per chi sa capire.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "57f6042f-e5e4-38ce-862a-c72b6736ff4a",
+      "releaseId": "ca64e715-10a5-4790-ae35-d56d062a971e",
+      "title": "Amici x sempre",
+      "date": "1996",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/57f6042f-e5e4-38ce-862a-c72b6736ff4a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Amici per sempre.mid",
+            "Amici per sempre.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "La donna del mio amico.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Fammi fermare il tempo.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Diritto d'amare.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Cercando di te.mid",
+            "Cercando di te.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Danza a distanza.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Le donne mi hanno detto.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Il silenzio della colomba.mid",
+            "Il silenzio della colomba.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9a48ce70-092f-30ba-b472-b26239c54bf0",
+      "releaseId": "33280d76-c1bd-42e2-95c8-46c8c7dce30d",
+      "title": "Un posto felice",
+      "date": "1999-04-14",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9a48ce70-092f-30ba-b472-b26239c54bf0/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Se balla da sola.mid",
+            "Se balla da sola.1.mid",
+            "Se balla da sola.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Mi manchi.mid",
+            "Mi manchi.1.mid",
+            "Mi manchi.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Quando lui ti chiedera di me.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Io ti aspettero.mid",
+            "Io ti aspettero.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Dimmi di si.mid",
+            "Dimmi di si.1.mid",
+            "Dimmi di si.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Ricostruire un amore.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Sogno a mezza estate.mid",
+            "Sogno a mezza estate.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Quel che non si dice.mid",
+            "Quel che non si dice.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Eravamo ragazzi.mid",
+            "Eravamo ragazzi.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "08f8c5b6-56f5-3ddd-a1d5-45d36ef7d3f1",
+      "releaseId": "0b1ddce9-4a28-4979-94a2-6eea3b5e528d",
+      "title": "Cento di queste vite",
+      "date": "2000",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/08f8c5b6-56f5-3ddd-a1d5-45d36ef7d3f1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Un grande amore.mid",
+            "Un grande amore.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Non dimenticarti di me.mid",
+            "Non dimenticarti di me.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Stai con me.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Padre a vent'anni.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Ti sposerei domani.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Buona fortuna e buon viaggio.mid",
+            "Buona fortuna e buon viaggio.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "L'altra faccia dell'amore.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Puoi sentirmi ancora (Parte 1).mid",
+            "Puoi sentirmi ancora (Parte 1).1.mid",
+            "Puoi sentirmi ancora (Parte 1).2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b7e0f575-8d8e-468d-8785-6080e39f6ef2",
+      "releaseId": "1b0d3b77-cd06-49f9-b755-6ff5a213742d",
+      "title": "Opera seconda",
+      "date": "2012-10-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b7e0f575-8d8e-468d-8785-6080e39f6ef2/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "E bello riaverti.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

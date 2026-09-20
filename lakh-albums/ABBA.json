@@ -1,0 +1,511 @@
+{
+  "artist": "ABBA",
+  "artistId": "d87e52c5-bb8d-4da8-b941-9f4928627dc8",
+  "groups": [
+    {
+      "id": "506764b9-89d4-357a-8c66-a9d0bf526fd1",
+      "releaseId": "1ddd2446-b84d-46bf-ba6a-cd15b2cb19cf",
+      "title": "Ring Ring",
+      "date": "1973-03-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/506764b9-89d4-357a-8c66-a9d0bf526fd1/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Nina Pretty Ballerina.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Another Town, Another Train.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1f78ea53-5e9c-46b6-8cd4-9d8a9c547a85",
+      "releaseId": "41692017-39d2-4d57-8bc6-e461278f92a9",
+      "title": "Waterloo",
+      "date": "1974-03-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1f78ea53-5e9c-46b6-8cd4-9d8a9c547a85/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Hasta Manana.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Dance (While the Music Still Goes on).mid",
+            "Dance (While the Music Still Goes on).1.mid",
+            "Dance (While the Music Still Goes on).2.mid",
+            "Dance (While the Music Still Goes on).3.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Honey Honey.mid",
+            "Honey Honey.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Waterloo.mid",
+            "Waterloo.1.mid",
+            "Waterloo.2.mid",
+            "Waterloo.3.mid",
+            "Waterloo.4.mid",
+            "Waterloo.5.mid",
+            "Waterloo.6.mid",
+            "Waterloo.7.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5ee43a5f-94eb-3f0c-a1ec-e0476251d95f",
+      "releaseId": "06f86509-6f2e-43ec-b89d-93cd77014445",
+      "title": "ABBA",
+      "date": "1975-04-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5ee43a5f-94eb-3f0c-a1ec-e0476251d95f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Mamma Mia.mid",
+            "Mamma Mia.1.mid",
+            "Mamma Mia.2.mid",
+            "Mamma Mia.3.mid",
+            "Mamma Mia.4.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Hey, Hey Helen.mid",
+            "Hey, Hey Helen.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "S.O.S.mid",
+            "S.O.S.1.mid",
+            "S.O.S.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "I Do, I Do, I Do, I Do.mid",
+            "I Do, I Do, I Do, I Do.1.mid",
+            "I Do, I Do, I Do, I Do.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Rock Me.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "I've Been Waiting For You.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e2559dbb-e1dc-3eff-b88c-37bab8e46133",
+      "releaseId": "05dad7c4-e75c-4ab9-88d4-22a13fb8cb72",
+      "title": "Fernando",
+      "date": "1976-03-16",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/e2559dbb-e1dc-3eff-b88c-37bab8e46133/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Fernando.mid",
+            "Fernando.1.mid",
+            "Fernando.2.mid",
+            "Fernando.3.mid",
+            "Fernando.4.mid",
+            "Fernando.5.mid",
+            "Fernando.6.mid",
+            "Fernando.7.mid",
+            "Fernando.8.mid",
+            "Fernando.9.mid",
+            "Fernando.10.mid",
+            "Fernando.11.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e464e167-83ab-3b59-88bd-262cf552056e",
+      "releaseId": "bc141786-124f-4690-aa6f-828afb9b3297",
+      "title": "Arrival",
+      "date": "1976-10-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e464e167-83ab-3b59-88bd-262cf552056e/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Dancing Queen.mid",
+            "Dancing Queen.1.mid",
+            "Dancing Queen.2.mid",
+            "Dancing Queen.3.mid",
+            "Dancing Queen.4.mid",
+            "Dancing Queen.5.mid",
+            "Dancing Queen.6.mid",
+            "Dancing Queen.7.mid",
+            "Dancing Queen.8.mid",
+            "Dancing Queen.9.mid",
+            "Dancing Queen.10.mid",
+            "Dancing Queen.11.mid",
+            "Dancing Queen.12.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "My Love My Life.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Knowing Me, Knowing You.mid",
+            "Knowing Me, Knowing You.1.mid",
+            "Knowing Me, Knowing You.2.mid",
+            "Knowing Me, Knowing You.3.mid",
+            "Knowing Me, Knowing You.4.mid",
+            "Knowing Me, Knowing You.5.mid",
+            "Knowing Me, Knowing You.6.mid",
+            "Knowing Me, Knowing You.7.mid",
+            "Knowing Me, Knowing You.8.mid",
+            "Knowing Me, Knowing You.9.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Money, Money, Money.mid",
+            "Money, Money, Money.1.mid",
+            "Money, Money, Money.2.mid",
+            "Money, Money, Money.3.mid",
+            "Money, Money, Money.4.mid",
+            "Money, Money, Money.5.mid",
+            "Money, Money, Money.6.mid",
+            "Money, Money, Money.7.mid",
+            "Money, Money, Money.8.mid",
+            "Money, Money, Money.9.mid",
+            "Money, Money, Money.10.mid",
+            "Money, Money, Money.11.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "That's Me.mid",
+            "That's Me.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Why Did It Have to Be Me.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Tiger.mid",
+            "Tiger.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "819a08ac-170e-3c0e-8a1d-8e3138d56f77",
+      "releaseId": "dd611007-adcc-4c48-b170-e9e41602ef74",
+      "title": "The Album",
+      "date": "1977-12-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/819a08ac-170e-3c0e-8a1d-8e3138d56f77/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Eagle.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Take a Chance on Me.mid",
+            "Take a Chance on Me.1.mid",
+            "Take a Chance on Me.2.mid",
+            "Take a Chance on Me.3.mid",
+            "Take a Chance on Me.4.mid",
+            "Take a Chance on Me.5.mid",
+            "Take a Chance on Me.6.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Name of the Game.mid",
+            "Name of the Game.1.mid",
+            "Name of the Game.2.mid",
+            "Name of the Game.3.mid",
+            "Name of the Game.4.mid",
+            "Name of the Game.5.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Move On.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Hole In Your Soul.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Thank You for the Music.mid",
+            "Thank You for the Music.1.mid",
+            "Thank You for the Music.2.mid",
+            "Thank You for the Music.3.mid",
+            "Thank You for the Music.4.mid",
+            "Thank You for the Music.5.mid",
+            "Thank You for the Music.6.mid",
+            "Thank You for the Music.7.mid",
+            "Thank You for the Music.8.mid",
+            "Thank You for the Music.9.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "I Wonder (Departure).mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "I'm a Marionette.mid",
+            "I'm a Marionette.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a908ee25-5e74-3de2-a8a2-6bf26bdf8396",
+      "releaseId": "eb7881b1-d5dd-492d-bca2-ac14b97fd059",
+      "title": "Summer Night City",
+      "date": "1978-09-06",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/a908ee25-5e74-3de2-a8a2-6bf26bdf8396/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Summer Night City.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7401fb97-46e6-32cd-bd59-6c49debaa3ae",
+      "releaseId": "4d3ce256-ea71-44c5-8ce9-deb8f1e7dce4",
+      "title": "Voulez‐vous",
+      "date": "1979-04-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7401fb97-46e6-32cd-bd59-6c49debaa3ae/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Voulez Vous.mid",
+            "Voulez Vous.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "I Have a Dream.mid",
+            "I Have a Dream.1.mid",
+            "I Have a Dream.2.mid",
+            "I Have a Dream.3.mid",
+            "I Have a Dream.4.mid",
+            "I Have a Dream.5.mid",
+            "I Have a Dream.6.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Angeleyes.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Does Your Mother Know.mid",
+            "Does Your Mother Know.1.mid",
+            "Does Your Mother Know.2.mid",
+            "Does Your Mother Know.3.mid",
+            "Does Your Mother Know.4.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Chiquitita.mid",
+            "Chiquitita.1.mid",
+            "Chiquitita.2.mid",
+            "Chiquitita.3.mid",
+            "Chiquitita.4.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Lovers (Live a Little Longer).mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Kisses of Fire.mid",
+            "Kisses of Fire.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f5216018-b26a-33b1-baa6-ed69c41be17e",
+      "releaseId": "05977659-d642-4da9-aedd-a24ca4ab3d44",
+      "title": "Gimme! Gimme! Gimme!",
+      "date": "1979-10-12",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/f5216018-b26a-33b1-baa6-ed69c41be17e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Gimme! Gimme! Gimme!.mid",
+            "Gimme! Gimme! Gimme!.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "24944755-2f68-3778-974e-f572a9e30108",
+      "releaseId": "5240094f-9d79-44fd-9985-77c7287bcc16",
+      "title": "Super Trouper",
+      "date": "1980-11-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/24944755-2f68-3778-974e-f572a9e30108/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Super Trooper.mid",
+            "Super Trooper.1.mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "Super Trouper.mid",
+            "Super Trouper.1.mid",
+            "Super Trouper.2.mid",
+            "Super Trouper.3.mid",
+            "Super Trouper.4.mid",
+            "Super Trouper.5.mid",
+            "Super Trouper.6.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "The Winner Takes It All.mid",
+            "The Winner Takes It All.1.mid",
+            "The Winner Takes It All.2.mid",
+            "The Winner Takes It All.3.mid",
+            "The Winner Takes It All.4.mid",
+            "The Winner Takes It All.5.mid",
+            "The Winner Takes It All.6.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Andante, Andante.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Lay All Your Love on Me.mid",
+            "Lay All Your Love on Me.1.mid",
+            "Lay All Your Love on Me.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "76bb9f69-b5c1-31be-9bbf-b4b3d98988b0",
+      "releaseId": "4d07bd37-9b10-3acb-ad25-e2b284c8e749",
+      "title": "The Visitors",
+      "date": "1981-11-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/76bb9f69-b5c1-31be-9bbf-b4b3d98988b0/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Visitors.mid",
+            "The Visitors.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "One Of Us.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Two for the Price of One.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Like an Angel Passing Through My Room.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

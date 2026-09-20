@@ -203,16 +203,31 @@ body,
     display: inline-block;
 }
 
+:root {
+    --pitch-color-0: white;
+    --pitch-color-1: #820000;
+    --pitch-color-2: red;
+    --pitch-color-3: #007000;
+    --pitch-color-4: #00fb47;
+    --pitch-color-5: #9500b3;
+    --pitch-color-6: #ea7eff;
+    --pitch-color-7: #787878;
+    --pitch-color-8: #0000ff;
+    --pitch-color-9: #03b9d5;
+    --pitch-color-10: #ff7328;
+    --pitch-color-11: #ffff00;
+}
+
 .noteColor_default {
     background-color: white;
 }
 
 .noteColor_0_colors {
-    background-color: white !important;
+    background-color: var(--pitch-color-0) !important;
 }
 
 .noteColor_1_colors {
-    background-color: #820000 !important;
+    background-color: var(--pitch-color-1) !important;
 }
 
 .noteColor_1_colors:after {
@@ -242,43 +257,43 @@ body,
 }
 
 .noteColor_2_colors {
-    background-color: red !important;
+    background-color: var(--pitch-color-2) !important;
 }
 
 .noteColor_3_colors {
-    background-color: #007000 !important;
+    background-color: var(--pitch-color-3) !important;
 }
 
 .noteColor_4_colors {
-    background-color: #00fb47 !important;
+    background-color: var(--pitch-color-4) !important;
 }
 
 .noteColor_5_colors {
-    background-color: #9500b3 !important;
+    background-color: var(--pitch-color-5) !important;
 }
 
 .noteColor_6_colors {
-    background-color:  #ea7eff !important;
+    background-color: var(--pitch-color-6) !important;
 }
 
 .noteColor_7_colors {
-    background-color: #787878 !important;
+    background-color: var(--pitch-color-7) !important;
 }
 
 .noteColor_8_colors {
-    background-color: #0000ff !important;
+    background-color: var(--pitch-color-8) !important;
 }
 
 .noteColor_9_colors {
-    background-color:  #03b9d5 !important;
+    background-color: var(--pitch-color-9) !important;
 }
 
 .noteColor_10_colors {
-    background-color: #ff7328 !important;
+    background-color: var(--pitch-color-10) !important;
 }
 
 .noteColor_11_colors {
-    background-color: #ffff00 !important;
+    background-color: var(--pitch-color-11) !important;
 }
 
 .noteColor_disabled {

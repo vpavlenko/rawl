@@ -416,7 +416,13 @@ export const FoldablePianoLegend: React.FC<{
                       >
                         {group.label}
                       </div>
-                      <div style={{ display: "flex" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          flex: 1,
+                          justifyContent: "space-between",
+                        }}
+                      >
                         {group.scales.map((scale) => (
                           <ScaleLabel
                             key={scale.label}

@@ -13,9 +13,9 @@ const VoiceActionButton = styled.button`
   align-items: center;
   justify-content: center;
   width: 20px;
-  height: 20px;
+  height: 16px;
   margin-left: 3px;
-  padding: 2px;
+  padding: 0 2px;
   border: none;
   border-radius: 3px;
   background: transparent;
@@ -39,6 +39,7 @@ const VoiceRow = styled.div`
   display: flex;
   align-items: center;
   width: fit-content;
+  line-height: 16px;
 
   &:hover ${VoiceActionButton}, &:focus-within ${VoiceActionButton} {
     opacity: 1;

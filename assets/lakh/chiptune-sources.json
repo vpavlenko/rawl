@@ -1,0 +1,76 @@
+{
+  "catalog": "https://chiptune.app/browse/MIDI",
+  "retrieved": "2026-09-20",
+  "files": [
+    {
+      "path": "CASIOPEA/Asayake.mid",
+      "source": "https://gifx.co/music/MIDI/CASIOPEA/Asayake.mid",
+      "sha256": "534f5619b7f82c4411cee518be831d4d84f6e247fe4433ada9e28a882166ff09",
+      "identicalCleanPaths": []
+    },
+    {
+      "path": "Duke Ellington/Jeep's Blues.mid",
+      "source": "https://gifx.co/music/MIDI/Duke%20Ellington/Jeep%27s%20Blues.mid",
+      "sha256": "02d55d958c44c527c4634322b3e0118ea3484d801dbdd2da0ec923008d1f5af5",
+      "identicalCleanPaths": [
+        "Ellington/Jeep's Blues.mid"
+      ]
+    },
+    {
+      "path": "Marvin Gaye/What's Goin' On.mid",
+      "source": "https://gifx.co/music/MIDI/Marvin%20Gaye/What%27s%20Goin%27%20On.mid",
+      "sha256": "5d7184cfbf23e211e695ae3a8f111be56048c2a9c76d3f09f69e1850e94e26b9",
+      "identicalCleanPaths": [
+        "Gaye,Marvin/What's Goin' On.mid"
+      ]
+    },
+    {
+      "path": "Michael Jackson/Billie Jean.5.mid",
+      "source": "https://gifx.co/music/MIDI/Michael%20Jackson/Billie%20Jean.5.mid",
+      "sha256": "22097d1e2f83e15f2357e672d1168c0a2a8b62260fea4d3af3c331c601a47df1",
+      "identicalCleanPaths": [
+        "Jackson Michael/Billie Jean.5.mid"
+      ]
+    },
+    {
+      "path": "Michael Jackson/Billy Jean.mid",
+      "source": "https://gifx.co/music/MIDI/Michael%20Jackson/Billy%20Jean.mid",
+      "sha256": "6e97c4f03462a99202326f38722a7ebe7c76e0e6bb7103422e670d0cc6c56261",
+      "identicalCleanPaths": [
+        "Jackson Michael/Billy Jean.mid"
+      ]
+    },
+    {
+      "path": "T-Square/all_about_you.mid",
+      "source": "https://gifx.co/music/MIDI/T-Square/all_about_you.mid",
+      "sha256": "d6354ed9344c005493a18f0a92c924cd338f77b1829b4ecdbb3afe4e4104e336",
+      "identicalCleanPaths": []
+    },
+    {
+      "path": "Terence Trent D'Arby/Wishing Well.mid",
+      "source": "https://gifx.co/music/MIDI/Terence%20Trent%20D%27Arby/Wishing%20Well.mid",
+      "sha256": "776117c20abec8e817901acaacb7497a4c0169db56a13c618d215021f5b0eb5d",
+      "identicalCleanPaths": []
+    },
+    {
+      "path": "Violent Femmes/Blister in the Sun.mid",
+      "source": "https://gifx.co/music/MIDI/Violent%20Femmes/Blister%20in%20the%20Sun.mid",
+      "sha256": "ec8ef2a1ae2b10d774faf9d0b5eec25a101a99f754dd413963e1a9e82b391044",
+      "identicalCleanPaths": []
+    },
+    {
+      "path": "Yazoo (Yaz)/The Only Way Is Up.mid",
+      "source": "https://gifx.co/music/MIDI/Yazoo%20%28Yaz%29/The%20Only%20Way%20Is%20Up.mid",
+      "sha256": "d5f2013e6eaa287aa6bbc3c28f32c6be96d94ad7a5c95065cb777b6338bb0fc6",
+      "identicalCleanPaths": [
+        "Yazz & plastic population/The Only Way Is Up.mid"
+      ]
+    },
+    {
+      "path": "Yellow Magic Orchestra (YMO)/Waterford.mid",
+      "source": "https://gifx.co/music/MIDI/Yellow%20Magic%20Orchestra%20%28YMO%29/Waterford.mid",
+      "sha256": "83cf6db178a7dd204ef2c602b9066a902a82d73d1f1e4b5b136f9a0151fbfa55",
+      "identicalCleanPaths": []
+    }
+  ]
+}

@@ -51,6 +51,8 @@ import AppFooter from "./AppFooter";
 import AppHeader from "./AppHeader";
 import DropMessage from "./DropMessage";
 import Pieces from "./Pieces";
+import Lakh from "./lakh/Lakh";
+import { lakhAnalysisKey, legacyLakhUrl } from "./lakh/catalog";
 import Histograms from "./rawl/Histograms";
 import OldLandingPage from "./rawl/OldLandingPage";
 import Rawl, { RawlProps } from "./rawl/Rawl";
@@ -108,6 +110,7 @@ type AppState = {
     title: string;
     slug: string;
     sourceUrl: string | null;
+    analysisKey?: string;
   } | null;
   audioContextLocked: boolean;
   audioContextState: string;
@@ -446,6 +449,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   async saveAnalysis(analysis) {
     if (this.path === "drop") return;
 
+    const analysisKey = this.path;
     const user = this.state.user;
     if (user) {
       const userRef = doc(this.db, "users", user.uid);
@@ -453,7 +457,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
       let userData = userDoc.exists() ? userDoc.data() : {};
       userData.analyses = mergeAnalyses(userData.analyses ?? {}, {
-        [this.path]: analysis,
+        [analysisKey]: analysis,
       });
 
       await setDoc(userRef, userData).catch(() => {
@@ -467,7 +471,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
       if (this.state.currentMidi) {
         this.setState((prevState) => ({
           analyses: mergeAnalyses(prevState.analyses, {
-            [`f/${this.state.currentMidi.slug}`]: analysis,
+            [this.state.currentMidi.analysisKey ||
+            `f/${this.state.currentMidi.slug}`]: analysis,
           }),
         }));
       }
@@ -781,6 +786,48 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }
   };
 
+  loadLakhTrack = async (
+    artist: string,
+    track: string,
+    signal: AbortSignal,
+  ) => {
+    const response = await fetch(
+      `${process.env.PUBLIC_URL}/lakh-data/${encodeURIComponent(
+        artist,
+      )}/${encodeURIComponent(track)}`,
+      { signal },
+    );
+    if (!response.ok)
+      throw new Error(`Could not load ${track} (${response.status}).`);
+    const buffer = await response.arrayBuffer();
+    if (signal.aborted) return;
+    if (new TextDecoder().decode(buffer.slice(0, 4)) !== "MThd") {
+      throw new Error(
+        `The static file for ${track} is missing or is not a MIDI file.`,
+      );
+    }
+    const analysisKey = lakhAnalysisKey(artist, track);
+    this.path = analysisKey;
+    await new Promise<void>((resolve) =>
+      this.setState(
+        {
+          parsing: null,
+          rawlProps: null,
+          currentMidi: {
+            id: analysisKey,
+            slug: "",
+            title: `${artist} — ${track.replace(/\.mid$/i, "")}`,
+            sourceUrl: "https://colinraffel.com/projects/lmd/",
+            analysisKey,
+          },
+        },
+        resolve,
+      ),
+    );
+    if (signal.aborted) return;
+    await this.playSongBuffer(track, buffer, true, signal);
+  };
+
   loadMidi = (midiBlob: Blob, playbackStartedCallback?: () => void) => {
     if (this.midiPlayer) {
       midiBlob
@@ -813,7 +860,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.setState(
       (prevState) => {
         const slug = prevState.currentMidi?.slug;
-        const analysisKey = `f/${slug}`;
+        const analysisKey = prevState.currentMidi?.analysisKey || `f/${slug}`;
         const savedAnalysis = prevState.analyses[analysisKey];
 
         if (!this.state.parsing) {
@@ -950,6 +997,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     filepath: string,
     buffer: ArrayBuffer | Uint8Array,
     shouldAutoPlay: boolean = true,
+    signal?: AbortSignal,
   ) {
     this.midiPlayer.suspend();
 
@@ -975,6 +1023,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
         shouldAutoPlay,
       );
 
+      if (signal?.aborted) return;
       this.setState({ parsing: parsingResult }, () => {
         const numVoices = this.midiPlayer.getNumVoices();
         const voiceMask = [...Array(numVoices)].fill(true);
@@ -989,6 +1038,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       });
     } catch (e) {
       this.handlePlayerError(`Unable to play ${filepath} (${e.message}).`);
+      if (signal) throw e;
     }
   }
 
@@ -1245,6 +1295,28 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     path="/s/:rest*"
                     render={() => (
                       <StructuresWithParams analyses={this.state.analyses} />
+                    )}
+                  />
+                  <Route
+                    path="/c/MIDI/:rest*"
+                    render={({ location }) => {
+                      const target = legacyLakhUrl(location.pathname);
+                      return target ? (
+                        <Redirect
+                          to={`${target}${location.search}${location.hash}`}
+                        />
+                      ) : (
+                        <p>Invalid Lakh URL.</p>
+                      );
+                    }}
+                  />
+                  <Route
+                    path="/lakh"
+                    render={() => (
+                      <Lakh
+                        ready={!this.state.loading}
+                        loadTrack={this.loadLakhTrack}
+                      />
                     )}
                   />
                   {rawlRoute}

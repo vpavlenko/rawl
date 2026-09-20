@@ -61,11 +61,12 @@ const AppHeader: React.FC = () => {
     currentMidi,
   } = useContext(AppContext);
   const currentAnnotationKey =
-    currentMidi?.slug && currentMidi.slug !== ""
+    currentMidi?.analysisKey ||
+    (currentMidi?.slug && currentMidi.slug !== ""
       ? `f/${currentMidi.slug}`
       : path.startsWith("/f/")
-        ? path.slice(1)
-        : null;
+      ? path.slice(1)
+      : null);
 
   const getLinkStyle = (pathPrefix: string): React.CSSProperties => {
     if (pathPrefix === "/corpus") {
@@ -88,6 +89,9 @@ const AppHeader: React.FC = () => {
         </HeaderLink>
         <HeaderLink to="/corpus/" style={getLinkStyle("/corpus")}>
           Pieces
+        </HeaderLink>
+        <HeaderLink to="/lakh/" style={getLinkStyle("/lakh")}>
+          Lakh
         </HeaderLink>
         <HeaderLink to="/s/" style={getLinkStyle("/s")}>
           Structures

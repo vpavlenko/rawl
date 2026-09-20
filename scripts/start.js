@@ -61,11 +61,12 @@ if (process.env.HOST) {
 // We attempt to use the default port but if it is busy, we offer the user to
 // run on a different port. `choosePort()` Promise resolves to the next free port.
 choosePort(HOST, DEFAULT_PORT)
-  .then(port => {
+  .then(async port => {
     if (port == null) {
       // We have not found a port.
       return;
     }
+    await require("./prepare-lakh")(paths.appPublic);
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
     const appName = require(paths.appPackageJson).name;
     const urls = prepareUrls(protocol, HOST, port);

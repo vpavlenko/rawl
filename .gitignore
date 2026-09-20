@@ -26,3 +26,5 @@ libxmp/lite/Makefile.in
 _ignore/
 .DS_Store
 src/midis
+public/lakh-data/
+public/lakh-data.tmp/

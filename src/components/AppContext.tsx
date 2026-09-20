@@ -8,6 +8,7 @@ export type CurrentMidi = {
   title: string;
   slug: string;
   sourceUrl: string | null;
+  analysisKey?: string;
 } | null;
 
 export interface AppContextType {

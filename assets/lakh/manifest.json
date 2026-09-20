@@ -1,0 +1,40 @@
+{
+  "source": "http://hog.ee.columbia.edu/craffel/lmd/clean_midi.tar.gz",
+  "sourceSha256": "de1bb64cbc0cf35545a05b5c3e786aa6890cfa144edffc4b827ff41bf8c33dc5",
+  "cleanSubsetLicense": "CC-BY-4.0",
+  "cleanTrackCount": 17256,
+  "supplementSources": "chiptune-sources.json",
+  "trackCount": 17266,
+  "artistCount": 2203,
+  "uncompressedBytes": 800352154,
+  "archives": [
+    {
+      "file": "clean-01.zip",
+      "sha256": "7a02023856d3791a81d6c3781d0b0aea36497762ab38c012ef38d87f4dd855be"
+    },
+    {
+      "file": "clean-02.zip",
+      "sha256": "0c0eeb5bc235090ccebc9afc0ca429cf521342e807e2112aae1b4f11aaf93ec5"
+    },
+    {
+      "file": "clean-03.zip",
+      "sha256": "65dd0e5659cc810192442f9771b95d296eac8ad23a68f3fedf581f8929e4128f"
+    },
+    {
+      "file": "clean-04.zip",
+      "sha256": "9f04ee115f339f31028e26683916275a233d96e1ba56e5147b6ecd33804640ff"
+    },
+    {
+      "file": "clean-05.zip",
+      "sha256": "7550110fb2ef4e326ed05118b0c095446f8057c40ff71f31fdee3437a031e40d"
+    },
+    {
+      "file": "clean-06.zip",
+      "sha256": "0a298b33d9e413f46f3ceb9e3cd3f29b4f141c2a179e462b9c072eca23f6b6cb"
+    },
+    {
+      "file": "chiptune-annotations.zip",
+      "sha256": "d795c89bc81c80d49ecdf3282aaeaa27b7589a56c7b91ff1cc7dac3db2573cb9"
+    }
+  ]
+}

@@ -741,6 +741,7 @@ const Directory = React.memo(function Directory({
           artists={visibleArtists}
           renderArtist={renderArtist}
           songCount={(item) => artistSongCounts.get(item.name) || 0}
+          hasAnnotations={(item) => annotatedSongs(item) > 0}
         />
       )}
       {artist && visibleTracks.length === 0 && <p>No matches.</p>}

@@ -121,16 +121,19 @@ export default function ArtistTable<T extends { name: string }>({
   artists,
   renderArtist,
   songCount,
+  hasAnnotations,
 }: {
   artists: T[];
   renderArtist: (artist: T) => React.ReactNode;
   songCount: (artist: T) => number;
+  hasAnnotations: (artist: T) => boolean;
 }) {
   const [expandedCells, setExpandedCells] = useState<Set<string>>(
     () => new Set(),
   );
   const profiles = artists.map((artist) => ({
     artist,
+    annotated: hasAnnotations(artist),
     ...artistProfile(artist.name),
   }));
   const composers = profiles
@@ -166,6 +169,7 @@ export default function ArtistTable<T extends { name: string }>({
       .filter((item) => item.genre === row.id && item.era === "unassigned")
       .sort(
         (a, b) =>
+          Number(b.annotated) - Number(a.annotated) ||
           songCount(b.artist) - songCount(a.artist) ||
           a.artist.name.localeCompare(b.artist.name),
       ),
@@ -204,6 +208,7 @@ export default function ArtistTable<T extends { name: string }>({
                         )
                         .sort(
                           (a, b) =>
+                            Number(b.annotated) - Number(a.annotated) ||
                             songCount(b.artist) - songCount(a.artist) ||
                             a.artist.name.localeCompare(b.artist.name),
                         );

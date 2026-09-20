@@ -179,6 +179,9 @@ export const Voice: React.FC<{
   // The frozenHeight machinery was used when I experimented with smart
   // collapse/expand of every Voice relative to its current range on a current screen.
   // I'm not sure it's used anymore.
+  const sectionEndX = sectionSpan
+    ? secondsToX(measuresAndBeats.measures[sectionSpan[1]])
+    : undefined;
   const { noteRectangles, frozenHeight, frozenMidiRange } = useMemo(
     () => ({
       noteRectangles: getNoteRectangles(
@@ -194,6 +197,7 @@ export const Voice: React.FC<{
         false,
         drumNoteToY,
         hoveredVoiceIndex,
+        sectionEndX,
       ),
       frozenHeight: height,
       frozenMidiRange: midiRange,
@@ -213,6 +217,7 @@ export const Voice: React.FC<{
       drumNoteToY,
       height,
       midiRange,
+      sectionEndX,
     ],
   );
 

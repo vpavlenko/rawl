@@ -310,6 +310,7 @@ export const getNoteRectangles = (
   showSourceLocation: boolean = false,
   drumNoteToY?: (note: Note) => number,
   hoveredVoiceIndex: number | null = null,
+  sectionEndX?: number,
 ) => {
   return notes.map((note) => (
     <NoteRectangle
@@ -326,6 +327,7 @@ export const getNoteRectangles = (
       showSourceLocation={showSourceLocation}
       drumNoteToY={drumNoteToY}
       hoveredVoiceIndex={hoveredVoiceIndex}
+      sectionEndX={sectionEndX}
     />
   ));
 };
@@ -343,6 +345,7 @@ const NoteRectangle = React.memo(({
   showSourceLocation,
   drumNoteToY,
   hoveredVoiceIndex,
+  sectionEndX,
 }: {
   note: ColoredNote;
   midiNumberToY: (number: number) => number;
@@ -356,6 +359,7 @@ const NoteRectangle = React.memo(({
   showSourceLocation: boolean;
   drumNoteToY?: (note: Note) => number;
   hoveredVoiceIndex: number | null;
+  sectionEndX?: number;
 }) => {
   const registerNote = React.useContext(NotePlaybackContext);
   const [playing, setPlaying] = React.useState(false);
@@ -419,6 +423,18 @@ const NoteRectangle = React.memo(({
         point.value !== 8192,
     );
 
+  // Keep a short continuation past the section, without changing note timing
+  // or compressing the pitch-bend curve into the visible portion.
+  const fadeStart =
+    !isDrum && sectionEndX !== undefined && left + width > sectionEndX
+      ? sectionEndX - left
+      : undefined;
+  const continuationMask =
+    fadeStart !== undefined
+      ? `linear-gradient(to right, black ${fadeStart}px, transparent ${fadeStart + 30}px)`
+      : undefined;
+  const maskPadding = hasPitchBend ? noteHeight * 2 + 1 : 1;
+
   // Format source location string if it exists
   let sourceLocationText = "";
   if (sourceLocation) {
@@ -466,6 +482,20 @@ const NoteRectangle = React.memo(({
         overflow: "visible",
         top,
         left,
+        maskImage: continuationMask,
+        WebkitMaskImage: continuationMask,
+        maskSize: `100% calc(100% + ${maskPadding * 2}px)`,
+        WebkitMaskSize: `100% calc(100% + ${maskPadding * 2}px)`,
+        maskPosition: "center",
+        WebkitMaskPosition: "center",
+        maskRepeat: "no-repeat",
+        WebkitMaskRepeat: "no-repeat",
+        maskClip: "no-clip",
+        WebkitMaskClip: "no-clip",
+        clipPath:
+          fadeStart !== undefined
+            ? `inset(-${maskPadding}px ${Math.max(0, width - fadeStart - 30)}px -${maskPadding}px -1px)`
+            : undefined,
         pointerEvents: handleNoteClick && !hasPitchBend ? "auto" : "none",
         zIndex:
           Math.round(10 + (width > 0 ? 1000 / width : 1000)) +

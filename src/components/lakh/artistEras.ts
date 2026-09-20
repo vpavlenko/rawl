@@ -259,6 +259,9 @@ const eraArtists: Partial<Record<RockPopEra, string[]>> = {
     "Willie Nelson",
   ],
   "1963": [
+    // Representative repertoire: Willy Alberti's 1968 recording, also covered
+    // by Willeke. https://www.top40.nl/willy-alberti/de-glimlach-van-een-kind-2115
+    "Alberti",
     // Re-reviewed unclassified folders, using artist/repertoire dates.
     "Alpert",
     "Bell",
@@ -511,6 +514,9 @@ const eraArtists: Partial<Record<RockPopEra, string[]>> = {
     "Zappa",
   ],
   "1970": [
+    // Margot Werner began recording as a singer in 1972; "So ein Mann" (1977).
+    // https://www.bmlo.lmu.de/w1165
+    "Werner",
     // Re-reviewed unclassified folders, using artist/repertoire dates.
     "Amanda McBroom",
     "Droids",
@@ -780,6 +786,10 @@ const eraArtists: Partial<Record<RockPopEra, string[]>> = {
     "Zero",
   ],
   "1980": [
+    // Marco Armani: "Solo con l'anima mia", Sanremo 1984.
+    "Armani",
+    // Kurt Elsasser recorded as Daniel in the mid-1980s.
+    "Daniel",
     // Re-reviewed unclassified folders, using artist/repertoire dates.
     "Big Mr.",
     "Carpenter",
@@ -1031,6 +1041,13 @@ const eraArtists: Partial<Record<RockPopEra, string[]>> = {
     "k.d. lang",
   ],
   "1990": [
+    // Debut recordings: Bruno & Marrone (1994), Rick & Renner (1992).
+    // https://dicionariompb.com.br/grupo/bruno-e-marrone/
+    // https://dicionariompb.com.br/grupo/rick-e-renner/
+    "Bruno",
+    "Rick",
+    // "Oh Middernacht" (1995): https://www.top40.nl/flair/flair-oh-middernacht-6033
+    "Flair",
     // Re-reviewed unclassified folders, using artist/repertoire dates.
     "2Boys",
     "BND",

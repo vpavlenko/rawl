@@ -557,10 +557,26 @@ const Directory = React.memo(function Directory({
     const count = annotatedSongs(item);
     const songCount = artistSongCounts.get(item.name)!;
     const tags = artistProfile(item.name).tags;
+    const singleSongVersions =
+      songCount === 1
+        ? item.members.flatMap((source) =>
+            source.tracks.map((file) => ({ source, file })),
+          )
+        : [];
+    const directTrack =
+      singleSongVersions.find(({ source, file }) =>
+        annotated.has(lakhAnalysisKey(source.name, file)),
+      ) ||
+      singleSongVersions.find(({ file }) => !/\.\d+\.mid$/i.test(file)) ||
+      singleSongVersions[0];
     return (
       <li key={item.name}>
         <Entry
-          to={lakhArtistUrl(item)}
+          to={
+            directTrack
+              ? lakhTrackUrl(directTrack.source, directTrack.file)
+              : lakhArtistUrl(item)
+          }
           $folder
           $annotated={count > 0}
           title={`${songCount} ${

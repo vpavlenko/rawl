@@ -189,7 +189,9 @@ const assignments: {
   },
   {
     genre: "mainstream",
-    era: "unassigned",
+    // Mixed Dave Dee / Kiki Dee folder; both recording careers began in the
+    // 1960s. Use that formative era for this shared browsing entry.
+    era: "1963",
     artists: [
       "Dee",
     ],

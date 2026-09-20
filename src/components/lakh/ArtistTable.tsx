@@ -51,12 +51,18 @@ const Matrix = styled.div`
   }
   thead th:first-child {
     border-right: 1px solid #888;
-    box-shadow: 0 1px 0 #888, 1px 0 0 #888;
+    box-shadow:
+      0 1px 0 #888,
+      1px 0 0 #888;
     left: 0;
     z-index: 3;
   }
   td {
+    position: relative;
     background: #000;
+  }
+  td.expandable {
+    padding-right: 30px;
   }
   td:empty {
     background: #000;
@@ -68,9 +74,11 @@ const Matrix = styled.div`
     border-right: 0;
   }
   button {
+    position: absolute;
+    right: 6px;
+    bottom: 4px;
     border: 0;
     padding: 0;
-    margin-left: 6px;
     background: transparent;
     color: #999;
     font: inherit;
@@ -162,8 +170,8 @@ export default function ArtistTable<T extends { name: string }>({
         a.occupied[0] - b.occupied[0] ||
         a.occupied[a.occupied.length - 1] - b.occupied[b.occupied.length - 1],
     );
-  // Classical composers and undated folders span the era columns below
-  // the dated rows, with all entries visible in multiple columns.
+  // Undated entries sit beneath their category's dated entries. Categories
+  // without dated entries, including classical, use a standalone merged row.
   const mergedRows = ARTIST_GENRES.map((row) => ({
     ...row,
     artists: profiles
@@ -202,77 +210,113 @@ export default function ArtistTable<T extends { name: string }>({
                 </tr>
               </thead>
               <tbody>
-                {rows.map((row) => (
-                  <tr key={row.id}>
-                    <th scope="row">{formatGenreLabel(row.label)}</th>
-                    {columns.map((column) => {
-                      const cell = matches
-                        .filter(
-                          (item) =>
-                            item.genre === row.id && item.era === column.id,
-                        )
-                        .sort(
-                          (a, b) =>
-                            Number(b.annotated) - Number(a.annotated) ||
-                            songCount(b.artist) - songCount(a.artist) ||
-                            a.artist.name.localeCompare(b.artist.name),
-                        );
-                      const cellKey = `${row.id}/${column.id}`;
-                      const expanded = expandedCells.has(cellKey);
-                      return (
-                        <td key={column.id}>
-                          {cell.length > 0 && (
-                            <>
-                              <Artists $table>
-                                {(expanded || cell.length <= 11
-                                  ? cell
-                                  : cell.slice(0, 10)
-                                ).map(({ artist }) => renderArtist(artist))}
-                              </Artists>
-                              {!expanded && cell.length > 11 && (
-                                <button
-                                  type="button"
-                                  aria-label={`Show all ${cell.length} ${row.label} artists, ${column.label}`}
-                                  onClick={() => {
-                                    setExpandedCells(
-                                      (current) =>
-                                        new Set([...current, cellKey]),
-                                    );
-                                  }}
-                                >
-                                  ...
-                                </button>
-                              )}
-                            </>
-                          )}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
-                {mergedRows.map((row) => {
-                  const cellKey = `${row.id}/merged`;
+                {rows.map((row) => {
+                  const undated = mergedRows.find((item) => item.id === row.id);
                   return (
-                    <tr key={cellKey}>
-                      <th scope="row">{formatGenreLabel(row.label)}</th>
-                      <td
-                        colSpan={columns.length}
-                        aria-label={
-                          row.id === "shelf-classical"
-                            ? row.label
-                            : "Entries without a dated era"
-                        }
-                      >
-                        <MergedArtists
-                          $table
-                          style={{ columnCount: columns.length }}
+                    <React.Fragment key={row.id}>
+                      <tr>
+                        <th
+                          id={`genre-${row.id}`}
+                          scope="row"
+                          rowSpan={undated ? 2 : 1}
                         >
-                          {row.artists.map(({ artist }) => renderArtist(artist))}
-                        </MergedArtists>
-                      </td>
-                    </tr>
+                          {formatGenreLabel(row.label)}
+                        </th>
+                        {columns.map((column) => {
+                          const cell = matches
+                            .filter(
+                              (item) =>
+                                item.genre === row.id && item.era === column.id,
+                            )
+                            .sort(
+                              (a, b) =>
+                                Number(b.annotated) - Number(a.annotated) ||
+                                songCount(b.artist) - songCount(a.artist) ||
+                                a.artist.name.localeCompare(b.artist.name),
+                            );
+                          const cellKey = `${row.id}/${column.id}`;
+                          const expanded = expandedCells.has(cellKey);
+                          return (
+                            <td
+                              key={column.id}
+                              className={!expanded && cell.length > 11 ? "expandable" : undefined}
+                            >
+                              {cell.length > 0 && (
+                                <>
+                                  <Artists $table>
+                                    {(expanded || cell.length <= 11
+                                      ? cell
+                                      : cell.slice(0, 10)
+                                    ).map(({ artist }) => renderArtist(artist))}
+                                  </Artists>
+                                  {!expanded && cell.length > 11 && (
+                                    <button
+                                      type="button"
+                                      aria-label={`Show all ${cell.length} ${row.label} artists, ${column.label}`}
+                                      onClick={() => {
+                                        setExpandedCells(
+                                          (current) =>
+                                            new Set([...current, cellKey]),
+                                        );
+                                      }}
+                                    >
+                                      ...
+                                    </button>
+                                  )}
+                                </>
+                              )}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                      {undated && (
+                        <tr>
+                          <td
+                            colSpan={columns.length}
+                            headers={`genre-${row.id}`}
+                            aria-label="Entries without a dated era"
+                          >
+                            <MergedArtists
+                              $table
+                              style={{ columnCount: columns.length }}
+                            >
+                              {undated.artists.map(({ artist }) =>
+                                renderArtist(artist),
+                              )}
+                            </MergedArtists>
+                          </td>
+                        </tr>
+                      )}
+                    </React.Fragment>
                   );
                 })}
+                {mergedRows
+                  .filter((row) => !rows.some((dated) => dated.id === row.id))
+                  .map((row) => {
+                    const cellKey = `${row.id}/merged`;
+                    return (
+                      <tr key={cellKey}>
+                        <th scope="row">{formatGenreLabel(row.label)}</th>
+                        <td
+                          colSpan={columns.length}
+                          aria-label={
+                            row.id === "shelf-classical"
+                              ? row.label
+                              : "Entries without a dated era"
+                          }
+                        >
+                          <MergedArtists
+                            $table
+                            style={{ columnCount: columns.length }}
+                          >
+                            {row.artists.map(({ artist }) =>
+                              renderArtist(artist),
+                            )}
+                          </MergedArtists>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </Matrix>

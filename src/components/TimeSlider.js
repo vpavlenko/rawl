@@ -37,20 +37,33 @@ export default class TimeSlider extends React.Component {
     this.timer = null;
   }
 
+  componentDidMount() {
+    this.syncPlaybackTimer();
+  }
+
   componentDidUpdate(prevProps) {
-    if (prevProps.paused === true && this.props.paused === false) {
-      this.timer = setInterval(() => {
-        const { getCurrentPositionMs, currentSongDurationMs } = this.props;
-        this.setState({
-          currentSongPositionMs: Math.min(
-            getCurrentPositionMs(),
-            currentSongDurationMs,
-          ),
-        });
-      }, UPDATE_INTERVAL_MS);
-    } else if (prevProps.paused === false && this.props.paused === true) {
-      clearInterval(this.timer);
+    if (prevProps.paused !== this.props.paused) {
+      this.syncPlaybackTimer();
     }
+  }
+
+  syncPlaybackTimer() {
+    clearInterval(this.timer);
+    this.timer = null;
+    this.updateCurrentPosition();
+    if (this.props.paused === false) {
+      this.timer = setInterval(this.updateCurrentPosition, UPDATE_INTERVAL_MS);
+    }
+  }
+
+  updateCurrentPosition() {
+    const { getCurrentPositionMs, currentSongDurationMs } = this.props;
+    this.setState({
+      currentSongPositionMs: Math.min(
+        getCurrentPositionMs(),
+        currentSongDurationMs,
+      ),
+    });
   }
 
   componentWillUnmount() {

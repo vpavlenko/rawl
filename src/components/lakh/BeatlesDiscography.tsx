@@ -91,8 +91,7 @@ const Discography = styled.div`
     opacity: 0;
   }
   .song:hover .more,
-  .song:focus-within .more,
-  .more[aria-expanded="true"] {
+  .song:focus-within .more {
     opacity: 1;
   }
   .more:hover {
@@ -127,13 +126,8 @@ export default function BeatlesDiscography({
   albumGroups?: AlbumGroup[] | null;
 }) {
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
-  const toggleVersions = (key: string) =>
-    setExpanded((previous) => {
-      const next = new Set(previous);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
+  const expandVersions = (key: string) =>
+    setExpanded((previous) => new Set([...previous, key]));
   const visible = new Set(files);
   const songsByTitle = new Map<string, string[]>();
   const assignedFiles = new Set(albumGroups?.flatMap((group) =>
@@ -240,22 +234,16 @@ export default function BeatlesDiscography({
                             )}
                           </React.Fragment>
                         ))}
-                        {hasHiddenVersions && (
+                        {hasHiddenVersions && !isExpanded && (
                           <>
                             {shownFiles.length > 0 ? " " : null}
                             <button
                               type="button"
                               className="more"
-                              aria-expanded={isExpanded}
-                              aria-label={`${
-                                isExpanded ? "Hide" : "Show"
-                              } unannotated versions of ${song.title}`}
-                              title={
-                                isExpanded
-                                  ? "Hide other versions"
-                                  : "Show other versions"
-                              }
-                              onClick={() => toggleVersions(key)}
+                              aria-expanded={false}
+                              aria-label={`Show unannotated versions of ${song.title}`}
+                              title="Show other versions"
+                              onClick={() => expandVersions(key)}
                             >
                               …
                             </button>

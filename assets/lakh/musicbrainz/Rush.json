@@ -1,0 +1,438 @@
+{
+  "artist": "Rush",
+  "status": "processed",
+  "totalSongs": 73,
+  "matched": [
+    {
+      "song": "A Farewell to Kings",
+      "album": "A Farewell to Kings",
+      "albumId": "5f27a05d-a12a-3611-a836-f720c9ab00a2",
+      "track": 1
+    },
+    {
+      "song": "A Passage to Bangkok",
+      "album": "2112",
+      "albumId": "9243ac59-9390-37e1-abee-fcf31fb8035f",
+      "track": 8
+    },
+    {
+      "song": "Bastille Day",
+      "album": "Caress of Steel",
+      "albumId": "a6044d81-743e-3a62-afdf-20bb943b2505",
+      "track": 1
+    },
+    {
+      "song": "Before and After",
+      "album": "Rush",
+      "albumId": "ea47459b-a69e-3c15-8781-77227a78e1db",
+      "track": 7
+    },
+    {
+      "song": "Beneath, Between & Behind",
+      "album": "Fly by Night",
+      "albumId": "0c6e24c8-3cc8-3b35-93c5-1fdf6c5641b6",
+      "track": 3
+    },
+    {
+      "song": "Best I Can",
+      "album": "Fly by Night",
+      "albumId": "0c6e24c8-3cc8-3b35-93c5-1fdf6c5641b6",
+      "track": 2
+    },
+    {
+      "song": "Between Sun & Moon",
+      "album": "Counterparts",
+      "albumId": "8a203722-a642-381d-80b1-dc927a32238c",
+      "track": 5
+    },
+    {
+      "song": "Between the Wheels",
+      "album": "Grace Under Pressure",
+      "albumId": "f9e8fa95-5c8f-31aa-8d5e-d9c849d88aba",
+      "track": 8
+    },
+    {
+      "song": "By-Tor and the Snow Dog",
+      "album": "Fly by Night",
+      "albumId": "0c6e24c8-3cc8-3b35-93c5-1fdf6c5641b6",
+      "track": 4
+    },
+    {
+      "song": "Chemistry",
+      "album": "Signals",
+      "albumId": "63ebc338-a01b-398c-8520-fdb055fbcd7b",
+      "track": 3
+    },
+    {
+      "song": "Cinderella Man",
+      "album": "A Farewell to Kings",
+      "albumId": "5f27a05d-a12a-3611-a836-f720c9ab00a2",
+      "track": 4
+    },
+    {
+      "song": "Circumstances",
+      "album": "Hemispheres",
+      "albumId": "484f8923-454e-3efa-8234-9d1b1f296cc8",
+      "track": 2
+    },
+    {
+      "song": "Closer to the Heart",
+      "album": "A Farewell to Kings",
+      "albumId": "5f27a05d-a12a-3611-a836-f720c9ab00a2",
+      "track": 3
+    },
+    {
+      "song": "Countdown",
+      "album": "Signals",
+      "albumId": "63ebc338-a01b-398c-8520-fdb055fbcd7b",
+      "track": 8
+    },
+    {
+      "song": "Cygnus X-1 Book II Hemispheres: PreludeApollo-DionysusArmageddonCygnusThe Sphere",
+      "album": "Hemispheres",
+      "albumId": "484f8923-454e-3efa-8234-9d1b1f296cc8",
+      "track": 1
+    },
+    {
+      "song": "Cygnus X-1, Book II: Hemispheres: I. Prelude   II. Apollo: Bringer of Wisdom   III. Dionysus: Bringer of Love   IV. Armageddon: The Battle of Heart and Mind   V. Cygnus: Bringer of Balance   VI. The Sphere: A Kind of Dream",
+      "album": "Hemispheres",
+      "albumId": "484f8923-454e-3efa-8234-9d1b1f296cc8",
+      "track": 1
+    },
+    {
+      "song": "Cygnus X-1",
+      "album": "A Farewell to Kings",
+      "albumId": "5f27a05d-a12a-3611-a836-f720c9ab00a2",
+      "track": 6
+    },
+    {
+      "song": "Different Strings",
+      "album": "Permanent Waves",
+      "albumId": "664ffb4c-8178-3f99-b0d3-0bab3a51f793",
+      "track": 5
+    },
+    {
+      "song": "Digital Man",
+      "album": "Signals",
+      "albumId": "63ebc338-a01b-398c-8520-fdb055fbcd7b",
+      "track": 4
+    },
+    {
+      "song": "Distant Early Warning",
+      "album": "Grace Under Pressure",
+      "albumId": "f9e8fa95-5c8f-31aa-8d5e-d9c849d88aba",
+      "track": 1
+    },
+    {
+      "song": "Dreamline",
+      "album": "Roll the Bones",
+      "albumId": "e188de4e-6d15-3ca3-be49-fa13c67a03c0",
+      "track": 1
+    },
+    {
+      "song": "Emotion Detector",
+      "album": "Power Windows",
+      "albumId": "e8864dda-f0db-3a7c-a09c-b57314e4b910",
+      "track": 7
+    },
+    {
+      "song": "Fly by Night",
+      "album": "Fly by Night",
+      "albumId": "0c6e24c8-3cc8-3b35-93c5-1fdf6c5641b6",
+      "track": 5
+    },
+    {
+      "song": "Free Will",
+      "album": "Permanent Waves",
+      "albumId": "664ffb4c-8178-3f99-b0d3-0bab3a51f793",
+      "track": 2
+    },
+    {
+      "song": "Grand Designs",
+      "album": "Power Windows",
+      "albumId": "e8864dda-f0db-3a7c-a09c-b57314e4b910",
+      "track": 2
+    },
+    {
+      "song": "In the Mood",
+      "album": "Rush",
+      "albumId": "ea47459b-a69e-3c15-8781-77227a78e1db",
+      "track": 6
+    },
+    {
+      "song": "Jacob's Ladder",
+      "album": "Permanent Waves",
+      "albumId": "664ffb4c-8178-3f99-b0d3-0bab3a51f793",
+      "track": 3
+    },
+    {
+      "song": "Kid Gloves",
+      "album": "Grace Under Pressure",
+      "albumId": "f9e8fa95-5c8f-31aa-8d5e-d9c849d88aba",
+      "track": 6
+    },
+    {
+      "song": "La Villa Strangiato",
+      "album": "Hemispheres",
+      "albumId": "484f8923-454e-3efa-8234-9d1b1f296cc8",
+      "track": 4
+    },
+    {
+      "song": "Lakeside Park",
+      "album": "Caress of Steel",
+      "albumId": "a6044d81-743e-3a62-afdf-20bb943b2505",
+      "track": 3
+    },
+    {
+      "song": "Leave That Thing Alone",
+      "album": "Counterparts",
+      "albumId": "8a203722-a642-381d-80b1-dc927a32238c",
+      "track": 9
+    },
+    {
+      "song": "Limelight",
+      "album": "Moving Pictures",
+      "albumId": "40e30dc1-55ac-33e1-85d3-1f1508140bfc",
+      "track": 4
+    },
+    {
+      "song": "Losing It",
+      "album": "Signals",
+      "albumId": "63ebc338-a01b-398c-8520-fdb055fbcd7b",
+      "track": 7
+    },
+    {
+      "song": "Madrigal",
+      "album": "A Farewell to Kings",
+      "albumId": "5f27a05d-a12a-3611-a836-f720c9ab00a2",
+      "track": 5
+    },
+    {
+      "song": "Making Memories",
+      "album": "Fly by Night",
+      "albumId": "0c6e24c8-3cc8-3b35-93c5-1fdf6c5641b6",
+      "track": 6
+    },
+    {
+      "song": "Manhattan Project",
+      "album": "Power Windows",
+      "albumId": "e8864dda-f0db-3a7c-a09c-b57314e4b910",
+      "track": 3
+    },
+    {
+      "song": "Marathon",
+      "album": "Power Windows",
+      "albumId": "e8864dda-f0db-3a7c-a09c-b57314e4b910",
+      "track": 4
+    },
+    {
+      "song": "Middletown Dreams",
+      "album": "Power Windows",
+      "albumId": "e8864dda-f0db-3a7c-a09c-b57314e4b910",
+      "track": 6
+    },
+    {
+      "song": "Mission",
+      "album": "Hold Your Fire",
+      "albumId": "bd4abba9-8016-3d05-81e2-120cd051b436",
+      "track": 7
+    },
+    {
+      "song": "Mystic Rhythms",
+      "album": "Power Windows",
+      "albumId": "e8864dda-f0db-3a7c-a09c-b57314e4b910",
+      "track": 8
+    },
+    {
+      "song": "Need Some Love",
+      "album": "Rush",
+      "albumId": "ea47459b-a69e-3c15-8781-77227a78e1db",
+      "track": 2
+    },
+    {
+      "song": "New World Man",
+      "album": "Signals",
+      "albumId": "63ebc338-a01b-398c-8520-fdb055fbcd7b",
+      "track": 6
+    },
+    {
+      "song": "Red Barchetta",
+      "album": "Moving Pictures",
+      "albumId": "40e30dc1-55ac-33e1-85d3-1f1508140bfc",
+      "track": 2
+    },
+    {
+      "song": "Red Lenses",
+      "album": "Grace Under Pressure",
+      "albumId": "f9e8fa95-5c8f-31aa-8d5e-d9c849d88aba",
+      "track": 7
+    },
+    {
+      "song": "Red Sector A",
+      "album": "Grace Under Pressure",
+      "albumId": "f9e8fa95-5c8f-31aa-8d5e-d9c849d88aba",
+      "track": 3
+    },
+    {
+      "song": "Rivendell",
+      "album": "Fly by Night",
+      "albumId": "0c6e24c8-3cc8-3b35-93c5-1fdf6c5641b6",
+      "track": 7
+    },
+    {
+      "song": "Roll The Bones",
+      "album": "Roll the Bones",
+      "albumId": "e188de4e-6d15-3ca3-be49-fa13c67a03c0",
+      "track": 3
+    },
+    {
+      "song": "Something for Nothing",
+      "album": "2112",
+      "albumId": "9243ac59-9390-37e1-abee-fcf31fb8035f",
+      "track": 12
+    },
+    {
+      "song": "Spirit of Radio",
+      "album": "Permanent Waves",
+      "albumId": "664ffb4c-8178-3f99-b0d3-0bab3a51f793",
+      "track": 1
+    },
+    {
+      "song": "Stick It Out",
+      "album": "Counterparts",
+      "albumId": "8a203722-a642-381d-80b1-dc927a32238c",
+      "track": 2
+    },
+    {
+      "song": "Subdivisions",
+      "album": "Signals",
+      "albumId": "63ebc338-a01b-398c-8520-fdb055fbcd7b",
+      "track": 1
+    },
+    {
+      "song": "Territories",
+      "album": "Power Windows",
+      "albumId": "e8864dda-f0db-3a7c-a09c-b57314e4b910",
+      "track": 5
+    },
+    {
+      "song": "The Analog Kid",
+      "album": "Signals",
+      "albumId": "63ebc338-a01b-398c-8520-fdb055fbcd7b",
+      "track": 2
+    },
+    {
+      "song": "The Big Money",
+      "album": "Power Windows",
+      "albumId": "e8864dda-f0db-3a7c-a09c-b57314e4b910",
+      "track": 1
+    },
+    {
+      "song": "The Body Electric",
+      "album": "Grace Under Pressure",
+      "albumId": "f9e8fa95-5c8f-31aa-8d5e-d9c849d88aba",
+      "track": 5
+    },
+    {
+      "song": "The Camera Eye",
+      "album": "Moving Pictures",
+      "albumId": "40e30dc1-55ac-33e1-85d3-1f1508140bfc",
+      "track": 5
+    },
+    {
+      "song": "The Enemy Within",
+      "album": "Grace Under Pressure",
+      "albumId": "f9e8fa95-5c8f-31aa-8d5e-d9c849d88aba",
+      "track": 4
+    },
+    {
+      "song": "The Fountain of Lamneth: I. In the Valley   II. Didacts and Narpets   III. No One at the Bridge   IV. Panacea   V. Bacchus Plateau   VI. The Fountain",
+      "album": "Caress of Steel",
+      "albumId": "a6044d81-743e-3a62-afdf-20bb943b2505",
+      "track": 5
+    },
+    {
+      "song": "The Necromancer",
+      "album": "Caress of Steel",
+      "albumId": "a6044d81-743e-3a62-afdf-20bb943b2505",
+      "track": 4
+    },
+    {
+      "song": "The Trees",
+      "album": "Hemispheres",
+      "albumId": "484f8923-454e-3efa-8234-9d1b1f296cc8",
+      "track": 3
+    },
+    {
+      "song": "The Twilight Zone",
+      "album": "2112",
+      "albumId": "9243ac59-9390-37e1-abee-fcf31fb8035f",
+      "track": 9
+    },
+    {
+      "song": "The Weapon",
+      "album": "Signals",
+      "albumId": "63ebc338-a01b-398c-8520-fdb055fbcd7b",
+      "track": 5
+    },
+    {
+      "song": "Time and Motion",
+      "album": "Test for Echo",
+      "albumId": "99fdce4e-b6be-309e-8dbf-531df564a95f",
+      "track": 5
+    },
+    {
+      "song": "Time Stand Still",
+      "album": "Hold Your Fire",
+      "albumId": "bd4abba9-8016-3d05-81e2-120cd051b436",
+      "track": 2
+    },
+    {
+      "song": "Tom Sawyer",
+      "album": "Moving Pictures",
+      "albumId": "40e30dc1-55ac-33e1-85d3-1f1508140bfc",
+      "track": 1
+    },
+    {
+      "song": "Turn the Page",
+      "album": "Hold Your Fire",
+      "albumId": "bd4abba9-8016-3d05-81e2-120cd051b436",
+      "track": 8
+    },
+    {
+      "song": "Vital Signs",
+      "album": "Moving Pictures",
+      "albumId": "40e30dc1-55ac-33e1-85d3-1f1508140bfc",
+      "track": 7
+    },
+    {
+      "song": "Witch Hunt",
+      "album": "Moving Pictures",
+      "albumId": "40e30dc1-55ac-33e1-85d3-1f1508140bfc",
+      "track": 6
+    },
+    {
+      "song": "Working Man",
+      "album": "Rush",
+      "albumId": "ea47459b-a69e-3c15-8781-77227a78e1db",
+      "track": 8
+    },
+    {
+      "song": "YYZ",
+      "album": "Moving Pictures",
+      "albumId": "40e30dc1-55ac-33e1-85d3-1f1508140bfc",
+      "track": 3
+    }
+  ],
+  "unmatched": [
+    "2112",
+    "Broon's Bane",
+    "Pieces of Eight"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "2112": [],
+    "Broon's Bane": [],
+    "Pieces of Eight": []
+  }
+}

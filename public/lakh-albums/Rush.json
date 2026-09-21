@@ -1,0 +1,610 @@
+{
+  "artist": "Rush",
+  "artistId": "534ee493-bfac-4575-a44a-0ae41e2c3fe4",
+  "groups": [
+    {
+      "id": "ea47459b-a69e-3c15-8781-77227a78e1db",
+      "releaseId": "2ee701ef-e520-4ad3-b4c2-6fb5da8ce67b",
+      "title": "Rush",
+      "date": "1974-03-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ea47459b-a69e-3c15-8781-77227a78e1db/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Need Some Love.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "In the Mood.mid",
+            "In the Mood.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Before and After.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Working Man.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0c6e24c8-3cc8-3b35-93c5-1fdf6c5641b6",
+      "releaseId": "cd0bcc1f-8fb8-4c80-8a91-d1ef16a7f454",
+      "title": "Fly by Night",
+      "date": "1975-02-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0c6e24c8-3cc8-3b35-93c5-1fdf6c5641b6/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Best I Can.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Beneath, Between & Behind.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "By-Tor and the Snow Dog.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Fly by Night.mid",
+            "Fly by Night.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Making Memories.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Rivendell.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a6044d81-743e-3a62-afdf-20bb943b2505",
+      "releaseId": "37587c26-91db-4523-a4b9-e6be4956f812",
+      "title": "Caress of Steel",
+      "date": "1975-09-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a6044d81-743e-3a62-afdf-20bb943b2505/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Bastille Day.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Lakeside Park.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "The Necromancer.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "The Fountain of Lamneth: I. In the Valley   II. Didacts and Narpets   III. No One at the Bridge   IV. Panacea   V. Bacchus Plateau   VI. The Fountain.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9243ac59-9390-37e1-abee-fcf31fb8035f",
+      "releaseId": "fbd1d18d-79f3-4570-8e20-45f65beb4641",
+      "title": "2112",
+      "date": "1976-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9243ac59-9390-37e1-abee-fcf31fb8035f/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "A Passage to Bangkok.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "The Twilight Zone.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Something for Nothing.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5f27a05d-a12a-3611-a836-f720c9ab00a2",
+      "releaseId": "cb04221d-e538-3241-b138-3745f024abc7",
+      "title": "A Farewell to Kings",
+      "date": "1977-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5f27a05d-a12a-3611-a836-f720c9ab00a2/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "A Farewell to Kings.mid",
+            "A Farewell to Kings.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Closer to the Heart.mid",
+            "Closer to the Heart.1.mid",
+            "Closer to the Heart.2.mid",
+            "Closer to the Heart.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Cinderella Man.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Madrigal.mid",
+            "Madrigal.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Cygnus X-1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "484f8923-454e-3efa-8234-9d1b1f296cc8",
+      "releaseId": "a1795534-091b-3dae-b6aa-7ebd8280223f",
+      "title": "Hemispheres",
+      "date": "1978-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/484f8923-454e-3efa-8234-9d1b1f296cc8/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Cygnus X-1 Book II Hemispheres: PreludeApollo-DionysusArmageddonCygnusThe Sphere.mid",
+            "Cygnus X-1 Book II Hemispheres: PreludeApollo-DionysusArmageddonCygnusThe Sphere.1.mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "Cygnus X-1, Book II: Hemispheres: I. Prelude   II. Apollo: Bringer of Wisdom   III. Dionysus: Bringer of Love   IV. Armageddon: The Battle of Heart and Mind   V. Cygnus: Bringer of Balance   VI. The Sphere: A Kind of Dream.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Circumstances.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "The Trees.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "La Villa Strangiato.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "664ffb4c-8178-3f99-b0d3-0bab3a51f793",
+      "releaseId": "072d1a24-cecb-4cd6-a780-ce0b508d6667",
+      "title": "Permanent Waves",
+      "date": "1980-01-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/664ffb4c-8178-3f99-b0d3-0bab3a51f793/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Spirit of Radio.mid",
+            "Spirit of Radio.1.mid",
+            "Spirit of Radio.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Free Will.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Jacob's Ladder.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Different Strings.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "40e30dc1-55ac-33e1-85d3-1f1508140bfc",
+      "releaseId": "7ca65077-bd8e-4d22-8c0d-3b554185f0b8",
+      "title": "Moving Pictures",
+      "date": "1981-02-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/40e30dc1-55ac-33e1-85d3-1f1508140bfc/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Tom Sawyer.mid",
+            "Tom Sawyer.1.mid",
+            "Tom Sawyer.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Red Barchetta.mid",
+            "Red Barchetta.1.mid",
+            "Red Barchetta.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "YYZ.mid",
+            "YYZ.1.mid",
+            "YYZ.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Limelight.mid",
+            "Limelight.1.mid",
+            "Limelight.2.mid",
+            "Limelight.3.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "The Camera Eye.mid",
+            "The Camera Eye.1.mid",
+            "The Camera Eye.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Witch Hunt.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Vital Signs.mid",
+            "Vital Signs.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "63ebc338-a01b-398c-8520-fdb055fbcd7b",
+      "releaseId": "fef6df23-6fce-4c51-b092-b9722a630229",
+      "title": "Signals",
+      "date": "1982-09-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/63ebc338-a01b-398c-8520-fdb055fbcd7b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Subdivisions.mid",
+            "Subdivisions.1.mid",
+            "Subdivisions.2.mid",
+            "Subdivisions.3.mid",
+            "Subdivisions.4.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "The Analog Kid.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Chemistry.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Digital Man.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "The Weapon.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "New World Man.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Losing It.mid",
+            "Losing It.1.mid",
+            "Losing It.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Countdown.mid",
+            "Countdown.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f9e8fa95-5c8f-31aa-8d5e-d9c849d88aba",
+      "releaseId": "8dc4846b-be20-42d6-9f71-4ebed37abcf3",
+      "title": "Grace Under Pressure",
+      "date": "1984-04-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f9e8fa95-5c8f-31aa-8d5e-d9c849d88aba/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Distant Early Warning.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Red Sector A.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "The Enemy Within.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "The Body Electric.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Kid Gloves.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Red Lenses.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Between the Wheels.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e8864dda-f0db-3a7c-a09c-b57314e4b910",
+      "releaseId": "aeeb0de0-57bd-43fb-a121-5e6e238df8f7",
+      "title": "Power Windows",
+      "date": "1985-10-14",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e8864dda-f0db-3a7c-a09c-b57314e4b910/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Big Money.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Grand Designs.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Manhattan Project.mid",
+            "Manhattan Project.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Marathon.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Territories.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Middletown Dreams.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Emotion Detector.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Mystic Rhythms.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bd4abba9-8016-3d05-81e2-120cd051b436",
+      "releaseId": "6f2b9996-575c-47c1-981a-d866e7d1d483",
+      "title": "Hold Your Fire",
+      "date": "1987-09-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/bd4abba9-8016-3d05-81e2-120cd051b436/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Time Stand Still.mid",
+            "Time Stand Still.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Mission.mid",
+            "Mission.1.mid",
+            "Mission.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Turn the Page.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e188de4e-6d15-3ca3-be49-fa13c67a03c0",
+      "releaseId": "1d659a83-93d1-4c8f-bfb4-fe2d3a8e3881",
+      "title": "Roll the Bones",
+      "date": "1991-09-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e188de4e-6d15-3ca3-be49-fa13c67a03c0/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Dreamline.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Roll The Bones.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8a203722-a642-381d-80b1-dc927a32238c",
+      "releaseId": "56960bf2-304f-410a-9c07-b6c9c69d17c0",
+      "title": "Counterparts",
+      "date": "1993-10-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8a203722-a642-381d-80b1-dc927a32238c/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Stick It Out.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Between Sun & Moon.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Leave That Thing Alone.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "99fdce4e-b6be-309e-8dbf-531df564a95f",
+      "releaseId": "de7b96e6-c0ba-4d79-95aa-7c526ec25279",
+      "title": "Test for Echo",
+      "date": "1996-09-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/99fdce4e-b6be-309e-8dbf-531df564a95f/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Time and Motion.mid",
+            "Time and Motion.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

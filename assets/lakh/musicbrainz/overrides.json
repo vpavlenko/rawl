@@ -119,5 +119,26 @@
         "title": "The Outlaw Torn"
       }
     }
+  },
+  "Rush": {
+    "mbid": "534ee493-bfac-4575-a44a-0ae41e2c3fe4",
+    "country": "CA",
+    "songs": {
+      "Spirit of Radio": {
+        "title": "The Spirit of Radio"
+      },
+      "By-Tor and the Snow Dog": {
+        "title": "By‐Tor & The Snow Dog: I. At the Tobes of Hades / II. Across the Styx / III. Of the Battle / IV. Epilogue"
+      },
+      "The Necromancer": {
+        "title": "The Necromancer: I. Into the Darkness / II. Under the Shadow / III. Return of the Prince"
+      },
+      "Cygnus X-1": {
+        "title": "Cygnus X-1, Book I: The Voyage"
+      },
+      "Cygnus X-1 Book II Hemispheres: PreludeApollo-DionysusArmageddonCygnusThe Sphere": {
+        "title": "Cygnus X‐1, Book II: Hemispheres: I. Prelude / II. Apollo: Bringer of Wisdom / III. Dionysus: Bringer of Love / IV. Armageddon: The Battle of Heart and Mind / V. Cygnus: Bringer of Balance / VI. The Sphere: A Kind of Dream"
+      }
+    }
   }
 }

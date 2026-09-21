@@ -192,5 +192,27 @@
     "allowedSecondaryTypes": [
       "Soundtrack"
     ]
+  },
+  "Nirvana": {
+    "mbid": "5b11f4ce-a62d-471e-81fc-a69a8278c7da",
+    "country": "US",
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "includedReleaseGroups": [
+      "01cf1391-141b-3c87-8650-45ade6e59070",
+      "fb3770f6-83fb-32b7-85c4-1f522a92287e"
+    ],
+    "songs": {
+      "Smell Like Teen Spirit": {
+        "title": "Smells Like Teen Spirit"
+      },
+      "Something in the Way": {
+        "title": "Something in the Way / Endless, Nameless"
+      },
+      "Endless, Nameless": {
+        "title": "Something in the Way / Endless, Nameless"
+      }
+    }
   }
 }

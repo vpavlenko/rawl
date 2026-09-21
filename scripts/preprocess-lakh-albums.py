@@ -95,9 +95,10 @@ def process(artist, config):
         None,
     ) == identity]
     allowed_secondary = set(settings.get('allowedSecondaryTypes', []))
+    included_groups = set(settings.get('includedReleaseGroups', []))
     excluded_groups = set(settings.get('excludedReleaseGroups', []))
     groups = [g for g in groups if g.get('primary-type') in ('Album', 'Single', 'EP')
-              and set(g.get('secondary-types', [])) <= allowed_secondary
+              and (set(g.get('secondary-types', [])) <= allowed_secondary or g['id'] in included_groups)
               and g['id'] not in excluded_groups and g.get('first-release-date')]
     # Albums take precedence over singles/EPs; within each category choose earliest.
     groups.sort(key=lambda g: (g.get('primary-type') != 'Album', g['first-release-date'], g['id']))

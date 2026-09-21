@@ -24,6 +24,8 @@ to include original soundtrack albums, and `excludedReleaseGroups` (an array of
 release-group UUIDs) to exclude releases with incorrect upstream classifications.
 Use `releaseOverrides` (release-group UUID to release UUID) when the default
 edition has an incomplete or unsuitable tracklist.
+Use `includedReleaseGroups` (release-group UUIDs) to include specific compilation
+or live albums without allowing every release with those secondary types.
 
 ```json
 {

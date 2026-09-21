@@ -1,0 +1,501 @@
+{
+  "artist": "Nirvana",
+  "artistId": "5b11f4ce-a62d-471e-81fc-a69a8278c7da",
+  "groups": [
+    {
+      "id": "04f53329-d0d0-3b0d-856a-1e2cbcde0e69",
+      "releaseId": "2c84c9b3-d1d4-48c0-a825-a360f26a5dde",
+      "title": "Love Buzz",
+      "date": "1988-11",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/04f53329-d0d0-3b0d-856a-1e2cbcde0e69/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Big Cheese.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f1afec0b-26dd-3db5-9aa1-c91229a74a24",
+      "releaseId": "a714af56-fb41-481c-9fdf-4f1b86effffa",
+      "title": "Bleach",
+      "date": "1989-08-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f1afec0b-26dd-3db5-9aa1-c91229a74a24/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Blew.mid",
+            "Blew.1.mid",
+            "Blew.2.mid",
+            "Blew.3.mid",
+            "Blew.4.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Floyd the Barber.mid",
+            "Floyd the Barber.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "About a Girl.mid",
+            "About a Girl.1.mid",
+            "About a Girl.2.mid",
+            "About a Girl.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "School.mid",
+            "School.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Love Buzz.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Paper Cuts.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Negative Creep.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Scoff.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Swap Meet.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Mr. Moustache.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Sifting.mid",
+            "Sifting.1.mid",
+            "Sifting.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1b022e01-4da6-387b-8658-8678046e4cef",
+      "releaseId": "347666eb-86f7-488a-a427-895f6f7ac203",
+      "title": "Nevermind",
+      "date": "1991-09-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1b022e01-4da6-387b-8658-8678046e4cef/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Smell Like Teen Spirit.mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "Smells Like Teen Spirit.mid",
+            "Smells Like Teen Spirit.1.mid",
+            "Smells Like Teen Spirit.2.mid",
+            "Smells Like Teen Spirit.3.mid",
+            "Smells Like Teen Spirit.4.mid",
+            "Smells Like Teen Spirit.5.mid",
+            "Smells Like Teen Spirit.6.mid",
+            "Smells Like Teen Spirit.7.mid",
+            "Smells Like Teen Spirit.8.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "In Bloom.mid",
+            "In Bloom.1.mid",
+            "In Bloom.2.mid",
+            "In Bloom.3.mid",
+            "In Bloom.4.mid",
+            "In Bloom.5.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Come as You Are.mid",
+            "Come as You Are.1.mid",
+            "Come as You Are.2.mid",
+            "Come as You Are.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Breed.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Lithium.mid",
+            "Lithium.1.mid",
+            "Lithium.2.mid",
+            "Lithium.3.mid",
+            "Lithium.4.mid",
+            "Lithium.5.mid",
+            "Lithium.6.mid",
+            "Lithium.7.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Polly.mid",
+            "Polly.1.mid",
+            "Polly.2.mid",
+            "Polly.3.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Territorial Pissings.mid",
+            "Territorial Pissings.1.mid",
+            "Territorial Pissings.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Drain You.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Lounge Act.mid",
+            "Lounge Act.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Stay Away.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Endless, Nameless.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Something in the Way.mid",
+            "Something in the Way.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "01cf1391-141b-3c87-8650-45ade6e59070",
+      "releaseId": "453ac7da-2797-4382-a00e-0c988a2fb5bb",
+      "title": "Incesticide",
+      "date": "1992-12-14",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/01cf1391-141b-3c87-8650-45ade6e59070/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Dive.mid",
+            "Dive.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Sliver.mid",
+            "Sliver.1.mid",
+            "Sliver.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Stain.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Been a Son.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Turnaround.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Molly's Lips.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Son of a Gun.mid",
+            "Son of a Gun.1.mid",
+            "Son of a Gun.2.mid",
+            "Son of a Gun.3.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "(New Wave) Polly.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Beeswax.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Downer.mid",
+            "Downer.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Mexican Seafood.mid",
+            "Mexican Seafood.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Hairspray Queen.mid",
+            "Hairspray Queen.1.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Aero Zeppelin.mid",
+            "Aero Zeppelin.1.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Big Long Now.mid"
+          ]
+        },
+        {
+          "number": 15,
+          "files": [
+            "Aneurysm.mid",
+            "Aneurysm.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "57447544-1ec9-3af5-83fe-f90a6902e078",
+      "releaseId": "45468310-2fa7-4dd5-b8c7-cb8f13e48072",
+      "title": "Heart‐Shaped Box",
+      "date": "1993-08-23",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/57447544-1ec9-3af5-83fe-f90a6902e078/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Marigold.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2a0981fb-9593-3019-864b-ce934d97a16e",
+      "releaseId": "0647cb4d-c39a-4e1f-9c2b-b0c671b26c91",
+      "title": "In Utero",
+      "date": "1993-09-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2a0981fb-9593-3019-864b-ce934d97a16e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Serve the Servants.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Scentless Apprentice.mid",
+            "Scentless Apprentice.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Heart-Shaped Box.mid",
+            "Heart-Shaped Box.1.mid",
+            "Heart-Shaped Box.2.mid",
+            "Heart-Shaped Box.3.mid",
+            "Heart-Shaped Box.4.mid",
+            "Heart-Shaped Box.5.mid",
+            "Heart-Shaped Box.6.mid",
+            "Heart-Shaped Box.7.mid",
+            "Heart-Shaped Box.8.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Rape Me.mid",
+            "Rape Me.1.mid",
+            "Rape Me.2.mid",
+            "Rape Me.3.mid",
+            "Rape Me.4.mid",
+            "Rape Me.5.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Frances Farmer Will Have Her Revenge on Seattle.mid",
+            "Frances Farmer Will Have Her Revenge on Seattle.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Dumb.mid",
+            "Dumb.1.mid",
+            "Dumb.2.mid",
+            "Dumb.3.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Very Ape.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Milk It.mid",
+            "Milk It.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Pennyroyal Tea.mid",
+            "Pennyroyal Tea.1.mid",
+            "Pennyroyal Tea.2.mid",
+            "Pennyroyal Tea.3.mid",
+            "Pennyroyal Tea.4.mid",
+            "Pennyroyal Tea.5.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Radio Friendly Unit Shifter.mid",
+            "Radio Friendly Unit Shifter.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "tourette's.mid",
+            "tourette's.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "All Apologies.mid",
+            "All Apologies.1.mid",
+            "All Apologies.2.mid",
+            "All Apologies.3.mid",
+            "All Apologies.4.mid",
+            "All Apologies.5.mid",
+            "All Apologies.6.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fb3770f6-83fb-32b7-85c4-1f522a92287e",
+      "releaseId": "2ff3be28-f74f-40c9-bdde-c19b6e4384ee",
+      "title": "MTV Unplugged in New York",
+      "date": "1994-10-31",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fb3770f6-83fb-32b7-85c4-1f522a92287e/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "The Man Who Sold the World.mid",
+            "The Man Who Sold the World.1.mid",
+            "The Man Who Sold the World.2.mid",
+            "The Man Who Sold the World.3.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Plateau.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Lake of Fire.mid",
+            "Lake of Fire.1.mid",
+            "Lake of Fire.2.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -115,7 +115,7 @@ const TrackHeading = styled.nav`
     border-radius: 2px;
   }
 `;
-const ArtistSearch = styled.input`
+const DirectorySearch = styled.input`
   margin-inline: auto;
   width: 280px;
   max-width: 100%;
@@ -138,6 +138,33 @@ const ArtistSearch = styled.input`
     width: 100%;
   }
 `;
+const SearchPanes = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  gap: 16px;
+  margin-bottom: 12px;
+  > section {
+    min-width: 0;
+  }
+  > section:first-child {
+    flex: 0 0 calc(50vw - 40px);
+  }
+  > section:last-child {
+    flex: 1 1 0;
+  }
+  h2 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-weight: normal;
+  }
+  @media (max-width: 600px) {
+    flex-direction: column;
+    > section:first-child,
+    > section:last-child {
+      flex: 0 1 auto;
+    }
+  }
+`;
 const Entries = styled.ul`
   list-style: none;
   margin: 0;
@@ -154,12 +181,17 @@ const SearchResults = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
+  line-height: 22px;
+  a {
+    line-height: inherit;
+  }
   > li {
-    margin-bottom: 14px;
+    margin-bottom: 4px;
   }
   ul {
     list-style: none;
-    padding-left: 20px;
+    margin: 0;
+    padding-left: 12px;
   }
 `;
 const Entry = styled(Link)<{
@@ -476,14 +508,14 @@ const Directory = React.memo(function Directory({
       ),
     [artistSongCounts],
   );
-  const [artistQuery, setArtistQuery] = useState("");
-  const artistSearch = artistQuery.trim().toLocaleLowerCase();
+  const [searchQuery, setSearchQuery] = useState("");
+  const search = searchQuery.trim().toLocaleLowerCase();
   const matchingSongs = useMemo(() => {
     const matches = new Map<
       string,
       { source: LakhArtist; file: string; title: string }[]
     >();
-    if (!artistSearch) return matches;
+    if (!search) return matches;
     directoryArtists.forEach((item) => {
       const songs = new Map<
         string,
@@ -494,7 +526,7 @@ const Directory = React.memo(function Directory({
           const title = file.replace(/(?:\.\d+)?\.mid$/i, "");
           const identity = songIdentity(file);
           if (
-            title.toLocaleLowerCase().includes(artistSearch) &&
+            title.toLocaleLowerCase().includes(search) &&
             !songs.has(identity)
           ) {
             songs.set(identity, { source, file, title });
@@ -504,14 +536,13 @@ const Directory = React.memo(function Directory({
       if (songs.size) matches.set(item.name, Array.from(songs.values()));
     });
     return matches;
-  }, [directoryArtists, artistSearch]);
+  }, [directoryArtists, search]);
   const visibleArtists = directoryArtists.filter(
     (item) =>
-      item.name.toLocaleLowerCase().includes(artistSearch) ||
+      item.name.toLocaleLowerCase().includes(search) ||
       item.members.some((member) =>
-        member.name.toLocaleLowerCase().includes(artistSearch),
-      ) ||
-      matchingSongs.has(item.name),
+        member.name.toLocaleLowerCase().includes(search),
+      ),
   );
   const annotated = useMemo(
     () => new Set(Object.keys(analyses).filter((key) => !!analyses[key])),
@@ -583,28 +614,13 @@ const Directory = React.memo(function Directory({
             songCount === 1 ? "song" : "songs"
           } · ${count} annotated${tags.length ? ` · ${tags.join(" · ")}` : ""}`}
         >
-          {highlightMatches(item.name, artistSearch)}
+          {highlightMatches(item.name, search)}
           {songCount > 1 && (
             <small aria-label={`${songCount} songs, ${count} annotated`}>
               {songCount}
             </small>
           )}
         </Entry>
-        {!artist && !!matchingSongs.get(item.name)?.length && (
-          <ul>
-            {matchingSongs.get(item.name)!.map(({ source, file, title }) => (
-              <li key={songIdentity(file)}>
-                <Entry
-                  to={lakhTrackUrl(source, file)}
-                  $folder={false}
-                  $annotated={annotated.has(lakhAnalysisKey(source.name, file))}
-                >
-                  {highlightMatches(title, artistSearch)}
-                </Entry>
-              </li>
-            ))}
-          </ul>
-        )}
       </li>
     );
   };
@@ -621,16 +637,57 @@ const Directory = React.memo(function Directory({
           )}
         </div>
         {!artist && (
-          <ArtistSearch
+          <DirectorySearch
             type="search"
             autoFocus
             aria-label="Search artists and songs"
             placeholder="Search artists and songs"
-            value={artistQuery}
-            onChange={(event) => setArtistQuery(event.target.value)}
+            value={searchQuery}
+            onChange={(event) => setSearchQuery(event.target.value)}
           />
         )}
       </Heading>
+      {!artist && search && (
+        <SearchPanes>
+          <section aria-labelledby="lakh-artist-search-heading">
+            <h2 id="lakh-artist-search-heading">Artists</h2>
+            {visibleArtists.length ? (
+              <SearchResults>{visibleArtists.map(renderArtist)}</SearchResults>
+            ) : (
+              <p role="status">–</p>
+            )}
+          </section>
+          <section aria-labelledby="lakh-song-search-heading">
+            <h2 id="lakh-song-search-heading">Songs</h2>
+            {matchingSongs.size ? (
+              <SearchResults>
+                {Array.from(matchingSongs, ([artistName, songs]) => (
+                  <li key={artistName}>
+                    {artistName}
+                    <ul>
+                      {songs.map(({ source, file, title }) => (
+                        <li key={songIdentity(file)}>
+                          <Entry
+                            to={lakhTrackUrl(source, file)}
+                            $folder={false}
+                            $annotated={annotated.has(
+                              lakhAnalysisKey(source.name, file),
+                            )}
+                          >
+                            {highlightMatches(title, search)}
+                          </Entry>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </SearchResults>
+            ) : (
+              <p role="status">No matching songs.</p>
+            )}
+          </section>
+        </SearchPanes>
+      )}
       {artist ? (
         <>
           <BeatlesDiscography
@@ -662,18 +719,14 @@ const Directory = React.memo(function Directory({
             }}
           />
         </>
-      ) : visibleArtists.length === 0 ? (
-        <p role="status">No matching artists or songs.</p>
-      ) : artistSearch ? (
-        <SearchResults>{visibleArtists.map(renderArtist)}</SearchResults>
-      ) : (
+      ) : !search ? (
         <ArtistTable
           artists={visibleArtists}
           renderArtist={renderArtist}
           songCount={(item) => artistSongCounts.get(item.name) || 0}
           hasAnnotations={(item) => annotatedSongs(item) > 0}
         />
-      )}
+      ) : null}
       {artist && tracks.length === 0 && <p>No tracks.</p>}
       <Attribution>
         Clean subset of the{" "}

@@ -13,7 +13,7 @@ export type AlbumGroup = {
 const requests = new Map<string, Promise<AlbumGroup[] | null>>();
 let availableArtists: Promise<string[]> | undefined;
 
-async function loadGroups(slug: string): Promise<AlbumGroup[] | null> {
+function loadAlbumArtistSlugs(): Promise<string[]> {
   if (!availableArtists) {
     availableArtists = fetch("/lakh-albums/index.json").then(async (response) => {
       if (!response.ok) throw new Error("Album index unavailable");
@@ -23,7 +23,25 @@ async function loadGroups(slug: string): Promise<AlbumGroup[] | null> {
       throw error;
     });
   }
-  if (!(await availableArtists).includes(slug)) return null;
+  return availableArtists;
+}
+
+export function useAlbumArtistSlugs(): Set<string> {
+  const [slugs, setSlugs] = useState<Set<string>>(() => new Set());
+  useEffect(() => {
+    let active = true;
+    loadAlbumArtistSlugs().then((artists) => {
+      if (active) setSlugs(new Set(artists));
+    }).catch(() => {
+      // The directory remains usable when the album index is unavailable.
+    });
+    return () => { active = false; };
+  }, []);
+  return slugs;
+}
+
+async function loadGroups(slug: string): Promise<AlbumGroup[] | null> {
+  if (!(await loadAlbumArtistSlugs()).includes(slug)) return null;
   const response = await fetch(`/lakh-albums/${encodeURIComponent(slug)}.json`);
   if (!response.ok) throw new Error("Album metadata unavailable");
   const data = await response.json();

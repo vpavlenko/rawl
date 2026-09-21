@@ -10,7 +10,7 @@ import BeatlesDiscography from "./BeatlesDiscography";
 import ArtistTable from "./ArtistTable";
 import { artistProfile } from "./artistFacets";
 import { groupBeatlesTracks } from "./beatlesReleases";
-import { useAlbumMetadata } from "./albumMetadata";
+import { useAlbumArtistSlugs, useAlbumMetadata } from "./albumMetadata";
 import { canonicalArtistName } from "./artistShelves";
 import {
   LakhCatalog,
@@ -198,8 +198,10 @@ const Entry = styled(Link)<{
   $annotated: boolean;
   $folder: boolean;
   $version?: boolean;
+  $hasAlbums?: boolean;
 }>`
   display: inline;
+  ${({ $hasAlbums }) => $hasAlbums && "font-size: 18px;"}
   line-height: 26px;
   overflow-wrap: anywhere;
   /* Keep annotation colors after navigation: global a:visited is more
@@ -484,6 +486,7 @@ const Directory = React.memo(function Directory({
 }) {
   const artistName = artist?.name || "";
   const albumGroups = useAlbumMetadata(artist);
+  const albumArtistSlugs = useAlbumArtistSlugs();
   const directoryArtists = useMemo(
     () => groupArtistAliases(catalog.artists),
     [catalog],
@@ -610,6 +613,9 @@ const Directory = React.memo(function Directory({
           }
           $folder
           $annotated={count > 0}
+          $hasAlbums={item.members.some(
+            (member) => member.name === "The Beatles" || albumArtistSlugs.has(member.slug),
+          )}
           title={`${songCount} ${
             songCount === 1 ? "song" : "songs"
           } · ${count} annotated${tags.length ? ` · ${tags.join(" · ")}` : ""}`}

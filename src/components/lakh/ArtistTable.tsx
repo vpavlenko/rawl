@@ -131,7 +131,7 @@ const MergedArtists = styled(Artists)`
 `;
 
 const formatGenreLabel = (label: string) =>
-  label.toLowerCase().replace(/\s*[,&]\s*/g, "\n");
+  label.toLowerCase().replace(/\s*,\s*|\s+&\s+/g, "\n");
 
 export default function ArtistTable<T extends { name: string }>({
   artists,

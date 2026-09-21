@@ -1,0 +1,405 @@
+{
+  "artist": "Madonna",
+  "status": "processed",
+  "totalSongs": 67,
+  "matched": [
+    {
+      "song": "Amazing",
+      "album": "Music",
+      "albumId": "0a0808d5-8f78-382f-87af-f9d6fedf3f68",
+      "track": 5
+    },
+    {
+      "song": "Bad Girl",
+      "album": "Erotica",
+      "albumId": "7a6a2e9f-c699-3da5-a2d7-144d6ccba3e6",
+      "track": 6
+    },
+    {
+      "song": "Beautiful Stranger",
+      "album": "Beautiful Stranger",
+      "albumId": "080dee70-4971-4ae5-adae-e1869f7cdd5f",
+      "track": 1
+    },
+    {
+      "song": "Bedtime Story",
+      "album": "Bedtime Stories",
+      "albumId": "b3c83c83-4280-363f-8ecc-9cb453a8ea18",
+      "track": 10
+    },
+    {
+      "song": "Borderline",
+      "album": "Madonna",
+      "albumId": "cf44c73c-650d-3c67-9327-c99426ce464f",
+      "track": 2
+    },
+    {
+      "song": "Candy Perfume Girl",
+      "album": "Ray of Light",
+      "albumId": "cb93e87f-5d21-3447-a6e8-22d44f9b0d7a",
+      "track": 4
+    },
+    {
+      "song": "Causing a Commotion",
+      "album": "Who’s That Girl: Original Motion Picture Soundtrack",
+      "albumId": "ef3ddb39-4ac9-3339-b0ee-a86f8fc4be25",
+      "track": 2
+    },
+    {
+      "song": "Cherish",
+      "album": "Like a Prayer",
+      "albumId": "1f75a8df-176c-3d23-8f1f-b0c8935682ec",
+      "track": 6
+    },
+    {
+      "song": "Crazy for You",
+      "album": "Crazy for You",
+      "albumId": "2d5faff4-ae9d-47b0-b9d2-c08bd865536a",
+      "track": 1
+    },
+    {
+      "song": "Dear Jessie",
+      "album": "Like a Prayer",
+      "albumId": "1f75a8df-176c-3d23-8f1f-b0c8935682ec",
+      "track": 7
+    },
+    {
+      "song": "Deeper and Deeper",
+      "album": "Erotica",
+      "albumId": "7a6a2e9f-c699-3da5-a2d7-144d6ccba3e6",
+      "track": 4
+    },
+    {
+      "song": "Die Another Day",
+      "album": "American Life",
+      "albumId": "e5e9cecd-bf09-3b13-9edd-4f085a5a27ac",
+      "track": 10
+    },
+    {
+      "song": "Don't Stop",
+      "album": "Bedtime Stories",
+      "albumId": "b3c83c83-4280-363f-8ecc-9cb453a8ea18",
+      "track": 4
+    },
+    {
+      "song": "Don't Tell Me",
+      "album": "Music",
+      "albumId": "0a0808d5-8f78-382f-87af-f9d6fedf3f68",
+      "track": 7
+    },
+    {
+      "song": "Dress You Up",
+      "album": "Like a Virgin",
+      "albumId": "b69580b9-7050-3994-b544-4407a22c097a",
+      "track": 6
+    },
+    {
+      "song": "Drowned World   Substitute for Love",
+      "album": "Ray of Light",
+      "albumId": "cb93e87f-5d21-3447-a6e8-22d44f9b0d7a",
+      "track": 1
+    },
+    {
+      "song": "Erotica",
+      "album": "Erotica",
+      "albumId": "7a6a2e9f-c699-3da5-a2d7-144d6ccba3e6",
+      "track": 1
+    },
+    {
+      "song": "Express Yourself",
+      "album": "Like a Prayer",
+      "albumId": "1f75a8df-176c-3d23-8f1f-b0c8935682ec",
+      "track": 2
+    },
+    {
+      "song": "Fever",
+      "album": "Erotica",
+      "albumId": "7a6a2e9f-c699-3da5-a2d7-144d6ccba3e6",
+      "track": 2
+    },
+    {
+      "song": "Frozen",
+      "album": "Ray of Light",
+      "albumId": "cb93e87f-5d21-3447-a6e8-22d44f9b0d7a",
+      "track": 9
+    },
+    {
+      "song": "Hanky Panky",
+      "album": "I’m Breathless",
+      "albumId": "f60b509f-ab71-31ee-8dc1-2f88df9097ab",
+      "track": 3
+    },
+    {
+      "song": "Holiday",
+      "album": "Madonna",
+      "albumId": "cf44c73c-650d-3c67-9327-c99426ce464f",
+      "track": 5
+    },
+    {
+      "song": "Human Nature",
+      "album": "Bedtime Stories",
+      "albumId": "b3c83c83-4280-363f-8ecc-9cb453a8ea18",
+      "track": 6
+    },
+    {
+      "song": "Hung Up (Tracy Young's Get Up And Dance Groove Edit)",
+      "album": "Hung Up",
+      "albumId": "38042a55-a2db-3bbe-8d69-5e46f8d79dd7",
+      "track": 3
+    },
+    {
+      "song": "I'll Remember",
+      "album": "I'll Remember (Theme from With Honors)",
+      "albumId": "f4479688-d6c8-3638-8dc4-0d4d84995a56",
+      "track": 1
+    },
+    {
+      "song": "Into the Groove",
+      "album": "Angel",
+      "albumId": "8d0d5786-bf73-4950-ac27-6943e70bd2cc",
+      "track": 2
+    },
+    {
+      "song": "Keep It Together",
+      "album": "Like a Prayer",
+      "albumId": "1f75a8df-176c-3d23-8f1f-b0c8935682ec",
+      "track": 9
+    },
+    {
+      "song": "La Isla Bonita",
+      "album": "True Blue",
+      "albumId": "eb9c3e50-cfa9-3502-af63-41d39c4c3fa6",
+      "track": 7
+    },
+    {
+      "song": "Like a Prayer",
+      "album": "Like a Prayer",
+      "albumId": "1f75a8df-176c-3d23-8f1f-b0c8935682ec",
+      "track": 1
+    },
+    {
+      "song": "Like A Virgin",
+      "album": "Like a Virgin",
+      "albumId": "b69580b9-7050-3994-b544-4407a22c097a",
+      "track": 3
+    },
+    {
+      "song": "Little Star",
+      "album": "Ray of Light",
+      "albumId": "cb93e87f-5d21-3447-a6e8-22d44f9b0d7a",
+      "track": 12
+    },
+    {
+      "song": "Live to Tell",
+      "album": "True Blue",
+      "albumId": "eb9c3e50-cfa9-3502-af63-41d39c4c3fa6",
+      "track": 4
+    },
+    {
+      "song": "Love Don't Live Here Anymore",
+      "album": "Like a Virgin",
+      "albumId": "b69580b9-7050-3994-b544-4407a22c097a",
+      "track": 5
+    },
+    {
+      "song": "Lucky Star",
+      "album": "Madonna",
+      "albumId": "cf44c73c-650d-3c67-9327-c99426ce464f",
+      "track": 1
+    },
+    {
+      "song": "Material Girl",
+      "album": "Like a Virgin",
+      "albumId": "b69580b9-7050-3994-b544-4407a22c097a",
+      "track": 1
+    },
+    {
+      "song": "Mer Girl",
+      "album": "Ray of Light",
+      "albumId": "cb93e87f-5d21-3447-a6e8-22d44f9b0d7a",
+      "track": 13
+    },
+    {
+      "song": "Music",
+      "album": "Music",
+      "albumId": "0a0808d5-8f78-382f-87af-f9d6fedf3f68",
+      "track": 1
+    },
+    {
+      "song": "Nothing Really Matters",
+      "album": "Ray of Light",
+      "albumId": "cb93e87f-5d21-3447-a6e8-22d44f9b0d7a",
+      "track": 6
+    },
+    {
+      "song": "Oh Father",
+      "album": "Like a Prayer",
+      "albumId": "1f75a8df-176c-3d23-8f1f-b0c8935682ec",
+      "track": 8
+    },
+    {
+      "song": "Open Your Heart",
+      "album": "True Blue",
+      "albumId": "eb9c3e50-cfa9-3502-af63-41d39c4c3fa6",
+      "track": 2
+    },
+    {
+      "song": "Over and Over",
+      "album": "Like a Virgin",
+      "albumId": "b69580b9-7050-3994-b544-4407a22c097a",
+      "track": 4
+    },
+    {
+      "song": "Papa Don't Preach",
+      "album": "True Blue",
+      "albumId": "eb9c3e50-cfa9-3502-af63-41d39c4c3fa6",
+      "track": 1
+    },
+    {
+      "song": "Promise to Try",
+      "album": "Like a Prayer",
+      "albumId": "1f75a8df-176c-3d23-8f1f-b0c8935682ec",
+      "track": 5
+    },
+    {
+      "song": "Rain",
+      "album": "Erotica",
+      "albumId": "7a6a2e9f-c699-3da5-a2d7-144d6ccba3e6",
+      "track": 10
+    },
+    {
+      "song": "Ray of Light",
+      "album": "Ray of Light",
+      "albumId": "cb93e87f-5d21-3447-a6e8-22d44f9b0d7a",
+      "track": 3
+    },
+    {
+      "song": "Secret",
+      "album": "Bedtime Stories",
+      "albumId": "b3c83c83-4280-363f-8ecc-9cb453a8ea18",
+      "track": 2
+    },
+    {
+      "song": "Shanti   Ashtangi",
+      "album": "Ray of Light",
+      "albumId": "cb93e87f-5d21-3447-a6e8-22d44f9b0d7a",
+      "track": 8
+    },
+    {
+      "song": "Skin",
+      "album": "Ray of Light",
+      "albumId": "cb93e87f-5d21-3447-a6e8-22d44f9b0d7a",
+      "track": 5
+    },
+    {
+      "song": "Sky Fits Heaven",
+      "album": "Ray of Light",
+      "albumId": "cb93e87f-5d21-3447-a6e8-22d44f9b0d7a",
+      "track": 7
+    },
+    {
+      "song": "Swim",
+      "album": "Ray of Light",
+      "albumId": "cb93e87f-5d21-3447-a6e8-22d44f9b0d7a",
+      "track": 2
+    },
+    {
+      "song": "Take A Bow (1995)",
+      "album": "Bedtime Stories",
+      "albumId": "b3c83c83-4280-363f-8ecc-9cb453a8ea18",
+      "track": 11
+    },
+    {
+      "song": "The Power Of Goodbye",
+      "album": "Ray of Light",
+      "albumId": "cb93e87f-5d21-3447-a6e8-22d44f9b0d7a",
+      "track": 10
+    },
+    {
+      "song": "This Used to Be My Playground",
+      "album": "This Used to Be My Playground",
+      "albumId": "458c0d05-33ac-3b70-a5ba-04e541c130fc",
+      "track": 1
+    },
+    {
+      "song": "True Blue",
+      "album": "True Blue",
+      "albumId": "eb9c3e50-cfa9-3502-af63-41d39c4c3fa6",
+      "track": 6
+    },
+    {
+      "song": "Vogue",
+      "album": "I’m Breathless",
+      "albumId": "f60b509f-ab71-31ee-8dc1-2f88df9097ab",
+      "track": 12
+    },
+    {
+      "song": "What It Feels Like For a Girl",
+      "album": "Music",
+      "albumId": "0a0808d5-8f78-382f-87af-f9d6fedf3f68",
+      "track": 8
+    },
+    {
+      "song": "Who's That Girl",
+      "album": "Who’s That Girl: Original Motion Picture Soundtrack",
+      "albumId": "ef3ddb39-4ac9-3339-b0ee-a86f8fc4be25",
+      "track": 1
+    },
+    {
+      "song": "You Must Love Me",
+      "album": "You Must Love Me",
+      "albumId": "490f44a4-2a85-4ffc-9f0c-bc6cbcb55a06",
+      "track": 1
+    },
+    {
+      "song": "You'll See",
+      "album": "You’ll See",
+      "albumId": "3100844c-7ac3-3107-a503-7a9c234e2e03",
+      "track": 1
+    }
+  ],
+  "unmatched": [
+    "B-Day Song",
+    "Bedtime Stories (Deep Dish remix)",
+    "Buenos Aires",
+    "Deeper and Deeper (Shep's Deep Beats)",
+    "Don't Cry for Me Argentina",
+    "Hollywood (remix)",
+    "Justify My Love",
+    "Rescue Me"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "B-Day Song": [],
+    "Bedtime Stories (Deep Dish remix)": [],
+    "Buenos Aires": [],
+    "Deeper and Deeper (Shep's Deep Beats)": [
+      {
+        "title": "Deeper and Deeper (edit)",
+        "album": "Deeper and Deeper",
+        "albumId": "f698116f-9b99-35d1-8e1d-78fdff320384"
+      }
+    ],
+    "Don't Cry for Me Argentina": [
+      {
+        "title": "Don’t Cry for Me Argentina (Miami dub mix)",
+        "album": "Don’t Cry for Me Argentina",
+        "albumId": "e5256dc3-26f7-3669-8833-ece3849eddfa"
+      },
+      {
+        "title": "Don’t Cry for Me Argentina (Miami mix edit)",
+        "album": "Don’t Cry for Me Argentina",
+        "albumId": "e5256dc3-26f7-3669-8833-ece3849eddfa"
+      }
+    ],
+    "Hollywood (remix)": [
+      {
+        "title": "Hollywood",
+        "album": "American Life",
+        "albumId": "e5e9cecd-bf09-3b13-9edd-4f085a5a27ac"
+      }
+    ],
+    "Justify My Love": [],
+    "Rescue Me": []
+  }
+}

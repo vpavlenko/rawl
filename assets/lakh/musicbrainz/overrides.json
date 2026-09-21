@@ -173,5 +173,17 @@
         "title": "I’ll Be There (MTV Unplugged)"
       }
     }
+  },
+  "Madonna": {
+    "mbid": "79239441-bfd5-4981-a70c-55c3f15c1287",
+    "country": "US",
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "songs": {
+      "Take A Bow (1995)": {
+        "title": "Take a Bow"
+      }
+    }
   }
 }

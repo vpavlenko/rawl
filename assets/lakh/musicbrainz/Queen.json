@@ -1,0 +1,406 @@
+{
+  "artist": "Queen",
+  "status": "processed",
+  "totalSongs": 67,
+  "matched": [
+    {
+      "song": "'39",
+      "album": "A Night at the Opera",
+      "albumId": "6b47c9a0-b9e1-3df9-a5e8-50a6ce0dbdbd",
+      "track": 5
+    },
+    {
+      "song": "A Kind of Magic",
+      "album": "A Kind of Magic",
+      "albumId": "84f508a9-beae-3e97-b59e-3a8886c6e901",
+      "track": 2
+    },
+    {
+      "song": "All God's People",
+      "album": "Innuendo",
+      "albumId": "daf57856-a734-3441-b0fd-26aa5f28ca64",
+      "track": 6
+    },
+    {
+      "song": "Another One Bites The Dust",
+      "album": "The Game",
+      "albumId": "75702ddf-a46c-3cac-bace-0a466eb3c37c",
+      "track": 3
+    },
+    {
+      "song": "Bicycle Race",
+      "album": "Jazz",
+      "albumId": "c192ea46-7377-34f0-b332-dd9810edd560",
+      "track": 4
+    },
+    {
+      "song": "Bijou",
+      "album": "Innuendo",
+      "albumId": "daf57856-a734-3441-b0fd-26aa5f28ca64",
+      "track": 11
+    },
+    {
+      "song": "Bohemian Rhapsody",
+      "album": "A Night at the Opera",
+      "albumId": "6b47c9a0-b9e1-3df9-a5e8-50a6ce0dbdbd",
+      "track": 11
+    },
+    {
+      "song": "Crazy Little Thing Called Love",
+      "album": "The Game",
+      "albumId": "75702ddf-a46c-3cac-bace-0a466eb3c37c",
+      "track": 5
+    },
+    {
+      "song": "Death on Two Legs (Dedicated to ...)",
+      "album": "A Night at the Opera",
+      "albumId": "6b47c9a0-b9e1-3df9-a5e8-50a6ce0dbdbd",
+      "track": 1
+    },
+    {
+      "song": "Death on Two Legs (Dedicated To...)",
+      "album": "A Night at the Opera",
+      "albumId": "6b47c9a0-b9e1-3df9-a5e8-50a6ce0dbdbd",
+      "track": 1
+    },
+    {
+      "song": "Doing All Right",
+      "album": "Queen",
+      "albumId": "810068af-2b3c-3e9c-b2ab-68a3f3e3787d",
+      "track": 2
+    },
+    {
+      "song": "Don't Stop Me Now",
+      "album": "Jazz",
+      "albumId": "c192ea46-7377-34f0-b332-dd9810edd560",
+      "track": 12
+    },
+    {
+      "song": "Don't Try So Hard",
+      "album": "Innuendo",
+      "albumId": "daf57856-a734-3441-b0fd-26aa5f28ca64",
+      "track": 9
+    },
+    {
+      "song": "Fat Bottomed Girls",
+      "album": "Jazz",
+      "albumId": "c192ea46-7377-34f0-b332-dd9810edd560",
+      "track": 2
+    },
+    {
+      "song": "Father to Son",
+      "album": "Queen II",
+      "albumId": "93d91bd6-1b55-3751-bca7-8b9d33beb7ef",
+      "track": 2
+    },
+    {
+      "song": "Friends Will Be Friends",
+      "album": "A Kind of Magic",
+      "albumId": "84f508a9-beae-3e97-b59e-3a8886c6e901",
+      "track": 5
+    },
+    {
+      "song": "Fun It",
+      "album": "Jazz",
+      "albumId": "c192ea46-7377-34f0-b332-dd9810edd560",
+      "track": 10
+    },
+    {
+      "song": "Good Old Fashioned Lover Boy",
+      "album": "A Day at the Races",
+      "albumId": "a106e33b-e440-3ff3-9250-c6408ed73e60",
+      "track": 8
+    },
+    {
+      "song": "Hammer to Fall",
+      "album": "The Works",
+      "albumId": "44c90c72-76b5-3c13-890e-3d37f21c10c9",
+      "track": 8
+    },
+    {
+      "song": "Headlong",
+      "album": "Innuendo",
+      "albumId": "daf57856-a734-3441-b0fd-26aa5f28ca64",
+      "track": 3
+    },
+    {
+      "song": "Heaven for Everyone",
+      "album": "Made in Heaven",
+      "albumId": "780e6a16-9384-307d-ae65-02e1d6313753",
+      "track": 7
+    },
+    {
+      "song": "I Can't Live With You",
+      "album": "Innuendo",
+      "albumId": "daf57856-a734-3441-b0fd-26aa5f28ca64",
+      "track": 4
+    },
+    {
+      "song": "I Want It All",
+      "album": "The Miracle",
+      "albumId": "0c3067cd-0fc6-34fa-8611-cf3324b29c8a",
+      "track": 4
+    },
+    {
+      "song": "I Want to Break Free",
+      "album": "The Works",
+      "albumId": "44c90c72-76b5-3c13-890e-3d37f21c10c9",
+      "track": 6
+    },
+    {
+      "song": "I Was Born to Love You",
+      "album": "Made in Heaven",
+      "albumId": "780e6a16-9384-307d-ae65-02e1d6313753",
+      "track": 6
+    },
+    {
+      "song": "I'm Going Slightly Mad",
+      "album": "Innuendo",
+      "albumId": "daf57856-a734-3441-b0fd-26aa5f28ca64",
+      "track": 2
+    },
+    {
+      "song": "In Only Seven Days",
+      "album": "Jazz",
+      "albumId": "c192ea46-7377-34f0-b332-dd9810edd560",
+      "track": 8
+    },
+    {
+      "song": "Innuendo",
+      "album": "Innuendo",
+      "albumId": "daf57856-a734-3441-b0fd-26aa5f28ca64",
+      "track": 1
+    },
+    {
+      "song": "It's a Hard Life",
+      "album": "The Works",
+      "albumId": "44c90c72-76b5-3c13-890e-3d37f21c10c9",
+      "track": 3
+    },
+    {
+      "song": "Keep Yourself Alive",
+      "album": "Queen",
+      "albumId": "810068af-2b3c-3e9c-b2ab-68a3f3e3787d",
+      "track": 1
+    },
+    {
+      "song": "Killer Queen",
+      "album": "Sheer Heart Attack",
+      "albumId": "002ed683-3327-3df0-88c8-318746089925",
+      "track": 2
+    },
+    {
+      "song": "Lily of the Valley",
+      "album": "Sheer Heart Attack",
+      "albumId": "002ed683-3327-3df0-88c8-318746089925",
+      "track": 5
+    },
+    {
+      "song": "Love of My Life",
+      "album": "A Night at the Opera",
+      "albumId": "6b47c9a0-b9e1-3df9-a5e8-50a6ce0dbdbd",
+      "track": 9
+    },
+    {
+      "song": "Made in Heaven",
+      "album": "Made in Heaven",
+      "albumId": "780e6a16-9384-307d-ae65-02e1d6313753",
+      "track": 2
+    },
+    {
+      "song": "Mother Love",
+      "album": "Made in Heaven",
+      "albumId": "780e6a16-9384-307d-ae65-02e1d6313753",
+      "track": 4
+    },
+    {
+      "song": "My Life Has Been Saved",
+      "album": "Made in Heaven",
+      "albumId": "780e6a16-9384-307d-ae65-02e1d6313753",
+      "track": 5
+    },
+    {
+      "song": "My Melancholy Blues",
+      "album": "News of the World",
+      "albumId": "c172ea98-3a82-3254-b8ad-25a4f465ba03",
+      "track": 11
+    },
+    {
+      "song": "Never More",
+      "album": "Queen II",
+      "albumId": "93d91bd6-1b55-3751-bca7-8b9d33beb7ef",
+      "track": 8
+    },
+    {
+      "song": "Now I'm Here",
+      "album": "Sheer Heart Attack",
+      "albumId": "002ed683-3327-3df0-88c8-318746089925",
+      "track": 6
+    },
+    {
+      "song": "One Vision",
+      "album": "A Kind of Magic",
+      "albumId": "84f508a9-beae-3e97-b59e-3a8886c6e901",
+      "track": 1
+    },
+    {
+      "song": "One Year of Love",
+      "album": "A Kind of Magic",
+      "albumId": "84f508a9-beae-3e97-b59e-3a8886c6e901",
+      "track": 3
+    },
+    {
+      "song": "Play the Game",
+      "album": "The Game",
+      "albumId": "75702ddf-a46c-3cac-bace-0a466eb3c37c",
+      "track": 1
+    },
+    {
+      "song": "Princes of the Universe",
+      "album": "A Kind of Magic",
+      "albumId": "84f508a9-beae-3e97-b59e-3a8886c6e901",
+      "track": 9
+    },
+    {
+      "song": "Procession",
+      "album": "Queen II",
+      "albumId": "93d91bd6-1b55-3751-bca7-8b9d33beb7ef",
+      "track": 1
+    },
+    {
+      "song": "Radio Ga Ga",
+      "album": "The Works",
+      "albumId": "44c90c72-76b5-3c13-890e-3d37f21c10c9",
+      "track": 1
+    },
+    {
+      "song": "Rain Must Fall",
+      "album": "The Miracle",
+      "albumId": "0c3067cd-0fc6-34fa-8611-cf3324b29c8a",
+      "track": 7
+    },
+    {
+      "song": "Save Me",
+      "album": "The Game",
+      "albumId": "75702ddf-a46c-3cac-bace-0a466eb3c37c",
+      "track": 10
+    },
+    {
+      "song": "Scandal",
+      "album": "The Miracle",
+      "albumId": "0c3067cd-0fc6-34fa-8611-cf3324b29c8a",
+      "track": 8
+    },
+    {
+      "song": "Seven Seas of Rhye",
+      "album": "Queen",
+      "albumId": "810068af-2b3c-3e9c-b2ab-68a3f3e3787d",
+      "track": 10
+    },
+    {
+      "song": "Somebody to Love",
+      "album": "A Day at the Races",
+      "albumId": "a106e33b-e440-3ff3-9250-c6408ed73e60",
+      "track": 6
+    },
+    {
+      "song": "Son and Daughter",
+      "album": "Queen",
+      "albumId": "810068af-2b3c-3e9c-b2ab-68a3f3e3787d",
+      "track": 8
+    },
+    {
+      "song": "Spread Your Wings",
+      "album": "News of the World",
+      "albumId": "c172ea98-3a82-3254-b8ad-25a4f465ba03",
+      "track": 5
+    },
+    {
+      "song": "The Invisible Man",
+      "album": "The Miracle",
+      "albumId": "0c3067cd-0fc6-34fa-8611-cf3324b29c8a",
+      "track": 5
+    },
+    {
+      "song": "The Miracle",
+      "album": "The Miracle",
+      "albumId": "0c3067cd-0fc6-34fa-8611-cf3324b29c8a",
+      "track": 3
+    },
+    {
+      "song": "The Show Must Go On",
+      "album": "Innuendo",
+      "albumId": "daf57856-a734-3441-b0fd-26aa5f28ca64",
+      "track": 12
+    },
+    {
+      "song": "These Are the Days of Our Lives",
+      "album": "Innuendo",
+      "albumId": "daf57856-a734-3441-b0fd-26aa5f28ca64",
+      "track": 7
+    },
+    {
+      "song": "Too Much Love Will Kill You",
+      "album": "Made in Heaven",
+      "albumId": "780e6a16-9384-307d-ae65-02e1d6313753",
+      "track": 8
+    },
+    {
+      "song": "Under Pressure",
+      "album": "Hot Space",
+      "albumId": "3918b90b-340e-3779-9d7e-ba1593653498",
+      "track": 11
+    },
+    {
+      "song": "We Are The Champions",
+      "album": "News of the World",
+      "albumId": "c172ea98-3a82-3254-b8ad-25a4f465ba03",
+      "track": 2
+    },
+    {
+      "song": "We Are the Champions",
+      "album": "News of the World",
+      "albumId": "c172ea98-3a82-3254-b8ad-25a4f465ba03",
+      "track": 2
+    },
+    {
+      "song": "We Will Rock You",
+      "album": "News of the World",
+      "albumId": "c172ea98-3a82-3254-b8ad-25a4f465ba03",
+      "track": 1
+    },
+    {
+      "song": "White Man",
+      "album": "A Day at the Races",
+      "albumId": "a106e33b-e440-3ff3-9250-c6408ed73e60",
+      "track": 7
+    },
+    {
+      "song": "Who Wants to Live Forever",
+      "album": "A Kind of Magic",
+      "albumId": "84f508a9-beae-3e97-b59e-3a8886c6e901",
+      "track": 6
+    },
+    {
+      "song": "You Don't Fool Me",
+      "album": "Made in Heaven",
+      "albumId": "780e6a16-9384-307d-ae65-02e1d6313753",
+      "track": 9
+    },
+    {
+      "song": "You're My Best Friend",
+      "album": "A Night at the Opera",
+      "albumId": "6b47c9a0-b9e1-3df9-a5e8-50a6ce0dbdbd",
+      "track": 4
+    }
+  ],
+  "unmatched": [
+    "Living on My Own",
+    "The Great Pretender"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Living on My Own": [],
+    "The Great Pretender": []
+  }
+}

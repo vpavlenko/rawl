@@ -1,0 +1,687 @@
+{
+  "artist": "Queen",
+  "artistId": "0383dadf-2a4e-4d10-a46a-e9e041da8eb3",
+  "groups": [
+    {
+      "id": "810068af-2b3c-3e9c-b2ab-68a3f3e3787d",
+      "releaseId": "81ae60d4-5b75-38df-903a-db2cfa51c2c6",
+      "title": "Queen",
+      "date": "1973-07-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/810068af-2b3c-3e9c-b2ab-68a3f3e3787d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Keep Yourself Alive.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Doing All Right.mid",
+            "Doing All Right.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Son and Daughter.mid",
+            "Son and Daughter.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Seven Seas of Rhye.mid",
+            "Seven Seas of Rhye.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "93d91bd6-1b55-3751-bca7-8b9d33beb7ef",
+      "releaseId": "69c043bf-581f-4442-a3ab-3e2c86ae8c8f",
+      "title": "Queen II",
+      "date": "1974-04-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/93d91bd6-1b55-3751-bca7-8b9d33beb7ef/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Procession.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Father to Son.mid",
+            "Father to Son.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Never More.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "002ed683-3327-3df0-88c8-318746089925",
+      "releaseId": "a39776a4-11e0-44f9-a074-bdaa67bf45bc",
+      "title": "Sheer Heart Attack",
+      "date": "1974-11-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/002ed683-3327-3df0-88c8-318746089925/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Killer Queen.mid",
+            "Killer Queen.1.mid",
+            "Killer Queen.2.mid",
+            "Killer Queen.3.mid",
+            "Killer Queen.4.mid",
+            "Killer Queen.5.mid",
+            "Killer Queen.6.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Lily of the Valley.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Now I'm Here.mid",
+            "Now I'm Here.1.mid",
+            "Now I'm Here.2.mid",
+            "Now I'm Here.3.mid",
+            "Now I'm Here.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6b47c9a0-b9e1-3df9-a5e8-50a6ce0dbdbd",
+      "releaseId": "6defd963-fe91-4550-b18e-82c685603c2b",
+      "title": "A Night at the Opera",
+      "date": "1975-11-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6b47c9a0-b9e1-3df9-a5e8-50a6ce0dbdbd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Death on Two Legs (Dedicated to ...).mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "Death on Two Legs (Dedicated To...).mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "You're My Best Friend.mid",
+            "You're My Best Friend.1.mid",
+            "You're My Best Friend.2.mid",
+            "You're My Best Friend.3.mid",
+            "You're My Best Friend.4.mid",
+            "You're My Best Friend.5.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "'39.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Love of My Life.mid",
+            "Love of My Life.1.mid",
+            "Love of My Life.2.mid",
+            "Love of My Life.3.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Bohemian Rhapsody.mid",
+            "Bohemian Rhapsody.1.mid",
+            "Bohemian Rhapsody.2.mid",
+            "Bohemian Rhapsody.3.mid",
+            "Bohemian Rhapsody.4.mid",
+            "Bohemian Rhapsody.5.mid",
+            "Bohemian Rhapsody.6.mid",
+            "Bohemian Rhapsody.7.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a106e33b-e440-3ff3-9250-c6408ed73e60",
+      "releaseId": "b7176f18-43a8-4337-8da0-d7e58e260c5a",
+      "title": "A Day at the Races",
+      "date": "1976-12-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a106e33b-e440-3ff3-9250-c6408ed73e60/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Somebody to Love.mid",
+            "Somebody to Love.1.mid",
+            "Somebody to Love.2.mid",
+            "Somebody to Love.3.mid",
+            "Somebody to Love.4.mid",
+            "Somebody to Love.5.mid",
+            "Somebody to Love.6.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "White Man.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Good Old Fashioned Lover Boy.mid",
+            "Good Old Fashioned Lover Boy.1.mid",
+            "Good Old Fashioned Lover Boy.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c172ea98-3a82-3254-b8ad-25a4f465ba03",
+      "releaseId": "5281690f-7ba9-40d7-8417-d22473561ca4",
+      "title": "News of the World",
+      "date": "1977-10-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c172ea98-3a82-3254-b8ad-25a4f465ba03/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "We Will Rock You.mid",
+            "We Will Rock You.1.mid",
+            "We Will Rock You.2.mid",
+            "We Will Rock You.3.mid",
+            "We Will Rock You.4.mid",
+            "We Will Rock You.5.mid",
+            "We Will Rock You.6.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "We Are The Champions.1.mid",
+            "We Are The Champions.2.mid",
+            "We Are The Champions.3.mid",
+            "We Are The Champions.4.mid",
+            "We Are The Champions.5.mid",
+            "We Are The Champions.6.mid",
+            "We Are The Champions.7.mid",
+            "We Are The Champions.8.mid",
+            "We Are The Champions.9.mid",
+            "We Are The Champions.10.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "We Are the Champions.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Spread Your Wings.mid",
+            "Spread Your Wings.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "My Melancholy Blues.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c192ea46-7377-34f0-b332-dd9810edd560",
+      "releaseId": "1c191de9-cff9-47ef-8c81-891d034c4c02",
+      "title": "Jazz",
+      "date": "1978-11-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c192ea46-7377-34f0-b332-dd9810edd560/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Fat Bottomed Girls.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Bicycle Race.mid",
+            "Bicycle Race.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "In Only Seven Days.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Fun It.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Don't Stop Me Now.mid",
+            "Don't Stop Me Now.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "75702ddf-a46c-3cac-bace-0a466eb3c37c",
+      "releaseId": "383876c7-713c-4c85-9ecd-f514dfc035d5",
+      "title": "The Game",
+      "date": "1980-06-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/75702ddf-a46c-3cac-bace-0a466eb3c37c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Play the Game.mid",
+            "Play the Game.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Another One Bites The Dust.mid",
+            "Another One Bites The Dust.1.mid",
+            "Another One Bites The Dust.2.mid",
+            "Another One Bites The Dust.3.mid",
+            "Another One Bites The Dust.4.mid",
+            "Another One Bites The Dust.5.mid",
+            "Another One Bites The Dust.6.mid",
+            "Another One Bites The Dust.7.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Crazy Little Thing Called Love.mid",
+            "Crazy Little Thing Called Love.1.mid",
+            "Crazy Little Thing Called Love.2.mid",
+            "Crazy Little Thing Called Love.3.mid",
+            "Crazy Little Thing Called Love.4.mid",
+            "Crazy Little Thing Called Love.5.mid",
+            "Crazy Little Thing Called Love.6.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Save Me.mid",
+            "Save Me.1.mid",
+            "Save Me.2.mid",
+            "Save Me.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3918b90b-340e-3779-9d7e-ba1593653498",
+      "releaseId": "3910eec5-4d3c-4d15-a6db-894fa152d9ad",
+      "title": "Hot Space",
+      "date": "1982-05-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3918b90b-340e-3779-9d7e-ba1593653498/front-250",
+      "songs": [
+        {
+          "number": 11,
+          "files": [
+            "Under Pressure.mid",
+            "Under Pressure.1.mid",
+            "Under Pressure.2.mid",
+            "Under Pressure.3.mid",
+            "Under Pressure.4.mid",
+            "Under Pressure.5.mid",
+            "Under Pressure.6.mid",
+            "Under Pressure.7.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "44c90c72-76b5-3c13-890e-3d37f21c10c9",
+      "releaseId": "f967a61a-979d-4c19-a30e-b3e45bdfacb2",
+      "title": "The Works",
+      "date": "1984-02-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/44c90c72-76b5-3c13-890e-3d37f21c10c9/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Radio Ga Ga.mid",
+            "Radio Ga Ga.1.mid",
+            "Radio Ga Ga.2.mid",
+            "Radio Ga Ga.3.mid",
+            "Radio Ga Ga.4.mid",
+            "Radio Ga Ga.5.mid",
+            "Radio Ga Ga.6.mid",
+            "Radio Ga Ga.7.mid",
+            "Radio Ga Ga.8.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "It's a Hard Life.mid",
+            "It's a Hard Life.1.mid",
+            "It's a Hard Life.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "I Want to Break Free.mid",
+            "I Want to Break Free.1.mid",
+            "I Want to Break Free.2.mid",
+            "I Want to Break Free.3.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Hammer to Fall.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "84f508a9-beae-3e97-b59e-3a8886c6e901",
+      "releaseId": "9297ff86-54ad-45dc-9590-dbdbac9f5455",
+      "title": "A Kind of Magic",
+      "date": "1986-06-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/84f508a9-beae-3e97-b59e-3a8886c6e901/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "One Vision.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "A Kind of Magic.mid",
+            "A Kind of Magic.1.mid",
+            "A Kind of Magic.2.mid",
+            "A Kind of Magic.3.mid",
+            "A Kind of Magic.4.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "One Year of Love.mid",
+            "One Year of Love.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Friends Will Be Friends.mid",
+            "Friends Will Be Friends.1.mid",
+            "Friends Will Be Friends.2.mid",
+            "Friends Will Be Friends.3.mid",
+            "Friends Will Be Friends.4.mid",
+            "Friends Will Be Friends.5.mid",
+            "Friends Will Be Friends.6.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Who Wants to Live Forever.mid",
+            "Who Wants to Live Forever.1.mid",
+            "Who Wants to Live Forever.2.mid",
+            "Who Wants to Live Forever.3.mid",
+            "Who Wants to Live Forever.4.mid",
+            "Who Wants to Live Forever.5.mid",
+            "Who Wants to Live Forever.6.mid",
+            "Who Wants to Live Forever.7.mid",
+            "Who Wants to Live Forever.8.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Princes of the Universe.mid",
+            "Princes of the Universe.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0c3067cd-0fc6-34fa-8611-cf3324b29c8a",
+      "releaseId": "36d53de1-d54d-39a7-a1db-e4a7a7028f94",
+      "title": "The Miracle",
+      "date": "1989-05-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0c3067cd-0fc6-34fa-8611-cf3324b29c8a/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "The Miracle.mid",
+            "The Miracle.1.mid",
+            "The Miracle.2.mid",
+            "The Miracle.3.mid",
+            "The Miracle.4.mid",
+            "The Miracle.5.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "I Want It All.mid",
+            "I Want It All.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "The Invisible Man.mid",
+            "The Invisible Man.1.mid",
+            "The Invisible Man.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Rain Must Fall.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Scandal.mid",
+            "Scandal.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "daf57856-a734-3441-b0fd-26aa5f28ca64",
+      "releaseId": "c77822fe-1d8d-4cfe-8242-660d7c9c28ec",
+      "title": "Innuendo",
+      "date": "1991-01-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/daf57856-a734-3441-b0fd-26aa5f28ca64/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Innuendo.mid",
+            "Innuendo.1.mid",
+            "Innuendo.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "I'm Going Slightly Mad.mid",
+            "I'm Going Slightly Mad.1.mid",
+            "I'm Going Slightly Mad.2.mid",
+            "I'm Going Slightly Mad.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Headlong.mid",
+            "Headlong.1.mid",
+            "Headlong.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "I Can't Live With You.mid",
+            "I Can't Live With You.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "All God's People.mid",
+            "All God's People.1.mid",
+            "All God's People.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "These Are the Days of Our Lives.mid",
+            "These Are the Days of Our Lives.1.mid",
+            "These Are the Days of Our Lives.2.mid",
+            "These Are the Days of Our Lives.3.mid",
+            "These Are the Days of Our Lives.4.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Don't Try So Hard.mid",
+            "Don't Try So Hard.1.mid",
+            "Don't Try So Hard.2.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Bijou.mid",
+            "Bijou.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "The Show Must Go On.mid",
+            "The Show Must Go On.1.mid",
+            "The Show Must Go On.2.mid",
+            "The Show Must Go On.3.mid",
+            "The Show Must Go On.4.mid",
+            "The Show Must Go On.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "780e6a16-9384-307d-ae65-02e1d6313753",
+      "releaseId": "4ae039a8-7c0c-4d77-bbe0-bbe2bc5a0ebf",
+      "title": "Made in Heaven",
+      "date": "1995-10-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/780e6a16-9384-307d-ae65-02e1d6313753/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Made in Heaven.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Mother Love.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "My Life Has Been Saved.mid",
+            "My Life Has Been Saved.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "I Was Born to Love You.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Heaven for Everyone.mid",
+            "Heaven for Everyone.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Too Much Love Will Kill You.mid",
+            "Too Much Love Will Kill You.1.mid",
+            "Too Much Love Will Kill You.2.mid",
+            "Too Much Love Will Kill You.3.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "You Don't Fool Me.mid",
+            "You Don't Fool Me.1.mid",
+            "You Don't Fool Me.2.mid",
+            "You Don't Fool Me.3.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

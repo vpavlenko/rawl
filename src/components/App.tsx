@@ -643,9 +643,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           e.preventDefault();
           break;
         case "r":
-          this.setState((prevState) => ({
-            enableManualRemeasuring: !prevState.enableManualRemeasuring,
-          }));
+          this.handleToggleManualRemeasuring();
           e.preventDefault();
           break;
         default:
@@ -896,6 +894,19 @@ class App extends React.Component<RouteComponentProps, AppState> {
           // Handle error silently
         });
     }
+  };
+
+  handleToggleManualRemeasuring = () => {
+    this.setState((prevState) => {
+      const enableManualRemeasuring = !prevState.enableManualRemeasuring;
+      return {
+        enableManualRemeasuring,
+        // Lakh and embedded players read the stored props created on track load.
+        rawlProps: prevState.rawlProps
+          ? { ...prevState.rawlProps, enableManualRemeasuring }
+          : prevState.rawlProps,
+      };
+    });
   };
 
   setupMidiPlayer = () => {
@@ -1301,11 +1312,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           togglePause: this.togglePause,
           handleLogin: this.handleLogin,
           handleLogout: this.handleLogout,
-          handleToggleManualRemeasuring: () => {
-            this.setState((prevState) => ({
-              enableManualRemeasuring: !prevState.enableManualRemeasuring,
-            }));
-          },
+          handleToggleManualRemeasuring: this.handleToggleManualRemeasuring,
           enableManualRemeasuring: this.state.enableManualRemeasuring,
           playSongBuffer: this.playSongBuffer,
           latencyCorrectionMs: 0,

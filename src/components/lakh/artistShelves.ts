@@ -168,6 +168,8 @@ const normalizeName = (name: string) =>
     .replace(/[^a-z0-9]/g, "");
 
 const aliases: Record<string, string> = {
+  sinatra: "Frank Sinatra",
+  franksinatra: "Frank Sinatra",
   eltonjohn: "Elton John",
   johnelton: "Elton John",
   michaeljackson: "Michael Jackson",

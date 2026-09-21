@@ -3,6 +3,7 @@ import { SecondsConverter, SecondsSpan } from "./Rawl";
 import { ColoredNote, Note, PitchBendPoint } from "./parseMidi";
 import { DrumPlaybackContext } from "./drumPlayback";
 import { NotePlaybackContext } from "./notePlayback";
+import { VoiceZIndicesContext } from "./voiceOrder";
 
 // Also useful emojis
 // 🤯 🎯 🪤 💣 🔫 💢
@@ -75,8 +76,9 @@ const DrumEmoji: React.FC<{
   size: number;
   left: number;
   top: number;
+  zIndex?: number;
   children: React.ReactNode;
-}> = ({ isPlayingNow, collapsed, startSeconds, size, left, top, children }) => {
+}> = ({ isPlayingNow, collapsed, startSeconds, size, left, top, zIndex, children }) => {
   const elementRef = React.useRef<HTMLDivElement>(null);
   const animationRef = React.useRef<Animation | null>(null);
   const registerDrum = React.useContext(DrumPlaybackContext);
@@ -139,7 +141,7 @@ const DrumEmoji: React.FC<{
         transform: "translateX(-50%)",
         transition: "none",
         whiteSpace: "nowrap",
-        zIndex: collapsed ? 1 : 1000,
+        zIndex: zIndex ?? (collapsed ? 1 : 1000),
       }}
     >
       {children}
@@ -362,6 +364,8 @@ const NoteRectangle = React.memo(({
   sectionEndX?: number;
 }) => {
   const registerNote = React.useContext(NotePlaybackContext);
+  const voiceZIndices = React.useContext(VoiceZIndicesContext);
+  const voiceZIndex = voiceZIndices.get(note.voiceIndex);
   const [playing, setPlaying] = React.useState(false);
   React.useLayoutEffect(() => {
     if (registerNote && !note.isDrum) {
@@ -463,6 +467,7 @@ const NoteRectangle = React.memo(({
         size={baseHeight * 1.5}
         left={left}
         top={baseTop - noteHeight / 2}
+        zIndex={voiceZIndex}
       >
         {GM_DRUM_KIT[midiNumber] || midiNumber}
       </DrumEmoji>
@@ -498,8 +503,9 @@ const NoteRectangle = React.memo(({
             : undefined,
         pointerEvents: handleNoteClick && !hasPitchBend ? "auto" : "none",
         zIndex:
-          Math.round(10 + (width > 0 ? 1000 / width : 1000)) +
-          (noteUnderCursor ? 100 : 0),
+          voiceZIndex ??
+          (Math.round(10 + (width > 0 ? 1000 / width : 1000)) +
+            (noteUnderCursor ? 100 : 0)),
         boxSizing: "border-box",
         display: "grid",
         boxShadow: showFullNote && !hasPitchBend ? "0 0 0px 0.5px black" : "",

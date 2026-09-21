@@ -1,4 +1,9 @@
+import { createContext } from "react";
 import { ColoredNotesInVoices } from "./parseMidi";
+
+export const VoiceZIndicesContext = createContext<ReadonlyMap<number, number>>(
+  new Map(),
+);
 
 export const getSortedVoices = (
   voiceNames: string[],

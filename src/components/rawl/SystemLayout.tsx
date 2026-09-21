@@ -17,6 +17,7 @@ import MergedVoicesLegend from "./layouts/MergedVoicesLegend";
 import { VoiceName } from "./layouts/VoiceName";
 import { ColoredNote, ColoredNotesInVoices, Note } from "./parseMidi";
 import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
+import { getSortedVoices, VoiceZIndicesContext } from "./voiceOrder";
 
 export type MeasuresAndBeats = {
   measures: number[];
@@ -687,6 +688,22 @@ export const MergedSystemLayout: React.FC<
   } = props;
 
   const [hoveredVoiceIndex, setHoveredVoiceIndex] = useState<number | null>(null);
+  // Rank the full arrangement so muting, hovering, and section boundaries
+  // cannot change which voice is drawn on top.
+  const voiceZIndices = useMemo(() => {
+    const sortedVoices = getSortedVoices(
+      voiceNames,
+      notes,
+      props.drumVoices,
+      props.nativeDrumVoices,
+    );
+    return new Map(
+      sortedVoices.map(({ voiceIndex }, index) => [
+        voiceIndex,
+        sortedVoices.length - index,
+      ]),
+    );
+  }, [voiceNames, notes, props.drumVoices, props.nativeDrumVoices]);
   const { onVoiceHover } = props;
   const handleVoiceHover = useCallback(
     (voiceIndex: number | null) => {
@@ -720,18 +737,20 @@ export const MergedSystemLayout: React.FC<
 
   return (
     <div style={{ position: "relative" }}>
-      <StackedSystemLayout
-        {...props}
-        notes={flattenedNotes}
-        voiceNames={MERGED_VOICE_NAMES}
-        voiceMask={MERGED_VOICE_MASK}
-        enableManualRemeasuring={enableManualRemeasuring}
-        isEmbedded={isEmbedded}
-        slug={slug}
-        hoveredColors={hoveredColors}
-        setHoveredColors={setHoveredColors}
-        hoveredVoiceIndex={hoveredVoiceIndex}
-      />
+      <VoiceZIndicesContext.Provider value={voiceZIndices}>
+        <StackedSystemLayout
+          {...props}
+          notes={flattenedNotes}
+          voiceNames={MERGED_VOICE_NAMES}
+          voiceMask={MERGED_VOICE_MASK}
+          enableManualRemeasuring={enableManualRemeasuring}
+          isEmbedded={isEmbedded}
+          slug={slug}
+          hoveredColors={hoveredColors}
+          setHoveredColors={setHoveredColors}
+          hoveredVoiceIndex={hoveredVoiceIndex}
+        />
+      </VoiceZIndicesContext.Provider>
       {!isEmbedded && (
         <MergedVoicesLegend
           voiceNames={voiceNames}

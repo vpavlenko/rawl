@@ -158,5 +158,20 @@
         "title": "The Cinema Show / Aisle of Plenty"
       }
     }
+  },
+  "Mariah Carey": {
+    "mbid": "494e8d09-f85b-4543-892f-a5096aed1cd4",
+    "country": "US",
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "songs": {
+      "Against All Odds": {
+        "title": "Against All Odds (Take a Look at Me Now)"
+      },
+      "I'll Be There": {
+        "title": "I’ll Be There (MTV Unplugged)"
+      }
+    }
   }
 }

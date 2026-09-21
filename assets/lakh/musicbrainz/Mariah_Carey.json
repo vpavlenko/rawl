@@ -1,0 +1,426 @@
+{
+  "artist": "Mariah Carey",
+  "status": "processed",
+  "totalSongs": 72,
+  "matched": [
+    {
+      "song": "Against All Odds",
+      "album": "Rainbow",
+      "albumId": "4509577f-ee12-3e4f-bf50-730264301d31",
+      "track": 9
+    },
+    {
+      "song": "All I Want for Christmas Is You",
+      "album": "Merry Christmas",
+      "albumId": "ea885664-bf25-3e52-8ce0-15a84aed4a83",
+      "track": 2
+    },
+    {
+      "song": "All I've Ever Wanted",
+      "album": "Music Box",
+      "albumId": "7625cb89-79a6-3a00-bc38-d44552add611",
+      "track": 10
+    },
+    {
+      "song": "All in Your Mind",
+      "album": "Mariah Carey",
+      "albumId": "67cd8314-bdfc-3023-b4d0-46a0b06ff819",
+      "track": 6
+    },
+    {
+      "song": "Alone in Love",
+      "album": "Mariah Carey",
+      "albumId": "67cd8314-bdfc-3023-b4d0-46a0b06ff819",
+      "track": 7
+    },
+    {
+      "song": "Always Be My Baby",
+      "album": "Daydream",
+      "albumId": "bf0126a1-b79c-3c9c-a892-f4bf4fac2bb0",
+      "track": 5
+    },
+    {
+      "song": "And You Don't Remember",
+      "album": "Emotions",
+      "albumId": "1746a028-cb05-39db-9249-f2e58331fd23",
+      "track": 2
+    },
+    {
+      "song": "Anytime You Need a Friend",
+      "album": "Music Box",
+      "albumId": "7625cb89-79a6-3a00-bc38-d44552add611",
+      "track": 3
+    },
+    {
+      "song": "Babydoll",
+      "album": "Butterfly",
+      "albumId": "1ea6ffaa-df4f-31cc-955f-0fc57a9cf864",
+      "track": 7
+    },
+    {
+      "song": "Breakdown",
+      "album": "Butterfly",
+      "albumId": "1ea6ffaa-df4f-31cc-955f-0fc57a9cf864",
+      "track": 6
+    },
+    {
+      "song": "Butterfly",
+      "album": "Butterfly",
+      "albumId": "1ea6ffaa-df4f-31cc-955f-0fc57a9cf864",
+      "track": 2
+    },
+    {
+      "song": "Can't Let Go",
+      "album": "Emotions",
+      "albumId": "1746a028-cb05-39db-9249-f2e58331fd23",
+      "track": 3
+    },
+    {
+      "song": "Close My Eyes",
+      "album": "Butterfly",
+      "albumId": "1ea6ffaa-df4f-31cc-955f-0fc57a9cf864",
+      "track": 8
+    },
+    {
+      "song": "Do You Know Where You're Going To (Theme From Mahogany)",
+      "album": "Do You Know Where You’re Going To",
+      "albumId": "522025d7-3772-4ef6-924b-0598356251df",
+      "track": 1
+    },
+    {
+      "song": "Dream Lover",
+      "album": "Music Box",
+      "albumId": "7625cb89-79a6-3a00-bc38-d44552add611",
+      "track": 1
+    },
+    {
+      "song": "Dreamlover",
+      "album": "Music Box",
+      "albumId": "7625cb89-79a6-3a00-bc38-d44552add611",
+      "track": 1
+    },
+    {
+      "song": "Emotions",
+      "album": "Emotions",
+      "albumId": "1746a028-cb05-39db-9249-f2e58331fd23",
+      "track": 1
+    },
+    {
+      "song": "Everything Fades Away",
+      "album": "Hero",
+      "albumId": "4919e241-b9b7-32cb-8c0b-6d5c85aff4de",
+      "track": 3
+    },
+    {
+      "song": "Fantasy",
+      "album": "Daydream",
+      "albumId": "bf0126a1-b79c-3c9c-a892-f4bf4fac2bb0",
+      "track": 1
+    },
+    {
+      "song": "Fly Away (Butterfly reprise)",
+      "album": "Butterfly",
+      "albumId": "1ea6ffaa-df4f-31cc-955f-0fc57a9cf864",
+      "track": 10
+    },
+    {
+      "song": "Forever",
+      "album": "Daydream",
+      "albumId": "bf0126a1-b79c-3c9c-a892-f4bf4fac2bb0",
+      "track": 10
+    },
+    {
+      "song": "Fourth of July",
+      "album": "Butterfly",
+      "albumId": "1ea6ffaa-df4f-31cc-955f-0fc57a9cf864",
+      "track": 5
+    },
+    {
+      "song": "Heartbreaker",
+      "album": "Rainbow",
+      "albumId": "4509577f-ee12-3e4f-bf50-730264301d31",
+      "track": 1
+    },
+    {
+      "song": "Hero",
+      "album": "Music Box",
+      "albumId": "7625cb89-79a6-3a00-bc38-d44552add611",
+      "track": 2
+    },
+    {
+      "song": "Honey",
+      "album": "Butterfly",
+      "albumId": "1ea6ffaa-df4f-31cc-955f-0fc57a9cf864",
+      "track": 1
+    },
+    {
+      "song": "I Am Free",
+      "album": "Daydream",
+      "albumId": "bf0126a1-b79c-3c9c-a892-f4bf4fac2bb0",
+      "track": 6
+    },
+    {
+      "song": "I Don't Wanna Cry",
+      "album": "Mariah Carey",
+      "albumId": "67cd8314-bdfc-3023-b4d0-46a0b06ff819",
+      "track": 3
+    },
+    {
+      "song": "I'll Be There",
+      "album": "I’ll Be There",
+      "albumId": "f1e20069-9cc4-382d-bc9e-58816e33f0bd",
+      "track": 1
+    },
+    {
+      "song": "I've Been Thinking About You",
+      "album": "Music Box",
+      "albumId": "7625cb89-79a6-3a00-bc38-d44552add611",
+      "track": 9
+    },
+    {
+      "song": "If It's Over",
+      "album": "Emotions",
+      "albumId": "1746a028-cb05-39db-9249-f2e58331fd23",
+      "track": 5
+    },
+    {
+      "song": "Jesus Born on This Day",
+      "album": "Merry Christmas",
+      "albumId": "ea885664-bf25-3e52-8ce0-15a84aed4a83",
+      "track": 7
+    },
+    {
+      "song": "Just to Hold You Once Again",
+      "album": "Music Box",
+      "albumId": "7625cb89-79a6-3a00-bc38-d44552add611",
+      "track": 8
+    },
+    {
+      "song": "Long Ago",
+      "album": "Daydream",
+      "albumId": "bf0126a1-b79c-3c9c-a892-f4bf4fac2bb0",
+      "track": 8
+    },
+    {
+      "song": "Looking In",
+      "album": "Daydream",
+      "albumId": "bf0126a1-b79c-3c9c-a892-f4bf4fac2bb0",
+      "track": 12
+    },
+    {
+      "song": "Love Takes Time",
+      "album": "Mariah Carey",
+      "albumId": "67cd8314-bdfc-3023-b4d0-46a0b06ff819",
+      "track": 11
+    },
+    {
+      "song": "Make It Happen",
+      "album": "Emotions",
+      "albumId": "1746a028-cb05-39db-9249-f2e58331fd23",
+      "track": 4
+    },
+    {
+      "song": "Melt Away",
+      "album": "Daydream",
+      "albumId": "bf0126a1-b79c-3c9c-a892-f4bf4fac2bb0",
+      "track": 9
+    },
+    {
+      "song": "Miss You Most (At Christmas Time)",
+      "album": "Merry Christmas",
+      "albumId": "ea885664-bf25-3e52-8ce0-15a84aed4a83",
+      "track": 5
+    },
+    {
+      "song": "Music Box",
+      "album": "Music Box",
+      "albumId": "7625cb89-79a6-3a00-bc38-d44552add611",
+      "track": 4
+    },
+    {
+      "song": "My All",
+      "album": "Butterfly",
+      "albumId": "1ea6ffaa-df4f-31cc-955f-0fc57a9cf864",
+      "track": 3
+    },
+    {
+      "song": "Never Forget You",
+      "album": "Music Box",
+      "albumId": "7625cb89-79a6-3a00-bc38-d44552add611",
+      "track": 6
+    },
+    {
+      "song": "Now That I Know",
+      "album": "Music Box",
+      "albumId": "7625cb89-79a6-3a00-bc38-d44552add611",
+      "track": 5
+    },
+    {
+      "song": "One Sweet Day",
+      "album": "Daydream",
+      "albumId": "bf0126a1-b79c-3c9c-a892-f4bf4fac2bb0",
+      "track": 3
+    },
+    {
+      "song": "Open Arms",
+      "album": "Daydream",
+      "albumId": "bf0126a1-b79c-3c9c-a892-f4bf4fac2bb0",
+      "track": 4
+    },
+    {
+      "song": "Outside",
+      "album": "Butterfly",
+      "albumId": "1ea6ffaa-df4f-31cc-955f-0fc57a9cf864",
+      "track": 12
+    },
+    {
+      "song": "Prisoner",
+      "album": "Mariah Carey",
+      "albumId": "67cd8314-bdfc-3023-b4d0-46a0b06ff819",
+      "track": 10
+    },
+    {
+      "song": "Rainbow (Interlude)",
+      "album": "Rainbow",
+      "albumId": "4509577f-ee12-3e4f-bf50-730264301d31",
+      "track": 13
+    },
+    {
+      "song": "Sent From Up Above",
+      "album": "Mariah Carey",
+      "albumId": "67cd8314-bdfc-3023-b4d0-46a0b06ff819",
+      "track": 9
+    },
+    {
+      "song": "Silent Night",
+      "album": "Merry Christmas",
+      "albumId": "ea885664-bf25-3e52-8ce0-15a84aed4a83",
+      "track": 1
+    },
+    {
+      "song": "So Blessed",
+      "album": "Emotions",
+      "albumId": "1746a028-cb05-39db-9249-f2e58331fd23",
+      "track": 7
+    },
+    {
+      "song": "Someday",
+      "album": "Mariah Carey",
+      "albumId": "67cd8314-bdfc-3023-b4d0-46a0b06ff819",
+      "track": 4
+    },
+    {
+      "song": "Thank God I Found You",
+      "album": "Rainbow",
+      "albumId": "4509577f-ee12-3e4f-bf50-730264301d31",
+      "track": 14
+    },
+    {
+      "song": "The Beautiful Ones",
+      "album": "Butterfly",
+      "albumId": "1ea6ffaa-df4f-31cc-955f-0fc57a9cf864",
+      "track": 11
+    },
+    {
+      "song": "The Roof",
+      "album": "Butterfly",
+      "albumId": "1ea6ffaa-df4f-31cc-955f-0fc57a9cf864",
+      "track": 4
+    },
+    {
+      "song": "The Wind",
+      "album": "Emotions",
+      "albumId": "1746a028-cb05-39db-9249-f2e58331fd23",
+      "track": 10
+    },
+    {
+      "song": "There's Got To Be A Way (album version)",
+      "album": "Mariah Carey",
+      "albumId": "67cd8314-bdfc-3023-b4d0-46a0b06ff819",
+      "track": 2
+    },
+    {
+      "song": "Till the End of Time",
+      "album": "Emotions",
+      "albumId": "1746a028-cb05-39db-9249-f2e58331fd23",
+      "track": 9
+    },
+    {
+      "song": "To Be Around You",
+      "album": "Emotions",
+      "albumId": "1746a028-cb05-39db-9249-f2e58331fd23",
+      "track": 8
+    },
+    {
+      "song": "Underneath the Stars",
+      "album": "Daydream",
+      "albumId": "bf0126a1-b79c-3c9c-a892-f4bf4fac2bb0",
+      "track": 2
+    },
+    {
+      "song": "Vanishing",
+      "album": "Mariah Carey",
+      "albumId": "67cd8314-bdfc-3023-b4d0-46a0b06ff819",
+      "track": 5
+    },
+    {
+      "song": "Vision of Love",
+      "album": "Mariah Carey",
+      "albumId": "67cd8314-bdfc-3023-b4d0-46a0b06ff819",
+      "track": 1
+    },
+    {
+      "song": "When I Saw You",
+      "album": "Daydream",
+      "albumId": "bf0126a1-b79c-3c9c-a892-f4bf4fac2bb0",
+      "track": 7
+    },
+    {
+      "song": "Whenever You Call",
+      "album": "Butterfly",
+      "albumId": "1ea6ffaa-df4f-31cc-955f-0fc57a9cf864",
+      "track": 9
+    },
+    {
+      "song": "Without You",
+      "album": "Music Box",
+      "albumId": "7625cb89-79a6-3a00-bc38-d44552add611",
+      "track": 7
+    },
+    {
+      "song": "You Need Me",
+      "album": "Mariah Carey",
+      "albumId": "67cd8314-bdfc-3023-b4d0-46a0b06ff819",
+      "track": 8
+    },
+    {
+      "song": "You're So Cold",
+      "album": "Emotions",
+      "albumId": "1746a028-cb05-39db-9249-f2e58331fd23",
+      "track": 6
+    }
+  ],
+  "unmatched": [
+    "Do You Think Of Me",
+    "Emotions (12\" club No. 1 mix)",
+    "Endless Love",
+    "Slipping Away",
+    "So Lonely (One & Only, Part II)",
+    "When You Believe (From the Prince of Egypt)"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Do You Think Of Me": [],
+    "Emotions (12\" club No. 1 mix)": [
+      {
+        "title": "Emotions (12'' Club Mix)",
+        "album": "Emotions",
+        "albumId": "6eebfc23-d065-4922-b3f5-07f07a971ddf"
+      }
+    ],
+    "Endless Love": [],
+    "Slipping Away": [],
+    "So Lonely (One & Only, Part II)": [],
+    "When You Believe (From the Prince of Egypt)": []
+  }
+}

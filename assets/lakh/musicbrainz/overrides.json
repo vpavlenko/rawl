@@ -140,5 +140,23 @@
         "title": "Cygnus X‐1, Book II: Hemispheres: I. Prelude / II. Apollo: Bringer of Wisdom / III. Dionysus: Bringer of Love / IV. Armageddon: The Battle of Heart and Mind / V. Cygnus: Bringer of Balance / VI. The Sphere: A Kind of Dream"
       }
     }
+  },
+  "Genesis": {
+    "mbid": "8e3fcd7d-bda1-4ca0-b987-b8528d2ee74e",
+    "country": "GB",
+    "releaseOverrides": {
+      "ecb68a84-e8dd-301b-979a-d185e3cc87e4": "f6dc7b15-0d14-48d9-9334-4ee2fe9a39a0"
+    },
+    "songs": {
+      "Carpet Crawl": {
+        "title": "Carpet Crawlers"
+      },
+      "Domino": {
+        "title": "Domino: Part One – In the Glow of the Night / Part Two – The Last Domino"
+      },
+      "The Cinema Show": {
+        "title": "The Cinema Show / Aisle of Plenty"
+      }
+    }
   }
 }

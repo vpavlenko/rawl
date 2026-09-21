@@ -1,0 +1,440 @@
+{
+  "artist": "Genesis",
+  "status": "processed",
+  "totalSongs": 72,
+  "matched": [
+    {
+      "song": "A Trick of the Tail",
+      "album": "A Trick of the Tail",
+      "albumId": "adcc32d7-cb30-3201-84fa-488e35c9c9ed",
+      "track": 7
+    },
+    {
+      "song": "Abacab",
+      "album": "Abacab",
+      "albumId": "b76520a1-3c5f-3a0c-a755-4c4d99b97c98",
+      "track": 1
+    },
+    {
+      "song": "Afterglow",
+      "album": "Wind & Wuthering",
+      "albumId": "96e0f4a1-52b2-3da7-a11f-1cfa861baeb6",
+      "track": 9
+    },
+    {
+      "song": "All in a Mouse's Night",
+      "album": "Wind & Wuthering",
+      "albumId": "96e0f4a1-52b2-3da7-a11f-1cfa861baeb6",
+      "track": 5
+    },
+    {
+      "song": "Anyway",
+      "album": "The Lamb Lies Down on Broadway",
+      "albumId": "f2e5d462-6ec1-3cf8-8ea8-06eab8fe51f5",
+      "track": 14
+    },
+    {
+      "song": "Behind the Lines",
+      "album": "Duke",
+      "albumId": "ffcfe407-d820-38ba-a798-8734b5dff61c",
+      "track": 1
+    },
+    {
+      "song": "Blood on the Rooftops",
+      "album": "Wind & Wuthering",
+      "albumId": "96e0f4a1-52b2-3da7-a11f-1cfa861baeb6",
+      "track": 6
+    },
+    {
+      "song": "Broadway Melody of 1974",
+      "album": "The Lamb Lies Down on Broadway",
+      "albumId": "f2e5d462-6ec1-3cf8-8ea8-06eab8fe51f5",
+      "track": 3
+    },
+    {
+      "song": "Calling All Stations",
+      "album": "…Calling All Stations…",
+      "albumId": "ecb68a84-e8dd-301b-979a-d185e3cc87e4",
+      "track": 1
+    },
+    {
+      "song": "Can-Utility and the Coastliners",
+      "album": "Foxtrot",
+      "albumId": "81d890d2-e71a-3e96-b3f1-4ddb3b6feb81",
+      "track": 4
+    },
+    {
+      "song": "Carpet Crawl",
+      "album": "The Lamb Lies Down on Broadway",
+      "albumId": "f2e5d462-6ec1-3cf8-8ea8-06eab8fe51f5",
+      "track": 10
+    },
+    {
+      "song": "Carpet Crawlers",
+      "album": "The Lamb Lies Down on Broadway",
+      "albumId": "f2e5d462-6ec1-3cf8-8ea8-06eab8fe51f5",
+      "track": 10
+    },
+    {
+      "song": "Dance on a Volcano",
+      "album": "A Trick of the Tail",
+      "albumId": "adcc32d7-cb30-3201-84fa-488e35c9c9ed",
+      "track": 1
+    },
+    {
+      "song": "Dodo   Lurker",
+      "album": "Abacab",
+      "albumId": "b76520a1-3c5f-3a0c-a755-4c4d99b97c98",
+      "track": 5
+    },
+    {
+      "song": "Domino",
+      "album": "Invisible Touch",
+      "albumId": "cd5b8b39-cdfd-337a-9fab-c2571be315c0",
+      "track": 6
+    },
+    {
+      "song": "Driving the Last Spike",
+      "album": "We Can’t Dance",
+      "albumId": "1f94530c-4206-3c2f-a3e8-8f9bed86590e",
+      "track": 3
+    },
+    {
+      "song": "Duke's End",
+      "album": "Duke",
+      "albumId": "ffcfe407-d820-38ba-a798-8734b5dff61c",
+      "track": 12
+    },
+    {
+      "song": "Entangled",
+      "album": "A Trick of the Tail",
+      "albumId": "adcc32d7-cb30-3201-84fa-488e35c9c9ed",
+      "track": 2
+    },
+    {
+      "song": "Fading Lights",
+      "album": "We Can’t Dance",
+      "albumId": "1f94530c-4206-3c2f-a3e8-8f9bed86590e",
+      "track": 12
+    },
+    {
+      "song": "Firth of Fifth",
+      "album": "Selling England by the Pound",
+      "albumId": "1fadec3d-7451-32e8-9194-ad7e5312cb9b",
+      "track": 3
+    },
+    {
+      "song": "Follow You Follow Me",
+      "album": "…And Then There Were Three…",
+      "albumId": "f599ecff-d76c-361a-97c2-523d4aa1f0b4",
+      "track": 11
+    },
+    {
+      "song": "Get 'Em Out by Friday",
+      "album": "Foxtrot",
+      "albumId": "81d890d2-e71a-3e96-b3f1-4ddb3b6feb81",
+      "track": 3
+    },
+    {
+      "song": "Hairless Heart",
+      "album": "The Lamb Lies Down on Broadway",
+      "albumId": "f2e5d462-6ec1-3cf8-8ea8-06eab8fe51f5",
+      "track": 8
+    },
+    {
+      "song": "Heathaze",
+      "album": "Duke",
+      "albumId": "ffcfe407-d820-38ba-a798-8734b5dff61c",
+      "track": 6
+    },
+    {
+      "song": "Hold On My Heart",
+      "album": "We Can’t Dance",
+      "albumId": "1f94530c-4206-3c2f-a3e8-8f9bed86590e",
+      "track": 9
+    },
+    {
+      "song": "Horizon's",
+      "album": "Foxtrot",
+      "albumId": "81d890d2-e71a-3e96-b3f1-4ddb3b6feb81",
+      "track": 5
+    },
+    {
+      "song": "I Can't Dance",
+      "album": "We Can’t Dance",
+      "albumId": "1f94530c-4206-3c2f-a3e8-8f9bed86590e",
+      "track": 4
+    },
+    {
+      "song": "I Know What I Like (In Your Wardrobe)",
+      "album": "Selling England by the Pound",
+      "albumId": "1fadec3d-7451-32e8-9194-ad7e5312cb9b",
+      "track": 2
+    },
+    {
+      "song": "Illegal Alien",
+      "album": "Genesis",
+      "albumId": "48bb31b2-1b07-38ec-9ef2-3bb52c1f9411",
+      "track": 5
+    },
+    {
+      "song": "In the Cage",
+      "album": "The Lamb Lies Down on Broadway",
+      "albumId": "f2e5d462-6ec1-3cf8-8ea8-06eab8fe51f5",
+      "track": 5
+    },
+    {
+      "song": "In Too Deep",
+      "album": "Invisible Touch",
+      "albumId": "cd5b8b39-cdfd-337a-9fab-c2571be315c0",
+      "track": 4
+    },
+    {
+      "song": "Invisible Touch",
+      "album": "Invisible Touch",
+      "albumId": "cd5b8b39-cdfd-337a-9fab-c2571be315c0",
+      "track": 1
+    },
+    {
+      "song": "Jesus He Knows Me",
+      "album": "We Can’t Dance",
+      "albumId": "1f94530c-4206-3c2f-a3e8-8f9bed86590e",
+      "track": 2
+    },
+    {
+      "song": "Keep It Dark",
+      "album": "Abacab",
+      "albumId": "b76520a1-3c5f-3a0c-a755-4c4d99b97c98",
+      "track": 4
+    },
+    {
+      "song": "Land of Confusion",
+      "album": "Invisible Touch",
+      "albumId": "cd5b8b39-cdfd-337a-9fab-c2571be315c0",
+      "track": 3
+    },
+    {
+      "song": "Lilywhite Lilith",
+      "album": "The Lamb Lies Down on Broadway",
+      "albumId": "f2e5d462-6ec1-3cf8-8ea8-06eab8fe51f5",
+      "track": 12
+    },
+    {
+      "song": "Mad Man Moon",
+      "album": "A Trick of the Tail",
+      "albumId": "adcc32d7-cb30-3201-84fa-488e35c9c9ed",
+      "track": 4
+    },
+    {
+      "song": "Mama",
+      "album": "Genesis",
+      "albumId": "48bb31b2-1b07-38ec-9ef2-3bb52c1f9411",
+      "track": 1
+    },
+    {
+      "song": "Man on the Corner",
+      "album": "Abacab",
+      "albumId": "b76520a1-3c5f-3a0c-a755-4c4d99b97c98",
+      "track": 7
+    },
+    {
+      "song": "Many Too Many",
+      "album": "…And Then There Were Three…",
+      "albumId": "f599ecff-d76c-361a-97c2-523d4aa1f0b4",
+      "track": 7
+    },
+    {
+      "song": "Misunderstanding",
+      "album": "Duke",
+      "albumId": "ffcfe407-d820-38ba-a798-8734b5dff61c",
+      "track": 5
+    },
+    {
+      "song": "Never a Time",
+      "album": "We Can’t Dance",
+      "albumId": "1f94530c-4206-3c2f-a3e8-8f9bed86590e",
+      "track": 5
+    },
+    {
+      "song": "No Son of Mine",
+      "album": "We Can’t Dance",
+      "albumId": "1f94530c-4206-3c2f-a3e8-8f9bed86590e",
+      "track": 1
+    },
+    {
+      "song": "One for the Vine",
+      "album": "Wind & Wuthering",
+      "albumId": "96e0f4a1-52b2-3da7-a11f-1cfa861baeb6",
+      "track": 2
+    },
+    {
+      "song": "Paperlate",
+      "album": "3×3",
+      "albumId": "012f9b5a-d60a-45a2-a14d-623a3c99ec9d",
+      "track": 1
+    },
+    {
+      "song": "Ripples",
+      "album": "A Trick of the Tail",
+      "albumId": "adcc32d7-cb30-3201-84fa-488e35c9c9ed",
+      "track": 6
+    },
+    {
+      "song": "Second Home by the Sea",
+      "album": "Genesis",
+      "albumId": "48bb31b2-1b07-38ec-9ef2-3bb52c1f9411",
+      "track": 4
+    },
+    {
+      "song": "Seven Stones",
+      "album": "Nursery Cryme",
+      "albumId": "863a205e-07c3-3930-8561-a23045719466",
+      "track": 4
+    },
+    {
+      "song": "Shipwrecked",
+      "album": "…Calling All Stations…",
+      "albumId": "ecb68a84-e8dd-301b-979a-d185e3cc87e4",
+      "track": 3
+    },
+    {
+      "song": "Snowbound",
+      "album": "…And Then There Were Three…",
+      "albumId": "f599ecff-d76c-361a-97c2-523d4aa1f0b4",
+      "track": 4
+    },
+    {
+      "song": "Squonk",
+      "album": "A Trick of the Tail",
+      "albumId": "adcc32d7-cb30-3201-84fa-488e35c9c9ed",
+      "track": 3
+    },
+    {
+      "song": "Supper's Ready",
+      "album": "Foxtrot",
+      "albumId": "81d890d2-e71a-3e96-b3f1-4ddb3b6feb81",
+      "track": 6
+    },
+    {
+      "song": "Taking It All Too Hard",
+      "album": "Genesis",
+      "albumId": "48bb31b2-1b07-38ec-9ef2-3bb52c1f9411",
+      "track": 6
+    },
+    {
+      "song": "Tell Me Why",
+      "album": "We Can’t Dance",
+      "albumId": "1f94530c-4206-3c2f-a3e8-8f9bed86590e",
+      "track": 7
+    },
+    {
+      "song": "That's All",
+      "album": "Genesis",
+      "albumId": "48bb31b2-1b07-38ec-9ef2-3bb52c1f9411",
+      "track": 2
+    },
+    {
+      "song": "The Battle of Epping Forest",
+      "album": "Selling England by the Pound",
+      "albumId": "1fadec3d-7451-32e8-9194-ad7e5312cb9b",
+      "track": 5
+    },
+    {
+      "song": "The Brazilian",
+      "album": "Invisible Touch",
+      "albumId": "cd5b8b39-cdfd-337a-9fab-c2571be315c0",
+      "track": 8
+    },
+    {
+      "song": "The Cinema Show",
+      "album": "Selling England by the Pound",
+      "albumId": "1fadec3d-7451-32e8-9194-ad7e5312cb9b",
+      "track": 7
+    },
+    {
+      "song": "The Fountain of Salmacis",
+      "album": "Nursery Cryme",
+      "albumId": "863a205e-07c3-3930-8561-a23045719466",
+      "track": 3
+    },
+    {
+      "song": "The Grand Parade of Lifeless Packaging",
+      "album": "The Lamb Lies Down on Broadway",
+      "albumId": "f2e5d462-6ec1-3cf8-8ea8-06eab8fe51f5",
+      "track": 6
+    },
+    {
+      "song": "The Knife",
+      "album": "Trespass",
+      "albumId": "aa86c6bb-d1c7-3a03-bcb4-3c6f0a469328",
+      "track": 6
+    },
+    {
+      "song": "The Lamb Lies Down on Broadway",
+      "album": "The Lamb Lies Down on Broadway",
+      "albumId": "f2e5d462-6ec1-3cf8-8ea8-06eab8fe51f5",
+      "track": 1
+    },
+    {
+      "song": "The Lamia",
+      "album": "The Lamb Lies Down on Broadway",
+      "albumId": "f2e5d462-6ec1-3cf8-8ea8-06eab8fe51f5",
+      "track": 16
+    },
+    {
+      "song": "The Musical Box",
+      "album": "Nursery Cryme",
+      "albumId": "863a205e-07c3-3930-8561-a23045719466",
+      "track": 1
+    },
+    {
+      "song": "The Return of the Giant Hogweed",
+      "album": "Nursery Cryme",
+      "albumId": "863a205e-07c3-3930-8561-a23045719466",
+      "track": 7
+    },
+    {
+      "song": "Throwing It All Away",
+      "album": "Invisible Touch",
+      "albumId": "cd5b8b39-cdfd-337a-9fab-c2571be315c0",
+      "track": 7
+    },
+    {
+      "song": "Time Table",
+      "album": "Foxtrot",
+      "albumId": "81d890d2-e71a-3e96-b3f1-4ddb3b6feb81",
+      "track": 2
+    },
+    {
+      "song": "Tonight Tonight Tonight",
+      "album": "Invisible Touch",
+      "albumId": "cd5b8b39-cdfd-337a-9fab-c2571be315c0",
+      "track": 2
+    },
+    {
+      "song": "Turn It On Again",
+      "album": "Duke",
+      "albumId": "ffcfe407-d820-38ba-a798-8734b5dff61c",
+      "track": 7
+    },
+    {
+      "song": "Uncertain Weather",
+      "album": "…Calling All Stations…",
+      "albumId": "ecb68a84-e8dd-301b-979a-d185e3cc87e4",
+      "track": 8
+    },
+    {
+      "song": "Watcher of the Skies",
+      "album": "Foxtrot",
+      "albumId": "81d890d2-e71a-3e96-b3f1-4ddb3b6feb81",
+      "track": 1
+    }
+  ],
+  "unmatched": [
+    "In the Cage (medley): The Cinema Show   Slipperman"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "In the Cage (medley): The Cinema Show   Slipperman": []
+  }
+}

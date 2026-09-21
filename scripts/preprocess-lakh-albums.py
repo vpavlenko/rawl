@@ -112,6 +112,9 @@ def process(artist, config):
             bool(settings.get('country')) and r.get('country') != settings['country'],
             r['date'], r['id'],
         ))
+        release_id = settings.get('releaseOverrides', {}).get(group['id'])
+        if release_id:
+            release = next(r for r in releases if r['id'] == release_id)
         data = fetch('release/' + release['id'], inc='recordings')
         album = {'id': group['id'], 'releaseId': release['id'], 'title': group['title'], 'date': group['first-release-date'], 'type': group['primary-type'], 'cover': 'https://coverartarchive.org/release-group/' + group['id'] + '/front-250', 'songs': []}
         albums.append(album)

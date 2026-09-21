@@ -1,0 +1,441 @@
+{
+  "artist": "Metallica",
+  "status": "processed",
+  "totalSongs": 73,
+  "matched": [
+    {
+      "song": "(Anesthesia)-Pulling Teeth",
+      "album": "Kill ’Em All",
+      "albumId": "f44f4f73-a714-31a1-a4b8-bfcaaf311f50",
+      "track": 5
+    },
+    {
+      "song": "...and Justice for All",
+      "album": "…And Justice for All",
+      "albumId": "67553e23-8dad-3792-b6f2-8fedd5650ff3",
+      "track": 2
+    },
+    {
+      "song": "2 X 4",
+      "album": "Load",
+      "albumId": "e389b7df-862d-3d91-a612-acca150f6e71",
+      "track": 2
+    },
+    {
+      "song": "Ain't My Bitch",
+      "album": "Load",
+      "albumId": "e389b7df-862d-3d91-a612-acca150f6e71",
+      "track": 1
+    },
+    {
+      "song": "Am I Evil?",
+      "album": "Creeping Death",
+      "albumId": "6a968491-b9a7-3cf1-88f6-f7d6d3daa95a",
+      "track": 2
+    },
+    {
+      "song": "Battery",
+      "album": "Master of Puppets",
+      "albumId": "3d00fb45-f8ab-3436-a8e1-b4bfc4d66913",
+      "track": 1
+    },
+    {
+      "song": "Blackened",
+      "album": "…And Justice for All",
+      "albumId": "67553e23-8dad-3792-b6f2-8fedd5650ff3",
+      "track": 1
+    },
+    {
+      "song": "Bleeding Me",
+      "album": "Load",
+      "albumId": "e389b7df-862d-3d91-a612-acca150f6e71",
+      "track": 7
+    },
+    {
+      "song": "Blitzkrieg",
+      "album": "Creeping Death",
+      "albumId": "6a968491-b9a7-3cf1-88f6-f7d6d3daa95a",
+      "track": 3
+    },
+    {
+      "song": "Carpe Diem Baby",
+      "album": "Reload",
+      "albumId": "8fd32554-02a7-3788-a761-7012e0e75e55",
+      "track": 7
+    },
+    {
+      "song": "Creeping Death",
+      "album": "Ride the Lightning",
+      "albumId": "0da580f2-6768-498f-af9d-2becaddf15e0",
+      "track": 7
+    },
+    {
+      "song": "Cure",
+      "album": "Load",
+      "albumId": "e389b7df-862d-3d91-a612-acca150f6e71",
+      "track": 8
+    },
+    {
+      "song": "Damage, Inc.",
+      "album": "Master of Puppets",
+      "albumId": "3d00fb45-f8ab-3436-a8e1-b4bfc4d66913",
+      "track": 8
+    },
+    {
+      "song": "Die, Die My Darling",
+      "album": "Die, Die My Darling",
+      "albumId": "368ba0a1-6446-37fc-b686-90d9623162d6",
+      "track": 1
+    },
+    {
+      "song": "Disposable Heroes",
+      "album": "Master of Puppets",
+      "albumId": "3d00fb45-f8ab-3436-a8e1-b4bfc4d66913",
+      "track": 5
+    },
+    {
+      "song": "Dont Tread on Me",
+      "album": "Metallica",
+      "albumId": "e8f70201-8899-3f0c-9e07-5d6495bc8046",
+      "track": 6
+    },
+    {
+      "song": "Dyers Eve",
+      "album": "…And Justice for All",
+      "albumId": "67553e23-8dad-3792-b6f2-8fedd5650ff3",
+      "track": 9
+    },
+    {
+      "song": "Enter Sandman",
+      "album": "Metallica",
+      "albumId": "e8f70201-8899-3f0c-9e07-5d6495bc8046",
+      "track": 1
+    },
+    {
+      "song": "Eye of the Beholder",
+      "album": "…And Justice for All",
+      "albumId": "67553e23-8dad-3792-b6f2-8fedd5650ff3",
+      "track": 3
+    },
+    {
+      "song": "Fade to Black",
+      "album": "Ride the Lightning",
+      "albumId": "0da580f2-6768-498f-af9d-2becaddf15e0",
+      "track": 4
+    },
+    {
+      "song": "Fight Fire With Fire",
+      "album": "Ride the Lightning",
+      "albumId": "0da580f2-6768-498f-af9d-2becaddf15e0",
+      "track": 1
+    },
+    {
+      "song": "Fixxxer",
+      "album": "Reload",
+      "albumId": "8fd32554-02a7-3788-a761-7012e0e75e55",
+      "track": 13
+    },
+    {
+      "song": "For Whom the Bell Tolls",
+      "album": "Ride the Lightning",
+      "albumId": "0da580f2-6768-498f-af9d-2becaddf15e0",
+      "track": 3
+    },
+    {
+      "song": "Fuel",
+      "album": "Reload",
+      "albumId": "8fd32554-02a7-3788-a761-7012e0e75e55",
+      "track": 1
+    },
+    {
+      "song": "Harvester of Sorrow",
+      "album": "…And Justice for All",
+      "albumId": "67553e23-8dad-3792-b6f2-8fedd5650ff3",
+      "track": 6
+    },
+    {
+      "song": "Hero of the Day",
+      "album": "Load",
+      "albumId": "e389b7df-862d-3d91-a612-acca150f6e71",
+      "track": 6
+    },
+    {
+      "song": "Hit the Lights",
+      "album": "Kill ’Em All",
+      "albumId": "f44f4f73-a714-31a1-a4b8-bfcaaf311f50",
+      "track": 1
+    },
+    {
+      "song": "Holier Than Thou",
+      "album": "Metallica",
+      "albumId": "e8f70201-8899-3f0c-9e07-5d6495bc8046",
+      "track": 3
+    },
+    {
+      "song": "I Disappear",
+      "album": "I Disappear",
+      "albumId": "984fbd79-845c-354e-9aff-5bec80c351ee",
+      "track": 1
+    },
+    {
+      "song": "Jump in the Fire",
+      "album": "Kill ’Em All",
+      "albumId": "f44f4f73-a714-31a1-a4b8-bfcaaf311f50",
+      "track": 4
+    },
+    {
+      "song": "King Nothing",
+      "album": "Load",
+      "albumId": "e389b7df-862d-3d91-a612-acca150f6e71",
+      "track": 5
+    },
+    {
+      "song": "Leper Messiah",
+      "album": "Master of Puppets",
+      "albumId": "3d00fb45-f8ab-3436-a8e1-b4bfc4d66913",
+      "track": 6
+    },
+    {
+      "song": "Low Man's Lyric (acoustic)",
+      "album": "Reload",
+      "albumId": "8fd32554-02a7-3788-a761-7012e0e75e55",
+      "track": 11
+    },
+    {
+      "song": "Mama Said",
+      "album": "Mama Said",
+      "albumId": "06e9d904-f4ac-3350-8398-8e4cd3bf1737",
+      "track": 1
+    },
+    {
+      "song": "Master of Puppets",
+      "album": "Master of Puppets",
+      "albumId": "3d00fb45-f8ab-3436-a8e1-b4bfc4d66913",
+      "track": 2
+    },
+    {
+      "song": "Metal Militia",
+      "album": "Kill ’Em All",
+      "albumId": "f44f4f73-a714-31a1-a4b8-bfcaaf311f50",
+      "track": 10
+    },
+    {
+      "song": "Motorbreath",
+      "album": "Kill ’Em All",
+      "albumId": "f44f4f73-a714-31a1-a4b8-bfcaaf311f50",
+      "track": 3
+    },
+    {
+      "song": "My Friend of Misery",
+      "album": "Metallica",
+      "albumId": "e8f70201-8899-3f0c-9e07-5d6495bc8046",
+      "track": 11
+    },
+    {
+      "song": "No Remorse",
+      "album": "Kill ’Em All",
+      "albumId": "f44f4f73-a714-31a1-a4b8-bfcaaf311f50",
+      "track": 8
+    },
+    {
+      "song": "Nothing Else Matters",
+      "album": "Metallica",
+      "albumId": "e8f70201-8899-3f0c-9e07-5d6495bc8046",
+      "track": 8
+    },
+    {
+      "song": "Of Wolf and Man",
+      "album": "Metallica",
+      "albumId": "e8f70201-8899-3f0c-9e07-5d6495bc8046",
+      "track": 9
+    },
+    {
+      "song": "One",
+      "album": "…And Justice for All",
+      "albumId": "67553e23-8dad-3792-b6f2-8fedd5650ff3",
+      "track": 4
+    },
+    {
+      "song": "Orion",
+      "album": "Master of Puppets",
+      "albumId": "3d00fb45-f8ab-3436-a8e1-b4bfc4d66913",
+      "track": 7
+    },
+    {
+      "song": "Outlaw Torn",
+      "album": "Load",
+      "albumId": "e389b7df-862d-3d91-a612-acca150f6e71",
+      "track": 13
+    },
+    {
+      "song": "Poor Twisted Me",
+      "album": "Load",
+      "albumId": "e389b7df-862d-3d91-a612-acca150f6e71",
+      "track": 9
+    },
+    {
+      "song": "Ride the Lightning",
+      "album": "Ride the Lightning",
+      "albumId": "0da580f2-6768-498f-af9d-2becaddf15e0",
+      "track": 2
+    },
+    {
+      "song": "Ronnie",
+      "album": "Load",
+      "albumId": "e389b7df-862d-3d91-a612-acca150f6e71",
+      "track": 12
+    },
+    {
+      "song": "Sad but True",
+      "album": "Metallica",
+      "albumId": "e8f70201-8899-3f0c-9e07-5d6495bc8046",
+      "track": 2
+    },
+    {
+      "song": "Seek & Destroy",
+      "album": "Kill ’Em All",
+      "albumId": "f44f4f73-a714-31a1-a4b8-bfcaaf311f50",
+      "track": 9
+    },
+    {
+      "song": "So What",
+      "album": "Sad but True",
+      "albumId": "71bb3f4a-525c-32ea-a30e-45814a923025",
+      "track": 2
+    },
+    {
+      "song": "The Four Horsemen",
+      "album": "Kill ’Em All",
+      "albumId": "f44f4f73-a714-31a1-a4b8-bfcaaf311f50",
+      "track": 2
+    },
+    {
+      "song": "The Frayed Ends of Sanity",
+      "album": "…And Justice for All",
+      "albumId": "67553e23-8dad-3792-b6f2-8fedd5650ff3",
+      "track": 7
+    },
+    {
+      "song": "The God That Failed",
+      "album": "Metallica",
+      "albumId": "e8f70201-8899-3f0c-9e07-5d6495bc8046",
+      "track": 10
+    },
+    {
+      "song": "The House Jack Built",
+      "album": "Load",
+      "albumId": "e389b7df-862d-3d91-a612-acca150f6e71",
+      "track": 3
+    },
+    {
+      "song": "The Memory Remains",
+      "album": "Reload",
+      "albumId": "8fd32554-02a7-3788-a761-7012e0e75e55",
+      "track": 2
+    },
+    {
+      "song": "The Shortest Straw",
+      "album": "…And Justice for All",
+      "albumId": "67553e23-8dad-3792-b6f2-8fedd5650ff3",
+      "track": 5
+    },
+    {
+      "song": "The Struggle Within",
+      "album": "Metallica",
+      "albumId": "e8f70201-8899-3f0c-9e07-5d6495bc8046",
+      "track": 12
+    },
+    {
+      "song": "The Thing That Should Not Be",
+      "album": "Master of Puppets",
+      "albumId": "3d00fb45-f8ab-3436-a8e1-b4bfc4d66913",
+      "track": 3
+    },
+    {
+      "song": "The Unforgiven",
+      "album": "Metallica",
+      "albumId": "e8f70201-8899-3f0c-9e07-5d6495bc8046",
+      "track": 4
+    },
+    {
+      "song": "Thorn Within",
+      "album": "Load",
+      "albumId": "e389b7df-862d-3d91-a612-acca150f6e71",
+      "track": 11
+    },
+    {
+      "song": "Through the Never",
+      "album": "Metallica",
+      "albumId": "e8f70201-8899-3f0c-9e07-5d6495bc8046",
+      "track": 7
+    },
+    {
+      "song": "To Live Is to Die",
+      "album": "…And Justice for All",
+      "albumId": "67553e23-8dad-3792-b6f2-8fedd5650ff3",
+      "track": 8
+    },
+    {
+      "song": "Trapped Under Ice",
+      "album": "Ride the Lightning",
+      "albumId": "0da580f2-6768-498f-af9d-2becaddf15e0",
+      "track": 5
+    },
+    {
+      "song": "Turn the Page",
+      "album": "Turn the Page",
+      "albumId": "292fc62d-5e83-3ce8-b6c0-5d702babdbe3",
+      "track": 1
+    },
+    {
+      "song": "Until It Sleeps",
+      "album": "Load",
+      "albumId": "e389b7df-862d-3d91-a612-acca150f6e71",
+      "track": 4
+    },
+    {
+      "song": "Wasting My Hate",
+      "album": "Load",
+      "albumId": "e389b7df-862d-3d91-a612-acca150f6e71",
+      "track": 10
+    },
+    {
+      "song": "Welcome Home (Sanitarium)",
+      "album": "Master of Puppets",
+      "albumId": "3d00fb45-f8ab-3436-a8e1-b4bfc4d66913",
+      "track": 4
+    },
+    {
+      "song": "Wherever I May Roam",
+      "album": "Metallica",
+      "albumId": "e8f70201-8899-3f0c-9e07-5d6495bc8046",
+      "track": 5
+    },
+    {
+      "song": "Whiplash",
+      "album": "Kill ’Em All",
+      "albumId": "f44f4f73-a714-31a1-a4b8-bfcaaf311f50",
+      "track": 6
+    }
+  ],
+  "unmatched": [
+    "Human",
+    "Last Caress",
+    "No Leaf Clover"
+  ],
+  "ambiguous": [
+    {
+      "song": "Whiskey in the Jar",
+      "album": "Whiskey in the Jar",
+      "positions": [
+        1,
+        6
+      ]
+    }
+  ],
+  "suggestions": {
+    "Human": [],
+    "Last Caress": [],
+    "No Leaf Clover": []
+  }
+}

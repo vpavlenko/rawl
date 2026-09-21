@@ -104,5 +104,20 @@
         "title": "Living Loving Maid (She’s Just a Woman)"
       }
     }
+  },
+  "Metallica": {
+    "mbid": "65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab",
+    "country": "US",
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "songs": {
+      "Low Man's Lyric (acoustic)": {
+        "title": "Low Man’s Lyric"
+      },
+      "Outlaw Torn": {
+        "title": "The Outlaw Torn"
+      }
+    }
   }
 }

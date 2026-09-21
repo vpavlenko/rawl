@@ -735,6 +735,7 @@ export const MergedSystemLayout: React.FC<
       {!isEmbedded && (
         <MergedVoicesLegend
           voiceNames={voiceNames}
+          notes={notes}
           voiceMask={voiceMask}
           setVoiceMask={setVoiceMask}
           onVoiceHover={handleVoiceHover}

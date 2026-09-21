@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import Trash2 from "../../icons/Trash2";
 import Drum from "../../icons/Drum";
 import { useLocalStorage } from "usehooks-ts";
 import { SongNarrative } from "../SongNarrative";
+import { ColoredNotesInVoices } from "../parseMidi";
+import { getSortedVoices } from "../voiceOrder";
 
 export const FORCED_PANNING_LABEL = "🔊⬅️👐➡️🔊";
 
@@ -49,6 +51,7 @@ const VoiceRow = styled.div`
 
 type MergedVoicesLegendProps = {
   voiceNames: string[];
+  notes: ColoredNotesInVoices;
   voiceMask: boolean[];
   setVoiceMask: (mask: boolean[]) => void;
   onVoiceHover: (voiceIndex: number | null) => void;
@@ -64,6 +67,7 @@ type MergedVoicesLegendProps = {
 
 const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
   voiceNames,
+  notes,
   voiceMask,
   setVoiceMask,
   onVoiceHover,
@@ -85,6 +89,10 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
   const excluded = new Set(excludedVoices);
   const allIncluded = voiceMask.map((_, index) => !excluded.has(index));
   const isSingleActive = voiceMask.filter((voice) => voice).length === 1;
+  const sortedVoices = useMemo(
+    () => getSortedVoices(voiceNames, notes, drumVoices, nativeDrumVoices),
+    [voiceNames, notes, drumVoices, nativeDrumVoices],
+  );
 
   const handlePanningToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.checked;
@@ -129,8 +137,8 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
             {FORCED_PANNING_LABEL}
           </label>
         </div>
-        {voiceNames.map(
-          (voiceName, voiceIndex) =>
+        {sortedVoices.map(
+          ({ voiceName, voiceIndex, isDrum }) =>
             !excluded.has(voiceIndex) && (
               <VoiceRow
                 key={voiceIndex}
@@ -170,21 +178,20 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                   }}
                 >
                   <span
-                    className={`voiceShape-${voiceIndex}`}
+                    className={isDrum ? undefined : `voiceShape-${voiceIndex}`}
                     style={{
                       display: "inline-block",
-                      backgroundColor: voiceMask[voiceIndex]
+                      backgroundColor: voiceMask[voiceIndex] !== isDrum
                         ? "white"
                         : "black",
                       padding: "0px 6px",
                       fontSize: "12px",
                       marginRight: 5,
                       verticalAlign: "middle",
-                      color: voiceMask[voiceIndex] ? "black" : "white",
+                      color: voiceMask[voiceIndex] !== isDrum ? "black" : "white",
                     }}
                   >
                     {voiceName}
-                    {drumVoices.includes(voiceIndex) ? " (GM drums)" : ""}
                   </span>
                 </span>
                 {!!user &&

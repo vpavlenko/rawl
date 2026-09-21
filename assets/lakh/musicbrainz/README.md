@@ -19,6 +19,10 @@ Matching strips numeric version suffixes, normalizes case, accents and punctuati
 
 For corrections, add a `songs` object under the artist in `overrides.json`:
 
+Artist settings can also use `allowedSecondaryTypes` (for example, `["Soundtrack"]`)
+to include original soundtrack albums, and `excludedReleaseGroups` (an array of
+release-group UUIDs) to exclude releases with incorrect upstream classifications.
+
 ```json
 {
   "songs": {

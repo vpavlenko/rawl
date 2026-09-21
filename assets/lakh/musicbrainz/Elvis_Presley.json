@@ -1,0 +1,348 @@
+{
+  "artist": "Elvis Presley",
+  "status": "processed",
+  "totalSongs": 58,
+  "matched": [
+    {
+      "song": "(Let Me Be Your) Teddy Bear",
+      "album": "Loving You",
+      "albumId": "36b5d9a4-9e47-3757-84a1-4c6527456d44",
+      "track": 2
+    },
+    {
+      "song": "(You're The) Devil in Disguise",
+      "album": "One Broken Heart for Sale",
+      "albumId": "13fef75b-76ea-436a-8889-881e45d50542",
+      "track": 3
+    },
+    {
+      "song": "A Big Hunk O' Love",
+      "album": "A Big Hunk o’ Love",
+      "albumId": "db9e285d-fc6f-4099-a331-3f60b07c9b8d",
+      "track": 1
+    },
+    {
+      "song": "A Little Less Conversation",
+      "album": "A Little Less Conversation / Almost in Love",
+      "albumId": "603326f8-93b8-4019-8ac9-2f81442d44dd",
+      "track": 1
+    },
+    {
+      "song": "All Shook Up",
+      "album": "All Shook Up / That’s When Your Heartaches Begin",
+      "albumId": "412c30fa-cd31-3b44-973a-ec3cc540d530",
+      "track": 1
+    },
+    {
+      "song": "Always on My Mind",
+      "album": "Separate Ways / Always on My Mind",
+      "albumId": "ba2fdac3-adfa-40a6-ae0d-3ae8b20db7ca",
+      "track": 2
+    },
+    {
+      "song": "American Trilogy",
+      "album": "An American Trilogy",
+      "albumId": "01a4e53c-5d2e-4288-bfeb-c163af94c613",
+      "track": 1
+    },
+    {
+      "song": "Any Way You Want Me",
+      "album": "Any Way You Want Me",
+      "albumId": "8f0d6172-8457-4923-b3f0-9ba49ef96b75",
+      "track": 1
+    },
+    {
+      "song": "Are You Lonesome Tonight",
+      "album": "Are You Lonesome Tonight? / I Gotta Know",
+      "albumId": "6b67c053-f301-463d-b30c-75a3593b5472",
+      "track": 1
+    },
+    {
+      "song": "Blue Christmas",
+      "album": "Elvis’ Christmas Album",
+      "albumId": "626a3486-a3ef-3cf6-bdda-11c55b529509",
+      "track": 5
+    },
+    {
+      "song": "Blue Suede Shoes",
+      "album": "Elvis Presley",
+      "albumId": "2ebeec96-6ef7-3d4d-943c-0b4a2af1d7cc",
+      "track": 1
+    },
+    {
+      "song": "Burning Love",
+      "album": "Burning Love / It's a Matter of Time",
+      "albumId": "3b7bf798-f065-425c-989a-925e00f2a57b",
+      "track": 1
+    },
+    {
+      "song": "Can't Help Falling in Love",
+      "album": "Blue Hawaii",
+      "albumId": "eb26d6a0-35db-38a7-b3c0-ae2083db5737",
+      "track": 5
+    },
+    {
+      "song": "Crying In The Chapel",
+      "album": "How Great Thou Art",
+      "albumId": "84324cfa-4827-30e8-88ef-e432a98de181",
+      "track": 13
+    },
+    {
+      "song": "Don't Be Cruel",
+      "album": "Rock and Roll Nº 1",
+      "albumId": "00f1598f-3467-4931-8705-4fc0d957d397",
+      "track": 1
+    },
+    {
+      "song": "Don't Cry Daddy",
+      "album": "Don't Cry Daddy / Rubberneckin'",
+      "albumId": "23421111-af37-4e33-be5b-2e15c03ec551",
+      "track": 1
+    },
+    {
+      "song": "Down in the Alley",
+      "album": "Spinout",
+      "albumId": "7dbccaa7-78d8-3266-80de-babc63416ad7",
+      "track": 11
+    },
+    {
+      "song": "Fever",
+      "album": "Elvis Is Back!",
+      "albumId": "4524e346-681e-364d-b975-bad70d71f2d7",
+      "track": 2
+    },
+    {
+      "song": "Follow That Dream",
+      "album": "Follow That Dream",
+      "albumId": "d5f8a3fb-4a98-440b-9d8f-232040c9526e",
+      "track": 1
+    },
+    {
+      "song": "Fools Fall In Love",
+      "album": "Indescribably Blue / Fools Fall in Love",
+      "albumId": "84b99a31-79fe-460f-ac9d-f54f1bbe7c61",
+      "track": 2
+    },
+    {
+      "song": "Frankie and Johnny",
+      "album": "Frankie and Johnny",
+      "albumId": "8c7e843a-f10a-3962-8c11-d6982db574a8",
+      "track": 1
+    },
+    {
+      "song": "G.I. Blues",
+      "album": "G.I. Blues",
+      "albumId": "979ae544-8bac-3c30-98fa-6356d106c72a",
+      "track": 5
+    },
+    {
+      "song": "Girls! Girls! Girls!",
+      "album": "Girls! Girls! Girls!",
+      "albumId": "f5846c58-15cd-3f8d-ae16-3fb7ede657e6",
+      "track": 1
+    },
+    {
+      "song": "Good Luck Charm",
+      "album": "Good Luck Charm / Anything That’s Part of You",
+      "albumId": "d7962b1d-b8e2-48f1-9d84-0f28bb5e07aa",
+      "track": 1
+    },
+    {
+      "song": "Hard Headed Woman",
+      "album": "King Creole: The Music",
+      "albumId": "51a03f2e-1e98-381a-bf36-a2eba337e1cd",
+      "track": 3
+    },
+    {
+      "song": "Heartbreak Hotel",
+      "album": "Rock and Roll N° 3",
+      "albumId": "c7d9ac04-593a-487a-a1e6-f874dda80200",
+      "track": 4
+    },
+    {
+      "song": "His Latest Flame",
+      "album": "Little Sister",
+      "albumId": "c0852f95-bb06-4ac6-bcd1-ba642b227bb3",
+      "track": 2
+    },
+    {
+      "song": "Hound Dog",
+      "album": "Rock and Roll Nº 1",
+      "albumId": "00f1598f-3467-4931-8705-4fc0d957d397",
+      "track": 3
+    },
+    {
+      "song": "I Just Can't Help Believing",
+      "album": "I Just Can’t Help Believin’",
+      "albumId": "cae9dd34-b0f9-4c12-8f9d-8d1956788730",
+      "track": 1
+    },
+    {
+      "song": "I Want You I Need You I Love You",
+      "album": "Rock and Roll Nº 1",
+      "albumId": "00f1598f-3467-4931-8705-4fc0d957d397",
+      "track": 2
+    },
+    {
+      "song": "In the Ghetto",
+      "album": "From Elvis in Memphis",
+      "albumId": "2a753764-89d5-3b72-8dff-8c599f1ea925",
+      "track": 12
+    },
+    {
+      "song": "It's Now or Never",
+      "album": "It’s Now or Never / A Mess of Blues",
+      "albumId": "7ff1cad6-1aee-4567-bbf3-12f364f5f3f8",
+      "track": 1
+    },
+    {
+      "song": "Jail House Rock",
+      "album": "Jailhouse Rock",
+      "albumId": "214fb8f8-bdee-3a96-ba46-e833f73de94f",
+      "track": 1
+    },
+    {
+      "song": "Jailhouse Rock",
+      "album": "Jailhouse Rock",
+      "albumId": "214fb8f8-bdee-3a96-ba46-e833f73de94f",
+      "track": 1
+    },
+    {
+      "song": "Just Tell Her Jim Said Hello",
+      "album": "She’s Not You / Just Tell Her Jim Said Hello",
+      "albumId": "8c3a034c-a3fa-4990-a487-e8bde607df81",
+      "track": 2
+    },
+    {
+      "song": "Kiss Me Quick",
+      "album": "Pot Luck",
+      "albumId": "86830b54-b672-3bf6-a9ca-27158f50b1be",
+      "track": 1
+    },
+    {
+      "song": "Kissin' Cousins",
+      "album": "Kissin’ Cousins",
+      "albumId": "a2218a9c-57bb-4817-a03c-2469778c49e9",
+      "track": 10
+    },
+    {
+      "song": "Lawdy Miss Clawdy",
+      "album": "Rock and Roll Nº 5",
+      "albumId": "74ed4749-4469-4f15-ad70-e410ca7100c3",
+      "track": 3
+    },
+    {
+      "song": "Let Me Be There",
+      "album": "Moody Blue",
+      "albumId": "a61b9898-0d5c-3850-a655-68dcc1462688",
+      "track": 5
+    },
+    {
+      "song": "Love Me Tender",
+      "album": "Love Me Tender (Music from the Original Soundtrack Recording)",
+      "albumId": "8ada6404-58d8-4a8d-b75f-a7bca59c1ab3",
+      "track": 1
+    },
+    {
+      "song": "Love Me",
+      "album": "Elvis",
+      "albumId": "79dabce4-71c2-34ce-9d5d-83f9442fb325",
+      "track": 2
+    },
+    {
+      "song": "My Boy",
+      "album": "Good Times",
+      "albumId": "d7695480-d8e5-3cbb-beed-7de7021f2d0b",
+      "track": 7
+    },
+    {
+      "song": "My Way",
+      "album": "My Way / America",
+      "albumId": "01da67da-41bb-4296-a639-2c48b33b2369",
+      "track": 1
+    },
+    {
+      "song": "Puppet on a String",
+      "album": "Girl Happy",
+      "albumId": "8967cf86-fc51-4306-aaec-4c46c74e73ba",
+      "track": 10
+    },
+    {
+      "song": "Return to Sender",
+      "album": "Girls! Girls! Girls!",
+      "albumId": "f5846c58-15cd-3f8d-ae16-3fb7ede657e6",
+      "track": 8
+    },
+    {
+      "song": "She's Not You",
+      "album": "She’s Not You / Just Tell Her Jim Said Hello",
+      "albumId": "8c3a034c-a3fa-4990-a487-e8bde607df81",
+      "track": 1
+    },
+    {
+      "song": "Stuck On You",
+      "album": "O Sole Mio",
+      "albumId": "8b058dbb-9a5c-4a27-9f39-e74890f3a28a",
+      "track": 4
+    },
+    {
+      "song": "Surrender",
+      "album": "Surrender / Lonely Man",
+      "albumId": "0ace21f6-eb1e-3724-a989-f057811ddbb4",
+      "track": 1
+    },
+    {
+      "song": "Suspicious Minds",
+      "album": "Suspicious Minds",
+      "albumId": "dd4846b7-a8cd-3b15-94c7-bbf57ca684a8",
+      "track": 1
+    },
+    {
+      "song": "That's All Right (Mama)",
+      "album": "That’s All Right / Blue Moon of Kentucky",
+      "albumId": "7e2d9b46-af98-30ea-9bd9-7407ac089b29",
+      "track": 1
+    },
+    {
+      "song": "The Wonder of You",
+      "album": "The Wonder of You / Mama Liked the Roses",
+      "albumId": "2246c7cd-1ce5-4a85-b1f8-51ed1f7c214e",
+      "track": 1
+    },
+    {
+      "song": "Too Much",
+      "album": "Too Much / Playing for Keeps",
+      "albumId": "fa35b197-f6f9-496f-a634-bca3e2b5d36c",
+      "track": 2
+    },
+    {
+      "song": "Viva Las Vegas",
+      "album": "Viva Las Vegas",
+      "albumId": "09e28543-c053-43e1-b336-405d647dd399",
+      "track": 1
+    },
+    {
+      "song": "Wooden Heart (Muss I Denn)",
+      "album": "G.I. Blues",
+      "albumId": "979ae544-8bac-3c30-98fa-6356d106c72a",
+      "track": 4
+    },
+    {
+      "song": "Wooden Heart",
+      "album": "G.I. Blues",
+      "albumId": "979ae544-8bac-3c30-98fa-6356d106c72a",
+      "track": 4
+    }
+  ],
+  "unmatched": [
+    "Baby, What You Want Me to Do   That's All Right   Blue Christmas   One Night   Tiger Man   Trying to Get to You",
+    "Be Bop A Lula",
+    "Johnny B. Goode"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Baby, What You Want Me to Do   That's All Right   Blue Christmas   One Night   Tiger Man   Trying to Get to You": [],
+    "Be Bop A Lula": [],
+    "Johnny B. Goode": []
+  }
+}

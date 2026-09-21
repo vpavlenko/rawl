@@ -3,11 +3,21 @@
     "mbid": "d87e52c5-bb8d-4da8-b941-9f4928627dc8",
     "country": "SE",
     "songs": {
-      "Gimme! Gimme! Gimme!": { "title": "Gimme! Gimme! Gimme! (A Man After Midnight)" },
-      "I Do, I Do, I Do, I Do": { "title": "I Do, I Do, I Do, I Do, I Do" },
-      "Name of the Game": { "title": "The Name of the Game" },
-      "Super Trooper": { "title": "Super Trouper" },
-      "Waterloo": { "title": "Waterloo (English version)" }
+      "Gimme! Gimme! Gimme!": {
+        "title": "Gimme! Gimme! Gimme! (A Man After Midnight)"
+      },
+      "I Do, I Do, I Do, I Do": {
+        "title": "I Do, I Do, I Do, I Do, I Do"
+      },
+      "Name of the Game": {
+        "title": "The Name of the Game"
+      },
+      "Super Trooper": {
+        "title": "Super Trouper"
+      },
+      "Waterloo": {
+        "title": "Waterloo (English version)"
+      }
     }
   },
   "The Beatles": {
@@ -50,5 +60,34 @@
   "Pooh": {
     "mbid": "3d6563ff-0dc7-4306-a05f-d68ad7a02964",
     "country": "IT"
+  },
+  "Elvis Presley": {
+    "mbid": "01809552-4f87-45b0-afff-2c6f0730a3be",
+    "country": "US",
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "excludedReleaseGroups": [
+      "abc1613d-b6c2-4c19-8504-40981df2347f",
+      "4cee0c74-91df-416f-ad11-1f440e11809c",
+      "d040b0b3-1288-4c99-bf41-5d5622434520"
+    ],
+    "songs": {
+      "American Trilogy": {
+        "title": "An American Trilogy"
+      },
+      "Any Way You Want Me": {
+        "title": "Any Way You Want Me (That’s How I Will Be)"
+      },
+      "I Just Can't Help Believing": {
+        "title": "I Just Can’t Help Believin’"
+      },
+      "That's All Right (Mama)": {
+        "title": "That’s All Right"
+      },
+      "Wooden Heart (Muss I Denn)": {
+        "title": "Wooden Heart"
+      }
+    }
   }
 }

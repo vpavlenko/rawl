@@ -94,7 +94,11 @@ def process(artist, config):
         (credit['artist']['id'] for credit in g.get('artist-credit', []) if isinstance(credit, dict) and 'artist' in credit),
         None,
     ) == identity]
-    groups = [g for g in groups if g.get('primary-type') in ('Album', 'Single', 'EP') and not g.get('secondary-types') and g.get('first-release-date')]
+    allowed_secondary = set(settings.get('allowedSecondaryTypes', []))
+    excluded_groups = set(settings.get('excludedReleaseGroups', []))
+    groups = [g for g in groups if g.get('primary-type') in ('Album', 'Single', 'EP')
+              and set(g.get('secondary-types', [])) <= allowed_secondary
+              and g['id'] not in excluded_groups and g.get('first-release-date')]
     # Albums take precedence over singles/EPs; within each category choose earliest.
     groups.sort(key=lambda g: (g.get('primary-type') != 'Album', g['first-release-date'], g['id']))
     albums = []

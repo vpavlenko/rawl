@@ -89,5 +89,20 @@
         "title": "Wooden Heart"
       }
     }
+  },
+  "Led Zeppelin": {
+    "mbid": "678d88b2-87b0-403b-b63d-5da7465aecc3",
+    "country": "GB",
+    "songs": {
+      "Bonzo's Montreaux": {
+        "title": "Bonzo’s Montreux"
+      },
+      "Heartbreak": {
+        "title": "Heartbreaker"
+      },
+      "Livin' Lovin' Maid": {
+        "title": "Living Loving Maid (She’s Just a Woman)"
+      }
+    }
   }
 }

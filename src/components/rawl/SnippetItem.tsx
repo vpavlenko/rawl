@@ -141,7 +141,8 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     const snippetSlug = (snippet as any).composerSlug;
     if (!currentMidi || !snippet.secondsSpan) return false;
 
-    const isPlaying = currentMidi.slug === snippetSlug;
+    const isPlaying =
+      (currentMidi.analysisKey || currentMidi.slug) === snippetSlug;
 
     return isPlaying;
   }, [currentMidi, snippet]);

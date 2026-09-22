@@ -358,7 +358,7 @@ const Structures: React.FC<StructuresProps> = ({
   initialChapter,
   initialTopic,
 }) => {
-  const { handleSongClick, currentMidi, rawlProps, eject, togglePause } =
+  const { handleSongClick, currentMidi, rawlProps, eject } =
     useContext(AppContext);
   const location = useLocation();
   const history = useHistory();
@@ -499,7 +499,10 @@ const Structures: React.FC<StructuresProps> = ({
       });
 
       // Eject current playback before loading new snippet
-      if (currentMidi && currentMidi.slug !== slug) {
+      if (
+        currentMidi &&
+        (currentMidi.analysisKey || currentMidi.slug) !== slug
+      ) {
         eject();
       }
 
@@ -521,12 +524,6 @@ const Structures: React.FC<StructuresProps> = ({
         if (topic && topic !== activeTopic) {
           setActiveTopic(topic);
         }
-
-        // Force playback to start
-        if (currentMidi?.slug === slug) {
-          console.log("[Structures] Starting playback for:", slug);
-          togglePause();
-        }
       } finally {
         setLoadingSnippets((prev) => {
           const next = new Set(prev);
@@ -536,7 +533,7 @@ const Structures: React.FC<StructuresProps> = ({
         });
       }
     },
-    [handleSongClick, activeTopic, currentMidi, togglePause, eject],
+    [handleSongClick, activeTopic, currentMidi, eject],
   );
 
   // Add useEffect to handle initial navigation into Structures

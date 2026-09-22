@@ -808,6 +808,15 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
   handleSongClick = async (slug: string) => {
     try {
+      // Structures snippets retain Lakh annotation keys, not Firebase slugs.
+      if (slug.startsWith("c/MIDI/")) {
+        const [artist, ...trackParts] = slug.slice("c/MIDI/".length).split("/");
+        const track = trackParts.join("/");
+        if (!artist || !track) throw new Error(`Invalid Lakh key: ${slug}`);
+        await this.loadLakhTrack(artist, track, new AbortController().signal);
+        return;
+      }
+
       await handleSongClickUtil(
         {
           setState: this.setState.bind(this),

@@ -1,6 +1,5 @@
 import * as React from "react";
 import {
-  ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -9,7 +8,7 @@ import {
 } from "react";
 import { DUMMY_CALLBACK, VoiceMask } from "../App";
 import { Analysis, getPhraseStarts, MeasuresSpan } from "./analysis";
-import { AnalysisGrid, Cursor, MeasureSelection } from "./AnalysisGrid";
+import { AnalysisGrid, MeasureSelection } from "./AnalysisGrid";
 import { getNoteRectangles, MouseHandlers } from "./getNoteRectangles";
 import ControlPanel, { debounce } from "./layouts/ControlPanel";
 import { MeasureNumbers } from "./layouts/MeasureNumbers";
@@ -83,7 +82,6 @@ export const Voice: React.FC<{
   notes: ColoredNote[];
   measuresAndBeats: MeasuresAndBeats;
   analysis: Analysis;
-  cursor: ReactNode;
   phraseStarts: number[];
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
@@ -108,7 +106,6 @@ export const Voice: React.FC<{
   analysis,
   mouseHandlers,
   measureSelection,
-  cursor,
   phraseStarts,
   scrollInfo,
   voiceName,
@@ -274,7 +271,6 @@ export const Voice: React.FC<{
           showPlaybackMeasureBottomBorder={showPlaybackMeasureBottomBorder}
         />
       ) : null}
-      {cursor}
       {hasVisibleNotes &&
       voiceMask.length > 1 &&
       (sectionSpan?.[0] ?? 0) === 0 &&
@@ -325,7 +321,6 @@ export type SystemLayoutProps = {
   hoveredColors: string[] | null;
   setHoveredColors: (colors: string[] | null) => void;
   hoveredVoiceIndex?: number | null;
-  showPlaybackCursor?: boolean;
   usePageScroll?: boolean;
   onVoiceHover?: (voiceIndex: number | null) => void;
 };
@@ -352,21 +347,10 @@ export const StackedSystemLayout: React.FC<
   hoveredColors,
   setHoveredColors,
   hoveredVoiceIndex = null,
-  showPlaybackCursor = true,
   usePageScroll = false,
 }) => {
   const [noteHeight, setNoteHeight] = useState<number>(3);
   const [secondWidth, setSecondWidth] = useState<number>(40);
-  const setSecondWidthCalled = useRef(false);
-
-  useEffect(() => {
-    setSecondWidthCalled.current = false;
-  }, [secondWidth]);
-
-  const prevPositionSeconds = useRef<number>(0);
-  useEffect(() => {
-    prevPositionSeconds.current = positionSeconds;
-  }, [positionSeconds]);
 
   const voicesSortedByAverageMidiNumber = useMemo(
     () =>
@@ -600,25 +584,6 @@ export const StackedSystemLayout: React.FC<
                     analysis={analysis}
                     mouseHandlers={mouseHandlers}
                     measureSelection={measureSelection}
-                    cursor={
-                      showPlaybackCursor &&
-                      positionSeconds <
-                        measuresAndBeats.measures[sectionSpan[1]] && (
-                        <Cursor
-                          key={"cursor"}
-                          style={{
-                            transition:
-                              !setSecondWidthCalled.current &&
-                              Math.abs(
-                                prevPositionSeconds.current - positionSeconds,
-                              ) < 2
-                                ? "left 0.37s linear"
-                                : "",
-                            left: secondsToX(positionSeconds),
-                          }}
-                        />
-                      )
-                    }
                     phraseStarts={phraseStarts}
                     scrollInfo={scrollInfo}
                     voiceMask={voiceMask}
@@ -657,7 +622,6 @@ export const StackedSystemLayout: React.FC<
             setNoteHeight={setNoteHeight}
             secondWidth={secondWidth}
             setSecondWidth={setSecondWidth}
-            setSecondWidthCalled={setSecondWidthCalled}
             slug={slug}
             currentTonic={currentTonic}
             setHoveredColors={setHoveredColors}

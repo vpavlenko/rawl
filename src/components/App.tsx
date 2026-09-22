@@ -98,7 +98,6 @@ type AppState = {
   voiceMask: VoiceMask;
   voiceNames: string[];
   showPlayerError: boolean;
-  showPlaybackCursor: boolean;
   user: User;
   songUrl: string;
   volume: number;
@@ -234,7 +233,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
       voiceMask: Array(MAX_VOICES).fill(true),
       voiceNames: Array(MAX_VOICES).fill(""),
       showPlayerError: false,
-      showPlaybackCursor: false,
       user: null,
       songUrl: null,
       volume: 150,
@@ -945,7 +943,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
           registerKeyboardHandler: this.registerKeyboardHandler,
           unregisterKeyboardHandler: this.unregisterKeyboardHandler,
           sourceUrl: prevState.currentMidi?.sourceUrl || null,
-          showPlaybackCursor: this.state.showPlaybackCursor,
         };
         return { rawlProps: newRawlProps };
       },
@@ -1012,21 +1009,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
   setLatencyCorrectionMs = (latencyCorrectionMs: number) => {
     this.setState({ latencyCorrectionMs });
     localStorage.setItem("latencyCorrectionMs", latencyCorrectionMs.toString());
-  };
-
-  togglePlaybackCursor = () => {
-    this.setState((prevState) => {
-      const showPlaybackCursor = !prevState.showPlaybackCursor;
-      return {
-        showPlaybackCursor,
-        rawlProps: prevState.rawlProps
-          ? {
-              ...prevState.rawlProps,
-              showPlaybackCursor,
-            }
-          : prevState.rawlProps,
-      };
-    });
   };
 
   handlePlayerStateUpdate(playerState) {
@@ -1223,7 +1205,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
       seek: this.seekForRawl,
       latencyCorrectionMs: 0,
       sourceUrl: this.state.currentMidi?.sourceUrl || null,
-      showPlaybackCursor: this.state.showPlaybackCursor,
     };
 
     const rawlRoute = (
@@ -1411,8 +1392,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 handleTimeSliderChange={this.handleTimeSliderChange}
                 handleVolumeChange={this.handleVolumeChange}
                 togglePause={this.togglePause}
-                showPlaybackCursor={this.state.showPlaybackCursor}
-                togglePlaybackCursor={this.togglePlaybackCursor}
                 getCurrentPositionMs={this.midiPlayer?.getPositionMs}
                 tempo={this.state.tempo}
                 setTempo={this.handleTempoChange}

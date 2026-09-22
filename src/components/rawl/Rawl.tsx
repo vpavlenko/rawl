@@ -144,7 +144,6 @@ export type RawlProps = {
   seek: (ms: number) => void;
   latencyCorrectionMs: number;
   sourceUrl: string | null;
-  showPlaybackCursor?: boolean;
   measureStart?: number;
   isEmbedded?: boolean;
   usePageScroll?: boolean;
@@ -169,7 +168,6 @@ const Rawl: React.FC<RawlProps> = ({
   enableManualRemeasuring = false,
   seek,
   sourceUrl,
-  showPlaybackCursor = true,
   measureStart,
   isEmbedded = false,
   usePageScroll = false,
@@ -734,7 +732,6 @@ const Rawl: React.FC<RawlProps> = ({
       seek,
       hoveredColors,
       setHoveredColors,
-      showPlaybackCursor,
     }),
     [
       coloredNotes,
@@ -761,7 +758,6 @@ const Rawl: React.FC<RawlProps> = ({
       seek,
       hoveredColors,
       setHoveredColors,
-      showPlaybackCursor,
     ],
   );
 

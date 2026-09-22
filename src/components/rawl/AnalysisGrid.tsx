@@ -36,12 +36,6 @@ const VerticalBar = styled.div`
   pointer-events: none;
 `;
 
-export const Cursor = styled(VerticalBar)`
-  background-color: orange;
-  pointer-events: none;
-  z-index: 100;
-`;
-
 const MeasureBar = styled(VerticalBar)`
   background-color: #444;
   z-index: 1;

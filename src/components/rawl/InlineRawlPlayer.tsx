@@ -60,7 +60,6 @@ const InlineRawlPlayer: React.FC<InlineRawlPlayerProps> = ({
             sourceUrl={currentMidi.sourceUrl}
             measureStart={measureStart}
             isEmbedded={true}
-            showPlaybackCursor={false}
             onEject={handleEject}
           />
         </RawlContainer>

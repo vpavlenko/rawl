@@ -351,13 +351,6 @@ const TopicContent = React.memo<{
       </ScrollableContent>
     );
   },
-  (prevProps, nextProps) => {
-    return (
-      prevProps.activeTopic === nextProps.activeTopic &&
-      prevProps.activeChapter === nextProps.activeChapter &&
-      prevProps.loadingSnippets === nextProps.loadingSnippets
-    );
-  },
 );
 
 const Structures: React.FC<StructuresProps> = ({

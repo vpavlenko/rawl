@@ -108,6 +108,21 @@ const ComposerName = styled.span`
   color: #fff;
 `;
 
+const LakhInfo = styled(ComposerInfo)`
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+`;
+
+const LakhArtistName = styled(ComposerName)`
+  overflow-wrap: anywhere;
+`;
+
+const FilenameLabel = styled(SlugLabel)`
+  color: #999;
+  font-size: 11px;
+`;
+
 const YearInfo = styled.span`
   color: #999;
   font-size: 0.8em;
@@ -131,6 +146,18 @@ const getComposerInfo = (midiSlug: string) => {
   return matchingCorpora.find(hasMetadata) || null;
 };
 
+const getLakhInfo = (midiSlug?: string) => {
+  if (!midiSlug?.startsWith("c/MIDI/")) return null;
+  const [artist, ...fileParts] = midiSlug.slice("c/MIDI/".length).split("/");
+  const filename = fileParts.join("/");
+  if (!artist || !filename) return null;
+  return {
+    artist,
+    filename,
+    song: filename.replace(/(?:\.\d+)?\.mid$/i, ""),
+  };
+};
+
 const SnippetList: React.FC<SnippetListProps> = ({
   snippets,
   slugs,
@@ -148,7 +175,9 @@ const SnippetList: React.FC<SnippetListProps> = ({
           snippet.measuresSpan[1] - snippet.measuresSpan[0] + 1;
         const composerSlug = (snippet as any).composerSlug;
         const midiSlug = slugs?.[index];
-        const composerInfo = midiSlug ? getComposerInfo(midiSlug) : null;
+        const lakhInfo = getLakhInfo(midiSlug);
+        const composerInfo =
+          midiSlug && !lakhInfo ? getComposerInfo(midiSlug) : null;
 
         return (
           <SnippetItemWrapper
@@ -158,7 +187,11 @@ const SnippetList: React.FC<SnippetListProps> = ({
             onClick={() => onSnippetClick(snippet)}
             isLoading={loadingSnippets.has(composerSlug)}
           >
-            {midiSlug && <SlugLabel>{midiSlug}</SlugLabel>}
+            {midiSlug && (
+              <SlugLabel title={lakhInfo?.song || midiSlug}>
+                {lakhInfo?.song || midiSlug}
+              </SlugLabel>
+            )}
             <SnippetContainer>
               <SnippetItem
                 snippet={snippet}
@@ -169,6 +202,14 @@ const SnippetList: React.FC<SnippetListProps> = ({
                 hoveredColors={hoveredColors}
               />
             </SnippetContainer>
+            {lakhInfo && (
+              <LakhInfo>
+                <LakhArtistName>{lakhInfo.artist}</LakhArtistName>
+                <FilenameLabel title={lakhInfo.filename}>
+                  {lakhInfo.filename}
+                </FilenameLabel>
+              </LakhInfo>
+            )}
             {composerInfo && (
               <ComposerInfo>
                 <ComposerHeader>

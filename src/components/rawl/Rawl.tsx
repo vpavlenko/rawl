@@ -180,6 +180,13 @@ const Rawl: React.FC<RawlProps> = ({
   const { currentMidi, setCurrentMidi, rawlProps, togglePause } =
     useContext(AppContext);
   const slug = currentMidi?.slug || "";
+  const lakhKey = currentMidi?.analysisKey?.startsWith("c/MIDI/")
+    ? currentMidi.analysisKey
+    : null;
+  // The filename route resolves to the canonical Lakh URL via its catalog.
+  const fileUrl = lakhKey
+    ? `/${lakhKey.split("/").map(encodeURIComponent).join("/")}`
+    : `/f/${slug}`;
   const history = useHistory();
 
   const [analysis, setAnalysis] = useState<Analysis>(
@@ -834,7 +841,7 @@ const Rawl: React.FC<RawlProps> = ({
             }}
           />
           <Link
-            to={`/f/${slug}`}
+            to={fileUrl}
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -857,10 +864,12 @@ const Rawl: React.FC<RawlProps> = ({
             }}
           >
             <span>
-              {slug
-                .replace(/---/g, " – ")
-                .replace(/-/g, " ")
-                .replace(/_/g, " ")}
+              {lakhKey
+                ? currentMidi?.title
+                : slug
+                    .replace(/---/g, " – ")
+                    .replace(/-/g, " ")
+                    .replace(/_/g, " ")}
             </span>
             <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
           </Link>

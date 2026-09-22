@@ -12,6 +12,8 @@ import {
 } from "./analysis";
 
 export const STACKED_RN_HEIGHT = 20;
+// Only the active score supplies an offset; standalone examples stay in their key.
+export const AnalysisTransposeContext = React.createContext(0);
 const MIN_WIDTH_BETWEEN_BEATS = 10;
 const GRADIENT_HEIGHT_IN_NOTES = 0.5;
 const MOBILE_MEASURE_CLICK_MEDIA_QUERY = "(max-width: 767px)";
@@ -139,50 +141,56 @@ export const NewTonicSymbol: React.FC<{
   previousTonic: PitchClass | null;
   modulationDiff: number | null;
   tonicStart: PitchClass;
-}> = ({ left, number, previousTonic, modulationDiff, tonicStart }) => (
-  <>
-    <span
-      style={{
-        color: "white",
-        position: "absolute",
-        top: -2,
-        left:
-          left + (previousTonic === null ? String(number).length * 8 + 10 : 30),
-        fontSize: 12,
-        zIndex: 100,
-        fontWeight: 700,
-        userSelect: "none",
-        textAlign: "left",
-      }}
-    >
-      {previousTonic !== null && (
-        <>{`${
-          modulationDiff > 6
-            ? `↓${Math.abs(modulationDiff - 12)}`
-            : `↑${modulationDiff}`
-        } `}</>
-      )}
-      {PITCH_CLASS_TO_LETTER[tonicStart]}
-    </span>
-
-    <div
-      className={`noteColor_${modulationDiff}_colors`}
-      style={{
-        width: 80,
-        height: 12,
-        position: "absolute",
-        top: 0,
-        left: left,
-        zIndex: 3,
-        userSelect: "none",
-        maskImage:
-          "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
-        WebkitMaskImage:
-          "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
-      }}
-    />
-  </>
-);
+}> = ({ left, number, previousTonic, modulationDiff, tonicStart }) => {
+  const transpose = useContext(AnalysisTransposeContext);
+  const displayedTonic = tonicStart == null
+    ? tonicStart
+    : ((tonicStart + transpose) % 12 + 12) % 12;
+  return (
+    <>
+      <span
+        style={{
+          color: "white",
+          position: "absolute",
+          top: -2,
+          left:
+            left + (previousTonic === null ? String(number).length * 8 + 10 : 30),
+          fontSize: 12,
+          zIndex: 100,
+          fontWeight: 700,
+          userSelect: "none",
+          textAlign: "left",
+        }}
+      >
+        {previousTonic !== null && (
+          <>{`${
+            modulationDiff > 6
+              ? `↓${Math.abs(modulationDiff - 12)}`
+              : `↑${modulationDiff}`
+          } `}</>
+        )}
+        {PITCH_CLASS_TO_LETTER[displayedTonic]}
+      </span>
+  
+      <div
+        className={`noteColor_${modulationDiff}_colors`}
+        style={{
+          width: 80,
+          height: 12,
+          position: "absolute",
+          top: 0,
+          left: left,
+          zIndex: 3,
+          userSelect: "none",
+          maskImage:
+            "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
+        }}
+      />
+    </>
+  );
+};
 
 const Measure: React.FC<{
   span: [number, number];

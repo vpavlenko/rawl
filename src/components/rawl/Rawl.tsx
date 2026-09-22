@@ -19,7 +19,7 @@ import { playRawMidiNote } from "../../sampler/sampler";
 import { VoiceMask } from "../App";
 import { AppContext } from "../AppContext";
 import ErrorBoundary from "../ErrorBoundary";
-import { MeasureSelection } from "./AnalysisGrid";
+import { AnalysisTransposeContext, MeasureSelection } from "./AnalysisGrid";
 import CompositionTitle from "./CompositionTitle";
 import FrozenNotesLayout from "./FrozenNotesLayout";
 import { DrumPlaybackContext, useDrumPlaybackClock } from "./drumPlayback";
@@ -175,7 +175,7 @@ const Rawl: React.FC<RawlProps> = ({
   navigateToSourceLocation,
   onEject,
 }) => {
-  const { currentMidi, setCurrentMidi, rawlProps, togglePause } =
+  const { currentMidi, setCurrentMidi, rawlProps, togglePause, setFirstTonic, transpose } =
     useContext(AppContext);
   const slug = currentMidi?.slug || "";
   const lakhKey = currentMidi?.analysisKey?.startsWith("c/MIDI/")
@@ -200,6 +200,9 @@ const Rawl: React.FC<RawlProps> = ({
   }, [savedAnalysis, rawlProps?.savedAnalysis]);
 
   const analysisRef = useRef(analysis);
+  useEffect(() => {
+    setFirstTonic(getModulations(analysis)[0]?.tonic ?? null);
+  }, [analysis.modulations, parsingResult, setFirstTonic]);
   useEffect(() => {
     analysisRef.current = analysis;
   }, [analysis]);
@@ -341,8 +344,11 @@ const Rawl: React.FC<RawlProps> = ({
 
   const playNote = useCallback((note: Note) => {
     const duration = note.span[1] - note.span[0];
-    playRawMidiNote(note.note.midiNumber, duration * 1000);
-  }, []);
+    playRawMidiNote(
+      note.note.midiNumber + (note.isDrum ? 0 : transpose),
+      duration * 1000,
+    );
+  }, [transpose]);
 
   const handleMouseEnter = useCallback(
     (note: Note) => {
@@ -663,8 +669,9 @@ const Rawl: React.FC<RawlProps> = ({
       positionSeconds,
       measuresAndBeats.measures,
     );
-    return getTonic(currentMeasure, futureAnalysis);
-  }, [positionSeconds, measuresAndBeats, futureAnalysis]);
+    const tonic = getTonic(currentMeasure, futureAnalysis);
+    return tonic == null ? tonic : ((tonic + transpose) % 12 + 12) % 12;
+  }, [positionSeconds, measuresAndBeats, futureAnalysis, transpose]);
 
   const mouseHandlers: MouseHandlers = useMemo(
     () => ({
@@ -966,27 +973,29 @@ const Rawl: React.FC<RawlProps> = ({
               </style>
             </div>
           )}
-          {systemLayout === "merged" ? (
-            <NotePlaybackContext.Provider value={notePlaybackClock.register}>
-              <DrumPlaybackContext.Provider value={drumPlaybackClock.register}>
-                <MergedSystemLayout
+          <AnalysisTransposeContext.Provider value={transpose}>
+            {systemLayout === "merged" ? (
+              <NotePlaybackContext.Provider value={notePlaybackClock.register}>
+                <DrumPlaybackContext.Provider value={drumPlaybackClock.register}>
+                  <MergedSystemLayout
+                    {...systemLayoutProps}
+                    enableManualRemeasuring={enableManualRemeasuring}
+                    isEmbedded={isEmbedded}
+                    usePageScroll={usePageScroll}
+                  />
+                </DrumPlaybackContext.Provider>
+              </NotePlaybackContext.Provider>
+            ) : (
+              <ErrorBoundary
+                fallback={<div>Error loading Frozen Notes Layout</div>}
+              >
+                <FrozenNotesLayout
                   {...systemLayoutProps}
-                  enableManualRemeasuring={enableManualRemeasuring}
-                  isEmbedded={isEmbedded}
-                  usePageScroll={usePageScroll}
+                  saveAnalysis={saveAnalysis}
                 />
-              </DrumPlaybackContext.Provider>
-            </NotePlaybackContext.Provider>
-          ) : (
-            <ErrorBoundary
-              fallback={<div>Error loading Frozen Notes Layout</div>}
-            >
-              <FrozenNotesLayout
-                {...systemLayoutProps}
-                saveAnalysis={saveAnalysis}
-              />
-            </ErrorBoundary>
-          )}
+              </ErrorBoundary>
+            )}
+          </AnalysisTransposeContext.Provider>
         </div>
         {!isEmbedded && <LayoutSelector setSystemLayout={setSystemLayout} />}
       </div>

@@ -42,6 +42,9 @@ export default class MIDIPlayer extends Player {
     this.fileExtensions = fileExtensions;
     this.activeChannels = [];
     this.drumChannels = new Set();
+    this.transpose = 0;
+    this.soundingNotes = Array.from({ length: 16 }, () => new Map());
+    this.sustainPedals = Array(16).fill(0);
     this.audioContext = null;
     this.audioClockFrames = [];
     this.audioTimingDebug = false;
@@ -63,13 +66,32 @@ export default class MIDIPlayer extends Player {
       skipSilence: true,
       sampleRate: this.sampleRate,
       synth: {
-        noteOn: core._tp_note_on,
-        noteOff: core._tp_note_off,
+        noteOn: this.noteOn,
+        noteOff: this.noteOff,
         pitchBend: (channel, value) => {
           if (!this.drumChannels.has(channel))
             core._tp_pitch_bend(channel, value);
         },
         controlChange: (channel, controller, value) => {
+          if (controller === 64) {
+            this.sustainPedals[channel] = value;
+            if (value < 64) {
+              for (const [note, state] of this.soundingNotes[channel]) {
+                if (!state.held) this.soundingNotes[channel].delete(note);
+              }
+            }
+          } else if (controller === 120) {
+            this.soundingNotes[channel].clear();
+          } else if (controller === 123) {
+            if (this.sustainPedals[channel] >= 64) {
+              this.soundingNotes[channel].forEach((state) => { state.held = false; });
+            } else this.soundingNotes[channel].clear();
+          } else if (controller === 121) {
+            this.sustainPedals[channel] = 0;
+            for (const [note, state] of this.soundingNotes[channel]) {
+              if (!state.held) this.soundingNotes[channel].delete(note);
+            }
+          }
           // A source file's bank selectors must not undo a saved drum override.
           if (
             this.drumChannels.has(channel) &&
@@ -82,10 +104,15 @@ export default class MIDIPlayer extends Player {
           if (this.drumChannels.has(channel)) this.applyDrumPreset(channel);
           else core._tp_program_change(channel, program);
         },
-        panic: core._tp_panic,
-        panicChannel: core._tp_panic_channel,
+        panic: () => {
+          this.soundingNotes.forEach((notes) => notes.clear());
+          core._tp_panic();
+        },
+        panicChannel: this.panicChannel,
         render: core._tp_render,
         reset: () => {
+          this.soundingNotes.forEach((notes) => notes.clear());
+          this.sustainPedals.fill(0);
           core._tp_reset();
           this.applyDrumPresets();
         },
@@ -115,6 +142,52 @@ export default class MIDIPlayer extends Player {
 
     // Start loading the best soundfont in background
     this.loadBestSoundfontInBackground();
+  }
+
+  transposedNote(channel, note) {
+    return channel === 9 || this.drumChannels.has(channel)
+      ? note
+      : note + this.transpose;
+  }
+
+  noteOn(channel, note, velocity) {
+    this.soundingNotes[channel].set(note, { velocity, held: true });
+    const pitch = this.transposedNote(channel, note);
+    if (pitch >= 0 && pitch <= 127) core._tp_note_on(channel, pitch, velocity);
+  }
+
+  noteOff(channel, note) {
+    const state = this.soundingNotes[channel].get(note);
+    if (state && this.sustainPedals[channel] >= 64) state.held = false;
+    else this.soundingNotes[channel].delete(note);
+    const pitch = this.transposedNote(channel, note);
+    if (pitch >= 0 && pitch <= 127) core._tp_note_off(channel, pitch);
+  }
+
+  panicChannel(channel) {
+    this.soundingNotes[channel].clear();
+    core._tp_panic_channel(channel);
+  }
+
+  setTranspose(semitones) {
+    if (!Number.isFinite(semitones)) return;
+    const next = Math.max(-12, Math.min(12, Math.round(semitones)));
+    if (next === this.transpose) return;
+    this.transpose = next;
+    // Retune held and pedal-sustained notes immediately, without seeking.
+    this.soundingNotes.forEach((notes, channel) => {
+      if (channel === 9 || this.drumChannels.has(channel)) return;
+      core._tp_control_change(channel, 64, 0);
+      core._tp_panic_channel(channel);
+      core._tp_control_change(channel, 120, 0);
+      core._tp_control_change(channel, 64, this.sustainPedals[channel]);
+      for (const [note, { velocity, held }] of notes) {
+        const pitch = this.transposedNote(channel, note);
+        if (pitch < 0 || pitch > 127) continue;
+        core._tp_note_on(channel, pitch, velocity);
+        if (!held) core._tp_note_off(channel, pitch);
+      }
+    });
   }
 
   // Load the best quality soundfont in the background
@@ -358,6 +431,8 @@ export default class MIDIPlayer extends Player {
     excludedVoices = [],
     drumVoices = [],
   ) {
+    this.midiFilePlayer.panic();
+    this.transpose = 0;
     this.filepathMeta = this.metadataFromFilepath(filepath);
 
     // Load custom Soundfont if present in the metadata response.
@@ -530,7 +605,7 @@ export default class MIDIPlayer extends Player {
           core._tp_program_change(channel, event.param1);
           break;
         case MIDIEvents.EVENT_MIDI_CONTROLLER:
-          core._tp_control_change(channel, event.param1, event.param2);
+          this.midiFilePlayer.synth.controlChange(channel, event.param1, event.param2);
           break;
         case MIDIEvents.EVENT_MIDI_PITCH_BEND:
           core._tp_pitch_bend(channel, (event.param2 << 7) + event.param1);
@@ -561,7 +636,7 @@ export default class MIDIPlayer extends Player {
     if (changed) {
       for (const channel of new Set([...previous, ...next])) {
         if (previous.has(channel) === next.has(channel)) continue;
-        core._tp_panic_channel(channel);
+        this.panicChannel(channel);
         if (!next.has(channel)) this.restorePitchedChannel(channel);
       }
     }

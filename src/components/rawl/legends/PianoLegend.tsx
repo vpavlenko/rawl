@@ -219,7 +219,7 @@ export const PianoLegend: React.FC<{
                           zIndex: 3,
                         }}
                       >
-                        {PITCH_CLASS_TO_LETTER[currentTonic]}
+                        {PITCH_CLASS_TO_LETTER[((currentTonic % 12) + 12) % 12]}
                       </span>
                     )}
                     {i + 1}

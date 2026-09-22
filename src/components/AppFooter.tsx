@@ -10,6 +10,7 @@ import styled from "styled-components";
 import { AppContext } from "./AppContext";
 import { StyledRangeInput } from "./Slider";
 import TimeSlider from "./TimeSlider";
+import TransposeControl from "./TransposeControl";
 
 export const FOOTER_HEIGHT = 25;
 
@@ -133,6 +134,9 @@ const AppFooter: React.FC<
     togglePause: any;
     tempo: number;
     setTempo: (tempo: number) => void;
+    transpose: number;
+    setTranspose: (semitones: number) => void;
+    firstTonic: number | null;
   } & RouteComponentProps
 > = ({
   currentSongDurationMs,
@@ -146,6 +150,9 @@ const AppFooter: React.FC<
   location,
   tempo,
   setTempo,
+  transpose,
+  setTranspose,
+  firstTonic,
 }) => {
   const context = useContext(AppContext);
 
@@ -205,6 +212,12 @@ const AppFooter: React.FC<
             onChange={handleTimeSliderChange}
           />
         </TimeSliderWrapper>
+
+        <TransposeControl
+          value={transpose}
+          onChange={setTranspose}
+          firstTonic={firstTonic}
+        />
 
         <TempoSection>
           <StyledTempoButton

@@ -50,6 +50,8 @@ export interface AppContextType {
   ) => Promise<void>;
   latencyCorrectionMs: number;
   tempo: number;
+  transpose: number;
+  setFirstTonic: (tonic: number | null) => void;
 }
 
 export const AppContext = React.createContext<AppContextType | undefined>(

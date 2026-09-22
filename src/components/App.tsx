@@ -95,6 +95,8 @@ type AppState = {
   currentSongDurationMs: number;
   currentSongPositionMs: number;
   tempo: number;
+  transpose: number;
+  firstTonic: number | null;
   voiceMask: VoiceMask;
   voiceNames: string[];
   showPlayerError: boolean;
@@ -230,6 +232,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
       currentSongDurationMs: 1,
       currentSongPositionMs: 0,
       tempo: 1,
+      transpose: 0,
+      firstTonic: null,
       voiceMask: Array(MAX_VOICES).fill(true),
       voiceNames: Array(MAX_VOICES).fill(""),
       showPlayerError: false,
@@ -788,6 +792,19 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.midiPlayer?.setDrumVoices(voices);
   };
 
+  handleTransposeChange = (semitones: number) => {
+    if (!Number.isFinite(semitones)) return;
+    const transpose = Math.max(-12, Math.min(12, Math.round(semitones)));
+    this.midiPlayer?.setTranspose(transpose);
+    this.setState({ transpose });
+  };
+
+  setFirstTonic = (firstTonic: number | null) => {
+    this.setState((state) =>
+      state.firstTonic === firstTonic ? null : { firstTonic },
+    );
+  };
+
   handleTempoChange(event) {
     const tempo = parseFloat(event.target ? event.target.value : event) || 1.0;
     this.midiPlayer?.setTempo(tempo);
@@ -1046,6 +1063,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     signal?: AbortSignal,
   ) {
     this.midiPlayer.suspend();
+    this.setState({ transpose: 0, firstTonic: null });
 
     const inputArray =
       buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
@@ -1307,6 +1325,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
           playSongBuffer: this.playSongBuffer,
           latencyCorrectionMs: 0,
           tempo: this.state.tempo,
+          transpose: this.state.transpose,
+          setFirstTonic: this.setFirstTonic,
         }}
       >
         <Dropzone disableClick style={{}} onDrop={this.onDrop}>
@@ -1395,6 +1415,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 getCurrentPositionMs={this.midiPlayer?.getPositionMs}
                 tempo={this.state.tempo}
                 setTempo={this.handleTempoChange}
+                transpose={this.state.transpose}
+                setTranspose={this.handleTransposeChange}
+                firstTonic={this.state.firstTonic}
               />
 
               <Modal

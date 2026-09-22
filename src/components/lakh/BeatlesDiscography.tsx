@@ -3,6 +3,12 @@ import styled from "styled-components";
 import { beatlesVariantNumber, groupBeatlesTracks } from "./beatlesReleases";
 import { AlbumGroup } from "./albumMetadata";
 
+function coverThumbnailUrl(source: string): string {
+  // The public CDN handles resizing and caching; no images pass through our servers.
+  // 224px keeps the 112px cover sharp on 2x displays without downloading large originals.
+  return `https://wsrv.nl/?url=${encodeURIComponent(source)}&w=224&h=224&fit=inside&output=webp&q=80`;
+}
+
 const Discography = styled.div`
   font-size: 14px;
   .albums {
@@ -36,7 +42,8 @@ const Discography = styled.div`
   }
   .cover {
     width: 112px;
-    height: auto;
+    height: 112px;
+    object-fit: contain;
     border-radius: 3px;
     flex-shrink: 0;
   }
@@ -177,19 +184,27 @@ export default function BeatlesDiscography({
   return (
     <Discography>
       <div className={groupByAlbum ? "albums" : undefined}>
-        {groups.map((group) => (
+        {groups.map((group, groupIndex) => (
           <section className={groupByAlbum ? "album" : undefined} key={group.title} aria-label={group.title}>
             {groupByAlbum && <header>
               {group.cover && (
                 <img
+                  key={group.cover}
                   className="cover"
-                  src={group.cover}
+                  src={coverThumbnailUrl(group.cover)}
                   alt={`${group.title} album cover`}
                   width={112}
-                  loading="lazy"
+                  height={112}
+                  loading={groupIndex < 4 ? "eager" : "lazy"}
                   decoding="async"
                   onError={(event) => {
-                    event.currentTarget.style.display = "none";
+                    const image = event.currentTarget;
+                    // Retry the original once if the CDN is unavailable or rejects the source.
+                    if (image.getAttribute("src") !== group.cover) {
+                      image.src = group.cover!;
+                    } else {
+                      image.style.visibility = "hidden";
+                    }
                   }}
                 />
               )}

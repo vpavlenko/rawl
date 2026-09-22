@@ -1,0 +1,690 @@
+{
+  "artist": "Madonna",
+  "artistId": "79239441-bfd5-4981-a70c-55c3f15c1287",
+  "groups": [
+    {
+      "id": "cf44c73c-650d-3c67-9327-c99426ce464f",
+      "releaseId": "23e718a7-1925-4b62-8a9d-582398aad7fa",
+      "title": "Madonna",
+      "date": "1983-07-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/cf44c73c-650d-3c67-9327-c99426ce464f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Lucky Star.mid",
+            "Lucky Star.1.mid",
+            "Lucky Star.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Borderline.mid",
+            "Borderline.1.mid",
+            "Borderline.2.mid",
+            "Borderline.3.mid",
+            "Borderline.4.mid",
+            "Borderline.5.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Holiday.mid",
+            "Holiday.1.mid",
+            "Holiday.2.mid",
+            "Holiday.3.mid",
+            "Holiday.4.mid",
+            "Holiday.5.mid",
+            "Holiday.6.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b69580b9-7050-3994-b544-4407a22c097a",
+      "releaseId": "27e2e516-04cc-4c21-bfda-92d47443ac46",
+      "title": "Like a Virgin",
+      "date": "1984-11-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b69580b9-7050-3994-b544-4407a22c097a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Material Girl.mid",
+            "Material Girl.1.mid",
+            "Material Girl.2.mid",
+            "Material Girl.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Like A Virgin.mid",
+            "Like A Virgin.1.mid",
+            "Like A Virgin.2.mid",
+            "Like A Virgin.3.mid",
+            "Like A Virgin.4.mid",
+            "Like A Virgin.5.mid",
+            "Like A Virgin.6.mid",
+            "Like A Virgin.7.mid",
+            "Like A Virgin.8.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Over and Over.mid",
+            "Over and Over.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Love Don't Live Here Anymore.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Dress You Up.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2d5faff4-ae9d-47b0-b9d2-c08bd865536a",
+      "releaseId": "599da8bd-e82f-4643-8fad-7355c801f3e0",
+      "title": "Crazy for You",
+      "date": "1985",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/2d5faff4-ae9d-47b0-b9d2-c08bd865536a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Crazy for You.mid",
+            "Crazy for You.1.mid",
+            "Crazy for You.2.mid",
+            "Crazy for You.3.mid",
+            "Crazy for You.4.mid",
+            "Crazy for You.5.mid",
+            "Crazy for You.6.mid",
+            "Crazy for You.7.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8d0d5786-bf73-4950-ac27-6943e70bd2cc",
+      "releaseId": "8b53c32c-ee79-42b1-a7a9-bd7c63322c31",
+      "title": "Angel",
+      "date": "1985-04",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/8d0d5786-bf73-4950-ac27-6943e70bd2cc/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Into the Groove.mid",
+            "Into the Groove.1.mid",
+            "Into the Groove.2.mid",
+            "Into the Groove.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eb9c3e50-cfa9-3502-af63-41d39c4c3fa6",
+      "releaseId": "0b566d69-b85b-48e7-bc1c-5d61ec4f8883",
+      "title": "True Blue",
+      "date": "1986-06-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/eb9c3e50-cfa9-3502-af63-41d39c4c3fa6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Papa Don't Preach.mid",
+            "Papa Don't Preach.1.mid",
+            "Papa Don't Preach.2.mid",
+            "Papa Don't Preach.3.mid",
+            "Papa Don't Preach.4.mid",
+            "Papa Don't Preach.5.mid",
+            "Papa Don't Preach.6.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Open Your Heart.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Live to Tell.mid",
+            "Live to Tell.1.mid",
+            "Live to Tell.2.mid",
+            "Live to Tell.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "True Blue.mid",
+            "True Blue.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "La Isla Bonita.mid",
+            "La Isla Bonita.1.mid",
+            "La Isla Bonita.2.mid",
+            "La Isla Bonita.3.mid",
+            "La Isla Bonita.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ef3ddb39-4ac9-3339-b0ee-a86f8fc4be25",
+      "releaseId": "5ac6fdf9-6395-42fb-a66d-3282fbbd1400",
+      "title": "Who’s That Girl: Original Motion Picture Soundtrack",
+      "date": "1987-07-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ef3ddb39-4ac9-3339-b0ee-a86f8fc4be25/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Who's That Girl.mid",
+            "Who's That Girl.1.mid",
+            "Who's That Girl.2.mid",
+            "Who's That Girl.3.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Causing a Commotion.mid",
+            "Causing a Commotion.1.mid",
+            "Causing a Commotion.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1f75a8df-176c-3d23-8f1f-b0c8935682ec",
+      "releaseId": "02e515ed-1626-412c-af0e-318bca521724",
+      "title": "Like a Prayer",
+      "date": "1989-03-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1f75a8df-176c-3d23-8f1f-b0c8935682ec/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Like a Prayer.mid",
+            "Like a Prayer.1.mid",
+            "Like a Prayer.2.mid",
+            "Like a Prayer.3.mid",
+            "Like a Prayer.4.mid",
+            "Like a Prayer.5.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Express Yourself.mid",
+            "Express Yourself.1.mid",
+            "Express Yourself.2.mid",
+            "Express Yourself.3.mid",
+            "Express Yourself.4.mid",
+            "Express Yourself.5.mid",
+            "Express Yourself.6.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Promise to Try.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Cherish.mid",
+            "Cherish.1.mid",
+            "Cherish.2.mid",
+            "Cherish.3.mid",
+            "Cherish.4.mid",
+            "Cherish.5.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Dear Jessie.mid",
+            "Dear Jessie.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Oh Father.mid",
+            "Oh Father.1.mid",
+            "Oh Father.2.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Keep It Together.mid",
+            "Keep It Together.1.mid",
+            "Keep It Together.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f60b509f-ab71-31ee-8dc1-2f88df9097ab",
+      "releaseId": "a43ef20d-77f8-496b-ae06-dfa6ceb23f11",
+      "title": "I’m Breathless",
+      "date": "1990-05-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f60b509f-ab71-31ee-8dc1-2f88df9097ab/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Hanky Panky.mid",
+            "Hanky Panky.1.mid",
+            "Hanky Panky.2.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Vogue.mid",
+            "Vogue.1.mid",
+            "Vogue.2.mid",
+            "Vogue.3.mid",
+            "Vogue.4.mid",
+            "Vogue.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "458c0d05-33ac-3b70-a5ba-04e541c130fc",
+      "releaseId": "920207c1-d06b-428d-9f3e-776a88876039",
+      "title": "This Used to Be My Playground",
+      "date": "1992-07-03",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/458c0d05-33ac-3b70-a5ba-04e541c130fc/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "This Used to Be My Playground.mid",
+            "This Used to Be My Playground.1.mid",
+            "This Used to Be My Playground.2.mid",
+            "This Used to Be My Playground.3.mid",
+            "This Used to Be My Playground.4.mid",
+            "This Used to Be My Playground.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7a6a2e9f-c699-3da5-a2d7-144d6ccba3e6",
+      "releaseId": "3c2fddfb-01bb-45ee-a832-46ed3b48d6a1",
+      "title": "Erotica",
+      "date": "1992-10-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7a6a2e9f-c699-3da5-a2d7-144d6ccba3e6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Erotica.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Fever.mid",
+            "Fever.1.mid",
+            "Fever.2.mid",
+            "Fever.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Deeper and Deeper.mid",
+            "Deeper and Deeper.1.mid",
+            "Deeper and Deeper.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Bad Girl.mid",
+            "Bad Girl.1.mid",
+            "Bad Girl.2.mid",
+            "Bad Girl.3.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Rain.mid",
+            "Rain.1.mid",
+            "Rain.2.mid",
+            "Rain.3.mid",
+            "Rain.4.mid",
+            "Rain.5.mid",
+            "Rain.6.mid",
+            "Rain.7.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f4479688-d6c8-3638-8dc4-0d4d84995a56",
+      "releaseId": "035b4d7a-90db-448f-984f-939ab09cc202",
+      "title": "I'll Remember (Theme from With Honors)",
+      "date": "1994-03-21",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/f4479688-d6c8-3638-8dc4-0d4d84995a56/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I'll Remember.mid",
+            "I'll Remember.1.mid",
+            "I'll Remember.2.mid",
+            "I'll Remember.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3c83c83-4280-363f-8ecc-9cb453a8ea18",
+      "releaseId": "ded11946-657d-4e01-a22e-17d5091f7b9e",
+      "title": "Bedtime Stories",
+      "date": "1994-10-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b3c83c83-4280-363f-8ecc-9cb453a8ea18/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Secret.mid",
+            "Secret.1.mid",
+            "Secret.2.mid",
+            "Secret.3.mid",
+            "Secret.4.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Don't Stop.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Human Nature.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Bedtime Story.mid",
+            "Bedtime Story.1.mid",
+            "Bedtime Story.2.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Take A Bow (1995).mid",
+            "Take A Bow (1995).1.mid",
+            "Take A Bow (1995).2.mid",
+            "Take A Bow (1995).3.mid",
+            "Take A Bow (1995).4.mid",
+            "Take A Bow (1995).5.mid",
+            "Take A Bow (1995).6.mid",
+            "Take A Bow (1995).7.mid",
+            "Take A Bow (1995).8.mid",
+            "Take A Bow (1995).9.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3100844c-7ac3-3107-a503-7a9c234e2e03",
+      "releaseId": "9a88c65e-2f1b-44f5-bdd3-2202156e3900",
+      "title": "You’ll See",
+      "date": "1995-10-23",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/3100844c-7ac3-3107-a503-7a9c234e2e03/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "You'll See.mid",
+            "You'll See.1.mid",
+            "You'll See.2.mid",
+            "You'll See.3.mid",
+            "You'll See.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "490f44a4-2a85-4ffc-9f0c-bc6cbcb55a06",
+      "releaseId": "d2e92125-c05a-47b1-a3b0-b079d81fcbb3",
+      "title": "You Must Love Me",
+      "date": "1996-10-21",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/490f44a4-2a85-4ffc-9f0c-bc6cbcb55a06/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "You Must Love Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cb93e87f-5d21-3447-a6e8-22d44f9b0d7a",
+      "releaseId": "6e50e253-0601-42d5-8750-55c190f369b1",
+      "title": "Ray of Light",
+      "date": "1998-02-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/cb93e87f-5d21-3447-a6e8-22d44f9b0d7a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Drowned World   Substitute for Love.mid",
+            "Drowned World   Substitute for Love.1.mid",
+            "Drowned World   Substitute for Love.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Swim.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Ray of Light.mid",
+            "Ray of Light.1.mid",
+            "Ray of Light.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Candy Perfume Girl.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Skin.mid",
+            "Skin.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Nothing Really Matters.mid",
+            "Nothing Really Matters.1.mid",
+            "Nothing Really Matters.2.mid",
+            "Nothing Really Matters.3.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Sky Fits Heaven.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Shanti   Ashtangi.mid",
+            "Shanti   Ashtangi.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Frozen.mid",
+            "Frozen.1.mid",
+            "Frozen.2.mid",
+            "Frozen.3.mid",
+            "Frozen.4.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "The Power Of Goodbye.mid",
+            "The Power Of Goodbye.1.mid",
+            "The Power Of Goodbye.2.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Little Star.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Mer Girl.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "080dee70-4971-4ae5-adae-e1869f7cdd5f",
+      "releaseId": "1cbb00e3-a189-4818-ae8e-6f2a08fbb5df",
+      "title": "Beautiful Stranger",
+      "date": "1999-05-31",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/080dee70-4971-4ae5-adae-e1869f7cdd5f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Beautiful Stranger.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0a0808d5-8f78-382f-87af-f9d6fedf3f68",
+      "releaseId": "0b2c3492-0e03-4a02-9610-844550fc8eaa",
+      "title": "Music",
+      "date": "2000-09-18",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0a0808d5-8f78-382f-87af-f9d6fedf3f68/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Music.mid",
+            "Music.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Amazing.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Don't Tell Me.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "What It Feels Like For a Girl.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e5e9cecd-bf09-3b13-9edd-4f085a5a27ac",
+      "releaseId": "a4222097-c8ad-4998-ab33-b2a8a28c86bd",
+      "title": "American Life",
+      "date": "2003-04-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e5e9cecd-bf09-3b13-9edd-4f085a5a27ac/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Die Another Day.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "38042a55-a2db-3bbe-8d69-5e46f8d79dd7",
+      "releaseId": "bfd15107-910c-451a-b9f9-8ca297a05cb6",
+      "title": "Hung Up",
+      "date": "2005-10-17",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/38042a55-a2db-3bbe-8d69-5e46f8d79dd7/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Hung Up (Tracy Young's Get Up And Dance Groove Edit).mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

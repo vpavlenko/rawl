@@ -1,0 +1,649 @@
+{
+  "artist": "Led Zeppelin",
+  "artistId": "678d88b2-87b0-403b-b63d-5da7465aecc3",
+  "groups": [
+    {
+      "id": "0f18ec88-aa87-38a9-8a65-f03d81763560",
+      "releaseId": "7214f50e-e7d6-4948-806a-024a00a1eda7",
+      "title": "Led Zeppelin",
+      "date": "1969-01-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0f18ec88-aa87-38a9-8a65-f03d81763560/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Good Times Bad Times.mid",
+            "Good Times Bad Times.1.mid",
+            "Good Times Bad Times.2.mid",
+            "Good Times Bad Times.3.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Babe I'm Gonna Leave You.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "You Shook Me.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Dazed And Confused.mid",
+            "Dazed And Confused.1.mid",
+            "Dazed And Confused.2.mid",
+            "Dazed And Confused.3.mid",
+            "Dazed And Confused.4.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Your Time Is Gonna Come.mid",
+            "Your Time Is Gonna Come.1.mid",
+            "Your Time Is Gonna Come.2.mid",
+            "Your Time Is Gonna Come.3.mid",
+            "Your Time Is Gonna Come.4.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Black Mountain Side.mid",
+            "Black Mountain Side.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Communication Breakdown.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "I Can't Quit You Baby.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "How Many More Times.mid",
+            "How Many More Times.1.mid",
+            "How Many More Times.2.mid",
+            "How Many More Times.3.mid",
+            "How Many More Times.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "33b4653d-006e-3cc1-8afb-386b15a6cd6e",
+      "releaseId": "e85b6f60-4293-3cf2-ba44-7f653d3887f1",
+      "title": "Led Zeppelin II",
+      "date": "1969-10-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/33b4653d-006e-3cc1-8afb-386b15a6cd6e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Whole Lotta Love.mid",
+            "Whole Lotta Love.1.mid",
+            "Whole Lotta Love.2.mid",
+            "Whole Lotta Love.3.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "What Is and What Should Never Be.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "The Lemon Song.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Thank You.mid",
+            "Thank You.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Heartbreak.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Livin' Lovin' Maid.mid",
+            "Livin' Lovin' Maid.1.mid",
+            "Livin' Lovin' Maid.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Living Loving Maid (She's Just a Woman).mid",
+            "Living Loving Maid (She's Just a Woman).1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Ramble On.mid",
+            "Ramble On.1.mid",
+            "Ramble On.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Moby Dick.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Bring It on Home.mid",
+            "Bring It on Home.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "adf7dc8b-97fb-45fa-9597-f7ec2a8002de",
+      "releaseId": "d606e9b3-83a9-47c3-9466-c088b4fb6d78",
+      "title": "Bron‐Y‐Aur‐Stomp / Out on the Tiles",
+      "date": "1970-10",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/adf7dc8b-97fb-45fa-9597-f7ec2a8002de/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Bron-Y-Aur Stomp.mid",
+            "Bron-Y-Aur Stomp.1.mid",
+            "Bron-Y-Aur Stomp.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "53f80f76-f8af-3558-bfd5-e7221e055c75",
+      "releaseId": "0914d44a-c33e-3d75-ad42-38bb710360e1",
+      "title": "Led Zeppelin III",
+      "date": "1970-10-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/53f80f76-f8af-3558-bfd5-e7221e055c75/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Immigrant Song.mid",
+            "Immigrant Song.1.mid",
+            "Immigrant Song.2.mid",
+            "Immigrant Song.3.mid",
+            "Immigrant Song.4.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Friends.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Celebration Day.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Since I've Been Loving You.mid",
+            "Since I've Been Loving You.1.mid",
+            "Since I've Been Loving You.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Out on the Tiles.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Gallows Pole.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Tangerine.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "That's the Way.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Hats Off to (Roy) Harper.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2e61da88-39e9-3473-81d2-c964cb394952",
+      "releaseId": "a22c222e-1a75-469d-82ab-2d84e5f6a3e7",
+      "title": "[Led Zeppelin IV]",
+      "date": "1971-11-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2e61da88-39e9-3473-81d2-c964cb394952/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Black Dog.mid",
+            "Black Dog.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Rock and Roll.mid",
+            "Rock and Roll.1.mid",
+            "Rock and Roll.2.mid",
+            "Rock and Roll.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "The Battle Of Evermore.mid",
+            "The Battle Of Evermore.1.mid",
+            "The Battle Of Evermore.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Stairway To Heaven.mid",
+            "Stairway To Heaven.1.mid",
+            "Stairway To Heaven.2.mid",
+            "Stairway To Heaven.3.mid",
+            "Stairway To Heaven.4.mid",
+            "Stairway To Heaven.5.mid",
+            "Stairway To Heaven.7.mid",
+            "Stairway To Heaven.9.mid",
+            "Stairway To Heaven.10.mid",
+            "Stairway To Heaven.11.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Stairway to Heaven.6.mid",
+            "Stairway to Heaven.8.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Misty Mountain Hop.mid",
+            "Misty Mountain Hop.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Four Sticks.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Going to California.mid",
+            "Going to California.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "When the Levee Breaks.mid",
+            "When the Levee Breaks.1.mid",
+            "When the Levee Breaks.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9b5006e5-b276-3a05-bcdd-8d986842320b",
+      "releaseId": "9be882ef-ebdb-49be-a5cb-5e0021c05e37",
+      "title": "Houses of the Holy",
+      "date": "1973-03-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9b5006e5-b276-3a05-bcdd-8d986842320b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Song Remains The Same.mid",
+            "The Song Remains The Same.1.mid",
+            "The Song Remains The Same.2.mid",
+            "The Song Remains The Same.3.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "The Rain Song.mid",
+            "The Rain Song.1.mid",
+            "The Rain Song.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Over the Hills and Far Away.mid",
+            "Over the Hills and Far Away.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "The Crunge.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Dancing Days.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "No Quarter.mid",
+            "No Quarter.1.mid",
+            "No Quarter.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "The Ocean.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "116c9490-6af4-3827-8261-2d5b1f508fe7",
+      "releaseId": "e3f0f405-d50f-45a4-ba71-795e7333fb56",
+      "title": "Physical Graffiti",
+      "date": "1975-02-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/116c9490-6af4-3827-8261-2d5b1f508fe7/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Custard Pie.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "The Rover.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "In My Time of Dying.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Houses of the Holy.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Trampled Under Foot.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Kashmir.mid",
+            "Kashmir.1.mid",
+            "Kashmir.2.mid",
+            "Kashmir.3.mid",
+            "Kashmir.4.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "In the Light.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Down by the Seaside.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Ten Years Gone.mid",
+            "Ten Years Gone.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Night Flight.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "The Wanton Song.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Boogie With Stu.mid",
+            "Boogie With Stu.1.mid",
+            "Boogie With Stu.2.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Black Country Woman.mid"
+          ]
+        },
+        {
+          "number": 15,
+          "files": [
+            "Sick Again.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "42f8acce-90fc-3471-a4cd-ace1ab816276",
+      "releaseId": "5c1032af-2d86-424b-963e-dd9e65f7281b",
+      "title": "Presence",
+      "date": "1976-03-31",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/42f8acce-90fc-3471-a4cd-ace1ab816276/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Achilles Last Stand.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "For Your Life.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Royal Orleans.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Nobody's Fault but Mine.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Candy Store Rock.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Hots On for Nowhere.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Tea for One.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2fbf4c3e-09e5-38f0-ae59-fbdc9ea16b87",
+      "releaseId": "75d5f94d-5d8b-42fc-9783-6c283f542f34",
+      "title": "In Through the Out Door",
+      "date": "1979-08-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2fbf4c3e-09e5-38f0-ae59-fbdc9ea16b87/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "In The Evening.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Fool in the Rain.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Hot Dog.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Carouselambra.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "All My Love.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "I'm Gonna Crawl.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "61de0438-6c34-363f-904e-b4d6267c79b9",
+      "releaseId": "cfa78b97-8d8c-48e6-8599-f3baf71a9231",
+      "title": "Coda",
+      "date": "1982-11-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/61de0438-6c34-363f-904e-b4d6267c79b9/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "We're Gonna Groove.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Poor Tom.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Walter's Walk.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Ozone Baby.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Darlene.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Bonzo's Montreaux.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Wearing and Tearing.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,633 @@
+{
+  "artist": "Metallica",
+  "artistId": "65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab",
+  "groups": [
+    {
+      "id": "f44f4f73-a714-31a1-a4b8-bfcaaf311f50",
+      "releaseId": "2b4002f3-1c21-4ff2-bebf-f4c98f1773c1",
+      "title": "Kill ’Em All",
+      "date": "1983-07-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f44f4f73-a714-31a1-a4b8-bfcaaf311f50/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Hit the Lights.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "The Four Horsemen.mid",
+            "The Four Horsemen.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Motorbreath.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Jump in the Fire.mid",
+            "Jump in the Fire.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "(Anesthesia)-Pulling Teeth.mid",
+            "(Anesthesia)-Pulling Teeth.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Whiplash.mid",
+            "Whiplash.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "No Remorse.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Seek & Destroy.mid",
+            "Seek & Destroy.1.mid",
+            "Seek & Destroy.2.mid",
+            "Seek & Destroy.3.mid",
+            "Seek & Destroy.4.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Metal Militia.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0da580f2-6768-498f-af9d-2becaddf15e0",
+      "releaseId": "0e014d5a-6266-4f13-aa63-badbd34406e4",
+      "title": "Ride the Lightning",
+      "date": "1984-07-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0da580f2-6768-498f-af9d-2becaddf15e0/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Fight Fire With Fire.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Ride the Lightning.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "For Whom the Bell Tolls.mid",
+            "For Whom the Bell Tolls.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Fade to Black.mid",
+            "Fade to Black.1.mid",
+            "Fade to Black.2.mid",
+            "Fade to Black.3.mid",
+            "Fade to Black.4.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Trapped Under Ice.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Creeping Death.mid",
+            "Creeping Death.1.mid",
+            "Creeping Death.2.mid",
+            "Creeping Death.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6a968491-b9a7-3cf1-88f6-f7d6d3daa95a",
+      "releaseId": "f1534002-5ece-4baf-bde2-b177d918f503",
+      "title": "Creeping Death",
+      "date": "1984-11-23",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/6a968491-b9a7-3cf1-88f6-f7d6d3daa95a/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Am I Evil?.mid",
+            "Am I Evil?.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Blitzkrieg.mid",
+            "Blitzkrieg.1.mid",
+            "Blitzkrieg.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3d00fb45-f8ab-3436-a8e1-b4bfc4d66913",
+      "releaseId": "cb100c18-fb29-4828-8d24-2fdbac6d6cff",
+      "title": "Master of Puppets",
+      "date": "1986-03-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3d00fb45-f8ab-3436-a8e1-b4bfc4d66913/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Battery.mid",
+            "Battery.1.mid",
+            "Battery.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Master of Puppets.mid",
+            "Master of Puppets.1.mid",
+            "Master of Puppets.2.mid",
+            "Master of Puppets.3.mid",
+            "Master of Puppets.4.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "The Thing That Should Not Be.mid",
+            "The Thing That Should Not Be.1.mid",
+            "The Thing That Should Not Be.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Welcome Home (Sanitarium).mid",
+            "Welcome Home (Sanitarium).1.mid",
+            "Welcome Home (Sanitarium).2.mid",
+            "Welcome Home (Sanitarium).3.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Disposable Heroes.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Leper Messiah.mid",
+            "Leper Messiah.1.mid",
+            "Leper Messiah.2.mid",
+            "Leper Messiah.3.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Orion.mid",
+            "Orion.1.mid",
+            "Orion.2.mid",
+            "Orion.3.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Damage, Inc..mid",
+            "Damage, Inc..1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "67553e23-8dad-3792-b6f2-8fedd5650ff3",
+      "releaseId": "4780ba11-c04e-4e2b-bfab-2cc05327aa4b",
+      "title": "…And Justice for All",
+      "date": "1988-08-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/67553e23-8dad-3792-b6f2-8fedd5650ff3/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Blackened.mid",
+            "Blackened.1.mid",
+            "Blackened.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "...and Justice for All.mid",
+            "...and Justice for All.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Eye of the Beholder.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "One.mid",
+            "One.1.mid",
+            "One.2.mid",
+            "One.3.mid",
+            "One.4.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "The Shortest Straw.mid",
+            "The Shortest Straw.1.mid",
+            "The Shortest Straw.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Harvester of Sorrow.mid",
+            "Harvester of Sorrow.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "The Frayed Ends of Sanity.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "To Live Is to Die.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Dyers Eve.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "71bb3f4a-525c-32ea-a30e-45814a923025",
+      "releaseId": "d0a0e45f-67e8-4b15-9d66-cecf3d05c7b1",
+      "title": "Sad but True",
+      "date": "1991-02-08",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/71bb3f4a-525c-32ea-a30e-45814a923025/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "So What.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e8f70201-8899-3f0c-9e07-5d6495bc8046",
+      "releaseId": "4bc28473-5211-387c-8898-74631bc9e040",
+      "title": "Metallica",
+      "date": "1991-08-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e8f70201-8899-3f0c-9e07-5d6495bc8046/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Enter Sandman.mid",
+            "Enter Sandman.1.mid",
+            "Enter Sandman.2.mid",
+            "Enter Sandman.3.mid",
+            "Enter Sandman.4.mid",
+            "Enter Sandman.5.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Sad but True.mid",
+            "Sad but True.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Holier Than Thou.mid",
+            "Holier Than Thou.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "The Unforgiven.mid",
+            "The Unforgiven.1.mid",
+            "The Unforgiven.2.mid",
+            "The Unforgiven.3.mid",
+            "The Unforgiven.4.mid",
+            "The Unforgiven.5.mid",
+            "The Unforgiven.6.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Wherever I May Roam.mid",
+            "Wherever I May Roam.1.mid",
+            "Wherever I May Roam.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Dont Tread on Me.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Through the Never.mid",
+            "Through the Never.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Nothing Else Matters.mid",
+            "Nothing Else Matters.1.mid",
+            "Nothing Else Matters.2.mid",
+            "Nothing Else Matters.3.mid",
+            "Nothing Else Matters.4.mid",
+            "Nothing Else Matters.5.mid",
+            "Nothing Else Matters.6.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Of Wolf and Man.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "The God That Failed.mid",
+            "The God That Failed.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "My Friend of Misery.mid",
+            "My Friend of Misery.1.mid",
+            "My Friend of Misery.2.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "The Struggle Within.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e389b7df-862d-3d91-a612-acca150f6e71",
+      "releaseId": "6304ebcd-39c1-476f-bca4-6679bb0aa9d3",
+      "title": "Load",
+      "date": "1996-05-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e389b7df-862d-3d91-a612-acca150f6e71/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ain't My Bitch.mid",
+            "Ain't My Bitch.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "2 X 4.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "The House Jack Built.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Until It Sleeps.mid",
+            "Until It Sleeps.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "King Nothing.mid",
+            "King Nothing.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Hero of the Day.mid",
+            "Hero of the Day.1.mid",
+            "Hero of the Day.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Bleeding Me.mid",
+            "Bleeding Me.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Cure.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Poor Twisted Me.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Wasting My Hate.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Thorn Within.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Ronnie.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Outlaw Torn.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "06e9d904-f4ac-3350-8398-8e4cd3bf1737",
+      "releaseId": "8c8b7e80-5f7e-4cbe-abad-c64ca2265d20",
+      "title": "Mama Said",
+      "date": "1996-11-25",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/06e9d904-f4ac-3350-8398-8e4cd3bf1737/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Mama Said.mid",
+            "Mama Said.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8fd32554-02a7-3788-a761-7012e0e75e55",
+      "releaseId": "d701f448-5cba-4303-80c8-0bb63537fdb1",
+      "title": "Reload",
+      "date": "1997-11-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8fd32554-02a7-3788-a761-7012e0e75e55/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Fuel.mid",
+            "Fuel.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "The Memory Remains.mid",
+            "The Memory Remains.1.mid",
+            "The Memory Remains.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Carpe Diem Baby.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Low Man's Lyric (acoustic).mid",
+            "Low Man's Lyric (acoustic).1.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Fixxxer.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "292fc62d-5e83-3ce8-b6c0-5d702babdbe3",
+      "releaseId": "0f36763f-2acd-4e74-a968-0e94e3475b05",
+      "title": "Turn the Page",
+      "date": "1998-11-16",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/292fc62d-5e83-3ce8-b6c0-5d702babdbe3/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Turn the Page.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "368ba0a1-6446-37fc-b686-90d9623162d6",
+      "releaseId": "e477f780-fb0d-3065-96af-8ae85fb2ba49",
+      "title": "Die, Die My Darling",
+      "date": "1999-06-07",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/368ba0a1-6446-37fc-b686-90d9623162d6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Die, Die My Darling.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "984fbd79-845c-354e-9aff-5bec80c351ee",
+      "releaseId": "3a463100-0814-41c0-9b8c-1d2e4eb9ced4",
+      "title": "I Disappear",
+      "date": "2000-06-02",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/984fbd79-845c-354e-9aff-5bec80c351ee/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I Disappear.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

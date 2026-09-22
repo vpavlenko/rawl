@@ -1,0 +1,544 @@
+{
+  "artist": "Mariah Carey",
+  "artistId": "494e8d09-f85b-4543-892f-a5096aed1cd4",
+  "groups": [
+    {
+      "id": "67cd8314-bdfc-3023-b4d0-46a0b06ff819",
+      "releaseId": "698fa1f0-6e8c-42a0-a1dd-9558d0d521ee",
+      "title": "Mariah Carey",
+      "date": "1990-08-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/67cd8314-bdfc-3023-b4d0-46a0b06ff819/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Vision of Love.mid",
+            "Vision of Love.1.mid",
+            "Vision of Love.2.mid",
+            "Vision of Love.3.mid",
+            "Vision of Love.4.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "There's Got To Be A Way (album version).mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "I Don't Wanna Cry.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Someday.mid",
+            "Someday.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Vanishing.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "All in Your Mind.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Alone in Love.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "You Need Me.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Sent From Up Above.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Prisoner.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Love Takes Time.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1746a028-cb05-39db-9249-f2e58331fd23",
+      "releaseId": "9b1d70c2-9281-4de9-ad6c-cdc0ab820a43",
+      "title": "Emotions",
+      "date": "1991-09-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1746a028-cb05-39db-9249-f2e58331fd23/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Emotions.mid",
+            "Emotions.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "And You Don't Remember.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Can't Let Go.mid",
+            "Can't Let Go.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Make It Happen.mid",
+            "Make It Happen.1.mid",
+            "Make It Happen.2.mid",
+            "Make It Happen.3.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "If It's Over.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "You're So Cold.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "So Blessed.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "To Be Around You.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Till the End of Time.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "The Wind.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f1e20069-9cc4-382d-bc9e-58816e33f0bd",
+      "releaseId": "03c3420f-c9e8-4e16-8454-dd175b44aa72",
+      "title": "I’ll Be There",
+      "date": "1992-06-11",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/f1e20069-9cc4-382d-bc9e-58816e33f0bd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I'll Be There.mid",
+            "I'll Be There.1.mid",
+            "I'll Be There.2.mid",
+            "I'll Be There.3.mid",
+            "I'll Be There.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7625cb89-79a6-3a00-bc38-d44552add611",
+      "releaseId": "a25c5756-fae8-4b8e-ab80-b88e98ce5ca2",
+      "title": "Music Box",
+      "date": "1993-08-31",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7625cb89-79a6-3a00-bc38-d44552add611/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Dream Lover.mid",
+            "Dream Lover.1.mid",
+            "Dream Lover.2.mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "Dreamlover.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Hero.mid",
+            "Hero.1.mid",
+            "Hero.2.mid",
+            "Hero.3.mid",
+            "Hero.4.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Anytime You Need a Friend.mid",
+            "Anytime You Need a Friend.1.mid",
+            "Anytime You Need a Friend.2.mid",
+            "Anytime You Need a Friend.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Music Box.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Now That I Know.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Never Forget You.mid",
+            "Never Forget You.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Without You.mid",
+            "Without You.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Just to Hold You Once Again.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "I've Been Thinking About You.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "All I've Ever Wanted.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4919e241-b9b7-32cb-8c0b-6d5c85aff4de",
+      "releaseId": "383f0aa3-1b16-40c9-be08-99f44a00cebf",
+      "title": "Hero",
+      "date": "1993-10-18",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/4919e241-b9b7-32cb-8c0b-6d5c85aff4de/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Everything Fades Away.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ea885664-bf25-3e52-8ce0-15a84aed4a83",
+      "releaseId": "6c31ee70-b4e4-496a-b9ae-56e144927f43",
+      "title": "Merry Christmas",
+      "date": "1994-10-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ea885664-bf25-3e52-8ce0-15a84aed4a83/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Silent Night.mid",
+            "Silent Night.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "All I Want for Christmas Is You.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Miss You Most (At Christmas Time).mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Jesus Born on This Day.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bf0126a1-b79c-3c9c-a892-f4bf4fac2bb0",
+      "releaseId": "35341325-a641-4baf-85f1-d047033bedce",
+      "title": "Daydream",
+      "date": "1995-09-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/bf0126a1-b79c-3c9c-a892-f4bf4fac2bb0/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Fantasy.mid",
+            "Fantasy.1.mid",
+            "Fantasy.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Underneath the Stars.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "One Sweet Day.mid",
+            "One Sweet Day.1.mid",
+            "One Sweet Day.2.mid",
+            "One Sweet Day.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Open Arms.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Always Be My Baby.mid",
+            "Always Be My Baby.1.mid",
+            "Always Be My Baby.2.mid",
+            "Always Be My Baby.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "I Am Free.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "When I Saw You.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Long Ago.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Melt Away.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Forever.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Looking In.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1ea6ffaa-df4f-31cc-955f-0fc57a9cf864",
+      "releaseId": "98222143-2dc3-411e-98e0-89cd4a6cd31d",
+      "title": "Butterfly",
+      "date": "1997-09-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1ea6ffaa-df4f-31cc-955f-0fc57a9cf864/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Honey.mid",
+            "Honey.1.mid",
+            "Honey.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Butterfly.mid",
+            "Butterfly.1.mid",
+            "Butterfly.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "My All.mid",
+            "My All.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "The Roof.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Fourth of July.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Breakdown.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Babydoll.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Close My Eyes.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Whenever You Call.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Fly Away (Butterfly reprise).mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "The Beautiful Ones.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Outside.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "522025d7-3772-4ef6-924b-0598356251df",
+      "releaseId": "e2a4b941-c40e-4444-8552-760ee4278beb",
+      "title": "Do You Know Where You’re Going To",
+      "date": "1998-09-15",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/522025d7-3772-4ef6-924b-0598356251df/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Do You Know Where You're Going To (Theme From Mahogany).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4509577f-ee12-3e4f-bf50-730264301d31",
+      "releaseId": "13d899c6-4271-4ba8-9346-e893b8d3d4c5",
+      "title": "Rainbow",
+      "date": "1999-10-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4509577f-ee12-3e4f-bf50-730264301d31/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Heartbreaker.mid",
+            "Heartbreaker.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Against All Odds.mid",
+            "Against All Odds.1.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Rainbow (Interlude).mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Thank God I Found You.mid",
+            "Thank God I Found You.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

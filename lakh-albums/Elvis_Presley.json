@@ -1,0 +1,901 @@
+{
+  "artist": "Elvis Presley",
+  "artistId": "01809552-4f87-45b0-afff-2c6f0730a3be",
+  "groups": [
+    {
+      "id": "7e2d9b46-af98-30ea-9bd9-7407ac089b29",
+      "releaseId": "d92d24c0-26e2-4f03-9043-b61947103b82",
+      "title": "That’s All Right / Blue Moon of Kentucky",
+      "date": "1954-07-19",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/7e2d9b46-af98-30ea-9bd9-7407ac089b29/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "That's All Right (Mama).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8f0d6172-8457-4923-b3f0-9ba49ef96b75",
+      "releaseId": "308f7b0f-f9a3-48ee-8aea-3c02173a8b99",
+      "title": "Any Way You Want Me",
+      "date": "1956",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/8f0d6172-8457-4923-b3f0-9ba49ef96b75/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Any Way You Want Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c7d9ac04-593a-487a-a1e6-f874dda80200",
+      "releaseId": "f7aadb43-5a99-4e10-b026-40c08823b88a",
+      "title": "Rock and Roll N° 3",
+      "date": "1956",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/c7d9ac04-593a-487a-a1e6-f874dda80200/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Heartbreak Hotel.mid",
+            "Heartbreak Hotel.1.mid",
+            "Heartbreak Hotel.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "00f1598f-3467-4931-8705-4fc0d957d397",
+      "releaseId": "5b6a6005-98c4-4f3f-8fcc-d4ef0d13db20",
+      "title": "Rock and Roll Nº 1",
+      "date": "1956",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/00f1598f-3467-4931-8705-4fc0d957d397/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Don't Be Cruel.mid",
+            "Don't Be Cruel.1.mid",
+            "Don't Be Cruel.2.mid",
+            "Don't Be Cruel.3.mid",
+            "Don't Be Cruel.4.mid",
+            "Don't Be Cruel.5.mid",
+            "Don't Be Cruel.6.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "I Want You I Need You I Love You.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Hound Dog.mid",
+            "Hound Dog.1.mid",
+            "Hound Dog.2.mid",
+            "Hound Dog.3.mid",
+            "Hound Dog.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "74ed4749-4469-4f15-ad70-e410ca7100c3",
+      "releaseId": "78c0ccca-457a-4977-85e3-5c5dde399f51",
+      "title": "Rock and Roll Nº 5",
+      "date": "1956",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/74ed4749-4469-4f15-ad70-e410ca7100c3/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Lawdy Miss Clawdy.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2ebeec96-6ef7-3d4d-943c-0b4a2af1d7cc",
+      "releaseId": "a511fc89-91ff-4b4e-8ecc-cfcbc39d2ad6",
+      "title": "Elvis Presley",
+      "date": "1956-03-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2ebeec96-6ef7-3d4d-943c-0b4a2af1d7cc/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Blue Suede Shoes.mid",
+            "Blue Suede Shoes.1.mid",
+            "Blue Suede Shoes.2.mid",
+            "Blue Suede Shoes.3.mid",
+            "Blue Suede Shoes.4.mid",
+            "Blue Suede Shoes.5.mid",
+            "Blue Suede Shoes.6.mid",
+            "Blue Suede Shoes.7.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "79dabce4-71c2-34ce-9d5d-83f9442fb325",
+      "releaseId": "b699b9da-adc3-49e2-9473-58bf54ffdbed",
+      "title": "Elvis",
+      "date": "1956-10-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/79dabce4-71c2-34ce-9d5d-83f9442fb325/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Love Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "214fb8f8-bdee-3a96-ba46-e833f73de94f",
+      "releaseId": "d6be7b74-e68b-4dfb-b24b-624115979948",
+      "title": "Jailhouse Rock",
+      "date": "1957",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/214fb8f8-bdee-3a96-ba46-e833f73de94f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Jail House Rock.mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "Jailhouse Rock.mid",
+            "Jailhouse Rock.1.mid",
+            "Jailhouse Rock.2.mid",
+            "Jailhouse Rock.3.mid",
+            "Jailhouse Rock.4.mid",
+            "Jailhouse Rock.5.mid",
+            "Jailhouse Rock.6.mid",
+            "Jailhouse Rock.7.mid",
+            "Jailhouse Rock.8.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fa35b197-f6f9-496f-a634-bca3e2b5d36c",
+      "releaseId": "e55c9e7c-0a14-4b54-bcb1-da5c831cfc1a",
+      "title": "Too Much / Playing for Keeps",
+      "date": "1957-01-12",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/fa35b197-f6f9-496f-a634-bca3e2b5d36c/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Too Much.mid",
+            "Too Much.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "412c30fa-cd31-3b44-973a-ec3cc540d530",
+      "releaseId": "9d177c9b-afa5-3898-a1b8-ca14c31181fb",
+      "title": "All Shook Up / That’s When Your Heartaches Begin",
+      "date": "1957-03-22",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/412c30fa-cd31-3b44-973a-ec3cc540d530/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "All Shook Up.mid",
+            "All Shook Up.1.mid",
+            "All Shook Up.2.mid",
+            "All Shook Up.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "36b5d9a4-9e47-3757-84a1-4c6527456d44",
+      "releaseId": "b07ee81a-3e84-446e-a22c-7c2141fd1f3d",
+      "title": "Loving You",
+      "date": "1957-07-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/36b5d9a4-9e47-3757-84a1-4c6527456d44/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "(Let Me Be Your) Teddy Bear.mid",
+            "(Let Me Be Your) Teddy Bear.1.mid",
+            "(Let Me Be Your) Teddy Bear.2.mid",
+            "(Let Me Be Your) Teddy Bear.3.mid",
+            "(Let Me Be Your) Teddy Bear.4.mid",
+            "(Let Me Be Your) Teddy Bear.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "626a3486-a3ef-3cf6-bdda-11c55b529509",
+      "releaseId": "90673f6b-8306-4663-93d9-eb2c40c4356e",
+      "title": "Elvis’ Christmas Album",
+      "date": "1957-10-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/626a3486-a3ef-3cf6-bdda-11c55b529509/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Blue Christmas.mid",
+            "Blue Christmas.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "51a03f2e-1e98-381a-bf36-a2eba337e1cd",
+      "releaseId": "4fe4e745-7ce5-43c6-9401-a036b66e45db",
+      "title": "King Creole: The Music",
+      "date": "1958-09-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/51a03f2e-1e98-381a-bf36-a2eba337e1cd/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Hard Headed Woman.mid",
+            "Hard Headed Woman.1.mid",
+            "Hard Headed Woman.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "db9e285d-fc6f-4099-a331-3f60b07c9b8d",
+      "releaseId": "df7226e8-8d88-4f5f-886d-8a7ba585fecb",
+      "title": "A Big Hunk o’ Love",
+      "date": "1959",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/db9e285d-fc6f-4099-a331-3f60b07c9b8d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "A Big Hunk O' Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8b058dbb-9a5c-4a27-9f39-e74890f3a28a",
+      "releaseId": "d4eb8021-a428-4a45-9382-058646635850",
+      "title": "O Sole Mio",
+      "date": "1960",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/8b058dbb-9a5c-4a27-9f39-e74890f3a28a/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Stuck On You.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4524e346-681e-364d-b975-bad70d71f2d7",
+      "releaseId": "023c609b-2ccd-46fe-bb86-762e4b3a7fce",
+      "title": "Elvis Is Back!",
+      "date": "1960-04-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4524e346-681e-364d-b975-bad70d71f2d7/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Fever.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7ff1cad6-1aee-4567-bbf3-12f364f5f3f8",
+      "releaseId": "8690cfbf-f314-4f68-8cb7-9019b4431e4d",
+      "title": "It’s Now or Never / A Mess of Blues",
+      "date": "1960-07-05",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/7ff1cad6-1aee-4567-bbf3-12f364f5f3f8/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "It's Now or Never.mid",
+            "It's Now or Never.1.mid",
+            "It's Now or Never.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "979ae544-8bac-3c30-98fa-6356d106c72a",
+      "releaseId": "139d10ef-1997-49b0-8032-2684a6ae04af",
+      "title": "G.I. Blues",
+      "date": "1960-10-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/979ae544-8bac-3c30-98fa-6356d106c72a/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Wooden Heart (Muss I Denn).mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Wooden Heart.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "G.I. Blues.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6b67c053-f301-463d-b30c-75a3593b5472",
+      "releaseId": "7aa299fc-7e16-45c9-aa3a-29e4aa5c4bfe",
+      "title": "Are You Lonesome Tonight? / I Gotta Know",
+      "date": "1960-11-01",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/6b67c053-f301-463d-b30c-75a3593b5472/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Are You Lonesome Tonight.mid",
+            "Are You Lonesome Tonight.1.mid",
+            "Are You Lonesome Tonight.2.mid",
+            "Are You Lonesome Tonight.3.mid",
+            "Are You Lonesome Tonight.4.mid",
+            "Are You Lonesome Tonight.5.mid",
+            "Are You Lonesome Tonight.6.mid",
+            "Are You Lonesome Tonight.7.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c0852f95-bb06-4ac6-bcd1-ba642b227bb3",
+      "releaseId": "cb5db394-8730-40b4-8e0d-8037152a355c",
+      "title": "Little Sister",
+      "date": "1961",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/c0852f95-bb06-4ac6-bcd1-ba642b227bb3/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "His Latest Flame.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0ace21f6-eb1e-3724-a989-f057811ddbb4",
+      "releaseId": "7a5eea19-f2d6-4711-a219-44c00730b4e8",
+      "title": "Surrender / Lonely Man",
+      "date": "1961-02-07",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/0ace21f6-eb1e-3724-a989-f057811ddbb4/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Surrender.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eb26d6a0-35db-38a7-b3c0-ae2083db5737",
+      "releaseId": "30a2244c-ca34-4bf3-beeb-c64c39d18d2d",
+      "title": "Blue Hawaii",
+      "date": "1961-10-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/eb26d6a0-35db-38a7-b3c0-ae2083db5737/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Can't Help Falling in Love.mid",
+            "Can't Help Falling in Love.1.mid",
+            "Can't Help Falling in Love.2.mid",
+            "Can't Help Falling in Love.3.mid",
+            "Can't Help Falling in Love.4.mid",
+            "Can't Help Falling in Love.5.mid",
+            "Can't Help Falling in Love.6.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d5f8a3fb-4a98-440b-9d8f-232040c9526e",
+      "releaseId": "458222b4-13d8-4842-9ab3-a54c6a565037",
+      "title": "Follow That Dream",
+      "date": "1962",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/d5f8a3fb-4a98-440b-9d8f-232040c9526e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Follow That Dream.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d7962b1d-b8e2-48f1-9d84-0f28bb5e07aa",
+      "releaseId": "ae2e15de-8364-449b-a96b-e0c73d33d617",
+      "title": "Good Luck Charm / Anything That’s Part of You",
+      "date": "1962-02-27",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/d7962b1d-b8e2-48f1-9d84-0f28bb5e07aa/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Good Luck Charm.mid",
+            "Good Luck Charm.1.mid",
+            "Good Luck Charm.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "86830b54-b672-3bf6-a9ca-27158f50b1be",
+      "releaseId": "842fd270-a0de-4d5f-964a-59e92923261f",
+      "title": "Pot Luck",
+      "date": "1962-06-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/86830b54-b672-3bf6-a9ca-27158f50b1be/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Kiss Me Quick.mid",
+            "Kiss Me Quick.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8c3a034c-a3fa-4990-a487-e8bde607df81",
+      "releaseId": "e2b822b5-e469-4d42-8dc4-38a7d563c630",
+      "title": "She’s Not You / Just Tell Her Jim Said Hello",
+      "date": "1962-07-17",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/8c3a034c-a3fa-4990-a487-e8bde607df81/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "She's Not You.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Just Tell Her Jim Said Hello.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f5846c58-15cd-3f8d-ae16-3fb7ede657e6",
+      "releaseId": "a60ad2e8-fe3a-441c-8ed0-9769d451631d",
+      "title": "Girls! Girls! Girls!",
+      "date": "1962-11-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f5846c58-15cd-3f8d-ae16-3fb7ede657e6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Girls! Girls! Girls!.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Return to Sender.mid",
+            "Return to Sender.1.mid",
+            "Return to Sender.2.mid",
+            "Return to Sender.3.mid",
+            "Return to Sender.4.mid",
+            "Return to Sender.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "13fef75b-76ea-436a-8889-881e45d50542",
+      "releaseId": "2e501a58-394e-4afa-838d-c6961d3b4747",
+      "title": "One Broken Heart for Sale",
+      "date": "1963",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/13fef75b-76ea-436a-8889-881e45d50542/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "(You're The) Devil in Disguise.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a2218a9c-57bb-4817-a03c-2469778c49e9",
+      "releaseId": "8993d3f8-d567-48da-a1fd-eb354f0c4383",
+      "title": "Kissin’ Cousins",
+      "date": "1964-04-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a2218a9c-57bb-4817-a03c-2469778c49e9/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Kissin' Cousins.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8967cf86-fc51-4306-aaec-4c46c74e73ba",
+      "releaseId": "00698287-491f-417d-8629-3f45adb7693d",
+      "title": "Girl Happy",
+      "date": "1965-03-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8967cf86-fc51-4306-aaec-4c46c74e73ba/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Puppet on a String.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8c7e843a-f10a-3962-8c11-d6982db574a8",
+      "releaseId": "47e8a427-250a-4b58-b7f9-118b8bebb535",
+      "title": "Frankie and Johnny",
+      "date": "1966-03-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8c7e843a-f10a-3962-8c11-d6982db574a8/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Frankie and Johnny.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7dbccaa7-78d8-3266-80de-babc63416ad7",
+      "releaseId": "b0e6be8d-d369-4e85-8e04-3a7719742893",
+      "title": "Spinout",
+      "date": "1966-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7dbccaa7-78d8-3266-80de-babc63416ad7/front-250",
+      "songs": [
+        {
+          "number": 11,
+          "files": [
+            "Down in the Alley.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "84b99a31-79fe-460f-ac9d-f54f1bbe7c61",
+      "releaseId": "fbcc6167-cafa-4687-8917-61005da4e2cb",
+      "title": "Indescribably Blue / Fools Fall in Love",
+      "date": "1967-01-10",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/84b99a31-79fe-460f-ac9d-f54f1bbe7c61/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Fools Fall In Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "84324cfa-4827-30e8-88ef-e432a98de181",
+      "releaseId": "9df8fdb2-1e0b-467e-b28f-96cb03e8dd31",
+      "title": "How Great Thou Art",
+      "date": "1967-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/84324cfa-4827-30e8-88ef-e432a98de181/front-250",
+      "songs": [
+        {
+          "number": 13,
+          "files": [
+            "Crying In The Chapel.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "603326f8-93b8-4019-8ac9-2f81442d44dd",
+      "releaseId": "bacd8171-b40a-4428-9855-483bf7c9cd73",
+      "title": "A Little Less Conversation / Almost in Love",
+      "date": "1968-09-03",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/603326f8-93b8-4019-8ac9-2f81442d44dd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "A Little Less Conversation.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2a753764-89d5-3b72-8dff-8c599f1ea925",
+      "releaseId": "00002fb4-7d2a-449c-aaa1-4724325ee269",
+      "title": "From Elvis in Memphis",
+      "date": "1969-06-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2a753764-89d5-3b72-8dff-8c599f1ea925/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "In the Ghetto.mid",
+            "In the Ghetto.1.mid",
+            "In the Ghetto.2.mid",
+            "In the Ghetto.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dd4846b7-a8cd-3b15-94c7-bbf57ca684a8",
+      "releaseId": "da72e16f-533a-4cc5-a549-edf1f350b66f",
+      "title": "Suspicious Minds",
+      "date": "1969-08",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/dd4846b7-a8cd-3b15-94c7-bbf57ca684a8/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Suspicious Minds.mid",
+            "Suspicious Minds.1.mid",
+            "Suspicious Minds.2.mid",
+            "Suspicious Minds.3.mid",
+            "Suspicious Minds.4.mid",
+            "Suspicious Minds.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "23421111-af37-4e33-be5b-2e15c03ec551",
+      "releaseId": "d63e62f9-d908-40df-bff3-0615e6575585",
+      "title": "Don't Cry Daddy / Rubberneckin'",
+      "date": "1969-11-11",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/23421111-af37-4e33-be5b-2e15c03ec551/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Don't Cry Daddy.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2246c7cd-1ce5-4a85-b1f8-51ed1f7c214e",
+      "releaseId": "05b70581-d0a0-4a1e-b905-2581ab42f4e7",
+      "title": "The Wonder of You / Mama Liked the Roses",
+      "date": "1970-04-20",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/2246c7cd-1ce5-4a85-b1f8-51ed1f7c214e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Wonder of You.mid",
+            "The Wonder of You.1.mid",
+            "The Wonder of You.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cae9dd34-b0f9-4c12-8f9d-8d1956788730",
+      "releaseId": "a585427b-64ed-4f5e-8cd9-56287221c3f4",
+      "title": "I Just Can’t Help Believin’",
+      "date": "1971-11-26",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/cae9dd34-b0f9-4c12-8f9d-8d1956788730/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I Just Can't Help Believing.mid",
+            "I Just Can't Help Believing.1.mid",
+            "I Just Can't Help Believing.2.mid",
+            "I Just Can't Help Believing.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ba2fdac3-adfa-40a6-ae0d-3ae8b20db7ca",
+      "releaseId": "61778d5c-680e-48a3-927e-7c8db023097e",
+      "title": "Separate Ways / Always on My Mind",
+      "date": "1972",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/ba2fdac3-adfa-40a6-ae0d-3ae8b20db7ca/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Always on My Mind.mid",
+            "Always on My Mind.1.mid",
+            "Always on My Mind.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "01a4e53c-5d2e-4288-bfeb-c163af94c613",
+      "releaseId": "1ee82fd5-0a06-414f-b8da-2151bbaf6afb",
+      "title": "An American Trilogy",
+      "date": "1972-04-04",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/01a4e53c-5d2e-4288-bfeb-c163af94c613/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "American Trilogy.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3b7bf798-f065-425c-989a-925e00f2a57b",
+      "releaseId": "89e1a9ff-1047-4a79-bca8-a5547c93a872",
+      "title": "Burning Love / It's a Matter of Time",
+      "date": "1972-08-01",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/3b7bf798-f065-425c-989a-925e00f2a57b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Burning Love.mid",
+            "Burning Love.1.mid",
+            "Burning Love.2.mid",
+            "Burning Love.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d7695480-d8e5-3cbb-beed-7de7021f2d0b",
+      "releaseId": "cc1e11e2-bf03-44e9-97ee-a0f399307491",
+      "title": "Good Times",
+      "date": "1974-03-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d7695480-d8e5-3cbb-beed-7de7021f2d0b/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "My Boy.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a61b9898-0d5c-3850-a655-68dcc1462688",
+      "releaseId": "36a257c6-2049-4870-b0ce-352a31be7b9a",
+      "title": "Moody Blue",
+      "date": "1977",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a61b9898-0d5c-3850-a655-68dcc1462688/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Let Me Be There.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "01da67da-41bb-4296-a639-2c48b33b2369",
+      "releaseId": "afdcc812-ec62-414b-b35d-0f0117dfc09a",
+      "title": "My Way / America",
+      "date": "1977",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/01da67da-41bb-4296-a639-2c48b33b2369/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "My Way.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "09e28543-c053-43e1-b336-405d647dd399",
+      "releaseId": "88eeee01-7378-43b4-9252-4d48184a23f8",
+      "title": "Viva Las Vegas",
+      "date": "2003-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/09e28543-c053-43e1-b336-405d647dd399/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Viva Las Vegas.mid",
+            "Viva Las Vegas.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8ada6404-58d8-4a8d-b75f-a7bca59c1ab3",
+      "releaseId": "f38847e8-64fc-406f-bc98-9a563ff25050",
+      "title": "Love Me Tender (Music from the Original Soundtrack Recording)",
+      "date": "2014-09-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8ada6404-58d8-4a8d-b75f-a7bca59c1ab3/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Love Me Tender.mid",
+            "Love Me Tender.1.mid",
+            "Love Me Tender.2.mid",
+            "Love Me Tender.3.mid",
+            "Love Me Tender.4.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

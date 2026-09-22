@@ -1,0 +1,667 @@
+{
+  "artist": "Genesis",
+  "artistId": "8e3fcd7d-bda1-4ca0-b987-b8528d2ee74e",
+  "groups": [
+    {
+      "id": "aa86c6bb-d1c7-3a03-bcb4-3c6f0a469328",
+      "releaseId": "9c88c97f-2c22-4915-b595-1ebe02259039",
+      "title": "Trespass",
+      "date": "1970-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/aa86c6bb-d1c7-3a03-bcb4-3c6f0a469328/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "The Knife.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "863a205e-07c3-3930-8561-a23045719466",
+      "releaseId": "29e308e6-236b-4bdc-922e-b50aed57ef34",
+      "title": "Nursery Cryme",
+      "date": "1971-11-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/863a205e-07c3-3930-8561-a23045719466/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Musical Box.mid",
+            "The Musical Box.1.mid",
+            "The Musical Box.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "The Fountain of Salmacis.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Seven Stones.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "The Return of the Giant Hogweed.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "81d890d2-e71a-3e96-b3f1-4ddb3b6feb81",
+      "releaseId": "bbbda956-cf04-414b-84c4-6e8a5a1126d0",
+      "title": "Foxtrot",
+      "date": "1972-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/81d890d2-e71a-3e96-b3f1-4ddb3b6feb81/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Watcher of the Skies.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Time Table.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Get 'Em Out by Friday.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Can-Utility and the Coastliners.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Horizon's.mid",
+            "Horizon's.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Supper's Ready.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1fadec3d-7451-32e8-9194-ad7e5312cb9b",
+      "releaseId": "119490f3-1f25-4dee-8a1e-a9e0fcc7ac53",
+      "title": "Selling England by the Pound",
+      "date": "1973-10-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1fadec3d-7451-32e8-9194-ad7e5312cb9b/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "I Know What I Like (In Your Wardrobe).mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Firth of Fifth.mid",
+            "Firth of Fifth.1.mid",
+            "Firth of Fifth.2.mid",
+            "Firth of Fifth.3.mid",
+            "Firth of Fifth.4.mid",
+            "Firth of Fifth.5.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "The Battle of Epping Forest.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "The Cinema Show.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f2e5d462-6ec1-3cf8-8ea8-06eab8fe51f5",
+      "releaseId": "8fad300a-0498-498a-9f74-985d0ae38d00",
+      "title": "The Lamb Lies Down on Broadway",
+      "date": "1974-11-18",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f2e5d462-6ec1-3cf8-8ea8-06eab8fe51f5/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Lamb Lies Down on Broadway.mid",
+            "The Lamb Lies Down on Broadway.1.mid",
+            "The Lamb Lies Down on Broadway.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Broadway Melody of 1974.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "In the Cage.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "The Grand Parade of Lifeless Packaging.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Hairless Heart.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Carpet Crawl.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Carpet Crawlers.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Lilywhite Lilith.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Anyway.mid"
+          ]
+        },
+        {
+          "number": 16,
+          "files": [
+            "The Lamia.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "adcc32d7-cb30-3201-84fa-488e35c9c9ed",
+      "releaseId": "4d596954-bcf3-4a18-b7e4-60050f14630c",
+      "title": "A Trick of the Tail",
+      "date": "1976-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/adcc32d7-cb30-3201-84fa-488e35c9c9ed/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Dance on a Volcano.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Entangled.mid",
+            "Entangled.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Squonk.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Mad Man Moon.mid",
+            "Mad Man Moon.1.mid",
+            "Mad Man Moon.2.mid",
+            "Mad Man Moon.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Ripples.mid",
+            "Ripples.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "A Trick of the Tail.mid",
+            "A Trick of the Tail.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "96e0f4a1-52b2-3da7-a11f-1cfa861baeb6",
+      "releaseId": "961428ca-e676-43ab-9ef7-2e1d68cba067",
+      "title": "Wind & Wuthering",
+      "date": "1976-12-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/96e0f4a1-52b2-3da7-a11f-1cfa861baeb6/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "One for the Vine.mid",
+            "One for the Vine.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "All in a Mouse's Night.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Blood on the Rooftops.mid",
+            "Blood on the Rooftops.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Afterglow.mid",
+            "Afterglow.1.mid",
+            "Afterglow.2.mid",
+            "Afterglow.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f599ecff-d76c-361a-97c2-523d4aa1f0b4",
+      "releaseId": "75459776-ab08-30c5-9a8b-b4c6d44bf9cc",
+      "title": "…And Then There Were Three…",
+      "date": "1978-03-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f599ecff-d76c-361a-97c2-523d4aa1f0b4/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Snowbound.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Many Too Many.mid",
+            "Many Too Many.1.mid",
+            "Many Too Many.2.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Follow You Follow Me.mid",
+            "Follow You Follow Me.1.mid",
+            "Follow You Follow Me.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ffcfe407-d820-38ba-a798-8734b5dff61c",
+      "releaseId": "6122d0f9-3ca5-3203-90b0-00dbe8bb269f",
+      "title": "Duke",
+      "date": "1980-03-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ffcfe407-d820-38ba-a798-8734b5dff61c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Behind the Lines.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Misunderstanding.mid",
+            "Misunderstanding.1.mid",
+            "Misunderstanding.2.mid",
+            "Misunderstanding.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Heathaze.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Turn It On Again.mid",
+            "Turn It On Again.1.mid",
+            "Turn It On Again.2.mid",
+            "Turn It On Again.3.mid",
+            "Turn It On Again.4.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Duke's End.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b76520a1-3c5f-3a0c-a755-4c4d99b97c98",
+      "releaseId": "0dbe0ae1-7749-4788-9469-bad2e8e9641d",
+      "title": "Abacab",
+      "date": "1981-09-18",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b76520a1-3c5f-3a0c-a755-4c4d99b97c98/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Abacab.mid",
+            "Abacab.1.mid",
+            "Abacab.2.mid",
+            "Abacab.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Keep It Dark.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Dodo   Lurker.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Man on the Corner.mid",
+            "Man on the Corner.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "012f9b5a-d60a-45a2-a14d-623a3c99ec9d",
+      "releaseId": "b656b9bb-b396-4945-bf9f-92d83805ae3b",
+      "title": "3×3",
+      "date": "1982",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/012f9b5a-d60a-45a2-a14d-623a3c99ec9d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Paperlate.mid",
+            "Paperlate.1.mid",
+            "Paperlate.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "48bb31b2-1b07-38ec-9ef2-3bb52c1f9411",
+      "releaseId": "02c9ccb3-2895-4607-bb78-42f9778dabfa",
+      "title": "Genesis",
+      "date": "1983-10-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/48bb31b2-1b07-38ec-9ef2-3bb52c1f9411/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Mama.mid",
+            "Mama.1.mid",
+            "Mama.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "That's All.mid",
+            "That's All.1.mid",
+            "That's All.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Second Home by the Sea.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Illegal Alien.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Taking It All Too Hard.mid",
+            "Taking It All Too Hard.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cd5b8b39-cdfd-337a-9fab-c2571be315c0",
+      "releaseId": "0e071f1f-a6cb-44e1-8a1a-544f8d09f7c6",
+      "title": "Invisible Touch",
+      "date": "1986-06-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/cd5b8b39-cdfd-337a-9fab-c2571be315c0/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Invisible Touch.mid",
+            "Invisible Touch.1.mid",
+            "Invisible Touch.2.mid",
+            "Invisible Touch.3.mid",
+            "Invisible Touch.4.mid",
+            "Invisible Touch.5.mid",
+            "Invisible Touch.6.mid",
+            "Invisible Touch.7.mid",
+            "Invisible Touch.8.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Tonight Tonight Tonight.mid",
+            "Tonight Tonight Tonight.1.mid",
+            "Tonight Tonight Tonight.2.mid",
+            "Tonight Tonight Tonight.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Land of Confusion.mid",
+            "Land of Confusion.1.mid",
+            "Land of Confusion.2.mid",
+            "Land of Confusion.3.mid",
+            "Land of Confusion.4.mid",
+            "Land of Confusion.5.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "In Too Deep.mid",
+            "In Too Deep.1.mid",
+            "In Too Deep.2.mid",
+            "In Too Deep.3.mid",
+            "In Too Deep.4.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Domino.mid",
+            "Domino.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Throwing It All Away.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "The Brazilian.mid",
+            "The Brazilian.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1f94530c-4206-3c2f-a3e8-8f9bed86590e",
+      "releaseId": "30f13c4a-897f-403a-ba7e-f597d7cf62fc",
+      "title": "We Can’t Dance",
+      "date": "1991-11-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1f94530c-4206-3c2f-a3e8-8f9bed86590e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "No Son of Mine.mid",
+            "No Son of Mine.1.mid",
+            "No Son of Mine.2.mid",
+            "No Son of Mine.3.mid",
+            "No Son of Mine.4.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Jesus He Knows Me.mid",
+            "Jesus He Knows Me.1.mid",
+            "Jesus He Knows Me.2.mid",
+            "Jesus He Knows Me.3.mid",
+            "Jesus He Knows Me.4.mid",
+            "Jesus He Knows Me.5.mid",
+            "Jesus He Knows Me.6.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Driving the Last Spike.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "I Can't Dance.mid",
+            "I Can't Dance.1.mid",
+            "I Can't Dance.2.mid",
+            "I Can't Dance.3.mid",
+            "I Can't Dance.4.mid",
+            "I Can't Dance.5.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Never a Time.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Tell Me Why.mid",
+            "Tell Me Why.1.mid",
+            "Tell Me Why.2.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Hold On My Heart.mid",
+            "Hold On My Heart.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Fading Lights.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ecb68a84-e8dd-301b-979a-d185e3cc87e4",
+      "releaseId": "f6dc7b15-0d14-48d9-9334-4ee2fe9a39a0",
+      "title": "…Calling All Stations…",
+      "date": "1997-08-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ecb68a84-e8dd-301b-979a-d185e3cc87e4/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Calling All Stations.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Shipwrecked.mid",
+            "Shipwrecked.1.mid",
+            "Shipwrecked.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Uncertain Weather.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

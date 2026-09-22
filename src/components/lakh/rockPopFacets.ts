@@ -16,10 +16,6 @@ export const ROCK_POP_GENRES = [
     label: "Doo-wop & early vocal groups",
   },
   {
-    id: "earlypop",
-    label: "Early-1960s pop & teen idols",
-  },
-  {
     id: "harmony",
     label: "Sunshine, harmony & orchestral pop",
   },
@@ -233,7 +229,7 @@ const assignments: {
     ],
   },
   {
-    genre: "earlypop",
+    genre: "mainstream",
     era: "1963",
     artists: [
       "Kramer",
@@ -431,7 +427,7 @@ const assignments: {
     artists: ["The Flying Pickets"],
   },
   {
-    genre: "earlypop",
+    genre: "mainstream",
     era: "1955",
     artists: [
       "Billy Fury",
@@ -457,7 +453,7 @@ const assignments: {
     ],
   },
   {
-    genre: "earlypop",
+    genre: "mainstream",
     era: "1963",
     artists: [
       "Bobby Goldsboro",

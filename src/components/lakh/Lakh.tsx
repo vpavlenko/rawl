@@ -267,6 +267,30 @@ function groupArtistAliases(artists: LakhArtist[]): DirectoryArtist[] {
   }));
 }
 
+function collectTrackSources(sources: LakhArtist[]) {
+  // Display one song list while retaining each file's source for playback and
+  // annotations. Colliding filenames become additional display-only versions.
+  const trackSources = new Map<string, { source: LakhArtist; file: string }>();
+  const reservedNames = new Set(sources.flatMap((source) => source.tracks));
+  sources.forEach((source) =>
+    source.tracks.forEach((file) => {
+      let displayFile = file;
+      if (trackSources.has(displayFile)) {
+        const title = file.replace(/(?:\.\d+)?\.mid$/i, "");
+        let version = 1;
+        do {
+          displayFile = `${title}.${version++}.mid`;
+        } while (
+          reservedNames.has(displayFile) ||
+          trackSources.has(displayFile)
+        );
+      }
+      trackSources.set(displayFile, { source, file });
+    }),
+  );
+  return trackSources;
+}
+
 function highlightMatches(text: string, search: string): React.ReactNode {
   if (!search) return text;
   const pattern = new RegExp(
@@ -516,27 +540,19 @@ const Directory = React.memo(function Directory({
   const matchingSongs = useMemo(() => {
     const matches = new Map<
       string,
-      { source: LakhArtist; file: string; title: string }[]
+      { artist: DirectoryArtist; tracks: ReturnType<typeof collectTrackSources> }
     >();
     if (!search) return matches;
     directoryArtists.forEach((item) => {
-      const songs = new Map<
-        string,
-        { source: LakhArtist; file: string; title: string }
-      >();
-      item.members.forEach((source) =>
-        source.tracks.forEach((file) => {
-          const title = file.replace(/(?:\.\d+)?\.mid$/i, "");
-          const identity = songIdentity(file);
-          if (
-            title.toLocaleLowerCase().includes(search) &&
-            !songs.has(identity)
-          ) {
-            songs.set(identity, { source, file, title });
-          }
-        }),
-      );
-      if (songs.size) matches.set(item.name, Array.from(songs.values()));
+      const tracks = collectTrackSources([
+        ...item.members.filter((member) => member.slug === item.slug),
+        ...item.members.filter((member) => member.slug !== item.slug),
+      ]);
+      for (const file of tracks.keys()) {
+        const title = file.replace(/(?:\.\d+)?\.mid$/i, "");
+        if (!title.toLocaleLowerCase().includes(search)) tracks.delete(file);
+      }
+      if (tracks.size) matches.set(item.name, { artist: item, tracks });
     });
     return matches;
   }, [directoryArtists, search]);
@@ -559,26 +575,8 @@ const Directory = React.memo(function Directory({
         ),
       ),
     );
-  // Display one song list while retaining each file's source for playback and
-  // annotations. Colliding filenames become additional display-only versions.
-  const trackSources = new Map<string, { source: LakhArtist; file: string }>();
-  const sources = artist ? [artist, ...relatedArtists] : [];
-  const reservedNames = new Set(sources.flatMap((source) => source.tracks));
-  sources.forEach((source) =>
-    source.tracks.forEach((file) => {
-      let displayFile = file;
-      if (trackSources.has(displayFile)) {
-        const title = file.replace(/(?:\.\d+)?\.mid$/i, "");
-        let version = 1;
-        do {
-          displayFile = `${title}.${version++}.mid`;
-        } while (
-          reservedNames.has(displayFile) ||
-          trackSources.has(displayFile)
-        );
-      }
-      trackSources.set(displayFile, { source, file });
-    }),
+  const trackSources = collectTrackSources(
+    artist ? [artist, ...relatedArtists] : [],
   );
   const isAnnotatedTrack = (displayFile: string) => {
     const track = trackSources.get(displayFile);
@@ -587,6 +585,31 @@ const Directory = React.memo(function Directory({
     );
   };
   const tracks = Array.from(trackSources.keys());
+  const renderTrackEntry = (
+    trackSources: ReturnType<typeof collectTrackSources>,
+    file: string,
+    label?: string,
+    query = "",
+  ) => {
+    const original = trackSources.get(file)!;
+    const hasAnalysis = annotated.has(
+      lakhAnalysisKey(original.source.name, original.file),
+    );
+    return (
+      <Entry
+        to={lakhTrackUrl(original.source, original.file)}
+        $folder={false}
+        $annotated={hasAnalysis}
+        $version={label !== undefined && /^\d+$/.test(label)}
+        title={`${file}${hasAnalysis ? " · Annotated" : ""}`}
+        aria-label={`${file.replace(/\.mid$/i, "")}${
+          hasAnalysis ? " · Annotated" : ""
+        }`}
+      >
+        {highlightMatches(label || file.replace(/\.mid$/i, ""), query)}
+      </Entry>
+    );
+  };
   const renderArtist = (item: DirectoryArtist) => {
     const count = annotatedSongs(item);
     const songCount = artistSongCounts.get(item.name)!;
@@ -667,24 +690,30 @@ const Directory = React.memo(function Directory({
             <h2 id="lakh-song-search-heading">Songs</h2>
             {matchingSongs.size ? (
               <SearchResults>
-                {Array.from(matchingSongs, ([artistName, songs]) => (
+                {Array.from(matchingSongs, ([artistName, { artist: resultArtist, tracks }]) => (
                   <li key={artistName}>
-                    {artistName}
-                    <ul>
-                      {songs.map(({ source, file, title }) => (
-                        <li key={songIdentity(file)}>
-                          <Entry
-                            to={lakhTrackUrl(source, file)}
-                            $folder={false}
-                            $annotated={annotated.has(
-                              lakhAnalysisKey(source.name, file),
-                            )}
-                          >
-                            {highlightMatches(title, search)}
-                          </Entry>
-                        </li>
-                      ))}
-                    </ul>
+                    <Entry
+                      to={lakhArtistUrl(resultArtist)}
+                      $folder
+                      $annotated={false}
+                    >
+                      {artistName}
+                    </Entry>
+                    <BeatlesDiscography
+                      groupByAlbum={false}
+                      files={Array.from(tracks.keys())}
+                      allFiles={Array.from(tracks.keys())}
+                      isAnnotated={(file) => {
+                        const original = tracks.get(file)!;
+                        return annotated.has(
+                          lakhAnalysisKey(original.source.name, original.file),
+                        );
+                      }}
+                      renderTitle={(title) => highlightMatches(title, search)}
+                      renderTrack={(file, label) =>
+                        renderTrackEntry(tracks, file, label, search)
+                      }
+                    />
                   </li>
                 ))}
               </SearchResults>
@@ -705,24 +734,9 @@ const Directory = React.memo(function Directory({
             allFiles={tracks}
             isAnnotated={isAnnotatedTrack}
             renderTitle={(title) => title}
-            renderTrack={(file, label) => {
-              const original = trackSources.get(file)!;
-              const hasAnalysis = isAnnotatedTrack(file);
-              return (
-                <Entry
-                  to={lakhTrackUrl(original.source, original.file)}
-                  $folder={false}
-                  $annotated={hasAnalysis}
-                  $version={label !== undefined && /^\d+$/.test(label)}
-                  title={`${file}${hasAnalysis ? " · Annotated" : ""}`}
-                  aria-label={`${file.replace(/\.mid$/i, "")}${
-                    hasAnalysis ? " · Annotated" : ""
-                  }`}
-                >
-                  {label || file.replace(/\.mid$/i, "")}
-                </Entry>
-              );
-            }}
+            renderTrack={(file, label) =>
+              renderTrackEntry(trackSources, file, label)
+            }
           />
         </>
       ) : !search ? (

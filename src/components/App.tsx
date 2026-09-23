@@ -34,19 +34,15 @@ import styled from "styled-components";
 import { slugify } from "transliteration";
 import { decomposeScores } from "./rawl/decomposition/decomposeScores";
 
-import ChipCore from "../chip-core";
-import {
-  ERROR_FLASH_DURATION_MS,
-  MAX_VOICES,
-  SOUNDFONT_MOUNTPOINT,
-} from "../config";
+import { ERROR_FLASH_DURATION_MS, MAX_VOICES } from "../config";
 import firebaseConfig from "../config/firebaseConfig";
 import defaultAnalyses from "../corpus/analyses.json";
 import { handleSongClick as handleSongClickUtil } from "../handlers/handleSongClick";
-import MIDIPlayer from "../players/MIDIPlayer";
-import { ensureEmscFileWithData, unlockAudioContext } from "../util";
+import MIDIPlayer from "../players/ThreadedMIDIPlayer";
+import { unlockAudioContext } from "../util";
 import Alert from "./Alert";
 import { AppContext } from "./AppContext";
+import { PlaybackTimeProvider } from "./PlaybackTimeContext";
 import AppFooter, { FOOTER_HEIGHT } from "./AppFooter";
 import AppHeader, { HEADER_HEIGHT } from "./AppHeader";
 import DropMessage from "./DropMessage";
@@ -120,7 +116,6 @@ type AppState = {
   } | null;
   audioContextLocked: boolean;
   audioContextState: string;
-  currentPlaybackTime: number | null;
   currentMidiBuffer: ArrayBuffer | null;
   hoveredMeasuresSpan: MeasuresSpan | null;
 };
@@ -147,18 +142,17 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private contentAreaRef: React.RefObject<HTMLDivElement>;
   private errorTimer: number;
   private midiPlayer: MIDIPlayer;
+  private pendingMidiPlayer: MIDIPlayer | null = null;
   private currUrl: string;
   private db: Firestore;
   private mediaSessionAudio: HTMLAudioElement;
   private gainNode: GainNode;
-  private chipCore: any;
   private path: string;
   private hash: string;
   private midi: ArrayBuffer;
   private droppedFilename: string;
   private keyboardHandlers: Map<string, KeyboardHandler> = new Map();
   private audioContext: AudioContext;
-  private playbackTimer: NodeJS.Timeout;
 
   constructor(props) {
     super(props);
@@ -210,7 +204,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     // Initialize audio context
     // @ts-ignore webkitAudioContext needed for Safari <=13
     this.audioContext = new (window.AudioContext || window.webkitAudioContext)({
-      latencyHint: "playback",
+      latencyHint: "interactive",
     });
 
     this.audioContext.suspend();
@@ -251,42 +245,15 @@ class App extends React.Component<RouteComponentProps, AppState> {
       currentMidi: null,
       audioContextLocked: this.audioContext.state === "suspended",
       audioContextState: this.audioContext.state,
-      currentPlaybackTime: null,
       currentMidiBuffer: null,
       hoveredMeasuresSpan: null,
     };
 
-    const bufferSize = Math.max(
-      Math.pow(
-        2,
-        Math.ceil(
-          Math.log2(
-            (this.audioContext.baseLatency || 0.001) *
-              this.audioContext.sampleRate,
-          ),
-        ),
-      ),
-      16384,
-    );
     const gainNode = (this.gainNode = this.audioContext.createGain());
     gainNode.gain.value = 1;
     gainNode.connect(this.audioContext.destination);
-    const playerNode = this.audioContext.createScriptProcessor(
-      bufferSize,
-      0,
-      2,
-    );
-    playerNode.connect(gainNode);
-
     unlockAudioContext(this.audioContext);
-    console.log(
-      "Sample rate: %d hz. Base latency: %d. Buffer size: %d.",
-      this.audioContext.sampleRate,
-      this.audioContext.baseLatency * this.audioContext.sampleRate,
-      bufferSize,
-    );
-
-    this.initChipCore(playerNode, bufferSize);
+    this.initAudioPlayer(gainNode);
 
     // Inline processMidiUrls here
     const location = this.props.location;
@@ -330,7 +297,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       });
   }
 
-  async initChipCore(playerNode, bufferSize) {
+  async initAudioPlayer(destination: AudioNode) {
     const audioState = this.audioContext.state;
     this.setState({
       audioContextLocked: audioState === "suspended",
@@ -346,76 +313,23 @@ class App extends React.Component<RouteComponentProps, AppState> {
       });
     });
 
-    // Load the chip-core Emscripten runtime
     try {
-      // @ts-ignore
-      this.chipCore = await new ChipCore({
-        // Look for .wasm file in web root, not the same location as the app bundle (static/js).
-        locateFile: (path, prefix) => {
-          if (path.endsWith(".wasm") || path.endsWith(".wast"))
-            return `${process.env.PUBLIC_URL}/${path}`;
-          return prefix + path;
-        },
-        print: (msg) => console.debug("[stdout] " + msg),
-        printErr: (msg) => console.debug("[stderr] " + msg),
-      });
-    } catch (e) {
-      // Browser doesn't support WASM (Safari in iOS Simulator)
-      Object.assign(this.state, {
-        playerError: "Error loading player engine. Old browser?",
-        loading: false,
-      });
-      return;
+      const debug = new URLSearchParams(window.location.search).get("debug");
+      const player = new MIDIPlayer(this.audioContext, debug === "timing");
+      this.pendingMidiPlayer = player;
+      player.on("playerStateUpdate", this.handlePlayerStateUpdate);
+      player.on("playerError", this.handlePlayerError);
+      await player.initialize(destination);
+      if (this.pendingMidiPlayer !== player) return;
+      this.pendingMidiPlayer = null;
+      this.midiPlayer = player;
+      this.setState({ loading: false });
+    } catch (error) {
+      if (!this.pendingMidiPlayer) return;
+      this.pendingMidiPlayer = null;
+      this.setState({ loading: false, playerError: error.message });
+      this.handlePlayerError(error.message);
     }
-
-    // Get debug from location.search
-    const queryParams = new URLSearchParams(window.location.search);
-    const debug = queryString.parse(window.location.search.substring(1)).debug;
-    const syncLeadMsParam = queryParams.get("syncLeadMs");
-    const syncLeadMs =
-      syncLeadMsParam === null ? 32 : Number.parseFloat(syncLeadMsParam);
-    const syncClock = queryParams.get("syncClock");
-    // Create all the players. Players will set up IDBFS mount points.
-    const self = this;
-    this.midiPlayer = new MIDIPlayer(
-      this.chipCore,
-      this.audioContext.sampleRate,
-      bufferSize,
-      debug,
-      (parsing) =>
-        self.setState({
-          parsing,
-        }),
-      this.togglePause,
-    );
-    this.midiPlayer.setAudioContext(this.audioContext);
-    this.midiPlayer.setAudioTimingOptions({
-      debug: debug === "timing",
-      clockSource: syncClock === "output" ? "output" : "current",
-      visualLeadMs: Number.isFinite(syncLeadMs) ? syncLeadMs : 32,
-    });
-    this.midiPlayer.on("playerStateUpdate", this.handlePlayerStateUpdate);
-    this.midiPlayer.on("playerError", this.handlePlayerError);
-
-    // Set up the central audio processing callback. This is where the magic happens.
-    playerNode.onaudioprocess = (e) => {
-      const channels = [];
-      for (let i = 0; i < e.outputBuffer.numberOfChannels; i++) {
-        channels.push(e.outputBuffer.getChannelData(i));
-      }
-      if (this.midiPlayer?.isPlaying()) {
-        this.midiPlayer?.processAudioInner(channels, {
-          playbackTime: e.playbackTime,
-        });
-      }
-    };
-
-    // Populate all mounted IDBFS file systems from IndexedDB.
-    this.chipCore.FS.syncfs(true, (err) => {
-      this.midiPlayer?.handleFileSystemReady();
-    });
-
-    this.setState({ loading: false });
   }
 
   static mapSequencerStateToAppState(sequencerState) {
@@ -1003,15 +917,11 @@ class App extends React.Component<RouteComponentProps, AppState> {
     reader.onload = async () => {
       const result = reader.result as ArrayBuffer;
       if (ext === ".sf2" && this.midiPlayer) {
-        const sf2Path = `user/${file.name}`;
-        const forceWrite = true;
-        await ensureEmscFileWithData(
-          this.chipCore,
-          `${SOUNDFONT_MOUNTPOINT}/${sf2Path}`,
-          new Uint8Array(result),
-          forceWrite,
-        );
-        this.midiPlayer?.setParameter("soundfont", sf2Path);
+        try {
+          await this.midiPlayer.loadSoundfont(file.name, result);
+        } catch (error) {
+          this.handlePlayerError(error.message);
+        }
         this.forceUpdate();
       } else {
         this.props.history.push("/drop");
@@ -1161,24 +1071,13 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }
   };
 
-  // Add this method to update playback time
-  updatePlaybackTime = () => {
-    if (this.midiPlayer && this.midiPlayer.isPlaying()) {
-      const positionMs = this.midiPlayer.getPositionMs();
-      this.setState({ currentPlaybackTime: positionMs / 1000 });
-    }
-  };
-
-  componentDidMount() {
-    // Start the playback time update timer with a longer interval
-    this.playbackTimer = setInterval(this.updatePlaybackTime, 100); // Update every 100ms instead of 50ms
-  }
+  getPlaybackTime = () =>
+    this.midiPlayer?.isPlaying() ? this.midiPlayer.getPositionMs() / 1000 : null;
 
   componentWillUnmount() {
-    // Clear the playback timer
-    if (this.playbackTimer) {
-      clearInterval(this.playbackTimer);
-    }
+    this.pendingMidiPlayer?.dispose();
+    this.pendingMidiPlayer = null;
+    this.midiPlayer?.dispose();
   }
 
   eject = () => {
@@ -1294,152 +1193,153 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
     // Combined render for all routes
     return (
-      <AppContext.Provider
-        value={{
-          handleSongClick: this.handleSongClick,
-          rawlProps: this.state.rawlProps,
-          setRawlProps: (rawlProps) => this.setState({ rawlProps }),
-          analyses: this.state.analyses,
-          saveAnalysis: this.saveAnalysis,
-          getFirebaseAnnotation: this.getFirebaseAnnotation,
-          saveFirebaseAnnotation: this.saveFirebaseAnnotation,
-          deleteFirebaseAnnotation: this.deleteFirebaseAnnotation,
-          resetMidiPlayerState: this.resetMidiPlayerState,
-          registerKeyboardHandler: this.registerKeyboardHandler,
-          unregisterKeyboardHandler: this.unregisterKeyboardHandler,
-          currentMidi: this.state.currentMidi,
-          setCurrentMidi: (currentMidi) => this.setState({ currentMidi }),
-          user: this.state.user,
-          seek: this.seekForRawl,
-          currentPlaybackTime: this.state.currentPlaybackTime || null,
-          eject: this.eject,
-          currentMidiBuffer: this.state.currentMidiBuffer,
-          hoveredMeasuresSpan: this.state.hoveredMeasuresSpan,
-          setHoveredMeasuresSpan: (span) =>
-            this.setState({ hoveredMeasuresSpan: span }),
-          togglePause: this.togglePause,
-          handleLogin: this.handleLogin,
-          handleLogout: this.handleLogout,
-          handleToggleManualRemeasuring: this.handleToggleManualRemeasuring,
-          enableManualRemeasuring: this.state.enableManualRemeasuring,
-          playSongBuffer: this.playSongBuffer,
-          latencyCorrectionMs: 0,
-          tempo: this.state.tempo,
-          transpose: this.state.transpose,
-          setFirstTonic: this.setFirstTonic,
-        }}
-      >
-        <Dropzone disableClick style={{}} onDrop={this.onDrop}>
-          {/* @ts-ignore */}
-          {(dropzoneProps) => (
-            <>
-              {this.state.audioContextLocked &&
-                this.state.parsing &&
-                !(this.props.location.pathname === "/e/new") && (
-                  <div className="audio-context-overlay">
-                    <StyledButton onClick={this.handleUnlockAudioContext}>
-                      Play
-                    </StyledButton>
-                  </div>
-                )}
-              <DropMessage dropzoneProps={dropzoneProps} />
-              <Alert
-                handlePlayerError={this.handlePlayerError}
-                playerError={this.state.playerError}
-                showPlayerError={this.state.showPlayerError}
-              />
+      <PlaybackTimeProvider getTime={this.getPlaybackTime}>
+        <AppContext.Provider
+          value={{
+            handleSongClick: this.handleSongClick,
+            rawlProps: this.state.rawlProps,
+            setRawlProps: (rawlProps) => this.setState({ rawlProps }),
+            analyses: this.state.analyses,
+            saveAnalysis: this.saveAnalysis,
+            getFirebaseAnnotation: this.getFirebaseAnnotation,
+            saveFirebaseAnnotation: this.saveFirebaseAnnotation,
+            deleteFirebaseAnnotation: this.deleteFirebaseAnnotation,
+            resetMidiPlayerState: this.resetMidiPlayerState,
+            registerKeyboardHandler: this.registerKeyboardHandler,
+            unregisterKeyboardHandler: this.unregisterKeyboardHandler,
+            currentMidi: this.state.currentMidi,
+            setCurrentMidi: (currentMidi) => this.setState({ currentMidi }),
+            user: this.state.user,
+            seek: this.seekForRawl,
+            eject: this.eject,
+            currentMidiBuffer: this.state.currentMidiBuffer,
+            hoveredMeasuresSpan: this.state.hoveredMeasuresSpan,
+            setHoveredMeasuresSpan: (span) =>
+              this.setState({ hoveredMeasuresSpan: span }),
+            togglePause: this.togglePause,
+            handleLogin: this.handleLogin,
+            handleLogout: this.handleLogout,
+            handleToggleManualRemeasuring: this.handleToggleManualRemeasuring,
+            enableManualRemeasuring: this.state.enableManualRemeasuring,
+            playSongBuffer: this.playSongBuffer,
+            latencyCorrectionMs: 0,
+            tempo: this.state.tempo,
+            transpose: this.state.transpose,
+            setFirstTonic: this.setFirstTonic,
+          }}
+        >
+          <Dropzone disableClick style={{}} onDrop={this.onDrop}>
+            {/* @ts-ignore */}
+            {(dropzoneProps) => (
+              <>
+                {this.state.audioContextLocked &&
+                  this.state.parsing &&
+                  !(this.props.location.pathname === "/e/new") && (
+                    <div className="audio-context-overlay">
+                      <StyledButton onClick={this.handleUnlockAudioContext}>
+                        Play
+                      </StyledButton>
+                    </div>
+                  )}
+                <DropMessage dropzoneProps={dropzoneProps} />
+                <Alert
+                  handlePlayerError={this.handlePlayerError}
+                  playerError={this.state.playerError}
+                  showPlayerError={this.state.showPlayerError}
+                />
 
-              <AppHeader />
-              <AppMainContent ref={this.contentAreaRef}>
-                <Switch>
-                  <Route path="/old" render={() => <OldLandingPage />} />
-                  <Route
-                    path="/corpus/:corpus?"
-                    render={({ match }) =>
-                      match.params.corpus ? (
-                        <Corpus slug={match.params.corpus} />
-                      ) : (
-                        <Pieces />
-                      )
-                    }
-                  />
-                  <Route exact path="/e" component={EditorLandingPage} />
-                  <Route path="/e/:slug?" component={Editor} />
-                  <Route path="/ef/:id/:version?" component={Editor} />
-                  <Route path="/book/:slug?" component={BookOnStyles} />
-                  <Route path="/blog/:postId?/:slug?" component={Blog} />
-                  <Route path="/convert" component={Converter} />
-                  {/* Structures routes */}
-                  <Route
-                    path="/s/"
-                    exact
-                    render={() => <Structures analyses={this.state.analyses} />}
-                  />
-                  <Route
-                    path="/s/:rest*"
-                    render={() => (
-                      <StructuresWithParams analyses={this.state.analyses} />
-                    )}
-                  />
-                  <Route
-                    path={["/lakh", "/c/MIDI"]}
-                    render={() => (
-                      <Lakh
-                        ready={!this.state.loading}
-                        loadTrack={this.loadLakhTrack}
-                      />
-                    )}
-                  />
-                  {rawlRoute}
-                  <Redirect
-                    exact
-                    from="/d/"
-                    to={`/d/${Object.keys(decomposeScores)[0]}/1`}
-                  />
-                  {decompositionRoute}
-                  <Route path="/100/:slug?" component={Book} />
-                  <Route path="/beyond/:slug?" component={Book} />
-                  <Redirect from="/timeline" to="/corpus/" />
-                  <Route path="/histograms" component={Histograms} />
-                  <Redirect exact from="/" to="/100" />
-                </Switch>
-              </AppMainContent>
-              <AppFooter
-                currentSongDurationMs={this.state.currentSongDurationMs}
-                ejected={this.state.ejected}
-                paused={this.state.paused}
-                volume={this.state.volume}
-                handleTimeSliderChange={this.handleTimeSliderChange}
-                handleVolumeChange={this.handleVolumeChange}
-                togglePause={this.togglePause}
-                getCurrentPositionMs={this.midiPlayer?.getPositionMs}
-                tempo={this.state.tempo}
-                setTempo={this.handleTempoChange}
-                transpose={this.state.transpose}
-                setTranspose={this.handleTransposeChange}
-                firstTonic={this.state.firstTonic}
-              />
+                <AppHeader />
+                <AppMainContent ref={this.contentAreaRef}>
+                  <Switch>
+                    <Route path="/old" render={() => <OldLandingPage />} />
+                    <Route
+                      path="/corpus/:corpus?"
+                      render={({ match }) =>
+                        match.params.corpus ? (
+                          <Corpus slug={match.params.corpus} />
+                        ) : (
+                          <Pieces />
+                        )
+                      }
+                    />
+                    <Route exact path="/e" component={EditorLandingPage} />
+                    <Route path="/e/:slug?" component={Editor} />
+                    <Route path="/ef/:id/:version?" component={Editor} />
+                    <Route path="/book/:slug?" component={BookOnStyles} />
+                    <Route path="/blog/:postId?/:slug?" component={Blog} />
+                    <Route path="/convert" component={Converter} />
+                    {/* Structures routes */}
+                    <Route
+                      path="/s/"
+                      exact
+                      render={() => <Structures analyses={this.state.analyses} />}
+                    />
+                    <Route
+                      path="/s/:rest*"
+                      render={() => (
+                        <StructuresWithParams analyses={this.state.analyses} />
+                      )}
+                    />
+                    <Route
+                      path={["/lakh", "/c/MIDI"]}
+                      render={() => (
+                        <Lakh
+                          ready={!this.state.loading}
+                          loadTrack={this.loadLakhTrack}
+                        />
+                      )}
+                    />
+                    {rawlRoute}
+                    <Redirect
+                      exact
+                      from="/d/"
+                      to={`/d/${Object.keys(decomposeScores)[0]}/1`}
+                    />
+                    {decompositionRoute}
+                    <Route path="/100/:slug?" component={Book} />
+                    <Route path="/beyond/:slug?" component={Book} />
+                    <Redirect from="/timeline" to="/corpus/" />
+                    <Route path="/histograms" component={Histograms} />
+                    <Redirect exact from="/" to="/100" />
+                  </Switch>
+                </AppMainContent>
+                <AppFooter
+                  currentSongDurationMs={this.state.currentSongDurationMs}
+                  ejected={this.state.ejected}
+                  paused={this.state.paused}
+                  volume={this.state.volume}
+                  handleTimeSliderChange={this.handleTimeSliderChange}
+                  handleVolumeChange={this.handleVolumeChange}
+                  togglePause={this.togglePause}
+                  getCurrentPositionMs={this.midiPlayer?.getPositionMs}
+                  tempo={this.state.tempo}
+                  setTempo={this.handleTempoChange}
+                  transpose={this.state.transpose}
+                  setTranspose={this.handleTransposeChange}
+                  firstTonic={this.state.firstTonic}
+                />
 
-              <Modal
-                isOpen={this.state.showShortcutHelp}
-                onRequestClose={this.toggleShortcutHelp}
-                contentLabel="Keyboard Shortcuts"
-                style={{
-                  content: {
-                    background: "black",
-                    border: "none",
-                  },
-                  overlay: {
-                    backgroundColor: "rgba(0, 0, 0, 0.75)",
-                  },
-                }}
-              >
-                <ShortcutHelp />
-              </Modal>
-            </>
-          )}
-        </Dropzone>
-      </AppContext.Provider>
+                <Modal
+                  isOpen={this.state.showShortcutHelp}
+                  onRequestClose={this.toggleShortcutHelp}
+                  contentLabel="Keyboard Shortcuts"
+                  style={{
+                    content: {
+                      background: "black",
+                      border: "none",
+                    },
+                    overlay: {
+                      backgroundColor: "rgba(0, 0, 0, 0.75)",
+                    },
+                  }}
+                >
+                  <ShortcutHelp />
+                </Modal>
+              </>
+            )}
+          </Dropzone>
+        </AppContext.Provider>
+      </PlaybackTimeProvider>
     );
   }
 }

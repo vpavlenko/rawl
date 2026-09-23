@@ -9,6 +9,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -24,6 +25,7 @@ import CompositionTitle from "./CompositionTitle";
 import FrozenNotesLayout from "./FrozenNotesLayout";
 import { DrumPlaybackContext, useDrumPlaybackClock } from "./drumPlayback";
 import { NotePlaybackContext, useNotePlaybackClock } from "./notePlayback";
+import { findPlaybackMeasure } from "./playbackIndex";
 import { MergedSystemLayout, SystemLayoutProps } from "./SystemLayout";
 import {
   ANALYSIS_STUB,
@@ -85,8 +87,14 @@ const getSecondsMeasure = (
   if (!measures) {
     return -1;
   }
-  const result = measures.findIndex((time) => time >= seconds);
-  return (result === -1 ? measures.length - 1 : result) - 1;
+  let low = 0;
+  let high = measures.length;
+  while (low < high) {
+    const middle = (low + high) >>> 1;
+    if (measures[middle] < seconds) low = middle + 1;
+    else high = middle;
+  }
+  return (low === measures.length ? measures.length - 1 : low) - 1;
 };
 
 const getNoteMeasure = (note: Note, measures: number[] | null): number =>
@@ -578,12 +586,16 @@ const Rawl: React.FC<RawlProps> = ({
     ],
   );
 
-  const [positionMs, setPositionMs] = useState(0);
+  const [playbackMeasure, setPlaybackMeasure] = useState<number | null>(() =>
+    findPlaybackMeasure(measuresAndBeats?.measures || [], getCurrentPositionMs() / 1000),
+  );
   const drumPlaybackClock = useDrumPlaybackClock();
   const notePlaybackClock = useNotePlaybackClock();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let running = true;
+    let frameId = 0;
+    let previousMeasure = playbackMeasure;
     drumPlaybackClock.reset();
     notePlaybackClock.reset();
 
@@ -597,17 +609,22 @@ const Rawl: React.FC<RawlProps> = ({
       unstable_batchedUpdates(() => {
         drumPlaybackClock.advance(position / 1000);
         notePlaybackClock.advance(position / 1000);
-        setPositionMs(position);
+        const measure = findPlaybackMeasure(measuresAndBeats?.measures || [], position / 1000);
+        if (measure !== previousMeasure) {
+          previousMeasure = measure;
+          setPlaybackMeasure(measure);
+        }
       });
-      requestAnimationFrame(animate);
+      frameId = requestAnimationFrame(animate);
     };
 
     animate();
 
     return () => {
       running = false;
+      cancelAnimationFrame(frameId);
     };
-  }, [getCurrentPositionMs, drumPlaybackClock, notePlaybackClock, parsingResult]);
+  }, [getCurrentPositionMs, drumPlaybackClock, notePlaybackClock, parsingResult, measuresAndBeats?.measures]);
 
   useEffect(() => {
     const handleEscapePress = (event) => {
@@ -660,18 +677,12 @@ const Rawl: React.FC<RawlProps> = ({
     ],
   );
 
-  const positionSeconds = positionMs / 1000;
-
-  // Calculate current tonic based on position
+  // Only measure transitions affect the surrounding score/tonic UI.
   const currentTonic = useMemo(() => {
-    if (!measuresAndBeats?.measures) return 0;
-    const currentMeasure = getSecondsMeasure(
-      positionSeconds,
-      measuresAndBeats.measures,
-    );
-    const tonic = getTonic(currentMeasure, futureAnalysis);
+    if (playbackMeasure === null) return 0;
+    const tonic = getTonic(playbackMeasure - 1, futureAnalysis);
     return tonic == null ? tonic : ((tonic + transpose) % 12 + 12) % 12;
-  }, [positionSeconds, measuresAndBeats, futureAnalysis, transpose]);
+  }, [playbackMeasure, futureAnalysis, transpose]);
 
   const mouseHandlers: MouseHandlers = useMemo(
     () => ({
@@ -726,7 +737,7 @@ const Rawl: React.FC<RawlProps> = ({
         ? toggleVoiceExcluded
         : undefined,
       measuresAndBeats,
-      positionSeconds,
+      playbackMeasure,
       mouseHandlers,
       measureSelection,
       analysis: futureAnalysis,
@@ -753,7 +764,7 @@ const Rawl: React.FC<RawlProps> = ({
       toggleVoiceExcluded,
       currentMidi?.analysisKey,
       measuresAndBeats,
-      positionSeconds,
+      playbackMeasure,
       mouseHandlers,
       measureSelection,
       futureAnalysis,

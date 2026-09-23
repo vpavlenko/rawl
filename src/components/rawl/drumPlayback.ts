@@ -1,59 +1,45 @@
 import { createContext, useMemo } from "react";
 
 type RegisterDrum = (startSeconds: number, pulse: () => void) => () => void;
-
 export const DrumPlaybackContext = createContext<RegisterDrum | null>(null);
 
-// Share one audio-clock update across all mounted drums without React state.
+// Index onsets directly; mounting a large score no longer causes a global sort
+// on the first animation frame. Pitched notes also index overlapping sustains.
 export const useDrumPlaybackClock = () =>
   useMemo(() => {
-    const drums = new Map<() => void, number>();
-    let sortedDrums: [() => void, number][] = [];
-    let dirty = true;
+    const buckets = new Map<number, Set<{ start: number; pulse: () => void }>>();
     let previousPosition: number | null = null;
-
-    const register: RegisterDrum = (startSeconds, pulse) => {
-      drums.set(pulse, startSeconds);
-      dirty = true;
+    let includePrevious = true;
+    const register: RegisterDrum = (start, pulse) => {
+      if (!Number.isFinite(start)) return () => {};
+      const second = Math.floor(start);
+      let bucket = buckets.get(second);
+      if (!bucket) buckets.set(second, (bucket = new Set()));
+      const entry = { start, pulse };
+      bucket.add(entry);
       return () => {
-        drums.delete(pulse);
-        dirty = true;
+        bucket!.delete(entry);
+        if (!bucket!.size) buckets.delete(second);
       };
     };
-
     return {
       register,
-      reset: () => {
-        previousPosition = null;
-      },
-      advance: (positionSeconds: number) => {
+      reset: () => { previousPosition = null; includePrevious = true; },
+      advance: (time: number) => {
+        if (!Number.isFinite(time)) return;
         const previous = previousPosition;
-        previousPosition = positionSeconds;
-        // Skip backwards/large jumps and catch onsets between display frames,
-        // even when the entire MIDI hit falls between those frames.
-        if (
-          previous === null ||
-          positionSeconds <= previous ||
-          positionSeconds - previous > 0.5
-        ) return;
-        if (dirty) {
-          sortedDrums = [...drums.entries()].sort((a, b) => a[1] - b[1]);
-          dirty = false;
+        previousPosition = time;
+        if (previous === null || time < previous || time - previous > 0.5) {
+          includePrevious = true;
+          return;
         }
-        let low = 0;
-        let high = sortedDrums.length;
-        while (low < high) {
-          const mid = (low + high) >>> 1;
-          if (sortedDrums[mid][1] < previous) low = mid + 1;
-          else high = mid;
+        if (time === previous) return;
+        for (let second = Math.floor(previous); second <= Math.floor(time); second++) {
+          buckets.get(second)?.forEach(({ start, pulse }) => {
+            if ((includePrevious ? start >= previous : start > previous) && start <= time) pulse();
+          });
         }
-        for (
-          let i = low;
-          i < sortedDrums.length && sortedDrums[i][1] < positionSeconds;
-          i++
-        ) {
-          sortedDrums[i][0]();
-        }
+        includePrevious = false;
       },
     };
   }, []);

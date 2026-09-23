@@ -33,7 +33,6 @@ export interface AppContextType {
   setCurrentMidi: (currentMidi: CurrentMidi | null) => void;
   user: User | null;
   seek: (seekMs: number) => void;
-  currentPlaybackTime: number | null;
   eject: () => void;
   currentMidiBuffer: ArrayBuffer | null;
   hoveredMeasuresSpan: MeasuresSpan | null;

@@ -1,6 +1,6 @@
 import MIDIEvents from "midievents";
-import { SecondsSpan } from "./Rawl";
-import { MeasuresAndBeats } from "./SystemLayout";
+import type { SecondsSpan } from "./Rawl";
+import type { MeasuresAndBeats } from "./SystemLayout";
 
 const DRUM_CHANNEL = 9;
 

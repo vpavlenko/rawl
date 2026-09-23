@@ -254,7 +254,7 @@ export const MeasureNumbers: React.FC<{
   togglePause?: () => void;
   seek?: (ms: number) => void;
   playbackMeasure: number | null;
-}> = ({
+}> = React.memo(({
   measuresAndBeats,
   analysis,
   phraseStarts,
@@ -315,4 +315,4 @@ export const MeasureNumbers: React.FC<{
       />
     </div>
   );
-};
+});

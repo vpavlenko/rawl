@@ -1,8 +1,29 @@
 import React, { useCallback, useContext, useMemo } from "react";
 import styled from "styled-components";
 import { AppContext } from "../AppContext";
+import { PlaybackTimeContext } from "../PlaybackTimeContext";
 import { Snippet, rehydrateSnippet } from "./analysis";
 import EnhancedFrozenNotes from "./FrozenNotes";
+
+const MemoFrozenNotes = React.memo(EnhancedFrozenNotes);
+type PreviewNotesProps = React.ComponentProps<typeof EnhancedFrozenNotes>;
+
+const TimedSnippetNotes: React.FC<PreviewNotesProps & { secondsSpan: [number, number] }> = ({
+  secondsSpan, ...props
+}) => {
+  const time = useContext(PlaybackTimeContext);
+  const playbackTime = time !== null && time >= secondsSpan[0] && time < secondsSpan[1]
+    ? time - secondsSpan[0] : null;
+  return <MemoFrozenNotes {...props} playbackTime={playbackTime} />;
+};
+
+// Inactive snippets never subscribe to the ticking context. Even a snippet in
+// the playing song keeps its expensive notes frozen until its own time range.
+const SnippetNotes: React.FC<PreviewNotesProps & {
+  playing: boolean; secondsSpan?: [number, number];
+}> = ({ playing, secondsSpan, ...props }) => playing && secondsSpan
+  ? <TimedSnippetNotes {...props} secondsSpan={secondsSpan} />
+  : <MemoFrozenNotes {...props} />;
 
 export const PX_IN_MEASURE = 90;
 
@@ -147,25 +168,6 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
     return isPlaying;
   }, [currentMidi, snippet]);
 
-  const playbackTime = useMemo(() => {
-    if (
-      !isCurrentlyPlaying ||
-      !snippet.secondsSpan ||
-      appContext.currentPlaybackTime === null ||
-      appContext.currentPlaybackTime < snippet.secondsSpan[0] ||
-      appContext.currentPlaybackTime >= snippet.secondsSpan[1]
-    ) {
-      return null;
-    }
-
-    // Frozen note spans are relative to the beginning of the snippet.
-    return appContext.currentPlaybackTime - snippet.secondsSpan[0];
-  }, [
-    isCurrentlyPlaying,
-    snippet.secondsSpan,
-    appContext.currentPlaybackTime,
-  ]);
-
   return (
     <SnippetItemContainer
       width={containerWidth}
@@ -196,7 +198,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
         </SnippetHeader>
       )}
       <SnippetContent style={{ position: "relative" }}>
-        <EnhancedFrozenNotes
+        <SnippetNotes
           notes={rehydratedNotes}
           midiNumberToY={snippetMidiNumberToY}
           maxWidth={containerWidth}
@@ -209,7 +211,8 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
           isPreview={isPreview}
           phraseStarts={snippet.phraseStarts || []}
           hoveredColors={hoveredColors}
-          playbackTime={playbackTime}
+          playing={isCurrentlyPlaying}
+          secondsSpan={snippet.secondsSpan}
         />
       </SnippetContent>
     </SnippetItemContainer>

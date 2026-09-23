@@ -68,7 +68,7 @@ function MIDIFilePlayer(options) {
   this.trackNames = {};
   this.channelToTrack = {};
 
-  window.addEventListener("unload", this.stop);
+  if (typeof window !== "undefined") window.addEventListener("unload", this.stop);
 }
 
 // Parsing all tracks and add their events in a single event queue
@@ -210,9 +210,9 @@ MIDIFilePlayer.prototype.processPlaySynth = function (buffer, bufferSize) {
     // Fast method: when entire buffer is below threshold, consider it silence.
     let synthStillActive = 0;
     const threshold = 0.001;
-    for (let i = 0; i < bufferSize; i += 8) {
-      if (synth.getValue(bufferStart + i, "float") > threshold) {
-        // Check left channel only
+    for (let i = 0; i < bufferSize * 2; i++) {
+      if (Math.abs(synth.getValue(bufferStart + i * 4, "float")) > threshold) {
+        // Check both channels and both polarities across the entire block.
         synthStillActive = 1; // Exit early
         break;
       }

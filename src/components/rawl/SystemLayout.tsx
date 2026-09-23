@@ -16,6 +16,7 @@ import MergedVoicesLegend from "./layouts/MergedVoicesLegend";
 import { VoiceName } from "./layouts/VoiceName";
 import { ColoredNote, ColoredNotesInVoices, Note } from "./parseMidi";
 import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
+import { PlaybackSectionContext } from "./notePlayback";
 import { getSortedVoices, VoiceZIndicesContext } from "./voiceOrder";
 
 export type MeasuresAndBeats = {
@@ -100,7 +101,7 @@ export const Voice: React.FC<{
   hoveredVoiceIndex?: number | null;
   playbackMeasure: number | null;
   showPlaybackMeasureBottomBorder: boolean;
-}> = ({
+}> = React.memo(({
   notes,
   measuresAndBeats,
   analysis,
@@ -220,6 +221,10 @@ export const Voice: React.FC<{
   );
 
   const { measures } = measuresAndBeats;
+  const playbackSection = useMemo<readonly [number, number] | null>(
+    () => sectionSpan ? [measures[sectionSpan[0]], measures[sectionSpan[1]]] : null,
+    [measures, sectionSpan],
+  );
   // TODO: make smarter once Stacked is implemented
   const hasVisibleNotes =
     voiceMask[voiceIndex] &&
@@ -252,7 +257,9 @@ export const Voice: React.FC<{
             (midiRange[0] - frozenMidiRange[0]) * noteHeight,
         }}
       >
-        {voiceMask[voiceIndex] ? noteRectangles : null}
+        <PlaybackSectionContext.Provider value={playbackSection}>
+          {voiceMask[voiceIndex] ? noteRectangles : null}
+        </PlaybackSectionContext.Provider>
       </div>
       {hasVisibleNotes ? (
         <AnalysisGrid
@@ -287,7 +294,7 @@ export const Voice: React.FC<{
       ) : null}
     </div>
   );
-};
+});
 
 type Section = {
   sectionSpan: MeasuresSpan;
@@ -306,7 +313,7 @@ export type SystemLayoutProps = {
   voiceNames: string[];
   voiceMask: VoiceMask;
   measuresAndBeats: MeasuresAndBeats;
-  positionSeconds: number;
+  playbackMeasure: number | null;
   analysis: Analysis;
   mouseHandlers: MouseHandlers;
   measureSelection: MeasureSelection;
@@ -332,7 +339,7 @@ export const StackedSystemLayout: React.FC<
   voiceNames,
   voiceMask,
   measuresAndBeats,
-  positionSeconds,
+  playbackMeasure,
   analysis,
   mouseHandlers,
   measureSelection,
@@ -434,15 +441,6 @@ export const StackedSystemLayout: React.FC<
   useEffect(() => {
     setSecondWidth(optimalSecondWidth);
   }, [optimalSecondWidth]);
-
-  const playbackMeasure = useMemo(() => {
-    const measureIndex = measuresAndBeats.measures.findIndex(
-      (measureStart, index, measures) =>
-        positionSeconds >= measureStart &&
-        positionSeconds < (measures[index + 1] ?? Infinity),
-    );
-    return measureIndex === -1 ? null : measureIndex + 1;
-  }, [measuresAndBeats.measures, positionSeconds]);
 
   const sections: Section[] = useMemo(() => {
     return sectionSpans.map((sectionSpan) => {
@@ -570,7 +568,13 @@ export const StackedSystemLayout: React.FC<
                 mouseHandlers={mouseHandlers}
                 togglePause={togglePause}
                 seek={seek}
-                playbackMeasure={playbackMeasure}
+                playbackMeasure={
+                  playbackMeasure !== null &&
+                  playbackMeasure > sectionSpan[0] &&
+                  playbackMeasure <= sectionSpan[1]
+                    ? playbackMeasure
+                    : null
+                }
               />
               {voices.map(({ notes, voiceIndex }) => (
                 <div
@@ -596,7 +600,13 @@ export const StackedSystemLayout: React.FC<
                     enableManualRemeasuring={enableManualRemeasuring}
                     hoveredColors={hoveredColors}
                     hoveredVoiceIndex={hoveredVoiceIndex}
-                    playbackMeasure={playbackMeasure}
+                    playbackMeasure={
+                      playbackMeasure !== null &&
+                      playbackMeasure > sectionSpan[0] &&
+                      playbackMeasure <= sectionSpan[1]
+                        ? playbackMeasure
+                        : null
+                    }
                     showPlaybackMeasureBottomBorder={
                       voiceIndex ===
                       voices.reduce(

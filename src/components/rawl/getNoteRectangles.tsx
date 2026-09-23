@@ -2,7 +2,7 @@ import * as React from "react";
 import { SecondsConverter, SecondsSpan } from "./Rawl";
 import { ColoredNote, Note, PitchBendPoint } from "./parseMidi";
 import { DrumPlaybackContext } from "./drumPlayback";
-import { NotePlaybackContext } from "./notePlayback";
+import { NotePlaybackContext, PlaybackSectionContext } from "./notePlayback";
 import { VoiceZIndicesContext } from "./voiceOrder";
 
 // Also useful emojis
@@ -83,6 +83,7 @@ const DrumEmoji: React.FC<{
   const elementRef = React.useRef<HTMLDivElement>(null);
   const animationRef = React.useRef<Animation | null>(null);
   const registerDrum = React.useContext(DrumPlaybackContext);
+  const section = React.useContext(PlaybackSectionContext);
 
   const pulse = React.useCallback(() => {
     if (!elementRef.current || collapsed) return;
@@ -114,8 +115,10 @@ const DrumEmoji: React.FC<{
   }, [collapsed]);
 
   React.useLayoutEffect(() => {
-    if (registerDrum) return registerDrum(startSeconds, pulse);
-  }, [registerDrum, startSeconds, pulse]);
+    if (registerDrum && (!section || (startSeconds >= section[0] && startSeconds < section[1]))) {
+      return registerDrum(startSeconds, pulse);
+    }
+  }, [registerDrum, startSeconds, pulse, section]);
 
   React.useLayoutEffect(() => {
     if (!registerDrum && isPlayingNow) pulse();
@@ -367,14 +370,39 @@ const NoteRectangle = React.memo(({
   sectionEndX?: number;
 }) => {
   const registerNote = React.useContext(NotePlaybackContext);
+  const section = React.useContext(PlaybackSectionContext);
   const voiceZIndices = React.useContext(VoiceZIndicesContext);
   const voiceZIndex = voiceZIndices.get(note.voiceIndex);
   const [playing, setPlaying] = React.useState(false);
-  React.useLayoutEffect(() => {
-    if (registerNote && !note.isDrum) {
-      return registerNote(note.span[0], note.span[1], setPlaying);
+  const elementRef = React.useRef<HTMLDivElement>(null);
+  const playingRef = React.useRef(false);
+  const bendPlayingRef = React.useRef(false);
+  const geometryRef = React.useRef<{
+    showFullNote: boolean; noteUnderCursor: boolean; baseHeight: number;
+    baseTop: number; collapsedHeight: number; hasPitchBend: boolean;
+  } | null>(null);
+  const updatePlaying = React.useCallback((active: boolean) => {
+    playingRef.current = active;
+    const geometry = geometryRef.current;
+    if (!geometry) return;
+    if (geometry.hasPitchBend) {
+      // Bent notes have an SVG path whose shape depends on the active height.
+      // Track queued state too: a seek can clear/reapply within one React batch.
+      if (bendPlayingRef.current !== active) {
+        bendPlayingRef.current = active;
+        setPlaying(active);
+      }
+      return;
     }
-  }, [registerNote, note.isDrum, note.span[0], note.span[1]]);
+    const element = elementRef.current;
+    if (!element) return;
+    const { showFullNote, noteUnderCursor, baseHeight, baseTop, collapsedHeight } = geometry;
+    const height = showFullNote
+      ? baseHeight * (active || noteUnderCursor ? 2 : 1)
+      : collapsedHeight;
+    element.style.height = `${height}px`;
+    element.style.top = `${showFullNote ? baseTop - (height - baseHeight) : baseTop + baseHeight - height}px`;
+  }, []);
   const isPlayingNow =
     registerNote && !note.isDrum ? playing : note.isPlayingNow;
   const {
@@ -429,6 +457,20 @@ const NoteRectangle = React.memo(({
         Number.isFinite(point.value) &&
         point.value !== 8192,
     );
+
+  geometryRef.current = {
+    showFullNote, noteUnderCursor: !!noteUnderCursor, baseHeight, baseTop,
+    collapsedHeight, hasPitchBend: !!hasPitchBend,
+  };
+  React.useLayoutEffect(() => {
+    if (registerNote && !note.isDrum) {
+      return registerNote(note.span[0], note.span[1], updatePlaying, section);
+    }
+  }, [registerNote, note.isDrum, note.span[0], note.span[1], section, updatePlaying]);
+  React.useLayoutEffect(() => {
+    // Reapply after layout/hover changes, without rebuilding playback indexes.
+    if (registerNote && !note.isDrum) updatePlaying(playingRef.current);
+  });
 
   // Keep a short continuation past the section, without changing note timing
   // or compressing the pitch-bend curve into the visible portion.
@@ -485,6 +527,7 @@ const NoteRectangle = React.memo(({
     ) : null
   ) : (
     <div
+      ref={elementRef}
       key={`nr_${note.id}`}
       className={`${
         hasPitchBend ? "pitch-bend-note" : color

@@ -4,9 +4,8 @@ import MIDIEvents from "midievents";
 
 import autoBind from "auto-bind";
 import range from "lodash/range";
-import { DUMMY_CALLBACK } from "../components/App";
 import { SOUNDFONT_MOUNTPOINT, SOUNDFONT_URL_PATH } from "../config";
-import { ensureEmscFileWithUrl, remap01 } from "../util";
+import { ensureEmscFileWithData, ensureEmscFileWithUrl, remap01 } from "../util";
 import { GM_DRUM_KITS, GM_INSTRUMENTS } from "./gm-patch-map";
 import MIDIFilePlayer from "./MIDIFilePlayer";
 import Player from "./Player";
@@ -20,11 +19,10 @@ const SOUNDFONTS = {
 let core = null;
 
 const dummyMidiOutput = {
-  send: DUMMY_CALLBACK,
+  send: () => {},
 };
 
 const fileExtensions = ["mid", "midi", "smf"];
-const DEFAULT_VISUAL_LEAD_MS = 32;
 
 export default class MIDIPlayer extends Player {
   constructor(...args) {
@@ -45,12 +43,6 @@ export default class MIDIPlayer extends Player {
     this.transpose = 0;
     this.soundingNotes = Array.from({ length: 16 }, () => new Map());
     this.sustainPedals = Array(16).fill(0);
-    this.audioContext = null;
-    this.audioClockFrames = [];
-    this.audioTimingDebug = false;
-    this.lastAudioTimingLogTime = 0;
-    this.audioClockSource = "current";
-    this.visualLeadMs = DEFAULT_VISUAL_LEAD_MS;
     this.buffer = core._malloc(this.bufferSize * 4 * 2); // f32 * 2 channels
     this.filepathMeta = {};
     this.midiFilePlayer = new MIDIFilePlayer({
@@ -134,11 +126,12 @@ export default class MIDIPlayer extends Player {
     this.currentSoundfont = null;
     this.isLoadingBestSoundfont = false;
     this.bestSoundfontLoaded = false;
+    this.preloadedSoundfonts = new Map();
   }
 
-  handleFileSystemReady() {
+  async handleFileSystemReady() {
     // Start with the fast soundfont for immediate playback
-    this.setParameter("soundfont", SOUNDFONTS.FAST.name);
+    await this.setParameter("soundfont", SOUNDFONTS.FAST.name);
 
     // Start loading the best soundfont in background
     this.loadBestSoundfontInBackground();
@@ -167,6 +160,8 @@ export default class MIDIPlayer extends Player {
   panicChannel(channel) {
     this.soundingNotes[channel].clear();
     core._tp_panic_channel(channel);
+    // Muting must silence sustained/releasing notes, not merely send note-off.
+    core._tp_control_change(channel, 120, 0);
   }
 
   setTranspose(semitones) {
@@ -205,195 +200,6 @@ export default class MIDIPlayer extends Player {
       this.bestSoundfontLoaded = true;
       this.isLoadingBestSoundfont = false;
       console.log(`${SOUNDFONTS.BEST.name} loaded and ready`);
-    });
-  }
-
-  processAudioInner(channels, timing = null) {
-    const midiStartMs = this.midiFilePlayer.getPosition();
-    if (this.midiFilePlayer.processPlaySynth(this.buffer, this.bufferSize)) {
-      const midiEndMs = this.midiFilePlayer.getPosition();
-      this.recordAudioClockFrame(timing, midiStartMs, midiEndMs);
-      for (let ch = 0; ch < channels.length; ch++) {
-        for (let i = 0; i < this.bufferSize; i++) {
-          channels[ch][i] = core.getValue(
-            this.buffer + // Interleaved channel format
-              i * 4 * 2 + // frame offset   * bytes per sample * num channels +
-              ch * 4, // channel offset * bytes per sample
-            "float",
-          );
-        }
-      }
-    } else {
-      this.stop();
-    }
-  }
-
-  setAudioContext(audioContext) {
-    this.audioContext = audioContext;
-  }
-
-  setAudioTimingOptions(options = {}) {
-    this.audioTimingDebug = !!options.debug;
-    if (options.clockSource === "current" || options.clockSource === "output") {
-      this.audioClockSource = options.clockSource;
-    }
-    if (Number.isFinite(options.visualLeadMs)) {
-      this.visualLeadMs = Math.max(0, options.visualLeadMs);
-    }
-  }
-
-  recordAudioClockFrame(timing, midiStartMs, midiEndMs) {
-    if (!timing || typeof timing.playbackTime !== "number") {
-      return;
-    }
-
-    const audioStartTime = timing.playbackTime;
-    const audioEndTime = audioStartTime + this.bufferSize / this.sampleRate;
-    this.audioClockFrames.push({
-      audioStartTime,
-      audioEndTime,
-      midiStartMs,
-      midiEndMs,
-    });
-
-    const currentTime = this.getCurrentOutputContextTime();
-    this.audioClockFrames = this.audioClockFrames
-      .filter((frame) => frame.audioEndTime >= currentTime - 1)
-      .slice(-12);
-  }
-
-  getOutputTimestampContextTime() {
-    if (!this.audioContext) {
-      return null;
-    }
-
-    if (typeof this.audioContext.getOutputTimestamp === "function") {
-      const timestamp = this.audioContext.getOutputTimestamp();
-      if (
-        typeof timestamp.contextTime === "number" &&
-        typeof timestamp.performanceTime === "number"
-      ) {
-        return (
-          timestamp.contextTime +
-          (performance.now() - timestamp.performanceTime) / 1000
-        );
-      }
-    }
-
-    return null;
-  }
-
-  getCurrentOutputContextTime() {
-    if (this.audioClockSource === "current") {
-      return this.audioContext?.currentTime ?? null;
-    }
-
-    return (
-      this.getOutputTimestampContextTime() ??
-      this.audioContext?.currentTime ??
-      null
-    );
-  }
-
-  getAudiblePositionMs() {
-    const outputContextTime = this.getCurrentOutputContextTime();
-    const contextTime =
-      outputContextTime === null
-        ? null
-        : outputContextTime + this.visualLeadMs / 1000;
-    if (contextTime === null || this.audioClockFrames.length === 0) {
-      return this.midiFilePlayer.getPosition();
-    }
-
-    const frame =
-      this.audioClockFrames.find(
-        ({ audioStartTime, audioEndTime }) =>
-          contextTime >= audioStartTime && contextTime <= audioEndTime,
-      ) ||
-      this.audioClockFrames.reduce((closest, candidate) => {
-        if (!closest) return candidate;
-        const closestDistance = Math.min(
-          Math.abs(contextTime - closest.audioStartTime),
-          Math.abs(contextTime - closest.audioEndTime),
-        );
-        const candidateDistance = Math.min(
-          Math.abs(contextTime - candidate.audioStartTime),
-          Math.abs(contextTime - candidate.audioEndTime),
-        );
-        return candidateDistance < closestDistance ? candidate : closest;
-      }, null);
-
-    if (!frame) {
-      return this.midiFilePlayer.getPosition();
-    }
-
-    const audioDuration = frame.audioEndTime - frame.audioStartTime;
-    if (audioDuration <= 0) {
-      return frame.midiEndMs;
-    }
-
-    const progress = Math.max(
-      0,
-      Math.min((contextTime - frame.audioStartTime) / audioDuration, 1),
-    );
-
-    const positionMs =
-      frame.midiStartMs + (frame.midiEndMs - frame.midiStartMs) * progress;
-    this.logAudioTimingDebug({
-      contextTime,
-      frame,
-      outputContextTime,
-      positionMs,
-      progress,
-    });
-
-    return positionMs;
-  }
-
-  logAudioTimingDebug({
-    contextTime,
-    frame,
-    outputContextTime,
-    positionMs,
-    progress,
-  }) {
-    if (!this.audioTimingDebug) {
-      return;
-    }
-
-    const now = performance.now();
-    if (now - this.lastAudioTimingLogTime < 1000) {
-      return;
-    }
-    this.lastAudioTimingLogTime = now;
-
-    const currentTime = this.audioContext?.currentTime ?? null;
-    const rawRenderedMs = this.midiFilePlayer.getPosition();
-    const outputLagMs =
-      currentTime === null || outputContextTime === null
-        ? null
-        : (currentTime - outputContextTime) * 1000;
-    const renderAheadMs = rawRenderedMs - positionMs;
-    const queuedAudioMs = (frame.audioEndTime - contextTime) * 1000;
-
-    console.debug("[midi timing]", {
-      positionMs: Math.round(positionMs),
-      rawRenderedMs: Math.round(rawRenderedMs),
-      clockSource: this.audioClockSource,
-      renderAheadMs: Math.round(renderAheadMs),
-      visualLeadMs: this.visualLeadMs,
-      outputLagMs: outputLagMs === null ? null : Math.round(outputLagMs),
-      queuedAudioMs: Math.round(queuedAudioMs),
-      frameProgress: Number(progress.toFixed(3)),
-      currentTime: currentTime === null ? null : Number(currentTime.toFixed(3)),
-      outputContextTime:
-        outputContextTime === null
-          ? null
-          : Number(outputContextTime.toFixed(3)),
-      visualContextTime: Number(contextTime.toFixed(3)),
-      frameStartTime: Number(frame.audioStartTime.toFixed(3)),
-      frameEndTime: Number(frame.audioEndTime.toFixed(3)),
-      framesTracked: this.audioClockFrames.length,
     });
   }
 
@@ -451,16 +257,14 @@ export default class MIDIPlayer extends Player {
           console.log(
             `Switching to best available soundfont: ${bestSoundfont}`,
           );
-          this.setParameter("soundfont", bestSoundfont);
+          await this.setParameter("soundfont", bestSoundfont);
         }
       }
       // If no soundfonts have been loaded yet, start the sequence
       else {
         const initialSoundfont = SOUNDFONTS.FAST.name;
         console.log(`Starting with ${initialSoundfont} for fast loading`);
-        this.setParameter("soundfont", initialSoundfont);
-        this.bestSoundfontLoaded = false;
-        this.isLoadingBestSoundfont = false;
+        await this.setParameter("soundfont", initialSoundfont);
         this.loadBestSoundfontInBackground();
       }
     }
@@ -519,7 +323,6 @@ export default class MIDIPlayer extends Player {
   }
 
   stop() {
-    this.audioClockFrames = [];
     this.suspend();
     console.debug("MIDIPlayer.stop()");
     this.emit("playerStateUpdate", { isStopped: true, isPlaying: false });
@@ -527,9 +330,6 @@ export default class MIDIPlayer extends Player {
 
   togglePause() {
     const paused = this.midiFilePlayer.togglePause();
-    if (paused) {
-      this.audioClockFrames = [];
-    }
     return paused;
   }
 
@@ -538,14 +338,11 @@ export default class MIDIPlayer extends Player {
   }
 
   getPositionMs() {
-    if (!this.isPlaying()) {
-      return this.midiFilePlayer.getPosition();
-    }
-    return this.getAudiblePositionMs();
+    // Render position only. The UI reads the worklet's consumed-sample clock.
+    return this.midiFilePlayer.getPosition();
   }
 
   seekMs(ms) {
-    this.audioClockFrames = [];
     return this.midiFilePlayer.setPosition(ms);
   }
 
@@ -692,7 +489,7 @@ export default class MIDIPlayer extends Player {
         core._tp_set_synth_engine(value);
 
         break;
-      case "soundfont":
+      case "soundfont": {
         // Don't downgrade from BEST to FAST
         if (
           this.currentSoundfont === SOUNDFONTS.BEST.name &&
@@ -704,21 +501,20 @@ export default class MIDIPlayer extends Player {
           return; // Don't update params or load the soundfont
         }
 
-        // Track which soundfont is currently set
-        this.currentSoundfont = value;
-
-        // If setting the best soundfont, mark it as loaded
-        if (value === SOUNDFONTS.BEST.name) {
-          this.bestSoundfontLoaded = true;
-        }
-
         const url = `${SOUNDFONT_URL_PATH}/${value}`;
-        ensureEmscFileWithUrl(
-          core,
-          `${SOUNDFONT_MOUNTPOINT}/${value}`,
-          url,
-        ).then((filename) => this._loadSoundfont(filename));
-        break;
+        const filename = `${SOUNDFONT_MOUNTPOINT}/${value}`;
+        const staged = this.preloadedSoundfonts.get(value);
+        const ready = staged
+          ? ensureEmscFileWithData(core, filename, new Uint8Array(staged))
+          : ensureEmscFileWithUrl(core, filename, url);
+        return ready.then((filename) => {
+          this._loadSoundfont(filename);
+          this.currentSoundfont = value;
+          this.params[id] = value;
+          this.preloadedSoundfonts.delete(value);
+          if (value === SOUNDFONTS.BEST.name) this.bestSoundfontLoaded = true;
+        });
+      }
       case "reverb":
         // TODO: call fluidsynth directly from JS, similar to chorus
         value = parseFloat(value);
@@ -742,22 +538,17 @@ export default class MIDIPlayer extends Player {
 
   _loadSoundfont(filename) {
     console.log("Loading soundfont %s...", filename);
-    this.muteAudioDuringCall(this.audioNode, () => {
-      const err = core.ccall(
-        "tp_load_soundfont",
-        "number",
-        ["string"],
-        [filename],
-      );
-      if (err !== -1) {
-        this.applyDrumPresets();
-        console.log("Loaded soundfont.");
-      }
-    });
+    const err = core.ccall(
+      "tp_load_soundfont",
+      "number",
+      ["string"],
+      [filename],
+    );
+    if (err === -1) throw new Error(`Unable to load soundfont ${filename}`);
+    this.applyDrumPresets();
   }
 
   eject() {
-    this.audioClockFrames = [];
     this.stop();
     this.midiFilePlayer.reset();
     this.emit("playerStateUpdate", { isStopped: true, isPlaying: false });
@@ -768,75 +559,30 @@ export default class MIDIPlayer extends Player {
   }
 
   pause() {
-    this.audioClockFrames = [];
     this.midiFilePlayer.paused = true;
     this.emit("playerStateUpdate", { isPlaying: false });
   }
 
-  // Preload a soundfont in the background and switch to it when ready
+  // Download while playing, but defer filesystem copies and synth loading to
+  // the next track. Both can otherwise stall the synthesis worker.
   preloadSoundfont(soundfontName, onLoadCallback) {
+    if (core.FS.analyzePath(`${SOUNDFONT_MOUNTPOINT}/${soundfontName}`).exists) {
+      onLoadCallback?.();
+      return;
+    }
     const url = `${SOUNDFONT_URL_PATH}/${soundfontName}`;
-    console.log(`Preloading soundfont ${soundfontName} in background...`);
-
-    ensureEmscFileWithUrl(core, `${SOUNDFONT_MOUNTPOINT}/${soundfontName}`, url)
-      .then((filename) => {
-        console.log(`Preloaded soundfont ${soundfontName}, switching to it...`);
-
-        // Only switch if we're using the FluidLite engine
-
-        // Only switch to the best soundfont if we're not already using it
-        const isBestSoundfont = soundfontName === SOUNDFONTS.BEST.name;
-        const shouldSwitch =
-          isBestSoundfont && this.currentSoundfont !== SOUNDFONTS.BEST.name;
-
-        if (shouldSwitch) {
-          // Save current playback state
-          const wasPlaying = this.isPlaying();
-          const currentPositionMs = this.getPositionMs();
-
-          // Load the new soundfont
-          this.muteAudioDuringCall(this.audioNode, () => {
-            const err = core.ccall(
-              "tp_load_soundfont",
-              "number",
-              ["string"],
-              [filename],
-            );
-            if (err !== -1) {
-              console.log(`Switched to soundfont ${soundfontName}`);
-              // Update the parameter value without triggering another load
-              this.params["soundfont"] = soundfontName;
-              this.applyDrumPresets();
-
-              // If we were playing, seek to the previous position
-              if (wasPlaying) {
-                this.seekMs(currentPositionMs);
-              }
-
-              // Call the callback if provided
-              if (onLoadCallback) {
-                onLoadCallback();
-              }
-            } else {
-              console.error(`Failed to load soundfont ${soundfontName}`);
-            }
-          });
-        } else {
-          console.log(
-            `Not switching to soundfont ${soundfontName} - already using best available`,
-          );
-          // Still call the callback to continue the loading sequence
-          if (onLoadCallback) {
-            onLoadCallback();
-          }
-        }
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status} while fetching ${soundfontName}`);
+        return response.arrayBuffer();
+      })
+      .then((buffer) => {
+        this.preloadedSoundfonts.set(soundfontName, buffer);
+        onLoadCallback?.();
       })
       .catch((error) => {
+        this.isLoadingBestSoundfont = false;
         console.error(`Failed to preload soundfont ${soundfontName}:`, error);
-        // Still call the callback to continue the loading sequence
-        if (onLoadCallback) {
-          onLoadCallback();
-        }
       });
   }
 }

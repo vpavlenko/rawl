@@ -77,8 +77,9 @@ const DrumEmoji: React.FC<{
   left: number;
   top: number;
   zIndex?: number;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
   children: React.ReactNode;
-}> = ({ isPlayingNow, collapsed, startSeconds, size, left, top, zIndex, children }) => {
+}> = ({ isPlayingNow, collapsed, startSeconds, size, left, top, zIndex, onClick, children }) => {
   const elementRef = React.useRef<HTMLDivElement>(null);
   const animationRef = React.useRef<Animation | null>(null);
   const registerDrum = React.useContext(DrumPlaybackContext);
@@ -125,6 +126,7 @@ const DrumEmoji: React.FC<{
   return (
     <div
       ref={elementRef}
+      onClick={onClick}
       style={{
         position: "absolute",
         fontSize: collapsed ? 0 : size,
@@ -135,7 +137,8 @@ const DrumEmoji: React.FC<{
         left,
         top: collapsed ? top + size / 2 : top,
         backgroundColor: collapsed ? "#888" : undefined,
-        pointerEvents: "none",
+        pointerEvents: onClick ? "auto" : "none",
+        cursor: onClick ? "e-resize" : undefined,
         fontFamily: "Helvetica, sans-serif",
         color: "white",
         transform: "translateX(-50%)",
@@ -468,6 +471,14 @@ const NoteRectangle = React.memo(({
         left={left}
         top={baseTop - noteHeight / 2}
         zIndex={voiceZIndex}
+        onClick={
+          enableManualRemeasuring && handleNoteClick
+            ? (e) => {
+                e.stopPropagation();
+                handleNoteClick(note);
+              }
+            : undefined
+        }
       >
         {GM_DRUM_KIT[midiNumber] || midiNumber}
       </DrumEmoji>

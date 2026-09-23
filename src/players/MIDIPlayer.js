@@ -447,6 +447,9 @@ export default class MIDIPlayer extends Player {
   setVoiceMask(voiceMask) {
     voiceMask.forEach((isEnabled, i) => {
       const ch = this.activeChannels[i];
+      // UI masks can outlive a song or still have the initial MAX_VOICES size.
+      // Never send a mute/panic command for an index with no MIDI channel.
+      if (ch === undefined) return;
       this.midiFilePlayer.setChannelMute(ch, !isEnabled);
     });
   }

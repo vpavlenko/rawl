@@ -341,9 +341,11 @@ class App extends React.Component<RouteComponentProps, AppState> {
       currentSongDurationMs: "durationMs",
       tempo: "tempo",
       voiceNames: "voiceNames",
-      voiceMask: "voiceMask",
       songUrl: "url",
     };
+    // The UI owns the manual voice selection, initialized when a song loads.
+    // Player updates report the effective audio mask, which includes hover solo
+    // and must never overwrite the selection restored when hovering ends.
     const appState = {};
     for (let prop in map) {
       const seqProp = map[prop];
@@ -1009,27 +1011,27 @@ class App extends React.Component<RouteComponentProps, AppState> {
       );
 
       if (signal?.aborted) return;
-      this.setState({ parsing: parsingResult }, () => {
-        const numVoices = this.midiPlayer.getNumVoices();
-        const excludedVoices = new Set(
-          getExcludedVoices(
-            isLakh ? this.state.analyses[lakhAnalysisKey] : undefined,
-            numVoices,
-          ),
-        );
-        const voiceMask = Array.from(
-          { length: numVoices },
-          (_, index) => !excludedVoices.has(index),
-        );
-        this.hoveredVoiceIndex = null;
-        this.midiPlayer.setVoiceMask(voiceMask);
-        this.setState({ voiceMask }, () => {
-          this.setupMidiPlayer();
+      const numVoices = this.midiPlayer.getNumVoices();
+      const excludedVoices = new Set(
+        getExcludedVoices(
+          isLakh ? this.state.analyses[lakhAnalysisKey] : undefined,
+          numVoices,
+        ),
+      );
+      const voiceMask = Array.from(
+        { length: numVoices },
+        (_, index) => !excludedVoices.has(index),
+      );
+      this.hoveredVoiceIndex = null;
+      this.midiPlayer.setVoiceMask(voiceMask);
+      // Render the new score and its manual selection together so hover effects
+      // cannot send the previous song's mask (or the initial 64-voice mask).
+      this.setState({ parsing: parsingResult, voiceMask }, () => {
+        this.setupMidiPlayer();
 
-          if (!shouldAutoPlay) {
-            this.midiPlayer.pause();
-          }
-        });
+        if (!shouldAutoPlay) {
+          this.midiPlayer.pause();
+        }
       });
     } catch (e) {
       this.handlePlayerError(`Unable to play ${filepath} (${e.message}).`);

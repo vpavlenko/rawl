@@ -88,7 +88,6 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
   );
   const excluded = new Set(excludedVoices);
   const allIncluded = voiceMask.map((_, index) => !excluded.has(index));
-  const isSingleActive = voiceMask.filter((voice) => voice).length === 1;
   const sortedVoices = useMemo(
     () => getSortedVoices(voiceNames, notes, drumVoices, nativeDrumVoices),
     [voiceNames, notes, drumVoices, nativeDrumVoices],
@@ -140,11 +139,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
         {sortedVoices.map(
           ({ voiceName, voiceIndex, isDrum }) =>
             !excluded.has(voiceIndex) && (
-              <VoiceRow
-                key={voiceIndex}
-                onMouseEnter={() => onVoiceHover(voiceIndex)}
-                onMouseLeave={() => onVoiceHover(null)}
-              >
+              <VoiceRow key={voiceIndex}>
                 <input
                   title="active"
                   type="checkbox"
@@ -166,15 +161,12 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                   }}
                 />{" "}
                 <span
+                  aria-label={`${voiceName}: hover to solo temporarily`}
+                  onMouseEnter={() => onVoiceHover(voiceIndex)}
+                  onMouseLeave={() => onVoiceHover(null)}
                   style={{
                     cursor: "pointer",
                     userSelect: "none",
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    isSingleActive && voiceMask[voiceIndex]
-                      ? setVoiceMask(allIncluded)
-                      : setVoiceMask(voiceMask.map((_, i) => i === voiceIndex));
                   }}
                 >
                   <span

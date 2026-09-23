@@ -235,6 +235,7 @@ export default class ThreadedMIDIPlayer extends EventEmitter {
 
   private fail(error: Error) {
     if (this.failed || this.disposed) return;
+    console.error('[midi playback]', error);
     this.failed = true;
     this.invalidate(this.getPositionMs());
     this.state.isPlaying = false;

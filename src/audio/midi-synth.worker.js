@@ -4,6 +4,10 @@ import MIDIPlayer from '../players/MIDIPlayer';
 import { ensureEmscFileWithData } from '../util';
 import { SOUNDFONT_MOUNTPOINT } from '../config';
 
+// This module runs in a dedicated worker, where self is the worker global.
+// eslint-disable-next-line no-restricted-globals
+const workerScope = self;
+
 const BLOCK_FRAMES = 512;
 let player;
 let core;
@@ -23,7 +27,7 @@ function state() {
 
 function publishState() {
   if (ended) return; // EOF is reported only once the worklet drains the tail.
-  self.postMessage({ type: 'state', commandId, state: state() });
+  workerScope.postMessage({ type: 'state', commandId, state: state() });
 }
 
 function resetOutput() {
@@ -88,7 +92,7 @@ async function initialize(message) {
 function fail(error) {
   if (player) player.midiFilePlayer.paused = true;
   if (audioPort) audioPort.postMessage({ type: 'reset', generation, playing: false, positionMs: 0 });
-  self.postMessage({ type: 'error', message: error.message || String(error) });
+  workerScope.postMessage({ type: 'error', message: error.message || String(error) });
 }
 
 async function command(message) {
@@ -148,11 +152,11 @@ async function command(message) {
 // Serialize async loads and controls so an old download cannot replace a newer
 // song/font or race pause, seek, mute, or transpose commands.
 let commands = Promise.resolve();
-self.onmessage = ({ data }) => {
+workerScope.onmessage = ({ data }) => {
   commands = commands.then(async () => {
     try {
       const result = data.type === 'init' ? await initialize(data) : await command(data);
-      self.postMessage({ type: 'reply', id: data.id, result, state: state() });
+      workerScope.postMessage({ type: 'reply', id: data.id, result, state: state() });
     } catch (error) {
       if (data.type === 'init') fail(error);
       else {
@@ -161,7 +165,7 @@ self.onmessage = ({ data }) => {
         resetOutput();
         publishState();
       }
-      self.postMessage({ type: 'reply', id: data.id, error: error.message || String(error) });
+      workerScope.postMessage({ type: 'reply', id: data.id, error: error.message || String(error) });
     }
   });
 };

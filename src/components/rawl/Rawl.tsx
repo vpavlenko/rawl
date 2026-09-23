@@ -147,6 +147,7 @@ export type RawlProps = {
   voiceMask: VoiceMask;
   setVoiceMask: (mask: VoiceMask) => void;
   onVoiceHover?: (voiceIndex: number | null) => void;
+  onForcedPanningChange?: (enabled: boolean) => void;
   setDrumVoices?: (voices: number[]) => void;
   enableManualRemeasuring?: boolean;
   seek: (ms: number) => void;
@@ -172,6 +173,7 @@ const Rawl: React.FC<RawlProps> = ({
   voiceMask,
   setVoiceMask,
   onVoiceHover,
+  onForcedPanningChange,
   setDrumVoices,
   enableManualRemeasuring = false,
   seek,
@@ -727,6 +729,7 @@ const Rawl: React.FC<RawlProps> = ({
       voiceNames,
       setVoiceMask: setArrangementVoiceMask,
       onVoiceHover,
+      onForcedPanningChange,
       excludedVoices,
       drumVoices,
       nativeDrumVoices,
@@ -757,6 +760,7 @@ const Rawl: React.FC<RawlProps> = ({
       voiceNames,
       setArrangementVoiceMask,
       onVoiceHover,
+      onForcedPanningChange,
       excludedVoices,
       drumVoices,
       nativeDrumVoices,

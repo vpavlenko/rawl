@@ -43,6 +43,9 @@ export default class MIDIPlayer extends Player {
     this.transpose = 0;
     this.soundingNotes = Array.from({ length: 16 }, () => new Map());
     this.sustainPedals = Array(16).fill(0);
+    this.forcedPanning = false;
+    this.sourcePans = Array(16).fill(64);
+    this.splitPans = new Map();
     this.buffer = core._malloc(this.bufferSize * 4 * 2); // f32 * 2 channels
     this.filepathMeta = {};
     this.midiFilePlayer = new MIDIFilePlayer({
@@ -65,6 +68,12 @@ export default class MIDIPlayer extends Player {
             core._tp_pitch_bend(channel, value);
         },
         controlChange: (channel, controller, value) => {
+          if (controller === 10) {
+            this.sourcePans[channel] = value;
+            if (this.forcedPanning && this.splitPans.has(channel)) {
+              value = this.splitPans.get(channel);
+            }
+          }
           if (controller === 64) {
             this.sustainPedals[channel] = value;
             if (value < 64) {
@@ -105,8 +114,10 @@ export default class MIDIPlayer extends Player {
         reset: () => {
           this.soundingNotes.forEach((notes) => notes.clear());
           this.sustainPedals.fill(0);
+          this.sourcePans.fill(64);
           core._tp_reset();
           this.applyDrumPresets();
+          this.applyPanning();
         },
         getValue: core.getValue,
       },
@@ -278,6 +289,16 @@ export default class MIDIPlayer extends Player {
       if (this.midiFilePlayer.getChannelInUse(i)) this.activeChannels.push(i);
     }
 
+    this.sourcePans.fill(64);
+    this.splitPans.clear();
+    this.activeChannels.forEach((channel) => {
+      const track = this.midiFilePlayer.channelToTrack[channel];
+      const name = this.midiFilePlayer.trackNames[track] || "";
+      if (/(^|: )left hand$/.test(name)) this.splitPans.set(channel, 0);
+      if (/(^|: )right hand$/.test(name)) this.splitPans.set(channel, 127);
+    });
+    this.applyPanning();
+
     this.setDrumVoices(drumVoices);
 
     // Apply arrangement exclusions before the first note can be played.
@@ -438,6 +459,20 @@ export default class MIDIPlayer extends Player {
       }
     }
     this.applyDrumPresets();
+  }
+
+  setForcedPanning(enabled) {
+    this.forcedPanning = enabled;
+    this.applyPanning();
+  }
+
+  applyPanning() {
+    this.activeChannels.forEach((channel) => {
+      const pan = this.forcedPanning && this.splitPans.has(channel)
+        ? this.splitPans.get(channel)
+        : this.sourcePans[channel];
+      core._tp_control_change(channel, 10, pan);
+    });
   }
 
   getVoiceMask() {

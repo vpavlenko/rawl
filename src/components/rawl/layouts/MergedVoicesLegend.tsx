@@ -1,14 +1,14 @@
 import React, { useContext, useMemo } from "react";
 import styled from "styled-components";
-import { AppContext } from "../../AppContext";
-import Trash2 from "../../icons/Trash2";
-import Drum from "../../icons/Drum";
 import { useLocalStorage } from "usehooks-ts";
+import { AppContext } from "../../AppContext";
+import Drum from "../../icons/Drum";
+import Trash2 from "../../icons/Trash2";
 import { SongNarrative } from "../SongNarrative";
 import { ColoredNotesInVoices } from "../parseMidi";
 import { getSortedVoices } from "../voiceOrder";
 
-export const FORCED_PANNING_LABEL = "🔊⬅️👐➡️🔊";
+export const FORCED_PANNING_LABEL = "🔊⬅️➡️🔊";
 
 const VoiceActionButton = styled.button`
   display: inline-flex;
@@ -47,6 +47,14 @@ const VoiceRow = styled.div`
     opacity: 1;
     pointer-events: auto;
   }
+`;
+
+const VoiceCheckbox = styled.input`
+  flex-shrink: 0;
+  width: 11px;
+  height: 11px;
+  margin: 0 3px 0 17px;
+  cursor: pointer;
 `;
 
 type MergedVoicesLegendProps = {
@@ -97,7 +105,6 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
     const newValue = e.target.checked;
     setForcedPanning(newValue);
     onForcedPanningChange?.(newValue);
-    window.location.reload();
   };
 
   return (
@@ -114,12 +121,14 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
       >
         <div
           style={{
+            display: "flex",
+            alignItems: "center",
             marginBottom: 10,
             borderBottom: "0.5px solid #333",
             paddingBottom: 5,
           }}
         >
-          <input
+          <VoiceCheckbox
             type="checkbox"
             id="forcedPanning"
             checked={forcedPanning}
@@ -129,8 +138,9 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
             htmlFor="forcedPanning"
             style={{
               margin: "0px 0px 0px 0px",
-              height: 11,
-              display: "inline",
+              display: "inline-flex",
+              cursor: "pointer",
+              userSelect: "none",
             }}
           >
             {FORCED_PANNING_LABEL}
@@ -140,7 +150,8 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
           ({ voiceName, voiceIndex, isDrum }) =>
             !excluded.has(voiceIndex) && (
               <VoiceRow key={voiceIndex}>
-                <input
+                <VoiceCheckbox
+                  id={`voice-active-${voiceIndex}`}
                   title="active"
                   type="checkbox"
                   onChange={(e) => {
@@ -154,17 +165,15 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                     setVoiceMask(newVoiceMask);
                   }}
                   checked={voiceMask[voiceIndex]}
-                  style={{
-                    margin: "0px 0px 0px 17px",
-                    height: 11,
-                    display: "inline",
-                  }}
                 />{" "}
-                <span
-                  aria-label={`${voiceName}: hover to solo temporarily`}
+                <label
+                  htmlFor={`voice-active-${voiceIndex}`}
+                  aria-label={`${voiceName}: click to toggle, hover to solo temporarily`}
                   onMouseEnter={() => onVoiceHover(voiceIndex)}
                   onMouseLeave={() => onVoiceHover(null)}
                   style={{
+                    margin: 0,
+                    display: "inline-flex",
                     cursor: "pointer",
                     userSelect: "none",
                   }}
@@ -173,6 +182,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                     className={isDrum ? undefined : `voiceShape-${voiceIndex}`}
                     style={{
                       display: "inline-block",
+                      cursor: "pointer",
                       backgroundColor: voiceMask[voiceIndex] !== isDrum
                         ? "white"
                         : "black",
@@ -185,7 +195,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                   >
                     {voiceName}
                   </span>
-                </span>
+                </label>
                 {!!user &&
                   onToggleVoiceDrum &&
                   !nativeDrumVoices.includes(voiceIndex) && (

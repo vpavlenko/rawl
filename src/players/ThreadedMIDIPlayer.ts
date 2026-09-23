@@ -222,6 +222,7 @@ export default class ThreadedMIDIPlayer extends EventEmitter {
     this.send('setVoiceMask', [mask]);
   }
   setDrumVoices(voices: number[]) { this.send('setDrumVoices', [voices]); }
+  setForcedPanning(enabled: boolean) { this.send('setForcedPanning', [enabled]); }
   setTranspose(semitones: number) { this.send('setTranspose', [semitones]); }
   setParameter(id: string, value: any) {
     this.send('setParameter', [id, value], id === 'soundfont' ? this.getPositionMs() : undefined);

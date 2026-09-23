@@ -105,13 +105,7 @@ function pushEventWithDeltaTime(
   return event.absoluteTime;
 }
 
-function transformMidi(
-  inputData: Uint8Array,
-  _forcedPanning?: boolean,
-): Uint8Array {
-  // Read forcedPanning directly from localStorage, fallback to false if not set
-  const forcedPanning = localStorage.getItem("forcedPanning") === "true";
-
+function transformMidi(inputData: Uint8Array): Uint8Array {
   const midi: MidiData = parseMidi(inputData);
   const usedChannels = getUsedChannels(midi);
 
@@ -219,30 +213,7 @@ function transformMidi(
       lastMetaTime = event.absoluteTime;
     });
 
-    if (forcedPanning) {
-      // Add pan right (CC #10 = 127) for right hand
-      rightHandEvents.push({
-        type: "controller",
-        controllerType: 10,
-        value: 127,
-        deltaTime: 0,
-        channel: channel,
-        originalTrack: trackIndices[0],
-        absoluteTime: 0,
-      } as EnhancedMidiEvent);
-
-      // Add pan left (CC #10 = 0) for left hand
-      leftHandEvents.push({
-        type: "controller",
-        controllerType: 10,
-        value: 0,
-        deltaTime: 0,
-        channel: leftHandChannel,
-        originalTrack: trackIndices[1],
-        absoluteTime: 0,
-      } as EnhancedMidiEvent);
-    }
-
+    // Preserve source pan events; the player applies the optional L/R split live.
     let rightHandLastEventTime = 0;
     let leftHandLastEventTime = 0;
 
@@ -300,15 +271,6 @@ function transformMidi(
           leftHandChannel,
         );
       } else {
-        // Skip existing pan control messages when forced panning is enabled
-        if (
-          forcedPanning &&
-          event.type === "controller" &&
-          event.controllerType === 10
-        ) {
-          return;
-        }
-
         // Copy other channel events to both tracks
         rightHandLastEventTime = pushEventWithDeltaTime(
           event,

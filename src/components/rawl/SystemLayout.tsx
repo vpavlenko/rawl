@@ -330,6 +330,7 @@ export type SystemLayoutProps = {
   hoveredVoiceIndex?: number | null;
   usePageScroll?: boolean;
   onVoiceHover?: (voiceIndex: number | null) => void;
+  onForcedPanningChange?: (enabled: boolean) => void;
 };
 
 export const StackedSystemLayout: React.FC<
@@ -733,6 +734,7 @@ export const MergedSystemLayout: React.FC<
           voiceMask={voiceMask}
           setVoiceMask={setVoiceMask}
           onVoiceHover={handleVoiceHover}
+          onForcedPanningChange={props.onForcedPanningChange}
           drumVoices={props.drumVoices}
           nativeDrumVoices={props.nativeDrumVoices}
           onToggleVoiceDrum={props.onToggleVoiceDrum}

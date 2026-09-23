@@ -323,6 +323,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       if (this.pendingMidiPlayer !== player) return;
       this.pendingMidiPlayer = null;
       this.midiPlayer = player;
+      player.setForcedPanning(localStorage.getItem("forcedPanning") === "true");
       this.setState({ loading: false });
     } catch (error) {
       if (!this.pendingMidiPlayer) return;
@@ -704,6 +705,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }));
   }
 
+  handleForcedPanningChange = (enabled: boolean) => {
+    this.midiPlayer?.setForcedPanning(enabled);
+  };
+
   handleSetDrumVoices = (voices: number[]) => {
     this.midiPlayer?.setDrumVoices(voices);
   };
@@ -869,6 +874,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           voiceMask: this.state.voiceMask,
           setVoiceMask: this.handleSetVoiceMask,
           onVoiceHover: this.handleVoiceHover,
+          onForcedPanningChange: this.handleForcedPanningChange,
           setDrumVoices: this.handleSetDrumVoices,
           enableManualRemeasuring: this.state.enableManualRemeasuring,
           seek: this.seekForRawl,
@@ -1119,6 +1125,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       voiceMask: this.state.voiceMask,
       setVoiceMask: this.handleSetVoiceMask,
       onVoiceHover: this.handleVoiceHover,
+      onForcedPanningChange: this.handleForcedPanningChange,
       setDrumVoices: this.handleSetDrumVoices,
       enableManualRemeasuring: this.state.enableManualRemeasuring,
       seek: this.seekForRawl,

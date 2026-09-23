@@ -125,6 +125,7 @@ async function command(message) {
       case 'seekMs': player.seekMs(args[0]); break;
       case 'setTempo': player.setTempo(args[0]); break;
       case 'setVoiceMask': player.setVoiceMask(args[0]); break;
+      case 'setForcedPanning': player.setForcedPanning(args[0]); break;
       case 'setDrumVoices': player.setDrumVoices(args[0]); break;
       case 'setTranspose': player.setTranspose(args[0]); break;
       case 'setParameter': await player.setParameter(...args); break;

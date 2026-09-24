@@ -128002,24 +128002,6 @@
       "phrasing:silent_break_extra_measure"
     ]
   },
-  "c/MIDI/Television Theme Songs/X-Files.mid": {
-    "form": [],
-    "phrasePatch": [
-      {
-        "measure": 1,
-        "diff": 1
-      }
-    ],
-    "comment": "",
-    "modulations": {
-      "1": 10
-    },
-    "tags": [
-      "fx:delay",
-      "scale:natural_minor",
-      "functionality:stasis"
-    ]
-  },
   "c/MIDI/Television Theme Songs/Eastenders.mid": {
     "form": [],
     "phrasePatch": [

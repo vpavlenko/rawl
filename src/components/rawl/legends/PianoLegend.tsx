@@ -1,3 +1,4 @@
+import { pitchColor } from "../colors";
 import { faGuitar, faUserGraduate } from "@fortawesome/free-solid-svg-icons";
 import * as React from "react";
 import styled, { css, keyframes } from "styled-components";
@@ -15,19 +16,6 @@ const MOBILE_PIANO_LEGEND_MEDIA_QUERY = "(max-width: 767px)";
 
 const BLACK_KEYS = [1, 3, -1, 6, 8, 10, -1];
 const WHITE_KEYS = [0, 2, 4, 5, 7, 9, 11];
-
-const SCALE_PITCH_COLORS: Record<number, string> = {
-  1: "#820000",
-  2: "#ff0000",
-  3: "#007000",
-  4: "#00fb47",
-  5: "#9500b3",
-  6: "#ea7eff",
-  8: "#0000ff",
-  9: "#03b9d5",
-  10: "#ff7328",
-  11: "#ffff00",
-};
 
 const SCALE_GROUPS = [
   {
@@ -108,7 +96,7 @@ const ScaleLabel = styled.button<{ $pitches: number[] }>`
     to right,
     ${({ $pitches }) =>
       [1, 2, 3, 5, 6]
-        .map((degree, index) => `${SCALE_PITCH_COLORS[$pitches[degree]]} ${index * 20}% ${(index + 1) * 20}%`)
+        .map((degree, index) => `${pitchColor($pitches[degree])} ${index * 20}% ${(index + 1) * 20}%`)
         .join(", ")}
   );
   border: none;

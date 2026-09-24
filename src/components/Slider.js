@@ -1,3 +1,4 @@
+import { noteColorClass } from "./rawl/colors";
 import autoBindReact from "auto-bind/react";
 import React, { PureComponent } from "react";
 import styled from "styled-components";
@@ -197,11 +198,11 @@ export default class Slider extends PureComponent {
         <SliderRail />
         {(this.props.coloredMarks ?? []).map(({ pos, pitchClass }, index) => (
           <SliderColoredMark
+            className={noteColorClass(pitchClass)}
             key={index}
             aria-hidden="true"
             style={{
               left: `${pos * 100}%`,
-              backgroundColor: `var(--pitch-color-${pitchClass})`,
             }}
           />
         ))}
@@ -220,10 +221,10 @@ export default class Slider extends PureComponent {
         >
           {(this.props.coloredMarks ?? []).map(({ pos, pitchClass }, index) => (
             <SliderColoredMark
+              className={noteColorClass(pitchClass)}
               key={index}
               style={{
                 left: `${pos * 100}%`,
-                backgroundColor: `var(--pitch-color-${pitchClass})`,
               }}
             />
           ))}

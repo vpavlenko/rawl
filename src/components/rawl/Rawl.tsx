@@ -1,3 +1,4 @@
+import { noteColorClass } from "./colors";
 import {
   faArrowUpRightFromSquare,
   faCopy,
@@ -124,7 +125,7 @@ export const getNoteColorPitchClass = (
 export const pitchClassToCssClass = (
   pitchClass: number | "default" | "drum",
 ): string => {
-  return `noteColor_${pitchClass}_colors`;
+  return noteColorClass(pitchClass);
 };
 
 export const getNoteColor = (

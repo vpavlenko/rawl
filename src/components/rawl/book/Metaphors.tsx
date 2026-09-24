@@ -1,3 +1,4 @@
+import { pitchColor } from "../colors";
 import React from "react";
 import styled from "styled-components";
 
@@ -13,35 +14,35 @@ const GradientText = styled.span`
 const GradientGreen = styled(GradientText)`
   background: linear-gradient(
     to right,
-    white,
-    #007000,
-    #00fb47,
-    rgb(120, 120, 120)
+    ${pitchColor(0)},
+    ${pitchColor(3)},
+    ${pitchColor(4)},
+    ${pitchColor(7)}
   );
 `;
 
 const GradientCool = styled(GradientText)`
   background: linear-gradient(
     to right,
-    #9500b3,
-    #ea7eff,
-    #0000ff,
-    #03b9d5,
-    #007000,
-    #00fb47
+    ${pitchColor(5)},
+    ${pitchColor(6)},
+    ${pitchColor(8)},
+    ${pitchColor(9)},
+    ${pitchColor(3)},
+    ${pitchColor(4)}
   );
 `;
 
 const GradientWarm = styled(GradientText)`
-  background: linear-gradient(to right, #ff0, #ff7328, red, #9500b3);
+  background: linear-gradient(to right, ${pitchColor(11)}, ${pitchColor(10)}, ${pitchColor(2)}, ${pitchColor(5)});
 `;
 
 const GradientBright = styled(GradientText)`
-  background: linear-gradient(to right, #00fb47, #03b9d5, #ff0);
+  background: linear-gradient(to right, ${pitchColor(4)}, ${pitchColor(9)}, ${pitchColor(11)});
 `;
 
 const GradientDark = styled(GradientText)`
-  background: linear-gradient(to right, #007000, #0000ff, #ff7328);
+  background: linear-gradient(to right, ${pitchColor(3)}, ${pitchColor(8)}, ${pitchColor(10)});
 `;
 
 const Container = styled.div`

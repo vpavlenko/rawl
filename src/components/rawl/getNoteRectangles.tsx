@@ -1,3 +1,4 @@
+import { pitchColor as paletteColor } from "./colors";
 import * as React from "react";
 import { SecondsConverter, SecondsSpan } from "./Rawl";
 import { ColoredNote, Note, PitchBendPoint } from "./parseMidi";
@@ -174,8 +175,7 @@ const pitchBendToSemitones = (value: number) =>
 const pitchColor = (pitch: number) => {
   const lower = Math.floor(pitch);
   const fraction = pitch - lower;
-  const color = (index: number) =>
-    `var(--pitch-color-${((index % 12) + 12) % 12})`;
+  const color = paletteColor;
   return fraction === 0
     ? color(lower)
     : `color-mix(in srgb, ${color(lower)} ${(1 - fraction) * 100}%, ${color(

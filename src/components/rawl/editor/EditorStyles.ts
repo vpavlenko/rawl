@@ -1,3 +1,4 @@
+import { noteLetterColors } from "../colors";
 import styled from "styled-components";
 import { FOOTER_HEIGHT } from "../../AppFooter";
 
@@ -164,67 +165,7 @@ export const CodeMirrorWrapper = styled.div`
     opacity: 0.5;
   }
 
-  /* Override text colors for note backgrounds */
-  .noteColor_0_colors {
-    color: #000000 !important;
-    background-color: white !important;
-    --background-color: white;
-  }
-  .noteColor_1_colors {
-    color: #ffffff !important;
-    background-color: rgb(130, 0, 0) !important;
-    --background-color: rgb(130, 0, 0);
-  }
-  .noteColor_2_colors {
-    color: #000000 !important;
-    background-color: red !important;
-    --background-color: red;
-  }
-  .noteColor_3_colors {
-    color: #ffffff !important;
-    background-color: #007000 !important;
-    --background-color: #007000;
-  }
-  .noteColor_4_colors {
-    color: #000000 !important;
-    background-color: #00fb47 !important;
-    --background-color: #00fb47;
-  }
-  .noteColor_5_colors {
-    color: #ffffff !important;
-    background-color: #9500b3 !important;
-    --background-color: #9500b3;
-  }
-  .noteColor_6_colors {
-    color: #000000 !important;
-    background-color: #ea7eff !important;
-    --background-color: #ea7eff;
-  }
-  .noteColor_7_colors {
-    color: #000000 !important;
-    background-color: rgb(120, 120, 120) !important;
-    --background-color: rgb(120, 120, 120);
-  }
-  .noteColor_8_colors {
-    color: #ffffff !important;
-    background-color: rgb(0, 0, 255) !important;
-    --background-color: rgb(0, 0, 255);
-  }
-  .noteColor_9_colors {
-    color: #000000 !important;
-    background-color: #03b9d5 !important;
-    --background-color: #03b9d5;
-  }
-  .noteColor_10_colors {
-    color: #ffffff !important;
-    background-color: #ff7328 !important;
-    --background-color: #ff7328;
-  }
-  .noteColor_11_colors {
-    color: #000000 !important;
-    background-color: yellow !important;
-    --background-color: yellow;
-  }
+  ${noteLetterColors()}
 
   /* Add dot styles */
   .dotAbove {
@@ -334,67 +275,7 @@ export const ResizeHandle = styled.div`
 
 // Export a reusable styled component for colored note letters
 export const NoteColorLetter = styled.span`
-  /* Override text colors for note backgrounds */
-  &.noteColor_0_colors {
-    color: #000000 !important;
-    background-color: white !important;
-    --background-color: white;
-  }
-  &.noteColor_1_colors {
-    color: #ffffff !important;
-    background-color: rgb(130, 0, 0) !important;
-    --background-color: rgb(130, 0, 0);
-  }
-  &.noteColor_2_colors {
-    color: #000000 !important;
-    background-color: red !important;
-    --background-color: red;
-  }
-  &.noteColor_3_colors {
-    color: #ffffff !important;
-    background-color: #007000 !important;
-    --background-color: #007000;
-  }
-  &.noteColor_4_colors {
-    color: #000000 !important;
-    background-color: #00fb47 !important;
-    --background-color: #00fb47;
-  }
-  &.noteColor_5_colors {
-    color: #ffffff !important;
-    background-color: #9500b3 !important;
-    --background-color: #9500b3;
-  }
-  &.noteColor_6_colors {
-    color: #000000 !important;
-    background-color: #ea7eff !important;
-    --background-color: #ea7eff;
-  }
-  &.noteColor_7_colors {
-    color: #000000 !important;
-    background-color: rgb(120, 120, 120) !important;
-    --background-color: rgb(120, 120, 120);
-  }
-  &.noteColor_8_colors {
-    color: #ffffff !important;
-    background-color: rgb(0, 0, 255) !important;
-    --background-color: rgb(0, 0, 255);
-  }
-  &.noteColor_9_colors {
-    color: #000000 !important;
-    background-color: #03b9d5 !important;
-    --background-color: #03b9d5;
-  }
-  &.noteColor_10_colors {
-    color: #ffffff !important;
-    background-color: #ff7328 !important;
-    --background-color: #ff7328;
-  }
-  &.noteColor_11_colors {
-    color: #000000 !important;
-    background-color: yellow !important;
-    --background-color: yellow;
-  }
+  ${noteLetterColors("&")}
 `;
 
 export const StatusBar = styled.div`

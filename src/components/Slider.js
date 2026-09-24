@@ -42,6 +42,10 @@ const SliderColoredMark = styled.div`
   pointer-events: none;
 `;
 
+const SliderPhraseMark = styled(SliderMark)`
+  height: 3.75px;
+`;
+
 const SliderBassBar = styled.div`
   position: absolute;
   top: 50%;
@@ -64,16 +68,16 @@ const SliderKnob = styled.div`
 
 const SliderMagnifier = styled.div`
   position: absolute;
-  inset: 0;
+  inset: -3px 0;
   pointer-events: none;
 
   ${SliderColoredMark} {
-    top: calc(50% - 12px);
-    height: 12px;
+    top: 0;
+    height: 50%;
   }
 
   ${SliderBassBar} {
-    height: 12px;
+    height: 50%;
   }
 `;
 
@@ -151,6 +155,12 @@ const SectionMarks = React.memo(({ marks }) => (
   ))}</>
 ));
 
+const PhraseMarks = React.memo(({ marks }) => (
+  <>{(marks ?? []).map((mark, index) => (
+    <SliderPhraseMark key={index} aria-hidden="true" style={{ left: `${mark * 100}%` }} />
+  ))}</>
+));
+
 export default class Slider extends PureComponent {
   constructor(props) {
     super(props);
@@ -211,6 +221,7 @@ export default class Slider extends PureComponent {
       <SliderContainer ref={this.node} onMouseDown={this.onMouseDown}>
         <ColoredMarks marks={this.props.coloredMarks} />
         <SectionMarks marks={this.props.marks} />
+        <PhraseMarks marks={this.props.phraseMarks} />
         <BassBars bars={this.props.bassBars} />
         <SliderKnob style={{
           left: pos,
@@ -218,7 +229,8 @@ export default class Slider extends PureComponent {
         }} />
         <SliderMagnifier
           style={{
-            clipPath: `inset(0 calc(100% - ${pos} - var(--charW1)) 0 ${pos})`,
+            // Overlap the knob's left edge to cover subpixel clipping seams.
+            clipPath: `inset(0 calc(100% - ${pos} - var(--charW1)) 0 calc(${pos} - 1px))`,
             transition: this.state.dragging ? "none" : "clip-path 0.37s linear",
           }}
           aria-hidden="true"

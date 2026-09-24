@@ -8,11 +8,12 @@ export type BassBar = {
 };
 export type TimeSliderData = {
   sectionStartTimesMs: number[];
+  phraseStartTimesMs: number[];
   modulationMarkers: ModulationMarker[];
   bassBars: BassBar[];
 };
 export const EMPTY_TIME_SLIDER_DATA: TimeSliderData = {
-  sectionStartTimesMs: [], modulationMarkers: [], bassBars: [],
+  sectionStartTimesMs: [], phraseStartTimesMs: [], modulationMarkers: [], bassBars: [],
 };
 
 // Only the time slider subscribes. Publishing geometry never updates App state.

@@ -10,6 +10,9 @@ function getGeometry(data, duration) {
   if (cached?.duration === duration) return cached;
   cached = {
     duration,
+    phraseMarks: data.phraseStartTimesMs
+      .map((time) => time / duration)
+      .filter((pos) => Number.isFinite(pos) && pos >= 0 && pos < 1),
     marks: [...data.sectionStartTimesMs
       .map((time) => time / duration)
       .filter((pos) => Number.isFinite(pos) && pos >= 0 && pos < 1), 1],
@@ -37,10 +40,17 @@ const TimeSliderContainer = styled.div`
 
 const TimeLabel = styled.div`
   margin-right: 15px;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
 `;
 
 const DurationLabel = styled.div`
   margin-left: 20px;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 `;
 
 //  46 ms = 2048/44100 sec or 21.7 fps
@@ -147,19 +157,23 @@ export default class TimeSlider extends React.PureComponent {
 
   render() {
     const geometry = getGeometry(this.state.sliderData, this.props.currentSongDurationMs);
+    const durationLabel = this.getTime(this.props.currentSongDurationMs);
     return (
       <TimeSliderContainer>
-        <TimeLabel>{this.getTimeLabel()}</TimeLabel>
+        <TimeLabel style={{ width: `${Math.max(5, durationLabel.length)}ch` }}>
+          {this.getTimeLabel()}
+        </TimeLabel>
         <Slider
           pos={this.getSongPos()}
           onDrag={this.handlePositionDrag}
           onChange={this.handlePositionDrop}
           marks={geometry.marks}
+          phraseMarks={geometry.phraseMarks}
           bassBars={geometry.bassBars}
           coloredMarks={geometry.coloredMarks}
         />
         <DurationLabel id="duration-label">
-          {this.getTime(this.props.currentSongDurationMs)}
+          {durationLabel}
         </DurationLabel>
       </TimeSliderContainer>
     );

@@ -593,6 +593,9 @@ const Rawl: React.FC<RawlProps> = ({
       const modulations = getModulations(analysis);
       const bassNotes = await selectBassNotes(notes.flat(), measures);
       return {
+        phraseStartTimesMs: phraseStarts
+          .map((measure) => measures[measure - 1] * 1000)
+          .filter((time) => Number.isFinite(time) && time >= 0),
         sectionStartTimesMs: (analysis.sections ?? [0])
           .map((section) => measures[phraseStarts[section] - 1] * 1000)
           .filter((time) => Number.isFinite(time) && time >= 0),

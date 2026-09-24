@@ -24,61 +24,55 @@ const SliderContainer = styled.div`
   display: inline-block;
 `;
 
-const SliderRail = styled.div`
-  width: calc(100% + var(--charW1));
-  height: 1px;
-  margin-top: -1px;
-  background: #fff;
-  position: absolute;
-  top: 50%;
-  box-sizing: border-box;
-  border: 0;
-`;
-
 const SliderMark = styled.div`
   position: absolute;
   top: 50%;
   width: 1px;
-  height: 15px;
+  height: 7.5px;
   background: #fff;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-100%);
   pointer-events: none;
 `;
 
 const SliderColoredMark = styled.div`
   position: absolute;
-  top: calc(50% - 4.25px);
+  top: calc(50% - 7.5px);
   width: 10px;
   height: 7.5px;
   pointer-events: none;
 `;
 
+const SliderBassBar = styled.div`
+  position: absolute;
+  top: 50%;
+  height: 7.5px;
+  border: 0;
+  pointer-events: none;
+`;
+
 const SliderKnob = styled.div`
-  height: var(--charH);
+  height: calc(var(--charH) + 6px);
   width: var(--charW1);
   margin: 0;
   border-radius: 0;
   background-color: #fff;
   position: absolute;
+  top: -3px;
   -webkit-box-shadow: none;
   box-shadow: none;
-  left: ${(props) => props.pos};
-  transition: ${(props) => (props.dragging ? "none" : "left 0.37s linear")};
 `;
 
 const SliderMagnifier = styled.div`
   position: absolute;
   inset: 0;
   pointer-events: none;
-  clip-path: inset(
-    0 calc(100% - ${(props) => props.$pos} - var(--charW1)) 0
-      ${(props) => props.$pos}
-  );
-  transition: ${(props) =>
-    props.$dragging ? "none" : "clip-path 0.37s linear"};
 
   ${SliderColoredMark} {
-    top: calc(50% - 6.5px);
+    top: calc(50% - 12px);
+    height: 12px;
+  }
+
+  ${SliderBassBar} {
     height: 12px;
   }
 `;
@@ -136,6 +130,26 @@ export const StyledRangeInput = styled.input.attrs({ type: "range" })`
     box-shadow: 0 1px 3px ${COLORS.THUMB_SHADOW};
   }
 `;
+
+// Playback changes only move the knob and clipping window. These memoized
+// layers retain all rectangle elements until their cached geometry changes.
+const ColoredMarks = React.memo(({ marks }) => (
+  <>{(marks ?? []).map(({ pos, pitchClass }, index) => (
+    <SliderColoredMark key={index} className={noteColorClass(pitchClass)}
+      aria-hidden="true" style={{ left: `${pos * 100}%` }} />
+  ))}</>
+));
+const BassBars = React.memo(({ bars }) => (
+  <>{(bars ?? []).map(({ start, end, pitchClass }, index) => (
+    <SliderBassBar key={index} className={noteColorClass(pitchClass)}
+      aria-hidden="true" style={{ left: `${start * 100}%`, width: `${(end - start) * 100}%` }} />
+  ))}</>
+));
+const SectionMarks = React.memo(({ marks }) => (
+  <>{(marks ?? []).map((mark, index) => (
+    <SliderMark key={index} aria-hidden="true" style={{ left: `${mark * 100}%` }} />
+  ))}</>
+));
 
 export default class Slider extends PureComponent {
   constructor(props) {
@@ -195,39 +209,22 @@ export default class Slider extends PureComponent {
 
     return (
       <SliderContainer ref={this.node} onMouseDown={this.onMouseDown}>
-        <SliderRail />
-        {(this.props.coloredMarks ?? []).map(({ pos, pitchClass }, index) => (
-          <SliderColoredMark
-            className={noteColorClass(pitchClass)}
-            key={index}
-            aria-hidden="true"
-            style={{
-              left: `${pos * 100}%`,
-            }}
-          />
-        ))}
-        {(this.props.marks ?? []).map((mark, index) => (
-          <SliderMark
-            key={index}
-            aria-hidden="true"
-            style={{ left: `${mark * 100}%` }}
-          />
-        ))}
-        <SliderKnob pos={pos} dragging={this.state.dragging} />
+        <ColoredMarks marks={this.props.coloredMarks} />
+        <SectionMarks marks={this.props.marks} />
+        <BassBars bars={this.props.bassBars} />
+        <SliderKnob style={{
+          left: pos,
+          transition: this.state.dragging ? "none" : "left 0.37s linear",
+        }} />
         <SliderMagnifier
-          $pos={pos}
-          $dragging={this.state.dragging}
+          style={{
+            clipPath: `inset(0 calc(100% - ${pos} - var(--charW1)) 0 ${pos})`,
+            transition: this.state.dragging ? "none" : "clip-path 0.37s linear",
+          }}
           aria-hidden="true"
         >
-          {(this.props.coloredMarks ?? []).map(({ pos, pitchClass }, index) => (
-            <SliderColoredMark
-              className={noteColorClass(pitchClass)}
-              key={index}
-              style={{
-                left: `${pos * 100}%`,
-              }}
-            />
-          ))}
+          <ColoredMarks marks={this.props.coloredMarks} />
+          <BassBars bars={this.props.bassBars} />
         </SliderMagnifier>
       </SliderContainer>
     );

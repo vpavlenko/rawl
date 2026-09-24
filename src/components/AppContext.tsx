@@ -1,3 +1,4 @@
+import { TimeSliderStore } from "./timeSliderData";
 import { AnnotationVersions } from "./annotationVersions";
 import { User } from "firebase/auth";
 import React from "react";
@@ -11,8 +12,6 @@ export type CurrentMidi = {
   sourceUrl: string | null;
   analysisKey?: string;
 } | null;
-
-export type ModulationMarker = { timeMs: number; pitchClass: number };
 
 export interface AppContextType {
   handleSongClick: (slug: string) => Promise<void>;
@@ -57,10 +56,7 @@ export interface AppContextType {
   tempo: number;
   transpose: number;
   setFirstTonic: (tonic: number | null) => void;
-  sectionStartTimesMs: number[];
-  setSectionStartTimesMs: (times: number[]) => void;
-  modulationMarkers: ModulationMarker[];
-  setModulationMarkers: (markers: ModulationMarker[]) => void;
+  timeSliderStore: TimeSliderStore;
 }
 
 export const AppContext = React.createContext<AppContextType | undefined>(

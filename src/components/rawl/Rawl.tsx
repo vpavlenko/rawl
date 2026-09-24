@@ -1,3 +1,4 @@
+import { cachedTimeSliderData, EMPTY_TIME_SLIDER_DATA, selectBassNotes } from "../timeSliderData";
 import { noteColorClass } from "./colors";
 import {
   faArrowUpRightFromSquare,
@@ -192,8 +193,7 @@ const Rawl: React.FC<RawlProps> = ({
     rawlProps,
     togglePause,
     setFirstTonic,
-    setSectionStartTimesMs,
-    setModulationMarkers,
+    timeSliderStore,
     transpose,
   } = useContext(AppContext);
   const slug = currentMidi?.slug || "";
@@ -408,48 +408,6 @@ const Rawl: React.FC<RawlProps> = ({
     return parsingResult?.measuresAndBeats;
   }, [futureAnalysis, timingNotes, parsingResult]);
 
-  useEffect(() => {
-    if (isEmbedded) return;
-    const measures = measuresAndBeats?.measures ?? [];
-    const phraseStarts = getPhraseStarts(analysis, measures.length);
-    setSectionStartTimesMs(
-      (analysis.sections ?? [0])
-        .map((section) => measures[phraseStarts[section] - 1] * 1000)
-        .filter((time) => Number.isFinite(time) && time >= 0),
-    );
-  }, [analysis, measuresAndBeats, isEmbedded, setSectionStartTimesMs]);
-
-  useEffect(() => {
-    if (isEmbedded) return;
-    return () => setSectionStartTimesMs([]);
-  }, [isEmbedded, setSectionStartTimesMs]);
-
-  useEffect(() => {
-    if (isEmbedded) return;
-    const measures = measuresAndBeats?.measures ?? [];
-    const modulations = getModulations(analysis);
-    setModulationMarkers(
-      modulations.flatMap(({ measure, tonic }, index) => {
-        const previousTonic = modulations[index - 1]?.tonic;
-        const timeMs = measures[measure] * 1000;
-        if (
-          tonic == null ||
-          previousTonic == null ||
-          !Number.isFinite(timeMs) ||
-          timeMs < 0
-        ) {
-          return [];
-        }
-        return [{ timeMs, pitchClass: (tonic - previousTonic + 12) % 12 }];
-      }),
-    );
-  }, [analysis, measuresAndBeats, isEmbedded, setModulationMarkers]);
-
-  useEffect(() => {
-    if (isEmbedded) return;
-    return () => setModulationMarkers([]);
-  }, [isEmbedded, setModulationMarkers]);
-
   const selectMeasure = useCallback(
     (measure) => {
       if (
@@ -617,6 +575,56 @@ const Rawl: React.FC<RawlProps> = ({
 
     return result;
   }, [notes, futureAnalysis, measuresAndBeats, arrangementVoiceMask, slug]);
+
+  useEffect(() => {
+    if (isEmbedded) return;
+    // Committed timing/analysis only: hover previews and voice masks do not
+    // invalidate the footer. Cache survives layout/tab component remounts.
+    const key = JSON.stringify([
+      analysis.measures, analysis.modulations, analysis.sections,
+      analysis.phrasePatch, excludedVoices, [...drumVoiceSet].sort(),
+    ]);
+    let cancelled = false;
+    const pending = cachedTimeSliderData(parsingResult, key, async () => {
+      const measures = analysis.measures
+        ? buildManualMeasuresAndBeats(analysis.measures, timingNotes).measures
+        : parsingResult.measuresAndBeats.measures;
+      const phraseStarts = getPhraseStarts(analysis, measures.length);
+      const modulations = getModulations(analysis);
+      const bassNotes = await selectBassNotes(notes.flat(), measures);
+      return {
+        sectionStartTimesMs: (analysis.sections ?? [0])
+          .map((section) => measures[phraseStarts[section] - 1] * 1000)
+          .filter((time) => Number.isFinite(time) && time >= 0),
+        modulationMarkers: modulations.flatMap(({ measure, tonic }, index) => {
+          const previousTonic = modulations[index - 1]?.tonic;
+          const timeMs = measures[measure] * 1000;
+          if (tonic == null || previousTonic == null || !Number.isFinite(timeMs) || timeMs < 0)
+            return [];
+          return [{ timeMs, pitchClass: (tonic - previousTonic + 12) % 12 }];
+        }),
+        bassBars: bassNotes.map(({ start, end, note }) => ({
+          startMs: start * 1000,
+          endMs: end * 1000,
+          pitchClass: getNoteColorPitchClass(note, analysis, measures),
+        })),
+      };
+    });
+    pending.then((data) => {
+      if (!cancelled) timeSliderStore.publish(data);
+    }).catch((error) => {
+      if (!cancelled) {
+        console.error("Unable to prepare time slider colors", error);
+        timeSliderStore.publish(EMPTY_TIME_SLIDER_DATA);
+      }
+    });
+    return () => { cancelled = true; };
+  }, [analysis, notes, parsingResult, timingNotes, excludedVoices, drumVoiceSet, isEmbedded, timeSliderStore]);
+
+  useEffect(() => {
+    if (isEmbedded) return;
+    return () => timeSliderStore.publish(EMPTY_TIME_SLIDER_DATA);
+  }, [isEmbedded, timeSliderStore]);
 
   const handleNoteClick = useCallback(
     (note: Note) => {

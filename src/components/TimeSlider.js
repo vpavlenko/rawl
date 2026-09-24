@@ -2,6 +2,29 @@ import autoBindReact from "auto-bind/react";
 import React from "react";
 import styled from "styled-components";
 import Slider from "./Slider";
+import { EMPTY_TIME_SLIDER_DATA } from "./timeSliderData";
+
+const geometryCache = new WeakMap();
+function getGeometry(data, duration) {
+  let cached = geometryCache.get(data);
+  if (cached?.duration === duration) return cached;
+  cached = {
+    duration,
+    marks: [...data.sectionStartTimesMs
+      .map((time) => time / duration)
+      .filter((pos) => Number.isFinite(pos) && pos >= 0 && pos < 1), 1],
+    bassBars: data.bassBars.map(({ startMs, endMs, pitchClass }) => ({
+      start: Math.max(0, startMs / duration),
+      end: Math.min(1, endMs / duration),
+      pitchClass,
+    })).filter(({ start, end }) => Number.isFinite(start) && Number.isFinite(end) && end > start),
+    coloredMarks: data.modulationMarkers.map(({ timeMs, pitchClass }) => ({
+      pos: timeMs / duration, pitchClass,
+    })).filter(({ pos }) => Number.isFinite(pos) && pos >= 0 && pos <= 1),
+  };
+  geometryCache.set(data, cached);
+  return cached;
+}
 
 const TimeSliderContainer = styled.div`
   flex-grow: 1;
@@ -25,12 +48,13 @@ const DurationLabel = styled.div`
 const UPDATE_INTERVAL_MS = 100;
 const pad = (n) => (n < 10 ? "0" + n : n);
 
-export default class TimeSlider extends React.Component {
+export default class TimeSlider extends React.PureComponent {
   constructor(props) {
     super(props);
     autoBindReact(this);
 
     this.state = {
+      sliderData: props.timeSliderStore?.getSnapshot() ?? EMPTY_TIME_SLIDER_DATA,
       draggedSongPositionMs: -1,
       currentSongPositionMs: 0,
     };
@@ -38,13 +62,27 @@ export default class TimeSlider extends React.Component {
   }
 
   componentDidMount() {
+    this.subscribeToGeometry();
     this.syncPlaybackTimer();
   }
 
   componentDidUpdate(prevProps) {
+    if (prevProps.timeSliderStore !== this.props.timeSliderStore) {
+      this.unsubscribeGeometry?.();
+      this.subscribeToGeometry();
+    }
     if (prevProps.paused !== this.props.paused) {
       this.syncPlaybackTimer();
     }
+  }
+
+  subscribeToGeometry() {
+    const store = this.props.timeSliderStore;
+    const update = () => this.setState({
+      sliderData: store?.getSnapshot() ?? EMPTY_TIME_SLIDER_DATA,
+    });
+    this.unsubscribeGeometry = store?.subscribe(update);
+    update();
   }
 
   syncPlaybackTimer() {
@@ -67,6 +105,7 @@ export default class TimeSlider extends React.Component {
   }
 
   componentWillUnmount() {
+    this.unsubscribeGeometry?.();
     clearInterval(this.timer);
   }
 
@@ -107,6 +146,7 @@ export default class TimeSlider extends React.Component {
   }
 
   render() {
+    const geometry = getGeometry(this.state.sliderData, this.props.currentSongDurationMs);
     return (
       <TimeSliderContainer>
         <TimeLabel>{this.getTimeLabel()}</TimeLabel>
@@ -114,18 +154,9 @@ export default class TimeSlider extends React.Component {
           pos={this.getSongPos()}
           onDrag={this.handlePositionDrag}
           onChange={this.handlePositionDrop}
-          marks={[
-            ...(this.props.sectionStartTimesMs ?? [])
-              .map((time) => time / this.props.currentSongDurationMs)
-              .filter((pos) => Number.isFinite(pos) && pos >= 0 && pos < 1),
-            1,
-          ]}
-          coloredMarks={(this.props.modulationMarkers ?? [])
-            .map(({ timeMs, pitchClass }) => ({
-              pos: timeMs / this.props.currentSongDurationMs,
-              pitchClass,
-            }))
-            .filter(({ pos }) => Number.isFinite(pos) && pos >= 0 && pos <= 1)}
+          marks={geometry.marks}
+          bassBars={geometry.bassBars}
+          coloredMarks={geometry.coloredMarks}
         />
         <DurationLabel id="duration-label">
           {this.getTime(this.props.currentSongDurationMs)}

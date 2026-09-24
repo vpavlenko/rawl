@@ -1,3 +1,4 @@
+import { createTimeSliderStore, EMPTY_TIME_SLIDER_DATA } from "./timeSliderData";
 import autoBindReact from "auto-bind/react";
 import { initializeApp as firebaseInitializeApp } from "firebase/app";
 import {
@@ -47,7 +48,7 @@ import { handleSongClick as handleSongClickUtil } from "../handlers/handleSongCl
 import MIDIPlayer from "../players/ThreadedMIDIPlayer";
 import { unlockAudioContext } from "../util";
 import Alert from "./Alert";
-import { AppContext, ModulationMarker } from "./AppContext";
+import { AppContext } from "./AppContext";
 import { PlaybackTimeProvider } from "./PlaybackTimeContext";
 import AppFooter, { FOOTER_HEIGHT } from "./AppFooter";
 import AppHeader, { HEADER_HEIGHT } from "./AppHeader";
@@ -106,8 +107,6 @@ type AppState = {
   tempo: number;
   transpose: number;
   firstTonic: number | null;
-  sectionStartTimesMs: number[];
-  modulationMarkers: ModulationMarker[];
   voiceMask: VoiceMask;
   voiceNames: string[];
   showPlayerError: boolean;
@@ -149,6 +148,7 @@ const AppMainContent = styled.div`
 `;
 
 class App extends React.Component<RouteComponentProps, AppState> {
+  private timeSliderStore = createTimeSliderStore();
   private contentAreaRef: React.RefObject<HTMLDivElement>;
   private errorTimer: number;
   private midiPlayer: MIDIPlayer;
@@ -240,8 +240,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
       tempo: 1,
       transpose: 0,
       firstTonic: null,
-      sectionStartTimesMs: [],
-      modulationMarkers: [],
       voiceMask: Array(MAX_VOICES).fill(true),
       voiceNames: Array(MAX_VOICES).fill(""),
       showPlayerError: false,
@@ -904,28 +902,6 @@ class App extends React.Component<RouteComponentProps, AppState> {
     );
   };
 
-  setSectionStartTimesMs = (sectionStartTimesMs: number[]) => {
-    this.setState((state) =>
-      state.sectionStartTimesMs.length === sectionStartTimesMs.length &&
-      state.sectionStartTimesMs.every((time, i) => time === sectionStartTimesMs[i])
-        ? null
-        : { sectionStartTimesMs },
-    );
-  };
-
-  setModulationMarkers = (modulationMarkers: ModulationMarker[]) => {
-    this.setState((state) =>
-      state.modulationMarkers.length === modulationMarkers.length &&
-      state.modulationMarkers.every(
-        (marker, i) =>
-          marker.timeMs === modulationMarkers[i].timeMs &&
-          marker.pitchClass === modulationMarkers[i].pitchClass,
-      )
-        ? null
-        : { modulationMarkers },
-    );
-  };
-
   handleTempoChange(event) {
     const tempo = parseFloat(event.target ? event.target.value : event) || 1.0;
     this.midiPlayer?.setTempo(tempo);
@@ -1182,11 +1158,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
     signal?: AbortSignal,
   ) {
     this.midiPlayer.suspend();
+    this.timeSliderStore.publish(EMPTY_TIME_SLIDER_DATA);
     this.setState({
       transpose: 0,
       firstTonic: null,
-      sectionStartTimesMs: [],
-      modulationMarkers: [],
     });
 
     const inputArray =
@@ -1462,10 +1437,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
             tempo: this.state.tempo,
             transpose: this.state.transpose,
             setFirstTonic: this.setFirstTonic,
-            sectionStartTimesMs: this.state.sectionStartTimesMs,
-            setSectionStartTimesMs: this.setSectionStartTimesMs,
-            modulationMarkers: this.state.modulationMarkers,
-            setModulationMarkers: this.setModulationMarkers,
+            timeSliderStore: this.timeSliderStore,
           }}
         >
           <Dropzone disableClick style={{}} onDrop={this.onDrop}>

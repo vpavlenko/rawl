@@ -218,7 +218,8 @@ body,
     --pitch-color-11: #ffff00;
 }
 
-.noteColor_default {
+.noteColor_default,
+.noteColor_default_colors {
     background-color: white;
 }
 

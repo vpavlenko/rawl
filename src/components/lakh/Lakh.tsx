@@ -196,6 +196,7 @@ const SearchResults = styled.ul`
 `;
 const Entry = styled(Link)<{
   $annotated: boolean;
+  $hasFewSections?: boolean;
   $folder: boolean;
   $version?: boolean;
   $hasAlbums?: boolean;
@@ -209,11 +210,13 @@ const Entry = styled(Link)<{
   &,
   &:link,
   &:visited {
-    color: ${({ $annotated, $folder, $version }) =>
+    color: ${({ $annotated, $hasFewSections, $folder, $version }) =>
       !$annotated
         ? $version
           ? "#888"
           : "#ddd"
+        : $hasFewSections
+        ? "#ff8fbd"
         : $folder
         ? "#f2d18d"
         : "#ffe45c"};
@@ -567,6 +570,21 @@ const Directory = React.memo(function Directory({
     () => new Set(Object.keys(analyses).filter((key) => !!analyses[key])),
     [analyses],
   );
+  const annotatedWithFewSections = useMemo(
+    () =>
+      new Set(
+        Object.keys(analyses).filter(
+          (key) => analyses[key] && (analyses[key].sections?.length ?? 0) <= 1,
+        ),
+      ),
+    [analyses],
+  );
+  const artistHasFewSections = (item: DirectoryArtist) =>
+    item.members.some((member) =>
+      member.tracks.some((file) =>
+        annotatedWithFewSections.has(lakhAnalysisKey(member.name, file)),
+      ),
+    );
   const annotatedSongs = (item: DirectoryArtist) =>
     countSongs(
       item.members.flatMap((member) =>
@@ -592,14 +610,14 @@ const Directory = React.memo(function Directory({
     query = "",
   ) => {
     const original = trackSources.get(file)!;
-    const hasAnalysis = annotated.has(
-      lakhAnalysisKey(original.source.name, original.file),
-    );
+    const analysisKey = lakhAnalysisKey(original.source.name, original.file);
+    const hasAnalysis = annotated.has(analysisKey);
     return (
       <Entry
         to={lakhTrackUrl(original.source, original.file)}
         $folder={false}
         $annotated={hasAnalysis}
+        $hasFewSections={annotatedWithFewSections.has(analysisKey)}
         $version={label !== undefined && /^\d+$/.test(label)}
         title={`${file}${hasAnalysis ? " · Annotated" : ""}`}
         aria-label={`${file.replace(/\.mid$/i, "")}${
@@ -636,6 +654,7 @@ const Directory = React.memo(function Directory({
           }
           $folder
           $annotated={count > 0}
+          $hasFewSections={artistHasFewSections(item)}
           $hasAlbums={item.members.some(
             (member) => member.name === "The Beatles" || albumArtistSlugs.has(member.slug),
           )}
@@ -695,7 +714,8 @@ const Directory = React.memo(function Directory({
                     <Entry
                       to={lakhArtistUrl(resultArtist)}
                       $folder
-                      $annotated={false}
+                      $annotated={annotatedSongs(resultArtist) > 0}
+                      $hasFewSections={artistHasFewSections(resultArtist)}
                     >
                       {artistName}
                     </Entry>

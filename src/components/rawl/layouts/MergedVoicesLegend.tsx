@@ -168,7 +168,20 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                 />{" "}
                 <label
                   htmlFor={`voice-active-${voiceIndex}`}
-                  aria-label={`${voiceName}: click to toggle, hover to solo temporarily`}
+                  aria-label={`${voiceName}: click to solo or unsolo, hover to solo temporarily`}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    const isSingleActive =
+                      voiceMask[voiceIndex] &&
+                      voiceMask.filter(Boolean).length === 1;
+                    onVoiceHover(null);
+                    setVoiceMask(
+                      isSingleActive
+                        ? allIncluded
+                        : voiceMask.map((_, index) => index === voiceIndex),
+                    );
+                  }}
                   onMouseEnter={() => onVoiceHover(voiceIndex)}
                   onMouseLeave={() => onVoiceHover(null)}
                   style={{

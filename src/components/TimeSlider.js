@@ -114,6 +114,9 @@ export default class TimeSlider extends React.Component {
           pos={this.getSongPos()}
           onDrag={this.handlePositionDrag}
           onChange={this.handlePositionDrop}
+          marks={(this.props.sectionStartTimesMs ?? [])
+            .map((time) => time / this.props.currentSongDurationMs)
+            .filter((pos) => Number.isFinite(pos) && pos >= 0 && pos <= 1)}
         />
         <DurationLabel id="duration-label">
           {this.getTime(this.props.currentSongDurationMs)}

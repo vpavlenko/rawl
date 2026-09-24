@@ -34,6 +34,16 @@ const SliderRail = styled.div`
   border: 1px solid var(--clickable);
 `;
 
+const SliderMark = styled.div`
+  position: absolute;
+  top: 50%;
+  width: 1px;
+  height: 10px;
+  background: #fff;
+  transform: translateX(-50%) translateY(-50%);
+  pointer-events: none;
+`;
+
 const SliderKnob = styled.div`
   height: var(--charH);
   width: var(--charW1);
@@ -160,6 +170,13 @@ export default class Slider extends PureComponent {
     return (
       <SliderContainer ref={this.node} onMouseDown={this.onMouseDown}>
         <SliderRail />
+        {(this.props.marks ?? []).map((mark, index) => (
+          <SliderMark
+            key={index}
+            aria-hidden="true"
+            style={{ left: `${mark * 100}%` }}
+          />
+        ))}
         <SliderKnob pos={pos} dragging={this.state.dragging} />
       </SliderContainer>
     );

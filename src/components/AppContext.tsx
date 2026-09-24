@@ -55,6 +55,8 @@ export interface AppContextType {
   tempo: number;
   transpose: number;
   setFirstTonic: (tonic: number | null) => void;
+  sectionStartTimesMs: number[];
+  setSectionStartTimesMs: (times: number[]) => void;
 }
 
 export const AppContext = React.createContext<AppContextType | undefined>(

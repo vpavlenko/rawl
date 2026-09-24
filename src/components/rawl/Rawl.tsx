@@ -191,6 +191,7 @@ const Rawl: React.FC<RawlProps> = ({
     rawlProps,
     togglePause,
     setFirstTonic,
+    setSectionStartTimesMs,
     transpose,
   } = useContext(AppContext);
   const slug = currentMidi?.slug || "";
@@ -404,6 +405,22 @@ const Rawl: React.FC<RawlProps> = ({
     }
     return parsingResult?.measuresAndBeats;
   }, [futureAnalysis, timingNotes, parsingResult]);
+
+  useEffect(() => {
+    if (isEmbedded) return;
+    const measures = measuresAndBeats?.measures ?? [];
+    const phraseStarts = getPhraseStarts(analysis, measures.length);
+    setSectionStartTimesMs(
+      (analysis.sections ?? [0])
+        .map((section) => measures[phraseStarts[section] - 1] * 1000)
+        .filter((time) => Number.isFinite(time) && time >= 0),
+    );
+  }, [analysis, measuresAndBeats, isEmbedded, setSectionStartTimesMs]);
+
+  useEffect(() => {
+    if (isEmbedded) return;
+    return () => setSectionStartTimesMs([]);
+  }, [isEmbedded, setSectionStartTimesMs]);
 
   const selectMeasure = useCallback(
     (measure) => {

@@ -105,6 +105,7 @@ type AppState = {
   tempo: number;
   transpose: number;
   firstTonic: number | null;
+  sectionStartTimesMs: number[];
   voiceMask: VoiceMask;
   voiceNames: string[];
   showPlayerError: boolean;
@@ -224,6 +225,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       tempo: 1,
       transpose: 0,
       firstTonic: null,
+      sectionStartTimesMs: [],
       voiceMask: Array(MAX_VOICES).fill(true),
       voiceNames: Array(MAX_VOICES).fill(""),
       showPlayerError: false,
@@ -854,6 +856,15 @@ class App extends React.Component<RouteComponentProps, AppState> {
     );
   };
 
+  setSectionStartTimesMs = (sectionStartTimesMs: number[]) => {
+    this.setState((state) =>
+      state.sectionStartTimesMs.length === sectionStartTimesMs.length &&
+      state.sectionStartTimesMs.every((time, i) => time === sectionStartTimesMs[i])
+        ? null
+        : { sectionStartTimesMs },
+    );
+  };
+
   handleTempoChange(event) {
     const tempo = parseFloat(event.target ? event.target.value : event) || 1.0;
     this.midiPlayer?.setTempo(tempo);
@@ -1110,7 +1121,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     signal?: AbortSignal,
   ) {
     this.midiPlayer.suspend();
-    this.setState({ transpose: 0, firstTonic: null });
+    this.setState({ transpose: 0, firstTonic: null, sectionStartTimesMs: [] });
 
     const inputArray =
       buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
@@ -1384,6 +1395,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
             tempo: this.state.tempo,
             transpose: this.state.transpose,
             setFirstTonic: this.setFirstTonic,
+            sectionStartTimesMs: this.state.sectionStartTimesMs,
+            setSectionStartTimesMs: this.setSectionStartTimesMs,
           }}
         >
           <Dropzone disableClick style={{}} onDrop={this.onDrop}>

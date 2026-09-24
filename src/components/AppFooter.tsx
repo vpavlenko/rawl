@@ -210,6 +210,7 @@ const AppFooter: React.FC<
             currentSongDurationMs={currentSongDurationMs}
             getCurrentPositionMs={getCurrentPositionMs}
             onChange={handleTimeSliderChange}
+            sectionStartTimesMs={context?.sectionStartTimesMs ?? []}
           />
         </TimeSliderWrapper>
 

@@ -505,27 +505,35 @@ const Rawl: React.FC<RawlProps> = ({
   );
 
   useEffect(() => {
-    if (analysis.phrasePatch?.length > 0 || allNotes.length === 0) {
-      return;
-    }
+    const needsPhrase = !analysis.phrasePatch?.length;
+    const needsTonic = analysis.modulations[1] === null;
+    if ((!needsPhrase && !needsTonic) || allNotes.length === 0) return;
 
     const pitchedNotes = allNotes.filter((note) => !note.isDrum);
     if (pitchedNotes.length === 0) return;
-    const firstPhraseStart = findFirstPhraseStart(
-      pitchedNotes,
-      measuresAndBeats,
-    );
     const diff: Partial<Analysis> = {};
-    if (firstPhraseStart !== -1) {
-      diff.phrasePatch = [{ measure: 1, diff: firstPhraseStart }];
+    if (needsPhrase) {
+      const firstPhraseStart = findFirstPhraseStart(
+        pitchedNotes,
+        measuresAndBeats,
+      );
+      if (firstPhraseStart !== -1) {
+        diff.phrasePatch = [{ measure: 1, diff: firstPhraseStart }];
+      }
     }
 
-    const tonic = findTonic(pitchedNotes);
-    if (tonic !== -1 && analysis.modulations[1] === null) {
-      diff.modulations = { 1: tonic };
+    if (needsTonic) {
+      const tonic = findTonic(pitchedNotes);
+      if (tonic !== -1) {
+        diff.modulations = { ...analysis.modulations, 1: tonic };
+      }
     }
-    setAnalysis({ ...analysis, ...diff });
-  }, [allNotes]);
+    // Saved analysis can arrive after the notes. Fill missing defaults again
+    // without replacing existing phrase edits or later modulations.
+    if (Object.keys(diff).length > 0) {
+      setAnalysis({ ...analysis, ...diff });
+    }
+  }, [allNotes, analysis, measuresAndBeats]);
 
   const coloredNotes: ColoredNotesInVoices = useMemo(() => {
     // Initialize array to count notes by color (0-11)

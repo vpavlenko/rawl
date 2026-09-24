@@ -25,13 +25,13 @@ const SliderContainer = styled.div`
 
 const SliderRail = styled.div`
   width: calc(100% + var(--charW1));
-  height: 3px;
-  margin-top: -2px;
-  background: none;
+  height: 1px;
+  margin-top: -1px;
+  background: #fff;
   position: absolute;
   top: 50%;
   box-sizing: border-box;
-  border: 1px solid var(--clickable);
+  border: 0;
 `;
 
 const SliderMark = styled.div`
@@ -63,6 +63,23 @@ const SliderKnob = styled.div`
   box-shadow: none;
   left: ${(props) => props.pos};
   transition: ${(props) => (props.dragging ? "none" : "left 0.37s linear")};
+`;
+
+const SliderMagnifier = styled.div`
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  clip-path: inset(
+    0 calc(100% - ${(props) => props.$pos} - var(--charW1)) 0
+      ${(props) => props.$pos}
+  );
+  transition: ${(props) =>
+    props.$dragging ? "none" : "clip-path 0.37s linear"};
+
+  ${SliderColoredMark} {
+    top: calc(50% - 6.5px);
+    height: 12px;
+  }
 `;
 
 export const StyledRangeInput = styled.input.attrs({ type: "range" })`
@@ -196,6 +213,21 @@ export default class Slider extends PureComponent {
           />
         ))}
         <SliderKnob pos={pos} dragging={this.state.dragging} />
+        <SliderMagnifier
+          $pos={pos}
+          $dragging={this.state.dragging}
+          aria-hidden="true"
+        >
+          {(this.props.coloredMarks ?? []).map(({ pos, pitchClass }, index) => (
+            <SliderColoredMark
+              key={index}
+              style={{
+                left: `${pos * 100}%`,
+                backgroundColor: `var(--pitch-color-${pitchClass})`,
+              }}
+            />
+          ))}
+        </SliderMagnifier>
       </SliderContainer>
     );
   }

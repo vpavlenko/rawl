@@ -192,6 +192,7 @@ const Rawl: React.FC<RawlProps> = ({
     togglePause,
     setFirstTonic,
     setSectionStartTimesMs,
+    setModulationMarkers,
     transpose,
   } = useContext(AppContext);
   const slug = currentMidi?.slug || "";
@@ -421,6 +422,32 @@ const Rawl: React.FC<RawlProps> = ({
     if (isEmbedded) return;
     return () => setSectionStartTimesMs([]);
   }, [isEmbedded, setSectionStartTimesMs]);
+
+  useEffect(() => {
+    if (isEmbedded) return;
+    const measures = measuresAndBeats?.measures ?? [];
+    const modulations = getModulations(analysis);
+    setModulationMarkers(
+      modulations.flatMap(({ measure, tonic }, index) => {
+        const previousTonic = modulations[index - 1]?.tonic;
+        const timeMs = measures[measure] * 1000;
+        if (
+          tonic == null ||
+          previousTonic == null ||
+          !Number.isFinite(timeMs) ||
+          timeMs < 0
+        ) {
+          return [];
+        }
+        return [{ timeMs, pitchClass: (tonic - previousTonic + 12) % 12 }];
+      }),
+    );
+  }, [analysis, measuresAndBeats, isEmbedded, setModulationMarkers]);
+
+  useEffect(() => {
+    if (isEmbedded) return;
+    return () => setModulationMarkers([]);
+  }, [isEmbedded, setModulationMarkers]);
 
   const selectMeasure = useCallback(
     (measure) => {

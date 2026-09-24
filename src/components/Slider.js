@@ -38,9 +38,17 @@ const SliderMark = styled.div`
   position: absolute;
   top: 50%;
   width: 1px;
-  height: 10px;
+  height: 15px;
   background: #fff;
   transform: translateX(-50%) translateY(-50%);
+  pointer-events: none;
+`;
+
+const SliderColoredMark = styled.div`
+  position: absolute;
+  top: calc(50% - 4.25px);
+  width: 10px;
+  height: 7.5px;
   pointer-events: none;
 `;
 
@@ -170,6 +178,16 @@ export default class Slider extends PureComponent {
     return (
       <SliderContainer ref={this.node} onMouseDown={this.onMouseDown}>
         <SliderRail />
+        {(this.props.coloredMarks ?? []).map(({ pos, pitchClass }, index) => (
+          <SliderColoredMark
+            key={index}
+            aria-hidden="true"
+            style={{
+              left: `${pos * 100}%`,
+              backgroundColor: `var(--pitch-color-${pitchClass})`,
+            }}
+          />
+        ))}
         {(this.props.marks ?? []).map((mark, index) => (
           <SliderMark
             key={index}

@@ -47,7 +47,7 @@ import { handleSongClick as handleSongClickUtil } from "../handlers/handleSongCl
 import MIDIPlayer from "../players/ThreadedMIDIPlayer";
 import { unlockAudioContext } from "../util";
 import Alert from "./Alert";
-import { AppContext } from "./AppContext";
+import { AppContext, ModulationMarker } from "./AppContext";
 import { PlaybackTimeProvider } from "./PlaybackTimeContext";
 import AppFooter, { FOOTER_HEIGHT } from "./AppFooter";
 import AppHeader, { HEADER_HEIGHT } from "./AppHeader";
@@ -106,6 +106,7 @@ type AppState = {
   transpose: number;
   firstTonic: number | null;
   sectionStartTimesMs: number[];
+  modulationMarkers: ModulationMarker[];
   voiceMask: VoiceMask;
   voiceNames: string[];
   showPlayerError: boolean;
@@ -226,6 +227,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       transpose: 0,
       firstTonic: null,
       sectionStartTimesMs: [],
+      modulationMarkers: [],
       voiceMask: Array(MAX_VOICES).fill(true),
       voiceNames: Array(MAX_VOICES).fill(""),
       showPlayerError: false,
@@ -865,6 +867,19 @@ class App extends React.Component<RouteComponentProps, AppState> {
     );
   };
 
+  setModulationMarkers = (modulationMarkers: ModulationMarker[]) => {
+    this.setState((state) =>
+      state.modulationMarkers.length === modulationMarkers.length &&
+      state.modulationMarkers.every(
+        (marker, i) =>
+          marker.timeMs === modulationMarkers[i].timeMs &&
+          marker.pitchClass === modulationMarkers[i].pitchClass,
+      )
+        ? null
+        : { modulationMarkers },
+    );
+  };
+
   handleTempoChange(event) {
     const tempo = parseFloat(event.target ? event.target.value : event) || 1.0;
     this.midiPlayer?.setTempo(tempo);
@@ -1121,7 +1136,12 @@ class App extends React.Component<RouteComponentProps, AppState> {
     signal?: AbortSignal,
   ) {
     this.midiPlayer.suspend();
-    this.setState({ transpose: 0, firstTonic: null, sectionStartTimesMs: [] });
+    this.setState({
+      transpose: 0,
+      firstTonic: null,
+      sectionStartTimesMs: [],
+      modulationMarkers: [],
+    });
 
     const inputArray =
       buffer instanceof Uint8Array ? buffer : new Uint8Array(buffer);
@@ -1397,6 +1417,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
             setFirstTonic: this.setFirstTonic,
             sectionStartTimesMs: this.state.sectionStartTimesMs,
             setSectionStartTimesMs: this.setSectionStartTimesMs,
+            modulationMarkers: this.state.modulationMarkers,
+            setModulationMarkers: this.setModulationMarkers,
           }}
         >
           <Dropzone disableClick style={{}} onDrop={this.onDrop}>

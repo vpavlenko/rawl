@@ -117,6 +117,12 @@ export default class TimeSlider extends React.Component {
           marks={(this.props.sectionStartTimesMs ?? [])
             .map((time) => time / this.props.currentSongDurationMs)
             .filter((pos) => Number.isFinite(pos) && pos >= 0 && pos <= 1)}
+          coloredMarks={(this.props.modulationMarkers ?? [])
+            .map(({ timeMs, pitchClass }) => ({
+              pos: timeMs / this.props.currentSongDurationMs,
+              pitchClass,
+            }))
+            .filter(({ pos }) => Number.isFinite(pos) && pos >= 0 && pos <= 1)}
         />
         <DurationLabel id="duration-label">
           {this.getTime(this.props.currentSongDurationMs)}

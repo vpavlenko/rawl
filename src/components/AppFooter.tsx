@@ -211,6 +211,7 @@ const AppFooter: React.FC<
             getCurrentPositionMs={getCurrentPositionMs}
             onChange={handleTimeSliderChange}
             sectionStartTimesMs={context?.sectionStartTimesMs ?? []}
+            modulationMarkers={context?.modulationMarkers ?? []}
           />
         </TimeSliderWrapper>
 

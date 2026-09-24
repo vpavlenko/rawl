@@ -12,6 +12,8 @@ export type CurrentMidi = {
   analysisKey?: string;
 } | null;
 
+export type ModulationMarker = { timeMs: number; pitchClass: number };
+
 export interface AppContextType {
   handleSongClick: (slug: string) => Promise<void>;
   rawlProps: RawlProps | null;
@@ -57,6 +59,8 @@ export interface AppContextType {
   setFirstTonic: (tonic: number | null) => void;
   sectionStartTimesMs: number[];
   setSectionStartTimesMs: (times: number[]) => void;
+  modulationMarkers: ModulationMarker[];
+  setModulationMarkers: (markers: ModulationMarker[]) => void;
 }
 
 export const AppContext = React.createContext<AppContextType | undefined>(

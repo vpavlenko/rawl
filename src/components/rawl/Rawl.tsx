@@ -209,28 +209,28 @@ const Rawl: React.FC<RawlProps> = ({
   const [analysis, setAnalysis] = useState<Analysis>(
     savedAnalysis || rawlProps?.savedAnalysis || ANALYSIS_STUB,
   );
+  const analysisRef = useRef(analysis);
 
   useEffect(() => {
-    setAnalysis(savedAnalysis || rawlProps?.savedAnalysis || ANALYSIS_STUB);
+    const nextAnalysis = savedAnalysis || rawlProps?.savedAnalysis || ANALYSIS_STUB;
+    analysisRef.current = nextAnalysis;
+    setAnalysis(nextAnalysis);
   }, [savedAnalysis, rawlProps?.savedAnalysis]);
 
-  const analysisRef = useRef(analysis);
   useEffect(() => {
     setFirstTonic(getModulations(analysis)[0]?.tonic ?? null);
   }, [analysis.modulations, parsingResult, setFirstTonic]);
-  useEffect(() => {
-    analysisRef.current = analysis;
-  }, [analysis]);
 
   const [systemLayout, setSystemLayout] = useState<SystemLayout>("merged");
 
   const commitAnalysisUpdate = useCallback(
     (analysisUpdate: Partial<Analysis>) => {
-      const updatedAnalysis = { ...analysis, ...analysisUpdate };
-      saveAnalysis(updatedAnalysis);
+      const updatedAnalysis = { ...analysisRef.current, ...analysisUpdate };
+      analysisRef.current = updatedAnalysis;
       setAnalysis(updatedAnalysis);
+      saveAnalysis(updatedAnalysis);
     },
-    [analysis, saveAnalysis],
+    [saveAnalysis],
   );
 
   const [selectedMeasure, setSelectedMeasure] = useState<number | null>(null);
@@ -581,7 +581,9 @@ const Rawl: React.FC<RawlProps> = ({
     // Saved analysis can arrive after the notes. Fill missing defaults again
     // without replacing existing phrase edits or later modulations.
     if (Object.keys(diff).length > 0) {
-      setAnalysis({ ...analysis, ...diff });
+      const updatedAnalysis = { ...analysisRef.current, ...diff };
+      analysisRef.current = updatedAnalysis;
+      setAnalysis(updatedAnalysis);
     }
   }, [allNotes, analysis, measuresAndBeats]);
 

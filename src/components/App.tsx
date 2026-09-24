@@ -61,6 +61,7 @@ import Rawl, { RawlProps } from "./rawl/Rawl";
 import { ShortcutHelp } from "./rawl/ShortcutHelp";
 import {
   Analyses,
+  Analysis,
   MeasuresSpan,
   getExcludedVoices,
   getDrumVoices,
@@ -173,10 +174,23 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private annotationSelections: Record<string, string> = {};
   private annotationWrites: Promise<void> = Promise.resolve();
   private editedAnnotations = new Set<string>();
+  private annotationRevisions = new Map<string, number>();
+  private unsavedAnnotations = new Set<string>();
+  private pendingAnnotationSaves = new Map<
+    string,
+    { analysis: Analysis; revision: number; promise: Promise<void> }
+  >();
+
+  private warnAboutUnsavedAnnotations = (event: BeforeUnloadEvent) => {
+    if (!this.unsavedAnnotations.size) return;
+    event.preventDefault();
+    event.returnValue = "";
+  };
 
   constructor(props) {
     super(props);
     autoBindReact(this);
+    window.addEventListener("beforeunload", this.warnAboutUnsavedAnnotations);
 
     this.attachMediaKeyHandlers();
     this.contentAreaRef = React.createRef();
@@ -484,7 +498,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
         await this.saveFirebaseAnnotation(analysisKey, analysis);
       } catch (error) {
         console.error("Could not save annotation", error);
-        alert("Could not save your annotation. Please try again.");
+        alert(
+          "Could not save your annotation. Your edits are still available in this tab. Please retry saving before closing it.",
+        );
       }
     } else {
       this.setState((previous) => ({
@@ -509,10 +525,39 @@ class App extends React.Component<RouteComponentProps, AppState> {
     if (!analysis || typeof analysis !== "object" || Array.isArray(analysis)) {
       throw new Error("An annotation must be a JSON object");
     }
-    // Serialize edits so older writes cannot overwrite newer ones.
+    const key = `${user.uid}:${analysisKey}`;
+    const revision = (this.annotationRevisions.get(key) || 0) + 1;
+    this.annotationRevisions.set(key, revision);
+    this.unsavedAnnotations.add(key);
+    // Local edits are authoritative immediately, including while initial reads
+    // are still in flight. A save acknowledgement must never replay old state.
+    this.editedAnnotations.add(key);
+    this.putAnnotation(
+      analysisKey,
+      user.uid,
+      user.uid === ADMIN_USER_ID ? "Admin" : user.displayName || "Contributor",
+      analysis,
+    );
+    this.annotationSelections[analysisKey] = user.uid;
+    this.refreshAnnotations();
+
+    const pending = this.pendingAnnotationSaves.get(key);
+    if (pending) {
+      pending.analysis = analysis;
+      pending.revision = revision;
+      return pending.promise;
+    }
+
+    const save = { analysis, revision, promise: Promise.resolve() };
+    this.pendingAnnotationSaves.set(key, save);
+    // Keep at most one waiting snapshot per annotation. Once a write starts,
+    // subsequent edits get a new queue entry and cannot mutate that write.
     const write = this.annotationWrites
       .catch(() => {})
       .then(async () => {
+        if (this.pendingAnnotationSaves.get(key) === save)
+          this.pendingAnnotationSaves.delete(key);
+        const { analysis, revision } = save;
         if (user.uid === ADMIN_USER_ID) {
           await setDoc(
             doc(this.db, "users", user.uid),
@@ -529,19 +574,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
             analysis,
           });
         }
-        this.editedAnnotations.add(`${user.uid}:${analysisKey}`);
-        this.putAnnotation(
-          analysisKey,
-          user.uid,
-          user.uid === ADMIN_USER_ID
-            ? "Admin"
-            : user.displayName || "Contributor",
-          analysis,
-        );
-        if (this.state.user?.uid === user.uid)
-          this.annotationSelections[analysisKey] = user.uid;
-        this.refreshAnnotations();
+        if (this.annotationRevisions.get(key) === revision)
+          this.unsavedAnnotations.delete(key);
       });
+    save.promise = write;
     this.annotationWrites = write;
     await write;
   }
@@ -550,6 +586,13 @@ class App extends React.Component<RouteComponentProps, AppState> {
     const user = this.state.user;
     if (!user || !analysisKey)
       throw new Error("Sign in to delete your annotation");
+    const key = `${user.uid}:${analysisKey}`;
+    const revision = (this.annotationRevisions.get(key) || 0) + 1;
+    this.annotationRevisions.set(key, revision);
+    this.unsavedAnnotations.add(key);
+    this.editedAnnotations.add(key);
+    // A delete is an ordering barrier: later saves must go after it.
+    this.pendingAnnotationSaves.delete(key);
     const write = this.annotationWrites
       .catch(() => {})
       .then(async () => {
@@ -565,6 +608,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
         }
         if (user.uid !== ADMIN_USER_ID)
           await deleteDoc(this.annotationRef(analysisKey, user.uid));
+        if (this.annotationRevisions.get(key) !== revision) return;
+        this.unsavedAnnotations.delete(key);
         this.editedAnnotations.add(`${user.uid}:${analysisKey}`);
         const owners = { ...this.annotationVersions[analysisKey] };
         delete owners[user.uid];
@@ -577,7 +622,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
             defaultAnalyses[analysisKey],
           );
         }
-        delete this.annotationSelections[analysisKey];
+        if (this.state.user?.uid === user.uid)
+          delete this.annotationSelections[analysisKey];
         this.refreshAnnotations();
       });
     this.annotationWrites = write;
@@ -1244,6 +1290,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.midiPlayer?.isPlaying() ? this.midiPlayer.getPositionMs() / 1000 : null;
 
   componentWillUnmount() {
+    window.removeEventListener("beforeunload", this.warnAboutUnsavedAnnotations);
     this.syncMediaSession("none");
     if ("mediaSession" in navigator) {
       const actions: MediaSessionAction[] = [

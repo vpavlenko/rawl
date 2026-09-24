@@ -1,3 +1,4 @@
+import { AnnotationVersions } from "./annotationVersions";
 import { User } from "firebase/auth";
 import React from "react";
 import { Analysis, MeasuresSpan } from "./rawl/analysis";
@@ -16,6 +17,9 @@ export interface AppContextType {
   rawlProps: RawlProps | null;
   setRawlProps: (rawlProps: RawlProps | null) => void;
   analyses: Record<string, Analysis>;
+  annotationVersions: AnnotationVersions;
+  selectedAnnotationOwners: Record<string, string>;
+  selectAnnotation: (analysisKey: string, ownerId: string) => void;
   saveAnalysis: (analysis: Analysis) => void;
   getFirebaseAnnotation: (analysisKey: string) => Promise<Analysis | null>;
   saveFirebaseAnnotation: (

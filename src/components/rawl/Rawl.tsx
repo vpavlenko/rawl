@@ -185,8 +185,14 @@ const Rawl: React.FC<RawlProps> = ({
   navigateToSourceLocation,
   onEject,
 }) => {
-  const { currentMidi, setCurrentMidi, rawlProps, togglePause, setFirstTonic, transpose } =
-    useContext(AppContext);
+  const {
+    currentMidi,
+    setCurrentMidi,
+    rawlProps,
+    togglePause,
+    setFirstTonic,
+    transpose,
+  } = useContext(AppContext);
   const slug = currentMidi?.slug || "";
   const lakhKey = currentMidi?.analysisKey?.startsWith("c/MIDI/")
     ? currentMidi.analysisKey
@@ -202,11 +208,7 @@ const Rawl: React.FC<RawlProps> = ({
   );
 
   useEffect(() => {
-    if (savedAnalysis) {
-      setAnalysis(savedAnalysis);
-    } else if (rawlProps?.savedAnalysis) {
-      setAnalysis(rawlProps.savedAnalysis);
-    }
+    setAnalysis(savedAnalysis || rawlProps?.savedAnalysis || ANALYSIS_STUB);
   }, [savedAnalysis, rawlProps?.savedAnalysis]);
 
   const analysisRef = useRef(analysis);
@@ -352,13 +354,16 @@ const Rawl: React.FC<RawlProps> = ({
 
   const [hoveredNote, setHoveredNote] = useState<Note | null>(null);
 
-  const playNote = useCallback((note: Note) => {
-    const duration = note.span[1] - note.span[0];
-    playRawMidiNote(
-      note.note.midiNumber + (note.isDrum ? 0 : transpose),
-      duration * 1000,
-    );
-  }, [transpose]);
+  const playNote = useCallback(
+    (note: Note) => {
+      const duration = note.span[1] - note.span[0];
+      playRawMidiNote(
+        note.note.midiNumber + (note.isDrum ? 0 : transpose),
+        duration * 1000,
+      );
+    },
+    [transpose],
+  );
 
   const handleMouseEnter = useCallback(
     (note: Note) => {
@@ -597,7 +602,10 @@ const Rawl: React.FC<RawlProps> = ({
   );
 
   const [playbackMeasure, setPlaybackMeasure] = useState<number | null>(() =>
-    findPlaybackMeasure(measuresAndBeats?.measures || [], getCurrentPositionMs() / 1000),
+    findPlaybackMeasure(
+      measuresAndBeats?.measures || [],
+      getCurrentPositionMs() / 1000,
+    ),
   );
   const drumPlaybackClock = useDrumPlaybackClock();
   const notePlaybackClock = useNotePlaybackClock();
@@ -619,7 +627,10 @@ const Rawl: React.FC<RawlProps> = ({
       unstable_batchedUpdates(() => {
         drumPlaybackClock.advance(position / 1000);
         notePlaybackClock.advance(position / 1000);
-        const measure = findPlaybackMeasure(measuresAndBeats?.measures || [], position / 1000);
+        const measure = findPlaybackMeasure(
+          measuresAndBeats?.measures || [],
+          position / 1000,
+        );
         if (measure !== previousMeasure) {
           previousMeasure = measure;
           setPlaybackMeasure(measure);
@@ -634,7 +645,13 @@ const Rawl: React.FC<RawlProps> = ({
       running = false;
       cancelAnimationFrame(frameId);
     };
-  }, [getCurrentPositionMs, drumPlaybackClock, notePlaybackClock, parsingResult, measuresAndBeats?.measures]);
+  }, [
+    getCurrentPositionMs,
+    drumPlaybackClock,
+    notePlaybackClock,
+    parsingResult,
+    measuresAndBeats?.measures,
+  ]);
 
   useEffect(() => {
     const handleEscapePress = (event) => {
@@ -691,7 +708,7 @@ const Rawl: React.FC<RawlProps> = ({
   const currentTonic = useMemo(() => {
     if (playbackMeasure === null) return 0;
     const tonic = getTonic(playbackMeasure - 1, futureAnalysis);
-    return tonic == null ? tonic : ((tonic + transpose) % 12 + 12) % 12;
+    return tonic == null ? tonic : (((tonic + transpose) % 12) + 12) % 12;
   }, [playbackMeasure, futureAnalysis, transpose]);
 
   const mouseHandlers: MouseHandlers = useMemo(

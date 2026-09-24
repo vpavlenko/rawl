@@ -10,6 +10,12 @@ import {
 } from "firebase/auth";
 import {
   Firestore,
+  collection,
+  getDocs,
+  deleteDoc,
+  deleteField,
+  FieldPath,
+  updateDoc,
   doc,
   getDoc,
   getFirestore,
@@ -74,10 +80,16 @@ import { DropSaveForm, saveMidiFromLink } from "./rawl/midiStorage";
 
 import { ParsingResult } from "./rawl/parseMidi";
 import transformMidi from "./rawl/transformMidi";
+import {
+  ADMIN_USER_ID,
+  AnnotationVersions,
+  resolveAnnotations,
+} from "./annotationVersions";
+
 
 // Constants
 export const DUMMY_CALLBACK = () => {};
-export const ADMIN_USER_ID = "RK31rsh4tDdUGlNYQvakXW4AYbB3"; // Admin user ID
+export { ADMIN_USER_ID } from "./annotationVersions";
 
 export type VoiceMask = boolean[];
 
@@ -103,6 +115,8 @@ type AppState = {
   parsing: ParsingResult;
   enableManualRemeasuring: boolean;
   analyses: Analyses;
+  annotationVersions: AnnotationVersions;
+  selectedAnnotationOwners: Record<string, string>;
   latencyCorrectionMs: number;
   fileToDownload: Uint8Array;
   showShortcutHelp: boolean;
@@ -123,13 +137,6 @@ type AppState = {
 type KeyboardHandler = (e: KeyboardEvent) => void;
 
 Modal.setAppElement("#root");
-
-function mergeAnalyses(existingAnalyses, newAnalyses) {
-  return {
-    ...existingAnalyses,
-    ...newAnalyses,
-  };
-}
 
 const AppMainContent = styled.div`
   height: calc(100vh - ${HEADER_HEIGHT} - ${FOOTER_HEIGHT + 1}px);
@@ -153,6 +160,17 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private droppedFilename: string;
   private keyboardHandlers: Map<string, KeyboardHandler> = new Map();
   private audioContext: AudioContext;
+  private annotationVersions: AnnotationVersions = Object.fromEntries(
+    Object.entries(defaultAnalyses).map(([key, analysis]) => [
+      key,
+      {
+        [ADMIN_USER_ID]: { ownerId: ADMIN_USER_ID, author: "Admin", analysis },
+      },
+    ]),
+  ) as unknown as AnnotationVersions;
+  private annotationSelections: Record<string, string> = {};
+  private annotationWrites: Promise<void> = Promise.resolve();
+  private editedAnnotations = new Set<string>();
 
   constructor(props) {
     super(props);
@@ -169,36 +187,14 @@ class App extends React.Component<RouteComponentProps, AppState> {
     const auth = getAuth(firebaseApp);
     this.db = getFirestore(firebaseApp);
 
-    // Load the admin analyses
-    const adminDocRef = doc(this.db, "users", ADMIN_USER_ID);
-    getDoc(adminDocRef).then((adminSnapshot) => {
-      if (adminSnapshot.exists() && adminSnapshot.data().analyses) {
-        this.setState((prevState) => ({
-          analyses: {
-            ...defaultAnalyses,
-            ...adminSnapshot.data().analyses,
-            // Personal annotations and edits may have loaded while this
-            // request was pending. Only replace the bundled defaults.
-            ...Object.fromEntries(
-              Object.entries(prevState.analyses).filter(
-                ([key, analysis]) => analysis !== defaultAnalyses[key],
-              ),
-            ),
-          },
-        }));
-      }
-    });
+    this.loadPublicAnnotations();
 
     onAuthStateChanged(auth, (user) => {
-      this.setState({
-        user,
-        loadingUser: !!user,
+      this.annotationSelections = {};
+      this.setState({ user, loadingUser: !!user }, () => {
+        this.refreshAnnotations();
+        if (user) this.loadUserAnalyses(user.uid);
       });
-      if (user) {
-        this.loadUserAnalyses(user.uid);
-      } else {
-        this.setState({ loadingUser: false });
-      }
     });
 
     // Initialize audio context
@@ -238,6 +234,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
       parsing: null,
       enableManualRemeasuring: false,
       analyses: defaultAnalyses as unknown as Analyses,
+      annotationVersions: this.annotationVersions,
+      selectedAnnotationOwners: {},
       latencyCorrectionMs: initialLatencyCorrection,
       fileToDownload: null,
       showShortcutHelp: false,
@@ -271,30 +269,123 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }
   }
 
-  loadUserAnalyses(userId: string) {
-    const userDocRef = doc(this.db, "users", userId);
-    getDoc(userDocRef)
-      .then((userSnapshot) => {
-        if (userSnapshot.exists()) {
-          const userData = userSnapshot.data();
-          if (userData.analyses) {
-            this.setState((prevState) => ({
-              analyses: mergeAnalyses(prevState.analyses, userData.analyses),
-            }));
-          }
-        } else {
-          // Create user document if it doesn't exist
-          console.debug("Creating user document", userId);
-          setDoc(userDocRef, {
-            user: {
-              email: this.state.user.email,
+  currentAnnotationKey() {
+    return this.state.currentMidi?.analysisKey ||
+      (this.state.currentMidi?.slug ? `f/${this.state.currentMidi.slug}` : this.path);
+  }
+
+  refreshAnnotations() {
+    const { analyses, selectedOwners } = resolveAnnotations(
+      this.annotationVersions,
+      this.annotationSelections,
+      this.state.user?.uid,
+    );
+    this.setState((previous) => ({
+      analyses,
+      annotationVersions: { ...this.annotationVersions },
+      selectedAnnotationOwners: selectedOwners,
+      rawlProps: previous.rawlProps
+        ? { ...previous.rawlProps, savedAnalysis: analyses[this.currentAnnotationKey()] ?? null }
+        : null,
+    }));
+  }
+
+  selectAnnotation(analysisKey: string, ownerId: string) {
+    this.annotationSelections[analysisKey] = ownerId;
+    this.refreshAnnotations();
+  }
+
+  putAnnotation(
+    analysisKey: string,
+    ownerId: string,
+    author: string,
+    analysis,
+  ) {
+    this.annotationVersions[analysisKey] = {
+      ...this.annotationVersions[analysisKey],
+      [ownerId]: { ownerId, author, analysis },
+    };
+  }
+
+  async loadPublicAnnotations() {
+    await Promise.all([
+      getDoc(doc(this.db, "users", ADMIN_USER_ID))
+        .then((snapshot) => {
+          Object.entries(snapshot.data()?.analyses || {}).forEach(
+            ([key, analysis]) => {
+              if (!this.editedAnnotations.has(`${ADMIN_USER_ID}:${key}`)) {
+                this.putAnnotation(key, ADMIN_USER_ID, "Admin", analysis);
+              }
             },
+          );
+          this.refreshAnnotations();
+        })
+        .catch((error) =>
+          console.error("Could not load admin annotations", error),
+        ),
+      getDocs(collection(this.db, "annotations"))
+        .then((snapshot) => {
+          snapshot.forEach((entry) => {
+            const { analysisKey, ownerId, author, analysis } = entry.data();
+            if (
+              analysisKey &&
+              ownerId &&
+              ownerId !== ADMIN_USER_ID &&
+              analysis &&
+              !this.editedAnnotations.has(`${ownerId}:${analysisKey}`)
+            ) {
+              this.putAnnotation(
+                analysisKey,
+                ownerId,
+                author || "Contributor",
+                analysis,
+              );
+            }
           });
-        }
-      })
-      .finally(() => {
+          this.refreshAnnotations();
+        })
+        .catch((error) => {
+          console.error("Could not load community annotations", error);
+          alert(
+            "Could not load community annotations. Please try reloading the page.",
+          );
+        }),
+    ]);
+  }
+
+  async loadUserAnalyses(userId: string) {
+    try {
+      const snapshot = await getDoc(doc(this.db, "users", userId));
+      if (this.state.user?.uid !== userId) return;
+      // Keep annotations saved by earlier versions of the app available.
+      Object.entries(snapshot.data()?.analyses || {}).forEach(
+        ([key, analysis]) => {
+          if (
+            !this.editedAnnotations.has(`${userId}:${key}`) &&
+            (userId === ADMIN_USER_ID ||
+              !this.annotationVersions[key]?.[userId])
+          ) {
+            this.putAnnotation(
+              key,
+              userId,
+              userId === ADMIN_USER_ID
+                ? "Admin"
+                : this.state.user.displayName || "Contributor",
+              analysis,
+            );
+          }
+        },
+      );
+      this.refreshAnnotations();
+    } catch (error) {
+      console.error("Could not load your annotations", error);
+      alert(
+        "Could not load your saved annotations. Please reload before editing.",
+      );
+    } finally {
+      if (this.state.user?.uid === userId)
         this.setState({ loadingUser: false });
-      });
+    }
   }
 
   async initAudioPlayer(destination: AudioNode) {
@@ -382,103 +473,111 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
   async saveAnalysis(analysis) {
     if (this.path === "drop") return;
-
-    const analysisKey = this.path;
-    const user = this.state.user;
-    if (user) {
-      const userRef = doc(this.db, "users", user.uid);
-      const userDoc = await getDoc(userRef);
-
-      let userData = userDoc.exists() ? userDoc.data() : {};
-      userData.analyses = mergeAnalyses(userData.analyses ?? {}, {
-        [analysisKey]: analysis,
-      });
-
-      await setDoc(userRef, userData).catch(() => {
-        alert("Could not save analysis");
-      });
-
-      this.setState((prevState) => ({
-        analyses: mergeAnalyses(prevState.analyses, userData.analyses),
-      }));
-    } else {
-      if (this.state.currentMidi) {
-        this.setState((prevState) => ({
-          analyses: mergeAnalyses(prevState.analyses, {
-            [this.state.currentMidi.analysisKey ||
-            `f/${this.state.currentMidi.slug}`]: analysis,
-          }),
-        }));
+    const analysisKey = this.currentAnnotationKey();
+    if (!analysisKey) return;
+    if (this.state.user) {
+      try {
+        await this.saveFirebaseAnnotation(analysisKey, analysis);
+      } catch (error) {
+        console.error("Could not save annotation", error);
+        alert("Could not save your annotation. Please try again.");
       }
+    } else {
+      this.setState((previous) => ({
+        analyses: { ...previous.analyses, [analysisKey]: analysis },
+      }));
     }
   }
 
   async getFirebaseAnnotation(analysisKey: string) {
     const user = this.state.user;
-    if (!user || user.uid !== ADMIN_USER_ID || !analysisKey) return null;
+    if (!user || !analysisKey) return null;
+    return this.annotationVersions[analysisKey]?.[user.uid]?.analysis ?? null;
+  }
 
-    const userRef = doc(this.db, "users", user.uid);
-    const userDoc = await getDoc(userRef);
-    const userData = userDoc.exists() ? userDoc.data() : {};
-    return userData.analyses?.[analysisKey] ?? null;
+  annotationRef(analysisKey: string, ownerId: string) {
+    return doc(this.db, "annotations", `${ownerId}_${md5(analysisKey)}`);
   }
 
   async saveFirebaseAnnotation(analysisKey: string, analysis) {
     const user = this.state.user;
-    if (!user || user.uid !== ADMIN_USER_ID || !analysisKey) return;
-
-    const userRef = doc(this.db, "users", user.uid);
-    const userDoc = await getDoc(userRef);
-    const userData = userDoc.exists() ? userDoc.data() : {};
-    userData.analyses = mergeAnalyses(userData.analyses ?? {}, {
-      [analysisKey]: analysis,
-    });
-
-    await setDoc(userRef, userData);
-
-    this.setState((prevState) => ({
-      analyses: mergeAnalyses(prevState.analyses, {
-        [analysisKey]: analysis,
-      }),
-      rawlProps: prevState.rawlProps
-        ? { ...prevState.rawlProps, savedAnalysis: analysis }
-        : prevState.rawlProps,
-    }));
+    if (!user || !analysisKey) throw new Error("Sign in to save an annotation");
+    if (!analysis || typeof analysis !== "object" || Array.isArray(analysis)) {
+      throw new Error("An annotation must be a JSON object");
+    }
+    // Serialize edits so older writes cannot overwrite newer ones.
+    const write = this.annotationWrites
+      .catch(() => {})
+      .then(async () => {
+        if (user.uid === ADMIN_USER_ID) {
+          await setDoc(
+            doc(this.db, "users", user.uid),
+            {
+              analyses: { [analysisKey]: analysis },
+            },
+            { mergeFields: [new FieldPath("analyses", analysisKey)] },
+          );
+        } else {
+          await setDoc(this.annotationRef(analysisKey, user.uid), {
+            analysisKey,
+            ownerId: user.uid,
+            author: user.displayName || "Contributor",
+            analysis,
+          });
+        }
+        this.editedAnnotations.add(`${user.uid}:${analysisKey}`);
+        this.putAnnotation(
+          analysisKey,
+          user.uid,
+          user.uid === ADMIN_USER_ID
+            ? "Admin"
+            : user.displayName || "Contributor",
+          analysis,
+        );
+        if (this.state.user?.uid === user.uid)
+          this.annotationSelections[analysisKey] = user.uid;
+        this.refreshAnnotations();
+      });
+    this.annotationWrites = write;
+    await write;
   }
 
   async deleteFirebaseAnnotation(analysisKey: string) {
     const user = this.state.user;
-    if (!user || user.uid !== ADMIN_USER_ID || !analysisKey) return;
-
-    const userRef = doc(this.db, "users", user.uid);
-    const userDoc = await getDoc(userRef);
-    const userData = userDoc.exists() ? userDoc.data() : {};
-    const analyses = { ...(userData.analyses ?? {}) };
-    delete analyses[analysisKey];
-
-    await setDoc(userRef, {
-      ...userData,
-      analyses,
-    });
-
-    this.setState((prevState) => {
-      const nextAnalyses = { ...prevState.analyses };
-      delete nextAnalyses[analysisKey];
-
-      if (defaultAnalyses[analysisKey]) {
-        nextAnalyses[analysisKey] = defaultAnalyses[analysisKey];
-      }
-
-      return {
-        analyses: nextAnalyses,
-        rawlProps: prevState.rawlProps
-          ? {
-              ...prevState.rawlProps,
-              savedAnalysis: nextAnalyses[analysisKey] ?? null,
-            }
-          : prevState.rawlProps,
-      };
-    });
+    if (!user || !analysisKey)
+      throw new Error("Sign in to delete your annotation");
+    const write = this.annotationWrites
+      .catch(() => {})
+      .then(async () => {
+        // Also remove legacy personal data so it cannot reappear after a reload.
+        const userRef = doc(this.db, "users", user.uid);
+        const snapshot = await getDoc(userRef);
+        if (snapshot.data()?.analyses?.[analysisKey]) {
+          await updateDoc(
+            userRef,
+            new FieldPath("analyses", analysisKey),
+            deleteField(),
+          );
+        }
+        if (user.uid !== ADMIN_USER_ID)
+          await deleteDoc(this.annotationRef(analysisKey, user.uid));
+        this.editedAnnotations.add(`${user.uid}:${analysisKey}`);
+        const owners = { ...this.annotationVersions[analysisKey] };
+        delete owners[user.uid];
+        this.annotationVersions[analysisKey] = owners;
+        if (user.uid === ADMIN_USER_ID && defaultAnalyses[analysisKey]) {
+          this.putAnnotation(
+            analysisKey,
+            ADMIN_USER_ID,
+            "Admin",
+            defaultAnalyses[analysisKey],
+          );
+        }
+        delete this.annotationSelections[analysisKey];
+        this.refreshAnnotations();
+      });
+    this.annotationWrites = write;
+    await write;
   }
 
   attachMediaKeyHandlers() {
@@ -1209,6 +1308,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
             rawlProps: this.state.rawlProps,
             setRawlProps: (rawlProps) => this.setState({ rawlProps }),
             analyses: this.state.analyses,
+            annotationVersions: this.state.annotationVersions,
+            selectedAnnotationOwners: this.state.selectedAnnotationOwners,
+            selectAnnotation: this.selectAnnotation,
             saveAnalysis: this.saveAnalysis,
             getFirebaseAnnotation: this.getFirebaseAnnotation,
             saveFirebaseAnnotation: this.saveFirebaseAnnotation,
@@ -1281,7 +1383,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     <Route
                       path="/s/"
                       exact
-                      render={() => <Structures analyses={this.state.analyses} />}
+                      render={() => (
+                        <Structures analyses={this.state.analyses} />
+                      )}
                     />
                     <Route
                       path="/s/:rest*"

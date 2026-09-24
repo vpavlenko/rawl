@@ -1,3 +1,4 @@
+import { ADMIN_USER_ID, AnnotationVersions } from "../annotationVersions";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -196,6 +197,7 @@ const SearchResults = styled.ul`
 `;
 const Entry = styled(Link)<{
   $annotated: boolean;
+  $community?: boolean;
   $hasFewSections?: boolean;
   $folder: boolean;
   $version?: boolean;
@@ -210,8 +212,16 @@ const Entry = styled(Link)<{
   &,
   &:link,
   &:visited {
-    color: ${({ $annotated, $hasFewSections, $folder, $version }) =>
-      !$annotated
+    color: ${({
+      $annotated,
+      $community,
+      $hasFewSections,
+      $folder,
+      $version,
+    }) =>
+      $community
+        ? "#69b7ff"
+        : !$annotated
         ? $version
           ? "#888"
           : "#ddd"
@@ -318,7 +328,8 @@ type Props = {
 
 export default function Lakh({ ready, loadTrack }: Props) {
   const { pathname, search: locationSearch, hash } = useLocation();
-  const { analyses, rawlProps, currentMidi, eject } = useContext(AppContext);
+  const { analyses, annotationVersions, rawlProps, currentMidi, eject } =
+    useContext(AppContext);
   const [catalog, setCatalog] = useState<LakhCatalog | null>(null);
   const [error, setError] = useState("");
   const [loadedKey, setLoadedKey] = useState("");
@@ -478,6 +489,7 @@ export default function Lakh({ ready, loadTrack }: Props) {
           ) : null
         ) : (
           <Directory
+            annotationVersions={annotationVersions}
             key={artistName}
             catalog={catalog}
             artist={artist}
@@ -506,10 +518,12 @@ const Directory = React.memo(function Directory({
   catalog,
   artist,
   analyses,
+  annotationVersions,
 }: {
   catalog: LakhCatalog;
   artist?: LakhArtist;
   analyses: Record<string, Analysis>;
+  annotationVersions: AnnotationVersions;
 }) {
   const artistName = artist?.name || "";
   const albumGroups = useAlbumMetadata(artist);
@@ -543,7 +557,10 @@ const Directory = React.memo(function Directory({
   const matchingSongs = useMemo(() => {
     const matches = new Map<
       string,
-      { artist: DirectoryArtist; tracks: ReturnType<typeof collectTrackSources> }
+      {
+        artist: DirectoryArtist;
+        tracks: ReturnType<typeof collectTrackSources>;
+      }
     >();
     if (!search) return matches;
     directoryArtists.forEach((item) => {
@@ -566,6 +583,23 @@ const Directory = React.memo(function Directory({
         member.name.toLocaleLowerCase().includes(search),
       ),
   );
+  const communityAnnotated = useMemo(
+    () =>
+      new Set(
+        Object.keys(annotationVersions).filter((key) =>
+          Object.keys(annotationVersions[key]).some(
+            (owner) => owner !== ADMIN_USER_ID,
+          ),
+        ),
+      ),
+    [annotationVersions],
+  );
+  const artistHasCommunity = (item: DirectoryArtist) =>
+    item.members.some((member) =>
+      member.tracks.some((file) =>
+        communityAnnotated.has(lakhAnalysisKey(member.name, file)),
+      ),
+    );
   const annotated = useMemo(
     () => new Set(Object.keys(analyses).filter((key) => !!analyses[key])),
     [analyses],
@@ -617,6 +651,7 @@ const Directory = React.memo(function Directory({
         to={lakhTrackUrl(original.source, original.file)}
         $folder={false}
         $annotated={hasAnalysis}
+        $community={communityAnnotated.has(analysisKey)}
         $hasFewSections={annotatedWithFewSections.has(analysisKey)}
         $version={label !== undefined && /^\d+$/.test(label)}
         title={`${file}${hasAnalysis ? " · Annotated" : ""}`}
@@ -654,6 +689,7 @@ const Directory = React.memo(function Directory({
           }
           $folder
           $annotated={count > 0}
+          $community={artistHasCommunity(item)}
           $hasFewSections={artistHasFewSections(item)}
           $hasAlbums={item.members.some(
             (member) => member.name === "The Beatles" || albumArtistSlugs.has(member.slug),
@@ -709,33 +745,40 @@ const Directory = React.memo(function Directory({
             <h2 id="lakh-song-search-heading">Songs</h2>
             {matchingSongs.size ? (
               <SearchResults>
-                {Array.from(matchingSongs, ([artistName, { artist: resultArtist, tracks }]) => (
-                  <li key={artistName}>
-                    <Entry
-                      to={lakhArtistUrl(resultArtist)}
-                      $folder
-                      $annotated={annotatedSongs(resultArtist) > 0}
-                      $hasFewSections={artistHasFewSections(resultArtist)}
-                    >
-                      {artistName}
-                    </Entry>
-                    <BeatlesDiscography
-                      groupByAlbum={false}
-                      files={Array.from(tracks.keys())}
-                      allFiles={Array.from(tracks.keys())}
-                      isAnnotated={(file) => {
-                        const original = tracks.get(file)!;
-                        return annotated.has(
-                          lakhAnalysisKey(original.source.name, original.file),
-                        );
-                      }}
-                      renderTitle={(title) => highlightMatches(title, search)}
-                      renderTrack={(file, label) =>
-                        renderTrackEntry(tracks, file, label, search)
-                      }
-                    />
-                  </li>
-                ))}
+                {Array.from(
+                  matchingSongs,
+                  ([artistName, { artist: resultArtist, tracks }]) => (
+                    <li key={artistName}>
+                      <Entry
+                        to={lakhArtistUrl(resultArtist)}
+                        $folder
+                        $annotated={annotatedSongs(resultArtist) > 0}
+                        $community={artistHasCommunity(resultArtist)}
+                        $hasFewSections={artistHasFewSections(resultArtist)}
+                      >
+                        {artistName}
+                      </Entry>
+                      <BeatlesDiscography
+                        groupByAlbum={false}
+                        files={Array.from(tracks.keys())}
+                        allFiles={Array.from(tracks.keys())}
+                        isAnnotated={(file) => {
+                          const original = tracks.get(file)!;
+                          return annotated.has(
+                            lakhAnalysisKey(
+                              original.source.name,
+                              original.file,
+                            ),
+                          );
+                        }}
+                        renderTitle={(title) => highlightMatches(title, search)}
+                        renderTrack={(file, label) =>
+                          renderTrackEntry(tracks, file, label, search)
+                        }
+                      />
+                    </li>
+                  ),
+                )}
               </SearchResults>
             ) : (
               <p role="status">No matching songs.</p>

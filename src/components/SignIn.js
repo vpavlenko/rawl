@@ -98,6 +98,10 @@ const SignIn = ({
   currentAnnotationKey,
 }) => {
   const {
+    analyses,
+    annotationVersions,
+    selectedAnnotationOwners,
+    selectAnnotation,
     getFirebaseAnnotation,
     saveFirebaseAnnotation,
     deleteFirebaseAnnotation,
@@ -107,8 +111,16 @@ const SignIn = ({
   const [status, setStatus] = React.useState("");
   const [isSaving, setIsSaving] = React.useState(false);
 
-  // Only show checkbox for admin user
-  const isAdmin = user && user.uid === adminUserId;
+  const versions = Object.values(
+    annotationVersions[currentAnnotationKey] || {},
+  );
+  const ownAnnotation =
+    user && annotationVersions[currentAnnotationKey]?.[user.uid];
+
+  React.useEffect(() => {
+    setIsModalOpen(false);
+    setStatus("");
+  }, [currentAnnotationKey, user?.uid]);
 
   const openAnnotationModal = async () => {
     if (!currentAnnotationKey) return;
@@ -117,8 +129,18 @@ const SignIn = ({
     setStatus("Loading Firebase annotation...");
     try {
       const annotation = await getFirebaseAnnotation(currentAnnotationKey);
-      setJsonText(annotation ? JSON.stringify(annotation, null, 2) : "{}");
-      setStatus(annotation ? "" : "No Firebase annotation for this slug yet.");
+      setJsonText(
+        JSON.stringify(
+          annotation || analyses[currentAnnotationKey] || {},
+          null,
+          2,
+        ),
+      );
+      setStatus(
+        annotation
+          ? ""
+          : "No saved annotation of your own yet. Saving creates your version.",
+      );
     } catch (error) {
       console.error("Could not load Firebase annotation", error);
       setStatus("Could not load Firebase annotation.");
@@ -150,7 +172,7 @@ const SignIn = ({
   const deleteAnnotation = async () => {
     if (
       !window.confirm(
-        `Delete Firebase annotation for ${currentAnnotationKey}? This resets it to the bundled/default annotation.`,
+        `Delete your saved annotation for ${currentAnnotationKey}? Other authors’ annotations will remain available.`,
       )
     ) {
       return;
@@ -171,7 +193,35 @@ const SignIn = ({
 
   return (
     <HeaderDiv>
-      {isAdmin && (
+      {versions.length > 1 && (
+        <select
+          aria-label="Annotation author"
+          title="Choose an annotation. Edits save to your own version."
+          value={selectedAnnotationOwners[currentAnnotationKey] || ""}
+          onChange={(event) =>
+            selectAnnotation(currentAnnotationKey, event.target.value)
+          }
+          style={{
+            background: "#111",
+            color: "white",
+            maxWidth: 190,
+            marginRight: 12,
+          }}
+        >
+          {versions.map(({ ownerId, author }) => (
+            <option key={ownerId} value={ownerId}>
+              {ownerId === user?.uid ? "You" : author}
+              {ownerId === adminUserId && user?.uid === adminUserId
+                ? " (Admin)"
+                : ""}
+              {ownerId !== adminUserId && ownerId !== user?.uid
+                ? ` · ${ownerId.slice(0, 6)}`
+                : ""}
+            </option>
+          ))}
+        </select>
+      )}
+      {user && (
         <>
           <label className="inline">
             <input
@@ -192,13 +242,40 @@ const SignIn = ({
                 : "Open a piece to edit its Firebase annotation"
             }
           >
-            Edit annotation JSON
+            My annotation JSON
           </AdminButton>
         </>
       )}
+      {user &&
+        currentAnnotationKey &&
+        !ownAnnotation &&
+        analyses[currentAnnotationKey] && (
+          <AdminButton
+            type="button"
+            disabled={isSaving}
+            title="Save the displayed annotation as your own version"
+            onClick={async () => {
+              setIsSaving(true);
+              try {
+                await saveFirebaseAnnotation(
+                  currentAnnotationKey,
+                  analyses[currentAnnotationKey],
+                );
+              } catch (error) {
+                window.alert(
+                  "Could not save your annotation. Please try again.",
+                );
+              } finally {
+                setIsSaving(false);
+              }
+            }}
+          >
+            Save my annotation
+          </AdminButton>
+        )}
       {user ? (
         <>
-          {isAdmin && " • "}
+          {" • "}
           {user.email}
           {"   "}
           <a
@@ -239,7 +316,7 @@ const SignIn = ({
         <ModalBody>
           <ModalHeader>
             <div>
-              <ModalTitle>Firebase annotation JSON</ModalTitle>
+              <ModalTitle>My annotation JSON</ModalTitle>
               <div>{currentAnnotationKey}</div>
             </div>
             <ModalButton type="button" onClick={() => setIsModalOpen(false)}>
@@ -258,7 +335,7 @@ const SignIn = ({
               onClick={deleteAnnotation}
               disabled={isSaving || !currentAnnotationKey}
             >
-              Delete Firebase annotation
+              Delete my annotation
             </DangerButton>
             <ActionGroup>
               <ModalButton

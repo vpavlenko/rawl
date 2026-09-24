@@ -95,6 +95,12 @@ Use the existing server at http://localhost:3000 (the agent must not start it):
 6. Check Chrome, Firefox, and Safari, backgrounding/foregrounding the tab, and
    context suspension/resumption. Inspect the Network panel for the worker,
    worklet, WASM, and soundfont assets, including on the deployment's base URL.
+7. Start a track with an in-page control, then use the AirPods stem to pause and
+   resume repeatedly, including with the tab in the background. Confirm the
+   sound, in-page button, and system media controls agree. Repeat after pausing
+   in the page, loading a track paused, and letting a track finish. Ejecting a
+   track must release the media session. In the browser console, check for
+   "Could not activate media controls" if headset commands do not arrive.
 
 The bounded queue trades some worker scheduling tolerance for control latency.
 Worker CPU exhaustion, memory pressure, browser suspension, and device/OS limits

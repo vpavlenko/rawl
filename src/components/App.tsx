@@ -591,18 +591,24 @@ class App extends React.Component<RouteComponentProps, AppState> {
       this.mediaSessionAudio.src =
         process.env.PUBLIC_URL + "/5-seconds-of-silence.mp3";
       this.mediaSessionAudio.loop = true;
-      this.mediaSessionAudio.volume = 0;
+      // The file is already silent. Keep the element unmuted so browsers can
+      // treat it as an active media session for headset controls.
+      this.mediaSessionAudio.preload = "auto";
 
-      navigator.mediaSession.setActionHandler("play", () => this.togglePause());
-      navigator.mediaSession.setActionHandler("pause", () =>
-        this.togglePause(),
-      );
-      navigator.mediaSession.setActionHandler("seekbackward", () =>
-        this.seekRelative(-5000),
-      );
-      navigator.mediaSession.setActionHandler("seekforward", () =>
-        this.seekRelative(5000),
-      );
+      const handlers: Partial<Record<MediaSessionAction, () => void>> = {
+        play: () => this.setPlaybackPaused(false),
+        pause: () => this.setPlaybackPaused(true),
+        seekbackward: () => this.seekRelative(-5000),
+        seekforward: () => this.seekRelative(5000),
+      };
+      for (const action of Object.keys(handlers) as MediaSessionAction[]) {
+        try {
+          navigator.mediaSession.setActionHandler(action, handlers[action]);
+        } catch (error) {
+          // Unsupported optional actions must not prevent other controls.
+          console.warn(`Media action ${action} is unavailable`, error);
+        }
+      }
     }
 
     document.addEventListener("keydown", (e) => {
@@ -703,15 +709,11 @@ class App extends React.Component<RouteComponentProps, AppState> {
         songUrl: null,
       });
 
-      if ("mediaSession" in navigator) {
-        this.mediaSessionAudio.pause();
-
-        navigator.mediaSession.playbackState = "none";
-      }
+      this.syncMediaSession("none");
     } else {
-      if ("mediaSession" in navigator) {
-        this.mediaSessionAudio.play();
-      }
+      this.syncMediaSession(
+        this.midiPlayer?.isPlaying() ? "playing" : "paused",
+      );
 
       this.setState({
         ...App.mapSequencerStateToAppState(sequencerState),
@@ -733,17 +735,44 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   togglePause() {
-    if (this.state.ejected) return;
+    if (!this.midiPlayer) return;
+    this.setPlaybackPaused(this.midiPlayer.isPlaying());
+  }
 
-    const paused = this.midiPlayer?.togglePause();
-    if ("mediaSession" in navigator) {
-      if (paused) {
-        this.mediaSessionAudio.pause();
-      } else {
-        this.mediaSessionAudio.play();
-      }
+  setPlaybackPaused(paused: boolean) {
+    if (this.state.ejected || !this.midiPlayer) return;
+
+    // Use the player's synchronous state so repeated headset commands are
+    // idempotent, even before React has rendered the previous update.
+    if (this.midiPlayer.isPlaying() === paused) {
+      this.midiPlayer.togglePause();
     }
-    this.setState({ paused: paused });
+    if (!paused && this.audioContext.state === "suspended") {
+      void this.handleUnlockAudioContext().catch((error) => {
+        console.warn("Could not resume audio context", error);
+      });
+    }
+    this.syncMediaSession(paused ? "paused" : "playing");
+    this.setState({ paused });
+  }
+
+  syncMediaSession(playbackState: MediaSessionPlaybackState) {
+    if (!this.mediaSessionAudio || !("mediaSession" in navigator)) return;
+
+    navigator.mediaSession.playbackState = playbackState;
+    if (playbackState === "playing") {
+      if (this.mediaSessionAudio.paused) {
+        void this.mediaSessionAudio.play().catch((error) => {
+          // A later user gesture can retry if autoplay was blocked. Pausing
+          // while play() is pending also legitimately rejects with AbortError.
+          if (error.name !== "AbortError") {
+            console.warn("Could not activate media controls", error);
+          }
+        });
+      }
+    } else {
+      this.mediaSessionAudio.pause();
+    }
   }
 
   handleTimeSliderChange(event) {
@@ -1051,6 +1080,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
     if (isStopped) {
       this.currUrl = null;
+      this.syncMediaSession(this.state.ejected ? "none" : "paused");
       // Set paused to true when playback has stopped/finished
       this.setState({ paused: true });
     } else {
@@ -1156,6 +1186,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     if (this.midiPlayer) {
       this.midiPlayer.eject();
     }
+    this.syncMediaSession("none");
     this.setState({
       ejected: true,
       currentSongNumVoices: 0,
@@ -1182,6 +1213,22 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.midiPlayer?.isPlaying() ? this.midiPlayer.getPositionMs() / 1000 : null;
 
   componentWillUnmount() {
+    this.syncMediaSession("none");
+    if ("mediaSession" in navigator) {
+      const actions: MediaSessionAction[] = [
+        "play",
+        "pause",
+        "seekbackward",
+        "seekforward",
+      ];
+      for (const action of actions) {
+        try {
+          navigator.mediaSession.setActionHandler(action, null);
+        } catch {
+          // The browser may not support this action.
+        }
+      }
+    }
     this.pendingMidiPlayer?.dispose();
     this.pendingMidiPlayer = null;
     this.midiPlayer?.dispose();

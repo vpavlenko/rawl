@@ -17,7 +17,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { unstable_batchedUpdates } from "react-dom";
 import { playRawMidiNote } from "../../sampler/sampler";
 import { VoiceMask } from "../App";
@@ -28,6 +28,8 @@ import CompositionTitle from "./CompositionTitle";
 import FrozenNotesLayout from "./FrozenNotesLayout";
 import { DrumPlaybackContext, useDrumPlaybackClock } from "./drumPlayback";
 import { NotePlaybackContext, useNotePlaybackClock } from "./notePlayback";
+import { findStrumVoices } from "./strumDetection";
+import { StrumVoicesContext } from "./strumContext";
 import { findPlaybackMeasure } from "./playbackIndex";
 import { MergedSystemLayout, SystemLayoutProps } from "./SystemLayout";
 import {
@@ -348,6 +350,12 @@ const Rawl: React.FC<RawlProps> = ({
           : voice,
       ),
     [parsingResult.notes, excludedVoiceSet, drumVoiceSet],
+  );
+  const location = useLocation();
+  const strumEnabled = new URLSearchParams(location.search).get("strum") !== "0";
+  const strumVoices = useMemo(
+    () => (strumEnabled ? findStrumVoices(notes) : new Set<number>()),
+    [strumEnabled, notes],
   );
   const timingNotes = useMemo(
     () => parsingResult.notes.flat(),
@@ -1103,29 +1111,31 @@ const Rawl: React.FC<RawlProps> = ({
               </style>
             </div>
           )}
-          <AnalysisTransposeContext.Provider value={transpose}>
-            {systemLayout === "merged" ? (
-              <NotePlaybackContext.Provider value={notePlaybackClock.register}>
-                <DrumPlaybackContext.Provider value={drumPlaybackClock.register}>
-                  <MergedSystemLayout
+          <StrumVoicesContext.Provider value={strumVoices}>
+            <AnalysisTransposeContext.Provider value={transpose}>
+              {systemLayout === "merged" ? (
+                <NotePlaybackContext.Provider value={notePlaybackClock.register}>
+                  <DrumPlaybackContext.Provider value={drumPlaybackClock.register}>
+                    <MergedSystemLayout
+                      {...systemLayoutProps}
+                      enableManualRemeasuring={enableManualRemeasuring}
+                      isEmbedded={isEmbedded}
+                      usePageScroll={usePageScroll}
+                    />
+                  </DrumPlaybackContext.Provider>
+                </NotePlaybackContext.Provider>
+              ) : (
+                <ErrorBoundary
+                  fallback={<div>Error loading Frozen Notes Layout</div>}
+                >
+                  <FrozenNotesLayout
                     {...systemLayoutProps}
-                    enableManualRemeasuring={enableManualRemeasuring}
-                    isEmbedded={isEmbedded}
-                    usePageScroll={usePageScroll}
+                    saveAnalysis={saveAnalysis}
                   />
-                </DrumPlaybackContext.Provider>
-              </NotePlaybackContext.Provider>
-            ) : (
-              <ErrorBoundary
-                fallback={<div>Error loading Frozen Notes Layout</div>}
-              >
-                <FrozenNotesLayout
-                  {...systemLayoutProps}
-                  saveAnalysis={saveAnalysis}
-                />
-              </ErrorBoundary>
-            )}
-          </AnalysisTransposeContext.Provider>
+                </ErrorBoundary>
+              )}
+            </AnalysisTransposeContext.Provider>
+          </StrumVoicesContext.Provider>
         </div>
         {!isEmbedded && <LayoutSelector setSystemLayout={setSystemLayout} />}
       </div>

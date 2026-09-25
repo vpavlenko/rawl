@@ -5,6 +5,7 @@ import { ColoredNote, Note, PitchBendPoint } from "./parseMidi";
 import { DrumPlaybackContext } from "./drumPlayback";
 import { NotePlaybackContext, PlaybackSectionContext } from "./notePlayback";
 import { VoiceZIndicesContext } from "./voiceOrder";
+import { StrumVoicesContext } from "./strumContext";
 
 // Also useful emojis
 // 🤯 🎯 🪤 💣 🔫 💢
@@ -148,7 +149,7 @@ const DrumEmoji: React.FC<{
         transform: "translateX(-50%)",
         transition: "none",
         whiteSpace: "nowrap",
-        zIndex: zIndex ?? (collapsed ? 1 : 1000),
+        zIndex: zIndex ?? (collapsed ? 10 : 1000),
       }}
     >
       {children}
@@ -372,7 +373,11 @@ const NoteRectangle = React.memo(({
   const registerNote = React.useContext(NotePlaybackContext);
   const section = React.useContext(PlaybackSectionContext);
   const voiceZIndices = React.useContext(VoiceZIndicesContext);
-  const voiceZIndex = voiceZIndices.get(note.voiceIndex);
+  const strumVoices = React.useContext(StrumVoicesContext);
+  const isStrumVoice = !note.isDrum && strumVoices.has(note.voiceIndex);
+  // Above the analysis grid (1–4), below every regular voice (10+).
+  // This takes precedence over voice ordering and hover/playback emphasis.
+  const voiceZIndex = isStrumVoice ? 5 : voiceZIndices.get(note.voiceIndex);
   const [playing, setPlaying] = React.useState(false);
   const elementRef = React.useRef<HTMLDivElement>(null);
   const playingRef = React.useRef(false);
@@ -417,11 +422,16 @@ const NoteRectangle = React.memo(({
   const number = relativeNumber === undefined ? midiNumber : relativeNumber;
 
   // Calculate base height and top position
-  const baseHeight = noteHeight * 2;
+  // Keep the original bottom/pitch anchor; both React and imperative playback
+  // geometry use this base height, including the pitch-bend ribbon.
+  const heightScale = isStrumVoice ? 0.5 : 1;
+  const baseHeight = noteHeight * 2 * heightScale;
   const baseTop =
     (isDrum && drumNoteToY
       ? drumNoteToY(note)
-      : midiNumberToY(isDrum ? number + 12 : number)) - noteHeight;
+      : midiNumberToY(isDrum ? number + 12 : number)) -
+    noteHeight +
+    noteHeight * 2 * (1 - heightScale);
 
   const left = secondsToX(note.span[0]);
   const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
@@ -433,7 +443,7 @@ const NoteRectangle = React.memo(({
     (isDrum || !hoveredColors || hoveredColors.includes(color));
   const showFullNote =
     voiceIndex === hoveredVoiceIndex || (isActive && isHighlighted);
-  const collapsedHeight = isOtherVoice ? 1 : 0.5;
+  const collapsedHeight = (isOtherVoice ? 1 : 0.5) * heightScale;
 
   // Adjust height and top position for notes under the cursor
   const activeHeight = isPlayingNow ? baseHeight * 2 : baseHeight;

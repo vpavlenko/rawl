@@ -467,6 +467,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   handleLogin() {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: "select_account" });
     signInWithPopup(auth, provider)
       .then((result) => {
         console.log("Firebase auth result:", result);

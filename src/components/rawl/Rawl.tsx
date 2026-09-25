@@ -28,8 +28,8 @@ import CompositionTitle from "./CompositionTitle";
 import FrozenNotesLayout from "./FrozenNotesLayout";
 import { DrumPlaybackContext, useDrumPlaybackClock } from "./drumPlayback";
 import { NotePlaybackContext, useNotePlaybackClock } from "./notePlayback";
-import { findStrumVoices } from "./strumDetection";
-import { StrumVoicesContext } from "./strumContext";
+import { findStrumNotes } from "./strumDetection";
+import { StrumNotesContext } from "./strumContext";
 import { findPlaybackMeasure } from "./playbackIndex";
 import { MergedSystemLayout, SystemLayoutProps } from "./SystemLayout";
 import {
@@ -353,10 +353,6 @@ const Rawl: React.FC<RawlProps> = ({
   );
   const location = useLocation();
   const strumEnabled = new URLSearchParams(location.search).get("strum") !== "0";
-  const strumVoices = useMemo(
-    () => (strumEnabled ? findStrumVoices(notes) : new Set<number>()),
-    [strumEnabled, notes],
-  );
   const timingNotes = useMemo(
     () => parsingResult.notes.flat(),
     [parsingResult.notes],
@@ -417,6 +413,22 @@ const Rawl: React.FC<RawlProps> = ({
     }
     return parsingResult?.measuresAndBeats;
   }, [futureAnalysis, timingNotes, parsingResult]);
+
+  const strumNotes = useMemo(() => {
+    if (!strumEnabled || notes.filter((voice) => voice.length > 0).length < 3)
+      return new Set<string>();
+    // Use committed measure timing so hover previews do not reclassify notes.
+    const timing = analysis.measures
+      ? buildManualMeasuresAndBeats(analysis.measures, timingNotes)
+      : parsingResult.measuresAndBeats;
+    return findStrumNotes(notes, timing?.measures ?? []);
+  }, [
+    strumEnabled,
+    notes,
+    analysis.measures,
+    timingNotes,
+    parsingResult.measuresAndBeats,
+  ]);
 
   const selectMeasure = useCallback(
     (measure) => {
@@ -1111,7 +1123,7 @@ const Rawl: React.FC<RawlProps> = ({
               </style>
             </div>
           )}
-          <StrumVoicesContext.Provider value={strumVoices}>
+          <StrumNotesContext.Provider value={strumNotes}>
             <AnalysisTransposeContext.Provider value={transpose}>
               {systemLayout === "merged" ? (
                 <NotePlaybackContext.Provider value={notePlaybackClock.register}>
@@ -1135,7 +1147,7 @@ const Rawl: React.FC<RawlProps> = ({
                 </ErrorBoundary>
               )}
             </AnalysisTransposeContext.Provider>
-          </StrumVoicesContext.Provider>
+          </StrumNotesContext.Provider>
         </div>
         {!isEmbedded && <LayoutSelector setSystemLayout={setSystemLayout} />}
       </div>

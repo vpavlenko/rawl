@@ -5,7 +5,7 @@ import { ColoredNote, Note, PitchBendPoint } from "./parseMidi";
 import { DrumPlaybackContext } from "./drumPlayback";
 import { NotePlaybackContext, PlaybackSectionContext } from "./notePlayback";
 import { VoiceZIndicesContext } from "./voiceOrder";
-import { StrumVoicesContext } from "./strumContext";
+import { StrumNotesContext } from "./strumContext";
 
 // Also useful emojis
 // 🤯 🎯 🪤 💣 🔫 💢
@@ -377,11 +377,11 @@ const NoteRectangle = React.memo(({
   const registerNote = React.useContext(NotePlaybackContext);
   const section = React.useContext(PlaybackSectionContext);
   const voiceZIndices = React.useContext(VoiceZIndicesContext);
-  const strumVoices = React.useContext(StrumVoicesContext);
-  const isStrumVoice = !note.isDrum && strumVoices.has(note.voiceIndex);
+  const strumNotes = React.useContext(StrumNotesContext);
+  const isStrumNote = !note.isDrum && strumNotes.has(note.id);
   // Above the analysis grid (1–4), below every regular voice (10+).
   // This takes precedence over voice ordering and hover/playback emphasis.
-  const voiceZIndex = isStrumVoice ? 5 : voiceZIndices.get(note.voiceIndex);
+  const voiceZIndex = isStrumNote ? 5 : voiceZIndices.get(note.voiceIndex);
   const [playing, setPlaying] = React.useState(false);
   const elementRef = React.useRef<HTMLDivElement>(null);
   const playingRef = React.useRef(false);
@@ -428,7 +428,7 @@ const NoteRectangle = React.memo(({
   // Calculate base height and top position
   // Keep the original bottom/pitch anchor; both React and imperative playback
   // geometry use this base height, including the pitch-bend ribbon.
-  const heightScale = isStrumVoice ? 0.5 : 1;
+  const heightScale = isStrumNote ? 0.5 : 1;
   const baseHeight = noteHeight * 2 * heightScale;
   const baseTop =
     (isDrum && drumNoteToY

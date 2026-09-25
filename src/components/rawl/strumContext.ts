@@ -1,3 +1,3 @@
 import { createContext } from "react";
 
-export const StrumVoicesContext = createContext<ReadonlySet<number>>(new Set());
+export const StrumNotesContext = createContext<ReadonlySet<string>>(new Set());

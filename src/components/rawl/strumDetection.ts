@@ -47,34 +47,76 @@ export function measureChordOccupancy(
   };
 }
 
-export function findStrumVoices(
-  voices: readonly (readonly StrumNote[])[],
-): Set<number> {
-  const result = new Set<number>();
+/**
+ * Classify each voice independently in each measure. Returned IDs let rendering
+ * reuse the result without doing analysis on playback frames or hover changes.
+ */
+export function findStrumNotes(
+  voices: readonly (readonly (StrumNote & { id: string })[])[],
+  measures: readonly number[],
+): Set<string> {
+  const result = new Set<string>();
   if (voices.filter((voice) => voice.length > 0).length < 3) return result;
-  let start = Infinity;
-  let end = -Infinity;
-  for (const voice of voices)
+  // No invented bar length when timing is unavailable. Include only valid,
+  // increasing boundaries; the final boundary closes the final measure.
+  const boundaries: number[] = [];
+  for (const time of measures) {
+    if (
+      Number.isFinite(time) &&
+      (!boundaries.length || time > boundaries[boundaries.length - 1])
+    )
+      boundaries.push(time);
+  }
+  if (boundaries.length < 2) return result;
+
+  for (const voice of voices) {
+    const buckets = new Map<number, (StrumNote & { id: string })[]>();
     for (const note of voice) {
+      const [start, end] = note.span;
       if (
-        !Number.isFinite(note.span[0]) ||
-        !Number.isFinite(note.span[1]) ||
-        note.span[1] <= note.span[0]
+        note.isDrum ||
+        !Number.isFinite(start) ||
+        !Number.isFinite(end) ||
+        end <= start
       )
         continue;
-      start = Math.min(start, note.span[0]);
-      end = Math.max(end, note.span[1]);
+      // Find the first overlapping measure in O(log M), then visit only the
+      // measures touched by this note. Clip held notes at each bar boundary.
+      let low = 0;
+      let high = boundaries.length;
+      while (low < high) {
+        const middle = (low + high) >>> 1;
+        if (boundaries[middle] <= start) low = middle + 1;
+        else high = middle;
+      }
+      for (
+        let index = Math.max(0, low - 1);
+        index + 1 < boundaries.length && boundaries[index] < end;
+        index++
+      ) {
+        const clippedStart = Math.max(start, boundaries[index]);
+        const clippedEnd = Math.min(end, boundaries[index + 1]);
+        if (clippedEnd <= clippedStart) continue;
+        let bucket = buckets.get(index);
+        if (!bucket) buckets.set(index, (bucket = []));
+        bucket.push({ ...note, span: [clippedStart, clippedEnd] });
+      }
     }
-  voices.forEach((voice, index) => {
-    const metrics = measureChordOccupancy(voice, end - start);
-    if (
-      // A majority of sounding time can be chordal even when a rhythmic part
-      // alternates thick chords with single notes or dyads.
-      metrics.chordFraction >= 0.5 &&
-      metrics.averagePolyphony >= 2.5 &&
-      metrics.coverage >= 0.15
-    )
-      result.add(index);
-  });
+    for (const [index, notes] of buckets) {
+      const metrics = measureChordOccupancy(
+        notes,
+        boundaries[index + 1] - boundaries[index],
+      );
+      if (
+        metrics.chordFraction >= 0.5 &&
+        metrics.averagePolyphony >= 2.5 &&
+        metrics.coverage >= 0.15
+      ) {
+        // A note crossing a barline is a single rendered shape: thin it if any
+        // of the measures it overlaps qualifies, without splitting its timing.
+        for (const note of notes) result.add(note.id);
+      }
+    }
+  }
   return result;
 }

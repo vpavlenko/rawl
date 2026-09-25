@@ -1,0 +1,316 @@
+{
+  "artist": "Billy Joel",
+  "status": "processed",
+  "totalSongs": 51,
+  "matched": [
+    {
+      "song": "52nd Street",
+      "album": "52nd Street",
+      "albumId": "54e6b4a1-7a6a-3ead-b032-0912cfd49a1e",
+      "track": 9
+    },
+    {
+      "song": "A Matter of Trust",
+      "album": "The Bridge",
+      "albumId": "e09226c5-87f6-3f71-b199-d9d5797e714b",
+      "track": 3
+    },
+    {
+      "song": "Allentown",
+      "album": "The Nylon Curtain",
+      "albumId": "b1424104-8403-3bce-8130-2ebee0053ddb",
+      "track": 1
+    },
+    {
+      "song": "An Innocent Man",
+      "album": "An Innocent Man",
+      "albumId": "63424e12-759d-3d3d-a14b-0f06101c0a28",
+      "track": 2
+    },
+    {
+      "song": "Baby Grand",
+      "album": "The Bridge",
+      "albumId": "e09226c5-87f6-3f71-b199-d9d5797e714b",
+      "track": 5
+    },
+    {
+      "song": "Big Man on Mulberry Street",
+      "album": "The Bridge",
+      "albumId": "e09226c5-87f6-3f71-b199-d9d5797e714b",
+      "track": 6
+    },
+    {
+      "song": "Big Shot",
+      "album": "52nd Street",
+      "albumId": "54e6b4a1-7a6a-3ead-b032-0912cfd49a1e",
+      "track": 1
+    },
+    {
+      "song": "Blonde Over Blue",
+      "album": "River of Dreams",
+      "albumId": "166ca278-c030-388d-85d7-f8f963796d7f",
+      "track": 3
+    },
+    {
+      "song": "Captain Jack",
+      "album": "Piano Man",
+      "albumId": "7866f536-a9c7-32eb-8eed-bb49132432fa",
+      "track": 10
+    },
+    {
+      "song": "Close to the Borderline",
+      "album": "Glass Houses",
+      "albumId": "12a46ae7-fc7a-3a0e-84f6-8c9e476757ef",
+      "track": 9
+    },
+    {
+      "song": "Don't Ask Me Why",
+      "album": "Glass Houses",
+      "albumId": "12a46ae7-fc7a-3a0e-84f6-8c9e476757ef",
+      "track": 3
+    },
+    {
+      "song": "Famous Last Words",
+      "album": "River of Dreams",
+      "albumId": "166ca278-c030-388d-85d7-f8f963796d7f",
+      "track": 10
+    },
+    {
+      "song": "Goodnight Saigon",
+      "album": "The Nylon Curtain",
+      "albumId": "b1424104-8403-3bce-8130-2ebee0053ddb",
+      "track": 4
+    },
+    {
+      "song": "Honesty",
+      "album": "52nd Street",
+      "albumId": "54e6b4a1-7a6a-3ead-b032-0912cfd49a1e",
+      "track": 2
+    },
+    {
+      "song": "I Go to Extremes",
+      "album": "Storm Front",
+      "albumId": "2b749a86-14bf-3b42-bdcf-3cc44d9bd338",
+      "track": 4
+    },
+    {
+      "song": "If I Only Had the Words (To Tell You)",
+      "album": "Piano Man",
+      "albumId": "7866f536-a9c7-32eb-8eed-bb49132432fa",
+      "track": 8
+    },
+    {
+      "song": "It's Still Rock 'n' Roll to Me",
+      "album": "Glass Houses",
+      "albumId": "12a46ae7-fc7a-3a0e-84f6-8c9e476757ef",
+      "track": 4
+    },
+    {
+      "song": "It's Still Rock and Roll to Me",
+      "album": "Glass Houses",
+      "albumId": "12a46ae7-fc7a-3a0e-84f6-8c9e476757ef",
+      "track": 4
+    },
+    {
+      "song": "Just the Way You Are",
+      "album": "The Stranger",
+      "albumId": "735bcee6-6be6-3957-af15-d21ba2bd355b",
+      "track": 3
+    },
+    {
+      "song": "Leningrad",
+      "album": "Storm Front",
+      "albumId": "2b749a86-14bf-3b42-bdcf-3cc44d9bd338",
+      "track": 7
+    },
+    {
+      "song": "Lullabye (Goodnight, My Angel)",
+      "album": "River of Dreams",
+      "albumId": "166ca278-c030-388d-85d7-f8f963796d7f",
+      "track": 7
+    },
+    {
+      "song": "Miami 2017 (Seen the Lights Go Out on Broadway)",
+      "album": "Turnstiles",
+      "albumId": "46a3a9dc-510e-3765-81dd-536ced41819a",
+      "track": 8
+    },
+    {
+      "song": "Movin' Out (Anthony's Song)",
+      "album": "The Stranger",
+      "albumId": "735bcee6-6be6-3957-af15-d21ba2bd355b",
+      "track": 1
+    },
+    {
+      "song": "My Life",
+      "album": "52nd Street",
+      "albumId": "54e6b4a1-7a6a-3ead-b032-0912cfd49a1e",
+      "track": 3
+    },
+    {
+      "song": "New York State of Mind",
+      "album": "Turnstiles",
+      "albumId": "46a3a9dc-510e-3765-81dd-536ced41819a",
+      "track": 4
+    },
+    {
+      "song": "Nocturne",
+      "album": "Cold Spring Harbor",
+      "albumId": "8b6980bf-7fb3-332f-a7df-6526d2bb2bc9",
+      "track": 9
+    },
+    {
+      "song": "Only the Good Die Young",
+      "album": "The Stranger",
+      "albumId": "735bcee6-6be6-3957-af15-d21ba2bd355b",
+      "track": 6
+    },
+    {
+      "song": "Piano Man",
+      "album": "Piano Man",
+      "albumId": "7866f536-a9c7-32eb-8eed-bb49132432fa",
+      "track": 2
+    },
+    {
+      "song": "Prelude   Angry Young Man",
+      "album": "Turnstiles",
+      "albumId": "46a3a9dc-510e-3765-81dd-536ced41819a",
+      "track": 6
+    },
+    {
+      "song": "Pressure",
+      "album": "The Nylon Curtain",
+      "albumId": "b1424104-8403-3bce-8130-2ebee0053ddb",
+      "track": 3
+    },
+    {
+      "song": "Root Beer Rag",
+      "album": "Streetlife Serenade",
+      "albumId": "89ff0095-2ef2-311f-80f2-48b16b85bf56",
+      "track": 4
+    },
+    {
+      "song": "Running on Ice",
+      "album": "The Bridge",
+      "albumId": "e09226c5-87f6-3f71-b199-d9d5797e714b",
+      "track": 1
+    },
+    {
+      "song": "Scenes From an Italian Restaurant",
+      "album": "The Stranger",
+      "albumId": "735bcee6-6be6-3957-af15-d21ba2bd355b",
+      "track": 4
+    },
+    {
+      "song": "Shameless",
+      "album": "Storm Front",
+      "albumId": "2b749a86-14bf-3b42-bdcf-3cc44d9bd338",
+      "track": 5
+    },
+    {
+      "song": "She's Always a Woman to Me",
+      "album": "The Stranger",
+      "albumId": "735bcee6-6be6-3957-af15-d21ba2bd355b",
+      "track": 7
+    },
+    {
+      "song": "She's Got a Way",
+      "album": "Cold Spring Harbor",
+      "albumId": "8b6980bf-7fb3-332f-a7df-6526d2bb2bc9",
+      "track": 1
+    },
+    {
+      "song": "Stiletto",
+      "album": "52nd Street",
+      "albumId": "54e6b4a1-7a6a-3ead-b032-0912cfd49a1e",
+      "track": 5
+    },
+    {
+      "song": "Tell Her About It",
+      "album": "An Innocent Man",
+      "albumId": "63424e12-759d-3d3d-a14b-0f06101c0a28",
+      "track": 5
+    },
+    {
+      "song": "Temptation",
+      "album": "The Bridge",
+      "albumId": "e09226c5-87f6-3f71-b199-d9d5797e714b",
+      "track": 7
+    },
+    {
+      "song": "The Downeaster \"Alexa\"",
+      "album": "Storm Front",
+      "albumId": "2b749a86-14bf-3b42-bdcf-3cc44d9bd338",
+      "track": 3
+    },
+    {
+      "song": "The Entertainer",
+      "album": "Streetlife Serenade",
+      "albumId": "89ff0095-2ef2-311f-80f2-48b16b85bf56",
+      "track": 6
+    },
+    {
+      "song": "The Longest Time",
+      "album": "An Innocent Man",
+      "albumId": "63424e12-759d-3d3d-a14b-0f06101c0a28",
+      "track": 3
+    },
+    {
+      "song": "The Mexican Connection",
+      "album": "Streetlife Serenade",
+      "albumId": "89ff0095-2ef2-311f-80f2-48b16b85bf56",
+      "track": 10
+    },
+    {
+      "song": "The River of Dreams",
+      "album": "River of Dreams",
+      "albumId": "166ca278-c030-388d-85d7-f8f963796d7f",
+      "track": 8
+    },
+    {
+      "song": "The Stranger",
+      "album": "The Stranger",
+      "albumId": "735bcee6-6be6-3957-af15-d21ba2bd355b",
+      "track": 2
+    },
+    {
+      "song": "This Is the Time",
+      "album": "The Bridge",
+      "albumId": "e09226c5-87f6-3f71-b199-d9d5797e714b",
+      "track": 2
+    },
+    {
+      "song": "Uptown Girl",
+      "album": "An Innocent Man",
+      "albumId": "63424e12-759d-3d3d-a14b-0f06101c0a28",
+      "track": 6
+    },
+    {
+      "song": "We Didn't Start the Fire",
+      "album": "Storm Front",
+      "albumId": "2b749a86-14bf-3b42-bdcf-3cc44d9bd338",
+      "track": 2
+    },
+    {
+      "song": "You May Be Right",
+      "album": "Glass Houses",
+      "albumId": "12a46ae7-fc7a-3a0e-84f6-8c9e476757ef",
+      "track": 1
+    },
+    {
+      "song": "You're Only Human (Second Wind)",
+      "album": "You’re Only Human (Second Wind) / Surprises",
+      "albumId": "3ae861b4-d78a-466a-9554-5070ab280b4b",
+      "track": 1
+    },
+    {
+      "song": "Zanzibar",
+      "album": "52nd Street",
+      "albumId": "54e6b4a1-7a6a-3ead-b032-0912cfd49a1e",
+      "track": 4
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

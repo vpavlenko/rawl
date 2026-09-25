@@ -277,5 +277,17 @@
         "title": "Dio è morto"
       }
     }
+  },
+  "Billy Joel": {
+    "mbid": "64b94289-9474-4d43-8c93-918ccc1920d1",
+    "country": "US",
+    "songs": {
+      "It's Still Rock 'n' Roll to Me": {
+        "title": "It’s Still Rock and Roll to Me"
+      },
+      "She's Always a Woman to Me": {
+        "title": "She’s Always a Woman"
+      }
+    }
   }
 }

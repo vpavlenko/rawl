@@ -62,6 +62,7 @@ import OldLandingPage from "./rawl/OldLandingPage";
 import Rawl, { RawlProps } from "./rawl/Rawl";
 import { ShortcutHelp } from "./rawl/ShortcutHelp";
 import {
+  ANALYSIS_STUB,
   Analyses,
   Analysis,
   MeasuresSpan,
@@ -254,7 +255,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       directories: {},
       parsing: null,
       enableManualRemeasuring: false,
-      analyses: this.isCleanMode() ? {} : defaultAnalyses as unknown as Analyses,
+      analyses: this.isCleanMode() ? this.cleanAnalysisStubs() : defaultAnalyses as unknown as Analyses,
       annotationVersions: this.isCleanMode() ? {} : this.annotationVersions,
       selectedAnnotationOwners: {},
       latencyCorrectionMs: initialLatencyCorrection,
@@ -299,6 +300,23 @@ class App extends React.Component<RouteComponentProps, AppState> {
     return new URLSearchParams(this.props.location.search).get("clean") === "1";
   }
 
+  cleanAnalysisStubs(): Analyses {
+    const analyses: Analyses = {};
+    Object.entries(this.annotationVersions).forEach(([key, owners]) => {
+      const measures = owners[ADMIN_USER_ID]?.analysis.measures;
+      if (measures) {
+        analyses[key] = {
+          ...ANALYSIS_STUB,
+          measures: {
+            measureStarts: { ...measures.measureStarts },
+            beatsPerMeasure: { ...measures.beatsPerMeasure },
+          },
+        };
+      }
+    });
+    return analyses;
+  }
+
   availableAnnotationVersions(): AnnotationVersions {
     if (!this.isCleanMode()) return this.annotationVersions;
     const userId = this.state.user?.uid;
@@ -313,11 +331,14 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
   refreshAnnotations() {
     const versions = this.availableAnnotationVersions();
-    const { analyses, selectedOwners } = resolveAnnotations(
+    const { analyses: savedAnalyses, selectedOwners } = resolveAnnotations(
       versions,
       this.annotationSelections,
       this.state.user?.uid,
     );
+    const analyses = this.isCleanMode()
+      ? { ...this.cleanAnalysisStubs(), ...savedAnalyses }
+      : savedAnalyses;
     if (this.isCleanMode() && !this.state.user) {
       Object.assign(analyses, this.cleanGuestAnalyses);
     }

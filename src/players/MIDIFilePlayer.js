@@ -163,6 +163,9 @@ MIDIFilePlayer.prototype.processPlaySynth = function (buffer, bufferSize) {
         pos++
       ) {
         event = this.events[pos];
+        // Meta events have their own subtype namespace (e.g. 0x08 is a
+        // program-name label, not note-off) and carry no MIDI channel.
+        if (event.type !== MIDIEvents.EVENT_MIDI) continue;
         switch (event.subtype) {
           case MIDIEvents.EVENT_MIDI_NOTE_ON:
             if (!this.channelMask[event.channel]) break;
@@ -267,7 +270,7 @@ MIDIFilePlayer.prototype.processPlay = function () {
           Math.floor(event.playTime),
           printSysex(event.data),
         );
-    } else {
+    } else if (event.type === MIDIEvents.EVENT_MIDI) {
       switch (event.subtype) {
         case MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE:
           this.handleProgramChange(event.channel, event.param1);
@@ -387,6 +390,7 @@ MIDIFilePlayer.prototype.setSpeed = function (speed) {
 MIDIFilePlayer.prototype.setPositionSynth = function (eventList) {
   const synth = this.synth;
   eventList.forEach((event) => {
+    if (event.type !== MIDIEvents.EVENT_MIDI) return;
     switch (event.subtype) {
       case MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE:
         // handleProgramChange() is called in setPosition()
@@ -420,7 +424,8 @@ MIDIFilePlayer.prototype.setPosition = function (ms) {
   // TODO: if we seek inside some notes, it's best to retrigger their noteOn, eg. for string pads.
 
   while (this.events[pos] && this.events[pos].playTime < ms) {
-    const event = this.events[pos];
+    const event = this.events[pos++];
+    if (event.type !== MIDIEvents.EVENT_MIDI) continue;
     if (event.subtype === MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE) {
       this.handleProgramChange(event.channel, event.param1);
       eventMap[`${event.subtype}-${event.channel}`] = event;
@@ -434,7 +439,6 @@ MIDIFilePlayer.prototype.setPosition = function (ms) {
         eventMap[`${event.subtype}-${event.channel}-${event.param1}`] = event;
       }
     }
-    pos++;
   }
 
   eventList = Object.values(eventMap).concat(eventList);
@@ -472,9 +476,11 @@ MIDIFilePlayer.prototype.summarizeMidiEvents = function () {
     }
     switch (event.subtype) {
       case MIDIEvents.EVENT_MIDI_NOTE_ON:
+        if (event.type !== MIDIEvents.EVENT_MIDI) break;
         channelsInUse[channel] = 1;
         break;
       case MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE:
+        if (event.type !== MIDIEvents.EVENT_MIDI) break;
         if (!channelProgramNums[channel])
           this.handleProgramChange(channel, event.param1);
         break;
@@ -485,6 +491,7 @@ MIDIFilePlayer.prototype.summarizeMidiEvents = function () {
       case MIDIEvents.EVENT_META_LYRICS:
       case MIDIEvents.EVENT_META_MARKER:
       case MIDIEvents.EVENT_META_CUE_POINT:
+        if (event.type !== MIDIEvents.EVENT_META) break;
         const text = event.data
           .map((c) => String.fromCharCode(c))
           .join("")

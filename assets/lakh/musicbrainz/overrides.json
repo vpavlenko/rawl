@@ -214,5 +214,23 @@
         "title": "Something in the Way / Endless, Nameless"
       }
     }
+  },
+  "Celine Dion": {
+    "mbid": "847e8a0c-cc20-4213-9e16-975515c2a926",
+    "country": "CA",
+    "songs": {
+      "Beauty & The Beast": {
+        "title": "Beauty and the Beast"
+      },
+      "It's All Coming Back to Me": {
+        "title": "It's All Coming Back to Me Now"
+      },
+      "Les derniers seront les premiers (feat. Jean-Jacques Goldman)": {
+        "title": "Les derniers seront les premiers"
+      },
+      "Power of Love": {
+        "title": "The Power of Love"
+      }
+    }
   }
 }

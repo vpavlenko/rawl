@@ -1,0 +1,532 @@
+{
+  "artist": "Celine Dion",
+  "artistId": "847e8a0c-cc20-4213-9e16-975515c2a926",
+  "groups": [
+    {
+      "id": "610620aa-13bf-35e8-ac9a-946f15b3431c",
+      "releaseId": "510e3b09-3c1c-46c6-b41c-5bc8acdda1ea",
+      "title": "Tellement j’ai d’amour…",
+      "date": "1982-09-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/610620aa-13bf-35e8-ac9a-946f15b3431c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "D'amour ou d'amitie.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5c31125f-270e-371c-8531-aeff498a173a",
+      "releaseId": "b6a106e4-8ac1-4381-89a6-d5699477387a",
+      "title": "Mélanie",
+      "date": "1984",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5c31125f-270e-371c-8531-aeff498a173a/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Mon reve de toujours.mid",
+            "Mon reve de toujours.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2be7767c-3032-3e28-9b16-73d893b926b9",
+      "releaseId": "afb02696-3a35-4a1b-a9a9-71c484d9d438",
+      "title": "C’est pour toi",
+      "date": "1985-08-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2be7767c-3032-3e28-9b16-73d893b926b9/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "C'est pour toi.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d6084692-1c53-3fee-a288-ab2c2c83f41f",
+      "releaseId": "ba9e7b64-ec53-41c3-9276-1037990d1520",
+      "title": "Incognito",
+      "date": "1987-04-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d6084692-1c53-3fee-a288-ab2c2c83f41f/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "D'abord, c'est quoi l'amour.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2e361203-508a-46ca-b503-3b6144ec6c6b",
+      "releaseId": "55d515f0-75e4-4ec7-bf75-5449dba0b158",
+      "title": "Ne partez pas sans moi",
+      "date": "1988",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/2e361203-508a-46ca-b503-3b6144ec6c6b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ne Partez Pas Sans Moi.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b05c3c90-db17-3d09-8fa8-28ab7356987d",
+      "releaseId": "79f0e408-6279-4921-b393-02e1d3a2ed86",
+      "title": "Unison",
+      "date": "1990-04-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b05c3c90-db17-3d09-8fa8-28ab7356987d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "(If There Was) Any Other Way.mid",
+            "(If There Was) Any Other Way.1.mid",
+            "(If There Was) Any Other Way.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Where Does My Heart Beat Now.mid",
+            "Where Does My Heart Beat Now.1.mid",
+            "Where Does My Heart Beat Now.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "I'm Loving Every Moment With You.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Unison.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "49230064-f1f2-3bb7-9cbf-354b9cb786e3",
+      "releaseId": "ec40467a-f2ec-4a5a-9d37-84fdff81bec8",
+      "title": "Dion chante Plamondon",
+      "date": "1991-11-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/49230064-f1f2-3bb7-9cbf-354b9cb786e3/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Je danse dans ma tete.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "L'amour existe encore.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "48d0bd2b-0507-334b-8b67-6ab3897b9a3b",
+      "releaseId": "4c169f41-bad0-35f1-8d2a-539197093aa5",
+      "title": "Céline Dion",
+      "date": "1992-03-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/48d0bd2b-0507-334b-8b67-6ab3897b9a3b/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "If You Asked Me To.mid",
+            "If You Asked Me To.1.mid",
+            "If You Asked Me To.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Beauty & The Beast.mid",
+            "Beauty & The Beast.1.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Nothing Broken But My Heart.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8c382a8b-8a02-3492-b881-f0fc4359ee83",
+      "releaseId": "5f5b8faa-f5fb-42bf-aec6-4c00bbbb8e78",
+      "title": "The Colour of My Love",
+      "date": "1993-11-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8c382a8b-8a02-3492-b881-f0fc4359ee83/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Power of Love.mid",
+            "Power of Love.1.mid",
+            "Power of Love.2.mid",
+            "Power of Love.3.mid",
+            "Power of Love.4.mid",
+            "Power of Love.5.mid",
+            "Power of Love.6.mid",
+            "Power of Love.7.mid",
+            "Power of Love.8.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Think Twice.mid",
+            "Think Twice.1.mid",
+            "Think Twice.2.mid",
+            "Think Twice.3.mid",
+            "Think Twice.4.mid",
+            "Think Twice.5.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Only One Road.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "When I Fall In Love.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Just Walk Away.mid"
+          ]
+        },
+        {
+          "number": 15,
+          "files": [
+            "The Colour Of My Love.mid",
+            "The Colour Of My Love.1.mid",
+            "The Colour Of My Love.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9fe516f5-8e2c-3664-9903-c852c2fffd6b",
+      "releaseId": "74ceb269-0aa4-47e0-aece-859778e52566",
+      "title": "D'eux",
+      "date": "1995-03-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9fe516f5-8e2c-3664-9903-c852c2fffd6b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Pour que tu m'aimes encore.mid",
+            "Pour que tu m'aimes encore.1.mid",
+            "Pour que tu m'aimes encore.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Le ballet.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Regarde-moi.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Je sais pas.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Les derniers seront les premiers (feat. Jean-Jacques Goldman).mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Priere paienne.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Vole.mid",
+            "Vole.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7c89982d-e6a6-3811-828d-5462a69f0ddf",
+      "releaseId": "3d9cf827-360f-4299-900f-7d1c669e5f9e",
+      "title": "Falling Into You",
+      "date": "1996-03-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7c89982d-e6a6-3811-828d-5462a69f0ddf/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "It's All Coming Back to Me.mid",
+            "It's All Coming Back to Me.1.mid",
+            "It's All Coming Back to Me.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Because You Loved Me.mid",
+            "Because You Loved Me.1.mid",
+            "Because You Loved Me.2.mid",
+            "Because You Loved Me.3.mid",
+            "Because You Loved Me.4.mid",
+            "Because You Loved Me.5.mid",
+            "Because You Loved Me.6.mid",
+            "Because You Loved Me.7.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Falling Into You.mid",
+            "Falling Into You.1.mid",
+            "Falling Into You.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "All by Myself.mid",
+            "All by Myself.1.mid",
+            "All by Myself.2.mid",
+            "All by Myself.3.mid",
+            "All by Myself.4.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "I Don't Know.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7077f9c2-1aaf-4a72-a1a6-6f03d9c71096",
+      "releaseId": "0e13f9ba-4622-4c5c-95ba-21d83703c567",
+      "title": "It’s All Coming Back to Me Now",
+      "date": "1996-09-23",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/7077f9c2-1aaf-4a72-a1a6-6f03d9c71096/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "The Power of the Dream.mid",
+            "The Power of the Dream.1.mid",
+            "The Power of the Dream.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d90d5240-d510-3d82-95ba-13c6624ea28c",
+      "releaseId": "78bf8342-481d-4935-ad31-7064e28f4a1c",
+      "title": "Let’s Talk About Love",
+      "date": "1997-11-14",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d90d5240-d510-3d82-95ba-13c6624ea28c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Reason.mid",
+            "The Reason.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Immortality.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Tell Him.mid",
+            "Tell Him.1.mid",
+            "Tell Him.2.mid",
+            "Tell Him.3.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Where Is the Love.mid",
+            "Where Is the Love.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "When I Need You.mid",
+            "When I Need You.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "My Heart Will Go On.mid",
+            "My Heart Will Go On.1.mid",
+            "My Heart Will Go On.2.mid",
+            "My Heart Will Go On.3.mid",
+            "My Heart Will Go On.4.mid",
+            "My Heart Will Go On.5.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "I Hate You Then I Love You.mid",
+            "I Hate You Then I Love You.1.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "To Love You More.mid",
+            "To Love You More.1.mid",
+            "To Love You More.2.mid",
+            "To Love You More.3.mid",
+            "To Love You More.4.mid"
+          ]
+        },
+        {
+          "number": 15,
+          "files": [
+            "Let's Talk About Love.mid",
+            "Let's Talk About Love.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "09b86375-0965-3fc0-8fc5-7d583c4b52f1",
+      "releaseId": "90e13d74-9011-4bc9-8c0c-f912ffe007b3",
+      "title": "S’il suffisait d’aimer",
+      "date": "1998-08-31",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/09b86375-0965-3fc0-8fc5-7d583c4b52f1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Je crois toi.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Zora sourit.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "S'il suffisait d'aimer.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dbc4727d-320c-3868-beb0-e25c0586a4ee",
+      "releaseId": "33834b06-a437-3659-ae78-fb77b3d85cfd",
+      "title": "These Are Special Times",
+      "date": "1998-10-31",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/dbc4727d-320c-3868-beb0-e25c0586a4ee/front-250",
+      "songs": [
+        {
+          "number": 14,
+          "files": [
+            "I'm Your Angel.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "00706326-11d5-3c4b-8633-8fe8449a5764",
+      "releaseId": "4729edcc-f54c-4ed1-91f5-0f7b279784fd",
+      "title": "That’s the Way It Is",
+      "date": "1999-11-01",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/00706326-11d5-3c4b-8633-8fe8449a5764/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "That's The Way It Is.mid",
+            "That's The Way It Is.1.mid",
+            "That's The Way It Is.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "974d3660-cf9b-3e12-abeb-6ce977d652b0",
+      "releaseId": "68346daf-1c0e-324b-aa60-55a97800a24e",
+      "title": "A New Day Has Come",
+      "date": "2002-03-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/974d3660-cf9b-3e12-abeb-6ce977d652b0/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I'm Alive.mid"
+          ]
+        },
+        {
+          "number": 15,
+          "files": [
+            "A New Day Has Come.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

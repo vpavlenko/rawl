@@ -1,0 +1,320 @@
+{
+  "artist": "Celine Dion",
+  "status": "processed",
+  "totalSongs": 56,
+  "matched": [
+    {
+      "song": "(If There Was) Any Other Way",
+      "album": "Unison",
+      "albumId": "b05c3c90-db17-3d09-8fa8-28ab7356987d",
+      "track": 1
+    },
+    {
+      "song": "A New Day Has Come",
+      "album": "A New Day Has Come",
+      "albumId": "974d3660-cf9b-3e12-abeb-6ce977d652b0",
+      "track": 15
+    },
+    {
+      "song": "All by Myself",
+      "album": "Falling Into You",
+      "albumId": "7c89982d-e6a6-3811-828d-5462a69f0ddf",
+      "track": 6
+    },
+    {
+      "song": "Beauty & The Beast",
+      "album": "Céline Dion",
+      "albumId": "48d0bd2b-0507-334b-8b67-6ab3897b9a3b",
+      "track": 8
+    },
+    {
+      "song": "Because You Loved Me",
+      "album": "Falling Into You",
+      "albumId": "7c89982d-e6a6-3811-828d-5462a69f0ddf",
+      "track": 2
+    },
+    {
+      "song": "C'est pour toi",
+      "album": "C’est pour toi",
+      "albumId": "2be7767c-3032-3e28-9b16-73d893b926b9",
+      "track": 1
+    },
+    {
+      "song": "D'abord, c'est quoi l'amour",
+      "album": "Incognito",
+      "albumId": "d6084692-1c53-3fee-a288-ab2c2c83f41f",
+      "track": 6
+    },
+    {
+      "song": "D'amour ou d'amitie",
+      "album": "Tellement j’ai d’amour…",
+      "albumId": "610620aa-13bf-35e8-ac9a-946f15b3431c",
+      "track": 1
+    },
+    {
+      "song": "Falling Into You",
+      "album": "Falling Into You",
+      "albumId": "7c89982d-e6a6-3811-828d-5462a69f0ddf",
+      "track": 3
+    },
+    {
+      "song": "I Don't Know",
+      "album": "Falling Into You",
+      "albumId": "7c89982d-e6a6-3811-828d-5462a69f0ddf",
+      "track": 11
+    },
+    {
+      "song": "I Hate You Then I Love You",
+      "album": "Let’s Talk About Love",
+      "albumId": "d90d5240-d510-3d82-95ba-13c6624ea28c",
+      "track": 13
+    },
+    {
+      "song": "I'm Alive",
+      "album": "A New Day Has Come",
+      "albumId": "974d3660-cf9b-3e12-abeb-6ce977d652b0",
+      "track": 1
+    },
+    {
+      "song": "I'm Loving Every Moment With You",
+      "album": "Unison",
+      "albumId": "b05c3c90-db17-3d09-8fa8-28ab7356987d",
+      "track": 5
+    },
+    {
+      "song": "I'm Your Angel",
+      "album": "These Are Special Times",
+      "albumId": "dbc4727d-320c-3868-beb0-e25c0586a4ee",
+      "track": 14
+    },
+    {
+      "song": "If You Asked Me To",
+      "album": "Céline Dion",
+      "albumId": "48d0bd2b-0507-334b-8b67-6ab3897b9a3b",
+      "track": 3
+    },
+    {
+      "song": "Immortality",
+      "album": "Let’s Talk About Love",
+      "albumId": "d90d5240-d510-3d82-95ba-13c6624ea28c",
+      "track": 2
+    },
+    {
+      "song": "It's All Coming Back to Me",
+      "album": "Falling Into You",
+      "albumId": "7c89982d-e6a6-3811-828d-5462a69f0ddf",
+      "track": 1
+    },
+    {
+      "song": "Je crois toi",
+      "album": "S’il suffisait d’aimer",
+      "albumId": "09b86375-0965-3fc0-8fc5-7d583c4b52f1",
+      "track": 1
+    },
+    {
+      "song": "Je danse dans ma tete",
+      "album": "Dion chante Plamondon",
+      "albumId": "49230064-f1f2-3bb7-9cbf-354b9cb786e3",
+      "track": 5
+    },
+    {
+      "song": "Je sais pas",
+      "album": "D'eux",
+      "albumId": "9fe516f5-8e2c-3664-9903-c852c2fffd6b",
+      "track": 4
+    },
+    {
+      "song": "Just Walk Away",
+      "album": "The Colour of My Love",
+      "albumId": "8c382a8b-8a02-3492-b881-f0fc4359ee83",
+      "track": 14
+    },
+    {
+      "song": "L'amour existe encore",
+      "album": "Dion chante Plamondon",
+      "albumId": "49230064-f1f2-3bb7-9cbf-354b9cb786e3",
+      "track": 12
+    },
+    {
+      "song": "Le ballet",
+      "album": "D'eux",
+      "albumId": "9fe516f5-8e2c-3664-9903-c852c2fffd6b",
+      "track": 2
+    },
+    {
+      "song": "Les derniers seront les premiers (feat. Jean-Jacques Goldman)",
+      "album": "D'eux",
+      "albumId": "9fe516f5-8e2c-3664-9903-c852c2fffd6b",
+      "track": 8
+    },
+    {
+      "song": "Let's Talk About Love",
+      "album": "Let’s Talk About Love",
+      "albumId": "d90d5240-d510-3d82-95ba-13c6624ea28c",
+      "track": 15
+    },
+    {
+      "song": "Mon reve de toujours",
+      "album": "Mélanie",
+      "albumId": "5c31125f-270e-371c-8531-aeff498a173a",
+      "track": 5
+    },
+    {
+      "song": "My Heart Will Go On",
+      "album": "Let’s Talk About Love",
+      "albumId": "d90d5240-d510-3d82-95ba-13c6624ea28c",
+      "track": 12
+    },
+    {
+      "song": "Ne Partez Pas Sans Moi",
+      "album": "Ne partez pas sans moi",
+      "albumId": "2e361203-508a-46ca-b503-3b6144ec6c6b",
+      "track": 1
+    },
+    {
+      "song": "Nothing Broken But My Heart",
+      "album": "Céline Dion",
+      "albumId": "48d0bd2b-0507-334b-8b67-6ab3897b9a3b",
+      "track": 13
+    },
+    {
+      "song": "Only One Road",
+      "album": "The Colour of My Love",
+      "albumId": "8c382a8b-8a02-3492-b881-f0fc4359ee83",
+      "track": 4
+    },
+    {
+      "song": "Pour que tu m'aimes encore",
+      "album": "D'eux",
+      "albumId": "9fe516f5-8e2c-3664-9903-c852c2fffd6b",
+      "track": 1
+    },
+    {
+      "song": "Power of Love",
+      "album": "The Colour of My Love",
+      "albumId": "8c382a8b-8a02-3492-b881-f0fc4359ee83",
+      "track": 1
+    },
+    {
+      "song": "Priere paienne",
+      "album": "D'eux",
+      "albumId": "9fe516f5-8e2c-3664-9903-c852c2fffd6b",
+      "track": 11
+    },
+    {
+      "song": "Regarde-moi",
+      "album": "D'eux",
+      "albumId": "9fe516f5-8e2c-3664-9903-c852c2fffd6b",
+      "track": 3
+    },
+    {
+      "song": "S'il suffisait d'aimer",
+      "album": "S’il suffisait d’aimer",
+      "albumId": "09b86375-0965-3fc0-8fc5-7d583c4b52f1",
+      "track": 12
+    },
+    {
+      "song": "Tell Him",
+      "album": "Let’s Talk About Love",
+      "albumId": "d90d5240-d510-3d82-95ba-13c6624ea28c",
+      "track": 6
+    },
+    {
+      "song": "That's The Way It Is",
+      "album": "That’s the Way It Is",
+      "albumId": "00706326-11d5-3c4b-8633-8fe8449a5764",
+      "track": 1
+    },
+    {
+      "song": "The Colour Of My Love",
+      "album": "The Colour of My Love",
+      "albumId": "8c382a8b-8a02-3492-b881-f0fc4359ee83",
+      "track": 15
+    },
+    {
+      "song": "The Power of the Dream",
+      "album": "It’s All Coming Back to Me Now",
+      "albumId": "7077f9c2-1aaf-4a72-a1a6-6f03d9c71096",
+      "track": 2
+    },
+    {
+      "song": "The Reason",
+      "album": "Let’s Talk About Love",
+      "albumId": "d90d5240-d510-3d82-95ba-13c6624ea28c",
+      "track": 1
+    },
+    {
+      "song": "Think Twice",
+      "album": "The Colour of My Love",
+      "albumId": "8c382a8b-8a02-3492-b881-f0fc4359ee83",
+      "track": 3
+    },
+    {
+      "song": "To Love You More",
+      "album": "Let’s Talk About Love",
+      "albumId": "d90d5240-d510-3d82-95ba-13c6624ea28c",
+      "track": 14
+    },
+    {
+      "song": "Unison",
+      "album": "Unison",
+      "albumId": "b05c3c90-db17-3d09-8fa8-28ab7356987d",
+      "track": 7
+    },
+    {
+      "song": "Vole",
+      "album": "D'eux",
+      "albumId": "9fe516f5-8e2c-3664-9903-c852c2fffd6b",
+      "track": 12
+    },
+    {
+      "song": "When I Fall In Love",
+      "album": "The Colour of My Love",
+      "albumId": "8c382a8b-8a02-3492-b881-f0fc4359ee83",
+      "track": 8
+    },
+    {
+      "song": "When I Need You",
+      "album": "Let’s Talk About Love",
+      "albumId": "d90d5240-d510-3d82-95ba-13c6624ea28c",
+      "track": 8
+    },
+    {
+      "song": "Where Does My Heart Beat Now",
+      "album": "Unison",
+      "albumId": "b05c3c90-db17-3d09-8fa8-28ab7356987d",
+      "track": 3
+    },
+    {
+      "song": "Where Is the Love",
+      "album": "Let’s Talk About Love",
+      "albumId": "d90d5240-d510-3d82-95ba-13c6624ea28c",
+      "track": 7
+    },
+    {
+      "song": "Zora sourit",
+      "album": "S’il suffisait d’aimer",
+      "albumId": "09b86375-0965-3fc0-8fc5-7d583c4b52f1",
+      "track": 2
+    }
+  ],
+  "unmatched": [
+    "A Natural Woman",
+    "Fais Ce que Tu Voudras",
+    "It's All Coming Back to Me Now (Classic Paradise radio mix #2)",
+    "Mariah Carey - Hero",
+    "Quand on n'a que l'amour",
+    "Sola Otra Vez",
+    "Sous le vent (feat. Celine Dion)"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "A Natural Woman": [],
+    "Fais Ce que Tu Voudras": [],
+    "It's All Coming Back to Me Now (Classic Paradise radio mix #2)": [],
+    "Mariah Carey - Hero": [],
+    "Quand on n'a que l'amour": [],
+    "Sola Otra Vez": [],
+    "Sous le vent (feat. Celine Dion)": []
+  }
+}

@@ -8,11 +8,17 @@ Reproduce with `node scripts/rawl/analyze-lakh-strum.cjs`. The complete sample, 
 
 For each voice and each measure, clip overlapping notes to the measure boundaries, then sweep note starts/ends in time order, counting distinct sounding MIDI pitches. Integrate sounding time, time with at least three pitches, and pitch-count × elapsed time. Classify that voice in that measure when all hold:
 
-- Three or more pitches overlap for at least 50% of the voice's sounding time within that measure.
-- Average polyphony while sounding within the measure is at least 2.5.
+- Three or more pitches overlap for approximately half of the voice's sounding time within that measure (48% cutoff, allowing two percentage points for MIDI articulation gaps).
+- Average polyphony while sounding within the measure is at least 2.45 (a 0.05 margin around the nominal 2.5 threshold).
 - Three-or-more-pitch overlap covers at least 15% of the measure duration. There is no whole-piece coverage requirement.
 
 This measures visual filling directly. It accepts slightly staggered strums and sustained pads without requiring simultaneous attacks or a particular timbre. Time weighting prevents a fast monophonic arpeggio from being treated as thick accompaniment. Counting distinct pitches avoids duplicate unison notes inflating the result. The coverage requirement excludes short chord accents; the average-polyphony requirement filters borderline mixtures of triads and single notes. Drums do not qualify, but count toward the file's three-voice eligibility.
+
+## Articulation boundary case: Seven Seconds
+
+Analyzed `Youssou N'Dour/Seven Seconds.mid` using the app's `midifile` helpers, `parseNotes`, and measure boundaries. MIDI channel 5 (zero-based) sustains two pitches while pulsing a third. Its early measures have 48.96% three-pitch overlap and 2.49 average polyphony: the pulses last about 193 ms rather than the exact half-beat of 197 ms. Strict 50% / 2.5 cutoffs rejected these otherwise qualifying measures.
+
+The small margins above now select 180 of that channel's 372 notes in qualifying measures. All other channels' selected-note counts remain unchanged in this file, including the already-detected sustained pads. This is a targeted MIDI analysis; browser rendering was not checked.
 
 ## Historical whole-file sample findings
 

@@ -108,8 +108,11 @@ export function findStrumNotes(
         boundaries[index + 1] - boundaries[index],
       );
       if (
-        metrics.chordFraction >= 0.5 &&
-        metrics.averagePolyphony >= 2.5 &&
+        // MIDI gates often release just before the grid. Allow a small margin
+        // around half-time chords / 2.5 pitches so a sustained dyad plus a
+        // pulsed third pitch does not fail solely on those articulation gaps.
+        metrics.chordFraction >= 0.48 &&
+        metrics.averagePolyphony >= 2.45 &&
         metrics.coverage >= 0.15
       ) {
         // A note crossing a barline is a single rendered shape: thin it if any

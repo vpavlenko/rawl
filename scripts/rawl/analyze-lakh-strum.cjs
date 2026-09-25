@@ -9,8 +9,38 @@ const { parseMidi } = require("midi-file");
 const { performance } = require("perf_hooks");
 const {
   measureChordOccupancy,
-  findStrumVoices,
 } = require("../../src/components/rawl/strumDetection");
+// Historical whole-file baseline for docs/lakh-strum-sample.json.
+function findStrumVoices(voices) {
+  const result = new Set();
+  if (voices.filter((voice) => voice.length > 0).length < 3) return result;
+  let start = Infinity;
+  let end = -Infinity;
+  for (const voice of voices)
+    for (const note of voice) {
+      if (
+        !Number.isFinite(note.span[0]) ||
+        !Number.isFinite(note.span[1]) ||
+        note.span[1] <= note.span[0]
+      )
+        continue;
+      start = Math.min(start, note.span[0]);
+      end = Math.max(end, note.span[1]);
+    }
+  voices.forEach((voice, index) => {
+    const metrics = measureChordOccupancy(voice, end - start);
+    if (
+      // A majority of sounding time can be chordal even when a rhythmic part
+      // alternates thick chords with single notes or dyads.
+      metrics.chordFraction >= 0.5 &&
+      metrics.averagePolyphony >= 2.5 &&
+      metrics.coverage >= 0.15
+    )
+      result.add(index);
+  });
+  return result;
+}
+
 const root = path.resolve(__dirname, "../../public/lakh-data");
 function walk(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -79,13 +109,11 @@ for (const file of files) {
       const start = held.get(key);
       if (start !== undefined) {
         if (!channels.has(event.channel)) channels.set(event.channel, []);
-        channels
-          .get(event.channel)
-          .push({
-            span: [start, event.playTime / 1000],
-            note: { midiNumber: event.param1 },
-            isDrum: event.channel === 9,
-          });
+        channels.get(event.channel).push({
+          span: [start, event.playTime / 1000],
+          note: { midiNumber: event.param1 },
+          isDrum: event.channel === 9,
+        });
         held.delete(key);
       }
       if (event.subtype === 9 && event.param2 > 0)

@@ -71,6 +71,10 @@ const SliderMagnifier = styled.div`
   inset: -3px 0;
   pointer-events: none;
 
+  ${SliderMark} {
+    background: #000;
+  }
+
   ${SliderColoredMark} {
     top: 0;
     height: 50%;
@@ -237,6 +241,8 @@ export default class Slider extends PureComponent {
         >
           <ColoredMarks marks={this.props.coloredMarks} />
           <BassBars bars={this.props.bassBars} />
+          <SectionMarks marks={this.props.marks} />
+          <PhraseMarks marks={this.props.phraseMarks} />
         </SliderMagnifier>
       </SliderContainer>
     );

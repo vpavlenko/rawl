@@ -1,0 +1,508 @@
+{
+  "artist": "Celentano",
+  "artistId": "d2b50525-1111-4906-aab6-4553f035f679",
+  "groups": [
+    {
+      "id": "3ef87455-adf0-440c-b97f-13ee7c3172fb",
+      "releaseId": "5807381a-9365-4188-a142-0e813a2ecc92",
+      "title": "Il tuo bacio è come un rock",
+      "date": "1960",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3ef87455-adf0-440c-b97f-13ee7c3172fb/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Il Tuo Bacio E Come Un Rock.mid",
+            "Il Tuo Bacio E Come Un Rock.1.mid",
+            "Il Tuo Bacio E Come Un Rock.2.mid",
+            "Il Tuo Bacio E Come Un Rock.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5197dad4-0c1e-4fff-8902-0cd5fb1b3abb",
+      "releaseId": "9908c0bc-d7da-4123-9ee4-b3000711f9d1",
+      "title": "Il tangaccio",
+      "date": "1963",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/5197dad4-0c1e-4fff-8902-0cd5fb1b3abb/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Il tangaccio.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cded421a-e31c-43d3-a27d-dee7c2355838",
+      "releaseId": "c9770fd4-35da-4aa9-b5cb-dff7058d679c",
+      "title": "A New Orleans",
+      "date": "1963-07-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/cded421a-e31c-43d3-a27d-dee7c2355838/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Si e spento il sole.mid",
+            "Si e spento il sole.1.mid",
+            "Si e spento il sole.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Nata per me.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "24 mila baci.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "24.000 baci.mid",
+            "24.000 baci.1.mid",
+            "24.000 baci.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "40d293a2-9a5a-34d6-bc71-30c92bf17938",
+      "releaseId": "d33b3965-60bc-46ed-b01c-1e592fcb15f5",
+      "title": "Non mi dir",
+      "date": "1965",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/40d293a2-9a5a-34d6-bc71-30c92bf17938/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Sei rimasta sola.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Pregher.mid",
+            "Pregher.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Preghero.mid",
+            "Preghero.1.mid",
+            "Preghero.2.mid",
+            "Preghero.3.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Grazie, prego, scusi.mid",
+            "Grazie, prego, scusi.1.mid",
+            "Grazie, prego, scusi.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Ciao ragazzi.mid",
+            "Ciao ragazzi.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Il problema piu importante.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "989b5368-456a-36d9-88e5-135361eb15d5",
+      "releaseId": "63bced77-1e57-4e0b-a231-25eed3e8c696",
+      "title": "Il ragazzo della via Gluck",
+      "date": "1966-11-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/989b5368-456a-36d9-88e5-135361eb15d5/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Il ragazzo della via Gluck.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "E voi ballate.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0569fe9b-a535-3fac-ac89-954ea5f6e71c",
+      "releaseId": "84ba964d-60cd-4809-9575-4c15337a2a55",
+      "title": "Azzurro / Una carezza in un pugno",
+      "date": "1968",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0569fe9b-a535-3fac-ac89-954ea5f6e71c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Una carezza in un pugno.mid",
+            "Una carezza in un pugno.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Azzurro.mid",
+            "Azzurro.1.mid",
+            "Azzurro.2.mid",
+            "Azzurro.3.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "La coppia piu bella del mondo.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "74dc5767-5647-301b-b51b-e29a39b46f53",
+      "releaseId": "196b2d85-388b-40fa-8187-48c85e388431",
+      "title": "Le robe che ha detto Adriano",
+      "date": "1969",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/74dc5767-5647-301b-b51b-e29a39b46f53/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Straordinariamente.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Storia d'amore.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "92ef8455-965e-4470-b0a6-da7df54b3bf0",
+      "releaseId": "ffc7eb44-6cfa-43b9-954a-1f6e24768991",
+      "title": "Una storia d'amore e di coltello / Er più",
+      "date": "1971",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/92ef8455-965e-4470-b0a6-da7df54b3bf0/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Una storia d'amore e di coltello.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "13db24a3-175c-34c1-a058-54f5165b607c",
+      "releaseId": "ff6bbfd1-d81e-47b1-8b39-68c7f5d1d662",
+      "title": "I mali del secolo",
+      "date": "1972",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/13db24a3-175c-34c1-a058-54f5165b607c/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Un albero di trenta piani.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "62147812-5b70-3d84-91b2-99f708063ad0",
+      "releaseId": "6757f23b-9066-47f1-aeee-6a5cd6cf1f0f",
+      "title": "Svalutation",
+      "date": "1976",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/62147812-5b70-3d84-91b2-99f708063ad0/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Svalutation.mid",
+            "Svalutation.1.mid",
+            "Svalutation.2.mid",
+            "Svalutation.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2e6283ef-3bfd-31e1-af74-87eca5d14a03",
+      "releaseId": "b5159283-6aa4-40f1-9fe6-8d01350e762e",
+      "title": "Ti avrò",
+      "date": "1978",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2e6283ef-3bfd-31e1-af74-87eca5d14a03/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ti Avro.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "404fbcb6-ff21-3855-ad74-dabb9c375b17",
+      "releaseId": "06ca7cdd-c70a-4f62-87ee-76bfcbee60d1",
+      "title": "Soli",
+      "date": "1979",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/404fbcb6-ff21-3855-ad74-dabb9c375b17/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Soli.mid",
+            "Soli.1.mid",
+            "Soli.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b8fd2eac-aa5a-3941-b71f-1b45ea55093b",
+      "releaseId": "b32c716c-bbf6-40d6-8d60-00367c13c9f6",
+      "title": "Un po’ artista un po’ no",
+      "date": "1980",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b8fd2eac-aa5a-3941-b71f-1b45ea55093b/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Il tempo se ne va.mid",
+            "Il tempo se ne va.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5215b05b-619f-3ebb-9341-8c9006d18c2f",
+      "releaseId": "c0b1aed2-6e92-4dda-a13a-aa3bcca401fd",
+      "title": "La pubblica ottusità",
+      "date": "1987",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5215b05b-619f-3ebb-9341-8c9006d18c2f/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "E' ancora sabato.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e337d903-da38-3f26-af2a-e510d4389702",
+      "releaseId": "06f9e645-bced-4705-91b1-82bc4bc7adb8",
+      "title": "Quel punto",
+      "date": "1994",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e337d903-da38-3f26-af2a-e510d4389702/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Attraverso me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "80167aa8-858a-3219-9c15-93e16bf87c2f",
+      "releaseId": "340e9c4f-eb16-4b0c-8c83-cc9c236a27e2",
+      "title": "Arrivano gli uomini",
+      "date": "1996",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/80167aa8-858a-3219-9c15-93e16bf87c2f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Cosi come sei.mid",
+            "Cosi come sei.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Cercami.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "56375951-c87f-4aa7-afdc-2fcf4755d965",
+      "releaseId": "17612a45-9afb-431d-bbe1-ce773ae86b36",
+      "title": "Così come sei",
+      "date": "1996",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/56375951-c87f-4aa7-afdc-2fcf4755d965/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Susanna.mid",
+            "Susanna.1.mid",
+            "Susanna.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0fc10633-09d4-35f3-abb5-a34424b77fac",
+      "releaseId": "ad991f2b-bb8e-4476-91be-25c09e9dc75c",
+      "title": "Io non so parlar d’amore",
+      "date": "1999-05-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0fc10633-09d4-35f3-abb5-a34424b77fac/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Gelosia.mid",
+            "Gelosia.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "L'emozione non ha voce.mid",
+            "L'emozione non ha voce.1.mid",
+            "L'emozione non ha voce.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Una rosa pericolosa.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Senza amore.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Arcobaleno.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "L'arcobaleno.mid",
+            "L'arcobaleno.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Mi domando.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Angel.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Il sospetto.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6ad68f87-7bd8-33a8-a700-c2f28c5e0059",
+      "releaseId": "037a404b-ea25-40ca-a054-658f1bb75fae",
+      "title": "Esco di rado e parlo ancora meno",
+      "date": "2000",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6ad68f87-7bd8-33a8-a700-c2f28c5e0059/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Per averti.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Apri il cuore.mid",
+            "Apri il cuore.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Io sono un uomo libero.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Le stesse cose.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c41411a9-fdbc-3a53-9404-cb6f83c2909e",
+      "releaseId": "3653cff2-b4e3-4efb-abfd-5d6813e3751d",
+      "title": "Per sempre",
+      "date": "2002-11-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c41411a9-fdbc-3a53-9404-cb6f83c2909e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Confessa.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Per sempre.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,302 @@
+{
+  "artist": "Celentano",
+  "status": "processed",
+  "totalSongs": 55,
+  "matched": [
+    {
+      "song": "24 mila baci",
+      "album": "A New Orleans",
+      "albumId": "cded421a-e31c-43d3-a27d-dee7c2355838",
+      "track": 12
+    },
+    {
+      "song": "24.000 baci",
+      "album": "A New Orleans",
+      "albumId": "cded421a-e31c-43d3-a27d-dee7c2355838",
+      "track": 12
+    },
+    {
+      "song": "Angel",
+      "album": "Io non so parlar d’amore",
+      "albumId": "0fc10633-09d4-35f3-abb5-a34424b77fac",
+      "track": 10
+    },
+    {
+      "song": "Apri il cuore",
+      "album": "Esco di rado e parlo ancora meno",
+      "albumId": "6ad68f87-7bd8-33a8-a700-c2f28c5e0059",
+      "track": 2
+    },
+    {
+      "song": "Arcobaleno",
+      "album": "Io non so parlar d’amore",
+      "albumId": "0fc10633-09d4-35f3-abb5-a34424b77fac",
+      "track": 7
+    },
+    {
+      "song": "Attraverso me",
+      "album": "Quel punto",
+      "albumId": "e337d903-da38-3f26-af2a-e510d4389702",
+      "track": 5
+    },
+    {
+      "song": "Azzurro",
+      "album": "Azzurro / Una carezza in un pugno",
+      "albumId": "0569fe9b-a535-3fac-ac89-954ea5f6e71c",
+      "track": 7
+    },
+    {
+      "song": "Cercami",
+      "album": "Arrivano gli uomini",
+      "albumId": "80167aa8-858a-3219-9c15-93e16bf87c2f",
+      "track": 9
+    },
+    {
+      "song": "Ciao ragazzi",
+      "album": "Non mi dir",
+      "albumId": "40d293a2-9a5a-34d6-bc71-30c92bf17938",
+      "track": 7
+    },
+    {
+      "song": "Confessa",
+      "album": "Per sempre",
+      "albumId": "c41411a9-fdbc-3a53-9404-cb6f83c2909e",
+      "track": 1
+    },
+    {
+      "song": "Cosi come sei",
+      "album": "Arrivano gli uomini",
+      "albumId": "80167aa8-858a-3219-9c15-93e16bf87c2f",
+      "track": 1
+    },
+    {
+      "song": "E voi ballate",
+      "album": "Il ragazzo della via Gluck",
+      "albumId": "989b5368-456a-36d9-88e5-135361eb15d5",
+      "track": 4
+    },
+    {
+      "song": "E' ancora sabato",
+      "album": "La pubblica ottusità",
+      "albumId": "5215b05b-619f-3ebb-9341-8c9006d18c2f",
+      "track": 3
+    },
+    {
+      "song": "Gelosia",
+      "album": "Io non so parlar d’amore",
+      "albumId": "0fc10633-09d4-35f3-abb5-a34424b77fac",
+      "track": 1
+    },
+    {
+      "song": "Grazie, prego, scusi",
+      "album": "Non mi dir",
+      "albumId": "40d293a2-9a5a-34d6-bc71-30c92bf17938",
+      "track": 5
+    },
+    {
+      "song": "Il problema piu importante",
+      "album": "Non mi dir",
+      "albumId": "40d293a2-9a5a-34d6-bc71-30c92bf17938",
+      "track": 11
+    },
+    {
+      "song": "Il ragazzo della via Gluck",
+      "album": "Il ragazzo della via Gluck",
+      "albumId": "989b5368-456a-36d9-88e5-135361eb15d5",
+      "track": 1
+    },
+    {
+      "song": "Il sospetto",
+      "album": "Io non so parlar d’amore",
+      "albumId": "0fc10633-09d4-35f3-abb5-a34424b77fac",
+      "track": 11
+    },
+    {
+      "song": "Il tangaccio",
+      "album": "Il tangaccio",
+      "albumId": "5197dad4-0c1e-4fff-8902-0cd5fb1b3abb",
+      "track": 1
+    },
+    {
+      "song": "Il tempo se ne va",
+      "album": "Un po’ artista un po’ no",
+      "albumId": "b8fd2eac-aa5a-3941-b71f-1b45ea55093b",
+      "track": 4
+    },
+    {
+      "song": "Il Tuo Bacio E Come Un Rock",
+      "album": "Il tuo bacio è come un rock",
+      "albumId": "3ef87455-adf0-440c-b97f-13ee7c3172fb",
+      "track": 1
+    },
+    {
+      "song": "Io sono un uomo libero",
+      "album": "Esco di rado e parlo ancora meno",
+      "albumId": "6ad68f87-7bd8-33a8-a700-c2f28c5e0059",
+      "track": 9
+    },
+    {
+      "song": "L'arcobaleno",
+      "album": "Io non so parlar d’amore",
+      "albumId": "0fc10633-09d4-35f3-abb5-a34424b77fac",
+      "track": 7
+    },
+    {
+      "song": "L'emozione non ha voce",
+      "album": "Io non so parlar d’amore",
+      "albumId": "0fc10633-09d4-35f3-abb5-a34424b77fac",
+      "track": 2
+    },
+    {
+      "song": "La coppia piu bella del mondo",
+      "album": "Azzurro / Una carezza in un pugno",
+      "albumId": "0569fe9b-a535-3fac-ac89-954ea5f6e71c",
+      "track": 12
+    },
+    {
+      "song": "Le stesse cose",
+      "album": "Esco di rado e parlo ancora meno",
+      "albumId": "6ad68f87-7bd8-33a8-a700-c2f28c5e0059",
+      "track": 10
+    },
+    {
+      "song": "Mi domando",
+      "album": "Io non so parlar d’amore",
+      "albumId": "0fc10633-09d4-35f3-abb5-a34424b77fac",
+      "track": 9
+    },
+    {
+      "song": "Nata per me",
+      "album": "A New Orleans",
+      "albumId": "cded421a-e31c-43d3-a27d-dee7c2355838",
+      "track": 4
+    },
+    {
+      "song": "Per averti",
+      "album": "Esco di rado e parlo ancora meno",
+      "albumId": "6ad68f87-7bd8-33a8-a700-c2f28c5e0059",
+      "track": 1
+    },
+    {
+      "song": "Per sempre",
+      "album": "Per sempre",
+      "albumId": "c41411a9-fdbc-3a53-9404-cb6f83c2909e",
+      "track": 4
+    },
+    {
+      "song": "Pregher",
+      "album": "Non mi dir",
+      "albumId": "40d293a2-9a5a-34d6-bc71-30c92bf17938",
+      "track": 4
+    },
+    {
+      "song": "Preghero",
+      "album": "Non mi dir",
+      "albumId": "40d293a2-9a5a-34d6-bc71-30c92bf17938",
+      "track": 4
+    },
+    {
+      "song": "Sei rimasta sola",
+      "album": "Non mi dir",
+      "albumId": "40d293a2-9a5a-34d6-bc71-30c92bf17938",
+      "track": 2
+    },
+    {
+      "song": "Senza amore",
+      "album": "Io non so parlar d’amore",
+      "albumId": "0fc10633-09d4-35f3-abb5-a34424b77fac",
+      "track": 6
+    },
+    {
+      "song": "Si e spento il sole",
+      "album": "A New Orleans",
+      "albumId": "cded421a-e31c-43d3-a27d-dee7c2355838",
+      "track": 1
+    },
+    {
+      "song": "Soli",
+      "album": "Soli",
+      "albumId": "404fbcb6-ff21-3855-ad74-dabb9c375b17",
+      "track": 1
+    },
+    {
+      "song": "Storia d'amore",
+      "album": "Le robe che ha detto Adriano",
+      "albumId": "74dc5767-5647-301b-b51b-e29a39b46f53",
+      "track": 7
+    },
+    {
+      "song": "Straordinariamente",
+      "album": "Le robe che ha detto Adriano",
+      "albumId": "74dc5767-5647-301b-b51b-e29a39b46f53",
+      "track": 5
+    },
+    {
+      "song": "Susanna",
+      "album": "Così come sei",
+      "albumId": "56375951-c87f-4aa7-afdc-2fcf4755d965",
+      "track": 2
+    },
+    {
+      "song": "Svalutation",
+      "album": "Svalutation",
+      "albumId": "62147812-5b70-3d84-91b2-99f708063ad0",
+      "track": 2
+    },
+    {
+      "song": "Ti Avro",
+      "album": "Ti avrò",
+      "albumId": "2e6283ef-3bfd-31e1-af74-87eca5d14a03",
+      "track": 1
+    },
+    {
+      "song": "Un albero di trenta piani",
+      "album": "I mali del secolo",
+      "albumId": "13db24a3-175c-34c1-a058-54f5165b607c",
+      "track": 2
+    },
+    {
+      "song": "Una carezza in un pugno",
+      "album": "Azzurro / Una carezza in un pugno",
+      "albumId": "0569fe9b-a535-3fac-ac89-954ea5f6e71c",
+      "track": 1
+    },
+    {
+      "song": "Una rosa pericolosa",
+      "album": "Io non so parlar d’amore",
+      "albumId": "0fc10633-09d4-35f3-abb5-a34424b77fac",
+      "track": 3
+    },
+    {
+      "song": "Una storia d'amore e di coltello",
+      "album": "Una storia d'amore e di coltello / Er più",
+      "albumId": "92ef8455-965e-4470-b0a6-da7df54b3bf0",
+      "track": 1
+    }
+  ],
+  "unmatched": [
+    "Acqua e sale",
+    "Brivido felino",
+    "Che t'aggia di",
+    "Chi non lavora non fa l'amore",
+    "Fumo negli occhi",
+    "Innamorata, incavolata a vita",
+    "Io non so parlar d'amore",
+    "Non succedera piu",
+    "Sotto le lenzuola",
+    "Viola"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Acqua e sale": [],
+    "Brivido felino": [],
+    "Che t'aggia di": [],
+    "Chi non lavora non fa l'amore": [],
+    "Fumo negli occhi": [],
+    "Innamorata, incavolata a vita": [],
+    "Io non so parlar d'amore": [],
+    "Non succedera piu": [],
+    "Sotto le lenzuola": [],
+    "Viola": []
+  }
+}

@@ -49,7 +49,20 @@
     "name": "Michael Jackson"
   },
   "Celentano": {
-    "name": "Adriano Celentano"
+    "name": "Adriano Celentano",
+    "mbid": "d2b50525-1111-4906-aab6-4553f035f679",
+    "country": "IT",
+    "songs": {
+      "24 mila baci": {
+        "title": "24.000 baci"
+      },
+      "Arcobaleno": {
+        "title": "L’arcobaleno"
+      },
+      "Pregher": {
+        "title": "Pregherò"
+      }
+    }
   },
   "Daniele": {
     "name": "Pino Daniele"

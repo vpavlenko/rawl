@@ -41,3 +41,10 @@ or live albums without allowing every release with those secondary types.
 Both fields are optional; `albumId` restricts matching to that fetched album. Ambiguous repeated track positions remain unassigned for review. Covers are loaded from Cover Art Archive and hidden if unavailable. No image download is required during preprocessing.
 
 Sources: [MusicBrainz API](https://musicbrainz.org/doc/MusicBrainz_API), [Cover Art Archive API](https://musicbrainz.org/doc/Cover_Art_Archive/API). Metadata and artwork have separate [licensing terms](https://musicbrainz.org/doc/About/Data_License).
+
+Nomadi includes selected early catalog compilations and `Nomadi 40` to avoid
+assigning their songs only to later rerecordings. The 2023 `È stato veramente
+bellissimo!` box is excluded despite its missing MusicBrainz secondary types:
+[the label describes it as rarities, demos and concert recordings](https://shop.warnermusic.it/products/e-stato-veramente-bellissimo-box-4cd-2dvd).
+`Riverisco` remains unassigned because the source album has two differently
+subtitled tracks; the `Io vagabondo`/`Tedeum` medley is not reduced to one song.

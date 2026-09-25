@@ -1,0 +1,540 @@
+{
+  "artist": "Nomadi",
+  "artistId": "48fe77c4-cb39-4316-85e9-30669f317935",
+  "groups": [
+    {
+      "id": "1a6fb39e-c0fb-461b-839f-9aacb30f8e9a",
+      "releaseId": "97b47e2f-84c4-4dc7-9b69-c002c492d0e5",
+      "title": "Per quando noi non ci saremo",
+      "date": "1967",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1a6fb39e-c0fb-461b-839f-9aacb30f8e9a/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "Dio e morto.mid",
+            "Dio e morto.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Dio Morto.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d375b78e-1a26-3ec8-a3ac-78e158fa578b",
+      "releaseId": "896a4a17-c15e-4ad8-b43a-975c33c8133b",
+      "title": "I Nomadi",
+      "date": "1968",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d375b78e-1a26-3ec8-a3ac-78e158fa578b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ho Difeso Il Mio Amore.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Vola bambino.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Canzone per un'amica.mid",
+            "Canzone per un'amica.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b38bf8ca-c332-4939-a665-7d312e0c221c",
+      "releaseId": "d4667b9d-87ce-43cc-b0f0-f27a56adf2cd",
+      "title": "Mille e una sera",
+      "date": "1971",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b38bf8ca-c332-4939-a665-7d312e0c221c/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Ala bianca.mid",
+            "Ala bianca.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "So che mi perdonerai.mid",
+            "So che mi perdonerai.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Mai come lei nessuna.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Un pugno di sabbia.mid",
+            "Un pugno di sabbia.1.mid",
+            "Un pugno di sabbia.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f64765d3-67a3-49d3-a15c-d2869911d246",
+      "releaseId": "66ee128a-e714-3203-b3bf-9b79a479e37f",
+      "title": "So che mi perdonerai",
+      "date": "1971",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f64765d3-67a3-49d3-a15c-d2869911d246/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "L'auto corre lontano (ma io corro da te).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "32c1cec5-ebbe-421f-b469-eae283f6ab7e",
+      "releaseId": "895b79e0-8a56-39da-9b39-3df41aa8164c",
+      "title": "Io vagabondo",
+      "date": "1972",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/32c1cec5-ebbe-421f-b469-eae283f6ab7e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Io vagabondo.mid",
+            "Io vagabondo.1.mid",
+            "Io vagabondo.2.mid",
+            "Io vagabondo.3.mid",
+            "Io vagabondo.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9214afdd-064a-3bb6-8413-7be0f84d215c",
+      "releaseId": "04f7ef11-008c-4d0b-a9e6-e431c07a9969",
+      "title": "Un giorno insieme",
+      "date": "1973",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9214afdd-064a-3bb6-8413-7be0f84d215c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Un giorno insieme.mid",
+            "Un giorno insieme.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Stagioni.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1b89df77-1864-4dd7-9a4d-565c2be7aa0a",
+      "releaseId": "aa1d4d53-1db9-4078-8aed-70b7f990f6ee",
+      "title": "I Nomadi interpretano Guccini",
+      "date": "1974",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1b89df77-1864-4dd7-9a4d-565c2be7aa0a/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Il vecchio e il bambino.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "edb2a8c7-0943-48db-9d7e-a64eef764d7d",
+      "releaseId": "0a413e86-5643-4355-89fe-9bdeca06b0b9",
+      "title": "Tutto a posto",
+      "date": "1974",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/edb2a8c7-0943-48db-9d7e-a64eef764d7d/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Voglio ridere.mid",
+            "Voglio ridere.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Crescerai.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Tutto a Posto.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cbbf2f64-c2f7-4c8a-bf0c-525c8eb19c2b",
+      "releaseId": "782bc0ee-f0da-4fe6-91c0-4035550020be",
+      "title": "Sempre Nomadi",
+      "date": "1981",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/cbbf2f64-c2f7-4c8a-bf0c-525c8eb19c2b/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Utopia.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "361c01bc-4328-4492-9b27-8c465d873c95",
+      "releaseId": "e8708152-7505-430e-a970-7129923385ff",
+      "title": "Ancora Nomadi",
+      "date": "1988",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/361c01bc-4328-4492-9b27-8c465d873c95/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "L'uomo di Monaco.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ed154ddf-691d-3157-8ad4-140c2ae1974c",
+      "releaseId": "7d80cfa6-1eaf-4ff1-a9ce-beae8c85d5a1",
+      "title": "Solo Nomadi",
+      "date": "1990",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ed154ddf-691d-3157-8ad4-140c2ae1974c/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Mercanti e servi.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Senza patria.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fc2ddce8-5b06-4673-912a-21aca1f081ff",
+      "releaseId": "b04df33d-a25b-4d72-a7bd-4beb52a65270",
+      "title": "Gente come noi",
+      "date": "1991",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fc2ddce8-5b06-4673-912a-21aca1f081ff/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Gli aironi neri.mid",
+            "Gli aironi neri.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7d31ab86-7861-457d-8369-6cb45f483ac1",
+      "releaseId": "b7efbea2-98c5-4749-9a55-0286d00a609c",
+      "title": "Contro",
+      "date": "1993-06-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7d31ab86-7861-457d-8369-6cb45f483ac1/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "Ad est, ad est.mid",
+            "Ad est, ad est.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b42884e5-9d54-4fe7-8892-d97acc1f2a87",
+      "releaseId": "b912f255-035a-49ef-b22c-2c275d22c2f8",
+      "title": "La settima onda",
+      "date": "1994",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b42884e5-9d54-4fe7-8892-d97acc1f2a87/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "La settima onda.mid",
+            "La settima onda.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Guai se....mid",
+            "Guai se....1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9638e192-f4cb-4b51-9cc5-0521213d88aa",
+      "releaseId": "d03aef18-c863-4f77-bb00-655abb8bd3ba",
+      "title": "Lungo le vie del vento",
+      "date": "1995",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9638e192-f4cb-4b51-9cc5-0521213d88aa/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ricordarti.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Il vento del nord.mid",
+            "Il vento del nord.1.mid",
+            "Il vento del nord.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Le strade.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Il tavolino.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Il saggio.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Il viaggiatore.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Tu puoi.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "15c77cdf-f8e3-4878-848e-a3dd3c014cda",
+      "releaseId": "7073395c-91ae-4183-ae23-d04cc47a9558",
+      "title": "Quando ci sarai",
+      "date": "1996",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/15c77cdf-f8e3-4878-848e-a3dd3c014cda/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Mamma musica.mid",
+            "Mamma musica.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Quando ci sarai.mid",
+            "Quando ci sarai.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "L'eredita.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Un'altra citta.mid",
+            "Un'altra citta.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Il mattino dopo.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Ne gioia ne dolore.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Nei miei sogni.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Canzone per i desaparecidos.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3e9e045f-f84e-3a97-91e7-02701eec0a31",
+      "releaseId": "70f3f238-13f5-4d91-ad83-6d66830760cb",
+      "title": "Una storia da raccontare",
+      "date": "1998",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3e9e045f-f84e-3a97-91e7-02701eec0a31/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Anni di frontiera.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Ti lascio una parola.mid",
+            "Ti lascio una parola.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Canto alla luna.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "575c105c-5a69-389d-b6b4-820b8718c0e1",
+      "releaseId": "4b4e0444-2e2f-4e79-bcfb-5391f57128b1",
+      "title": "Liberi di volare",
+      "date": "2000",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/575c105c-5a69-389d-b6b4-820b8718c0e1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Stop the world (vogliamo tornare a giocare).mid",
+            "Stop the world (vogliamo tornare a giocare).1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Dove sei.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Se non ho te.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "54864222-7805-386b-9b90-d66614a08f3d",
+      "releaseId": "9d3910cd-0713-449a-87d1-4be95fe5c57f",
+      "title": "Amore che prendi amore che dai",
+      "date": "2002",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/54864222-7805-386b-9b90-d66614a08f3d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Sangue al cuore.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Amore che prendi amore che dai.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5488c371-dc1e-45ea-aec4-747babc5e705",
+      "releaseId": "660d39d3-7bd1-4e29-90e8-eb6e090a2f94",
+      "title": "Nomadi 40",
+      "date": "2003-05-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5488c371-dc1e-45ea-aec4-747babc5e705/front-250",
+      "songs": [
+        {
+          "number": 19,
+          "files": [
+            "Io voglio vivere.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "910befe6-3eea-48ac-b5fc-faf9dec875b9",
+      "releaseId": "27b42053-0a86-4451-a1d0-bfdb61142c4c",
+      "title": "Il sogno di due sedicenni è diventato realtà",
+      "date": "2015-11-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/910befe6-3eea-48ac-b5fc-faf9dec875b9/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Auschwitz.mid",
+            "Auschwitz.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

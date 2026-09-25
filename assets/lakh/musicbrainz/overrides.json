@@ -258,5 +258,24 @@
         "title": "F.O.D. / All by Myself"
       }
     }
+  },
+  "Nomadi": {
+    "mbid": "48fe77c4-cb39-4316-85e9-30669f317935",
+    "country": "IT",
+    "includedReleaseGroups": [
+      "b38bf8ca-c332-4939-a665-7d312e0c221c",
+      "32c1cec5-ebbe-421f-b469-eae283f6ab7e",
+      "edb2a8c7-0943-48db-9d7e-a64eef764d7d",
+      "f64765d3-67a3-49d3-a15c-d2869911d246",
+      "5488c371-dc1e-45ea-aec4-747babc5e705"
+    ],
+    "excludedReleaseGroups": [
+      "ed9ab0a5-7763-4742-b6e9-cc5ec5b46b03"
+    ],
+    "songs": {
+      "Dio Morto": {
+        "title": "Dio è morto"
+      }
+    }
   }
 }

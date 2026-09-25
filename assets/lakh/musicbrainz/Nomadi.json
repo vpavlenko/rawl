@@ -1,0 +1,318 @@
+{
+  "artist": "Nomadi",
+  "status": "processed",
+  "totalSongs": 53,
+  "matched": [
+    {
+      "song": "Ad est, ad est",
+      "album": "Contro",
+      "albumId": "7d31ab86-7861-457d-8369-6cb45f483ac1",
+      "track": 9
+    },
+    {
+      "song": "Ala bianca",
+      "album": "Mille e una sera",
+      "albumId": "b38bf8ca-c332-4939-a665-7d312e0c221c",
+      "track": 2
+    },
+    {
+      "song": "Amore che prendi amore che dai",
+      "album": "Amore che prendi amore che dai",
+      "albumId": "54864222-7805-386b-9b90-d66614a08f3d",
+      "track": 2
+    },
+    {
+      "song": "Anni di frontiera",
+      "album": "Una storia da raccontare",
+      "albumId": "3e9e045f-f84e-3a97-91e7-02701eec0a31",
+      "track": 2
+    },
+    {
+      "song": "Auschwitz",
+      "album": "Il sogno di due sedicenni è diventato realtà",
+      "albumId": "910befe6-3eea-48ac-b5fc-faf9dec875b9",
+      "track": 10
+    },
+    {
+      "song": "Canto alla luna",
+      "album": "Una storia da raccontare",
+      "albumId": "3e9e045f-f84e-3a97-91e7-02701eec0a31",
+      "track": 5
+    },
+    {
+      "song": "Canzone per i desaparecidos",
+      "album": "Quando ci sarai",
+      "albumId": "15c77cdf-f8e3-4878-848e-a3dd3c014cda",
+      "track": 9
+    },
+    {
+      "song": "Canzone per un'amica",
+      "album": "I Nomadi",
+      "albumId": "d375b78e-1a26-3ec8-a3ac-78e158fa578b",
+      "track": 12
+    },
+    {
+      "song": "Crescerai",
+      "album": "Tutto a posto",
+      "albumId": "edb2a8c7-0943-48db-9d7e-a64eef764d7d",
+      "track": 5
+    },
+    {
+      "song": "Dio e morto",
+      "album": "Per quando noi non ci saremo",
+      "albumId": "1a6fb39e-c0fb-461b-839f-9aacb30f8e9a",
+      "track": 12
+    },
+    {
+      "song": "Dio Morto",
+      "album": "Per quando noi non ci saremo",
+      "albumId": "1a6fb39e-c0fb-461b-839f-9aacb30f8e9a",
+      "track": 12
+    },
+    {
+      "song": "Dove sei",
+      "album": "Liberi di volare",
+      "albumId": "575c105c-5a69-389d-b6b4-820b8718c0e1",
+      "track": 2
+    },
+    {
+      "song": "Gli aironi neri",
+      "album": "Gente come noi",
+      "albumId": "fc2ddce8-5b06-4673-912a-21aca1f081ff",
+      "track": 1
+    },
+    {
+      "song": "Guai se...",
+      "album": "La settima onda",
+      "albumId": "b42884e5-9d54-4fe7-8892-d97acc1f2a87",
+      "track": 2
+    },
+    {
+      "song": "Ho Difeso Il Mio Amore",
+      "album": "I Nomadi",
+      "albumId": "d375b78e-1a26-3ec8-a3ac-78e158fa578b",
+      "track": 1
+    },
+    {
+      "song": "Il mattino dopo",
+      "album": "Quando ci sarai",
+      "albumId": "15c77cdf-f8e3-4878-848e-a3dd3c014cda",
+      "track": 5
+    },
+    {
+      "song": "Il saggio",
+      "album": "Lungo le vie del vento",
+      "albumId": "9638e192-f4cb-4b51-9cc5-0521213d88aa",
+      "track": 7
+    },
+    {
+      "song": "Il tavolino",
+      "album": "Lungo le vie del vento",
+      "albumId": "9638e192-f4cb-4b51-9cc5-0521213d88aa",
+      "track": 5
+    },
+    {
+      "song": "Il vecchio e il bambino",
+      "album": "I Nomadi interpretano Guccini",
+      "albumId": "1b89df77-1864-4dd7-9a4d-565c2be7aa0a",
+      "track": 2
+    },
+    {
+      "song": "Il vento del nord",
+      "album": "Lungo le vie del vento",
+      "albumId": "9638e192-f4cb-4b51-9cc5-0521213d88aa",
+      "track": 2
+    },
+    {
+      "song": "Il viaggiatore",
+      "album": "Lungo le vie del vento",
+      "albumId": "9638e192-f4cb-4b51-9cc5-0521213d88aa",
+      "track": 8
+    },
+    {
+      "song": "Io vagabondo",
+      "album": "Io vagabondo",
+      "albumId": "32c1cec5-ebbe-421f-b469-eae283f6ab7e",
+      "track": 1
+    },
+    {
+      "song": "Io voglio vivere",
+      "album": "Nomadi 40",
+      "albumId": "5488c371-dc1e-45ea-aec4-747babc5e705",
+      "track": 19
+    },
+    {
+      "song": "L'auto corre lontano (ma io corro da te)",
+      "album": "So che mi perdonerai",
+      "albumId": "f64765d3-67a3-49d3-a15c-d2869911d246",
+      "track": 5
+    },
+    {
+      "song": "L'eredita",
+      "album": "Quando ci sarai",
+      "albumId": "15c77cdf-f8e3-4878-848e-a3dd3c014cda",
+      "track": 3
+    },
+    {
+      "song": "L'uomo di Monaco",
+      "album": "Ancora Nomadi",
+      "albumId": "361c01bc-4328-4492-9b27-8c465d873c95",
+      "track": 3
+    },
+    {
+      "song": "La settima onda",
+      "album": "La settima onda",
+      "albumId": "b42884e5-9d54-4fe7-8892-d97acc1f2a87",
+      "track": 1
+    },
+    {
+      "song": "Le strade",
+      "album": "Lungo le vie del vento",
+      "albumId": "9638e192-f4cb-4b51-9cc5-0521213d88aa",
+      "track": 3
+    },
+    {
+      "song": "Mai come lei nessuna",
+      "album": "Mille e una sera",
+      "albumId": "b38bf8ca-c332-4939-a665-7d312e0c221c",
+      "track": 6
+    },
+    {
+      "song": "Mamma musica",
+      "album": "Quando ci sarai",
+      "albumId": "15c77cdf-f8e3-4878-848e-a3dd3c014cda",
+      "track": 1
+    },
+    {
+      "song": "Mercanti e servi",
+      "album": "Solo Nomadi",
+      "albumId": "ed154ddf-691d-3157-8ad4-140c2ae1974c",
+      "track": 3
+    },
+    {
+      "song": "Ne gioia ne dolore",
+      "album": "Quando ci sarai",
+      "albumId": "15c77cdf-f8e3-4878-848e-a3dd3c014cda",
+      "track": 6
+    },
+    {
+      "song": "Nei miei sogni",
+      "album": "Quando ci sarai",
+      "albumId": "15c77cdf-f8e3-4878-848e-a3dd3c014cda",
+      "track": 8
+    },
+    {
+      "song": "Quando ci sarai",
+      "album": "Quando ci sarai",
+      "albumId": "15c77cdf-f8e3-4878-848e-a3dd3c014cda",
+      "track": 2
+    },
+    {
+      "song": "Ricordarti",
+      "album": "Lungo le vie del vento",
+      "albumId": "9638e192-f4cb-4b51-9cc5-0521213d88aa",
+      "track": 1
+    },
+    {
+      "song": "Sangue al cuore",
+      "album": "Amore che prendi amore che dai",
+      "albumId": "54864222-7805-386b-9b90-d66614a08f3d",
+      "track": 1
+    },
+    {
+      "song": "Se non ho te",
+      "album": "Liberi di volare",
+      "albumId": "575c105c-5a69-389d-b6b4-820b8718c0e1",
+      "track": 6
+    },
+    {
+      "song": "Senza patria",
+      "album": "Solo Nomadi",
+      "albumId": "ed154ddf-691d-3157-8ad4-140c2ae1974c",
+      "track": 5
+    },
+    {
+      "song": "So che mi perdonerai",
+      "album": "Mille e una sera",
+      "albumId": "b38bf8ca-c332-4939-a665-7d312e0c221c",
+      "track": 4
+    },
+    {
+      "song": "Stagioni",
+      "album": "Un giorno insieme",
+      "albumId": "9214afdd-064a-3bb6-8413-7be0f84d215c",
+      "track": 5
+    },
+    {
+      "song": "Stop the world (vogliamo tornare a giocare)",
+      "album": "Liberi di volare",
+      "albumId": "575c105c-5a69-389d-b6b4-820b8718c0e1",
+      "track": 1
+    },
+    {
+      "song": "Ti lascio una parola",
+      "album": "Una storia da raccontare",
+      "albumId": "3e9e045f-f84e-3a97-91e7-02701eec0a31",
+      "track": 3
+    },
+    {
+      "song": "Tu puoi",
+      "album": "Lungo le vie del vento",
+      "albumId": "9638e192-f4cb-4b51-9cc5-0521213d88aa",
+      "track": 9
+    },
+    {
+      "song": "Tutto a Posto",
+      "album": "Tutto a posto",
+      "albumId": "edb2a8c7-0943-48db-9d7e-a64eef764d7d",
+      "track": 6
+    },
+    {
+      "song": "Un giorno insieme",
+      "album": "Un giorno insieme",
+      "albumId": "9214afdd-064a-3bb6-8413-7be0f84d215c",
+      "track": 1
+    },
+    {
+      "song": "Un pugno di sabbia",
+      "album": "Mille e una sera",
+      "albumId": "b38bf8ca-c332-4939-a665-7d312e0c221c",
+      "track": 8
+    },
+    {
+      "song": "Un'altra citta",
+      "album": "Quando ci sarai",
+      "albumId": "15c77cdf-f8e3-4878-848e-a3dd3c014cda",
+      "track": 4
+    },
+    {
+      "song": "Utopia",
+      "album": "Sempre Nomadi",
+      "albumId": "cbbf2f64-c2f7-4c8a-bf0c-525c8eb19c2b",
+      "track": 4
+    },
+    {
+      "song": "Voglio ridere",
+      "album": "Tutto a posto",
+      "albumId": "edb2a8c7-0943-48db-9d7e-a64eef764d7d",
+      "track": 2
+    },
+    {
+      "song": "Vola bambino",
+      "album": "I Nomadi",
+      "albumId": "d375b78e-1a26-3ec8-a3ac-78e158fa578b",
+      "track": 6
+    }
+  ],
+  "unmatched": [
+    "Giorni tristi",
+    "Io vagabondo (Medley con) Tedeum",
+    "Riverisco"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Giorni tristi": [],
+    "Io vagabondo (Medley con) Tedeum": [],
+    "Riverisco": []
+  }
+}

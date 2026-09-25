@@ -1,4 +1,5 @@
-import { cachedTimeSliderData, EMPTY_TIME_SLIDER_DATA, selectBassNotes } from "../timeSliderData";
+import { EMPTY_TIME_SLIDER_DATA } from "../timeSliderData";
+import { buildTimeSliderData } from "../buildTimeSliderData";
 import { noteColorClass } from "./colors";
 import {
   faArrowUpRightFromSquare,
@@ -580,39 +581,8 @@ const Rawl: React.FC<RawlProps> = ({
     if (isEmbedded) return;
     // Committed timing/analysis only: hover previews and voice masks do not
     // invalidate the footer. Cache survives layout/tab component remounts.
-    const key = JSON.stringify([
-      analysis.measures, analysis.modulations, analysis.sections,
-      analysis.phrasePatch, excludedVoices, [...drumVoiceSet].sort(),
-    ]);
     let cancelled = false;
-    const pending = cachedTimeSliderData(parsingResult, key, async () => {
-      const measures = analysis.measures
-        ? buildManualMeasuresAndBeats(analysis.measures, timingNotes).measures
-        : parsingResult.measuresAndBeats.measures;
-      const phraseStarts = getPhraseStarts(analysis, measures.length);
-      const modulations = getModulations(analysis);
-      const bassNotes = await selectBassNotes(notes.flat(), measures);
-      return {
-        phraseStartTimesMs: phraseStarts
-          .map((measure) => measures[measure - 1] * 1000)
-          .filter((time) => Number.isFinite(time) && time >= 0),
-        sectionStartTimesMs: (analysis.sections ?? [0])
-          .map((section) => measures[phraseStarts[section] - 1] * 1000)
-          .filter((time) => Number.isFinite(time) && time >= 0),
-        modulationMarkers: modulations.flatMap(({ measure, tonic }, index) => {
-          const previousTonic = modulations[index - 1]?.tonic;
-          const timeMs = measures[measure] * 1000;
-          if (tonic == null || previousTonic == null || !Number.isFinite(timeMs) || timeMs < 0)
-            return [];
-          return [{ timeMs, pitchClass: (tonic - previousTonic + 12) % 12 }];
-        }),
-        bassBars: bassNotes.map(({ start, end, note }) => ({
-          startMs: start * 1000,
-          endMs: end * 1000,
-          pitchClass: getNoteColorPitchClass(note, analysis, measures),
-        })),
-      };
-    });
+    const pending = buildTimeSliderData(parsingResult, analysis);
     pending.then((data) => {
       if (!cancelled) timeSliderStore.publish(data);
     }).catch((error) => {

@@ -1,4 +1,5 @@
 import { createTimeSliderStore, EMPTY_TIME_SLIDER_DATA } from "./timeSliderData";
+import SnippetTimeSliderData from "./SnippetTimeSliderData";
 import autoBindReact from "auto-bind/react";
 import { initializeApp as firebaseInitializeApp } from "firebase/app";
 import {
@@ -1558,6 +1559,14 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     <Redirect exact from="/" to="/100" />
                   </Switch>
                 </AppMainContent>
+                <Route
+                  path={["/100", "/beyond", "/s"]}
+                  render={() =>
+                    this.state.parsing && !this.state.ejected && (
+                      <SnippetTimeSliderData parsingResult={this.state.parsing} />
+                    )
+                  }
+                />
                 <AppFooter
                   currentSongDurationMs={this.state.currentSongDurationMs}
                   ejected={this.state.ejected}

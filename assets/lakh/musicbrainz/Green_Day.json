@@ -1,0 +1,328 @@
+{
+  "artist": "Green Day",
+  "status": "processed",
+  "totalSongs": 53,
+  "matched": [
+    {
+      "song": "16",
+      "album": "39/Smooth",
+      "albumId": "c58228d1-05e9-3ce0-83f6-b0d33ffcaa90",
+      "track": 7
+    },
+    {
+      "song": "2,000 Light Years Away",
+      "album": "Kerplunk!",
+      "albumId": "a0603694-2422-3a40-b946-d0bcea5e8254",
+      "track": 1
+    },
+    {
+      "song": "86",
+      "album": "Insomniac",
+      "albumId": "061f572e-7660-3c6b-b4cd-cf66d46da93c",
+      "track": 7
+    },
+    {
+      "song": "All by Myself",
+      "album": "Dookie",
+      "albumId": "314cffd4-daa5-3337-85e5-e54165a96113",
+      "track": 14
+    },
+    {
+      "song": "All the Time",
+      "album": "nimrod.",
+      "albumId": "4f1d08f2-d4bd-3ef2-ba72-eb348ae4c332",
+      "track": 6
+    },
+    {
+      "song": "Basket Case",
+      "album": "Dookie",
+      "albumId": "314cffd4-daa5-3337-85e5-e54165a96113",
+      "track": 7
+    },
+    {
+      "song": "Brain Stew",
+      "album": "Insomniac",
+      "albumId": "061f572e-7660-3c6b-b4cd-cf66d46da93c",
+      "track": 10
+    },
+    {
+      "song": "Brat",
+      "album": "Insomniac",
+      "albumId": "061f572e-7660-3c6b-b4cd-cf66d46da93c",
+      "track": 2
+    },
+    {
+      "song": "Burn Out",
+      "album": "Dookie",
+      "albumId": "314cffd4-daa5-3337-85e5-e54165a96113",
+      "track": 1
+    },
+    {
+      "song": "Christie Road",
+      "album": "Kerplunk!",
+      "albumId": "a0603694-2422-3a40-b946-d0bcea5e8254",
+      "track": 4
+    },
+    {
+      "song": "Chump",
+      "album": "Dookie",
+      "albumId": "314cffd4-daa5-3337-85e5-e54165a96113",
+      "track": 3
+    },
+    {
+      "song": "Coming Clean",
+      "album": "Dookie",
+      "albumId": "314cffd4-daa5-3337-85e5-e54165a96113",
+      "track": 11
+    },
+    {
+      "song": "Desensitized",
+      "album": "Shenanigans",
+      "albumId": "74a05fd3-bf48-3caa-a584-d5d5eb525fb3",
+      "track": 2
+    },
+    {
+      "song": "Do Da Da",
+      "album": "Shenanigans",
+      "albumId": "74a05fd3-bf48-3caa-a584-d5d5eb525fb3",
+      "track": 12
+    },
+    {
+      "song": "Dominated Love Slave",
+      "album": "Kerplunk!",
+      "albumId": "a0603694-2422-3a40-b946-d0bcea5e8254",
+      "track": 6
+    },
+    {
+      "song": "Emenius Sleepus",
+      "album": "Dookie",
+      "albumId": "314cffd4-daa5-3337-85e5-e54165a96113",
+      "track": 12
+    },
+    {
+      "song": "Espionage",
+      "album": "Shenanigans",
+      "albumId": "74a05fd3-bf48-3caa-a584-d5d5eb525fb3",
+      "track": 6
+    },
+    {
+      "song": "Geek Stink Breath",
+      "album": "Insomniac",
+      "albumId": "061f572e-7660-3c6b-b4cd-cf66d46da93c",
+      "track": 4
+    },
+    {
+      "song": "Good Riddance (Time of Your Life)",
+      "album": "nimrod.",
+      "albumId": "4f1d08f2-d4bd-3ef2-ba72-eb348ae4c332",
+      "track": 17
+    },
+    {
+      "song": "Having a Blast",
+      "album": "Dookie",
+      "albumId": "314cffd4-daa5-3337-85e5-e54165a96113",
+      "track": 2
+    },
+    {
+      "song": "Hitchin' a Ride",
+      "album": "nimrod.",
+      "albumId": "4f1d08f2-d4bd-3ef2-ba72-eb348ae4c332",
+      "track": 2
+    },
+    {
+      "song": "I Want to Be Alone",
+      "album": "1,039/Smoothed Out Slappy Hours",
+      "albumId": "f379b19e-0a47-3d28-b5be-595e34cba7d3",
+      "track": 19
+    },
+    {
+      "song": "In the End",
+      "album": "Dookie",
+      "albumId": "314cffd4-daa5-3337-85e5-e54165a96113",
+      "track": 13
+    },
+    {
+      "song": "Jaded",
+      "album": "Insomniac",
+      "albumId": "061f572e-7660-3c6b-b4cd-cf66d46da93c",
+      "track": 11
+    },
+    {
+      "song": "King for a Day",
+      "album": "nimrod.",
+      "albumId": "4f1d08f2-d4bd-3ef2-ba72-eb348ae4c332",
+      "track": 16
+    },
+    {
+      "song": "Knowledge",
+      "album": "1,039/Smoothed Out Slappy Hours",
+      "albumId": "f379b19e-0a47-3d28-b5be-595e34cba7d3",
+      "track": 14
+    },
+    {
+      "song": "Long View",
+      "album": "Dookie",
+      "albumId": "314cffd4-daa5-3337-85e5-e54165a96113",
+      "track": 4
+    },
+    {
+      "song": "Longview",
+      "album": "Dookie",
+      "albumId": "314cffd4-daa5-3337-85e5-e54165a96113",
+      "track": 4
+    },
+    {
+      "song": "Minority",
+      "album": "Warning:",
+      "albumId": "c1604b20-37b8-3fc7-8726-73f41090b8e2",
+      "track": 11
+    },
+    {
+      "song": "My Generation",
+      "album": "Sweet Children",
+      "albumId": "11040732-5fb2-3460-8c68-22c0aa1252d1",
+      "track": 4
+    },
+    {
+      "song": "No One Knows",
+      "album": "Kerplunk!",
+      "albumId": "a0603694-2422-3a40-b946-d0bcea5e8254",
+      "track": 10
+    },
+    {
+      "song": "One for the Razorbacks",
+      "album": "Kerplunk!",
+      "albumId": "a0603694-2422-3a40-b946-d0bcea5e8254",
+      "track": 2
+    },
+    {
+      "song": "One of My Lies",
+      "album": "Kerplunk!",
+      "albumId": "a0603694-2422-3a40-b946-d0bcea5e8254",
+      "track": 7
+    },
+    {
+      "song": "Only of You",
+      "album": "1,039/Smoothed Out Slappy Hours",
+      "albumId": "f379b19e-0a47-3d28-b5be-595e34cba7d3",
+      "track": 17
+    },
+    {
+      "song": "Paper Lanterns",
+      "album": "1,039/Smoothed Out Slappy Hours",
+      "albumId": "f379b19e-0a47-3d28-b5be-595e34cba7d3",
+      "track": 11
+    },
+    {
+      "song": "Platypus (I Hate You)",
+      "album": "nimrod.",
+      "albumId": "4f1d08f2-d4bd-3ef2-ba72-eb348ae4c332",
+      "track": 8
+    },
+    {
+      "song": "Prosthetic Head",
+      "album": "nimrod.",
+      "albumId": "4f1d08f2-d4bd-3ef2-ba72-eb348ae4c332",
+      "track": 18
+    },
+    {
+      "song": "Pulling Teeth",
+      "album": "Dookie",
+      "albumId": "314cffd4-daa5-3337-85e5-e54165a96113",
+      "track": 6
+    },
+    {
+      "song": "Redundant",
+      "album": "nimrod.",
+      "albumId": "4f1d08f2-d4bd-3ef2-ba72-eb348ae4c332",
+      "track": 4
+    },
+    {
+      "song": "Reject",
+      "album": "nimrod.",
+      "albumId": "4f1d08f2-d4bd-3ef2-ba72-eb348ae4c332",
+      "track": 14
+    },
+    {
+      "song": "Rest",
+      "album": "39/Smooth",
+      "albumId": "c58228d1-05e9-3ce0-83f6-b0d33ffcaa90",
+      "track": 9
+    },
+    {
+      "song": "Sassafras Roots",
+      "album": "Dookie",
+      "albumId": "314cffd4-daa5-3337-85e5-e54165a96113",
+      "track": 9
+    },
+    {
+      "song": "She",
+      "album": "Dookie",
+      "albumId": "314cffd4-daa5-3337-85e5-e54165a96113",
+      "track": 8
+    },
+    {
+      "song": "Stuck With Me",
+      "album": "Insomniac",
+      "albumId": "061f572e-7660-3c6b-b4cd-cf66d46da93c",
+      "track": 3
+    },
+    {
+      "song": "Suffocate",
+      "album": "Shenanigans",
+      "albumId": "74a05fd3-bf48-3caa-a584-d5d5eb525fb3",
+      "track": 1
+    },
+    {
+      "song": "Take Back",
+      "album": "nimrod.",
+      "albumId": "4f1d08f2-d4bd-3ef2-ba72-eb348ae4c332",
+      "track": 15
+    },
+    {
+      "song": "The Grouch",
+      "album": "nimrod.",
+      "albumId": "4f1d08f2-d4bd-3ef2-ba72-eb348ae4c332",
+      "track": 3
+    },
+    {
+      "song": "Tight Wad Hill",
+      "album": "Insomniac",
+      "albumId": "061f572e-7660-3c6b-b4cd-cf66d46da93c",
+      "track": 13
+    },
+    {
+      "song": "Walking Contradiction",
+      "album": "Insomniac",
+      "albumId": "061f572e-7660-3c6b-b4cd-cf66d46da93c",
+      "track": 14
+    },
+    {
+      "song": "Warning",
+      "album": "Warning:",
+      "albumId": "c1604b20-37b8-3fc7-8726-73f41090b8e2",
+      "track": 1
+    },
+    {
+      "song": "Welcome to Paradise",
+      "album": "Kerplunk!",
+      "albumId": "a0603694-2422-3a40-b946-d0bcea5e8254",
+      "track": 3
+    },
+    {
+      "song": "When I Come Around",
+      "album": "Dookie",
+      "albumId": "314cffd4-daa5-3337-85e5-e54165a96113",
+      "track": 10
+    },
+    {
+      "song": "Worry Rock",
+      "album": "nimrod.",
+      "albumId": "4f1d08f2-d4bd-3ef2-ba72-eb348ae4c332",
+      "track": 7
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

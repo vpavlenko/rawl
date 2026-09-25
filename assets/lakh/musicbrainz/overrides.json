@@ -245,5 +245,18 @@
         "title": "The Power of Love"
       }
     }
+  },
+  "Green Day": {
+    "mbid": "084308bd-1654-436f-ba03-df6697104e19",
+    "country": "US",
+    "includedReleaseGroups": [
+      "f379b19e-0a47-3d28-b5be-595e34cba7d3",
+      "74a05fd3-bf48-3caa-a584-d5d5eb525fb3"
+    ],
+    "songs": {
+      "All by Myself": {
+        "title": "F.O.D. / All by Myself"
+      }
+    }
   }
 }

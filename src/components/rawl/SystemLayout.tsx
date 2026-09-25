@@ -182,6 +182,9 @@ export const Voice: React.FC<{
   const sectionEndX = sectionSpan
     ? secondsToX(measuresAndBeats.measures[sectionSpan[1]])
     : undefined;
+  const sectionStartX = sectionSpan
+    ? secondsToX(measuresAndBeats.measures[sectionSpan[0]])
+    : undefined;
   const { noteRectangles, frozenHeight, frozenMidiRange } = useMemo(
     () => ({
       noteRectangles: getNoteRectangles(
@@ -198,6 +201,7 @@ export const Voice: React.FC<{
         drumNoteToY,
         hoveredVoiceIndex,
         sectionEndX,
+        sectionStartX,
       ),
       frozenHeight: height,
       frozenMidiRange: midiRange,
@@ -218,6 +222,7 @@ export const Voice: React.FC<{
       height,
       midiRange,
       sectionEndX,
+      sectionStartX,
     ],
   );
 

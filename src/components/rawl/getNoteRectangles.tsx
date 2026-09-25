@@ -320,6 +320,7 @@ export const getNoteRectangles = (
   drumNoteToY?: (note: Note) => number,
   hoveredVoiceIndex: number | null = null,
   sectionEndX?: number,
+  sectionStartX?: number,
 ) => {
   return notes.map((note) => (
     <NoteRectangle
@@ -337,6 +338,7 @@ export const getNoteRectangles = (
       drumNoteToY={drumNoteToY}
       hoveredVoiceIndex={hoveredVoiceIndex}
       sectionEndX={sectionEndX}
+      sectionStartX={sectionStartX}
     />
   ));
 };
@@ -355,6 +357,7 @@ const NoteRectangle = React.memo(({
   drumNoteToY,
   hoveredVoiceIndex,
   sectionEndX,
+  sectionStartX,
 }: {
   note: ColoredNote;
   midiNumberToY: (number: number) => number;
@@ -369,6 +372,7 @@ const NoteRectangle = React.memo(({
   drumNoteToY?: (note: Note) => number;
   hoveredVoiceIndex: number | null;
   sectionEndX?: number;
+  sectionStartX?: number;
 }) => {
   const registerNote = React.useContext(NotePlaybackContext);
   const section = React.useContext(PlaybackSectionContext);
@@ -482,16 +486,34 @@ const NoteRectangle = React.memo(({
     if (registerNote && !note.isDrum) updatePlaying(playingRef.current);
   });
 
-  // Keep a short continuation past the section, without changing note timing
+  // Keep a short continuation on either side of the section, without changing note timing
   // or compressing the pitch-bend curve into the visible portion.
+  const continuationLength = 30;
+  const fadeInEnd =
+    !isDrum && sectionStartX !== undefined && left < sectionStartX
+      ? sectionStartX - left
+      : undefined;
   const fadeStart =
     !isDrum && sectionEndX !== undefined && left + width > sectionEndX
       ? sectionEndX - left
       : undefined;
-  const continuationMask =
-    fadeStart !== undefined
-      ? `linear-gradient(to right, black ${fadeStart}px, transparent ${fadeStart + 30}px)`
-      : undefined;
+  const maskStops = [
+    ...(fadeInEnd !== undefined
+      ? [`transparent ${fadeInEnd - continuationLength}px`, `black ${fadeInEnd}px`]
+      : []),
+    ...(fadeStart !== undefined
+      ? [`black ${fadeStart}px`, `transparent ${fadeStart + continuationLength}px`]
+      : []),
+  ];
+  const continuationMask = maskStops.length
+    ? `linear-gradient(to right, ${maskStops.join(", ")})`
+    : undefined;
+  const clipLeft = fadeInEnd !== undefined
+    ? Math.max(0, fadeInEnd - continuationLength)
+    : -1;
+  const clipRight = fadeStart !== undefined
+    ? Math.max(0, width - fadeStart - continuationLength)
+    : -1;
   const maskPadding = hasPitchBend ? noteHeight * 2 + 1 : 1;
 
   // Format source location string if it exists
@@ -562,8 +584,8 @@ const NoteRectangle = React.memo(({
         maskClip: "no-clip",
         WebkitMaskClip: "no-clip",
         clipPath:
-          fadeStart !== undefined
-            ? `inset(-${maskPadding}px ${Math.max(0, width - fadeStart - 30)}px -${maskPadding}px -1px)`
+          fadeInEnd !== undefined || fadeStart !== undefined
+            ? `inset(-${maskPadding}px ${clipRight}px -${maskPadding}px ${clipLeft}px)`
             : undefined,
         pointerEvents: handleNoteClick && !hasPitchBend ? "auto" : "none",
         zIndex:

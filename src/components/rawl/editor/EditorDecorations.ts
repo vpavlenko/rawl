@@ -188,6 +188,14 @@ export const getBackgroundsForLine = (
     }
   }
 
+  const anchorsMatch = line.match(/^\s*(sectionAnchors)\s+/i);
+  if (anchorsMatch) {
+    const start = line.indexOf(anchorsMatch[1]);
+    for (let i = start; i < start + anchorsMatch[1].length; i++) {
+      baseDecorations[i] = { class: "analysis-command" };
+    }
+  }
+
   // Process key signature and note colors first
   if (
     line.match(

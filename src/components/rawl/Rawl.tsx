@@ -40,6 +40,7 @@ import {
   getDrumVoices,
   getPhraseStarts,
 } from "./analysis";
+import { getSectionAnchors, getSectionOffsets, setSectionAnchor } from "./sectionAnchors";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { beautifySlug } from "./corpora/utils";
 import { MouseHandlers } from "./getNoteRectangles";
@@ -466,6 +467,9 @@ const Rawl: React.FC<RawlProps> = ({
             ...new Set([...(analysis.sections ?? [0]), ...newSections]),
           ].sort((a, b) => a - b),
         };
+        analysisUpdate.sectionAnchors = getSectionAnchors(
+          { ...analysis, ...analysisUpdate }, phraseStarts, measuresAndBeats.measures,
+        );
         setSelectedMeasure(null);
         commitAnalysisUpdate(analysisUpdate);
       }
@@ -478,6 +482,7 @@ const Rawl: React.FC<RawlProps> = ({
       measuresAndBeats.measures.length,
     );
     const sectionToRemove = phraseStarts.indexOf(selectedMeasure);
+    if (sectionToRemove === 0) return;
     if (sectionToRemove === -1) {
       alert(
         `mergeAtMeasure, not found ${selectedMeasure} in ${JSON.stringify(
@@ -490,10 +495,63 @@ const Rawl: React.FC<RawlProps> = ({
           (section) => section !== sectionToRemove,
         ),
       };
+      analysisUpdate.sectionAnchors = getSectionAnchors(
+        { ...analysis, ...analysisUpdate }, phraseStarts, measuresAndBeats.measures,
+      );
       setSelectedMeasure(null);
       commitAnalysisUpdate(analysisUpdate);
     }
   }, [selectedMeasure, analysis, measuresAndBeats]);
+
+  const anchorSection = useCallback((targetPhrase: number | null) => {
+    const current = analysisRef.current;
+    const phrases = getPhraseStarts(current, measuresAndBeats.measures.length);
+    const sections = current.sections ?? [0];
+    const source = phrases.indexOf(selectedMeasure);
+    const sourceIndex = sections.indexOf(source);
+    if (sourceIndex < 0 || sections.length < 2) return;
+    const targetSection = targetPhrase === null ? null : sections.find((start, index) =>
+      Math.abs(index - sourceIndex) === 1 && targetPhrase >= start &&
+      targetPhrase < (sections[index + 1] ?? phrases.length) &&
+      phrases[targetPhrase] < measuresAndBeats.measures.length,
+    );
+    if (targetPhrase !== null && targetSection === undefined) return;
+    setHoveredNote(null);
+    commitAnalysisUpdate({
+      sectionAnchors: setSectionAnchor(current, phrases, measuresAndBeats.measures,
+        source, targetPhrase === null ? null : { section: targetSection, phrase: targetPhrase }),
+    });
+  }, [selectedMeasure, measuresAndBeats, commitAnalysisUpdate]);
+
+  const shiftSectionAnchor = useCallback((neighbor: -1 | 1, direction: -1 | 1) => {
+    const current = analysisRef.current;
+    const measures = measuresAndBeats.measures;
+    const phrases = getPhraseStarts(current, measures.length);
+    const sections = current.sections ?? [0];
+    const source = phrases.indexOf(selectedMeasure);
+    const sourceIndex = sections.indexOf(source);
+    if (sourceIndex < 0) return;
+    const targetIndex = sourceIndex + neighbor;
+    const target = sections[targetIndex];
+    if (target === undefined) return;
+    const offsets = getSectionOffsets(current, phrases, measures);
+    // Use the target's position after releasing any reverse dependency.
+    const prospective = {
+      ...current,
+      sectionAnchors: setSectionAnchor(current, phrases, measures, source,
+        { section: target, phrase: target }),
+    };
+    const targetOffset = getSectionOffsets(prospective, phrases, measures)[target];
+    const candidates = phrases.map((measure, phrase) => ({
+      phrase, x: targetOffset + measures[measure - 1] - measures[phrases[target] - 1],
+    })).filter(({ phrase }) => phrase >= target &&
+      phrase < (sections[targetIndex + 1] ?? phrases.length) && phrases[phrase] < measures.length);
+    const next = direction === 1
+      ? candidates.find(({ x }) => x > offsets[source] + 1e-6)
+      : candidates.slice().reverse().find(({ x }) => x < offsets[source] - 1e-6);
+    if (next) anchorSection(next.phrase);
+    else if (direction === -1 && offsets[source] > 0) anchorSection(null);
+  }, [selectedMeasure, measuresAndBeats, anchorSection]);
 
   const setBeatsPerMeasure = useCallback(
     (beatsPerMeasure) => {
@@ -762,6 +820,8 @@ const Rawl: React.FC<RawlProps> = ({
       selectMeasure,
       splitAtMeasure,
       mergeAtMeasure,
+      anchorSection,
+      shiftSectionAnchor,
       setBeatsPerMeasure,
     }),
     [
@@ -769,6 +829,8 @@ const Rawl: React.FC<RawlProps> = ({
       selectMeasure,
       splitAtMeasure,
       mergeAtMeasure,
+      anchorSection,
+      shiftSectionAnchor,
       setBeatsPerMeasure,
     ],
   );

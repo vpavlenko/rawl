@@ -63,6 +63,9 @@ export type Analysis = {
   modulations: Modulations;
   phrasePatch?: { measure: number; diff: number }[];
   sections?: number[];
+  // Keys, section and phrase are zero-based global phrase indices.
+  // Align this section's start with a phrase in an adjacent section.
+  sectionAnchors?: Record<number, { section: number; phrase: number }>;
   measureRenumbering?: MeasureRenumbering;
   measures?: ManualMeasures;
   snippets?: Snippet[];

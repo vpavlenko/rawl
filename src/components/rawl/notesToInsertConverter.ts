@@ -1326,6 +1326,12 @@ export const generateFormattedScore = (
     }
   }
 
+  const sectionAnchors = Object.entries(analysis.sectionAnchors ?? {})
+    .map(([source, anchor]) => `${Number(source) + 1}:${anchor.section + 1}:${anchor.phrase + 1}`);
+  if (sectionAnchors.length > 0) {
+    outputLines.push(`sectionAnchors ${sectionAnchors.join(" ")}`);
+  }
+
   // Calculate and add estimated BPM after time signature
   if (
     measuresAndBeats.measures.length > 0 &&

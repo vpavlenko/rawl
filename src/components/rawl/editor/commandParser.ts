@@ -383,6 +383,26 @@ function parseSectionsCommand(
   return false;
 }
 
+// One-based phrase indices: source-section:target-section:target-phrase.
+function parseSectionAnchorsCommand(
+  cleanLine: string,
+  context: ExtendedCommandContext,
+): boolean {
+  const match = cleanLine.match(/^sectionAnchors\s+(.+)$/i);
+  if (!match) return false;
+  const anchors: NonNullable<Analysis["sectionAnchors"]> = {};
+  for (const token of match[1].trim().split(/\s+/)) {
+    const parts = token.match(/^(\d+):(\d+):(\d+)$/);
+    if (!parts) continue;
+    const [source, section, phrase] = parts.slice(1).map(Number);
+    if (source > 0 && section > 0 && phrase > 0) {
+      anchors[source - 1] = { section: section - 1, phrase: phrase - 1 };
+    }
+  }
+  context.analysis.sectionAnchors = anchors;
+  return true;
+}
+
 // Find where ANALYSIS_STUB is imported and add more code to see its value
 const ANALYSIS_STUB_WITH_SECTIONS: Analysis = {
   ...ANALYSIS_STUB,
@@ -419,6 +439,8 @@ export const parseCommand = (
   if (parsePhrasesCommand(cleanLine, extendedContext)) {
     return null; // Return null because it's an analysis command, not a playback command
   }
+
+  if (parseSectionAnchorsCommand(cleanLine, extendedContext)) return null;
 
   // Try parsing as sections command
   if (parseSectionsCommand(cleanLine, extendedContext)) {

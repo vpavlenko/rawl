@@ -618,6 +618,15 @@ const Manual: React.FC<ManualProps> = ({ score }) => {
           <div className="section">
             <h3>Analysis commands</h3>
             <div className="grid">
+              <code>sectionAnchors 3:1:2</code>
+              <span>
+                Align the section starting at phrase 3 with phrase 2 in the
+                neighboring section starting at phrase 1. All three numbers
+                are one-based global phrase numbers. Select a section's first
+                measure and use Q/W for previous-section phrases, A/S for
+                next-section phrases, or click the anchor icon above a neighboring phrase.
+                Use Reset to return to the left edge.
+              </span>
               <code>phrases 1+1 18+2 36-1</code>
               <span>
                 Hypermeter adjustments: moves white bar of four-measure phrase

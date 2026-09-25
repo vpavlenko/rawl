@@ -2,6 +2,7 @@ import * as React from "react";
 import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "../AppContext";
+import Anchor from "../icons/Anchor";
 import { SetBeatsPerMeasureCallback, getModulations } from "./Rawl";
 import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
 import {
@@ -59,6 +60,8 @@ export type MeasureSelection = {
   splitAtMeasure: (boolean, number?) => void;
   mergeAtMeasure: () => void;
   setBeatsPerMeasure: SetBeatsPerMeasureCallback;
+  anchorSection?: (phrase: number | null) => void;
+  shiftSectionAnchor?: (neighbor: -1 | 1, direction: -1 | 1) => void;
 };
 
 export const PITCH_CLASS_TO_LETTER = {
@@ -82,12 +85,14 @@ const RemeasuringInput: React.FC<{
   setBeatsPerMeasure: SetBeatsPerMeasureCallback;
   splitAtMeasure: (boolean, number?) => void;
   mergeAtMeasure: () => void;
+  shiftSectionAnchor?: MeasureSelection["shiftSectionAnchor"];
 }> = ({
   selectedMeasure,
   selectMeasure,
   setBeatsPerMeasure,
   splitAtMeasure,
   mergeAtMeasure,
+  shiftSectionAnchor,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState<string>("");
@@ -120,6 +125,26 @@ const RemeasuringInput: React.FC<{
   };
 
   useEffect(() => inputRef.current.focus(), []);
+
+  useEffect(() => {
+    if (!shiftSectionAnchor) return;
+    const handleAnchorKey = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement;
+      if (event.ctrlKey || event.metaKey || event.altKey ||
+        (target !== inputRef.current &&
+          (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)))) return;
+      const keys: Record<string, [-1 | 1, -1 | 1]> = {
+        q: [-1, -1], w: [-1, 1], a: [1, -1], s: [1, 1],
+      };
+      const movement = keys[event.key.toLowerCase()];
+      if (!movement) return;
+      event.preventDefault();
+      event.stopPropagation();
+      shiftSectionAnchor(...movement);
+    };
+    document.addEventListener("keydown", handleAnchorKey, true);
+    return () => document.removeEventListener("keydown", handleAnchorKey, true);
+  }, [shiftSectionAnchor]);
 
   return (
     <input
@@ -206,6 +231,9 @@ const Measure: React.FC<{
   sectionSpan: MeasuresSpan;
   previousTonic: PitchClass | null;
   isLastSection: boolean;
+  anchorTarget?: { phrase: number; active: boolean; neighbor: string };
+  canAnchorSection?: boolean;
+  hasSectionAnchor?: boolean;
   playbackMeasure?: number | null;
   showPlaybackMeasureBottomBorder?: boolean;
 }> = ({
@@ -222,6 +250,9 @@ const Measure: React.FC<{
   sectionSpan,
   previousTonic,
   isLastSection,
+  anchorTarget,
+  canAnchorSection = false,
+  hasSectionAnchor = false,
   playbackMeasure = null,
   showPlaybackMeasureBottomBorder = false,
 }) => {
@@ -364,7 +395,25 @@ const Measure: React.FC<{
                         mergeAtMeasure={mergeAtMeasure}
                         selectMeasure={selectMeasure}
                         selectedMeasure={selectedMeasure}
+                        shiftSectionAnchor={canAnchorSection ? measureSelection.shiftSectionAnchor : undefined}
                       />
+                      {canAnchorSection && hasSectionAnchor && selectedMeasure === number && (
+                        <button
+                          type="button"
+                          title="Reset section to the left edge"
+                          aria-label="Reset section alignment"
+                          style={{ display: "inline-flex", alignItems: "center", gap: 3,
+                            marginLeft: 5, whiteSpace: "nowrap",
+                            background: "#222", color: "white", border: "1px solid #666", cursor: "pointer" }}
+                          onMouseDown={(event) => event.preventDefault()}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            measureSelection.anchorSection?.(null);
+                          }}
+                        >
+                          <Anchor /> Reset
+                        </button>
+                      )}
                       <div
                         style={{
                           marginLeft: 5,
@@ -373,6 +422,7 @@ const Measure: React.FC<{
                           whiteSpace: "nowrap",
                         }}
                       >
+                        {canAnchorSection && <span><Anchor /> Q/W: previous section, A/S: next section. </span>}
                         Hover a note for tonic, click to save. Type beats,
                         Enter to set beats/measure
                         {selectedPhraseStart === number &&
@@ -496,6 +546,26 @@ const Measure: React.FC<{
                       ↱
                     </div>
                   )}
+                {anchorTarget && (
+                  <button
+                    type="button"
+                    title={`Align selected section with this phrase in the ${anchorTarget.neighbor} section`}
+                    aria-label={`Anchor selected section to measure ${displayNumber} in the ${anchorTarget.neighbor} section`}
+                    aria-pressed={anchorTarget.active}
+                    style={{ position: "absolute", top: -20, left: 0, padding: "1px 2px",
+                      display: "inline-flex", alignItems: "center",
+                      border: "1px solid #666", borderRadius: 3, cursor: "pointer",
+                      background: anchorTarget.active ? "#785400" : "#222", color: "white", zIndex: 100 }}
+                    onMouseDown={(event) => event.preventDefault()}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      measureSelection.anchorSection?.(anchorTarget.phrase);
+                    }}
+                  >
+                    <Anchor />
+                  </button>
+                )}
+
                 <span
                   style={{
                     fontSize: "12px",
@@ -565,9 +635,10 @@ const TonalGrid: React.FC<{
       const from = measures[Math.max(fromIndex, 0)];
       const to = measures[Math.min(toIndex, measures.length - 1)];
       const { tonic } = modulations[i];
-      const fromX = secondsToX(from);
-      const toX = secondsToX(to);
-      const width = Math.min(toX, maxX) - fromX;
+      const fromX = Math.max(secondsToX(from), minX);
+      const toX = Math.min(secondsToX(to), maxX);
+      const width = toX - fromX;
+      if (width <= 0) continue;
       for (let octave = 2; octave <= 9; ++octave) {
         const midiNumber = tonic + octave * 12;
         if (toX >= minX && fromX <= maxX) {
@@ -714,6 +785,15 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
       phraseStarts.indexOf(measureSelection.selectedMeasure) !== -1
         ? measureSelection.selectedMeasure
         : -1;
+    const sections = analysis.sections ?? [0];
+    const selectedSection = phraseStarts.indexOf(measureSelection.selectedMeasure);
+    const selectedSectionIndex = sections.indexOf(selectedSection);
+    const currentSectionIndex = sections.findIndex((phrase) => phraseStarts[phrase] - 1 === sectionSpan[0]);
+    const canAnchorSection = !!measureSelection.anchorSection && sections.length > 1 &&
+      selectedSectionIndex >= 0 && currentSectionIndex === selectedSectionIndex;
+    const isAnchorNeighbor = !!measureSelection.anchorSection && selectedSectionIndex >= 0 &&
+      currentSectionIndex >= 0 && Math.abs(currentSectionIndex - selectedSectionIndex) === 1;
+    const selectedAnchor = analysis.sectionAnchors?.[selectedSection];
     return (
       <div style={{ zIndex: 15 }}>
         {measures.map((time, i) => {
@@ -738,6 +818,14 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
               selectedPhraseStart={selectedPhraseStart}
               sectionSpan={sectionSpan}
               isLastSection={sectionSpan?.[1] + 1 === measures.length}
+              canAnchorSection={canAnchorSection && i === sectionSpan[0]}
+              hasSectionAnchor={!!selectedAnchor}
+              anchorTarget={isAnchorNeighbor && i < sectionSpan[1] && phraseStarts.includes(number) ? {
+                phrase: phraseStarts.indexOf(number),
+                active: selectedAnchor?.section === sections[currentSectionIndex] &&
+                  selectedAnchor?.phrase === phraseStarts.indexOf(number),
+                neighbor: currentSectionIndex < selectedSectionIndex ? "previous" : "next",
+              } : undefined}
               playbackMeasure={playbackMeasure}
               showPlaybackMeasureBottomBorder={
                 showPlaybackMeasureBottomBorder

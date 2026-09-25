@@ -8,6 +8,7 @@ import {
 } from "react";
 import { DUMMY_CALLBACK, VoiceMask } from "../App";
 import { Analysis, getPhraseStarts, MeasuresSpan } from "./analysis";
+import { getSectionOffsets } from "./sectionAnchors";
 import { AnalysisGrid, MeasureSelection } from "./AnalysisGrid";
 import { getNoteRectangles, MouseHandlers } from "./getNoteRectangles";
 import ControlPanel, { debounce } from "./layouts/ControlPanel";
@@ -392,6 +393,11 @@ export const StackedSystemLayout: React.FC<
     });
   }, [analysis.sections, measuresAndBeats, phraseStarts]);
 
+  const sectionOffsets = useMemo(
+    () => getSectionOffsets(analysis, phraseStarts, measuresAndBeats.measures),
+    [analysis, phraseStarts, measuresAndBeats],
+  );
+
   const optimalSecondWidth = useMemo(() => {
     const viewportWidth = window.innerWidth;
     const targetWidthPercentage = 0.92;
@@ -444,11 +450,12 @@ export const StackedSystemLayout: React.FC<
   }, [optimalSecondWidth]);
 
   const sections: Section[] = useMemo(() => {
-    return sectionSpans.map((sectionSpan) => {
+    return sectionSpans.map((sectionSpan, index) => {
+      const offset = sectionOffsets[(analysis.sections ?? [0])[index]] ?? 0;
       const secondsToX = (seconds) =>
-        (seconds - measuresAndBeats.measures[sectionSpan[0]]) * secondWidth;
+        (seconds - measuresAndBeats.measures[sectionSpan[0]] + offset) * secondWidth;
       const xToSeconds = (x) =>
-        x / secondWidth + measuresAndBeats.measures[sectionSpan[0]];
+        x / secondWidth + measuresAndBeats.measures[sectionSpan[0]] - offset;
       return {
         sectionSpan,
         secondsToX,
@@ -468,6 +475,8 @@ export const StackedSystemLayout: React.FC<
     });
   }, [
     sectionSpans,
+    sectionOffsets,
+    analysis.sections,
     measuresAndBeats,
     secondWidth,
     voicesSortedByAverageMidiNumber,

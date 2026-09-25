@@ -689,8 +689,9 @@ export const MergedSystemLayout: React.FC<
     return new Map(
       sortedVoices.map(({ voiceIndex }, index) => [
         voiceIndex,
-        // Keep every voice above the analysis grid bars (z-index 1–4).
-        10 + sortedVoices.length - index,
+        // Reserve 1,000 layers per voice for shorter notes to sit on top
+        // without ever overtaking a higher-ranked voice.
+        10 + (sortedVoices.length - index) * 1000,
       ]),
     );
   }, [voiceNames, notes, props.drumVoices, props.nativeDrumVoices]);

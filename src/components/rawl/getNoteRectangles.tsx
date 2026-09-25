@@ -379,9 +379,7 @@ const NoteRectangle = React.memo(({
   const voiceZIndices = React.useContext(VoiceZIndicesContext);
   const strumNotes = React.useContext(StrumNotesContext);
   const isStrumNote = !note.isDrum && strumNotes.has(note.id);
-  // Above the analysis grid (1–4), below every regular voice (10+).
-  // This takes precedence over voice ordering and hover/playback emphasis.
-  const voiceZIndex = isStrumNote ? 5 : voiceZIndices.get(note.voiceIndex);
+  const voiceZIndex = voiceZIndices.get(note.voiceIndex);
   const [playing, setPlaying] = React.useState(false);
   const elementRef = React.useRef<HTMLDivElement>(null);
   const playingRef = React.useRef(false);
@@ -439,6 +437,14 @@ const NoteRectangle = React.memo(({
 
   const left = secondsToX(note.span[0]);
   const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
+  const shortNotePriority = Math.round(width > 0 ? 1000 / width : 1000);
+  // Keep shorter notes above longer notes within their voice's 1,000-layer
+  // band. Strum notes remain above the grid (1–4), below all regular notes.
+  const noteZIndex = isStrumNote
+    ? 5
+    : voiceZIndex !== undefined
+    ? voiceZIndex + Math.min(999, shortNotePriority)
+    : undefined;
 
   const isOtherVoice =
     hoveredVoiceIndex !== null && voiceIndex !== hoveredVoiceIndex;
@@ -544,7 +550,7 @@ const NoteRectangle = React.memo(({
         size={baseHeight * 1.5}
         left={left}
         top={baseTop - noteHeight / 2}
-        zIndex={voiceZIndex}
+        zIndex={noteZIndex}
         onClick={
           enableManualRemeasuring && handleNoteClick
             ? (e) => {
@@ -589,8 +595,8 @@ const NoteRectangle = React.memo(({
             : undefined,
         pointerEvents: handleNoteClick && !hasPitchBend ? "auto" : "none",
         zIndex:
-          voiceZIndex ??
-          (Math.round(10 + (width > 0 ? 1000 / width : 1000)) +
+          noteZIndex ??
+          (10 + shortNotePriority +
             (noteUnderCursor ? 100 : 0)),
         boxSizing: "border-box",
         display: "grid",

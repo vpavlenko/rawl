@@ -172,6 +172,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
     ]),
   ) as unknown as AnnotationVersions;
   private annotationSelections: Record<string, string> = {};
+  // Keep saved/user-edited annotations separate from repository defaults.
+  // Clean mode selects only the logged-in user's version from this map.
+  private cleanAnnotationVersions: AnnotationVersions = {};
+  private cleanGuestAnalyses: Analyses = {};
   private annotationWrites: Promise<void> = Promise.resolve();
   private editedAnnotations = new Set<string>();
   private annotationRevisions = new Map<string, number>();
@@ -249,8 +253,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
       directories: {},
       parsing: null,
       enableManualRemeasuring: false,
-      analyses: defaultAnalyses as unknown as Analyses,
-      annotationVersions: this.annotationVersions,
+      analyses: this.isCleanMode() ? {} : defaultAnalyses as unknown as Analyses,
+      annotationVersions: this.isCleanMode() ? {} : this.annotationVersions,
       selectedAnnotationOwners: {},
       latencyCorrectionMs: initialLatencyCorrection,
       fileToDownload: null,
@@ -290,15 +294,35 @@ class App extends React.Component<RouteComponentProps, AppState> {
       (this.state.currentMidi?.slug ? `f/${this.state.currentMidi.slug}` : this.path);
   }
 
+  isCleanMode() {
+    return new URLSearchParams(this.props.location.search).get("clean") === "1";
+  }
+
+  availableAnnotationVersions(): AnnotationVersions {
+    if (!this.isCleanMode()) return this.annotationVersions;
+    const userId = this.state.user?.uid;
+    if (!userId) return {};
+    return Object.fromEntries(
+      Object.entries(this.cleanAnnotationVersions).map(([key, owners]) => [
+        key,
+        owners[userId] ? { [userId]: owners[userId] } : {},
+      ]),
+    );
+  }
+
   refreshAnnotations() {
+    const versions = this.availableAnnotationVersions();
     const { analyses, selectedOwners } = resolveAnnotations(
-      this.annotationVersions,
+      versions,
       this.annotationSelections,
       this.state.user?.uid,
     );
+    if (this.isCleanMode() && !this.state.user) {
+      Object.assign(analyses, this.cleanGuestAnalyses);
+    }
     this.setState((previous) => ({
       analyses,
-      annotationVersions: { ...this.annotationVersions },
+      annotationVersions: { ...versions },
       selectedAnnotationOwners: selectedOwners,
       rawlProps: previous.rawlProps
         ? { ...previous.rawlProps, savedAnalysis: analyses[this.currentAnnotationKey()] ?? null }
@@ -316,11 +340,18 @@ class App extends React.Component<RouteComponentProps, AppState> {
     ownerId: string,
     author: string,
     analysis,
+    fromRepository = false,
   ) {
     this.annotationVersions[analysisKey] = {
       ...this.annotationVersions[analysisKey],
       [ownerId]: { ownerId, author, analysis },
     };
+    if (!fromRepository) {
+      this.cleanAnnotationVersions[analysisKey] = {
+        ...this.cleanAnnotationVersions[analysisKey],
+        [ownerId]: this.annotationVersions[analysisKey][ownerId],
+      };
+    }
   }
 
   async loadPublicAnnotations() {
@@ -502,6 +533,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
         );
       }
     } else {
+      if (this.isCleanMode()) this.cleanGuestAnalyses[analysisKey] = analysis;
       this.setState((previous) => ({
         analyses: { ...previous.analyses, [analysisKey]: analysis },
       }));
@@ -511,7 +543,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   async getFirebaseAnnotation(analysisKey: string) {
     const user = this.state.user;
     if (!user || !analysisKey) return null;
-    return this.annotationVersions[analysisKey]?.[user.uid]?.analysis ?? null;
+    return this.availableAnnotationVersions()[analysisKey]?.[user.uid]?.analysis ?? null;
   }
 
   annotationRef(analysisKey: string, ownerId: string) {
@@ -613,12 +645,16 @@ class App extends React.Component<RouteComponentProps, AppState> {
         const owners = { ...this.annotationVersions[analysisKey] };
         delete owners[user.uid];
         this.annotationVersions[analysisKey] = owners;
+        if (this.cleanAnnotationVersions[analysisKey]) {
+          delete this.cleanAnnotationVersions[analysisKey][user.uid];
+        }
         if (user.uid === ADMIN_USER_ID && defaultAnalyses[analysisKey]) {
           this.putAnnotation(
             analysisKey,
             ADMIN_USER_ID,
             "Admin",
             defaultAnalyses[analysisKey],
+            true,
           );
         }
         if (this.state.user?.uid === user.uid)
@@ -1299,6 +1335,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
   };
 
   componentDidUpdate(prevProps: RouteComponentProps) {
+    const wasClean = new URLSearchParams(prevProps.location.search).get("clean") === "1";
+    if (wasClean !== this.isCleanMode()) {
+      this.refreshAnnotations();
+    }
     const prevPath = prevProps.location.pathname;
     const currentPath = this.props.location.pathname;
     const isStructuresRoute = currentPath.startsWith("/s/");

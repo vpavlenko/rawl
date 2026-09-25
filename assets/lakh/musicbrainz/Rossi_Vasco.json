@@ -1,0 +1,316 @@
+{
+  "artist": "Rossi Vasco",
+  "status": "processed",
+  "totalSongs": 51,
+  "matched": [
+    {
+      "song": "Alba chiara",
+      "album": "Non siamo mica gli americani!",
+      "albumId": "3869bcad-4f56-31ee-85ad-55439fad13bf",
+      "track": 7
+    },
+    {
+      "song": "Albachiara",
+      "album": "Non siamo mica gli americani!",
+      "albumId": "3869bcad-4f56-31ee-85ad-55439fad13bf",
+      "track": 7
+    },
+    {
+      "song": "Anima fragile",
+      "album": "Colpa d’Alfredo",
+      "albumId": "a982d54b-8a74-3ad2-9d22-d51bb78a1a20",
+      "track": 4
+    },
+    {
+      "song": "Asilo 'Republic'",
+      "album": "Colpa d’Alfredo",
+      "albumId": "a982d54b-8a74-3ad2-9d22-d51bb78a1a20",
+      "track": 8
+    },
+    {
+      "song": "Bollicine",
+      "album": "Bollicine",
+      "albumId": "f295d7c0-4c40-368f-931c-eff3de708e9d",
+      "track": 1
+    },
+    {
+      "song": "Brava Giulia",
+      "album": "C’è chi dice no",
+      "albumId": "d7e73cfd-1033-31f9-ac3c-bb36fbfb0099",
+      "track": 5
+    },
+    {
+      "song": "Brava",
+      "album": "Siamo solo noi",
+      "albumId": "d8860e37-5a33-3c02-840c-f73a97dda968",
+      "track": 5
+    },
+    {
+      "song": "Che ironia",
+      "album": "Siamo solo noi",
+      "albumId": "d8860e37-5a33-3c02-840c-f73a97dda968",
+      "track": 3
+    },
+    {
+      "song": "Ciao",
+      "album": "...ma cosa vuoi che sia una canzone",
+      "albumId": "eece18e0-e1d3-3601-8f62-f4e905111fbe",
+      "track": 8
+    },
+    {
+      "song": "Colpa d'Alfredo",
+      "album": "Colpa d’Alfredo",
+      "albumId": "a982d54b-8a74-3ad2-9d22-d51bb78a1a20",
+      "track": 2
+    },
+    {
+      "song": "Cosa succede in citta",
+      "album": "Cosa succede in città",
+      "albumId": "70f62d1e-bc64-3af1-9a89-f6230074bb09",
+      "track": 3
+    },
+    {
+      "song": "Cosa ti fai",
+      "album": "Vado al massimo",
+      "albumId": "d54ae310-ff52-38d7-a66a-0f8cdc95733d",
+      "track": 2
+    },
+    {
+      "song": "Dillo alla luna",
+      "album": "Liberi liberi",
+      "albumId": "8f0d49a7-10b0-3d27-bbf8-62ae78aac776",
+      "track": 7
+    },
+    {
+      "song": "Dimentichiamoci questa citta",
+      "album": "Siamo solo noi",
+      "albumId": "d8860e37-5a33-3c02-840c-f73a97dda968",
+      "track": 6
+    },
+    {
+      "song": "Domenica lunatica",
+      "album": "Liberi liberi",
+      "albumId": "8f0d49a7-10b0-3d27-bbf8-62ae78aac776",
+      "track": 1
+    },
+    {
+      "song": "Dormi, dormi",
+      "album": "Cosa succede in città",
+      "albumId": "70f62d1e-bc64-3af1-9a89-f6230074bb09",
+      "track": 9
+    },
+    {
+      "song": "E il mattino",
+      "album": "Canzoni per me",
+      "albumId": "5a60cc5b-12f9-3ed1-9d47-53d35aa927c1",
+      "track": 1
+    },
+    {
+      "song": "Fegato, Fegato Spappolato",
+      "album": "Non siamo mica gli americani!",
+      "albumId": "3869bcad-4f56-31ee-85ad-55439fad13bf",
+      "track": 2
+    },
+    {
+      "song": "Generale",
+      "album": "Tracks",
+      "albumId": "9698ef45-7904-3644-83ca-b072012e8d5c",
+      "track": 8
+    },
+    {
+      "song": "Giocala",
+      "album": "Bollicine",
+      "albumId": "f295d7c0-4c40-368f-931c-eff3de708e9d",
+      "track": 6
+    },
+    {
+      "song": "Gli angeli",
+      "album": "Nessun pericolo… per te",
+      "albumId": "d9c3fd68-6555-3cc7-bc7e-1eadf38b5760",
+      "track": 3
+    },
+    {
+      "song": "Gli spari sopra (Celebrate)",
+      "album": "Gli spari sopra",
+      "albumId": "0c2f06ec-0336-3d2d-acd7-8074b58a4012",
+      "track": 3
+    },
+    {
+      "song": "Gli spari sopra (intro video)",
+      "album": "Gli spari sopra",
+      "albumId": "0c2f06ec-0336-3d2d-acd7-8074b58a4012",
+      "track": 14
+    },
+    {
+      "song": "Incredibile romantica",
+      "album": "Siamo solo noi",
+      "albumId": "d8860e37-5a33-3c02-840c-f73a97dda968",
+      "track": 7
+    },
+    {
+      "song": "Io no",
+      "album": "Canzoni per me",
+      "albumId": "5a60cc5b-12f9-3ed1-9d47-53d35aa927c1",
+      "track": 3
+    },
+    {
+      "song": "Liberi... liberi",
+      "album": "Liberi liberi",
+      "albumId": "8f0d49a7-10b0-3d27-bbf8-62ae78aac776",
+      "track": 6
+    },
+    {
+      "song": "Mi piaci perche",
+      "album": "Bollicine",
+      "albumId": "f295d7c0-4c40-368f-931c-eff3de708e9d",
+      "track": 8
+    },
+    {
+      "song": "Mi si escludeva",
+      "album": "Nessun pericolo… per te",
+      "albumId": "d9c3fd68-6555-3cc7-bc7e-1eadf38b5760",
+      "track": 4
+    },
+    {
+      "song": "Nessun pericolo... per te",
+      "album": "Nessun pericolo… per te",
+      "albumId": "d9c3fd68-6555-3cc7-bc7e-1eadf38b5760",
+      "track": 8
+    },
+    {
+      "song": "Non l'hai mica capito",
+      "album": "Colpa d’Alfredo",
+      "albumId": "a982d54b-8a74-3ad2-9d22-d51bb78a1a20",
+      "track": 1
+    },
+    {
+      "song": "Ogni volta",
+      "album": "Vado al massimo",
+      "albumId": "d54ae310-ff52-38d7-a66a-0f8cdc95733d",
+      "track": 3
+    },
+    {
+      "song": "Quante volte",
+      "album": "Sono innocente",
+      "albumId": "bfe6a729-891e-4504-8128-57a48d6efbd3",
+      "track": 10
+    },
+    {
+      "song": "Quanti anni hai",
+      "album": "Canzoni per me",
+      "albumId": "5a60cc5b-12f9-3ed1-9d47-53d35aa927c1",
+      "track": 4
+    },
+    {
+      "song": "Rewind",
+      "album": "Canzoni per me",
+      "albumId": "5a60cc5b-12f9-3ed1-9d47-53d35aa927c1",
+      "track": 8
+    },
+    {
+      "song": "Ridere di te",
+      "album": "C’è chi dice no",
+      "albumId": "d7e73cfd-1033-31f9-ac3c-bb36fbfb0099",
+      "track": 3
+    },
+    {
+      "song": "Sally",
+      "album": "Nessun pericolo… per te",
+      "albumId": "d9c3fd68-6555-3cc7-bc7e-1eadf38b5760",
+      "track": 5
+    },
+    {
+      "song": "Senza parole",
+      "album": "Tracks",
+      "albumId": "9698ef45-7904-3644-83ca-b072012e8d5c",
+      "track": 7
+    },
+    {
+      "song": "Siamo Solo Noi",
+      "album": "Siamo solo noi",
+      "albumId": "d8860e37-5a33-3c02-840c-f73a97dda968",
+      "track": 1
+    },
+    {
+      "song": "Splendida giornata",
+      "album": "Vado al massimo",
+      "albumId": "d54ae310-ff52-38d7-a66a-0f8cdc95733d",
+      "track": 8
+    },
+    {
+      "song": "Standing Ovation",
+      "album": "Stupido hotel",
+      "albumId": "0044b6c9-ece5-381a-bd63-3ce3f5446a29",
+      "track": 3
+    },
+    {
+      "song": "Ti prendo e ti porto via",
+      "album": "Stupido hotel",
+      "albumId": "0044b6c9-ece5-381a-bd63-3ce3f5446a29",
+      "track": 2
+    },
+    {
+      "song": "Toffee",
+      "album": "Cosa succede in città",
+      "albumId": "70f62d1e-bc64-3af1-9a89-f6230074bb09",
+      "track": 4
+    },
+    {
+      "song": "Un gran bel film",
+      "album": "Nessun pericolo… per te",
+      "albumId": "d9c3fd68-6555-3cc7-bc7e-1eadf38b5760",
+      "track": 1
+    },
+    {
+      "song": "Una canzone per te",
+      "album": "Bollicine",
+      "albumId": "f295d7c0-4c40-368f-931c-eff3de708e9d",
+      "track": 2
+    },
+    {
+      "song": "Una nuova canzone per lei",
+      "album": "Cosa succede in città",
+      "albumId": "70f62d1e-bc64-3af1-9a89-f6230074bb09",
+      "track": 6
+    },
+    {
+      "song": "Va bene, va bene cosi",
+      "album": "Va bene, va bene così",
+      "albumId": "51279431-e613-37fe-aaf2-3ac79ad70f64",
+      "track": 1
+    },
+    {
+      "song": "Vado al massimo",
+      "album": "Vado al massimo",
+      "albumId": "d54ae310-ff52-38d7-a66a-0f8cdc95733d",
+      "track": 4
+    },
+    {
+      "song": "Vita spericolata",
+      "album": "Bollicine",
+      "albumId": "f295d7c0-4c40-368f-931c-eff3de708e9d",
+      "track": 4
+    },
+    {
+      "song": "Vivere una favola",
+      "album": "C’è chi dice no",
+      "albumId": "d7e73cfd-1033-31f9-ac3c-bb36fbfb0099",
+      "track": 1
+    },
+    {
+      "song": "Vivere",
+      "album": "Gli spari sopra",
+      "albumId": "0c2f06ec-0336-3d2d-acd7-8074b58a4012",
+      "track": 4
+    },
+    {
+      "song": "Voglio andare al mare",
+      "album": "Siamo solo noi",
+      "albumId": "d8860e37-5a33-3c02-840c-f73a97dda968",
+      "track": 4
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

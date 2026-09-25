@@ -43,7 +43,13 @@
     "name": "Elton John"
   },
   "Rossi Vasco": {
-    "name": "Vasco Rossi"
+    "name": "Vasco Rossi",
+    "mbid": "3bf74908-e8b3-4158-8fae-4fd795bb4474",
+    "country": "IT",
+    "includedReleaseGroups": [
+      "51279431-e613-37fe-aaf2-3ac79ad70f64",
+      "9698ef45-7904-3644-83ca-b072012e8d5c"
+    ]
   },
   "Jackson Michael": {
     "name": "Michael Jackson"

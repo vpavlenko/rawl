@@ -1,0 +1,489 @@
+{
+  "artist": "Rossi Vasco",
+  "artistId": "3bf74908-e8b3-4158-8fae-4fd795bb4474",
+  "groups": [
+    {
+      "id": "eece18e0-e1d3-3601-8f62-f4e905111fbe",
+      "releaseId": "dc7bac78-2567-4397-a7c2-28a3821601b2",
+      "title": "...ma cosa vuoi che sia una canzone",
+      "date": "1978-05-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/eece18e0-e1d3-3601-8f62-f4e905111fbe/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Ciao.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3869bcad-4f56-31ee-85ad-55439fad13bf",
+      "releaseId": "134f6ea9-9ba8-4c8a-aec3-dc9131ad015b",
+      "title": "Non siamo mica gli americani!",
+      "date": "1979-04-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3869bcad-4f56-31ee-85ad-55439fad13bf/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Fegato, Fegato Spappolato.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Alba chiara.mid",
+            "Alba chiara.1.mid",
+            "Alba chiara.2.mid",
+            "Alba chiara.3.mid",
+            "Alba chiara.4.mid",
+            "Alba chiara.5.mid",
+            "Alba chiara.6.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Albachiara.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a982d54b-8a74-3ad2-9d22-d51bb78a1a20",
+      "releaseId": "50e249fc-8317-4bdb-9ef1-9e0d4bcb1096",
+      "title": "Colpa d’Alfredo",
+      "date": "1980-04-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a982d54b-8a74-3ad2-9d22-d51bb78a1a20/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Non l'hai mica capito.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Colpa d'Alfredo.mid",
+            "Colpa d'Alfredo.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Anima fragile.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Asilo 'Republic'.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d8860e37-5a33-3c02-840c-f73a97dda968",
+      "releaseId": "8b981450-6347-4af3-a38c-953ea5c46381",
+      "title": "Siamo solo noi",
+      "date": "1981-04-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d8860e37-5a33-3c02-840c-f73a97dda968/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Siamo Solo Noi.mid",
+            "Siamo Solo Noi.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Che ironia.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Voglio andare al mare.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Brava.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Dimentichiamoci questa citta.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Incredibile romantica.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d54ae310-ff52-38d7-a66a-0f8cdc95733d",
+      "releaseId": "1f2aac7f-d019-484b-a1d6-8ffbff7fa647",
+      "title": "Vado al massimo",
+      "date": "1982-04-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d54ae310-ff52-38d7-a66a-0f8cdc95733d/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Cosa ti fai.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Ogni volta.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Vado al massimo.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Splendida giornata.mid",
+            "Splendida giornata.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f295d7c0-4c40-368f-931c-eff3de708e9d",
+      "releaseId": "ff351834-ec55-4151-bfe9-6cc32da0d653",
+      "title": "Bollicine",
+      "date": "1983-04-14",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f295d7c0-4c40-368f-931c-eff3de708e9d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Bollicine.mid",
+            "Bollicine.1.mid",
+            "Bollicine.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Una canzone per te.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Vita spericolata.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Giocala.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Mi piaci perche.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "51279431-e613-37fe-aaf2-3ac79ad70f64",
+      "releaseId": "3f53b51a-3fcd-49ca-b271-87ea2bb351f3",
+      "title": "Va bene, va bene così",
+      "date": "1984",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/51279431-e613-37fe-aaf2-3ac79ad70f64/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Va bene, va bene cosi.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "70f62d1e-bc64-3af1-9a89-f6230074bb09",
+      "releaseId": "e54b015b-f107-3e89-9a62-4141f486bd3f",
+      "title": "Cosa succede in città",
+      "date": "1985-06-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/70f62d1e-bc64-3af1-9a89-f6230074bb09/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Cosa succede in citta.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Toffee.mid",
+            "Toffee.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Una nuova canzone per lei.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Dormi, dormi.mid",
+            "Dormi, dormi.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d7e73cfd-1033-31f9-ac3c-bb36fbfb0099",
+      "releaseId": "af860260-24ee-49a9-a195-326c1d942b8a",
+      "title": "C’è chi dice no",
+      "date": "1987-03-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d7e73cfd-1033-31f9-ac3c-bb36fbfb0099/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Vivere una favola.mid",
+            "Vivere una favola.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Ridere di te.mid",
+            "Ridere di te.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Brava Giulia.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8f0d49a7-10b0-3d27-bbf8-62ae78aac776",
+      "releaseId": "45fdad5d-a5da-4d7a-847e-4375f8d972a0",
+      "title": "Liberi liberi",
+      "date": "1989",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8f0d49a7-10b0-3d27-bbf8-62ae78aac776/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Domenica lunatica.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Liberi... liberi.mid",
+            "Liberi... liberi.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Dillo alla luna.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0c2f06ec-0336-3d2d-acd7-8074b58a4012",
+      "releaseId": "509b7190-7639-4a27-ae83-8a6ad33d5317",
+      "title": "Gli spari sopra",
+      "date": "1993",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0c2f06ec-0336-3d2d-acd7-8074b58a4012/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Gli spari sopra (Celebrate).mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Vivere.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Gli spari sopra (intro video).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d9c3fd68-6555-3cc7-bc7e-1eadf38b5760",
+      "releaseId": "8c665681-26b7-4d62-8461-706cbb519237",
+      "title": "Nessun pericolo… per te",
+      "date": "1996",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d9c3fd68-6555-3cc7-bc7e-1eadf38b5760/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Un gran bel film.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Gli angeli.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Mi si escludeva.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Sally.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Nessun pericolo... per te.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5a60cc5b-12f9-3ed1-9d47-53d35aa927c1",
+      "releaseId": "30ee4569-e6b6-4c91-89ed-8f26543276a3",
+      "title": "Canzoni per me",
+      "date": "1998",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5a60cc5b-12f9-3ed1-9d47-53d35aa927c1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "E il mattino.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Io no.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Quanti anni hai.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Rewind.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0044b6c9-ece5-381a-bd63-3ce3f5446a29",
+      "releaseId": "62c7e906-218b-4a75-a30d-c78db3d30c44",
+      "title": "Stupido hotel",
+      "date": "2001-04-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0044b6c9-ece5-381a-bd63-3ce3f5446a29/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Ti prendo e ti porto via.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Standing Ovation.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9698ef45-7904-3644-83ca-b072012e8d5c",
+      "releaseId": "86c19cf9-8011-44f3-936d-b1b953cf947c",
+      "title": "Tracks",
+      "date": "2002",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9698ef45-7904-3644-83ca-b072012e8d5c/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Senza parole.mid",
+            "Senza parole.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Generale.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bfe6a729-891e-4504-8128-57a48d6efbd3",
+      "releaseId": "bae5c75e-279e-4671-99d1-fc100aaa6e7c",
+      "title": "Sono innocente",
+      "date": "2014-11-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/bfe6a729-891e-4504-8128-57a48d6efbd3/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Quante volte.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

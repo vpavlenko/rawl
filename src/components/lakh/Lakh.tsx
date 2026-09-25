@@ -216,7 +216,6 @@ const Entry = styled(Link)<{
       $annotated,
       $community,
       $hasFewSections,
-      $folder,
       $version,
     }) =>
       $community
@@ -227,9 +226,7 @@ const Entry = styled(Link)<{
           : "#ddd"
         : $hasFewSections
         ? "#ff8fbd"
-        : $folder
-        ? "#f2d18d"
-        : "#ffe45c"};
+        : "#e69a3a"};
   }
   text-decoration: none;
   &:hover {
@@ -304,12 +301,18 @@ function collectTrackSources(sources: LakhArtist[]) {
   return trackSources;
 }
 
+function matchesSearch(text: string, search: string): boolean {
+  const normalized = text.toLocaleLowerCase();
+  return search.split(/\s+/).every((term) => normalized.includes(term));
+}
+
 function highlightMatches(text: string, search: string): React.ReactNode {
   if (!search) return text;
-  const pattern = new RegExp(
-    `(${search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
-    "gi",
-  );
+  const terms = search
+    .split(/\s+/)
+    .sort((a, b) => b.length - a.length)
+    .map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const pattern = new RegExp(`(${terms.join("|")})`, "gi");
   return text
     .split(pattern)
     .map((part, index) =>
@@ -570,7 +573,7 @@ const Directory = React.memo(function Directory({
       ]);
       for (const file of tracks.keys()) {
         const title = file.replace(/(?:\.\d+)?\.mid$/i, "");
-        if (!title.toLocaleLowerCase().includes(search)) tracks.delete(file);
+        if (!matchesSearch(title, search)) tracks.delete(file);
       }
       if (tracks.size) matches.set(item.name, { artist: item, tracks });
     });
@@ -578,10 +581,8 @@ const Directory = React.memo(function Directory({
   }, [directoryArtists, search]);
   const visibleArtists = directoryArtists.filter(
     (item) =>
-      item.name.toLocaleLowerCase().includes(search) ||
-      item.members.some((member) =>
-        member.name.toLocaleLowerCase().includes(search),
-      ),
+      matchesSearch(item.name, search) ||
+      item.members.some((member) => matchesSearch(member.name, search)),
   );
   const communityAnnotated = useMemo(
     () =>

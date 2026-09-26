@@ -42,7 +42,7 @@ import {
   getDrumVoices,
   getPhraseStarts,
 } from "./analysis";
-import { getSectionAnchors, getSectionOffsets, setSectionAnchor } from "./sectionAnchors";
+import { getSectionAnchors, getSectionAnchorShiftTarget, setSectionAnchor } from "./sectionAnchors";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { beautifySlug } from "./corpora/utils";
 import { MouseHandlers } from "./getNoteRectangles";
@@ -523,6 +523,18 @@ const Rawl: React.FC<RawlProps> = ({
     }
   }, [selectedMeasure, analysis, measuresAndBeats]);
 
+  const setFormPartName = useCallback((name: string) => {
+    if (selectedMeasure == null) return;
+    const form = { ...analysisRef.current.form };
+    const trimmedName = name.trim();
+    if (trimmedName) {
+      form[selectedMeasure] = trimmedName;
+    } else {
+      delete form[selectedMeasure];
+    }
+    commitAnalysisUpdate({ form });
+  }, [selectedMeasure, commitAnalysisUpdate]);
+
   const anchorSection = useCallback((targetPhrase: number | null) => {
     const current = analysisRef.current;
     const phrases = getPhraseStarts(current, measuresAndBeats.measures.length);
@@ -547,30 +559,10 @@ const Rawl: React.FC<RawlProps> = ({
     const current = analysisRef.current;
     const measures = measuresAndBeats.measures;
     const phrases = getPhraseStarts(current, measures.length);
-    const sections = current.sections ?? [0];
-    const source = phrases.indexOf(selectedMeasure);
-    const sourceIndex = sections.indexOf(source);
-    if (sourceIndex < 0) return;
-    const targetIndex = sourceIndex + neighbor;
-    const target = sections[targetIndex];
-    if (target === undefined) return;
-    const offsets = getSectionOffsets(current, phrases, measures);
-    // Use the target's position after releasing any reverse dependency.
-    const prospective = {
-      ...current,
-      sectionAnchors: setSectionAnchor(current, phrases, measures, source,
-        { section: target, phrase: target }),
-    };
-    const targetOffset = getSectionOffsets(prospective, phrases, measures)[target];
-    const candidates = phrases.map((measure, phrase) => ({
-      phrase, x: targetOffset + measures[measure - 1] - measures[phrases[target] - 1],
-    })).filter(({ phrase }) => phrase >= target &&
-      phrase < (sections[targetIndex + 1] ?? phrases.length) && phrases[phrase] < measures.length);
-    const next = direction === 1
-      ? candidates.find(({ x }) => x > offsets[source] + 1e-6)
-      : candidates.slice().reverse().find(({ x }) => x < offsets[source] - 1e-6);
-    if (next) anchorSection(next.phrase);
-    else if (direction === -1 && offsets[source] > 0) anchorSection(null);
+    const target = getSectionAnchorShiftTarget(
+      current, phrases, measures, selectedMeasure, neighbor, direction,
+    );
+    if (target !== undefined) anchorSection(target);
   }, [selectedMeasure, measuresAndBeats, anchorSection]);
 
   const setBeatsPerMeasure = useCallback(
@@ -842,6 +834,8 @@ const Rawl: React.FC<RawlProps> = ({
       mergeAtMeasure,
       anchorSection,
       shiftSectionAnchor,
+      formPartName: analysis.form?.[selectedMeasure] ?? "",
+      setFormPartName,
       setBeatsPerMeasure,
     }),
     [
@@ -851,6 +845,8 @@ const Rawl: React.FC<RawlProps> = ({
       mergeAtMeasure,
       anchorSection,
       shiftSectionAnchor,
+      analysis.form,
+      setFormPartName,
       setBeatsPerMeasure,
     ],
   );

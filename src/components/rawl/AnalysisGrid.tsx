@@ -3,6 +3,9 @@ import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { AppContext } from "../AppContext";
 import Anchor from "../icons/Anchor";
+import CornerRightUp from "../icons/CornerRightUp";
+import CornerDownLeft from "../icons/CornerDownLeft";
+import { getSectionAnchorShiftTarget } from "./sectionAnchors";
 import { SetBeatsPerMeasureCallback, getModulations } from "./Rawl";
 import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
 import {
@@ -49,6 +52,36 @@ const BeatBar = styled(VerticalBar)`
   z-index: 1;
 `;
 
+const NeighborAnchorButton = styled.button`
+  position: absolute;
+  top: -20px;
+  left: 0;
+  padding: 2px 3px;
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  background: transparent;
+  color: #999;
+  cursor: pointer;
+  z-index: 100;
+  transition: color 120ms ease, transform 120ms ease;
+
+  &[aria-pressed="true"] {
+    color: #ffc857;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: white;
+    transform: scale(1.15);
+  }
+
+  &:active {
+    color: #ffc857;
+    transform: scale(0.9);
+  }
+`;
+
 const isMobileMeasureClick = () =>
   typeof window !== "undefined" &&
   typeof window.matchMedia === "function" &&
@@ -60,6 +93,8 @@ export type MeasureSelection = {
   splitAtMeasure: (boolean, number?) => void;
   mergeAtMeasure: () => void;
   setBeatsPerMeasure: SetBeatsPerMeasureCallback;
+  formPartName?: string;
+  setFormPartName?: (name: string) => void;
   anchorSection?: (phrase: number | null) => void;
   shiftSectionAnchor?: (neighbor: -1 | 1, direction: -1 | 1) => void;
 };
@@ -86,6 +121,8 @@ const RemeasuringInput: React.FC<{
   splitAtMeasure: (boolean, number?) => void;
   mergeAtMeasure: () => void;
   shiftSectionAnchor?: MeasureSelection["shiftSectionAnchor"];
+  formPartName?: string;
+  setFormPartName?: MeasureSelection["setFormPartName"];
 }> = ({
   selectedMeasure,
   selectMeasure,
@@ -93,15 +130,42 @@ const RemeasuringInput: React.FC<{
   splitAtMeasure,
   mergeAtMeasure,
   shiftSectionAnchor,
+  formPartName = "",
+  setFormPartName,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState<string>("");
+  const [editingName, setEditingName] = useState(false);
+  const [name, setName] = useState("");
+  const nameInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (editingName) {
+      nameInputRef.current?.focus();
+      nameInputRef.current?.select();
+    } else {
+      inputRef.current?.focus();
+    }
+  }, [editingName]);
+
+  const saveName = () => {
+    setFormPartName?.(name);
+    setEditingName(false);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+    if (event.key.toLowerCase() === "f" && setFormPartName) {
+      event.preventDefault();
+      event.stopPropagation();
+      setName(formPartName);
+      setEditingName(true);
+      return;
+    }
     if (event.key in KEY_TO_OFFSET) {
       event.preventDefault();
       const offset = KEY_TO_OFFSET[event.key];
@@ -124,8 +188,6 @@ const RemeasuringInput: React.FC<{
     }
   };
 
-  useEffect(() => inputRef.current.focus(), []);
-
   useEffect(() => {
     if (!shiftSectionAnchor) return;
     const handleAnchorKey = (event: KeyboardEvent) => {
@@ -145,6 +207,41 @@ const RemeasuringInput: React.FC<{
     document.addEventListener("keydown", handleAnchorKey, true);
     return () => document.removeEventListener("keydown", handleAnchorKey, true);
   }, [shiftSectionAnchor]);
+
+  if (editingName) {
+    return (
+      <div
+        style={{ display: "flex", alignItems: "center", gap: 5, whiteSpace: "nowrap" }}
+        onClick={(event) => event.stopPropagation()}
+        onKeyDown={(event) => event.stopPropagation()}
+      >
+        <input
+          ref={nameInputRef}
+          type="text"
+          aria-label="Form part name"
+          placeholder="Form part name"
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.nativeEvent.isComposing) return;
+            if (event.key === "Enter") {
+              event.preventDefault();
+              saveName();
+            } else if (event.key === "Escape") {
+              event.preventDefault();
+              setEditingName(false);
+            }
+          }}
+          style={{ fontSize: 12, width: "24em" }}
+        />
+        <button type="button" onClick={saveName}>Save</button>
+        <button type="button" onClick={() => setEditingName(false)}>Cancel</button>
+        <span style={{ color: "white", fontSize: 10 }}>
+          Enter to save, Esc to cancel. Clear to remove.
+        </span>
+      </div>
+    );
+  }
 
   return (
     <input
@@ -231,7 +328,7 @@ const Measure: React.FC<{
   sectionSpan: MeasuresSpan;
   previousTonic: PitchClass | null;
   isLastSection: boolean;
-  anchorTarget?: { phrase: number; active: boolean; neighbor: string };
+  anchorTarget?: { phrase: number; active: boolean; neighbor: string; shortcut?: string };
   canAnchorSection?: boolean;
   hasSectionAnchor?: boolean;
   playbackMeasure?: number | null;
@@ -395,6 +492,8 @@ const Measure: React.FC<{
                         mergeAtMeasure={mergeAtMeasure}
                         selectMeasure={selectMeasure}
                         selectedMeasure={selectedMeasure}
+                        formPartName={measureSelection.formPartName}
+                        setFormPartName={measureSelection.setFormPartName}
                         shiftSectionAnchor={canAnchorSection ? measureSelection.shiftSectionAnchor : undefined}
                       />
                       {canAnchorSection && hasSectionAnchor && selectedMeasure === number && (
@@ -422,16 +521,18 @@ const Measure: React.FC<{
                           whiteSpace: "nowrap",
                         }}
                       >
-                        {canAnchorSection && <span><Anchor /> Q/W: previous section, A/S: next section. </span>}
-                        Hover a note for tonic, click to save. Type beats,
-                        Enter to set beats/measure
+                        Hover a note for tonic, click to save. Type beats,{" "}
+                        <span style={{ color: "orange" }}>Enter</span> to set beats/measure
                         {selectedPhraseStart === number &&
                         sectionSpan?.[0] === number - 1 ? (
                           <span>
-                            . Empty Shift+Enter merges with previous section
+                            . Empty <span style={{ color: "orange" }}>Shift+Enter</span> merges with previous section
                           </span>
                         ) : (
-                          <span>. Empty Enter splits into two sections</span>
+                          <span>. Empty <span style={{ color: "orange" }}>Enter</span> splits into two sections</span>
+                        )}
+                        {measureSelection.setFormPartName && (
+                          <span>. Type <span style={{ color: "orange" }}>F</span> to {measureSelection.formPartName ? "edit the" : "add a"} form part name</span>
                         )}
                       </div>
                     </div>
@@ -477,7 +578,7 @@ const Measure: React.FC<{
                         splitAtMeasure(false);
                       }}
                     >
-                      ↵
+                      <CornerDownLeft />
                     </div>
                   )}
                 {selectedPhraseStart === number &&
@@ -543,19 +644,15 @@ const Measure: React.FC<{
                         mergeAtMeasure();
                       }}
                     >
-                      ↱
+                      <CornerRightUp />
                     </div>
                   )}
                 {anchorTarget && (
-                  <button
+                  <NeighborAnchorButton
                     type="button"
                     title={`Align selected section with this phrase in the ${anchorTarget.neighbor} section`}
                     aria-label={`Anchor selected section to measure ${displayNumber} in the ${anchorTarget.neighbor} section`}
                     aria-pressed={anchorTarget.active}
-                    style={{ position: "absolute", top: -20, left: 0, padding: "1px 2px",
-                      display: "inline-flex", alignItems: "center",
-                      border: "1px solid #666", borderRadius: 3, cursor: "pointer",
-                      background: anchorTarget.active ? "#785400" : "#222", color: "white", zIndex: 100 }}
                     onMouseDown={(event) => event.preventDefault()}
                     onClick={(event) => {
                       event.stopPropagation();
@@ -563,7 +660,12 @@ const Measure: React.FC<{
                     }}
                   >
                     <Anchor />
-                  </button>
+                    {anchorTarget.shortcut && (
+                      <span style={{ marginLeft: 3, color: "orange", fontSize: 10 }}>
+                        {anchorTarget.shortcut}
+                      </span>
+                    )}
+                  </NeighborAnchorButton>
                 )}
 
                 <span
@@ -794,6 +896,20 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
     const isAnchorNeighbor = !!measureSelection.anchorSection && selectedSectionIndex >= 0 &&
       currentSectionIndex >= 0 && Math.abs(currentSectionIndex - selectedSectionIndex) === 1;
     const selectedAnchor = analysis.sectionAnchors?.[selectedSection];
+    const anchorShortcuts: Record<number, string> = {};
+    if (isAnchorNeighbor && measureSelection.shiftSectionAnchor) {
+      const neighbor = currentSectionIndex < selectedSectionIndex ? -1 : 1;
+      for (const direction of [-1, 1] as const) {
+        const target = getSectionAnchorShiftTarget(
+          analysis, phraseStarts, measures, measureSelection.selectedMeasure, neighbor, direction,
+        );
+        if (target != null) {
+          anchorShortcuts[target] = neighbor === -1
+            ? (direction === -1 ? "q" : "w")
+            : (direction === -1 ? "a" : "s");
+        }
+      }
+    }
     return (
       <div style={{ zIndex: 15 }}>
         {measures.map((time, i) => {
@@ -822,6 +938,7 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
               hasSectionAnchor={!!selectedAnchor}
               anchorTarget={isAnchorNeighbor && i < sectionSpan[1] && phraseStarts.includes(number) ? {
                 phrase: phraseStarts.indexOf(number),
+                shortcut: anchorShortcuts[phraseStarts.indexOf(number)],
                 active: selectedAnchor?.section === sections[currentSectionIndex] &&
                   selectedAnchor?.phrase === phraseStarts.indexOf(number),
                 neighbor: currentSectionIndex < selectedSectionIndex ? "previous" : "next",

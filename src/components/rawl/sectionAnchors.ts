@@ -83,3 +83,39 @@ export function setSectionAnchor(
   }
   return getSectionAnchors({ ...analysis, sectionAnchors: anchors }, phraseStarts, measures);
 }
+
+// Shared by the keyboard controls and their inline target labels.
+export function getSectionAnchorShiftTarget(
+  current: Analysis,
+  phrases: number[],
+  measures: number[],
+  selectedMeasure: number,
+  neighbor: -1 | 1,
+  direction: -1 | 1,
+): number | null | undefined {
+  const sections = current.sections ?? [0];
+  const source = phrases.indexOf(selectedMeasure);
+  const sourceIndex = sections.indexOf(source);
+  if (sourceIndex < 0) return undefined;
+  const targetIndex = sourceIndex + neighbor;
+  const target = sections[targetIndex];
+  if (target === undefined) return undefined;
+  const offsets = getSectionOffsets(current, phrases, measures);
+  // Use the target's position after releasing any reverse dependency.
+  const prospective = {
+    ...current,
+    sectionAnchors: setSectionAnchor(current, phrases, measures, source,
+      { section: target, phrase: target }),
+  };
+  const targetOffset = getSectionOffsets(prospective, phrases, measures)[target];
+  const candidates = phrases.map((measure, phrase) => ({
+    phrase, x: targetOffset + measures[measure - 1] - measures[phrases[target] - 1],
+  })).filter(({ phrase }) => phrase >= target &&
+    phrase < (sections[targetIndex + 1] ?? phrases.length) && phrases[phrase] < measures.length);
+  const next = direction === 1
+    ? candidates.find(({ x }) => x > offsets[source] + 1e-6)
+    : candidates.slice().reverse().find(({ x }) => x < offsets[source] - 1e-6);
+  if (next) return next.phrase;
+  if (direction === -1 && offsets[source] > 0) return null;
+  return undefined;
+}

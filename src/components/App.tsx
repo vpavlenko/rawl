@@ -73,6 +73,7 @@ import Blog from "./rawl/blog/Blog";
 import Book from "./rawl/book/Book";
 import BookOnStyles from "./rawl/book/BookOnStyles";
 import Corpus from "./rawl/corpora/Corpus";
+import Orphans from "./rawl/corpora/Orphans";
 import Structures, { StructuresProps } from "./rawl/corpora/Structures";
 import Decomposition from "./rawl/decomposition/Decomposition";
 import Converter from "./rawl/editor/Converter";
@@ -1528,6 +1529,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 <AppMainContent ref={this.contentAreaRef}>
                   <Switch>
                     <Route path="/old" render={() => <OldLandingPage />} />
+                    <Route exact path="/orphans" component={Orphans} />
                     <Route
                       path="/corpus/:corpus?"
                       render={({ match }) =>

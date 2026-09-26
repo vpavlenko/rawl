@@ -434,6 +434,7 @@ const Measure: React.FC<{
             <>
               <div
                 key={`db_n_${number}`}
+                data-score-measure={number}
                 style={{
                   position: "absolute",
                   top: -4,
@@ -789,7 +790,7 @@ const TonalGrid: React.FC<{
   },
 );
 
-const renumberMeasure: (
+export const renumberMeasure: (
   measureStart: number,
   measureRenumbering: MeasureRenumbering,
 ) => number = (measureStart, measureRenumbering) => {

@@ -51,6 +51,26 @@ const Attribution = styled.p`
   font-size: 13px;
   line-height: 1.5;
 `;
+const PinnedLinks = styled.nav`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: 14px;
+  && {
+    margin-bottom: 0;
+  }
+
+  a {
+    color: orange;
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: orange;
+    text-decoration: underline;
+  }
+`;
 const Heading = styled.div<{ $directory: boolean }>`
   display: flex;
   flex-wrap: wrap;
@@ -730,6 +750,13 @@ const Directory = React.memo(function Directory({
             value={searchQuery}
             onChange={(event) => setSearchQuery(event.target.value)}
           />
+        )}
+        {!artist && (
+          <PinnedLinks aria-label="Pinned music">
+            <Link to="/lakh/Yes/And_You_and_I_1">Yes — And You and I</Link>
+            <Link to="/lakh/Emerson_Lake_Palmer/Tarkus">Emerson, Lake &amp; Palmer — Tarkus</Link>
+            <Link to="/lakh/The_Beatles">The Beatles</Link>
+          </PinnedLinks>
         )}
       </Heading>
       {!artist && search && (

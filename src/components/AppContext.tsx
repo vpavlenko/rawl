@@ -43,6 +43,7 @@ export interface AppContextType {
   hoveredMeasuresSpan: MeasuresSpan | null;
   setHoveredMeasuresSpan: (span: MeasuresSpan | null) => void;
   togglePause: () => void;
+  play: () => void;
   handleLogin: () => void;
   handleLogout: () => void;
   handleToggleManualRemeasuring: () => void;

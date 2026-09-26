@@ -25,6 +25,7 @@ import { AppContext } from "../AppContext";
 import ErrorBoundary from "../ErrorBoundary";
 import { AnalysisTransposeContext, MeasureSelection } from "./AnalysisGrid";
 import CompositionTitle from "./CompositionTitle";
+import FormPartContents from "./FormPartContents";
 import FrozenNotesLayout from "./FrozenNotesLayout";
 import { DrumPlaybackContext, useDrumPlaybackClock } from "./drumPlayback";
 import { NotePlaybackContext, useNotePlaybackClock } from "./notePlayback";
@@ -196,6 +197,7 @@ const Rawl: React.FC<RawlProps> = ({
     setCurrentMidi,
     rawlProps,
     togglePause,
+    play,
     setFirstTonic,
     timeSliderStore,
     transpose,
@@ -226,6 +228,7 @@ const Rawl: React.FC<RawlProps> = ({
   }, [analysis.modulations, parsingResult, setFirstTonic]);
 
   const [systemLayout, setSystemLayout] = useState<SystemLayout>("merged");
+  const scoreContainerRef = useRef<HTMLDivElement>(null);
 
   const commitAnalysisUpdate = useCallback(
     (analysisUpdate: Partial<Analysis>) => {
@@ -533,6 +536,7 @@ const Rawl: React.FC<RawlProps> = ({
       delete form[selectedMeasure];
     }
     commitAnalysisUpdate({ form });
+    setSelectedMeasure(null);
   }, [selectedMeasure, commitAnalysisUpdate]);
 
   const anchorSection = useCallback((targetPhrase: number | null) => {
@@ -1034,6 +1038,7 @@ const Rawl: React.FC<RawlProps> = ({
       >
         <div
           key="innerLeftPanel"
+          ref={scoreContainerRef}
           style={{
             margin: 0,
             padding: 0,
@@ -1119,6 +1124,17 @@ const Rawl: React.FC<RawlProps> = ({
               </style>
             </div>
           )}
+          {systemLayout === "merged" && <FormPartContents
+            analysis={analysis}
+            measures={measuresAndBeats.measures}
+            onSelect={(measure) => {
+              seek(Math.max(0, measuresAndBeats.measures[measure - 1] * 1000 - 1000));
+              play();
+              scoreContainerRef.current
+                ?.querySelector<HTMLElement>(`[data-score-measure="${measure}"]`)
+                ?.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "center", inline: "center" });
+            }}
+          />}
           <StrumNotesContext.Provider value={strumNotes}>
             <AnalysisTransposeContext.Provider value={transpose}>
               {systemLayout === "merged" ? (

@@ -1491,6 +1491,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
             setHoveredMeasuresSpan: (span) =>
               this.setState({ hoveredMeasuresSpan: span }),
             togglePause: this.togglePause,
+            play: () => this.setPlaybackPaused(false),
             handleLogin: this.handleLogin,
             handleLogout: this.handleLogout,
             handleToggleManualRemeasuring: this.handleToggleManualRemeasuring,

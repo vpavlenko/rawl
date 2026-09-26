@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { CorpusLink } from "../corpora/CorpusLink";
 import { Chord } from "../legends/chords";
-import { A, c, ct, Mode, P, rnc, s, UL } from "./chapters";
+import { A, c, ct, Mode, P, rnc, s, StructureRow, UL } from "./chapters";
 
 const H2 = styled.h2`
   color: #fff;
@@ -26,10 +26,9 @@ export const BEYOND_CHAPTERS: Array<{
     pretext: () => (
       <>
         <H2>Blues</H2>
-        <P>
-          Surprisingly, there is no instance of {s`form:12-bar_blues`} inside
-          the top 100.
-        </P>
+        <StructureRow links={s`form:12-bar_blues`}>
+          <P>Surprisingly, there is no instance of 12-bar blues inside the top 100.</P>
+        </StructureRow>
         <P>
           The main harmonic ideas in the blues is the usage of three main
           dominant seventh chords: {rnc`I7`}, {rnc`IV7`}, and {rnc`V7`}.
@@ -48,16 +47,11 @@ export const BEYOND_CHAPTERS: Array<{
             <li>{c`i7 i7 i7 i7 iv7 iv7 i7 i7 v7 iv7 i7 i7`} - a minor blues</li>
           </UL>
         </P>
-        <P>
-          <UL>
-            <li>{s`scale:blues`}</li>
-            <li>{s`chord_scale:IV7`}</li>
-            <li>{s`form:8-bar_blues`}</li>
-            <li>
-              <CorpusLink slug={"boogie_woogie"} />
-            </li>
-          </UL>
-        </P>
+        <StructureRow links={
+          <>{s`scale:blues`}{s`chord_scale:IV7`}{s`form:8-bar_blues`}</>
+        }>
+          <P><CorpusLink slug={"boogie_woogie"} /></P>
+        </StructureRow>
       </>
     ),
   },
@@ -67,8 +61,9 @@ export const BEYOND_CHAPTERS: Array<{
     composers: [],
     pretext: () => (
       <>
-        <H2>Constant structures</H2>
-        <P>{s`constant_structures:major_chords`}</P>
+        <StructureRow links={s`constant_structures:major_chords`}>
+          <H2>Constant structures</H2>
+        </StructureRow>
       </>
     ),
   },
@@ -85,6 +80,7 @@ export const BEYOND_CHAPTERS: Array<{
           these ways have a diatonic interpretation, some others - sorta tonal
           interpretation, yet another ones are picant, modern, VGMy.
         </P>
+        <StructureRow links={s`chromatic_chords:minor_bvi`}>
         <P>
           <UL>
             <li>{c`i bii`}</li>
@@ -98,13 +94,14 @@ export const BEYOND_CHAPTERS: Array<{
             <li>{c`i #iv`}</li>
             <li>{c`i v`}</li>
             <li>
-              {c`i bvi`} {s`chromatic_chords:minor_bvi`}
+              {c`i bvi`}
             </li>
             <li>{c`i vi`}</li>
             <li>{c`i bvii`}</li>
             <li>{c`i vii`}</li>
           </UL>
         </P>
+        </StructureRow>
       </>
     ),
   },
@@ -114,9 +111,9 @@ export const BEYOND_CHAPTERS: Array<{
     composers: [],
     pretext: () => (
       <>
-        <H2>Parallel symmetry</H2>
-        <P>{s`parallel:symmetry`}</P>
-        <P>{s`parallel:picardy_third`}</P>
+        <StructureRow links={<>{s`parallel:symmetry`}{s`parallel:picardy_third`}</>}>
+          <H2>Parallel symmetry</H2>
+        </StructureRow>
       </>
     ),
   },
@@ -142,10 +139,9 @@ export const BEYOND_CHAPTERS: Array<{
           therefore I recolor. The most common first and last chord in those
           pieces is {c`I`}.
         </P>
-        <P>
-          {c`iv I bvii I`}, {c`bII I bvii I`}
-        </P>
-        <P>{s`b2:3`}</P>
+        <StructureRow links={s`b2:3`}>
+          <P>{c`iv I bvii I`}, {c`bII I bvii I`}</P>
+        </StructureRow>
         <P>
           {A("a.-kaldaras---nyhtose-horis-feggari---greek-music-037")},{" "}
           {A("s.-xarhakos---stoy-thoma---greek-music-055")},{" "}

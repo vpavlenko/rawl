@@ -14,7 +14,7 @@ import {
 } from "../../../sampler/sampler";
 import { PitchClass } from "../analysis";
 import { Mode } from "../book/chapters";
-import { Chord, formatChordName, rehydrateChords } from "./chords";
+import { CHORDS, Chord, formatChordName, rehydrateChords } from "./chords";
 import { convertChordToGuitarChord } from "./guitarChords";
 
 const TITLE_HEIGHT = 27;
@@ -100,6 +100,7 @@ const ChordStairs: React.FC<{
   chapterChords?: string[];
   currentTonic?: number;
   scale?: number;
+  register?: "nearest" | "narrative" | "circle";
   playbackMode?: "separate" | "together" | "no";
   setHoveredColors?: (colors: string[] | null) => void;
   showGuitarChords?: boolean;
@@ -109,6 +110,7 @@ const ChordStairs: React.FC<{
     chapterChords,
     currentTonic: propTonic,
     scale = 1,
+    register = "nearest",
     playbackMode = "separate",
     setHoveredColors,
     showGuitarChords = false,
@@ -143,17 +145,28 @@ const ChordStairs: React.FC<{
 
     const numChords = filteredChords.length;
 
-    const rehydratedChords = rehydrateChords(filteredChords);
+    // Note-only examples retain their melodic contour (including octave
+    // crossings in scales). Chord examples minimize their total note range.
+    const useCompactRegister =
+      register === "narrative" &&
+      filteredChords.some((chord) => CHORDS[chord].length > 1);
+    const rehydratedChords = rehydrateChords(
+      filteredChords,
+      register === "circle" ? "circle" : useCompactRegister ? "compact" : "nearest",
+    );
 
     // Find minimum position across all chords
     const minPosition = Math.min(
       ...rehydratedChords.flatMap((chord) => chord.positions),
     );
 
-    // Find which chord and which note has the minimum position
-    const pitchOfMinPosition = rehydratedChords.find((chord) =>
-      chord.positions.includes(minPosition),
-    )?.pitches[0];
+    // Compact and circle positions are tonic-relative pitches. Retain that octave
+    // for playback when normalizing the drawing to start at zero.
+    const pitchOfMinPosition = useCompactRegister || register === "circle"
+      ? minPosition
+      : rehydratedChords.find((chord) =>
+          chord.positions.includes(minPosition),
+        )?.pitches[0];
 
     // Shift all positions up by the minimum position (making the lowest note at position 0)
     rehydratedChords.forEach((chord) => {

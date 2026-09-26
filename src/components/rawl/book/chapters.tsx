@@ -24,9 +24,14 @@ export const P = styled.div`
   margin-bottom: 30px;
   line-height: 1.6;
   color: #fff;
+
+  [data-chapter-reading] & {
+    margin-bottom: 24px;
+    line-height: 1.75;
+  }
 `;
 
-const AuthorshipTag = styled.div`
+const AuthorshipTag = styled.div.attrs({ "data-authorship": true })`
   width: fit-content;
   max-width: 100%;
   box-sizing: border-box;
@@ -40,7 +45,174 @@ const AuthorshipTag = styled.div`
   font-weight: 500;
   line-height: 1.5;
   letter-spacing: 0.025em;
+
+  [data-chapter-reading] & {
+    margin-bottom: 16px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    color: #999;
+  }
 `;
+
+// Keep each figure after its explanation in DOM order, including on mobile.
+const ExampleRow = styled.div.attrs({ className: "chapter-example-row" })`
+  margin-bottom: 24px;
+  min-width: 0;
+
+  @media (min-width: 1200px) {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 700px) minmax(0, 1fr);
+    gap: 56px;
+    align-items: start;
+
+    > :nth-child(2) {
+      position: absolute;
+      top: var(--gutter-offset, 0px);
+      left: 756px;
+      right: 0;
+    }
+
+    > ${P} {
+      margin-bottom: 0;
+    }
+  }
+`;
+
+const ExampleGroup = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 24px 32px;
+  min-width: 0;
+  margin: 16px 0 24px;
+
+  ${ExampleRow} > & {
+    margin: 0;
+  }
+`;
+
+const StructureLinks = styled.aside.attrs({ "aria-label": "Related structures" })`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  min-width: 0;
+`;
+
+const OtherExamples = styled.aside.attrs({ "aria-label": "Other song examples" })`
+  color: #999;
+  font-size: 14px;
+  line-height: 1.5;
+
+  p {
+    margin: 0 0 12px;
+  }
+
+  && ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: #aaa;
+    white-space: normal;
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: #fff;
+    text-decoration: underline;
+  }
+`;
+
+export const StructureRow = ({ children, links }: {
+  children: React.ReactNode;
+  links: React.ReactNode;
+}) => (
+  <ExampleRow>
+    {children}
+    <StructureLinks>{links}</StructureLinks>
+  </ExampleRow>
+);
+
+const MusicalFigure = styled.figure`
+  margin: 0;
+  max-width: 100%;
+  min-width: 0;
+
+  figcaption {
+    margin-bottom: 10px;
+    color: #aaa;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+`;
+
+const FigureNotes = styled.div`
+  max-width: 100%;
+  overflow: visible;
+  padding: 4px 3px 10px;
+`;
+
+const SeventhChordList = styled.dl`
+  margin: 32px 0 40px;
+
+  > div {
+    display: grid;
+    grid-template-columns: 125px minmax(0, 1fr);
+    gap: 20px;
+    padding: 20px 0;
+    border-top: 1px solid #282828;
+  }
+
+  dt {
+    display: flex;
+    align-items: center;
+    align-self: start;
+    gap: 12px;
+  }
+
+  dd {
+    margin: 0;
+    min-width: 0;
+  }
+
+  @media (max-width: 600px) {
+    > div {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+    }
+  }
+`;
+
+const ChordConstruction = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: 10px;
+  font-size: 15px;
+  color: #bbb;
+`;
+
+const Example = ({ label, notes }: { label: string; notes: string }) => (
+  <MusicalFigure>
+    <figcaption>{label}</figcaption>
+    <FigureNotes>
+      <ChordStairs
+        mode={{ title: "", chords: notes.split(/\s+/) as Chord[] }}
+        register="narrative"
+        scale={1}
+        playbackMode="together"
+      />
+    </FigureNotes>
+  </MusicalFigure>
+);
 
 export const UL = styled.ul`
   list-style-type: none;
@@ -52,23 +224,82 @@ export const UL = styled.ul`
   }
 `;
 
-const C = ({ c, title }: { c: Chord[]; title: string }) => (
-  <span
-    style={{
-      display: "inline-block",
-      position: "relative",
-      top: "5px",
-      padding: "3px 3px",
-    }}
-    title={title.replace(/b/g, "♭").replace(/#/g, "♯")}
+const ChordTooltip = styled.span`
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 20000;
+  width: max-content;
+  max-width: min(420px, 80vw);
+  padding: 6px 9px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background: #000;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  white-space: normal;
+  pointer-events: none;
+  visibility: hidden;
+`;
+
+const InlineChord = styled.span`
+  display: inline-block;
+  position: relative;
+  top: 5px;
+  padding: 3px;
+
+  &:hover > ${ChordTooltip},
+  &:focus-visible > ${ChordTooltip} {
+    visibility: visible;
+  }
+
+  [data-chapter-reading] & {
+    top: 0;
+    vertical-align: middle;
+    line-height: 0;
+    padding: 0 3px;
+  }
+`;
+
+const C = ({ c, title, register = "narrative" }: {
+  c: Chord[];
+  title: string;
+  register?: "narrative" | "circle";
+}) => {
+  const [tooltipPosition, setTooltipPosition] = React.useState<{
+    left: number;
+    top: number;
+  } | undefined>();
+  const positionTooltip = (event: React.MouseEvent<HTMLSpanElement>) => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    setTooltipPosition({
+      left: event.clientX - bounds.left,
+      top: event.clientY - bounds.top + 24,
+    });
+  };
+
+  return (
+  <InlineChord
+    aria-label={title.replace(/b/g, "♭").replace(/#/g, "♯")}
+    tabIndex={0}
+    onMouseEnter={positionTooltip}
+    onMouseMove={positionTooltip}
+    onMouseLeave={() => setTooltipPosition(undefined)}
   >
     <ChordStairs
       mode={{ title: "", chords: c }}
-      scale={0.85}
+      register={register}
+      scale={0.65}
       playbackMode="together"
     />
-  </span>
-);
+    <ChordTooltip aria-hidden="true" style={tooltipPosition}>
+      {title.replace(/b/g, "♭").replace(/#/g, "♯")}
+    </ChordTooltip>
+  </InlineChord>
+  );
+};
 
 export const rn = (strings: TemplateStringsArray) => (
   <span
@@ -86,6 +317,12 @@ export const c = (strings: TemplateStringsArray) => {
   const chordString = strings[0].trim();
   const chords = chordString.split(/\s+/);
   return <C c={chords as Chord[]} title={chordString} />;
+};
+
+// Use explicitly for circle-of-fifths examples, including their root lines.
+const circle = (strings: TemplateStringsArray) => {
+  const title = strings[0].trim();
+  return <C c={title.split(/\s+/) as Chord[]} title={title} register="circle" />;
 };
 
 export const rnc = (strings: TemplateStringsArray) => (
@@ -190,24 +427,42 @@ const n = (text: TemplateStringsArray) => (
   <span style={{ whiteSpace: "nowrap" }}>{text}</span>
 );
 
+const KeyboardLink = styled.a`
+  display: inline-block;
+  color: #fff;
+  margin: 10px 20px 10px 0;
+  padding: 7px;
+  border-radius: 3px;
+  box-shadow: 0 0 2px 2px gray;
+`;
+
+const KeyboardLinks = styled.aside.attrs({ "aria-label": "Keyboard exercises" })`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 16px;
+  font-size: 16px;
+  line-height: 1.5;
+
+  ${KeyboardLink} {
+    margin: 0;
+  }
+
+  @media (min-width: 1200px) {
+    flex-direction: column;
+  }
+`;
+
 export const k = (layout: string, title?: string) => {
   return (
-    <a
+    <KeyboardLink
       href={`https://vpavlenko.github.io/layouts/${layout}`}
       target="_blank"
       rel="noopener noreferrer"
-      style={{
-        display: "inline-block",
-        color: "#fff",
-        margin: "10px 20px 10px 0",
-        padding: "7px",
-        borderRadius: "3px",
-        boxShadow: "0 0 2px 2px gray",
-      }}
     >
       <FontAwesomeIcon icon={faKeyboard} style={{ marginRight: "10px" }} />
       {title ?? layout.replace(/-/g, " ")}
-    </a>
+    </KeyboardLink>
   );
 };
 
@@ -769,11 +1024,28 @@ export const CHAPTERS: Array<{
       <>
         <AuthorshipTag>Written by Vitaly Pavlenko</AuthorshipTag>
         <h2>i i ♭VI V</h2>
+        <ExampleRow>
         <P>
           These songs exploit an endless loop of {c`i i bVI V i i bVI V`}. So,
           they don't fit within the natural minor scale {c`1 2 b3 4 5 b6 b7 1`},
           since {c`V`} uses a note {c`7`}
         </P>
+          <OtherExamples>
+            <p>Other songs with this pattern, beyond the top 100</p>
+            <ul>
+              {[
+                ["/f/road-trippin---red-hot-chili-peppers", "Red Hot Chili Peppers. Road trippin'"],
+                ["/f/seven-nation-army-arr.-nikodem-lorenz", "The White Stripes. Seven Nations Army"],
+                ["/f/loonboon---laura-shigihara-arranged-by-piano-keyng", "Laura Shigihara. Loonboon"],
+                ["/f/chyornaya-luna---agata-kristi", "Agata Kristi. Chornaya luna"],
+              ].map(([href, title]) => (
+                <li key={href}>
+                  <a href={href} target="_blank" rel="noopener noreferrer">{title}</a>
+                </li>
+              ))}
+            </ul>
+          </OtherExamples>
+        </ExampleRow>
         <P>
           You might say that these songs are using an extended minor scale:{" "}
           {c`1 2 b3 4 5 b6 b7 7 1`}
@@ -782,35 +1054,7 @@ export const CHAPTERS: Array<{
           Or you might say that the chord {c`V`} is drawn from a harmonic minor
           scale, unlike all other chords: {c`1 2 b3 4 5 b6 7 1`}
         </P>
-        <P>
-          Songs besides the top 100 that have the same pattern:
-          <ul>
-            <li>
-              {a(
-                "/f/road-trippin---red-hot-chili-peppers",
-                "Red Hot Chili Peppers. Road trippin'",
-              )}
-            </li>
-            <li>
-              {a(
-                "/f/seven-nation-army-arr.-nikodem-lorenz",
-                "The White Stripes. Seven Nations Army",
-              )}
-            </li>
-            <li>
-              {a(
-                "/f/loonboon---laura-shigihara-arranged-by-piano-keyng",
-                "Laura Shigihara. Loonboon",
-              )}
-            </li>
-            <li>
-              {a(
-                "/f/chyornaya-luna---agata-kristi",
-                "Agata Kristi. Chornaya luna",
-              )}
-            </li>
-          </ul>
-        </P>
+
         {/* <h2>Historical context</h2>
         <P>
           Until a natural minor mode gained popularity, a minor mode mostly used{" "}
@@ -947,10 +1191,12 @@ export const CHAPTERS: Array<{
           A modern natural minor is a recent invention – it gained popularity in
           1970s. {q("alf_aeolian")} So, all examples below are pretty modern.
         </P>
+        <StructureRow links={s`minor_cadence:minor_v`}>
         <P>
           We'll look at the older version of minor in the next few chapters.
         </P>
-        <P>{s`minor_cadence:minor_v`}</P>
+        </StructureRow>
+
       </>
     ),
   },
@@ -1044,14 +1290,16 @@ export const CHAPTERS: Array<{
           There's a functional harmony for major mode as well. Some chord pairs
           and longer sequences are more probable than other.
         </P>
-        <P>
-          Interestingly, functional major and functional minor modes have some
-          parallels. The most solid ending in them is {c`V I`} or {c`V i`},
-          respectively.
-        </P>
-        <P>
-          {k("v7-to-major-i", "V7 to I")} {k("V7-to-minor-i", "V7 to i")}
-        </P>
+        <ExampleRow>
+          <P>
+            Interestingly, functional major and functional minor modes have some
+            parallels. The most solid ending in them is {c`V I`} or {c`V i`},
+            respectively.
+          </P>
+          <KeyboardLinks>
+            {k("v7-to-major-i", "V7 to I")} {k("V7-to-minor-i", "V7 to i")}
+          </KeyboardLinks>
+        </ExampleRow>
         <P>
           In both of them you can use {c`V7`} as a synonym for {c`V`}. And the
           endings like {c`V7 I`} or {c`V7 i`} are even more solid.
@@ -1196,18 +1444,20 @@ export const CHAPTERS: Array<{
           eight-chord loops did. The most important loop since Baroque era was
           The Circle of Fifths progression.
         </P>
-        <P>The model example: {c`i iv bVII bIII bVI iio V i`}</P>
+        <P>The model example: {circle`i iv bVII bIII bVI iio V i`}</P>
         <P>
           The idea is to take the next chord's root three notes up from a
           previous chord's root, going around a scale.
         </P>
-        <P>Here are the roots of these chords: {c`1 4 b7 b3 b6 2 5 1`}</P>
+        <P>Here are the roots of these chords: {circle`1 4 b7 b3 b6 2 5 1`}</P>
+        <StructureRow links={s`cycle_root_motion:5`}>
         <P>
           There are options. A rare {c`iio`} chord may be replaced with {c`iv`},
           which sounds "similar": these chords share two notes. This way we'll
-          get {c`i iv bVII bIII bVI iv V i`}
+          get {circle`i iv bVII bIII bVI iv V i`}
         </P>
-        <P>{s`cycle_root_motion:5`}</P>
+        </StructureRow>
+
       </>
     ),
     mode: {
@@ -1283,12 +1533,13 @@ export const CHAPTERS: Array<{
           it: it's in the scale. This scale yields these chords:{" "}
           {c`i bIII IV v bVI bVII i`}
         </P>
+        <StructureRow links={s`dorian:IV`}>
         <P>
           There are no pieces throughout top 100 corpus that are built entirely
           using a dorian mode. There are degrees to which a {c`6`} note is used
-          within a minor mode, most often as a {c`IV`} chord. See examples:{" "}
-          {s`dorian:IV`}
+          within a minor mode, most often as a {c`IV`} chord.
         </P>
+        </StructureRow>
       </>
     ),
     mode: {
@@ -1328,13 +1579,15 @@ export const CHAPTERS: Array<{
           down to {c`3`} when we reach {c`I`}. A single new color gives
           us another way of returning to the tonic.
         </P>
+        <StructureRow links={s`chromatic_chords:iv`}>
         <P>
           The major {c`IV`} doesn't have to come first: {c`I iv I`} also
           works. In the examples below, listen for the {c`b6`} color and
           find where it goes next. Does the borrowed chord appear every
           time the phrase repeats, or only at a particular ending?
         </P>
-        <P>{s`chromatic_chords:iv`}</P>
+        </StructureRow>
+
       </>
     ),
     composers: [
@@ -1480,19 +1733,46 @@ export const CHAPTERS: Array<{
       <>
         <AuthorshipTag>Written by Vitaly Pavlenko</AuthorshipTag>
         <h2>{rn`Vsus4`}</h2>
-        <P>
-          There's a frequent diatonic chord that isn't either minor or major
-          chord: a {c`Vsus4`} chord. It has intervals of 5+2 semitones. It's
-          most commonly resolved as {c`Vsus4 V`}, maybe further as{" "}
-          {c`Vsus4 V I`}. Sometimes it's used as {c`Vsus47`}: {c`Vsus47 V7 I`}
-        </P>
-        <P>
-          <i>sus4</i> means that a {ct(`1`, 12)} in it - so called a{" "}
-          <i>perfect fourth</i> (i.e. 5 semitones) over the root - is{" "}
-          <i>suspended</i> and then resolved into {c`7`}: {c`1 7 Vsus4 V`}.
-          Although in modern composition it's not necessarily resolved:{" "}
-          {s`V:sus4`}, {s`V:sus4_unresolved`}
-        </P>
+        <ExampleRow>
+          <P>
+            There's a frequent diatonic chord that isn't either minor or major:
+            a {c`Vsus4`} chord. It has intervals of 5+2 semitones. It most
+            commonly resolves to {c`V`}, which can then lead to {c`I`}.
+          </P>
+          <ExampleGroup>
+            <Example label="Resolving the suspension" notes="Vsus4 V" />
+            <Example label="Continuing to the tonic" notes="Vsus4 V I" />
+          </ExampleGroup>
+        </ExampleRow>
+        <ExampleRow>
+          <P>
+            Sometimes it's used with a seventh, as {c`Vsus47`}. The suspension
+            resolves in the same way before the dominant leads to the tonic.
+          </P>
+          <ExampleGroup>
+            <Example label="With a seventh" notes="Vsus47 V7 I" />
+          </ExampleGroup>
+        </ExampleRow>
+        <h2>The suspended note</h2>
+        <ExampleRow>
+          <P>
+            <i>sus4</i> means that {ct(`1`, 12)} — a <i>perfect fourth</i>
+            {" "}(5 semitones) over the root — is <i>suspended</i> and then
+            resolved into {c`7`}.
+          </P>
+          <ExampleGroup>
+            <Example label="The fourth resolves down" notes="1 7 Vsus4 V" />
+          </ExampleGroup>
+        </ExampleRow>
+        <StructureRow links={
+          <>
+            {s`V:sus4`}
+            {s`V:sus4_unresolved`}
+          </>
+        }>
+          <P>In modern composition, the suspension isn't necessarily resolved.</P>
+        </StructureRow>
+
       </>
     ),
     composers: [
@@ -1601,46 +1881,76 @@ export const CHAPTERS: Array<{
       <>
         <AuthorshipTag>Generated by GPT-6 Astra</AuthorshipTag>
         <h2>Scales with fewer colors</h2>
-        <P>
-          A melody doesn't have to use all seven notes of a major or minor
-          scale. A common selection of five notes is the <i>minor
-          pentatonic</i>: {c`1 b3 4 5 b7 1`}. Compared with natural minor,
-          we leave out {c`2`} and {c`b6`}.
-        </P>
-        <P>
-          The <i>major pentatonic</i> is {c`1 2 3 5 6 1`}. Here we
-          leave out {c`4`} and {c`7`} from major. Try playing a melody
-          with these five colors. There are no semitone steps within
-          either of these pentatonic scales.
-        </P>
+        <ExampleRow>
+          <P>
+            A melody doesn't have to use all seven notes of a major or minor
+            scale. A common selection of five notes is the <i>minor pentatonic</i>.
+            Compared with natural minor, we leave out {c`2`} and {c`b6`}.
+          </P>
+          <ExampleGroup>
+            <Example label="Minor pentatonic" notes="1 b3 4 5 b7 1" />
+          </ExampleGroup>
+        </ExampleRow>
+        <ExampleRow>
+          <P>
+            The <i>major pentatonic</i> leaves out {c`4`} and {c`7`} from major.
+            Try playing a melody with these five colors. There are no semitone
+            steps within either of these pentatonic scales.
+          </P>
+          <ExampleGroup>
+            <Example label="Major pentatonic" notes="1 2 3 5 6 1" />
+          </ExampleGroup>
+        </ExampleRow>
         <h2>Adding a sixth note</h2>
+        <ExampleRow>
+          <P>
+            Add {c`#4`} between {c`4`} and {c`5`} in the minor pentatonic.
+            This is a common <i>blues scale</i>. The new note fills the gap
+            with two semitone steps.
+          </P>
+          <ExampleGroup>
+            <Example label="Blues scale" notes="1 b3 4 #4 5 b7 1" />
+          </ExampleGroup>
+        </ExampleRow>
+        <P>Try both directions and listen to how the middle color connects its neighbors.</P>
+        <ExampleGroup>
+          <Example label="Ascending" notes="4 #4 5" />
+          <Example label="Descending" notes="5 #4 4" />
+        </ExampleGroup>
+        <h2>Six-note scales</h2>
         <P>
-          Add {c`#4`} between {c`4`} and {c`5`} in the minor pentatonic:
-          {" "}{c`1 b3 4 #4 5 b7 1`}. This is a common <i>blues scale</i>.
-          The new note fills the gap with two semitone steps. Try
-          {c`4 #4 5`} and {c`5 #4 4`} and listen to how the middle
-          color connects its neighbors.
+          <i>Hexatonic</i> simply means six notes. There isn't a single six-note
+          scale that all such melodies use.
         </P>
-        <P>
-          <i>Hexatonic</i> simply means six notes. For example,
-          {c`1 2 b3 4 5 b7 1`} adds {c`2`} to minor pentatonic, while
-          {c`1 2 3 4 5 6 1`} adds {c`4`} to major pentatonic. There
-          isn't a single six-note scale that all such melodies use.
-        </P>
-        <P>
-          Look at the melody separately from the accompaniment in the
-          examples below. A melody can stay within five or six colors
-          while the chords use additional notes. Count the melody's
-          colors across a whole phrase, including its repetitions.
-        </P>
-        <P>
-          {k("blues-scale")} {k("minor-pentatonic")}
-        </P>
-        <P>
-          {s`scale:blues`} {s`scale:minor_pentatonic`}{" "}
-          {s`scale:major_pentatonic`} {s`scale:hexatonic_minor`}{" "}
-          {s`scale:hexatonic_major`}
-        </P>
+        <ExampleRow>
+          <P>For example, add {c`2`} to minor pentatonic.</P>
+          <ExampleGroup>
+            <Example label="Minor pentatonic with a second" notes="1 2 b3 4 5 b7 1" />
+          </ExampleGroup>
+        </ExampleRow>
+        <ExampleRow>
+          <P>Or add {c`4`} to major pentatonic.</P>
+          <ExampleGroup>
+            <Example label="Major pentatonic with a fourth" notes="1 2 3 4 5 6 1" />
+          </ExampleGroup>
+        </ExampleRow>
+        <ExampleRow>
+          <P>
+            Look at the melody separately from the accompaniment in the
+            examples below. A melody can stay within five or six colors
+            while the chords use additional notes. Count the melody's
+            colors across a whole phrase, including its repetitions.
+          </P>
+          <KeyboardLinks>
+            {k("blues-scale")} {k("minor-pentatonic")}
+            <StructureLinks>
+              {s`scale:blues`} {s`scale:minor_pentatonic`}
+              {s`scale:major_pentatonic`} {s`scale:hexatonic_minor`}
+              {s`scale:hexatonic_major`}
+            </StructureLinks>
+          </KeyboardLinks>
+        </ExampleRow>
+
       </>
     ),
     mode: {
@@ -1671,44 +1981,49 @@ export const CHAPTERS: Array<{
         </P>
         <P>
           Let's see what we get if we take four notes instead of three using the
-          same idea. Here's a major scale: {c`1 2 3 4 5 6 7 1 2 3 4 5 6 7 1`}
+          same idea. Here's a major scale across two octaves:
         </P>
-        <P>
-          <ul>
-            <li>
-              {c`1 3 5 7`} {c`Imaj7`} {rn`Imaj7`} – intervals 4+3+4, a
-              combination of {c`I iii`}, a major seventh chord
-            </li>
-            <li>
-              {c`2 4 6 1`} {c`ii7`} {rn`ii7`} – intervals 3+4+3, a combination
-              of {c`ii IV`}, a minor seventh chord
-            </li>
-            <li>
-              {c`3 5 7 2`} {c`iii7`} {rn`iii7`} – intervals 3+4+3, a combination
-              of {c`iii V`}, a minor seventh chord
-            </li>
-            <li>
-              {c`4 6 1 3`} {c`IVmaj7`} {rn`IVmaj7`} – intervals 4+3+4, a
-              combination of {c`IV vi`}
-            </li>
-            <li>
-              {c`5 7 2 4`} {c`V7`} {rn`V7`} – intervals 4+3+3, a combination of{" "}
-              {c`V viio`}, a dominant seventh chord
-            </li>
-            <li>
-              {c`6 1 3 5`} {c`vi7`} {rn`vi7`} – intervals 3+4+3, a combination
-              of {c`vi I`}, a minor seventh chord
-            </li>
-          </ul>
-        </P>
-        <P>
-          While it's easy to find minor seventh chords and dominanth seventh
-          chords in classical music (Mozart and Chopin), major seventh chords
-          emerged as a popular tool only since late 19th century. Erik Satie's
-          example below - {ct(`4 IVmaj7 IVmaj7 1 Imaj7 Imaj7`, 2)} - is the
-          earliest example I've found that consistently uses it as a main idea
-          of a piece. Also see {s`shuttle:IVmaj7_Imaj7`}
-        </P>
+        <MusicalFigure aria-label="Major scale across two octaves">
+          <FigureNotes>{c`1 2 3 4 5 6 7 1 2 3 4 5 6 7 1`}</FigureNotes>
+        </MusicalFigure>
+        <SeventhChordList>
+          {[
+            { chord: "Imaj7", notes: "1 3 5 7", intervals: "4+3+4", triads: "I iii", quality: "Major seventh" },
+            { chord: "ii7", notes: "2 4 6 1", intervals: "3+4+3", triads: "ii IV", quality: "Minor seventh" },
+            { chord: "iii7", notes: "3 5 7 2", intervals: "3+4+3", triads: "iii V", quality: "Minor seventh" },
+            { chord: "IVmaj7", notes: "4 6 1 3", intervals: "4+3+4", triads: "IV vi", quality: "Major seventh" },
+            { chord: "V7", notes: "5 7 2 4", intervals: "4+3+3", triads: "V viio", quality: "Dominant seventh" },
+            { chord: "vi7", notes: "6 1 3 5", intervals: "3+4+3", triads: "vi I", quality: "Minor seventh" },
+          ].map(({ chord, notes, intervals, triads, quality }) => (
+            <div key={chord}>
+              <dt>{c([chord] as any)} {rn([chord] as any)}</dt>
+              <dd>
+                <div>{quality} · {intervals} semitones</div>
+                <ChordConstruction>
+                  <span>Notes {c([notes] as any)}</span>
+                  <span>Combines {c([triads] as any)}</span>
+                </ChordConstruction>
+              </dd>
+            </div>
+          ))}
+        </SeventhChordList>
+        <StructureRow links={s`shuttle:IVmaj7_Imaj7`}>
+          <div>
+            <P>
+              While it's easy to find minor seventh chords and dominant seventh
+              chords in classical music (Mozart and Chopin), major seventh chords
+              emerged as a popular tool only since the late 19th century.
+            </P>
+            <P>
+              Erik Satie's example below is the earliest example I've found that
+              consistently uses it as a main idea of a piece.
+            </P>
+            <MusicalFigure>
+              <figcaption>Satie's progression</figcaption>
+              <FigureNotes>{ct(`4 IVmaj7 IVmaj7 1 Imaj7 Imaj7`, 2)}</FigureNotes>
+            </MusicalFigure>
+          </div>
+        </StructureRow>
       </>
     ),
     composers: [
@@ -1758,13 +2073,15 @@ export const CHAPTERS: Array<{
           We can also add {c`b6`} to the dominant, giving
           {c`iiø7 V7b9 i`}. The roots still follow {c`2 5 1`}.
         </P>
+        <StructureRow links={s`cycle_root_motion:autumn_leaves`}>
         <P>
           In the examples below, look for these three-chord groups.
           They may lead to the main tonic or to a temporary local tonic.
           Try following the bass first, then the notes that connect
           one chord to the next.
         </P>
-        <P>{s`cycle_root_motion:autumn_leaves`}</P>
+        </StructureRow>
+
       </>
     ),
     composers: [
@@ -1808,11 +2125,15 @@ export const CHAPTERS: Array<{
           As you can see, they are fully symmetrical, so they don't have any{" "}
           <i>root</i>. This makes them harder to notate.
         </P>
-        <P>
-          They have many usages: {s`modulation:pivot`} {s`cto7:to_I`}{" "}
-          {s`cto7:to_V`} {s`applied:viio7/ii`} {s`applied:viio7/iv`}{" "}
-          {s`applied:viio7/V`}
-        </P>
+        <StructureRow links={
+          <>
+            {s`modulation:pivot`} {s`cto7:to_I`}
+            {s`cto7:to_V`} {s`applied:viio7/ii`}
+            {s`applied:viio7/iv`} {s`applied:viio7/V`}
+          </>
+        }>
+          <P>They have many usages, including modulation and applied chords.</P>
+        </StructureRow>
       </>
     ),
     composers: [

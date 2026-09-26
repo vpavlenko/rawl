@@ -137,18 +137,17 @@ const ChapterButton = styled.button<{ isSelected: boolean }>`
   padding: 0;
   border-radius: 0;
   overflow: visible;
-  height: 80px;
-  overflow: visible;
+  height: 70px;
 
   ${ChapterTitleTooltip} {
     position: absolute;
-    top: 55px;
+    top: 48px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 25px;
+    height: 22px;
     white-space: nowrap;
   }
 
@@ -165,7 +164,8 @@ const NavChordWrapper = styled.div`
   justify-content: center;
   background-color: black;
   position: relative;
-  height: 60px;
+  height: 48px;
+  flex-shrink: 0;
   width: 100%;
 `;
 
@@ -177,6 +177,116 @@ export const ReadableTextBlock = styled.div`
   margin: 20px 0px 100px 0px;
   position: relative;
 `;
+
+const ChapterReading = styled(ReadableTextBlock).attrs({
+  "data-chapter-reading": true,
+})`
+  display: flow-root;
+  min-width: 0;
+  width: 100%;
+  max-width: 700px;
+  margin: 32px auto 64px;
+  font-size: 17px;
+  line-height: 1.75;
+
+  & > * {
+    max-width: 700px;
+  }
+
+  && h2 {
+    margin: 52px 0 18px;
+    font-size: 27px;
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  && > h2:first-child,
+  && > [data-authorship] + h2 {
+    margin-top: 0;
+  }
+
+  ul {
+    padding-left: 1.25em;
+  }
+
+  li + li {
+    margin-top: 12px;
+  }
+
+  @media (min-width: 1200px) {
+    padding-bottom: var(--chapter-gutter-space, 0px);
+    &:has(.chapter-example-row) {
+      max-width: 1120px;
+    }
+
+    & > .chapter-example-row {
+      max-width: none;
+    }
+  }
+`;
+
+const ChapterNarrative: React.FC = ({ children }) => {
+  const readingRef = React.useRef<HTMLDivElement>(null);
+
+  React.useLayoutEffect(() => {
+    const reading = readingRef.current;
+    if (!reading) return;
+    const desktop = window.matchMedia("(min-width: 1200px)");
+    const rows = Array.from(
+      reading.querySelectorAll<HTMLElement>(".chapter-example-row"),
+    );
+    const gutters = rows.map((row) => row.children[1] as HTMLElement);
+    let frame = 0;
+
+    const setLength = (element: HTMLElement, name: string, value: number) => {
+      const length = `${Math.ceil(value)}px`;
+      if (element.style.getPropertyValue(name) !== length) {
+        element.style.setProperty(name, length);
+      }
+    };
+
+    const positionGutters = () => {
+      if (!desktop.matches) {
+        gutters.forEach((gutter) => gutter.style.removeProperty("--gutter-offset"));
+        reading.style.removeProperty("--chapter-gutter-space");
+        return;
+      }
+
+      const readingTop = reading.getBoundingClientRect().top;
+      let gutterBottom = 0;
+      rows.forEach((row, index) => {
+        const gutter = gutters[index];
+        const rowTop = row.getBoundingClientRect().top - readingTop;
+        const gutterTop = Math.max(rowTop, index === 0 ? 0 : gutterBottom + 24);
+        setLength(gutter, "--gutter-offset", gutterTop - rowTop);
+        gutterBottom = gutterTop + gutter.getBoundingClientRect().height;
+      });
+
+      // Reserve space only at the chapter's end, never between paragraphs.
+      const proseHeight = reading.getBoundingClientRect().height -
+        parseFloat(getComputedStyle(reading).paddingBottom);
+      setLength(reading, "--chapter-gutter-space", Math.max(0, gutterBottom - proseHeight));
+    };
+    const scheduleLayout = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(positionGutters);
+    };
+    const observer = new ResizeObserver(scheduleLayout);
+    observer.observe(reading);
+    Array.from(reading.children).forEach((child) => observer.observe(child));
+    gutters.forEach((gutter) => observer.observe(gutter));
+    desktop.addEventListener("change", scheduleLayout);
+    positionGutters();
+
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      desktop.removeEventListener("change", scheduleLayout);
+    };
+  }, []);
+
+  return <ChapterReading ref={readingRef}>{children}</ChapterReading>;
+};
 
 const ComposerListColumn = styled.div`
   display: flex;
@@ -258,7 +368,7 @@ const ChapterGroup = styled.div<{ isActive: boolean; hideHeader?: boolean }>`
     text-align: center;
     color: ${(props) => (props.isActive ? "#fff" : "#666")};
     font-size: 14px;
-    padding-bottom: 12px;
+    padding-bottom: 10px;
     position: relative;
     transition: color 0.3s ease;
     width: 100%;
@@ -468,7 +578,7 @@ const Book: React.FC = () => {
 
     return (
       <>
-        <div style={{ marginTop: "40px" }}>
+        <div style={{ marginTop: currentChapter.title === "Intro" ? "40px" : "24px" }}>
           <FoldablePianoLegend
             mode={currentChapter.mode}
             setHoveredColors={setHoveredColors}
@@ -617,7 +727,9 @@ const Book: React.FC = () => {
                 </TwoColumnLayout>
               </div>
             ) : (
-              <ReadableTextBlock>{currentChapter.pretext()}</ReadableTextBlock>
+              <ChapterNarrative key={currentChapter.title}>
+                {currentChapter.pretext()}
+              </ChapterNarrative>
             ))}
           {currentChapter.title !== "Intro" && (
             <GroupContainer>
@@ -804,6 +916,7 @@ const Book: React.FC = () => {
                             <>
                               <ChordStairs
                                 mode={{ title: "", chords: ["vi"] }}
+                                register="narrative"
                                 scale={NAV_CHORD_STAIRS_SCALE}
                                 playbackMode="no"
                               />
@@ -812,6 +925,7 @@ const Book: React.FC = () => {
                               </span>
                               <ChordStairs
                                 mode={{ title: "", chords: ["i"] }}
+                                register="narrative"
                                 scale={NAV_CHORD_STAIRS_SCALE}
                                 playbackMode="no"
                               />
@@ -824,6 +938,11 @@ const Book: React.FC = () => {
                           ) : chapter.titleChords ? (
                             <ChordStairs
                               mode={{ title: "", chords: chapter.titleChords }}
+                              register={
+                                chapter.title === "Circle of fifths"
+                                  ? "circle"
+                                  : "narrative"
+                              }
                               scale={NAV_CHORD_STAIRS_SCALE}
                               playbackMode="no"
                             />

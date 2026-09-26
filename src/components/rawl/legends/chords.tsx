@@ -178,12 +178,91 @@ export interface RehydratedChord {
   positions: Array<number>;
 }
 
-export const rehydrateChords = (chords: Chord[]): RehydratedChord[] => {
+export const rehydrateChords = (
+  chords: Chord[],
+  register: "nearest" | "compact" | "circle" = "nearest",
+): RehydratedChord[] => {
   const rehydratedChords = chords.map((chord) => ({
     name: chord,
     pitches: [...stackChordUp(CHORDS[chord])],
     positions: new Array(CHORDS[chord].length).fill(0),
   }));
+
+  if (register === "circle") {
+    // Explicit teaching contour: first move up, then down, alternating even
+    // at the diatonic tritone or a substituted chord. Shift whole voicings.
+    let previousBass = rehydratedChords[0]?.pitches[0] ?? 0;
+    return rehydratedChords.map((chord, index) => {
+      const root = chord.pitches[0];
+      let bass = root;
+      if (index > 0) {
+        const upwardDistance = ((root - previousBass) % 12 + 12) % 12;
+        bass = previousBass + (index % 2 === 1
+          ? upwardDistance || 12
+          : upwardDistance - 12);
+      }
+      previousBass = bass;
+      return {
+        ...chord,
+        positions: chord.pitches.map((pitch) => pitch + bass - root),
+      };
+    });
+  }
+
+  if (register === "compact" && rehydratedChords.length > 0) {
+    // Root-position dominant resolutions rise a fourth to the tonic.
+    // Include dominant extensions and major/minor tonic variants, but leave
+    // inversions and applied dominants outside this V-to-I constraint.
+    const tonicResolutions = rehydratedChords.flatMap((chord, index) => {
+      const next = rehydratedChords[index + 1];
+      return chord.name.startsWith("V") &&
+        !chord.name.includes("/") &&
+        chord.pitches[0] === 7 &&
+        next?.pitches[0] === 0 &&
+        /^(?:I|i)(?:$|maj|[579+]|PAC)/.test(next.name)
+        ? [index]
+        : [];
+    });
+
+    // An optimal range starts on some chord's bass note. Try each possible
+    // bass pitch class as the lower bound, placing every whole voicing in
+    // its lowest octave above that bound. This minimizes the upper bound
+    // for that candidate without changing inversions or compound intervals.
+    const lowerBounds = Array.from(
+      new Set(rehydratedChords.map(({ pitches }) => {
+        const root = pitches[0];
+        return root - 12 * Math.floor((root + 5) / 12);
+      })),
+    ).sort((a, b) => Math.abs(a) - Math.abs(b) || a - b);
+
+    let bestRange = Infinity;
+    let bestChords = rehydratedChords;
+    for (const lowerBound of lowerBounds) {
+      const candidate = rehydratedChords.map((chord) => {
+        const octaveShift = 12 * Math.ceil((lowerBound - chord.pitches[0]) / 12);
+        return {
+          ...chord,
+          positions: chord.pitches.map((pitch) => pitch + octaveShift),
+        };
+      });
+      if (tonicResolutions.some((index) =>
+        candidate[index + 1].positions[0] - candidate[index].positions[0] !== 5,
+      )) {
+        continue;
+      }
+      const upperBound = Math.max(
+        ...candidate.map(({ positions }) => positions[positions.length - 1]),
+      );
+      const range = upperBound - lowerBound;
+      // Equal ranges prefer a lower bound near the tonic (sorted above).
+      // Repeated chords always receive the same octave within the example.
+      if (range < bestRange) {
+        bestRange = range;
+        bestChords = candidate;
+      }
+    }
+    return bestChords;
+  }
 
   // Calculate positions
   for (let i = 0; i < rehydratedChords.length; ++i) {

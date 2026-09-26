@@ -225,7 +225,7 @@ const ChapterReading = styled(ReadableTextBlock).attrs({
   }
 `;
 
-const ChapterNarrative: React.FC = ({ children }) => {
+const ChapterNarrative: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const readingRef = React.useRef<HTMLDivElement>(null);
 
   React.useLayoutEffect(() => {

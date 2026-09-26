@@ -1,0 +1,458 @@
+{
+  "artist": "Green Day",
+  "artistId": "084308bd-1654-436f-ba03-df6697104e19",
+  "groups": [
+    {
+      "id": "c58228d1-05e9-3ce0-83f6-b0d33ffcaa90",
+      "releaseId": "c1bea9b6-2aa2-4ae9-b1ac-c8d99c0e04fd",
+      "title": "39/Smooth",
+      "date": "1990-02-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c58228d1-05e9-3ce0-83f6-b0d33ffcaa90/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "16.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Rest.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "11040732-5fb2-3460-8c68-22c0aa1252d1",
+      "releaseId": "7a0704c8-1a08-4cb2-a13c-27681d70ff34",
+      "title": "Sweet Children",
+      "date": "1990-08",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/11040732-5fb2-3460-8c68-22c0aa1252d1/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "My Generation.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f379b19e-0a47-3d28-b5be-595e34cba7d3",
+      "releaseId": "fc9486c7-986c-3f75-8854-8630fa818f37",
+      "title": "1,039/Smoothed Out Slappy Hours",
+      "date": "1991-04-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f379b19e-0a47-3d28-b5be-595e34cba7d3/front-250",
+      "songs": [
+        {
+          "number": 11,
+          "files": [
+            "Paper Lanterns.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Knowledge.mid"
+          ]
+        },
+        {
+          "number": 17,
+          "files": [
+            "Only of You.mid",
+            "Only of You.1.mid",
+            "Only of You.2.mid"
+          ]
+        },
+        {
+          "number": 19,
+          "files": [
+            "I Want to Be Alone.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a0603694-2422-3a40-b946-d0bcea5e8254",
+      "releaseId": "3e35db31-e369-494c-a574-66f3bbeaca2f",
+      "title": "Kerplunk!",
+      "date": "1991-12-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a0603694-2422-3a40-b946-d0bcea5e8254/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "2,000 Light Years Away.mid",
+            "2,000 Light Years Away.1.mid",
+            "2,000 Light Years Away.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "One for the Razorbacks.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Welcome to Paradise.mid",
+            "Welcome to Paradise.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Christie Road.mid",
+            "Christie Road.1.mid",
+            "Christie Road.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Dominated Love Slave.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "One of My Lies.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "No One Knows.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "314cffd4-daa5-3337-85e5-e54165a96113",
+      "releaseId": "5f53fa2e-cbcd-4061-93ff-b3379122cf8c",
+      "title": "Dookie",
+      "date": "1994-01-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/314cffd4-daa5-3337-85e5-e54165a96113/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Burn Out.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Having a Blast.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Chump.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Long View.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Longview.mid",
+            "Longview.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Pulling Teeth.mid",
+            "Pulling Teeth.1.mid",
+            "Pulling Teeth.2.mid",
+            "Pulling Teeth.3.mid",
+            "Pulling Teeth.4.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Basket Case.mid",
+            "Basket Case.1.mid",
+            "Basket Case.2.mid",
+            "Basket Case.3.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "She.mid",
+            "She.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Sassafras Roots.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "When I Come Around.mid",
+            "When I Come Around.1.mid",
+            "When I Come Around.2.mid",
+            "When I Come Around.3.mid",
+            "When I Come Around.4.mid",
+            "When I Come Around.5.mid",
+            "When I Come Around.6.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Coming Clean.mid",
+            "Coming Clean.1.mid",
+            "Coming Clean.2.mid",
+            "Coming Clean.3.mid",
+            "Coming Clean.4.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Emenius Sleepus.mid",
+            "Emenius Sleepus.1.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "In the End.mid",
+            "In the End.1.mid",
+            "In the End.2.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "All by Myself.mid",
+            "All by Myself.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "061f572e-7660-3c6b-b4cd-cf66d46da93c",
+      "releaseId": "ed653da5-a5eb-4d69-9f17-73af8644e5fa",
+      "title": "Insomniac",
+      "date": "1995-10-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/061f572e-7660-3c6b-b4cd-cf66d46da93c/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Brat.mid",
+            "Brat.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Stuck With Me.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Geek Stink Breath.mid",
+            "Geek Stink Breath.1.mid",
+            "Geek Stink Breath.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "86.mid",
+            "86.1.mid",
+            "86.2.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Brain Stew.mid",
+            "Brain Stew.1.mid",
+            "Brain Stew.2.mid",
+            "Brain Stew.3.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Jaded.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Tight Wad Hill.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Walking Contradiction.mid",
+            "Walking Contradiction.1.mid",
+            "Walking Contradiction.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4f1d08f2-d4bd-3ef2-ba72-eb348ae4c332",
+      "releaseId": "458bddad-489d-4c01-b3b5-092e2832e42b",
+      "title": "nimrod.",
+      "date": "1997-10-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4f1d08f2-d4bd-3ef2-ba72-eb348ae4c332/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Hitchin' a Ride.mid",
+            "Hitchin' a Ride.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "The Grouch.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Redundant.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "All the Time.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Worry Rock.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Platypus (I Hate You).mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Reject.mid"
+          ]
+        },
+        {
+          "number": 15,
+          "files": [
+            "Take Back.mid"
+          ]
+        },
+        {
+          "number": 16,
+          "files": [
+            "King for a Day.mid"
+          ]
+        },
+        {
+          "number": 17,
+          "files": [
+            "Good Riddance (Time of Your Life).mid",
+            "Good Riddance (Time of Your Life).1.mid"
+          ]
+        },
+        {
+          "number": 18,
+          "files": [
+            "Prosthetic Head.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c1604b20-37b8-3fc7-8726-73f41090b8e2",
+      "releaseId": "ab9de7ab-9e62-4858-b5e4-5bad1f2e0896",
+      "title": "Warning:",
+      "date": "2000-09-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c1604b20-37b8-3fc7-8726-73f41090b8e2/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Warning.mid",
+            "Warning.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Minority.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "74a05fd3-bf48-3caa-a584-d5d5eb525fb3",
+      "releaseId": "031ba36e-ba5b-4c3f-a3a2-88751658ed3e",
+      "title": "Shenanigans",
+      "date": "2002-07-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/74a05fd3-bf48-3caa-a584-d5d5eb525fb3/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Suffocate.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Desensitized.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Espionage.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Do Da Da.mid",
+            "Do Da Da.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

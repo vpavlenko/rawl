@@ -1,0 +1,508 @@
+{
+  "artist": "Billy Joel",
+  "artistId": "64b94289-9474-4d43-8c93-918ccc1920d1",
+  "groups": [
+    {
+      "id": "8b6980bf-7fb3-332f-a7df-6526d2bb2bc9",
+      "releaseId": "d208bea3-f292-4c00-bf29-fe1e2361a28a",
+      "title": "Cold Spring Harbor",
+      "date": "1971-11-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8b6980bf-7fb3-332f-a7df-6526d2bb2bc9/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "She's Got a Way.mid",
+            "She's Got a Way.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Nocturne.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7866f536-a9c7-32eb-8eed-bb49132432fa",
+      "releaseId": "584a3887-c74e-4ff2-81e1-1620fbbe4f84",
+      "title": "Piano Man",
+      "date": "1973-11-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7866f536-a9c7-32eb-8eed-bb49132432fa/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Piano Man.mid",
+            "Piano Man.1.mid",
+            "Piano Man.2.mid",
+            "Piano Man.3.mid",
+            "Piano Man.4.mid",
+            "Piano Man.5.mid",
+            "Piano Man.6.mid",
+            "Piano Man.7.mid",
+            "Piano Man.8.mid",
+            "Piano Man.9.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "If I Only Had the Words (To Tell You).mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Captain Jack.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "89ff0095-2ef2-311f-80f2-48b16b85bf56",
+      "releaseId": "aca37b4d-e001-4aa8-aa00-c964563528d0",
+      "title": "Streetlife Serenade",
+      "date": "1974-10-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/89ff0095-2ef2-311f-80f2-48b16b85bf56/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Root Beer Rag.mid",
+            "Root Beer Rag.1.mid",
+            "Root Beer Rag.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "The Entertainer.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "The Mexican Connection.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "46a3a9dc-510e-3765-81dd-536ced41819a",
+      "releaseId": "10ad1ffe-d2c2-444f-a7c7-b4d05516cbe0",
+      "title": "Turnstiles",
+      "date": "1976-05-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/46a3a9dc-510e-3765-81dd-536ced41819a/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "New York State of Mind.mid",
+            "New York State of Mind.1.mid",
+            "New York State of Mind.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Prelude   Angry Young Man.mid",
+            "Prelude   Angry Young Man.1.mid",
+            "Prelude   Angry Young Man.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Miami 2017 (Seen the Lights Go Out on Broadway).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "735bcee6-6be6-3957-af15-d21ba2bd355b",
+      "releaseId": "21e36d1b-1390-4599-b1ba-b11cdb8d6bd1",
+      "title": "The Stranger",
+      "date": "1977-09-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/735bcee6-6be6-3957-af15-d21ba2bd355b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Movin' Out (Anthony's Song).mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "The Stranger.mid",
+            "The Stranger.1.mid",
+            "The Stranger.2.mid",
+            "The Stranger.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Just the Way You Are.mid",
+            "Just the Way You Are.1.mid",
+            "Just the Way You Are.2.mid",
+            "Just the Way You Are.3.mid",
+            "Just the Way You Are.4.mid",
+            "Just the Way You Are.5.mid",
+            "Just the Way You Are.6.mid",
+            "Just the Way You Are.7.mid",
+            "Just the Way You Are.8.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Scenes From an Italian Restaurant.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Only the Good Die Young.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "She's Always a Woman to Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "54e6b4a1-7a6a-3ead-b032-0912cfd49a1e",
+      "releaseId": "e83b6bd5-92f9-4a76-8e98-fc250bf53081",
+      "title": "52nd Street",
+      "date": "1978-10-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/54e6b4a1-7a6a-3ead-b032-0912cfd49a1e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Big Shot.mid",
+            "Big Shot.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Honesty.mid",
+            "Honesty.1.mid",
+            "Honesty.2.mid",
+            "Honesty.3.mid",
+            "Honesty.4.mid",
+            "Honesty.5.mid",
+            "Honesty.6.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "My Life.mid",
+            "My Life.1.mid",
+            "My Life.2.mid",
+            "My Life.3.mid",
+            "My Life.4.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Zanzibar.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Stiletto.mid",
+            "Stiletto.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "52nd Street.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "12a46ae7-fc7a-3a0e-84f6-8c9e476757ef",
+      "releaseId": "db6470d9-1cd9-4f10-97b8-f8a69964918c",
+      "title": "Glass Houses",
+      "date": "1980-03-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/12a46ae7-fc7a-3a0e-84f6-8c9e476757ef/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "You May Be Right.mid",
+            "You May Be Right.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Don't Ask Me Why.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "It's Still Rock 'n' Roll to Me.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "It's Still Rock and Roll to Me.mid",
+            "It's Still Rock and Roll to Me.1.mid",
+            "It's Still Rock and Roll to Me.2.mid",
+            "It's Still Rock and Roll to Me.3.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Close to the Borderline.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b1424104-8403-3bce-8130-2ebee0053ddb",
+      "releaseId": "1eedf5b7-afa4-4f35-931f-5317b52aa347",
+      "title": "The Nylon Curtain",
+      "date": "1982-09-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b1424104-8403-3bce-8130-2ebee0053ddb/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Allentown.mid",
+            "Allentown.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Pressure.mid",
+            "Pressure.1.mid",
+            "Pressure.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Goodnight Saigon.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "63424e12-759d-3d3d-a14b-0f06101c0a28",
+      "releaseId": "2a67f4d4-0787-3832-bb9a-5250fa40c4a2",
+      "title": "An Innocent Man",
+      "date": "1983-08-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/63424e12-759d-3d3d-a14b-0f06101c0a28/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "An Innocent Man.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "The Longest Time.mid",
+            "The Longest Time.1.mid",
+            "The Longest Time.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Tell Her About It.mid",
+            "Tell Her About It.1.mid",
+            "Tell Her About It.2.mid",
+            "Tell Her About It.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Uptown Girl.mid",
+            "Uptown Girl.1.mid",
+            "Uptown Girl.2.mid",
+            "Uptown Girl.3.mid",
+            "Uptown Girl.4.mid",
+            "Uptown Girl.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3ae861b4-d78a-466a-9554-5070ab280b4b",
+      "releaseId": "81e22aa0-12d6-49d7-8ada-d499ec0af317",
+      "title": "You’re Only Human (Second Wind) / Surprises",
+      "date": "1985-07-13",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/3ae861b4-d78a-466a-9554-5070ab280b4b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "You're Only Human (Second Wind).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e09226c5-87f6-3f71-b199-d9d5797e714b",
+      "releaseId": "97c92496-f378-4187-8f97-60588b71aa10",
+      "title": "The Bridge",
+      "date": "1986-07-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e09226c5-87f6-3f71-b199-d9d5797e714b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Running on Ice.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "This Is the Time.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "A Matter of Trust.mid",
+            "A Matter of Trust.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Baby Grand.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Big Man on Mulberry Street.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Temptation.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2b749a86-14bf-3b42-bdcf-3cc44d9bd338",
+      "releaseId": "042617dd-4d3c-4d55-847f-488314f498d6",
+      "title": "Storm Front",
+      "date": "1989-06-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2b749a86-14bf-3b42-bdcf-3cc44d9bd338/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "We Didn't Start the Fire.mid",
+            "We Didn't Start the Fire.1.mid",
+            "We Didn't Start the Fire.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "The Downeaster \"Alexa\".mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "I Go to Extremes.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Shameless.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Leningrad.mid",
+            "Leningrad.1.mid",
+            "Leningrad.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "166ca278-c030-388d-85d7-f8f963796d7f",
+      "releaseId": "3abe5dbb-2ff5-4ee3-8f4a-9b596f5f2446",
+      "title": "River of Dreams",
+      "date": "1993-08-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/166ca278-c030-388d-85d7-f8f963796d7f/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Blonde Over Blue.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Lullabye (Goodnight, My Angel).mid",
+            "Lullabye (Goodnight, My Angel).1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "The River of Dreams.mid",
+            "The River of Dreams.1.mid",
+            "The River of Dreams.2.mid",
+            "The River of Dreams.3.mid",
+            "The River of Dreams.4.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Famous Last Words.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

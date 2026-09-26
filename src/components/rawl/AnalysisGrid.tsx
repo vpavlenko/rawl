@@ -158,6 +158,7 @@ const RemeasuringInput: React.FC<{
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.nativeEvent.isComposing) return;
     if (event.ctrlKey || event.metaKey || event.altKey) return;
     if (event.key.toLowerCase() === "f" && setFormPartName) {
       event.preventDefault();
@@ -170,6 +171,7 @@ const RemeasuringInput: React.FC<{
       event.preventDefault();
       const offset = KEY_TO_OFFSET[event.key];
       selectMeasure(selectedMeasure + offset);
+      return;
     }
     if (event.key === "Enter") {
       event.stopPropagation();
@@ -185,6 +187,25 @@ const RemeasuringInput: React.FC<{
           setBeatsPerMeasure(parsedValue);
         }
       }
+      return;
+    }
+    if (event.key.length === 1 && !/^[0-9]$/.test(event.key)) {
+      // The page ignores events whose target is a text input. Forward unused
+      // character keys from the body after leaving measure editing instead.
+      event.preventDefault();
+      event.stopPropagation();
+      const forwardedEvent = new KeyboardEvent("keydown", {
+        key: event.key,
+        code: event.code,
+        shiftKey: event.shiftKey,
+        repeat: event.repeat,
+        location: event.location,
+        bubbles: true,
+        cancelable: true,
+      });
+      event.currentTarget.blur();
+      selectMeasure(null);
+      document.body.dispatchEvent(forwardedEvent);
     }
   };
 

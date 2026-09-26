@@ -435,6 +435,11 @@ const Rawl: React.FC<RawlProps> = ({
 
   const selectMeasure = useCallback(
     (measure) => {
+      if (measure == null) {
+        setSelectedMeasure(null);
+        setHoveredNote(null);
+        return;
+      }
       if (
         selectedMeasure &&
         getPhraseStarts(analysis, measuresAndBeats.measures.length).indexOf(

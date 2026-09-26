@@ -247,19 +247,52 @@ const ChapterNarrative: React.FC = ({ children }) => {
 
     const positionGutters = () => {
       if (!desktop.matches) {
-        gutters.forEach((gutter) => gutter.style.removeProperty("--gutter-offset"));
+        gutters.forEach((gutter) => {
+          gutter.style.removeProperty("--gutter-offset");
+          gutter.style.removeProperty("--gutter-column-offset");
+        });
+        reading.style.removeProperty("--gutter-width");
         reading.style.removeProperty("--chapter-gutter-space");
         return;
       }
 
-      const readingTop = reading.getBoundingClientRect().top;
+      const readingBounds = reading.getBoundingClientRect();
+      const readingTop = readingBounds.top;
+      // Use the available right margin, keeping a page-edge inset.
+      const gutterWidth = Math.max(0,
+        document.documentElement.clientWidth - readingBounds.left - 756 - 32,
+      );
+      setLength(reading, "--gutter-width", Math.floor(gutterWidth));
+      const occupied: { left: number; top: number; right: number; bottom: number }[] = [];
       let gutterBottom = 0;
       rows.forEach((row, index) => {
         const gutter = gutters[index];
         const rowTop = row.getBoundingClientRect().top - readingTop;
-        const gutterTop = Math.max(rowTop, index === 0 ? 0 : gutterBottom + 24);
-        setLength(gutter, "--gutter-offset", gutterTop - rowTop);
-        gutterBottom = gutterTop + gutter.getBoundingClientRect().height;
+        const { width, height } = gutter.getBoundingClientRect();
+        const tops = [rowTop, ...occupied.map((box) => box.bottom + 24)]
+          .filter((top) => top >= rowTop).sort((a, b) => a - b);
+        const lefts = [0, ...occupied.map((box) => box.right + 24)]
+          .sort((a, b) => a - b);
+        let placement = { left: 0, top: Math.max(rowTop, gutterBottom + 24) };
+        // Fill free horizontal space before pushing a group farther down.
+        findSpace: for (const top of tops) {
+          for (const left of lefts) {
+            if (left + width > gutterWidth + 1) continue;
+            const overlaps = occupied.some((box) =>
+              left < box.right + 24 && left + width + 24 > box.left &&
+              top < box.bottom + 24 && top + height + 24 > box.top,
+            );
+            if (!overlaps) {
+              placement = { left, top };
+              break findSpace;
+            }
+          }
+        }
+        setLength(gutter, "--gutter-column-offset", placement.left);
+        setLength(gutter, "--gutter-offset", placement.top - rowTop);
+        const bottom = placement.top + height;
+        occupied.push({ ...placement, right: placement.left + width, bottom });
+        gutterBottom = Math.max(gutterBottom, bottom);
       });
 
       // Reserve space only at the chapter's end, never between paragraphs.
@@ -276,12 +309,14 @@ const ChapterNarrative: React.FC = ({ children }) => {
     Array.from(reading.children).forEach((child) => observer.observe(child));
     gutters.forEach((gutter) => observer.observe(gutter));
     desktop.addEventListener("change", scheduleLayout);
+    window.addEventListener("resize", scheduleLayout);
     positionGutters();
 
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
       desktop.removeEventListener("change", scheduleLayout);
+      window.removeEventListener("resize", scheduleLayout);
     };
   }, []);
 

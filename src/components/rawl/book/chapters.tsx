@@ -71,8 +71,9 @@ const ExampleRow = styled.div.attrs({ className: "chapter-example-row" })`
     > :nth-child(2) {
       position: absolute;
       top: var(--gutter-offset, 0px);
-      left: 756px;
-      right: 0;
+      left: calc(756px + var(--gutter-column-offset, 0px));
+      width: max-content;
+      max-width: var(--gutter-width, 364px);
     }
 
     > ${P} {
@@ -96,7 +97,7 @@ const ExampleGroup = styled.div`
 
 const StructureLinks = styled.aside.attrs({ "aria-label": "Related structures" })`
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: flex-start;
   gap: 16px;
   min-width: 0;
@@ -108,13 +109,17 @@ const OtherExamples = styled.aside.attrs({ "aria-label": "Other song examples" }
   line-height: 1.5;
 
   p {
-    margin: 0 0 12px;
+    margin: 0 0 8px;
   }
 
   && ul {
-    list-style: none;
+    list-style: disc;
     margin: 0;
-    padding: 0;
+    padding-left: 1.25em;
+  }
+
+  && li + li {
+    margin-top: 6px;
   }
 
   a {
@@ -448,8 +453,8 @@ const KeyboardLinks = styled.aside.attrs({ "aria-label": "Keyboard exercises" })
     margin: 0;
   }
 
-  @media (min-width: 1200px) {
-    flex-direction: column;
+  > ${StructureLinks} {
+    flex-basis: 100%;
   }
 `;
 
@@ -1031,7 +1036,7 @@ export const CHAPTERS: Array<{
           since {c`V`} uses a note {c`7`}
         </P>
           <OtherExamples>
-            <p>Other songs with this pattern, beyond the top 100</p>
+            <p>Other songs with this pattern, beyond the top 100:</p>
             <ul>
               {[
                 ["/f/road-trippin---red-hot-chili-peppers", "Red Hot Chili Peppers. Road trippin'"],
@@ -1918,22 +1923,19 @@ export const CHAPTERS: Array<{
           <Example label="Descending" notes="5 #4 4" />
         </ExampleGroup>
         <h2>Six-note scales</h2>
-        <P>
-          <i>Hexatonic</i> simply means six notes. There isn't a single six-note
-          scale that all such melodies use.
-        </P>
         <ExampleRow>
-          <P>For example, add {c`2`} to minor pentatonic.</P>
+          <P>
+            <i>Hexatonic</i> simply means six notes. There isn't a single six-note
+            scale that all such melodies use.
+          </P>
           <ExampleGroup>
             <Example label="Minor pentatonic with a second" notes="1 2 b3 4 5 b7 1" />
-          </ExampleGroup>
-        </ExampleRow>
-        <ExampleRow>
-          <P>Or add {c`4`} to major pentatonic.</P>
-          <ExampleGroup>
             <Example label="Major pentatonic with a fourth" notes="1 2 3 4 5 6 1" />
           </ExampleGroup>
         </ExampleRow>
+        <P>
+          For example, add {c`2`} to minor pentatonic, or {c`4`} to major pentatonic.
+        </P>
         <ExampleRow>
           <P>
             Look at the melody separately from the accompaniment in the

@@ -3359,6 +3359,7 @@ export const corpora: CorpusEntry[] = [
     slug: "jazz_standards",
     midis: [
       "recorda-me-no-me-esqueca",
+      "adam_birnbaum_recorda_me", 
       "all-the-things-you-are",
       "all-the-things-you-are-2",
       "all-the-things-you-are-lead-sheet---jerome-kern-oscar-hammerstein-ii",

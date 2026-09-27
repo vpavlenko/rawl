@@ -17,14 +17,17 @@ const highlightMatch = (text: string, term: string) => {
   );
 };
 
+const niceNames = new Map(
+  TOP_100_COMPOSERS.map((composer) => [
+    composer.slug,
+    `${composer.composer} - ${composer.displayTitle}`,
+  ]),
+);
+
 // Get nice name for a MIDI slug if it exists in TOP_100_COMPOSERS
 const getNiceName = (slug: string) => {
-  const composerInfo = TOP_100_COMPOSERS.find(
-    (composer) => composer.slug === slug,
-  );
-  if (composerInfo) {
-    return `${composerInfo.composer} - ${composerInfo.displayTitle}`;
-  }
+  const niceName = niceNames.get(slug);
+  if (niceName) return niceName;
   return slug.replace(/---/g, " – ").replace(/-/g, " ").replace(/_/g, " ");
 };
 
@@ -141,8 +144,12 @@ const ExpandButton = styled.button`
 
 const INITIAL_COMPOSERS_PER_COUNTRY = 15;
 
-const CorpusSearch: React.FC = () => {
-  const [searchTerm, setSearchTerm] = React.useState("");
+export const PIECES_SEARCH_PLACEHOLDER =
+  "Search composers or songs, eg. 'nocturne', 'entertainer', 'jaws', 'autumn leaves', 'succession', 'bts', 'chopin', 'mario'";
+
+const CorpusSearch: React.FC<{ query?: string }> = ({ query }) => {
+  const [localSearchTerm, setSearchTerm] = React.useState("");
+  const searchTerm = query ?? localSearchTerm;
   const [expandedCountries, setExpandedCountries] = React.useState<
     Record<string, boolean>
   >({});
@@ -158,24 +165,30 @@ const CorpusSearch: React.FC = () => {
     setTotalMidis(uniqueMidis.size);
   }, []);
 
-  const filteredCorpora = corpora.filter((corpus) => {
-    if (searchTerm === "") return corpus.midis.length >= 1;
+  const corpusSearchIndex = React.useMemo(
+    () =>
+      corpora.map((corpus) => ({
+        corpus,
+        words: [
+          ...corpus.slug.toLowerCase().split(/[-_\s]+/),
+          ...corpus.midis.flatMap((midi) => [
+            ...midi.toLowerCase().split(/[-_\s]+/),
+            ...getNiceName(midi).toLowerCase().split(/\s+/),
+          ]),
+        ],
+      })),
+    [],
+  );
 
-    const searchTerms = searchTerm.toLowerCase().split(/\s+/);
-    const corpusWords = corpus.slug.toLowerCase().split(/[-_\s]+/);
-
-    // Include nice names in the search for midis
-    const midiWords = corpus.midis.flatMap((midi) => {
-      const niceName = getNiceName(midi).toLowerCase();
-      return [...midi.toLowerCase().split(/[-_\s]+/), ...niceName.split(/\s+/)];
-    });
-
-    return searchTerms.every(
-      (term) =>
-        corpusWords.some((word) => word.includes(term)) ||
-        midiWords.some((word) => word.includes(term)),
-    );
-  });
+  const searchTerms = searchTerm.toLowerCase().split(/\s+/);
+  const filteredCorpora = corpusSearchIndex
+    .filter(({ corpus, words }) => {
+      if (searchTerm === "") return corpus.midis.length >= 1;
+      return searchTerms.every((term) =>
+        words.some((word) => word.includes(term)),
+      );
+    })
+    .map(({ corpus }) => corpus);
 
   const renderEmptySearchResults = () => {
     const sortedCorpora = filteredCorpora.sort(
@@ -205,7 +218,9 @@ const CorpusSearch: React.FC = () => {
       ([country, entries]) => country === "Styles" || entries.length > 1,
     );
     const singleComposerGroups = sortedGroups
-      .filter(([country, entries]) => country !== "Styles" && entries.length === 1)
+      .filter(
+        ([country, entries]) => country !== "Styles" && entries.length === 1,
+      )
       .sort((a, b) => b[1][0].midis.length - a[1][0].midis.length);
 
     return (
@@ -216,9 +231,7 @@ const CorpusSearch: React.FC = () => {
             country === "Styles"
               ? countryCorpora.filter((corpus) => corpus.midis.length >= 5)
               : countryCorpora.slice(0, INITIAL_COMPOSERS_PER_COUNTRY);
-          const visibleCorpora = expanded
-            ? countryCorpora
-            : collapsedCorpora;
+          const visibleCorpora = expanded ? countryCorpora : collapsedCorpora;
 
           return (
             <CountryRow key={country}>
@@ -246,37 +259,42 @@ const CorpusSearch: React.FC = () => {
                     </span>
                   </Link>
                 ))}
-                {!expanded && countryCorpora.length > collapsedCorpora.length && (
-                  <ExpandButton
-                    type="button"
-                    aria-expanded={expanded}
-                    aria-label={`Show more ${country === "Styles" ? "styles" : `composers from ${country}`}`}
-                    title="Show more"
-                    onClick={() =>
-                      setExpandedCountries((previous) => ({
-                        ...previous,
-                        [country]: true,
-                      }))
-                    }
-                  >
-                    {/* Lucide chevrons-down icon. */}
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
+                {!expanded &&
+                  countryCorpora.length > collapsedCorpora.length && (
+                    <ExpandButton
+                      type="button"
+                      aria-expanded={expanded}
+                      aria-label={`Show more ${
+                        country === "Styles"
+                          ? "styles"
+                          : `composers from ${country}`
+                      }`}
+                      title="Show more"
+                      onClick={() =>
+                        setExpandedCountries((previous) => ({
+                          ...previous,
+                          [country]: true,
+                        }))
+                      }
                     >
-                      <path d="m7 6 5 5 5-5" />
-                      <path d="m7 13 5 5 5-5" />
-                    </svg>
-                  </ExpandButton>
-                )}
+                      {/* Lucide chevrons-down icon. */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="m7 6 5 5 5-5" />
+                        <path d="m7 13 5 5 5-5" />
+                      </svg>
+                    </ExpandButton>
+                  )}
               </ComposerLinks>
             </CountryRow>
           );
@@ -304,17 +322,22 @@ const CorpusSearch: React.FC = () => {
 
   return (
     <SearchContainer>
-      <SearchInputContainer>
-        <SearchInput
-          ref={searchInputRef}
-          type="text"
-          placeholder="Search composers or songs, eg. 'nocturne', 'entertainer', 'jaws', 'autumn leaves', 'succession', 'bts', 'chopin', 'mario'"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <TotalCount>{totalMidis} MIDIs</TotalCount>
-      </SearchInputContainer>
+      {query === undefined && (
+        <SearchInputContainer>
+          <SearchInput
+            ref={searchInputRef}
+            type="text"
+            placeholder={PIECES_SEARCH_PLACEHOLDER}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <TotalCount>{totalMidis} MIDIs</TotalCount>
+        </SearchInputContainer>
+      )}
       <ResultsContainer>
+        {searchTerm && !filteredCorpora.length && (
+          <p role="status">No matching pieces.</p>
+        )}
         {searchTerm === ""
           ? renderEmptySearchResults()
           : filteredCorpora.map(({ slug, midis }) => {
@@ -380,4 +403,4 @@ const CorpusSearch: React.FC = () => {
   );
 };
 
-export default CorpusSearch;
+export default React.memo(CorpusSearch);

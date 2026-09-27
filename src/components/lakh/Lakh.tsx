@@ -159,7 +159,7 @@ const DirectorySearch = styled.input`
     width: 100%;
   }
 `;
-const SearchPanes = styled.div`
+const SearchPanes = styled.div<{ $embedded: boolean }>`
   display: flex;
   justify-content: flex-start;
   gap: 16px;
@@ -168,7 +168,7 @@ const SearchPanes = styled.div`
     min-width: 0;
   }
   > section:first-child {
-    flex: 0 0 calc(50vw - 40px);
+    flex: ${({ $embedded }) => ($embedded ? "1 1 0" : "0 0 calc(50vw - 40px)")};
   }
   > section:last-child {
     flex: 1 1 0;
@@ -232,12 +232,7 @@ const Entry = styled(Link)<{
   &,
   &:link,
   &:visited {
-    color: ${({
-      $annotated,
-      $community,
-      $hasFewSections,
-      $version,
-    }) =>
+    color: ${({ $annotated, $community, $hasFewSections, $version }) =>
       $community
         ? "#69b7ff"
         : !$annotated
@@ -537,12 +532,14 @@ export default function Lakh({ ready, loadTrack }: Props) {
 
 // Playback time updates the app context ten times a second. Keep the large
 // directory independent of those updates.
-const Directory = React.memo(function Directory({
+export const Directory = React.memo(function Directory({
   catalog,
   artist,
   analyses,
   annotationVersions,
+  query,
 }: {
+  query?: string;
   catalog: LakhCatalog;
   artist?: LakhArtist;
   analyses: Record<string, Analysis>;
@@ -576,7 +573,26 @@ const Directory = React.memo(function Directory({
     [artistSongCounts],
   );
   const [searchQuery, setSearchQuery] = useState("");
-  const search = searchQuery.trim().toLocaleLowerCase();
+  const search = (query ?? searchQuery).trim().toLocaleLowerCase();
+  // Build source/version mappings once per catalog, not on every query.
+  const songSearchIndex = useMemo(
+    () =>
+      (artist ? [] : directoryArtists).map((item) => ({
+        artist: item,
+        tracks: Array.from(
+          collectTrackSources([
+            ...item.members.filter((member) => member.slug === item.slug),
+            ...item.members.filter((member) => member.slug !== item.slug),
+          ]),
+          ([file, source]) => ({
+            file,
+            source,
+            title: file.replace(/(?:\.\d+)?\.mid$/i, "").toLocaleLowerCase(),
+          }),
+        ),
+      })),
+    [directoryArtists, artist],
+  );
   const matchingSongs = useMemo(() => {
     const matches = new Map<
       string,
@@ -586,19 +602,17 @@ const Directory = React.memo(function Directory({
       }
     >();
     if (!search) return matches;
-    directoryArtists.forEach((item) => {
-      const tracks = collectTrackSources([
-        ...item.members.filter((member) => member.slug === item.slug),
-        ...item.members.filter((member) => member.slug !== item.slug),
-      ]);
-      for (const file of tracks.keys()) {
-        const title = file.replace(/(?:\.\d+)?\.mid$/i, "");
-        if (!matchesSearch(title, search)) tracks.delete(file);
-      }
+    const terms = search.split(/\s+/);
+    songSearchIndex.forEach(({ artist: item, tracks: indexedTracks }) => {
+      const tracks: ReturnType<typeof collectTrackSources> = new Map();
+      indexedTracks.forEach(({ file, source, title }) => {
+        if (terms.every((term) => title.includes(term)))
+          tracks.set(file, source);
+      });
       if (tracks.size) matches.set(item.name, { artist: item, tracks });
     });
     return matches;
-  }, [directoryArtists, search]);
+  }, [songSearchIndex, search]);
   const visibleArtists = directoryArtists.filter(
     (item) =>
       matchesSearch(item.name, search) ||
@@ -713,7 +727,9 @@ const Directory = React.memo(function Directory({
           $community={artistHasCommunity(item)}
           $hasFewSections={artistHasFewSections(item)}
           $hasAlbums={item.members.some(
-            (member) => member.name === "The Beatles" || albumArtistSlugs.has(member.slug),
+            (member) =>
+              member.name === "The Beatles" ||
+              albumArtistSlugs.has(member.slug),
           )}
           title={`${songCount} ${
             songCount === 1 ? "song" : "songs"
@@ -732,45 +748,77 @@ const Directory = React.memo(function Directory({
 
   return (
     <>
-      <Heading $directory={!artist}>
-        <div>
-          <h1>{artistName ? canonicalArtistName(artistName) : "Lakh"}</h1>
+      {query === undefined && (
+        <Heading $directory={!artist}>
+          <div>
+            <h1>{artistName ? canonicalArtistName(artistName) : "Lakh"}</h1>
+            {!artist && (
+              <span>
+                {`${directoryArtists.length.toLocaleString()} artists · ${totalSongs.toLocaleString()} songs`}
+              </span>
+            )}
+          </div>
           {!artist && (
-            <span>
-              {`${directoryArtists.length.toLocaleString()} artists · ${totalSongs.toLocaleString()} songs`}
-            </span>
+            <DirectorySearch
+              type="search"
+              autoFocus
+              aria-label="Search artists and songs"
+              placeholder="Search artists and songs"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+            />
           )}
-        </div>
-        {!artist && (
-          <DirectorySearch
-            type="search"
-            autoFocus
-            aria-label="Search artists and songs"
-            placeholder="Search artists and songs"
-            value={searchQuery}
-            onChange={(event) => setSearchQuery(event.target.value)}
-          />
-        )}
-        {!artist && (
-          <PinnedLinks aria-label="Pinned music">
-            <Link to="/lakh/Yes/And_You_and_I_1">Yes — And You and I</Link>
-            <Link to="/lakh/Emerson_Lake_Palmer/Tarkus">Emerson, Lake &amp; Palmer — Tarkus</Link>
-            <Link to="/lakh/The_Beatles">The Beatles</Link>
-          </PinnedLinks>
-        )}
-      </Heading>
+          {!artist && (
+            <PinnedLinks aria-label="Pinned music">
+              <Link to="/lakh/Yes/And_You_and_I_1">Yes — And You and I</Link>
+              <Link to="/lakh/Emerson_Lake_Palmer/Tarkus">
+                Emerson, Lake &amp; Palmer — Tarkus
+              </Link>
+              <Link to="/lakh/The_Beatles">The Beatles</Link>
+            </PinnedLinks>
+          )}
+        </Heading>
+      )}
       {!artist && search && (
-        <SearchPanes>
-          <section aria-labelledby="lakh-artist-search-heading">
-            <h2 id="lakh-artist-search-heading">Artists</h2>
+        <SearchPanes $embedded={query !== undefined}>
+          <section
+            aria-labelledby={
+              query === undefined
+                ? "lakh-artist-search-heading"
+                : "global-lakh-artist-search-heading"
+            }
+          >
+            <h2
+              id={
+                query === undefined
+                  ? "lakh-artist-search-heading"
+                  : "global-lakh-artist-search-heading"
+              }
+            >
+              {query === undefined ? "Artists" : "Lakh artists"}
+            </h2>
             {visibleArtists.length ? (
               <SearchResults>{visibleArtists.map(renderArtist)}</SearchResults>
             ) : (
               <p role="status">–</p>
             )}
           </section>
-          <section aria-labelledby="lakh-song-search-heading">
-            <h2 id="lakh-song-search-heading">Songs</h2>
+          <section
+            aria-labelledby={
+              query === undefined
+                ? "lakh-song-search-heading"
+                : "global-lakh-song-search-heading"
+            }
+          >
+            <h2
+              id={
+                query === undefined
+                  ? "lakh-song-search-heading"
+                  : "global-lakh-song-search-heading"
+              }
+            >
+              {query === undefined ? "Songs" : "Lakh songs"}
+            </h2>
             {matchingSongs.size ? (
               <SearchResults>
                 {Array.from(

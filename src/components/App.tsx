@@ -1,4 +1,7 @@
-import { createTimeSliderStore, EMPTY_TIME_SLIDER_DATA } from "./timeSliderData";
+import {
+  createTimeSliderStore,
+  EMPTY_TIME_SLIDER_DATA,
+} from "./timeSliderData";
 import SnippetTimeSliderData from "./SnippetTimeSliderData";
 import autoBindReact from "auto-bind/react";
 import { initializeApp as firebaseInitializeApp } from "firebase/app";
@@ -53,6 +56,8 @@ import { AppContext } from "./AppContext";
 import { PlaybackTimeProvider } from "./PlaybackTimeContext";
 import AppFooter, { FOOTER_HEIGHT } from "./AppFooter";
 import AppHeader, { HEADER_HEIGHT } from "./AppHeader";
+import { SearchProvider } from "./SearchContext";
+import { SearchContent } from "./GlobalSearch";
 import DropMessage from "./DropMessage";
 import Pieces from "./Pieces";
 import Lakh from "./lakh/Lakh";
@@ -90,7 +95,6 @@ import {
   AnnotationVersions,
   resolveAnnotations,
 } from "./annotationVersions";
-
 
 // Constants
 export const DUMMY_CALLBACK = () => {};
@@ -256,7 +260,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
       directories: {},
       parsing: null,
       enableManualRemeasuring: false,
-      analyses: this.isCleanMode() ? this.cleanAnalysisStubs() : defaultAnalyses as unknown as Analyses,
+      analyses: this.isCleanMode()
+        ? this.cleanAnalysisStubs()
+        : (defaultAnalyses as unknown as Analyses),
       annotationVersions: this.isCleanMode() ? {} : this.annotationVersions,
       selectedAnnotationOwners: {},
       latencyCorrectionMs: initialLatencyCorrection,
@@ -293,8 +299,12 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   currentAnnotationKey() {
-    return this.state.currentMidi?.analysisKey ||
-      (this.state.currentMidi?.slug ? `f/${this.state.currentMidi.slug}` : this.path);
+    return (
+      this.state.currentMidi?.analysisKey ||
+      (this.state.currentMidi?.slug
+        ? `f/${this.state.currentMidi.slug}`
+        : this.path)
+    );
   }
 
   isCleanMode() {
@@ -348,7 +358,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
       annotationVersions: { ...versions },
       selectedAnnotationOwners: selectedOwners,
       rawlProps: previous.rawlProps
-        ? { ...previous.rawlProps, savedAnalysis: analyses[this.currentAnnotationKey()] ?? null }
+        ? {
+            ...previous.rawlProps,
+            savedAnalysis: analyses[this.currentAnnotationKey()] ?? null,
+          }
         : null,
     }));
   }
@@ -566,7 +579,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
   async getFirebaseAnnotation(analysisKey: string) {
     const user = this.state.user;
     if (!user || !analysisKey) return null;
-    return this.availableAnnotationVersions()[analysisKey]?.[user.uid]?.analysis ?? null;
+    return (
+      this.availableAnnotationVersions()[analysisKey]?.[user.uid]?.analysis ??
+      null
+    );
   }
 
   annotationRef(analysisKey: string, ownerId: string) {
@@ -1322,10 +1338,15 @@ class App extends React.Component<RouteComponentProps, AppState> {
   };
 
   getPlaybackTime = () =>
-    this.midiPlayer?.isPlaying() ? this.midiPlayer.getPositionMs() / 1000 : null;
+    this.midiPlayer?.isPlaying()
+      ? this.midiPlayer.getPositionMs() / 1000
+      : null;
 
   componentWillUnmount() {
-    window.removeEventListener("beforeunload", this.warnAboutUnsavedAnnotations);
+    window.removeEventListener(
+      "beforeunload",
+      this.warnAboutUnsavedAnnotations,
+    );
     this.syncMediaSession("none");
     if ("mediaSession" in navigator) {
       const actions: MediaSessionAction[] = [
@@ -1358,7 +1379,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
   };
 
   componentDidUpdate(prevProps: RouteComponentProps) {
-    const wasClean = new URLSearchParams(prevProps.location.search).get("clean") === "1";
+    const wasClean =
+      new URLSearchParams(prevProps.location.search).get("clean") === "1";
     if (wasClean !== this.isCleanMode()) {
       this.refreshAnnotations();
     }
@@ -1525,69 +1547,78 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   showPlayerError={this.state.showPlayerError}
                 />
 
-                <AppHeader />
-                <AppMainContent ref={this.contentAreaRef}>
-                  <Switch>
-                    <Route path="/old" render={() => <OldLandingPage />} />
-                    <Route exact path="/orphans" component={Orphans} />
-                    <Route
-                      path="/corpus/:corpus?"
-                      render={({ match }) =>
-                        match.params.corpus ? (
-                          <Corpus slug={match.params.corpus} />
-                        ) : (
-                          <Pieces />
-                        )
-                      }
-                    />
-                    <Route exact path="/e" component={EditorLandingPage} />
-                    <Route path="/e/:slug?" component={Editor} />
-                    <Route path="/ef/:id/:version?" component={Editor} />
-                    <Route path="/book/:slug?" component={BookOnStyles} />
-                    <Route path="/blog/:postId?/:slug?" component={Blog} />
-                    <Route path="/convert" component={Converter} />
-                    {/* Structures routes */}
-                    <Route
-                      path="/s/"
-                      exact
-                      render={() => (
-                        <Structures analyses={this.state.analyses} />
-                      )}
-                    />
-                    <Route
-                      path="/s/:rest*"
-                      render={() => (
-                        <StructuresWithParams analyses={this.state.analyses} />
-                      )}
-                    />
-                    <Route
-                      path={["/lakh", "/c/MIDI"]}
-                      render={() => (
-                        <Lakh
-                          ready={!this.state.loading}
-                          loadTrack={this.loadLakhTrack}
+                <SearchProvider>
+                  <AppHeader />
+                  <AppMainContent ref={this.contentAreaRef}>
+                    <SearchContent>
+                      <Switch>
+                        <Route path="/old" render={() => <OldLandingPage />} />
+                        <Route exact path="/orphans" component={Orphans} />
+                        <Route
+                          path="/corpus/:corpus?"
+                          render={({ match }) =>
+                            match.params.corpus ? (
+                              <Corpus slug={match.params.corpus} />
+                            ) : (
+                              <Pieces />
+                            )
+                          }
                         />
-                      )}
-                    />
-                    {rawlRoute}
-                    <Redirect
-                      exact
-                      from="/d/"
-                      to={`/d/${Object.keys(decomposeScores)[0]}/1`}
-                    />
-                    {decompositionRoute}
-                    <Route path="/100/:slug?" component={Book} />
-                    <Route path="/beyond/:slug?" component={Book} />
-                    <Redirect from="/timeline" to="/corpus/" />
-                    <Route path="/histograms" component={Histograms} />
-                    <Redirect exact from="/" to="/100" />
-                  </Switch>
-                </AppMainContent>
+                        <Route exact path="/e" component={EditorLandingPage} />
+                        <Route path="/e/:slug?" component={Editor} />
+                        <Route path="/ef/:id/:version?" component={Editor} />
+                        <Route path="/book/:slug?" component={BookOnStyles} />
+                        <Route path="/blog/:postId?/:slug?" component={Blog} />
+                        <Route path="/convert" component={Converter} />
+                        {/* Structures routes */}
+                        <Route
+                          path="/s/"
+                          exact
+                          render={() => (
+                            <Structures analyses={this.state.analyses} />
+                          )}
+                        />
+                        <Route
+                          path="/s/:rest*"
+                          render={() => (
+                            <StructuresWithParams
+                              analyses={this.state.analyses}
+                            />
+                          )}
+                        />
+                        <Route
+                          path={["/lakh", "/c/MIDI"]}
+                          render={() => (
+                            <Lakh
+                              ready={!this.state.loading}
+                              loadTrack={this.loadLakhTrack}
+                            />
+                          )}
+                        />
+                        {rawlRoute}
+                        <Redirect
+                          exact
+                          from="/d/"
+                          to={`/d/${Object.keys(decomposeScores)[0]}/1`}
+                        />
+                        {decompositionRoute}
+                        <Route path="/100/:slug?" component={Book} />
+                        <Route path="/beyond/:slug?" component={Book} />
+                        <Redirect from="/timeline" to="/corpus/" />
+                        <Route path="/histograms" component={Histograms} />
+                        <Redirect exact from="/" to="/100" />
+                      </Switch>
+                    </SearchContent>
+                  </AppMainContent>
+                </SearchProvider>
                 <Route
                   path={["/100", "/beyond", "/s"]}
                   render={() =>
-                    this.state.parsing && !this.state.ejected && (
-                      <SnippetTimeSliderData parsingResult={this.state.parsing} />
+                    this.state.parsing &&
+                    !this.state.ejected && (
+                      <SnippetTimeSliderData
+                        parsingResult={this.state.parsing}
+                      />
                     )
                   }
                 />

@@ -5,10 +5,13 @@ import styled, { css } from "styled-components";
 import { ADMIN_USER_ID } from "./App";
 import { AppContext } from "./AppContext";
 import SignIn from "./SignIn";
+import { SearchContext } from "./SearchContext";
+import { PIECES_SEARCH_PLACEHOLDER } from "./rawl/CorpusSearch";
 
 export const HEADER_HEIGHT = "30px";
 
 const HeaderContainer = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -49,7 +52,53 @@ const ExternalLinks = styled.div`
   align-items: center;
 `;
 
+const NavSearch = styled.div<{ $expanded: boolean }>`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: ${({ $expanded }) => ($expanded ? "50%" : "160px")};
+  max-width: 50%;
+  z-index: 1;
+  height: 26px;
+  background: #fff;
+  border-radius: 3px;
+  overflow: hidden;
+
+  input {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 3px ${({ $expanded }) => ($expanded ? "28px" : "8px")} 3px 8px;
+    border: 1px solid #666;
+    border-radius: 3px;
+    background: #fff;
+    color: #111;
+    font: inherit;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    &:focus {
+      outline: none;
+      border-color: #ffe45c;
+    }
+  }
+
+  button {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    width: 26px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    background: #fff;
+    color: #111;
+    font-size: 20px;
+    cursor: pointer;
+  }
+`;
+
 const AppHeader: React.FC = () => {
+  const search = useContext(SearchContext);
   const location = useLocation();
   const path = location.pathname;
   const {
@@ -106,6 +155,27 @@ const AppHeader: React.FC = () => {
           Decompose
         </HeaderLink> */}
       </NavLinks>
+
+      <NavSearch $expanded={search.expanded} role="search">
+        <input
+          type="text"
+          aria-label="Search Pieces and Lakh"
+          placeholder={search.expanded ? PIECES_SEARCH_PLACEHOLDER : "Search pieces"}
+          value={search.query}
+          onFocus={() => search.setExpanded(true)}
+          onChange={(event) => search.setQuery(event.target.value)}
+        />
+        {search.expanded && (
+          <button
+            type="button"
+            aria-label="Close search"
+            title="Close search (Escape)"
+            onClick={search.close}
+          >
+            ×
+          </button>
+        )}
+      </NavSearch>
 
       <ExternalLinks>
         <ExternalLink

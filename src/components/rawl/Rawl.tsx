@@ -206,6 +206,7 @@ const Rawl: React.FC<RawlProps> = ({
   const lakhKey = currentMidi?.analysisKey?.startsWith("c/MIDI/")
     ? currentMidi.analysisKey
     : null;
+  const canEditVoices = !!(lakhKey || slug);
   // The filename route resolves to the canonical Lakh URL via its catalog.
   const fileUrl = lakhKey
     ? `/${lakhKey.split("/").map(encodeURIComponent).join("/")}`
@@ -873,10 +874,8 @@ const Rawl: React.FC<RawlProps> = ({
       excludedVoices,
       drumVoices,
       nativeDrumVoices,
-      onToggleVoiceDrum: currentMidi?.analysisKey?.startsWith("c/MIDI/")
-        ? toggleVoiceDrum
-        : undefined,
-      onToggleVoiceExcluded: currentMidi?.analysisKey?.startsWith("c/MIDI/")
+      onToggleVoiceDrum: canEditVoices ? toggleVoiceDrum : undefined,
+      onToggleVoiceExcluded: canEditVoices
         ? toggleVoiceExcluded
         : undefined,
       measuresAndBeats,
@@ -906,7 +905,7 @@ const Rawl: React.FC<RawlProps> = ({
       nativeDrumVoices,
       toggleVoiceDrum,
       toggleVoiceExcluded,
-      currentMidi?.analysisKey,
+      canEditVoices,
       measuresAndBeats,
       playbackMeasure,
       mouseHandlers,

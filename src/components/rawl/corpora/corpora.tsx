@@ -4326,6 +4326,7 @@ export const corpora: CorpusEntry[] = [
   {slug: 'aleon_raven',
     composerBirthYear: 1990, // Estimated birth year for timeline placement; unverified.
     country: "Bulgaria", midis: ['aleon-raven-vertigo']},
+    {slug: 'kenny_dorham', midis:["blue-bossa", ]},
   {
     slug: "tonal_stretch",
     midis: [
@@ -6760,6 +6761,7 @@ export const corpora: CorpusEntry[] = [
       "moonlight_sonata_ludwig_van_beethoven_piano_solo",
       "sonata-no.-14-moonlight-2nd-movement",
       "Sonate_No._14_Moonlight_3rd_Movement",
+      "moonlight_sonata_14_mov_3_bernd_krueger", 
       "sonate-no.-17-tempest-3rd-movement",
       "sonate-no.-19-1st-movement",
       "sonate-no.-19-2nd-movement",

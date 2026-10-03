@@ -39,11 +39,16 @@ const VoiceActionButton = styled.button`
   }
 `;
 
-const VoiceRow = styled.div`
+const VoiceRow = styled.div<{ $showControls: boolean }>`
   display: flex;
   align-items: center;
   width: fit-content;
   line-height: 16px;
+
+  ${VoiceActionButton} {
+    opacity: ${({ $showControls }) => $showControls ? 1 : 0};
+    pointer-events: ${({ $showControls }) => $showControls ? "auto" : "none"};
+  }
 
   &:hover ${VoiceActionButton}, &:focus-within ${VoiceActionButton} {
     opacity: 1;
@@ -157,7 +162,10 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
         {sortedVoices.map(
           ({ voiceName, voiceIndex, isDrum }) =>
             !excluded.has(voiceIndex) && (
-              <VoiceRow key={voiceIndex}>
+              <VoiceRow
+                key={voiceIndex}
+                $showControls={!!user && allIncluded.filter(Boolean).length === 2}
+              >
                 <VoiceCheckbox
                   id={`voice-active-${voiceIndex}`}
                   title="active"

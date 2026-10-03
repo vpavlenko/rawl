@@ -1155,7 +1155,7 @@ const Rawl: React.FC<RawlProps> = ({
             margin: 0,
             padding: 0,
             position: "relative",
-            overflowX: usePageScroll ? "visible" : "scroll",
+            overflowX: usePageScroll ? "visible" : "auto",
             overflowY: usePageScroll ? "visible" : "scroll",
             flexGrow: 1,
             backgroundColor: "black",
@@ -1273,19 +1273,19 @@ const Rawl: React.FC<RawlProps> = ({
               </AnalysisTransposeContext.Provider>
             </StrumNotesContext.Provider>
           </ModulationOnsetEditingContext.Provider>
+          {slug !== "forge_mock" && (
+            <div style={{ color: "gray" }}>
+              Shift+hover or click the note to play it separately
+              <br />
+              Select a measure with a modulation, then Shift+click a note in that measure
+              or the previous one to adjust its onset
+              <br />
+              Press "Space" to play/pause
+            </div>
+          )}
         </div>
         {!isEmbedded && <LayoutSelector setSystemLayout={setSystemLayout} />}
       </div>
-      {slug !== "forge_mock" && (
-        <div style={{ color: "gray" }}>
-          Shift+hover or click the note to play it separately
-          <br />
-          Select a measure with a modulation, then Shift+click a note in that measure
-          or the previous one to adjust its onset
-          <br />
-          Press "Space" to play/pause
-        </div>
-      )}
     </div>
   );
 };

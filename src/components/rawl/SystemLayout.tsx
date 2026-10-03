@@ -494,6 +494,30 @@ export const StackedSystemLayout: React.FC<
 
   const parentRef = useRef(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [hasWideSection, setHasWideSection] = useState(false);
+
+  useEffect(() => {
+    const parent = parentRef.current;
+    if (!parent) return;
+
+    const updateHorizontalOverflow = () => {
+      const viewportWidth = parent.clientWidth;
+      setHasWideSection(
+        sectionRefs.current.slice(0, sections.length).some((section) => {
+          const boundary = section?.firstElementChild;
+          return boundary && boundary.getBoundingClientRect().width > viewportWidth + 1;
+        }),
+      );
+    };
+
+    const observer = new ResizeObserver(updateHorizontalOverflow);
+    observer.observe(parent);
+    sectionRefs.current.slice(0, sections.length).forEach((section) => {
+      if (section?.firstElementChild) observer.observe(section.firstElementChild);
+    });
+    updateHorizontalOverflow();
+    return () => observer.disconnect();
+  }, [sections]);
 
   const [scrollInfo, setScrollInfo] = useState<ScrollInfo>({
     left: -1,
@@ -561,7 +585,7 @@ export const StackedSystemLayout: React.FC<
           margin: 0,
           padding: 0,
           position: "relative",
-          overflowX: "scroll",
+          overflowX: hasWideSection ? "auto" : "hidden",
           overflowY: usePageScroll ? "hidden" : "scroll",
           width: "100%",
           backgroundColor: "black",

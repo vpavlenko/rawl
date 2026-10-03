@@ -275,12 +275,14 @@ export const MeasureNumbers: React.FC<{
       key="measure_header"
       style={{
         width:
-          secondsToX(
-            Math.max(
-              measuresAndBeats.measures.at(-1),
-              measuresAndBeats.beats.at(-1),
-            ),
-          ) + 300,
+          sectionSpan
+            ? secondsToX(measuresAndBeats.measures[sectionSpan[1]])
+            : secondsToX(
+                Math.max(
+                  measuresAndBeats.measures.at(-1),
+                  measuresAndBeats.beats.at(-1),
+                ),
+              ) + 300,
         height: 16,
         marginBottom: "-15px",
         marginLeft: "0px",

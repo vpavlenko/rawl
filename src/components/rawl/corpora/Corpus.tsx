@@ -56,6 +56,13 @@ const Corpus: React.FC<{
   return (
     <div style={{ marginBottom: "100px" }}>
       <h1>{beautifySlug(slug)}</h1>
+      {slug === "musescore_instrumental_top" && (
+        <p>
+          <a href="/musescore-upload-tracker">
+            Track uploads across all 100 MuseScore ranking pages
+          </a>
+        </p>
+      )}
       {corpus.posttext}
       {corpus.midis.map((midiSlug, index) => {
         const order = getComposerOrder(midiSlug);

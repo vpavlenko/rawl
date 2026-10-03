@@ -79,6 +79,7 @@ import Book from "./rawl/book/Book";
 import BookOnStyles from "./rawl/book/BookOnStyles";
 import Corpus from "./rawl/corpora/Corpus";
 import OrphansPage from "./rawl/corpora/OrphansPage";
+import MusescoreUploadTracker from "./rawl/corpora/MusescoreUploadTracker";
 import Structures, { StructuresProps } from "./rawl/corpora/Structures";
 import Decomposition from "./rawl/decomposition/Decomposition";
 import Converter from "./rawl/editor/Converter";
@@ -1569,6 +1570,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                       <Switch>
                         <Route path="/old" render={() => <OldLandingPage />} />
                         <Route exact path="/orphans" component={OrphansPage} />
+                        <Route exact path="/musescore-upload-tracker" component={MusescoreUploadTracker} />
                         <Route
                           path="/corpus/:corpus?"
                           render={({ match }) =>

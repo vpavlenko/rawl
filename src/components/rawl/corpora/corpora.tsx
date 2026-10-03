@@ -8533,6 +8533,99 @@ export const corpora: CorpusEntry[] = [
     ],
   },
   {
+    slug: "musescore_instrumental_top",
+    // Instrumental works, including wordless themes; excludes arrangements of vocal songs.
+    // Top 100 uses isVocal flags, also excluding the unflagged vocal song Your Reality.
+    // Top 200 is curated below.
+    midis: [
+      // From top_100_musescore_composers.
+      "river-flows-in-you", // Yiruma
+      "Merry_Go_Round_of_Life_Howls_Moving_Castle_Piano_Tutorial_", // Joe Hisaishi
+      "Canon_in_D", // Pachelbel
+      "Clair_de_Lune__Debussy", // Debussy
+      "Fr_Elise", // Beethoven
+      "Chopin_-_Nocturne_Op_9_No_2_E_Flat_Major", // Chopin
+      "Gymnopdie_No._1__Satie", // Satie
+      "Undertale_-_Megalovania_Piano_ver._3", // Toby Fox
+      "Interstellar", // Hans Zimmer
+      "Sweden_Minecraft", // C418
+      "Pirates_of_the_Caribbean_-_Hes_a_Pirate", // Klaus Badelt
+      "game-of-thrones-main-piano", // Ramin Djawadi
+      "Liebestraum_No._3_in_A_Major", // Liszt
+      "mariage-d-amour---paul-de-senneville-marriage-d-amour", // Paul de Senneville
+      "passacaglia---handel-halvorsen", // Handel
+      "prelude-i-in-c-major-bwv-846---well-tempered-clavier-first-book", // Bach
+      "Waltz_No._2_The_Second_Waltz_by_Dmitri_Shostakovich_for_Piano", // Shostakovich
+      "wa-mozart-marche-turque-turkish-march-fingered", // Mozart
+      "Gravity_Falls_Opening", // Brad Breeck
+      "the_entertainer_scott_joplin", // Scott Joplin
+      "Disney_Pixar_Up_Theme", // Michael Giacchino
+      "Omori_Duet", // Pedro Silva
+      "solas---jamie-duffy", // Jamie Duffy
+      "mii-channel-piano", // Kazumi Totaka
+      "sadness-and-sorrow-for-piano-solo", // Toshio Masuda
+      "Super_Mario_Bros_Main_Theme", // Koji Kondo
+      "g-minor-bach-original", // Luo Ni
+      "ylang-ylang---fkj-transcribed-by-lilroo", // FKJ
+      "minuet-bwv-anhang-114-in-g-major", // Christian Petzold
+      "the-office", // Jay Ferguson
+      "Dawn_Pride_and_Prejudice", // Dario Marianelli
+      "Yann_Tiersen_Amelie", // Yann Tiersen
+      "isabella-s-lullaby-the-promised-neverland-emotional-anime-on-piano-vol.-2", // Takahiro Obata
+      "theme-from-schindler-s-list---piano-solo", // John Williams
+      "flight-of-the-bumblebee", // Nikolai Rimsky-Korsakov
+      "dance-of-the-sugar-plum-fairy", // Pyotr Ilyich Tchaikovsky
+      "Requiem_for_a_Dream", // Clint Mansell
+      "yuri-on-ice---piano-theme-full", // Taro Umebayashi + Taku Matsushiba
+      "vivaldi---summer---piano", // Vivaldi
+      "my-lie-watashi-no-uso---your-lie-in-april", // Masaru Yokoyama
+      "Test_Drive_How_to_Train_Your_Dragon", // John Powell
+      "fairy-tail-main-theme", // Yasuharu Takanashi
+
+      // From musescore_top200.
+      "Godfather", // Nino Rota
+      "Pink_Panther", // Henry Mancini
+      "linus-and-lucy-peanuts---vince-guaraldi", // Vince Guaraldi
+      "chasing-kou---hidekazu-sakamoto-drowning-love---ni-rerunaihu-mule-bbajin-naipeu-ost", // Hidekazu Sakamoto
+      "stranger-things-theme", // Kyle Dixon & Michael Stein
+      "forest-gump---main-title-feather-theme", // Alan Silvestri
+      "take-five", // Dave Brubeck
+      "Misty_piano_solo", // Erroll Garner
+      "flower-dance-dj-okawari", // DJ Okawari
+      "Tetris_Theme", // Russian folk song
+      "dearly-beloved-piano-collections-kingdom-hearts", // Yoko Shimomura
+      "for-the-damaged-coda---blonde-redhead", // Blonde Redhead
+      "solo-violin-caprice-no.-24-in-a-minor---n.-paganini-op.-1-no.-24", // Niccolo Paganini
+      "hungarian-dance-no-5-in-g-minor", // Johannes Brahms
+      "hollow-knight-main-theme---christopher-larkin", // Christopher Larkin
+      "Gershwin_Rhapsody_in_Blue_Piano_solo", // George Gershwin
+      "idea-22---gibran-alcocer", // Gibran Alcocer
+      "lavender-town-pokemon-r-b-y", // Junichi Masuda
+      "rachmaninoff-piano-concerto-no.-2-1st-mvmt.-arr.-for-2-pianos", // Rachmaninoff
+      "czardas-by-vittorio-monti", // Vittorio Monti
+      "a-wanderer-s-song-zigeunerweisen-gypsy-airs-op.20", // Pablo de Sarasate
+      "liebesleid-piano-solo---kreisler-rachmaninoff-alt-wiener-tanzweisen", // Fritz Kreisler
+      "victory-piano-solo---two-steps-from-hell", // Thomas Bergersen
+      "libertango", // Astor Piazzolla
+      "old-doll-puppet---ib-mad-father-old-doll", // Amacha's Music Studio
+      "genshin-impact-main-theme", // Yu-Peng Chen
+      "in-the-hall-of-the-mountain-king-dovregubbens-hall", // Edvard Grieg
+      "evgeny-grinko---valse", // Evgeny Grinko
+      "le-cygne-the-swan", // Saint-Saëns
+      "can-you-hear-the-music---ludwig-goransson-from-oppenheimer", // Ludwig Göransson
+      "succession-main-theme", // Nicholas Britell
+      "to-the-moon-for-river-johnny-s-version", // Kan Gao, Laura Shigihara
+      "time-travel-theme-by-jay-chou-from-secret-2007-film", // Jay Chou
+      "kass-theme--full-the-legend-of-zelda-breath-of-the-wild", // Manaka Kataoka
+      "Avril_14_Aphex_Twin", // Aphex Twin
+      "~beethoven-virus~", // Lee Pil-ho
+      "Axel_F_Beverly_Hills_Cop_III", // Harold Faltermeyer
+      "adagio-in-g-minor---for-solo-piano", // Remo Giazotto
+      "can-can", // Jacques Offenbach
+      "offenbach---can-can-from-orpheus-in-the-underworld-piano-arrangement",
+    ],
+  },
+  {
     slug: "jacques_offenbach",
     composerBirthYear: 1819,
     country: "France",

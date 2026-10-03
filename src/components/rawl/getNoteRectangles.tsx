@@ -322,10 +322,40 @@ export const getNoteRectangles = (
   sectionEndX?: number,
   sectionStartX?: number,
 ) => {
+  // Group durations in approximately 10% steps, then place higher pitches
+  // above lower pitches in each group. Rank within each voice to preserve
+  // the existing 1,000-layer voice bands.
+  const durationBucket = (note: ColoredNote) =>
+    Math.round(Math.log(Math.max(0.001, note.span[1] - note.span[0])) / Math.log(1.1));
+  const notesByVoice = new Map<number, ColoredNote[]>();
+  notes.forEach((note) => {
+    const voiceNotes = notesByVoice.get(note.voiceIndex) ?? [];
+    voiceNotes.push(note);
+    notesByVoice.set(note.voiceIndex, voiceNotes);
+  });
+  const stackingPriorities = new Map<ColoredNote, number>();
+  notesByVoice.forEach((voiceNotes) => {
+    voiceNotes.sort((a, b) =>
+      durationBucket(b) - durationBucket(a) ||
+      a.note.midiNumber - b.note.midiNumber,
+    );
+    let rank = 0;
+    const ranks = voiceNotes.map((note, index) => {
+      const previous = voiceNotes[index - 1];
+      if (previous && (durationBucket(previous) !== durationBucket(note) ||
+        previous.note.midiNumber !== note.note.midiNumber)) rank++;
+      return rank;
+    });
+    voiceNotes.forEach((note, index) => {
+      stackingPriorities.set(note, Math.round(ranks[index] * 999 / Math.max(1, rank)));
+    });
+  });
+
   return notes.map((note) => (
     <NoteRectangle
       key={`nr_${note.id}`}
       note={note}
+      stackingPriority={stackingPriorities.get(note)!}
       midiNumberToY={midiNumberToY}
       noteHeight={noteHeight}
       handleNoteClick={handleNoteClick}
@@ -345,6 +375,7 @@ export const getNoteRectangles = (
 
 const NoteRectangle = React.memo(({
   note,
+  stackingPriority,
   midiNumberToY,
   noteHeight,
   handleNoteClick,
@@ -360,6 +391,7 @@ const NoteRectangle = React.memo(({
   sectionStartX,
 }: {
   note: ColoredNote;
+  stackingPriority: number;
   midiNumberToY: (number: number) => number;
   noteHeight: number;
   handleNoteClick: MouseEventHanlder | null;
@@ -437,13 +469,11 @@ const NoteRectangle = React.memo(({
 
   const left = secondsToX(note.span[0]);
   const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
-  const shortNotePriority = Math.round(width > 0 ? 1000 / width : 1000);
-  // Keep shorter notes above longer notes within their voice's 1,000-layer
-  // band. Strum notes remain above the grid (1–4), below all regular notes.
+  // Strum notes remain above the grid (1–4), below all regular notes.
   const noteZIndex = isStrumNote
     ? 5
     : voiceZIndex !== undefined
-    ? voiceZIndex + Math.min(999, shortNotePriority)
+    ? voiceZIndex + stackingPriority
     : undefined;
 
   const isOtherVoice =
@@ -596,7 +626,7 @@ const NoteRectangle = React.memo(({
         pointerEvents: handleNoteClick && !hasPitchBend ? "auto" : "none",
         zIndex:
           noteZIndex ??
-          (10 + shortNotePriority +
+          (10 + stackingPriority +
             (noteUnderCursor ? 100 : 0)),
         boxSizing: "border-box",
         display: "grid",

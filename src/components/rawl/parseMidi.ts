@@ -81,12 +81,12 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
         event.subtype === MIDIEvents.EVENT_MIDI_NOTE_OFF ||
         (event.subtype === MIDIEvents.EVENT_MIDI_NOTE_ON && noteOn[midiNumber])
       ) {
-        if (channel === DRUM_CHANNEL && midiNumber > 87) {
+        if (channel % 16 === DRUM_CHANNEL && midiNumber > 87) {
           return;
           // probably a bug? can't be played by a default MIDI sound font
         }
         if (midiNumber in noteOn) {
-          if (channel !== DRUM_CHANNEL && noteOn[midiNumber].param2 === 0) {
+          if (channel % 16 !== DRUM_CHANNEL && noteOn[midiNumber].param2 === 0) {
             return;
           }
           if (event.playTime >= noteOn[midiNumber].playTime) {
@@ -101,7 +101,7 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
               id: `${voiceIndex}_${startTick}_${
                 endTick - startTick
               }_${midiNumber}`,
-              isDrum: channel === DRUM_CHANNEL,
+              isDrum: channel % 16 === DRUM_CHANNEL,
               span: [noteOn[midiNumber].playTime / 1000, event.playTime / 1000],
               tickSpan: [startTick, endTick], // Always explicitly set the tickSpan
               pitchBend: noteOn[midiNumber].pitchBend,
@@ -149,7 +149,7 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
       }
     }
   });
-  if (channel === DRUM_CHANNEL) {
+  if (channel % 16 === DRUM_CHANNEL) {
     const uniqueMidiNumbers = [
       ...new Set(notes.map((note) => note.note.midiNumber)),
     ].sort((a, b) => a - b);

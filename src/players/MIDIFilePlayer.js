@@ -27,7 +27,6 @@ const BUFFER_AHEAD = 33;
 
 const CC_SUSTAIN_PEDAL = 64;
 const CC_ALL_SOUND_OFF = 120;
-const SEQUENCED_CONTROLLERS = [6, 38, 96, 97, 98, 99, 100, 101];
 const META_LABELS = {
   [MIDIEvents.EVENT_META_TEXT]: "Text",
   [MIDIEvents.EVENT_META_COPYRIGHT_NOTICE]: "Copyright",
@@ -68,7 +67,8 @@ function MIDIFilePlayer(options) {
   this.trackNames = {};
   this.channelToTrack = {};
 
-  if (typeof window !== "undefined") window.addEventListener("unload", this.stop);
+  if (typeof window !== "undefined")
+    window.addEventListener("unload", this.stop);
 }
 
 // Parsing all tracks and add their events in a single event queue
@@ -84,11 +84,30 @@ MIDIFilePlayer.prototype.load = function (midiFile, useTrackLoops = false) {
   } else {
     this.events = midiFile.getEvents();
   }
+  // Port-prefix metadata is local to its track and applies to subsequent events.
+  // Keep the source channel for hardware MIDI; channel is the internal voice ID.
+  const ports = {};
+  const trackByIndex = new Map(
+    tracks.flatMap((events, track) =>
+      events.map((event) => [event.index, track]),
+    ),
+  );
+  this.events.forEach((event) => {
+    const track = event.track ?? trackByIndex.get(event.index) ?? 0;
+    event.track = track;
+    if (event.type === MIDIEvents.EVENT_META && event.subtype === 0x21) {
+      ports[track] = event.data[0];
+    } else if (event.type === MIDIEvents.EVENT_MIDI) {
+      event.port = ports[track] ?? 0;
+      event.midiChannel = event.channel;
+      event.channel = event.port * 16 + event.midiChannel;
+    }
+  });
   const timeEvents = midiFile.getTimeEvents(tracks);
   this.summarizeMidiEvents();
 
   const activeChannels = [];
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < this.channelsInUse.length; i++) {
     if (this.channelsInUse[i]) {
       activeChannels.push(i);
     }
@@ -274,10 +293,16 @@ MIDIFilePlayer.prototype.processPlay = function () {
       switch (event.subtype) {
         case MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE:
           this.handleProgramChange(event.channel, event.param1);
-          message = [(event.subtype << 4) + event.channel, event.param1];
+          message = [
+            (event.subtype << 4) + (event.midiChannel ?? event.channel),
+            event.param1,
+          ];
           break;
         case MIDIEvents.EVENT_MIDI_CHANNEL_AFTERTOUCH:
-          message = [(event.subtype << 4) + event.channel, event.param1];
+          message = [
+            (event.subtype << 4) + (event.midiChannel ?? event.channel),
+            event.param1,
+          ];
           break;
         case MIDIEvents.EVENT_MIDI_NOTE_OFF:
         case MIDIEvents.EVENT_MIDI_NOTE_ON:
@@ -286,7 +311,7 @@ MIDIFilePlayer.prototype.processPlay = function () {
         case MIDIEvents.EVENT_MIDI_PITCH_BEND:
           if (!this.channelMask[event.channel]) break;
           message = [
-            (event.subtype << 4) + event.channel,
+            (event.subtype << 4) + (event.midiChannel ?? event.channel),
             event.param1,
             event.param2 || 0x00,
           ];
@@ -347,7 +372,7 @@ MIDIFilePlayer.prototype.send = function (message, timestamp) {
 // TODO: fix confusion between reset and panic
 MIDIFilePlayer.prototype.panic = function (timestamp) {
   // Release sustain pedal on all channels
-  for (let ch = 0; ch < 16; ch++) {
+  for (const ch of Object.keys(this.channelsInUse)) {
     this.synth?.controlChange(ch, CC_SUSTAIN_PEDAL, 0);
   }
   this.synth?.panic();
@@ -396,9 +421,13 @@ MIDIFilePlayer.prototype.setPositionSynth = function (eventList) {
         // handleProgramChange() is called in setPosition()
         synth.programChange(event.channel, event.param1);
         break;
+      case MIDIEvents.EVENT_MIDI_PITCH_BEND:
+        synth.pitchBend(event.channel, (event.param2 << 7) + event.param1);
+        break;
       case MIDIEvents.EVENT_MIDI_CONTROLLER:
-      default:
         synth.controlChange(event.channel, event.param1, event.param2);
+        break;
+      default:
         break;
     }
   });
@@ -409,13 +438,12 @@ MIDIFilePlayer.prototype.setPosition = function (ms) {
 
   this.lastProcessPlayTimestamp = performance.now();
   this.panic(this.lastSendTimestamp + 10);
-  let eventMap = {};
-  let eventList = [];
-  let pos = this.position;
+  const eventList = [];
+  let pos = 0;
 
-  if (ms < this.elapsedTime) {
-    pos = 0;
-  }
+  // Replay from the beginning so a backward seek cannot retain a later bank,
+  // program, sustain state, or pitch bend on any port.
+  this.synth.reset();
 
   for (const channel in this.channelsInUse) {
     this.synth.pitchBend(channel, 8192);
@@ -428,20 +456,18 @@ MIDIFilePlayer.prototype.setPosition = function (ms) {
     if (event.type !== MIDIEvents.EVENT_MIDI) continue;
     if (event.subtype === MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE) {
       this.handleProgramChange(event.channel, event.param1);
-      eventMap[`${event.subtype}-${event.channel}`] = event;
-    } else if (event.subtype === MIDIEvents.EVENT_MIDI_CONTROLLER) {
-      // These controllers (RPN, NRPN, Data Entry) must be sequenced in order
-      if (SEQUENCED_CONTROLLERS.includes(event.param1)) {
-        // console.log('Sequenced event: ch %d -- %d - %d -- %d ms', event.channel, event.param1, event.param2, event.playTime);
-        eventList.push(event);
-      } else {
-        // All others, we only care about the last event
-        eventMap[`${event.subtype}-${event.channel}-${event.param1}`] = event;
-      }
+    }
+    if (
+      [
+        MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE,
+        MIDIEvents.EVENT_MIDI_CONTROLLER,
+        MIDIEvents.EVENT_MIDI_PITCH_BEND,
+      ].includes(event.subtype)
+    ) {
+      // Preserve source order, including bank/program and RPN/NRPN sequences.
+      eventList.push(event);
     }
   }
-
-  eventList = Object.values(eventMap).concat(eventList);
 
   this.setPositionSynth(eventList);
 
@@ -459,13 +485,16 @@ MIDIFilePlayer.prototype.getChannelProgramNum = function (ch) {
 
 MIDIFilePlayer.prototype.summarizeMidiEvents = function () {
   this.textInfo = [];
-  const channelsInUse = this.channelsInUse;
-  const channelProgramNums = this.channelProgramNums;
-  const channelMask = this.channelMask;
-  for (let i = 0; i < 16; i++) {
-    channelsInUse[i] = 0;
-    channelProgramNums[i] = 0;
-    channelMask[i] = true;
+  this.trackNames = {};
+  this.channelToTrack = {};
+  const channelsInUse = (this.channelsInUse = []);
+  const channelProgramNums = (this.channelProgramNums = []);
+  const channelMask = (this.channelMask = []);
+  for (const event of this.events) {
+    if (event.type !== MIDIEvents.EVENT_MIDI) continue;
+    channelsInUse[event.channel] = 0;
+    channelProgramNums[event.channel] = undefined;
+    channelMask[event.channel] = true;
   }
 
   for (let j = 0; j < this.events.length; j++) {
@@ -481,7 +510,7 @@ MIDIFilePlayer.prototype.summarizeMidiEvents = function () {
         break;
       case MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE:
         if (event.type !== MIDIEvents.EVENT_MIDI) break;
-        if (!channelProgramNums[channel])
+        if (channelProgramNums[channel] === undefined)
           this.handleProgramChange(channel, event.param1);
         break;
       case MIDIEvents.EVENT_META_TEXT:
@@ -516,12 +545,21 @@ MIDIFilePlayer.prototype.setChannelMute = function (ch, isMuted) {
   if (isMuted) {
     // TODO separate synth from webMidi
     const timestamp = this.lastSendTimestamp + 10;
+    const midiChannel = ch % 16;
     this.send(
-      [(MIDIEvents.EVENT_MIDI_CONTROLLER << 4) + ch, CC_SUSTAIN_PEDAL, 0],
+      [
+        (MIDIEvents.EVENT_MIDI_CONTROLLER << 4) + midiChannel,
+        CC_SUSTAIN_PEDAL,
+        0,
+      ],
       timestamp,
     );
     this.send(
-      [(MIDIEvents.EVENT_MIDI_CONTROLLER << 4) + ch, CC_ALL_SOUND_OFF, 0],
+      [
+        (MIDIEvents.EVENT_MIDI_CONTROLLER << 4) + midiChannel,
+        CC_ALL_SOUND_OFF,
+        0,
+      ],
       timestamp,
     );
     this.synth.panicChannel(ch);

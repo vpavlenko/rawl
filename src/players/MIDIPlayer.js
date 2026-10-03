@@ -5,9 +5,14 @@ import MIDIEvents from "midievents";
 import autoBind from "auto-bind";
 import range from "lodash/range";
 import { SOUNDFONT_MOUNTPOINT, SOUNDFONT_URL_PATH } from "../config";
-import { ensureEmscFileWithData, ensureEmscFileWithUrl, remap01 } from "../util";
+import {
+  ensureEmscFileWithData,
+  ensureEmscFileWithUrl,
+  remap01,
+} from "../util";
 import { GM_DRUM_KITS, GM_INSTRUMENTS } from "./gm-patch-map";
 import MIDIFilePlayer from "./MIDIFilePlayer";
+import MIDIPortSynth from "./MIDIPortSynth";
 import Player from "./Player";
 
 // Define the progressive soundfont loading sequence
@@ -15,8 +20,6 @@ const SOUNDFONTS = {
   FAST: { name: "2MBGMGS.SF2", size: "2.1 MB" },
   BEST: { name: "masquerade55v006.sf2", size: "18.4 MB" },
 };
-
-let core = null;
 
 const dummyMidiOutput = {
   send: () => {},
@@ -29,12 +32,17 @@ export default class MIDIPlayer extends Player {
     super(...args);
     autoBind(this);
 
-    core = this.core;
-    core._tp_init(this.sampleRate);
+    this.portSynth = new MIDIPortSynth(this.core, this.sampleRate);
+    this.core = this.portSynth.core;
+    this.core._tp_init(this.sampleRate);
 
     // Initialize Soundfont filesystem
-    core.FS.mkdir(SOUNDFONT_MOUNTPOINT);
-    core.FS.mount(core.FS.filesystems.IDBFS, {}, SOUNDFONT_MOUNTPOINT);
+    this.core.FS.mkdir(SOUNDFONT_MOUNTPOINT);
+    this.core.FS.mount(
+      this.core.FS.filesystems.IDBFS,
+      {},
+      SOUNDFONT_MOUNTPOINT,
+    );
 
     this.name = "MIDI Player";
     this.fileExtensions = fileExtensions;
@@ -46,7 +54,7 @@ export default class MIDIPlayer extends Player {
     this.forcedPanning = false;
     this.sourcePans = Array(16).fill(64);
     this.splitPans = new Map();
-    this.buffer = core._malloc(this.bufferSize * 4 * 2); // f32 * 2 channels
+    this.buffer = this.core._malloc(this.bufferSize * 4 * 2); // f32 * 2 channels
     this.filepathMeta = {};
     this.midiFilePlayer = new MIDIFilePlayer({
       // playerStateUpdate is debounced to prevent flooding program change events
@@ -65,7 +73,7 @@ export default class MIDIPlayer extends Player {
         noteOff: this.noteOff,
         pitchBend: (channel, value) => {
           if (!this.drumChannels.has(channel))
-            core._tp_pitch_bend(channel, value);
+            this.core._tp_pitch_bend(channel, value);
         },
         controlChange: (channel, controller, value) => {
           if (controller === 10) {
@@ -85,7 +93,9 @@ export default class MIDIPlayer extends Player {
             this.soundingNotes[channel].clear();
           } else if (controller === 123) {
             if (this.sustainPedals[channel] >= 64) {
-              this.soundingNotes[channel].forEach((state) => { state.held = false; });
+              this.soundingNotes[channel].forEach((state) => {
+                state.held = false;
+              });
             } else this.soundingNotes[channel].clear();
           } else if (controller === 121) {
             this.sustainPedals[channel] = 0;
@@ -99,27 +109,27 @@ export default class MIDIPlayer extends Player {
             (controller === 0 || controller === 32)
           )
             return;
-          core._tp_control_change(channel, controller, value);
+          this.core._tp_control_change(channel, controller, value);
         },
         programChange: (channel, program) => {
           if (this.drumChannels.has(channel)) this.applyDrumPreset(channel);
-          else core._tp_program_change(channel, program);
+          else this.core._tp_program_change(channel, program);
         },
         panic: () => {
           this.soundingNotes.forEach((notes) => notes.clear());
-          core._tp_panic();
+          this.core._tp_panic();
         },
         panicChannel: this.panicChannel,
-        render: core._tp_render,
+        render: this.core._tp_render,
         reset: () => {
           this.soundingNotes.forEach((notes) => notes.clear());
           this.sustainPedals.fill(0);
           this.sourcePans.fill(64);
-          core._tp_reset();
+          this.core._tp_reset();
           this.applyDrumPresets();
           this.applyPanning();
         },
-        getValue: core.getValue,
+        getValue: this.core.getValue,
       },
       setChipStateDump: this.setChipStateDump,
     });
@@ -149,7 +159,7 @@ export default class MIDIPlayer extends Player {
   }
 
   transposedNote(channel, note) {
-    return channel === 9 || this.drumChannels.has(channel)
+    return channel % 16 === 9 || this.drumChannels.has(channel)
       ? note
       : note + this.transpose;
   }
@@ -157,7 +167,8 @@ export default class MIDIPlayer extends Player {
   noteOn(channel, note, velocity) {
     this.soundingNotes[channel].set(note, { velocity, held: true });
     const pitch = this.transposedNote(channel, note);
-    if (pitch >= 0 && pitch <= 127) core._tp_note_on(channel, pitch, velocity);
+    if (pitch >= 0 && pitch <= 127)
+      this.core._tp_note_on(channel, pitch, velocity);
   }
 
   noteOff(channel, note) {
@@ -165,14 +176,14 @@ export default class MIDIPlayer extends Player {
     if (state && this.sustainPedals[channel] >= 64) state.held = false;
     else this.soundingNotes[channel].delete(note);
     const pitch = this.transposedNote(channel, note);
-    if (pitch >= 0 && pitch <= 127) core._tp_note_off(channel, pitch);
+    if (pitch >= 0 && pitch <= 127) this.core._tp_note_off(channel, pitch);
   }
 
   panicChannel(channel) {
     this.soundingNotes[channel].clear();
-    core._tp_panic_channel(channel);
+    this.core._tp_panic_channel(channel);
     // Muting must silence sustained/releasing notes, not merely send note-off.
-    core._tp_control_change(channel, 120, 0);
+    this.core._tp_control_change(channel, 120, 0);
   }
 
   setTranspose(semitones) {
@@ -182,16 +193,16 @@ export default class MIDIPlayer extends Player {
     this.transpose = next;
     // Retune held and pedal-sustained notes immediately, without seeking.
     this.soundingNotes.forEach((notes, channel) => {
-      if (channel === 9 || this.drumChannels.has(channel)) return;
-      core._tp_control_change(channel, 64, 0);
-      core._tp_panic_channel(channel);
-      core._tp_control_change(channel, 120, 0);
-      core._tp_control_change(channel, 64, this.sustainPedals[channel]);
+      if (channel % 16 === 9 || this.drumChannels.has(channel)) return;
+      this.core._tp_control_change(channel, 64, 0);
+      this.core._tp_panic_channel(channel);
+      this.core._tp_control_change(channel, 120, 0);
+      this.core._tp_control_change(channel, 64, this.sustainPedals[channel]);
       for (const [note, { velocity, held }] of notes) {
         const pitch = this.transposedNote(channel, note);
         if (pitch < 0 || pitch > 127) continue;
-        core._tp_note_on(channel, pitch, velocity);
-        if (!held) core._tp_note_off(channel, pitch);
+        this.core._tp_note_on(channel, pitch, velocity);
+        if (!held) this.core._tp_note_off(channel, pitch);
       }
     });
   }
@@ -257,7 +268,7 @@ export default class MIDIPlayer extends Player {
 
     // Load custom Soundfont if present in the metadata response.
     if (!filepath.startsWith("f:")) {
-      core._tp_set_ch10_melodic(false);
+      this.core._tp_set_ch10_melodic(false);
 
       // Use the best available soundfont based on current loading state
       const currentSoundfont = this.params["soundfont"];
@@ -287,12 +298,17 @@ export default class MIDIPlayer extends Player {
     const useTrackLoops = filepath.includes("SoundFont MIDI");
     const result = this.midiFilePlayer.load(midiFile, useTrackLoops);
 
-    this.activeChannels = [];
-    for (let i = 0; i < 16; i++) {
-      if (this.midiFilePlayer.getChannelInUse(i)) this.activeChannels.push(i);
-    }
-
-    this.sourcePans.fill(64);
+    this.activeChannels = Object.keys(this.midiFilePlayer.channelsInUse)
+      .map(Number)
+      .filter((channel) => this.midiFilePlayer.getChannelInUse(channel));
+    await this.portSynth.prepare(
+      Object.keys(this.midiFilePlayer.channelsInUse).map(Number),
+    );
+    const channelCount = this.midiFilePlayer.channelsInUse.length;
+    this.soundingNotes = Array.from({ length: channelCount }, () => new Map());
+    this.sustainPedals = Array(channelCount).fill(0);
+    this.sourcePans = Array(channelCount).fill(64);
+    this.drumChannels = new Set();
     this.splitPans.clear();
     this.activeChannels.forEach((channel) => {
       const track = this.midiFilePlayer.channelToTrack[channel];
@@ -384,9 +400,11 @@ export default class MIDIPlayer extends Player {
 
   getVoiceName(index) {
     const ch = this.activeChannels[index];
-    const pgm = this.midiFilePlayer.channelProgramNums[ch];
+    const pgm = this.midiFilePlayer.channelProgramNums[ch] ?? 0;
     const instrumentName =
-      ch === 9 ? GM_DRUM_KITS[pgm] || GM_DRUM_KITS[0] : GM_INSTRUMENTS[pgm];
+      ch % 16 === 9
+        ? GM_DRUM_KITS[pgm] || GM_DRUM_KITS[0]
+        : GM_INSTRUMENTS[pgm];
     const areFirstTrackNamesDistinct =
       new Set(
         Object.values(this.midiFilePlayer.channelToTrack)
@@ -403,9 +421,13 @@ export default class MIDIPlayer extends Player {
     // SoundFont bank 128, preset 0 is the standard GM percussion kit.
     // Keep the original channel: merging into channel 10 would couple mute/solo
     // and note-off events from otherwise independent voices.
-    core._fluid_synth_bank_select(core._tp_get_fluid_synth(), channel, 128);
-    core._tp_program_change(channel, 0);
-    core._tp_pitch_bend(channel, 8192);
+    this.core._fluid_synth_bank_select(
+      this.core._tp_get_fluid_synth(),
+      channel,
+      128,
+    );
+    this.core._tp_program_change(channel, 0);
+    this.core._tp_pitch_bend(channel, 8192);
   }
 
   applyDrumPresets() {
@@ -413,9 +435,13 @@ export default class MIDIPlayer extends Player {
   }
 
   restorePitchedChannel(channel) {
-    core._fluid_synth_bank_select(core._tp_get_fluid_synth(), channel, 0);
-    core._tp_program_change(channel, 0);
-    core._tp_pitch_bend(channel, 8192);
+    this.core._fluid_synth_bank_select(
+      this.core._tp_get_fluid_synth(),
+      channel,
+      0,
+    );
+    this.core._tp_program_change(channel, 0);
+    this.core._tp_pitch_bend(channel, 8192);
     // Replay only the channel's already-processed controller/program state.
     // Do not seek the whole player: other voices must continue uninterrupted.
     for (let index = 0; index < this.midiFilePlayer.position; index++) {
@@ -423,13 +449,17 @@ export default class MIDIPlayer extends Player {
       if (event.channel !== channel) continue;
       switch (event.subtype) {
         case MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE:
-          core._tp_program_change(channel, event.param1);
+          this.core._tp_program_change(channel, event.param1);
           break;
         case MIDIEvents.EVENT_MIDI_CONTROLLER:
-          this.midiFilePlayer.synth.controlChange(channel, event.param1, event.param2);
+          this.midiFilePlayer.synth.controlChange(
+            channel,
+            event.param1,
+            event.param2,
+          );
           break;
         case MIDIEvents.EVENT_MIDI_PITCH_BEND:
-          core._tp_pitch_bend(channel, (event.param2 << 7) + event.param1);
+          this.core._tp_pitch_bend(channel, (event.param2 << 7) + event.param1);
           break;
         default:
           break;
@@ -447,7 +477,7 @@ export default class MIDIPlayer extends Player {
             index < this.activeChannels.length,
         )
         .map((index) => this.activeChannels[index])
-        .filter((channel) => channel !== 9),
+        .filter((channel) => channel % 16 !== 9),
     );
     const previous = this.drumChannels;
     const changed =
@@ -471,10 +501,11 @@ export default class MIDIPlayer extends Player {
 
   applyPanning() {
     this.activeChannels.forEach((channel) => {
-      const pan = this.forcedPanning && this.splitPans.has(channel)
-        ? this.splitPans.get(channel)
-        : this.sourcePans[channel];
-      core._tp_control_change(channel, 10, pan);
+      const pan =
+        this.forcedPanning && this.splitPans.has(channel)
+          ? this.splitPans.get(channel)
+          : this.sourcePans[channel];
+      this.core._tp_control_change(channel, 10, pan);
     });
   }
 
@@ -499,11 +530,11 @@ export default class MIDIPlayer extends Player {
   }
 
   setFluidChorus(value) {
-    const fluidSynth = core._tp_get_fluid_synth();
+    const fluidSynth = this.core._tp_get_fluid_synth();
     if (value === 0) {
-      core._fluid_synth_set_chorus_on(fluidSynth, false);
+      this.core._fluid_synth_set_chorus_on(fluidSynth, false);
     } else {
-      core._fluid_synth_set_chorus_on(fluidSynth, true);
+      this.core._fluid_synth_set_chorus_on(fluidSynth, true);
       // FLUID_CHORUS_DEFAULT_N 3 (0 to 99)
       const nr = 3;
       // FLUID_CHORUS_DEFAULT_LEVEL 2.0f (0 to 10)
@@ -517,7 +548,14 @@ export default class MIDIPlayer extends Player {
       //   FLUID_CHORUS_MOD_TRIANGLE = 1
       const type = 0;
       // (fluid_synth_t* synth, int nr, double level, double speed, double depth_ms, int type)
-      core._fluid_synth_set_chorus(fluidSynth, nr, level, speed, depthMs, type);
+      this.core._fluid_synth_set_chorus(
+        fluidSynth,
+        nr,
+        level,
+        speed,
+        depthMs,
+        type,
+      );
     }
   }
 
@@ -527,7 +565,7 @@ export default class MIDIPlayer extends Player {
         value = parseInt(value, 10);
         this.midiFilePlayer.panic();
         this.midiFilePlayer.setUseWebMIDI(false);
-        core._tp_set_synth_engine(value);
+        this.core._tp_set_synth_engine(value);
 
         break;
       case "soundfont": {
@@ -546,8 +584,8 @@ export default class MIDIPlayer extends Player {
         const filename = `${SOUNDFONT_MOUNTPOINT}/${value}`;
         const staged = this.preloadedSoundfonts.get(value);
         const ready = staged
-          ? ensureEmscFileWithData(core, filename, new Uint8Array(staged))
-          : ensureEmscFileWithUrl(core, filename, url);
+          ? ensureEmscFileWithData(this.core, filename, new Uint8Array(staged))
+          : ensureEmscFileWithUrl(this.core, filename, url);
         return ready.then((filename) => {
           this._loadSoundfont(filename);
           this.currentSoundfont = value;
@@ -559,7 +597,7 @@ export default class MIDIPlayer extends Player {
       case "reverb":
         // TODO: call fluidsynth directly from JS, similar to chorus
         value = parseFloat(value);
-        core._tp_set_reverb(value);
+        this.core._tp_set_reverb(value);
         break;
       case "chorus":
         value = parseFloat(value);
@@ -568,7 +606,7 @@ export default class MIDIPlayer extends Player {
       case "fluidpoly":
         // TODO: call fluidsynth directly from JS, similar to chorus
         value = parseInt(value, 10);
-        core._tp_set_polyphony(value);
+        this.core._tp_set_polyphony(value);
         break;
       default:
         console.warn('MIDIPlayer has no parameter with id "%s".', id);
@@ -579,7 +617,7 @@ export default class MIDIPlayer extends Player {
 
   _loadSoundfont(filename) {
     console.log("Loading soundfont %s...", filename);
-    const err = core.ccall(
+    const err = this.core.ccall(
       "tp_load_soundfont",
       "number",
       ["string"],
@@ -607,14 +645,20 @@ export default class MIDIPlayer extends Player {
   // Download while playing, but defer filesystem copies and synth loading to
   // the next track. Both can otherwise stall the synthesis worker.
   preloadSoundfont(soundfontName, onLoadCallback) {
-    if (core.FS.analyzePath(`${SOUNDFONT_MOUNTPOINT}/${soundfontName}`).exists) {
+    if (
+      this.core.FS.analyzePath(`${SOUNDFONT_MOUNTPOINT}/${soundfontName}`)
+        .exists
+    ) {
       onLoadCallback?.();
       return;
     }
     const url = `${SOUNDFONT_URL_PATH}/${soundfontName}`;
     fetch(url)
       .then((response) => {
-        if (!response.ok) throw new Error(`HTTP ${response.status} while fetching ${soundfontName}`);
+        if (!response.ok)
+          throw new Error(
+            `HTTP ${response.status} while fetching ${soundfontName}`,
+          );
         return response.arrayBuffer();
       })
       .then((buffer) => {

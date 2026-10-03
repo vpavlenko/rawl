@@ -11,6 +11,7 @@ import {
 type EnhancedMidiEvent = MidiEvent & {
   absoluteTime: number;
   originalTrack: number;
+  port: number;
 };
 
 function isNoteOrPitchBendEvent(
@@ -24,11 +25,7 @@ function isNoteOrPitchBendEvent(
 }
 
 function isGlobalMetaEvent(event: MidiEvent): boolean {
-  return (
-    "subtype" in event &&
-    typeof event.subtype === "string" &&
-    ["setTempo", "timeSignature", "keySignature"].includes(event.subtype)
-  );
+  return ["setTempo", "timeSignature", "keySignature"].includes(event.type);
 }
 
 function getTrackName(track: MidiEvent[]): string | undefined {
@@ -67,11 +64,12 @@ function ensureTrackEnding(track: MidiEvent[]): MidiEvent[] {
 function findUnusedChannel(
   midi: MidiData,
   usedChannels: Set<number>,
+  port: number,
 ): number | null {
   // Find the first unused channel number between 0-15, skipping channel 9 (drums)
   for (let channel = 0; channel < 16; channel++) {
     if (channel === 9) continue; // Skip drum channel
-    if (!usedChannels.has(channel)) {
+    if (!usedChannels.has(port * 16 + channel)) {
       return channel;
     }
   }
@@ -81,9 +79,11 @@ function findUnusedChannel(
 function getUsedChannels(midi: MidiData): Set<number> {
   const usedChannels = new Set<number>();
   midi.tracks.forEach((track) => {
+    let port = 0;
     track.forEach((event) => {
+      if (event.type === "portPrefix") port = event.port;
       if ("channel" in event) {
-        usedChannels.add(event.channel);
+        usedChannels.add(port * 16 + event.channel);
       }
     });
   });
@@ -112,13 +112,16 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
   // Group tracks by channel
   const channelTracks: Map<number, number[]> = new Map();
   midi.tracks.forEach((track, trackIndex) => {
+    let port = 0;
     track.forEach((event) => {
+      if (event.type === "portPrefix") port = event.port;
       if (isNoteOrPitchBendEvent(event)) {
-        const tracks = channelTracks.get(event.channel) || [];
+        const voice = port * 16 + event.channel;
+        const tracks = channelTracks.get(voice) || [];
         if (!tracks.includes(trackIndex)) {
           tracks.push(trackIndex);
         }
-        channelTracks.set(event.channel, tracks);
+        channelTracks.set(voice, tracks);
       }
     });
   });
@@ -138,7 +141,9 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
 
   midi.tracks.forEach((track, trackIndex) => {
     let absoluteTime = 0;
+    let port = 0;
     track.forEach((event) => {
+      if (event.type === "portPrefix") port = event.port;
       if (event.type === "endOfTrack") return;
       absoluteTime += event.deltaTime;
 
@@ -146,6 +151,7 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
         ...event,
         absoluteTime,
         originalTrack: trackIndex,
+        port,
       } as EnhancedMidiEvent;
 
       if (isGlobalMetaEvent(event)) {
@@ -164,18 +170,20 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
   const processedChannels = new Set<number>();
 
   // Process multi-track channels
-  for (const [channel, trackIndices] of channelTracks.entries()) {
-    if (trackIndices.length <= 1) continue;
+  for (const [voice, trackIndices] of channelTracks.entries()) {
+    const port = Math.floor(voice / 16);
+    const channel = voice % 16;
+    if (trackIndices.length <= 1 || channel === 9) continue;
 
     // Find an unused channel for the left hand
-    const leftHandChannel = findUnusedChannel(midi, usedChannels);
+    const leftHandChannel = findUnusedChannel(midi, usedChannels, port);
     if (leftHandChannel === null) {
       // Skip splitting this channel if no unused channels available
       continue;
     }
 
-    processedChannels.add(channel);
-    usedChannels.add(leftHandChannel); // Reserve this channel
+    processedChannels.add(voice);
+    usedChannels.add(port * 16 + leftHandChannel); // Reserve this channel
 
     const baseTrackName =
       trackIndices
@@ -204,6 +212,16 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
       originalTrack: trackIndices[1],
     } as EnhancedMidiEvent);
 
+    const portEvent = {
+      type: "portPrefix",
+      port,
+      deltaTime: 0,
+      absoluteTime: 0,
+      originalTrack: trackIndices[0],
+    } as EnhancedMidiEvent;
+    rightHandEvents.push(portEvent);
+    leftHandEvents.push(portEvent);
+
     // Add global meta events to both tracks
     let lastMetaTime = 0;
     globalMetaEvents.forEach((event) => {
@@ -221,7 +239,12 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
     mergedEvents.forEach((event) => {
       if (!("channel" in event)) {
         // Handle non-channel events (except global meta events which were handled earlier)
-        if (!isGlobalMetaEvent(event)) {
+        if (
+          !isGlobalMetaEvent(event) &&
+          event.type !== "portPrefix" &&
+          event.type !== "trackName" &&
+          trackIndices.includes(event.originalTrack)
+        ) {
           rightHandLastEventTime = pushEventWithDeltaTime(
             event,
             rightHandEvents,
@@ -236,7 +259,7 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
         return;
       }
 
-      if (event.channel !== channel) return;
+      if (event.port !== port || event.channel !== channel) return;
 
       const isFirstTrack = event.originalTrack === trackIndices[0];
       if (isNoteOrPitchBendEvent(event)) {
@@ -287,13 +310,21 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
       }
     });
 
-    // Clean up events and ensure track endings
-    const cleanedRightHandEvents = rightHandEvents.map(
-      ({ absoluteTime, originalTrack, ...event }) => event,
-    );
-    const cleanedLeftHandEvents = leftHandEvents.map(
-      ({ absoluteTime, originalTrack, ...event }) => event,
-    );
+    // Recompute deltas after merging metadata and channel events.
+    const cleanEvents = (events: EnhancedMidiEvent[]): MidiEvent[] => {
+      let previousTime = 0;
+      return events
+        .sort((a, b) => a.absoluteTime - b.absoluteTime)
+        .map(({ absoluteTime, originalTrack, port: routingPort, ...event }) => {
+          const deltaTime = absoluteTime - previousTime;
+          previousTime = absoluteTime;
+          return event.type === "portPrefix"
+            ? { ...event, port: routingPort, deltaTime }
+            : { ...event, deltaTime };
+        });
+    };
+    const cleanedRightHandEvents = cleanEvents(rightHandEvents);
+    const cleanedLeftHandEvents = cleanEvents(leftHandEvents);
 
     newTracks.push(
       ensureTrackEnding(cleanedRightHandEvents),
@@ -301,14 +332,24 @@ function transformMidi(inputData: Uint8Array): Uint8Array {
     );
   }
 
-  // Add remaining tracks unchanged, ensuring they have end markers
-  midi.tracks.forEach((track, trackIndex) => {
-    const hasProcessedChannel = track.some(
-      (event) => "channel" in event && processedChannels.has(event.channel),
-    );
-    if (!hasProcessedChannel) {
-      newTracks.push(ensureTrackEnding(track));
-    }
+  // Preserve other voices on tracks that also contain a split pair, including
+  // their routing metadata and the time occupied by removed events.
+  midi.tracks.forEach((track) => {
+    let port = 0;
+    let pendingDelta = 0;
+    const remaining: MidiEvent[] = [];
+    track.forEach((event) => {
+      pendingDelta += event.deltaTime;
+      if (event.type === "portPrefix") port = event.port;
+      if (
+        "channel" in event &&
+        processedChannels.has(port * 16 + event.channel)
+      )
+        return;
+      remaining.push({ ...event, deltaTime: pendingDelta });
+      pendingDelta = 0;
+    });
+    newTracks.push(remaining);
   });
 
   // Create new MIDI file

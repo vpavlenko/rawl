@@ -409,33 +409,50 @@ const FrozenNotesLayout: React.FC<FrozenNotesLayoutProps> = ({
         return lengthToNotes;
       });
 
-    const modulations = getModulations(analysis);
-    // Find the latest modulation that occurs before or at the start measure
-    const initialModulation = modulations
-      .filter((mod) => mod.measure <= startMeasure)
-      .reduce(
-        (latest, current) =>
-          current.measure > latest.measure ? current : latest,
-        { measure: -1, tonic: 0 as PitchClass }, // Default to C if no previous modulations
-      );
-
-    // Get all modulations within our slice, including the initial one
-    const relevantModulations = [
-      initialModulation,
-      ...modulations.filter(
-        (mod) => mod.measure > startMeasure && mod.measure <= endMeasure,
-      ),
-    ];
-
-    const frozenAnalysis: FrozenNotesType["analysis"] = {
-      modulations: Object.fromEntries(
-        relevantModulations.map((mod) => [
-          mod.measure === initialModulation.measure
-            ? 1
-            : mod.measure - startMeasure + 1,
-          mod.tonic,
+    const modulations = getModulations(analysis, measuresAndBeats.measures);
+    let frozenModulations: Pick<FrozenNotesType["analysis"], "modulations" | "modulationOnset">;
+    if (Object.keys(analysis.modulationOnset ?? {}).length === 0) {
+      // Keep the existing frozen format for annotations without onset overrides.
+      const initialModulation = modulations
+        .filter((mod) => mod.measure <= startMeasure)
+        .pop() ?? { measure: -1, tonic: 0 as PitchClass };
+      frozenModulations = {
+        modulations: Object.fromEntries([
+          [1, initialModulation.tonic],
+          ...modulations
+            .filter((mod) => mod.measure > startMeasure && mod.measure <= endMeasure)
+            .map((mod) => [mod.measure - startMeasure + 1, mod.tonic]),
         ]),
-      ),
+      };
+    } else {
+      const initialModulation = modulations
+        .filter((mod) => mod.time < startTime)
+        .pop() ?? modulations[0] ?? { measure: -1, tonic: 0 as PitchClass, time: startTime };
+      // Include pickups belonging to the next measure if their onset is in the slice.
+      const relevantModulations = modulations.filter(
+        (mod) => mod.time >= startTime && mod.time < endTime,
+      );
+      const firstMeasureChange = relevantModulations.find(
+        (mod) => mod.measure === startMeasure,
+      );
+      // Reserve measure 0 for the inherited region when measure 1 changes later.
+      const initialKey = firstMeasureChange && firstMeasureChange.time > startTime ? 0 : 1;
+      frozenModulations = {
+        modulations: Object.fromEntries([
+          [initialKey, initialModulation.tonic],
+          ...relevantModulations.map((mod) => [mod.measure - startMeasure + 1, mod.tonic]),
+        ]),
+        modulationOnset: Object.fromEntries([
+          [initialKey, 0],
+          ...relevantModulations.map((mod) => [
+            mod.measure - startMeasure + 1,
+            Math.round((mod.time - startTime) * TIME_SCALE_FACTOR) / TIME_SCALE_FACTOR,
+          ]),
+        ]),
+      };
+    }
+    const frozenAnalysis: FrozenNotesType["analysis"] = {
+      ...frozenModulations,
       measuresAndBeats: {
         measures: deltaCoding(
           measuresAndBeats.measures

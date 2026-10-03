@@ -136,6 +136,8 @@ const AppFooter: React.FC<
     setTempo: (tempo: number) => void;
     transpose: number;
     setTranspose: (semitones: number) => void;
+    persistTranspose: boolean;
+    setPersistTranspose: (persist: boolean) => void;
     firstTonic: number | null;
   } & RouteComponentProps
 > = ({
@@ -152,6 +154,8 @@ const AppFooter: React.FC<
   setTempo,
   transpose,
   setTranspose,
+  persistTranspose,
+  setPersistTranspose,
   firstTonic,
 }) => {
   const context = useContext(AppContext);
@@ -218,6 +222,8 @@ const AppFooter: React.FC<
           value={transpose}
           onChange={setTranspose}
           firstTonic={firstTonic}
+          persist={persistTranspose}
+          onPersistChange={setPersistTranspose}
         />
 
         <TempoSection>

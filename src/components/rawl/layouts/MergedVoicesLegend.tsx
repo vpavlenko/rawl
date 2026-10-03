@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
 import { AppContext } from "../../AppContext";
 import Drum from "../../icons/Drum";
+import StrummingChevrons from "../../icons/StrummingChevrons";
+import Pencil from "../../icons/Pencil";
 import Trash2 from "../../icons/Trash2";
 import { SongNarrative } from "../SongNarrative";
 import { ColoredNotesInVoices } from "../parseMidi";
@@ -68,6 +70,9 @@ type MergedVoicesLegendProps = {
   excludedVoices?: number[];
   drumVoices?: number[];
   nativeDrumVoices?: number[];
+  strummingVoices?: number[];
+  onRenameVoice?: (voiceIndex: number) => void;
+  onToggleVoiceStrumming?: (voiceIndex: number) => void;
   onToggleVoiceDrum?: (voiceIndex: number) => void;
   onToggleVoiceExcluded?: (voiceIndex: number) => void;
   currentTonic?: number;
@@ -85,6 +90,9 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
   excludedVoices = [],
   drumVoices = [],
   nativeDrumVoices = [],
+  onRenameVoice,
+  strummingVoices = [],
+  onToggleVoiceStrumming,
   onToggleVoiceDrum,
   onToggleVoiceExcluded,
 }) => {
@@ -209,6 +217,36 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                     {voiceName}
                   </span>
                 </label>
+                {!!user && onRenameVoice && (
+                  <VoiceActionButton
+                    type="button"
+                    title="Rename voice"
+                    aria-label={`Rename voice ${voiceIndex + 1}: ${voiceName}`}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      onVoiceHover(null);
+                      onRenameVoice(voiceIndex);
+                    }}
+                  >
+                    <Pencil />
+                  </VoiceActionButton>
+                )}
+                {!!user && onToggleVoiceStrumming && !isDrum && (
+                  <VoiceActionButton
+                    type="button"
+                    title={strummingVoices.includes(voiceIndex)
+                      ? "Make not strumming" : "Make strumming"}
+                    aria-label={`${strummingVoices.includes(voiceIndex)
+                      ? "Make not strumming" : "Make strumming"} voice ${voiceIndex + 1}: ${voiceName}`}
+                    aria-pressed={strummingVoices.includes(voiceIndex)}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      onToggleVoiceStrumming(voiceIndex);
+                    }}
+                  >
+                    <StrummingChevrons inward={!strummingVoices.includes(voiceIndex)} />
+                  </VoiceActionButton>
+                )}
                 {!!user &&
                   onToggleVoiceDrum &&
                   !nativeDrumVoices.includes(voiceIndex) && (

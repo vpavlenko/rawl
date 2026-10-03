@@ -284,7 +284,8 @@ export const NewTonicSymbol: React.FC<{
   previousTonic: PitchClass | null;
   modulationDiff: number | null;
   tonicStart: PitchClass;
-}> = ({ left, number, previousTonic, modulationDiff, tonicStart }) => {
+  alignToOnset?: boolean;
+}> = ({ left, number, previousTonic, modulationDiff, tonicStart, alignToOnset = false }) => {
   const transpose = useContext(AnalysisTransposeContext);
   const displayedTonic = tonicStart == null
     ? tonicStart
@@ -296,8 +297,9 @@ export const NewTonicSymbol: React.FC<{
           color: "white",
           position: "absolute",
           top: -2,
-          left:
-            left + (previousTonic === null ? String(number).length * 8 + 10 : 30),
+          left: alignToOnset
+            ? left
+            : left + (previousTonic === null ? String(number).length * 8 + 10 : 30),
           fontSize: 12,
           zIndex: 100,
           fontWeight: 700,
@@ -344,10 +346,9 @@ const Measure: React.FC<{
   showHeader: boolean;
   secondsToX: (number) => number;
   showNonPhraseStarts: boolean;
-  tonicStart?: PitchClass;
+  hasModulationMarker?: boolean;
   selectedPhraseStart: number;
   sectionSpan: MeasuresSpan;
-  previousTonic: PitchClass | null;
   isLastSection: boolean;
   anchorTarget?: { phrase: number; active: boolean; neighbor: string; shortcut?: string };
   canAnchorSection?: boolean;
@@ -363,10 +364,9 @@ const Measure: React.FC<{
   showHeader,
   secondsToX,
   showNonPhraseStarts,
-  tonicStart,
+  hasModulationMarker = false,
   selectedPhraseStart,
   sectionSpan,
-  previousTonic,
   isLastSection,
   anchorTarget,
   canAnchorSection = false,
@@ -384,11 +384,6 @@ const Measure: React.FC<{
 
   const left = secondsToX(span[0]) - 1;
   const width = secondsToX(span[1]) - left - 1;
-
-  let modulationDiff: number | null = null;
-  if (tonicStart !== undefined && previousTonic !== null) {
-    modulationDiff = (tonicStart - previousTonic + 12) % 12;
-  }
 
   const isLastMeasure = number === sectionSpan[1] + 1;
   const showMeasureBar = !isLastMeasure;
@@ -432,15 +427,6 @@ const Measure: React.FC<{
           }}
         />
       )}
-      {showHeader && tonicStart !== undefined && (
-        <NewTonicSymbol
-          left={left}
-          number={number}
-          previousTonic={previousTonic}
-          modulationDiff={modulationDiff}
-          tonicStart={tonicStart}
-        />
-      )}
       {(showNonPhraseStarts || isPhraseStart) && showMeasureBar && (
         <>
           <MeasureBar
@@ -468,9 +454,9 @@ const Measure: React.FC<{
                       ? "orange"
                       : isHighlighted
                       ? "white"
-                      : modulationDiff === null
-                      ? "#666"
-                      : "black",
+                      : hasModulationMarker
+                      ? "black"
+                      : "#666",
                   zIndex: 15,
                   cursor: "pointer",
                   userSelect: "none",
@@ -734,31 +720,28 @@ const TonalGrid: React.FC<{
     secondsToX,
     sectionSpan,
   }) => {
-    const modulations = getModulations(analysis);
-    if (!modulations || !measures) return;
+    if (!measures?.length) return null;
+    const modulations = getModulations(analysis, measures);
+    const hasBoundaryModulation = modulations.some(
+      ({ time }) => time === measures[sectionSpan?.[1]],
+    );
     modulations.push({
       measure: measures.length,
-      tonic: modulations[0].tonic,
+      tonic: modulations[0]?.tonic ?? 0,
+      time: measures[measures.length - 1],
     });
 
     const minX = secondsToX(measures[sectionSpan?.[0] ?? 0]);
     const maxX =
       secondsToX(measures[sectionSpan?.[1] ?? measures.length - 1]) +
-      (modulations.filter(({ measure }) => measure === sectionSpan?.[1])
-        .length > 0
-        ? 30
-        : 0);
+      (hasBoundaryModulation ? 30 : 0);
 
     const result = [];
     for (let i = 0; i + 1 < modulations.length; ++i) {
-      const fromIndex = modulations[i].measure;
-      const toIndex = modulations[i + 1].measure;
-      if (toIndex < 0 || fromIndex >= measures.length) {
-        continue;
-      }
-      const from = measures[Math.max(fromIndex, 0)];
-      const to = measures[Math.min(toIndex, measures.length - 1)];
+      const from = modulations[i].time;
+      const to = modulations[i + 1].time;
       const { tonic } = modulations[i];
+      if (tonic == null) continue;
       const fromX = Math.max(secondsToX(from), minX);
       const toX = Math.min(secondsToX(to), maxX);
       const width = toX - fromX;
@@ -872,20 +855,7 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
     if (sectionSpan == null) {
       sectionSpan = [0, measures.length - 1];
     }
-    const modulationsArray = getModulations(analysis);
-    const modulations = new Map(
-      modulationsArray.map(({ measure, tonic }) => [measure, tonic]),
-    );
-
-    const findPreviousTonic = (currentMeasure: number): PitchClass | null =>
-      modulationsArray.reduce(
-        (acc, { measure, tonic }) =>
-          measure < currentMeasure && measure > acc.measure
-            ? { measure, tonic }
-            : acc,
-        { measure: -Infinity, tonic: null },
-      ).tonic;
-
+    const modulationsArray = getModulations(analysis, measures);
     const showAllMeasureBars = true;
 
     // TODO: filter measures and beats using sectionSpan
@@ -934,6 +904,20 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
     }
     return (
       <div style={{ zIndex: 15 }}>
+        {showHeader && modulationsArray.map((mod, index) => {
+          if (mod.time < measures[sectionSpan[0]] || mod.time >= measures[sectionSpan[1]]) return null;
+          const previousTonic = modulationsArray[index - 1]?.tonic ?? null;
+          const hasOnsetOverride = analysis.modulationOnset?.[mod.measure + 1] != null;
+          return <NewTonicSymbol
+            key={`modulation_${mod.measure}`}
+            left={secondsToX(mod.time) - (hasOnsetOverride ? 0 : 1)}
+            alignToOnset={hasOnsetOverride}
+            number={mod.measure + 1}
+            previousTonic={previousTonic}
+            modulationDiff={previousTonic == null ? null : (mod.tonic - previousTonic + 12) % 12}
+            tonicStart={mod.tonic}
+          />;
+        })}
         {measures.map((time, i) => {
           const number = i + 1;
           const displayNumber = renumberMeasure(
@@ -951,8 +935,9 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
               measureSelection={measureSelection}
               secondsToX={secondsToX}
               showNonPhraseStarts={showAllMeasureBars}
-              tonicStart={modulations.get(i)}
-              previousTonic={findPreviousTonic(i)}
+              hasModulationMarker={modulationsArray.some((mod, index) =>
+                mod.time === time && modulationsArray[index - 1]?.tonic != null,
+              )}
               selectedPhraseStart={selectedPhraseStart}
               sectionSpan={sectionSpan}
               isLastSection={sectionSpan?.[1] + 1 === measures.length}

@@ -11,6 +11,55 @@ export type MeasuresSpan = [number, number]; // one-based numbering, last measur
 
 export type Modulations = { [oneIndexedMeasureStart: number]: PitchClass };
 
+// Note start in seconds, keyed by the modulation's one-based measure.
+// Frozen snippets use seconds relative to the snippet start.
+export type ModulationOnset = { [oneIndexedMeasureStart: number]: number };
+
+export const getModulations = (
+  analysis: Pick<Analysis, "modulations" | "modulationOnset">,
+  measures: number[],
+) =>
+  Object.entries(analysis.modulations || {})
+    .map(([key, tonic]) => {
+      const measure = Number(key) - 1;
+      return {
+        measure,
+        tonic,
+        time: analysis.modulationOnset?.[Number(key)] ?? measures[Math.max(0, measure)],
+      };
+    })
+    .filter(({ time }) => Number.isFinite(time))
+    .sort((a, b) => a.time - b.time || a.measure - b.measure);
+
+export const getTonicAtTime = (
+  seconds: number,
+  modulations: ReturnType<typeof getModulations>,
+  includeBoundary = false,
+): PitchClass => {
+  let i = 0;
+  // Note midpoints exactly on a boundary keep the preceding region.
+  // Playback can include the boundary so its UI changes at the onset itself.
+  while (
+    i + 1 < modulations.length &&
+    (includeBoundary
+      ? modulations[i + 1].time <= seconds
+      : modulations[i + 1].time < seconds)
+  ) i++;
+  return modulations[i]?.tonic ?? null;
+};
+
+export const getTonic = (seconds: number, analysis: Analysis, measures: number[]): PitchClass =>
+  getTonicAtTime(seconds, getModulations(analysis, measures));
+
+export function canSetModulationOnset(
+  note: Note, measure: number | null, analysis: Analysis, measures: number[],
+): boolean {
+  if (measure == null || analysis.modulations[measure] == null) return false;
+  const start = measures[Math.max(0, measure - 2)];
+  const end = measures[measure];
+  return Number.isFinite(note.span[0]) && note.span[0] >= start && note.span[0] < end;
+}
+
 export type MeasureRenumbering = {
   [oneIndexedMeasureStart: number]: PitchClass;
 };
@@ -48,6 +97,7 @@ export type MidiNumberToNoteSpans = {
 
 export type FrozenAnalysis = {
   modulations: Modulations;
+  modulationOnset?: ModulationOnset;
   measuresAndBeats: {
     measures: DeltaCoded<number>;
     beats: DeltaCoded<number>;
@@ -61,6 +111,7 @@ export type FrozenNotes = {
 
 export type Analysis = {
   modulations: Modulations;
+  modulationOnset?: ModulationOnset;
   phrasePatch?: { measure: number; diff: number }[];
   sections?: number[];
   // Keys, section and phrase are zero-based global phrase indices.
@@ -74,6 +125,10 @@ export type Analysis = {
   excludedVoices?: number[];
   // Interpret these original voice indices as GM percussion without remapping notes.
   drumVoices?: number[];
+  // Explicit whole-voice rendering overrides; absent entries use auto detection.
+  strummingVoices?: Record<number, boolean>;
+  // Custom names keyed by original parsed MIDI voice index.
+  voiceNames?: Record<number, string>;
 
   // outdated, was used in winter 2023..24 for rock prototype
   comment: string;
@@ -171,6 +226,13 @@ export const getNewAnalysis = (
         [selectedMeasure]: (note.note.midiNumber % 12) as PitchClass,
       };
       update.modulations = removeIdleModulations(newModulations);
+      if (analysis.modulationOnset) {
+        update.modulationOnset = Object.fromEntries(
+          Object.entries(analysis.modulationOnset).filter(
+            ([measure]) => update.modulations[Number(measure)] !== undefined,
+          ),
+        );
+      }
     }
   }
 
@@ -269,6 +331,13 @@ export function rehydrateAnalysis(
   return {
     analysis: {
       modulations: adjustModulations(frozenAnalysis.modulations, measureStart),
+      ...(frozenAnalysis.modulationOnset ? {
+        modulationOnset: Object.fromEntries(
+          Object.entries(frozenAnalysis.modulationOnset).map(
+            ([measure, time]) => [Number(measure) + measureStart - 1, time],
+          ),
+        ),
+      } : {}),
       comment: "",
       tags: [],
       form: {},

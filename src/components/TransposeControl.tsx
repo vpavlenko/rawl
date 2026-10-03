@@ -159,10 +159,12 @@ function PitchLabel({ text }: { text: string }) {
   );
 }
 
-export default function TransposeControl({ value, onChange, firstTonic }: {
+export default function TransposeControl({ value, onChange, firstTonic, persist, onPersistChange }: {
   value: number;
   onChange: (semitones: number) => void;
   firstTonic: number | null;
+  persist: boolean;
+  onPersistChange: (persist: boolean) => void;
 }) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -247,6 +249,17 @@ export default function TransposeControl({ value, onChange, firstTonic }: {
                 );
               })}
           </Choices>
+          <label
+            style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 12, fontSize: 12, cursor: "pointer" }}
+            title="Keep transposition when loading another song"
+          >
+            <input
+              type="checkbox"
+              checked={persist}
+              onChange={(event) => onPersistChange(event.target.checked)}
+            />
+            persist
+          </label>
         </Picker>
       )}
     </Container>

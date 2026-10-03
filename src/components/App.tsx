@@ -78,7 +78,7 @@ import Blog from "./rawl/blog/Blog";
 import Book from "./rawl/book/Book";
 import BookOnStyles from "./rawl/book/BookOnStyles";
 import Corpus from "./rawl/corpora/Corpus";
-import Orphans from "./rawl/corpora/Orphans";
+import OrphansPage from "./rawl/corpora/OrphansPage";
 import Structures, { StructuresProps } from "./rawl/corpora/Structures";
 import Decomposition from "./rawl/decomposition/Decomposition";
 import Converter from "./rawl/editor/Converter";
@@ -113,6 +113,7 @@ type AppState = {
   currentSongPositionMs: number;
   tempo: number;
   transpose: number;
+  persistTranspose: boolean;
   firstTonic: number | null;
   voiceMask: VoiceMask;
   voiceNames: string[];
@@ -250,6 +251,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       currentSongPositionMs: 0,
       tempo: 1,
       transpose: 0,
+      persistTranspose: false,
       firstTonic: null,
       voiceMask: Array(MAX_VOICES).fill(true),
       voiceNames: Array(MAX_VOICES).fill(""),
@@ -972,6 +974,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.setState({ transpose });
   };
 
+  handlePersistTransposeChange = (persistTranspose: boolean) => {
+    this.setState({ persistTranspose });
+  };
+
   setFirstTonic = (firstTonic: number | null) => {
     this.setState((state) =>
       state.firstTonic === firstTonic ? null : { firstTonic },
@@ -1077,7 +1083,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           this.midiPlayer.setPlaybackStartedCallback(playbackStartedCallback);
 
           this.midiPlayer
-            .loadData(transformedBuffer, this.state.currentMidi?.slug || "")
+            .loadData(transformedBuffer, this.state.currentMidi?.slug || "", true, [], [], this.state.transpose)
             .then((parsingResult) => {
               this.setState({ parsing: parsingResult }, () => {
                 this.setupMidiPlayer();
@@ -1235,8 +1241,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
   ) {
     this.midiPlayer.suspend();
     this.timeSliderStore.publish(EMPTY_TIME_SLIDER_DATA);
+    const transpose = this.state.persistTranspose ? this.state.transpose : 0;
     this.setState({
-      transpose: 0,
+      transpose,
       firstTonic: null,
     });
 
@@ -1271,6 +1278,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
           isLakh ? this.state.analyses[lakhAnalysisKey] : undefined,
           MAX_VOICES,
         ),
+        transpose,
       );
 
       if (signal?.aborted) return;
@@ -1553,7 +1561,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                     <SearchContent>
                       <Switch>
                         <Route path="/old" render={() => <OldLandingPage />} />
-                        <Route exact path="/orphans" component={Orphans} />
+                        <Route exact path="/orphans" component={OrphansPage} />
                         <Route
                           path="/corpus/:corpus?"
                           render={({ match }) =>
@@ -1635,6 +1643,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   setTempo={this.handleTempoChange}
                   transpose={this.state.transpose}
                   setTranspose={this.handleTransposeChange}
+                  persistTranspose={this.state.persistTranspose}
+                  setPersistTranspose={this.handlePersistTransposeChange}
                   firstTonic={this.state.firstTonic}
                 />
 

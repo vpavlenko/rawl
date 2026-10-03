@@ -39,6 +39,10 @@ import {
   PitchClass,
   advanceAnalysis,
   getNewAnalysis,
+  getTonic,
+  getModulations,
+  getTonicAtTime,
+  canSetModulationOnset,
   getExcludedVoices,
   getDrumVoices,
   getPhraseStarts,
@@ -46,7 +50,7 @@ import {
 import { getSectionAnchors, getSectionAnchorShiftTarget, setSectionAnchor } from "./sectionAnchors";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { beautifySlug } from "./corpora/utils";
-import { MouseHandlers } from "./getNoteRectangles";
+import { ModulationOnsetEditingContext, MouseHandlers } from "./getNoteRectangles";
 import LayoutSelector, { SystemLayout } from "./layouts/LayoutSelector";
 import { buildManualMeasuresAndBeats } from "./measures";
 import { generateFormattedScore } from "./notesToInsertConverter";
@@ -70,42 +74,7 @@ export type AppStateForRawl = {
   latencyCorrectionMs?: number;
 };
 
-export const getTonic = (measure: number, analysis: Analysis): PitchClass => {
-  const modulations = getModulations(analysis);
-  let i = 0;
-  while (i + 1 < modulations.length && modulations[i + 1].measure <= measure) {
-    i++;
-  }
-  return modulations[i].tonic as PitchClass;
-};
-
-export const getModulations = (analysis: Analysis) =>
-  Object.entries(analysis.modulations || [])
-    .map((entry) => ({
-      measure: parseInt(entry[0], 10) - 1,
-      tonic: entry[1],
-    }))
-    .sort((a, b) => a.measure - b.measure);
-
-const getSecondsMeasure = (
-  seconds: number,
-  measures: number[] | null,
-): number => {
-  if (!measures) {
-    return -1;
-  }
-  let low = 0;
-  let high = measures.length;
-  while (low < high) {
-    const middle = (low + high) >>> 1;
-    if (measures[middle] < seconds) low = middle + 1;
-    else high = middle;
-  }
-  return (low === measures.length ? measures.length - 1 : low) - 1;
-};
-
-const getNoteMeasure = (note: Note, measures: number[] | null): number =>
-  getSecondsMeasure((note.span[0] + note.span[1]) / 2, measures);
+export { getTonic, getModulations } from "./analysis";
 
 export const getNoteColorPitchClass = (
   note: Note,
@@ -121,8 +90,8 @@ export const getNoteColorPitchClass = (
   }
 
   // Calculate the note's pitch class relative to the tonic
-  const noteMeasure = getNoteMeasure(note, measures);
-  const tonic = getTonic(noteMeasure, analysis);
+  const tonic = getTonic((note.span[0] + note.span[1]) / 2, analysis, measures);
+  if (tonic == null) return "default";
   const pitchClass = (note.note.midiNumber - tonic) % 12;
   // Ensure positive value (JavaScript's % can return negative values)
   return (pitchClass + 12) % 12;
@@ -225,7 +194,8 @@ const Rawl: React.FC<RawlProps> = ({
   }, [savedAnalysis, rawlProps?.savedAnalysis]);
 
   useEffect(() => {
-    setFirstTonic(getModulations(analysis)[0]?.tonic ?? null);
+    setFirstTonic(Object.entries(analysis.modulations)
+      .sort((a, b) => Number(a[0]) - Number(b[0]))[0]?.[1] ?? null);
   }, [analysis.modulations, parsingResult, setFirstTonic]);
 
   const [systemLayout, setSystemLayout] = useState<SystemLayout>("merged");
@@ -239,6 +209,32 @@ const Rawl: React.FC<RawlProps> = ({
       saveAnalysis(updatedAnalysis);
     },
     [saveAnalysis],
+  );
+
+  const annotatedVoiceNames = useMemo(
+    () => voiceNames.map((name, index) => {
+      const customName = analysis.voiceNames?.[index];
+      return typeof customName === "string" && customName.trim()
+        ? customName.trim() : name;
+    }),
+    [voiceNames, analysis.voiceNames],
+  );
+
+  const renameVoice = useCallback(
+    (voiceIndex: number) => {
+      if (!Number.isInteger(voiceIndex) || voiceIndex < 0 || voiceIndex >= voiceNames.length)
+        return;
+      const name = window.prompt(
+        "Rename voice (leave blank to restore the original name)",
+        annotatedVoiceNames[voiceIndex],
+      );
+      if (name === null) return;
+      const next = { ...analysisRef.current.voiceNames };
+      if (name.trim()) next[voiceIndex] = name.trim();
+      else delete next[voiceIndex];
+      commitAnalysisUpdate({ voiceNames: next });
+    },
+    [voiceNames, annotatedVoiceNames, commitAnalysisUpdate],
   );
 
   const [selectedMeasure, setSelectedMeasure] = useState<number | null>(null);
@@ -378,8 +374,42 @@ const Rawl: React.FC<RawlProps> = ({
     [transpose],
   );
 
+  const [shiftHeld, setShiftHeld] = useState(false);
+  useEffect(() => {
+    const updateShift = (event: KeyboardEvent) => setShiftHeld(event.shiftKey);
+    const clearShift = () => setShiftHeld(false);
+    window.addEventListener("keydown", updateShift);
+    window.addEventListener("keyup", updateShift);
+    window.addEventListener("blur", clearShift);
+    return () => {
+      window.removeEventListener("keydown", updateShift);
+      window.removeEventListener("keyup", updateShift);
+      window.removeEventListener("blur", clearShift);
+    };
+  }, []);
+  const onsetEditing = shiftHeld && !enableManualRemeasuring &&
+    selectedMeasure != null && analysis.modulations[selectedMeasure] != null;
+  const committedMeasures = useMemo(
+    () => analysis.measures
+      ? buildManualMeasuresAndBeats(analysis.measures, timingNotes).measures
+      : parsingResult.measuresAndBeats.measures,
+    [analysis.measures, timingNotes, parsingResult],
+  );
+  const isOnsetNoteAllowed = useCallback(
+    (note: Note) => canSetModulationOnset(note, selectedMeasure, analysis, committedMeasures),
+    [selectedMeasure, analysis, committedMeasures],
+  );
+  const onsetEditingContext = useMemo(
+    () => ({ active: onsetEditing, isAllowed: isOnsetNoteAllowed }),
+    [onsetEditing, isOnsetNoteAllowed],
+  );
+
   const handleMouseEnter = useCallback(
     (note: Note) => {
+      if (onsetEditing) {
+        setHoveredNote(note);
+        return;
+      }
       if (!enableManualRemeasuring) {
         if (selectedMeasureRef.current) {
           setHoveredNote(note);
@@ -391,7 +421,7 @@ const Rawl: React.FC<RawlProps> = ({
         }
       }
     },
-    [enableManualRemeasuring, playNote],
+    [enableManualRemeasuring, playNote, onsetEditing],
   );
 
   const handleMouseLeave = useCallback(() => {
@@ -401,15 +431,23 @@ const Rawl: React.FC<RawlProps> = ({
   }, [enableManualRemeasuring]);
 
   const futureAnalysis = useMemo(() => {
-    return hoveredNote
-      ? getNewAnalysis(
-          hoveredNote,
-          selectedMeasureRef.current,
-          enableManualRemeasuring,
-          analysisRef.current,
-        )
-      : analysis;
-  }, [hoveredNote, analysis, enableManualRemeasuring]);
+    if (!hoveredNote) return analysis;
+    if (onsetEditing) {
+      if (!canSetModulationOnset(hoveredNote, selectedMeasure, analysis, committedMeasures)) {
+        return analysis;
+      }
+      return {
+        ...analysis,
+        modulationOnset: { ...analysis.modulationOnset, [selectedMeasure]: hoveredNote.span[0] },
+      };
+    }
+    return getNewAnalysis(
+      hoveredNote,
+      selectedMeasure,
+      enableManualRemeasuring,
+      analysis,
+    );
+  }, [hoveredNote, analysis, selectedMeasure, enableManualRemeasuring, onsetEditing, committedMeasures]);
 
   const measuresAndBeats = useMemo(() => {
     if (futureAnalysis.measures) {
@@ -419,20 +457,42 @@ const Rawl: React.FC<RawlProps> = ({
   }, [futureAnalysis, timingNotes, parsingResult]);
 
   const strumNotes = useMemo(() => {
-    if (!strumEnabled || notes.filter((voice) => voice.length > 0).length < 3)
-      return new Set<string>();
-    // Use committed measure timing so hover previews do not reclassify notes.
-    const timing = analysis.measures
-      ? buildManualMeasuresAndBeats(analysis.measures, timingNotes)
-      : parsingResult.measuresAndBeats;
-    return findStrumNotes(notes, timing?.measures ?? []);
-  }, [
-    strumEnabled,
-    notes,
-    analysis.measures,
-    timingNotes,
-    parsingResult.measuresAndBeats,
-  ]);
+    const result = strumEnabled ? findStrumNotes(notes) : new Set<string>();
+    notes.forEach((voice, voiceIndex) => {
+      const override = analysis.strummingVoices?.[voiceIndex];
+      if (typeof override !== "boolean") return;
+      for (const note of voice) {
+        if (override && !note.isDrum) result.add(note.id);
+        else result.delete(note.id);
+      }
+    });
+    return result;
+  }, [strumEnabled, notes, analysis.strummingVoices]);
+
+  const strummingVoices = useMemo(
+    () => notes.flatMap((voice, index) =>
+      voice.some((note) => strumNotes.has(note.id)) ? [index] : [],
+    ),
+    [notes, strumNotes],
+  );
+
+  const toggleVoiceStrumming = useCallback(
+    (voiceIndex: number) => {
+      if (
+        !Number.isInteger(voiceIndex) ||
+        voiceIndex < 0 ||
+        voiceIndex >= notes.length ||
+        !notes[voiceIndex].some((note) => !note.isDrum)
+      ) return;
+      commitAnalysisUpdate({
+        strummingVoices: {
+          ...analysisRef.current.strummingVoices,
+          [voiceIndex]: !strummingVoices.includes(voiceIndex),
+        },
+      });
+    },
+    [notes, strummingVoices, commitAnalysisUpdate],
+  );
 
   const selectMeasure = useCallback(
     (measure) => {
@@ -680,7 +740,21 @@ const Rawl: React.FC<RawlProps> = ({
   }, [isEmbedded, timeSliderStore]);
 
   const handleNoteClick = useCallback(
-    (note: Note) => {
+    (note: Note, event?: React.MouseEvent) => {
+      const measure = selectedMeasureRef.current;
+      const current = analysisRef.current;
+      if (event?.shiftKey && !enableManualRemeasuring && measure != null &&
+          current.modulations[measure] != null) {
+        if (canSetModulationOnset(note, measure, current, committedMeasures)) {
+          commitAnalysisUpdate({
+            modulationOnset: { ...current.modulationOnset, [measure]: note.span[0] },
+          });
+          selectedMeasureRef.current = null;
+          setSelectedMeasure(null);
+          setHoveredNote(null);
+        }
+        return;
+      }
       if (selectedMeasureRef.current) {
         advanceAnalysis(
           note,
@@ -706,6 +780,7 @@ const Rawl: React.FC<RawlProps> = ({
       commitAnalysisUpdate,
       playNote,
       navigateToSourceLocation,
+      committedMeasures,
     ],
   );
 
@@ -715,6 +790,17 @@ const Rawl: React.FC<RawlProps> = ({
       getCurrentPositionMs() / 1000,
     ),
   );
+  const playbackModulations = useMemo(
+    () => getModulations(futureAnalysis, measuresAndBeats.measures),
+    [futureAnalysis, measuresAndBeats.measures],
+  );
+  const playbackModulationsRef = useRef(playbackModulations);
+  useLayoutEffect(() => {
+    playbackModulationsRef.current = playbackModulations;
+  }, [playbackModulations]);
+  const [playbackTonic, setPlaybackTonic] = useState<PitchClass>(() =>
+    getTonicAtTime(getCurrentPositionMs() / 1000, playbackModulations, true),
+  );
   const drumPlaybackClock = useDrumPlaybackClock();
   const notePlaybackClock = useNotePlaybackClock();
 
@@ -722,6 +808,7 @@ const Rawl: React.FC<RawlProps> = ({
     let running = true;
     let frameId = 0;
     let previousMeasure = playbackMeasure;
+    let previousTonic: PitchClass | undefined;
     drumPlaybackClock.reset();
     notePlaybackClock.reset();
 
@@ -733,6 +820,11 @@ const Rawl: React.FC<RawlProps> = ({
       const position = getCurrentPositionMs();
       // React 16 does not automatically batch requestAnimationFrame updates.
       unstable_batchedUpdates(() => {
+        const tonic = getTonicAtTime(position / 1000, playbackModulationsRef.current, true);
+        if (tonic !== previousTonic) {
+          previousTonic = tonic;
+          setPlaybackTonic(tonic);
+        }
         drumPlaybackClock.advance(position / 1000);
         notePlaybackClock.advance(position / 1000);
         const measure = findPlaybackMeasure(
@@ -777,6 +869,8 @@ const Rawl: React.FC<RawlProps> = ({
 
   const systemClickHandler = useCallback(
     (e: React.MouseEvent, xToSeconds = xToSeconds__) => {
+      if (e.shiftKey && !enableManualRemeasuring && selectedMeasureRef.current != null &&
+          analysisRef.current.modulations[selectedMeasureRef.current] != null) return;
       const targetElement = e.currentTarget as HTMLElement;
       const rect = targetElement.getBoundingClientRect();
       const distance = e.clientX - rect.left + targetElement.scrollLeft;
@@ -812,12 +906,12 @@ const Rawl: React.FC<RawlProps> = ({
     ],
   );
 
-  // Only measure transitions affect the surrounding score/tonic UI.
+  // Update the tonic UI at timestamp boundaries, including pickups.
   const currentTonic = useMemo(() => {
     if (playbackMeasure === null) return 0;
-    const tonic = getTonic(playbackMeasure - 1, futureAnalysis);
+    const tonic = playbackTonic;
     return tonic == null ? tonic : (((tonic + transpose) % 12) + 12) % 12;
-  }, [playbackMeasure, futureAnalysis, transpose]);
+  }, [playbackMeasure, playbackTonic, transpose]);
 
   const mouseHandlers: MouseHandlers = useMemo(
     () => ({
@@ -867,13 +961,16 @@ const Rawl: React.FC<RawlProps> = ({
     () => ({
       notes: coloredNotes,
       voiceMask: arrangementVoiceMask,
-      voiceNames,
+      voiceNames: annotatedVoiceNames,
+      onRenameVoice: canEditVoices ? renameVoice : undefined,
       setVoiceMask: setArrangementVoiceMask,
       onVoiceHover,
       onForcedPanningChange,
       excludedVoices,
       drumVoices,
       nativeDrumVoices,
+      strummingVoices,
+      onToggleVoiceStrumming: canEditVoices ? toggleVoiceStrumming : undefined,
       onToggleVoiceDrum: canEditVoices ? toggleVoiceDrum : undefined,
       onToggleVoiceExcluded: canEditVoices
         ? toggleVoiceExcluded
@@ -896,7 +993,8 @@ const Rawl: React.FC<RawlProps> = ({
     [
       coloredNotes,
       arrangementVoiceMask,
-      voiceNames,
+      annotatedVoiceNames,
+      renameVoice,
       setArrangementVoiceMask,
       onVoiceHover,
       onForcedPanningChange,
@@ -904,6 +1002,8 @@ const Rawl: React.FC<RawlProps> = ({
       drumVoices,
       nativeDrumVoices,
       toggleVoiceDrum,
+      strummingVoices,
+      toggleVoiceStrumming,
       toggleVoiceExcluded,
       canEditVoices,
       measuresAndBeats,
@@ -1043,6 +1143,14 @@ const Rawl: React.FC<RawlProps> = ({
         <div
           key="innerLeftPanel"
           ref={scoreContainerRef}
+          className={onsetEditing ? "modulation-onset-editing" : undefined}
+          onClickCapture={(event) => {
+            if (onsetEditing && event.shiftKey &&
+                !(event.target as Element).closest('[data-modulation-onset-note="true"]')) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+          }}
           style={{
             margin: 0,
             padding: 0,
@@ -1139,37 +1247,42 @@ const Rawl: React.FC<RawlProps> = ({
                 ?.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "center", inline: "center" });
             }}
           />}
-          <StrumNotesContext.Provider value={strumNotes}>
-            <AnalysisTransposeContext.Provider value={transpose}>
-              {systemLayout === "merged" ? (
-                <NotePlaybackContext.Provider value={notePlaybackClock.register}>
-                  <DrumPlaybackContext.Provider value={drumPlaybackClock.register}>
-                    <MergedSystemLayout
+          <ModulationOnsetEditingContext.Provider value={onsetEditingContext}>
+            <StrumNotesContext.Provider value={strumNotes}>
+              <AnalysisTransposeContext.Provider value={transpose}>
+                {systemLayout === "merged" ? (
+                  <NotePlaybackContext.Provider value={notePlaybackClock.register}>
+                    <DrumPlaybackContext.Provider value={drumPlaybackClock.register}>
+                      <MergedSystemLayout
+                        {...systemLayoutProps}
+                        enableManualRemeasuring={enableManualRemeasuring}
+                        isEmbedded={isEmbedded}
+                        usePageScroll={usePageScroll}
+                      />
+                    </DrumPlaybackContext.Provider>
+                  </NotePlaybackContext.Provider>
+                ) : (
+                  <ErrorBoundary
+                    fallback={<div>Error loading Frozen Notes Layout</div>}
+                  >
+                    <FrozenNotesLayout
                       {...systemLayoutProps}
-                      enableManualRemeasuring={enableManualRemeasuring}
-                      isEmbedded={isEmbedded}
-                      usePageScroll={usePageScroll}
+                      saveAnalysis={saveAnalysis}
                     />
-                  </DrumPlaybackContext.Provider>
-                </NotePlaybackContext.Provider>
-              ) : (
-                <ErrorBoundary
-                  fallback={<div>Error loading Frozen Notes Layout</div>}
-                >
-                  <FrozenNotesLayout
-                    {...systemLayoutProps}
-                    saveAnalysis={saveAnalysis}
-                  />
-                </ErrorBoundary>
-              )}
-            </AnalysisTransposeContext.Provider>
-          </StrumNotesContext.Provider>
+                  </ErrorBoundary>
+                )}
+              </AnalysisTransposeContext.Provider>
+            </StrumNotesContext.Provider>
+          </ModulationOnsetEditingContext.Provider>
         </div>
         {!isEmbedded && <LayoutSelector setSystemLayout={setSystemLayout} />}
       </div>
       {slug !== "forge_mock" && (
         <div style={{ color: "gray" }}>
           Shift+hover or click the note to play it separately
+          <br />
+          Select a measure with a modulation, then Shift+click a note in that measure
+          or the previous one to adjust its onset
           <br />
           Press "Space" to play/pause
         </div>

@@ -69,7 +69,12 @@ const GM_DRUM_KIT = {
   87: "🛢️",
 };
 
-type MouseEventHanlder = (note: Note) => void;
+type MouseEventHanlder = (note: Note, event?: React.MouseEvent) => void;
+
+export const ModulationOnsetEditingContext = React.createContext({
+  active: false,
+  isAllowed: (_note: Note) => false,
+});
 
 const DrumEmoji: React.FC<{
   isPlayingNow?: boolean;
@@ -80,8 +85,12 @@ const DrumEmoji: React.FC<{
   top: number;
   zIndex?: number;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
+  onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
+  cursor?: string;
+  onsetAllowed?: boolean;
   children: React.ReactNode;
-}> = ({ isPlayingNow, collapsed, startSeconds, size, left, top, zIndex, onClick, children }) => {
+}> = ({ isPlayingNow, collapsed, startSeconds, size, left, top, zIndex, onClick, onMouseEnter, onMouseLeave, cursor, onsetAllowed, children }) => {
   const elementRef = React.useRef<HTMLDivElement>(null);
   const animationRef = React.useRef<Animation | null>(null);
   const registerDrum = React.useContext(DrumPlaybackContext);
@@ -131,7 +140,11 @@ const DrumEmoji: React.FC<{
   return (
     <div
       ref={elementRef}
+      data-modulation-onset-note={onClick ? "true" : undefined}
+      data-modulation-onset-allowed={onsetAllowed ? "true" : undefined}
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       style={{
         position: "absolute",
         fontSize: collapsed ? 0 : size,
@@ -143,7 +156,7 @@ const DrumEmoji: React.FC<{
         top: collapsed ? top + size / 2 : top,
         backgroundColor: collapsed ? "#888" : undefined,
         pointerEvents: onClick ? "auto" : "none",
-        cursor: onClick ? "e-resize" : undefined,
+        cursor: cursor ?? (onClick ? "e-resize" : undefined),
         fontFamily: "Helvetica, sans-serif",
         color: "white",
         transform: "translateX(-50%)",
@@ -406,6 +419,9 @@ const NoteRectangle = React.memo(({
   sectionEndX?: number;
   sectionStartX?: number;
 }) => {
+  const onsetEditing = React.useContext(ModulationOnsetEditingContext);
+  const onsetCursor = onsetEditing.active && handleNoteClick
+    ? (onsetEditing.isAllowed(note) ? "crosshair" : "not-allowed") : undefined;
   const registerNote = React.useContext(NotePlaybackContext);
   const section = React.useContext(PlaybackSectionContext);
   const voiceZIndices = React.useContext(VoiceZIndicesContext);
@@ -581,11 +597,15 @@ const NoteRectangle = React.memo(({
         left={left}
         top={baseTop - noteHeight / 2}
         zIndex={noteZIndex}
+        cursor={onsetCursor}
+        onMouseEnter={onsetEditing.active ? () => handleMouseEnter(note) : undefined}
+        onMouseLeave={onsetEditing.active ? handleMouseLeave : undefined}
+        onsetAllowed={!!handleNoteClick && onsetEditing.active && onsetEditing.isAllowed(note)}
         onClick={
-          enableManualRemeasuring && handleNoteClick
+          (enableManualRemeasuring || onsetEditing.active) && handleNoteClick
             ? (e) => {
                 e.stopPropagation();
-                handleNoteClick(note);
+                handleNoteClick(note, e);
               }
             : undefined
         }
@@ -596,6 +616,8 @@ const NoteRectangle = React.memo(({
   ) : (
     <div
       ref={elementRef}
+      data-modulation-onset-note={handleNoteClick ? "true" : undefined}
+      data-modulation-onset-allowed={handleNoteClick && onsetEditing.active && onsetEditing.isAllowed(note) ? "true" : undefined}
       key={`nr_${note.id}`}
       className={`${
         hasPitchBend ? "pitch-bend-note" : color
@@ -631,17 +653,17 @@ const NoteRectangle = React.memo(({
         boxSizing: "border-box",
         display: "grid",
         boxShadow: showFullNote && !hasPitchBend ? "0 0 0px 0.5px black" : "",
-        cursor: enableManualRemeasuring
+        cursor: onsetCursor ?? (enableManualRemeasuring
           ? "e-resize"
           : handleNoteClick
           ? "pointer"
-          : "default",
+          : "default"),
         opacity: noteUnderCursor ? 1 : undefined,
       }}
       onClick={(e) => {
         e.stopPropagation();
         if (handleNoteClick) {
-          handleNoteClick(note);
+          handleNoteClick(note, e);
         }
       }}
       onMouseEnter={(e) => !isDrum && handleMouseEnter(note)}

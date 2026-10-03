@@ -6,11 +6,11 @@ import {
   useRef,
   useState,
 } from "react";
-import { DUMMY_CALLBACK, VoiceMask } from "../App";
+import { VoiceMask } from "../App";
 import { Analysis, getPhraseStarts, MeasuresSpan } from "./analysis";
 import { getSectionOffsets } from "./sectionAnchors";
 import { AnalysisGrid, MeasureSelection } from "./AnalysisGrid";
-import { getNoteRectangles, MouseHandlers } from "./getNoteRectangles";
+import { getNoteRectangles, ModulationOnsetEditingContext, MouseHandlers } from "./getNoteRectangles";
 import ControlPanel, { debounce } from "./layouts/ControlPanel";
 import { MeasureNumbers } from "./layouts/MeasureNumbers";
 import MergedVoicesLegend from "./layouts/MergedVoicesLegend";
@@ -146,9 +146,10 @@ export const Voice: React.FC<{
     [pitchedNotes],
   );
 
-  const { systemClickHandler, handleNoteClick, handleMouseEnter } =
+  const { systemClickHandler, handleNoteClick, handleMouseEnter, handleMouseLeave } =
     mouseHandlers;
-  const emptySpaceCursor =
+  const onsetEditing = React.useContext(ModulationOnsetEditingContext);
+  const emptySpaceCursor = onsetEditing.active ? "not-allowed" :
     !enableManualRemeasuring && systemClickHandler ? "text" : "default";
 
   const pitchedHeight =
@@ -193,7 +194,7 @@ export const Voice: React.FC<{
         noteHeight,
         handleNoteClick,
         handleMouseEnter,
-        DUMMY_CALLBACK,
+        handleMouseLeave,
         secondsToX,
         enableManualRemeasuring,
         hoveredColors,
@@ -211,6 +212,7 @@ export const Voice: React.FC<{
       analysis,
       handleNoteClick,
       handleMouseEnter,
+      handleMouseLeave,
       voiceMask,
       noteHeight,
       secondsToX,
@@ -312,6 +314,9 @@ type Section = {
 export type SystemLayoutProps = {
   drumVoices?: number[];
   nativeDrumVoices?: number[];
+  strummingVoices?: number[];
+  onRenameVoice?: (voiceIndex: number) => void;
+  onToggleVoiceStrumming?: (voiceIndex: number) => void;
   onToggleVoiceDrum?: (voiceIndex: number) => void;
   excludedVoices?: number[];
   onToggleVoiceExcluded?: (voiceIndex: number) => void;
@@ -752,6 +757,9 @@ export const MergedSystemLayout: React.FC<
           onForcedPanningChange={props.onForcedPanningChange}
           drumVoices={props.drumVoices}
           nativeDrumVoices={props.nativeDrumVoices}
+          onRenameVoice={props.onRenameVoice}
+          strummingVoices={props.strummingVoices}
+          onToggleVoiceStrumming={props.onToggleVoiceStrumming}
           onToggleVoiceDrum={props.onToggleVoiceDrum}
           excludedVoices={props.excludedVoices}
           onToggleVoiceExcluded={props.onToggleVoiceExcluded}

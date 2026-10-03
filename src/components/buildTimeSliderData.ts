@@ -8,7 +8,7 @@ export function buildTimeSliderData(parsingResult: ParsingResult, analysis: Anal
   const excludedVoices = getExcludedVoices(analysis, parsingResult.notes.length);
   const drumVoices = getDrumVoices(analysis, parsingResult.notes.length);
   const key = JSON.stringify([
-    analysis.measures, analysis.modulations, analysis.sections,
+    analysis.measures, analysis.modulations, analysis.modulationOnset, analysis.sections,
     analysis.phrasePatch, excludedVoices, [...drumVoices].sort(),
   ]);
   return cachedTimeSliderData(parsingResult, key, async () => {
@@ -21,7 +21,7 @@ export function buildTimeSliderData(parsingResult: ParsingResult, analysis: Anal
       ? buildManualMeasuresAndBeats(analysis.measures, timingNotes).measures
       : parsingResult.measuresAndBeats.measures;
     const phraseStarts = getPhraseStarts(analysis, measures.length);
-    const modulations = getModulations(analysis);
+    const modulations = getModulations(analysis, measures);
     const bassNotes = await selectBassNotes(notes.flat(), measures);
     return {
       phraseStartTimesMs: phraseStarts
@@ -30,9 +30,9 @@ export function buildTimeSliderData(parsingResult: ParsingResult, analysis: Anal
       sectionStartTimesMs: (analysis.sections ?? [0])
         .map((section) => measures[phraseStarts[section] - 1] * 1000)
         .filter((time) => Number.isFinite(time) && time >= 0),
-      modulationMarkers: modulations.flatMap(({ measure, tonic }, index) => {
+      modulationMarkers: modulations.flatMap(({ time, tonic }, index) => {
         const previousTonic = modulations[index - 1]?.tonic;
-        const timeMs = measures[measure] * 1000;
+        const timeMs = time * 1000;
         if (tonic == null || previousTonic == null || !Number.isFinite(timeMs) || timeMs < 0)
           return [];
         return [{ timeMs, pitchClass: (tonic - previousTonic + 12) % 12 }];

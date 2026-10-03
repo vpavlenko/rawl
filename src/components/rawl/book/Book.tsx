@@ -609,6 +609,7 @@ const Book: React.FC = () => {
       (s) => s.tag === "book:index",
     );
     const initialTonic =
+      currentSnippet?.frozenNotes.analysis.modulations[0] ??
       currentSnippet?.frozenNotes.analysis.modulations[1] ?? 0;
 
     return (

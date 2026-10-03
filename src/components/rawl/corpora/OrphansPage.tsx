@@ -39,7 +39,7 @@ const Page = styled.div`
   }
 `;
 
-const Orphans: React.FC = () => {
+const OrphansPage: React.FC = () => {
   const [search, setSearch] = React.useState("");
   const query = search.trim().toLowerCase();
   const midis = React.useMemo(
@@ -103,4 +103,4 @@ const Orphans: React.FC = () => {
   );
 };
 
-export default Orphans;
+export default OrphansPage;

@@ -247,9 +247,12 @@ export default class MIDIPlayer extends Player {
     shouldAutoPlay = true,
     excludedVoices = [],
     drumVoices = [],
+    transpose = 0,
   ) {
     this.midiFilePlayer.panic();
-    this.transpose = 0;
+    this.transpose = Number.isFinite(transpose)
+      ? Math.max(-12, Math.min(12, Math.round(transpose)))
+      : 0;
     this.filepathMeta = this.metadataFromFilepath(filepath);
 
     // Load custom Soundfont if present in the metadata response.

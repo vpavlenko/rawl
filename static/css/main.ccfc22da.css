@@ -319,3 +319,14 @@ body,
     margin-top: 60px;
 }
 
+/* Shift-editing a modulation onset: only eligible notes accept the gesture. */
+.modulation-onset-editing,
+.modulation-onset-editing * {
+    cursor: not-allowed !important;
+}
+
+.modulation-onset-editing [data-modulation-onset-allowed="true"],
+.modulation-onset-editing [data-modulation-onset-allowed="true"] * {
+    cursor: crosshair !important;
+}
+

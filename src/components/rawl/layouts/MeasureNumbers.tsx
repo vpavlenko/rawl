@@ -151,6 +151,7 @@ const InlineSnippets: React.FC<{
             ref={(el) => (itemRefs.current[groupIndex] = el)}
             style={{
               position: "absolute",
+              zIndex: 40,
               top: "-20px",
               left: `${left}px`,
               textAlign: "left",
@@ -286,7 +287,9 @@ export const MeasureNumbers: React.FC<{
         height: 16,
         marginBottom: "-15px",
         marginLeft: "0px",
-        zIndex: 40,
+        // Let header grid bars sit below the voice layer, while labels and
+        // snippet controls keep their own higher stacking order.
+        zIndex: sectionSpan ? "auto" : 40,
         position: sectionSpan ? "relative" : "sticky",
         top: 0,
       }}

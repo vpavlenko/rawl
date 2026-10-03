@@ -1,8 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 13">
-  <!-- Imaj7: scale degrees 1–3–5–7, ascending by 4–3–4 semitones.
-       One viewBox unit per semitone; colors match RAWL_COLORS. -->
-  <rect x="0" y="11" width="13" height="2" fill="#ffffff" />
-  <rect x="0" y="7" width="13" height="2" fill="#00fb47" />
-  <rect x="0" y="4" width="13" height="2" fill="#787878" />
-  <rect x="0" y="0" width="13" height="2" fill="#ffff00" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+  <!-- Identical petals meet at the center, over the CCW neighbor and under
+       the CW neighbor. Colors clockwise from the top: 2–3–4–6–7. -->
+  <defs>
+    <path id="petal" d="M10 10 C8.944236 8.395207 6.980319 7.967384 6.505553 5.190306 A3.5 5.5 0 0 1 13.494447 5.190306 C11 6.5 11.2 8.5 10 10Z" />
+  </defs>
+  <use href="#petal" fill="#ff0000" />
+  <use href="#petal" fill="#00fb47" transform="rotate(72 10 10)" />
+  <use href="#petal" fill="#9500b3" transform="rotate(144 10 10)" />
+  <use href="#petal" fill="#03b9d5" transform="rotate(216 10 10)" />
+  <use href="#petal" fill="#ffff00" transform="rotate(288 10 10)" />
 </svg>

@@ -24,6 +24,18 @@ const HeaderContainer = styled.div`
 const NavLinks = styled.div`
   display: flex;
   align-items: center;
+
+  @media (max-width: 640px) {
+    a:nth-of-type(n + 4) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 400px) {
+    a:nth-of-type(n + 3) {
+      display: none;
+    }
+  }
 `;
 
 export const baseLinkStyles = css`
@@ -50,6 +62,10 @@ const ExternalLink = styled.a`
 const ExternalLinks = styled.div`
   display: flex;
   align-items: center;
+
+  @media (max-width: 1700px) {
+    display: none;
+  }
 `;
 
 const NavSearch = styled.div<{ $expanded: boolean }>`
@@ -94,6 +110,18 @@ const NavSearch = styled.div<{ $expanded: boolean }>`
     color: #111;
     font-size: 20px;
     cursor: pointer;
+  }
+
+  @media (max-width: 1700px) {
+    left: auto;
+    right: 8px;
+    transform: none;
+    width: ${({ $expanded }) => ($expanded ? "min(320px, 50%)" : "160px")};
+    max-width: none;
+  }
+
+  @media (max-width: 400px) {
+    width: ${({ $expanded }) => ($expanded ? "50%" : "140px")};
   }
 `;
 

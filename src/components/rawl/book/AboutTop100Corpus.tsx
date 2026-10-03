@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReadableTextBlock } from "./Book";
 import { A } from "./chapters";
 
-const AboutTop100Corpus = (
+const AboutTop100CorpusContent = () => (
   <ReadableTextBlock>
     <h2>How did I pick the pieces?</h2>
     <p>
@@ -105,5 +105,8 @@ const AboutTop100Corpus = (
     </p>
   </ReadableTextBlock>
 );
+
+// Defer Book exports until render: Book imports corpora, which imports this node.
+const AboutTop100Corpus = <AboutTop100CorpusContent />;
 
 export default AboutTop100Corpus;

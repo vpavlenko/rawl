@@ -304,6 +304,7 @@ export const NewTonicSymbol: React.FC<{
           zIndex: 100,
           fontWeight: 700,
           userSelect: "none",
+          pointerEvents: "none",
           textAlign: "left",
         }}
       >
@@ -327,6 +328,7 @@ export const NewTonicSymbol: React.FC<{
           left: left,
           zIndex: 3,
           userSelect: "none",
+          pointerEvents: "none",
           maskImage:
             "linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%)",
           WebkitMaskImage:
@@ -516,6 +518,7 @@ const Measure: React.FC<{
                           onClick={(event) => {
                             event.stopPropagation();
                             measureSelection.anchorSection?.(null);
+                            selectMeasure(null);
                           }}
                         >
                           <Anchor /> Reset
@@ -665,6 +668,7 @@ const Measure: React.FC<{
                     onClick={(event) => {
                       event.stopPropagation();
                       measureSelection.anchorSection?.(anchorTarget.phrase);
+                      selectMeasure(null);
                     }}
                   >
                     <Anchor />

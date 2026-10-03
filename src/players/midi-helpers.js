@@ -346,7 +346,10 @@ MIDIFile.prototype.getTimeEvents = function (tracks) {
     type: "bpm",
     bpm: 120,
     playTime: maxPlayTime,
-    tick: Math.max(...combinedEvents.map(({ tick }) => tick ?? 0)),
+    tick: combinedEvents.reduce(
+      (lastTick, { tick }) => Math.max(lastTick, tick ?? 0),
+      0,
+    ),
   });
   return timeEvents.sort((a, b) => a.playTime - b.playTime);
 };

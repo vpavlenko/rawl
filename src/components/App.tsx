@@ -161,6 +161,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private errorTimer: number;
   private midiPlayer: MIDIPlayer;
   private pendingMidiPlayer: MIDIPlayer | null = null;
+  private audioPlayerReady: Promise<void>;
   private currUrl: string;
   private db: Firestore;
   private mediaSessionAudio: HTMLAudioElement;
@@ -282,7 +283,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
     gainNode.gain.value = 1;
     gainNode.connect(this.audioContext.destination);
     unlockAudioContext(this.audioContext);
-    this.initAudioPlayer(gainNode);
+  }
+
+  componentDidMount() {
+    this.audioPlayerReady = this.initAudioPlayer(this.gainNode);
 
     // Inline processMidiUrls here
     const location = this.props.location;
@@ -1071,7 +1075,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
     await this.playSongBuffer(track, buffer, true, signal);
   };
 
-  loadMidi = (midiBlob: Blob, playbackStartedCallback?: () => void) => {
+  loadMidi = async (midiBlob: Blob, playbackStartedCallback?: () => void) => {
+    await this.audioPlayerReady;
     if (this.midiPlayer) {
       midiBlob
         .arrayBuffer()
@@ -1090,11 +1095,13 @@ class App extends React.Component<RouteComponentProps, AppState> {
               });
             })
             .catch((error) => {
-              // Handle error silently
+              console.error("Error loading MIDI:", error);
+              this.handlePlayerError(error.message);
             });
         })
         .catch((error) => {
-          // Handle error silently
+          console.error("Error reading MIDI:", error);
+          this.handlePlayerError(error.message);
         });
     }
   };

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 13">
+  <!-- Imaj7: scale degrees 1–3–5–7, ascending by 4–3–4 semitones.
+       One viewBox unit per semitone; colors match RAWL_COLORS. -->
+  <rect x="0" y="11" width="13" height="2" fill="#ffffff" />
+  <rect x="0" y="7" width="13" height="2" fill="#00fb47" />
+  <rect x="0" y="4" width="13" height="2" fill="#787878" />
+  <rect x="0" y="0" width="13" height="2" fill="#ffff00" />
+</svg>

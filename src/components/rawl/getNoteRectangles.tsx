@@ -71,7 +71,10 @@ const GM_DRUM_KIT = {
 
 type MouseEventHanlder = (note: Note, event?: React.MouseEvent) => void;
 
-export const ModulationOnsetEditingContext = React.createContext({
+export const ModulationOnsetEditingContext = React.createContext<{
+  active: boolean;
+  isAllowed: (note: Note) => boolean;
+}>({
   active: false,
   isAllowed: (_note: Note) => false,
 });

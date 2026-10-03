@@ -1143,7 +1143,7 @@ const Rawl: React.FC<RawlProps> = ({
         <div
           key="innerLeftPanel"
           ref={scoreContainerRef}
-          className={onsetEditing ? "modulation-onset-editing" : undefined}
+          className={onsetEditing ? "Rawl modulation-onset-editing" : "Rawl"}
           onClickCapture={(event) => {
             if (onsetEditing && event.shiftKey &&
                 !(event.target as Element).closest('[data-modulation-onset-note="true"]')) {
@@ -1160,7 +1160,6 @@ const Rawl: React.FC<RawlProps> = ({
             flexGrow: 1,
             backgroundColor: "black",
           }}
-          className="Rawl"
         >
           {slug && (
             <div

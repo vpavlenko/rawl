@@ -3264,6 +3264,7 @@ export const corpora: CorpusEntry[] = [
     slug: "rimsky-korsakoff",
     midis: ["song-of-the-indian-guest", "flight-of-the-bumblebee",
       "nikolai-rimsky-korsakov---capriccio-espagnol-op.-34-iv.-scena-e-canto-gitano",
+      "zolotoy-petushok", 
     ],
     composerBirthYear: 1844, // Nikolai Rimsky-Korsakov
     genre: "Classical",
@@ -6716,7 +6717,7 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "aziza_mustafa_zadeh_dance_of_fire_2010_live_trio",
       "aziza_mustafa_zadeh_dance_of_fire_2010",
-      "aziza_mustafa_zadeh_dance_of_fire_nicola_morali_solo_piano_cover",
+      "dance_of_fire_nicola_morali",
       "always---aziza-mustafa-zadeh",
     ],
     composerBirthYear: 1969, // Aziza Mustafa Zadeh was born in 1969

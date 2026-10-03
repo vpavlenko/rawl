@@ -10,10 +10,70 @@ import SnippetList from "../SnippetList";
 import EXPLANATIONS from "./explanations";
 
 const PathContainer = styled.div`
+  position: relative;
   height: 100%;
   width: 100%;
   margin: 10px 0 0 0;
   padding: 0;
+`;
+
+const StructureSearch = styled.div`
+  position: absolute;
+  top: 0;
+  right: 8px;
+  z-index: 100001;
+  width: 150px;
+
+  input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 24px;
+    padding: 3px 7px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background: #111;
+    color: white;
+    font-size: 12px;
+
+    &:focus {
+      outline: 1px solid white;
+    }
+  }
+`;
+
+const SearchResults = styled.div`
+  position: absolute;
+  top: 28px;
+  right: 0;
+  width: 280px;
+  max-width: calc(100vw - 16px);
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background: #111;
+  color: #999;
+  font-size: 12px;
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 7px 9px;
+    border: none;
+    background: transparent;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      background: #333;
+    }
+  }
+
+  p {
+    margin: 9px;
+  }
 `;
 
 const MenuContainer = styled.div<{ isRawlVisible?: boolean }>`
@@ -171,7 +231,7 @@ const ChapterCategories = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   gap: 24px;
-  padding: 8px;
+  padding: 8px 172px 8px 8px;
 `;
 
 type ChapterCategories = {
@@ -366,6 +426,7 @@ const Structures: React.FC<StructuresProps> = ({
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [chapterData, setChapterData] = useState<ChapterData[]>([]);
   const [activeChapter, setActiveChapter] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedMeasureStart, setSelectedMeasureStart] = useState<
     number | undefined
   >(undefined);
@@ -573,15 +634,65 @@ const Structures: React.FC<StructuresProps> = ({
     }
   }, [isRawlVisible, eject]);
 
+  const normalizedQuery = searchQuery.trim().toLowerCase().replace(/_/g, " ");
+  const searchResults = normalizedQuery
+    ? chapterData.flatMap(({ chapter, topics }, chapterIndex) =>
+        topics
+          .filter(({ topic }) =>
+            `${chapter} ${topic}`
+              .replace(/_/g, " ")
+              .toLowerCase()
+              .includes(normalizedQuery),
+          )
+          .map(({ topic }) => ({ chapter, chapterIndex, topic })),
+      )
+    : [];
+
   return (
     <PathContainer>
+      <StructureSearch>
+        <input
+          type="search"
+          aria-label="Search structures"
+          placeholder="Search structures"
+          value={searchQuery}
+          onChange={(event) => setSearchQuery(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === "Escape") setSearchQuery("");
+          }}
+        />
+        {normalizedQuery && (
+          <SearchResults>
+            {searchResults.length > 0 ? (
+              searchResults.map(({ chapter, chapterIndex, topic }) => (
+                <button
+                  key={`${chapter}:${topic}`}
+                  onClick={() => {
+                    eject();
+                    setIsRawlVisible(false);
+                    setActiveChapter(chapterIndex);
+                    setActiveTopic(topic);
+                    setSearchQuery("");
+                    history.push(`/s/${chapter}/${topic}`);
+                  }}
+                >
+                  {chapter.replace(/_/g, " ")} · {topic.replace(/_/g, " ")}
+                </button>
+              ))
+            ) : (
+              <p role="status">No structures found.</p>
+            )}
+          </SearchResults>
+        )}
+      </StructureSearch>
       {isRawlVisible ? (
         // Breadcrumb navigation when Rawl is visible
         <div
           style={{
             display: "flex",
             backgroundColor: "black",
-            padding: "8px 16px",
+            padding: "8px 172px 8px 16px",
+            flexWrap: "wrap",
             alignItems: "center",
             gap: "8px",
           }}

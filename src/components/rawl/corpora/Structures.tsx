@@ -347,6 +347,10 @@ const TopicCard = styled.div`
   box-sizing: border-box;
 `;
 
+const StructureTimeline = styled.div`
+  margin: 24px 0;
+`;
+
 const ErrorMessage = styled.div`
   color: red;
   margin-bottom: 10px;
@@ -561,12 +565,14 @@ const TopicContent = React.memo<{
                       {explanation}
                     </div>
                   )}
-                  <ComposerBirthYearTimeline
-                    entries={sortedSnippets.map((entry) => ({
-                      slug: entry.slug,
-                      composer: getComposerInfo(entry.slug),
-                    }))}
-                  />
+                  <StructureTimeline>
+                    <ComposerBirthYearTimeline
+                      entries={sortedSnippets.map((entry) => ({
+                        slug: entry.slug,
+                        composer: getComposerInfo(entry.slug),
+                      }))}
+                    />
+                  </StructureTimeline>
                   <TopicCard>
                     <SnippetList
                       snippets={sortedSnippets.map(({ snippet }) => snippet)}

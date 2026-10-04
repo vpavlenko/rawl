@@ -120,25 +120,24 @@ const TimelineDot = styled.span<{
 
 const TimelineDotTooltip = styled.div<{
   $left: number;
-  $top: number;
   $width: number;
-  $wrap: boolean;
 }>`
   position: absolute;
   z-index: 3;
   left: ${({ $left }) => $left}px;
-  top: ${({ $top }) => $top}px;
-  transform: translateY(-100%);
+  top: 5px;
   width: ${({ $width }) => $width}px;
   box-sizing: border-box;
-  padding: 2px 6px;
+  padding: 0 6px;
   color: #fff;
   background: #000;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 11px;
   line-height: 14px;
   text-align: center;
-  white-space: ${({ $wrap }) => ($wrap ? "normal" : "nowrap")};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   pointer-events: none;
 `;
 
@@ -418,10 +417,6 @@ const ComposerBirthYearTimeline: React.FC<{
     0,
     Math.min(trackWidth - tooltipWidth, tooltipX - tooltipWidth / 2),
   );
-  const activeDotSize = Math.min(
-    8 + 3 * Math.sqrt((composersByYear.get(activeYear ?? -1)?.size ?? 1) - 1),
-    24,
-  );
 
   return (
     <>
@@ -571,13 +566,7 @@ const ComposerBirthYearTimeline: React.FC<{
           {tooltipText && (
             <TimelineDotTooltip
               $left={tooltipLeft}
-              $top={
-                (activePoint ? 32 + activePoint.row * 20 : axisY) -
-                activeDotSize / 2 -
-                2
-              }
               $width={tooltipWidth}
-              $wrap={tooltipContentWidth > tooltipWidth}
               role="tooltip"
             >
               {tooltipText}

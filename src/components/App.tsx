@@ -71,6 +71,7 @@ import {
   Analyses,
   Analysis,
   MeasuresSpan,
+  Snippet,
   getExcludedVoices,
   getDrumVoices,
 } from "./rawl/analysis";
@@ -81,6 +82,7 @@ import Corpus from "./rawl/corpora/Corpus";
 import OrphansPage from "./rawl/corpora/OrphansPage";
 import MusescoreUploadTracker from "./rawl/corpora/MusescoreUploadTracker";
 import Structures, { StructuresProps } from "./rawl/corpora/Structures";
+import ChromaticMinorBassSearch from "./rawl/corpora/ChromaticMinorBassSearch";
 import Decomposition from "./rawl/decomposition/Decomposition";
 import Converter from "./rawl/editor/Converter";
 import Editor from "./rawl/editor/Editor";
@@ -581,6 +583,35 @@ class App extends React.Component<RouteComponentProps, AppState> {
         analyses: { ...previous.analyses, [analysisKey]: analysis },
       }));
     }
+  }
+
+  async saveSnippetForKey(analysisKey: string, snippet: Snippet): Promise<boolean> {
+    if (!analysisKey) throw new Error("Missing analysis key");
+    const analysis = this.state.analyses[analysisKey] || ANALYSIS_STUB;
+    if ((analysis.snippets || []).some((saved) =>
+      saved.tag === snippet.tag &&
+      saved.measuresSpan[0] === snippet.measuresSpan[0] &&
+      saved.measuresSpan[1] === snippet.measuresSpan[1])) {
+      if (this.state.user) await this.saveFirebaseAnnotation(analysisKey, analysis);
+      return false;
+    }
+
+    const updatedAnalysis = {
+      ...analysis,
+      snippets: [...(analysis.snippets || []), snippet],
+    };
+    if (this.state.user) {
+      await this.saveFirebaseAnnotation(analysisKey, updatedAnalysis);
+    } else {
+      if (this.isCleanMode()) this.cleanGuestAnalyses[analysisKey] = updatedAnalysis;
+      await new Promise<void>((resolve) => this.setState((previous) => ({
+        analyses: { ...previous.analyses, [analysisKey]: updatedAnalysis },
+        rawlProps: this.currentAnnotationKey() === analysisKey && previous.rawlProps
+          ? { ...previous.rawlProps, savedAnalysis: updatedAnalysis }
+          : previous.rawlProps,
+      }), resolve));
+    }
+    return true;
   }
 
   async getFirebaseAnnotation(analysisKey: string) {
@@ -1514,6 +1545,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
             selectedAnnotationOwners: this.state.selectedAnnotationOwners,
             selectAnnotation: this.selectAnnotation,
             saveAnalysis: this.saveAnalysis,
+            saveSnippetForKey: this.saveSnippetForKey,
             getFirebaseAnnotation: this.getFirebaseAnnotation,
             saveFirebaseAnnotation: this.saveFirebaseAnnotation,
             deleteFirebaseAnnotation: this.deleteFirebaseAnnotation,
@@ -1523,6 +1555,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
             currentMidi: this.state.currentMidi,
             setCurrentMidi: (currentMidi) => this.setState({ currentMidi }),
             user: this.state.user,
+            loadingUser: this.state.loadingUser,
             seek: this.seekForRawl,
             eject: this.eject,
             currentMidiBuffer: this.state.currentMidiBuffer,
@@ -1587,6 +1620,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                         <Route path="/book/:slug?" component={BookOnStyles} />
                         <Route path="/blog/:postId?/:slug?" component={Blog} />
                         <Route path="/convert" component={Converter} />
+                        <Route exact path="/discover/chromatic-minor-bass" component={ChromaticMinorBassSearch} />
                         {/* Structures routes */}
                         <Route
                           path="/s/"

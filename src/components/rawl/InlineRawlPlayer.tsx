@@ -1,3 +1,5 @@
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { AppContext } from "../AppContext";
@@ -21,8 +23,26 @@ const RawlContainer = styled.div`
   overflow: auto;
 `;
 
+const EjectButton = styled.button`
+  position: fixed;
+  bottom: 50vh;
+  right: 0;
+  background: #333;
+  color: white;
+  border: none;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  z-index: 200001;
+  transition: background-color 0.2s;
+  font-size: 16px;
+
+  &:hover { background: #444; }
+`;
+
 interface InlineRawlPlayerProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   contentRef?: React.Ref<HTMLDivElement>;
   measureStart?: number;
   onEject?: () => void;
@@ -45,7 +65,12 @@ const InlineRawlPlayer: React.FC<InlineRawlPlayerProps> = ({
 
   return (
     <>
-      <ContentArea ref={contentRef}>{children}</ContentArea>
+      {children && <ContentArea ref={contentRef}>{children}</ContentArea>}
+      {currentMidi && (
+        <EjectButton type="button" onClick={handleEject} aria-label="Close example" title="Close example">
+          <FontAwesomeIcon icon={faTimes} size="lg" />
+        </EjectButton>
+      )}
       {currentMidi && rawlProps && rawlProps?.parsingResult && (
         <RawlContainer>
           <Rawl

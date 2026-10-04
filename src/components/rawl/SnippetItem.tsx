@@ -79,6 +79,7 @@ interface SnippetItemProps {
   noteHeight: number;
   isPreview?: boolean;
   hoveredColors?: string[] | null;
+  emphasizedNotes?: ReadonlyArray<readonly [number, number]>;
 }
 
 const SnippetItem: React.FC<SnippetItemProps> = ({
@@ -88,6 +89,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
   noteHeight,
   isPreview = false,
   hoveredColors,
+  emphasizedNotes,
 }) => {
   const appContext = useContext(AppContext);
   const { currentMidi } = appContext;
@@ -211,6 +213,7 @@ const SnippetItem: React.FC<SnippetItemProps> = ({
           isPreview={isPreview}
           phraseStarts={snippet.phraseStarts || []}
           hoveredColors={hoveredColors}
+          emphasizedNotes={emphasizedNotes}
           playing={isCurrentlyPlaying}
           secondsSpan={snippet.secondsSpan}
         />

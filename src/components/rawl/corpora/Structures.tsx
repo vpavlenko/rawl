@@ -1,5 +1,3 @@
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, {
   useCallback,
   useContext,
@@ -218,26 +216,6 @@ const TopicCount = styled.sup<{ active: boolean }>`
   color: ${(props) => (props.active ? "#666" : "#999")};
   font-size: 10px;
   line-height: 0;
-`;
-
-const EjectButton = styled.button`
-  position: fixed;
-  bottom: 50vh; // Position it just above the RawlContainer which is 50vh tall
-  right: 0;
-  background: #333;
-  color: white;
-  border: none;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  padding: 8px 16px;
-  cursor: pointer;
-  z-index: 200001; // Higher than RawlContainer to ensure it's clickable
-  transition: background-color 0.2s;
-  font-size: 16px;
-
-  &:hover {
-    background: #444;
-  }
 `;
 
 const ChapterCategories = styled.div`
@@ -979,33 +957,23 @@ const Structures: React.FC<StructuresProps> = ({
       )}
 
       {isRawlVisible && currentMidi && (
-        <>
-          <EjectButton
-            onClick={() => {
-              eject();
-              setIsRawlVisible(false);
-            }}
-          >
-            <FontAwesomeIcon icon={faTimes} size="lg" />
-          </EjectButton>
-          <InlineRawlPlayer
-            {...rawlProps}
-            contentRef={contentRef}
-            measureStart={selectedMeasureStart}
-            onEject={() => setIsRawlVisible(false)}
-          >
-            <TopicContent
-              activeTopic={activeTopic}
-              activeChapter={activeChapter}
-              chapterData={chapterData}
-              snippets={chapterData[activeChapter]?.topics || []}
-              handleSnippetClick={handleSnippetClick}
-              loadingSnippets={loadingSnippets}
-              availableTags={availableTags}
-              onEditTag={canEditTags ? handleEditTag : undefined}
-            />
-          </InlineRawlPlayer>
-        </>
+        <InlineRawlPlayer
+          {...rawlProps}
+          contentRef={contentRef}
+          measureStart={selectedMeasureStart}
+          onEject={() => setIsRawlVisible(false)}
+        >
+          <TopicContent
+            activeTopic={activeTopic}
+            activeChapter={activeChapter}
+            chapterData={chapterData}
+            snippets={chapterData[activeChapter]?.topics || []}
+            handleSnippetClick={handleSnippetClick}
+            loadingSnippets={loadingSnippets}
+            availableTags={availableTags}
+            onEditTag={canEditTags ? handleEditTag : undefined}
+          />
+        </InlineRawlPlayer>
       )}
     </PathContainer>
   );

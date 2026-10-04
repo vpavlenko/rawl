@@ -2,7 +2,7 @@ import { TimeSliderStore } from "./timeSliderData";
 import { AnnotationVersions } from "./annotationVersions";
 import { User } from "firebase/auth";
 import React from "react";
-import { Analysis, MeasuresSpan } from "./rawl/analysis";
+import { Analysis, MeasuresSpan, Snippet } from "./rawl/analysis";
 import { RawlProps } from "./rawl/Rawl";
 
 export type CurrentMidi = {
@@ -22,6 +22,7 @@ export interface AppContextType {
   selectedAnnotationOwners: Record<string, string>;
   selectAnnotation: (analysisKey: string, ownerId: string) => void;
   saveAnalysis: (analysis: Analysis) => void;
+  saveSnippetForKey: (analysisKey: string, snippet: Snippet) => Promise<boolean>;
   getFirebaseAnnotation: (analysisKey: string) => Promise<Analysis | null>;
   saveFirebaseAnnotation: (
     analysisKey: string,
@@ -37,6 +38,7 @@ export interface AppContextType {
   currentMidi: CurrentMidi | null;
   setCurrentMidi: (currentMidi: CurrentMidi | null) => void;
   user: User | null;
+  loadingUser: boolean;
   seek: (seekMs: number) => void;
   eject: () => void;
   currentMidiBuffer: ArrayBuffer | null;

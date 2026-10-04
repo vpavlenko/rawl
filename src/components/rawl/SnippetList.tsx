@@ -18,6 +18,31 @@ const SnippetListContainer = styled.div<{ isPreview?: boolean }>`
   padding-bottom: 10px;
 `;
 
+const EditTagButton = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid #777;
+  border-radius: 4px;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease, background 120ms ease;
+  &:focus-visible { opacity: 1; pointer-events: auto; }
+  &:hover { background: #333; }
+  @media (hover: none) { opacity: 1; pointer-events: auto; }
+  svg { width: 15px; height: 15px; }
+`;
+
 const SnippetItemWrapper = styled.div<{
   isPreview?: boolean;
   measureCount: number;
@@ -32,6 +57,11 @@ const SnippetItemWrapper = styled.div<{
   width: ${(props) => props.measureCount * PX_IN_MEASURE}px;
   align-items: start;
   gap: 4px;
+
+  &:hover ${EditTagButton}, &:focus-within ${EditTagButton} {
+    opacity: 1;
+    pointer-events: auto;
+  }
 
   ${(props) =>
     props.isLoading &&
@@ -71,13 +101,15 @@ const SnippetItemWrapper = styled.div<{
   `}
 `;
 
-const SlugLabel = styled.div`
+const SlugLabel = styled.div<{ $hasEditButton?: boolean }>`
   color: #fff;
   font-size: 12px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+  box-sizing: border-box;
+  padding-right: ${({ $hasEditButton }) => $hasEditButton ? "28px" : "0"};
   margin: 0;
 `;
 
@@ -263,57 +295,57 @@ const SnippetList: React.FC<SnippetListProps> = ({
             isLoading={loadingSnippets.has(composerSlug)}
           >
             {midiSlug && (
-              <SlugLabel title={lakhInfo?.song || midiSlug}>
+              <SlugLabel $hasEditButton={!!onEditTag} title={lakhInfo?.song || midiSlug}>
                 {lakhInfo?.song || midiSlug}
               </SlugLabel>
             )}
-            {onEditTag && (
+            {onEditTag && editingIndex !== index && (
+              <EditTagButton type="button" title="Edit tag"
+                aria-label={`Edit tag for ${lakhInfo?.song || midiSlug || `snippet ${index + 1}`}`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setTagDraft(snippet.tag);
+                  setTagError("");
+                  setEditingIndex(index);
+                }}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                  aria-hidden="true">
+                  <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+                  <path d="m15 5 4 4" />
+                </svg>
+              </EditTagButton>
+            )}
+            {onEditTag && editingIndex === index && (
               <TagEditor onClick={(event) => event.stopPropagation()}>
-                {editingIndex === index ? (
-                  <>
-                    <input
-                      autoFocus
-                      aria-label={`Tag for ${
-                        lakhInfo?.song || midiSlug || `snippet ${index + 1}`
-                      }`}
-                      list="structure-snippet-tags"
-                      value={tagDraft}
-                      disabled={savingTag}
-                      onChange={(event) => setTagDraft(event.target.value)}
-                      onKeyDown={(event) => {
-                        if (event.key === "Enter")
-                          void saveTag(index, snippet.tag);
-                        if (event.key === "Escape") setEditingIndex(null);
-                      }}
-                    />
-                    <button
-                      disabled={savingTag}
-                      onClick={() => void saveTag(index, snippet.tag)}
-                    >
-                      Save
-                    </button>
-                    <button
-                      disabled={savingTag}
-                      onClick={() => setEditingIndex(null)}
-                    >
-                      Cancel
-                    </button>
-                    {tagError && <span role="alert">{tagError}</span>}
-                  </>
-                ) : (
-                  <button
-                    aria-label={`Edit tag for ${
-                      lakhInfo?.song || midiSlug || `snippet ${index + 1}`
-                    }`}
-                    onClick={() => {
-                      setTagDraft(snippet.tag);
-                      setTagError("");
-                      setEditingIndex(index);
-                    }}
-                  >
-                    Edit tag
-                  </button>
-                )}
+                <input
+                  autoFocus
+                  aria-label={`Tag for ${
+                    lakhInfo?.song || midiSlug || `snippet ${index + 1}`
+                  }`}
+                  list="structure-snippet-tags"
+                  value={tagDraft}
+                  disabled={savingTag}
+                  onChange={(event) => setTagDraft(event.target.value)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter")
+                      void saveTag(index, snippet.tag);
+                    if (event.key === "Escape") setEditingIndex(null);
+                  }}
+                />
+                <button
+                  disabled={savingTag}
+                  onClick={() => void saveTag(index, snippet.tag)}
+                >
+                  Save
+                </button>
+                <button
+                  disabled={savingTag}
+                  onClick={() => setEditingIndex(null)}
+                >
+                  Cancel
+                </button>
+                {tagError && <span role="alert">{tagError}</span>}
               </TagEditor>
             )}
             <SnippetContainer>

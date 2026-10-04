@@ -388,7 +388,9 @@ const Measure: React.FC<{
   const width = secondsToX(span[1]) - left - 1;
 
   const isLastMeasure = number === sectionSpan[1] + 1;
-  const showMeasureBar = !isLastMeasure;
+  // A frozen excerpt can end exactly at a phrase boundary. Keep that final
+  // boundary visible even though there is no following measure to label.
+  const showMeasureBar = !isLastMeasure || isPhraseStart;
   const isPlaybackMeasure = playbackMeasure === number && !isLastMeasure;
 
   const { hoveredMeasuresSpan } = useContext(AppContext);

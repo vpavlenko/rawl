@@ -21,6 +21,7 @@ interface EnhancedFrozenNotesProps {
   isPreview?: boolean;
   hoveredColors?: string[] | null;
   playbackTime?: number | null;
+  emphasizedNotes?: ReadonlyArray<readonly [number, number]>;
 }
 
 const FrozenNotesContainer = styled.div`
@@ -49,7 +50,11 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
   isPreview = false,
   hoveredColors,
   playbackTime = null,
+  emphasizedNotes,
 }) => {
+  const emphasizedNoteKeys = useMemo(() => new Set(
+    emphasizedNotes?.map(([pitch, startCentiseconds]) => `${pitch}:${startCentiseconds}`),
+  ), [emphasizedNotes]);
   const midiRange = useMemo(() => {
     let min = Infinity;
     let max = -Infinity;
@@ -82,10 +87,13 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
             playbackTime !== null &&
             playbackTime >= note.span[0] &&
             playbackTime < note.span[1],
+          noteUnderCursor: emphasizedNoteKeys.has(
+            `${note.note.midiNumber}:${Math.round(note.span[0] * 100)}`,
+          ),
         };
       }),
     );
-  }, [notes, analysis, measuresAndBeats.measures, playbackTime]);
+  }, [notes, analysis, measuresAndBeats.measures, playbackTime, emphasizedNoteKeys]);
 
   const getNoteRectangles = useCallback(
     (notes: ColoredNote[]) =>
@@ -120,6 +128,16 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
     return [paddingLength, endMeasure];
   }, [startMeasure, measuresAndBeats.measures.length]);
 
+  // Mark the right edge when the excerpt ends after a complete four-bar
+  // phrase. Keep the stored phraseStarts limited to starts within the snippet.
+  const displayPhraseStarts = useMemo(() => {
+    const starts = phraseStarts || [];
+    const endBoundary = sectionSpan[1] + 1;
+    return starts.length && endBoundary - starts[starts.length - 1] === 4
+      ? [...starts, endBoundary]
+      : starts;
+  }, [phraseStarts, sectionSpan]);
+
   const memoizedNoteRectangles = useMemo(() => {
     return adjustedNotes.map((voiceNotes) =>
       getNoteRectangles(voiceNotes as ColoredNote[]),
@@ -134,7 +152,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={() => 0}
           noteHeight={16}
-          phraseStarts={phraseStarts || []}
+          phraseStarts={displayPhraseStarts}
           midiRange={[0, 0]}
           measureSelection={dummyMeasureSelection}
           showHeader={true}
@@ -158,7 +176,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={midiNumberToY}
           noteHeight={noteHeight}
-          phraseStarts={phraseStarts || []}
+          phraseStarts={displayPhraseStarts}
           midiRange={midiRange}
           measureSelection={dummyMeasureSelection}
           showHeader={false}

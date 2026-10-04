@@ -173,6 +173,9 @@ const AppHeader: React.FC = () => {
         <HeaderLink to="/s/" style={getLinkStyle("/s")}>
           Structures
         </HeaderLink>
+        <HeaderLink to="/discover/chromatic-minor-bass" style={getLinkStyle("/discover")}>
+          Structural search
+        </HeaderLink>
         <HeaderLink to="/e/" style={getLinkStyle("/e")}>
           Editor
         </HeaderLink>

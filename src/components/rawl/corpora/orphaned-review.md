@@ -1,79 +1,30 @@
 # Orphaned MIDI review
 
-Moved 261 entries from `orphaned` into composer/artist corpora. 189 entries remain pending. New artist entries omit unconfirmed biographical metadata.
+Moved 324 entries from `orphaned` into composer/artist corpora. 126 entries remain pending. New artist entries omit unconfirmed biographical metadata.
 
 ## Decisions needed
 
-- May traditional tunes and exercises use existing themed collections such as `horo`, `happy_birthday`, `bella_ciao`, `tetris_theme_a`, and `examples`?
+- May the remaining traditional tunes and exercises use `bella_ciao`, `tetris_theme_a`, and `examples`?
 - For performer/arranger credits, prefer the original songwriter or the credited performer?
 - Identify the uncertain titles and uploads below, or leave them in `orphaned`.
 
 The links use the existing local server. The historical `orphans.json` snapshot now uses the renamed titles and player links.
 
-## Traditional tunes and existing themed collections (60)
+## Traditional tunes and existing themed collections (11)
 
-- [ala_happy_birthday.midi](http://localhost:3000/f/ala_happy_birthday.midi)
-- [Arnautsko Horo](http://localhost:3000/f/arnautsko-horo)
 - [Bella ciao – Misc Traditional Bella Ciao mélodie 1 main](http://localhost:3000/f/bella-ciao---misc-traditional-bella-ciao-melodie-1-main)
 - [Bella ciao melody](http://localhost:3000/f/bella-ciao-melody)
-- Bulchenska Rachenitsa — piano tutorial — missing from player index (`bulchenska-rachenitsa----piano-tutorial`)
-- [Bulgarian dances , Balkan Brass: Elenino Horo No.1](http://localhost:3000/f/bulgarian-dances-balkan-brass-elenino-horo-no.1)
-- [Djinovsko Horo](http://localhost:3000/f/djinovsko-horo)
-- [Dospatsko Choro](http://localhost:3000/f/dospatsko-choro)
-- [Dospatsko Horo](http://localhost:3000/f/dospatsko-horo)
-- [Dospatsko Oro](http://localhost:3000/f/dospatsko-oro)
-- [Dospatsko Oro – Misc tunes Dospatsko horo](http://localhost:3000/f/dospatsko-oro---misc-tunes-dospatsko-horo)
-- [Ekizliisko Horo](http://localhost:3000/f/ekizliisko-horo)
-- [Filipovsko Horo](http://localhost:3000/f/filipovsko-horo)
-- [Gankino Horo - Misc tunes](http://localhost:3000/f/gankino-horo---misc-tunes)
-- [Gankino Horo – Misc tunes Gankino Horo](http://localhost:3000/f/gankino-horo---misc-tunes-gankino-horo)
-- [Gergebunarsko Horo](http://localhost:3000/f/gergebunarsko-horo)
-- [Greece - Makedonikos Horos](http://localhost:3000/f/greece---makedonikos-horos)
-- [Happy Birthday Akkordeon](http://localhost:3000/f/happy-birthday-akkordeon)
-- [Happy Birthday Easy to play](http://localhost:3000/f/happy-birthday-easy-to-play)
-- [happy_birthday_accordion](http://localhost:3000/f/happy_birthday_accordion)
-- [happy_birthday_easy](http://localhost:3000/f/happy_birthday_easy)
-- [happy_birthday_minor_a-al](http://localhost:3000/f/happy_birthday_minor_a-al)
-- [happy_birthday_to_you](http://localhost:3000/f/happy_birthday_to_you)
-- [happybirthday_simlpe_chords-al](http://localhost:3000/f/happybirthday_simlpe_chords-al)
 - [Hava Nagila](http://localhost:3000/f/hava-nagila-30d02c)
-- [hbd-2-ll112](http://localhost:3000/f/hbd-2-ll112)
-- [hbd-3-ll112](http://localhost:3000/f/hbd-3-ll112)
-- [hbd-negative-harm-ll112](http://localhost:3000/f/hbd-negative-harm-ll112)
-- [Kopanitsa](http://localhost:3000/f/kopanitsa-1)
 - [Korobeiniki / Tetris Theme (Piano Tiles Version)](http://localhost:3000/f/korobeiniki_tetris_theme_piano_tiles_version)
-- [Krivo Horo](http://localhost:3000/f/krivo-horo-1)
-- [Krivo Ihtimansko horo](http://localhost:3000/f/krivo-ihtimansko-horo)
 - [Les yeux noirs](http://localhost:3000/f/les-yeux-noirs)
-- [Lyavo horo](http://localhost:3000/f/lyavo-horo)
-- [Makedonsko Horo](http://localhost:3000/f/makedonsko-horo)
-- [Makedonsko Horo-01-C/Moll-Leadsheeet-Alt Saxophon 1/1](http://localhost:3000/f/makedonsko-horo-01-c-moll-leadsheeet-alt-saxophon-1-1)
-- [Malisjevsko Horo](http://localhost:3000/f/malisjevsko-horo)
 - [Marry Had a Little Lamb](http://localhost:3000/f/marry-had-a-little-lamb)
-- [Mominsko Horo](http://localhost:3000/f/mominsko-horo)
-- [Mominsko Horo](http://localhost:3000/f/mominsko-horo-1)
 - [Murican Tetris .Rag...](http://localhost:3000/f/murican-tetris-.rag)
-- [Novozagorsko Horo](http://localhost:3000/f/novozagorsko-horo)
-- [Petrunino Horo (Muse3)](http://localhost:3000/f/petrunino-horo-muse3)
-- [Pravo Horo](http://localhost:3000/f/pravo-horo-3)
-- [Pravo Horo](http://localhost:3000/f/pravo-horo)
-- [Pravo Trakijsko Horo #1](http://localhost:3000/f/pravo-trakijsko-horo-1)
-- [seymour_daichovo_horo](http://localhost:3000/f/seymour_daichovo_horo)
-- [Shenovo Horo – Maksim Band Shonovo Horo – Maksim Band Shenovo Horo Basset Clarinet](http://localhost:3000/f/shenovo-horo---maksim-band-shonovo-horo---maksim-band-shenovo-horo-basset-clarinet)
-- [Sopsko Horo](http://localhost:3000/f/sopsko-horo)
-- Sopsko Horo — piano tutorial — missing from player index (`sopsko-horo----piano-tutorial`)
-- [Strandzhansko Horo #3](http://localhost:3000/f/strandzhansko-horo-3)
 - [Tetris](http://localhost:3000/f/tetris)
 - [tetris-korobeiniki-tango](http://localhost:3000/f/tetris-korobeiniki-tango)
 - [Tetris/Korobeiniki - Tango](http://localhost:3000/f/tetris-korobeiniki---tango)
 - [Twinkle, Twinkle, Little Star (Easy)](http://localhost:3000/f/twinkle-twinkle-little-star-easy)
-- [Vidinsko Horo](http://localhost:3000/f/vidinsko-horo)
-- [Еленино Хоро](http://localhost:3000/f/elenino-horo)
-- Пернишка ръченица - Ibro Lolov — piano tutorial — missing from player index (`pernishka-rchenica---ibro-lolov----piano-tutorial`)
-- [Право хоро(straight choro)](http://localhost:3000/f/pravo-horo-straight-choro)
-- [Смесено хоро](http://localhost:3000/f/smeseno_horo)
 
-## Exercises, student work, and unidentified uploads (55)
+## Exercises, student work, and unidentified uploads (47)
 
 - [-be3336](http://localhost:3000/f/-be3336)
 - [0ECvNpF9B86e7nwUh2xV](http://localhost:3000/f/0ECvNpF9B86e7nwUh2xV)
@@ -107,14 +58,6 @@ The links use the existing local server. The historical `orphans.json` snapshot 
 - [new](http://localhost:3000/f/new)
 - [nPvQb4Ib3qu3Ju1bt4HC](http://localhost:3000/f/nPvQb4Ib3qu3Ju1bt4HC)
 - [out](http://localhost:3000/f/out)
-- [pirate_melody_16measures](http://localhost:3000/f/pirate_melody_16measures)
-- [pirate_melody_16measures_chromatic](http://localhost:3000/f/pirate_melody_16measures_chromatic)
-- [pirate_melody_16measures_major](http://localhost:3000/f/pirate_melody_16measures_major)
-- [pirate_melody_16measures_scales](http://localhost:3000/f/pirate_melody_16measures_scales)
-- [pirate_melody_16measures_transposed_down](http://localhost:3000/f/pirate_melody_16measures_transposed_down)
-- [pirate_melody_16measures_transpositions](http://localhost:3000/f/pirate_melody_16measures_transpositions)
-- [pirate_melody_16measures_tritone_transposed](http://localhost:3000/f/pirate_melody_16measures_tritone_transposed)
-- [pirate_melody_16measures_whole_tone](http://localhost:3000/f/pirate_melody_16measures_whole_tone)
 - [pyos2](http://localhost:3000/f/pyos2)
 - [pyos3](http://localhost:3000/f/pyos3)
 - [pyos4](http://localhost:3000/f/pyos4)
@@ -131,7 +74,7 @@ The links use the existing local server. The historical `orphans.json` snapshot 
 - [unfinishedpp](http://localhost:3000/f/unfinishedpp)
 - [XXNGQtxz9usxpV0cdsxJ](http://localhost:3000/f/XXNGQtxz9usxpV0cdsxJ)
 
-## Credits or exact work to confirm (74)
+## Credits or exact work to confirm (68)
 
 - [~Beethoven Virus~](http://localhost:3000/f/~beethoven-virus)
 - [Aquarius – Castlevania: Circle of the Moon](http://localhost:3000/f/aquarius---castlevania-circle-of-the-moon)
@@ -171,16 +114,10 @@ The links use the existing local server. The historical `orphans.json` snapshot 
 - [la-bamba.1](http://localhost:3000/f/la-bamba.1)
 - [little-pieces-no.-1---menuet-antique-oguri](http://localhost:3000/f/little-pieces-no.-1---menuet-antique-oguri)
 - [Love Story -Richard Clayderman-](http://localhost:3000/f/love-story--richard-clayderman)
-- [Milca's birthday tango.....](http://localhost:3000/f/milca-s-birthday-tango.....)
 - [On parole - A Paris - Frese nouvele – Anonymous](http://localhost:3000/f/on-parole---a-paris---frese-nouvele---anonymous)
 - [Oyasumi](http://localhost:3000/f/oyasumi)
 - [Peaches \| The Super Mario Bros. Movie](http://localhost:3000/f/peaches-the-super-mario-bros.-movie)
 - [piano-sonata-no.-11-k330---ii.-menuetto](http://localhost:3000/f/piano-sonata-no.-11-k330---ii.-menuetto)
-- [Pirates of the Caribbean - EASY PIANO](http://localhost:3000/f/pirates-of-the-caribbean---easy-piano)
-- [Pirates of the Caribbean - String Quartet](http://localhost:3000/f/pirates-of-the-caribbean---string-quartet)
-- [PIRATES OF THE CARIBBEAN \| Orchestra Arranged by Ted Ricketts](http://localhost:3000/f/pirates_of_the_caribbean_orchestra_arranged_by_ted_ricketts)
-- [Pirates of the Caribbean The Curse of the Black Pearl - He's A Pirate \| Piano Solo](http://localhost:3000/f/pirates_of_the_caribbean_the_curse_of_the_black_pearl_he_s_a_pirate_piano_solo)
-- [pirates_5ch](http://localhost:3000/f/pirates_5ch)
 - [pretty-belinda](http://localhost:3000/f/pretty-belinda)
 - [priboi-mp3](http://localhost:3000/f/priboi-mp3)
 - [satin-doll](http://localhost:3000/f/satin-doll-494333)
@@ -906,4 +843,12 @@ The links use the existing local server. The historical `orphans.json` snapshot 
 
 Verified 16 further MIDI records against their MuseScore source titles and composer credits, renamed 12 slugs, and migrated five matching keys in `analyses.json`. Duplicate titles retain distinct slugs. Firebase documents and the player index were updated together.
 
-See `musescore-orphan-review.json` for all moves and the 109 MuseScore-linked records still pending because their pages could not be read or their composer attribution could not be verified.
+See `musescore-orphan-review.json` for all moves and the 61 MuseScore-linked records still pending because their pages could not be read or their composer attribution could not be verified.
+
+## Themed collection moves (2026-10-04)
+
+Moved all 38 remaining horo, choro, oro, rachenitsa, and kopanitsa entries to `horo`, and all 12 birthday arrangements (including `hbd` variants and Milca’s birthday tango) to `happy_birthday`. Existing slugs and analysis keys are unchanged. Restored the missing Firebase player-index entries for the Bulchenska, Sopsko, and Pernishka piano tutorials; verified all three load in Chrome.
+
+## Pirates of the Caribbean collection moves (2026-10-04)
+
+Moved all 13 remaining Pirates of the Caribbean entries to `he_is_a_pirate_arrangements`, including the eight `pirate_melody_16measures` exercise variants. The base exercise melody matches the He’s a Pirate motif. Existing slugs and analysis keys are unchanged.

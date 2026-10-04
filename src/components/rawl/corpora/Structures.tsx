@@ -213,8 +213,9 @@ const TopicBubble = styled.span<{ active: boolean }>`
   }
 `;
 
-const TopicCount = styled.sup`
+const TopicCount = styled.sup<{ active: boolean }>`
   margin-left: 2px;
+  color: ${(props) => (props.active ? "#666" : "#999")};
   font-size: 10px;
   line-height: 0;
 `;
@@ -945,7 +946,9 @@ const Structures: React.FC<StructuresProps> = ({
                     }}
                   >
                     {topic.replace(/_/g, " ")}
-                    <TopicCount>{snippets.length}</TopicCount>
+                    <TopicCount active={activeTopic === topic}>
+                      {snippets.length}
+                    </TopicCount>
                   </TopicBubble>
                 ))}
             </TopicMenu>

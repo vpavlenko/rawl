@@ -2,6 +2,7 @@ import { faKeyboard } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
+import { CorpusLink } from "../corpora/CorpusLink";
 import { beautifySlug } from "../corpora/utils";
 import {
   Chord,
@@ -1291,10 +1292,15 @@ export const CHAPTERS: Array<{
       <>
         <AuthorshipTag>Written by Vitaly Pavlenko</AuthorshipTag>
         <h2>Functional major</h2>
-        <P>
-          There's a functional harmony for major mode as well. Some chord pairs
-          and longer sequences are more probable than other.
-        </P>
+        <ExampleRow>
+          <P>
+            There's a functional harmony for major mode as well. Some chord pairs
+            and longer sequences are more probable than other.
+          </P>
+          <aside aria-label="Related corpora">
+            <CorpusLink slug="simple_major" />
+          </aside>
+        </ExampleRow>
         <ExampleRow>
           <P>
             Interestingly, functional major and functional minor modes have some
@@ -1382,9 +1388,6 @@ export const CHAPTERS: Array<{
         </P>
         <P>
           <ChordStairs mode={MINOR_MODE} />
-        </P>
-        <P>
-          Same vibe: <ul>{A("michishirube---violet-evergarden-ed")}</ul>
         </P>
       </>
     ),

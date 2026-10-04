@@ -4092,6 +4092,9 @@ export const corpora: CorpusEntry[] = [
       "overcooked---menu-theme",
       "overcooked-2-medley",
       "overcooked-medley",
+      "moreish-mines---overcooked-2", 
+      "overcooked-2---map-theme-piano-solo", 
+      "overcooked-2-carnival-of-chaos---fairground-night", 
     ],
     composerBirthYear: 1980,
     genre: "Video Game Music",
@@ -9369,6 +9372,7 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "simple_major",
     midis: [
+      "overcooked-2---map-theme-piano-solo", 
       "yiruma_its_your_day",
       "yiruma_kiss_the_rain_easy",
       "it-s-your-day---yiruma",

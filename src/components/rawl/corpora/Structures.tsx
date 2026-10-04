@@ -14,7 +14,7 @@ import { pitchColor } from "../colors";
 import InlineRawlPlayer from "../InlineRawlPlayer";
 import ChordStairs from "../legends/ChordStairs";
 import { Chord } from "../legends/chords";
-import SnippetList from "../SnippetList";
+import SnippetList, { getComposerInfo } from "../SnippetList";
 import EXPLANATIONS from "./explanations";
 
 const PathContainer = styled.div`
@@ -102,6 +102,9 @@ const ChapterRow = styled.div`
 
 const ScrollableContent = styled.div`
   flex-grow: 1;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   overflow-y: auto;
   overflow-x: hidden; // Remove horizontal scrolling
   padding-top: 0; // Adjust padding to account for fixed menus
@@ -276,6 +279,11 @@ const CategorySection = styled.div`
   width: fit-content;
 `;
 
+const TopicSection = styled.div`
+  width: 100%;
+  min-width: 0;
+`;
+
 const CategoryHeader = styled.div`
   padding-left: 5px;
   color: #999;
@@ -324,6 +332,8 @@ const ChaptersContainer = styled.div<{ twoColumns?: boolean }>`
 `;
 
 const TopicContainer = styled.div`
+  width: 100%;
+  min-width: 0;
   padding: 0; // Remove padding since we don't need spacing between topics anymore
 `;
 
@@ -334,6 +344,12 @@ const TopicCard = styled.div`
   gap: 20px;
   width: 100%;
   box-sizing: border-box;
+`;
+
+const TimelineHeading = styled.div`
+  padding: 8px 0 6px;
+  color: #999;
+  font-size: 12px;
 `;
 
 const ErrorMessage = styled.div`
@@ -512,6 +528,7 @@ const TopicContent = React.memo<{
   loadingSnippets: Set<string>;
   onEditTag?: (snippet: SnippetWithSlug, tag: string) => Promise<void>;
   availableTags: string[];
+  timelineScrollLeftRef: React.MutableRefObject<number>;
 }>(
   ({
     activeTopic,
@@ -522,6 +539,7 @@ const TopicContent = React.memo<{
     loadingSnippets,
     onEditTag,
     availableTags,
+    timelineScrollLeftRef,
   }) => {
     return (
       <ScrollableContent>
@@ -531,6 +549,17 @@ const TopicContent = React.memo<{
             .map(({ topic, snippets }) => {
               const fullTag = `${chapterData[activeChapter].chapter}:${topic}`;
               const explanation = EXPLANATIONS[fullTag];
+              const birthYears = new Map(
+                snippets.map(({ slug }) => [
+                  slug,
+                  getComposerInfo(slug)?.composerBirthYear,
+                ]),
+              );
+              const chronologicalSnippets = [...snippets].sort((a, b) => {
+                const aYear = birthYears.get(a.slug);
+                const bYear = birthYears.get(b.slug);
+                return (aYear ?? Infinity) - (bYear ?? Infinity);
+              });
 
               return (
                 <TopicContainer key={topic}>
@@ -545,18 +574,19 @@ const TopicContent = React.memo<{
                       {explanation}
                     </div>
                   )}
+                  <TimelineHeading>Composer birth year →</TimelineHeading>
                   <TopicCard>
                     <SnippetList
-                      snippets={snippets.map(({ snippet }) => snippet)}
-                      snippetIds={snippets.map(
+                      snippets={chronologicalSnippets.map(({ snippet }) => snippet)}
+                      snippetIds={chronologicalSnippets.map(
                         ({ analysisKey, snippetIndex }) =>
                           `${analysisKey}:${snippetIndex}`,
                       )}
-                      slugs={snippets.map(({ slug }) => {
+                      slugs={chronologicalSnippets.map(({ slug }) => {
                         return slug;
                       })}
                       onSnippetClick={(snippet, element) => {
-                        const matchingSnippet = snippets.find(
+                        const matchingSnippet = chronologicalSnippets.find(
                           (s) => s.snippet === snippet,
                         );
                         if (matchingSnippet) {
@@ -570,12 +600,14 @@ const TopicContent = React.memo<{
                         }
                       }}
                       isPreview={true}
+                      timeline={true}
+                      timelineScrollLeftRef={timelineScrollLeftRef}
                       noteHeight={3}
                       loadingSnippets={loadingSnippets}
                       availableTags={availableTags}
                       onEditTag={
                         onEditTag &&
-                        ((index, tag) => onEditTag(snippets[index], tag))
+                        ((index, tag) => onEditTag(chronologicalSnippets[index], tag))
                       }
                     />
                   </TopicCard>
@@ -622,6 +654,7 @@ const Structures: React.FC<StructuresProps> = ({
   );
   const contentRef = useRef<HTMLDivElement>(null);
   const scrollAnchorRef = useRef<{ id: string; top: number } | null>(null);
+  const timelineScrollLeftRef = useRef(0);
 
   useEffect(() => {
     if (
@@ -677,6 +710,7 @@ const Structures: React.FC<StructuresProps> = ({
   // Modify the chapter selection handler
   const handleChapterSelect = useCallback(
     (index: number) => {
+      timelineScrollLeftRef.current = 0;
       eject(); // Eject current playback when changing chapter
       setIsRawlVisible(false); // Hide the InlineRawl
       setActiveChapter(index);
@@ -768,6 +802,7 @@ const Structures: React.FC<StructuresProps> = ({
 
   // Modify handleTopicClick to eject current playback
   const handleTopicClick = (topic: string) => {
+    timelineScrollLeftRef.current = 0;
     eject(); // Eject current playback when changing topic
     setIsRawlVisible(false); // Hide the InlineRawl
     setActiveTopic(topic);
@@ -933,6 +968,7 @@ const Structures: React.FC<StructuresProps> = ({
                 <button
                   key={`${chapter}:${topic}`}
                   onClick={() => {
+                    timelineScrollLeftRef.current = 0;
                     eject();
                     setIsRawlVisible(false);
                     setActiveChapter(chapterIndex);
@@ -1111,7 +1147,7 @@ const Structures: React.FC<StructuresProps> = ({
                 <ErrorMessage key={index}>{error}</ErrorMessage>
               ))
             ) : (
-              <CategorySection>
+              <TopicSection>
                 <TopicContent
                   activeTopic={activeTopic}
                   activeChapter={activeChapter}
@@ -1120,9 +1156,10 @@ const Structures: React.FC<StructuresProps> = ({
                   handleSnippetClick={handleSnippetClick}
                   loadingSnippets={loadingSnippets}
                   availableTags={availableTags}
+                  timelineScrollLeftRef={timelineScrollLeftRef}
                   onEditTag={canEditTags ? handleEditTag : undefined}
                 />
-              </CategorySection>
+              </TopicSection>
             )}
           </ScrollableContent>
         </MenuContainer>
@@ -1144,6 +1181,7 @@ const Structures: React.FC<StructuresProps> = ({
             handleSnippetClick={handleSnippetClick}
             loadingSnippets={loadingSnippets}
             availableTags={availableTags}
+            timelineScrollLeftRef={timelineScrollLeftRef}
             onEditTag={canEditTags ? handleEditTag : undefined}
           />
         </InlineRawlPlayer>

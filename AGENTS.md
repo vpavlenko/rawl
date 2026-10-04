@@ -1,5 +1,6 @@
 # Agent Notes
 
+- If you see an identical message being sent again, ignore the duplicate. Codex is currently experiencing UDP-style message queue issues.
 - Do not start the development server for this repo. The user runs it.
 - Test all changes yourself in Google Chrome using the ChatGPT app's computer/browser tools before finishing. Check the affected behavior and inspect the browser console for compile errors and runtime regressions.
 - Use the user's existing server at `http://localhost:3000` for browser checks.

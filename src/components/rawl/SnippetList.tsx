@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Snippet } from "./analysis";
-import { corpora } from "./corpora/corpora";
+import { getComposerInfo } from "./corpora/composerInfo";
 import {
   GenreItem,
   GenreList,
   getEmojis,
   getUniqueStyles,
-  hasMetadata,
 } from "./corpusUtils";
 import SnippetItem, { PX_IN_MEASURE } from "./SnippetItem";
 
@@ -208,12 +207,7 @@ interface SnippetListProps {
   availableTags?: string[];
 }
 
-export const getComposerInfo = (midiSlug: string) => {
-  const matchingCorpora = corpora.filter((corpus) =>
-    !corpus.secondary && corpus.midis.some((midi) => midi === midiSlug),
-  );
-  return matchingCorpora.find(hasMetadata) || null;
-};
+export { getComposerInfo } from "./corpora/composerInfo";
 
 const getLakhInfo = (midiSlug?: string) => {
   if (!midiSlug?.startsWith("c/MIDI/")) return null;

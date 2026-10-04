@@ -1,10 +1,24 @@
 // Metadata filled in using 4o on Dec 6, 2024.
 
 import AboutTop100Corpus from "../book/AboutTop100Corpus";
+import simpleMajorSections from "./simpleMajorSections.json";
+
+export type CorpusSection = {
+  id: string;
+  title: string;
+  description?: string;
+  color?: string;
+  // Starts an ordered range in midis, ending at the next section's first track.
+  startsAtMidi: string;
+};
 
 export type CorpusEntry = {
   slug: string;
   midis: string[];
+  sections?: CorpusSection[];
+  showComposerTimeline?: boolean;
+  // A name overrides the collection slug; null means no single composer.
+  composerName?: string | null;
   // Thematic collections remain directly accessible but are not composer groups.
   secondary?: boolean;
   composerBirthYear?: number;
@@ -20,6 +34,7 @@ export const MUSESCORE_TOP_100_SLUG = "top_100_musescore_composers";
 export const corpora: CorpusEntry[] = [
   {
     slug: "yiruma_misc",
+    composerName: "Yiruma",
     midis: [
       "yiruma_27_may",
       "yiruma_chaconne",
@@ -60,6 +75,7 @@ export const corpora: CorpusEntry[] = [
 
   {
     slug: "yiruma_first_love",
+    composerName: "Yiruma",
     midis: [
       "river-flows-in-you",
       "it-s-your-day---yiruma",
@@ -1278,6 +1294,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "happy_birthday",
+    composerName: null,
     midis: [
       "happy-birthday",
       "happy-birthday-to-you-c-major",
@@ -1509,6 +1526,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "minecraft_c418",
+    composerName: "C418",
     midis: [
       "minecraft---dead-voxel",
       "beginning-minecraft",
@@ -2486,6 +2504,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "national_anthems",
+    composerName: null,
     midis: [
       "zimbabwe-national-anthem",
       "togo-national-anthem",
@@ -2769,6 +2788,7 @@ export const corpora: CorpusEntry[] = [
   { slug: "folk", midis: ["jeux-interdits"] },
   {
     slug: "common_practice_single_pieces",
+    composerName: null,
     midis: ["valsy-griboedova---griboedov-s-waltzes", "chopsticks"],
     composerBirthYear: 1795, // Alexander Griboedov
     genre: "Classical",
@@ -3312,6 +3332,7 @@ export const corpora: CorpusEntry[] = [
     // also see https://musescore.com/sheetmusic?text=%CE%BC%CE%BF%CF%85%CF%83%CE%B9%CE%BA%CE%AE&type=non-official
     // https://musescore.com/sheetmusic?text=%CE%97&type=non-official
     slug: "greek_music",
+    composerName: null,
     midis: [
       "m.-theodorakis---ena-to-helidoni---greek-music-001",
       "g.-katsaros---kathe-limani-kai-kaimos---greek-music-002",
@@ -4127,6 +4148,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "overcooked",
+    composerName: "Oli Wood",
     midis: [
       "overcooked---menu-theme",
       "overcooked-2-medley",
@@ -6688,6 +6710,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "schubert_op9_d365",
+    composerName: "Schubert",
     midis: [
       // simple V I
       // "wima.7e1e-schubert_deut.tanz-d.365.09",
@@ -6876,6 +6899,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "horo",
+    composerName: null,
     midis: [
       "aytoska-rchenica---unknown-aitoska_rachenitsa",
       "backovsko-horo",
@@ -9463,6 +9487,8 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "simple_major",
     secondary: true,
+    sections: simpleMajorSections,
+    showComposerTimeline: true,
     midis: [
       // Primary triads: I, IV and V.
       "dance-suite",
@@ -9470,7 +9496,6 @@ export const corpora: CorpusEntry[] = [
       "chopsticks",
       "zimbabwe-national-anthem",
       "kaqavik",
-      "theme-from-hoosiers",
       "lesotho-national-anthem",
       "alagyas-alaghiyssh-clarinettepiano-komitas-komitas",
       "Good_Bye_Hachiko",
@@ -9486,6 +9511,9 @@ export const corpora: CorpusEntry[] = [
       "old-black-joe-by-stephen-foster",
       "ttng_26_is_dancier_than_4_tablature",
       "marry-had-a-little-lamb",
+      "the-office---opening-titles-theme-song-for-piano",
+      "music_for_airports_1_1-eno",
+      "theme-from-hoosiers",
       "leaves-upon-tess",
       "horimiya-ep-4-untitled-track---masaru-yokoyama-please-don-t-go",
       "schubert_d365_09",
@@ -9499,6 +9527,7 @@ export const corpora: CorpusEntry[] = [
       "gone-from-my-heart---stephen-c.-foster",
       "nigeria-national-anthem",
       "saren-kowga-jowxtm-goc",
+      "za-beograd---boban-markovic",
       "happy-birthday",
       "homecoming-song---abdullah-ibrahim",
       "shepherd-moons---enya",
@@ -9510,14 +9539,17 @@ export const corpora: CorpusEntry[] = [
       "happybirthday_simlpe_chords-al",
       "smth2",
       "turning-page---sleeping-at-last-piano-string-quartet",
-      "devetorka-samokovsko-horo",
       "beethoven---bagatelle-in-a-major-no.-10---op.-119",
       "undertale---memory",
+      "icelandic-dance-op.-11-no.-1---jon-leifs",
       // Triads with vi.
       "Walking_On_a_dream",
       "by-this-river---brian-eno",
       "chinar-es-komitas",
       "prelude-etnika---piano-transcription",
+      "etude-op.-10-no.-5-black-keys-pentatonic-arrangement",
+      "minecraft-title",
+      "devetorka-samokovsko-horo",
       "radino-horo",
       "heathcliff-theme-song",
       "wildfire---syml",
@@ -9530,7 +9562,6 @@ export const corpora: CorpusEntry[] = [
       "run-feat.-ed-sheeran-taylor-s-version-from-the-vault---taylor-swift-run-feat.-ed-sheeran-taylor-s-version-from-the-vault---flute-and-clarinet-duet",
       "m.-loizos---koytsi-kithara---greek-music-048",
       "pinkfong-babyshark-anonymous-20190203093900-nonstop2k.com",
-      "forest-gump---main-title-feather-theme",
       "turning",
       "n.-portokalogloy---to-kalokairaki---greek-music-044",
       "outer-wilds---timber-hearth",
@@ -9557,8 +9588,10 @@ export const corpora: CorpusEntry[] = [
       // Triads with ii.
       "evermore---taylor-swift-feat.-bon-iver",
       "la-senorita---catherine-rollin",
+      "shake-it-off---taylor-swift",
       "nujabes---counting-stars---loop-piano-cover",
       "happy-birthday-waltz",
+      "les-premiers-sourires-de-vanessa-by-richard-clayderman-for-piano",
       "blank-space---taylor-swift-easy-piano",
       "kagayakuquan-a-shining-spring",
       "viridian-pewter-saffron-city---pokemon-rby---junichi-masuda",
@@ -9566,6 +9599,7 @@ export const corpora: CorpusEntry[] = [
       "dreams-of-love-and-literature",
       "yiruma_its_your_day",
       "it-s-your-day---yiruma",
+      "forest-gump---main-title-feather-theme",
       "only-time---enya",
       "someone-you-loved-lewis-capaldi",
       "m.-loizos---o-dromos---greek-music-003",
@@ -9573,10 +9607,12 @@ export const corpora: CorpusEntry[] = [
       "monochrome-filter",
       "heart-of-stone-from-six-the-musical",
       // Triads with iii or vii diminished.
+      "westlife---beautiful-in-white",
       "chariots-of-fire-theme",
       "a-lovely-little-town---brandon-hesslau---buddy-simulator-1984",
       "prologue---evgeny-grinko",
       "cardigan---taylor-swift",
+      "la-bamba.1",
       "tango-flamenco---luis-de-soria-1851---1935",
       "mi-tierra-veracruzana---natalia-lafourcade",
       "Vangelis_Chariots_of_fire",
@@ -9585,6 +9621,7 @@ export const corpora: CorpusEntry[] = [
       "yuri-on-ice---piano-theme-full",
       "goner",
       "yu-nolian-ren-tati---gan-cha-noyin-le-gong-fang",
+      "target-renegade-end-theme---gari-biasillo",
       "when-i-am-dust-in-arcadia",
       "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
       "the-office-theme",
@@ -9596,6 +9633,7 @@ export const corpora: CorpusEntry[] = [
       "fix-you---coldplay",
       "yours-rakuen-by-laura-shgihara",
       "undertale-dog-song-piano-solo",
+      "roberto-cacciapaglia---tema-celeste",
       "letter-to-my-mother---vicenzo-piano",
       "animato-24-pieces-for-children-op.-39-no.-18---dmitri-kabalevsky",
       "titanium",
@@ -9624,20 +9662,24 @@ export const corpora: CorpusEntry[] = [
       "itsumo-nando-demo-always-with-me---spirited-away",
       "Feliz_Navidad",
       "my-feelings",
+      "we-had-today---rachel-portman",
+      "you-and-i---buddy-simulator-1984",
       "revivre-sa-vie--richard-clayderman",
-      // Dominant seventh chords.
+      "prelude-no.-17-bwv-862-in-a-major",
+      // Seventh chords and extensions.
       "wima.4be9-schubert_de.-tanz-d.365.28",
-      "wima.7e1e-schubert_deut.tanz-d.365.09",
       "wima.02f6-schubert_deut.tanz-d.365.33",
+      "wima.1124-schubert_de.-tanz-d.365.26",
+      "wima.7e1e-schubert_deut.tanz-d.365.09",
       "wima.e3f7-schubert_deut.tanzd365.17",
       "wima.3657-schubert_deut.tanzd365.18",
       "wima.e480-schubert_de.-tanz-d.365.25",
-      // Other / mixed seventh chords.
       "dolannes-melody--richard-clayderman",
       "closing-time---yehezkel-raz",
       "lullaby-for-erik---evgeny-grinko",
       "priboi",
       "neil-young---harvest-moon-piano-solo",
+      "priboi-mp3",
       "wedding-ballet---austin-farwell",
       "wima.d5ac-schubert_deut.tanzd365.13",
       "Viva_La_Vida_Coldplay",
@@ -9649,11 +9691,14 @@ export const corpora: CorpusEntry[] = [
       "subwoofer-lullaby-minecraft",
       "wildest-dreams---taylor-swift",
       "awakening---vicenzo-piano",
+      "Someone_Like_You_easy_piano",
+      "someone-like-you-easy-piano",
       "remembering-the-light---kevin-kern",
       "chasing-kou---hidekazu-sakamoto-drowning-love---ni-rerunaihu-mule-bbajin-naipeu-ost",
       "michishirube---violet-evergarden-ed",
       "the-fabelmans---john-williams",
       "hojnacki_1",
+      "tom_hojnacki_it_could_have_been_the_summertime",
       "a-whiter-shade-of-pale-~-david-lanz",
       "major_diatonic_chords",
       "ii-v-i-warmup",

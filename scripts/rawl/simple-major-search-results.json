@@ -1,8 +1,8 @@
 {
   "source": "live Firebase index with local MIDI backups",
-  "indexed": 4024,
-  "attempted": 4030,
-  "scanned": 4020,
+  "indexed": 4030,
+  "attempted": 4032,
+  "scanned": 4022,
   "failures": [
     {
       "slug": "Jupiter_-_arr._for_two_pianos_by_Gustav_Holst",
@@ -47,14 +47,10 @@
   ],
   "corpusWithoutIndexedMidi": [
     "heroes-of-might-and-magic-iii---castle-town-theme",
-    "i-will-wait-for-you---michel-legrand-yyq0hj",
-    "bulchenska-rachenitsa----piano-tutorial",
-    "i-wish.1-ba1559",
-    "sopsko-horo----piano-tutorial",
-    "pernishka-rchenica---ibro-lolov----piano-tutorial"
+    "i-wish.1-ba1559"
   ],
-  "existingCount": 187,
-  "additions": 0,
+  "existingCount": 198,
+  "additions": 9,
   "matches": [
     {
       "slug": "a-house-with-a-heart---brandon-hesslau---buddy-simulator-1984",
@@ -67,12 +63,72 @@
       "inCorpus": true
     },
     {
+      "slug": "a-lovely-little-town---brandon-hesslau---buddy-simulator-1984",
+      "tonic": 4,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 433,
+      "beats": 131.79791666666668,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "a-whiter-shade-of-pale-~-david-lanz",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 2519,
+      "beats": 455.81041666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "alagyas-alaghiyssh-clarinettepiano-komitas-komitas",
+      "tonic": 10,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 141,
+      "beats": 65.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
       "slug": "always-with-me-piano-cover",
       "tonic": 5,
       "chromaticNotes": 0,
       "chromaticDurationShare": 0,
       "noteCount": 1337,
       "beats": 233.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "amazing-grace-choir-saa---john-newton",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 962,
+      "beats": 248.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "b.-bartok-for-children-vol-1-nr-1-children-at-play",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 148,
+      "beats": 47.97291666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "b.-bartok-for-children-vol.-1-nr-38-winter-solstice-song-sz42",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 564,
+      "beats": 181.89791666666667,
       "existing": true,
       "inCorpus": true
     },
@@ -97,6 +153,104 @@
       "inCorpus": true
     },
     {
+      "slug": "beethoven---bagatelle-in-a-major-no.-10---op.-119",
+      "tonic": 4,
+      "keyRegions": [
+        {
+          "tonic": 4,
+          "start": 0
+        },
+        {
+          "tonic": 9,
+          "start": 8
+        },
+        {
+          "tonic": 4,
+          "start": 16
+        },
+        {
+          "tonic": 9,
+          "start": 24
+        }
+      ],
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 117,
+      "beats": 38.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "blank-space---taylor-swift-easy-piano",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 438,
+      "beats": 139.79791666666668,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "butterfly",
+      "tonic": 4,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 931,
+      "beats": 403.99791666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "by-this-river---brian-eno",
+      "tonic": 10,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 736,
+      "beats": 235.59791666666666,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "chariots-of-fire-theme",
+      "tonic": 1,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1013,
+      "beats": 247.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "chasing-cars---snow-patrol",
+      "tonic": 9,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 2099,
+      "beats": 455.97291666666666,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "chopsticks",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 853,
+      "beats": 237.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "city-lights---austin-farwell",
+      "tonic": 3,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 535,
+      "beats": 138.49791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
       "slug": "closing-time---yehezkel-raz",
       "tonic": 4,
       "chromaticNotes": 0,
@@ -113,6 +267,26 @@
       "chromaticDurationShare": 0,
       "noteCount": 626,
       "beats": 162.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "devetorka-samokovsko-horo",
+      "tonic": 9,
+      "keyRegions": [
+        {
+          "tonic": 9,
+          "start": 0
+        },
+        {
+          "tonic": 7,
+          "start": 126
+        }
+      ],
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 467,
+      "beats": 268.99791666666664,
       "existing": true,
       "inCorpus": true
     },
@@ -137,6 +311,36 @@
       "inCorpus": true
     },
     {
+      "slug": "enchanted-taylor-s-version---taylor-swift",
+      "tonic": 8,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 431,
+      "beats": 163.79791666666668,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "etude-op.-10-no.-5-black-keys-pentatonic-arrangement",
+      "tonic": 6,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1480,
+      "beats": 169.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "evermore---taylor-swift-feat.-bon-iver",
+      "tonic": 1,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1146,
+      "beats": 503.7729166666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
       "slug": "fado-de-coimbra---anonimo",
       "tonic": 7,
       "chromaticNotes": 0,
@@ -157,6 +361,16 @@
       "inCorpus": true
     },
     {
+      "slug": "Feliz_Navidad",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 320,
+      "beats": 127.83125,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
       "slug": "fix-you---coldplay",
       "tonic": 3,
       "chromaticNotes": 0,
@@ -167,12 +381,84 @@
       "inCorpus": true
     },
     {
+      "slug": "forest-gump---main-title-feather-theme",
+      "tonic": 9,
+      "keyRegions": [
+        {
+          "tonic": 9,
+          "start": 0
+        },
+        {
+          "tonic": 0,
+          "pickupStart": 148,
+          "start": 152
+        }
+      ],
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 734,
+      "beats": 267.99791666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "forest-gump---main-title-feather-theme",
+      "tonic": 9,
+      "keyRegions": [
+        {
+          "tonic": 9,
+          "start": 0
+        },
+        {
+          "tonic": 0,
+          "pickupStart": 148,
+          "start": 152
+        }
+      ],
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 734,
+      "beats": 267.99791666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "four-chord-song",
+      "tonic": 4,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 2627,
+      "beats": 663.7479166666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
       "slug": "georgy_zakharov_hw5",
       "tonic": 0,
       "chromaticNotes": 0,
       "chromaticDurationShare": 0,
       "noteCount": 162,
       "beats": 63.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "gone-from-my-heart---stephen-c.-foster",
+      "tonic": 2,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 251,
+      "beats": 62.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "goner",
+      "tonic": 9,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1424,
+      "beats": 240.89791666666667,
       "existing": true,
       "inCorpus": true
     },
@@ -257,12 +543,112 @@
       "inCorpus": true
     },
     {
+      "slug": "heart-of-stone-from-six-the-musical",
+      "tonic": 5,
+      "keyRegions": [
+        {
+          "tonic": 5,
+          "start": 0
+        },
+        {
+          "tonic": 7,
+          "start": 472
+        }
+      ],
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1108,
+      "beats": 603.7979166666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "heathcliff-theme-song",
+      "tonic": 7,
+      "keyRegions": [
+        {
+          "tonic": 7,
+          "start": 0
+        },
+        {
+          "tonic": 8,
+          "start": 96
+        }
+      ],
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 776,
+      "beats": 112.49791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
       "slug": "here-s-your-perfect---jamie-miller",
       "tonic": 7,
       "chromaticNotes": 0,
       "chromaticDurationShare": 0,
       "noteCount": 777,
       "beats": 152,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "hojnacki_1",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 550,
+      "beats": 204.8,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "icelandic-dance-op.-11-no.-1---jon-leifs",
+      "tonic": 6,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1163,
+      "beats": 451.33125,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "ii-v-i-warmup",
+      "tonic": 0,
+      "keyRegions": [
+        {
+          "tonic": 0,
+          "start": 0
+        },
+        {
+          "tonic": 10,
+          "start": 16
+        },
+        {
+          "tonic": 8,
+          "start": 32
+        },
+        {
+          "tonic": 6,
+          "start": 48
+        },
+        {
+          "tonic": 4,
+          "start": 64
+        },
+        {
+          "tonic": 2,
+          "start": 80
+        },
+        {
+          "tonic": 0,
+          "start": 96
+        }
+      ],
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 457,
+      "beats": 115.79791666666667,
       "existing": true,
       "inCorpus": true
     },
@@ -317,12 +703,86 @@
       "inCorpus": true
     },
     {
+      "slug": "la-bamba.1",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 2174,
+      "beats": 336.2708333333333,
+      "existing": false,
+      "inCorpus": true
+    },
+    {
+      "slug": "la-senorita---catherine-rollin",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 389,
+      "beats": 214.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "les-premiers-sourires-de-vanessa-by-richard-clayderman-for-piano",
+      "tonic": 4,
+      "keyRegions": [
+        {
+          "tonic": 4,
+          "start": 0
+        },
+        {
+          "tonic": 9,
+          "start": 66
+        },
+        {
+          "tonic": 2,
+          "start": 166
+        }
+      ],
+      "chromaticNotes": 8,
+      "chromaticDurationShare": 0.002598229473826151,
+      "noteCount": 1085,
+      "beats": 277.8979166666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
       "slug": "lesotho-national-anthem",
       "tonic": 10,
       "chromaticNotes": 0,
       "chromaticDurationShare": 0,
       "noteCount": 218,
       "beats": 29.997916666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "letter-to-my-mother---vicenzo-piano",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 388,
+      "beats": 147.79791666666668,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "love-story---taylor-swift-taylor-s-version",
+      "tonic": 2,
+      "keyRegions": [
+        {
+          "tonic": 2,
+          "start": 0
+        },
+        {
+          "tonic": 4,
+          "start": 392
+        }
+      ],
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 2593,
+      "beats": 459.99791666666664,
       "existing": true,
       "inCorpus": true
     },
@@ -377,6 +837,16 @@
       "inCorpus": true
     },
     {
+      "slug": "minecraft-title",
+      "tonic": 6,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 298,
+      "beats": 223.84791666666666,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
       "slug": "minuet-from-music-for-the-royal-fireworks---georg-friedrich-handel",
       "tonic": 2,
       "chromaticNotes": 0,
@@ -387,12 +857,32 @@
       "inCorpus": true
     },
     {
+      "slug": "music_for_airports_1_1-eno",
+      "tonic": 2,
+      "chromaticNotes": 2,
+      "chromaticDurationShare": 0.0013534328493442344,
+      "noteCount": 214,
+      "beats": 112,
+      "existing": false,
+      "inCorpus": true
+    },
+    {
       "slug": "n.-portokalogloy---to-kalokairaki---greek-music-044",
       "tonic": 7,
       "chromaticNotes": 0,
       "chromaticDurationShare": 0,
       "noteCount": 720,
       "beats": 291.99791666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "nde-rendape-aju-jose-a-suncion-flores-manuel-ortiz-guerrero",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 360,
+      "beats": 219.99791666666667,
       "existing": true,
       "inCorpus": true
     },
@@ -427,12 +917,66 @@
       "inCorpus": true
     },
     {
+      "slug": "only-time---enya",
+      "tonic": 3,
+      "keyRegions": [
+        {
+          "tonic": 3,
+          "start": 0
+        },
+        {
+          "tonic": 6,
+          "start": 184
+        },
+        {
+          "tonic": 3,
+          "start": 205
+        }
+      ],
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1503,
+      "beats": 279.79791666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
       "slug": "Ophelia",
       "tonic": 5,
       "chromaticNotes": 2,
       "chromaticDurationShare": 0.0005473246595961198,
       "noteCount": 965,
       "beats": 187.69791666666666,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "our-happy-ending---brandon-hesslau---buddy-simulator-1984",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 535,
+      "beats": 175.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "pallet-town---pokemon-red-blue-green-yellow-by-junichi-masuda",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 928,
+      "beats": 271.79791666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "Photograph_Ed_Sheeran",
+      "tonic": 4,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1595,
+      "beats": 488.99791666666664,
       "existing": true,
       "inCorpus": true
     },
@@ -453,6 +997,68 @@
       "chromaticDurationShare": 0,
       "noteCount": 962,
       "beats": 278.9479166666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "prelude-no.-17-bwv-862-in-a-major",
+      "tonic": 8,
+      "keyRegions": [
+        {
+          "tonic": 8,
+          "start": 0
+        },
+        {
+          "tonic": 3,
+          "start": 24
+        },
+        {
+          "tonic": 8,
+          "start": 63
+        },
+        {
+          "tonic": 1,
+          "start": 69
+        },
+        {
+          "tonic": 8,
+          "start": 75
+        }
+      ],
+      "chromaticNotes": 3,
+      "chromaticDurationShare": 0.0026459928402546066,
+      "noteCount": 681,
+      "beats": 131.99791666666667,
+      "existing": false,
+      "inCorpus": true
+    },
+    {
+      "slug": "priboi",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 504,
+      "beats": 188.73541666666668,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "priboi-mp3",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 504,
+      "beats": 188.73541666666668,
+      "existing": false,
+      "inCorpus": true
+    },
+    {
+      "slug": "rachenica-for-three",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 572,
+      "beats": 279.99791666666664,
       "existing": true,
       "inCorpus": true
     },
@@ -497,6 +1103,26 @@
       "inCorpus": true
     },
     {
+      "slug": "roberto-cacciapaglia---tema-celeste",
+      "tonic": 2,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1729,
+      "beats": 447.99791666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
+      "tonic": 4,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1248,
+      "beats": 456.9479166666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
       "slug": "saren-kowga-jowxtm-goc",
       "tonic": 9,
       "chromaticNotes": 0,
@@ -527,6 +1153,36 @@
       "inCorpus": true
     },
     {
+      "slug": "shake-it-off---taylor-swift",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 690,
+      "beats": 319.97291666666666,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "shepherd-moons---enya",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 693,
+      "beats": 219.79791666666668,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "sign-of-the-times---harry-styles",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1901,
+      "beats": 323.79791666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
       "slug": "smth2",
       "tonic": 7,
       "chromaticNotes": 3,
@@ -535,6 +1191,36 @@
       "beats": 159.89791666666667,
       "existing": true,
       "inCorpus": true
+    },
+    {
+      "slug": "Someone_Like_You_easy_piano",
+      "tonic": 9,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1975,
+      "beats": 321.79791666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "someone-like-you",
+      "tonic": 9,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 2016,
+      "beats": 313.79791666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "someone-like-you-easy-piano",
+      "tonic": 9,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1975,
+      "beats": 321.79791666666665,
+      "existing": false,
+      "inCorpus": false
     },
     {
       "slug": "someone-like-you-instrumental",
@@ -553,6 +1239,16 @@
       "chromaticDurationShare": 0,
       "noteCount": 1447,
       "beats": 323.79791666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "stand-by-me",
+      "tonic": 9,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 830,
+      "beats": 319.99791666666664,
       "existing": true,
       "inCorpus": true
     },
@@ -577,12 +1273,52 @@
       "inCorpus": true
     },
     {
+      "slug": "target-renegade-end-theme---gari-biasillo",
+      "tonic": 7,
+      "chromaticNotes": 2,
+      "chromaticDurationShare": 0.0013067380479521236,
+      "noteCount": 952,
+      "beats": 292.99791666666664,
+      "existing": false,
+      "inCorpus": true
+    },
+    {
       "slug": "the-fabelmans---john-williams",
       "tonic": 7,
       "chromaticNotes": 0,
       "chromaticDurationShare": 0,
       "noteCount": 396,
       "beats": 207.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "the-family-madrigal-from-encanto---lin-manuel-miranda-simplified-for-kids-beginners-piano",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 73,
+      "beats": 63.797916666666666,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "the-office",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 619,
+      "beats": 91.82291666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "the-office---opening-titles-theme-song-for-piano",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 292,
+      "beats": 87.89791666666666,
       "existing": true,
       "inCorpus": true
     },
@@ -607,12 +1343,32 @@
       "inCorpus": true
     },
     {
+      "slug": "tom_hojnacki_it_could_have_been_the_summertime",
+      "tonic": 0,
+      "chromaticNotes": 1,
+      "chromaticDurationShare": 0.00018054918814818975,
+      "noteCount": 517,
+      "beats": 204.865625,
+      "existing": false,
+      "inCorpus": true
+    },
+    {
       "slug": "triste-coeur",
       "tonic": 4,
       "chromaticNotes": 0,
       "chromaticDurationShare": 0,
       "noteCount": 926,
       "beats": 347.79791666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "ttng---empty-palms-tablature",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 2731,
+      "beats": 651.9979166666667,
       "existing": true,
       "inCorpus": true
     },
@@ -637,6 +1393,81 @@
       "inCorpus": true
     },
     {
+      "slug": "viridian-pewter-saffron-city---pokemon-rby---junichi-masuda",
+      "tonic": 3,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 883,
+      "beats": 197.47291666666666,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "we-had-today---rachel-portman",
+      "tonic": 2,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1346,
+      "beats": 479.79791666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "westlife---beautiful-in-white",
+      "tonic": 0,
+      "keyRegions": [
+        {
+          "tonic": 0,
+          "start": 0
+        },
+        {
+          "tonic": 2,
+          "pickupStart": 152,
+          "start": 156
+        },
+        {
+          "tonic": 4,
+          "start": 212
+        }
+      ],
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 862,
+      "beats": 284.24791666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "when-i-am-dust-in-arcadia",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 242,
+      "beats": 147.79791666666668,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "where-you-are-from-moana---lin-manuel-miranda-where-you-are-easy",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 232,
+      "beats": 119.79791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "wima.1124-schubert_de.-tanz-d.365.26",
+      "tonic": 4,
+      "chromaticNotes": 4,
+      "chromaticDurationShare": 0.0033260575823719023,
+      "noteCount": 374,
+      "beats": 97.90104166666667,
+      "existing": false,
+      "inCorpus": true
+    },
+    {
       "slug": "wima.3657-schubert_deut.tanzd365.18",
       "tonic": 9,
       "chromaticNotes": 0,
@@ -647,12 +1478,32 @@
       "inCorpus": true
     },
     {
+      "slug": "wima.4be9-schubert_de.-tanz-d.365.28",
+      "tonic": 9,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 296,
+      "beats": 96.95052083333333,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
       "slug": "wima.7e1e-schubert_deut.tanz-d.365.09",
       "tonic": 8,
       "chromaticNotes": 4,
       "chromaticDurationShare": 0.006939424606043108,
       "noteCount": 340,
       "beats": 97.4765625,
+      "existing": false,
+      "inCorpus": false
+    },
+    {
+      "slug": "wima.e3f7-schubert_deut.tanzd365.17",
+      "tonic": 9,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 307,
+      "beats": 97.95052083333333,
       "existing": true,
       "inCorpus": true
     },
@@ -667,12 +1518,52 @@
       "inCorpus": true
     },
     {
+      "slug": "winter---lucia-salieri-vicenzo-piano",
+      "tonic": 2,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 540,
+      "beats": 272.79791666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
       "slug": "yiruma_its_your_day",
       "tonic": 7,
       "chromaticNotes": 0,
       "chromaticDurationShare": 0,
       "noteCount": 1139,
       "beats": 423.99791666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "you-and-i---buddy-simulator-1984",
+      "tonic": 2,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1046,
+      "beats": 228.49791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "yuri-on-ice---piano-theme-full",
+      "tonic": 3,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1871,
+      "beats": 543.88125,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "za-beograd---boban-markovic",
+      "tonic": 3,
+      "chromaticNotes": 6,
+      "chromaticDurationShare": 0.010659253257613324,
+      "noteCount": 349,
+      "beats": 184.49791666666667,
       "existing": true,
       "inCorpus": true
     }

@@ -11,12 +11,12 @@ import { AppContext } from "../../AppContext";
 import { ADMIN_USER_ID } from "../../annotationVersions";
 import { Analysis, filterSnippetsByAccess, Snippet } from "../analysis";
 import { pitchColor } from "../colors";
-import { formatComposerName } from "../corpusUtils";
 import InlineRawlPlayer from "../InlineRawlPlayer";
 import ChordStairs from "../legends/ChordStairs";
 import { Chord } from "../legends/chords";
 import SnippetList, { getComposerInfo } from "../SnippetList";
 import EXPLANATIONS from "./explanations";
+import ComposerBirthYearTimeline from "./ComposerBirthYearTimeline";
 
 const PathContainer = styled.div`
   position: relative;
@@ -347,106 +347,6 @@ const TopicCard = styled.div`
   box-sizing: border-box;
 `;
 
-const TimelineHeading = styled.div`
-  padding: 8px 0 6px;
-  color: #999;
-  font-size: 12px;
-`;
-
-const TimelineScroll = styled.div`
-  position: relative;
-  z-index: 2;
-  width: 100%;
-`;
-
-const TimelineTrack = styled.div<{ $height: number; $axisY: number }>`
-  position: relative;
-  width: calc(100% - 48px);
-  height: ${({ $height }) => $height}px;
-  margin: 0 24px;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: ${({ $axisY }) => $axisY}px;
-    left: 0;
-    right: 0;
-    border-top: 1px solid #555;
-  }
-`;
-
-const TimelineTick = styled.div<{ $position: number; $axisY: number; $emphasis: number }>`
-  position: absolute;
-  top: ${({ $axisY }) => $axisY}px;
-  left: ${({ $position }) => $position}%;
-  height: ${({ $emphasis }) => 7 + $emphasis * 3}px;
-  border-left: ${({ $emphasis }) => 1 + $emphasis}px solid ${({ $emphasis }) => $emphasis === 2 ? "#ddd" : $emphasis === 1 ? "#aaa" : "#555"};
-
-  span {
-    position: absolute;
-    top: ${({ $emphasis }) => 11 + $emphasis * 3}px;
-    left: 0;
-    transform: translateX(-50%);
-    color: ${({ $emphasis }) => $emphasis === 2 ? "#eee" : $emphasis === 1 ? "#bbb" : "#888"};
-    font-size: ${({ $emphasis }) => 11 + $emphasis * 2}px;
-    font-weight: ${({ $emphasis }) => $emphasis === 2 ? 700 : $emphasis === 1 ? 600 : 400};
-    line-height: 1;
-    font-variant-numeric: tabular-nums;
-  }
-`;
-
-const TimelineComposerNames = styled.div<{ $left: number; $width: number; $highlighted: boolean }>`
-  position: absolute;
-  left: ${({ $left }) => $left}px;
-  top: 5px;
-  width: ${({ $width }) => $width}px;
-  color: ${({ $highlighted }) => $highlighted ? "#fff" : "#bbb"};
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 11px;
-  line-height: 14px;
-  text-align: center;
-  white-space: nowrap;
-`;
-
-const TimelineDot = styled.span<{ $position: number; $size: number; $axisY: number }>`
-  position: absolute;
-  z-index: 1;
-  top: ${({ $axisY }) => $axisY}px;
-  left: ${({ $position }) => $position}%;
-  width: ${({ $size }) => $size}px;
-  height: ${({ $size }) => $size}px;
-  transform: translate(-50%, -50%);
-  border: 1px solid black;
-  border-radius: 50%;
-  background: #ddd;
-  box-sizing: border-box;
-`;
-
-const TimelineDotTooltip = styled.div<{ $left: number; $top: number; $width: number; $wrap: boolean }>`
-  position: absolute;
-  z-index: 3;
-  left: ${({ $left }) => $left}px;
-  top: ${({ $top }) => $top}px;
-  transform: translateY(-100%);
-  width: ${({ $width }) => $width}px;
-  box-sizing: border-box;
-  padding: 2px 6px;
-  color: #fff;
-  background: #000;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 11px;
-  line-height: 14px;
-  text-align: center;
-  white-space: ${({ $wrap }) => $wrap ? "normal" : "nowrap"};
-  pointer-events: none;
-`;
-
-const TimelineNote = styled.div`
-  padding: 0 0 12px;
-  color: #777;
-  font-size: 11px;
-`;
-
 const ErrorMessage = styled.div`
   color: red;
   margin-bottom: 10px;
@@ -585,167 +485,6 @@ interface ChapterData {
   }[];
 }
 
-const StructureTimeline: React.FC<{ snippets: SnippetWithSlug[] }> = ({ snippets }) => {
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const [timelineWidth, setTimelineWidth] = useState(0);
-  const [hoveredYear, setHoveredYear] = useState<number | null>(null);
-  const [focusedYear, setFocusedYear] = useState<number | null>(null);
-  const composersByYear = new Map<number, Map<string, number>>();
-  let undatedCount = 0;
-  snippets.forEach((entry) => {
-    const composer = getComposerInfo(entry.slug);
-    const year = composer?.composerBirthYear;
-    if (typeof year !== "number") {
-      undatedCount++;
-      return;
-    }
-    const composers = composersByYear.get(year) || new Map<string, number>();
-    composers.set(composer.slug, (composers.get(composer.slug) || 0) + 1);
-    composersByYear.set(year, composers);
-  });
-
-  const years = [...composersByYear.keys()];
-  const hasYears = years.length > 0;
-  useEffect(() => {
-    const timeline = timelineRef.current;
-    if (!timeline) return;
-    const updateWidth = () => setTimelineWidth(timeline.clientWidth);
-    updateWidth();
-    const observer = new ResizeObserver(updateWidth);
-    observer.observe(timeline);
-    window.addEventListener("resize", updateWidth);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", updateWidth);
-    };
-  }, [hasYears]);
-
-  if (years.length === 0) {
-    return (
-      <>
-        <TimelineHeading>Composer birth years</TimelineHeading>
-        <TimelineNote>No composer birth years available.</TimelineNote>
-      </>
-    );
-  }
-
-  const firstYear = Math.floor(Math.min(...years) / 10) * 10;
-  const lastYear = Math.max(firstYear + 10, Math.ceil(Math.max(...years) / 10) * 10);
-  const span = lastYear - firstYear;
-  const desiredTickSpacing = span / Math.max(2, Math.floor((timelineWidth || 800) / 52) - 1);
-  const tickInterval = [10, 20, 50, 100, 200, 500, 1000].find(
-    (interval) => interval >= desiredTickSpacing,
-  ) || 1000;
-  const firstTick = Math.ceil(firstYear / tickInterval) * tickInterval;
-  const ticks = Array.from(
-    { length: Math.floor((lastYear - firstTick) / tickInterval) + 1 },
-    (_, index) => firstTick + index * tickInterval,
-  );
-  const trackWidth = Math.max((timelineWidth || 800) - 48, 1);
-  const measure = typeof document === "undefined" ? null : document.createElement("canvas").getContext("2d");
-  if (measure) measure.font = "11px Arial";
-  const candidates = [...composersByYear].flatMap(([year, composers]) =>
-    [...composers].map(([slug, count]) => {
-      const name = formatComposerName(slug);
-      const width = Math.ceil((measure?.measureText(name).width || name.length * 7) + 10);
-      return { year, slug, name, count, width };
-    }),
-  ).sort((a, b) => b.count - a.count || a.width - b.width || a.year - b.year);
-  const labels: { year: number; slug: string; name: string; left: number; width: number }[] = [];
-  candidates.forEach(({ year, slug, name, width }) => {
-    if (width > trackWidth) return;
-    const x = ((year - firstYear) / span) * trackWidth;
-    const preferredLeft = Math.min(Math.max(x - width / 2, 0), trackWidth - width);
-    const minLeft = Math.max(0, x - width);
-    const maxLeft = Math.min(trackWidth - width, x);
-    const options = [
-      preferredLeft,
-      minLeft,
-      maxLeft,
-      ...labels.flatMap((label) => [label.left - width - 8, label.left + label.width + 8]),
-    ].filter((left) => left >= minLeft && left <= maxLeft)
-      .sort((a, b) => Math.abs(a - preferredLeft) - Math.abs(b - preferredLeft));
-    const left = options.find((option) =>
-      labels.every((label) => option >= label.left + label.width + 8 || label.left >= option + width + 8),
-    );
-    if (left === undefined) return;
-    labels.push({ year, slug, name, left, width });
-  });
-  const axisY = 32;
-  const activeYear = hoveredYear ?? focusedYear;
-  const tooltipText = activeYear === null
-    ? ""
-    : [...(composersByYear.get(activeYear)?.keys() ?? [])]
-      .filter((slug) => !labels.some((label) => label.year === activeYear && label.slug === slug))
-      .map(formatComposerName)
-      .join(", ");
-  const tooltipContentWidth = Math.ceil((measure?.measureText(tooltipText).width ?? tooltipText.length * 7) + 12);
-  const tooltipWidth = Math.min(trackWidth, tooltipContentWidth);
-  const tooltipX = activeYear === null ? 0 : ((activeYear - firstYear) / span) * trackWidth;
-  const tooltipLeft = Math.max(0, Math.min(trackWidth - tooltipWidth, tooltipX - tooltipWidth / 2));
-  const activeDotSize = Math.min(8 + 3 * Math.sqrt((composersByYear.get(activeYear ?? -1)?.size ?? 1) - 1), 24);
-
-  return (
-    <>
-      <TimelineHeading>Composer birth years</TimelineHeading>
-      <TimelineScroll ref={timelineRef} aria-label="Structure composer birth year timeline">
-        <TimelineTrack $height={axisY + 40} $axisY={axisY}>
-          {labels.map(({ year, slug, name, left, width }) => (
-            <TimelineComposerNames
-              key={`${year}:${slug}`}
-              $left={left}
-              $width={width}
-              $highlighted={year === activeYear}
-              data-timeline-label-year={year}
-            >
-              {name}
-            </TimelineComposerNames>
-          ))}
-          {ticks.map((year) => (
-            <TimelineTick
-              key={year}
-              $position={((year - firstYear) / span) * 100}
-              $axisY={axisY}
-              $emphasis={year % 100 === 0 ? 2 : year % 50 === 0 ? 1 : 0}
-            >
-              <span>{year}</span>
-            </TimelineTick>
-          ))}
-          {[...composersByYear].map(([year, composers]) => (
-            <TimelineDot
-              key={year}
-              $position={((year - firstYear) / span) * 100}
-              $size={Math.min(8 + 3 * Math.sqrt(composers.size - 1), 24)}
-              $axisY={axisY}
-              aria-label={`${year}: ${[...composers.keys()].map(formatComposerName).join(", ")}`}
-              role="img"
-              tabIndex={0}
-              onMouseEnter={() => setHoveredYear(year)}
-              onMouseLeave={() => setHoveredYear(null)}
-              onFocus={() => setFocusedYear(year)}
-              onBlur={() => setFocusedYear(null)}
-            />
-          ))}
-          {tooltipText && (
-            <TimelineDotTooltip
-              $left={tooltipLeft}
-              $top={axisY - activeDotSize / 2 - 2}
-              $width={tooltipWidth}
-              $wrap={tooltipContentWidth > trackWidth}
-              role="tooltip"
-            >
-              {tooltipText}
-            </TimelineDotTooltip>
-          )}
-        </TimelineTrack>
-      </TimelineScroll>
-      {undatedCount > 0 && (
-        <TimelineNote>{undatedCount} snippet{undatedCount === 1 ? "" : "s"} without a known birth year</TimelineNote>
-      )}
-    </>
-  );
-};
-
 const formatCategoryLabel = (category: string) => {
   return category
     .split("_")
@@ -822,7 +561,12 @@ const TopicContent = React.memo<{
                       {explanation}
                     </div>
                   )}
-                  <StructureTimeline snippets={sortedSnippets} />
+                  <ComposerBirthYearTimeline
+                    entries={sortedSnippets.map((entry) => ({
+                      slug: entry.slug,
+                      composer: getComposerInfo(entry.slug),
+                    }))}
+                  />
                   <TopicCard>
                     <SnippetList
                       snippets={sortedSnippets.map(({ snippet }) => snippet)}

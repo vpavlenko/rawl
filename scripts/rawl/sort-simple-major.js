@@ -4,18 +4,23 @@ const fs = require("fs");
 const path = require("path");
 const ts = require("typescript");
 const { parseMidi } = require("midi-file");
-const { readNotes } = require("./search-simple-major");
+const {
+  readNotes,
+  readKeyRegions,
+  keyAtBeat,
+  isPickupNote,
+} = require("./search-simple-major");
 const root = path.resolve(__dirname, "../..");
 const corpusPath = path.join(root, "src/components/rawl/corpora/corpora.tsx");
 const scale = [0, 2, 4, 5, 7, 9, 11];
-const groups = [
-  "Primary triads: I, IV and V",
-  "Triads with vi",
-  "Triads with ii",
-  "Triads with iii or vii diminished",
-  "Dominant seventh chords",
-  "Other / mixed seventh chords",
-];
+const sectionsPath = path.join(
+  root,
+  "src/components/rawl/corpora/simpleMajorSections.json",
+);
+const sectionDefinitions = JSON.parse(
+  fs.readFileSync(sectionsPath, "utf8"),
+).filter((section) => section.id !== "unclassified");
+const groups = sectionDefinitions.map((section) => section.title);
 function estimateHarmony(notes, tonic) {
   const duration = Math.max(...notes.map((n) => n.end));
   const voices = [...new Set(notes.map((n) => n.voice))].map((voice) => {
@@ -97,8 +102,7 @@ function estimateHarmony(notes, tonic) {
       : degrees.includes(5)
       ? 1
       : 0;
-  if (seventhDegrees.length)
-    group = seventhDegrees.some((i) => i !== 4) ? 5 : 4;
+  if (seventhDegrees.length) group = 4;
   return { group, degrees, seventhDegrees, recognized };
 }
 async function main() {
@@ -165,9 +169,9 @@ async function main() {
             data.blobBase64 = Buffer.from(data.blob).toString("base64");
         }
         if (!data?.blobBase64) throw new Error("No available MIDI backup");
-        const notes = readNotes(
-          parseMidi(Buffer.from(data.blobBase64, "base64")),
-        );
+        const midi = parseMidi(Buffer.from(data.blobBase64, "base64"));
+        const notes = readNotes(midi);
+        const keyRegions = readKeyRegions(midi, notes, annotation);
         if (tonic == null) {
           const weights = Array(12).fill(0);
           notes.forEach((n) => (weights[n.pitch % 12] += n.end - n.start));
@@ -177,14 +181,25 @@ async function main() {
               scale.reduce((sum, pc) => sum + weights[(a + pc) % 12], 0),
           )[0];
         }
-        evidence = estimateHarmony(notes, tonic);
+        // Normalize every section to the initial tonic before ranking harmony.
+        evidence = estimateHarmony(
+          notes
+            .filter((n) => !isPickupNote(n, keyRegions))
+            .map((n) => ({
+              ...n,
+              pitch:
+                n.pitch -
+                ((keyAtBeat(keyRegions, n.start, tonic) - tonic + 12) % 12),
+            })),
+          tonic,
+        );
       } catch (e) {
         error = e.message;
       }
       let group = evidence?.group;
       let basis = "MIDI estimate";
       if (tags.some((t) => /^seventh_chords:|^extensions:|^V:9$/.test(t))) {
-        group = 5;
+        group = 4;
         basis = "saved seventh/extended-chord annotation";
       } else if (
         tags.some((t) =>
@@ -210,7 +225,7 @@ async function main() {
         basis = "known I-vi-IV-V progression; sparse MIDI voicing";
       }
       if (slug === "ii-v-i-warmup") {
-        group = 5;
+        group = 4;
         basis = "MIDI review: opening ii9 arpeggio";
       }
       if (group == null)
@@ -257,6 +272,13 @@ async function main() {
     ) + "\n",
   );
   if (process.argv.includes("--write")) {
+    // Store the section boundaries alongside the reordered flat MIDI list.
+    // The frontend and the sorter share titles, descriptions and stable IDs.
+    const sections = sectionDefinitions.flatMap((section, group) => {
+      const first = rows.find((row) => row.group === group);
+      return first ? [{ ...section, startsAtMidi: first.slug }] : [];
+    });
+    fs.writeFileSync(sectionsPath, JSON.stringify(sections, null, 2) + "\n");
     const lines = [];
     for (let group = 0; group < groups.length; group++) {
       const selected = rows.filter((r) => r.group === group);

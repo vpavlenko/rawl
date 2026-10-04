@@ -1,10 +1,26 @@
 import * as React from "react";
+import styled from "styled-components";
+import { stripComposerFromTitle } from "./pieceTitle";
 import { AppContext } from "../../AppContext";
 import { filterSnippetsByAccess, getSnippetTags } from "../analysis";
 import { ComposerTitle } from "../book/Book";
 import { TOP_100_COMPOSERS, type Top100Composer } from "../top100Composers";
 import { corpora } from "./corpora";
+import { getCorpusSections } from "./corpusSections";
+import { getComposerInfo as getCorpusComposerInfo } from "./composerInfo";
+import ComposerBirthYearTimeline from "./ComposerBirthYearTimeline";
 import { beautifySlug } from "./utils";
+import { formatComposerName } from "../corpusUtils";
+
+const ComposerColumns = styled.div`
+  columns: 300px;
+  column-gap: 24px;
+  > div {
+    break-inside: avoid;
+    margin-bottom: 16px;
+    padding-top: 1px;
+  }
+`;
 
 interface ComposerInfo {
   slug: string;
@@ -18,6 +34,12 @@ const Corpus: React.FC<{
 }> = ({ slug, composers }) => {
   const { analyses } = React.useContext(AppContext);
   const searchInputRef = React.useRef<HTMLInputElement>(null);
+  const [hoveredCategory, setHoveredCategory] = React.useState<string | null>(
+    null,
+  );
+  const [focusedCategory, setFocusedCategory] = React.useState<string | null>(
+    null,
+  );
 
   React.useEffect(() => {
     if (searchInputRef.current) {
@@ -52,6 +74,195 @@ const Corpus: React.FC<{
   if (!corpus) {
     return <div>Corpus {slug} not found</div>;
   }
+  const sections = getCorpusSections(corpus);
+
+  const composerName = (midiSlug: string) => {
+    const credit = getComposerInfo(midiSlug);
+    const composer = getCorpusComposerInfo(midiSlug);
+    return (
+      credit?.composer ||
+      (composer &&
+        (composer.composerName || formatComposerName(composer.slug))) ||
+      "Unknown composer"
+    );
+  };
+  const pieceTitle = (midiSlug: string) => {
+    const composer = getCorpusComposerInfo(midiSlug);
+    return stripComposerFromTitle(
+      getComposerInfo(midiSlug)?.displayTitle || beautifySlug(midiSlug),
+      [
+        composerName(midiSlug),
+        composer
+          ? composer.composerName || formatComposerName(composer.slug)
+          : "",
+      ],
+    );
+  };
+  type DisplayRow = {
+    midiSlug: string;
+    section?: (typeof sections)[number];
+    composerHeading?: string;
+    sectionId?: string;
+  };
+  const rows: DisplayRow[] = [];
+  if (corpus.showComposerTimeline && sections.length) {
+    for (const section of sections) {
+      const groups = new Map<string, string[]>();
+      corpus.midis
+        .slice(section.startIndex, section.startIndex + section.count)
+        .forEach((midiSlug) => {
+          const name = composerName(midiSlug);
+          groups.set(name, [...(groups.get(name) || []), midiSlug]);
+        });
+      [...groups]
+        .sort(
+          ([a], [b]) =>
+            Number(a === "Unknown composer") -
+              Number(b === "Unknown composer") || a.localeCompare(b),
+        )
+        .forEach(([name, midis], groupIndex) => {
+          midis.forEach((midiSlug, index) =>
+            rows.push({
+              midiSlug,
+              sectionId: section.id,
+              ...(index === 0 ? { composerHeading: name } : {}),
+              ...(groupIndex === 0 && index === 0 ? { section } : {}),
+            }),
+          );
+        });
+    }
+  } else {
+    corpus.midis.forEach((midiSlug, index) =>
+      rows.push({
+        midiSlug,
+        section: sections.find((section) => section.startIndex === index),
+      }),
+    );
+  }
+
+  const renderSectionHeader = (section: (typeof sections)[number]) => (
+    <header
+      id={section.id}
+      style={{
+        margin: "32px 0 18px",
+        paddingTop: "16px",
+        borderTop: `1px solid ${section.color || "#333"}`,
+        scrollMarginTop: "20px",
+      }}
+    >
+      <h2
+        style={{
+          fontSize: "1.2em",
+          margin: "0 0 6px",
+          color: section.color,
+        }}
+      >
+        {section.title}{" "}
+        <sup
+          aria-label={`${section.count} tracks`}
+          style={{ color: "#999", fontSize: "0.65em", fontWeight: "normal" }}
+        >
+          {section.count}
+        </sup>
+      </h2>
+    </header>
+  );
+  const renderRow = (
+    { midiSlug, section, composerHeading }: DisplayRow,
+    index: number,
+  ) => {
+    const order = getComposerOrder(midiSlug);
+    const hasOrder = order !== undefined;
+    const composerInfo = getComposerInfo(midiSlug);
+
+    return (
+      <React.Fragment key={midiSlug}>
+        {section && renderSectionHeader(section)}
+        {composerHeading && (
+          <h3
+            style={{
+              color: "#ccc",
+              fontSize: "0.95em",
+              margin: "0 0 3px",
+            }}
+          >
+            {composerHeading}
+          </h3>
+        )}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            marginBottom: corpus.showComposerTimeline ? "3px" : "10px",
+          }}
+        >
+          {!corpus.showComposerTimeline && (
+            <span style={{ marginRight: "0.3em", color: "gray" }}>{`${
+              index + 1
+            }. `}</span>
+          )}
+          <a
+            href={`/f/${midiSlug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              textDecoration: hasOrder ? "line-through" : "none",
+              color: hasOrder ? "gray" : "#ffaa00",
+            }}
+          >
+            {corpus.showComposerTimeline ? (
+              pieceTitle(midiSlug)
+            ) : composerInfo ? (
+              <ComposerTitle
+                composer={composerInfo.composer}
+                displayTitle={composerInfo.displayTitle}
+                style={{
+                  color: hasOrder ? "gray" : "inherit",
+                }}
+              />
+            ) : (
+              beautifySlug(midiSlug)
+            )}
+            {hasOrder && <span style={{ marginLeft: "5px" }}>({order})</span>}
+          </a>
+          {!corpus.showComposerTimeline && getTagsForMidi(midiSlug) && (
+            <div
+              style={{
+                marginLeft: "50px",
+                display: "flex",
+                flexWrap: "wrap",
+              }}
+            >
+              {getTagsForMidi(midiSlug).map((tag, index) => {
+                const [chapter, topic] = tag.split(":");
+                return (
+                  <div
+                    key={index}
+                    style={{
+                      color: hasOrder ? "gray" : "inherit",
+                      fontSize: "0.7em",
+                      marginRight: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "left",
+                      lineHeight: "1.2",
+                    }}
+                  >
+                    <span style={{ color: "gray" }}>
+                      {chapter?.replace(/_/g, " ")}
+                    </span>
+                    <span style={{ color: "white" }}>
+                      {topic?.replace(/_/g, " ")}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </React.Fragment>
+    );
+  };
 
   return (
     <div style={{ marginBottom: "100px" }}>
@@ -64,82 +275,106 @@ const Corpus: React.FC<{
         </p>
       )}
       {corpus.posttext}
-      {corpus.midis.map((midiSlug, index) => {
-        const order = getComposerOrder(midiSlug);
-        const hasOrder = order !== undefined;
-        const composerInfo = getComposerInfo(midiSlug);
-
-        return (
-          <div
-            key={midiSlug}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "10px",
-            }}
-          >
-            <span style={{ marginRight: "0.3em", color: "gray" }}>{`${
-              index + 1
-            }. `}</span>
+      {corpus.showComposerTimeline && (
+        <ComposerBirthYearTimeline
+          entries={corpus.midis.map((midiSlug, index) => ({
+            slug: midiSlug,
+            title: pieceTitle(midiSlug),
+            href: `/f/${midiSlug}`,
+            composer: getCorpusComposerInfo(midiSlug),
+            categoryId: sections.find(
+              (section) =>
+                index >= section.startIndex &&
+                index < section.startIndex + section.count,
+            )?.id,
+          }))}
+          categories={sections.map((section) => ({
+            id: section.id,
+            label: section.title,
+            color: section.color || "#ddd",
+          }))}
+          highlightedCategoryId={hoveredCategory ?? focusedCategory}
+          itemLabel="track"
+          ariaLabel="Corpus composer birth year timeline"
+        />
+      )}
+      {sections.length > 0 && (
+        <nav
+          aria-label="Corpus sections"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "8px",
+            margin: "20px 0",
+          }}
+        >
+          {sections.map((section) => (
             <a
-              href={`/f/${midiSlug}`}
-              target="_blank"
-              rel="noopener noreferrer"
+              key={section.id}
+              href={`#${section.id}`}
+              onMouseEnter={() => setHoveredCategory(section.id)}
+              onMouseLeave={() => setHoveredCategory(null)}
+              onFocus={() => setFocusedCategory(section.id)}
+              onBlur={() => setFocusedCategory(null)}
               style={{
-                textDecoration: hasOrder ? "line-through" : "none",
-                color: hasOrder ? "gray" : "#ffaa00",
+                color: "#ddd",
+                padding: "6px 10px",
+                fontSize: "0.85em",
+                textDecoration: "none",
               }}
             >
-              {composerInfo ? (
-                <ComposerTitle
-                  composer={composerInfo.composer}
-                  displayTitle={composerInfo.displayTitle}
+              {section.color && (
+                <span
+                  aria-hidden="true"
                   style={{
-                    color: hasOrder ? "gray" : "inherit",
+                    display: "inline-block",
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    background: section.color,
+                    marginRight: "6px",
                   }}
                 />
-              ) : (
-                beautifySlug(midiSlug)
               )}
-              {hasOrder && <span style={{ marginLeft: "5px" }}>({order})</span>}
-            </a>
-            {getTagsForMidi(midiSlug) && (
-              <div
-                style={{
-                  marginLeft: "50px",
-                  display: "flex",
-                  flexWrap: "wrap",
-                }}
+              {section.title}{" "}
+              <sup
+                aria-label={`${section.count} tracks`}
+                style={{ color: "#999", fontSize: "0.75em" }}
               >
-                {getTagsForMidi(midiSlug).map((tag, index) => {
-                  const [chapter, topic] = tag.split(":");
-                  return (
-                    <div
-                      key={index}
-                      style={{
-                        color: hasOrder ? "gray" : "inherit",
-                        fontSize: "0.7em",
-                        marginRight: "10px",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "left",
-                        lineHeight: "1.2",
-                      }}
-                    >
-                      <span style={{ color: "gray" }}>
-                        {chapter?.replace(/_/g, " ")}
-                      </span>
-                      <span style={{ color: "white" }}>
-                        {topic?.replace(/_/g, " ")}
-                      </span>
+                {section.count}
+              </sup>
+            </a>
+          ))}
+        </nav>
+      )}
+      {corpus.showComposerTimeline && sections.length
+        ? sections.map((section) => {
+            const groups: {
+              name: string;
+              rows: { row: DisplayRow; index: number }[];
+            }[] = [];
+            rows.forEach((row, index) => {
+              if (row.sectionId !== section.id) return;
+              if (row.composerHeading)
+                groups.push({ name: row.composerHeading, rows: [] });
+              groups.at(-1)?.rows.push({ row, index });
+            });
+            return (
+              <section key={section.id}>
+                {renderSectionHeader(section)}
+                <ComposerColumns>
+                  {groups.map((group) => (
+                    <div key={group.name}>
+                      {group.rows.map(({ row, index }) =>
+                        renderRow({ ...row, section: undefined }, index),
+                      )}
                     </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        );
-      })}
+                  ))}
+                </ComposerColumns>
+              </section>
+            );
+          })
+        : rows.map(renderRow)}
     </div>
   );
 };

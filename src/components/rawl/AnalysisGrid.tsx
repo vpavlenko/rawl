@@ -21,6 +21,7 @@ export const AnalysisTransposeContext = React.createContext(0);
 const MIN_WIDTH_BETWEEN_BEATS = 10;
 const GRADIENT_HEIGHT_IN_NOTES = 0.5;
 const MOBILE_MEASURE_CLICK_MEDIA_QUERY = "(max-width: 767px)";
+const MODULATION_BADGE_WIDTH = 80;
 
 const KEY_TO_OFFSET = {
   z: -4,
@@ -306,6 +307,7 @@ export const NewTonicSymbol: React.FC<{
           userSelect: "none",
           pointerEvents: "none",
           textAlign: "left",
+          whiteSpace: "nowrap",
         }}
       >
         {previousTonic !== null && (
@@ -321,7 +323,7 @@ export const NewTonicSymbol: React.FC<{
       <div
         className={`noteColor_${modulationDiff}_colors`}
         style={{
-          width: 80,
+          width: MODULATION_BADGE_WIDTH,
           height: 12,
           position: "absolute",
           top: 0,
@@ -927,14 +929,20 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
     return (
       <div style={{ zIndex: 15 }}>
         {showHeader && modulationsArray.map((mod, index) => {
-          if (mod.time < measures[sectionSpan[0]] || mod.time >= measures[sectionSpan[1]]) return null;
           const previousTonic = modulationsArray[index - 1]?.tonic ?? null;
           const hasOnsetOverride = !(showGlobalTonicAtStart && index === 0) &&
             analysis.modulationOnset?.[mod.measure + 1] != null;
+          const sectionStart = measures[sectionSpan[0]];
+          const badgeLeft = secondsToX(mod.time) - (hasOnsetOverride ? 0 : 1);
+          // Like a sustained note, a badge has a visible span across section breaks.
+          const continuesIntoSection = mod.time < sectionStart &&
+            badgeLeft + MODULATION_BADGE_WIDTH > secondsToX(sectionStart);
+          if ((!continuesIntoSection && mod.time < sectionStart) ||
+              mod.time >= measures[sectionSpan[1]]) return null;
           return <NewTonicSymbol
             key={`modulation_${mod.measure}`}
-            left={secondsToX(mod.time) - (hasOnsetOverride ? 0 : 1)}
-            alignToOnset={hasOnsetOverride}
+            left={continuesIntoSection ? secondsToX(sectionStart) - 1 : badgeLeft}
+            alignToOnset={hasOnsetOverride && !continuesIntoSection}
             number={mod.measure + 1}
             previousTonic={previousTonic}
             modulationDiff={previousTonic == null ? null : (mod.tonic - previousTonic + 12) % 12}

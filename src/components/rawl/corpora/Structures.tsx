@@ -4,6 +4,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
+import { ADMIN_USER_ID } from "../../annotationVersions";
 import { Analysis, filterSnippetsByAccess, Snippet } from "../analysis";
 import InlineRawlPlayer from "../InlineRawlPlayer";
 import SnippetList from "../SnippetList";
@@ -307,6 +308,8 @@ export interface StructuresProps {
 interface SnippetWithSlug {
   snippet: Snippet;
   slug: string;
+  analysisKey: string;
+  snippetIndex: number;
 }
 
 interface ChapterData {
@@ -351,6 +354,8 @@ const TopicContent = React.memo<{
     topic: string,
   ) => void;
   loadingSnippets: Set<string>;
+  onEditTag?: (snippet: SnippetWithSlug, tag: string) => Promise<void>;
+  availableTags: string[];
 }>(
   ({
     activeTopic,
@@ -359,6 +364,8 @@ const TopicContent = React.memo<{
     snippets,
     handleSnippetClick,
     loadingSnippets,
+    onEditTag,
+    availableTags,
   }) => {
     return (
       <ScrollableContent>
@@ -403,6 +410,11 @@ const TopicContent = React.memo<{
                       isPreview={true}
                       noteHeight={3}
                       loadingSnippets={loadingSnippets}
+                      availableTags={availableTags}
+                      onEditTag={
+                        onEditTag &&
+                        ((index, tag) => onEditTag(snippets[index], tag))
+                      }
                     />
                   </TopicCard>
                 </TopicContainer>
@@ -418,8 +430,16 @@ const Structures: React.FC<StructuresProps> = ({
   initialChapter,
   initialTopic,
 }) => {
-  const { handleSongClick, currentMidi, rawlProps, eject } =
-    useContext(AppContext);
+  const {
+    handleSongClick,
+    currentMidi,
+    rawlProps,
+    eject,
+    user,
+    saveFirebaseAnnotation,
+  } = useContext(AppContext);
+  const canEditTags =
+    user?.uid === ADMIN_USER_ID && user.email === "cxielamiko@gmail.com";
   const location = useLocation();
   const history = useHistory();
   const [loading, setLoading] = useState(true);
@@ -427,6 +447,7 @@ const Structures: React.FC<StructuresProps> = ({
   const [chapterData, setChapterData] = useState<ChapterData[]>([]);
   const [activeChapter, setActiveChapter] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
+  const [tagSaveError, setTagSaveError] = useState("");
   const [selectedMeasureStart, setSelectedMeasureStart] = useState<
     number | undefined
   >(undefined);
@@ -471,7 +492,8 @@ const Structures: React.FC<StructuresProps> = ({
       const slug = path.startsWith("f/") ? path.slice(2) : path;
 
       if (analysis.snippets && analysis.snippets.length > 0) {
-        filterSnippetsByAccess(analysis.snippets).forEach((snippet) => {
+        analysis.snippets.forEach((snippet, snippetIndex) => {
+          if (filterSnippetsByAccess([snippet]).length === 0) return;
           const snippetWithSlug = {
             ...snippet,
             composerSlug: slug,
@@ -502,6 +524,8 @@ const Structures: React.FC<StructuresProps> = ({
           topicData.snippets.push({
             snippet: snippetWithSlug,
             slug,
+            analysisKey: path,
+            snippetIndex,
           });
         });
       }
@@ -648,8 +672,35 @@ const Structures: React.FC<StructuresProps> = ({
       )
     : [];
 
+  const availableTags = chapterData.flatMap(({ chapter, topics }) =>
+    topics.map(({ topic }) => `${chapter}:${topic}`),
+  );
+
+  const handleEditTag = async (entry: SnippetWithSlug, tag: string) => {
+    if (!canEditTags) throw new Error("Only the admin can edit tags");
+    const analysis = analyses[entry.analysisKey];
+    if (!analysis?.snippets?.[entry.snippetIndex]) {
+      throw new Error("Snippet is no longer available");
+    }
+    setTagSaveError("");
+    try {
+      await saveFirebaseAnnotation(entry.analysisKey, {
+        ...analysis,
+        snippets: analysis.snippets.map((snippet, index) =>
+          index === entry.snippetIndex ? { ...snippet, tag } : snippet,
+        ),
+      });
+    } catch (error) {
+      // The annotation store updates immediately, before Firestore confirms it.
+      void saveFirebaseAnnotation(entry.analysisKey, analysis).catch(() => {});
+      setTagSaveError("Could not save the tag. The original tag was restored.");
+      throw error;
+    }
+  };
+
   return (
     <PathContainer>
+      {tagSaveError && <ErrorMessage role="alert">{tagSaveError}</ErrorMessage>}
       <StructureSearch>
         <input
           type="search"
@@ -843,6 +894,8 @@ const Structures: React.FC<StructuresProps> = ({
                   snippets={chapterData[activeChapter]?.topics || []}
                   handleSnippetClick={handleSnippetClick}
                   loadingSnippets={loadingSnippets}
+                  availableTags={availableTags}
+                  onEditTag={canEditTags ? handleEditTag : undefined}
                 />
               </CategorySection>
             )}
@@ -872,6 +925,8 @@ const Structures: React.FC<StructuresProps> = ({
               snippets={chapterData[activeChapter]?.topics || []}
               handleSnippetClick={handleSnippetClick}
               loadingSnippets={loadingSnippets}
+              availableTags={availableTags}
+              onEditTag={canEditTags ? handleEditTag : undefined}
             />
           </InlineRawlPlayer>
         </>

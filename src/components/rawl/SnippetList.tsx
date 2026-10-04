@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Snippet } from "./analysis";
 import { corpora } from "./corpora/corpora";
@@ -128,6 +128,40 @@ const YearInfo = styled.span`
   font-size: 0.8em;
 `;
 
+const TagEditor = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  color: #fff;
+  font-size: 11px;
+
+  input {
+    min-width: 0;
+    flex: 1 1 120px;
+    color: #fff;
+    background: #111;
+    border: 1px solid #777;
+    border-radius: 3px;
+    padding: 3px 4px;
+  }
+
+  button {
+    color: #fff;
+    background: #222;
+    border: 1px solid #555;
+    border-radius: 3px;
+    padding: 3px 5px;
+    cursor: pointer;
+  }
+
+  [role="alert"] {
+    color: #ff9999;
+    width: 100%;
+  }
+`;
+
 interface SnippetListProps {
   snippets: Snippet[];
   slugs?: string[];
@@ -137,6 +171,8 @@ interface SnippetListProps {
   loadingSnippets?: Set<string>;
   deleteSnippet?: (index: number) => void;
   hoveredColors?: string[] | null;
+  onEditTag?: (index: number, tag: string) => Promise<void>;
+  availableTags?: string[];
 }
 
 const getComposerInfo = (midiSlug: string) => {
@@ -167,9 +203,45 @@ const SnippetList: React.FC<SnippetListProps> = ({
   loadingSnippets = new Set(),
   deleteSnippet,
   hoveredColors,
+  onEditTag,
+  availableTags = [],
 }) => {
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [tagDraft, setTagDraft] = useState("");
+  const [tagError, setTagError] = useState("");
+  const [savingTag, setSavingTag] = useState(false);
+
+  const saveTag = async (index: number, currentTag: string) => {
+    const tag = tagDraft.trim();
+    if (!/^[^:\s]+:[^:\s]+$/.test(tag)) {
+      setTagError("Use chapter:topic, with no spaces.");
+      return;
+    }
+    if (tag === currentTag) {
+      setEditingIndex(null);
+      return;
+    }
+    setSavingTag(true);
+    setTagError("");
+    try {
+      await onEditTag?.(index, tag);
+      setEditingIndex(null);
+    } catch (error) {
+      setTagError("Could not save the tag. Please retry.");
+    } finally {
+      setSavingTag(false);
+    }
+  };
+
   return (
     <SnippetListContainer isPreview={isPreview}>
+      {onEditTag && (
+        <datalist id="structure-snippet-tags">
+          {availableTags.map((tag) => (
+            <option key={tag} value={tag} />
+          ))}
+        </datalist>
+      )}
       {snippets.map((snippet, index) => {
         const measureCount =
           snippet.measuresSpan[1] - snippet.measuresSpan[0] + 1;
@@ -191,6 +263,55 @@ const SnippetList: React.FC<SnippetListProps> = ({
               <SlugLabel title={lakhInfo?.song || midiSlug}>
                 {lakhInfo?.song || midiSlug}
               </SlugLabel>
+            )}
+            {onEditTag && (
+              <TagEditor onClick={(event) => event.stopPropagation()}>
+                {editingIndex === index ? (
+                  <>
+                    <input
+                      autoFocus
+                      aria-label={`Tag for ${
+                        lakhInfo?.song || midiSlug || `snippet ${index + 1}`
+                      }`}
+                      list="structure-snippet-tags"
+                      value={tagDraft}
+                      disabled={savingTag}
+                      onChange={(event) => setTagDraft(event.target.value)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter")
+                          void saveTag(index, snippet.tag);
+                        if (event.key === "Escape") setEditingIndex(null);
+                      }}
+                    />
+                    <button
+                      disabled={savingTag}
+                      onClick={() => void saveTag(index, snippet.tag)}
+                    >
+                      Save
+                    </button>
+                    <button
+                      disabled={savingTag}
+                      onClick={() => setEditingIndex(null)}
+                    >
+                      Cancel
+                    </button>
+                    {tagError && <span role="alert">{tagError}</span>}
+                  </>
+                ) : (
+                  <button
+                    aria-label={`Edit tag for ${
+                      lakhInfo?.song || midiSlug || `snippet ${index + 1}`
+                    }`}
+                    onClick={() => {
+                      setTagDraft(snippet.tag);
+                      setTagError("");
+                      setEditingIndex(index);
+                    }}
+                  >
+                    Edit tag
+                  </button>
+                )}
+              </TagEditor>
             )}
             <SnippetContainer>
               <SnippetItem

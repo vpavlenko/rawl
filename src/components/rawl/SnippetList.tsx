@@ -165,7 +165,8 @@ const TagEditor = styled.div`
 interface SnippetListProps {
   snippets: Snippet[];
   slugs?: string[];
-  onSnippetClick: (snippet: Snippet) => void;
+  onSnippetClick: (snippet: Snippet, element: HTMLElement) => void;
+  snippetIds?: string[];
   isPreview?: boolean;
   noteHeight?: number;
   loadingSnippets?: Set<string>;
@@ -198,6 +199,7 @@ const SnippetList: React.FC<SnippetListProps> = ({
   snippets,
   slugs,
   onSnippetClick,
+  snippetIds,
   isPreview = false,
   noteHeight = 3,
   loadingSnippets = new Set(),
@@ -254,9 +256,10 @@ const SnippetList: React.FC<SnippetListProps> = ({
         return (
           <SnippetItemWrapper
             key={index}
+            data-structure-snippet-id={snippetIds?.[index]}
             isPreview={isPreview}
             measureCount={measureCount}
-            onClick={() => onSnippetClick(snippet)}
+            onClick={(event) => onSnippetClick(snippet, event.currentTarget)}
             isLoading={loadingSnippets.has(composerSlug)}
           >
             {midiSlug && (

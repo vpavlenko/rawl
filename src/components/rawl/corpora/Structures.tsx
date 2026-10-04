@@ -1,6 +1,12 @@
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "../../AppContext";
@@ -207,6 +213,12 @@ const TopicBubble = styled.span<{ active: boolean }>`
   }
 `;
 
+const TopicCount = styled.sup`
+  margin-left: 2px;
+  font-size: 10px;
+  line-height: 0;
+`;
+
 const EjectButton = styled.button`
   position: fixed;
   bottom: 50vh; // Position it just above the RawlContainer which is 50vh tall
@@ -352,6 +364,8 @@ const TopicContent = React.memo<{
     slug: string,
     measureStart: number,
     topic: string,
+    element: HTMLElement,
+    snippetId: string,
   ) => void;
   loadingSnippets: Set<string>;
   onEditTag?: (snippet: SnippetWithSlug, tag: string) => Promise<void>;
@@ -392,10 +406,14 @@ const TopicContent = React.memo<{
                   <TopicCard>
                     <SnippetList
                       snippets={snippets.map(({ snippet }) => snippet)}
+                      snippetIds={snippets.map(
+                        ({ analysisKey, snippetIndex }) =>
+                          `${analysisKey}:${snippetIndex}`,
+                      )}
                       slugs={snippets.map(({ slug }) => {
                         return slug;
                       })}
-                      onSnippetClick={(snippet) => {
+                      onSnippetClick={(snippet, element) => {
                         const matchingSnippet = snippets.find(
                           (s) => s.snippet === snippet,
                         );
@@ -404,6 +422,8 @@ const TopicContent = React.memo<{
                             matchingSnippet.slug,
                             snippet.measuresSpan[0],
                             topic,
+                            element,
+                            `${matchingSnippet.analysisKey}:${matchingSnippet.snippetIndex}`,
                           );
                         }
                       }}
@@ -458,6 +478,45 @@ const Structures: React.FC<StructuresProps> = ({
   const [loadingSnippets, setLoadingSnippets] = useState<Set<string>>(
     new Set(),
   );
+  const contentRef = useRef<HTMLDivElement>(null);
+  const scrollAnchorRef = useRef<{ id: string; top: number } | null>(null);
+
+  useEffect(() => {
+    if (
+      !isRawlVisible ||
+      !currentMidi ||
+      !rawlProps?.parsingResult ||
+      !scrollAnchorRef.current ||
+      !contentRef.current
+    )
+      return;
+
+    const restoreScroll = () => {
+      const anchor = scrollAnchorRef.current;
+      const content = contentRef.current;
+      if (!anchor || !content) return;
+      const snippet = Array.from(
+        content.querySelectorAll<HTMLElement>("[data-structure-snippet-id]"),
+      ).find((element) => element.dataset.structureSnippetId === anchor.id);
+      if (snippet) {
+        content.scrollTop += snippet.getBoundingClientRect().top - anchor.top;
+      }
+    };
+
+    // The player and previews can change row heights after the pane mounts.
+    let secondFrame: number;
+    const firstFrame = requestAnimationFrame(() => {
+      restoreScroll();
+      secondFrame = requestAnimationFrame(() => {
+        restoreScroll();
+        scrollAnchorRef.current = null;
+      });
+    });
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      cancelAnimationFrame(secondFrame);
+    };
+  }, [isRawlVisible, currentMidi, rawlProps]);
 
   // Add this function to select first topic
   const selectFirstTopicFromChapter = useCallback(
@@ -576,7 +635,19 @@ const Structures: React.FC<StructuresProps> = ({
   };
 
   const handleSnippetClick = useCallback(
-    async (slug: string, measureStart: number, topic: string) => {
+    async (
+      slug: string,
+      measureStart: number,
+      topic: string,
+      element: HTMLElement,
+      snippetId: string,
+    ) => {
+      if (!isRawlVisible) {
+        scrollAnchorRef.current = {
+          id: snippetId,
+          top: element.getBoundingClientRect().top,
+        };
+      }
       console.log("[Structures] handleSnippetClick - Starting with:", {
         slug,
         measureStart,
@@ -618,7 +689,7 @@ const Structures: React.FC<StructuresProps> = ({
         });
       }
     },
-    [handleSongClick, activeTopic, currentMidi, eject],
+    [handleSongClick, activeTopic, currentMidi, eject, isRawlVisible],
   );
 
   // Add useEffect to handle initial navigation into Structures
@@ -865,7 +936,7 @@ const Structures: React.FC<StructuresProps> = ({
               {chapterData[activeChapter].topics
                 .slice()
                 .sort((a, b) => a.topic.localeCompare(b.topic))
-                .map(({ topic }) => (
+                .map(({ topic, snippets }) => (
                   <TopicBubble
                     key={topic}
                     active={activeTopic === topic}
@@ -874,6 +945,7 @@ const Structures: React.FC<StructuresProps> = ({
                     }}
                   >
                     {topic.replace(/_/g, " ")}
+                    <TopicCount>{snippets.length}</TopicCount>
                   </TopicBubble>
                 ))}
             </TopicMenu>
@@ -915,6 +987,7 @@ const Structures: React.FC<StructuresProps> = ({
           </EjectButton>
           <InlineRawlPlayer
             {...rawlProps}
+            contentRef={contentRef}
             measureStart={selectedMeasureStart}
             onEject={() => setIsRawlVisible(false)}
           >

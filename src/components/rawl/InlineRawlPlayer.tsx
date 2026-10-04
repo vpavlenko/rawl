@@ -23,12 +23,14 @@ const RawlContainer = styled.div`
 
 interface InlineRawlPlayerProps {
   children: React.ReactNode;
+  contentRef?: React.Ref<HTMLDivElement>;
   measureStart?: number;
   onEject?: () => void;
 }
 
 const InlineRawlPlayer: React.FC<InlineRawlPlayerProps> = ({
   children,
+  contentRef,
   measureStart,
   onEject,
 }) => {
@@ -43,7 +45,7 @@ const InlineRawlPlayer: React.FC<InlineRawlPlayerProps> = ({
 
   return (
     <>
-      <ContentArea>{children}</ContentArea>
+      <ContentArea ref={contentRef}>{children}</ContentArea>
       {currentMidi && rawlProps && rawlProps?.parsingResult && (
         <RawlContainer>
           <Rawl

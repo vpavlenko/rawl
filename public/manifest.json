@@ -3,32 +3,32 @@
   "name": "Rawl",
   "icons": [
     {
-      "src": "./favicon.svg",
+      "src": "./favicon.svg?v=3",
       "sizes": "any",
       "type": "image/svg+xml"
     },
     {
-      "src": "./icon-16x16.png",
+      "src": "./icon-16x16.png?v=3",
       "sizes": "16x16",
       "type": "image/png"
     },
     {
-      "src": "./icon-32x32.png",
+      "src": "./icon-32x32.png?v=3",
       "sizes": "32x32",
       "type": "image/png"
     },
     {
-      "src": "./icon-64x64.png",
+      "src": "./icon-64x64.png?v=3",
       "sizes": "64x64",
       "type": "image/png"
     },
     {
-      "src": "./icon-192x192.png",
+      "src": "./icon-192x192.png?v=3",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./icon-512x512.png",
+      "src": "./icon-512x512.png?v=3",
       "sizes": "512x512",
       "type": "image/png"
     }

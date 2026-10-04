@@ -918,7 +918,7 @@ export const corpora: CorpusEntry[] = [
     style: "Modern Classical, Ambient, Minimalism",
     country: "Iceland", // Ólafur Arnalds is Icelandic.
   },
-  {slug: 'david_temperley', composerBirthYear: 1963, country: "USA", midis:["david-temperley---preludes-for-piano-ii-1", ]},
+  {slug: 'david_temperley', composerBirthYear: 1963, country: "USA", midis:["david-temperley---preludes-for-piano-ii-1", "david_temperley_prelude-ii.4.midi", ]},
   {
     slug: "bach_wtc",
     midis: [
@@ -7602,7 +7602,6 @@ export const corpora: CorpusEntry[] = [
   },
   { slug: "adele", composerBirthYear: 1988, country: "UK", midis: ["someone-like-you", "easy-on-me---adele",
       "adele---skyfall",
-      "someone-like-you-easy-piano",
       "someone-like-you-instrumental",
       "Someone_Like_You_easy_piano",
     ] },
@@ -8102,7 +8101,9 @@ export const corpora: CorpusEntry[] = [
       "bach-minuet-in-g-minor-bwv-anh.-115",
     ],
   },
-  {slug: 'john_hayes_and_mike_patti', midis: ["legacy-of-the-void-my-life-for-aiur-piano-arrangement", ]},
+  {slug: 'john_hayes_and_mike_patti', midis: ["legacy-of-the-void-my-life-for-aiur-piano-arrangement", ],
+    composerBirthYear: 1970,
+  },
   {
     slug: MUSESCORE_TOP_100_SLUG,
     posttext: AboutTop100Corpus,
@@ -10097,18 +10098,21 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "daft_punk",
+    composerName: "Daft Punk",
     midis: [
       "around-the-world---daft-punk---piano-version---maxence-cyrin",
     ],
   },
   {
     slug: "jose_feliciano",
+    composerName: "José Feliciano",
     midis: [
       "feliz-navidad-easy-piano",
     ],
   },
   {
     slug: "youmi_kimura",
+    composerName: "Youmi Kimura",
     midis: [
       "always-with-me-piano-cover",
     ],

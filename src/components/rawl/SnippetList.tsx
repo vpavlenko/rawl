@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Snippet } from "./analysis";
 import { corpora } from "./corpora/corpora";
@@ -11,50 +11,11 @@ import {
 } from "./corpusUtils";
 import SnippetItem, { PX_IN_MEASURE } from "./SnippetItem";
 
-const SnippetListContainer = styled.div<{ isPreview?: boolean; $timeline?: boolean }>`
+const SnippetListContainer = styled.div<{ isPreview?: boolean }>`
   display: flex;
-  flex-wrap: ${(props) => (props.$timeline ? "nowrap" : "wrap")};
-  gap: ${(props) => (props.$timeline ? "32px" : props.isPreview ? "60px" : "20px")};
-  padding-bottom: ${(props) => (props.$timeline ? "20px" : "10px")};
-  ${(props) => props.$timeline && `
-    position: relative;
-    width: 100%;
-    min-width: 0;
-    max-width: 100%;
-    overflow-x: auto;
-    box-sizing: border-box;
-  `}
-`;
-
-const TimelineYear = styled.div<{ $known: boolean }>`
-  position: relative;
-  width: 100%;
-  box-sizing: border-box;
-  height: 50px;
-  color: ${({ $known }) => ($known ? "#ddd" : "#888")};
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 35px;
-    left: -32px;
-    width: calc(100% + 32px);
-    border-top: 1px solid #555;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 31px;
-    left: 0;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: ${({ $known }) => ($known ? "#ddd" : "#777")};
-    box-shadow: 0 0 0 3px black;
-  }
+  flex-wrap: wrap;
+  gap: ${(props) => (props.isPreview ? "60px" : "20px")};
+  padding-bottom: 10px;
 `;
 
 const EditTagButton = styled.button`
@@ -245,8 +206,6 @@ interface SnippetListProps {
   hoveredColors?: string[] | null;
   onEditTag?: (index: number, tag: string) => Promise<void>;
   availableTags?: string[];
-  timeline?: boolean;
-  timelineScrollLeftRef?: React.MutableRefObject<number>;
 }
 
 export const getComposerInfo = (midiSlug: string) => {
@@ -280,15 +239,7 @@ const SnippetList: React.FC<SnippetListProps> = ({
   hoveredColors,
   onEditTag,
   availableTags = [],
-  timeline = false,
-  timelineScrollLeftRef,
 }) => {
-  const listRef = useRef<HTMLDivElement>(null);
-  useLayoutEffect(() => {
-    if (timeline && listRef.current && timelineScrollLeftRef) {
-      listRef.current.scrollLeft = timelineScrollLeftRef.current;
-    }
-  }, [timeline, timelineScrollLeftRef]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [tagDraft, setTagDraft] = useState("");
   const [tagError, setTagError] = useState("");
@@ -317,14 +268,7 @@ const SnippetList: React.FC<SnippetListProps> = ({
   };
 
   return (
-    <SnippetListContainer
-      ref={listRef}
-      isPreview={isPreview}
-      $timeline={timeline}
-      onScroll={timelineScrollLeftRef ? (event) => {
-        timelineScrollLeftRef.current = event.currentTarget.scrollLeft;
-      } : undefined}
-    >
+    <SnippetListContainer isPreview={isPreview}>
       {onEditTag && (
         <datalist id="structure-snippet-tags">
           {availableTags.map((tag) => (
@@ -350,11 +294,6 @@ const SnippetList: React.FC<SnippetListProps> = ({
             onClick={(event) => onSnippetClick(snippet, event.currentTarget)}
             isLoading={loadingSnippets.has(composerSlug)}
           >
-            {timeline && (
-              <TimelineYear $known={typeof composerInfo?.composerBirthYear === "number"}>
-                {composerInfo?.composerBirthYear ?? "Year unknown"}
-              </TimelineYear>
-            )}
             {midiSlug && (
               <SlugLabel $hasEditButton={!!onEditTag} title={lakhInfo?.song || midiSlug}>
                 {lakhInfo?.song || midiSlug}
@@ -441,7 +380,7 @@ const SnippetList: React.FC<SnippetListProps> = ({
                   {composerInfo.country && (
                     <div>{getEmojis(composerInfo.country)}</div>
                   )}
-                  {!timeline && composerInfo.composerBirthYear && (
+                  {composerInfo.composerBirthYear && (
                     <YearInfo>({composerInfo.composerBirthYear})</YearInfo>
                   )}
                 </ComposerHeader>

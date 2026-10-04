@@ -20,6 +20,8 @@ const all = process.argv.includes("--all") || saveTop;
 const json = process.argv.includes("--json");
 const index = JSON.parse(fs.readFileSync(path.join(midiDir, "midis.json"))).midis;
 const analyses = JSON.parse(fs.readFileSync(path.join(root, "src/corpus/analyses.json")));
+const feedback = JSON.parse(fs.readFileSync(path.join(root, "src/corpus/chromaticMinorBassFeedback.json")));
+const previousResults = JSON.parse(fs.readFileSync(path.join(root, "src/corpus/chromaticMinorBassTop100.json")));
 const tagged = new Map();
 const negativeTagged = new Map();
 for (const [key, analysis] of Object.entries(analyses)) {
@@ -27,6 +29,31 @@ for (const [key, analysis] of Object.entries(analyses)) {
   if (snippets.length) tagged.set(key.replace(/^f\//, ""), snippets);
   const negatives = (analysis.snippets || []).filter((s) => s.tag === negativeTag);
   if (negatives.length) negativeTagged.set(key.replace(/^f\//, ""), negatives);
+}
+const previousSnippets = [...previousResults.candidates, ...previousResults.taggedSnippets];
+for (const [labels, destination, snippetTag] of [
+  [feedback.positives, tagged, tag],
+  [feedback.negatives, negativeTagged, negativeTag],
+]) {
+  for (const { slug, from, to } of labels) {
+    const previous = previousSnippets.find((row) =>
+      row.slug === slug && row.from === from && row.to === to);
+    if (!previous) throw new Error(`No frozen snippet for feedback label ${slug} ${from}-${to}`);
+    const snippets = destination.get(slug) || [];
+    if (!snippets.some((snippet) => snippet.measuresSpan[0] === from && snippet.measuresSpan[1] === to)) {
+      snippets.push({ ...previous.snippet, tag: snippetTag });
+    }
+    destination.set(slug, snippets);
+  }
+}
+for (const { slug, from, to } of feedback.trainingOnlyPositives) {
+  const snippets = tagged.get(slug) || [];
+  if (!snippets.some((snippet) => snippet.measuresSpan[0] === from && snippet.measuresSpan[1] === to)) {
+    // These live annotations are in a different part of an already indexed
+    // piece; their frozen notes are unavailable in the downloaded review set.
+    snippets.push({ tag, measuresSpan: [from, to] });
+  }
+  tagged.set(slug, snippets);
 }
 
 function annotatedPhraseStarts(annotation, measureCount) {
@@ -453,7 +480,7 @@ function saveTopCandidates(results, summary) {
   const resultsBySlug = new Map(results.map((result) => [result.slug, result]));
   const ranked = results.flatMap((result) => result.matches.map((match) =>
     ({ slug: result.slug, ...match })));
-  const ranker = fitLinearRanker(ranked, tagged);
+  const ranker = fitLinearRanker(ranked, tagged, negativeTagged);
   ranked.sort((a, b) =>
     ranker.score(b) - ranker.score(a) || a.slug.localeCompare(b.slug) || a.from - b.from);
   ranked.forEach((candidate, index) => { candidate.rank = index + 1; });
@@ -504,7 +531,8 @@ function saveTopCandidates(results, summary) {
     if (top.length === 100) break;
   }
   const labeledSnippets = [
-    ...[...tagged].flatMap(([slug, snippets]) => snippets.map((snippet) => ({ slug, snippet, negative: false }))),
+    ...[...tagged].flatMap(([slug, snippets]) => snippets.filter((snippet) => snippet.frozenNotes)
+      .map((snippet) => ({ slug, snippet, negative: false }))),
     ...[...negativeTagged].flatMap(([slug, snippets]) => snippets.map((snippet) => ({ slug, snippet, negative: true }))),
   ];
   const taggedSnippets = labeledSnippets.map(({ slug, snippet, negative }) => {

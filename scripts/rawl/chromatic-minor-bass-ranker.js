@@ -1,6 +1,7 @@
 // A small, reproducible pairwise linear ranker for detected bass passages.
 // Tagged snippets are positive bags: any overlapping detection can represent
-// the example. Other pieces are comparison passages, not certified negatives.
+// the example. Explicit negative labels are scored as hard comparisons; other
+// pieces are comparison passages, not certified negatives.
 // Phrase starts stay out of the model until they can be estimated from MIDI for
 // every candidate; using only tagged analyses would leak the labels.
 const FEATURE_NAMES = [
@@ -24,6 +25,7 @@ const MINOR_THIRD_SHARE_WEIGHT = 0.02;
 const OPENING_MINOR_PLAUSIBILITY_WEIGHT = 0.005;
 const ANNOTATED_KEY_DISTANCE_WEIGHT = -0.0075;
 const HARD_NEGATIVES = 150;
+const EXPLICIT_NEGATIVE_WEIGHT = 15;
 const REGULARIZATION = 0.1;
 const EPOCHS = 150;
 const FOLDS = 4;
@@ -65,13 +67,18 @@ function foldFor(slug) {
   return hash % FOLDS;
 }
 
-function fitLinearRanker(candidates, tagged) {
+function fitLinearRanker(candidates, tagged, negativeTagged = new Map()) {
   const groups = [...tagged].flatMap(([slug, snippets]) => snippets.map((snippet) => ({
     slug,
     hits: candidates.filter((candidate) => candidate.slug === slug &&
       overlap(candidate, snippet.measuresSpan)),
   }))).filter((group) => group.hits.length);
-  const comparisons = candidates.filter((candidate) => !tagged.has(candidate.slug));
+  const negativeGroups = [...negativeTagged].flatMap(([slug, snippets]) =>
+    snippets.map((snippet) => ({ slug, hits: candidates.filter((candidate) =>
+      candidate.slug === slug && candidate.from === snippet.measuresSpan[0] &&
+      candidate.to === snippet.measuresSpan[1]) }))).filter((group) => group.hits.length);
+  const comparisons = candidates.filter((candidate) =>
+    !tagged.has(candidate.slug) && !negativeTagged.has(candidate.slug));
   const vectors = new Map(candidates.map((candidate) => [candidate, features(candidate)]));
   const keyDistanceIndex = FEATURE_NAMES.indexOf("annotatedKeyDistance");
   const means = FEATURE_NAMES.map((_, feature) => feature === keyDistanceIndex ? 0 :
@@ -86,25 +93,37 @@ function fitLinearRanker(candidates, tagged) {
   const order = (rows, weights) => [...rows].sort((a, b) =>
     score(b, weights) - score(a, weights) || a.slug.localeCompare(b.slug));
 
-  function train(trainingGroups) {
+  const withFixedFactors = (weights) => [
+    ...weights, MINOR_THIRD_SHARE_WEIGHT, OPENING_MINOR_PLAUSIBILITY_WEIGHT,
+    ANNOTATED_KEY_DISTANCE_WEIGHT,
+  ];
+
+  function train(trainingGroups, trainingNegatives) {
     const weights = [1, 0.1, 0.4, -0.2, -0.2, 0.1, 0, 0.2];
     for (let epoch = 0; epoch < EPOCHS; epoch++) {
-      const hard = order(comparisons, weights).slice(0, HARD_NEGATIVES);
+      const fullWeights = withFixedFactors(weights);
+      const hard = order(comparisons, fullWeights).slice(0, HARD_NEGATIVES);
+      const explicitNegatives = trainingNegatives.map((group) =>
+        order(group.hits, fullWeights)[0]);
       const gradient = Array(FEATURE_NAMES.length).fill(0);
       for (const group of trainingGroups) {
-        const positive = order(group.hits, weights)[0];
+        const positive = order(group.hits, fullWeights)[0];
         const positiveVector = normalized.get(positive);
-        for (const negative of hard) {
-          const difference = score(positive, weights) - score(negative, weights);
+        for (const [negative, importance] of [
+          ...hard.map((candidate) => [candidate, 1]),
+          ...explicitNegatives.map((candidate) => [candidate, EXPLICIT_NEGATIVE_WEIGHT]),
+        ]) {
+          const difference = score(positive, fullWeights) - score(negative, fullWeights);
           const factor = -1 / (1 + Math.exp(Math.min(50, difference)));
           const negativeVector = normalized.get(negative);
           for (let feature = 0; feature < gradient.length; feature++) {
-            gradient[feature] += factor * (positiveVector[feature] - negativeVector[feature]);
+            gradient[feature] += importance * factor * (positiveVector[feature] - negativeVector[feature]);
           }
         }
       }
       const step = 0.25 / (1 + epoch / 40);
-      const count = trainingGroups.length * hard.length;
+      const count = trainingGroups.length *
+        (hard.length + trainingNegatives.length * EXPLICIT_NEGATIVE_WEIGHT);
       for (let feature = 0; feature < weights.length; feature++) {
         weights[feature] -= step * (gradient[feature] / count + REGULARIZATION * weights[feature]);
         if (FEATURE_SIGNS[feature] > 0) weights[feature] = Math.max(0, weights[feature]);
@@ -124,17 +143,26 @@ function fitLinearRanker(candidates, tagged) {
     medianRank: [...positions].sort((a, b) => a - b)[Math.floor(positions.length / 2)],
   });
   const baseline = metrics(ranks([...candidates].sort(oldComparator), groups));
-  const withFixedFactors = (weights) => [
-    ...weights, MINOR_THIRD_SHARE_WEIGHT, OPENING_MINOR_PLAUSIBILITY_WEIGHT,
-    ANNOTATED_KEY_DISTANCE_WEIGHT,
-  ];
   const heldOutRanks = [];
+  const heldOutNegativeRanks = [];
   for (let fold = 0; fold < FOLDS; fold++) {
     const training = groups.filter((group) => foldFor(group.slug) !== fold);
     const heldOut = groups.filter((group) => foldFor(group.slug) === fold);
-    heldOutRanks.push(...ranks(order(candidates, withFixedFactors(train(training))), heldOut));
+    const trainingNegatives = negativeGroups.filter((group) => foldFor(group.slug) !== fold);
+    const heldOutNegatives = negativeGroups.filter((group) => foldFor(group.slug) === fold);
+    const sorted = order(candidates, withFixedFactors(train(training, trainingNegatives)));
+    heldOutRanks.push(...ranks(sorted, heldOut));
+    const positions = new Map(sorted.map((candidate, index) => [candidate, index + 1]));
+    heldOutNegativeRanks.push(...heldOutNegatives.map((group) =>
+      Math.min(...group.hits.map((candidate) => positions.get(candidate)))));
   }
-  const weights = withFixedFactors(train(groups));
+  const weights = withFixedFactors(train(groups, negativeGroups));
+  const ranked = order(candidates, weights);
+  const negativeRanks = (sorted) => {
+    const positions = new Map(sorted.map((candidate, index) => [candidate, index + 1]));
+    return negativeGroups.map((group) =>
+      Math.min(...group.hits.map((candidate) => positions.get(candidate))));
+  };
   const breakdown = (candidate) => normalized.get(candidate).map((standardized, index) => ({
     feature: FEATURE_NAMES[index],
     value: index === keyDistanceIndex && candidate.annotatedKeyDistance == null ? null :
@@ -152,6 +180,8 @@ function fitLinearRanker(candidates, tagged) {
       means: means.map((mean) => Number(mean.toFixed(6))),
       scales: scales.map((scale) => Number(scale.toFixed(6))),
       hardNegatives: HARD_NEGATIVES,
+      explicitNegativeWeight: EXPLICIT_NEGATIVE_WEIGHT,
+      explicitNegatives: negativeGroups.length,
       regularization: REGULARIZATION,
       epochs: EPOCHS,
       fixedMinorThirdShareWeight: MINOR_THIRD_SHARE_WEIGHT,
@@ -162,7 +192,12 @@ function fitLinearRanker(candidates, tagged) {
       comparisonPassages: comparisons.length,
       baseline: { ...baseline, examples: groups.length },
       heldOut: { ...metrics(heldOutRanks), examples: groups.length, folds: FOLDS },
-      fitted: { ...metrics(ranks(order(candidates, weights), groups)), examples: groups.length },
+      fitted: { ...metrics(ranks(ranked, groups)), examples: groups.length },
+      negativeRanks: {
+        baseline: negativeRanks([...candidates].sort(oldComparator)),
+        heldOut: heldOutNegativeRanks,
+        fitted: negativeRanks(ranked),
+      },
     },
   };
 }

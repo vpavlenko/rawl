@@ -336,7 +336,7 @@ const ChromaticMinorBassSearch: React.FC = () => {
       <Page $playing={playing}>
         <Intro>
           <h1>Chromatic bass from minor i · search results</h1>
-          <p>Up to 100 new MIDI candidates from pieces without a saved example, plus your tagged snippets. Bass notes must onset on strong beats and change at an even pace, allowing occasional doubled gaps. A sustained major third cannot dominate the opening or lead into the descent. The ranking uses a linear score tuned on {results.ranker.trainingExamples + results.ranker.unretrievedExamples} downloaded tagged snippets; rank is the position among all detected passages and stays fixed when filtering.</p>
+          <p>Up to 100 new MIDI candidates from pieces without a saved example, plus your tagged snippets. Bass notes must onset on strong beats and change at an even pace, allowing occasional doubled gaps. A sustained major third cannot dominate the opening or lead into the descent. The ranking uses a linear score tuned on {results.ranker.trainingExamples + results.ranker.unretrievedExamples} positive and {results.ranker.explicitNegatives} negative labels; rank is the position among all detected passages and stays fixed when filtering.</p>
           <p>Click a snippet to open that passage in Rawl. {results.scanned.toLocaleString()} local MIDI files were scanned. The ♭3:3 count, opening i-chord plausibility, and distance from the annotated key also contribute to rank. <Link to="/s/bass/chromatic_line_down_from_minor_i">View tagged examples</Link>.</p>
           <Filters aria-label="Filter bass search results">
             {(["all", "new", "tagged", "pass", "fail", "negative", "unscanned"] as Filter[]).map((choice) => (
@@ -346,7 +346,7 @@ const ChromaticMinorBassSearch: React.FC = () => {
               </button>
             ))}
           </Filters>
-          <p>Pass means the detector found a passage overlapping at least two measures of your snippet. Fail means it found none. Negative means you marked the passage as lacking this feature; these labels are saved for later ranker tuning. Unranked snippets did not pass; “Not scanned” has no indexed MIDI.</p>
+          <p>Pass means the detector found a passage overlapping at least two measures of your snippet. Fail means it found none. Negative means you marked the passage as lacking this feature; these labels inform the current ranking model. Unranked snippets did not pass; “Not scanned” has no indexed MIDI.</p>
         </Intro>
         <Grid>
           {visibleResults.length === 0 && <p>No snippets in this filter yet.</p>}

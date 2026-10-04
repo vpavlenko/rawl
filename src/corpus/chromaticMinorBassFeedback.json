@@ -1,0 +1,164 @@
+{
+  "source": "Saved labels visible on the structural search page on 2026-10-04; spans match the reviewed search candidates.",
+  "positives": [
+    {
+      "slug": "plaukstosais-jasmins---georgs-pelecis",
+      "from": 163,
+      "to": 177
+    },
+    {
+      "slug": "resurrections---lena-raine",
+      "from": 138,
+      "to": 144
+    },
+    {
+      "slug": "overcooked-medley",
+      "from": 19,
+      "to": 25
+    },
+    {
+      "slug": "hiromi-uehara---old-castle-by-the-river-in-the-middle-of-a-forest",
+      "from": 442,
+      "to": 445
+    },
+    {
+      "slug": "piazzolla_histoire_du_tango_nightclub_1960",
+      "from": 2,
+      "to": 8
+    },
+    {
+      "slug": "criminal-music---mike-schoenmehl",
+      "from": 31,
+      "to": 33
+    },
+    {
+      "slug": "code-vein---go-shiina",
+      "from": 81,
+      "to": 83
+    },
+    {
+      "slug": "koncertino---yu.-zubay",
+      "from": 2,
+      "to": 8
+    },
+    {
+      "slug": "zehn-nach-elf-udo-jurgens-piano-cover",
+      "from": 8,
+      "to": 11
+    },
+    {
+      "slug": "always---aziza-mustafa-zadeh",
+      "from": 68,
+      "to": 71
+    },
+    {
+      "slug": "i-m-thinking---ittle-dew",
+      "from": 14,
+      "to": 24
+    },
+    {
+      "slug": "tom-lehrer---new-math-music",
+      "from": 107,
+      "to": 111
+    },
+    {
+      "slug": "between-the-devil-and-the-deep-blue-sea",
+      "from": 19,
+      "to": 21
+    },
+    {
+      "slug": "aleon-raven-vertigo",
+      "from": 61,
+      "to": 63
+    },
+    {
+      "slug": "little-goth---celeste",
+      "from": 1,
+      "to": 11
+    },
+    {
+      "slug": "little-waltz---gurlitt-op.-205-no-10",
+      "from": 1,
+      "to": 6
+    },
+    {
+      "slug": "the-russia-house---jerry-goldsmith",
+      "from": 90,
+      "to": 94
+    },
+    {
+      "slug": "georgy_zakharov_hw_8",
+      "from": 25,
+      "to": 29
+    },
+    {
+      "slug": "waltzing-the-blues---catherine-rollin",
+      "from": 1,
+      "to": 5
+    },
+    {
+      "slug": "elza-ibrahimova---daha-m-nd-dozum-yox",
+      "from": 12,
+      "to": 16
+    },
+    {
+      "slug": "mice-on-venus-minecraft",
+      "from": 3,
+      "to": 6
+    },
+    {
+      "slug": "corsage-for-winds---john-cacavas-string-quartet",
+      "from": 39,
+      "to": 43
+    },
+    {
+      "slug": "wild-west-main-theme",
+      "from": 173,
+      "to": 174
+    },
+    {
+      "slug": "vivaldi---summer---piano",
+      "from": 85,
+      "to": 97
+    }
+  ],
+  "negatives": [
+    {
+      "slug": "One_Summers_Day_Spirited_Away",
+      "from": 60,
+      "to": 63
+    },
+    {
+      "slug": "fur-elise-reharmonization-cover",
+      "from": 16,
+      "to": 23
+    },
+    {
+      "slug": "studio-ghibli-lofi-piano---jimindorothy---thanks-for-50-followers",
+      "from": 32,
+      "to": 35
+    },
+    {
+      "slug": "the-name-of-life-inochi-no-namae-joe-hisaishi",
+      "from": 35,
+      "to": 38
+    }
+  ],
+  "trainingOnlyPositives": [
+    {
+      "slug": "quiet-and-falling---celeste",
+      "from": 1,
+      "to": 11
+    },
+    {
+      "slug": "playing-love---ennio-morricone",
+      "from": 39,
+      "to": 41
+    },
+    {
+      "slug": "zimniy-vecher-winter-evening---manfred-shmitc-manfred-schmitz",
+      "from": 31,
+      "to": 35
+    }
+  ]
+}

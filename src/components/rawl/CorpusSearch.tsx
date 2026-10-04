@@ -161,22 +161,28 @@ const CorpusSearch: React.FC<{ query?: string }> = ({ query }) => {
       searchInputRef.current.focus();
     }
 
-    const uniqueMidis = new Set(corpora.flatMap((corpus) => corpus.midis));
+    const uniqueMidis = new Set(
+      corpora
+        .filter((corpus) => !corpus.secondary)
+        .flatMap((corpus) => corpus.midis),
+    );
     setTotalMidis(uniqueMidis.size);
   }, []);
 
   const corpusSearchIndex = React.useMemo(
     () =>
-      corpora.map((corpus) => ({
-        corpus,
-        words: [
-          ...corpus.slug.toLowerCase().split(/[-_\s]+/),
-          ...corpus.midis.flatMap((midi) => [
-            ...midi.toLowerCase().split(/[-_\s]+/),
-            ...getNiceName(midi).toLowerCase().split(/\s+/),
-          ]),
-        ],
-      })),
+      corpora
+        .filter((corpus) => !corpus.secondary)
+        .map((corpus) => ({
+          corpus,
+          words: [
+            ...corpus.slug.toLowerCase().split(/[-_\s]+/),
+            ...corpus.midis.flatMap((midi) => [
+              ...midi.toLowerCase().split(/[-_\s]+/),
+              ...getNiceName(midi).toLowerCase().split(/\s+/),
+            ]),
+          ],
+        })),
     [],
   );
 

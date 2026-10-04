@@ -210,7 +210,7 @@ interface SnippetListProps {
 
 export const getComposerInfo = (midiSlug: string) => {
   const matchingCorpora = corpora.filter((corpus) =>
-    corpus.midis.some((midi) => midi === midiSlug),
+    !corpus.secondary && corpus.midis.some((midi) => midi === midiSlug),
   );
   return matchingCorpora.find(hasMetadata) || null;
 };

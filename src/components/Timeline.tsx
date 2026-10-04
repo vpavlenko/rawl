@@ -191,12 +191,13 @@ const Timeline: React.FC = () => {
   const composers = corpora
     .filter(
       (composer): composer is Composer & { composerBirthYear: number } =>
-        typeof composer.composerBirthYear === "number",
+        !composer.secondary && typeof composer.composerBirthYear === "number",
     )
     .sort((a, b) => b.composerBirthYear - a.composerBirthYear);
 
   const composersWithoutYear = corpora.filter(
-    (composer) => typeof composer.composerBirthYear !== "number",
+    (composer) =>
+      !composer.secondary && typeof composer.composerBirthYear !== "number",
   );
 
   const handleCountryClick = (country: string) => {
@@ -229,7 +230,8 @@ const Timeline: React.FC = () => {
   };
 
   const filteredComposers = composers.filter(matchesFilter);
-  const filteredComposersWithoutYear = composersWithoutYear.filter(matchesFilter);
+  const filteredComposersWithoutYear =
+    composersWithoutYear.filter(matchesFilter);
 
   const filteredYears = [
     ...new Set(filteredComposers.map((c) => c.composerBirthYear)),
@@ -328,8 +330,8 @@ const Timeline: React.FC = () => {
           <UndatedHeading>Without a birth year</UndatedHeading>
           <ComposersGroup>
             {filteredComposersWithoutYear.map((composer) => (
-                <ComposerCardContent key={composer.slug} composer={composer} />
-              ))}
+              <ComposerCardContent key={composer.slug} composer={composer} />
+            ))}
           </ComposersGroup>
         </>
       )}

@@ -1,0 +1,680 @@
+{
+  "source": "live Firebase index with local MIDI backups",
+  "indexed": 4024,
+  "attempted": 4030,
+  "scanned": 4020,
+  "failures": [
+    {
+      "slug": "Jupiter_-_arr._for_two_pianos_by_Gustav_Holst",
+      "error": "Unterminated pitched notes"
+    },
+    {
+      "slug": "brahms_118_1",
+      "error": "Unterminated pitched notes"
+    },
+    {
+      "slug": "original-rags---scott-joplin---1899",
+      "error": "Unterminated pitched notes"
+    },
+    {
+      "slug": "rakiya-su-katamam---selami-sahin-altin-gun",
+      "error": "Unterminated pitched notes"
+    },
+    {
+      "slug": "badi-sabah-olmadan---altin-gun-badi-sabah-olmadan.xml",
+      "error": "Unterminated pitched notes"
+    },
+    {
+      "slug": "gnossienne-no.-1",
+      "error": "Unterminated pitched notes"
+    },
+    {
+      "slug": "touhou---native-faith",
+      "error": "Unterminated pitched notes"
+    },
+    {
+      "slug": "gnossienne-no.-1-ebd5e5",
+      "error": "Unterminated pitched notes"
+    },
+    {
+      "slug": "french-touch",
+      "error": "Unterminated pitched notes"
+    },
+    {
+      "slug": "heroes-of-might-and-magic-iii---castle-town-theme",
+      "error": "MIDI document not found"
+    }
+  ],
+  "corpusWithoutIndexedMidi": [
+    "heroes-of-might-and-magic-iii---castle-town-theme",
+    "-781a2b",
+    "bulchenska-rachenitsa----piano-tutorial",
+    "i-wish.1-ba1559",
+    "sopsko-horo----piano-tutorial",
+    "pernishka-rchenica---ibro-lolov----piano-tutorial"
+  ],
+  "existingCount": 187,
+  "additions": 0,
+  "matches": [
+    {
+      "slug": "a-house-with-a-heart---brandon-hesslau---buddy-simulator-1984",
+      "tonic": 9,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 580,
+      "beats": 117.74791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "always-with-me-piano-cover.",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1337,
+      "beats": 233.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "baby",
+      "tonic": 3,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 707,
+      "beats": 152,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "backpack-quest",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 274,
+      "beats": 92.79791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "closing-time---yehezkel-raz",
+      "tonic": 4,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 132,
+      "beats": 64.49791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "dance-suite",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 626,
+      "beats": 162.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "Ed_Sheeran_Perfect",
+      "tonic": 8,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1831,
+      "beats": 403.49791666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "ed-sheeran---perfect-easy-for-beginners",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 438,
+      "beats": 160.34791666666666,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "fado-de-coimbra---anonimo",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 329,
+      "beats": 100.94791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "fairytale---enya",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 677,
+      "beats": 227.79791666666668,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "fix-you---coldplay",
+      "tonic": 3,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1925,
+      "beats": 331.79791666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "georgy_zakharov_hw5",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 162,
+      "beats": 63.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "greendale-is-where-i-belong---ludwig-goransson---community",
+      "tonic": 2,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 965,
+      "beats": 251.79791666666668,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "happy_birthday_bass_and_chords",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 86,
+      "beats": 56.89791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "happy_birthday_easy",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 86,
+      "beats": 54.89791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "happy_birthday_to_you",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 86,
+      "beats": 54.89791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "happy-birthday-akkordeon",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 165,
+      "beats": 50.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "happy-birthday-easy-to-play",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 86,
+      "beats": 54.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "happybirthday_simlpe_chords-al",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 102,
+      "beats": 54,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "hbd-3-ll112",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 55,
+      "beats": 30,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "here-s-your-perfect---jamie-miller",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 777,
+      "beats": 152,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "it-s-your-day---yiruma",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1139,
+      "beats": 423.79791666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "itsumo-nando-demo-always-with-me---spirited-away",
+      "tonic": 4,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1572,
+      "beats": 530.9979166666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "John_Lennon_Imagine",
+      "tonic": 0,
+      "chromaticNotes": 11,
+      "chromaticDurationShare": 0.006332390005563338,
+      "noteCount": 831,
+      "beats": 223.79791666666668,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "kevin-kern-the-silence-of-knowing",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1148,
+      "beats": 439.99791666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "kevin-kern-through-your-eyes",
+      "tonic": 4,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1039,
+      "beats": 363.99791666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "lesotho-national-anthem",
+      "tonic": 10,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 218,
+      "beats": 29.997916666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "m.-loizos---o-dromos---greek-music-003",
+      "tonic": 2,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1096,
+      "beats": 177.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "marcy-s-theme---t.j.-hill-amphibia-ost",
+      "tonic": 10,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 774,
+      "beats": 163.79791666666668,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "marry-had-a-little-lamb",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 50,
+      "beats": 31.997916666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "messages-easy-piano---vangelis",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 839,
+      "beats": 395.99791666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "michishirube---violet-evergarden-ed",
+      "tonic": 9,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 407,
+      "beats": 127.79791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "minuet-from-music-for-the-royal-fireworks---georg-friedrich-handel",
+      "tonic": 2,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 283,
+      "beats": 95.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "n.-portokalogloy---to-kalokairaki---greek-music-044",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 720,
+      "beats": 291.99791666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "neil-young---harvest-moon-piano-solo",
+      "tonic": 2,
+      "chromaticNotes": 2,
+      "chromaticDurationShare": 0.00014025210315543184,
+      "noteCount": 1726,
+      "beats": 547.9979166666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "nigeria-national-anthem",
+      "tonic": 5,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 231,
+      "beats": 71.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "old-black-joe-by-stephen-foster",
+      "tonic": 2,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 894,
+      "beats": 143.49791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "Ophelia",
+      "tonic": 5,
+      "chromaticNotes": 2,
+      "chromaticDurationShare": 0.0005473246595961198,
+      "noteCount": 965,
+      "beats": 187.69791666666666,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "piano-serenade-in-a-flat",
+      "tonic": 8,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 651,
+      "beats": 164.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "prelude-etnika---piano-transcription",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 962,
+      "beats": 278.9479166666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "raymond-pauls-ptichka-na-vetke",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 582,
+      "beats": 167.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "remembering-the-light---kevin-kern",
+      "tonic": 10,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1144,
+      "beats": 423.99791666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "revivre-sa-vie--richard-clayderman",
+      "tonic": 1,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1113,
+      "beats": 303.99791666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "richard-marx---right-here-waiting",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1210,
+      "beats": 355.79791666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "saren-kowga-jowxtm-goc",
+      "tonic": 9,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 230,
+      "beats": 47.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "schubert_d365_09",
+      "tonic": 8,
+      "chromaticNotes": 4,
+      "chromaticDurationShare": 0.006970159006752368,
+      "noteCount": 338,
+      "beats": 97.4765625,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "schubert-german-dance-d.783-op.-33-no.-2",
+      "tonic": 2,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 424,
+      "beats": 95.91041666666666,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "smth2",
+      "tonic": 7,
+      "chromaticNotes": 3,
+      "chromaticDurationShare": 0.002282997867861011,
+      "noteCount": 274,
+      "beats": 159.89791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "someone-like-you-instrumental",
+      "tonic": 9,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 787,
+      "beats": 335.79791666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "someone-you-loved-lewis-capaldi",
+      "tonic": 1,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1447,
+      "beats": 323.79791666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "stille-nacht-heilige-nacht-the-1818-original-silent-night",
+      "tonic": 2,
+      "chromaticNotes": 1,
+      "chromaticDurationShare": 0.0014740796785723698,
+      "noteCount": 322,
+      "beats": 50.447916666666664,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "sunlight-waltz---catherine-rollin",
+      "tonic": 0,
+      "chromaticNotes": 2,
+      "chromaticDurationShare": 0.003695885814138665,
+      "noteCount": 267,
+      "beats": 152.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "the-fabelmans---john-williams",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 396,
+      "beats": 207.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "the-office-theme",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 508,
+      "beats": 87.99791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "this-wandering-day---bear-mccreary---the-rings-of-power",
+      "tonic": 10,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 477,
+      "beats": 112.67291666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "triste-coeur",
+      "tonic": 4,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 926,
+      "beats": 347.79791666666665,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "turning",
+      "tonic": 4,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 591,
+      "beats": 208.89791666666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "Vangelis_Chariots_of_fire",
+      "tonic": 0,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 751,
+      "beats": 179.79791666666668,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "wima.3657-schubert_deut.tanzd365.18",
+      "tonic": 9,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 338,
+      "beats": 94.90104166666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "wima.7e1e-schubert_deut.tanz-d.365.09",
+      "tonic": 8,
+      "chromaticNotes": 4,
+      "chromaticDurationShare": 0.006939424606043108,
+      "noteCount": 340,
+      "beats": 97.4765625,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "wima.e480-schubert_de.-tanz-d.365.25",
+      "tonic": 4,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 396,
+      "beats": 97.90104166666667,
+      "existing": true,
+      "inCorpus": true
+    },
+    {
+      "slug": "yiruma_its_your_day",
+      "tonic": 7,
+      "chromaticNotes": 0,
+      "chromaticDurationShare": 0,
+      "noteCount": 1139,
+      "beats": 423.99791666666664,
+      "existing": true,
+      "inCorpus": true
+    }
+  ]
+}

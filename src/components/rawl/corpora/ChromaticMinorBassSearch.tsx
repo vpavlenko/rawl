@@ -258,7 +258,8 @@ const ChromaticMinorBassSearch: React.FC = () => {
   const [filter, setFilter] = useState<Filter>("all");
   const [openInfoId, setOpenInfoId] = useState<string | null>(null);
   if (!app) return null;
-  const { currentMidi, rawlProps, handleSongClick, eject, analyses, loadingUser, saveSnippetForKey } = app;
+  const { currentMidi, rawlProps, handleSongClick, eject, analyses, user, loadingUser, saveSnippetForKey } = app;
+  const canAnnotateCorpus = !loadingUser && user?.email === "cxielamiko@gmail.com";
   const playing = !!selected && !!currentMidi && !!rawlProps?.parsingResult;
 
   const openCandidate = async (candidate: ResultItem) => {
@@ -274,6 +275,7 @@ const ChromaticMinorBassSearch: React.FC = () => {
   };
 
   const saveCandidate = async (candidate: ResultItem, tag: string) => {
+    if (!canAnnotateCorpus) return;
     const id = `${candidate.slug}:${candidate.from}-${candidate.to}`;
     setSaving(id);
     setSaveErrors((previous) => ({ ...previous, [id]: "" }));
@@ -379,18 +381,20 @@ const ChromaticMinorBassSearch: React.FC = () => {
                     onClick={() => setOpenInfoId((open) => open === id ? null : id)}>
                     <InfoIcon />
                   </CardActionButton>
-                  <CardActionButton type="button" disabled={loadingUser || label === "positive" && !saveErrors[id] || saving === id}
-                    onClick={() => void saveCandidate(candidate, POSITIVE_TAG)}
-                    title={loadingUser ? "Loading snippets…" : saving === id ? "Saving snippet…" : label === "positive" ? "Saved snippet" : "Save snippet"}
-                    aria-label={`${label === "positive" ? "Saved snippet" : "Save snippet"} for ${candidate.title || candidate.slug}, measures ${candidate.from}–${candidate.to}`}>
-                    <SaveIcon saved={label === "positive"} />
-                  </CardActionButton>
-                  <CardActionButton type="button" disabled={loadingUser || label === "negative" && !saveErrors[id] || saving === id}
-                    onClick={() => void saveCandidate(candidate, NEGATIVE_TAG)}
-                    title={loadingUser ? "Loading snippets…" : saving === id ? "Saving label…" : label === "negative" ? "Marked negative" : "Mark as negative: this passage lacks the feature"}
-                    aria-label={`${label === "negative" ? "Marked negative" : "Mark as negative"} for ${candidate.title || candidate.slug}, measures ${candidate.from}–${candidate.to}`}>
-                    <NegativeIcon saved={label === "negative"} />
-                  </CardActionButton>
+                  {canAnnotateCorpus && <>
+                    <CardActionButton type="button" disabled={loadingUser || label === "positive" && !saveErrors[id] || saving === id}
+                      onClick={() => void saveCandidate(candidate, POSITIVE_TAG)}
+                      title={loadingUser ? "Loading snippets…" : saving === id ? "Saving snippet…" : label === "positive" ? "Saved snippet" : "Save snippet"}
+                      aria-label={`${label === "positive" ? "Saved snippet" : "Save snippet"} for ${candidate.title || candidate.slug}, measures ${candidate.from}–${candidate.to}`}>
+                      <SaveIcon saved={label === "positive"} />
+                    </CardActionButton>
+                    <CardActionButton type="button" disabled={loadingUser || label === "negative" && !saveErrors[id] || saving === id}
+                      onClick={() => void saveCandidate(candidate, NEGATIVE_TAG)}
+                      title={loadingUser ? "Loading snippets…" : saving === id ? "Saving label…" : label === "negative" ? "Marked negative" : "Mark as negative: this passage lacks the feature"}
+                      aria-label={`${label === "negative" ? "Marked negative" : "Mark as negative"} for ${candidate.title || candidate.slug}, measures ${candidate.from}–${candidate.to}`}>
+                      <NegativeIcon saved={label === "negative"} />
+                    </CardActionButton>
+                  </>}
                 </CardActions>
               </CardHeader>
               {openInfoId === id && <RankingPanel id={`ranking-factors-${index}`}

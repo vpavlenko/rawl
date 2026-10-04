@@ -5,6 +5,8 @@ import AboutTop100Corpus from "../book/AboutTop100Corpus";
 export type CorpusEntry = {
   slug: string;
   midis: string[];
+  // Thematic collections remain directly accessible but are not composer groups.
+  secondary?: boolean;
   composerBirthYear?: number;
   genre?: string;
   style?: string;
@@ -2507,7 +2509,9 @@ export const corpora: CorpusEntry[] = [
     style: "Jazz, Ballad",
     country: "France, USA",
   },
-  {slug: 'bushgrafts', midis: ["autumnleaves_bushgrafts",'my_funny_valentine',
+  // Decade estimate, not a verified birth year: Doug McKenzie was retired from teaching by 2008.
+  // https://www.learnjazzpiano.com/post/2008/03/29/doug-mckenzies-instructional-jazz-piano-dvd/
+  {slug: 'bushgrafts', composerBirthYear: 1950, midis: ["autumnleaves_bushgrafts",'my_funny_valentine',
     "desafinado_bushgrafts", 
   ]},
   {
@@ -3470,6 +3474,9 @@ export const corpora: CorpusEntry[] = [
 
   {
     slug: "josef_huber_midis",
+    // Decade estimate, not a verified birth year: experienced jazz MIDI arranger active by 2001.
+    // https://www.midishow.com/midi/beautiful-friendship-info-josefhuber-com-midi-download-115519
+    composerBirthYear: 1960,
     midis: [
       "solar",
       "soulman",
@@ -4085,7 +4092,6 @@ export const corpora: CorpusEntry[] = [
       "au_privave",
     ],
   },
-  { slug: "cherokee_changes", midis: [] },
   {
     slug: "overcooked",
     midis: [
@@ -4095,6 +4101,8 @@ export const corpora: CorpusEntry[] = [
       "moreish-mines---overcooked-2", 
       "overcooked-2---map-theme-piano-solo", 
       "overcooked-2-carnival-of-chaos---fairground-night", 
+      "overcooked-2---ravenous-rapids---ghost-town-games---oli-wood-overcooked-2---ravenous-rapids---for-jazz-band", 
+      "overcooked-restaurant-theme-aka-penne-for-your-thoughts", 
     ],
     composerBirthYear: 1980,
     genre: "Video Game Music",
@@ -4329,7 +4337,7 @@ export const corpora: CorpusEntry[] = [
   {slug: 'aleon_raven',
     composerBirthYear: 1990, // Estimated birth year for timeline placement; unverified.
     country: "Bulgaria", midis: ['aleon-raven-vertigo']},
-    {slug: 'kenny_dorham', midis:["blue-bossa", ]},
+    {slug: 'kenny_dorham', composerBirthYear: 1924, midis:["blue-bossa", ]},
   {
     slug: "tonal_stretch",
     midis: [
@@ -7712,7 +7720,9 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1980,
     country: "Japan",
   },
-  { slug: "jojomk2", midis: ["canon-in-c-jazz-piano-duets"] },
+  // Low-confidence decade estimate, not a verified birth year: piano transcriber active by 2019.
+  // https://musescore.com/user/17754756/scores/5659724
+  { slug: "jojomk2", composerBirthYear: 1990, midis: ["canon-in-c-jazz-piano-duets"] },
   {
     slug: "hayato_sumino",
     composerBirthYear: 1995,
@@ -7953,6 +7963,7 @@ export const corpora: CorpusEntry[] = [
       "bach-minuet-in-g-minor-bwv-anh.-115",
     ],
   },
+  {slug: 'john_hayes_and_mike_patti', midis: ["legacy-of-the-void-my-life-for-aiur-piano-arrangement", ]},
   {
     slug: MUSESCORE_TOP_100_SLUG,
     posttext: AboutTop100Corpus,
@@ -9016,8 +9027,6 @@ export const corpora: CorpusEntry[] = [
       "hanna-montana---poshlaya-molli-hannamontana---poshlaya-molli",
       "hannamontana---poshlaya-molli-agga",
 
-      "hojnacki_1",
-
       "idotdotdot---yiruma",
 
       "kars_1_tigran_hamasyan",
@@ -9371,6 +9380,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "simple_major",
+    secondary: true,
     midis: [
       "overcooked-2---map-theme-piano-solo", 
       "yiruma_its_your_day",
@@ -9529,10 +9539,42 @@ export const corpora: CorpusEntry[] = [
       "hojnacki_1",
       "major_diatonic_chords",
       "priboi",
+      // Whole-piece MIDI scan: diatonic major, allowing stepwise chromatic ornaments.
+      "a-house-with-a-heart---brandon-hesslau---buddy-simulator-1984",
+      "always-with-me-piano-cover.",
+      "baby",
+      "ed-sheeran---perfect-easy-for-beginners",
+      "fado-de-coimbra---anonimo",
+      "georgy_zakharov_hw5",
+      "happy_birthday_easy",
+      "happy_birthday_to_you",
+      "happy-birthday-akkordeon",
+      "happy-birthday-easy-to-play",
+      "happybirthday_simlpe_chords-al",
+      "hbd-3-ll112",
+      "here-s-your-perfect---jamie-miller",
+      "kevin-kern-the-silence-of-knowing",
+      "kevin-kern-through-your-eyes",
+      "marry-had-a-little-lamb",
+      "neil-young---harvest-moon-piano-solo",
+      "Ophelia",
+      "prelude-etnika---piano-transcription",
+      "remembering-the-light---kevin-kern",
+      "saren-kowga-jowxtm-goc",
+      "schubert_d365_09",
+      "smth2",
+      "someone-like-you-instrumental",
+      "stille-nacht-heilige-nacht-the-1818-original-silent-night",
+      "sunlight-waltz---catherine-rollin",
+      "the-office-theme",
+      "Vangelis_Chariots_of_fire",
+      "John_Lennon_Imagine",
+      "wima.7e1e-schubert_deut.tanz-d.365.09",
     ],
   },
   {
     slug: "sia",
+    composerBirthYear: 1975,
     midis: [
       "55348_elastic-heart",
       "elastic-heart",
@@ -9542,6 +9584,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "anton_webern",
+    composerBirthYear: 1883,
     midis: [
       "anton-webern---variationen-op.-27",
       "elf-kurze-stucke-no.-4---anton-webern",
@@ -9562,12 +9605,14 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "charlie_christian",
+    composerBirthYear: 1916,
     midis: [
       "dg__grand-slam---charlie-christian",
     ],
   },
   {
     slug: "keygen_church",
+    composerBirthYear: 1979, // Victor Love (Vittorio D'Amore), the project's composer.
     midis: [
       "e-puro-fobca-dafluic-eque-pure---keygen-church",
       "gebuerjeit---keygen-church",
@@ -9577,12 +9622,14 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "mac_demarco",
+    composerBirthYear: 1990,
     midis: [
       "freaking-out-the-neighborhood-by-mac-demarco",
     ],
   },
   {
     slug: "giorgio_moroder",
+    composerBirthYear: 1940,
     midis: [
       "giorgio-moroder---together-in-electric-dreams___www.midisfree.com",
       "together_in_electric_dreams",
@@ -9590,24 +9637,28 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "jamie_miller",
+    composerBirthYear: 1997,
     midis: [
       "here-s-your-perfect---jamie-miller",
     ],
   },
   {
     slug: "hiroyuki_sawano",
+    composerBirthYear: 1980,
     midis: [
       "hiroyuki-sawano---vogel-im-kafig",
     ],
   },
   {
     slug: "mitski",
+    composerBirthYear: 1990,
     midis: [
       "i-bet-on-losing-dogs---mitski",
     ],
   },
   {
     slug: "frank_zappa",
+    composerBirthYear: 1940,
     midis: [
       "igor-s-boogie---frank-zappa",
       "igors-boogie---frank-zappa",
@@ -9615,6 +9666,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "steve_swallow",
+    composerBirthYear: 1940,
     midis: [
       "ladies-in-mercedes",
       "ladies-in-mercedes---steve-swallow",
@@ -9622,6 +9674,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "ruth_b",
+    composerBirthYear: 1995,
     midis: [
       "lost-boy---ruth-b-a40f76",
     ],
@@ -9634,6 +9687,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "erich_wolfgang_korngold",
+    composerBirthYear: 1897,
     midis: [
       "marietta-s-song-by-korngold-for-violin-and-piano",
     ],
@@ -9660,6 +9714,7 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "caetano_veloso",
+    composerBirthYear: 1942,
     midis: [
       "o-leaozinho---caetano-veloso-o-leaozinho-by-caetano-veloso",
     ],
@@ -9704,6 +9759,9 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "jake25_17",
+    // Low-confidence decade estimate, not a verified birth year: TikTok pianist active around 2020.
+    // https://lhuwenkai.bandcamp.com/track/what-falling-in-love-feels-like-jake2517-fanmade-extended-cover
+    composerBirthYear: 2000,
     midis: [
       "what-falling-in-love-feels-like---jake25.17-fanmade-extended-version",
     ],
@@ -9722,18 +9780,23 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "karen_khachaturian",
+    composerBirthYear: 1920,
     midis: [
       "tarantella---karen-hachaturyan",
     ],
   },
   {
     slug: "mykola_leontovych",
+    composerBirthYear: 1877,
     midis: [
       "shchedrik---n.-leontovich-m.-leontovich---shchedrik",
     ],
   },
   {
     slug: "hidekazu_sakamoto",
+    // Decade estimate, not a verified birth year: established film/TV composer by the early 2010s.
+    // https://www.tunecore.co.jp/artists/Hidekazu-Sakamoto?lang=en
+    composerBirthYear: 1980,
     midis: [
       "chasing-kou-oboreru-knife",
     ],
@@ -9752,30 +9815,35 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "murray_gold",
+    composerBirthYear: 1969,
     midis: [
       "i-am-the-doctor",
     ],
   },
   {
     slug: "jimi_hendrix",
+    composerBirthYear: 1942,
     midis: [
       "little-wing",
     ],
   },
   {
     slug: "lewis_capaldi",
+    composerBirthYear: 1996,
     midis: [
       "Someone_You_Loved",
     ],
   },
   {
     slug: "keith_jarrett",
+    composerBirthYear: 1945,
     midis: [
       "the-koln-concert---part-1",
     ],
   },
   {
     slug: "jay_ferguson",
+    composerBirthYear: 1947,
     midis: [
       "the-office---opening-titles-theme-song-for-piano-32c14a",
       "the-office---opening-titles-theme-song-for-piano",

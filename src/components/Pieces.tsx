@@ -19,7 +19,7 @@ const PiecesContainer = styled.div`
 const Pieces: React.FC = () => (
   <PiecesContainer>
     <section aria-label="Pieces">
-      <CorpusSearch />
+      <CorpusSearch pinnedCorpusSlugs={["simple_major"]} />
     </section>
     <section aria-label="Timeline">
       <Timeline />

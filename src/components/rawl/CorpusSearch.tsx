@@ -147,7 +147,10 @@ const INITIAL_COMPOSERS_PER_COUNTRY = 15;
 export const PIECES_SEARCH_PLACEHOLDER =
   "Search composers or songs, eg. 'nocturne', 'entertainer', 'jaws', 'autumn leaves', 'succession', 'bts', 'chopin', 'mario'";
 
-const CorpusSearch: React.FC<{ query?: string }> = ({ query }) => {
+const CorpusSearch: React.FC<{
+  query?: string;
+  pinnedCorpusSlugs?: string[];
+}> = ({ query, pinnedCorpusSlugs = [] }) => {
   const [localSearchTerm, setSearchTerm] = React.useState("");
   const searchTerm = query ?? localSearchTerm;
   const [expandedCountries, setExpandedCountries] = React.useState<
@@ -339,6 +342,28 @@ const CorpusSearch: React.FC<{ query?: string }> = ({ query }) => {
           />
           <TotalCount>{totalMidis} MIDIs</TotalCount>
         </SearchInputContainer>
+      )}
+      {pinnedCorpusSlugs.length > 0 && (
+        <nav
+          aria-label="Pinned corpora"
+          style={{ margin: "12px 0 18px", textAlign: "left" }}
+        >
+          {pinnedCorpusSlugs.map((slug) => {
+            const corpus = corpora.find((entry) => entry.slug === slug);
+            return corpus ? (
+              <Link
+                key={slug}
+                to={`/corpus/${slug}`}
+                style={{ color: "#ffaa00", textDecoration: "none" }}
+              >
+                {formatComposerName(slug)}{" "}
+                <sup style={{ color: "#999", fontSize: "0.7em" }}>
+                  {corpus.midis.length}
+                </sup>
+              </Link>
+            ) : null;
+          })}
+        </nav>
       )}
       <ResultsContainer>
         {searchTerm && !filteredCorpora.length && (

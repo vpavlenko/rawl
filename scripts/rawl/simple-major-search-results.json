@@ -47,7 +47,7 @@
   ],
   "corpusWithoutIndexedMidi": [
     "heroes-of-might-and-magic-iii---castle-town-theme",
-    "-781a2b",
+    "i-will-wait-for-you---michel-legrand-yyq0hj",
     "bulchenska-rachenitsa----piano-tutorial",
     "i-wish.1-ba1559",
     "sopsko-horo----piano-tutorial",
@@ -67,7 +67,7 @@
       "inCorpus": true
     },
     {
-      "slug": "always-with-me-piano-cover.",
+      "slug": "always-with-me-piano-cover",
       "tonic": 5,
       "chromaticNotes": 0,
       "chromaticDurationShare": 0,

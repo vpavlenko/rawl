@@ -1,6 +1,6 @@
 # Orphaned MIDI review
 
-Moved 245 entries from `orphaned` into composer/artist corpora. 205 entries remain pending. New artist entries omit unconfirmed biographical metadata.
+Moved 261 entries from `orphaned` into composer/artist corpora. 189 entries remain pending. New artist entries omit unconfirmed biographical metadata.
 
 ## Decisions needed
 
@@ -8,7 +8,7 @@ Moved 245 entries from `orphaned` into composer/artist corpora. 205 entries rema
 - For performer/arranger credits, prefer the original songwriter or the credited performer?
 - Identify the uncertain titles and uploads below, or leave them in `orphaned`.
 
-The links use the existing local server. The historical `orphans.json` snapshot is unchanged.
+The links use the existing local server. The historical `orphans.json` snapshot now uses the renamed titles and player links.
 
 ## Traditional tunes and existing themed collections (60)
 
@@ -73,15 +73,8 @@ The links use the existing local server. The historical `orphans.json` snapshot 
 - [Право хоро(straight choro)](http://localhost:3000/f/pravo-horo-straight-choro)
 - [Смесено хоро](http://localhost:3000/f/smeseno_horo)
 
-## Exercises, student work, and unidentified uploads (62)
+## Exercises, student work, and unidentified uploads (55)
 
-- [-03af0a](http://localhost:3000/f/-03af0a)
-- [-14044e](http://localhost:3000/f/-14044e)
-- [-1e6c3f](http://localhost:3000/f/-1e6c3f)
-- [-2d816f](http://localhost:3000/f/-2d816f)
-- [-300c79](http://localhost:3000/f/-300c79)
-- -781a2b — missing from player index (`-781a2b`)
-- [-8a0103](http://localhost:3000/f/-8a0103)
 - [-be3336](http://localhost:3000/f/-be3336)
 - [0ECvNpF9B86e7nwUh2xV](http://localhost:3000/f/0ECvNpF9B86e7nwUh2xV)
 - [3TAkNzLqoa3db1C9c3Eb](http://localhost:3000/f/3TAkNzLqoa3db1C9c3Eb)
@@ -138,16 +131,13 @@ The links use the existing local server. The historical `orphans.json` snapshot 
 - [unfinishedpp](http://localhost:3000/f/unfinishedpp)
 - [XXNGQtxz9usxpV0cdsxJ](http://localhost:3000/f/XXNGQtxz9usxpV0cdsxJ)
 
-## Credits or exact work to confirm (83)
+## Credits or exact work to confirm (74)
 
 - [~Beethoven Virus~](http://localhost:3000/f/~beethoven-virus)
-- [Always With Me Piano Cover.](http://localhost:3000/f/always-with-me-piano-cover.)
 - [Aquarius – Castlevania: Circle of the Moon](http://localhost:3000/f/aquarius---castlevania-circle-of-the-moon)
-- [Around the World - Daft Punk - Piano Version - Maxence Cyrin](http://localhost:3000/f/around-the-world---daft-punk---piano-version---maxence-cyrin)
 - [Autumn leaves – Piano Bar arr. by Johnny Mercer / Joseph Kosma / Jacques André Marie Prévert](http://localhost:3000/f/autumn-leaves---piano-bar-arr.-by-johnny-mercer-joseph-kosma-jacques-andre-marie-prevert)
 - [avatar_the_last_airbender_medley](http://localhost:3000/f/avatar_the_last_airbender_medley)
 - [Baby](http://localhost:3000/f/baby)
-- [backwater blues easy](http://localhost:3000/f/backwater-blues-easy)
 - [bobby-darin-_-mack-the-knife](http://localhost:3000/f/bobby-darin-_-mack-the-knife)
 - [bushgrafts-bluebossa1gm-1](http://localhost:3000/f/bushgrafts-bluebossa1gm-1)
 - [CONCERTO DES ETOILES - Richard Clayderman](http://localhost:3000/f/concerto-des-etoiles---richard-clayderman)
@@ -155,14 +145,12 @@ The links use the existing local server. The historical `orphans.json` snapshot 
 - [Despacito](http://localhost:3000/f/Despacito)
 - [dg__But not for me – Chet Baker but not for me](http://localhost:3000/f/dg__but-not-for-me---chet-baker-but-not-for-me)
 - [dg__Christmas Connon](http://localhost:3000/f/dg__christmas-connon)
-- [dg__Donna Lee – Charlie Parker - lead sheet, bass clef, up 8va from Real Book ver.](http://localhost:3000/f/dg__donna-lee---charlie-parker---lead-sheet-bass-clef-up-8va-from-real-book-ver.)
 - [dg__Lord have mercy.](http://localhost:3000/f/dg__lord-have-mercy.)
 - [dg__Weekend Breeze (Piano Solo)](http://localhost:3000/f/dg__weekend-breeze-piano-solo)
 - [do_it_again](http://localhost:3000/f/do_it_again)
 - [do-do-do](http://localhost:3000/f/do-do-do)
 - [dzhentelmeny_udachi](http://localhost:3000/f/dzhentelmeny_udachi)
 - [embryons-book-1-no.-1-bachovich](http://localhost:3000/f/embryons-book-1-no.-1-bachovich)
-- [Feliz Navidad easy piano](http://localhost:3000/f/feliz-navidad-easy-piano)
 - [four_brithers](http://localhost:3000/f/four_brithers)
 - [Funky Piano](http://localhost:3000/f/funky-piano)
 - [funny val solo](http://localhost:3000/f/funny%20val%20solo)
@@ -186,7 +174,6 @@ The links use the existing local server. The historical `orphans.json` snapshot 
 - [Milca's birthday tango.....](http://localhost:3000/f/milca-s-birthday-tango.....)
 - [On parole - A Paris - Frese nouvele – Anonymous](http://localhost:3000/f/on-parole---a-paris---frese-nouvele---anonymous)
 - [Oyasumi](http://localhost:3000/f/oyasumi)
-- [Passacaglia – Handel/Halvorsen](http://localhost:3000/f/passacaglia---handel-halvorsen-b9be11)
 - [Peaches \| The Super Mario Bros. Movie](http://localhost:3000/f/peaches-the-super-mario-bros.-movie)
 - [piano-sonata-no.-11-k330---ii.-menuetto](http://localhost:3000/f/piano-sonata-no.-11-k330---ii.-menuetto)
 - [Pirates of the Caribbean - EASY PIANO](http://localhost:3000/f/pirates-of-the-caribbean---easy-piano)
@@ -196,7 +183,6 @@ The links use the existing local server. The historical `orphans.json` snapshot 
 - [pirates_5ch](http://localhost:3000/f/pirates_5ch)
 - [pretty-belinda](http://localhost:3000/f/pretty-belinda)
 - [priboi-mp3](http://localhost:3000/f/priboi-mp3)
-- [Riko in the Aquarium](http://localhost:3000/f/riko-in-the-aquarium)
 - [satin-doll](http://localhost:3000/f/satin-doll-494333)
 - [senor2](http://localhost:3000/f/senor2)
 - [Shovel Knight: Tango of the Troupple King](http://localhost:3000/f/shovel_knight_tango_of_the_troupple_king)
@@ -205,14 +191,12 @@ The links use the existing local server. The historical `orphans.json` snapshot 
 - [Sonata_No._2_1st_Movement](http://localhost:3000/f/Sonata_No._2_1st_Movement)
 - [Stella by Starlight](http://localhost:3000/f/stella-by-starlight)
 - [Studio Ghibli LoFi Piano – Jimindorothy - Thanks For 50 Followers!!!](http://localhost:3000/f/studio-ghibli-lofi-piano---jimindorothy---thanks-for-50-followers)
-- [Summer - Third movement](http://localhost:3000/f/summer---third-movement)
 - [Super Bounce](http://localhost:3000/f/super-bounce-2b4703)
 - [Surf Rider-Pulp Fiction](http://localhost:3000/f/surf-rider-pulp-fiction)
 - [The Fairly Oddparents Theme Song (short piano arr.)](http://localhost:3000/f/the-fairly-oddparents-theme-song-short-piano-arr.)
 - [The Lick In All 12 Keys- for trombone](http://localhost:3000/f/the-lick-in-all-12-keys--for-trombone)
 - [the-byrds---my-back-pages-ver-2-by-dascore](http://localhost:3000/f/the-byrds---my-back-pages-ver-2-by-dascore)
 - [the-byrds---my-back-pages-ver-2-by-dascore-2](http://localhost:3000/f/the-byrds---my-back-pages-ver-2-by-dascore-2)
-- [We Had Today (Piano - In D Major / B Minor)](http://localhost:3000/f/we-had-today-piano---in-d-major-b-minor)
 - [What Does the Fox Say](http://localhost:3000/f/what-does-the-fox-say)
 - [Wunder](http://localhost:3000/f/wunder)
 - [zima_potolok_ledjanoi_-diomin_vjacheslav](http://localhost:3000/f/zima_potolok_ledjanoi_-diomin_vjacheslav)
@@ -917,3 +901,9 @@ The links use the existing local server. The historical `orphans.json` snapshot 
 ### zveri
 
 - `zveri---bryunetki-i-blondinki-midifind.com`
+
+## MuseScore source review (2026-10-04)
+
+Verified 16 further MIDI records against their MuseScore source titles and composer credits, renamed 12 slugs, and migrated five matching keys in `analyses.json`. Duplicate titles retain distinct slugs. Firebase documents and the player index were updated together.
+
+See `musescore-orphan-review.json` for all moves and the 109 MuseScore-linked records still pending because their pages could not be read or their composer attribution could not be verified.

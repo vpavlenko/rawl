@@ -804,6 +804,8 @@ export const corpora: CorpusEntry[] = [
       "elgar---enigma-variations---xi.-nimrod",
       "elgar-pomp-and-circumstance-march-no.-1-piano-solo-with-choral-finale",
       "cello-concerto-in-e-minor-op.-85---1.-adagio.-moderato",
+      "salut-d-amour-op.12-in-d-major---edward-elgar-b1kizk",
+      "salut-d-amour-op.12-in-d-major---edward-elgar-jcpv1b",
     ],
     composerBirthYear: 1857, // Edward Elgar
     genre: "Classical",
@@ -1865,7 +1867,12 @@ export const corpora: CorpusEntry[] = [
   },
   {
     slug: "rachel_portman",
-    midis: ["we-had-today", "the-letterbox", "chocolat---main-titles"],
+    midis: [
+      "we-had-today",
+      "the-letterbox",
+      "chocolat---main-titles",
+      "we-had-today---rachel-portman",
+    ],
     composerBirthYear: 1960, // Rachel Portman
     genre: "Film score",
     style: "Orchestral, Light Classical",
@@ -4090,6 +4097,7 @@ export const corpora: CorpusEntry[] = [
       "billies_bounce",
       "straight_no_chaser",
       "au_privave",
+      "donna-lee---charlie-parker---lead-sheet-bass-clef-up-8va-from-real-book-ver",
     ],
   },
   {
@@ -4856,6 +4864,7 @@ export const corpora: CorpusEntry[] = [
       "if-i-am-with-you---yoshimasa-terui-jujutsu-kaisen-s2-ost-digital-sheet-music",
       "vague-reasons---yoshimasa-terui---jujutsu-kaisen-s2-ost-nanami-theme",
       "malevolent-shrine---yoshimasa-terui---jujutsu-kaisen-s2-ost-full-version",
+      "piano-sheet-jujutsu-kaisen-ost---xu-nara-if-i-am-with-you---yoshimasa-terui",
     ],
   },
   {
@@ -5250,7 +5259,10 @@ export const corpora: CorpusEntry[] = [
     style: "Romantic", // Works in the late Romantic style
     country: "Croatia", // Dora Pejacevic was Croatian
   },
-  { slug: "bessie_smith", composerBirthYear: 1894, country: "USA", midis: ["backwater-blues"] },
+  { slug: "bessie_smith", composerBirthYear: 1894, country: "USA", midis: [
+      "backwater-blues",
+      "backwater-blues-easy",
+    ] },
   { slug: "michael_gundlach", composerBirthYear: 1963, country: "Germany", midis: ["crazy-blues"] },
   { slug: "vladimir_vysotsky", composerBirthYear: 1938, country: "Russia", midis: ["beda"] },
   {
@@ -6422,6 +6434,7 @@ export const corpora: CorpusEntry[] = [
       "passacaglia---handel-halvorsen",
       "water-music-suite-in-d-major-ii---alla-hornpipe-handel",
       "the-arrival-of-the-queen-of-sheba---handel",
+      "passacaglia---handel-halvorsen-61dqgw",
     ],
     composerBirthYear: 1685, // Georg Friedrich Handel was born in 1685
     genre: "Classical", // Baroque period
@@ -7217,6 +7230,7 @@ export const corpora: CorpusEntry[] = [
       "vivaldi_summer_part1",
       "vivaldi_summer_part2",
       "vivaldi_summer_part3",
+      "summer---third-movement",
     ],
     composerBirthYear: 1678,
     genre: "Classical",
@@ -7639,6 +7653,7 @@ export const corpora: CorpusEntry[] = [
       "la-dispute---yann-tiersen",
       "l-autre-valse-d-amelie---yann-tiersen-l-autre-valse-d-amelie",
       "comptine-d-un-autre-ete-l-apres-midi---yann-tiersen",
+      "j-y-suis-jamais-alle-i-ve-never-been-there",
     ],
     composerBirthYear: 1970,
   },
@@ -8741,8 +8756,10 @@ export const corpora: CorpusEntry[] = [
       "the-windmills-of-your-mind---michel-legrand",
       "concerto-les-demoiselles-de-rochefort",
       "the-summer-knows---michel-legrand",
-      'legrand_le_messager_may_december',
+      "legrand_le_messager_may_december",
       "les-moulins-de-mon-coeur---michel-legrand",
+      "i-will-wait-for-you---michel-legrand-yyq0hj",
+      "i-will-wait-for-you---michel-legrand-ntr4jw",
     ],
   },
   {
@@ -8755,6 +8772,8 @@ export const corpora: CorpusEntry[] = [
       "el-chin-chin-chan-cancion-habanera-de-sebastian-yradier",
       "una-declaracion.-a-quema-ropa-....de-sebastian-yradier",
       "el-arreglito---sebastian-yradier",
+      "la-paloma-cancion-americana-sebastian-yradier-vers-1863-kqcdx0",
+      "la-paloma-cancion-americana-sebastian-yradier-vers-1863-z8refe",
     ],
   },
   {
@@ -9517,7 +9536,7 @@ export const corpora: CorpusEntry[] = [
       "letter-to-my-mother---vicenzo-piano",
       "animato-24-pieces-for-children-op.-39-no.-18---dmitri-kabalevsky",
       "titanium",
-      "always-with-me-piano-cover.",
+      "always-with-me-piano-cover",
       "yiruma_kiss_the_rain_easy",
       "piano-serenade-in-a-flat",
       "idea-5---gibran-alcocer",
@@ -9871,13 +9890,6 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "orphaned",
     midis: [
-      "-03af0a",
-      "-14044e",
-      "-1e6c3f",
-      "-2d816f",
-      "-300c79",
-      "-781a2b",
-      "-8a0103",
       "-be3336",
       "~beethoven-virus",
       "0ECvNpF9B86e7nwUh2xV",
@@ -9888,16 +9900,13 @@ export const corpora: CorpusEntry[] = [
       "alexander_shekhovtsov_dz3",
       "alexandershekhovtsov_pentatonic",
       "alexandershekhovtsov_pentatonic2",
-      "always-with-me-piano-cover.",
       "anton_rykachevskii_to_alcocer",
       "aquarius---castlevania-circle-of-the-moon",
       "arnautsko-horo",
-      "around-the-world---daft-punk---piano-version---maxence-cyrin",
       "aud_mb1472",
       "autumn-leaves---piano-bar-arr.-by-johnny-mercer-joseph-kosma-jacques-andre-marie-prevert",
       "avatar_the_last_airbender_medley",
       "baby",
-      "backwater-blues-easy",
       "bella-ciao---misc-traditional-bella-ciao-melodie-1-main",
       "bella-ciao-melody",
       "bobby-darin-_-mack-the-knife",
@@ -9910,7 +9919,6 @@ export const corpora: CorpusEntry[] = [
       "Despacito",
       "dg__but-not-for-me---chet-baker-but-not-for-me",
       "dg__christmas-connon",
-      "dg__donna-lee---charlie-parker---lead-sheet-bass-clef-up-8va-from-real-book-ver.",
       "dg__lord-have-mercy.",
       "dg__weekend-breeze-piano-solo",
       "djinovsko-horo",
@@ -9926,7 +9934,6 @@ export const corpora: CorpusEntry[] = [
       "embryons-book-1-no.-1-bachovich",
       "evan_dz3",
       "evan_evan_dz2",
-      "feliz-navidad-easy-piano",
       "filipovsko-horo",
       "four_brithers",
       "funky-piano",
@@ -9998,7 +10005,6 @@ export const corpora: CorpusEntry[] = [
       "on-parole---a-paris---frese-nouvele---anonymous",
       "out",
       "oyasumi",
-      "passacaglia---handel-halvorsen-b9be11",
       "peaches-the-super-mario-bros.-movie",
       "petrunino-horo-muse3",
       "piano-sonata-no.-11-k330---ii.-menuetto",
@@ -10023,7 +10029,6 @@ export const corpora: CorpusEntry[] = [
       "pyos2",
       "pyos3",
       "pyos4",
-      "riko-in-the-aquarium",
       "sasha_1",
       "satin-doll-494333",
       "senor2",
@@ -10046,7 +10051,6 @@ export const corpora: CorpusEntry[] = [
       "student-lp-dorian-4-in-minor2",
       "student-vp-piano1",
       "studio-ghibli-lofi-piano---jimindorothy---thanks-for-50-followers",
-      "summer---third-movement",
       "super-bounce-2b4703",
       "surf-rider-pulp-fiction",
       "tetris",
@@ -10060,7 +10064,6 @@ export const corpora: CorpusEntry[] = [
       "twinkle-twinkle-little-star-easy",
       "unfinishedpp",
       "vidinsko-horo",
-      "we-had-today-piano---in-d-major-b-minor",
       "what-does-the-fox-say",
       "wunder",
       "XXNGQtxz9usxpV0cdsxJ",
@@ -10076,6 +10079,24 @@ export const corpora: CorpusEntry[] = [
       "pole-chudes---minuta-na-razmyshlenie",
       "pravo-horo-straight-choro",
       "smeseno_horo",
+    ],
+  },
+  {
+    slug: "daft_punk",
+    midis: [
+      "around-the-world---daft-punk---piano-version---maxence-cyrin",
+    ],
+  },
+  {
+    slug: "jose_feliciano",
+    midis: [
+      "feliz-navidad-easy-piano",
+    ],
+  },
+  {
+    slug: "youmi_kimura",
+    midis: [
+      "always-with-me-piano-cover",
     ],
   },
 ];

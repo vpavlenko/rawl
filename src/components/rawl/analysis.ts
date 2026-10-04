@@ -422,6 +422,6 @@ export function getSnippetsStartingAtMeasure(
 export function filterSnippetsByAccess(snippets: Snippet[]): Snippet[] {
   return snippets.filter((snippet) => {
     const [chapter] = snippet.tag.split(":");
-    return chapter.trim() !== "book";
+    return chapter.trim() !== "book" && chapter.trim() !== "search_feedback";
   });
 }

@@ -45,6 +45,7 @@ interface InlineRawlPlayerProps {
   children?: React.ReactNode;
   contentRef?: React.Ref<HTMLDivElement>;
   measureStart?: number;
+  playAfterSeek?: boolean;
   onEject?: () => void;
 }
 
@@ -52,6 +53,7 @@ const InlineRawlPlayer: React.FC<InlineRawlPlayerProps> = ({
   children,
   contentRef,
   measureStart,
+  playAfterSeek,
   onEject,
 }) => {
   const { currentMidi, rawlProps, saveAnalysis, eject, latencyCorrectionMs } =
@@ -86,6 +88,7 @@ const InlineRawlPlayer: React.FC<InlineRawlPlayerProps> = ({
             latencyCorrectionMs={latencyCorrectionMs}
             sourceUrl={currentMidi.sourceUrl}
             measureStart={measureStart}
+            playAfterSeek={playAfterSeek}
             isEmbedded={true}
             onEject={handleEject}
           />

@@ -128,16 +128,6 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
     return [paddingLength, endMeasure];
   }, [startMeasure, measuresAndBeats.measures.length]);
 
-  // Mark the right edge when the excerpt ends after a complete four-bar
-  // phrase. Keep the stored phraseStarts limited to starts within the snippet.
-  const displayPhraseStarts = useMemo(() => {
-    const starts = phraseStarts || [];
-    const endBoundary = sectionSpan[1] + 1;
-    return starts.length && endBoundary - starts[starts.length - 1] === 4
-      ? [...starts, endBoundary]
-      : starts;
-  }, [phraseStarts, sectionSpan]);
-
   const memoizedNoteRectangles = useMemo(() => {
     return adjustedNotes.map((voiceNotes) =>
       getNoteRectangles(voiceNotes as ColoredNote[]),
@@ -152,7 +142,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={() => 0}
           noteHeight={16}
-          phraseStarts={displayPhraseStarts}
+          phraseStarts={phraseStarts || []}
           midiRange={[0, 0]}
           measureSelection={dummyMeasureSelection}
           showHeader={true}
@@ -176,7 +166,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
           measuresAndBeats={measuresAndBeats}
           midiNumberToY={midiNumberToY}
           noteHeight={noteHeight}
-          phraseStarts={displayPhraseStarts}
+          phraseStarts={phraseStarts || []}
           midiRange={midiRange}
           measureSelection={dummyMeasureSelection}
           showHeader={false}

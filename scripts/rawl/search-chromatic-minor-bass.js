@@ -1,24 +1,54 @@
 // Search the local MIDI backups for a descending chromatic bass from minor i.
 // Run `node scripts/rawl/search-chromatic-minor-bass.js` to check annotated
 // examples, or pass --save-top to scan all backups and refresh the review page.
-// No annotations are used by the detector; they are used only for evaluation
-// and to exclude known excerpts from the new-candidate review list.
+// No annotations are used by the detector. They are used for evaluation,
+// exclusion, and the phrase marks in frozen review snippets.
 const fs = require("fs");
 const path = require("path");
 const { parseMidi } = require("midi-file");
+const { fitLinearRanker, overlap } = require("./chromatic-minor-bass-ranker");
+require("ts-node/register/transpile-only");
+const { getPhraseStarts, getModulations, getTonicAtTime } =
+  require("../../src/components/rawl/analysis.ts");
 
 const root = path.join(__dirname, "../..");
 const midiDir = path.join(root, "src/midis");
 const tag = "bass:chromatic_line_down_from_minor_i";
+const negativeTag = "search_feedback:chromatic_line_down_from_minor_i_negative";
 const saveTop = process.argv.includes("--save-top");
 const all = process.argv.includes("--all") || saveTop;
 const json = process.argv.includes("--json");
 const index = JSON.parse(fs.readFileSync(path.join(midiDir, "midis.json"))).midis;
 const analyses = JSON.parse(fs.readFileSync(path.join(root, "src/corpus/analyses.json")));
 const tagged = new Map();
+const negativeTagged = new Map();
 for (const [key, analysis] of Object.entries(analyses)) {
   const snippets = (analysis.snippets || []).filter((s) => s.tag === tag);
   if (snippets.length) tagged.set(key.replace(/^f\//, ""), snippets);
+  const negatives = (analysis.snippets || []).filter((s) => s.tag === negativeTag);
+  if (negatives.length) negativeTagged.set(key.replace(/^f\//, ""), negatives);
+}
+
+function annotatedPhraseStarts(annotation, measureCount) {
+  if (!annotation) return null;
+  // Manual remeasuring can put a phrase patch beyond the raw MIDI bar count.
+  const throughPatch = Math.max(0, ...(annotation.phrasePatch || []).map(({ measure }) => measure + 4));
+  return new Set(getPhraseStarts(annotation, Math.max(measureCount, throughPatch)));
+}
+
+function annotatedKeyAtCandidate(candidate, annotation, bars, tickToSeconds) {
+  if (!annotation?.modulations) return null;
+  const measureTimes = bars.map((bar) => tickToSeconds(bar.start));
+  const modulations = getModulations(annotation, measureTimes);
+  if (!modulations.length || modulations[0].time > tickToSeconds(candidate.starts[0])) return null;
+  const key = getTonicAtTime(tickToSeconds(candidate.starts[0]), modulations, true);
+  return Number.isInteger(key) && key >= 0 && key < 12 ? key : null;
+}
+
+function circularKeyDistance(tonic, annotatedKey) {
+  if (annotatedKey == null) return null;
+  const difference = Math.abs(tonic - annotatedKey);
+  return Math.min(difference, 12 - difference);
 }
 
 function readMidi(file) {
@@ -111,7 +141,7 @@ function deltaCode(values) {
   return values.map((value, index) => index ? value - values[index - 1] : value);
 }
 
-function freezeSnippet(candidate, notes, bars, ticksPerBeat, tickToSeconds) {
+function freezeSnippet(candidate, notes, bars, ticksPerBeat, tickToSeconds, annotation) {
   const start = bars[candidate.from - 1].start;
   const end = bars[candidate.to - 1].end;
   const startSeconds = tickToSeconds(start);
@@ -144,11 +174,10 @@ function freezeSnippet(candidate, notes, bars, ticksPerBeat, tickToSeconds) {
   return {
     tag: "search:chromatic_minor_bass_candidate",
     measuresSpan: [candidate.from, candidate.to],
-    // These are display boundaries for the four-bar search excerpts. They are
-    // inferred from the candidate start, unlike manually annotated phrases.
-    phraseStarts: Array.from(
-      { length: Math.ceil((candidate.to - candidate.from + 1) / 4) },
-      (_, index) => candidate.from + index * 4,
+    // Match FrozenNotesLayout: freeze phrase starts from the piece analysis.
+    // Unannotated pieces have no trusted phrase marks to display.
+    phraseStarts: [...(annotatedPhraseStarts(annotation, bars.length + 1) || [])].filter(
+      (measure) => measure >= candidate.from && measure <= candidate.to,
     ),
     frozenNotes: {
       notesInVoices,
@@ -366,26 +395,74 @@ function search(notes, bars, ticksPerBeat) {
     !arr.slice(0, i).some((other) => other.from <= c.from && other.to >= c.to));
 }
 
+function thirdRatios(candidate, notes, bars, ticksPerBeat) {
+  const start = bars[candidate.from - 1].start;
+  const end = bars[candidate.to - 1].end;
+  const tonic = candidate.pitches[0] % 12;
+  const bassTriggers = new Set(candidate.triggerNotes.map((note) => `${note.start}:${note.pitch}`));
+  let minorAttacks = 0;
+  let majorAttacks = 0;
+  let minorDuration = 0;
+  let majorDuration = 0;
+  for (const note of notes) {
+    if (note.start >= end || note.end <= start ||
+      bassTriggers.has(`${note.start}:${note.pitch}`)) continue;
+    const interval = (note.pitch - tonic + 12) % 12;
+    if (interval !== 3 && interval !== 4) continue;
+    const duration = Math.min(note.end, end) - Math.max(note.start, start);
+    if (interval === 3) {
+      minorDuration += duration;
+      if (note.start >= start) minorAttacks++;
+    } else {
+      majorDuration += duration;
+      if (note.start >= start) majorAttacks++;
+    }
+  }
+  return {
+    // A half-share with no third evidence; one pseudo-note per class keeps
+    // sparse excerpts from receiving extreme scores.
+    minorThirdAttackShare: (minorAttacks + 1) / (minorAttacks + majorAttacks + 2),
+    minorThirdDurationShare: (minorDuration + ticksPerBeat) /
+      (minorDuration + majorDuration + 2 * ticksPerBeat),
+    minorThirdAttacks: minorAttacks,
+    majorThirdAttacks: majorAttacks,
+  };
+}
+
+function openingMinorPlausibility(candidate, notes, ticksPerBeat) {
+  const start = candidate.starts[0];
+  const end = Math.min(candidate.starts[1], start + 4 * ticksPerBeat);
+  const tonic = candidate.pitches[0] % 12;
+  const sounding = Array(12).fill(0);
+  for (const note of notes) {
+    if (note.start >= end || note.end <= start) continue;
+    const duration = Math.min(note.end, end) - Math.max(note.start, start);
+    if (duration < ticksPerBeat * 0.125) continue;
+    const interval = (note.pitch - tonic + 12) % 12;
+    sounding[interval] += duration;
+  }
+  // Cap octave doubling so a doubled root does not hide a dissonant pitch.
+  const occupancy = sounding.map((duration) => Math.min(duration, end - start));
+  const triad = [0, 3, 7].reduce((sum, interval) => sum + occupancy[interval], 0);
+  const avoid = [1, 4, 6, 8].reduce((sum, interval) => sum + occupancy[interval], 0);
+  return triad / Math.max(1, triad + avoid);
+}
+
 function saveTopCandidates(results, summary) {
   const bySlug = new Map(index.map((entry) => [entry.slug, entry]));
   const resultsBySlug = new Map(results.map((result) => [result.slug, result]));
   const ranked = results.flatMap((result) => result.matches.map((match) =>
     ({ slug: result.slug, ...match })));
+  const ranker = fitLinearRanker(ranked, tagged);
   ranked.sort((a, b) =>
-    Math.min(b.bassNotes, 8) - Math.min(a.bassNotes, 8) ||
-    b.minorSupport - a.minorSupport ||
-    a.doubledGaps - b.doubledGaps ||
-    a.skipped - b.skipped ||
-    Math.max(0, a.bassNotes - 8) - Math.max(0, b.bassNotes - 8) ||
-    b.bassNotes - a.bassNotes ||
-    a.slug.localeCompare(b.slug));
+    ranker.score(b) - ranker.score(a) || a.slug.localeCompare(b.slug) || a.from - b.from);
   ranked.forEach((candidate, index) => { candidate.rank = index + 1; });
   const usedSlugs = new Set();
   const top = [];
   for (const candidate of ranked) {
     // The review queue contains new pieces, not another occurrence from a
     // piece that already has a saved example of this tag.
-    if (tagged.has(candidate.slug)) continue;
+    if (tagged.has(candidate.slug) || negativeTagged.has(candidate.slug)) continue;
     if (usedSlugs.has(candidate.slug)) continue;
     usedSlugs.add(candidate.slug);
     const entry = bySlug.get(candidate.slug);
@@ -409,19 +486,34 @@ function saveTopCandidates(results, summary) {
       doubledGaps: candidate.doubledGaps,
       skipped: candidate.skipped,
       score: candidate.score,
+      rankingScore: Number(ranker.score(candidate).toFixed(4)),
+      rankingBreakdown: ranker.breakdown(candidate),
+      minorThirdAttackShare: Number(candidate.minorThirdAttackShare.toFixed(3)),
+      minorThirdDurationShare: Number(candidate.minorThirdDurationShare.toFixed(3)),
+      minorThirdAttacks: candidate.minorThirdAttacks,
+      majorThirdAttacks: candidate.majorThirdAttacks,
+      openingMinorPlausibility: Number(candidate.openingMinorPlausibility.toFixed(3)),
+      detectedTonic: candidate.pitches[0] % 12,
+      annotatedKey: candidate.annotatedKey,
+      annotatedKeyDistance: candidate.annotatedKeyDistance,
+      phraseStart: candidate.phraseStart,
       bassTriggers,
-      snippet: freezeSnippet(candidate, notes, bars, ticksPerBeat, tickToSeconds),
+      snippet: freezeSnippet(candidate, notes, bars, ticksPerBeat, tickToSeconds,
+        analyses[`f/${candidate.slug}`]),
     });
     if (top.length === 100) break;
   }
-  const taggedSnippets = [...tagged].flatMap(([slug, snippets]) => snippets.map((snippet) => {
+  const labeledSnippets = [
+    ...[...tagged].flatMap(([slug, snippets]) => snippets.map((snippet) => ({ slug, snippet, negative: false }))),
+    ...[...negativeTagged].flatMap(([slug, snippets]) => snippets.map((snippet) => ({ slug, snippet, negative: true }))),
+  ];
+  const taggedSnippets = labeledSnippets.map(({ slug, snippet, negative }) => {
     const entry = bySlug.get(slug);
     const result = resultsBySlug.get(slug);
     const [from, to] = snippet.measuresSpan;
     const match = result && ranked.find((candidate) => candidate.slug === slug &&
-      Math.max(0, Math.min(candidate.to, to) - Math.max(candidate.from, from) + 1) >=
-        Math.min(2, to - from + 1));
-    const status = !entry || !result ? "unscanned" : match ? "pass" : "fail";
+      overlap(candidate, [from, to]));
+    const status = negative ? "negative" : !entry || !result ? "unscanned" : match ? "pass" : "fail";
     let bassTriggers = [];
     if (match) {
       const { bars, tickToSeconds } = notesAndBars(readMidi(path.join(midiDir, `${entry.id}.json`)));
@@ -432,20 +524,34 @@ function saveTopCandidates(results, summary) {
     }
     return {
       slug, title: entry?.title || slug, from, to, status,
+      scanned: Boolean(entry && result),
       rank: match?.rank ?? null,
+      rankingScore: match ? Number(ranker.score(match).toFixed(4)) : null,
+      rankingBreakdown: match ? ranker.breakdown(match) : null,
+      minorThirdAttackShare: match ? Number(match.minorThirdAttackShare.toFixed(3)) : null,
+      minorThirdDurationShare: match ? Number(match.minorThirdDurationShare.toFixed(3)) : null,
+      minorThirdAttacks: match?.minorThirdAttacks ?? null,
+      majorThirdAttacks: match?.majorThirdAttacks ?? null,
+      openingMinorPlausibility: match ? Number(match.openingMinorPlausibility.toFixed(3)) : null,
+      detectedTonic: match ? match.pitches[0] % 12 : null,
+      annotatedKey: match?.annotatedKey ?? null,
+      annotatedKeyDistance: match?.annotatedKeyDistance ?? null,
       bassNotes: match?.bassNotes ?? null,
       minorSupport: match?.minorSupport ?? null,
       harmonicPulseBeats: match?.harmonicPulseBeats ?? null,
       doubledGaps: match?.doubledGaps ?? null,
       skipped: match?.skipped ?? null,
+      phraseStart: match?.phraseStart ?? null,
       bassTriggers, snippet,
     };
-  }));
+  });
   const output = path.join(root, "src/corpus/chromaticMinorBassTop100.json");
   fs.writeFileSync(output, `${JSON.stringify({
     description: "Descending chromatic bass from minor i, with onsets on strong beats: new MIDI candidates",
-    ranking: "Bass notes must onset near a bar's primary or secondary accent and change at an even pulse, with occasional doubled gaps; a sustained major third must not outweigh the minor third in the opening measure or lead directly into the descent; then descending bass notes (capped at 8), minor support, fewer doubled gaps and skipped steps; one excerpt per MIDI",
+    ranking: "Detected passages are ranked by a linear score using bass-note count, minor-chord support, skipped and doubled steps, chromatic-step ratio, harmonic pulse, excerpt-wide minor-third attack share, opening minor-chord plausibility, and distance from the annotated key when available; one excerpt per new MIDI. Annotated phrase starts are recorded separately because they are unavailable for most new MIDI files",
+    ranker: ranker.report,
     scanned: summary.searched,
+    negativeSnippets: labeledSnippets.filter((item) => item.negative).length,
     candidates: top,
     taggedSnippets,
   })}\n`);
@@ -464,8 +570,18 @@ function main() {
     if (!fs.existsSync(file)) { missing++; continue; }
     try {
       const midi = readMidi(file);
-      const { notes, bars, ticksPerBeat } = notesAndBars(midi);
-      const matches = search(notes, bars, ticksPerBeat);
+      const { notes, bars, ticksPerBeat, tickToSeconds } = notesAndBars(midi);
+      const annotation = analyses[`f/${entry.slug}`];
+      const phraseStarts = annotatedPhraseStarts(annotation, bars.length + 1);
+      const matches = search(notes, bars, ticksPerBeat).map((match) => ({
+        ...match,
+        ...thirdRatios(match, notes, bars, ticksPerBeat),
+        openingMinorPlausibility: openingMinorPlausibility(match, notes, ticksPerBeat),
+        annotatedKey: annotatedKeyAtCandidate(match, annotation, bars, tickToSeconds),
+        phraseStart: phraseStarts ? phraseStarts.has(match.from) : null,
+      })).map((match) => ({ ...match,
+        annotatedKeyDistance: circularKeyDistance(match.pitches[0] % 12, match.annotatedKey),
+      }));
       const expected = (tagged.get(entry.slug) || []).map((s) => s.measuresSpan);
       const hits = expected.map(([a, b]) => matches.some((m) =>
         Math.max(0, Math.min(m.to, b) - Math.max(m.from, a) + 1) >= Math.min(2, b - a + 1)));

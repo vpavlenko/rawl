@@ -14,7 +14,7 @@ export type CurrentMidi = {
 } | null;
 
 export interface AppContextType {
-  handleSongClick: (slug: string) => Promise<void>;
+  handleSongClick: (slug: string, options?: { startPaused?: boolean }) => Promise<void>;
   rawlProps: RawlProps | null;
   setRawlProps: (rawlProps: RawlProps | null) => void;
   analyses: Record<string, Analysis>;
@@ -22,7 +22,7 @@ export interface AppContextType {
   selectedAnnotationOwners: Record<string, string>;
   selectAnnotation: (analysisKey: string, ownerId: string) => void;
   saveAnalysis: (analysis: Analysis) => void;
-  saveSnippetForKey: (analysisKey: string, snippet: Snippet) => Promise<boolean>;
+  saveSnippetForKey: (analysisKey: string, snippet: Snippet, exclusiveTags?: string[]) => Promise<boolean>;
   getFirebaseAnnotation: (analysisKey: string) => Promise<Analysis | null>;
   saveFirebaseAnnotation: (
     analysisKey: string,

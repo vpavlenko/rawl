@@ -585,20 +585,28 @@ class App extends React.Component<RouteComponentProps, AppState> {
     }
   }
 
-  async saveSnippetForKey(analysisKey: string, snippet: Snippet): Promise<boolean> {
+  async saveSnippetForKey(analysisKey: string, snippet: Snippet, exclusiveTags: string[] = []): Promise<boolean> {
     if (!analysisKey) throw new Error("Missing analysis key");
     const analysis = this.state.analyses[analysisKey] || ANALYSIS_STUB;
-    if ((analysis.snippets || []).some((saved) =>
-      saved.tag === snippet.tag &&
+    const sameSpan = (saved: Snippet) =>
       saved.measuresSpan[0] === snippet.measuresSpan[0] &&
-      saved.measuresSpan[1] === snippet.measuresSpan[1])) {
+      saved.measuresSpan[1] === snippet.measuresSpan[1];
+    const existing = analysis.snippets || [];
+    const alreadySaved = existing.some((saved) => sameSpan(saved) && saved.tag === snippet.tag);
+    const conflicting = existing.some((saved) => sameSpan(saved) &&
+      exclusiveTags.includes(saved.tag) && saved.tag !== snippet.tag);
+    if (alreadySaved && !conflicting) {
       if (this.state.user) await this.saveFirebaseAnnotation(analysisKey, analysis);
       return false;
     }
 
     const updatedAnalysis = {
       ...analysis,
-      snippets: [...(analysis.snippets || []), snippet],
+      snippets: [
+        ...existing.filter((saved) => !sameSpan(saved) ||
+          (saved.tag !== snippet.tag && !exclusiveTags.includes(saved.tag))),
+        snippet,
+      ],
     };
     if (this.state.user) {
       await this.saveFirebaseAnnotation(analysisKey, updatedAnalysis);
@@ -901,6 +909,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
     this.setPlaybackPaused(this.midiPlayer.isPlaying());
   }
 
+  play = () => this.setPlaybackPaused(false);
+
   setPlaybackPaused(paused: boolean) {
     if (this.state.ejected || !this.midiPlayer) return;
 
@@ -1036,14 +1046,14 @@ class App extends React.Component<RouteComponentProps, AppState> {
     });
   }
 
-  handleSongClick = async (slug: string) => {
+  handleSongClick = async (slug: string, options?: { startPaused?: boolean }) => {
     try {
       // Structures snippets retain Lakh annotation keys, not Firebase slugs.
       if (slug.startsWith("c/MIDI/")) {
         const [artist, ...trackParts] = slug.slice("c/MIDI/".length).split("/");
         const track = trackParts.join("/");
         if (!artist || !track) throw new Error(`Invalid Lakh key: ${slug}`);
-        await this.loadLakhTrack(artist, track, new AbortController().signal);
+        await this.loadLakhTrack(artist, track, new AbortController().signal, !options?.startPaused);
         return;
       }
 
@@ -1054,10 +1064,11 @@ class App extends React.Component<RouteComponentProps, AppState> {
           state: this.state,
         },
         slug,
+        options?.startPaused,
       );
 
       // After successful load, start playback automatically
-      if (this.midiPlayer && this.state.paused) {
+      if (!options?.startPaused && this.midiPlayer && this.state.paused) {
         this.togglePause();
       }
     } catch (error) {
@@ -1069,6 +1080,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     artist: string,
     track: string,
     signal: AbortSignal,
+    shouldAutoPlay = true,
   ) => {
     const response = await fetch(
       `${process.env.PUBLIC_URL}/lakh-data/${encodeURIComponent(
@@ -1104,10 +1116,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
       ),
     );
     if (signal.aborted) return;
-    await this.playSongBuffer(track, buffer, true, signal);
+    await this.playSongBuffer(track, buffer, shouldAutoPlay, signal);
   };
 
-  loadMidi = async (midiBlob: Blob, playbackStartedCallback?: () => void) => {
+  loadMidi = async (midiBlob: Blob, playbackStartedCallback?: () => void, shouldAutoPlay = true) => {
     await this.audioPlayerReady;
     if (this.midiPlayer) {
       midiBlob
@@ -1117,13 +1129,13 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
           this.setState({ currentMidiBuffer: arrayBuffer });
 
-          this.midiPlayer.setPlaybackStartedCallback(playbackStartedCallback);
+          this.midiPlayer.setPlaybackStartedCallback(shouldAutoPlay ? playbackStartedCallback : undefined);
 
           this.midiPlayer
-            .loadData(transformedBuffer, this.state.currentMidi?.slug || "", true, [], [], this.state.transpose)
+            .loadData(transformedBuffer, this.state.currentMidi?.slug || "", shouldAutoPlay, [], [], this.state.transpose)
             .then((parsingResult) => {
               this.setState({ parsing: parsingResult }, () => {
-                this.setupMidiPlayer();
+                this.setupMidiPlayer(shouldAutoPlay ? undefined : playbackStartedCallback);
               });
             })
             .catch((error) => {
@@ -1151,7 +1163,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
     });
   };
 
-  setupMidiPlayer = () => {
+  setupMidiPlayer = (onReady?: () => void) => {
     this.setState(
       (prevState) => {
         const slug = prevState.currentMidi?.slug;
@@ -1183,8 +1195,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
         return { rawlProps: newRawlProps };
       },
       () => {
-        // Remove automatic playback start - let user control it
-        // this.startPlayback();
+        onReady?.();
       },
     );
   };
@@ -1563,7 +1574,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
             setHoveredMeasuresSpan: (span) =>
               this.setState({ hoveredMeasuresSpan: span }),
             togglePause: this.togglePause,
-            play: () => this.setPlaybackPaused(false),
+            play: this.play,
             handleLogin: this.handleLogin,
             handleLogout: this.handleLogout,
             handleToggleManualRemeasuring: this.handleToggleManualRemeasuring,

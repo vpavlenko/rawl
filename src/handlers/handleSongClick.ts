@@ -3,7 +3,7 @@ import { FirestoreMidiDocument, FirestoreMidiIndex } from "../types/firestore";
 
 type HandleSongClickDependencies = {
   setState: (state: any, callback?: () => void) => void;
-  loadMidi: (midiBlob: Blob, callback?: () => void) => void;
+  loadMidi: (midiBlob: Blob, callback?: () => void, shouldAutoPlay?: boolean) => void;
   state: {
     analyses: any;
   };
@@ -12,6 +12,7 @@ type HandleSongClickDependencies = {
 export const handleSongClick = async (
   deps: HandleSongClickDependencies,
   slug: string,
+  startPaused = false,
 ): Promise<void> => {
   const firestore = getFirestore();
   try {
@@ -69,11 +70,10 @@ export const handleSongClick = async (
           () => {
             console.log("State updated with currentMidi:", currentMidi);
             console.log("State updated with rawlProps");
-            // Create a promise that resolves when playback starts
+            // For examples, resolve once the paused score is ready to seek.
             const playbackPromise = new Promise<void>((playbackResolve) => {
-              deps.loadMidi(midiBlob, playbackResolve);
+              deps.loadMidi(midiBlob, playbackResolve, !startPaused);
             });
-            // Wait for playback to start before resolving the main promise
             playbackPromise.then(() => {
               resolve();
             });

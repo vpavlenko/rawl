@@ -130,6 +130,7 @@ export type RawlProps = {
   latencyCorrectionMs: number;
   sourceUrl: string | null;
   measureStart?: number;
+  playAfterSeek?: boolean;
   isEmbedded?: boolean;
   usePageScroll?: boolean;
   editorRef?: React.RefObject<any>;
@@ -155,6 +156,7 @@ const Rawl: React.FC<RawlProps> = ({
   seek,
   sourceUrl,
   measureStart,
+  playAfterSeek = false,
   isEmbedded = false,
   usePageScroll = false,
   editorRef,
@@ -1026,11 +1028,12 @@ const Rawl: React.FC<RawlProps> = ({
       const absoluteMeasureStart =
         measureStart + (analysis.measureRenumbering?.[1] || 0) - 1;
       const seekTime = measuresAndBeats.measures[absoluteMeasureStart] - 1;
-      if (seekTime !== undefined) {
+      if (Number.isFinite(seekTime)) {
         seek(seekTime * 1000);
+        if (playAfterSeek) play();
       }
     }
-  }, [measureStart, measuresAndBeats, analysis.measureRenumbering, seek]);
+  }, [measureStart, measuresAndBeats, analysis.measureRenumbering, seek, playAfterSeek, play]);
 
   const handleSourceUrlUpdate = async (newUrl: string) => {
     if (currentMidi) {

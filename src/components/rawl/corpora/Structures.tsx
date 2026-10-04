@@ -646,10 +646,11 @@ const Structures: React.FC<StructuresProps> = ({
         console.log("[Structures] Setting loadingSnippets to:", next);
         return next;
       });
+      setSelectedMeasureStart(undefined);
 
       try {
         console.log("[Structures] Calling handleSongClick...");
-        await handleSongClick(slug);
+        await handleSongClick(slug, { startPaused: true });
         console.log("[Structures] handleSongClick completed");
 
         setSelectedMeasureStart(measureStart);
@@ -961,6 +962,7 @@ const Structures: React.FC<StructuresProps> = ({
           {...rawlProps}
           contentRef={contentRef}
           measureStart={selectedMeasureStart}
+          playAfterSeek
           onEject={() => setIsRawlVisible(false)}
         >
           <TopicContent

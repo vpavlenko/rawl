@@ -322,6 +322,7 @@ export const corpora: CorpusEntry[] = [
       "sand-canyon-1---kirby-s-dreamland-3",
       "green-greens---jun-ishikawa",
       "elfilin-from-kirby-and-the-forgotten-land---hirokazu-ando-jun-ishikawa",
+      "kirbys_dream_land_3_dedede_modified",
     ],
     composerBirthYear: 1964,
     genre: "Video Game Music",
@@ -1483,6 +1484,7 @@ export const corpora: CorpusEntry[] = [
       "alligator-crawl---fats-waller---1934",
       "handful-of-keys---fats-waller---1933",
       "dallas-blues---fats-waller",
+      "aint-misbehavin-fats-waller-harry-brooks",
     ],
     composerBirthYear: 1904, // Fats Waller
     genre: "American, Jazz",
@@ -1505,6 +1507,9 @@ export const corpora: CorpusEntry[] = [
       "improv_on_gershwin_prelude_no2",
       "liza_-_all_the_clouds-ll_roll_away_roll",
       "s_wonderful",
+      "dg__but-not-for-me---chet-baker-but-not-for-me",
+      "do_it_again",
+      "do-do-do",
     ],
     genre: "American, Classical",
     style: "Jazz, Classical",
@@ -1680,6 +1685,7 @@ export const corpora: CorpusEntry[] = [
       "haven-theme-piano-form-heroes-of-might-and-magic-v",
       "heroes-of-might-and-magic-vi-unknown-title",
       "heroes-of-might-and-magic-v---academy-town-theme",
+      "heroes-of-might-magic-iii---castle-town-theme",
     ],
     composerBirthYear: 1965, // Paul Anthony Romero
     genre: "Video game music",
@@ -1786,6 +1792,7 @@ export const corpora: CorpusEntry[] = [
 
       "ma-mere-l-oye-m.-60-i.-pavane-de-la-belle-au-bois-dormant---maurice-ravel",
       "ravel---bolero-main-themes-transpositions",
+      "little-pieces-no.-1---menuet-antique-oguri",
     ],
     composerBirthYear: 1875, // Maurice Ravel
     genre: "Classical",
@@ -2149,6 +2156,7 @@ export const corpora: CorpusEntry[] = [
       "padal-proshlogodniy-sneg---grigoriy-gladkov", // cool stuff
       "solnce-vzoidet_luch_solnca_zolotogo",
       "serenada-trubadura---gennadiy-gladkov",
+      "dzhentelmeny_udachi",
     ],
     composerBirthYear: 1935, // Gennady Gladkov
     genre: "Film score, Musical",
@@ -2249,6 +2257,8 @@ export const corpora: CorpusEntry[] = [
       "tariverdiev---net-eti-slyozy-ne-moi",
       "ya-sprosil-u-yasenya---tariverdiev-tariverdiev",
       "i_have_asked_ashtree_-nikiforov_vladimir",
+      "nikogo-ne-budet-v-dome---misc-soundtrack-nikogo-ne-budet-v-dome",
+      "pesnya-o-dalyokoy-rodine",
     ],
     composerBirthYear: 1931, // Mikael Tariverdiev
     genre: "Film score, Classical",
@@ -2812,7 +2822,8 @@ export const corpora: CorpusEntry[] = [
   {
     slug: "m2u",
     composerBirthYear: 1985,
-    midis: ["m2u---masquerade"],
+    midis: ["m2u---masquerade",
+      "deemo-magnolia",],
     genre: "Electronic",
     style: "Eurobeat, Trance",
     country: "Japan",
@@ -3457,7 +3468,8 @@ export const corpora: CorpusEntry[] = [
     composerBirthYear: 1935,
     country: "Italy",
   },
-  { slug: "jeremy_zuckerman", composerBirthYear: 1975, country: "USA", midis: ["avatar-the-last-airbender-medley"] },
+  { slug: "jeremy_zuckerman", composerBirthYear: 1975, country: "USA", midis: ["avatar-the-last-airbender-medley",
+      "avatar_the_last_airbender_medley",] },
   {
     slug: "shinkonet",
     composerBirthYear: 1995, // Estimated birth year for timeline placement; unverified.
@@ -3518,6 +3530,12 @@ export const corpora: CorpusEntry[] = [
 
       "stella-by-starlight---victor-young",
       "stella-by-starlight---victor-young-515402",
+      "autumn-leaves---piano-bar-arr.-by-johnny-mercer-joseph-kosma-jacques-andre-marie-prevert",
+      "bobby-darin-_-mack-the-knife",
+      "four-brothers-jimmy-giuffre",
+      "my-funny-valentine-doug-mckenzie",
+      "stella-by-starlight",
+      "les-yeux-noirs",
     ],
     genre: "Jazz",
     // This is a collection of jazz standards, no specific composer can be assigned.
@@ -4100,6 +4118,7 @@ export const corpora: CorpusEntry[] = [
       "solitude---duke-ellington",
       "solitude---duke-ellington-eddie-de-lange-and-irving-mills-piano-version",
       "solitude---duke-ellington-as-played-by-roland-hanna",
+      "satin-doll-494333",
     ],
     composerBirthYear: 1899,
     genre: "Jazz, Swing",
@@ -4392,7 +4411,8 @@ export const corpora: CorpusEntry[] = [
   {slug: 'aleon_raven',
     composerBirthYear: 1990, // Estimated birth year for timeline placement; unverified.
     country: "Bulgaria", midis: ['aleon-raven-vertigo']},
-    {slug: 'kenny_dorham', composerBirthYear: 1924, midis:["blue-bossa", ]},
+    {slug: 'kenny_dorham', composerBirthYear: 1924, midis:["blue-bossa",
+      "blue-bossa-kenny-dorham-bushgrafts", ]},
   {
     slug: "tonal_stretch",
     midis: [
@@ -4862,7 +4882,8 @@ export const corpora: CorpusEntry[] = [
     slug: "valery_zubkov",
     midis: [
       "vozvrashchenie---v.-zubkov-return---v.-zubkov",
-      "gypsy-v.-zubkov-cygan-v.-zubkov", // same?
+      "gypsy-v.-zubkov-cygan-v.-zubkov",
+      "muzyka-k-kinofilmu-cygan---vladimir-zubkov-melodiya-iz-kinofilma-cygan", // same?
     ],
     composerBirthYear: 1949, // Born in 1949
     genre: "Classical, Folk", // Classical with folk influences
@@ -5154,6 +5175,7 @@ export const corpora: CorpusEntry[] = [
       "mozart-sonata-k331-theme-and-the-1st-variation",
       "sonata_no_12_2nd_movement_k_332",
       "sonata-no.-9-2nd-movement-k.-311",
+      "mozart-piano-sonata-k-330-ii-andante-cantabile",
     ],
     composerBirthYear: 1756, // Born in 1756
     genre: "Classical", // Classical composer
@@ -5228,6 +5250,8 @@ export const corpora: CorpusEntry[] = [
       "chopin_sonata_2_op35_mov1",
       "nocturne-opus-37-no.-2-in-g-major",
       "nocturne-opus-62-no.-2-in-e-major",
+      "chopin-sonata-no-2-op-35-i-grave-doppio-movimento-vocgab",
+      "chopin-sonata-no-2-op-35-i-grave-doppio-movimento-d13xqi",
     ],
     composerBirthYear: 1810, // Born in 1810
     genre: "Classical", // Classical composer
@@ -5883,6 +5907,7 @@ export const corpora: CorpusEntry[] = [
       "for-once-in-my-life.2",
       "heaven-help-us-all",
       "that-s-what-friends-are-for",
+      "i-wish.1-ba1559",
     ],
     composerBirthYear: 1950,
     genre: "Soul, R&B, Funk",
@@ -5899,6 +5924,7 @@ export const corpora: CorpusEntry[] = [
       "corcovado",
       "a_felicidade",
       "one_note_samba",
+      "how-insensitive-insensatez-tom-jobim",
     ],
     composerBirthYear: 1927, // Antônio Carlos Jobim (1927–1994)
     genre: "Bossa Nova", // Pioneer of the bossa nova genre
@@ -6854,6 +6880,8 @@ export const corpora: CorpusEntry[] = [
       "bagatelle-op.-119.-no-2---ludwig-van-beethoven",
       "bagatelle-op.119-no.5-beethoven",
       "bagatelle-n1-op.119---ludwig-van-beethoven",
+      "~beethoven-virus",
+      "beethoven-12-minuets-woo-7-no-1",
     ],
     composerBirthYear: 1770, // Ludwig van Beethoven was born in 1770
     genre: "Classical", // Beethoven bridged the Classical and Romantic eras, but is primarily associated with Classical music
@@ -6893,6 +6921,7 @@ export const corpora: CorpusEntry[] = [
       "pisnya-pro-druga---a.-petrov",
       "waltz-from-beware-of-the-car----a.-petrov-vals-iz-k-f-beregis-avtomobilya----a.-petrov",
       "moey-dushe-pokoya-net---a.-petrov",
+      "pod-laskoy-plyushevogo-pleda",
     ],
     country: "Russia",
     composerBirthYear: 1930,
@@ -7170,6 +7199,11 @@ export const corpora: CorpusEntry[] = [
       "korobeiniki-tetris-theme",
       "tetris-remix",
       "tetris-medley",
+      "korobeiniki_tetris_theme_piano_tiles_version",
+      "murican-tetris-.rag",
+      "tetris",
+      "tetris-korobeiniki-tango",
+      "tetris-korobeiniki---tango",
     ],
   },
   {
@@ -7603,7 +7637,8 @@ export const corpora: CorpusEntry[] = [
     country: "UK", // Best guess; country not independently confirmed.
     midis: ["nurture-piano---in-eb-major-c-minor"],
   },
-  { slug: "bo_en", composerBirthYear: 1991, country: "UK", midis: ["bo-en---my-time", "tussle-among-trees---bo-en"] },
+  { slug: "bo_en", composerBirthYear: 1991, country: "UK", midis: ["bo-en---my-time", "tussle-among-trees---bo-en",
+      "my-time-oyasumi-bo-en",] },
   {
     slug: "pedro_silva",
     composerBirthYear: 1986, // Estimated birth year for timeline placement; unverified.
@@ -7908,6 +7943,8 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "bella-ciao---sad-and-slow-piano-version-arranged-by-rafal-piwowarczuk-la-casa-de-papel",
       "Bella_Ciao",
+      "bella-ciao---misc-traditional-bella-ciao-melodie-1-main",
+      "bella-ciao-melody",
     ],
   },
   {
@@ -8275,6 +8312,7 @@ export const corpora: CorpusEntry[] = [
       "erik-satie---gnossienne-ndeg1",
       "gnossienne-no.-1",
       "gnossienne-no.-1-ebd5e5",
+      "embryons-book-1-no.-1-bachovich",
     ],
     composerBirthYear: 1866,
     genre: "Classical",
@@ -8943,7 +8981,8 @@ export const corpora: CorpusEntry[] = [
     slug: "francis_lai",
     composerBirthYear: 1932,
     country: "France",
-    midis: ["Love_Store_Francis_Lai", "un-homme-et-une-femme---francis-lai"],
+    midis: ["Love_Store_Francis_Lai", "un-homme-et-une-femme---francis-lai",
+      "love-story--richard-clayderman",],
   },
   {
     slug: "luiz_bonfa",
@@ -9011,7 +9050,8 @@ export const corpora: CorpusEntry[] = [
     slug: "jan_a_p_kaczmarek",
     composerBirthYear: 1953,
     country: "Poland",
-    midis: ["goodbye---jan-a.p-kaczmarek-from-the-movie-hachi-a-dog-s-tale"],
+    midis: ["goodbye---jan-a.p-kaczmarek-from-the-movie-hachi-a-dog-s-tale",
+      "goodbye-hachiko",],
   },
   { slug: "chauncey_olcott", composerBirthYear: 1858, country: "USA", midis: ["my_wild_irish_rose"] },
   {
@@ -9712,6 +9752,7 @@ export const corpora: CorpusEntry[] = [
       "elastic-heart",
       "sia_elastic_heart",
       "sia_elastic_heart-bbad42",
+      "elastic-heart-sia",
     ],
   },
   {
@@ -9999,130 +10040,58 @@ export const corpora: CorpusEntry[] = [
     slug: "orphaned",
     midis: [
       "-be3336",
-      "~beethoven-virus",
       "0ECvNpF9B86e7nwUh2xV",
       "3TAkNzLqoa3db1C9c3Eb",
       "6YRmN3iTFqc1mcwHEWkW",
       "9BeyWQ8qtKs3iCS5J1Au",
-      "alexander_shekhovtsov_dz3",
       "alexandershekhovtsov_pentatonic",
       "alexandershekhovtsov_pentatonic2",
       "anton_rykachevskii_to_alcocer",
-      "aquarius---castlevania-circle-of-the-moon",
-      "aud_mb1472",
-      "autumn-leaves---piano-bar-arr.-by-johnny-mercer-joseph-kosma-jacques-andre-marie-prevert",
-      "avatar_the_last_airbender_medley",
       "baby",
-      "bella-ciao---misc-traditional-bella-ciao-melodie-1-main",
-      "bella-ciao-melody",
-      "bobby-darin-_-mack-the-knife",
-      "bushgrafts-bluebossa1gm-1",
       "clarinet-advanced-major-scales-and-arpeggios",
-      "concerto-des-etoiles---richard-clayderman",
-      "deemo-magnolia",
-      "Despacito",
-      "dg__but-not-for-me---chet-baker-but-not-for-me",
       "dg__christmas-connon",
       "dg__lord-have-mercy.",
       "dg__weekend-breeze-piano-solo",
-      "do_it_again",
-      "do-do-do",
       "drop-2-arpeggiations-of-seventh-chords-in-c-maj-for-saxophone",
-      "dzhentelmeny_udachi",
-      "embryons-book-1-no.-1-bachovich",
-      "evan_dz3",
-      "evan_evan_dz2",
-      "four_brithers",
       "funky-piano",
-      "funny val solo",
-      "georgy_zakharov_hw_8",
-      "georgy_zakharov_hw5",
       "goby_waltz",
-      "goodbye-hachiko",
       "hava-nagila-30d02c",
-      "help-me",
-      "heroes-of-might-magic-iii---castle-town-theme",
-      "how_insensa",
-      "hysteria",
       "i-still-love-you-4f1981",
-      "i-will-survive.1",
-      "i-wish.1-ba1559",
       "imprp",
-      "innocent-life-a-futuristic-harvest-moon---easter-ruins",
       "ivan002",
       "ivan003-v4",
       "ivan005",
       "J05EVev8fb7rM0Fc0N9a",
       "jazz-lounge-wip",
       "jazzbutterfly",
-      "kirby_triple_deluxe_walking_to_a_flowery_coup",
-      "kirbys_dream_land_3_dedede_modified",
-      "kirbys_return_to_dream_land_clash_mid_boss_tower",
-      "korobeiniki_tetris_theme_piano_tiles_version",
-      "la-bamba.1",
-      "les-yeux-noirs",
-      "little-pieces-no.-1---menuet-antique-oguri",
-      "love-story--richard-clayderman",
       "major-amp-minor-scales-on-diatonic-chords-i-iv-amp-v",
       "major-diatonic-chords",
       "major-scales-chords-and-arpeggios",
       "marg_kaiumpermanganat",
       "marry-had-a-little-lamb",
       "merged_midi_output",
-      "mnp12_01",
-      "murican-tetris-.rag",
       "music-theory-i-.-arpeggiating-a-chord---dm",
       "new",
       "nPvQb4Ib3qu3Ju1bt4HC",
       "on-parole---a-paris---frese-nouvele---anonymous",
-      "out",
-      "oyasumi",
-      "peaches-the-super-mario-bros.-movie",
-      "piano-sonata-no.-11-k330---ii.-menuetto",
-      "pretty-belinda",
       "priboi-mp3",
       "pyos2",
       "pyos3",
       "pyos4",
       "sasha_1",
-      "satin-doll-494333",
       "senor2",
-      "shovel_knight_tango_of_the_troupple_king",
       "smth",
       "smth2",
       "sollozos---jean-luc",
-      "sonata-no.-2-1st-movement",
-      "Sonata_No._2_1st_Movement",
-      "stella-by-starlight",
-      "student-e-01-sunset",
-      "student-ib-005",
-      "student-ivan003-v3",
-      "student-lp-dorian-4-in-minor",
-      "student-lp-dorian-4-in-minor2",
-      "student-vp-piano1",
       "studio-ghibli-lofi-piano---jimindorothy---thanks-for-50-followers",
       "super-bounce-2b4703",
-      "surf-rider-pulp-fiction",
-      "tetris",
-      "tetris-korobeiniki-tango",
-      "tetris-korobeiniki---tango",
-      "the-fairly-oddparents-theme-song-short-piano-arr.",
       "the-lick-in-all-12-keys--for-trombone",
-      "the-byrds---my-back-pages-ver-2-by-dascore",
-      "the-byrds---my-back-pages-ver-2-by-dascore-2",
       "tmpboujr2y7",
       "twinkle-twinkle-little-star-easy",
       "unfinishedpp",
-      "what-does-the-fox-say",
       "wunder",
       "XXNGQtxz9usxpV0cdsxJ",
-      "zima_potolok_ledjanoi_-diomin_vjacheslav",
       "vstrecha",
-      "izgib-gitaryzhyoltoy",
-      "muzyka-k-kinofilmu-cygan---vladimir-zubkov-melodiya-iz-kinofilma-cygan",
-      "nikogo-ne-budet-v-dome---misc-soundtrack-nikogo-ne-budet-v-dome",
-      "pesnya-o-dalyokoy-rodine",
-      "pod-laskoy-plyushevogo-pleda",
       "pole-chudes---minuta-na-razmyshlenie",
     ],
   },
@@ -10142,6 +10111,152 @@ export const corpora: CorpusEntry[] = [
     slug: "youmi_kimura",
     midis: [
       "always-with-me-piano-cover",
+    ],
+  },
+  {
+    slug: "2025-homework",
+    composerName: null,
+    secondary: true,
+    midis: [
+      "alexander_shekhovtsov_dz3",
+      "evan_dz3",
+      "evan_evan_dz2",
+      "georgy_zakharov_hw_8",
+      "georgy_zakharov_hw5",
+      "student-e-01-sunset",
+      "student-ib-005",
+      "student-ivan003-v3",
+      "student-lp-dorian-4-in-minor",
+      "student-lp-dorian-4-in-minor2",
+      "student-vp-piano1",
+    ],
+  },
+  {
+    slug: "konami_kukeiha_club",
+    composerName: "Konami Kukeiha Club",
+    midis: [
+      "aquarius---castlevania-circle-of-the-moon",
+    ],
+  },
+  {
+    slug: "olivier_toussaint",
+    composerName: "Olivier Toussaint",
+    midis: [
+      "concerto-des-etoiles---richard-clayderman",
+    ],
+  },
+  {
+    slug: "luis_fonsi_daddy_yankee_and_erika_ender",
+    composerName: "Luis Fonsi, Daddy Yankee & Erika Ender",
+    midis: [
+      "Despacito",
+    ],
+  },
+  {
+    slug: "joni_mitchell",
+    composerName: "Joni Mitchell",
+    midis: [
+      "help-me",
+    ],
+  },
+  {
+    slug: "muse",
+    composerName: "Muse",
+    midis: [
+      "hysteria",
+    ],
+  },
+  {
+    slug: "freddie_perren_and_dino_fekaris",
+    composerName: "Freddie Perren & Dino Fekaris",
+    midis: [
+      "i-will-survive.1",
+    ],
+  },
+  {
+    slug: "yutaka_minobe_and_yasufumi_fukuda",
+    composerName: "Yutaka Minobe & Yasufumi Fukuda",
+    midis: [
+      "innocent-life-a-futuristic-harvest-moon---easter-ruins",
+    ],
+  },
+  {
+    slug: "jun_ishikawa_and_hirokazu_ando",
+    composerName: "Jun Ishikawa & Hirokazu Ando",
+    midis: [
+      "kirby_triple_deluxe_walking_to_a_flowery_coup",
+      "kirbys_return_to_dream_land_clash_mid_boss_tower",
+    ],
+  },
+  {
+    slug: "ritchie_valens",
+    composerName: "Ritchie Valens",
+    midis: [
+      "la-bamba.1",
+    ],
+  },
+  {
+    slug: "jack_black",
+    composerName: "Jack Black",
+    midis: [
+      "peaches-the-super-mario-bros.-movie",
+    ],
+  },
+  {
+    slug: "chris_andrews",
+    composerName: "Chris Andrews",
+    midis: [
+      "pretty-belinda",
+    ],
+  },
+  {
+    slug: "jake_kaufman",
+    composerName: "Jake Kaufman",
+    midis: [
+      "shovel_knight_tango_of_the_troupple_king",
+    ],
+  },
+  {
+    slug: "the_ventures",
+    composerName: "The Ventures",
+    midis: [
+      "surf-rider-pulp-fiction",
+    ],
+  },
+  {
+    slug: "ron_jones_and_butch_hartman",
+    composerName: "Ron Jones & Butch Hartman",
+    midis: [
+      "the-fairly-oddparents-theme-song-short-piano-arr.",
+    ],
+  },
+  {
+    slug: "bob_dylan",
+    composerName: "Bob Dylan",
+    midis: [
+      "the-byrds---my-back-pages-ver-2-by-dascore",
+      "the-byrds---my-back-pages-ver-2-by-dascore-2",
+    ],
+  },
+  {
+    slug: "ylvis",
+    composerName: "Ylvis",
+    midis: [
+      "what-does-the-fox-say",
+    ],
+  },
+  {
+    slug: "eduard_khanok",
+    composerName: "Eduard Khanok",
+    midis: [
+      "zima_potolok_ledjanoi_-diomin_vjacheslav",
+    ],
+  },
+  {
+    slug: "oleg_mityaev",
+    composerName: "Oleg Mityaev",
+    midis: [
+      "izgib-gitaryzhyoltoy",
     ],
   },
 ];

@@ -1,0 +1,1512 @@
+{
+  "reviewedAt": "2026-10-04T13:52:30.574Z",
+  "policy": "Prefer original composer over performer; keep shared credits explicit. Rename obscure identified titles while migrating analysis keys. Inferred attributions are noted individually.",
+  "moved": [
+    {
+      "slug": "alexander_shekhovtsov_dz3",
+      "corpus": "2025-homework",
+      "category": "homework",
+      "reason": "Explicit homework, dz, or student marker in the slug.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "evan_dz3",
+      "corpus": "2025-homework",
+      "category": "homework",
+      "reason": "Explicit homework, dz, or student marker in the slug.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "evan_evan_dz2",
+      "corpus": "2025-homework",
+      "category": "homework",
+      "reason": "Explicit homework, dz, or student marker in the slug.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "georgy_zakharov_hw_8",
+      "corpus": "2025-homework",
+      "category": "homework",
+      "reason": "Explicit homework, dz, or student marker in the slug.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "georgy_zakharov_hw5",
+      "corpus": "2025-homework",
+      "category": "homework",
+      "reason": "Explicit homework, dz, or student marker in the slug.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "student-e-01-sunset",
+      "corpus": "2025-homework",
+      "category": "homework",
+      "reason": "Explicit homework, dz, or student marker in the slug.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "student-ib-005",
+      "corpus": "2025-homework",
+      "category": "homework",
+      "reason": "Explicit homework, dz, or student marker in the slug.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "student-ivan003-v3",
+      "corpus": "2025-homework",
+      "category": "homework",
+      "reason": "Explicit homework, dz, or student marker in the slug.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "student-lp-dorian-4-in-minor",
+      "corpus": "2025-homework",
+      "category": "homework",
+      "reason": "Explicit homework, dz, or student marker in the slug.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "student-lp-dorian-4-in-minor2",
+      "corpus": "2025-homework",
+      "category": "homework",
+      "reason": "Explicit homework, dz, or student marker in the slug.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "student-vp-piano1",
+      "corpus": "2025-homework",
+      "category": "homework",
+      "reason": "Explicit homework, dz, or student marker in the slug.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "autumn-leaves---piano-bar-arr.-by-johnny-mercer-joseph-kosma-jacques-andre-marie-prevert",
+      "corpus": "jazz_standards",
+      "category": "jazz",
+      "reason": "Recognizable jazz standard; use the existing composer corpus when available.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/7854941/scores/9276583"
+      ]
+    },
+    {
+      "slug": "bobby-darin-_-mack-the-knife",
+      "corpus": "jazz_standards",
+      "category": "jazz",
+      "reason": "Recognizable jazz standard; use the existing composer corpus when available.",
+      "evidence": "",
+      "source": [
+        "https://onlinesequencer.net/3438829#"
+      ]
+    },
+    {
+      "slug": "four-brothers-jimmy-giuffre",
+      "corpus": "jazz_standards",
+      "category": "jazz",
+      "reason": "MIDI explicitly credits Jimmy Giuffre for Four Brothers.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ],
+      "previousSlug": "four_brithers",
+      "title": "Four Brothers — Jimmy Giuffre"
+    },
+    {
+      "slug": "my-funny-valentine-doug-mckenzie",
+      "corpus": "jazz_standards",
+      "category": "jazz",
+      "reason": "MIDI title is My Funny Valentine; Doug McKenzie is the performer.",
+      "evidence": "",
+      "source": [],
+      "previousSlug": "funny val solo",
+      "title": "My Funny Valentine — Doug McKenzie"
+    },
+    {
+      "slug": "stella-by-starlight",
+      "corpus": "jazz_standards",
+      "category": "jazz",
+      "reason": "Recognizable jazz standard; use the existing composer corpus when available.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/3263916/scores/7128898"
+      ]
+    },
+    {
+      "slug": "les-yeux-noirs",
+      "corpus": "jazz_standards",
+      "category": "jazz",
+      "reason": "Dark Eyes is a jazz manouche standard; historical composer attribution varies.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/17430776/scores/3547216"
+      ]
+    },
+    {
+      "slug": "blue-bossa-kenny-dorham-bushgrafts",
+      "corpus": "kenny_dorham",
+      "category": "jazz",
+      "reason": "Recognizable jazz standard; use the existing composer corpus when available.",
+      "evidence": "",
+      "source": [
+        "https://bushgrafts.com/midi/"
+      ],
+      "previousSlug": "bushgrafts-bluebossa1gm-1",
+      "title": "Blue Bossa — Kenny Dorham (Bushgrafts arrangement)"
+    },
+    {
+      "slug": "dg__but-not-for-me---chet-baker-but-not-for-me",
+      "corpus": "gershwin",
+      "category": "jazz",
+      "reason": "Recognizable jazz standard; use the existing composer corpus when available.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/49304546/scores/9590380"
+      ]
+    },
+    {
+      "slug": "do_it_again",
+      "corpus": "gershwin",
+      "category": "jazz",
+      "reason": "Inferred Gershwin song from title and piano arrangement; source is an upload.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "do-do-do",
+      "corpus": "gershwin",
+      "category": "jazz",
+      "reason": "Inferred Gershwin song from title and piano arrangement; source is an upload.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "how-insensitive-insensatez-tom-jobim",
+      "corpus": "tom_jobim",
+      "category": "jazz",
+      "reason": "Recognizable jazz standard; use the existing composer corpus when available.",
+      "evidence": "",
+      "source": [
+        "https://josefhuber.com/index.php/my-files"
+      ],
+      "previousSlug": "how_insensa",
+      "title": "How Insensitive (Insensatez) — Antônio Carlos Jobim"
+    },
+    {
+      "slug": "satin-doll-494333",
+      "corpus": "duke_ellington",
+      "category": "jazz",
+      "reason": "Recognizable jazz standard; use the existing composer corpus when available.",
+      "evidence": "",
+      "source": [
+        "https://chiptune.app/browse/MIDI/Duke%20Ellington/"
+      ]
+    },
+    {
+      "slug": "aint-misbehavin-fats-waller-harry-brooks",
+      "corpus": "fats_waller",
+      "category": "jazz",
+      "reason": "MIDI explicitly identifies Ain’t Misbehavin’ and credits Fats Waller and Harry Brooks.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ],
+      "previousSlug": "out",
+      "title": "Ain’t Misbehavin’ — Fats Waller & Harry Brooks"
+    },
+    {
+      "slug": "~beethoven-virus",
+      "corpus": "beethoven",
+      "category": "composer",
+      "reason": "Adaptation of Beethoven’s Pathétique Sonata, third movement (BanYa remix).",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/70981/scores/1086966"
+      ]
+    },
+    {
+      "slug": "elastic-heart-sia",
+      "corpus": "sia",
+      "category": "composer",
+      "reason": "MIDI track title identifies Elastic Heart, recorded and co-written by Sia.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ],
+      "previousSlug": "aud_mb1472",
+      "title": "Elastic Heart — Sia"
+    },
+    {
+      "slug": "aquarius---castlevania-circle-of-the-moon",
+      "corpus": "konami_kukeiha_club",
+      "category": "composer",
+      "reason": "Aquarius originates in Castlevania III, credited to Konami Kukeiha Club; use the composer collective rather than guessing an individual.",
+      "evidence": "https://music.apple.com/us/song/1743041777",
+      "source": [
+        "https://musescore.com/user/5521361/scores/10464856"
+      ]
+    },
+    {
+      "slug": "avatar_the_last_airbender_medley",
+      "corpus": "jeremy_zuckerman",
+      "category": "composer",
+      "reason": "Avatar soundtrack medley; Jeremy Zuckerman co-composed the series music with Benjamin Wynn.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/3607976/scores/3544951"
+      ]
+    },
+    {
+      "slug": "concerto-des-etoiles---richard-clayderman",
+      "corpus": "olivier_toussaint",
+      "category": "composer",
+      "reason": "Richard Clayderman is the pianist; sheet music credits Olivier Toussaint as composer.",
+      "evidence": "https://www.sheetmusicplus.com/en/product/concerto-des-etoiles-23985368.html",
+      "source": [
+        "https://musescore.com/user/33397673/scores/6275250"
+      ]
+    },
+    {
+      "slug": "deemo-magnolia",
+      "corpus": "m2u",
+      "category": "composer",
+      "reason": "Magnolia music is by M2U; NICODE contributed lyrics/arrangement.",
+      "evidence": "https://d.namu.moe/w/Magnolia",
+      "source": [
+        "https://musescore.com/user/3897386/scores/1262461"
+      ]
+    },
+    {
+      "slug": "Despacito",
+      "corpus": "luis_fonsi_daddy_yankee_and_erika_ender",
+      "category": "composer",
+      "reason": "Despacito was co-written by Luis Fonsi, Daddy Yankee and Erika Ender.",
+      "evidence": "https://en.wikipedia.org/wiki/Despacito",
+      "source": []
+    },
+    {
+      "slug": "dzhentelmeny_udachi",
+      "corpus": "gennady_gladkov",
+      "category": "composer",
+      "reason": "Original MIDI source credits Gennady Gladkov for Gentlemen of Fortune.",
+      "evidence": "https://www.rusmidi.com/song/55/",
+      "source": [
+        "https://www.rusmidi.com/song/55/"
+      ]
+    },
+    {
+      "slug": "embryons-book-1-no.-1-bachovich",
+      "corpus": "erik_satie",
+      "category": "composer",
+      "reason": "Source is the Satie collection; Bachovich is the MIDI sequencer.",
+      "evidence": "",
+      "source": [
+        "https://chiptune.app/browse/Classical%20MIDI/Satie"
+      ]
+    },
+    {
+      "slug": "goodbye-hachiko",
+      "corpus": "jan_a_p_kaczmarek",
+      "category": "composer",
+      "reason": "Goodbye from Hachi: A Dog’s Tale is composed by Jan A. P. Kaczmarek.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/10472206/scores/4873888"
+      ]
+    },
+    {
+      "slug": "help-me",
+      "corpus": "joni_mitchell",
+      "category": "composer",
+      "reason": "Source explicitly places Help Me in Joni Mitchell’s collection; Chris Rada is the MIDI sequencer.",
+      "evidence": "",
+      "source": [
+        "https://chiptune.app/browse/MIDI/Joni%20Mitchell"
+      ]
+    },
+    {
+      "slug": "heroes-of-might-magic-iii---castle-town-theme",
+      "corpus": "paul_romero",
+      "category": "composer",
+      "reason": "Castle town theme from Heroes of Might and Magic III, composed by Paul Romero.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/12699241/scores/7081441"
+      ]
+    },
+    {
+      "slug": "hysteria",
+      "corpus": "muse",
+      "category": "composer",
+      "reason": "Source explicitly identifies Hysteria by Muse.",
+      "evidence": "",
+      "source": [
+        "https://freemidi.org/download4-16877-hysteria--muse"
+      ]
+    },
+    {
+      "slug": "i-will-survive.1",
+      "corpus": "freddie_perren_and_dino_fekaris",
+      "category": "composer",
+      "reason": "I Will Survive music/songwriting credits are Freddie Perren and Dino Fekaris.",
+      "evidence": "https://en.wikipedia.org/wiki/I_Will_Survive",
+      "source": [
+        "https://chiptune.app/"
+      ]
+    },
+    {
+      "slug": "i-wish.1-ba1559",
+      "corpus": "stevie_wonder",
+      "category": "composer",
+      "reason": "MIDI explicitly says words and music by Stevie Wonder.",
+      "evidence": "",
+      "source": [
+        "https://chiptune.app/browse/MIDI/Stevie%20Wonder/"
+      ]
+    },
+    {
+      "slug": "innocent-life-a-futuristic-harvest-moon---easter-ruins",
+      "corpus": "yutaka_minobe_and_yasufumi_fukuda",
+      "category": "composer",
+      "reason": "Game credits name Yutaka Minobe and Yasufumi Fukuda; individual track attribution is unavailable.",
+      "evidence": "https://www.mobygames.com/game/34408/innocent-life-a-futuristic-harvest-moon/credits/psp/",
+      "source": [
+        "https://musescore.com/user/11356/scores/2493081"
+      ]
+    },
+    {
+      "slug": "kirby_triple_deluxe_walking_to_a_flowery_coup",
+      "corpus": "jun_ishikawa_and_hirokazu_ando",
+      "category": "composer",
+      "reason": "Dedede theme originates with Jun Ishikawa; Triple Deluxe arrangement is credited to Hirokazu Ando.",
+      "evidence": "https://nintendo.fandom.com/wiki/Hirokazu_Ando",
+      "source": [
+        "https://musescore.com/user/27682311/scores/14569432"
+      ]
+    },
+    {
+      "slug": "kirbys_dream_land_3_dedede_modified",
+      "corpus": "jun_ishikawa",
+      "category": "composer",
+      "reason": "MIDI identifies Kirby 3 Battle With King Dedede, composed by Jun Ishikawa; Joe Cortez sequenced it.",
+      "evidence": "",
+      "source": [
+        "https://chiptune.app/browse/Game%20MIDI/-%20Arranged%20-/Kirby's%20Dream%20Land%203%20(SNES,%201997)/"
+      ]
+    },
+    {
+      "slug": "kirbys_return_to_dream_land_clash_mid_boss_tower",
+      "corpus": "jun_ishikawa_and_hirokazu_ando",
+      "category": "composer",
+      "reason": "Clash! Mid-Boss Tower arranges Jun Ishikawa’s Dedede theme; arrangement credited to Hirokazu Ando.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/27682311/scores/9376282/"
+      ]
+    },
+    {
+      "slug": "la-bamba.1",
+      "corpus": "ritchie_valens",
+      "category": "composer",
+      "reason": "Traditional La Bamba in the Ritchie Valens arrangement, explicitly identified by the source collection.",
+      "evidence": "",
+      "source": [
+        "https://chiptune.app/browse/MIDI/Valens%20Ritchie/"
+      ]
+    },
+    {
+      "slug": "little-pieces-no.-1---menuet-antique-oguri",
+      "corpus": "ravel",
+      "category": "composer",
+      "reason": "MIDI explicitly identifies Ravel’s Menuet Antique, played by Katsuhiro Oguri.",
+      "evidence": "",
+      "source": [
+        "https://chiptune.app/browse/Classical%20MIDI/Ravel"
+      ]
+    },
+    {
+      "slug": "love-story--richard-clayderman",
+      "corpus": "francis_lai",
+      "category": "composer",
+      "reason": "Love Story is composed by Francis Lai; Richard Clayderman is the pianist.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/29530612/scores/5223326"
+      ]
+    },
+    {
+      "slug": "beethoven-12-minuets-woo-7-no-1",
+      "corpus": "beethoven",
+      "category": "composer",
+      "reason": "MIDI explicitly identifies Beethoven’s 12 Minuets WoO 7, No. 1.",
+      "evidence": "https://suzumidi.com/en/beethovb.htm",
+      "source": [
+        "https://suzumidi.com/en/beethovb.htm"
+      ],
+      "previousSlug": "mnp12_01",
+      "title": "Beethoven — 12 Minuets, WoO 7, No. 1"
+    },
+    {
+      "slug": "peaches-the-super-mario-bros.-movie",
+      "corpus": "jack_black",
+      "category": "composer",
+      "reason": "Peaches is performed/co-written by Jack Black, with Aaron Horvath, Michael Jelenic, Eric Osmond and John Spiker.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/37564542/scores/10437058"
+      ]
+    },
+    {
+      "slug": "mozart-piano-sonata-k-330-ii-andante-cantabile",
+      "corpus": "mozart",
+      "category": "composer",
+      "reason": "MIDI explicitly identifies Mozart’s Sonata in C, K.330, second movement Andante cantabile. Slug’s sonata number and movement label are inaccurate.",
+      "evidence": "",
+      "source": [
+        "https://chiptune.app/browse/Classical%20MIDI/Mozart/Piano%20Sonatas"
+      ],
+      "previousSlug": "piano-sonata-no.-11-k330---ii.-menuetto",
+      "title": "Mozart — Piano Sonata, K. 330, II. Andante cantabile"
+    },
+    {
+      "slug": "pretty-belinda",
+      "corpus": "chris_andrews",
+      "category": "composer",
+      "reason": "Source collection explicitly credits Chris Andrews.",
+      "evidence": "",
+      "source": [
+        "https://chiptune.app/browse/MIDI/Chris%20Andrews/"
+      ]
+    },
+    {
+      "slug": "shovel_knight_tango_of_the_troupple_king",
+      "corpus": "jake_kaufman",
+      "category": "composer",
+      "reason": "Official soundtrack credits Jake Kaufman for Tango of the Troupple King.",
+      "evidence": "https://virt.bandcamp.com/album/shovel-knight-plague-of-shadows-ost",
+      "source": [
+        "https://musescore.com/user/5305891/scores/1586451"
+      ]
+    },
+    {
+      "slug": "chopin-sonata-no-2-op-35-i-grave-doppio-movimento-vocgab",
+      "corpus": "chopin",
+      "category": "composer",
+      "reason": "Inferred from the MIDI opening in D-flat minor: Chopin Sonata No. 2, Op. 35, Grave/Doppio movimento.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/classicman/scores/97387"
+      ],
+      "previousSlug": "sonata-no.-2-1st-movement",
+      "title": "Chopin — Sonata No. 2, Op. 35, I. Grave / Doppio movimento"
+    },
+    {
+      "slug": "chopin-sonata-no-2-op-35-i-grave-doppio-movimento-d13xqi",
+      "corpus": "chopin",
+      "category": "composer",
+      "reason": "Same ClassicMan score as the other Sonata No. 2 upload; MIDI opening identifies Chopin Op. 35.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/classicman/scores/97387"
+      ],
+      "previousSlug": "Sonata_No._2_1st_Movement",
+      "title": "Chopin — Sonata No. 2, Op. 35, I. Grave / Doppio movimento"
+    },
+    {
+      "slug": "surf-rider-pulp-fiction",
+      "corpus": "the_ventures",
+      "category": "composer",
+      "reason": "Surf Rider credits Bob Bogle, Nokie Edwards and Don Wilson (The Ventures); Pulp Fiction uses the Lively Ones cover.",
+      "evidence": "https://music.apple.com/us/song/1469583665",
+      "source": [
+        "https://musescore.com/user/24541641/scores/5226740"
+      ]
+    },
+    {
+      "slug": "the-fairly-oddparents-theme-song-short-piano-arr.",
+      "corpus": "ron_jones_and_butch_hartman",
+      "category": "composer",
+      "reason": "Theme song is credited to Ron Jones and Butch Hartman; Guy Moon composed other series music.",
+      "evidence": "https://en.wikipedia.org/wiki/The_Fairly_OddParents",
+      "source": [
+        "https://musescore.com/user/19233641/scores/6887558"
+      ]
+    },
+    {
+      "slug": "the-byrds---my-back-pages-ver-2-by-dascore",
+      "corpus": "bob_dylan",
+      "category": "composer",
+      "reason": "My Back Pages was written by Bob Dylan; this is the Byrds arrangement.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "the-byrds---my-back-pages-ver-2-by-dascore-2",
+      "corpus": "bob_dylan",
+      "category": "composer",
+      "reason": "Second upload of the Byrds arrangement of Bob Dylan’s My Back Pages.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "what-does-the-fox-say",
+      "corpus": "ylvis",
+      "category": "composer",
+      "reason": "The Fox is by Ylvis, co-written with Stargate.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/5281706/scores/1318206"
+      ]
+    },
+    {
+      "slug": "my-time-oyasumi-bo-en",
+      "corpus": "bo_en",
+      "category": "composer",
+      "reason": "Source is a piano cover of My Time (Oyasumi) by bo en.",
+      "evidence": "https://audio.com/gartage/audio/my-time-oyasumi-from-omori-for-piano-and-violin",
+      "source": [
+        "https://musescore.com/user/29717076/scores/6362049"
+      ],
+      "previousSlug": "oyasumi",
+      "title": "My Time (Oyasumi) — bo en"
+    },
+    {
+      "slug": "zima_potolok_ledjanoi_-diomin_vjacheslav",
+      "corpus": "eduard_khanok",
+      "category": "composer",
+      "reason": "Zima (Potolok ledyanoy) music is by Eduard Khanok; Vyacheslav Diomin is an arranger.",
+      "evidence": "https://ru.wikipedia.org/wiki/Ханок,_Эдуард_Семёнович",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "izgib-gitaryzhyoltoy",
+      "corpus": "oleg_mityaev",
+      "category": "composer",
+      "reason": "Izgib gitary zhyoltoy / Kak zdorovo is by Oleg Mityaev.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/38233233/scores/10586536"
+      ]
+    },
+    {
+      "slug": "muzyka-k-kinofilmu-cygan---vladimir-zubkov-melodiya-iz-kinofilma-cygan",
+      "corpus": "valery_zubkov",
+      "category": "composer",
+      "reason": "The film Tsygan credits Valery Zubkov; Vladimir in the upload title is a mistaken first name.",
+      "evidence": "https://ru.wikipedia.org/wiki/Цыган_(фильм,_1979)",
+      "source": [
+        "https://musescore.com/user/37908778/scores/8740878"
+      ]
+    },
+    {
+      "slug": "nikogo-ne-budet-v-dome---misc-soundtrack-nikogo-ne-budet-v-dome",
+      "corpus": "mikael_tariverdiev",
+      "category": "composer",
+      "reason": "Music from The Irony of Fate is by Mikael Tariverdiev.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/50410688/scores/14012656",
+        "https://musescore.com/user/50410688/scores/13901218"
+      ]
+    },
+    {
+      "slug": "pesnya-o-dalyokoy-rodine",
+      "corpus": "mikael_tariverdiev",
+      "category": "composer",
+      "reason": "Song of the Distant Homeland, from Seventeen Moments of Spring, composed by Mikael Tariverdiev.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/2832181/scores/1516771"
+      ]
+    },
+    {
+      "slug": "pod-laskoy-plyushevogo-pleda",
+      "corpus": "andrey_petrov",
+      "category": "composer",
+      "reason": "Sheet music credits Andrey Petrov for Under the Caress of a Plush Blanket.",
+      "evidence": "https://notes.tarakanov.net/katalog/kompozitsii/pod-laskoi-plyushevogo-pleda/",
+      "source": [
+        "https://musescore.com/user/6130296/scores/4973348"
+      ]
+    },
+    {
+      "slug": "bella-ciao---misc-traditional-bella-ciao-melodie-1-main",
+      "corpus": "bella_ciao",
+      "category": "traditional",
+      "reason": "Recognizable traditional melody; use its existing themed corpus.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/35103462/scores/12836758"
+      ]
+    },
+    {
+      "slug": "bella-ciao-melody",
+      "corpus": "bella_ciao",
+      "category": "traditional",
+      "reason": "Recognizable traditional melody; use its existing themed corpus.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/35715096/scores/6826024"
+      ]
+    },
+    {
+      "slug": "korobeiniki_tetris_theme_piano_tiles_version",
+      "corpus": "tetris_theme_a",
+      "category": "traditional",
+      "reason": "Recognizable traditional melody; use its existing themed corpus.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/16296656/scores/4087516"
+      ]
+    },
+    {
+      "slug": "murican-tetris-.rag",
+      "corpus": "tetris_theme_a",
+      "category": "traditional",
+      "reason": "Recognizable traditional melody; use its existing themed corpus.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/164945/scores/3666126"
+      ]
+    },
+    {
+      "slug": "tetris",
+      "corpus": "tetris_theme_a",
+      "category": "traditional",
+      "reason": "Recognizable traditional melody; use its existing themed corpus.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/33856115/scores/6277313"
+      ]
+    },
+    {
+      "slug": "tetris-korobeiniki-tango",
+      "corpus": "tetris_theme_a",
+      "category": "traditional",
+      "reason": "Recognizable traditional melody; use its existing themed corpus.",
+      "evidence": "",
+      "source": [
+        "drop"
+      ]
+    },
+    {
+      "slug": "tetris-korobeiniki---tango",
+      "corpus": "tetris_theme_a",
+      "category": "traditional",
+      "reason": "Recognizable traditional melody; use its existing themed corpus.",
+      "evidence": "",
+      "source": [
+        "https://musescore.com/user/9959646/scores/4431161"
+      ]
+    }
+  ],
+  "pending": [
+    {
+      "slug": "-be3336",
+      "records": [
+        {
+          "id": "tG9P7QeeyYMe5OSsw23L",
+          "title": "",
+          "slug": "-be3336",
+          "url": "https://onlinesequencer.net/3351151#"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "0ECvNpF9B86e7nwUh2xV",
+      "records": [
+        {
+          "id": "0ECvNpF9B86e7nwUh2xV",
+          "title": "",
+          "slug": "",
+          "url": ""
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "3TAkNzLqoa3db1C9c3Eb",
+      "records": [
+        {
+          "id": "3TAkNzLqoa3db1C9c3Eb",
+          "title": "",
+          "slug": "",
+          "url": ""
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "6YRmN3iTFqc1mcwHEWkW",
+      "records": [
+        {
+          "id": "6YRmN3iTFqc1mcwHEWkW",
+          "title": "",
+          "slug": "",
+          "url": ""
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "9BeyWQ8qtKs3iCS5J1Au",
+      "records": [
+        {
+          "id": "9BeyWQ8qtKs3iCS5J1Au",
+          "title": "",
+          "slug": "",
+          "url": ""
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "alexandershekhovtsov_pentatonic",
+      "records": [
+        {
+          "id": "V3z5e0hPDh1HvJFfdRZc",
+          "title": "alexandershekhovtsov_pentatonic",
+          "slug": "alexandershekhovtsov_pentatonic",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "alexandershekhovtsov_pentatonic2",
+      "records": [
+        {
+          "id": "az0vaMT73JYseVL5E0XN",
+          "title": "AlexanderShekhovtsov_pentatonic2",
+          "slug": "alexandershekhovtsov_pentatonic2",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "anton_rykachevskii_to_alcocer",
+      "records": [
+        {
+          "id": "h2YEkizcXOzuLts8yzVI",
+          "title": "anton_rykachevskii_to_alcocer",
+          "slug": "anton_rykachevskii_to_alcocer",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "baby",
+      "records": [
+        {
+          "id": "Rdfb6bFhbGUedAi4ypKR",
+          "title": "Baby",
+          "slug": "baby",
+          "url": "https://musescore.com/user/32123243/scores/6566215"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "clarinet-advanced-major-scales-and-arpeggios",
+      "records": [
+        {
+          "id": "7WVWQHy7HFsyh0GelJvI",
+          "title": "Clarinet Advanced Major Scales and Arpeggios",
+          "slug": "clarinet-advanced-major-scales-and-arpeggios",
+          "url": "https://musescore.com/user/11764516/scores/4461761"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "dg__christmas-connon",
+      "records": [
+        {
+          "id": "6sa2nh0T17TG8TQZtrgZ",
+          "title": "dg__Christmas Connon",
+          "slug": "dg__christmas-connon",
+          "url": "https://musescore.com/user/73705786/scores/20145703"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "dg__lord-have-mercy.",
+      "records": [
+        {
+          "id": "hJdPgIqBj2IeGV3JEBgK",
+          "title": "dg__Lord have mercy.",
+          "slug": "dg__lord-have-mercy.",
+          "url": "https://musescore.com/user/67828600/scores/20159719"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "dg__weekend-breeze-piano-solo",
+      "records": [
+        {
+          "id": "eeos24G5ByJl9OlYaGPu",
+          "title": "dg__Weekend Breeze (Piano Solo)",
+          "slug": "dg__weekend-breeze-piano-solo",
+          "url": "https://musescore.com/user/60258076/scores/20159881"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "drop-2-arpeggiations-of-seventh-chords-in-c-maj-for-saxophone",
+      "records": [
+        {
+          "id": "oWWLi0TIha46d8X6j7Nn",
+          "title": "Drop 2 Arpeggiations of Seventh Chords in C maj for Saxophone",
+          "slug": "drop-2-arpeggiations-of-seventh-chords-in-c-maj-for-saxophone",
+          "url": "https://musescore.com/user/58616320/scores/16116505"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "funky-piano",
+      "records": [
+        {
+          "id": "8DVrvZZ1iwLuFxZc2PRA",
+          "title": "Funky Piano",
+          "slug": "funky-piano",
+          "url": "https://musescore.com/user/2308961/scores/2652896"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "goby_waltz",
+      "records": [
+        {
+          "id": "cM7vZuuz3dyo2cjylIre",
+          "title": "Goby Waltz",
+          "slug": "goby_waltz",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "hava-nagila-30d02c",
+      "records": [
+        {
+          "id": "MV67cHdL2s821B99Jtxk",
+          "title": "Hava Nagila",
+          "slug": "hava-nagila-30d02c",
+          "url": "https://musescore.com/user/172232/scores/313251"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "i-still-love-you-4f1981",
+      "records": [
+        {
+          "id": "kkaEU4L2H2ivJexGhVS5",
+          "title": "I Still Love You",
+          "slug": "i-still-love-you-4f1981",
+          "url": "https://musescore.com/user/32901530/scores/11906428"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "imprp",
+      "records": [
+        {
+          "id": "nbBPR0sTQhaG9yUNRVW5",
+          "title": "imprp",
+          "slug": "imprp",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "ivan002",
+      "records": [
+        {
+          "id": "vfBk9cNFPmnsExaFQjdl",
+          "title": "ivan002",
+          "slug": "ivan002",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "ivan003-v4",
+      "records": [
+        {
+          "id": "S9kn6ahCAIxCCVBHsqXU",
+          "title": "ivan003-v4",
+          "slug": "ivan003-v4",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "ivan005",
+      "records": [
+        {
+          "id": "YVgtiB7A8DGnpwRnyjVE",
+          "title": "ivan005",
+          "slug": "ivan005",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "J05EVev8fb7rM0Fc0N9a",
+      "records": [
+        {
+          "id": "J05EVev8fb7rM0Fc0N9a",
+          "title": "",
+          "slug": "",
+          "url": ""
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "jazz-lounge-wip",
+      "records": [
+        {
+          "id": "SZHVp12bRFa87AkxR7dj",
+          "title": "Jazz Lounge WIP",
+          "slug": "jazz-lounge-wip",
+          "url": "https://musescore.com/user/7041971/scores/5594812"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "jazzbutterfly",
+      "records": [
+        {
+          "id": "OoHdwVAA5XDo3irYVKpR",
+          "title": "jazzbutterfly",
+          "slug": "jazzbutterfly",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "major-amp-minor-scales-on-diatonic-chords-i-iv-amp-v",
+      "records": [
+        {
+          "id": "eG8Mt5VP6J5pfRSE8UN6",
+          "title": "Major &amp; Minor Scales on Diatonic Chords (I, IV &amp; V)",
+          "slug": "major-amp-minor-scales-on-diatonic-chords-i-iv-amp-v",
+          "url": "https://musescore.com/user/2538606/scores/5699104"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "major-diatonic-chords",
+      "records": [
+        {
+          "id": "Ir0WkY7sOOPrggoJlyoG",
+          "title": "Major Diatonic Chords",
+          "slug": "major-diatonic-chords",
+          "url": "https://musescore.com/user/152443/scores/153120"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "major-scales-chords-and-arpeggios",
+      "records": [
+        {
+          "id": "Cog4xTuLb7mDnJZyfcRK",
+          "title": "Major Scales, Chords and Arpeggios",
+          "slug": "major-scales-chords-and-arpeggios",
+          "url": "https://musescore.com/user/24245401/scores/5265228"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "marg_kaiumpermanganat",
+      "records": [
+        {
+          "id": "lutBnIM1oHXSGUApJJ1y",
+          "title": "marg_kaiumpermanganat",
+          "slug": "marg_kaiumpermanganat",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "marry-had-a-little-lamb",
+      "records": [
+        {
+          "id": "sY7Y1tvFHvwspINGNkyr",
+          "title": "Marry Had a Little Lamb",
+          "slug": "marry-had-a-little-lamb",
+          "url": "https://musescore.com/user/16254/scores/28030"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "merged_midi_output",
+      "records": [
+        {
+          "id": "PaA5efF6IyWznApvfqW9",
+          "title": "merged_midi_output",
+          "slug": "merged_midi_output",
+          "url": "https://musescore.com/user/26806535/scores/6042624"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "music-theory-i-.-arpeggiating-a-chord---dm",
+      "records": [
+        {
+          "id": "nHKVGcCX0aNkm69o2ZcL",
+          "title": "Music Theory I . Arpeggiating a Chord - Dm",
+          "slug": "music-theory-i-.-arpeggiating-a-chord---dm",
+          "url": "https://musescore.com/user/36092756/scores/6383845"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "new",
+      "records": [
+        {
+          "id": "RMjWJzIWKuEV2g4iiA0L",
+          "title": "new",
+          "slug": "new",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "nPvQb4Ib3qu3Ju1bt4HC",
+      "records": [
+        {
+          "id": "nPvQb4Ib3qu3Ju1bt4HC",
+          "title": "",
+          "slug": "",
+          "url": ""
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "on-parole---a-paris---frese-nouvele---anonymous",
+      "records": [
+        {
+          "id": "bmNhpuYxoWpW8ZUeKMCF",
+          "title": "On parole - A Paris - Frese nouvele – Anonymous",
+          "slug": "on-parole---a-paris---frese-nouvele---anonymous",
+          "url": "https://musescore.com/user/3099636/scores/18378862"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "priboi-mp3",
+      "records": [
+        {
+          "id": "hn8ZXbCBq4btuccE77aP",
+          "title": "priboi-mp3",
+          "slug": "priboi-mp3",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "pyos2",
+      "records": [
+        {
+          "id": "S1u8Adi5FkCG5qc0IoJe",
+          "title": "pyos2",
+          "slug": "pyos2",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "pyos3",
+      "records": [
+        {
+          "id": "8wBc1zMa7PB5c5tJOAs3",
+          "title": "pyos3",
+          "slug": "pyos3",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "pyos4",
+      "records": [
+        {
+          "id": "Hdf074qSXFYefaXOQU0F",
+          "title": "pyos4",
+          "slug": "pyos4",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "sasha_1",
+      "records": [
+        {
+          "id": "YIAgT75c7hyvBrQotA7D",
+          "title": "sasha_1",
+          "slug": "sasha_1",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "senor2",
+      "records": [
+        {
+          "id": "qnWTMXc4AWIntK5lBA9t",
+          "title": "senor2",
+          "slug": "senor2",
+          "url": "https://chiptune.app/?q=senor"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "smth",
+      "records": [
+        {
+          "id": "vESQGHNKDF07gsknVPAK",
+          "title": "smth",
+          "slug": "smth",
+          "url": null
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "smth2",
+      "records": [
+        {
+          "id": "rAn5JXhUBVZIybnzVTDQ",
+          "title": "smth2",
+          "slug": "smth2",
+          "url": "https://musescore.com/user/37758827/scores/6833120/"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "sollozos---jean-luc",
+      "records": [
+        {
+          "id": "oHT7Nl4T8tNhFU7U55xt",
+          "title": "Sollozos - Jean Luc",
+          "slug": "sollozos---jean-luc",
+          "url": "https://musescore.com/user/80345722/scores/19891855"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "studio-ghibli-lofi-piano---jimindorothy---thanks-for-50-followers",
+      "records": [
+        {
+          "id": "N5SpXxhNJYXrtIgMDKbk",
+          "title": "Studio Ghibli LoFi Piano – Jimindorothy - Thanks For 50 Followers!!!",
+          "slug": "studio-ghibli-lofi-piano---jimindorothy---thanks-for-50-followers",
+          "url": "https://musescore.com/user/17396301/scores/6702094"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "super-bounce-2b4703",
+      "records": [
+        {
+          "id": "3pZCQo7hmOpY9hMLnKV9",
+          "title": "Super Bounce",
+          "slug": "super-bounce-2b4703",
+          "url": "https://musescore.com/franklinmusicacademy/scores/2427451"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "the-lick-in-all-12-keys--for-trombone",
+      "records": [
+        {
+          "id": "nBoBJmJzkjqGKNlhrNhE",
+          "title": "The Lick In All 12 Keys- for trombone",
+          "slug": "the-lick-in-all-12-keys--for-trombone",
+          "url": "https://musescore.com/user/26645701/scores/5308087"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "tmpboujr2y7",
+      "records": [
+        {
+          "id": "sDJhHqSUduKrmZOGj86x",
+          "title": "tmpboujr2y7",
+          "slug": "tmpboujr2y7",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "twinkle-twinkle-little-star-easy",
+      "records": [
+        {
+          "id": "LPLfERv6x5BVgC0N5j9O",
+          "title": "Twinkle, Twinkle, Little Star (Easy)",
+          "slug": "twinkle-twinkle-little-star-easy",
+          "url": "https://musescore.com/user/110059/scores/1525331"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "unfinishedpp",
+      "records": [
+        {
+          "id": "a7stABG7yuklCHIgNy40",
+          "title": "unfinishedpp",
+          "slug": "unfinishedpp",
+          "url": "drop"
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "wunder",
+      "records": [
+        {
+          "id": "GjedRfmocJT7nN6JGi00",
+          "title": "Wunder",
+          "slug": "wunder",
+          "url": "https://musescore.com/user/2149266/scores/5335478"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "XXNGQtxz9usxpV0cdsxJ",
+      "records": [
+        {
+          "id": "XXNGQtxz9usxpV0cdsxJ",
+          "title": "",
+          "slug": "",
+          "url": ""
+        }
+      ],
+      "reason": "Upload has insufficient title/composer metadata."
+    },
+    {
+      "slug": "vstrecha",
+      "records": [
+        {
+          "id": "BiunOCAPvHn3B3tZFaL2",
+          "title": "Встреча",
+          "slug": "vstrecha",
+          "url": "https://musescore.com/user/35900539/scores/16781368"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    },
+    {
+      "slug": "pole-chudes---minuta-na-razmyshlenie",
+      "records": [
+        {
+          "id": "MwhalexRuIelo2k9ffmY",
+          "title": "Поле чудес - Минута на размышление",
+          "slug": "pole-chudes---minuta-na-razmyshlenie",
+          "url": "https://musescore.com/user/40672115/scores/8805585"
+        }
+      ],
+      "reason": "Source/title does not reliably establish a composer, or traditional/exercise has no single known composer."
+    }
+  ],
+  "playerIndexRestored": [
+    {
+      "id": "ecBSPbaqji7R0F23i9hV",
+      "slug": "i-wish.1-ba1559",
+      "reason": "Existing MIDI document lacked its indexes/midis entry; restored without changing title, slug, or MIDI."
+    }
+  ],
+  "validation": {
+    "corpusLinksChecked": 72,
+    "representativePlayersChecked": 12,
+    "analysesUnchanged": false,
+    "console": "No compile errors or new runtime errors. Existing InlineSnippets React key warning appeared on a representative player.",
+    "analysisValuesPreserved": true,
+    "renamedPlayersChecked": 11,
+    "renamedSearchResultsChecked": 11
+  },
+  "slugRenames": [
+    {
+      "id": "4d9n9IwbgWKOH37wXJU0",
+      "oldSlug": "aud_mb1472",
+      "oldTitle": "aud_mb1472",
+      "slug": "elastic-heart-sia",
+      "title": "Elastic Heart — Sia"
+    },
+    {
+      "id": "37QFNwSnbHt7OFnOAzb2",
+      "oldSlug": "funny val solo",
+      "oldTitle": "funny val solo",
+      "slug": "my-funny-valentine-doug-mckenzie",
+      "title": "My Funny Valentine — Doug McKenzie"
+    },
+    {
+      "id": "KmoOGpWkiacxni7dj2WK",
+      "oldSlug": "out",
+      "oldTitle": "out",
+      "slug": "aint-misbehavin-fats-waller-harry-brooks",
+      "title": "Ain’t Misbehavin’ — Fats Waller & Harry Brooks"
+    },
+    {
+      "id": "ExScu1JLXqWOv0HcKQu4",
+      "oldSlug": "four_brithers",
+      "oldTitle": "four_brithers",
+      "slug": "four-brothers-jimmy-giuffre",
+      "title": "Four Brothers — Jimmy Giuffre"
+    },
+    {
+      "id": "YxMuO9IYl9SwbevABGqd",
+      "oldSlug": "how_insensa",
+      "oldTitle": "how_insensa",
+      "slug": "how-insensitive-insensatez-tom-jobim",
+      "title": "How Insensitive (Insensatez) — Antônio Carlos Jobim"
+    },
+    {
+      "id": "EdzDGcbGrKwdEXHheXzD",
+      "oldSlug": "mnp12_01",
+      "oldTitle": "mnp12_01",
+      "slug": "beethoven-12-minuets-woo-7-no-1",
+      "title": "Beethoven — 12 Minuets, WoO 7, No. 1"
+    },
+    {
+      "id": "jeVS2Nv6lq3dCrKMOHmE",
+      "oldSlug": "oyasumi",
+      "oldTitle": "Oyasumi",
+      "slug": "my-time-oyasumi-bo-en",
+      "title": "My Time (Oyasumi) — bo en"
+    },
+    {
+      "id": "vOCgABUKdnF2ZuNJENDJ",
+      "oldSlug": "sonata-no.-2-1st-movement",
+      "oldTitle": "Sonata No. 2, 1st Movement",
+      "slug": "chopin-sonata-no-2-op-35-i-grave-doppio-movimento-vocgab",
+      "title": "Chopin — Sonata No. 2, Op. 35, I. Grave / Doppio movimento"
+    },
+    {
+      "id": "D13xqibjA6bWygpotPUJ",
+      "oldSlug": "Sonata_No._2_1st_Movement",
+      "oldTitle": "Sonata_No._2_1st_Movement",
+      "slug": "chopin-sonata-no-2-op-35-i-grave-doppio-movimento-d13xqi",
+      "title": "Chopin — Sonata No. 2, Op. 35, I. Grave / Doppio movimento"
+    },
+    {
+      "id": "psIZSS5FGZL54nasRDFx",
+      "oldSlug": "piano-sonata-no.-11-k330---ii.-menuetto",
+      "oldTitle": "piano-sonata-no.-11-k330---ii.-menuetto",
+      "slug": "mozart-piano-sonata-k-330-ii-andante-cantabile",
+      "title": "Mozart — Piano Sonata, K. 330, II. Andante cantabile"
+    },
+    {
+      "id": "gYSXoPsKdLGoPm66lauD",
+      "oldSlug": "bushgrafts-bluebossa1gm-1",
+      "oldTitle": "bushgrafts-bluebossa1gm-1",
+      "slug": "blue-bossa-kenny-dorham-bushgrafts",
+      "title": "Blue Bossa — Kenny Dorham (Bushgrafts arrangement)"
+    }
+  ],
+  "analysisKeysMoved": [
+    {
+      "from": "f/aud_mb1472",
+      "to": "f/elastic-heart-sia"
+    },
+    {
+      "from": "f/out",
+      "to": "f/aint-misbehavin-fats-waller-harry-brooks"
+    },
+    {
+      "from": "f/four_brithers",
+      "to": "f/four-brothers-jimmy-giuffre"
+    },
+    {
+      "from": "f/piano-sonata-no.-11-k330---ii.-menuetto",
+      "to": "f/mozart-piano-sonata-k-330-ii-andante-cantabile"
+    },
+    {
+      "from": "f/bushgrafts-bluebossa1gm-1",
+      "to": "f/blue-bossa-kenny-dorham-bushgrafts"
+    }
+  ]
+}

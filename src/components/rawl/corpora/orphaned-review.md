@@ -1,47 +1,33 @@
 # Orphaned MIDI review
 
-Moved 324 entries from `orphaned` into composer/artist corpora. 126 entries remain pending. New artist entries omit unconfirmed biographical metadata.
+Moved 396 entries from `orphaned` into composer/artist, homework, and themed corpora. 54 entries remain pending. New artist entries omit unconfirmed biographical metadata.
 
 ## Decisions needed
 
-- May the remaining traditional tunes and exercises use `bella_ciao`, `tetris_theme_a`, and `examples`?
-- For performer/arranger credits, prefer the original songwriter or the credited performer?
+- Remaining anonymous traditional tunes and exercises have no reliably identified composer.
+- Prefer original composers; record performer and arranger distinctions in the classification review.
 - Identify the uncertain titles and uploads below, or leave them in `orphaned`.
 
 The links use the existing local server. The historical `orphans.json` snapshot now uses the renamed titles and player links.
 
-## Traditional tunes and existing themed collections (11)
+## Traditional tunes and existing themed collections (3)
 
-- [Bella ciao – Misc Traditional Bella Ciao mélodie 1 main](http://localhost:3000/f/bella-ciao---misc-traditional-bella-ciao-melodie-1-main)
-- [Bella ciao melody](http://localhost:3000/f/bella-ciao-melody)
 - [Hava Nagila](http://localhost:3000/f/hava-nagila-30d02c)
-- [Korobeiniki / Tetris Theme (Piano Tiles Version)](http://localhost:3000/f/korobeiniki_tetris_theme_piano_tiles_version)
-- [Les yeux noirs](http://localhost:3000/f/les-yeux-noirs)
 - [Marry Had a Little Lamb](http://localhost:3000/f/marry-had-a-little-lamb)
-- [Murican Tetris .Rag...](http://localhost:3000/f/murican-tetris-.rag)
-- [Tetris](http://localhost:3000/f/tetris)
-- [tetris-korobeiniki-tango](http://localhost:3000/f/tetris-korobeiniki-tango)
-- [Tetris/Korobeiniki - Tango](http://localhost:3000/f/tetris-korobeiniki---tango)
 - [Twinkle, Twinkle, Little Star (Easy)](http://localhost:3000/f/twinkle-twinkle-little-star-easy)
 
-## Exercises, student work, and unidentified uploads (47)
+## Exercises, student work, and unidentified uploads (33)
 
 - [-be3336](http://localhost:3000/f/-be3336)
 - [0ECvNpF9B86e7nwUh2xV](http://localhost:3000/f/0ECvNpF9B86e7nwUh2xV)
 - [3TAkNzLqoa3db1C9c3Eb](http://localhost:3000/f/3TAkNzLqoa3db1C9c3Eb)
 - [6YRmN3iTFqc1mcwHEWkW](http://localhost:3000/f/6YRmN3iTFqc1mcwHEWkW)
 - [9BeyWQ8qtKs3iCS5J1Au](http://localhost:3000/f/9BeyWQ8qtKs3iCS5J1Au)
-- [Alexander_Shekhovtsov_dz3](http://localhost:3000/f/alexander_shekhovtsov_dz3)
 - [alexandershekhovtsov_pentatonic](http://localhost:3000/f/alexandershekhovtsov_pentatonic)
 - [AlexanderShekhovtsov_pentatonic2](http://localhost:3000/f/alexandershekhovtsov_pentatonic2)
 - [anton_rykachevskii_to_alcocer](http://localhost:3000/f/anton_rykachevskii_to_alcocer)
-- [aud_mb1472](http://localhost:3000/f/aud_mb1472)
 - [Clarinet Advanced Major Scales and Arpeggios](http://localhost:3000/f/clarinet-advanced-major-scales-and-arpeggios)
 - [Drop 2 Arpeggiations of Seventh Chords in C maj for Saxophone](http://localhost:3000/f/drop-2-arpeggiations-of-seventh-chords-in-c-maj-for-saxophone)
-- [evan_dz3](http://localhost:3000/f/evan_dz3)
-- [evan_evan_dz2](http://localhost:3000/f/evan_evan_dz2)
-- [georgy_zakharov_hw_8](http://localhost:3000/f/georgy_zakharov_hw_8)
-- [georgy_zakharov_hw5](http://localhost:3000/f/georgy_zakharov_hw5)
 - [imprp](http://localhost:3000/f/imprp)
 - [ivan002](http://localhost:3000/f/ivan002)
 - [ivan003-v4](http://localhost:3000/f/ivan003-v4)
@@ -53,96 +39,40 @@ The links use the existing local server. The historical `orphans.json` snapshot 
 - [Major Scales, Chords and Arpeggios](http://localhost:3000/f/major-scales-chords-and-arpeggios)
 - [marg_kaiumpermanganat](http://localhost:3000/f/marg_kaiumpermanganat)
 - [merged_midi_output](http://localhost:3000/f/merged_midi_output)
-- [mnp12_01](http://localhost:3000/f/mnp12_01)
 - [Music Theory I . Arpeggiating a Chord - Dm](http://localhost:3000/f/music-theory-i-.-arpeggiating-a-chord---dm)
 - [new](http://localhost:3000/f/new)
 - [nPvQb4Ib3qu3Ju1bt4HC](http://localhost:3000/f/nPvQb4Ib3qu3Ju1bt4HC)
-- [out](http://localhost:3000/f/out)
 - [pyos2](http://localhost:3000/f/pyos2)
 - [pyos3](http://localhost:3000/f/pyos3)
 - [pyos4](http://localhost:3000/f/pyos4)
 - [sasha_1](http://localhost:3000/f/sasha_1)
 - [smth](http://localhost:3000/f/smth)
 - [smth2](http://localhost:3000/f/smth2)
-- [student-e-01-sunset](http://localhost:3000/f/student-e-01-sunset)
-- [student-ib-005](http://localhost:3000/f/student-ib-005)
-- [student-ivan003-v3](http://localhost:3000/f/student-ivan003-v3)
-- [student-lp-dorian-4-in-minor](http://localhost:3000/f/student-lp-dorian-4-in-minor)
-- [student-lp-dorian-4-in-minor2](http://localhost:3000/f/student-lp-dorian-4-in-minor2)
-- [student-vp-piano1](http://localhost:3000/f/student-vp-piano1)
 - [tmpboujr2y7](http://localhost:3000/f/tmpboujr2y7)
 - [unfinishedpp](http://localhost:3000/f/unfinishedpp)
 - [XXNGQtxz9usxpV0cdsxJ](http://localhost:3000/f/XXNGQtxz9usxpV0cdsxJ)
 
-## Credits or exact work to confirm (68)
+## Credits or exact work to confirm (18)
 
-- [~Beethoven Virus~](http://localhost:3000/f/~beethoven-virus)
-- [Aquarius – Castlevania: Circle of the Moon](http://localhost:3000/f/aquarius---castlevania-circle-of-the-moon)
-- [Autumn leaves – Piano Bar arr. by Johnny Mercer / Joseph Kosma / Jacques André Marie Prévert](http://localhost:3000/f/autumn-leaves---piano-bar-arr.-by-johnny-mercer-joseph-kosma-jacques-andre-marie-prevert)
-- [avatar_the_last_airbender_medley](http://localhost:3000/f/avatar_the_last_airbender_medley)
 - [Baby](http://localhost:3000/f/baby)
-- [bobby-darin-_-mack-the-knife](http://localhost:3000/f/bobby-darin-_-mack-the-knife)
-- [bushgrafts-bluebossa1gm-1](http://localhost:3000/f/bushgrafts-bluebossa1gm-1)
-- [CONCERTO DES ETOILES - Richard Clayderman](http://localhost:3000/f/concerto-des-etoiles---richard-clayderman)
-- [Deemo-Magnolia](http://localhost:3000/f/deemo-magnolia)
-- [Despacito](http://localhost:3000/f/Despacito)
-- [dg__But not for me – Chet Baker but not for me](http://localhost:3000/f/dg__but-not-for-me---chet-baker-but-not-for-me)
 - [dg__Christmas Connon](http://localhost:3000/f/dg__christmas-connon)
 - [dg__Lord have mercy.](http://localhost:3000/f/dg__lord-have-mercy.)
 - [dg__Weekend Breeze (Piano Solo)](http://localhost:3000/f/dg__weekend-breeze-piano-solo)
-- [do_it_again](http://localhost:3000/f/do_it_again)
-- [do-do-do](http://localhost:3000/f/do-do-do)
-- [dzhentelmeny_udachi](http://localhost:3000/f/dzhentelmeny_udachi)
-- [embryons-book-1-no.-1-bachovich](http://localhost:3000/f/embryons-book-1-no.-1-bachovich)
-- [four_brithers](http://localhost:3000/f/four_brithers)
 - [Funky Piano](http://localhost:3000/f/funky-piano)
-- [funny val solo](http://localhost:3000/f/funny%20val%20solo)
 - [Goby Waltz](http://localhost:3000/f/goby_waltz)
-- [Goodbye (Hachiko)](http://localhost:3000/f/goodbye-hachiko)
-- [help-me](http://localhost:3000/f/help-me)
-- [Heroes of Might & Magic III - Castle Town Theme](http://localhost:3000/f/heroes-of-might-magic-iii---castle-town-theme)
-- [how_insensa](http://localhost:3000/f/how_insensa)
-- [hysteria](http://localhost:3000/f/hysteria)
 - [I Still Love You](http://localhost:3000/f/i-still-love-you-4f1981)
-- [i-will-survive.1](http://localhost:3000/f/i-will-survive.1)
 - i-wish.1 — missing from player index (`i-wish.1-ba1559`)
-- [Innocent Life: A Futuristic Harvest Moon - Easter Ruins](http://localhost:3000/f/innocent-life-a-futuristic-harvest-moon---easter-ruins)
 - [jazzbutterfly](http://localhost:3000/f/jazzbutterfly)
-- [kirby_triple_deluxe_walking_to_a_flowery_coup](http://localhost:3000/f/kirby_triple_deluxe_walking_to_a_flowery_coup)
-- [kirbys_dream_land_3_dedede_modified](http://localhost:3000/f/kirbys_dream_land_3_dedede_modified)
-- [kirbys_return_to_dream_land_clash_mid_boss_tower](http://localhost:3000/f/kirbys_return_to_dream_land_clash_mid_boss_tower)
-- [la-bamba.1](http://localhost:3000/f/la-bamba.1)
-- [little-pieces-no.-1---menuet-antique-oguri](http://localhost:3000/f/little-pieces-no.-1---menuet-antique-oguri)
-- [Love Story -Richard Clayderman-](http://localhost:3000/f/love-story--richard-clayderman)
 - [On parole - A Paris - Frese nouvele – Anonymous](http://localhost:3000/f/on-parole---a-paris---frese-nouvele---anonymous)
-- [Oyasumi](http://localhost:3000/f/oyasumi)
-- [Peaches \| The Super Mario Bros. Movie](http://localhost:3000/f/peaches-the-super-mario-bros.-movie)
-- [piano-sonata-no.-11-k330---ii.-menuetto](http://localhost:3000/f/piano-sonata-no.-11-k330---ii.-menuetto)
-- [pretty-belinda](http://localhost:3000/f/pretty-belinda)
 - [priboi-mp3](http://localhost:3000/f/priboi-mp3)
-- [satin-doll](http://localhost:3000/f/satin-doll-494333)
 - [senor2](http://localhost:3000/f/senor2)
-- [Shovel Knight: Tango of the Troupple King](http://localhost:3000/f/shovel_knight_tango_of_the_troupple_king)
 - [Sollozos - Jean Luc](http://localhost:3000/f/sollozos---jean-luc)
-- [Sonata No. 2, 1st Movement](http://localhost:3000/f/sonata-no.-2-1st-movement)
-- [Sonata_No._2_1st_Movement](http://localhost:3000/f/Sonata_No._2_1st_Movement)
-- [Stella by Starlight](http://localhost:3000/f/stella-by-starlight)
 - [Studio Ghibli LoFi Piano – Jimindorothy - Thanks For 50 Followers!!!](http://localhost:3000/f/studio-ghibli-lofi-piano---jimindorothy---thanks-for-50-followers)
 - [Super Bounce](http://localhost:3000/f/super-bounce-2b4703)
-- [Surf Rider-Pulp Fiction](http://localhost:3000/f/surf-rider-pulp-fiction)
-- [The Fairly Oddparents Theme Song (short piano arr.)](http://localhost:3000/f/the-fairly-oddparents-theme-song-short-piano-arr.)
 - [The Lick In All 12 Keys- for trombone](http://localhost:3000/f/the-lick-in-all-12-keys--for-trombone)
-- [the-byrds---my-back-pages-ver-2-by-dascore](http://localhost:3000/f/the-byrds---my-back-pages-ver-2-by-dascore)
-- [the-byrds---my-back-pages-ver-2-by-dascore-2](http://localhost:3000/f/the-byrds---my-back-pages-ver-2-by-dascore-2)
-- [What Does the Fox Say](http://localhost:3000/f/what-does-the-fox-say)
 - [Wunder](http://localhost:3000/f/wunder)
-- [zima_potolok_ledjanoi_-diomin_vjacheslav](http://localhost:3000/f/zima_potolok_ledjanoi_-diomin_vjacheslav)
 - [Встреча](http://localhost:3000/f/vstrecha)
-- [Изгиб гитарыжёлтой](http://localhost:3000/f/izgib-gitaryzhyoltoy)
-- [Музыка к кинофильму "Цыган" – Владимир Зубков Мелодия из кинофильма Цыган](http://localhost:3000/f/muzyka-k-kinofilmu-cygan---vladimir-zubkov-melodiya-iz-kinofilma-cygan)
 - Никого не будет в доме – Misc Soundtrack Никого не будет в доме — missing from player index (`nikogo-ne-budet-v-dome---misc-soundtrack-nikogo-ne-budet-v-dome`)
-- [Песня о далёкой Родине](http://localhost:3000/f/pesnya-o-dalyokoy-rodine)
-- [Под лаской плюшевого пледа](http://localhost:3000/f/pod-laskoy-plyushevogo-pleda)
 - [Поле чудес - Минута на размышление](http://localhost:3000/f/pole-chudes---minuta-na-razmyshlenie)
 
 ## Completed assignments
@@ -843,7 +773,7 @@ The links use the existing local server. The historical `orphans.json` snapshot 
 
 Verified 16 further MIDI records against their MuseScore source titles and composer credits, renamed 12 slugs, and migrated five matching keys in `analyses.json`. Duplicate titles retain distinct slugs. Firebase documents and the player index were updated together.
 
-See `musescore-orphan-review.json` for all moves and the 61 MuseScore-linked records still pending because their pages could not be read or their composer attribution could not be verified.
+See `musescore-orphan-review.json` for all moves and the 26 MuseScore-linked records still pending because their pages could not be read or their composer attribution could not be verified.
 
 ## Themed collection moves (2026-10-04)
 
@@ -852,3 +782,17 @@ Moved all 38 remaining horo, choro, oro, rachenitsa, and kopanitsa entries to `h
 ## Pirates of the Caribbean collection moves (2026-10-04)
 
 Moved all 13 remaining Pirates of the Caribbean entries to `he_is_a_pirate_arrangements`, including the eight `pirate_melody_16measures` exercise variants. The base exercise melody matches the He’s a Pirate motif. Existing slugs and analysis keys are unchanged.
+
+
+## Jazz, homework, and composer classification (2026-10-04)
+
+Moved 72 entries: 11 marked homework/student uploads to `2025-homework`, 13 jazz standards to `jazz_standards` or existing composer corpora, 41 other identified pieces to composer/artist corpora, and seven Bella Ciao/Tetris arrangements to their existing themed corpora. Original composers take precedence over performers; shared credits and inferences are recorded in `orphan-classification-review.json`. Slugs are unchanged, so `analyses.json` requires no key migrations and retains every existing analysis.
+
+54 entries remain unresolved. Their source links and reasons are listed in `orphan-classification-review.json`; the lists above show the remaining orphans.
+
+Restored the missing player-index entry for Stevie Wonder’s `i-wish.1-ba1559`; the existing MIDI document, slug, title, and analysis were preserved.
+
+
+## Searchable slug names (2026-10-04)
+
+Renamed 11 identified pieces with obscure filenames, abbreviations, generic names, or inaccurate work labels. Titles, Firebase documents/index, corpus references, snapshot player links, and 5 matching `analyses.json` keys were updated together. All analysis values are preserved. The duplicate Chopin uploads retain separate IDs and distinct slugs. `orphan-classification-review.json` records every old and new slug.

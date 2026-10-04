@@ -115,7 +115,7 @@ export type Analysis = {
   phrasePatch?: { measure: number; diff: number }[];
   sections?: number[];
   // Keys, section and phrase are zero-based global phrase indices.
-  // Align this section's start with a phrase edge in another section.
+  // Align this section's start or end with the same edge of a phrase in another section.
   sectionAnchors?: Record<number, { section: number; phrase: number; edge?: "end" }>;
   measureRenumbering?: MeasureRenumbering;
   measures?: ManualMeasures;

@@ -49,6 +49,7 @@ export function getSectionOffsets(
   measures: number[],
 ): Record<number, number> {
   const anchors = getSectionAnchors(analysis, phraseStarts, measures);
+  const sections = analysis.sections ?? [0];
   const offsets: Record<number, number> = {};
   const resolve = (section: number): number => {
     if (offsets[section] !== undefined) return offsets[section];
@@ -57,10 +58,15 @@ export function getSectionOffsets(
     const targetMeasure = anchor.edge === "end"
       ? Math.min(phraseStarts[anchor.phrase + 1] ?? measures.length, measures.length) - 1
       : phraseStarts[anchor.phrase] - 1;
+    const sectionIndex = sections.indexOf(section);
+    const sourceMeasure = anchor.edge === "end"
+      ? Math.min(phraseStarts[sections[sectionIndex + 1]] ?? measures.length, measures.length) - 1
+      : phraseStarts[section] - 1;
     return offsets[section] = resolve(anchor.section) +
-      measures[targetMeasure] - measures[phraseStarts[anchor.section] - 1];
+      measures[targetMeasure] - measures[phraseStarts[anchor.section] - 1] -
+      (measures[sourceMeasure] - measures[phraseStarts[section] - 1]);
   };
-  (analysis.sections ?? [0]).forEach(resolve);
+  sections.forEach(resolve);
   return offsets;
 }
 

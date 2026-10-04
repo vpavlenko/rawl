@@ -665,8 +665,8 @@ const Measure: React.FC<{
                     key={`${anchorTarget.phrase}:${anchorTarget.edge ?? "start"}`}
                     type="button"
                     style={anchorTarget.edge === "end" ? { left: width - 7, top: -36 } : undefined}
-                    title={`Align selected section start with this phrase ${anchorTarget.edge === "end" ? "end" : "start"}`}
-                    aria-label={`Anchor selected section start to phrase ${anchorTarget.phrase + 1} ${anchorTarget.edge === "end" ? "end" : "start"}`}
+                    title={`Align selected section ${anchorTarget.edge === "end" ? "end" : "start"} with this phrase ${anchorTarget.edge === "end" ? "end" : "start"}`}
+                    aria-label={`Anchor selected section ${anchorTarget.edge === "end" ? "end" : "start"} to phrase ${anchorTarget.phrase + 1} ${anchorTarget.edge === "end" ? "end" : "start"}`}
                     aria-pressed={anchorTarget.active}
                     onMouseDown={(event) => event.preventDefault()}
                     onClick={(event) => {

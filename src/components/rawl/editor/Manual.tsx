@@ -622,7 +622,7 @@ const Manual: React.FC<ManualProps> = ({ score }) => {
               <span>
                 Align the section starting at phrase 3 with phrase 2 in the
                 section starting at phrase 1. All three numbers are one-based
-                global phrase numbers. Add <code>:end</code> to align the start
+                global phrase numbers. Add <code>:end</code> to align the end
                 of the section with the phrase's end, for example <code>3:1:2:end</code>.
                 Select a section's first measure and click an anchor icon above
                 any other section's phrase start or end. Use Q/W for previous-section

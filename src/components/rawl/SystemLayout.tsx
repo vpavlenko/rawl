@@ -321,6 +321,7 @@ export type SystemLayoutProps = {
   excludedVoices?: number[];
   onToggleVoiceExcluded?: (voiceIndex: number) => void;
   notes: ColoredNotesInVoices;
+  sectionDetectionNotes?: ColoredNotesInVoices;
   voiceNames: string[];
   voiceMask: VoiceMask;
   measuresAndBeats: MeasuresAndBeats;
@@ -348,6 +349,7 @@ export const StackedSystemLayout: React.FC<
   SystemLayoutProps & { measureStart?: number; isEmbedded?: boolean }
 > = ({
   notes,
+  sectionDetectionNotes = notes,
   voiceNames,
   voiceMask,
   measuresAndBeats,
@@ -411,6 +413,16 @@ export const StackedSystemLayout: React.FC<
     });
   }, [sectionStarts, measuresAndBeats, phraseStarts]);
 
+  const hideFirstSection = useMemo(() => {
+    if (sectionSpans.length < 2) return false;
+    const [start, end] = sectionSpans[0];
+    const measures = measuresAndBeats.measures;
+    return !sectionDetectionNotes.some((voice) => voice.some((note) =>
+      note.span[1] >= measures[start] &&
+      note.span[0] + (note.isDrum ? -0.01 : 1e-2) < measures[end],
+    ));
+  }, [sectionSpans, sectionDetectionNotes, measuresAndBeats]);
+
   const sectionOffsets = useMemo(
     () => getSectionOffsets(analysis, phraseStarts, measuresAndBeats.measures),
     [analysis, phraseStarts, measuresAndBeats],
@@ -468,8 +480,9 @@ export const StackedSystemLayout: React.FC<
   }, [optimalSecondWidth]);
 
   const sections: Section[] = useMemo(() => {
-    return sectionSpans.map((sectionSpan, index) => {
-      const offset = sectionOffsets[sectionStarts[index]] ?? 0;
+    const visibleSpans = hideFirstSection ? sectionSpans.slice(1) : sectionSpans;
+    return visibleSpans.map((sectionSpan, index) => {
+      const offset = sectionOffsets[sectionStarts[index + (hideFirstSection ? 1 : 0)]] ?? 0;
       const secondsToX = (seconds) =>
         (seconds - measuresAndBeats.measures[sectionSpan[0]] + offset) * secondWidth;
       const xToSeconds = (x) =>
@@ -492,6 +505,7 @@ export const StackedSystemLayout: React.FC<
       };
     });
   }, [
+    hideFirstSection,
     sectionSpans,
     sectionOffsets,
     sectionStarts,
@@ -617,6 +631,7 @@ export const StackedSystemLayout: React.FC<
                 secondsToX={secondsToX}
                 xToSeconds={xToSeconds}
                 sectionSpan={sectionSpan}
+                showGlobalTonicAtStart={hideFirstSection && order === 0}
                 mouseHandlers={mouseHandlers}
                 togglePause={togglePause}
                 seek={seek}
@@ -769,6 +784,7 @@ export const MergedSystemLayout: React.FC<
         <StackedSystemLayout
           {...props}
           notes={flattenedNotes}
+          sectionDetectionNotes={notes}
           voiceNames={MERGED_VOICE_NAMES}
           voiceMask={MERGED_VOICE_MASK}
           enableManualRemeasuring={enableManualRemeasuring}

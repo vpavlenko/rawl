@@ -251,6 +251,7 @@ export const MeasureNumbers: React.FC<{
   secondsToX: SecondsConverter;
   xToSeconds: SecondsConverter;
   sectionSpan?: MeasuresSpan;
+  showGlobalTonicAtStart?: boolean;
   mouseHandlers: MouseHandlers;
   togglePause?: () => void;
   seek?: (ms: number) => void;
@@ -264,6 +265,7 @@ export const MeasureNumbers: React.FC<{
   secondsToX,
   xToSeconds,
   sectionSpan,
+  showGlobalTonicAtStart = false,
   mouseHandlers,
   togglePause,
   seek,
@@ -316,6 +318,7 @@ export const MeasureNumbers: React.FC<{
         showTonalGrid={false}
         secondsToX={secondsToX}
         sectionSpan={sectionSpan}
+        showGlobalTonicAtStart={showGlobalTonicAtStart}
         playbackMeasure={playbackMeasure}
       />
     </div>

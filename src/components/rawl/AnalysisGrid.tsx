@@ -837,6 +837,7 @@ interface AnalysisGridProps {
   midiRange: MidiRange;
   measureSelection: MeasureSelection;
   showHeader?: boolean;
+  showGlobalTonicAtStart?: boolean;
   showTonalGrid?: boolean;
   secondsToX: (number) => number;
   sectionSpan?: MeasuresSpan;
@@ -854,6 +855,7 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
     phraseStarts,
     midiRange,
     showHeader = true,
+    showGlobalTonicAtStart = false,
     showTonalGrid = true,
     secondsToX,
     sectionSpan = null,
@@ -864,7 +866,11 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
     if (sectionSpan == null) {
       sectionSpan = [0, measures.length - 1];
     }
-    const modulationsArray = getModulations(analysis, measures);
+    const modulationsArray = getModulations(analysis, measures).map((mod, index) =>
+      showGlobalTonicAtStart && index === 0 && mod.time < measures[sectionSpan[0]]
+        ? { ...mod, measure: sectionSpan[0], time: measures[sectionSpan[0]] }
+        : mod,
+    );
     const showAllMeasureBars = true;
 
     // TODO: filter measures and beats using sectionSpan
@@ -923,7 +929,8 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
         {showHeader && modulationsArray.map((mod, index) => {
           if (mod.time < measures[sectionSpan[0]] || mod.time >= measures[sectionSpan[1]]) return null;
           const previousTonic = modulationsArray[index - 1]?.tonic ?? null;
-          const hasOnsetOverride = analysis.modulationOnset?.[mod.measure + 1] != null;
+          const hasOnsetOverride = !(showGlobalTonicAtStart && index === 0) &&
+            analysis.modulationOnset?.[mod.measure + 1] != null;
           return <NewTonicSymbol
             key={`modulation_${mod.measure}`}
             left={secondsToX(mod.time) - (hasOnsetOverride ? 0 : 1)}

@@ -605,23 +605,22 @@ const Rawl: React.FC<RawlProps> = ({
     setSelectedMeasure(null);
   }, [selectedMeasure, commitAnalysisUpdate]);
 
-  const anchorSection = useCallback((targetPhrase: number | null) => {
+  const anchorSection = useCallback((target: { phrase: number; edge?: "end" } | null) => {
     const current = analysisRef.current;
     const phrases = getPhraseStarts(current, measuresAndBeats.measures.length);
     const sections = current.sections ?? [0];
     const source = phrases.indexOf(selectedMeasure);
-    const sourceIndex = sections.indexOf(source);
-    if (sourceIndex < 0 || sections.length < 2) return;
-    const targetSection = targetPhrase === null ? null : sections.find((start, index) =>
-      Math.abs(index - sourceIndex) === 1 && targetPhrase >= start &&
-      targetPhrase < (sections[index + 1] ?? phrases.length) &&
-      phrases[targetPhrase] < measuresAndBeats.measures.length,
+    if (!sections.includes(source) || sections.length < 2) return;
+    const targetSection = target === null ? null : sections.find((start, index) =>
+      start !== source && target.phrase >= start &&
+      target.phrase < (sections[index + 1] ?? phrases.length) &&
+      phrases[target.phrase] < measuresAndBeats.measures.length,
     );
-    if (targetPhrase !== null && targetSection === undefined) return;
+    if (target !== null && targetSection === undefined) return;
     setHoveredNote(null);
     commitAnalysisUpdate({
       sectionAnchors: setSectionAnchor(current, phrases, measuresAndBeats.measures,
-        source, targetPhrase === null ? null : { section: targetSection, phrase: targetPhrase }),
+        source, target === null ? null : { section: targetSection, ...target }),
     });
   }, [selectedMeasure, measuresAndBeats, commitAnalysisUpdate]);
 
@@ -632,7 +631,7 @@ const Rawl: React.FC<RawlProps> = ({
     const target = getSectionAnchorShiftTarget(
       current, phrases, measures, selectedMeasure, neighbor, direction,
     );
-    if (target !== undefined) anchorSection(target);
+    if (target !== undefined) anchorSection(target === null ? null : { phrase: target });
   }, [selectedMeasure, measuresAndBeats, anchorSection]);
 
   const setBeatsPerMeasure = useCallback(

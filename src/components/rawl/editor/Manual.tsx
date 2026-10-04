@@ -621,10 +621,12 @@ const Manual: React.FC<ManualProps> = ({ score }) => {
               <code>sectionAnchors 3:1:2</code>
               <span>
                 Align the section starting at phrase 3 with phrase 2 in the
-                neighboring section starting at phrase 1. All three numbers
-                are one-based global phrase numbers. Select a section's first
-                measure and use Q/W for previous-section phrases, A/S for
-                next-section phrases, or click the anchor icon above a neighboring phrase.
+                section starting at phrase 1. All three numbers are one-based
+                global phrase numbers. Add <code>:end</code> to align the start
+                of the section with the phrase's end, for example <code>3:1:2:end</code>.
+                Select a section's first measure and click an anchor icon above
+                any other section's phrase start or end. Use Q/W for previous-section
+                phrase starts and A/S for next-section phrase starts.
                 Use Reset to return to the left edge.
               </span>
               <code>phrases 1+1 18+2 36-1</code>

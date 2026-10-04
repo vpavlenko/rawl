@@ -12,12 +12,15 @@ export function getSectionAnchors(
     const targetIndex = sections.indexOf(anchor.section);
     if (
       sourceIndex < 0 || targetIndex < 0 ||
-      Math.abs(sourceIndex - targetIndex) !== 1 ||
+      sourceIndex === targetIndex ||
       !Number.isInteger(anchor.phrase) ||
       anchor.phrase < anchor.section ||
       anchor.phrase >= (sections[targetIndex + 1] ?? phraseStarts.length) ||
+      (anchor.edge !== undefined && anchor.edge !== "end") ||
       !Number.isFinite(measures[phraseStarts[Number(source)] - 1]) ||
       !Number.isFinite(measures[phraseStarts[anchor.phrase] - 1]) ||
+      (anchor.edge === "end" &&
+        !Number.isFinite(measures[Math.min(phraseStarts[anchor.phrase + 1] ?? measures.length, measures.length) - 1])) ||
       phraseStarts[anchor.phrase] >= measures.length
     ) return;
     anchors[Number(source)] = anchor;
@@ -50,10 +53,12 @@ export function getSectionOffsets(
   const resolve = (section: number): number => {
     if (offsets[section] !== undefined) return offsets[section];
     const anchor = anchors[section];
-    return offsets[section] = anchor
-      ? resolve(anchor.section) + measures[phraseStarts[anchor.phrase] - 1] -
-        measures[phraseStarts[anchor.section] - 1]
-      : 0;
+    if (!anchor) return offsets[section] = 0;
+    const targetMeasure = anchor.edge === "end"
+      ? Math.min(phraseStarts[anchor.phrase + 1] ?? measures.length, measures.length) - 1
+      : phraseStarts[anchor.phrase] - 1;
+    return offsets[section] = resolve(anchor.section) +
+      measures[targetMeasure] - measures[phraseStarts[anchor.section] - 1];
   };
   (analysis.sections ?? [0]).forEach(resolve);
   return offsets;
@@ -64,7 +69,7 @@ export function setSectionAnchor(
   phraseStarts: number[],
   measures: number[],
   source: number,
-  anchor: { section: number; phrase: number } | null,
+  anchor: NonNullable<Analysis["sectionAnchors"]>[number] | null,
 ): NonNullable<Analysis["sectionAnchors"]> {
   const anchors = getSectionAnchors(analysis, phraseStarts, measures);
   delete anchors[source];

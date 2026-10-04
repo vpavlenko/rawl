@@ -383,7 +383,7 @@ function parseSectionsCommand(
   return false;
 }
 
-// One-based phrase indices: source-section:target-section:target-phrase.
+// One-based phrase indices: source-section:target-section:target-phrase[:end].
 function parseSectionAnchorsCommand(
   cleanLine: string,
   context: ExtendedCommandContext,
@@ -392,11 +392,12 @@ function parseSectionAnchorsCommand(
   if (!match) return false;
   const anchors: NonNullable<Analysis["sectionAnchors"]> = {};
   for (const token of match[1].trim().split(/\s+/)) {
-    const parts = token.match(/^(\d+):(\d+):(\d+)$/);
+    const parts = token.match(/^(\d+):(\d+):(\d+)(:end)?$/);
     if (!parts) continue;
     const [source, section, phrase] = parts.slice(1).map(Number);
     if (source > 0 && section > 0 && phrase > 0) {
-      anchors[source - 1] = { section: section - 1, phrase: phrase - 1 };
+      anchors[source - 1] = { section: section - 1, phrase: phrase - 1,
+        ...(parts[4] ? { edge: "end" as const } : {}) };
     }
   }
   context.analysis.sectionAnchors = anchors;

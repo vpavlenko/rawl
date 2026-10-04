@@ -95,7 +95,7 @@ export type MeasureSelection = {
   setBeatsPerMeasure: SetBeatsPerMeasureCallback;
   formPartName?: string;
   setFormPartName?: (name: string) => void;
-  anchorSection?: (phrase: number | null) => void;
+  anchorSection?: (target: { phrase: number; edge?: "end" } | null) => void;
   shiftSectionAnchor?: (neighbor: -1 | 1, direction: -1 | 1) => void;
 };
 
@@ -352,7 +352,7 @@ const Measure: React.FC<{
   selectedPhraseStart: number;
   sectionSpan: MeasuresSpan;
   isLastSection: boolean;
-  anchorTarget?: { phrase: number; active: boolean; neighbor: string; shortcut?: string };
+  anchorTargets?: { phrase: number; edge?: "end"; active: boolean; shortcut?: string }[];
   canAnchorSection?: boolean;
   hasSectionAnchor?: boolean;
   playbackMeasure?: number | null;
@@ -370,7 +370,7 @@ const Measure: React.FC<{
   selectedPhraseStart,
   sectionSpan,
   isLastSection,
-  anchorTarget,
+  anchorTargets = [],
   canAnchorSection = false,
   hasSectionAnchor = false,
   playbackMeasure = null,
@@ -658,16 +658,19 @@ const Measure: React.FC<{
                       <CornerRightUp />
                     </div>
                   )}
-                {anchorTarget && (
+                {anchorTargets.map((anchorTarget) => (
                   <NeighborAnchorButton
+                    key={`${anchorTarget.phrase}:${anchorTarget.edge ?? "start"}`}
                     type="button"
-                    title={`Align selected section with this phrase in the ${anchorTarget.neighbor} section`}
-                    aria-label={`Anchor selected section to measure ${displayNumber} in the ${anchorTarget.neighbor} section`}
+                    style={anchorTarget.edge === "end" ? { left: width - 7, top: -36 } : undefined}
+                    title={`Align selected section start with this phrase ${anchorTarget.edge === "end" ? "end" : "start"}`}
+                    aria-label={`Anchor selected section start to phrase ${anchorTarget.phrase + 1} ${anchorTarget.edge === "end" ? "end" : "start"}`}
                     aria-pressed={anchorTarget.active}
                     onMouseDown={(event) => event.preventDefault()}
                     onClick={(event) => {
                       event.stopPropagation();
-                      measureSelection.anchorSection?.(anchorTarget.phrase);
+                      measureSelection.anchorSection?.({ phrase: anchorTarget.phrase,
+                        ...(anchorTarget.edge === "end" ? { edge: "end" as const } : {}) });
                       selectMeasure(null);
                     }}
                   >
@@ -678,7 +681,7 @@ const Measure: React.FC<{
                       </span>
                     )}
                   </NeighborAnchorButton>
-                )}
+                ))}
 
                 <span
                   style={{
@@ -889,11 +892,18 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
     const currentSectionIndex = sections.findIndex((phrase) => phraseStarts[phrase] - 1 === sectionSpan[0]);
     const canAnchorSection = !!measureSelection.anchorSection && sections.length > 1 &&
       selectedSectionIndex >= 0 && currentSectionIndex === selectedSectionIndex;
-    const isAnchorNeighbor = !!measureSelection.anchorSection && selectedSectionIndex >= 0 &&
-      currentSectionIndex >= 0 && Math.abs(currentSectionIndex - selectedSectionIndex) === 1;
+    const isAnchorTargetSection = !!measureSelection.anchorSection && selectedSectionIndex >= 0 &&
+      currentSectionIndex >= 0 && currentSectionIndex !== selectedSectionIndex;
     const selectedAnchor = analysis.sectionAnchors?.[selectedSection];
+    const phraseEnds = new Map<number, number>();
+    phraseStarts.forEach((start, phrase) => {
+      if (start < measures.length) {
+        phraseEnds.set(Math.min(phraseStarts[phrase + 1] ?? measures.length, measures.length) - 1, phrase);
+      }
+    });
     const anchorShortcuts: Record<number, string> = {};
-    if (isAnchorNeighbor && measureSelection.shiftSectionAnchor) {
+    if (isAnchorTargetSection && Math.abs(currentSectionIndex - selectedSectionIndex) === 1 &&
+      measureSelection.shiftSectionAnchor) {
       const neighbor = currentSectionIndex < selectedSectionIndex ? -1 : 1;
       for (const direction of [-1, 1] as const) {
         const target = getSectionAnchorShiftTarget(
@@ -947,13 +957,22 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
               isLastSection={sectionSpan?.[1] + 1 === measures.length}
               canAnchorSection={canAnchorSection && i === sectionSpan[0]}
               hasSectionAnchor={!!selectedAnchor}
-              anchorTarget={isAnchorNeighbor && i < sectionSpan[1] && phraseStarts.includes(number) ? {
-                phrase: phraseStarts.indexOf(number),
-                shortcut: anchorShortcuts[phraseStarts.indexOf(number)],
-                active: selectedAnchor?.section === sections[currentSectionIndex] &&
-                  selectedAnchor?.phrase === phraseStarts.indexOf(number),
-                neighbor: currentSectionIndex < selectedSectionIndex ? "previous" : "next",
-              } : undefined}
+              anchorTargets={isAnchorTargetSection && i < sectionSpan[1] ? [
+                ...(phraseStarts.includes(number) ? [{
+                  phrase: phraseStarts.indexOf(number),
+                  shortcut: anchorShortcuts[phraseStarts.indexOf(number)],
+                  active: selectedAnchor?.section === sections[currentSectionIndex] &&
+                    selectedAnchor?.phrase === phraseStarts.indexOf(number) && selectedAnchor?.edge !== "end",
+                }] : []),
+                ...(phraseEnds.has(number) ? [{
+                  phrase: phraseEnds.get(number)!,
+                  edge: "end" as const,
+                  active: selectedAnchor?.section === sections[currentSectionIndex] &&
+                    selectedAnchor?.phrase === phraseEnds.get(number) &&
+                    selectedAnchor?.edge === "end",
+                }] : []),
+              ].filter((target) => target.phrase >= sections[currentSectionIndex] &&
+                target.phrase < (sections[currentSectionIndex + 1] ?? phraseStarts.length)) : undefined}
               playbackMeasure={playbackMeasure}
               showPlaybackMeasureBottomBorder={
                 showPlaybackMeasureBottomBorder

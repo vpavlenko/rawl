@@ -1327,7 +1327,7 @@ export const generateFormattedScore = (
   }
 
   const sectionAnchors = Object.entries(analysis.sectionAnchors ?? {})
-    .map(([source, anchor]) => `${Number(source) + 1}:${anchor.section + 1}:${anchor.phrase + 1}`);
+    .map(([source, anchor]) => `${Number(source) + 1}:${anchor.section + 1}:${anchor.phrase + 1}${anchor.edge === "end" ? ":end" : ""}`);
   if (sectionAnchors.length > 0) {
     outputLines.push(`sectionAnchors ${sectionAnchors.join(" ")}`);
   }

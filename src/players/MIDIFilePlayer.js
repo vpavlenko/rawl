@@ -439,6 +439,7 @@ MIDIFilePlayer.prototype.setPosition = function (ms) {
   this.lastProcessPlayTimestamp = performance.now();
   this.panic(this.lastSendTimestamp + 10);
   const eventList = [];
+  const heldNotes = new Map();
   let pos = 0;
 
   // Replay from the beginning so a backward seek cannot retain a later bank,
@@ -449,11 +450,23 @@ MIDIFilePlayer.prototype.setPosition = function (ms) {
     this.synth.pitchBend(channel, 8192);
   }
 
-  // TODO: if we seek inside some notes, it's best to retrigger their noteOn, eg. for string pads.
-
   while (this.events[pos] && this.events[pos].playTime < ms) {
     const event = this.events[pos++];
     if (event.type !== MIDIEvents.EVENT_MIDI) continue;
+    if (event.subtype === MIDIEvents.EVENT_MIDI_NOTE_ON && event.param2 > 0) {
+      if (!heldNotes.has(event.channel)) heldNotes.set(event.channel, new Map());
+      heldNotes.get(event.channel).set(event.param1, event.param2);
+    } else if (
+      event.subtype === MIDIEvents.EVENT_MIDI_NOTE_OFF ||
+      (event.subtype === MIDIEvents.EVENT_MIDI_NOTE_ON && event.param2 === 0)
+    ) {
+      heldNotes.get(event.channel)?.delete(event.param1);
+    } else if (
+      event.subtype === MIDIEvents.EVENT_MIDI_CONTROLLER &&
+      (event.param1 === CC_ALL_SOUND_OFF || event.param1 === 123)
+    ) {
+      heldNotes.get(event.channel)?.clear();
+    }
     if (event.subtype === MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE) {
       this.handleProgramChange(event.channel, event.param1);
     }
@@ -470,6 +483,15 @@ MIDIFilePlayer.prototype.setPosition = function (ms) {
   }
 
   this.setPositionSynth(eventList);
+
+  // Restore attacks for notes whose note-off is still ahead of the cursor.
+  // Controller/program state must be in place before starting these voices.
+  for (const [channel, notes] of heldNotes) {
+    if (!this.channelMask[channel]) continue;
+    for (const [note, velocity] of notes) {
+      this.synth.noteOn(channel, note, velocity);
+    }
+  }
 
   this.elapsedTime = ms;
   this.position = pos;

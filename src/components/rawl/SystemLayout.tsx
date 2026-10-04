@@ -391,17 +391,25 @@ export const StackedSystemLayout: React.FC<
     [analysis, measuresAndBeats],
   );
 
+  const sectionStarts = useMemo(() =>
+    (analysis.sections ?? [0]).filter((sectionStartInPhrases) => {
+      const startMeasure = phraseStarts[sectionStartInPhrases];
+      return startMeasure >= 1 && startMeasure <= measuresAndBeats.measures.length;
+    }),
+    [analysis.sections, phraseStarts, measuresAndBeats.measures.length],
+  );
+
   const sectionSpans = useMemo(() => {
-    return (analysis.sections ?? [0]).map((sectionStartInPhrases, index) => {
+    return sectionStarts.map((sectionStartInPhrases, index) => {
       const { measures } = measuresAndBeats;
       const start = phraseStarts[sectionStartInPhrases] - 1;
       const end =
-        (index + 1 < (analysis.sections ?? [0]).length
-          ? phraseStarts[(analysis.sections ?? [0])[index + 1]]
+        (index + 1 < sectionStarts.length
+          ? phraseStarts[sectionStarts[index + 1]]
           : measures.length) - 1;
       return [start, end] as MeasuresSpan;
     });
-  }, [analysis.sections, measuresAndBeats, phraseStarts]);
+  }, [sectionStarts, measuresAndBeats, phraseStarts]);
 
   const sectionOffsets = useMemo(
     () => getSectionOffsets(analysis, phraseStarts, measuresAndBeats.measures),
@@ -461,7 +469,7 @@ export const StackedSystemLayout: React.FC<
 
   const sections: Section[] = useMemo(() => {
     return sectionSpans.map((sectionSpan, index) => {
-      const offset = sectionOffsets[(analysis.sections ?? [0])[index]] ?? 0;
+      const offset = sectionOffsets[sectionStarts[index]] ?? 0;
       const secondsToX = (seconds) =>
         (seconds - measuresAndBeats.measures[sectionSpan[0]] + offset) * secondWidth;
       const xToSeconds = (x) =>
@@ -486,7 +494,7 @@ export const StackedSystemLayout: React.FC<
   }, [
     sectionSpans,
     sectionOffsets,
-    analysis.sections,
+    sectionStarts,
     measuresAndBeats,
     secondWidth,
     voicesSortedByAverageMidiNumber,

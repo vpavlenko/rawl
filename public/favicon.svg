@@ -1,12 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-  <!-- Identical petals meet at the center, over the CCW neighbor and under
-       the CW neighbor. Colors clockwise from the top: 2–3–4–6–7. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 -8 216 216" role="img" aria-labelledby="title desc">
+  <title id="title">Rawl five-colour spiral</title>
+  <desc id="desc">Five identical spiral regions, rotated by 72 degrees. Each outer lobe is a single convex circular arc, meeting its neighbours at sharp unsmoothed joins. Solid centre.</desc>
   <defs>
-    <path id="petal" d="M10 10 C8.944236 8.395207 6.980319 7.967384 6.505553 5.190306 A3.5 5.5 0 0 1 13.494447 5.190306 C11 6.5 11.2 8.5 10 10Z" />
+    <!-- Cubic Hermite approximation of r=84t, angle=a+1.65(1-t).
+         Every arm uses the same curve. Outer lobes are circular arcs,
+         radius 57.48713, with deliberate tangent discontinuities at the joins. -->
+    <path id="arm" d="M100 100 C103.98061 97.56432 107.28116 94.02148 109.50890 89.72474 C111.73663 85.42801 112.88871 80.38079 112.72277 75.05745 C112.55684 69.73410 111.07130 64.13879 108.20747 58.80974 C105.34363 53.48069 101.10136 48.42240 95.61864 44.17166 C90.13593 39.92092 83.41411 36.48208 75.77907 34.32393 C68.14404 32.16577 59.59847 31.29204 50.62604 32.04257 A57.48713 57.48713 0 0 1 149.37396 32.04257 C152.86039 40.34393 154.67015 48.74125 154.97698 56.66951 C155.28381 64.59776 154.09044 72.05326 151.74199 78.58118 C149.39355 85.10910 145.89376 90.70684 141.71051 95.07727 C137.52726 99.44771 132.66486 102.58958 127.65333 104.39240 C122.64181 106.19523 117.48560 106.65921 112.71076 105.86827 C107.93592 105.07733 103.54655 103.03311 100.00000 100.00000 Z"/>
+    <clipPath id="silhouette"><path d="M50.62604 32.04257 A57.48713 57.48713 0 0 1 149.37396 32.04257 A57.48713 57.48713 0 0 1 179.88875 125.95743 A57.48713 57.48713 0 0 1 100.00000 184.00000 A57.48713 57.48713 0 0 1 20.11125 125.95743 A57.48713 57.48713 0 0 1 50.62604 32.04257 Z"/></clipPath>
   </defs>
-  <use href="#petal" fill="#ff0000" />
-  <use href="#petal" fill="#00fb47" transform="rotate(72 10 10)" />
-  <use href="#petal" fill="#9500b3" transform="rotate(144 10 10)" />
-  <use href="#petal" fill="#03b9d5" transform="rotate(216 10 10)" />
-  <use href="#petal" fill="#ffff00" transform="rotate(288 10 10)" />
+  <g clip-path="url(#silhouette)">
+    <!-- Opaque backing and slight internal overlap prevent antialiasing hairlines. -->
+    <path d="M50.62604 32.04257 A57.48713 57.48713 0 0 1 149.37396 32.04257 A57.48713 57.48713 0 0 1 179.88875 125.95743 A57.48713 57.48713 0 0 1 100.00000 184.00000 A57.48713 57.48713 0 0 1 20.11125 125.95743 A57.48713 57.48713 0 0 1 50.62604 32.04257 Z" fill="#ff0000"/>
+    <use href="#arm" transform="rotate(0 100 100)" fill="#ff0000" stroke="#ff0000" stroke-width="3" stroke-linejoin="round"/>
+    <use href="#arm" transform="rotate(72 100 100)" fill="#00fb47" stroke="#00fb47" stroke-width="3" stroke-linejoin="round"/>
+    <use href="#arm" transform="rotate(144 100 100)" fill="#9500b3" stroke="#9500b3" stroke-width="3" stroke-linejoin="round"/>
+    <use href="#arm" transform="rotate(216 100 100)" fill="#03b9d5" stroke="#03b9d5" stroke-width="3" stroke-linejoin="round"/>
+    <use href="#arm" transform="rotate(288 100 100)" fill="#ffff00" stroke="#ffff00" stroke-width="3" stroke-linejoin="round"/>
+  </g>
 </svg>

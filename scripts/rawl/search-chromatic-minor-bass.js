@@ -13,7 +13,10 @@ const { getPhraseStarts, getModulations, getTonicAtTime } =
 
 const root = path.join(__dirname, "../..");
 const midiDir = path.join(root, "src/midis");
-const tag = "bass:chromatic_line_down_from_minor_i";
+const { CHROMATIC_MINOR_TAGS, LEGACY_CHROMATIC_MINOR_TAG } =
+  require("../../src/components/rawl/corpora/chromaticMinorBassTags.ts");
+const tag = CHROMATIC_MINOR_TAGS[0];
+const positiveTags = [...CHROMATIC_MINOR_TAGS, LEGACY_CHROMATIC_MINOR_TAG];
 const negativeTag = "search_feedback:chromatic_line_down_from_minor_i_negative";
 const saveTop = process.argv.includes("--save-top");
 const all = process.argv.includes("--all") || saveTop;
@@ -25,7 +28,7 @@ const previousResults = JSON.parse(fs.readFileSync(path.join(root, "src/corpus/c
 const tagged = new Map();
 const negativeTagged = new Map();
 for (const [key, analysis] of Object.entries(analyses)) {
-  const snippets = (analysis.snippets || []).filter((s) => s.tag === tag);
+  const snippets = (analysis.snippets || []).filter((s) => positiveTags.includes(s.tag));
   if (snippets.length) tagged.set(key.replace(/^f\//, ""), snippets);
   const negatives = (analysis.snippets || []).filter((s) => s.tag === negativeTag);
   if (negatives.length) negativeTagged.set(key.replace(/^f\//, ""), negatives);

@@ -6,6 +6,7 @@ import { AppContext } from "../../AppContext";
 import InlineRawlPlayer from "../InlineRawlPlayer";
 import { Snippet } from "../analysis";
 import SnippetItem, { PX_IN_MEASURE } from "../SnippetItem";
+import { CHROMATIC_MINOR_TAGS, LEGACY_CHROMATIC_MINOR_TAG, classifyChromaticMinorBass } from "./chromaticMinorBassTags";
 
 type Candidate = (typeof results.candidates)[number];
 type TaggedSnippet = (typeof results.taggedSnippets)[number];
@@ -15,9 +16,10 @@ type ResultItem = Candidate | TaggedSnippet | LiveTagged | DynamicTagged;
 type Filter = "all" | "new" | "tagged" | "pass" | "fail" | "negative" | "unscanned";
 type RankingFactor = Candidate["rankingBreakdown"][number];
 
-const POSITIVE_TAG = "bass:chromatic_line_down_from_minor_i";
+const POSITIVE_TAGS = [...CHROMATIC_MINOR_TAGS, LEGACY_CHROMATIC_MINOR_TAG];
+const POSITIVE_TAG = CHROMATIC_MINOR_TAGS[0];
 const NEGATIVE_TAG = "search_feedback:chromatic_line_down_from_minor_i_negative";
-const LABEL_TAGS = [POSITIVE_TAG, NEGATIVE_TAG];
+const LABEL_TAGS = [...POSITIVE_TAGS, NEGATIVE_TAG];
 const PITCH_NAMES = ["C", "D♭", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"];
 
 const FACTOR_LABELS: Record<string, string> = {
@@ -339,7 +341,7 @@ const ChromaticMinorBassSearch: React.FC = () => {
         <Intro>
           <h1>Chromatic bass from minor i · search results</h1>
           <p>Up to 100 new MIDI candidates from pieces without a saved example, plus your tagged snippets. Bass notes must onset on strong beats and change at an even pace, allowing occasional doubled gaps. A sustained major third cannot dominate the opening or lead into the descent. The ranking uses a linear score tuned on {results.ranker.trainingExamples + results.ranker.unretrievedExamples} positive and {results.ranker.explicitNegatives} negative labels; rank is the position among all detected passages and stays fixed when filtering.</p>
-          <p>Click a snippet to open that passage in Rawl. {results.scanned.toLocaleString()} local MIDI files were scanned. The ♭3:3 count, opening i-chord plausibility, and distance from the annotated key also contribute to rank. <Link to="/s/bass/chromatic_line_down_from_minor_i">View tagged examples</Link>.</p>
+          <p>Click a snippet to open that passage in Rawl. {results.scanned.toLocaleString()} local MIDI files were scanned. The ♭3:3 count, opening i-chord plausibility, and distance from the annotated key also contribute to rank. View tagged examples: <Link to="/s/bass/chromatic_minor_1_7_b7">1–7–♭7</Link> · <Link to="/s/bass/chromatic_minor_1_b7">1–♭7</Link>.</p>
           <Filters aria-label="Filter bass search results">
             {(["all", "new", "tagged", "pass", "fail", "negative", "unscanned"] as Filter[]).map((choice) => (
               <button key={choice} type="button" aria-pressed={filter === choice}
@@ -361,7 +363,7 @@ const ChromaticMinorBassSearch: React.FC = () => {
             const savedTag = savedSnippet?.tag ?? ("status" in candidate
               ? candidate.status === "negative" ? NEGATIVE_TAG : POSITIVE_TAG : null);
             const label = savedTag === NEGATIVE_TAG ? "negative" :
-              savedTag === POSITIVE_TAG ? "positive" : null;
+              savedTag && POSITIVE_TAGS.includes(savedTag) ? "positive" : null;
             return (
             <Card key={`${"status" in candidate ? "tagged" : "new"}:${candidate.slug}:${candidate.from}`}
               $label={label}
@@ -383,7 +385,11 @@ const ChromaticMinorBassSearch: React.FC = () => {
                   </CardActionButton>
                   {canAnnotateCorpus && <>
                     <CardActionButton type="button" disabled={loadingUser || label === "positive" && !saveErrors[id] || saving === id}
-                      onClick={() => void saveCandidate(candidate, POSITIVE_TAG)}
+                      onClick={() => void saveCandidate(candidate,
+                        classifyChromaticMinorBass(candidate.snippet as unknown as Snippet) ??
+                        (candidate.bassTriggers.length > 1 &&
+                          (candidate.bassTriggers[0][0] - candidate.bassTriggers[1][0] + 12) % 12 === 2
+                          ? CHROMATIC_MINOR_TAGS[1] : POSITIVE_TAG))}
                       title={loadingUser ? "Loading snippets…" : saving === id ? "Saving snippet…" : label === "positive" ? "Saved snippet" : "Save snippet"}
                       aria-label={`${label === "positive" ? "Saved snippet" : "Save snippet"} for ${candidate.title || candidate.slug}, measures ${candidate.from}–${candidate.to}`}>
                       <SaveIcon saved={label === "positive"} />

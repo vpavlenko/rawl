@@ -61,8 +61,8 @@ const InlineRawlPlayer: React.FC<InlineRawlPlayerProps> = ({
 
   // Combined eject callback
   const handleEject = () => {
-    eject();
     if (onEject) onEject();
+    eject();
   };
 
   return (

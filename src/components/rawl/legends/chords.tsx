@@ -27,6 +27,7 @@ export const CHORDS = {
   VI: [9, 1, 4],
   vi7: [9, 0, 4, 7],
   IV: [5, 9, 0],
+  "#IV": [6, 10, 1],
   IV7: [5, 9, 0, 3],
   V: [7, 11, 2],
   V7: [7, 11, 2, 5],
@@ -75,11 +76,13 @@ export const CHORDS = {
   Cad64: [7, 0, 4],
   cad64: [7, 0, 3],
   "viio7/V": [6, 9, 0, 3],
+  I64: [7, 0, 4],
   i64: [7, 0, 3],
   ii65: [5, 9, 0, 2],
   iiø65: [5, 8, 0, 2],
   io: [0, 3, 6],
   "I+": [0, 4, 8],
+  Iaug: [0, 4, 8],
   imaj7: [0, 3, 7, 11],
   i7: [0, 3, 7, 10],
   iø7: [0, 3, 6, 10],
@@ -89,6 +92,7 @@ export const CHORDS = {
   viio: [11, 2, 5],
   IPAC: [0, 4, 12],
   I6: [4, 7, 12],
+  ii6: [5, 9, 14],
   i6: [3, 7, 0],
   "1": [0],
   b2: [1],
@@ -196,10 +200,10 @@ export const rehydrateChords = (
       const root = chord.pitches[0];
       let bass = root;
       if (index > 0) {
-        const upwardDistance = ((root - previousBass) % 12 + 12) % 12;
-        bass = previousBass + (index % 2 === 1
-          ? upwardDistance || 12
-          : upwardDistance - 12);
+        const upwardDistance = (((root - previousBass) % 12) + 12) % 12;
+        bass =
+          previousBass +
+          (index % 2 === 1 ? upwardDistance || 12 : upwardDistance - 12);
       }
       previousBass = bass;
       return {
@@ -229,25 +233,33 @@ export const rehydrateChords = (
     // its lowest octave above that bound. This minimizes the upper bound
     // for that candidate without changing inversions or compound intervals.
     const lowerBounds = Array.from(
-      new Set(rehydratedChords.map(({ pitches }) => {
-        const root = pitches[0];
-        return root - 12 * Math.floor((root + 5) / 12);
-      })),
+      new Set(
+        rehydratedChords.map(({ pitches }) => {
+          const root = pitches[0];
+          return root - 12 * Math.floor((root + 5) / 12);
+        }),
+      ),
     ).sort((a, b) => Math.abs(a) - Math.abs(b) || a - b);
 
     let bestRange = Infinity;
     let bestChords = rehydratedChords;
     for (const lowerBound of lowerBounds) {
       const candidate = rehydratedChords.map((chord) => {
-        const octaveShift = 12 * Math.ceil((lowerBound - chord.pitches[0]) / 12);
+        const octaveShift =
+          12 * Math.ceil((lowerBound - chord.pitches[0]) / 12);
         return {
           ...chord,
           positions: chord.pitches.map((pitch) => pitch + octaveShift),
         };
       });
-      if (tonicResolutions.some((index) =>
-        candidate[index + 1].positions[0] - candidate[index].positions[0] !== 5,
-      )) {
+      if (
+        tonicResolutions.some(
+          (index) =>
+            candidate[index + 1].positions[0] -
+              candidate[index].positions[0] !==
+            5,
+        )
+      ) {
         continue;
       }
       const upperBound = Math.max(

@@ -10,7 +10,10 @@ import styled from "styled-components";
 import { AppContext } from "../../AppContext";
 import { ADMIN_USER_ID } from "../../annotationVersions";
 import { Analysis, filterSnippetsByAccess, Snippet } from "../analysis";
+import { pitchColor } from "../colors";
 import InlineRawlPlayer from "../InlineRawlPlayer";
+import ChordStairs from "../legends/ChordStairs";
+import { Chord } from "../legends/chords";
 import SnippetList from "../SnippetList";
 import EXPLANATIONS from "./explanations";
 
@@ -105,11 +108,14 @@ const ScrollableContent = styled.div`
   padding-bottom: 100px; // Add padding at the bottom to avoid content being hidden behind the footer
 `;
 
-const ChapterButton = styled.button<{ active: boolean }>`
-  padding: 0px 5px;
+const ChapterButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0;
   text-align: left;
-  background-color: ${(props) => (props.active ? "white" : "black")};
-  color: ${(props) => (props.active ? "black" : "white")};
+  background-color: black;
+  color: white;
   border: none;
   cursor: pointer;
   white-space: nowrap;
@@ -117,11 +123,150 @@ const ChapterButton = styled.button<{ active: boolean }>`
   border-radius: 4px;
   width: fit-content;
   user-select: none;
+`;
 
-  &:hover {
+const ChapterText = styled.span<{ active: boolean }>`
+  padding: 0 5px;
+  border-radius: 4px;
+  background-color: ${(props) => (props.active ? "white" : "black")};
+  color: ${(props) => (props.active ? "black" : "white")};
+
+  ${ChapterButton}:hover && {
     background-color: ${(props) => (props.active ? "white" : "#333")};
   }
 `;
+
+const ChapterVisual = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background-color: black;
+  pointer-events: none;
+`;
+
+const SCALE_LABEL_PITCHES: Partial<Record<string, number[]>> = {
+  minor: [0, 2, 3, 5, 7, 8, 10],
+  dorian: [0, 2, 3, 5, 7, 9, 10],
+  mixolydian: [0, 2, 4, 5, 7, 9, 10],
+};
+
+const ScaleChapterLabel = styled.span<{
+  $pitches: number[];
+  $active: boolean;
+}>`
+  background: linear-gradient(
+    to right,
+    ${({ $pitches }) =>
+      [1, 2, 3, 5, 6]
+        .map(
+          (degree, index) =>
+            `${pitchColor($pitches[degree])} ${index * 20}% ${
+              (index + 1) * 20
+            }%`,
+        )
+        .join(", ")}
+  );
+  padding: 2px 6px;
+  margin: 0 2px;
+  border-radius: 4px;
+  color: white;
+  text-shadow:
+    0 1px 2px black,
+    0 0 2px black;
+  outline: ${(props) => (props.$active ? "1px solid white" : "none")};
+`;
+
+const DoublingDyads = styled.span`
+  display: inline-flex;
+  gap: 2px;
+  height: 17px;
+`;
+
+const DoublingDyad = styled.span`
+  position: relative;
+  width: 17px;
+`;
+
+const DoublingNote = styled.span`
+  position: absolute;
+  left: 0;
+  width: 17px;
+  height: 3px;
+  border-radius: 2px;
+`;
+
+const DoublingVisual = () => (
+  <DoublingDyads>
+    {(
+      [
+        [0, 4],
+        [2, 5],
+        [4, 7],
+      ] as const
+    ).map((pitches, index) => (
+      <DoublingDyad key={index}>
+        {pitches.map((pitch) => (
+          <DoublingNote
+            key={pitch}
+            className={`noteColor_${pitch}_colors`}
+            style={{ top: (7 - pitch) * 2 }}
+          />
+        ))}
+      </DoublingDyad>
+    ))}
+  </DoublingDyads>
+);
+
+// Small tonic-relative examples, in the same notation as the /100 chapter menu.
+const CHAPTER_VISUALS: Partial<Record<string, Chord[]>> = {
+  "6_b6": ["IV", "iv"],
+  V: ["V"],
+  applied: ["V7/ii", "V7/V"],
+  b2: ["1", "b2", "3"],
+  chromatic_chords: ["bII", "Ger"],
+  cto7: ["I", "io7"],
+  constant_structures: ["I", "II", "III", "#IV"],
+  inversion: ["I6", "ii6"],
+  major_cadence: ["I64", "V7", "I"],
+  minor_cadence: ["i64", "V7", "i"],
+  pure_major: ["I", "IV", "V", "I"],
+  seventh_chords: ["ii7", "V7", "Imaj7"],
+  shuttle: ["I", "bVII", "I", "bVII"],
+  symmetric_chords: ["Iaug"],
+};
+
+const ChapterButtonContents: React.FC<{ chapter: string; active: boolean }> = ({
+  chapter,
+  active,
+}) => (
+  <>
+    {SCALE_LABEL_PITCHES[chapter] ? (
+      <ScaleChapterLabel
+        $pitches={SCALE_LABEL_PITCHES[chapter]!}
+        $active={active}
+      >
+        {chapter.replace(/_/g, " ")}
+      </ScaleChapterLabel>
+    ) : (
+      <ChapterText active={active}>{chapter.replace(/_/g, " ")}</ChapterText>
+    )}
+    {chapter === "doubling" && (
+      <ChapterVisual aria-hidden="true">
+        <DoublingVisual />
+      </ChapterVisual>
+    )}
+    {CHAPTER_VISUALS[chapter] && (
+      <ChapterVisual aria-hidden="true">
+        <ChordStairs
+          mode={{ title: "", chords: CHAPTER_VISUALS[chapter]! }}
+          register="narrative"
+          scale={0.55}
+          playbackMode="no"
+        />
+      </ChapterVisual>
+    )}
+  </>
+);
 
 const CategorySection = styled.div`
   display: flex;
@@ -138,6 +283,24 @@ const CategoryHeader = styled.div`
   letter-spacing: 0.5px;
   text-align: left;
   user-select: none;
+`;
+
+const CategoryGroupHeader = styled(CategoryHeader)`
+  position: relative;
+  padding: 0 5px 10px;
+  text-align: center;
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 5px;
+    border: 1px solid #555;
+    border-bottom: none;
+    pointer-events: none;
+  }
 `;
 
 const ChaptersContainer = styled.div<{ twoColumns?: boolean }>`
@@ -807,8 +970,10 @@ const Structures: React.FC<StructuresProps> = ({
               getCategoryForChapter(chapterData[activeChapter]?.chapter || ""),
             )}
           </CategoryHeader>
-          <ChapterButton active={true} onClick={handleBreadcrumbClick}>
-            {(chapterData[activeChapter]?.chapter || "").replace(/_/g, " ")}
+          <ChapterButton onClick={handleBreadcrumbClick}>
+            <ChapterText active={true}>
+              {(chapterData[activeChapter]?.chapter || "").replace(/_/g, " ")}
+            </ChapterText>
           </ChapterButton>
           {activeTopic && (
             <TopicBubble active={true} onClick={handleBreadcrumbClick}>
@@ -845,9 +1010,9 @@ const Structures: React.FC<StructuresProps> = ({
 
                   return (
                     <CategorySection key={category}>
-                      <CategoryHeader>
+                      <CategoryGroupHeader>
                         {formatCategoryLabel(category)}
-                      </CategoryHeader>
+                      </CategoryGroupHeader>
                       <ChaptersContainer twoColumns={shouldUseTwoColumns}>
                         {shouldUseTwoColumns ? (
                           <>
@@ -861,10 +1026,12 @@ const Structures: React.FC<StructuresProps> = ({
                                   return (
                                     <ChapterButton
                                       key={chapter.chapter}
-                                      active={activeChapter === index}
                                       onClick={() => handleChapterSelect(index)}
                                     >
-                                      {chapter.chapter.replace(/_/g, " ")}
+                                      <ChapterButtonContents
+                                        chapter={chapter.chapter}
+                                        active={activeChapter === index}
+                                      />
                                     </ChapterButton>
                                   );
                                 })}
@@ -879,10 +1046,12 @@ const Structures: React.FC<StructuresProps> = ({
                                   return (
                                     <ChapterButton
                                       key={chapter.chapter}
-                                      active={activeChapter === index}
                                       onClick={() => handleChapterSelect(index)}
                                     >
-                                      {chapter.chapter.replace(/_/g, " ")}
+                                      <ChapterButtonContents
+                                        chapter={chapter.chapter}
+                                        active={activeChapter === index}
+                                      />
                                     </ChapterButton>
                                   );
                                 })}
@@ -896,10 +1065,12 @@ const Structures: React.FC<StructuresProps> = ({
                             return (
                               <ChapterButton
                                 key={chapter.chapter}
-                                active={activeChapter === index}
                                 onClick={() => handleChapterSelect(index)}
                               >
-                                {chapter.chapter.replace(/_/g, " ")}
+                                <ChapterButtonContents
+                                  chapter={chapter.chapter}
+                                  active={activeChapter === index}
+                                />
                               </ChapterButton>
                             );
                           })

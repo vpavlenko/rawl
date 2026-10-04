@@ -365,6 +365,12 @@ const Rawl: React.FC<RawlProps> = ({
 
   const [hoveredNote, setHoveredNote] = useState<Note | null>(null);
 
+  useEffect(() => {
+    selectedMeasureRef.current = null;
+    setSelectedMeasure(null);
+    setHoveredNote(null);
+  }, [enableManualRemeasuring]);
+
   const playNote = useCallback(
     (note: Note) => {
       const duration = note.span[1] - note.span[0];

@@ -3497,11 +3497,12 @@ export const corpora: CorpusEntry[] = [
   {slug: "bheki_mseleku", composerBirthYear: 1955, country: "South Africa", midis: ["bheki_mseleku_angola", "one-for-all-all-for-one---bheki-mseleku",
       "one-for-all-all-for-one---bheki-mseleku-1e41a1",
     ]},
+    {slug: 'joe_henderson', midis:["recorda-me-no-me-esqueca",
+      "adam_birnbaum_recorda_me","inner-urge---joe-henderson", ]},
   {
     slug: "jazz_standards",
     midis: [
-      "recorda-me-no-me-esqueca",
-      "adam_birnbaum_recorda_me", 
+
       "all-the-things-you-are",
       "all-the-things-you-are-2",
       "all-the-things-you-are-lead-sheet---jerome-kern-oscar-hammerstein-ii",
@@ -4170,6 +4171,8 @@ export const corpora: CorpusEntry[] = [
     composerName: "Oli Wood",
     midis: [
       "overcooked---menu-theme",
+      "overcooked-ost---main-menu",
+      "overcooked_main_theme_orchestral",
       "overcooked-2-medley",
       "overcooked-medley",
       "moreish-mines---overcooked-2", 
@@ -4473,6 +4476,8 @@ export const corpora: CorpusEntry[] = [
       "idea-n.10---gibran-alcocer",
       "idea-22---gibran-alcocer",
       "idea-25-piano-solo-version---gibran-alcocer-andrea-vanzo",
+      "idea-8---gibran-alcocer",
+      "idea-12---gibran-alcocer",
 
       "idea-7---gibran-alcocer",
       "idea-20---gibran-alcocer",
@@ -4480,8 +4485,14 @@ export const corpora: CorpusEntry[] = [
 
       "idea-9---gibran-alcocer",
       "idea-5---gibran-alcocer",
+      "idea-19---gibran-alcocer",
+      "idea-2---gibran-alcocer",
+
       "idea-22---gibran-alcocer-abridged",
       "idea_15_basic_pitch",
+
+
+
     ],
     composerBirthYear: 2003,
     genre: "21st Century Piano",
@@ -4616,6 +4627,8 @@ export const corpora: CorpusEntry[] = [
     slug: "chick_corea",
     midis: [
       "spain---chick-corea",
+      "crystal-silence---chick-corea",
+
       "children-s-song-no.-7---chick-corea",
       "children-s-song-no.-6",
       "children-s-song-2",

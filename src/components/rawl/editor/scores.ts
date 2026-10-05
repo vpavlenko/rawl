@@ -355,13 +355,10 @@ lh
 74 c 2-7
 80 c 78-79 2
 82 c 10-19
-92 i h-d-a-h-d-a-
-93 c 92 0 0 0
-96 i g-d-a-g-d-a- g-d-a-g-d-a- f-s-u-f-s-u- g-s-u-g-s-u-
-100 c 92-99
+92 c 20-35
 
-lh 4
-108 i yh_.tg_.
+lh 3
+108 i f+.
 
 rh
 16 i w_.e_.y_.t_.
@@ -383,7 +380,6 @@ rh
 40 c 38-39
 42 i e_e,e_r,w_w,w,e,w,h_.
 47 c 39-43
-92 c 38-55 7
 
 74 i e,q,r,q,t,q
 76 c 74-75 
@@ -392,6 +388,20 @@ rh
 80b3 i x-e-y-t-r,e,q_
 82b3 i x-e-y-t-r,e-.e=r_
 84b3 i x-e-y-t-r,e,
+
+rh 2
+92 i h-d-a-h-d-a-
+93 c 92 0 0 0
+96 i g-d-a-g-d-a- g-d-a-g-d-a- f-s-u-f-s-u- g-s-u-g-s-u-
+100 c 92-99
+
+ch2 5
+92 i q_.y_t,
+94 c 92-93
+96 i e_e,e_r,w_w,w,e,w,h_.
+101 c 93-97
+106 i w_.e_.
+108 i y_.t_.
 `,
   "der-flohwalzer": `4/4
 Gb major

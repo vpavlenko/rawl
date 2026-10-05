@@ -1,0 +1,144 @@
+{
+  "audioDurationSeconds": 114.00997732426303,
+  "tailHalfSecondWindows": [
+    {
+      "seconds": 103.0,
+      "midDbFS": -14.49,
+      "sideDbFS": -26.47,
+      "highBandDbFS": -45.75
+    },
+    {
+      "seconds": 103.5,
+      "midDbFS": -15.04,
+      "sideDbFS": -28.45,
+      "highBandDbFS": -48.15
+    },
+    {
+      "seconds": 104.0,
+      "midDbFS": -14.96,
+      "sideDbFS": -29.73,
+      "highBandDbFS": -49.5
+    },
+    {
+      "seconds": 104.5,
+      "midDbFS": -13.96,
+      "sideDbFS": -28.64,
+      "highBandDbFS": -47.36
+    },
+    {
+      "seconds": 105.0,
+      "midDbFS": -12.86,
+      "sideDbFS": -27.71,
+      "highBandDbFS": -51.3
+    },
+    {
+      "seconds": 105.5,
+      "midDbFS": -16.15,
+      "sideDbFS": -25.71,
+      "highBandDbFS": -51.17
+    },
+    {
+      "seconds": 106.0,
+      "midDbFS": -16.46,
+      "sideDbFS": -24.15,
+      "highBandDbFS": -59.05
+    },
+    {
+      "seconds": 106.5,
+      "midDbFS": -16.26,
+      "sideDbFS": -25.28,
+      "highBandDbFS": -49.36
+    },
+    {
+      "seconds": 107.0,
+      "midDbFS": -16.44,
+      "sideDbFS": -24.72,
+      "highBandDbFS": -57.4
+    },
+    {
+      "seconds": 107.5,
+      "midDbFS": -17.76,
+      "sideDbFS": -27.66,
+      "highBandDbFS": -42.75
+    },
+    {
+      "seconds": 108.0,
+      "midDbFS": -22.35,
+      "sideDbFS": -34.19,
+      "highBandDbFS": -51.45
+    },
+    {
+      "seconds": 108.5,
+      "midDbFS": -23.99,
+      "sideDbFS": -35.45,
+      "highBandDbFS": -45.6
+    },
+    {
+      "seconds": 109.0,
+      "midDbFS": -30.92,
+      "sideDbFS": -36.88,
+      "highBandDbFS": -53.19
+    },
+    {
+      "seconds": 109.5,
+      "midDbFS": -33.77,
+      "sideDbFS": -40.19,
+      "highBandDbFS": -62.44
+    },
+    {
+      "seconds": 110.0,
+      "midDbFS": -38.65,
+      "sideDbFS": -43.73,
+      "highBandDbFS": -67.25
+    },
+    {
+      "seconds": 110.5,
+      "midDbFS": -44.48,
+      "sideDbFS": -47.71,
+      "highBandDbFS": -70.8
+    },
+    {
+      "seconds": 111.0,
+      "midDbFS": -51.78,
+      "sideDbFS": -53.04,
+      "highBandDbFS": -77.19
+    },
+    {
+      "seconds": 111.5,
+      "midDbFS": -58.99,
+      "sideDbFS": -59.43,
+      "highBandDbFS": -85.98
+    },
+    {
+      "seconds": 112.0,
+      "midDbFS": -65.64,
+      "sideDbFS": -66.65,
+      "highBandDbFS": -91.97
+    },
+    {
+      "seconds": 112.5,
+      "midDbFS": -72.6,
+      "sideDbFS": -73.55,
+      "highBandDbFS": -99.32
+    },
+    {
+      "seconds": 113.0,
+      "midDbFS": -82.64,
+      "sideDbFS": -84.6,
+      "highBandDbFS": -104.5
+    },
+    {
+      "seconds": 113.5,
+      "midDbFS": -95.6,
+      "sideDbFS": -101.2,
+      "highBandDbFS": -110.28
+    },
+    {
+      "seconds": 114.0,
+      "midDbFS": -240.0,
+      "sideDbFS": -240.0,
+      "highBandDbFS": -240.0
+    }
+  ],
+  "limitations": "Decay combines piano-string sustain, pedal resonance, production reverb and possible fade. No isolated dry signal or room impulse response; cannot infer wet fraction, RT60 or CC91 uniquely."
+}

@@ -1,0 +1,23 @@
+const fs=require('fs'),crypto=require('crypto'),assert=require('assert');
+const {parseMidi,writeMidi}=require('midi-file');
+const root=__dirname,slug='idea-15---gibran-alcocer';
+const index=JSON.parse(fs.readFileSync('src/midis/midis.json'));
+const entry=index.midis.find(x=>x.slug===slug),localPath=`src/midis/${entry.id}.json`;
+const local=JSON.parse(fs.readFileSync(localPath)),original=Buffer.from(local.blobBase64,'base64');
+const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const midi=parseMidi(original),bar=midi.header.ticksPerBeat*3,start=91*bar,end=107*bar,finish=109*bar;
+assert.equal(midi.tracks.length,2);
+const abs=midi.tracks.map(tr=>{let tick=0;return tr.map(e=>({tick:tick+=e.deltaTime,e:{...e}}))});
+const notes=tr=>{const active=new Map(),out=[];for(const {tick,e} of tr){if(e.type==='noteOn'&&e.velocity){const k=e.channel+':'+e.noteNumber;if(!active.has(k))active.set(k,[]);active.get(k).push({tick,e});}else if(e.type==='noteOff'||e.type==='noteOn'&&!e.velocity){const k=e.channel+':'+e.noteNumber,n=active.get(k)?.shift();assert(n,'Unpaired note-off');out.push({start:n.tick,end:tick,pitch:e.noteNumber,velocity:n.e.velocity});}}assert([...active.values()].every(a=>!a.length));return out.sort((a,b)=>a.start-b.start||a.pitch-b.pitch)};
+const old=abs.map(notes),added=old[1].filter(n=>n.start>=19*bar&&n.start<35*bar).map(n=>({...n,start:n.start+72*bar,end:n.end+72*bar}));
+const melody=old[0].filter(n=>n.start>=start&&n.start<finish),arp=old[1].filter(n=>n.start>=start&&n.start<end);
+const result=[old[0].filter(n=>!(n.start>=start&&n.start<finish)).concat(arp),old[1].filter(n=>!(n.start>=start&&n.start<end)).concat(added),melody];
+function track(ns,i){const meta=i<2?abs[i].filter(x=>!['noteOn','noteOff','endOfTrack','trackName'].includes(x.e.type)):[];const ev=[{tick:0,e:{meta:true,type:'trackName',text:['Piano / Arpeggios','Bass / Accompaniment','Overdub Melody'][i]}},...meta.map(x=>({tick:x.tick,e:{...x.e,...(x.e.channel===undefined?{}:{channel:i})}})),{tick:0,e:{type:'programChange',channel:i,programNumber:0}}];for(const n of ns){ev.push({tick:n.start,e:{type:'noteOn',channel:i,noteNumber:n.pitch,velocity:n.velocity}},{tick:n.end,e:{type:'noteOff',channel:i,noteNumber:n.pitch,velocity:0}})}ev.sort((a,b)=>a.tick-b.tick||(a.e.type==='noteOff'?-1:0)-(b.e.type==='noteOff'?-1:0));let tick=0;const tr=ev.map(x=>{const e={...x.e,deltaTime:x.tick-tick};tick=x.tick;return e});const last=Math.max(...abs.flat().map(x=>x.tick),tick);tr.push({deltaTime:last-tick,meta:true,type:'endOfTrack'});return tr;}
+midi.tracks=result.map(track);midi.header.numTracks=3;
+const bytes=Buffer.from(writeMidi(midi)),parsed=parseMidi(bytes);
+const check=parsed.tracks.map(tr=>{let tick=0;return notes(tr.map(e=>({tick:tick+=e.deltaTime,e})))});
+const key=n=>[n.start,n.end,n.pitch,n.velocity].join(':');assert.deepEqual(check.flat().map(key).sort(),old.flat().concat(added).map(key).sort());
+assert(added.every(n=>n.start>=start&&n.end<=end));
+assert.deepEqual(check[2].map(key).sort(),melody.map(key).sort());
+fs.writeFileSync(root+'/before.mid',original);fs.writeFileSync(root+'/merged.mid',bytes);fs.writeFileSync(root+'/before-local.json',JSON.stringify(local,null,2));
+const manifest={slug,id:entry.id,localPath,beforeSha256:sha(original),afterSha256:sha(bytes),addedNotes:added.length,melodyNotes:melody.length,arpeggioNotes:arp.length,originalNoteCount:old.flat().length,newNoteCount:check.flat().length,addedRange:[92,107],melodyRange:[92,109],added};fs.writeFileSync(root+'/manifest.json',JSON.stringify(manifest,null,2));console.log({...manifest,added:undefined});

@@ -1,0 +1,10 @@
+{
+  "id": "idea15Transkun20261005",
+  "slug": "idea-15---gibran-alcocer-transkun",
+  "beforeSha256": "a5e78da8c1ac84c613c204c0d9dff2c651735644ff910a9ec27c13671856e559",
+  "sha256": "c7b45c4c079b2f98d36abff93367d3b7f75f51f47d4ace2345b2db2ef8f0899c",
+  "softPedal": 127,
+  "reverbSend": 36,
+  "updatedAt": "2026-10-05T02:58:45.694Z",
+  "estimate": "CC91=36 is a conservative initial request, not a calibrated audio-derived wet percentage. All source controllers retained; explicit CC67 at tick zero covers initial notes."
+}

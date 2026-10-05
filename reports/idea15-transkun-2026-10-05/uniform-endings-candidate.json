@@ -1,0 +1,222 @@
+{
+  "id": "idea15Transkun20261005",
+  "slug": "idea-15---gibran-alcocer-transkun",
+  "beforeSha256": "46d89096642c098aae2dbd096cbece4797b53e05bd467fd6625e67ec969dbb81",
+  "sha256": "b71b196bd3f753174d683fe5b8ec73a600d310b4d32123ebce7067fe1dfdd6b0",
+  "noteCount": 982,
+  "voices": [
+    522,
+    289,
+    171
+  ],
+  "added": [
+    {
+      "bar": 19,
+      "pitch": 59,
+      "tick": 36030,
+      "velocity": 39
+    },
+    {
+      "bar": 19,
+      "pitch": 63,
+      "tick": 36030,
+      "velocity": 39
+    },
+    {
+      "bar": 36,
+      "pitch": 59,
+      "tick": 69290,
+      "velocity": 39
+    },
+    {
+      "bar": 36,
+      "pitch": 63,
+      "tick": 69290,
+      "velocity": 39
+    },
+    {
+      "bar": 37,
+      "pitch": 59,
+      "tick": 71250,
+      "velocity": 39
+    },
+    {
+      "bar": 37,
+      "pitch": 63,
+      "tick": 71250,
+      "velocity": 39
+    },
+    {
+      "bar": 54,
+      "pitch": 63,
+      "tick": 104535,
+      "velocity": 39
+    },
+    {
+      "bar": 55,
+      "pitch": 59,
+      "tick": 106567,
+      "velocity": 39
+    },
+    {
+      "bar": 55,
+      "pitch": 63,
+      "tick": 106567,
+      "velocity": 39
+    },
+    {
+      "bar": 91,
+      "pitch": 59,
+      "tick": 173861,
+      "velocity": 39
+    },
+    {
+      "bar": 91,
+      "pitch": 63,
+      "tick": 173861,
+      "velocity": 39
+    },
+    {
+      "bar": 108,
+      "pitch": 47,
+      "tick": 206574,
+      "velocity": 39
+    },
+    {
+      "bar": 108,
+      "pitch": 51,
+      "tick": 206574,
+      "velocity": 39
+    },
+    {
+      "bar": 109,
+      "pitch": 47,
+      "tick": 208664,
+      "velocity": 39
+    },
+    {
+      "bar": 109,
+      "pitch": 51,
+      "tick": 208664,
+      "velocity": 39
+    }
+  ],
+  "removed": {
+    "tick": 142285,
+    "pitch": 54
+  },
+  "releaseChanges": [
+    {
+      "pitch": 54,
+      "start": 139196,
+      "oldEnd": 142285,
+      "end": 142941
+    }
+  ],
+  "endings": [
+    {
+      "bar": 18,
+      "pitches": [
+        54,
+        59,
+        63
+      ],
+      "bassHeld": false
+    },
+    {
+      "bar": 19,
+      "pitches": [
+        59,
+        63
+      ],
+      "bassHeld": true
+    },
+    {
+      "bar": 36,
+      "pitches": [
+        54,
+        59,
+        63
+      ],
+      "bassHeld": false
+    },
+    {
+      "bar": 37,
+      "pitches": [
+        59,
+        63
+      ],
+      "bassHeld": true
+    },
+    {
+      "bar": 54,
+      "pitches": [
+        54,
+        59,
+        63
+      ],
+      "bassHeld": false
+    },
+    {
+      "bar": 55,
+      "pitches": [
+        59,
+        63
+      ],
+      "bassHeld": true
+    },
+    {
+      "bar": 72,
+      "pitches": [
+        54,
+        59,
+        63
+      ],
+      "bassHeld": false
+    },
+    {
+      "bar": 73,
+      "pitches": [
+        59,
+        63
+      ],
+      "bassHeld": true
+    },
+    {
+      "bar": 90,
+      "pitches": [
+        54,
+        59,
+        63
+      ],
+      "bassHeld": false
+    },
+    {
+      "bar": 91,
+      "pitches": [
+        59,
+        63
+      ],
+      "bassHeld": true
+    },
+    {
+      "bar": 108,
+      "pitches": [
+        42,
+        47,
+        51
+      ],
+      "bassHeld": false
+    },
+    {
+      "bar": 109,
+      "pitches": [
+        47,
+        51
+      ],
+      "bassHeld": true
+    }
+  ],
+  "decision": "Uniform editorial normalization: first closing bar beat1 bass plus B/D# dyad; second closing bar beat1 dyad only; bass held across both. Final ending octave lower. Existing attacks/velocities retained; inserted attacks use melody anchor and velocity39. Recording confirms bass entry consistently; dyad attacks less conclusive, confirmed73 retained. Controllers and other voices unchanged.",
+  "updatedAt": "2026-10-05T03:25:29.725Z"
+}

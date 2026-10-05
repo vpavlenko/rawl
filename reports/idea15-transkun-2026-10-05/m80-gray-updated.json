@@ -1,0 +1,41 @@
+{
+  "id": "idea15Transkun20261005",
+  "slug": "idea-15---gibran-alcocer-transkun",
+  "beforeSha256": "30db72ecd541593fffa52ede5618f9f3707c54c7107e2c64f348a1ad44d4dbeb",
+  "sha256": "d79e454efb1e973a45434a916fa349dd64e8629e26e8a6d33e568205112399d4",
+  "changes": [
+    {
+      "type": "reassign",
+      "fromVoice": 2,
+      "toVoice": 0,
+      "pitch": 68,
+      "startTick": 154486,
+      "endTick": 154589
+    },
+    {
+      "type": "reassign",
+      "fromVoice": 2,
+      "toVoice": 0,
+      "pitch": 68,
+      "startTick": 155084,
+      "endTick": 155169
+    },
+    {
+      "type": "reassign",
+      "fromVoice": 2,
+      "toVoice": 0,
+      "pitch": 68,
+      "startTick": 156270,
+      "endTick": 156371
+    },
+    {
+      "type": "reassign",
+      "fromVoice": 2,
+      "toVoice": 0,
+      "pitch": 68,
+      "startTick": 156825,
+      "endTick": 156906
+    }
+  ],
+  "updatedAt": "2026-10-05T03:07:01.249Z"
+}

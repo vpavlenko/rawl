@@ -1,0 +1,162 @@
+{
+  "id": "idea15Transkun20261005",
+  "slug": "idea-15---gibran-alcocer-transkun",
+  "beforeSha256": "b71b196bd3f753174d683fe5b8ec73a600d310b4d32123ebce7067fe1dfdd6b0",
+  "sha256": "83c4ed1f9a2fcebf6d48f288d72331af83b81898df62e07c3e46ded8f8938670",
+  "noteCount": 970,
+  "voices": [
+    510,
+    289,
+    171
+  ],
+  "removed": [
+    {
+      "bar": 19,
+      "pitch": 59,
+      "tick": 36030,
+      "velocity": 39
+    },
+    {
+      "bar": 19,
+      "pitch": 63,
+      "tick": 36030,
+      "velocity": 39
+    },
+    {
+      "bar": 37,
+      "pitch": 59,
+      "tick": 71250,
+      "velocity": 39
+    },
+    {
+      "bar": 37,
+      "pitch": 63,
+      "tick": 71250,
+      "velocity": 39
+    },
+    {
+      "bar": 55,
+      "pitch": 59,
+      "tick": 106567,
+      "velocity": 39
+    },
+    {
+      "bar": 55,
+      "pitch": 63,
+      "tick": 106567,
+      "velocity": 39
+    },
+    {
+      "bar": 73,
+      "pitch": 59,
+      "tick": 141038,
+      "velocity": 38
+    },
+    {
+      "bar": 73,
+      "pitch": 63,
+      "tick": 141041,
+      "velocity": 40
+    },
+    {
+      "bar": 91,
+      "pitch": 59,
+      "tick": 173861,
+      "velocity": 39
+    },
+    {
+      "bar": 91,
+      "pitch": 63,
+      "tick": 173861,
+      "velocity": 39
+    },
+    {
+      "bar": 109,
+      "pitch": 47,
+      "tick": 208664,
+      "velocity": 39
+    },
+    {
+      "bar": 109,
+      "pitch": 51,
+      "tick": 208664,
+      "velocity": 39
+    }
+  ],
+  "extensions": [
+    {
+      "pitch": 59,
+      "startTick": 33777,
+      "oldEndTick": 36030,
+      "endTick": 38140
+    },
+    {
+      "pitch": 63,
+      "startTick": 33776,
+      "oldEndTick": 36030,
+      "endTick": 38140
+    },
+    {
+      "pitch": 59,
+      "startTick": 69290,
+      "oldEndTick": 73176,
+      "endTick": 73176
+    },
+    {
+      "pitch": 63,
+      "startTick": 69290,
+      "oldEndTick": 73176,
+      "endTick": 73176
+    },
+    {
+      "pitch": 59,
+      "startTick": 104559,
+      "oldEndTick": 106567,
+      "endTick": 108581
+    },
+    {
+      "pitch": 63,
+      "startTick": 104535,
+      "oldEndTick": 108581,
+      "endTick": 108581
+    },
+    {
+      "pitch": 59,
+      "startTick": 139170,
+      "oldEndTick": 141038,
+      "endTick": 142941
+    },
+    {
+      "pitch": 63,
+      "startTick": 139158,
+      "oldEndTick": 141041,
+      "endTick": 142941
+    },
+    {
+      "pitch": 59,
+      "startTick": 172076,
+      "oldEndTick": 173861,
+      "endTick": 175810
+    },
+    {
+      "pitch": 63,
+      "startTick": 172070,
+      "oldEndTick": 173861,
+      "endTick": 175810
+    },
+    {
+      "pitch": 47,
+      "startTick": 206574,
+      "oldEndTick": 210754,
+      "endTick": 210754
+    },
+    {
+      "pitch": 51,
+      "startTick": 206574,
+      "oldEndTick": 210754,
+      "endTick": 210754
+    }
+  ],
+  "decision": "User listening correction supersedes prior m73 retrigger and dyad-only normalization: no left-hand attack anywhere in last bars19/37/55/73/91/109. Hold bass and dyad from first closing bar across both; final ending octave lower. Pedal and other voices unchanged.",
+  "updatedAt": "2026-10-05T03:30:05.594Z"
+}

@@ -486,8 +486,9 @@ const NoteRectangle = React.memo(({
     noteHeight +
     noteHeight * 2 * (1 - heightScale);
 
-  const left = secondsToX(note.span[0]);
-  const width = secondsToX(note.span[1]) - secondsToX(note.span[0]);
+  const displaySpan = note.displaySpan ?? note.span;
+  const left = secondsToX(displaySpan[0]);
+  const width = secondsToX(displaySpan[1]) - left;
   // Strum notes remain above the grid (1–4), below all regular notes.
   const noteZIndex = isStrumNote
     ? 5

@@ -1,0 +1,565 @@
+{
+  "sourceSha256": "58d6d00b9a69865eed4ba0a0136d3aa376dfe092e5fc2bb70e8cfef11385752d",
+  "outputSha256": "83c4ed1f9a2fcebf6d48f288d72331af83b81898df62e07c3e46ded8f8938670",
+  "noteCount": 970,
+  "sourceControllerCount": 90,
+  "pedalControllerCount": 88,
+  "voices": [
+    {
+      "name": "Transkun / Bass and accompaniment",
+      "count": 510
+    },
+    {
+      "name": "Transkun / Arpeggios",
+      "count": 289
+    },
+    {
+      "name": "Transkun / Melody and overdub",
+      "count": 171
+    }
+  ],
+  "preserved": "Detected attacks and velocities retained except removal of extra F#4 at m35 beat2. Releases cover displayed spans, with previous repeated pitches released at the next detected attack. Source controllers, tempo and baseline MIDI preserved. Left-hand pedal-up at the end of m37 moved from tick72736 to73176 (m38 boundary).",
+  "measureCount": 109,
+  "previousRevision": {
+    "outputSha256": "c45fd311b617cc025caf5728f26b6cb881c02beff5da251f3d0e1871724fc573",
+    "noteCount": 947,
+    "voices": [
+      {
+        "name": "Transkun / Bass and accompaniment",
+        "count": 502
+      },
+      {
+        "name": "Transkun / Arpeggios",
+        "count": 290
+      },
+      {
+        "name": "Transkun / Melody and overdub",
+        "count": 178
+      }
+    ],
+    "preserved": "All pitches, velocities, note-on ticks, note-off ticks, tempo and playback duration"
+  },
+  "patternRevision": {
+    "additions": 30,
+    "removals": 7,
+    "releaseExtensions": 13,
+    "retriggerAt73": "preserved",
+    "quarterDyadsAudited": 192
+  },
+  "soundRevision": {
+    "id": "idea15Transkun20261005",
+    "slug": "idea-15---gibran-alcocer-transkun",
+    "beforeSha256": "a5e78da8c1ac84c613c204c0d9dff2c651735644ff910a9ec27c13671856e559",
+    "sha256": "c7b45c4c079b2f98d36abff93367d3b7f75f51f47d4ace2345b2db2ef8f0899c",
+    "softPedal": 127,
+    "reverbSend": 36,
+    "updatedAt": "2026-10-05T02:58:45.694Z",
+    "estimate": "CC91=36 is a conservative initial request, not a calibrated audio-derived wet percentage. All source controllers retained; explicit CC67 at tick zero covers initial notes."
+  },
+  "m80PedalRevision": {
+    "id": "idea15Transkun20261005",
+    "slug": "idea-15---gibran-alcocer-transkun",
+    "beforeSha256": "c7b45c4c079b2f98d36abff93367d3b7f75f51f47d4ace2345b2db2ef8f0899c",
+    "sha256": "5215cacdce4fc4049082a627a85f0db21ded3367b705a585169c20c9f8e58ef1",
+    "measure": 80,
+    "pitch": 59,
+    "oldReleaseTick": 153964,
+    "newReleaseTick": 153983,
+    "pedalDownTick": 153964,
+    "updatedAt": "2026-10-05T03:00:27.993Z"
+  },
+  "m5M78Revision": {
+    "id": "idea15Transkun20261005",
+    "slug": "idea-15---gibran-alcocer-transkun",
+    "beforeSha256": "5215cacdce4fc4049082a627a85f0db21ded3367b705a585169c20c9f8e58ef1",
+    "sha256": "30db72ecd541593fffa52ede5618f9f3707c54c7107e2c64f348a1ad44d4dbeb",
+    "changes": [
+      {
+        "type": "remove",
+        "voice": 2,
+        "pitch": 73,
+        "startTick": 150846,
+        "endTick": 150933
+      },
+      {
+        "type": "remove",
+        "voice": 2,
+        "pitch": 73,
+        "startTick": 151428,
+        "endTick": 151510
+      },
+      {
+        "type": "remove",
+        "voice": 2,
+        "pitch": 73,
+        "startTick": 152043,
+        "endTick": 152135
+      },
+      {
+        "type": "restore",
+        "voice": 0,
+        "pitch": 61,
+        "startTick": 8216,
+        "endTick": 8357,
+        "velocity": 38
+      }
+    ],
+    "updatedAt": "2026-10-05T03:05:19.507Z"
+  },
+  "m80GrayRevision": {
+    "id": "idea15Transkun20261005",
+    "slug": "idea-15---gibran-alcocer-transkun",
+    "beforeSha256": "30db72ecd541593fffa52ede5618f9f3707c54c7107e2c64f348a1ad44d4dbeb",
+    "sha256": "d79e454efb1e973a45434a916fa349dd64e8629e26e8a6d33e568205112399d4",
+    "changes": [
+      {
+        "type": "reassign",
+        "fromVoice": 2,
+        "toVoice": 0,
+        "pitch": 68,
+        "startTick": 154486,
+        "endTick": 154589
+      },
+      {
+        "type": "reassign",
+        "fromVoice": 2,
+        "toVoice": 0,
+        "pitch": 68,
+        "startTick": 155084,
+        "endTick": 155169
+      },
+      {
+        "type": "reassign",
+        "fromVoice": 2,
+        "toVoice": 0,
+        "pitch": 68,
+        "startTick": 156270,
+        "endTick": 156371
+      },
+      {
+        "type": "reassign",
+        "fromVoice": 2,
+        "toVoice": 0,
+        "pitch": 68,
+        "startTick": 156825,
+        "endTick": 156906
+      }
+    ],
+    "updatedAt": "2026-10-05T03:07:01.249Z"
+  },
+  "soundingSpansRevision": {
+    "mode": "Detected attacks preserved. Releases cover visual spans; conflicting visuals and old releases stop at the next repeated-pitch attack.",
+    "beforeSha256": "d79e454efb1e973a45434a916fa349dd64e8629e26e8a6d33e568205112399d4",
+    "sha256": "e9c84cd0bbe83712b07babe72d78bc82c589879e15930ed3cb5451fc70bb8d8e"
+  },
+  "m35EndingPedalRevision": {
+    "id": "idea15Transkun20261005",
+    "slug": "idea-15---gibran-alcocer-transkun",
+    "beforeSha256": "e9c84cd0bbe83712b07babe72d78bc82c589879e15930ed3cb5451fc70bb8d8e",
+    "sha256": "9423b6d381a726f2a203ca672e162dac553948c93268ba4bf26d0dbdf36bc382",
+    "voice": 0,
+    "controller": 64,
+    "value": 0,
+    "oldTick": 72736,
+    "newTick": 73176,
+    "nextPedalDownTick": 73448,
+    "updatedAt": "2026-10-05T03:18:47.420Z"
+  },
+  "m36BassRevision": {
+    "id": "idea15Transkun20261005",
+    "slug": "idea-15---gibran-alcocer-transkun",
+    "beforeSha256": "9423b6d381a726f2a203ca672e162dac553948c93268ba4bf26d0dbdf36bc382",
+    "sha256": "46d89096642c098aae2dbd096cbece4797b53e05bd467fd6625e67ec969dbb81",
+    "voice": 0,
+    "pitch": 54,
+    "startTick": 69290,
+    "endTick": 73176,
+    "velocity": 33,
+    "evidence": "F#3 retrigger in corresponding endings18/54/72/90. Recording175–195Hz band rises from -28.1dBFS at36.0s to -16.6dBFS at36.1s (100ms windows), supporting a new bass attack.",
+    "updatedAt": "2026-10-05T03:20:57.441Z"
+  },
+  "uniformEndingsRevision": {
+    "id": "idea15Transkun20261005",
+    "slug": "idea-15---gibran-alcocer-transkun",
+    "beforeSha256": "46d89096642c098aae2dbd096cbece4797b53e05bd467fd6625e67ec969dbb81",
+    "sha256": "b71b196bd3f753174d683fe5b8ec73a600d310b4d32123ebce7067fe1dfdd6b0",
+    "noteCount": 982,
+    "voices": [
+      522,
+      289,
+      171
+    ],
+    "added": [
+      {
+        "bar": 19,
+        "pitch": 59,
+        "tick": 36030,
+        "velocity": 39
+      },
+      {
+        "bar": 19,
+        "pitch": 63,
+        "tick": 36030,
+        "velocity": 39
+      },
+      {
+        "bar": 36,
+        "pitch": 59,
+        "tick": 69290,
+        "velocity": 39
+      },
+      {
+        "bar": 36,
+        "pitch": 63,
+        "tick": 69290,
+        "velocity": 39
+      },
+      {
+        "bar": 37,
+        "pitch": 59,
+        "tick": 71250,
+        "velocity": 39
+      },
+      {
+        "bar": 37,
+        "pitch": 63,
+        "tick": 71250,
+        "velocity": 39
+      },
+      {
+        "bar": 54,
+        "pitch": 63,
+        "tick": 104535,
+        "velocity": 39
+      },
+      {
+        "bar": 55,
+        "pitch": 59,
+        "tick": 106567,
+        "velocity": 39
+      },
+      {
+        "bar": 55,
+        "pitch": 63,
+        "tick": 106567,
+        "velocity": 39
+      },
+      {
+        "bar": 91,
+        "pitch": 59,
+        "tick": 173861,
+        "velocity": 39
+      },
+      {
+        "bar": 91,
+        "pitch": 63,
+        "tick": 173861,
+        "velocity": 39
+      },
+      {
+        "bar": 108,
+        "pitch": 47,
+        "tick": 206574,
+        "velocity": 39
+      },
+      {
+        "bar": 108,
+        "pitch": 51,
+        "tick": 206574,
+        "velocity": 39
+      },
+      {
+        "bar": 109,
+        "pitch": 47,
+        "tick": 208664,
+        "velocity": 39
+      },
+      {
+        "bar": 109,
+        "pitch": 51,
+        "tick": 208664,
+        "velocity": 39
+      }
+    ],
+    "removed": {
+      "tick": 142285,
+      "pitch": 54
+    },
+    "releaseChanges": [
+      {
+        "pitch": 54,
+        "start": 139196,
+        "oldEnd": 142285,
+        "end": 142941
+      }
+    ],
+    "endings": [
+      {
+        "bar": 18,
+        "pitches": [
+          54,
+          59,
+          63
+        ],
+        "bassHeld": false
+      },
+      {
+        "bar": 19,
+        "pitches": [
+          59,
+          63
+        ],
+        "bassHeld": true
+      },
+      {
+        "bar": 36,
+        "pitches": [
+          54,
+          59,
+          63
+        ],
+        "bassHeld": false
+      },
+      {
+        "bar": 37,
+        "pitches": [
+          59,
+          63
+        ],
+        "bassHeld": true
+      },
+      {
+        "bar": 54,
+        "pitches": [
+          54,
+          59,
+          63
+        ],
+        "bassHeld": false
+      },
+      {
+        "bar": 55,
+        "pitches": [
+          59,
+          63
+        ],
+        "bassHeld": true
+      },
+      {
+        "bar": 72,
+        "pitches": [
+          54,
+          59,
+          63
+        ],
+        "bassHeld": false
+      },
+      {
+        "bar": 73,
+        "pitches": [
+          59,
+          63
+        ],
+        "bassHeld": true
+      },
+      {
+        "bar": 90,
+        "pitches": [
+          54,
+          59,
+          63
+        ],
+        "bassHeld": false
+      },
+      {
+        "bar": 91,
+        "pitches": [
+          59,
+          63
+        ],
+        "bassHeld": true
+      },
+      {
+        "bar": 108,
+        "pitches": [
+          42,
+          47,
+          51
+        ],
+        "bassHeld": false
+      },
+      {
+        "bar": 109,
+        "pitches": [
+          47,
+          51
+        ],
+        "bassHeld": true
+      }
+    ],
+    "decision": "Uniform editorial normalization: first closing bar beat1 bass plus B/D# dyad; second closing bar beat1 dyad only; bass held across both. Final ending octave lower. Existing attacks/velocities retained; inserted attacks use melody anchor and velocity39. Recording confirms bass entry consistently; dyad attacks less conclusive, confirmed73 retained. Controllers and other voices unchanged.",
+    "updatedAt": "2026-10-05T03:25:29.725Z"
+  },
+  "noLastBarRetriggerRevision": {
+    "id": "idea15Transkun20261005",
+    "slug": "idea-15---gibran-alcocer-transkun",
+    "beforeSha256": "b71b196bd3f753174d683fe5b8ec73a600d310b4d32123ebce7067fe1dfdd6b0",
+    "sha256": "83c4ed1f9a2fcebf6d48f288d72331af83b81898df62e07c3e46ded8f8938670",
+    "noteCount": 970,
+    "voices": [
+      510,
+      289,
+      171
+    ],
+    "removed": [
+      {
+        "bar": 19,
+        "pitch": 59,
+        "tick": 36030,
+        "velocity": 39
+      },
+      {
+        "bar": 19,
+        "pitch": 63,
+        "tick": 36030,
+        "velocity": 39
+      },
+      {
+        "bar": 37,
+        "pitch": 59,
+        "tick": 71250,
+        "velocity": 39
+      },
+      {
+        "bar": 37,
+        "pitch": 63,
+        "tick": 71250,
+        "velocity": 39
+      },
+      {
+        "bar": 55,
+        "pitch": 59,
+        "tick": 106567,
+        "velocity": 39
+      },
+      {
+        "bar": 55,
+        "pitch": 63,
+        "tick": 106567,
+        "velocity": 39
+      },
+      {
+        "bar": 73,
+        "pitch": 59,
+        "tick": 141038,
+        "velocity": 38
+      },
+      {
+        "bar": 73,
+        "pitch": 63,
+        "tick": 141041,
+        "velocity": 40
+      },
+      {
+        "bar": 91,
+        "pitch": 59,
+        "tick": 173861,
+        "velocity": 39
+      },
+      {
+        "bar": 91,
+        "pitch": 63,
+        "tick": 173861,
+        "velocity": 39
+      },
+      {
+        "bar": 109,
+        "pitch": 47,
+        "tick": 208664,
+        "velocity": 39
+      },
+      {
+        "bar": 109,
+        "pitch": 51,
+        "tick": 208664,
+        "velocity": 39
+      }
+    ],
+    "extensions": [
+      {
+        "pitch": 59,
+        "startTick": 33777,
+        "oldEndTick": 36030,
+        "endTick": 38140
+      },
+      {
+        "pitch": 63,
+        "startTick": 33776,
+        "oldEndTick": 36030,
+        "endTick": 38140
+      },
+      {
+        "pitch": 59,
+        "startTick": 69290,
+        "oldEndTick": 73176,
+        "endTick": 73176
+      },
+      {
+        "pitch": 63,
+        "startTick": 69290,
+        "oldEndTick": 73176,
+        "endTick": 73176
+      },
+      {
+        "pitch": 59,
+        "startTick": 104559,
+        "oldEndTick": 106567,
+        "endTick": 108581
+      },
+      {
+        "pitch": 63,
+        "startTick": 104535,
+        "oldEndTick": 108581,
+        "endTick": 108581
+      },
+      {
+        "pitch": 59,
+        "startTick": 139170,
+        "oldEndTick": 141038,
+        "endTick": 142941
+      },
+      {
+        "pitch": 63,
+        "startTick": 139158,
+        "oldEndTick": 141041,
+        "endTick": 142941
+      },
+      {
+        "pitch": 59,
+        "startTick": 172076,
+        "oldEndTick": 173861,
+        "endTick": 175810
+      },
+      {
+        "pitch": 63,
+        "startTick": 172070,
+        "oldEndTick": 173861,
+        "endTick": 175810
+      },
+      {
+        "pitch": 47,
+        "startTick": 206574,
+        "oldEndTick": 210754,
+        "endTick": 210754
+      },
+      {
+        "pitch": 51,
+        "startTick": 206574,
+        "oldEndTick": 210754,
+        "endTick": 210754
+      }
+    ],
+    "decision": "User listening correction supersedes prior m73 retrigger and dyad-only normalization: no left-hand attack anywhere in last bars19/37/55/73/91/109. Hold bass and dyad from first closing bar across both; final ending octave lower. Pedal and other voices unchanged.",
+    "updatedAt": "2026-10-05T03:30:05.594Z"
+  }
+}

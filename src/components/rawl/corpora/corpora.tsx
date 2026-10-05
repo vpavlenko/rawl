@@ -4469,6 +4469,7 @@ export const corpora: CorpusEntry[] = [
     slug: "gibran_alcocer",
     midis: [
       "idea-15---gibran-alcocer",
+      "idea-15---gibran-alcocer-transkun",
       "idea-n.10---gibran-alcocer",
       "idea-22---gibran-alcocer",
       "idea-25-piano-solo-version---gibran-alcocer-andrea-vanzo",

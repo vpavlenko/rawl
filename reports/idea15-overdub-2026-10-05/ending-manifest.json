@@ -1,0 +1,8 @@
+{
+  "id": "eX97GlcN8uB2C0p6Zg9r",
+  "slug": "idea-15---gibran-alcocer",
+  "localPath": "src/midis/eX97GlcN8uB2C0p6Zg9r.json",
+  "beforeSha256": "99bcd833850afb195d7703e9936bdc483b586dba0484b18e85ece853b4c44fa6",
+  "afterSha256": "3441ae9b983c5e4e04fa149aa0d50d3a1a7fd539a17902666e9f05a44c7d0f06",
+  "correction": "Replace D#5 in bar 108 and G#4 in bar 109 with sustained F#2 (MIDI 42) from tick 154080 through 156959"
+}

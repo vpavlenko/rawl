@@ -1,0 +1,9 @@
+const fs=require('fs'),assert=require('assert'),crypto=require('crypto'),{parseMidi,writeMidi}=require('midi-file');
+const root=__dirname,localPath='src/midis/eX97GlcN8uB2C0p6Zg9r.json',local=JSON.parse(fs.readFileSync(localPath)),before=Buffer.from(local.blobBase64,'base64'),hash=b=>crypto.createHash('sha256').update(b).digest('hex');
+assert.equal(hash(before),'99bcd833850afb195d7703e9936bdc483b586dba0484b18e85ece853b4c44fa6');
+const midi=parseMidi(before);let tick=0;const events=midi.tracks[1].map(e=>({tick:tick+=e.deltaTime,event:{...e}}));
+const closing=events.filter(e=>e.tick>=154080&&['noteOn','noteOff'].includes(e.event.type));
+assert.deepEqual(closing.map(e=>[e.tick,e.event.type,e.event.noteNumber]),[[154080,'noteOn',75],[155519,'noteOff',75],[155520,'noteOn',68],[156959,'noteOff',68]]);
+const corrected=events.filter(e=>!closing.includes(e));corrected.push({tick:154080,event:{deltaTime:0,channel:1,type:'noteOn',noteNumber:42,velocity:80}},{tick:156959,event:{deltaTime:0,channel:1,type:'noteOff',noteNumber:42,velocity:0}});corrected.sort((a,b)=>a.tick-b.tick);tick=0;midi.tracks[1]=corrected.map(({tick:t,event})=>{event.deltaTime=t-tick;tick=t;return event;});
+const after=Buffer.from(writeMidi(midi));fs.writeFileSync(root+'/before-ending.mid',before);fs.writeFileSync(root+'/corrected-ending.mid',after);fs.writeFileSync(root+'/ending-manifest.json',JSON.stringify({id:'eX97GlcN8uB2C0p6Zg9r',slug:'idea-15---gibran-alcocer',localPath,beforeSha256:hash(before),afterSha256:hash(after),correction:'Replace D#5 in bar 108 and G#4 in bar 109 with sustained F#2 (MIDI 42) from tick 154080 through 156959'},null,2));
+assert.deepEqual(parseMidi(after).tracks[0],parseMidi(before).tracks[0]);assert.deepEqual(parseMidi(after).tracks[2],parseMidi(before).tracks[2]);console.log('Validated: only closing bass changes; melody and arpeggios unchanged. '+hash(after));

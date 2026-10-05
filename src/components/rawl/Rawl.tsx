@@ -185,15 +185,15 @@ const Rawl: React.FC<RawlProps> = ({
   const history = useHistory();
 
   const [analysis, setAnalysis] = useState<Analysis>(
-    savedAnalysis || rawlProps?.savedAnalysis || ANALYSIS_STUB,
+    savedAnalysis || rawlProps?.savedAnalysis || parsingResult.displayOptions?.analysis || ANALYSIS_STUB,
   );
   const analysisRef = useRef(analysis);
 
   useEffect(() => {
-    const nextAnalysis = savedAnalysis || rawlProps?.savedAnalysis || ANALYSIS_STUB;
+    const nextAnalysis = savedAnalysis || rawlProps?.savedAnalysis || parsingResult.displayOptions?.analysis || ANALYSIS_STUB;
     analysisRef.current = nextAnalysis;
     setAnalysis(nextAnalysis);
-  }, [savedAnalysis, rawlProps?.savedAnalysis]);
+  }, [savedAnalysis, rawlProps?.savedAnalysis, parsingResult.displayOptions]);
 
   useEffect(() => {
     setFirstTonic(Object.entries(analysis.modulations)

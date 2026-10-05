@@ -1,0 +1,13 @@
+{
+  "id": "idea15Transkun20261005",
+  "slug": "idea-15---gibran-alcocer-transkun",
+  "beforeSha256": "9423b6d381a726f2a203ca672e162dac553948c93268ba4bf26d0dbdf36bc382",
+  "sha256": "46d89096642c098aae2dbd096cbece4797b53e05bd467fd6625e67ec969dbb81",
+  "voice": 0,
+  "pitch": 54,
+  "startTick": 69290,
+  "endTick": 73176,
+  "velocity": 33,
+  "evidence": "F#3 retrigger in corresponding endings18/54/72/90. Recording175–195Hz band rises from -28.1dBFS at36.0s to -16.6dBFS at36.1s (100ms windows), supporting a new bass attack.",
+  "updatedAt": "2026-10-05T03:20:57.441Z"
+}

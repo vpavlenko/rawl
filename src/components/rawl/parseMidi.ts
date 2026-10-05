@@ -1,4 +1,5 @@
 import MIDIEvents from "midievents";
+import { readMidiDisplayOptions, withVisualLegato, MidiDisplayOptions } from "./midiDisplay";
 import type { SecondsSpan } from "./Rawl";
 import type { MeasuresAndBeats } from "./SystemLayout";
 
@@ -18,6 +19,8 @@ export type Note = {
   isDrum: boolean;
   id: string;
   span: SecondsSpan;
+  // Rendering only; playback and note audition continue to use span.
+  displaySpan?: SecondsSpan;
   tickSpan?: [number, number]; // [startTick, endTick]
   pitchBend?: PitchBendPoint[];
   voiceIndex: number;
@@ -55,6 +58,7 @@ export type MidiSource = {
 export type ParsingResult = {
   notes: NotesInVoices;
   measuresAndBeats?: MeasuresAndBeats;
+  displayOptions?: MidiDisplayOptions;
 };
 
 const getNotes = (events, channel, voiceIndex): Note[] => {
@@ -289,8 +293,18 @@ export const parseNotes = ({
     }
   }
 
-  return {
-    measuresAndBeats,
-    notes,
-  };
+  const displayOptions = readMidiDisplayOptions(events);
+  if (displayOptions) {
+    const measures = displayOptions.measures;
+    const beats = measures.slice(1).flatMap((end, i) =>
+      Array.from({ length: displayOptions.beatsPerMeasure - 1 }, (_, b) =>
+        measures[i] + (end - measures[i]) * (b + 1) / displayOptions.beatsPerMeasure),
+    );
+    return {
+      measuresAndBeats: { measures, beats },
+      notes: displayOptions.legato ? withVisualLegato(notes, measures, displayOptions.gridSubdivisions, displayOptions) : notes,
+      displayOptions,
+    };
+  }
+  return { measuresAndBeats, notes };
 };

@@ -1,0 +1,550 @@
+{
+  "slug": "idea-15---gibran-alcocer",
+  "id": "eX97GlcN8uB2C0p6Zg9r",
+  "localPath": "src/midis/eX97GlcN8uB2C0p6Zg9r.json",
+  "beforeSha256": "fe3d9161e422922a7d438432822d732dea7c23644903f4330cf14d70126fbdde",
+  "afterSha256": "99bcd833850afb195d7703e9936bdc483b586dba0484b18e85ece853b4c44fa6",
+  "addedNotes": 88,
+  "melodyNotes": 31,
+  "arpeggioNotes": 96,
+  "originalNoteCount": 885,
+  "newNoteCount": 973,
+  "addedRange": [
+    92,
+    107
+  ],
+  "melodyRange": [
+    92,
+    109
+  ],
+  "added": [
+    {
+      "start": 131040,
+      "end": 131519,
+      "pitch": 42,
+      "velocity": 80
+    },
+    {
+      "start": 131040,
+      "end": 131519,
+      "pitch": 54,
+      "velocity": 80
+    },
+    {
+      "start": 131520,
+      "end": 131999,
+      "pitch": 54,
+      "velocity": 80
+    },
+    {
+      "start": 131520,
+      "end": 131999,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 132000,
+      "end": 132479,
+      "pitch": 54,
+      "velocity": 80
+    },
+    {
+      "start": 132000,
+      "end": 132479,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 132480,
+      "end": 132959,
+      "pitch": 49,
+      "velocity": 80
+    },
+    {
+      "start": 132960,
+      "end": 133439,
+      "pitch": 54,
+      "velocity": 80
+    },
+    {
+      "start": 132960,
+      "end": 133439,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 133440,
+      "end": 133919,
+      "pitch": 54,
+      "velocity": 80
+    },
+    {
+      "start": 133440,
+      "end": 133919,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 133920,
+      "end": 134399,
+      "pitch": 45,
+      "velocity": 80
+    },
+    {
+      "start": 133920,
+      "end": 134399,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 134400,
+      "end": 134879,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 134400,
+      "end": 134879,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 134880,
+      "end": 135359,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 134880,
+      "end": 135359,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 135360,
+      "end": 135839,
+      "pitch": 52,
+      "velocity": 80
+    },
+    {
+      "start": 135840,
+      "end": 136319,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 135840,
+      "end": 136319,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 136320,
+      "end": 136799,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 136320,
+      "end": 136799,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 136800,
+      "end": 137279,
+      "pitch": 49,
+      "velocity": 80
+    },
+    {
+      "start": 136800,
+      "end": 137279,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 137280,
+      "end": 137759,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 137280,
+      "end": 137759,
+      "pitch": 64,
+      "velocity": 80
+    },
+    {
+      "start": 137760,
+      "end": 138239,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 137760,
+      "end": 138239,
+      "pitch": 64,
+      "velocity": 80
+    },
+    {
+      "start": 138240,
+      "end": 138719,
+      "pitch": 56,
+      "velocity": 80
+    },
+    {
+      "start": 138720,
+      "end": 139199,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 138720,
+      "end": 139199,
+      "pitch": 64,
+      "velocity": 80
+    },
+    {
+      "start": 139200,
+      "end": 139679,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 139200,
+      "end": 139679,
+      "pitch": 64,
+      "velocity": 80
+    },
+    {
+      "start": 139680,
+      "end": 140159,
+      "pitch": 47,
+      "velocity": 80
+    },
+    {
+      "start": 139680,
+      "end": 140159,
+      "pitch": 59,
+      "velocity": 80
+    },
+    {
+      "start": 140160,
+      "end": 140639,
+      "pitch": 59,
+      "velocity": 80
+    },
+    {
+      "start": 140160,
+      "end": 140639,
+      "pitch": 63,
+      "velocity": 80
+    },
+    {
+      "start": 140640,
+      "end": 141119,
+      "pitch": 59,
+      "velocity": 80
+    },
+    {
+      "start": 140640,
+      "end": 141119,
+      "pitch": 63,
+      "velocity": 80
+    },
+    {
+      "start": 141120,
+      "end": 141599,
+      "pitch": 54,
+      "velocity": 80
+    },
+    {
+      "start": 141600,
+      "end": 142079,
+      "pitch": 59,
+      "velocity": 80
+    },
+    {
+      "start": 141600,
+      "end": 142079,
+      "pitch": 63,
+      "velocity": 80
+    },
+    {
+      "start": 142080,
+      "end": 142559,
+      "pitch": 59,
+      "velocity": 80
+    },
+    {
+      "start": 142080,
+      "end": 142559,
+      "pitch": 63,
+      "velocity": 80
+    },
+    {
+      "start": 142560,
+      "end": 143039,
+      "pitch": 42,
+      "velocity": 80
+    },
+    {
+      "start": 142560,
+      "end": 143039,
+      "pitch": 54,
+      "velocity": 80
+    },
+    {
+      "start": 143040,
+      "end": 143519,
+      "pitch": 54,
+      "velocity": 80
+    },
+    {
+      "start": 143040,
+      "end": 143519,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 143520,
+      "end": 143999,
+      "pitch": 54,
+      "velocity": 80
+    },
+    {
+      "start": 143520,
+      "end": 143999,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 144000,
+      "end": 144479,
+      "pitch": 49,
+      "velocity": 80
+    },
+    {
+      "start": 144480,
+      "end": 144959,
+      "pitch": 54,
+      "velocity": 80
+    },
+    {
+      "start": 144480,
+      "end": 144959,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 144960,
+      "end": 145439,
+      "pitch": 54,
+      "velocity": 80
+    },
+    {
+      "start": 144960,
+      "end": 145439,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 145440,
+      "end": 145919,
+      "pitch": 45,
+      "velocity": 80
+    },
+    {
+      "start": 145440,
+      "end": 145919,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 145920,
+      "end": 146399,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 145920,
+      "end": 146399,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 146400,
+      "end": 146879,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 146400,
+      "end": 146879,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 146880,
+      "end": 147359,
+      "pitch": 52,
+      "velocity": 80
+    },
+    {
+      "start": 147360,
+      "end": 147839,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 147360,
+      "end": 147839,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 147840,
+      "end": 148319,
+      "pitch": 57,
+      "velocity": 80
+    },
+    {
+      "start": 147840,
+      "end": 148319,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 148320,
+      "end": 148799,
+      "pitch": 49,
+      "velocity": 80
+    },
+    {
+      "start": 148320,
+      "end": 148799,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 148800,
+      "end": 149279,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 148800,
+      "end": 149279,
+      "pitch": 64,
+      "velocity": 80
+    },
+    {
+      "start": 149280,
+      "end": 149759,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 149280,
+      "end": 149759,
+      "pitch": 64,
+      "velocity": 80
+    },
+    {
+      "start": 149760,
+      "end": 150239,
+      "pitch": 56,
+      "velocity": 80
+    },
+    {
+      "start": 150240,
+      "end": 150719,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 150240,
+      "end": 150719,
+      "pitch": 64,
+      "velocity": 80
+    },
+    {
+      "start": 150720,
+      "end": 151199,
+      "pitch": 61,
+      "velocity": 80
+    },
+    {
+      "start": 150720,
+      "end": 151199,
+      "pitch": 64,
+      "velocity": 80
+    },
+    {
+      "start": 151200,
+      "end": 151679,
+      "pitch": 47,
+      "velocity": 80
+    },
+    {
+      "start": 151200,
+      "end": 151679,
+      "pitch": 59,
+      "velocity": 80
+    },
+    {
+      "start": 151680,
+      "end": 152159,
+      "pitch": 59,
+      "velocity": 80
+    },
+    {
+      "start": 151680,
+      "end": 152159,
+      "pitch": 63,
+      "velocity": 80
+    },
+    {
+      "start": 152160,
+      "end": 152639,
+      "pitch": 59,
+      "velocity": 80
+    },
+    {
+      "start": 152160,
+      "end": 152639,
+      "pitch": 63,
+      "velocity": 80
+    },
+    {
+      "start": 152640,
+      "end": 153119,
+      "pitch": 54,
+      "velocity": 80
+    },
+    {
+      "start": 153120,
+      "end": 153599,
+      "pitch": 59,
+      "velocity": 80
+    },
+    {
+      "start": 153120,
+      "end": 153599,
+      "pitch": 63,
+      "velocity": 80
+    },
+    {
+      "start": 153600,
+      "end": 154079,
+      "pitch": 59,
+      "velocity": 80
+    },
+    {
+      "start": 153600,
+      "end": 154079,
+      "pitch": 63,
+      "velocity": 80
+    }
+  ]
+}

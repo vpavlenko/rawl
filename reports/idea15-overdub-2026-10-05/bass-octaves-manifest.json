@@ -1,0 +1,29 @@
+{
+  "id": "eX97GlcN8uB2C0p6Zg9r",
+  "slug": "idea-15---gibran-alcocer",
+  "localPath": "src/midis/eX97GlcN8uB2C0p6Zg9r.json",
+  "beforeSha256": "3441ae9b983c5e4e04fa149aa0d50d3a1a7fd539a17902666e9f05a44c7d0f06",
+  "afterSha256": "252af6f0fb606b6a656cd277948317dc90b3cc53452ab865f6464d587409bd70",
+  "changes": [
+    {
+      "bar": 97,
+      "from": 56,
+      "to": 44
+    },
+    {
+      "bar": 99,
+      "from": 54,
+      "to": 42
+    },
+    {
+      "bar": 105,
+      "from": 56,
+      "to": 44
+    },
+    {
+      "bar": 107,
+      "from": 54,
+      "to": 42
+    }
+  ]
+}

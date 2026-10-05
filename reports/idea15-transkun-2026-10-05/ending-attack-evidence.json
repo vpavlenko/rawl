@@ -1,0 +1,293 @@
+{
+  "method": "Narrow fundamental bands, before(-170..-40ms)/after(+30..+160ms) each grid boundary. Supports energy changes, not independent proof of attacks; inspect source listening and repeating harmony too.",
+  "rows": [
+    {
+      "bar": 18,
+      "time": 17.5921875,
+      "frequencyBandChanges": [
+        {
+          "pitch": 54,
+          "beforeDbFS": -32.3,
+          "afterDbFS": -15.89,
+          "changeDb": 16.41
+        },
+        {
+          "pitch": 59,
+          "beforeDbFS": -27.6,
+          "afterDbFS": -25.71,
+          "changeDb": 1.89
+        },
+        {
+          "pitch": 63,
+          "beforeDbFS": -24.84,
+          "afterDbFS": -19.69,
+          "changeDb": 5.15
+        }
+      ]
+    },
+    {
+      "bar": 19,
+      "time": 18.765625,
+      "frequencyBandChanges": [
+        {
+          "pitch": 54,
+          "beforeDbFS": -30.9,
+          "afterDbFS": -33.29,
+          "changeDb": -2.39
+        },
+        {
+          "pitch": 59,
+          "beforeDbFS": -40.84,
+          "afterDbFS": -44.46,
+          "changeDb": -3.62
+        },
+        {
+          "pitch": 63,
+          "beforeDbFS": -42.4,
+          "afterDbFS": -48.23,
+          "changeDb": -5.83
+        }
+      ]
+    },
+    {
+      "bar": 36,
+      "time": 36.088541666666664,
+      "frequencyBandChanges": [
+        {
+          "pitch": 54,
+          "beforeDbFS": -27.24,
+          "afterDbFS": -17.31,
+          "changeDb": 9.93
+        },
+        {
+          "pitch": 59,
+          "beforeDbFS": -28.25,
+          "afterDbFS": -24.83,
+          "changeDb": 3.43
+        },
+        {
+          "pitch": 63,
+          "beforeDbFS": -16.54,
+          "afterDbFS": -25.85,
+          "changeDb": -9.31
+        }
+      ]
+    },
+    {
+      "bar": 37,
+      "time": 37.109375,
+      "frequencyBandChanges": [
+        {
+          "pitch": 54,
+          "beforeDbFS": -31.89,
+          "afterDbFS": -31.36,
+          "changeDb": 0.52
+        },
+        {
+          "pitch": 59,
+          "beforeDbFS": -38.31,
+          "afterDbFS": -40.61,
+          "changeDb": -2.3
+        },
+        {
+          "pitch": 63,
+          "beforeDbFS": -33.21,
+          "afterDbFS": -32.94,
+          "changeDb": 0.26
+        }
+      ]
+    },
+    {
+      "bar": 54,
+      "time": 54.4578125,
+      "frequencyBandChanges": [
+        {
+          "pitch": 54,
+          "beforeDbFS": -32.95,
+          "afterDbFS": -15.25,
+          "changeDb": 17.7
+        },
+        {
+          "pitch": 59,
+          "beforeDbFS": -25.38,
+          "afterDbFS": -22.34,
+          "changeDb": 3.05
+        },
+        {
+          "pitch": 63,
+          "beforeDbFS": -19.02,
+          "afterDbFS": -18.97,
+          "changeDb": 0.05
+        }
+      ]
+    },
+    {
+      "bar": 55,
+      "time": 55.50364583333333,
+      "frequencyBandChanges": [
+        {
+          "pitch": 54,
+          "beforeDbFS": -35.58,
+          "afterDbFS": -34.6,
+          "changeDb": 0.98
+        },
+        {
+          "pitch": 59,
+          "beforeDbFS": -39.67,
+          "afterDbFS": -45.98,
+          "changeDb": -6.31
+        },
+        {
+          "pitch": 63,
+          "beforeDbFS": -37.2,
+          "afterDbFS": -37.37,
+          "changeDb": -0.18
+        }
+      ]
+    },
+    {
+      "bar": 72,
+      "time": 72.484375,
+      "frequencyBandChanges": [
+        {
+          "pitch": 54,
+          "beforeDbFS": -36.12,
+          "afterDbFS": -14.69,
+          "changeDb": 21.43
+        },
+        {
+          "pitch": 59,
+          "beforeDbFS": -17.95,
+          "afterDbFS": -17.31,
+          "changeDb": 0.64
+        },
+        {
+          "pitch": 63,
+          "beforeDbFS": -23.21,
+          "afterDbFS": -15.92,
+          "changeDb": 7.29
+        }
+      ]
+    },
+    {
+      "bar": 73,
+      "time": 73.45989583333333,
+      "frequencyBandChanges": [
+        {
+          "pitch": 54,
+          "beforeDbFS": -31.34,
+          "afterDbFS": -31.13,
+          "changeDb": 0.21
+        },
+        {
+          "pitch": 59,
+          "beforeDbFS": -31.38,
+          "afterDbFS": -25.28,
+          "changeDb": 6.1
+        },
+        {
+          "pitch": 63,
+          "beforeDbFS": -19.39,
+          "afterDbFS": -18.79,
+          "changeDb": 0.6
+        }
+      ]
+    },
+    {
+      "bar": 90,
+      "time": 89.62291666666667,
+      "frequencyBandChanges": [
+        {
+          "pitch": 54,
+          "beforeDbFS": -35.49,
+          "afterDbFS": -13.83,
+          "changeDb": 21.66
+        },
+        {
+          "pitch": 59,
+          "beforeDbFS": -24.22,
+          "afterDbFS": -24.83,
+          "changeDb": -0.61
+        },
+        {
+          "pitch": 63,
+          "beforeDbFS": -24.21,
+          "afterDbFS": -24.04,
+          "changeDb": 0.16
+        }
+      ]
+    },
+    {
+      "bar": 91,
+      "time": 90.55260416666667,
+      "frequencyBandChanges": [
+        {
+          "pitch": 54,
+          "beforeDbFS": -28.76,
+          "afterDbFS": -31.17,
+          "changeDb": -2.41
+        },
+        {
+          "pitch": 59,
+          "beforeDbFS": -40.19,
+          "afterDbFS": -40.23,
+          "changeDb": -0.04
+        },
+        {
+          "pitch": 63,
+          "beforeDbFS": -34.89,
+          "afterDbFS": -33.6,
+          "changeDb": 1.28
+        }
+      ]
+    },
+    {
+      "bar": 108,
+      "time": 107.590625,
+      "frequencyBandChanges": [
+        {
+          "pitch": 42,
+          "beforeDbFS": -23.9,
+          "afterDbFS": -20.59,
+          "changeDb": 3.31
+        },
+        {
+          "pitch": 47,
+          "beforeDbFS": -23.98,
+          "afterDbFS": -27.46,
+          "changeDb": -3.48
+        },
+        {
+          "pitch": 51,
+          "beforeDbFS": -22.17,
+          "afterDbFS": -26.92,
+          "changeDb": -4.75
+        }
+      ]
+    },
+    {
+      "bar": 109,
+      "time": 108.67916666666666,
+      "frequencyBandChanges": [
+        {
+          "pitch": 42,
+          "beforeDbFS": -25.73,
+          "afterDbFS": -27.52,
+          "changeDb": -1.79
+        },
+        {
+          "pitch": 47,
+          "beforeDbFS": -38.82,
+          "afterDbFS": -35.15,
+          "changeDb": 3.67
+        },
+        {
+          "pitch": 51,
+          "beforeDbFS": -41.73,
+          "afterDbFS": -36.28,
+          "changeDb": 5.45
+        }
+      ]
+    }
+  ]
+}

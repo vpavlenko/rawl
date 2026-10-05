@@ -1,0 +1,408 @@
+{
+  "beforeSha256": "c45fd311b617cc025caf5728f26b6cb881c02beff5da251f3d0e1871724fc573",
+  "afterSha256": "a5e78da8c1ac84c613c204c0d9dff2c651735644ff910a9ec27c13671856e559",
+  "beforeNotes": 947,
+  "afterNotes": 970,
+  "changes": [
+    {
+      "type": "remove",
+      "bar": 14,
+      "slot": 2,
+      "pitch": 57,
+      "tick": 26331,
+      "reason": "Non-pattern accompaniment detection"
+    },
+    {
+      "type": "add",
+      "bar": 14,
+      "slot": 4,
+      "pitch": 61,
+      "tick": 26999,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "remove",
+      "bar": 17,
+      "slot": 2,
+      "pitch": 54,
+      "tick": 32393,
+      "reason": "Non-pattern accompaniment detection"
+    },
+    {
+      "type": "add",
+      "bar": 26,
+      "slot": 2,
+      "pitch": 59,
+      "tick": 50527,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 26,
+      "slot": 4,
+      "pitch": 63,
+      "tick": 51167,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "remove",
+      "bar": 27,
+      "slot": 2,
+      "pitch": 54,
+      "tick": 52533,
+      "reason": "Non-pattern accompaniment detection"
+    },
+    {
+      "type": "add",
+      "bar": 34,
+      "slot": 2,
+      "pitch": 59,
+      "tick": 65970,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 34,
+      "slot": 4,
+      "pitch": 59,
+      "tick": 66637,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "remove",
+      "bar": 42,
+      "slot": 4,
+      "pitch": 57,
+      "tick": 82370,
+      "reason": "Non-pattern accompaniment detection"
+    },
+    {
+      "type": "add",
+      "bar": 63,
+      "slot": 4,
+      "pitch": 63,
+      "tick": 123369,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 71,
+      "slot": 4,
+      "pitch": 59,
+      "tick": 138571,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 88,
+      "slot": 2,
+      "pitch": 59,
+      "tick": 169064,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 89,
+      "slot": 4,
+      "pitch": 59,
+      "tick": 171495,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 94,
+      "slot": 4,
+      "pitch": 61,
+      "tick": 180903,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 95,
+      "slot": 4,
+      "pitch": 61,
+      "tick": 182769,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 96,
+      "slot": 2,
+      "pitch": 49,
+      "tick": 184090,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 96,
+      "slot": 4,
+      "pitch": 49,
+      "tick": 184738,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 96,
+      "slot": 4,
+      "pitch": 52,
+      "tick": 184738,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 97,
+      "slot": 4,
+      "pitch": 49,
+      "tick": 186638,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 98,
+      "slot": 2,
+      "pitch": 47,
+      "tick": 187973,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 98,
+      "slot": 4,
+      "pitch": 47,
+      "tick": 188609,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 99,
+      "slot": 2,
+      "pitch": 51,
+      "tick": 189859,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 99,
+      "slot": 4,
+      "pitch": 47,
+      "tick": 190527,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "remove",
+      "bar": 99,
+      "slot": 1,
+      "pitch": 51,
+      "tick": 189573,
+      "reason": "Off-grid accompaniment octave shadow"
+    },
+    {
+      "type": "add",
+      "bar": 102,
+      "slot": 4,
+      "pitch": 61,
+      "tick": 196274,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 103,
+      "slot": 4,
+      "pitch": 61,
+      "tick": 198184,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 104,
+      "slot": 2,
+      "pitch": 49,
+      "tick": 199476,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 104,
+      "slot": 4,
+      "pitch": 49,
+      "tick": 200139,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 105,
+      "slot": 2,
+      "pitch": 49,
+      "tick": 201359,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 105,
+      "slot": 4,
+      "pitch": 49,
+      "tick": 201990,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 106,
+      "slot": 2,
+      "pitch": 47,
+      "tick": 203353,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 106,
+      "slot": 4,
+      "pitch": 47,
+      "tick": 203990,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 106,
+      "slot": 4,
+      "pitch": 51,
+      "tick": 203990,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "add",
+      "bar": 107,
+      "slot": 4,
+      "pitch": 47,
+      "tick": 205937,
+      "reason": "Restore recurring accompaniment dyad"
+    },
+    {
+      "type": "remove",
+      "bar": 5,
+      "slot": 2,
+      "pitch": 61,
+      "tick": 8216,
+      "reason": "User correction: no white onset at measure 5 beat 2"
+    },
+    {
+      "type": "remove",
+      "bar": 27,
+      "slot": 0,
+      "pitch": 59,
+      "tick": 51821,
+      "reason": "Match measure 9 alternating bass attack"
+    },
+    {
+      "type": "add",
+      "bar": 108,
+      "slot": 0,
+      "pitch": 42,
+      "tick": 206581,
+      "reason": "Restore previously verified sustained final bass"
+    },
+    {
+      "type": "release",
+      "bar": 10,
+      "pitch": 42,
+      "from": 17720,
+      "to": 17741,
+      "reason": "Hold through repedalling"
+    },
+    {
+      "type": "release",
+      "bar": 26,
+      "pitch": 47,
+      "from": 50000,
+      "to": 50105,
+      "reason": "Hold through repedalling"
+    },
+    {
+      "type": "release",
+      "bar": 28,
+      "pitch": 42,
+      "from": 53923,
+      "to": 54030,
+      "reason": "Hold through repedalling"
+    },
+    {
+      "type": "release",
+      "bar": 34,
+      "pitch": 47,
+      "from": 65425,
+      "to": 65618,
+      "reason": "Hold through repedalling"
+    },
+    {
+      "type": "release",
+      "bar": 70,
+      "pitch": 47,
+      "from": 135551,
+      "to": 135572,
+      "reason": "Hold through repedalling"
+    },
+    {
+      "type": "release",
+      "bar": 78,
+      "pitch": 49,
+      "from": 150352,
+      "to": 150373,
+      "reason": "Hold through repedalling"
+    },
+    {
+      "type": "release",
+      "bar": 78,
+      "pitch": 56,
+      "from": 150352,
+      "to": 150373,
+      "reason": "Hold through repedalling"
+    },
+    {
+      "type": "release",
+      "bar": 82,
+      "pitch": 45,
+      "from": 157576,
+      "to": 157771,
+      "reason": "Hold through repedalling"
+    },
+    {
+      "type": "release",
+      "bar": 84,
+      "pitch": 42,
+      "from": 161185,
+      "to": 161295,
+      "reason": "Hold through repedalling"
+    },
+    {
+      "type": "release",
+      "bar": 88,
+      "pitch": 47,
+      "from": 168586,
+      "to": 168648,
+      "reason": "Hold through repedalling"
+    },
+    {
+      "type": "release",
+      "bar": 94,
+      "pitch": 45,
+      "from": 179730,
+      "to": 179750,
+      "reason": "Hold through repedalling"
+    },
+    {
+      "type": "release",
+      "bar": 100,
+      "pitch": 42,
+      "from": 191279,
+      "to": 191303,
+      "reason": "Hold through repedalling"
+    },
+    {
+      "type": "release",
+      "bar": 102,
+      "pitch": 45,
+      "from": 195069,
+      "to": 195133,
+      "reason": "Hold through repedalling"
+    }
+  ]
+}

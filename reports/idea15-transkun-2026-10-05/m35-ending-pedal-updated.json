@@ -1,0 +1,13 @@
+{
+  "id": "idea15Transkun20261005",
+  "slug": "idea-15---gibran-alcocer-transkun",
+  "beforeSha256": "e9c84cd0bbe83712b07babe72d78bc82c589879e15930ed3cb5451fc70bb8d8e",
+  "sha256": "9423b6d381a726f2a203ca672e162dac553948c93268ba4bf26d0dbdf36bc382",
+  "voice": 0,
+  "controller": 64,
+  "value": 0,
+  "oldTick": 72736,
+  "newTick": 73176,
+  "nextPedalDownTick": 73448,
+  "updatedAt": "2026-10-05T03:18:47.420Z"
+}

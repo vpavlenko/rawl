@@ -213,6 +213,28 @@ const Rawl: React.FC<RawlProps> = ({
     [saveAnalysis],
   );
 
+  // Missing or invalid saved offsets render at the original octave.
+  const voiceOctaveShifts = useMemo<Record<number, number>>(() => {
+    const shifts: Record<number, number> = {};
+    parsingResult.notes.forEach((_, index) => {
+      const shift = analysis.voiceOctaveShifts?.[index];
+      if (Number.isSafeInteger(shift)) shifts[index] = shift;
+    });
+    return shifts;
+  }, [analysis.voiceOctaveShifts, parsingResult.notes]);
+
+  const shiftVoiceOctave = useCallback((voiceIndex: number, direction: 1 | -1) => {
+    if (!Number.isInteger(voiceIndex) || voiceIndex < 0 || voiceIndex >= parsingResult.notes.length)
+      return;
+    const shifts = { ...analysisRef.current.voiceOctaveShifts };
+    const current = Number.isSafeInteger(shifts[voiceIndex]) ? shifts[voiceIndex] : 0;
+    const next = current + direction;
+    if (!Number.isSafeInteger(next)) return;
+    if (next === 0) delete shifts[voiceIndex];
+    else shifts[voiceIndex] = next;
+    commitAnalysisUpdate({ voiceOctaveShifts: shifts });
+  }, [parsingResult.notes.length, commitAnalysisUpdate]);
+
   const annotatedVoiceNames = useMemo(
     () => voiceNames.map((name, index) => {
       const customName = analysis.voiceNames?.[index];
@@ -238,6 +260,15 @@ const Rawl: React.FC<RawlProps> = ({
     },
     [voiceNames, annotatedVoiceNames, commitAnalysisUpdate],
   );
+
+  const renameVoicesWithInstrumentTimbres = useCallback(() => {
+    if (!parsingResult.instrumentNames?.length) return;
+    const next = { ...analysisRef.current.voiceNames };
+    parsingResult.instrumentNames.forEach((name, index) => {
+      if (index < voiceNames.length && name) next[index] = name;
+    });
+    commitAnalysisUpdate({ voiceNames: next });
+  }, [parsingResult.instrumentNames, voiceNames.length, commitAnalysisUpdate]);
 
   const [selectedMeasure, setSelectedMeasure] = useState<number | null>(null);
 
@@ -724,6 +755,19 @@ const Rawl: React.FC<RawlProps> = ({
     return result;
   }, [notes, futureAnalysis, measuresAndBeats, arrangementVoiceMask, slug]);
 
+  // Update display geometry directly on each click without recalculating colors
+  // or changing the source notes used for saved snippets and playback.
+  const displayNotes: ColoredNotesInVoices = useMemo(
+    () => coloredNotes.map((voice, voiceIndex) => {
+      const shift = voiceOctaveShifts[voiceIndex] ?? 0;
+      return shift === 0 ? voice : voice.map((note) => note.isDrum ? note : ({
+        ...note,
+        displayMidiNumber: note.note.midiNumber + 12 * shift,
+      }));
+    }),
+    [coloredNotes, voiceOctaveShifts],
+  );
+
   useEffect(() => {
     if (isEmbedded) return;
     // Committed timing/analysis only: hover previews and voice masks do not
@@ -966,10 +1010,14 @@ const Rawl: React.FC<RawlProps> = ({
 
   const systemLayoutProps: SystemLayoutProps = useMemo(
     () => ({
-      notes: coloredNotes,
+      notes: displayNotes,
       voiceMask: arrangementVoiceMask,
       voiceNames: annotatedVoiceNames,
       onRenameVoice: canEditVoices ? renameVoice : undefined,
+      onRenameVoicesWithInstrumentTimbres: canEditVoices && parsingResult.instrumentNames?.length
+        ? renameVoicesWithInstrumentTimbres : undefined,
+      voiceOctaveShifts,
+      onShiftVoiceOctave: canEditVoices ? shiftVoiceOctave : undefined,
       setVoiceMask: setArrangementVoiceMask,
       onVoiceHover,
       onForcedPanningChange,
@@ -987,7 +1035,7 @@ const Rawl: React.FC<RawlProps> = ({
       mouseHandlers,
       measureSelection,
       analysis: futureAnalysis,
-      frozenNotes: coloredNotes,
+      frozenNotes: displayNotes,
       saveAnalysis,
       measureStart,
       slug,
@@ -998,10 +1046,14 @@ const Rawl: React.FC<RawlProps> = ({
       setHoveredColors,
     }),
     [
-      coloredNotes,
+      displayNotes,
       arrangementVoiceMask,
       annotatedVoiceNames,
+      voiceOctaveShifts,
+      shiftVoiceOctave,
       renameVoice,
+      renameVoicesWithInstrumentTimbres,
+      parsingResult.instrumentNames,
       setArrangementVoiceMask,
       onVoiceHover,
       onForcedPanningChange,

@@ -60,7 +60,7 @@ const EnhancedFrozenNotes: React.FC<EnhancedFrozenNotesProps> = ({
     let max = -Infinity;
     notes.forEach((voiceNotes) => {
       voiceNotes.forEach((note) => {
-        const midiNumber = note.note.midiNumber;
+        const midiNumber = note.displayMidiNumber ?? note.note.midiNumber;
         min = Math.min(min, midiNumber);
         max = Math.max(max, midiNumber);
       });

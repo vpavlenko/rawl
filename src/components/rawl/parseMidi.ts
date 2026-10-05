@@ -1,4 +1,5 @@
 import MIDIEvents from "midievents";
+import { GM_DRUM_KITS, GM_INSTRUMENTS } from "../../players/gm-patch-map";
 import { readMidiDisplayOptions, withVisualLegato, MidiDisplayOptions } from "./midiDisplay";
 import type { SecondsSpan } from "./Rawl";
 import type { MeasuresAndBeats } from "./SystemLayout";
@@ -21,6 +22,8 @@ export type Note = {
   span: SecondsSpan;
   // Rendering only; playback and note audition continue to use span.
   displaySpan?: SecondsSpan;
+  // Rendering only; preserve the source pitch for playback and annotations.
+  displayMidiNumber?: number;
   tickSpan?: [number, number]; // [startTick, endTick]
   pitchBend?: PitchBendPoint[];
   voiceIndex: number;
@@ -59,6 +62,7 @@ export type ParsingResult = {
   notes: NotesInVoices;
   measuresAndBeats?: MeasuresAndBeats;
   displayOptions?: MidiDisplayOptions;
+  instrumentNames?: string[];
 };
 
 const getNotes = (events, channel, voiceIndex): Note[] => {
@@ -257,6 +261,19 @@ export const parseNotes = ({
     }
   });
 
+  // Use the initial program per port/channel, independently of track labels
+  // and subsequent playback program changes. GM defaults to piano/standard kit.
+  const instrumentNames = activeChannels.map((channel) => {
+    const program = events.find((event) =>
+      event.type === MIDIEvents.EVENT_MIDI &&
+      event.subtype === MIDIEvents.EVENT_MIDI_PROGRAM_CHANGE &&
+      event.channel === channel,
+    )?.param1 ?? 0;
+    return (channel % 16 === DRUM_CHANNEL
+      ? GM_DRUM_KITS[program] || GM_DRUM_KITS[0]
+      : GM_INSTRUMENTS[program] || GM_INSTRUMENTS[0]).trim();
+  });
+
   // Get notes for each voice
   let notes = activeChannels.map((channel, index) =>
     getNotes(events, channel, index),
@@ -304,7 +321,8 @@ export const parseNotes = ({
       measuresAndBeats: { measures, beats },
       notes: displayOptions.legato ? withVisualLegato(notes, measures, displayOptions.gridSubdivisions, displayOptions) : notes,
       displayOptions,
+      instrumentNames,
     };
   }
-  return { measuresAndBeats, notes };
+  return { measuresAndBeats, notes, instrumentNames };
 };

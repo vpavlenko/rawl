@@ -129,6 +129,8 @@ export type Analysis = {
   strummingVoices?: Record<number, boolean>;
   // Custom names keyed by original parsed MIDI voice index.
   voiceNames?: Record<number, string>;
+  // Display-only octave offsets keyed by original MIDI voice index; default is 0.
+  voiceOctaveShifts?: Record<number, number>;
 
   // outdated, was used in winter 2023..24 for rock prototype
   comment: string;

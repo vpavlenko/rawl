@@ -68,7 +68,7 @@ const getMidiRange = (notes: Note[], span?: SecondsSpan): MidiRange => {
       continue;
     }
     const { midiNumber, relativeNumber } = note.note;
-    const number = relativeNumber === undefined ? midiNumber : relativeNumber;
+    const number = note.displayMidiNumber ?? relativeNumber ?? midiNumber;
     min = Math.min(min, number);
     max = Math.max(max, number);
   }
@@ -316,6 +316,9 @@ export type SystemLayoutProps = {
   nativeDrumVoices?: number[];
   strummingVoices?: number[];
   onRenameVoice?: (voiceIndex: number) => void;
+  onRenameVoicesWithInstrumentTimbres?: () => void;
+  voiceOctaveShifts?: Record<number, number>;
+  onShiftVoiceOctave?: (voiceIndex: number, direction: 1 | -1) => void;
   onToggleVoiceStrumming?: (voiceIndex: number) => void;
   onToggleVoiceDrum?: (voiceIndex: number) => void;
   excludedVoices?: number[];
@@ -806,6 +809,9 @@ export const MergedSystemLayout: React.FC<
           drumVoices={props.drumVoices}
           nativeDrumVoices={props.nativeDrumVoices}
           onRenameVoice={props.onRenameVoice}
+          onRenameVoicesWithInstrumentTimbres={props.onRenameVoicesWithInstrumentTimbres}
+          voiceOctaveShifts={props.voiceOctaveShifts}
+          onShiftVoiceOctave={props.onShiftVoiceOctave}
           strummingVoices={props.strummingVoices}
           onToggleVoiceStrumming={props.onToggleVoiceStrumming}
           onToggleVoiceDrum={props.onToggleVoiceDrum}

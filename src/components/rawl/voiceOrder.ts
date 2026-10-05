@@ -21,7 +21,9 @@ export const getSortedVoices = (
         isDrum:
           drums.has(voiceIndex) || voiceNotes.some((note) => note.isDrum),
         averagePitch: voiceNotes.length
-          ? voiceNotes.reduce((sum, note) => sum + note.note.midiNumber, 0) /
+          ? voiceNotes.reduce(
+              (sum, note) => sum + (note.displayMidiNumber ?? note.note.midiNumber), 0,
+            ) /
             voiceNotes.length
           : -Infinity,
       };

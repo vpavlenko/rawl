@@ -6,3 +6,4 @@
 - Use the user's existing server at `http://localhost:3000` for browser checks.
 - Never run `npm run build-lite` for checks.
 - Report what you tested and any remaining errors or concrete blockers. Do not leave verification to the user when browser testing is available.
+- Always use Lucide icons for icon buttons, following the existing components in `src/components/icons`.

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
 import { AppContext } from "../../AppContext";
 import Drum from "../../icons/Drum";
+import ArrowUp from "../../icons/ArrowUp";
+import ArrowDown from "../../icons/ArrowDown";
 import StrummingChevrons from "../../icons/StrummingChevrons";
 import Pencil from "../../icons/Pencil";
 import Trash2 from "../../icons/Trash2";
@@ -37,20 +39,20 @@ const VoiceActionButton = styled.button`
     background: #333;
     color: white;
   }
+
+  &:focus-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
 `;
 
-const VoiceRow = styled.div<{ $showControls: boolean }>`
+const VoiceRow = styled.div`
   display: flex;
   align-items: center;
   width: fit-content;
   line-height: 16px;
 
-  ${VoiceActionButton} {
-    opacity: ${({ $showControls }) => $showControls ? 1 : 0};
-    pointer-events: ${({ $showControls }) => $showControls ? "auto" : "none"};
-  }
-
-  &:hover ${VoiceActionButton}, &:focus-within ${VoiceActionButton} {
+  &:hover ${VoiceActionButton} {
     opacity: 1;
     pointer-events: auto;
   }
@@ -77,6 +79,9 @@ type MergedVoicesLegendProps = {
   nativeDrumVoices?: number[];
   strummingVoices?: number[];
   onRenameVoice?: (voiceIndex: number) => void;
+  onRenameVoicesWithInstrumentTimbres?: () => void;
+  voiceOctaveShifts?: Record<number, number>;
+  onShiftVoiceOctave?: (voiceIndex: number, direction: 1 | -1) => void;
   onToggleVoiceStrumming?: (voiceIndex: number) => void;
   onToggleVoiceDrum?: (voiceIndex: number) => void;
   onToggleVoiceExcluded?: (voiceIndex: number) => void;
@@ -96,6 +101,9 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
   drumVoices = [],
   nativeDrumVoices = [],
   onRenameVoice,
+  onRenameVoicesWithInstrumentTimbres,
+  voiceOctaveShifts = {},
+  onShiftVoiceOctave,
   strummingVoices = [],
   onToggleVoiceStrumming,
   onToggleVoiceDrum,
@@ -159,16 +167,30 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
             {FORCED_PANNING_LABEL}
           </label>
         </div>
+        {canEditArrangement && onRenameVoicesWithInstrumentTimbres && (
+          <button
+            type="button"
+            onClick={() => {
+              onVoiceHover(null);
+              onRenameVoicesWithInstrumentTimbres();
+            }}
+            style={{
+              display: "flex", alignItems: "center", gap: 4,
+              margin: "0 0 8px 17px", padding: "3px 5px",
+              fontSize: 11, color: "#aaa", background: "#111",
+              border: "1px solid #333", borderRadius: 3, cursor: "pointer",
+            }}
+          >
+            <Pencil />
+            Rename voices with instrument timbres
+          </button>
+        )}
         {sortedVoices.map(
           ({ voiceName, voiceIndex, isDrum }) =>
             !excluded.has(voiceIndex) && (
-              <VoiceRow
-                key={voiceIndex}
-                $showControls={!!user && allIncluded.filter(Boolean).length === 2}
-              >
+              <VoiceRow key={voiceIndex}>
                 <VoiceCheckbox
                   id={`voice-active-${voiceIndex}`}
-                  title="active"
                   type="checkbox"
                   onChange={(e) => {
                     e.stopPropagation();
@@ -225,10 +247,34 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                     {voiceName}
                   </span>
                 </label>
+                {!!user && onShiftVoiceOctave && !isDrum && (
+                  <>
+                    {([-1, 1] as const).map((direction) => (
+                      <VoiceActionButton
+                        key={direction}
+                        type="button"
+                        aria-label={`Shift voice ${voiceIndex + 1} ${direction === 1 ? "up" : "down"} one octave: ${voiceName}`}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          onVoiceHover(null);
+                          onShiftVoiceOctave(voiceIndex, direction);
+                        }}
+                      >
+                        {direction === 1 ? <ArrowUp /> : <ArrowDown />}
+                      </VoiceActionButton>
+                    ))}
+                    {!!voiceOctaveShifts[voiceIndex] && (
+                      <span
+                        style={{ color: "#8ee8d0", fontSize: 11, marginLeft: 3 }}
+                      >
+                        {voiceOctaveShifts[voiceIndex] > 0 ? "+" : ""}{voiceOctaveShifts[voiceIndex]} oct
+                      </span>
+                    )}
+                  </>
+                )}
                 {!!user && onRenameVoice && (
                   <VoiceActionButton
                     type="button"
-                    title="Rename voice"
                     aria-label={`Rename voice ${voiceIndex + 1}: ${voiceName}`}
                     onClick={(event) => {
                       event.stopPropagation();
@@ -242,8 +288,6 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                 {!!user && onToggleVoiceStrumming && !isDrum && (
                   <VoiceActionButton
                     type="button"
-                    title={strummingVoices.includes(voiceIndex)
-                      ? "Make not strumming" : "Make strumming"}
                     aria-label={`${strummingVoices.includes(voiceIndex)
                       ? "Make not strumming" : "Make strumming"} voice ${voiceIndex + 1}: ${voiceName}`}
                     aria-pressed={strummingVoices.includes(voiceIndex)}
@@ -260,11 +304,6 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                   !nativeDrumVoices.includes(voiceIndex) && (
                     <VoiceActionButton
                       type="button"
-                      title={
-                        drumVoices.includes(voiceIndex)
-                          ? "Restore pitched voice"
-                          : "Make drum: interpret notes as GM drum codes"
-                      }
                       aria-label={`${
                         drumVoices.includes(voiceIndex)
                           ? "Restore pitched"
@@ -282,7 +321,6 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
                 {canEditArrangement && (
                   <VoiceActionButton
                     type="button"
-                    title={`Remove ${voiceName} from the arrangement and save in annotations`}
                     aria-label={`Remove voice ${voiceIndex + 1}: ${voiceName}`}
                     onClick={(event) => {
                       event.stopPropagation();

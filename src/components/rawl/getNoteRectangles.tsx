@@ -472,7 +472,7 @@ const NoteRectangle = React.memo(({
     sourceLocation,
     noteUnderCursor,
   } = note;
-  const number = relativeNumber === undefined ? midiNumber : relativeNumber;
+  const number = note.displayMidiNumber ?? relativeNumber ?? midiNumber;
 
   // Calculate base height and top position
   // Keep the original bottom/pitch anchor; both React and imperative playback

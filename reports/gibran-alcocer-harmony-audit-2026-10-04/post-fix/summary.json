@@ -1,0 +1,4019 @@
+[
+  {
+    "slug": "idea-15---gibran-alcocer",
+    "idea": "15",
+    "score_note_count": 885,
+    "reference_note_count": 947,
+    "score_duration": 115.41,
+    "reference_duration": 108.8,
+    "alignment_similarity": 0.9,
+    "pc_support": 0.999,
+    "exact_pitch_support": 0.986,
+    "bass_pc_support": 1.0,
+    "reference_pc_coverage": 0.974,
+    "reference_bass_pc_coverage": 0.926,
+    "measure_windows": [
+      {
+        "measure": 1,
+        "score_time": 0.529,
+        "audio_time": 0.029,
+        "notes": 3,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 2,
+        "score_time": 1.059,
+        "audio_time": 0.559,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 3,
+        "score_time": 2.118,
+        "audio_time": 1.618,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 4,
+        "score_time": 3.176,
+        "audio_time": 2.676,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 5,
+        "score_time": 4.235,
+        "audio_time": 3.735,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 6,
+        "score_time": 5.294,
+        "audio_time": 4.794,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 7,
+        "score_time": 6.353,
+        "audio_time": 6.029,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 8,
+        "score_time": 7.412,
+        "audio_time": 6.912,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 9,
+        "score_time": 8.471,
+        "audio_time": 7.971,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 10,
+        "score_time": 9.529,
+        "audio_time": 9.029,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 11,
+        "score_time": 10.588,
+        "audio_time": 10.088,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 12,
+        "score_time": 11.647,
+        "audio_time": 11.147,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 13,
+        "score_time": 12.706,
+        "audio_time": 12.206,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 14,
+        "score_time": 13.765,
+        "audio_time": 13.265,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 15,
+        "score_time": 14.824,
+        "audio_time": 14.324,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 16,
+        "score_time": 15.882,
+        "audio_time": 15.382,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 17,
+        "score_time": 16.941,
+        "audio_time": 16.441,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 18,
+        "score_time": 18.0,
+        "audio_time": 17.5,
+        "notes": 3,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 19,
+        "score_time": 19.059,
+        "audio_time": 18.809,
+        "notes": 1,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 20,
+        "score_time": 20.118,
+        "audio_time": 19.868,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 21,
+        "score_time": 21.176,
+        "audio_time": 20.926,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 22,
+        "score_time": 22.235,
+        "audio_time": 21.985,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 23,
+        "score_time": 23.294,
+        "audio_time": 22.794,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 24,
+        "score_time": 24.353,
+        "audio_time": 23.853,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 25,
+        "score_time": 25.412,
+        "audio_time": 24.912,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 26,
+        "score_time": 26.471,
+        "audio_time": 25.971,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 27,
+        "score_time": 27.529,
+        "audio_time": 26.779,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 28,
+        "score_time": 28.588,
+        "audio_time": 27.838,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 29,
+        "score_time": 29.647,
+        "audio_time": 28.897,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 30,
+        "score_time": 30.706,
+        "audio_time": 29.706,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 31,
+        "score_time": 31.765,
+        "audio_time": 30.765,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 32,
+        "score_time": 32.824,
+        "audio_time": 31.824,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 33,
+        "score_time": 33.882,
+        "audio_time": 32.882,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 34,
+        "score_time": 34.941,
+        "audio_time": 33.941,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 35,
+        "score_time": 36.0,
+        "audio_time": 34.75,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 36,
+        "score_time": 37.059,
+        "audio_time": 35.809,
+        "notes": 3,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 37,
+        "score_time": 38.118,
+        "audio_time": 36.868,
+        "notes": 1,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 38,
+        "score_time": 39.176,
+        "audio_time": 38.176,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 39,
+        "score_time": 40.235,
+        "audio_time": 38.985,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 40,
+        "score_time": 41.294,
+        "audio_time": 40.044,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 41,
+        "score_time": 42.353,
+        "audio_time": 41.103,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 42,
+        "score_time": 43.412,
+        "audio_time": 42.162,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 43,
+        "score_time": 44.471,
+        "audio_time": 43.221,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 44,
+        "score_time": 45.529,
+        "audio_time": 44.029,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 45,
+        "score_time": 46.588,
+        "audio_time": 45.088,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 46,
+        "score_time": 47.647,
+        "audio_time": 46.147,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 47,
+        "score_time": 48.706,
+        "audio_time": 47.206,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 48,
+        "score_time": 49.765,
+        "audio_time": 48.265,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 49,
+        "score_time": 50.824,
+        "audio_time": 49.324,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 50,
+        "score_time": 51.882,
+        "audio_time": 50.382,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 51,
+        "score_time": 52.941,
+        "audio_time": 51.441,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 52,
+        "score_time": 54.0,
+        "audio_time": 52.5,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 53,
+        "score_time": 55.059,
+        "audio_time": 53.309,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 54,
+        "score_time": 56.118,
+        "audio_time": 54.368,
+        "notes": 3,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 55,
+        "score_time": 57.176,
+        "audio_time": 55.426,
+        "notes": 1,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 56,
+        "score_time": 58.235,
+        "audio_time": 56.485,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 57,
+        "score_time": 59.294,
+        "audio_time": 57.544,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 58,
+        "score_time": 60.353,
+        "audio_time": 58.5,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 59,
+        "score_time": 61.412,
+        "audio_time": 59.412,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 60,
+        "score_time": 62.471,
+        "audio_time": 60.471,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 61,
+        "score_time": 63.529,
+        "audio_time": 61.529,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 62,
+        "score_time": 64.588,
+        "audio_time": 62.588,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 63,
+        "score_time": 65.647,
+        "audio_time": 63.647,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 64,
+        "score_time": 66.706,
+        "audio_time": 64.5,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 65,
+        "score_time": 67.765,
+        "audio_time": 65.515,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 66,
+        "score_time": 68.823,
+        "audio_time": 66.573,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 67,
+        "score_time": 69.882,
+        "audio_time": 67.382,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 68,
+        "score_time": 70.941,
+        "audio_time": 68.25,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 69,
+        "score_time": 72.0,
+        "audio_time": 69.25,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 70,
+        "score_time": 73.059,
+        "audio_time": 70.309,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 71,
+        "score_time": 74.118,
+        "audio_time": 71.368,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 72,
+        "score_time": 75.176,
+        "audio_time": 72.426,
+        "notes": 3,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 73,
+        "score_time": 76.235,
+        "audio_time": 73.485,
+        "notes": 1,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 74,
+        "score_time": 77.294,
+        "audio_time": 74.544,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 75,
+        "score_time": 78.353,
+        "audio_time": 75.603,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 76,
+        "score_time": 79.412,
+        "audio_time": 76.25,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 77,
+        "score_time": 80.471,
+        "audio_time": 77.221,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 78,
+        "score_time": 81.529,
+        "audio_time": 78.029,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 79,
+        "score_time": 82.588,
+        "audio_time": 79.088,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 80,
+        "score_time": 83.647,
+        "audio_time": 80.147,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 81,
+        "score_time": 84.706,
+        "audio_time": 81.0,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 82,
+        "score_time": 85.765,
+        "audio_time": 82.015,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 83,
+        "score_time": 86.823,
+        "audio_time": 83.073,
+        "notes": 10,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 84,
+        "score_time": 87.882,
+        "audio_time": 83.882,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 85,
+        "score_time": 88.941,
+        "audio_time": 84.691,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 86,
+        "score_time": 90.0,
+        "audio_time": 85.75,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 87,
+        "score_time": 91.059,
+        "audio_time": 86.559,
+        "notes": 8,
+        "pc_support": 0.875,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "A": 1
+        }
+      },
+      {
+        "measure": 88,
+        "score_time": 92.118,
+        "audio_time": 87.618,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 89,
+        "score_time": 93.176,
+        "audio_time": 88.5,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 90,
+        "score_time": 94.235,
+        "audio_time": 89.485,
+        "notes": 3,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 91,
+        "score_time": 95.294,
+        "audio_time": 90.544,
+        "notes": 1,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 92,
+        "score_time": 96.353,
+        "audio_time": 91.353,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 93,
+        "score_time": 97.412,
+        "audio_time": 92.412,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 94,
+        "score_time": 98.471,
+        "audio_time": 93.471,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 95,
+        "score_time": 99.529,
+        "audio_time": 94.529,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 96,
+        "score_time": 100.588,
+        "audio_time": 95.5,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 97,
+        "score_time": 101.647,
+        "audio_time": 96.397,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 98,
+        "score_time": 102.706,
+        "audio_time": 97.456,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 99,
+        "score_time": 103.765,
+        "audio_time": 98.515,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 100,
+        "score_time": 104.823,
+        "audio_time": 99.573,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 101,
+        "score_time": 105.882,
+        "audio_time": 100.5,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 102,
+        "score_time": 106.941,
+        "audio_time": 101.441,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 103,
+        "score_time": 108.0,
+        "audio_time": 102.5,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 104,
+        "score_time": 109.059,
+        "audio_time": 103.5,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 105,
+        "score_time": 110.118,
+        "audio_time": 104.368,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 106,
+        "score_time": 111.176,
+        "audio_time": 105.426,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 107,
+        "score_time": 112.235,
+        "audio_time": 106.485,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 108,
+        "score_time": 113.294,
+        "audio_time": 107.294,
+        "notes": 3,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 109,
+        "score_time": 114.353,
+        "audio_time": 108.353,
+        "notes": 3,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      }
+    ]
+  },
+  {
+    "slug": "idea-8---gibran-alcocer",
+    "idea": "8",
+    "score_note_count": 930,
+    "reference_note_count": 961,
+    "score_duration": 130.3,
+    "reference_duration": 134.59,
+    "alignment_similarity": 0.832,
+    "pc_support": 0.953,
+    "exact_pitch_support": 0.709,
+    "bass_pc_support": 0.934,
+    "reference_pc_coverage": 0.976,
+    "reference_bass_pc_coverage": 0.996,
+    "measure_windows": [
+      {
+        "measure": 1,
+        "score_time": 0.0,
+        "audio_time": 0.25,
+        "notes": 13,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 2,
+        "score_time": 2.143,
+        "audio_time": 2.393,
+        "notes": 14,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 3,
+        "score_time": 4.286,
+        "audio_time": 4.536,
+        "notes": 13,
+        "pc_support": 0.846,
+        "bass_notes": 10,
+        "bass_pc_support": 0.8,
+        "unsupported_pcs": {
+          "A": 2
+        }
+      },
+      {
+        "measure": 4,
+        "score_time": 6.429,
+        "audio_time": 6.679,
+        "notes": 14,
+        "pc_support": 0.929,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "G": 1
+        }
+      },
+      {
+        "measure": 5,
+        "score_time": 8.571,
+        "audio_time": 8.571,
+        "notes": 12,
+        "pc_support": 0.917,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "G": 1
+        }
+      },
+      {
+        "measure": 6,
+        "score_time": 10.714,
+        "audio_time": 10.714,
+        "notes": 15,
+        "pc_support": 0.933,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "G": 1
+        }
+      },
+      {
+        "measure": 7,
+        "score_time": 12.857,
+        "audio_time": 12.607,
+        "notes": 12,
+        "pc_support": 0.833,
+        "bass_notes": 10,
+        "bass_pc_support": 0.8,
+        "unsupported_pcs": {
+          "A": 2
+        }
+      },
+      {
+        "measure": 8,
+        "score_time": 15.0,
+        "audio_time": 15.0,
+        "notes": 13,
+        "pc_support": 0.846,
+        "bass_notes": 10,
+        "bass_pc_support": 0.8,
+        "unsupported_pcs": {
+          "G": 2
+        }
+      },
+      {
+        "measure": 9,
+        "score_time": 17.143,
+        "audio_time": 17.143,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 10,
+        "score_time": 19.286,
+        "audio_time": 19.286,
+        "notes": 4,
+        "pc_support": 1.0,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 11,
+        "score_time": 22.141,
+        "audio_time": 21.891,
+        "notes": 22,
+        "pc_support": 0.955,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "A": 1
+        }
+      },
+      {
+        "measure": 12,
+        "score_time": 24.284,
+        "audio_time": 24.034,
+        "notes": 22,
+        "pc_support": 1.0,
+        "bass_notes": 10,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 13,
+        "score_time": 26.427,
+        "audio_time": 26.177,
+        "notes": 22,
+        "pc_support": 1.0,
+        "bass_notes": 10,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 14,
+        "score_time": 28.57,
+        "audio_time": 28.07,
+        "notes": 22,
+        "pc_support": 0.955,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "G": 1
+        }
+      },
+      {
+        "measure": 15,
+        "score_time": 30.713,
+        "audio_time": 30.213,
+        "notes": 17,
+        "pc_support": 1.0,
+        "bass_notes": 10,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 16,
+        "score_time": 32.856,
+        "audio_time": 32.356,
+        "notes": 18,
+        "pc_support": 0.944,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "G": 1
+        }
+      },
+      {
+        "measure": 17,
+        "score_time": 34.999,
+        "audio_time": 34.499,
+        "notes": 12,
+        "pc_support": 0.917,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "G": 1
+        }
+      },
+      {
+        "measure": 18,
+        "score_time": 37.141,
+        "audio_time": 36.391,
+        "notes": 13,
+        "pc_support": 1.0,
+        "bass_notes": 10,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 19,
+        "score_time": 39.284,
+        "audio_time": 38.534,
+        "notes": 22,
+        "pc_support": 0.909,
+        "bass_notes": 10,
+        "bass_pc_support": 0.8,
+        "unsupported_pcs": {
+          "A": 2
+        }
+      },
+      {
+        "measure": 20,
+        "score_time": 41.427,
+        "audio_time": 40.677,
+        "notes": 22,
+        "pc_support": 0.955,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "A": 1
+        }
+      },
+      {
+        "measure": 21,
+        "score_time": 43.57,
+        "audio_time": 42.82,
+        "notes": 22,
+        "pc_support": 1.0,
+        "bass_notes": 10,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 22,
+        "score_time": 45.713,
+        "audio_time": 44.963,
+        "notes": 22,
+        "pc_support": 1.0,
+        "bass_notes": 10,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 23,
+        "score_time": 47.856,
+        "audio_time": 47.106,
+        "notes": 17,
+        "pc_support": 1.0,
+        "bass_notes": 10,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 24,
+        "score_time": 49.999,
+        "audio_time": 49.0,
+        "notes": 18,
+        "pc_support": 0.944,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "G": 1
+        }
+      },
+      {
+        "measure": 25,
+        "score_time": 52.141,
+        "audio_time": 51.212,
+        "notes": 12,
+        "pc_support": 0.833,
+        "bass_notes": 10,
+        "bass_pc_support": 0.8,
+        "unsupported_pcs": {
+          "G": 2
+        }
+      },
+      {
+        "measure": 26,
+        "score_time": 54.284,
+        "audio_time": 53.534,
+        "notes": 7,
+        "pc_support": 0.714,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "E": 1,
+          "F": 1
+        }
+      },
+      {
+        "measure": 27,
+        "score_time": 56.427,
+        "audio_time": 55.677,
+        "notes": 13,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 28,
+        "score_time": 58.57,
+        "audio_time": 57.57,
+        "notes": 15,
+        "pc_support": 0.933,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "F": 1
+        }
+      },
+      {
+        "measure": 29,
+        "score_time": 60.713,
+        "audio_time": 59.713,
+        "notes": 15,
+        "pc_support": 1.0,
+        "bass_notes": 10,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 30,
+        "score_time": 62.856,
+        "audio_time": 61.856,
+        "notes": 18,
+        "pc_support": 0.778,
+        "bass_notes": 10,
+        "bass_pc_support": 0.8,
+        "unsupported_pcs": {
+          "G": 2,
+          "B\u266d": 1,
+          "A": 1
+        }
+      },
+      {
+        "measure": 31,
+        "score_time": 64.999,
+        "audio_time": 63.999,
+        "notes": 18,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 32,
+        "score_time": 67.141,
+        "audio_time": 66.141,
+        "notes": 13,
+        "pc_support": 0.923,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "F": 1
+        }
+      },
+      {
+        "measure": 33,
+        "score_time": 69.284,
+        "audio_time": 68.034,
+        "notes": 13,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 34,
+        "score_time": 71.427,
+        "audio_time": 70.177,
+        "notes": 14,
+        "pc_support": 0.857,
+        "bass_notes": 10,
+        "bass_pc_support": 0.8,
+        "unsupported_pcs": {
+          "G": 2
+        }
+      },
+      {
+        "measure": 35,
+        "score_time": 73.57,
+        "audio_time": 72.07,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 36,
+        "score_time": 75.713,
+        "audio_time": 74.713,
+        "notes": 3,
+        "pc_support": 1.0,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 37,
+        "score_time": 77.856,
+        "audio_time": 77.106,
+        "notes": 22,
+        "pc_support": 0.909,
+        "bass_notes": 10,
+        "bass_pc_support": 0.8,
+        "unsupported_pcs": {
+          "A": 2
+        }
+      },
+      {
+        "measure": 38,
+        "score_time": 79.999,
+        "audio_time": 79.249,
+        "notes": 22,
+        "pc_support": 0.955,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "A": 1
+        }
+      },
+      {
+        "measure": 39,
+        "score_time": 82.141,
+        "audio_time": 81.141,
+        "notes": 22,
+        "pc_support": 1.0,
+        "bass_notes": 10,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 40,
+        "score_time": 84.284,
+        "audio_time": 83.284,
+        "notes": 22,
+        "pc_support": 1.0,
+        "bass_notes": 10,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 41,
+        "score_time": 86.427,
+        "audio_time": 85.177,
+        "notes": 17,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 42,
+        "score_time": 88.57,
+        "audio_time": 87.32,
+        "notes": 18,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 43,
+        "score_time": 90.713,
+        "audio_time": 89.463,
+        "notes": 12,
+        "pc_support": 0.917,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "G": 1
+        }
+      },
+      {
+        "measure": 44,
+        "score_time": 92.856,
+        "audio_time": 91.606,
+        "notes": 15,
+        "pc_support": 0.867,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "A": 1,
+          "G": 1
+        }
+      },
+      {
+        "measure": 45,
+        "score_time": 94.999,
+        "audio_time": 93.749,
+        "notes": 22,
+        "pc_support": 0.955,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "A": 1
+        }
+      },
+      {
+        "measure": 46,
+        "score_time": 97.141,
+        "audio_time": 95.891,
+        "notes": 22,
+        "pc_support": 0.955,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "A": 1
+        }
+      },
+      {
+        "measure": 47,
+        "score_time": 99.284,
+        "audio_time": 97.784,
+        "notes": 22,
+        "pc_support": 1.0,
+        "bass_notes": 10,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 48,
+        "score_time": 101.427,
+        "audio_time": 99.927,
+        "notes": 22,
+        "pc_support": 1.0,
+        "bass_notes": 10,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 49,
+        "score_time": 103.57,
+        "audio_time": 101.82,
+        "notes": 17,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 50,
+        "score_time": 105.713,
+        "audio_time": 103.963,
+        "notes": 18,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 51,
+        "score_time": 107.856,
+        "audio_time": 106.106,
+        "notes": 12,
+        "pc_support": 0.917,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "G": 1
+        }
+      },
+      {
+        "measure": 52,
+        "score_time": 110.106,
+        "audio_time": 108.356,
+        "notes": 11,
+        "pc_support": 0.909,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "A": 1
+        }
+      },
+      {
+        "measure": 53,
+        "score_time": 112.356,
+        "audio_time": 110.606,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 54,
+        "score_time": 114.606,
+        "audio_time": 112.606,
+        "notes": 10,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 55,
+        "score_time": 116.856,
+        "audio_time": 114.856,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 10,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 56,
+        "score_time": 119.106,
+        "audio_time": 117.106,
+        "notes": 14,
+        "pc_support": 0.929,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "G": 1
+        }
+      },
+      {
+        "measure": 57,
+        "score_time": 121.356,
+        "audio_time": 119.356,
+        "notes": 12,
+        "pc_support": 0.917,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "F": 1
+        }
+      },
+      {
+        "measure": 58,
+        "score_time": 123.606,
+        "audio_time": 121.606,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 59,
+        "score_time": 125.856,
+        "audio_time": 124.086,
+        "notes": 12,
+        "pc_support": 0.917,
+        "bass_notes": 10,
+        "bass_pc_support": 0.9,
+        "unsupported_pcs": {
+          "A": 1
+        }
+      },
+      {
+        "measure": 60,
+        "score_time": 128.106,
+        "audio_time": 126.659,
+        "notes": 7,
+        "pc_support": 0.714,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "A": 1,
+          "D": 1
+        }
+      }
+    ]
+  },
+  {
+    "slug": "idea-1---gibran-alcocer",
+    "idea": "1",
+    "score_note_count": 1008,
+    "reference_note_count": 1150,
+    "score_duration": 160.65,
+    "reference_duration": 151.78,
+    "alignment_similarity": 0.901,
+    "pc_support": 0.976,
+    "exact_pitch_support": 0.915,
+    "bass_pc_support": 0.986,
+    "reference_pc_coverage": 0.943,
+    "reference_bass_pc_coverage": 0.965,
+    "measure_windows": [
+      {
+        "measure": 1,
+        "score_time": 0.0,
+        "audio_time": 0.0,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 2,
+        "score_time": 1.125,
+        "audio_time": 1.125,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 3,
+        "score_time": 2.25,
+        "audio_time": 2.25,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 4,
+        "score_time": 3.375,
+        "audio_time": 3.25,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 5,
+        "score_time": 4.5,
+        "audio_time": 4.375,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 6,
+        "score_time": 5.625,
+        "audio_time": 5.375,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 7,
+        "score_time": 6.75,
+        "audio_time": 6.5,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 8,
+        "score_time": 7.875,
+        "audio_time": 7.375,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 9,
+        "score_time": 9.0,
+        "audio_time": 8.5,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 10,
+        "score_time": 10.125,
+        "audio_time": 9.625,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 11,
+        "score_time": 11.25,
+        "audio_time": 10.75,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 12,
+        "score_time": 12.375,
+        "audio_time": 11.875,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 13,
+        "score_time": 13.5,
+        "audio_time": 13.0,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 14,
+        "score_time": 14.625,
+        "audio_time": 14.0,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 15,
+        "score_time": 15.75,
+        "audio_time": 15.0,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 16,
+        "score_time": 16.875,
+        "audio_time": 16.125,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 17,
+        "score_time": 18.0,
+        "audio_time": 17.0,
+        "notes": 6,
+        "pc_support": 0.833,
+        "bass_notes": 5,
+        "bass_pc_support": 0.8,
+        "unsupported_pcs": {
+          "G\u266d": 1
+        }
+      },
+      {
+        "measure": 18,
+        "score_time": 19.125,
+        "audio_time": 18.125,
+        "notes": 5,
+        "pc_support": 0.6,
+        "bass_notes": 5,
+        "bass_pc_support": 0.6,
+        "unsupported_pcs": {
+          "G\u266d": 2
+        }
+      },
+      {
+        "measure": 19,
+        "score_time": 20.25,
+        "audio_time": 19.25,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 20,
+        "score_time": 21.375,
+        "audio_time": 20.375,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 21,
+        "score_time": 22.5,
+        "audio_time": 21.25,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 22,
+        "score_time": 23.625,
+        "audio_time": 22.375,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 23,
+        "score_time": 24.75,
+        "audio_time": 23.5,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 24,
+        "score_time": 25.875,
+        "audio_time": 24.625,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 25,
+        "score_time": 27.0,
+        "audio_time": 25.75,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 26,
+        "score_time": 28.125,
+        "audio_time": 26.875,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 27,
+        "score_time": 29.25,
+        "audio_time": 27.75,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 28,
+        "score_time": 30.375,
+        "audio_time": 28.875,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 29,
+        "score_time": 31.5,
+        "audio_time": 30.0,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 30,
+        "score_time": 32.625,
+        "audio_time": 31.0,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 31,
+        "score_time": 33.75,
+        "audio_time": 32.0,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 32,
+        "score_time": 34.875,
+        "audio_time": 33.125,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 33,
+        "score_time": 36.0,
+        "audio_time": 34.0,
+        "notes": 6,
+        "pc_support": 0.833,
+        "bass_notes": 5,
+        "bass_pc_support": 0.8,
+        "unsupported_pcs": {
+          "E": 1
+        }
+      },
+      {
+        "measure": 34,
+        "score_time": 37.125,
+        "audio_time": 35.125,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 35,
+        "score_time": 38.25,
+        "audio_time": 36.25,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 36,
+        "score_time": 39.375,
+        "audio_time": 37.375,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 37,
+        "score_time": 40.5,
+        "audio_time": 38.5,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 38,
+        "score_time": 41.625,
+        "audio_time": 39.5,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 39,
+        "score_time": 42.75,
+        "audio_time": 40.5,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 40,
+        "score_time": 43.875,
+        "audio_time": 41.625,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 41,
+        "score_time": 45.0,
+        "audio_time": 42.5,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 42,
+        "score_time": 46.125,
+        "audio_time": 43.625,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 43,
+        "score_time": 47.25,
+        "audio_time": 44.75,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 44,
+        "score_time": 48.375,
+        "audio_time": 45.875,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 45,
+        "score_time": 49.5,
+        "audio_time": 47.0,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 46,
+        "score_time": 50.625,
+        "audio_time": 47.875,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 47,
+        "score_time": 51.75,
+        "audio_time": 49.0,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 48,
+        "score_time": 52.875,
+        "audio_time": 50.0,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 49,
+        "score_time": 54.0,
+        "audio_time": 51.0,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 50,
+        "score_time": 55.125,
+        "audio_time": 51.875,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 51,
+        "score_time": 56.25,
+        "audio_time": 53.0,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 52,
+        "score_time": 57.375,
+        "audio_time": 54.125,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 53,
+        "score_time": 58.5,
+        "audio_time": 55.0,
+        "notes": 6,
+        "pc_support": 0.833,
+        "bass_notes": 5,
+        "bass_pc_support": 0.8,
+        "unsupported_pcs": {
+          "G\u266d": 1
+        }
+      },
+      {
+        "measure": 54,
+        "score_time": 59.625,
+        "audio_time": 56.125,
+        "notes": 5,
+        "pc_support": 0.6,
+        "bass_notes": 5,
+        "bass_pc_support": 0.6,
+        "unsupported_pcs": {
+          "G\u266d": 2
+        }
+      },
+      {
+        "measure": 55,
+        "score_time": 60.75,
+        "audio_time": 57.25,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 56,
+        "score_time": 61.875,
+        "audio_time": 58.125,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 57,
+        "score_time": 63.0,
+        "audio_time": 59.25,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 58,
+        "score_time": 64.125,
+        "audio_time": 60.25,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 59,
+        "score_time": 65.25,
+        "audio_time": 61.25,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 60,
+        "score_time": 66.375,
+        "audio_time": 62.375,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 61,
+        "score_time": 67.5,
+        "audio_time": 63.25,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 62,
+        "score_time": 68.625,
+        "audio_time": 64.375,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 63,
+        "score_time": 69.75,
+        "audio_time": 65.5,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 64,
+        "score_time": 70.875,
+        "audio_time": 66.5,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 65,
+        "score_time": 72.0,
+        "audio_time": 67.5,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 66,
+        "score_time": 73.125,
+        "audio_time": 68.625,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 67,
+        "score_time": 74.25,
+        "audio_time": 69.5,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 68,
+        "score_time": 75.375,
+        "audio_time": 70.625,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 69,
+        "score_time": 76.5,
+        "audio_time": 71.75,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 70,
+        "score_time": 77.625,
+        "audio_time": 72.75,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 71,
+        "score_time": 78.75,
+        "audio_time": 73.75,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 72,
+        "score_time": 79.875,
+        "audio_time": 74.875,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 73,
+        "score_time": 81.0,
+        "audio_time": 76.0,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 74,
+        "score_time": 82.125,
+        "audio_time": 77.125,
+        "notes": 1,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 75,
+        "score_time": 83.25,
+        "audio_time": 78.25,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 76,
+        "score_time": 84.375,
+        "audio_time": 79.375,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 77,
+        "score_time": 85.5,
+        "audio_time": 80.5,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 78,
+        "score_time": 86.625,
+        "audio_time": 81.625,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 79,
+        "score_time": 87.75,
+        "audio_time": 83.0,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 80,
+        "score_time": 88.875,
+        "audio_time": 84.125,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 81,
+        "score_time": 90.0,
+        "audio_time": 85.25,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 6,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 82,
+        "score_time": 91.125,
+        "audio_time": 86.375,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 83,
+        "score_time": 92.25,
+        "audio_time": 87.5,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 84,
+        "score_time": 93.375,
+        "audio_time": 88.625,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 85,
+        "score_time": 94.5,
+        "audio_time": 89.5,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 86,
+        "score_time": 95.625,
+        "audio_time": 90.625,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 87,
+        "score_time": 96.75,
+        "audio_time": 91.75,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 88,
+        "score_time": 97.875,
+        "audio_time": 92.875,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 89,
+        "score_time": 99.0,
+        "audio_time": 94.0,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 90,
+        "score_time": 100.125,
+        "audio_time": 95.125,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 91,
+        "score_time": 101.25,
+        "audio_time": 96.25,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 92,
+        "score_time": 102.375,
+        "audio_time": 97.375,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 93,
+        "score_time": 103.5,
+        "audio_time": 98.5,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 94,
+        "score_time": 104.625,
+        "audio_time": 99.625,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 95,
+        "score_time": 105.75,
+        "audio_time": 100.5,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 96,
+        "score_time": 106.875,
+        "audio_time": 101.5,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 97,
+        "score_time": 108.0,
+        "audio_time": 102.5,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 98,
+        "score_time": 109.125,
+        "audio_time": 103.625,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 99,
+        "score_time": 110.25,
+        "audio_time": 104.5,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 100,
+        "score_time": 111.375,
+        "audio_time": 105.625,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 101,
+        "score_time": 112.5,
+        "audio_time": 106.75,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 102,
+        "score_time": 113.625,
+        "audio_time": 107.625,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 103,
+        "score_time": 114.75,
+        "audio_time": 108.75,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 104,
+        "score_time": 115.875,
+        "audio_time": 109.625,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 105,
+        "score_time": 117.0,
+        "audio_time": 110.75,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 106,
+        "score_time": 118.125,
+        "audio_time": 111.625,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 107,
+        "score_time": 119.25,
+        "audio_time": 112.75,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 108,
+        "score_time": 120.375,
+        "audio_time": 113.625,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 109,
+        "score_time": 121.5,
+        "audio_time": 114.75,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 110,
+        "score_time": 122.625,
+        "audio_time": 115.875,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 111,
+        "score_time": 123.75,
+        "audio_time": 117.0,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 112,
+        "score_time": 124.875,
+        "audio_time": 118.0,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 113,
+        "score_time": 126.0,
+        "audio_time": 119.0,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 114,
+        "score_time": 127.125,
+        "audio_time": 119.875,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 115,
+        "score_time": 128.25,
+        "audio_time": 120.75,
+        "notes": 11,
+        "pc_support": 0.636,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "D\u266d": 2,
+          "B\u266d": 2
+        }
+      },
+      {
+        "measure": 116,
+        "score_time": 129.375,
+        "audio_time": 121.875,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 117,
+        "score_time": 130.5,
+        "audio_time": 123.0,
+        "notes": 11,
+        "pc_support": 0.818,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "A\u266d": 2
+        }
+      },
+      {
+        "measure": 118,
+        "score_time": 131.625,
+        "audio_time": 124.125,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 119,
+        "score_time": 132.75,
+        "audio_time": 125.0,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 120,
+        "score_time": 133.875,
+        "audio_time": 125.875,
+        "notes": 7,
+        "pc_support": 0.714,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "D\u266d": 2
+        }
+      },
+      {
+        "measure": 121,
+        "score_time": 135.0,
+        "audio_time": 127.0,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 122,
+        "score_time": 136.125,
+        "audio_time": 127.25,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 123,
+        "score_time": 137.25,
+        "audio_time": 128.375,
+        "notes": 11,
+        "pc_support": 0.727,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "E\u266d": 1,
+          "B\u266d": 2
+        }
+      },
+      {
+        "measure": 124,
+        "score_time": 138.375,
+        "audio_time": 129.625,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 125,
+        "score_time": 139.5,
+        "audio_time": 130.75,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 126,
+        "score_time": 140.625,
+        "audio_time": 131.875,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 127,
+        "score_time": 141.75,
+        "audio_time": 132.75,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 128,
+        "score_time": 142.875,
+        "audio_time": 133.875,
+        "notes": 11,
+        "pc_support": 0.818,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "B\u266d": 2
+        }
+      },
+      {
+        "measure": 129,
+        "score_time": 144.0,
+        "audio_time": 134.75,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 130,
+        "score_time": 145.125,
+        "audio_time": 135.125,
+        "notes": 7,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 131,
+        "score_time": 146.25,
+        "audio_time": 136.25,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 132,
+        "score_time": 147.375,
+        "audio_time": 137.375,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 133,
+        "score_time": 148.5,
+        "audio_time": 138.5,
+        "notes": 3,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 134,
+        "score_time": 149.625,
+        "audio_time": 139.625,
+        "notes": 5,
+        "pc_support": 0.8,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "E\u266d": 1
+        }
+      },
+      {
+        "measure": 135,
+        "score_time": 151.125,
+        "audio_time": 141.188,
+        "notes": 1,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 136,
+        "score_time": 151.875,
+        "audio_time": 142.125,
+        "notes": 5,
+        "pc_support": 0.6,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "E\u266d": 1,
+          "G\u266d": 1
+        }
+      },
+      {
+        "measure": 137,
+        "score_time": 153.375,
+        "audio_time": 143.688,
+        "notes": 1,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 138,
+        "score_time": 154.125,
+        "audio_time": 144.625,
+        "notes": 4,
+        "pc_support": 0.75,
+        "bass_notes": 3,
+        "bass_pc_support": 0.667,
+        "unsupported_pcs": {
+          "B": 1
+        }
+      },
+      {
+        "measure": 140,
+        "score_time": 156.375,
+        "audio_time": 147.125,
+        "notes": 3,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      }
+    ]
+  },
+  {
+    "slug": "idea-2---gibran-alcocer",
+    "idea": "2",
+    "score_note_count": 950,
+    "reference_note_count": 1072,
+    "score_duration": 156.0,
+    "reference_duration": 154.98,
+    "alignment_similarity": 0.88,
+    "pc_support": 0.987,
+    "exact_pitch_support": 0.784,
+    "bass_pc_support": 0.981,
+    "reference_pc_coverage": 0.945,
+    "reference_bass_pc_coverage": 0.932,
+    "measure_windows": [
+      {
+        "measure": 1,
+        "score_time": 0.0,
+        "audio_time": 1.75,
+        "notes": 17,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 2,
+        "score_time": 2.0,
+        "audio_time": 3.75,
+        "notes": 15,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 3,
+        "score_time": 4.0,
+        "audio_time": 5.75,
+        "notes": 15,
+        "pc_support": 1.0,
+        "bass_notes": 8,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 4,
+        "score_time": 6.0,
+        "audio_time": 7.75,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 8,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 5,
+        "score_time": 8.0,
+        "audio_time": 9.75,
+        "notes": 17,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 6,
+        "score_time": 10.0,
+        "audio_time": 11.75,
+        "notes": 14,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 7,
+        "score_time": 12.0,
+        "audio_time": 13.75,
+        "notes": 13,
+        "pc_support": 1.0,
+        "bass_notes": 8,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 8,
+        "score_time": 14.0,
+        "audio_time": 15.5,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 8,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 9,
+        "score_time": 16.0,
+        "audio_time": 17.5,
+        "notes": 16,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 10,
+        "score_time": 18.0,
+        "audio_time": 19.5,
+        "notes": 16,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 11,
+        "score_time": 20.0,
+        "audio_time": 21.5,
+        "notes": 15,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 12,
+        "score_time": 22.0,
+        "audio_time": 23.5,
+        "notes": 15,
+        "pc_support": 1.0,
+        "bass_notes": 8,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 13,
+        "score_time": 24.0,
+        "audio_time": 25.5,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 14,
+        "score_time": 26.0,
+        "audio_time": 27.5,
+        "notes": 13,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 15,
+        "score_time": 28.0,
+        "audio_time": 29.5,
+        "notes": 15,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 16,
+        "score_time": 30.0,
+        "audio_time": 31.5,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 17,
+        "score_time": 33.5,
+        "audio_time": 35.0,
+        "notes": 1,
+        "pc_support": 1.0,
+        "bass_notes": 0,
+        "bass_pc_support": null,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 18,
+        "score_time": 34.0,
+        "audio_time": 35.5,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 19,
+        "score_time": 36.0,
+        "audio_time": 37.5,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 20,
+        "score_time": 38.0,
+        "audio_time": 39.5,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 21,
+        "score_time": 40.0,
+        "audio_time": 41.25,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 22,
+        "score_time": 42.0,
+        "audio_time": 43.25,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 23,
+        "score_time": 44.0,
+        "audio_time": 45.0,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 24,
+        "score_time": 46.0,
+        "audio_time": 47.0,
+        "notes": 10,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 25,
+        "score_time": 48.0,
+        "audio_time": 49.0,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 26,
+        "score_time": 50.0,
+        "audio_time": 51.0,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 27,
+        "score_time": 52.0,
+        "audio_time": 53.0,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 28,
+        "score_time": 54.0,
+        "audio_time": 55.0,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 29,
+        "score_time": 56.0,
+        "audio_time": 56.75,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 30,
+        "score_time": 58.0,
+        "audio_time": 58.75,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 31,
+        "score_time": 60.0,
+        "audio_time": 60.5,
+        "notes": 11,
+        "pc_support": 0.909,
+        "bass_notes": 7,
+        "bass_pc_support": 0.857,
+        "unsupported_pcs": {
+          "D\u266d": 1
+        }
+      },
+      {
+        "measure": 32,
+        "score_time": 62.0,
+        "audio_time": 62.5,
+        "notes": 10,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 33,
+        "score_time": 64.0,
+        "audio_time": 64.5,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 34,
+        "score_time": 66.0,
+        "audio_time": 66.5,
+        "notes": 10,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 35,
+        "score_time": 68.0,
+        "audio_time": 68.5,
+        "notes": 10,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 36,
+        "score_time": 70.0,
+        "audio_time": 70.5,
+        "notes": 12,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 37,
+        "score_time": 72.0,
+        "audio_time": 72.25,
+        "notes": 14,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 38,
+        "score_time": 74.0,
+        "audio_time": 74.25,
+        "notes": 10,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 39,
+        "score_time": 76.0,
+        "audio_time": 76.25,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 40,
+        "score_time": 78.0,
+        "audio_time": 78.25,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 41,
+        "score_time": 80.0,
+        "audio_time": 80.25,
+        "notes": 9,
+        "pc_support": 0.889,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "G\u266d": 1
+        }
+      },
+      {
+        "measure": 42,
+        "score_time": 82.0,
+        "audio_time": 82.0,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 43,
+        "score_time": 84.0,
+        "audio_time": 84.0,
+        "notes": 11,
+        "pc_support": 1.0,
+        "bass_notes": 7,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 44,
+        "score_time": 86.0,
+        "audio_time": 86.0,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 45,
+        "score_time": 88.0,
+        "audio_time": 88.0,
+        "notes": 10,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 46,
+        "score_time": 90.0,
+        "audio_time": 89.5,
+        "notes": 9,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 47,
+        "score_time": 92.0,
+        "audio_time": 91.5,
+        "notes": 10,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 48,
+        "score_time": 94.0,
+        "audio_time": 93.625,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 1,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 49,
+        "score_time": 96.0,
+        "audio_time": 95.75,
+        "notes": 6,
+        "pc_support": 1.0,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 50,
+        "score_time": 98.0,
+        "audio_time": 98.0,
+        "notes": 19,
+        "pc_support": 1.0,
+        "bass_notes": 11,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 51,
+        "score_time": 100.0,
+        "audio_time": 100.0,
+        "notes": 19,
+        "pc_support": 1.0,
+        "bass_notes": 11,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 52,
+        "score_time": 102.0,
+        "audio_time": 102.0,
+        "notes": 13,
+        "pc_support": 1.0,
+        "bass_notes": 11,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 53,
+        "score_time": 104.0,
+        "audio_time": 104.0,
+        "notes": 13,
+        "pc_support": 1.0,
+        "bass_notes": 11,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 54,
+        "score_time": 106.0,
+        "audio_time": 106.0,
+        "notes": 19,
+        "pc_support": 1.0,
+        "bass_notes": 11,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 55,
+        "score_time": 108.0,
+        "audio_time": 108.0,
+        "notes": 19,
+        "pc_support": 1.0,
+        "bass_notes": 11,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 56,
+        "score_time": 110.0,
+        "audio_time": 110.0,
+        "notes": 17,
+        "pc_support": 1.0,
+        "bass_notes": 11,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 57,
+        "score_time": 112.0,
+        "audio_time": 111.75,
+        "notes": 19,
+        "pc_support": 0.947,
+        "bass_notes": 11,
+        "bass_pc_support": 0.909,
+        "unsupported_pcs": {
+          "A\u266d": 1
+        }
+      },
+      {
+        "measure": 58,
+        "score_time": 114.0,
+        "audio_time": 113.75,
+        "notes": 18,
+        "pc_support": 1.0,
+        "bass_notes": 9,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 59,
+        "score_time": 116.0,
+        "audio_time": 115.75,
+        "notes": 18,
+        "pc_support": 1.0,
+        "bass_notes": 9,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 60,
+        "score_time": 118.0,
+        "audio_time": 117.5,
+        "notes": 18,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 61,
+        "score_time": 120.0,
+        "audio_time": 119.5,
+        "notes": 18,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 62,
+        "score_time": 122.0,
+        "audio_time": 121.0,
+        "notes": 18,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 63,
+        "score_time": 124.0,
+        "audio_time": 123.0,
+        "notes": 20,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 64,
+        "score_time": 126.0,
+        "audio_time": 124.75,
+        "notes": 14,
+        "pc_support": 0.857,
+        "bass_notes": 2,
+        "bass_pc_support": 0.0,
+        "unsupported_pcs": {
+          "G\u266d": 2
+        }
+      },
+      {
+        "measure": 65,
+        "score_time": 128.0,
+        "audio_time": 126.75,
+        "notes": 14,
+        "pc_support": 1.0,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 66,
+        "score_time": 130.0,
+        "audio_time": 128.5,
+        "notes": 18,
+        "pc_support": 1.0,
+        "bass_notes": 9,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 67,
+        "score_time": 132.0,
+        "audio_time": 130.25,
+        "notes": 18,
+        "pc_support": 1.0,
+        "bass_notes": 9,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 68,
+        "score_time": 134.0,
+        "audio_time": 132.0,
+        "notes": 18,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 69,
+        "score_time": 136.0,
+        "audio_time": 134.0,
+        "notes": 18,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 70,
+        "score_time": 138.0,
+        "audio_time": 135.75,
+        "notes": 18,
+        "pc_support": 1.0,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 71,
+        "score_time": 140.0,
+        "audio_time": 137.5,
+        "notes": 20,
+        "pc_support": 0.95,
+        "bass_notes": 3,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {
+          "A\u266d": 1
+        }
+      },
+      {
+        "measure": 72,
+        "score_time": 142.0,
+        "audio_time": 139.875,
+        "notes": 2,
+        "pc_support": 1.0,
+        "bass_notes": 2,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 73,
+        "score_time": 145.999,
+        "audio_time": 144.999,
+        "notes": 8,
+        "pc_support": 0.75,
+        "bass_notes": 4,
+        "bass_pc_support": 0.75,
+        "unsupported_pcs": {
+          "B": 2
+        }
+      },
+      {
+        "measure": 74,
+        "score_time": 147.999,
+        "audio_time": 146.999,
+        "notes": 8,
+        "pc_support": 1.0,
+        "bass_notes": 4,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      },
+      {
+        "measure": 75,
+        "score_time": 149.999,
+        "audio_time": 149.249,
+        "notes": 8,
+        "pc_support": 0.5,
+        "bass_notes": 6,
+        "bass_pc_support": 0.5,
+        "unsupported_pcs": {
+          "B": 2,
+          "E\u266d": 2
+        }
+      },
+      {
+        "measure": 76,
+        "score_time": 151.999,
+        "audio_time": 150.749,
+        "notes": 5,
+        "pc_support": 1.0,
+        "bass_notes": 5,
+        "bass_pc_support": 1.0,
+        "unsupported_pcs": {}
+      }
+    ]
+  }
+]

@@ -1,0 +1,843 @@
+[
+  {
+    "slug": "idea-1---gibran-alcocer",
+    "candidates": [
+      {
+        "measure": 6,
+        "score_bass": "D\u266d3",
+        "ref_bass": "E3",
+        "audio_time": 5.375,
+        "ref_time": 5.208854166666665,
+        "score_time": 5.625
+      },
+      {
+        "measure": 8,
+        "score_bass": "D\u266d3",
+        "ref_bass": "E3",
+        "audio_time": 7.375,
+        "ref_time": 7.3249999999999975,
+        "score_time": 7.875
+      },
+      {
+        "measure": 9,
+        "score_bass": "A\u266d2",
+        "ref_bass": "E3",
+        "audio_time": 8.5,
+        "ref_time": 8.385937499999997,
+        "score_time": 9.0
+      },
+      {
+        "measure": 17,
+        "score_bass": "B1",
+        "ref_bass": "E3",
+        "audio_time": 17.0,
+        "ref_time": 16.909895833333323,
+        "score_time": 18.0
+      },
+      {
+        "measure": 18,
+        "score_bass": "B2",
+        "ref_bass": "E\u266d3",
+        "audio_time": 18.125,
+        "ref_time": 17.95312499999999,
+        "score_time": 19.125
+      },
+      {
+        "measure": 26,
+        "score_bass": "B2",
+        "ref_bass": "E3",
+        "audio_time": 26.875,
+        "ref_time": 26.87135416666666,
+        "score_time": 28.125
+      },
+      {
+        "measure": 27,
+        "score_bass": "D\u266d2",
+        "ref_bass": "E3",
+        "audio_time": 27.75,
+        "ref_time": 27.59791666666666,
+        "score_time": 29.25
+      },
+      {
+        "measure": 53,
+        "score_bass": "B1",
+        "ref_bass": "E3",
+        "audio_time": 55.0,
+        "ref_time": 54.83906250000003,
+        "score_time": 58.5
+      },
+      {
+        "measure": 62,
+        "score_bass": "B2",
+        "ref_bass": "E3",
+        "audio_time": 64.375,
+        "ref_time": 64.58072916666671,
+        "score_time": 68.625
+      },
+      {
+        "measure": 65,
+        "score_bass": "A\u266d2",
+        "ref_bass": "E3",
+        "audio_time": 67.5,
+        "ref_time": 67.3489583333334,
+        "score_time": 72.0
+      },
+      {
+        "measure": 85,
+        "score_bass": "B1",
+        "ref_bass": "A\u266d1",
+        "audio_time": 89.5,
+        "ref_time": 89.38645833333345,
+        "score_time": 94.5
+      },
+      {
+        "measure": 87,
+        "score_bass": "E2",
+        "ref_bass": "B1",
+        "audio_time": 91.75,
+        "ref_time": 91.6109375000001,
+        "score_time": 96.75
+      },
+      {
+        "measure": 106,
+        "score_bass": "D\u266d3",
+        "ref_bass": "E3",
+        "audio_time": 111.625,
+        "ref_time": 111.58750000000008,
+        "score_time": 118.125
+      },
+      {
+        "measure": 108,
+        "score_bass": "E\u266d3",
+        "ref_bass": "A\u266d1",
+        "audio_time": 113.625,
+        "ref_time": 112.91093750000012,
+        "score_time": 120.375
+      },
+      {
+        "measure": 114,
+        "score_bass": "D\u266d3",
+        "ref_bass": "E3",
+        "audio_time": 119.875,
+        "ref_time": 119.7390625000001,
+        "score_time": 127.125
+      },
+      {
+        "measure": 115,
+        "score_bass": "A\u266d2",
+        "ref_bass": "E3",
+        "audio_time": 120.75,
+        "ref_time": 120.72656250000011,
+        "score_time": 128.25
+      },
+      {
+        "measure": 116,
+        "score_bass": "E\u266d3",
+        "ref_bass": "A\u266d1",
+        "audio_time": 121.5,
+        "ref_time": 121.05208333333344,
+        "score_time": 129.375
+      },
+      {
+        "measure": 117,
+        "score_bass": "B2",
+        "ref_bass": "A\u266d2",
+        "audio_time": 121.75,
+        "ref_time": 122.07812500000016,
+        "score_time": 130.5
+      },
+      {
+        "measure": 121,
+        "score_bass": "D\u266d3",
+        "ref_bass": "E3",
+        "audio_time": 126.0,
+        "ref_time": 126.05572916666686,
+        "score_time": 135.0
+      },
+      {
+        "measure": 123,
+        "score_bass": "A\u266d2",
+        "ref_bass": "E3",
+        "audio_time": 128.25,
+        "ref_time": 128.41093750000013,
+        "score_time": 137.25
+      },
+      {
+        "measure": 124,
+        "score_bass": "E\u266d3",
+        "ref_bass": "A\u266d1",
+        "audio_time": 129.25,
+        "ref_time": 129.0447916666669,
+        "score_time": 138.375
+      },
+      {
+        "measure": 125,
+        "score_bass": "B2",
+        "ref_bass": "A\u266d1",
+        "audio_time": 129.75,
+        "ref_time": 129.0447916666669,
+        "score_time": 139.5
+      }
+    ]
+  },
+  {
+    "slug": "idea-12---gibran-alcocer",
+    "candidates": [
+      {
+        "measure": 29,
+        "score_bass": "G\u266d2",
+        "ref_bass": "E\u266d3",
+        "audio_time": 67.2,
+        "ref_time": 66.6677083333334,
+        "score_time": 67.19999999999955
+      },
+      {
+        "measure": 41,
+        "score_bass": "G\u266d2",
+        "ref_bass": "E\u266d3",
+        "audio_time": 96.0,
+        "ref_time": 95.4468750000002,
+        "score_time": 95.99999999999963
+      },
+      {
+        "measure": 46,
+        "score_bass": "D\u266d2",
+        "ref_bass": "A\u266d2",
+        "audio_time": 108.0,
+        "ref_time": 108.09843750000034,
+        "score_time": 107.99999999999991
+      },
+      {
+        "measure": 54,
+        "score_bass": "G\u266d2",
+        "ref_bass": "D\u266d3",
+        "audio_time": 127.2,
+        "ref_time": 126.68020833333391,
+        "score_time": 127.20000000000012
+      }
+    ]
+  },
+  {
+    "slug": "idea-15---gibran-alcocer",
+    "candidates": [
+      {
+        "measure": 74,
+        "score_bass": "G\u266d2",
+        "ref_bass": "A2",
+        "audio_time": 74.294,
+        "ref_time": 74.44843750000014,
+        "score_time": 77.29407899999937
+      },
+      {
+        "measure": 76,
+        "score_bass": "A2",
+        "ref_bass": "G\u266d2",
+        "audio_time": 76.412,
+        "ref_time": 76.35416666666683,
+        "score_time": 79.41172499999938
+      },
+      {
+        "measure": 77,
+        "score_bass": "E3",
+        "ref_bass": "G\u266d2",
+        "audio_time": 77.221,
+        "ref_time": 76.35416666666683,
+        "score_time": 80.47054799999938
+      },
+      {
+        "measure": 80,
+        "score_bass": "B2",
+        "ref_bass": "E3",
+        "audio_time": 80.147,
+        "ref_time": 80.1234375000002,
+        "score_time": 83.64701699999938
+      },
+      {
+        "measure": 82,
+        "score_bass": "G\u266d2",
+        "ref_bass": "A2",
+        "audio_time": 82.015,
+        "ref_time": 82.01875000000021,
+        "score_time": 85.76466299999935
+      },
+      {
+        "measure": 83,
+        "score_bass": "D\u266d3",
+        "ref_bass": "G\u266d2",
+        "audio_time": 83.073,
+        "ref_time": 83.90208333333356,
+        "score_time": 86.82348599999933
+      },
+      {
+        "measure": 84,
+        "score_bass": "A2",
+        "ref_bass": "G\u266d2",
+        "audio_time": 84.132,
+        "ref_time": 83.90208333333356,
+        "score_time": 87.88230899999931
+      },
+      {
+        "measure": 85,
+        "score_bass": "E3",
+        "ref_bass": "G\u266d2",
+        "audio_time": 84.691,
+        "ref_time": 83.90208333333356,
+        "score_time": 88.9411319999993
+      }
+    ]
+  },
+  {
+    "slug": "idea-19---gibran-alcocer",
+    "candidates": [
+      {
+        "measure": 21,
+        "score_bass": "E3",
+        "ref_bass": "A2",
+        "audio_time": 47.391,
+        "ref_time": 47.33437499999998,
+        "score_time": 47.39109899999998
+      },
+      {
+        "measure": 46,
+        "score_bass": "A2",
+        "ref_bass": "E3",
+        "audio_time": 100.256,
+        "ref_time": 100.44062500000008,
+        "score_time": 100.75627200000012
+      },
+      {
+        "measure": 51,
+        "score_bass": "D3",
+        "ref_bass": "A2",
+        "audio_time": 117.218,
+        "ref_time": 117.04375000000009,
+        "score_time": 111.34450200000016
+      },
+      {
+        "measure": 53,
+        "score_bass": "A2",
+        "ref_bass": "G2",
+        "audio_time": 135.449,
+        "ref_time": 135.57187500000018,
+        "score_time": 115.57979400000015
+      },
+      {
+        "measure": 54,
+        "score_bass": "A2",
+        "ref_bass": "F1",
+        "audio_time": 145.91,
+        "ref_time": 146.5270833333336,
+        "score_time": 117.69744000000013
+      },
+      {
+        "measure": 56,
+        "score_bass": "G2",
+        "ref_bass": "D3",
+        "audio_time": 175.5,
+        "ref_time": 175.53020833333358,
+        "score_time": 121.93273200000014
+      },
+      {
+        "measure": 57,
+        "score_bass": "D3",
+        "ref_bass": "F2",
+        "audio_time": 179.8,
+        "ref_time": 179.84687500000024,
+        "score_time": 124.05037800000015
+      },
+      {
+        "measure": 59,
+        "score_bass": "A2",
+        "ref_bass": "G2",
+        "audio_time": 192.999,
+        "ref_time": 192.7567708333336,
+        "score_time": 128.28567000000018
+      }
+    ]
+  },
+  {
+    "slug": "idea-2---gibran-alcocer",
+    "candidates": [
+      {
+        "measure": 27,
+        "score_bass": "D\u266d2",
+        "ref_bass": "E3",
+        "audio_time": 53.0,
+        "ref_time": 52.39166666666667,
+        "score_time": 51.999999999999986
+      },
+      {
+        "measure": 31,
+        "score_bass": "D\u266d2",
+        "ref_bass": "E3",
+        "audio_time": 60.5,
+        "ref_time": 60.19010416666669,
+        "score_time": 59.999999999999986
+      },
+      {
+        "measure": 57,
+        "score_bass": "A\u266d1",
+        "ref_bass": "E\u266d3",
+        "audio_time": 111.75,
+        "ref_time": 111.28750000000024,
+        "score_time": 111.99999999999999
+      },
+      {
+        "measure": 60,
+        "score_bass": "D\u266d1",
+        "ref_bass": "E3",
+        "audio_time": 117.5,
+        "ref_time": 117.01614583333364,
+        "score_time": 117.99999999999999
+      },
+      {
+        "measure": 64,
+        "score_bass": "G\u266d1",
+        "ref_bass": "E\u266d3",
+        "audio_time": 124.75,
+        "ref_time": 124.2156250000004,
+        "score_time": 125.99999999999999
+      },
+      {
+        "measure": 68,
+        "score_bass": "D\u266d1",
+        "ref_bass": "E2",
+        "audio_time": 132.0,
+        "ref_time": 131.76302083333385,
+        "score_time": 134.00000000000003
+      },
+      {
+        "measure": 71,
+        "score_bass": "A\u266d1",
+        "ref_bass": "E\u266d3",
+        "audio_time": 137.5,
+        "ref_time": 137.23906250000027,
+        "score_time": 140.00000000000009
+      },
+      {
+        "measure": 72,
+        "score_bass": "G\u266d1",
+        "ref_bass": "D\u266d3",
+        "audio_time": 139.875,
+        "ref_time": 139.98489583333358,
+        "score_time": 142.00000000000009
+      }
+    ]
+  },
+  {
+    "slug": "idea-20---gibran-alcocer",
+    "candidates": [
+      {
+        "measure": 65,
+        "score_bass": "G2",
+        "ref_bass": "A\u266d1",
+        "audio_time": 75.844,
+        "ref_time": 75.50000000000017,
+        "score_time": 70.03298123958335
+      },
+      {
+        "measure": 87,
+        "score_bass": "A\u266d2",
+        "ref_bass": "B\u266d1",
+        "audio_time": 106.833,
+        "ref_time": 107.66093750000049,
+        "score_time": 94.5237664791667
+      }
+    ]
+  },
+  {
+    "slug": "idea-22---gibran-alcocer-abridged",
+    "candidates": [
+      {
+        "measure": 67,
+        "score_bass": "C3",
+        "ref_bass": "B\u266d1",
+        "audio_time": 134.361,
+        "ref_time": 133.97187500000035,
+        "score_time": 99.9989583333333
+      }
+    ]
+  },
+  {
+    "slug": "idea-22---gibran-alcocer",
+    "candidates": []
+  },
+  {
+    "slug": "idea-25-piano-solo-version---gibran-alcocer-andrea-vanzo",
+    "candidates": [
+      {
+        "measure": 31,
+        "score_bass": "C3",
+        "ref_bass": "E\u266d2",
+        "audio_time": 30.167,
+        "ref_time": 30.983854166666667,
+        "score_time": 29.66663700000001
+      },
+      {
+        "measure": 39,
+        "score_bass": "C3",
+        "ref_bass": "E\u266d2",
+        "audio_time": 37.875,
+        "ref_time": 38.769270833333294,
+        "score_time": 37.66662899999995
+      },
+      {
+        "measure": 41,
+        "score_bass": "E\u266d3",
+        "ref_bass": "G2",
+        "audio_time": 39.917,
+        "ref_time": 40.72239583333329,
+        "score_time": 39.66662699999993
+      },
+      {
+        "measure": 64,
+        "score_bass": "C2",
+        "ref_bass": "F2",
+        "audio_time": 61.917,
+        "ref_time": 61.51822916666662,
+        "score_time": 62.666603999999694
+      },
+      {
+        "measure": 65,
+        "score_bass": "C3",
+        "ref_bass": "E\u266d2",
+        "audio_time": 62.917,
+        "ref_time": 63.70156249999996,
+        "score_time": 63.66660299999969
+      },
+      {
+        "measure": 73,
+        "score_bass": "C3",
+        "ref_bass": "E\u266d3",
+        "audio_time": 70.25,
+        "ref_time": 70.06822916666667,
+        "score_time": 71.6665949999996
+      },
+      {
+        "measure": 78,
+        "score_bass": "F2",
+        "ref_bass": "G2",
+        "audio_time": 74.917,
+        "ref_time": 74.82812500000001,
+        "score_time": 76.66658999999957
+      },
+      {
+        "measure": 120,
+        "score_bass": "E\u266d2",
+        "ref_bass": "F2",
+        "audio_time": 117.469,
+        "ref_time": 117.29062500000022,
+        "score_time": 119.71918799999958
+      }
+    ]
+  },
+  {
+    "slug": "idea-5---gibran-alcocer",
+    "candidates": [
+      {
+        "measure": 17,
+        "score_bass": "F2",
+        "ref_bass": "D3",
+        "audio_time": 29.75,
+        "ref_time": 29.588541666666657,
+        "score_time": 30.5000149999998
+      },
+      {
+        "measure": 21,
+        "score_bass": "F2",
+        "ref_bass": "D2",
+        "audio_time": 38.125,
+        "ref_time": 38.16250000000001,
+        "score_time": 38.50001899999979
+      },
+      {
+        "measure": 25,
+        "score_bass": "F2",
+        "ref_bass": "D2",
+        "audio_time": 46.5,
+        "ref_time": 46.63072916666667,
+        "score_time": 46.500022999999835
+      },
+      {
+        "measure": 34,
+        "score_bass": "F2",
+        "ref_bass": "D3",
+        "audio_time": 64.5,
+        "ref_time": 64.33437499999997,
+        "score_time": 64.50003199999965
+      },
+      {
+        "measure": 38,
+        "score_bass": "F2",
+        "ref_bass": "D3",
+        "audio_time": 74.0,
+        "ref_time": 74.14427083333321,
+        "score_time": 73.50003649999988
+      },
+      {
+        "measure": 42,
+        "score_bass": "F2",
+        "ref_bass": "D3",
+        "audio_time": 82.75,
+        "ref_time": 82.57343749999995,
+        "score_time": 81.50004050000008
+      },
+      {
+        "measure": 48,
+        "score_bass": "B\u266d2",
+        "ref_bass": "F2",
+        "audio_time": 93.25,
+        "ref_time": 93.17187499999994,
+        "score_time": 92.5000460000004
+      }
+    ]
+  },
+  {
+    "slug": "idea-7---gibran-alcocer",
+    "candidates": [
+      {
+        "measure": 56,
+        "score_bass": "B\u266d2",
+        "ref_bass": "E\u266d3",
+        "audio_time": 59.25,
+        "ref_time": 59.38958333333333,
+        "score_time": 82.5
+      },
+      {
+        "measure": 83,
+        "score_bass": "C3",
+        "ref_bass": "E\u266d3",
+        "audio_time": 86.5,
+        "ref_time": 86.3692708333334,
+        "score_time": 123.0
+      },
+      {
+        "measure": 91,
+        "score_bass": "C3",
+        "ref_bass": "E\u266d3",
+        "audio_time": 94.75,
+        "ref_time": 94.60781250000015,
+        "score_time": 135.0
+      },
+      {
+        "measure": 108,
+        "score_bass": "B\u266d2",
+        "ref_bass": "E\u266d3",
+        "audio_time": 111.75,
+        "ref_time": 111.68229166666696,
+        "score_time": 160.5
+      },
+      {
+        "measure": 137,
+        "score_bass": "C3",
+        "ref_bass": "E\u266d3",
+        "audio_time": 142.25,
+        "ref_time": 142.14479166666712,
+        "score_time": 204.0
+      }
+    ]
+  },
+  {
+    "slug": "idea-8---gibran-alcocer",
+    "candidates": [
+      {
+        "measure": 58,
+        "score_bass": "G2",
+        "ref_bass": "B\u266d2",
+        "audio_time": 121.606,
+        "ref_time": 121.56354166666655,
+        "score_time": 123.60569690625101
+      }
+    ]
+  },
+  {
+    "slug": "idea-9---gibran-alcocer",
+    "candidates": [
+      {
+        "measure": 70,
+        "score_bass": "G1",
+        "ref_bass": "D3",
+        "audio_time": 128.596,
+        "ref_time": 128.60572916666675,
+        "score_time": 125.84602800000017
+      }
+    ]
+  },
+  {
+    "slug": "idea-n.10---gibran-alcocer",
+    "candidates": []
+  },
+  {
+    "slug": "idea_15_basic_pitch",
+    "candidates": [
+      {
+        "measure": 2,
+        "score_bass": "G\u266d2",
+        "ref_bass": "D\u266d3",
+        "audio_time": 1.887,
+        "ref_time": 1.7765624999999998,
+        "score_time": 2.1374999999999997
+      },
+      {
+        "measure": 3,
+        "score_bass": "A2",
+        "ref_bass": "E3",
+        "audio_time": 4.025,
+        "ref_time": 3.9348958333333335,
+        "score_time": 4.274999999999998
+      },
+      {
+        "measure": 6,
+        "score_bass": "G\u266d2",
+        "ref_bass": "D\u266d3",
+        "audio_time": 10.623,
+        "ref_time": 10.197395833333339,
+        "score_time": 10.872916666666669
+      },
+      {
+        "measure": 7,
+        "score_bass": "A2",
+        "ref_bass": "E3",
+        "audio_time": 12.029,
+        "ref_time": 12.339583333333337,
+        "score_time": 12.27916666666667
+      },
+      {
+        "measure": 8,
+        "score_bass": "A\u266d2",
+        "ref_bass": "B2",
+        "audio_time": 14.72,
+        "ref_time": 15.448437500000006,
+        "score_time": 14.730208333333346
+      },
+      {
+        "measure": 13,
+        "score_bass": "A2",
+        "ref_bass": "D\u266d3",
+        "audio_time": 24.692,
+        "ref_time": 23.93385416666667,
+        "score_time": 24.94166666666672
+      },
+      {
+        "measure": 15,
+        "score_bass": "G\u266d2",
+        "ref_bass": "D\u266d3",
+        "audio_time": 29.083,
+        "ref_time": 28.98697916666669,
+        "score_time": 29.333333333333403
+      },
+      {
+        "measure": 16,
+        "score_bass": "G\u266d2",
+        "ref_bass": "A2",
+        "audio_time": 30.106,
+        "ref_time": 29.99218750000002,
+        "score_time": 30.356250000000074
+      },
+      {
+        "measure": 17,
+        "score_bass": "A2",
+        "ref_bass": "B2",
+        "audio_time": 33.446,
+        "ref_time": 34.008333333333354,
+        "score_time": 33.44583333333338
+      },
+      {
+        "measure": 18,
+        "score_bass": "A\u266d2",
+        "ref_bass": "B2",
+        "audio_time": 34.446,
+        "ref_time": 34.008333333333354,
+        "score_time": 34.44583333333336
+      },
+      {
+        "measure": 26,
+        "score_bass": "A\u266d2",
+        "ref_bass": "B2",
+        "audio_time": 51.599,
+        "ref_time": 52.36510416666669,
+        "score_time": 51.84895833333321
+      },
+      {
+        "measure": 27,
+        "score_bass": "A\u266d2",
+        "ref_bass": "B2",
+        "audio_time": 51.773,
+        "ref_time": 52.36510416666669,
+        "score_time": 52.02291666666654
+      },
+      {
+        "measure": 31,
+        "score_bass": "A2",
+        "ref_bass": "D\u266d3",
+        "audio_time": 60.282,
+        "ref_time": 60.59114583333335,
+        "score_time": 60.28229166666645
+      },
+      {
+        "measure": 34,
+        "score_bass": "G\u266d2",
+        "ref_bass": "A2",
+        "audio_time": 66.643,
+        "ref_time": 66.55364583333339,
+        "score_time": 66.89270833333305
+      },
+      {
+        "measure": 35,
+        "score_bass": "A2",
+        "ref_bass": "E3",
+        "audio_time": 67.921,
+        "ref_time": 67.51666666666674,
+        "score_time": 68.17083333333306
+      },
+      {
+        "measure": 36,
+        "score_bass": "E2",
+        "ref_bass": "B2",
+        "audio_time": 70.814,
+        "ref_time": 70.48229166666681,
+        "score_time": 71.06354166666634
+      },
+      {
+        "measure": 40,
+        "score_bass": "A2",
+        "ref_bass": "D\u266d3",
+        "audio_time": 77.796,
+        "ref_time": 78.23697916666683,
+        "score_time": 78.04583333333306
+      },
+      {
+        "measure": 44,
+        "score_bass": "A2",
+        "ref_bass": "D\u266d3",
+        "audio_time": 86.352,
+        "ref_time": 85.78229166666694,
+        "score_time": 86.35208333333314
+      },
+      {
+        "measure": 50,
+        "score_bass": "G\u266d2",
+        "ref_bass": "E\u266d3",
+        "audio_time": 98.161,
+        "ref_time": 98.23385416666702,
+        "score_time": 98.41145833333317
+      },
+      {
+        "measure": 51,
+        "score_bass": "G\u266d2",
+        "ref_bass": "D\u266d3",
+        "audio_time": 100.224,
+        "ref_time": 100.54791666666705,
+        "score_time": 100.22395833333314
+      },
+      {
+        "measure": 56,
+        "score_bass": "G\u266d2",
+        "ref_bass": "E\u266d3",
+        "audio_time": 107.778,
+        "ref_time": 107.25885416666708,
+        "score_time": 111.52812499999978
+      }
+    ]
+  }
+]

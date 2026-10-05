@@ -28,3 +28,7 @@ _ignore/
 src/midis
 public/lakh-data/
 public/lakh-data.tmp/
+
+# Generated Python bytecode
+__pycache__/
+*.py[cod]

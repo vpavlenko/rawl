@@ -12,6 +12,7 @@ import { getSectionOffsets } from "./sectionAnchors";
 import { AnalysisGrid, MeasureSelection } from "./AnalysisGrid";
 import { getNoteRectangles, ModulationOnsetEditingContext, MouseHandlers } from "./getNoteRectangles";
 import ControlPanel, { debounce } from "./layouts/ControlPanel";
+import { ScorePinchContent, useScorePinch } from "./useScorePinch";
 import { MeasureNumbers } from "./layouts/MeasureNumbers";
 import MergedVoicesLegend from "./layouts/MergedVoicesLegend";
 import { VoiceName } from "./layouts/VoiceName";
@@ -19,6 +20,8 @@ import { ColoredNote, ColoredNotesInVoices, Note } from "./parseMidi";
 import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
 import { PlaybackSectionContext } from "./notePlayback";
 import { getSortedVoices, VoiceZIndicesContext } from "./voiceOrder";
+
+const SECTION_RIGHT_MARGIN = 20;
 
 export type MeasuresAndBeats = {
   measures: number[];
@@ -518,6 +521,14 @@ export const StackedSystemLayout: React.FC<
   ]);
 
   const parentRef = useRef(null);
+  const pinchActiveRef = useScorePinch(
+    parentRef,
+    noteHeight,
+    secondWidth,
+    setNoteHeight,
+    setSecondWidth,
+    !isEmbedded,
+  );
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [hasWideSection, setHasWideSection] = useState(false);
 
@@ -530,7 +541,8 @@ export const StackedSystemLayout: React.FC<
       setHasWideSection(
         sectionRefs.current.slice(0, sections.length).some((section) => {
           const boundary = section?.firstElementChild;
-          return boundary && boundary.getBoundingClientRect().width > viewportWidth + 1;
+          return boundary &&
+            boundary.getBoundingClientRect().width + SECTION_RIGHT_MARGIN > viewportWidth + 1;
         }),
       );
     };
@@ -618,83 +630,89 @@ export const StackedSystemLayout: React.FC<
         ref={parentRef}
         className="SplitLayout"
       >
-        {sections.map(
-          ({ sectionSpan, secondsToX, xToSeconds, voices }, order) => (
-            <div
-              style={{ paddingTop: 10 + noteHeight * 5 }}
-              key={order}
-              ref={(el) => (sectionRefs.current[order] = el)}
-            >
-              <MeasureNumbers
-                measuresAndBeats={measuresAndBeats}
-                analysis={analysis}
-                phraseStarts={phraseStarts}
-                measureSelection={measureSelection}
-                noteHeight={noteHeight}
-                secondsToX={secondsToX}
-                xToSeconds={xToSeconds}
-                sectionSpan={sectionSpan}
-                showGlobalTonicAtStart={hideFirstSection && order === 0}
-                mouseHandlers={mouseHandlers}
-                togglePause={togglePause}
-                seek={seek}
-                playbackMeasure={
-                  playbackMeasure !== null &&
-                  playbackMeasure > sectionSpan[0] &&
-                  playbackMeasure <= sectionSpan[1]
-                    ? playbackMeasure
-                    : null
-                }
-              />
-              {voices.map(({ notes, voiceIndex }) => (
-                <div
-                  key={voiceIndex}
-                  style={{ display: "flex", flexDirection: "row" }}
-                >
-                  <Voice
-                    voiceName={voiceNames[voiceIndex]}
-                    notes={notes}
-                    measuresAndBeats={measuresAndBeats}
-                    analysis={analysis}
-                    mouseHandlers={mouseHandlers}
-                    measureSelection={measureSelection}
-                    phraseStarts={phraseStarts}
-                    scrollInfo={scrollInfo}
-                    voiceMask={voiceMask}
-                    setVoiceMask={setVoiceMask}
-                    voiceIndex={voiceIndex}
-                    noteHeight={noteHeight}
-                    secondsToX={secondsToX}
-                    xToSeconds={xToSeconds}
-                    sectionSpan={sectionSpan}
-                    enableManualRemeasuring={enableManualRemeasuring}
-                    hoveredColors={hoveredColors}
-                    hoveredVoiceIndex={hoveredVoiceIndex}
-                    playbackMeasure={
-                      playbackMeasure !== null &&
-                      playbackMeasure > sectionSpan[0] &&
-                      playbackMeasure <= sectionSpan[1]
-                        ? playbackMeasure
-                        : null
-                    }
-                    showPlaybackMeasureBottomBorder={
-                      voiceIndex ===
-                      voices.reduce(
-                        (lastVisibleVoiceIndex, voice) =>
-                          voiceMask[voice.voiceIndex]
-                            ? voice.voiceIndex
-                            : lastVisibleVoiceIndex,
-                        -1,
-                      )
-                    }
-                  />
-                </div>
-              ))}
-            </div>
-          ),
-        )}
+        <ScorePinchContent activeRef={pinchActiveRef}>
+          {sections.map(
+            ({ sectionSpan, secondsToX, xToSeconds, voices }, order) => (
+              <div
+                style={{
+                  paddingTop: 10 + noteHeight * 5,
+                  width: secondsToX(measuresAndBeats.measures[sectionSpan[1]]),
+                  marginRight: SECTION_RIGHT_MARGIN,
+                }}
+                key={order}
+                ref={(el) => (sectionRefs.current[order] = el)}
+              >
+                <MeasureNumbers
+                  measuresAndBeats={measuresAndBeats}
+                  analysis={analysis}
+                  phraseStarts={phraseStarts}
+                  measureSelection={measureSelection}
+                  noteHeight={noteHeight}
+                  secondsToX={secondsToX}
+                  xToSeconds={xToSeconds}
+                  sectionSpan={sectionSpan}
+                  showGlobalTonicAtStart={hideFirstSection && order === 0}
+                  mouseHandlers={mouseHandlers}
+                  togglePause={togglePause}
+                  seek={seek}
+                  playbackMeasure={
+                    playbackMeasure !== null &&
+                    playbackMeasure > sectionSpan[0] &&
+                    playbackMeasure <= sectionSpan[1]
+                      ? playbackMeasure
+                      : null
+                  }
+                />
+                {voices.map(({ notes, voiceIndex }) => (
+                  <div
+                    key={voiceIndex}
+                    style={{ display: "flex", flexDirection: "row" }}
+                  >
+                    <Voice
+                      voiceName={voiceNames[voiceIndex]}
+                      notes={notes}
+                      measuresAndBeats={measuresAndBeats}
+                      analysis={analysis}
+                      mouseHandlers={mouseHandlers}
+                      measureSelection={measureSelection}
+                      phraseStarts={phraseStarts}
+                      scrollInfo={scrollInfo}
+                      voiceMask={voiceMask}
+                      setVoiceMask={setVoiceMask}
+                      voiceIndex={voiceIndex}
+                      noteHeight={noteHeight}
+                      secondsToX={secondsToX}
+                      xToSeconds={xToSeconds}
+                      sectionSpan={sectionSpan}
+                      enableManualRemeasuring={enableManualRemeasuring}
+                      hoveredColors={hoveredColors}
+                      hoveredVoiceIndex={hoveredVoiceIndex}
+                      playbackMeasure={
+                        playbackMeasure !== null &&
+                        playbackMeasure > sectionSpan[0] &&
+                        playbackMeasure <= sectionSpan[1]
+                          ? playbackMeasure
+                          : null
+                      }
+                      showPlaybackMeasureBottomBorder={
+                        voiceIndex ===
+                        voices.reduce(
+                          (lastVisibleVoiceIndex, voice) =>
+                            voiceMask[voice.voiceIndex]
+                              ? voice.voiceIndex
+                              : lastVisibleVoiceIndex,
+                          -1,
+                        )
+                      }
+                    />
+                  </div>
+                ))}
+              </div>
+            ),
+          )}
 
-        <div style={{ height: 100 }} />
+          <div style={{ height: 100 }} />
+        </ScorePinchContent>
 
         {!isEmbedded && (
           <ControlPanel

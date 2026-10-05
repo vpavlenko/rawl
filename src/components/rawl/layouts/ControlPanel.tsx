@@ -118,10 +118,13 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           <TinyLetter>s</TinyLetter>
         </span>
         <StyledRangeInput
+          aria-label="Note height"
+          title="Note height (W/S, vertical touch pinch, or Shift+trackpad pinch)"
           min="1"
           max="10"
+          step="any"
           value={noteHeight}
-          onChange={(e) => debounceSetNoteHeight(parseInt(e.target.value, 10))}
+          onChange={(e) => debounceSetNoteHeight(parseFloat(e.target.value))}
           style={{
             transform: "rotate(90deg)",
             transformOrigin: "bottom left",
@@ -141,10 +144,13 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
           <TinyLetter>a</TinyLetter>
         </span>
         <StyledRangeInput
+          aria-label="Time spacing"
+          title="Time spacing (A/D, horizontal touch pinch, or trackpad pinch)"
           min="2"
           max="150"
+          step="any"
           value={secondWidth}
-          onChange={(e) => debounceSetSecondWidth(parseInt(e.target.value, 10))}
+          onChange={(e) => debounceSetSecondWidth(parseFloat(e.target.value))}
           style={{
             width: 240,
           }}

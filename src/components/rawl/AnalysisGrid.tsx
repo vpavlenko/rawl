@@ -98,6 +98,7 @@ export type MeasureSelection = {
   setFormPartName?: (name: string) => void;
   anchorSection?: (target: { phrase: number; edge?: "end" } | null) => void;
   shiftSectionAnchor?: (neighbor: -1 | 1, direction: -1 | 1) => void;
+  copySectionModulations?: () => void;
 };
 
 export const PITCH_CLASS_TO_LETTER = {
@@ -510,6 +511,22 @@ const Measure: React.FC<{
                         setFormPartName={measureSelection.setFormPartName}
                         shiftSectionAnchor={canAnchorSection ? measureSelection.shiftSectionAnchor : undefined}
                       />
+                      {canAnchorSection && !isLastSection && measureSelection.copySectionModulations && (
+                        <button
+                          type="button"
+                          aria-label="Copy section modulations to all sections below"
+                          title="Replace later modulations with this section’s cycle, restarting at each section’s starting tonic. Short sections copy only the changes that fit; copying continues below them."
+                          style={{ marginLeft: 5, whiteSpace: "nowrap", background: "#222",
+                            color: "white", border: "1px solid #666", cursor: "pointer", fontSize: 11 }}
+                          onMouseDown={(event) => event.preventDefault()}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            measureSelection.copySectionModulations();
+                          }}
+                        >
+                          Copy modulations ↓
+                        </button>
+                      )}
                       {canAnchorSection && hasSectionAnchor && selectedMeasure === number && (
                         <button
                           type="button"

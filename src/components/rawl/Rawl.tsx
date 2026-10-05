@@ -48,6 +48,7 @@ import {
   getPhraseStarts,
 } from "./analysis";
 import { getSectionAnchors, getSectionAnchorShiftTarget, setSectionAnchor } from "./sectionAnchors";
+import { repeatSectionModulations } from "./repeatSectionModulations";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { beautifySlug } from "./corpora/utils";
 import { ModulationOnsetEditingContext, MouseHandlers } from "./getNoteRectangles";
@@ -536,6 +537,7 @@ const Rawl: React.FC<RawlProps> = ({
   const selectMeasure = useCallback(
     (measure) => {
       if (measure == null) {
+        selectedMeasureRef.current = null;
         setSelectedMeasure(null);
         setHoveredNote(null);
         return;
@@ -644,6 +646,16 @@ const Rawl: React.FC<RawlProps> = ({
     setSelectedMeasure(null);
   }, [selectedMeasure, commitAnalysisUpdate]);
 
+  const copySectionModulations = useCallback(() => {
+    const update = repeatSectionModulations(
+      analysisRef.current, measuresAndBeats.measures, selectedMeasure,
+    );
+    if (!update) return;
+    setHoveredNote(null);
+    commitAnalysisUpdate(update);
+    selectMeasure(null);
+  }, [selectedMeasure, measuresAndBeats, commitAnalysisUpdate, selectMeasure]);
+
   const anchorSection = useCallback((target: { phrase: number; edge?: "end" } | null) => {
     const current = analysisRef.current;
     const phrases = getPhraseStarts(current, measuresAndBeats.measures.length);
@@ -661,7 +673,8 @@ const Rawl: React.FC<RawlProps> = ({
       sectionAnchors: setSectionAnchor(current, phrases, measuresAndBeats.measures,
         source, target === null ? null : { section: targetSection, ...target }),
     });
-  }, [selectedMeasure, measuresAndBeats, commitAnalysisUpdate]);
+    selectMeasure(null);
+  }, [selectedMeasure, measuresAndBeats, commitAnalysisUpdate, selectMeasure]);
 
   const shiftSectionAnchor = useCallback((neighbor: -1 | 1, direction: -1 | 1) => {
     const current = analysisRef.current;
@@ -671,7 +684,8 @@ const Rawl: React.FC<RawlProps> = ({
       current, phrases, measures, selectedMeasure, neighbor, direction,
     );
     if (target !== undefined) anchorSection(target === null ? null : { phrase: target });
-  }, [selectedMeasure, measuresAndBeats, anchorSection]);
+    else selectMeasure(null);
+  }, [selectedMeasure, measuresAndBeats, anchorSection, selectMeasure]);
 
   const setBeatsPerMeasure = useCallback(
     (beatsPerMeasure) => {
@@ -989,6 +1003,7 @@ const Rawl: React.FC<RawlProps> = ({
       mergeAtMeasure,
       anchorSection,
       shiftSectionAnchor,
+      copySectionModulations,
       formPartName: analysis.form?.[selectedMeasure] ?? "",
       setFormPartName,
       setBeatsPerMeasure,
@@ -1000,6 +1015,7 @@ const Rawl: React.FC<RawlProps> = ({
       mergeAtMeasure,
       anchorSection,
       shiftSectionAnchor,
+      copySectionModulations,
       analysis.form,
       setFormPartName,
       setBeatsPerMeasure,

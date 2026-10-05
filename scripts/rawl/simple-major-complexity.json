@@ -1,13 +1,17 @@
 {
-  "method": "Broad automatic ordering; saved harmony annotations take precedence. MIDI estimates downweight melody and require repeated chord evidence. Not a definitive harmonic transcription.",
+  "method": "Broad automatic ordering; saved harmony annotations take precedence. MIDI estimates downweight melody and require repeated chord evidence, including root-fifth-octave accompaniment patterns with an omitted third. Not a definitive harmonic transcription.",
   "groups": [
     {
-      "label": "Primary triads: I, IV and V",
-      "count": 51
+      "label": "I and V only",
+      "count": 13
+    },
+    {
+      "label": "Adds IV: I, IV and V",
+      "count": 35
     },
     {
       "label": "Triads with vi",
-      "count": 42
+      "count": 43
     },
     {
       "label": "Triads with ii",
@@ -15,7 +19,7 @@
     },
     {
       "label": "Triads with iii or vii diminished",
-      "count": 59
+      "count": 61
     },
     {
       "label": "Seventh chords and extensions",
@@ -36,24 +40,9 @@
       "position": 0,
       "tags": [
         "pure_major:I_V"
-      ]
-    },
-    {
-      "slug": "stille-nacht-heilige-nacht-the-1818-original-silent-night",
-      "basis": "saved I/V annotation",
-      "tonic": 2,
-      "group": 0,
-      "degrees": [
-        0
       ],
-      "seventhDegrees": [],
-      "recognized": 40,
-      "position": 1,
-      "tags": [
-        "V:sus4add3",
-        "LH:mix",
-        "pure_major:I_IV_V"
-      ]
+      "ivBassEvidence": [],
+      "primaryClassification": "I/V stage; no IV detected (saved I/V tags take precedence)"
     },
     {
       "slug": "chopsticks",
@@ -72,18 +61,9 @@
       "position": 2,
       "tags": [
         "shuttle:I_V"
-      ]
-    },
-    {
-      "slug": "zimbabwe-national-anthem",
-      "basis": "MIDI estimate",
-      "tonic": 7,
-      "group": 0,
-      "degrees": [],
-      "seventhDegrees": [],
-      "recognized": 1,
-      "position": 3,
-      "tags": []
+      ],
+      "ivBassEvidence": [],
+      "primaryClassification": "I/V stage; no IV detected (saved I/V tags take precedence)"
     },
     {
       "slug": "kaqavik",
@@ -94,7 +74,9 @@
       "seventhDegrees": [],
       "recognized": 2,
       "position": 4,
-      "tags": []
+      "tags": [],
+      "ivBassEvidence": [],
+      "primaryClassification": "I/V stage; no IV detected (saved I/V tags take precedence)"
     },
     {
       "slug": "lesotho-national-anthem",
@@ -107,33 +89,9 @@
       "seventhDegrees": [],
       "recognized": 11,
       "position": 5,
-      "tags": []
-    },
-    {
-      "slug": "alagyas-alaghiyssh-clarinettepiano-komitas-komitas",
-      "basis": "MIDI estimate",
-      "tonic": 10,
-      "group": 0,
-      "degrees": [
-        3
-      ],
-      "seventhDegrees": [],
-      "recognized": 5,
-      "position": 6,
-      "tags": []
-    },
-    {
-      "slug": "Good_Bye_Hachiko",
-      "basis": "MIDI estimate",
-      "tonic": 0,
-      "group": 0,
-      "degrees": [
-        3
-      ],
-      "seventhDegrees": [],
-      "recognized": 11,
-      "position": 7,
-      "tags": []
+      "tags": [],
+      "ivBassEvidence": [],
+      "primaryClassification": "I/V stage; no IV detected (saved I/V tags take precedence)"
     },
     {
       "slug": "fado-de-coimbra---anonimo",
@@ -146,33 +104,9 @@
       "seventhDegrees": [],
       "recognized": 48,
       "position": 8,
-      "tags": []
-    },
-    {
-      "slug": "where-you-are-from-moana---lin-manuel-miranda-where-you-are-easy",
-      "basis": "MIDI estimate",
-      "tonic": 0,
-      "group": 0,
-      "degrees": [
-        0
-      ],
-      "seventhDegrees": [],
-      "recognized": 6,
-      "position": 9,
-      "tags": []
-    },
-    {
-      "slug": "fearless---taylor-swift-2",
-      "basis": "MIDI estimate",
-      "tonic": 5,
-      "group": 0,
-      "degrees": [
-        0
-      ],
-      "seventhDegrees": [],
-      "recognized": 9,
-      "position": 10,
-      "tags": []
+      "tags": [],
+      "ivBassEvidence": [],
+      "primaryClassification": "I/V stage; no IV detected (saved I/V tags take precedence)"
     },
     {
       "slug": "maraba-blue---abdullah-ibrahim",
@@ -185,7 +119,9 @@
       "seventhDegrees": [],
       "recognized": 3,
       "position": 11,
-      "tags": []
+      "tags": [],
+      "ivBassEvidence": [],
+      "primaryClassification": "I/V stage; no IV detected (saved I/V tags take precedence)"
     },
     {
       "slug": "a-house-with-a-heart---brandon-hesslau---buddy-simulator-1984",
@@ -200,20 +136,9 @@
       "position": 12,
       "tags": [
         "cycle_root_motion:second_down"
-      ]
-    },
-    {
-      "slug": "marcy-s-theme---t.j.-hill-amphibia-ost",
-      "basis": "MIDI estimate",
-      "tonic": 10,
-      "group": 0,
-      "degrees": [
-        0
       ],
-      "seventhDegrees": [],
-      "recognized": 4,
-      "position": 13,
-      "tags": []
+      "ivBassEvidence": [],
+      "primaryClassification": "I/V stage; no IV detected (saved I/V tags take precedence)"
     },
     {
       "slug": "afacan-kedi---ahmed-adnan-saygun",
@@ -226,7 +151,9 @@
       "seventhDegrees": [],
       "recognized": 50,
       "position": 14,
-      "tags": []
+      "tags": [],
+      "ivBassEvidence": [],
+      "primaryClassification": "I/V stage; no IV detected (saved I/V tags take precedence)"
     },
     {
       "slug": "b.-bartok-for-children-vol-1-nr-1-children-at-play",
@@ -239,7 +166,9 @@
       "seventhDegrees": [],
       "recognized": 4,
       "position": 15,
-      "tags": []
+      "tags": [],
+      "ivBassEvidence": [],
+      "primaryClassification": "I/V stage; no IV detected (saved I/V tags take precedence)"
     },
     {
       "slug": "b.-bartok-for-children-vol.-1-nr-38-winter-solstice-song-sz42",
@@ -252,38 +181,9 @@
       "seventhDegrees": [],
       "recognized": 6,
       "position": 16,
-      "tags": []
-    },
-    {
-      "slug": "old-black-joe-by-stephen-foster",
-      "basis": "MIDI estimate",
-      "tonic": 2,
-      "group": 0,
-      "degrees": [
-        0
-      ],
-      "seventhDegrees": [],
-      "recognized": 7,
-      "position": 17,
-      "tags": [
-        "period:diatonic",
-        "major_cadence:I64_V_I"
-      ]
-    },
-    {
-      "slug": "ttng_26_is_dancier_than_4_tablature",
-      "basis": "MIDI estimate",
-      "tonic": 3,
-      "group": 0,
-      "degrees": [
-        3
-      ],
-      "seventhDegrees": [],
-      "recognized": 10,
-      "position": 18,
-      "tags": [
-        "symmetric_chords:fifths"
-      ]
+      "tags": [],
+      "ivBassEvidence": [],
+      "primaryClassification": "I/V stage; no IV detected (saved I/V tags take precedence)"
     },
     {
       "slug": "marry-had-a-little-lamb",
@@ -296,429 +196,9 @@
       "seventhDegrees": [],
       "recognized": 46,
       "position": 19,
-      "tags": []
-    },
-    {
-      "slug": "the-office---opening-titles-theme-song-for-piano",
-      "basis": "MIDI estimate",
-      "tonic": 7,
-      "group": 0,
-      "degrees": [
-        0
-      ],
-      "seventhDegrees": [],
-      "recognized": 16,
-      "position": 20,
-      "tags": [
-        "book:index"
-      ]
-    },
-    {
-      "slug": "music_for_airports_1_1-eno",
-      "basis": "MIDI estimate",
-      "tonic": 2,
-      "group": 0,
-      "degrees": [
-        0
-      ],
-      "seventhDegrees": [],
-      "recognized": 125,
-      "position": 199,
-      "tags": [
-        "scale:hexatonic_major"
-      ]
-    },
-    {
-      "slug": "theme-from-hoosiers",
-      "basis": "MIDI estimate",
-      "tonic": 3,
-      "group": 0,
-      "degrees": [
-        0,
-        3
-      ],
-      "seventhDegrees": [],
-      "recognized": 25,
-      "position": 21,
-      "tags": [
-        "V:sus4_unresolved"
-      ]
-    },
-    {
-      "slug": "leaves-upon-tess",
-      "basis": "MIDI estimate",
-      "tonic": 9,
-      "group": 0,
-      "degrees": [
-        0,
-        3
-      ],
-      "seventhDegrees": [],
-      "recognized": 22,
-      "position": 22,
-      "tags": []
-    },
-    {
-      "slug": "horimiya-ep-4-untitled-track---masaru-yokoyama-please-don-t-go",
-      "basis": "MIDI estimate",
-      "tonic": 3,
-      "group": 0,
-      "degrees": [
-        0,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 26,
-      "position": 23,
-      "tags": []
-    },
-    {
-      "slug": "schubert_d365_09",
-      "basis": "MIDI estimate",
-      "tonic": 8,
-      "group": 0,
-      "degrees": [
-        0,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 120,
-      "position": 24,
-      "tags": [
-        "schubert:two_chords",
-        "schubert:two_chords"
-      ]
-    },
-    {
-      "slug": "circles---mac-miller",
-      "basis": "MIDI estimate",
-      "tonic": 9,
-      "group": 0,
-      "degrees": [
-        0,
-        3
-      ],
-      "seventhDegrees": [],
-      "recognized": 75,
-      "position": 25,
-      "tags": []
-    },
-    {
-      "slug": "happy_birthday_bass_and_chords",
-      "basis": "MIDI estimate",
-      "tonic": 5,
-      "group": 0,
-      "degrees": [
-        0,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 30,
-      "position": 26,
-      "tags": [
-        "major_cadence:I64_V_I",
-        "book:index"
-      ]
-    },
-    {
-      "slug": "minuet-from-music-for-the-royal-fireworks---georg-friedrich-handel",
-      "basis": "MIDI estimate",
-      "tonic": 2,
-      "group": 0,
-      "degrees": [
-        0,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 16,
-      "position": 27,
-      "tags": []
-    },
-    {
-      "slug": "happy_birthday_easy",
-      "basis": "MIDI estimate",
-      "tonic": 5,
-      "group": 0,
-      "degrees": [
-        0,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 30,
-      "position": 28,
-      "tags": []
-    },
-    {
-      "slug": "happy_birthday_to_you",
-      "basis": "MIDI estimate",
-      "tonic": 5,
-      "group": 0,
-      "degrees": [
-        0,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 30,
-      "position": 29,
-      "tags": []
-    },
-    {
-      "slug": "happy-birthday-easy-to-play",
-      "basis": "MIDI estimate",
-      "tonic": 5,
-      "group": 0,
-      "degrees": [
-        0,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 30,
-      "position": 30,
-      "tags": []
-    },
-    {
-      "slug": "weep-no-more---stephen-c.-foster",
-      "basis": "MIDI estimate",
-      "tonic": 7,
-      "group": 0,
-      "degrees": [
-        0,
-        3
-      ],
-      "seventhDegrees": [],
-      "recognized": 26,
-      "position": 31,
-      "tags": []
-    },
-    {
-      "slug": "gone-from-my-heart---stephen-c.-foster",
-      "basis": "MIDI estimate",
-      "tonic": 2,
-      "group": 0,
-      "degrees": [
-        0,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 55,
-      "position": 32,
-      "tags": []
-    },
-    {
-      "slug": "nigeria-national-anthem",
-      "basis": "MIDI estimate",
-      "tonic": 5,
-      "group": 0,
-      "degrees": [
-        0,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 37,
-      "position": 33,
-      "tags": []
-    },
-    {
-      "slug": "saren-kowga-jowxtm-goc",
-      "basis": "MIDI estimate",
-      "tonic": 9,
-      "group": 0,
-      "degrees": [
-        0,
-        3
-      ],
-      "seventhDegrees": [],
-      "recognized": 64,
-      "position": 34,
-      "tags": []
-    },
-    {
-      "slug": "za-beograd---boban-markovic",
-      "basis": "MIDI estimate",
-      "tonic": 3,
-      "group": 0,
-      "degrees": [
-        0,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 38,
-      "position": 35,
-      "tags": []
-    },
-    {
-      "slug": "happy-birthday",
-      "basis": "MIDI estimate",
-      "tonic": 0,
-      "group": 0,
-      "degrees": [
-        0,
-        3,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 39,
-      "position": 36,
-      "tags": [
-        "book:index",
-        "form:sentence",
-        "LH:bass_chord"
-      ]
-    },
-    {
-      "slug": "homecoming-song---abdullah-ibrahim",
-      "basis": "MIDI estimate",
-      "tonic": 8,
-      "group": 0,
-      "degrees": [
-        0,
-        3,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 60,
-      "position": 37,
-      "tags": []
-    },
-    {
-      "slug": "shepherd-moons---enya",
-      "basis": "MIDI estimate",
-      "tonic": 5,
-      "group": 0,
-      "degrees": [
-        0,
-        3,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 83,
-      "position": 38,
-      "tags": []
-    },
-    {
-      "slug": "happy-birthday-akkordeon",
-      "basis": "MIDI estimate",
-      "tonic": 0,
-      "group": 0,
-      "degrees": [
-        0,
-        3,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 80,
-      "position": 39,
-      "tags": []
-    },
-    {
-      "slug": "ttng---empty-palms-tablature",
-      "basis": "MIDI estimate",
-      "tonic": 5,
-      "group": 0,
-      "degrees": [
-        0,
-        3,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 24,
-      "position": 40,
-      "tags": []
-    },
-    {
-      "slug": "hbd-3-ll112",
-      "basis": "MIDI estimate",
-      "tonic": 5,
-      "group": 0,
-      "degrees": [
-        0,
-        3,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 42,
-      "position": 41,
-      "tags": []
-    },
-    {
-      "slug": "A_Thousand_Miles",
-      "basis": "MIDI estimate",
-      "tonic": 11,
-      "group": 0,
-      "degrees": [
-        0,
-        3,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 165,
-      "position": 42,
-      "tags": [
-        "melody:yodeling_pedal",
-        "hypermeter:last_two_measures_duplicated",
-        "book:index",
-        "rhythm:332"
-      ]
-    },
-    {
-      "slug": "mandela---abdullah-ibrahim--y8-african-music",
-      "basis": "MIDI estimate",
-      "tonic": 5,
-      "group": 0,
-      "degrees": [
-        0,
-        3,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 195,
-      "position": 43,
-      "tags": []
-    },
-    {
-      "slug": "happybirthday_simlpe_chords-al",
-      "basis": "MIDI estimate",
-      "tonic": 5,
-      "group": 0,
-      "degrees": [
-        0,
-        3,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 83,
-      "position": 44,
-      "tags": []
-    },
-    {
-      "slug": "smth2",
-      "basis": "MIDI estimate",
-      "tonic": 7,
-      "group": 0,
-      "degrees": [
-        0,
-        3,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 279,
-      "position": 45,
-      "tags": []
-    },
-    {
-      "slug": "turning-page---sleeping-at-last-piano-string-quartet",
-      "basis": "MIDI estimate",
-      "tonic": 3,
-      "group": 0,
-      "degrees": [
-        0,
-        3,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 66,
-      "position": 46,
-      "tags": []
+      "tags": [],
+      "ivBassEvidence": [],
+      "primaryClassification": "I/V stage; no IV detected (saved I/V tags take precedence)"
     },
     {
       "slug": "beethoven---bagatelle-in-a-major-no.-10---op.-119",
@@ -728,89 +208,1177 @@
       "degrees": [],
       "seventhDegrees": [],
       "recognized": 0,
-      "position": 47,
-      "tags": []
-    },
-    {
-      "slug": "undertale---memory",
-      "basis": "MIDI estimate",
-      "tonic": 9,
-      "group": 0,
-      "degrees": [],
-      "seventhDegrees": [],
-      "recognized": 0,
       "position": 48,
-      "tags": []
+      "tags": [],
+      "ivBassEvidence": [],
+      "primaryClassification": "I/V stage; no IV detected (saved I/V tags take precedence)"
     },
     {
       "slug": "icelandic-dance-op.-11-no.-1---jon-leifs",
       "basis": "MIDI estimate",
       "tonic": 6,
       "group": 0,
-      "degrees": [],
+      "degrees": [
+        0
+      ],
       "seventhDegrees": [],
       "recognized": 0,
-      "position": 49,
+      "powerChordDegrees": [
+        0
+      ],
+      "powerChordCounts": [
+        6,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "position": 50,
       "tags": [
         "meter:uneven",
         "scale:major_pentatonic"
-      ]
+      ],
+      "ivBassEvidence": [],
+      "primaryClassification": "I/V stage; no IV detected (saved I/V tags take precedence)"
+    },
+    {
+      "slug": "stille-nacht-heilige-nacht-the-1818-original-silent-night",
+      "basis": "saved I/V annotation",
+      "tonic": 2,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 40,
+      "powerChordDegrees": [
+        4
+      ],
+      "powerChordCounts": [
+        1,
+        0,
+        0,
+        2,
+        3,
+        0,
+        0
+      ],
+      "position": 1,
+      "tags": [
+        "V:sus4add3",
+        "LH:mix",
+        "pure_major:I_IV_V"
+      ],
+      "ivBassEvidence": [],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "zimbabwe-national-anthem",
+      "basis": "MIDI estimate",
+      "tonic": 7,
+      "group": 1,
+      "degrees": [
+        3
+      ],
+      "seventhDegrees": [],
+      "recognized": 1,
+      "position": 3,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 39,
+          "end": 39.99791666666667,
+          "pitch": 60
+        },
+        {
+          "start": 63,
+          "end": 63.99791666666667,
+          "pitch": 60
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "alagyas-alaghiyssh-clarinettepiano-komitas-komitas",
+      "basis": "MIDI estimate",
+      "tonic": 10,
+      "group": 1,
+      "degrees": [
+        3
+      ],
+      "seventhDegrees": [],
+      "recognized": 5,
+      "position": 6,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 54.5,
+          "end": 61.62291666666667,
+          "pitch": 51
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "where-you-are-from-moana---lin-manuel-miranda-where-you-are-easy",
+      "basis": "MIDI estimate",
+      "tonic": 0,
+      "group": 1,
+      "degrees": [
+        0,
+        3
+      ],
+      "seventhDegrees": [],
+      "recognized": 6,
+      "position": 9,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 5.5,
+          "end": 7.872916666666667,
+          "pitch": 53
+        },
+        {
+          "start": 12,
+          "end": 12.947916666666666,
+          "pitch": 41
+        },
+        {
+          "start": 23,
+          "end": 23.947916666666668,
+          "pitch": 41
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "fearless---taylor-swift-2",
+      "basis": "MIDI estimate",
+      "tonic": 5,
+      "group": 1,
+      "degrees": [
+        0,
+        3
+      ],
+      "seventhDegrees": [],
+      "recognized": 9,
+      "position": 10,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 12,
+          "end": 14.997916666666667,
+          "pitch": 58
+        },
+        {
+          "start": 12,
+          "end": 14.997916666666667,
+          "pitch": 58
+        },
+        {
+          "start": 26,
+          "end": 27.997916666666665,
+          "pitch": 58
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "marcy-s-theme---t.j.-hill-amphibia-ost",
+      "basis": "MIDI estimate",
+      "tonic": 10,
+      "group": 1,
+      "degrees": [
+        0,
+        3
+      ],
+      "seventhDegrees": [],
+      "recognized": 4,
+      "position": 13,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 158,
+          "end": 159.89791666666667,
+          "pitch": 39
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "old-black-joe-by-stephen-foster",
+      "basis": "MIDI estimate",
+      "tonic": 2,
+      "group": 1,
+      "degrees": [
+        0,
+        3
+      ],
+      "seventhDegrees": [],
+      "recognized": 7,
+      "powerChordDegrees": [
+        0
+      ],
+      "powerChordCounts": [
+        7,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "position": 17,
+      "tags": [
+        "period:diatonic",
+        "major_cadence:I64_V_I"
+      ],
+      "ivBassEvidence": [
+        {
+          "start": 4,
+          "end": 4.947916666666667,
+          "pitch": 43
+        },
+        {
+          "start": 20,
+          "end": 20.947916666666668,
+          "pitch": 43
+        },
+        {
+          "start": 36,
+          "end": 36.947916666666664,
+          "pitch": 43
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "ttng_26_is_dancier_than_4_tablature",
+      "basis": "MIDI estimate",
+      "tonic": 3,
+      "group": 1,
+      "degrees": [
+        3
+      ],
+      "seventhDegrees": [],
+      "recognized": 10,
+      "position": 18,
+      "tags": [
+        "symmetric_chords:fifths"
+      ],
+      "ivBassEvidence": [
+        {
+          "start": 5.5,
+          "end": 11.997916666666667,
+          "pitch": 32
+        },
+        {
+          "start": 17.5,
+          "end": 23.997916666666665,
+          "pitch": 32
+        },
+        {
+          "start": 29.5,
+          "end": 35.99791666666667,
+          "pitch": 32
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "music_for_airports_1_1-eno",
+      "basis": "MIDI estimate",
+      "tonic": 2,
+      "group": 1,
+      "degrees": [
+        0,
+        3
+      ],
+      "seventhDegrees": [],
+      "recognized": 125,
+      "position": 21,
+      "tags": [
+        "scale:hexatonic_major"
+      ],
+      "ivBassEvidence": [
+        {
+          "start": 9,
+          "end": 15.997916666666667,
+          "pitch": 43
+        },
+        {
+          "start": 9,
+          "end": 16,
+          "pitch": 43
+        },
+        {
+          "start": 65,
+          "end": 71.99791666666667,
+          "pitch": 43
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "theme-from-hoosiers",
+      "basis": "MIDI estimate",
+      "tonic": 3,
+      "group": 1,
+      "degrees": [
+        0,
+        3
+      ],
+      "seventhDegrees": [],
+      "recognized": 25,
+      "position": 22,
+      "tags": [
+        "V:sus4_unresolved"
+      ],
+      "ivBassEvidence": [
+        {
+          "start": 17.5,
+          "end": 18.447916666666668,
+          "pitch": 32
+        },
+        {
+          "start": 20,
+          "end": 20.947916666666668,
+          "pitch": 32
+        },
+        {
+          "start": 21.5,
+          "end": 22.447916666666668,
+          "pitch": 32
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "leaves-upon-tess",
+      "basis": "MIDI estimate",
+      "tonic": 9,
+      "group": 1,
+      "degrees": [
+        0,
+        3
+      ],
+      "seventhDegrees": [],
+      "recognized": 22,
+      "position": 23,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 4.5,
+          "end": 5.922916666666667,
+          "pitch": 50
+        },
+        {
+          "start": 18,
+          "end": 19.422916666666666,
+          "pitch": 38
+        },
+        {
+          "start": 28.5,
+          "end": 29.922916666666666,
+          "pitch": 50
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "horimiya-ep-4-untitled-track---masaru-yokoyama-please-don-t-go",
+      "basis": "MIDI estimate",
+      "tonic": 3,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 26,
+      "position": 24,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 64,
+          "end": 67.79791666666667,
+          "pitch": 44
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "schubert_d365_09",
+      "basis": "MIDI estimate",
+      "tonic": 8,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 120,
+      "position": 25,
+      "tags": [
+        "schubert:two_chords",
+        "schubert:two_chords"
+      ],
+      "ivBassEvidence": [
+        {
+          "start": 20,
+          "end": 20.950520833333332,
+          "pitch": 61
+        },
+        {
+          "start": 44,
+          "end": 44.950520833333336,
+          "pitch": 61
+        },
+        {
+          "start": 52,
+          "end": 52.950520833333336,
+          "pitch": 61
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "circles---mac-miller",
+      "basis": "MIDI estimate",
+      "tonic": 9,
+      "group": 1,
+      "degrees": [
+        0,
+        3
+      ],
+      "seventhDegrees": [],
+      "recognized": 75,
+      "position": 26,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 12,
+          "end": 13.422916666666667,
+          "pitch": 38
+        },
+        {
+          "start": 28,
+          "end": 29.422916666666666,
+          "pitch": 50
+        },
+        {
+          "start": 44,
+          "end": 45.422916666666666,
+          "pitch": 38
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "happy_birthday_bass_and_chords",
+      "basis": "MIDI estimate",
+      "tonic": 5,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 30,
+      "position": 27,
+      "tags": [
+        "major_cadence:I64_V_I",
+        "book:index"
+      ],
+      "ivBassEvidence": [
+        {
+          "start": 18,
+          "end": 20.847916666666666,
+          "pitch": 46
+        },
+        {
+          "start": 48,
+          "end": 48.947916666666664,
+          "pitch": 46
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "minuet-from-music-for-the-royal-fireworks---georg-friedrich-handel",
+      "basis": "MIDI estimate",
+      "tonic": 2,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 16,
+      "position": 28,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 51,
+          "end": 51.99791666666667,
+          "pitch": 43
+        },
+        {
+          "start": 52,
+          "end": 52.99791666666667,
+          "pitch": 55
+        },
+        {
+          "start": 53,
+          "end": 53.99791666666667,
+          "pitch": 43
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "happy_birthday_easy",
+      "basis": "MIDI estimate",
+      "tonic": 5,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 30,
+      "position": 29,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 16,
+          "end": 18.847916666666666,
+          "pitch": 46
+        },
+        {
+          "start": 46,
+          "end": 46.947916666666664,
+          "pitch": 46
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "happy_birthday_to_you",
+      "basis": "MIDI estimate",
+      "tonic": 5,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 30,
+      "position": 30,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 16,
+          "end": 18.847916666666666,
+          "pitch": 46
+        },
+        {
+          "start": 46,
+          "end": 46.947916666666664,
+          "pitch": 46
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "happy-birthday-easy-to-play",
+      "basis": "MIDI estimate",
+      "tonic": 5,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 30,
+      "position": 31,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 16,
+          "end": 18.847916666666666,
+          "pitch": 46
+        },
+        {
+          "start": 46,
+          "end": 46.947916666666664,
+          "pitch": 46
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "weep-no-more---stephen-c.-foster",
+      "basis": "MIDI estimate",
+      "tonic": 7,
+      "group": 1,
+      "degrees": [
+        0,
+        3
+      ],
+      "seventhDegrees": [],
+      "recognized": 26,
+      "position": 32,
+      "tags": [],
+      "ivBassEvidence": [],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "gone-from-my-heart---stephen-c.-foster",
+      "basis": "MIDI estimate",
+      "tonic": 2,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 55,
+      "powerChordDegrees": [
+        0
+      ],
+      "powerChordCounts": [
+        7,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "position": 33,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 40,
+          "end": 40.99791666666667,
+          "pitch": 55
+        },
+        {
+          "start": 41,
+          "end": 41.99791666666667,
+          "pitch": 55
+        },
+        {
+          "start": 42,
+          "end": 42.99791666666667,
+          "pitch": 55
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "nigeria-national-anthem",
+      "basis": "MIDI estimate",
+      "tonic": 5,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 37,
+      "position": 34,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 11,
+          "end": 11.997916666666667,
+          "pitch": 46
+        },
+        {
+          "start": 41,
+          "end": 41.99791666666667,
+          "pitch": 46
+        },
+        {
+          "start": 53,
+          "end": 54.49791666666667,
+          "pitch": 46
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "saren-kowga-jowxtm-goc",
+      "basis": "MIDI estimate",
+      "tonic": 9,
+      "group": 1,
+      "degrees": [
+        0,
+        3
+      ],
+      "seventhDegrees": [],
+      "recognized": 64,
+      "position": 35,
+      "tags": [],
+      "ivBassEvidence": [],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "za-beograd---boban-markovic",
+      "basis": "MIDI estimate",
+      "tonic": 3,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 38,
+      "position": 36,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 85.5,
+          "end": 86.49791666666667,
+          "pitch": 44
+        },
+        {
+          "start": 90,
+          "end": 90.99791666666667,
+          "pitch": 44
+        },
+        {
+          "start": 94.5,
+          "end": 95.49791666666667,
+          "pitch": 44
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "happy-birthday",
+      "basis": "MIDI estimate",
+      "tonic": 0,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 39,
+      "position": 37,
+      "tags": [
+        "book:index",
+        "form:sentence",
+        "LH:bass_chord"
+      ],
+      "ivBassEvidence": [
+        {
+          "start": 18,
+          "end": 18.997916666666665,
+          "pitch": 41
+        },
+        {
+          "start": 19,
+          "end": 19.997916666666665,
+          "pitch": 53
+        },
+        {
+          "start": 20,
+          "end": 20.997916666666665,
+          "pitch": 53
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "homecoming-song---abdullah-ibrahim",
+      "basis": "MIDI estimate",
+      "tonic": 8,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 60,
+      "position": 38,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 4.5,
+          "end": 5.247916666666667,
+          "pitch": 49
+        },
+        {
+          "start": 5.25,
+          "end": 5.997916666666667,
+          "pitch": 49
+        },
+        {
+          "start": 6.5,
+          "end": 7.247916666666667,
+          "pitch": 49
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "happy-birthday-akkordeon",
+      "basis": "MIDI estimate",
+      "tonic": 0,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 80,
+      "position": 40,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 18,
+          "end": 18.997916666666665,
+          "pitch": 41
+        },
+        {
+          "start": 19,
+          "end": 19.997916666666665,
+          "pitch": 53
+        },
+        {
+          "start": 20,
+          "end": 20.997916666666665,
+          "pitch": 53
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "ttng---empty-palms-tablature",
+      "basis": "MIDI estimate",
+      "tonic": 5,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 24,
+      "position": 41,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 5.5,
+          "end": 6.497916666666667,
+          "pitch": 34
+        },
+        {
+          "start": 6.5,
+          "end": 7.497916666666667,
+          "pitch": 34
+        },
+        {
+          "start": 22.5,
+          "end": 23.497916666666665,
+          "pitch": 34
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "hbd-3-ll112",
+      "basis": "MIDI estimate",
+      "tonic": 5,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 42,
+      "position": 42,
+      "tags": [],
+      "ivBassEvidence": [],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "A_Thousand_Miles",
+      "basis": "MIDI estimate",
+      "tonic": 11,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 165,
+      "position": 43,
+      "tags": [
+        "melody:yodeling_pedal",
+        "hypermeter:last_two_measures_duplicated",
+        "book:index",
+        "rhythm:332"
+      ],
+      "ivBassEvidence": [
+        {
+          "start": 0,
+          "end": 0.7479166666666667,
+          "pitch": 52
+        },
+        {
+          "start": 3,
+          "end": 3.997916666666667,
+          "pitch": 52
+        },
+        {
+          "start": 4,
+          "end": 4.747916666666667,
+          "pitch": 52
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "mandela---abdullah-ibrahim--y8-african-music",
+      "basis": "MIDI estimate",
+      "tonic": 5,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 195,
+      "position": 44,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 36.5,
+          "end": 37.49791666666667,
+          "pitch": 46
+        },
+        {
+          "start": 52.5,
+          "end": 53.49791666666667,
+          "pitch": 46
+        },
+        {
+          "start": 100.5,
+          "end": 101.49791666666667,
+          "pitch": 46
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "happybirthday_simlpe_chords-al",
+      "basis": "MIDI estimate",
+      "tonic": 5,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 83,
+      "position": 45,
+      "tags": [],
+      "ivBassEvidence": [],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "smth2",
+      "basis": "MIDI estimate",
+      "tonic": 7,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 279,
+      "position": 46,
+      "tags": [],
+      "ivBassEvidence": [],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "turning-page---sleeping-at-last-piano-string-quartet",
+      "basis": "MIDI estimate",
+      "tonic": 3,
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 66,
+      "powerChordDegrees": [
+        3
+      ],
+      "powerChordCounts": [
+        1,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      "position": 47,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 8,
+          "end": 8.997916666666667,
+          "pitch": 56
+        },
+        {
+          "start": 12,
+          "end": 13.997916666666667,
+          "pitch": 44
+        },
+        {
+          "start": 24,
+          "end": 27.997916666666665,
+          "pitch": 56
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
+    },
+    {
+      "slug": "undertale---memory",
+      "basis": "MIDI estimate",
+      "tonic": 9,
+      "group": 1,
+      "degrees": [
+        3
+      ],
+      "seventhDegrees": [],
+      "recognized": 0,
+      "position": 49,
+      "tags": [],
+      "ivBassEvidence": [
+        {
+          "start": 0.5,
+          "end": 1.4979166666666666,
+          "pitch": 62
+        },
+        {
+          "start": 1.5,
+          "end": 2.497916666666667,
+          "pitch": 62
+        },
+        {
+          "start": 2.5,
+          "end": 3.497916666666667,
+          "pitch": 62
+        }
+      ],
+      "primaryClassification": "IV present in saved annotation or MIDI harmony/bass evidence"
     },
     {
       "slug": "Walking_On_a_dream",
       "basis": "MIDI estimate",
       "tonic": 8,
-      "group": 1,
+      "group": 2,
       "degrees": [
         5
       ],
       "seventhDegrees": [],
       "recognized": 5,
-      "position": 50,
+      "position": 51,
       "tags": []
     },
     {
       "slug": "by-this-river---brian-eno",
-      "basis": "MIDI estimate",
+      "basis": "reviewed chord presence; MIDI estimate",
       "tonic": 10,
-      "group": 1,
+      "group": 2,
       "degrees": [
         3,
         5
       ],
       "seventhDegrees": [],
       "recognized": 28,
-      "position": 51,
+      "position": 52,
       "tags": [
         "texture:three_levels"
-      ]
+      ],
+      "reviewedHarmony": {
+        "requiredDegrees": [
+          5
+        ],
+        "source": "user manual review",
+        "evidence": "vi in the bass counts as vi even without a complete triad"
+      }
     },
     {
       "slug": "chinar-es-komitas",
       "basis": "MIDI estimate",
       "tonic": 5,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         5
       ],
       "seventhDegrees": [],
       "recognized": 146,
-      "position": 52,
+      "position": 53,
       "tags": []
     },
     {
       "slug": "prelude-etnika---piano-transcription",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         5
       ],
       "seventhDegrees": [],
       "recognized": 174,
-      "position": 53,
+      "powerChordDegrees": [
+        0
+      ],
+      "powerChordCounts": [
+        6,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "position": 54,
       "tags": [
         "scale:major_pentatonic"
       ]
@@ -819,14 +1387,14 @@
       "slug": "etude-op.-10-no.-5-black-keys-pentatonic-arrangement",
       "basis": "MIDI estimate",
       "tonic": 6,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         5
       ],
       "seventhDegrees": [],
       "recognized": 95,
-      "position": 54,
+      "position": 55,
       "tags": [
         "scale:major_pentatonic"
       ]
@@ -835,21 +1403,21 @@
       "slug": "minecraft-title",
       "basis": "MIDI estimate",
       "tonic": 6,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         5
       ],
       "seventhDegrees": [],
       "recognized": 213,
-      "position": 55,
+      "position": 56,
       "tags": []
     },
     {
       "slug": "devetorka-samokovsko-horo",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -857,14 +1425,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 13,
-      "position": 56,
+      "position": 57,
       "tags": []
     },
     {
       "slug": "radino-horo",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -872,14 +1440,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 18,
-      "position": 57,
+      "position": 58,
       "tags": []
     },
     {
       "slug": "heathcliff-theme-song",
-      "basis": "MIDI estimate",
+      "basis": "reviewed chord presence; MIDI estimate",
       "tonic": 7,
-      "group": 1,
+      "group": 2,
       "degrees": [
         3,
         4,
@@ -887,31 +1455,23 @@
       ],
       "seventhDegrees": [],
       "recognized": 19,
-      "position": 58,
+      "position": 59,
       "tags": [
         "progression:four_chords"
-      ]
-    },
-    {
-      "slug": "wildfire---syml",
-      "basis": "MIDI estimate",
-      "tonic": 11,
-      "group": 1,
-      "degrees": [
-        3,
-        4,
-        5
       ],
-      "seventhDegrees": [],
-      "recognized": 279,
-      "position": 59,
-      "tags": []
+      "reviewedHarmony": {
+        "requiredDegrees": [
+          5
+        ],
+        "source": "user manual review",
+        "evidence": "Measure 3, beat 3: vi"
+      }
     },
     {
       "slug": "outer-wilds---main-theme---andrew-prahlow",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         4,
@@ -919,31 +1479,28 @@
       ],
       "seventhDegrees": [],
       "recognized": 72,
-      "position": 60,
+      "powerChordDegrees": [
+        4
+      ],
+      "powerChordCounts": [
+        1,
+        0,
+        0,
+        2,
+        4,
+        2,
+        0
+      ],
+      "position": 61,
       "tags": [
         "progression:four_chords"
       ]
     },
     {
-      "slug": "raymond-pauls-ptichka-na-vetke",
-      "basis": "MIDI estimate",
-      "tonic": 7,
-      "group": 1,
-      "degrees": [
-        0,
-        3,
-        5
-      ],
-      "seventhDegrees": [],
-      "recognized": 60,
-      "position": 61,
-      "tags": []
-    },
-    {
       "slug": "eclipse---nujabes",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -951,14 +1508,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 30,
-      "position": 62,
+      "position": 63,
       "tags": []
     },
     {
       "slug": "Ophelia",
       "basis": "MIDI estimate",
       "tonic": 5,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -966,14 +1523,27 @@
       ],
       "seventhDegrees": [],
       "recognized": 81,
-      "position": 63,
+      "powerChordDegrees": [
+        0,
+        3
+      ],
+      "powerChordCounts": [
+        7,
+        0,
+        0,
+        6,
+        0,
+        0,
+        0
+      ],
+      "position": 64,
       "tags": []
     },
     {
       "slug": "schubert-german-dance-d.783-op.-33-no.-2",
       "basis": "MIDI estimate",
       "tonic": 2,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         4,
@@ -981,14 +1551,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 62,
-      "position": 64,
+      "position": 65,
       "tags": []
     },
     {
       "slug": "rachenica-for-three",
       "basis": "MIDI estimate",
       "tonic": 5,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -996,14 +1566,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 38,
-      "position": 65,
+      "position": 66,
       "tags": []
     },
     {
       "slug": "run-feat.-ed-sheeran-taylor-s-version-from-the-vault---taylor-swift-run-feat.-ed-sheeran-taylor-s-version-from-the-vault---flute-and-clarinet-duet",
       "basis": "MIDI estimate",
       "tonic": 3,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1011,14 +1581,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 176,
-      "position": 66,
+      "position": 67,
       "tags": []
     },
     {
       "slug": "m.-loizos---koytsi-kithara---greek-music-048",
       "basis": "MIDI estimate",
       "tonic": 2,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1026,14 +1596,107 @@
       ],
       "seventhDegrees": [],
       "recognized": 30,
-      "position": 67,
+      "position": 68,
+      "tags": []
+    },
+    {
+      "slug": "Good_Bye_Hachiko",
+      "basis": "MIDI estimate",
+      "tonic": 0,
+      "group": 2,
+      "degrees": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "seventhDegrees": [],
+      "recognized": 11,
+      "powerChordDegrees": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        12,
+        0,
+        0,
+        8,
+        8,
+        5,
+        0
+      ],
+      "position": 7,
+      "tags": []
+    },
+    {
+      "slug": "shepherd-moons---enya",
+      "basis": "MIDI estimate",
+      "tonic": 5,
+      "group": 2,
+      "degrees": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "seventhDegrees": [],
+      "recognized": 83,
+      "powerChordDegrees": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        35,
+        0,
+        0,
+        14,
+        24,
+        4,
+        0
+      ],
+      "position": 39,
+      "tags": []
+    },
+    {
+      "slug": "wildfire---syml",
+      "basis": "MIDI estimate",
+      "tonic": 11,
+      "group": 2,
+      "degrees": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "seventhDegrees": [],
+      "recognized": 279,
+      "powerChordDegrees": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        5,
+        0,
+        0,
+        17,
+        29,
+        18,
+        0
+      ],
+      "position": 60,
       "tags": []
     },
     {
       "slug": "pinkfong-babyshark-anonymous-20190203093900-nonstop2k.com",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1042,7 +1705,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 174,
-      "position": 68,
+      "position": 69,
       "tags": [
         "modulation:truck_driver"
       ]
@@ -1051,7 +1714,7 @@
       "slug": "turning",
       "basis": "MIDI estimate",
       "tonic": 4,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1060,7 +1723,22 @@
       ],
       "seventhDegrees": [],
       "recognized": 59,
-      "position": 69,
+      "powerChordDegrees": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        11,
+        0,
+        0,
+        10,
+        12,
+        14,
+        0
+      ],
+      "position": 70,
       "tags": [
         "hypermeter:extra_bar_for_tonic",
         "progression:four_chords"
@@ -1070,7 +1748,7 @@
       "slug": "n.-portokalogloy---to-kalokairaki---greek-music-044",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1079,14 +1757,27 @@
       ],
       "seventhDegrees": [],
       "recognized": 58,
-      "position": 70,
+      "powerChordDegrees": [
+        3,
+        4
+      ],
+      "powerChordCounts": [
+        0,
+        0,
+        0,
+        8,
+        16,
+        0,
+        0
+      ],
+      "position": 71,
       "tags": []
     },
     {
       "slug": "outer-wilds---timber-hearth",
       "basis": "MIDI estimate",
       "tonic": 3,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1095,7 +1786,20 @@
       ],
       "seventhDegrees": [],
       "recognized": 67,
-      "position": 71,
+      "powerChordDegrees": [
+        0,
+        3
+      ],
+      "powerChordCounts": [
+        8,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0
+      ],
+      "position": 72,
       "tags": [
         "style:minimalism"
       ]
@@ -1104,7 +1808,7 @@
       "slug": "Ed_Sheeran_Perfect",
       "basis": "MIDI estimate",
       "tonic": 8,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1113,7 +1817,19 @@
       ],
       "seventhDegrees": [],
       "recognized": 403,
-      "position": 72,
+      "powerChordDegrees": [
+        4
+      ],
+      "powerChordCounts": [
+        1,
+        0,
+        0,
+        1,
+        7,
+        0,
+        0
+      ],
+      "position": 73,
       "tags": [
         "book:index",
         "V:sus4_unresolved",
@@ -1124,7 +1840,7 @@
       "slug": "four-chord-song",
       "basis": "MIDI estimate",
       "tonic": 4,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1133,14 +1849,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 657,
-      "position": 73,
+      "position": 74,
       "tags": []
     },
     {
       "slug": "ed-sheeran---perfect-easy-for-beginners",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1149,14 +1865,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 246,
-      "position": 74,
+      "position": 75,
       "tags": []
     },
     {
       "slug": "John_Lennon_Imagine",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1165,7 +1881,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 267,
-      "position": 75,
+      "position": 76,
       "tags": [
         "book:index"
       ]
@@ -1174,7 +1890,7 @@
       "slug": "messages-easy-piano---vangelis",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1183,14 +1899,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 554,
-      "position": 76,
+      "position": 77,
       "tags": []
     },
     {
       "slug": "nde-rendape-aju-jose-a-suncion-flores-manuel-ortiz-guerrero",
       "basis": "MIDI estimate",
       "tonic": 5,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1199,14 +1915,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 116,
-      "position": 77,
+      "position": 78,
       "tags": []
     },
     {
       "slug": "baby-shark-song",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1215,7 +1931,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 65,
-      "position": 78,
+      "position": 79,
       "tags": [
         "progression:four_chords"
       ]
@@ -1224,7 +1940,7 @@
       "slug": "feliz-navidad.2",
       "basis": "MIDI estimate",
       "tonic": 2,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1233,14 +1949,26 @@
       ],
       "seventhDegrees": [],
       "recognized": 275,
-      "position": 79,
+      "powerChordDegrees": [
+        0
+      ],
+      "powerChordCounts": [
+        6,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "position": 80,
       "tags": []
     },
     {
       "slug": "amazing-grace-choir-saa---john-newton",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1249,14 +1977,26 @@
       ],
       "seventhDegrees": [],
       "recognized": 194,
-      "position": 80,
+      "powerChordDegrees": [
+        0
+      ],
+      "powerChordCounts": [
+        6,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0
+      ],
+      "position": 81,
       "tags": []
     },
     {
       "slug": "overcooked-2---map-theme-piano-solo",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1265,14 +2005,29 @@
       ],
       "seventhDegrees": [],
       "recognized": 144,
-      "position": 81,
+      "powerChordDegrees": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        18,
+        0,
+        0,
+        9,
+        17,
+        9,
+        0
+      ],
+      "position": 82,
       "tags": []
     },
     {
       "slug": "sign-of-the-times---harry-styles",
       "basis": "MIDI estimate",
       "tonic": 5,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1281,7 +2036,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 526,
-      "position": 82,
+      "position": 83,
       "tags": [
         "book:index"
       ]
@@ -1290,7 +2045,7 @@
       "slug": "slander-dylan-matthew---love-is-gone-acoustic",
       "basis": "MIDI estimate",
       "tonic": 6,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1299,7 +2054,22 @@
       ],
       "seventhDegrees": [],
       "recognized": 168,
-      "position": 83,
+      "powerChordDegrees": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        11,
+        0,
+        0,
+        9,
+        7,
+        7,
+        0
+      ],
+      "position": 84,
       "tags": [
         "V:sus4",
         "relative:double_tonic"
@@ -1309,7 +2079,7 @@
       "slug": "demons-imagine-dragons",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1318,14 +2088,29 @@
       ],
       "seventhDegrees": [],
       "recognized": 29,
-      "position": 84,
+      "powerChordDegrees": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        4,
+        0,
+        0,
+        11,
+        9,
+        4,
+        0
+      ],
+      "position": 85,
       "tags": []
     },
     {
       "slug": "bts-bangtansonyeondan---dynamite-piano-version",
       "basis": "MIDI estimate",
       "tonic": 4,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1334,14 +2119,29 @@
       ],
       "seventhDegrees": [],
       "recognized": 398,
-      "position": 85,
+      "powerChordDegrees": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        4,
+        0,
+        0,
+        6,
+        4,
+        12,
+        0
+      ],
+      "position": 86,
       "tags": []
     },
     {
       "slug": "baby",
       "basis": "MIDI estimate",
       "tonic": 3,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1350,14 +2150,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 267,
-      "position": 86,
+      "position": 87,
       "tags": []
     },
     {
       "slug": "love-story---taylor-swift-taylor-s-version",
       "basis": "MIDI estimate",
       "tonic": 2,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1366,14 +2166,29 @@
       ],
       "seventhDegrees": [],
       "recognized": 389,
-      "position": 87,
+      "powerChordDegrees": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        12,
+        0,
+        0,
+        6,
+        10,
+        10,
+        0
+      ],
+      "position": 88,
       "tags": []
     },
     {
       "slug": "richard-marx---right-here-waiting",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1382,7 +2197,20 @@
       ],
       "seventhDegrees": [],
       "recognized": 233,
-      "position": 88,
+      "powerChordDegrees": [
+        0,
+        5
+      ],
+      "powerChordCounts": [
+        4,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0
+      ],
+      "position": 89,
       "tags": [
         "V:sus4_unresolved",
         "hypermeter:fusion"
@@ -1392,7 +2220,7 @@
       "slug": "Photograph_Ed_Sheeran",
       "basis": "MIDI estimate",
       "tonic": 4,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         3,
@@ -1401,14 +2229,26 @@
       ],
       "seventhDegrees": [],
       "recognized": 625,
-      "position": 89,
+      "powerChordDegrees": [
+        0
+      ],
+      "powerChordCounts": [
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "position": 90,
       "tags": []
     },
     {
       "slug": "a-thousand-years",
       "basis": "saved I-vi-IV-V progression annotation",
       "tonic": 10,
-      "group": 1,
+      "group": 2,
       "degrees": [
         0,
         1,
@@ -1418,7 +2258,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 500,
-      "position": 90,
+      "position": 91,
       "tags": [
         "rhythm:scotch_snap",
         "scale:major",
@@ -1434,60 +2274,60 @@
       "slug": "stand-by-me",
       "basis": "known I-vi-IV-V progression; sparse MIDI voicing",
       "tonic": 9,
-      "group": 1,
+      "group": 2,
       "degrees": [],
       "seventhDegrees": [],
       "recognized": 0,
-      "position": 91,
+      "position": 92,
       "tags": []
     },
     {
       "slug": "evermore---taylor-swift-feat.-bon-iver",
       "basis": "MIDI estimate",
       "tonic": 1,
-      "group": 2,
+      "group": 3,
       "degrees": [
         1,
         5
       ],
       "seventhDegrees": [],
       "recognized": 60,
-      "position": 92,
+      "position": 93,
       "tags": []
     },
     {
       "slug": "la-senorita---catherine-rollin",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1
       ],
       "seventhDegrees": [],
       "recognized": 28,
-      "position": 93,
+      "position": 94,
       "tags": []
     },
     {
       "slug": "shake-it-off---taylor-swift",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 2,
+      "group": 3,
       "degrees": [
         1,
         3
       ],
       "seventhDegrees": [],
       "recognized": 16,
-      "position": 94,
+      "position": 95,
       "tags": []
     },
     {
       "slug": "nujabes---counting-stars---loop-piano-cover",
       "basis": "MIDI estimate",
       "tonic": 2,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1495,14 +2335,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 64,
-      "position": 95,
+      "position": 96,
       "tags": []
     },
     {
       "slug": "happy-birthday-waltz",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1510,22 +2350,37 @@
       ],
       "seventhDegrees": [],
       "recognized": 25,
-      "position": 96,
+      "position": 97,
       "tags": []
     },
     {
       "slug": "les-premiers-sourires-de-vanessa-by-richard-clayderman-for-piano",
       "basis": "MIDI estimate",
       "tonic": 4,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
+        3,
         4
       ],
       "seventhDegrees": [],
       "recognized": 218,
-      "position": 97,
+      "powerChordDegrees": [
+        0,
+        3,
+        4
+      ],
+      "powerChordCounts": [
+        3,
+        0,
+        0,
+        9,
+        11,
+        0,
+        0
+      ],
+      "position": 98,
       "tags": [
         "progression:I_IV_V_I",
         "rhythm:3_vs_2",
@@ -1536,7 +2391,7 @@
       "slug": "blank-space---taylor-swift-easy-piano",
       "basis": "MIDI estimate",
       "tonic": 5,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1545,14 +2400,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 47,
-      "position": 98,
+      "position": 99,
       "tags": []
     },
     {
       "slug": "kagayakuquan-a-shining-spring",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1561,14 +2416,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 74,
-      "position": 99,
+      "position": 100,
       "tags": []
     },
     {
       "slug": "viridian-pewter-saffron-city---pokemon-rby---junichi-masuda",
       "basis": "MIDI estimate",
       "tonic": 3,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1577,7 +2432,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 187,
-      "position": 100,
+      "position": 101,
       "tags": [
         "hypermeter:another_default",
         "hypermeter:extra_bar_for_V"
@@ -1587,7 +2442,7 @@
       "slug": "to-build-a-home-~-the-cinematic-orchestra",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1596,7 +2451,19 @@
       ],
       "seventhDegrees": [],
       "recognized": 652,
-      "position": 101,
+      "powerChordDegrees": [
+        4
+      ],
+      "powerChordCounts": [
+        0,
+        0,
+        0,
+        0,
+        20,
+        0,
+        0
+      ],
+      "position": 102,
       "tags": [
         "progression:three_chords"
       ]
@@ -1605,7 +2472,7 @@
       "slug": "dreams-of-love-and-literature",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1614,14 +2481,28 @@
       ],
       "seventhDegrees": [],
       "recognized": 53,
-      "position": 102,
+      "powerChordDegrees": [
+        0,
+        3,
+        4
+      ],
+      "powerChordCounts": [
+        8,
+        0,
+        0,
+        8,
+        8,
+        0,
+        0
+      ],
+      "position": 103,
       "tags": []
     },
     {
       "slug": "yiruma_its_your_day",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1630,14 +2511,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 102,
-      "position": 103,
+      "position": 104,
       "tags": []
     },
     {
       "slug": "it-s-your-day---yiruma",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1646,7 +2527,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 101,
-      "position": 104,
+      "position": 105,
       "tags": [
         "arpeggio:r23_flag",
         "doubling:sixths",
@@ -1658,7 +2539,7 @@
       "slug": "forest-gump---main-title-feather-theme",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1668,7 +2549,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 130,
-      "position": 105,
+      "position": 106,
       "tags": [
         "bass:pedal",
         "modulation:truck_driver"
@@ -1678,7 +2559,7 @@
       "slug": "only-time---enya",
       "basis": "MIDI estimate",
       "tonic": 3,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1688,7 +2569,20 @@
       ],
       "seventhDegrees": [],
       "recognized": 207,
-      "position": 106,
+      "powerChordDegrees": [
+        0,
+        5
+      ],
+      "powerChordCounts": [
+        13,
+        0,
+        0,
+        0,
+        0,
+        8,
+        0
+      ],
+      "position": 107,
       "tags": [
         "modulation:distant"
       ]
@@ -1697,7 +2591,7 @@
       "slug": "someone-you-loved-lewis-capaldi",
       "basis": "MIDI estimate",
       "tonic": 1,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1707,7 +2601,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 293,
-      "position": 107,
+      "position": 108,
       "tags": [
         "book:index"
       ]
@@ -1716,7 +2610,7 @@
       "slug": "m.-loizos---o-dromos---greek-music-003",
       "basis": "MIDI estimate",
       "tonic": 2,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1726,14 +2620,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 246,
-      "position": 108,
+      "position": 109,
       "tags": []
     },
     {
       "slug": "olivia-rodrigo---drivers-license",
       "basis": "MIDI estimate",
       "tonic": 10,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1743,14 +2637,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 281,
-      "position": 109,
+      "position": 110,
       "tags": []
     },
     {
       "slug": "monochrome-filter",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1760,7 +2654,21 @@
       ],
       "seventhDegrees": [],
       "recognized": 278,
-      "position": 110,
+      "powerChordDegrees": [
+        0,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        4,
+        0,
+        0,
+        0,
+        5,
+        3,
+        0
+      ],
+      "position": 111,
       "tags": [
         "progression:four_chords"
       ]
@@ -1769,7 +2677,7 @@
       "slug": "heart-of-stone-from-six-the-musical",
       "basis": "MIDI estimate",
       "tonic": 5,
-      "group": 2,
+      "group": 3,
       "degrees": [
         0,
         1,
@@ -1779,108 +2687,263 @@
       ],
       "seventhDegrees": [],
       "recognized": 330,
-      "position": 111,
+      "position": 112,
       "tags": []
     },
     {
-      "slug": "westlife---beautiful-in-white",
-      "basis": "saved iii annotation",
-      "tonic": 0,
-      "group": 3,
+      "slug": "the-office---opening-titles-theme-song-for-piano",
+      "basis": "reviewed chord presence; MIDI estimate",
+      "tonic": 7,
+      "group": 4,
       "degrees": [
-        4
+        0,
+        2,
+        3,
+        5
       ],
       "seventhDegrees": [],
-      "recognized": 20,
-      "position": 112,
+      "recognized": 24,
+      "position": 20,
       "tags": [
-        "progression:pachelbels_canon",
-        "modulation:truck_driver",
-        "hypermeter:extra_bar_for_V",
-        "chunks:V_IV"
-      ]
+        "book:index"
+      ],
+      "ivBassEvidence": [
+        {
+          "start": 12,
+          "end": 13.897916666666667,
+          "pitch": 60
+        },
+        {
+          "start": 14,
+          "end": 15.897916666666667,
+          "pitch": 60
+        },
+        {
+          "start": 28,
+          "end": 28.947916666666668,
+          "pitch": 60
+        }
+      ],
+      "harmonicRhythm": {
+        "beats": 4,
+        "phase": 0,
+        "confidence": 0.7391304347826086,
+        "supportingIntervals": 17,
+        "observedIntervals": 23
+      },
+      "textures": {
+        "bass": 24
+      },
+      "bassDegrees": [
+        0,
+        2,
+        3,
+        5
+      ],
+      "chordEvidence": [
+        {
+          "start": 0,
+          "end": 4,
+          "degree": 0,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 0,
+          "end": 4,
+          "degree": 0,
+          "seventh": false,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 4,
+          "end": 8,
+          "degree": 2,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 8,
+          "end": 12,
+          "degree": 5,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 12,
+          "end": 16,
+          "degree": 3,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 16,
+          "end": 20,
+          "degree": 0,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 20,
+          "end": 24,
+          "degree": 2,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 24,
+          "end": 27,
+          "degree": 5,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 28,
+          "end": 32,
+          "degree": 3,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 36,
+          "end": 40,
+          "degree": 2,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 40,
+          "end": 44,
+          "degree": 5,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 44,
+          "end": 48,
+          "degree": 3,
+          "texture": "bass",
+          "confidence": 0.9
+        }
+      ],
+      "estimatedDegrees": [
+        0,
+        2,
+        3,
+        5
+      ],
+      "reviewedHarmony": {
+        "requiredDegrees": [
+          0,
+          2,
+          5,
+          3
+        ],
+        "source": "user manual review, verified against local MIDI",
+        "evidence": "One 4/4 bar per harmony: G-B-E-C bass at beats 0, 4, 8, 12 establishes I-iii-vi-IV in G major"
+      }
+    },
+    {
+      "slug": "raymond-pauls-ptichka-na-vetke",
+      "basis": "reviewed chord presence; MIDI estimate",
+      "tonic": 7,
+      "group": 4,
+      "degrees": [
+        0,
+        2,
+        3,
+        5
+      ],
+      "seventhDegrees": [],
+      "recognized": 60,
+      "position": 62,
+      "tags": [],
+      "reviewedHarmony": {
+        "requiredDegrees": [
+          5,
+          2
+        ],
+        "source": "user manual review",
+        "evidence": "Measures 39–40: vi and iii"
+      }
     },
     {
       "slug": "chariots-of-fire-theme",
       "basis": "MIDI estimate",
       "tonic": 1,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2
       ],
       "seventhDegrees": [],
       "recognized": 122,
-      "position": 113,
+      "position": 114,
       "tags": [
         "doubling:chord_tone"
       ]
     },
     {
-      "slug": "a-lovely-little-town---brandon-hesslau---buddy-simulator-1984",
-      "basis": "saved iii annotation",
-      "tonic": 4,
-      "group": 3,
-      "degrees": [
-        0,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 20,
-      "position": 114,
-      "tags": [
-        "pure_major:iii_no_ii",
-        "rhythm:simple",
-        "doubling:fifths"
-      ]
-    },
-    {
-      "slug": "prologue---evgeny-grinko",
-      "basis": "MIDI estimate",
-      "tonic": 3,
-      "group": 3,
-      "degrees": [
-        0,
-        2
-      ],
-      "seventhDegrees": [],
-      "recognized": 43,
-      "position": 115,
-      "tags": []
-    },
-    {
       "slug": "cardigan---taylor-swift",
       "basis": "MIDI estimate",
       "tonic": 3,
-      "group": 3,
+      "group": 4,
       "degrees": [
         4,
         6
       ],
       "seventhDegrees": [],
       "recognized": 16,
-      "position": 116,
+      "position": 117,
       "tags": []
     },
     {
       "slug": "la-bamba.1",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         6
       ],
       "seventhDegrees": [],
       "recognized": 39,
-      "position": 198,
+      "position": 118,
+      "tags": []
+    },
+    {
+      "slug": "prologue---evgeny-grinko",
+      "basis": "MIDI estimate",
+      "tonic": 3,
+      "group": 4,
+      "degrees": [
+        0,
+        2,
+        3
+      ],
+      "seventhDegrees": [],
+      "recognized": 43,
+      "powerChordDegrees": [
+        3
+      ],
+      "powerChordCounts": [
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      "position": 116,
       "tags": []
     },
     {
       "slug": "tango-flamenco---luis-de-soria-1851---1935",
       "basis": "MIDI estimate",
       "tonic": 2,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -1888,14 +2951,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 90,
-      "position": 117,
+      "position": 119,
       "tags": []
     },
     {
       "slug": "mi-tierra-veracruzana---natalia-lafourcade",
       "basis": "MIDI estimate",
       "tonic": 2,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         4,
@@ -1903,14 +2966,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 139,
-      "position": 118,
+      "position": 120,
       "tags": []
     },
     {
       "slug": "Vangelis_Chariots_of_fire",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -1918,14 +2981,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 143,
-      "position": 119,
+      "position": 121,
       "tags": []
     },
     {
       "slug": "the-office",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -1933,7 +2996,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 12,
-      "position": 120,
+      "position": 122,
       "tags": [
         "book:index"
       ]
@@ -1942,7 +3005,7 @@
       "slug": "oh-susanna",
       "basis": "MIDI estimate",
       "tonic": 2,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -1950,14 +3013,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 45,
-      "position": 121,
+      "position": 123,
       "tags": []
     },
     {
       "slug": "yuri-on-ice---piano-theme-full",
       "basis": "MIDI estimate",
       "tonic": 3,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -1965,7 +3028,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 33,
-      "position": 122,
+      "position": 124,
       "tags": [
         "book:index"
       ]
@@ -1974,7 +3037,7 @@
       "slug": "goner",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 3,
+      "group": 4,
       "degrees": [
         2,
         3,
@@ -1982,14 +3045,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 35,
-      "position": 123,
+      "position": 125,
       "tags": []
     },
     {
       "slug": "yu-nolian-ren-tati---gan-cha-noyin-le-gong-fang",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 3,
+      "group": 4,
       "degrees": [
         1,
         2,
@@ -1997,22 +3060,69 @@
       ],
       "seventhDegrees": [],
       "recognized": 173,
-      "position": 124,
+      "position": 126,
       "tags": []
+    },
+    {
+      "slug": "a-lovely-little-town---brandon-hesslau---buddy-simulator-1984",
+      "basis": "saved iii annotation",
+      "tonic": 4,
+      "group": 4,
+      "degrees": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 20,
+      "powerChordDegrees": [
+        0,
+        2,
+        3
+      ],
+      "powerChordCounts": [
+        8,
+        0,
+        8,
+        14,
+        2,
+        0,
+        0
+      ],
+      "position": 115,
+      "tags": [
+        "pure_major:iii_no_ii",
+        "rhythm:simple",
+        "doubling:fifths"
+      ]
     },
     {
       "slug": "target-renegade-end-theme---gari-biasillo",
       "basis": "saved iii annotation",
       "tonic": 7,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
-        3
+        3,
+        4
       ],
       "seventhDegrees": [],
       "recognized": 28,
-      "position": 203,
+      "powerChordDegrees": [
+        4
+      ],
+      "powerChordCounts": [
+        2,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0
+      ],
+      "position": 127,
       "tags": [
         "progression:pachelbels_canon",
         "last_chords:major_add9",
@@ -2024,7 +3134,7 @@
       "slug": "when-i-am-dust-in-arcadia",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2033,14 +3143,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 123,
-      "position": 125,
+      "position": 128,
       "tags": []
     },
     {
       "slug": "runaway---kanye-west-ramin-djawadi-arr.-by-alex-patience",
       "basis": "MIDI estimate",
       "tonic": 4,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2049,7 +3159,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 394,
-      "position": 126,
+      "position": 129,
       "tags": [
         "book:index",
         "doubling:thirds"
@@ -2059,7 +3169,7 @@
       "slug": "the-office-theme",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2068,14 +3178,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 95,
-      "position": 127,
+      "position": 130,
       "tags": []
     },
     {
       "slug": "chasing-cars---snow-patrol",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2084,14 +3194,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 83,
-      "position": 128,
+      "position": 131,
       "tags": []
     },
     {
       "slug": "this-wandering-day---bear-mccreary---the-rings-of-power",
       "basis": "saved iii annotation",
       "tonic": 10,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         3,
@@ -2100,7 +3210,19 @@
       ],
       "seventhDegrees": [],
       "recognized": 122,
-      "position": 129,
+      "powerChordDegrees": [
+        0
+      ],
+      "powerChordCounts": [
+        6,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "position": 132,
       "tags": [
         "pure_major:iii_no_ii"
       ]
@@ -2109,7 +3231,7 @@
       "slug": "georgy_zakharov_hw5",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2118,14 +3240,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 34,
-      "position": 130,
+      "position": 133,
       "tags": []
     },
     {
       "slug": "someone-like-you-instrumental",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2134,14 +3256,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 38,
-      "position": 131,
+      "position": 134,
       "tags": []
     },
     {
       "slug": "our-happy-ending---brandon-hesslau---buddy-simulator-1984",
       "basis": "MIDI estimate",
       "tonic": 5,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2150,7 +3272,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 235,
-      "position": 132,
+      "position": 135,
       "tags": [
         "shuttle:relative"
       ]
@@ -2159,7 +3281,7 @@
       "slug": "fix-you---coldplay",
       "basis": "MIDI estimate",
       "tonic": 3,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2168,14 +3290,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 101,
-      "position": 133,
+      "position": 136,
       "tags": []
     },
     {
       "slug": "yours-rakuen-by-laura-shgihara",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2184,14 +3306,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 56,
-      "position": 134,
+      "position": 137,
       "tags": []
     },
     {
       "slug": "undertale-dog-song-piano-solo",
       "basis": "MIDI estimate",
       "tonic": 1,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         3,
@@ -2200,7 +3322,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 211,
-      "position": 135,
+      "position": 138,
       "tags": [
         "period:diatonic"
       ]
@@ -2209,7 +3331,7 @@
       "slug": "roberto-cacciapaglia---tema-celeste",
       "basis": "MIDI estimate",
       "tonic": 2,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2218,7 +3340,22 @@
       ],
       "seventhDegrees": [],
       "recognized": 124,
-      "position": 136,
+      "powerChordDegrees": [
+        0,
+        2,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        22,
+        0,
+        20,
+        0,
+        16,
+        16,
+        0
+      ],
+      "position": 139,
       "tags": [
         "last_chords:major",
         "style:minimalism",
@@ -2226,10 +3363,10 @@
       ]
     },
     {
-      "slug": "letter-to-my-mother---vicenzo-piano",
-      "basis": "MIDI estimate",
-      "tonic": 7,
-      "group": 3,
+      "slug": "westlife---beautiful-in-white",
+      "basis": "saved iii annotation",
+      "tonic": 0,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2238,15 +3375,36 @@
         5
       ],
       "seventhDegrees": [],
-      "recognized": 66,
-      "position": 137,
-      "tags": []
+      "recognized": 20,
+      "powerChordDegrees": [
+        0,
+        2,
+        3,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        36,
+        0,
+        15,
+        23,
+        28,
+        19,
+        0
+      ],
+      "position": 113,
+      "tags": [
+        "progression:pachelbels_canon",
+        "modulation:truck_driver",
+        "hypermeter:extra_bar_for_V",
+        "chunks:V_IV"
+      ]
     },
     {
       "slug": "animato-24-pieces-for-children-op.-39-no.-18---dmitri-kabalevsky",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2256,7 +3414,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 26,
-      "position": 138,
+      "position": 141,
       "tags": [
         "cycle_root_motion:second_up",
         "cycle_root_motion:second_down"
@@ -2266,7 +3424,7 @@
       "slug": "titanium",
       "basis": "MIDI estimate",
       "tonic": 3,
-      "group": 3,
+      "group": 4,
       "degrees": [
         1,
         2,
@@ -2276,14 +3434,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 195,
-      "position": 139,
+      "position": 142,
       "tags": []
     },
     {
       "slug": "always-with-me-piano-cover",
       "basis": "MIDI estimate",
       "tonic": 5,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2293,14 +3451,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 137,
-      "position": 140,
+      "position": 143,
       "tags": []
     },
     {
       "slug": "yiruma_kiss_the_rain_easy",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2310,14 +3468,27 @@
       ],
       "seventhDegrees": [],
       "recognized": 33,
-      "position": 141,
+      "powerChordDegrees": [
+        3,
+        4
+      ],
+      "powerChordCounts": [
+        1,
+        1,
+        0,
+        3,
+        5,
+        1,
+        0
+      ],
+      "position": 144,
       "tags": []
     },
     {
       "slug": "piano-serenade-in-a-flat",
       "basis": "MIDI estimate",
       "tonic": 8,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2327,14 +3498,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 190,
-      "position": 142,
+      "position": 145,
       "tags": []
     },
     {
       "slug": "idea-5---gibran-alcocer",
       "basis": "MIDI estimate",
       "tonic": 10,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2344,14 +3515,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 163,
-      "position": 143,
+      "position": 146,
       "tags": []
     },
     {
       "slug": "triste-coeur",
       "basis": "MIDI estimate",
       "tonic": 4,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2361,7 +3532,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 141,
-      "position": 144,
+      "position": 147,
       "tags": [
         "hypermeter:uneven"
       ]
@@ -2370,7 +3541,7 @@
       "slug": "stay---chad-lawson",
       "basis": "MIDI estimate",
       "tonic": 3,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2380,72 +3551,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 107,
-      "position": 145,
+      "position": 148,
       "tags": []
     },
     {
       "slug": "greendale-is-where-i-belong---ludwig-goransson---community",
       "basis": "MIDI estimate",
       "tonic": 2,
-      "group": 3,
-      "degrees": [
-        0,
-        2,
-        3,
-        4,
-        5
-      ],
-      "seventhDegrees": [],
-      "recognized": 108,
-      "position": 146,
-      "tags": [
-        "bass:diatonic_line_down"
-      ]
-    },
-    {
-      "slug": "pallet-town---pokemon-red-blue-green-yellow-by-junichi-masuda",
-      "basis": "MIDI estimate",
-      "tonic": 7,
-      "group": 3,
-      "degrees": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "seventhDegrees": [],
-      "recognized": 103,
-      "position": 147,
-      "tags": [
-        "hypermeter:extra_bar_for_V",
-        "period:diatonic"
-      ]
-    },
-    {
-      "slug": "kevin-kern-through-your-eyes",
-      "basis": "MIDI estimate",
-      "tonic": 4,
-      "group": 3,
-      "degrees": [
-        0,
-        2,
-        3,
-        4,
-        5
-      ],
-      "seventhDegrees": [],
-      "recognized": 213,
-      "position": 148,
-      "tags": [
-        "V:sus4"
-      ]
-    },
-    {
-      "slug": "fairy-tail---mirajane-no-theme---yasuharu-takanashi-fairy-tail---mirajane-no-theme---yasuharu-takanashi-mira-s-theme",
-      "basis": "MIDI estimate",
-      "tonic": 7,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2457,6 +3570,57 @@
       "recognized": 108,
       "position": 149,
       "tags": [
+        "bass:diatonic_line_down"
+      ]
+    },
+    {
+      "slug": "kevin-kern-through-your-eyes",
+      "basis": "MIDI estimate",
+      "tonic": 4,
+      "group": 4,
+      "degrees": [
+        0,
+        2,
+        3,
+        4,
+        5
+      ],
+      "seventhDegrees": [],
+      "recognized": 213,
+      "powerChordDegrees": [
+        0,
+        4
+      ],
+      "powerChordCounts": [
+        16,
+        2,
+        0,
+        0,
+        9,
+        0,
+        0
+      ],
+      "position": 151,
+      "tags": [
+        "V:sus4"
+      ]
+    },
+    {
+      "slug": "fairy-tail---mirajane-no-theme---yasuharu-takanashi-fairy-tail---mirajane-no-theme---yasuharu-takanashi-mira-s-theme",
+      "basis": "MIDI estimate",
+      "tonic": 7,
+      "group": 4,
+      "degrees": [
+        0,
+        2,
+        3,
+        4,
+        5
+      ],
+      "seventhDegrees": [],
+      "recognized": 108,
+      "position": 152,
+      "tags": [
         "relative:double_tonic",
         "ornament:upper_mordent",
         "period:diatonic"
@@ -2466,7 +3630,7 @@
       "slug": "as_it_was_harry_styles",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2476,14 +3640,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 308,
-      "position": 150,
+      "position": 153,
       "tags": []
     },
     {
       "slug": "enchanted-taylor-s-version---taylor-swift",
       "basis": "MIDI estimate",
       "tonic": 8,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2493,14 +3657,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 125,
-      "position": 151,
+      "position": 154,
       "tags": []
     },
     {
       "slug": "the-family-madrigal-from-encanto---lin-manuel-miranda-simplified-for-kids-beginners-piano",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2510,14 +3674,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 44,
-      "position": 152,
+      "position": 155,
       "tags": []
     },
     {
       "slug": "someone-like-you",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2527,7 +3691,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 73,
-      "position": 153,
+      "position": 156,
       "tags": [
         "book:index"
       ]
@@ -2536,7 +3700,7 @@
       "slug": "going-places---dennis-alexander",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2546,14 +3710,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 46,
-      "position": 154,
+      "position": 157,
       "tags": []
     },
     {
       "slug": "backpack-quest",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2563,14 +3727,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 66,
-      "position": 155,
+      "position": 158,
       "tags": []
     },
     {
       "slug": "sunlight-waltz---catherine-rollin",
       "basis": "saved iii annotation",
       "tonic": 0,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2580,17 +3744,84 @@
       ],
       "seventhDegrees": [],
       "recognized": 66,
-      "position": 156,
+      "position": 159,
       "tags": [
         "chord_scale:iii",
         "cycle_root_motion:second_down"
       ]
     },
     {
+      "slug": "letter-to-my-mother---vicenzo-piano",
+      "basis": "MIDI estimate",
+      "tonic": 7,
+      "group": 4,
+      "degrees": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "seventhDegrees": [],
+      "recognized": 66,
+      "powerChordDegrees": [
+        1
+      ],
+      "powerChordCounts": [
+        0,
+        6,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "position": 140,
+      "tags": []
+    },
+    {
+      "slug": "pallet-town---pokemon-red-blue-green-yellow-by-junichi-masuda",
+      "basis": "MIDI estimate",
+      "tonic": 7,
+      "group": 4,
+      "degrees": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "seventhDegrees": [],
+      "recognized": 103,
+      "powerChordDegrees": [
+        0,
+        1,
+        3,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        8,
+        4,
+        0,
+        12,
+        22,
+        4,
+        0
+      ],
+      "position": 150,
+      "tags": [
+        "hypermeter:extra_bar_for_V",
+        "period:diatonic"
+      ]
+    },
+    {
       "slug": "butterfly",
       "basis": "MIDI estimate",
       "tonic": 4,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2601,14 +3832,31 @@
       ],
       "seventhDegrees": [],
       "recognized": 384,
-      "position": 157,
+      "powerChordDegrees": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        15,
+        5,
+        6,
+        9,
+        8,
+        9,
+        0
+      ],
+      "position": 160,
       "tags": []
     },
     {
       "slug": "we-had-today",
       "basis": "MIDI estimate",
       "tonic": 2,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2619,14 +3867,27 @@
       ],
       "seventhDegrees": [],
       "recognized": 381,
-      "position": 158,
+      "powerChordDegrees": [
+        0,
+        3
+      ],
+      "powerChordCounts": [
+        18,
+        0,
+        0,
+        6,
+        1,
+        0,
+        0
+      ],
+      "position": 161,
       "tags": []
     },
     {
       "slug": "dearly-beloved-piano-collections-kingdom-hearts",
       "basis": "MIDI estimate",
       "tonic": 3,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2637,7 +3898,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 135,
-      "position": 159,
+      "position": 162,
       "tags": [
         "arpeggio:r23_flag"
       ]
@@ -2646,7 +3907,7 @@
       "slug": "winter---lucia-salieri-vicenzo-piano",
       "basis": "MIDI estimate",
       "tonic": 2,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2657,7 +3918,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 108,
-      "position": 160,
+      "position": 163,
       "tags": [
         "arpeggio:r23_flag"
       ]
@@ -2666,7 +3927,7 @@
       "slug": "fairytale---enya",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         2,
@@ -2677,7 +3938,22 @@
       ],
       "seventhDegrees": [],
       "recognized": 151,
-      "position": 161,
+      "powerChordDegrees": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        14,
+        0,
+        0,
+        10,
+        6,
+        7,
+        0
+      ],
+      "position": 164,
       "tags": [
         "bass:diatonic_line_down"
       ]
@@ -2686,7 +3962,7 @@
       "slug": "itsumo-nando-demo-always-with-me---spirited-away",
       "basis": "saved iii annotation",
       "tonic": 4,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2697,7 +3973,24 @@
       ],
       "seventhDegrees": [],
       "recognized": 557,
-      "position": 162,
+      "powerChordDegrees": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        37,
+        12,
+        14,
+        20,
+        10,
+        11,
+        0
+      ],
+      "position": 165,
       "tags": [
         "last_chords:major_IV_V_I",
         "progression:pachelbels_canon",
@@ -2708,7 +4001,7 @@
       "slug": "Feliz_Navidad",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2719,14 +4012,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 110,
-      "position": 163,
+      "position": 166,
       "tags": []
     },
     {
       "slug": "my-feelings",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2737,14 +4030,14 @@
       ],
       "seventhDegrees": [],
       "recognized": 151,
-      "position": 164,
+      "position": 167,
       "tags": []
     },
     {
       "slug": "we-had-today---rachel-portman",
       "basis": "MIDI estimate",
       "tonic": 2,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2755,14 +4048,27 @@
       ],
       "seventhDegrees": [],
       "recognized": 381,
-      "position": 165,
+      "powerChordDegrees": [
+        0,
+        3
+      ],
+      "powerChordCounts": [
+        18,
+        0,
+        0,
+        6,
+        2,
+        0,
+        0
+      ],
+      "position": 168,
       "tags": []
     },
     {
       "slug": "you-and-i---buddy-simulator-1984",
       "basis": "MIDI estimate",
       "tonic": 2,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2773,14 +4079,26 @@
       ],
       "seventhDegrees": [],
       "recognized": 226,
-      "position": 166,
+      "powerChordDegrees": [
+        3
+      ],
+      "powerChordCounts": [
+        0,
+        0,
+        0,
+        6,
+        2,
+        0,
+        0
+      ],
+      "position": 169,
       "tags": []
     },
     {
       "slug": "revivre-sa-vie--richard-clayderman",
       "basis": "MIDI estimate",
       "tonic": 1,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2792,7 +4110,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 234,
-      "position": 167,
+      "position": 170,
       "tags": [
         "cycle_root_motion:second_up"
       ]
@@ -2801,7 +4119,7 @@
       "slug": "prelude-no.-17-bwv-862-in-a-major",
       "basis": "MIDI estimate",
       "tonic": 8,
-      "group": 3,
+      "group": 4,
       "degrees": [
         0,
         1,
@@ -2813,7 +4131,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 78,
-      "position": 200,
+      "position": 171,
       "tags": [
         "texture:swap_layers"
       ]
@@ -2822,7 +4140,7 @@
       "slug": "wima.4be9-schubert_de.-tanz-d.365.28",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         4
@@ -2831,7 +4149,7 @@
         4
       ],
       "recognized": 135,
-      "position": 168,
+      "position": 172,
       "tags": [
         "schubert:two_chords",
         "schubert:two_chords"
@@ -2841,7 +4159,7 @@
       "slug": "wima.02f6-schubert_deut.tanz-d.365.33",
       "basis": "MIDI estimate",
       "tonic": 5,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         4
@@ -2850,14 +4168,14 @@
         4
       ],
       "recognized": 120,
-      "position": 169,
+      "position": 173,
       "tags": []
     },
     {
       "slug": "wima.1124-schubert_de.-tanz-d.365.26",
       "basis": "MIDI estimate",
       "tonic": 4,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         4
@@ -2866,7 +4184,7 @@
         4
       ],
       "recognized": 110,
-      "position": 205,
+      "position": 174,
       "tags": [
         "ornament:chromatic_grace_note",
         "schubert:two_chords",
@@ -2877,7 +4195,7 @@
       "slug": "wima.7e1e-schubert_deut.tanz-d.365.09",
       "basis": "MIDI estimate",
       "tonic": 8,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         4
@@ -2886,7 +4204,7 @@
         4
       ],
       "recognized": 142,
-      "position": 206,
+      "position": 175,
       "tags": [
         "nonchord_tone:chromatic_auxiliary"
       ]
@@ -2895,7 +4213,7 @@
       "slug": "wima.e3f7-schubert_deut.tanzd365.17",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         3,
@@ -2905,14 +4223,14 @@
         4
       ],
       "recognized": 128,
-      "position": 170,
+      "position": 176,
       "tags": []
     },
     {
       "slug": "wima.3657-schubert_deut.tanzd365.18",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         1,
@@ -2922,14 +4240,14 @@
         4
       ],
       "recognized": 122,
-      "position": 171,
+      "position": 177,
       "tags": []
     },
     {
       "slug": "wima.e480-schubert_de.-tanz-d.365.25",
       "basis": "MIDI estimate",
       "tonic": 4,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         2,
@@ -2939,7 +4257,7 @@
         4
       ],
       "recognized": 117,
-      "position": 172,
+      "position": 178,
       "tags": [
         "schubert:two_chords",
         "schubert:two_chords"
@@ -2949,7 +4267,7 @@
       "slug": "dolannes-melody--richard-clayderman",
       "basis": "saved seventh/extended-chord annotation",
       "tonic": 4,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         2,
@@ -2957,7 +4275,19 @@
       ],
       "seventhDegrees": [],
       "recognized": 187,
-      "position": 173,
+      "powerChordDegrees": [
+        4
+      ],
+      "powerChordCounts": [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0
+      ],
+      "position": 179,
       "tags": [
         "V:9",
         "seventh_chords:major_seventh_in_melody"
@@ -2967,7 +4297,7 @@
       "slug": "closing-time---yehezkel-raz",
       "basis": "MIDI estimate",
       "tonic": 4,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         3,
@@ -2977,14 +4307,14 @@
         3
       ],
       "recognized": 78,
-      "position": 174,
+      "position": 180,
       "tags": []
     },
     {
       "slug": "lullaby-for-erik---evgeny-grinko",
       "basis": "saved seventh/extended-chord annotation",
       "tonic": 2,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         1,
@@ -2992,7 +4322,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 177,
-      "position": 175,
+      "position": 181,
       "tags": [
         "rhythm:333331",
         "seventh_chords:mix"
@@ -3002,7 +4332,7 @@
       "slug": "priboi",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         4,
@@ -3013,14 +4343,14 @@
         4
       ],
       "recognized": 115,
-      "position": 176,
+      "position": 182,
       "tags": []
     },
     {
       "slug": "neil-young---harvest-moon-piano-solo",
       "basis": "saved seventh/extended-chord annotation",
       "tonic": 2,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         3,
@@ -3028,7 +4358,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 62,
-      "position": 177,
+      "position": 183,
       "tags": [
         "seventh_chords:mix"
       ]
@@ -3037,7 +4367,7 @@
       "slug": "priboi-mp3",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         4,
@@ -3048,14 +4378,14 @@
         4
       ],
       "recognized": 115,
-      "position": 201,
+      "position": 184,
       "tags": []
     },
     {
       "slug": "wedding-ballet---austin-farwell",
       "basis": "saved seventh/extended-chord annotation",
       "tonic": 5,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         1,
@@ -3069,7 +4399,19 @@
         4
       ],
       "recognized": 217,
-      "position": 178,
+      "powerChordDegrees": [
+        3
+      ],
+      "powerChordCounts": [
+        2,
+        0,
+        0,
+        12,
+        0,
+        0,
+        0
+      ],
+      "position": 185,
       "tags": [
         "seventh_chords:mix"
       ]
@@ -3078,7 +4420,7 @@
       "slug": "wima.d5ac-schubert_deut.tanzd365.13",
       "basis": "MIDI estimate",
       "tonic": 8,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         3,
@@ -3090,14 +4432,14 @@
         6
       ],
       "recognized": 118,
-      "position": 179,
+      "position": 186,
       "tags": []
     },
     {
       "slug": "Viva_La_Vida_Coldplay",
       "basis": "saved seventh/extended-chord annotation",
       "tonic": 8,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         3,
@@ -3106,7 +4448,20 @@
       ],
       "seventhDegrees": [],
       "recognized": 547,
-      "position": 180,
+      "powerChordDegrees": [
+        3,
+        4
+      ],
+      "powerChordCounts": [
+        0,
+        0,
+        0,
+        34,
+        65,
+        0,
+        0
+      ],
+      "position": 187,
       "tags": [
         "rhythm:anticipated_chord",
         "relative:double_tonic",
@@ -3125,7 +4480,7 @@
       "slug": "dazhe-moya-beybi-ne-znaet---poshlaya-molli",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         2,
@@ -3137,14 +4492,14 @@
         5
       ],
       "recognized": 389,
-      "position": 181,
+      "position": 188,
       "tags": []
     },
     {
       "slug": "here-s-your-perfect---jamie-miller",
       "basis": "MIDI estimate",
       "tonic": 7,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         3,
@@ -3156,14 +4511,14 @@
         5
       ],
       "recognized": 175,
-      "position": 182,
+      "position": 189,
       "tags": []
     },
     {
       "slug": "city-lights---austin-farwell",
       "basis": "saved seventh/extended-chord annotation",
       "tonic": 3,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         2,
@@ -3172,7 +4527,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 49,
-      "position": 183,
+      "position": 190,
       "tags": [
         "seventh_chords:mix"
       ]
@@ -3181,7 +4536,7 @@
       "slug": "kevin-kern-the-silence-of-knowing",
       "basis": "saved seventh/extended-chord annotation",
       "tonic": 5,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         1,
@@ -3191,7 +4546,19 @@
       ],
       "seventhDegrees": [],
       "recognized": 552,
-      "position": 184,
+      "powerChordDegrees": [
+        0
+      ],
+      "powerChordCounts": [
+        3,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0
+      ],
+      "position": 191,
       "tags": [
         "major_cadence:I64_V_I",
         "extensions:mix"
@@ -3201,7 +4568,7 @@
       "slug": "forever-and-always---taylor-swift",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         2,
@@ -3213,14 +4580,14 @@
         0
       ],
       "recognized": 182,
-      "position": 185,
+      "position": 192,
       "tags": []
     },
     {
       "slug": "subwoofer-lullaby-minecraft",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         2,
@@ -3232,14 +4599,14 @@
         0
       ],
       "recognized": 239,
-      "position": 186,
+      "position": 193,
       "tags": []
     },
     {
       "slug": "wildest-dreams---taylor-swift",
       "basis": "MIDI estimate",
       "tonic": 8,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         1,
@@ -3251,14 +4618,28 @@
         3
       ],
       "recognized": 142,
-      "position": 187,
+      "powerChordDegrees": [
+        3,
+        4,
+        5
+      ],
+      "powerChordCounts": [
+        0,
+        0,
+        0,
+        10,
+        8,
+        6,
+        0
+      ],
+      "position": 194,
       "tags": []
     },
     {
       "slug": "awakening---vicenzo-piano",
       "basis": "MIDI estimate",
       "tonic": 1,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         2,
@@ -3270,7 +4651,20 @@
         3
       ],
       "recognized": 104,
-      "position": 188,
+      "powerChordDegrees": [
+        0,
+        3
+      ],
+      "powerChordCounts": [
+        3,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0
+      ],
+      "position": 195,
       "tags": [
         "arpeggio:r23_flag"
       ]
@@ -3279,7 +4673,7 @@
       "slug": "Someone_Like_You_easy_piano",
       "basis": "saved seventh/extended-chord annotation",
       "tonic": 9,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         1,
@@ -3291,7 +4685,19 @@
         3
       ],
       "recognized": 185,
-      "position": 189,
+      "powerChordDegrees": [
+        3
+      ],
+      "powerChordCounts": [
+        1,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      "position": 196,
       "tags": [
         "progression:four_chords",
         "rhythm:anticipated_melody",
@@ -3311,7 +4717,7 @@
       "slug": "someone-like-you-easy-piano",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         1,
@@ -3323,14 +4729,26 @@
         3
       ],
       "recognized": 185,
-      "position": 202,
+      "powerChordDegrees": [
+        3
+      ],
+      "powerChordCounts": [
+        1,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      "position": 197,
       "tags": []
     },
     {
       "slug": "remembering-the-light---kevin-kern",
       "basis": "saved seventh/extended-chord annotation",
       "tonic": 10,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         1,
@@ -3341,7 +4759,19 @@
       ],
       "seventhDegrees": [],
       "recognized": 589,
-      "position": 190,
+      "powerChordDegrees": [
+        0
+      ],
+      "powerChordCounts": [
+        6,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "position": 198,
       "tags": [
         "V:9"
       ]
@@ -3350,7 +4780,7 @@
       "slug": "chasing-kou---hidekazu-sakamoto-drowning-love---ni-rerunaihu-mule-bbajin-naipeu-ost",
       "basis": "MIDI estimate",
       "tonic": 1,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         2,
@@ -3363,14 +4793,14 @@
         2
       ],
       "recognized": 67,
-      "position": 191,
+      "position": 199,
       "tags": []
     },
     {
       "slug": "michishirube---violet-evergarden-ed",
       "basis": "MIDI estimate",
       "tonic": 9,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         1,
@@ -3383,14 +4813,27 @@
         1
       ],
       "recognized": 89,
-      "position": 192,
+      "powerChordDegrees": [
+        0,
+        4
+      ],
+      "powerChordCounts": [
+        3,
+        0,
+        0,
+        2,
+        3,
+        1,
+        0
+      ],
+      "position": 200,
       "tags": []
     },
     {
       "slug": "the-fabelmans---john-williams",
       "basis": "saved seventh/extended-chord annotation",
       "tonic": 7,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         1,
@@ -3401,7 +4844,7 @@
       ],
       "seventhDegrees": [],
       "recognized": 152,
-      "position": 193,
+      "position": 201,
       "tags": [
         "bass:diatonic_line_down",
         "seventh_chords:mix"
@@ -3411,7 +4854,7 @@
       "slug": "hojnacki_1",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         1,
@@ -3428,14 +4871,14 @@
         5
       ],
       "recognized": 129,
-      "position": 194,
+      "position": 202,
       "tags": []
     },
     {
       "slug": "tom_hojnacki_it_could_have_been_the_summertime",
       "basis": "saved seventh/extended-chord annotation",
       "tonic": 0,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         1,
@@ -3451,19 +4894,20 @@
         3
       ],
       "recognized": 97,
-      "position": 204,
+      "position": 203,
       "tags": [
         "extensions:mix",
         "V:soul_dominant",
         "major_cadence:deceptive",
-        "form:codetta"
+        "form:codetta",
+        "form:AABA"
       ]
     },
     {
       "slug": "a-whiter-shade-of-pale-~-david-lanz",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         1,
@@ -3477,7 +4921,7 @@
         3
       ],
       "recognized": 381,
-      "position": 195,
+      "position": 204,
       "tags": [
         "bass:diatonic_line_down"
       ]
@@ -3486,7 +4930,7 @@
       "slug": "major_diatonic_chords",
       "basis": "MIDI estimate",
       "tonic": 0,
-      "group": 4,
+      "group": 5,
       "degrees": [
         0,
         1,
@@ -3500,18 +4944,18 @@
         6
       ],
       "recognized": 38,
-      "position": 196,
+      "position": 205,
       "tags": []
     },
     {
       "slug": "ii-v-i-warmup",
       "basis": "MIDI review: opening ii9 arpeggio",
       "tonic": 0,
-      "group": 4,
+      "group": 5,
       "degrees": [],
       "seventhDegrees": [],
       "recognized": 0,
-      "position": 197,
+      "position": 206,
       "tags": []
     }
   ]

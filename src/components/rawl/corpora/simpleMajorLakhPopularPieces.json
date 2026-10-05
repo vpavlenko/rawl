@@ -1,0 +1,74 @@
+{
+  "primary-triads": [
+    ["Tom Petty and The Heartbreakers", "I Won't Back Down"],
+    ["Sly & The Family Stone", "Everyday People"],
+    ["Eddy Grant", "Gimme Hope Jo'Anna"],
+    ["The Cranberries", "Just My Imagination"],
+    ["Fun Factory", "I Wanna Be With You"],
+    ["Joni Mitchell", "Cactus Tree"],
+    ["Depeche Mode", "I Sometimes Wish I Was Dead"],
+    ["Assia", "Elle Est a Toi"],
+    ["Battiato", "Vite parallele"],
+    ["Phish", "Bliss"]
+  ],
+  "primary-with-iv": [
+    ["Valens Ritchie", "La Bamba"],
+    ["ABBA", "I Have a Dream"],
+    ["Tom Petty and The Heartbreakers", "Free Fallin'"],
+    ["U2", "I Still Haven't Found What I'm Looking For"],
+    ["blink-182", "All the Small Things"],
+    ["Cyndi Lauper", "Time After Time"],
+    ["Tokens", "The Lion Sleeps Tonight"],
+    ["Chumbawamba", "Tubthumping"],
+    ["Puff Daddy", "I'll Be Missing You"],
+    ["Green Day", "When I Come Around"]
+  ],
+  "triads-with-vi": [
+    ["ABBA", "Take a Chance on Me"],
+    ["U2", "With or Without You"],
+    ["Savage Garden", "Truly Madly Deeply"],
+    ["Green Day", "Good Riddance (Time of Your Life)"],
+    ["Cyndi Lauper", "True Colors"],
+    ["Fleetwood Mac", "Everywhere"],
+    ["Tina Turner", "The Best"],
+    ["Bette Midler", "The Rose"],
+    ["Boney M.", "Rivers Of Babylon"],
+    ["Simon & Garfunkel", "The Boxer"]
+  ],
+  "triads-with-ii": [
+    ["Neil Diamond", "Sweet Caroline"],
+    ["Simon & Garfunkel", "The Sound of Silence"],
+    ["UB40", "Red Red Wine"],
+    ["Madonna", "Like a Prayer"],
+    ["Richard Marx", "Right Here Waiting"],
+    ["Air Supply", "All Out Of Love"],
+    ["Band Aid", "Do They Know It's Christmas"],
+    ["Billy Joel", "We Didn't Start the Fire"],
+    ["Bruce Springsteen", "Dancing in the Dark"],
+    ["Joni Mitchell", "Both Sides, Now"]
+  ],
+  "triads-with-iii": [
+    ["Journey", "Don't Stop Believin'"],
+    ["The Beatles", "I Want to Hold Your Hand"],
+    ["The Righteous Brothers", "Unchained Melody"],
+    ["Creedence Clearwater Revival", "Have You Ever Seen the Rain"],
+    ["Celine Dion", "Power of Love"],
+    ["Roxette", "It Must Have Been Love"],
+    ["Shania Twain", "You're Still the One"],
+    ["Vangelis", "Chariots of Fire"],
+    ["Whitesnake", "Here I Go Again"],
+    ["Billy Ray Cyrus", "Achy Breaky Heart"]
+  ],
+  "mixed-sevenths": [
+    ["Fleetwood Mac", "Landslide"],
+    ["Marx Richard", "Right Here Waiting"],
+    ["Don Henley", "Boys of Summer"],
+    ["Bette Midler", "From a Distance"],
+    ["Enya", "Shepherd Moons"],
+    ["Alanis Morissette", "That I Would Be Good"],
+    ["Oleta Adams", "Get Here"],
+    ["Sarah McLachlan", "Sweet Surrender"],
+    ["Andrew Lloyd Webber", "Requiem: Pie Jesu"],
+    ["blink-182", "Dammit"]
+  ]
+}

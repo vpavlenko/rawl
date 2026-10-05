@@ -32,6 +32,20 @@ const secondary = [
   note(57, 2.25, 0.25, "other"),
 ];
 assert.equal(classify([...base, ...secondary], cMajor), null);
+// The relaxed Lakh tier changes only the ending requirement, not chromatic
+// harmony rejection. Ending on V stays out of the default strict search.
+const dominantEnding = base.filter((n) => n.start < 32);
+assert.equal(classify(dominantEnding, cMajor), null);
+assert.equal(
+  classify(dominantEnding, cMajor, [], { requireTonicEnding: false }).tonic,
+  0,
+);
+assert.equal(
+  classify([...dominantEnding, ...secondary], cMajor, [], {
+    requireTonicEnding: false,
+  }),
+  null,
+);
 // Major tonic extensions must not exclude an otherwise diatonic piece.
 const extended = [
   ...base,

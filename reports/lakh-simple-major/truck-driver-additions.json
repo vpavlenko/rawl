@@ -1,0 +1,2095 @@
+[
+  {
+    "status": "match",
+    "artist": "John Robert",
+    "filename": "Sad Eyes.mid",
+    "title": "Sad Eyes",
+    "slug": "lakh/John_Robert/Sad_Eyes",
+    "tier": "inferred truck-driver modulation; review local keys",
+    "tonic": 0,
+    "keyRegions": [
+      {
+        "start": 0,
+        "tonic": 0
+      },
+      {
+        "start": 230,
+        "tonic": 2
+      }
+    ],
+    "keyProfile": {
+      "tonic": 0,
+      "mode": "major",
+      "score": 0.8672251315880769,
+      "margin": 0.0879306257696646
+    },
+    "chromaticNotes": 0,
+    "noteCount": 2150,
+    "basis": "MIDI estimate",
+    "group": 1,
+    "degrees": [
+      0,
+      3
+    ],
+    "seventhDegrees": [],
+    "recognized": 122.52083333333334,
+    "harmonicRhythm": {
+      "beats": 4,
+      "phase": 8,
+      "confidence": 0.32142857142857145,
+      "supportingIntervals": 27,
+      "observedIntervals": 84
+    },
+    "textures": {
+      "arpeggiated-chord": 59,
+      "bass": 30
+    },
+    "bassDegrees": [],
+    "chordEvidence": [
+      {
+        "start": 39.333333333333336,
+        "end": 43.333333333333336,
+        "degree": 0,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 43.333333333333336,
+        "end": 51.333333333333336,
+        "degree": 3,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 72,
+        "end": 75.66666666666667,
+        "degree": 3,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 88,
+        "end": 91,
+        "degree": 3,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 111.33333333333333,
+        "end": 115.33333333333333,
+        "degree": 0,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 263.3333333333333,
+        "end": 270.2604166666667,
+        "degree": 0,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      }
+    ],
+    "ivBassEvidence": [
+      {
+        "start": 16,
+        "end": 17.59375,
+        "pitch": 29
+      },
+      {
+        "start": 60,
+        "end": 62.890625,
+        "pitch": 29
+      },
+      {
+        "start": 63,
+        "end": 63.682291666666664,
+        "pitch": 29
+      }
+    ]
+  },
+  {
+    "status": "match",
+    "artist": "Enya",
+    "filename": "How Can I Keep From Singing.mid",
+    "title": "How Can I Keep From Singing",
+    "slug": "lakh/Enya/How_Can_I_Keep_From_Singing",
+    "tier": "inferred truck-driver modulation; review local keys",
+    "tonic": 2,
+    "keyRegions": [
+      {
+        "start": 0,
+        "tonic": 2
+      },
+      {
+        "start": 179.15833333333333,
+        "tonic": 3
+      }
+    ],
+    "keyProfile": {
+      "tonic": 2,
+      "mode": "major",
+      "score": 0.6499372459876925,
+      "margin": 0.054440814884381905
+    },
+    "chromaticNotes": 0,
+    "noteCount": 1020,
+    "basis": "MIDI estimate",
+    "group": 2,
+    "degrees": [
+      0,
+      3,
+      4,
+      5
+    ],
+    "seventhDegrees": [],
+    "recognized": 471.5666666666669,
+    "harmonicRhythm": {
+      "beats": 0.5,
+      "phase": 4.066666666666666,
+      "confidence": 0.0650887573964497,
+      "supportingIntervals": 22,
+      "observedIntervals": 338
+    },
+    "textures": {
+      "arpeggiated-chord": 395,
+      "mixed": 39,
+      "unknown": 3,
+      "melody": 7,
+      "block-chord": 47,
+      "bass": 13,
+      "power-chord": 22,
+      "strummed-chord": 4
+    },
+    "bassDegrees": [
+      0,
+      4
+    ],
+    "chordEvidence": [
+      {
+        "start": 4.1,
+        "end": 5.1,
+        "degree": 0,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 5.1,
+        "end": 6.1,
+        "degree": 0,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 6.1,
+        "end": 7.1,
+        "degree": 0,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 7.1,
+        "end": 8.1,
+        "degree": 3,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 8.1,
+        "end": 9.1,
+        "degree": 3,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 9.1,
+        "end": 10.1,
+        "degree": 3,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 14.391666666666667,
+        "end": 15.391666666666667,
+        "degree": 4,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 15.391666666666667,
+        "end": 16.391666666666666,
+        "degree": 4,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 20.05,
+        "end": 20.533333333333335,
+        "degree": 0,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 24.391666666666666,
+        "end": 24.825,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.5
+      },
+      {
+        "start": 27.958333333333332,
+        "end": 28.441666666666666,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.5
+      },
+      {
+        "start": 28.716666666666665,
+        "end": 29.2,
+        "degree": 4,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 41.958333333333336,
+        "end": 42.18333333333333,
+        "degree": 0,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 42.18333333333333,
+        "end": 43.18333333333333,
+        "degree": 0,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 54.75,
+        "end": 55.31666666666667,
+        "degree": 2,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 55.31666666666667,
+        "end": 56.31666666666667,
+        "degree": 2,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 57.49166666666667,
+        "end": 57.7,
+        "degree": 5,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 57.7,
+        "end": 58.7,
+        "degree": 5,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 58.7,
+        "end": 58.975,
+        "degree": 5,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 64.59166666666667,
+        "end": 65.59166666666667,
+        "degree": 0,
+        "seventh": false,
+        "texture": "mixed",
+        "confidence": 0.3
+      },
+      {
+        "start": 74.64166666666667,
+        "end": 74.98333333333333,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.5
+      },
+      {
+        "start": 124.2,
+        "end": 124.8,
+        "degree": 2,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 124.8,
+        "end": 125.8,
+        "degree": 2,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 125.8,
+        "end": 126.8,
+        "degree": 2,
+        "seventh": false,
+        "texture": "mixed",
+        "confidence": 0.3
+      },
+      {
+        "start": 133.53333333333333,
+        "end": 134.53333333333333,
+        "degree": 0,
+        "seventh": false,
+        "texture": "mixed",
+        "confidence": 0.3
+      },
+      {
+        "start": 141.66666666666666,
+        "end": 142.66666666666666,
+        "degree": 3,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 204.275,
+        "end": 204.93333333333334,
+        "degree": 3,
+        "seventh": false,
+        "texture": "strummed-chord",
+        "confidence": 0.75
+      },
+      {
+        "start": 213.525,
+        "end": 214.525,
+        "degree": 4,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 235.5,
+        "end": 236.43333333333334,
+        "degree": 4,
+        "seventh": false,
+        "texture": "mixed",
+        "confidence": 0.3
+      },
+      {
+        "start": 263.075,
+        "end": 263.9166666666667,
+        "degree": 5,
+        "seventh": false,
+        "texture": "mixed",
+        "confidence": 0.3
+      },
+      {
+        "start": 266.15833333333336,
+        "end": 266.53333333333336,
+        "degree": 4,
+        "texture": "bass",
+        "confidence": 0.5
+      },
+      {
+        "start": 291.51666666666665,
+        "end": 292.225,
+        "degree": 4,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 195.175,
+        "end": 196.175,
+        "degree": 4,
+        "texture": "power-chord",
+        "confidence": 0.85
+      }
+    ],
+    "ivBassEvidence": [
+      {
+        "start": 7.391666666666667,
+        "end": 10.016666666666667,
+        "pitch": 55
+      },
+      {
+        "start": 7.433333333333334,
+        "end": 9.808333333333334,
+        "pitch": 43
+      },
+      {
+        "start": 7.466666666666667,
+        "end": 10.058333333333334,
+        "pitch": 31
+      }
+    ]
+  },
+  {
+    "status": "match",
+    "artist": "Enya",
+    "filename": "How Can I Keep From Singing.1.mid",
+    "title": "How Can I Keep From Singing.1",
+    "slug": "lakh/Enya/How_Can_I_Keep_From_Singing_1",
+    "tier": "inferred truck-driver modulation; review local keys",
+    "tonic": 2,
+    "keyRegions": [
+      {
+        "start": 0,
+        "tonic": 2
+      },
+      {
+        "start": 183.15625,
+        "tonic": 3
+      }
+    ],
+    "keyProfile": {
+      "tonic": 2,
+      "mode": "major",
+      "score": 0.6499078051997108,
+      "margin": 0.05440254952449086
+    },
+    "chromaticNotes": 0,
+    "noteCount": 1020,
+    "basis": "MIDI estimate",
+    "group": 2,
+    "degrees": [
+      0,
+      3,
+      4,
+      5
+    ],
+    "seventhDegrees": [],
+    "recognized": 470.3541666666669,
+    "harmonicRhythm": {
+      "beats": 0.5,
+      "phase": 8.0625,
+      "confidence": 0.0650887573964497,
+      "supportingIntervals": 22,
+      "observedIntervals": 338
+    },
+    "textures": {
+      "arpeggiated-chord": 395,
+      "mixed": 39,
+      "unknown": 3,
+      "melody": 7,
+      "block-chord": 47,
+      "bass": 13,
+      "power-chord": 22,
+      "strummed-chord": 4
+    },
+    "bassDegrees": [
+      0,
+      4
+    ],
+    "chordEvidence": [
+      {
+        "start": 8.098958333333334,
+        "end": 9.098958333333334,
+        "degree": 0,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 9.098958333333334,
+        "end": 10.098958333333334,
+        "degree": 0,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 10.098958333333334,
+        "end": 11.098958333333334,
+        "degree": 0,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 11.098958333333334,
+        "end": 12.098958333333334,
+        "degree": 3,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 12.098958333333334,
+        "end": 13.098958333333334,
+        "degree": 3,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 13.098958333333334,
+        "end": 14.098958333333334,
+        "degree": 3,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 18.390625,
+        "end": 19.390625,
+        "degree": 4,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 19.390625,
+        "end": 20.390625,
+        "degree": 4,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 24.046875,
+        "end": 24.53125,
+        "degree": 0,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 28.390625,
+        "end": 28.822916666666668,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.5
+      },
+      {
+        "start": 31.958333333333332,
+        "end": 32.4375,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.5
+      },
+      {
+        "start": 32.713541666666664,
+        "end": 33.197916666666664,
+        "degree": 4,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 45.958333333333336,
+        "end": 46.182291666666664,
+        "degree": 0,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 46.182291666666664,
+        "end": 47.182291666666664,
+        "degree": 0,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 58.75,
+        "end": 59.3125,
+        "degree": 2,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 59.3125,
+        "end": 60.3125,
+        "degree": 2,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 61.489583333333336,
+        "end": 61.697916666666664,
+        "degree": 5,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 61.697916666666664,
+        "end": 62.697916666666664,
+        "degree": 5,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 62.697916666666664,
+        "end": 62.973958333333336,
+        "degree": 5,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 68.58854166666667,
+        "end": 69.58854166666667,
+        "degree": 0,
+        "seventh": false,
+        "texture": "mixed",
+        "confidence": 0.3
+      },
+      {
+        "start": 78.640625,
+        "end": 78.97916666666667,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.5
+      },
+      {
+        "start": 128.19791666666666,
+        "end": 128.796875,
+        "degree": 2,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 128.796875,
+        "end": 129.796875,
+        "degree": 2,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 129.796875,
+        "end": 130.796875,
+        "degree": 2,
+        "seventh": false,
+        "texture": "mixed",
+        "confidence": 0.3
+      },
+      {
+        "start": 137.53125,
+        "end": 138.53125,
+        "degree": 0,
+        "seventh": false,
+        "texture": "mixed",
+        "confidence": 0.3
+      },
+      {
+        "start": 145.66666666666666,
+        "end": 146.66666666666666,
+        "degree": 3,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 208.27083333333334,
+        "end": 208.93229166666666,
+        "degree": 3,
+        "seventh": false,
+        "texture": "strummed-chord",
+        "confidence": 0.75
+      },
+      {
+        "start": 217.52083333333334,
+        "end": 218.52083333333334,
+        "degree": 4,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 239.5,
+        "end": 240.43229166666666,
+        "degree": 4,
+        "seventh": false,
+        "texture": "mixed",
+        "confidence": 0.3
+      },
+      {
+        "start": 267.0729166666667,
+        "end": 267.9166666666667,
+        "degree": 5,
+        "seventh": false,
+        "texture": "mixed",
+        "confidence": 0.3
+      },
+      {
+        "start": 270.15625,
+        "end": 270.53125,
+        "degree": 4,
+        "texture": "bass",
+        "confidence": 0.5
+      },
+      {
+        "start": 295.515625,
+        "end": 296.2239583333333,
+        "degree": 4,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 199.171875,
+        "end": 200.171875,
+        "degree": 4,
+        "texture": "power-chord",
+        "confidence": 0.85
+      }
+    ],
+    "ivBassEvidence": [
+      {
+        "start": 11.390625,
+        "end": 14.015625,
+        "pitch": 55
+      },
+      {
+        "start": 11.432291666666666,
+        "end": 13.807291666666666,
+        "pitch": 43
+      },
+      {
+        "start": 11.463541666666666,
+        "end": 14.057291666666666,
+        "pitch": 31
+      }
+    ]
+  },
+  {
+    "status": "match",
+    "artist": "Ramazzotti",
+    "filename": "Ti sposero perche.mid",
+    "title": "Ti sposero perche",
+    "slug": "lakh/Ramazzotti/Ti_sposero_perche",
+    "tier": "inferred truck-driver modulation; review local keys",
+    "tonic": 9,
+    "keyRegions": [
+      {
+        "start": 0,
+        "tonic": 9
+      },
+      {
+        "start": 207.25,
+        "tonic": 11
+      }
+    ],
+    "keyProfile": {
+      "tonic": 9,
+      "mode": "major",
+      "score": 0.8827302947370392,
+      "margin": 0.10041250528032675
+    },
+    "chromaticNotes": 0,
+    "noteCount": 1804,
+    "basis": "MIDI estimate",
+    "group": 2,
+    "degrees": [
+      0,
+      3,
+      5
+    ],
+    "seventhDegrees": [],
+    "recognized": 51.65625,
+    "harmonicRhythm": {
+      "beats": 6,
+      "phase": 4,
+      "confidence": 0.21875,
+      "supportingIntervals": 7,
+      "observedIntervals": 32
+    },
+    "textures": {
+      "unknown": 4,
+      "arpeggiated-chord": 30,
+      "bass": 6,
+      "mixed": 7,
+      "power-chord": 1
+    },
+    "bassDegrees": [
+      0
+    ],
+    "chordEvidence": [
+      {
+        "start": 76,
+        "end": 80,
+        "degree": 5,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 137.75,
+        "end": 144,
+        "degree": 3,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 246.046875,
+        "end": 254.046875,
+        "degree": 3,
+        "seventh": false,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 254.046875,
+        "end": 261.625,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 254.046875,
+        "end": 261.625,
+        "degree": 0,
+        "seventh": false,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 246.046875,
+        "end": 254.046875,
+        "degree": 3,
+        "texture": "power-chord",
+        "confidence": 0.85
+      }
+    ],
+    "ivBassEvidence": [
+      {
+        "start": 28,
+        "end": 31.010416666666668,
+        "pitch": 26
+      },
+      {
+        "start": 44,
+        "end": 46.96875,
+        "pitch": 26
+      },
+      {
+        "start": 56,
+        "end": 57.989583333333336,
+        "pitch": 38
+      }
+    ]
+  },
+  {
+    "status": "match",
+    "artist": "Ramazzotti",
+    "filename": "Ti sposero perche.1.mid",
+    "title": "Ti sposero perche.1",
+    "slug": "lakh/Ramazzotti/Ti_sposero_perche_1",
+    "tier": "inferred truck-driver modulation; review local keys",
+    "tonic": 9,
+    "keyRegions": [
+      {
+        "start": 0,
+        "tonic": 9
+      },
+      {
+        "start": 207.25,
+        "tonic": 11
+      }
+    ],
+    "keyProfile": {
+      "tonic": 9,
+      "mode": "major",
+      "score": 0.8827302947370392,
+      "margin": 0.10041250528032675
+    },
+    "chromaticNotes": 0,
+    "noteCount": 1804,
+    "basis": "MIDI estimate",
+    "group": 2,
+    "degrees": [
+      0,
+      3,
+      5
+    ],
+    "seventhDegrees": [],
+    "recognized": 51.65625,
+    "harmonicRhythm": {
+      "beats": 6,
+      "phase": 4,
+      "confidence": 0.21875,
+      "supportingIntervals": 7,
+      "observedIntervals": 32
+    },
+    "textures": {
+      "unknown": 4,
+      "arpeggiated-chord": 30,
+      "bass": 6,
+      "mixed": 7,
+      "power-chord": 1
+    },
+    "bassDegrees": [
+      0
+    ],
+    "chordEvidence": [
+      {
+        "start": 76,
+        "end": 80,
+        "degree": 5,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 137.75,
+        "end": 144,
+        "degree": 3,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 246.046875,
+        "end": 254.046875,
+        "degree": 3,
+        "seventh": false,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 254.046875,
+        "end": 261.625,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 254.046875,
+        "end": 261.625,
+        "degree": 0,
+        "seventh": false,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 246.046875,
+        "end": 254.046875,
+        "degree": 3,
+        "texture": "power-chord",
+        "confidence": 0.85
+      }
+    ],
+    "ivBassEvidence": [
+      {
+        "start": 28,
+        "end": 31.010416666666668,
+        "pitch": 26
+      },
+      {
+        "start": 44,
+        "end": 46.96875,
+        "pitch": 26
+      },
+      {
+        "start": 56,
+        "end": 57.989583333333336,
+        "pitch": 38
+      }
+    ]
+  },
+  {
+    "status": "match",
+    "artist": "Herman's Hermits",
+    "filename": "Silhouettes.mid",
+    "title": "Silhouettes",
+    "slug": "lakh/Herman_s_Hermits/Silhouettes",
+    "tier": "inferred truck-driver modulation; review local keys",
+    "tonic": 8,
+    "keyRegions": [
+      {
+        "start": 0,
+        "tonic": 8
+      },
+      {
+        "start": 136,
+        "tonic": 9
+      }
+    ],
+    "keyProfile": {
+      "tonic": 1,
+      "mode": "minor",
+      "score": 0.6985802460188754,
+      "margin": 0.1891877974512748
+    },
+    "chromaticNotes": 0,
+    "noteCount": 2370,
+    "basis": "MIDI estimate",
+    "group": 3,
+    "degrees": [
+      0,
+      1,
+      3,
+      4,
+      5
+    ],
+    "seventhDegrees": [],
+    "recognized": 0,
+    "harmonicRhythm": {
+      "beats": 1,
+      "phase": 8,
+      "confidence": 0.5384615384615384,
+      "supportingIntervals": 84,
+      "observedIntervals": 156
+    },
+    "textures": {
+      "bass": 163
+    },
+    "bassDegrees": [
+      0,
+      1,
+      3,
+      4,
+      5
+    ],
+    "chordEvidence": [
+      {
+        "start": 8,
+        "end": 10,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 10,
+        "end": 12,
+        "degree": 5,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 12,
+        "end": 14,
+        "degree": 3,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 14,
+        "end": 16,
+        "degree": 4,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 16,
+        "end": 18,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 18,
+        "end": 20,
+        "degree": 5,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 20,
+        "end": 22,
+        "degree": 3,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 22,
+        "end": 23,
+        "degree": 4,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 23,
+        "end": 24,
+        "degree": 4,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 24,
+        "end": 26,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 26,
+        "end": 28,
+        "degree": 5,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 28,
+        "end": 29,
+        "degree": 1,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 29,
+        "end": 30,
+        "degree": 1,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 36,
+        "end": 37,
+        "degree": 1,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 44,
+        "end": 46,
+        "degree": 3,
+        "texture": "bass",
+        "confidence": 0.9
+      }
+    ],
+    "ivBassEvidence": [
+      {
+        "start": 12,
+        "end": 13.578125,
+        "pitch": 13
+      },
+      {
+        "start": 20,
+        "end": 20.723958333333332,
+        "pitch": 25
+      },
+      {
+        "start": 21,
+        "end": 21.713541666666668,
+        "pitch": 25
+      }
+    ]
+  },
+  {
+    "status": "match",
+    "artist": "The Tremeloes",
+    "filename": "Silence Is Golden.mid",
+    "title": "Silence Is Golden",
+    "slug": "lakh/The_Tremeloes/Silence_Is_Golden",
+    "tier": "inferred truck-driver modulation; review local keys",
+    "tonic": 4,
+    "keyRegions": [
+      {
+        "start": 0,
+        "tonic": 4
+      },
+      {
+        "start": 227.02083333333334,
+        "tonic": 5
+      }
+    ],
+    "keyProfile": {
+      "tonic": 4,
+      "mode": "major",
+      "score": 0.8319360195480426,
+      "margin": 0.2820418996148336
+    },
+    "chromaticNotes": 0,
+    "noteCount": 3388,
+    "basis": "MIDI estimate",
+    "group": 3,
+    "degrees": [
+      0,
+      1,
+      3
+    ],
+    "seventhDegrees": [],
+    "recognized": 479.56249999999994,
+    "harmonicRhythm": {
+      "beats": 8,
+      "phase": 5,
+      "confidence": 0.24444444444444444,
+      "supportingIntervals": 11,
+      "observedIntervals": 45
+    },
+    "textures": {
+      "arpeggiated-chord": 54,
+      "bass": 3,
+      "unknown": 7,
+      "mixed": 3,
+      "power-chord": 1
+    },
+    "bassDegrees": [],
+    "chordEvidence": [
+      {
+        "start": 5,
+        "end": 13,
+        "degree": 0,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 14.020833333333334,
+        "end": 22.020833333333336,
+        "degree": 0,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 25.947916666666668,
+        "end": 33.94791666666667,
+        "degree": 3,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 34.010416666666664,
+        "end": 42.010416666666664,
+        "degree": 3,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 46.010416666666664,
+        "end": 54.010416666666664,
+        "degree": 0,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 57.947916666666664,
+        "end": 65.94791666666666,
+        "degree": 3,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 109.46875,
+        "end": 113.51041666666667,
+        "degree": 1,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 205.46875,
+        "end": 209.51041666666666,
+        "degree": 1,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 217.51041666666666,
+        "end": 225.51041666666666,
+        "degree": 0,
+        "seventh": false,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 317.46875,
+        "end": 321.5104166666667,
+        "degree": 1,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 345.4895833333333,
+        "end": 348.6145833333333,
+        "degree": 0,
+        "seventh": false,
+        "texture": "unknown",
+        "confidence": 0
+      }
+    ],
+    "ivBassEvidence": [
+      {
+        "start": 28.020833333333332,
+        "end": 29.270833333333332,
+        "pitch": 45
+      },
+      {
+        "start": 30.020833333333332,
+        "end": 31.520833333333332,
+        "pitch": 45
+      },
+      {
+        "start": 35.96875,
+        "end": 37.291666666666664,
+        "pitch": 45
+      }
+    ]
+  },
+  {
+    "status": "match",
+    "artist": "Sheriff",
+    "filename": "When I'm With You.mid",
+    "title": "When I'm With You",
+    "slug": "lakh/Sheriff/When_I_m_With_You",
+    "tier": "inferred truck-driver modulation; review local keys",
+    "tonic": 9,
+    "keyRegions": [
+      {
+        "start": 0,
+        "tonic": 9
+      },
+      {
+        "start": 182.75,
+        "tonic": 11
+      }
+    ],
+    "keyProfile": {
+      "tonic": 9,
+      "mode": "major",
+      "score": 0.819447893882513,
+      "margin": 0.025162968367344662
+    },
+    "chromaticNotes": 0,
+    "noteCount": 1808,
+    "basis": "MIDI estimate",
+    "group": 4,
+    "degrees": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "seventhDegrees": [],
+    "recognized": 14.5,
+    "harmonicRhythm": {
+      "beats": 0.5,
+      "phase": 8,
+      "confidence": 0.1276595744680851,
+      "supportingIntervals": 12,
+      "observedIntervals": 94
+    },
+    "textures": {
+      "unknown": 130,
+      "bass": 38,
+      "power-chord": 93,
+      "arpeggiated-chord": 32,
+      "block-chord": 13
+    },
+    "bassDegrees": [
+      0,
+      3,
+      4,
+      5
+    ],
+    "chordEvidence": [
+      {
+        "start": 82,
+        "end": 83,
+        "degree": 3,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 83,
+        "end": 83.5,
+        "degree": 3,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 87,
+        "end": 87.5,
+        "degree": 4,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 114,
+        "end": 115,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 115,
+        "end": 116,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 116,
+        "end": 117,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 144,
+        "end": 145,
+        "degree": 5,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 146,
+        "end": 147,
+        "degree": 3,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 151,
+        "end": 151.5,
+        "degree": 4,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 182,
+        "end": 182.75,
+        "degree": 4,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 182.75,
+        "end": 183.75,
+        "degree": 4,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 183.75,
+        "end": 184.25,
+        "degree": 6,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 184.25,
+        "end": 185,
+        "degree": 3,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 185,
+        "end": 185.25,
+        "degree": 3,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 190,
+        "end": 191,
+        "degree": 4,
+        "seventh": false,
+        "texture": "block-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 191,
+        "end": 192,
+        "degree": 4,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 192,
+        "end": 193,
+        "degree": 4,
+        "seventh": false,
+        "texture": "arpeggiated-chord",
+        "confidence": 0.65
+      },
+      {
+        "start": 90,
+        "end": 91,
+        "degree": 0,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 92,
+        "end": 93,
+        "degree": 3,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 93.75,
+        "end": 94.75,
+        "degree": 4,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 96,
+        "end": 97,
+        "degree": 3,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 98,
+        "end": 99,
+        "degree": 0,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 100,
+        "end": 101,
+        "degree": 3,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 101.75,
+        "end": 102.75,
+        "degree": 4,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 104.75,
+        "end": 105.5,
+        "degree": 2,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 105.5,
+        "end": 106,
+        "degree": 1,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 106,
+        "end": 107,
+        "degree": 0,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 109.75,
+        "end": 110.75,
+        "degree": 4,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 168.75,
+        "end": 169.5,
+        "degree": 2,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 169.5,
+        "end": 170,
+        "degree": 1,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 208.75,
+        "end": 209.5,
+        "degree": 2,
+        "texture": "power-chord",
+        "confidence": 0.85
+      },
+      {
+        "start": 209.5,
+        "end": 210,
+        "degree": 1,
+        "texture": "power-chord",
+        "confidence": 0.85
+      }
+    ],
+    "ivBassEvidence": [
+      {
+        "start": 82,
+        "end": 83.40104166666667,
+        "pitch": 38
+      },
+      {
+        "start": 82,
+        "end": 85.625,
+        "pitch": 38
+      },
+      {
+        "start": 89,
+        "end": 89.89583333333333,
+        "pitch": 38
+      }
+    ],
+    "powerChordDegrees": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "powerChordCounts": [
+      10,
+      3,
+      3,
+      19,
+      9,
+      0,
+      0
+    ]
+  },
+  {
+    "status": "match",
+    "artist": "The Four Seasons",
+    "filename": "Silence Is Golden.mid",
+    "title": "Silence Is Golden",
+    "slug": "lakh/The_Four_Seasons/Silence_Is_Golden",
+    "tier": "inferred truck-driver modulation; review local keys",
+    "tonic": 4,
+    "keyRegions": [
+      {
+        "start": 0,
+        "tonic": 4
+      },
+      {
+        "start": 227,
+        "tonic": 5
+      }
+    ],
+    "keyProfile": {
+      "tonic": 4,
+      "mode": "major",
+      "score": 0.8484147593986242,
+      "margin": 0.3142447423833833
+    },
+    "chromaticNotes": 0,
+    "noteCount": 4525,
+    "basis": "MIDI estimate",
+    "group": 4,
+    "degrees": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "seventhDegrees": [],
+    "recognized": 0,
+    "harmonicRhythm": {
+      "beats": 0.5,
+      "phase": 5.016666666666667,
+      "confidence": 0.1728395061728395,
+      "supportingIntervals": 28,
+      "observedIntervals": 162
+    },
+    "textures": {
+      "unknown": 38,
+      "bass": 354,
+      "arpeggiated-chord": 3
+    },
+    "bassDegrees": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "chordEvidence": [
+      {
+        "start": 8,
+        "end": 9,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 10,
+        "end": 11,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 11,
+        "end": 12,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 12,
+        "end": 13,
+        "degree": 4,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 13.983333333333333,
+        "end": 14.983333333333333,
+        "degree": 4,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 19.983333333333334,
+        "end": 20.983333333333334,
+        "degree": 4,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 28,
+        "end": 29,
+        "degree": 3,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 29.983333333333334,
+        "end": 30.983333333333334,
+        "degree": 3,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 30.983333333333334,
+        "end": 31.983333333333334,
+        "degree": 3,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 47,
+        "end": 47.983333333333334,
+        "degree": 5,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 91.98333333333333,
+        "end": 92.98333333333333,
+        "degree": 2,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 93.98333333333333,
+        "end": 94.98333333333333,
+        "degree": 2,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 95.48333333333333,
+        "end": 96,
+        "degree": 2,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 99,
+        "end": 100,
+        "degree": 5,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 109.98333333333333,
+        "end": 110.98333333333333,
+        "degree": 5,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 112,
+        "end": 113,
+        "degree": 1,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 192,
+        "end": 193,
+        "degree": 1,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 207.98333333333332,
+        "end": 208.98333333333332,
+        "degree": 1,
+        "texture": "bass",
+        "confidence": 0.9
+      }
+    ],
+    "ivBassEvidence": [
+      {
+        "start": 28,
+        "end": 29.091666666666665,
+        "pitch": 33
+      },
+      {
+        "start": 29.983333333333334,
+        "end": 31.933333333333334,
+        "pitch": 33
+      },
+      {
+        "start": 35.983333333333334,
+        "end": 37.06666666666667,
+        "pitch": 33
+      }
+    ]
+  },
+  {
+    "status": "match",
+    "artist": "The Tremeloes",
+    "filename": "Silence Is Golden.1.mid",
+    "title": "Silence Is Golden.1",
+    "slug": "lakh/The_Tremeloes/Silence_Is_Golden_1",
+    "tier": "inferred truck-driver modulation; review local keys",
+    "tonic": 4,
+    "keyRegions": [
+      {
+        "start": 0,
+        "tonic": 4
+      },
+      {
+        "start": 227,
+        "tonic": 5
+      }
+    ],
+    "keyProfile": {
+      "tonic": 4,
+      "mode": "major",
+      "score": 0.8484113321275796,
+      "margin": 0.31430198720707525
+    },
+    "chromaticNotes": 0,
+    "noteCount": 4525,
+    "basis": "MIDI estimate",
+    "group": 4,
+    "degrees": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "seventhDegrees": [],
+    "recognized": 0,
+    "harmonicRhythm": {
+      "beats": 0.5,
+      "phase": 5.020833333333333,
+      "confidence": 0.1728395061728395,
+      "supportingIntervals": 28,
+      "observedIntervals": 162
+    },
+    "textures": {
+      "unknown": 39,
+      "bass": 355,
+      "arpeggiated-chord": 2
+    },
+    "bassDegrees": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "chordEvidence": [
+      {
+        "start": 8,
+        "end": 9,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 10,
+        "end": 11,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 11,
+        "end": 12,
+        "degree": 0,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 12,
+        "end": 13,
+        "degree": 4,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 13.989583333333334,
+        "end": 14.989583333333334,
+        "degree": 4,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 19.989583333333332,
+        "end": 20.989583333333332,
+        "degree": 4,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 28,
+        "end": 29,
+        "degree": 3,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 29.989583333333332,
+        "end": 30.989583333333332,
+        "degree": 3,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 30.989583333333332,
+        "end": 31.989583333333332,
+        "degree": 3,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 47,
+        "end": 47.989583333333336,
+        "degree": 5,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 91.98958333333333,
+        "end": 92.98958333333333,
+        "degree": 2,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 93.98958333333333,
+        "end": 94.98958333333333,
+        "degree": 2,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 95.48958333333333,
+        "end": 96,
+        "degree": 2,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 99,
+        "end": 100,
+        "degree": 5,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 109.98958333333333,
+        "end": 110.98958333333333,
+        "degree": 5,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 112,
+        "end": 113,
+        "degree": 1,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 192,
+        "end": 193,
+        "degree": 1,
+        "texture": "bass",
+        "confidence": 0.9
+      },
+      {
+        "start": 207.98958333333334,
+        "end": 208.98958333333334,
+        "degree": 1,
+        "texture": "bass",
+        "confidence": 0.9
+      }
+    ],
+    "ivBassEvidence": [
+      {
+        "start": 28,
+        "end": 29.09375,
+        "pitch": 33
+      },
+      {
+        "start": 29.989583333333332,
+        "end": 31.9375,
+        "pitch": 33
+      },
+      {
+        "start": 35.989583333333336,
+        "end": 37.072916666666664,
+        "pitch": 33
+      }
+    ]
+  }
+]

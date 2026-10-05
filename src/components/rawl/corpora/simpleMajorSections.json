@@ -1,10 +1,17 @@
 [
   {
     "id": "primary-triads",
-    "title": "Primary triads: I, IV and V",
-    "description": "Basic major-key harmony centered on I, IV and V.",
+    "title": "I and V only",
+    "description": "Stage 1: major-key harmony limited to I and V.",
     "startsAtMidi": "dance-suite",
     "color": "#66c2ff"
+  },
+  {
+    "id": "primary-with-iv",
+    "title": "Adds IV: I, IV and V",
+    "description": "Stage 2: adds IV, the subdominant, to I and V.",
+    "startsAtMidi": "stille-nacht-heilige-nacht-the-1818-original-silent-night",
+    "color": "#4e9dff"
   },
   {
     "id": "triads-with-vi",
@@ -24,7 +31,7 @@
     "id": "triads-with-iii",
     "title": "Triads with iii or vii diminished",
     "description": "Includes iii, the minor mediant, or the leading-tone diminished triad.",
-    "startsAtMidi": "westlife---beautiful-in-white",
+    "startsAtMidi": "chariots-of-fire-theme",
     "color": "#f7d154"
   },
   {

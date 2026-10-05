@@ -158,7 +158,7 @@ function isPickupNote(note, regions) {
   );
 }
 
-function classify(notes, annotation, keyRegions = []) {
+function classify(notes, annotation, keyRegions = [], options = {}) {
   if (notes.length < 24) return null;
   const end = Math.max(...notes.map((n) => n.end));
   if (end - notes[0].start < 8) return null;
@@ -257,8 +257,9 @@ function classify(notes, annotation, keyRegions = []) {
     const tail = notes.filter((n) => n.end > end - 1);
     const finalTonic = keyAtBeat(keyRegions, end, tonic);
     if (
-      !tail.length ||
-      Math.min(...tail.map((n) => n.pitch)) % 12 !== finalTonic
+      options.requireTonicEnding !== false &&
+      (!tail.length ||
+        Math.min(...tail.map((n) => n.pitch)) % 12 !== finalTonic)
     )
       continue;
     const tailPCs = new Set(tail.map((n) => (n.pitch - finalTonic + 12) % 12));
@@ -275,7 +276,10 @@ function classify(notes, annotation, keyRegions = []) {
       : [0, 4, 7].every((pc) => tailPCs.has(pc));
     // Diatonic tonic sevenths, sixths, ninths and other scale extensions are
     // valid major endings; only altered ending tones are disallowed.
-    if (!majorEnding || [...tailPCs].some((pc) => !scale.includes(pc)))
+    if (
+      options.requireTonicEnding !== false &&
+      (!majorEnding || [...tailPCs].some((pc) => !scale.includes(pc)))
+    )
       continue;
     matches.push({
       tonic,

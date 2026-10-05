@@ -1,0 +1,210 @@
+{
+  "tracks": [
+    {
+      "slug": "lakh/Valens_Ritchie/La_Bamba",
+      "url": "http://localhost:3000/lakh/Valens_Ritchie/La_Bamba",
+      "tonic": 0,
+      "basis": "reviewed exclusive chord vocabulary; MIDI estimate",
+      "group": 1,
+      "degrees": [
+        0,
+        3,
+        4
+      ],
+      "seventhDegrees": [],
+      "recognized": 151,
+      "harmonicRhythm": {
+        "beats": 1,
+        "phase": 6.5,
+        "confidence": 0.5022222222222222,
+        "supportingIntervals": 113,
+        "observedIntervals": 225
+      },
+      "textures": {
+        "arpeggiated-chord": 37,
+        "bass": 81,
+        "block-chord": 148,
+        "unknown": 3
+      },
+      "bassDegrees": [
+        0,
+        3,
+        4
+      ],
+      "chordEvidence": [
+        {
+          "start": 8.5,
+          "end": 9,
+          "degree": 0,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 9,
+          "end": 10,
+          "degree": 0,
+          "seventh": false,
+          "texture": "block-chord",
+          "confidence": 0.85
+        },
+        {
+          "start": 10,
+          "end": 11,
+          "degree": 3,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 13,
+          "end": 14,
+          "degree": 4,
+          "seventh": false,
+          "texture": "block-chord",
+          "confidence": 0.85
+        },
+        {
+          "start": 16.5,
+          "end": 17,
+          "degree": 0,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 17,
+          "end": 18,
+          "degree": 0,
+          "seventh": false,
+          "texture": "block-chord",
+          "confidence": 0.85
+        },
+        {
+          "start": 18,
+          "end": 19,
+          "degree": 3,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 21,
+          "end": 23,
+          "degree": 4,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 25,
+          "end": 26,
+          "degree": 0,
+          "seventh": false,
+          "texture": "block-chord",
+          "confidence": 0.85
+        },
+        {
+          "start": 26,
+          "end": 27,
+          "degree": 3,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 29,
+          "end": 30,
+          "degree": 4,
+          "seventh": false,
+          "texture": "block-chord",
+          "confidence": 0.85
+        },
+        {
+          "start": 32.5,
+          "end": 33,
+          "degree": 0,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 37,
+          "end": 38,
+          "degree": 4,
+          "seventh": false,
+          "texture": "block-chord",
+          "confidence": 0.85
+        },
+        {
+          "start": 75,
+          "end": 75.5,
+          "degree": 3,
+          "seventh": false,
+          "texture": "block-chord",
+          "confidence": 0.85
+        },
+        {
+          "start": 75.5,
+          "end": 77.5,
+          "degree": 4,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 131,
+          "end": 131.5,
+          "degree": 3,
+          "seventh": false,
+          "texture": "block-chord",
+          "confidence": 0.85
+        },
+        {
+          "start": 131.5,
+          "end": 133.5,
+          "degree": 4,
+          "texture": "bass",
+          "confidence": 0.9
+        },
+        {
+          "start": 227,
+          "end": 227.5,
+          "degree": 3,
+          "seventh": false,
+          "texture": "block-chord",
+          "confidence": 0.85
+        }
+      ],
+      "ivBassEvidence": [
+        {
+          "start": 10,
+          "end": 11,
+          "pitch": 29
+        },
+        {
+          "start": 18,
+          "end": 19,
+          "pitch": 29
+        },
+        {
+          "start": 26,
+          "end": 27,
+          "pitch": 29
+        }
+      ],
+      "estimatedDegrees": [
+        0,
+        3,
+        4
+      ],
+      "estimatedSeventhDegrees": [],
+      "reviewedHarmony": {
+        "requiredDegrees": [
+          0,
+          3,
+          4
+        ],
+        "exactDegrees": [
+          0,
+          3,
+          4
+        ],
+        "source": "user manual review, agrees with local MIDI estimate",
+        "evidence": "I, IV and V only despite rich texture; applies to La Bamba.mid, not the numbered arrangement"
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "lakh/Valens_Ritchie/La_Bamba": {
+    "requiredDegrees": [0, 3, 4],
+    "exactDegrees": [0, 3, 4],
+    "source": "user manual review, agrees with local MIDI estimate",
+    "evidence": "I, IV and V only despite rich texture; applies to La Bamba.mid, not the numbered arrangement"
+  },
+  "the-office---opening-titles-theme-song-for-piano": {
+    "requiredDegrees": [0, 2, 5, 3],
+    "source": "user manual review, verified against local MIDI",
+    "evidence": "One 4/4 bar per harmony: G-B-E-C bass at beats 0, 4, 8, 12 establishes I-iii-vi-IV in G major"
+  },
+  "by-this-river---brian-eno": {
+    "requiredDegrees": [5],
+    "source": "user manual review",
+    "evidence": "vi in the bass counts as vi even without a complete triad"
+  },
+  "raymond-pauls-ptichka-na-vetke": {
+    "requiredDegrees": [5, 2],
+    "source": "user manual review",
+    "evidence": "Measures 39–40: vi and iii"
+  },
+  "heathcliff-theme-song": {
+    "requiredDegrees": [5],
+    "source": "user manual review",
+    "evidence": "Measure 3, beat 3: vi"
+  }
+}

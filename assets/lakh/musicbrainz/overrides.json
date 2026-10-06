@@ -673,5 +673,13 @@
     "name": "The Rolling Stones",
     "country": "GB",
     "mbid": "b071f9fa-14b0-4217-8e97-eb41da73f598"
+  },
+  "Nine Inch Nails": {
+    "name": "Nine Inch Nails",
+    "mbid": "b7ffd2af-418f-4be2-bdd1-22f8b48613da",
+    "country": "US",
+    "includedReleaseGroups": [
+      "661dc79a-fc5a-30ac-b6be-9287ad63463c"
+    ]
   }
 }

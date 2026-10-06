@@ -1,0 +1,206 @@
+{
+  "artist": "Nine Inch Nails",
+  "status": "processed",
+  "totalSongs": 35,
+  "matched": [
+    {
+      "song": "A Warm Place",
+      "album": "The Downward Spiral",
+      "albumId": "7c4cab8d-dead-3870-b501-93c90fd0a580",
+      "track": 10
+    },
+    {
+      "song": "All the Pigs, All Lined Up",
+      "album": "March of the Pigs",
+      "albumId": "d03cf545-b0a6-39c4-a8d6-457832c86eee",
+      "track": 3
+    },
+    {
+      "song": "Big Man With a Gun",
+      "album": "The Downward Spiral",
+      "albumId": "7c4cab8d-dead-3870-b501-93c90fd0a580",
+      "track": 9
+    },
+    {
+      "song": "Closer",
+      "album": "The Downward Spiral",
+      "albumId": "7c4cab8d-dead-3870-b501-93c90fd0a580",
+      "track": 5
+    },
+    {
+      "song": "Down in It",
+      "album": "Pretty Hate Machine",
+      "albumId": "fcb872a2-7ef9-3ed0-bd4a-7c55c78179b6",
+      "track": 3
+    },
+    {
+      "song": "Eraser (Polite)",
+      "album": "Further Down the Spiral",
+      "albumId": "661dc79a-fc5a-30ac-b6be-9287ad63463c",
+      "track": 8
+    },
+    {
+      "song": "Eraser",
+      "album": "The Downward Spiral",
+      "albumId": "7c4cab8d-dead-3870-b501-93c90fd0a580",
+      "track": 11
+    },
+    {
+      "song": "Gave Up",
+      "album": "Broken",
+      "albumId": "abcff3e9-a3f4-3a94-a6be-32381104084e",
+      "track": 6
+    },
+    {
+      "song": "Head Like a Hole",
+      "album": "Pretty Hate Machine",
+      "albumId": "fcb872a2-7ef9-3ed0-bd4a-7c55c78179b6",
+      "track": 1
+    },
+    {
+      "song": "Heresy",
+      "album": "The Downward Spiral",
+      "albumId": "7c4cab8d-dead-3870-b501-93c90fd0a580",
+      "track": 3
+    },
+    {
+      "song": "Hurt",
+      "album": "The Downward Spiral",
+      "albumId": "7c4cab8d-dead-3870-b501-93c90fd0a580",
+      "track": 14
+    },
+    {
+      "song": "I Do Not Want This",
+      "album": "The Downward Spiral",
+      "albumId": "7c4cab8d-dead-3870-b501-93c90fd0a580",
+      "track": 8
+    },
+    {
+      "song": "Last",
+      "album": "Broken",
+      "albumId": "abcff3e9-a3f4-3a94-a6be-32381104084e",
+      "track": 3
+    },
+    {
+      "song": "March of the Pigs",
+      "album": "The Downward Spiral",
+      "albumId": "7c4cab8d-dead-3870-b501-93c90fd0a580",
+      "track": 4
+    },
+    {
+      "song": "Mr Self Destruct",
+      "album": "The Downward Spiral",
+      "albumId": "7c4cab8d-dead-3870-b501-93c90fd0a580",
+      "track": 1
+    },
+    {
+      "song": "Piggy",
+      "album": "The Downward Spiral",
+      "albumId": "7c4cab8d-dead-3870-b501-93c90fd0a580",
+      "track": 2
+    },
+    {
+      "song": "Pinion",
+      "album": "Broken",
+      "albumId": "abcff3e9-a3f4-3a94-a6be-32381104084e",
+      "track": 1
+    },
+    {
+      "song": "Reptile",
+      "album": "The Downward Spiral",
+      "albumId": "7c4cab8d-dead-3870-b501-93c90fd0a580",
+      "track": 12
+    },
+    {
+      "song": "Ringfinger",
+      "album": "Pretty Hate Machine",
+      "albumId": "fcb872a2-7ef9-3ed0-bd4a-7c55c78179b6",
+      "track": 10
+    },
+    {
+      "song": "Ruiner",
+      "album": "The Downward Spiral",
+      "albumId": "7c4cab8d-dead-3870-b501-93c90fd0a580",
+      "track": 6
+    },
+    {
+      "song": "Sanctified",
+      "album": "Pretty Hate Machine",
+      "albumId": "fcb872a2-7ef9-3ed0-bd4a-7c55c78179b6",
+      "track": 4
+    },
+    {
+      "song": "Sin",
+      "album": "Pretty Hate Machine",
+      "albumId": "fcb872a2-7ef9-3ed0-bd4a-7c55c78179b6",
+      "track": 7
+    },
+    {
+      "song": "Something I Can Never Have",
+      "album": "Pretty Hate Machine",
+      "albumId": "fcb872a2-7ef9-3ed0-bd4a-7c55c78179b6",
+      "track": 5
+    },
+    {
+      "song": "Suck",
+      "album": "Broken",
+      "albumId": "abcff3e9-a3f4-3a94-a6be-32381104084e",
+      "track": 99
+    },
+    {
+      "song": "Terrible Lie",
+      "album": "Pretty Hate Machine",
+      "albumId": "fcb872a2-7ef9-3ed0-bd4a-7c55c78179b6",
+      "track": 2
+    },
+    {
+      "song": "That's What I Get",
+      "album": "Pretty Hate Machine",
+      "albumId": "fcb872a2-7ef9-3ed0-bd4a-7c55c78179b6",
+      "track": 8
+    },
+    {
+      "song": "The Art of Self Destruction, Part One",
+      "album": "Further Down the Spiral",
+      "albumId": "661dc79a-fc5a-30ac-b6be-9287ad63463c",
+      "track": 2
+    },
+    {
+      "song": "The Becoming",
+      "album": "The Downward Spiral",
+      "albumId": "7c4cab8d-dead-3870-b501-93c90fd0a580",
+      "track": 7
+    },
+    {
+      "song": "The Downward Spiral",
+      "album": "The Downward Spiral",
+      "albumId": "7c4cab8d-dead-3870-b501-93c90fd0a580",
+      "track": 13
+    },
+    {
+      "song": "The Perfect Drug",
+      "album": "Into the Void",
+      "albumId": "194313cc-934c-3ea7-b4a7-3edd2df0675e",
+      "track": 3
+    },
+    {
+      "song": "Wish",
+      "album": "Broken",
+      "albumId": "abcff3e9-a3f4-3a94-a6be-32381104084e",
+      "track": 2
+    }
+  ],
+  "unmatched": [
+    "Burn",
+    "Dead Souls",
+    "Nothing Matters",
+    "Purest Feeling"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Burn": [],
+    "Dead Souls": [],
+    "Nothing Matters": [],
+    "Purest Feeling": []
+  }
+}

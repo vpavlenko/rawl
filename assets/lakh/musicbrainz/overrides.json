@@ -1154,5 +1154,18 @@
     "releaseOverrides": {
       "0262bf30-d867-364a-9184-ae79f0da359c": "2cef9cf9-7327-45de-8bc2-19e9b6ba74ab"
     }
+  },
+  "Nek": {
+    "name": "Nek",
+    "mbid": "af02dd1f-b0cc-4210-bcb1-f34f0c578b5e",
+    "country": "IT",
+    "releaseOverrides": {
+      "e2f29bbf-20be-3318-ab96-c04f95735395": "89ed2a6e-cb4c-4dd0-ac6c-9b3f13f8d4ee"
+    },
+    "songs": {
+      "Cielo e terra (feat. Dante Thomas)": {
+        "title": "Cielo e terra"
+      }
+    }
   }
 }

@@ -1,0 +1,175 @@
+{
+  "artist": "Nek",
+  "status": "processed",
+  "totalSongs": 27,
+  "matched": [
+    {
+      "song": "Andare, partire, tornare",
+      "album": "Lei, gli amici e tutto il resto",
+      "albumId": "283576f2-65e7-314e-8744-d44d0e28a3de",
+      "track": 12
+    },
+    {
+      "song": "Basta uno sguardo",
+      "album": "In due",
+      "albumId": "e2f29bbf-20be-3318-ab96-c04f95735395",
+      "track": 8
+    },
+    {
+      "song": "Ci sei tu",
+      "album": "La vita è",
+      "albumId": "0e172229-a486-3b59-945d-cb65a84efaec",
+      "track": 1
+    },
+    {
+      "song": "Con un Ma e con un Se",
+      "album": "In due",
+      "albumId": "e2f29bbf-20be-3318-ab96-c04f95735395",
+      "track": 7
+    },
+    {
+      "song": "Di piu",
+      "album": "Lei, gli amici e tutto il resto",
+      "albumId": "283576f2-65e7-314e-8744-d44d0e28a3de",
+      "track": 13
+    },
+    {
+      "song": "Dimmi cos'e",
+      "album": "Lei, gli amici e tutto il resto",
+      "albumId": "283576f2-65e7-314e-8744-d44d0e28a3de",
+      "track": 7
+    },
+    {
+      "song": "E non mi dire che ho bevuto",
+      "album": "Lei, gli amici e tutto il resto",
+      "albumId": "283576f2-65e7-314e-8744-d44d0e28a3de",
+      "track": 10
+    },
+    {
+      "song": "Fianco a fianco",
+      "album": "Lei, gli amici e tutto il resto",
+      "albumId": "283576f2-65e7-314e-8744-d44d0e28a3de",
+      "track": 14
+    },
+    {
+      "song": "Ho in testa te",
+      "album": "In due",
+      "albumId": "e2f29bbf-20be-3318-ab96-c04f95735395",
+      "track": 5
+    },
+    {
+      "song": "In te",
+      "album": "In te",
+      "albumId": "873ac2ec-3b36-3511-917c-22b230a9bd25",
+      "track": 3
+    },
+    {
+      "song": "Laura no esta",
+      "album": "Nek",
+      "albumId": "d27a7e4b-8cfb-4966-8c0e-1f299f409638",
+      "track": 1
+    },
+    {
+      "song": "Laura non c'e",
+      "album": "Lei, gli amici e tutto il resto",
+      "albumId": "283576f2-65e7-314e-8744-d44d0e28a3de",
+      "track": 1
+    },
+    {
+      "song": "Le vibrazioni di una donna",
+      "album": "In due",
+      "albumId": "e2f29bbf-20be-3318-ab96-c04f95735395",
+      "track": 12
+    },
+    {
+      "song": "Nemmeno un secondo",
+      "album": "In due",
+      "albumId": "e2f29bbf-20be-3318-ab96-c04f95735395",
+      "track": 13
+    },
+    {
+      "song": "Parliamo al singolare",
+      "album": "Le cose da difendere",
+      "albumId": "44c82e37-e54f-3099-9329-8ded8cabf2c7",
+      "track": 3
+    },
+    {
+      "song": "Restiamo qui",
+      "album": "Lei, gli amici e tutto il resto",
+      "albumId": "283576f2-65e7-314e-8744-d44d0e28a3de",
+      "track": 3
+    },
+    {
+      "song": "Se io non avessi te",
+      "album": "In due",
+      "albumId": "e2f29bbf-20be-3318-ab96-c04f95735395",
+      "track": 1
+    },
+    {
+      "song": "Se una regola c'e",
+      "album": "In due",
+      "albumId": "e2f29bbf-20be-3318-ab96-c04f95735395",
+      "track": 4
+    },
+    {
+      "song": "Se vuoi se puoi",
+      "album": "In due",
+      "albumId": "e2f29bbf-20be-3318-ab96-c04f95735395",
+      "track": 9
+    },
+    {
+      "song": "Sei grande",
+      "album": "Lei, gli amici e tutto il resto",
+      "albumId": "283576f2-65e7-314e-8744-d44d0e28a3de",
+      "track": 2
+    },
+    {
+      "song": "Tu Estas Aqui",
+      "album": "Nek",
+      "albumId": "d27a7e4b-8cfb-4966-8c0e-1f299f409638",
+      "track": 4
+    },
+    {
+      "song": "Tu sei, tu sai",
+      "album": "Lei, gli amici e tutto il resto",
+      "albumId": "283576f2-65e7-314e-8744-d44d0e28a3de",
+      "track": 5
+    },
+    {
+      "song": "Tutto di te",
+      "album": "Le cose da difendere",
+      "albumId": "44c82e37-e54f-3099-9329-8ded8cabf2c7",
+      "track": 7
+    },
+    {
+      "song": "Una dose di te",
+      "album": "In due",
+      "albumId": "e2f29bbf-20be-3318-ab96-c04f95735395",
+      "track": 11
+    },
+    {
+      "song": "Vai sola",
+      "album": "Lei, gli amici e tutto il resto",
+      "albumId": "283576f2-65e7-314e-8744-d44d0e28a3de",
+      "track": 8
+    },
+    {
+      "song": "Vivere senza te",
+      "album": "Lei, gli amici e tutto il resto",
+      "albumId": "283576f2-65e7-314e-8744-d44d0e28a3de",
+      "track": 4
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [
+    {
+      "song": "Cielo e terra (feat. Dante Thomas)",
+      "album": "Le cose da difendere",
+      "positions": [
+        6,
+        11
+      ]
+    }
+  ],
+  "suggestions": {}
+}

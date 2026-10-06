@@ -1,0 +1,172 @@
+{
+  "artist": "Wonder Stevie",
+  "status": "processed",
+  "totalSongs": 27,
+  "matched": [
+    {
+      "song": "A Place in the Sun",
+      "album": "Down to Earth",
+      "albumId": "ca2f3772-14cd-3700-9ec8-1c7b0ad263ad",
+      "track": 1
+    },
+    {
+      "song": "Boogie on Reggae Woman",
+      "album": "Fulfillingness’ First Finale",
+      "albumId": "95e58ee5-5421-38b0-a937-803b004c7ae8",
+      "track": 4
+    },
+    {
+      "song": "Do I Do",
+      "album": "Stevie Wonder’s Original Musiquarium I",
+      "albumId": "6c6dec89-1f38-3054-a814-23bd33faabff",
+      "track": 16
+    },
+    {
+      "song": "Don't You Worry 'bout a Thing",
+      "album": "Innervisions",
+      "albumId": "e626b377-74c5-3b97-8f16-8cef5e1c04ea",
+      "track": 8
+    },
+    {
+      "song": "Ebony & Ivory",
+      "album": "Tug of War",
+      "albumId": "e7620374-defe-3656-a65d-ef062ba9df11",
+      "track": 12
+    },
+    {
+      "song": "Ebony and Ivory",
+      "album": "Tug of War",
+      "albumId": "e7620374-defe-3656-a65d-ef062ba9df11",
+      "track": 12
+    },
+    {
+      "song": "For Once in My Life",
+      "album": "For Once in My Life",
+      "albumId": "667e6f70-2edc-3e95-9546-464c9d5863b7",
+      "track": 1
+    },
+    {
+      "song": "Golden Lady",
+      "album": "Innervisions",
+      "albumId": "e626b377-74c5-3b97-8f16-8cef5e1c04ea",
+      "track": 4
+    },
+    {
+      "song": "Happy Birthday",
+      "album": "Hotter Than July",
+      "albumId": "6fbde199-c971-3d4f-a8df-ca13a998e3c7",
+      "track": 10
+    },
+    {
+      "song": "Heaven Help Us All",
+      "album": "Signed, Sealed & Delivered",
+      "albumId": "56b96aba-d067-3037-98b5-94c4970b27d0",
+      "track": 4
+    },
+    {
+      "song": "Higher Ground",
+      "album": "Innervisions",
+      "albumId": "e626b377-74c5-3b97-8f16-8cef5e1c04ea",
+      "track": 5
+    },
+    {
+      "song": "I Just Called to Say I Love You",
+      "album": "The Woman in Red",
+      "albumId": "640d41e3-9fe6-3b6e-b0a1-e51355e7aa9e",
+      "track": 4
+    },
+    {
+      "song": "I Wish",
+      "album": "Songs in the Key of Life",
+      "albumId": "ea88b09b-fd34-33cf-a3e5-25a3a2fb4c6f",
+      "track": 10
+    },
+    {
+      "song": "Isn't She Lovely",
+      "album": "Songs in the Key of Life",
+      "albumId": "ea88b09b-fd34-33cf-a3e5-25a3a2fb4c6f",
+      "track": 15
+    },
+    {
+      "song": "Master Blaster",
+      "album": "Hotter Than July",
+      "albumId": "6fbde199-c971-3d4f-a8df-ca13a998e3c7",
+      "track": 6
+    },
+    {
+      "song": "My Cherie Amour",
+      "album": "My Cherie Amour",
+      "albumId": "71c6b3f3-2be4-341b-a96b-4fe508dd52ea",
+      "track": 1
+    },
+    {
+      "song": "Overjoyed",
+      "album": "In Square Circle",
+      "albumId": "59dd99b2-031c-39f7-9bf9-74c9faed3192",
+      "track": 9
+    },
+    {
+      "song": "Part-Time Lover",
+      "album": "In Square Circle",
+      "albumId": "59dd99b2-031c-39f7-9bf9-74c9faed3192",
+      "track": 1
+    },
+    {
+      "song": "Ribbon in the Sky",
+      "album": "Stevie Wonder’s Original Musiquarium I",
+      "albumId": "6c6dec89-1f38-3054-a814-23bd33faabff",
+      "track": 8
+    },
+    {
+      "song": "Send One Your Love",
+      "album": "Stevie Wonder’s Journey Through the Secret Life of Plants",
+      "albumId": "610a4b7e-061e-3de3-9bd3-b58d04d0482a",
+      "track": 11
+    },
+    {
+      "song": "Signed Sealed Delivered I'm Yours",
+      "album": "Signed, Sealed & Delivered",
+      "albumId": "56b96aba-d067-3037-98b5-94c4970b27d0",
+      "track": 3
+    },
+    {
+      "song": "Sir Duke",
+      "album": "Songs in the Key of Life",
+      "albumId": "ea88b09b-fd34-33cf-a3e5-25a3a2fb4c6f",
+      "track": 5
+    },
+    {
+      "song": "Superstition",
+      "album": "Talking Book",
+      "albumId": "58c6d809-bfa7-3b25-acf3-a99d53402b08",
+      "track": 6
+    },
+    {
+      "song": "That's What Friends Are For",
+      "album": "That’s What Friends Are For",
+      "albumId": "d6cedee7-7fbe-425a-b7b9-e8839519d0a3",
+      "track": 1
+    },
+    {
+      "song": "Uptight (Everything's Alright)",
+      "album": "Up‐Tight (Everything’s Alright)",
+      "albumId": "55a5f466-492e-3284-997a-830b3f333e58",
+      "track": 6
+    },
+    {
+      "song": "Uptight",
+      "album": "Up‐Tight (Everything’s Alright)",
+      "albumId": "55a5f466-492e-3284-997a-830b3f333e58",
+      "track": 6
+    },
+    {
+      "song": "You Are the Sunshine of My Life",
+      "album": "Talking Book",
+      "albumId": "58c6d809-bfa7-3b25-acf3-a99d53402b08",
+      "track": 1
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

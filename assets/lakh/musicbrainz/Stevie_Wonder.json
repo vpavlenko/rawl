@@ -1,0 +1,34 @@
+{
+  "artist": "Stevie Wonder",
+  "status": "processed",
+  "totalSongs": 4,
+  "matched": [
+    {
+      "song": "For Your Love",
+      "album": "Conversation Peace",
+      "albumId": "96f22cb3-70e8-3628-99e6-541bf85b774a",
+      "track": 10
+    },
+    {
+      "song": "Isn't She Lovely",
+      "album": "Songs in the Key of Life",
+      "albumId": "ea88b09b-fd34-33cf-a3e5-25a3a2fb4c6f",
+      "track": 15
+    },
+    {
+      "song": "Sir Duke",
+      "album": "Songs in the Key of Life",
+      "albumId": "ea88b09b-fd34-33cf-a3e5-25a3a2fb4c6f",
+      "track": 5
+    },
+    {
+      "song": "You Are the Sunshine of My Life",
+      "album": "Talking Book",
+      "albumId": "58c6d809-bfa7-3b25-acf3-a99d53402b08",
+      "track": 1
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

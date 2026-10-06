@@ -1068,5 +1068,39 @@
     "relatedArtistIds": [
       "8e3fcd7d-bda1-4ca0-b987-b8528d2ee74e"
     ]
+  },
+  "Stevie Wonder": {
+    "name": "Stevie Wonder",
+    "mbid": "1ee18fb3-18a6-4c7f-8ba0-bc41cdd0462e",
+    "country": "US",
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ]
+  },
+  "Wonder Stevie": {
+    "name": "Stevie Wonder",
+    "mbid": "1ee18fb3-18a6-4c7f-8ba0-bc41cdd0462e",
+    "country": "US",
+    "includedReleaseGroups": [
+      "6c6dec89-1f38-3054-a814-23bd33faabff"
+    ],
+    "extraReleaseGroupIds": [
+      "e7620374-defe-3656-a65d-ef062ba9df11",
+      "d6cedee7-7fbe-425a-b7b9-e8839519d0a3"
+    ],
+    "songs": {
+      "Ebony & Ivory": {
+        "title": "Ebony and Ivory"
+      },
+      "Master Blaster": {
+        "title": "Master Blaster (Jammin’)"
+      },
+      "Uptight": {
+        "title": "Uptight (Everything’s Alright)"
+      }
+    },
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ]
   }
 }

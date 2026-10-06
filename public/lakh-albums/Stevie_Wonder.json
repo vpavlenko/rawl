@@ -1,0 +1,60 @@
+{
+  "artist": "Stevie Wonder",
+  "artistId": "1ee18fb3-18a6-4c7f-8ba0-bc41cdd0462e",
+  "groups": [
+    {
+      "id": "58c6d809-bfa7-3b25-acf3-a99d53402b08",
+      "releaseId": "31137e7a-dce1-4066-9c7a-05de177f1163",
+      "title": "Talking Book",
+      "date": "1972-10-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/58c6d809-bfa7-3b25-acf3-a99d53402b08/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "You Are the Sunshine of My Life.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ea88b09b-fd34-33cf-a3e5-25a3a2fb4c6f",
+      "releaseId": "9b51a6b5-7f55-4dc7-8e10-a69410c7b306",
+      "title": "Songs in the Key of Life",
+      "date": "1976-09-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ea88b09b-fd34-33cf-a3e5-25a3a2fb4c6f/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Sir Duke.mid"
+          ]
+        },
+        {
+          "number": 15,
+          "files": [
+            "Isn't She Lovely.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "96f22cb3-70e8-3628-99e6-541bf85b774a",
+      "releaseId": "314c854d-129c-4dc3-9799-f9778dcc767c",
+      "title": "Conversation Peace",
+      "date": "1995-03-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/96f22cb3-70e8-3628-99e6-541bf85b774a/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "For Your Love.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

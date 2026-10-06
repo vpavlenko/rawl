@@ -1,0 +1,166 @@
+{
+  "artist": "The Smashing Pumpkins",
+  "status": "processed",
+  "totalSongs": 26,
+  "matched": [
+    {
+      "song": "1979",
+      "album": "Mellon Collie and the Infinite Sadness",
+      "albumId": "1af599c9-0b44-3a5a-a06b-39e8db6b2b4e",
+      "track": 19
+    },
+    {
+      "song": "Ava Adore",
+      "album": "Adore",
+      "albumId": "359699b3-8118-369e-9591-c96dcd07a853",
+      "track": 2
+    },
+    {
+      "song": "Bodies",
+      "album": "Mellon Collie and the Infinite Sadness",
+      "albumId": "1af599c9-0b44-3a5a-a06b-39e8db6b2b4e",
+      "track": 16
+    },
+    {
+      "song": "Bullet With Butterfly Wings",
+      "album": "Mellon Collie and the Infinite Sadness",
+      "albumId": "1af599c9-0b44-3a5a-a06b-39e8db6b2b4e",
+      "track": 6
+    },
+    {
+      "song": "Cherry",
+      "album": "The Aeroplane Flies High",
+      "albumId": "82de7b56-24c2-3dca-b3f9-ec7da9d0e3d2",
+      "track": 11
+    },
+    {
+      "song": "Cherub Rock",
+      "album": "Siamese Dream",
+      "albumId": "a159e102-18bb-42ca-a59e-5f96a7eff241",
+      "track": 1
+    },
+    {
+      "song": "Clones (We're All)",
+      "album": "The Aeroplane Flies High",
+      "albumId": "82de7b56-24c2-3dca-b3f9-ec7da9d0e3d2",
+      "track": 4
+    },
+    {
+      "song": "Cupid de Locke",
+      "album": "Mellon Collie and the Infinite Sadness",
+      "albumId": "1af599c9-0b44-3a5a-a06b-39e8db6b2b4e",
+      "track": 10
+    },
+    {
+      "song": "Disarm",
+      "album": "Siamese Dream",
+      "albumId": "a159e102-18bb-42ca-a59e-5f96a7eff241",
+      "track": 6
+    },
+    {
+      "song": "Drown",
+      "album": "Singles: Original Motion Picture Soundtrack",
+      "albumId": "9c80717d-43e0-3219-b8c8-019f5d83cf60",
+      "track": 13
+    },
+    {
+      "song": "Eye",
+      "album": "Lost Highway",
+      "albumId": "19c3f6fc-a3f9-3622-999c-e0579f00a4f6",
+      "track": 6
+    },
+    {
+      "song": "Jellybelly",
+      "album": "Mellon Collie and the Infinite Sadness",
+      "albumId": "1af599c9-0b44-3a5a-a06b-39e8db6b2b4e",
+      "track": 3
+    },
+    {
+      "song": "Landslide",
+      "album": "Pisces Iscariot",
+      "albumId": "261a764e-3ecf-3904-b420-99c1c2944e9f",
+      "track": 9
+    },
+    {
+      "song": "Love",
+      "album": "Mellon Collie and the Infinite Sadness",
+      "albumId": "1af599c9-0b44-3a5a-a06b-39e8db6b2b4e",
+      "track": 9
+    },
+    {
+      "song": "Mayonaise",
+      "album": "Siamese Dream",
+      "albumId": "a159e102-18bb-42ca-a59e-5f96a7eff241",
+      "track": 9
+    },
+    {
+      "song": "Mellon Collie and the Infinite Sadness",
+      "album": "Mellon Collie and the Infinite Sadness",
+      "albumId": "1af599c9-0b44-3a5a-a06b-39e8db6b2b4e",
+      "track": 1
+    },
+    {
+      "song": "Perfect",
+      "album": "Adore",
+      "albumId": "359699b3-8118-369e-9591-c96dcd07a853",
+      "track": 3
+    },
+    {
+      "song": "Quiet",
+      "album": "Siamese Dream",
+      "albumId": "a159e102-18bb-42ca-a59e-5f96a7eff241",
+      "track": 2
+    },
+    {
+      "song": "Silverfuck",
+      "album": "Siamese Dream",
+      "albumId": "a159e102-18bb-42ca-a59e-5f96a7eff241",
+      "track": 11
+    },
+    {
+      "song": "Thirty-Three",
+      "album": "Mellon Collie and the Infinite Sadness",
+      "albumId": "1af599c9-0b44-3a5a-a06b-39e8db6b2b4e",
+      "track": 17
+    },
+    {
+      "song": "Thru the Eyes of Ruby",
+      "album": "Mellon Collie and the Infinite Sadness",
+      "albumId": "1af599c9-0b44-3a5a-a06b-39e8db6b2b4e",
+      "track": 21
+    },
+    {
+      "song": "To Forgive",
+      "album": "Mellon Collie and the Infinite Sadness",
+      "albumId": "1af599c9-0b44-3a5a-a06b-39e8db6b2b4e",
+      "track": 7
+    },
+    {
+      "song": "Today",
+      "album": "Siamese Dream",
+      "albumId": "a159e102-18bb-42ca-a59e-5f96a7eff241",
+      "track": 3
+    },
+    {
+      "song": "Tonight, Tonight",
+      "album": "Mellon Collie and the Infinite Sadness",
+      "albumId": "1af599c9-0b44-3a5a-a06b-39e8db6b2b4e",
+      "track": 2
+    },
+    {
+      "song": "Tonite (reprise)",
+      "album": "The Aeroplane Flies High",
+      "albumId": "82de7b56-24c2-3dca-b3f9-ec7da9d0e3d2",
+      "track": 27
+    },
+    {
+      "song": "Zero",
+      "album": "Mellon Collie and the Infinite Sadness",
+      "albumId": "1af599c9-0b44-3a5a-a06b-39e8db6b2b4e",
+      "track": 4
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

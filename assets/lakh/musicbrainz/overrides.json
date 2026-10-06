@@ -1193,5 +1193,22 @@
         "title": "What's the Frequency, Kenneth?"
       }
     }
+  },
+  "The Smashing Pumpkins": {
+    "name": "The Smashing Pumpkins",
+    "mbid": "ba0d6274-db14-4ef5-b28d-657ebde1a396",
+    "country": "US",
+    "includedReleaseGroups": [
+      "261a764e-3ecf-3904-b420-99c1c2944e9f",
+      "82de7b56-24c2-3dca-b3f9-ec7da9d0e3d2",
+      "9c80717d-43e0-3219-b8c8-019f5d83cf60"
+    ],
+    "extraReleaseGroupIds": [
+      "19c3f6fc-a3f9-3622-999c-e0579f00a4f6",
+      "9c80717d-43e0-3219-b8c8-019f5d83cf60"
+    ],
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ]
   }
 }

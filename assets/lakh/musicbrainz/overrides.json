@@ -1330,5 +1330,24 @@
     "allowedSecondaryTypes": [
       "Soundtrack"
     ]
+  },
+  "Bon Jovi": {
+    "name": "Bon Jovi",
+    "mbid": "5dcdb5eb-cb72-4e6e-9e63-b7bace604965",
+    "country": "US",
+    "relatedArtistIds": [
+      "5ace9b0c-cc21-4d8f-8e08-a70234439f2a"
+    ],
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "includedReleaseGroups": [
+      "83ec3494-9cec-3f5f-b5f8-306caf7676f9"
+    ],
+    "songs": {
+      "Living on a Prayer": {
+        "title": "Livin’ on a Prayer"
+      }
+    }
   }
 }

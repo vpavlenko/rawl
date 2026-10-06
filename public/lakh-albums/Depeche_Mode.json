@@ -1,0 +1,404 @@
+{
+  "artist": "Depeche Mode",
+  "artistId": "8538e728-ca0b-4321-b7e5-cff6565dd4c0",
+  "groups": [
+    {
+      "id": "3fe864d5-d4f6-3c20-b922-c164d31e015b",
+      "releaseId": "56cf9e2e-fd81-33ab-b174-8011b78e3b84",
+      "title": "Dreaming of Me",
+      "date": "1981-02-20",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/3fe864d5-d4f6-3c20-b922-c164d31e015b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Dreaming of Me.mid",
+            "Dreaming of Me.1.mid",
+            "Dreaming of Me.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Ice Machine.mid",
+            "Ice Machine.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2a02c580-51da-35b1-84a2-983615b9c55d",
+      "releaseId": "98735b17-ad1b-4b7b-96da-e12832b03ba8",
+      "title": "New Life",
+      "date": "1981-06-13",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/2a02c580-51da-35b1-84a2-983615b9c55d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "New Life (remix).mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Shout (Rio mix).mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Shout.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7a0e0366-91f4-3444-b45a-83b158004165",
+      "releaseId": "0ae30711-e85d-3ff0-9cc7-5c343e089792",
+      "title": "Speak & Spell",
+      "date": "1981-10-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7a0e0366-91f4-3444-b45a-83b158004165/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "New Life.mid",
+            "New Life.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "I Sometimes Wish I Was Dead.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Puppets.mid",
+            "Puppets.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Boys Say Go!.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "No Disco.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Photographic.mid",
+            "Photographic.1.mid",
+            "Photographic.2.mid",
+            "Photographic.3.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Tora! Tora! Tora!.mid",
+            "Tora! Tora! Tora!.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Big Muff.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Any Second Now (Voices).mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Just Can't Get Enough.mid",
+            "Just Can't Get Enough.1.mid",
+            "Just Can't Get Enough.2.mid",
+            "Just Can't Get Enough.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f8d0b912-ac57-3365-a2bb-89de094bb3db",
+      "releaseId": "b8cdaddb-d19e-41fa-8b93-fba58d160d4b",
+      "title": "Construction Time Again",
+      "date": "1983-08-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f8d0b912-ac57-3365-a2bb-89de094bb3db/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Pipeline.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Everything Counts.mid",
+            "Everything Counts.1.mid",
+            "Everything Counts.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3100982-db15-3a4b-a3ed-363c91cb40de",
+      "releaseId": "128b1c19-02d3-327c-9401-882c47bd14ec",
+      "title": "Some Great Reward",
+      "date": "1984-09-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b3100982-db15-3a4b-a3ed-363c91cb40de/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "People Are People.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Somebody.mid",
+            "Somebody.1.mid",
+            "Somebody.2.mid",
+            "Somebody.3.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Master and Servant.mid",
+            "Master and Servant.1.mid",
+            "Master and Servant.2.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Blasphemous Rumours.mid",
+            "Blasphemous Rumours.1.mid",
+            "Blasphemous Rumours.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d410c389-7bb4-39c1-9da2-b912b5572610",
+      "releaseId": "0923f104-a1ff-4821-9a21-595354d78189",
+      "title": "Shake the Disease",
+      "date": "1985-04-29",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/d410c389-7bb4-39c1-9da2-b912b5572610/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Shake the Disease.mid",
+            "Shake the Disease.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "68733e5c-90ec-42bf-a3a9-35b45d7b4d08",
+      "releaseId": "7e49eb65-67ba-46ff-bfe1-6dcd8f147dbf",
+      "title": "Stripped",
+      "date": "1986-02-10",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/68733e5c-90ec-42bf-a3a9-35b45d7b4d08/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "But Not Tonight.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b9c6879f-3a34-3aa0-a68f-73ced2608f7a",
+      "releaseId": "66b1af52-2c8a-3c3f-8662-2c19e930a145",
+      "title": "Black Celebration",
+      "date": "1986-03-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b9c6879f-3a34-3aa0-a68f-73ced2608f7a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Black Celebration.mid",
+            "Black Celebration.1.mid",
+            "Black Celebration.2.mid",
+            "Black Celebration.3.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Fly on the Windscreen (Final).mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "A Question of Lust.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e59021bd-1710-3c13-9449-b78560039592",
+      "releaseId": "f967219d-51e2-33cb-a742-b04943c822c9",
+      "title": "Music for the Masses",
+      "date": "1987-09-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e59021bd-1710-3c13-9449-b78560039592/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Never Let Me Down Again.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "The Things You Said.mid",
+            "The Things You Said.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Strange Love.mid",
+            "Strange Love.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Strangelove.mid",
+            "Strangelove.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "af2f353d-90a9-3e03-bbcd-5395d3ff5bbd",
+      "releaseId": "eb8656c9-dfa6-3d23-970e-45ee74f6e3fd",
+      "title": "Enjoy the Silence",
+      "date": "1990-02-05",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/af2f353d-90a9-3e03-bbcd-5395d3ff5bbd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Enjoy the Silence.mid",
+            "Enjoy the Silence.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "71f1482e-e63f-3b2c-811b-939f62708f2a",
+      "releaseId": "e42cf164-56d6-470d-95f1-b7ca8e7d888d",
+      "title": "Violator",
+      "date": "1990-02-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/71f1482e-e63f-3b2c-811b-939f62708f2a/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Personal Jesus.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Policy of Truth.mid",
+            "Policy of Truth.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e171597d-e6d5-36c8-8d0e-63daf79796b8",
+      "releaseId": "b6e6525b-e679-4f15-b379-e0412da9c34a",
+      "title": "Songs of Faith and Devotion",
+      "date": "1993-03-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e171597d-e6d5-36c8-8d0e-63daf79796b8/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Walking in My Shoes.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "In Your Room.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a40c7843-979b-38a6-926a-efa31476c51c",
+      "releaseId": "a6218c99-db28-4481-a90c-220a1a00d7b7",
+      "title": "Ultra",
+      "date": "1997-04-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a40c7843-979b-38a6-926a-efa31476c51c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Barrel Of A Gun.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "It's No Good.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "97822855-3e00-30a9-8d7a-bd0802c961e7",
+      "releaseId": "acc20439-f1b8-4726-a158-3d11b05b20de",
+      "title": "Exciter",
+      "date": "2001-05-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/97822855-3e00-30a9-8d7a-bd0802c961e7/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Dream On.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

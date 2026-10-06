@@ -49,6 +49,8 @@ async function loadGroups(slug: string): Promise<AlbumGroup[] | null> {
 }
 
 type TrackSources = Map<string, { source: LakhArtist; file: string }>;
+const songName = (file: string) => file.replace(/(?:\.\d+)?\.mid$/i, "");
+const versionNumber = (file: string) => Number(/\.(\d+)\.mid$/i.exec(file)?.[1] || 0);
 
 export function useAlbumMetadata(
   artist?: LakhArtist,
@@ -104,7 +106,8 @@ export function useAlbumMetadata(
               })
             : files;
           if (!mappedFiles.length) return;
-          let song = group.songs.find((item) => item.number === number);
+          let song = group.songs.find((item) =>
+            item.number === number && songName(item.files[0]) === songName(mappedFiles[0]));
           if (!song) {
             song = { number, files: [] };
             group.songs.push(song);
@@ -114,7 +117,11 @@ export function useAlbumMetadata(
       });
     });
     const result = Array.from(groups.values()).filter((group) => group.songs.length);
-    result.forEach((group) => group.songs.sort((a, b) => a.number - b.number));
+    result.forEach((group) => {
+      group.songs.sort((a, b) => a.number - b.number);
+      group.songs.forEach((song) => song.files.sort((a, b) =>
+        versionNumber(a) - versionNumber(b) || a.localeCompare(b)));
+    });
     result.sort((a, b) => a.date.localeCompare(b.date) || a.title.localeCompare(b.title));
     return result.length ? result : null;
   }, [loaded, sourceKey, trackSources]);

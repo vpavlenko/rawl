@@ -610,5 +610,20 @@
     "relatedArtistIds": [
       "e110c11f-1c94-4471-a350-c38f46b29389"
     ]
+  },
+  "Depeche Mode": {
+    "name": "Depeche Mode",
+    "mbid": "8538e728-ca0b-4321-b7e5-cff6565dd4c0",
+    "country": "GB",
+    "releaseOverrides": {
+      "68733e5c-90ec-42bf-a3a9-35b45d7b4d08": "7e49eb65-67ba-46ff-bfe1-6dcd8f147dbf",
+      "d410c389-7bb4-39c1-9da2-b912b5572610": "0923f104-a1ff-4821-9a21-595354d78189",
+      "2a02c580-51da-35b1-84a2-983615b9c55d": "98735b17-ad1b-4b7b-96da-e12832b03ba8"
+    },
+    "songs": {
+      "Shout": {
+        "title": "Shout! (Rio mix)"
+      }
+    }
   }
 }

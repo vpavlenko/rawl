@@ -1,0 +1,238 @@
+{
+  "artist": "Depeche Mode",
+  "status": "processed",
+  "totalSongs": 38,
+  "matched": [
+    {
+      "song": "A Question of Lust",
+      "album": "Black Celebration",
+      "albumId": "b9c6879f-3a34-3aa0-a68f-73ced2608f7a",
+      "track": 3
+    },
+    {
+      "song": "Any Second Now (Voices)",
+      "album": "Speak & Spell",
+      "albumId": "7a0e0366-91f4-3444-b45a-83b158004165",
+      "track": 10
+    },
+    {
+      "song": "Barrel Of A Gun",
+      "album": "Ultra",
+      "albumId": "a40c7843-979b-38a6-926a-efa31476c51c",
+      "track": 1
+    },
+    {
+      "song": "Big Muff",
+      "album": "Speak & Spell",
+      "albumId": "7a0e0366-91f4-3444-b45a-83b158004165",
+      "track": 9
+    },
+    {
+      "song": "Black Celebration",
+      "album": "Black Celebration",
+      "albumId": "b9c6879f-3a34-3aa0-a68f-73ced2608f7a",
+      "track": 1
+    },
+    {
+      "song": "Blasphemous Rumours",
+      "album": "Some Great Reward",
+      "albumId": "b3100982-db15-3a4b-a3ed-363c91cb40de",
+      "track": 9
+    },
+    {
+      "song": "Boys Say Go!",
+      "album": "Speak & Spell",
+      "albumId": "7a0e0366-91f4-3444-b45a-83b158004165",
+      "track": 4
+    },
+    {
+      "song": "But Not Tonight",
+      "album": "Stripped",
+      "albumId": "68733e5c-90ec-42bf-a3a9-35b45d7b4d08",
+      "track": 2
+    },
+    {
+      "song": "Dream On",
+      "album": "Exciter",
+      "albumId": "97822855-3e00-30a9-8d7a-bd0802c961e7",
+      "track": 1
+    },
+    {
+      "song": "Dreaming of Me",
+      "album": "Dreaming of Me",
+      "albumId": "3fe864d5-d4f6-3c20-b922-c164d31e015b",
+      "track": 1
+    },
+    {
+      "song": "Enjoy the Silence",
+      "album": "Enjoy the Silence",
+      "albumId": "af2f353d-90a9-3e03-bbcd-5395d3ff5bbd",
+      "track": 1
+    },
+    {
+      "song": "Everything Counts",
+      "album": "Construction Time Again",
+      "albumId": "f8d0b912-ac57-3365-a2bb-89de094bb3db",
+      "track": 4
+    },
+    {
+      "song": "Fly on the Windscreen (Final)",
+      "album": "Black Celebration",
+      "albumId": "b9c6879f-3a34-3aa0-a68f-73ced2608f7a",
+      "track": 2
+    },
+    {
+      "song": "I Sometimes Wish I Was Dead",
+      "album": "Speak & Spell",
+      "albumId": "7a0e0366-91f4-3444-b45a-83b158004165",
+      "track": 2
+    },
+    {
+      "song": "Ice Machine",
+      "album": "Dreaming of Me",
+      "albumId": "3fe864d5-d4f6-3c20-b922-c164d31e015b",
+      "track": 2
+    },
+    {
+      "song": "In Your Room",
+      "album": "Songs of Faith and Devotion",
+      "albumId": "e171597d-e6d5-36c8-8d0e-63daf79796b8",
+      "track": 6
+    },
+    {
+      "song": "It's No Good",
+      "album": "Ultra",
+      "albumId": "a40c7843-979b-38a6-926a-efa31476c51c",
+      "track": 4
+    },
+    {
+      "song": "Just Can't Get Enough",
+      "album": "Speak & Spell",
+      "albumId": "7a0e0366-91f4-3444-b45a-83b158004165",
+      "track": 11
+    },
+    {
+      "song": "Master and Servant",
+      "album": "Some Great Reward",
+      "albumId": "b3100982-db15-3a4b-a3ed-363c91cb40de",
+      "track": 7
+    },
+    {
+      "song": "Never Let Me Down Again",
+      "album": "Music for the Masses",
+      "albumId": "e59021bd-1710-3c13-9449-b78560039592",
+      "track": 1
+    },
+    {
+      "song": "New Life (remix)",
+      "album": "New Life",
+      "albumId": "2a02c580-51da-35b1-84a2-983615b9c55d",
+      "track": 1
+    },
+    {
+      "song": "New Life",
+      "album": "Speak & Spell",
+      "albumId": "7a0e0366-91f4-3444-b45a-83b158004165",
+      "track": 1
+    },
+    {
+      "song": "No Disco",
+      "album": "Speak & Spell",
+      "albumId": "7a0e0366-91f4-3444-b45a-83b158004165",
+      "track": 5
+    },
+    {
+      "song": "People Are People",
+      "album": "Some Great Reward",
+      "albumId": "b3100982-db15-3a4b-a3ed-363c91cb40de",
+      "track": 3
+    },
+    {
+      "song": "Personal Jesus",
+      "album": "Violator",
+      "albumId": "71f1482e-e63f-3b2c-811b-939f62708f2a",
+      "track": 3
+    },
+    {
+      "song": "Photographic",
+      "album": "Speak & Spell",
+      "albumId": "7a0e0366-91f4-3444-b45a-83b158004165",
+      "track": 7
+    },
+    {
+      "song": "Pipeline",
+      "album": "Construction Time Again",
+      "albumId": "f8d0b912-ac57-3365-a2bb-89de094bb3db",
+      "track": 3
+    },
+    {
+      "song": "Policy of Truth",
+      "album": "Violator",
+      "albumId": "71f1482e-e63f-3b2c-811b-939f62708f2a",
+      "track": 7
+    },
+    {
+      "song": "Puppets",
+      "album": "Speak & Spell",
+      "albumId": "7a0e0366-91f4-3444-b45a-83b158004165",
+      "track": 3
+    },
+    {
+      "song": "Shake the Disease",
+      "album": "Shake the Disease",
+      "albumId": "d410c389-7bb4-39c1-9da2-b912b5572610",
+      "track": 1
+    },
+    {
+      "song": "Shout (Rio mix)",
+      "album": "New Life",
+      "albumId": "2a02c580-51da-35b1-84a2-983615b9c55d",
+      "track": 2
+    },
+    {
+      "song": "Shout",
+      "album": "New Life",
+      "albumId": "2a02c580-51da-35b1-84a2-983615b9c55d",
+      "track": 2
+    },
+    {
+      "song": "Somebody",
+      "album": "Some Great Reward",
+      "albumId": "b3100982-db15-3a4b-a3ed-363c91cb40de",
+      "track": 6
+    },
+    {
+      "song": "Strange Love",
+      "album": "Music for the Masses",
+      "albumId": "e59021bd-1710-3c13-9449-b78560039592",
+      "track": 3
+    },
+    {
+      "song": "Strangelove",
+      "album": "Music for the Masses",
+      "albumId": "e59021bd-1710-3c13-9449-b78560039592",
+      "track": 3
+    },
+    {
+      "song": "The Things You Said",
+      "album": "Music for the Masses",
+      "albumId": "e59021bd-1710-3c13-9449-b78560039592",
+      "track": 2
+    },
+    {
+      "song": "Tora! Tora! Tora!",
+      "album": "Speak & Spell",
+      "albumId": "7a0e0366-91f4-3444-b45a-83b158004165",
+      "track": 8
+    },
+    {
+      "song": "Walking in My Shoes",
+      "album": "Songs of Faith and Devotion",
+      "albumId": "e171597d-e6d5-36c8-8d0e-63daf79796b8",
+      "track": 2
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

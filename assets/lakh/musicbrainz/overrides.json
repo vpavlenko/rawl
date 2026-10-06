@@ -409,5 +409,11 @@
     "releaseOverrides": {
       "3383e288-26d5-3504-9c91-9801a07b4a96": "d0f9b284-454c-4cd8-9db5-1e6b9b6f74b1"
     }
+  },
+  "Adriano Celentano": {
+    "name": "Adriano Celentano",
+    "mbid": "d2b50525-1111-4906-aab6-4553f035f679",
+    "country": "IT",
+    "songs": {}
   }
 }

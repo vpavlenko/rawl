@@ -1,0 +1,45 @@
+{
+  "artist": "Adriano Celentano",
+  "artistId": "d2b50525-1111-4906-aab6-4553f035f679",
+  "groups": [
+    {
+      "id": "0569fe9b-a535-3fac-ac89-954ea5f6e71c",
+      "releaseId": "84ba964d-60cd-4809-9575-4c15337a2a55",
+      "title": "Azzurro / Una carezza in un pugno",
+      "date": "1968",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0569fe9b-a535-3fac-ac89-954ea5f6e71c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Una carezza in un pugno.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Azzurro.mid",
+            "Azzurro.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "74dc5767-5647-301b-b51b-e29a39b46f53",
+      "releaseId": "196b2d85-388b-40fa-8187-48c85e388431",
+      "title": "Le robe che ha detto Adriano",
+      "date": "1969",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/74dc5767-5647-301b-b51b-e29a39b46f53/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "Una festa sui prati.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

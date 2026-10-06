@@ -1,0 +1,28 @@
+{
+  "artist": "Adriano Celentano",
+  "status": "processed",
+  "totalSongs": 3,
+  "matched": [
+    {
+      "song": "Azzurro",
+      "album": "Azzurro / Una carezza in un pugno",
+      "albumId": "0569fe9b-a535-3fac-ac89-954ea5f6e71c",
+      "track": 7
+    },
+    {
+      "song": "Una carezza in un pugno",
+      "album": "Azzurro / Una carezza in un pugno",
+      "albumId": "0569fe9b-a535-3fac-ac89-954ea5f6e71c",
+      "track": 1
+    },
+    {
+      "song": "Una festa sui prati",
+      "album": "Le robe che ha detto Adriano",
+      "albumId": "74dc5767-5647-301b-b51b-e29a39b46f53",
+      "track": 9
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

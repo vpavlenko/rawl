@@ -574,5 +574,28 @@
         "title": "Rock and Roll All Nite"
       }
     }
+  },
+  "Roxette": {
+    "name": "Roxette",
+    "mbid": "d3b2711f-2baa-441a-be95-14945ca7e6ea",
+    "country": "SE",
+    "includedReleaseGroups": [
+      "71ffdcc7-8c2e-3121-a1fd-15a69b6060d6"
+    ],
+    "releaseOverrides": {
+      "00262f0e-7c90-4381-8203-12efc5945253": "4998ad1d-7335-4cfb-a9a7-8189ccdec42e",
+      "71ffdcc7-8c2e-3121-a1fd-15a69b6060d6": "88345d3d-0579-3a3a-9a37-dae980921dc9"
+    },
+    "songs": {
+      "Dressed for Succes": {
+        "title": "Dressed for Success"
+      },
+      "Fading Like a Flower (live Brussels 22 10 2001)": {
+        "title": "Fading Like a Flower (Every Time You Leave)"
+      },
+      "2 Cinnamon Street": {
+        "title": "Cinnamon Street"
+      }
+    }
   }
 }

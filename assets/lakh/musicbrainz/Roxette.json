@@ -1,0 +1,244 @@
+{
+  "artist": "Roxette",
+  "status": "processed",
+  "totalSongs": 39,
+  "matched": [
+    {
+      "song": "2 Cinnamon Street",
+      "album": "Tourism",
+      "albumId": "00262f0e-7c90-4381-8203-12efc5945253",
+      "track": 8
+    },
+    {
+      "song": "Almost Unreal",
+      "album": "Crash! Boom! Bang!",
+      "albumId": "d94a8b37-e58a-4a75-8b96-e9e7c1f39b72",
+      "track": 16
+    },
+    {
+      "song": "Chances",
+      "album": "Look Sharp!",
+      "albumId": "ed44808f-8596-3696-8499-2cdd5f4d21b0",
+      "track": 7
+    },
+    {
+      "song": "Crash! Boom! Bang!",
+      "album": "Crash! Boom! Bang!",
+      "albumId": "d94a8b37-e58a-4a75-8b96-e9e7c1f39b72",
+      "track": 2
+    },
+    {
+      "song": "Dangerous (7\" version)",
+      "album": "Dangerous",
+      "albumId": "09371990-d6aa-3631-9a09-874f84eb7756",
+      "track": 1
+    },
+    {
+      "song": "Dangerous",
+      "album": "Look Sharp!",
+      "albumId": "ed44808f-8596-3696-8499-2cdd5f4d21b0",
+      "track": 8
+    },
+    {
+      "song": "Directamente a ti (Run to You)",
+      "album": "Baladas en español",
+      "albumId": "71ffdcc7-8c2e-3121-a1fd-15a69b6060d6",
+      "track": 3
+    },
+    {
+      "song": "Do You Wanna Go the Whole Way?",
+      "album": "Crash! Boom! Bang!",
+      "albumId": "d94a8b37-e58a-4a75-8b96-e9e7c1f39b72",
+      "track": 11
+    },
+    {
+      "song": "Dressed for Succes",
+      "album": "Look Sharp!",
+      "albumId": "ed44808f-8596-3696-8499-2cdd5f4d21b0",
+      "track": 2
+    },
+    {
+      "song": "Fading Like a Flower (Every Time You Leave)",
+      "album": "Joyride",
+      "albumId": "2f36e6f3-b504-3ed4-b1e8-7971fd7b5632",
+      "track": 3
+    },
+    {
+      "song": "Fading Like a Flower (live Brussels 22 10 2001)",
+      "album": "Joyride",
+      "albumId": "2f36e6f3-b504-3ed4-b1e8-7971fd7b5632",
+      "track": 3
+    },
+    {
+      "song": "Harleys & Indians (Riders in the Sky)",
+      "album": "Crash! Boom! Bang!",
+      "albumId": "d94a8b37-e58a-4a75-8b96-e9e7c1f39b72",
+      "track": 1
+    },
+    {
+      "song": "Here Comes the Weekend (live)",
+      "album": "Tourism",
+      "albumId": "00262f0e-7c90-4381-8203-12efc5945253",
+      "track": 11
+    },
+    {
+      "song": "How Do You Do",
+      "album": "Tourism",
+      "albumId": "00262f0e-7c90-4381-8203-12efc5945253",
+      "track": 1
+    },
+    {
+      "song": "I'm Sorry",
+      "album": "Crash! Boom! Bang!",
+      "albumId": "d94a8b37-e58a-4a75-8b96-e9e7c1f39b72",
+      "track": 13
+    },
+    {
+      "song": "It Must Have Been Love (live studio)",
+      "album": "Tourism",
+      "albumId": "00262f0e-7c90-4381-8203-12efc5945253",
+      "track": 7
+    },
+    {
+      "song": "It Must Have Been Love",
+      "album": "Tourism",
+      "albumId": "00262f0e-7c90-4381-8203-12efc5945253",
+      "track": 7
+    },
+    {
+      "song": "Joyride",
+      "album": "Joyride",
+      "albumId": "2f36e6f3-b504-3ed4-b1e8-7971fd7b5632",
+      "track": 1
+    },
+    {
+      "song": "Listen to Your Heart",
+      "album": "Look Sharp!",
+      "albumId": "ed44808f-8596-3696-8499-2cdd5f4d21b0",
+      "track": 12
+    },
+    {
+      "song": "Love Is All (Shine Your Light On Me)",
+      "album": "Crash! Boom! Bang!",
+      "albumId": "d94a8b37-e58a-4a75-8b96-e9e7c1f39b72",
+      "track": 14
+    },
+    {
+      "song": "Milk And Toast And Honey",
+      "album": "Room Service",
+      "albumId": "e08403a9-1bf8-369d-8ad2-c2b663c357dd",
+      "track": 3
+    },
+    {
+      "song": "Paint",
+      "album": "Look Sharp!",
+      "albumId": "ed44808f-8596-3696-8499-2cdd5f4d21b0",
+      "track": 4
+    },
+    {
+      "song": "Physical Fascination",
+      "album": "Joyride",
+      "albumId": "2f36e6f3-b504-3ed4-b1e8-7971fd7b5632",
+      "track": 10
+    },
+    {
+      "song": "Queen of Rain",
+      "album": "Tourism",
+      "albumId": "00262f0e-7c90-4381-8203-12efc5945253",
+      "track": 16
+    },
+    {
+      "song": "Real Sugar",
+      "album": "Room Service",
+      "albumId": "e08403a9-1bf8-369d-8ad2-c2b663c357dd",
+      "track": 1
+    },
+    {
+      "song": "Run to You",
+      "album": "Crash! Boom! Bang!",
+      "albumId": "d94a8b37-e58a-4a75-8b96-e9e7c1f39b72",
+      "track": 4
+    },
+    {
+      "song": "Salvation",
+      "album": "Have a Nice Day",
+      "albumId": "ea848b25-946f-3f90-9e61-302be00904fb",
+      "track": 10
+    },
+    {
+      "song": "Shadow of a Doubt",
+      "album": "Look Sharp!",
+      "albumId": "ed44808f-8596-3696-8499-2cdd5f4d21b0",
+      "track": 11
+    },
+    {
+      "song": "Silver Blue",
+      "album": "Tourism",
+      "albumId": "00262f0e-7c90-4381-8203-12efc5945253",
+      "track": 10
+    },
+    {
+      "song": "Sleeping In My Car",
+      "album": "Crash! Boom! Bang!",
+      "albumId": "d94a8b37-e58a-4a75-8b96-e9e7c1f39b72",
+      "track": 5
+    },
+    {
+      "song": "Spending My Time",
+      "album": "Joyride",
+      "albumId": "2f36e6f3-b504-3ed4-b1e8-7971fd7b5632",
+      "track": 5
+    },
+    {
+      "song": "Stars",
+      "album": "Have a Nice Day",
+      "albumId": "ea848b25-946f-3f90-9e61-302be00904fb",
+      "track": 9
+    },
+    {
+      "song": "The Big L.",
+      "album": "Joyride",
+      "albumId": "2f36e6f3-b504-3ed4-b1e8-7971fd7b5632",
+      "track": 7
+    },
+    {
+      "song": "The Look",
+      "album": "Look Sharp!",
+      "albumId": "ed44808f-8596-3696-8499-2cdd5f4d21b0",
+      "track": 1
+    },
+    {
+      "song": "Things Will Never Be the Same",
+      "album": "Joyride",
+      "albumId": "2f36e6f3-b504-3ed4-b1e8-7971fd7b5632",
+      "track": 11
+    },
+    {
+      "song": "Un dia sin ti (Spending My Time)",
+      "album": "Baladas en español",
+      "albumId": "71ffdcc7-8c2e-3121-a1fd-15a69b6060d6",
+      "track": 1
+    },
+    {
+      "song": "Vulnerable",
+      "album": "Crash! Boom! Bang!",
+      "albumId": "d94a8b37-e58a-4a75-8b96-e9e7c1f39b72",
+      "track": 6
+    },
+    {
+      "song": "Watercolours in the Rain",
+      "album": "Joyride",
+      "albumId": "2f36e6f3-b504-3ed4-b1e8-7971fd7b5632",
+      "track": 6
+    },
+    {
+      "song": "Wish I Could Fly",
+      "album": "Have a Nice Day",
+      "albumId": "ea848b25-946f-3f90-9e61-302be00904fb",
+      "track": 2
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

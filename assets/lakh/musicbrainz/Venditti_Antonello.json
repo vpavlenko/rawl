@@ -1,0 +1,28 @@
+{
+  "artist": "Venditti Antonello",
+  "status": "processed",
+  "totalSongs": 3,
+  "matched": [
+    {
+      "song": "Benvenuti in paradiso",
+      "album": "Benvenuti in paradiso",
+      "albumId": "67eaa1e4-87eb-348a-8146-81a128fc97cc",
+      "track": 1
+    },
+    {
+      "song": "Ricordati di me",
+      "album": "In questo mondo di ladri",
+      "albumId": "71b87fb6-c6eb-368c-b9cd-25ef77d635f6",
+      "track": 1
+    },
+    {
+      "song": "Roma capoccia",
+      "album": "Theorius Campus",
+      "albumId": "93c028d3-9281-35c4-a2fa-8188abcd8904",
+      "track": 10
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

@@ -1,0 +1,208 @@
+{
+  "artist": "Antonello Venditti",
+  "status": "processed",
+  "totalSongs": 33,
+  "matched": [
+    {
+      "song": "Alta marea",
+      "album": "Benvenuti in paradiso",
+      "albumId": "67eaa1e4-87eb-348a-8146-81a128fc97cc",
+      "track": 2
+    },
+    {
+      "song": "Amici mai",
+      "album": "Benvenuti in paradiso",
+      "albumId": "67eaa1e4-87eb-348a-8146-81a128fc97cc",
+      "track": 5
+    },
+    {
+      "song": "Benvenuti in paradiso",
+      "album": "Benvenuti in paradiso",
+      "albumId": "67eaa1e4-87eb-348a-8146-81a128fc97cc",
+      "track": 1
+    },
+    {
+      "song": "Bomba o non bomba",
+      "album": "Sotto il segno dei pesci",
+      "albumId": "0570526b-a661-311b-a995-b0da7fab6723",
+      "track": 3
+    },
+    {
+      "song": "Buona domenica",
+      "album": "Buona domenica",
+      "albumId": "98dddb37-b7a9-43e0-b5ef-e53143e1694c",
+      "track": 1
+    },
+    {
+      "song": "Campo de' fiori",
+      "album": "Quando verrà Natale",
+      "albumId": "700cccf9-4834-3b95-9d7d-cd0053f31052",
+      "track": 5
+    },
+    {
+      "song": "Che tesoro che sei",
+      "album": "Goodbye N9vecento",
+      "albumId": "3f14199b-0ea1-3cc6-9a1f-20f66ba1492b",
+      "track": 4
+    },
+    {
+      "song": "Ci vorrebbe un amico",
+      "album": "Cuore",
+      "albumId": "e70c613e-77da-3306-a0b7-8c0fdf6fa0fe",
+      "track": 5
+    },
+    {
+      "song": "Compagno di scuola",
+      "album": "Lilly",
+      "albumId": "e7edd427-d0c0-36b5-9994-7d12f0913395",
+      "track": 5
+    },
+    {
+      "song": "Dimmelo Tu Cos'e",
+      "album": "Sotto la pioggia",
+      "albumId": "f87c89be-cc9a-304a-be29-b2b4e03ae8b5",
+      "track": 3
+    },
+    {
+      "song": "Dimmi che credi",
+      "album": "Benvenuti in paradiso",
+      "albumId": "67eaa1e4-87eb-348a-8146-81a128fc97cc",
+      "track": 6
+    },
+    {
+      "song": "Giulio Cesare",
+      "album": "Venditti e segreti",
+      "albumId": "7bc8e986-0eb5-375c-8c90-e92e9b320ddd",
+      "track": 3
+    },
+    {
+      "song": "Grazie Roma",
+      "album": "Circo Massimo",
+      "albumId": "1ab91c1c-6c50-3918-9f87-82c868ba0f74",
+      "track": 8
+    },
+    {
+      "song": "In questo mondo che non puoi capire",
+      "album": "Goodbye N9vecento",
+      "albumId": "3f14199b-0ea1-3cc6-9a1f-20f66ba1492b",
+      "track": 3
+    },
+    {
+      "song": "In questo mondo di ladri",
+      "album": "In questo mondo di ladri",
+      "albumId": "71b87fb6-c6eb-368c-b9cd-25ef77d635f6",
+      "track": 5
+    },
+    {
+      "song": "L'ottimista",
+      "album": "Cuore",
+      "albumId": "e70c613e-77da-3306-a0b7-8c0fdf6fa0fe",
+      "track": 6
+    },
+    {
+      "song": "Le tue mani su di me",
+      "album": "Le cose della vita",
+      "albumId": "5400db85-bfeb-3ba4-9d8c-ce5ca777b0cb",
+      "track": 8
+    },
+    {
+      "song": "Lilly",
+      "album": "Lilly",
+      "albumId": "e7edd427-d0c0-36b5-9994-7d12f0913395",
+      "track": 1
+    },
+    {
+      "song": "Mitico amore",
+      "album": "In questo mondo di ladri",
+      "albumId": "71b87fb6-c6eb-368c-b9cd-25ef77d635f6",
+      "track": 4
+    },
+    {
+      "song": "Notte prima degli esami",
+      "album": "Cuore",
+      "albumId": "e70c613e-77da-3306-a0b7-8c0fdf6fa0fe",
+      "track": 1
+    },
+    {
+      "song": "Ogni volta",
+      "album": "Prendilo tu questo frutto amaro",
+      "albumId": "edf3c4fe-f0b3-3599-be14-9c66ff6dcee6",
+      "track": 1
+    },
+    {
+      "song": "Peppino",
+      "album": "Venditti e segreti",
+      "albumId": "7bc8e986-0eb5-375c-8c90-e92e9b320ddd",
+      "track": 1
+    },
+    {
+      "song": "Piero e Cinzia",
+      "album": "Cuore",
+      "albumId": "e70c613e-77da-3306-a0b7-8c0fdf6fa0fe",
+      "track": 7
+    },
+    {
+      "song": "Prendilo tu questo frutto amaro",
+      "album": "Prendilo tu questo frutto amaro",
+      "albumId": "edf3c4fe-f0b3-3599-be14-9c66ff6dcee6",
+      "track": 5
+    },
+    {
+      "song": "Ricordati di me",
+      "album": "In questo mondo di ladri",
+      "albumId": "71b87fb6-c6eb-368c-b9cd-25ef77d635f6",
+      "track": 1
+    },
+    {
+      "song": "Roma capoccia",
+      "album": "Theorius Campus",
+      "albumId": "93c028d3-9281-35c4-a2fa-8188abcd8904",
+      "track": 10
+    },
+    {
+      "song": "Sara",
+      "album": "Sotto il segno dei pesci",
+      "albumId": "0570526b-a661-311b-a995-b0da7fab6723",
+      "track": 5
+    },
+    {
+      "song": "Settembre",
+      "album": "Venditti e segreti",
+      "albumId": "7bc8e986-0eb5-375c-8c90-e92e9b320ddd",
+      "track": 7
+    },
+    {
+      "song": "Sotto il segno dei pesci",
+      "album": "Sotto il segno dei pesci",
+      "albumId": "0570526b-a661-311b-a995-b0da7fab6723",
+      "track": 1
+    },
+    {
+      "song": "Sotto la pioggia",
+      "album": "Sotto la pioggia",
+      "albumId": "f87c89be-cc9a-304a-be29-b2b4e03ae8b5",
+      "track": 1
+    },
+    {
+      "song": "Stai con me",
+      "album": "Buona domenica",
+      "albumId": "98dddb37-b7a9-43e0-b5ef-e53143e1694c",
+      "track": 2
+    },
+    {
+      "song": "Stella",
+      "album": "Cuore",
+      "albumId": "e70c613e-77da-3306-a0b7-8c0fdf6fa0fe",
+      "track": 8
+    },
+    {
+      "song": "Vento selvaggio",
+      "album": "Prendilo tu questo frutto amaro",
+      "albumId": "edf3c4fe-f0b3-3599-be14-9c66ff6dcee6",
+      "track": 3
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

@@ -703,5 +703,18 @@
     "allowedSecondaryTypes": [
       "Soundtrack"
     ]
+  },
+  "Antonello Venditti": {
+    "name": "Antonello Venditti",
+    "mbid": "dd4a5777-42a3-44a2-b5e6-bff6731cdf3a",
+    "country": "IT",
+    "includedReleaseGroups": [
+      "1ab91c1c-6c50-3918-9f87-82c868ba0f74"
+    ]
+  },
+  "Venditti Antonello": {
+    "name": "Antonello Venditti",
+    "mbid": "dd4a5777-42a3-44a2-b5e6-bff6731cdf3a",
+    "country": "IT"
   }
 }

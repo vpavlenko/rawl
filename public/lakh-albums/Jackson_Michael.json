@@ -1,0 +1,471 @@
+{
+  "artist": "Jackson Michael",
+  "artistId": "f27ec8db-af05-4f36-916e-3d57f91ecf5e",
+  "groups": [
+    {
+      "id": "2b0bb932-db34-3780-b5cd-0df61a03236a",
+      "releaseId": "ea4c5461-e824-4478-946d-4b308e885e02",
+      "title": "Third Album",
+      "date": "1970-09-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2b0bb932-db34-3780-b5cd-0df61a03236a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I'll Be There.mid",
+            "I'll Be There.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "387f5c5c-5549-4606-9f2e-8d5d23076afd",
+      "releaseId": "4df44278-d52c-453c-93b2-a17c8ef24394",
+      "title": "Jackson 5 Maxi",
+      "date": "1972",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/387f5c5c-5549-4606-9f2e-8d5d23076afd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ben.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "97e0014d-a267-33a0-a868-bb4e2552918a",
+      "releaseId": "7d65853b-d547-4885-86a6-51df4005768c",
+      "title": "Got to Be There",
+      "date": "1972-01-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/97e0014d-a267-33a0-a868-bb4e2552918a/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Rockin' Robin.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "50b9d7de-9124-33c0-83a3-76722bf346e5",
+      "releaseId": "3fdd7c32-2da8-480c-8b70-1c628a7fd009",
+      "title": "Forever, Michael",
+      "date": "1975-01-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/50b9d7de-9124-33c0-83a3-76722bf346e5/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "One Day In Your Life.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ec240214-31ad-34da-8b15-88bab932dcb3",
+      "releaseId": "5e98b97a-8cd6-4b4d-be31-f38cfebcdaa1",
+      "title": "Destiny",
+      "date": "1978",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ec240214-31ad-34da-8b15-88bab932dcb3/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Blame It on the Boogie.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ee749c63-5699-38e0-b565-7e84414648d9",
+      "releaseId": "6258e39d-bef4-4d5a-a654-440cf4c4c29a",
+      "title": "Off the Wall",
+      "date": "1979-08-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ee749c63-5699-38e0-b565-7e84414648d9/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Don't Stop 'Til You Get Enough.mid",
+            "Don't Stop 'Til You Get Enough.1.mid",
+            "Don't Stop 'Til You Get Enough.2.mid",
+            "Don't Stop 'Til You Get Enough.3.mid",
+            "Don't Stop 'Til You Get Enough.4.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Rock With You.mid",
+            "Rock With You.1.mid",
+            "Rock With You.2.mid",
+            "Rock With You.3.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Off the Wall.mid",
+            "Off the Wall.1.mid",
+            "Off the Wall.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "She's Out Of My Life.mid",
+            "She's Out Of My Life.1.mid",
+            "She's Out Of My Life.2.mid",
+            "She's Out Of My Life.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "releaseId": "6bc658fc-c2ad-38ec-a829-0cf8ffef53d8",
+      "title": "Thriller",
+      "date": "1982-11-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f32fab67-77dd-3937-addc-9062e28e4c37/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Wanna Be Startin' Somethin'.mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "Wanna Be Starting Something.mid",
+            "Wanna Be Starting Something.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "The Girl Is Mine.mid",
+            "The Girl Is Mine.1.mid",
+            "The Girl Is Mine.2.mid",
+            "The Girl Is Mine.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Thriller.mid",
+            "Thriller.1.mid",
+            "Thriller.2.mid",
+            "Thriller.3.mid",
+            "Thriller.4.mid",
+            "Thriller.5.mid",
+            "Thriller.6.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Beat It.mid",
+            "Beat It.1.mid",
+            "Beat It.2.mid",
+            "Beat It.3.mid",
+            "Beat It.4.mid",
+            "Beat It.5.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Billie Jean.mid",
+            "Billie Jean.1.mid",
+            "Billie Jean.2.mid",
+            "Billie Jean.3.mid",
+            "Billie Jean.4.mid",
+            "Billie Jean.5.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Billy Jean.mid",
+            "Billy Jean.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Human Nature.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "The Lady in My Life.mid",
+            "The Lady in My Life.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a5711a77-42d1-3f4c-830c-e27a96f0800f",
+      "releaseId": "5c423204-dd70-4404-ae3b-f3bc9ec84709",
+      "title": "Bad",
+      "date": "1987-08-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a5711a77-42d1-3f4c-830c-e27a96f0800f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Bad.mid",
+            "Bad.1.mid",
+            "Bad.2.mid",
+            "Bad.3.mid",
+            "Bad.4.mid",
+            "Bad.5.mid",
+            "Bad.6.mid",
+            "Bad.7.mid",
+            "Bad.8.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "The Way You Make Me Feel.mid",
+            "The Way You Make Me Feel.1.mid",
+            "The Way You Make Me Feel.2.mid",
+            "The Way You Make Me Feel.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Liberian Girl.mid",
+            "Liberian Girl.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Man in the Mirror.mid",
+            "Man in the Mirror.1.mid",
+            "Man in the Mirror.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "I Just Can't Stop Loving You.mid",
+            "I Just Can't Stop Loving You.1.mid",
+            "I Just Can't Stop Loving You.2.mid",
+            "I Just Can't Stop Loving You.3.mid",
+            "I Just Can't Stop Loving You.4.mid",
+            "I Just Can't Stop Loving You.5.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Smooth Criminal.mid",
+            "Smooth Criminal.1.mid",
+            "Smooth Criminal.2.mid",
+            "Smooth Criminal.3.mid",
+            "Smooth Criminal.4.mid",
+            "Smooth Criminal.5.mid",
+            "Smooth Criminal.6.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d6b52521-0dfa-390f-970f-790174c22752",
+      "releaseId": "65fd65e8-f271-35f5-b839-c12725aab5a5",
+      "title": "Dangerous",
+      "date": "1991-11-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d6b52521-0dfa-390f-970f-790174c22752/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "In the Closet.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Remember the Time.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Heal The World.mid",
+            "Heal The World.1.mid",
+            "Heal The World.2.mid",
+            "Heal The World.3.mid",
+            "Heal The World.4.mid",
+            "Heal The World.5.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Black or White.mid",
+            "Black or White.1.mid",
+            "Black or White.2.mid",
+            "Black or White.3.mid",
+            "Black or White.4.mid",
+            "Black or White.5.mid",
+            "Black or White.6.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Who Is It.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Give In to Me.mid",
+            "Give In to Me.1.mid",
+            "Give In to Me.2.mid",
+            "Give In to Me.3.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Will You Be There.mid",
+            "Will You Be There.1.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Gone Too Soon.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b59e166c-6719-485d-8c99-98ad5e0f15b8",
+      "releaseId": "06e1a6e6-d1f1-4015-b991-41da1266640a",
+      "title": "Childhood",
+      "date": "1995",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/b59e166c-6719-485d-8c99-98ad5e0f15b8/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Childhood.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2324e560-e8ba-302d-a43d-2ea5ec9c83f7",
+      "releaseId": "a970cdd1-24d0-4ef2-803f-cf2802b8a182",
+      "title": "HIStory: Past, Present and Future, Book I",
+      "date": "1995-05-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2324e560-e8ba-302d-a43d-2ea5ec9c83f7/front-250",
+      "songs": [
+        {
+          "number": 16,
+          "files": [
+            "Scream.mid",
+            "Scream.1.mid"
+          ]
+        },
+        {
+          "number": 17,
+          "files": [
+            "They Don't Care About Us.mid"
+          ]
+        },
+        {
+          "number": 18,
+          "files": [
+            "Stranger in Moscow.mid",
+            "Stranger in Moscow.1.mid"
+          ]
+        },
+        {
+          "number": 20,
+          "files": [
+            "Earth Song.mid",
+            "Earth Song.1.mid",
+            "Earth Song.2.mid",
+            "Earth Song.3.mid",
+            "Earth Song.4.mid"
+          ]
+        },
+        {
+          "number": 24,
+          "files": [
+            "You Are Not Alone.mid",
+            "You Are Not Alone.1.mid"
+          ]
+        },
+        {
+          "number": 28,
+          "files": [
+            "HIStory.mid",
+            "HIStory.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "60691bed-fdd7-32f9-92dc-b151aac9e271",
+      "releaseId": "8157a836-e04e-4bca-96a8-f9cd51a2b97e",
+      "title": "Blood on the Dance Floor: HIStory in the Mix",
+      "date": "1997-05-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/60691bed-fdd7-32f9-92dc-b151aac9e271/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Blood on the Dance Floor.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Ghosts.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c24c5313-da47-3155-8277-a6a1a4237966",
+      "releaseId": "d2126f31-5b6b-4a4b-98d3-408cfd4186b2",
+      "title": "Invincible",
+      "date": "2001-10-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c24c5313-da47-3155-8277-a6a1a4237966/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Intro   You Rock My World.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

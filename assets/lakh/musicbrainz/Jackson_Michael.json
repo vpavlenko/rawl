@@ -1,0 +1,268 @@
+{
+  "artist": "Jackson Michael",
+  "status": "processed",
+  "totalSongs": 44,
+  "matched": [
+    {
+      "song": "Bad",
+      "album": "Bad",
+      "albumId": "a5711a77-42d1-3f4c-830c-e27a96f0800f",
+      "track": 1
+    },
+    {
+      "song": "Beat It",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 5
+    },
+    {
+      "song": "Ben",
+      "album": "Jackson 5 Maxi",
+      "albumId": "387f5c5c-5549-4606-9f2e-8d5d23076afd",
+      "track": 1
+    },
+    {
+      "song": "Billie Jean",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 6
+    },
+    {
+      "song": "Billy Jean",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 6
+    },
+    {
+      "song": "Black or White",
+      "album": "Dangerous",
+      "albumId": "d6b52521-0dfa-390f-970f-790174c22752",
+      "track": 8
+    },
+    {
+      "song": "Blame It on the Boogie",
+      "album": "Destiny",
+      "albumId": "ec240214-31ad-34da-8b15-88bab932dcb3",
+      "track": 1
+    },
+    {
+      "song": "Blood on the Dance Floor",
+      "album": "Blood on the Dance Floor: HIStory in the Mix",
+      "albumId": "60691bed-fdd7-32f9-92dc-b151aac9e271",
+      "track": 1
+    },
+    {
+      "song": "Childhood",
+      "album": "Childhood",
+      "albumId": "b59e166c-6719-485d-8c99-98ad5e0f15b8",
+      "track": 1
+    },
+    {
+      "song": "Don't Stop 'Til You Get Enough",
+      "album": "Off the Wall",
+      "albumId": "ee749c63-5699-38e0-b565-7e84414648d9",
+      "track": 1
+    },
+    {
+      "song": "Earth Song",
+      "album": "HIStory: Past, Present and Future, Book I",
+      "albumId": "2324e560-e8ba-302d-a43d-2ea5ec9c83f7",
+      "track": 20
+    },
+    {
+      "song": "Ghosts",
+      "album": "Blood on the Dance Floor: HIStory in the Mix",
+      "albumId": "60691bed-fdd7-32f9-92dc-b151aac9e271",
+      "track": 4
+    },
+    {
+      "song": "Give In to Me",
+      "album": "Dangerous",
+      "albumId": "d6b52521-0dfa-390f-970f-790174c22752",
+      "track": 10
+    },
+    {
+      "song": "Gone Too Soon",
+      "album": "Dangerous",
+      "albumId": "d6b52521-0dfa-390f-970f-790174c22752",
+      "track": 13
+    },
+    {
+      "song": "Heal The World",
+      "album": "Dangerous",
+      "albumId": "d6b52521-0dfa-390f-970f-790174c22752",
+      "track": 7
+    },
+    {
+      "song": "HIStory",
+      "album": "HIStory: Past, Present and Future, Book I",
+      "albumId": "2324e560-e8ba-302d-a43d-2ea5ec9c83f7",
+      "track": 28
+    },
+    {
+      "song": "Human Nature",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 7
+    },
+    {
+      "song": "I Just Can't Stop Loving You",
+      "album": "Bad",
+      "albumId": "a5711a77-42d1-3f4c-830c-e27a96f0800f",
+      "track": 8
+    },
+    {
+      "song": "I'll Be There",
+      "album": "Third Album",
+      "albumId": "2b0bb932-db34-3780-b5cd-0df61a03236a",
+      "track": 1
+    },
+    {
+      "song": "In the Closet",
+      "album": "Dangerous",
+      "albumId": "d6b52521-0dfa-390f-970f-790174c22752",
+      "track": 3
+    },
+    {
+      "song": "Intro   You Rock My World",
+      "album": "Invincible",
+      "albumId": "c24c5313-da47-3155-8277-a6a1a4237966",
+      "track": 6
+    },
+    {
+      "song": "Liberian Girl",
+      "album": "Bad",
+      "albumId": "a5711a77-42d1-3f4c-830c-e27a96f0800f",
+      "track": 4
+    },
+    {
+      "song": "Man in the Mirror",
+      "album": "Bad",
+      "albumId": "a5711a77-42d1-3f4c-830c-e27a96f0800f",
+      "track": 7
+    },
+    {
+      "song": "Off the Wall",
+      "album": "Off the Wall",
+      "albumId": "ee749c63-5699-38e0-b565-7e84414648d9",
+      "track": 5
+    },
+    {
+      "song": "One Day In Your Life",
+      "album": "Forever, Michael",
+      "albumId": "50b9d7de-9124-33c0-83a3-76722bf346e5",
+      "track": 3
+    },
+    {
+      "song": "Remember the Time",
+      "album": "Dangerous",
+      "albumId": "d6b52521-0dfa-390f-970f-790174c22752",
+      "track": 5
+    },
+    {
+      "song": "Rock With You",
+      "album": "Off the Wall",
+      "albumId": "ee749c63-5699-38e0-b565-7e84414648d9",
+      "track": 2
+    },
+    {
+      "song": "Rockin' Robin",
+      "album": "Got to Be There",
+      "albumId": "97e0014d-a267-33a0-a868-bb4e2552918a",
+      "track": 6
+    },
+    {
+      "song": "Scream",
+      "album": "HIStory: Past, Present and Future, Book I",
+      "albumId": "2324e560-e8ba-302d-a43d-2ea5ec9c83f7",
+      "track": 16
+    },
+    {
+      "song": "She's Out Of My Life",
+      "album": "Off the Wall",
+      "albumId": "ee749c63-5699-38e0-b565-7e84414648d9",
+      "track": 7
+    },
+    {
+      "song": "Smooth Criminal",
+      "album": "Bad",
+      "albumId": "a5711a77-42d1-3f4c-830c-e27a96f0800f",
+      "track": 10
+    },
+    {
+      "song": "Stranger in Moscow",
+      "album": "HIStory: Past, Present and Future, Book I",
+      "albumId": "2324e560-e8ba-302d-a43d-2ea5ec9c83f7",
+      "track": 18
+    },
+    {
+      "song": "The Girl Is Mine",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 3
+    },
+    {
+      "song": "The Lady in My Life",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 9
+    },
+    {
+      "song": "The Way You Make Me Feel",
+      "album": "Bad",
+      "albumId": "a5711a77-42d1-3f4c-830c-e27a96f0800f",
+      "track": 2
+    },
+    {
+      "song": "They Don't Care About Us",
+      "album": "HIStory: Past, Present and Future, Book I",
+      "albumId": "2324e560-e8ba-302d-a43d-2ea5ec9c83f7",
+      "track": 17
+    },
+    {
+      "song": "Thriller",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 4
+    },
+    {
+      "song": "Wanna Be Startin' Somethin'",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 1
+    },
+    {
+      "song": "Wanna Be Starting Something",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 1
+    },
+    {
+      "song": "Who Is It",
+      "album": "Dangerous",
+      "albumId": "d6b52521-0dfa-390f-970f-790174c22752",
+      "track": 9
+    },
+    {
+      "song": "Will You Be There",
+      "album": "Dangerous",
+      "albumId": "d6b52521-0dfa-390f-970f-790174c22752",
+      "track": 11
+    },
+    {
+      "song": "You Are Not Alone",
+      "album": "HIStory: Past, Present and Future, Book I",
+      "albumId": "2324e560-e8ba-302d-a43d-2ea5ec9c83f7",
+      "track": 24
+    }
+  ],
+  "unmatched": [
+    "Dance Mix 1",
+    "I Want You Back   The Love You Save   I'll Be There"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Dance Mix 1": [],
+    "I Want You Back   The Love You Save   I'll Be There": []
+  }
+}

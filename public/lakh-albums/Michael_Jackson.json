@@ -1,0 +1,160 @@
+{
+  "artist": "Michael Jackson",
+  "artistId": "f27ec8db-af05-4f36-916e-3d57f91ecf5e",
+  "groups": [
+    {
+      "id": "ee749c63-5699-38e0-b565-7e84414648d9",
+      "releaseId": "6258e39d-bef4-4d5a-a654-440cf4c4c29a",
+      "title": "Off the Wall",
+      "date": "1979-08-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ee749c63-5699-38e0-b565-7e84414648d9/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Don't Stop 'Til You Get Enough.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Rock With You.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Off the Wall.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "She's Out Of My Life.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "releaseId": "6bc658fc-c2ad-38ec-a829-0cf8ffef53d8",
+      "title": "Thriller",
+      "date": "1982-11-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f32fab67-77dd-3937-addc-9062e28e4c37/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Wanna Be Startin' Somethin'.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "The Girl Is Mine.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Thriller.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Beat It.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Billie Jean.5.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Billy Jean.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "The Lady in My Life.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a5711a77-42d1-3f4c-830c-e27a96f0800f",
+      "releaseId": "5c423204-dd70-4404-ae3b-f3bc9ec84709",
+      "title": "Bad",
+      "date": "1987-08-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a5711a77-42d1-3f4c-830c-e27a96f0800f/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "The Way You Make Me Feel.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Liberian Girl.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Man in the Mirror.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "I Just Can't Stop Loving You.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Smooth Criminal.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d6b52521-0dfa-390f-970f-790174c22752",
+      "releaseId": "65fd65e8-f271-35f5-b839-c12725aab5a5",
+      "title": "Dangerous",
+      "date": "1991-11-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d6b52521-0dfa-390f-970f-790174c22752/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Remember the Time.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Heal The World.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Black or White.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

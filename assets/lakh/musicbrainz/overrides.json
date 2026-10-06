@@ -74,7 +74,26 @@
     ]
   },
   "Jackson Michael": {
-    "name": "Michael Jackson"
+    "name": "Michael Jackson",
+    "mbid": "f27ec8db-af05-4f36-916e-3d57f91ecf5e",
+    "country": "US",
+    "relatedArtistIds": [
+      "e5257dc5-1edd-4fca-b7e6-1158e00522c8"
+    ],
+    "includedReleaseGroups": [
+      "60691bed-fdd7-32f9-92dc-b151aac9e271"
+    ],
+    "songs": {
+      "Billy Jean": {
+        "title": "Billie Jean"
+      },
+      "Wanna Be Starting Something": {
+        "title": "Wanna Be Startin’ Somethin’"
+      },
+      "Intro   You Rock My World": {
+        "title": "You Rock My World"
+      }
+    }
   },
   "Celentano": {
     "name": "Adriano Celentano",
@@ -455,6 +474,22 @@
       "No More Lonely Nights (Ballad reprise)": {
         "title": "No Values / No More Lonely Nights",
         "albumId": "31b56849-19b8-3454-af3f-b72891f34ae4"
+      }
+    }
+  },
+  "Michael Jackson": {
+    "name": "Michael Jackson",
+    "mbid": "f27ec8db-af05-4f36-916e-3d57f91ecf5e",
+    "country": "US",
+    "relatedArtistIds": [
+      "e5257dc5-1edd-4fca-b7e6-1158e00522c8"
+    ],
+    "includedReleaseGroups": [
+      "60691bed-fdd7-32f9-92dc-b151aac9e271"
+    ],
+    "songs": {
+      "Billy Jean": {
+        "title": "Billie Jean"
       }
     }
   }

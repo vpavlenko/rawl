@@ -1,0 +1,124 @@
+{
+  "artist": "Michael Jackson",
+  "status": "processed",
+  "totalSongs": 19,
+  "matched": [
+    {
+      "song": "Beat It",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 5
+    },
+    {
+      "song": "Billie Jean",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 6
+    },
+    {
+      "song": "Billy Jean",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 6
+    },
+    {
+      "song": "Black or White",
+      "album": "Dangerous",
+      "albumId": "d6b52521-0dfa-390f-970f-790174c22752",
+      "track": 8
+    },
+    {
+      "song": "Don't Stop 'Til You Get Enough",
+      "album": "Off the Wall",
+      "albumId": "ee749c63-5699-38e0-b565-7e84414648d9",
+      "track": 1
+    },
+    {
+      "song": "Heal The World",
+      "album": "Dangerous",
+      "albumId": "d6b52521-0dfa-390f-970f-790174c22752",
+      "track": 7
+    },
+    {
+      "song": "I Just Can't Stop Loving You",
+      "album": "Bad",
+      "albumId": "a5711a77-42d1-3f4c-830c-e27a96f0800f",
+      "track": 8
+    },
+    {
+      "song": "Liberian Girl",
+      "album": "Bad",
+      "albumId": "a5711a77-42d1-3f4c-830c-e27a96f0800f",
+      "track": 4
+    },
+    {
+      "song": "Man in the Mirror",
+      "album": "Bad",
+      "albumId": "a5711a77-42d1-3f4c-830c-e27a96f0800f",
+      "track": 7
+    },
+    {
+      "song": "Off the Wall",
+      "album": "Off the Wall",
+      "albumId": "ee749c63-5699-38e0-b565-7e84414648d9",
+      "track": 5
+    },
+    {
+      "song": "Remember the Time",
+      "album": "Dangerous",
+      "albumId": "d6b52521-0dfa-390f-970f-790174c22752",
+      "track": 5
+    },
+    {
+      "song": "Rock With You",
+      "album": "Off the Wall",
+      "albumId": "ee749c63-5699-38e0-b565-7e84414648d9",
+      "track": 2
+    },
+    {
+      "song": "She's Out Of My Life",
+      "album": "Off the Wall",
+      "albumId": "ee749c63-5699-38e0-b565-7e84414648d9",
+      "track": 7
+    },
+    {
+      "song": "Smooth Criminal",
+      "album": "Bad",
+      "albumId": "a5711a77-42d1-3f4c-830c-e27a96f0800f",
+      "track": 10
+    },
+    {
+      "song": "The Girl Is Mine",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 3
+    },
+    {
+      "song": "The Lady in My Life",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 9
+    },
+    {
+      "song": "The Way You Make Me Feel",
+      "album": "Bad",
+      "albumId": "a5711a77-42d1-3f4c-830c-e27a96f0800f",
+      "track": 2
+    },
+    {
+      "song": "Thriller",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 4
+    },
+    {
+      "song": "Wanna Be Startin' Somethin'",
+      "album": "Thriller",
+      "albumId": "f32fab67-77dd-3937-addc-9062e28e4c37",
+      "track": 1
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

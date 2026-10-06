@@ -339,5 +339,19 @@
     "name": "Lucio Battisti",
     "mbid": "c0c0de23-d9c1-4776-97e0-0c2529402622",
     "country": "IT"
+  },
+  "Elvis": {
+    "mbid": "01809552-4f87-45b0-afff-2c6f0730a3be",
+    "country": "US",
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "excludedReleaseGroups": [
+      "abc1613d-b6c2-4c19-8504-40981df2347f",
+      "4cee0c74-91df-416f-ad11-1f440e11809c",
+      "d040b0b3-1288-4c99-bf41-5d5622434520"
+    ],
+    "songs": {},
+    "name": "Elvis Presley"
   }
 }

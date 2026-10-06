@@ -1,0 +1,38 @@
+{
+  "artist": "Elvis",
+  "status": "processed",
+  "totalSongs": 5,
+  "matched": [
+    {
+      "song": "Blue Hawaii",
+      "album": "Blue Hawaii",
+      "albumId": "eb26d6a0-35db-38a7-b3c0-ae2083db5737",
+      "track": 1
+    },
+    {
+      "song": "Don't Be Cruel",
+      "album": "Rock and Roll Nº 1",
+      "albumId": "00f1598f-3467-4931-8705-4fc0d957d397",
+      "track": 1
+    },
+    {
+      "song": "In the Ghetto",
+      "album": "From Elvis in Memphis",
+      "albumId": "2a753764-89d5-3b72-8dff-8c599f1ea925",
+      "track": 12
+    },
+    {
+      "song": "Suspicious Minds",
+      "album": "Suspicious Minds",
+      "albumId": "dd4846b7-a8cd-3b15-94c7-bbf57ca684a8",
+      "track": 1
+    }
+  ],
+  "unmatched": [
+    "Elvis Interview"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Elvis Interview": []
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "artist": "Elvis",
+  "artistId": "01809552-4f87-45b0-afff-2c6f0730a3be",
+  "groups": [
+    {
+      "id": "00f1598f-3467-4931-8705-4fc0d957d397",
+      "releaseId": "5b6a6005-98c4-4f3f-8fcc-d4ef0d13db20",
+      "title": "Rock and Roll Nº 1",
+      "date": "1956",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/00f1598f-3467-4931-8705-4fc0d957d397/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Don't Be Cruel.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eb26d6a0-35db-38a7-b3c0-ae2083db5737",
+      "releaseId": "30a2244c-ca34-4bf3-beeb-c64c39d18d2d",
+      "title": "Blue Hawaii",
+      "date": "1961-10-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/eb26d6a0-35db-38a7-b3c0-ae2083db5737/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Blue Hawaii.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2a753764-89d5-3b72-8dff-8c599f1ea925",
+      "releaseId": "00002fb4-7d2a-449c-aaa1-4724325ee269",
+      "title": "From Elvis in Memphis",
+      "date": "1969-06-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2a753764-89d5-3b72-8dff-8c599f1ea925/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "In the Ghetto.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dd4846b7-a8cd-3b15-94c7-bbf57ca684a8",
+      "releaseId": "da72e16f-533a-4cc5-a549-edf1f350b66f",
+      "title": "Suspicious Minds",
+      "date": "1969-08",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/dd4846b7-a8cd-3b15-94c7-bbf57ca684a8/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Suspicious Minds.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

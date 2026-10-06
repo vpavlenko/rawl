@@ -1,0 +1,172 @@
+{
+  "artist": "Neil Diamond",
+  "status": "processed",
+  "totalSongs": 27,
+  "matched": [
+    {
+      "song": "(Encore) Cracklin' Rose",
+      "album": "Tap Root Manuscript",
+      "albumId": "43146f15-7cd1-363e-b4c5-4e85452ae8ce",
+      "track": 1
+    },
+    {
+      "song": "America",
+      "album": "The Jazz Singer",
+      "albumId": "0262bf30-d867-364a-9184-ae79f0da359c",
+      "track": 1
+    },
+    {
+      "song": "Beautiful Noise",
+      "album": "Beautiful Noise",
+      "albumId": "9b174934-b587-360e-a856-9407817bb7de",
+      "track": 1
+    },
+    {
+      "song": "Cherry, Cherry",
+      "album": "The Feel of Neil Diamond",
+      "albumId": "9b5fd8b8-3f1c-3bec-a690-5226ab171a0f",
+      "track": 12
+    },
+    {
+      "song": "Coming to America",
+      "album": "The Jazz Singer",
+      "albumId": "0262bf30-d867-364a-9184-ae79f0da359c",
+      "track": 1
+    },
+    {
+      "song": "Crackin' Rosie",
+      "album": "Tap Root Manuscript",
+      "albumId": "43146f15-7cd1-363e-b4c5-4e85452ae8ce",
+      "track": 1
+    },
+    {
+      "song": "Crunchy Granola Suite",
+      "album": "Stones",
+      "albumId": "62b18c29-3688-392a-b081-6d9d33900dbd",
+      "track": 5
+    },
+    {
+      "song": "Desiree",
+      "album": "I’m Glad You’re Here With Me Tonight",
+      "albumId": "f351a8b8-4319-331d-a1af-f8388e4cba87",
+      "track": 8
+    },
+    {
+      "song": "Forever in Blue Jeans",
+      "album": "You Don’t Bring Me Flowers",
+      "albumId": "a5a1dfbc-c470-3735-bc7f-327391cbe569",
+      "track": 2
+    },
+    {
+      "song": "Girl, You'll Be a Woman Soon",
+      "album": "Just for You",
+      "albumId": "eb6b2fef-e1fb-3047-b487-8222df07b126",
+      "track": 1
+    },
+    {
+      "song": "Happy Christmas",
+      "album": "The Christmas Album",
+      "albumId": "c3c00baa-3721-31ce-8e7a-69e67be79509",
+      "track": 7
+    },
+    {
+      "song": "Heartlight",
+      "album": "Heartlight",
+      "albumId": "5c1a22c2-1db2-3c61-9258-67231056f1f9",
+      "track": 1
+    },
+    {
+      "song": "Hello Again",
+      "album": "The Jazz Singer",
+      "albumId": "0262bf30-d867-364a-9184-ae79f0da359c",
+      "track": 8
+    },
+    {
+      "song": "Holly Holy",
+      "album": "Touching You, Touching Me",
+      "albumId": "dfb9390a-bc6d-38cd-844d-ca04812ed4de",
+      "track": 4
+    },
+    {
+      "song": "I Am ... I Said",
+      "album": "Stones",
+      "albumId": "62b18c29-3688-392a-b081-6d9d33900dbd",
+      "track": 1
+    },
+    {
+      "song": "Kentucky Woman",
+      "album": "Tennessee Moon",
+      "albumId": "0f25ae98-842f-34ba-8bc6-dd6d1d85413e",
+      "track": 13
+    },
+    {
+      "song": "Longfellow Serenade",
+      "album": "Serenade",
+      "albumId": "3f149ce3-71f4-313b-bd76-33eebcda7623",
+      "track": 5
+    },
+    {
+      "song": "Love on the Rocks",
+      "album": "The Jazz Singer",
+      "albumId": "0262bf30-d867-364a-9184-ae79f0da359c",
+      "track": 4
+    },
+    {
+      "song": "Play Me",
+      "album": "Moods",
+      "albumId": "9d988baa-d38b-490c-bd30-74c850d8b44b",
+      "track": 6
+    },
+    {
+      "song": "Red Red Wine",
+      "album": "Just for You",
+      "albumId": "eb6b2fef-e1fb-3047-b487-8222df07b126",
+      "track": 3
+    },
+    {
+      "song": "September Morn",
+      "album": "September Morn",
+      "albumId": "4347be8a-a871-31d4-8ad5-fdf42eea1492",
+      "track": 1
+    },
+    {
+      "song": "Shilo",
+      "album": "Just for You",
+      "albumId": "eb6b2fef-e1fb-3047-b487-8222df07b126",
+      "track": 8
+    },
+    {
+      "song": "Solitary Man",
+      "album": "The Feel of Neil Diamond",
+      "albumId": "9b5fd8b8-3f1c-3bec-a690-5226ab171a0f",
+      "track": 1
+    },
+    {
+      "song": "Song Sung Blue",
+      "album": "Moods",
+      "albumId": "9d988baa-d38b-490c-bd30-74c850d8b44b",
+      "track": 1
+    },
+    {
+      "song": "Soolaimon",
+      "album": "Tap Root Manuscript",
+      "albumId": "43146f15-7cd1-363e-b4c5-4e85452ae8ce",
+      "track": 9
+    },
+    {
+      "song": "Sunday Sun",
+      "album": "Velvet Gloves and Spit",
+      "albumId": "03985194-02cc-3c50-83b6-b8e2f0a6a642",
+      "track": 7
+    },
+    {
+      "song": "Sweet Caroline",
+      "album": "Brother Love’s Travelling Salvation Show",
+      "albumId": "fafbec54-cec5-3d3f-bb55-baa245e8b0d2",
+      "track": 13
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

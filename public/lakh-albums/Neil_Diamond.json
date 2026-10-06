@@ -1,0 +1,364 @@
+{
+  "artist": "Neil Diamond",
+  "artistId": "a42d3fd5-55de-4206-86c3-4fbb5404018f",
+  "groups": [
+    {
+      "id": "9b5fd8b8-3f1c-3bec-a690-5226ab171a0f",
+      "releaseId": "31c3124f-dc9e-4907-b3e7-9c3cc0f30a4f",
+      "title": "The Feel of Neil Diamond",
+      "date": "1966-08-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9b5fd8b8-3f1c-3bec-a690-5226ab171a0f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Solitary Man.mid",
+            "Solitary Man.1.mid",
+            "Solitary Man.2.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Cherry, Cherry.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eb6b2fef-e1fb-3047-b487-8222df07b126",
+      "releaseId": "f3a01caa-c80d-475a-87b3-76fc2b523c61",
+      "title": "Just for You",
+      "date": "1967",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/eb6b2fef-e1fb-3047-b487-8222df07b126/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Girl, You'll Be a Woman Soon.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Red Red Wine.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Shilo.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "03985194-02cc-3c50-83b6-b8e2f0a6a642",
+      "releaseId": "47f1364a-c4e6-4e15-bf25-bc016f2a3dba",
+      "title": "Velvet Gloves and Spit",
+      "date": "1968-10-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/03985194-02cc-3c50-83b6-b8e2f0a6a642/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Sunday Sun.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fafbec54-cec5-3d3f-bb55-baa245e8b0d2",
+      "releaseId": "7b382603-3fda-47d0-8b86-8c661ad616ca",
+      "title": "Brother Love’s Travelling Salvation Show",
+      "date": "1969-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fafbec54-cec5-3d3f-bb55-baa245e8b0d2/front-250",
+      "songs": [
+        {
+          "number": 13,
+          "files": [
+            "Sweet Caroline.mid",
+            "Sweet Caroline.1.mid",
+            "Sweet Caroline.2.mid",
+            "Sweet Caroline.3.mid",
+            "Sweet Caroline.4.mid",
+            "Sweet Caroline.5.mid",
+            "Sweet Caroline.6.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dfb9390a-bc6d-38cd-844d-ca04812ed4de",
+      "releaseId": "a2baf302-091e-4616-b6d6-aedeccf41960",
+      "title": "Touching You, Touching Me",
+      "date": "1969-11-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/dfb9390a-bc6d-38cd-844d-ca04812ed4de/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Holly Holy.mid",
+            "Holly Holy.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "43146f15-7cd1-363e-b4c5-4e85452ae8ce",
+      "releaseId": "5b4b2728-1b9e-4a95-8bed-4ee64c3fc444",
+      "title": "Tap Root Manuscript",
+      "date": "1970-10-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/43146f15-7cd1-363e-b4c5-4e85452ae8ce/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "(Encore) Cracklin' Rose.mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "Crackin' Rosie.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Soolaimon.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "62b18c29-3688-392a-b081-6d9d33900dbd",
+      "releaseId": "d9618b9f-d8e9-4ffe-9f0e-c7d87d40df22",
+      "title": "Stones",
+      "date": "1971",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/62b18c29-3688-392a-b081-6d9d33900dbd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I Am ... I Said.mid",
+            "I Am ... I Said.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Crunchy Granola Suite.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9d988baa-d38b-490c-bd30-74c850d8b44b",
+      "releaseId": "0d3e6500-9134-45fa-bd5a-d24903efb176",
+      "title": "Moods",
+      "date": "1972-07-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9d988baa-d38b-490c-bd30-74c850d8b44b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Song Sung Blue.mid",
+            "Song Sung Blue.1.mid",
+            "Song Sung Blue.2.mid",
+            "Song Sung Blue.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Play Me.mid",
+            "Play Me.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3f149ce3-71f4-313b-bd76-33eebcda7623",
+      "releaseId": "d55e2918-bfd5-4b79-8534-25a5ada29d21",
+      "title": "Serenade",
+      "date": "1974",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3f149ce3-71f4-313b-bd76-33eebcda7623/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Longfellow Serenade.mid",
+            "Longfellow Serenade.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9b174934-b587-360e-a856-9407817bb7de",
+      "releaseId": "97c7b6fc-ac5c-47a6-9a99-00d9a2544707",
+      "title": "Beautiful Noise",
+      "date": "1976",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9b174934-b587-360e-a856-9407817bb7de/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Beautiful Noise.mid",
+            "Beautiful Noise.1.mid",
+            "Beautiful Noise.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f351a8b8-4319-331d-a1af-f8388e4cba87",
+      "releaseId": "613e3050-8a2f-4704-9832-f13fc00c0aef",
+      "title": "I’m Glad You’re Here With Me Tonight",
+      "date": "1977",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f351a8b8-4319-331d-a1af-f8388e4cba87/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Desiree.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a5a1dfbc-c470-3735-bc7f-327391cbe569",
+      "releaseId": "711275a5-b7c7-4213-8a76-7e0756a9fe1c",
+      "title": "You Don’t Bring Me Flowers",
+      "date": "1978",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a5a1dfbc-c470-3735-bc7f-327391cbe569/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Forever in Blue Jeans.mid",
+            "Forever in Blue Jeans.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4347be8a-a871-31d4-8ad5-fdf42eea1492",
+      "releaseId": "3f465843-9022-4773-b3ea-b2db0912839f",
+      "title": "September Morn",
+      "date": "1979",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4347be8a-a871-31d4-8ad5-fdf42eea1492/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "September Morn.mid",
+            "September Morn.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0262bf30-d867-364a-9184-ae79f0da359c",
+      "releaseId": "2cef9cf9-7327-45de-8bc2-19e9b6ba74ab",
+      "title": "The Jazz Singer",
+      "date": "1980-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0262bf30-d867-364a-9184-ae79f0da359c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "America.mid",
+            "America.1.mid",
+            "America.2.mid",
+            "America.3.mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "Coming to America.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Love on the Rocks.mid",
+            "Love on the Rocks.1.mid",
+            "Love on the Rocks.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Hello Again.mid",
+            "Hello Again.1.mid",
+            "Hello Again.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5c1a22c2-1db2-3c61-9258-67231056f1f9",
+      "releaseId": "34b09b9e-bd23-469c-a8c5-f6d961d28dad",
+      "title": "Heartlight",
+      "date": "1982-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5c1a22c2-1db2-3c61-9258-67231056f1f9/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Heartlight.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c3c00baa-3721-31ce-8e7a-69e67be79509",
+      "releaseId": "42da5aac-8dab-4297-b375-7d29e86f8de4",
+      "title": "The Christmas Album",
+      "date": "1992-09-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c3c00baa-3721-31ce-8e7a-69e67be79509/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Happy Christmas.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0f25ae98-842f-34ba-8bc6-dd6d1d85413e",
+      "releaseId": "56cd801f-2684-42ef-9422-534ede7600c1",
+      "title": "Tennessee Moon",
+      "date": "1996",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0f25ae98-842f-34ba-8bc6-dd6d1d85413e/front-250",
+      "songs": [
+        {
+          "number": 13,
+          "files": [
+            "Kentucky Woman.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

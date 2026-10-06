@@ -1129,5 +1129,30 @@
     "relatedArtistIds": [
       "72b3b981-92b7-4b5c-8a83-35717358b76e"
     ]
+  },
+  "Neil Diamond": {
+    "name": "Neil Diamond",
+    "mbid": "a42d3fd5-55de-4206-86c3-4fbb5404018f",
+    "country": "US",
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "songs": {
+      "(Encore) Cracklin' Rose": {
+        "title": "Cracklin’ Rosie"
+      },
+      "Crackin' Rosie": {
+        "title": "Cracklin’ Rosie"
+      },
+      "Coming to America": {
+        "title": "America"
+      },
+      "Happy Christmas": {
+        "title": "Happy Christmas (War Is Over)"
+      }
+    },
+    "releaseOverrides": {
+      "0262bf30-d867-364a-9184-ae79f0da359c": "2cef9cf9-7327-45de-8bc2-19e9b6ba74ab"
+    }
   }
 }

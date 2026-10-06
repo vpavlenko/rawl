@@ -118,7 +118,8 @@ def process(artist, config):
         # Cartridge programs split and reorder songs, so prefer a normal album edition.
         standard_releases = [r for r in releases if
             r['id'] == settings.get('releaseOverrides', {}).get(group['id']) or not any(
-            medium.get('format') == '8-track cartridge' for medium in r.get('media', [])
+            (medium.get('format') or '').casefold() in {'8-track cartridge', 'cartridge'}
+            for medium in r.get('media', [])
         )]
         releases = standard_releases or releases
         release = min(releases, key=lambda r: (

@@ -766,5 +766,34 @@
       "4e88de52-bc40-3584-976e-f304837a1fb5",
       "684cfc8f-e442-321e-80d8-a8ebb441f8ca"
     ]
+  },
+  "Bryan Adams": {
+    "name": "Bryan Adams",
+    "mbid": "4dbf5678-7a31-406a-abbe-232f8ac2cd63",
+    "country": "CA",
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "includedReleaseGroups": [
+      "81c11f97-089a-3c87-8b46-8d5e70f929bf",
+      "3a589572-250f-304a-80a7-033589cea456"
+    ],
+    "songs": {
+      "All for One, All for Love": {
+        "title": "All for Love"
+      },
+      "Back to You (MTV Unplugged version)": {
+        "title": "Back to You"
+      },
+      "Don't Give It Up": {
+        "title": "Don't Give Up"
+      },
+      "Every Thing I Do It for You (Robin Hood)": {
+        "title": "(Everything I Do) I Do It for You"
+      },
+      "Have Ever You Really Loved a Woman?": {
+        "title": "Have You Ever Really Loved a Woman?"
+      }
+    }
   }
 }

@@ -1,0 +1,196 @@
+{
+  "artist": "Bryan Adams",
+  "status": "processed",
+  "totalSongs": 32,
+  "matched": [
+    {
+      "song": "(Everything I Do) I Do It For You",
+      "album": "Waking Up the Neighbours",
+      "albumId": "52d74f79-9c92-385f-9b33-e96b5dfc19a7",
+      "track": 12
+    },
+    {
+      "song": "All for Love",
+      "album": "Anthology",
+      "albumId": "3a589572-250f-304a-80a7-033589cea456",
+      "track": 20
+    },
+    {
+      "song": "All for One, All for Love",
+      "album": "Anthology",
+      "albumId": "3a589572-250f-304a-80a7-033589cea456",
+      "track": 20
+    },
+    {
+      "song": "Back to You (MTV Unplugged version)",
+      "album": "Unplugged",
+      "albumId": "81c11f97-089a-3c87-8b46-8d5e70f929bf",
+      "track": 2
+    },
+    {
+      "song": "Back to You",
+      "album": "Unplugged",
+      "albumId": "81c11f97-089a-3c87-8b46-8d5e70f929bf",
+      "track": 2
+    },
+    {
+      "song": "Before the Night Is Over",
+      "album": "On a Day Like Today",
+      "albumId": "ab3ab82b-65d9-3018-94aa-16bf5d0c9dd3",
+      "track": 11
+    },
+    {
+      "song": "Can't Stop This Thing We Started",
+      "album": "Waking Up the Neighbours",
+      "albumId": "52d74f79-9c92-385f-9b33-e96b5dfc19a7",
+      "track": 3
+    },
+    {
+      "song": "Christmas Time",
+      "album": "A Great Big Holiday Jam",
+      "albumId": "529b0655-4a2e-4f6b-8c50-2268a54df9a3",
+      "track": 12
+    },
+    {
+      "song": "Cuts Like a Knife",
+      "album": "Cuts Like a Knife",
+      "albumId": "fdec9411-dca9-3a83-b1c2-3d934a82f9be",
+      "track": 5
+    },
+    {
+      "song": "Every Thing I Do It for You (Robin Hood)",
+      "album": "Waking Up the Neighbours",
+      "albumId": "52d74f79-9c92-385f-9b33-e96b5dfc19a7",
+      "track": 12
+    },
+    {
+      "song": "Have Ever You Really Loved a Woman?",
+      "album": "18 Til I Die",
+      "albumId": "3c9f34a8-c8a7-3b45-9ca4-fa0465e49e27",
+      "track": 13
+    },
+    {
+      "song": "Heaven",
+      "album": "Reckless",
+      "albumId": "fe1d2bcd-cdb6-333b-b2c6-8389e5890f04",
+      "track": 4
+    },
+    {
+      "song": "Here I Am (End Title)",
+      "album": "Spirit: Stallion of the Cimarron: Music From the Original Motion Picture",
+      "albumId": "6b0a135d-f0b5-3d76-b362-8c4627ae8fae",
+      "track": 1
+    },
+    {
+      "song": "House Arrest",
+      "album": "Waking Up the Neighbours",
+      "albumId": "52d74f79-9c92-385f-9b33-e96b5dfc19a7",
+      "track": 7
+    },
+    {
+      "song": "I'm Ready",
+      "album": "Cuts Like a Knife",
+      "albumId": "fdec9411-dca9-3a83-b1c2-3d934a82f9be",
+      "track": 6
+    },
+    {
+      "song": "It's Only Love",
+      "album": "Reckless",
+      "albumId": "fe1d2bcd-cdb6-333b-b2c6-8389e5890f04",
+      "track": 8
+    },
+    {
+      "song": "Kids Wanna Rock",
+      "album": "Reckless",
+      "albumId": "fe1d2bcd-cdb6-333b-b2c6-8389e5890f04",
+      "track": 7
+    },
+    {
+      "song": "Let's Make a Night to Remember",
+      "album": "18 Til I Die",
+      "albumId": "3c9f34a8-c8a7-3b45-9ca4-fa0465e49e27",
+      "track": 3
+    },
+    {
+      "song": "On a Day Like Today",
+      "album": "On a Day Like Today",
+      "albumId": "ab3ab82b-65d9-3018-94aa-16bf5d0c9dd3",
+      "track": 4
+    },
+    {
+      "song": "One Night Love Affair",
+      "album": "Reckless",
+      "albumId": "fe1d2bcd-cdb6-333b-b2c6-8389e5890f04",
+      "track": 1
+    },
+    {
+      "song": "Please Forgive Me",
+      "album": "Anthology",
+      "albumId": "3a589572-250f-304a-80a7-033589cea456",
+      "track": 19
+    },
+    {
+      "song": "Rock Steady",
+      "album": "Anthology",
+      "albumId": "3a589572-250f-304a-80a7-033589cea456",
+      "track": 22
+    },
+    {
+      "song": "Run To You",
+      "album": "Reckless",
+      "albumId": "fe1d2bcd-cdb6-333b-b2c6-8389e5890f04",
+      "track": 3
+    },
+    {
+      "song": "Somebody",
+      "album": "Reckless",
+      "albumId": "fe1d2bcd-cdb6-333b-b2c6-8389e5890f04",
+      "track": 5
+    },
+    {
+      "song": "Straight From The Heart",
+      "album": "Cuts Like a Knife",
+      "albumId": "fdec9411-dca9-3a83-b1c2-3d934a82f9be",
+      "track": 4
+    },
+    {
+      "song": "Summer of '69",
+      "album": "Reckless",
+      "albumId": "fe1d2bcd-cdb6-333b-b2c6-8389e5890f04",
+      "track": 6
+    },
+    {
+      "song": "The Best of Me",
+      "album": "Anthology",
+      "albumId": "3a589572-250f-304a-80a7-033589cea456",
+      "track": 31
+    },
+    {
+      "song": "This Time",
+      "album": "Cuts Like a Knife",
+      "albumId": "fdec9411-dca9-3a83-b1c2-3d934a82f9be",
+      "track": 3
+    },
+    {
+      "song": "Thought I'd Died and Gone to Heaven",
+      "album": "Waking Up the Neighbours",
+      "albumId": "52d74f79-9c92-385f-9b33-e96b5dfc19a7",
+      "track": 4
+    },
+    {
+      "song": "When You're Gone",
+      "album": "On a Day Like Today",
+      "albumId": "ab3ab82b-65d9-3018-94aa-16bf5d0c9dd3",
+      "track": 8
+    }
+  ],
+  "unmatched": [
+    "Don't Give It Up",
+    "I Finally Found Someone"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Don't Give It Up": [],
+    "I Finally Found Someone": []
+  }
+}

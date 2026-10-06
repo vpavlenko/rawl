@@ -1,0 +1,334 @@
+{
+  "artist": "Bryan Adams",
+  "artistId": "4dbf5678-7a31-406a-abbe-232f8ac2cd63",
+  "groups": [
+    {
+      "id": "fdec9411-dca9-3a83-b1c2-3d934a82f9be",
+      "releaseId": "2ee460bf-3e6f-4a83-b61c-6b835390ca01",
+      "title": "Cuts Like a Knife",
+      "date": "1983-01-18",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fdec9411-dca9-3a83-b1c2-3d934a82f9be/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "This Time.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Straight From The Heart.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Cuts Like a Knife.mid",
+            "Cuts Like a Knife.1.mid",
+            "Cuts Like a Knife.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "I'm Ready.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fe1d2bcd-cdb6-333b-b2c6-8389e5890f04",
+      "releaseId": "1696f8f0-36ef-4098-a3a0-12d3b56a10eb",
+      "title": "Reckless",
+      "date": "1984-10-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fe1d2bcd-cdb6-333b-b2c6-8389e5890f04/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "One Night Love Affair.mid",
+            "One Night Love Affair.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Run To You.mid",
+            "Run To You.1.mid",
+            "Run To You.2.mid",
+            "Run To You.3.mid",
+            "Run To You.4.mid",
+            "Run To You.5.mid",
+            "Run To You.6.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Heaven.mid",
+            "Heaven.1.mid",
+            "Heaven.2.mid",
+            "Heaven.3.mid",
+            "Heaven.4.mid",
+            "Heaven.5.mid",
+            "Heaven.6.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Somebody.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Summer of '69.mid",
+            "Summer of '69.1.mid",
+            "Summer of '69.2.mid",
+            "Summer of '69.3.mid",
+            "Summer of '69.4.mid",
+            "Summer of '69.5.mid",
+            "Summer of '69.6.mid",
+            "Summer of '69.7.mid",
+            "Summer of '69.8.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Kids Wanna Rock.mid",
+            "Kids Wanna Rock.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "It's Only Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "52d74f79-9c92-385f-9b33-e96b5dfc19a7",
+      "releaseId": "2a989e31-f60e-4260-adbf-da53c1c8dbaa",
+      "title": "Waking Up the Neighbours",
+      "date": "1991-09-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/52d74f79-9c92-385f-9b33-e96b5dfc19a7/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Can't Stop This Thing We Started.mid",
+            "Can't Stop This Thing We Started.1.mid",
+            "Can't Stop This Thing We Started.2.mid",
+            "Can't Stop This Thing We Started.3.mid",
+            "Can't Stop This Thing We Started.4.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Thought I'd Died and Gone to Heaven.mid",
+            "Thought I'd Died and Gone to Heaven.1.mid",
+            "Thought I'd Died and Gone to Heaven.2.mid",
+            "Thought I'd Died and Gone to Heaven.3.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "House Arrest.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "(Everything I Do) I Do It For You.mid",
+            "(Everything I Do) I Do It For You.1.mid",
+            "(Everything I Do) I Do It For You.2.mid",
+            "(Everything I Do) I Do It For You.3.mid",
+            "(Everything I Do) I Do It For You.4.mid",
+            "(Everything I Do) I Do It For You.5.mid",
+            "(Everything I Do) I Do It For You.6.mid",
+            "(Everything I Do) I Do It For You.7.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Every Thing I Do It for You (Robin Hood).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3c9f34a8-c8a7-3b45-9ca4-fa0465e49e27",
+      "releaseId": "67df5ea4-aef9-4fc1-be0f-8c275ab144f5",
+      "title": "18 Til I Die",
+      "date": "1996-06-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3c9f34a8-c8a7-3b45-9ca4-fa0465e49e27/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Let's Make a Night to Remember.mid",
+            "Let's Make a Night to Remember.1.mid",
+            "Let's Make a Night to Remember.2.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Have Ever You Really Loved a Woman?.mid",
+            "Have Ever You Really Loved a Woman?.1.mid",
+            "Have Ever You Really Loved a Woman?.2.mid",
+            "Have Ever You Really Loved a Woman?.3.mid",
+            "Have Ever You Really Loved a Woman?.4.mid",
+            "Have Ever You Really Loved a Woman?.5.mid",
+            "Have Ever You Really Loved a Woman?.6.mid",
+            "Have Ever You Really Loved a Woman?.7.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "81c11f97-089a-3c87-8b46-8d5e70f929bf",
+      "releaseId": "89aec3ae-d90e-4a27-918f-ca98f32eac53",
+      "title": "Unplugged",
+      "date": "1997-12-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/81c11f97-089a-3c87-8b46-8d5e70f929bf/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Back to You (MTV Unplugged version).mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Back to You.mid",
+            "Back to You.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ab3ab82b-65d9-3018-94aa-16bf5d0c9dd3",
+      "releaseId": "548bc697-e737-4251-bc3e-e42909a8c246",
+      "title": "On a Day Like Today",
+      "date": "1998-01-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ab3ab82b-65d9-3018-94aa-16bf5d0c9dd3/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "On a Day Like Today.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "When You're Gone.mid",
+            "When You're Gone.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Before the Night Is Over.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6b0a135d-f0b5-3d76-b362-8c4627ae8fae",
+      "releaseId": "07649f15-7ba1-4c00-8be4-f91131f0585f",
+      "title": "Spirit: Stallion of the Cimarron: Music From the Original Motion Picture",
+      "date": "2002-05-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6b0a135d-f0b5-3d76-b362-8c4627ae8fae/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Here I Am (End Title).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3a589572-250f-304a-80a7-033589cea456",
+      "releaseId": "1bb427a6-0b44-4e73-810b-340b30f98ede",
+      "title": "Anthology",
+      "date": "2005-10-18",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3a589572-250f-304a-80a7-033589cea456/front-250",
+      "songs": [
+        {
+          "number": 19,
+          "files": [
+            "Please Forgive Me.mid",
+            "Please Forgive Me.1.mid",
+            "Please Forgive Me.2.mid",
+            "Please Forgive Me.3.mid",
+            "Please Forgive Me.4.mid"
+          ]
+        },
+        {
+          "number": 20,
+          "files": [
+            "All for Love.mid",
+            "All for Love.1.mid",
+            "All for Love.2.mid",
+            "All for Love.3.mid",
+            "All for Love.4.mid"
+          ]
+        },
+        {
+          "number": 20,
+          "files": [
+            "All for One, All for Love.mid"
+          ]
+        },
+        {
+          "number": 22,
+          "files": [
+            "Rock Steady.mid"
+          ]
+        },
+        {
+          "number": 31,
+          "files": [
+            "The Best of Me.mid",
+            "The Best of Me.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "529b0655-4a2e-4f6b-8c50-2268a54df9a3",
+      "releaseId": "996775cb-190a-4f27-bdf3-99639fda0d71",
+      "title": "A Great Big Holiday Jam",
+      "date": "2025-12-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/529b0655-4a2e-4f6b-8c50-2268a54df9a3/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "Christmas Time.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

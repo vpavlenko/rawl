@@ -1,0 +1,272 @@
+{
+  "artist": "Estefan Gloria",
+  "artistId": "becd8cc6-a453-4183-af88-dedaaec859a6",
+  "groups": [
+    {
+      "id": "f9f909ab-f88e-3f77-a9b9-e3590604f12b",
+      "releaseId": "4e4a388d-248f-4d74-a502-e328e320ac50",
+      "title": "Primitive Love",
+      "date": "1985-08-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f9f909ab-f88e-3f77-a9b9-e3590604f12b/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Words Get in the Way.mid",
+            "Words Get in the Way.1.mid",
+            "Words Get in the Way.2.mid",
+            "Words Get in the Way.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Conga.mid",
+            "Conga.1.mid",
+            "Conga.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1604d205-029a-3628-88b1-5b36d674a1ee",
+      "releaseId": "eaef8e92-3ae6-35c6-8444-7cef716c3b84",
+      "title": "Let It Loose",
+      "date": "1987-06-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1604d205-029a-3628-88b1-5b36d674a1ee/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Can't Stay Away From You.mid",
+            "Can't Stay Away From You.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Rhythm Is Gonna Get You.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "1-2-3.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Anything for You.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7a4913d2-fde8-3199-90d7-2afaf2d85941",
+      "releaseId": "8c90540e-ce7d-3586-b41a-937101794305",
+      "title": "Cuts Both Ways",
+      "date": "1989-07-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7a4913d2-fde8-3199-90d7-2afaf2d85941/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Here We Are.mid",
+            "Here We Are.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Hear My Voice.mid",
+            "Hear My Voice.1.mid",
+            "Hear My Voice.2.mid",
+            "Hear My Voice.3.mid",
+            "Hear My Voice.4.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Don't Wanna Lose You.mid",
+            "Don't Wanna Lose You.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Get on Your Feet.mid",
+            "Get on Your Feet.1.mid",
+            "Get on Your Feet.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cc6b8564-65b5-38dc-99dc-717763bde5ab",
+      "releaseId": "2b5b02de-9179-4d91-86b1-368abe21db6c",
+      "title": "Mi tierra",
+      "date": "1993-06-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/cc6b8564-65b5-38dc-99dc-717763bde5ab/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Mi Tierra.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Ayer.mid",
+            "Ayer.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Mi Buen Amor.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2089de1a-98e2-3cda-a8d3-c097c02abd72",
+      "releaseId": "0b3939ac-3956-4cdc-9d12-daed1db9e3b9",
+      "title": "Hold Me, Thrill Me, Kiss Me",
+      "date": "1994-10-18",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2089de1a-98e2-3cda-a8d3-c097c02abd72/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Everlasting Love.mid",
+            "Everlasting Love.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Turn the Beat Around.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "96eef15a-4926-3482-93a2-749553c5ef1e",
+      "releaseId": "f95fbfc3-c99b-461c-9b18-ca7269fafd7f",
+      "title": "Abriendo puertas",
+      "date": "1995-09-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/96eef15a-4926-3482-93a2-749553c5ef1e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Abriendo Puertas.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Mas Alla (Beyond).mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Dulce Amor (Sweet Love).mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Farolito (Little Star).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bbc78363-eb49-34be-b97a-022a2294d6dc",
+      "releaseId": "24cab609-f845-4d32-8164-821b37f1566c",
+      "title": "Destiny",
+      "date": "1996-05-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/bbc78363-eb49-34be-b97a-022a2294d6dc/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "No Pretendo.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Reach.mid",
+            "Reach.1.mid",
+            "Reach.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8cb1cf58-20da-35f3-9920-4405556659dc",
+      "releaseId": "796f95ba-6f09-4787-819d-615aba354ae5",
+      "title": "Gloria!",
+      "date": "1998-05-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8cb1cf58-20da-35f3-9920-4405556659dc/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Oye.mid",
+            "Oye.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Cuba Libre.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Heaven's What I Feel (Corazon Prohibido).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "92caa73f-056d-3ed7-bdf1-984479a9d251",
+      "releaseId": "5ea034a8-3e97-47ed-be70-9829ce3417eb",
+      "title": "Alma caribeña",
+      "date": "2000-05-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/92caa73f-056d-3ed7-bdf1-984479a9d251/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Como Me Duele Perderte.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "No Me Dejes de Querer.mid",
+            "No Me Dejes de Querer.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

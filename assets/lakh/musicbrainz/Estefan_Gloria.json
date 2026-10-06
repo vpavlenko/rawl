@@ -1,0 +1,166 @@
+{
+  "artist": "Estefan Gloria",
+  "status": "processed",
+  "totalSongs": 26,
+  "matched": [
+    {
+      "song": "1-2-3",
+      "album": "Let It Loose",
+      "albumId": "1604d205-029a-3628-88b1-5b36d674a1ee",
+      "track": 9
+    },
+    {
+      "song": "Abriendo Puertas",
+      "album": "Abriendo puertas",
+      "albumId": "96eef15a-4926-3482-93a2-749553c5ef1e",
+      "track": 1
+    },
+    {
+      "song": "Anything for You",
+      "album": "Let It Loose",
+      "albumId": "1604d205-029a-3628-88b1-5b36d674a1ee",
+      "track": 10
+    },
+    {
+      "song": "Ayer",
+      "album": "Mi tierra",
+      "albumId": "cc6b8564-65b5-38dc-99dc-717763bde5ab",
+      "track": 3
+    },
+    {
+      "song": "Can't Stay Away From You",
+      "album": "Let It Loose",
+      "albumId": "1604d205-029a-3628-88b1-5b36d674a1ee",
+      "track": 3
+    },
+    {
+      "song": "Como Me Duele Perderte",
+      "album": "Alma caribeña",
+      "albumId": "92caa73f-056d-3ed7-bdf1-984479a9d251",
+      "track": 4
+    },
+    {
+      "song": "Conga",
+      "album": "Primitive Love",
+      "albumId": "f9f909ab-f88e-3f77-a9b9-e3590604f12b",
+      "track": 6
+    },
+    {
+      "song": "Cuba Libre",
+      "album": "Gloria!",
+      "albumId": "8cb1cf58-20da-35f3-9920-4405556659dc",
+      "track": 11
+    },
+    {
+      "song": "Don't Wanna Lose You",
+      "album": "Cuts Both Ways",
+      "albumId": "7a4913d2-fde8-3199-90d7-2afaf2d85941",
+      "track": 7
+    },
+    {
+      "song": "Dulce Amor (Sweet Love)",
+      "album": "Abriendo puertas",
+      "albumId": "96eef15a-4926-3482-93a2-749553c5ef1e",
+      "track": 4
+    },
+    {
+      "song": "Everlasting Love",
+      "album": "Hold Me, Thrill Me, Kiss Me",
+      "albumId": "2089de1a-98e2-3cda-a8d3-c097c02abd72",
+      "track": 3
+    },
+    {
+      "song": "Farolito (Little Star)",
+      "album": "Abriendo puertas",
+      "albumId": "96eef15a-4926-3482-93a2-749553c5ef1e",
+      "track": 5
+    },
+    {
+      "song": "Get on Your Feet",
+      "album": "Cuts Both Ways",
+      "albumId": "7a4913d2-fde8-3199-90d7-2afaf2d85941",
+      "track": 8
+    },
+    {
+      "song": "Hear My Voice",
+      "album": "Cuts Both Ways",
+      "albumId": "7a4913d2-fde8-3199-90d7-2afaf2d85941",
+      "track": 6
+    },
+    {
+      "song": "Heaven's What I Feel (Corazon Prohibido)",
+      "album": "Gloria!",
+      "albumId": "8cb1cf58-20da-35f3-9920-4405556659dc",
+      "track": 14
+    },
+    {
+      "song": "Here We Are",
+      "album": "Cuts Both Ways",
+      "albumId": "7a4913d2-fde8-3199-90d7-2afaf2d85941",
+      "track": 2
+    },
+    {
+      "song": "Mas Alla (Beyond)",
+      "album": "Abriendo puertas",
+      "albumId": "96eef15a-4926-3482-93a2-749553c5ef1e",
+      "track": 3
+    },
+    {
+      "song": "Mi Buen Amor",
+      "album": "Mi tierra",
+      "albumId": "cc6b8564-65b5-38dc-99dc-717763bde5ab",
+      "track": 4
+    },
+    {
+      "song": "Mi Tierra",
+      "album": "Mi tierra",
+      "albumId": "cc6b8564-65b5-38dc-99dc-717763bde5ab",
+      "track": 2
+    },
+    {
+      "song": "No Me Dejes de Querer",
+      "album": "Alma caribeña",
+      "albumId": "92caa73f-056d-3ed7-bdf1-984479a9d251",
+      "track": 12
+    },
+    {
+      "song": "No Pretendo",
+      "album": "Destiny",
+      "albumId": "bbc78363-eb49-34be-b97a-022a2294d6dc",
+      "track": 1
+    },
+    {
+      "song": "Oye",
+      "album": "Gloria!",
+      "albumId": "8cb1cf58-20da-35f3-9920-4405556659dc",
+      "track": 3
+    },
+    {
+      "song": "Reach",
+      "album": "Destiny",
+      "albumId": "bbc78363-eb49-34be-b97a-022a2294d6dc",
+      "track": 12
+    },
+    {
+      "song": "Rhythm Is Gonna Get You",
+      "album": "Let It Loose",
+      "albumId": "1604d205-029a-3628-88b1-5b36d674a1ee",
+      "track": 6
+    },
+    {
+      "song": "Turn the Beat Around",
+      "album": "Hold Me, Thrill Me, Kiss Me",
+      "albumId": "2089de1a-98e2-3cda-a8d3-c097c02abd72",
+      "track": 7
+    },
+    {
+      "song": "Words Get in the Way",
+      "album": "Primitive Love",
+      "albumId": "f9f909ab-f88e-3f77-a9b9-e3590604f12b",
+      "track": 3
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

@@ -1102,5 +1102,32 @@
     "allowedSecondaryTypes": [
       "Soundtrack"
     ]
+  },
+  "Estefan Gloria": {
+    "name": "Gloria Estefan",
+    "mbid": "becd8cc6-a453-4183-af88-dedaaec859a6",
+    "country": "US",
+    "songs": {
+      "Hear My Voice": {
+        "title": "Oye mi canto (Hear My Voice) (English version)"
+      },
+      "Abriendo Puertas": {
+        "title": "Abriendo puertas (Opening Doors)"
+      }
+    },
+    "releaseOverrides": {
+      "bbc78363-eb49-34be-b97a-022a2294d6dc": "24cab609-f845-4d32-8164-821b37f1566c"
+    },
+    "relatedArtistIds": [
+      "72b3b981-92b7-4b5c-8a83-35717358b76e"
+    ]
+  },
+  "Gloria Estefan": {
+    "name": "Gloria Estefan",
+    "mbid": "becd8cc6-a453-4183-af88-dedaaec859a6",
+    "country": "US",
+    "relatedArtistIds": [
+      "72b3b981-92b7-4b5c-8a83-35717358b76e"
+    ]
   }
 }

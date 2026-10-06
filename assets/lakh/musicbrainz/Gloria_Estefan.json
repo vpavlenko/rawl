@@ -1,0 +1,28 @@
+{
+  "artist": "Gloria Estefan",
+  "status": "processed",
+  "totalSongs": 3,
+  "matched": [
+    {
+      "song": "Don't Wanna Lose You",
+      "album": "Cuts Both Ways",
+      "albumId": "7a4913d2-fde8-3199-90d7-2afaf2d85941",
+      "track": 7
+    },
+    {
+      "song": "Go Away",
+      "album": "Go Away",
+      "albumId": "36c772ab-2b2f-4c62-a9da-3c8a9723e7a4",
+      "track": 1
+    },
+    {
+      "song": "Words Get in the Way",
+      "album": "Primitive Love",
+      "albumId": "f9f909ab-f88e-3f77-a9b9-e3590604f12b",
+      "track": 3
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

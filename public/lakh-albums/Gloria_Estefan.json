@@ -1,0 +1,54 @@
+{
+  "artist": "Gloria Estefan",
+  "artistId": "becd8cc6-a453-4183-af88-dedaaec859a6",
+  "groups": [
+    {
+      "id": "f9f909ab-f88e-3f77-a9b9-e3590604f12b",
+      "releaseId": "4e4a388d-248f-4d74-a502-e328e320ac50",
+      "title": "Primitive Love",
+      "date": "1985-08-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f9f909ab-f88e-3f77-a9b9-e3590604f12b/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Words Get in the Way.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7a4913d2-fde8-3199-90d7-2afaf2d85941",
+      "releaseId": "8c90540e-ce7d-3586-b41a-937101794305",
+      "title": "Cuts Both Ways",
+      "date": "1989-07-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7a4913d2-fde8-3199-90d7-2afaf2d85941/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Don't Wanna Lose You.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "36c772ab-2b2f-4c62-a9da-3c8a9723e7a4",
+      "releaseId": "f6a05ef4-3248-403e-960a-43d47036144d",
+      "title": "Go Away",
+      "date": "1993-04-27",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/36c772ab-2b2f-4c62-a9da-3c8a9723e7a4/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Go Away.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

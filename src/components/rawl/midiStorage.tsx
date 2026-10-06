@@ -71,17 +71,29 @@ export const saveMidiFromLink = async (link: string) => {
         .join(""),
     );
 
-    const response = await fetch(`${link}`, {
-      method: "GET",
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error. Status: ${response.status}`);
+    let midi: ArrayBuffer;
+    const fragmentPrefix = "#rawl-midi=";
+    if (window.location.hash.startsWith(fragmentPrefix)) {
+      // The extension passes MIDI bytes in the fragment to avoid server URL
+      // limits and the catalog's cross-origin download restrictions.
+      const binary = atob(window.location.hash.slice(fragmentPrefix.length));
+      if (binary.slice(0, 4) !== "MThd") {
+        throw new Error("The imported file is not a MIDI");
+      }
+      midi = Uint8Array.from(binary, (character) => character.charCodeAt(0)).buffer;
+    } else {
+      const response = await fetch(`${link}`, {
+        method: "GET",
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error. Status: ${response.status}`);
+      }
+      midi = await response.arrayBuffer();
     }
-
-    const midi = await (await response.blob()).arrayBuffer();
-    saveMidi(title, url, midi);
+    await saveMidi(title, url, midi);
   } catch (error) {
-    alert(`Fetching binary file failed: ${JSON.stringify(error)}`);
+    const message = error instanceof Error ? error.message : String(error);
+    alert(`Saving MIDI failed: ${message}`);
   }
 };
 

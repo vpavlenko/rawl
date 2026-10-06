@@ -1,0 +1,232 @@
+{
+  "artist": "The Corrs",
+  "status": "processed",
+  "totalSongs": 38,
+  "matched": [
+    {
+      "song": "All in a Day",
+      "album": "In Blue",
+      "albumId": "4e381965-bdc8-370d-a79f-e9bce2c8fed6",
+      "track": 9
+    },
+    {
+      "song": "Along With the Girls",
+      "album": "Forgiven, Not Forgotten",
+      "albumId": "593602db-79ce-3d81-9ba2-a933fd5ee4c9",
+      "track": 4
+    },
+    {
+      "song": "At Your Side",
+      "album": "Unplugged",
+      "albumId": "25af6d34-1f55-338d-8ad8-52bf30a3bbd8",
+      "track": 10
+    },
+    {
+      "song": "Breathless",
+      "album": "In Blue",
+      "albumId": "4e381965-bdc8-370d-a79f-e9bce2c8fed6",
+      "track": 1
+    },
+    {
+      "song": "Carraroe Jig",
+      "album": "Forgiven, Not Forgotten",
+      "albumId": "593602db-79ce-3d81-9ba2-a933fd5ee4c9",
+      "track": 12
+    },
+    {
+      "song": "Closer",
+      "album": "Forgiven, Not Forgotten",
+      "albumId": "593602db-79ce-3d81-9ba2-a933fd5ee4c9",
+      "track": 13
+    },
+    {
+      "song": "Don't Say You Love Me",
+      "album": "Talk on Corners",
+      "albumId": "bb05b149-249a-3ad3-8db6-7c5610d79d5b",
+      "track": 6
+    },
+    {
+      "song": "Dreams",
+      "album": "Unplugged",
+      "albumId": "25af6d34-1f55-338d-8ad8-52bf30a3bbd8",
+      "track": 7
+    },
+    {
+      "song": "Forgiven Not Forgotten",
+      "album": "Forgiven, Not Forgotten",
+      "albumId": "593602db-79ce-3d81-9ba2-a933fd5ee4c9",
+      "track": 2
+    },
+    {
+      "song": "Haste to the Wedding",
+      "album": "Home",
+      "albumId": "3469e45d-6a0b-358f-8c92-27ef973506bd",
+      "track": 12
+    },
+    {
+      "song": "Heaven Knows",
+      "album": "Forgiven, Not Forgotten",
+      "albumId": "593602db-79ce-3d81-9ba2-a933fd5ee4c9",
+      "track": 3
+    },
+    {
+      "song": "I Never Loved You Anyway",
+      "album": "Talk on Corners",
+      "albumId": "bb05b149-249a-3ad3-8db6-7c5610d79d5b",
+      "track": 4
+    },
+    {
+      "song": "Intimacy",
+      "album": "Talk on Corners",
+      "albumId": "bb05b149-249a-3ad3-8db6-7c5610d79d5b",
+      "track": 10
+    },
+    {
+      "song": "Leave Me Alone",
+      "album": "Forgiven, Not Forgotten",
+      "albumId": "593602db-79ce-3d81-9ba2-a933fd5ee4c9",
+      "track": 14
+    },
+    {
+      "song": "Lough Erin Shore",
+      "album": "Forgiven, Not Forgotten",
+      "albumId": "593602db-79ce-3d81-9ba2-a933fd5ee4c9",
+      "track": 15
+    },
+    {
+      "song": "Love Gives Love Takes",
+      "album": "Talk on Corners",
+      "albumId": "bb05b149-249a-3ad3-8db6-7c5610d79d5b",
+      "track": 7
+    },
+    {
+      "song": "Love to Love You",
+      "album": "Forgiven, Not Forgotten",
+      "albumId": "593602db-79ce-3d81-9ba2-a933fd5ee4c9",
+      "track": 10
+    },
+    {
+      "song": "No Frontiers",
+      "album": "Unplugged",
+      "albumId": "25af6d34-1f55-338d-8ad8-52bf30a3bbd8",
+      "track": 12
+    },
+    {
+      "song": "No Good for Me",
+      "album": "Talk on Corners",
+      "albumId": "bb05b149-249a-3ad3-8db6-7c5610d79d5b",
+      "track": 12
+    },
+    {
+      "song": "Old Town",
+      "album": "Unplugged",
+      "albumId": "25af6d34-1f55-338d-8ad8-52bf30a3bbd8",
+      "track": 14
+    },
+    {
+      "song": "Only When I Sleep",
+      "album": "Talk on Corners",
+      "albumId": "bb05b149-249a-3ad3-8db6-7c5610d79d5b",
+      "track": 1
+    },
+    {
+      "song": "Queen of Hollywood",
+      "album": "Talk on Corners",
+      "albumId": "bb05b149-249a-3ad3-8db6-7c5610d79d5b",
+      "track": 11
+    },
+    {
+      "song": "Radio",
+      "album": "Unplugged",
+      "albumId": "25af6d34-1f55-338d-8ad8-52bf30a3bbd8",
+      "track": 4
+    },
+    {
+      "song": "Rainy Day",
+      "album": "Love to Love You",
+      "albumId": "de67d1c6-3498-350d-816d-ad4a66e4d738",
+      "track": 2
+    },
+    {
+      "song": "Runaway (Tin Tin Out remix)",
+      "album": "Runaway",
+      "albumId": "7c00e619-901f-3f34-abfc-da5425280b4c",
+      "track": 1
+    },
+    {
+      "song": "Runaway",
+      "album": "Forgiven, Not Forgotten",
+      "albumId": "593602db-79ce-3d81-9ba2-a933fd5ee4c9",
+      "track": 6
+    },
+    {
+      "song": "Secret Life",
+      "album": "Forgiven, Not Forgotten",
+      "albumId": "593602db-79ce-3d81-9ba2-a933fd5ee4c9",
+      "track": 11
+    },
+    {
+      "song": "So Young",
+      "album": "Talk on Corners",
+      "albumId": "bb05b149-249a-3ad3-8db6-7c5610d79d5b",
+      "track": 5
+    },
+    {
+      "song": "Someday",
+      "album": "Forgiven, Not Forgotten",
+      "albumId": "593602db-79ce-3d81-9ba2-a933fd5ee4c9",
+      "track": 5
+    },
+    {
+      "song": "The Minstrel Boy",
+      "album": "Forgiven, Not Forgotten",
+      "albumId": "593602db-79ce-3d81-9ba2-a933fd5ee4c9",
+      "track": 8
+    },
+    {
+      "song": "The Right Time (radio edit)",
+      "album": "The Right Time",
+      "albumId": "e2e215e2-7523-31fb-983d-96015209b73e",
+      "track": 1
+    },
+    {
+      "song": "The Right Time",
+      "album": "Forgiven, Not Forgotten",
+      "albumId": "593602db-79ce-3d81-9ba2-a933fd5ee4c9",
+      "track": 7
+    },
+    {
+      "song": "Toss the Feathers",
+      "album": "Forgiven, Not Forgotten",
+      "albumId": "593602db-79ce-3d81-9ba2-a933fd5ee4c9",
+      "track": 9
+    },
+    {
+      "song": "Una Noche (feat. Alejandro Sanz)",
+      "album": "Best of The Corrs",
+      "albumId": "56c16c9d-4878-3b84-a835-7c349ded4df2",
+      "track": 19
+    },
+    {
+      "song": "What Can I Do",
+      "album": "Talk on Corners",
+      "albumId": "bb05b149-249a-3ad3-8db6-7c5610d79d5b",
+      "track": 3
+    },
+    {
+      "song": "When He's Not Around",
+      "album": "Talk on Corners",
+      "albumId": "bb05b149-249a-3ad3-8db6-7c5610d79d5b",
+      "track": 2
+    }
+  ],
+  "unmatched": [
+    "I Know My Love",
+    "On My Father's Wings"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "I Know My Love": [],
+    "On My Father's Wings": []
+  }
+}

@@ -642,5 +642,26 @@
         "albumId": "a2cb6793-9f04-35d9-8cb8-03c6fa7ae240"
       }
     }
+  },
+  "The Corrs": {
+    "name": "The Corrs",
+    "mbid": "acf6c776-d0f6-4239-b5a2-a45a613ffa52",
+    "country": "IE",
+    "includedReleaseGroups": [
+      "25af6d34-1f55-338d-8ad8-52bf30a3bbd8",
+      "56c16c9d-4878-3b84-a835-7c349ded4df2"
+    ],
+    "songs": {
+      "Lough Erin Shore": {
+        "title": "Erin Shore (instrumental)",
+        "albumId": "593602db-79ce-3d81-9ba2-a933fd5ee4c9"
+      },
+      "Una Noche (feat. Alejandro Sanz)": {
+        "title": "Una noche"
+      }
+    },
+    "releaseOverrides": {
+      "56c16c9d-4878-3b84-a835-7c349ded4df2": "a0ba5ada-8027-3e0b-a5c1-8c368932a6fd"
+    }
   }
 }

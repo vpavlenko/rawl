@@ -1319,5 +1319,16 @@
     "name": "The Offspring",
     "mbid": "23a03e33-a603-404e-bcbf-2c00159d7067",
     "country": "US"
+  },
+  "Aerosmith": {
+    "name": "Aerosmith",
+    "mbid": "3d2b98e5-556f-4451-a3ff-c50ea18d57cb",
+    "country": "US",
+    "includedReleaseGroups": [
+      "ddaa79f5-a0e3-3771-80a7-691c57d32946"
+    ],
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ]
   }
 }

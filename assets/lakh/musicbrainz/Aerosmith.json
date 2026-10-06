@@ -1,0 +1,148 @@
+{
+  "artist": "Aerosmith",
+  "status": "processed",
+  "totalSongs": 23,
+  "matched": [
+    {
+      "song": "Amazing",
+      "album": "Get a Grip",
+      "albumId": "73c6a7b0-1dc2-3ddc-a720-c29505271711",
+      "track": 13
+    },
+    {
+      "song": "Angel",
+      "album": "Permanent Vacation",
+      "albumId": "c522e905-3986-3f09-89f3-5d8bb09cc93e",
+      "track": 9
+    },
+    {
+      "song": "Blind Man",
+      "album": "Blind Man",
+      "albumId": "fa48b0dd-a94c-3189-ba48-5b04cb69e88e",
+      "track": 1
+    },
+    {
+      "song": "Boogie Man",
+      "album": "Get a Grip",
+      "albumId": "73c6a7b0-1dc2-3ddc-a720-c29505271711",
+      "track": 14
+    },
+    {
+      "song": "Crazy",
+      "album": "Get a Grip",
+      "albumId": "73c6a7b0-1dc2-3ddc-a720-c29505271711",
+      "track": 11
+    },
+    {
+      "song": "Cryin'",
+      "album": "Get a Grip",
+      "albumId": "73c6a7b0-1dc2-3ddc-a720-c29505271711",
+      "track": 9
+    },
+    {
+      "song": "Dream On",
+      "album": "Aerosmith",
+      "albumId": "8a58cc1a-be0d-3b1b-8d0d-aa8f467a59da",
+      "track": 3
+    },
+    {
+      "song": "Dude (Looks Like A Lady)",
+      "album": "Permanent Vacation",
+      "albumId": "c522e905-3986-3f09-89f3-5d8bb09cc93e",
+      "track": 5
+    },
+    {
+      "song": "Eat the Rich",
+      "album": "Get a Grip",
+      "albumId": "73c6a7b0-1dc2-3ddc-a720-c29505271711",
+      "track": 2
+    },
+    {
+      "song": "Falling in Love (Is Hard on the Knees)",
+      "album": "Nine Lives",
+      "albumId": "7b30dd01-ee8f-392c-862d-4598e46b83f8",
+      "track": 2
+    },
+    {
+      "song": "Fly Away From Here",
+      "album": "Just Push Play",
+      "albumId": "2fb275a3-1cd9-33b6-95e4-70fe3f092649",
+      "track": 4
+    },
+    {
+      "song": "Helter Skelter",
+      "album": "Pandora’s Box",
+      "albumId": "ddaa79f5-a0e3-3771-80a7-691c57d32946",
+      "track": 51
+    },
+    {
+      "song": "Hole in My Soul",
+      "album": "Nine Lives",
+      "albumId": "7b30dd01-ee8f-392c-862d-4598e46b83f8",
+      "track": 3
+    },
+    {
+      "song": "I Don't Want to Miss a Thing",
+      "album": "I Don’t Want to Miss a Thing",
+      "albumId": "55fca8e9-74ee-352a-97a4-82fe299d3826",
+      "track": 1
+    },
+    {
+      "song": "Janie's Got a Gun",
+      "album": "Janie’s Got a Gun",
+      "albumId": "4fec98b9-3a13-3b6c-8cfe-3da1f21c3cff",
+      "track": 1
+    },
+    {
+      "song": "Kings and Queens",
+      "album": "Draw the Line",
+      "albumId": "8c064b13-6668-3d6c-a508-1e5d671a207d",
+      "track": 6
+    },
+    {
+      "song": "Livin' on the Edge",
+      "album": "Get a Grip",
+      "albumId": "73c6a7b0-1dc2-3ddc-a720-c29505271711",
+      "track": 5
+    },
+    {
+      "song": "Pink",
+      "album": "Nine Lives",
+      "albumId": "7b30dd01-ee8f-392c-862d-4598e46b83f8",
+      "track": 11
+    },
+    {
+      "song": "Seasons of Wither",
+      "album": "Get Your Wings",
+      "albumId": "29346fb6-69c8-3f12-90c3-9d6cbce18259",
+      "track": 7
+    },
+    {
+      "song": "Sweet Emotion",
+      "album": "Toys in the Attic",
+      "albumId": "d03bb6b1-d7b4-38ea-974e-847cbb31dca4",
+      "track": 6
+    },
+    {
+      "song": "The Other Side",
+      "album": "The Other Side",
+      "albumId": "a6fedae5-39e2-3008-a796-cfbd1d7da7fc",
+      "track": 1
+    },
+    {
+      "song": "Walk This Way",
+      "album": "Toys in the Attic",
+      "albumId": "d03bb6b1-d7b4-38ea-974e-847cbb31dca4",
+      "track": 4
+    },
+    {
+      "song": "What It Takes",
+      "album": "Pump",
+      "albumId": "8f174877-ffc4-39b9-b247-a39fff4097a1",
+      "track": 10
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

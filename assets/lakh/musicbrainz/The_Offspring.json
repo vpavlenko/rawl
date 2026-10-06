@@ -1,0 +1,154 @@
+{
+  "artist": "The Offspring",
+  "status": "processed",
+  "totalSongs": 24,
+  "matched": [
+    {
+      "song": "All I Want",
+      "album": "Ixnay on the Hombre",
+      "albumId": "8ef7ac07-793a-3aab-b14a-45f0c1ec4a2b",
+      "track": 10
+    },
+    {
+      "song": "Amazed",
+      "album": "Ixnay on the Hombre",
+      "albumId": "8ef7ac07-793a-3aab-b14a-45f0c1ec4a2b",
+      "track": 13
+    },
+    {
+      "song": "Change the World",
+      "album": "Ixnay on the Hombre",
+      "albumId": "8ef7ac07-793a-3aab-b14a-45f0c1ec4a2b",
+      "track": 14
+    },
+    {
+      "song": "Come Out and Play",
+      "album": "Smash",
+      "albumId": "a55a5a03-0c0e-311b-85df-ec52f841715c",
+      "track": 7
+    },
+    {
+      "song": "Cool To Hate",
+      "album": "Ixnay on the Hombre",
+      "albumId": "8ef7ac07-793a-3aab-b14a-45f0c1ec4a2b",
+      "track": 5
+    },
+    {
+      "song": "Don't Pick It Up",
+      "album": "Ixnay on the Hombre",
+      "albumId": "8ef7ac07-793a-3aab-b14a-45f0c1ec4a2b",
+      "track": 12
+    },
+    {
+      "song": "Genocide",
+      "album": "Smash",
+      "albumId": "a55a5a03-0c0e-311b-85df-ec52f841715c",
+      "track": 5
+    },
+    {
+      "song": "Gone Away",
+      "album": "Ixnay on the Hombre",
+      "albumId": "8ef7ac07-793a-3aab-b14a-45f0c1ec4a2b",
+      "track": 7
+    },
+    {
+      "song": "Gotta Get Away",
+      "album": "Smash",
+      "albumId": "a55a5a03-0c0e-311b-85df-ec52f841715c",
+      "track": 4
+    },
+    {
+      "song": "I Choose",
+      "album": "Ixnay on the Hombre",
+      "albumId": "8ef7ac07-793a-3aab-b14a-45f0c1ec4a2b",
+      "track": 8
+    },
+    {
+      "song": "Leave It Behind",
+      "album": "Ixnay on the Hombre",
+      "albumId": "8ef7ac07-793a-3aab-b14a-45f0c1ec4a2b",
+      "track": 6
+    },
+    {
+      "song": "Me & My Old Lady",
+      "album": "Ixnay on the Hombre",
+      "albumId": "8ef7ac07-793a-3aab-b14a-45f0c1ec4a2b",
+      "track": 4
+    },
+    {
+      "song": "Mota",
+      "album": "Ixnay on the Hombre",
+      "albumId": "8ef7ac07-793a-3aab-b14a-45f0c1ec4a2b",
+      "track": 3
+    },
+    {
+      "song": "Nitro (Youth Energy)",
+      "album": "Smash",
+      "albumId": "a55a5a03-0c0e-311b-85df-ec52f841715c",
+      "track": 2
+    },
+    {
+      "song": "No Hero",
+      "album": "Ignition",
+      "albumId": "4ffb0057-6256-33c0-b71e-23b7f8403f12",
+      "track": 9
+    },
+    {
+      "song": "Original Prankster",
+      "album": "Conspiracy of One",
+      "albumId": "360965be-84da-3751-935e-8603fcd60049",
+      "track": 3
+    },
+    {
+      "song": "Pretty Fly (For a White Guy)",
+      "album": "Americana",
+      "albumId": "fb43ac3a-8d28-3686-8653-bbf15a5e4389",
+      "track": 4
+    },
+    {
+      "song": "Self Esteem",
+      "album": "Smash",
+      "albumId": "a55a5a03-0c0e-311b-85df-ec52f841715c",
+      "track": 8
+    },
+    {
+      "song": "Session",
+      "album": "Ignition",
+      "albumId": "4ffb0057-6256-33c0-b71e-23b7f8403f12",
+      "track": 1
+    },
+    {
+      "song": "She's Got Issues",
+      "album": "Americana",
+      "albumId": "fb43ac3a-8d28-3686-8653-bbf15a5e4389",
+      "track": 7
+    },
+    {
+      "song": "The Kids Aren't Alright",
+      "album": "Americana",
+      "albumId": "fb43ac3a-8d28-3686-8653-bbf15a5e4389",
+      "track": 5
+    },
+    {
+      "song": "Walla Walla",
+      "album": "Americana",
+      "albumId": "fb43ac3a-8d28-3686-8653-bbf15a5e4389",
+      "track": 8
+    },
+    {
+      "song": "Way Down the Line",
+      "album": "Ixnay on the Hombre",
+      "albumId": "8ef7ac07-793a-3aab-b14a-45f0c1ec4a2b",
+      "track": 11
+    },
+    {
+      "song": "Why Don't You Get a Job?",
+      "album": "Americana",
+      "albumId": "fb43ac3a-8d28-3686-8653-bbf15a5e4389",
+      "track": 11
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

@@ -663,5 +663,10 @@
     "releaseOverrides": {
       "56c16c9d-4878-3b84-a835-7c349ded4df2": "a0ba5ada-8027-3e0b-a5c1-8c368932a6fd"
     }
+  },
+  "The Beach Boys": {
+    "name": "The Beach Boys",
+    "mbid": "ebfc1398-8d96-47e3-82c3-f782abcdb13d",
+    "country": "US"
   }
 }

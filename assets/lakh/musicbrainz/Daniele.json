@@ -1,0 +1,286 @@
+{
+  "artist": "Daniele",
+  "status": "processed",
+  "totalSongs": 46,
+  "matched": [
+    {
+      "song": "'Na tazzulella 'e cafe",
+      "album": "Terra mia",
+      "albumId": "76fbfcc9-9de1-33ee-8986-7ac70ddec993",
+      "track": 2
+    },
+    {
+      "song": "'O scarrafone",
+      "album": "Un uomo in blues",
+      "albumId": "08669747-d5d1-3659-acfc-3612fa93a83e",
+      "track": 1
+    },
+    {
+      "song": "A me me piace 'o blues",
+      "album": "Nero a metà",
+      "albumId": "7c311aaa-5aa3-3fbd-830d-b138abbd6d2e",
+      "track": 7
+    },
+    {
+      "song": "A testa in giu",
+      "album": "Nero a metà",
+      "albumId": "7c311aaa-5aa3-3fbd-830d-b138abbd6d2e",
+      "track": 11
+    },
+    {
+      "song": "Alibi perfetto",
+      "album": "Come un gelato all'equatore",
+      "albumId": "39868448-251e-3977-903e-11e405fd1d1c",
+      "track": 1
+    },
+    {
+      "song": "Alleria",
+      "album": "Nero a metà",
+      "albumId": "7c311aaa-5aa3-3fbd-830d-b138abbd6d2e",
+      "track": 10
+    },
+    {
+      "song": "Amici come prima",
+      "album": "Dimmi cosa succede sulla Terra",
+      "albumId": "f9d2a531-445e-398f-a7da-f33ba288d3d8",
+      "track": 7
+    },
+    {
+      "song": "Amore senza fine",
+      "album": "Ricomincio da 30",
+      "albumId": "370adb9e-c746-4dde-90fe-0ff8be38bba4",
+      "track": 3
+    },
+    {
+      "song": "Anima",
+      "album": "Non calpestare i fiori nel deserto",
+      "albumId": "a7d6207e-f0e7-33e4-9a64-f8abc1a2ef76",
+      "track": 12
+    },
+    {
+      "song": "Bambina",
+      "album": "Non calpestare i fiori nel deserto",
+      "albumId": "a7d6207e-f0e7-33e4-9a64-f8abc1a2ef76",
+      "track": 8
+    },
+    {
+      "song": "Canto do mar",
+      "album": "Dimmi cosa succede sulla Terra",
+      "albumId": "f9d2a531-445e-398f-a7da-f33ba288d3d8",
+      "track": 12
+    },
+    {
+      "song": "Carte e cartuscelle",
+      "album": "Mascalzone latino",
+      "albumId": "d6bb2b7f-9a27-37ba-b87b-ef6883e3fb1a",
+      "track": 5
+    },
+    {
+      "song": "Che Dio ti benedica",
+      "album": "Che Dio ti benedica",
+      "albumId": "b59f1f2f-7852-38a8-8a52-2905111ff770",
+      "track": 1
+    },
+    {
+      "song": "Che male c'e",
+      "album": "Dimmi cosa succede sulla Terra",
+      "albumId": "f9d2a531-445e-398f-a7da-f33ba288d3d8",
+      "track": 3
+    },
+    {
+      "song": "Cosa penserai di me",
+      "album": "Come un gelato all'equatore",
+      "albumId": "39868448-251e-3977-903e-11e405fd1d1c",
+      "track": 4
+    },
+    {
+      "song": "Dubbi non ho",
+      "album": "Dimmi cosa succede sulla Terra",
+      "albumId": "f9d2a531-445e-398f-a7da-f33ba288d3d8",
+      "track": 4
+    },
+    {
+      "song": "E so cuntento 'e sta",
+      "album": "Nero a metà",
+      "albumId": "7c311aaa-5aa3-3fbd-830d-b138abbd6d2e",
+      "track": 8
+    },
+    {
+      "song": "Fatte 'na pizza",
+      "album": "Che Dio ti benedica",
+      "albumId": "b59f1f2f-7852-38a8-8a52-2905111ff770",
+      "track": 3
+    },
+    {
+      "song": "Gente distratta",
+      "album": "Un uomo in blues",
+      "albumId": "08669747-d5d1-3659-acfc-3612fa93a83e",
+      "track": 3
+    },
+    {
+      "song": "I say i' sto' cca",
+      "album": "Nero a metà",
+      "albumId": "7c311aaa-5aa3-3fbd-830d-b138abbd6d2e",
+      "track": 1
+    },
+    {
+      "song": "Il pianeta delle parole",
+      "album": "Dimmi cosa succede sulla Terra",
+      "albumId": "f9d2a531-445e-398f-a7da-f33ba288d3d8",
+      "track": 1
+    },
+    {
+      "song": "Io per lei",
+      "album": "Non calpestare i fiori nel deserto",
+      "albumId": "a7d6207e-f0e7-33e4-9a64-f8abc1a2ef76",
+      "track": 3
+    },
+    {
+      "song": "Io vivo come te",
+      "album": "Bella 'mbriana",
+      "albumId": "c51374a7-c928-3cb4-8d6e-426b3164425f",
+      "track": 7
+    },
+    {
+      "song": "Je so' pazzo",
+      "album": "Pino Daniele",
+      "albumId": "c3a7d267-448e-3356-8470-6fe6ca950270",
+      "track": 4
+    },
+    {
+      "song": "Je sto vicino a te",
+      "album": "Pino Daniele",
+      "albumId": "c3a7d267-448e-3356-8470-6fe6ca950270",
+      "track": 1
+    },
+    {
+      "song": "Musica musica",
+      "album": "Nero a metà",
+      "albumId": "7c311aaa-5aa3-3fbd-830d-b138abbd6d2e",
+      "track": 2
+    },
+    {
+      "song": "Neve al sole",
+      "album": "Come un gelato all'equatore",
+      "albumId": "39868448-251e-3977-903e-11e405fd1d1c",
+      "track": 3
+    },
+    {
+      "song": "Non ho paura del mostro",
+      "album": "Dimmi cosa succede sulla Terra",
+      "albumId": "f9d2a531-445e-398f-a7da-f33ba288d3d8",
+      "track": 8
+    },
+    {
+      "song": "Notte che fai",
+      "album": "Non calpestare i fiori nel deserto",
+      "albumId": "a7d6207e-f0e7-33e4-9a64-f8abc1a2ef76",
+      "track": 9
+    },
+    {
+      "song": "Nun me scuccia",
+      "album": "Boogie Boogie Man",
+      "albumId": "8a85aa60-d1d2-40a9-af80-2b1af51f72b4",
+      "track": 12
+    },
+    {
+      "song": "Occhi blu non mi mollare",
+      "album": "Che Dio ti benedica",
+      "albumId": "b59f1f2f-7852-38a8-8a52-2905111ff770",
+      "track": 12
+    },
+    {
+      "song": "Putesse essere allero",
+      "album": "Pino Daniele",
+      "albumId": "c3a7d267-448e-3356-8470-6fe6ca950270",
+      "track": 11
+    },
+    {
+      "song": "Quando",
+      "album": "Ricomincio da 30",
+      "albumId": "370adb9e-c746-4dde-90fe-0ff8be38bba4",
+      "track": 1
+    },
+    {
+      "song": "Quanno chiove",
+      "album": "Nero a metà",
+      "albumId": "7c311aaa-5aa3-3fbd-830d-b138abbd6d2e",
+      "track": 3
+    },
+    {
+      "song": "Questa primavera",
+      "album": "Che Dio ti benedica",
+      "albumId": "b59f1f2f-7852-38a8-8a52-2905111ff770",
+      "track": 2
+    },
+    {
+      "song": "Resta... resta cu' mme",
+      "album": "Non calpestare i fiori nel deserto",
+      "albumId": "a7d6207e-f0e7-33e4-9a64-f8abc1a2ef76",
+      "track": 7
+    },
+    {
+      "song": "Scirocco d'Africa",
+      "album": "Dimmi cosa succede sulla Terra",
+      "albumId": "f9d2a531-445e-398f-a7da-f33ba288d3d8",
+      "track": 6
+    },
+    {
+      "song": "Se mi vuoi",
+      "album": "Non calpestare i fiori nel deserto",
+      "albumId": "a7d6207e-f0e7-33e4-9a64-f8abc1a2ef76",
+      "track": 4
+    },
+    {
+      "song": "Si Forever",
+      "album": "Come un gelato all'equatore",
+      "albumId": "39868448-251e-3977-903e-11e405fd1d1c",
+      "track": 5
+    },
+    {
+      "song": "Sicily",
+      "album": "Che Dio ti benedica",
+      "albumId": "b59f1f2f-7852-38a8-8a52-2905111ff770",
+      "track": 6
+    },
+    {
+      "song": "Stare bene a meta",
+      "album": "Dimmi cosa succede sulla Terra",
+      "albumId": "f9d2a531-445e-398f-a7da-f33ba288d3d8",
+      "track": 9
+    },
+    {
+      "song": "Terra mia",
+      "album": "Terra mia",
+      "albumId": "76fbfcc9-9de1-33ee-8986-7ac70ddec993",
+      "track": 7
+    },
+    {
+      "song": "The Desert in My Head",
+      "album": "Dimmi cosa succede sulla Terra",
+      "albumId": "f9d2a531-445e-398f-a7da-f33ba288d3d8",
+      "track": 10
+    },
+    {
+      "song": "Tutta 'nata storia",
+      "album": "Bella 'mbriana",
+      "albumId": "c51374a7-c928-3cb4-8d6e-426b3164425f",
+      "track": 2
+    },
+    {
+      "song": "Viento 'e terra",
+      "album": "Vai mo’",
+      "albumId": "2e7b4c96-ec1a-3616-ad72-c4047b6d9565",
+      "track": 4
+    },
+    {
+      "song": "Yes I Know My Way",
+      "album": "Vai mo’",
+      "albumId": "2e7b4c96-ec1a-3616-ad72-c4047b6d9565",
+      "track": 2
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

@@ -93,7 +93,9 @@
     }
   },
   "Daniele": {
-    "name": "Pino Daniele"
+    "name": "Pino Daniele",
+    "mbid": "5b1633c8-cb78-4d85-a7d1-a6d145d8d472",
+    "country": "IT"
   },
   "McCartney": {
     "name": "Paul McCartney",

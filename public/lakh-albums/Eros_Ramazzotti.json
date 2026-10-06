@@ -1,0 +1,105 @@
+{
+  "artist": "Eros Ramazzotti",
+  "artistId": "3ab7295a-54ac-40e8-b1b2-3d110a143550",
+  "groups": [
+    {
+      "id": "efd3953c-1817-3c0e-822e-422e35d65227",
+      "releaseId": "18792bec-3068-49d8-9cd9-9005f1e008de",
+      "title": "Nuovi eroi",
+      "date": "1986",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/efd3953c-1817-3c0e-822e-422e35d65227/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Adesso tu.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a23f43c2-7455-36c6-9463-62fd39e72400",
+      "releaseId": "459077bf-2384-4d2a-abde-dd7e46e1423c",
+      "title": "Musica è",
+      "date": "1988-12-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a23f43c2-7455-36c6-9463-62fd39e72400/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Solo con te.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "30b0e4cc-055b-3328-a026-2f9bdcc423e5",
+      "releaseId": "ba403acc-43e2-459a-9bb9-0eec4206bf3a",
+      "title": "In ogni senso",
+      "date": "1990",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/30b0e4cc-055b-3328-a026-2f9bdcc423e5/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Se Bastasse Una Canzone.mid",
+            "Se Bastasse Una Canzone.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "44130482-59d9-30e7-a583-a4b689266302",
+      "releaseId": "8c032ef8-0925-4fa5-ae95-9368f4d50f98",
+      "title": "Tutte storie",
+      "date": "1993-04-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/44130482-59d9-30e7-a583-a4b689266302/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Un Altra Te.mid",
+            "Un Altra Te.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f85e09fd-1bcc-3917-b8c7-60bb7dffc57b",
+      "releaseId": "410c0e3f-aa59-45ae-bc5e-780a3e343aa9",
+      "title": "Dove c’è musica",
+      "date": "1996-05-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f85e09fd-1bcc-3917-b8c7-60bb7dffc57b/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Piu bella cosa.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a347bfed-c18a-4f3b-8761-c12e8efb6ed6",
+      "releaseId": "23918bc6-b31d-4893-b1ef-006ead180039",
+      "title": "Cose della vita (Can’t Stop Thinking of You)",
+      "date": "1997",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/a347bfed-c18a-4f3b-8761-c12e8efb6ed6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Cose della vita (Can't Stop Thinking of You).mid",
+            "Cose della vita (Can't Stop Thinking of You).1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

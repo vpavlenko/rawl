@@ -1,0 +1,46 @@
+{
+  "artist": "Eros Ramazzotti",
+  "status": "processed",
+  "totalSongs": 6,
+  "matched": [
+    {
+      "song": "Adesso tu",
+      "album": "Nuovi eroi",
+      "albumId": "efd3953c-1817-3c0e-822e-422e35d65227",
+      "track": 8
+    },
+    {
+      "song": "Cose della vita (Can't Stop Thinking of You)",
+      "album": "Cose della vita (Can’t Stop Thinking of You)",
+      "albumId": "a347bfed-c18a-4f3b-8761-c12e8efb6ed6",
+      "track": 1
+    },
+    {
+      "song": "Piu bella cosa",
+      "album": "Dove c’è musica",
+      "albumId": "f85e09fd-1bcc-3917-b8c7-60bb7dffc57b",
+      "track": 3
+    },
+    {
+      "song": "Se Bastasse Una Canzone",
+      "album": "In ogni senso",
+      "albumId": "30b0e4cc-055b-3328-a026-2f9bdcc423e5",
+      "track": 1
+    },
+    {
+      "song": "Solo con te",
+      "album": "Musica è",
+      "albumId": "a23f43c2-7455-36c6-9463-62fd39e72400",
+      "track": 4
+    },
+    {
+      "song": "Un Altra Te",
+      "album": "Tutte storie",
+      "albumId": "44130482-59d9-30e7-a583-a4b689266302",
+      "track": 3
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

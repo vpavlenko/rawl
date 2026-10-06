@@ -716,5 +716,23 @@
     "name": "Antonello Venditti",
     "mbid": "dd4a5777-42a3-44a2-b5e6-bff6731cdf3a",
     "country": "IT"
+  },
+  "Eros Ramazzotti": {
+    "name": "Eros Ramazzotti",
+    "mbid": "3ab7295a-54ac-40e8-b1b2-3d110a143550",
+    "country": "IT"
+  },
+  "Ramazzotti": {
+    "name": "Eros Ramazzotti",
+    "mbid": "3ab7295a-54ac-40e8-b1b2-3d110a143550",
+    "country": "IT",
+    "songs": {
+      "Andare... in ogni senso (feat. Piero Cassano)": {
+        "title": "Andare… in ogni senso"
+      }
+    },
+    "includedReleaseGroups": [
+      "aa525b6e-6010-356a-9021-c34abbe77bdc"
+    ]
   }
 }

@@ -1,0 +1,196 @@
+{
+  "artist": "Ramazzotti",
+  "status": "processed",
+  "totalSongs": 31,
+  "matched": [
+    {
+      "song": "Adesso tu",
+      "album": "Nuovi eroi",
+      "albumId": "efd3953c-1817-3c0e-822e-422e35d65227",
+      "track": 8
+    },
+    {
+      "song": "Amarti e l'immenso per me",
+      "album": "In ogni senso",
+      "albumId": "30b0e4cc-055b-3328-a026-2f9bdcc423e5",
+      "track": 7
+    },
+    {
+      "song": "Amica donna mia",
+      "album": "Stilelibero",
+      "albumId": "81332f18-c280-3538-89ba-d68dba264202",
+      "track": 11
+    },
+    {
+      "song": "Ancora un minuto di sole",
+      "album": "Eros",
+      "albumId": "aa525b6e-6010-356a-9021-c34abbe77bdc",
+      "track": 11
+    },
+    {
+      "song": "Andare... in ogni senso (feat. Piero Cassano)",
+      "album": "In ogni senso",
+      "albumId": "30b0e4cc-055b-3328-a026-2f9bdcc423e5",
+      "track": 12
+    },
+    {
+      "song": "Buona vita",
+      "album": "Dove c’è musica",
+      "albumId": "f85e09fd-1bcc-3917-b8c7-60bb7dffc57b",
+      "track": 12
+    },
+    {
+      "song": "C'e una strada in cielo",
+      "album": "In ogni senso",
+      "albumId": "30b0e4cc-055b-3328-a026-2f9bdcc423e5",
+      "track": 2
+    },
+    {
+      "song": "Cose della vita (Can't Stop Thinking of You)",
+      "album": "Cose della vita (Can’t Stop Thinking of You)",
+      "albumId": "a347bfed-c18a-4f3b-8761-c12e8efb6ed6",
+      "track": 1
+    },
+    {
+      "song": "Dolce Barbara",
+      "album": "In ogni senso",
+      "albumId": "30b0e4cc-055b-3328-a026-2f9bdcc423e5",
+      "track": 6
+    },
+    {
+      "song": "Dove c'e musica",
+      "album": "Dove c’è musica",
+      "albumId": "f85e09fd-1bcc-3917-b8c7-60bb7dffc57b",
+      "track": 1
+    },
+    {
+      "song": "E ancor mi chiedo",
+      "album": "Stilelibero",
+      "albumId": "81332f18-c280-3538-89ba-d68dba264202",
+      "track": 8
+    },
+    {
+      "song": "Favola",
+      "album": "Tutte storie",
+      "albumId": "44130482-59d9-30e7-a583-a4b689266302",
+      "track": 7
+    },
+    {
+      "song": "Fuoco nel fuoco",
+      "album": "Stilelibero",
+      "albumId": "81332f18-c280-3538-89ba-d68dba264202",
+      "track": 2
+    },
+    {
+      "song": "Il mio amore per te",
+      "album": "Stilelibero",
+      "albumId": "81332f18-c280-3538-89ba-d68dba264202",
+      "track": 7
+    },
+    {
+      "song": "L'Aurora",
+      "album": "Dove c’è musica",
+      "albumId": "f85e09fd-1bcc-3917-b8c7-60bb7dffc57b",
+      "track": 4
+    },
+    {
+      "song": "La luce buona delle stelle",
+      "album": "In certi momenti",
+      "albumId": "4eed37d7-afcc-3da1-b53d-422583310648",
+      "track": 3
+    },
+    {
+      "song": "Lei pero",
+      "album": "Dove c’è musica",
+      "albumId": "f85e09fd-1bcc-3917-b8c7-60bb7dffc57b",
+      "track": 10
+    },
+    {
+      "song": "Lo spirito degli alberi",
+      "album": "Stilelibero",
+      "albumId": "81332f18-c280-3538-89ba-d68dba264202",
+      "track": 3
+    },
+    {
+      "song": "Memorie",
+      "album": "Tutte storie",
+      "albumId": "44130482-59d9-30e7-a583-a4b689266302",
+      "track": 4
+    },
+    {
+      "song": "Musica e",
+      "album": "Musica è",
+      "albumId": "a23f43c2-7455-36c6-9463-62fd39e72400",
+      "track": 1
+    },
+    {
+      "song": "Nuovi eroi",
+      "album": "Nuovi eroi",
+      "albumId": "efd3953c-1817-3c0e-822e-422e35d65227",
+      "track": 9
+    },
+    {
+      "song": "Occhi di speranza",
+      "album": "In certi momenti",
+      "albumId": "4eed37d7-afcc-3da1-b53d-422583310648",
+      "track": 9
+    },
+    {
+      "song": "Piu bella cosa",
+      "album": "Dove c’è musica",
+      "albumId": "f85e09fd-1bcc-3917-b8c7-60bb7dffc57b",
+      "track": 3
+    },
+    {
+      "song": "Quanto amore sei",
+      "album": "Una storia importante",
+      "albumId": "2352591a-8452-4fd1-89fb-8dc7791cd7ee",
+      "track": 11
+    },
+    {
+      "song": "Quasi amore",
+      "album": "Dove c’è musica",
+      "albumId": "f85e09fd-1bcc-3917-b8c7-60bb7dffc57b",
+      "track": 8
+    },
+    {
+      "song": "Se Bastasse Una Canzone",
+      "album": "In ogni senso",
+      "albumId": "30b0e4cc-055b-3328-a026-2f9bdcc423e5",
+      "track": 1
+    },
+    {
+      "song": "Stella gemella",
+      "album": "Dove c’è musica",
+      "albumId": "f85e09fd-1bcc-3917-b8c7-60bb7dffc57b",
+      "track": 2
+    },
+    {
+      "song": "Terra promessa",
+      "album": "Cuori agitati",
+      "albumId": "92fb8244-28f5-3f12-9ae9-99add69e484d",
+      "track": 10
+    },
+    {
+      "song": "Ti sposero perche",
+      "album": "Musica è",
+      "albumId": "a23f43c2-7455-36c6-9463-62fd39e72400",
+      "track": 2
+    },
+    {
+      "song": "Un'altra te",
+      "album": "Tutte storie",
+      "albumId": "44130482-59d9-30e7-a583-a4b689266302",
+      "track": 3
+    },
+    {
+      "song": "Una storia importante",
+      "album": "Cuori agitati",
+      "albumId": "92fb8244-28f5-3f12-9ae9-99add69e484d",
+      "track": 6
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

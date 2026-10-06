@@ -1282,5 +1282,37 @@
       "fd64c282-deb9-4c6f-a2fd-4090fc2dea12",
       "29020fc4-0d94-4a95-9da8-cf705cc21f81"
     ]
+  },
+  "Emerson, Lake & Palmer": {
+    "name": "Emerson, Lake & Palmer",
+    "mbid": "ad996aef-cc1c-42ac-af5c-619c370f4b8a",
+    "country": "GB",
+    "relatedArtistIds": [
+      "9a78e16a-2e3b-44b5-8aee-4546f4f4177f"
+    ],
+    "includedReleaseGroups": [
+      "b1fff2ac-34eb-358b-9bf5-196b2a5fc288",
+      "978029cd-03bd-37a4-8db0-6dae04b623b3"
+    ],
+    "releaseOverrides": {
+      "990536ff-396d-37ad-9df3-fa7f548abcac": "4694bf71-7b2a-4e74-8a1b-5f647dbb9957"
+    },
+    "songs": {
+      "Hoe Down": {
+        "title": "Hoedown"
+      },
+      "Peter Gunn Theme": {
+        "title": "Peter Gunn"
+      },
+      "Tarkus": {
+        "title": "Tarkus: i. Eruption / ii. Stones of Years / iii. Iconoclast / iv. Mass / v. Manticore / vi. Battlefield / vii. Aquatarkus"
+      },
+      "The Endless Enigma, Part 1": {
+        "title": "The Endless Enigma, Part One"
+      },
+      "The Endless Enigma, Part 2": {
+        "title": "The Endless Enigma, Part Two"
+      }
+    }
   }
 }

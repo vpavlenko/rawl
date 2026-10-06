@@ -1,0 +1,176 @@
+{
+  "artist": "Jean Michel Jarre",
+  "status": "processed",
+  "totalSongs": 28,
+  "matched": [
+    {
+      "song": "Arpeggiator",
+      "album": "Les Concerts en Chine",
+      "albumId": "d5bd79b4-eb0e-35ec-b5d9-b1439a29b051",
+      "track": 2
+    },
+    {
+      "song": "Calypso (Part 1)",
+      "album": "En attendant Cousteau / Waiting for Cousteau",
+      "albumId": "361bd924-fe82-3182-844f-e8cf71f45490",
+      "track": 1
+    },
+    {
+      "song": "Calypso (Part 3)",
+      "album": "En attendant Cousteau / Waiting for Cousteau",
+      "albumId": "361bd924-fe82-3182-844f-e8cf71f45490",
+      "track": 3
+    },
+    {
+      "song": "Calypso, Part 2",
+      "album": "En attendant Cousteau / Waiting for Cousteau",
+      "albumId": "361bd924-fe82-3182-844f-e8cf71f45490",
+      "track": 2
+    },
+    {
+      "song": "Calypso",
+      "album": "En attendant Cousteau / Waiting for Cousteau",
+      "albumId": "361bd924-fe82-3182-844f-e8cf71f45490",
+      "track": 1
+    },
+    {
+      "song": "Chronologie 4",
+      "album": "Chronologie",
+      "albumId": "b3812fae-e1e1-3edb-a21b-e13abccaa5a7",
+      "track": 4
+    },
+    {
+      "song": "Chronologie, Part 2",
+      "album": "Chronologie",
+      "albumId": "b3812fae-e1e1-3edb-a21b-e13abccaa5a7",
+      "track": 2
+    },
+    {
+      "song": "Chronologie, Part 3",
+      "album": "Chronologie",
+      "albumId": "b3812fae-e1e1-3edb-a21b-e13abccaa5a7",
+      "track": 3
+    },
+    {
+      "song": "Chronologie, Part 4",
+      "album": "Chronologie",
+      "albumId": "b3812fae-e1e1-3edb-a21b-e13abccaa5a7",
+      "track": 4
+    },
+    {
+      "song": "Chronologie, Part 8",
+      "album": "Chronologie",
+      "albumId": "b3812fae-e1e1-3edb-a21b-e13abccaa5a7",
+      "track": 8
+    },
+    {
+      "song": "Equinox Part 4",
+      "album": "Équinoxe",
+      "albumId": "277825f9-e05c-3b57-bc4b-c49755ea5823",
+      "track": 4
+    },
+    {
+      "song": "Equinox, Part 5",
+      "album": "Équinoxe",
+      "albumId": "277825f9-e05c-3b57-bc4b-c49755ea5823",
+      "track": 5
+    },
+    {
+      "song": "Equinoxe, Part 4",
+      "album": "Équinoxe",
+      "albumId": "277825f9-e05c-3b57-bc4b-c49755ea5823",
+      "track": 4
+    },
+    {
+      "song": "Equinoxe, Part 5",
+      "album": "Équinoxe",
+      "albumId": "277825f9-e05c-3b57-bc4b-c49755ea5823",
+      "track": 5
+    },
+    {
+      "song": "Industrial Revolution: Overture",
+      "album": "Revolutions",
+      "albumId": "2cc8fe44-5a30-39c9-aea1-9a85724c0c9d",
+      "track": 1
+    },
+    {
+      "song": "Les chants magnetiques, Part 2",
+      "album": "Les Chants magnétiques / Magnetic Fields",
+      "albumId": "64d6e6dc-6c58-3f91-bca9-aa3e33b9bbc0",
+      "track": 2
+    },
+    {
+      "song": "Magnetic Fields, Part 1",
+      "album": "Les Chants magnétiques / Magnetic Fields",
+      "albumId": "64d6e6dc-6c58-3f91-bca9-aa3e33b9bbc0",
+      "track": 1
+    },
+    {
+      "song": "Orient Express",
+      "album": "Les Concerts en Chine",
+      "albumId": "d5bd79b4-eb0e-35ec-b5d9-b1439a29b051",
+      "track": 7
+    },
+    {
+      "song": "Oxygene, Part 1",
+      "album": "Oxygène",
+      "albumId": "3055cd07-9b9d-34ed-b227-942ba6977174",
+      "track": 1
+    },
+    {
+      "song": "Oxygene, Part 3",
+      "album": "Oxygène",
+      "albumId": "3055cd07-9b9d-34ed-b227-942ba6977174",
+      "track": 3
+    },
+    {
+      "song": "Oxygene, Part 4",
+      "album": "Oxygène",
+      "albumId": "3055cd07-9b9d-34ed-b227-942ba6977174",
+      "track": 4
+    },
+    {
+      "song": "Oxygene, Part 6",
+      "album": "Oxygène",
+      "albumId": "3055cd07-9b9d-34ed-b227-942ba6977174",
+      "track": 6
+    },
+    {
+      "song": "Rendez-vous 2",
+      "album": "Rendez‐vous",
+      "albumId": "0914d4a3-0b9c-370c-b33e-fb1bd8ccc5ab",
+      "track": 2
+    },
+    {
+      "song": "Second Rendez-vous, Part 2",
+      "album": "Rendez‐vous",
+      "albumId": "0914d4a3-0b9c-370c-b33e-fb1bd8ccc5ab",
+      "track": 2
+    },
+    {
+      "song": "Souvenir de Chine",
+      "album": "Les Concerts en Chine",
+      "albumId": "d5bd79b4-eb0e-35ec-b5d9-b1439a29b051",
+      "track": 15
+    },
+    {
+      "song": "Souvenir of China",
+      "album": "Les Concerts en Chine",
+      "albumId": "d5bd79b4-eb0e-35ec-b5d9-b1439a29b051",
+      "track": 15
+    },
+    {
+      "song": "Waiting for Cousteau",
+      "album": "En attendant Cousteau / Waiting for Cousteau",
+      "albumId": "361bd924-fe82-3182-844f-e8cf71f45490",
+      "track": 4
+    }
+  ],
+  "unmatched": [
+    "Oxygene, Part 8 (Dado FM remix)"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Oxygene, Part 8 (Dado FM remix)": []
+  }
+}

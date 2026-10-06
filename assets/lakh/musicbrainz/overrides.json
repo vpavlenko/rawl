@@ -942,5 +942,64 @@
         "title": "Rollin' and Tumblin'"
       }
     }
+  },
+  "Jean Michel Jarre": {
+    "name": "Jean Michel Jarre",
+    "mbid": "86e2e2ad-6d1b-44fd-9463-b6683718a1cc",
+    "country": "FR",
+    "includedReleaseGroups": [
+      "d5bd79b4-eb0e-35ec-b5d9-b1439a29b051"
+    ],
+    "songs": {
+      "Calypso (Part 3)": {
+        "title": "Calypso, Part 3 (fin de siècle)"
+      },
+      "Chronologie 4": {
+        "title": "Chronologie, Part 4"
+      },
+      "Equinox Part 4": {
+        "title": "Équinoxe, Part 4"
+      },
+      "Equinox, Part 5": {
+        "title": "Équinoxe, Part 5"
+      },
+      "Magnetic Fields, Part 1": {
+        "title": "Les Chants magnétiques, Part 1"
+      },
+      "Oxygene, Part 1": {
+        "title": "Oxygène, Part I"
+      },
+      "Oxygene, Part 3": {
+        "title": "Oxygène, Part III"
+      },
+      "Rendez-vous 2": {
+        "title": "Second rendez-vous"
+      },
+      "Second Rendez-vous, Part 2": {
+        "title": "Second rendez-vous"
+      },
+      "Waiting for Cousteau": {
+        "title": "En attendant Cousteau"
+      },
+      "Arpeggiator": {
+        "title": "Arpégiateur"
+      },
+      "Oxygene, Part 4": {
+        "title": "Oxygène, Part IV",
+        "albumId": "3055cd07-9b9d-34ed-b227-942ba6977174"
+      },
+      "Oxygene, Part 6": {
+        "title": "Oxygène, Part VI",
+        "albumId": "3055cd07-9b9d-34ed-b227-942ba6977174"
+      },
+      "Industrial Revolution: Overture": {
+        "title": "Révolution industrielle, Ouverture",
+        "albumId": "2cc8fe44-5a30-39c9-aea1-9a85724c0c9d"
+      },
+      "Calypso (Part 1)": {
+        "title": "Calypso",
+        "albumId": "361bd924-fe82-3182-844f-e8cf71f45490"
+      }
+    }
   }
 }

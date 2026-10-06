@@ -1,0 +1,261 @@
+{
+  "artist": "Jean Michel Jarre",
+  "artistId": "86e2e2ad-6d1b-44fd-9463-b6683718a1cc",
+  "groups": [
+    {
+      "id": "3055cd07-9b9d-34ed-b227-942ba6977174",
+      "releaseId": "1d33339e-6da1-40bd-b553-141cbe1e90bd",
+      "title": "Oxygène",
+      "date": "1976-12-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3055cd07-9b9d-34ed-b227-942ba6977174/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Oxygene, Part 1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Oxygene, Part 3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Oxygene, Part 4.mid",
+            "Oxygene, Part 4.1.mid",
+            "Oxygene, Part 4.2.mid",
+            "Oxygene, Part 4.3.mid",
+            "Oxygene, Part 4.4.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Oxygene, Part 6.mid",
+            "Oxygene, Part 6.1.mid",
+            "Oxygene, Part 6.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "277825f9-e05c-3b57-bc4b-c49755ea5823",
+      "releaseId": "c647a254-fd47-34eb-9f0f-1b8af5c143b7",
+      "title": "Équinoxe",
+      "date": "1978-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/277825f9-e05c-3b57-bc4b-c49755ea5823/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Equinox Part 4.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Equinoxe, Part 4.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Equinox, Part 5.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Equinoxe, Part 5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "64d6e6dc-6c58-3f91-bca9-aa3e33b9bbc0",
+      "releaseId": "9e48fc21-b724-3903-82f8-c2a9bf32cd38",
+      "title": "Les Chants magnétiques / Magnetic Fields",
+      "date": "1981-05-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/64d6e6dc-6c58-3f91-bca9-aa3e33b9bbc0/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Magnetic Fields, Part 1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Les chants magnetiques, Part 2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d5bd79b4-eb0e-35ec-b5d9-b1439a29b051",
+      "releaseId": "711ca982-7dcd-4788-b3d1-0d5cd4f9b98a",
+      "title": "Les Concerts en Chine",
+      "date": "1982",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d5bd79b4-eb0e-35ec-b5d9-b1439a29b051/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Arpeggiator.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Orient Express.mid",
+            "Orient Express.1.mid"
+          ]
+        },
+        {
+          "number": 15,
+          "files": [
+            "Souvenir de Chine.mid"
+          ]
+        },
+        {
+          "number": 15,
+          "files": [
+            "Souvenir of China.mid",
+            "Souvenir of China.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0914d4a3-0b9c-370c-b33e-fb1bd8ccc5ab",
+      "releaseId": "205a7b0e-9138-4ccf-8191-199533e09dce",
+      "title": "Rendez‐vous",
+      "date": "1986-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0914d4a3-0b9c-370c-b33e-fb1bd8ccc5ab/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Rendez-vous 2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Second Rendez-vous, Part 2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2cc8fe44-5a30-39c9-aea1-9a85724c0c9d",
+      "releaseId": "14309483-dbbe-3ef6-b5e6-8662a80ba2df",
+      "title": "Revolutions",
+      "date": "1988-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2cc8fe44-5a30-39c9-aea1-9a85724c0c9d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Industrial Revolution: Overture.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "361bd924-fe82-3182-844f-e8cf71f45490",
+      "releaseId": "7187879d-663b-316d-bbdd-cacd0c8f5365",
+      "title": "En attendant Cousteau / Waiting for Cousteau",
+      "date": "1990-06-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/361bd924-fe82-3182-844f-e8cf71f45490/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Calypso (Part 1).mid",
+            "Calypso (Part 1).1.mid",
+            "Calypso (Part 1).2.mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "Calypso.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Calypso, Part 2.mid",
+            "Calypso, Part 2.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Calypso (Part 3).mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Waiting for Cousteau.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3812fae-e1e1-3edb-a21b-e13abccaa5a7",
+      "releaseId": "c392caa4-6f94-4d38-a57d-49d45dc96ee2",
+      "title": "Chronologie",
+      "date": "1993-10-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b3812fae-e1e1-3edb-a21b-e13abccaa5a7/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Chronologie, Part 2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Chronologie, Part 3.mid",
+            "Chronologie, Part 3.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Chronologie 4.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Chronologie, Part 4.mid",
+            "Chronologie, Part 4.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Chronologie, Part 8.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

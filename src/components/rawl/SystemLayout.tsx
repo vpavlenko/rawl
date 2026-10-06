@@ -322,6 +322,7 @@ export type SystemLayoutProps = {
   onRenameVoicesWithInstrumentTimbres?: () => void;
   voiceOctaveShifts?: Record<number, number>;
   onShiftVoiceOctave?: (voiceIndex: number, direction: 1 | -1) => void;
+  onAutoArrangeVoices?: () => void;
   onToggleVoiceStrumming?: (voiceIndex: number) => void;
   onToggleVoiceDrum?: (voiceIndex: number) => void;
   excludedVoices?: number[];
@@ -830,6 +831,7 @@ export const MergedSystemLayout: React.FC<
           onRenameVoicesWithInstrumentTimbres={props.onRenameVoicesWithInstrumentTimbres}
           voiceOctaveShifts={props.voiceOctaveShifts}
           onShiftVoiceOctave={props.onShiftVoiceOctave}
+          onAutoArrangeVoices={props.onAutoArrangeVoices}
           strummingVoices={props.strummingVoices}
           onToggleVoiceStrumming={props.onToggleVoiceStrumming}
           onToggleVoiceDrum={props.onToggleVoiceDrum}

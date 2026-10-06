@@ -5933,6 +5933,7 @@ export const corpora: CorpusEntry[] = [
     midis: [
       "wave---antonio-carlos-jobim-jazz-piano-solo",
       "desafinado",
+      "desafinado-melody",
       "aguas-de-marco---elis-regina-e-tom-jobim",
       "how_insensitive_insensatez",
       "corcovado",

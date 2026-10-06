@@ -1,5 +1,5 @@
-import React, { useContext, useMemo } from "react";
-import styled from "styled-components";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import styled, { keyframes } from "styled-components";
 import { useLocalStorage } from "usehooks-ts";
 import { AppContext } from "../../AppContext";
 import Drum from "../../icons/Drum";
@@ -58,6 +58,19 @@ const VoiceRow = styled.div`
   }
 `;
 
+const reorderFlash = keyframes`
+  0%, 100% { background-color: transparent; box-shadow: none; }
+  20%, 60% {
+    background-color: rgba(142, 232, 208, 0.22);
+    box-shadow: 0 0 10px rgba(142, 232, 208, 0.45);
+  }
+`;
+
+const VoiceList = styled.div<{ $flashing: boolean }>`
+  border-radius: 4px;
+  animation: ${({ $flashing }) => $flashing ? reorderFlash : "none"} 900ms ease-out;
+`;
+
 const VoiceCheckbox = styled.input`
   flex-shrink: 0;
   width: 11px;
@@ -82,6 +95,7 @@ type MergedVoicesLegendProps = {
   onRenameVoicesWithInstrumentTimbres?: () => void;
   voiceOctaveShifts?: Record<number, number>;
   onShiftVoiceOctave?: (voiceIndex: number, direction: 1 | -1) => void;
+  onAutoArrangeVoices?: () => void;
   onToggleVoiceStrumming?: (voiceIndex: number) => void;
   onToggleVoiceDrum?: (voiceIndex: number) => void;
   onToggleVoiceExcluded?: (voiceIndex: number) => void;
@@ -104,6 +118,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
   onRenameVoicesWithInstrumentTimbres,
   voiceOctaveShifts = {},
   onShiftVoiceOctave,
+  onAutoArrangeVoices,
   strummingVoices = [],
   onToggleVoiceStrumming,
   onToggleVoiceDrum,
@@ -117,9 +132,54 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
   );
   const excluded = new Set(excludedVoices);
   const allIncluded = voiceMask.map((_, index) => !excluded.has(index));
-  const sortedVoices = useMemo(
+  const targetVoices = useMemo(
     () => getSortedVoices(voiceNames, notes, drumVoices, nativeDrumVoices),
     [voiceNames, notes, drumVoices, nativeDrumVoices],
+  );
+
+  const targetOrder = targetVoices.map(({ voiceIndex }) => voiceIndex).join(",");
+  const shiftKey = JSON.stringify(
+    voiceNames.map((_, index) => voiceOctaveShifts[index] ?? 0),
+  );
+  const [displayedOrder, setDisplayedOrder] = useState(targetOrder);
+  const [flashing, setFlashing] = useState(false);
+  const previousShifts = useRef({ slug, shiftKey });
+  const reorderAt = useRef(0);
+
+  useEffect(() => {
+    if (previousShifts.current.slug !== slug) {
+      reorderAt.current = 0;
+      setFlashing(false);
+    } else if (previousShifts.current.shiftKey !== shiftKey) {
+      // Keep the buttons in place until five seconds after the last octave edit.
+      reorderAt.current = Date.now() + 5000;
+    }
+    previousShifts.current = { slug, shiftKey };
+    const delay = Math.max(0, reorderAt.current - Date.now());
+    if (!delay) {
+      setDisplayedOrder(targetOrder);
+      return;
+    }
+    const timer = window.setTimeout(() => {
+      reorderAt.current = 0;
+      if (displayedOrder !== targetOrder) {
+        onVoiceHover(null);
+        setDisplayedOrder(targetOrder);
+        setFlashing(true);
+      }
+    }, delay);
+    return () => window.clearTimeout(timer);
+  }, [slug, shiftKey, targetOrder, displayedOrder, onVoiceHover]);
+
+  useEffect(() => {
+    if (!flashing) return;
+    const timer = window.setTimeout(() => setFlashing(false), 900);
+    return () => window.clearTimeout(timer);
+  }, [flashing]);
+
+  const order = displayedOrder.split(",").map(Number);
+  const sortedVoices = [...targetVoices].sort(
+    (a, b) => order.indexOf(a.voiceIndex) - order.indexOf(b.voiceIndex),
   );
 
   const handlePanningToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -185,6 +245,29 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
             Rename voices with instrument timbres
           </button>
         )}
+        {!!user && onAutoArrangeVoices && (
+          <button
+            type="button"
+            onClick={() => {
+              onVoiceHover(null);
+              onAutoArrangeVoices();
+            }}
+            disabled={targetVoices.filter(({ voiceIndex, isDrum }) =>
+              !isDrum && !excluded.has(voiceIndex) && notes[voiceIndex]?.length,
+            ).length < 2}
+            title="Keep the lowest voice fixed and raise each higher voice by octaves until at most 5% of its notes overlap lower voices in time and pitch"
+            style={{
+              display: "flex", alignItems: "center", gap: 4,
+              margin: "0 0 8px 17px", padding: "3px 5px",
+              fontSize: 11, color: "#aaa", background: "#111",
+              border: "1px solid #333", borderRadius: 3, cursor: "pointer",
+            }}
+          >
+            <ArrowUp />
+            Auto-arrange voices
+          </button>
+        )}
+        <VoiceList $flashing={flashing}>
         {sortedVoices.map(
           ({ voiceName, voiceIndex, isDrum }) =>
             !excluded.has(voiceIndex) && (
@@ -334,6 +417,7 @@ const MergedVoicesLegend: React.FC<MergedVoicesLegendProps> = ({
               </VoiceRow>
             ),
         )}
+        </VoiceList>
         {excludedVoices.length > 0 && canEditArrangement && (
           <details style={{ marginTop: 8, background: "#111", padding: 6 }}>
             <summary style={{ cursor: "pointer" }}>

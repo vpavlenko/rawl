@@ -29,6 +29,7 @@ import FormPartContents from "./FormPartContents";
 import FrozenNotesLayout from "./FrozenNotesLayout";
 import { DrumPlaybackContext, useDrumPlaybackClock } from "./drumPlayback";
 import { NotePlaybackContext, useNotePlaybackClock } from "./notePlayback";
+import { getAutoVoiceOctaveShifts } from "./voiceOrder";
 import { findStrumNotes } from "./strumDetection";
 import { StrumNotesContext } from "./strumContext";
 import { findPlaybackMeasure } from "./playbackIndex";
@@ -782,6 +783,21 @@ const Rawl: React.FC<RawlProps> = ({
     [coloredNotes, voiceOctaveShifts],
   );
 
+  const autoArrangeVoices = useCallback(() => {
+    const shifts = getAutoVoiceOctaveShifts(
+      annotatedVoiceNames,
+      displayNotes,
+      voiceOctaveShifts,
+      drumVoices,
+      nativeDrumVoices,
+      excludedVoices,
+    );
+    commitAnalysisUpdate({ voiceOctaveShifts: shifts });
+  }, [
+    annotatedVoiceNames, displayNotes, voiceOctaveShifts, drumVoices,
+    nativeDrumVoices, excludedVoices, commitAnalysisUpdate,
+  ]);
+
   useEffect(() => {
     if (isEmbedded) return;
     // Committed timing/analysis only: hover previews and voice masks do not
@@ -1034,6 +1050,7 @@ const Rawl: React.FC<RawlProps> = ({
         ? renameVoicesWithInstrumentTimbres : undefined,
       voiceOctaveShifts,
       onShiftVoiceOctave: canEditVoices ? shiftVoiceOctave : undefined,
+      onAutoArrangeVoices: canEditVoices ? autoArrangeVoices : undefined,
       setVoiceMask: setArrangementVoiceMask,
       onVoiceHover,
       onForcedPanningChange,
@@ -1067,6 +1084,7 @@ const Rawl: React.FC<RawlProps> = ({
       annotatedVoiceNames,
       voiceOctaveShifts,
       shiftVoiceOctave,
+      autoArrangeVoices,
       renameVoice,
       renameVoicesWithInstrumentTimbres,
       parsingResult.instrumentNames,

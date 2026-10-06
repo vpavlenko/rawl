@@ -774,7 +774,11 @@ const TonalGrid: React.FC<{
       const toX = Math.min(secondsToX(to), maxX);
       const width = toX - fromX;
       if (width <= 0) continue;
-      for (let octave = 2; octave <= 9; ++octave) {
+      // Octave display shifts can extend a section beyond the MIDI range.
+      // Derive all tonic/fifth rows from its current displayed pitch bounds.
+      const firstOctave = Math.ceil((midiRange[0] + 7 - tonic) / 12);
+      const lastOctave = Math.floor((midiRange[1] + 12 - tonic) / 12);
+      for (let octave = firstOctave; octave <= lastOctave; ++octave) {
         const midiNumber = tonic + octave * 12;
         if (toX >= minX && fromX <= maxX) {
           if (

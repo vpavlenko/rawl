@@ -511,5 +511,15 @@
         "title": "Menta e rosmarino (Edit)"
       }
     }
+  },
+  "Mina": {
+    "name": "Mina",
+    "mbid": "a56f5af0-3e87-4877-b68f-390f62903381",
+    "country": "IT",
+    "songs": {
+      "Questione di feeling (feat. Mina)": {
+        "title": "Questione di feeling"
+      }
+    }
   }
 }

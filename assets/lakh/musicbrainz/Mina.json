@@ -1,0 +1,242 @@
+{
+  "artist": "Mina",
+  "status": "processed",
+  "totalSongs": 42,
+  "matched": [
+    {
+      "song": "Acqua e sale",
+      "album": "Mina Celentano",
+      "albumId": "5c9d94e7-0ce6-3b7c-adff-533a845d2bd7",
+      "track": 1
+    },
+    {
+      "song": "Amor mio",
+      "album": "Mina",
+      "albumId": "11ac9b07-2b04-4b45-885f-0f87f8e59e7f",
+      "track": 8
+    },
+    {
+      "song": "Brivido felino",
+      "album": "Mina Celentano",
+      "albumId": "5c9d94e7-0ce6-3b7c-adff-533a845d2bd7",
+      "track": 2
+    },
+    {
+      "song": "Bugiardo e incosciente",
+      "album": "...bugiardo più che mai... più incosciente che mai...",
+      "albumId": "e8f8f48f-5546-3f07-adbe-1ef388793d66",
+      "track": 7
+    },
+    {
+      "song": "Chiedimi tutto",
+      "album": "Pappa di latte, Vol. 1/2",
+      "albumId": "4ba0008e-4edd-4229-99f6-37c43b4c15d4",
+      "track": 16
+    },
+    {
+      "song": "Conversazione",
+      "album": "Sabato sera: Studio Uno 1967",
+      "albumId": "0a9a7f96-cd3a-4750-8d2b-503ba5ebc320",
+      "track": 7
+    },
+    {
+      "song": "Dottore",
+      "album": "Cremona",
+      "albumId": "fbadc494-a0c2-3b0f-b66c-6883d311fa99",
+      "track": 2
+    },
+    {
+      "song": "E l'uomo per me",
+      "album": "Studio uno",
+      "albumId": "dc848561-a539-3b61-a6cb-47c79b9dac8a",
+      "track": 5
+    },
+    {
+      "song": "E Se Domani",
+      "album": "Mina",
+      "albumId": "fc865983-7625-3d4b-a29d-25e2f1bfcc6b",
+      "track": 7
+    },
+    {
+      "song": "Grande amore",
+      "album": "Olio",
+      "albumId": "39446a76-e348-3396-9035-85cb949791cc",
+      "track": 1
+    },
+    {
+      "song": "Grande grande grande",
+      "album": "Mina",
+      "albumId": "11ac9b07-2b04-4b45-885f-0f87f8e59e7f",
+      "track": 7
+    },
+    {
+      "song": "Indifferentemente",
+      "album": "Napoli",
+      "albumId": "62385243-5973-3cef-a519-3941a51824ba",
+      "track": 10
+    },
+    {
+      "song": "Insieme",
+      "album": "...quando tu mi spiavi in cima a un batticuore...",
+      "albumId": "e0281248-03b9-31c7-8c22-f62403179047",
+      "track": 8
+    },
+    {
+      "song": "Io voglio solo te",
+      "album": "Olio",
+      "albumId": "39446a76-e348-3396-9035-85cb949791cc",
+      "track": 7
+    },
+    {
+      "song": "Joana Francesa",
+      "album": "Lochness",
+      "albumId": "33159dd3-cb2d-3a1c-92bc-cb9a70957ba2",
+      "track": 2
+    },
+    {
+      "song": "L'importante e finire",
+      "album": "La Mina",
+      "albumId": "b9b4f83e-65f1-37be-a7f0-3c0d400ced07",
+      "track": 7
+    },
+    {
+      "song": "La voce del silenzio",
+      "album": "Canzonissima '68",
+      "albumId": "cae254b0-219b-3b26-b776-6de1e9753f5d",
+      "track": 6
+    },
+    {
+      "song": "Nessuno al mondo",
+      "album": "...quando tu mi spiavi in cima a un batticuore...",
+      "albumId": "e0281248-03b9-31c7-8c22-f62403179047",
+      "track": 1
+    },
+    {
+      "song": "Nessuno",
+      "album": "Tintarella di luna",
+      "albumId": "ac7d0f30-c457-3c9a-906e-287197911d6f",
+      "track": 5
+    },
+    {
+      "song": "Noi",
+      "album": "Canarino mannaro",
+      "albumId": "a2e942a8-1572-36ff-bc27-0c0cb31e22d1",
+      "track": 11
+    },
+    {
+      "song": "Non credere",
+      "album": "...bugiardo più che mai... più incosciente che mai...",
+      "albumId": "e8f8f48f-5546-3f07-adbe-1ef388793d66",
+      "track": 10
+    },
+    {
+      "song": "Parole parole",
+      "album": "Cinquemilaquarantatre",
+      "albumId": "b30a35a7-4768-326d-af9a-317f617c7223",
+      "track": 11
+    },
+    {
+      "song": "Prendi una matita",
+      "album": "Due note",
+      "albumId": "82b54385-19da-3274-bf09-4e877f319907",
+      "track": 12
+    },
+    {
+      "song": "Questione di feeling (feat. Mina)",
+      "album": "Finalmente ho conosciuto il conte Dracula...",
+      "albumId": "3956566d-757a-40da-ad85-5ae1933e3dc4",
+      "track": 17
+    },
+    {
+      "song": "Renato",
+      "album": "Renato",
+      "albumId": "937f62f5-205d-3546-bf32-dc2bcb4e5a1e",
+      "track": 1
+    },
+    {
+      "song": "Rose su rose",
+      "album": "Catene, Vol. 2",
+      "albumId": "76fd6081-6fd8-4819-abae-19965362534f",
+      "track": 4
+    },
+    {
+      "song": "Se telefonando",
+      "album": "Studio uno 66",
+      "albumId": "1554ea7b-5a96-3062-884b-6bb22b2d6d3a",
+      "track": 7
+    },
+    {
+      "song": "Sono come tu mi vuoi",
+      "album": "Mi sei scoppiato dentro il cuore",
+      "albumId": "5541df9c-8f8e-4d6b-9912-8ae19b496b99",
+      "track": 9
+    },
+    {
+      "song": "The Captain of Her Heart - Every Breath You Take",
+      "album": "Pappa di latte, Vol. 1/2",
+      "albumId": "4ba0008e-4edd-4229-99f6-37c43b4c15d4",
+      "track": 6
+    },
+    {
+      "song": "Tintarella di luna",
+      "album": "Tintarella di luna",
+      "albumId": "ac7d0f30-c457-3c9a-906e-287197911d6f",
+      "track": 7
+    },
+    {
+      "song": "Torno venerdi",
+      "album": "Pappa di latte, Vol. 1/2",
+      "albumId": "4ba0008e-4edd-4229-99f6-37c43b4c15d4",
+      "track": 20
+    },
+    {
+      "song": "Un anno d'amore",
+      "album": "Studio uno",
+      "albumId": "dc848561-a539-3b61-a6cb-47c79b9dac8a",
+      "track": 2
+    },
+    {
+      "song": "Una zebra a pois",
+      "album": "Il cielo in una stanza",
+      "albumId": "ac0bcc34-6fc9-37c1-9aa0-6cb434af3c3e",
+      "track": 8
+    },
+    {
+      "song": "Volami nel cuore",
+      "album": "Cremona",
+      "albumId": "fbadc494-a0c2-3b0f-b66c-6883d311fa99",
+      "track": 9
+    },
+    {
+      "song": "Vorrei che fosse amore",
+      "album": "Canzonissima '68",
+      "albumId": "cae254b0-219b-3b26-b776-6de1e9753f5d",
+      "track": 7
+    }
+  ],
+  "unmatched": [
+    "Anche tu",
+    "Anche un uomo",
+    "Ancora ancora ancora",
+    "Brava",
+    "Io e te da soli",
+    "Non gioco piu",
+    "Tutti gli Zeri del mondo"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Anche tu": [],
+    "Anche un uomo": [
+      {
+        "title": "Come un uomo",
+        "album": "La Mina",
+        "albumId": "b9b4f83e-65f1-37be-a7f0-3c0d400ced07"
+      }
+    ],
+    "Ancora ancora ancora": [],
+    "Brava": [],
+    "Io e te da soli": [],
+    "Non gioco piu": [],
+    "Tutti gli Zeri del mondo": []
+  }
+}

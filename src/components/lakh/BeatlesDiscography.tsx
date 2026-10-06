@@ -185,7 +185,7 @@ export default function BeatlesDiscography({
     <Discography>
       <div className={groupByAlbum ? "albums" : undefined}>
         {groups.map((group, groupIndex) => (
-          <section className={groupByAlbum ? "album" : undefined} key={group.title} aria-label={group.title}>
+          <section className={groupByAlbum ? "album" : undefined} key={group.id || `${group.title}/${group.date}`} aria-label={group.title}>
             {groupByAlbum && <header>
               {group.cover && (
                 <img
@@ -218,7 +218,7 @@ export default function BeatlesDiscography({
             </header>}
             <ul>
               {group.songs.map((song) => {
-                const key = `${group.title}/${song.title}`;
+                const key = `${group.id || group.title}/${group.date}/${song.number}/${song.title}`;
                 const hasHiddenVersions =
                   !!song.annotatedFile &&
                   song.files.some((file) => !isAnnotated(file));

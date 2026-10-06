@@ -1,0 +1,124 @@
+{
+  "artist": "Paul McCartney",
+  "status": "processed",
+  "totalSongs": 19,
+  "matched": [
+    {
+      "song": "Another Day",
+      "album": "Another Day / Oh Woman, Oh Why",
+      "albumId": "a9b6cb37-3168-3f58-91e9-52de3fb5476f",
+      "track": 1
+    },
+    {
+      "song": "Band On The Run",
+      "album": "Band on the Run",
+      "albumId": "2b678170-1c4e-3e61-b18c-f889fc1537b3",
+      "track": 1
+    },
+    {
+      "song": "Bluebird",
+      "album": "Band on the Run",
+      "albumId": "2b678170-1c4e-3e61-b18c-f889fc1537b3",
+      "track": 3
+    },
+    {
+      "song": "Ebony and Ivory",
+      "album": "Tug of War",
+      "albumId": "e7620374-defe-3656-a65d-ef062ba9df11",
+      "track": 12
+    },
+    {
+      "song": "Goodnight Tonight",
+      "album": "Goodnight Tonight",
+      "albumId": "127274d7-9fae-44b0-9366-5c0eb7b28f06",
+      "track": 1
+    },
+    {
+      "song": "Hi Hi Hi",
+      "album": "Hi, Hi, Hi / C Moon",
+      "albumId": "4841359f-a3f4-3d1b-89cf-cab57bb793dd",
+      "track": 1
+    },
+    {
+      "song": "Jet",
+      "album": "Band on the Run",
+      "albumId": "2b678170-1c4e-3e61-b18c-f889fc1537b3",
+      "track": 2
+    },
+    {
+      "song": "Junior's Farm",
+      "album": "Junior’s Farm / Sally G",
+      "albumId": "b826154b-2fe5-309e-859a-4b7286c287d2",
+      "track": 1
+    },
+    {
+      "song": "Let 'em In",
+      "album": "Wings at the Speed of Sound",
+      "albumId": "0b2cbdd8-440a-3503-947e-4643fae1aa2d",
+      "track": 1
+    },
+    {
+      "song": "Listen to What the Man Said",
+      "album": "Venus and Mars",
+      "albumId": "0dd4d0ee-1a30-3d65-b11d-bb9d4e305ffa",
+      "track": 11
+    },
+    {
+      "song": "Live and Let Die",
+      "album": "Live and Let Die / I Lie Around",
+      "albumId": "b874afa8-15f5-403c-9ff7-bb4aa0c6bd4e",
+      "track": 1
+    },
+    {
+      "song": "Maybe I'm Amazed",
+      "album": "McCartney",
+      "albumId": "d6a52dc7-f4fa-4d10-89d9-5a99d178dae9",
+      "track": 12
+    },
+    {
+      "song": "Monkberry Moon Delight",
+      "album": "RAM",
+      "albumId": "434d4068-8404-359a-9585-3376d3d1680d",
+      "track": 8
+    },
+    {
+      "song": "My Love",
+      "album": "Red Rose Speedway",
+      "albumId": "e8bd188c-deb4-398b-bde8-3a58f7f5c4b4",
+      "track": 2
+    },
+    {
+      "song": "No More Lonely Nights (Ballad reprise)",
+      "album": "Give My Regards to Broad Street",
+      "albumId": "31b56849-19b8-3454-af3f-b72891f34ae4",
+      "track": 10
+    },
+    {
+      "song": "Silly Love Songs",
+      "album": "Wings at the Speed of Sound",
+      "albumId": "0b2cbdd8-440a-3503-947e-4643fae1aa2d",
+      "track": 6
+    },
+    {
+      "song": "Twenty Flight Rock",
+      "album": "Снова в СССР",
+      "albumId": "8de2765c-7315-3fa9-a868-735b308d0780",
+      "track": 2
+    },
+    {
+      "song": "Uncle Albert   Admiral Halsey",
+      "album": "RAM",
+      "albumId": "434d4068-8404-359a-9585-3376d3d1680d",
+      "track": 5
+    },
+    {
+      "song": "With a Little Luck",
+      "album": "London Town",
+      "albumId": "83946933-8806-39e8-ba01-b868abc3f0bc",
+      "track": 9
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

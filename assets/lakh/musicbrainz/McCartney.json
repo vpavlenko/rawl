@@ -1,0 +1,278 @@
+{
+  "artist": "McCartney",
+  "status": "processed",
+  "totalSongs": 45,
+  "matched": [
+    {
+      "song": "Another Day",
+      "album": "Another Day / Oh Woman, Oh Why",
+      "albumId": "a9b6cb37-3168-3f58-91e9-52de3fb5476f",
+      "track": 1
+    },
+    {
+      "song": "Ballroom Dancing",
+      "album": "Tug of War",
+      "albumId": "e7620374-defe-3656-a65d-ef062ba9df11",
+      "track": 6
+    },
+    {
+      "song": "Band On The Run",
+      "album": "Band on the Run",
+      "albumId": "2b678170-1c4e-3e61-b18c-f889fc1537b3",
+      "track": 1
+    },
+    {
+      "song": "Biker Like an Icon",
+      "album": "Off the Ground",
+      "albumId": "23edafe6-b651-38f3-99a7-7fca03a7fe0f",
+      "track": 6
+    },
+    {
+      "song": "Bip Bop",
+      "album": "Wild Life",
+      "albumId": "ddf9c700-2c00-3ea3-bb1f-7bf314ed88fa",
+      "track": 2
+    },
+    {
+      "song": "C Moon",
+      "album": "Hi, Hi, Hi / C Moon",
+      "albumId": "4841359f-a3f4-3d1b-89cf-cab57bb793dd",
+      "track": 2
+    },
+    {
+      "song": "C'Mon People",
+      "album": "Off the Ground",
+      "albumId": "23edafe6-b651-38f3-99a7-7fca03a7fe0f",
+      "track": 12
+    },
+    {
+      "song": "Coming Up",
+      "album": "McCartney II",
+      "albumId": "8882d1e4-2a6e-334f-abf7-ffa2e8b83aa7",
+      "track": 1
+    },
+    {
+      "song": "Ebony and Ivory",
+      "album": "Tug of War",
+      "albumId": "e7620374-defe-3656-a65d-ef062ba9df11",
+      "track": 12
+    },
+    {
+      "song": "Every Night",
+      "album": "McCartney",
+      "albumId": "d6a52dc7-f4fa-4d10-89d9-5a99d178dae9",
+      "track": 4
+    },
+    {
+      "song": "Figure of Eight",
+      "album": "Flowers in the Dirt",
+      "albumId": "069723af-5af7-350f-a5fa-bfc13c901649",
+      "track": 7
+    },
+    {
+      "song": "Goodnight Tonight",
+      "album": "Goodnight Tonight",
+      "albumId": "127274d7-9fae-44b0-9366-5c0eb7b28f06",
+      "track": 1
+    },
+    {
+      "song": "Heart of the Country",
+      "album": "RAM",
+      "albumId": "434d4068-8404-359a-9585-3376d3d1680d",
+      "track": 7
+    },
+    {
+      "song": "Hi Hi Hi",
+      "album": "Hi, Hi, Hi / C Moon",
+      "albumId": "4841359f-a3f4-3d1b-89cf-cab57bb793dd",
+      "track": 1
+    },
+    {
+      "song": "Hope of Deliverance",
+      "album": "Off the Ground",
+      "albumId": "23edafe6-b651-38f3-99a7-7fca03a7fe0f",
+      "track": 3
+    },
+    {
+      "song": "How Many People",
+      "album": "Flowers in the Dirt",
+      "albumId": "069723af-5af7-350f-a5fa-bfc13c901649",
+      "track": 11
+    },
+    {
+      "song": "Junior's Farm",
+      "album": "Junior’s Farm / Sally G",
+      "albumId": "b826154b-2fe5-309e-859a-4b7286c287d2",
+      "track": 1
+    },
+    {
+      "song": "Let 'em In",
+      "album": "Wings at the Speed of Sound",
+      "albumId": "0b2cbdd8-440a-3503-947e-4643fae1aa2d",
+      "track": 1
+    },
+    {
+      "song": "Let Me Roll It",
+      "album": "Band on the Run",
+      "albumId": "2b678170-1c4e-3e61-b18c-f889fc1537b3",
+      "track": 5
+    },
+    {
+      "song": "Letting Go",
+      "album": "Venus and Mars",
+      "albumId": "0dd4d0ee-1a30-3d65-b11d-bb9d4e305ffa",
+      "track": 6
+    },
+    {
+      "song": "Listen to What the Man Said",
+      "album": "Venus and Mars",
+      "albumId": "0dd4d0ee-1a30-3d65-b11d-bb9d4e305ffa",
+      "track": 11
+    },
+    {
+      "song": "Magneto and Titanium Man",
+      "album": "Venus and Mars",
+      "albumId": "0dd4d0ee-1a30-3d65-b11d-bb9d4e305ffa",
+      "track": 5
+    },
+    {
+      "song": "Monkberry Moon Delight",
+      "album": "RAM",
+      "albumId": "434d4068-8404-359a-9585-3376d3d1680d",
+      "track": 8
+    },
+    {
+      "song": "Mull of Kintyre",
+      "album": "Man on the Run: Music From the Motion Picture Soundtrack",
+      "albumId": "aa5c18f9-2174-4af9-91ac-549b081e5a40",
+      "track": 10
+    },
+    {
+      "song": "My Brave Face",
+      "album": "Flowers in the Dirt",
+      "albumId": "069723af-5af7-350f-a5fa-bfc13c901649",
+      "track": 1
+    },
+    {
+      "song": "My Love",
+      "album": "Red Rose Speedway",
+      "albumId": "e8bd188c-deb4-398b-bde8-3a58f7f5c4b4",
+      "track": 2
+    },
+    {
+      "song": "Nineteen Hundred and Eighty Five",
+      "album": "Band on the Run",
+      "albumId": "2b678170-1c4e-3e61-b18c-f889fc1537b3",
+      "track": 9
+    },
+    {
+      "song": "No More Lonely Nights (Ballad reprise)",
+      "album": "Give My Regards to Broad Street",
+      "albumId": "31b56849-19b8-3454-af3f-b72891f34ae4",
+      "track": 10
+    },
+    {
+      "song": "Picasso's Last Words (Drink to Me)",
+      "album": "Band on the Run",
+      "albumId": "2b678170-1c4e-3e61-b18c-f889fc1537b3",
+      "track": 8
+    },
+    {
+      "song": "Pipes of Peace",
+      "album": "Pipes of Peace",
+      "albumId": "caae8ac4-3c11-307a-b111-1efe880ef1b1",
+      "track": 1
+    },
+    {
+      "song": "Put It There",
+      "album": "Flowers in the Dirt",
+      "albumId": "069723af-5af7-350f-a5fa-bfc13c901649",
+      "track": 6
+    },
+    {
+      "song": "Rock Show",
+      "album": "Venus and Mars",
+      "albumId": "0dd4d0ee-1a30-3d65-b11d-bb9d4e305ffa",
+      "track": 2
+    },
+    {
+      "song": "Say Say Say",
+      "album": "Pipes of Peace",
+      "albumId": "caae8ac4-3c11-307a-b111-1efe880ef1b1",
+      "track": 2
+    },
+    {
+      "song": "Silly Love Songs",
+      "album": "Wings at the Speed of Sound",
+      "albumId": "0b2cbdd8-440a-3503-947e-4643fae1aa2d",
+      "track": 6
+    },
+    {
+      "song": "Take It Away",
+      "album": "Tug of War",
+      "albumId": "e7620374-defe-3656-a65d-ef062ba9df11",
+      "track": 2
+    },
+    {
+      "song": "Temporary Secretary",
+      "album": "McCartney II",
+      "albumId": "8882d1e4-2a6e-334f-abf7-ffa2e8b83aa7",
+      "track": 2
+    },
+    {
+      "song": "That Day Is Done",
+      "album": "Flowers in the Dirt",
+      "albumId": "069723af-5af7-350f-a5fa-bfc13c901649",
+      "track": 10
+    },
+    {
+      "song": "Tug of War",
+      "album": "Tug of War",
+      "albumId": "e7620374-defe-3656-a65d-ef062ba9df11",
+      "track": 1
+    },
+    {
+      "song": "Uncle Albert   Admiral Halsey",
+      "album": "RAM",
+      "albumId": "434d4068-8404-359a-9585-3376d3d1680d",
+      "track": 5
+    },
+    {
+      "song": "Venus and Mars",
+      "album": "Venus and Mars",
+      "albumId": "0dd4d0ee-1a30-3d65-b11d-bb9d4e305ffa",
+      "track": 1
+    },
+    {
+      "song": "Wanderlust",
+      "album": "Tug of War",
+      "albumId": "e7620374-defe-3656-a65d-ef062ba9df11",
+      "track": 8
+    },
+    {
+      "song": "We Got Married",
+      "album": "Flowers in the Dirt",
+      "albumId": "069723af-5af7-350f-a5fa-bfc13c901649",
+      "track": 5
+    },
+    {
+      "song": "Wild Life",
+      "album": "Wild Life",
+      "albumId": "ddf9c700-2c00-3ea3-bb1f-7bf314ed88fa",
+      "track": 4
+    },
+    {
+      "song": "With a Little Luck",
+      "album": "London Town",
+      "albumId": "83946933-8806-39e8-ba01-b868abc3f0bc",
+      "track": 9
+    }
+  ],
+  "unmatched": [
+    "I Love You Dad"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "I Love You Dad": []
+  }
+}

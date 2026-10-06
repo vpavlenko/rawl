@@ -88,12 +88,15 @@ def process(artist, config):
         config[name] = settings
         write(REPORTS / 'overrides.json', config)
     print(name + ': fetching releases for ' + identity, flush=True)
-    groups = browse('release-group', 'release-groups', artist=identity, inc='artist-credits')
+    credited_artists = [identity, *settings.get('relatedArtistIds', [])]
+    groups = list({group['id']: group for credited_artist in credited_artists
+                   for group in browse('release-group', 'release-groups',
+                                       artist=credited_artist, inc='artist-credits')}.values())
     # Composer credits and guest appearances can bring in other performers' albums.
     groups = [g for g in groups if next(
         (credit['artist']['id'] for credit in g.get('artist-credit', []) if isinstance(credit, dict) and 'artist' in credit),
         None,
-    ) == identity]
+    ) in credited_artists]
     allowed_secondary = set(settings.get('allowedSecondaryTypes', []))
     included_groups = set(settings.get('includedReleaseGroups', []))
     excluded_groups = set(settings.get('excludedReleaseGroups', []))

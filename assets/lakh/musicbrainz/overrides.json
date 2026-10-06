@@ -96,7 +96,21 @@
     "name": "Pino Daniele"
   },
   "McCartney": {
-    "name": "Paul McCartney"
+    "name": "Paul McCartney",
+    "mbid": "ba550d0e-adac-4864-b88b-407cab5e76af",
+    "country": "GB",
+    "relatedArtistIds": [
+      "d922d727-240a-4432-9a88-05a7cf9bc403"
+    ],
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "songs": {
+      "No More Lonely Nights (Ballad reprise)": {
+        "title": "No Values / No More Lonely Nights",
+        "albumId": "31b56849-19b8-3454-af3f-b72891f34ae4"
+      }
+    }
   },
   "Pooh": {
     "mbid": "3d6563ff-0dc7-4306-a05f-d68ad7a02964",
@@ -424,5 +438,22 @@
       "51279431-e613-37fe-aaf2-3ac79ad70f64",
       "9698ef45-7904-3644-83ca-b072012e8d5c"
     ]
+  },
+  "Paul McCartney": {
+    "name": "Paul McCartney",
+    "mbid": "ba550d0e-adac-4864-b88b-407cab5e76af",
+    "country": "GB",
+    "relatedArtistIds": [
+      "d922d727-240a-4432-9a88-05a7cf9bc403"
+    ],
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "songs": {
+      "No More Lonely Nights (Ballad reprise)": {
+        "title": "No Values / No More Lonely Nights",
+        "albumId": "31b56849-19b8-3454-af3f-b72891f34ae4"
+      }
+    }
   }
 }

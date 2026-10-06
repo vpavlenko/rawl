@@ -1,0 +1,146 @@
+{
+  "artist": "Carpenters",
+  "status": "processed",
+  "totalSongs": 23,
+  "matched": [
+    {
+      "song": "(They Long to Be) Close to You",
+      "album": "Close to You",
+      "albumId": "ca8d0ba2-f227-3665-9104-30e3c09eafae",
+      "track": 6
+    },
+    {
+      "song": "Breaking Up Is Hard to Do",
+      "album": "A Kind of Hush",
+      "albumId": "e57e6075-994a-3f52-b7ba-31175804a37f",
+      "track": 10
+    },
+    {
+      "song": "Close to You",
+      "album": "Close to You",
+      "albumId": "ca8d0ba2-f227-3665-9104-30e3c09eafae",
+      "track": 6
+    },
+    {
+      "song": "For All We Know",
+      "album": "Carpenters",
+      "albumId": "7b643855-d7cb-3177-8288-a9f080934657",
+      "track": 5
+    },
+    {
+      "song": "Goodbye to Love",
+      "album": "A Song for You",
+      "albumId": "1d47f2fc-cc62-3462-8c0d-d9259820953f",
+      "track": 5
+    },
+    {
+      "song": "Hurting Each Other",
+      "album": "A Song for You",
+      "albumId": "1d47f2fc-cc62-3462-8c0d-d9259820953f",
+      "track": 3
+    },
+    {
+      "song": "I Kept on Loving You",
+      "album": "Close to You",
+      "albumId": "ca8d0ba2-f227-3665-9104-30e3c09eafae",
+      "track": 11
+    },
+    {
+      "song": "I Won't Last A Day Without You",
+      "album": "A Song for You",
+      "albumId": "1d47f2fc-cc62-3462-8c0d-d9259820953f",
+      "track": 10
+    },
+    {
+      "song": "It's Going to Take Some Time",
+      "album": "A Song for You",
+      "albumId": "1d47f2fc-cc62-3462-8c0d-d9259820953f",
+      "track": 4
+    },
+    {
+      "song": "It's Going to Take Sometime",
+      "album": "A Song for You",
+      "albumId": "1d47f2fc-cc62-3462-8c0d-d9259820953f",
+      "track": 4
+    },
+    {
+      "song": "Jambalaya (On the Bayou)",
+      "album": "Now & Then",
+      "albumId": "5d10c3a5-71a5-30a4-85a9-ded51054d97c",
+      "track": 5
+    },
+    {
+      "song": "Let Me Be the One",
+      "album": "Carpenters",
+      "albumId": "7b643855-d7cb-3177-8288-a9f080934657",
+      "track": 3
+    },
+    {
+      "song": "Only Yesterday",
+      "album": "Horizon",
+      "albumId": "33e96e78-0caf-347c-aa2f-6119ba792be0",
+      "track": 2
+    },
+    {
+      "song": "Please Mister Postman",
+      "album": "Horizon",
+      "albumId": "33e96e78-0caf-347c-aa2f-6119ba792be0",
+      "track": 4
+    },
+    {
+      "song": "Rainy Days and Mondays",
+      "album": "Carpenters",
+      "albumId": "7b643855-d7cb-3177-8288-a9f080934657",
+      "track": 1
+    },
+    {
+      "song": "Sing",
+      "album": "Now & Then",
+      "albumId": "5d10c3a5-71a5-30a4-85a9-ded51054d97c",
+      "track": 1
+    },
+    {
+      "song": "Sweet Sweet Smile",
+      "album": "Passage",
+      "albumId": "0a894864-3a05-301f-a7a4-ac4af8a48b0f",
+      "track": 5
+    },
+    {
+      "song": "There's A Kind Of Hush",
+      "album": "A Kind of Hush",
+      "albumId": "e57e6075-994a-3f52-b7ba-31175804a37f",
+      "track": 1
+    },
+    {
+      "song": "This Masquerade",
+      "album": "Now & Then",
+      "albumId": "5d10c3a5-71a5-30a4-85a9-ded51054d97c",
+      "track": 2
+    },
+    {
+      "song": "Top of the World",
+      "album": "A Song for You",
+      "albumId": "1d47f2fc-cc62-3462-8c0d-d9259820953f",
+      "track": 2
+    },
+    {
+      "song": "We've Only Just Began",
+      "album": "Close to You",
+      "albumId": "ca8d0ba2-f227-3665-9104-30e3c09eafae",
+      "track": 1
+    },
+    {
+      "song": "Yesterday Once More (Reprise)",
+      "album": "Now & Then",
+      "albumId": "5d10c3a5-71a5-30a4-85a9-ded51054d97c",
+      "track": 16
+    }
+  ],
+  "unmatched": [
+    "Medley (They long to Be) Close to You   For All We Know   Top of the World   Ticket to Ride   Only Yesterday   I Wont Last a Day Without You   Hurting Each Other   Superstar   Rainy Days and Mondays   Goodbye to Love"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Medley (They long to Be) Close to You   For All We Know   Top of the World   Ticket to Ride   Only Yesterday   I Wont Last a Day Without You   Hurting Each Other   Superstar   Rainy Days and Mondays   Goodbye to Love": []
+  }
+}

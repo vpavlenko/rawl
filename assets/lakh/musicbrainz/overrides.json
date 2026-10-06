@@ -1349,5 +1349,18 @@
         "title": "Livin’ on a Prayer"
       }
     }
+  },
+  "Carpenters": {
+    "name": "Carpenters",
+    "mbid": "4580d83b-093e-4241-91fb-2dd71f5f1f3f",
+    "country": "US",
+    "songs": {
+      "Close to You": {
+        "title": "(They Long to Be) Close to You"
+      },
+      "We've Only Just Began": {
+        "title": "We've Only Just Begun"
+      }
+    }
   }
 }

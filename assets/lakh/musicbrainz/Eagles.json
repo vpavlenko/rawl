@@ -1,0 +1,190 @@
+{
+  "artist": "Eagles",
+  "status": "processed",
+  "totalSongs": 30,
+  "matched": [
+    {
+      "song": "Already Gone",
+      "album": "On the Border",
+      "albumId": "425353d2-98b9-35a0-94d1-15f99f125994",
+      "track": 1
+    },
+    {
+      "song": "Best of My Love",
+      "album": "On the Border",
+      "albumId": "425353d2-98b9-35a0-94d1-15f99f125994",
+      "track": 10
+    },
+    {
+      "song": "Desperado",
+      "album": "Desperado",
+      "albumId": "9e7b49bb-b4bd-3583-87ba-f516f793eff2",
+      "track": 5
+    },
+    {
+      "song": "Get Over It",
+      "album": "Hell Freezes Over",
+      "albumId": "690132da-dcf0-3805-b4ed-b4ec4392ae01",
+      "track": 1
+    },
+    {
+      "song": "Heartache Tonight",
+      "album": "The Long Run",
+      "albumId": "1a265de4-136d-3414-adf5-b0913ca2aa15",
+      "track": 6
+    },
+    {
+      "song": "Hotel California (unplugged)",
+      "album": "Hell Freezes Over",
+      "albumId": "690132da-dcf0-3805-b4ed-b4ec4392ae01",
+      "track": 6
+    },
+    {
+      "song": "Hotel California",
+      "album": "Hotel California",
+      "albumId": "836f349a-0434-3e8b-a0bc-261f77a9f99c",
+      "track": 1
+    },
+    {
+      "song": "I Cant Tell You Why",
+      "album": "The Long Run",
+      "albumId": "1a265de4-136d-3414-adf5-b0913ca2aa15",
+      "track": 2
+    },
+    {
+      "song": "Life in the Fast Lane",
+      "album": "Hotel California",
+      "albumId": "836f349a-0434-3e8b-a0bc-261f77a9f99c",
+      "track": 3
+    },
+    {
+      "song": "Love Will Keep Us Alive",
+      "album": "Hell Freezes Over",
+      "albumId": "690132da-dcf0-3805-b4ed-b4ec4392ae01",
+      "track": 2
+    },
+    {
+      "song": "Lyin' Eyes",
+      "album": "One of These Nights",
+      "albumId": "7f9ea3a4-5c4b-3082-a233-3462540e57e3",
+      "track": 5
+    },
+    {
+      "song": "Lying Eyes",
+      "album": "One of These Nights",
+      "albumId": "7f9ea3a4-5c4b-3082-a233-3462540e57e3",
+      "track": 5
+    },
+    {
+      "song": "New Kid in Town",
+      "album": "Hotel California",
+      "albumId": "836f349a-0434-3e8b-a0bc-261f77a9f99c",
+      "track": 2
+    },
+    {
+      "song": "One of These Nights",
+      "album": "One of These Nights",
+      "albumId": "7f9ea3a4-5c4b-3082-a233-3462540e57e3",
+      "track": 1
+    },
+    {
+      "song": "Peaceful Easy Feeling",
+      "album": "Eagles",
+      "albumId": "23eafc30-3978-37fb-bfa0-8058aa1eb81a",
+      "track": 9
+    },
+    {
+      "song": "Please Come Home for Christmas",
+      "album": "Please Come Home for Christmas / Funky New Year",
+      "albumId": "b8f3a39c-0b35-3bc7-9573-8f895fdc2d6a",
+      "track": 1
+    },
+    {
+      "song": "Pretty Maids All in a Row",
+      "album": "Hotel California",
+      "albumId": "836f349a-0434-3e8b-a0bc-261f77a9f99c",
+      "track": 7
+    },
+    {
+      "song": "Seven Bridges Road",
+      "album": "Eagles Live",
+      "albumId": "3eb36b77-1be2-335d-80cb-c41260856e6a",
+      "track": 7
+    },
+    {
+      "song": "Take It Easy",
+      "album": "Eagles",
+      "albumId": "23eafc30-3978-37fb-bfa0-8058aa1eb81a",
+      "track": 1
+    },
+    {
+      "song": "Take It to the Limit",
+      "album": "One of These Nights",
+      "albumId": "7f9ea3a4-5c4b-3082-a233-3462540e57e3",
+      "track": 6
+    },
+    {
+      "song": "Tequila Sunrise",
+      "album": "Desperado",
+      "albumId": "9e7b49bb-b4bd-3583-87ba-f516f793eff2",
+      "track": 4
+    },
+    {
+      "song": "The Best of My Love",
+      "album": "On the Border",
+      "albumId": "425353d2-98b9-35a0-94d1-15f99f125994",
+      "track": 10
+    },
+    {
+      "song": "The Girl From Yesterday",
+      "album": "Hell Freezes Over",
+      "albumId": "690132da-dcf0-3805-b4ed-b4ec4392ae01",
+      "track": 3
+    },
+    {
+      "song": "The Last Resort",
+      "album": "Hotel California",
+      "albumId": "836f349a-0434-3e8b-a0bc-261f77a9f99c",
+      "track": 9
+    },
+    {
+      "song": "The Long Run",
+      "album": "The Long Run",
+      "albumId": "1a265de4-136d-3414-adf5-b0913ca2aa15",
+      "track": 1
+    },
+    {
+      "song": "The Sad Cafe",
+      "album": "The Long Run",
+      "albumId": "1a265de4-136d-3414-adf5-b0913ca2aa15",
+      "track": 10
+    },
+    {
+      "song": "Try and Love Again",
+      "album": "Hotel California",
+      "albumId": "836f349a-0434-3e8b-a0bc-261f77a9f99c",
+      "track": 8
+    },
+    {
+      "song": "Victim of Love",
+      "album": "Hotel California",
+      "albumId": "836f349a-0434-3e8b-a0bc-261f77a9f99c",
+      "track": 6
+    },
+    {
+      "song": "Wasted Time",
+      "album": "Hotel California",
+      "albumId": "836f349a-0434-3e8b-a0bc-261f77a9f99c",
+      "track": 4
+    },
+    {
+      "song": "Witchy Woman",
+      "album": "Eagles",
+      "albumId": "23eafc30-3978-37fb-bfa0-8058aa1eb81a",
+      "track": 2
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

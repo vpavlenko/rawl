@@ -900,5 +900,23 @@
         "title": "4/3/1943"
       }
     }
+  },
+  "Eagles": {
+    "name": "Eagles",
+    "mbid": "f46bd570-5768-462e-b84c-c7c993bbf47e",
+    "country": "US",
+    "includedReleaseGroups": [
+      "3eb36b77-1be2-335d-80cb-c41260856e6a",
+      "690132da-dcf0-3805-b4ed-b4ec4392ae01"
+    ],
+    "songs": {
+      "Lying Eyes": {
+        "title": "Lyin’ Eyes"
+      },
+      "Hotel California (unplugged)": {
+        "title": "Hotel California",
+        "albumId": "690132da-dcf0-3805-b4ed-b4ec4392ae01"
+      }
+    }
   }
 }

@@ -1,0 +1,16 @@
+{
+  "artist": "Ventures",
+  "status": "processed",
+  "totalSongs": 1,
+  "matched": [
+    {
+      "song": "Walk Don't Run",
+      "album": "Walk, Don’t Run",
+      "albumId": "5c3d4ccd-4c74-3f0f-b7f9-4f15f3b9df42",
+      "track": 6
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

@@ -1231,5 +1231,20 @@
         "title": "We’ve Got It Goin’ On"
       }
     }
+  },
+  "The Ventures": {
+    "name": "The Ventures",
+    "mbid": "b2cc8903-0077-4bef-8454-ac5cef53d126",
+    "country": "US",
+    "songs": {
+      "Blue Star 'The Melodic Theme'": {
+        "title": "Blue Star"
+      }
+    }
+  },
+  "Ventures": {
+    "name": "The Ventures",
+    "mbid": "b2cc8903-0077-4bef-8454-ac5cef53d126",
+    "country": "US"
   }
 }

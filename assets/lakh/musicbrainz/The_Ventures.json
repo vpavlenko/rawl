@@ -1,0 +1,160 @@
+{
+  "artist": "The Ventures",
+  "status": "processed",
+  "totalSongs": 25,
+  "matched": [
+    {
+      "song": "Apache",
+      "album": "The Ventures Play “Telstar”, “The Lonely Bull” and Others",
+      "albumId": "8e426a5c-b66b-3cd6-b829-326bd93bac9e",
+      "track": 5
+    },
+    {
+      "song": "Besame Mucho",
+      "album": "Twist Party, Volume 2",
+      "albumId": "5126a78c-1b98-3ed0-a268-7030061a7078",
+      "track": 4
+    },
+    {
+      "song": "Bird Rockers",
+      "album": "Knock Me Out!",
+      "albumId": "9b25d2f6-7c7c-3d6e-953b-34caf79fcf67",
+      "track": 11
+    },
+    {
+      "song": "Blue Star 'The Melodic Theme'",
+      "album": "Walk, Don’t Run, Volume 2",
+      "albumId": "e6ff34cd-3120-33b9-9666-dd98131b9f6b",
+      "track": 6
+    },
+    {
+      "song": "Blue Star",
+      "album": "Walk, Don’t Run, Volume 2",
+      "albumId": "e6ff34cd-3120-33b9-9666-dd98131b9f6b",
+      "track": 6
+    },
+    {
+      "song": "Bluebird",
+      "album": "Twist Party, Volume 2",
+      "albumId": "5126a78c-1b98-3ed0-a268-7030061a7078",
+      "track": 11
+    },
+    {
+      "song": "Bulldog",
+      "album": "Another Smash!!!",
+      "albumId": "075f6b77-2be9-3c76-ba42-4580dcae4bd0",
+      "track": 4
+    },
+    {
+      "song": "Calcutta",
+      "album": "The Ventures Play “Telstar”, “The Lonely Bull” and Others",
+      "albumId": "8e426a5c-b66b-3cd6-b829-326bd93bac9e",
+      "track": 4
+    },
+    {
+      "song": "Diamond Head",
+      "album": "Walk, Don’t Run, Volume 2",
+      "albumId": "e6ff34cd-3120-33b9-9666-dd98131b9f6b",
+      "track": 2
+    },
+    {
+      "song": "Eleventh Hour",
+      "album": "The Fabulous Ventures",
+      "albumId": "dc733946-3127-37db-8067-ff49fe6bf20c",
+      "track": 3
+    },
+    {
+      "song": "Escape",
+      "album": "Go With The Ventures",
+      "albumId": "96636c9d-edbe-30f7-b03d-acdb08e2ed11",
+      "track": 9
+    },
+    {
+      "song": "Fugitive",
+      "album": "The Fabulous Ventures",
+      "albumId": "dc733946-3127-37db-8067-ff49fe6bf20c",
+      "track": 9
+    },
+    {
+      "song": "Gringo",
+      "album": "Twist With the Ventures",
+      "albumId": "02ca3b05-8626-3fe1-a8c2-d07ff79d2f69",
+      "track": 4
+    },
+    {
+      "song": "Guitar Boogie Shuffle",
+      "album": "Rock and Roll Forever",
+      "albumId": "135e6e08-9687-4951-8037-88ffce7dede4",
+      "track": 8
+    },
+    {
+      "song": "Guitar Twist",
+      "album": "Twist With the Ventures",
+      "albumId": "02ca3b05-8626-3fe1-a8c2-d07ff79d2f69",
+      "track": 6
+    },
+    {
+      "song": "Honky Tonk",
+      "album": "Walk, Don’t Run",
+      "albumId": "5c3d4ccd-4c74-3f0f-b7f9-4f15f3b9df42",
+      "track": 12
+    },
+    {
+      "song": "I Feel Fine",
+      "album": "Knock Me Out!",
+      "albumId": "9b25d2f6-7c7c-3d6e-953b-34caf79fcf67",
+      "track": 1
+    },
+    {
+      "song": "Instant Guitar",
+      "album": "Twist Party, Volume 2",
+      "albumId": "5126a78c-1b98-3ed0-a268-7030061a7078",
+      "track": 7
+    },
+    {
+      "song": "Joker's Wild",
+      "album": "The Ventures Play the \"Batman\" Theme",
+      "albumId": "797b3d0d-e10e-33d4-a951-4e731419bddb",
+      "track": 3
+    },
+    {
+      "song": "Penetration",
+      "album": "(The) Ventures in Space",
+      "albumId": "fceb8704-ddf2-38cf-b685-94444d0a7c14",
+      "track": 8
+    },
+    {
+      "song": "Pipeline",
+      "album": "Surfing",
+      "albumId": "93f5b909-2ee6-34fa-aa0a-d585329e7e7f",
+      "track": 1
+    },
+    {
+      "song": "The Cruel Sea",
+      "album": "The Fabulous Ventures",
+      "albumId": "dc733946-3127-37db-8067-ff49fe6bf20c",
+      "track": 4
+    },
+    {
+      "song": "The Good, The Bad, and The Ugly",
+      "album": "Now Playing",
+      "albumId": "0bb5126c-7f8c-4418-9c46-5faa542ceebc",
+      "track": 7
+    },
+    {
+      "song": "Theme from \"Come September\"",
+      "album": "Going to the Ventures' Dance Party!",
+      "albumId": "50e94012-3e4b-3844-af15-9a26cc4b998e",
+      "track": 2
+    },
+    {
+      "song": "Walk Don't Run",
+      "album": "Walk, Don’t Run",
+      "albumId": "5c3d4ccd-4c74-3f0f-b7f9-4f15f3b9df42",
+      "track": 6
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

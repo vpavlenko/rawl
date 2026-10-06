@@ -1,0 +1,308 @@
+{
+  "artist": "The Ventures",
+  "artistId": "b2cc8903-0077-4bef-8454-ac5cef53d126",
+  "groups": [
+    {
+      "id": "5c3d4ccd-4c74-3f0f-b7f9-4f15f3b9df42",
+      "releaseId": "4a02afcc-23d7-4710-a19c-8d98b2cf3489",
+      "title": "Walk, Don’t Run",
+      "date": "1960-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5c3d4ccd-4c74-3f0f-b7f9-4f15f3b9df42/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Walk Don't Run.mid",
+            "Walk Don't Run.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Honky Tonk.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "075f6b77-2be9-3c76-ba42-4580dcae4bd0",
+      "releaseId": "0c062f6c-39d9-3d2a-8d65-1895a8a84057",
+      "title": "Another Smash!!!",
+      "date": "1961-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/075f6b77-2be9-3c76-ba42-4580dcae4bd0/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Bulldog.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "02ca3b05-8626-3fe1-a8c2-d07ff79d2f69",
+      "releaseId": "c2b3ab1a-7e4a-4481-a714-4dc8b3be73f6",
+      "title": "Twist With the Ventures",
+      "date": "1962-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/02ca3b05-8626-3fe1-a8c2-d07ff79d2f69/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Gringo.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Guitar Twist.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5126a78c-1b98-3ed0-a268-7030061a7078",
+      "releaseId": "7c407990-4193-420b-a067-6e96a030e382",
+      "title": "Twist Party, Volume 2",
+      "date": "1962-05-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5126a78c-1b98-3ed0-a268-7030061a7078/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Besame Mucho.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Instant Guitar.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Bluebird.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "50e94012-3e4b-3844-af15-9a26cc4b998e",
+      "releaseId": "00886c27-1ffe-4d19-b81b-853a42c5d7e7",
+      "title": "Going to the Ventures' Dance Party!",
+      "date": "1962-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/50e94012-3e4b-3844-af15-9a26cc4b998e/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Theme from \"Come September\".mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8e426a5c-b66b-3cd6-b829-326bd93bac9e",
+      "releaseId": "2bc35f7a-4e2a-4418-8af5-33132654c3c7",
+      "title": "The Ventures Play “Telstar”, “The Lonely Bull” and Others",
+      "date": "1963-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8e426a5c-b66b-3cd6-b829-326bd93bac9e/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Calcutta.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Apache.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "93f5b909-2ee6-34fa-aa0a-d585329e7e7f",
+      "releaseId": "a5cc51f6-b8b5-4c85-b03d-8f4483bac057",
+      "title": "Surfing",
+      "date": "1963-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/93f5b909-2ee6-34fa-aa0a-d585329e7e7f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Pipeline.mid",
+            "Pipeline.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fceb8704-ddf2-38cf-b685-94444d0a7c14",
+      "releaseId": "55c83ff6-b5fb-45b5-b32b-b86ccb19d9a5",
+      "title": "(The) Ventures in Space",
+      "date": "1964-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fceb8704-ddf2-38cf-b685-94444d0a7c14/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Penetration.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dc733946-3127-37db-8067-ff49fe6bf20c",
+      "releaseId": "98b6a90b-fb9f-43cd-b0cb-2955edee9b31",
+      "title": "The Fabulous Ventures",
+      "date": "1964-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/dc733946-3127-37db-8067-ff49fe6bf20c/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Eleventh Hour.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "The Cruel Sea.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Fugitive.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e6ff34cd-3120-33b9-9666-dd98131b9f6b",
+      "releaseId": "f31aa7e3-e669-47d4-8414-7c39ee35245b",
+      "title": "Walk, Don’t Run, Volume 2",
+      "date": "1964-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e6ff34cd-3120-33b9-9666-dd98131b9f6b/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Diamond Head.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Blue Star 'The Melodic Theme'.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Blue Star.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9b25d2f6-7c7c-3d6e-953b-34caf79fcf67",
+      "releaseId": "e43d00b8-6e45-4ba5-9ddb-3243b3eca894",
+      "title": "Knock Me Out!",
+      "date": "1965-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9b25d2f6-7c7c-3d6e-953b-34caf79fcf67/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I Feel Fine.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Bird Rockers.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "797b3d0d-e10e-33d4-a951-4e731419bddb",
+      "releaseId": "cd079845-e43d-430d-acca-ad82b655515e",
+      "title": "The Ventures Play the \"Batman\" Theme",
+      "date": "1966-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/797b3d0d-e10e-33d4-a951-4e731419bddb/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Joker's Wild.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "96636c9d-edbe-30f7-b03d-acdb08e2ed11",
+      "releaseId": "9384da2e-77f3-4488-8ecb-5df681f4eab0",
+      "title": "Go With The Ventures",
+      "date": "1966-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/96636c9d-edbe-30f7-b03d-acdb08e2ed11/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "Escape.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "135e6e08-9687-4951-8037-88ffce7dede4",
+      "releaseId": "c2744251-0363-40a2-9e0c-c84e899dcedf",
+      "title": "Rock and Roll Forever",
+      "date": "1972-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/135e6e08-9687-4951-8037-88ffce7dede4/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Guitar Boogie Shuffle.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0bb5126c-7f8c-4418-9c46-5faa542ceebc",
+      "releaseId": "e8774e0d-32f8-4cfa-a512-07afdc8cf1c7",
+      "title": "Now Playing",
+      "date": "1975-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0bb5126c-7f8c-4418-9c46-5faa542ceebc/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "The Good, The Bad, and The Ugly.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

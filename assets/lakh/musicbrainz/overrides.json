@@ -625,5 +625,22 @@
         "title": "Shout! (Rio mix)"
       }
     }
+  },
+  "Enya": {
+    "name": "Enya",
+    "mbid": "4967c0a1-b9f3-465e-8440-4598fd9fc33c",
+    "country": "IE",
+    "songs": {
+      "Ebudae": {
+        "title": "Ebudæ"
+      },
+      "Evening Eall": {
+        "title": "Evening Falls…"
+      },
+      "Orinoco Flow (Sail Away)": {
+        "title": "Orinoco Flow",
+        "albumId": "a2cb6793-9f04-35d9-8cb8-03c6fa7ae240"
+      }
+    }
   }
 }

@@ -1,0 +1,190 @@
+{
+  "artist": "883",
+  "status": "processed",
+  "totalSongs": 30,
+  "matched": [
+    {
+      "song": "Andra tutto bene ('58)",
+      "album": "La dura legge del gol!",
+      "albumId": "826dce9f-4b4c-3dcc-9c70-9355c085e907",
+      "track": 8
+    },
+    {
+      "song": "Chiuditi nel cesso",
+      "album": "Remix '94",
+      "albumId": "4aa56cba-6311-3e52-8965-1b9a9c68d07b",
+      "track": 1
+    },
+    {
+      "song": "Come mai (feat. Fiorello)",
+      "album": "Nord sud ovest est",
+      "albumId": "3d90b0e3-d2c7-36d8-abba-2aab0f9868e4",
+      "track": 4
+    },
+    {
+      "song": "Con un deca",
+      "album": "Hanno ucciso l’Uomo Ragno",
+      "albumId": "5113397e-c524-35ee-936a-79828e3397ec",
+      "track": 6
+    },
+    {
+      "song": "Cumuni",
+      "album": "Nord sud ovest est",
+      "albumId": "3d90b0e3-d2c7-36d8-abba-2aab0f9868e4",
+      "track": 9
+    },
+    {
+      "song": "Dimmi perche (remix)",
+      "album": "La dura legge del gol!",
+      "albumId": "826dce9f-4b4c-3dcc-9c70-9355c085e907",
+      "track": 11
+    },
+    {
+      "song": "Gli anni ('96)",
+      "album": "Gli anni",
+      "albumId": "6a033a7b-8a48-366d-a021-fa8ea932d8f1",
+      "track": 10
+    },
+    {
+      "song": "Grazie mille",
+      "album": "Grazie mille",
+      "albumId": "32ce0c62-8128-3213-9469-7ec9d9e6ebf6",
+      "track": 1
+    },
+    {
+      "song": "Hanno ucciso l'uomo ragno",
+      "album": "Hanno ucciso l’Uomo Ragno",
+      "albumId": "5113397e-c524-35ee-936a-79828e3397ec",
+      "track": 5
+    },
+    {
+      "song": "Innamorare tanto",
+      "album": "La dura legge del gol!",
+      "albumId": "826dce9f-4b4c-3dcc-9c70-9355c085e907",
+      "track": 1
+    },
+    {
+      "song": "Io ci saro'",
+      "album": "Gli anni",
+      "albumId": "6a033a7b-8a48-366d-a021-fa8ea932d8f1",
+      "track": 1
+    },
+    {
+      "song": "La dura legge del gol!",
+      "album": "La dura legge del gol!",
+      "albumId": "826dce9f-4b4c-3dcc-9c70-9355c085e907",
+      "track": 6
+    },
+    {
+      "song": "La regola dell'amico",
+      "album": "La dura legge del gol!",
+      "albumId": "826dce9f-4b4c-3dcc-9c70-9355c085e907",
+      "track": 2
+    },
+    {
+      "song": "Le luci di Natale",
+      "album": "Grazie mille",
+      "albumId": "32ce0c62-8128-3213-9469-7ec9d9e6ebf6",
+      "track": 3
+    },
+    {
+      "song": "Nella notte (Molella remix)",
+      "album": "Nord sud ovest est",
+      "albumId": "3d90b0e3-d2c7-36d8-abba-2aab0f9868e4",
+      "track": 16
+    },
+    {
+      "song": "Nella notte",
+      "album": "Nord sud ovest est",
+      "albumId": "3d90b0e3-d2c7-36d8-abba-2aab0f9868e4",
+      "track": 10
+    },
+    {
+      "song": "Nessun rimpianto",
+      "album": "La dura legge del gol!",
+      "albumId": "826dce9f-4b4c-3dcc-9c70-9355c085e907",
+      "track": 3
+    },
+    {
+      "song": "Non mi arrendo",
+      "album": "La dura legge del gol!",
+      "albumId": "826dce9f-4b4c-3dcc-9c70-9355c085e907",
+      "track": 10
+    },
+    {
+      "song": "Non ti passa piu",
+      "album": "La dura legge del gol!",
+      "albumId": "826dce9f-4b4c-3dcc-9c70-9355c085e907",
+      "track": 4
+    },
+    {
+      "song": "Nord Sud Ovest Est",
+      "album": "Nord sud ovest est",
+      "albumId": "3d90b0e3-d2c7-36d8-abba-2aab0f9868e4",
+      "track": 6
+    },
+    {
+      "song": "Rotta x casa di Dio",
+      "album": "Nord sud ovest est",
+      "albumId": "3d90b0e3-d2c7-36d8-abba-2aab0f9868e4",
+      "track": 5
+    },
+    {
+      "song": "Se tornerai",
+      "album": "La dura legge del gol!",
+      "albumId": "826dce9f-4b4c-3dcc-9c70-9355c085e907",
+      "track": 5
+    },
+    {
+      "song": "Sei un mito",
+      "album": "Nord sud ovest est",
+      "albumId": "3d90b0e3-d2c7-36d8-abba-2aab0f9868e4",
+      "track": 2
+    },
+    {
+      "song": "Senza averti qui",
+      "album": "La donna, il sogno & il grande incubo",
+      "albumId": "47c440a0-b954-3c2b-ab7a-d1a479f242cc",
+      "track": 4
+    },
+    {
+      "song": "Ti sento vivere",
+      "album": "La donna, il sogno & il grande incubo",
+      "albumId": "47c440a0-b954-3c2b-ab7a-d1a479f242cc",
+      "track": 3
+    },
+    {
+      "song": "Tieni il tempo",
+      "album": "La donna, il sogno & il grande incubo",
+      "albumId": "47c440a0-b954-3c2b-ab7a-d1a479f242cc",
+      "track": 5
+    },
+    {
+      "song": "Tutto cio che ho",
+      "album": "Grazie mille",
+      "albumId": "32ce0c62-8128-3213-9469-7ec9d9e6ebf6",
+      "track": 10
+    },
+    {
+      "song": "Un giorno cosi",
+      "album": "La dura legge del gol!",
+      "albumId": "826dce9f-4b4c-3dcc-9c70-9355c085e907",
+      "track": 7
+    },
+    {
+      "song": "Una canzone d'amore",
+      "album": "La donna, il sogno & il grande incubo",
+      "albumId": "47c440a0-b954-3c2b-ab7a-d1a479f242cc",
+      "track": 8
+    },
+    {
+      "song": "Viaggio al centro del mondo",
+      "album": "Grazie mille",
+      "albumId": "32ce0c62-8128-3213-9469-7ec9d9e6ebf6",
+      "track": 6
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

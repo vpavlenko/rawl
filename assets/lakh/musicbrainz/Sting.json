@@ -1,0 +1,256 @@
+{
+  "artist": "Sting",
+  "status": "processed",
+  "totalSongs": 41,
+  "matched": [
+    {
+      "song": "All This Time",
+      "album": "The Soul Cages",
+      "albumId": "7ad29024-cf86-311c-9844-ca9054de16cd",
+      "track": 2
+    },
+    {
+      "song": "Be Still My Beating Heart",
+      "album": "…Nothing Like the Sun",
+      "albumId": "ec048bb5-1fc3-32a7-b560-c07ddd0df544",
+      "track": 2
+    },
+    {
+      "song": "Brand New Day",
+      "album": "Brand New Day",
+      "albumId": "53989c16-f6cf-3f0c-97c3-2a718afabeeb",
+      "track": 10
+    },
+    {
+      "song": "Bring On The Night",
+      "album": "Reggatta de Blanc",
+      "albumId": "2b98e6d7-a521-332f-961e-d281ba33ba3d",
+      "track": 4
+    },
+    {
+      "song": "Consider Me Gone",
+      "album": "The Dream of the Blue Turtles",
+      "albumId": "93ef0ae1-0735-3699-b450-d79bdcb3d0b8",
+      "track": 7
+    },
+    {
+      "song": "Desert Rose",
+      "album": "Brand New Day",
+      "albumId": "53989c16-f6cf-3f0c-97c3-2a718afabeeb",
+      "track": 2
+    },
+    {
+      "song": "English Man In New York",
+      "album": "…Nothing Like the Sun",
+      "albumId": "ec048bb5-1fc3-32a7-b560-c07ddd0df544",
+      "track": 3
+    },
+    {
+      "song": "Every Breath You Take",
+      "album": "Synchronicity",
+      "albumId": "f6df6292-fd40-37c3-bd61-22c53abfe773",
+      "track": 7
+    },
+    {
+      "song": "Every Little Thing She Does Is Magic",
+      "album": "Ghost in the Machine",
+      "albumId": "b25caa9e-e35d-3243-82d7-954da613b782",
+      "track": 2
+    },
+    {
+      "song": "Fields of Gold",
+      "album": "Ten Summoner’s Tales",
+      "albumId": "57389a2d-1570-364f-a83c-a382d0f5aafc",
+      "track": 3
+    },
+    {
+      "song": "Fortress Around Your Heart",
+      "album": "The Dream of the Blue Turtles",
+      "albumId": "93ef0ae1-0735-3699-b450-d79bdcb3d0b8",
+      "track": 10
+    },
+    {
+      "song": "Fragile",
+      "album": "…Nothing Like the Sun",
+      "albumId": "ec048bb5-1fc3-32a7-b560-c07ddd0df544",
+      "track": 6
+    },
+    {
+      "song": "I Hung My Head",
+      "album": "Mercury Falling",
+      "albumId": "7d919dbd-cbe6-3598-bb01-271c012d1701",
+      "track": 2
+    },
+    {
+      "song": "If I Ever Lose My Faith in You",
+      "album": "Ten Summoner’s Tales",
+      "albumId": "57389a2d-1570-364f-a83c-a382d0f5aafc",
+      "track": 1
+    },
+    {
+      "song": "If You Love Somebody Set Them Free",
+      "album": "The Dream of the Blue Turtles",
+      "albumId": "93ef0ae1-0735-3699-b450-d79bdcb3d0b8",
+      "track": 1
+    },
+    {
+      "song": "It's Probably Me",
+      "album": "Ten Summoner’s Tales",
+      "albumId": "57389a2d-1570-364f-a83c-a382d0f5aafc",
+      "track": 8
+    },
+    {
+      "song": "Let Your Soul Be Your Pilot",
+      "album": "Mercury Falling",
+      "albumId": "7d919dbd-cbe6-3598-bb01-271c012d1701",
+      "track": 3
+    },
+    {
+      "song": "Love Is the Seventh Wave",
+      "album": "The Dream of the Blue Turtles",
+      "albumId": "93ef0ae1-0735-3699-b450-d79bdcb3d0b8",
+      "track": 2
+    },
+    {
+      "song": "Mad About You",
+      "album": "The Soul Cages",
+      "albumId": "7ad29024-cf86-311c-9844-ca9054de16cd",
+      "track": 3
+    },
+    {
+      "song": "Moon Over Bourbon Street",
+      "album": "The Dream of the Blue Turtles",
+      "albumId": "93ef0ae1-0735-3699-b450-d79bdcb3d0b8",
+      "track": 9
+    },
+    {
+      "song": "Nothing 'Bout Me",
+      "album": "Ten Summoner’s Tales",
+      "albumId": "57389a2d-1570-364f-a83c-a382d0f5aafc",
+      "track": 11
+    },
+    {
+      "song": "Roxanne",
+      "album": "Outlandos d’Amour",
+      "albumId": "3d55b5a4-a81f-3b8e-8d7e-802ce1c86596",
+      "track": 3
+    },
+    {
+      "song": "Russians",
+      "album": "The Dream of the Blue Turtles",
+      "albumId": "93ef0ae1-0735-3699-b450-d79bdcb3d0b8",
+      "track": 3
+    },
+    {
+      "song": "Saint Agnes and the Burning Train",
+      "album": "The Soul Cages",
+      "albumId": "7ad29024-cf86-311c-9844-ca9054de16cd",
+      "track": 6
+    },
+    {
+      "song": "Seven Days",
+      "album": "Ten Summoner’s Tales",
+      "albumId": "57389a2d-1570-364f-a83c-a382d0f5aafc",
+      "track": 6
+    },
+    {
+      "song": "Shape Of My Heart",
+      "album": "Ten Summoner’s Tales",
+      "albumId": "57389a2d-1570-364f-a83c-a382d0f5aafc",
+      "track": 9
+    },
+    {
+      "song": "Storytellers 04 King of Pain",
+      "album": "Synchronicity",
+      "albumId": "f6df6292-fd40-37c3-bd61-22c53abfe773",
+      "track": 8
+    },
+    {
+      "song": "Storytellers 08 Roxanne",
+      "album": "Outlandos d’Amour",
+      "albumId": "3d55b5a4-a81f-3b8e-8d7e-802ce1c86596",
+      "track": 3
+    },
+    {
+      "song": "Straight to My Heart",
+      "album": "…Nothing Like the Sun",
+      "albumId": "ec048bb5-1fc3-32a7-b560-c07ddd0df544",
+      "track": 8
+    },
+    {
+      "song": "The Police - Every Breath You Take",
+      "album": "Synchronicity",
+      "albumId": "f6df6292-fd40-37c3-bd61-22c53abfe773",
+      "track": 7
+    },
+    {
+      "song": "The Secret Marriage",
+      "album": "…Nothing Like the Sun",
+      "albumId": "ec048bb5-1fc3-32a7-b560-c07ddd0df544",
+      "track": 12
+    },
+    {
+      "song": "The Soul Cages",
+      "album": "The Soul Cages",
+      "albumId": "7ad29024-cf86-311c-9844-ca9054de16cd",
+      "track": 8
+    },
+    {
+      "song": "They Dance Alone (Gueca Solo)",
+      "album": "…Nothing Like the Sun",
+      "albumId": "ec048bb5-1fc3-32a7-b560-c07ddd0df544",
+      "track": 5
+    },
+    {
+      "song": "This Cowboy Song",
+      "album": "Fields of Gold: The Best of Sting 1984–1994",
+      "albumId": "33cdbfa4-86da-33fa-b7d4-67f3efcaf558",
+      "track": 16
+    },
+    {
+      "song": "Unplugged 01 All This Time",
+      "album": "The Soul Cages",
+      "albumId": "7ad29024-cf86-311c-9844-ca9054de16cd",
+      "track": 2
+    },
+    {
+      "song": "Unplugged 02 Mad About You",
+      "album": "The Soul Cages",
+      "albumId": "7ad29024-cf86-311c-9844-ca9054de16cd",
+      "track": 3
+    },
+    {
+      "song": "Unplugged 06 Tea in the Sahara",
+      "album": "Synchronicity",
+      "albumId": "f6df6292-fd40-37c3-bd61-22c53abfe773",
+      "track": 10
+    },
+    {
+      "song": "Walking on the Moon",
+      "album": "Reggatta de Blanc",
+      "albumId": "2b98e6d7-a521-332f-961e-d281ba33ba3d",
+      "track": 6
+    },
+    {
+      "song": "We Work the Black Seam",
+      "album": "The Dream of the Blue Turtles",
+      "albumId": "93ef0ae1-0735-3699-b450-d79bdcb3d0b8",
+      "track": 6
+    },
+    {
+      "song": "We'll Be Together",
+      "album": "…Nothing Like the Sun",
+      "albumId": "ec048bb5-1fc3-32a7-b560-c07ddd0df544",
+      "track": 7
+    },
+    {
+      "song": "When We Dance",
+      "album": "Fields of Gold: The Best of Sting 1984–1994",
+      "albumId": "33cdbfa4-86da-33fa-b7d4-67f3efcaf558",
+      "track": 1
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

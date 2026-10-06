@@ -1,0 +1,418 @@
+{
+  "artist": "Sting",
+  "artistId": "7944ed53-2a58-4035-9b93-140a71e41c34",
+  "groups": [
+    {
+      "id": "3d55b5a4-a81f-3b8e-8d7e-802ce1c86596",
+      "releaseId": "e07a2c71-dde7-37a3-8b02-44d25dd128f9",
+      "title": "Outlandos d’Amour",
+      "date": "1978-11-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3d55b5a4-a81f-3b8e-8d7e-802ce1c86596/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Roxanne.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Storytellers 08 Roxanne.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2b98e6d7-a521-332f-961e-d281ba33ba3d",
+      "releaseId": "b162ca8e-7288-37a7-be37-4e1dc0107e07",
+      "title": "Reggatta de Blanc",
+      "date": "1979-10-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2b98e6d7-a521-332f-961e-d281ba33ba3d/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Bring On The Night.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Walking on the Moon.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b25caa9e-e35d-3243-82d7-954da613b782",
+      "releaseId": "a7c3ce01-b7d9-44ab-bd22-87001a60e6fe",
+      "title": "Ghost in the Machine",
+      "date": "1981-10-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b25caa9e-e35d-3243-82d7-954da613b782/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Every Little Thing She Does Is Magic.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f6df6292-fd40-37c3-bd61-22c53abfe773",
+      "releaseId": "4b8a9885-112e-4a9b-86c5-ce77d9aa181b",
+      "title": "Synchronicity",
+      "date": "1983-06-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f6df6292-fd40-37c3-bd61-22c53abfe773/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Every Breath You Take.mid",
+            "Every Breath You Take.1.mid",
+            "Every Breath You Take.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "The Police - Every Breath You Take.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Storytellers 04 King of Pain.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Unplugged 06 Tea in the Sahara.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "93ef0ae1-0735-3699-b450-d79bdcb3d0b8",
+      "releaseId": "90c94dd8-4bcf-4911-a4cd-9131c78ebfa5",
+      "title": "The Dream of the Blue Turtles",
+      "date": "1985-06-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/93ef0ae1-0735-3699-b450-d79bdcb3d0b8/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "If You Love Somebody Set Them Free.mid",
+            "If You Love Somebody Set Them Free.1.mid",
+            "If You Love Somebody Set Them Free.2.mid",
+            "If You Love Somebody Set Them Free.3.mid",
+            "If You Love Somebody Set Them Free.4.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Love Is the Seventh Wave.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Russians.mid",
+            "Russians.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "We Work the Black Seam.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Consider Me Gone.mid",
+            "Consider Me Gone.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Moon Over Bourbon Street.mid",
+            "Moon Over Bourbon Street.1.mid",
+            "Moon Over Bourbon Street.2.mid",
+            "Moon Over Bourbon Street.3.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Fortress Around Your Heart.mid",
+            "Fortress Around Your Heart.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ec048bb5-1fc3-32a7-b560-c07ddd0df544",
+      "releaseId": "61db2e72-ea08-4327-a4ed-7875ee156044",
+      "title": "…Nothing Like the Sun",
+      "date": "1987-10-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ec048bb5-1fc3-32a7-b560-c07ddd0df544/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Be Still My Beating Heart.mid",
+            "Be Still My Beating Heart.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "English Man In New York.mid",
+            "English Man In New York.1.mid",
+            "English Man In New York.2.mid",
+            "English Man In New York.3.mid",
+            "English Man In New York.4.mid",
+            "English Man In New York.5.mid",
+            "English Man In New York.6.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "They Dance Alone (Gueca Solo).mid",
+            "They Dance Alone (Gueca Solo).1.mid",
+            "They Dance Alone (Gueca Solo).2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Fragile.mid",
+            "Fragile.1.mid",
+            "Fragile.2.mid",
+            "Fragile.3.mid",
+            "Fragile.4.mid",
+            "Fragile.5.mid",
+            "Fragile.6.mid",
+            "Fragile.7.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "We'll Be Together.mid",
+            "We'll Be Together.1.mid",
+            "We'll Be Together.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Straight to My Heart.mid",
+            "Straight to My Heart.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "The Secret Marriage.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7ad29024-cf86-311c-9844-ca9054de16cd",
+      "releaseId": "4b2ac3b0-69f4-40d0-90b5-a2c7adfc751a",
+      "title": "The Soul Cages",
+      "date": "1991-01-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7ad29024-cf86-311c-9844-ca9054de16cd/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "All This Time.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Unplugged 01 All This Time.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Mad About You.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Unplugged 02 Mad About You.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Saint Agnes and the Burning Train.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "The Soul Cages.mid",
+            "The Soul Cages.1.mid",
+            "The Soul Cages.2.mid",
+            "The Soul Cages.3.mid",
+            "The Soul Cages.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "57389a2d-1570-364f-a83c-a382d0f5aafc",
+      "releaseId": "336ab17b-1909-4286-b852-941eeac1b821",
+      "title": "Ten Summoner’s Tales",
+      "date": "1993-02-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/57389a2d-1570-364f-a83c-a382d0f5aafc/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "If I Ever Lose My Faith in You.mid",
+            "If I Ever Lose My Faith in You.1.mid",
+            "If I Ever Lose My Faith in You.2.mid",
+            "If I Ever Lose My Faith in You.3.mid",
+            "If I Ever Lose My Faith in You.4.mid",
+            "If I Ever Lose My Faith in You.5.mid",
+            "If I Ever Lose My Faith in You.6.mid",
+            "If I Ever Lose My Faith in You.7.mid",
+            "If I Ever Lose My Faith in You.8.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Fields of Gold.mid",
+            "Fields of Gold.1.mid",
+            "Fields of Gold.2.mid",
+            "Fields of Gold.3.mid",
+            "Fields of Gold.4.mid",
+            "Fields of Gold.5.mid",
+            "Fields of Gold.6.mid",
+            "Fields of Gold.7.mid",
+            "Fields of Gold.8.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Seven Days.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "It's Probably Me.mid",
+            "It's Probably Me.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Shape Of My Heart.mid",
+            "Shape Of My Heart.1.mid",
+            "Shape Of My Heart.2.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Nothing 'Bout Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "33cdbfa4-86da-33fa-b7d4-67f3efcaf558",
+      "releaseId": "fc527580-718b-3f14-85d0-41e0f8bb545c",
+      "title": "Fields of Gold: The Best of Sting 1984–1994",
+      "date": "1994-11-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/33cdbfa4-86da-33fa-b7d4-67f3efcaf558/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "When We Dance.mid",
+            "When We Dance.1.mid"
+          ]
+        },
+        {
+          "number": 16,
+          "files": [
+            "This Cowboy Song.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7d919dbd-cbe6-3598-bb01-271c012d1701",
+      "releaseId": "b48ac9f5-4b55-43ed-818a-95dc120df240",
+      "title": "Mercury Falling",
+      "date": "1996-03-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7d919dbd-cbe6-3598-bb01-271c012d1701/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "I Hung My Head.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Let Your Soul Be Your Pilot.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "53989c16-f6cf-3f0c-97c3-2a718afabeeb",
+      "releaseId": "4a305656-e641-4aa8-93e6-1a9c25cbad2a",
+      "title": "Brand New Day",
+      "date": "1999-09-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/53989c16-f6cf-3f0c-97c3-2a718afabeeb/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Desert Rose.mid",
+            "Desert Rose.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Brand New Day.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -521,5 +521,42 @@
         "title": "Questione di feeling"
       }
     }
+  },
+  "Sting": {
+    "name": "Sting",
+    "mbid": "7944ed53-2a58-4035-9b93-140a71e41c34",
+    "country": "GB",
+    "relatedArtistIds": [
+      "9e0e2b01-41db-4008-bd8b-988977d6019a"
+    ],
+    "songs": {
+      "The Police - Every Breath You Take": {
+        "title": "Every Breath You Take"
+      },
+      "They Dance Alone (Gueca Solo)": {
+        "title": "They Dance Alone (Cueca Solo)"
+      },
+      "Nothing 'Bout Me": {
+        "title": "Epilogue (Nothing 'Bout Me)"
+      },
+      "Storytellers 04 King of Pain": {
+        "title": "King of Pain"
+      },
+      "Storytellers 08 Roxanne": {
+        "title": "Roxanne"
+      },
+      "Unplugged 01 All This Time": {
+        "title": "All This Time"
+      },
+      "Unplugged 02 Mad About You": {
+        "title": "Mad About You"
+      },
+      "Unplugged 06 Tea in the Sahara": {
+        "title": "Tea in the Sahara"
+      }
+    },
+    "includedReleaseGroups": [
+      "33cdbfa4-86da-33fa-b7d4-67f3efcaf558"
+    ]
   }
 }

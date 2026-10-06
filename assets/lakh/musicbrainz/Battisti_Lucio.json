@@ -1,0 +1,34 @@
+{
+  "artist": "Battisti Lucio",
+  "status": "processed",
+  "totalSongs": 4,
+  "matched": [
+    {
+      "song": "Acqua azzurra, acqua chiara",
+      "album": "Emozioni",
+      "albumId": "aeee8029-d8a4-3017-8aa7-4f245e9cda6c",
+      "track": 8
+    },
+    {
+      "song": "La canzone del sole",
+      "album": "La canzone del sole / Anche per te",
+      "albumId": "6564d49a-db20-331c-a3b5-aa55b28e8e53",
+      "track": 1
+    },
+    {
+      "song": "Mi ritorni in mente",
+      "album": "Emozioni",
+      "albumId": "aeee8029-d8a4-3017-8aa7-4f245e9cda6c",
+      "track": 4
+    },
+    {
+      "song": "Nessun dolore",
+      "album": "Una donna per amico",
+      "albumId": "97bc5858-a018-3fc4-92cf-a7f712acc615",
+      "track": 5
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

@@ -1,0 +1,60 @@
+{
+  "artist": "Battisti Lucio",
+  "artistId": "c0c0de23-d9c1-4776-97e0-0c2529402622",
+  "groups": [
+    {
+      "id": "aeee8029-d8a4-3017-8aa7-4f245e9cda6c",
+      "releaseId": "77b239cb-5502-471b-b93b-3b93a68dac35",
+      "title": "Emozioni",
+      "date": "1970-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/aeee8029-d8a4-3017-8aa7-4f245e9cda6c/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Mi ritorni in mente.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Acqua azzurra, acqua chiara.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6564d49a-db20-331c-a3b5-aa55b28e8e53",
+      "releaseId": "e481771e-0752-4b45-abc5-672dbfcf44cb",
+      "title": "La canzone del sole / Anche per te",
+      "date": "1971-11",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/6564d49a-db20-331c-a3b5-aa55b28e8e53/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "La canzone del sole.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "97bc5858-a018-3fc4-92cf-a7f712acc615",
+      "releaseId": "62be39be-277a-43eb-839b-5dbfcebd79fe",
+      "title": "Una donna per amico",
+      "date": "1978-09-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/97bc5858-a018-3fc4-92cf-a7f712acc615/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Nessun dolore.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

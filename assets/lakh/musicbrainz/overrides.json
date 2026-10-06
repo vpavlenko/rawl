@@ -558,5 +558,21 @@
     "includedReleaseGroups": [
       "33cdbfa4-86da-33fa-b7d4-67f3efcaf558"
     ]
+  },
+  "Kiss": {
+    "name": "Kiss",
+    "mbid": "e1f1e33e-2e4c-4d43-b91b-7064068d3283",
+    "country": "US",
+    "releaseOverrides": {
+      "a997e8ed-6e37-315b-bfdf-cd31f14e3fcc": "b4b61d56-be24-4894-ba69-67fb458b4ae4"
+    },
+    "songs": {
+      "I Was Made for Loving You Baby": {
+        "title": "I Was Made for Lovin’ You"
+      },
+      "Rock 'n Roll All Night": {
+        "title": "Rock and Roll All Nite"
+      }
+    }
   }
 }

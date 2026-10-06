@@ -1,0 +1,250 @@
+{
+  "artist": "Kiss",
+  "status": "processed",
+  "totalSongs": 40,
+  "matched": [
+    {
+      "song": "(You Make Me) Rock Hard",
+      "album": "(You Make Me) Rock Hard",
+      "albumId": "c9d8ede0-df73-4d6c-90fe-2f6820c4ad8f",
+      "track": 1
+    },
+    {
+      "song": "2,000 Man",
+      "album": "Dynasty",
+      "albumId": "46f879d8-d3a6-375b-814d-0c548cbedbc0",
+      "track": 2
+    },
+    {
+      "song": "A Million to One",
+      "album": "Lick It Up",
+      "albumId": "76c0b42e-6d05-3119-bef5-5fcc9182b07f",
+      "track": 7
+    },
+    {
+      "song": "A World Without Heroes",
+      "album": "Music From “The Elder”",
+      "albumId": "8ee07b4e-25bb-36cc-9cc5-7330b7776f71",
+      "track": 7
+    },
+    {
+      "song": "Beth",
+      "album": "Destroyer",
+      "albumId": "541eb339-d0c6-3740-b665-8ad6c09da331",
+      "track": 8
+    },
+    {
+      "song": "Black Diamond",
+      "album": "KISS",
+      "albumId": "a997e8ed-6e37-315b-bfdf-cd31f14e3fcc",
+      "track": 9
+    },
+    {
+      "song": "Calling Dr. Love",
+      "album": "Rock and Roll Over",
+      "albumId": "f519711d-54f8-307a-bad4-6e619d8214d1",
+      "track": 5
+    },
+    {
+      "song": "Christine Sixteen",
+      "album": "Love Gun",
+      "albumId": "08bf1119-22bf-3740-af9c-a6215437414b",
+      "track": 2
+    },
+    {
+      "song": "Detroit Rock City",
+      "album": "Destroyer",
+      "albumId": "541eb339-d0c6-3740-b665-8ad6c09da331",
+      "track": 1
+    },
+    {
+      "song": "Deuce",
+      "album": "KISS",
+      "albumId": "a997e8ed-6e37-315b-bfdf-cd31f14e3fcc",
+      "track": 6
+    },
+    {
+      "song": "Firehouse",
+      "album": "KISS",
+      "albumId": "a997e8ed-6e37-315b-bfdf-cd31f14e3fcc",
+      "track": 3
+    },
+    {
+      "song": "God of Thunder",
+      "album": "Destroyer",
+      "albumId": "541eb339-d0c6-3740-b665-8ad6c09da331",
+      "track": 3
+    },
+    {
+      "song": "Got to Choose",
+      "album": "Hotter Than Hell",
+      "albumId": "4b05a315-c78f-3bad-a08b-e713d25a13bc",
+      "track": 1
+    },
+    {
+      "song": "Hard Luck Woman",
+      "album": "Rock and Roll Over",
+      "albumId": "f519711d-54f8-307a-bad4-6e619d8214d1",
+      "track": 8
+    },
+    {
+      "song": "I Want You",
+      "album": "Rock and Roll Over",
+      "albumId": "f519711d-54f8-307a-bad4-6e619d8214d1",
+      "track": 1
+    },
+    {
+      "song": "I Was Made for Lovin' You",
+      "album": "Dynasty",
+      "albumId": "46f879d8-d3a6-375b-814d-0c548cbedbc0",
+      "track": 1
+    },
+    {
+      "song": "I Was Made for Loving You Baby",
+      "album": "Dynasty",
+      "albumId": "46f879d8-d3a6-375b-814d-0c548cbedbc0",
+      "track": 1
+    },
+    {
+      "song": "I've Had Enough (Into the Fire)",
+      "album": "Animalize",
+      "albumId": "cc94de97-a20d-3aff-9fb5-10a1d0cab5a7",
+      "track": 1
+    },
+    {
+      "song": "Love Gun",
+      "album": "Love Gun",
+      "albumId": "08bf1119-22bf-3740-af9c-a6215437414b",
+      "track": 6
+    },
+    {
+      "song": "Mr. Speed",
+      "album": "Rock and Roll Over",
+      "albumId": "f519711d-54f8-307a-bad4-6e619d8214d1",
+      "track": 7
+    },
+    {
+      "song": "Outta This World",
+      "album": "Monster",
+      "albumId": "28c5684e-59e1-400c-81fb-1ceb3d0fdd18",
+      "track": 9
+    },
+    {
+      "song": "Plaster Caster",
+      "album": "Love Gun",
+      "albumId": "08bf1119-22bf-3740-af9c-a6215437414b",
+      "track": 9
+    },
+    {
+      "song": "Rock 'n Roll All Night",
+      "album": "Dressed to Kill",
+      "albumId": "17ca8b4b-c72b-352a-8258-1d6670312fdb",
+      "track": 10
+    },
+    {
+      "song": "Rock and Roll All Nite",
+      "album": "Dressed to Kill",
+      "albumId": "17ca8b4b-c72b-352a-8258-1d6670312fdb",
+      "track": 10
+    },
+    {
+      "song": "Save Your Love",
+      "album": "Dynasty",
+      "albumId": "46f879d8-d3a6-375b-814d-0c548cbedbc0",
+      "track": 9
+    },
+    {
+      "song": "She",
+      "album": "Dressed to Kill",
+      "albumId": "17ca8b4b-c72b-352a-8258-1d6670312fdb",
+      "track": 8
+    },
+    {
+      "song": "Shock Me",
+      "album": "Love Gun",
+      "albumId": "08bf1119-22bf-3740-af9c-a6215437414b",
+      "track": 4
+    },
+    {
+      "song": "Shout It Out Loud",
+      "album": "Destroyer",
+      "albumId": "541eb339-d0c6-3740-b665-8ad6c09da331",
+      "track": 7
+    },
+    {
+      "song": "Spit",
+      "album": "Revenge",
+      "albumId": "ef0484e3-eb90-3806-bfce-fea9cd68d058",
+      "track": 4
+    },
+    {
+      "song": "Strange Ways",
+      "album": "Hotter Than Hell",
+      "albumId": "4b05a315-c78f-3bad-a08b-e713d25a13bc",
+      "track": 10
+    },
+    {
+      "song": "Strutter",
+      "album": "KISS",
+      "albumId": "a997e8ed-6e37-315b-bfdf-cd31f14e3fcc",
+      "track": 1
+    },
+    {
+      "song": "Sure Know Something",
+      "album": "Dynasty",
+      "albumId": "46f879d8-d3a6-375b-814d-0c548cbedbc0",
+      "track": 3
+    },
+    {
+      "song": "Take Me",
+      "album": "Rock and Roll Over",
+      "albumId": "f519711d-54f8-307a-bad4-6e619d8214d1",
+      "track": 2
+    },
+    {
+      "song": "Talk to Me",
+      "album": "Unmasked",
+      "albumId": "fa8dde87-048e-3d7c-a630-3428e1f7dc13",
+      "track": 3
+    },
+    {
+      "song": "Tears Are Falling",
+      "album": "Asylum",
+      "albumId": "f55bc564-3174-3967-956c-f35ce9ca353a",
+      "track": 7
+    },
+    {
+      "song": "Turn on the Night",
+      "album": "Crazy Nights",
+      "albumId": "38fccb34-80b0-338b-8659-f6602ad99e57",
+      "track": 10
+    },
+    {
+      "song": "Under the Rose",
+      "album": "Music From “The Elder”",
+      "albumId": "8ee07b4e-25bb-36cc-9cc5-7330b7776f71",
+      "track": 6
+    },
+    {
+      "song": "War Machine",
+      "album": "Creatures of the Night",
+      "albumId": "5a1ee51b-223d-4644-a32d-92a758f37e07",
+      "track": 9
+    },
+    {
+      "song": "Who Wants to Be Lonely",
+      "album": "Asylum",
+      "albumId": "f55bc564-3174-3967-956c-f35ce9ca353a",
+      "track": 3
+    },
+    {
+      "song": "You Love Me to Hate You",
+      "album": "Hot in the Shade",
+      "albumId": "fd26bc55-ab84-3820-8d5e-9bc6a77e5cac",
+      "track": 12
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

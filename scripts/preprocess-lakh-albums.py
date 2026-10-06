@@ -108,10 +108,16 @@ def process(artist, config):
     albums = []
     candidates = {}
     for index, group in enumerate(groups):
-        releases = browse('release', 'releases', **{'release-group': group['id']})
+        releases = browse('release', 'releases', inc='media', **{'release-group': group['id']})
         releases = [r for r in releases if r.get('status') == 'Official' and r.get('date')]
         if not releases:
             continue
+        # Cartridge programs split and reorder songs, so prefer a normal album edition.
+        standard_releases = [r for r in releases if
+            r['id'] == settings.get('releaseOverrides', {}).get(group['id']) or not any(
+            medium.get('format') == '8-track cartridge' for medium in r.get('media', [])
+        )]
+        releases = standard_releases or releases
         release = min(releases, key=lambda r: (
             bool(settings.get('country')) and r.get('country') != settings['country'],
             r['date'], r['id'],

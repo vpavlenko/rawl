@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { LakhArtist } from "./catalog";
 
 export type AlbumGroup = {
@@ -48,23 +48,74 @@ async function loadGroups(slug: string): Promise<AlbumGroup[] | null> {
   return Array.isArray(data.groups) ? data.groups : null;
 }
 
-export function useAlbumMetadata(artist?: LakhArtist): AlbumGroup[] | null {
-  const slug = artist?.name === "The Beatles" ? undefined : artist?.slug;
-  const [loaded, setLoaded] = useState<{ slug: string; groups: AlbumGroup[] | null } | null>(null);
+type TrackSources = Map<string, { source: LakhArtist; file: string }>;
+
+export function useAlbumMetadata(
+  artist?: LakhArtist,
+  trackSources?: TrackSources,
+): AlbumGroup[] | null {
+  const sources = artist?.name === "The Beatles" ? [] : artist
+    ? Array.from(new Map([
+        [artist.slug, artist],
+        ...Array.from(trackSources?.values() || [], ({ source }) =>
+          [source.slug, source] as const),
+      ]).values())
+    : [];
+  const sourceKey = JSON.stringify(sources.map(({ slug }) => slug));
+  const [loaded, setLoaded] = useState<{
+    key: string;
+    entries: { slug: string; groups: AlbumGroup[] | null }[];
+  } | null>(null);
   useEffect(() => {
-    if (!slug) return;
+    const slugs: string[] = JSON.parse(sourceKey);
+    if (!slugs.length) return;
     let active = true;
-    if (!requests.has(slug)) {
-      requests.set(slug, loadGroups(slug)
-        .catch(() => {
+    Promise.all(slugs.map(async (slug) => {
+      if (!requests.has(slug)) {
+        requests.set(slug, loadGroups(slug).catch(() => {
           requests.delete(slug);
           return null;
         }));
-    }
-    requests.get(slug)!.then((groups) => {
-      if (active) setLoaded({ slug, groups });
+      }
+      return { slug, groups: await requests.get(slug)! };
+    })).then((entries) => {
+      if (active) setLoaded({ key: sourceKey, entries });
     });
     return () => { active = false; };
-  }, [slug]);
-  return loaded?.slug === slug ? loaded?.groups || null : null;
+  }, [sourceKey]);
+
+  return useMemo(() => {
+    if (loaded?.key !== sourceKey) return null;
+    const displayFiles = new Map<string, string>();
+    trackSources?.forEach(({ source, file }, displayFile) => {
+      displayFiles.set(JSON.stringify([source.slug, file]), displayFile);
+    });
+    const groups = new Map<string, AlbumGroup>();
+    loaded.entries.forEach(({ slug, groups: sourceGroups }) => {
+      sourceGroups?.forEach((sourceGroup) => {
+        const key = sourceGroup.id || JSON.stringify([sourceGroup.title, sourceGroup.date]);
+        if (!groups.has(key)) groups.set(key, { ...sourceGroup, songs: [] });
+        const group = groups.get(key)!;
+        sourceGroup.songs.forEach(({ number, files }) => {
+          const mappedFiles = trackSources
+            ? files.flatMap((file) => {
+                const displayFile = displayFiles.get(JSON.stringify([slug, file]));
+                return displayFile ? [displayFile] : [];
+              })
+            : files;
+          if (!mappedFiles.length) return;
+          let song = group.songs.find((item) => item.number === number);
+          if (!song) {
+            song = { number, files: [] };
+            group.songs.push(song);
+          }
+          song.files.push(...mappedFiles.filter((file) => !song!.files.includes(file)));
+        });
+      });
+    });
+    const result = Array.from(groups.values()).filter((group) => group.songs.length);
+    result.forEach((group) => group.songs.sort((a, b) => a.number - b.number));
+    result.sort((a, b) => a.date.localeCompare(b.date) || a.title.localeCompare(b.title));
+    return result.length ? result : null;
+  }, [loaded, sourceKey, trackSources]);
 }

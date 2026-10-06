@@ -324,5 +324,15 @@
     "releaseOverrides": {
       "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5": "640e32ce-bc11-475b-9b2e-b7a4ceca971a"
     }
+  },
+  "Elton John": {
+    "name": "Elton John",
+    "mbid": "b83bc61f-8451-4a5d-8b8e-7e9ed295e822",
+    "country": "GB",
+    "songs": {
+      "Goodby Yellow Brick Road": {
+        "title": "Goodbye Yellow Brick Road"
+      }
+    }
   }
 }

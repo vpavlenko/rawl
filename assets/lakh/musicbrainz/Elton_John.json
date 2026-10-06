@@ -1,0 +1,194 @@
+{
+  "artist": "Elton John",
+  "status": "processed",
+  "totalSongs": 30,
+  "matched": [
+    {
+      "song": "A Word in Spanish",
+      "album": "Reg Strikes Back",
+      "albumId": "20df37ba-ed63-3fd2-aea9-4a5c67f44d88",
+      "track": 2
+    },
+    {
+      "song": "Blue Eyes",
+      "album": "Jump Up!",
+      "albumId": "a4ffedd3-0c03-3477-8fbf-6ffc352721b6",
+      "track": 6
+    },
+    {
+      "song": "Border Song",
+      "album": "Elton John",
+      "albumId": "527eeafc-adbc-3c85-a048-0711acb4a932",
+      "track": 7
+    },
+    {
+      "song": "Burn Down the Mission",
+      "album": "Tumbleweed Connection",
+      "albumId": "4fed2c09-60cd-36ca-9db1-c9c016bb1f0b",
+      "track": 10
+    },
+    {
+      "song": "Candle in the Wind",
+      "album": "Goodbye Yellow Brick Road",
+      "albumId": "80df0f1b-4ce7-348a-aa1b-0d31ebff111a",
+      "track": 2
+    },
+    {
+      "song": "Country Comfort",
+      "album": "Tumbleweed Connection",
+      "albumId": "4fed2c09-60cd-36ca-9db1-c9c016bb1f0b",
+      "track": 3
+    },
+    {
+      "song": "Crocodile Rock",
+      "album": "Don’t Shoot Me I’m Only the Piano Player",
+      "albumId": "0293c693-a065-395b-b9be-06a7f69b3e57",
+      "track": 9
+    },
+    {
+      "song": "Daniel",
+      "album": "Don’t Shoot Me I’m Only the Piano Player",
+      "albumId": "0293c693-a065-395b-b9be-06a7f69b3e57",
+      "track": 1
+    },
+    {
+      "song": "Don't Go Breaking My Heart",
+      "album": "Duets",
+      "albumId": "778c3991-2237-32a6-b8de-62f6562c64bb",
+      "track": 10
+    },
+    {
+      "song": "Empty Garden",
+      "album": "Empty Garden (Hey Hey Johnny)",
+      "albumId": "c88240dd-cbcc-4309-8121-bf70fbf5e634",
+      "track": 1
+    },
+    {
+      "song": "Friends",
+      "album": "Friends / Honey Roll",
+      "albumId": "d4c47b08-b595-4c5a-92a9-347bc2e8e091",
+      "track": 1
+    },
+    {
+      "song": "Goodby Yellow Brick Road",
+      "album": "Goodbye Yellow Brick Road",
+      "albumId": "80df0f1b-4ce7-348a-aa1b-0d31ebff111a",
+      "track": 4
+    },
+    {
+      "song": "Honky Cat",
+      "album": "Honky Château",
+      "albumId": "e17f2d6e-7849-37f9-a6d8-cda4d59cea28",
+      "track": 1
+    },
+    {
+      "song": "I Don't Wanna Go On With You Like That",
+      "album": "Reg Strikes Back",
+      "albumId": "20df37ba-ed63-3fd2-aea9-4a5c67f44d88",
+      "track": 4
+    },
+    {
+      "song": "I Guess That's Why They Call It the Blues",
+      "album": "Too Low for Zero",
+      "albumId": "06e023f6-8b88-3554-9ce6-e2b8f1e69925",
+      "track": 5
+    },
+    {
+      "song": "I'm Still Standing",
+      "album": "Too Low for Zero",
+      "albumId": "06e023f6-8b88-3554-9ce6-e2b8f1e69925",
+      "track": 2
+    },
+    {
+      "song": "Island Girl",
+      "album": "Rock of the Westies",
+      "albumId": "375ad2c5-4fe6-3ede-a899-b7c4d259eea1",
+      "track": 3
+    },
+    {
+      "song": "Levon",
+      "album": "Madman Across the Water",
+      "albumId": "9c371adb-37de-308c-88ea-8e52248ab1a1",
+      "track": 2
+    },
+    {
+      "song": "Madman Across the Water",
+      "album": "Madman Across the Water",
+      "albumId": "9c371adb-37de-308c-88ea-8e52248ab1a1",
+      "track": 4
+    },
+    {
+      "song": "Nikita",
+      "album": "Ice on Fire",
+      "albumId": "c3faec37-3bc7-3bba-9e1f-143728881d3d",
+      "track": 4
+    },
+    {
+      "song": "Rocket Man",
+      "album": "The Diving Board",
+      "albumId": "8de350f3-021e-4f11-bf1b-d37bf205a795",
+      "track": 27
+    },
+    {
+      "song": "Sacrifice",
+      "album": "Sleeping With the Past",
+      "albumId": "67be09d7-0701-34fc-812e-ef6c93864285",
+      "track": 7
+    },
+    {
+      "song": "Sad Songs (Say So Much)",
+      "album": "Breaking Hearts",
+      "albumId": "5276a1aa-cd46-3bc2-bcf7-4f1f8a21b771",
+      "track": 10
+    },
+    {
+      "song": "Sixty Years On",
+      "album": "Elton John",
+      "albumId": "527eeafc-adbc-3c85-a048-0711acb4a932",
+      "track": 6
+    },
+    {
+      "song": "Song for Guy",
+      "album": "A Single Man",
+      "albumId": "09064761-d34e-335b-a3da-eb4063042dc6",
+      "track": 11
+    },
+    {
+      "song": "Take Me to the Pilot",
+      "album": "Elton John",
+      "albumId": "527eeafc-adbc-3c85-a048-0711acb4a932",
+      "track": 3
+    },
+    {
+      "song": "The Last Song",
+      "album": "The One",
+      "albumId": "364607c7-ae6f-3ec8-bb1a-fcee332497a7",
+      "track": 11
+    },
+    {
+      "song": "The One",
+      "album": "The One",
+      "albumId": "364607c7-ae6f-3ec8-bb1a-fcee332497a7",
+      "track": 2
+    },
+    {
+      "song": "Your Song",
+      "album": "Elton John",
+      "albumId": "527eeafc-adbc-3c85-a048-0711acb4a932",
+      "track": 1
+    }
+  ],
+  "unmatched": [
+    "You're Still the One   Something About the Way You Look Tonight"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "You're Still the One   Something About the Way You Look Tonight": [
+      {
+        "title": "Something About the Way You Look Tonight",
+        "album": "The Big Picture",
+        "albumId": "c6cb2ba4-bcaf-39de-b945-3594f5a9ee82"
+      }
+    ]
+  }
+}

@@ -499,7 +499,6 @@ export const Directory = React.memo(function Directory({
   annotationVersions: AnnotationVersions;
 }) {
   const artistName = artist?.name || "";
-  const albumGroups = useAlbumMetadata(artist);
   const albumArtistSlugs = useAlbumArtistSlugs();
   const directoryArtists = useMemo(
     () => groupArtistAliases(catalog.artists),
@@ -510,6 +509,10 @@ export const Directory = React.memo(function Directory({
         .find((item) => item.name === canonicalArtistName(artist.name))
         ?.members.filter((member) => member.name !== artist.name) || []
     : [];
+  const trackSources = collectTrackSources(
+    artist ? [artist, ...relatedArtists] : [],
+  );
+  const albumGroups = useAlbumMetadata(artist, trackSources);
   const artistSongCounts = useMemo(
     () =>
       new Map(
@@ -615,9 +618,6 @@ export const Directory = React.memo(function Directory({
         ),
       ),
     );
-  const trackSources = collectTrackSources(
-    artist ? [artist, ...relatedArtists] : [],
-  );
   const isAnnotatedTrack = (displayFile: string) => {
     const track = trackSources.get(displayFile);
     return (

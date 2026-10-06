@@ -3,6 +3,7 @@ import {
   EMPTY_TIME_SLIDER_DATA,
 } from "./timeSliderData";
 import SnippetTimeSliderData from "./SnippetTimeSliderData";
+import { readTransposeSettings, saveTransposeSettings } from "./transposeStorage";
 import autoBindReact from "auto-bind/react";
 import { initializeApp as firebaseInitializeApp } from "firebase/app";
 import {
@@ -254,8 +255,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       currentSongDurationMs: 1,
       currentSongPositionMs: 0,
       tempo: 1,
-      transpose: 0,
-      persistTranspose: false,
+      ...readTransposeSettings(),
       firstTonic: null,
       voiceMask: Array(MAX_VOICES).fill(true),
       voiceNames: Array(MAX_VOICES).fill(""),
@@ -1018,10 +1018,12 @@ class App extends React.Component<RouteComponentProps, AppState> {
     const transpose = Math.max(-12, Math.min(12, Math.round(semitones)));
     this.midiPlayer?.setTranspose(transpose);
     this.setState({ transpose });
+    saveTransposeSettings(this.state.persistTranspose, transpose);
   };
 
   handlePersistTransposeChange = (persistTranspose: boolean) => {
     this.setState({ persistTranspose });
+    saveTransposeSettings(persistTranspose, this.state.transpose);
   };
 
   setFirstTonic = (firstTonic: number | null) => {

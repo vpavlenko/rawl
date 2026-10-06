@@ -756,5 +756,15 @@
         "title": "Queen of the Night (Radio Edit)"
       }
     }
+  },
+  "Zero": {
+    "name": "Renato Zero",
+    "mbid": "5d2e11a9-08cf-4f43-993a-be5dc908e5d6",
+    "country": "IT",
+    "includedReleaseGroups": [
+      "eefc00d1-ab5b-3388-9f96-e1aea1bacbf2",
+      "4e88de52-bc40-3584-976e-f304837a1fb5",
+      "684cfc8f-e442-321e-80d8-a8ebb441f8ca"
+    ]
   }
 }

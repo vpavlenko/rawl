@@ -1,0 +1,206 @@
+{
+  "artist": "Zero",
+  "status": "processed",
+  "totalSongs": 33,
+  "matched": [
+    {
+      "song": "Amando amando",
+      "album": "L’imperfetto",
+      "albumId": "2dc6a335-0429-3a6c-966f-58b1891187e1",
+      "track": 1
+    },
+    {
+      "song": "Amico assoluto",
+      "album": "Figli del sogno",
+      "albumId": "684cfc8f-e442-321e-80d8-a8ebb441f8ca",
+      "track": 24
+    },
+    {
+      "song": "Amore al verde",
+      "album": "Quando non sei più di nessuno",
+      "albumId": "3be694e3-e032-373b-9814-6d2f76fe8284",
+      "track": 5
+    },
+    {
+      "song": "Aria di pentimenti",
+      "album": "L’imperfetto",
+      "albumId": "2dc6a335-0429-3a6c-966f-58b1891187e1",
+      "track": 2
+    },
+    {
+      "song": "Ave Maria",
+      "album": "Quando non sei più di nessuno",
+      "albumId": "3be694e3-e032-373b-9814-6d2f76fe8284",
+      "track": 12
+    },
+    {
+      "song": "Bella gioventu",
+      "album": "L’imperfetto",
+      "albumId": "2dc6a335-0429-3a6c-966f-58b1891187e1",
+      "track": 6
+    },
+    {
+      "song": "Cercami",
+      "album": "Amore dopo amore",
+      "albumId": "58577595-4a65-35cb-99ae-ace0e8e16984",
+      "track": 2
+    },
+    {
+      "song": "Chi sei",
+      "album": "Zerolandia",
+      "albumId": "48d354b8-dc0a-3135-8246-9edf3ec795e2",
+      "track": 3
+    },
+    {
+      "song": "Dimmi chi dorme accanto a me",
+      "album": "Amore dopo amore",
+      "albumId": "58577595-4a65-35cb-99ae-ace0e8e16984",
+      "track": 8
+    },
+    {
+      "song": "Emergenza noia",
+      "album": "Amore dopo amore",
+      "albumId": "58577595-4a65-35cb-99ae-ace0e8e16984",
+      "track": 3
+    },
+    {
+      "song": "Erotica apparenza",
+      "album": "Amore dopo amore",
+      "albumId": "58577595-4a65-35cb-99ae-ace0e8e16984",
+      "track": 7
+    },
+    {
+      "song": "Felici e perdenti",
+      "album": "L’imperfetto",
+      "albumId": "2dc6a335-0429-3a6c-966f-58b1891187e1",
+      "track": 5
+    },
+    {
+      "song": "I migliori anni della nostra vita",
+      "album": "Sulle tracce dell'imperfetto",
+      "albumId": "03c12fb3-fbc5-3b59-947a-b9377783d191",
+      "track": 8
+    },
+    {
+      "song": "Il carrozzone",
+      "album": "EroZero",
+      "albumId": "9dc398f1-2731-3ad4-910d-7f55546f95c9",
+      "track": 1
+    },
+    {
+      "song": "Il cielo",
+      "album": "Zerofobia",
+      "albumId": "47ad479c-13bd-3586-a0ab-52174b60f978",
+      "track": 10
+    },
+    {
+      "song": "Il coraggio delle idee",
+      "album": "Amore dopo amore, tour dopo tour",
+      "albumId": "4e88de52-bc40-3584-976e-f304837a1fb5",
+      "track": 20
+    },
+    {
+      "song": "Il mercante di stelle",
+      "album": "L’impossibile vivere / Il mercante di stelle",
+      "albumId": "71d9d3af-dace-4853-a8b3-ef73eb7217c1",
+      "track": 2
+    },
+    {
+      "song": "L'impossibile vivere",
+      "album": "Amore dopo amore",
+      "albumId": "58577595-4a65-35cb-99ae-ace0e8e16984",
+      "track": 6
+    },
+    {
+      "song": "L'ultimo guerriero",
+      "album": "L’imperfetto",
+      "albumId": "2dc6a335-0429-3a6c-966f-58b1891187e1",
+      "track": 9
+    },
+    {
+      "song": "La favola mia",
+      "album": "Zerolandia",
+      "albumId": "48d354b8-dc0a-3135-8246-9edf3ec795e2",
+      "track": 1
+    },
+    {
+      "song": "Madame",
+      "album": "Trapezio",
+      "albumId": "3f8c1b44-7684-36af-9dd9-7e51d97c9fb6",
+      "track": 10
+    },
+    {
+      "song": "Marciapiedi",
+      "album": "Artide / Antartide",
+      "albumId": "3ce852c7-fbf5-332d-bcc0-03eb698d074e",
+      "track": 10
+    },
+    {
+      "song": "Mi ameresti",
+      "album": "Amore dopo amore",
+      "albumId": "58577595-4a65-35cb-99ae-ace0e8e16984",
+      "track": 4
+    },
+    {
+      "song": "Mi vendo",
+      "album": "Zerofobia",
+      "albumId": "47ad479c-13bd-3586-a0ab-52174b60f978",
+      "track": 1
+    },
+    {
+      "song": "Periferia",
+      "album": "EroZero",
+      "albumId": "9dc398f1-2731-3ad4-910d-7f55546f95c9",
+      "track": 6
+    },
+    {
+      "song": "Piu su",
+      "album": "Alt in Tour",
+      "albumId": "f379cb6f-f41f-4c2c-a5d0-7e6e5a637d64",
+      "track": 11
+    },
+    {
+      "song": "Si sta facendo notte",
+      "album": "Amore dopo amore, tour dopo tour",
+      "albumId": "4e88de52-bc40-3584-976e-f304837a1fb5",
+      "track": 1
+    },
+    {
+      "song": "Spalle al muro",
+      "album": "Prometeo",
+      "albumId": "eefc00d1-ab5b-3388-9f96-e1aea1bacbf2",
+      "track": 23
+    },
+    {
+      "song": "Tutti gli Zeri del mondo",
+      "album": "Tutti gli Zeri del mondo",
+      "albumId": "ca8aa16e-f0c1-365c-9ca9-0c427ae8be74",
+      "track": 13
+    },
+    {
+      "song": "Un po' d'azzurro",
+      "album": "Sulle tracce dell'imperfetto",
+      "albumId": "03c12fb3-fbc5-3b59-947a-b9377783d191",
+      "track": 2
+    },
+    {
+      "song": "Via dei Martiri",
+      "album": "Tutti gli Zeri del mondo",
+      "albumId": "ca8aa16e-f0c1-365c-9ca9-0c427ae8be74",
+      "track": 14
+    },
+    {
+      "song": "Vive chi vive",
+      "album": "Amore dopo amore",
+      "albumId": "58577595-4a65-35cb-99ae-ace0e8e16984",
+      "track": 5
+    }
+  ],
+  "unmatched": [
+    "Destiny"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Destiny": []
+  }
+}

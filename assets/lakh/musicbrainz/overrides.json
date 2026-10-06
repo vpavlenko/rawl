@@ -597,5 +597,18 @@
         "title": "Cinnamon Street"
       }
     }
+  },
+  "U2": {
+    "name": "U2",
+    "mbid": "a3cb23fc-acd3-4ce0-8f36-1e5aa6a18432",
+    "country": "IE",
+    "songs": {
+      "Pride": {
+        "title": "Pride (In the Name of Love)"
+      }
+    },
+    "relatedArtistIds": [
+      "e110c11f-1c94-4471-a350-c38f46b29389"
+    ]
   }
 }

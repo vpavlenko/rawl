@@ -1,0 +1,244 @@
+{
+  "artist": "U2",
+  "status": "processed",
+  "totalSongs": 39,
+  "matched": [
+    {
+      "song": "A Celebration",
+      "album": "A Celebration",
+      "albumId": "702b446a-cbd5-3621-8cd5-f70fdd1a82ba",
+      "track": 1
+    },
+    {
+      "song": "Angel of Harlem",
+      "album": "Angel of Harlem",
+      "albumId": "ad7eaa00-60c8-3b9e-a72c-95f4cc7dc99f",
+      "track": 1
+    },
+    {
+      "song": "Babyface",
+      "album": "Zooropa",
+      "albumId": "7c705df7-46e7-3c27-9693-72b3ea559c48",
+      "track": 2
+    },
+    {
+      "song": "Bad",
+      "album": "The Unforgettable Fire",
+      "albumId": "c84d00f4-afd3-3184-be62-6ae5f135aa38",
+      "track": 7
+    },
+    {
+      "song": "Beautiful Day",
+      "album": "All That You Can’t Leave Behind",
+      "albumId": "88c59b55-200d-3ac1-beff-8eb99830807e",
+      "track": 1
+    },
+    {
+      "song": "Desire",
+      "album": "Songs of Surrender",
+      "albumId": "f8d10640-6e3a-49df-9786-1f741d672ce0",
+      "track": 26
+    },
+    {
+      "song": "Dirty Day",
+      "album": "Zooropa",
+      "albumId": "7c705df7-46e7-3c27-9693-72b3ea559c48",
+      "track": 9
+    },
+    {
+      "song": "Discotheque",
+      "album": "Pop",
+      "albumId": "5eca5ea6-841b-3835-b368-94fb71d8f932",
+      "track": 1
+    },
+    {
+      "song": "Do You Feel Loved",
+      "album": "Pop",
+      "albumId": "5eca5ea6-841b-3835-b368-94fb71d8f932",
+      "track": 2
+    },
+    {
+      "song": "Electrical Storm",
+      "album": "Songs of Surrender",
+      "albumId": "f8d10640-6e3a-49df-9786-1f741d672ce0",
+      "track": 23
+    },
+    {
+      "song": "Elevation",
+      "album": "All That You Can’t Leave Behind",
+      "albumId": "88c59b55-200d-3ac1-beff-8eb99830807e",
+      "track": 3
+    },
+    {
+      "song": "Everlasting Love",
+      "album": "All I Want Is You",
+      "albumId": "36fd3f7e-2461-3809-9d2a-b9a12b96bb82",
+      "track": 3
+    },
+    {
+      "song": "Gone",
+      "album": "Pop",
+      "albumId": "5eca5ea6-841b-3835-b368-94fb71d8f932",
+      "track": 7
+    },
+    {
+      "song": "Hold Me, Thrill Me, Kiss Me, Kill Me",
+      "album": "Hold Me, Thrill Me, Kiss Me, Kill Me",
+      "albumId": "9ace1888-92c2-386b-96bd-9389766ddf56",
+      "track": 1
+    },
+    {
+      "song": "I Still Haven't Found What I'm Looking For",
+      "album": "The Joshua Tree",
+      "albumId": "6f3e9fa6-be7a-3de8-a2b2-2072ece8a54d",
+      "track": 2
+    },
+    {
+      "song": "I Will Follow",
+      "album": "Boy",
+      "albumId": "53b0d89e-f856-3015-a3a6-a70e1e935fd6",
+      "track": 1
+    },
+    {
+      "song": "If God Will Send His Angels",
+      "album": "Pop",
+      "albumId": "5eca5ea6-841b-3835-b368-94fb71d8f932",
+      "track": 4
+    },
+    {
+      "song": "Lemon",
+      "album": "Zooropa",
+      "albumId": "7c705df7-46e7-3c27-9693-72b3ea559c48",
+      "track": 4
+    },
+    {
+      "song": "Mysterious Ways",
+      "album": "Achtung Baby",
+      "albumId": "744c7a1b-ac79-35c4-bd92-7e2c6a24c8d8",
+      "track": 8
+    },
+    {
+      "song": "New Year's Day",
+      "album": "War",
+      "albumId": "c6b36664-7e60-3b3e-a24d-d096c67a11e9",
+      "track": 3
+    },
+    {
+      "song": "October",
+      "album": "October",
+      "albumId": "87febb2c-e117-3a0d-a7f6-8fd9a6421af1",
+      "track": 7
+    },
+    {
+      "song": "One",
+      "album": "Achtung Baby",
+      "albumId": "744c7a1b-ac79-35c4-bd92-7e2c6a24c8d8",
+      "track": 3
+    },
+    {
+      "song": "Please",
+      "album": "Pop",
+      "albumId": "5eca5ea6-841b-3835-b368-94fb71d8f932",
+      "track": 11
+    },
+    {
+      "song": "Pride",
+      "album": "The Unforgettable Fire",
+      "albumId": "c84d00f4-afd3-3184-be62-6ae5f135aa38",
+      "track": 2
+    },
+    {
+      "song": "Running to Stand Still",
+      "album": "The Joshua Tree",
+      "albumId": "6f3e9fa6-be7a-3de8-a2b2-2072ece8a54d",
+      "track": 5
+    },
+    {
+      "song": "Satellite of Love",
+      "album": "One",
+      "albumId": "2f182da3-9297-3d20-a1c2-651dab872ff4",
+      "track": 3
+    },
+    {
+      "song": "Stay (Faraway, So Close!)",
+      "album": "Zooropa",
+      "albumId": "7c705df7-46e7-3c27-9693-72b3ea559c48",
+      "track": 5
+    },
+    {
+      "song": "Sunday Bloody Sunday",
+      "album": "War",
+      "albumId": "c6b36664-7e60-3b3e-a24d-d096c67a11e9",
+      "track": 1
+    },
+    {
+      "song": "Sweetest Thing",
+      "album": "Where the Streets Have No Name",
+      "albumId": "4d6c253b-d2ee-32c2-a8c8-299ac349856f",
+      "track": 4
+    },
+    {
+      "song": "The Electric Co.",
+      "album": "Boy",
+      "albumId": "53b0d89e-f856-3015-a3a6-a70e1e935fd6",
+      "track": 10
+    },
+    {
+      "song": "The Fly",
+      "album": "Achtung Baby",
+      "albumId": "744c7a1b-ac79-35c4-bd92-7e2c6a24c8d8",
+      "track": 7
+    },
+    {
+      "song": "The Unforgettable Fire",
+      "album": "The Unforgettable Fire",
+      "albumId": "c84d00f4-afd3-3184-be62-6ae5f135aa38",
+      "track": 4
+    },
+    {
+      "song": "Wake Up Dead Man",
+      "album": "Pop",
+      "albumId": "5eca5ea6-841b-3835-b368-94fb71d8f932",
+      "track": 12
+    },
+    {
+      "song": "Walk On",
+      "album": "All That You Can’t Leave Behind",
+      "albumId": "88c59b55-200d-3ac1-beff-8eb99830807e",
+      "track": 4
+    },
+    {
+      "song": "When Love Comes to Town",
+      "album": "When Love Comes to Town",
+      "albumId": "c3dc9ef2-400d-3335-983c-8c128ee7e37c",
+      "track": 1
+    },
+    {
+      "song": "Where the Streets Have No Name",
+      "album": "The Joshua Tree",
+      "albumId": "6f3e9fa6-be7a-3de8-a2b2-2072ece8a54d",
+      "track": 1
+    },
+    {
+      "song": "With or Without You",
+      "album": "The Joshua Tree",
+      "albumId": "6f3e9fa6-be7a-3de8-a2b2-2072ece8a54d",
+      "track": 3
+    },
+    {
+      "song": "Your Blue Room",
+      "album": "Original Soundtracks 1",
+      "albumId": "1edbf67b-8f85-3393-8136-d30f7f94e488",
+      "track": 3
+    },
+    {
+      "song": "Zooropa",
+      "album": "Zooropa",
+      "albumId": "7c705df7-46e7-3c27-9693-72b3ea559c48",
+      "track": 1
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

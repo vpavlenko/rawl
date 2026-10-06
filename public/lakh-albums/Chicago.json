@@ -1,0 +1,263 @@
+{
+  "artist": "Chicago",
+  "artistId": "3f5be744-e867-42fb-8913-5fd69e4099b5",
+  "groups": [
+    {
+      "id": "1eeb1e2c-ae11-3b2e-80fc-22233f0ca648",
+      "releaseId": "d9ac4d75-0d7e-4fe7-9cb1-8283bc975bd3",
+      "title": "Chicago Transit Authority",
+      "date": "1969",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1eeb1e2c-ae11-3b2e-80fc-22233f0ca648/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Does Anybody Know What Time It Is.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Does Anybody Really Know What Time It Is?.mid",
+            "Does Anybody Really Know What Time It Is?.1.mid",
+            "Does Anybody Really Know What Time It Is?.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Beginnings.mid",
+            "Beginnings.1.mid",
+            "Beginnings.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8d81d044-ab8e-3130-862d-e10ec4e5aff9",
+      "releaseId": "00f7d75f-a012-361d-9745-e5a547b0c4e7",
+      "title": "Chicago",
+      "date": "1970-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8d81d044-ab8e-3130-862d-e10ec4e5aff9/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Make Me Smile.mid",
+            "Make Me Smile.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Colour My World.mid",
+            "Colour My World.1.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "25 or 6 to 4.mid",
+            "25 or 6 to 4.1.mid",
+            "25 or 6 to 4.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f1952d31-0285-3e89-abe2-562b25f3c994",
+      "releaseId": "4609b0f2-792d-4d56-b0f4-933c1d8d9d07",
+      "title": "Chicago III",
+      "date": "1971-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f1952d31-0285-3e89-abe2-562b25f3c994/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Flight 602.mid",
+            "Flight 602.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f5cd3e6c-2dd1-38ff-aeed-55af970e34ef",
+      "releaseId": "d8012e14-b390-44ae-aaf4-ba723abbef8f",
+      "title": "Chicago V",
+      "date": "1972-07-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f5cd3e6c-2dd1-38ff-aeed-55af970e34ef/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Saturday In The Park.mid",
+            "Saturday In The Park.1.mid",
+            "Saturday In The Park.2.mid",
+            "Saturday In The Park.3.mid",
+            "Saturday In The Park.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6ba3d80e-34eb-3eeb-83a1-4ccd8d749d3b",
+      "releaseId": "a0531bba-03bd-47a0-8ad9-126716c2e3d6",
+      "title": "Chicago VI",
+      "date": "1973-06-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6ba3d80e-34eb-3eeb-83a1-4ccd8d749d3b/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Feelin' Stronger Every Day.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "45c535d1-295e-392b-afd3-837e67b5f9d5",
+      "releaseId": "6e218611-dd30-4ce7-a1ab-f6d6aeb60181",
+      "title": "Chicago VII",
+      "date": "1974-03-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/45c535d1-295e-392b-afd3-837e67b5f9d5/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "Wishing You Were Here.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1896d50a-94cd-334c-9e0c-0cc26483ec15",
+      "releaseId": "24cac80c-e968-4275-9387-48749bb195ed",
+      "title": "Chicago X",
+      "date": "1976-06-14",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1896d50a-94cd-334c-9e0c-0cc26483ec15/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "If You Leave Me Now.mid",
+            "If You Leave Me Now.1.mid",
+            "If You Leave Me Now.2.mid",
+            "If You Leave Me Now.3.mid",
+            "If You Leave Me Now.4.mid",
+            "If You Leave Me Now.5.mid",
+            "If You Leave Me Now.6.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "013f959a-7ba0-303c-b789-e08988a30dfb",
+      "releaseId": "fc945724-27cf-4fb2-805d-e22df614b9ec",
+      "title": "Hot Streets",
+      "date": "1978-10-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/013f959a-7ba0-303c-b789-e08988a30dfb/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "No Tell Lover.mid",
+            "No Tell Lover.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8c7a17ee-4100-3b24-9ad7-aa5c4d43b40c",
+      "releaseId": "47c438c6-5543-4996-b8d2-383a974e00bf",
+      "title": "Chicago 16",
+      "date": "1982-06-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8c7a17ee-4100-3b24-9ad7-aa5c4d43b40c/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Hard to Say I'm Sorry   Get Away.mid",
+            "Hard to Say I'm Sorry   Get Away.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fb0bcac1-b0a1-40cc-913b-e2d0b6cae853",
+      "releaseId": "111c206e-478a-43bf-bdf3-70b6e4fb1e4e",
+      "title": "Hard to Say I'm Sorry",
+      "date": "1982-07",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/fb0bcac1-b0a1-40cc-913b-e2d0b6cae853/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Hard to Say I'm Sorry.mid",
+            "Hard to Say I'm Sorry.1.mid",
+            "Hard to Say I'm Sorry.2.mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "Hard to Say Im Sorry.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3053c046-7bf3-34e7-b314-1fa2682ca81b",
+      "releaseId": "32c004a9-53df-45ce-8cb1-462dcb62e054",
+      "title": "Chicago 17",
+      "date": "1984-05-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3053c046-7bf3-34e7-b314-1fa2682ca81b/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Hard Habit to Break.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "You're the Inspiration.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "08aba13a-8f41-3562-a4e6-f4dc56835689",
+      "releaseId": "ba58a392-370e-441f-8c88-acfa8d7daa7a",
+      "title": "Chicago 19",
+      "date": "1988-06-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/08aba13a-8f41-3562-a4e6-f4dc56835689/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Look Away.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "What Kind Of Man Would I Be?.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "artist": "Chicago",
+  "status": "processed",
+  "totalSongs": 23,
+  "matched": [
+    {
+      "song": "25 or 6 to 4",
+      "album": "Chicago",
+      "albumId": "8d81d044-ab8e-3130-862d-e10ec4e5aff9",
+      "track": 14
+    },
+    {
+      "song": "Beginnings",
+      "album": "Chicago Transit Authority",
+      "albumId": "1eeb1e2c-ae11-3b2e-80fc-22233f0ca648",
+      "track": 3
+    },
+    {
+      "song": "Colour My World",
+      "album": "Chicago",
+      "albumId": "8d81d044-ab8e-3130-862d-e10ec4e5aff9",
+      "track": 10
+    },
+    {
+      "song": "Does Anybody Know What Time It Is",
+      "album": "Chicago Transit Authority",
+      "albumId": "1eeb1e2c-ae11-3b2e-80fc-22233f0ca648",
+      "track": 2
+    },
+    {
+      "song": "Does Anybody Really Know What Time It Is?",
+      "album": "Chicago Transit Authority",
+      "albumId": "1eeb1e2c-ae11-3b2e-80fc-22233f0ca648",
+      "track": 2
+    },
+    {
+      "song": "Feelin' Stronger Every Day",
+      "album": "Chicago VI",
+      "albumId": "6ba3d80e-34eb-3eeb-83a1-4ccd8d749d3b",
+      "track": 10
+    },
+    {
+      "song": "Flight 602",
+      "album": "Chicago III",
+      "albumId": "f1952d31-0285-3e89-abe2-562b25f3c994",
+      "track": 5
+    },
+    {
+      "song": "Hard Habit to Break",
+      "album": "Chicago 17",
+      "albumId": "3053c046-7bf3-34e7-b314-1fa2682ca81b",
+      "track": 3
+    },
+    {
+      "song": "Hard to Say I'm Sorry   Get Away",
+      "album": "Chicago 16",
+      "albumId": "8c7a17ee-4100-3b24-9ad7-aa5c4d43b40c",
+      "track": 5
+    },
+    {
+      "song": "Hard to Say I'm Sorry",
+      "album": "Hard to Say I'm Sorry",
+      "albumId": "fb0bcac1-b0a1-40cc-913b-e2d0b6cae853",
+      "track": 1
+    },
+    {
+      "song": "Hard to Say Im Sorry",
+      "album": "Hard to Say I'm Sorry",
+      "albumId": "fb0bcac1-b0a1-40cc-913b-e2d0b6cae853",
+      "track": 1
+    },
+    {
+      "song": "If You Leave Me Now",
+      "album": "Chicago X",
+      "albumId": "1896d50a-94cd-334c-9e0c-0cc26483ec15",
+      "track": 4
+    },
+    {
+      "song": "Look Away",
+      "album": "Chicago 19",
+      "albumId": "08aba13a-8f41-3562-a4e6-f4dc56835689",
+      "track": 6
+    },
+    {
+      "song": "Make Me Smile",
+      "album": "Chicago",
+      "albumId": "8d81d044-ab8e-3130-862d-e10ec4e5aff9",
+      "track": 6
+    },
+    {
+      "song": "No Tell Lover",
+      "album": "Hot Streets",
+      "albumId": "013f959a-7ba0-303c-b789-e08988a30dfb",
+      "track": 9
+    },
+    {
+      "song": "Saturday In The Park",
+      "album": "Chicago V",
+      "albumId": "f5cd3e6c-2dd1-38ff-aeed-55af970e34ef",
+      "track": 7
+    },
+    {
+      "song": "What Kind Of Man Would I Be?",
+      "album": "Chicago 19",
+      "albumId": "08aba13a-8f41-3562-a4e6-f4dc56835689",
+      "track": 7
+    },
+    {
+      "song": "Wishing You Were Here",
+      "album": "Chicago VII",
+      "albumId": "45c535d1-295e-392b-afd3-837e67b5f9d5",
+      "track": 12
+    },
+    {
+      "song": "You're the Inspiration",
+      "album": "Chicago 17",
+      "albumId": "3053c046-7bf3-34e7-b314-1fa2682ca81b",
+      "track": 7
+    }
+  ],
+  "unmatched": [
+    "After the Love Has Gone (live, 2004)",
+    "Aufforderung zum Tanz, op. 65",
+    "Sweet Home Chicago",
+    "Where We Begin"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "After the Love Has Gone (live, 2004)": [],
+    "Aufforderung zum Tanz, op. 65": [],
+    "Sweet Home Chicago": [],
+    "Where We Begin": []
+  }
+}

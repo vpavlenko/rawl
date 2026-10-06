@@ -1362,5 +1362,25 @@
         "title": "We've Only Just Begun"
       }
     }
+  },
+  "Chicago": {
+    "name": "Chicago",
+    "mbid": "3f5be744-e867-42fb-8913-5fd69e4099b5",
+    "country": "US",
+    "includedReleaseGroups": [
+      "32bb98fa-d543-4d53-bccb-b4b54e38591c"
+    ],
+    "extraReleaseGroupIds": [
+      "32bb98fa-d543-4d53-bccb-b4b54e38591c"
+    ],
+    "songs": {
+      "Does Anybody Know What Time It Is": {
+        "title": "Does Anybody Really Know What Time It Is?"
+      },
+      "After the Love Has Gone (live, 2004)": {
+        "title": "After the Love Has Gone",
+        "albumId": "32bb98fa-d543-4d53-bccb-b4b54e38591c"
+      }
+    }
   }
 }

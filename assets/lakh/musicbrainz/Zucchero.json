@@ -1,0 +1,268 @@
+{
+  "artist": "Zucchero",
+  "status": "processed",
+  "totalSongs": 44,
+  "matched": [
+    {
+      "song": "Ali d'oro",
+      "album": "Shake",
+      "albumId": "ecd62ccb-cbf0-3cf2-95ff-7648c811efe0",
+      "track": 4
+    },
+    {
+      "song": "Alleluja",
+      "album": "Spirito DiVino",
+      "albumId": "2802a2a0-667d-3313-89c5-1b51fa35c2cd",
+      "track": 10
+    },
+    {
+      "song": "Back 2 U",
+      "album": "Bluesugar",
+      "albumId": "1e1d9984-a16a-344c-bdcc-4d8c1a6a68d0",
+      "track": 5
+    },
+    {
+      "song": "Baila (Sexy Thing)",
+      "album": "Shake",
+      "albumId": "ecd62ccb-cbf0-3cf2-95ff-7648c811efe0",
+      "track": 7
+    },
+    {
+      "song": "Bambino io, bambino tu (Legenda)",
+      "album": "Blue’s",
+      "albumId": "080a1335-0b85-3e76-9217-72e2b83e932a",
+      "track": 5
+    },
+    {
+      "song": "Blu",
+      "album": "Bluesugar",
+      "albumId": "1e1d9984-a16a-344c-bdcc-4d8c1a6a68d0",
+      "track": 2
+    },
+    {
+      "song": "Canzone triste (Canzone d'amore)",
+      "album": "Rispetto",
+      "albumId": "279f2518-e823-33ff-ab7e-3fefc838cff3",
+      "track": 10
+    },
+    {
+      "song": "Come il sole all'improvviso",
+      "album": "Rispetto",
+      "albumId": "279f2518-e823-33ff-ab7e-3fefc838cff3",
+      "track": 3
+    },
+    {
+      "song": "Con le mani",
+      "album": "Blue’s",
+      "albumId": "080a1335-0b85-3e76-9217-72e2b83e932a",
+      "track": 2
+    },
+    {
+      "song": "Cosi celeste",
+      "album": "Spirito DiVino",
+      "albumId": "2802a2a0-667d-3313-89c5-1b51fa35c2cd",
+      "track": 9
+    },
+    {
+      "song": "Datemi una pompa",
+      "album": "Spirito DiVino",
+      "albumId": "2802a2a0-667d-3313-89c5-1b51fa35c2cd",
+      "track": 2
+    },
+    {
+      "song": "Diamante",
+      "album": "Oro, incenso & birra",
+      "albumId": "3ccbd2c8-7d8e-3bfb-ab21-076bd64231d6",
+      "track": 8
+    },
+    {
+      "song": "Diavolo in me",
+      "album": "Oro, incenso & birra",
+      "albumId": "3ccbd2c8-7d8e-3bfb-ab21-076bd64231d6",
+      "track": 5
+    },
+    {
+      "song": "Donne",
+      "album": "Zucchero & The Randy Jackson Band",
+      "albumId": "c14613d3-1273-3946-8a8b-90d7dacca617",
+      "track": 1
+    },
+    {
+      "song": "Dune mosse",
+      "album": "Blue’s",
+      "albumId": "080a1335-0b85-3e76-9217-72e2b83e932a",
+      "track": 4
+    },
+    {
+      "song": "Eppure non t'amo",
+      "album": "Blue",
+      "albumId": "5010260f-ded0-397d-a7d7-e766509f9585",
+      "track": 3
+    },
+    {
+      "song": "Hai scelto me",
+      "album": "Blue’s",
+      "albumId": "080a1335-0b85-3e76-9217-72e2b83e932a",
+      "track": 10
+    },
+    {
+      "song": "Hey Man",
+      "album": "Blue’s",
+      "albumId": "080a1335-0b85-3e76-9217-72e2b83e932a",
+      "track": 8
+    },
+    {
+      "song": "Il mare impetuoso al tramonto sali sulla luna e dietro una tendina di stelle...",
+      "album": "Oro, incenso & birra",
+      "albumId": "3ccbd2c8-7d8e-3bfb-ab21-076bd64231d6",
+      "track": 3
+    },
+    {
+      "song": "Il volo",
+      "album": "Spirito DiVino",
+      "albumId": "2802a2a0-667d-3313-89c5-1b51fa35c2cd",
+      "track": 6
+    },
+    {
+      "song": "Iruben me",
+      "album": "Oro, incenso & birra",
+      "albumId": "3ccbd2c8-7d8e-3bfb-ab21-076bd64231d6",
+      "track": 6
+    },
+    {
+      "song": "It's All Right (La promessa)",
+      "album": "Miserere",
+      "albumId": "56462677-7403-3624-b0e5-5b776b74666b",
+      "track": 3
+    },
+    {
+      "song": "L'urlo",
+      "album": "La sesión cubana",
+      "albumId": "0bf61bd7-b15b-47d6-8247-611981df7667",
+      "track": 7
+    },
+    {
+      "song": "Madre dolcissima",
+      "album": "Oro, incenso & birra",
+      "albumId": "3ccbd2c8-7d8e-3bfb-ab21-076bd64231d6",
+      "track": 4
+    },
+    {
+      "song": "Menta e rosmarino",
+      "album": "Menta e Rosmarino",
+      "albumId": "eaffe12a-70ed-4d92-8e78-6259acad4afb",
+      "track": 1
+    },
+    {
+      "song": "Miserere",
+      "album": "Miserere",
+      "albumId": "56462677-7403-3624-b0e5-5b776b74666b",
+      "track": 12
+    },
+    {
+      "song": "Music in Me",
+      "album": "Shake",
+      "albumId": "ecd62ccb-cbf0-3cf2-95ff-7648c811efe0",
+      "track": 2
+    },
+    {
+      "song": "Nice (Nietzsche) che dice",
+      "album": "Oro, incenso & birra",
+      "albumId": "3ccbd2c8-7d8e-3bfb-ab21-076bd64231d6",
+      "track": 2
+    },
+    {
+      "song": "Non ti sopporto piu",
+      "album": "Blue’s",
+      "albumId": "080a1335-0b85-3e76-9217-72e2b83e932a",
+      "track": 6
+    },
+    {
+      "song": "Overdose (d'amore)",
+      "album": "Oro, incenso & birra",
+      "albumId": "3ccbd2c8-7d8e-3bfb-ab21-076bd64231d6",
+      "track": 1
+    },
+    {
+      "song": "Pane e sale",
+      "album": "Spirito DiVino",
+      "albumId": "2802a2a0-667d-3313-89c5-1b51fa35c2cd",
+      "track": 4
+    },
+    {
+      "song": "Per colpa di chi",
+      "album": "Spirito DiVino",
+      "albumId": "2802a2a0-667d-3313-89c5-1b51fa35c2cd",
+      "track": 5
+    },
+    {
+      "song": "Pippo",
+      "album": "Blue’s",
+      "albumId": "080a1335-0b85-3e76-9217-72e2b83e932a",
+      "track": 3
+    },
+    {
+      "song": "Ridammi il Sole",
+      "album": "Miserere",
+      "albumId": "56462677-7403-3624-b0e5-5b776b74666b",
+      "track": 10
+    },
+    {
+      "song": "Rispetto",
+      "album": "Rispetto",
+      "albumId": "279f2518-e823-33ff-ab7e-3fefc838cff3",
+      "track": 2
+    },
+    {
+      "song": "Scintille",
+      "album": "Shake",
+      "albumId": "ecd62ccb-cbf0-3cf2-95ff-7648c811efe0",
+      "track": 6
+    },
+    {
+      "song": "Senza Una Donna",
+      "album": "Blue’s",
+      "albumId": "080a1335-0b85-3e76-9217-72e2b83e932a",
+      "track": 7
+    },
+    {
+      "song": "Solo una sana e consapevole libidine salva il giovane dallo stress e dall'Azione Cattolica",
+      "album": "Blue’s",
+      "albumId": "080a1335-0b85-3e76-9217-72e2b83e932a",
+      "track": 9
+    },
+    {
+      "song": "Torna a casa",
+      "album": "Rispetto",
+      "albumId": "279f2518-e823-33ff-ab7e-3fefc838cff3",
+      "track": 8
+    },
+    {
+      "song": "Un piccolo aiuto (feat. Gerard Depardieu)",
+      "album": "Zucchero & The Randy Jackson Band",
+      "albumId": "c14613d3-1273-3946-8a8b-90d7dacca617",
+      "track": 6
+    },
+    {
+      "song": "Voodoo voodoo",
+      "album": "Spirito DiVino",
+      "albumId": "2802a2a0-667d-3313-89c5-1b51fa35c2cd",
+      "track": 1
+    },
+    {
+      "song": "You Make Me Feel Loved",
+      "album": "Bluesugar",
+      "albumId": "1e1d9984-a16a-344c-bdcc-4d8c1a6a68d0",
+      "track": 1
+    }
+  ],
+  "unmatched": [
+    "Muoio per te",
+    "Puro amore"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Muoio per te": [],
+    "Puro amore": []
+  }
+}

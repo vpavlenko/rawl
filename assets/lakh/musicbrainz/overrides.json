@@ -492,5 +492,24 @@
         "title": "Billie Jean"
       }
     }
+  },
+  "Zucchero": {
+    "name": "Zucchero",
+    "mbid": "00ed154e-8679-42f0-8f42-e59bd7e185af",
+    "country": "IT",
+    "songs": {
+      "Per colpa di chi": {
+        "title": "X colpa di chi?"
+      },
+      "You Make Me Feel Loved": {
+        "title": "U Make Me Feel Loved"
+      },
+      "Un piccolo aiuto (feat. Gerard Depardieu)": {
+        "title": "Un piccolo aiuto"
+      },
+      "Menta e rosmarino": {
+        "title": "Menta e rosmarino (Edit)"
+      }
+    }
   }
 }

@@ -40,7 +40,29 @@
     "skip": "Needs work-based grouping"
   },
   "John Elton": {
-    "name": "Elton John"
+    "name": "Elton John",
+    "mbid": "b83bc61f-8451-4a5d-8b8e-7e9ed295e822",
+    "country": "GB",
+    "songs": {
+      "Bennie & The Jets": {
+        "title": "Bennie and the Jets"
+      },
+      "Don't Let the Sun Go Down": {
+        "title": "Don't Let the Sun Go Down on Me"
+      },
+      "Goodby Yellow Brick Road": {
+        "title": "Goodbye Yellow Brick Road"
+      },
+      "Little Jeanie": {
+        "title": "Little Jeannie"
+      },
+      "Saturday Night's Allright": {
+        "title": "Saturday Night's Alright for Fighting"
+      },
+      "Funeral for a Friend": {
+        "title": "Funeral for a Friend / Love Lies Bleeding"
+      }
+    }
   },
   "Rossi Vasco": {
     "name": "Vasco Rossi",

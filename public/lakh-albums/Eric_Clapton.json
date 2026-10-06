@@ -1,0 +1,405 @@
+{
+  "artist": "Eric Clapton",
+  "artistId": "618b6900-0618-4f1e-b835-bccb17f84294",
+  "groups": [
+    {
+      "id": "38d65202-a589-38ad-bf19-6161193340ee",
+      "releaseId": "0ce2fbf4-9b92-4565-9106-175bc70ece10",
+      "title": "Fresh Cream",
+      "date": "1966-12-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/38d65202-a589-38ad-bf19-6161193340ee/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Rollin' & Tumblin'.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bbd66e31-ac27-3432-81a7-0d4b4b4c5de5",
+      "releaseId": "2cd2d18a-b1e4-3d7f-b9e2-d6bb4976ec24",
+      "title": "Disraeli Gears",
+      "date": "1967-11-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/bbd66e31-ac27-3432-81a7-0d4b4b4c5de5/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Strange Brew.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Sunshine of Your Love.mid",
+            "Sunshine of Your Love.1.mid",
+            "Sunshine of Your Love.2.mid",
+            "Sunshine of Your Love.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ebd3f09d-cb3a-45f7-bab5-5a23eaf95e7e",
+      "releaseId": "0a7eba9e-0da4-47e0-9197-45eb93ff46fd",
+      "title": "Wheels of Fire: In the Studio",
+      "date": "1968",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ebd3f09d-cb3a-45f7-bab5-5a23eaf95e7e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "White Room.mid",
+            "White Room.1.mid",
+            "White Room.2.mid",
+            "White Room.3.mid",
+            "White Room.4.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Born Under a Bad Sign.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "afbf4eae-a722-3236-945a-9f5045976107",
+      "releaseId": "f0b9e2e3-13fe-472d-a6ce-ef2aa49006ce",
+      "title": "Blind Faith",
+      "date": "1969-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/afbf4eae-a722-3236-945a-9f5045976107/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Presence of the Lord.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f1674003-7613-3217-a0fb-f74f2d1e0a89",
+      "releaseId": "b614dd1e-1b74-4cfb-9f5e-89686d5528a7",
+      "title": "Eric Clapton",
+      "date": "1970-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f1674003-7613-3217-a0fb-f74f2d1e0a89/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "After Midnight.mid",
+            "After Midnight.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ba53dcbd-9328-3cf7-bc72-179b4512867e",
+      "releaseId": "dede30f3-cd41-4b3a-a30c-36c842f8fae3",
+      "title": "Layla and Other Assorted Love Songs",
+      "date": "1970-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ba53dcbd-9328-3cf7-bc72-179b4512867e/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Bell Bottom Blues.mid",
+            "Bell Bottom Blues.1.mid",
+            "Bell Bottom Blues.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Nobody Knows You When You're Down & Out.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Key to the Highway.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Layla.mid",
+            "Layla.1.mid",
+            "Layla.2.mid",
+            "Layla.3.mid",
+            "Layla.4.mid",
+            "Layla.5.mid",
+            "Layla.6.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ced848a4-b94b-3f34-b08b-6dc8bf8aed8f",
+      "releaseId": "598b5675-95ad-4ce1-8a48-fdb6e0c20988",
+      "title": "461 Ocean Boulevard",
+      "date": "1974-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ced848a4-b94b-3f34-b08b-6dc8bf8aed8f/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "I Shot the Sheriff.mid",
+            "I Shot the Sheriff.1.mid",
+            "I Shot the Sheriff.2.mid",
+            "I Shot the Sheriff.3.mid",
+            "I Shot the Sheriff.4.mid",
+            "I Shot the Sheriff.5.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Let It Grow.mid",
+            "Let It Grow.1.mid",
+            "Let It Grow.2.mid",
+            "Let It Grow.3.mid",
+            "Let It Grow.4.mid",
+            "Let It Grow.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "146eb105-ce31-388a-8fb2-671a2cf8fc85",
+      "releaseId": "fe9f1f4a-d36b-4354-b308-9b9f47539c14",
+      "title": "Knocking on Heaven's Door / Someone Like You",
+      "date": "1975",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/146eb105-ce31-388a-8fb2-671a2cf8fc85/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Knockin' on Heaven's Door.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "02c2b0c7-065d-38b4-8ac0-3391839f2418",
+      "releaseId": "04c64922-7a2f-4e0c-938c-76724a5298c1",
+      "title": "Slowhand",
+      "date": "1977",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/02c2b0c7-065d-38b4-8ac0-3391839f2418/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Cocaine.mid",
+            "Cocaine.1.mid",
+            "Cocaine.2.mid",
+            "Cocaine.3.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Wonderful Tonight.mid",
+            "Wonderful Tonight.1.mid",
+            "Wonderful Tonight.2.mid",
+            "Wonderful Tonight.3.mid",
+            "Wonderful Tonight.4.mid",
+            "Wonderful Tonight.5.mid",
+            "Wonderful Tonight.6.mid",
+            "Wonderful Tonight.7.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Lay Down Sally.mid",
+            "Lay Down Sally.1.mid",
+            "Lay Down Sally.2.mid",
+            "Lay Down Sally.3.mid",
+            "Lay Down Sally.4.mid",
+            "Lay Down Sally.5.mid",
+            "Lay Down Sally.6.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3ed4f4b7-e45c-3ef3-a8f0-2e4ae8c51c4f",
+      "releaseId": "90f695f9-f8c2-4833-b17c-cfb83fe4ee66",
+      "title": "Money and Cigarettes",
+      "date": "1983",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3ed4f4b7-e45c-3ef3-a8f0-2e4ae8c51c4f/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "I've Got a Rock 'n' Roll Heart.mid",
+            "I've Got a Rock 'n' Roll Heart.1.mid",
+            "I've Got a Rock 'n' Roll Heart.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Crosscut Saw.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8e4a1a89-a1d7-3b75-a6c7-c547db25aa0f",
+      "releaseId": "01dfbe69-f458-46c8-bf7a-fa5214ddfbf8",
+      "title": "Behind the Sun",
+      "date": "1985-03-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8e4a1a89-a1d7-3b75-a6c7-c547db25aa0f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "She's Waiting.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Forever Man.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "700072d4-ea59-36fc-bc62-e90b7282aa0c",
+      "releaseId": "00c22ae5-990b-4fad-88a5-b805bdb6867f",
+      "title": "Journeyman",
+      "date": "1989-10-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/700072d4-ea59-36fc-bc62-e90b7282aa0c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Pretending.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Bad Love.mid",
+            "Bad Love.1.mid",
+            "Bad Love.2.mid",
+            "Bad Love.3.mid",
+            "Bad Love.4.mid",
+            "Bad Love.5.mid",
+            "Bad Love.6.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Running on Faith.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Before You Accuse Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "61c4a210-6e90-3d41-b6c1-fd2c7e4fb6ac",
+      "releaseId": "1b07a825-fab8-4e83-954a-076a4d23d972",
+      "title": "Unplugged",
+      "date": "1992-08-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/61c4a210-6e90-3d41-b6c1-fd2c7e4fb6ac/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Signe.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Tears in Heaven.mid",
+            "Tears in Heaven.1.mid",
+            "Tears in Heaven.2.mid",
+            "Tears in Heaven.3.mid",
+            "Tears in Heaven.4.mid",
+            "Tears in Heaven.5.mid",
+            "Tears in Heaven.6.mid",
+            "Tears in Heaven.7.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "80c911df-4ee4-3013-bf5f-ce4e6e0cee6d",
+      "releaseId": "2b2fe8e7-e007-4394-a9c2-d61a6c80cd59",
+      "title": "Change the World",
+      "date": "1996-07-25",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/80c911df-4ee4-3013-bf5f-ce4e6e0cee6d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Change the World.mid",
+            "Change the World.1.mid",
+            "Change the World.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3af2cda2-6766-33a2-babf-f732745af220",
+      "releaseId": "16abb198-ab78-38ee-affa-b2df377dfff4",
+      "title": "Pilgrim",
+      "date": "1998-03-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3af2cda2-6766-33a2-babf-f732745af220/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "My Father's Eyes (take 2).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1177a0a3-4bc9-3d60-a865-b51f7c317176",
+      "releaseId": "48c524df-5b01-4805-a9a4-a5036490bd16",
+      "title": "Blue Eyes Blue",
+      "date": "1999-10-25",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/1177a0a3-4bc9-3d60-a865-b51f7c317176/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Blue Eyes Blue.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

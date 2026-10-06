@@ -1,0 +1,190 @@
+{
+  "artist": "Eric Clapton",
+  "status": "processed",
+  "totalSongs": 30,
+  "matched": [
+    {
+      "song": "After Midnight",
+      "album": "Eric Clapton",
+      "albumId": "f1674003-7613-3217-a0fb-f74f2d1e0a89",
+      "track": 4
+    },
+    {
+      "song": "Bad Love",
+      "album": "Journeyman",
+      "albumId": "700072d4-ea59-36fc-bc62-e90b7282aa0c",
+      "track": 3
+    },
+    {
+      "song": "Before You Accuse Me",
+      "album": "Journeyman",
+      "albumId": "700072d4-ea59-36fc-bc62-e90b7282aa0c",
+      "track": 12
+    },
+    {
+      "song": "Bell Bottom Blues",
+      "album": "Layla and Other Assorted Love Songs",
+      "albumId": "ba53dcbd-9328-3cf7-bc72-179b4512867e",
+      "track": 2
+    },
+    {
+      "song": "Blue Eyes Blue",
+      "album": "Blue Eyes Blue",
+      "albumId": "1177a0a3-4bc9-3d60-a865-b51f7c317176",
+      "track": 1
+    },
+    {
+      "song": "Born Under a Bad Sign",
+      "album": "Wheels of Fire: In the Studio",
+      "albumId": "ebd3f09d-cb3a-45f7-bab5-5a23eaf95e7e",
+      "track": 8
+    },
+    {
+      "song": "Change the World",
+      "album": "Change the World",
+      "albumId": "80c911df-4ee4-3013-bf5f-ce4e6e0cee6d",
+      "track": 1
+    },
+    {
+      "song": "Cocaine",
+      "album": "Slowhand",
+      "albumId": "02c2b0c7-065d-38b4-8ac0-3391839f2418",
+      "track": 1
+    },
+    {
+      "song": "Crosscut Saw",
+      "album": "Money and Cigarettes",
+      "albumId": "3ed4f4b7-e45c-3ef3-a8f0-2e4ae8c51c4f",
+      "track": 8
+    },
+    {
+      "song": "Forever Man",
+      "album": "Behind the Sun",
+      "albumId": "8e4a1a89-a1d7-3b75-a6c7-c547db25aa0f",
+      "track": 6
+    },
+    {
+      "song": "I Shot the Sheriff",
+      "album": "461 Ocean Boulevard",
+      "albumId": "ced848a4-b94b-3f34-b08b-6dc8bf8aed8f",
+      "track": 5
+    },
+    {
+      "song": "I've Got a Rock 'n' Roll Heart",
+      "album": "Money and Cigarettes",
+      "albumId": "3ed4f4b7-e45c-3ef3-a8f0-2e4ae8c51c4f",
+      "track": 4
+    },
+    {
+      "song": "Key to the Highway",
+      "album": "Layla and Other Assorted Love Songs",
+      "albumId": "ba53dcbd-9328-3cf7-bc72-179b4512867e",
+      "track": 7
+    },
+    {
+      "song": "Knockin' on Heaven's Door",
+      "album": "Knocking on Heaven's Door / Someone Like You",
+      "albumId": "146eb105-ce31-388a-8fb2-671a2cf8fc85",
+      "track": 1
+    },
+    {
+      "song": "Lay Down Sally",
+      "album": "Slowhand",
+      "albumId": "02c2b0c7-065d-38b4-8ac0-3391839f2418",
+      "track": 3
+    },
+    {
+      "song": "Layla",
+      "album": "Layla and Other Assorted Love Songs",
+      "albumId": "ba53dcbd-9328-3cf7-bc72-179b4512867e",
+      "track": 13
+    },
+    {
+      "song": "Let It Grow",
+      "album": "461 Ocean Boulevard",
+      "albumId": "ced848a4-b94b-3f34-b08b-6dc8bf8aed8f",
+      "track": 8
+    },
+    {
+      "song": "My Father's Eyes (take 2)",
+      "album": "Pilgrim",
+      "albumId": "3af2cda2-6766-33a2-babf-f732745af220",
+      "track": 1
+    },
+    {
+      "song": "Nobody Knows You When You're Down & Out",
+      "album": "Layla and Other Assorted Love Songs",
+      "albumId": "ba53dcbd-9328-3cf7-bc72-179b4512867e",
+      "track": 4
+    },
+    {
+      "song": "Presence of the Lord",
+      "album": "Blind Faith",
+      "albumId": "afbf4eae-a722-3236-945a-9f5045976107",
+      "track": 4
+    },
+    {
+      "song": "Pretending",
+      "album": "Journeyman",
+      "albumId": "700072d4-ea59-36fc-bc62-e90b7282aa0c",
+      "track": 1
+    },
+    {
+      "song": "Rollin' & Tumblin'",
+      "album": "Fresh Cream",
+      "albumId": "38d65202-a589-38ad-bf19-6161193340ee",
+      "track": 8
+    },
+    {
+      "song": "Running on Faith",
+      "album": "Journeyman",
+      "albumId": "700072d4-ea59-36fc-bc62-e90b7282aa0c",
+      "track": 4
+    },
+    {
+      "song": "She's Waiting",
+      "album": "Behind the Sun",
+      "albumId": "8e4a1a89-a1d7-3b75-a6c7-c547db25aa0f",
+      "track": 1
+    },
+    {
+      "song": "Signe",
+      "album": "Unplugged",
+      "albumId": "61c4a210-6e90-3d41-b6c1-fd2c7e4fb6ac",
+      "track": 1
+    },
+    {
+      "song": "Strange Brew",
+      "album": "Disraeli Gears",
+      "albumId": "bbd66e31-ac27-3432-81a7-0d4b4b4c5de5",
+      "track": 1
+    },
+    {
+      "song": "Sunshine of Your Love",
+      "album": "Disraeli Gears",
+      "albumId": "bbd66e31-ac27-3432-81a7-0d4b4b4c5de5",
+      "track": 2
+    },
+    {
+      "song": "Tears in Heaven",
+      "album": "Unplugged",
+      "albumId": "61c4a210-6e90-3d41-b6c1-fd2c7e4fb6ac",
+      "track": 4
+    },
+    {
+      "song": "White Room",
+      "album": "Wheels of Fire: In the Studio",
+      "albumId": "ebd3f09d-cb3a-45f7-bab5-5a23eaf95e7e",
+      "track": 1
+    },
+    {
+      "song": "Wonderful Tonight",
+      "album": "Slowhand",
+      "albumId": "02c2b0c7-065d-38b4-8ac0-3391839f2418",
+      "track": 2
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

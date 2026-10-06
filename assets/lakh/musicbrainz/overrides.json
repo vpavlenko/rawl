@@ -918,5 +918,29 @@
         "albumId": "690132da-dcf0-3805-b4ed-b4ec4392ae01"
       }
     }
+  },
+  "Eric Clapton": {
+    "name": "Eric Clapton",
+    "mbid": "618b6900-0618-4f1e-b835-bccb17f84294",
+    "country": "GB",
+    "relatedArtistIds": [
+      "2155a81a-f0c6-417a-9b16-2f86f98bb8bc",
+      "04cd0cfd-bfd1-4c36-bc38-95c35e2c045f",
+      "53fa91ca-a2b9-463d-b78e-daca9894082a"
+    ],
+    "includedReleaseGroups": [
+      "61c4a210-6e90-3d41-b6c1-fd2c7e4fb6ac"
+    ],
+    "songs": {
+      "My Father's Eyes (take 2)": {
+        "title": "My Father’s Eyes"
+      },
+      "Nobody Knows You When You're Down & Out": {
+        "title": "Nobody Knows You When You're Down and Out"
+      },
+      "Rollin' & Tumblin'": {
+        "title": "Rollin' and Tumblin'"
+      }
+    }
   }
 }

@@ -1183,5 +1183,15 @@
         "title": "You Make Loving Fun"
       }
     }
+  },
+  "R.E.M.": {
+    "name": "R.E.M.",
+    "mbid": "ea4dfa26-f633-4da6-a52a-f49ea4897b58",
+    "country": "US",
+    "songs": {
+      "What's the Frequency, Kenneth? (radio version)": {
+        "title": "What's the Frequency, Kenneth?"
+      }
+    }
   }
 }

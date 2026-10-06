@@ -1,0 +1,166 @@
+{
+  "artist": "R.E.M.",
+  "status": "processed",
+  "totalSongs": 26,
+  "matched": [
+    {
+      "song": "Bang and Blame",
+      "album": "Monster",
+      "albumId": "2a71baeb-0c95-3d3a-aef9-8d5fe17a8038",
+      "track": 8
+    },
+    {
+      "song": "Bittersweet Me",
+      "album": "New Adventures in Hi‐Fi",
+      "albumId": "6d4f73cb-9c02-33c5-ba06-c927a9b963ad",
+      "track": 8
+    },
+    {
+      "song": "Country Feedback",
+      "album": "Out of Time",
+      "albumId": "400a5fdd-e616-3598-a9bf-cd8275cb53d0",
+      "track": 10
+    },
+    {
+      "song": "Drive",
+      "album": "Automatic for the People",
+      "albumId": "c86c6af9-d10e-3079-b34b-30b682a797eb",
+      "track": 1
+    },
+    {
+      "song": "Driver 8",
+      "album": "Fables of the Reconstruction",
+      "albumId": "871de38f-9783-318c-9c0e-4cc5e17a7b02",
+      "track": 3
+    },
+    {
+      "song": "E-Bow the Letter",
+      "album": "New Adventures in Hi‐Fi",
+      "albumId": "6d4f73cb-9c02-33c5-ba06-c927a9b963ad",
+      "track": 5
+    },
+    {
+      "song": "Everybody Hurts",
+      "album": "Automatic for the People",
+      "albumId": "c86c6af9-d10e-3079-b34b-30b682a797eb",
+      "track": 4
+    },
+    {
+      "song": "Fall On Me",
+      "album": "Lifes Rich Pageant",
+      "albumId": "8b6b2628-7bd4-3fed-9d65-cf4e5dc45939",
+      "track": 3
+    },
+    {
+      "song": "Find the River",
+      "album": "Automatic for the People",
+      "albumId": "c86c6af9-d10e-3079-b34b-30b682a797eb",
+      "track": 12
+    },
+    {
+      "song": "It's The End of the World as We Know It (and I Feel Fine)",
+      "album": "Document",
+      "albumId": "137385b2-b4cc-385e-9d59-781e7674f5bc",
+      "track": 6
+    },
+    {
+      "song": "Losing My Religion",
+      "album": "Out of Time",
+      "albumId": "400a5fdd-e616-3598-a9bf-cd8275cb53d0",
+      "track": 2
+    },
+    {
+      "song": "Love Is All Around",
+      "album": "Radio Song",
+      "albumId": "c549476c-9e21-3389-8b1c-72576df889f9",
+      "track": 2
+    },
+    {
+      "song": "Man on the Moon",
+      "album": "Automatic for the People",
+      "albumId": "c86c6af9-d10e-3079-b34b-30b682a797eb",
+      "track": 10
+    },
+    {
+      "song": "Nightswimming",
+      "album": "Automatic for the People",
+      "albumId": "c86c6af9-d10e-3079-b34b-30b682a797eb",
+      "track": 11
+    },
+    {
+      "song": "Orange Crush",
+      "album": "Green",
+      "albumId": "16a9cef3-b470-3ae1-bf10-cc04232d3e21",
+      "track": 7
+    },
+    {
+      "song": "Radio Free Europe",
+      "album": "Murmur",
+      "albumId": "de790d3d-a35c-364c-a8fb-adfb73084a45",
+      "track": 1
+    },
+    {
+      "song": "Radio Song",
+      "album": "Out of Time",
+      "albumId": "400a5fdd-e616-3598-a9bf-cd8275cb53d0",
+      "track": 1
+    },
+    {
+      "song": "Shiny Happy People",
+      "album": "Out of Time",
+      "albumId": "400a5fdd-e616-3598-a9bf-cd8275cb53d0",
+      "track": 6
+    },
+    {
+      "song": "Star 69",
+      "album": "Monster",
+      "albumId": "2a71baeb-0c95-3d3a-aef9-8d5fe17a8038",
+      "track": 5
+    },
+    {
+      "song": "Strange Currencies",
+      "album": "Monster",
+      "albumId": "2a71baeb-0c95-3d3a-aef9-8d5fe17a8038",
+      "track": 6
+    },
+    {
+      "song": "Texarkana",
+      "album": "Out of Time",
+      "albumId": "400a5fdd-e616-3598-a9bf-cd8275cb53d0",
+      "track": 9
+    },
+    {
+      "song": "The Great Beyond",
+      "album": "The Great Beyond",
+      "albumId": "262b3e22-cfae-3843-9ab7-52d5509ad93d",
+      "track": 1
+    },
+    {
+      "song": "The One I Love",
+      "album": "Document",
+      "albumId": "137385b2-b4cc-385e-9d59-781e7674f5bc",
+      "track": 7
+    },
+    {
+      "song": "The Wake-Up Bomb",
+      "album": "New Adventures in Hi‐Fi",
+      "albumId": "6d4f73cb-9c02-33c5-ba06-c927a9b963ad",
+      "track": 2
+    },
+    {
+      "song": "Undertow",
+      "album": "New Adventures in Hi‐Fi",
+      "albumId": "6d4f73cb-9c02-33c5-ba06-c927a9b963ad",
+      "track": 4
+    },
+    {
+      "song": "What's the Frequency, Kenneth? (radio version)",
+      "album": "Monster",
+      "albumId": "2a71baeb-0c95-3d3a-aef9-8d5fe17a8038",
+      "track": 1
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

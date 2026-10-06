@@ -1,0 +1,230 @@
+{
+  "artist": "The Rolling Stones",
+  "status": "processed",
+  "totalSongs": 37,
+  "matched": [
+    {
+      "song": "19th Nervous Breakdown",
+      "album": "The Second Rolling Stones EP",
+      "albumId": "935da710-6c8f-4f58-baf9-7e9f533ad18a",
+      "track": 1
+    },
+    {
+      "song": "Angie",
+      "album": "Goats Head Soup",
+      "albumId": "e82ba8db-3712-3de0-bbe5-0311b89db7e2",
+      "track": 5
+    },
+    {
+      "song": "Anybody Seen My Baby",
+      "album": "Bridges to Babylon",
+      "albumId": "d7ef7347-c582-3109-a54a-9bc6cde8ee45",
+      "track": 2
+    },
+    {
+      "song": "As Tears Go By",
+      "album": "December’s Children (and Everybody’s)",
+      "albumId": "6f3adeb5-9955-3613-b51a-45e407ca8de5",
+      "track": 9
+    },
+    {
+      "song": "Beast of Burden",
+      "album": "Some Girls",
+      "albumId": "b44bc358-a28f-3a1f-b07e-604910f12d37",
+      "track": 9
+    },
+    {
+      "song": "Brown Sugar",
+      "album": "Sticky Fingers",
+      "albumId": "4a4213d0-f224-3d51-bcca-476f61162681",
+      "track": 1
+    },
+    {
+      "song": "Can't Be Seen",
+      "album": "Steel Wheels",
+      "albumId": "ef78739b-ea31-32e2-a927-58fe228c7354",
+      "track": 8
+    },
+    {
+      "song": "Citadel",
+      "album": "Their Satanic Majesties Request",
+      "albumId": "40a087e8-908a-334d-b520-88a820deb09d",
+      "track": 2
+    },
+    {
+      "song": "Cry to Me",
+      "album": "Out of Our Heads",
+      "albumId": "3be81f5e-9bdd-303a-b9bf-f8eb2059ef9f",
+      "track": 8
+    },
+    {
+      "song": "Fool to Cry",
+      "album": "Black and Blue",
+      "albumId": "b13da40b-fb15-382e-b305-b65ced849782",
+      "track": 7
+    },
+    {
+      "song": "Get Off My Cloud",
+      "album": "The Rolling Stones",
+      "albumId": "59aba050-8f28-499e-9953-8b92d321a776",
+      "track": 3
+    },
+    {
+      "song": "Gimme Shelter",
+      "album": "Let It Bleed",
+      "albumId": "784c0edd-0f37-33a2-9ca5-dff87b4f999c",
+      "track": 1
+    },
+    {
+      "song": "Heart of Stone",
+      "album": "The Rolling Stones, Now!",
+      "albumId": "367b4517-4cb1-3834-8132-e980ddb65162",
+      "track": 4
+    },
+    {
+      "song": "Honky Tonk Woman",
+      "album": "Super 4 on 45",
+      "albumId": "309f47cd-76a4-44f2-b96a-e9b8efb1dc9b",
+      "track": 4
+    },
+    {
+      "song": "I Can't Get No (Satisfaction)",
+      "album": "The Rolling Stones",
+      "albumId": "59aba050-8f28-499e-9953-8b92d321a776",
+      "track": 2
+    },
+    {
+      "song": "It's All Over Now",
+      "album": "12 × 5",
+      "albumId": "703eab6c-056e-3d6d-95d9-991e01f5ca57",
+      "track": 6
+    },
+    {
+      "song": "Jumpin' Jack Flash",
+      "album": "Jumpin’ Jack Flash",
+      "albumId": "3cf634db-66a6-47ad-a76e-7fe5b6974cff",
+      "track": 1
+    },
+    {
+      "song": "Jumping Jack Flash",
+      "album": "Jumping Jack Flash / You Can't Always Get What You Want",
+      "albumId": "ce9acdcc-455b-426f-ab72-9fe92ab5f79e",
+      "track": 1
+    },
+    {
+      "song": "Lady Jane",
+      "album": "Aftermath",
+      "albumId": "26987c39-5914-483b-a897-d43ce6aad9b1",
+      "track": 3
+    },
+    {
+      "song": "Let's Spend The Night Together",
+      "album": "Let’s Spend the Night Together",
+      "albumId": "7a8b6e19-b2c7-4137-acf8-f2356e129f65",
+      "track": 1
+    },
+    {
+      "song": "Love Is Strong",
+      "album": "Voodoo Lounge",
+      "albumId": "7645ef59-6d8c-37fe-8467-d566d3cf5926",
+      "track": 1
+    },
+    {
+      "song": "Miss You",
+      "album": "Some Girls",
+      "albumId": "b44bc358-a28f-3a1f-b07e-604910f12d37",
+      "track": 1
+    },
+    {
+      "song": "Mixed Emotions",
+      "album": "Steel Wheels",
+      "albumId": "ef78739b-ea31-32e2-a927-58fe228c7354",
+      "track": 2
+    },
+    {
+      "song": "Mother's Little Helper",
+      "album": "Aftermath",
+      "albumId": "26987c39-5914-483b-a897-d43ce6aad9b1",
+      "track": 1
+    },
+    {
+      "song": "Out of Time",
+      "album": "Aftermath",
+      "albumId": "26987c39-5914-483b-a897-d43ce6aad9b1",
+      "track": 9
+    },
+    {
+      "song": "Paint It Black",
+      "album": "The Second Rolling Stones EP",
+      "albumId": "935da710-6c8f-4f58-baf9-7e9f533ad18a",
+      "track": 4
+    },
+    {
+      "song": "Ruby Tuesday",
+      "album": "Ruby Tuesday / Have You Seen Your Mother, Baby, Standing in the Shadow?",
+      "albumId": "1941e47a-fcbe-462b-8bd2-c9e13a2347fd",
+      "track": 1
+    },
+    {
+      "song": "She's So Cold",
+      "album": "Emotional Rescue",
+      "albumId": "0c977adb-6dd3-330c-9acb-a40d2104a539",
+      "track": 9
+    },
+    {
+      "song": "Start Me Up",
+      "album": "Tattoo You",
+      "albumId": "fdbc4f51-817d-33ab-af9f-4bcc22286932",
+      "track": 1
+    },
+    {
+      "song": "Sympathy for the Devil",
+      "album": "Beggars Banquet",
+      "albumId": "6e672bbd-7c7f-32f8-8335-c603be99d13b",
+      "track": 1
+    },
+    {
+      "song": "The Last Time",
+      "album": "The Last Time",
+      "albumId": "02133db7-e955-41c7-b521-34718a7019ea",
+      "track": 1
+    },
+    {
+      "song": "Time Is on My Side",
+      "album": "12 × 5",
+      "albumId": "703eab6c-056e-3d6d-95d9-991e01f5ca57",
+      "track": 4
+    },
+    {
+      "song": "Under My Thumb",
+      "album": "Aftermath",
+      "albumId": "26987c39-5914-483b-a897-d43ce6aad9b1",
+      "track": 4
+    },
+    {
+      "song": "Waiting on a Friend",
+      "album": "Tattoo You",
+      "albumId": "fdbc4f51-817d-33ab-af9f-4bcc22286932",
+      "track": 11
+    },
+    {
+      "song": "Wild Horses",
+      "album": "Sticky Fingers",
+      "albumId": "4a4213d0-f224-3d51-bcca-476f61162681",
+      "track": 3
+    },
+    {
+      "song": "You Can't Always Get What You Want",
+      "album": "Let It Bleed",
+      "albumId": "784c0edd-0f37-33a2-9ca5-dff87b4f999c",
+      "track": 9
+    }
+  ],
+  "unmatched": [
+    "Good Time Woman"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Good Time Woman": []
+  }
+}

@@ -668,5 +668,10 @@
     "name": "The Beach Boys",
     "mbid": "ebfc1398-8d96-47e3-82c3-f782abcdb13d",
     "country": "US"
+  },
+  "The Rolling Stones": {
+    "name": "The Rolling Stones",
+    "country": "GB",
+    "mbid": "b071f9fa-14b0-4217-8e97-eb41da73f598"
   }
 }

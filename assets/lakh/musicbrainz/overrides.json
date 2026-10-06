@@ -1210,5 +1210,10 @@
     "allowedSecondaryTypes": [
       "Soundtrack"
     ]
+  },
+  "Van Halen": {
+    "name": "Van Halen",
+    "mbid": "b665b768-0d83-4363-950c-31ed39317c15",
+    "country": "US"
   }
 }

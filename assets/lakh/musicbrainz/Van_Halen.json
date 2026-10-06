@@ -1,0 +1,166 @@
+{
+  "artist": "Van Halen",
+  "status": "processed",
+  "totalSongs": 26,
+  "matched": [
+    {
+      "song": "(Oh) Pretty Woman",
+      "album": "Diver Down",
+      "albumId": "b9201554-b7ee-3093-9093-758af7ad097f",
+      "track": 6
+    },
+    {
+      "song": "316",
+      "album": "For Unlawful Carnal Knowledge",
+      "albumId": "0a5921ef-3aa4-398e-ad4a-2ef45d055842",
+      "track": 10
+    },
+    {
+      "song": "Aftershock",
+      "album": "Balance",
+      "albumId": "3a032793-ecc7-3d8b-9552-d9bb2464e636",
+      "track": 8
+    },
+    {
+      "song": "Ain't Talkin 'bout Love",
+      "album": "Van Halen",
+      "albumId": "43a0e8b5-6059-397f-81e6-b8df5a648496",
+      "track": 4
+    },
+    {
+      "song": "And the Cradle Will Rock...",
+      "album": "Women and Children First",
+      "albumId": "36338d76-f764-32fb-b11b-4ea68588865a",
+      "track": 1
+    },
+    {
+      "song": "Beautiful Girls",
+      "album": "Van Halen II",
+      "albumId": "8001e841-11a1-379d-b52c-da0311340b56",
+      "track": 10
+    },
+    {
+      "song": "Cathedral",
+      "album": "Diver Down",
+      "albumId": "b9201554-b7ee-3093-9093-758af7ad097f",
+      "track": 3
+    },
+    {
+      "song": "Dance the Night Away",
+      "album": "Van Halen II",
+      "albumId": "8001e841-11a1-379d-b52c-da0311340b56",
+      "track": 2
+    },
+    {
+      "song": "Dreams",
+      "album": "5150",
+      "albumId": "f546dd9a-d77f-38ec-98c1-c7a2842a3860",
+      "track": 4
+    },
+    {
+      "song": "Eruption",
+      "album": "Van Halen",
+      "albumId": "43a0e8b5-6059-397f-81e6-b8df5a648496",
+      "track": 2
+    },
+    {
+      "song": "Finish What Ya Started",
+      "album": "OU812",
+      "albumId": "1af0e74f-d4b2-3105-ae7a-43b6bf7251ea",
+      "track": 7
+    },
+    {
+      "song": "I'll Wait",
+      "album": "1984",
+      "albumId": "5846f0c9-fec3-3b9e-a77c-fbe9a7bdf0e7",
+      "track": 7
+    },
+    {
+      "song": "Ice Cream Man",
+      "album": "Van Halen",
+      "albumId": "43a0e8b5-6059-397f-81e6-b8df5a648496",
+      "track": 11
+    },
+    {
+      "song": "Jamie's Cryin'",
+      "album": "Van Halen",
+      "albumId": "43a0e8b5-6059-397f-81e6-b8df5a648496",
+      "track": 7
+    },
+    {
+      "song": "Jump",
+      "album": "1984",
+      "albumId": "5846f0c9-fec3-3b9e-a77c-fbe9a7bdf0e7",
+      "track": 2
+    },
+    {
+      "song": "Love Walks In",
+      "album": "5150",
+      "albumId": "f546dd9a-d77f-38ec-98c1-c7a2842a3860",
+      "track": 7
+    },
+    {
+      "song": "Me Wise Magic",
+      "album": "Me Wise Magic",
+      "albumId": "4ae7595a-227b-34c3-b1b2-6fbddd3570c7",
+      "track": 2
+    },
+    {
+      "song": "Mean Street",
+      "album": "Fair Warning",
+      "albumId": "e8e44b8b-d7db-3e46-a2fb-e70757d32c75",
+      "track": 1
+    },
+    {
+      "song": "Not Enough",
+      "album": "Balance",
+      "albumId": "3a032793-ecc7-3d8b-9552-d9bb2464e636",
+      "track": 7
+    },
+    {
+      "song": "Panama",
+      "album": "1984",
+      "albumId": "5846f0c9-fec3-3b9e-a77c-fbe9a7bdf0e7",
+      "track": 3
+    },
+    {
+      "song": "Pleasure Dome",
+      "album": "For Unlawful Carnal Knowledge",
+      "albumId": "0a5921ef-3aa4-398e-ad4a-2ef45d055842",
+      "track": 5
+    },
+    {
+      "song": "Right Now",
+      "album": "For Unlawful Carnal Knowledge",
+      "albumId": "0a5921ef-3aa4-398e-ad4a-2ef45d055842",
+      "track": 9
+    },
+    {
+      "song": "Runnin' With the Devil",
+      "album": "Van Halen",
+      "albumId": "43a0e8b5-6059-397f-81e6-b8df5a648496",
+      "track": 1
+    },
+    {
+      "song": "When It's Love",
+      "album": "OU812",
+      "albumId": "1af0e74f-d4b2-3105-ae7a-43b6bf7251ea",
+      "track": 2
+    },
+    {
+      "song": "Why Can't This Be Love",
+      "album": "5150",
+      "albumId": "f546dd9a-d77f-38ec-98c1-c7a2842a3860",
+      "track": 2
+    },
+    {
+      "song": "You Really Got Me",
+      "album": "Van Halen",
+      "albumId": "43a0e8b5-6059-397f-81e6-b8df5a648496",
+      "track": 3
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

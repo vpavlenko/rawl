@@ -874,5 +874,31 @@
     "extraReleaseGroupIds": [
       "6e9a06a8-c8bb-3ea9-877a-417e74bb1c2e"
     ]
+  },
+  "Dalla": {
+    "name": "Lucio Dalla",
+    "mbid": "60889737-6f73-415e-ba20-5040498512b4",
+    "country": "IT",
+    "songs": {
+      "4 marzo 1943": {
+        "title": "4/3/1943"
+      },
+      "Piazza grande (feat. Lucio Dalla) (unplugged)": {
+        "title": "Piazza grande"
+      }
+    },
+    "includedReleaseGroups": [
+      "6b65495a-2378-3fa1-a018-fed6991d3585"
+    ]
+  },
+  "Dalla Lucio": {
+    "name": "Lucio Dalla",
+    "mbid": "60889737-6f73-415e-ba20-5040498512b4",
+    "country": "IT",
+    "songs": {
+      "4 marzo 1943": {
+        "title": "4/3/1943"
+      }
+    }
   }
 }

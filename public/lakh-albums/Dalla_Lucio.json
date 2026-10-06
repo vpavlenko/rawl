@@ -1,0 +1,108 @@
+{
+  "artist": "Dalla Lucio",
+  "artistId": "60889737-6f73-415e-ba20-5040498512b4",
+  "groups": [
+    {
+      "id": "46756f49-ff2b-3521-a9ea-d5fbbb76bc37",
+      "releaseId": "68d94d59-973a-4501-89fd-7404da68aa2a",
+      "title": "Storie di casa mia",
+      "date": "1971",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/46756f49-ff2b-3521-a9ea-d5fbbb76bc37/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "4 marzo 1943.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fc425afa-001b-4be6-ac36-cb6590c6ad46",
+      "releaseId": "efd443fa-3bdf-4dd9-8c7d-f6c4fe8ca051",
+      "title": "Piazza Grande / Convento di pianura",
+      "date": "1972-02",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/fc425afa-001b-4be6-ac36-cb6590c6ad46/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Piazza grande.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a9651e36-d3c4-3789-9444-543501d21e55",
+      "releaseId": "bc8869e5-0464-426a-aa39-986aa9a1d387",
+      "title": "Come è profondo il mare",
+      "date": "1977",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a9651e36-d3c4-3789-9444-543501d21e55/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Disperato erotico stomp.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "76c1c3d9-ec8e-3d13-a1f3-bc1999ee60ee",
+      "releaseId": "26d33b74-7cf8-4ffd-8cea-dc868d16ebee",
+      "title": "Lucio Dalla",
+      "date": "1979",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/76c1c3d9-ec8e-3d13-a1f3-bc1999ee60ee/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Anna e Marco.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "L'anno che verra.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "199d88ca-57f2-38bd-b87a-cf274a5c3047",
+      "releaseId": "c8c5d71b-48f0-4954-a449-068ff41d7b30",
+      "title": "Dalla",
+      "date": "1980",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/199d88ca-57f2-38bd-b87a-cf274a5c3047/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Balla balla ballerino.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e919dfdd-3eff-305d-8637-e9152ef94602",
+      "releaseId": "5149ba1b-8496-4422-a181-0383226c0520",
+      "title": "Cambio",
+      "date": "1990",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e919dfdd-3eff-305d-8637-e9152ef94602/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Attenti al lupo.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,190 @@
+{
+  "artist": "Dalla",
+  "status": "processed",
+  "totalSongs": 30,
+  "matched": [
+    {
+      "song": "4 marzo 1943",
+      "album": "Storie di casa mia",
+      "albumId": "46756f49-ff2b-3521-a9ea-d5fbbb76bc37",
+      "track": 8
+    },
+    {
+      "song": "Amen",
+      "album": "Amen",
+      "albumId": "6b65495a-2378-3fa1-a018-fed6991d3585",
+      "track": 1
+    },
+    {
+      "song": "Anna e Marco",
+      "album": "Lucio Dalla",
+      "albumId": "76c1c3d9-ec8e-3d13-a1f3-bc1999ee60ee",
+      "track": 5
+    },
+    {
+      "song": "Apriti cuore",
+      "album": "Cambio",
+      "albumId": "e919dfdd-3eff-305d-8637-e9152ef94602",
+      "track": 5
+    },
+    {
+      "song": "Attenti al lupo",
+      "album": "Cambio",
+      "albumId": "e919dfdd-3eff-305d-8637-e9152ef94602",
+      "track": 1
+    },
+    {
+      "song": "Ayrton",
+      "album": "Canzoni",
+      "albumId": "d7c56643-2776-3b77-a3ac-36462498595c",
+      "track": 1
+    },
+    {
+      "song": "Balla balla ballerino",
+      "album": "Dalla",
+      "albumId": "199d88ca-57f2-38bd-b87a-cf274a5c3047",
+      "track": 1
+    },
+    {
+      "song": "Bisogna saper perdere",
+      "album": "Bisogna saper perdere / Lucio dove vai",
+      "albumId": "ca52ffb6-ac01-4b50-af3f-804b345f32bd",
+      "track": 1
+    },
+    {
+      "song": "Canzone",
+      "album": "Canzoni",
+      "albumId": "d7c56643-2776-3b77-a3ac-36462498595c",
+      "track": 2
+    },
+    {
+      "song": "Cara",
+      "album": "Dalla",
+      "albumId": "199d88ca-57f2-38bd-b87a-cf274a5c3047",
+      "track": 6
+    },
+    {
+      "song": "Caruso",
+      "album": "Caruso",
+      "albumId": "3d774f77-8e25-43f4-9ac7-5644b5e50f71",
+      "track": 1
+    },
+    {
+      "song": "Chissa se lo sai",
+      "album": "Bugie",
+      "albumId": "84e48efc-0b42-3ee6-9aa5-7126d8c9f44e",
+      "track": 6
+    },
+    {
+      "song": "Ciao",
+      "album": "Ciao",
+      "albumId": "2681105c-1f8d-33a8-803f-ab59bff57a38",
+      "track": 1
+    },
+    {
+      "song": "Com'e profondo il mare",
+      "album": "Caro amico, ti canto…",
+      "albumId": "97e46034-094a-46e6-8dc1-edbd8b447ef8",
+      "track": 3
+    },
+    {
+      "song": "Come e profondo il mare",
+      "album": "Come è profondo il mare",
+      "albumId": "a9651e36-d3c4-3789-9444-543501d21e55",
+      "track": 1
+    },
+    {
+      "song": "Cosa sara",
+      "album": "Lucio Dalla",
+      "albumId": "76c1c3d9-ec8e-3d13-a1f3-bc1999ee60ee",
+      "track": 7
+    },
+    {
+      "song": "Disperato erotico stomp",
+      "album": "Come è profondo il mare",
+      "albumId": "a9651e36-d3c4-3789-9444-543501d21e55",
+      "track": 5
+    },
+    {
+      "song": "Don't Touch Me",
+      "album": "Henna",
+      "albumId": "5cc16678-0e63-3e02-a3af-68abae2624f9",
+      "track": 9
+    },
+    {
+      "song": "Futura",
+      "album": "Dalla",
+      "albumId": "199d88ca-57f2-38bd-b87a-cf274a5c3047",
+      "track": 8
+    },
+    {
+      "song": "L'anno che verra",
+      "album": "Lucio Dalla",
+      "albumId": "76c1c3d9-ec8e-3d13-a1f3-bc1999ee60ee",
+      "track": 9
+    },
+    {
+      "song": "L'ultima Luna",
+      "album": "Lucio Dalla",
+      "albumId": "76c1c3d9-ec8e-3d13-a1f3-bc1999ee60ee",
+      "track": 1
+    },
+    {
+      "song": "Liberi",
+      "album": "Henna",
+      "albumId": "5cc16678-0e63-3e02-a3af-68abae2624f9",
+      "track": 2
+    },
+    {
+      "song": "Non vergognarsi mai",
+      "album": "Ciao",
+      "albumId": "2681105c-1f8d-33a8-803f-ab59bff57a38",
+      "track": 2
+    },
+    {
+      "song": "Nuvolari",
+      "album": "Automobili",
+      "albumId": "73d1f898-2f0b-3c4a-8793-1509de79e5cc",
+      "track": 3
+    },
+    {
+      "song": "Piazza grande (feat. Lucio Dalla) (unplugged)",
+      "album": "Piazza Grande / Convento di pianura",
+      "albumId": "fc425afa-001b-4be6-ac36-cb6590c6ad46",
+      "track": 1
+    },
+    {
+      "song": "Piazza grande",
+      "album": "Piazza Grande / Convento di pianura",
+      "albumId": "fc425afa-001b-4be6-ac36-cb6590c6ad46",
+      "track": 1
+    },
+    {
+      "song": "Stella di mare",
+      "album": "Lucio Dalla",
+      "albumId": "76c1c3d9-ec8e-3d13-a1f3-bc1999ee60ee",
+      "track": 2
+    },
+    {
+      "song": "Telefonami tra vent'anni",
+      "album": "Lucio Dalla",
+      "albumId": "9963863b-9d2f-3bcc-a5d3-288ffbbd1016",
+      "track": 1
+    },
+    {
+      "song": "Tu non mi basti mai",
+      "album": "Canzoni",
+      "albumId": "d7c56643-2776-3b77-a3ac-36462498595c",
+      "track": 3
+    },
+    {
+      "song": "Vita",
+      "album": "Dalla/Morandi",
+      "albumId": "a7d9e89e-43d5-332d-b0cf-2962421b2a55",
+      "track": 1
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

@@ -1,0 +1,296 @@
+{
+  "artist": "The Cranberries",
+  "status": "processed",
+  "totalSongs": 48,
+  "matched": [
+    {
+      "song": "Analyse",
+      "album": "Wake Up and Smell the Coffee",
+      "albumId": "03b9aa78-aa8b-32a6-a2b9-30d4e021123c",
+      "track": 2
+    },
+    {
+      "song": "Animal Instinct",
+      "album": "Bury the Hatchet",
+      "albumId": "97e9c8bf-711c-32df-971d-2ad1a2d7036f",
+      "track": 1
+    },
+    {
+      "song": "Away",
+      "album": "Zombie",
+      "albumId": "421118d0-f0f1-3b22-8e10-7b27e310e979",
+      "track": 2
+    },
+    {
+      "song": "Cordell",
+      "album": "To the Faithful Departed",
+      "albumId": "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5",
+      "track": 14
+    },
+    {
+      "song": "Daffodil Lament",
+      "album": "No Need to Argue",
+      "albumId": "5ece0c50-bb0b-3cdf-90e2-287a60136d69",
+      "track": 12
+    },
+    {
+      "song": "Disappointment",
+      "album": "No Need to Argue",
+      "albumId": "5ece0c50-bb0b-3cdf-90e2-287a60136d69",
+      "track": 8
+    },
+    {
+      "song": "Dreaming My Dreams",
+      "album": "No Need to Argue",
+      "albumId": "5ece0c50-bb0b-3cdf-90e2-287a60136d69",
+      "track": 10
+    },
+    {
+      "song": "Dreams",
+      "album": "Everybody Else Is Doing It, So Why Can’t We?",
+      "albumId": "e6b486b3-68e7-331c-a078-94fd71d61877",
+      "track": 2
+    },
+    {
+      "song": "Electric Blue",
+      "album": "To the Faithful Departed",
+      "albumId": "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5",
+      "track": 10
+    },
+    {
+      "song": "Empty",
+      "album": "No Need to Argue",
+      "albumId": "5ece0c50-bb0b-3cdf-90e2-287a60136d69",
+      "track": 5
+    },
+    {
+      "song": "Everything I Said",
+      "album": "No Need to Argue",
+      "albumId": "5ece0c50-bb0b-3cdf-90e2-287a60136d69",
+      "track": 6
+    },
+    {
+      "song": "Forever Yellow Skies",
+      "album": "To the Faithful Departed",
+      "albumId": "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5",
+      "track": 6
+    },
+    {
+      "song": "Free to Decide",
+      "album": "To the Faithful Departed",
+      "albumId": "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5",
+      "track": 4
+    },
+    {
+      "song": "Hollywood",
+      "album": "To the Faithful Departed",
+      "albumId": "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5",
+      "track": 1
+    },
+    {
+      "song": "How",
+      "album": "Everybody Else Is Doing It, So Why Can’t We?",
+      "albumId": "e6b486b3-68e7-331c-a078-94fd71d61877",
+      "track": 11
+    },
+    {
+      "song": "I Can't Be With You",
+      "album": "No Need to Argue",
+      "albumId": "5ece0c50-bb0b-3cdf-90e2-287a60136d69",
+      "track": 2
+    },
+    {
+      "song": "I Just Shot John Lennon",
+      "album": "To the Faithful Departed",
+      "albumId": "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5",
+      "track": 9
+    },
+    {
+      "song": "I Still Do",
+      "album": "Everybody Else Is Doing It, So Why Can’t We?",
+      "albumId": "e6b486b3-68e7-331c-a078-94fd71d61877",
+      "track": 1
+    },
+    {
+      "song": "I Will Always",
+      "album": "Everybody Else Is Doing It, So Why Can’t We?",
+      "albumId": "e6b486b3-68e7-331c-a078-94fd71d61877",
+      "track": 10
+    },
+    {
+      "song": "I'm Still Remembering",
+      "album": "To the Faithful Departed",
+      "albumId": "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5",
+      "track": 11
+    },
+    {
+      "song": "Intermission",
+      "album": "To the Faithful Departed",
+      "albumId": "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5",
+      "track": 8
+    },
+    {
+      "song": "Joe",
+      "album": "To the Faithful Departed",
+      "albumId": "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5",
+      "track": 13
+    },
+    {
+      "song": "Just My Imagination",
+      "album": "Bury the Hatchet",
+      "albumId": "97e9c8bf-711c-32df-971d-2ad1a2d7036f",
+      "track": 5
+    },
+    {
+      "song": "Linger",
+      "album": "Everybody Else Is Doing It, So Why Can’t We?",
+      "albumId": "e6b486b3-68e7-331c-a078-94fd71d61877",
+      "track": 7
+    },
+    {
+      "song": "Not Sorry",
+      "album": "Everybody Else Is Doing It, So Why Can’t We?",
+      "albumId": "e6b486b3-68e7-331c-a078-94fd71d61877",
+      "track": 6
+    },
+    {
+      "song": "Ode to My Family",
+      "album": "No Need to Argue",
+      "albumId": "5ece0c50-bb0b-3cdf-90e2-287a60136d69",
+      "track": 1
+    },
+    {
+      "song": "Pathetic Senses",
+      "album": "Nothing Left at All",
+      "albumId": "e94ce03a-2fe3-4348-86cc-bc50598f4490",
+      "track": 2
+    },
+    {
+      "song": "Pretty",
+      "album": "Everybody Else Is Doing It, So Why Can’t We?",
+      "albumId": "e6b486b3-68e7-331c-a078-94fd71d61877",
+      "track": 4
+    },
+    {
+      "song": "Promises",
+      "album": "Bury the Hatchet",
+      "albumId": "97e9c8bf-711c-32df-971d-2ad1a2d7036f",
+      "track": 3
+    },
+    {
+      "song": "Put Me Down",
+      "album": "Everybody Else Is Doing It, So Why Can’t We?",
+      "albumId": "e6b486b3-68e7-331c-a078-94fd71d61877",
+      "track": 12
+    },
+    {
+      "song": "Salvation",
+      "album": "To the Faithful Departed",
+      "albumId": "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5",
+      "track": 2
+    },
+    {
+      "song": "So Cold in Ireland",
+      "album": "Ode to My Family",
+      "albumId": "ab0155a0-0b51-3bb2-8ef2-6c085fa75d3a",
+      "track": 2
+    },
+    {
+      "song": "Sunday",
+      "album": "Everybody Else Is Doing It, So Why Can’t We?",
+      "albumId": "e6b486b3-68e7-331c-a078-94fd71d61877",
+      "track": 3
+    },
+    {
+      "song": "The Icicle Melts",
+      "album": "No Need to Argue",
+      "albumId": "5ece0c50-bb0b-3cdf-90e2-287a60136d69",
+      "track": 7
+    },
+    {
+      "song": "The Picture I View",
+      "album": "Free to Decide",
+      "albumId": "02f8003f-6d75-4a5c-865d-66741aa9ad8d",
+      "track": 3
+    },
+    {
+      "song": "The Rebels",
+      "album": "To the Faithful Departed",
+      "albumId": "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5",
+      "track": 7
+    },
+    {
+      "song": "Tomorrow",
+      "album": "Roses",
+      "albumId": "3eba2e58-468b-4013-a4c6-c780c842f2dc",
+      "track": 2
+    },
+    {
+      "song": "Twenty One",
+      "album": "No Need to Argue",
+      "albumId": "5ece0c50-bb0b-3cdf-90e2-287a60136d69",
+      "track": 3
+    },
+    {
+      "song": "Uncertain",
+      "album": "Uncertain",
+      "albumId": "dc6888ac-89d8-3820-ad7b-264d3c482dd4",
+      "track": 1
+    },
+    {
+      "song": "Waltzing Back",
+      "album": "Everybody Else Is Doing It, So Why Can’t We?",
+      "albumId": "e6b486b3-68e7-331c-a078-94fd71d61877",
+      "track": 5
+    },
+    {
+      "song": "Wanted",
+      "album": "Everybody Else Is Doing It, So Why Can’t We?",
+      "albumId": "e6b486b3-68e7-331c-a078-94fd71d61877",
+      "track": 8
+    },
+    {
+      "song": "War Child",
+      "album": "To the Faithful Departed",
+      "albumId": "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5",
+      "track": 5
+    },
+    {
+      "song": "What You Were",
+      "album": "Dreams",
+      "albumId": "7e139c3a-5ffe-390e-b879-a0d678a4800f",
+      "track": 2
+    },
+    {
+      "song": "When You're Gone",
+      "album": "To the Faithful Departed",
+      "albumId": "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5",
+      "track": 3
+    },
+    {
+      "song": "Will You Remember?",
+      "album": "To the Faithful Departed",
+      "albumId": "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5",
+      "track": 12
+    },
+    {
+      "song": "Yeats Grave",
+      "album": "No Need to Argue",
+      "albumId": "5ece0c50-bb0b-3cdf-90e2-287a60136d69",
+      "track": 11
+    },
+    {
+      "song": "Zombie",
+      "album": "No Need to Argue",
+      "albumId": "5ece0c50-bb0b-3cdf-90e2-287a60136d69",
+      "track": 4
+    }
+  ],
+  "unmatched": [
+    "(They Long to Be) Close to You"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "(They Long to Be) Close to You": []
+  }
+}

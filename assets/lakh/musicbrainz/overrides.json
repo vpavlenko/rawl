@@ -317,5 +317,12 @@
         "title": "She’s Always a Woman"
       }
     }
+  },
+  "The Cranberries": {
+    "mbid": "c98d40fd-f6cf-4b26-883e-eaa515ee2851",
+    "country": "IE",
+    "releaseOverrides": {
+      "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5": "640e32ce-bc11-475b-9b2e-b7a4ceca971a"
+    }
   }
 }

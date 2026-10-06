@@ -92,11 +92,14 @@ def process(artist, config):
     groups = list({group['id']: group for credited_artist in credited_artists
                    for group in browse('release-group', 'release-groups',
                                        artist=credited_artist, inc='artist-credits')}.values())
+    extra_groups = set(settings.get('extraReleaseGroupIds', []))
+    groups.extend(fetch('release-group/' + group_id, inc='artist-credits')
+                  for group_id in sorted(extra_groups) if group_id not in {g['id'] for g in groups})
     # Composer credits and guest appearances can bring in other performers' albums.
     groups = [g for g in groups if next(
         (credit['artist']['id'] for credit in g.get('artist-credit', []) if isinstance(credit, dict) and 'artist' in credit),
         None,
-    ) in credited_artists]
+    ) in credited_artists or g['id'] in extra_groups]
     allowed_secondary = set(settings.get('allowedSecondaryTypes', []))
     included_groups = set(settings.get('includedReleaseGroups', []))
     excluded_groups = set(settings.get('excludedReleaseGroups', []))
@@ -125,13 +128,20 @@ def process(artist, config):
         release_id = settings.get('releaseOverrides', {}).get(group['id'])
         if release_id:
             release = next(r for r in releases if r['id'] == release_id)
-        data = fetch('release/' + release['id'], inc='recordings')
+        data = fetch('release/' + release['id'], inc=(
+            'recordings+artist-credits' if group['id'] in extra_groups else 'recordings'
+        ))
         album = {'id': group['id'], 'releaseId': release['id'], 'title': group['title'], 'date': group['first-release-date'], 'type': group['primary-type'], 'cover': 'https://coverartarchive.org/release-group/' + group['id'] + '/front-250', 'songs': []}
         albums.append(album)
         position = 0
         for medium in sorted(data.get('media', []), key=lambda m: m.get('position', 0)):
             for track in medium.get('tracks', []):
                 position += 1
+                if group['id'] in extra_groups and not any(
+                    credit.get('artist', {}).get('id') in credited_artists
+                    for credit in track.get('artist-credit', []) if isinstance(credit, dict)
+                ):
+                    continue
                 entry = {'album': album, 'number': position, 'title': track['title']}
                 for key in {normalize(track['title']), normalize(track.get('recording', {}).get('title', track['title']))}:
                     candidates.setdefault(key, []).append(entry)

@@ -852,5 +852,27 @@
       "826dce9f-4b4c-3dcc-9c70-9355c085e907": "557a9029-d71a-4d7a-8f3d-df66711c001c",
       "3d90b0e3-d2c7-36d8-abba-2aab0f9868e4": "17dd8d22-9af2-49f1-b053-9586c6e40415"
     }
+  },
+  "Bee Gees": {
+    "name": "Bee Gees",
+    "mbid": "bf0f7e29-dfe1-416c-b5c6-f9ebc19ea810",
+    "country": "GB",
+    "songs": {
+      "I've Got to Get a Message to You": {
+        "title": "I've Gotta Get a Message to You"
+      },
+      "Massachusettes": {
+        "title": "Massachusetts"
+      },
+      "You Should Be Dancin' (live)": {
+        "title": "You Should Be Dancing"
+      }
+    },
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "extraReleaseGroupIds": [
+      "6e9a06a8-c8bb-3ea9-877a-417e74bb1c2e"
+    ]
   }
 }

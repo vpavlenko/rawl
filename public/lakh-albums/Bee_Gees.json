@@ -1,0 +1,367 @@
+{
+  "artist": "Bee Gees",
+  "artistId": "bf0f7e29-dfe1-416c-b5c6-f9ebc19ea810",
+  "groups": [
+    {
+      "id": "1eeb9586-7c42-3de7-b367-2552b42de905",
+      "releaseId": "482c1c01-af63-42ba-8f02-81652b80b8fd",
+      "title": "Bee Gees’ 1st",
+      "date": "1967-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1eeb9586-7c42-3de7-b367-2552b42de905/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Holiday.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "New York Mining Disaster 1941.mid",
+            "New York Mining Disaster 1941.1.mid",
+            "New York Mining Disaster 1941.2.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "To Love Somebody.mid",
+            "To Love Somebody.1.mid",
+            "To Love Somebody.2.mid",
+            "To Love Somebody.3.mid",
+            "To Love Somebody.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8e16747f-90fe-4f66-9f33-a4a10e6055e9",
+      "releaseId": "e2c34a13-834a-4089-830f-c0354ade4b9f",
+      "title": "I've Got to Get a Message to You / Kitty Kan",
+      "date": "1968",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/8e16747f-90fe-4f66-9f33-a4a10e6055e9/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I've Got to Get a Message to You.mid",
+            "I've Got to Get a Message to You.1.mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "I've Gotta Get a Message to You.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4f13c261-a8b1-3137-8c3f-b58b418e5935",
+      "releaseId": "b574fcce-857f-4f06-bb9e-dae3785ff58b",
+      "title": "Horizontal",
+      "date": "1968-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4f13c261-a8b1-3137-8c3f-b58b418e5935/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Massachusettes.mid",
+            "Massachusettes.1.mid",
+            "Massachusettes.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Massachusetts.mid",
+            "Massachusetts.1.mid",
+            "Massachusetts.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1883e9d1-c7eb-3255-9123-7c4f41516708",
+      "releaseId": "c188a5fa-2897-4e17-946d-99d80796196e",
+      "title": "Words / Sinking Ships",
+      "date": "1968-01",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/1883e9d1-c7eb-3255-9123-7c4f41516708/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Words.mid",
+            "Words.1.mid",
+            "Words.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "10b80712-c069-3365-ad14-f31773883de2",
+      "releaseId": "5bed3f32-a1b7-4742-b3dc-76bdf828daa9",
+      "title": "Idea",
+      "date": "1968-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/10b80712-c069-3365-ad14-f31773883de2/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "I Started a Joke.mid",
+            "I Started a Joke.1.mid",
+            "I Started a Joke.2.mid",
+            "I Started a Joke.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e28de7a2-21bd-3a72-bfa1-caa338fbadcf",
+      "releaseId": "dffd2318-e981-4dc1-8668-5d152bcabcbe",
+      "title": "Cucumber Castle",
+      "date": "1970-04-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e28de7a2-21bd-3a72-bfa1-caa338fbadcf/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "Don't Forget to Remember.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fe30770e-d417-3629-97ee-77d229c2d32f",
+      "releaseId": "f3e9ff76-0b70-4563-af38-3f0562315407",
+      "title": "Trafalgar",
+      "date": "1971-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fe30770e-d417-3629-97ee-77d229c2d32f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "How Can You Mend a Broken Heart.mid",
+            "How Can You Mend a Broken Heart.1.mid",
+            "How Can You Mend a Broken Heart.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Israel.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3b820c20-b37d-3136-bbf6-80ecceed804b",
+      "releaseId": "85917667-3212-455b-b043-3570acc1bbb2",
+      "title": "To Whom It May Concern",
+      "date": "1972",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3b820c20-b37d-3136-bbf6-80ecceed804b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Run to Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "718c4574-eafe-3692-b1f0-44a004c492b1",
+      "releaseId": "68e6ddcd-cac2-4a1b-8937-a7dce2874d9b",
+      "title": "Main Course",
+      "date": "1975-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/718c4574-eafe-3692-b1f0-44a004c492b1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Nights on Broadway.mid",
+            "Nights on Broadway.1.mid",
+            "Nights on Broadway.2.mid",
+            "Nights on Broadway.3.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Jive Talkin.mid",
+            "Jive Talkin.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5f65c0ab-5a0b-382a-a0cb-885bf4a5e9fb",
+      "releaseId": "2e5f46d4-b16f-3205-9a55-da193324a4e6",
+      "title": "Children of the World",
+      "date": "1976",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5f65c0ab-5a0b-382a-a0cb-885bf4a5e9fb/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "You Should Be Dancin' (live).mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "You Should Be Dancing.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6e9a06a8-c8bb-3ea9-877a-417e74bb1c2e",
+      "releaseId": "25d4f705-f826-4299-9bea-732a526884c1",
+      "title": "Saturday Night Fever: The Original Movie Sound Track",
+      "date": "1977-11-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6e9a06a8-c8bb-3ea9-877a-417e74bb1c2e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Stayin Alive.mid",
+            "Stayin Alive.1.mid",
+            "Stayin Alive.2.mid",
+            "Stayin Alive.3.mid",
+            "Stayin Alive.4.mid",
+            "Stayin Alive.5.mid",
+            "Stayin Alive.6.mid",
+            "Stayin Alive.7.mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "Stayin'Alive.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "How Deep Is Your Love.mid",
+            "How Deep Is Your Love.1.mid",
+            "How Deep Is Your Love.2.mid",
+            "How Deep Is Your Love.3.mid",
+            "How Deep Is Your Love.4.mid",
+            "How Deep Is Your Love.5.mid",
+            "How Deep Is Your Love.6.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Night Fever.mid",
+            "Night Fever.1.mid",
+            "Night Fever.2.mid",
+            "Night Fever.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "More Than a Woman.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4d9d85b2-ebf8-3693-9f8f-fc6b701b5926",
+      "releaseId": "3b253b73-a8d3-4ba4-8a80-99aa0976a065",
+      "title": "Spirits Having Flown",
+      "date": "1979-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4d9d85b2-ebf8-3693-9f8f-fc6b701b5926/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Tragedy.mid",
+            "Tragedy.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Too Much Heaven.mid",
+            "Too Much Heaven.1.mid",
+            "Too Much Heaven.2.mid",
+            "Too Much Heaven.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Love You Inside Out.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eb453cb9-6643-318d-a578-8216980ee70a",
+      "releaseId": "e37a2c60-87e3-49dd-9dcf-dbfb29ee16c7",
+      "title": "E·S·P",
+      "date": "1987-09-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/eb453cb9-6643-318d-a578-8216980ee70a/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "You Win Again.mid",
+            "You Win Again.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "44634de0-0340-33de-ab01-30ace098332d",
+      "releaseId": "e722f472-0ee6-362f-a058-a729ccc0662a",
+      "title": "High Civilization",
+      "date": "1991-03-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/44634de0-0340-33de-ab01-30ace098332d/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Secret Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e837e98f-a7d5-3e93-8bd6-401ed82f5604",
+      "releaseId": "e676f84c-2989-30d3-96c4-66eb43797aac",
+      "title": "Size Isn’t Everything",
+      "date": "1993-09-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e837e98f-a7d5-3e93-8bd6-401ed82f5604/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Paying the Price of Love.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

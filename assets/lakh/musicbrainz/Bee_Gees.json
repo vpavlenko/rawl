@@ -1,0 +1,184 @@
+{
+  "artist": "Bee Gees",
+  "status": "processed",
+  "totalSongs": 30,
+  "matched": [
+    {
+      "song": "Don't Forget to Remember",
+      "album": "Cucumber Castle",
+      "albumId": "e28de7a2-21bd-3a72-bfa1-caa338fbadcf",
+      "track": 12
+    },
+    {
+      "song": "Holiday",
+      "album": "Bee Gees’ 1st",
+      "albumId": "1eeb9586-7c42-3de7-b367-2552b42de905",
+      "track": 2
+    },
+    {
+      "song": "How Can You Mend a Broken Heart",
+      "album": "Trafalgar",
+      "albumId": "fe30770e-d417-3629-97ee-77d229c2d32f",
+      "track": 1
+    },
+    {
+      "song": "How Deep Is Your Love",
+      "album": "Saturday Night Fever: The Original Movie Sound Track",
+      "albumId": "6e9a06a8-c8bb-3ea9-877a-417e74bb1c2e",
+      "track": 2
+    },
+    {
+      "song": "I Started a Joke",
+      "album": "Idea",
+      "albumId": "10b80712-c069-3365-ad14-f31773883de2",
+      "track": 10
+    },
+    {
+      "song": "I've Got to Get a Message to You",
+      "album": "I've Got to Get a Message to You / Kitty Kan",
+      "albumId": "8e16747f-90fe-4f66-9f33-a4a10e6055e9",
+      "track": 1
+    },
+    {
+      "song": "I've Gotta Get a Message to You",
+      "album": "I've Got to Get a Message to You / Kitty Kan",
+      "albumId": "8e16747f-90fe-4f66-9f33-a4a10e6055e9",
+      "track": 1
+    },
+    {
+      "song": "Israel",
+      "album": "Trafalgar",
+      "albumId": "fe30770e-d417-3629-97ee-77d229c2d32f",
+      "track": 2
+    },
+    {
+      "song": "Jive Talkin",
+      "album": "Main Course",
+      "albumId": "718c4574-eafe-3692-b1f0-44a004c492b1",
+      "track": 2
+    },
+    {
+      "song": "Love You Inside Out",
+      "album": "Spirits Having Flown",
+      "albumId": "4d9d85b2-ebf8-3693-9f8f-fc6b701b5926",
+      "track": 3
+    },
+    {
+      "song": "Massachusettes",
+      "album": "Horizontal",
+      "albumId": "4f13c261-a8b1-3137-8c3f-b58b418e5935",
+      "track": 7
+    },
+    {
+      "song": "Massachusetts",
+      "album": "Horizontal",
+      "albumId": "4f13c261-a8b1-3137-8c3f-b58b418e5935",
+      "track": 7
+    },
+    {
+      "song": "More Than a Woman",
+      "album": "Saturday Night Fever: The Original Movie Sound Track",
+      "albumId": "6e9a06a8-c8bb-3ea9-877a-417e74bb1c2e",
+      "track": 4
+    },
+    {
+      "song": "New York Mining Disaster 1941",
+      "album": "Bee Gees’ 1st",
+      "albumId": "1eeb9586-7c42-3de7-b367-2552b42de905",
+      "track": 8
+    },
+    {
+      "song": "Night Fever",
+      "album": "Saturday Night Fever: The Original Movie Sound Track",
+      "albumId": "6e9a06a8-c8bb-3ea9-877a-417e74bb1c2e",
+      "track": 3
+    },
+    {
+      "song": "Nights on Broadway",
+      "album": "Main Course",
+      "albumId": "718c4574-eafe-3692-b1f0-44a004c492b1",
+      "track": 1
+    },
+    {
+      "song": "Paying the Price of Love",
+      "album": "Size Isn’t Everything",
+      "albumId": "e837e98f-a7d5-3e93-8bd6-401ed82f5604",
+      "track": 1
+    },
+    {
+      "song": "Run to Me",
+      "album": "To Whom It May Concern",
+      "albumId": "3b820c20-b37d-3136-bbf6-80ecceed804b",
+      "track": 1
+    },
+    {
+      "song": "Secret Love",
+      "album": "High Civilization",
+      "albumId": "44634de0-0340-33de-ab01-30ace098332d",
+      "track": 2
+    },
+    {
+      "song": "Stayin Alive",
+      "album": "Saturday Night Fever: The Original Movie Sound Track",
+      "albumId": "6e9a06a8-c8bb-3ea9-877a-417e74bb1c2e",
+      "track": 1
+    },
+    {
+      "song": "Stayin'Alive",
+      "album": "Saturday Night Fever: The Original Movie Sound Track",
+      "albumId": "6e9a06a8-c8bb-3ea9-877a-417e74bb1c2e",
+      "track": 1
+    },
+    {
+      "song": "To Love Somebody",
+      "album": "Bee Gees’ 1st",
+      "albumId": "1eeb9586-7c42-3de7-b367-2552b42de905",
+      "track": 10
+    },
+    {
+      "song": "Too Much Heaven",
+      "album": "Spirits Having Flown",
+      "albumId": "4d9d85b2-ebf8-3693-9f8f-fc6b701b5926",
+      "track": 2
+    },
+    {
+      "song": "Tragedy",
+      "album": "Spirits Having Flown",
+      "albumId": "4d9d85b2-ebf8-3693-9f8f-fc6b701b5926",
+      "track": 1
+    },
+    {
+      "song": "Words",
+      "album": "Words / Sinking Ships",
+      "albumId": "1883e9d1-c7eb-3255-9123-7c4f41516708",
+      "track": 1
+    },
+    {
+      "song": "You Should Be Dancin' (live)",
+      "album": "Children of the World",
+      "albumId": "5f65c0ab-5a0b-382a-a0cb-885bf4a5e9fb",
+      "track": 1
+    },
+    {
+      "song": "You Should Be Dancing",
+      "album": "Children of the World",
+      "albumId": "5f65c0ab-5a0b-382a-a0cb-885bf4a5e9fb",
+      "track": 1
+    },
+    {
+      "song": "You Win Again",
+      "album": "E·S·P",
+      "albumId": "eb453cb9-6643-318d-a578-8216980ee70a",
+      "track": 2
+    }
+  ],
+  "unmatched": [
+    "Medley",
+    "Woman in Love"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Medley": [],
+    "Woman in Love": []
+  }
+}

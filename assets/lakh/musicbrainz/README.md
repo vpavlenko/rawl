@@ -22,6 +22,11 @@ For corrections, add a `songs` object under the artist in `overrides.json`:
 Use `relatedArtistIds` to include an explicitly reviewed associated band catalog
 (for example, Wings on the Paul McCartney pages). Release groups must have one
 of those artists as their first credit; guest and composer credits remain excluded.
+Use `extraReleaseGroupIds` for explicitly reviewed shared releases, such as a
+various-artists soundtrack. These specific groups are fetched even when absent
+from the artist's own catalog; secondary-type and edition rules still apply.
+Only tracks credited to the configured artist or reviewed related artists are
+matched on these shared releases, preserving the original track positions.
 
 Artist settings can also use `allowedSecondaryTypes` (for example, `["Soundtrack"]`)
 to include original soundtrack albums, and `excludedReleaseGroups` (an array of

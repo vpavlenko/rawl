@@ -1,0 +1,214 @@
+{
+  "artist": "Sinatra",
+  "status": "processed",
+  "totalSongs": 35,
+  "matched": [
+    {
+      "song": "All the Things You Are",
+      "album": "Songs by Sinatra",
+      "albumId": "35fb03e4-2344-3c48-aa93-ea80e9870d8a",
+      "track": 6
+    },
+    {
+      "song": "Anything Goes",
+      "album": "Songs for Swingin’ Lovers!",
+      "albumId": "12421e82-3ca1-39c5-bbcf-bba54ba251e5",
+      "track": 14
+    },
+    {
+      "song": "Autumn Leaves",
+      "album": "Where Are You?",
+      "albumId": "883d137a-4b9a-3b74-b37d-77f9a3ff62ba",
+      "track": 7
+    },
+    {
+      "song": "Bewitched",
+      "album": "The Lady Is a Tramp / Bewitched",
+      "albumId": "098e1304-0337-41d3-9b0c-359276ddaea7",
+      "track": 2
+    },
+    {
+      "song": "Blue Moon",
+      "album": "Sinatra’s Swingin’ Session!!!",
+      "albumId": "d846eb03-0579-3b35-adfc-66dc2c0f9d50",
+      "track": 2
+    },
+    {
+      "song": "Chicago",
+      "album": "All the Way / Chicago",
+      "albumId": "89623d6a-7fb5-43ba-bfc4-53c2c8a1019f",
+      "track": 2
+    },
+    {
+      "song": "Come Rain or Come Shine",
+      "album": "Sinatra & Strings",
+      "albumId": "8f1c9901-7714-35da-b480-1c914984b396",
+      "track": 5
+    },
+    {
+      "song": "Fly Me to the Moon",
+      "album": "A Man and His Music",
+      "albumId": "6dda357c-ac07-3d48-95ed-4b2589aac626",
+      "track": 29
+    },
+    {
+      "song": "For Every Man There's a Woman",
+      "album": "That Old Feeling",
+      "albumId": "dba8c1bb-55ff-49f2-a287-7d4111f43a57",
+      "track": 11
+    },
+    {
+      "song": "I Believe in You",
+      "album": "It Might as Well Be Swing",
+      "albumId": "80c2bb42-0c5e-35ed-8c63-392da06d5983",
+      "track": 3
+    },
+    {
+      "song": "I Get A Kick Out Of You",
+      "album": "Songs for Young Lovers",
+      "albumId": "2bd54233-55d8-312c-98c1-09a794c6a6f1",
+      "track": 5
+    },
+    {
+      "song": "I'm Glad There Is You",
+      "album": "1 - A Ghost of a Chance",
+      "albumId": "85aefc7d-d4dc-4d6c-a86d-16876bde3c8e",
+      "track": 2
+    },
+    {
+      "song": "I've Got You Under My Skin",
+      "album": "Songs for Swingin’ Lovers!",
+      "albumId": "12421e82-3ca1-39c5-bbcf-bba54ba251e5",
+      "track": 9
+    },
+    {
+      "song": "Just One Of Those Things",
+      "album": "Swing Easy!",
+      "albumId": "ced1cbb1-7671-35d2-a9ec-a63d2c9c8390",
+      "track": 12
+    },
+    {
+      "song": "Luck Be a Lady",
+      "album": "A Man and His Music",
+      "albumId": "6dda357c-ac07-3d48-95ed-4b2589aac626",
+      "track": 27
+    },
+    {
+      "song": "My Funny Valentine",
+      "album": "Songs for Young Lovers",
+      "albumId": "2bd54233-55d8-312c-98c1-09a794c6a6f1",
+      "track": 1
+    },
+    {
+      "song": "My Shining Hour",
+      "album": "Trilogy: Past Present Future",
+      "albumId": "08defaff-1b08-305e-98df-651640502ef3",
+      "track": 7
+    },
+    {
+      "song": "My Way (live)",
+      "album": "My Way",
+      "albumId": "8d09140c-21e9-31ea-be11-9201f9cce665",
+      "track": 6
+    },
+    {
+      "song": "New York, New York (theme du film)",
+      "album": "Trilogy: Past Present Future",
+      "albumId": "08defaff-1b08-305e-98df-651640502ef3",
+      "track": 15
+    },
+    {
+      "song": "Night and Day",
+      "album": "A Swingin’ Affair!",
+      "albumId": "4bc8b6d0-f7b4-3b53-a775-d7127c380a1a",
+      "track": 1
+    },
+    {
+      "song": "Ol' Man River",
+      "album": "The Concert Sinatra",
+      "albumId": "47c3567a-395f-3388-b1c4-e1fe5a33758d",
+      "track": 4
+    },
+    {
+      "song": "One More for My Baby (And One More for the Road)",
+      "album": "Frankly Sentimental",
+      "albumId": "5e7130ec-3e7a-3407-bc1e-821fd6d3ddf9",
+      "track": 5
+    },
+    {
+      "song": "Sentimental Journey",
+      "album": "Come Swing With Me!",
+      "albumId": "6a5725e6-b6fc-3d6d-af58-c3fb25115796",
+      "track": 2
+    },
+    {
+      "song": "Something Stupid",
+      "album": "The World We Knew",
+      "albumId": "44dffb7c-2efe-3631-a2c5-0f32d2c7498b",
+      "track": 2
+    },
+    {
+      "song": "Strangers in the Night",
+      "album": "Strangers in the Night",
+      "albumId": "37102462-0941-38c3-9f7f-14188efd0ff1",
+      "track": 1
+    },
+    {
+      "song": "That's Life",
+      "album": "That’s Life",
+      "albumId": "d33bc6b2-b99e-397d-9a2b-7d54a43653bc",
+      "track": 1
+    },
+    {
+      "song": "The Lady Is a Tramp",
+      "album": "Duets",
+      "albumId": "3eb6914e-0d92-3074-b672-709bed192cff",
+      "track": 1
+    },
+    {
+      "song": "The Most Beautiful Girl in the World",
+      "album": "Strangers in the Night",
+      "albumId": "37102462-0941-38c3-9f7f-14188efd0ff1",
+      "track": 10
+    },
+    {
+      "song": "The Way You Look Tonight",
+      "album": "Frank Sinatra Sings Days of Wine and Roses, Moon River and Other Academy Award Winners",
+      "albumId": "d39b3db9-81ed-3919-b993-e69cd770df02",
+      "track": 3
+    },
+    {
+      "song": "What Is This Thing Called Love?",
+      "album": "In the Wee Small Hours",
+      "albumId": "5a5d9938-38a9-3f32-b03b-8f14f62b880a",
+      "track": 9
+    },
+    {
+      "song": "Where or When",
+      "album": "Dedicated to You",
+      "albumId": "141af6b7-6a86-42bc-934b-9dbf726d766b",
+      "track": 5
+    },
+    {
+      "song": "Yes Sir, That's My Baby",
+      "album": "Strangers in the Night",
+      "albumId": "37102462-0941-38c3-9f7f-14188efd0ff1",
+      "track": 9
+    },
+    {
+      "song": "You'll Never Walk Alone",
+      "album": "The Concert Sinatra",
+      "albumId": "47c3567a-395f-3388-b1c4-e1fe5a33758d",
+      "track": 5
+    }
+  ],
+  "unmatched": [
+    "Goin' Out of My Head",
+    "Guys and Dolls (reprise)"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Goin' Out of My Head": [],
+    "Guys and Dolls (reprise)": []
+  }
+}

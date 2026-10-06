@@ -1,0 +1,471 @@
+{
+  "artist": "Frank Sinatra",
+  "artistId": "197450cd-0124-4164-b723-3c22dd16494d",
+  "groups": [
+    {
+      "id": "a112ed8f-99e9-469a-871d-42c117a5b54e",
+      "releaseId": "1f9ff014-3007-4135-8a3c-b02463187a35",
+      "title": "Begin the Beguine / Five Minutes More",
+      "date": "1946",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/a112ed8f-99e9-469a-871d-42c117a5b54e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Begin the Beguine.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "48f05fdb-0a7b-3c7f-b62d-78923d167da7",
+      "releaseId": "4b74bd00-613b-443e-854e-f8db380fc4fe",
+      "title": "The Voice of Frank Sinatra",
+      "date": "1946-03-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/48f05fdb-0a7b-3c7f-b62d-78923d167da7/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "These Foolish Things.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "681771cd-89f1-3ce0-b245-3c8a94dfdeb4",
+      "releaseId": "3618a53a-ab41-415c-874e-4bba80603845",
+      "title": "I Believe / Time After Time",
+      "date": "1947",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/681771cd-89f1-3ce0-b245-3c8a94dfdeb4/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Time After Time.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5695bdc8-006f-39c8-9431-7636240773a0",
+      "releaseId": "0b157995-b74a-402e-a922-c663999e9e31",
+      "title": "Sing and Dance With Frank Sinatra",
+      "date": "1950-10-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5695bdc8-006f-39c8-9431-7636240773a0/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "It's Only a Paper Moon.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ced1cbb1-7671-35d2-a9ec-a63d2c9c8390",
+      "releaseId": "008d0322-9112-42bc-9bd3-7579b1adfb56",
+      "title": "Swing Easy!",
+      "date": "1954-08-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ced1cbb1-7671-35d2-a9ec-a63d2c9c8390/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "All Of Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d905c008-2af6-3de2-9ec4-552609f07e8b",
+      "releaseId": "89e881bd-f15b-47b5-9582-d383acd6f41a",
+      "title": "Not as a Stranger / How Could You Do a Thing Like That to Me?",
+      "date": "1955",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/d905c008-2af6-3de2-9ec4-552609f07e8b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Not as a Stranger.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5a5d9938-38a9-3f32-b03b-8f14f62b880a",
+      "releaseId": "881f621c-618c-48da-80a8-50380996fe15",
+      "title": "In the Wee Small Hours",
+      "date": "1955-04-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5a5d9938-38a9-3f32-b03b-8f14f62b880a/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "What Is This Thing Called Love?.mid",
+            "What Is This Thing Called Love?.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "12421e82-3ca1-39c5-bbcf-bba54ba251e5",
+      "releaseId": "6ebb996f-da6d-3517-b9be-9c52779572e3",
+      "title": "Songs for Swingin’ Lovers!",
+      "date": "1956-03-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/12421e82-3ca1-39c5-bbcf-bba54ba251e5/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "Makin' Whoopie.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "943f4c2f-1635-45c6-8496-76f8ee4e7f29",
+      "releaseId": "75d0d063-dd3b-47d9-bace-c2db530c627a",
+      "title": "Love Is a Kick",
+      "date": "1958",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/943f4c2f-1635-45c6-8496-76f8ee4e7f29/front-250",
+      "songs": [
+        {
+          "number": 11,
+          "files": [
+            "Five Minutes More.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "098e1304-0337-41d3-9b0c-359276ddaea7",
+      "releaseId": "e793a91b-f28f-4266-a8af-a4983f521106",
+      "title": "The Lady Is a Tramp / Bewitched",
+      "date": "1958",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/098e1304-0337-41d3-9b0c-359276ddaea7/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Bewitched.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bf7c7461-fc4d-35f8-a4d6-673473ce3fe6",
+      "releaseId": "c8943160-c4a9-4840-9fc5-19a05b53a00f",
+      "title": "Frank Sinatra Sings for Only the Lonely",
+      "date": "1958-09-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/bf7c7461-fc4d-35f8-a4d6-673473ce3fe6/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Angel Eyes.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Ebb Tide.mid",
+            "Ebb Tide.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3383e288-26d5-3504-9c91-9801a07b4a96",
+      "releaseId": "d0f9b284-454c-4cd8-9db5-1e6b9b6f74b1",
+      "title": "Nice ’n’ Easy",
+      "date": "1960-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3383e288-26d5-3504-9c91-9801a07b4a96/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Nice 'N Easy.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aae8d7d5-f3ef-4d63-bfe1-ef76564f688f",
+      "releaseId": "d680c2aa-0ad2-4d3b-af98-dd20297d2717",
+      "title": "Conducts Music From Pictures and Plays",
+      "date": "1961",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/aae8d7d5-f3ef-4d63-bfe1-ef76564f688f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "All The Way.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0759d22c-ae7f-3c33-a8b2-6ae229ecc728",
+      "releaseId": "10b47bcb-b4c5-40d7-a29c-004ff933a789",
+      "title": "I Remember Tommy",
+      "date": "1961",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0759d22c-ae7f-3c33-a8b2-6ae229ecc728/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Polka Dots And Moonbeams.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "601290ca-699e-3c2f-a4b8-b5ad410f8c07",
+      "releaseId": "5527df62-e83a-4487-b87e-d9021672cd90",
+      "title": "Sinatra Sings Great Songs From Great Britain",
+      "date": "1962",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/601290ca-699e-3c2f-a4b8-b5ad410f8c07/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "A Nightingale Sang in Berkeley Square.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8f1c9901-7714-35da-b480-1c914984b396",
+      "releaseId": "de42015d-b2bd-4ea6-9c79-39d7350f428a",
+      "title": "Sinatra & Strings",
+      "date": "1962-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8f1c9901-7714-35da-b480-1c914984b396/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Come Rain or Come Shine.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "All or Nothing at All.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f1641ee5-efa5-3046-9af2-ac40305a4cba",
+      "releaseId": "a8c32456-52b8-4104-a967-67af41647f42",
+      "title": "Sinatra’s Sinatra",
+      "date": "1963",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f1641ee5-efa5-3046-9af2-ac40305a4cba/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Witchcraft.mid",
+            "Witchcraft.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Young At Heart.mid",
+            "Young At Heart.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d39b3db9-81ed-3919-b993-e69cd770df02",
+      "releaseId": "acba46d0-2b90-4774-8ef9-ae2cb4c028f0",
+      "title": "Frank Sinatra Sings Days of Wine and Roses, Moon River and Other Academy Award Winners",
+      "date": "1964-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d39b3db9-81ed-3919-b993-e69cd770df02/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Three Coins in a Fountain.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6dda357c-ac07-3d48-95ed-4b2589aac626",
+      "releaseId": "46c04adf-93e4-412c-8f59-1bbc315b371c",
+      "title": "A Man and His Music",
+      "date": "1965",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6dda357c-ac07-3d48-95ed-4b2589aac626/front-250",
+      "songs": [
+        {
+          "number": 21,
+          "files": [
+            "Love and Marriage.mid"
+          ]
+        },
+        {
+          "number": 27,
+          "files": [
+            "Luck Be a Lady.mid",
+            "Luck Be a Lady.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f420ae5d-3878-31d8-897b-6971fda20e92",
+      "releaseId": "0f97541b-4a85-4a01-bf8c-57e5ffd9df7e",
+      "title": "September of My Years",
+      "date": "1965-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f420ae5d-3878-31d8-897b-6971fda20e92/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "It Was a Very Good Year.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "37102462-0941-38c3-9f7f-14188efd0ff1",
+      "releaseId": "c094d883-e5d1-43e0-9583-66d45e273971",
+      "title": "Strangers in the Night",
+      "date": "1966",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/37102462-0941-38c3-9f7f-14188efd0ff1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Strangers in the Night.mid",
+            "Strangers in the Night.1.mid",
+            "Strangers in the Night.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Summer Wind.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d33bc6b2-b99e-397d-9a2b-7d54a43653bc",
+      "releaseId": "577f5f42-a816-4ac6-a29f-50d6e890b241",
+      "title": "That’s Life",
+      "date": "1966-11-18",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d33bc6b2-b99e-397d-9a2b-7d54a43653bc/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "That's Life.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "44dffb7c-2efe-3631-a2c5-0f32d2c7498b",
+      "releaseId": "b8d67da0-99a2-4a87-b306-b540a8bea87f",
+      "title": "The World We Knew",
+      "date": "1967",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/44dffb7c-2efe-3631-a2c5-0f32d2c7498b/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Something Stupid.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8d09140c-21e9-31ea-be11-9201f9cce665",
+      "releaseId": "f6c6e765-6dd3-4b19-9743-3e7b0970ebd8",
+      "title": "My Way",
+      "date": "1969-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8d09140c-21e9-31ea-be11-9201f9cce665/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "My Way (live).mid",
+            "My Way (live).1.mid",
+            "My Way (live).2.mid",
+            "My Way (live).3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "08defaff-1b08-305e-98df-651640502ef3",
+      "releaseId": "b8f17926-6da8-406f-80e8-49fe7e4ff768",
+      "title": "Trilogy: Past Present Future",
+      "date": "1980-03-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/08defaff-1b08-305e-98df-651640502ef3/front-250",
+      "songs": [
+        {
+          "number": 15,
+          "files": [
+            "New York, New York (theme du film).mid",
+            "New York, New York (theme du film).1.mid",
+            "New York, New York (theme du film).2.mid",
+            "New York, New York (theme du film).3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3eb6914e-0d92-3074-b672-709bed192cff",
+      "releaseId": "2593016b-4149-49bc-b6f9-aa185afd7b17",
+      "title": "Duets",
+      "date": "1993-10-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3eb6914e-0d92-3074-b672-709bed192cff/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "I've Got the World on a String.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "All The Way   One For My Baby (And One More For The Road) - Duet with Frank Sinatra.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

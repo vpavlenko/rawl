@@ -353,5 +353,61 @@
     ],
     "songs": {},
     "name": "Elvis Presley"
+  },
+  "Frank Sinatra": {
+    "name": "Frank Sinatra",
+    "mbid": "197450cd-0124-4164-b723-3c22dd16494d",
+    "country": "US",
+    "songs": {
+      "My Way (live)": {
+        "title": "My Way"
+      },
+      "New York, New York (theme du film)": {
+        "title": "Theme From New York, New York"
+      },
+      "Something Stupid": {
+        "title": "Somethin’ Stupid"
+      },
+      "Makin' Whoopie": {
+        "title": "Makin’ Whoopee"
+      },
+      "Three Coins in a Fountain": {
+        "title": "Three Coins in the Fountain"
+      },
+      "All The Way   One For My Baby (And One More For The Road) - Duet with Frank Sinatra": {
+        "title": "All the Way / One for My Baby (and One More for the Road)"
+      }
+    },
+    "excludedReleaseGroups": [
+      "d112142d-a71b-4c23-aada-a2ba25458875"
+    ],
+    "releaseOverrides": {
+      "3383e288-26d5-3504-9c91-9801a07b4a96": "d0f9b284-454c-4cd8-9db5-1e6b9b6f74b1"
+    }
+  },
+  "Sinatra": {
+    "name": "Frank Sinatra",
+    "mbid": "197450cd-0124-4164-b723-3c22dd16494d",
+    "country": "US",
+    "songs": {
+      "My Way (live)": {
+        "title": "My Way"
+      },
+      "New York, New York (theme du film)": {
+        "title": "Theme From New York, New York"
+      },
+      "Something Stupid": {
+        "title": "Somethin’ Stupid"
+      },
+      "One More for My Baby (And One More for the Road)": {
+        "title": "One for My Baby (and One More for the Road)"
+      }
+    },
+    "excludedReleaseGroups": [
+      "d112142d-a71b-4c23-aada-a2ba25458875"
+    ],
+    "releaseOverrides": {
+      "3383e288-26d5-3504-9c91-9801a07b4a96": "d0f9b284-454c-4cd8-9db5-1e6b9b6f74b1"
+    }
   }
 }

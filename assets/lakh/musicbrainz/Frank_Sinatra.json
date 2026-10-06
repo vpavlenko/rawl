@@ -1,0 +1,202 @@
+{
+  "artist": "Frank Sinatra",
+  "status": "processed",
+  "totalSongs": 32,
+  "matched": [
+    {
+      "song": "A Nightingale Sang in Berkeley Square",
+      "album": "Sinatra Sings Great Songs From Great Britain",
+      "albumId": "601290ca-699e-3c2f-a4b8-b5ad410f8c07",
+      "track": 7
+    },
+    {
+      "song": "All Of Me",
+      "album": "Swing Easy!",
+      "albumId": "ced1cbb1-7671-35d2-a9ec-a63d2c9c8390",
+      "track": 8
+    },
+    {
+      "song": "All or Nothing at All",
+      "album": "Sinatra & Strings",
+      "albumId": "8f1c9901-7714-35da-b480-1c914984b396",
+      "track": 9
+    },
+    {
+      "song": "All The Way   One For My Baby (And One More For The Road) - Duet with Frank Sinatra",
+      "album": "Duets",
+      "albumId": "3eb6914e-0d92-3074-b672-709bed192cff",
+      "track": 13
+    },
+    {
+      "song": "All The Way",
+      "album": "Conducts Music From Pictures and Plays",
+      "albumId": "aae8d7d5-f3ef-4d63-bfe1-ef76564f688f",
+      "track": 1
+    },
+    {
+      "song": "Angel Eyes",
+      "album": "Frank Sinatra Sings for Only the Lonely",
+      "albumId": "bf7c7461-fc4d-35f8-a4d6-673473ce3fe6",
+      "track": 2
+    },
+    {
+      "song": "Begin the Beguine",
+      "album": "Begin the Beguine / Five Minutes More",
+      "albumId": "a112ed8f-99e9-469a-871d-42c117a5b54e",
+      "track": 1
+    },
+    {
+      "song": "Bewitched",
+      "album": "The Lady Is a Tramp / Bewitched",
+      "albumId": "098e1304-0337-41d3-9b0c-359276ddaea7",
+      "track": 2
+    },
+    {
+      "song": "Come Rain or Come Shine",
+      "album": "Sinatra & Strings",
+      "albumId": "8f1c9901-7714-35da-b480-1c914984b396",
+      "track": 5
+    },
+    {
+      "song": "Ebb Tide",
+      "album": "Frank Sinatra Sings for Only the Lonely",
+      "albumId": "bf7c7461-fc4d-35f8-a4d6-673473ce3fe6",
+      "track": 9
+    },
+    {
+      "song": "Five Minutes More",
+      "album": "Love Is a Kick",
+      "albumId": "943f4c2f-1635-45c6-8496-76f8ee4e7f29",
+      "track": 11
+    },
+    {
+      "song": "I've Got the World on a String",
+      "album": "Duets",
+      "albumId": "3eb6914e-0d92-3074-b672-709bed192cff",
+      "track": 10
+    },
+    {
+      "song": "It Was a Very Good Year",
+      "album": "September of My Years",
+      "albumId": "f420ae5d-3878-31d8-897b-6971fda20e92",
+      "track": 8
+    },
+    {
+      "song": "It's Only a Paper Moon",
+      "album": "Sing and Dance With Frank Sinatra",
+      "albumId": "5695bdc8-006f-39c8-9431-7636240773a0",
+      "track": 2
+    },
+    {
+      "song": "Love and Marriage",
+      "album": "A Man and His Music",
+      "albumId": "6dda357c-ac07-3d48-95ed-4b2589aac626",
+      "track": 21
+    },
+    {
+      "song": "Luck Be a Lady",
+      "album": "A Man and His Music",
+      "albumId": "6dda357c-ac07-3d48-95ed-4b2589aac626",
+      "track": 27
+    },
+    {
+      "song": "Makin' Whoopie",
+      "album": "Songs for Swingin’ Lovers!",
+      "albumId": "12421e82-3ca1-39c5-bbcf-bba54ba251e5",
+      "track": 12
+    },
+    {
+      "song": "My Way (live)",
+      "album": "My Way",
+      "albumId": "8d09140c-21e9-31ea-be11-9201f9cce665",
+      "track": 6
+    },
+    {
+      "song": "New York, New York (theme du film)",
+      "album": "Trilogy: Past Present Future",
+      "albumId": "08defaff-1b08-305e-98df-651640502ef3",
+      "track": 15
+    },
+    {
+      "song": "Nice 'N Easy",
+      "album": "Nice ’n’ Easy",
+      "albumId": "3383e288-26d5-3504-9c91-9801a07b4a96",
+      "track": 1
+    },
+    {
+      "song": "Not as a Stranger",
+      "album": "Not as a Stranger / How Could You Do a Thing Like That to Me?",
+      "albumId": "d905c008-2af6-3de2-9ec4-552609f07e8b",
+      "track": 1
+    },
+    {
+      "song": "Polka Dots And Moonbeams",
+      "album": "I Remember Tommy",
+      "albumId": "0759d22c-ae7f-3c33-a8b2-6ae229ecc728",
+      "track": 10
+    },
+    {
+      "song": "Something Stupid",
+      "album": "The World We Knew",
+      "albumId": "44dffb7c-2efe-3631-a2c5-0f32d2c7498b",
+      "track": 2
+    },
+    {
+      "song": "Strangers in the Night",
+      "album": "Strangers in the Night",
+      "albumId": "37102462-0941-38c3-9f7f-14188efd0ff1",
+      "track": 1
+    },
+    {
+      "song": "Summer Wind",
+      "album": "Strangers in the Night",
+      "albumId": "37102462-0941-38c3-9f7f-14188efd0ff1",
+      "track": 2
+    },
+    {
+      "song": "That's Life",
+      "album": "That’s Life",
+      "albumId": "d33bc6b2-b99e-397d-9a2b-7d54a43653bc",
+      "track": 1
+    },
+    {
+      "song": "These Foolish Things",
+      "album": "The Voice of Frank Sinatra",
+      "albumId": "48f05fdb-0a7b-3c7f-b62d-78923d167da7",
+      "track": 3
+    },
+    {
+      "song": "Three Coins in a Fountain",
+      "album": "Frank Sinatra Sings Days of Wine and Roses, Moon River and Other Academy Award Winners",
+      "albumId": "d39b3db9-81ed-3919-b993-e69cd770df02",
+      "track": 4
+    },
+    {
+      "song": "Time After Time",
+      "album": "I Believe / Time After Time",
+      "albumId": "681771cd-89f1-3ce0-b245-3c8a94dfdeb4",
+      "track": 2
+    },
+    {
+      "song": "What Is This Thing Called Love?",
+      "album": "In the Wee Small Hours",
+      "albumId": "5a5d9938-38a9-3f32-b03b-8f14f62b880a",
+      "track": 9
+    },
+    {
+      "song": "Witchcraft",
+      "album": "Sinatra’s Sinatra",
+      "albumId": "f1641ee5-efa5-3046-9af2-ac40305a4cba",
+      "track": 5
+    },
+    {
+      "song": "Young At Heart",
+      "album": "Sinatra’s Sinatra",
+      "albumId": "f1641ee5-efa5-3046-9af2-ac40305a4cba",
+      "track": 6
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

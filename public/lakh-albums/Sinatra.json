@@ -1,0 +1,481 @@
+{
+  "artist": "Sinatra",
+  "artistId": "197450cd-0124-4164-b723-3c22dd16494d",
+  "groups": [
+    {
+      "id": "35fb03e4-2344-3c48-aa93-ea80e9870d8a",
+      "releaseId": "bf477c88-dea4-41b7-b317-2340767d9b80",
+      "title": "Songs by Sinatra",
+      "date": "1947-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/35fb03e4-2344-3c48-aa93-ea80e9870d8a/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "All the Things You Are.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5e7130ec-3e7a-3407-bc1e-821fd6d3ddf9",
+      "releaseId": "29f28e1f-9716-4748-ba9a-5a59097709c9",
+      "title": "Frankly Sentimental",
+      "date": "1949-06-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5e7130ec-3e7a-3407-bc1e-821fd6d3ddf9/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "One More for My Baby (And One More for the Road).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "141af6b7-6a86-42bc-934b-9dbf726d766b",
+      "releaseId": "7d2243d9-65f2-43fa-8c75-894f9bfe3a5b",
+      "title": "Dedicated to You",
+      "date": "1950-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/141af6b7-6a86-42bc-934b-9dbf726d766b/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Where or When.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2bd54233-55d8-312c-98c1-09a794c6a6f1",
+      "releaseId": "9fa6d4d5-07ea-42b1-99f8-39e7374e55ff",
+      "title": "Songs for Young Lovers",
+      "date": "1954",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2bd54233-55d8-312c-98c1-09a794c6a6f1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "My Funny Valentine.mid",
+            "My Funny Valentine.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "I Get A Kick Out Of You.mid",
+            "I Get A Kick Out Of You.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ced1cbb1-7671-35d2-a9ec-a63d2c9c8390",
+      "releaseId": "008d0322-9112-42bc-9bd3-7579b1adfb56",
+      "title": "Swing Easy!",
+      "date": "1954-08-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ced1cbb1-7671-35d2-a9ec-a63d2c9c8390/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "Just One Of Those Things.mid",
+            "Just One Of Those Things.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "85aefc7d-d4dc-4d6c-a86d-16876bde3c8e",
+      "releaseId": "cc02c19d-2bcd-4c50-bd85-7e987c4955d4",
+      "title": "1 - A Ghost of a Chance",
+      "date": "1955",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/85aefc7d-d4dc-4d6c-a86d-16876bde3c8e/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "I'm Glad There Is You.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5a5d9938-38a9-3f32-b03b-8f14f62b880a",
+      "releaseId": "881f621c-618c-48da-80a8-50380996fe15",
+      "title": "In the Wee Small Hours",
+      "date": "1955-04-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5a5d9938-38a9-3f32-b03b-8f14f62b880a/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "What Is This Thing Called Love?.mid",
+            "What Is This Thing Called Love?.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "12421e82-3ca1-39c5-bbcf-bba54ba251e5",
+      "releaseId": "6ebb996f-da6d-3517-b9be-9c52779572e3",
+      "title": "Songs for Swingin’ Lovers!",
+      "date": "1956-03-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/12421e82-3ca1-39c5-bbcf-bba54ba251e5/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "I've Got You Under My Skin.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Anything Goes.mid",
+            "Anything Goes.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dba8c1bb-55ff-49f2-a287-7d4111f43a57",
+      "releaseId": "115735c4-502d-4936-b4e7-4acff8773635",
+      "title": "That Old Feeling",
+      "date": "1956-09-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/dba8c1bb-55ff-49f2-a287-7d4111f43a57/front-250",
+      "songs": [
+        {
+          "number": 11,
+          "files": [
+            "For Every Man There's a Woman.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4bc8b6d0-f7b4-3b53-a775-d7127c380a1a",
+      "releaseId": "f8b8f391-5de9-407b-9492-700b3c4cfb99",
+      "title": "A Swingin’ Affair!",
+      "date": "1957-05-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4bc8b6d0-f7b4-3b53-a775-d7127c380a1a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Night and Day.mid",
+            "Night and Day.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "89623d6a-7fb5-43ba-bfc4-53c2c8a1019f",
+      "releaseId": "6f48e3d9-961a-42dc-8d0d-a9c571be222d",
+      "title": "All the Way / Chicago",
+      "date": "1957-09",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/89623d6a-7fb5-43ba-bfc4-53c2c8a1019f/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Chicago.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "883d137a-4b9a-3b74-b37d-77f9a3ff62ba",
+      "releaseId": "afc5949a-f766-4127-bcfa-d6bf36002de7",
+      "title": "Where Are You?",
+      "date": "1957-09-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/883d137a-4b9a-3b74-b37d-77f9a3ff62ba/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Autumn Leaves.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "098e1304-0337-41d3-9b0c-359276ddaea7",
+      "releaseId": "e793a91b-f28f-4266-a8af-a4983f521106",
+      "title": "The Lady Is a Tramp / Bewitched",
+      "date": "1958",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/098e1304-0337-41d3-9b0c-359276ddaea7/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Bewitched.mid",
+            "Bewitched.1.mid",
+            "Bewitched.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6a5725e6-b6fc-3d6d-af58-c3fb25115796",
+      "releaseId": "cb2dd7ac-d8f8-44c3-bb72-aad349501d64",
+      "title": "Come Swing With Me!",
+      "date": "1961",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6a5725e6-b6fc-3d6d-af58-c3fb25115796/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Sentimental Journey.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d846eb03-0579-3b35-adfc-66dc2c0f9d50",
+      "releaseId": "e30fd9c3-f902-4454-9288-5161e5f87e41",
+      "title": "Sinatra’s Swingin’ Session!!!",
+      "date": "1961-01-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d846eb03-0579-3b35-adfc-66dc2c0f9d50/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Blue Moon.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8f1c9901-7714-35da-b480-1c914984b396",
+      "releaseId": "de42015d-b2bd-4ea6-9c79-39d7350f428a",
+      "title": "Sinatra & Strings",
+      "date": "1962-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8f1c9901-7714-35da-b480-1c914984b396/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Come Rain or Come Shine.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "47c3567a-395f-3388-b1c4-e1fe5a33758d",
+      "releaseId": "681505ab-478c-4db7-b88c-88aad65f9173",
+      "title": "The Concert Sinatra",
+      "date": "1963-06-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/47c3567a-395f-3388-b1c4-e1fe5a33758d/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Ol' Man River.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "You'll Never Walk Alone.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d39b3db9-81ed-3919-b993-e69cd770df02",
+      "releaseId": "acba46d0-2b90-4774-8ef9-ae2cb4c028f0",
+      "title": "Frank Sinatra Sings Days of Wine and Roses, Moon River and Other Academy Award Winners",
+      "date": "1964-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d39b3db9-81ed-3919-b993-e69cd770df02/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "The Way You Look Tonight.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "80c2bb42-0c5e-35ed-8c63-392da06d5983",
+      "releaseId": "9165ac0d-cb71-4419-ab57-2d46e7c4d5c0",
+      "title": "It Might as Well Be Swing",
+      "date": "1964-06-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/80c2bb42-0c5e-35ed-8c63-392da06d5983/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "I Believe in You.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6dda357c-ac07-3d48-95ed-4b2589aac626",
+      "releaseId": "46c04adf-93e4-412c-8f59-1bbc315b371c",
+      "title": "A Man and His Music",
+      "date": "1965",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6dda357c-ac07-3d48-95ed-4b2589aac626/front-250",
+      "songs": [
+        {
+          "number": 27,
+          "files": [
+            "Luck Be a Lady.mid"
+          ]
+        },
+        {
+          "number": 29,
+          "files": [
+            "Fly Me to the Moon.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "37102462-0941-38c3-9f7f-14188efd0ff1",
+      "releaseId": "c094d883-e5d1-43e0-9583-66d45e273971",
+      "title": "Strangers in the Night",
+      "date": "1966",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/37102462-0941-38c3-9f7f-14188efd0ff1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Strangers in the Night.mid",
+            "Strangers in the Night.1.mid",
+            "Strangers in the Night.2.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Yes Sir, That's My Baby.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "The Most Beautiful Girl in the World.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d33bc6b2-b99e-397d-9a2b-7d54a43653bc",
+      "releaseId": "577f5f42-a816-4ac6-a29f-50d6e890b241",
+      "title": "That’s Life",
+      "date": "1966-11-18",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d33bc6b2-b99e-397d-9a2b-7d54a43653bc/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "That's Life.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "44dffb7c-2efe-3631-a2c5-0f32d2c7498b",
+      "releaseId": "b8d67da0-99a2-4a87-b306-b540a8bea87f",
+      "title": "The World We Knew",
+      "date": "1967",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/44dffb7c-2efe-3631-a2c5-0f32d2c7498b/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Something Stupid.mid",
+            "Something Stupid.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8d09140c-21e9-31ea-be11-9201f9cce665",
+      "releaseId": "f6c6e765-6dd3-4b19-9743-3e7b0970ebd8",
+      "title": "My Way",
+      "date": "1969-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8d09140c-21e9-31ea-be11-9201f9cce665/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "My Way (live).mid",
+            "My Way (live).1.mid",
+            "My Way (live).2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "08defaff-1b08-305e-98df-651640502ef3",
+      "releaseId": "b8f17926-6da8-406f-80e8-49fe7e4ff768",
+      "title": "Trilogy: Past Present Future",
+      "date": "1980-03-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/08defaff-1b08-305e-98df-651640502ef3/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "My Shining Hour.mid"
+          ]
+        },
+        {
+          "number": 15,
+          "files": [
+            "New York, New York (theme du film).mid",
+            "New York, New York (theme du film).1.mid",
+            "New York, New York (theme du film).2.mid",
+            "New York, New York (theme du film).3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3eb6914e-0d92-3074-b672-709bed192cff",
+      "releaseId": "2593016b-4149-49bc-b6f9-aa185afd7b17",
+      "title": "Duets",
+      "date": "1993-10-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3eb6914e-0d92-3074-b672-709bed192cff/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Lady Is a Tramp.mid",
+            "The Lady Is a Tramp.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

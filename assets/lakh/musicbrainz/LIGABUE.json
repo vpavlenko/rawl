@@ -1,0 +1,202 @@
+{
+  "artist": "LIGABUE",
+  "status": "processed",
+  "totalSongs": 32,
+  "matched": [
+    {
+      "song": "Ancora in piedi",
+      "album": "Sopravvissuti e sopravviventi",
+      "albumId": "3e9cddad-4bb4-355b-acd9-12581906418f",
+      "track": 1
+    },
+    {
+      "song": "Balliamo sul mondo",
+      "album": "Ligabue",
+      "albumId": "d2395817-7833-3cde-99dc-f9c692e75b00",
+      "track": 1
+    },
+    {
+      "song": "Bambolina e barracuda",
+      "album": "Ligabue",
+      "albumId": "d2395817-7833-3cde-99dc-f9c692e75b00",
+      "track": 2
+    },
+    {
+      "song": "Bar Mario",
+      "album": "Ligabue",
+      "albumId": "d2395817-7833-3cde-99dc-f9c692e75b00",
+      "track": 6
+    },
+    {
+      "song": "Buon compleanno, Elvis!",
+      "album": "Buon compleanno Elvis",
+      "albumId": "899f4ac7-9517-3a01-8cd9-72afd542ebc6",
+      "track": 3
+    },
+    {
+      "song": "Certe notti",
+      "album": "Buon compleanno Elvis",
+      "albumId": "899f4ac7-9517-3a01-8cd9-72afd542ebc6",
+      "track": 7
+    },
+    {
+      "song": "Hai un momento, Dio?",
+      "album": "Buon compleanno Elvis",
+      "albumId": "899f4ac7-9517-3a01-8cd9-72afd542ebc6",
+      "track": 5
+    },
+    {
+      "song": "Ho messo via",
+      "album": "Sopravvissuti e sopravviventi",
+      "albumId": "3e9cddad-4bb4-355b-acd9-12581906418f",
+      "track": 3
+    },
+    {
+      "song": "Ho perso le parole",
+      "album": "Radiofreccia",
+      "albumId": "3deeae68-476c-3d00-acd0-7501c42be03a",
+      "track": 2
+    },
+    {
+      "song": "Il giorno di dolore che uno ha",
+      "album": "Su e giù da un palco",
+      "albumId": "d01b8e56-4620-376d-b7de-666a286dd878",
+      "track": 1
+    },
+    {
+      "song": "Il mio nome e mai piu",
+      "album": "Il mio nome è mai più",
+      "albumId": "590634b3-d99a-3f76-98c9-763e434fd9d3",
+      "track": 1
+    },
+    {
+      "song": "L'odore del sesso",
+      "album": "Miss Mondo",
+      "albumId": "1669acd0-f287-3bae-a109-1a6f60fd9a29",
+      "track": 8
+    },
+    {
+      "song": "La porta dei sogni",
+      "album": "Miss Mondo",
+      "albumId": "1669acd0-f287-3bae-a109-1a6f60fd9a29",
+      "track": 14
+    },
+    {
+      "song": "Leggero",
+      "album": "Buon compleanno Elvis",
+      "albumId": "899f4ac7-9517-3a01-8cd9-72afd542ebc6",
+      "track": 14
+    },
+    {
+      "song": "Libera nos a malo",
+      "album": "Lambrusco coltelli rose & pop corn",
+      "albumId": "3c98dbdc-eeba-4940-ae06-da21238cef18",
+      "track": 8
+    },
+    {
+      "song": "Marlon Brando e sempre lui",
+      "album": "Ligabue",
+      "albumId": "d2395817-7833-3cde-99dc-f9c692e75b00",
+      "track": 4
+    },
+    {
+      "song": "Metti in circolo il tuo amore",
+      "album": "Radiofreccia",
+      "albumId": "3deeae68-476c-3d00-acd0-7501c42be03a",
+      "track": 7
+    },
+    {
+      "song": "Miss Mondo '99",
+      "album": "Miss Mondo",
+      "albumId": "1669acd0-f287-3bae-a109-1a6f60fd9a29",
+      "track": 13
+    },
+    {
+      "song": "Non e tempo per noi",
+      "album": "Ligabue",
+      "albumId": "d2395817-7833-3cde-99dc-f9c692e75b00",
+      "track": 5
+    },
+    {
+      "song": "Piccola citta eterna",
+      "album": "Sopravvissuti e sopravviventi",
+      "albumId": "3e9cddad-4bb4-355b-acd9-12581906418f",
+      "track": 9
+    },
+    {
+      "song": "Piccola stella senza cielo",
+      "album": "Ligabue",
+      "albumId": "d2395817-7833-3cde-99dc-f9c692e75b00",
+      "track": 3
+    },
+    {
+      "song": "Quella che non sei",
+      "album": "Buon compleanno Elvis",
+      "albumId": "899f4ac7-9517-3a01-8cd9-72afd542ebc6",
+      "track": 10
+    },
+    {
+      "song": "Seduto in riva al fosso",
+      "album": "Buon compleanno Elvis",
+      "albumId": "899f4ac7-9517-3a01-8cd9-72afd542ebc6",
+      "track": 2
+    },
+    {
+      "song": "Sogni di rock 'n' roll",
+      "album": "Su e giù da un palco",
+      "albumId": "d01b8e56-4620-376d-b7de-666a286dd878",
+      "track": 16
+    },
+    {
+      "song": "Sulla mia strada",
+      "album": "Miss Mondo",
+      "albumId": "1669acd0-f287-3bae-a109-1a6f60fd9a29",
+      "track": 11
+    },
+    {
+      "song": "Ti sento",
+      "album": "Fuori come va?",
+      "albumId": "15763dfa-eda1-33f9-8810-224affe88591",
+      "track": 3
+    },
+    {
+      "song": "Tra palco e realta",
+      "album": "Su e giù da un palco",
+      "albumId": "d01b8e56-4620-376d-b7de-666a286dd878",
+      "track": 15
+    },
+    {
+      "song": "Una vita da mediano",
+      "album": "Miss Mondo",
+      "albumId": "1669acd0-f287-3bae-a109-1a6f60fd9a29",
+      "track": 6
+    },
+    {
+      "song": "Uno dei tanti",
+      "album": "Miss Mondo",
+      "albumId": "1669acd0-f287-3bae-a109-1a6f60fd9a29",
+      "track": 2
+    },
+    {
+      "song": "Urlando contro il cielo",
+      "album": "Lambrusco coltelli rose & pop corn",
+      "albumId": "3c98dbdc-eeba-4940-ae06-da21238cef18",
+      "track": 10
+    },
+    {
+      "song": "Viva!",
+      "album": "Buon compleanno Elvis",
+      "albumId": "899f4ac7-9517-3a01-8cd9-72afd542ebc6",
+      "track": 8
+    },
+    {
+      "song": "Vivo morto o X",
+      "album": "Buon compleanno Elvis",
+      "albumId": "899f4ac7-9517-3a01-8cd9-72afd542ebc6",
+      "track": 1
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

@@ -1,0 +1,312 @@
+{
+  "artist": "LIGABUE",
+  "artistId": "d5b0dc28-2f22-4f7d-adfb-ebbc30fa6d48",
+  "groups": [
+    {
+      "id": "d2395817-7833-3cde-99dc-f9c692e75b00",
+      "releaseId": "6853210f-8ed4-4b4c-8bd1-81d43ba33422",
+      "title": "Ligabue",
+      "date": "1990-05-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d2395817-7833-3cde-99dc-f9c692e75b00/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Balliamo sul mondo.mid",
+            "Balliamo sul mondo.1.mid",
+            "Balliamo sul mondo.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Bambolina e barracuda.mid",
+            "Bambolina e barracuda.1.mid",
+            "Bambolina e barracuda.2.mid",
+            "Bambolina e barracuda.3.mid",
+            "Bambolina e barracuda.4.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Piccola stella senza cielo.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Marlon Brando e sempre lui.mid",
+            "Marlon Brando e sempre lui.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Non e tempo per noi.mid",
+            "Non e tempo per noi.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Bar Mario.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3c98dbdc-eeba-4940-ae06-da21238cef18",
+      "releaseId": "804b088a-16f4-4ce1-a978-4c1ef01a3239",
+      "title": "Lambrusco coltelli rose & pop corn",
+      "date": "1991-09-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3c98dbdc-eeba-4940-ae06-da21238cef18/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Libera nos a malo.mid",
+            "Libera nos a malo.1.mid",
+            "Libera nos a malo.2.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Urlando contro il cielo.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3e9cddad-4bb4-355b-acd9-12581906418f",
+      "releaseId": "329104c6-0379-4677-a6bb-765d5215041f",
+      "title": "Sopravvissuti e sopravviventi",
+      "date": "1993-01-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3e9cddad-4bb4-355b-acd9-12581906418f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ancora in piedi.mid",
+            "Ancora in piedi.1.mid",
+            "Ancora in piedi.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Ho messo via.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Piccola citta eterna.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "899f4ac7-9517-3a01-8cd9-72afd542ebc6",
+      "releaseId": "f052ffaa-be27-41ae-baaa-b9b54aad7168",
+      "title": "Buon compleanno Elvis",
+      "date": "1995-09-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/899f4ac7-9517-3a01-8cd9-72afd542ebc6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Vivo morto o X.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Seduto in riva al fosso.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Buon compleanno, Elvis!.mid",
+            "Buon compleanno, Elvis!.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Hai un momento, Dio?.mid",
+            "Hai un momento, Dio?.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Certe notti.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Viva!.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Quella che non sei.mid",
+            "Quella che non sei.1.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Leggero.mid",
+            "Leggero.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d01b8e56-4620-376d-b7de-666a286dd878",
+      "releaseId": "dc19cd98-2c50-4d9a-9286-5444a256593b",
+      "title": "Su e giù da un palco",
+      "date": "1997",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d01b8e56-4620-376d-b7de-666a286dd878/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Il giorno di dolore che uno ha.mid"
+          ]
+        },
+        {
+          "number": 15,
+          "files": [
+            "Tra palco e realta.mid",
+            "Tra palco e realta.1.mid"
+          ]
+        },
+        {
+          "number": 16,
+          "files": [
+            "Sogni di rock 'n' roll.mid",
+            "Sogni di rock 'n' roll.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3deeae68-476c-3d00-acd0-7501c42be03a",
+      "releaseId": "632518fd-aaa1-4f11-8ceb-20cfbf7d709f",
+      "title": "Radiofreccia",
+      "date": "1998-11-14",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3deeae68-476c-3d00-acd0-7501c42be03a/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Ho perso le parole.mid",
+            "Ho perso le parole.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Metti in circolo il tuo amore.mid",
+            "Metti in circolo il tuo amore.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "590634b3-d99a-3f76-98c9-763e434fd9d3",
+      "releaseId": "c3179cbd-cd36-4f8b-b8c6-6ee5c2b40a3a",
+      "title": "Il mio nome è mai più",
+      "date": "1999",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/590634b3-d99a-3f76-98c9-763e434fd9d3/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Il mio nome e mai piu.mid",
+            "Il mio nome e mai piu.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1669acd0-f287-3bae-a109-1a6f60fd9a29",
+      "releaseId": "f53fae1d-4b35-4f4c-8075-29dc92446d50",
+      "title": "Miss Mondo",
+      "date": "1999-09-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1669acd0-f287-3bae-a109-1a6f60fd9a29/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Uno dei tanti.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Una vita da mediano.mid",
+            "Una vita da mediano.1.mid",
+            "Una vita da mediano.2.mid",
+            "Una vita da mediano.3.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "L'odore del sesso.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Sulla mia strada.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Miss Mondo '99.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "La porta dei sogni.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "15763dfa-eda1-33f9-8810-224affe88591",
+      "releaseId": "490cf2f1-16af-4437-ba5d-d8ac7ca71033",
+      "title": "Fuori come va?",
+      "date": "2002-04-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/15763dfa-eda1-33f9-8810-224affe88591/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Ti sento.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

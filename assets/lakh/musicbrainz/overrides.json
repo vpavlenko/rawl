@@ -795,5 +795,16 @@
         "title": "Have You Ever Really Loved a Woman?"
       }
     }
+  },
+  "LIGABUE": {
+    "name": "Ligabue",
+    "mbid": "d5b0dc28-2f22-4f7d-adfb-ebbc30fa6d48",
+    "country": "IT",
+    "includedReleaseGroups": [
+      "d01b8e56-4620-376d-b7de-666a286dd878"
+    ],
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ]
   }
 }

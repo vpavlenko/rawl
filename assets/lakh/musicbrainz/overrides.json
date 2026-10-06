@@ -734,5 +734,27 @@
     "includedReleaseGroups": [
       "aa525b6e-6010-356a-9021-c34abbe77bdc"
     ]
+  },
+  "Whitney Houston": {
+    "name": "Whitney Houston",
+    "mbid": "0307edfc-437c-4b48-8700-80680e66a228",
+    "country": "US",
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "songs": {
+      "1 Moment in Time": {
+        "title": "One Moment in Time"
+      },
+      "Its Not Right But Its OK": {
+        "title": "It’s Not Right but It’s Okay"
+      },
+      "Im Every Woman (Clivilles & Cole mix)": {
+        "title": "I’m Every Woman"
+      },
+      "Queen of the Night": {
+        "title": "Queen of the Night (Radio Edit)"
+      }
+    }
   }
 }

@@ -1,0 +1,206 @@
+{
+  "artist": "Whitney Houston",
+  "status": "processed",
+  "totalSongs": 33,
+  "matched": [
+    {
+      "song": "1 Moment in Time",
+      "album": "One Moment in Time",
+      "albumId": "68929b44-1eec-4956-b16d-e1b97ef49dec",
+      "track": 1
+    },
+    {
+      "song": "All at Once",
+      "album": "Whitney Houston",
+      "albumId": "131d12c0-e720-31df-a2f9-d9abd868ceaf",
+      "track": 7
+    },
+    {
+      "song": "All the Man That I Need",
+      "album": "I’m Your Baby Tonight",
+      "albumId": "2dc208b0-cd05-3002-bc4b-c6926b0259ea",
+      "track": 3
+    },
+    {
+      "song": "Didn't We Almost Have It All",
+      "album": "Whitney",
+      "albumId": "4f5bfc50-7a41-385e-9961-3db0feaec430",
+      "track": 4
+    },
+    {
+      "song": "Exhale (Shoop Shoop)",
+      "album": "Exhale (Shoop Shoop)",
+      "albumId": "c9f5e65e-32fa-3a06-b4b4-1e5162d43c2d",
+      "track": 1
+    },
+    {
+      "song": "Greatest Love of All",
+      "album": "Whitney Houston",
+      "albumId": "131d12c0-e720-31df-a2f9-d9abd868ceaf",
+      "track": 9
+    },
+    {
+      "song": "Hold Me",
+      "album": "Whitney Houston",
+      "albumId": "131d12c0-e720-31df-a2f9-d9abd868ceaf",
+      "track": 10
+    },
+    {
+      "song": "How Will I Know",
+      "album": "Whitney Houston",
+      "albumId": "131d12c0-e720-31df-a2f9-d9abd868ceaf",
+      "track": 6
+    },
+    {
+      "song": "I Have Nothing",
+      "album": "The Bodyguard (Original Soundtrack Album)",
+      "albumId": "95a67a17-5253-4b76-b84d-cdc0c76f547f",
+      "track": 2
+    },
+    {
+      "song": "I Know Him So Well",
+      "album": "Whitney",
+      "albumId": "4f5bfc50-7a41-385e-9961-3db0feaec430",
+      "track": 11
+    },
+    {
+      "song": "I Wanna Dance With Somebody (Who Loves Me)",
+      "album": "Whitney",
+      "albumId": "4f5bfc50-7a41-385e-9961-3db0feaec430",
+      "track": 1
+    },
+    {
+      "song": "I Will Always Love You",
+      "album": "The Bodyguard (Original Soundtrack Album)",
+      "albumId": "95a67a17-5253-4b76-b84d-cdc0c76f547f",
+      "track": 1
+    },
+    {
+      "song": "I'm Every Woman",
+      "album": "The Bodyguard (Original Soundtrack Album)",
+      "albumId": "95a67a17-5253-4b76-b84d-cdc0c76f547f",
+      "track": 3
+    },
+    {
+      "song": "I'm Your Baby Tonight",
+      "album": "I’m Your Baby Tonight",
+      "albumId": "2dc208b0-cd05-3002-bc4b-c6926b0259ea",
+      "track": 1
+    },
+    {
+      "song": "Im Every Woman (Clivilles & Cole mix)",
+      "album": "The Bodyguard (Original Soundtrack Album)",
+      "albumId": "95a67a17-5253-4b76-b84d-cdc0c76f547f",
+      "track": 3
+    },
+    {
+      "song": "Its Not Right But Its OK",
+      "album": "My Love Is Your Love",
+      "albumId": "5c246f3c-46cb-3218-a8c4-ac98cbf9326d",
+      "track": 1
+    },
+    {
+      "song": "Just the Lonely Talking Again",
+      "album": "Whitney",
+      "albumId": "4f5bfc50-7a41-385e-9961-3db0feaec430",
+      "track": 2
+    },
+    {
+      "song": "Love Will Save The Day",
+      "album": "Whitney",
+      "albumId": "4f5bfc50-7a41-385e-9961-3db0feaec430",
+      "track": 3
+    },
+    {
+      "song": "Lover for Life",
+      "album": "I’m Your Baby Tonight",
+      "albumId": "2dc208b0-cd05-3002-bc4b-c6926b0259ea",
+      "track": 4
+    },
+    {
+      "song": "My Love Is Your Love (Wyclef remix)",
+      "album": "My Love Is Your Love",
+      "albumId": "c34b2b41-aaa0-3d62-b1be-47cacd135ffb",
+      "track": 1
+    },
+    {
+      "song": "My Love Is Your Love",
+      "album": "My Love Is Your Love",
+      "albumId": "5c246f3c-46cb-3218-a8c4-ac98cbf9326d",
+      "track": 3
+    },
+    {
+      "song": "Nobody Loves Me Like You Do",
+      "album": "Whitney Houston",
+      "albumId": "131d12c0-e720-31df-a2f9-d9abd868ceaf",
+      "track": 5
+    },
+    {
+      "song": "Queen of the Night",
+      "album": "The Bodyguard (Original Soundtrack Album)",
+      "albumId": "95a67a17-5253-4b76-b84d-cdc0c76f547f",
+      "track": 5
+    },
+    {
+      "song": "Saving All My Love For You",
+      "album": "Whitney Houston",
+      "albumId": "131d12c0-e720-31df-a2f9-d9abd868ceaf",
+      "track": 4
+    },
+    {
+      "song": "So Emotional",
+      "album": "Whitney",
+      "albumId": "4f5bfc50-7a41-385e-9961-3db0feaec430",
+      "track": 5
+    },
+    {
+      "song": "Someone for Me",
+      "album": "Whitney Houston",
+      "albumId": "131d12c0-e720-31df-a2f9-d9abd868ceaf",
+      "track": 3
+    },
+    {
+      "song": "Take Good Care of My Heart",
+      "album": "Whitney Houston",
+      "albumId": "131d12c0-e720-31df-a2f9-d9abd868ceaf",
+      "track": 8
+    },
+    {
+      "song": "The Greatest Love of All",
+      "album": "Someone For Me",
+      "albumId": "0f7984c3-2c20-4bfc-b2f9-16cd03776b56",
+      "track": 2
+    },
+    {
+      "song": "Thinking About You",
+      "album": "Whitney Houston",
+      "albumId": "131d12c0-e720-31df-a2f9-d9abd868ceaf",
+      "track": 2
+    },
+    {
+      "song": "Where Do Broken Hearts Go",
+      "album": "Whitney",
+      "albumId": "4f5bfc50-7a41-385e-9961-3db0feaec430",
+      "track": 10
+    },
+    {
+      "song": "You Give Good Love",
+      "album": "Whitney Houston",
+      "albumId": "131d12c0-e720-31df-a2f9-d9abd868ceaf",
+      "track": 1
+    },
+    {
+      "song": "You're Still My Man",
+      "album": "Whitney",
+      "albumId": "4f5bfc50-7a41-385e-9961-3db0feaec430",
+      "track": 8
+    }
+  ],
+  "unmatched": [
+    "Something in Common"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Something in Common": []
+  }
+}

@@ -1215,5 +1215,21 @@
     "name": "Van Halen",
     "mbid": "b665b768-0d83-4363-950c-31ed39317c15",
     "country": "US"
+  },
+  "Backstreet Boys": {
+    "name": "Backstreet Boys",
+    "mbid": "2f569e60-0a1b-4fb9-95a4-3dc1525d1aad",
+    "country": "US",
+    "songs": {
+      "Get Down": {
+        "title": "Get Down (You’re the One for Me)"
+      },
+      "Quit Playin' Games": {
+        "title": "Quit Playing Games (With My Heart)"
+      },
+      "We've Got It Going On": {
+        "title": "We’ve Got It Goin’ On"
+      }
+    }
   }
 }

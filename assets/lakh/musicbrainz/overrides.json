@@ -1246,5 +1246,41 @@
     "name": "The Ventures",
     "mbid": "b2cc8903-0077-4bef-8454-ac5cef53d126",
     "country": "US"
+  },
+  "Buddy Holly": {
+    "name": "Buddy Holly",
+    "mbid": "d352f5dd-3023-4565-a7bb-52396bf8821d",
+    "country": "US",
+    "relatedArtistIds": [
+      "de9a19b3-531b-4df3-ae90-4763fe282946"
+    ],
+    "includedReleaseGroups": [
+      "43c2d5ec-acb7-392d-b01e-a71b396174ba",
+      "fd64c282-deb9-4c6f-a2fd-4090fc2dea12",
+      "29020fc4-0d94-4a95-9da8-cf705cc21f81"
+    ],
+    "songs": {
+      "Gone (version 1)": {
+        "title": "Gone"
+      }
+    }
+  },
+  "Holly Buddy": {
+    "name": "Buddy Holly",
+    "mbid": "d352f5dd-3023-4565-a7bb-52396bf8821d",
+    "country": "US",
+    "relatedArtistIds": [
+      "de9a19b3-531b-4df3-ae90-4763fe282946"
+    ],
+    "songs": {
+      "Shake Rattle & Roll": {
+        "title": "Shake, Rattle and Roll"
+      }
+    },
+    "includedReleaseGroups": [
+      "43c2d5ec-acb7-392d-b01e-a71b396174ba",
+      "fd64c282-deb9-4c6f-a2fd-4090fc2dea12",
+      "29020fc4-0d94-4a95-9da8-cf705cc21f81"
+    ]
   }
 }

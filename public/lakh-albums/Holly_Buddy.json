@@ -1,0 +1,231 @@
+{
+  "artist": "Holly Buddy",
+  "artistId": "d352f5dd-3023-4565-a7bb-52396bf8821d",
+  "groups": [
+    {
+      "id": "d90c7019-b144-388f-b618-aa4dfc5c1a58",
+      "releaseId": "97eb3ba4-8503-423a-aad2-fb7481a6ed15",
+      "title": "The “Chirping” Crickets",
+      "date": "1957",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/d90c7019-b144-388f-b618-aa4dfc5c1a58/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "I'm Lookin' For Someone To Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d60a3486-7192-37ac-bbf0-d63c4c44377d",
+      "releaseId": "f1d77b49-54e2-4874-a784-8b68cd3bcf99",
+      "title": "The “Chirping” Crickets",
+      "date": "1957-11-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d60a3486-7192-37ac-bbf0-d63c4c44377d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Oh Boy.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "You've Got Love.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "That'll Be The Day.mid",
+            "That'll Be The Day.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Rock Me My Baby.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "24ab2bd5-8fd7-3408-b412-bb3a821bb8eb",
+      "releaseId": "4f72b917-3434-4016-9515-0ec81aa5ed4e",
+      "title": "It’s So Easy / Lonesome Tears",
+      "date": "1958",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/24ab2bd5-8fd7-3408-b412-bb3a821bb8eb/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Lonesome Tears.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bd1039b9-5267-48e0-a7df-ac679fece3d9",
+      "releaseId": "d721f1d8-6336-40a4-b0c1-3ae57dab24a3",
+      "title": "Think It Over / Fool’s Paradise",
+      "date": "1958-05-27",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/bd1039b9-5267-48e0-a7df-ac679fece3d9/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Fool's Paradise.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "01522dff-0f0a-4540-a4d3-b9d22b0c12e5",
+      "releaseId": "2aad23ff-04ae-45fb-8666-1646e175596c",
+      "title": "Buddy Holly",
+      "date": "1958-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/01522dff-0f0a-4540-a4d3-b9d22b0c12e5/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I'm Gonna Love You Too.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Peggy Sue.mid",
+            "Peggy Sue.1.mid",
+            "Peggy Sue.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Look at Me.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Listen to Me.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Words Of Love.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Rave On.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fd64c282-deb9-4c6f-a2fd-4090fc2dea12",
+      "releaseId": "6b33eef8-28ef-4d37-9bfb-0494144ff0e6",
+      "title": "The Buddy Holly Story",
+      "date": "1959",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fd64c282-deb9-4c6f-a2fd-4090fc2dea12/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Raining in My Heart.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Heartbeat.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "It's So Easy.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "29020fc4-0d94-4a95-9da8-cf705cc21f81",
+      "releaseId": "17923ad8-fe94-4238-b079-5f32a24a2639",
+      "title": "The Buddy Holly Story, Volume II",
+      "date": "1960-05-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/29020fc4-0d94-4a95-9da8-cf705cc21f81/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Well... All Right.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Take Your Time.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "True Love Ways.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Moondreams.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3706b7a9-3204-30f5-be42-7f88863b4b43",
+      "releaseId": "42c2fa39-8831-3e36-9281-220d5dde944f",
+      "title": "In Style With The Crickets",
+      "date": "1960-12-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3706b7a9-3204-30f5-be42-7f88863b4b43/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "Love's Made A Fool Of You.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "43c2d5ec-acb7-392d-b01e-a71b396174ba",
+      "releaseId": "2d41e405-c138-4b71-a35c-082c253379ac",
+      "title": "Showcase",
+      "date": "1964",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/43c2d5ec-acb7-392d-b01e-a71b396174ba/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Shake Rattle & Roll.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

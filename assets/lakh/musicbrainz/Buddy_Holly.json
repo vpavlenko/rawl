@@ -1,0 +1,46 @@
+{
+  "artist": "Buddy Holly",
+  "status": "processed",
+  "totalSongs": 6,
+  "matched": [
+    {
+      "song": "Everyday",
+      "album": "Buddy Holly",
+      "albumId": "01522dff-0f0a-4540-a4d3-b9d22b0c12e5",
+      "track": 7
+    },
+    {
+      "song": "Gone (version 1)",
+      "album": "Showcase",
+      "albumId": "43c2d5ec-acb7-392d-b01e-a71b396174ba",
+      "track": 11
+    },
+    {
+      "song": "It's So Easy",
+      "album": "The Buddy Holly Story",
+      "albumId": "fd64c282-deb9-4c6f-a2fd-4090fc2dea12",
+      "track": 11
+    },
+    {
+      "song": "Oh Boy",
+      "album": "The “Chirping” Crickets",
+      "albumId": "d60a3486-7192-37ac-bbf0-d63c4c44377d",
+      "track": 1
+    },
+    {
+      "song": "Peggy Sue",
+      "album": "Buddy Holly",
+      "albumId": "01522dff-0f0a-4540-a4d3-b9d22b0c12e5",
+      "track": 2
+    },
+    {
+      "song": "That'll Be The Day",
+      "album": "The “Chirping” Crickets",
+      "albumId": "d60a3486-7192-37ac-bbf0-d63c4c44377d",
+      "track": 7
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

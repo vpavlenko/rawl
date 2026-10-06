@@ -1,0 +1,142 @@
+{
+  "artist": "Holly Buddy",
+  "status": "processed",
+  "totalSongs": 22,
+  "matched": [
+    {
+      "song": "Fool's Paradise",
+      "album": "Think It Over / Fool’s Paradise",
+      "albumId": "bd1039b9-5267-48e0-a7df-ac679fece3d9",
+      "track": 2
+    },
+    {
+      "song": "Heartbeat",
+      "album": "The Buddy Holly Story",
+      "albumId": "fd64c282-deb9-4c6f-a2fd-4090fc2dea12",
+      "track": 8
+    },
+    {
+      "song": "I'm Gonna Love You Too",
+      "album": "Buddy Holly",
+      "albumId": "01522dff-0f0a-4540-a4d3-b9d22b0c12e5",
+      "track": 1
+    },
+    {
+      "song": "I'm Lookin' For Someone To Love",
+      "album": "The “Chirping” Crickets",
+      "albumId": "d90c7019-b144-388f-b618-aa4dfc5c1a58",
+      "track": 2
+    },
+    {
+      "song": "It's So Easy",
+      "album": "The Buddy Holly Story",
+      "albumId": "fd64c282-deb9-4c6f-a2fd-4090fc2dea12",
+      "track": 11
+    },
+    {
+      "song": "Listen to Me",
+      "album": "Buddy Holly",
+      "albumId": "01522dff-0f0a-4540-a4d3-b9d22b0c12e5",
+      "track": 4
+    },
+    {
+      "song": "Lonesome Tears",
+      "album": "It’s So Easy / Lonesome Tears",
+      "albumId": "24ab2bd5-8fd7-3408-b412-bb3a821bb8eb",
+      "track": 2
+    },
+    {
+      "song": "Look at Me",
+      "album": "Buddy Holly",
+      "albumId": "01522dff-0f0a-4540-a4d3-b9d22b0c12e5",
+      "track": 3
+    },
+    {
+      "song": "Love's Made A Fool Of You",
+      "album": "In Style With The Crickets",
+      "albumId": "3706b7a9-3204-30f5-be42-7f88863b4b43",
+      "track": 12
+    },
+    {
+      "song": "Moondreams",
+      "album": "The Buddy Holly Story, Volume II",
+      "albumId": "29020fc4-0d94-4a95-9da8-cf705cc21f81",
+      "track": 11
+    },
+    {
+      "song": "Oh Boy",
+      "album": "The “Chirping” Crickets",
+      "albumId": "d60a3486-7192-37ac-bbf0-d63c4c44377d",
+      "track": 1
+    },
+    {
+      "song": "Peggy Sue",
+      "album": "Buddy Holly",
+      "albumId": "01522dff-0f0a-4540-a4d3-b9d22b0c12e5",
+      "track": 2
+    },
+    {
+      "song": "Raining in My Heart",
+      "album": "The Buddy Holly Story",
+      "albumId": "fd64c282-deb9-4c6f-a2fd-4090fc2dea12",
+      "track": 1
+    },
+    {
+      "song": "Rave On",
+      "album": "Buddy Holly",
+      "albumId": "01522dff-0f0a-4540-a4d3-b9d22b0c12e5",
+      "track": 11
+    },
+    {
+      "song": "Rock Me My Baby",
+      "album": "The “Chirping” Crickets",
+      "albumId": "d60a3486-7192-37ac-bbf0-d63c4c44377d",
+      "track": 12
+    },
+    {
+      "song": "Shake Rattle & Roll",
+      "album": "Showcase",
+      "albumId": "43c2d5ec-acb7-392d-b01e-a71b396174ba",
+      "track": 1
+    },
+    {
+      "song": "Take Your Time",
+      "album": "The Buddy Holly Story, Volume II",
+      "albumId": "29020fc4-0d94-4a95-9da8-cf705cc21f81",
+      "track": 6
+    },
+    {
+      "song": "That'll Be The Day",
+      "album": "The “Chirping” Crickets",
+      "albumId": "d60a3486-7192-37ac-bbf0-d63c4c44377d",
+      "track": 7
+    },
+    {
+      "song": "True Love Ways",
+      "album": "The Buddy Holly Story, Volume II",
+      "albumId": "29020fc4-0d94-4a95-9da8-cf705cc21f81",
+      "track": 8
+    },
+    {
+      "song": "Well... All Right",
+      "album": "The Buddy Holly Story, Volume II",
+      "albumId": "29020fc4-0d94-4a95-9da8-cf705cc21f81",
+      "track": 2
+    },
+    {
+      "song": "Words Of Love",
+      "album": "Buddy Holly",
+      "albumId": "01522dff-0f0a-4540-a4d3-b9d22b0c12e5",
+      "track": 9
+    },
+    {
+      "song": "You've Got Love",
+      "album": "The “Chirping” Crickets",
+      "albumId": "d60a3486-7192-37ac-bbf0-d63c4c44377d",
+      "track": 3
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

@@ -1,13 +1,13 @@
 {
   "main.css": "/static/css/main.ccfc22da.css",
-  "main.js": "/static/js/main.7f8c2a86.js",
+  "main.js": "/static/js/main.144bd768.js",
   "main.css.map": "/static/css/main.ccfc22da.css.map",
-  "main.js.map": "/static/js/main.7f8c2a86.js.map",
-  "static/js/1.963e8d1b.chunk.js": "/static/js/1.963e8d1b.chunk.js",
-  "static/js/1.963e8d1b.chunk.js.map": "/static/js/1.963e8d1b.chunk.js.map",
+  "main.js.map": "/static/js/main.144bd768.js.map",
+  "static/js/1.a8951ae4.chunk.js": "/static/js/1.a8951ae4.chunk.js",
+  "static/js/1.a8951ae4.chunk.js.map": "/static/js/1.a8951ae4.chunk.js.map",
   "index.html": "/index.html",
-  "static/js/midi-synth.1f565414.js": "/static/js/midi-synth.1f565414.js",
-  "static/js/midi-synth.1f565414.js.map": "/static/js/midi-synth.1f565414.js.map",
+  "static/js/midi-synth.5dbc095e.js": "/static/js/midi-synth.5dbc095e.js",
+  "static/js/midi-synth.5dbc095e.js.map": "/static/js/midi-synth.5dbc095e.js.map",
   "static/media/editor_major_layout.png": "/static/media/editor_major_layout.75188da2.png",
   "static/media/editor_minor_layout.png": "/static/media/editor_minor_layout.7f4b832e.png"
 }

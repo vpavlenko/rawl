@@ -806,5 +806,24 @@
     "allowedSecondaryTypes": [
       "Soundtrack"
     ]
+  },
+  "Prince": {
+    "name": "Prince",
+    "mbid": "070d193a-845c-479f-980e-bef15710653e",
+    "country": "US",
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "songs": {
+      "Diamonds & Pearls": {
+        "title": "Diamonds and Pearls"
+      },
+      "Kiss Kiss": {
+        "title": "Kiss"
+      },
+      "You Got the Look": {
+        "title": "U Got the Look"
+      }
+    }
   }
 }

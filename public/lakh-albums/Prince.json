@@ -1,0 +1,393 @@
+{
+  "artist": "Prince",
+  "artistId": "070d193a-845c-479f-980e-bef15710653e",
+  "groups": [
+    {
+      "id": "5436e902-e53d-3ab8-82b7-3b96a04d6f40",
+      "releaseId": "d9ba982a-f2f7-47c0-b038-cbc2ddaef5d9",
+      "title": "Prince",
+      "date": "1979-10-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5436e902-e53d-3ab8-82b7-3b96a04d6f40/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I Wanna Be Your Lover.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "I Feel for You.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4f19b946-6ecb-3801-9248-cc44e9e9a284",
+      "releaseId": "281e42d6-389e-4224-9bc6-84220a62d50f",
+      "title": "Dirty Mind",
+      "date": "1980-10-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4f19b946-6ecb-3801-9248-cc44e9e9a284/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "When You Were Mine.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7263636b-ca20-3598-8ec0-bc1b52c9b958",
+      "releaseId": "f27c4a09-69b8-4ea3-b158-e5d78ce4b9cc",
+      "title": "Controversy",
+      "date": "1981-10-14",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7263636b-ca20-3598-8ec0-bc1b52c9b958/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Do Me, Baby.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "561be5b7-a39c-3866-859d-d86f30816ae7",
+      "releaseId": "159b66b9-8c44-4d9e-98a0-2ccd86e216cd",
+      "title": "1999",
+      "date": "1982-10-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/561be5b7-a39c-3866-859d-d86f30816ae7/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "1999.mid",
+            "1999.1.mid",
+            "1999.2.mid",
+            "1999.3.mid",
+            "1999.4.mid",
+            "1999.5.mid",
+            "1999.6.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Little Red Corvette.mid",
+            "Little Red Corvette.1.mid",
+            "Little Red Corvette.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b93a7c47-a6d4-33f2-9034-53fdd991f4ba",
+      "releaseId": "05adfe85-dd1c-44a0-bda8-a9159e59a30f",
+      "title": "Purple Rain",
+      "date": "1984-06-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b93a7c47-a6d4-33f2-9034-53fdd991f4ba/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Let's Go Crazy.mid",
+            "Let's Go Crazy.1.mid",
+            "Let's Go Crazy.2.mid",
+            "Let's Go Crazy.3.mid",
+            "Let's Go Crazy.4.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Take Me With U.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "The Beautiful Ones.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "When Doves Cry.mid",
+            "When Doves Cry.1.mid",
+            "When Doves Cry.2.mid",
+            "When Doves Cry.3.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "I Would Die 4 U.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Purple Rain.mid",
+            "Purple Rain.1.mid",
+            "Purple Rain.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "10b61b06-5cd5-39ef-976e-aba8bc4fb51d",
+      "releaseId": "5087d3bd-797e-4f59-b66c-0869634c18ba",
+      "title": "Around the World in a Day",
+      "date": "1985-04-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/10b61b06-5cd5-39ef-976e-aba8bc4fb51d/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Raspberry Beret.mid",
+            "Raspberry Beret.1.mid",
+            "Raspberry Beret.2.mid",
+            "Raspberry Beret.3.mid",
+            "Raspberry Beret.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8c20e5ba-1418-393e-a946-b6525fa3a94a",
+      "releaseId": "102c5ea3-60c9-4515-8ed9-393217358083",
+      "title": "Parade",
+      "date": "1986-03-31",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8c20e5ba-1418-393e-a946-b6525fa3a94a/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Mountains.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Kiss Kiss.mid",
+            "Kiss Kiss.1.mid",
+            "Kiss Kiss.2.mid",
+            "Kiss Kiss.3.mid",
+            "Kiss Kiss.4.mid",
+            "Kiss Kiss.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "90718403-7634-3786-84bf-2053a7bd4f4c",
+      "releaseId": "3e0c67c5-5fbe-45cf-be8f-774bbe4139c0",
+      "title": "Sign “☮︎” the Times",
+      "date": "1987-03-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/90718403-7634-3786-84bf-2053a7bd4f4c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Sign o' the Times.mid",
+            "Sign o' the Times.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "The Ballad of Dorothy Parker.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "U Got the Look.mid",
+            "U Got the Look.1.mid",
+            "U Got the Look.2.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "You Got the Look.mid",
+            "You Got the Look.1.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "I Could Never Take the Place of Your Man.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "37cf183c-6edd-30c0-a935-46983c447657",
+      "releaseId": "62f651a7-f99f-470b-b005-b88966cff2ea",
+      "title": "Batman",
+      "date": "1989-06-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/37cf183c-6edd-30c0-a935-46983c447657/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "The Arms of Orion.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Batdance.mid",
+            "Batdance.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "72f457da-8db5-3572-ada6-5ea1e1b41124",
+      "releaseId": "5663e55e-9e6f-4fa9-b575-c0c0aa53c6d1",
+      "title": "New Power Generation",
+      "date": "1990-10-22",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/72f457da-8db5-3572-ada6-5ea1e1b41124/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Get Off.mid",
+            "Get Off.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "50a39c17-0400-35c5-baca-413eb0ed0b70",
+      "releaseId": "2c92ad31-0bf4-4592-8cca-4a6498edf7b2",
+      "title": "Diamonds and Pearls",
+      "date": "1991-09-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/50a39c17-0400-35c5-baca-413eb0ed0b70/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Diamonds & Pearls.mid",
+            "Diamonds & Pearls.1.mid",
+            "Diamonds & Pearls.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Cream.mid",
+            "Cream.1.mid",
+            "Cream.2.mid",
+            "Cream.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f920d1f2-915d-3a9d-b8bf-c41fc5f0ef51",
+      "releaseId": "6efb7b6c-8f84-4ab0-9cb5-d0bcb5f34f81",
+      "title": "Peach",
+      "date": "1993-11-18",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/f920d1f2-915d-3a9d-b8bf-c41fc5f0ef51/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Nothing Compares 2 U.mid",
+            "Nothing Compares 2 U.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f82f8fe4-aae1-373b-98de-e62762529096",
+      "releaseId": "709cff04-e570-4b20-8cf8-5c2268e6f139",
+      "title": "Come",
+      "date": "1994-08-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f82f8fe4-aae1-373b-98de-e62762529096/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Papa.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Let It Go.mid",
+            "Let It Go.1.mid",
+            "Let It Go.2.mid",
+            "Let It Go.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "11deb7b3-c4d5-3e46-809f-f23123602dca",
+      "releaseId": "1a79dbb9-727b-45c1-8c3a-24dcea0eb23b",
+      "title": "The Gold Experience",
+      "date": "1995-04-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/11deb7b3-c4d5-3e46-809f-f23123602dca/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "The Most Beautiful Girl in the World.mid",
+            "The Most Beautiful Girl in the World.1.mid",
+            "The Most Beautiful Girl in the World.2.mid",
+            "The Most Beautiful Girl in the World.3.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Dolphin.mid"
+          ]
+        },
+        {
+          "number": 18,
+          "files": [
+            "Gold.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ed05e08e-91ba-30a3-8ddb-e67f308dc0d0",
+      "releaseId": "2b5ff740-1c41-4836-8bdc-47b6491a8f9d",
+      "title": "Crystal Ball",
+      "date": "1998-01-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ed05e08e-91ba-30a3-8ddb-e67f308dc0d0/front-250",
+      "songs": [
+        {
+          "number": 11,
+          "files": [
+            "Interactive.mid",
+            "Interactive.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

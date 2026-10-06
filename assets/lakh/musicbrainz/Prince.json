@@ -1,0 +1,202 @@
+{
+  "artist": "Prince",
+  "status": "processed",
+  "totalSongs": 32,
+  "matched": [
+    {
+      "song": "1999",
+      "album": "1999",
+      "albumId": "561be5b7-a39c-3866-859d-d86f30816ae7",
+      "track": 1
+    },
+    {
+      "song": "Batdance",
+      "album": "Batman",
+      "albumId": "37cf183c-6edd-30c0-a935-46983c447657",
+      "track": 9
+    },
+    {
+      "song": "Cream",
+      "album": "Diamonds and Pearls",
+      "albumId": "50a39c17-0400-35c5-baca-413eb0ed0b70",
+      "track": 4
+    },
+    {
+      "song": "Diamonds & Pearls",
+      "album": "Diamonds and Pearls",
+      "albumId": "50a39c17-0400-35c5-baca-413eb0ed0b70",
+      "track": 3
+    },
+    {
+      "song": "Do Me, Baby",
+      "album": "Controversy",
+      "albumId": "7263636b-ca20-3598-8ec0-bc1b52c9b958",
+      "track": 3
+    },
+    {
+      "song": "Dolphin",
+      "album": "The Gold Experience",
+      "albumId": "11deb7b3-c4d5-3e46-809f-f23123602dca",
+      "track": 8
+    },
+    {
+      "song": "Get Off",
+      "album": "New Power Generation",
+      "albumId": "72f457da-8db5-3572-ada6-5ea1e1b41124",
+      "track": 4
+    },
+    {
+      "song": "Gold",
+      "album": "The Gold Experience",
+      "albumId": "11deb7b3-c4d5-3e46-809f-f23123602dca",
+      "track": 18
+    },
+    {
+      "song": "I Could Never Take the Place of Your Man",
+      "album": "Sign “☮︎” the Times",
+      "albumId": "90718403-7634-3786-84bf-2053a7bd4f4c",
+      "track": 13
+    },
+    {
+      "song": "I Feel for You",
+      "album": "Prince",
+      "albumId": "5436e902-e53d-3ab8-82b7-3b96a04d6f40",
+      "track": 8
+    },
+    {
+      "song": "I Wanna Be Your Lover",
+      "album": "Prince",
+      "albumId": "5436e902-e53d-3ab8-82b7-3b96a04d6f40",
+      "track": 1
+    },
+    {
+      "song": "I Would Die 4 U",
+      "album": "Purple Rain",
+      "albumId": "b93a7c47-a6d4-33f2-9034-53fdd991f4ba",
+      "track": 7
+    },
+    {
+      "song": "Interactive",
+      "album": "Crystal Ball",
+      "albumId": "ed05e08e-91ba-30a3-8ddb-e67f308dc0d0",
+      "track": 11
+    },
+    {
+      "song": "Kiss Kiss",
+      "album": "Parade",
+      "albumId": "8c20e5ba-1418-393e-a946-b6525fa3a94a",
+      "track": 10
+    },
+    {
+      "song": "Let It Go",
+      "album": "Come",
+      "albumId": "f82f8fe4-aae1-373b-98de-e62762529096",
+      "track": 9
+    },
+    {
+      "song": "Let's Go Crazy",
+      "album": "Purple Rain",
+      "albumId": "b93a7c47-a6d4-33f2-9034-53fdd991f4ba",
+      "track": 1
+    },
+    {
+      "song": "Little Red Corvette",
+      "album": "1999",
+      "albumId": "561be5b7-a39c-3866-859d-d86f30816ae7",
+      "track": 2
+    },
+    {
+      "song": "Mountains",
+      "album": "Parade",
+      "albumId": "8c20e5ba-1418-393e-a946-b6525fa3a94a",
+      "track": 8
+    },
+    {
+      "song": "Nothing Compares 2 U",
+      "album": "Peach",
+      "albumId": "f920d1f2-915d-3a9d-b8bf-c41fc5f0ef51",
+      "track": 2
+    },
+    {
+      "song": "Papa",
+      "album": "Come",
+      "albumId": "f82f8fe4-aae1-373b-98de-e62762529096",
+      "track": 5
+    },
+    {
+      "song": "Purple Rain",
+      "album": "Purple Rain",
+      "albumId": "b93a7c47-a6d4-33f2-9034-53fdd991f4ba",
+      "track": 9
+    },
+    {
+      "song": "Raspberry Beret",
+      "album": "Around the World in a Day",
+      "albumId": "10b61b06-5cd5-39ef-976e-aba8bc4fb51d",
+      "track": 4
+    },
+    {
+      "song": "Sign o' the Times",
+      "album": "Sign “☮︎” the Times",
+      "albumId": "90718403-7634-3786-84bf-2053a7bd4f4c",
+      "track": 1
+    },
+    {
+      "song": "Take Me With U",
+      "album": "Purple Rain",
+      "albumId": "b93a7c47-a6d4-33f2-9034-53fdd991f4ba",
+      "track": 2
+    },
+    {
+      "song": "The Arms of Orion",
+      "album": "Batman",
+      "albumId": "37cf183c-6edd-30c0-a935-46983c447657",
+      "track": 3
+    },
+    {
+      "song": "The Ballad of Dorothy Parker",
+      "album": "Sign “☮︎” the Times",
+      "albumId": "90718403-7634-3786-84bf-2053a7bd4f4c",
+      "track": 4
+    },
+    {
+      "song": "The Beautiful Ones",
+      "album": "Purple Rain",
+      "albumId": "b93a7c47-a6d4-33f2-9034-53fdd991f4ba",
+      "track": 3
+    },
+    {
+      "song": "The Most Beautiful Girl in the World",
+      "album": "The Gold Experience",
+      "albumId": "11deb7b3-c4d5-3e46-809f-f23123602dca",
+      "track": 7
+    },
+    {
+      "song": "U Got the Look",
+      "album": "Sign “☮︎” the Times",
+      "albumId": "90718403-7634-3786-84bf-2053a7bd4f4c",
+      "track": 10
+    },
+    {
+      "song": "When Doves Cry",
+      "album": "Purple Rain",
+      "albumId": "b93a7c47-a6d4-33f2-9034-53fdd991f4ba",
+      "track": 6
+    },
+    {
+      "song": "When You Were Mine",
+      "album": "Dirty Mind",
+      "albumId": "4f19b946-6ecb-3801-9248-cc44e9e9a284",
+      "track": 2
+    },
+    {
+      "song": "You Got the Look",
+      "album": "Sign “☮︎” the Times",
+      "albumId": "90718403-7634-3786-84bf-2053a7bd4f4c",
+      "track": 10
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

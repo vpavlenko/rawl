@@ -1001,5 +1001,72 @@
         "albumId": "361bd924-fe82-3182-844f-e8cf71f45490"
       }
     }
+  },
+  "Collins Phil": {
+    "name": "Phil Collins",
+    "mbid": "401c3991-b76b-499d-8082-9f2df958ef78",
+    "country": "GB",
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "includedReleaseGroups": [
+      "9bd1ebeb-3f65-3612-b7fd-e9decc75f1b5"
+    ],
+    "extraReleaseGroupIds": [
+      "e8c675f2-1c49-47e4-84aa-c32644c4f75e"
+    ],
+    "songs": {
+      "Against All Odds": {
+        "title": "Against All Odds (Take a Look at Me Now)",
+        "albumId": "105d24b5-7790-43ed-aa6c-a030ea123626"
+      },
+      "Easy Lover": {
+        "albumId": "e8c675f2-1c49-47e4-84aa-c32644c4f75e"
+      },
+      "Dance Into the Night": {
+        "title": "Dance Into the Light"
+      },
+      "I Wish It Would Rain Now": {
+        "title": "I Wish It Would Rain Down"
+      },
+      "True Colours": {
+        "title": "True Colors"
+      }
+    }
+  },
+  "Phil Collins": {
+    "name": "Phil Collins",
+    "mbid": "401c3991-b76b-499d-8082-9f2df958ef78",
+    "country": "GB",
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ],
+    "includedReleaseGroups": [
+      "9bd1ebeb-3f65-3612-b7fd-e9decc75f1b5"
+    ],
+    "extraReleaseGroupIds": [
+      "e8c675f2-1c49-47e4-84aa-c32644c4f75e"
+    ],
+    "songs": {
+      "Against All Odds": {
+        "title": "Against All Odds (Take a Look at Me Now)",
+        "albumId": "105d24b5-7790-43ed-aa6c-a030ea123626"
+      },
+      "Easy Lover": {
+        "albumId": "e8c675f2-1c49-47e4-84aa-c32644c4f75e"
+      },
+      "Dance Into the Night": {
+        "title": "Dance Into the Light"
+      },
+      "I Wish It Would Rain Now": {
+        "title": "I Wish It Would Rain Down"
+      },
+      "True Colours": {
+        "title": "True Colors"
+      }
+    },
+    "relatedArtistIds": [
+      "8e3fcd7d-bda1-4ca0-b987-b8528d2ee74e"
+    ]
   }
 }

@@ -1,0 +1,82 @@
+{
+  "artist": "Phil Collins",
+  "status": "processed",
+  "totalSongs": 12,
+  "matched": [
+    {
+      "song": "A Groovy Kind of Love",
+      "album": "…Hits",
+      "albumId": "9bd1ebeb-3f65-3612-b7fd-e9decc75f1b5",
+      "track": 14
+    },
+    {
+      "song": "Against All Odds",
+      "album": "Against All Odds (Take a Look at Me Now)",
+      "albumId": "105d24b5-7790-43ed-aa6c-a030ea123626",
+      "track": 1
+    },
+    {
+      "song": "Another Day in Paradise",
+      "album": "…But Seriously",
+      "albumId": "822d9247-6059-3716-b1f9-f7b95526f721",
+      "track": 7
+    },
+    {
+      "song": "Don't Lose My Number",
+      "album": "No Jacket Required",
+      "albumId": "86b4651b-a6ea-3ac2-ba99-dcac079938d2",
+      "track": 6
+    },
+    {
+      "song": "Easy Lover",
+      "album": "Easy Lover",
+      "albumId": "e8c675f2-1c49-47e4-84aa-c32644c4f75e",
+      "track": 1
+    },
+    {
+      "song": "I Wish It Would Rain Down",
+      "album": "…But Seriously",
+      "albumId": "822d9247-6059-3716-b1f9-f7b95526f721",
+      "track": 6
+    },
+    {
+      "song": "In The Air Tonight",
+      "album": "Face Value",
+      "albumId": "1cbc1a5a-5512-3f8e-997b-d9281b83722b",
+      "track": 1
+    },
+    {
+      "song": "No Son of Mine",
+      "album": "We Can’t Dance",
+      "albumId": "1f94530c-4206-3c2f-a3e8-8f9bed86590e",
+      "track": 1
+    },
+    {
+      "song": "One More Night",
+      "album": "No Jacket Required",
+      "albumId": "86b4651b-a6ea-3ac2-ba99-dcac079938d2",
+      "track": 5
+    },
+    {
+      "song": "Sussudio",
+      "album": "No Jacket Required",
+      "albumId": "86b4651b-a6ea-3ac2-ba99-dcac079938d2",
+      "track": 1
+    },
+    {
+      "song": "True Colors",
+      "album": "…Hits",
+      "albumId": "9bd1ebeb-3f65-3612-b7fd-e9decc75f1b5",
+      "track": 2
+    },
+    {
+      "song": "You Can't Hurry Love",
+      "album": "Hello, I Must Be Going!",
+      "albumId": "5143705a-f34a-3e92-96e9-cff32308a508",
+      "track": 5
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

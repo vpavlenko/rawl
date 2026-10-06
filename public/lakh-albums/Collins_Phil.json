@@ -1,0 +1,312 @@
+{
+  "artist": "Collins Phil",
+  "artistId": "401c3991-b76b-499d-8082-9f2df958ef78",
+  "groups": [
+    {
+      "id": "1cbc1a5a-5512-3f8e-997b-d9281b83722b",
+      "releaseId": "a547855a-6ca9-4e47-a73e-c5b3e735b316",
+      "title": "Face Value",
+      "date": "1981-02-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1cbc1a5a-5512-3f8e-997b-d9281b83722b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "In The Air Tonight.mid",
+            "In The Air Tonight.1.mid",
+            "In The Air Tonight.2.mid",
+            "In The Air Tonight.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5143705a-f34a-3e92-96e9-cff32308a508",
+      "releaseId": "ef9a9f7f-4e67-433d-a85d-3b6c3f57d530",
+      "title": "Hello, I Must Be Going!",
+      "date": "1982-11-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5143705a-f34a-3e92-96e9-cff32308a508/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I Don't Care Anymore.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "You Can't Hurry Love.mid",
+            "You Can't Hurry Love.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "The West Side.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "105d24b5-7790-43ed-aa6c-a030ea123626",
+      "releaseId": "07bd876e-0ef0-481d-96af-5b9fd6004725",
+      "title": "Against All Odds (Take a Look at Me Now)",
+      "date": "1984",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/105d24b5-7790-43ed-aa6c-a030ea123626/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Against All Odds.mid",
+            "Against All Odds.1.mid",
+            "Against All Odds.2.mid",
+            "Against All Odds.3.mid",
+            "Against All Odds.4.mid",
+            "Against All Odds.5.mid",
+            "Against All Odds.6.mid",
+            "Against All Odds.7.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e8c675f2-1c49-47e4-84aa-c32644c4f75e",
+      "releaseId": "b9db1b9a-8aef-4033-ad23-e5689b89a7b1",
+      "title": "Easy Lover",
+      "date": "1984-11",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/e8c675f2-1c49-47e4-84aa-c32644c4f75e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Easy Lover.mid",
+            "Easy Lover.1.mid",
+            "Easy Lover.2.mid",
+            "Easy Lover.3.mid",
+            "Easy Lover.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "86b4651b-a6ea-3ac2-ba99-dcac079938d2",
+      "releaseId": "0a19729e-1eb6-4c27-8fb2-844b20b2dbea",
+      "title": "No Jacket Required",
+      "date": "1985-01-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/86b4651b-a6ea-3ac2-ba99-dcac079938d2/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Sussudio.mid",
+            "Sussudio.1.mid",
+            "Sussudio.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "One More Night.mid",
+            "One More Night.1.mid",
+            "One More Night.2.mid",
+            "One More Night.3.mid",
+            "One More Night.4.mid",
+            "One More Night.5.mid",
+            "One More Night.6.mid",
+            "One More Night.7.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Don't Lose My Number.mid",
+            "Don't Lose My Number.1.mid",
+            "Don't Lose My Number.2.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Inside Out.mid",
+            "Inside Out.1.mid",
+            "Inside Out.2.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Take Me Home.mid",
+            "Take Me Home.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "822d9247-6059-3716-b1f9-f7b95526f721",
+      "releaseId": "69b1980a-8bba-4c1c-9579-30e77031c84e",
+      "title": "…But Seriously",
+      "date": "1989-11-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/822d9247-6059-3716-b1f9-f7b95526f721/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Hang In Long Enough.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Do You Remember.mid",
+            "Do You Remember.1.mid",
+            "Do You Remember.2.mid",
+            "Do You Remember.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Something Happened on the Way to Heaven.mid",
+            "Something Happened on the Way to Heaven.1.mid",
+            "Something Happened on the Way to Heaven.2.mid",
+            "Something Happened on the Way to Heaven.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "I Wish It Would Rain Down.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "I Wish It Would Rain Now.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Another Day in Paradise.mid",
+            "Another Day in Paradise.1.mid",
+            "Another Day in Paradise.2.mid",
+            "Another Day in Paradise.3.mid",
+            "Another Day in Paradise.4.mid",
+            "Another Day in Paradise.5.mid",
+            "Another Day in Paradise.6.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Saturday Night and Sunday Morning.mid",
+            "Saturday Night and Sunday Morning.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "777aecbd-a9d4-3751-babf-fafd590e16f8",
+      "releaseId": "281458e5-e229-4d4d-9cc0-c7e7e1b5a70a",
+      "title": "Both Sides",
+      "date": "1993-11-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/777aecbd-a9d4-3751-babf-fafd590e16f8/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Both Sides Of The Story.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Every Day.mid",
+            "Every Day.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Everyday.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "364ced42-7450-3b3c-9c74-86835df39290",
+      "releaseId": "be56a920-8598-36f6-9150-cbff6b8cd200",
+      "title": "Dance Into the Light",
+      "date": "1996-10-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/364ced42-7450-3b3c-9c74-86835df39290/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Dance Into the Night.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9bd1ebeb-3f65-3612-b7fd-e9decc75f1b5",
+      "releaseId": "923178f7-87dd-351b-827a-952ff0ac67d4",
+      "title": "…Hits",
+      "date": "1998-10-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9bd1ebeb-3f65-3612-b7fd-e9decc75f1b5/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "True Colours.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Two Hearts.mid",
+            "Two Hearts.1.mid",
+            "Two Hearts.2.mid",
+            "Two Hearts.3.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "A Groovy Kind of Love.mid",
+            "A Groovy Kind of Love.1.mid",
+            "A Groovy Kind of Love.2.mid",
+            "A Groovy Kind of Love.3.mid",
+            "A Groovy Kind of Love.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4e34b2d5-3187-4a9d-910d-3142750b813b",
+      "releaseId": "1bec0e9c-3979-4401-bd71-f1d61180da52",
+      "title": "Tarzan",
+      "date": "1999",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4e34b2d5-3187-4a9d-910d-3142750b813b/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "You'll Be in My Heart.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

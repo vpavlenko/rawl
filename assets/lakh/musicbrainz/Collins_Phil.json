@@ -1,0 +1,166 @@
+{
+  "artist": "Collins Phil",
+  "status": "processed",
+  "totalSongs": 26,
+  "matched": [
+    {
+      "song": "A Groovy Kind of Love",
+      "album": "…Hits",
+      "albumId": "9bd1ebeb-3f65-3612-b7fd-e9decc75f1b5",
+      "track": 14
+    },
+    {
+      "song": "Against All Odds",
+      "album": "Against All Odds (Take a Look at Me Now)",
+      "albumId": "105d24b5-7790-43ed-aa6c-a030ea123626",
+      "track": 1
+    },
+    {
+      "song": "Another Day in Paradise",
+      "album": "…But Seriously",
+      "albumId": "822d9247-6059-3716-b1f9-f7b95526f721",
+      "track": 7
+    },
+    {
+      "song": "Both Sides Of The Story",
+      "album": "Both Sides",
+      "albumId": "777aecbd-a9d4-3751-babf-fafd590e16f8",
+      "track": 1
+    },
+    {
+      "song": "Dance Into the Night",
+      "album": "Dance Into the Light",
+      "albumId": "364ced42-7450-3b3c-9c74-86835df39290",
+      "track": 1
+    },
+    {
+      "song": "Do You Remember",
+      "album": "…But Seriously",
+      "albumId": "822d9247-6059-3716-b1f9-f7b95526f721",
+      "track": 3
+    },
+    {
+      "song": "Don't Lose My Number",
+      "album": "No Jacket Required",
+      "albumId": "86b4651b-a6ea-3ac2-ba99-dcac079938d2",
+      "track": 6
+    },
+    {
+      "song": "Easy Lover",
+      "album": "Easy Lover",
+      "albumId": "e8c675f2-1c49-47e4-84aa-c32644c4f75e",
+      "track": 1
+    },
+    {
+      "song": "Every Day",
+      "album": "Both Sides",
+      "albumId": "777aecbd-a9d4-3751-babf-fafd590e16f8",
+      "track": 3
+    },
+    {
+      "song": "Everyday",
+      "album": "Both Sides",
+      "albumId": "777aecbd-a9d4-3751-babf-fafd590e16f8",
+      "track": 3
+    },
+    {
+      "song": "Hang In Long Enough",
+      "album": "…But Seriously",
+      "albumId": "822d9247-6059-3716-b1f9-f7b95526f721",
+      "track": 1
+    },
+    {
+      "song": "I Don't Care Anymore",
+      "album": "Hello, I Must Be Going!",
+      "albumId": "5143705a-f34a-3e92-96e9-cff32308a508",
+      "track": 1
+    },
+    {
+      "song": "I Wish It Would Rain Down",
+      "album": "…But Seriously",
+      "albumId": "822d9247-6059-3716-b1f9-f7b95526f721",
+      "track": 6
+    },
+    {
+      "song": "I Wish It Would Rain Now",
+      "album": "…But Seriously",
+      "albumId": "822d9247-6059-3716-b1f9-f7b95526f721",
+      "track": 6
+    },
+    {
+      "song": "In The Air Tonight",
+      "album": "Face Value",
+      "albumId": "1cbc1a5a-5512-3f8e-997b-d9281b83722b",
+      "track": 1
+    },
+    {
+      "song": "Inside Out",
+      "album": "No Jacket Required",
+      "albumId": "86b4651b-a6ea-3ac2-ba99-dcac079938d2",
+      "track": 9
+    },
+    {
+      "song": "One More Night",
+      "album": "No Jacket Required",
+      "albumId": "86b4651b-a6ea-3ac2-ba99-dcac079938d2",
+      "track": 5
+    },
+    {
+      "song": "Saturday Night and Sunday Morning",
+      "album": "…But Seriously",
+      "albumId": "822d9247-6059-3716-b1f9-f7b95526f721",
+      "track": 10
+    },
+    {
+      "song": "Something Happened on the Way to Heaven",
+      "album": "…But Seriously",
+      "albumId": "822d9247-6059-3716-b1f9-f7b95526f721",
+      "track": 4
+    },
+    {
+      "song": "Sussudio",
+      "album": "No Jacket Required",
+      "albumId": "86b4651b-a6ea-3ac2-ba99-dcac079938d2",
+      "track": 1
+    },
+    {
+      "song": "Take Me Home",
+      "album": "No Jacket Required",
+      "albumId": "86b4651b-a6ea-3ac2-ba99-dcac079938d2",
+      "track": 10
+    },
+    {
+      "song": "The West Side",
+      "album": "Hello, I Must Be Going!",
+      "albumId": "5143705a-f34a-3e92-96e9-cff32308a508",
+      "track": 9
+    },
+    {
+      "song": "True Colours",
+      "album": "…Hits",
+      "albumId": "9bd1ebeb-3f65-3612-b7fd-e9decc75f1b5",
+      "track": 2
+    },
+    {
+      "song": "Two Hearts",
+      "album": "…Hits",
+      "albumId": "9bd1ebeb-3f65-3612-b7fd-e9decc75f1b5",
+      "track": 5
+    },
+    {
+      "song": "You Can't Hurry Love",
+      "album": "Hello, I Must Be Going!",
+      "albumId": "5143705a-f34a-3e92-96e9-cff32308a508",
+      "track": 5
+    },
+    {
+      "song": "You'll Be in My Heart",
+      "album": "Tarzan",
+      "albumId": "4e34b2d5-3187-4a9d-910d-3142750b813b",
+      "track": 7
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

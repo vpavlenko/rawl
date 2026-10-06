@@ -1,0 +1,16 @@
+{
+  "artist": "Vasco",
+  "status": "processed",
+  "totalSongs": 1,
+  "matched": [
+    {
+      "song": "Albachiara",
+      "album": "Non siamo mica gli americani!",
+      "albumId": "3869bcad-4f56-31ee-85ad-55439fad13bf",
+      "track": 7
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

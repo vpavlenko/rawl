@@ -1,0 +1,22 @@
+{
+  "artist": "Vasco",
+  "artistId": "3bf74908-e8b3-4158-8fae-4fd795bb4474",
+  "groups": [
+    {
+      "id": "3869bcad-4f56-31ee-85ad-55439fad13bf",
+      "releaseId": "134f6ea9-9ba8-4c8a-aec3-dc9131ad015b",
+      "title": "Non siamo mica gli americani!",
+      "date": "1979-04-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3869bcad-4f56-31ee-85ad-55439fad13bf/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Albachiara.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

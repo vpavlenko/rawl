@@ -1,0 +1,220 @@
+{
+  "artist": "Pink Floyd",
+  "status": "processed",
+  "totalSongs": 35,
+  "matched": [
+    {
+      "song": "Another Brick in the Wall, Part 1",
+      "album": "The Wall",
+      "albumId": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "track": 3
+    },
+    {
+      "song": "Another Brick in the Wall, Part 2",
+      "album": "The Wall",
+      "albumId": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "track": 5
+    },
+    {
+      "song": "Another Brick in the Wall, Part 3",
+      "album": "The Wall",
+      "albumId": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "track": 12
+    },
+    {
+      "song": "Another Brick in the Wall, Part I",
+      "album": "The Wall",
+      "albumId": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "track": 3
+    },
+    {
+      "song": "Bike",
+      "album": "The Piper at the Gates of Dawn",
+      "albumId": "6792b6d1-4e65-3c3c-9d20-d08aa1dcfc60",
+      "track": 6
+    },
+    {
+      "song": "Brain Damage",
+      "album": "The Dark Side of the Moon",
+      "albumId": "f5093c06-23e3-404f-aeaa-40f72885ee3a",
+      "track": 9
+    },
+    {
+      "song": "Breathe",
+      "album": "The Dark Side of the Moon",
+      "albumId": "f5093c06-23e3-404f-aeaa-40f72885ee3a",
+      "track": 2
+    },
+    {
+      "song": "Bring the Boys Back Home",
+      "album": "The Wall",
+      "albumId": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "track": 18
+    },
+    {
+      "song": "Comfortably Numb",
+      "album": "The Wall",
+      "albumId": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "track": 19
+    },
+    {
+      "song": "Echoes",
+      "album": "Meddle",
+      "albumId": "4e98c9b4-92f6-3049-b9da-a1088b623672",
+      "track": 6
+    },
+    {
+      "song": "Empty Spaces",
+      "album": "The Wall",
+      "albumId": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "track": 8
+    },
+    {
+      "song": "Goodbye Blue Sky",
+      "album": "The Wall",
+      "albumId": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "track": 7
+    },
+    {
+      "song": "Grandchester Meadows",
+      "album": "Ummagumma",
+      "albumId": "b7aa61ae-3572-32c0-8b93-6af78ea83760",
+      "track": 6
+    },
+    {
+      "song": "Have a Cigar",
+      "album": "Wish You Were Here",
+      "albumId": "1a272023-10d3-38ee-bab3-317b55fcc21d",
+      "track": 3
+    },
+    {
+      "song": "Hey You",
+      "album": "The Wall",
+      "albumId": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "track": 14
+    },
+    {
+      "song": "High Hopes",
+      "album": "The Division Bell",
+      "albumId": "90878b63-f639-3c8b-aefb-190bdf3d1790",
+      "track": 11
+    },
+    {
+      "song": "Is There Anybody Out There?",
+      "album": "The Wall",
+      "albumId": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "track": 15
+    },
+    {
+      "song": "Keep Talking",
+      "album": "The Division Bell",
+      "albumId": "90878b63-f639-3c8b-aefb-190bdf3d1790",
+      "track": 9
+    },
+    {
+      "song": "Money",
+      "album": "The Dark Side of the Moon",
+      "albumId": "f5093c06-23e3-404f-aeaa-40f72885ee3a",
+      "track": 6
+    },
+    {
+      "song": "Nobody Home",
+      "album": "The Wall",
+      "albumId": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "track": 16
+    },
+    {
+      "song": "On the Turning Away",
+      "album": "A Momentary Lapse of Reason",
+      "albumId": "4940b8aa-898b-3e60-9992-94e073bab6f6",
+      "track": 5
+    },
+    {
+      "song": "Outside the Wall",
+      "album": "The Wall",
+      "albumId": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "track": 26
+    },
+    {
+      "song": "Sheep",
+      "album": "Animals",
+      "albumId": "20c77fb4-1c9f-33c8-9d7e-c4977f11e847",
+      "track": 4
+    },
+    {
+      "song": "Shine On You Crazy Diamond, Part One",
+      "album": "Wish You Were Here",
+      "albumId": "1a272023-10d3-38ee-bab3-317b55fcc21d",
+      "track": 1
+    },
+    {
+      "song": "Shine On You Crazy Diamond, Part Two",
+      "album": "Wish You Were Here",
+      "albumId": "1a272023-10d3-38ee-bab3-317b55fcc21d",
+      "track": 5
+    },
+    {
+      "song": "The Final Cut",
+      "album": "The Final Cut",
+      "albumId": "e8b7e7a3-ef56-34a5-bedf-085783c9a076",
+      "track": 10
+    },
+    {
+      "song": "The Great Gig in the Sky",
+      "album": "The Dark Side of the Moon",
+      "albumId": "f5093c06-23e3-404f-aeaa-40f72885ee3a",
+      "track": 5
+    },
+    {
+      "song": "The Thin Ice",
+      "album": "The Wall",
+      "albumId": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "track": 2
+    },
+    {
+      "song": "The Trial",
+      "album": "The Wall",
+      "albumId": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "track": 25
+    },
+    {
+      "song": "Time",
+      "album": "The Dark Side of the Moon",
+      "albumId": "f5093c06-23e3-404f-aeaa-40f72885ee3a",
+      "track": 4
+    },
+    {
+      "song": "Us and Them",
+      "album": "The Dark Side of the Moon",
+      "albumId": "f5093c06-23e3-404f-aeaa-40f72885ee3a",
+      "track": 7
+    },
+    {
+      "song": "Vera",
+      "album": "The Wall",
+      "albumId": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "track": 17
+    },
+    {
+      "song": "Welcome to the Machine",
+      "album": "Wish You Were Here",
+      "albumId": "1a272023-10d3-38ee-bab3-317b55fcc21d",
+      "track": 2
+    },
+    {
+      "song": "Wish You Were Here",
+      "album": "Wish You Were Here",
+      "albumId": "1a272023-10d3-38ee-bab3-317b55fcc21d",
+      "track": 4
+    },
+    {
+      "song": "Wot's... Uh the Deal",
+      "album": "Obscured by Clouds",
+      "albumId": "a6f0826e-9b27-3d75-b30c-e5d33235777a",
+      "track": 5
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

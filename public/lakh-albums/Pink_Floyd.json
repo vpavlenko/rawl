@@ -1,0 +1,392 @@
+{
+  "artist": "Pink Floyd",
+  "artistId": "83d91898-7763-47d7-b03b-b92132375c47",
+  "groups": [
+    {
+      "id": "6792b6d1-4e65-3c3c-9d20-d08aa1dcfc60",
+      "releaseId": "b572b75a-f06d-411f-90f0-1c56431a4a55",
+      "title": "The Piper at the Gates of Dawn",
+      "date": "1967-07-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6792b6d1-4e65-3c3c-9d20-d08aa1dcfc60/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Bike.mid",
+            "Bike.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b7aa61ae-3572-32c0-8b93-6af78ea83760",
+      "releaseId": "c1ad763c-431a-4134-94b6-8ac508154b7b",
+      "title": "Ummagumma",
+      "date": "1969-10-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b7aa61ae-3572-32c0-8b93-6af78ea83760/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Grandchester Meadows.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4e98c9b4-92f6-3049-b9da-a1088b623672",
+      "releaseId": "225b68e4-d2cb-3bcf-ad46-ad787ea323dd",
+      "title": "Meddle",
+      "date": "1971-10-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4e98c9b4-92f6-3049-b9da-a1088b623672/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Echoes.mid",
+            "Echoes.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a6f0826e-9b27-3d75-b30c-e5d33235777a",
+      "releaseId": "5e63659c-3bb5-4560-9394-1fc4a8ffca51",
+      "title": "Obscured by Clouds",
+      "date": "1972-06-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a6f0826e-9b27-3d75-b30c-e5d33235777a/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Wot's... Uh the Deal.mid",
+            "Wot's... Uh the Deal.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f5093c06-23e3-404f-aeaa-40f72885ee3a",
+      "releaseId": "1c3ea255-3cc5-4861-9864-81e3bceb4443",
+      "title": "The Dark Side of the Moon",
+      "date": "1973-03-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f5093c06-23e3-404f-aeaa-40f72885ee3a/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Breathe.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Time.mid",
+            "Time.1.mid",
+            "Time.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "The Great Gig in the Sky.mid",
+            "The Great Gig in the Sky.1.mid",
+            "The Great Gig in the Sky.2.mid",
+            "The Great Gig in the Sky.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Money.mid",
+            "Money.1.mid",
+            "Money.2.mid",
+            "Money.3.mid",
+            "Money.4.mid",
+            "Money.5.mid",
+            "Money.6.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Us and Them.mid",
+            "Us and Them.1.mid",
+            "Us and Them.2.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Brain Damage.mid",
+            "Brain Damage.1.mid",
+            "Brain Damage.2.mid",
+            "Brain Damage.3.mid",
+            "Brain Damage.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1a272023-10d3-38ee-bab3-317b55fcc21d",
+      "releaseId": "ed1df7ea-5bc7-4777-915d-e9ad8a15a8b8",
+      "title": "Wish You Were Here",
+      "date": "1975-09-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1a272023-10d3-38ee-bab3-317b55fcc21d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Shine On You Crazy Diamond, Part One.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Welcome to the Machine.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Have a Cigar.mid",
+            "Have a Cigar.1.mid",
+            "Have a Cigar.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Wish You Were Here.mid",
+            "Wish You Were Here.1.mid",
+            "Wish You Were Here.2.mid",
+            "Wish You Were Here.3.mid",
+            "Wish You Were Here.4.mid",
+            "Wish You Were Here.5.mid",
+            "Wish You Were Here.6.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Shine On You Crazy Diamond, Part Two.mid",
+            "Shine On You Crazy Diamond, Part Two.1.mid",
+            "Shine On You Crazy Diamond, Part Two.2.mid",
+            "Shine On You Crazy Diamond, Part Two.3.mid",
+            "Shine On You Crazy Diamond, Part Two.4.mid",
+            "Shine On You Crazy Diamond, Part Two.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "20c77fb4-1c9f-33c8-9d7e-c4977f11e847",
+      "releaseId": "b249399e-77a7-3bb5-ba51-7368506e6f02",
+      "title": "Animals",
+      "date": "1977-01-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/20c77fb4-1c9f-33c8-9d7e-c4977f11e847/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Sheep.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f2026101-945b-3d05-9ef4-aa718fc3feef",
+      "releaseId": "93c4f215-15ae-34a2-981a-9a5fbd700004",
+      "title": "The Wall",
+      "date": "1979-11-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f2026101-945b-3d05-9ef4-aa718fc3feef/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "The Thin Ice.mid",
+            "The Thin Ice.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Another Brick in the Wall, Part 1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Another Brick in the Wall, Part I.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Another Brick in the Wall, Part 2.mid",
+            "Another Brick in the Wall, Part 2.1.mid",
+            "Another Brick in the Wall, Part 2.2.mid",
+            "Another Brick in the Wall, Part 2.3.mid",
+            "Another Brick in the Wall, Part 2.4.mid",
+            "Another Brick in the Wall, Part 2.5.mid",
+            "Another Brick in the Wall, Part 2.6.mid",
+            "Another Brick in the Wall, Part 2.7.mid",
+            "Another Brick in the Wall, Part 2.8.mid",
+            "Another Brick in the Wall, Part 2.9.mid",
+            "Another Brick in the Wall, Part 2.10.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Goodbye Blue Sky.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Empty Spaces.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Another Brick in the Wall, Part 3.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Hey You.mid",
+            "Hey You.1.mid",
+            "Hey You.2.mid",
+            "Hey You.3.mid",
+            "Hey You.4.mid",
+            "Hey You.5.mid",
+            "Hey You.6.mid"
+          ]
+        },
+        {
+          "number": 15,
+          "files": [
+            "Is There Anybody Out There?.mid"
+          ]
+        },
+        {
+          "number": 16,
+          "files": [
+            "Nobody Home.mid",
+            "Nobody Home.1.mid"
+          ]
+        },
+        {
+          "number": 17,
+          "files": [
+            "Vera.mid"
+          ]
+        },
+        {
+          "number": 18,
+          "files": [
+            "Bring the Boys Back Home.mid"
+          ]
+        },
+        {
+          "number": 19,
+          "files": [
+            "Comfortably Numb.mid",
+            "Comfortably Numb.1.mid",
+            "Comfortably Numb.2.mid"
+          ]
+        },
+        {
+          "number": 25,
+          "files": [
+            "The Trial.mid",
+            "The Trial.1.mid",
+            "The Trial.2.mid",
+            "The Trial.3.mid",
+            "The Trial.4.mid"
+          ]
+        },
+        {
+          "number": 26,
+          "files": [
+            "Outside the Wall.mid",
+            "Outside the Wall.1.mid",
+            "Outside the Wall.2.mid",
+            "Outside the Wall.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e8b7e7a3-ef56-34a5-bedf-085783c9a076",
+      "releaseId": "9089dbd0-3775-3af7-83f6-9a91e966f19a",
+      "title": "The Final Cut",
+      "date": "1983-03-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e8b7e7a3-ef56-34a5-bedf-085783c9a076/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "The Final Cut.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4940b8aa-898b-3e60-9992-94e073bab6f6",
+      "releaseId": "33392a91-a53b-3865-952f-2e937bc534a3",
+      "title": "A Momentary Lapse of Reason",
+      "date": "1987-09-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4940b8aa-898b-3e60-9992-94e073bab6f6/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "On the Turning Away.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "90878b63-f639-3c8b-aefb-190bdf3d1790",
+      "releaseId": "c0bb2b75-f889-37fc-9122-05e449c4f0ff",
+      "title": "The Division Bell",
+      "date": "1994-03-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/90878b63-f639-3c8b-aefb-190bdf3d1790/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "Keep Talking.mid",
+            "Keep Talking.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "High Hopes.mid",
+            "High Hopes.1.mid",
+            "High Hopes.2.mid",
+            "High Hopes.3.mid",
+            "High Hopes.4.mid",
+            "High Hopes.5.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

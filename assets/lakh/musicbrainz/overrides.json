@@ -1167,5 +1167,21 @@
         "title": "Cielo e terra"
       }
     }
+  },
+  "Fleetwood Mac": {
+    "name": "Fleetwood Mac",
+    "mbid": "bd13909f-1c29-4c27-a874-d4aaf27c5b1a",
+    "country": "GB",
+    "songs": {
+      "Albatros": {
+        "title": "Albatross"
+      },
+      "I Don't Want to Know [Early Take]": {
+        "title": "I Don't Want to Know"
+      },
+      "You Make Lovin Fun": {
+        "title": "You Make Loving Fun"
+      }
+    }
   }
 }

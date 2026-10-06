@@ -1,0 +1,166 @@
+{
+  "artist": "Fleetwood Mac",
+  "status": "processed",
+  "totalSongs": 26,
+  "matched": [
+    {
+      "song": "Affairs of the Heart",
+      "album": "Behind the Mask",
+      "albumId": "0088f94b-d9f5-37a0-a7ce-499319c6e8ee",
+      "track": 6
+    },
+    {
+      "song": "Albatros",
+      "album": "Albatross / Jigsaw Puzzle Blues",
+      "albumId": "873b1bde-d4b9-4e77-9dbc-f23175284921",
+      "track": 1
+    },
+    {
+      "song": "Angel",
+      "album": "Heroes Are Hard to Find",
+      "albumId": "a0d6e4c6-f7cd-3245-ac2d-aba871b9d353",
+      "track": 3
+    },
+    {
+      "song": "Don't Stop",
+      "album": "Rumours",
+      "albumId": "416bb5e5-c7d1-3977-8fd7-7c9daf6c2be6",
+      "track": 4
+    },
+    {
+      "song": "Dreams",
+      "album": "Rumours",
+      "albumId": "416bb5e5-c7d1-3977-8fd7-7c9daf6c2be6",
+      "track": 2
+    },
+    {
+      "song": "Everywhere",
+      "album": "Tango in the Night",
+      "albumId": "680b3cd8-426b-3112-bcf3-42cd66f75fa9",
+      "track": 3
+    },
+    {
+      "song": "Gold Dust Woman",
+      "album": "Rumours",
+      "albumId": "416bb5e5-c7d1-3977-8fd7-7c9daf6c2be6",
+      "track": 11
+    },
+    {
+      "song": "Gypsy",
+      "album": "Mirage",
+      "albumId": "a0e25b7f-30d4-3e87-b469-df315573bb16",
+      "track": 5
+    },
+    {
+      "song": "Hold Me",
+      "album": "Mirage",
+      "albumId": "a0e25b7f-30d4-3e87-b469-df315573bb16",
+      "track": 9
+    },
+    {
+      "song": "I Don't Want to Know [Early Take]",
+      "album": "Rumours",
+      "albumId": "416bb5e5-c7d1-3977-8fd7-7c9daf6c2be6",
+      "track": 9
+    },
+    {
+      "song": "Landslide",
+      "album": "Fleetwood Mac",
+      "albumId": "6b5d9bf1-f496-34b5-9488-7df2533d6208",
+      "track": 8
+    },
+    {
+      "song": "Little Lies",
+      "album": "Tango in the Night",
+      "albumId": "680b3cd8-426b-3112-bcf3-42cd66f75fa9",
+      "track": 7
+    },
+    {
+      "song": "Man of the World",
+      "album": "Man of the World",
+      "albumId": "877d72a4-3c71-3e42-b6b6-4ffd619faa0f",
+      "track": 1
+    },
+    {
+      "song": "Never Going Back Again",
+      "album": "Rumours",
+      "albumId": "416bb5e5-c7d1-3977-8fd7-7c9daf6c2be6",
+      "track": 3
+    },
+    {
+      "song": "Rhiannon",
+      "album": "Fleetwood Mac",
+      "albumId": "6b5d9bf1-f496-34b5-9488-7df2533d6208",
+      "track": 4
+    },
+    {
+      "song": "Sara",
+      "album": "Tusk",
+      "albumId": "22deeac8-6009-31ad-a069-26e85d246412",
+      "track": 5
+    },
+    {
+      "song": "Say You Love Me",
+      "album": "Fleetwood Mac",
+      "albumId": "6b5d9bf1-f496-34b5-9488-7df2533d6208",
+      "track": 7
+    },
+    {
+      "song": "Sentimental Lady",
+      "album": "Bare Trees",
+      "albumId": "22b4b56c-47e0-31ea-9762-99ce3414fb20",
+      "track": 6
+    },
+    {
+      "song": "Seven Wonders",
+      "album": "Tango in the Night",
+      "albumId": "680b3cd8-426b-3112-bcf3-42cd66f75fa9",
+      "track": 2
+    },
+    {
+      "song": "Silver Springs",
+      "album": "Go Your Own Way / Silver Springs",
+      "albumId": "eb1fdafa-eb19-3309-bace-24d03a036e28",
+      "track": 2
+    },
+    {
+      "song": "Sisters Of The Moon",
+      "album": "Tusk",
+      "albumId": "22deeac8-6009-31ad-a069-26e85d246412",
+      "track": 10
+    },
+    {
+      "song": "Songbird",
+      "album": "Rumours",
+      "albumId": "416bb5e5-c7d1-3977-8fd7-7c9daf6c2be6",
+      "track": 6
+    },
+    {
+      "song": "The Chain",
+      "album": "Rumours",
+      "albumId": "416bb5e5-c7d1-3977-8fd7-7c9daf6c2be6",
+      "track": 7
+    },
+    {
+      "song": "Tusk",
+      "album": "Tusk",
+      "albumId": "22deeac8-6009-31ad-a069-26e85d246412",
+      "track": 19
+    },
+    {
+      "song": "You Make Lovin Fun",
+      "album": "Rumours",
+      "albumId": "416bb5e5-c7d1-3977-8fd7-7c9daf6c2be6",
+      "track": 8
+    },
+    {
+      "song": "You Make Loving Fun",
+      "album": "Rumours",
+      "albumId": "416bb5e5-c7d1-3977-8fd7-7c9daf6c2be6",
+      "track": 8
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

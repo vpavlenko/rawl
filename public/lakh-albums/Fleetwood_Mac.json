@@ -1,0 +1,311 @@
+{
+  "artist": "Fleetwood Mac",
+  "artistId": "bd13909f-1c29-4c27-a874-d4aaf27c5b1a",
+  "groups": [
+    {
+      "id": "873b1bde-d4b9-4e77-9dbc-f23175284921",
+      "releaseId": "a485ef59-fa07-47d3-830c-b90cc5ffec12",
+      "title": "Albatross / Jigsaw Puzzle Blues",
+      "date": "1968",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/873b1bde-d4b9-4e77-9dbc-f23175284921/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Albatros.mid",
+            "Albatros.1.mid",
+            "Albatros.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "877d72a4-3c71-3e42-b6b6-4ffd619faa0f",
+      "releaseId": "c1823936-c33e-487a-8855-168f0fb61e04",
+      "title": "Man of the World",
+      "date": "1969",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/877d72a4-3c71-3e42-b6b6-4ffd619faa0f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Man of the World.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "22b4b56c-47e0-31ea-9762-99ce3414fb20",
+      "releaseId": "897eb1c7-e9ab-4d9d-a1ed-fabc9e4dccac",
+      "title": "Bare Trees",
+      "date": "1972",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/22b4b56c-47e0-31ea-9762-99ce3414fb20/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Sentimental Lady.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a0d6e4c6-f7cd-3245-ac2d-aba871b9d353",
+      "releaseId": "bd382578-6b22-4fd7-b5be-639f64f13c99",
+      "title": "Heroes Are Hard to Find",
+      "date": "1974-09-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a0d6e4c6-f7cd-3245-ac2d-aba871b9d353/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Angel.mid",
+            "Angel.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6b5d9bf1-f496-34b5-9488-7df2533d6208",
+      "releaseId": "240e6ff0-e93b-40e4-b3a8-7223e8056ace",
+      "title": "Fleetwood Mac",
+      "date": "1975-07-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6b5d9bf1-f496-34b5-9488-7df2533d6208/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Rhiannon.mid",
+            "Rhiannon.1.mid",
+            "Rhiannon.2.mid",
+            "Rhiannon.3.mid",
+            "Rhiannon.4.mid",
+            "Rhiannon.5.mid",
+            "Rhiannon.6.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Say You Love Me.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Landslide.mid",
+            "Landslide.1.mid",
+            "Landslide.2.mid",
+            "Landslide.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eb1fdafa-eb19-3309-bace-24d03a036e28",
+      "releaseId": "cb5f5295-d009-471b-99bc-9c30c74d474f",
+      "title": "Go Your Own Way / Silver Springs",
+      "date": "1976-12-20",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/eb1fdafa-eb19-3309-bace-24d03a036e28/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Silver Springs.mid",
+            "Silver Springs.1.mid",
+            "Silver Springs.2.mid",
+            "Silver Springs.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "416bb5e5-c7d1-3977-8fd7-7c9daf6c2be6",
+      "releaseId": "383a90b2-c1dd-4bd6-bd64-f21e2264f65f",
+      "title": "Rumours",
+      "date": "1977-02-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/416bb5e5-c7d1-3977-8fd7-7c9daf6c2be6/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Dreams.mid",
+            "Dreams.1.mid",
+            "Dreams.2.mid",
+            "Dreams.3.mid",
+            "Dreams.4.mid",
+            "Dreams.5.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Never Going Back Again.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Don't Stop.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Songbird.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "The Chain.mid",
+            "The Chain.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "You Make Lovin Fun.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "You Make Loving Fun.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "I Don't Want to Know [Early Take].mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Gold Dust Woman.mid",
+            "Gold Dust Woman.1.mid",
+            "Gold Dust Woman.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "22deeac8-6009-31ad-a069-26e85d246412",
+      "releaseId": "e1603e65-a73b-4b34-ac83-10c88c09e0d7",
+      "title": "Tusk",
+      "date": "1979-10-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/22deeac8-6009-31ad-a069-26e85d246412/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Sara.mid",
+            "Sara.1.mid",
+            "Sara.2.mid",
+            "Sara.3.mid",
+            "Sara.4.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Sisters Of The Moon.mid",
+            "Sisters Of The Moon.1.mid"
+          ]
+        },
+        {
+          "number": 19,
+          "files": [
+            "Tusk.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a0e25b7f-30d4-3e87-b469-df315573bb16",
+      "releaseId": "53f2f412-0deb-4908-8a1e-09eff9ecfc6f",
+      "title": "Mirage",
+      "date": "1982-06-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a0e25b7f-30d4-3e87-b469-df315573bb16/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Gypsy.mid",
+            "Gypsy.1.mid",
+            "Gypsy.2.mid",
+            "Gypsy.3.mid",
+            "Gypsy.4.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Hold Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "680b3cd8-426b-3112-bcf3-42cd66f75fa9",
+      "releaseId": "b78c69cb-27f3-3843-8cc8-1926073cb73f",
+      "title": "Tango in the Night",
+      "date": "1987-04-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/680b3cd8-426b-3112-bcf3-42cd66f75fa9/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Seven Wonders.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Everywhere.mid",
+            "Everywhere.1.mid",
+            "Everywhere.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Little Lies.mid",
+            "Little Lies.1.mid",
+            "Little Lies.2.mid",
+            "Little Lies.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0088f94b-d9f5-37a0-a7ce-499319c6e8ee",
+      "releaseId": "185857cc-0c34-4e92-a331-7696fa5e9b15",
+      "title": "Behind the Mask",
+      "date": "1990-04-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0088f94b-d9f5-37a0-a7ce-499319c6e8ee/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Affairs of the Heart.mid",
+            "Affairs of the Heart.1.mid",
+            "Affairs of the Heart.2.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

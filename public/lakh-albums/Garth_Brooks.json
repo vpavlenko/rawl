@@ -1,0 +1,22 @@
+{
+  "artist": "Garth Brooks",
+  "artistId": "b76645c5-78b0-4e4c-8f95-003f40013a45",
+  "groups": [
+    {
+      "id": "d4377787-0d92-3902-997a-feb75f4dee2d",
+      "releaseId": "acec7706-fab1-4cce-9340-96c3c23c332c",
+      "title": "No Fences",
+      "date": "1990-08-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d4377787-0d92-3902-997a-feb75f4dee2d/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Two of a Kind, Workin' on a Full House.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

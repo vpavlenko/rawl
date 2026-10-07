@@ -1,0 +1,130 @@
+{
+  "artist": "Brooks Garth",
+  "status": "processed",
+  "totalSongs": 20,
+  "matched": [
+    {
+      "song": "Ain't Goin' Down ('til the Sun Comes Up)",
+      "album": "In Pieces",
+      "albumId": "3ff6b94c-1765-3d58-a6e0-edc7b552fcba",
+      "track": 6
+    },
+    {
+      "song": "American Honky-Tonk Bar Association",
+      "album": "In Pieces",
+      "albumId": "3ff6b94c-1765-3d58-a6e0-edc7b552fcba",
+      "track": 3
+    },
+    {
+      "song": "Callin' Baton Rouge",
+      "album": "In Pieces",
+      "albumId": "3ff6b94c-1765-3d58-a6e0-edc7b552fcba",
+      "track": 8
+    },
+    {
+      "song": "Friends in Low Places",
+      "album": "No Fences",
+      "albumId": "d4377787-0d92-3902-997a-feb75f4dee2d",
+      "track": 5
+    },
+    {
+      "song": "If Tomorrow Never Comes",
+      "album": "Garth Brooks",
+      "albumId": "52bab202-d3af-3f77-9de7-06302791ab80",
+      "track": 3
+    },
+    {
+      "song": "Longneck Bottle",
+      "album": "Sevens",
+      "albumId": "ff2e3f28-9d22-344e-a1bd-723e3d29525c",
+      "track": 1
+    },
+    {
+      "song": "Not Counting You",
+      "album": "Garth Brooks",
+      "albumId": "52bab202-d3af-3f77-9de7-06302791ab80",
+      "track": 1
+    },
+    {
+      "song": "One Night a Day",
+      "album": "In Pieces",
+      "albumId": "3ff6b94c-1765-3d58-a6e0-edc7b552fcba",
+      "track": 4
+    },
+    {
+      "song": "Papa Loved Mama",
+      "album": "Ropin’ the Wind",
+      "albumId": "0532c91d-e099-3d5c-8fac-4711035f7297",
+      "track": 5
+    },
+    {
+      "song": "Shameless",
+      "album": "Ropin’ the Wind",
+      "albumId": "0532c91d-e099-3d5c-8fac-4711035f7297",
+      "track": 6
+    },
+    {
+      "song": "Somewhere Other Than the Night",
+      "album": "The Chase",
+      "albumId": "1d1c66cc-84b7-3c72-ac81-84f3e7785c79",
+      "track": 2
+    },
+    {
+      "song": "Standing Outside the Fire",
+      "album": "In Pieces",
+      "albumId": "3ff6b94c-1765-3d58-a6e0-edc7b552fcba",
+      "track": 1
+    },
+    {
+      "song": "That Summer",
+      "album": "The Chase",
+      "albumId": "1d1c66cc-84b7-3c72-ac81-84f3e7785c79",
+      "track": 8
+    },
+    {
+      "song": "The Beaches of Cheyenne",
+      "album": "Fresh Horses",
+      "albumId": "36a90be8-0d18-3009-a20a-2dcfd4942ad6",
+      "track": 7
+    },
+    {
+      "song": "The Dance",
+      "album": "Garth Brooks",
+      "albumId": "52bab202-d3af-3f77-9de7-06302791ab80",
+      "track": 10
+    },
+    {
+      "song": "The River",
+      "album": "Ropin’ the Wind",
+      "albumId": "0532c91d-e099-3d5c-8fac-4711035f7297",
+      "track": 10
+    },
+    {
+      "song": "The Thunder Rolls",
+      "album": "No Fences",
+      "albumId": "d4377787-0d92-3902-997a-feb75f4dee2d",
+      "track": 1
+    },
+    {
+      "song": "Two of a Kind, Workin' on a Full House",
+      "album": "No Fences",
+      "albumId": "d4377787-0d92-3902-997a-feb75f4dee2d",
+      "track": 3
+    },
+    {
+      "song": "Two Pina Coladas",
+      "album": "Sevens",
+      "albumId": "ff2e3f28-9d22-344e-a1bd-723e3d29525c",
+      "track": 5
+    },
+    {
+      "song": "Unanswered Prayers",
+      "album": "No Fences",
+      "albumId": "d4377787-0d92-3902-997a-feb75f4dee2d",
+      "track": 7
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

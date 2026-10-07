@@ -1691,5 +1691,20 @@
         "title": "The Midnight Special"
       }
     }
+  },
+  "Brooks Garth": {
+    "name": "Garth Brooks",
+    "mbid": "b76645c5-78b0-4e4c-8f95-003f40013a45",
+    "country": "US",
+    "songs": {
+      "Ain't Goin' Down ('til the Sun Comes Up)": {
+        "title": "Ain't Going Down (Til The Sun Comes Up)"
+      }
+    }
+  },
+  "Garth Brooks": {
+    "name": "Garth Brooks",
+    "mbid": "b76645c5-78b0-4e4c-8f95-003f40013a45",
+    "country": "US"
   }
 }

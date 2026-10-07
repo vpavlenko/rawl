@@ -1,0 +1,16 @@
+{
+  "artist": "Garth Brooks",
+  "status": "processed",
+  "totalSongs": 1,
+  "matched": [
+    {
+      "song": "Two of a Kind, Workin' on a Full House",
+      "album": "No Fences",
+      "albumId": "d4377787-0d92-3902-997a-feb75f4dee2d",
+      "track": 3
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

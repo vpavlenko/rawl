@@ -1,0 +1,255 @@
+{
+  "artist": "Yes",
+  "artistId": "c1d4f2ba-cf39-460c-9528-6b827d3417a1",
+  "groups": [
+    {
+      "id": "ca7323f7-825f-4c21-a32a-66ac46cdd5ca",
+      "releaseId": "3e2b3f04-02a7-4181-9f04-964f6f9751f4",
+      "title": "Your Move",
+      "date": "1971",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/ca7323f7-825f-4c21-a32a-66ac46cdd5ca/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I've Seen All Good People.mid",
+            "I've Seen All Good People.1.mid",
+            "I've Seen All Good People.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0fa03925-736c-3537-b0c6-201091543177",
+      "releaseId": "33188be8-d8e5-3586-aa5f-a7a6b3202f95",
+      "title": "The Yes Album",
+      "date": "1971-01-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0fa03925-736c-3537-b0c6-201091543177/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Clap.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Starship Trooper.mid",
+            "Starship Trooper.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b1176e7b-fa2e-3b28-959a-d8f55b5b6ccf",
+      "releaseId": "4a06b4d3-eda0-47cc-aa7f-299bfd5bd9cd",
+      "title": "Fragile",
+      "date": "1971-11-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b1176e7b-fa2e-3b28-959a-d8f55b5b6ccf/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Roundabout.mid",
+            "Roundabout.1.mid",
+            "Roundabout.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Long Distance Runaround.mid",
+            "Long Distance Runaround.1.mid",
+            "Long Distance Runaround.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Mood for a Day.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Heart of the Sunrise.mid",
+            "Heart of the Sunrise.1.mid",
+            "Heart of the Sunrise.2.mid",
+            "Heart of the Sunrise.3.mid",
+            "Heart of the Sunrise.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "307c46ce-943a-4b1e-851d-d79e5d9f5855",
+      "releaseId": "c6455d24-1cab-420e-9a97-c63af5f71b78",
+      "title": "No Opportunity Necessary",
+      "date": "1972",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/307c46ce-943a-4b1e-851d-d79e5d9f5855/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Your Move.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5a59b948-1961-32ff-80d9-e970c7d4ebe9",
+      "releaseId": "247133e2-8aa4-4028-b941-128dba6a6b17",
+      "title": "Close to the Edge",
+      "date": "1972-09-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5a59b948-1961-32ff-80d9-e970c7d4ebe9/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "And You and I.mid",
+            "And You and I.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2cd8e583-7941-38ee-a760-aebe2ab24656",
+      "releaseId": "6271217f-5b78-3c49-8a54-b0048080db07",
+      "title": "Yessongs",
+      "date": "1973-05-18",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2cd8e583-7941-38ee-a760-aebe2ab24656/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Excerpts From The Six Wives of Henry VIII.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "db835afa-72f9-39d0-ae1b-067836ec5152",
+      "releaseId": "af4f2425-ee8b-4b71-b5d3-27e44314247c",
+      "title": "Relayer",
+      "date": "1974-11-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/db835afa-72f9-39d0-ae1b-067836ec5152/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Sound Chaser.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "525095c6-4550-367e-b03c-1ad9efeaa986",
+      "releaseId": "7deebf53-642e-4a2a-8b87-631beb666ae7",
+      "title": "Drama",
+      "date": "1980-08-18",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/525095c6-4550-367e-b03c-1ad9efeaa986/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Machine Messiah.mid",
+            "Machine Messiah.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "White Car.mid",
+            "White Car.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "11267884-baaa-38e5-a11c-0a4907ec1b98",
+      "releaseId": "71b9b19d-b007-4258-96d8-c2617d767fea",
+      "title": "90125",
+      "date": "1983-11-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/11267884-baaa-38e5-a11c-0a4907ec1b98/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Owner of a Lonely Heart.mid",
+            "Owner of a Lonely Heart.1.mid",
+            "Owner of a Lonely Heart.2.mid",
+            "Owner of a Lonely Heart.3.mid",
+            "Owner of a Lonely Heart.4.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Our Song.mid",
+            "Our Song.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7ca40721-af57-3a2c-b47e-ecce74771fba",
+      "releaseId": "3530d4de-34dd-4a03-907c-ca3af9a41079",
+      "title": "Big Generator",
+      "date": "1987-09-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7ca40721-af57-3a2c-b47e-ecce74771fba/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Rhythm of Love.mid",
+            "Rhythm of Love.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Shoot High Aim Low.mid",
+            "Shoot High Aim Low.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Almost Like Love.mid",
+            "Almost Like Love.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Love Will Find a Way.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "I'm Running.mid",
+            "I'm Running.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Holy Lamb (Song for Harmonic Convergence).mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

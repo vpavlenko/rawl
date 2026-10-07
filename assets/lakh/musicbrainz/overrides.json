@@ -1382,5 +1382,23 @@
         "albumId": "32bb98fa-d543-4d53-bccb-b4b54e38591c"
       }
     }
+  },
+  "Yes": {
+    "name": "Yes",
+    "mbid": "c1d4f2ba-cf39-460c-9528-6b827d3417a1",
+    "country": "GB",
+    "includedReleaseGroups": [
+      "2cd8e583-7941-38ee-a760-aebe2ab24656"
+    ],
+    "songs": {
+      "And You and I": {
+        "title": "And You and I: I. Cord of Life / II. Eclipse / III. The Preacher the Teacher / IV. Apocalypse",
+        "albumId": "5a59b948-1961-32ff-80d9-e970c7d4ebe9"
+      },
+      "Starship Trooper": {
+        "title": "Starship Trooper: a. Life Seeker b. Disillusion c. Würm",
+        "albumId": "0fa03925-736c-3537-b0c6-201091543177"
+      }
+    }
   }
 }

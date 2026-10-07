@@ -1,0 +1,148 @@
+{
+  "artist": "Yes",
+  "status": "processed",
+  "totalSongs": 23,
+  "matched": [
+    {
+      "song": "Almost Like Love",
+      "album": "Big Generator",
+      "albumId": "7ca40721-af57-3a2c-b47e-ecce74771fba",
+      "track": 4
+    },
+    {
+      "song": "And You and I",
+      "album": "Close to the Edge",
+      "albumId": "5a59b948-1961-32ff-80d9-e970c7d4ebe9",
+      "track": 2
+    },
+    {
+      "song": "Clap",
+      "album": "The Yes Album",
+      "albumId": "0fa03925-736c-3537-b0c6-201091543177",
+      "track": 2
+    },
+    {
+      "song": "Excerpts From The Six Wives of Henry VIII",
+      "album": "Yessongs",
+      "albumId": "2cd8e583-7941-38ee-a760-aebe2ab24656",
+      "track": 7
+    },
+    {
+      "song": "Heart of the Sunrise",
+      "album": "Fragile",
+      "albumId": "b1176e7b-fa2e-3b28-959a-d8f55b5b6ccf",
+      "track": 9
+    },
+    {
+      "song": "Holy Lamb (Song for Harmonic Convergence)",
+      "album": "Big Generator",
+      "albumId": "7ca40721-af57-3a2c-b47e-ecce74771fba",
+      "track": 8
+    },
+    {
+      "song": "I'm Running",
+      "album": "Big Generator",
+      "albumId": "7ca40721-af57-3a2c-b47e-ecce74771fba",
+      "track": 7
+    },
+    {
+      "song": "I've Seen All Good People",
+      "album": "Your Move",
+      "albumId": "ca7323f7-825f-4c21-a32a-66ac46cdd5ca",
+      "track": 1
+    },
+    {
+      "song": "Long Distance Runaround",
+      "album": "Fragile",
+      "albumId": "b1176e7b-fa2e-3b28-959a-d8f55b5b6ccf",
+      "track": 6
+    },
+    {
+      "song": "Love Will Find a Way",
+      "album": "Big Generator",
+      "albumId": "7ca40721-af57-3a2c-b47e-ecce74771fba",
+      "track": 5
+    },
+    {
+      "song": "Machine Messiah",
+      "album": "Drama",
+      "albumId": "525095c6-4550-367e-b03c-1ad9efeaa986",
+      "track": 1
+    },
+    {
+      "song": "Mood for a Day",
+      "album": "Fragile",
+      "albumId": "b1176e7b-fa2e-3b28-959a-d8f55b5b6ccf",
+      "track": 8
+    },
+    {
+      "song": "Our Song",
+      "album": "90125",
+      "albumId": "11267884-baaa-38e5-a11c-0a4907ec1b98",
+      "track": 7
+    },
+    {
+      "song": "Owner of a Lonely Heart",
+      "album": "90125",
+      "albumId": "11267884-baaa-38e5-a11c-0a4907ec1b98",
+      "track": 1
+    },
+    {
+      "song": "Rhythm of Love",
+      "album": "Big Generator",
+      "albumId": "7ca40721-af57-3a2c-b47e-ecce74771fba",
+      "track": 1
+    },
+    {
+      "song": "Roundabout",
+      "album": "Fragile",
+      "albumId": "b1176e7b-fa2e-3b28-959a-d8f55b5b6ccf",
+      "track": 1
+    },
+    {
+      "song": "Shoot High Aim Low",
+      "album": "Big Generator",
+      "albumId": "7ca40721-af57-3a2c-b47e-ecce74771fba",
+      "track": 3
+    },
+    {
+      "song": "Sound Chaser",
+      "album": "Relayer",
+      "albumId": "db835afa-72f9-39d0-ae1b-067836ec5152",
+      "track": 2
+    },
+    {
+      "song": "Starship Trooper",
+      "album": "The Yes Album",
+      "albumId": "0fa03925-736c-3537-b0c6-201091543177",
+      "track": 3
+    },
+    {
+      "song": "White Car",
+      "album": "Drama",
+      "albumId": "525095c6-4550-367e-b03c-1ad9efeaa986",
+      "track": 2
+    },
+    {
+      "song": "Your Move",
+      "album": "No Opportunity Necessary",
+      "albumId": "307c46ce-943a-4b1e-851d-d79e5d9f5855",
+      "track": 3
+    }
+  ],
+  "unmatched": [
+    "Endless Dream: a) Silent Spring (instrumental) - b) Talk - c) Endless Dream",
+    "Rick Wakeman Solo Medley: Catherine of Aragon Catherine Howard Montreux Jig Jane Seymour"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Endless Dream: a) Silent Spring (instrumental) - b) Talk - c) Endless Dream": [
+      {
+        "title": "Endless Dream, Part A: Silent Spring (instrumental)",
+        "album": "Talk",
+        "albumId": "873784dc-d158-3671-abc7-48e8b348b1c1"
+      }
+    ],
+    "Rick Wakeman Solo Medley: Catherine of Aragon Catherine Howard Montreux Jig Jane Seymour": []
+  }
+}

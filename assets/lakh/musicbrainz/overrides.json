@@ -1491,5 +1491,27 @@
         "title": "Se perdo anche te"
       }
     }
+  },
+  "Amos, Tori": {
+    "name": "Tori Amos",
+    "mbid": "c0b2500e-0cef-4130-869d-732b23ed9df5",
+    "country": "US",
+    "releaseOverrides": {
+      "5cca5c3c-5c90-39f3-9775-514441f6b4bc": "e4d198ae-de3a-4cfb-9aae-3561e92ae16a",
+      "ed7a2a0a-cfe9-35eb-8274-ac3e2393250f": "f80730c6-cba2-4665-8685-2741bbcdc1f1"
+    },
+    "songs": {
+      "iieee (remixed version)": {
+        "title": "iieee"
+      },
+      "Ode to the Banana King": {
+        "title": "Ode to the Banana King, Part One"
+      }
+    }
+  },
+  "Tori Amos": {
+    "name": "Tori Amos",
+    "mbid": "c0b2500e-0cef-4130-869d-732b23ed9df5",
+    "country": "US"
   }
 }

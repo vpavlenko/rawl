@@ -1,0 +1,34 @@
+{
+  "artist": "Tori Amos",
+  "status": "processed",
+  "totalSongs": 4,
+  "matched": [
+    {
+      "song": "Cornflake Girl",
+      "album": "Under the Pink",
+      "albumId": "ef2b891f-ca73-3e14-b38b-a68699dab8c4",
+      "track": 8
+    },
+    {
+      "song": "Flying Dutchman",
+      "album": "Gold Dust",
+      "albumId": "c10420af-872a-42e6-b294-835f46a481af",
+      "track": 9
+    },
+    {
+      "song": "Silent All These Years",
+      "album": "Little Earthquakes",
+      "albumId": "cb10018e-e795-3b62-b9d6-f143d188e496",
+      "track": 3
+    },
+    {
+      "song": "Winter",
+      "album": "Little Earthquakes",
+      "albumId": "cb10018e-e795-3b62-b9d6-f143d188e496",
+      "track": 5
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

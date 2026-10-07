@@ -1,0 +1,134 @@
+{
+  "artist": "Amos, Tori",
+  "status": "processed",
+  "totalSongs": 21,
+  "matched": [
+    {
+      "song": "1000 Oceans",
+      "album": "To Venus and Back",
+      "albumId": "1fd43909-8056-3805-b2f9-c663ce7e71e6",
+      "track": 11
+    },
+    {
+      "song": "Bliss",
+      "album": "To Venus and Back",
+      "albumId": "1fd43909-8056-3805-b2f9-c663ce7e71e6",
+      "track": 1
+    },
+    {
+      "song": "China",
+      "album": "Little Earthquakes",
+      "albumId": "cb10018e-e795-3b62-b9d6-f143d188e496",
+      "track": 7
+    },
+    {
+      "song": "Concertina",
+      "album": "To Venus and Back",
+      "albumId": "1fd43909-8056-3805-b2f9-c663ce7e71e6",
+      "track": 3
+    },
+    {
+      "song": "Cornflake Girl",
+      "album": "Under the Pink",
+      "albumId": "ef2b891f-ca73-3e14-b38b-a68699dab8c4",
+      "track": 8
+    },
+    {
+      "song": "Crucify",
+      "album": "Little Earthquakes",
+      "albumId": "cb10018e-e795-3b62-b9d6-f143d188e496",
+      "track": 1
+    },
+    {
+      "song": "Daisy Dead Petals",
+      "album": "Cornflake Girl",
+      "albumId": "0a9dccc9-e09b-3096-8710-34524bb1274e",
+      "track": 3
+    },
+    {
+      "song": "Flying Dutchman",
+      "album": "Gold Dust",
+      "albumId": "c10420af-872a-42e6-b294-835f46a481af",
+      "track": 9
+    },
+    {
+      "song": "Here in My Head",
+      "album": "Crucify",
+      "albumId": "5cca5c3c-5c90-39f3-9775-514441f6b4bc",
+      "track": 2
+    },
+    {
+      "song": "Humpty Dumpty",
+      "album": "China",
+      "albumId": "c93bd8c4-3634-3395-987f-1ec6c7c22623",
+      "track": 4
+    },
+    {
+      "song": "iieee (remixed version)",
+      "album": "From the Choirgirl Hotel",
+      "albumId": "8fe72194-46ee-4fac-beea-125705bea7b6",
+      "track": 6
+    },
+    {
+      "song": "Jackies Strength",
+      "album": "From the Choirgirl Hotel",
+      "albumId": "8fe72194-46ee-4fac-beea-125705bea7b6",
+      "track": 5
+    },
+    {
+      "song": "Josephine",
+      "album": "To Venus and Back",
+      "albumId": "1fd43909-8056-3805-b2f9-c663ce7e71e6",
+      "track": 7
+    },
+    {
+      "song": "Northern Lad",
+      "album": "From the Choirgirl Hotel",
+      "albumId": "8fe72194-46ee-4fac-beea-125705bea7b6",
+      "track": 9
+    },
+    {
+      "song": "Ode to the Banana King",
+      "album": "Silent All These Years",
+      "albumId": "ed7a2a0a-cfe9-35eb-8274-ac3e2393250f",
+      "track": 2
+    },
+    {
+      "song": "Playboy Mommy",
+      "album": "From the Choirgirl Hotel",
+      "albumId": "8fe72194-46ee-4fac-beea-125705bea7b6",
+      "track": 11
+    },
+    {
+      "song": "Raspberry Swirl",
+      "album": "From the Choirgirl Hotel",
+      "albumId": "8fe72194-46ee-4fac-beea-125705bea7b6",
+      "track": 4
+    },
+    {
+      "song": "Spark",
+      "album": "From the Choirgirl Hotel",
+      "albumId": "8fe72194-46ee-4fac-beea-125705bea7b6",
+      "track": 1
+    },
+    {
+      "song": "The Wrong Band",
+      "album": "Under the Pink",
+      "albumId": "ef2b891f-ca73-3e14-b38b-a68699dab8c4",
+      "track": 6
+    },
+    {
+      "song": "Winter",
+      "album": "Little Earthquakes",
+      "albumId": "cb10018e-e795-3b62-b9d6-f143d188e496",
+      "track": 5
+    }
+  ],
+  "unmatched": [
+    "Smells Like Teen Spirit"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Smells Like Teen Spirit": []
+  }
+}

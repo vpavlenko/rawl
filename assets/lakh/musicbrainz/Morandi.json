@@ -1,0 +1,142 @@
+{
+  "artist": "Morandi",
+  "status": "processed",
+  "totalSongs": 22,
+  "matched": [
+    {
+      "song": "Andavo a cento all'ora",
+      "album": "Gianni Morandi",
+      "albumId": "2eca4078-23ac-465c-99d3-c6ee2653672f",
+      "track": 1
+    },
+    {
+      "song": "Banane e lampone",
+      "album": "Morandi & Morandi",
+      "albumId": "c5773e44-50ac-4ce0-a1dd-bf573dd7ff6b",
+      "track": 4
+    },
+    {
+      "song": "Banane e lamponi",
+      "album": "Morandi & Morandi",
+      "albumId": "c5773e44-50ac-4ce0-a1dd-bf573dd7ff6b",
+      "track": 4
+    },
+    {
+      "song": "Bella signora",
+      "album": "Varietà",
+      "albumId": "c6228934-0717-35a3-a1c7-c91c3ac449f7",
+      "track": 2
+    },
+    {
+      "song": "C'era un ragazzo che come me amava i Beatles e i Rolling Stones",
+      "album": "Gianni quattro: Un mondo d'amore",
+      "albumId": "7b1c8494-f4cc-4ed7-8ec8-15acc17604fa",
+      "track": 2
+    },
+    {
+      "song": "C'era un ragazzo",
+      "album": "Gianni quattro: Un mondo d'amore",
+      "albumId": "7b1c8494-f4cc-4ed7-8ec8-15acc17604fa",
+      "track": 2
+    },
+    {
+      "song": "Canzone libera",
+      "album": "Grandes Sucessos",
+      "albumId": "21af1ec5-16cc-4662-96ea-fc505e4751e1",
+      "track": 1
+    },
+    {
+      "song": "Canzoni stonate",
+      "album": "Amici miei",
+      "albumId": "3477d75e-7673-4653-8307-4599492ba18b",
+      "track": 6
+    },
+    {
+      "song": "Come fa bene l'amore (radio edit)",
+      "album": "Come fa bene l’amore",
+      "albumId": "d3faa462-7081-3752-898b-63ee2a1647cf",
+      "track": 7
+    },
+    {
+      "song": "Dove va a finire il mio affetto",
+      "album": "Celeste azzurro e blu",
+      "albumId": "5e0b8cee-20c3-3b03-85ad-1d36ae8138ee",
+      "track": 1
+    },
+    {
+      "song": "Fatti mandare dalla mamma",
+      "album": "Gianni Morandi",
+      "albumId": "2eca4078-23ac-465c-99d3-c6ee2653672f",
+      "track": 3
+    },
+    {
+      "song": "Fino alla fine del mondo",
+      "album": "Morandi",
+      "albumId": "c86d580a-9198-30f5-a814-061d29c13681",
+      "track": 2
+    },
+    {
+      "song": "Forse non ci lasceremo mai",
+      "album": "Celeste azzurro e blu",
+      "albumId": "5e0b8cee-20c3-3b03-85ad-1d36ae8138ee",
+      "track": 3
+    },
+    {
+      "song": "Giovane amante mia",
+      "album": "Morandi",
+      "albumId": "c86d580a-9198-30f5-a814-061d29c13681",
+      "track": 1
+    },
+    {
+      "song": "In amore",
+      "album": "Morandi",
+      "albumId": "c86d580a-9198-30f5-a814-061d29c13681",
+      "track": 10
+    },
+    {
+      "song": "In ginocchio da te",
+      "album": "Ritratto di Gianni",
+      "albumId": "9829753b-c684-3fed-b011-261c6ab0bc1b",
+      "track": 1
+    },
+    {
+      "song": "Innamorato",
+      "album": "Come fa bene l’amore",
+      "albumId": "d3faa462-7081-3752-898b-63ee2a1647cf",
+      "track": 1
+    },
+    {
+      "song": "Lasciarsi per amore",
+      "album": "Grandes Sucessos",
+      "albumId": "21af1ec5-16cc-4662-96ea-fc505e4751e1",
+      "track": 8
+    },
+    {
+      "song": "Occhi di ragazza",
+      "album": "Gianni 7",
+      "albumId": "993d9ce5-612a-483e-9c5f-a20b55b07559",
+      "track": 9
+    },
+    {
+      "song": "Se non avessi piu te",
+      "album": "Gianni tre",
+      "albumId": "386b7a24-07a7-4988-b56c-48926dbd76c6",
+      "track": 6
+    },
+    {
+      "song": "Se perdo anche te (Solitary Man)",
+      "album": "Gianni quattro: Un mondo d'amore",
+      "albumId": "7b1c8494-f4cc-4ed7-8ec8-15acc17604fa",
+      "track": 4
+    },
+    {
+      "song": "Un mondo d'amore",
+      "album": "Gianni quattro: Un mondo d'amore",
+      "albumId": "7b1c8494-f4cc-4ed7-8ec8-15acc17604fa",
+      "track": 10
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

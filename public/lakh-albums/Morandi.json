@@ -1,0 +1,265 @@
+{
+  "artist": "Morandi",
+  "artistId": "11bb0196-0dc3-41fa-be26-671ca78799f2",
+  "groups": [
+    {
+      "id": "2eca4078-23ac-465c-99d3-c6ee2653672f",
+      "releaseId": "3ee8c9aa-5a4e-45fd-b3dd-f14c0ec09136",
+      "title": "Gianni Morandi",
+      "date": "1963",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2eca4078-23ac-465c-99d3-c6ee2653672f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Andavo a cento all'ora.mid",
+            "Andavo a cento all'ora.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Fatti mandare dalla mamma.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9829753b-c684-3fed-b011-261c6ab0bc1b",
+      "releaseId": "1d28378d-f26d-490e-a885-84c50ff76632",
+      "title": "Ritratto di Gianni",
+      "date": "1964",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9829753b-c684-3fed-b011-261c6ab0bc1b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "In ginocchio da te.mid",
+            "In ginocchio da te.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "386b7a24-07a7-4988-b56c-48926dbd76c6",
+      "releaseId": "94e2c43b-ecb1-4790-aaea-105017148860",
+      "title": "Gianni tre",
+      "date": "1966",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/386b7a24-07a7-4988-b56c-48926dbd76c6/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Se non avessi piu te.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7b1c8494-f4cc-4ed7-8ec8-15acc17604fa",
+      "releaseId": "3fa962ec-c8e9-4121-b354-ce15806b69d1",
+      "title": "Gianni quattro: Un mondo d'amore",
+      "date": "1967",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7b1c8494-f4cc-4ed7-8ec8-15acc17604fa/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "C'era un ragazzo che come me amava i Beatles e i Rolling Stones.mid",
+            "C'era un ragazzo che come me amava i Beatles e i Rolling Stones.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "C'era un ragazzo.mid",
+            "C'era un ragazzo.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Se perdo anche te (Solitary Man).mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Un mondo d'amore.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "993d9ce5-612a-483e-9c5f-a20b55b07559",
+      "releaseId": "eb2279b6-5b41-4d02-8eff-f477d76c742c",
+      "title": "Gianni 7",
+      "date": "1970",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/993d9ce5-612a-483e-9c5f-a20b55b07559/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "Occhi di ragazza.mid",
+            "Occhi di ragazza.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3477d75e-7673-4653-8307-4599492ba18b",
+      "releaseId": "6fd78f47-e5e3-4cc0-87bc-4c8c08cdf85c",
+      "title": "Amici miei",
+      "date": "1987",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3477d75e-7673-4653-8307-4599492ba18b/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Canzoni stonate.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c6228934-0717-35a3-a1c7-c91c3ac449f7",
+      "releaseId": "6ded0989-b075-4ed2-83d2-52e099c0edf1",
+      "title": "Varietà",
+      "date": "1989",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c6228934-0717-35a3-a1c7-c91c3ac449f7/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Bella signora.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c5773e44-50ac-4ce0-a1dd-bf573dd7ff6b",
+      "releaseId": "46137fbf-5cd6-438b-a8fa-9ff399cedad3",
+      "title": "Morandi & Morandi",
+      "date": "1992",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c5773e44-50ac-4ce0-a1dd-bf573dd7ff6b/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Banane e lampone.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Banane e lamponi.mid",
+            "Banane e lamponi.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c86d580a-9198-30f5-a814-061d29c13681",
+      "releaseId": "3e84d0c6-e31c-4b10-a713-c7c598b8d74c",
+      "title": "Morandi",
+      "date": "1995",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c86d580a-9198-30f5-a814-061d29c13681/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Giovane amante mia.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Fino alla fine del mondo.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "In amore.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5e0b8cee-20c3-3b03-85ad-1d36ae8138ee",
+      "releaseId": "901d1669-82a9-41bf-8b5a-a17a7c13653d",
+      "title": "Celeste azzurro e blu",
+      "date": "1997",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5e0b8cee-20c3-3b03-85ad-1d36ae8138ee/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Dove va a finire il mio affetto.mid",
+            "Dove va a finire il mio affetto.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Forse non ci lasceremo mai.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "21af1ec5-16cc-4662-96ea-fc505e4751e1",
+      "releaseId": "59545da8-0161-457c-82a6-34660271e9cc",
+      "title": "Grandes Sucessos",
+      "date": "1999",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/21af1ec5-16cc-4662-96ea-fc505e4751e1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Canzone libera.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Lasciarsi per amore.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d3faa462-7081-3752-898b-63ee2a1647cf",
+      "releaseId": "c2544961-de85-42f5-b5dc-af2ec13d27bc",
+      "title": "Come fa bene l’amore",
+      "date": "2000",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d3faa462-7081-3752-898b-63ee2a1647cf/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Innamorato.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Come fa bene l'amore (radio edit).mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

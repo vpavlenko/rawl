@@ -1465,5 +1465,31 @@
         "title": "Live and Let Die"
       }
     }
+  },
+  "Morandi": {
+    "name": "Gianni Morandi",
+    "mbid": "11bb0196-0dc3-41fa-be26-671ca78799f2",
+    "country": "IT",
+    "includedReleaseGroups": [
+      "3477d75e-7673-4653-8307-4599492ba18b",
+      "21af1ec5-16cc-4662-96ea-fc505e4751e1"
+    ],
+    "songs": {
+      "Banane e lampone": {
+        "title": "Banane e lampone (Chi c'era con te)"
+      },
+      "Banane e lamponi": {
+        "title": "Banane e lampone (Chi c'era con te)"
+      },
+      "C'era un ragazzo": {
+        "title": "C’era un ragazzo che come me amava i Beatles e i Rolling Stones"
+      },
+      "Come fa bene l'amore (radio edit)": {
+        "title": "Come fa bene l’amore"
+      },
+      "Se perdo anche te (Solitary Man)": {
+        "title": "Se perdo anche te"
+      }
+    }
   }
 }

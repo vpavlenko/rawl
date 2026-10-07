@@ -1,0 +1,140 @@
+{
+  "artist": "Erasure",
+  "status": "processed",
+  "totalSongs": 22,
+  "matched": [
+    {
+      "song": "A Little Respect",
+      "album": "The Innocents",
+      "albumId": "7739a5e3-4616-3e08-a8d5-d1da69e86da5",
+      "track": 1
+    },
+    {
+      "song": "Abba-Esque (Take a Chance On Me)",
+      "album": "Abba‐esque",
+      "albumId": "d5e4176c-c928-3a20-b900-75ed4d851a74",
+      "track": 3
+    },
+    {
+      "song": "Always",
+      "album": "I Say I Say I Say",
+      "albumId": "d26f34e9-7402-3afe-9681-e3eae467cbb2",
+      "track": 6
+    },
+    {
+      "song": "Blue Savannah",
+      "album": "Wild!",
+      "albumId": "298b8d42-d636-3343-b673-406ce1b2386d",
+      "track": 2
+    },
+    {
+      "song": "Breath of Life",
+      "album": "Chorus",
+      "albumId": "d4eebf86-736e-3363-ad05-e8b457083810",
+      "track": 4
+    },
+    {
+      "song": "Chains of Love",
+      "album": "The Innocents",
+      "albumId": "7739a5e3-4616-3e08-a8d5-d1da69e86da5",
+      "track": 4
+    },
+    {
+      "song": "Fingers & Thumbs (Cold Summer's Day)",
+      "album": "Erasure",
+      "albumId": "3d44fce5-760b-3365-9251-13510377a7af",
+      "track": 4
+    },
+    {
+      "song": "Glass Angel",
+      "album": "Light at the End of the World",
+      "albumId": "f7a0077e-33a9-3c2e-b08b-fd8fb3997f72",
+      "track": 10
+    },
+    {
+      "song": "Home",
+      "album": "Chorus",
+      "albumId": "d4eebf86-736e-3363-ad05-e8b457083810",
+      "track": 10
+    },
+    {
+      "song": "I Love Saturday",
+      "album": "I Say I Say I Say",
+      "albumId": "d26f34e9-7402-3afe-9681-e3eae467cbb2",
+      "track": 2
+    },
+    {
+      "song": "Man in the Moon",
+      "album": "I Say I Say I Say",
+      "albumId": "d26f34e9-7402-3afe-9681-e3eae467cbb2",
+      "track": 3
+    },
+    {
+      "song": "Miracle",
+      "album": "I Say I Say I Say",
+      "albumId": "d26f34e9-7402-3afe-9681-e3eae467cbb2",
+      "track": 9
+    },
+    {
+      "song": "Oh L'Amour",
+      "album": "Wonderland",
+      "albumId": "e3662bdb-a1d4-395a-a33a-a3cf490ce3d6",
+      "track": 10
+    },
+    {
+      "song": "Oh Lamour",
+      "album": "Wonderland",
+      "albumId": "e3662bdb-a1d4-395a-a33a-a3cf490ce3d6",
+      "track": 10
+    },
+    {
+      "song": "Siren Song",
+      "album": "Chorus",
+      "albumId": "d4eebf86-736e-3363-ad05-e8b457083810",
+      "track": 8
+    },
+    {
+      "song": "So the Story Goes",
+      "album": "I Say I Say I Say",
+      "albumId": "d26f34e9-7402-3afe-9681-e3eae467cbb2",
+      "track": 4
+    },
+    {
+      "song": "Sometimes (12'' mix)",
+      "album": "The Circus",
+      "albumId": "e3ff5909-32eb-3d9a-bce6-39027fad0da1",
+      "track": 8
+    },
+    {
+      "song": "Sometimes",
+      "album": "The Circus",
+      "albumId": "e3ff5909-32eb-3d9a-bce6-39027fad0da1",
+      "track": 8
+    },
+    {
+      "song": "Star",
+      "album": "Wild!",
+      "albumId": "298b8d42-d636-3343-b673-406ce1b2386d",
+      "track": 5
+    },
+    {
+      "song": "Stop!",
+      "album": "Crackers International",
+      "albumId": "11a2afc1-de9a-3ec1-8b2c-87274570d500",
+      "track": 1
+    },
+    {
+      "song": "Take Me Back",
+      "album": "I Say I Say I Say",
+      "albumId": "d26f34e9-7402-3afe-9681-e3eae467cbb2",
+      "track": 1
+    }
+  ],
+  "unmatched": [
+    "Magic Moments"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Magic Moments": []
+  }
+}

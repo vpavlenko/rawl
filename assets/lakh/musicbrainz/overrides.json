@@ -1439,5 +1439,18 @@
         "title": "It Don’t Mean a Thing (If It Ain’t Got That Swing)"
       }
     }
+  },
+  "Erasure": {
+    "name": "Erasure",
+    "mbid": "43b58c98-3779-4b04-9a23-1c95cca3a145",
+    "country": "GB",
+    "songs": {
+      "Abba-Esque (Take a Chance On Me)": {
+        "title": "Take a Chance on Me"
+      },
+      "Sometimes (12'' mix)": {
+        "title": "Sometimes"
+      }
+    }
   }
 }

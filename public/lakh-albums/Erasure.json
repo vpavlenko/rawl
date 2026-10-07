@@ -1,0 +1,251 @@
+{
+  "artist": "Erasure",
+  "artistId": "43b58c98-3779-4b04-9a23-1c95cca3a145",
+  "groups": [
+    {
+      "id": "e3662bdb-a1d4-395a-a33a-a3cf490ce3d6",
+      "releaseId": "7f1ba735-229b-4848-a2c1-4fed9f1378f8",
+      "title": "Wonderland",
+      "date": "1986-06-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e3662bdb-a1d4-395a-a33a-a3cf490ce3d6/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Oh L'Amour.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Oh Lamour.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e3ff5909-32eb-3d9a-bce6-39027fad0da1",
+      "releaseId": "6db69f41-fbf7-45e4-8467-12910032a5f1",
+      "title": "The Circus",
+      "date": "1987-03-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e3ff5909-32eb-3d9a-bce6-39027fad0da1/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Sometimes (12'' mix).mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Sometimes.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7739a5e3-4616-3e08-a8d5-d1da69e86da5",
+      "releaseId": "0442e79e-0086-4ed8-99a9-4ab266250be8",
+      "title": "The Innocents",
+      "date": "1988-04-18",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7739a5e3-4616-3e08-a8d5-d1da69e86da5/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "A Little Respect.mid",
+            "A Little Respect.1.mid",
+            "A Little Respect.2.mid",
+            "A Little Respect.3.mid",
+            "A Little Respect.4.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Chains of Love.mid",
+            "Chains of Love.1.mid",
+            "Chains of Love.2.mid",
+            "Chains of Love.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "11a2afc1-de9a-3ec1-8b2c-87274570d500",
+      "releaseId": "01ff54b2-53df-431e-b43d-ab589996eebb",
+      "title": "Crackers International",
+      "date": "1988-11-28",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/11a2afc1-de9a-3ec1-8b2c-87274570d500/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Stop!.mid",
+            "Stop!.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "298b8d42-d636-3343-b673-406ce1b2386d",
+      "releaseId": "3d59bfaa-e03d-4a9d-9e41-4a229a2ccd4d",
+      "title": "Wild!",
+      "date": "1989-10-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/298b8d42-d636-3343-b673-406ce1b2386d/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Blue Savannah.mid",
+            "Blue Savannah.1.mid",
+            "Blue Savannah.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Star.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d4eebf86-736e-3363-ad05-e8b457083810",
+      "releaseId": "07067992-a019-40eb-94c8-ed2547be25c6",
+      "title": "Chorus",
+      "date": "1991-10-14",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d4eebf86-736e-3363-ad05-e8b457083810/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Breath of Life.mid",
+            "Breath of Life.1.mid",
+            "Breath of Life.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Siren Song.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Home.mid",
+            "Home.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d5e4176c-c928-3a20-b900-75ed4d851a74",
+      "releaseId": "34051149-d269-47fe-ad23-d110fbe4ac9e",
+      "title": "Abba‐esque",
+      "date": "1992-06-01",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/d5e4176c-c928-3a20-b900-75ed4d851a74/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Abba-Esque (Take a Chance On Me).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d26f34e9-7402-3afe-9681-e3eae467cbb2",
+      "releaseId": "9a8c4a7c-161b-4c66-bf5a-50c3bd1604af",
+      "title": "I Say I Say I Say",
+      "date": "1994-05-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d26f34e9-7402-3afe-9681-e3eae467cbb2/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Take Me Back.mid",
+            "Take Me Back.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "I Love Saturday.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Man in the Moon.mid",
+            "Man in the Moon.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "So the Story Goes.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Always.mid",
+            "Always.1.mid",
+            "Always.2.mid",
+            "Always.3.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Miracle.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3d44fce5-760b-3365-9251-13510377a7af",
+      "releaseId": "77c60151-09eb-486c-997e-6d6bbd9b6c05",
+      "title": "Erasure",
+      "date": "1995-10-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3d44fce5-760b-3365-9251-13510377a7af/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Fingers & Thumbs (Cold Summer's Day).mid",
+            "Fingers & Thumbs (Cold Summer's Day).1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f7a0077e-33a9-3c2e-b08b-fd8fb3997f72",
+      "releaseId": "09da33f2-d8f9-3f3f-9897-97aae4bb4d46",
+      "title": "Light at the End of the World",
+      "date": "2007-05-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f7a0077e-33a9-3c2e-b08b-fd8fb3997f72/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Glass Angel.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "artist": "Korn",
+  "status": "processed",
+  "totalSongs": 20,
+  "matched": [
+    {
+      "song": "Ass Itch",
+      "album": "Life Is Peachy",
+      "albumId": "e958aac9-4f24-3077-96de-117ec44d4dbb",
+      "track": 13
+    },
+    {
+      "song": "Blind",
+      "album": "Korn",
+      "albumId": "aa08a002-2777-39cf-a554-e0988fc68030",
+      "track": 1
+    },
+    {
+      "song": "Clown",
+      "album": "Korn",
+      "albumId": "aa08a002-2777-39cf-a554-e0988fc68030",
+      "track": 4
+    },
+    {
+      "song": "Divine",
+      "album": "Korn",
+      "albumId": "aa08a002-2777-39cf-a554-e0988fc68030",
+      "track": 5
+    },
+    {
+      "song": "Falling Away From Me",
+      "album": "Issues",
+      "albumId": "c7497ce4-c746-3a75-946e-daa8ab117c47",
+      "track": 2
+    },
+    {
+      "song": "Freak On a Leash",
+      "album": "Follow the Leader",
+      "albumId": "e47ad139-89f6-39e8-aa84-fe84c45aeb7d",
+      "track": 2
+    },
+    {
+      "song": "Good God",
+      "album": "Life Is Peachy",
+      "albumId": "e958aac9-4f24-3077-96de-117ec44d4dbb",
+      "track": 6
+    },
+    {
+      "song": "Got The Life",
+      "album": "Follow the Leader",
+      "albumId": "e47ad139-89f6-39e8-aa84-fe84c45aeb7d",
+      "track": 3
+    },
+    {
+      "song": "Helmet In The Bush",
+      "album": "Korn",
+      "albumId": "aa08a002-2777-39cf-a554-e0988fc68030",
+      "track": 11
+    },
+    {
+      "song": "Kick the PA (feat. The Sneaker Pimps)",
+      "album": "Spawn: The Album",
+      "albumId": "984c7bd4-d94f-35f9-8bd6-3aab1a70d896",
+      "track": 4
+    },
+    {
+      "song": "Kill You",
+      "album": "Life Is Peachy",
+      "albumId": "e958aac9-4f24-3077-96de-117ec44d4dbb",
+      "track": 14
+    },
+    {
+      "song": "Lowrider",
+      "album": "Life Is Peachy",
+      "albumId": "e958aac9-4f24-3077-96de-117ec44d4dbb",
+      "track": 12
+    },
+    {
+      "song": "Make Me Bad",
+      "album": "Issues",
+      "albumId": "c7497ce4-c746-3a75-946e-daa8ab117c47",
+      "track": 6
+    },
+    {
+      "song": "No Place to Hide",
+      "album": "Life Is Peachy",
+      "albumId": "e958aac9-4f24-3077-96de-117ec44d4dbb",
+      "track": 9
+    },
+    {
+      "song": "Porno Creep",
+      "album": "Life Is Peachy",
+      "albumId": "e958aac9-4f24-3077-96de-117ec44d4dbb",
+      "track": 5
+    },
+    {
+      "song": "Predictable",
+      "album": "Korn",
+      "albumId": "aa08a002-2777-39cf-a554-e0988fc68030",
+      "track": 8
+    },
+    {
+      "song": "Proud",
+      "album": "No Place to Hide",
+      "albumId": "7cfa5ab7-537d-30cb-86d2-7cca1f3ed1d3",
+      "track": 3
+    },
+    {
+      "song": "Sean Olsen",
+      "album": "Blind",
+      "albumId": "52062160-5648-320d-8e22-fcd6a59d6574",
+      "track": 3
+    },
+    {
+      "song": "Trash",
+      "album": "Issues",
+      "albumId": "c7497ce4-c746-3a75-946e-daa8ab117c47",
+      "track": 3
+    },
+    {
+      "song": "Twist",
+      "album": "Life Is Peachy",
+      "albumId": "e958aac9-4f24-3077-96de-117ec44d4dbb",
+      "track": 1
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

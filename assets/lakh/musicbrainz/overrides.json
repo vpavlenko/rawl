@@ -1706,5 +1706,30 @@
     "name": "Garth Brooks",
     "mbid": "b76645c5-78b0-4e4c-8f95-003f40013a45",
     "country": "US"
+  },
+  "Korn": {
+    "name": "Korn",
+    "mbid": "ac865b2e-bba8-4f5a-8756-dd40d5e39f46",
+    "country": "US",
+    "songs": {
+      "Sean Olsen": {
+        "title": "Sean Olson"
+      },
+      "Kill You": {
+        "title": "Kill You / Twist (a cappella)"
+      },
+      "Kick the PA (feat. The Sneaker Pimps)": {
+        "title": "Kick the P.A."
+      }
+    },
+    "releaseOverrides": {
+      "7cfa5ab7-537d-30cb-86d2-7cca1f3ed1d3": "e7268c5e-1d45-4652-8da5-5784b5b37a2c"
+    },
+    "extraReleaseGroupIds": [
+      "984c7bd4-d94f-35f9-8bd6-3aab1a70d896"
+    ],
+    "allowedSecondaryTypes": [
+      "Soundtrack"
+    ]
   }
 }

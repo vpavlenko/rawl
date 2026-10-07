@@ -1,0 +1,16 @@
+{
+  "artist": "Tozzi Umberto",
+  "status": "processed",
+  "totalSongs": 1,
+  "matched": [
+    {
+      "song": "Ti amo",
+      "album": "È nell’aria… ti amo",
+      "albumId": "e3d413df-6f6e-38db-9ba4-9ed5e61c1a84",
+      "track": 1
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

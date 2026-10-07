@@ -1,0 +1,22 @@
+{
+  "artist": "Tozzi Umberto",
+  "artistId": "76dffaaa-57c7-4b86-8ea1-bcf351dc950c",
+  "groups": [
+    {
+      "id": "e3d413df-6f6e-38db-9ba4-9ed5e61c1a84",
+      "releaseId": "642ff5ed-b4f2-4ff9-8b9a-e0ccae2c3aa4",
+      "title": "È nell’aria… ti amo",
+      "date": "1977",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e3d413df-6f6e-38db-9ba4-9ed5e61c1a84/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ti amo.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

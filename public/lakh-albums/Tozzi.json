@@ -1,0 +1,281 @@
+{
+  "artist": "Tozzi",
+  "artistId": "76dffaaa-57c7-4b86-8ea1-bcf351dc950c",
+  "groups": [
+    {
+      "id": "49cafa81-fe48-3409-ba5b-c542f69537e7",
+      "releaseId": "1e325a0b-0e7c-4683-8aa1-b3f404aad04b",
+      "title": "Donna amante mia",
+      "date": "1976",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/49cafa81-fe48-3409-ba5b-c542f69537e7/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Donna amante mia.mid",
+            "Donna amante mia.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Io camminero.mid",
+            "Io camminero.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e3d413df-6f6e-38db-9ba4-9ed5e61c1a84",
+      "releaseId": "642ff5ed-b4f2-4ff9-8b9a-e0ccae2c3aa4",
+      "title": "È nell’aria… ti amo",
+      "date": "1977",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e3d413df-6f6e-38db-9ba4-9ed5e61c1a84/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ti amo.mid",
+            "Ti amo.1.mid",
+            "Ti amo.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "46a09d91-8208-3e66-8baa-a7340072feb6",
+      "releaseId": "c470bb52-9de8-43ee-9f35-821b594f581e",
+      "title": "Tu",
+      "date": "1978",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/46a09d91-8208-3e66-8baa-a7340072feb6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Tu.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5a477c7b-7a85-304b-abf0-60fac8027d9c",
+      "releaseId": "b8cc0e73-ccce-42d3-8b51-fa96a225e805",
+      "title": "Gloria",
+      "date": "1979-01-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5a477c7b-7a85-304b-abf0-60fac8027d9c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Gloria.mid",
+            "Gloria.1.mid",
+            "Gloria.2.mid",
+            "Gloria.3.mid",
+            "Gloria.4.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Qualcosa qualcuno.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9b2a2139-fdb2-3c9a-9efa-6dc49805a27c",
+      "releaseId": "1070e069-3255-401d-849a-55eb0f24a653",
+      "title": "Tozzi",
+      "date": "1980",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9b2a2139-fdb2-3c9a-9efa-6dc49805a27c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Stella stai.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7c534bb1-82f8-3e18-ab08-03aa1a5328a8",
+      "releaseId": "6917ed43-0529-4420-b32a-8d151cc7f22e",
+      "title": "Notte rosa",
+      "date": "1981",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7c534bb1-82f8-3e18-ab08-03aa1a5328a8/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Notte rosa.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "57f8aed5-c92b-3de0-b691-9bfae890bf3a",
+      "releaseId": "97fd7f92-e251-4b31-bde1-60fb83cf9f04",
+      "title": "Invisibile",
+      "date": "1987",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/57f8aed5-c92b-3de0-b691-9bfae890bf3a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Se non avessi te.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Immensamente.mid",
+            "Immensamente.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a037771a-df32-34c9-948d-c14049cc0637",
+      "releaseId": "e2d00dea-7ae8-4cb9-97fc-0d4f9167f701",
+      "title": "Gli altri siamo noi",
+      "date": "1991",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a037771a-df32-34c9-948d-c14049cc0637/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Gli altri siamo noi.mid",
+            "Gli altri siamo noi.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Gli innamorati.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d48ba936-e2e6-3538-bbfc-633a4fce8c92",
+      "releaseId": "516ed2fb-b100-421c-81d4-dabf0fb784f6",
+      "title": "Equivocando",
+      "date": "1994",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d48ba936-e2e6-3538-bbfc-633a4fce8c92/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Io muoio di te.mid",
+            "Io muoio di te.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Lei.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Equivocando.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b0859416-5c01-3a6a-9dcb-9c030af18668",
+      "releaseId": "0b62e13e-d1fc-4bd4-abfe-d7b9ea6985a6",
+      "title": "Il grido",
+      "date": "1996",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b0859416-5c01-3a6a-9dcb-9c030af18668/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Il grido.mid",
+            "Il grido.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1c20a3fb-489e-3fec-b930-8e260f07e7fd",
+      "releaseId": "a1a82a7d-80fd-432b-b188-14c16e2a3e23",
+      "title": "Aria & cielo",
+      "date": "1997",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1c20a3fb-489e-3fec-b930-8e260f07e7fd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Aria e cielo.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Quasi quasi.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a435c4ed-2455-3792-b83b-15af41ddc7c6",
+      "releaseId": "f9ad7284-83c3-42ad-926a-b1901f3734a7",
+      "title": "Bagaglio a mano",
+      "date": "1999",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a435c4ed-2455-3792-b83b-15af41ddc7c6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Conchiglia di diamante.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Gente di mare.mid",
+            "Gente di mare.1.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Si puo dare di piu.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "33a0ef48-8bbf-3ac7-b523-13873dbcc4ae",
+      "releaseId": "fd2599bb-ff80-406a-9ee7-7192f7b00ea2",
+      "title": "Un'altra vita",
+      "date": "2000",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/33a0ef48-8bbf-3ac7-b523-13873dbcc4ae/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Un'altra vita.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

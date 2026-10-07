@@ -1,0 +1,142 @@
+{
+  "artist": "Tozzi",
+  "status": "processed",
+  "totalSongs": 22,
+  "matched": [
+    {
+      "song": "Aria e cielo",
+      "album": "Aria & cielo",
+      "albumId": "1c20a3fb-489e-3fec-b930-8e260f07e7fd",
+      "track": 1
+    },
+    {
+      "song": "Conchiglia di diamante",
+      "album": "Bagaglio a mano",
+      "albumId": "a435c4ed-2455-3792-b83b-15af41ddc7c6",
+      "track": 1
+    },
+    {
+      "song": "Donna amante mia",
+      "album": "Donna amante mia",
+      "albumId": "49cafa81-fe48-3409-ba5b-c542f69537e7",
+      "track": 1
+    },
+    {
+      "song": "Equivocando",
+      "album": "Equivocando",
+      "albumId": "d48ba936-e2e6-3538-bbfc-633a4fce8c92",
+      "track": 3
+    },
+    {
+      "song": "Gente di mare",
+      "album": "Bagaglio a mano",
+      "albumId": "a435c4ed-2455-3792-b83b-15af41ddc7c6",
+      "track": 11
+    },
+    {
+      "song": "Gli altri siamo noi",
+      "album": "Gli altri siamo noi",
+      "albumId": "a037771a-df32-34c9-948d-c14049cc0637",
+      "track": 1
+    },
+    {
+      "song": "Gli innamorati",
+      "album": "Gli altri siamo noi",
+      "albumId": "a037771a-df32-34c9-948d-c14049cc0637",
+      "track": 5
+    },
+    {
+      "song": "Gloria",
+      "album": "Gloria",
+      "albumId": "5a477c7b-7a85-304b-abf0-60fac8027d9c",
+      "track": 1
+    },
+    {
+      "song": "Il grido",
+      "album": "Il grido",
+      "albumId": "b0859416-5c01-3a6a-9dcb-9c030af18668",
+      "track": 1
+    },
+    {
+      "song": "Immensamente",
+      "album": "Invisibile",
+      "albumId": "57f8aed5-c92b-3de0-b691-9bfae890bf3a",
+      "track": 5
+    },
+    {
+      "song": "Io camminero",
+      "album": "Donna amante mia",
+      "albumId": "49cafa81-fe48-3409-ba5b-c542f69537e7",
+      "track": 3
+    },
+    {
+      "song": "Io muoio di te",
+      "album": "Equivocando",
+      "albumId": "d48ba936-e2e6-3538-bbfc-633a4fce8c92",
+      "track": 1
+    },
+    {
+      "song": "Lei",
+      "album": "Equivocando",
+      "albumId": "d48ba936-e2e6-3538-bbfc-633a4fce8c92",
+      "track": 2
+    },
+    {
+      "song": "Notte rosa",
+      "album": "Notte rosa",
+      "albumId": "7c534bb1-82f8-3e18-ab08-03aa1a5328a8",
+      "track": 1
+    },
+    {
+      "song": "Qualcosa qualcuno",
+      "album": "Gloria",
+      "albumId": "5a477c7b-7a85-304b-abf0-60fac8027d9c",
+      "track": 2
+    },
+    {
+      "song": "Quasi quasi",
+      "album": "Aria & cielo",
+      "albumId": "1c20a3fb-489e-3fec-b930-8e260f07e7fd",
+      "track": 3
+    },
+    {
+      "song": "Se non avessi te",
+      "album": "Invisibile",
+      "albumId": "57f8aed5-c92b-3de0-b691-9bfae890bf3a",
+      "track": 1
+    },
+    {
+      "song": "Si puo dare di piu",
+      "album": "Bagaglio a mano",
+      "albumId": "a435c4ed-2455-3792-b83b-15af41ddc7c6",
+      "track": 14
+    },
+    {
+      "song": "Stella stai",
+      "album": "Tozzi",
+      "albumId": "9b2a2139-fdb2-3c9a-9efa-6dc49805a27c",
+      "track": 1
+    },
+    {
+      "song": "Ti amo",
+      "album": "È nell’aria… ti amo",
+      "albumId": "e3d413df-6f6e-38db-9ba4-9ed5e61c1a84",
+      "track": 1
+    },
+    {
+      "song": "Tu",
+      "album": "Tu",
+      "albumId": "46a09d91-8208-3e66-8baa-a7340072feb6",
+      "track": 1
+    },
+    {
+      "song": "Un'altra vita",
+      "album": "Un'altra vita",
+      "albumId": "33a0ef48-8bbf-3ac7-b523-13873dbcc4ae",
+      "track": 3
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

@@ -1513,5 +1513,25 @@
     "name": "Tori Amos",
     "mbid": "c0b2500e-0cef-4130-869d-732b23ed9df5",
     "country": "US"
+  },
+  "Tozzi": {
+    "name": "Umberto Tozzi",
+    "mbid": "76dffaaa-57c7-4b86-8ea1-bcf351dc950c",
+    "country": "IT",
+    "songs": {
+      "Aria e cielo": {
+        "title": "Aria & cielo"
+      }
+    }
+  },
+  "Tozzi Umberto": {
+    "name": "Umberto Tozzi",
+    "mbid": "76dffaaa-57c7-4b86-8ea1-bcf351dc950c",
+    "country": "IT"
+  },
+  "Umberto Tozzi": {
+    "name": "Umberto Tozzi",
+    "mbid": "76dffaaa-57c7-4b86-8ea1-bcf351dc950c",
+    "country": "IT"
   }
 }

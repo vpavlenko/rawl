@@ -1,0 +1,16 @@
+{
+  "artist": "Umberto Tozzi",
+  "status": "processed",
+  "totalSongs": 1,
+  "matched": [
+    {
+      "song": "Gloria",
+      "album": "Gloria",
+      "albumId": "5a477c7b-7a85-304b-abf0-60fac8027d9c",
+      "track": 1
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

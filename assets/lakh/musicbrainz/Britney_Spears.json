@@ -1,0 +1,140 @@
+{
+  "artist": "Britney Spears",
+  "status": "processed",
+  "totalSongs": 22,
+  "matched": [
+    {
+      "song": "(You Drive Me) Crazy",
+      "album": "…Baby One More Time",
+      "albumId": "faeb8741-2ca0-3ca6-8a1a-70bab1e67c82",
+      "track": 2
+    },
+    {
+      "song": "... Baby One More Time",
+      "album": "…Baby One More Time",
+      "albumId": "faeb8741-2ca0-3ca6-8a1a-70bab1e67c82",
+      "track": 1
+    },
+    {
+      "song": "Before the Goodbye",
+      "album": "Britney",
+      "albumId": "f850adcc-4f9f-365c-bc44-fdc0d5eaa565",
+      "track": 13
+    },
+    {
+      "song": "Born to Make You Happy",
+      "album": "…Baby One More Time",
+      "albumId": "faeb8741-2ca0-3ca6-8a1a-70bab1e67c82",
+      "track": 5
+    },
+    {
+      "song": "Boys",
+      "album": "Britney",
+      "albumId": "f850adcc-4f9f-365c-bc44-fdc0d5eaa565",
+      "track": 5
+    },
+    {
+      "song": "Cinderella",
+      "album": "Britney",
+      "albumId": "f850adcc-4f9f-365c-bc44-fdc0d5eaa565",
+      "track": 8
+    },
+    {
+      "song": "Don't Go Knockin' on My Door",
+      "album": "Oops!…I Did It Again",
+      "albumId": "f2708dcf-14e6-31f1-90e0-b3e933a0c8a3",
+      "track": 3
+    },
+    {
+      "song": "Don't Let Me Be The Last To Know",
+      "album": "Oops!…I Did It Again",
+      "albumId": "f2708dcf-14e6-31f1-90e0-b3e933a0c8a3",
+      "track": 5
+    },
+    {
+      "song": "E-Mail My Heart",
+      "album": "…Baby One More Time",
+      "albumId": "faeb8741-2ca0-3ca6-8a1a-70bab1e67c82",
+      "track": 10
+    },
+    {
+      "song": "From the Bottom of My Broken Heart",
+      "album": "…Baby One More Time",
+      "albumId": "faeb8741-2ca0-3ca6-8a1a-70bab1e67c82",
+      "track": 6
+    },
+    {
+      "song": "I Love Rock 'n' Roll",
+      "album": "Britney",
+      "albumId": "f850adcc-4f9f-365c-bc44-fdc0d5eaa565",
+      "track": 7
+    },
+    {
+      "song": "I'm a Slave for You",
+      "album": "Britney",
+      "albumId": "f850adcc-4f9f-365c-bc44-fdc0d5eaa565",
+      "track": 1
+    },
+    {
+      "song": "Lucky",
+      "album": "Oops!…I Did It Again",
+      "albumId": "f2708dcf-14e6-31f1-90e0-b3e933a0c8a3",
+      "track": 7
+    },
+    {
+      "song": "Oops!... I Did It Again",
+      "album": "Oops!…I Did It Again",
+      "albumId": "f2708dcf-14e6-31f1-90e0-b3e933a0c8a3",
+      "track": 1
+    },
+    {
+      "song": "Overprotected",
+      "album": "Britney",
+      "albumId": "f850adcc-4f9f-365c-bc44-fdc0d5eaa565",
+      "track": 2
+    },
+    {
+      "song": "Radar",
+      "album": "Blackout",
+      "albumId": "0b8e14e1-d44d-3770-8617-5c6137a444a8",
+      "track": 3
+    },
+    {
+      "song": "Soda Pop",
+      "album": "…Baby One More Time",
+      "albumId": "faeb8741-2ca0-3ca6-8a1a-70bab1e67c82",
+      "track": 4
+    },
+    {
+      "song": "Sometimes",
+      "album": "…Baby One More Time",
+      "albumId": "faeb8741-2ca0-3ca6-8a1a-70bab1e67c82",
+      "track": 3
+    },
+    {
+      "song": "Stronger",
+      "album": "Oops!…I Did It Again",
+      "albumId": "f2708dcf-14e6-31f1-90e0-b3e933a0c8a3",
+      "track": 2
+    },
+    {
+      "song": "What U See (Is What U Get)",
+      "album": "Oops!…I Did It Again",
+      "albumId": "f2708dcf-14e6-31f1-90e0-b3e933a0c8a3",
+      "track": 6
+    },
+    {
+      "song": "Where Are You Now",
+      "album": "Oops!…I Did It Again",
+      "albumId": "f2708dcf-14e6-31f1-90e0-b3e933a0c8a3",
+      "track": 9
+    }
+  ],
+  "unmatched": [
+    "Like a Virgin   Hollywood Medley (2003: MTV Video Music Awards)"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Like a Virgin   Hollywood Medley (2003: MTV Video Music Awards)": []
+  }
+}

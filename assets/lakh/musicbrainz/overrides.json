@@ -1400,5 +1400,18 @@
         "albumId": "0fa03925-736c-3537-b0c6-201091543177"
       }
     }
+  },
+  "Britney Spears": {
+    "name": "Britney Spears",
+    "mbid": "45a663b5-b1cb-4a91-bff6-2bef7bbfdd76",
+    "country": "US",
+    "releaseOverrides": {
+      "f850adcc-4f9f-365c-bc44-fdc0d5eaa565": "ada05ce8-c44e-4a59-9dbc-e1e458b60616"
+    },
+    "songs": {
+      "I'm a Slave for You": {
+        "title": "I’m a Slave 4 U"
+      }
+    }
   }
 }

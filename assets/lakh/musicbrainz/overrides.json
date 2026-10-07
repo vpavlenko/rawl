@@ -925,7 +925,13 @@
       "Hotel California (unplugged)": {
         "title": "Hotel California",
         "albumId": "690132da-dcf0-3805-b4ed-b4ec4392ae01"
+      },
+      "Best of My Love": {
+        "title": "The Best of My Love"
       }
+    },
+    "releaseOverrides": {
+      "425353d2-98b9-35a0-94d1-15f99f125994": "101d2633-f1a2-30d9-a71f-88d115fda77e"
     }
   },
   "Eric Clapton": {

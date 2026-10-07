@@ -483,6 +483,52 @@ test("exported tree inference and phrase decoder handle short pickups and exact 
     [1, 2, 6],
   );
 });
+test("four bars remain the default under weak evidence or an isolated off-grid spike", () => {
+  const model = require("../../src/harmony/phraseModel.json");
+  for (const decoder of Object.values(model.decoder)) {
+    const probabilities = Array(16).fill(0.25);
+    assert.deepEqual(
+      decodePhraseBoundaries(probabilities, 16, decoder, model.phraseLengths),
+      [1, 5, 9, 13],
+    );
+    probabilities[3] = 0.99;
+    assert.deepEqual(
+      decodePhraseBoundaries(probabilities, 16, decoder, model.phraseLengths),
+      [1, 5, 9, 13],
+    );
+  }
+});
+test("strong boundaries can shift a phrase and continue with four-bar lengths", () => {
+  const model = require("../../src/harmony/phraseModel.json");
+  for (const decoder of Object.values(model.decoder)) {
+    const probabilities = Array(16).fill(0.25);
+    probabilities[3] = 0.999999;
+    probabilities[7] = probabilities[11] = 0.9;
+    probabilities[4] = probabilities[8] = probabilities[12] = probabilities[15] = 0.0001;
+    assert.deepEqual(
+      decodePhraseBoundaries(probabilities, 16, decoder, model.phraseLengths),
+      [1, 4, 8, 12],
+    );
+    const pickup = Array(17).fill(0.01);
+    pickup[1] = 0.99999;
+    pickup[5] = pickup[9] = pickup[13] = 0.9;
+    assert.deepEqual(
+      decodePhraseBoundaries(pickup, 17, decoder, model.phraseLengths),
+      [1, 2, 6, 10, 14],
+    );
+  }
+});
+test("strong evidence against the nominal boundary can produce an eight-bar phrase", () => {
+  const model = require("../../src/harmony/phraseModel.json");
+  for (const decoder of Object.values(model.decoder)) {
+    const probabilities = Array(8).fill(0.25);
+    probabilities[4] = 0.000001;
+    assert.deepEqual(
+      decodePhraseBoundaries(probabilities, 8, decoder, model.phraseLengths),
+      [1],
+    );
+  }
+});
 test("cached heuristic phrases are upgraded by the trained model without modifying chords or annotations", () => {
   const notes = Array.from({ length: 8 }, (_, i) =>
     triad(0, i * 4, i * 4 + 2),

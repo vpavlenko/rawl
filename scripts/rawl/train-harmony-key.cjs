@@ -28,7 +28,8 @@ const normalize = (s) =>
     .replace(/^the/, "");
 const seen = new Set(),
   training = [],
-  calibration = [];
+  calibration = [],
+  trainingFiles = [];
 let trainSongs = 0,
   calibrationSongs = 0;
 for (const [key, annotation] of Object.entries(annotations)) {
@@ -51,11 +52,10 @@ for (const [key, annotation] of Object.entries(annotations)) {
       ),
     )[file];
     if (!detail) continue;
-    const input = harmonyMidi(
-      parseMidi(
-        fs.readFileSync(path.join(root, "public/lakh-data", name, file)),
-      ),
+    const midiBytes = fs.readFileSync(
+      path.join(root, "public/lakh-data", name, file),
     );
+    const input = harmonyMidi(parseMidi(midiBytes));
     if (annotation.measures)
       input.grid = buildManualMeasuresAndBeats(
         annotation.measures,
@@ -107,6 +107,14 @@ for (const [key, annotation] of Object.entries(annotations)) {
       training.push(...rows);
       trainSongs++;
     }
+    trainingFiles.push({
+      key,
+      group: song,
+      split: hash % 7 === 0 ? "calibration" : "train",
+      midiHash: crypto.createHash("sha256").update(midiBytes).digest("hex"),
+      chordSpans: detail.chords,
+      windows: rows.length,
+    });
   } catch (error) {
     console.log(
       `Skipped training example ${key}: ${error.message || String(error)}`,
@@ -191,4 +199,29 @@ fs.writeFileSync(
   path.join(root, "src/harmony/keyModel.json"),
   JSON.stringify(report, null, 2),
 );
+require("./record-model-training.cjs").recordTrainingRun({
+  model: "tonic",
+  status: "promoted",
+  command: [process.execPath, ...process.argv.slice(1)],
+  artifact: report,
+  evaluation: report,
+  dataset: {
+    annotations: "src/corpus/analyses.json",
+    annotationHash: crypto
+      .createHash("sha256")
+      .update(fs.readFileSync(path.join(root, "src/corpus/analyses.json")))
+      .digest("hex"),
+    grouping: report.note,
+    files: trainingFiles,
+  },
+  inputFiles: ["src/corpus/analyses.json"],
+  metadata: {
+    epochs: 400,
+    learningRate: 0.9,
+    l2: 0.001,
+    features: 60,
+    blendCandidates: [0, 0.025, 0.05, 0.1, 0.15, 0.2, 0.3, 0.5, 1],
+    temperatureCandidates: [0.05, 0.08, 0.12, 0.16, 0.2, 0.3, 0.4, 0.6, 0.8, 1],
+  },
+});
 console.log(JSON.stringify({ ...report, weights: undefined }, null, 2));

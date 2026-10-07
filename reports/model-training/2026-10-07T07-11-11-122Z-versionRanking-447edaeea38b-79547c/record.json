@@ -1,0 +1,71 @@
+{
+  "format": "rawl-model-training-1",
+  "runId": "2026-10-07T07-11-11-122Z-versionRanking-447edaeea38b-79547c",
+  "createdAt": "2026-10-07T07:11:11.122Z",
+  "model": "versionRanking",
+  "status": "promoted",
+  "command": [
+    "/Users/chipfocus/.nvm/versions/node/v24.12.0/bin/node",
+    "/Users/chipfocus/repos/rawl/scripts/rawl/train-lakh-version-ranker.cjs",
+    "--promote"
+  ],
+  "artifactHash": "447edaeea38b31a2a6ee5b0bc24b1efcb5fd4d7338a33c6d4784c2abb1ed991c",
+  "modelVersion": "lakh-version-linear-28fc6d88a9eb",
+  "featureVersion": "lakh-version-features-1",
+  "annotationHash": "e8381fc88d5080ffb57524c01d9eb414e469b95d091a6f656d886ffeb9c981bd",
+  "runtime": {
+    "node": "v24.12.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "midiFile": "1.2.4"
+  },
+  "metadata": {
+    "trainingDataHash": "7630102429bee1021781b02d6e5e9b0c1b2c370a6ae4bd3d2eaa46ddfaaf80c0",
+    "warning": "Small preference dataset; suggestions remain provisional. Voice presence and listening quality are not independently validated."
+  },
+  "inputs": [
+    {
+      "path": "src/corpus/analyses.json",
+      "sha256": "e8381fc88d5080ffb57524c01d9eb414e469b95d091a6f656d886ffeb9c981bd",
+      "snapshot": "input-0.json.gz"
+    }
+  ],
+  "sourceHashes": {
+    "scripts/rawl/prepare-lakh-version-training.cjs": "1e3b995cd1e95a50b2d453e22c0ddcd9b910051125036e206032403fdb6cbdbb",
+    "scripts/rawl/train-lakh-version-ranker.cjs": "6e00ebb5aa1926ee5ffa0b6f1cbb9d4ed62bb48e9c76b68803f5fa2890c0f93b",
+    "scripts/rawl/index-lakh-version-rankings.cjs": "629727c81b2c9af6a7b69e23a24cfa06ef77e184809a3ac3476ef2cf4b5085fa",
+    "src/lakh/versionFeatures.ts": "7a11c46a1130f3595bb5b5191856fae2fdfacdb46c00ceb98bd0cff6889becbb",
+    "src/lakh/versionGroups.ts": "d9ba41788f52b0f89fae913d40edc78f6c66d2242e720ea41204b653681c1500",
+    "src/lakh/versionRanking.ts": "776a0423f902ca734018faf80302951d774f2633f2df3527fbe188d1eb4d5773",
+    "src/components/lakh/artistShelves.ts": "0dbc39ac7a229014a9f9fe55ab41b40ce518e9d58df0f8b4fec0142034df0373",
+    "scripts/rawl/record-model-training.cjs": "b6a9bef9e643e3266705276efa95bec3e1174e8ab6dc5915e0eae9c6f6fbd2be",
+    "scripts/rawl/phrase-training-requirements.txt": "1cb79c20f25c4881f6d925fdb28ee8997eb683dc408f9eddfd1bd818d65b3d3e",
+    "package.json": "544869a92227ee67abe032f5ccaa9fb2de4e70492d472b169e51d291e9e0fe8c"
+  },
+  "files": [
+    {
+      "name": "artifact.json.gz",
+      "sha256": "447edaeea38b31a2a6ee5b0bc24b1efcb5fd4d7338a33c6d4784c2abb1ed991c"
+    },
+    {
+      "name": "evaluation.json.gz",
+      "sha256": "6f96e392e352892af5205daedd779998f9bbf761fced1c987d9cca88c77b7321"
+    },
+    {
+      "name": "dataset.json.gz",
+      "sha256": "d9e1cf87a31549b28aa053a6e3f66e29ae386ccafd729e74d85e9d32e661b660"
+    },
+    {
+      "name": "extraArtifacts.json.gz",
+      "sha256": "cbd2b5b347c07ace8bac5d7e24a1315fc4e92ba98ad85741b3be6196d6e4b396"
+    },
+    {
+      "name": "sources.json.gz",
+      "sha256": "506be63002c3029148720291e57a410044e918aa7f28047b48ab9323e71164ff"
+    },
+    {
+      "name": "input-0.json.gz",
+      "sha256": "69d9f8a3b36239ebd28b9986dc96054a9115750444a99a38bf902d37a4beca3e"
+    }
+  ]
+}

@@ -13,7 +13,12 @@ import {
 } from "./phraseFeatures";
 
 type TreeModel = { bias: number; trees: number[][][] };
-type Decoder = { lengthWeight: number; boundaryBias: number };
+type Decoder = {
+  lengthWeight: number;
+  boundaryBias: number;
+  nonFourBarPenalty?: number;
+  probabilityFloor?: number;
+};
 export const PHRASE_MODEL_VERSION = modelData.version;
 export function treeProbability(features: number[], model: TreeModel): number {
   let score = model.bias;
@@ -37,15 +42,17 @@ export function decodePhraseBoundaries(
   );
   const costs = Array(count + 1).fill(-Infinity),
     back = Array(count + 1).fill(0);
+  const floor = decoder.probabilityFloor ?? 0.001;
   costs[0] = 0;
   for (let end = 1; end <= count; end++) {
     for (let length = 1; length <= Math.min(32, end); length++) {
       const start = end - length;
-      const p = Math.max(0.001, Math.min(0.999, probabilities[start] ?? 0.25));
+      const p = Math.max(floor, Math.min(1 - floor, probabilities[start] ?? 0.25));
       const score =
         costs[start] +
         (start ? Math.log(p / (1 - p)) - decoder.boundaryBias : 0) +
-        lengths[length] * decoder.lengthWeight;
+        lengths[length] * decoder.lengthWeight -
+        (length === 4 ? 0 : decoder.nonFourBarPenalty ?? 0);
       if (score > costs[end]) {
         costs[end] = score;
         back[end] = start;

@@ -587,6 +587,11 @@ function saveTopCandidates(results, summary) {
     taggedSnippets,
   })}\n`);
   console.log(`Saved ${top.length} new candidates and ${taggedSnippets.length} tagged snippets to ${path.relative(root, output)}`);
+  require("./record-model-training.cjs").recordTrainingRun({
+    model: "chromaticBass", status: "promoted", command: [process.execPath, ...process.argv.slice(1)], artifact: ranker.report, evaluation: ranker.report,
+    inputFiles: ["src/corpus/analyses.json", "src/corpus/chromaticMinorBassFeedback.json"],
+    metadata: { candidateOutput: path.relative(root, output), candidates: ranked.length, scanned: summary.searched, normalization: "Means/scales fitted on all candidate features, including held-out rows; cross-validation is diagnostic", holdout: "Four folds by slug hash; additional factors were manually tuned" },
+  });
 }
 
 function main() {

@@ -1,0 +1,45 @@
+{
+  "modelVersion": "section-gbdt-ff27f13d9273",
+  "inputHashesVerified": 3518,
+  "exportMaxProbabilityError": 0,
+  "tsPythonDecoderParityFiles": 710,
+  "focusedTests": {
+    "passed": 22,
+    "failed": 0
+  },
+  "typescript": "tsc --noEmit passed",
+  "diffCheck": "Scoped changed files passed; unrelated corpora.tsx whitespace preserved",
+  "chrome": {
+    "server": "http://localhost:3000",
+    "piano": {
+      "url": "/f/chopin_military_polonaise?harmony=1",
+      "phrases": 38,
+      "sections": 17,
+      "offlineSections": 15,
+      "hideRestoresSavedRows": true
+    },
+    "drums": {
+      "url": "/f/another-reflection---nujabes?harmony=1",
+      "phrases": 15,
+      "sections": 8,
+      "drumPhraseBranchVerified": true
+    },
+    "search": {
+      "progression": "IV bVII I",
+      "result": "/lakh/The_Beatles/Help?harmony=1&measure=80",
+      "phrases": 28,
+      "sections": 15,
+      "cachedAndLiveSectionMarkersEqual": true
+    },
+    "consoleErrors": [],
+    "consoleWarnings": [],
+    "screenshot": "/private/tmp/rawl-learned-sections.png"
+  },
+  "limitations": [
+    "Model oversegments: held-out exact precision 0.386 / recall 0.654",
+    "F-score validated on /f/, not Lakh domain transfer",
+    "Offline sustain vs browser physical note-offs yield different duration/rest inputs",
+    "Similarity uses candidate-length neighboring windows rather than jointly chosen unequal-length rows",
+    "15 annotated internal spans lie outside the candidate-length set"
+  ]
+}

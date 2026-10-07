@@ -205,6 +205,7 @@ function scan(artist, file) {
     phrases: result.phrases,
     phraseModelVersion: result.phraseModelVersion,
     sections: result.sections,
+    sectionModelVersion: result.sectionModelVersion,
     warnings: [...input.warnings, ...result.warnings],
     proposal: analysisProposal(inferred, input.grid.measures),
   };
@@ -398,8 +399,11 @@ if (!isMainThread) {
       indexed: rows.length,
       skipped: errors,
       phraseModelVersion: require("../../src/harmony/phraseModel.json").version,
+      sectionModelVersion: require("../../src/harmony/sectionModel.json").version,
       phraseEvaluationNote:
         "Phrase training uses a separate corpus-wide title split. Use reports/phrase-model/evaluation.json for held-out phrase accuracy.",
+      sectionEvaluationNote:
+        "Sections are trained on /f/ groups. Use reports/section-model/evaluation.json for held-out /f/ section accuracy; this harmonic-index split is separate.",
       heldOutSongs: new Set(evaluations.map((e) => e.song)).size,
       heldOutFiles: evaluations.length,
       highConfidenceTonicAccuracy:

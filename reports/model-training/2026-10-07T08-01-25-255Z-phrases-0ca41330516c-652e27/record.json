@@ -1,0 +1,78 @@
+{
+  "format": "rawl-model-training-1",
+  "runId": "2026-10-07T08-01-25-255Z-phrases-0ca41330516c-652e27",
+  "createdAt": "2026-10-07T08:01:25.255Z",
+  "model": "phrases",
+  "status": "promoted",
+  "command": [
+    "/private/tmp/rawl-phrase-training/bin/python",
+    "scripts/rawl/calibrate-phrase-length.py",
+    "--promote"
+  ],
+  "artifactHash": "0ca41330516ccb14d55f102437ef1cff877f28d99afa295b35a3e5883a79683a",
+  "modelVersion": "phrase-gbdt-82ebee8f69a8",
+  "featureVersion": "phrase-features-1",
+  "annotationHash": "e8381fc88d5080ffb57524c01d9eb414e469b95d091a6f656d886ffeb9c981bd",
+  "runtime": {
+    "node": "v24.12.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "midiFile": "1.2.4"
+  },
+  "metadata": {
+    "mode": "decoder-only calibration; boundary trees not refitted",
+    "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "numpy": "2.5.3",
+    "sourceArtifactFileHash": "a3e9dca1d67dd35e0349c709c234c807514985f560b9af689bc403c6909c7963",
+    "trainingDataHash": "c19046bdbb9a474f5df205779abe4a242c745b7464b7a47db277c737a0aeaa10",
+    "unchangedTreeHash": "2adad9e7a85a25048b8eb272a4a4eb5afa795e311d51bd2226e8ffc3c1517425",
+    "promotionRejection": null
+  },
+  "inputs": [
+    {
+      "path": "src/corpus/analyses.json",
+      "sha256": "e8381fc88d5080ffb57524c01d9eb414e469b95d091a6f656d886ffeb9c981bd",
+      "snapshot": "input-0.json.gz"
+    }
+  ],
+  "sourceHashes": {
+    "scripts/rawl/train-phrase-model.py": "2512b9b6582eadaafc5e71a062b78a091d88e78017e394842f33ee8eb96d971a",
+    "scripts/rawl/calibrate-phrase-length.py": "d5ca244979c4a2b02e009660a4fe9613d3660a8dbb9b27c0a07af5d6bc5c5f23",
+    "scripts/rawl/phrase_decoder.py": "fc2cbbdd5b0fc156dc99060a1434a0afbdbec19d45c8fa405ed32e3364739b37",
+    "scripts/rawl/verify-phrase-decoder.cjs": "714b26fafc3f882d62af93fae4de9cdc4e2991bfdca42e6a722ee66ea95d4f10",
+    "scripts/rawl/prepare-phrase-training.cjs": "75f946efffd3767bff17d60a81150676e70165a073e15fbe0e3094244605780f",
+    "src/harmony/phraseFeatures.ts": "ebf134e3c62890bd3271ef706058d2ee4110fab6d641920d3b0d4fd45bdeeb3e",
+    "src/harmony/phraseBoundaries.ts": "4942bf228e4d6313681f9135eeb0b2da1c097e536ef23e7e1ed9bfb3855daedb",
+    "src/harmony/midi.ts": "0a0bbea4d9e26a9f0103eaf93a492952458840af4e520af7adaf3cdba281c6c8",
+    "src/components/rawl/measures.ts": "38ed5efa0c7757f7c2a4cba504e344b4f2b93d9abd2d3ad9e58b3f70743297f9",
+    "scripts/rawl/record-model-training.cjs": "6eeb49f6da04213b4824af4af5adb87103ced2fb03577d1a2c3aa1ed3e6aa162",
+    "scripts/rawl/phrase-training-requirements.txt": "1cb79c20f25c4881f6d925fdb28ee8997eb683dc408f9eddfd1bd818d65b3d3e",
+    "package.json": "544869a92227ee67abe032f5ccaa9fb2de4e70492d472b169e51d291e9e0fe8c"
+  },
+  "files": [
+    {
+      "name": "artifact.json.gz",
+      "sha256": "0ca41330516ccb14d55f102437ef1cff877f28d99afa295b35a3e5883a79683a"
+    },
+    {
+      "name": "evaluation.json.gz",
+      "sha256": "1946d2f43d80330f4fca09018351b27cc9ed0a15f05fdee1ee08658b87e8c698"
+    },
+    {
+      "name": "dataset.json.gz",
+      "sha256": "89a48b29f775b14b730b1b0fef7e317016165865650d58d936d998723c5d9b19"
+    },
+    {
+      "name": "extraArtifacts.json.gz",
+      "sha256": "a1cb09ec63a9df0ec35d32b70289ae3d630cf1c2b9e16d31969647d5f5b927ca"
+    },
+    {
+      "name": "sources.json.gz",
+      "sha256": "9027a1aec13caba92730373cbf576b3d82dd40da26d25eb8215ad6dccd0e4807"
+    },
+    {
+      "name": "input-0.json.gz",
+      "sha256": "69d9f8a3b36239ebd28b9986dc96054a9115750444a99a38bf902d37a4beca3e"
+    }
+  ]
+}

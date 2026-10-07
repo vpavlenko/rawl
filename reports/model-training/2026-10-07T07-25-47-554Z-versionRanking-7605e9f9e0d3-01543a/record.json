@@ -1,0 +1,68 @@
+{
+  "format": "rawl-model-training-1",
+  "runId": "2026-10-07T07-25-47-554Z-versionRanking-7605e9f9e0d3-01543a",
+  "createdAt": "2026-10-07T07:25:47.554Z",
+  "model": "versionRanking",
+  "status": "candidate",
+  "command": [
+    "withdraw UI experiment for visual audit; no model refit"
+  ],
+  "artifactHash": "7605e9f9e0d3f018bc1a83f554ebe6b890eee6f22cc46830a235d87654ee9b86",
+  "modelVersion": "lakh-version-gbdt-165c23d46053",
+  "featureVersion": "lakh-version-features-1-relative-1",
+  "annotationHash": "e8381fc88d5080ffb57524c01d9eb414e469b95d091a6f656d886ffeb9c981bd",
+  "runtime": {
+    "node": "v24.12.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "midiFile": "1.2.4"
+  },
+  "metadata": {
+    "deployment": "withheld",
+    "reason": "User requested visual analysis of all reviewed version groups before deriving features. Held-out top-1 32.4% does not support automatic best-version selection.",
+    "supersedesDeploymentRecord": "2026-10-07T07-15-58-115Z-versionRanking-7605e9f9e0d3-17f939",
+    "experiment": "Preserve successful fit; removing UI integration does not imply fit failure."
+  },
+  "inputs": [
+    {
+      "path": "src/corpus/analyses.json",
+      "sha256": "e8381fc88d5080ffb57524c01d9eb414e469b95d091a6f656d886ffeb9c981bd",
+      "snapshot": "input-0.json.gz"
+    }
+  ],
+  "sourceHashes": {
+    "scripts/rawl/prepare-lakh-version-training.cjs": "a4a68961a170b9afa5f002d2a1586631a6b66ee8f4d92d08a2347f999828aa51",
+    "scripts/rawl/train-lakh-version-ranker.cjs": "741e57d55a5def695604e6235184051a4f591ceda8624ba6b28efc160ade164d",
+    "scripts/rawl/train-lakh-version-model.py": "a993650969ecf06e0ee4a9ef010144088e7f32a92ab5ce51ce83bf095894ca2e",
+    "scripts/rawl/index-lakh-version-rankings.cjs": "8a8373939ddb162813cc9a189f4ebe958bb9be2895081fc58a80bd5a9cce82db",
+    "src/lakh/versionFeatures.ts": "5e03bc5b2a7ebe087a607b642ec866e375afca8917b5b9b0e295a7c63fd00e3a",
+    "src/lakh/versionGroups.ts": "67a55e60caf05ef1faf2011d07b497acca3fcbb13f296a9f2d72bc0662f40d8a",
+    "src/lakh/versionRanking.ts": "80ae1bfb5a64293ad01530f6e8ba72ad27c6401f7a8dbfb54b6af5d0f0cd146b",
+    "src/components/lakh/artistShelves.ts": "0dbc39ac7a229014a9f9fe55ab41b40ce518e9d58df0f8b4fec0142034df0373",
+    "scripts/rawl/record-model-training.cjs": "7766f3c71e2ed2e289469feebd0e6923d2d2d048bb76024f8371d377dee742be",
+    "scripts/rawl/phrase-training-requirements.txt": "1cb79c20f25c4881f6d925fdb28ee8997eb683dc408f9eddfd1bd818d65b3d3e",
+    "package.json": "544869a92227ee67abe032f5ccaa9fb2de4e70492d472b169e51d291e9e0fe8c"
+  },
+  "files": [
+    {
+      "name": "artifact.json.gz",
+      "sha256": "7605e9f9e0d3f018bc1a83f554ebe6b890eee6f22cc46830a235d87654ee9b86"
+    },
+    {
+      "name": "evaluation.json.gz",
+      "sha256": "589e05f2bd276cb3464633164e69c2151ce200bd9af2ea6c2fa3774935241e70"
+    },
+    {
+      "name": "dataset.json.gz",
+      "sha256": "d9e1cf87a31549b28aa053a6e3f66e29ae386ccafd729e74d85e9d32e661b660"
+    },
+    {
+      "name": "sources.json.gz",
+      "sha256": "ab768741c5b18d7beb160336729b454cd999357a7f424c3c64532328d338b382"
+    },
+    {
+      "name": "input-0.json.gz",
+      "sha256": "69d9f8a3b36239ebd28b9986dc96054a9115750444a99a38bf902d37a4beca3e"
+    }
+  ]
+}

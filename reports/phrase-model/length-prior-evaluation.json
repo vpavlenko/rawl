@@ -1,0 +1,1307 @@
+{
+  "modelVersion": "phrase-gbdt-82ebee8f69a8",
+  "sourceModelVersion": "phrase-gbdt-c84d5e4c97c7",
+  "mode": "decoder-only calibration; boundary trees not refitted",
+  "selection": {
+    "version": "four-bar-default-1",
+    "sourceModelVersion": "phrase-gbdt-c84d5e4c97c7",
+    "trainingDataHash": "c19046bdbb9a474f5df205779abe4a242c745b7464b7a47db277c737a0aeaa10",
+    "selection": "Validation-only 0.65 exact F1 + 0.35 off-grid exact F1; ties prefer stronger penalty. Shared non-four-bar penalty >=2; existing lengthWeight/boundaryBias and fitted trees frozen.",
+    "candidatePenalties": [
+      2.0,
+      3.0,
+      4.0,
+      5.0,
+      6.0
+    ],
+    "probabilityFloor": 1e-06
+  },
+  "dataset": {
+    "featureVersion": "phrase-features-1",
+    "annotationHash": "e8381fc88d5080ffb57524c01d9eb414e469b95d091a6f656d886ffeb9c981bd",
+    "annotations": "src/corpus/analyses.json",
+    "grouping": "Normalized title + exact MIDI byte duplicate union; SHA256 group modulo 10: 0/1 test, 2 validation, 3..9 train",
+    "songs": 3948,
+    "groups": 3883,
+    "boundaries": 366941,
+    "positiveBoundaries": 91503,
+    "drumSongs": 515,
+    "splits": {
+      "train": {
+        "songs": 2764,
+        "groups": 2722,
+        "drums": 374
+      },
+      "validation": {
+        "songs": 404,
+        "groups": 396,
+        "drums": 45
+      },
+      "test": {
+        "songs": 780,
+        "groups": 765,
+        "drums": 96
+      }
+    }
+  },
+  "referenceValidationLengths": {
+    "completedPhrases": 8709,
+    "fourBarShare": 0.8844873119761166,
+    "nonFourBarShare": 0.11551268802388337,
+    "lengthCounts": {
+      "4": 7703,
+      "2": 260,
+      "1": 119,
+      "5": 274,
+      "3": 218,
+      "6": 114,
+      "7": 19,
+      "8": 1,
+      "9": 1
+    },
+    "terminalFragmentCounts": {
+      "4": 148,
+      "3": 67,
+      "1": 100,
+      "2": 67,
+      "5": 10,
+      "6": 10,
+      "7": 2
+    },
+    "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+  },
+  "candidates": [
+    {
+      "penalty": 2.0,
+      "decoder": {
+        "teacher": {
+          "lengthWeight": 0.8,
+          "boundaryBias": -2.0,
+          "nonFourBarPenalty": 2.0,
+          "probabilityFloor": 1e-06
+        },
+        "student": {
+          "lengthWeight": 0.8,
+          "boundaryBias": -2.0,
+          "nonFourBarPenalty": 2.0,
+          "probabilityFloor": 1e-06
+        }
+      },
+      "score": 0.6243536563202307,
+      "validation": {
+        "exact": {
+          "precision": 0.6567232675539239,
+          "recall": 0.6572511195315192,
+          "f1": 0.656987087517934,
+          "matched": 5724,
+          "predicted": 8716,
+          "reference": 8709
+        },
+        "withinOneBar": {
+          "precision": 0.8516521340064249,
+          "recall": 0.8523366632219543,
+          "f1": 0.8519942611190818,
+          "matched": 7423,
+          "predicted": 8716,
+          "reference": 8709
+        },
+        "offGridExact": {
+          "precision": 0.5868353344768439,
+          "recall": 0.5424098295679747,
+          "f1": 0.5637487126673532,
+          "matched": 2737,
+          "predicted": 4664,
+          "reference": 5046
+        },
+        "lengths": {
+          "completedPhrases": 8716,
+          "fourBarShare": 0.9510096374483709,
+          "nonFourBarShare": 0.04899036255162914,
+          "lengthCounts": {
+            "4": 8289,
+            "2": 173,
+            "1": 126,
+            "3": 89,
+            "5": 38,
+            "6": 1
+          },
+          "terminalFragmentCounts": {
+            "4": 282,
+            "3": 34,
+            "1": 52,
+            "2": 31,
+            "5": 5
+          },
+          "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+        },
+        "withDrums": {
+          "songs": 45,
+          "exact": {
+            "precision": 0.6161137440758294,
+            "recall": 0.6190476190476191,
+            "f1": 0.6175771971496438,
+            "matched": 780,
+            "predicted": 1266,
+            "reference": 1260
+          },
+          "offGridExact": {
+            "precision": 0.6407119021134594,
+            "recall": 0.5853658536585366,
+            "f1": 0.611789697291556,
+            "matched": 576,
+            "predicted": 899,
+            "reference": 984
+          },
+          "lengths": {
+            "completedPhrases": 1266,
+            "fourBarShare": 0.9462875197472354,
+            "nonFourBarShare": 0.05371248025276465,
+            "lengthCounts": {
+              "4": 1198,
+              "2": 32,
+              "3": 17,
+              "1": 16,
+              "5": 3
+            },
+            "terminalFragmentCounts": {
+              "4": 28,
+              "1": 7,
+              "3": 5,
+              "2": 5
+            },
+            "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+          }
+        },
+        "withoutDrums": {
+          "songs": 359,
+          "exact": {
+            "precision": 0.6636241610738255,
+            "recall": 0.6637132501006846,
+            "f1": 0.6636687025974898,
+            "matched": 4944,
+            "predicted": 7450,
+            "reference": 7449
+          },
+          "offGridExact": {
+            "precision": 0.5739707835325365,
+            "recall": 0.5320039389463319,
+            "f1": 0.5521911332566756,
+            "matched": 2161,
+            "predicted": 3765,
+            "reference": 4062
+          },
+          "lengths": {
+            "completedPhrases": 7450,
+            "fourBarShare": 0.9518120805369128,
+            "nonFourBarShare": 0.0481879194630872,
+            "lengthCounts": {
+              "4": 7091,
+              "2": 141,
+              "1": 110,
+              "3": 72,
+              "5": 35,
+              "6": 1
+            },
+            "terminalFragmentCounts": {
+              "4": 254,
+              "3": 29,
+              "1": 45,
+              "2": 26,
+              "5": 5
+            },
+            "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+          }
+        }
+      }
+    },
+    {
+      "penalty": 3.0,
+      "decoder": {
+        "teacher": {
+          "lengthWeight": 0.8,
+          "boundaryBias": -2.0,
+          "nonFourBarPenalty": 3.0,
+          "probabilityFloor": 1e-06
+        },
+        "student": {
+          "lengthWeight": 0.8,
+          "boundaryBias": -2.0,
+          "nonFourBarPenalty": 3.0,
+          "probabilityFloor": 1e-06
+        }
+      },
+      "score": 0.6156212835537943,
+      "validation": {
+        "exact": {
+          "precision": 0.6511279926335175,
+          "recall": 0.6495579285796302,
+          "f1": 0.6503420129907456,
+          "matched": 5657,
+          "predicted": 8688,
+          "reference": 8709
+        },
+        "withinOneBar": {
+          "precision": 0.8502532228360957,
+          "recall": 0.8482030083821335,
+          "f1": 0.8492268781973904,
+          "matched": 7387,
+          "predicted": 8688,
+          "reference": 8709
+        },
+        "offGridExact": {
+          "precision": 0.58348095659876,
+          "recall": 0.522195798652398,
+          "f1": 0.5511399288851705,
+          "matched": 2635,
+          "predicted": 4516,
+          "reference": 5046
+        },
+        "lengths": {
+          "completedPhrases": 8688,
+          "fourBarShare": 0.9570672191528545,
+          "nonFourBarShare": 0.04293278084714547,
+          "lengthCounts": {
+            "4": 8315,
+            "2": 150,
+            "1": 112,
+            "3": 76,
+            "5": 34,
+            "6": 1
+          },
+          "terminalFragmentCounts": {
+            "4": 289,
+            "3": 31,
+            "1": 48,
+            "2": 31,
+            "5": 5
+          },
+          "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+        },
+        "withDrums": {
+          "songs": 45,
+          "exact": {
+            "precision": 0.6096595407759303,
+            "recall": 0.6111111111111112,
+            "f1": 0.6103844629409433,
+            "matched": 770,
+            "predicted": 1263,
+            "reference": 1260
+          },
+          "offGridExact": {
+            "precision": 0.639080459770115,
+            "recall": 0.5650406504065041,
+            "f1": 0.5997842502696872,
+            "matched": 556,
+            "predicted": 870,
+            "reference": 984
+          },
+          "lengths": {
+            "completedPhrases": 1263,
+            "fourBarShare": 0.9548693586698337,
+            "nonFourBarShare": 0.04513064133016631,
+            "lengthCounts": {
+              "4": 1206,
+              "2": 25,
+              "1": 18,
+              "3": 13,
+              "5": 1
+            },
+            "terminalFragmentCounts": {
+              "4": 29,
+              "1": 7,
+              "3": 5,
+              "2": 4
+            },
+            "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+          }
+        },
+        "withoutDrums": {
+          "songs": 359,
+          "exact": {
+            "precision": 0.6581818181818182,
+            "recall": 0.6560612162706404,
+            "f1": 0.6571198063735377,
+            "matched": 4887,
+            "predicted": 7425,
+            "reference": 7449
+          },
+          "offGridExact": {
+            "precision": 0.570213933077345,
+            "recall": 0.5118168389955687,
+            "f1": 0.5394395433316036,
+            "matched": 2079,
+            "predicted": 3646,
+            "reference": 4062
+          },
+          "lengths": {
+            "completedPhrases": 7425,
+            "fourBarShare": 0.9574410774410774,
+            "nonFourBarShare": 0.042558922558922574,
+            "lengthCounts": {
+              "4": 7109,
+              "2": 125,
+              "1": 94,
+              "3": 63,
+              "5": 33,
+              "6": 1
+            },
+            "terminalFragmentCounts": {
+              "4": 260,
+              "3": 26,
+              "1": 41,
+              "2": 27,
+              "5": 5
+            },
+            "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+          }
+        }
+      }
+    },
+    {
+      "penalty": 4.0,
+      "decoder": {
+        "teacher": {
+          "lengthWeight": 0.8,
+          "boundaryBias": -2.0,
+          "nonFourBarPenalty": 4.0,
+          "probabilityFloor": 1e-06
+        },
+        "student": {
+          "lengthWeight": 0.8,
+          "boundaryBias": -2.0,
+          "nonFourBarPenalty": 4.0,
+          "probabilityFloor": 1e-06
+        }
+      },
+      "score": 0.5949137418516036,
+      "validation": {
+        "exact": {
+          "precision": 0.6344867358708189,
+          "recall": 0.6316454242737398,
+          "f1": 0.6330628919960872,
+          "matched": 5501,
+          "predicted": 8670,
+          "reference": 8709
+        },
+        "withinOneBar": {
+          "precision": 0.840715109573241,
+          "recall": 0.8369502813181766,
+          "f1": 0.8388284711433339,
+          "matched": 7289,
+          "predicted": 8670,
+          "reference": 8709
+        },
+        "offGridExact": {
+          "precision": 0.5722665415297982,
+          "recall": 0.48335315101070153,
+          "f1": 0.5240653201547056,
+          "matched": 2439,
+          "predicted": 4262,
+          "reference": 5046
+        },
+        "lengths": {
+          "completedPhrases": 8670,
+          "fourBarShare": 0.962168396770473,
+          "nonFourBarShare": 0.037831603229527055,
+          "lengthCounts": {
+            "4": 8342,
+            "2": 136,
+            "1": 98,
+            "3": 69,
+            "5": 24,
+            "6": 1
+          },
+          "terminalFragmentCounts": {
+            "4": 296,
+            "3": 28,
+            "1": 48,
+            "2": 29,
+            "5": 3
+          },
+          "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+        },
+        "withDrums": {
+          "songs": 45,
+          "exact": {
+            "precision": 0.6182539682539683,
+            "recall": 0.6182539682539683,
+            "f1": 0.6182539682539683,
+            "matched": 779,
+            "predicted": 1260,
+            "reference": 1260
+          },
+          "offGridExact": {
+            "precision": 0.6462264150943396,
+            "recall": 0.556910569105691,
+            "f1": 0.5982532751091704,
+            "matched": 548,
+            "predicted": 848,
+            "reference": 984
+          },
+          "lengths": {
+            "completedPhrases": 1260,
+            "fourBarShare": 0.957936507936508,
+            "nonFourBarShare": 0.042063492063492025,
+            "lengthCounts": {
+              "4": 1207,
+              "2": 24,
+              "1": 17,
+              "3": 10,
+              "5": 2
+            },
+            "terminalFragmentCounts": {
+              "4": 31,
+              "1": 7,
+              "3": 4,
+              "2": 3
+            },
+            "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+          }
+        },
+        "withoutDrums": {
+          "songs": 359,
+          "exact": {
+            "precision": 0.637246963562753,
+            "recall": 0.6339105920257753,
+            "f1": 0.635574399353927,
+            "matched": 4722,
+            "predicted": 7410,
+            "reference": 7449
+          },
+          "offGridExact": {
+            "precision": 0.5538957234915056,
+            "recall": 0.465534219596258,
+            "f1": 0.5058855002675228,
+            "matched": 1891,
+            "predicted": 3414,
+            "reference": 4062
+          },
+          "lengths": {
+            "completedPhrases": 7410,
+            "fourBarShare": 0.9628879892037787,
+            "nonFourBarShare": 0.037112010796221284,
+            "lengthCounts": {
+              "4": 7135,
+              "2": 112,
+              "1": 81,
+              "3": 59,
+              "5": 22,
+              "6": 1
+            },
+            "terminalFragmentCounts": {
+              "4": 265,
+              "3": 24,
+              "1": 41,
+              "2": 26,
+              "5": 3
+            },
+            "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+          }
+        }
+      }
+    },
+    {
+      "penalty": 5.0,
+      "decoder": {
+        "teacher": {
+          "lengthWeight": 0.8,
+          "boundaryBias": -2.0,
+          "nonFourBarPenalty": 5.0,
+          "probabilityFloor": 1e-06
+        },
+        "student": {
+          "lengthWeight": 0.8,
+          "boundaryBias": -2.0,
+          "nonFourBarPenalty": 5.0,
+          "probabilityFloor": 1e-06
+        }
+      },
+      "score": 0.5678072692940168,
+      "validation": {
+        "exact": {
+          "precision": 0.6118436271108026,
+          "recall": 0.6074176139625674,
+          "f1": 0.609622587150677,
+          "matched": 5290,
+          "predicted": 8646,
+          "reference": 8709
+        },
+        "withinOneBar": {
+          "precision": 0.832292389544298,
+          "recall": 0.8262716729819727,
+          "f1": 0.8292711034284069,
+          "matched": 7196,
+          "predicted": 8646,
+          "reference": 8709
+        },
+        "offGridExact": {
+          "precision": 0.559025133282559,
+          "recall": 0.43638525564803804,
+          "f1": 0.49015025041736227,
+          "matched": 2202,
+          "predicted": 3939,
+          "reference": 5046
+        },
+        "lengths": {
+          "completedPhrases": 8646,
+          "fourBarShare": 0.9669211195928753,
+          "nonFourBarShare": 0.0330788804071247,
+          "lengthCounts": {
+            "4": 8360,
+            "2": 113,
+            "1": 90,
+            "3": 60,
+            "5": 23
+          },
+          "terminalFragmentCounts": {
+            "4": 304,
+            "3": 27,
+            "1": 43,
+            "2": 27,
+            "5": 3
+          },
+          "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+        },
+        "withDrums": {
+          "songs": 45,
+          "exact": {
+            "precision": 0.5660828025477707,
+            "recall": 0.5642857142857143,
+            "f1": 0.5651828298887122,
+            "matched": 711,
+            "predicted": 1256,
+            "reference": 1260
+          },
+          "offGridExact": {
+            "precision": 0.6075949367088608,
+            "recall": 0.4878048780487805,
+            "f1": 0.5411499436302142,
+            "matched": 480,
+            "predicted": 790,
+            "reference": 984
+          },
+          "lengths": {
+            "completedPhrases": 1256,
+            "fourBarShare": 0.9633757961783439,
+            "nonFourBarShare": 0.0366242038216561,
+            "lengthCounts": {
+              "4": 1210,
+              "2": 21,
+              "1": 15,
+              "3": 9,
+              "5": 1
+            },
+            "terminalFragmentCounts": {
+              "4": 34,
+              "1": 7,
+              "3": 2,
+              "2": 2
+            },
+            "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+          }
+        },
+        "withoutDrums": {
+          "songs": 359,
+          "exact": {
+            "precision": 0.6196211096075778,
+            "recall": 0.6147133843468922,
+            "f1": 0.617157490396927,
+            "matched": 4579,
+            "predicted": 7390,
+            "reference": 7449
+          },
+          "offGridExact": {
+            "precision": 0.5468402667513497,
+            "recall": 0.4239290989660266,
+            "f1": 0.47760366107336016,
+            "matched": 1722,
+            "predicted": 3149,
+            "reference": 4062
+          },
+          "lengths": {
+            "completedPhrases": 7390,
+            "fourBarShare": 0.9675236806495264,
+            "nonFourBarShare": 0.03247631935047357,
+            "lengthCounts": {
+              "4": 7150,
+              "2": 92,
+              "1": 75,
+              "3": 51,
+              "5": 22
+            },
+            "terminalFragmentCounts": {
+              "4": 270,
+              "3": 25,
+              "1": 36,
+              "2": 25,
+              "5": 3
+            },
+            "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+          }
+        }
+      }
+    },
+    {
+      "penalty": 6.0,
+      "decoder": {
+        "teacher": {
+          "lengthWeight": 0.8,
+          "boundaryBias": -2.0,
+          "nonFourBarPenalty": 6.0,
+          "probabilityFloor": 1e-06
+        },
+        "student": {
+          "lengthWeight": 0.8,
+          "boundaryBias": -2.0,
+          "nonFourBarPenalty": 6.0,
+          "probabilityFloor": 1e-06
+        }
+      },
+      "score": 0.5516478962391781,
+      "validation": {
+        "exact": {
+          "precision": 0.599189345686161,
+          "recall": 0.5940980594787002,
+          "f1": 0.5966328413284133,
+          "matched": 5174,
+          "predicted": 8635,
+          "reference": 8709
+        },
+        "withinOneBar": {
+          "precision": 0.827446438911407,
+          "recall": 0.8204156619588931,
+          "f1": 0.8239160516605167,
+          "matched": 7145,
+          "predicted": 8635,
+          "reference": 8709
+        },
+        "offGridExact": {
+          "precision": 0.5478214665249734,
+          "recall": 0.40864050733254065,
+          "f1": 0.4681044267877412,
+          "matched": 2062,
+          "predicted": 3764,
+          "reference": 5046
+        },
+        "lengths": {
+          "completedPhrases": 8635,
+          "fourBarShare": 0.9690793283149971,
+          "nonFourBarShare": 0.0309206716850029,
+          "lengthCounts": {
+            "4": 8368,
+            "2": 112,
+            "1": 84,
+            "3": 53,
+            "5": 18
+          },
+          "terminalFragmentCounts": {
+            "4": 313,
+            "1": 38,
+            "2": 24,
+            "3": 26,
+            "5": 3
+          },
+          "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+        },
+        "withDrums": {
+          "songs": 45,
+          "exact": {
+            "precision": 0.5553784860557769,
+            "recall": 0.5531746031746032,
+            "f1": 0.5542743538767396,
+            "matched": 697,
+            "predicted": 1255,
+            "reference": 1260
+          },
+          "offGridExact": {
+            "precision": 0.6268260292164675,
+            "recall": 0.4796747967479675,
+            "f1": 0.5434657455382844,
+            "matched": 472,
+            "predicted": 753,
+            "reference": 984
+          },
+          "lengths": {
+            "completedPhrases": 1255,
+            "fourBarShare": 0.9649402390438248,
+            "nonFourBarShare": 0.035059760956175245,
+            "lengthCounts": {
+              "4": 1211,
+              "2": 22,
+              "1": 15,
+              "3": 6,
+              "5": 1
+            },
+            "terminalFragmentCounts": {
+              "4": 35,
+              "1": 6,
+              "3": 2,
+              "2": 2
+            },
+            "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+          }
+        },
+        "withoutDrums": {
+          "songs": 359,
+          "exact": {
+            "precision": 0.606639566395664,
+            "recall": 0.6010202711773392,
+            "f1": 0.6038168453705577,
+            "matched": 4477,
+            "predicted": 7380,
+            "reference": 7449
+          },
+          "offGridExact": {
+            "precision": 0.5280637661906343,
+            "recall": 0.3914327917282127,
+            "f1": 0.449597059239361,
+            "matched": 1590,
+            "predicted": 3011,
+            "reference": 4062
+          },
+          "lengths": {
+            "completedPhrases": 7380,
+            "fourBarShare": 0.9697831978319783,
+            "nonFourBarShare": 0.030216802168021695,
+            "lengthCounts": {
+              "4": 7157,
+              "2": 90,
+              "1": 69,
+              "3": 47,
+              "5": 17
+            },
+            "terminalFragmentCounts": {
+              "4": 278,
+              "1": 32,
+              "2": 22,
+              "5": 3,
+              "3": 24
+            },
+            "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+          }
+        }
+      }
+    }
+  ],
+  "validation": {
+    "previous": {
+      "exact": {
+        "precision": 0.6747260196587956,
+        "recall": 0.6857274084280629,
+        "f1": 0.6801822323462414,
+        "matched": 5972,
+        "predicted": 8851,
+        "reference": 8709
+      },
+      "withinOneBar": {
+        "precision": 0.8504123827816066,
+        "recall": 0.8642783327592146,
+        "f1": 0.8572892938496582,
+        "matched": 7527,
+        "predicted": 8851,
+        "reference": 8709
+      },
+      "offGridExact": {
+        "precision": 0.5973951350316031,
+        "recall": 0.6181133571145462,
+        "f1": 0.6075776760494788,
+        "matched": 3119,
+        "predicted": 5221,
+        "reference": 5046
+      },
+      "lengths": {
+        "completedPhrases": 8851,
+        "fourBarShare": 0.9197830753587165,
+        "nonFourBarShare": 0.0802169246412835,
+        "lengthCounts": {
+          "4": 8141,
+          "2": 281,
+          "1": 192,
+          "3": 180,
+          "5": 54,
+          "6": 3
+        },
+        "terminalFragmentCounts": {
+          "2": 40,
+          "4": 252,
+          "3": 41,
+          "1": 63,
+          "5": 8
+        },
+        "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+      },
+      "withDrums": {
+        "songs": 45,
+        "exact": {
+          "precision": 0.660436137071651,
+          "recall": 0.6730158730158731,
+          "f1": 0.6666666666666667,
+          "matched": 848,
+          "predicted": 1284,
+          "reference": 1260
+        },
+        "offGridExact": {
+          "precision": 0.6739583333333333,
+          "recall": 0.657520325203252,
+          "f1": 0.6656378600823044,
+          "matched": 647,
+          "predicted": 960,
+          "reference": 984
+        },
+        "lengths": {
+          "completedPhrases": 1284,
+          "fourBarShare": 0.9166666666666666,
+          "nonFourBarShare": 0.08333333333333337,
+          "lengthCounts": {
+            "4": 1177,
+            "2": 48,
+            "1": 28,
+            "5": 9,
+            "3": 22
+          },
+          "terminalFragmentCounts": {
+            "4": 24,
+            "1": 8,
+            "3": 6,
+            "2": 6,
+            "5": 1
+          },
+          "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+        }
+      },
+      "withoutDrums": {
+        "songs": 359,
+        "exact": {
+          "precision": 0.6771507863089732,
+          "recall": 0.6878775674587193,
+          "f1": 0.6824720298348428,
+          "matched": 5124,
+          "predicted": 7567,
+          "reference": 7449
+        },
+        "offGridExact": {
+          "precision": 0.5801455057498239,
+          "recall": 0.6085672082717873,
+          "f1": 0.5940165805598941,
+          "matched": 2472,
+          "predicted": 4261,
+          "reference": 4062
+        },
+        "lengths": {
+          "completedPhrases": 7567,
+          "fourBarShare": 0.9203118805338972,
+          "nonFourBarShare": 0.07968811946610277,
+          "lengthCounts": {
+            "4": 6964,
+            "2": 233,
+            "1": 164,
+            "3": 158,
+            "5": 45,
+            "6": 3
+          },
+          "terminalFragmentCounts": {
+            "2": 34,
+            "4": 228,
+            "3": 35,
+            "1": 55,
+            "5": 7
+          },
+          "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+        }
+      }
+    },
+    "selected": {
+      "exact": {
+        "precision": 0.6567232675539239,
+        "recall": 0.6572511195315192,
+        "f1": 0.656987087517934,
+        "matched": 5724,
+        "predicted": 8716,
+        "reference": 8709
+      },
+      "withinOneBar": {
+        "precision": 0.8516521340064249,
+        "recall": 0.8523366632219543,
+        "f1": 0.8519942611190818,
+        "matched": 7423,
+        "predicted": 8716,
+        "reference": 8709
+      },
+      "offGridExact": {
+        "precision": 0.5868353344768439,
+        "recall": 0.5424098295679747,
+        "f1": 0.5637487126673532,
+        "matched": 2737,
+        "predicted": 4664,
+        "reference": 5046
+      },
+      "lengths": {
+        "completedPhrases": 8716,
+        "fourBarShare": 0.9510096374483709,
+        "nonFourBarShare": 0.04899036255162914,
+        "lengthCounts": {
+          "4": 8289,
+          "2": 173,
+          "1": 126,
+          "3": 89,
+          "5": 38,
+          "6": 1
+        },
+        "terminalFragmentCounts": {
+          "4": 282,
+          "3": 34,
+          "1": 52,
+          "2": 31,
+          "5": 5
+        },
+        "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+      },
+      "withDrums": {
+        "songs": 45,
+        "exact": {
+          "precision": 0.6161137440758294,
+          "recall": 0.6190476190476191,
+          "f1": 0.6175771971496438,
+          "matched": 780,
+          "predicted": 1266,
+          "reference": 1260
+        },
+        "offGridExact": {
+          "precision": 0.6407119021134594,
+          "recall": 0.5853658536585366,
+          "f1": 0.611789697291556,
+          "matched": 576,
+          "predicted": 899,
+          "reference": 984
+        },
+        "lengths": {
+          "completedPhrases": 1266,
+          "fourBarShare": 0.9462875197472354,
+          "nonFourBarShare": 0.05371248025276465,
+          "lengthCounts": {
+            "4": 1198,
+            "2": 32,
+            "3": 17,
+            "1": 16,
+            "5": 3
+          },
+          "terminalFragmentCounts": {
+            "4": 28,
+            "1": 7,
+            "3": 5,
+            "2": 5
+          },
+          "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+        }
+      },
+      "withoutDrums": {
+        "songs": 359,
+        "exact": {
+          "precision": 0.6636241610738255,
+          "recall": 0.6637132501006846,
+          "f1": 0.6636687025974898,
+          "matched": 4944,
+          "predicted": 7450,
+          "reference": 7449
+        },
+        "offGridExact": {
+          "precision": 0.5739707835325365,
+          "recall": 0.5320039389463319,
+          "f1": 0.5521911332566756,
+          "matched": 2161,
+          "predicted": 3765,
+          "reference": 4062
+        },
+        "lengths": {
+          "completedPhrases": 7450,
+          "fourBarShare": 0.9518120805369128,
+          "nonFourBarShare": 0.0481879194630872,
+          "lengthCounts": {
+            "4": 7091,
+            "2": 141,
+            "1": 110,
+            "3": 72,
+            "5": 35,
+            "6": 1
+          },
+          "terminalFragmentCounts": {
+            "4": 254,
+            "3": 29,
+            "1": 45,
+            "2": 26,
+            "5": 5
+          },
+          "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+        }
+      }
+    },
+    "regularFourBarsExact": {
+      "precision": 0.42597976508896385,
+      "recall": 0.42059937995177404,
+      "f1": 0.42327247515599725,
+      "matched": 3663,
+      "predicted": 8599,
+      "reference": 8709
+    }
+  },
+  "test": {
+    "previous": {
+      "exact": {
+        "precision": 0.6765803397382345,
+        "recall": 0.684702964716492,
+        "f1": 0.680617418830714,
+        "matched": 12148,
+        "predicted": 17955,
+        "reference": 17742
+      },
+      "withinOneBar": {
+        "precision": 0.8474519632414369,
+        "recall": 0.8576259722691918,
+        "f1": 0.8525086141692579,
+        "matched": 15216,
+        "predicted": 17955,
+        "reference": 17742
+      },
+      "offGridExact": {
+        "precision": 0.6090546973671427,
+        "recall": 0.6228514654744163,
+        "f1": 0.6158758227723745,
+        "matched": 6269,
+        "predicted": 10293,
+        "reference": 10065
+      },
+      "lengths": {
+        "completedPhrases": 17955,
+        "fourBarShare": 0.9233639654692286,
+        "nonFourBarShare": 0.07663603453077139,
+        "lengthCounts": {
+          "4": 16579,
+          "3": 316,
+          "2": 568,
+          "1": 376,
+          "5": 114,
+          "6": 2
+        },
+        "terminalFragmentCounts": {
+          "4": 472,
+          "3": 72,
+          "2": 85,
+          "1": 140,
+          "5": 11
+        },
+        "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+      },
+      "withDrums": {
+        "songs": 96,
+        "exact": {
+          "precision": 0.7337662337662337,
+          "recall": 0.7440329218106996,
+          "f1": 0.7388639149979568,
+          "matched": 1808,
+          "predicted": 2464,
+          "reference": 2430
+        },
+        "offGridExact": {
+          "precision": 0.7415418746533555,
+          "recall": 0.7728323699421965,
+          "f1": 0.756863855080668,
+          "matched": 1337,
+          "predicted": 1803,
+          "reference": 1730
+        },
+        "lengths": {
+          "completedPhrases": 2464,
+          "fourBarShare": 0.921672077922078,
+          "nonFourBarShare": 0.07832792207792205,
+          "lengthCounts": {
+            "4": 2271,
+            "1": 41,
+            "3": 44,
+            "2": 92,
+            "5": 16
+          },
+          "terminalFragmentCounts": {
+            "4": 45,
+            "1": 25,
+            "2": 19,
+            "3": 7
+          },
+          "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+        }
+      },
+      "withoutDrums": {
+        "songs": 684,
+        "exact": {
+          "precision": 0.6674843457491446,
+          "recall": 0.6752873563218391,
+          "f1": 0.671363178911145,
+          "matched": 10340,
+          "predicted": 15491,
+          "reference": 15312
+        },
+        "offGridExact": {
+          "precision": 0.5809187279151944,
+          "recall": 0.5917216556688663,
+          "f1": 0.5862704309063893,
+          "matched": 4932,
+          "predicted": 8490,
+          "reference": 8335
+        },
+        "lengths": {
+          "completedPhrases": 15491,
+          "fourBarShare": 0.9236330772706733,
+          "nonFourBarShare": 0.07636692272932666,
+          "lengthCounts": {
+            "4": 14308,
+            "3": 272,
+            "2": 476,
+            "1": 335,
+            "5": 98,
+            "6": 2
+          },
+          "terminalFragmentCounts": {
+            "4": 427,
+            "3": 65,
+            "2": 66,
+            "1": 115,
+            "5": 11
+          },
+          "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+        }
+      }
+    },
+    "selected": {
+      "exact": {
+        "precision": 0.6719959324331959,
+        "recall": 0.6704430165708488,
+        "f1": 0.6712185763056175,
+        "matched": 11895,
+        "predicted": 17701,
+        "reference": 17742
+      },
+      "withinOneBar": {
+        "precision": 0.8495000282469917,
+        "recall": 0.8475369180475707,
+        "f1": 0.8485173376971474,
+        "matched": 15037,
+        "predicted": 17701,
+        "reference": 17742
+      },
+      "offGridExact": {
+        "precision": 0.6209045010205178,
+        "recall": 0.5742672627918529,
+        "f1": 0.5966759574687726,
+        "matched": 5780,
+        "predicted": 9309,
+        "reference": 10065
+      },
+      "lengths": {
+        "completedPhrases": 17701,
+        "fourBarShare": 0.9523755720015818,
+        "nonFourBarShare": 0.04762442799841815,
+        "lengthCounts": {
+          "4": 16858,
+          "3": 189,
+          "2": 328,
+          "1": 257,
+          "5": 67,
+          "6": 2
+        },
+        "terminalFragmentCounts": {
+          "4": 519,
+          "3": 61,
+          "1": 122,
+          "2": 68,
+          "5": 9,
+          "6": 1
+        },
+        "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+      },
+      "withDrums": {
+        "songs": 96,
+        "exact": {
+          "precision": 0.7236408566721582,
+          "recall": 0.723045267489712,
+          "f1": 0.723342939481268,
+          "matched": 1757,
+          "predicted": 2428,
+          "reference": 2430
+        },
+        "offGridExact": {
+          "precision": 0.7397420867526378,
+          "recall": 0.7294797687861272,
+          "f1": 0.7345750873108267,
+          "matched": 1262,
+          "predicted": 1706,
+          "reference": 1730
+        },
+        "lengths": {
+          "completedPhrases": 2428,
+          "fourBarShare": 0.9481054365733114,
+          "nonFourBarShare": 0.051894563426688634,
+          "lengthCounts": {
+            "4": 2302,
+            "1": 27,
+            "2": 60,
+            "3": 26,
+            "5": 12,
+            "6": 1
+          },
+          "terminalFragmentCounts": {
+            "4": 54,
+            "1": 21,
+            "2": 14,
+            "3": 7
+          },
+          "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+        }
+      },
+      "withoutDrums": {
+        "songs": 684,
+        "exact": {
+          "precision": 0.6637857657303738,
+          "recall": 0.6620950888192267,
+          "f1": 0.6629393493542587,
+          "matched": 10138,
+          "predicted": 15273,
+          "reference": 15312
+        },
+        "offGridExact": {
+          "precision": 0.5942391161383664,
+          "recall": 0.5420515896820636,
+          "f1": 0.5669469193123353,
+          "matched": 4518,
+          "predicted": 7603,
+          "reference": 8335
+        },
+        "lengths": {
+          "completedPhrases": 15273,
+          "fourBarShare": 0.9530544097426832,
+          "nonFourBarShare": 0.046945590257316816,
+          "lengthCounts": {
+            "4": 14556,
+            "3": 163,
+            "2": 268,
+            "1": 230,
+            "5": 55,
+            "6": 1
+          },
+          "terminalFragmentCounts": {
+            "4": 465,
+            "3": 54,
+            "1": 101,
+            "2": 54,
+            "5": 9,
+            "6": 1
+          },
+          "note": "Completed inter-boundary lengths, including pickups. The last file fragment is tabulated separately; the decoder still penalizes its length."
+        }
+      }
+    },
+    "note": "Same previously evaluated split; diagnostic comparison. No parameter selected from test."
+  },
+  "crossLanguageVerification": {
+    "crossLanguageDecoderFixtures": 404,
+    "matched": true
+  }
+}

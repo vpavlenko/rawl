@@ -1,0 +1,59 @@
+{
+  "format": "rawl-model-training-1",
+  "runId": "2026-10-07T06-49-58-313Z-phrases-c1664fa47c4a-80716c",
+  "createdAt": "2026-10-07T06:49:58.313Z",
+  "model": "phrases",
+  "status": "historical-snapshot",
+  "command": null,
+  "artifactHash": "c1664fa47c4a01dd94339a19a3bec59574c5528d4d6e01a138a2d66ebd946ef5",
+  "modelVersion": "phrase-gbdt-c84d5e4c97c7",
+  "featureVersion": "phrase-features-1",
+  "annotationHash": "e8381fc88d5080ffb57524c01d9eb414e469b95d091a6f656d886ffeb9c981bd",
+  "runtime": {
+    "node": "v24.12.0"
+  },
+  "metadata": {
+    "historicalRunDate": "2026-10-07",
+    "originalCommand": "Not captured; reproduction commands are documented",
+    "sourceProvenance": "Code at archival time; not certified original training revision",
+    "variants": "Original distilled student weights unavailable; current teacher/supervised student and all experiment metrics preserved"
+  },
+  "inputs": [
+    {
+      "path": "src/corpus/analyses.json",
+      "sha256": "e8381fc88d5080ffb57524c01d9eb414e469b95d091a6f656d886ffeb9c981bd",
+      "snapshot": "input-0.json.gz"
+    }
+  ],
+  "sourceHashes": {
+    "scripts/rawl/train-phrase-model.py": "4ab5b09af7f521c5e6e7e729830a0af7febb4100f51e3cf9a452f7bd6bfeff54",
+    "scripts/rawl/prepare-phrase-training.cjs": "75f946efffd3767bff17d60a81150676e70165a073e15fbe0e3094244605780f",
+    "src/harmony/phraseFeatures.ts": "ebf134e3c62890bd3271ef706058d2ee4110fab6d641920d3b0d4fd45bdeeb3e",
+    "src/harmony/phraseBoundaries.ts": "d91e8358609ffc1daaea6251f267ee1173192886625de33c4a4839b7f473a398",
+    "src/harmony/midi.ts": "0a0bbea4d9e26a9f0103eaf93a492952458840af4e520af7adaf3cdba281c6c8",
+    "src/components/rawl/measures.ts": "38ed5efa0c7757f7c2a4cba504e344b4f2b93d9abd2d3ad9e58b3f70743297f9",
+    "scripts/rawl/record-model-training.cjs": "35dfca23a76914bd7d4e560fbe6b701a1d87fd3186f087cd07521966dae72671"
+  },
+  "files": [
+    {
+      "name": "artifact.json.gz",
+      "sha256": "c1664fa47c4a01dd94339a19a3bec59574c5528d4d6e01a138a2d66ebd946ef5"
+    },
+    {
+      "name": "evaluation.json.gz",
+      "sha256": "cd2c0c8de3688f5980f6bed08007373f367e0e01e80831014ddb5081c92853bd"
+    },
+    {
+      "name": "dataset.json.gz",
+      "sha256": "89a48b29f775b14b730b1b0fef7e317016165865650d58d936d998723c5d9b19"
+    },
+    {
+      "name": "sources.json.gz",
+      "sha256": "66ba92de7eb13c65a45434e020555b255f998297d4cf2473fa1772773b687958"
+    },
+    {
+      "name": "input-0.json.gz",
+      "sha256": "69d9f8a3b36239ebd28b9986dc96054a9115750444a99a38bf902d37a4beca3e"
+    }
+  ]
+}

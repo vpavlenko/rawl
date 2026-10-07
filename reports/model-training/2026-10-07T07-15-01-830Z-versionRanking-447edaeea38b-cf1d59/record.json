@@ -1,0 +1,54 @@
+{
+  "format": "rawl-model-training-1",
+  "runId": "2026-10-07T07-15-01-830Z-versionRanking-447edaeea38b-cf1d59",
+  "createdAt": "2026-10-07T07:15:01.830Z",
+  "model": "versionRanking",
+  "status": "failed",
+  "command": null,
+  "artifactHash": "447edaeea38b31a2a6ee5b0bc24b1efcb5fd4d7338a33c6d4784c2abb1ed991c",
+  "modelVersion": "lakh-version-linear-28fc6d88a9eb",
+  "featureVersion": "lakh-version-features-1",
+  "annotationHash": "e8381fc88d5080ffb57524c01d9eb414e469b95d091a6f656d886ffeb9c981bd",
+  "runtime": {
+    "node": "v24.12.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "midiFile": "1.2.4"
+  },
+  "metadata": {
+    "supersedesRunId": "2026-10-07T07-11-11-122Z-versionRanking-447edaeea38b-79547c",
+    "reason": "Withdrawn after validation: linear score is below all content baselines. Initial promotion was only a local artifact write; no served rankings index was generated. Promotion guard has now been added."
+  },
+  "inputs": [],
+  "sourceHashes": {
+    "scripts/rawl/prepare-lakh-version-training.cjs": "1e3b995cd1e95a50b2d453e22c0ddcd9b910051125036e206032403fdb6cbdbb",
+    "scripts/rawl/train-lakh-version-ranker.cjs": "867b76c6ca6081c04907f75b15921b3faeb9caf2716aedd88ab26648c8f7febb",
+    "scripts/rawl/train-lakh-version-model.py": "03a697b53bc01fc6da92e71567b409cb3e313c08b1ea223d006ee64f9c3786fa",
+    "scripts/rawl/index-lakh-version-rankings.cjs": "d369f9e5dbb29e3cd14845f41cd2be44deefb0b14cae083631f0fcb95fac84e3",
+    "src/lakh/versionFeatures.ts": "1614566eacbc3e41ab9e8afed40b3e14e169d1cd717319472ef49e5088983a66",
+    "src/lakh/versionGroups.ts": "d9ba41788f52b0f89fae913d40edc78f6c66d2242e720ea41204b653681c1500",
+    "src/lakh/versionRanking.ts": "e442e307e996f6d2c99a578374fb0a7b2613873ca0437edd53f7a2fea6acae5c",
+    "src/components/lakh/artistShelves.ts": "0dbc39ac7a229014a9f9fe55ab41b40ce518e9d58df0f8b4fec0142034df0373",
+    "scripts/rawl/record-model-training.cjs": "7766f3c71e2ed2e289469feebd0e6923d2d2d048bb76024f8371d377dee742be",
+    "scripts/rawl/phrase-training-requirements.txt": "1cb79c20f25c4881f6d925fdb28ee8997eb683dc408f9eddfd1bd818d65b3d3e",
+    "package.json": "544869a92227ee67abe032f5ccaa9fb2de4e70492d472b169e51d291e9e0fe8c"
+  },
+  "files": [
+    {
+      "name": "artifact.json.gz",
+      "sha256": "447edaeea38b31a2a6ee5b0bc24b1efcb5fd4d7338a33c6d4784c2abb1ed991c"
+    },
+    {
+      "name": "evaluation.json.gz",
+      "sha256": "6f96e392e352892af5205daedd779998f9bbf761fced1c987d9cca88c77b7321"
+    },
+    {
+      "name": "dataset.json.gz",
+      "sha256": "d9e1cf87a31549b28aa053a6e3f66e29ae386ccafd729e74d85e9d32e661b660"
+    },
+    {
+      "name": "sources.json.gz",
+      "sha256": "e3134c991cc700fed56915119d06dc71fb1d21d7d5d3848b1b8b27670c1ae5cf"
+    }
+  ]
+}

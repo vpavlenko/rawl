@@ -2,12 +2,14 @@
 Run prepare-phrase-training.cjs first. Requires numpy + scikit-learn 1.9.1.
 Only --promote writes the model used by Rawl; reports always describe candidates.
 """
-import argparse, gzip, hashlib, json, math, os
+import argparse, gzip, hashlib, json, math, os, subprocess, sys
 from pathlib import Path
 os.environ.setdefault('OMP_NUM_THREADS', '4')
 import numpy as np
 import sklearn
 from sklearn.ensemble import HistGradientBoostingClassifier
+from phrase_decoder import (decode as decode_phrases, metrics,
+                            NON_FOUR_BAR_PENALTIES, PROBABILITY_FLOOR)
 
 ROOT = Path(__file__).resolve().parents[2]
 p = argparse.ArgumentParser()
@@ -69,35 +71,7 @@ maximum=max(length_counts.values())
 length_cost=np.array([0]+[math.log(0.002+length_counts.get(n,0)/maximum) for n in range(1,33)])
 
 def decode(probabilities,count,config):
-    # probabilities[m] concerns a phrase starting at measure m+1; m=0 is
-    # the fixed start. The end sentinel has no learned boundary reward.
-    logits=np.log(np.clip(probabilities,0.001,0.999)/np.clip(1-probabilities,0.001,0.999))
-    costs=np.full(count+1,-np.inf); costs[0]=0; back=np.zeros(count+1,dtype=int)
-    for end in range(1,count+1):
-        lengths=np.arange(1,min(32,end)+1); starts=end-lengths
-        reward=np.where(starts>0,logits[np.maximum(starts-1,0)]-config['boundaryBias'],0)
-        scores=costs[starts]+reward+length_cost[lengths]*config['lengthWeight']
-        at=int(np.argmax(scores)); costs[end]=scores[at]; back[end]=starts[at]
-    result=[]; end=count
-    while end>0:
-        start=int(back[end]);
-        if start: result.append(start+1)
-        end=start
-    return sorted(result)
-
-def metrics(predictions,subset,tolerance=0,offgrid=False):
-    tp=pred_n=truth_n=0
-    for predicted,s in zip(predictions,subset):
-        truth=s['truth']
-        if offgrid: predicted=[m for m in predicted if (m-1)%4]; truth=[m for m in truth if (m-1)%4]
-        available=set(truth)
-        for m in predicted:
-            matches=[t for t in available if abs(t-m)<=tolerance]
-            if matches:
-                found=min(matches,key=lambda t:abs(t-m)); available.remove(found);tp+=1
-        pred_n+=len(predicted);truth_n+=len(truth)
-    precision=tp/max(1,pred_n);recall=tp/max(1,truth_n)
-    return {'precision':precision,'recall':recall,'f1':2*precision*recall/max(1e-12,precision+recall),'matched':tp,'predicted':pred_n,'reference':truth_n}
+    return decode_phrases(probabilities, count, config, length_cost)
 
 def probs(model,subset,pitched=False):
     result=[]
@@ -110,12 +84,14 @@ def probs(model,subset,pitched=False):
 def calibrate(probabilities,subset):
     # Exact boundaries first, explicitly include off-grid phrase shifts.
     best=None
-    for weight in [0.15,0.3,0.5,0.8,1.2,1.8]:
-        for bias in [-2.,-1.5,-1.,-0.5,0.,0.5]:
-            config={'lengthWeight':weight,'boundaryBias':bias}
-            predictions=[decode(q,s['count'],config) for q,s in zip(probabilities,subset)]
-            score=0.65*metrics(predictions,subset)['f1']+0.35*metrics(predictions,subset,offgrid=True)['f1']
-            if best is None or score>best[0]: best=(score,config,predictions)
+    for weight in [0.8,1.2,1.8]:
+        for bias in [-2.,-1.,0.]:
+            for penalty in NON_FOUR_BAR_PENALTIES:
+                config={'lengthWeight':weight,'boundaryBias':bias,
+                        'nonFourBarPenalty':penalty,'probabilityFloor':PROBABILITY_FLOOR}
+                predictions=[decode(q,s['count'],config) for q,s in zip(probabilities,subset)]
+                score=0.65*metrics(predictions,subset)['f1']+0.35*metrics(predictions,subset,offgrid=True)['f1']
+                if best is None or score>best[0]: best=(score,config,predictions)
     return best
 
 val_teacher=probs(teacher,val); val_plain=probs(plain_student,val,True); val_student=probs(student,val,True)
@@ -190,10 +166,22 @@ report_dir=ROOT/'reports/phrase-model';report_dir.mkdir(exist_ok=True)
 (report_dir/'review.json').write_text(json.dumps({'modelVersion':artifact['version'],'note':'Training-only out-of-fold teacher disagreements are review candidates, not automatic annotation corrections. Validation/test songs are excluded from this feedback queue.','songs':errors},indent=2)+'\n')
 candidate_path=Path(args.data).parent/'candidate-model.json'
 candidate_path.write_text(json.dumps(artifact,separators=(',',':'))+'\n')
+promotion_rejection=None
 if args.promote:
     validation_runtime=[cal_teacher[2][i] if s['hasDrums'] else student_cal[2][i] for i,s in enumerate(val)]
     baseline=[list(range(5,s['count']+1,4)) for s in val]
-    if metrics(validation_runtime,val)['f1'] <= metrics(baseline,val)['f1']: raise RuntimeError('Promotion rejected: no validation improvement over four-bar grid')
-    (ROOT/'src/harmony/phraseModel.json').write_text(json.dumps(artifact,separators=(',',':'))+'\n')
-    print('Promoted validated model to src/harmony/phraseModel.json',flush=True)
+    if metrics(validation_runtime,val)['f1'] <= metrics(baseline,val)['f1']:
+        promotion_rejection='Promotion rejected: no validation improvement over four-bar grid'
+    else:
+        (ROOT/'src/harmony/phraseModel.json').write_text(json.dumps(artifact,separators=(',',':'))+'\n')
+        print('Promoted validated model to src/harmony/phraseModel.json',flush=True)
+# Preserve every fitted variant, including the unselected transfer experiment.
+extras_path=Path(args.data).parent/'training-variants.json'
+extras_path.write_text(json.dumps({'teacher':export(teacher),'pitchedSupervised':export(plain_student),'pitchedDistilled':export(student)}))
+command_path=Path(args.data).parent/'training-command.json'
+command_path.write_text(json.dumps([sys.executable,*sys.argv]))
+metadata_path=Path(args.data).parent/'training-metadata.json'
+metadata_path.write_text(json.dumps({'python':sys.version,'numpy':np.__version__,'sklearn':sklearn.__version__,'trainingDataHash':hashlib.sha256(Path(args.data).read_bytes()).hexdigest(),'promotionRejection':promotion_rejection,'maxDepth':4,'maxLeafNodes':15,'learningRate':0.07,'minSamplesLeaf':100,'l2Regularization':2,'maxBins':128,'earlyStopping':False,'oofTeacherTrees':100,'decoderSearch':{'lengthWeights':[0.8,1.2,1.8],'boundaryBiases':[-2.,-1.,0.],'nonFourBarPenalties':NON_FOUR_BAR_PENALTIES,'probabilityFloor':PROBABILITY_FLOOR}}))
+subprocess.run(['node',str(ROOT/'scripts/rawl/record-model-training.cjs'),'--model','phrases','--status','failed' if promotion_rejection else 'promoted' if args.promote else 'candidate','--artifact',str(candidate_path),'--evaluation',str(report_dir/'evaluation.json'),'--dataset',str(report_dir/'dataset.json'),'--command',str(command_path),'--extra-artifacts',str(extras_path),'--metadata',str(metadata_path)],check=True)
+if promotion_rejection: raise RuntimeError(promotion_rejection)
 print(json.dumps(report['test'],indent=2),flush=True)

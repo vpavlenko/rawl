@@ -1,0 +1,448 @@
+{
+  "modelVersion": "section-gbdt-ff27f13d9273",
+  "dataset": {
+    "featureVersion": "section-features-1",
+    "annotationHash": "e8381fc88d5080ffb57524c01d9eb414e469b95d091a6f656d886ffeb9c981bd",
+    "annotations": "src/corpus/analyses.json",
+    "sourcePhraseManifestHash": "d73a972d0f6184b3b3aeca712764cc829a61bbf14e54b72f29a10bb155a501e8",
+    "grouping": "Normalized title + exact MIDI byte duplicate union; SHA256 group modulo 10: 0/1 test, 2 validation, 3..9 train",
+    "songs": 3518,
+    "groups": 3472,
+    "drumSongs": 213,
+    "positive": 18459,
+    "negative": 470312,
+    "unsupportedInternalSpans": 15,
+    "trainLengthCounts": {
+      "1": 521,
+      "2": 342,
+      "3": 198,
+      "4": 1430,
+      "5": 374,
+      "6": 559,
+      "7": 373,
+      "8": 6189,
+      "9": 772,
+      "10": 683,
+      "11": 333,
+      "12": 1053,
+      "13": 231,
+      "14": 298,
+      "15": 215,
+      "16": 2846,
+      "17": 337,
+      "18": 278,
+      "19": 108,
+      "20": 296,
+      "21": 58,
+      "22": 96,
+      "23": 46,
+      "24": 239,
+      "25": 42,
+      "26": 37,
+      "27": 24,
+      "28": 56,
+      "29": 15,
+      "30": 15,
+      "31": 9,
+      "32": 42,
+      "33": 15,
+      "34": 8,
+      "35": 8,
+      "36": 14,
+      "37": 10,
+      "38": 5,
+      "39": 6,
+      "40": 12,
+      "41": 8,
+      "42": 7,
+      "43": 4,
+      "44": 10,
+      "45": 7,
+      "46": 4,
+      "47": 2,
+      "48": 7,
+      "49": 1,
+      "50": 3,
+      "51": 5,
+      "52": 6,
+      "53": 3,
+      "54": 5,
+      "55": 4,
+      "56": 5,
+      "57": 2,
+      "58": 3,
+      "59": 2,
+      "60": 2,
+      "61": 3,
+      "62": 1,
+      "63": 1,
+      "64": 3,
+      "65": 1,
+      "66": 8,
+      "68": 9,
+      "69": 1,
+      "70": 5,
+      "71": 4,
+      "72": 6,
+      "73": 1,
+      "74": 1,
+      "75": 2,
+      "76": 5,
+      "77": 2,
+      "79": 3,
+      "80": 3,
+      "81": 1,
+      "82": 4,
+      "83": 1,
+      "84": 2,
+      "85": 2,
+      "86": 3,
+      "87": 5,
+      "89": 2,
+      "90": 1,
+      "91": 1,
+      "94": 1,
+      "97": 1,
+      "98": 4,
+      "99": 1,
+      "100": 1,
+      "101": 1,
+      "102": 1,
+      "104": 2,
+      "106": 1,
+      "109": 1,
+      "110": 1,
+      "112": 2,
+      "113": 2,
+      "114": 1,
+      "115": 1,
+      "116": 1,
+      "118": 2,
+      "120": 1,
+      "121": 2,
+      "122": 1,
+      "123": 1,
+      "127": 1,
+      "130": 1,
+      "133": 2,
+      "135": 2,
+      "138": 1,
+      "139": 4,
+      "140": 1,
+      "141": 2,
+      "142": 1,
+      "144": 2,
+      "148": 1,
+      "149": 1,
+      "153": 3,
+      "159": 1,
+      "160": 1,
+      "164": 1,
+      "169": 1,
+      "170": 1,
+      "185": 1,
+      "194": 1,
+      "195": 1,
+      "200": 1,
+      "205": 1,
+      "208": 1,
+      "218": 1,
+      "220": 1,
+      "228": 1,
+      "235": 1,
+      "274": 1,
+      "279": 1,
+      "283": 1,
+      "307": 1,
+      "310": 1,
+      "313": 1,
+      "343": 1,
+      "360": 1,
+      "366": 1,
+      "390": 1,
+      "480": 1,
+      "488": 1,
+      "504": 1,
+      "525": 1,
+      "546": 1,
+      "570": 1,
+      "645": 1,
+      "649": 1,
+      "672": 1,
+      "709": 1,
+      "732": 1,
+      "800": 1,
+      "806": 1,
+      "990": 1,
+      "1001": 1,
+      "1211": 1,
+      "1265": 1,
+      "1409": 1,
+      "1902": 1
+    },
+    "splits": {
+      "train": {
+        "songs": 2441,
+        "groups": 2415,
+        "drums": 153
+      },
+      "validation": {
+        "songs": 367,
+        "groups": 360,
+        "drums": 17
+      },
+      "test": {
+        "songs": 710,
+        "groups": 697,
+        "drums": 43
+      }
+    }
+  },
+  "selected": "full",
+  "modelsHash": "c3db3e4592e0310e2d02c663c65153812021b83c284dfe1bee91640702c30acf",
+  "validation": {
+    "lengthOnly": {
+      "decoder": {
+        "sectionBias": -3.0,
+        "lengthWeight": 1.0
+      },
+      "exact": {
+        "precision": 0.18314917127071823,
+        "recall": 0.28309137489325364,
+        "f1": 0.22240858772224087,
+        "matched": 663,
+        "predicted": 3620,
+        "reference": 2342
+      },
+      "withinOneBar": {
+        "precision": 0.2947513812154696,
+        "recall": 0.4555935098206661,
+        "f1": 0.3579335793357934,
+        "matched": 1067,
+        "predicted": 3620,
+        "reference": 2342
+      }
+    },
+    "visualLength": {
+      "decoder": {
+        "sectionBias": -3.0,
+        "lengthWeight": 0.0
+      },
+      "exact": {
+        "precision": 0.2922437673130194,
+        "recall": 0.45046968403074295,
+        "f1": 0.354502688172043,
+        "matched": 1055,
+        "predicted": 3610,
+        "reference": 2342
+      },
+      "withinOneBar": {
+        "precision": 0.3975069252077562,
+        "recall": 0.6127241673783091,
+        "f1": 0.48219086021505375,
+        "matched": 1435,
+        "predicted": 3610,
+        "reference": 2342
+      }
+    },
+    "full": {
+      "decoder": {
+        "sectionBias": -3.0,
+        "lengthWeight": 0.0
+      },
+      "exact": {
+        "precision": 0.39767190037899297,
+        "recall": 0.6272416737830914,
+        "f1": 0.4867461895294897,
+        "matched": 1469,
+        "predicted": 3694,
+        "reference": 2342
+      },
+      "withinOneBar": {
+        "precision": 0.4585814834867352,
+        "recall": 0.7233134073441503,
+        "f1": 0.56129887342611,
+        "matched": 1694,
+        "predicted": 3694,
+        "reference": 2342
+      }
+    }
+  },
+  "selection": "Feature family and decoder chosen on validation groups only. Test scored after freezing configuration; no test refit.",
+  "test": {
+    "lengthOnly": {
+      "exact": {
+        "precision": 0.13995782814971006,
+        "recall": 0.2308695652173913,
+        "f1": 0.17426977354775186,
+        "matched": 1062,
+        "predicted": 7588,
+        "reference": 4600
+      },
+      "withinOneBar": {
+        "precision": 0.25500790722192934,
+        "recall": 0.4206521739130435,
+        "f1": 0.3175254348539547,
+        "matched": 1935,
+        "predicted": 7588,
+        "reference": 4600
+      },
+      "withDrums": {
+        "songs": 43,
+        "exact": {
+          "precision": 0.10141987829614604,
+          "recall": 0.199203187250996,
+          "f1": 0.13440860215053765,
+          "matched": 50,
+          "predicted": 493,
+          "reference": 251
+        }
+      },
+      "withoutDrums": {
+        "songs": 667,
+        "exact": {
+          "precision": 0.14263565891472868,
+          "recall": 0.2326971717636238,
+          "f1": 0.17686123732960504,
+          "matched": 1012,
+          "predicted": 7095,
+          "reference": 4349
+        }
+      }
+    },
+    "visualLength": {
+      "exact": {
+        "precision": 0.2745175265852698,
+        "recall": 0.45456521739130434,
+        "f1": 0.3423098960464926,
+        "matched": 2091,
+        "predicted": 7617,
+        "reference": 4600
+      },
+      "withinOneBar": {
+        "precision": 0.37586976499934355,
+        "recall": 0.6223913043478261,
+        "f1": 0.4686911680445281,
+        "matched": 2863,
+        "predicted": 7617,
+        "reference": 4600
+      },
+      "withDrums": {
+        "songs": 43,
+        "exact": {
+          "precision": 0.23106796116504855,
+          "recall": 0.47410358565737054,
+          "f1": 0.31070496083550914,
+          "matched": 119,
+          "predicted": 515,
+          "reference": 251
+        }
+      },
+      "withoutDrums": {
+        "songs": 667,
+        "exact": {
+          "precision": 0.2776682624612785,
+          "recall": 0.45343757185559896,
+          "f1": 0.34442406776700724,
+          "matched": 1972,
+          "predicted": 7102,
+          "reference": 4349
+        }
+      }
+    },
+    "full": {
+      "exact": {
+        "precision": 0.3857490708701781,
+        "recall": 0.6543478260869565,
+        "f1": 0.4853664436023542,
+        "matched": 3010,
+        "predicted": 7803,
+        "reference": 4600
+      },
+      "withinOneBar": {
+        "precision": 0.43675509419454056,
+        "recall": 0.7408695652173913,
+        "f1": 0.5495444650487785,
+        "matched": 3408,
+        "predicted": 7803,
+        "reference": 4600
+      },
+      "withDrums": {
+        "songs": 43,
+        "exact": {
+          "precision": 0.3301158301158301,
+          "recall": 0.6812749003984063,
+          "f1": 0.4447334200260078,
+          "matched": 171,
+          "predicted": 518,
+          "reference": 251
+        }
+      },
+      "withoutDrums": {
+        "songs": 667,
+        "exact": {
+          "precision": 0.3897048730267673,
+          "recall": 0.6527937456886641,
+          "f1": 0.48805226061543744,
+          "matched": 2839,
+          "predicted": 7285,
+          "reference": 4349
+        }
+      }
+    },
+    "eightBarGrid": {
+      "exact": {
+        "precision": 0.14183845455724103,
+        "recall": 0.23782608695652174,
+        "f1": 0.17769836757898158,
+        "matched": 1094,
+        "predicted": 7713,
+        "reference": 4600
+      },
+      "withinOneBar": {
+        "precision": 0.25048619214313494,
+        "recall": 0.42,
+        "f1": 0.3138146674246731,
+        "matched": 1932,
+        "predicted": 7713,
+        "reference": 4600
+      }
+    },
+    "sixteenBarGrid": {
+      "exact": {
+        "precision": 0.15770901194353962,
+        "recall": 0.12630434782608696,
+        "f1": 0.1402704007725736,
+        "matched": 581,
+        "predicted": 3684,
+        "reference": 4600
+      },
+      "withinOneBar": {
+        "precision": 0.2730727470141151,
+        "recall": 0.21869565217391304,
+        "f1": 0.2428778367938194,
+        "matched": 1006,
+        "predicted": 3684,
+        "reference": 4600
+      }
+    },
+    "previousHeuristic": {
+      "exact": {
+        "precision": 0.24345146379044685,
+        "recall": 0.03434782608695652,
+        "f1": 0.06020194322728139,
+        "matched": 158,
+        "predicted": 649,
+        "reference": 4600
+      },
+      "withinOneBar": {
+        "precision": 0.31741140215716485,
+        "recall": 0.044782608695652176,
+        "f1": 0.07849114116974663,
+        "matched": 206,
+        "predicted": 649,
+        "reference": 4600
+      }
+    }
+  }
+}

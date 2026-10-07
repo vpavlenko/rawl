@@ -1,0 +1,41 @@
+{
+  "format": "rawl-model-training-1",
+  "runId": "2026-10-07T06-49-58-762Z-chromaticBass-e2ebd773ce6f-5d8a4d",
+  "createdAt": "2026-10-07T06:49:58.762Z",
+  "model": "chromaticBass",
+  "status": "historical-snapshot",
+  "command": null,
+  "artifactHash": "e2ebd773ce6f7e8d31d9d0d44ba456803b05148161adc504cf5f36c5c744090d",
+  "modelVersion": null,
+  "featureVersion": null,
+  "annotationHash": null,
+  "runtime": {
+    "node": "v24.12.0"
+  },
+  "metadata": {
+    "provenanceGap": "Original MIDI/label/source hashes unavailable; source snapshot is current",
+    "scanned": 4018,
+    "negativeSnippets": 4,
+    "validationLimitations": "Normalization fitted on all candidate features; fixed extra factors manually tuned"
+  },
+  "inputs": [],
+  "sourceHashes": {
+    "scripts/rawl/search-chromatic-minor-bass.js": "62f5cd8bb4618ae918794b7586c86f34d36d2b196e7bb1c808920b9fa7dbddbe",
+    "scripts/rawl/chromatic-minor-bass-ranker.js": "76ca5ee9c84224314b5eb7f3c5887cbc96e69d900f6a8b927421148d42c7e1d1",
+    "scripts/rawl/record-model-training.cjs": "35dfca23a76914bd7d4e560fbe6b701a1d87fd3186f087cd07521966dae72671"
+  },
+  "files": [
+    {
+      "name": "artifact.json.gz",
+      "sha256": "e2ebd773ce6f7e8d31d9d0d44ba456803b05148161adc504cf5f36c5c744090d"
+    },
+    {
+      "name": "evaluation.json.gz",
+      "sha256": "e2ebd773ce6f7e8d31d9d0d44ba456803b05148161adc504cf5f36c5c744090d"
+    },
+    {
+      "name": "sources.json.gz",
+      "sha256": "883dd17249873d0be4852046fb0665f038e99074a6c96e49ce091de3c1710948"
+    }
+  ]
+}

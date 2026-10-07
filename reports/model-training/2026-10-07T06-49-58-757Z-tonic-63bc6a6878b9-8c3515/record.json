@@ -1,0 +1,44 @@
+{
+  "format": "rawl-model-training-1",
+  "runId": "2026-10-07T06-49-58-757Z-tonic-63bc6a6878b9-8c3515",
+  "createdAt": "2026-10-07T06:49:58.757Z",
+  "model": "tonic",
+  "status": "historical-snapshot",
+  "command": null,
+  "artifactHash": "63bc6a6878b91edaaff06922aa4f46b26343084a81b441a4bbf53c2e3805aebe",
+  "modelVersion": null,
+  "featureVersion": null,
+  "annotationHash": null,
+  "runtime": {
+    "node": "v24.12.0"
+  },
+  "metadata": {
+    "provenanceGap": "Original input/source hashes and evaluation-to-model hash link unavailable; source snapshot is current",
+    "epochs": 400,
+    "learningRate": 0.9,
+    "l2": 0.001
+  },
+  "inputs": [],
+  "sourceHashes": {
+    "scripts/rawl/train-harmony-key.cjs": "5f63f9a0b95bb0a736092c3f7c9ae60801c30e123e0797ae0fc0d82b6f021945",
+    "src/harmony/keyRanker.ts": "5e2c2509c3c5416d28a4c5a919dfa2ec318bae964b2006774c0837c0a2003a0e",
+    "src/harmony/midi.ts": "0a0bbea4d9e26a9f0103eaf93a492952458840af4e520af7adaf3cdba281c6c8",
+    "src/components/rawl/measures.ts": "38ed5efa0c7757f7c2a4cba504e344b4f2b93d9abd2d3ad9e58b3f70743297f9",
+    "src/components/rawl/analysis.ts": "01b198e192aafc9a1bccb8dde00888100fe5c7693995b46755f00b833aac05f6",
+    "scripts/rawl/record-model-training.cjs": "35dfca23a76914bd7d4e560fbe6b701a1d87fd3186f087cd07521966dae72671"
+  },
+  "files": [
+    {
+      "name": "artifact.json.gz",
+      "sha256": "63bc6a6878b91edaaff06922aa4f46b26343084a81b441a4bbf53c2e3805aebe"
+    },
+    {
+      "name": "evaluation.json.gz",
+      "sha256": "15a825d5e593607284c4250f84a0b16a2b9060e1b5163c9448f83f0fd42b0d31"
+    },
+    {
+      "name": "sources.json.gz",
+      "sha256": "a43293a0d6140cadf8ebc8b39bf956f53467b6901685781ff8b86ecd23124381"
+    }
+  ]
+}

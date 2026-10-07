@@ -1,0 +1,49 @@
+{
+  "modelVersion": "phrase-gbdt-82ebee8f69a8",
+  "runId": "2026-10-07T08-01-25-255Z-phrases-0ca41330516c-652e27",
+  "mode": "decoder-only calibration; boundary trees unchanged",
+  "checks": {
+    "harmonyTests": { "passed": 20, "command": "node --test scripts/rawl/harmony.test.cjs" },
+    "typescript": { "passed": true, "command": "./node_modules/.bin/tsc --noEmit --pretty false" },
+    "scopedDiffWhitespace": { "passed": true },
+    "pythonTypeScriptDecoderAgreement": { "matched": 404, "total": 404 },
+    "artifactReadback": {
+      "equalsArchivedPromotedArtifact": true,
+      "teacherStudentTreesUnchanged": true,
+      "featureSchemaAndAnnotationHashUnchanged": true
+    }
+  },
+  "chrome": {
+    "server": "http://localhost:3000",
+    "cases": [
+      {
+        "path": "/lakh/Genesis/Lilywhite_Lilith?harmony=1",
+        "branch": "drum and pitched voices",
+        "openingUsesCurrentModel": true,
+        "liveRecalculationUsesCurrentModel": true,
+        "phraseSuggestions": 17,
+        "sectionSuggestions": 11,
+        "freshTabWarningsAndErrors": []
+      },
+      {
+        "path": "/f/chopin_military_polonaise?harmony=1",
+        "branch": "pitched voices",
+        "openingUsesCurrentModel": true,
+        "liveRecalculationUsesCurrentModel": true,
+        "phraseSuggestions": 38,
+        "sectionSuggestions": 17,
+        "freshTabWarningsAndErrors": []
+      }
+    ],
+    "ribbonWarningFix": "Replaced mixed borderStyle/borderColor shorthands with per-side styles; fresh drum and pitched tab consoles remain clear after recalculation.",
+    "screenshot": "/private/tmp/rawl-four-bar-phrases.png",
+    "downloadCheck": "Clicking Download suggested analysis kept the preview healthy, but the browser tool timed out waiting for its download event. Downloaded bytes were not verified."
+  },
+  "scope": {
+    "bulkSidecarRefreshRun": false,
+    "stalePhraseSidecarsUpgradeOnOpening": true,
+    "manualLabelsModified": false,
+    "sectionModelModified": false,
+    "sectionProposalConstraint": "Existing proposal conversion unions section starts into phrase starts; the reported four-bar share measures the phrase decoder, not that union."
+  }
+}

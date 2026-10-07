@@ -1,0 +1,75 @@
+{
+  "format": "rawl-model-training-1",
+  "runId": "2026-10-07T07-15-58-115Z-versionRanking-7605e9f9e0d3-17f939",
+  "createdAt": "2026-10-07T07:15:58.115Z",
+  "model": "versionRanking",
+  "status": "promoted",
+  "command": [
+    "/private/tmp/rawl-phrase-training/bin/python",
+    "scripts/rawl/train-lakh-version-model.py",
+    "--promote"
+  ],
+  "artifactHash": "7605e9f9e0d3f018bc1a83f554ebe6b890eee6f22cc46830a235d87654ee9b86",
+  "modelVersion": "lakh-version-gbdt-165c23d46053",
+  "featureVersion": "lakh-version-features-1-relative-1",
+  "annotationHash": "e8381fc88d5080ffb57524c01d9eb414e469b95d091a6f656d886ffeb9c981bd",
+  "runtime": {
+    "node": "v24.12.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "midiFile": "1.2.4"
+  },
+  "metadata": {
+    "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "numpy": "2.5.3",
+    "sklearn": "1.9.1",
+    "trainingDataHash": "7630102429bee1021781b02d6e5e9b0c1b2c370a6ae4bd3d2eaa46ddfaaf80c0",
+    "promotionRejected": false
+  },
+  "inputs": [
+    {
+      "path": "src/corpus/analyses.json",
+      "sha256": "e8381fc88d5080ffb57524c01d9eb414e469b95d091a6f656d886ffeb9c981bd",
+      "snapshot": "input-0.json.gz"
+    }
+  ],
+  "sourceHashes": {
+    "scripts/rawl/prepare-lakh-version-training.cjs": "1e3b995cd1e95a50b2d453e22c0ddcd9b910051125036e206032403fdb6cbdbb",
+    "scripts/rawl/train-lakh-version-ranker.cjs": "867b76c6ca6081c04907f75b15921b3faeb9caf2716aedd88ab26648c8f7febb",
+    "scripts/rawl/train-lakh-version-model.py": "a993650969ecf06e0ee4a9ef010144088e7f32a92ab5ce51ce83bf095894ca2e",
+    "scripts/rawl/index-lakh-version-rankings.cjs": "d369f9e5dbb29e3cd14845f41cd2be44deefb0b14cae083631f0fcb95fac84e3",
+    "src/lakh/versionFeatures.ts": "1614566eacbc3e41ab9e8afed40b3e14e169d1cd717319472ef49e5088983a66",
+    "src/lakh/versionGroups.ts": "d9ba41788f52b0f89fae913d40edc78f6c66d2242e720ea41204b653681c1500",
+    "src/lakh/versionRanking.ts": "e442e307e996f6d2c99a578374fb0a7b2613873ca0437edd53f7a2fea6acae5c",
+    "src/components/lakh/artistShelves.ts": "0dbc39ac7a229014a9f9fe55ab41b40ce518e9d58df0f8b4fec0142034df0373",
+    "scripts/rawl/record-model-training.cjs": "7766f3c71e2ed2e289469feebd0e6923d2d2d048bb76024f8371d377dee742be",
+    "scripts/rawl/phrase-training-requirements.txt": "1cb79c20f25c4881f6d925fdb28ee8997eb683dc408f9eddfd1bd818d65b3d3e",
+    "package.json": "544869a92227ee67abe032f5ccaa9fb2de4e70492d472b169e51d291e9e0fe8c"
+  },
+  "files": [
+    {
+      "name": "artifact.json.gz",
+      "sha256": "7605e9f9e0d3f018bc1a83f554ebe6b890eee6f22cc46830a235d87654ee9b86"
+    },
+    {
+      "name": "evaluation.json.gz",
+      "sha256": "589e05f2bd276cb3464633164e69c2151ce200bd9af2ea6c2fa3774935241e70"
+    },
+    {
+      "name": "dataset.json.gz",
+      "sha256": "d9e1cf87a31549b28aa053a6e3f66e29ae386ccafd729e74d85e9d32e661b660"
+    },
+    {
+      "name": "extraArtifacts.json.gz",
+      "sha256": "9ea0cfed23f453c183a7d0e79cbdaf2f260f34ef8eac3f4530d551881590f605"
+    },
+    {
+      "name": "sources.json.gz",
+      "sha256": "55d7bc5b1f444dc03020570b7b4ad83a16180524d1ea83d9a6588ef50d19169a"
+    },
+    {
+      "name": "input-0.json.gz",
+      "sha256": "69d9f8a3b36239ebd28b9986dc96054a9115750444a99a38bf902d37a4beca3e"
+    }
+  ]
+}

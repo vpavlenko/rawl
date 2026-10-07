@@ -1,6 +1,7 @@
 // Shared by the offline Lakh indexer and the score overlay. No React or MIDI
 // reader dependencies: times can be seconds or beats, provided the grid agrees.
 import { inferLearnedPhrases, PHRASE_MODEL_VERSION } from "./phraseBoundaries";
+import { inferLearnedSections, SECTION_MODEL_VERSION } from "./sectionBoundaries";
 import {
   hasKeyModel,
   profileScores,
@@ -118,6 +119,7 @@ export type HarmonyResult = {
   sections: Boundary[];
   warnings: string[];
   phraseModelVersion?: string;
+  sectionModelVersion?: string;
 };
 export type HarmonyOptions = {
   referenceKeys?: { start: number; tonic: number }[];
@@ -702,10 +704,7 @@ function cosine(a: number[], b: number[]) {
   }
   return aa && bb ? dot / Math.sqrt(aa * bb) : aa === bb ? 1 : 0;
 }
-function inferSections(
-  frames: Frame[],
-  grid: HarmonyGrid,
-) {
+function inferSections(frames: Frame[], grid: HarmonyGrid) {
   const count = grid.measures.length - 1;
   const bars = Array.from({ length: count }, () => ({
     chroma: Array(12).fill(0),
@@ -761,6 +760,21 @@ function inferSections(
   return { sections };
 }
 
+// Retained as an explicit baseline for grouped section-model evaluation.
+export function heuristicSectionBoundaries(
+  notes: HarmonyNote[],
+  grid: HarmonyGrid,
+): Boundary[] {
+  if (grid.measures.length < 2) return [];
+  return inferSections(
+    makeFrames(
+      notes.filter((n) => !n.isDrum),
+      grid,
+    ),
+    grid,
+  ).sections;
+}
+
 export function analyzeHarmony(
   input: HarmonyNote[],
   grid: HarmonyGrid,
@@ -794,7 +808,7 @@ export function analyzeHarmony(
         n.pitch < 128,
     )
     .sort((a, b) => a.start - b.start || a.pitch - b.pitch);
-  const notes = validNotes.filter(n => !n.isDrum);
+  const notes = validNotes.filter((n) => !n.isDrum);
   if (!notes.length) return { ...empty, warnings: ["No pitched notes."] };
   const frames = makeFrames(notes, grid);
   if (!frames.length || frames.length > 20000)
@@ -854,13 +868,13 @@ export function analyzeHarmony(
       });
     }
   }
-  const structure = inferSections(frames, grid);
   return {
     version: HARMONY_VERSION,
     chords,
     keys,
     inferredKeys,
-    ...structure,
+    sections: inferLearnedSections(validNotes, grid),
+    sectionModelVersion: SECTION_MODEL_VERSION,
     phrases: inferLearnedPhrases(validNotes, grid),
     phraseModelVersion: PHRASE_MODEL_VERSION,
     warnings: [],

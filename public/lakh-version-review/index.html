@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lakh — визуальный разбор выбора MIDI</title>
+<style>
+  :root { color-scheme:dark; font:15px/1.5 system-ui,sans-serif; background:#111116; color:#ddd; }
+  body { margin:0 auto; max-width:1860px; padding:20px; }
+  h1 { font-size:25px; font-weight:600; margin:0 0 8px; }
+  p { max-width:1000px; margin:8px 0; }
+  .muted { color:#9999aa; font-size:13px; }
+  .controls { display:flex; flex-wrap:wrap; gap:12px; margin:22px 0 16px; align-items:end; }
+  label { display:flex; flex-direction:column; gap:4px; font-size:13px; }
+  input,select,button { font:inherit; padding:9px 12px; border:1px solid #454551; border-radius:5px; background:#1b1b23; color:#ddd; }
+  input { width:230px; } #case { max-width:600px; width:100%; } #case-label { flex:1; min-width:240px; }
+  button { cursor:pointer; } button:disabled { opacity:.4; cursor:default; }
+  :focus-visible { outline:2px solid #e69a3a; outline-offset:3px; }
+  #observation { max-width:1150px; color:#eee; } #confidence { color:#e69a3a; }
+  #figure { display:block; width:100%; height:auto; margin-top:20px; }
+  #figure[hidden] { display:none; }
+  #links { display:flex; gap:10px 18px; flex-wrap:wrap; margin-top:12px; }
+  a { color:#bbb; text-underline-offset:3px; } a.manual { color:#e69a3a; }
+  details { margin:14px 0; max-width:1150px; } summary { cursor:pointer; color:#aaaaba; }
+  #facts { white-space:pre-wrap; font-size:12px; color:#aaaaba; }
+  #status { color:#9999aa; font-size:13px; }
+</style>
+<h1>Почему выбрана эта версия MIDI</h1>
+<p>148 групп · 572 версии. Для каждого случая — наблюдение по нотам и осторожная гипотеза. Точные причины выбора и качество звучания по картинке установить можно не всегда.</p>
+<p class="muted">Обзор целиком и доли 32–64. Отрывки не выровнены по фразам; цвета обозначают семейства GM. Звезда отмечает наличие ручной разметки. Незакрытые ноты продлены до конца файла; sustain не применён. Аудио в этом разборе не прослушивалось.</p>
+<div class="controls">
+  <label>Поиск<input id="search" type="search" placeholder="Артист или композиция"></label>
+  <label>Результат разбора<select id="filter"><option value="">Все случаи</option><option value="visible">Видимое отличие</option><option value="family">Семейство; точный файл неясен</option><option value="uncertain">Причина не установлена</option><option value="counterexample">Контрпримеры</option><option value="ambiguous-label">Несколько размеченных</option><option value="partial">Повреждённый файл</option><option value="byte-copy">Идентичные MIDI</option></select></label>
+  <label id="case-label">Случай<select id="case"></select></label>
+  <button id="prev" type="button">Назад</button><button id="next" type="button">Далее</button>
+</div>
+<div id="status" role="status">Загрузка сравнений…</div>
+<p id="confidence"></p><p id="observation"></p><p id="hypothesis"></p>
+<div id="links"></div>
+<details><summary>Сведения о партиях и совпадениях событий</summary><div id="facts"></div></details>
+<img id="figure" alt="Сравнение MIDI-версий" hidden>
+<script>
+  const el = id => document.getElementById(id);
+  let cases=[],visible=[],current=Number(new URLSearchParams(location.search).get('case'))||1;
+  function show(c) {
+    if (!c) { el('status').textContent='Нет совпадений'; el('figure').hidden=true; ['confidence','observation','hypothesis','links','facts'].forEach(id=>el(id).textContent=''); el('prev').disabled=el('next').disabled=true; return; }
+    current=c.number; el('case').value=String(current);
+    el('status').textContent=`${visible.indexOf(c)+1} / ${visible.length} · ${c.rows.length} версий`;
+    el('confidence').textContent=c.confidenceLabel;
+    el('observation').textContent=c.review.observation;
+    el('hypothesis').textContent=c.review.hypothesis ? 'Гипотеза: '+c.review.hypothesis : '';
+    el('figure').src=c.image; el('figure').alt='Все версии: '+c.title; el('figure').hidden=false;
+    el('links').replaceChildren(...c.rows.map(r=>{const a=document.createElement('a');a.href=r.url;a.textContent=(r.manual?'★ ':'')+r.key.replace('c/MIDI/','');a.className=r.manual?'manual':'';return a;}));
+    el('facts').textContent=c.rows.map(r=>`${r.key}\n${r.error || r.voices.map(v=>`${v.port}:${v.channel+1} ${v.patch}: ${v.names.join(' / ')}`).join('; ')}`).join('\n\n') + '\n\n' + c.eventComparisons.filter(r=>r.onsetPitchMatch>=.85).map(r=>`${r.key}: ${(100*r.onsetPitchMatch).toFixed(1)}% совпадений атак/высот, сдвиг к размеченной ${r.shiftBeatsToSelected} долей${r.byteIdentical?' (одинаковые байты)':''}`).join('\n')+'\n\nСовпадения игнорируют длительности, velocity, инструменты, bank/controllers и темп; они не доказывают одинаковое звучание.';
+    el('prev').disabled=visible.indexOf(c)===0; el('next').disabled=visible.indexOf(c)===visible.length-1;
+    history.replaceState(null,'','?case='+current);
+  }
+  function filter() {
+    const query=el('search').value.trim().toLocaleLowerCase(),category=el('filter').value;
+    visible=cases.filter(c=>(!query||c.title.toLocaleLowerCase().includes(query))&&(!category||c.review.confidence===category));
+    el('case').replaceChildren(...visible.map(c=>{const o=document.createElement('option');o.value=String(c.number);o.textContent=String(c.number).padStart(3,'0')+' · '+c.title;return o;}));
+    show(visible.find(c=>c.number===current)||visible[0]);
+  }
+  el('search').addEventListener('input',filter);el('filter').addEventListener('change',filter);
+  el('case').addEventListener('change',()=>show(visible.find(c=>c.number===Number(el('case').value))));
+  el('prev').addEventListener('click',()=>show(visible[visible.findIndex(c=>c.number===current)-1]));
+  el('next').addEventListener('click',()=>show(visible[visible.findIndex(c=>c.number===current)+1]));
+  fetch('review.json').then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json();}).then(data=>{cases=data.cases;filter();}).catch(e=>el('status').textContent='Не удалось загрузить сравнения: '+e.message);
+</script>
+</html>

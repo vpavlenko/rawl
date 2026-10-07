@@ -14,6 +14,11 @@ import { artistProfile } from "./artistFacets";
 import { groupBeatlesTracks } from "./beatlesReleases";
 import { useAlbumArtistSlugs, useAlbumMetadata } from "./albumMetadata";
 import { canonicalArtistName } from "./artistShelves";
+import { useVersionRankings } from "../../lakh/useVersionRankings";
+import {
+  orderVersionKeys,
+  versionSuggestionDescription,
+} from "../../lakh/versionRanking";
 import {
   LakhCatalog,
   LakhArtist,
@@ -215,6 +220,11 @@ const SearchResults = styled.ul`
     margin: 0;
     padding-left: 12px;
   }
+`;
+const VersionOrderNote = styled.p`
+  margin: 0 0 12px;
+  color: #999;
+  font-size: 12px;
 `;
 
 const songIdentity = (file: string) =>
@@ -501,6 +511,7 @@ export const Directory = React.memo(function Directory({
   annotationVersions: AnnotationVersions;
 }) {
   const artistName = artist?.name || "";
+  const { rankings, unavailable: rankingsUnavailable } = useVersionRankings();
   const albumArtistSlugs = useAlbumArtistSlugs();
   const directoryArtists = useMemo(
     () => groupArtistAliases(catalog.artists),
@@ -627,15 +638,30 @@ export const Directory = React.memo(function Directory({
     );
   };
   const tracks = Array.from(trackSources.keys());
+  const rankTrackFiles = (
+    sources: ReturnType<typeof collectTrackSources>,
+    files: string[],
+  ) => {
+    const keys = files.map((file) => {
+      const original = sources.get(file)!;
+      return lakhAnalysisKey(original.source.name, original.file);
+    });
+    const fileByKey = new Map(keys.map((key, i) => [key, files[i]]));
+    return orderVersionKeys(keys, rankings, (key) => annotated.has(key)).map(
+      (key) => fileByKey.get(key)!,
+    );
+  };
   const renderTrackEntry = (
     trackSources: ReturnType<typeof collectTrackSources>,
     file: string,
     label?: string,
     query = "",
+    preferred = false,
   ) => {
     const original = trackSources.get(file)!;
     const analysisKey = lakhAnalysisKey(original.source.name, original.file);
     const hasAnalysis = annotated.has(analysisKey);
+    const automatic = !hasAnalysis && !!rankings?.byKey[analysisKey];
     return (
       <Entry
         to={lakhTrackUrl(original.source, original.file)}
@@ -644,7 +670,18 @@ export const Directory = React.memo(function Directory({
         $community={communityAnnotated.has(analysisKey)}
         $hasFewSections={annotatedWithFewSections.has(analysisKey)}
         $version={label !== undefined && /^\d+$/.test(label)}
-        title={`${file}${hasAnalysis ? " · Annotated" : ""}`}
+        data-lakh-analysis-key={analysisKey}
+        data-lakh-version-score={rankings?.byKey[analysisKey]?.score}
+        data-lakh-preferred={
+          preferred
+            ? hasAnalysis ? "manual" : automatic ? "automatic" : "fallback"
+            : undefined
+        }
+        title={`${original.file}${
+          hasAnalysis
+            ? " · Annotated"
+            : automatic ? ` · ${versionSuggestionDescription(analysisKey, rankings)}` : ""
+        }`}
         aria-label={`${file.replace(/\.mid$/i, "")}${
           hasAnalysis ? " · Annotated" : ""
         }`}
@@ -663,12 +700,15 @@ export const Directory = React.memo(function Directory({
             source.tracks.map((file) => ({ source, file })),
           )
         : [];
-    const directTrack =
-      singleSongVersions.find(({ source, file }) =>
-        annotated.has(lakhAnalysisKey(source.name, file)),
-      ) ||
-      singleSongVersions.find(({ file }) => !/\.\d+\.mid$/i.test(file)) ||
-      singleSongVersions[0];
+    const directKeys = singleSongVersions.map(({ source, file }) =>
+      lakhAnalysisKey(source.name, file),
+    );
+    const directKey = orderVersionKeys(
+      directKeys, rankings, (key) => annotated.has(key),
+    )[0];
+    const directTrack = singleSongVersions.find(
+      ({ source, file }) => lakhAnalysisKey(source.name, file) === directKey,
+    );
     return (
       <li key={item.name}>
         <Entry
@@ -730,10 +770,18 @@ export const Directory = React.memo(function Directory({
                 Emerson, Lake &amp; Palmer — Tarkus
               </Link>
               <Link to="/lakh/The_Beatles">The Beatles</Link>
-              <Link to="/discover/harmony">Search harmonies</Link>
             </PinnedLinks>
           )}
         </Heading>
+      )}
+      {(artist || search) && (
+        <VersionOrderNote role="status">
+          {rankings
+            ? "Versions: best first · your annotated choice takes priority"
+            : rankingsUnavailable
+            ? "Version ranking unavailable · showing annotated choices first, then catalog order"
+            : "Ordering MIDI versions…"}
+        </VersionOrderNote>
       )}
       {!artist && search && (
         <SearchPanes $embedded={query !== undefined}>
@@ -803,9 +851,9 @@ export const Directory = React.memo(function Directory({
                             ),
                           );
                         }}
-                        renderTitle={(title) => highlightMatches(title, search)}
-                        renderTrack={(file, label) =>
-                          renderTrackEntry(tracks, file, label, search)
+                        rankFiles={(files) => rankTrackFiles(tracks, files)}
+                        renderTrack={(file, label, preferred) =>
+                          renderTrackEntry(tracks, file, label, search, preferred)
                         }
                       />
                     </li>
@@ -828,9 +876,9 @@ export const Directory = React.memo(function Directory({
             files={tracks}
             allFiles={tracks}
             isAnnotated={isAnnotatedTrack}
-            renderTitle={(title) => title}
-            renderTrack={(file, label) =>
-              renderTrackEntry(trackSources, file, label)
+            rankFiles={(files) => rankTrackFiles(trackSources, files)}
+            renderTrack={(file, label, preferred) =>
+              renderTrackEntry(trackSources, file, label, "", preferred)
             }
           />
         </>

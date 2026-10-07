@@ -1,0 +1,82 @@
+{
+  "modelVersion": "lakh-version-gbdt-165c23d46053",
+  "mode": "deployment of retained experimental scores; no training or new accuracy evaluation",
+  "data": {
+    "scoredMidiFiles": 10725,
+    "multiVersionGroups": 3534,
+    "currentMidiHashesVerified": true,
+    "scoresMatchRetainedExperiment": true,
+    "metadata": "reports/lakh-version-model/deployment-index.json"
+  },
+  "checks": {
+    "versionTests": { "passed": 12, "command": "node --test scripts/rawl/lakh-versions.test.cjs" },
+    "typescript": { "passed": true, "command": "./node_modules/.bin/tsc --noEmit --pretty false" },
+    "scopedDiffCheck": { "passed": true }
+  },
+  "chrome": {
+    "server": "http://localhost:3000",
+    "cases": [
+      {
+        "path": "/lakh/The_Beatles",
+        "unannotated": {
+          "title": "Roll Over Beethoven",
+          "versionOrder": [1, 5, 2, 0, 4, 3],
+          "titleHref": "/lakh/The_Beatles/Roll_Over_Beethoven_1",
+          "titleClickLoadedThatScore": true
+        },
+        "manual": {
+          "title": "All My Loving",
+          "expandedOrder": [4, 1, 2, 0, 3],
+          "titleHref": "/lakh/The_Beatles/All_My_Loving_4",
+          "manualPriorityAndAnnotationColorsRetained": true
+        },
+        "warningsAndErrors": []
+      },
+      {
+        "path": "/lakh/10cc",
+        "plainList": {
+          "title": "Dreadlock Holiday",
+          "versionOrder": [4, 1, 3, 2, 0],
+          "titleHref": "/lakh/10cc/Dreadlock_Holiday_4"
+        },
+        "globalSearchQuery": "dreadlock holiday",
+        "globalSearchMatchesPlainListOrderAndHref": true,
+        "warningsAndErrors": []
+      },
+      {
+        "path": "/lakh/",
+        "songSearchQuery": "roll over beethoven",
+        "sameBeatlesOrderAndHref": true,
+        "artistSearchQuery": "1910",
+        "singleSongArtistHref": "/lakh/1910_Fruitgum_Company/Simon_Says_1",
+        "warningsAndErrors": []
+      },
+      {
+        "path": "/corpus/simple_major",
+        "popularMarkers": 60,
+        "markersRemainInsideTitleLinks": true,
+        "automaticTitleLinksPresent": true,
+        "warningsAndErrors": []
+      },
+      {
+        "path": "/lakh/The_Beatles/Roll_Over_Beethoven_1",
+        "generatedAnalysisVisible": true,
+        "chordRibbons": 13,
+        "chordCells": 205,
+        "ribbonHeightPx": 38,
+        "duplicateKeyPhraseSectionLabels": false,
+        "tonalGridAndMeasureNumbersVisible": true,
+        "warningsAndErrors": []
+      }
+    ],
+    "screenshots": [
+      "/private/tmp/rawl-lakh-ranked-versions.png",
+      "/private/tmp/rawl-chord-ribbon-only.png"
+    ]
+  },
+  "limitations": [
+    "Existing preference accuracy remains exploratory: validation top-1 40.3%, test top-1 32.4%. No new holdout or fit was used for this UI deployment.",
+    "Manual choices lead; score ties preserve catalog order and missing scores follow readable scored files. During loading or ranking fetch failure, manual choices and catalog order remain available.",
+    "MIDI vocal proxies, native-grid measures and instrument metadata do not verify sung melody, bar origin or listening quality."
+  ]
+}

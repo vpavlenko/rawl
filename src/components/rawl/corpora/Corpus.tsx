@@ -18,6 +18,8 @@ import BeatlesDiscography from "../../lakh/BeatlesDiscography";
 import LakhEntry from "../../lakh/LakhEntry";
 import { lakhAnalysisKey } from "../../lakh/catalog";
 import { ADMIN_USER_ID } from "../../annotationVersions";
+import { useVersionRankings } from "../../../lakh/useVersionRankings";
+import { orderVersionKeys, versionSuggestionDescription } from "../../../lakh/versionRanking";
 
 const PieceLink = styled.a<{
   $hasOrder: boolean;
@@ -77,6 +79,7 @@ const Corpus: React.FC<{
   composers?: ComposerInfo[];
 }> = ({ slug, composers }) => {
   const { analyses, annotationVersions } = React.useContext(AppContext);
+  const { rankings: versionRankings } = useVersionRankings(slug === "simple_major");
   const searchInputRef = React.useRef<HTMLInputElement>(null);
   const [hoveredCategory, setHoveredCategory] = React.useState<string | null>(
     null,
@@ -536,22 +539,18 @@ const Corpus: React.FC<{
                               isAnnotated={(file) =>
                                 !!analyses[lakhAnalysisKey(artist, file)]
                               }
-                              renderTitle={(title) => (
-                                <>
-                                  {renderLakhPopularStar(
-                                    section.id,
-                                    artist,
-                                    title,
-                                  )}
-                                  {title}
-                                </>
-                              )}
-                              renderTrack={(file, label) => {
+                              rankFiles={(files) => {
+                                const filesByKey = new Map(files.map((file) => [lakhAnalysisKey(artist, file), file]));
+                                return orderVersionKeys([...filesByKey.keys()], versionRankings, (key) => !!analyses[key])
+                                  .map((key) => filesByKey.get(key)!);
+                              }}
+                              renderTrack={(file, label, preferred) => {
                                 const piece = pieces.find(
                                   (piece) => piece.filename === file,
                                 )!;
                                 const key = lakhAnalysisKey(artist, file);
                                 const analysis = analyses[key];
+                                const automatic = !analysis && !!versionRankings?.byKey[key];
                                 const community = Object.keys(
                                   annotationVersions[key] || {},
                                 ).some((owner) => owner !== ADMIN_USER_ID);
@@ -568,8 +567,10 @@ const Corpus: React.FC<{
                                     $version={
                                       label !== undefined && /^\d+$/.test(label)
                                     }
+                                    data-lakh-analysis-key={key}
+                                    data-lakh-preferred={preferred ? (analysis ? "manual" : automatic ? "automatic" : "fallback") : undefined}
                                     title={`${file}${
-                                      analysis ? " · Annotated" : ""
+                                      analysis ? " · Annotated" : automatic ? ` · ${versionSuggestionDescription(key, versionRankings)}` : ""
                                     }`}
                                     aria-label={`${piece.title}${
                                       analysis ? " · Annotated" : ""

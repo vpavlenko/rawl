@@ -1,0 +1,29 @@
+[
+  {
+    "number": 40,
+    "id": "Marvin Gaye/ihearditthroughthegrapevine",
+    "key": "c/MIDI/Gaye,Marvin/I Heard It Through The Grapevine.1.mid",
+    "unshiftedQuantizedShare": 0.13219616204690832,
+    "bestQuarterBeatPhase": 0.16458333333333333,
+    "phaseCorrectedShare": 0.32551528073916136,
+    "semantics": "Diagnostic in-sample search of global phase [0,.25), step 1/480 quarter beat; pitched onsets, straight sixteenth / triplet grid, tolerance <.02. Does not establish correct musical bar phase or meter."
+  },
+  {
+    "number": 76,
+    "id": "The Alan Parsons Project/eyeinthesky",
+    "key": "c/MIDI/The Alan Parsons Project/Eye In The Sky.mid",
+    "unshiftedQuantizedShare": 0.24131106988249845,
+    "bestQuarterBeatPhase": 0.21041666666666667,
+    "phaseCorrectedShare": 0.6304267161410019,
+    "semantics": "Diagnostic in-sample search of global phase [0,.25), step 1/480 quarter beat; pitched onsets, straight sixteenth / triplet grid, tolerance <.02. Does not establish correct musical bar phase or meter."
+  },
+  {
+    "number": 133,
+    "id": "Weather Report/palladium",
+    "key": "c/MIDI/Weather Report/Palladium.mid",
+    "unshiftedQuantizedShare": 0.040226921093347086,
+    "bestQuarterBeatPhase": 0.14791666666666667,
+    "phaseCorrectedShare": 0.9143888602372356,
+    "semantics": "Diagnostic in-sample search of global phase [0,.25), step 1/480 quarter beat; pitched onsets, straight sixteenth / triplet grid, tolerance <.02. Does not establish correct musical bar phase or meter."
+  }
+]

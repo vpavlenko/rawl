@@ -1,0 +1,39 @@
+{
+  "format": "rawl-version-visual-audit-1",
+  "createdAt": "2026-10-07T07:47:22.964Z",
+  "annotationHash": "e8381fc88d5080ffb57524c01d9eb414e469b95d091a6f656d886ffeb9c981bd",
+  "cases": 148,
+  "versions": 572,
+  "unreadable": [
+    {
+      "key": "c/MIDI/Britney Spears/Oops!... I Did It Again.2.mid",
+      "error": "Expected length for portPrefix event is 1, got 0"
+    },
+    {
+      "key": "c/MIDI/Yanni/The Rain Must Fall.1.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'ÿ/\u0000M'"
+    }
+  ],
+  "coverage": {
+    "overview": true,
+    "excerptQuarterBeats": [
+      32,
+      64
+    ],
+    "allVariants": true,
+    "audioListening": false,
+    "crossVersionPhraseAlignment": false
+  },
+  "confidenceCounts": {
+    "visible": 40,
+    "family": 66,
+    "uncertain": 24,
+    "ambiguous-label": 9,
+    "counterexample": 6,
+    "partial": 2,
+    "byte-copy": 1
+  },
+  "nearCopyGroups98": 51,
+  "observationsHash": "c98c6523741c606303cb3c6f9719e87d80d65948af1666a76909a66e2054e77f",
+  "noteSemantics": "Quarter-note beats; physical FIFO note-offs, unclosed notes extended to file end, no sustain or CC120/123 termination. Colors = GM families, drums gray. Native meter lines; no cross-version musical alignment. Labels indicate annotation presence, not independently confirmed review completeness."
+}

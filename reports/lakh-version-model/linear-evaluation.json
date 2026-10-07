@@ -1,0 +1,684 @@
+{
+  "modelVersion": "lakh-version-linear-28fc6d88a9eb",
+  "featureVersion": "lakh-version-features-1",
+  "selection": "Validation top-1, then MRR; ties prefer stronger regularization. No test refit.",
+  "candidates": [
+    {
+      "l2": 0.03,
+      "validation": {
+        "groups": 31,
+        "top1": 0.25806451612903225,
+        "top2": 0.7580645161290323,
+        "mrr": 0.5709677419354838,
+        "pairAccuracy": 0.4338235294117647,
+        "pairs": 68
+      }
+    },
+    {
+      "l2": 0.1,
+      "validation": {
+        "groups": 31,
+        "top1": 0.25806451612903225,
+        "top2": 0.7258064516129032,
+        "mrr": 0.5655913978494624,
+        "pairAccuracy": 0.41911764705882354,
+        "pairs": 68
+      }
+    },
+    {
+      "l2": 0.003,
+      "validation": {
+        "groups": 31,
+        "top1": 0.25806451612903225,
+        "top2": 0.7258064516129032,
+        "mrr": 0.56321044546851,
+        "pairAccuracy": 0.3897058823529412,
+        "pairs": 68
+      }
+    },
+    {
+      "l2": 1,
+      "validation": {
+        "groups": 31,
+        "top1": 0.22580645161290322,
+        "top2": 0.7580645161290323,
+        "mrr": 0.5575268817204302,
+        "pairAccuracy": 0.4485294117647059,
+        "pairs": 68
+      }
+    },
+    {
+      "l2": 0.01,
+      "validation": {
+        "groups": 31,
+        "top1": 0.22580645161290322,
+        "top2": 0.7580645161290323,
+        "mrr": 0.5532258064516129,
+        "pairAccuracy": 0.40441176470588236,
+        "pairs": 68
+      }
+    },
+    {
+      "l2": 0.3,
+      "validation": {
+        "groups": 31,
+        "top1": 0.22580645161290322,
+        "top2": 0.7258064516129032,
+        "mrr": 0.5521505376344086,
+        "pairAccuracy": 0.4338235294117647,
+        "pairs": 68
+      }
+    }
+  ],
+  "metrics": {
+    "train": {
+      "model": {
+        "groups": 88,
+        "top1": 0.6306818181818182,
+        "top2": 0.8636363636363636,
+        "mrr": 0.7827786796536796,
+        "pairAccuracy": 0.7765151515151515,
+        "pairs": 264
+      },
+      "baselines": {
+        "mostVoices": {
+          "groups": 88,
+          "top1": 0.3852272727272727,
+          "top2": 0.7003787878787878,
+          "mrr": 0.6155173714873393,
+          "pairAccuracy": 0.5037878787878788,
+          "pairs": 264
+        },
+        "mostNotes": {
+          "groups": 88,
+          "top1": 0.3825757575757576,
+          "top2": 0.7017045454545454,
+          "mrr": 0.6160285894660894,
+          "pairAccuracy": 0.5246212121212122,
+          "pairs": 264
+        },
+        "baseFilename": {
+          "groups": 88,
+          "top1": 0.5606060606060606,
+          "top2": 0.8074183392365211,
+          "mrr": 0.7311642223513029,
+          "pairAccuracy": 0.6742424242424242,
+          "pairs": 264
+        },
+        "random": {
+          "groups": 88,
+          "top1": 0.3421901646333464,
+          "top2": 0.6843803292666928,
+          "mrr": 0.5919769340655869,
+          "pairAccuracy": 0.5,
+          "pairs": 264
+        }
+      }
+    },
+    "validation": {
+      "model": {
+        "groups": 31,
+        "top1": 0.25806451612903225,
+        "top2": 0.7580645161290323,
+        "mrr": 0.5709677419354838,
+        "pairAccuracy": 0.4338235294117647,
+        "pairs": 68
+      },
+      "baselines": {
+        "mostVoices": {
+          "groups": 31,
+          "top1": 0.30376344086021506,
+          "top2": 0.6881720430107526,
+          "mrr": 0.5903673835125447,
+          "pairAccuracy": 0.4852941176470588,
+          "pairs": 68
+        },
+        "mostNotes": {
+          "groups": 31,
+          "top1": 0.37365591397849457,
+          "top2": 0.7311827956989246,
+          "mrr": 0.6332885304659498,
+          "pairAccuracy": 0.5441176470588235,
+          "pairs": 68
+        },
+        "baseFilename": {
+          "groups": 31,
+          "top1": 0.7096774193548387,
+          "top2": 0.8709677419354839,
+          "mrr": 0.8262608806963647,
+          "pairAccuracy": 0.7573529411764706,
+          "pairs": 68
+        },
+        "random": {
+          "groups": 31,
+          "top1": 0.3715821812596006,
+          "top2": 0.7431643625192011,
+          "mrr": 0.6294349352644282,
+          "pairAccuracy": 0.5,
+          "pairs": 68
+        }
+      }
+    },
+    "test": {
+      "model": {
+        "groups": 17,
+        "top1": 0.4117647058823529,
+        "top2": 0.5294117647058824,
+        "mrr": 0.5868347338935574,
+        "pairAccuracy": 0.4915254237288136,
+        "pairs": 59
+      },
+      "baselines": {
+        "mostVoices": {
+          "groups": 17,
+          "top1": 0.36274509803921573,
+          "top2": 0.7549019607843137,
+          "mrr": 0.6243464052287582,
+          "pairAccuracy": 0.6694915254237288,
+          "pairs": 59
+        },
+        "mostNotes": {
+          "groups": 17,
+          "top1": 0.29411764705882354,
+          "top2": 0.6421568627450981,
+          "mrr": 0.5676237161531279,
+          "pairAccuracy": 0.6101694915254238,
+          "pairs": 59
+        },
+        "baseFilename": {
+          "groups": 17,
+          "top1": 0.6176470588235294,
+          "top2": 0.7913165266106442,
+          "mrr": 0.7552721088435375,
+          "pairAccuracy": 0.7288135593220338,
+          "pairs": 59
+        },
+        "random": {
+          "groups": 17,
+          "top1": 0.2829831932773109,
+          "top2": 0.5659663865546218,
+          "mrr": 0.5359321228491396,
+          "pairAccuracy": 0.5,
+          "pairs": 59
+        }
+      },
+      "predictions": [
+        {
+          "id": "ABBA/thewinnertakesitall",
+          "winner": "c/MIDI/ABBA/The Winner Takes It All.mid",
+          "accepted": [
+            "c/MIDI/ABBA/The Winner Takes It All.mid"
+          ],
+          "top1Credit": 0,
+          "ranked": [
+            {
+              "key": "c/MIDI/ABBA/The Winner Takes It All.1.mid",
+              "value": 0.5996527566683061
+            },
+            {
+              "key": "c/MIDI/ABBA/The Winner Takes It All.4.mid",
+              "value": -0.8187135418415861
+            },
+            {
+              "key": "c/MIDI/ABBA/The Winner Takes It All.2.mid",
+              "value": -1.3204078366375414
+            },
+            {
+              "key": "c/MIDI/ABBA/The Winner Takes It All.mid",
+              "value": -1.6383186908670981
+            },
+            {
+              "key": "c/MIDI/ABBA/The Winner Takes It All.3.mid",
+              "value": -1.6749507871670313
+            },
+            {
+              "key": "c/MIDI/ABBA/The Winner Takes It All.6.mid",
+              "value": -1.7789701842924504
+            },
+            {
+              "key": "c/MIDI/ABBA/The Winner Takes It All.5.mid",
+              "value": -2.7585150182117166
+            }
+          ]
+        },
+        {
+          "id": "Barry White/cantgetenoughofyourlovebabe",
+          "winner": "c/MIDI/White Barry/Can't Get Enough of Your Love, Babe.mid",
+          "accepted": [
+            "c/MIDI/White Barry/Can't Get Enough of Your Love, Babe.mid"
+          ],
+          "top1Credit": 1,
+          "ranked": [
+            {
+              "key": "c/MIDI/White Barry/Can't Get Enough of Your Love, Babe.mid",
+              "value": 1.4104826826975907
+            },
+            {
+              "key": "c/MIDI/White Barry/Can't Get Enough of Your Love, Babe.1.mid",
+              "value": 0.7982167892033749
+            },
+            {
+              "key": "c/MIDI/Barry White/Can't Get Enough of Your Love, Babe.mid",
+              "value": 0.5223572405222406
+            }
+          ]
+        },
+        {
+          "id": "Crosby Bing/whitechristmas",
+          "winner": "c/MIDI/Crosby Bing/White Christmas.2.mid",
+          "accepted": [
+            "c/MIDI/Crosby Bing/White Christmas.2.mid"
+          ],
+          "top1Credit": 1,
+          "ranked": [
+            {
+              "key": "c/MIDI/Crosby Bing/White Christmas.2.mid",
+              "value": 2.6312046727636256
+            },
+            {
+              "key": "c/MIDI/Crosby Bing/White Christmas.1.mid",
+              "value": 1.7782820652415319
+            },
+            {
+              "key": "c/MIDI/Crosby Bing/White Christmas.mid",
+              "value": 1.0432127709930206
+            }
+          ]
+        },
+        {
+          "id": "Eagles/takeittothelimit",
+          "winner": "c/MIDI/Eagles/Take It to the Limit.mid",
+          "accepted": [
+            "c/MIDI/Eagles/Take It to the Limit.mid"
+          ],
+          "top1Credit": 0,
+          "ranked": [
+            {
+              "key": "c/MIDI/Eagles/Take It to the Limit.1.mid",
+              "value": 1.3098262767859636
+            },
+            {
+              "key": "c/MIDI/Eagles/Take It to the Limit.2.mid",
+              "value": 0.9088444657747965
+            },
+            {
+              "key": "c/MIDI/Eagles/Take It to the Limit.mid",
+              "value": 0.9086400219686936
+            }
+          ]
+        },
+        {
+          "id": "Earth, Wind & Fire/fantasy",
+          "winner": "c/MIDI/Earth, Wind & Fire/Fantasy.mid",
+          "accepted": [
+            "c/MIDI/Earth, Wind & Fire/Fantasy.mid"
+          ],
+          "top1Credit": 0,
+          "ranked": [
+            {
+              "key": "c/MIDI/Earth, Wind & Fire/Fantasy.2.mid",
+              "value": 0.376107231200112
+            },
+            {
+              "key": "c/MIDI/Earth, Wind & Fire/Fantasy.1.mid",
+              "value": 0.36712023597097676
+            },
+            {
+              "key": "c/MIDI/Earth, Wind & Fire/Fantasy.5.mid",
+              "value": 0.15624779116338205
+            },
+            {
+              "key": "c/MIDI/Earth, Wind & Fire/Fantasy.6.mid",
+              "value": -0.17474787029103922
+            },
+            {
+              "key": "c/MIDI/Earth, Wind & Fire/Fantasy.3.mid",
+              "value": -0.2142810850985934
+            },
+            {
+              "key": "c/MIDI/Earth, Wind & Fire/Fantasy.mid",
+              "value": -0.7039490636448065
+            },
+            {
+              "key": "c/MIDI/Earth, Wind & Fire/Fantasy.4.mid",
+              "value": -0.8998014239816816
+            },
+            {
+              "key": "c/MIDI/Earth, Wind & Fire/Fantasy.7.mid",
+              "value": -0.9006295424916426
+            }
+          ]
+        },
+        {
+          "id": "Elvis Presley/canthelpfallinginlove",
+          "winner": "c/MIDI/Elvis Presley/Can't Help Falling in Love.5.mid",
+          "accepted": [
+            "c/MIDI/Elvis Presley/Can't Help Falling in Love.5.mid"
+          ],
+          "top1Credit": 0,
+          "ranked": [
+            {
+              "key": "c/MIDI/Elvis Presley/Can't Help Falling in Love.6.mid",
+              "value": 1.3798553615261862
+            },
+            {
+              "key": "c/MIDI/Elvis Presley/Can't Help Falling in Love.4.mid",
+              "value": -0.4991527012091583
+            },
+            {
+              "key": "c/MIDI/Elvis Presley/Can't Help Falling in Love.mid",
+              "value": -1.638734482548024
+            },
+            {
+              "key": "c/MIDI/Elvis Presley/Can't Help Falling in Love.2.mid",
+              "value": -1.771453237694818
+            },
+            {
+              "key": "c/MIDI/Elvis Presley/Can't Help Falling in Love.1.mid",
+              "value": -1.9921682359032098
+            },
+            {
+              "key": "c/MIDI/Elvis Presley/Can't Help Falling in Love.3.mid",
+              "value": -2.001862236546652
+            },
+            {
+              "key": "c/MIDI/Elvis Presley/Can't Help Falling in Love.5.mid",
+              "value": -2.095094156740601
+            }
+          ]
+        },
+        {
+          "id": "Pink Floyd/braindamage",
+          "winner": "c/MIDI/Pink Floyd/Brain Damage.mid",
+          "accepted": [
+            "c/MIDI/Pink Floyd/Brain Damage.mid"
+          ],
+          "top1Credit": 0,
+          "ranked": [
+            {
+              "key": "c/MIDI/Pink Floyd/Brain Damage.2.mid",
+              "value": 0.6634775969444378
+            },
+            {
+              "key": "c/MIDI/Pink Floyd/Brain Damage.1.mid",
+              "value": 0.5747304051030395
+            },
+            {
+              "key": "c/MIDI/Pink Floyd/Brain Damage.mid",
+              "value": -2.2088721505680873
+            },
+            {
+              "key": "c/MIDI/Pink Floyd/Brain Damage.4.mid",
+              "value": -2.5320842521408826
+            },
+            {
+              "key": "c/MIDI/Pink Floyd/Brain Damage.3.mid",
+              "value": -2.6088216057344935
+            }
+          ]
+        },
+        {
+          "id": "Pink Floyd/comfortablynumb",
+          "winner": "c/MIDI/Pink Floyd/Comfortably Numb.mid",
+          "accepted": [
+            "c/MIDI/Pink Floyd/Comfortably Numb.mid"
+          ],
+          "top1Credit": 0,
+          "ranked": [
+            {
+              "key": "c/MIDI/Pink Floyd/Comfortably Numb.2.mid",
+              "value": 0.9071991603523459
+            },
+            {
+              "key": "c/MIDI/Pink Floyd/Comfortably Numb.1.mid",
+              "value": 0.8889744520150655
+            },
+            {
+              "key": "c/MIDI/Pink Floyd/Comfortably Numb.mid",
+              "value": 0.5608046304563806
+            }
+          ]
+        },
+        {
+          "id": "Tag Team/whoompthereitis",
+          "winner": "c/MIDI/Tag Team/Whoomp (There It Is).1.mid",
+          "accepted": [
+            "c/MIDI/Tag Team/Whoomp (There It Is).1.mid"
+          ],
+          "top1Credit": 1,
+          "ranked": [
+            {
+              "key": "c/MIDI/Tag Team/Whoomp (There It Is).1.mid",
+              "value": 4.328555361072462
+            },
+            {
+              "key": "c/MIDI/Tag Team/Whoomp (There It Is).mid",
+              "value": -1.3659666999413422
+            }
+          ]
+        },
+        {
+          "id": "Tasmin Archer/sleepingsatellite",
+          "winner": "c/MIDI/Tasmin Archer/Sleeping Satellite.mid",
+          "accepted": [
+            "c/MIDI/Tasmin Archer/Sleeping Satellite.mid"
+          ],
+          "top1Credit": 1,
+          "ranked": [
+            {
+              "key": "c/MIDI/Tasmin Archer/Sleeping Satellite.mid",
+              "value": 2.240183339982027
+            },
+            {
+              "key": "c/MIDI/Tasmin Archer/Sleeping Satellite.1.mid",
+              "value": 0.44550609994718343
+            }
+          ]
+        },
+        {
+          "id": "Tavares/heavenmustbemissinganangel",
+          "winner": "c/MIDI/Tavares/Heaven Must Be Missing an Angel.mid",
+          "accepted": [
+            "c/MIDI/Tavares/Heaven Must Be Missing an Angel.mid"
+          ],
+          "top1Credit": 1,
+          "ranked": [
+            {
+              "key": "c/MIDI/Tavares/Heaven Must Be Missing an Angel.mid",
+              "value": 2.3398111047102272
+            },
+            {
+              "key": "c/MIDI/Tavares/Heaven Must Be Missing an Angel.2.mid",
+              "value": 1.2148352737984893
+            },
+            {
+              "key": "c/MIDI/Tavares/Heaven Must Be Missing an Angel.1.mid",
+              "value": 0.7967024915295768
+            }
+          ]
+        },
+        {
+          "id": "The Beatles/misery",
+          "winner": "c/MIDI/The Beatles/Misery.2.mid",
+          "accepted": [
+            "c/MIDI/The Beatles/Misery.2.mid"
+          ],
+          "top1Credit": 1,
+          "ranked": [
+            {
+              "key": "c/MIDI/The Beatles/Misery.2.mid",
+              "value": 0.9337962651740381
+            },
+            {
+              "key": "c/MIDI/The Beatles/Misery.mid",
+              "value": -0.8042001728527854
+            },
+            {
+              "key": "c/MIDI/The Beatles/Misery.1.mid",
+              "value": -0.9961854259968748
+            }
+          ]
+        },
+        {
+          "id": "The Beatles/shesawoman",
+          "winner": "c/MIDI/The Beatles/She's a Woman.mid",
+          "accepted": [
+            "c/MIDI/The Beatles/She's a Woman.mid"
+          ],
+          "top1Credit": 0,
+          "ranked": [
+            {
+              "key": "c/MIDI/The Beatles/She's a Woman.2.mid",
+              "value": 2.270725408340696
+            },
+            {
+              "key": "c/MIDI/The Beatles/She's a Woman.mid",
+              "value": 0.6780531269703076
+            },
+            {
+              "key": "c/MIDI/The Beatles/She's a Woman.1.mid",
+              "value": 0.6612491028229313
+            },
+            {
+              "key": "c/MIDI/The Beatles/She's a Woman.4.mid",
+              "value": -1.1162148125455245
+            },
+            {
+              "key": "c/MIDI/The Beatles/She's a Woman.3.mid",
+              "value": -1.5908706571222995
+            }
+          ]
+        },
+        {
+          "id": "The Beatles/twistandshout",
+          "winner": "c/MIDI/The Beatles/Twist And Shout.4.mid",
+          "accepted": [
+            "c/MIDI/The Beatles/Twist And Shout.4.mid"
+          ],
+          "top1Credit": 0,
+          "ranked": [
+            {
+              "key": "c/MIDI/The Beatles/Twist And Shout.2.mid",
+              "value": 0.1621827495785998
+            },
+            {
+              "key": "c/MIDI/The Beatles/Twist And Shout.mid",
+              "value": -0.5297447018274712
+            },
+            {
+              "key": "c/MIDI/The Beatles/Twist And Shout.6.mid",
+              "value": -0.8577008689561239
+            },
+            {
+              "key": "c/MIDI/The Beatles/Twist And Shout.4.mid",
+              "value": -0.9904196241029182
+            },
+            {
+              "key": "c/MIDI/The Beatles/Twist And Shout.5.mid",
+              "value": -0.990420063116791
+            },
+            {
+              "key": "c/MIDI/The Beatles/Twist And Shout.1.mid",
+              "value": -1.3489176378910748
+            },
+            {
+              "key": "c/MIDI/The Beatles/Twist And Shout.7.mid",
+              "value": -2.4634401807674338
+            },
+            {
+              "key": "c/MIDI/The Beatles/Twist And Shout.3.mid",
+              "value": -2.9784869299549306
+            }
+          ]
+        },
+        {
+          "id": "The Boomtown Rats/idontlikemondays",
+          "winner": "c/MIDI/The Boomtown Rats/I Don't Like Monday's.mid",
+          "accepted": [
+            "c/MIDI/The Boomtown Rats/I Don't Like Monday's.mid"
+          ],
+          "top1Credit": 0,
+          "ranked": [
+            {
+              "key": "c/MIDI/The Boomtown Rats/I Don't Like Monday's.1.mid",
+              "value": 1.6811711420189872
+            },
+            {
+              "key": "c/MIDI/The Boomtown Rats/I Don't Like Monday's.mid",
+              "value": 1.362155618532583
+            }
+          ]
+        },
+        {
+          "id": "Van McCoy/thehustle",
+          "winner": "c/MIDI/Van McCoy/The Hustle.mid",
+          "accepted": [
+            "c/MIDI/Van McCoy/The Hustle.mid"
+          ],
+          "top1Credit": 1,
+          "ranked": [
+            {
+              "key": "c/MIDI/Van McCoy/The Hustle.mid",
+              "value": 0.44526446397702335
+            },
+            {
+              "key": "c/MIDI/Van McCoy/The Hustle.3.mid",
+              "value": -0.13433284551938804
+            },
+            {
+              "key": "c/MIDI/Van McCoy/The Hustle.1.mid",
+              "value": -0.18839683209319757
+            },
+            {
+              "key": "c/MIDI/Van McCoy/The Hustle.2.mid",
+              "value": -1.862110637221957
+            }
+          ]
+        },
+        {
+          "id": "Zucchero/senzaunadonna",
+          "winner": "c/MIDI/Zucchero/Senza Una Donna.7.mid",
+          "accepted": [
+            "c/MIDI/Zucchero/Senza Una Donna.7.mid"
+          ],
+          "top1Credit": 0,
+          "ranked": [
+            {
+              "key": "c/MIDI/Zucchero/Senza Una Donna.mid",
+              "value": 2.1935924221399454
+            },
+            {
+              "key": "c/MIDI/Zucchero/Senza Una Donna.1.mid",
+              "value": 2.046127138643507
+            },
+            {
+              "key": "c/MIDI/Zucchero/Senza Una Donna.4.mid",
+              "value": 2.046127138643507
+            },
+            {
+              "key": "c/MIDI/Zucchero/Senza Una Donna.5.mid",
+              "value": 2.046127138643507
+            },
+            {
+              "key": "c/MIDI/Zucchero/Senza Una Donna.3.mid",
+              "value": 0.46515344082448407
+            },
+            {
+              "key": "c/MIDI/Zucchero/Senza Una Donna.7.mid",
+              "value": 0.06501539208108875
+            },
+            {
+              "key": "c/MIDI/Zucchero/Senza Una Donna.6.mid",
+              "value": -0.13939581633356252
+            },
+            {
+              "key": "c/MIDI/Zucchero/Senza Una Donna.2.mid",
+              "value": -0.8532641116269792
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "note": "One preferred version per reviewed composition. Byte-identical alternatives accepted; score ties receive fractional credit. MIDI vocal/melody and timbre descriptors are proxies, not verified vocal transcription or audio quality."
+}

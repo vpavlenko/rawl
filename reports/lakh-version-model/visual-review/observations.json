@@ -1,0 +1,1396 @@
+[
+  {
+    "number": 1,
+    "confidence": "family",
+    "observation": "Выбрана .2: 11 партий, 3105 нот; близкая .3 имеет 10 партий и другой солирующий тембр. .4 содержит длинный пустой хвост. Основная версия заметно плотнее, но мелодия в ней окружена большим числом слоёв.",
+    "hypothesis": "Важнее читаемая мелодия, разделение ролей и отсутствие хвоста, чем максимум нот. Точный выбор между .2 и .3 требует прослушивания.",
+    "tags": [
+      "roles",
+      "tail",
+      "near-copy",
+      "timbre"
+    ],
+    "id": "a-ha/takeonme",
+    "selectedKeys": [
+      "c/MIDI/a-ha/Take On Me.2.mid"
+    ]
+  },
+  {
+    "number": 2,
+    "confidence": "family",
+    "observation": "Fernando.mid входит в семейство почти одинаковых 10-партийных версий. .6/.10 существенно плотнее и менее привязаны к долям; .2 беднее, .3 короче. Несколько альтернатив визуально очень близки выбранной.",
+    "hypothesis": "Полная, сравнительно чистая аранжировка; конкретный файл среди близких копий глазами не объясняется.",
+    "tags": [
+      "roles",
+      "grid",
+      "near-copy"
+    ],
+    "id": "ABBA/fernando",
+    "selectedKeys": [
+      "c/MIDI/ABBA/Fernando.mid"
+    ]
+  },
+  {
+    "number": 3,
+    "confidence": "visible",
+    "observation": "Honey Honey.mid длиннее альтернативы (492 против 404 долей), с 9 вместо 11 партий. Различаются мелодический контур, фактура и формальная длина; выбранная версия имеет меньшую долю точно квантованных атак.",
+    "hypothesis": "Полнота формы и подходящий вариант аранжировки перевешивают число партий и строгую квантизацию.",
+    "tags": [
+      "form",
+      "counterexample-grid",
+      "counterexample-count"
+    ],
+    "id": "ABBA/honeyhoney",
+    "selectedKeys": [
+      "c/MIDI/ABBA/Honey Honey.mid"
+    ]
+  },
+  {
+    "number": 4,
+    "confidence": "visible",
+    "observation": "Money, Money, Money.mid содержит меньше нот и партий, чем большинство альтернатив. В отрывке виден отдельный верхний контур и более разреженное сопровождение; .6 имеет тянущуюся до конца ноту. Многие остальные версии образуют другое, почти одинаковое семейство.",
+    "hypothesis": "Выбор другой аранжировки с более ясными ролями и устойчивой сеткой, а не самой насыщенной версии. Качество GM Music Box/Marimba глазами не установить.",
+    "tags": [
+      "roles",
+      "grid",
+      "stuck-note",
+      "counterexample-count",
+      "timbre"
+    ],
+    "id": "ABBA/moneymoneymoney",
+    "selectedKeys": [
+      "c/MIDI/ABBA/Money, Money, Money.mid"
+    ]
+  },
+  {
+    "number": 5,
+    "confidence": "uncertain",
+    "observation": "Все три S.O.S. имеют одинаковое число партий, нот, темп и длину. .2 отличается тембрами, .1 и основная версия почти совпадают на обзоре; в увеличении заметны небольшие временные различия.",
+    "hypothesis": "Точную причину выбора по этому виду не определяю; нужны сравнение событий и прослушивание близких копий.",
+    "tags": [
+      "near-copy",
+      "timbre"
+    ],
+    "id": "ABBA/sos",
+    "selectedKeys": [
+      "c/MIDI/ABBA/S.O.S.mid"
+    ]
+  },
+  {
+    "number": 6,
+    "confidence": "family",
+    "observation": "The Winner Takes It All.mid близка .2/.3/.6 по нотам и составу. .5 превращает почти всё в Piano и более чем удваивает число нот; .1/.4 — другие, менее плотные варианты.",
+    "hypothesis": "Сохранение самостоятельных инструментальных ролей предпочтительнее раздутого all-piano варианта; точный файл внутри семейства не объясняется.",
+    "tags": [
+      "roles",
+      "all-piano",
+      "near-copy",
+      "counterexample-grid"
+    ],
+    "id": "ABBA/thewinnertakesitall",
+    "selectedKeys": [
+      "c/MIDI/ABBA/The Winner Takes It All.mid"
+    ]
+  },
+  {
+    "number": 7,
+    "confidence": "family",
+    "observation": "Waterloo.mid относится к семейству 8-партийных версий с отчётливыми мелодией, басом и сопровождением. .2/.3 имеют 14 партий и более плотную фактуру. .5/.6 и основная версия чрезвычайно близки.",
+    "hypothesis": "Нужны содержательные отдельные роли, а не число каналов. Различие между близкими 8-партийными файлами может быть в тембрах или мелких правках.",
+    "tags": [
+      "roles",
+      "grid",
+      "near-copy",
+      "counterexample-count"
+    ],
+    "id": "ABBA/waterloo",
+    "selectedKeys": [
+      "c/MIDI/ABBA/Waterloo.mid"
+    ]
+  },
+  {
+    "number": 8,
+    "confidence": "ambiguous-label",
+    "observation": "Размечены все три Year of the Cat: полная 14-партийная, короткая 3-партийная Clavinet и промежуточная 10-партийная версии. Это разные фактуры и длины.",
+    "hypothesis": "Нельзя считать наличие разметки однозначной меткой лучшей версии в этой группе.",
+    "tags": [
+      "ambiguous-label",
+      "form"
+    ],
+    "id": "Al Stewart/theyearofthecat",
+    "selectedKeys": [
+      "c/MIDI/Al Stewart/The Year of the Cat.1.mid",
+      "c/MIDI/Al Stewart/The Year of the Cat.2.mid",
+      "c/MIDI/Al Stewart/The Year of the Cat.mid"
+    ]
+  },
+  {
+    "number": 9,
+    "confidence": "family",
+    "observation": "Poison.2 сохраняет многослойную 13-партийную аранжировку вместо 10-партийной основной. .1 выглядит практически одинаково; точный выбор между ними не объясняется.",
+    "id": "Alice Cooper/poison",
+    "selectedKeys": [
+      "c/MIDI/Alice Cooper/Poison.2.mid"
+    ]
+  },
+  {
+    "number": 10,
+    "confidence": "uncertain",
+    "observation": "Все три Aspettavo te совпадают по составу, длине и числу нот; видны почти одинаковые контуры. Не вижу основания предпочесть именно основной файл.",
+    "id": "Ambra/aspettavote",
+    "selectedKeys": [
+      "c/MIDI/Ambra/Aspettavo te.mid"
+    ]
+  },
+  {
+    "number": 11,
+    "confidence": "visible",
+    "observation": "A Horse With No Name.1 имеет раздельную гитарную фактуру и ровные атаки; основная версия плотнее и заметно менее квантована. При этом выбранная сама имеет длинные завершающие ноты: отсутствие хвостов не абсолютный критерий.",
+    "id": "America/ahorsewithnoname",
+    "selectedKeys": [
+      "c/MIDI/America/A Horse With No Name.1.mid"
+    ]
+  },
+  {
+    "number": 12,
+    "confidence": "visible",
+    "observation": "Benvenuti in paradiso.mid: 8 партий и 7413 нот вместо 15–16 партий у альтернатив. Мелодическая линия и бас читаются отдельно; родственная .2 беднее по нотам. Гипотеза — выбор компактной, но содержательной аранжировки.",
+    "id": "Antonello Venditti/benvenutiinparadiso",
+    "selectedKeys": [
+      "c/MIDI/Venditti Antonello/Benvenuti in paradiso.mid"
+    ]
+  },
+  {
+    "number": 13,
+    "confidence": "family",
+    "observation": "Выбран Barry White с латунными духовыми, Alto Sax и самостоятельным басом; другая короткая версия теряет часть формы. Более близкая 8-партийная альтернатива тоже полная, поэтому точную причину нужно слушать.",
+    "id": "Barry White/cantgetenoughofyourlovebabe",
+    "selectedKeys": [
+      "c/MIDI/White Barry/Can't Get Enough of Your Love, Babe.mid"
+    ]
+  },
+  {
+    "number": 14,
+    "confidence": "visible",
+    "observation": "I Shot the Sheriff: выбран 98 BPM / 410 долей против 180 BPM / 832 долей. Альтернатива квантована лучше. Возможный критерий — подходящий музыкальный масштаб такта и другая аранжировка, а не процент точных атак.",
+    "id": "Bob Marley/ishotthesheriff",
+    "selectedKeys": [
+      "c/MIDI/Bob Marley/I shot the Sheriff.mid"
+    ]
+  },
+  {
+    "number": 15,
+    "confidence": "uncertain",
+    "observation": "Три Jammin отличаются написанием/источником файла, но совпадают по числу нот, ролям и форме. Основания для строгого отрицательного ярлыка двум альтернативам глазами нет.",
+    "id": "Bob Marley/jammin",
+    "selectedKeys": [
+      "c/MIDI/Bob Marley/Jammin'.mid"
+    ]
+  },
+  {
+    "number": 16,
+    "confidence": "visible",
+    "observation": "Waiting In Vain: выбранная версия содержит 13 партий и 8368 нот против 10 / 4939. Видно более развитое сопровождение и несколько самостоятельных верхних слоёв; это поддерживает критерий деталей, хотя квантизация хуже.",
+    "id": "Bob Marley/waitinginvain",
+    "selectedKeys": [
+      "c/MIDI/Bob Marley/Waiting In Vain.mid"
+    ]
+  },
+  {
+    "number": 17,
+    "confidence": "uncertain",
+    "observation": "Picture of You: все три версии имеют 8 партий / 4315 нот / 388 долей и одинаковую инструментовку. Видимые изменения фаз/длительностей мелкие; точный выбор не определяю.",
+    "id": "Boyzone/pictureofyou",
+    "selectedKeys": [
+      "c/MIDI/Boyzone/Picture of You.1.mid"
+    ]
+  },
+  {
+    "number": 18,
+    "confidence": "partial",
+    "observation": "Oops!...: выбранная версия имеет 20 сменяющихся сочетаний канал/патч, но меньше нот, чем .1. Партии организованы иначе. .2 не читается из-за испорченного portPrefix; её сравнить нельзя.",
+    "id": "Britney Spears/oopsididitagain",
+    "selectedKeys": [
+      "c/MIDI/Britney Spears/Oops!... I Did It Again.mid"
+    ]
+  },
+  {
+    "number": 19,
+    "confidence": "uncertain",
+    "observation": "Where Are You Now: обе версии визуально почти совпадают, включая 10 партий, 2799 нот и темп. Выбор точного файла глазами не объясняется.",
+    "id": "Britney Spears/whereareyounow",
+    "selectedKeys": [
+      "c/MIDI/Britney Spears/Where Are You Now.mid"
+    ]
+  },
+  {
+    "number": 20,
+    "confidence": "ambiguous-label",
+    "observation": "Обе Jambalaya размечены: 8-партийная быстрая и 11-партийная длинная версии с разной фактурой. Однозначного победителя нет.",
+    "id": "Carpenters/jambalayaonthebayou",
+    "selectedKeys": [
+      "c/MIDI/Carpenters/Jambalaya (On the Bayou).1.mid",
+      "c/MIDI/Carpenters/Jambalaya (On the Bayou).mid"
+    ]
+  },
+  {
+    "number": 21,
+    "confidence": "visible",
+    "observation": "Rhythm of the Rain: выбранная полнее по партиям и нотам (7 / 3526 против 5 / 2203), с гитарой, струнами и самостоятельными мелодическими вставками. Возможная причина — полнота аранжировки.",
+    "id": "Cascades/rhythmoftherain",
+    "selectedKeys": [
+      "c/MIDI/Cascades/Rhythm of the Rain.mid"
+    ]
+  },
+  {
+    "number": 22,
+    "confidence": "family",
+    "observation": "Celine Dion: выбранная 14-партийная версия почти совпадает с .1. .2 добавляет слои/ноты, сохраняя основной материал. Гипотеза — достаточная детализация без лишнего дублирования; точный файл внутри пары неизвестен.",
+    "id": "Celine Dion/itsallcomingbacktome",
+    "selectedKeys": [
+      "c/MIDI/Celine Dion/It's All Coming Back to Me.mid"
+    ]
+  },
+  {
+    "number": 23,
+    "confidence": "ambiguous-label",
+    "observation": "Обе Pretty Belinda размечены, но одна 2/4, другая 4/4, отличаются темп, длина и число партий. Из разметки нельзя получить единственный выбор.",
+    "id": "Chris Andrews/prettybelinda",
+    "selectedKeys": [
+      "c/MIDI/Chris Andrews/Pretty Belinda.1.mid",
+      "c/MIDI/Chris Andrews/Pretty Belinda.mid"
+    ]
+  },
+  {
+    "number": 24,
+    "confidence": "family",
+    "observation": "Substitute: выбранная версия короче, с другой гитарной фактурой и мелодическим контуром. Не максимум длины/нот. Это выбор аранжировки; её большую верность оригиналу глазами не доказать.",
+    "id": "Clout/substitute",
+    "selectedKeys": [
+      "c/MIDI/Clout/Substitute.mid"
+    ]
+  },
+  {
+    "number": 25,
+    "confidence": "family",
+    "observation": "Bad Moon Rising.mid близка .3/.4, тогда как .2 содержит ноту до 1365-й доли. Выбранная компактна, роли различимы. Точное отличие от .3 требует слушать тембры и окончания.",
+    "id": "Creedence Clearwater Revival/badmoonrising",
+    "selectedKeys": [
+      "c/MIDI/Creedence Clearwater Revival/Bad Moon Rising.mid"
+    ]
+  },
+  {
+    "number": 26,
+    "confidence": "uncertain",
+    "observation": "White Christmas.2 — гораздо более разреженная оркестровая версия при 200 BPM. Основная плотнее и длиннее; .1 близка выбранной по структуре, но с другим темпом/патчами. Не определяю музыкальное преимущество без прослушивания.",
+    "id": "Crosby Bing/whitechristmas",
+    "selectedKeys": [
+      "c/MIDI/Crosby Bing/White Christmas.2.mid"
+    ]
+  },
+  {
+    "number": 27,
+    "confidence": "family",
+    "observation": "Girls Just Wanna Have Fun.1 входит в 9-партийную пару с основной; .2 имеет 27 комбинаций патчей и иную фактуру. Ясные самостоятельные партии могут быть важнее количества патчей. Точный выбор внутри пары неизвестен.",
+    "id": "Cyndi Lauper/girlsjustwannahavefun",
+    "selectedKeys": [
+      "c/MIDI/Cyndi Lauper/Girls Just Wanna Have Fun.1.mid"
+    ]
+  },
+  {
+    "number": 28,
+    "confidence": "family",
+    "observation": "Come prima: выбрана 6/8 версия с раздельными инструментами; .1 — all-piano 4/4 с длинным хвостом. .2 почти совпадает с выбранной. Здесь существенны музыкальный метр и роли.",
+    "id": "Dallara/comeprima",
+    "selectedKeys": [
+      "c/MIDI/Dallara/Come prima.mid"
+    ]
+  },
+  {
+    "number": 29,
+    "confidence": "family",
+    "observation": "Let’s Hear It for the Boy: выбранная 13-партийная аранжировка богаче 6-партийной, но темп и длина в долях существенно различаются. Поддерживает полноту ролей; правильный tactus без прослушивания не подтверждён.",
+    "id": "Deniece Williams/letshearitfortheboy",
+    "selectedKeys": [
+      "c/MIDI/Williams Deniece/Let's Hear It For The Boy.mid"
+    ]
+  },
+  {
+    "number": 30,
+    "confidence": "visible",
+    "observation": "Mellow Yellow.1 короче и разреженнее, с более устойчивыми атаками и отчётливой верхней линией. Это контрпример максимуму нот/длины; возможно, выбрана более читаемая фактура.",
+    "id": "Donovan/mellowyellow",
+    "selectedKeys": [
+      "c/MIDI/Donovan/Mellow Yellow.1.mid"
+    ]
+  },
+  {
+    "number": 31,
+    "confidence": "visible",
+    "observation": "The Captain of Her Heart.mid имеет 7 партий вместо 14 и почти вдвое меньше нот. В увеличении мелодия, аккордовый слой и бас яснее разделены; много длительных удвоений у альтернативы. Гипотеза — независимость голосов.",
+    "id": "Double/thecaptainofherheart",
+    "selectedKeys": [
+      "c/MIDI/Double/The Captain of Her Heart.mid"
+    ]
+  },
+  {
+    "number": 32,
+    "confidence": "byte-copy",
+    "observation": "Jeep’s Blues: одинаковые контуры и сведения; манифест подтверждает byte-identical файлы из разных написаний имени артиста. Нет музыкального отрицательного примера.",
+    "id": "Duke Ellington/jeepsblues",
+    "selectedKeys": [
+      "c/MIDI/Duke Ellington/Jeep's Blues.mid"
+    ]
+  },
+  {
+    "number": 33,
+    "confidence": "visible",
+    "observation": "Take It to the Limit: выбранная 10-партийная версия богаче двух 7-партийных, с солирующим Alto Sax/Voice Oohs и полной формой. Темп 200 против 100–107 требует отдельно проверять музыкальный масштаб.",
+    "id": "Eagles/takeittothelimit",
+    "selectedKeys": [
+      "c/MIDI/Eagles/Take It to the Limit.mid"
+    ]
+  },
+  {
+    "number": 34,
+    "confidence": "family",
+    "observation": "Fantasy.mid близка .2/.6/.7 по фактуре, но отличается некоторыми назначениями тембров. .5 лучше квантована, однако относится к другой аранжировке. Выбор семейства понятнее, чем конкретной копии.",
+    "id": "Earth, Wind & Fire/fantasy",
+    "selectedKeys": [
+      "c/MIDI/Earth, Wind & Fire/Fantasy.mid"
+    ]
+  },
+  {
+    "number": 35,
+    "confidence": "visible",
+    "observation": "Satin Doll.1 содержит развитую секцию саксофонов/тромбонов и больше формы (348 против 288 долей). Альтернатива ближе к маленькому клавишному ансамблю. Здесь видна ценность характерной ансамблевой оркестровки.",
+    "id": "Duke Ellington/satindoll",
+    "selectedKeys": [
+      "c/MIDI/Ellington/Satin Doll.1.mid"
+    ]
+  },
+  {
+    "number": 36,
+    "confidence": "family",
+    "observation": "Crocodile Rock: выбранная 9-партийная версия между бедной 7-партийной и плотной 11-партийной; темп иной. Возможны дополнительные самостоятельные линии, но превосходство именно этого темпового варианта по картинке не устанавливается.",
+    "id": "Elton John/crocodilerock",
+    "selectedKeys": [
+      "c/MIDI/Elton John/Crocodile Rock.mid"
+    ]
+  },
+  {
+    "number": 37,
+    "confidence": "family",
+    "observation": "Can’t Help Falling in Love.5 — 13-партийная оркестровка, близкая .1/.3, с другим духовым солистом. Простые и более длинные альтернативы не выбраны. Точная причина внутри семейства, вероятно, требует тембрового сравнения.",
+    "id": "Elvis Presley/canthelpfallinginlove",
+    "selectedKeys": [
+      "c/MIDI/Elvis Presley/Can't Help Falling in Love.5.mid"
+    ]
+  },
+  {
+    "number": 38,
+    "confidence": "uncertain",
+    "observation": "Tarkus: обе версии показывают одинаковую сложную форму, 39 сочетаний канал/патч и 23343 ноты. Точный выбор по обзорной картинке не объясняется.",
+    "id": "Emerson, Lake & Palmer/tarkus",
+    "selectedKeys": [
+      "c/MIDI/Emerson, Lake & Palmer/Tarkus.mid"
+    ]
+  },
+  {
+    "number": 39,
+    "confidence": "visible",
+    "observation": "The Chain.mid существенно короче и беднее альтернативы (292 / 2223 против 468 / 6827), зато имеет ровные атаки и раздельные гитарные/духовые линии. Это сильный контрпример простому критерию полноты; нужна проверка, не выбран ли фрагмент сознательно.",
+    "id": "Fleetwood Mac/thechain",
+    "selectedKeys": [
+      "c/MIDI/Fleetwood Mac/The Chain.mid"
+    ]
+  },
+  {
+    "number": 40,
+    "confidence": "uncertain",
+    "observation": "I Heard It Through the Grapevine.1 отличается темпом/масштабом, аранжировкой и имеет очень низкую долю попадания в сетку (13%). По изображению нельзя приписать выбор удобной сетке; требуется музыкальное сравнение.",
+    "id": "Marvin Gaye/ihearditthroughthegrapevine",
+    "selectedKeys": [
+      "c/MIDI/Gaye,Marvin/I Heard It Through The Grapevine.1.mid"
+    ]
+  },
+  {
+    "number": 41,
+    "confidence": "family",
+    "observation": "What’s Goin’ On: выбранная и одна альтернативная версии визуально совпадают; .1 вдвое медленнее в MIDI-долях, с другой фактурой. Семейство с ясной мелодией и басом понятно, конкретный файл — нет.",
+    "id": "Marvin Gaye/whatsgoinon",
+    "selectedKeys": [
+      "c/MIDI/Marvin Gaye/What's Goin' On.mid"
+    ]
+  },
+  {
+    "number": 42,
+    "confidence": "family",
+    "observation": "Be Bop A-Lula: выбранная 7-партийная версия добавляет солирующий Alto Sax/духовые к более простой 5-партийной. Ещё одна 10-партийная — другая фактура. Возможен критерий достаточного состава ролей.",
+    "id": "Gene Vincent/bebobalula",
+    "selectedKeys": [
+      "c/MIDI/Vincent Gene/Be Bob A-Lula.mid"
+    ]
+  },
+  {
+    "number": 43,
+    "confidence": "family",
+    "observation": "The Spanish Night Is Over: форма и число нот почти одинаковы; выбранная имеет Voice Oohs/Vibraphone вместо большей части колокольчиковых/клавишных тембров. Это кандидат на тембровую причину, проверить её нужно слухом.",
+    "id": "Humperdinck Engelbert/thespanishnightisover",
+    "selectedKeys": [
+      "c/MIDI/Humperdinck Engelbert/The Spanish Night Is Over.mid"
+    ]
+  },
+  {
+    "number": 44,
+    "confidence": "visible",
+    "observation": "Cocaine.mid заметно полнее 4-партийной версии: несколько гитарных слоёв, развитые вставки и самостоятельный бас вместо очень простой повторяющейся фактуры. Здесь критерий деталей работает.",
+    "id": "J.J. Cale/cocaine",
+    "selectedKeys": [
+      "c/MIDI/J.J. Cale/Cocaine.mid"
+    ]
+  },
+  {
+    "number": 45,
+    "confidence": "family",
+    "observation": "Billie Jean.5 — 8-партийная версия, менее раздутая, чем многие 11–16-партийные. Длинные/незакрытые окончания у основной альтернативы; но есть почти одинаковая .5 из другого написания имени артиста. Нужно сравнивать аранжировки, а не пути.",
+    "id": "Michael Jackson/billiejean",
+    "selectedKeys": [
+      "c/MIDI/Michael Jackson/Billie Jean.5.mid"
+    ]
+  },
+  {
+    "number": 46,
+    "confidence": "family",
+    "observation": "Billy Jean: выбранная полная 4-партийная версия, тогда как .1 заканчивается на 108 долях. Вторая основная копия практически совпадает. Это та же композиция, что Billie Jean в соседней группе: обнаружена ошибка объединения названий, обе группы надо соединить перед новым обучением.",
+    "id": "Michael Jackson/billyjean",
+    "selectedKeys": [
+      "c/MIDI/Michael Jackson/Billy Jean.mid"
+    ]
+  },
+  {
+    "number": 47,
+    "confidence": "family",
+    "observation": "Rock With You: выбранная близка .1/.2/.3, с ровной сеткой и раздельной мелодией. Другая основная версия короче и с другой оркестровкой. Точное предпочтение внутри почти одинакового семейства неизвестно.",
+    "id": "Michael Jackson/rockwithyou",
+    "selectedKeys": [
+      "c/MIDI/Michael Jackson/Rock With You.mid"
+    ]
+  },
+  {
+    "number": 48,
+    "confidence": "visible",
+    "observation": "Imagine.4 — компактная 5-партийная аранжировка: верхняя линия Vibraphone отделена от piano/баса/струн. Одноголосная piano-версия свободно сыграна, 2-партийная смешивает роли. Близкие 6-партийные отличаются солистом; тембровую причину нужно слушать.",
+    "id": "John Lennon/imagine",
+    "selectedKeys": [
+      "c/MIDI/Lennon John/Imagine.4.mid"
+    ]
+  },
+  {
+    "number": 49,
+    "confidence": "family",
+    "observation": "Stairway to Heaven.3 имеет полную гитарную аранжировку с почти ровной сеткой; .7 — piano reduction, основная версия существенно отличается темпом/формой и менее ровна. .6 визуально очень близка .3, но другой темп и Harmonica: точный выбор требует прослушивания.",
+    "id": "Led Zeppelin/stairwaytoheaven",
+    "selectedKeys": [
+      "c/MIDI/Led Zeppelin/Stairway To Heaven.3.mid"
+    ]
+  },
+  {
+    "number": 50,
+    "confidence": "ambiguous-label",
+    "observation": "Обе Funky Town размечены: 7 и 9 партий, разная длина/мелодический материал. Не выделяю одного победителя.",
+    "id": "Lipps, Inc./funkytown",
+    "selectedKeys": [
+      "c/MIDI/Lipps, Inc./Funky Town.1.mid",
+      "c/MIDI/Lipps, Inc./Funky Town.mid"
+    ]
+  },
+  {
+    "number": 51,
+    "confidence": "family",
+    "observation": "I’d Love You to Want Me: выбранная с nylon guitars/Accordion вместо steel guitar/Trumpet, при близкой полноте. Более ровная сетка поддерживает выбор, но главный контраст — другая инструментовка и размещение мелодии.",
+    "id": "Lobo/idloveyoutowantme",
+    "selectedKeys": [
+      "c/MIDI/Lobo/I'd Love You to Want Me.mid"
+    ]
+  },
+  {
+    "number": 52,
+    "confidence": "family",
+    "observation": "Hazard: почти одинаковое семейство. Выбранная использует Pan Flute вместо Blown Bottle, .2 имеет длинный хвост, .3 небольшой сдвиг. Различие чистого файла и солирующего тембра вероятно, но не доказано слухом.",
+    "id": "Richard Marx/hazard",
+    "selectedKeys": [
+      "c/MIDI/Marx Richard/Hazard.mid"
+    ]
+  },
+  {
+    "number": 53,
+    "confidence": "uncertain",
+    "observation": "Solsbury Hill: выбранная близка .1, .2 добавляет мелодические слои и сменяет патчи. Начальная MIDI-метка 2/4 сама по себе не подтверждает сложный музыкальный метр; нужен разбор периодичности акцентов, точный выбор не ясен.",
+    "id": "Peter Gabriel/solsburyhill",
+    "selectedKeys": [
+      "c/MIDI/Peter Gabriel/Solsbury Hill.mid"
+    ]
+  },
+  {
+    "number": 54,
+    "confidence": "counterexample",
+    "observation": "Brain Damage: выбранная версия содержит Piano почти во всех партиях, несмотря на альтернативы с гитарами/голосовыми патчами. Сетка ровная во всех вариантах. Критерий «больше хороших разных тембров» здесь не объясняет выбор; возможно, важнее сами линии.",
+    "id": "Pink Floyd/braindamage",
+    "selectedKeys": [
+      "c/MIDI/Pink Floyd/Brain Damage.mid"
+    ]
+  },
+  {
+    "number": 55,
+    "confidence": "uncertain",
+    "observation": "Comfortably Numb: выбрана разреженная версия, похожая .1, но с длинной конечной басовой линией; .2 гораздо плотнее. Это противоречит автоматическому штрафу за любой длинный хвост. Нужно различить реальные note-off и принудительное закрытие незаконченных нот, затем слушать.",
+    "id": "Pink Floyd/comfortablynumb",
+    "selectedKeys": [
+      "c/MIDI/Pink Floyd/Comfortably Numb.mid"
+    ]
+  },
+  {
+    "number": 56,
+    "confidence": "uncertain",
+    "observation": "The Great Gig in the Sky: выбранная похожа .1 и содержит очень длинную завершающую линию; другие версии в другом темповом масштабе. По картинке нельзя утверждать, что здесь лучше сетка или конец файла.",
+    "id": "Pink Floyd/thegreatgiginthesky",
+    "selectedKeys": [
+      "c/MIDI/Pink Floyd/The Great Gig in the Sky.mid"
+    ]
+  },
+  {
+    "number": 57,
+    "confidence": "counterexample",
+    "observation": "Time: выбрана короткая 9-партийная all-piano версия (2003 ноты), почти одинаковая .2; альтернативная аранжировка длиннее и намного богаче. Это сильный контрпример полноте/числу патчей. Возможна иная транскрипция или неполный просмотр группы.",
+    "id": "Pink Floyd/time",
+    "selectedKeys": [
+      "c/MIDI/Pink Floyd/Time.mid"
+    ]
+  },
+  {
+    "number": 58,
+    "confidence": "ambiguous-label",
+    "observation": "Wish You Were Here: размечены .2, .6 и основная версия, принадлежащие разным темповым/аранжировочным семействам. Единственный победитель не следует из аннотаций.",
+    "id": "Pink Floyd/wishyouwerehere",
+    "selectedKeys": [
+      "c/MIDI/Pink Floyd/Wish You Were Here.2.mid",
+      "c/MIDI/Pink Floyd/Wish You Were Here.6.mid",
+      "c/MIDI/Pink Floyd/Wish You Were Here.mid"
+    ]
+  },
+  {
+    "number": 59,
+    "confidence": "family",
+    "observation": "Karma Police: выбранная чуть короче, с ясными гитарами, Synth Voice и басом; альтернатива более растянута и имеет длинные конечные линии. Контуры близки, преимущества тембров нужно слушать.",
+    "id": "Radiohead/karmapolice",
+    "selectedKeys": [
+      "c/MIDI/Radiohead/Karma Police.mid"
+    ]
+  },
+  {
+    "number": 60,
+    "confidence": "uncertain",
+    "observation": "Californication: все три версии имеют 6 партий, 6939 нот и одинаковую оркестровку. Незначительные различия длины/фазы не дают уверенной причины выбора .1.",
+    "id": "Red Hot Chili Peppers/californication",
+    "selectedKeys": [
+      "c/MIDI/Red Hot Chili Peppers/Californication.1.mid"
+    ]
+  },
+  {
+    "number": 61,
+    "confidence": "ambiguous-label",
+    "observation": "Обе Under the Bridge размечены и визуально очень близки. Нет однозначной метки лучшей версии.",
+    "id": "Red Hot Chili Peppers/underthebridge",
+    "selectedKeys": [
+      "c/MIDI/Red Hot Chili Peppers/Under The Bridge.1.mid",
+      "c/MIDI/Red Hot Chili Peppers/Under The Bridge.mid"
+    ]
+  },
+  {
+    "number": 62,
+    "confidence": "visible",
+    "observation": "Albachiara.mid — другая, длинная 8-партийная аранжировка, с отчётливой мелодией и ровной сеткой; многие 12-партийные версии существенно короче, другие плохо квантованы. Здесь видна полнота при меньшем числе ролей. В сохранённой разметке есть семь вручную заданных границ тактов, так что версия потребовала выравнивания.",
+    "id": "Vasco Rossi/albachiara",
+    "selectedKeys": [
+      "c/MIDI/Vasco/Albachiara.mid"
+    ]
+  },
+  {
+    "number": 63,
+    "confidence": "visible",
+    "observation": "Crazy.3 — отдельное семейство с более ровными атаками и разреженной фактурой, 11 сочетаний канал/патч вместо 17–18. Другие версии имеют длинные удерживаемые линии. Возможная причина — ясность ролей и стабильный ритм.",
+    "id": "Seal/crazy",
+    "selectedKeys": [
+      "c/MIDI/Seal/Crazy.3.mid"
+    ]
+  },
+  {
+    "number": 64,
+    "confidence": "ambiguous-label",
+    "observation": "If You Don’t Know Me by Now: размечены два 3/4 варианта, а не более длинный 4/4. Это поддерживает важность музыкального метра, но не даёт выбрать между двумя размеченными.",
+    "id": "Simply Red/ifyoudontknowmebynow",
+    "selectedKeys": [
+      "c/MIDI/Simply Red/If You Don't Know Me By Now.1.mid",
+      "c/MIDI/Simply Red/If You Don't Know Me By Now.mid"
+    ]
+  },
+  {
+    "number": 65,
+    "confidence": "uncertain",
+    "observation": "China in Your Hand.2 отличается темпом (200 против 66–70), длиной и слоистостью. Сетки у альтернатив тоже ровные. По изображению нельзя подтвердить лучший tactus или лучший вокальный голос.",
+    "id": "T'Pau/chinainyourhand",
+    "selectedKeys": [
+      "c/MIDI/T'Pau/China In Your Hand.2.mid"
+    ]
+  },
+  {
+    "number": 66,
+    "confidence": "visible",
+    "observation": "Get It On.1 заметно полнее: добавлены мелодические/духовые и клавишные роли, 8496 нот против 5776 и длиннее форма. Здесь число содержательных деталей действительно поддерживает выбор.",
+    "id": "T. Rex/getitonbangagong",
+    "selectedKeys": [
+      "c/MIDI/T. Rex/Get It On (Bang a Gong).1.mid"
+    ]
+  },
+  {
+    "number": 67,
+    "confidence": "visible",
+    "observation": "Whoomp.1 показывает непрерывное мелодическое/сопровождающее содержание; у альтернативы большие пустые участки в увеличенном фрагменте и более разреженная форма. Вероятна полнота материала, а не только количество нот.",
+    "id": "Tag Team/whoompthereitis",
+    "selectedKeys": [
+      "c/MIDI/Tag Team/Whoomp (There It Is).1.mid"
+    ]
+  },
+  {
+    "number": 68,
+    "confidence": "visible",
+    "observation": "Stand By Your Man.1: полная на вид компактная аранжировка с 9 ролями против очень длинной 5-партийной альтернативы. Это показывает, что длина файла и суммарные ноты могут расти от повторов, а не музыкальных деталей.",
+    "id": "Tammy Wynette/standbyyourman",
+    "selectedKeys": [
+      "c/MIDI/Tammy Wynette/Stand By Your Man.1.mid"
+    ]
+  },
+  {
+    "number": 69,
+    "confidence": "visible",
+    "observation": "Twist in My Sobriety: выбранная версия длиннее и полнее по ролям, с самостоятельными гитарой/клавишными/верхней линией. Сетка хороша в обеих. Полнота формы и деталей правдоподобна.",
+    "id": "Tanita Tikaram/twistinmysobriety",
+    "selectedKeys": [
+      "c/MIDI/Tanita Tikaram/Twist In My Sobriety.mid"
+    ]
+  },
+  {
+    "number": 70,
+    "confidence": "family",
+    "observation": "Sleeping Satellite: выбранная без громадного конечного хвоста, с другим набором солирующих патчей. При этом доля квантованных атак ниже. Возможная причина — пригодная форма/роли, а не глобальная точность сетки.",
+    "id": "Tasmin Archer/sleepingsatellite",
+    "selectedKeys": [
+      "c/MIDI/Tasmin Archer/Sleeping Satellite.mid"
+    ]
+  },
+  {
+    "number": 71,
+    "confidence": "visible",
+    "observation": "Heaven Must Be Missing an Angel: выбранная сохраняет большую полную форму и разные роли, тогда как .1 all-piano и с длинными конечными нотами, .2 заметно короче и в другом темпе. Это пример содержательной ансамблевой детализации.",
+    "id": "Tavares/heavenmustbemissinganangel",
+    "selectedKeys": [
+      "c/MIDI/Tavares/Heaven Must Be Missing an Angel.mid"
+    ]
+  },
+  {
+    "number": 72,
+    "confidence": "family",
+    "observation": "Tell It to My Heart: обе версии полные и хорошо квантованы; выбранная с Lead Square/Pad Halo, другая с Voice Oohs/духовыми слоями. По изображению видно различие инструментовки, но её качество нужно оценивать слухом.",
+    "id": "Taylor Dayne/tellittomyheart",
+    "selectedKeys": [
+      "c/MIDI/Taylor Dayne/Tell It to My Heart.mid"
+    ]
+  },
+  {
+    "number": 73,
+    "confidence": "family",
+    "observation": "Shout.5 — 12-партийное семейство с ровной сеткой, в отличие от более плотной 17-партийной версии. .4 почти та же, но с Pan Flute вместо другого солиста. Читаемость и отсутствие лишнего дублирования правдоподобны; точный тембр не установлен.",
+    "id": "Tears for Fears/shout",
+    "selectedKeys": [
+      "c/MIDI/Tears for Fears/Shout.5.mid"
+    ]
+  },
+  {
+    "number": 74,
+    "confidence": "visible",
+    "observation": "Pump Up the Jam: выбранная заметно полнее, .2 — короткий фрагмент, .1 — более короткая простая форма. Полнота здесь важнее идеальной квантизации .1.",
+    "id": "Technotronic/pumpupthejam",
+    "selectedKeys": [
+      "c/MIDI/Technotronic/Pump Up the Jam.mid"
+    ]
+  },
+  {
+    "number": 75,
+    "confidence": "family",
+    "observation": "Seasons in the Sun.2 имеет компактный состав, солирующий Vibraphone и более ровные атаки, чем .1. Основная близка, с Pan Flute. Возможен выбор ведущего тембра, но это слуховая гипотеза.",
+    "id": "Terry Jacks/seasonsinthesun",
+    "selectedKeys": [
+      "c/MIDI/Terry Jacks/Seasons in the Sun.2.mid"
+    ]
+  },
+  {
+    "number": 76,
+    "confidence": "family",
+    "observation": "Eye in the Sky: выбранная богаче 7-партийной .2 и практически совпадает с .1. Низкая доля совпадения с прямой/триольной сеткой (24%) — ещё один контрпример простому grid-score.",
+    "id": "The Alan Parsons Project/eyeinthesky",
+    "selectedKeys": [
+      "c/MIDI/The Alan Parsons Project/Eye In The Sky.mid"
+    ]
+  },
+  {
+    "number": 77,
+    "confidence": "family",
+    "observation": "Midnight Rider: оба файла имеют одинаковую форму/число нот; заметный контраст Steel Guitar против Nylon Guitar. Это возможное тембровое предпочтение, не установленное глазами.",
+    "id": "The Allman Brothers Band/midnightrider",
+    "selectedKeys": [
+      "c/MIDI/The Allman Brothers Band/Midnight Rider.mid"
+    ]
+  },
+  {
+    "number": 78,
+    "confidence": "family",
+    "observation": "House of the Rising Sun.5 — 3/4 семейство с характерной органно-гитарной фактурой; варианты 4/4 принадлежат другой аранжировке. Близкие .1/.3 тоже полноценны, поэтому точный файл внутри семейства не объясняется.",
+    "id": "The Animals/thehouseoftherisingsun",
+    "selectedKeys": [
+      "c/MIDI/The Animals/The House of the Rising Sun.5.mid"
+    ]
+  },
+  {
+    "number": 79,
+    "confidence": "uncertain",
+    "observation": "Never My Love: число ролей/нот одинаково, выбранная смещена по времени и чуть длиннее. Возможна разница затакта/начала; превосходство без музыкального выравнивания не установлено.",
+    "id": "The Association/nevermylove",
+    "selectedKeys": [
+      "c/MIDI/The Association/Never My Love.mid"
+    ]
+  },
+  {
+    "number": 80,
+    "confidence": "visible",
+    "observation": "Eternal Flame.9 сочетает более полную форму (312 долей) с хорошей сеткой и самостоятельными слоями. Простые 7–8-партийные существенно короче/хуже попадают в доли; более плотные .4/.10 тоже хуже. Здесь баланс полноты и устойчивости хорошо виден.",
+    "id": "The Bangles/eternalflame",
+    "selectedKeys": [
+      "c/MIDI/The Bangles/Eternal Flame.9.mid"
+    ]
+  },
+  {
+    "number": 81,
+    "confidence": "visible",
+    "observation": "A Hard Day’s Night.5 добавляет отчётливый отдельный органный верхний голос к гитарному/басовому рисунку и близка .1. Другие версии проще или иначе раскладывают материал. Возможная причина — полноценная мелодическая роль при сохранённом характерном сопровождении.",
+    "id": "The Beatles/aharddaysnight",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/A Hard Day's Night.5.mid"
+    ]
+  },
+  {
+    "number": 82,
+    "confidence": "uncertain",
+    "observation": "A Taste of Honey: обе версии имеют те же 9 партий/2770 нот/292 доли и одинаковый состав. Точный выбор по обзору не объясняется.",
+    "id": "The Beatles/atasteofhoney",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/A Taste Of Honey.mid"
+    ]
+  },
+  {
+    "number": 83,
+    "confidence": "visible",
+    "observation": "All My Loving.4 имеет всего 5 партий и меньше всего нот, но отчётливо разделённые верхнюю мелодию, гитарный пульс, бас и ударные. Другие версии добавляют дубляжи/духовые. Это сильный пример качества ролей вместо их количества.",
+    "id": "The Beatles/allmyloving",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/All My Loving.4.mid"
+    ]
+  },
+  {
+    "number": 84,
+    "confidence": "visible",
+    "observation": "Baby It’s You: выбрана более полная 4/4 гитарно-органная версия (4131 нота); альтернатива 3/4 и беднее (1847). Здесь поддерживаются музыкальный метр и полнота сопровождения.",
+    "id": "The Beatles/babyitsyou",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Baby It's You.mid"
+    ]
+  },
+  {
+    "number": 85,
+    "confidence": "visible",
+    "observation": "Boys.1 добавляет верхнюю духовую/голосовую линию и несколько самостоятельных слоёв к более простой 5-партийной версии. Сетка ровная у обеих. Видимый критерий — содержательные мелодические детали.",
+    "id": "The Beatles/boys",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Boys.1.mid"
+    ]
+  },
+  {
+    "number": 86,
+    "confidence": "uncertain",
+    "observation": "Chains: оба файла имеют одинаковые 5 партий и 4526 нот; отличаются темпом и мелкими длительностями. По изображению не выбираю между ними.",
+    "id": "The Beatles/chains",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Chains.1.mid"
+    ]
+  },
+  {
+    "number": 87,
+    "confidence": "family",
+    "observation": "Do You Want to Know a Secret: выбрана более простая и короткая 7-партийная гитарно-голосовая аранжировка вместо 9-партийной с несколькими удвоениями. Сетка хуже: возможен критерий подходящей транскрипции/ясности, а не плотности.",
+    "id": "The Beatles/doyouwanttoknowasecret",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Do You Want to Know a Secret.mid"
+    ]
+  },
+  {
+    "number": 88,
+    "confidence": "family",
+    "observation": "Don’t Bother Me.1: роли гитар, органа, баса и ударных разделены; альтернативная версия сводит часть их к Piano/Synth Voice. Форма близка. Возможный критерий — различимые инструментальные роли.",
+    "id": "The Beatles/dontbotherme",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Don't Bother Me.1.mid"
+    ]
+  },
+  {
+    "number": 89,
+    "confidence": "visible",
+    "observation": "Eleanor Rigby.4 — компактный 4-партийный струнный ансамбль с ровной сеткой. Альтернативы содержат piano reduction, голосовые/эффектные патчи, удвоения, разные формы и хвосты. Возможная причина — характерная камерная фактура и достаточное число независимых линий, а не максимум партий. Наличие вокальной роли отдельно пока не доказано.",
+    "id": "The Beatles/eleanorrigby",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Eleanor Rigby.4.mid"
+    ]
+  },
+  {
+    "number": 90,
+    "confidence": "family",
+    "observation": "Good Night: выбрана короткая оркестровая версия со струнами/арфой, а не длинная гитарная. Goodnight.mid тоже оркестровая, но другой темп/voicing. Характерная фактура правдоподобна, точную музыкальную причину между ними не определяю.",
+    "id": "The Beatles/goodnight",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Good Night.mid"
+    ]
+  },
+  {
+    "number": 91,
+    "confidence": "family",
+    "observation": "Help!: выбранная имеет отдельные голосовые/мелодические слои и гитарный рисунок, вместо плотной духовой или более простой 5-партийной версии. Глобальная квантизация хуже ряда альтернатив, поэтому важнее может быть правильная транскрипция/роли.",
+    "id": "The Beatles/help",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Help!.mid"
+    ]
+  },
+  {
+    "number": 92,
+    "confidence": "family",
+    "observation": "I Saw Her Standing There: выбранная 8-партийная версия с Synth Voice и независимыми слоями, альтернатива .3 заметно короткая; несколько полных версий проще или существенно иначе оркестрованы. Вокальную идентичность Synth Voice по названию патча не подтверждаю.",
+    "id": "The Beatles/isawherstandingthere",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/I Saw Her Standing There.mid"
+    ]
+  },
+  {
+    "number": 93,
+    "confidence": "family",
+    "observation": "It Won’t Be Long: выбранная беднее по нотам, но содержит отдельные Voice Oohs/Choir Aahs и органный мелодический слой поверх гитарного рисунка. Возможная причина — мелодия/вокальные гармонии без лишней плотности.",
+    "id": "The Beatles/itwontbelong",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/It Won't Be Long.mid"
+    ]
+  },
+  {
+    "number": 94,
+    "confidence": "family",
+    "observation": "Love Me Do.1 — полная 6-партийная гитарно-органная версия с Harmonica и ровными атаками; .7 фрагмент, .6 более простая piano reduction. .2/.5 почти совпадают с .1, точный файл внутри семьи неизвестен.",
+    "id": "The Beatles/lovemedo",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Love Me Do.1.mid"
+    ]
+  },
+  {
+    "number": 95,
+    "confidence": "visible",
+    "observation": "Misery.2 — самая полная гитарно-органная версия по форме/нотам, с самостоятельной верхней линией. .1 заметно беднее, основная короче. Детали и форма перевешивают лучшую квантизацию основной.",
+    "id": "The Beatles/misery",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Misery.2.mid"
+    ]
+  },
+  {
+    "number": 96,
+    "confidence": "family",
+    "observation": "Norwegian Wood.3 — 6/8 и компактная полная форма с Sitar и отдельными духовыми линиями. .4 — простое двухслойное сокращение; остальные по-другому кодируют метр/темп. Музыкальная сетка/характерный материал вероятны, качество необычных ведущих тембров нужно слушать.",
+    "id": "The Beatles/norwegianwood",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Norwegian Wood.3.mid"
+    ]
+  },
+  {
+    "number": 97,
+    "confidence": "family",
+    "observation": "Penny Lane: выбранная содержит развитые клавишные и духовые детали; .4 визуально очень близка. .3 имеет большой хвост, .5 проще. Семейство с характерными вставками понятно; точное предпочтение основной копии — нет.",
+    "id": "The Beatles/pennylane",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Penny Lane.mid"
+    ]
+  },
+  {
+    "number": 98,
+    "confidence": "visible",
+    "observation": "Please Please Me: выбранная имеет дополнительные мелодические/голосовые роли и 3337 нот против 2126–2287, при одинаковой длине. Внятный пример более полного ансамбля.",
+    "id": "The Beatles/pleasepleaseme",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Please Please Me.mid"
+    ]
+  },
+  {
+    "number": 99,
+    "confidence": "uncertain",
+    "observation": "She’s a Woman: выбранная вдвое короче в долях и с половинным темпом, с другой строкой мелодии/струн. Другие версии тоже имеют хорошую сетку. Без выравнивания и прослушивания нельзя установить, что именно предпочтительно.",
+    "id": "The Beatles/shesawoman",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/She's a Woman.mid"
+    ]
+  },
+  {
+    "number": 100,
+    "confidence": "family",
+    "observation": "Strawberry Fields Forever.3 содержит Synth Voice и более полный материал, чем .1/основная; .4 с длинными незакрытыми линиями. .2 практически совпадает с выбранной. Возможная причина — сохранённая ведущая линия, но точный файл требует сравнить MIDI metadata/звучание.",
+    "id": "The Beatles/strawberryfieldsforever",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Strawberry Fields Forever.3.mid"
+    ]
+  },
+  {
+    "number": 101,
+    "confidence": "family",
+    "observation": "Twist and Shout.4 — семейство с несколькими голосовыми слоями/органом и полной формой, в отличие от простых гитарных вариантов. .5/.6 почти одинаковы. Возможная причина — вокальные гармонии/самостоятельные линии, не строгий номер файла.",
+    "id": "The Beatles/twistandshout",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Twist And Shout.4.mid"
+    ]
+  },
+  {
+    "number": 102,
+    "confidence": "family",
+    "observation": "Yellow Submarine.2 — более полная версия, чем короткая .3 и сокращённая основная, но не самая длинная .1. Видны голосовые/духовые слои. Низкая доля точных атак не поддерживает простой штраф за сетку.",
+    "id": "The Beatles/yellowsubmarine",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/Yellow Submarine.2.mid"
+    ]
+  },
+  {
+    "number": 103,
+    "confidence": "family",
+    "observation": "You Like Me Too Much.1 имеет Tenor Sax и чуть иную пианистическую/гитарную фактуру, при близкой длине/сетке. Возможен выбор отчётливого солиста; меньше нот не мешает, точный тембр нужно слушать.",
+    "id": "The Beatles/youlikemetoomuch",
+    "selectedKeys": [
+      "c/MIDI/The Beatles/You Like Me Too Much.1.mid"
+    ]
+  },
+  {
+    "number": 104,
+    "confidence": "family",
+    "observation": "Young at Heart: выбранная имеет ровные атаки, дополнительные сольные/голосовые роли, но другой темповый масштаб (200 против 115). Детали/сетку видно, корректный musical tactus пока не подтверждён.",
+    "id": "The Bluebells/youngatheart",
+    "selectedKeys": [
+      "c/MIDI/The Bluebells/Young At Heart.mid"
+    ]
+  },
+  {
+    "number": 105,
+    "confidence": "family",
+    "observation": "I Don’t Like Mondays: выбранная менее плотная, без отдельного Alto Sax/Choir Aahs альтернативы, но сохраняет piano/strings и форму. Возможно, предпочтительна характерная клавишно-струнная фактура; это контрпример автоматическому бонусу за любое добавление ролей.",
+    "id": "The Boomtown Rats/idontlikemondays",
+    "selectedKeys": [
+      "c/MIDI/The Boomtown Rats/I Don't Like Monday's.mid"
+    ]
+  },
+  {
+    "number": 106,
+    "confidence": "visible",
+    "observation": "Turn! Turn! Turn!.1 — полная гитарная аранжировка с дополнительной верхней линией/Harmonica; .2 проще, основная короче и оркестрована иначе. Критерий полноты самостоятельных деталей правдоподобен.",
+    "id": "The Byrds/turnturnturn",
+    "selectedKeys": [
+      "c/MIDI/The Byrds/Turn! Turn! Turn!.1.mid"
+    ]
+  },
+  {
+    "number": 107,
+    "confidence": "family",
+    "observation": "My Favorite Game: выбранная и .1 имеют те же ноты/форму, но .1 использует больше комбинаций канал/патч. Возможная причина — назначения тембров; больше смен патчей не равно больше голосов.",
+    "id": "The Cardigans/myfavoritegame",
+    "selectedKeys": [
+      "c/MIDI/The Cardigans/My Favorite Game.mid"
+    ]
+  },
+  {
+    "number": 108,
+    "confidence": "uncertain",
+    "observation": "Drive.1 входит в почти одинаковое 10-партийное семейство, но имеет длинный пустой конец файла; .2/.5 короче и визуально не беднее. Выбор конкретного файла глазами не объясняется и противоречит жёсткому штрафу за пустой конец.",
+    "id": "The Cars/drive",
+    "selectedKeys": [
+      "c/MIDI/The Cars/Drive.1.mid"
+    ]
+  },
+  {
+    "number": 109,
+    "confidence": "ambiguous-label",
+    "observation": "Light My Fire: размечены .1 и .4 — две разные по длине/фактуре органно-гитарные версии. Видно много сокращённых/all-piano альтернатив, но нет единственного положительного файла.",
+    "id": "The Doors/lightmyfire",
+    "selectedKeys": [
+      "c/MIDI/The Doors/Light My Fire.1.mid",
+      "c/MIDI/The Doors/Light My Fire.4.mid"
+    ]
+  },
+  {
+    "number": 110,
+    "confidence": "visible",
+    "observation": "People Are Strange.1 — более длинная версия с самостоятельными organ/guitar/piano ролями и ровными атаками; другая — piano reduction, основная короче. Здесь пригодная сетка и состав ансамбля поддерживают выбор.",
+    "id": "The Doors/peoplearestrange",
+    "selectedKeys": [
+      "c/MIDI/The Doors/People Are Strange.1.mid"
+    ]
+  },
+  {
+    "number": 111,
+    "confidence": "visible",
+    "observation": "Self Esteem: выбранная содержит отдельную верхнюю мелодическую линию Lead Sawtooth поверх гитар/баса/ударных, при всего 5 каналах; альтернативная с 7 каналами в отрывке в основном гитарные блоки. Это хороший кандидат на решающую роль сохранённой мелодии, её вокальный источник нужно подтвердить слухом.",
+    "id": "The Offspring/selfesteem",
+    "selectedKeys": [
+      "c/MIDI/The Offspring/Self Esteem.mid"
+    ]
+  },
+  {
+    "number": 112,
+    "confidence": "counterexample",
+    "observation": "Roxanne: выбрана короткая клавишно-струнная версия (1679 нот / 233 доли), вместо 6–7-партийных гитарных на 423–448 долей. Не объясняется максимумом полноты/сеткой; возможны другая транскрипция, слышимость мелодии или неполный просмотр.",
+    "id": "The Police/roxanne",
+    "selectedKeys": [
+      "c/MIDI/The Police/Roxanne.mid"
+    ]
+  },
+  {
+    "number": 113,
+    "confidence": "family",
+    "observation": "Unchained Melody.1 — длинная версия с отдельной мелодией, разреженным сопровождением и хорошей сеткой; .5 практически та же, но иной темп. Несколько альтернатив существенно короче или иначе организованы. Точный выбор внутри пары требует слушать.",
+    "id": "The Righteous Brothers/unchainedmelody",
+    "selectedKeys": [
+      "c/MIDI/The Righteous Brothers/Unchained Melody.1.mid"
+    ]
+  },
+  {
+    "number": 114,
+    "confidence": "visible",
+    "observation": "Walk Don’t Run: выбранная самая полная по форме и деталям, с верхним голосом поверх нескольких гитарных линий. .1 из другого источника короткая/с необычными drum patches; остальные проще. Вокал для инструментальной композиции нельзя требовать универсально.",
+    "id": "The Ventures/walkdontrun",
+    "selectedKeys": [
+      "c/MIDI/Ventures/Walk Don't Run.mid"
+    ]
+  },
+  {
+    "number": 115,
+    "confidence": "family",
+    "observation": "Gloria: выбранная близка .2/.3/другой основной версии, с отдельной голосовой/духовой линией и ровной сеткой. .4 длиннее, но хуже попадает в доли. Выбор семейства понятнее, чем конкретного пути.",
+    "id": "Umberto Tozzi/gloria",
+    "selectedKeys": [
+      "c/MIDI/Umberto Tozzi/Gloria.mid"
+    ]
+  },
+  {
+    "number": 116,
+    "confidence": "uncertain",
+    "observation": "Old Devil Moon: одинаковый состав Piano/Drums/Bass и число нот, но темп 170 против 120, слегка разная длина и атаки. Квантизация плохая у обеих. Не устанавливаю причину предпочтения без музыкального сравнения.",
+    "id": "Tyner Mccoy/olddevilmoon",
+    "selectedKeys": [
+      "c/MIDI/Tyner Mccoy/Old Devil Moon.mid"
+    ]
+  },
+  {
+    "number": 117,
+    "confidence": "visible",
+    "observation": "We Are the World: выбранная длиннее и имеет больше самостоятельных мелодических/ансамблевых событий. Другие версии имеют множество смен патчей на каналах, что раздувает список тембров. Важно считать независимые роли, а не program changes.",
+    "id": "U.S.A. for Africa/wearetheworld",
+    "selectedKeys": [
+      "c/MIDI/U.S.A. for Africa/We Are the World.mid"
+    ]
+  },
+  {
+    "number": 118,
+    "confidence": "family",
+    "observation": "With or Without You.1 — полная аранжировка с характерным повторяющимся рисунком и верхними слоями; .3 двухпартийное сокращение, .4/.6 all-piano. .2/.5 близки выбранной. Точная копия не объясняется по обзору.",
+    "id": "U2/withorwithoutyou",
+    "selectedKeys": [
+      "c/MIDI/U2/With or Without You.1.mid"
+    ]
+  },
+  {
+    "number": 119,
+    "confidence": "family",
+    "observation": "UB40: выбранная полнее по форме/нотам с развитыми ансамблевыми деталями; .1 по данным и картинке напоминает совсем другое семейство Can’t Help Falling in Love из Elvis-группы. До обучения нужна проверка идентичности исполнения/аранжировки, а не только одинакового заголовка.",
+    "id": "UB40/icanthelpfallinginlovewithyou",
+    "selectedKeys": [
+      "c/MIDI/UB40/(I Can't Help) Falling In Love With You.mid"
+    ]
+  },
+  {
+    "number": 120,
+    "confidence": "family",
+    "observation": "The Key, the Secret: обе версии очень близки, выбранная немного длиннее и с немного большим числом нот, но существенно другой темп и роль солирующего патча. Тембровое/темповое преимущество по картинке не доказано.",
+    "id": "Urban Cookie Collective/thekeythesecret",
+    "selectedKeys": [
+      "c/MIDI/Urban Cookie Collective/The Key, the Secret.mid"
+    ]
+  },
+  {
+    "number": 121,
+    "confidence": "uncertain",
+    "observation": "Cantaloop: обе версии почти совпадают по фактуре, составу и числу нот; есть небольшой сдвиг/длина. Не объясняю предпочтение одного точного файла.",
+    "id": "Us3/cantaloop",
+    "selectedKeys": [
+      "c/MIDI/Us3/Cantaloop.mid"
+    ]
+  },
+  {
+    "number": 122,
+    "confidence": "ambiguous-label",
+    "observation": "My Way: размечены .1 и основная, разные по форме и фактуре; однозначного победителя нет. .2 нельзя автоматически считать негативом только за отсутствие аннотации.",
+    "id": "Usher/myway",
+    "selectedKeys": [
+      "c/MIDI/Usher/My Way.1.mid",
+      "c/MIDI/Usher/My Way.mid"
+    ]
+  },
+  {
+    "number": 123,
+    "confidence": "visible",
+    "observation": "La Bamba: выбранная содержит отдельную верхнюю мелодическую линию и более развитые ансамблевые слои, намного полнее и ровнее квантована, чем гитарная .1. Детали/сохранение мелодии правдоподобны.",
+    "id": "Valens Ritchie/labamba",
+    "selectedKeys": [
+      "c/MIDI/Valens Ritchie/La Bamba.mid"
+    ]
+  },
+  {
+    "number": 124,
+    "confidence": "visible",
+    "observation": "The Hustle: выбранная существенно длиннее и детальнее, с полноценными струнами/духовыми и басом; .1/.2 имеют менее устойчивые атаки, .3 короче. Здесь полнота формы и характерные роли поддерживают выбор.",
+    "id": "Van McCoy/thehustle",
+    "selectedKeys": [
+      "c/MIDI/Van McCoy/The Hustle.mid"
+    ]
+  },
+  {
+    "number": 125,
+    "confidence": "family",
+    "observation": "Brown Eyed Girl: выбранная близка .4, с органной верхней линией/духовыми и ровной сеткой; .2/.3 simpler guitar/piano, .1 другой состав. Нотные роли правдоподобны, точный выбор внутри семейства не установлен.",
+    "id": "Van Morrison/browneyedgirl",
+    "selectedKeys": [
+      "c/MIDI/Van Morrison/Brown Eyed Girl.mid"
+    ]
+  },
+  {
+    "number": 126,
+    "confidence": "counterexample",
+    "observation": "Colors of the Wind: выбрана 3-партийная версия Rhodes/Strings/Pan Flute вместо 16-партийной. Верхняя линия отделена от сопровождения, сетка гораздо ровнее. Явный пример того, что сохранённая мелодия и читаемость могут перевешивать детализацию.",
+    "id": "Vanessa Williams/colorsofthewind",
+    "selectedKeys": [
+      "c/MIDI/Vanessa Williams/Colors of the Wind.mid"
+    ]
+  },
+  {
+    "number": 127,
+    "confidence": "family",
+    "observation": "1492: выбранная полная слоистая струнно-хоровая аранжировка, почти одинаковая .3; .1 существенно проще/в другом темпе, .4 в другом метре. Точный файл внутри близкой пары не определяется.",
+    "id": "Vangelis/1492conquestofparadise",
+    "selectedKeys": [
+      "c/MIDI/Vangelis/1492: Conquest of Paradise.mid"
+    ]
+  },
+  {
+    "number": 128,
+    "confidence": "visible",
+    "observation": "Ice Ice Baby.1 — полный файл на 452 доли, тогда как основная заканчивается на 96; число нот сильно больше. Наглядный критерий целой композиции вместо фрагмента.",
+    "id": "Vanilla Ice/iceicebaby",
+    "selectedKeys": [
+      "c/MIDI/Vanilla Ice/Ice Ice Baby.1.mid"
+    ]
+  },
+  {
+    "number": 129,
+    "confidence": "counterexample",
+    "observation": "Tom’s Diner.2: выбрана all-piano версия с начальным 8/8 и полной формой; короткая основная теряет форму, .1 тоже полная и более ансамблевая. Приоритет хороших разных тембров не объясняет этот выбор.",
+    "id": "Vega/tomsdinerreprise",
+    "selectedKeys": [
+      "c/MIDI/Vega/Tom's Diner (reprise).2.mid"
+    ]
+  },
+  {
+    "number": 130,
+    "confidence": "uncertain",
+    "observation": "Seether: версии практически одинаковы по ролям, нотам, длине и сетке. По рисунку точный выбор не объясняется.",
+    "id": "Veruca Salt/seether",
+    "selectedKeys": [
+      "c/MIDI/Veruca Salt/Seether.mid"
+    ]
+  },
+  {
+    "number": 131,
+    "confidence": "uncertain",
+    "observation": "Low Rider: близкая фактура, обе MIDI показывают 5/4 и похожую низкую долю точных атак. Выбранная имеет меньше ролей/нот и другой саксофонный патч. Нативная метка метра сама по себе не свидетельствует о пригодной музыкальной сетке.",
+    "id": "War/lowrider",
+    "selectedKeys": [
+      "c/MIDI/War/Low Rider.mid"
+    ]
+  },
+  {
+    "number": 132,
+    "confidence": "visible",
+    "observation": "The Eve of the War: выбранная более полная по форме и нотам, с дополнительными независимыми вставками/голосами при такой же ровной сетке. Здесь работает критерий деталей.",
+    "id": "Wayne Jeff/theeveofthewar",
+    "selectedKeys": [
+      "c/MIDI/Wayne Jeff/The Eve of the War.mid"
+    ]
+  },
+  {
+    "number": 133,
+    "confidence": "counterexample",
+    "observation": "Palladium: выбранная версия содержит более развитый музыкальный материал. Исходный признак даёт только 4% атак у прямой/триольной сетки, против 99% альтернативы. Но после единого сдвига на 0,148 четвертной доли доля близких атак вырастает до 91,4%: это в основном ошибка начала координат, а не ритмический беспорядок. Такой сдвиг ещё не устанавливает музыкально правильные такты.",
+    "id": "Weather Report/palladium",
+    "selectedKeys": [
+      "c/MIDI/Weather Report/Palladium.mid"
+    ]
+  },
+  {
+    "number": 134,
+    "confidence": "family",
+    "observation": "Buddy Holly: выбранная содержит больше деталей/мелодических слоёв, чем .1; обе полные и с хорошей сеткой. Возможна полнота вокальной/сольной линии, её источник не доказан по патчу.",
+    "id": "Weezer/buddyholly",
+    "selectedKeys": [
+      "c/MIDI/Weezer/Buddy Holly.mid"
+    ]
+  },
+  {
+    "number": 135,
+    "confidence": "uncertain",
+    "observation": "Careless Whisper: все три почти одинаковы по форме, составу, числу нот и темпу. Выбор конкретного файла глазами не объясняется.",
+    "id": "Wham!/carelesswhisper",
+    "selectedKeys": [
+      "c/MIDI/Wham!/Careless Whisper.mid"
+    ]
+  },
+  {
+    "number": 136,
+    "confidence": "family",
+    "observation": "Another Day: выбранная менее плотная, с другой клавишно-духовой фактурой и самостоятельной верхней линией. Более квантованная .1 и более плотная .2 не выбраны; возможно, важнее правильный вариант транскрипции/мелодии.",
+    "id": "Whigfield/anotherday",
+    "selectedKeys": [
+      "c/MIDI/Whigfield/Another Day.mid"
+    ]
+  },
+  {
+    "number": 137,
+    "confidence": "family",
+    "observation": "When the Children Cry: те же ноты/форма, но выбранная заменяет Lead Sawtooth на Flute и другой струнный слой. Тембровое предпочтение правдоподобно, его качество нужно слушать.",
+    "id": "White Lion/whenthechildrencry",
+    "selectedKeys": [
+      "c/MIDI/White Lion/When the Children Cry.mid"
+    ]
+  },
+  {
+    "number": 138,
+    "confidence": "family",
+    "observation": "Your Woman: выбранная меньше по нотам, с другой оркестровкой и похожей полной формой. Некоторые альтернативы плотнее/лучше квантованы; видна важность конкретных ролей, но точный музыкальный мотив неизвестен.",
+    "id": "White Town/yourwoman",
+    "selectedKeys": [
+      "c/MIDI/White Town/Your Woman.mid"
+    ]
+  },
+  {
+    "number": 139,
+    "confidence": "family",
+    "observation": "Here I Go Again: выбранная имеет меньше нот/каналов, сохраняя раздельные strings/guitar/flute/bass и полную форму. Обе сетки хорошие. Возможна читаемость/подходящий тембр вместо максимальной плотности.",
+    "id": "Whitesnake/hereigoagain",
+    "selectedKeys": [
+      "c/MIDI/Whitesnake/Here I Go Again.mid"
+    ]
+  },
+  {
+    "number": 140,
+    "confidence": "family",
+    "observation": "1 Moment in Time: выбранная относится к полноценному 10-партийному семейству .1/.2, отличается Voice Oohs/Vibraphone. .5 — простое 3-партийное сокращение; другие — другая аранжировка. Точный тембровый выбор не установлен.",
+    "id": "Whitney Houston/1momentintime",
+    "selectedKeys": [
+      "c/MIDI/Whitney Houston/1 Moment in Time.mid"
+    ]
+  },
+  {
+    "number": 141,
+    "confidence": "visible",
+    "observation": "Play That Funky Music: выбранная полнее короткой 5-партийной, но менее раздута, чем .1, и с ровными атаками/самостоятельными guitar/bass/духовыми. Вероятен баланс ясных ролей и достаточной формы.",
+    "id": "Wild Cherry/playthatfunkymusic",
+    "selectedKeys": [
+      "c/MIDI/Wild Cherry/Play That Funky Music.mid"
+    ]
+  },
+  {
+    "number": 142,
+    "confidence": "family",
+    "observation": "Always on My Mind: близкое семейство; выбранная содержит Synth Voice вместо одной Accordion, при почти тех же нотах/форме. Возможен тембровый/мелодический мотив, не доказанный глазами.",
+    "id": "Willie Nelson/alwaysonmymind",
+    "selectedKeys": [
+      "c/MIDI/Willie Nelson/Always on My Mind.mid"
+    ]
+  },
+  {
+    "number": 143,
+    "confidence": "partial",
+    "observation": "The Rain Must Fall: выбранная читается и имеет полную разнообразную аранжировку; .1 повреждена в структуре MTrk. Показать сравнение музыкального содержания двух файлов невозможно.",
+    "id": "Yanni/therainmustfall",
+    "selectedKeys": [
+      "c/MIDI/Yanni/The Rain Must Fall.mid"
+    ]
+  },
+  {
+    "number": 144,
+    "confidence": "uncertain",
+    "observation": "And You and I: обе версии имеют те же ноты и инструментовку, отличаются немного длиной/фазой. 19 сочетаний канал/патч не означают 19 одновременных голосов. Точный выбор не определяю.",
+    "id": "Yes/andyouandi",
+    "selectedKeys": [
+      "c/MIDI/Yes/And You and I.1.mid"
+    ]
+  },
+  {
+    "number": 145,
+    "confidence": "family",
+    "observation": "Roundabout.1 почти совпадает с .2; основная меняет солирующие Voice Oohs/Calliope и чуть более плотная. Выбор семейства самостоятельных rock-ролей понятен, конкретная копия — нет.",
+    "id": "Yes/roundabout",
+    "selectedKeys": [
+      "c/MIDI/Yes/Roundabout.1.mid"
+    ]
+  },
+  {
+    "number": 146,
+    "confidence": "family",
+    "observation": "Amando amando: одинаковое число нот/форма; выбранная меняет Gunshot-подобные назначения на Piano. Возможна причина в пригодности инструментовки, но нужно проверять bank/program и слышать результат.",
+    "id": "Zero/amandoamando",
+    "selectedKeys": [
+      "c/MIDI/Zero/Amando amando.mid"
+    ]
+  },
+  {
+    "number": 147,
+    "confidence": "family",
+    "observation": "Senza Una Donna.7 — другая аранжировка с самостоятельными voice/choir/Alto Sax ролями и большей нотной детализацией, чем основное 11-канальное семейство. .6 ещё плотнее; не просто максимум нот. Подлинность вокальной роли надо подтвердить музыкальным сопоставлением.",
+    "id": "Zucchero/senzaunadonna",
+    "selectedKeys": [
+      "c/MIDI/Zucchero/Senza Una Donna.7.mid"
+    ]
+  },
+  {
+    "number": 148,
+    "confidence": "family",
+    "observation": "Sharp Dressed Man.3 близка .1, но меняет басовый патч/небольшие события. .2 имеет больше гитарных удвоений, основная другую органную мелодическую линию и лучше квантована. Возможна читаемость/тембр, точный выбор по рисунку не устанавливается.",
+    "id": "ZZ Top/sharpdressedman",
+    "selectedKeys": [
+      "c/MIDI/ZZ Top/Sharp Dressed Man.3.mid"
+    ]
+  }
+]

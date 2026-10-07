@@ -1,0 +1,3353 @@
+{
+  "semantics": "Multiset match of all pitched/drum onset-pitch events, rounded to 1/24 quarter note; maximize over integer shifts -8..8 quarter notes. Ignores note durations, voice identity, velocity, programs, banks, controllers and tempo. High agreement does not prove equivalent playback or human preference.",
+  "groups": [
+    {
+      "number": 1,
+      "id": "a-ha/takeonme",
+      "selected": "c/MIDI/a-ha/Take On Me.2.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/a-ha/Take On Me.1.mid",
+          "onsetPitchMatch": 0.3171745152354571,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/a-ha/Take On Me.3.mid",
+          "onsetPitchMatch": 0.977133655394525,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/a-ha/Take On Me.4.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/a-ha/Take On Me.5.mid",
+          "onsetPitchMatch": 0.3246100978059741,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/a-ha/Take On Me.6.mid",
+          "onsetPitchMatch": 0.3171745152354571,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/a-ha/Take On Me.mid",
+          "onsetPitchMatch": 0.10756273030356203,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "ABBA/fernando",
+      "selected": "c/MIDI/ABBA/Fernando.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/ABBA/Fernando.1.mid",
+          "onsetPitchMatch": 0.9995259540175397,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Fernando.10.mid",
+          "onsetPitchMatch": 0.2895864300078692,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Fernando.11.mid",
+          "onsetPitchMatch": 0.9880246620820489,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Fernando.2.mid",
+          "onsetPitchMatch": 0.8040075883329381,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Fernando.3.mid",
+          "onsetPitchMatch": 0.11335072326298316,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Fernando.4.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Fernando.5.mid",
+          "onsetPitchMatch": 0.3272077590607453,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Fernando.6.mid",
+          "onsetPitchMatch": 0.2895864300078692,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Fernando.7.mid",
+          "onsetPitchMatch": 0.945814560113825,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Fernando.8.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Fernando.9.mid",
+          "onsetPitchMatch": 0.9995259540175397,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "ABBA/honeyhoney",
+      "selected": "c/MIDI/ABBA/Honey Honey.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/ABBA/Honey Honey.1.mid",
+          "onsetPitchMatch": 0.15660711411556413,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "ABBA/moneymoneymoney",
+      "selected": "c/MIDI/ABBA/Money, Money, Money.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/ABBA/Money, Money, Money.1.mid",
+          "onsetPitchMatch": 0.432161753590325,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Money, Money, Money.10.mid",
+          "onsetPitchMatch": 0.4319169027384325,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Money, Money, Money.11.mid",
+          "onsetPitchMatch": 0.432161753590325,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Money, Money, Money.2.mid",
+          "onsetPitchMatch": 0.43224343224343226,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Money, Money, Money.3.mid",
+          "onsetPitchMatch": 0.2951980103309738,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Money, Money, Money.4.mid",
+          "onsetPitchMatch": 0.2506232341698521,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Money, Money, Money.5.mid",
+          "onsetPitchMatch": 0.2576412225956153,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Money, Money, Money.6.mid",
+          "onsetPitchMatch": 0.2385937191388505,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Money, Money, Money.7.mid",
+          "onsetPitchMatch": 0.2576412225956153,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Money, Money, Money.8.mid",
+          "onsetPitchMatch": 0.4319169027384325,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Money, Money, Money.9.mid",
+          "onsetPitchMatch": 0.2576412225956153,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "ABBA/sos",
+      "selected": "c/MIDI/ABBA/S.O.S.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/ABBA/S.O.S.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/S.O.S.2.mid",
+          "onsetPitchMatch": 0.9871359656959086,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "ABBA/thewinnertakesitall",
+      "selected": "c/MIDI/ABBA/The Winner Takes It All.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/ABBA/The Winner Takes It All.1.mid",
+          "onsetPitchMatch": 0.1855703607409815,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/The Winner Takes It All.2.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/The Winner Takes It All.3.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/The Winner Takes It All.4.mid",
+          "onsetPitchMatch": 0.09928501787455314,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/The Winner Takes It All.5.mid",
+          "onsetPitchMatch": 0.46638878363016295,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/The Winner Takes It All.6.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "ABBA/waterloo",
+      "selected": "c/MIDI/ABBA/Waterloo.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/ABBA/Waterloo.1.mid",
+          "onsetPitchMatch": 0.9997769350881106,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Waterloo.2.mid",
+          "onsetPitchMatch": 0.42246998284734133,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Waterloo.3.mid",
+          "onsetPitchMatch": 0.42246998284734133,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Waterloo.4.mid",
+          "onsetPitchMatch": 0.9997769350881106,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Waterloo.5.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Waterloo.6.mid",
+          "onsetPitchMatch": 0.9991075412762159,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ABBA/Waterloo.7.mid",
+          "onsetPitchMatch": 0.9781347612672914,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "Alice Cooper/poison",
+      "selected": "c/MIDI/Alice Cooper/Poison.2.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Alice Cooper/Poison.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Alice Cooper/Poison.mid",
+          "onsetPitchMatch": 0.8174870757473589,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "Ambra/aspettavote",
+      "selected": "c/MIDI/Ambra/Aspettavo te.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Ambra/Aspettavo te.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Ambra/Aspettavo te.2.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "America/ahorsewithnoname",
+      "selected": "c/MIDI/America/A Horse With No Name.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/America/A Horse With No Name.mid",
+          "onsetPitchMatch": 0.2641597028783658,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "Antonello Venditti/benvenutiinparadiso",
+      "selected": "c/MIDI/Venditti Antonello/Benvenuti in paradiso.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Antonello Venditti/Benvenuti in paradiso.1.mid",
+          "onsetPitchMatch": 0.3978220778080267,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Antonello Venditti/Benvenuti in paradiso.2.mid",
+          "onsetPitchMatch": 0.6247133414272225,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Antonello Venditti/Benvenuti in paradiso.3.mid",
+          "onsetPitchMatch": 0.3978220778080267,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Antonello Venditti/Benvenuti in paradiso.mid",
+          "onsetPitchMatch": 0.5989173228346457,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "id": "Barry White/cantgetenoughofyourlovebabe",
+      "selected": "c/MIDI/White Barry/Can't Get Enough of Your Love, Babe.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Barry White/Can't Get Enough of Your Love, Babe.mid",
+          "onsetPitchMatch": 0.2123006833712984,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/White Barry/Can't Get Enough of Your Love, Babe.1.mid",
+          "onsetPitchMatch": 0.48520842671447784,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "Bob Marley/ishotthesheriff",
+      "selected": "c/MIDI/Bob Marley/I shot the Sheriff.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Marley Bob/I shot the Sheriff.mid",
+          "onsetPitchMatch": 0.06710929519918284,
+          "shiftBeatsToSelected": 5,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "Bob Marley/jammin",
+      "selected": "c/MIDI/Bob Marley/Jammin'.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Marley Bob/Jammin'.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Marley Bob/Jammin'.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "Bob Marley/waitinginvain",
+      "selected": "c/MIDI/Bob Marley/Waiting In Vain.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Marley Bob/Waiting In Vain.mid",
+          "onsetPitchMatch": 0.11161567877629062,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "Boyzone/pictureofyou",
+      "selected": "c/MIDI/Boyzone/Picture of You.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Boyzone/Picture of You.2.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Boyzone/Picture of You.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "Britney Spears/oopsididitagain",
+      "selected": "c/MIDI/Britney Spears/Oops!... I Did It Again.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Britney Spears/Oops!... I Did It Again.1.mid",
+          "onsetPitchMatch": 0.8798543689320388,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "id": "Britney Spears/whereareyounow",
+      "selected": "c/MIDI/Britney Spears/Where Are You Now.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Britney Spears/Where Are You Now.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "id": "Cascades/rhythmoftherain",
+      "selected": "c/MIDI/Cascades/Rhythm of the Rain.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Cascades/Rhythm of the Rain.1.mid",
+          "onsetPitchMatch": 0.17470221213840045,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "Celine Dion/itsallcomingbacktome",
+      "selected": "c/MIDI/Celine Dion/It's All Coming Back to Me.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Celine Dion/It's All Coming Back to Me.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Celine Dion/It's All Coming Back to Me.2.mid",
+          "onsetPitchMatch": 0.8657081236520489,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "id": "Clout/substitute",
+      "selected": "c/MIDI/Clout/Substitute.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Clout/Substitute.1.mid",
+          "onsetPitchMatch": 0.20661042732678744,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "id": "Creedence Clearwater Revival/badmoonrising",
+      "selected": "c/MIDI/Creedence Clearwater Revival/Bad Moon Rising.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Creedence Clearwater Revival/Bad Moon Rising.1.mid",
+          "onsetPitchMatch": 0.19980119284294234,
+          "shiftBeatsToSelected": 2,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Creedence Clearwater Revival/Bad Moon Rising.2.mid",
+          "onsetPitchMatch": 0.9631703005303477,
+          "shiftBeatsToSelected": -8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Creedence Clearwater Revival/Bad Moon Rising.3.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Creedence Clearwater Revival/Bad Moon Rising.4.mid",
+          "onsetPitchMatch": 0.8951707891637221,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "id": "Crosby Bing/whitechristmas",
+      "selected": "c/MIDI/Crosby Bing/White Christmas.2.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Crosby Bing/White Christmas.1.mid",
+          "onsetPitchMatch": 0.3708558211256746,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Crosby Bing/White Christmas.mid",
+          "onsetPitchMatch": 0.020514967552857442,
+          "shiftBeatsToSelected": 7,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "id": "Cyndi Lauper/girlsjustwannahavefun",
+      "selected": "c/MIDI/Cyndi Lauper/Girls Just Wanna Have Fun.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Cyndi Lauper/Girls Just Wanna Have Fun.2.mid",
+          "onsetPitchMatch": 0.12555158646774534,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Cyndi Lauper/Girls Just Wanna Have Fun.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "id": "Dallara/comeprima",
+      "selected": "c/MIDI/Dallara/Come prima.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Dallara/Come prima.1.mid",
+          "onsetPitchMatch": 0.07574578469520103,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Dallara/Come prima.2.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 29,
+      "id": "Deniece Williams/letshearitfortheboy",
+      "selected": "c/MIDI/Williams Deniece/Let's Hear It For The Boy.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Deniece Williams/Let's Hear It For The Boy.mid",
+          "onsetPitchMatch": 0.04606661941885188,
+          "shiftBeatsToSelected": -8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "id": "Donovan/mellowyellow",
+      "selected": "c/MIDI/Donovan/Mellow Yellow.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Donovan/Mellow Yellow.mid",
+          "onsetPitchMatch": 0.055752660922453116,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "id": "Double/thecaptainofherheart",
+      "selected": "c/MIDI/Double/The Captain of Her Heart.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Double/The Captain of Her Heart.1.mid",
+          "onsetPitchMatch": 0.3651711924439197,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 32,
+      "id": "Duke Ellington/jeepsblues",
+      "selected": "c/MIDI/Duke Ellington/Jeep's Blues.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Ellington/Jeep's Blues.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": true
+        }
+      ]
+    },
+    {
+      "number": 33,
+      "id": "Eagles/takeittothelimit",
+      "selected": "c/MIDI/Eagles/Take It to the Limit.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Eagles/Take It to the Limit.1.mid",
+          "onsetPitchMatch": 0.06126958617918843,
+          "shiftBeatsToSelected": 3,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Eagles/Take It to the Limit.2.mid",
+          "onsetPitchMatch": 0.15427882683808758,
+          "shiftBeatsToSelected": 3,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 34,
+      "id": "Earth, Wind & Fire/fantasy",
+      "selected": "c/MIDI/Earth, Wind & Fire/Fantasy.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Earth, Wind & Fire/Fantasy.1.mid",
+          "onsetPitchMatch": 0.2783996189568945,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Earth, Wind & Fire/Fantasy.2.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Earth, Wind & Fire/Fantasy.3.mid",
+          "onsetPitchMatch": 0.30770887166236005,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Earth, Wind & Fire/Fantasy.4.mid",
+          "onsetPitchMatch": 0.2839991500212495,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Earth, Wind & Fire/Fantasy.5.mid",
+          "onsetPitchMatch": 0.2769263291406828,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Earth, Wind & Fire/Fantasy.6.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Earth, Wind & Fire/Fantasy.7.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 35,
+      "id": "Duke Ellington/satindoll",
+      "selected": "c/MIDI/Ellington/Satin Doll.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Ellington/Satin Doll.mid",
+          "onsetPitchMatch": 0.11939594148183105,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 36,
+      "id": "Elton John/crocodilerock",
+      "selected": "c/MIDI/Elton John/Crocodile Rock.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/John Elton/Crocodile Rock.1.mid",
+          "onsetPitchMatch": 0.30671641791044774,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/John Elton/Crocodile Rock.2.mid",
+          "onsetPitchMatch": 0.937276223312558,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/John Elton/Crocodile Rock.3.mid",
+          "onsetPitchMatch": 0.30671641791044774,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/John Elton/Crocodile Rock.mid",
+          "onsetPitchMatch": 0.937276223312558,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 37,
+      "id": "Elvis Presley/canthelpfallinginlove",
+      "selected": "c/MIDI/Elvis Presley/Can't Help Falling in Love.5.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Elvis Presley/Can't Help Falling in Love.1.mid",
+          "onsetPitchMatch": 0.8452619843924192,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Elvis Presley/Can't Help Falling in Love.2.mid",
+          "onsetPitchMatch": 0.022296544035674472,
+          "shiftBeatsToSelected": -7,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Elvis Presley/Can't Help Falling in Love.3.mid",
+          "onsetPitchMatch": 0.8452619843924192,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Elvis Presley/Can't Help Falling in Love.4.mid",
+          "onsetPitchMatch": 0.22274247491638796,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Elvis Presley/Can't Help Falling in Love.6.mid",
+          "onsetPitchMatch": 0.022382920110192838,
+          "shiftBeatsToSelected": 1,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Elvis Presley/Can't Help Falling in Love.mid",
+          "onsetPitchMatch": 0.022296544035674472,
+          "shiftBeatsToSelected": -7,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 38,
+      "id": "Emerson, Lake & Palmer/tarkus",
+      "selected": "c/MIDI/Emerson, Lake & Palmer/Tarkus.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Emerson, Lake & Palmer/Tarkus.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 39,
+      "id": "Fleetwood Mac/thechain",
+      "selected": "c/MIDI/Fleetwood Mac/The Chain.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Fleetwood Mac/The Chain.1.mid",
+          "onsetPitchMatch": 0.07177383916800938,
+          "shiftBeatsToSelected": -8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 40,
+      "id": "Marvin Gaye/ihearditthroughthegrapevine",
+      "selected": "c/MIDI/Gaye,Marvin/I Heard It Through The Grapevine.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Gaye,Marvin/I Heard It Through The Grapevine.mid",
+          "onsetPitchMatch": 0.013537906137184115,
+          "shiftBeatsToSelected": -2,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 41,
+      "id": "Marvin Gaye/whatsgoinon",
+      "selected": "c/MIDI/Marvin Gaye/What's Goin' On.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Gaye,Marvin/What's Goin' On.1.mid",
+          "onsetPitchMatch": 0.07571009804912564,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Gaye,Marvin/What's Goin' On.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": true
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "id": "Gene Vincent/bebobalula",
+      "selected": "c/MIDI/Vincent Gene/Be Bob A-Lula.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Gene Vincent/Be Bob A-Lula.mid",
+          "onsetPitchMatch": 0.0585956416464891,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Vincent Gene/Be Bob A-Lula.1.mid",
+          "onsetPitchMatch": 0.6409200968523002,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 43,
+      "id": "Humperdinck Engelbert/thespanishnightisover",
+      "selected": "c/MIDI/Humperdinck Engelbert/The Spanish Night Is Over.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Humperdinck Engelbert/The Spanish Night Is Over.1.mid",
+          "onsetPitchMatch": 0.2950636587000223,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Humperdinck Engelbert/The Spanish Night Is Over.2.mid",
+          "onsetPitchMatch": 0.29439356712083986,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 44,
+      "id": "J.J. Cale/cocaine",
+      "selected": "c/MIDI/J.J. Cale/Cocaine.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/J.J. Cale/Cocaine.1.mid",
+          "onsetPitchMatch": 0.03362743465956384,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "id": "Michael Jackson/billiejean",
+      "selected": "c/MIDI/Michael Jackson/Billie Jean.5.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Jackson Michael/Billie Jean.1.mid",
+          "onsetPitchMatch": 0.3105590062111801,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Jackson Michael/Billie Jean.2.mid",
+          "onsetPitchMatch": 0.5938864628820961,
+          "shiftBeatsToSelected": -8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Jackson Michael/Billie Jean.3.mid",
+          "onsetPitchMatch": 0.5938864628820961,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Jackson Michael/Billie Jean.4.mid",
+          "onsetPitchMatch": 0.7276428471149796,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Jackson Michael/Billie Jean.5.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": true
+        },
+        {
+          "key": "c/MIDI/Jackson Michael/Billie Jean.mid",
+          "onsetPitchMatch": 0.945109302696665,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 46,
+      "id": "Michael Jackson/billyjean",
+      "selected": "c/MIDI/Michael Jackson/Billy Jean.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Jackson Michael/Billy Jean.1.mid",
+          "onsetPitchMatch": 0.0003979307600477517,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Jackson Michael/Billy Jean.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": true
+        }
+      ]
+    },
+    {
+      "number": 47,
+      "id": "Michael Jackson/rockwithyou",
+      "selected": "c/MIDI/Michael Jackson/Rock With You.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Jackson Michael/Rock With You.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Jackson Michael/Rock With You.2.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Jackson Michael/Rock With You.3.mid",
+          "onsetPitchMatch": 0.9992225461613217,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Jackson Michael/Rock With You.mid",
+          "onsetPitchMatch": 0.44643838124885554,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 48,
+      "id": "John Lennon/imagine",
+      "selected": "c/MIDI/Lennon John/Imagine.4.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/John Lennon/Imagine.mid",
+          "onsetPitchMatch": 0.5259298061812467,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Lennon John/Imagine.1.mid",
+          "onsetPitchMatch": 0.3303143313798615,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Lennon John/Imagine.2.mid",
+          "onsetPitchMatch": 0.009589770911028236,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Lennon John/Imagine.3.mid",
+          "onsetPitchMatch": 0.5259298061812467,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Lennon John/Imagine.mid",
+          "onsetPitchMatch": 0.21905651564689396,
+          "shiftBeatsToSelected": -8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 49,
+      "id": "Led Zeppelin/stairwaytoheaven",
+      "selected": "c/MIDI/Led Zeppelin/Stairway To Heaven.3.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Led Zeppelin/Stairway To Heaven.1.mid",
+          "onsetPitchMatch": 0.42379413227250123,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Led Zeppelin/Stairway To Heaven.10.mid",
+          "onsetPitchMatch": 0.42652909000497263,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Led Zeppelin/Stairway To Heaven.11.mid",
+          "onsetPitchMatch": 0.23010939830929886,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Led Zeppelin/Stairway To Heaven.2.mid",
+          "onsetPitchMatch": 0.4358528095474888,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Led Zeppelin/Stairway To Heaven.4.mid",
+          "onsetPitchMatch": 0.43186582809224316,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Led Zeppelin/Stairway To Heaven.5.mid",
+          "onsetPitchMatch": 0.2430382894082546,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Led Zeppelin/Stairway to Heaven.6.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Led Zeppelin/Stairway To Heaven.7.mid",
+          "onsetPitchMatch": 0.006713078070611636,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Led Zeppelin/Stairway to Heaven.8.mid",
+          "onsetPitchMatch": 0.42795725340867213,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Led Zeppelin/Stairway To Heaven.9.mid",
+          "onsetPitchMatch": 0.4142217802088513,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Led Zeppelin/Stairway To Heaven.mid",
+          "onsetPitchMatch": 0.009146968139773896,
+          "shiftBeatsToSelected": 7,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 51,
+      "id": "Lobo/idloveyoutowantme",
+      "selected": "c/MIDI/Lobo/I'd Love You to Want Me.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Lobo/I'd Love You to Want Me.1.mid",
+          "onsetPitchMatch": 0.1455242334322453,
+          "shiftBeatsToSelected": -2,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 52,
+      "id": "Richard Marx/hazard",
+      "selected": "c/MIDI/Marx Richard/Hazard.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Marx Richard/Hazard.1.mid",
+          "onsetPitchMatch": 0.9478932132518495,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Marx Richard/Hazard.2.mid",
+          "onsetPitchMatch": 0.9990350595046639,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Marx Richard/Hazard.3.mid",
+          "onsetPitchMatch": 0.9998390212491951,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 53,
+      "id": "Peter Gabriel/solsburyhill",
+      "selected": "c/MIDI/Peter Gabriel/Solsbury Hill.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Peter Gabriel/Solsbury Hill.1.mid",
+          "onsetPitchMatch": 0.9950006249218848,
+          "shiftBeatsToSelected": 2,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Peter Gabriel/Solsbury Hill.2.mid",
+          "onsetPitchMatch": 0.9454459203036053,
+          "shiftBeatsToSelected": 2,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 54,
+      "id": "Pink Floyd/braindamage",
+      "selected": "c/MIDI/Pink Floyd/Brain Damage.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Pink Floyd/Brain Damage.1.mid",
+          "onsetPitchMatch": 0.6425567703952901,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Pink Floyd/Brain Damage.2.mid",
+          "onsetPitchMatch": 0.6425567703952901,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Pink Floyd/Brain Damage.3.mid",
+          "onsetPitchMatch": 0.17373646209386281,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Pink Floyd/Brain Damage.4.mid",
+          "onsetPitchMatch": 0.17373646209386281,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 55,
+      "id": "Pink Floyd/comfortablynumb",
+      "selected": "c/MIDI/Pink Floyd/Comfortably Numb.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Pink Floyd/Comfortably Numb.1.mid",
+          "onsetPitchMatch": 0.6966485953671759,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Pink Floyd/Comfortably Numb.2.mid",
+          "onsetPitchMatch": 0.2835112692763938,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 56,
+      "id": "Pink Floyd/thegreatgiginthesky",
+      "selected": "c/MIDI/Pink Floyd/The Great Gig in the Sky.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Pink Floyd/The Great Gig in the Sky.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Pink Floyd/The Great Gig in the Sky.2.mid",
+          "onsetPitchMatch": 0.007100591715976331,
+          "shiftBeatsToSelected": 1,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Pink Floyd/The Great Gig in the Sky.3.mid",
+          "onsetPitchMatch": 0.006904069767441861,
+          "shiftBeatsToSelected": 5,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 57,
+      "id": "Pink Floyd/time",
+      "selected": "c/MIDI/Pink Floyd/Time.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Pink Floyd/Time.1.mid",
+          "onsetPitchMatch": 0.020156774916013438,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Pink Floyd/Time.2.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 59,
+      "id": "Radiohead/karmapolice",
+      "selected": "c/MIDI/Radiohead/Karma Police.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Radiohead/Karma Police.1.mid",
+          "onsetPitchMatch": 0.21858902575587905,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 60,
+      "id": "Red Hot Chili Peppers/californication",
+      "selected": "c/MIDI/Red Hot Chili Peppers/Californication.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Red Hot Chili Peppers/Californication.2.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Red Hot Chili Peppers/Californication.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 62,
+      "id": "Vasco Rossi/albachiara",
+      "selected": "c/MIDI/Vasco/Albachiara.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Rossi Vasco/Alba chiara.1.mid",
+          "onsetPitchMatch": 0.05686512758201701,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Rossi Vasco/Alba chiara.2.mid",
+          "onsetPitchMatch": 0.07948835084513477,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Rossi Vasco/Alba chiara.3.mid",
+          "onsetPitchMatch": 0.057351154313487245,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Rossi Vasco/Alba chiara.4.mid",
+          "onsetPitchMatch": 0.010692588092345079,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Rossi Vasco/Alba chiara.5.mid",
+          "onsetPitchMatch": 0.05686512758201701,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Rossi Vasco/Alba chiara.6.mid",
+          "onsetPitchMatch": 0.01902417188898836,
+          "shiftBeatsToSelected": 2,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Rossi Vasco/Alba chiara.mid",
+          "onsetPitchMatch": 0.010692588092345079,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Rossi Vasco/Albachiara.mid",
+          "onsetPitchMatch": 0.057351154313487245,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 63,
+      "id": "Seal/crazy",
+      "selected": "c/MIDI/Seal/Crazy.3.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Seal/Crazy.1.mid",
+          "onsetPitchMatch": 0.17846124180485923,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Seal/Crazy.2.mid",
+          "onsetPitchMatch": 0.17846124180485923,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Seal/Crazy.4.mid",
+          "onsetPitchMatch": 0.1777413443919375,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Seal/Crazy.mid",
+          "onsetPitchMatch": 0.1788468954878519,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 65,
+      "id": "T'Pau/chinainyourhand",
+      "selected": "c/MIDI/T'Pau/China In Your Hand.2.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/T'Pau/China In Your Hand.1.mid",
+          "onsetPitchMatch": 0.09811232812864135,
+          "shiftBeatsToSelected": 2,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/T'Pau/China In Your Hand.mid",
+          "onsetPitchMatch": 0.0848471422241914,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 66,
+      "id": "T. Rex/getitonbangagong",
+      "selected": "c/MIDI/T. Rex/Get It On (Bang a Gong).1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/T. Rex/Get It On (Bang a Gong).mid",
+          "onsetPitchMatch": 0.21139359698681734,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 67,
+      "id": "Tag Team/whoompthereitis",
+      "selected": "c/MIDI/Tag Team/Whoomp (There It Is).1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Tag Team/Whoomp (There It Is).mid",
+          "onsetPitchMatch": 0.19190283400809716,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 68,
+      "id": "Tammy Wynette/standbyyourman",
+      "selected": "c/MIDI/Tammy Wynette/Stand By Your Man.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Tammy Wynette/Stand By Your Man.mid",
+          "onsetPitchMatch": 0.02033639143730887,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 69,
+      "id": "Tanita Tikaram/twistinmysobriety",
+      "selected": "c/MIDI/Tanita Tikaram/Twist In My Sobriety.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Tanita Tikaram/Twist In My Sobriety.1.mid",
+          "onsetPitchMatch": 0.1800129505719836,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 70,
+      "id": "Tasmin Archer/sleepingsatellite",
+      "selected": "c/MIDI/Tasmin Archer/Sleeping Satellite.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Tasmin Archer/Sleeping Satellite.1.mid",
+          "onsetPitchMatch": 0.16521531671239414,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 71,
+      "id": "Tavares/heavenmustbemissinganangel",
+      "selected": "c/MIDI/Tavares/Heaven Must Be Missing an Angel.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Tavares/Heaven Must Be Missing an Angel.1.mid",
+          "onsetPitchMatch": 0.9774866115530598,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Tavares/Heaven Must Be Missing an Angel.2.mid",
+          "onsetPitchMatch": 0.05750532938179171,
+          "shiftBeatsToSelected": 5,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 72,
+      "id": "Taylor Dayne/tellittomyheart",
+      "selected": "c/MIDI/Taylor Dayne/Tell It to My Heart.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Taylor Dayne/Tell It to My Heart.1.mid",
+          "onsetPitchMatch": 0.7938303341902314,
+          "shiftBeatsToSelected": -3,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 73,
+      "id": "Tears for Fears/shout",
+      "selected": "c/MIDI/Tears for Fears/Shout.5.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Tears for Fears/Shout.1.mid",
+          "onsetPitchMatch": 0.16187475384009453,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Tears for Fears/Shout.2.mid",
+          "onsetPitchMatch": 0.9983365677848628,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Tears for Fears/Shout.3.mid",
+          "onsetPitchMatch": 0.9995379781925707,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Tears for Fears/Shout.4.mid",
+          "onsetPitchMatch": 0.9665465298955734,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Tears for Fears/Shout.mid",
+          "onsetPitchMatch": 0.16187475384009453,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 74,
+      "id": "Technotronic/pumpupthejam",
+      "selected": "c/MIDI/Technotronic/Pump Up the Jam.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Technotronic/Pump Up the Jam.1.mid",
+          "onsetPitchMatch": 0.19670032712274213,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Technotronic/Pump Up the Jam.2.mid",
+          "onsetPitchMatch": 0.01934290997013227,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 75,
+      "id": "Terry Jacks/seasonsinthesun",
+      "selected": "c/MIDI/Terry Jacks/Seasons in the Sun.2.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Terry Jacks/Seasons in the Sun.1.mid",
+          "onsetPitchMatch": 0.05092829160279339,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Terry Jacks/Seasons in the Sun.mid",
+          "onsetPitchMatch": 0.9195304162219851,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 76,
+      "id": "The Alan Parsons Project/eyeinthesky",
+      "selected": "c/MIDI/The Alan Parsons Project/Eye In The Sky.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Alan Parsons Project/Eye In The Sky.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Alan Parsons Project/Eye In The Sky.2.mid",
+          "onsetPitchMatch": 0.0639269406392694,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 77,
+      "id": "The Allman Brothers Band/midnightrider",
+      "selected": "c/MIDI/The Allman Brothers Band/Midnight Rider.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Allman Brothers Band/Midnight Rider.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 78,
+      "id": "The Animals/thehouseoftherisingsun",
+      "selected": "c/MIDI/The Animals/The House of the Rising Sun.5.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Animals/The House of the Rising Sun.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Animals/The House of the Rising Sun.2.mid",
+          "onsetPitchMatch": 0.9744281858218496,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Animals/The House of the Rising Sun.3.mid",
+          "onsetPitchMatch": 0.6636535938183409,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Animals/The House of the Rising Sun.4.mid",
+          "onsetPitchMatch": 0.04286339116489284,
+          "shiftBeatsToSelected": 3,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Animals/The House of the Rising Sun.6.mid",
+          "onsetPitchMatch": 0.1896777955970258,
+          "shiftBeatsToSelected": 3,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Animals/The House of the Rising Sun.mid",
+          "onsetPitchMatch": 0.9744136460554371,
+          "shiftBeatsToSelected": -3,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 79,
+      "id": "The Association/nevermylove",
+      "selected": "c/MIDI/The Association/Never My Love.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Association/Never My Love.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 80,
+      "id": "The Bangles/eternalflame",
+      "selected": "c/MIDI/The Bangles/Eternal Flame.9.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Bangles/Eternal Flame.1.mid",
+          "onsetPitchMatch": 0.1385390428211587,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Bangles/Eternal Flame.10.mid",
+          "onsetPitchMatch": 0.2089162912022765,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Bangles/Eternal Flame.2.mid",
+          "onsetPitchMatch": 0.1380352644836272,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Bangles/Eternal Flame.3.mid",
+          "onsetPitchMatch": 0.1380352644836272,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Bangles/Eternal Flame.4.mid",
+          "onsetPitchMatch": 0.18421052631578946,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Bangles/Eternal Flame.5.mid",
+          "onsetPitchMatch": 0.1380352644836272,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Bangles/Eternal Flame.6.mid",
+          "onsetPitchMatch": 0.10428211586901763,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Bangles/Eternal Flame.7.mid",
+          "onsetPitchMatch": 0.23652392947103273,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Bangles/Eternal Flame.8.mid",
+          "onsetPitchMatch": 0.1385390428211587,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Bangles/Eternal Flame.mid",
+          "onsetPitchMatch": 0.1385390428211587,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 81,
+      "id": "The Beatles/aharddaysnight",
+      "selected": "c/MIDI/The Beatles/A Hard Day's Night.5.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/A Hard Day's Night.1.mid",
+          "onsetPitchMatch": 0.45002398848552694,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/A Hard Day's Night.2.mid",
+          "onsetPitchMatch": 0.2368463137693907,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/A Hard Day's Night.3.mid",
+          "onsetPitchMatch": 0.27602750679673754,
+          "shiftBeatsToSelected": -3,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/A Hard Day's Night.4.mid",
+          "onsetPitchMatch": 0.3470334239565009,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/A Hard Day's Night.6.mid",
+          "onsetPitchMatch": 0.22245322245322247,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/A Hard Day's Night.7.mid",
+          "onsetPitchMatch": 0.2787462018231249,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/A Hard Day's Night.mid",
+          "onsetPitchMatch": 0.3470334239565009,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 82,
+      "id": "The Beatles/atasteofhoney",
+      "selected": "c/MIDI/The Beatles/A Taste Of Honey.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/A Taste Of Honey.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 83,
+      "id": "The Beatles/allmyloving",
+      "selected": "c/MIDI/The Beatles/All My Loving.4.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/All My Loving.1.mid",
+          "onsetPitchMatch": 0.5117804226378431,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/All My Loving.2.mid",
+          "onsetPitchMatch": 0.28833986140403733,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/All My Loving.3.mid",
+          "onsetPitchMatch": 0.18304635761589405,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/All My Loving.mid",
+          "onsetPitchMatch": 0.38526434195725534,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 84,
+      "id": "The Beatles/babyitsyou",
+      "selected": "c/MIDI/The Beatles/Baby It's You.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Baby Its You.mid",
+          "onsetPitchMatch": 0.02202856451222464,
+          "shiftBeatsToSelected": -2,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 85,
+      "id": "The Beatles/boys",
+      "selected": "c/MIDI/The Beatles/Boys.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Boys.mid",
+          "onsetPitchMatch": 0.8748107016658253,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 86,
+      "id": "The Beatles/chains",
+      "selected": "c/MIDI/The Beatles/Chains.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Chains.mid",
+          "onsetPitchMatch": 0.4189129474149359,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 87,
+      "id": "The Beatles/doyouwanttoknowasecret",
+      "selected": "c/MIDI/The Beatles/Do You Want to Know a Secret.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Do You Want to Know a Secret.1.mid",
+          "onsetPitchMatch": 0.3878532772098617,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Do You Want to Know a Secret.2.mid",
+          "onsetPitchMatch": 0.3878532772098617,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 88,
+      "id": "The Beatles/dontbotherme",
+      "selected": "c/MIDI/The Beatles/Don't Bother Me.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Don't Bother Me.mid",
+          "onsetPitchMatch": 0.9555461473327689,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 89,
+      "id": "The Beatles/eleanorrigby",
+      "selected": "c/MIDI/The Beatles/Eleanor Rigby.4.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Eleanor Rigby.1.mid",
+          "onsetPitchMatch": 0.26073428749222155,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Eleanor Rigby.10.mid",
+          "onsetPitchMatch": 0.37336652146857496,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Eleanor Rigby.11.mid",
+          "onsetPitchMatch": 0.3264949803579223,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Eleanor Rigby.12.mid",
+          "onsetPitchMatch": 0.04009296920395119,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Eleanor Rigby.13.mid",
+          "onsetPitchMatch": 0.26073428749222155,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Eleanor Rigby.2.mid",
+          "onsetPitchMatch": 0.012603878116343491,
+          "shiftBeatsToSelected": 1,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Eleanor Rigby.3.mid",
+          "onsetPitchMatch": 0.011229946524064172,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Eleanor Rigby.5.mid",
+          "onsetPitchMatch": 0.029367469879518073,
+          "shiftBeatsToSelected": -8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Eleanor Rigby.6.mid",
+          "onsetPitchMatch": 0.2265090230242688,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Eleanor Rigby.7.mid",
+          "onsetPitchMatch": 0.04011627906976744,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Eleanor Rigby.8.mid",
+          "onsetPitchMatch": 0.33274021352313166,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Eleanor Rigby.9.mid",
+          "onsetPitchMatch": 0.26384567517112634,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Eleanor Rigby.mid",
+          "onsetPitchMatch": 0.014404432132963989,
+          "shiftBeatsToSelected": 1,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Elenor Rigby.mid",
+          "onsetPitchMatch": 0.13316739265712507,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 90,
+      "id": "The Beatles/goodnight",
+      "selected": "c/MIDI/The Beatles/Good Night.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Good Night.1.mid",
+          "onsetPitchMatch": 0.04328223624887286,
+          "shiftBeatsToSelected": 3,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Goodnight.mid",
+          "onsetPitchMatch": 0.2963219986120749,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 91,
+      "id": "The Beatles/help",
+      "selected": "c/MIDI/The Beatles/Help!.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Help!.1.mid",
+          "onsetPitchMatch": 0.052931252636018555,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Help!.2.mid",
+          "onsetPitchMatch": 0.04590818363273453,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Help!.3.mid",
+          "onsetPitchMatch": 0.2781936127744511,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Help!.4.mid",
+          "onsetPitchMatch": 0.052931252636018555,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Help!.5.mid",
+          "onsetPitchMatch": 0.052931252636018555,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 92,
+      "id": "The Beatles/isawherstandingthere",
+      "selected": "c/MIDI/The Beatles/I Saw Her Standing There.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/I Saw Her Standing There.1.mid",
+          "onsetPitchMatch": 0.04495196664854088,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/I Saw Her Standing There.2.mid",
+          "onsetPitchMatch": 0.47844598190526877,
+          "shiftBeatsToSelected": -8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/I Saw Her Standing There.3.mid",
+          "onsetPitchMatch": 0.178357803153888,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/I Saw Her Standing There.4.mid",
+          "onsetPitchMatch": 0.27298948082796065,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/I Saw Her Standing There.5.mid",
+          "onsetPitchMatch": 0.3503043718871057,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 93,
+      "id": "The Beatles/itwontbelong",
+      "selected": "c/MIDI/The Beatles/It Won't Be Long.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/It Won't Be Long.1.mid",
+          "onsetPitchMatch": 0.6537102473498233,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 94,
+      "id": "The Beatles/lovemedo",
+      "selected": "c/MIDI/The Beatles/Love Me Do.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Love Me Do.2.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Love Me Do.3.mid",
+          "onsetPitchMatch": 0.3437269825681316,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Love Me Do.4.mid",
+          "onsetPitchMatch": 0.3316398532317245,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Love Me Do.5.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Love Me Do.6.mid",
+          "onsetPitchMatch": 0.07451312447078746,
+          "shiftBeatsToSelected": -8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Love Me Do.7.mid",
+          "onsetPitchMatch": 0.012701100762066046,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Love Me Do.mid",
+          "onsetPitchMatch": 0.06915043748235958,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 95,
+      "id": "The Beatles/misery",
+      "selected": "c/MIDI/The Beatles/Misery.2.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Misery.1.mid",
+          "onsetPitchMatch": 0.12866772402854876,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Misery.mid",
+          "onsetPitchMatch": 0.028350515463917526,
+          "shiftBeatsToSelected": 7,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 96,
+      "id": "The Beatles/norwegianwood",
+      "selected": "c/MIDI/The Beatles/Norwegian Wood.3.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Norwegian Wood.1.mid",
+          "onsetPitchMatch": 0.014788732394366197,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Norwegian Wood.2.mid",
+          "onsetPitchMatch": 0.17640845070422534,
+          "shiftBeatsToSelected": -5,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Norwegian Wood.4.mid",
+          "onsetPitchMatch": 0.025,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Norwegian Wood.mid",
+          "onsetPitchMatch": 0.5816932208684786,
+          "shiftBeatsToSelected": 3,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 97,
+      "id": "The Beatles/pennylane",
+      "selected": "c/MIDI/The Beatles/Penny Lane.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Penny Lane.1.mid",
+          "onsetPitchMatch": 0.11532531606537157,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Penny Lane.2.mid",
+          "onsetPitchMatch": 0.11532531606537157,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Penny Lane.3.mid",
+          "onsetPitchMatch": 0.11532531606537157,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Penny Lane.4.mid",
+          "onsetPitchMatch": 0.979031760715387,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Penny Lane.5.mid",
+          "onsetPitchMatch": 0.13814369411039162,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Penny Lane.6.mid",
+          "onsetPitchMatch": 0.10329941412272588,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 98,
+      "id": "The Beatles/pleasepleaseme",
+      "selected": "c/MIDI/The Beatles/Please Please Me.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Please Please Me.1.mid",
+          "onsetPitchMatch": 0.04465088402756967,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Please Please Me.2.mid",
+          "onsetPitchMatch": 0.19478573569074017,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 99,
+      "id": "The Beatles/shesawoman",
+      "selected": "c/MIDI/The Beatles/She's a Woman.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/She's a Woman.1.mid",
+          "onsetPitchMatch": 0.07235735046657488,
+          "shiftBeatsToSelected": -6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/She's a Woman.2.mid",
+          "onsetPitchMatch": 0.10746339159187529,
+          "shiftBeatsToSelected": -3,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/She's a Woman.3.mid",
+          "onsetPitchMatch": 0.10879523591387998,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/She's a Woman.4.mid",
+          "onsetPitchMatch": 0.10992825734783615,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 100,
+      "id": "The Beatles/strawberryfieldsforever",
+      "selected": "c/MIDI/The Beatles/Strawberry Fields Forever.3.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Strawberry Fields Forever.1.mid",
+          "onsetPitchMatch": 0.8877302745915885,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Strawberry Fields Forever.2.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Strawberry Fields Forever.4.mid",
+          "onsetPitchMatch": 0.8922488703510602,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Strawberry Fields Forever.mid",
+          "onsetPitchMatch": 0.6155717761557178,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 101,
+      "id": "The Beatles/twistandshout",
+      "selected": "c/MIDI/The Beatles/Twist And Shout.4.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Twist And Shout.1.mid",
+          "onsetPitchMatch": 0.10183938986092418,
+          "shiftBeatsToSelected": -8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Twist And Shout.2.mid",
+          "onsetPitchMatch": 0.4145133505598622,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Twist And Shout.3.mid",
+          "onsetPitchMatch": 0.3628337639965547,
+          "shiftBeatsToSelected": -8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Twist And Shout.5.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Twist And Shout.6.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Twist And Shout.7.mid",
+          "onsetPitchMatch": 0.805770887166236,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Twist And Shout.mid",
+          "onsetPitchMatch": 0.4145133505598622,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 102,
+      "id": "The Beatles/yellowsubmarine",
+      "selected": "c/MIDI/The Beatles/Yellow Submarine.2.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/Yellow Submarine.1.mid",
+          "onsetPitchMatch": 0.1917808219178082,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Yellow Submarine.3.mid",
+          "onsetPitchMatch": 0.005999368487527629,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Beatles/Yellow Submarine.mid",
+          "onsetPitchMatch": 0.03568045468898011,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 103,
+      "id": "The Beatles/youlikemetoomuch",
+      "selected": "c/MIDI/The Beatles/You Like Me Too Much.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Beatles/You Like Me Too Much.mid",
+          "onsetPitchMatch": 0.3243201720694423,
+          "shiftBeatsToSelected": -6,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 104,
+      "id": "The Bluebells/youngatheart",
+      "selected": "c/MIDI/The Bluebells/Young At Heart.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Bluebells/Young At Heart.1.mid",
+          "onsetPitchMatch": 0.1720803372179519,
+          "shiftBeatsToSelected": -5,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 105,
+      "id": "The Boomtown Rats/idontlikemondays",
+      "selected": "c/MIDI/The Boomtown Rats/I Don't Like Monday's.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Boomtown Rats/I Don't Like Monday's.1.mid",
+          "onsetPitchMatch": 0.8309149536477227,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 106,
+      "id": "The Byrds/turnturnturn",
+      "selected": "c/MIDI/The Byrds/Turn! Turn! Turn!.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Byrds/Turn! Turn! Turn!.2.mid",
+          "onsetPitchMatch": 0.7774869109947644,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Byrds/Turn! Turn! Turn!.mid",
+          "onsetPitchMatch": 0.10925874896665748,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 107,
+      "id": "The Cardigans/myfavoritegame",
+      "selected": "c/MIDI/The Cardigans/My Favorite Game.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Cardigans/My Favorite Game.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 108,
+      "id": "The Cars/drive",
+      "selected": "c/MIDI/The Cars/Drive.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Cars/Drive.2.mid",
+          "onsetPitchMatch": 0.9822353811991118,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Cars/Drive.3.mid",
+          "onsetPitchMatch": 0.21662965704416481,
+          "shiftBeatsToSelected": -8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Cars/Drive.4.mid",
+          "onsetPitchMatch": 0.44655963302752294,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Cars/Drive.5.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Cars/Drive.mid",
+          "onsetPitchMatch": 0.9531211448309894,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 110,
+      "id": "The Doors/peoplearestrange",
+      "selected": "c/MIDI/The Doors/People Are Strange.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Doors/People Are Strange.2.mid",
+          "onsetPitchMatch": 0.13634513634513634,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Doors/People Are Strange.mid",
+          "onsetPitchMatch": 0.13634513634513634,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 111,
+      "id": "The Offspring/selfesteem",
+      "selected": "c/MIDI/The Offspring/Self Esteem.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Offspring/Self Esteem.1.mid",
+          "onsetPitchMatch": 0.19335980586807852,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 112,
+      "id": "The Police/roxanne",
+      "selected": "c/MIDI/The Police/Roxanne.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Police/Roxanne.1.mid",
+          "onsetPitchMatch": 0.02864471996579735,
+          "shiftBeatsToSelected": -5,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Police/Roxanne.2.mid",
+          "onsetPitchMatch": 0.026675341574495772,
+          "shiftBeatsToSelected": -7,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Police/Roxanne.3.mid",
+          "onsetPitchMatch": 0.02864471996579735,
+          "shiftBeatsToSelected": -5,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Police/Roxanne.4.mid",
+          "onsetPitchMatch": 0.028693790149892935,
+          "shiftBeatsToSelected": -5,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Police/Roxanne.5.mid",
+          "onsetPitchMatch": 0.02864471996579735,
+          "shiftBeatsToSelected": -5,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Police/Roxanne.6.mid",
+          "onsetPitchMatch": 0.026675341574495772,
+          "shiftBeatsToSelected": -7,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Police/Roxanne.7.mid",
+          "onsetPitchMatch": 0.026675341574495772,
+          "shiftBeatsToSelected": -7,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 113,
+      "id": "The Righteous Brothers/unchainedmelody",
+      "selected": "c/MIDI/The Righteous Brothers/Unchained Melody.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Righteous Brothers/Unchained Melody.2.mid",
+          "onsetPitchMatch": 0.06296508299942759,
+          "shiftBeatsToSelected": 2,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Righteous Brothers/Unchained Melody.3.mid",
+          "onsetPitchMatch": 0.06334668956306048,
+          "shiftBeatsToSelected": 2,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Righteous Brothers/Unchained Melody.4.mid",
+          "onsetPitchMatch": 0.11448196908986835,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Righteous Brothers/Unchained Melody.5.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Righteous Brothers/Unchained Melody.6.mid",
+          "onsetPitchMatch": 0.02346880366342301,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Righteous Brothers/Unchained Melody.7.mid",
+          "onsetPitchMatch": 0.42091203968708263,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Righteous Brothers/Unchained Melody.mid",
+          "onsetPitchMatch": 0.17744705208929593,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 114,
+      "id": "The Ventures/walkdontrun",
+      "selected": "c/MIDI/Ventures/Walk Don't Run.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/The Ventures/Walk Don't Run.1.mid",
+          "onsetPitchMatch": 0.0035131225459805746,
+          "shiftBeatsToSelected": 1,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/The Ventures/Walk Don't Run.mid",
+          "onsetPitchMatch": 0.06488943996693532,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Ventures/Walk Don't Run.1.mid",
+          "onsetPitchMatch": 0.03885100227319694,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 115,
+      "id": "Umberto Tozzi/gloria",
+      "selected": "c/MIDI/Umberto Tozzi/Gloria.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Tozzi/Gloria.1.mid",
+          "onsetPitchMatch": 0.21054834658853078,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Tozzi/Gloria.2.mid",
+          "onsetPitchMatch": 0.9997209432119436,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Tozzi/Gloria.3.mid",
+          "onsetPitchMatch": 0.9997209432119436,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Tozzi/Gloria.4.mid",
+          "onsetPitchMatch": 0.1709222826845263,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Tozzi/Gloria.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 116,
+      "id": "Tyner Mccoy/olddevilmoon",
+      "selected": "c/MIDI/Tyner Mccoy/Old Devil Moon.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Tyner Mccoy/Old Devil Moon.1.mid",
+          "onsetPitchMatch": 0.02553949712928133,
+          "shiftBeatsToSelected": 1,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 117,
+      "id": "U.S.A. for Africa/wearetheworld",
+      "selected": "c/MIDI/U.S.A. for Africa/We Are the World.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/U.S.A. for Africa/We Are the World.1.mid",
+          "onsetPitchMatch": 0.17369477911646586,
+          "shiftBeatsToSelected": 5,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/U.S.A. for Africa/We Are the World.2.mid",
+          "onsetPitchMatch": 0.1738382099827883,
+          "shiftBeatsToSelected": 5,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/U.S.A. for Africa/We Are the World.3.mid",
+          "onsetPitchMatch": 0.1738382099827883,
+          "shiftBeatsToSelected": 5,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 118,
+      "id": "U2/withorwithoutyou",
+      "selected": "c/MIDI/U2/With or Without You.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/U2/With or Without You.2.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/U2/With or Without You.3.mid",
+          "onsetPitchMatch": 0.0038654259126700073,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/U2/With or Without You.4.mid",
+          "onsetPitchMatch": 0.0038654259126700073,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/U2/With or Without You.5.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/U2/With or Without You.6.mid",
+          "onsetPitchMatch": 0.0038654259126700073,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/U2/With or Without You.mid",
+          "onsetPitchMatch": 0.9205440229062276,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 119,
+      "id": "UB40/icanthelpfallinginlovewithyou",
+      "selected": "c/MIDI/UB40/(I Can't Help) Falling In Love With You.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/UB40/(I Can't Help) Falling In Love With You.1.mid",
+          "onsetPitchMatch": 0.030004546143355054,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/UB40/(I Can't Help) Falling In Love With You.2.mid",
+          "onsetPitchMatch": 0.3495984240036369,
+          "shiftBeatsToSelected": 6,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 120,
+      "id": "Urban Cookie Collective/thekeythesecret",
+      "selected": "c/MIDI/Urban Cookie Collective/The Key, the Secret.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Urban Cookie Collective/The Key, the Secret.1.mid",
+          "onsetPitchMatch": 0.9843828085957022,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 121,
+      "id": "Us3/cantaloop",
+      "selected": "c/MIDI/Us3/Cantaloop.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Us3/Cantaloop.1.mid",
+          "onsetPitchMatch": 0.9897582269979852,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 123,
+      "id": "Valens Ritchie/labamba",
+      "selected": "c/MIDI/Valens Ritchie/La Bamba.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Valens Ritchie/La Bamba.1.mid",
+          "onsetPitchMatch": 0.10101826410214967,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 124,
+      "id": "Van McCoy/thehustle",
+      "selected": "c/MIDI/Van McCoy/The Hustle.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Van McCoy/The Hustle.1.mid",
+          "onsetPitchMatch": 0.0032232857980074234,
+          "shiftBeatsToSelected": 2,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Van McCoy/The Hustle.2.mid",
+          "onsetPitchMatch": 0.02998632545419027,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Van McCoy/The Hustle.3.mid",
+          "onsetPitchMatch": 0.1170150420003907,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 125,
+      "id": "Van Morrison/browneyedgirl",
+      "selected": "c/MIDI/Van Morrison/Brown Eyed Girl.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Van Morrison/Brown Eyed Girl.1.mid",
+          "onsetPitchMatch": 0.3992146596858639,
+          "shiftBeatsToSelected": -8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Van Morrison/Brown Eyed Girl.2.mid",
+          "onsetPitchMatch": 0.31602254428341386,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Van Morrison/Brown Eyed Girl.3.mid",
+          "onsetPitchMatch": 0.31602254428341386,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Van Morrison/Brown Eyed Girl.4.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 126,
+      "id": "Vanessa Williams/colorsofthewind",
+      "selected": "c/MIDI/Vanessa Williams/Colors of the Wind.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Vanessa Williams/Colors of the Wind.1.mid",
+          "onsetPitchMatch": 0.025579727468324168,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 127,
+      "id": "Vangelis/1492conquestofparadise",
+      "selected": "c/MIDI/Vangelis/1492: Conquest of Paradise.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Vangelis/1492: Conquest of Paradise.1.mid",
+          "onsetPitchMatch": 0.02939575394665215,
+          "shiftBeatsToSelected": -6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Vangelis/1492: Conquest of Paradise.2.mid",
+          "onsetPitchMatch": 0.3288876791870804,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Vangelis/1492: Conquest of Paradise.3.mid",
+          "onsetPitchMatch": 0.8939393939393939,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Vangelis/1492: Conquest of Paradise.4.mid",
+          "onsetPitchMatch": 0.23888586463436762,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 128,
+      "id": "Vanilla Ice/iceicebaby",
+      "selected": "c/MIDI/Vanilla Ice/Ice Ice Baby.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Vanilla Ice/Ice Ice Baby.mid",
+          "onsetPitchMatch": 0.0065632458233890216,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 129,
+      "id": "Vega/tomsdinerreprise",
+      "selected": "c/MIDI/Vega/Tom's Diner (reprise).2.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Vega/Tom's Diner (reprise).1.mid",
+          "onsetPitchMatch": 0.0026147588611272515,
+          "shiftBeatsToSelected": 2,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Vega/Tom's Diner (reprise).mid",
+          "onsetPitchMatch": 0.0026147588611272515,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 130,
+      "id": "Veruca Salt/seether",
+      "selected": "c/MIDI/Veruca Salt/Seether.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Veruca Salt/Seether.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 131,
+      "id": "War/lowrider",
+      "selected": "c/MIDI/War/Low Rider.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/War/Low Rider.1.mid",
+          "onsetPitchMatch": 0.8346036585365854,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 132,
+      "id": "Wayne Jeff/theeveofthewar",
+      "selected": "c/MIDI/Wayne Jeff/The Eve of the War.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Wayne Jeff/The Eve of the War.1.mid",
+          "onsetPitchMatch": 0.2378070918552584,
+          "shiftBeatsToSelected": -2,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 133,
+      "id": "Weather Report/palladium",
+      "selected": "c/MIDI/Weather Report/Palladium.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Weather Report/Palladium.1.mid",
+          "onsetPitchMatch": 0.007050092764378479,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 134,
+      "id": "Weezer/buddyholly",
+      "selected": "c/MIDI/Weezer/Buddy Holly.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Weezer/Buddy Holly.1.mid",
+          "onsetPitchMatch": 0.37322628827483195,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 135,
+      "id": "Wham!/carelesswhisper",
+      "selected": "c/MIDI/Wham!/Careless Whisper.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Wham!/Careless Whisper.1.mid",
+          "onsetPitchMatch": 0.9998711174120376,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Wham!/Careless Whisper.2.mid",
+          "onsetPitchMatch": 0.9998711174120376,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 136,
+      "id": "Whigfield/anotherday",
+      "selected": "c/MIDI/Whigfield/Another Day.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Whigfield/Another Day.1.mid",
+          "onsetPitchMatch": 0.3930789707187223,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Whigfield/Another Day.2.mid",
+          "onsetPitchMatch": 0.4160756501182033,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 137,
+      "id": "White Lion/whenthechildrencry",
+      "selected": "c/MIDI/White Lion/When the Children Cry.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/White Lion/When the Children Cry.1.mid",
+          "onsetPitchMatch": 0.9964086193136472,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 138,
+      "id": "White Town/yourwoman",
+      "selected": "c/MIDI/White Town/Your Woman.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/White Town/Your Woman.1.mid",
+          "onsetPitchMatch": 0.3053350748518035,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/White Town/Your Woman.2.mid",
+          "onsetPitchMatch": 0.3065281000908082,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/White Town/Your Woman.3.mid",
+          "onsetPitchMatch": 0.2898878827080638,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 139,
+      "id": "Whitesnake/hereigoagain",
+      "selected": "c/MIDI/Whitesnake/Here I Go Again.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Whitesnake/Here I Go Again.1.mid",
+          "onsetPitchMatch": 0.33193507204085354,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 140,
+      "id": "Whitney Houston/1momentintime",
+      "selected": "c/MIDI/Whitney Houston/1 Moment in Time.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Whitney Houston/1 Moment in Time.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Whitney Houston/1 Moment in Time.2.mid",
+          "onsetPitchMatch": 0.9989629245527613,
+          "shiftBeatsToSelected": -4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Whitney Houston/1 Moment in Time.3.mid",
+          "onsetPitchMatch": 0.27886405959031657,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Whitney Houston/1 Moment in Time.4.mid",
+          "onsetPitchMatch": 0.6541353383458647,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Whitney Houston/1 Moment in Time.5.mid",
+          "onsetPitchMatch": 0.22997148042520094,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 141,
+      "id": "Wild Cherry/playthatfunkymusic",
+      "selected": "c/MIDI/Wild Cherry/Play That Funky Music.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Wild Cherry/Play That Funky Music.1.mid",
+          "onsetPitchMatch": 0.445668207296686,
+          "shiftBeatsToSelected": -8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Wild Cherry/Play That Funky Music.2.mid",
+          "onsetPitchMatch": 0.38167484753830133,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 142,
+      "id": "Willie Nelson/alwaysonmymind",
+      "selected": "c/MIDI/Willie Nelson/Always on My Mind.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Willie Nelson/Always on My Mind.1.mid",
+          "onsetPitchMatch": 0.9984158834090189,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 143,
+      "id": "Yanni/therainmustfall",
+      "selected": "c/MIDI/Yanni/The Rain Must Fall.mid",
+      "comparisons": []
+    },
+    {
+      "number": 144,
+      "id": "Yes/andyouandi",
+      "selected": "c/MIDI/Yes/And You and I.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Yes/And You and I.mid",
+          "onsetPitchMatch": 0.9336695705333945,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 145,
+      "id": "Yes/roundabout",
+      "selected": "c/MIDI/Yes/Roundabout.1.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Yes/Roundabout.2.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Yes/Roundabout.mid",
+          "onsetPitchMatch": 0.8407897120086941,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 146,
+      "id": "Zero/amandoamando",
+      "selected": "c/MIDI/Zero/Amando amando.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Zero/Amando amando.1.mid",
+          "onsetPitchMatch": 1.0,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 147,
+      "id": "Zucchero/senzaunadonna",
+      "selected": "c/MIDI/Zucchero/Senza Una Donna.7.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/Zucchero/Senza Una Donna.1.mid",
+          "onsetPitchMatch": 0.3378542510121457,
+          "shiftBeatsToSelected": -6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Zucchero/Senza Una Donna.2.mid",
+          "onsetPitchMatch": 0.04817813765182186,
+          "shiftBeatsToSelected": 8,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Zucchero/Senza Una Donna.3.mid",
+          "onsetPitchMatch": 0.05850202429149798,
+          "shiftBeatsToSelected": 4,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Zucchero/Senza Una Donna.4.mid",
+          "onsetPitchMatch": 0.3378542510121457,
+          "shiftBeatsToSelected": -6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Zucchero/Senza Una Donna.5.mid",
+          "onsetPitchMatch": 0.3378542510121457,
+          "shiftBeatsToSelected": -6,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Zucchero/Senza Una Donna.6.mid",
+          "onsetPitchMatch": 0.48249094359151284,
+          "shiftBeatsToSelected": 2,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/Zucchero/Senza Una Donna.mid",
+          "onsetPitchMatch": 0.3378542510121457,
+          "shiftBeatsToSelected": -6,
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "number": 148,
+      "id": "ZZ Top/sharpdressedman",
+      "selected": "c/MIDI/ZZ Top/Sharp Dressed Man.3.mid",
+      "comparisons": [
+        {
+          "key": "c/MIDI/ZZ Top/Sharp Dressed Man.1.mid",
+          "onsetPitchMatch": 0.7196292618338298,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ZZ Top/Sharp Dressed Man.2.mid",
+          "onsetPitchMatch": 0.6025160599571735,
+          "shiftBeatsToSelected": 0,
+          "byteIdentical": false
+        },
+        {
+          "key": "c/MIDI/ZZ Top/Sharp Dressed Man.mid",
+          "onsetPitchMatch": 0.23453680380632522,
+          "shiftBeatsToSelected": -8,
+          "byteIdentical": false
+        }
+      ]
+    }
+  ]
+}

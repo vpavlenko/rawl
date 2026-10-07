@@ -119,7 +119,7 @@ export default function BeatlesDiscography({
   files,
   allFiles,
   isAnnotated,
-  renderTitle,
+  rankFiles,
   renderTrack,
   groupByAlbum = true,
   albumGroups,
@@ -127,8 +127,12 @@ export default function BeatlesDiscography({
   files: string[];
   allFiles: string[];
   isAnnotated: (file: string) => boolean;
-  renderTitle: (title: string) => React.ReactNode;
-  renderTrack: (file: string, label?: string) => React.ReactNode;
+  rankFiles?: (files: string[]) => string[];
+  renderTrack: (
+    file: string,
+    label?: string,
+    preferred?: boolean,
+  ) => React.ReactNode;
   groupByAlbum?: boolean;
   albumGroups?: AlbumGroup[] | null;
 }) {
@@ -169,14 +173,22 @@ export default function BeatlesDiscography({
     .map((group) => ({
       ...group,
       songs: group.songs
-        .map((song) => ({
-          ...song,
-          title: song.files[0].replace(/(?:\.\d+)?\.mid$/i, ""),
-          annotatedFile: song.files.find(isAnnotated),
-          singleFile: song.files.length === 1 ? song.files[0] : undefined,
-          annotatedCount: song.files.filter(isAnnotated).length,
-          files: song.files.filter((file) => visible.has(file)),
-        }))
+        .map((song) => {
+          const ranked = rankFiles
+            ? rankFiles(song.files)
+            : [...song.files].sort(
+                (a, b) => Number(isAnnotated(b)) - Number(isAnnotated(a)),
+              );
+          return {
+            ...song,
+            title: song.files[0].replace(/(?:\.\d+)?\.mid$/i, ""),
+            preferredFile: ranked[0],
+            annotatedFile: ranked.find(isAnnotated),
+            singleFile: song.files.length === 1 ? song.files[0] : undefined,
+            annotatedCount: song.files.filter(isAnnotated).length,
+            files: ranked.filter((file) => visible.has(file)),
+          };
+        })
         .filter((song) => song.files.length),
     }))
     .filter((group) => group.songs.length);
@@ -235,9 +247,7 @@ export default function BeatlesDiscography({
                     {groupByAlbum && <span className="number">{song.number || "·"}</span>}
                     <span className="song">
                       <span className="title">
-                        {song.annotatedFile || song.singleFile
-                          ? renderTrack(song.annotatedFile || song.singleFile, song.title)
-                          : renderTitle(song.title)}
+                        {renderTrack(song.preferredFile, song.title, true)}
                       </span>
                       <span className="versions">
                         {shownFiles.map((file, index) => (

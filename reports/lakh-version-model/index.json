@@ -1,0 +1,9 @@
+{
+  "modelVersion": "lakh-version-gbdt-165c23d46053",
+  "scoredFiles": 10725,
+  "multiVersionSongs": 3534,
+  "suggestedSongs": 3168,
+  "bytes": 775599,
+  "output": "reports/lakh-version-model/experimental-rankings.json.gz",
+  "note": "Experimental scores; no Lakh UI recommendations are deployed. Missing or tied rankings do not produce a suggestion."
+}

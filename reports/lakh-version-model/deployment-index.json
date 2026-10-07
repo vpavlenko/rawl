@@ -1,0 +1,18 @@
+{
+  "modelVersion": "lakh-version-gbdt-165c23d46053",
+  "scoredFiles": 10725,
+  "multiVersionSongs": 3534,
+  "suggestedSongs": 3168,
+  "bytes": 775599,
+  "output": "public/lakh-version-rankings.json.gz",
+  "catalogHash": "8d62b478f065e7ff5b88cad7de0d57f22fa6fddc843cfa7268e5657f54004da8",
+  "command": [
+    "/Users/chipfocus/.nvm/versions/node/v24.12.0/bin/node",
+    "/Users/chipfocus/repos/rawl/scripts/rawl/index-lakh-version-rankings.cjs",
+    "--deploy"
+  ],
+  "midiHashesVerified": true,
+  "dataHash": "7630102429bee1021781b02d6e5e9b0c1b2c370a6ae4bd3d2eaa46ddfaaf80c0",
+  "outputHash": "39d950c03778a85f444a44bae10c4d93ee66556c58a64d88e380712738b45739",
+  "note": "Preliminary learned ranking deployed by user request. Manual annotations lead; unannotated files use descending scores, ties retain catalog order and files without scores come last. This indexes unchanged fitted trees; no retraining or new accuracy claim."
+}

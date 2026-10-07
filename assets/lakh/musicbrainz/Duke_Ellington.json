@@ -1,0 +1,34 @@
+{
+  "artist": "Duke Ellington",
+  "status": "processed",
+  "totalSongs": 4,
+  "matched": [
+    {
+      "song": "Don't Get Around Much Anymore",
+      "album": "Will Big Bands Ever Come Back?",
+      "albumId": "4da31b24-04b1-427b-a399-3f245df60060",
+      "track": 12
+    },
+    {
+      "song": "It Don't Mean a Thing",
+      "album": "Piano in the Background",
+      "albumId": "2b9e1ee5-df13-3f36-941f-e4404dd581ff",
+      "track": 7
+    },
+    {
+      "song": "Jeep's Blues",
+      "album": "Dance Air Force Date 1960",
+      "albumId": "46d402fc-44f4-40ea-af53-2c5f1fb299ad",
+      "track": 8
+    },
+    {
+      "song": "Rockin' in Rhythm",
+      "album": "Hot From The Cotton Club",
+      "albumId": "27b783f7-cea4-43a3-9b1d-6a8711c82cca",
+      "track": 13
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

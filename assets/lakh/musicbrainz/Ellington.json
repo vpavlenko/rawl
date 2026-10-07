@@ -1,0 +1,134 @@
+{
+  "artist": "Ellington",
+  "status": "processed",
+  "totalSongs": 21,
+  "matched": [
+    {
+      "song": "Caravan",
+      "album": "Dance to the Duke!",
+      "albumId": "19888d80-ad70-4b73-a3be-7e3a16da31b8",
+      "track": 3
+    },
+    {
+      "song": "Cotton Tail",
+      "album": "In a Mellotone",
+      "albumId": "937475fe-80c1-48f3-864f-9c6f2ff46f44",
+      "track": 10
+    },
+    {
+      "song": "Do Nothin' Till You Hear From Me",
+      "album": "The Popular Duke Ellington",
+      "albumId": "68ead2d5-adac-4918-b247-6c0da5c9f948",
+      "track": 8
+    },
+    {
+      "song": "Don't Get Around Much Anymore",
+      "album": "Will Big Bands Ever Come Back?",
+      "albumId": "4da31b24-04b1-427b-a399-3f245df60060",
+      "track": 12
+    },
+    {
+      "song": "Ellington Medley",
+      "album": "A Duke in Concert",
+      "albumId": "44511f59-5c0b-4a2d-a338-87bb9de4440a",
+      "track": 11
+    },
+    {
+      "song": "I Let a Song Go Out of My Heart",
+      "album": "The Duke At Tanglewood",
+      "albumId": "f03bd470-b642-42f1-b4b5-a3f5a39c5fda",
+      "track": 5
+    },
+    {
+      "song": "I'm Beginning to See the Light",
+      "album": "Piano in the Background",
+      "albumId": "2b9e1ee5-df13-3f36-941f-e4404dd581ff",
+      "track": 5
+    },
+    {
+      "song": "In a Sentimental Mood",
+      "album": "Piano Reflections",
+      "albumId": "5a1e1c50-e710-4e8c-8214-ea3f342705c8",
+      "track": 9
+    },
+    {
+      "song": "It Don't Mean a Thing",
+      "album": "Piano in the Background",
+      "albumId": "2b9e1ee5-df13-3f36-941f-e4404dd581ff",
+      "track": 7
+    },
+    {
+      "song": "Jeep's Blues",
+      "album": "Dance Air Force Date 1960",
+      "albumId": "46d402fc-44f4-40ea-af53-2c5f1fb299ad",
+      "track": 8
+    },
+    {
+      "song": "Just Squeeze Me",
+      "album": "1969 All-Star White House Tribute",
+      "albumId": "1fa3890d-4351-343b-b020-db844493a4ce",
+      "track": 6
+    },
+    {
+      "song": "Moon Mist",
+      "album": "Take the \"A\" Train (The Legendary Blanton-Webster Transcriptions)",
+      "albumId": "6f14edae-44e3-41b6-a711-9df28bbe0bd3",
+      "track": 23
+    },
+    {
+      "song": "Passion Flower",
+      "album": "Piano Reflections",
+      "albumId": "5a1e1c50-e710-4e8c-8214-ea3f342705c8",
+      "track": 4
+    },
+    {
+      "song": "Perdido",
+      "album": "Ellington Uptown",
+      "albumId": "8743886f-f38c-3441-8694-030dae089cbf",
+      "track": 5
+    },
+    {
+      "song": "Satin Doll",
+      "album": "At the Bal Masque",
+      "albumId": "9674b63a-33c7-4f3e-80f5-3fc28943a609",
+      "track": 7
+    },
+    {
+      "song": "Sophisticated Lady",
+      "album": "At Newport",
+      "albumId": "620dd228-71ac-4c58-9e96-adc0edb48105",
+      "track": 2
+    },
+    {
+      "song": "Stormy Weather",
+      "album": "Stormy Weather / Oh, Babe! Maybe Someday",
+      "albumId": "e36b894a-afe1-4fa5-9f25-5173f4e2785a",
+      "track": 1
+    },
+    {
+      "song": "Such Sweet Thunder",
+      "album": "Such Sweet Thunder",
+      "albumId": "a4302a71-d3e0-36b8-b218-c632623f3000",
+      "track": 1
+    },
+    {
+      "song": "Take the \"A\" Train",
+      "album": "Ellington Uptown",
+      "albumId": "8743886f-f38c-3441-8694-030dae089cbf",
+      "track": 3
+    },
+    {
+      "song": "Things Ain't What They Used to Be",
+      "album": "Piano Reflections",
+      "albumId": "5a1e1c50-e710-4e8c-8214-ea3f342705c8",
+      "track": 10
+    }
+  ],
+  "unmatched": [
+    "Sweet Georgia Brown"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Sweet Georgia Brown": []
+  }
+}

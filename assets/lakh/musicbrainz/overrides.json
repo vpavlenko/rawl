@@ -1413,5 +1413,31 @@
         "title": "I’m a Slave 4 U"
       }
     }
+  },
+  "Duke Ellington": {
+    "name": "Duke Ellington",
+    "mbid": "3af06bc4-68ad-4cae-bb7a-7eeeb45e411f",
+    "country": "US",
+    "relatedArtistIds": [
+      "c01557ad-d41e-4316-a285-605769e2ab3b"
+    ],
+    "songs": {
+      "It Don't Mean a Thing": {
+        "title": "It Don’t Mean a Thing (If It Ain’t Got That Swing)"
+      }
+    }
+  },
+  "Ellington": {
+    "name": "Duke Ellington",
+    "mbid": "3af06bc4-68ad-4cae-bb7a-7eeeb45e411f",
+    "country": "US",
+    "relatedArtistIds": [
+      "c01557ad-d41e-4316-a285-605769e2ab3b"
+    ],
+    "songs": {
+      "It Don't Mean a Thing": {
+        "title": "It Don’t Mean a Thing (If It Ain’t Got That Swing)"
+      }
+    }
   }
 }

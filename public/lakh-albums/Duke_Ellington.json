@@ -1,0 +1,70 @@
+{
+  "artist": "Duke Ellington",
+  "artistId": "3af06bc4-68ad-4cae-bb7a-7eeeb45e411f",
+  "groups": [
+    {
+      "id": "46d402fc-44f4-40ea-af53-2c5f1fb299ad",
+      "releaseId": "e5925c9e-cfa1-4527-aaaa-74cd08d1ab43",
+      "title": "Dance Air Force Date 1960",
+      "date": "1960",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/46d402fc-44f4-40ea-af53-2c5f1fb299ad/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Jeep's Blues.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2b9e1ee5-df13-3f36-941f-e4404dd581ff",
+      "releaseId": "a5691268-1d9e-4292-bcd0-e19fc753d9f7",
+      "title": "Piano in the Background",
+      "date": "1961-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2b9e1ee5-df13-3f36-941f-e4404dd581ff/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "It Don't Mean a Thing.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4da31b24-04b1-427b-a399-3f245df60060",
+      "releaseId": "5e37de39-5071-455b-92ab-19cdf731e212",
+      "title": "Will Big Bands Ever Come Back?",
+      "date": "1965",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4da31b24-04b1-427b-a399-3f245df60060/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "Don't Get Around Much Anymore.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "27b783f7-cea4-43a3-9b1d-6a8711c82cca",
+      "releaseId": "e996006b-1cb2-432c-8db4-ae2768795981",
+      "title": "Hot From The Cotton Club",
+      "date": "1985",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/27b783f7-cea4-43a3-9b1d-6a8711c82cca/front-250",
+      "songs": [
+        {
+          "number": 13,
+          "files": [
+            "Rockin' in Rhythm.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

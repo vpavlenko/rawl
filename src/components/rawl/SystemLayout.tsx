@@ -645,6 +645,12 @@ export const StackedSystemLayout: React.FC<
                 key={order}
                 ref={(el) => (sectionRefs.current[order] = el)}
               >
+                <HarmonyOverlay
+                  start={measuresAndBeats.measures[sectionSpan[0]]}
+                  end={measuresAndBeats.measures[sectionSpan[1]]}
+                  secondsToX={secondsToX}
+                  seek={seek}
+                />
                 <MeasureNumbers
                   measuresAndBeats={measuresAndBeats}
                   analysis={analysis}
@@ -665,12 +671,6 @@ export const StackedSystemLayout: React.FC<
                       ? playbackMeasure
                       : null
                   }
-                />
-                <HarmonyOverlay
-                  start={measuresAndBeats.measures[sectionSpan[0]]}
-                  end={measuresAndBeats.measures[sectionSpan[1]]}
-                  secondsToX={secondsToX}
-                  seek={seek}
                 />
                 {voices.map(({ notes, voiceIndex }) => (
                   <div

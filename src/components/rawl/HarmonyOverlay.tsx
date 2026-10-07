@@ -25,7 +25,6 @@ export default function HarmonyOverlay({
       style={{
         position: "relative",
         height: 64,
-        marginTop: 18,
         marginBottom: 8,
         fontSize: 11,
         color: "#ddd",
@@ -104,7 +103,7 @@ export default function HarmonyOverlay({
                 padding: "2px 3px",
                 textAlign: "left",
                 boxSizing: "border-box",
-                background: uncertain ? "#19171c" : "#282235",
+                background: "transparent",
                 border: `1px ${uncertain ? "dashed" : "solid"} ${
                   uncertain ? "#524b60" : "#8872b0"
                 }`,
@@ -123,7 +122,14 @@ export default function HarmonyOverlay({
           );
         })}
       {result.phrases
-        .filter((b) => b.time >= start && b.time < end)
+        .filter(
+          (b) =>
+            b.time >= start &&
+            b.time < end &&
+            !result.sections.some(
+              (section) => section.measure > 1 && section.measure === b.measure,
+            ),
+        )
         .map((b) => (
           <span
             key={`phrase-${b.measure}`}
@@ -151,7 +157,6 @@ export default function HarmonyOverlay({
               top: 53,
               color: "#c3a77a",
               fontSize: 9,
-              background: "#080808",
             }}
           >
             ┃ section

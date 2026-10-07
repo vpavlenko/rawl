@@ -345,6 +345,9 @@
       "Dio Morto": {
         "title": "Dio è morto"
       }
+    },
+    "releaseOverrides": {
+      "f64765d3-67a3-49d3-a15c-d2869911d246": "72d214f9-8a8f-4988-a401-74f643a96c4a"
     }
   },
   "Billy Joel": {

@@ -1591,5 +1591,43 @@
         "title": "Tradirefare"
       }
     }
+  },
+  "Lionel Richie": {
+    "name": "Lionel Richie",
+    "mbid": "3cb25fb2-5547-4b05-adec-1a5e37830d46",
+    "country": "US",
+    "relatedArtistIds": [
+      "900ab237-327b-44e2-87e4-73250bbe025a"
+    ],
+    "includedReleaseGroups": [
+      "6e3be147-2bd7-342c-9c04-5ed7c32ddf1e"
+    ],
+    "songs": {
+      "Endless Love (feat. Diana Ross)": {
+        "title": "Endless Love"
+      },
+      "You Are My Destiny": {
+        "title": "My Destiny"
+      }
+    }
+  },
+  "RICHIE LIONEL": {
+    "name": "Lionel Richie",
+    "mbid": "3cb25fb2-5547-4b05-adec-1a5e37830d46",
+    "country": "US",
+    "relatedArtistIds": [
+      "900ab237-327b-44e2-87e4-73250bbe025a"
+    ],
+    "includedReleaseGroups": [
+      "6e3be147-2bd7-342c-9c04-5ed7c32ddf1e"
+    ],
+    "songs": {
+      "Endless Love (feat. Diana Ross)": {
+        "title": "Endless Love"
+      },
+      "You Are My Destiny": {
+        "title": "My Destiny"
+      }
+    }
   }
 }

@@ -1,0 +1,64 @@
+{
+  "artist": "Lionel Richie",
+  "status": "processed",
+  "totalSongs": 9,
+  "matched": [
+    {
+      "song": "All Night Long",
+      "album": "Back to Front",
+      "albumId": "6e3be147-2bd7-342c-9c04-5ed7c32ddf1e",
+      "track": 4
+    },
+    {
+      "song": "Dancing on the Ceiling",
+      "album": "Dancing on the Ceiling",
+      "albumId": "0da827b5-0d14-382c-ba26-9db0c3591c14",
+      "track": 1
+    },
+    {
+      "song": "Endless Love (feat. Diana Ross)",
+      "album": "Back to Front",
+      "albumId": "6e3be147-2bd7-342c-9c04-5ed7c32ddf1e",
+      "track": 7
+    },
+    {
+      "song": "Hello",
+      "album": "Can’t Slow Down",
+      "albumId": "cccdb1a1-333d-30e1-9486-81b8113e608a",
+      "track": 8
+    },
+    {
+      "song": "My Love",
+      "album": "Lionel Richie",
+      "albumId": "80a39002-b172-34dc-8a87-93287d18720d",
+      "track": 4
+    },
+    {
+      "song": "Say You, Say Me",
+      "album": "Dancing on the Ceiling",
+      "albumId": "0da827b5-0d14-382c-ba26-9db0c3591c14",
+      "track": 8
+    },
+    {
+      "song": "Sela",
+      "album": "Dancing on the Ceiling",
+      "albumId": "0da827b5-0d14-382c-ba26-9db0c3591c14",
+      "track": 2
+    },
+    {
+      "song": "Three Times A Lady",
+      "album": "Natural High",
+      "albumId": "21ecba05-39e7-34a6-a8db-5079b799d48c",
+      "track": 4
+    },
+    {
+      "song": "You Are My Destiny",
+      "album": "Back to Front",
+      "albumId": "6e3be147-2bd7-342c-9c04-5ed7c32ddf1e",
+      "track": 2
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

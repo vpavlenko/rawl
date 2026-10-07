@@ -1,0 +1,237 @@
+{
+  "artist": "Battiato",
+  "artistId": "0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+  "groups": [
+    {
+      "id": "4084879c-4ade-3c06-8bf2-2a71b25487db",
+      "releaseId": "79105df7-58f0-4c1e-9e36-e78d832b198e",
+      "title": "L’era del cinghiale bianco",
+      "date": "1979-09-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4084879c-4ade-3c06-8bf2-2a71b25487db/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "L'era del cinghiale bianco.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "639d6062-c4f2-350c-8ecc-fd12321d3adf",
+      "releaseId": "677ea74a-31d5-4d96-aca9-849f127ab20e",
+      "title": "Patriots",
+      "date": "1980-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/639d6062-c4f2-350c-8ecc-fd12321d3adf/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Prospettiva Nevski.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8a50a533-81c0-38d8-a0a9-8f78fd009ff3",
+      "releaseId": "ff49aa3c-bf9c-45b1-bfc4-be653fb69631",
+      "title": "La voce del padrone",
+      "date": "1981-09-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8a50a533-81c0-38d8-a0a9-8f78fd009ff3/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Summer on a Solitary Beach.mid",
+            "Summer on a Solitary Beach.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Bandiera bianca.mid",
+            "Bandiera bianca.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Gli uccelli.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Cuccuruccucu.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Cuccurucucu.mid",
+            "Cuccurucucu.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Segnali di vita.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Centro di gravita permanente.mid",
+            "Centro di gravita permanente.1.mid",
+            "Centro di gravita permanente.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Sentimiento nuevo.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7d87a292-d873-3abb-90ce-9bb18495c319",
+      "releaseId": "46a28dac-e845-4f02-8b0a-411cf6aa6a4e",
+      "title": "L’arca di Noè",
+      "date": "1982-12-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7d87a292-d873-3abb-90ce-9bb18495c319/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Voglio vederti danzare.mid",
+            "Voglio vederti danzare.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "939d8a65-88b9-3ab8-8fee-1e2731ac1a14",
+      "releaseId": "ad6520d6-8521-43ba-a0b1-1dcbbf45c694",
+      "title": "Orizzonti perduti",
+      "date": "1983-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/939d8a65-88b9-3ab8-8fee-1e2731ac1a14/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "La stagione dell'amore.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dfd1000e-703a-4522-8443-7b1d8e42b965",
+      "releaseId": "8f3ee642-1a99-32d9-b255-1dcef48680e4",
+      "title": "Echoes of Sufi Dances",
+      "date": "1985",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/dfd1000e-703a-4522-8443-7b1d8e42b965/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "No Time No Space.mid",
+            "No Time No Space.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7a6c2c67-5743-389d-a644-e7c38ab45599",
+      "releaseId": "3f0cdb88-8780-3097-a7f7-9c2b9edd15b0",
+      "title": "Mondi lontanissimi",
+      "date": "1985-04-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7a6c2c67-5743-389d-a644-e7c38ab45599/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "I treni di Tozeur.mid",
+            "I treni di Tozeur.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "99e4c30a-b81c-379c-a6d4-6513b897e729",
+      "releaseId": "0d563388-636a-3be6-b60c-0fa8a34df7f4",
+      "title": "Fisiognomica",
+      "date": "1988-04-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/99e4c30a-b81c-379c-a6d4-6513b897e729/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "E ti vengo a cercare.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7a604b93-37c1-3d1c-8149-e10b437e29ee",
+      "releaseId": "e68e1f60-ed29-322c-8e47-e1c0aa288491",
+      "title": "L’imboscata",
+      "date": "1996",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7a604b93-37c1-3d1c-8149-e10b437e29ee/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Di passaggio.mid",
+            "Di passaggio.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Strani giorni.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f74b8aa8-7e7c-3896-94a9-625b50549f99",
+      "releaseId": "1f764b2d-ec4f-440b-86ca-f62a0b080499",
+      "title": "Gommalacca",
+      "date": "1998-09-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f74b8aa8-7e7c-3896-94a9-625b50549f99/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Shock in my town.mid",
+            "Shock in my town.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Il ballo del potere.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Vite parallele.mid",
+            "Vite parallele.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

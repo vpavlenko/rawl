@@ -1658,5 +1658,15 @@
         "title": "I'm in a Hurry (And Don't Know Why)"
       }
     }
+  },
+  "Battiato": {
+    "name": "Franco Battiato",
+    "mbid": "0cd117b2-2e21-406d-80cf-5ce0a6065e37",
+    "country": "IT",
+    "songs": {
+      "Cuccuruccucu": {
+        "title": "Cuccurucucù"
+      }
+    }
   }
 }

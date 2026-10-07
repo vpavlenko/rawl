@@ -1,0 +1,130 @@
+{
+  "artist": "Battiato",
+  "status": "processed",
+  "totalSongs": 20,
+  "matched": [
+    {
+      "song": "Bandiera bianca",
+      "album": "La voce del padrone",
+      "albumId": "8a50a533-81c0-38d8-a0a9-8f78fd009ff3",
+      "track": 2
+    },
+    {
+      "song": "Centro di gravita permanente",
+      "album": "La voce del padrone",
+      "albumId": "8a50a533-81c0-38d8-a0a9-8f78fd009ff3",
+      "track": 6
+    },
+    {
+      "song": "Cuccuruccucu",
+      "album": "La voce del padrone",
+      "albumId": "8a50a533-81c0-38d8-a0a9-8f78fd009ff3",
+      "track": 4
+    },
+    {
+      "song": "Cuccurucucu",
+      "album": "La voce del padrone",
+      "albumId": "8a50a533-81c0-38d8-a0a9-8f78fd009ff3",
+      "track": 4
+    },
+    {
+      "song": "Di passaggio",
+      "album": "L’imboscata",
+      "albumId": "7a604b93-37c1-3d1c-8149-e10b437e29ee",
+      "track": 1
+    },
+    {
+      "song": "E ti vengo a cercare",
+      "album": "Fisiognomica",
+      "albumId": "99e4c30a-b81c-379c-a6d4-6513b897e729",
+      "track": 2
+    },
+    {
+      "song": "Gli uccelli",
+      "album": "La voce del padrone",
+      "albumId": "8a50a533-81c0-38d8-a0a9-8f78fd009ff3",
+      "track": 3
+    },
+    {
+      "song": "I treni di Tozeur",
+      "album": "Mondi lontanissimi",
+      "albumId": "7a6c2c67-5743-389d-a644-e7c38ab45599",
+      "track": 8
+    },
+    {
+      "song": "Il ballo del potere",
+      "album": "Gommalacca",
+      "albumId": "f74b8aa8-7e7c-3896-94a9-625b50549f99",
+      "track": 4
+    },
+    {
+      "song": "L'era del cinghiale bianco",
+      "album": "L’era del cinghiale bianco",
+      "albumId": "4084879c-4ade-3c06-8bf2-2a71b25487db",
+      "track": 1
+    },
+    {
+      "song": "La stagione dell'amore",
+      "album": "Orizzonti perduti",
+      "albumId": "939d8a65-88b9-3ab8-8fee-1e2731ac1a14",
+      "track": 1
+    },
+    {
+      "song": "No Time No Space",
+      "album": "Echoes of Sufi Dances",
+      "albumId": "dfd1000e-703a-4522-8443-7b1d8e42b965",
+      "track": 2
+    },
+    {
+      "song": "Prospettiva Nevski",
+      "album": "Patriots",
+      "albumId": "639d6062-c4f2-350c-8ecc-fd12321d3adf",
+      "track": 4
+    },
+    {
+      "song": "Segnali di vita",
+      "album": "La voce del padrone",
+      "albumId": "8a50a533-81c0-38d8-a0a9-8f78fd009ff3",
+      "track": 5
+    },
+    {
+      "song": "Sentimiento nuevo",
+      "album": "La voce del padrone",
+      "albumId": "8a50a533-81c0-38d8-a0a9-8f78fd009ff3",
+      "track": 7
+    },
+    {
+      "song": "Shock in my town",
+      "album": "Gommalacca",
+      "albumId": "f74b8aa8-7e7c-3896-94a9-625b50549f99",
+      "track": 1
+    },
+    {
+      "song": "Strani giorni",
+      "album": "L’imboscata",
+      "albumId": "7a604b93-37c1-3d1c-8149-e10b437e29ee",
+      "track": 2
+    },
+    {
+      "song": "Summer on a Solitary Beach",
+      "album": "La voce del padrone",
+      "albumId": "8a50a533-81c0-38d8-a0a9-8f78fd009ff3",
+      "track": 1
+    },
+    {
+      "song": "Vite parallele",
+      "album": "Gommalacca",
+      "albumId": "f74b8aa8-7e7c-3896-94a9-625b50549f99",
+      "track": 9
+    },
+    {
+      "song": "Voglio vederti danzare",
+      "album": "L’arca di Noè",
+      "albumId": "7d87a292-d873-3abb-90ce-9bb18495c319",
+      "track": 7
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

@@ -1,0 +1,130 @@
+{
+  "artist": "Bruce Springsteen",
+  "status": "processed",
+  "totalSongs": 20,
+  "matched": [
+    {
+      "song": "2 Hearts",
+      "album": "The River",
+      "albumId": "8a6f6ede-b60a-3cad-b3b9-cfb57e9e1dbd",
+      "track": 4
+    },
+    {
+      "song": "Badlands",
+      "album": "Darkness on the Edge of Town",
+      "albumId": "b613123b-a234-3f48-9c45-e05bf4e6b9e7",
+      "track": 1
+    },
+    {
+      "song": "Born in the U.S.A.",
+      "album": "Born in the U.S.A.",
+      "albumId": "3c39a076-8e52-38f2-8076-260d0672fb23",
+      "track": 1
+    },
+    {
+      "song": "Born to Run",
+      "album": "Born to Run",
+      "albumId": "39b22944-7503-3937-8bba-09b17281cc6a",
+      "track": 5
+    },
+    {
+      "song": "Brilliant Disguise",
+      "album": "Tunnel of Love",
+      "albumId": "b3559cb2-d7ad-32eb-a17e-54a873ce4122",
+      "track": 9
+    },
+    {
+      "song": "Cover Me",
+      "album": "Born in the U.S.A.",
+      "albumId": "3c39a076-8e52-38f2-8076-260d0672fb23",
+      "track": 2
+    },
+    {
+      "song": "Dancing in the Dark",
+      "album": "Born in the U.S.A.",
+      "albumId": "3c39a076-8e52-38f2-8076-260d0672fb23",
+      "track": 11
+    },
+    {
+      "song": "Darkness on the Edge of Town",
+      "album": "Darkness on the Edge of Town",
+      "albumId": "b613123b-a234-3f48-9c45-e05bf4e6b9e7",
+      "track": 10
+    },
+    {
+      "song": "Darlington County",
+      "album": "Born in the U.S.A.",
+      "albumId": "3c39a076-8e52-38f2-8076-260d0672fb23",
+      "track": 3
+    },
+    {
+      "song": "Glory Days",
+      "album": "Born in the U.S.A.",
+      "albumId": "3c39a076-8e52-38f2-8076-260d0672fb23",
+      "track": 10
+    },
+    {
+      "song": "Human Touch",
+      "album": "Human Touch",
+      "albumId": "220de9c6-fa5f-39e3-ae89-1faf8a8bbc67",
+      "track": 1
+    },
+    {
+      "song": "Hungry Heart",
+      "album": "The River",
+      "albumId": "8a6f6ede-b60a-3cad-b3b9-cfb57e9e1dbd",
+      "track": 6
+    },
+    {
+      "song": "I'm On Fire",
+      "album": "Born in the U.S.A.",
+      "albumId": "3c39a076-8e52-38f2-8076-260d0672fb23",
+      "track": 6
+    },
+    {
+      "song": "Jungleland",
+      "album": "Born to Run",
+      "albumId": "39b22944-7503-3937-8bba-09b17281cc6a",
+      "track": 8
+    },
+    {
+      "song": "My Hometown",
+      "album": "Born in the U.S.A.",
+      "albumId": "3c39a076-8e52-38f2-8076-260d0672fb23",
+      "track": 12
+    },
+    {
+      "song": "Pink Cadillac",
+      "album": "Dancing in the Dark",
+      "albumId": "0c97cd77-f9c9-3efd-9471-a64b9de50070",
+      "track": 2
+    },
+    {
+      "song": "Streets of Philadelphia",
+      "album": "Streets of Philadelphia",
+      "albumId": "4307c90a-1aa7-3057-afe3-1914389ce257",
+      "track": 1
+    },
+    {
+      "song": "Tenth Avenue Freeze-Out",
+      "album": "Born to Run",
+      "albumId": "39b22944-7503-3937-8bba-09b17281cc6a",
+      "track": 2
+    },
+    {
+      "song": "The Rising",
+      "album": "The Rising",
+      "albumId": "d19453c0-cd72-3468-b110-0f898c111e5e",
+      "track": 13
+    },
+    {
+      "song": "The River",
+      "album": "The River",
+      "albumId": "8a6f6ede-b60a-3cad-b3b9-cfb57e9e1dbd",
+      "track": 11
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

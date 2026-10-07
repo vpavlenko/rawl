@@ -1668,5 +1668,18 @@
         "title": "Cuccurucucù"
       }
     }
+  },
+  "Bruce Springsteen": {
+    "name": "Bruce Springsteen",
+    "mbid": "70248960-cb53-4ea4-943a-edb18f7d336f",
+    "country": "US",
+    "songs": {
+      "2 Hearts": {
+        "title": "Two Hearts"
+      }
+    },
+    "releaseOverrides": {
+      "0c97cd77-f9c9-3efd-9471-a64b9de50070": "ca298c6e-834d-4334-972f-92996d46a9c3"
+    }
   }
 }

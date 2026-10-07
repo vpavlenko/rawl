@@ -396,7 +396,10 @@
       "d040b0b3-1288-4c99-bf41-5d5622434520"
     ],
     "songs": {},
-    "name": "Elvis Presley"
+    "name": "Elvis Presley",
+    "releaseOverrides": {
+      "2a753764-89d5-3b72-8dff-8c599f1ea925": "7393dc7e-0123-4d83-9b61-582c4dfa8a30"
+    }
   },
   "Frank Sinatra": {
     "name": "Frank Sinatra",

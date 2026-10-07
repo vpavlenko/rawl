@@ -1,0 +1,237 @@
+{
+  "artist": "Giorgia",
+  "artistId": "4573d556-ce21-4d49-943d-4f1dde6198f6",
+  "groups": [
+    {
+      "id": "a1e724ca-5215-345f-a7f4-6b793910207b",
+      "releaseId": "b99134dd-2240-4dc0-8a5e-03af33548f15",
+      "title": "Giorgia",
+      "date": "1994-06-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a1e724ca-5215-345f-a7f4-6b793910207b/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Senza segreti.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "E poi.mid",
+            "E poi.1.mid",
+            "E poi.2.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Nessun dolore.mid",
+            "Nessun dolore.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dabed241-605f-3230-ae6c-c65184b36337",
+      "releaseId": "14fc466d-81e3-4f4e-9626-fe6df49f956f",
+      "title": "Come Thelma & Louise",
+      "date": "1995",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/dabed241-605f-3230-ae6c-c65184b36337/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "C'e da fare.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Riguarda noi.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "E c'e ancora mare.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Come saprei.mid",
+            "Come saprei.1.mid",
+            "Come saprei.2.mid",
+            "Come saprei.3.mid",
+            "Come saprei.4.mid",
+            "Come saprei.5.mid",
+            "Come saprei.6.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6e821d76-7f9c-3d03-bbc9-f8a58e909bcb",
+      "releaseId": "d52da8c9-7611-4748-a962-1fe1e3f06c2c",
+      "title": "Strano il mio destino",
+      "date": "1996",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6e821d76-7f9c-3d03-bbc9-f8a58e909bcb/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Strano il mio destino.mid",
+            "Strano il mio destino.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Senza segreti   Nasceremo.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "24e49d4f-3bc2-3ff1-934d-febb4cd9f757",
+      "releaseId": "4931e1b1-e533-42f0-b161-f163c58d8593",
+      "title": "Mangio troppa cioccolata",
+      "date": "1997-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/24e49d4f-3bc2-3ff1-934d-febb4cd9f757/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Un'ora sola ti vorrei.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Dimmi dove sei.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "In vacanza con me.mid",
+            "In vacanza con me.1.mid",
+            "In vacanza con me.2.mid",
+            "In vacanza con me.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3c51b1a2-d8da-31d5-b5e0-8cc42e061c04",
+      "releaseId": "855dae1e-39f6-4ccd-b89f-d6fb85402e71",
+      "title": "Girasole",
+      "date": "1999-04-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3c51b1a2-d8da-31d5-b5e0-8cc42e061c04/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Girasole.mid",
+            "Girasole.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Io come te.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Tra dire e fare.mid",
+            "Tra dire e fare.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Voglio solo te.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Parlami d'amore.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "139f7d73-2eb4-3f2a-b4e2-297de03409b9",
+      "releaseId": "607f1cff-4d07-499b-ae3d-5635d53bc6a1",
+      "title": "Senza ali",
+      "date": "2001-03-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/139f7d73-2eb4-3f2a-b4e2-297de03409b9/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Di sole e d'Azzurro.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c81442e8-0f4d-39b1-a3a6-064040306c05",
+      "releaseId": "6e68f308-4214-4822-b4fa-d74bad7e0ceb",
+      "title": "Greatest Hits: Le cose non vanno mai come credi",
+      "date": "2002-06-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c81442e8-0f4d-39b1-a3a6-064040306c05/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Vivi davvero.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "09c3fadb-f780-3248-b9ee-8dc68fd9e186",
+      "releaseId": "f2f3c3cf-7c09-433d-ac5b-d2f7c42222af",
+      "title": "Ladra di vento",
+      "date": "2003-09-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/09c3fadb-f780-3248-b9ee-8dc68fd9e186/front-250",
+      "songs": [
+        {
+          "number": 14,
+          "files": [
+            "Gocce di memoria.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "36345296-137d-3d9d-ace7-6f414a48e92b",
+      "releaseId": "3a95c09e-dd91-412e-b21f-ddfe6fe82fec",
+      "title": "Spirito libero",
+      "date": "2008-11-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/36345296-137d-3d9d-ace7-6f414a48e92b/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "Marzo.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "artist": "Giorgia",
+  "status": "processed",
+  "totalSongs": 21,
+  "matched": [
+    {
+      "song": "C'e da fare",
+      "album": "Come Thelma & Louise",
+      "albumId": "dabed241-605f-3230-ae6c-c65184b36337",
+      "track": 1
+    },
+    {
+      "song": "Come saprei",
+      "album": "Come Thelma & Louise",
+      "albumId": "dabed241-605f-3230-ae6c-c65184b36337",
+      "track": 7
+    },
+    {
+      "song": "Di sole e d'Azzurro",
+      "album": "Senza ali",
+      "albumId": "139f7d73-2eb4-3f2a-b4e2-297de03409b9",
+      "track": 3
+    },
+    {
+      "song": "Dimmi dove sei",
+      "album": "Mangio troppa cioccolata",
+      "albumId": "24e49d4f-3bc2-3ff1-934d-febb4cd9f757",
+      "track": 6
+    },
+    {
+      "song": "E c'e ancora mare",
+      "album": "Come Thelma & Louise",
+      "albumId": "dabed241-605f-3230-ae6c-c65184b36337",
+      "track": 3
+    },
+    {
+      "song": "E poi",
+      "album": "Giorgia",
+      "albumId": "a1e724ca-5215-345f-a7f4-6b793910207b",
+      "track": 7
+    },
+    {
+      "song": "Girasole",
+      "album": "Girasole",
+      "albumId": "3c51b1a2-d8da-31d5-b5e0-8cc42e061c04",
+      "track": 2
+    },
+    {
+      "song": "Gocce di memoria",
+      "album": "Ladra di vento",
+      "albumId": "09c3fadb-f780-3248-b9ee-8dc68fd9e186",
+      "track": 14
+    },
+    {
+      "song": "In vacanza con me",
+      "album": "Mangio troppa cioccolata",
+      "albumId": "24e49d4f-3bc2-3ff1-934d-febb4cd9f757",
+      "track": 7
+    },
+    {
+      "song": "Io come te",
+      "album": "Girasole",
+      "albumId": "3c51b1a2-d8da-31d5-b5e0-8cc42e061c04",
+      "track": 3
+    },
+    {
+      "song": "Marzo",
+      "album": "Spirito libero",
+      "albumId": "36345296-137d-3d9d-ace7-6f414a48e92b",
+      "track": 12
+    },
+    {
+      "song": "Nessun dolore",
+      "album": "Giorgia",
+      "albumId": "a1e724ca-5215-345f-a7f4-6b793910207b",
+      "track": 13
+    },
+    {
+      "song": "Parlami d'amore",
+      "album": "Girasole",
+      "albumId": "3c51b1a2-d8da-31d5-b5e0-8cc42e061c04",
+      "track": 8
+    },
+    {
+      "song": "Riguarda noi",
+      "album": "Come Thelma & Louise",
+      "albumId": "dabed241-605f-3230-ae6c-c65184b36337",
+      "track": 2
+    },
+    {
+      "song": "Senza segreti   Nasceremo",
+      "album": "Strano il mio destino",
+      "albumId": "6e821d76-7f9c-3d03-bbc9-f8a58e909bcb",
+      "track": 2
+    },
+    {
+      "song": "Senza segreti",
+      "album": "Giorgia",
+      "albumId": "a1e724ca-5215-345f-a7f4-6b793910207b",
+      "track": 4
+    },
+    {
+      "song": "Strano il mio destino",
+      "album": "Strano il mio destino",
+      "albumId": "6e821d76-7f9c-3d03-bbc9-f8a58e909bcb",
+      "track": 1
+    },
+    {
+      "song": "Tra dire e fare",
+      "album": "Girasole",
+      "albumId": "3c51b1a2-d8da-31d5-b5e0-8cc42e061c04",
+      "track": 4
+    },
+    {
+      "song": "Un'ora sola ti vorrei",
+      "album": "Mangio troppa cioccolata",
+      "albumId": "24e49d4f-3bc2-3ff1-934d-febb4cd9f757",
+      "track": 3
+    },
+    {
+      "song": "Vivi davvero",
+      "album": "Greatest Hits: Le cose non vanno mai come credi",
+      "albumId": "c81442e8-0f4d-39b1-a3a6-064040306c05",
+      "track": 1
+    },
+    {
+      "song": "Voglio solo te",
+      "album": "Girasole",
+      "albumId": "3c51b1a2-d8da-31d5-b5e0-8cc42e061c04",
+      "track": 7
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

@@ -1576,5 +1576,20 @@
     "includedReleaseGroups": [
       "21ad8c36-c81d-300a-91b9-a0ca9a15b6f2"
     ]
+  },
+  "Giorgia": {
+    "name": "Giorgia",
+    "mbid": "4573d556-ce21-4d49-943d-4f1dde6198f6",
+    "country": "IT",
+    "includedReleaseGroups": [
+      "6e821d76-7f9c-3d03-bbc9-f8a58e909bcb",
+      "c81442e8-0f4d-39b1-a3a6-064040306c05",
+      "36345296-137d-3d9d-ace7-6f414a48e92b"
+    ],
+    "songs": {
+      "Tra dire e fare": {
+        "title": "Tradirefare"
+      }
+    }
   }
 }

@@ -4,22 +4,22 @@
   "groups": [
     {
       "id": "506764b9-89d4-357a-8c66-a9d0bf526fd1",
-      "releaseId": "1ddd2446-b84d-46bf-ba6a-cd15b2cb19cf",
+      "releaseId": "76424a4c-1434-4d3c-a650-af6e8588097c",
       "title": "Ring Ring",
       "date": "1973-03-26",
       "type": "Album",
       "cover": "https://coverartarchive.org/release-group/506764b9-89d4-357a-8c66-a9d0bf526fd1/front-250",
       "songs": [
         {
-          "number": 6,
+          "number": 2,
           "files": [
-            "Nina Pretty Ballerina.mid"
+            "Another Town, Another Train.mid"
           ]
         },
         {
-          "number": 11,
+          "number": 6,
           "files": [
-            "Another Town, Another Train.mid"
+            "Nina Pretty Ballerina.mid"
           ]
         }
       ]

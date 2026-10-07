@@ -18,6 +18,9 @@
       "Waterloo": {
         "title": "Waterloo (English version)"
       }
+    },
+    "releaseOverrides": {
+      "506764b9-89d4-357a-8c66-a9d0bf526fd1": "76424a4c-1434-4d3c-a650-af6e8588097c"
     }
   },
   "The Beatles": {

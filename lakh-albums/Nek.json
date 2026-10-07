@@ -1,0 +1,230 @@
+{
+  "artist": "Nek",
+  "artistId": "af02dd1f-b0cc-4210-bcb1-f34f0c578b5e",
+  "groups": [
+    {
+      "id": "873ac2ec-3b36-3511-917c-22b230a9bd25",
+      "releaseId": "c43cce6d-a605-424e-bd2f-e739ebec6dbf",
+      "title": "In te",
+      "date": "1993",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/873ac2ec-3b36-3511-917c-22b230a9bd25/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "In te.mid",
+            "In te.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "283576f2-65e7-314e-8744-d44d0e28a3de",
+      "releaseId": "20549d30-5a84-4144-9cd1-90186221bbd8",
+      "title": "Lei, gli amici e tutto il resto",
+      "date": "1996",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/283576f2-65e7-314e-8744-d44d0e28a3de/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Laura non c'e.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Sei grande.mid",
+            "Sei grande.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Restiamo qui.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Vivere senza te.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Tu sei, tu sai.mid",
+            "Tu sei, tu sai.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Dimmi cos'e.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Vai sola.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "E non mi dire che ho bevuto.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Andare, partire, tornare.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Di piu.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Fianco a fianco.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d27a7e4b-8cfb-4966-8c0e-1f299f409638",
+      "releaseId": "868e2169-e48b-3efa-b4ff-9c90955109dd",
+      "title": "Nek",
+      "date": "1997-06-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d27a7e4b-8cfb-4966-8c0e-1f299f409638/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Laura no esta.mid",
+            "Laura no esta.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Tu Estas Aqui.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e2f29bbf-20be-3318-ab96-c04f95735395",
+      "releaseId": "89ed2a6e-cb4c-4dd0-ac6c-9b3f13f8d4ee",
+      "title": "In due",
+      "date": "1998-06-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e2f29bbf-20be-3318-ab96-c04f95735395/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Se io non avessi te.mid",
+            "Se io non avessi te.1.mid",
+            "Se io non avessi te.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Se una regola c'e.mid",
+            "Se una regola c'e.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Ho in testa te.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Con un Ma e con un Se.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Basta uno sguardo.mid",
+            "Basta uno sguardo.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Se vuoi se puoi.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Una dose di te.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Le vibrazioni di una donna.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Nemmeno un secondo.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0e172229-a486-3b59-945d-cb65a84efaec",
+      "releaseId": "6e021460-d693-4956-97a0-1e353088fe01",
+      "title": "La vita è",
+      "date": "2000",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0e172229-a486-3b59-945d-cb65a84efaec/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ci sei tu.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "44c82e37-e54f-3099-9329-8ded8cabf2c7",
+      "releaseId": "46bca368-db23-4b6a-bf1b-8afa84a3f4f4",
+      "title": "Le cose da difendere",
+      "date": "2002",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/44c82e37-e54f-3099-9329-8ded8cabf2c7/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Parliamo al singolare.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Tutto di te.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

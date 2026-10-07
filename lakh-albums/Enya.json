@@ -1,0 +1,363 @@
+{
+  "artist": "Enya",
+  "artistId": "4967c0a1-b9f3-465e-8440-4598fd9fc33c",
+  "groups": [
+    {
+      "id": "a1e948b1-808f-35f8-a799-c5322670aab9",
+      "releaseId": "6ba2ba3a-52c7-3d09-b98e-d84ead32b859",
+      "title": "Enya",
+      "date": "1986",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a1e948b1-808f-35f8-a799-c5322670aab9/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "I Want Tomorrow.mid",
+            "I Want Tomorrow.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "The Sun in the Stream.mid",
+            "The Sun in the Stream.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Fairytale.mid",
+            "Fairytale.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Epona.mid",
+            "Epona.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Boadicea.mid",
+            "Boadicea.1.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Bard Dance.mid",
+            "Bard Dance.1.mid",
+            "Bard Dance.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bd9c6448-7fca-3e30-814b-6e69f46fe2d1",
+      "releaseId": "1d0094ec-6866-3b9a-8e6b-1b9451a4ed9f",
+      "title": "Orinoco Flow",
+      "date": "1988",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/bd9c6448-7fca-3e30-814b-6e69f46fe2d1/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Out of the Blue.mid",
+            "Out of the Blue.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a2cb6793-9f04-35d9-8cb8-03c6fa7ae240",
+      "releaseId": "3902ff2a-06da-4994-8aa5-b0a4c76ba829",
+      "title": "Watermark",
+      "date": "1988-09-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a2cb6793-9f04-35d9-8cb8-03c6fa7ae240/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Watermark.mid",
+            "Watermark.1.mid",
+            "Watermark.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Cursum Perficio.mid",
+            "Cursum Perficio.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "On Your Shore.mid",
+            "On Your Shore.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Exile.mid",
+            "Exile.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Miss Clare Remembers.mid",
+            "Miss Clare Remembers.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Orinoco Flow (Sail Away).mid",
+            "Orinoco Flow (Sail Away).1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Orinoco Flow.mid",
+            "Orinoco Flow.1.mid",
+            "Orinoco Flow.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Evening Eall.mid",
+            "Evening Eall.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "The Long Ships.mid",
+            "The Long Ships.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Na Laetha Geal M'Oige.mid",
+            "Na Laetha Geal M'Oige.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "560add48-8dea-32bc-8cad-bc243d8bb5c6",
+      "releaseId": "7bfcfdab-74de-4c13-9ec6-c3623d06a03b",
+      "title": "Anywhere Is",
+      "date": "1991",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/560add48-8dea-32bc-8cad-bc243d8bb5c6/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Oriel Window.mid",
+            "Oriel Window.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "678a2bac-4b27-314e-929b-2612938dd1f2",
+      "releaseId": "2fbbe6b7-5679-33cf-a084-ee4bd5429807",
+      "title": "Shepherd Moons",
+      "date": "1991-11-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/678a2bac-4b27-314e-929b-2612938dd1f2/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Shepherd Moons.mid",
+            "Shepherd Moons.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Caribbean Blue.mid",
+            "Caribbean Blue.1.mid",
+            "Caribbean Blue.2.mid",
+            "Caribbean Blue.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "How Can I Keep From Singing.mid",
+            "How Can I Keep From Singing.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Ebudae.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "No Holly For Miss Quinn.mid",
+            "No Holly For Miss Quinn.1.mid",
+            "No Holly For Miss Quinn.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Book Of Days.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Lothlorien.mid",
+            "Lothlorien.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Marble Halls.mid",
+            "Marble Halls.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b0254fd5-2a7e-3546-9243-9861bbd5b60e",
+      "releaseId": "4976ad25-a9fc-4448-a837-1ee9d5bfe946",
+      "title": "The Memory of Trees",
+      "date": "1995-11-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b0254fd5-2a7e-3546-9243-9861bbd5b60e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Memory of Trees.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Anywhere Is.mid",
+            "Anywhere Is.1.mid",
+            "Anywhere Is.2.mid",
+            "Anywhere Is.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Athair Ar Neamh.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "From Where I Am.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "China Roses.mid",
+            "China Roses.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Hope Has a Place.mid",
+            "Hope Has a Place.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Tea - House Moon.mid",
+            "Tea - House Moon.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Once You Had Gold.mid",
+            "Once You Had Gold.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "On My Way Home.mid",
+            "On My Way Home.1.mid",
+            "On My Way Home.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a10ec896-8e53-3b6c-80f3-7b3927db2a1f",
+      "releaseId": "bebc6e36-ba53-307a-a886-1443c25191f8",
+      "title": "Only If…",
+      "date": "1997-10",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/a10ec896-8e53-3b6c-80f3-7b3927db2a1f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Only If.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ac954fa2-8c31-3667-aa2d-8be1e93c54bc",
+      "releaseId": "1062c898-0d6c-4c9d-a96d-2dca3a9dcd7a",
+      "title": "A Day Without Rain",
+      "date": "2000-11-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ac954fa2-8c31-3667-aa2d-8be1e93c54bc/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Only Time.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8e6d862f-fe9f-3ec5-97a7-208acd4b9c25",
+      "releaseId": "4e79f503-23f2-48e1-a0f2-a696d67612e9",
+      "title": "May It Be",
+      "date": "2001",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/8e6d862f-fe9f-3ec5-97a7-208acd4b9c25/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "May It Be.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

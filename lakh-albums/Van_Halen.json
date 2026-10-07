@@ -1,0 +1,294 @@
+{
+  "artist": "Van Halen",
+  "artistId": "b665b768-0d83-4363-950c-31ed39317c15",
+  "groups": [
+    {
+      "id": "43a0e8b5-6059-397f-81e6-b8df5a648496",
+      "releaseId": "1de8a9e5-a3fa-419a-817d-d4cd5197eece",
+      "title": "Van Halen",
+      "date": "1978-02-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/43a0e8b5-6059-397f-81e6-b8df5a648496/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Runnin' With the Devil.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Eruption.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "You Really Got Me.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Ain't Talkin 'bout Love.mid",
+            "Ain't Talkin 'bout Love.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Jamie's Cryin'.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Ice Cream Man.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8001e841-11a1-379d-b52c-da0311340b56",
+      "releaseId": "0b4ffca2-5615-41a0-bfa9-6e798c5c3a69",
+      "title": "Van Halen II",
+      "date": "1979-03-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8001e841-11a1-379d-b52c-da0311340b56/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Dance the Night Away.mid",
+            "Dance the Night Away.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Beautiful Girls.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "36338d76-f764-32fb-b11b-4ea68588865a",
+      "releaseId": "71ee7c4a-8da9-438d-a344-7626b91005dc",
+      "title": "Women and Children First",
+      "date": "1980-03-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/36338d76-f764-32fb-b11b-4ea68588865a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "And the Cradle Will Rock....mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e8e44b8b-d7db-3e46-a2fb-e70757d32c75",
+      "releaseId": "6366e3ff-2cea-45a3-b9a3-7178a1f3d68b",
+      "title": "Fair Warning",
+      "date": "1981-04-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e8e44b8b-d7db-3e46-a2fb-e70757d32c75/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Mean Street.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b9201554-b7ee-3093-9093-758af7ad097f",
+      "releaseId": "f960f3b2-15bd-4cbb-97ad-7603c49bbbda",
+      "title": "Diver Down",
+      "date": "1982-04-14",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b9201554-b7ee-3093-9093-758af7ad097f/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Cathedral.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "(Oh) Pretty Woman.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5846f0c9-fec3-3b9e-a77c-fbe9a7bdf0e7",
+      "releaseId": "28eebd5a-6a00-4ee8-9d40-7999eccac5f2",
+      "title": "1984",
+      "date": "1984-01-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5846f0c9-fec3-3b9e-a77c-fbe9a7bdf0e7/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Jump.mid",
+            "Jump.1.mid",
+            "Jump.2.mid",
+            "Jump.3.mid",
+            "Jump.4.mid",
+            "Jump.5.mid",
+            "Jump.6.mid",
+            "Jump.7.mid",
+            "Jump.8.mid",
+            "Jump.9.mid",
+            "Jump.10.mid",
+            "Jump.11.mid",
+            "Jump.12.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Panama.mid",
+            "Panama.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "I'll Wait.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f546dd9a-d77f-38ec-98c1-c7a2842a3860",
+      "releaseId": "2d731557-b7ba-435e-8042-0608324e1f2f",
+      "title": "5150",
+      "date": "1986-03-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f546dd9a-d77f-38ec-98c1-c7a2842a3860/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Why Can't This Be Love.mid",
+            "Why Can't This Be Love.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Dreams.mid",
+            "Dreams.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Love Walks In.mid",
+            "Love Walks In.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1af0e74f-d4b2-3105-ae7a-43b6bf7251ea",
+      "releaseId": "0e56fa68-889b-4d8f-a605-68fd4d7db3a8",
+      "title": "OU812",
+      "date": "1988-05-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1af0e74f-d4b2-3105-ae7a-43b6bf7251ea/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "When It's Love.mid",
+            "When It's Love.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Finish What Ya Started.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0a5921ef-3aa4-398e-ad4a-2ef45d055842",
+      "releaseId": "320cc9ec-0ec1-32ae-8bc0-03525ef118ec",
+      "title": "For Unlawful Carnal Knowledge",
+      "date": "1991-06-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0a5921ef-3aa4-398e-ad4a-2ef45d055842/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Pleasure Dome.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Right Now.mid",
+            "Right Now.1.mid",
+            "Right Now.2.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "316.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3a032793-ecc7-3d8b-9552-d9bb2464e636",
+      "releaseId": "7a8330aa-59de-4ba2-9926-f88b6ab5b9ce",
+      "title": "Balance",
+      "date": "1995-01-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3a032793-ecc7-3d8b-9552-d9bb2464e636/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Not Enough.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Aftershock.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4ae7595a-227b-34c3-b1b2-6fbddd3570c7",
+      "releaseId": "a6821110-3bd9-44ef-9999-da256d6bed5d",
+      "title": "Me Wise Magic",
+      "date": "1996-10-22",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/4ae7595a-227b-34c3-b1b2-6fbddd3570c7/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Me Wise Magic.mid",
+            "Me Wise Magic.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

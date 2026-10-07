@@ -1,0 +1,372 @@
+{
+  "artist": "Antonello Venditti",
+  "artistId": "dd4a5777-42a3-44a2-b5e6-bff6731cdf3a",
+  "groups": [
+    {
+      "id": "93c028d3-9281-35c4-a2fa-8188abcd8904",
+      "releaseId": "1ad89e7f-5a27-4c7f-bebc-567c7cf872eb",
+      "title": "Theorius Campus",
+      "date": "1972-07-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/93c028d3-9281-35c4-a2fa-8188abcd8904/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Roma capoccia.mid",
+            "Roma capoccia.1.mid",
+            "Roma capoccia.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5400db85-bfeb-3ba4-9d8c-ce5ca777b0cb",
+      "releaseId": "83c17e01-a805-4562-aa5f-03d1e091ed9d",
+      "title": "Le cose della vita",
+      "date": "1973-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5400db85-bfeb-3ba4-9d8c-ce5ca777b0cb/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Le tue mani su di me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "700cccf9-4834-3b95-9d7d-cd0053f31052",
+      "releaseId": "14574b4d-b49b-4364-add7-4a46f38f0471",
+      "title": "Quando verrà Natale",
+      "date": "1974-02-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/700cccf9-4834-3b95-9d7d-cd0053f31052/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Campo de' fiori.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e7edd427-d0c0-36b5-9994-7d12f0913395",
+      "releaseId": "bcf506d8-a60e-4289-9d78-c525e6f55a79",
+      "title": "Lilly",
+      "date": "1975",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e7edd427-d0c0-36b5-9994-7d12f0913395/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Lilly.mid",
+            "Lilly.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Compagno di scuola.mid",
+            "Compagno di scuola.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0570526b-a661-311b-a995-b0da7fab6723",
+      "releaseId": "8cf1a590-7f23-4cd6-9bb0-118feaf20221",
+      "title": "Sotto il segno dei pesci",
+      "date": "1978-03-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0570526b-a661-311b-a995-b0da7fab6723/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Sotto il segno dei pesci.mid",
+            "Sotto il segno dei pesci.1.mid",
+            "Sotto il segno dei pesci.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Bomba o non bomba.mid",
+            "Bomba o non bomba.1.mid",
+            "Bomba o non bomba.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Sara.mid",
+            "Sara.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "98dddb37-b7a9-43e0-b5ef-e53143e1694c",
+      "releaseId": "09bfb5e0-5d54-4ad6-a129-bafa5da83e2f",
+      "title": "Buona domenica",
+      "date": "1979",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/98dddb37-b7a9-43e0-b5ef-e53143e1694c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Buona domenica.mid",
+            "Buona domenica.1.mid",
+            "Buona domenica.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Stai con me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f87c89be-cc9a-304a-be29-b2b4e03ae8b5",
+      "releaseId": "dab5642d-e591-4c95-8bb7-13137e52d08f",
+      "title": "Sotto la pioggia",
+      "date": "1982-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f87c89be-cc9a-304a-be29-b2b4e03ae8b5/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Sotto la pioggia.mid",
+            "Sotto la pioggia.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Dimmelo Tu Cos'e.mid",
+            "Dimmelo Tu Cos'e.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1ab91c1c-6c50-3918-9f87-82c868ba0f74",
+      "releaseId": "15d2dd42-7a9e-40ed-b805-ef7eb0040f9e",
+      "title": "Circo Massimo",
+      "date": "1983-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1ab91c1c-6c50-3918-9f87-82c868ba0f74/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Grazie Roma.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e70c613e-77da-3306-a0b7-8c0fdf6fa0fe",
+      "releaseId": "5ad9a095-dc75-4175-856e-85e7f94faafc",
+      "title": "Cuore",
+      "date": "1984-07-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e70c613e-77da-3306-a0b7-8c0fdf6fa0fe/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Notte prima degli esami.mid",
+            "Notte prima degli esami.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Ci vorrebbe un amico.mid",
+            "Ci vorrebbe un amico.1.mid",
+            "Ci vorrebbe un amico.2.mid",
+            "Ci vorrebbe un amico.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "L'ottimista.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Piero e Cinzia.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Stella.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7bc8e986-0eb5-375c-8c90-e92e9b320ddd",
+      "releaseId": "0135d1bb-778a-4b01-8de3-57e03787a93d",
+      "title": "Venditti e segreti",
+      "date": "1986-11-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7bc8e986-0eb5-375c-8c90-e92e9b320ddd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Peppino.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Giulio Cesare.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Settembre.mid",
+            "Settembre.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "71b87fb6-c6eb-368c-b9cd-25ef77d635f6",
+      "releaseId": "ca1fa99d-c19c-412e-9f2a-ea6c82024be0",
+      "title": "In questo mondo di ladri",
+      "date": "1988",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/71b87fb6-c6eb-368c-b9cd-25ef77d635f6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ricordati di me.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Mitico amore.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "In questo mondo di ladri.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "67eaa1e4-87eb-348a-8146-81a128fc97cc",
+      "releaseId": "ca515676-980f-4ce2-bfe3-e773fd8cfb9b",
+      "title": "Benvenuti in paradiso",
+      "date": "1991",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/67eaa1e4-87eb-348a-8146-81a128fc97cc/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Benvenuti in paradiso.mid",
+            "Benvenuti in paradiso.1.mid",
+            "Benvenuti in paradiso.2.mid",
+            "Benvenuti in paradiso.3.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Alta marea.mid",
+            "Alta marea.1.mid",
+            "Alta marea.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Amici mai.mid",
+            "Amici mai.1.mid",
+            "Amici mai.2.mid",
+            "Amici mai.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Dimmi che credi.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "edf3c4fe-f0b3-3599-be14-9c66ff6dcee6",
+      "releaseId": "985d9ed5-119c-4409-94ff-f285c6d87b8c",
+      "title": "Prendilo tu questo frutto amaro",
+      "date": "1998",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/edf3c4fe-f0b3-3599-be14-9c66ff6dcee6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ogni volta.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Vento selvaggio.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Prendilo tu questo frutto amaro.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3f14199b-0ea1-3cc6-9a1f-20f66ba1492b",
+      "releaseId": "dd0c4d51-4c69-4105-807b-aaa54ee364c3",
+      "title": "Goodbye N9vecento",
+      "date": "1999",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3f14199b-0ea1-3cc6-9a1f-20f66ba1492b/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "In questo mondo che non puoi capire.mid",
+            "In questo mondo che non puoi capire.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Che tesoro che sei.mid",
+            "Che tesoro che sei.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

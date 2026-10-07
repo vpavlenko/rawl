@@ -1,0 +1,545 @@
+{
+  "artist": "The Rolling Stones",
+  "artistId": "b071f9fa-14b0-4217-8e97-eb41da73f598",
+  "groups": [
+    {
+      "id": "935da710-6c8f-4f58-baf9-7e9f533ad18a",
+      "releaseId": "3e1746d3-9eb4-4d5f-9d7e-41cdf9b7abc2",
+      "title": "The Second Rolling Stones EP",
+      "date": "1964",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/935da710-6c8f-4f58-baf9-7e9f533ad18a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "19th Nervous Breakdown.mid",
+            "19th Nervous Breakdown.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Paint It Black.mid",
+            "Paint It Black.1.mid",
+            "Paint It Black.2.mid",
+            "Paint It Black.3.mid",
+            "Paint It Black.4.mid",
+            "Paint It Black.5.mid",
+            "Paint It Black.6.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "703eab6c-056e-3d6d-95d9-991e01f5ca57",
+      "releaseId": "043575ed-a3a1-4a9e-be70-073901966207",
+      "title": "12 × 5",
+      "date": "1964-10-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/703eab6c-056e-3d6d-95d9-991e01f5ca57/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Time Is on My Side.mid",
+            "Time Is on My Side.1.mid",
+            "Time Is on My Side.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "It's All Over Now.mid",
+            "It's All Over Now.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "02133db7-e955-41c7-b521-34718a7019ea",
+      "releaseId": "70a18ccf-7bca-40ad-98dc-45b5c788ff1c",
+      "title": "The Last Time",
+      "date": "1965",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/02133db7-e955-41c7-b521-34718a7019ea/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Last Time.mid",
+            "The Last Time.1.mid",
+            "The Last Time.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "59aba050-8f28-499e-9953-8b92d321a776",
+      "releaseId": "b4fac946-4436-4b31-a375-2ec7bb4d0dd2",
+      "title": "The Rolling Stones",
+      "date": "1965",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/59aba050-8f28-499e-9953-8b92d321a776/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "I Can't Get No (Satisfaction).mid",
+            "I Can't Get No (Satisfaction).1.mid",
+            "I Can't Get No (Satisfaction).2.mid",
+            "I Can't Get No (Satisfaction).3.mid",
+            "I Can't Get No (Satisfaction).4.mid",
+            "I Can't Get No (Satisfaction).5.mid",
+            "I Can't Get No (Satisfaction).6.mid",
+            "I Can't Get No (Satisfaction).7.mid",
+            "I Can't Get No (Satisfaction).8.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Get Off My Cloud.mid",
+            "Get Off My Cloud.1.mid",
+            "Get Off My Cloud.2.mid",
+            "Get Off My Cloud.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "367b4517-4cb1-3834-8132-e980ddb65162",
+      "releaseId": "8618bf10-1d5f-39d0-a564-04b1ae23d6b5",
+      "title": "The Rolling Stones, Now!",
+      "date": "1965-02-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/367b4517-4cb1-3834-8132-e980ddb65162/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Heart of Stone.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3be81f5e-9bdd-303a-b9bf-f8eb2059ef9f",
+      "releaseId": "df95cc71-d9f3-4fe2-8d49-37f8ff4df438",
+      "title": "Out of Our Heads",
+      "date": "1965-07-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3be81f5e-9bdd-303a-b9bf-f8eb2059ef9f/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Cry to Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6f3adeb5-9955-3613-b51a-45e407ca8de5",
+      "releaseId": "bd64190f-c842-4277-89d2-57ebe1910103",
+      "title": "December’s Children (and Everybody’s)",
+      "date": "1965-12-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6f3adeb5-9955-3613-b51a-45e407ca8de5/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "As Tears Go By.mid",
+            "As Tears Go By.1.mid",
+            "As Tears Go By.2.mid",
+            "As Tears Go By.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "26987c39-5914-483b-a897-d43ce6aad9b1",
+      "releaseId": "3f9e7ba5-2b95-41bc-8554-20762ab3fa09",
+      "title": "Aftermath",
+      "date": "1966-04-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/26987c39-5914-483b-a897-d43ce6aad9b1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Mother's Little Helper.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Lady Jane.mid",
+            "Lady Jane.1.mid",
+            "Lady Jane.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Under My Thumb.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Out of Time.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7a8b6e19-b2c7-4137-acf8-f2356e129f65",
+      "releaseId": "6f619117-2bc2-49bc-a4c1-383179e648da",
+      "title": "Let’s Spend the Night Together",
+      "date": "1967",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/7a8b6e19-b2c7-4137-acf8-f2356e129f65/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Let's Spend The Night Together.mid",
+            "Let's Spend The Night Together.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1941e47a-fcbe-462b-8bd2-c9e13a2347fd",
+      "releaseId": "29fa8cf8-1e0d-43a0-b5ed-798d5cbc73a6",
+      "title": "Ruby Tuesday / Have You Seen Your Mother, Baby, Standing in the Shadow?",
+      "date": "1967",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/1941e47a-fcbe-462b-8bd2-c9e13a2347fd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ruby Tuesday.mid",
+            "Ruby Tuesday.1.mid",
+            "Ruby Tuesday.2.mid",
+            "Ruby Tuesday.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "40a087e8-908a-334d-b520-88a820deb09d",
+      "releaseId": "b172010e-9ba9-4d80-a8f2-9142ce94ed8b",
+      "title": "Their Satanic Majesties Request",
+      "date": "1967-12-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/40a087e8-908a-334d-b520-88a820deb09d/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Citadel.mid",
+            "Citadel.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3cf634db-66a6-47ad-a76e-7fe5b6974cff",
+      "releaseId": "82c35336-bc9b-4554-9ccf-192fc81c6286",
+      "title": "Jumpin’ Jack Flash",
+      "date": "1968",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/3cf634db-66a6-47ad-a76e-7fe5b6974cff/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Jumpin' Jack Flash.mid",
+            "Jumpin' Jack Flash.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6e672bbd-7c7f-32f8-8335-c603be99d13b",
+      "releaseId": "8c6227b9-7b73-4379-be86-df22d7e0406c",
+      "title": "Beggars Banquet",
+      "date": "1968-12-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6e672bbd-7c7f-32f8-8335-c603be99d13b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Sympathy for the Devil.mid",
+            "Sympathy for the Devil.1.mid",
+            "Sympathy for the Devil.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ce9acdcc-455b-426f-ab72-9fe92ab5f79e",
+      "releaseId": "b8ed0b81-b84f-494c-861f-f80e25204da1",
+      "title": "Jumping Jack Flash / You Can't Always Get What You Want",
+      "date": "1969",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/ce9acdcc-455b-426f-ab72-9fe92ab5f79e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Jumping Jack Flash.mid",
+            "Jumping Jack Flash.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "784c0edd-0f37-33a2-9ca5-dff87b4f999c",
+      "releaseId": "739dce81-ed70-4ebc-8ae5-607f1fbcebf6",
+      "title": "Let It Bleed",
+      "date": "1969-11-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/784c0edd-0f37-33a2-9ca5-dff87b4f999c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Gimme Shelter.mid",
+            "Gimme Shelter.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "You Can't Always Get What You Want.mid",
+            "You Can't Always Get What You Want.1.mid",
+            "You Can't Always Get What You Want.2.mid",
+            "You Can't Always Get What You Want.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4a4213d0-f224-3d51-bcca-476f61162681",
+      "releaseId": "d883e644-5ec0-4928-9ccd-fc78bc306a46",
+      "title": "Sticky Fingers",
+      "date": "1971-04-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4a4213d0-f224-3d51-bcca-476f61162681/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Brown Sugar.mid",
+            "Brown Sugar.1.mid",
+            "Brown Sugar.2.mid",
+            "Brown Sugar.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Wild Horses.mid",
+            "Wild Horses.1.mid",
+            "Wild Horses.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e82ba8db-3712-3de0-bbe5-0311b89db7e2",
+      "releaseId": "9cb6cdd9-3e81-46b8-9dbe-78b5700f112e",
+      "title": "Goats Head Soup",
+      "date": "1973-08-31",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e82ba8db-3712-3de0-bbe5-0311b89db7e2/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Angie.mid",
+            "Angie.1.mid",
+            "Angie.2.mid",
+            "Angie.3.mid",
+            "Angie.4.mid",
+            "Angie.5.mid",
+            "Angie.6.mid",
+            "Angie.7.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b13da40b-fb15-382e-b305-b65ced849782",
+      "releaseId": "88c4f375-ecbc-4350-a130-1cc9666ac326",
+      "title": "Black and Blue",
+      "date": "1976-04-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b13da40b-fb15-382e-b305-b65ced849782/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Fool to Cry.mid",
+            "Fool to Cry.1.mid",
+            "Fool to Cry.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b44bc358-a28f-3a1f-b07e-604910f12d37",
+      "releaseId": "ca3bc838-f563-405a-86fd-f8e1802ef092",
+      "title": "Some Girls",
+      "date": "1978-06-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b44bc358-a28f-3a1f-b07e-604910f12d37/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Miss You.mid",
+            "Miss You.1.mid",
+            "Miss You.2.mid",
+            "Miss You.3.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Beast of Burden.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0c977adb-6dd3-330c-9acb-a40d2104a539",
+      "releaseId": "4b21c98c-3495-346a-a475-42478857be77",
+      "title": "Emotional Rescue",
+      "date": "1980-06-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0c977adb-6dd3-330c-9acb-a40d2104a539/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "She's So Cold.mid",
+            "She's So Cold.1.mid",
+            "She's So Cold.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fdbc4f51-817d-33ab-af9f-4bcc22286932",
+      "releaseId": "25648476-0153-40f9-a667-d247af12313f",
+      "title": "Tattoo You",
+      "date": "1981-08-18",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fdbc4f51-817d-33ab-af9f-4bcc22286932/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Start Me Up.mid",
+            "Start Me Up.1.mid",
+            "Start Me Up.2.mid",
+            "Start Me Up.3.mid",
+            "Start Me Up.4.mid",
+            "Start Me Up.5.mid",
+            "Start Me Up.6.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Waiting on a Friend.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "309f47cd-76a4-44f2-b96a-e9b8efb1dc9b",
+      "releaseId": "210c8111-0e78-4f9b-af6d-7b5d8ea4d81e",
+      "title": "Super 4 on 45",
+      "date": "1983",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/309f47cd-76a4-44f2-b96a-e9b8efb1dc9b/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Honky Tonk Woman.mid",
+            "Honky Tonk Woman.1.mid",
+            "Honky Tonk Woman.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ef78739b-ea31-32e2-a927-58fe228c7354",
+      "releaseId": "50c5f5ef-2ce1-414b-9b66-d13001cae441",
+      "title": "Steel Wheels",
+      "date": "1989-08-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ef78739b-ea31-32e2-a927-58fe228c7354/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Mixed Emotions.mid",
+            "Mixed Emotions.1.mid",
+            "Mixed Emotions.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Can't Be Seen.mid",
+            "Can't Be Seen.1.mid",
+            "Can't Be Seen.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7645ef59-6d8c-37fe-8467-d566d3cf5926",
+      "releaseId": "a4e205cc-c586-4500-b62a-5499afb2b900",
+      "title": "Voodoo Lounge",
+      "date": "1994-07-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7645ef59-6d8c-37fe-8467-d566d3cf5926/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Love Is Strong.mid",
+            "Love Is Strong.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d7ef7347-c582-3109-a54a-9bc6cde8ee45",
+      "releaseId": "51ec33ab-794b-4558-b766-06cc8510562c",
+      "title": "Bridges to Babylon",
+      "date": "1997-09-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d7ef7347-c582-3109-a54a-9bc6cde8ee45/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Anybody Seen My Baby.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

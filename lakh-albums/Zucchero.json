@@ -1,0 +1,423 @@
+{
+  "artist": "Zucchero",
+  "artistId": "00ed154e-8679-42f0-8f42-e59bd7e185af",
+  "groups": [
+    {
+      "id": "c14613d3-1273-3946-8a8b-90d7dacca617",
+      "releaseId": "7f020497-7c14-4869-9850-f4b26f7619d8",
+      "title": "Zucchero & The Randy Jackson Band",
+      "date": "1985",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c14613d3-1273-3946-8a8b-90d7dacca617/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Donne.mid",
+            "Donne.1.mid",
+            "Donne.2.mid",
+            "Donne.3.mid",
+            "Donne.4.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Un piccolo aiuto (feat. Gerard Depardieu).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "279f2518-e823-33ff-ab7e-3fefc838cff3",
+      "releaseId": "581b38c3-a2fb-43b7-b6b2-a9dffaf92eeb",
+      "title": "Rispetto",
+      "date": "1986",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/279f2518-e823-33ff-ab7e-3fefc838cff3/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Rispetto.mid",
+            "Rispetto.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Come il sole all'improvviso.mid",
+            "Come il sole all'improvviso.1.mid",
+            "Come il sole all'improvviso.2.mid",
+            "Come il sole all'improvviso.3.mid",
+            "Come il sole all'improvviso.4.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Torna a casa.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Canzone triste (Canzone d'amore).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "080a1335-0b85-3e76-9217-72e2b83e932a",
+      "releaseId": "24b63009-f138-4ce4-b619-05f900536db6",
+      "title": "Blue’s",
+      "date": "1987-06-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/080a1335-0b85-3e76-9217-72e2b83e932a/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Con le mani.mid",
+            "Con le mani.1.mid",
+            "Con le mani.2.mid",
+            "Con le mani.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Pippo.mid",
+            "Pippo.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Dune mosse.mid",
+            "Dune mosse.1.mid",
+            "Dune mosse.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Bambino io, bambino tu (Legenda).mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Non ti sopporto piu.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Senza Una Donna.mid",
+            "Senza Una Donna.1.mid",
+            "Senza Una Donna.2.mid",
+            "Senza Una Donna.3.mid",
+            "Senza Una Donna.4.mid",
+            "Senza Una Donna.5.mid",
+            "Senza Una Donna.6.mid",
+            "Senza Una Donna.7.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Hey Man.mid",
+            "Hey Man.1.mid",
+            "Hey Man.2.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Solo una sana e consapevole libidine salva il giovane dallo stress e dall'Azione Cattolica.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Hai scelto me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3ccbd2c8-7d8e-3bfb-ab21-076bd64231d6",
+      "releaseId": "06ca8c65-95ed-4b38-967c-315227a48765",
+      "title": "Oro, incenso & birra",
+      "date": "1989-06-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3ccbd2c8-7d8e-3bfb-ab21-076bd64231d6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Overdose (d'amore).mid",
+            "Overdose (d'amore).1.mid",
+            "Overdose (d'amore).2.mid",
+            "Overdose (d'amore).3.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Nice (Nietzsche) che dice.mid",
+            "Nice (Nietzsche) che dice.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Il mare impetuoso al tramonto sali sulla luna e dietro una tendina di stelle....mid",
+            "Il mare impetuoso al tramonto sali sulla luna e dietro una tendina di stelle....1.mid",
+            "Il mare impetuoso al tramonto sali sulla luna e dietro una tendina di stelle....2.mid",
+            "Il mare impetuoso al tramonto sali sulla luna e dietro una tendina di stelle....3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Madre dolcissima.mid",
+            "Madre dolcissima.1.mid",
+            "Madre dolcissima.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Diavolo in me.mid",
+            "Diavolo in me.1.mid",
+            "Diavolo in me.2.mid",
+            "Diavolo in me.3.mid",
+            "Diavolo in me.4.mid",
+            "Diavolo in me.5.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Iruben me.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Diamante.mid",
+            "Diamante.1.mid",
+            "Diamante.2.mid",
+            "Diamante.3.mid",
+            "Diamante.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "56462677-7403-3624-b0e5-5b776b74666b",
+      "releaseId": "50ce4c31-2cdf-4b80-b266-4a12b4c41d22",
+      "title": "Miserere",
+      "date": "1992",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/56462677-7403-3624-b0e5-5b776b74666b/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "It's All Right (La promessa).mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Ridammi il Sole.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Miserere.mid",
+            "Miserere.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2802a2a0-667d-3313-89c5-1b51fa35c2cd",
+      "releaseId": "1be09195-bfd4-4109-b718-cae9d99332b9",
+      "title": "Spirito DiVino",
+      "date": "1995-05-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2802a2a0-667d-3313-89c5-1b51fa35c2cd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Voodoo voodoo.mid",
+            "Voodoo voodoo.1.mid",
+            "Voodoo voodoo.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Datemi una pompa.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Pane e sale.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Per colpa di chi.mid",
+            "Per colpa di chi.1.mid",
+            "Per colpa di chi.2.mid",
+            "Per colpa di chi.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Il volo.mid",
+            "Il volo.1.mid",
+            "Il volo.2.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Cosi celeste.mid",
+            "Cosi celeste.1.mid",
+            "Cosi celeste.2.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Alleluja.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eaffe12a-70ed-4d92-8e78-6259acad4afb",
+      "releaseId": "9312dbfd-e011-4b04-a0ea-e3c4cda204b8",
+      "title": "Menta e Rosmarino",
+      "date": "1997",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/eaffe12a-70ed-4d92-8e78-6259acad4afb/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Menta e rosmarino.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1e1d9984-a16a-344c-bdcc-4d8c1a6a68d0",
+      "releaseId": "ad1bd1de-6561-4488-96d6-da314406378a",
+      "title": "Bluesugar",
+      "date": "1998",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1e1d9984-a16a-344c-bdcc-4d8c1a6a68d0/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "You Make Me Feel Loved.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Blu.mid",
+            "Blu.1.mid",
+            "Blu.2.mid",
+            "Blu.3.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Back 2 U.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5010260f-ded0-397d-a7d7-e766509f9585",
+      "releaseId": "c3a2c6d3-4778-4aed-b289-4d44a7440fe7",
+      "title": "Blue",
+      "date": "1998-10-04",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/5010260f-ded0-397d-a7d7-e766509f9585/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Eppure non t'amo.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ecd62ccb-cbf0-3cf2-95ff-7648c811efe0",
+      "releaseId": "6eb473ea-8df0-3d0d-8cac-8d3f9a1b6704",
+      "title": "Shake",
+      "date": "2001",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ecd62ccb-cbf0-3cf2-95ff-7648c811efe0/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Music in Me.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Ali d'oro.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Scintille.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Baila (Sexy Thing).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0bf61bd7-b15b-47d6-8247-611981df7667",
+      "releaseId": "d5553c66-b7ef-48ad-8beb-9a18eb153c7f",
+      "title": "La sesión cubana",
+      "date": "2012-11-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0bf61bd7-b15b-47d6-8247-611981df7667/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "L'urlo.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

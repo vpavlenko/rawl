@@ -1,0 +1,441 @@
+{
+  "artist": "The Cranberries",
+  "artistId": "c98d40fd-f6cf-4b26-883e-eaa515ee2851",
+  "groups": [
+    {
+      "id": "e94ce03a-2fe3-4348-86cc-bc50598f4490",
+      "releaseId": "870e3053-2561-4961-b487-be542a0817c1",
+      "title": "Nothing Left at All",
+      "date": "1990",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/e94ce03a-2fe3-4348-86cc-bc50598f4490/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Pathetic Senses.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dc6888ac-89d8-3820-ad7b-264d3c482dd4",
+      "releaseId": "3abd4cd5-08af-49bf-bb17-ecd2918847fc",
+      "title": "Uncertain",
+      "date": "1991-10-28",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/dc6888ac-89d8-3820-ad7b-264d3c482dd4/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Uncertain.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7e139c3a-5ffe-390e-b879-a0d678a4800f",
+      "releaseId": "a18a20a9-9f79-4e7f-913e-c335395c9377",
+      "title": "Dreams",
+      "date": "1992-09-29",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/7e139c3a-5ffe-390e-b879-a0d678a4800f/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "What You Were.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e6b486b3-68e7-331c-a078-94fd71d61877",
+      "releaseId": "20fd1801-2b34-3a53-bd00-e4fe16dc778f",
+      "title": "Everybody Else Is Doing It, So Why Can’t We?",
+      "date": "1993-03-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e6b486b3-68e7-331c-a078-94fd71d61877/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I Still Do.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Dreams.mid",
+            "Dreams.1.mid",
+            "Dreams.2.mid",
+            "Dreams.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Sunday.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Pretty.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Waltzing Back.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Not Sorry.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Linger.mid",
+            "Linger.1.mid",
+            "Linger.2.mid",
+            "Linger.3.mid",
+            "Linger.4.mid",
+            "Linger.5.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Wanted.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "I Will Always.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "How.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Put Me Down.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5ece0c50-bb0b-3cdf-90e2-287a60136d69",
+      "releaseId": "16348678-6306-415a-b68d-b9322bc6e6fa",
+      "title": "No Need to Argue",
+      "date": "1994-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5ece0c50-bb0b-3cdf-90e2-287a60136d69/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ode to My Family.mid",
+            "Ode to My Family.1.mid",
+            "Ode to My Family.2.mid",
+            "Ode to My Family.3.mid",
+            "Ode to My Family.4.mid",
+            "Ode to My Family.5.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "I Can't Be With You.mid",
+            "I Can't Be With You.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Twenty One.mid",
+            "Twenty One.1.mid",
+            "Twenty One.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Zombie.mid",
+            "Zombie.1.mid",
+            "Zombie.2.mid",
+            "Zombie.3.mid",
+            "Zombie.4.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Empty.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Everything I Said.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "The Icicle Melts.mid",
+            "The Icicle Melts.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Disappointment.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Dreaming My Dreams.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Yeats Grave.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Daffodil Lament.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "421118d0-f0f1-3b22-8e10-7b27e310e979",
+      "releaseId": "088f2503-d79b-3ecd-a603-1f47f2204e79",
+      "title": "Zombie",
+      "date": "1994-09-13",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/421118d0-f0f1-3b22-8e10-7b27e310e979/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Away.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ab0155a0-0b51-3bb2-8ef2-6c085fa75d3a",
+      "releaseId": "ca8acf63-045c-4618-a243-e3795f15b0aa",
+      "title": "Ode to My Family",
+      "date": "1994-11-15",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/ab0155a0-0b51-3bb2-8ef2-6c085fa75d3a/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "So Cold in Ireland.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e667e66b-f93d-327e-acb8-ae7aaf6a6ee5",
+      "releaseId": "640e32ce-bc11-475b-9b2e-b7a4ceca971a",
+      "title": "To the Faithful Departed",
+      "date": "1996-04-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e667e66b-f93d-327e-acb8-ae7aaf6a6ee5/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Hollywood.mid",
+            "Hollywood.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Salvation.mid",
+            "Salvation.1.mid",
+            "Salvation.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "When You're Gone.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Free to Decide.mid",
+            "Free to Decide.1.mid",
+            "Free to Decide.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "War Child.mid",
+            "War Child.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Forever Yellow Skies.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "The Rebels.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Intermission.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "I Just Shot John Lennon.mid",
+            "I Just Shot John Lennon.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Electric Blue.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "I'm Still Remembering.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Will You Remember?.mid",
+            "Will You Remember?.1.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Joe.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Cordell.mid",
+            "Cordell.1.mid",
+            "Cordell.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "02f8003f-6d75-4a5c-865d-66741aa9ad8d",
+      "releaseId": "211d5edc-d0af-4051-b70e-dee9d6e8d400",
+      "title": "Free to Decide",
+      "date": "1996-08-21",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/02f8003f-6d75-4a5c-865d-66741aa9ad8d/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "The Picture I View.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "97e9c8bf-711c-32df-971d-2ad1a2d7036f",
+      "releaseId": "3063ea2b-5147-4c47-984e-2c5654d76abd",
+      "title": "Bury the Hatchet",
+      "date": "1999-04-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/97e9c8bf-711c-32df-971d-2ad1a2d7036f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Animal Instinct.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Promises.mid",
+            "Promises.1.mid",
+            "Promises.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Just My Imagination.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "03b9aa78-aa8b-32a6-a2b9-30d4e021123c",
+      "releaseId": "23d4cb5d-4155-4d36-b8af-83e49986a739",
+      "title": "Wake Up and Smell the Coffee",
+      "date": "2001-10-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/03b9aa78-aa8b-32a6-a2b9-30d4e021123c/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Analyse.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3eba2e58-468b-4013-a4c6-c780c842f2dc",
+      "releaseId": "e9201cc4-7c3f-45ff-b09b-5ec54abf77f0",
+      "title": "Roses",
+      "date": "2012-02-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3eba2e58-468b-4013-a4c6-c780c842f2dc/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Tomorrow.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

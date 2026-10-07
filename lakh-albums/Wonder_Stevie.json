@@ -1,0 +1,373 @@
+{
+  "artist": "Wonder Stevie",
+  "artistId": "1ee18fb3-18a6-4c7f-8ba0-bc41cdd0462e",
+  "groups": [
+    {
+      "id": "55a5f466-492e-3284-997a-830b3f333e58",
+      "releaseId": "439c903c-bd1e-4bea-b5c6-41a6bda8b84c",
+      "title": "Up‐Tight (Everything’s Alright)",
+      "date": "1966-05-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/55a5f466-492e-3284-997a-830b3f333e58/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Uptight (Everything's Alright).mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Uptight.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ca2f3772-14cd-3700-9ec8-1c7b0ad263ad",
+      "releaseId": "73088acd-487c-4bcb-be87-e44bde3eb695",
+      "title": "Down to Earth",
+      "date": "1966-11-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ca2f3772-14cd-3700-9ec8-1c7b0ad263ad/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "A Place in the Sun.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "667e6f70-2edc-3e95-9546-464c9d5863b7",
+      "releaseId": "a7fb2f3c-6532-4f91-a46a-ceee32cb5c16",
+      "title": "For Once in My Life",
+      "date": "1968-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/667e6f70-2edc-3e95-9546-464c9d5863b7/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "For Once in My Life.mid",
+            "For Once in My Life.1.mid",
+            "For Once in My Life.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "71c6b3f3-2be4-341b-a96b-4fe508dd52ea",
+      "releaseId": "e375e90d-6019-4040-82d0-362bc7cb1d8a",
+      "title": "My Cherie Amour",
+      "date": "1969-08-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/71c6b3f3-2be4-341b-a96b-4fe508dd52ea/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "My Cherie Amour.mid",
+            "My Cherie Amour.1.mid",
+            "My Cherie Amour.2.mid",
+            "My Cherie Amour.3.mid",
+            "My Cherie Amour.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "56b96aba-d067-3037-98b5-94c4970b27d0",
+      "releaseId": "0d755e05-fa54-49d6-b6dd-bd510e35900a",
+      "title": "Signed, Sealed & Delivered",
+      "date": "1970-08-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/56b96aba-d067-3037-98b5-94c4970b27d0/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Signed Sealed Delivered I'm Yours.mid",
+            "Signed Sealed Delivered I'm Yours.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Heaven Help Us All.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "58c6d809-bfa7-3b25-acf3-a99d53402b08",
+      "releaseId": "31137e7a-dce1-4066-9c7a-05de177f1163",
+      "title": "Talking Book",
+      "date": "1972-10-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/58c6d809-bfa7-3b25-acf3-a99d53402b08/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "You Are the Sunshine of My Life.mid",
+            "You Are the Sunshine of My Life.1.mid",
+            "You Are the Sunshine of My Life.2.mid",
+            "You Are the Sunshine of My Life.3.mid",
+            "You Are the Sunshine of My Life.4.mid",
+            "You Are the Sunshine of My Life.5.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Superstition.mid",
+            "Superstition.1.mid",
+            "Superstition.2.mid",
+            "Superstition.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e626b377-74c5-3b97-8f16-8cef5e1c04ea",
+      "releaseId": "0fd0ff67-798e-4c33-b625-8e1c7ed95858",
+      "title": "Innervisions",
+      "date": "1973-08-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e626b377-74c5-3b97-8f16-8cef5e1c04ea/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Golden Lady.mid",
+            "Golden Lady.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Higher Ground.mid",
+            "Higher Ground.1.mid",
+            "Higher Ground.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Don't You Worry 'bout a Thing.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "95e58ee5-5421-38b0-a937-803b004c7ae8",
+      "releaseId": "53a9fa24-8648-4623-9217-ed91434217e7",
+      "title": "Fulfillingness’ First Finale",
+      "date": "1974-07-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/95e58ee5-5421-38b0-a937-803b004c7ae8/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Boogie on Reggae Woman.mid",
+            "Boogie on Reggae Woman.1.mid",
+            "Boogie on Reggae Woman.2.mid",
+            "Boogie on Reggae Woman.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ea88b09b-fd34-33cf-a3e5-25a3a2fb4c6f",
+      "releaseId": "9b51a6b5-7f55-4dc7-8e10-a69410c7b306",
+      "title": "Songs in the Key of Life",
+      "date": "1976-09-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ea88b09b-fd34-33cf-a3e5-25a3a2fb4c6f/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Sir Duke.mid",
+            "Sir Duke.1.mid",
+            "Sir Duke.2.mid",
+            "Sir Duke.3.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "I Wish.mid",
+            "I Wish.1.mid"
+          ]
+        },
+        {
+          "number": 15,
+          "files": [
+            "Isn't She Lovely.mid",
+            "Isn't She Lovely.1.mid",
+            "Isn't She Lovely.2.mid",
+            "Isn't She Lovely.3.mid",
+            "Isn't She Lovely.4.mid",
+            "Isn't She Lovely.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "610a4b7e-061e-3de3-9bd3-b58d04d0482a",
+      "releaseId": "de5b05ba-92d5-452b-b7ba-13ab3ef10ce1",
+      "title": "Stevie Wonder’s Journey Through the Secret Life of Plants",
+      "date": "1979-10-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/610a4b7e-061e-3de3-9bd3-b58d04d0482a/front-250",
+      "songs": [
+        {
+          "number": 11,
+          "files": [
+            "Send One Your Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6fbde199-c971-3d4f-a8df-ca13a998e3c7",
+      "releaseId": "be7c6436-8894-4724-824d-f26bf1776530",
+      "title": "Hotter Than July",
+      "date": "1980-09-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6fbde199-c971-3d4f-a8df-ca13a998e3c7/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Master Blaster.mid",
+            "Master Blaster.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Happy Birthday.mid",
+            "Happy Birthday.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e7620374-defe-3656-a65d-ef062ba9df11",
+      "releaseId": "c4dfc07e-d458-4c54-9891-d3d13171a07f",
+      "title": "Tug of War",
+      "date": "1982-04-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e7620374-defe-3656-a65d-ef062ba9df11/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "Ebony & Ivory.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Ebony and Ivory.mid",
+            "Ebony and Ivory.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6c6dec89-1f38-3054-a814-23bd33faabff",
+      "releaseId": "20be72db-282f-4c75-b9bb-92223582ca6e",
+      "title": "Stevie Wonder’s Original Musiquarium I",
+      "date": "1982-05-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6c6dec89-1f38-3054-a814-23bd33faabff/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Ribbon in the Sky.mid",
+            "Ribbon in the Sky.1.mid"
+          ]
+        },
+        {
+          "number": 16,
+          "files": [
+            "Do I Do.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "640d41e3-9fe6-3b6e-b0a1-e51355e7aa9e",
+      "releaseId": "0c67cef1-1728-4dec-89a0-e79ede6d277d",
+      "title": "The Woman in Red",
+      "date": "1984-08-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/640d41e3-9fe6-3b6e-b0a1-e51355e7aa9e/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "I Just Called to Say I Love You.mid",
+            "I Just Called to Say I Love You.1.mid",
+            "I Just Called to Say I Love You.2.mid",
+            "I Just Called to Say I Love You.3.mid",
+            "I Just Called to Say I Love You.4.mid",
+            "I Just Called to Say I Love You.5.mid",
+            "I Just Called to Say I Love You.6.mid",
+            "I Just Called to Say I Love You.7.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d6cedee7-7fbe-425a-b7b9-e8839519d0a3",
+      "releaseId": "46d7fdfe-06ca-4340-8fc0-2441ea492246",
+      "title": "That’s What Friends Are For",
+      "date": "1985",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/d6cedee7-7fbe-425a-b7b9-e8839519d0a3/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "That's What Friends Are For.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "59dd99b2-031c-39f7-9bf9-74c9faed3192",
+      "releaseId": "185b78cb-c126-4982-9b2c-6897ae7d4158",
+      "title": "In Square Circle",
+      "date": "1985-05-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/59dd99b2-031c-39f7-9bf9-74c9faed3192/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Part-Time Lover.mid",
+            "Part-Time Lover.1.mid",
+            "Part-Time Lover.2.mid",
+            "Part-Time Lover.3.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Overjoyed.mid",
+            "Overjoyed.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "artist": "Ventures",
+  "artistId": "b2cc8903-0077-4bef-8454-ac5cef53d126",
+  "groups": [
+    {
+      "id": "5c3d4ccd-4c74-3f0f-b7f9-4f15f3b9df42",
+      "releaseId": "4a02afcc-23d7-4710-a19c-8d98b2cf3489",
+      "title": "Walk, Don’t Run",
+      "date": "1960-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5c3d4ccd-4c74-3f0f-b7f9-4f15f3b9df42/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Walk Don't Run.mid",
+            "Walk Don't Run.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

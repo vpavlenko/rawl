@@ -1,0 +1,279 @@
+{
+  "artist": "R.E.M.",
+  "artistId": "ea4dfa26-f633-4da6-a52a-f49ea4897b58",
+  "groups": [
+    {
+      "id": "de790d3d-a35c-364c-a8fb-adfb73084a45",
+      "releaseId": "2a880c98-e963-363e-857c-8f8c5a963eb9",
+      "title": "Murmur",
+      "date": "1983-04-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/de790d3d-a35c-364c-a8fb-adfb73084a45/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Radio Free Europe.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "871de38f-9783-318c-9c0e-4cc5e17a7b02",
+      "releaseId": "d52f8c73-512a-4371-9c8e-7d34b8c54c1e",
+      "title": "Fables of the Reconstruction",
+      "date": "1985-06-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/871de38f-9783-318c-9c0e-4cc5e17a7b02/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Driver 8.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8b6b2628-7bd4-3fed-9d65-cf4e5dc45939",
+      "releaseId": "4ced616f-832a-499e-a1ff-c89857b34e82",
+      "title": "Lifes Rich Pageant",
+      "date": "1986-07-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8b6b2628-7bd4-3fed-9d65-cf4e5dc45939/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Fall On Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "137385b2-b4cc-385e-9d59-781e7674f5bc",
+      "releaseId": "7b2ee1f7-33ce-4d4f-ac7c-5fa7b2bebec0",
+      "title": "Document",
+      "date": "1987-08-31",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/137385b2-b4cc-385e-9d59-781e7674f5bc/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "It's The End of the World as We Know It (and I Feel Fine).mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "The One I Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "16a9cef3-b470-3ae1-bf10-cc04232d3e21",
+      "releaseId": "8a494ec8-12d9-4285-8b5b-e8f5af11dfb5",
+      "title": "Green",
+      "date": "1988-11-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/16a9cef3-b470-3ae1-bf10-cc04232d3e21/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Orange Crush.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "400a5fdd-e616-3598-a9bf-cd8275cb53d0",
+      "releaseId": "102cba94-8073-414e-88cf-08b7cb03d9c3",
+      "title": "Out of Time",
+      "date": "1991-03-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/400a5fdd-e616-3598-a9bf-cd8275cb53d0/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Radio Song.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Losing My Religion.mid",
+            "Losing My Religion.1.mid",
+            "Losing My Religion.2.mid",
+            "Losing My Religion.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Shiny Happy People.mid",
+            "Shiny Happy People.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Texarkana.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Country Feedback.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c549476c-9e21-3389-8b1c-72576df889f9",
+      "releaseId": "aac14248-b84c-4634-8317-bfcc2aff40c5",
+      "title": "Radio Song",
+      "date": "1991-11-04",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/c549476c-9e21-3389-8b1c-72576df889f9/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Love Is All Around.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c86c6af9-d10e-3079-b34b-30b682a797eb",
+      "releaseId": "77ea5ef8-a4d3-4138-8a52-f1e0bd94729a",
+      "title": "Automatic for the People",
+      "date": "1992-10-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c86c6af9-d10e-3079-b34b-30b682a797eb/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Drive.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Everybody Hurts.mid",
+            "Everybody Hurts.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Man on the Moon.mid",
+            "Man on the Moon.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Nightswimming.mid",
+            "Nightswimming.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Find the River.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2a71baeb-0c95-3d3a-aef9-8d5fe17a8038",
+      "releaseId": "061e7da7-381d-4c19-9180-402c8636ef06",
+      "title": "Monster",
+      "date": "1994-09-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2a71baeb-0c95-3d3a-aef9-8d5fe17a8038/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "What's the Frequency, Kenneth? (radio version).mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Star 69.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Strange Currencies.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Bang and Blame.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6d4f73cb-9c02-33c5-ba06-c927a9b963ad",
+      "releaseId": "a4fb702b-0536-3f7b-b599-d9ff9a54b539",
+      "title": "New Adventures in Hi‐Fi",
+      "date": "1996-09-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6d4f73cb-9c02-33c5-ba06-c927a9b963ad/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "The Wake-Up Bomb.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Undertow.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "E-Bow the Letter.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Bittersweet Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "262b3e22-cfae-3843-9ab7-52d5509ad93d",
+      "releaseId": "a6fb411c-65dc-4625-a4be-59b042f7a51b",
+      "title": "The Great Beyond",
+      "date": "1999-11-16",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/262b3e22-cfae-3843-9ab7-52d5509ad93d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Great Beyond.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "artist": "Brooks Garth",
+  "artistId": "b76645c5-78b0-4e4c-8f95-003f40013a45",
+  "groups": [
+    {
+      "id": "52bab202-d3af-3f77-9de7-06302791ab80",
+      "releaseId": "4961c818-de2f-4018-a753-444339b1831d",
+      "title": "Garth Brooks",
+      "date": "1989-04-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/52bab202-d3af-3f77-9de7-06302791ab80/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Not Counting You.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "If Tomorrow Never Comes.mid",
+            "If Tomorrow Never Comes.1.mid",
+            "If Tomorrow Never Comes.2.mid",
+            "If Tomorrow Never Comes.3.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "The Dance.mid",
+            "The Dance.1.mid",
+            "The Dance.2.mid",
+            "The Dance.3.mid",
+            "The Dance.4.mid",
+            "The Dance.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d4377787-0d92-3902-997a-feb75f4dee2d",
+      "releaseId": "acec7706-fab1-4cce-9340-96c3c23c332c",
+      "title": "No Fences",
+      "date": "1990-08-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d4377787-0d92-3902-997a-feb75f4dee2d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Thunder Rolls.mid",
+            "The Thunder Rolls.1.mid",
+            "The Thunder Rolls.2.mid",
+            "The Thunder Rolls.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Two of a Kind, Workin' on a Full House.mid",
+            "Two of a Kind, Workin' on a Full House.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Friends in Low Places.mid",
+            "Friends in Low Places.1.mid",
+            "Friends in Low Places.2.mid",
+            "Friends in Low Places.3.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Unanswered Prayers.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0532c91d-e099-3d5c-8fac-4711035f7297",
+      "releaseId": "5132ec38-5a47-44cd-b543-3a6b71dc12e7",
+      "title": "Ropin’ the Wind",
+      "date": "1991-09-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0532c91d-e099-3d5c-8fac-4711035f7297/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Papa Loved Mama.mid",
+            "Papa Loved Mama.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Shameless.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "The River.mid",
+            "The River.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1d1c66cc-84b7-3c72-ac81-84f3e7785c79",
+      "releaseId": "53ba8465-5c44-4e61-af10-728a20b5c01e",
+      "title": "The Chase",
+      "date": "1992-09-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1d1c66cc-84b7-3c72-ac81-84f3e7785c79/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Somewhere Other Than the Night.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "That Summer.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3ff6b94c-1765-3d58-a6e0-edc7b552fcba",
+      "releaseId": "df824c9e-4918-4c72-a4a0-b62636ddfd51",
+      "title": "In Pieces",
+      "date": "1993-08-31",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3ff6b94c-1765-3d58-a6e0-edc7b552fcba/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Standing Outside the Fire.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "American Honky-Tonk Bar Association.mid",
+            "American Honky-Tonk Bar Association.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "One Night a Day.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Ain't Goin' Down ('til the Sun Comes Up).mid",
+            "Ain't Goin' Down ('til the Sun Comes Up).1.mid",
+            "Ain't Goin' Down ('til the Sun Comes Up).2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Callin' Baton Rouge.mid",
+            "Callin' Baton Rouge.1.mid",
+            "Callin' Baton Rouge.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "36a90be8-0d18-3009-a20a-2dcfd4942ad6",
+      "releaseId": "053c38a0-1cda-4ccf-a8dd-c1acf8b395de",
+      "title": "Fresh Horses",
+      "date": "1995-11-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/36a90be8-0d18-3009-a20a-2dcfd4942ad6/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "The Beaches of Cheyenne.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ff2e3f28-9d22-344e-a1bd-723e3d29525c",
+      "releaseId": "9a4f23a2-6661-4a03-86a6-d633cf48dfa2",
+      "title": "Sevens",
+      "date": "1997-11-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ff2e3f28-9d22-344e-a1bd-723e3d29525c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Longneck Bottle.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Two Pina Coladas.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

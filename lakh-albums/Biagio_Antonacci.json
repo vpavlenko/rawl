@@ -1,0 +1,188 @@
+{
+  "artist": "Biagio Antonacci",
+  "artistId": "b7c5cc40-c061-44ed-8b2b-d0ff774603c8",
+  "groups": [
+    {
+      "id": "cd190e00-b94a-35de-856d-190bcf4c0dce",
+      "releaseId": "35677a6e-3127-45e6-99eb-5f661b59ad42",
+      "title": "Liberatemi",
+      "date": "1992",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/cd190e00-b94a-35de-856d-190bcf4c0dce/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Liberatemi.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Prima di tutto.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Io sono come te.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Alessandra.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Almeno non tradirmi tu.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "423def29-d003-3922-8792-ae3b6b023944",
+      "releaseId": "82858b4f-9a47-487c-acb1-3e326022458a",
+      "title": "Biagio Antonacci",
+      "date": "1994",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/423def29-d003-3922-8792-ae3b6b023944/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Non e mai stato subito.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Se io, se lei.mid",
+            "Se io, se lei.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "C'e ancora qualcuno.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Sei.mid",
+            "Sei.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a8a1d3d5-5dd8-306d-bf6d-809bf4acb8e7",
+      "releaseId": "a923a257-7dd1-47bb-ab52-195f566afd13",
+      "title": "Il mucchio",
+      "date": "1996",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a8a1d3d5-5dd8-306d-bf6d-809bf4acb8e7/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Se e vero che ci sei.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Cosi presto no.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Lasciami andare via.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Happy Family.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Non parli mai.mid",
+            "Non parli mai.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f96aeb9b-e109-3bc0-a9fc-bbd7fb3dc34a",
+      "releaseId": "8f1d6576-b0d6-4dbd-9f4a-37bbed1556d0",
+      "title": "Mi fai stare bene",
+      "date": "1998",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f96aeb9b-e109-3bc0-a9fc-bbd7fb3dc34a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Mi fai stare bene.mid",
+            "Mi fai stare bene.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Non vendermi.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Quanto tempo e ancora.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Cosa fai ragazza.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Iris.mid",
+            "Iris.1.mid",
+            "Iris.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "20bd75f4-ea61-3cad-99cb-80123b25926a",
+      "releaseId": "9e111320-54b6-4622-a2e5-d918da296fb8",
+      "title": "Tra le mie canzoni",
+      "date": "2000",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/20bd75f4-ea61-3cad-99cb-80123b25926a/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Le cose che hai amato di piu.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Non so piu a chi credere.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

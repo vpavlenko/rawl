@@ -1,0 +1,286 @@
+{
+  "artist": "883",
+  "artistId": "618170ad-4957-4b7b-a3b0-489917be18d3",
+  "groups": [
+    {
+      "id": "5113397e-c524-35ee-936a-79828e3397ec",
+      "releaseId": "f04adf7b-290d-4fb8-b563-b4c4df5071d7",
+      "title": "Hanno ucciso l’Uomo Ragno",
+      "date": "1992-02-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5113397e-c524-35ee-936a-79828e3397ec/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Hanno ucciso l'uomo ragno.mid",
+            "Hanno ucciso l'uomo ragno.1.mid",
+            "Hanno ucciso l'uomo ragno.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Con un deca.mid",
+            "Con un deca.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3d90b0e3-d2c7-36d8-abba-2aab0f9868e4",
+      "releaseId": "17dd8d22-9af2-49f1-b053-9586c6e40415",
+      "title": "Nord sud ovest est",
+      "date": "1993",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3d90b0e3-d2c7-36d8-abba-2aab0f9868e4/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Sei un mito.mid",
+            "Sei un mito.1.mid",
+            "Sei un mito.2.mid",
+            "Sei un mito.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Come mai (feat. Fiorello).mid",
+            "Come mai (feat. Fiorello).1.mid",
+            "Come mai (feat. Fiorello).2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Rotta x casa di Dio.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Nord Sud Ovest Est.mid",
+            "Nord Sud Ovest Est.1.mid",
+            "Nord Sud Ovest Est.2.mid",
+            "Nord Sud Ovest Est.3.mid",
+            "Nord Sud Ovest Est.4.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Cumuni.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Nella notte.mid",
+            "Nella notte.1.mid",
+            "Nella notte.2.mid"
+          ]
+        },
+        {
+          "number": 16,
+          "files": [
+            "Nella notte (Molella remix).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4aa56cba-6311-3e52-8965-1b9a9c68d07b",
+      "releaseId": "e4700a19-c8e0-4357-8468-674b1280313d",
+      "title": "Remix '94",
+      "date": "1994",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4aa56cba-6311-3e52-8965-1b9a9c68d07b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Chiuditi nel cesso.mid",
+            "Chiuditi nel cesso.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "47c440a0-b954-3c2b-ab7a-d1a479f242cc",
+      "releaseId": "8dea7f7b-88c7-3871-b2cd-08192bf036a1",
+      "title": "La donna, il sogno & il grande incubo",
+      "date": "1995",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/47c440a0-b954-3c2b-ab7a-d1a479f242cc/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Ti sento vivere.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Senza averti qui.mid",
+            "Senza averti qui.1.mid",
+            "Senza averti qui.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Tieni il tempo.mid",
+            "Tieni il tempo.1.mid",
+            "Tieni il tempo.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Una canzone d'amore.mid",
+            "Una canzone d'amore.1.mid",
+            "Una canzone d'amore.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "826dce9f-4b4c-3dcc-9c70-9355c085e907",
+      "releaseId": "557a9029-d71a-4d7a-8f3d-df66711c001c",
+      "title": "La dura legge del gol!",
+      "date": "1997-06-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/826dce9f-4b4c-3dcc-9c70-9355c085e907/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Innamorare tanto.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "La regola dell'amico.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Nessun rimpianto.mid",
+            "Nessun rimpianto.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Non ti passa piu.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Se tornerai.mid",
+            "Se tornerai.1.mid",
+            "Se tornerai.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "La dura legge del gol!.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Un giorno cosi.mid",
+            "Un giorno cosi.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Andra tutto bene ('58).mid",
+            "Andra tutto bene ('58).1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Non mi arrendo.mid",
+            "Non mi arrendo.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Dimmi perche (remix).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6a033a7b-8a48-366d-a021-fa8ea932d8f1",
+      "releaseId": "56b3ff5a-7613-4716-9f18-6bc94e0318e4",
+      "title": "Gli anni",
+      "date": "1998",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6a033a7b-8a48-366d-a021-fa8ea932d8f1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Io ci saro'.mid",
+            "Io ci saro'.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Gli anni ('96).mid",
+            "Gli anni ('96).1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "32ce0c62-8128-3213-9469-7ec9d9e6ebf6",
+      "releaseId": "db0680ce-0896-40d4-95b3-617a09d9d597",
+      "title": "Grazie mille",
+      "date": "1999-10-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/32ce0c62-8128-3213-9469-7ec9d9e6ebf6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Grazie mille.mid",
+            "Grazie mille.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Le luci di Natale.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Viaggio al centro del mondo.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Tutto cio che ho.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

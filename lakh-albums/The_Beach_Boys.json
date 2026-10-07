@@ -1,0 +1,460 @@
+{
+  "artist": "The Beach Boys",
+  "artistId": "ebfc1398-8d96-47e3-82c3-f782abcdb13d",
+  "groups": [
+    {
+      "id": "6ac5e93d-d669-34ee-8be5-5d3977bec839",
+      "releaseId": "8c65bbee-94c4-3671-a7a9-0c888c2f7aab",
+      "title": "Surfin’ Safari",
+      "date": "1962-10-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6ac5e93d-d669-34ee-8be5-5d3977bec839/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Surfin' Safari.mid",
+            "Surfin' Safari.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9a7228ff-f6f9-3d90-a39b-65a2f1dabade",
+      "releaseId": "5daacb44-12e5-42ea-9308-76fcb9a78312",
+      "title": "Surfin’ USA",
+      "date": "1963-03-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9a7228ff-f6f9-3d90-a39b-65a2f1dabade/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Surfin USA.mid",
+            "Surfin USA.1.mid",
+            "Surfin USA.2.mid",
+            "Surfin USA.3.mid",
+            "Surfin USA.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "09f10c6c-e9b4-383c-9744-3df6e3d2770e",
+      "releaseId": "28fcd8b8-c6f7-4c77-9d31-a09af40ac294",
+      "title": "Surfer Girl",
+      "date": "1963-09-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/09f10c6c-e9b4-383c-9744-3df6e3d2770e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Surfer Girl.mid",
+            "Surfer Girl.1.mid",
+            "Surfer Girl.2.mid",
+            "Surfer Girl.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Little Deuce Coupe.mid",
+            "Little Deuce Coupe.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "In My Room.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "74940c19-0669-304a-a59e-2f6aafb18f95",
+      "releaseId": "5424c023-99a7-4b98-8235-70b5a3a583b3",
+      "title": "Shut Down, Volume 2",
+      "date": "1964-03-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/74940c19-0669-304a-a59e-2f6aafb18f95/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Fun, Fun, Fun.mid",
+            "Fun, Fun, Fun.1.mid",
+            "Fun, Fun, Fun.2.mid",
+            "Fun, Fun, Fun.3.mid",
+            "Fun, Fun, Fun.4.mid",
+            "Fun, Fun, Fun.5.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Don't Worry Baby.mid",
+            "Don't Worry Baby.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6b66f366-bdae-3450-898c-794e65d6703f",
+      "releaseId": "5a80d7f3-11ac-499a-b5f2-231a0ed4dee7",
+      "title": "All Summer Long",
+      "date": "1964-07-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6b66f366-bdae-3450-898c-794e65d6703f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I Get Around.mid",
+            "I Get Around.1.mid",
+            "I Get Around.2.mid",
+            "I Get Around.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dae9e689-d16a-36c3-95b6-5e02891dd16f",
+      "releaseId": "5f052967-1a75-48b1-b430-89a76f4ef078",
+      "title": "The Beach Boys’ Christmas Album",
+      "date": "1964-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/dae9e689-d16a-36c3-95b6-5e02891dd16f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Little Saint Nick.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2b581513-39cc-3a81-9c50-79a8dbf5c031",
+      "releaseId": "2860be9f-4133-4ff0-a784-f143eaf5832d",
+      "title": "The Beach Boys Today!",
+      "date": "1965-03-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2b581513-39cc-3a81-9c50-79a8dbf5c031/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Help Me, Ronda.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Dance Dance Dance.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Please Let Me Wonder.mid",
+            "Please Let Me Wonder.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "51d1dbfa-b621-3eed-a611-2591718eba6a",
+      "releaseId": "e56c5ab7-5432-408c-9245-f48fb77b3b71",
+      "title": "Summer Days (and Summer Nights!!)",
+      "date": "1965-07-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/51d1dbfa-b621-3eed-a611-2591718eba6a/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Help Me Rhonda.mid",
+            "Help Me Rhonda.1.mid",
+            "Help Me Rhonda.2.mid",
+            "Help Me Rhonda.3.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "California Girls.mid",
+            "California Girls.1.mid",
+            "California Girls.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f0373811-ca62-312a-a9db-1a5a4228ce02",
+      "releaseId": "4c387dcb-c507-4b0e-8320-5e65ee084de9",
+      "title": "Beach Boys’ Party!",
+      "date": "1965-11-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f0373811-ca62-312a-a9db-1a5a4228ce02/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "Barbara Ann.mid",
+            "Barbara Ann.1.mid",
+            "Barbara Ann.2.mid",
+            "Barbara Ann.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fdd96703-7b21-365e-bdea-38029fbeb84e",
+      "releaseId": "4ac8b3ca-2139-430f-9715-a1736be1102b",
+      "title": "Pet Sounds",
+      "date": "1966-05-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fdd96703-7b21-365e-bdea-38029fbeb84e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Wouldn't It Be Nice.mid",
+            "Wouldn't It Be Nice.1.mid",
+            "Wouldn't It Be Nice.2.mid",
+            "Wouldn't It Be Nice.3.mid",
+            "Wouldn't It Be Nice.4.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "You Still Believe in Me.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Don't Talk (Put Your Head on My Shoulder).mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "I'm Waiting for the Day.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Sloop John 'B'.mid",
+            "Sloop John 'B'.1.mid",
+            "Sloop John 'B'.2.mid",
+            "Sloop John 'B'.3.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "God Only Knows.mid",
+            "God Only Knows.1.mid",
+            "God Only Knows.2.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "I Know There's an Answer.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Here Today.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "I Just Wasn't Made for These Times.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Caroline No.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9f28a4d3-95b9-3807-8c7d-92ba17dfa7f5",
+      "releaseId": "67bb98fb-2d80-4636-9d7b-aebd5ecd455b",
+      "title": "Smiley Smile",
+      "date": "1967-09-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9f28a4d3-95b9-3807-8c7d-92ba17dfa7f5/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Heroes and Villains.mid",
+            "Heroes and Villains.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Good Vibrations.mid",
+            "Good Vibrations.1.mid",
+            "Good Vibrations.2.mid",
+            "Good Vibrations.3.mid",
+            "Good Vibrations.4.mid",
+            "Good Vibrations.5.mid",
+            "Good Vibrations.6.mid",
+            "Good Vibrations.7.mid",
+            "Good Vibrations.8.mid",
+            "Good Vibrations.9.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Wonderful.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "320eeca0-a5ff-383f-a66e-b2f559ed0ab6",
+      "releaseId": "b1b0f836-d27b-4e14-852b-12c9ca5b507c",
+      "title": "Friends",
+      "date": "1968-06-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/320eeca0-a5ff-383f-a66e-b2f559ed0ab6/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Anna Lee, the Healer.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "27e5bbcc-1ff7-3f87-896f-e5f0dfc3464e",
+      "releaseId": "6519e077-f4ff-49ec-bf40-696845700e7f",
+      "title": "20/20",
+      "date": "1969-02-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/27e5bbcc-1ff7-3f87-896f-e5f0dfc3464e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Do It Again.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "464dba39-079e-3ea4-84e1-1829324de678",
+      "releaseId": "c63e39b6-d201-45db-bbac-99d5ee316503",
+      "title": "Sunflower",
+      "date": "1970-08-31",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/464dba39-079e-3ea4-84e1-1829324de678/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "Cool, Cool Water.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a42b6a80-b542-344c-921d-15a07fdb580e",
+      "releaseId": "166cf57c-a26d-4a5e-9a20-e0a01496e3b4",
+      "title": "Surf's Up",
+      "date": "1971-08-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a42b6a80-b542-344c-921d-15a07fdb580e/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Surf's Up.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "458f48ac-5063-3384-a65d-6963e3d18304",
+      "releaseId": "fe022ed2-38c3-4a8f-8cc0-840eb15f4fd0",
+      "title": "Holland",
+      "date": "1973-01-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/458f48ac-5063-3384-a65d-6963e3d18304/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Sail On Sailor.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "859bbb58-4f71-481a-95fe-de0b7bc3b3a0",
+      "releaseId": "646810bf-0e34-4f61-bf78-211fb675c79e",
+      "title": "The Beach Boys Medley / God Only Knows",
+      "date": "1981",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/859bbb58-4f71-481a-95fe-de0b7bc3b3a0/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Beach Boys Medley.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4f6a66c0-c5e1-3ae1-8810-3b6f451a5c6c",
+      "releaseId": "67782a23-e809-462d-a511-a7f932c386d1",
+      "title": "Still Cruisin’",
+      "date": "1989-08-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4f6a66c0-c5e1-3ae1-8810-3b6f451a5c6c/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Kokomo.mid",
+            "Kokomo.1.mid",
+            "Kokomo.2.mid",
+            "Kokomo.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Wipe Out.mid",
+            "Wipe Out.1.mid",
+            "Wipe Out.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Wipeout.mid",
+            "Wipeout.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

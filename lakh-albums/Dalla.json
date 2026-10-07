@@ -1,0 +1,383 @@
+{
+  "artist": "Dalla",
+  "artistId": "60889737-6f73-415e-ba20-5040498512b4",
+  "groups": [
+    {
+      "id": "ca52ffb6-ac01-4b50-af3f-804b345f32bd",
+      "releaseId": "67baab06-4ecf-4dea-a93d-87b118588758",
+      "title": "Bisogna saper perdere / Lucio dove vai",
+      "date": "1967-01",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/ca52ffb6-ac01-4b50-af3f-804b345f32bd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Bisogna saper perdere.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "46756f49-ff2b-3521-a9ea-d5fbbb76bc37",
+      "releaseId": "68d94d59-973a-4501-89fd-7404da68aa2a",
+      "title": "Storie di casa mia",
+      "date": "1971",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/46756f49-ff2b-3521-a9ea-d5fbbb76bc37/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "4 marzo 1943.mid",
+            "4 marzo 1943.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fc425afa-001b-4be6-ac36-cb6590c6ad46",
+      "releaseId": "efd443fa-3bdf-4dd9-8c7d-f6c4fe8ca051",
+      "title": "Piazza Grande / Convento di pianura",
+      "date": "1972-02",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/fc425afa-001b-4be6-ac36-cb6590c6ad46/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Piazza grande (feat. Lucio Dalla) (unplugged).mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "Piazza grande.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "73d1f898-2f0b-3c4a-8793-1509de79e5cc",
+      "releaseId": "4e939c7b-8a1e-4c93-b0ef-32795f82ca99",
+      "title": "Automobili",
+      "date": "1976",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/73d1f898-2f0b-3c4a-8793-1509de79e5cc/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Nuvolari.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a9651e36-d3c4-3789-9444-543501d21e55",
+      "releaseId": "bc8869e5-0464-426a-aa39-986aa9a1d387",
+      "title": "Come è profondo il mare",
+      "date": "1977",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a9651e36-d3c4-3789-9444-543501d21e55/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Come e profondo il mare.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Disperato erotico stomp.mid",
+            "Disperato erotico stomp.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "76c1c3d9-ec8e-3d13-a1f3-bc1999ee60ee",
+      "releaseId": "26d33b74-7cf8-4ffd-8cea-dc868d16ebee",
+      "title": "Lucio Dalla",
+      "date": "1979",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/76c1c3d9-ec8e-3d13-a1f3-bc1999ee60ee/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "L'ultima Luna.mid",
+            "L'ultima Luna.1.mid",
+            "L'ultima Luna.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Stella di mare.mid",
+            "Stella di mare.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Anna e Marco.mid",
+            "Anna e Marco.1.mid",
+            "Anna e Marco.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Cosa sara.mid",
+            "Cosa sara.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "L'anno che verra.mid",
+            "L'anno che verra.1.mid",
+            "L'anno che verra.2.mid",
+            "L'anno che verra.3.mid",
+            "L'anno che verra.4.mid",
+            "L'anno che verra.5.mid",
+            "L'anno che verra.6.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "199d88ca-57f2-38bd-b87a-cf274a5c3047",
+      "releaseId": "c8c5d71b-48f0-4954-a449-068ff41d7b30",
+      "title": "Dalla",
+      "date": "1980",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/199d88ca-57f2-38bd-b87a-cf274a5c3047/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Balla balla ballerino.mid",
+            "Balla balla ballerino.1.mid",
+            "Balla balla ballerino.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Cara.mid",
+            "Cara.1.mid",
+            "Cara.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Futura.mid",
+            "Futura.1.mid",
+            "Futura.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9963863b-9d2f-3bcc-a5d3-288ffbbd1016",
+      "releaseId": "9f62f4bd-6303-46b3-99b0-bfd4d85b7bdb",
+      "title": "Lucio Dalla",
+      "date": "1981",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9963863b-9d2f-3bcc-a5d3-288ffbbd1016/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Telefonami tra vent'anni.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "84e48efc-0b42-3ee6-9aa5-7126d8c9f44e",
+      "releaseId": "19a7146a-8e65-4512-820a-a3a505cddf16",
+      "title": "Bugie",
+      "date": "1986",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/84e48efc-0b42-3ee6-9aa5-7126d8c9f44e/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Chissa se lo sai.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a7d9e89e-43d5-332d-b0cf-2962421b2a55",
+      "releaseId": "805e51cd-8998-4cb6-8f96-864a2757842e",
+      "title": "Dalla/Morandi",
+      "date": "1988",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a7d9e89e-43d5-332d-b0cf-2962421b2a55/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Vita.mid",
+            "Vita.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e919dfdd-3eff-305d-8637-e9152ef94602",
+      "releaseId": "5149ba1b-8496-4422-a181-0383226c0520",
+      "title": "Cambio",
+      "date": "1990",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e919dfdd-3eff-305d-8637-e9152ef94602/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Attenti al lupo.mid",
+            "Attenti al lupo.1.mid",
+            "Attenti al lupo.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Apriti cuore.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6b65495a-2378-3fa1-a018-fed6991d3585",
+      "releaseId": "e085481f-cc00-4bfc-b952-625a5d75fe88",
+      "title": "Amen",
+      "date": "1992",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6b65495a-2378-3fa1-a018-fed6991d3585/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Amen.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5cc16678-0e63-3e02-a3af-68abae2624f9",
+      "releaseId": "b98e3893-484c-4590-9652-1d4787871790",
+      "title": "Henna",
+      "date": "1993",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5cc16678-0e63-3e02-a3af-68abae2624f9/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Liberi.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Don't Touch Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3d774f77-8e25-43f4-9ac7-5644b5e50f71",
+      "releaseId": "665ea2e4-935b-4fd9-8755-56ab4282835e",
+      "title": "Caruso",
+      "date": "1994",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/3d774f77-8e25-43f4-9ac7-5644b5e50f71/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Caruso.mid",
+            "Caruso.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d7c56643-2776-3b77-a3ac-36462498595c",
+      "releaseId": "d3293b57-7ad9-423f-8caa-cd2bbc210aa5",
+      "title": "Canzoni",
+      "date": "1996-09-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d7c56643-2776-3b77-a3ac-36462498595c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ayrton.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Canzone.mid",
+            "Canzone.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Tu non mi basti mai.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2681105c-1f8d-33a8-803f-ab59bff57a38",
+      "releaseId": "dbc03a46-a8ac-4585-be4f-ca923da237bd",
+      "title": "Ciao",
+      "date": "1999",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2681105c-1f8d-33a8-803f-ab59bff57a38/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ciao.mid",
+            "Ciao.1.mid",
+            "Ciao.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Non vergognarsi mai.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "97e46034-094a-46e6-8dc1-edbd8b447ef8",
+      "releaseId": "b11916e5-4e81-4277-8a36-f8d8a50fcb89",
+      "title": "Caro amico, ti canto…",
+      "date": "2012",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/97e46034-094a-46e6-8dc1-edbd8b447ef8/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Com'e profondo il mare.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

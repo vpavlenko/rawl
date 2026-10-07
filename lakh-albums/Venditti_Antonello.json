@@ -1,0 +1,54 @@
+{
+  "artist": "Venditti Antonello",
+  "artistId": "dd4a5777-42a3-44a2-b5e6-bff6731cdf3a",
+  "groups": [
+    {
+      "id": "93c028d3-9281-35c4-a2fa-8188abcd8904",
+      "releaseId": "1ad89e7f-5a27-4c7f-bebc-567c7cf872eb",
+      "title": "Theorius Campus",
+      "date": "1972-07-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/93c028d3-9281-35c4-a2fa-8188abcd8904/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Roma capoccia.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "71b87fb6-c6eb-368c-b9cd-25ef77d635f6",
+      "releaseId": "ca1fa99d-c19c-412e-9f2a-ea6c82024be0",
+      "title": "In questo mondo di ladri",
+      "date": "1988",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/71b87fb6-c6eb-368c-b9cd-25ef77d635f6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ricordati di me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "67eaa1e4-87eb-348a-8146-81a128fc97cc",
+      "releaseId": "ca515676-980f-4ce2-bfe3-e773fd8cfb9b",
+      "title": "Benvenuti in paradiso",
+      "date": "1991",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/67eaa1e4-87eb-348a-8146-81a128fc97cc/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Benvenuti in paradiso.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,278 @@
+{
+  "artist": "Nine Inch Nails",
+  "artistId": "b7ffd2af-418f-4be2-bdd1-22f8b48613da",
+  "groups": [
+    {
+      "id": "fcb872a2-7ef9-3ed0-bd4a-7c55c78179b6",
+      "releaseId": "d502a247-7ac9-4250-bdcf-51274b10b227",
+      "title": "Pretty Hate Machine",
+      "date": "1989-10-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fcb872a2-7ef9-3ed0-bd4a-7c55c78179b6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Head Like a Hole.mid",
+            "Head Like a Hole.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Terrible Lie.mid",
+            "Terrible Lie.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Down in It.mid",
+            "Down in It.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Sanctified.mid",
+            "Sanctified.1.mid",
+            "Sanctified.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Something I Can Never Have.mid",
+            "Something I Can Never Have.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Sin.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "That's What I Get.mid",
+            "That's What I Get.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Ringfinger.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "abcff3e9-a3f4-3a94-a6be-32381104084e",
+      "releaseId": "122b6714-c3af-4c6c-9543-c8c63c267d23",
+      "title": "Broken",
+      "date": "1992-09-21",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/abcff3e9-a3f4-3a94-a6be-32381104084e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Pinion.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Wish.mid",
+            "Wish.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Last.mid",
+            "Last.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Gave Up.mid"
+          ]
+        },
+        {
+          "number": 99,
+          "files": [
+            "Suck.mid",
+            "Suck.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d03cf545-b0a6-39c4-a8d6-457832c86eee",
+      "releaseId": "51e56540-ef7f-497f-bff5-9abfa9cae128",
+      "title": "March of the Pigs",
+      "date": "1994-02-25",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/d03cf545-b0a6-39c4-a8d6-457832c86eee/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "All the Pigs, All Lined Up.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7c4cab8d-dead-3870-b501-93c90fd0a580",
+      "releaseId": "97e72f08-e1fa-4801-b325-3d27e1b0f674",
+      "title": "The Downward Spiral",
+      "date": "1994-03-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7c4cab8d-dead-3870-b501-93c90fd0a580/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Mr Self Destruct.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Piggy.mid",
+            "Piggy.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Heresy.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "March of the Pigs.mid",
+            "March of the Pigs.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Closer.mid",
+            "Closer.1.mid",
+            "Closer.2.mid",
+            "Closer.3.mid",
+            "Closer.4.mid",
+            "Closer.5.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Ruiner.mid",
+            "Ruiner.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "The Becoming.mid",
+            "The Becoming.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "I Do Not Want This.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Big Man With a Gun.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "A Warm Place.mid",
+            "A Warm Place.1.mid",
+            "A Warm Place.2.mid",
+            "A Warm Place.3.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Eraser.mid",
+            "Eraser.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Reptile.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "The Downward Spiral.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Hurt.mid",
+            "Hurt.1.mid",
+            "Hurt.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "661dc79a-fc5a-30ac-b6be-9287ad63463c",
+      "releaseId": "156d902a-63f9-48e7-a7d7-48cdcf2e6fe2",
+      "title": "Further Down the Spiral",
+      "date": "1995-05-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/661dc79a-fc5a-30ac-b6be-9287ad63463c/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "The Art of Self Destruction, Part One.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Eraser (Polite).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "194313cc-934c-3ea7-b4a7-3edd2df0675e",
+      "releaseId": "2b8f2c53-5530-4fd8-bcc9-9b185ab02824",
+      "title": "Into the Void",
+      "date": "1999",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/194313cc-934c-3ea7-b4a7-3edd2df0675e/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "The Perfect Drug.mid",
+            "The Perfect Drug.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

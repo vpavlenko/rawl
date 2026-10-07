@@ -1,0 +1,185 @@
+{
+  "artist": "Dave Matthews Band",
+  "artistId": "07e748f1-075e-428d-85dc-ce3be434e906",
+  "groups": [
+    {
+      "id": "72048fe1-bade-355e-9b14-24868af038e0",
+      "releaseId": "cb98c882-1672-40a3-a11d-069757e2d0f6",
+      "title": "Remember Two Things",
+      "date": "1993-11-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/72048fe1-bade-355e-9b14-24868af038e0/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Ants Marching.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Satellite.mid",
+            "Satellite.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "One Sweet World.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b080cf2f-fbd2-3f6c-82ff-d30314464ac7",
+      "releaseId": "23735503-d1dd-408f-8940-043e8e7014d5",
+      "title": "Under the Table and Dreaming",
+      "date": "1994-09-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b080cf2f-fbd2-3f6c-82ff-d30314464ac7/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Best of What's Around.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "What Would You Say.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Rhyme & Reason.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Typical Situation.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Dancing Nancies.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aff320c8-c7ae-3421-80d1-c1f61500e7fd",
+      "releaseId": "59e9d0ea-f7fb-42c8-9d2f-23d6c181db53",
+      "title": "Crash",
+      "date": "1996-04-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/aff320c8-c7ae-3421-80d1-c1f61500e7fd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "So Much to Say.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Two Step.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Crash Into Me.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Too Much.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Lie in Our Graves.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Proudest Monkey.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "08d1e2b8-0b8e-3279-8bc0-1fa4ca774791",
+      "releaseId": "1cfdff5c-1273-3658-9e70-3bdeea11747b",
+      "title": "Before These Crowded Streets",
+      "date": "1998-04-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/08d1e2b8-0b8e-3279-8bc0-1fa4ca774791/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Pantala Naga Pampa.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Don't Drink the Water.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Stay (Wasting Time).mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Halloween.mid",
+            "Halloween.1.mid",
+            "Halloween.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Crush.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "The Dreaming Tree.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "21ad8c36-c81d-300a-91b9-a0ca9a15b6f2",
+      "releaseId": "087d2304-b7f5-446a-96af-446c594b4f85",
+      "title": "Listener Supported",
+      "date": "1999-11-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/21ad8c36-c81d-300a-91b9-a0ca9a15b6f2/front-250",
+      "songs": [
+        {
+          "number": 16,
+          "files": [
+            "#40.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

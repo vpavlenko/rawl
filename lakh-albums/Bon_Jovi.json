@@ -1,0 +1,278 @@
+{
+  "artist": "Bon Jovi",
+  "artistId": "5dcdb5eb-cb72-4e6e-9e63-b7bace604965",
+  "groups": [
+    {
+      "id": "d60113b0-ab11-3c61-b74b-160cb1ed5fc6",
+      "releaseId": "17d529ce-68b4-4b5a-8439-e45db64e39f0",
+      "title": "Bon Jovi",
+      "date": "1984-01-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d60113b0-ab11-3c61-b74b-160cb1ed5fc6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Runaway.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f07346e6-c889-33b8-83c8-ad987d7b14f6",
+      "releaseId": "2fd3d783-8397-4e86-8a3b-b358ba1a9931",
+      "title": "Slippery When Wet",
+      "date": "1986-08-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f07346e6-c889-33b8-83c8-ad987d7b14f6/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "You Give Love a Bad Name.mid",
+            "You Give Love a Bad Name.1.mid",
+            "You Give Love a Bad Name.2.mid",
+            "You Give Love a Bad Name.3.mid",
+            "You Give Love a Bad Name.4.mid",
+            "You Give Love a Bad Name.5.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Livin' On A Prayer.mid",
+            "Livin' On A Prayer.1.mid",
+            "Livin' On A Prayer.2.mid",
+            "Livin' On A Prayer.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Living on a Prayer.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Wanted Dead or Alive.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "I'd Die for You.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Never Say Goodbye.mid",
+            "Never Say Goodbye.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aa1ba758-0a80-3734-9bf8-4f554822b153",
+      "releaseId": "53f9fbf7-815e-4c0a-b2f2-7f5265d0e22f",
+      "title": "New Jersey",
+      "date": "1988-09-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/aa1ba758-0a80-3734-9bf8-4f554822b153/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Bad Medicine.mid",
+            "Bad Medicine.1.mid",
+            "Bad Medicine.2.mid",
+            "Bad Medicine.3.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "I'll Be There For You.mid",
+            "I'll Be There For You.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c455d389-9624-311b-a596-d7195f4036a7",
+      "releaseId": "b508747a-c7cc-4c8b-9142-1089d25e378e",
+      "title": "Blaze of Glory",
+      "date": "1990-08-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c455d389-9624-311b-a596-d7195f4036a7/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Blaze of Glory.mid",
+            "Blaze of Glory.1.mid",
+            "Blaze of Glory.2.mid",
+            "Blaze of Glory.3.mid",
+            "Blaze of Glory.4.mid",
+            "Blaze of Glory.5.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Santa Fe.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0e2ccac6-fd7b-3b8e-8dfe-07b56b61cb29",
+      "releaseId": "03db2d86-e78d-4d36-a616-c8f5aa8ae80f",
+      "title": "Keep the Faith",
+      "date": "1992-10-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0e2ccac6-fd7b-3b8e-8dfe-07b56b61cb29/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Keep the Faith.mid",
+            "Keep the Faith.1.mid",
+            "Keep the Faith.2.mid",
+            "Keep the Faith.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "In These Arms.mid",
+            "In These Arms.1.mid",
+            "In These Arms.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Bed of Roses.mid",
+            "Bed of Roses.1.mid",
+            "Bed of Roses.2.mid",
+            "Bed of Roses.3.mid",
+            "Bed of Roses.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "83ec3494-9cec-3f5f-b5f8-306caf7676f9",
+      "releaseId": "2a5ec015-9ae5-46d6-835a-a268bee043b0",
+      "title": "Cross Road",
+      "date": "1994-10-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/83ec3494-9cec-3f5f-b5f8-306caf7676f9/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Someday I'll Be Saturday Night.mid",
+            "Someday I'll Be Saturday Night.1.mid",
+            "Someday I'll Be Saturday Night.2.mid",
+            "Someday I'll Be Saturday Night.3.mid",
+            "Someday I'll Be Saturday Night.4.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Always.mid",
+            "Always.1.mid",
+            "Always.2.mid",
+            "Always.3.mid",
+            "Always.4.mid",
+            "Always.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0dd13464-edfd-3466-bb16-f63ca268ab37",
+      "releaseId": "27c3a9c4-1bea-49e8-bf50-97cb4dcce6cb",
+      "title": "These Days",
+      "date": "1995-06-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0dd13464-edfd-3466-bb16-f63ca268ab37/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Something for the Pain.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "This Ain't a Love Song.mid",
+            "This Ain't a Love Song.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6024045a-2d30-3ab5-8eb2-b6e5f61a78d3",
+      "releaseId": "f0873d17-a00d-474f-ba9a-4c0685ae4739",
+      "title": "Crush",
+      "date": "2000-05-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6024045a-2d30-3ab5-8eb2-b6e5f61a78d3/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "It's My Life.mid",
+            "It's My Life.1.mid",
+            "It's My Life.2.mid",
+            "It's My Life.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Thank You for Loving Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8bc4401f-67f2-4377-9817-db8249fb0163",
+      "releaseId": "b852e931-f47c-4b30-8636-b8f3634eb404",
+      "title": "One Wild Night",
+      "date": "2001-05-07",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/8bc4401f-67f2-4377-9817-db8249fb0163/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "One Wild Night (2001 version).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "df345e43-0e8b-35d4-9a67-616d3a073d24",
+      "releaseId": "3b0f0af1-f9be-4093-8ede-5522a07c8827",
+      "title": "Bounce",
+      "date": "2002-09-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/df345e43-0e8b-35d4-9a67-616d3a073d24/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Everyday.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

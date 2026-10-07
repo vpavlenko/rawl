@@ -1,0 +1,304 @@
+{
+  "artist": "Aerosmith",
+  "artistId": "3d2b98e5-556f-4451-a3ff-c50ea18d57cb",
+  "groups": [
+    {
+      "id": "8a58cc1a-be0d-3b1b-8d0d-aa8f467a59da",
+      "releaseId": "3df8bcad-e016-4786-b071-2c638fd208f4",
+      "title": "Aerosmith",
+      "date": "1973-01-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8a58cc1a-be0d-3b1b-8d0d-aa8f467a59da/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Dream On.mid",
+            "Dream On.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "29346fb6-69c8-3f12-90c3-9d6cbce18259",
+      "releaseId": "3e3e882f-387a-4da2-8f73-e76ea31bef7f",
+      "title": "Get Your Wings",
+      "date": "1974-03-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/29346fb6-69c8-3f12-90c3-9d6cbce18259/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Seasons of Wither.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d03bb6b1-d7b4-38ea-974e-847cbb31dca4",
+      "releaseId": "25a7c583-e82c-4306-a7f0-ee53cd66b837",
+      "title": "Toys in the Attic",
+      "date": "1975-04-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d03bb6b1-d7b4-38ea-974e-847cbb31dca4/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Walk This Way.mid",
+            "Walk This Way.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Sweet Emotion.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8c064b13-6668-3d6c-a508-1e5d671a207d",
+      "releaseId": "58cfaa7f-37e4-4e27-9a61-4a2cccfd1417",
+      "title": "Draw the Line",
+      "date": "1977-12-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8c064b13-6668-3d6c-a508-1e5d671a207d/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Kings and Queens.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c522e905-3986-3f09-89f3-5d8bb09cc93e",
+      "releaseId": "7c8dcb57-53c9-4510-b6f1-e219eac56951",
+      "title": "Permanent Vacation",
+      "date": "1987-03-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c522e905-3986-3f09-89f3-5d8bb09cc93e/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Dude (Looks Like A Lady).mid",
+            "Dude (Looks Like A Lady).1.mid",
+            "Dude (Looks Like A Lady).2.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Angel.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4fec98b9-3a13-3b6c-8cfe-3da1f21c3cff",
+      "releaseId": "c307675a-012e-4492-a00a-e3f79e3c1200",
+      "title": "Janie’s Got a Gun",
+      "date": "1989",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/4fec98b9-3a13-3b6c-8cfe-3da1f21c3cff/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Janie's Got a Gun.mid",
+            "Janie's Got a Gun.1.mid",
+            "Janie's Got a Gun.2.mid",
+            "Janie's Got a Gun.3.mid",
+            "Janie's Got a Gun.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a6fedae5-39e2-3008-a796-cfbd1d7da7fc",
+      "releaseId": "bd9c9a23-e546-4991-bcaf-2585aad6c7a8",
+      "title": "The Other Side",
+      "date": "1989",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/a6fedae5-39e2-3008-a796-cfbd1d7da7fc/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Other Side.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8f174877-ffc4-39b9-b247-a39fff4097a1",
+      "releaseId": "20d745cb-5334-327f-9cfe-e08e108cdba2",
+      "title": "Pump",
+      "date": "1989-09-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8f174877-ffc4-39b9-b247-a39fff4097a1/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "What It Takes.mid",
+            "What It Takes.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ddaa79f5-a0e3-3771-80a7-691c57d32946",
+      "releaseId": "33584a94-5584-4c47-bca8-95af4668215b",
+      "title": "Pandora’s Box",
+      "date": "1991-11-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ddaa79f5-a0e3-3771-80a7-691c57d32946/front-250",
+      "songs": [
+        {
+          "number": 51,
+          "files": [
+            "Helter Skelter.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "73c6a7b0-1dc2-3ddc-a720-c29505271711",
+      "releaseId": "38c4d6a6-616d-423f-894a-67b764ff7a24",
+      "title": "Get a Grip",
+      "date": "1993-04-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/73c6a7b0-1dc2-3ddc-a720-c29505271711/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Eat the Rich.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Livin' on the Edge.mid",
+            "Livin' on the Edge.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Cryin'.mid",
+            "Cryin'.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Crazy.mid",
+            "Crazy.1.mid",
+            "Crazy.2.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Amazing.mid",
+            "Amazing.1.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Boogie Man.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fa48b0dd-a94c-3189-ba48-5b04cb69e88e",
+      "releaseId": "578dc9ce-56d0-44d0-877d-48b06808d37a",
+      "title": "Blind Man",
+      "date": "1994",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/fa48b0dd-a94c-3189-ba48-5b04cb69e88e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Blind Man.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7b30dd01-ee8f-392c-862d-4598e46b83f8",
+      "releaseId": "43440811-36e3-4a12-85e1-0cfbef2c8829",
+      "title": "Nine Lives",
+      "date": "1997-03-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7b30dd01-ee8f-392c-862d-4598e46b83f8/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Falling in Love (Is Hard on the Knees).mid",
+            "Falling in Love (Is Hard on the Knees).1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Hole in My Soul.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Pink.mid",
+            "Pink.1.mid",
+            "Pink.2.mid",
+            "Pink.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "55fca8e9-74ee-352a-97a4-82fe299d3826",
+      "releaseId": "37958dba-1767-4d8a-b242-11d6a0add333",
+      "title": "I Don’t Want to Miss a Thing",
+      "date": "1998-07-29",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/55fca8e9-74ee-352a-97a4-82fe299d3826/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I Don't Want to Miss a Thing.mid",
+            "I Don't Want to Miss a Thing.1.mid",
+            "I Don't Want to Miss a Thing.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2fb275a3-1cd9-33b6-95e4-70fe3f092649",
+      "releaseId": "1c1181a5-9297-4d91-817e-f855f3db1bfd",
+      "title": "Just Push Play",
+      "date": "2001-03-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2fb275a3-1cd9-33b6-95e4-70fe3f092649/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Fly Away From Here.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

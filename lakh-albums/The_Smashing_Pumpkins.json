@@ -1,0 +1,247 @@
+{
+  "artist": "The Smashing Pumpkins",
+  "artistId": "ba0d6274-db14-4ef5-b28d-657ebde1a396",
+  "groups": [
+    {
+      "id": "9c80717d-43e0-3219-b8c8-019f5d83cf60",
+      "releaseId": "59752819-1e3f-4ff5-bad2-7b8fc92b4b18",
+      "title": "Singles: Original Motion Picture Soundtrack",
+      "date": "1992-06-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9c80717d-43e0-3219-b8c8-019f5d83cf60/front-250",
+      "songs": [
+        {
+          "number": 13,
+          "files": [
+            "Drown.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a159e102-18bb-42ca-a59e-5f96a7eff241",
+      "releaseId": "913d666d-4403-44fd-b7f7-74eba5651e49",
+      "title": "Siamese Dream",
+      "date": "1993-07-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a159e102-18bb-42ca-a59e-5f96a7eff241/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Cherub Rock.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Quiet.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Today.mid",
+            "Today.1.mid",
+            "Today.2.mid",
+            "Today.3.mid",
+            "Today.4.mid",
+            "Today.5.mid",
+            "Today.6.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Disarm.mid",
+            "Disarm.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Mayonaise.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Silverfuck.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "261a764e-3ecf-3904-b420-99c1c2944e9f",
+      "releaseId": "4a5d6753-a1c7-41fc-96d6-a39c4a0e793a",
+      "title": "Pisces Iscariot",
+      "date": "1994-10-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/261a764e-3ecf-3904-b420-99c1c2944e9f/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "Landslide.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1af599c9-0b44-3a5a-a06b-39e8db6b2b4e",
+      "releaseId": "17998116-379e-488c-b1c5-ef3b386294fa",
+      "title": "Mellon Collie and the Infinite Sadness",
+      "date": "1995-10-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1af599c9-0b44-3a5a-a06b-39e8db6b2b4e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Mellon Collie and the Infinite Sadness.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Tonight, Tonight.mid",
+            "Tonight, Tonight.1.mid",
+            "Tonight, Tonight.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Jellybelly.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Zero.mid",
+            "Zero.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Bullet With Butterfly Wings.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "To Forgive.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Love.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Cupid de Locke.mid"
+          ]
+        },
+        {
+          "number": 16,
+          "files": [
+            "Bodies.mid"
+          ]
+        },
+        {
+          "number": 17,
+          "files": [
+            "Thirty-Three.mid",
+            "Thirty-Three.1.mid"
+          ]
+        },
+        {
+          "number": 19,
+          "files": [
+            "1979.mid",
+            "1979.1.mid",
+            "1979.2.mid",
+            "1979.3.mid",
+            "1979.4.mid"
+          ]
+        },
+        {
+          "number": 21,
+          "files": [
+            "Thru the Eyes of Ruby.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "19c3f6fc-a3f9-3622-999c-e0579f00a4f6",
+      "releaseId": "96df67eb-c394-4f16-86f7-92e4477a1fc6",
+      "title": "Lost Highway",
+      "date": "1996",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/19c3f6fc-a3f9-3622-999c-e0579f00a4f6/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Eye.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "82de7b56-24c2-3dca-b3f9-ec7da9d0e3d2",
+      "releaseId": "66957a17-3c98-4776-906c-4ffac5b032ae",
+      "title": "The Aeroplane Flies High",
+      "date": "1996-11-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/82de7b56-24c2-3dca-b3f9-ec7da9d0e3d2/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Clones (We're All).mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Cherry.mid"
+          ]
+        },
+        {
+          "number": 27,
+          "files": [
+            "Tonite (reprise).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "359699b3-8118-369e-9591-c96dcd07a853",
+      "releaseId": "42cffa2b-7d68-37a5-a073-7e1d22998033",
+      "title": "Adore",
+      "date": "1998-05-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/359699b3-8118-369e-9591-c96dcd07a853/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Ava Adore.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Perfect.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

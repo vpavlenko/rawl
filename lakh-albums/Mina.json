@@ -1,0 +1,471 @@
+{
+  "artist": "Mina",
+  "artistId": "a56f5af0-3e87-4877-b68f-390f62903381",
+  "groups": [
+    {
+      "id": "ac7d0f30-c457-3c9a-906e-287197911d6f",
+      "releaseId": "e92f7fde-5be7-4e81-a3d0-40f4cbb5ec0f",
+      "title": "Tintarella di luna",
+      "date": "1960",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ac7d0f30-c457-3c9a-906e-287197911d6f/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Nessuno.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Tintarella di luna.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ac0bcc34-6fc9-37c1-9aa0-6cb434af3c3e",
+      "releaseId": "d58d1fd2-58e6-40d7-a90a-78a8899d8190",
+      "title": "Il cielo in una stanza",
+      "date": "1960-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ac0bcc34-6fc9-37c1-9aa0-6cb434af3c3e/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Una zebra a pois.mid",
+            "Una zebra a pois.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "82b54385-19da-3274-bf09-4e877f319907",
+      "releaseId": "9c633d1f-8ba5-4c60-9e4f-c7f686882ba8",
+      "title": "Due note",
+      "date": "1961-09-18",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/82b54385-19da-3274-bf09-4e877f319907/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "Prendi una matita.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "937f62f5-205d-3546-bf32-dc2bcb4e5a1e",
+      "releaseId": "2a4fd5b7-0450-47b1-a0cb-d61ee873f77d",
+      "title": "Renato",
+      "date": "1962-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/937f62f5-205d-3546-bf32-dc2bcb4e5a1e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Renato.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fc865983-7625-3d4b-a29d-25e2f1bfcc6b",
+      "releaseId": "92421b53-d2c2-462f-b8d7-32b2bca94523",
+      "title": "Mina",
+      "date": "1964-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fc865983-7625-3d4b-a29d-25e2f1bfcc6b/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "E Se Domani.mid",
+            "E Se Domani.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dc848561-a539-3b61-a6cb-47c79b9dac8a",
+      "releaseId": "a320053b-8fc0-467e-9af5-33434db20d3d",
+      "title": "Studio uno",
+      "date": "1965-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/dc848561-a539-3b61-a6cb-47c79b9dac8a/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Un anno d'amore.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "E l'uomo per me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1554ea7b-5a96-3062-884b-6bb22b2d6d3a",
+      "releaseId": "22a175c3-ba9a-4878-a657-92e7b4e47424",
+      "title": "Studio uno 66",
+      "date": "1966-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1554ea7b-5a96-3062-884b-6bb22b2d6d3a/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Se telefonando.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0a9a7f96-cd3a-4750-8d2b-503ba5ebc320",
+      "releaseId": "e64949c4-f03e-4e41-a536-1cf2d492af4d",
+      "title": "Sabato sera: Studio Uno 1967",
+      "date": "1967-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0a9a7f96-cd3a-4750-8d2b-503ba5ebc320/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Conversazione.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cae254b0-219b-3b26-b776-6de1e9753f5d",
+      "releaseId": "bd09c403-32ce-4ce6-89cb-280f03dd6e11",
+      "title": "Canzonissima '68",
+      "date": "1968-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/cae254b0-219b-3b26-b776-6de1e9753f5d/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "La voce del silenzio.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Vorrei che fosse amore.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e8f8f48f-5546-3f07-adbe-1ef388793d66",
+      "releaseId": "d7a9a35a-b02d-4fad-8ab6-6e1d9df2a3d4",
+      "title": "...bugiardo più che mai... più incosciente che mai...",
+      "date": "1969",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e8f8f48f-5546-3f07-adbe-1ef388793d66/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Bugiardo e incosciente.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Non credere.mid",
+            "Non credere.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e0281248-03b9-31c7-8c22-f62403179047",
+      "releaseId": "03e66f74-7b75-459a-8ec1-4421e01befb6",
+      "title": "...quando tu mi spiavi in cima a un batticuore...",
+      "date": "1970",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e0281248-03b9-31c7-8c22-f62403179047/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Nessuno al mondo.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Insieme.mid",
+            "Insieme.1.mid",
+            "Insieme.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "11ac9b07-2b04-4b45-885f-0f87f8e59e7f",
+      "releaseId": "d7f1df4d-e07d-451d-b385-988f9fadfe77",
+      "title": "Mina",
+      "date": "1971",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/11ac9b07-2b04-4b45-885f-0f87f8e59e7f/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Grande grande grande.mid",
+            "Grande grande grande.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Amor mio.mid",
+            "Amor mio.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b30a35a7-4768-326d-af9a-317f617c7223",
+      "releaseId": "3ac3dee6-0f08-41fa-a284-7b4e00ea0848",
+      "title": "Cinquemilaquarantatre",
+      "date": "1972-05-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b30a35a7-4768-326d-af9a-317f617c7223/front-250",
+      "songs": [
+        {
+          "number": 11,
+          "files": [
+            "Parole parole.mid",
+            "Parole parole.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b9b4f83e-65f1-37be-a7f0-3c0d400ced07",
+      "releaseId": "8149140f-f855-4bff-bcbb-e60ddf3bd7a2",
+      "title": "La Mina",
+      "date": "1975",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b9b4f83e-65f1-37be-a7f0-3c0d400ced07/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "L'importante e finire.mid",
+            "L'importante e finire.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "76fd6081-6fd8-4819-abae-19965362534f",
+      "releaseId": "9a24c267-93e1-497b-a187-1b6bac187744",
+      "title": "Catene, Vol. 2",
+      "date": "1984",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/76fd6081-6fd8-4819-abae-19965362534f/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Rose su rose.mid",
+            "Rose su rose.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3956566d-757a-40da-ad85-5ae1933e3dc4",
+      "releaseId": "546bd0cd-5b57-4331-a76c-fac8317d3430",
+      "title": "Finalmente ho conosciuto il conte Dracula...",
+      "date": "1985",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3956566d-757a-40da-ad85-5ae1933e3dc4/front-250",
+      "songs": [
+        {
+          "number": 17,
+          "files": [
+            "Questione di feeling (feat. Mina).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "33159dd3-cb2d-3a1c-92bc-cb9a70957ba2",
+      "releaseId": "bf29616e-e11a-4714-9568-ea528c816d3f",
+      "title": "Lochness",
+      "date": "1993",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/33159dd3-cb2d-3a1c-92bc-cb9a70957ba2/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Joana Francesa.mid",
+            "Joana Francesa.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a2e942a8-1572-36ff-bc27-0c0cb31e22d1",
+      "releaseId": "9f77d516-6160-43d1-96d1-fe19e2db43ab",
+      "title": "Canarino mannaro",
+      "date": "1994",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a2e942a8-1572-36ff-bc27-0c0cb31e22d1/front-250",
+      "songs": [
+        {
+          "number": 11,
+          "files": [
+            "Noi.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4ba0008e-4edd-4229-99f6-37c43b4c15d4",
+      "releaseId": "65d68554-9ed3-44a5-89f7-dd3f68cbb031",
+      "title": "Pappa di latte, Vol. 1/2",
+      "date": "1995",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4ba0008e-4edd-4229-99f6-37c43b4c15d4/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "The Captain of Her Heart - Every Breath You Take.mid",
+            "The Captain of Her Heart - Every Breath You Take.1.mid"
+          ]
+        },
+        {
+          "number": 16,
+          "files": [
+            "Chiedimi tutto.mid",
+            "Chiedimi tutto.1.mid"
+          ]
+        },
+        {
+          "number": 20,
+          "files": [
+            "Torno venerdi.mid",
+            "Torno venerdi.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fbadc494-a0c2-3b0f-b66c-6883d311fa99",
+      "releaseId": "f7c0c7a3-ab85-497b-a3a7-1a27c3b035e4",
+      "title": "Cremona",
+      "date": "1996",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fbadc494-a0c2-3b0f-b66c-6883d311fa99/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Dottore.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Volami nel cuore.mid",
+            "Volami nel cuore.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "62385243-5973-3cef-a519-3941a51824ba",
+      "releaseId": "96482319-8115-4d56-a5f1-ffdf242645be",
+      "title": "Napoli",
+      "date": "1996",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/62385243-5973-3cef-a519-3941a51824ba/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Indifferentemente.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5c9d94e7-0ce6-3b7c-adff-533a845d2bd7",
+      "releaseId": "862158b6-121a-347d-bb28-dd68459e8068",
+      "title": "Mina Celentano",
+      "date": "1998",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5c9d94e7-0ce6-3b7c-adff-533a845d2bd7/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Acqua e sale.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Brivido felino.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "39446a76-e348-3396-9035-85cb949791cc",
+      "releaseId": "277ee5f9-1768-4e42-8d09-e181798b142c",
+      "title": "Olio",
+      "date": "1999-04-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/39446a76-e348-3396-9035-85cb949791cc/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Grande amore.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Io voglio solo te.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5541df9c-8f8e-4d6b-9912-8ae19b496b99",
+      "releaseId": "bbe7ed8f-ff97-493b-b7c1-caf5bbd7550c",
+      "title": "Mi sei scoppiato dentro il cuore",
+      "date": "2014-05-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5541df9c-8f8e-4d6b-9912-8ae19b496b99/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "Sono come tu mi vuoi.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

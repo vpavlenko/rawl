@@ -1,0 +1,22 @@
+{
+  "artist": "Umberto Tozzi",
+  "artistId": "76dffaaa-57c7-4b86-8ea1-bcf351dc950c",
+  "groups": [
+    {
+      "id": "5a477c7b-7a85-304b-abf0-60fac8027d9c",
+      "releaseId": "b8cc0e73-ccce-42d3-8b51-fa96a225e805",
+      "title": "Gloria",
+      "date": "1979-01-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5a477c7b-7a85-304b-abf0-60fac8027d9c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Gloria.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "artist": "Creedence Clearwater Revival",
+  "artistId": "109958eb-a335-4c5e-907e-597ff4c6af46",
+  "groups": [
+    {
+      "id": "871da799-a7f7-39df-8332-e246584458dd",
+      "releaseId": "6da15b06-b848-487c-a74a-af8fe26f1069",
+      "title": "Creedence Clearwater Revival",
+      "date": "1968-07-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/871da799-a7f7-39df-8332-e246584458dd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I Put A Spell On You.mid",
+            "I Put A Spell On You.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Suzie Q.mid",
+            "Suzie Q.1.mid",
+            "Suzie Q.2.mid",
+            "Suzie Q.3.mid",
+            "Suzie Q.4.mid",
+            "Suzie Q.5.mid",
+            "Suzie Q.6.mid",
+            "Suzie Q.7.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ef55850c-7b38-30fc-8f8d-d10f28784094",
+      "releaseId": "dca62577-432c-422e-aabf-cc27e391cd76",
+      "title": "Bayou Country",
+      "date": "1969-01-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ef55850c-7b38-30fc-8f8d-d10f28784094/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Born On The Bayou.mid",
+            "Born On The Bayou.1.mid",
+            "Born On The Bayou.2.mid",
+            "Born On The Bayou.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Proud Mary.mid",
+            "Proud Mary.1.mid",
+            "Proud Mary.2.mid",
+            "Proud Mary.3.mid",
+            "Proud Mary.4.mid",
+            "Proud Mary.5.mid",
+            "Proud Mary.6.mid",
+            "Proud Mary.7.mid",
+            "Proud Mary.8.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6c08878c-d6a1-37b6-84c3-9566748545c1",
+      "releaseId": "d10154a4-dbee-4c55-bb1c-9afc18831ec1",
+      "title": "Green River",
+      "date": "1969-08-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6c08878c-d6a1-37b6-84c3-9566748545c1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Green River.mid",
+            "Green River.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Bad Moon Rising.mid",
+            "Bad Moon Rising.1.mid",
+            "Bad Moon Rising.2.mid",
+            "Bad Moon Rising.3.mid",
+            "Bad Moon Rising.4.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Lodi.mid",
+            "Lodi.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5fdea541-32fc-3b17-b7c4-50b40f65203d",
+      "releaseId": "8283a0d4-cdbc-4e6c-9f50-03c74235afb2",
+      "title": "Willy and the Poor Boys",
+      "date": "1969-11-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5fdea541-32fc-3b17-b7c4-50b40f65203d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Down on the Corner.mid",
+            "Down on the Corner.1.mid",
+            "Down on the Corner.2.mid",
+            "Down on the Corner.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Fortunate Son.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Midnight Special.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3a31800f-1916-3f4c-a7ae-26b783d00670",
+      "releaseId": "57b35ec9-77ed-4f5a-bad4-8f5992932563",
+      "title": "Cosmo’s Factory",
+      "date": "1970-07-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3a31800f-1916-3f4c-a7ae-26b783d00670/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Travelin' Band.mid",
+            "Travelin' Band.1.mid",
+            "Travelin' Band.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Lookin' Out My Back Door.mid",
+            "Lookin' Out My Back Door.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Up Around The Bend.mid",
+            "Up Around The Bend.1.mid",
+            "Up Around The Bend.2.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Who'll Stop the Rain.mid",
+            "Who'll Stop the Rain.1.mid",
+            "Who'll Stop the Rain.2.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "I Heard It Through The Grapevine.mid",
+            "I Heard It Through The Grapevine.1.mid",
+            "I Heard It Through The Grapevine.2.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Long As I Can See The Light.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "da556835-e464-3389-881f-362ef8f984b3",
+      "releaseId": "a2d1f8ea-0453-45dd-ad00-012de9919b98",
+      "title": "Pendulum",
+      "date": "1970-12-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/da556835-e464-3389-881f-362ef8f984b3/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Have You Ever Seen the Rain.mid",
+            "Have You Ever Seen the Rain.1.mid",
+            "Have You Ever Seen the Rain.2.mid",
+            "Have You Ever Seen the Rain.3.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Hey Tonight.mid",
+            "Hey Tonight.1.mid",
+            "Hey Tonight.2.mid",
+            "Hey Tonight.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b0732b50-1b4e-34a3-bd82-d23c8437d6ba",
+      "releaseId": "dbd597c9-d0b8-4ab2-a40e-b1e995259bbd",
+      "title": "Mardi Gras",
+      "date": "1972-04-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b0732b50-1b4e-34a3-bd82-d23c8437d6ba/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Someday Never Comes.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Sweet Hitch-Hiker.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

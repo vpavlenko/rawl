@@ -1,0 +1,421 @@
+{
+  "artist": "Daniele",
+  "artistId": "5b1633c8-cb78-4d85-a7d1-a6d145d8d472",
+  "groups": [
+    {
+      "id": "76fbfcc9-9de1-33ee-8986-7ac70ddec993",
+      "releaseId": "91c4a111-f118-4f57-a055-213aca249828",
+      "title": "Terra mia",
+      "date": "1977",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/76fbfcc9-9de1-33ee-8986-7ac70ddec993/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "'Na tazzulella 'e cafe.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Terra mia.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c3a7d267-448e-3356-8470-6fe6ca950270",
+      "releaseId": "ca35c8e8-b312-4f74-9fb7-c504cc560df1",
+      "title": "Pino Daniele",
+      "date": "1979",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c3a7d267-448e-3356-8470-6fe6ca950270/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Je sto vicino a te.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Je so' pazzo.mid",
+            "Je so' pazzo.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Putesse essere allero.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7c311aaa-5aa3-3fbd-830d-b138abbd6d2e",
+      "releaseId": "895a7938-1e65-4bd7-a05d-5b6f3145874b",
+      "title": "Nero a metà",
+      "date": "1980",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7c311aaa-5aa3-3fbd-830d-b138abbd6d2e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I say i' sto' cca.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Musica musica.mid",
+            "Musica musica.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Quanno chiove.mid",
+            "Quanno chiove.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "A me me piace 'o blues.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "E so cuntento 'e sta.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Alleria.mid",
+            "Alleria.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "A testa in giu.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2e7b4c96-ec1a-3616-ad72-c4047b6d9565",
+      "releaseId": "cfeb1e68-91b6-435a-b650-b2346f4cd01d",
+      "title": "Vai mo’",
+      "date": "1981-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2e7b4c96-ec1a-3616-ad72-c4047b6d9565/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Yes I Know My Way.mid",
+            "Yes I Know My Way.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Viento 'e terra.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c51374a7-c928-3cb4-8d6e-426b3164425f",
+      "releaseId": "18489454-b42c-4101-b66f-80e1eda06abb",
+      "title": "Bella 'mbriana",
+      "date": "1982-04-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c51374a7-c928-3cb4-8d6e-426b3164425f/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Tutta 'nata storia.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Io vivo come te.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d6bb2b7f-9a27-37ba-b87b-ef6883e3fb1a",
+      "releaseId": "ef901652-fb35-4eb9-ba57-fad7ea361190",
+      "title": "Mascalzone latino",
+      "date": "1989",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d6bb2b7f-9a27-37ba-b87b-ef6883e3fb1a/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Carte e cartuscelle.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "08669747-d5d1-3659-acfc-3612fa93a83e",
+      "releaseId": "69045199-d9e9-4dd0-9c6b-6691a1a7a399",
+      "title": "Un uomo in blues",
+      "date": "1991",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/08669747-d5d1-3659-acfc-3612fa93a83e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "'O scarrafone.mid",
+            "'O scarrafone.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Gente distratta.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b59f1f2f-7852-38a8-8a52-2905111ff770",
+      "releaseId": "aba64da6-9a2d-44fc-9127-712f9d48543c",
+      "title": "Che Dio ti benedica",
+      "date": "1993",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b59f1f2f-7852-38a8-8a52-2905111ff770/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Che Dio ti benedica.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Questa primavera.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Fatte 'na pizza.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Sicily.mid",
+            "Sicily.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Occhi blu non mi mollare.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a7d6207e-f0e7-33e4-9a64-f8abc1a2ef76",
+      "releaseId": "bfaf1501-9420-476a-800f-f55a35a18b0b",
+      "title": "Non calpestare i fiori nel deserto",
+      "date": "1995",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a7d6207e-f0e7-33e4-9a64-f8abc1a2ef76/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Io per lei.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Se mi vuoi.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Resta... resta cu' mme.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Bambina.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Notte che fai.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Anima.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f9d2a531-445e-398f-a7da-f33ba288d3d8",
+      "releaseId": "723f39e8-09e2-46df-ba19-9feaadb669e3",
+      "title": "Dimmi cosa succede sulla Terra",
+      "date": "1997",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f9d2a531-445e-398f-a7da-f33ba288d3d8/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Il pianeta delle parole.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Che male c'e.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Dubbi non ho.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Scirocco d'Africa.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Amici come prima.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Non ho paura del mostro.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Stare bene a meta.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "The Desert in My Head.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Canto do mar.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "39868448-251e-3977-903e-11e405fd1d1c",
+      "releaseId": "94fa950f-af72-4769-bd05-9bd8842e0bc9",
+      "title": "Come un gelato all'equatore",
+      "date": "1999",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/39868448-251e-3977-903e-11e405fd1d1c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Alibi perfetto.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Neve al sole.mid",
+            "Neve al sole.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Cosa penserai di me.mid",
+            "Cosa penserai di me.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Si Forever.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "370adb9e-c746-4dde-90fe-0ff8be38bba4",
+      "releaseId": "bfc2b262-0cb6-4b80-8280-fb01f0d54001",
+      "title": "Ricomincio da 30",
+      "date": "2008-05-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/370adb9e-c746-4dde-90fe-0ff8be38bba4/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Quando.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Amore senza fine.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8a85aa60-d1d2-40a9-af80-2b1af51f72b4",
+      "releaseId": "35717fa2-32da-462f-86b3-ba0cf4cd02fb",
+      "title": "Boogie Boogie Man",
+      "date": "2010-11-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8a85aa60-d1d2-40a9-af80-2b1af51f72b4/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "Nun me scuccia.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

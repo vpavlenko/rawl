@@ -1,0 +1,273 @@
+{
+  "artist": "Alabama",
+  "artistId": "7ac055fa-e357-4890-9098-010b8094a900",
+  "groups": [
+    {
+      "id": "9c8191f8-6692-44f6-9123-aff577102449",
+      "releaseId": "0bd2a792-805e-4671-a679-56b0fbcfb2ff",
+      "title": "Deuces Wild",
+      "date": "1977",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9c8191f8-6692-44f6-9123-aff577102449/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Lady Down On Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "73c73b8d-2aa8-4830-a59d-3a7a50b5f24c",
+      "releaseId": "eb306e2a-440e-41b9-b3b6-bdcb10c95d1b",
+      "title": "#3",
+      "date": "1979",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/73c73b8d-2aa8-4830-a59d-3a7a50b5f24c/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Tennessee River.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "979bb5c8-453d-45cd-a6bd-8d01adcdaf95",
+      "releaseId": "c2bb504f-df25-4f48-9790-205dede26a44",
+      "title": "Feels So Right",
+      "date": "1981-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/979bb5c8-453d-45cd-a6bd-8d01adcdaf95/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Feels So Right.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Love In The First Degree.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1dfee6e9-9fd9-3a3d-8dca-cb5a6b5285a3",
+      "releaseId": "19c058cb-63a7-487f-9377-adf9c2a2727a",
+      "title": "The Closer You Get",
+      "date": "1983",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1dfee6e9-9fd9-3a3d-8dca-cb5a6b5285a3/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Closer You Get.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Red River.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0b4a112a-a881-3d46-a618-a605641fa193",
+      "releaseId": "370a706d-e41a-48b6-a7f5-0f4135f9826a",
+      "title": "Roll On",
+      "date": "1984",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0b4a112a-a881-3d46-a618-a605641fa193/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Roll On (Eighteen Wheeler).mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "When We Make Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "15fda45b-7a1f-336c-bfd2-9e6ff5888b26",
+      "releaseId": "bec4ac9d-b1c3-461e-b8a7-1b70287f93d1",
+      "title": "Alabama Greatest Hits",
+      "date": "1986-01-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/15fda45b-7a1f-336c-bfd2-9e6ff5888b26/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "She and I.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3d69d681-0db0-3fad-a5c8-70fb184ddc19",
+      "releaseId": "b258e985-e15a-482c-b4a7-4dc0e626e1b2",
+      "title": "Just Us",
+      "date": "1987",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3d69d681-0db0-3fad-a5c8-70fb184ddc19/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "Fallin' Again.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "59286192-232b-3b5d-bcd7-5bd5845bcd2c",
+      "releaseId": "70991115-ce90-4815-9c03-ddb7ae8e3eb5",
+      "title": "Southern Star",
+      "date": "1988",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/59286192-232b-3b5d-bcd7-5bd5845bcd2c/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "High Cotton.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a01dcf0c-4211-3cf6-8daa-b118401bb380",
+      "releaseId": "c766fee4-b0e7-4688-a55f-7a04550aace0",
+      "title": "Pass It On Down",
+      "date": "1990-05-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a01dcf0c-4211-3cf6-8daa-b118401bb380/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Jukebox in My Mind.mid",
+            "Jukebox in My Mind.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0fa0e706-2515-3fb9-b235-604a7d94bfeb",
+      "releaseId": "9c4644ef-8442-415a-a760-ffaddcc01775",
+      "title": "Then Again",
+      "date": "1991",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/0fa0e706-2515-3fb9-b235-604a7d94bfeb/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Then Again.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "61b3b3d3-83da-451a-810d-f75f6d65b27e",
+      "releaseId": "4520ee63-0c4f-4fca-8723-58fa76a26529",
+      "title": "Born Country",
+      "date": "1991-12-26",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/61b3b3d3-83da-451a-810d-f75f6d65b27e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Born Country.mid",
+            "Born Country.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c275bf4a-1387-354a-8828-ab929d444173",
+      "releaseId": "e8815a28-50c3-47bb-be54-9fc97249d4a4",
+      "title": "American Pride",
+      "date": "1992-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c275bf4a-1387-354a-8828-ab929d444173/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "I'm in a Hurry.mid",
+            "I'm in a Hurry.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "034f4194-2944-3515-ba45-1d0350b63fb6",
+      "releaseId": "3cadf133-556b-43b3-aacf-3b1878700b27",
+      "title": "Cheap Seats",
+      "date": "1993-10-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/034f4194-2944-3515-ba45-1d0350b63fb6/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "T.L.C. A.S.A.P..mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Angels Among Us.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1db15b00-76b4-4f09-94c2-524ba4a19478",
+      "releaseId": "22a3b0f5-05de-45c3-9e80-cb882d70ab43",
+      "title": "Country Legends: 12 Number One Hits",
+      "date": "2004",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1db15b00-76b4-4f09-94c2-524ba4a19478/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "How Do You Fall in Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "510ad6b1-051a-3da7-961c-a237a9b04025",
+      "releaseId": "1eb48b07-021f-4da6-a0e5-a800f99f4877",
+      "title": "Songs of Inspiration",
+      "date": "2006-10-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/510ad6b1-051a-3da7-961c-a237a9b04025/front-250",
+      "songs": [
+        {
+          "number": 15,
+          "files": [
+            "Rain.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

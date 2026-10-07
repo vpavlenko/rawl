@@ -1,0 +1,677 @@
+{
+  "artist": "John Elton",
+  "artistId": "b83bc61f-8451-4a5d-8b8e-7e9ed295e822",
+  "groups": [
+    {
+      "id": "73924e33-3fe3-3dd4-94cf-b97529f6e9af",
+      "releaseId": "22f9fe0b-9455-4816-9849-d50c0b5f1b09",
+      "title": "Empty Sky",
+      "date": "1969-06-03",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/73924e33-3fe3-3dd4-94cf-b97529f6e9af/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Skyline Pigeon.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "527eeafc-adbc-3c85-a048-0711acb4a932",
+      "releaseId": "d84bf253-2b60-4f01-bf43-af905b92d6a9",
+      "title": "Elton John",
+      "date": "1970-07-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/527eeafc-adbc-3c85-a048-0711acb4a932/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Your Song.mid",
+            "Your Song.1.mid",
+            "Your Song.2.mid",
+            "Your Song.3.mid",
+            "Your Song.4.mid",
+            "Your Song.5.mid",
+            "Your Song.6.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Take Me to the Pilot.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Sixty Years On.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Border Song.mid",
+            "Border Song.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4fed2c09-60cd-36ca-9db1-c9c016bb1f0b",
+      "releaseId": "a55ba40c-0bfe-4d43-844f-d476ca546908",
+      "title": "Tumbleweed Connection",
+      "date": "1970-10-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4fed2c09-60cd-36ca-9db1-c9c016bb1f0b/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Son of Your Father.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Burn Down the Mission.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9c371adb-37de-308c-88ea-8e52248ab1a1",
+      "releaseId": "6af61fa2-870f-33bb-a17f-be65f6013597",
+      "title": "Madman Across the Water",
+      "date": "1971-11-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9c371adb-37de-308c-88ea-8e52248ab1a1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Tiny Dancer.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Madman Across the Water.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e17f2d6e-7849-37f9-a6d8-cda4d59cea28",
+      "releaseId": "14aa2655-42b1-31f7-9e82-a567fba17953",
+      "title": "Honky Château",
+      "date": "1972-05-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e17f2d6e-7849-37f9-a6d8-cda4d59cea28/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Honky Cat.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0293c693-a065-395b-b9be-06a7f69b3e57",
+      "releaseId": "aa9fa08b-3713-388e-a018-6248a628621a",
+      "title": "Don’t Shoot Me I’m Only the Piano Player",
+      "date": "1973-01-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0293c693-a065-395b-b9be-06a7f69b3e57/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Daniel.mid",
+            "Daniel.1.mid",
+            "Daniel.2.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Crocodile Rock.mid",
+            "Crocodile Rock.1.mid",
+            "Crocodile Rock.2.mid",
+            "Crocodile Rock.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "80df0f1b-4ce7-348a-aa1b-0d31ebff111a",
+      "releaseId": "9e543be3-e77c-40ca-beed-24e474145f28",
+      "title": "Goodbye Yellow Brick Road",
+      "date": "1973-10-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/80df0f1b-4ce7-348a-aa1b-0d31ebff111a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Funeral for a Friend.mid",
+            "Funeral for a Friend.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Candle in the Wind.mid",
+            "Candle in the Wind.1.mid",
+            "Candle in the Wind.2.mid",
+            "Candle in the Wind.3.mid",
+            "Candle in the Wind.4.mid",
+            "Candle in the Wind.5.mid",
+            "Candle in the Wind.6.mid",
+            "Candle in the Wind.7.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Bennie & The Jets.mid",
+            "Bennie & The Jets.1.mid",
+            "Bennie & The Jets.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Bennie and the Jets.mid",
+            "Bennie and the Jets.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Goodby Yellow Brick Road.mid",
+            "Goodby Yellow Brick Road.1.mid",
+            "Goodby Yellow Brick Road.2.mid",
+            "Goodby Yellow Brick Road.3.mid",
+            "Goodby Yellow Brick Road.4.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Saturday Night's Allright.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5a9e28b6-1a83-3581-82eb-eeedf5673b7f",
+      "releaseId": "187d967c-1aba-359e-84ea-cb2c3f4c2e71",
+      "title": "Caribou",
+      "date": "1974-06-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5a9e28b6-1a83-3581-82eb-eeedf5673b7f/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "Don't Let The Sun Go Down On Me.mid",
+            "Don't Let The Sun Go Down On Me.1.mid",
+            "Don't Let The Sun Go Down On Me.2.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Don't Let the Sun Go Down.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c4be45ee-d1aa-3d73-8229-904aa9988e79",
+      "releaseId": "1b62190f-5f44-4192-bd96-08fbc64cbd65",
+      "title": "Pinball Wizard",
+      "date": "1975",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/c4be45ee-d1aa-3d73-8229-904aa9988e79/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Pinball Wizard.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "31edc094-37e7-3b02-b79b-f8442cc3fbdb",
+      "releaseId": "07b957ae-8124-3936-acdf-46fea338366d",
+      "title": "Captain Fantastic and the Brown Dirt Cowboy",
+      "date": "1975-05-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/31edc094-37e7-3b02-b79b-f8442cc3fbdb/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Someone Saved My Life Tonight.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "We All Fall in Love Sometimes.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "375ad2c5-4fe6-3ede-a899-b7c4d259eea1",
+      "releaseId": "18ae7a3b-b47f-30a0-b37a-8aa0240c1a91",
+      "title": "Rock of the Westies",
+      "date": "1975-10-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/375ad2c5-4fe6-3ede-a899-b7c4d259eea1/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Island Girl.mid",
+            "Island Girl.1.mid",
+            "Island Girl.2.mid",
+            "Island Girl.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2071430f-44d2-3ed2-a172-dd38d590ccc4",
+      "releaseId": "01d6261f-397c-3e6a-896a-7571a28e424f",
+      "title": "Blue Moves",
+      "date": "1976-10-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2071430f-44d2-3ed2-a172-dd38d590ccc4/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "Sorry Seems To Be The Hardest Word.mid",
+            "Sorry Seems To Be The Hardest Word.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "09064761-d34e-335b-a3da-eb4063042dc6",
+      "releaseId": "a3712f66-c366-43cf-9e83-5418a82eae80",
+      "title": "A Single Man",
+      "date": "1978-10-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/09064761-d34e-335b-a3da-eb4063042dc6/front-250",
+      "songs": [
+        {
+          "number": 11,
+          "files": [
+            "Song for Guy.mid",
+            "Song for Guy.1.mid",
+            "Song for Guy.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "86da5ad9-4742-35f1-a28e-7fd67b58ef5b",
+      "releaseId": "6f825516-5bc1-469e-8123-6333a7e7c17e",
+      "title": "21 at 33",
+      "date": "1980-05-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/86da5ad9-4742-35f1-a28e-7fd67b58ef5b/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Little Jeanie.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c88240dd-cbcc-4309-8121-bf70fbf5e634",
+      "releaseId": "f19bf7bc-989a-4cec-b7eb-c6511764de2b",
+      "title": "Empty Garden (Hey Hey Johnny)",
+      "date": "1982-03",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/c88240dd-cbcc-4309-8121-bf70fbf5e634/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Empty Garden.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a4ffedd3-0c03-3477-8fbf-6ffc352721b6",
+      "releaseId": "7bfe0a85-998a-3d74-852b-19cf5da8ee68",
+      "title": "Jump Up!",
+      "date": "1982-04-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a4ffedd3-0c03-3477-8fbf-6ffc352721b6/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Blue Eyes.mid",
+            "Blue Eyes.1.mid",
+            "Blue Eyes.2.mid",
+            "Blue Eyes.3.mid",
+            "Blue Eyes.4.mid",
+            "Blue Eyes.5.mid",
+            "Blue Eyes.6.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Empty Garden (Hey Hey Johnny).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "06e023f6-8b88-3554-9ce6-e2b8f1e69925",
+      "releaseId": "9a3011ca-ebe3-41c2-a5e4-432ff9379adb",
+      "title": "Too Low for Zero",
+      "date": "1983-05-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/06e023f6-8b88-3554-9ce6-e2b8f1e69925/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "I'm Still Standing.mid",
+            "I'm Still Standing.1.mid",
+            "I'm Still Standing.2.mid",
+            "I'm Still Standing.3.mid",
+            "I'm Still Standing.4.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "I Guess That's Why They Call It the Blues.mid",
+            "I Guess That's Why They Call It the Blues.1.mid",
+            "I Guess That's Why They Call It the Blues.2.mid",
+            "I Guess That's Why They Call It the Blues.3.mid",
+            "I Guess That's Why They Call It the Blues.4.mid",
+            "I Guess That's Why They Call It the Blues.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5276a1aa-cd46-3bc2-bcf7-4f1f8a21b771",
+      "releaseId": "2e7be515-4041-425d-80fe-6dbc6b10bfbc",
+      "title": "Breaking Hearts",
+      "date": "1984-07-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5276a1aa-cd46-3bc2-bcf7-4f1f8a21b771/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Sad Songs (Say So Much).mid",
+            "Sad Songs (Say So Much).1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c3faec37-3bc7-3bba-9e1f-143728881d3d",
+      "releaseId": "3e19a16d-7f4e-4edf-b884-bdabd45e4f99",
+      "title": "Ice on Fire",
+      "date": "1985-11-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c3faec37-3bc7-3bba-9e1f-143728881d3d/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Nikita.mid",
+            "Nikita.1.mid",
+            "Nikita.2.mid",
+            "Nikita.3.mid",
+            "Nikita.4.mid",
+            "Nikita.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "20df37ba-ed63-3fd2-aea9-4a5c67f44d88",
+      "releaseId": "00f7f968-69c2-412c-a3e6-659652d3b68a",
+      "title": "Reg Strikes Back",
+      "date": "1988-06-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/20df37ba-ed63-3fd2-aea9-4a5c67f44d88/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "A Word in Spanish.mid",
+            "A Word in Spanish.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "I Don't Wanna Go On With You Like That.mid",
+            "I Don't Wanna Go On With You Like That.1.mid",
+            "I Don't Wanna Go On With You Like That.2.mid",
+            "I Don't Wanna Go On With You Like That.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "67be09d7-0701-34fc-812e-ef6c93864285",
+      "releaseId": "0478ab1e-f402-3f20-96af-0621d1d12820",
+      "title": "Sleeping With the Past",
+      "date": "1989-08-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/67be09d7-0701-34fc-812e-ef6c93864285/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Club at the End of the Street.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Sacrifice.mid",
+            "Sacrifice.1.mid",
+            "Sacrifice.2.mid",
+            "Sacrifice.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ec5202f8-eabf-3b6f-908b-23eacfed5067",
+      "releaseId": "1a29a4a8-c129-4860-bc6e-bbacc2113731",
+      "title": "You Gotta Love Someone",
+      "date": "1990-08-08",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/ec5202f8-eabf-3b6f-908b-23eacfed5067/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "You Gotta Love Someone.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "364607c7-ae6f-3ec8-bb1a-fcee332497a7",
+      "releaseId": "9a269910-b164-41e4-a08c-976925d69800",
+      "title": "The One",
+      "date": "1992-02-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/364607c7-ae6f-3ec8-bb1a-fcee332497a7/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "The One.mid",
+            "The One.1.mid",
+            "The One.2.mid",
+            "The One.3.mid",
+            "The One.4.mid",
+            "The One.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "778c3991-2237-32a6-b8de-62f6562c64bb",
+      "releaseId": "4c610c45-1bb1-4069-a92c-e1bd893061c5",
+      "title": "Duets",
+      "date": "1993-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/778c3991-2237-32a6-b8de-62f6562c64bb/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Don't Go Breaking My Heart.mid",
+            "Don't Go Breaking My Heart.1.mid",
+            "Don't Go Breaking My Heart.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c46f7518-15bf-3f24-8d8a-2fa5fbfb4b72",
+      "releaseId": "21384114-9bae-4ded-9be7-49c1023f1461",
+      "title": "Can You Feel the Love Tonight",
+      "date": "1994-06-24",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/c46f7518-15bf-3f24-8d8a-2fa5fbfb4b72/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Can You Feel the Love Tonight.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ebd01e91-117b-30af-b4a5-df18880d125a",
+      "releaseId": "75bfeab1-2964-4e4b-ab7f-52a499418284",
+      "title": "Made in England",
+      "date": "1995-03-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ebd01e91-117b-30af-b4a5-df18880d125a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Believe.mid",
+            "Believe.1.mid",
+            "Believe.2.mid",
+            "Believe.3.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Made in England.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Blessed.mid",
+            "Blessed.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c6cb2ba4-bcaf-39de-b945-3594f5a9ee82",
+      "releaseId": "bf50ebf2-e078-461f-81ec-26478ff6f861",
+      "title": "The Big Picture",
+      "date": "1997-09-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c6cb2ba4-bcaf-39de-b945-3594f5a9ee82/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Something About the Way You Look Tonight.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e5fa9446-4c0e-3eef-afb5-c2c1f67bb0d1",
+      "releaseId": "6f35fee6-f6fe-4034-9ca4-50ef30fb6db1",
+      "title": "Songs From the West Coast",
+      "date": "2001-10-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e5fa9446-4c0e-3eef-afb5-c2c1f67bb0d1/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "I Want Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8de350f3-021e-4f11-bf1b-d37bf205a795",
+      "releaseId": "528c0080-5a80-41c8-b40b-23181a2622f6",
+      "title": "The Diving Board",
+      "date": "2013-09-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8de350f3-021e-4f11-bf1b-d37bf205a795/front-250",
+      "songs": [
+        {
+          "number": 24,
+          "files": [
+            "Philadelphia Freedom.mid",
+            "Philadelphia Freedom.1.mid"
+          ]
+        },
+        {
+          "number": 27,
+          "files": [
+            "Rocket Man.mid",
+            "Rocket Man.1.mid",
+            "Rocket Man.2.mid",
+            "Rocket Man.3.mid",
+            "Rocket Man.4.mid",
+            "Rocket Man.5.mid",
+            "Rocket Man.6.mid"
+          ]
+        },
+        {
+          "number": 35,
+          "files": [
+            "Circle of Life.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

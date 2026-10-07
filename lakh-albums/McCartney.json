@@ -1,0 +1,467 @@
+{
+  "artist": "McCartney",
+  "artistId": "ba550d0e-adac-4864-b88b-407cab5e76af",
+  "groups": [
+    {
+      "id": "d6a52dc7-f4fa-4d10-89d9-5a99d178dae9",
+      "releaseId": "c9715e00-4f1e-45f4-bb1e-3dad3ca7ba61",
+      "title": "McCartney",
+      "date": "1970-04-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d6a52dc7-f4fa-4d10-89d9-5a99d178dae9/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Every Night.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a9b6cb37-3168-3f58-91e9-52de3fb5476f",
+      "releaseId": "1cf21e95-62db-4148-a176-6f3569f65350",
+      "title": "Another Day / Oh Woman, Oh Why",
+      "date": "1971-02-19",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/a9b6cb37-3168-3f58-91e9-52de3fb5476f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Another Day.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "434d4068-8404-359a-9585-3376d3d1680d",
+      "releaseId": "6d4b86e6-de64-49db-a396-b27643415184",
+      "title": "RAM",
+      "date": "1971-05-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/434d4068-8404-359a-9585-3376d3d1680d/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Uncle Albert   Admiral Halsey.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Heart of the Country.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Monkberry Moon Delight.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ddf9c700-2c00-3ea3-bb1f-7bf314ed88fa",
+      "releaseId": "c908e99f-aec1-35aa-bf94-6609cdcc34ef",
+      "title": "Wild Life",
+      "date": "1971-12-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ddf9c700-2c00-3ea3-bb1f-7bf314ed88fa/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Bip Bop.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Wild Life.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4841359f-a3f4-3d1b-89cf-cab57bb793dd",
+      "releaseId": "57f8d5ca-63ba-466a-9c08-40a4b8a440db",
+      "title": "Hi, Hi, Hi / C Moon",
+      "date": "1972-12-01",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/4841359f-a3f4-3d1b-89cf-cab57bb793dd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Hi Hi Hi.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "C Moon.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e8bd188c-deb4-398b-bde8-3a58f7f5c4b4",
+      "releaseId": "7d2f1676-88c0-48fd-8cb3-b0df188a95e3",
+      "title": "Red Rose Speedway",
+      "date": "1973-05-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e8bd188c-deb4-398b-bde8-3a58f7f5c4b4/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "My Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2b678170-1c4e-3e61-b18c-f889fc1537b3",
+      "releaseId": "498a6e7a-da0f-4739-94a2-11e5873956d3",
+      "title": "Band on the Run",
+      "date": "1973-11-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2b678170-1c4e-3e61-b18c-f889fc1537b3/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Band On The Run.mid",
+            "Band On The Run.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Let Me Roll It.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Picasso's Last Words (Drink to Me).mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Nineteen Hundred and Eighty Five.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b826154b-2fe5-309e-859a-4b7286c287d2",
+      "releaseId": "2157b1b8-658e-4b8f-afe0-1e6e38350ab4",
+      "title": "Junior’s Farm / Sally G",
+      "date": "1974-10-25",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/b826154b-2fe5-309e-859a-4b7286c287d2/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Junior's Farm.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0dd4d0ee-1a30-3d65-b11d-bb9d4e305ffa",
+      "releaseId": "25f6fcf7-e025-491b-8ada-8b3a72865f08",
+      "title": "Venus and Mars",
+      "date": "1975-05-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0dd4d0ee-1a30-3d65-b11d-bb9d4e305ffa/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Venus and Mars.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Rock Show.mid",
+            "Rock Show.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Magneto and Titanium Man.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Letting Go.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Listen to What the Man Said.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0b2cbdd8-440a-3503-947e-4643fae1aa2d",
+      "releaseId": "051c802c-3513-4538-97ae-142b526cff94",
+      "title": "Wings at the Speed of Sound",
+      "date": "1976-03-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0b2cbdd8-440a-3503-947e-4643fae1aa2d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Let 'em In.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Silly Love Songs.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "83946933-8806-39e8-ba01-b868abc3f0bc",
+      "releaseId": "d65c5384-91a2-4b53-8d88-8e333f658d12",
+      "title": "London Town",
+      "date": "1978-03-31",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/83946933-8806-39e8-ba01-b868abc3f0bc/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "With a Little Luck.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "127274d7-9fae-44b0-9366-5c0eb7b28f06",
+      "releaseId": "5ccfe9bc-7295-4a2c-a2e1-899c03f69570",
+      "title": "Goodnight Tonight",
+      "date": "1979-03-26",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/127274d7-9fae-44b0-9366-5c0eb7b28f06/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Goodnight Tonight.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8882d1e4-2a6e-334f-abf7-ffa2e8b83aa7",
+      "releaseId": "e3ffef99-09e3-4f34-9b8d-1e57333b651d",
+      "title": "McCartney II",
+      "date": "1980-05-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8882d1e4-2a6e-334f-abf7-ffa2e8b83aa7/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Coming Up.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Temporary Secretary.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e7620374-defe-3656-a65d-ef062ba9df11",
+      "releaseId": "c23f4c08-a8f2-40ce-abcb-2ecb59e7101d",
+      "title": "Tug of War",
+      "date": "1982-04-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e7620374-defe-3656-a65d-ef062ba9df11/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Tug of War.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Take It Away.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Ballroom Dancing.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Wanderlust.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Ebony and Ivory.mid",
+            "Ebony and Ivory.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "caae8ac4-3c11-307a-b111-1efe880ef1b1",
+      "releaseId": "a9420c59-8d6f-48e8-9db4-1c3f26d17a0a",
+      "title": "Pipes of Peace",
+      "date": "1983-10-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/caae8ac4-3c11-307a-b111-1efe880ef1b1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Pipes of Peace.mid",
+            "Pipes of Peace.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Say Say Say.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "31b56849-19b8-3454-af3f-b72891f34ae4",
+      "releaseId": "4a30f811-73b0-4b75-ac28-341284aa5340",
+      "title": "Give My Regards to Broad Street",
+      "date": "1984-10-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/31b56849-19b8-3454-af3f-b72891f34ae4/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "No More Lonely Nights (Ballad reprise).mid",
+            "No More Lonely Nights (Ballad reprise).1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "069723af-5af7-350f-a5fa-bfc13c901649",
+      "releaseId": "e324e98a-b214-44df-a629-8f0cfbcd6041",
+      "title": "Flowers in the Dirt",
+      "date": "1989-06-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/069723af-5af7-350f-a5fa-bfc13c901649/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "My Brave Face.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "We Got Married.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Put It There.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Figure of Eight.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "That Day Is Done.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "How Many People.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "23edafe6-b651-38f3-99a7-7fca03a7fe0f",
+      "releaseId": "496d099e-5fe7-43f3-becc-f1bcbc973fc1",
+      "title": "Off the Ground",
+      "date": "1993-02-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/23edafe6-b651-38f3-99a7-7fca03a7fe0f/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Hope of Deliverance.mid",
+            "Hope of Deliverance.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Biker Like an Icon.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "C'Mon People.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aa5c18f9-2174-4af9-91ac-549b081e5a40",
+      "releaseId": "48134d52-ce84-4dbb-a3a0-52c008412f27",
+      "title": "Man on the Run: Music From the Motion Picture Soundtrack",
+      "date": "2026-02-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/aa5c18f9-2174-4af9-91ac-549b081e5a40/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Mull of Kintyre.mid",
+            "Mull of Kintyre.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

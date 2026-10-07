@@ -1,0 +1,242 @@
+{
+  "artist": "Backstreet Boys",
+  "artistId": "2f569e60-0a1b-4fb9-95a4-3dc1525d1aad",
+  "groups": [
+    {
+      "id": "93eb3d8d-12f5-353e-adc8-51a30234231c",
+      "releaseId": "399ebe04-e178-38cc-be31-98e08ec50725",
+      "title": "Backstreet Boys",
+      "date": "1996-05-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/93eb3d8d-12f5-353e-adc8-51a30234231c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "We've Got It Goin' On.mid",
+            "We've Got It Goin' On.1.mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "We've Got It Going On.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Anywhere for You.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Get Down.mid",
+            "Get Down.1.mid",
+            "Get Down.2.mid",
+            "Get Down.3.mid",
+            "Get Down.4.mid",
+            "Get Down.5.mid",
+            "Get Down.6.mid",
+            "Get Down.7.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "I'll Never Break Your Heart.mid",
+            "I'll Never Break Your Heart.1.mid",
+            "I'll Never Break Your Heart.2.mid",
+            "I'll Never Break Your Heart.3.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Quit Playin' Games.mid",
+            "Quit Playin' Games.1.mid",
+            "Quit Playin' Games.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "92ca640f-9098-3d39-a348-9f1f307c4043",
+      "releaseId": "408c516b-91da-4867-a53f-57ce7440fac5",
+      "title": "Backstreet’s Back",
+      "date": "1997-08-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/92ca640f-9098-3d39-a348-9f1f307c4043/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Everybody (Backstreet's Back).mid",
+            "Everybody (Backstreet's Back).1.mid",
+            "Everybody (Backstreet's Back).2.mid",
+            "Everybody (Backstreet's Back).3.mid",
+            "Everybody (Backstreet's Back).4.mid",
+            "Everybody (Backstreet's Back).5.mid",
+            "Everybody (Backstreet's Back).6.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "As Long as You Love Me.mid",
+            "As Long as You Love Me.1.mid",
+            "As Long as You Love Me.2.mid",
+            "As Long as You Love Me.3.mid",
+            "As Long as You Love Me.4.mid",
+            "As Long as You Love Me.5.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "All I Have to Give.mid",
+            "All I Have to Give.1.mid",
+            "All I Have to Give.2.mid",
+            "All I Have to Give.3.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "10,000 Promises.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Like a Child.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a8fb6ac6-a659-320f-8736-87b52ad65e3a",
+      "releaseId": "36864e35-a029-4874-ba92-93c53673117c",
+      "title": "Millennium",
+      "date": "1999-04-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a8fb6ac6-a659-320f-8736-87b52ad65e3a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Larger Than Life.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "I Want It That Way.mid",
+            "I Want It That Way.1.mid",
+            "I Want It That Way.2.mid",
+            "I Want It That Way.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Show Me The Meaning of Being Lonely.mid",
+            "Show Me The Meaning of Being Lonely.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "It's Gotta Be You.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "I Need You Tonight.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "The One.mid",
+            "The One.1.mid",
+            "The One.2.mid",
+            "The One.3.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Back to Your Heart.mid",
+            "Back to Your Heart.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Spanish Eyes.mid",
+            "Spanish Eyes.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "No One Else Comes Close.mid",
+            "No One Else Comes Close.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4c137629-3890-3e9a-a533-72c237036c37",
+      "releaseId": "624636f9-9516-453b-891c-9975bab3d3ac",
+      "title": "Black & Blue",
+      "date": "2000-11-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4c137629-3890-3e9a-a533-72c237036c37/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Call.mid",
+            "The Call.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Shape of My Heart.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "More Than That.mid",
+            "More Than That.1.mid",
+            "More Than That.2.mid",
+            "More Than That.3.mid",
+            "More Than That.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3b86fb9d-5fc4-3f4c-959a-632cd15bd850",
+      "releaseId": "c6619d4a-7f78-4f87-ba50-7b2b2799e682",
+      "title": "Drowning",
+      "date": "2001-10-22",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/3b86fb9d-5fc4-3f4c-959a-632cd15bd850/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Drowning.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

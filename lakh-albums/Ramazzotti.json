@@ -1,0 +1,315 @@
+{
+  "artist": "Ramazzotti",
+  "artistId": "3ab7295a-54ac-40e8-b1b2-3d110a143550",
+  "groups": [
+    {
+      "id": "92fb8244-28f5-3f12-9ae9-99add69e484d",
+      "releaseId": "302104f8-44a6-4b02-9638-7c947cc3a2e4",
+      "title": "Cuori agitati",
+      "date": "1985",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/92fb8244-28f5-3f12-9ae9-99add69e484d/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Una storia importante.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Terra promessa.mid",
+            "Terra promessa.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "efd3953c-1817-3c0e-822e-422e35d65227",
+      "releaseId": "18792bec-3068-49d8-9cd9-9005f1e008de",
+      "title": "Nuovi eroi",
+      "date": "1986",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/efd3953c-1817-3c0e-822e-422e35d65227/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Adesso tu.mid",
+            "Adesso tu.1.mid",
+            "Adesso tu.2.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Nuovi eroi.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4eed37d7-afcc-3da1-b53d-422583310648",
+      "releaseId": "0bc8a4c0-2c12-4e23-988f-aecd7bb04c69",
+      "title": "In certi momenti",
+      "date": "1987-10-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4eed37d7-afcc-3da1-b53d-422583310648/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "La luce buona delle stelle.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Occhi di speranza.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a23f43c2-7455-36c6-9463-62fd39e72400",
+      "releaseId": "459077bf-2384-4d2a-abde-dd7e46e1423c",
+      "title": "Musica è",
+      "date": "1988-12-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a23f43c2-7455-36c6-9463-62fd39e72400/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Musica e.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Ti sposero perche.mid",
+            "Ti sposero perche.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "30b0e4cc-055b-3328-a026-2f9bdcc423e5",
+      "releaseId": "ba403acc-43e2-459a-9bb9-0eec4206bf3a",
+      "title": "In ogni senso",
+      "date": "1990",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/30b0e4cc-055b-3328-a026-2f9bdcc423e5/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Se Bastasse Una Canzone.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "C'e una strada in cielo.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Dolce Barbara.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Amarti e l'immenso per me.mid",
+            "Amarti e l'immenso per me.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Andare... in ogni senso (feat. Piero Cassano).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "44130482-59d9-30e7-a583-a4b689266302",
+      "releaseId": "8c032ef8-0925-4fa5-ae95-9368f4d50f98",
+      "title": "Tutte storie",
+      "date": "1993-04-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/44130482-59d9-30e7-a583-a4b689266302/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Un'altra te.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Memorie.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Favola.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f85e09fd-1bcc-3917-b8c7-60bb7dffc57b",
+      "releaseId": "410c0e3f-aa59-45ae-bc5e-780a3e343aa9",
+      "title": "Dove c’è musica",
+      "date": "1996-05-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f85e09fd-1bcc-3917-b8c7-60bb7dffc57b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Dove c'e musica.mid",
+            "Dove c'e musica.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Stella gemella.mid",
+            "Stella gemella.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Piu bella cosa.mid",
+            "Piu bella cosa.1.mid",
+            "Piu bella cosa.2.mid",
+            "Piu bella cosa.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "L'Aurora.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Quasi amore.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Lei pero.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Buona vita.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a347bfed-c18a-4f3b-8761-c12e8efb6ed6",
+      "releaseId": "23918bc6-b31d-4893-b1ef-006ead180039",
+      "title": "Cose della vita (Can’t Stop Thinking of You)",
+      "date": "1997",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/a347bfed-c18a-4f3b-8761-c12e8efb6ed6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Cose della vita (Can't Stop Thinking of You).mid",
+            "Cose della vita (Can't Stop Thinking of You).1.mid",
+            "Cose della vita (Can't Stop Thinking of You).2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aa525b6e-6010-356a-9021-c34abbe77bdc",
+      "releaseId": "f23cac48-18da-4760-9db5-44f91af6f6a9",
+      "title": "Eros",
+      "date": "1997-10-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/aa525b6e-6010-356a-9021-c34abbe77bdc/front-250",
+      "songs": [
+        {
+          "number": 11,
+          "files": [
+            "Ancora un minuto di sole.mid",
+            "Ancora un minuto di sole.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "81332f18-c280-3538-89ba-d68dba264202",
+      "releaseId": "ee97d207-c484-4d17-97b8-a90ef8aba7b9",
+      "title": "Stilelibero",
+      "date": "2000",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/81332f18-c280-3538-89ba-d68dba264202/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Fuoco nel fuoco.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Lo spirito degli alberi.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Il mio amore per te.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "E ancor mi chiedo.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Amica donna mia.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2352591a-8452-4fd1-89fb-8dc7791cd7ee",
+      "releaseId": "2c1e561f-c7cc-4fed-bd4b-26d69c769110",
+      "title": "Una storia importante",
+      "date": "2025-11-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2352591a-8452-4fd1-89fb-8dc7791cd7ee/front-250",
+      "songs": [
+        {
+          "number": 11,
+          "files": [
+            "Quanto amore sei.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

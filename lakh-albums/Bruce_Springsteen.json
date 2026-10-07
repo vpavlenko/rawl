@@ -1,0 +1,238 @@
+{
+  "artist": "Bruce Springsteen",
+  "artistId": "70248960-cb53-4ea4-943a-edb18f7d336f",
+  "groups": [
+    {
+      "id": "39b22944-7503-3937-8bba-09b17281cc6a",
+      "releaseId": "e323e33b-9729-406a-bf3d-b3b60319ce7d",
+      "title": "Born to Run",
+      "date": "1975-08-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/39b22944-7503-3937-8bba-09b17281cc6a/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Tenth Avenue Freeze-Out.mid",
+            "Tenth Avenue Freeze-Out.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Born to Run.mid",
+            "Born to Run.1.mid",
+            "Born to Run.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Jungleland.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b613123b-a234-3f48-9c45-e05bf4e6b9e7",
+      "releaseId": "a5e4c6ac-dc5a-45fa-9335-132988405f15",
+      "title": "Darkness on the Edge of Town",
+      "date": "1978-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b613123b-a234-3f48-9c45-e05bf4e6b9e7/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Badlands.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Darkness on the Edge of Town.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8a6f6ede-b60a-3cad-b3b9-cfb57e9e1dbd",
+      "releaseId": "134cada0-0512-414a-a6a0-68a774cc9050",
+      "title": "The River",
+      "date": "1980-10-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8a6f6ede-b60a-3cad-b3b9-cfb57e9e1dbd/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "2 Hearts.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Hungry Heart.mid",
+            "Hungry Heart.1.mid",
+            "Hungry Heart.2.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "The River.mid",
+            "The River.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3c39a076-8e52-38f2-8076-260d0672fb23",
+      "releaseId": "f43b54f5-7c6a-4d6c-abe7-b125a211c1dd",
+      "title": "Born in the U.S.A.",
+      "date": "1984-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3c39a076-8e52-38f2-8076-260d0672fb23/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Born in the U.S.A..mid",
+            "Born in the U.S.A..1.mid",
+            "Born in the U.S.A..2.mid",
+            "Born in the U.S.A..3.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Cover Me.mid",
+            "Cover Me.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Darlington County.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "I'm On Fire.mid",
+            "I'm On Fire.1.mid",
+            "I'm On Fire.2.mid",
+            "I'm On Fire.3.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Glory Days.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Dancing in the Dark.mid",
+            "Dancing in the Dark.1.mid",
+            "Dancing in the Dark.2.mid",
+            "Dancing in the Dark.3.mid",
+            "Dancing in the Dark.4.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "My Hometown.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0c97cd77-f9c9-3efd-9471-a64b9de50070",
+      "releaseId": "ca298c6e-834d-4334-972f-92996d46a9c3",
+      "title": "Dancing in the Dark",
+      "date": "1984-05-09",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/0c97cd77-f9c9-3efd-9471-a64b9de50070/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Pink Cadillac.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b3559cb2-d7ad-32eb-a17e-54a873ce4122",
+      "releaseId": "14812ffb-f25a-4234-9340-a4a974d89ac4",
+      "title": "Tunnel of Love",
+      "date": "1987-09-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b3559cb2-d7ad-32eb-a17e-54a873ce4122/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "Brilliant Disguise.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "220de9c6-fa5f-39e3-ae89-1faf8a8bbc67",
+      "releaseId": "1619e083-d06f-4459-8e25-e4447ef05680",
+      "title": "Human Touch",
+      "date": "1992-03-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/220de9c6-fa5f-39e3-ae89-1faf8a8bbc67/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Human Touch.mid",
+            "Human Touch.1.mid",
+            "Human Touch.2.mid",
+            "Human Touch.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4307c90a-1aa7-3057-afe3-1914389ce257",
+      "releaseId": "d75fb4a2-c6be-45d9-9523-55abb5fbf9b9",
+      "title": "Streets of Philadelphia",
+      "date": "1993",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/4307c90a-1aa7-3057-afe3-1914389ce257/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Streets of Philadelphia.mid",
+            "Streets of Philadelphia.1.mid",
+            "Streets of Philadelphia.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d19453c0-cd72-3468-b110-0f898c111e5e",
+      "releaseId": "12dbad6c-42d4-4a39-87f3-94266ebea7bc",
+      "title": "The Rising",
+      "date": "2002-07-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d19453c0-cd72-3468-b110-0f898c111e5e/front-250",
+      "songs": [
+        {
+          "number": 13,
+          "files": [
+            "The Rising.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

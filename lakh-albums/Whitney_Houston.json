@@ -1,0 +1,336 @@
+{
+  "artist": "Whitney Houston",
+  "artistId": "0307edfc-437c-4b48-8700-80680e66a228",
+  "groups": [
+    {
+      "id": "0f7984c3-2c20-4bfc-b2f9-16cd03776b56",
+      "releaseId": "41a8fc39-7bc6-4e07-bdc0-065f86b3a46c",
+      "title": "Someone For Me",
+      "date": "1985",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/0f7984c3-2c20-4bfc-b2f9-16cd03776b56/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "The Greatest Love of All.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "131d12c0-e720-31df-a2f9-d9abd868ceaf",
+      "releaseId": "5772ca9f-7596-4545-a7cc-c445de8ae6d4",
+      "title": "Whitney Houston",
+      "date": "1985-02-14",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/131d12c0-e720-31df-a2f9-d9abd868ceaf/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "You Give Good Love.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Thinking About You.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Someone for Me.mid",
+            "Someone for Me.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Saving All My Love For You.mid",
+            "Saving All My Love For You.1.mid",
+            "Saving All My Love For You.2.mid",
+            "Saving All My Love For You.3.mid",
+            "Saving All My Love For You.4.mid",
+            "Saving All My Love For You.5.mid",
+            "Saving All My Love For You.6.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Nobody Loves Me Like You Do.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "How Will I Know.mid",
+            "How Will I Know.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "All at Once.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Take Good Care of My Heart.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Greatest Love of All.mid",
+            "Greatest Love of All.1.mid",
+            "Greatest Love of All.2.mid",
+            "Greatest Love of All.3.mid",
+            "Greatest Love of All.4.mid",
+            "Greatest Love of All.5.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Hold Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4f5bfc50-7a41-385e-9961-3db0feaec430",
+      "releaseId": "0171a325-aa29-4674-8987-398d43799d3c",
+      "title": "Whitney",
+      "date": "1987-06-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4f5bfc50-7a41-385e-9961-3db0feaec430/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I Wanna Dance With Somebody (Who Loves Me).mid",
+            "I Wanna Dance With Somebody (Who Loves Me).1.mid",
+            "I Wanna Dance With Somebody (Who Loves Me).2.mid",
+            "I Wanna Dance With Somebody (Who Loves Me).3.mid",
+            "I Wanna Dance With Somebody (Who Loves Me).4.mid",
+            "I Wanna Dance With Somebody (Who Loves Me).5.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Just the Lonely Talking Again.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Love Will Save The Day.mid",
+            "Love Will Save The Day.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Didn't We Almost Have It All.mid",
+            "Didn't We Almost Have It All.1.mid",
+            "Didn't We Almost Have It All.2.mid",
+            "Didn't We Almost Have It All.3.mid",
+            "Didn't We Almost Have It All.4.mid",
+            "Didn't We Almost Have It All.5.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "So Emotional.mid",
+            "So Emotional.1.mid",
+            "So Emotional.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "You're Still My Man.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Where Do Broken Hearts Go.mid",
+            "Where Do Broken Hearts Go.1.mid",
+            "Where Do Broken Hearts Go.2.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "I Know Him So Well.mid",
+            "I Know Him So Well.1.mid",
+            "I Know Him So Well.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "68929b44-1eec-4956-b16d-e1b97ef49dec",
+      "releaseId": "2d4a6dd2-2c02-4d96-8f0f-d497e8eaeb03",
+      "title": "One Moment in Time",
+      "date": "1988-08-27",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/68929b44-1eec-4956-b16d-e1b97ef49dec/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "1 Moment in Time.mid",
+            "1 Moment in Time.1.mid",
+            "1 Moment in Time.2.mid",
+            "1 Moment in Time.3.mid",
+            "1 Moment in Time.4.mid",
+            "1 Moment in Time.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2dc208b0-cd05-3002-bc4b-c6926b0259ea",
+      "releaseId": "93eae346-6c5c-3e23-a540-b211308291a2",
+      "title": "I’m Your Baby Tonight",
+      "date": "1990-10-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2dc208b0-cd05-3002-bc4b-c6926b0259ea/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I'm Your Baby Tonight.mid",
+            "I'm Your Baby Tonight.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "All the Man That I Need.mid",
+            "All the Man That I Need.1.mid",
+            "All the Man That I Need.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Lover for Life.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "95a67a17-5253-4b76-b84d-cdc0c76f547f",
+      "releaseId": "c48c1ca0-b7f9-43a6-88ad-dfe6d977058b",
+      "title": "The Bodyguard (Original Soundtrack Album)",
+      "date": "1992-11-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/95a67a17-5253-4b76-b84d-cdc0c76f547f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I Will Always Love You.mid",
+            "I Will Always Love You.1.mid",
+            "I Will Always Love You.2.mid",
+            "I Will Always Love You.3.mid",
+            "I Will Always Love You.4.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "I Have Nothing.mid",
+            "I Have Nothing.1.mid",
+            "I Have Nothing.2.mid",
+            "I Have Nothing.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "I'm Every Woman.mid",
+            "I'm Every Woman.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Im Every Woman (Clivilles & Cole mix).mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Queen of the Night.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c9f5e65e-32fa-3a06-b4b4-1e5162d43c2d",
+      "releaseId": "408bb18f-4283-409c-973e-08770a8db9c0",
+      "title": "Exhale (Shoop Shoop)",
+      "date": "1995-11-06",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/c9f5e65e-32fa-3a06-b4b4-1e5162d43c2d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Exhale (Shoop Shoop).mid",
+            "Exhale (Shoop Shoop).1.mid",
+            "Exhale (Shoop Shoop).2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5c246f3c-46cb-3218-a8c4-ac98cbf9326d",
+      "releaseId": "f5b65174-5bfb-49df-b7c7-9905fa068a20",
+      "title": "My Love Is Your Love",
+      "date": "1998-11-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5c246f3c-46cb-3218-a8c4-ac98cbf9326d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Its Not Right But Its OK.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "My Love Is Your Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c34b2b41-aaa0-3d62-b1be-47cacd135ffb",
+      "releaseId": "c710af48-3e31-4e78-82ae-4960d6e98849",
+      "title": "My Love Is Your Love",
+      "date": "1999-06-21",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/c34b2b41-aaa0-3d62-b1be-47cacd135ffb/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "My Love Is Your Love (Wyclef remix).mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

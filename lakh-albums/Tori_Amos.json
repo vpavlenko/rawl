@@ -1,0 +1,61 @@
+{
+  "artist": "Tori Amos",
+  "artistId": "c0b2500e-0cef-4130-869d-732b23ed9df5",
+  "groups": [
+    {
+      "id": "cb10018e-e795-3b62-b9d6-f143d188e496",
+      "releaseId": "59936590-b340-47c1-975c-1be4823784f0",
+      "title": "Little Earthquakes",
+      "date": "1991",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/cb10018e-e795-3b62-b9d6-f143d188e496/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Silent All These Years.mid",
+            "Silent All These Years.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Winter.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ef2b891f-ca73-3e14-b38b-a68699dab8c4",
+      "releaseId": "573c4056-1d98-4084-b88c-4a1c81a3c63c",
+      "title": "Under the Pink",
+      "date": "1994-01-31",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ef2b891f-ca73-3e14-b38b-a68699dab8c4/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Cornflake Girl.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c10420af-872a-42e6-b294-835f46a481af",
+      "releaseId": "46d81135-ec98-4993-b381-4526d97451f5",
+      "title": "Gold Dust",
+      "date": "2012-09-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c10420af-872a-42e6-b294-835f46a481af/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "Flying Dutchman.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

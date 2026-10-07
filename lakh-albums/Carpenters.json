@@ -1,0 +1,237 @@
+{
+  "artist": "Carpenters",
+  "artistId": "4580d83b-093e-4241-91fb-2dd71f5f1f3f",
+  "groups": [
+    {
+      "id": "ca8d0ba2-f227-3665-9104-30e3c09eafae",
+      "releaseId": "0c75c3be-e4a4-4982-96de-6e97768967ed",
+      "title": "Close to You",
+      "date": "1970-02-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ca8d0ba2-f227-3665-9104-30e3c09eafae/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "We've Only Just Began.mid",
+            "We've Only Just Began.1.mid",
+            "We've Only Just Began.2.mid",
+            "We've Only Just Began.3.mid",
+            "We've Only Just Began.4.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "(They Long to Be) Close to You.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Close to You.mid",
+            "Close to You.1.mid",
+            "Close to You.2.mid",
+            "Close to You.3.mid",
+            "Close to You.4.mid",
+            "Close to You.5.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "I Kept on Loving You.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7b643855-d7cb-3177-8288-a9f080934657",
+      "releaseId": "9dec2430-90a1-4405-b04c-3e027ec38070",
+      "title": "Carpenters",
+      "date": "1971-05-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7b643855-d7cb-3177-8288-a9f080934657/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Rainy Days and Mondays.mid",
+            "Rainy Days and Mondays.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Let Me Be the One.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "For All We Know.mid",
+            "For All We Know.1.mid",
+            "For All We Know.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1d47f2fc-cc62-3462-8c0d-d9259820953f",
+      "releaseId": "313273fe-3ed7-46e9-a9dc-e7700846bac1",
+      "title": "A Song for You",
+      "date": "1972-06-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1d47f2fc-cc62-3462-8c0d-d9259820953f/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Top of the World.mid",
+            "Top of the World.1.mid",
+            "Top of the World.2.mid",
+            "Top of the World.3.mid",
+            "Top of the World.4.mid",
+            "Top of the World.5.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Hurting Each Other.mid",
+            "Hurting Each Other.1.mid",
+            "Hurting Each Other.2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "It's Going to Take Some Time.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "It's Going to Take Sometime.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Goodbye to Love.mid",
+            "Goodbye to Love.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "I Won't Last A Day Without You.mid",
+            "I Won't Last A Day Without You.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5d10c3a5-71a5-30a4-85a9-ded51054d97c",
+      "releaseId": "bc2f8691-f71d-4bbc-a637-4b9a8fcb3cdb",
+      "title": "Now & Then",
+      "date": "1973-05-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5d10c3a5-71a5-30a4-85a9-ded51054d97c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Sing.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "This Masquerade.mid",
+            "This Masquerade.1.mid",
+            "This Masquerade.2.mid",
+            "This Masquerade.3.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Jambalaya (On the Bayou).mid",
+            "Jambalaya (On the Bayou).1.mid"
+          ]
+        },
+        {
+          "number": 16,
+          "files": [
+            "Yesterday Once More (Reprise).mid",
+            "Yesterday Once More (Reprise).1.mid",
+            "Yesterday Once More (Reprise).2.mid",
+            "Yesterday Once More (Reprise).3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "33e96e78-0caf-347c-aa2f-6119ba792be0",
+      "releaseId": "1294c977-0a1a-4b5b-a3a3-7691c56fe575",
+      "title": "Horizon",
+      "date": "1975-06-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/33e96e78-0caf-347c-aa2f-6119ba792be0/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Only Yesterday.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Please Mister Postman.mid",
+            "Please Mister Postman.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e57e6075-994a-3f52-b7ba-31175804a37f",
+      "releaseId": "20c7c1a1-bb3c-46fe-a3e9-6660e0b30d09",
+      "title": "A Kind of Hush",
+      "date": "1976-01-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e57e6075-994a-3f52-b7ba-31175804a37f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "There's A Kind Of Hush.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Breaking Up Is Hard to Do.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0a894864-3a05-301f-a7a4-ac4af8a48b0f",
+      "releaseId": "5248127f-8fdd-4719-9b3d-48aacab5fdc7",
+      "title": "Passage",
+      "date": "1977-09-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0a894864-3a05-301f-a7a4-ac4af8a48b0f/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Sweet Sweet Smile.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

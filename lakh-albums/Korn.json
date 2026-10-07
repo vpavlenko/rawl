@@ -1,0 +1,201 @@
+{
+  "artist": "Korn",
+  "artistId": "ac865b2e-bba8-4f5a-8756-dd40d5e39f46",
+  "groups": [
+    {
+      "id": "aa08a002-2777-39cf-a554-e0988fc68030",
+      "releaseId": "7ba41977-4ba3-433f-8926-6412364e39f6",
+      "title": "Korn",
+      "date": "1994-10-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/aa08a002-2777-39cf-a554-e0988fc68030/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Blind.mid",
+            "Blind.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Clown.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Divine.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Predictable.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Helmet In The Bush.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "52062160-5648-320d-8e22-fcd6a59d6574",
+      "releaseId": "f52020d6-442d-44f9-8eb1-a49a31beb53b",
+      "title": "Blind",
+      "date": "1995",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/52062160-5648-320d-8e22-fcd6a59d6574/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Sean Olsen.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7cfa5ab7-537d-30cb-86d2-7cca1f3ed1d3",
+      "releaseId": "e7268c5e-1d45-4652-8da5-5784b5b37a2c",
+      "title": "No Place to Hide",
+      "date": "1996-10-07",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/7cfa5ab7-537d-30cb-86d2-7cca1f3ed1d3/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Proud.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e958aac9-4f24-3077-96de-117ec44d4dbb",
+      "releaseId": "dfe5dbda-5e50-4872-a36e-0183da26c872",
+      "title": "Life Is Peachy",
+      "date": "1996-10-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e958aac9-4f24-3077-96de-117ec44d4dbb/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Twist.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Porno Creep.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Good God.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "No Place to Hide.mid",
+            "No Place to Hide.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Lowrider.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Ass Itch.mid",
+            "Ass Itch.1.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Kill You.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "984c7bd4-d94f-35f9-8bd6-3aab1a70d896",
+      "releaseId": "96fcff2e-f294-46ca-b88f-0d0b02dd3f42",
+      "title": "Spawn: The Album",
+      "date": "1997-07-29",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/984c7bd4-d94f-35f9-8bd6-3aab1a70d896/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Kick the PA (feat. The Sneaker Pimps).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e47ad139-89f6-39e8-aa84-fe84c45aeb7d",
+      "releaseId": "87dbd4bb-15f1-4a82-bf3b-95b2ae496114",
+      "title": "Follow the Leader",
+      "date": "1998-08-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e47ad139-89f6-39e8-aa84-fe84c45aeb7d/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Freak On a Leash.mid",
+            "Freak On a Leash.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Got The Life.mid",
+            "Got The Life.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c7497ce4-c746-3a75-946e-daa8ab117c47",
+      "releaseId": "5345034b-e7de-4419-a061-478aab34c690",
+      "title": "Issues",
+      "date": "1999-11-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c7497ce4-c746-3a75-946e-daa8ab117c47/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Falling Away From Me.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Trash.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Make Me Bad.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

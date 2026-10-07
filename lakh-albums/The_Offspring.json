@@ -1,0 +1,203 @@
+{
+  "artist": "The Offspring",
+  "artistId": "23a03e33-a603-404e-bcbf-2c00159d7067",
+  "groups": [
+    {
+      "id": "4ffb0057-6256-33c0-b71e-23b7f8403f12",
+      "releaseId": "da173a7b-ba7a-4958-86d4-70d229217cd9",
+      "title": "Ignition",
+      "date": "1992-10-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4ffb0057-6256-33c0-b71e-23b7f8403f12/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Session.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "No Hero.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a55a5a03-0c0e-311b-85df-ec52f841715c",
+      "releaseId": "555aa5c6-0733-4ad3-8e0f-f5903efbc0c4",
+      "title": "Smash",
+      "date": "1994-03-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a55a5a03-0c0e-311b-85df-ec52f841715c/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Nitro (Youth Energy).mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Gotta Get Away.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Genocide.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Come Out and Play.mid",
+            "Come Out and Play.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Self Esteem.mid",
+            "Self Esteem.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8ef7ac07-793a-3aab-b14a-45f0c1ec4a2b",
+      "releaseId": "9470aa66-024d-4386-8ee7-e7aa25c70483",
+      "title": "Ixnay on the Hombre",
+      "date": "1997-02-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8ef7ac07-793a-3aab-b14a-45f0c1ec4a2b/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Mota.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Me & My Old Lady.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Cool To Hate.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Leave It Behind.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Gone Away.mid",
+            "Gone Away.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "I Choose.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "All I Want.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Way Down the Line.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Don't Pick It Up.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Amazed.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Change the World.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fb43ac3a-8d28-3686-8653-bbf15a5e4389",
+      "releaseId": "34b1c919-b74e-45f9-99a1-bce57a48c3ac",
+      "title": "Americana",
+      "date": "1998-11-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fb43ac3a-8d28-3686-8653-bbf15a5e4389/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Pretty Fly (For a White Guy).mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "The Kids Aren't Alright.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "She's Got Issues.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Walla Walla.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Why Don't You Get a Job?.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "360965be-84da-3751-935e-8603fcd60049",
+      "releaseId": "16c7497c-6ee7-4199-81d6-9d447d1f39d5",
+      "title": "Conspiracy of One",
+      "date": "2000-11-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/360965be-84da-3751-935e-8603fcd60049/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Original Prankster.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,435 @@
+{
+  "artist": "Kiss",
+  "artistId": "e1f1e33e-2e4c-4d43-b91b-7064068d3283",
+  "groups": [
+    {
+      "id": "a997e8ed-6e37-315b-bfdf-cd31f14e3fcc",
+      "releaseId": "b4b61d56-be24-4894-ba69-67fb458b4ae4",
+      "title": "KISS",
+      "date": "1974-02-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a997e8ed-6e37-315b-bfdf-cd31f14e3fcc/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Strutter.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Firehouse.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Deuce.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Black Diamond.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4b05a315-c78f-3bad-a08b-e713d25a13bc",
+      "releaseId": "5ecd552b-e54b-4c37-b62c-9d6234834bad",
+      "title": "Hotter Than Hell",
+      "date": "1974-10-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4b05a315-c78f-3bad-a08b-e713d25a13bc/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Got to Choose.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Strange Ways.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "17ca8b4b-c72b-352a-8258-1d6670312fdb",
+      "releaseId": "1f9edeae-0f7e-488d-9711-a5adab6c5e20",
+      "title": "Dressed to Kill",
+      "date": "1975-03-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/17ca8b4b-c72b-352a-8258-1d6670312fdb/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "She.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Rock 'n Roll All Night.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Rock and Roll All Nite.mid",
+            "Rock and Roll All Nite.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "541eb339-d0c6-3740-b665-8ad6c09da331",
+      "releaseId": "0f775b61-b299-42a3-b028-2b9215ef3c6e",
+      "title": "Destroyer",
+      "date": "1976-03-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/541eb339-d0c6-3740-b665-8ad6c09da331/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Detroit Rock City.mid",
+            "Detroit Rock City.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "God of Thunder.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Shout It Out Loud.mid",
+            "Shout It Out Loud.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Beth.mid",
+            "Beth.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f519711d-54f8-307a-bad4-6e619d8214d1",
+      "releaseId": "3078df29-7df1-4cfa-b4b4-b5412f014ad0",
+      "title": "Rock and Roll Over",
+      "date": "1976-11-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f519711d-54f8-307a-bad4-6e619d8214d1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I Want You.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Take Me.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Calling Dr. Love.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Mr. Speed.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Hard Luck Woman.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "08bf1119-22bf-3740-af9c-a6215437414b",
+      "releaseId": "3762cddb-7a70-45d2-a754-43e489e058ed",
+      "title": "Love Gun",
+      "date": "1977-06-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/08bf1119-22bf-3740-af9c-a6215437414b/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Christine Sixteen.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Shock Me.mid",
+            "Shock Me.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Love Gun.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Plaster Caster.mid",
+            "Plaster Caster.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "46f879d8-d3a6-375b-814d-0c548cbedbc0",
+      "releaseId": "33172278-af65-4fbe-bbe3-24b2864f20c2",
+      "title": "Dynasty",
+      "date": "1979-05-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/46f879d8-d3a6-375b-814d-0c548cbedbc0/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I Was Made for Lovin' You.mid"
+          ]
+        },
+        {
+          "number": 1,
+          "files": [
+            "I Was Made for Loving You Baby.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "2,000 Man.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Sure Know Something.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Save Your Love.mid",
+            "Save Your Love.1.mid",
+            "Save Your Love.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fa8dde87-048e-3d7c-a630-3428e1f7dc13",
+      "releaseId": "5fa9005d-413a-4d62-8fba-07746f6a96df",
+      "title": "Unmasked",
+      "date": "1980-05-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fa8dde87-048e-3d7c-a630-3428e1f7dc13/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Talk to Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8ee07b4e-25bb-36cc-9cc5-7330b7776f71",
+      "releaseId": "08e21673-6965-415f-850f-8d8fec9fb949",
+      "title": "Music From “The Elder”",
+      "date": "1981-11-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8ee07b4e-25bb-36cc-9cc5-7330b7776f71/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Under the Rose.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "A World Without Heroes.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5a1ee51b-223d-4644-a32d-92a758f37e07",
+      "releaseId": "6f5ef0f2-bd08-3d20-9151-311a073dcd74",
+      "title": "Creatures of the Night",
+      "date": "1982-10-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5a1ee51b-223d-4644-a32d-92a758f37e07/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "War Machine.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "76c0b42e-6d05-3119-bef5-5fcc9182b07f",
+      "releaseId": "0c440c7a-ba10-3455-b164-cd7357d59e24",
+      "title": "Lick It Up",
+      "date": "1983-09-18",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/76c0b42e-6d05-3119-bef5-5fcc9182b07f/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "A Million to One.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cc94de97-a20d-3aff-9fb5-10a1d0cab5a7",
+      "releaseId": "1f43a9f3-a005-414c-8cff-545d3bc4f029",
+      "title": "Animalize",
+      "date": "1984-09-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/cc94de97-a20d-3aff-9fb5-10a1d0cab5a7/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I've Had Enough (Into the Fire).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f55bc564-3174-3967-956c-f35ce9ca353a",
+      "releaseId": "400fab5e-ac71-35d8-ab3e-e9aa6b1d374e",
+      "title": "Asylum",
+      "date": "1985-09-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f55bc564-3174-3967-956c-f35ce9ca353a/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Who Wants to Be Lonely.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Tears Are Falling.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "38fccb34-80b0-338b-8659-f6602ad99e57",
+      "releaseId": "00dffb44-5416-4e74-8485-7abd7554e70d",
+      "title": "Crazy Nights",
+      "date": "1987-09-15",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/38fccb34-80b0-338b-8659-f6602ad99e57/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Turn on the Night.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c9d8ede0-df73-4d6c-90fe-2f6820c4ad8f",
+      "releaseId": "2d49d29b-4223-425a-b668-feeb6601ee50",
+      "title": "(You Make Me) Rock Hard",
+      "date": "1989-03-03",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/c9d8ede0-df73-4d6c-90fe-2f6820c4ad8f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "(You Make Me) Rock Hard.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fd26bc55-ab84-3820-8d5e-9bc6a77e5cac",
+      "releaseId": "2b92d0c5-e415-441a-b550-c203f1e16a2b",
+      "title": "Hot in the Shade",
+      "date": "1989-10-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/fd26bc55-ab84-3820-8d5e-9bc6a77e5cac/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "You Love Me to Hate You.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ef0484e3-eb90-3806-bfce-fea9cd68d058",
+      "releaseId": "d9af2926-6cfd-35f9-bcb7-c67d8ed892e0",
+      "title": "Revenge",
+      "date": "1992-05-14",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ef0484e3-eb90-3806-bfce-fea9cd68d058/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Spit.mid",
+            "Spit.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "28c5684e-59e1-400c-81fb-1ceb3d0fdd18",
+      "releaseId": "cc5d9117-dd83-4327-85ea-ed4a3b958500",
+      "title": "Monster",
+      "date": "2012-10-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/28c5684e-59e1-400c-81fb-1ceb3d0fdd18/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "Outta This World.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

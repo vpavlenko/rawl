@@ -1,0 +1,252 @@
+{
+  "artist": "Emerson, Lake & Palmer",
+  "artistId": "ad996aef-cc1c-42ac-af5c-619c370f4b8a",
+  "groups": [
+    {
+      "id": "86e88318-dd1e-36e9-bb62-c5d0b8a8b4e5",
+      "releaseId": "555377d1-4d3a-45e3-af57-88a29244b996",
+      "title": "Emerson, Lake & Palmer",
+      "date": "1970-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/86e88318-dd1e-36e9-bb62-c5d0b8a8b4e5/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Barbarian.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Take A Pebble.mid",
+            "Take A Pebble.1.mid",
+            "Take A Pebble.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Lucky Man.mid",
+            "Lucky Man.1.mid",
+            "Lucky Man.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e940f4e4-1b0a-3d83-9ccd-6ed712a55b3c",
+      "releaseId": "c5d93157-322a-4598-8625-7e8d1175d68c",
+      "title": "Tarkus",
+      "date": "1971-06-14",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e940f4e4-1b0a-3d83-9ccd-6ed712a55b3c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Tarkus.mid",
+            "Tarkus.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Jeremy Bender.mid",
+            "Jeremy Bender.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b1fff2ac-34eb-358b-9bf5-196b2a5fc288",
+      "releaseId": "de0e0375-0860-3c49-b57a-5df6e717cf18",
+      "title": "Pictures at an Exhibition",
+      "date": "1971-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b1fff2ac-34eb-358b-9bf5-196b2a5fc288/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "The Sage.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "990536ff-396d-37ad-9df3-fa7f548abcac",
+      "releaseId": "4694bf71-7b2a-4e74-8a1b-5f647dbb9957",
+      "title": "Trilogy",
+      "date": "1972-07-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/990536ff-396d-37ad-9df3-fa7f548abcac/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Endless Enigma, Part 1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Fugue.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "The Endless Enigma, Part 2.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "From the Beginning.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Hoe Down.mid",
+            "Hoe Down.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Hoedown.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "94e2aefb-d3f8-37bd-8412-130b158ab40b",
+      "releaseId": "259abd09-1b73-3958-895e-9ab36dbe4b7f",
+      "title": "Brain Salad Surgery",
+      "date": "1973-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/94e2aefb-d3f8-37bd-8412-130b158ab40b/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Jerusalem.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Benny the Bouncer.mid",
+            "Benny the Bouncer.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Karn Evil 9: 1st Impression, Part 1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Karn Evil 9: 1st Impression, Part 2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2b3bd117-e157-39d0-bafb-8bcc2ee2f1e9",
+      "releaseId": "938ae310-c31e-4b0c-b4cd-dd6a4497a87a",
+      "title": "Works, Volume 1",
+      "date": "1977-03-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2b3bd117-e157-39d0-bafb-8bcc2ee2f1e9/front-250",
+      "songs": [
+        {
+          "number": 13,
+          "files": [
+            "Fanfare for the Common Man.mid",
+            "Fanfare for the Common Man.1.mid",
+            "Fanfare for the Common Man.2.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Pirates.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2b92d1fc-81d0-35de-9ad0-56bd6fd7c9ce",
+      "releaseId": "e1575415-d615-4239-b6ab-2a10494b0721",
+      "title": "Works, Volume 2",
+      "date": "1977-11-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2b92d1fc-81d0-35de-9ad0-56bd6fd7c9ce/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "I Believe in Father Christmas.mid",
+            "I Believe in Father Christmas.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "978029cd-03bd-37a4-8db0-6dae04b623b3",
+      "releaseId": "4faefaa9-7c65-4916-a453-bfcba14615eb",
+      "title": "In Concert",
+      "date": "1979",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/978029cd-03bd-37a4-8db0-6dae04b623b3/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Peter Gunn Theme.mid",
+            "Peter Gunn Theme.1.mid",
+            "Peter Gunn Theme.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "68107ed9-c401-3966-b988-04ae40c5b81d",
+      "releaseId": "54fada37-97c0-4174-ac43-8642222d98b3",
+      "title": "Emerson, Lake & Powell",
+      "date": "1986",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/68107ed9-c401-3966-b988-04ae40c5b81d/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Mars, the Bringer of War.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2b57e907-e573-31d8-b24e-853a672d5c47",
+      "releaseId": "a9d99cd5-33c7-45c0-b6b0-c867086f1900",
+      "title": "Black Moon",
+      "date": "1992-06-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2b57e907-e573-31d8-b24e-853a672d5c47/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Romeo and Juliet.mid",
+            "Romeo and Juliet.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,352 @@
+{
+  "artist": "Eagles",
+  "artistId": "f46bd570-5768-462e-b84c-c7c993bbf47e",
+  "groups": [
+    {
+      "id": "23eafc30-3978-37fb-bfa0-8058aa1eb81a",
+      "releaseId": "150e50b2-570b-456a-baf4-0da3437d19bd",
+      "title": "Eagles",
+      "date": "1972-06-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/23eafc30-3978-37fb-bfa0-8058aa1eb81a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Take It Easy.mid",
+            "Take It Easy.1.mid",
+            "Take It Easy.2.mid",
+            "Take It Easy.3.mid",
+            "Take It Easy.4.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Witchy Woman.mid",
+            "Witchy Woman.1.mid",
+            "Witchy Woman.2.mid",
+            "Witchy Woman.3.mid",
+            "Witchy Woman.4.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Peaceful Easy Feeling.mid",
+            "Peaceful Easy Feeling.1.mid",
+            "Peaceful Easy Feeling.2.mid",
+            "Peaceful Easy Feeling.3.mid",
+            "Peaceful Easy Feeling.4.mid",
+            "Peaceful Easy Feeling.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9e7b49bb-b4bd-3583-87ba-f516f793eff2",
+      "releaseId": "3cd3587f-8eaf-427b-bd84-cb2f21bed994",
+      "title": "Desperado",
+      "date": "1973-04-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9e7b49bb-b4bd-3583-87ba-f516f793eff2/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Tequila Sunrise.mid",
+            "Tequila Sunrise.1.mid",
+            "Tequila Sunrise.2.mid",
+            "Tequila Sunrise.3.mid",
+            "Tequila Sunrise.4.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Desperado.mid",
+            "Desperado.1.mid",
+            "Desperado.2.mid",
+            "Desperado.3.mid",
+            "Desperado.4.mid",
+            "Desperado.5.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "425353d2-98b9-35a0-94d1-15f99f125994",
+      "releaseId": "101d2633-f1a2-30d9-a71f-88d115fda77e",
+      "title": "On the Border",
+      "date": "1974-03-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/425353d2-98b9-35a0-94d1-15f99f125994/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Already Gone.mid",
+            "Already Gone.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Best of My Love.mid",
+            "Best of My Love.1.mid",
+            "Best of My Love.2.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "The Best of My Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7f9ea3a4-5c4b-3082-a233-3462540e57e3",
+      "releaseId": "f30eadf2-572f-4bab-991d-33a04f3d3b46",
+      "title": "One of These Nights",
+      "date": "1975-06-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7f9ea3a4-5c4b-3082-a233-3462540e57e3/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "One of These Nights.mid",
+            "One of These Nights.1.mid",
+            "One of These Nights.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Lyin' Eyes.mid",
+            "Lyin' Eyes.1.mid",
+            "Lyin' Eyes.2.mid",
+            "Lyin' Eyes.3.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Lying Eyes.mid",
+            "Lying Eyes.1.mid",
+            "Lying Eyes.2.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Take It to the Limit.mid",
+            "Take It to the Limit.1.mid",
+            "Take It to the Limit.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "836f349a-0434-3e8b-a0bc-261f77a9f99c",
+      "releaseId": "9156d20d-d5af-4854-9ac8-f5ee953b8fca",
+      "title": "Hotel California",
+      "date": "1976-12-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/836f349a-0434-3e8b-a0bc-261f77a9f99c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Hotel California.mid",
+            "Hotel California.1.mid",
+            "Hotel California.2.mid",
+            "Hotel California.3.mid",
+            "Hotel California.4.mid",
+            "Hotel California.5.mid",
+            "Hotel California.6.mid",
+            "Hotel California.7.mid",
+            "Hotel California.8.mid",
+            "Hotel California.9.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "New Kid in Town.mid",
+            "New Kid in Town.1.mid",
+            "New Kid in Town.2.mid",
+            "New Kid in Town.3.mid",
+            "New Kid in Town.4.mid",
+            "New Kid in Town.5.mid",
+            "New Kid in Town.6.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Life in the Fast Lane.mid",
+            "Life in the Fast Lane.1.mid",
+            "Life in the Fast Lane.2.mid",
+            "Life in the Fast Lane.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Wasted Time.mid",
+            "Wasted Time.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Victim of Love.mid",
+            "Victim of Love.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Pretty Maids All in a Row.mid",
+            "Pretty Maids All in a Row.1.mid",
+            "Pretty Maids All in a Row.2.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Try and Love Again.mid",
+            "Try and Love Again.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "The Last Resort.mid",
+            "The Last Resort.1.mid",
+            "The Last Resort.2.mid",
+            "The Last Resort.3.mid",
+            "The Last Resort.4.mid",
+            "The Last Resort.5.mid",
+            "The Last Resort.6.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b8f3a39c-0b35-3bc7-9573-8f895fdc2d6a",
+      "releaseId": "852fc13b-c2c0-3722-8690-fc076ef412e6",
+      "title": "Please Come Home for Christmas / Funky New Year",
+      "date": "1978-11-27",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/b8f3a39c-0b35-3bc7-9573-8f895fdc2d6a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Please Come Home for Christmas.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1a265de4-136d-3414-adf5-b0913ca2aa15",
+      "releaseId": "d9e5bb75-756e-4523-80bc-96895adf7a06",
+      "title": "The Long Run",
+      "date": "1979-09-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1a265de4-136d-3414-adf5-b0913ca2aa15/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Long Run.mid",
+            "The Long Run.1.mid",
+            "The Long Run.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "I Cant Tell You Why.mid",
+            "I Cant Tell You Why.1.mid",
+            "I Cant Tell You Why.2.mid",
+            "I Cant Tell You Why.3.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Heartache Tonight.mid",
+            "Heartache Tonight.1.mid",
+            "Heartache Tonight.2.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "The Sad Cafe.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3eb36b77-1be2-335d-80cb-c41260856e6a",
+      "releaseId": "d5e7dd4c-1944-3712-87d8-3dfa234b2bbd",
+      "title": "Eagles Live",
+      "date": "1980-11-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3eb36b77-1be2-335d-80cb-c41260856e6a/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Seven Bridges Road.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "690132da-dcf0-3805-b4ed-b4ec4392ae01",
+      "releaseId": "2431109e-28d1-4e1e-a4e4-6634b860063f",
+      "title": "Hell Freezes Over",
+      "date": "1994-10-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/690132da-dcf0-3805-b4ed-b4ec4392ae01/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Get Over It.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Love Will Keep Us Alive.mid",
+            "Love Will Keep Us Alive.1.mid",
+            "Love Will Keep Us Alive.2.mid",
+            "Love Will Keep Us Alive.3.mid",
+            "Love Will Keep Us Alive.4.mid",
+            "Love Will Keep Us Alive.5.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "The Girl From Yesterday.mid",
+            "The Girl From Yesterday.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Hotel California (unplugged).mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

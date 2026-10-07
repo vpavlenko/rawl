@@ -1,0 +1,354 @@
+{
+  "artist": "Zero",
+  "artistId": "5d2e11a9-08cf-4f43-993a-be5dc908e5d6",
+  "groups": [
+    {
+      "id": "3f8c1b44-7684-36af-9dd9-7e51d97c9fb6",
+      "releaseId": "ca17f3ca-9cfc-49a2-8cfa-3fe8206643ef",
+      "title": "Trapezio",
+      "date": "1976-07-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3f8c1b44-7684-36af-9dd9-7e51d97c9fb6/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Madame.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "47ad479c-13bd-3586-a0ab-52174b60f978",
+      "releaseId": "e78a0402-8c51-4f93-bb5a-12bc4f27fe47",
+      "title": "Zerofobia",
+      "date": "1977",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/47ad479c-13bd-3586-a0ab-52174b60f978/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Mi vendo.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Il cielo.mid",
+            "Il cielo.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "48d354b8-dc0a-3135-8246-9edf3ec795e2",
+      "releaseId": "fdb6cfb9-b4f8-4996-ac1f-2f48f1d6b392",
+      "title": "Zerolandia",
+      "date": "1978-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/48d354b8-dc0a-3135-8246-9edf3ec795e2/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "La favola mia.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Chi sei.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9dc398f1-2731-3ad4-910d-7f55546f95c9",
+      "releaseId": "5e1ae80e-18e9-4729-adf3-5b159cc095cb",
+      "title": "EroZero",
+      "date": "1979-03-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9dc398f1-2731-3ad4-910d-7f55546f95c9/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Il carrozzone.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Periferia.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3ce852c7-fbf5-332d-bcc0-03eb698d074e",
+      "releaseId": "2022dc32-c860-427b-9465-05078a7e45eb",
+      "title": "Artide / Antartide",
+      "date": "1981-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3ce852c7-fbf5-332d-bcc0-03eb698d074e/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Marciapiedi.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eefc00d1-ab5b-3388-9f96-e1aea1bacbf2",
+      "releaseId": "e7615a74-83cd-4288-8a69-9f32e4312a0d",
+      "title": "Prometeo",
+      "date": "1991-03-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/eefc00d1-ab5b-3388-9f96-e1aea1bacbf2/front-250",
+      "songs": [
+        {
+          "number": 23,
+          "files": [
+            "Spalle al muro.mid",
+            "Spalle al muro.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3be694e3-e032-373b-9814-6d2f76fe8284",
+      "releaseId": "5081adf3-1eaa-385e-aeb9-27a282f16e3a",
+      "title": "Quando non sei più di nessuno",
+      "date": "1993-02-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/3be694e3-e032-373b-9814-6d2f76fe8284/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Amore al verde.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Ave Maria.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2dc6a335-0429-3a6c-966f-58b1891187e1",
+      "releaseId": "84de85b5-c3c1-3718-9950-01d3617f527a",
+      "title": "L’imperfetto",
+      "date": "1994-08-24",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2dc6a335-0429-3a6c-966f-58b1891187e1/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Amando amando.mid",
+            "Amando amando.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Aria di pentimenti.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Felici e perdenti.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Bella gioventu.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "L'ultimo guerriero.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "03c12fb3-fbc5-3b59-947a-b9377783d191",
+      "releaseId": "bcd20611-add6-4804-a33e-b3f9c15821b8",
+      "title": "Sulle tracce dell'imperfetto",
+      "date": "1995",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/03c12fb3-fbc5-3b59-947a-b9377783d191/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Un po' d'azzurro.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "I migliori anni della nostra vita.mid",
+            "I migliori anni della nostra vita.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "58577595-4a65-35cb-99ae-ace0e8e16984",
+      "releaseId": "260e2e8b-ff9a-31f8-ae9e-75adca233b3e",
+      "title": "Amore dopo amore",
+      "date": "1998",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/58577595-4a65-35cb-99ae-ace0e8e16984/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Cercami.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Emergenza noia.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Mi ameresti.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Vive chi vive.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "L'impossibile vivere.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Erotica apparenza.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Dimmi chi dorme accanto a me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "71d9d3af-dace-4853-a8b3-ef73eb7217c1",
+      "releaseId": "2e446610-05ce-49dc-a994-1003b771cfa1",
+      "title": "L’impossibile vivere / Il mercante di stelle",
+      "date": "1998",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/71d9d3af-dace-4853-a8b3-ef73eb7217c1/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Il mercante di stelle.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4e88de52-bc40-3584-976e-f304837a1fb5",
+      "releaseId": "1b9455f5-5b80-4022-9dab-d234ef6d0b24",
+      "title": "Amore dopo amore, tour dopo tour",
+      "date": "1999",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4e88de52-bc40-3584-976e-f304837a1fb5/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Si sta facendo notte.mid",
+            "Si sta facendo notte.1.mid"
+          ]
+        },
+        {
+          "number": 20,
+          "files": [
+            "Il coraggio delle idee.mid",
+            "Il coraggio delle idee.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ca8aa16e-f0c1-365c-9ca9-0c427ae8be74",
+      "releaseId": "c0071ef2-b3a4-3f17-b682-f9983b60b75f",
+      "title": "Tutti gli Zeri del mondo",
+      "date": "2000-05-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ca8aa16e-f0c1-365c-9ca9-0c427ae8be74/front-250",
+      "songs": [
+        {
+          "number": 13,
+          "files": [
+            "Tutti gli Zeri del mondo.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Via dei Martiri.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "684cfc8f-e442-321e-80d8-a8ebb441f8ca",
+      "releaseId": "acb15ec5-8774-49d7-8020-e8b3d67f7c31",
+      "title": "Figli del sogno",
+      "date": "2004-11-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/684cfc8f-e442-321e-80d8-a8ebb441f8ca/front-250",
+      "songs": [
+        {
+          "number": 24,
+          "files": [
+            "Amico assoluto.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f379cb6f-f41f-4c2c-a5d0-7e6e5a637d64",
+      "releaseId": "4c115f46-0f19-4886-9456-7bb5a1f46d70",
+      "title": "Alt in Tour",
+      "date": "2018-11-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f379cb6f-f41f-4c2c-a5d0-7e6e5a637d64/front-250",
+      "songs": [
+        {
+          "number": 11,
+          "files": [
+            "Piu su.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

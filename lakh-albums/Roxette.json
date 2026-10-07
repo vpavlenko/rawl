@@ -1,0 +1,398 @@
+{
+  "artist": "Roxette",
+  "artistId": "d3b2711f-2baa-441a-be95-14945ca7e6ea",
+  "groups": [
+    {
+      "id": "ed44808f-8596-3696-8499-2cdd5f4d21b0",
+      "releaseId": "40b92085-f851-318f-819d-cc9bebab1d42",
+      "title": "Look Sharp!",
+      "date": "1988-10-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ed44808f-8596-3696-8499-2cdd5f4d21b0/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "The Look.mid",
+            "The Look.1.mid",
+            "The Look.2.mid",
+            "The Look.3.mid",
+            "The Look.4.mid",
+            "The Look.5.mid",
+            "The Look.6.mid",
+            "The Look.7.mid",
+            "The Look.8.mid",
+            "The Look.9.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Dressed for Succes.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Paint.mid",
+            "Paint.1.mid",
+            "Paint.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Chances.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Dangerous.mid",
+            "Dangerous.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Shadow of a Doubt.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Listen to Your Heart.mid",
+            "Listen to Your Heart.1.mid",
+            "Listen to Your Heart.2.mid",
+            "Listen to Your Heart.3.mid",
+            "Listen to Your Heart.4.mid",
+            "Listen to Your Heart.5.mid",
+            "Listen to Your Heart.6.mid",
+            "Listen to Your Heart.7.mid",
+            "Listen to Your Heart.8.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "09371990-d6aa-3631-9a09-874f84eb7756",
+      "releaseId": "ba153080-9dcd-4eec-aedd-4ae1a0fcde86",
+      "title": "Dangerous",
+      "date": "1989-05-02",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/09371990-d6aa-3631-9a09-874f84eb7756/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Dangerous (7\" version).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2f36e6f3-b504-3ed4-b1e8-7971fd7b5632",
+      "releaseId": "965568ed-c8d1-395a-a3fa-d06afd57bedf",
+      "title": "Joyride",
+      "date": "1991-03-27",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2f36e6f3-b504-3ed4-b1e8-7971fd7b5632/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Joyride.mid",
+            "Joyride.1.mid",
+            "Joyride.2.mid",
+            "Joyride.3.mid",
+            "Joyride.4.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Fading Like a Flower (Every Time You Leave).mid",
+            "Fading Like a Flower (Every Time You Leave).1.mid",
+            "Fading Like a Flower (Every Time You Leave).2.mid",
+            "Fading Like a Flower (Every Time You Leave).3.mid",
+            "Fading Like a Flower (Every Time You Leave).4.mid",
+            "Fading Like a Flower (Every Time You Leave).5.mid",
+            "Fading Like a Flower (Every Time You Leave).6.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Fading Like a Flower (live Brussels 22 10 2001).mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Spending My Time.mid",
+            "Spending My Time.1.mid",
+            "Spending My Time.2.mid",
+            "Spending My Time.3.mid",
+            "Spending My Time.4.mid",
+            "Spending My Time.5.mid",
+            "Spending My Time.6.mid",
+            "Spending My Time.7.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Watercolours in the Rain.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "The Big L..mid",
+            "The Big L..1.mid",
+            "The Big L..2.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Physical Fascination.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Things Will Never Be the Same.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "00262f0e-7c90-4381-8203-12efc5945253",
+      "releaseId": "4998ad1d-7335-4cfb-a9a7-8189ccdec42e",
+      "title": "Tourism",
+      "date": "1992-08-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/00262f0e-7c90-4381-8203-12efc5945253/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "How Do You Do.mid",
+            "How Do You Do.1.mid",
+            "How Do You Do.2.mid",
+            "How Do You Do.3.mid",
+            "How Do You Do.4.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "It Must Have Been Love (live studio).mid",
+            "It Must Have Been Love (live studio).1.mid",
+            "It Must Have Been Love (live studio).2.mid",
+            "It Must Have Been Love (live studio).3.mid",
+            "It Must Have Been Love (live studio).4.mid",
+            "It Must Have Been Love (live studio).5.mid",
+            "It Must Have Been Love (live studio).6.mid",
+            "It Must Have Been Love (live studio).7.mid",
+            "It Must Have Been Love (live studio).8.mid",
+            "It Must Have Been Love (live studio).9.mid",
+            "It Must Have Been Love (live studio).10.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "It Must Have Been Love.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "2 Cinnamon Street.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Silver Blue.mid",
+            "Silver Blue.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Here Comes the Weekend (live).mid",
+            "Here Comes the Weekend (live).1.mid",
+            "Here Comes the Weekend (live).2.mid"
+          ]
+        },
+        {
+          "number": 16,
+          "files": [
+            "Queen of Rain.mid",
+            "Queen of Rain.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d94a8b37-e58a-4a75-8b96-e9e7c1f39b72",
+      "releaseId": "b7bf52c1-4297-44bc-973d-7effa0cfd894",
+      "title": "Crash! Boom! Bang!",
+      "date": "1994-04-08",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/d94a8b37-e58a-4a75-8b96-e9e7c1f39b72/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Harleys & Indians (Riders in the Sky).mid",
+            "Harleys & Indians (Riders in the Sky).1.mid",
+            "Harleys & Indians (Riders in the Sky).2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Crash! Boom! Bang!.mid",
+            "Crash! Boom! Bang!.1.mid",
+            "Crash! Boom! Bang!.2.mid",
+            "Crash! Boom! Bang!.3.mid",
+            "Crash! Boom! Bang!.4.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Run to You.mid",
+            "Run to You.1.mid",
+            "Run to You.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Sleeping In My Car.mid",
+            "Sleeping In My Car.1.mid",
+            "Sleeping In My Car.2.mid",
+            "Sleeping In My Car.3.mid",
+            "Sleeping In My Car.4.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Vulnerable.mid",
+            "Vulnerable.1.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Do You Wanna Go the Whole Way?.mid",
+            "Do You Wanna Go the Whole Way?.1.mid",
+            "Do You Wanna Go the Whole Way?.2.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "I'm Sorry.mid",
+            "I'm Sorry.1.mid",
+            "I'm Sorry.2.mid"
+          ]
+        },
+        {
+          "number": 14,
+          "files": [
+            "Love Is All (Shine Your Light On Me).mid",
+            "Love Is All (Shine Your Light On Me).1.mid",
+            "Love Is All (Shine Your Light On Me).2.mid"
+          ]
+        },
+        {
+          "number": 16,
+          "files": [
+            "Almost Unreal.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "71ffdcc7-8c2e-3121-a1fd-15a69b6060d6",
+      "releaseId": "88345d3d-0579-3a3a-9a37-dae980921dc9",
+      "title": "Baladas en español",
+      "date": "1996-11-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/71ffdcc7-8c2e-3121-a1fd-15a69b6060d6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Un dia sin ti (Spending My Time).mid",
+            "Un dia sin ti (Spending My Time).1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Directamente a ti (Run to You).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ea848b25-946f-3f90-9e61-302be00904fb",
+      "releaseId": "c31507c0-c25e-450d-8e9a-446f30d3017c",
+      "title": "Have a Nice Day",
+      "date": "1999-02-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ea848b25-946f-3f90-9e61-302be00904fb/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Wish I Could Fly.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Stars.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Salvation.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e08403a9-1bf8-369d-8ad2-c2b663c357dd",
+      "releaseId": "2fb03871-df66-4c89-88f1-f224fbca2190",
+      "title": "Room Service",
+      "date": "2001-04-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e08403a9-1bf8-369d-8ad2-c2b663c357dd/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Real Sugar.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Milk And Toast And Honey.mid",
+            "Milk And Toast And Honey.1.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

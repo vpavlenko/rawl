@@ -1,0 +1,371 @@
+{
+  "artist": "Elton John",
+  "artistId": "b83bc61f-8451-4a5d-8b8e-7e9ed295e822",
+  "groups": [
+    {
+      "id": "527eeafc-adbc-3c85-a048-0711acb4a932",
+      "releaseId": "d84bf253-2b60-4f01-bf43-af905b92d6a9",
+      "title": "Elton John",
+      "date": "1970-07-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/527eeafc-adbc-3c85-a048-0711acb4a932/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Your Song.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Take Me to the Pilot.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Sixty Years On.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Border Song.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4fed2c09-60cd-36ca-9db1-c9c016bb1f0b",
+      "releaseId": "a55ba40c-0bfe-4d43-844f-d476ca546908",
+      "title": "Tumbleweed Connection",
+      "date": "1970-10-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4fed2c09-60cd-36ca-9db1-c9c016bb1f0b/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Country Comfort.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Burn Down the Mission.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d4c47b08-b595-4c5a-92a9-347bc2e8e091",
+      "releaseId": "f6d7c210-4095-4101-8871-01a5109aff09",
+      "title": "Friends / Honey Roll",
+      "date": "1971-03",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/d4c47b08-b595-4c5a-92a9-347bc2e8e091/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Friends.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9c371adb-37de-308c-88ea-8e52248ab1a1",
+      "releaseId": "6af61fa2-870f-33bb-a17f-be65f6013597",
+      "title": "Madman Across the Water",
+      "date": "1971-11-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9c371adb-37de-308c-88ea-8e52248ab1a1/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Levon.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Madman Across the Water.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "e17f2d6e-7849-37f9-a6d8-cda4d59cea28",
+      "releaseId": "14aa2655-42b1-31f7-9e82-a567fba17953",
+      "title": "Honky Château",
+      "date": "1972-05-19",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/e17f2d6e-7849-37f9-a6d8-cda4d59cea28/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Honky Cat.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0293c693-a065-395b-b9be-06a7f69b3e57",
+      "releaseId": "aa9fa08b-3713-388e-a018-6248a628621a",
+      "title": "Don’t Shoot Me I’m Only the Piano Player",
+      "date": "1973-01-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0293c693-a065-395b-b9be-06a7f69b3e57/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Daniel.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Crocodile Rock.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "80df0f1b-4ce7-348a-aa1b-0d31ebff111a",
+      "releaseId": "9e543be3-e77c-40ca-beed-24e474145f28",
+      "title": "Goodbye Yellow Brick Road",
+      "date": "1973-10-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/80df0f1b-4ce7-348a-aa1b-0d31ebff111a/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Candle in the Wind.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Goodby Yellow Brick Road.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "375ad2c5-4fe6-3ede-a899-b7c4d259eea1",
+      "releaseId": "18ae7a3b-b47f-30a0-b37a-8aa0240c1a91",
+      "title": "Rock of the Westies",
+      "date": "1975-10-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/375ad2c5-4fe6-3ede-a899-b7c4d259eea1/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Island Girl.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "09064761-d34e-335b-a3da-eb4063042dc6",
+      "releaseId": "a3712f66-c366-43cf-9e83-5418a82eae80",
+      "title": "A Single Man",
+      "date": "1978-10-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/09064761-d34e-335b-a3da-eb4063042dc6/front-250",
+      "songs": [
+        {
+          "number": 11,
+          "files": [
+            "Song for Guy.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c88240dd-cbcc-4309-8121-bf70fbf5e634",
+      "releaseId": "f19bf7bc-989a-4cec-b7eb-c6511764de2b",
+      "title": "Empty Garden (Hey Hey Johnny)",
+      "date": "1982-03",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/c88240dd-cbcc-4309-8121-bf70fbf5e634/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Empty Garden.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a4ffedd3-0c03-3477-8fbf-6ffc352721b6",
+      "releaseId": "7bfe0a85-998a-3d74-852b-19cf5da8ee68",
+      "title": "Jump Up!",
+      "date": "1982-04-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a4ffedd3-0c03-3477-8fbf-6ffc352721b6/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Blue Eyes.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "06e023f6-8b88-3554-9ce6-e2b8f1e69925",
+      "releaseId": "9a3011ca-ebe3-41c2-a5e4-432ff9379adb",
+      "title": "Too Low for Zero",
+      "date": "1983-05-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/06e023f6-8b88-3554-9ce6-e2b8f1e69925/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "I'm Still Standing.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "I Guess That's Why They Call It the Blues.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5276a1aa-cd46-3bc2-bcf7-4f1f8a21b771",
+      "releaseId": "2e7be515-4041-425d-80fe-6dbc6b10bfbc",
+      "title": "Breaking Hearts",
+      "date": "1984-07-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5276a1aa-cd46-3bc2-bcf7-4f1f8a21b771/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Sad Songs (Say So Much).mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c3faec37-3bc7-3bba-9e1f-143728881d3d",
+      "releaseId": "3e19a16d-7f4e-4edf-b884-bdabd45e4f99",
+      "title": "Ice on Fire",
+      "date": "1985-11-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c3faec37-3bc7-3bba-9e1f-143728881d3d/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Nikita.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "20df37ba-ed63-3fd2-aea9-4a5c67f44d88",
+      "releaseId": "00f7f968-69c2-412c-a3e6-659652d3b68a",
+      "title": "Reg Strikes Back",
+      "date": "1988-06-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/20df37ba-ed63-3fd2-aea9-4a5c67f44d88/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "A Word in Spanish.mid",
+            "A Word in Spanish.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "I Don't Wanna Go On With You Like That.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "67be09d7-0701-34fc-812e-ef6c93864285",
+      "releaseId": "0478ab1e-f402-3f20-96af-0621d1d12820",
+      "title": "Sleeping With the Past",
+      "date": "1989-08-07",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/67be09d7-0701-34fc-812e-ef6c93864285/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Sacrifice.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "364607c7-ae6f-3ec8-bb1a-fcee332497a7",
+      "releaseId": "9a269910-b164-41e4-a08c-976925d69800",
+      "title": "The One",
+      "date": "1992-02-22",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/364607c7-ae6f-3ec8-bb1a-fcee332497a7/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "The One.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "The Last Song.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "778c3991-2237-32a6-b8de-62f6562c64bb",
+      "releaseId": "4c610c45-1bb1-4069-a92c-e1bd893061c5",
+      "title": "Duets",
+      "date": "1993-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/778c3991-2237-32a6-b8de-62f6562c64bb/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Don't Go Breaking My Heart.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8de350f3-021e-4f11-bf1b-d37bf205a795",
+      "releaseId": "528c0080-5a80-41c8-b40b-23181a2622f6",
+      "title": "The Diving Board",
+      "date": "2013-09-13",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8de350f3-021e-4f11-bf1b-d37bf205a795/front-250",
+      "songs": [
+        {
+          "number": 27,
+          "files": [
+            "Rocket Man.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

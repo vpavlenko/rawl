@@ -1,0 +1,219 @@
+{
+  "artist": "Amos, Tori",
+  "artistId": "c0b2500e-0cef-4130-869d-732b23ed9df5",
+  "groups": [
+    {
+      "id": "cb10018e-e795-3b62-b9d6-f143d188e496",
+      "releaseId": "59936590-b340-47c1-975c-1be4823784f0",
+      "title": "Little Earthquakes",
+      "date": "1991",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/cb10018e-e795-3b62-b9d6-f143d188e496/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Crucify.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Winter.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "China.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ed7a2a0a-cfe9-35eb-8274-ac3e2393250f",
+      "releaseId": "f80730c6-cba2-4665-8685-2741bbcdc1f1",
+      "title": "Silent All These Years",
+      "date": "1991-11",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/ed7a2a0a-cfe9-35eb-8274-ac3e2393250f/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Ode to the Banana King.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c93bd8c4-3634-3395-987f-1ec6c7c22623",
+      "releaseId": "0a57e159-e29c-3c92-9a68-39f52277dd10",
+      "title": "China",
+      "date": "1992-01-20",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/c93bd8c4-3634-3395-987f-1ec6c7c22623/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Humpty Dumpty.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5cca5c3c-5c90-39f3-9775-514441f6b4bc",
+      "releaseId": "e4d198ae-de3a-4cfb-9aae-3561e92ae16a",
+      "title": "Crucify",
+      "date": "1992-06-08",
+      "type": "EP",
+      "cover": "https://coverartarchive.org/release-group/5cca5c3c-5c90-39f3-9775-514441f6b4bc/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Here in My Head.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0a9dccc9-e09b-3096-8710-34524bb1274e",
+      "releaseId": "ab45a69b-2025-4e2b-8480-519d35f12daf",
+      "title": "Cornflake Girl",
+      "date": "1994-01-10",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/0a9dccc9-e09b-3096-8710-34524bb1274e/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Daisy Dead Petals.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ef2b891f-ca73-3e14-b38b-a68699dab8c4",
+      "releaseId": "573c4056-1d98-4084-b88c-4a1c81a3c63c",
+      "title": "Under the Pink",
+      "date": "1994-01-31",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/ef2b891f-ca73-3e14-b38b-a68699dab8c4/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "The Wrong Band.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Cornflake Girl.mid",
+            "Cornflake Girl.1.mid",
+            "Cornflake Girl.2.mid",
+            "Cornflake Girl.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8fe72194-46ee-4fac-beea-125705bea7b6",
+      "releaseId": "2dce2fba-ec1f-4629-9478-9535c28df4fb",
+      "title": "From the Choirgirl Hotel",
+      "date": "1998-05-04",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8fe72194-46ee-4fac-beea-125705bea7b6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Spark.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Raspberry Swirl.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Jackies Strength.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "iieee (remixed version).mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Northern Lad.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Playboy Mommy.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1fd43909-8056-3805-b2f9-c663ce7e71e6",
+      "releaseId": "39ea85e0-4db3-3a2b-bc66-fe1ca6caa201",
+      "title": "To Venus and Back",
+      "date": "1999-09-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1fd43909-8056-3805-b2f9-c663ce7e71e6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Bliss.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Concertina.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Josephine.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "1000 Oceans.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c10420af-872a-42e6-b294-835f46a481af",
+      "releaseId": "46d81135-ec98-4993-b381-4526d97451f5",
+      "title": "Gold Dust",
+      "date": "2012-09-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c10420af-872a-42e6-b294-835f46a481af/front-250",
+      "songs": [
+        {
+          "number": 9,
+          "files": [
+            "Flying Dutchman.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

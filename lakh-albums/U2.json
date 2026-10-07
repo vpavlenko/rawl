@@ -1,0 +1,492 @@
+{
+  "artist": "U2",
+  "artistId": "a3cb23fc-acd3-4ce0-8f36-1e5aa6a18432",
+  "groups": [
+    {
+      "id": "53b0d89e-f856-3015-a3a6-a70e1e935fd6",
+      "releaseId": "135d8d2d-2c70-48fc-96fc-5c366e775929",
+      "title": "Boy",
+      "date": "1980-10-20",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/53b0d89e-f856-3015-a3a6-a70e1e935fd6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I Will Follow.mid",
+            "I Will Follow.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "The Electric Co..mid",
+            "The Electric Co..1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "87febb2c-e117-3a0d-a7f6-8fd9a6421af1",
+      "releaseId": "c95ef89c-95d0-3b5f-9515-6e6c9487f102",
+      "title": "October",
+      "date": "1981-10-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/87febb2c-e117-3a0d-a7f6-8fd9a6421af1/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "October.mid",
+            "October.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "702b446a-cbd5-3621-8cd5-f70fdd1a82ba",
+      "releaseId": "a5a61ff2-aa7a-4d9c-b61d-130358f410d2",
+      "title": "A Celebration",
+      "date": "1982-03",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/702b446a-cbd5-3621-8cd5-f70fdd1a82ba/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "A Celebration.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c6b36664-7e60-3b3e-a24d-d096c67a11e9",
+      "releaseId": "259eafd8-f34b-4292-ab0a-c00ac221253c",
+      "title": "War",
+      "date": "1983-02-28",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c6b36664-7e60-3b3e-a24d-d096c67a11e9/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Sunday Bloody Sunday.mid",
+            "Sunday Bloody Sunday.1.mid",
+            "Sunday Bloody Sunday.2.mid",
+            "Sunday Bloody Sunday.3.mid",
+            "Sunday Bloody Sunday.4.mid",
+            "Sunday Bloody Sunday.5.mid",
+            "Sunday Bloody Sunday.6.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "New Year's Day.mid",
+            "New Year's Day.1.mid",
+            "New Year's Day.2.mid",
+            "New Year's Day.3.mid",
+            "New Year's Day.4.mid",
+            "New Year's Day.5.mid",
+            "New Year's Day.6.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c84d00f4-afd3-3184-be62-6ae5f135aa38",
+      "releaseId": "735350ea-2995-4c34-ad6c-02944dd968d8",
+      "title": "The Unforgettable Fire",
+      "date": "1984-10-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/c84d00f4-afd3-3184-be62-6ae5f135aa38/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Pride.mid",
+            "Pride.1.mid",
+            "Pride.2.mid",
+            "Pride.3.mid",
+            "Pride.4.mid",
+            "Pride.5.mid",
+            "Pride.6.mid",
+            "Pride.7.mid",
+            "Pride.8.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "The Unforgettable Fire.mid",
+            "The Unforgettable Fire.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Bad.mid",
+            "Bad.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6f3e9fa6-be7a-3de8-a2b2-2072ece8a54d",
+      "releaseId": "01e24fc2-2e8a-47ab-830f-f42c4f160adf",
+      "title": "The Joshua Tree",
+      "date": "1987-03-09",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6f3e9fa6-be7a-3de8-a2b2-2072ece8a54d/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Where the Streets Have No Name.mid",
+            "Where the Streets Have No Name.1.mid",
+            "Where the Streets Have No Name.2.mid",
+            "Where the Streets Have No Name.3.mid",
+            "Where the Streets Have No Name.4.mid",
+            "Where the Streets Have No Name.5.mid",
+            "Where the Streets Have No Name.6.mid",
+            "Where the Streets Have No Name.7.mid",
+            "Where the Streets Have No Name.8.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "I Still Haven't Found What I'm Looking For.mid",
+            "I Still Haven't Found What I'm Looking For.1.mid",
+            "I Still Haven't Found What I'm Looking For.2.mid",
+            "I Still Haven't Found What I'm Looking For.3.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "With or Without You.mid",
+            "With or Without You.1.mid",
+            "With or Without You.2.mid",
+            "With or Without You.3.mid",
+            "With or Without You.4.mid",
+            "With or Without You.5.mid",
+            "With or Without You.6.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Running to Stand Still.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4d6c253b-d2ee-32c2-a8c8-299ac349856f",
+      "releaseId": "1229e176-8733-45b9-a185-984e12c5a84d",
+      "title": "Where the Streets Have No Name",
+      "date": "1987-08",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/4d6c253b-d2ee-32c2-a8c8-299ac349856f/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Sweetest Thing.mid",
+            "Sweetest Thing.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ad7eaa00-60c8-3b9e-a72c-95f4cc7dc99f",
+      "releaseId": "429c79b6-ef22-3263-adc6-f265ecb6b800",
+      "title": "Angel of Harlem",
+      "date": "1988-12-05",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/ad7eaa00-60c8-3b9e-a72c-95f4cc7dc99f/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Angel of Harlem.mid",
+            "Angel of Harlem.1.mid",
+            "Angel of Harlem.2.mid",
+            "Angel of Harlem.3.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c3dc9ef2-400d-3335-983c-8c128ee7e37c",
+      "releaseId": "d5d87680-f3f6-33d8-9ccc-0532c539ba39",
+      "title": "When Love Comes to Town",
+      "date": "1989-04-15",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/c3dc9ef2-400d-3335-983c-8c128ee7e37c/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "When Love Comes to Town.mid",
+            "When Love Comes to Town.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "36fd3f7e-2461-3809-9d2a-b9a12b96bb82",
+      "releaseId": "efd3b6f4-3186-4e30-b225-f5f9875dc052",
+      "title": "All I Want Is You",
+      "date": "1989-06-12",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/36fd3f7e-2461-3809-9d2a-b9a12b96bb82/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Everlasting Love.mid",
+            "Everlasting Love.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "744c7a1b-ac79-35c4-bd92-7e2c6a24c8d8",
+      "releaseId": "1ad164a7-3880-4e18-a00b-90e2c76c3d72",
+      "title": "Achtung Baby",
+      "date": "1991-11-18",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/744c7a1b-ac79-35c4-bd92-7e2c6a24c8d8/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "One.mid",
+            "One.1.mid",
+            "One.2.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "The Fly.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Mysterious Ways.mid",
+            "Mysterious Ways.1.mid",
+            "Mysterious Ways.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2f182da3-9297-3d20-a1c2-651dab872ff4",
+      "releaseId": "12c2901b-aed8-41c7-b17b-9a64a63226b4",
+      "title": "One",
+      "date": "1992-02-24",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/2f182da3-9297-3d20-a1c2-651dab872ff4/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Satellite of Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7c705df7-46e7-3c27-9693-72b3ea559c48",
+      "releaseId": "0c93d5e3-7272-4233-93b0-4b6ef76b726b",
+      "title": "Zooropa",
+      "date": "1993-07-05",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7c705df7-46e7-3c27-9693-72b3ea559c48/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Zooropa.mid",
+            "Zooropa.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Babyface.mid",
+            "Babyface.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Lemon.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Stay (Faraway, So Close!).mid",
+            "Stay (Faraway, So Close!).1.mid",
+            "Stay (Faraway, So Close!).2.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Dirty Day.mid",
+            "Dirty Day.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9ace1888-92c2-386b-96bd-9389766ddf56",
+      "releaseId": "12651086-7cbd-3b84-846f-f55ca8917ad7",
+      "title": "Hold Me, Thrill Me, Kiss Me, Kill Me",
+      "date": "1995-05",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/9ace1888-92c2-386b-96bd-9389766ddf56/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Hold Me, Thrill Me, Kiss Me, Kill Me.mid",
+            "Hold Me, Thrill Me, Kiss Me, Kill Me.1.mid",
+            "Hold Me, Thrill Me, Kiss Me, Kill Me.2.mid",
+            "Hold Me, Thrill Me, Kiss Me, Kill Me.3.mid",
+            "Hold Me, Thrill Me, Kiss Me, Kill Me.4.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1edbf67b-8f85-3393-8136-d30f7f94e488",
+      "releaseId": "13edf423-1350-4393-aad2-de716a6f646b",
+      "title": "Original Soundtracks 1",
+      "date": "1995-11-01",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1edbf67b-8f85-3393-8136-d30f7f94e488/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Your Blue Room.mid",
+            "Your Blue Room.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5eca5ea6-841b-3835-b368-94fb71d8f932",
+      "releaseId": "8306dd5b-b69d-4f98-8604-22551be03bd4",
+      "title": "Pop",
+      "date": "1997-02-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5eca5ea6-841b-3835-b368-94fb71d8f932/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Discotheque.mid",
+            "Discotheque.1.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Do You Feel Loved.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "If God Will Send His Angels.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Gone.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Please.mid",
+            "Please.1.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Wake Up Dead Man.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "88c59b55-200d-3ac1-beff-8eb99830807e",
+      "releaseId": "33a49d52-4a32-43c0-9282-22e13b8907b0",
+      "title": "All That You Can’t Leave Behind",
+      "date": "2000-10-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/88c59b55-200d-3ac1-beff-8eb99830807e/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Beautiful Day.mid",
+            "Beautiful Day.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Elevation.mid",
+            "Elevation.1.mid",
+            "Elevation.2.mid",
+            "Elevation.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Walk On.mid",
+            "Walk On.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f8d10640-6e3a-49df-9786-1f741d672ce0",
+      "releaseId": "07e657db-2ac5-46b8-929a-7c8ceca0cdf4",
+      "title": "Songs of Surrender",
+      "date": "2023-03-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f8d10640-6e3a-49df-9786-1f741d672ce0/front-250",
+      "songs": [
+        {
+          "number": 23,
+          "files": [
+            "Electrical Storm.mid"
+          ]
+        },
+        {
+          "number": 26,
+          "files": [
+            "Desire.mid",
+            "Desire.1.mid",
+            "Desire.2.mid",
+            "Desire.3.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

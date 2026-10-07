@@ -1,0 +1,197 @@
+{
+  "artist": "Britney Spears",
+  "artistId": "45a663b5-b1cb-4a91-bff6-2bef7bbfdd76",
+  "groups": [
+    {
+      "id": "faeb8741-2ca0-3ca6-8a1a-70bab1e67c82",
+      "releaseId": "e904dbad-f5cd-4f73-a261-392087b6053b",
+      "title": "…Baby One More Time",
+      "date": "1999-01-12",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/faeb8741-2ca0-3ca6-8a1a-70bab1e67c82/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "... Baby One More Time.mid",
+            "... Baby One More Time.1.mid",
+            "... Baby One More Time.2.mid",
+            "... Baby One More Time.3.mid",
+            "... Baby One More Time.4.mid",
+            "... Baby One More Time.5.mid",
+            "... Baby One More Time.6.mid",
+            "... Baby One More Time.7.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "(You Drive Me) Crazy.mid",
+            "(You Drive Me) Crazy.1.mid",
+            "(You Drive Me) Crazy.2.mid",
+            "(You Drive Me) Crazy.3.mid",
+            "(You Drive Me) Crazy.4.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Sometimes.mid",
+            "Sometimes.1.mid",
+            "Sometimes.2.mid",
+            "Sometimes.3.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Soda Pop.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Born to Make You Happy.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "From the Bottom of My Broken Heart.mid",
+            "From the Bottom of My Broken Heart.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "E-Mail My Heart.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f2708dcf-14e6-31f1-90e0-b3e933a0c8a3",
+      "releaseId": "7cbaa06c-1281-4318-a088-466d60bac54b",
+      "title": "Oops!…I Did It Again",
+      "date": "2000-05-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f2708dcf-14e6-31f1-90e0-b3e933a0c8a3/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Oops!... I Did It Again.mid",
+            "Oops!... I Did It Again.1.mid",
+            "Oops!... I Did It Again.2.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Stronger.mid",
+            "Stronger.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Don't Go Knockin' on My Door.mid",
+            "Don't Go Knockin' on My Door.1.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Don't Let Me Be The Last To Know.mid",
+            "Don't Let Me Be The Last To Know.1.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "What U See (Is What U Get).mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Lucky.mid",
+            "Lucky.1.mid",
+            "Lucky.2.mid",
+            "Lucky.3.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Where Are You Now.mid",
+            "Where Are You Now.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f850adcc-4f9f-365c-bc44-fdc0d5eaa565",
+      "releaseId": "ada05ce8-c44e-4a59-9dbc-e1e458b60616",
+      "title": "Britney",
+      "date": "2001-10-31",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f850adcc-4f9f-365c-bc44-fdc0d5eaa565/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "I'm a Slave for You.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Overprotected.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Boys.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "I Love Rock 'n' Roll.mid",
+            "I Love Rock 'n' Roll.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Cinderella.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Before the Goodbye.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0b8e14e1-d44d-3770-8617-5c6137a444a8",
+      "releaseId": "94a07b6d-3d4b-4842-9e48-b43729f792e6",
+      "title": "Blackout",
+      "date": "2007-10-25",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0b8e14e1-d44d-3770-8617-5c6137a444a8/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Radar.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

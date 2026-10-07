@@ -1,0 +1,294 @@
+{
+  "artist": "Ellington",
+  "artistId": "3af06bc4-68ad-4cae-bb7a-7eeeb45e411f",
+  "groups": [
+    {
+      "id": "e36b894a-afe1-4fa5-9f25-5173f4e2785a",
+      "releaseId": "62b4ff52-5f35-4aa8-959a-889864cfc10b",
+      "title": "Stormy Weather / Oh, Babe! Maybe Someday",
+      "date": "1941",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/e36b894a-afe1-4fa5-9f25-5173f4e2785a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Stormy Weather.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "8743886f-f38c-3441-8694-030dae089cbf",
+      "releaseId": "b964048e-9e97-430b-84ac-bc486dc316b5",
+      "title": "Ellington Uptown",
+      "date": "1953",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/8743886f-f38c-3441-8694-030dae089cbf/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Take the \"A\" Train.mid",
+            "Take the \"A\" Train.1.mid",
+            "Take the \"A\" Train.2.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Perdido.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5a1e1c50-e710-4e8c-8214-ea3f342705c8",
+      "releaseId": "87ae646b-dfe9-4d9a-8b96-e80abec138af",
+      "title": "Piano Reflections",
+      "date": "1953",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/5a1e1c50-e710-4e8c-8214-ea3f342705c8/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Passion Flower.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "In a Sentimental Mood.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "Things Ain't What They Used to Be.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "19888d80-ad70-4b73-a3be-7e3a16da31b8",
+      "releaseId": "64e61c7a-c301-4b76-860d-7e9d1e38d0b6",
+      "title": "Dance to the Duke!",
+      "date": "1954",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/19888d80-ad70-4b73-a3be-7e3a16da31b8/front-250",
+      "songs": [
+        {
+          "number": 3,
+          "files": [
+            "Caravan.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "620dd228-71ac-4c58-9e96-adc0edb48105",
+      "releaseId": "564673b4-5304-4336-b2eb-ab33d7d2b579",
+      "title": "At Newport",
+      "date": "1956",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/620dd228-71ac-4c58-9e96-adc0edb48105/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Sophisticated Lady.mid",
+            "Sophisticated Lady.1.mid",
+            "Sophisticated Lady.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "937475fe-80c1-48f3-864f-9c6f2ff46f44",
+      "releaseId": "9c09e81d-7868-4690-b042-d379941150af",
+      "title": "In a Mellotone",
+      "date": "1956",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/937475fe-80c1-48f3-864f-9c6f2ff46f44/front-250",
+      "songs": [
+        {
+          "number": 10,
+          "files": [
+            "Cotton Tail.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "a4302a71-d3e0-36b8-b218-c632623f3000",
+      "releaseId": "15ed8fdd-6429-4381-b7ab-7361d95eef2e",
+      "title": "Such Sweet Thunder",
+      "date": "1957",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a4302a71-d3e0-36b8-b218-c632623f3000/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Such Sweet Thunder.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "9674b63a-33c7-4f3e-80f5-3fc28943a609",
+      "releaseId": "3be50cbf-2345-46cb-9801-12f8e1231535",
+      "title": "At the Bal Masque",
+      "date": "1958",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/9674b63a-33c7-4f3e-80f5-3fc28943a609/front-250",
+      "songs": [
+        {
+          "number": 7,
+          "files": [
+            "Satin Doll.mid",
+            "Satin Doll.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "46d402fc-44f4-40ea-af53-2c5f1fb299ad",
+      "releaseId": "e5925c9e-cfa1-4527-aaaa-74cd08d1ab43",
+      "title": "Dance Air Force Date 1960",
+      "date": "1960",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/46d402fc-44f4-40ea-af53-2c5f1fb299ad/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Jeep's Blues.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2b9e1ee5-df13-3f36-941f-e4404dd581ff",
+      "releaseId": "a5691268-1d9e-4292-bcd0-e19fc753d9f7",
+      "title": "Piano in the Background",
+      "date": "1961-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/2b9e1ee5-df13-3f36-941f-e4404dd581ff/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "I'm Beginning to See the Light.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "It Don't Mean a Thing.mid",
+            "It Don't Mean a Thing.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4da31b24-04b1-427b-a399-3f245df60060",
+      "releaseId": "5e37de39-5071-455b-92ab-19cdf731e212",
+      "title": "Will Big Bands Ever Come Back?",
+      "date": "1965",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4da31b24-04b1-427b-a399-3f245df60060/front-250",
+      "songs": [
+        {
+          "number": 12,
+          "files": [
+            "Don't Get Around Much Anymore.mid",
+            "Don't Get Around Much Anymore.1.mid",
+            "Don't Get Around Much Anymore.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f03bd470-b642-42f1-b4b5-a3f5a39c5fda",
+      "releaseId": "f9fed608-5a20-4f3b-bbbe-1ec01788860f",
+      "title": "The Duke At Tanglewood",
+      "date": "1966",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/f03bd470-b642-42f1-b4b5-a3f5a39c5fda/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "I Let a Song Go Out of My Heart.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "68ead2d5-adac-4918-b247-6c0da5c9f948",
+      "releaseId": "de584697-5c63-4b05-ae37-04e85588a2fc",
+      "title": "The Popular Duke Ellington",
+      "date": "1975",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/68ead2d5-adac-4918-b247-6c0da5c9f948/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Do Nothin' Till You Hear From Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "44511f59-5c0b-4a2d-a338-87bb9de4440a",
+      "releaseId": "c89d3429-b92b-49f0-ae38-bd746a576441",
+      "title": "A Duke in Concert",
+      "date": "1990",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/44511f59-5c0b-4a2d-a338-87bb9de4440a/front-250",
+      "songs": [
+        {
+          "number": 11,
+          "files": [
+            "Ellington Medley.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6f14edae-44e3-41b6-a711-9df28bbe0bd3",
+      "releaseId": "c676e08e-8e8c-4da4-b5e3-9d08823f78cd",
+      "title": "Take the \"A\" Train (The Legendary Blanton-Webster Transcriptions)",
+      "date": "1990",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6f14edae-44e3-41b6-a711-9df28bbe0bd3/front-250",
+      "songs": [
+        {
+          "number": 23,
+          "files": [
+            "Moon Mist.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1fa3890d-4351-343b-b020-db844493a4ce",
+      "releaseId": "c35e5ebb-b48a-4b05-ba12-02713348e1de",
+      "title": "1969 All-Star White House Tribute",
+      "date": "1992",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/1fa3890d-4351-343b-b020-db844493a4ce/front-250",
+      "songs": [
+        {
+          "number": 6,
+          "files": [
+            "Just Squeeze Me.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

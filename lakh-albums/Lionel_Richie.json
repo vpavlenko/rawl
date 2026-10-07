@@ -1,0 +1,112 @@
+{
+  "artist": "Lionel Richie",
+  "artistId": "3cb25fb2-5547-4b05-adec-1a5e37830d46",
+  "groups": [
+    {
+      "id": "21ecba05-39e7-34a6-a8db-5079b799d48c",
+      "releaseId": "6c0fe294-b66e-483c-99f5-0ed2f5d9acf8",
+      "title": "Natural High",
+      "date": "1978-05-10",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/21ecba05-39e7-34a6-a8db-5079b799d48c/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Three Times A Lady.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "80a39002-b172-34dc-8a87-93287d18720d",
+      "releaseId": "4f81ae85-cd8b-47f4-8c71-e829f52c1c03",
+      "title": "Lionel Richie",
+      "date": "1982-10-06",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/80a39002-b172-34dc-8a87-93287d18720d/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "My Love.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cccdb1a1-333d-30e1-9486-81b8113e608a",
+      "releaseId": "3956b126-93c1-4b91-b143-454c8039a478",
+      "title": "Can’t Slow Down",
+      "date": "1983-10-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/cccdb1a1-333d-30e1-9486-81b8113e608a/front-250",
+      "songs": [
+        {
+          "number": 8,
+          "files": [
+            "Hello.mid",
+            "Hello.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0da827b5-0d14-382c-ba26-9db0c3591c14",
+      "releaseId": "176077a6-a9f3-4b8f-8df2-45da9b5f5fa8",
+      "title": "Dancing on the Ceiling",
+      "date": "1985",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0da827b5-0d14-382c-ba26-9db0c3591c14/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Dancing on the Ceiling.mid"
+          ]
+        },
+        {
+          "number": 2,
+          "files": [
+            "Sela.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Say You, Say Me.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6e3be147-2bd7-342c-9c04-5ed7c32ddf1e",
+      "releaseId": "1c105b89-f7c1-4d6a-b60d-b7a615a8ffbc",
+      "title": "Back to Front",
+      "date": "1992-05-11",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/6e3be147-2bd7-342c-9c04-5ed7c32ddf1e/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "You Are My Destiny.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "All Night Long.mid",
+            "All Night Long.1.mid"
+          ]
+        },
+        {
+          "number": 7,
+          "files": [
+            "Endless Love (feat. Diana Ross).mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

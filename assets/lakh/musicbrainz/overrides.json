@@ -1568,5 +1568,13 @@
         "title": "Non so più a chi credere"
       }
     }
+  },
+  "Dave Matthews Band": {
+    "name": "Dave Matthews Band",
+    "mbid": "07e748f1-075e-428d-85dc-ce3be434e906",
+    "country": "US",
+    "includedReleaseGroups": [
+      "21ad8c36-c81d-300a-91b9-a0ca9a15b6f2"
+    ]
   }
 }

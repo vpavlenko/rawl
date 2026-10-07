@@ -1,0 +1,134 @@
+{
+  "artist": "Basie",
+  "status": "processed",
+  "totalSongs": 21,
+  "matched": [
+    {
+      "song": "Ain't Misbehavin'",
+      "album": "Basic Basie",
+      "albumId": "2b9d2dea-37f4-3607-8642-cc6f062ac606",
+      "track": 9
+    },
+    {
+      "song": "All of Me",
+      "album": "Count Basie and His Great Vocalists",
+      "albumId": "02bcc1b0-e3a9-352e-81b5-4ff39b1a832e",
+      "track": 10
+    },
+    {
+      "song": "April in Paris",
+      "album": "April in Paris",
+      "albumId": "bae9e6bd-cb30-3207-84db-e908e9d9dc5c",
+      "track": 1
+    },
+    {
+      "song": "Basie - Straight Ahead",
+      "album": "Straight Ahead",
+      "albumId": "fcec20cb-6b81-3af0-aa89-5bc522050ee9",
+      "track": 1
+    },
+    {
+      "song": "Cute",
+      "album": "Basie Plays Hefti",
+      "albumId": "5f2cf9d9-da06-424d-b4ca-a5e4a581fea4",
+      "track": 2
+    },
+    {
+      "song": "Doin' Basie's Thing",
+      "album": "Have a Nice Day",
+      "albumId": "d7ab88ee-57d8-4857-b3fb-9a72b0f61864",
+      "track": 7
+    },
+    {
+      "song": "Freckle Face",
+      "album": "Basie in Europe",
+      "albumId": "a55f1c9b-a663-3172-9cea-c9b7de9ad851",
+      "track": 2
+    },
+    {
+      "song": "Have a Nice Day",
+      "album": "Have a Nice Day",
+      "albumId": "d7ab88ee-57d8-4857-b3fb-9a72b0f61864",
+      "track": 1
+    },
+    {
+      "song": "Hay Burner",
+      "album": "Straight Ahead",
+      "albumId": "fcec20cb-6b81-3af0-aa89-5bc522050ee9",
+      "track": 7
+    },
+    {
+      "song": "I Left My Heart in San Francisco",
+      "album": "This Time by Basie: Hits of the 50's & 60's",
+      "albumId": "12d8dab5-bf18-3c3d-90cd-65d509387287",
+      "track": 2
+    },
+    {
+      "song": "In a Mellow Tone",
+      "album": "On the Road",
+      "albumId": "774d1220-7441-455d-86e5-b44d8359deab",
+      "track": 10
+    },
+    {
+      "song": "It Had to Be You",
+      "album": "Dance Along With Basie",
+      "albumId": "e6cda107-8f3c-4d2b-9244-360739093d45",
+      "track": 1
+    },
+    {
+      "song": "Katy",
+      "album": "Shoutin’ Blues",
+      "albumId": "62b546b5-1a80-44ec-a059-5e9ab262ffd1",
+      "track": 3
+    },
+    {
+      "song": "Soft as Velvet",
+      "album": "Basie Big Band",
+      "albumId": "7134745c-e62b-38e2-9c4d-f6021cce7337",
+      "track": 4
+    },
+    {
+      "song": "Sweet Georgia Brown",
+      "album": "Prime Time",
+      "albumId": "d98a7775-cc49-46b9-ad99-dbea4365191d",
+      "track": 3
+    },
+    {
+      "song": "The Queen Bee",
+      "album": "Straight Ahead",
+      "albumId": "fcec20cb-6b81-3af0-aa89-5bc522050ee9",
+      "track": 9
+    },
+    {
+      "song": "The Wind Machine",
+      "album": "Basie Big Band",
+      "albumId": "7134745c-e62b-38e2-9c4d-f6021cce7337",
+      "track": 8
+    },
+    {
+      "song": "Told You So",
+      "album": "I Told You So",
+      "albumId": "8f69cf9b-8405-3a69-9bd1-0db19132c8b8",
+      "track": 9
+    },
+    {
+      "song": "Warm Breeze",
+      "album": "Warm Breeze",
+      "albumId": "3ad9d7d1-bafd-3b28-9f38-9b1ad8f79eb0",
+      "track": 3
+    },
+    {
+      "song": "Ya Gotta Try",
+      "album": "Prime Time",
+      "albumId": "d98a7775-cc49-46b9-ad99-dbea4365191d",
+      "track": 8
+    }
+  ],
+  "unmatched": [
+    "Fly Me to the Moon"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Fly Me to the Moon": []
+  }
+}

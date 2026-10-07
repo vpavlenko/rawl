@@ -1533,5 +1533,21 @@
     "name": "Umberto Tozzi",
     "mbid": "76dffaaa-57c7-4b86-8ea1-bcf351dc950c",
     "country": "IT"
+  },
+  "Basie": {
+    "name": "Count Basie",
+    "mbid": "0dbd6300-efdc-420b-857e-895e18fad317",
+    "country": "US",
+    "relatedArtistIds": [
+      "885f0f99-e945-4181-9990-bff2762ef9b8"
+    ],
+    "songs": {
+      "Basie - Straight Ahead": {
+        "title": "Basie Straight Ahead"
+      }
+    },
+    "extraReleaseGroupIds": [
+      "80c2bb42-0c5e-35ed-8c63-392da06d5983"
+    ]
   }
 }

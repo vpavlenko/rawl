@@ -167,6 +167,9 @@
       "Wooden Heart (Muss I Denn)": {
         "title": "Wooden Heart"
       }
+    },
+    "releaseOverrides": {
+      "2a753764-89d5-3b72-8dff-8c599f1ea925": "7393dc7e-0123-4d83-9b61-582c4dfa8a30"
     }
   },
   "Led Zeppelin": {

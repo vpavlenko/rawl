@@ -603,19 +603,28 @@ export const StackedSystemLayout: React.FC<
       parentRef.current &&
       sectionRefs.current.length > 0
     ) {
+      const measureIndex = measureStart + (analysis.measureRenumbering?.[1] || 0) - 1;
       const sectionIndex = sections.findIndex(
         ({ sectionSpan }) =>
-          measureStart >= sectionSpan[0] && measureStart <= sectionSpan[1],
+          measureIndex >= sectionSpan[0] && measureIndex < sectionSpan[1],
       );
 
       if (sectionIndex !== -1) {
         const sectionElement = sectionRefs.current[sectionIndex];
         if (sectionElement) {
-          sectionElement.scrollIntoView({ behavior: "smooth", block: "start" });
+          sectionElement.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "start", inline: "nearest" });
+          // Inferred sections can span the whole file. Keep the passage from
+          // the search visible horizontally as well as opening its section.
+          parentRef.current.scrollTo({
+            left: Math.max(0, sections[sectionIndex].secondsToX(
+              measuresAndBeats.measures[measureIndex],
+            ) - parentRef.current.clientWidth / 2),
+            behavior: "instant" as ScrollBehavior,
+          });
         }
       }
     }
-  }, [measureStart, sections]);
+  }, [measureStart, sections, analysis.measureRenumbering, measuresAndBeats]);
 
   return (
     <>

@@ -53,7 +53,9 @@ import { repeatSectionModulations } from "./repeatSectionModulations";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { analyzeHarmony, HarmonyResult } from "../../harmony/harmony";
 import { loadIndexedHarmony } from "../../harmony/index";
+import { refreshPhraseAnalysis } from "../../harmony/phraseBoundaries";
 import { harmonyAnnotationConfig } from "../../harmony/settings";
+import { provisionalHarmony, provisionalScoreAnalysis } from "../../harmony/proposals";
 import HarmonyControls from "./HarmonyControls";
 import { HarmonyContext } from "./HarmonyOverlay";
 import { beautifySlug } from "./corpora/utils";
@@ -190,6 +192,8 @@ const Rawl: React.FC<RawlProps> = ({
     ? `/${lakhKey.split("/").map(encodeURIComponent).join("/")}`
     : `/f/${slug}`;
   const history = useHistory();
+  const location = useLocation();
+  const harmonyRequested = new URLSearchParams(location.search).get("harmony") === "1";
 
   const [analysis, setAnalysis] = useState<Analysis>(
     savedAnalysis || rawlProps?.savedAnalysis || parsingResult.displayOptions?.analysis || ANALYSIS_STUB,
@@ -202,18 +206,19 @@ const Rawl: React.FC<RawlProps> = ({
     setAnalysis(nextAnalysis);
   }, [savedAnalysis, rawlProps?.savedAnalysis, parsingResult.displayOptions]);
 
-  useEffect(() => {
-    setFirstTonic(Object.entries(analysis.modulations)
-      .sort((a, b) => Number(a[0]) - Number(b[0]))[0]?.[1] ?? null);
-  }, [analysis.modulations, parsingResult, setFirstTonic]);
-
   const [systemLayout, setSystemLayout] = useState<SystemLayout>("merged");
   const scoreContainerRef = useRef<HTMLDivElement>(null);
-  const [showHarmony, setShowHarmony] = useState(() => new URLSearchParams(window.location.search).get("harmony") === "1");
+  const [showHarmony, setShowHarmony] = useState(harmonyRequested);
+  const showProvisionalAnalysis = harmonyRequested && showHarmony && systemLayout === "merged";
   const [indexedHarmony, setIndexedHarmony] = useState<HarmonyResult | null>(null);
   const [harmonyLoading, setHarmonyLoading] = useState(false);
   const [liveHarmony, setLiveHarmony] = useState(false);
-  const indexedHarmonyConfigRef = useRef("");
+  const indexedHarmonySourceRef = useRef<{ key: string; config: string } | null>(null);
+
+  useEffect(() => {
+    setShowHarmony(harmonyRequested);
+    setLiveHarmony(false);
+  }, [harmonyRequested, parsingResult]);
 
   const commitAnalysisUpdate = useCallback(
     (analysisUpdate: Partial<Analysis>) => {
@@ -396,7 +401,6 @@ const Rawl: React.FC<RawlProps> = ({
       ),
     [parsingResult.notes, excludedVoiceSet, drumVoiceSet],
   );
-  const location = useLocation();
   const strumEnabled = new URLSearchParams(location.search).get("strum") !== "0";
   const timingNotes = useMemo(
     () => parsingResult.notes.flat(),
@@ -413,6 +417,12 @@ const Rawl: React.FC<RawlProps> = ({
     setSelectedMeasure(null);
     setHoveredNote(null);
   }, [enableManualRemeasuring]);
+
+  useEffect(() => {
+    selectedMeasureRef.current = null;
+    setSelectedMeasure(null);
+    setHoveredNote(null);
+  }, [showProvisionalAnalysis]);
 
   const playNote = useCallback(
     (note: Note) => {
@@ -438,7 +448,7 @@ const Rawl: React.FC<RawlProps> = ({
       window.removeEventListener("blur", clearShift);
     };
   }, []);
-  const onsetEditing = shiftHeld && !enableManualRemeasuring &&
+  const onsetEditing = !showProvisionalAnalysis && shiftHeld && !enableManualRemeasuring &&
     selectedMeasure != null && analysis.modulations[selectedMeasure] != null;
   const committedMeasures = useMemo(
     () => analysis.measures
@@ -457,6 +467,10 @@ const Rawl: React.FC<RawlProps> = ({
 
   const handleMouseEnter = useCallback(
     (note: Note) => {
+      if (showProvisionalAnalysis) {
+        if (window.event instanceof MouseEvent && window.event.shiftKey) playNote(note);
+        return;
+      }
       if (onsetEditing) {
         setHoveredNote(note);
         return;
@@ -472,7 +486,7 @@ const Rawl: React.FC<RawlProps> = ({
         }
       }
     },
-    [enableManualRemeasuring, playNote, onsetEditing],
+    [showProvisionalAnalysis, enableManualRemeasuring, playNote, onsetEditing],
   );
 
   const handleMouseLeave = useCallback(() => {
@@ -481,8 +495,8 @@ const Rawl: React.FC<RawlProps> = ({
     }
   }, [enableManualRemeasuring]);
 
-  const futureAnalysis = useMemo(() => {
-    if (!hoveredNote) return analysis;
+  const futureSavedAnalysis = useMemo(() => {
+    if (showProvisionalAnalysis || !hoveredNote) return analysis;
     if (onsetEditing) {
       if (!canSetModulationOnset(hoveredNote, selectedMeasure, analysis, committedMeasures)) {
         return analysis;
@@ -498,14 +512,14 @@ const Rawl: React.FC<RawlProps> = ({
       enableManualRemeasuring,
       analysis,
     );
-  }, [hoveredNote, analysis, selectedMeasure, enableManualRemeasuring, onsetEditing, committedMeasures]);
+  }, [showProvisionalAnalysis, hoveredNote, analysis, selectedMeasure, enableManualRemeasuring, onsetEditing, committedMeasures]);
 
   const measuresAndBeats = useMemo(() => {
-    if (futureAnalysis.measures) {
-      return buildManualMeasuresAndBeats(futureAnalysis.measures, timingNotes);
+    if (futureSavedAnalysis.measures) {
+      return buildManualMeasuresAndBeats(futureSavedAnalysis.measures, timingNotes);
     }
     return parsingResult?.measuresAndBeats;
-  }, [futureAnalysis, timingNotes, parsingResult]);
+  }, [futureSavedAnalysis, timingNotes, parsingResult]);
 
   const harmonyGrid = useMemo(() => analysis.measures
     ? buildManualMeasuresAndBeats(analysis.measures, timingNotes)
@@ -521,7 +535,7 @@ const Rawl: React.FC<RawlProps> = ({
     let cancelled = false;
     setHarmonyLoading(true);
     loadIndexedHarmony(lakhKey, harmonyGrid.measures, harmonyConfig)
-      .then(result => { if (!cancelled) { indexedHarmonyConfigRef.current = requestedConfig; setIndexedHarmony(result); } })
+      .then(result => { if (!cancelled) { indexedHarmonySourceRef.current = { key: lakhKey, config: requestedConfig }; setIndexedHarmony(result); } })
       .catch(() => { if (!cancelled) setIndexedHarmony(null); })
       .finally(() => { if (!cancelled) setHarmonyLoading(false); });
     return () => { cancelled = true; };
@@ -529,15 +543,29 @@ const Rawl: React.FC<RawlProps> = ({
 
   const harmonyResult = useMemo(() => {
     if (!showHarmony) return null;
-    if (indexedHarmony && !liveHarmony && indexedHarmonyConfigRef.current === harmonyConfig) return indexedHarmony;
+    const harmonyNotes = allNotes.map(note => ({
+      start: note.span[0], end: note.span[1], pitch: note.note.midiNumber,
+      voice: note.voiceIndex, isDrum: note.isDrum, velocity: note.velocity,
+    }));
+    if (indexedHarmony && !liveHarmony && indexedHarmonySourceRef.current?.key === lakhKey && indexedHarmonySourceRef.current?.config === harmonyConfig) return refreshPhraseAnalysis(indexedHarmony, harmonyNotes, harmonyGrid);
     const supplied = savedAnalysis || rawlProps?.savedAnalysis || parsingResult.displayOptions?.analysis;
     const referenceKeys = supplied ? getModulations(analysis, harmonyGrid.measures)
       .filter(k => Number.isInteger(k.tonic)).map(k => ({ start: k.time, tonic: k.tonic })) : [];
-    return analyzeHarmony(allNotes.map(note => ({
-      start: note.span[0], end: note.span[1], pitch: note.note.midiNumber,
-      voice: note.voiceIndex, isDrum: note.isDrum,
-    })), harmonyGrid, { referenceKeys });
-  }, [showHarmony, indexedHarmony, liveHarmony, harmonyConfig, allNotes, harmonyGrid, savedAnalysis, rawlProps?.savedAnalysis, parsingResult.displayOptions, analysis.modulations, analysis.modulationOnset]);
+    return analyzeHarmony(harmonyNotes, harmonyGrid, { referenceKeys: showProvisionalAnalysis ? [] : referenceKeys });
+  }, [showHarmony, showProvisionalAnalysis, indexedHarmony, liveHarmony, harmonyConfig, lakhKey, allNotes, harmonyGrid, savedAnalysis, rawlProps?.savedAnalysis, parsingResult.displayOptions, analysis.modulations, analysis.modulationOnset]);
+
+  const displayedHarmony = useMemo(() => harmonyResult && showProvisionalAnalysis
+    ? provisionalHarmony(harmonyResult, harmonyGrid.measures) : harmonyResult,
+    [harmonyResult, showProvisionalAnalysis, harmonyGrid]);
+  const scoreAnalysis = useMemo(() => showProvisionalAnalysis && displayedHarmony
+    ? provisionalScoreAnalysis(analysis, displayedHarmony, harmonyGrid.measures) : analysis,
+    [showProvisionalAnalysis, displayedHarmony, analysis, harmonyGrid]);
+  const futureAnalysis = showProvisionalAnalysis ? scoreAnalysis : futureSavedAnalysis;
+
+  useEffect(() => {
+    setFirstTonic(Object.entries(scoreAnalysis.modulations)
+      .sort((a, b) => Number(a[0]) - Number(b[0]))[0]?.[1] ?? null);
+  }, [scoreAnalysis.modulations, parsingResult, setFirstTonic]);
 
   const strumNotes = useMemo(() => {
     const result = strumEnabled ? findStrumNotes(notes) : new Set<string>();
@@ -842,10 +870,10 @@ const Rawl: React.FC<RawlProps> = ({
 
   useEffect(() => {
     if (isEmbedded) return;
-    // Committed timing/analysis only: hover previews and voice masks do not
-    // invalidate the footer. Cache survives layout/tab component remounts.
+    // Use the same saved or provisional analysis as the score. Hover previews
+    // and voice masks do not invalidate the footer.
     let cancelled = false;
-    const pending = buildTimeSliderData(parsingResult, analysis);
+    const pending = buildTimeSliderData(parsingResult, scoreAnalysis);
     pending.then((data) => {
       if (!cancelled) timeSliderStore.publish(data);
     }).catch((error) => {
@@ -855,7 +883,7 @@ const Rawl: React.FC<RawlProps> = ({
       }
     });
     return () => { cancelled = true; };
-  }, [analysis, notes, parsingResult, timingNotes, excludedVoices, drumVoiceSet, isEmbedded, timeSliderStore]);
+  }, [scoreAnalysis, notes, parsingResult, timingNotes, excludedVoices, drumVoiceSet, isEmbedded, timeSliderStore]);
 
   useEffect(() => {
     if (isEmbedded) return;
@@ -864,6 +892,10 @@ const Rawl: React.FC<RawlProps> = ({
 
   const handleNoteClick = useCallback(
     (note: Note, event?: React.MouseEvent) => {
+      if (showProvisionalAnalysis) {
+        playNote(note);
+        return;
+      }
       const measure = selectedMeasureRef.current;
       const current = analysisRef.current;
       if (event?.shiftKey && !enableManualRemeasuring && measure != null &&
@@ -899,6 +931,7 @@ const Rawl: React.FC<RawlProps> = ({
       }
     },
     [
+      showProvisionalAnalysis,
       enableManualRemeasuring,
       commitAnalysisUpdate,
       playNote,
@@ -1055,8 +1088,8 @@ const Rawl: React.FC<RawlProps> = ({
 
   const measureSelection: MeasureSelection = useMemo(
     () => ({
-      selectedMeasure,
-      selectMeasure,
+      selectedMeasure: showProvisionalAnalysis ? null : selectedMeasure,
+      selectMeasure: showProvisionalAnalysis ? () => {} : selectMeasure,
       splitAtMeasure,
       mergeAtMeasure,
       anchorSection,
@@ -1067,6 +1100,7 @@ const Rawl: React.FC<RawlProps> = ({
       setBeatsPerMeasure,
     }),
     [
+      showProvisionalAnalysis,
       selectedMeasure,
       selectMeasure,
       splitAtMeasure,
@@ -1379,7 +1413,7 @@ const Rawl: React.FC<RawlProps> = ({
             </div>
           )}
           {systemLayout === "merged" && <FormPartContents
-            analysis={analysis}
+            analysis={scoreAnalysis}
             measures={measuresAndBeats.measures}
             onSelect={(measure) => {
               seek(Math.max(0, measuresAndBeats.measures[measure - 1] * 1000 - 1000));
@@ -1391,10 +1425,11 @@ const Rawl: React.FC<RawlProps> = ({
           />}
           {!isEmbedded && systemLayout === "merged" && <HarmonyControls
             enabled={showHarmony} onToggle={() => setShowHarmony(value => !value)}
-            result={harmonyResult} measures={harmonyGrid.measures} loading={harmonyLoading}
+            result={displayedHarmony} measures={harmonyGrid.measures} loading={harmonyLoading}
+            provisional={showProvisionalAnalysis}
             onRecalculate={() => { setLiveHarmony(true); setIndexedHarmony(null); setHarmonyLoading(false); }}
           />}
-          <HarmonyContext.Provider value={harmonyResult}>
+          <HarmonyContext.Provider value={displayedHarmony}>
           <ModulationOnsetEditingContext.Provider value={onsetEditingContext}>
             <StrumNotesContext.Provider value={strumNotes}>
               <AnalysisTransposeContext.Provider value={transpose}>
@@ -1427,9 +1462,11 @@ const Rawl: React.FC<RawlProps> = ({
             <div style={{ color: "gray" }}>
               Shift+hover or click the note to play it separately
               <br />
+              {!showProvisionalAnalysis && <>
               Select a measure with a modulation, then Shift+click a note in that measure
               or the previous one to adjust its onset
               <br />
+              </>}
               Press "Space" to play/pause
             </div>
           )}

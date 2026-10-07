@@ -68,27 +68,7 @@ function safePhrases(annotation, count) {
       (i === 0 || m > result[i - 1]),
   );
 }
-function learnPrior() {
-  const phraseLengths = {},
-    songs = new Set();
-  for (const [key, a] of Object.entries(analyses)) {
-    if (!key.startsWith("c/MIDI/") || !a.phrasePatch?.length) continue;
-    const [, , artist, file] = key.split("/");
-    if (!artist || !file || heldOut(artist, file)) continue;
-    const group = songGroup(artist, file);
-    if (songs.has(group)) continue;
-    songs.add(group);
-    const max = Math.max(128, ...a.phrasePatch.map((p) => p.measure + 32));
-    const phrases = safePhrases(a, max);
-    // Don't learn an artificial tail from the regular extrapolated grid.
-    const through = Math.max(...a.phrasePatch.map((p) => p.measure)) + 16;
-    for (let i = 1; i < phrases.length && phrases[i] <= through; i++) {
-      const n = phrases[i] - phrases[i - 1];
-      if (n >= 2 && n <= 8) phraseLengths[n] = (phraseLengths[n] || 0) + 1;
-    }
-  }
-  return { phraseLengths, trainingSongs: songs.size };
-}
+
 function matchBoundaries(predicted, reference, tolerance = 1) {
   const remaining = new Set(reference),
     matched = [];
@@ -107,7 +87,7 @@ function matchBoundaries(predicted, reference, tolerance = 1) {
     reference: reference.length,
   };
 }
-function scan(artist, file, prior) {
+function scan(artist, file) {
   const key = `c/MIDI/${artist.name}/${file}`,
     annotation = analyses[key];
   const bytes = fs.readFileSync(
@@ -117,18 +97,16 @@ function scan(artist, file, prior) {
   const allNotes = input.notes;
   const excluded = new Set(annotation?.excludedVoices || []),
     drums = new Set(annotation?.drumVoices || []);
-  input.notes = input.notes.filter(
-    (n) => !excluded.has(n.voice) && !drums.has(n.voice),
-  );
+  input.notes = input.notes
+    .filter((n) => !excluded.has(n.voice))
+    .map((n) => (drums.has(n.voice) ? { ...n, isDrum: true } : n));
   if (annotation?.measures && allNotes.length) {
     input.grid = buildManualMeasuresAndBeats(
       annotation.measures,
       allNotes.map((n) => ({ span: [n.start, n.end] })),
     );
   }
-  const inferred = analyzeHarmony(input.notes, input.grid, {
-    structurePrior: prior,
-  });
+  const inferred = analyzeHarmony(input.notes, input.grid);
   if (!inferred.chords.length)
     throw new Error(
       [...input.warnings, ...inferred.warnings].join(" ") ||
@@ -225,6 +203,7 @@ function scan(artist, file, prior) {
     keys: result.keys,
     inferredKeys: inferred.inferredKeys,
     phrases: result.phrases,
+    phraseModelVersion: result.phraseModelVersion,
     sections: result.sections,
     warnings: [...input.warnings, ...result.warnings],
     proposal: analysisProposal(inferred, input.grid.measures),
@@ -306,7 +285,7 @@ if (!isMainThread) {
       errors = [];
     for (const file of artist.tracks) {
       try {
-        const r = scan(artist, file, workerData.prior);
+        const r = scan(artist, file);
         rows.push(r.index);
         details[file] = r.detail;
         if (r.evaluation) evaluations.push(r.evaluation);
@@ -341,8 +320,7 @@ if (!isMainThread) {
       !(limit > 0)
     )
       throw new Error("Invalid --workers or --limit.");
-    const catalog = require("../../public/lakh-index.json"),
-      prior = learnPrior();
+    const catalog = require("../../public/lakh-index.json");
     fs.mkdirSync(path.join(destination, "details"), { recursive: true });
     const queue = [];
     let included = 0;
@@ -364,7 +342,7 @@ if (!isMainThread) {
         () =>
           new Promise((resolve, reject) => {
             const worker = new Worker(__filename, {
-              workerData: { prior, references },
+              workerData: { references },
             });
             worker.on("error", reject);
             const next = () => {
@@ -419,7 +397,9 @@ if (!isMainThread) {
       attempted: included,
       indexed: rows.length,
       skipped: errors,
-      training: prior,
+      phraseModelVersion: require("../../src/harmony/phraseModel.json").version,
+      phraseEvaluationNote:
+        "Phrase training uses a separate corpus-wide title split. Use reports/phrase-model/evaluation.json for held-out phrase accuracy.",
       heldOutSongs: new Set(evaluations.map((e) => e.song)).size,
       heldOutFiles: evaluations.length,
       highConfidenceTonicAccuracy:
@@ -454,14 +434,6 @@ if (!isMainThread) {
         skipped: errors.length,
         tracks: rows,
       }),
-    );
-    fs.writeFileSync(
-      path.join(destination, "prior.json"),
-      JSON.stringify(prior),
-    );
-    fs.writeFileSync(
-      path.join(root, "src/harmony/structurePrior.json"),
-      JSON.stringify(prior, null, 2),
     );
     const packed = require("./pack-harmony.cjs")(destination);
     console.log(

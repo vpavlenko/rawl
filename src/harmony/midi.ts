@@ -65,6 +65,7 @@ export function harmonyMidi(midi: any): {
         pitch: n.noteNumber,
         voice: channels.indexOf(n.port * 16 + n.channel),
         isDrum: n.channel === 9,
+        velocity: n.velocity,
       });
   };
   const flush = (channel: number, tick: number) => {

@@ -1,4 +1,8 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
+import { AppContext } from "../AppContext";
+import curatedAnalyses from "../../corpus/analyses.json";
+import type { Analysis } from "./analysis";
+import { phraseTrainingSnapshot } from "../../harmony/phraseFeedback";
 import { HarmonyResult } from "../../harmony/harmony";
 import { analysisProposal } from "../../harmony/proposals";
 import { Link } from "react-router-dom";
@@ -9,6 +13,7 @@ export default function HarmonyControls({
   measures,
   loading,
   onRecalculate,
+  provisional = false,
 }: {
   enabled: boolean;
   onToggle: () => void;
@@ -16,7 +21,35 @@ export default function HarmonyControls({
   measures: number[];
   loading: boolean;
   onRecalculate: () => void;
+  provisional?: boolean;
 }) {
+  const context = useContext(AppContext);
+  const labelsUrl = useMemo(
+    () =>
+      enabled && context?.user
+        ? URL.createObjectURL(
+            new Blob(
+              [
+                JSON.stringify(
+                  phraseTrainingSnapshot(
+                    curatedAnalyses as unknown as Record<string, Analysis>,
+                    context.annotationVersions,
+                    context.user.uid,
+                  ),
+                ),
+              ],
+              { type: "application/json" },
+            ),
+          )
+        : null,
+    [enabled, context?.annotationVersions, context?.user?.uid],
+  );
+  useEffect(
+    () => () => {
+      if (labelsUrl) URL.revokeObjectURL(labelsUrl);
+    },
+    [labelsUrl],
+  );
   const buttonStyle: React.CSSProperties = {
     background: "#211c2c",
     color: "#e1d1fb",
@@ -40,6 +73,7 @@ export default function HarmonyControls({
                   {
                     status: "inferred proposal; review before saving",
                     version: result.version,
+                    phraseModelVersion: result.phraseModelVersion,
                     ...proposal,
                   },
                   null,
@@ -50,7 +84,7 @@ export default function HarmonyControls({
             ),
           )
         : null,
-    [proposal, result?.version],
+    [proposal, result?.version, result?.phraseModelVersion],
   );
   useEffect(
     () => () => {
@@ -60,6 +94,7 @@ export default function HarmonyControls({
   );
   return (
     <div
+      data-phrase-model={result?.phraseModelVersion}
       style={{
         display: "flex",
         alignItems: "center",
@@ -79,7 +114,9 @@ export default function HarmonyControls({
             <span role="status">Loading corpus analysis…</span>
           ) : (
             <span>
+              {provisional && "Provisional analysis · "}
               Estimated chords · dashed = uncertain ·{" "}
+              {result?.phraseModelVersion && "learned phrase boundaries · "}
               {result?.phrases.length ?? 0} phrase and{" "}
               {result?.sections.length ?? 0} section suggestions
             </span>
@@ -94,6 +131,15 @@ export default function HarmonyControls({
               style={{ color: "#cbb2f1" }}
             >
               Download suggested analysis
+            </a>
+          )}
+          {labelsUrl && (
+            <a
+              download="phrase-training-labels.json"
+              href={labelsUrl}
+              style={{ color: "#cbb2f1" }}
+            >
+              Export phrase training labels
             </a>
           )}
           <Link to="/discover/harmony" style={{ color: "#cbb2f1" }}>

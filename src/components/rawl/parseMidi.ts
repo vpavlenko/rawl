@@ -27,6 +27,7 @@ export type Note = {
   tickSpan?: [number, number]; // [startTick, endTick]
   pitchBend?: PitchBendPoint[];
   voiceIndex: number;
+  velocity?: number;
   sourceLocation?: SourceLocation;
   noteUnderCursor?: boolean;
   isPlayingNow?: boolean;
@@ -114,6 +115,7 @@ const getNotes = (events, channel, voiceIndex): Note[] => {
               tickSpan: [startTick, endTick], // Always explicitly set the tickSpan
               pitchBend: noteOn[midiNumber].pitchBend,
               voiceIndex,
+              velocity: noteOn[midiNumber].param2,
               sourceLocation: noteOn[midiNumber].sourceLocation,
               noteUnderCursor: noteOn[midiNumber].noteUnderCursor,
             });

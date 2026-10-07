@@ -1,0 +1,331 @@
+{
+  "modelVersion": "phrase-gbdt-c84d5e4c97c7",
+  "dataset": {
+    "featureVersion": "phrase-features-1",
+    "annotationHash": "e8381fc88d5080ffb57524c01d9eb414e469b95d091a6f656d886ffeb9c981bd",
+    "annotations": "src/corpus/analyses.json",
+    "grouping": "Normalized title + exact MIDI byte duplicate union; SHA256 group modulo 10: 0/1 test, 2 validation, 3..9 train",
+    "songs": 3948,
+    "groups": 3883,
+    "boundaries": 366941,
+    "positiveBoundaries": 91503,
+    "drumSongs": 515,
+    "splits": {
+      "train": {
+        "songs": 2764,
+        "groups": 2722,
+        "drums": 374
+      },
+      "validation": {
+        "songs": 404,
+        "groups": 396,
+        "drums": 45
+      },
+      "test": {
+        "songs": 780,
+        "groups": 765,
+        "drums": 96
+      }
+    }
+  },
+  "selection": "Parameters and student chosen on validation songs only; test opened after selection. No test refit.",
+  "validation": {
+    "teacher": {
+      "score": 0.6501662232378513,
+      "lengthWeight": 0.8,
+      "boundaryBias": -2.0
+    },
+    "pitchedSupervised": {
+      "score": 0.6433357857304967,
+      "lengthWeight": 0.8,
+      "boundaryBias": -2.0
+    },
+    "pitchedDistilled": {
+      "score": 0.6413405421170442,
+      "lengthWeight": 0.5,
+      "boundaryBias": -1.5
+    }
+  },
+  "test": {
+    "regularFourBars": {
+      "exact": {
+        "precision": 0.43943903835145964,
+        "recall": 0.43270206290158947,
+        "f1": 0.4360445302737703,
+        "matched": 7677,
+        "predicted": 17470,
+        "reference": 17742
+      },
+      "withinOneBar": {
+        "precision": 0.8085289066971952,
+        "recall": 0.7961334686055687,
+        "f1": 0.8022833125070998,
+        "matched": 14125,
+        "predicted": 17470,
+        "reference": 17742
+      },
+      "offGridExact": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "matched": 0,
+        "predicted": 0,
+        "reference": 10065
+      }
+    },
+    "teacher": {
+      "exact": {
+        "precision": 0.673444376357863,
+        "recall": 0.6813775222635554,
+        "f1": 0.6773877230829575,
+        "matched": 12089,
+        "predicted": 17951,
+        "reference": 17742
+      },
+      "withinOneBar": {
+        "precision": 0.845468219040722,
+        "recall": 0.8554277984443693,
+        "f1": 0.8504188496343821,
+        "matched": 15177,
+        "predicted": 17951,
+        "reference": 17742
+      },
+      "offGridExact": {
+        "precision": 0.6064303699399574,
+        "recall": 0.6221559860904123,
+        "f1": 0.6141925359227111,
+        "matched": 6262,
+        "predicted": 10326,
+        "reference": 10065
+      },
+      "withDrums": {
+        "songs": 96,
+        "exact": {
+          "precision": 0.7337662337662337,
+          "recall": 0.7440329218106996,
+          "f1": 0.7388639149979568,
+          "matched": 1808,
+          "predicted": 2464,
+          "reference": 2430
+        },
+        "offGridExact": {
+          "precision": 0.7415418746533555,
+          "recall": 0.7728323699421965,
+          "f1": 0.756863855080668,
+          "matched": 1337,
+          "predicted": 1803,
+          "reference": 1730
+        }
+      },
+      "withoutDrums": {
+        "songs": 684,
+        "exact": {
+          "precision": 0.6638470975657003,
+          "recall": 0.6714341692789969,
+          "f1": 0.6676190785415111,
+          "matched": 10281,
+          "predicted": 15487,
+          "reference": 15312
+        },
+        "offGridExact": {
+          "precision": 0.5778481755250499,
+          "recall": 0.590881823635273,
+          "f1": 0.5842923241191126,
+          "matched": 4925,
+          "predicted": 8523,
+          "reference": 8335
+        }
+      }
+    },
+    "pitchedSupervised": {
+      "exact": {
+        "precision": 0.6645110937674211,
+        "recall": 0.6718521023559915,
+        "f1": 0.6681614349775785,
+        "matched": 11920,
+        "predicted": 17938,
+        "reference": 17742
+      },
+      "withinOneBar": {
+        "precision": 0.8405619355558033,
+        "recall": 0.8498478187352047,
+        "f1": 0.8451793721973094,
+        "matched": 15078,
+        "predicted": 17938,
+        "reference": 17742
+      },
+      "offGridExact": {
+        "precision": 0.5922759150734941,
+        "recall": 0.6125186289120715,
+        "f1": 0.6022272150043958,
+        "matched": 6165,
+        "predicted": 10409,
+        "reference": 10065
+      },
+      "withDrums": {
+        "songs": 96,
+        "exact": {
+          "precision": 0.6456885982836126,
+          "recall": 0.6502057613168725,
+          "f1": 0.6479393069509944,
+          "matched": 1580,
+          "predicted": 2447,
+          "reference": 2430
+        },
+        "offGridExact": {
+          "precision": 0.6425221469515373,
+          "recall": 0.7127167630057804,
+          "f1": 0.675801589476569,
+          "matched": 1233,
+          "predicted": 1919,
+          "reference": 1730
+        }
+      },
+      "withoutDrums": {
+        "songs": 684,
+        "exact": {
+          "precision": 0.6674843457491446,
+          "recall": 0.6752873563218391,
+          "f1": 0.671363178911145,
+          "matched": 10340,
+          "predicted": 15491,
+          "reference": 15312
+        },
+        "offGridExact": {
+          "precision": 0.5809187279151944,
+          "recall": 0.5917216556688663,
+          "f1": 0.5862704309063893,
+          "matched": 4932,
+          "predicted": 8490,
+          "reference": 8335
+        }
+      }
+    },
+    "pitchedDistilled": {
+      "exact": {
+        "precision": 0.6444469051046395,
+        "recall": 0.6560703415623943,
+        "f1": 0.6502066808177858,
+        "matched": 11640,
+        "predicted": 18062,
+        "reference": 17742
+      },
+      "withinOneBar": {
+        "precision": 0.8293655187686856,
+        "recall": 0.8443242024574457,
+        "f1": 0.836778013629762,
+        "matched": 14980,
+        "predicted": 18062,
+        "reference": 17742
+      },
+      "offGridExact": {
+        "precision": 0.56118754525706,
+        "recall": 0.6159960258320915,
+        "f1": 0.5873158717377919,
+        "matched": 6200,
+        "predicted": 11048,
+        "reference": 10065
+      },
+      "withDrums": {
+        "songs": 96,
+        "exact": {
+          "precision": 0.621501014198783,
+          "recall": 0.6304526748971193,
+          "f1": 0.6259448416751787,
+          "matched": 1532,
+          "predicted": 2465,
+          "reference": 2430
+        },
+        "offGridExact": {
+          "precision": 0.6177241740954379,
+          "recall": 0.6809248554913295,
+          "f1": 0.6477866373384658,
+          "matched": 1178,
+          "predicted": 1907,
+          "reference": 1730
+        }
+      },
+      "withoutDrums": {
+        "songs": 684,
+        "exact": {
+          "precision": 0.64807334743861,
+          "recall": 0.660135841170324,
+          "f1": 0.6540489824970074,
+          "matched": 10108,
+          "predicted": 15597,
+          "reference": 15312
+        },
+        "offGridExact": {
+          "precision": 0.5493928454217263,
+          "recall": 0.6025194961007798,
+          "f1": 0.5747310597390707,
+          "matched": 5022,
+          "predicted": 9141,
+          "reference": 8335
+        }
+      }
+    },
+    "runtime": {
+      "exact": {
+        "precision": 0.6765803397382345,
+        "recall": 0.684702964716492,
+        "f1": 0.680617418830714,
+        "matched": 12148,
+        "predicted": 17955,
+        "reference": 17742
+      },
+      "withinOneBar": {
+        "precision": 0.8474519632414369,
+        "recall": 0.8576259722691918,
+        "f1": 0.8525086141692579,
+        "matched": 15216,
+        "predicted": 17955,
+        "reference": 17742
+      },
+      "offGridExact": {
+        "precision": 0.6090546973671427,
+        "recall": 0.6228514654744163,
+        "f1": 0.6158758227723745,
+        "matched": 6269,
+        "predicted": 10293,
+        "reference": 10065
+      }
+    },
+    "lakhOldVsNew": {
+      "songs": 55,
+      "old": {
+        "precision": 0.6012396694214877,
+        "recall": 0.610062893081761,
+        "f1": 0.6056191467221643,
+        "matched": 873,
+        "predicted": 1452,
+        "reference": 1431
+      },
+      "new": {
+        "precision": 0.7577213452299245,
+        "recall": 0.7714884696016772,
+        "f1": 0.7645429362880887,
+        "matched": 1104,
+        "predicted": 1457,
+        "reference": 1431
+      },
+      "oldOffGrid": {
+        "precision": 0.6424242424242425,
+        "recall": 0.6188490408673895,
+        "f1": 0.6304163126593032,
+        "matched": 742,
+        "predicted": 1155,
+        "reference": 1199
+      },
+      "newOffGrid": {
+        "precision": 0.8108581436077058,
+        "recall": 0.7723102585487907,
+        "f1": 0.7911149081589065,
+        "matched": 926,
+        "predicted": 1142,
+        "reference": 1199
+      },
+      "note": "Old cached heuristic used a different length-prior training split; comparison is diagnostic."
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "modelVersion": "phrase-gbdt-c84d5e4c97c7",
+  "checks": {
+    "typeScript": "passed",
+    "focusedTests": 17,
+    "scopedDiffCheck": "passed",
+    "corpusReadBack": {
+      "artistAssets": 2203,
+      "tracks": 17168,
+      "changedFields": [
+        "phrases",
+        "phraseModelVersion",
+        "proposal"
+      ],
+      "otherFieldsUnchanged": true,
+      "searchIndexUnchanged": true
+    },
+    "chrome": {
+      "drumTrack": "Genesis/Lilywhite_Lilith",
+      "pitchedTrack": "f/chopin_military_polonaise",
+      "searchResult": "The_Beatles/Help?harmony=1&measure=80",
+      "checked": [
+        "both model branches rendered",
+        "cached and live inference",
+        "hide/show restores saved annotations",
+        "no flag uses saved analysis",
+        "training-label export link and filename",
+        "search result opens learned provisional analysis"
+      ],
+      "newConsoleErrors": [],
+      "newConsoleWarnings": [],
+      "downloadedTrainingLabels": false
+    }
+  },
+  "notes": [
+    "Label snapshot ownership and exclusion of predictions are covered by the focused tests; browser export link was inspected without initiating a file download.",
+    "Full diff check reports existing trailing whitespace at corpora.tsx:5936 and :5938, outside this feature.",
+    "Offline and browser parsers differ on sustain spans: the Genesis cached run has 16 phrases and the live run 17."
+  ]
+}

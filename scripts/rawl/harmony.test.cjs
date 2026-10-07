@@ -13,9 +13,17 @@ const {
 } = require("../../src/harmony/harmony.ts");
 const { harmonyMidi } = require("../../src/harmony/midi.ts");
 const { alignChart } = require("../../src/harmony/alignment.ts");
-const { analysisProposal } = require("../../src/harmony/proposals.ts");
+const {
+  analysisProposal,
+  provisionalHarmony,
+  provisionalScoreAnalysis,
+} = require("../../src/harmony/proposals.ts");
 const { harmonyAnnotationConfig } = require("../../src/harmony/settings.ts");
-const { getPhraseStarts } = require("../../src/components/rawl/analysis.ts");
+const {
+  getPhraseStarts,
+  getModulations,
+  getTonicAtTime,
+} = require("../../src/components/rawl/analysis.ts");
 const grid = (bars = 4) => ({
   measures: Array.from({ length: bars + 1 }, (_, i) => i * 4),
   beats: Array.from({ length: bars * 4 }, (_, i) => i),
@@ -177,6 +185,89 @@ test("phrase and section proposals round trip through the real Rawl layout", () 
   assert.deepEqual(proposal.sections, [0, 3]);
   assert.deepEqual(proposal.modulations, { 1: 0 });
 });
+test("provisional score uses inferred structure and tonic onsets without changing saved annotations", () => {
+  const saved = {
+    modulations: { 1: 7 },
+    modulationOnset: { 1: 0 },
+    phrasePatch: [{ measure: 1, diff: 2 }],
+    sections: [0, 1],
+    sectionAnchors: { 1: { section: 0, phrase: 0 } },
+    form: { 3: "verse" },
+    comment: "curated",
+    tags: [],
+    excludedVoices: [2],
+    voiceOctaveShifts: { 0: 1 },
+  };
+  const before = JSON.stringify(saved);
+  const result = {
+    version: "test",
+    warnings: [],
+    keys: [{ start: 0, end: 64, tonic: 7, confidence: 1, source: "reference" }],
+    inferredKeys: [
+      {
+        measure: 1,
+        start: 0,
+        end: 14,
+        tonic: 2,
+        mode: "major",
+        confidence: 0.4,
+        source: "inferred",
+      },
+      {
+        measure: 4,
+        start: 14,
+        end: 64,
+        tonic: 4,
+        mode: "major",
+        confidence: 0.9,
+        source: "inferred",
+      },
+    ],
+    chords: [
+      {
+        start: 12,
+        end: 16,
+        root: 0,
+        quality: "maj",
+        tonic: 7,
+        keyConfidence: 1,
+        roman: "IV",
+      },
+    ],
+    phrases: [1, 4, 8, 10, 14].map((measure) => ({ measure })),
+    sections: [1, 10].map((measure) => ({ measure })),
+  };
+  const measures = grid(16).measures;
+  const harmony = provisionalHarmony(result, measures);
+  assert.deepEqual(
+    harmony.chords.map((chord) => [chord.start, chord.end, chord.roman]),
+    [
+      [12, 14, "♭VII"],
+      [14, 16, "♭VI"],
+    ],
+  );
+  assert.equal(harmony.chords[0].keyConfidence, 0.4);
+  assert.equal(result.chords[0].roman, "IV");
+  const preview = provisionalScoreAnalysis(saved, harmony, measures);
+  assert.deepEqual(
+    getPhraseStarts(preview, 17).filter((measure) => measure < 17),
+    [1, 4, 8, 10, 14],
+  );
+  assert.deepEqual(preview.sections, [0, 3]);
+  const modulations = getModulations(preview, measures);
+  assert.equal(getTonicAtTime(13, modulations, true), 2);
+  assert.equal(getTonicAtTime(14, modulations, true), 4);
+  assert.equal(preview.sectionAnchors, undefined);
+  assert.deepEqual(preview.form, {});
+  assert.equal(preview.excludedVoices, saved.excludedVoices);
+  assert.equal(preview.voiceOctaveShifts, saved.voiceOctaveShifts);
+  assert.equal(JSON.stringify(saved), before);
+  assert.equal(analysisProposal(result, measures).modulations[1], null);
+  assert.equal(
+    provisionalScoreAnalysis(saved, { ...result, inferredKeys: [] }, measures),
+    saved,
+  );
+});
 test("MIDI time signatures, tempo, sustain and drum exclusion", () => {
   const midi = {
     header: { ticksPerBeat: 100 },
@@ -288,4 +379,152 @@ test("cache settings detect tonic, timing and voice edits without treating array
     harmonyAnnotationConfig(undefined),
     harmonyAnnotationConfig({ modulations: { 1: 0 } }, false),
   );
+});
+
+const {
+  phraseFeatures,
+  PHRASE_FEATURE_NAMES,
+  DRUM_FEATURE_INDICES,
+  withoutDrumFeatures,
+} = require("../../src/harmony/phraseFeatures.ts");
+const {
+  inferLearnedPhrases,
+  PHRASE_MODEL_VERSION,
+  refreshPhraseAnalysis,
+  treeProbability,
+  decodePhraseBoundaries,
+} = require("../../src/harmony/phraseBoundaries.ts");
+const {
+  phraseTrainingSnapshot,
+} = require("../../src/harmony/phraseFeedback.ts");
+test("phrase features detect late drum fills and remain invariant to tempo, transposition and voice IDs", () => {
+  const notes = Array.from({ length: 8 }, (_, bar) => [
+    ...triad(0, bar * 4, bar * 4 + 2, 3),
+    ...[0, 1, 2, 3].map((offset) => ({
+      start: bar * 4 + offset,
+      end: bar * 4 + offset + 0.1,
+      pitch: 36,
+      voice: 8,
+      isDrum: true,
+      velocity: 80,
+    })),
+    ...(bar === 3
+      ? [3, 3.25, 3.5, 3.75].map((offset) => ({
+          start: bar * 4 + offset,
+          end: bar * 4 + offset + 0.1,
+          pitch: 45,
+          voice: 8,
+          isDrum: true,
+          velocity: 110,
+        }))
+      : []),
+  ]).flat();
+  const rows = phraseFeatures(notes, grid(8));
+  assert.equal(rows[0].length, PHRASE_FEATURE_NAMES.length);
+  assert(
+    rows[4][PHRASE_FEATURE_NAMES.indexOf("drum.lateAcceleration")] >
+      rows[3][PHRASE_FEATURE_NAMES.indexOf("drum.lateAcceleration")],
+  );
+  assert(rows[4][PHRASE_FEATURE_NAMES.indexOf("drum.lateGroup2")] > 0);
+  const changed = notes.map((n) => ({
+    ...n,
+    start: n.start * 3 + 10,
+    end: n.end * 3 + 10,
+    pitch: n.pitch + (n.isDrum ? 0 : 2),
+    voice: n.voice + 20,
+  }));
+  const shiftedGrid = {
+    measures: grid(8).measures.map((t) => t * 3 + 10),
+    beats: grid(8).beats.map((t) => t * 3 + 10),
+  };
+  const shifted = phraseFeatures(changed, shiftedGrid);
+  rows.forEach((row, m) =>
+    row.forEach((value, i) =>
+      assert(Math.abs(value - shifted[m][i]) < 1e-9, PHRASE_FEATURE_NAMES[i]),
+    ),
+  );
+  const pitched = phraseFeatures(
+    notes.filter((n) => !n.isDrum),
+    grid(8),
+  );
+  pitched.forEach((row) =>
+    DRUM_FEATURE_INDICES.forEach((i) => assert.equal(row[i], 0)),
+  );
+  assert.deepEqual(
+    withoutDrumFeatures(rows[4]).filter(
+      (_, i) => !DRUM_FEATURE_INDICES.includes(i),
+    ),
+    rows[4].filter((_, i) => !DRUM_FEATURE_INDICES.includes(i)),
+  );
+});
+test("exported tree inference and phrase decoder handle short pickups and exact boundary indexing", () => {
+  const tree = {
+    bias: 0,
+    trees: [
+      [
+        [0, 0.5, 1, 2, 0, 0],
+        [0, 0, 0, 0, -2, 1],
+        [0, 0, 0, 0, 2, 1],
+      ],
+    ],
+  };
+  assert(Math.abs(treeProbability([0], tree) - 1 / (1 + Math.exp(2))) < 1e-12);
+  assert(Math.abs(treeProbability([1], tree) - 1 / (1 + Math.exp(-2))) < 1e-12);
+  const probabilities = [
+    1, 0.999, 0.001, 0.001, 0.001, 0.999, 0.001, 0.001, 0.001,
+  ];
+  assert.deepEqual(
+    decodePhraseBoundaries(
+      probabilities,
+      9,
+      { lengthWeight: 0.1, boundaryBias: 0 },
+      { 1: 1, 4: 100 },
+    ),
+    [1, 2, 6],
+  );
+});
+test("cached heuristic phrases are upgraded by the trained model without modifying chords or annotations", () => {
+  const notes = Array.from({ length: 8 }, (_, i) =>
+    triad(0, i * 4, i * 4 + 2),
+  ).flat();
+  const legacy = {
+    version: "segmental-2",
+    chords: [],
+    keys: [],
+    inferredKeys: [],
+    phrases: [],
+    sections: [],
+    warnings: [],
+  };
+  const upgraded = refreshPhraseAnalysis(legacy, notes, grid(8));
+  assert.equal(upgraded.phraseModelVersion, PHRASE_MODEL_VERSION);
+  assert.deepEqual(upgraded.phrases, inferLearnedPhrases(notes, grid(8)));
+  assert.equal(upgraded.chords, legacy.chords);
+  assert.equal(legacy.phraseModelVersion, undefined);
+  assert.equal(legacy.phrases.length, 0);
+  assert.equal(refreshPhraseAnalysis(upgraded, notes, grid(8)), upgraded);
+  const live = analyzeHarmony(notes, grid(8));
+  assert.equal(live.phraseModelVersion, PHRASE_MODEL_VERSION);
+  assert.deepEqual(live.phrases, upgraded.phrases);
+});
+test("phrase feedback exports curated labels and own saved corrections without importing another annotator", () => {
+  const original = {
+    phrasePatch: [{ measure: 5, diff: 1 }],
+    modulations: { 1: 0 },
+  };
+  const own = { ...original, phrasePatch: [{ measure: 5, diff: 2 }] };
+  const other = { ...original, phrasePatch: [{ measure: 5, diff: 3 }] };
+  const curated = { "f/example": original };
+  const versions = {
+    "f/example": { self: { analysis: own }, other: { analysis: other } },
+  };
+  assert.equal(
+    phraseTrainingSnapshot(curated, versions, "self").analyses["f/example"],
+    own,
+  );
+  assert.equal(
+    phraseTrainingSnapshot(curated, versions).analyses["f/example"],
+    original,
+  );
+  assert.equal(curated["f/example"], original);
 });

@@ -1,6 +1,6 @@
 // Shared by the offline Lakh indexer and the score overlay. No React or MIDI
 // reader dependencies: times can be seconds or beats, provided the grid agrees.
-import structurePrior from "./structurePrior.json";
+import { inferLearnedPhrases, PHRASE_MODEL_VERSION } from "./phraseBoundaries";
 import {
   hasKeyModel,
   profileScores,
@@ -78,6 +78,7 @@ export type HarmonyNote = {
   pitch: number;
   voice: number;
   isDrum?: boolean;
+  velocity?: number;
 };
 export type HarmonyGrid = { measures: number[]; beats: number[] };
 export type KeyRegion = {
@@ -108,7 +109,6 @@ export type Boundary = {
   strength: number;
   evidence: string;
 };
-export type StructurePrior = { phraseLengths: Record<number, number> };
 export type HarmonyResult = {
   version: string;
   chords: HarmonyChord[];
@@ -117,10 +117,10 @@ export type HarmonyResult = {
   phrases: Boundary[];
   sections: Boundary[];
   warnings: string[];
+  phraseModelVersion?: string;
 };
 export type HarmonyOptions = {
   referenceKeys?: { start: number; tonic: number }[];
-  structurePrior?: StructurePrior;
 };
 
 // MIDI has no spelling. Follow the displayed Roman degree when a tonic is
@@ -702,11 +702,9 @@ function cosine(a: number[], b: number[]) {
   }
   return aa && bb ? dot / Math.sqrt(aa * bb) : aa === bb ? 1 : 0;
 }
-function inferStructure(
+function inferSections(
   frames: Frame[],
-  chords: HarmonyChord[],
   grid: HarmonyGrid,
-  prior?: StructurePrior,
 ) {
   const count = grid.measures.length - 1;
   const bars = Array.from({ length: count }, () => ({
@@ -743,61 +741,6 @@ function inferStructure(
       harmony * 0.55 + texture * 0.8 + Math.min(1, density / 3) * 0.25,
     );
   });
-  // A phrase prior is learned only from training-song annotations. Cadence,
-  // rest and novelty evidence can move boundaries away from a regular grid.
-  const costs = Array(count + 1).fill(-Infinity),
-    back = Array(count + 1).fill(0);
-  costs[0] = 0;
-  const starts = chords.filter((c) => c.root != null);
-  const boundary = (m: number) => {
-    const time = grid.measures[m];
-    const next = starts.find((c) => c.start >= time - 1e-6);
-    const cadence =
-      next && next.start < grid.measures[m + 1] && next.root === next.tonic
-        ? 0.15
-        : 0;
-    const rest =
-      bars[m - 1]?.activity < 0.05 && bars[m]?.activity > 0.05 ? 0.5 : 0;
-    return (strengths[m] || 0) + cadence + rest;
-  };
-  const maxPrior = Math.max(
-    1,
-    ...Object.values(prior?.phraseLengths || { 4: 1 }),
-  );
-  for (let end = 1; end <= count; end++)
-    for (let length = 2; length <= 8; length++) {
-      const start = end - length;
-      if (start < 0) continue;
-      const lengthPrior = prior
-        ? Math.log(0.05 + (prior.phraseLengths[length] || 0) / maxPrior) * 0.12
-        : length === 4
-        ? 0
-        : -0.18 * Math.abs(length - 4);
-      const score =
-        costs[start] + (start ? boundary(start) : 0) + lengthPrior - 0.16;
-      if (score > costs[end]) {
-        costs[end] = score;
-        back[end] = start;
-      }
-    }
-  const phraseMeasures = [1];
-  let end = count;
-  if (Number.isFinite(costs[end]))
-    while (end > 0) {
-      const start = back[end];
-      if (start) phraseMeasures.push(start + 1);
-      end = start;
-    }
-  phraseMeasures.sort((a, b) => a - b);
-  const phrases = phraseMeasures.map((measure) => ({
-    measure,
-    time: grid.measures[measure - 1],
-    strength: measure === 1 ? 1 : clamp(boundary(measure - 1)),
-    evidence:
-      measure === 1
-        ? "start"
-        : "phrase-length prior, cadence, rest and novelty",
-  }));
   const sections: Boundary[] = [
     { measure: 1, time: grid.measures[0], strength: 1, evidence: "start" },
   ];
@@ -815,7 +758,7 @@ function inferStructure(
         evidence: "sustained harmony or instrumentation change",
       });
     }
-  return { phrases, sections };
+  return { sections };
 }
 
 export function analyzeHarmony(
@@ -840,10 +783,9 @@ export function analyzeHarmony(
     )
   )
     return { ...empty, warnings: ["Invalid measure grid."] };
-  const notes = input
+  const validNotes = input
     .filter(
       (n) =>
-        !n.isDrum &&
         Number.isFinite(n.start) &&
         Number.isFinite(n.end) &&
         n.end > n.start &&
@@ -852,6 +794,7 @@ export function analyzeHarmony(
         n.pitch < 128,
     )
     .sort((a, b) => a.start - b.start || a.pitch - b.pitch);
+  const notes = validNotes.filter(n => !n.isDrum);
   if (!notes.length) return { ...empty, warnings: ["No pitched notes."] };
   const frames = makeFrames(notes, grid);
   if (!frames.length || frames.length > 20000)
@@ -911,18 +854,15 @@ export function analyzeHarmony(
       });
     }
   }
-  const structure = inferStructure(
-    frames,
-    chords,
-    grid,
-    options.structurePrior || structurePrior,
-  );
+  const structure = inferSections(frames, grid);
   return {
     version: HARMONY_VERSION,
     chords,
     keys,
     inferredKeys,
     ...structure,
+    phrases: inferLearnedPhrases(validNotes, grid),
+    phraseModelVersion: PHRASE_MODEL_VERSION,
     warnings: [],
   };
 }

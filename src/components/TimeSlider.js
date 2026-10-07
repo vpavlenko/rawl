@@ -83,6 +83,9 @@ export default class TimeSlider extends React.PureComponent {
     }
     if (prevProps.paused !== this.props.paused) {
       this.syncPlaybackTimer();
+    } else if (this.props.paused &&
+      prevProps.currentSongPositionMs !== this.props.currentSongPositionMs) {
+      this.updateCurrentPosition();
     }
   }
 

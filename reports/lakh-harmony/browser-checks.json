@@ -1,0 +1,54 @@
+{
+  "testedAt": "2026-10-07T02:28:50.244Z",
+  "browser": "Google Chrome through ChatGPT browser tools",
+  "server": "http://localhost:3000",
+  "query": "IV bVII I",
+  "conservative": {
+    "songs": 78,
+    "arrangements": 100
+  },
+  "exactQualities": {
+    "songs": 58,
+    "arrangements": 76
+  },
+  "exploratoryAllArrangements": 364,
+  "checks": [
+    "query examples and unsupported-symbol error",
+    "no-match state",
+    "triad/seventh grouping",
+    "arrangement deduplication",
+    "evidence thresholds",
+    "search result navigation",
+    "overlay hide/show",
+    "tonic-relative chord spelling",
+    "bar-line rounding and key-label spacing",
+    "paused chord seeking 0:29 to 1:40",
+    "live MIDI recalculation",
+    "downloaded proposal JSON schema and contents"
+  ],
+  "export": {
+    "downloadedBytes": 382,
+    "version": "segmental-2",
+    "phrasePatches": 3,
+    "sections": [
+      0,
+      9,
+      17,
+      26,
+      28
+    ],
+    "note": "The initial download opened a native Save dialog and was read back after completion. The final Blob URL and suggested-analysis.json filename were verified in Chrome."
+  },
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "automatedChecks": {
+    "typescript": "passed",
+    "harmonyTests": 12,
+    "importer": "transposition, unsupported-symbol validation and lyric omission passed",
+    "compressedAssets": 2204
+  },
+  "screenshots": [
+    "search.jpg",
+    "score.jpg"
+  ]
+}

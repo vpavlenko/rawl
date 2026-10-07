@@ -1,0 +1,45 @@
+{
+  "version": "segmental-2",
+  "attempted": 17266,
+  "indexed": 17168,
+  "skipped": 98,
+  "heldOutSongs": 66,
+  "heldOutFiles": 68,
+  "tonicDurationAccuracy": 0.6538483789897395,
+  "highConfidenceTonicAccuracy": 0.7479776848239572,
+  "highConfidenceTonicCoverage": 0.3060823420736706,
+  "phrases": {
+    "matched": 1506,
+    "predicted": 1994,
+    "reference": 1956,
+    "precision": 0.7552657973921765,
+    "recall": 0.7699386503067485,
+    "f1": 0.7625316455696203
+  },
+  "sections": {
+    "matched": 19,
+    "predicted": 54,
+    "reference": 132,
+    "precision": 0.35185185185185186,
+    "recall": 0.14393939393939395,
+    "f1": 0.20430107526881722
+  },
+  "modulations": {
+    "matched": 35,
+    "predicted": 82,
+    "reference": 107,
+    "precision": 0.4268292682926829,
+    "recall": 0.32710280373831774,
+    "f1": 0.37037037037037035
+  },
+  "referenceExcerpts": 3,
+  "chartArrangements": 26,
+  "candidateAlignments": 22,
+  "limitations": [
+    "Tonic accuracy compares pitch class only: saved annotations do not label mode.",
+    "Phrase references include an implicit four-bar grid and are incomplete labels.",
+    "Section and modulation metrics use only files with explicit boundaries; no negative-boundary ground truth.",
+    "Chart excerpt alignment is weak supervision, not measured chord accuracy.",
+    "Chord confidence remains heuristic; tonic scores use a separate training-song calibration split. Overall search evidence is not a calibrated probability."
+  ]
+}

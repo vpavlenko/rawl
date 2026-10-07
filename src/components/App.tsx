@@ -84,6 +84,7 @@ import OrphansPage from "./rawl/corpora/OrphansPage";
 import MusescoreUploadTracker from "./rawl/corpora/MusescoreUploadTracker";
 import Structures, { StructuresProps } from "./rawl/corpora/Structures";
 import ChromaticMinorBassSearch from "./rawl/corpora/ChromaticMinorBassSearch";
+import HarmonicSearch from "./rawl/corpora/HarmonicSearch";
 import Decomposition from "./rawl/decomposition/Decomposition";
 import Converter from "./rawl/editor/Converter";
 import Editor from "./rawl/editor/Editor";
@@ -1634,6 +1635,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                         <Route path="/blog/:postId?/:slug?" component={Blog} />
                         <Route path="/convert" component={Converter} />
                         <Route exact path="/discover/chromatic-minor-bass" component={ChromaticMinorBassSearch} />
+                        <Route exact path="/discover/harmony" component={HarmonicSearch} />
                         {/* Structures routes */}
                         <Route
                           path="/s/"
@@ -1688,6 +1690,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 />
                 <AppFooter
                   currentSongDurationMs={this.state.currentSongDurationMs}
+                  currentSongPositionMs={this.state.currentSongPositionMs}
                   ejected={this.state.ejected}
                   paused={this.state.paused}
                   volume={this.state.volume}

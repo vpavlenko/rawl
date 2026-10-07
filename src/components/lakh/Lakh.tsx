@@ -299,6 +299,7 @@ type Props = {
 
 export default function Lakh({ ready, loadTrack }: Props) {
   const { pathname, search: locationSearch, hash } = useLocation();
+  const requestedMeasure = Number(new URLSearchParams(locationSearch).get("measure"));
   const { analyses, annotationVersions, rawlProps, currentMidi, eject } =
     useContext(AppContext);
   const [catalog, setCatalog] = useState<LakhCatalog | null>(null);
@@ -475,6 +476,7 @@ export default function Lakh({ ready, loadTrack }: Props) {
           <Rawl
             {...rawlProps}
             usePageScroll
+            measureStart={Number.isInteger(requestedMeasure) && requestedMeasure > 0 ? requestedMeasure : undefined}
             key={analysisKey}
             savedAnalysis={analyses[analysisKey] ?? null}
           />
@@ -728,6 +730,7 @@ export const Directory = React.memo(function Directory({
                 Emerson, Lake &amp; Palmer — Tarkus
               </Link>
               <Link to="/lakh/The_Beatles">The Beatles</Link>
+              <Link to="/discover/harmony">Search harmonies</Link>
             </PinnedLinks>
           )}
         </Heading>

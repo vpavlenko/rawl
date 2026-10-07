@@ -51,6 +51,11 @@ import {
 import { getSectionAnchors, getSectionAnchorShiftTarget, setSectionAnchor } from "./sectionAnchors";
 import { repeatSectionModulations } from "./repeatSectionModulations";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
+import { analyzeHarmony, HarmonyResult } from "../../harmony/harmony";
+import { loadIndexedHarmony } from "../../harmony/index";
+import { harmonyAnnotationConfig } from "../../harmony/settings";
+import HarmonyControls from "./HarmonyControls";
+import { HarmonyContext } from "./HarmonyOverlay";
 import { beautifySlug } from "./corpora/utils";
 import { ModulationOnsetEditingContext, MouseHandlers } from "./getNoteRectangles";
 import LayoutSelector, { SystemLayout } from "./layouts/LayoutSelector";
@@ -204,6 +209,11 @@ const Rawl: React.FC<RawlProps> = ({
 
   const [systemLayout, setSystemLayout] = useState<SystemLayout>("merged");
   const scoreContainerRef = useRef<HTMLDivElement>(null);
+  const [showHarmony, setShowHarmony] = useState(() => new URLSearchParams(window.location.search).get("harmony") === "1");
+  const [indexedHarmony, setIndexedHarmony] = useState<HarmonyResult | null>(null);
+  const [harmonyLoading, setHarmonyLoading] = useState(false);
+  const [liveHarmony, setLiveHarmony] = useState(false);
+  const indexedHarmonyConfigRef = useRef("");
 
   const commitAnalysisUpdate = useCallback(
     (analysisUpdate: Partial<Analysis>) => {
@@ -496,6 +506,38 @@ const Rawl: React.FC<RawlProps> = ({
     }
     return parsingResult?.measuresAndBeats;
   }, [futureAnalysis, timingNotes, parsingResult]);
+
+  const harmonyGrid = useMemo(() => analysis.measures
+    ? buildManualMeasuresAndBeats(analysis.measures, timingNotes)
+    : parsingResult.measuresAndBeats,
+    [analysis.measures, timingNotes, parsingResult.measuresAndBeats]);
+
+  const suppliedHarmonyAnalysis = savedAnalysis || rawlProps?.savedAnalysis || parsingResult.displayOptions?.analysis;
+  const harmonyConfig = harmonyAnnotationConfig(analysis, !!suppliedHarmonyAnalysis);
+
+  useEffect(() => {
+    if (!showHarmony || !lakhKey || liveHarmony) return;
+    const requestedConfig = harmonyConfig;
+    let cancelled = false;
+    setHarmonyLoading(true);
+    loadIndexedHarmony(lakhKey, harmonyGrid.measures, harmonyConfig)
+      .then(result => { if (!cancelled) { indexedHarmonyConfigRef.current = requestedConfig; setIndexedHarmony(result); } })
+      .catch(() => { if (!cancelled) setIndexedHarmony(null); })
+      .finally(() => { if (!cancelled) setHarmonyLoading(false); });
+    return () => { cancelled = true; };
+  }, [showHarmony, lakhKey, liveHarmony, harmonyGrid, harmonyConfig]);
+
+  const harmonyResult = useMemo(() => {
+    if (!showHarmony) return null;
+    if (indexedHarmony && !liveHarmony && indexedHarmonyConfigRef.current === harmonyConfig) return indexedHarmony;
+    const supplied = savedAnalysis || rawlProps?.savedAnalysis || parsingResult.displayOptions?.analysis;
+    const referenceKeys = supplied ? getModulations(analysis, harmonyGrid.measures)
+      .filter(k => Number.isInteger(k.tonic)).map(k => ({ start: k.time, tonic: k.tonic })) : [];
+    return analyzeHarmony(allNotes.map(note => ({
+      start: note.span[0], end: note.span[1], pitch: note.note.midiNumber,
+      voice: note.voiceIndex, isDrum: note.isDrum,
+    })), harmonyGrid, { referenceKeys });
+  }, [showHarmony, indexedHarmony, liveHarmony, harmonyConfig, allNotes, harmonyGrid, savedAnalysis, rawlProps?.savedAnalysis, parsingResult.displayOptions, analysis.modulations, analysis.modulationOnset]);
 
   const strumNotes = useMemo(() => {
     const result = strumEnabled ? findStrumNotes(notes) : new Set<string>();
@@ -1115,17 +1157,24 @@ const Rawl: React.FC<RawlProps> = ({
     ],
   );
 
+  const initialMeasureSeekRef = useRef<{ source: ParsingResult; request: string } | null>(null);
   useEffect(() => {
     if (measureStart !== undefined && measuresAndBeats) {
+      const request = `${measureStart}:${analysis.measureRenumbering?.[1] || 0}`;
+      if (initialMeasureSeekRef.current?.source === parsingResult &&
+          initialMeasureSeekRef.current.request === request) return;
       const absoluteMeasureStart =
         measureStart + (analysis.measureRenumbering?.[1] || 0) - 1;
       const seekTime = measuresAndBeats.measures[absoluteMeasureStart] - 1;
       if (Number.isFinite(seekTime)) {
-        seek(seekTime * 1000);
+        // A search/snippet target is an initial navigation request. Hover
+        // previews or later score renders must not pull playback back to it.
+        initialMeasureSeekRef.current = { source: parsingResult, request };
+        seek(Math.max(0, seekTime * 1000));
         if (playAfterSeek) play();
       }
-    }
-  }, [measureStart, measuresAndBeats, analysis.measureRenumbering, seek, playAfterSeek, play]);
+    } else initialMeasureSeekRef.current = null;
+  }, [measureStart, measuresAndBeats, analysis.measureRenumbering, parsingResult, seek, playAfterSeek, play]);
 
   const handleSourceUrlUpdate = async (newUrl: string) => {
     if (currentMidi) {
@@ -1340,6 +1389,12 @@ const Rawl: React.FC<RawlProps> = ({
                 ?.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "center", inline: "center" });
             }}
           />}
+          {!isEmbedded && systemLayout === "merged" && <HarmonyControls
+            enabled={showHarmony} onToggle={() => setShowHarmony(value => !value)}
+            result={harmonyResult} measures={harmonyGrid.measures} loading={harmonyLoading}
+            onRecalculate={() => { setLiveHarmony(true); setIndexedHarmony(null); setHarmonyLoading(false); }}
+          />}
+          <HarmonyContext.Provider value={harmonyResult}>
           <ModulationOnsetEditingContext.Provider value={onsetEditingContext}>
             <StrumNotesContext.Provider value={strumNotes}>
               <AnalysisTransposeContext.Provider value={transpose}>
@@ -1367,6 +1422,7 @@ const Rawl: React.FC<RawlProps> = ({
               </AnalysisTransposeContext.Provider>
             </StrumNotesContext.Provider>
           </ModulationOnsetEditingContext.Provider>
+          </HarmonyContext.Provider>
           {slug !== "forge_mock" && (
             <div style={{ color: "gray" }}>
               Shift+hover or click the note to play it separately

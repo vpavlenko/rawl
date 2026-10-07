@@ -29,6 +29,10 @@ src/midis
 public/lakh-data/
 public/lakh-data.tmp/
 
+# Harmonic index sources are reproducible; serve the smaller gzip sidecars.
+/public/harmony/index.json
+/public/harmony/details/*.json
+
 # Generated Python bytecode
 __pycache__/
 *.py[cod]

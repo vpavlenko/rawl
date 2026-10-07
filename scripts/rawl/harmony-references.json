@@ -1,0 +1,77 @@
+[
+  {
+    "id": "hey-jude-outro",
+    "artist": "The Beatles",
+    "title": "Hey Jude",
+    "section": "Outro",
+    "tonic": 5,
+    "mode": "mixolydian",
+    "chords": [
+      { "root": 5, "quality": "maj" },
+      { "root": 3, "quality": "maj" },
+      { "root": 10, "quality": "maj" },
+      { "root": 5, "quality": "maj" }
+    ],
+    "sources": [
+      {
+        "url": "https://www.hooktheory.com/theorytab/view/the-beatles/hey-jude",
+        "role": "section, tonic and mode"
+      },
+      {
+        "url": "https://www.e-chords.com/chords/the-beatles/hey-jude",
+        "role": "short chord-sequence excerpt"
+      }
+    ],
+    "notes": "An untimed section excerpt, not a complete-song ground truth. Hooktheory distinguishes the major verse from the Mixolydian outro."
+  },
+  {
+    "id": "let-it-be-verse",
+    "artist": "The Beatles",
+    "title": "Let It Be",
+    "section": "Verse opening",
+    "tonic": 0,
+    "mode": "major",
+    "chords": [
+      { "root": 0, "quality": "maj" },
+      { "root": 7, "quality": "maj" },
+      { "root": 9, "quality": "min" },
+      { "root": 5, "quality": "maj" }
+    ],
+    "sources": [
+      {
+        "url": "https://www.hooktheory.com/theorytab/view/the-beatles/let-it-be",
+        "role": "section, tonic and mode"
+      },
+      {
+        "url": "https://www.e-chords.com/chords/the-beatles/let-it-be",
+        "role": "short chord-sequence excerpt"
+      }
+    ],
+    "notes": "Only the opening four harmonies; later passing bass/chord movement is outside this excerpt."
+  },
+  {
+    "id": "sweet-child-intro",
+    "artist": "Guns N' Roses",
+    "title": "Sweet Child O' Mine",
+    "section": "Intro and verse",
+    "tonic": 2,
+    "mode": "mixolydian",
+    "chords": [
+      { "root": 2, "quality": "maj" },
+      { "root": 0, "quality": "maj" },
+      { "root": 7, "quality": "maj" },
+      { "root": 2, "quality": "maj" }
+    ],
+    "sources": [
+      {
+        "url": "https://www.hooktheory.com/theorytab/view/guns-n-roses/sweet-child-o-mine",
+        "role": "section and harmonic context"
+      },
+      {
+        "url": "https://www.e-chords.com/chords/guns-n-roses/sweet-child-o-mine",
+        "role": "short chord-sequence excerpt and tuning"
+      }
+    ],
+    "notes": "Guitar chart gives D-C-G-D shapes in E-flat tuning: sounding roots are one semitone lower. Alignment searches all 12 transpositions. Its chorus contains power chords and is not interchangeable with this excerpt."
+  }
+]

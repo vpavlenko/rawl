@@ -21,6 +21,8 @@ import { SecondsConverter, SecondsSpan, SetVoiceMask } from "./Rawl";
 import { PlaybackSectionContext } from "./notePlayback";
 import { getSortedVoices, VoiceZIndicesContext } from "./voiceOrder";
 
+import HarmonyOverlay from "./HarmonyOverlay";
+
 const SECTION_RIGHT_MARGIN = 20;
 
 export type MeasuresAndBeats = {
@@ -663,6 +665,12 @@ export const StackedSystemLayout: React.FC<
                       ? playbackMeasure
                       : null
                   }
+                />
+                <HarmonyOverlay
+                  start={measuresAndBeats.measures[sectionSpan[0]]}
+                  end={measuresAndBeats.measures[sectionSpan[1]]}
+                  secondsToX={secondsToX}
+                  seek={seek}
                 />
                 {voices.map(({ notes, voiceIndex }) => (
                   <div

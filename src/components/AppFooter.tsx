@@ -125,6 +125,7 @@ const StyledTempoButton = styled.button`
 const AppFooter: React.FC<
   {
     currentSongDurationMs: number;
+    currentSongPositionMs: number;
     ejected: boolean;
     paused: boolean;
     volume: number;
@@ -142,6 +143,7 @@ const AppFooter: React.FC<
   } & RouteComponentProps
 > = ({
   currentSongDurationMs,
+  currentSongPositionMs,
   ejected,
   paused,
   volume,
@@ -212,6 +214,7 @@ const AppFooter: React.FC<
           <TimeSlider
             paused={paused}
             currentSongDurationMs={currentSongDurationMs}
+            currentSongPositionMs={currentSongPositionMs}
             getCurrentPositionMs={getCurrentPositionMs}
             onChange={handleTimeSliderChange}
             timeSliderStore={context.timeSliderStore}

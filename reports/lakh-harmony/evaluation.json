@@ -1,0 +1,2022 @@
+{
+  "version": "segmental-2",
+  "generatedAt": "2026-10-07T00:57:20.749Z",
+  "attempted": 17266,
+  "indexed": 17168,
+  "skipped": [
+    {
+      "artist": "ABBA",
+      "file": "I've Been Waiting For You.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: '/\u0000MT'"
+    },
+    {
+      "artist": "ABBA",
+      "file": "Voulez Vous.1.mid",
+      "error": "Invalid MIDI delta time."
+    },
+    {
+      "artist": "Pooh",
+      "file": "Il cielo e blu sopra le nuvole.mid",
+      "error": "Unsupported analysis grid size."
+    },
+    {
+      "artist": "Madonna",
+      "file": "Deeper and Deeper.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: '3.0\u0000'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "(New Wave) Polly.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'Trk\u0000'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "All Apologies.1.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'by R'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Aneurysm.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'k\u0000\u0000\u000f'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Been a Son.mid",
+      "error": "Unrecognised MIDI event type: 0"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Dive.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'Trk\u0000'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Downer.1.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'rk\u0000\u0000'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Drain You.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'Trk\u0000'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Dumb.2.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'P\u0000('"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Frances Farmer Will Have Her Revenge on Seattle.1.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'Trk\u0000'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Hairspray Queen.1.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'qá*U'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Heart-Shaped Box.mid",
+      "error": "Unrecognised MIDI event type: 0"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Lounge Act.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'rk\u0000\u0000'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Love Buzz.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'Trk\u0000'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Mexican Seafood.mid",
+      "error": "Unrecognised MIDI event type: 0"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Milk It.1.mid",
+      "error": "Unrecognised MIDI event type: 0"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Mr. Moustache.mid",
+      "error": "Unrecognised MIDI event type: 0"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Negative Creep.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'Trk\u0000'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Pennyroyal Tea.2.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'k)\u0000ÿ'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Polly.1.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'Trk\u0000'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Radio Friendly Unit Shifter.1.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: '\u0000:\u0000'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Scentless Apprentice.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: '?\u0000É\u0010'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Smells Like Teen Spirit.8.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'Trk\u0000'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Son of a Gun.2.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'Trk\u0000'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Swap Meet.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'rk\u0000\u0000'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Territorial Pissings.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'rk\u0000\u0000'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "tourette's.1.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: '\u0000\u0000\u0000\t'"
+    },
+    {
+      "artist": "Nirvana",
+      "file": "Turnaround.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'rk\u0000\u0000'"
+    },
+    {
+      "artist": "John Elton",
+      "file": "Goodby Yellow Brick Road.4.mid",
+      "error": "Expected length for portPrefix event is 1, got 0"
+    },
+    {
+      "artist": "Jackson Michael",
+      "file": "Don't Stop 'Til You Get Enough.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: '*-°'"
+    },
+    {
+      "artist": "Jackson Michael",
+      "file": "Smooth Criminal.mid",
+      "error": "Bad MIDI file.  Expected 'MHdr', got: 'RIFF'"
+    },
+    {
+      "artist": "Jackson Michael",
+      "file": "Thriller.3.mid",
+      "error": "Unrecognised MIDI event type byte: 245"
+    },
+    {
+      "artist": "Roxette",
+      "file": "It Must Have Been Love (live studio).3.mid",
+      "error": "Invalid MIDI delta time."
+    },
+    {
+      "artist": "Roxette",
+      "file": "Sleeping In My Car.3.mid",
+      "error": "Expected length for portPrefix event is 1, got 0"
+    },
+    {
+      "artist": "U2",
+      "file": "Pride.2.mid",
+      "error": "No pitched notes."
+    },
+    {
+      "artist": "U2",
+      "file": "The Electric Co..1.mid",
+      "error": "No pitched notes."
+    },
+    {
+      "artist": "U2",
+      "file": "The Electric Co..mid",
+      "error": "No pitched notes."
+    },
+    {
+      "artist": "U2",
+      "file": "Walk On.mid",
+      "error": "Bad MIDI file.  Expected 'MHdr', got: 'STAR'"
+    },
+    {
+      "artist": "Pink Floyd",
+      "file": "Hey You.mid",
+      "error": "Unrecognised MIDI event type byte: 243"
+    },
+    {
+      "artist": "Pink Floyd",
+      "file": "High Hopes.2.mid",
+      "error": "Unrecognised MIDI event type byte: 245"
+    },
+    {
+      "artist": "Sting",
+      "file": "Fields of Gold.1.mid",
+      "error": "Bad MIDI file.  Expected 'MHdr', got: '\u0000\u0000\u0000\u0000'"
+    },
+    {
+      "artist": "Sting",
+      "file": "Fields of Gold.7.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: '\u0000\u0000\u0000\u0000'"
+    },
+    {
+      "artist": "Bryan Adams",
+      "file": "(Everything I Do) I Do It For You.7.mid",
+      "error": "Bad MIDI file.  Expected 'MHdr', got: '\u0000\u0000\u0000\u0000'"
+    },
+    {
+      "artist": "Bryan Adams",
+      "file": "On a Day Like Today.mid",
+      "error": "Expected length for sequenceNumber event is 2, got 0"
+    },
+    {
+      "artist": "Eric Clapton",
+      "file": "Bell Bottom Blues.2.mid",
+      "error": "MIDI exceeds the 5,000-measure analysis limit."
+    },
+    {
+      "artist": "Eric Clapton",
+      "file": "Tears in Heaven.7.mid",
+      "error": "Unrecognised MIDI event type byte: 249"
+    },
+    {
+      "artist": "The Cranberries",
+      "file": "Promises.1.mid",
+      "error": "Bad MIDI file.  Expected 'MHdr', got: 'STAR'"
+    },
+    {
+      "artist": "Bee Gees",
+      "file": "How Can You Mend a Broken Heart.1.mid",
+      "error": "Invalid MIDI delta time."
+    },
+    {
+      "artist": "Bee Gees",
+      "file": "Stayin Alive.3.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: '\u0013ç\u0010'"
+    },
+    {
+      "artist": "Bee Gees",
+      "file": "Too Much Heaven.mid",
+      "error": "Unrecognised MIDI event type byte: 253"
+    },
+    {
+      "artist": "Collins Phil",
+      "file": "Every Day.1.mid",
+      "error": "MIDI exceeds the 5,000-measure analysis limit."
+    },
+    {
+      "artist": "Wonder Stevie",
+      "file": "Sir Duke.1.mid",
+      "error": "Unrecognised MIDI event type byte: 243"
+    },
+    {
+      "artist": "The Police",
+      "file": "Every Little Thing She Does Is Magic.4.mid",
+      "error": "Unrecognised MIDI event type: 0"
+    },
+    {
+      "artist": "The Police",
+      "file": "So Lonely.1.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: '2p\u0001'"
+    },
+    {
+      "artist": "Sinatra",
+      "file": "Where or When.mid",
+      "error": "Expected length for keySignature event is 2, got 3"
+    },
+    {
+      "artist": "Britney Spears",
+      "file": "Oops!... I Did It Again.2.mid",
+      "error": "Expected length for portPrefix event is 1, got 0"
+    },
+    {
+      "artist": "Frank Sinatra",
+      "file": "Summer Wind.mid",
+      "error": "Expected length for sequenceNumber event is 2, got 0"
+    },
+    {
+      "artist": "Pet Shop Boys",
+      "file": "Always on My Mind   In My House.3.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: '.0\u00008'"
+    },
+    {
+      "artist": "Supertramp",
+      "file": "Bloody Well Right.mid",
+      "error": "Unrecognised MIDI event type byte: 246"
+    },
+    {
+      "artist": "Bruce Springsteen",
+      "file": "Tenth Avenue Freeze-Out.1.mid",
+      "error": "MIDI exceeds the 5,000-measure analysis limit."
+    },
+    {
+      "artist": "Styx",
+      "file": "Come Sail Away.4.mid",
+      "error": "Unrecognised MIDI event type: 0"
+    },
+    {
+      "artist": "R.E.M.",
+      "file": "Nightswimming.mid",
+      "error": "Bad MIDI file.  Expected 'MHdr', got: 'RIFF'"
+    },
+    {
+      "artist": "Michael George",
+      "file": "Freedom 90.2.mid",
+      "error": "Expected length for sequenceNumber event is 2, got 0"
+    },
+    {
+      "artist": "Simon & Garfunkel",
+      "file": "The Sound of Silence.2.mid",
+      "error": "MIDI exceeds the 5,000-measure analysis limit."
+    },
+    {
+      "artist": "The Offspring",
+      "file": "Gone Away.1.mid",
+      "error": "MIDI exceeds the 5,000-measure analysis limit."
+    },
+    {
+      "artist": "The Offspring",
+      "file": "No Hero.mid",
+      "error": "Bad MIDI file.  Expected 'MHdr', got: 'RIFF'"
+    },
+    {
+      "artist": "Amedeo Minghi",
+      "file": "Decenni.1.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'D-¶'"
+    },
+    {
+      "artist": "Last",
+      "file": "Rosamunde.1.mid",
+      "error": "MIDI exceeds the 5,000-measure analysis limit."
+    },
+    {
+      "artist": "TURNER TINA",
+      "file": "Notbush City Limits.1.mid",
+      "error": "Expected length for sequenceNumber event is 2, got 48"
+    },
+    {
+      "artist": "Blondie",
+      "file": "Dreaming.mid",
+      "error": "Invalid MIDI delta time."
+    },
+    {
+      "artist": "Radiohead",
+      "file": "Bullet Proof..I Wish I Was.mid",
+      "error": "Expected length for sequenceNumber event is 2, got 0"
+    },
+    {
+      "artist": "Pearl Jam",
+      "file": "Daughter.mid",
+      "error": "Expected length for sequenceNumber event is 2, got 0"
+    },
+    {
+      "artist": "The Prodigy",
+      "file": "Climbatize.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: '/\u0000MT'"
+    },
+    {
+      "artist": "Marilyn Manson",
+      "file": "Sweet Dreams   Hell Outro.1.mid",
+      "error": "Expected length for sequenceNumber event is 2, got 0"
+    },
+    {
+      "artist": "Fiorello",
+      "file": "Lei balla sola.mid",
+      "error": "MIDI exceeds the 5,000-measure analysis limit."
+    },
+    {
+      "artist": "Jennifer Lopez",
+      "file": "If You Had My Love.mid",
+      "error": "Bad MIDI file.  Expected 'MHdr', got: 'RIFF'"
+    },
+    {
+      "artist": "Yanni",
+      "file": "Aria.1.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'h°\r\n'"
+    },
+    {
+      "artist": "Yanni",
+      "file": "Marching Season.1.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: '\u0000MTr'"
+    },
+    {
+      "artist": "Yanni",
+      "file": "Secret Vows.1.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: '\u0000MTr'"
+    },
+    {
+      "artist": "Yanni",
+      "file": "Swept Away.mid",
+      "error": "Unrecognised MIDI event type: 0"
+    },
+    {
+      "artist": "Yanni",
+      "file": "The Rain Must Fall.1.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'ÿ/\u0000M'"
+    },
+    {
+      "artist": "Tool",
+      "file": "Flood.mid",
+      "error": "Bad MIDI file.  Expected 'MHdr', got: '°Ç=C'"
+    },
+    {
+      "artist": "Los Del Rio",
+      "file": "Macarena.1.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: 'âTEw'"
+    },
+    {
+      "artist": "Rednex",
+      "file": "The Ultimate Rednex Mega Mix, Part 3: Cotton Eye Joe.mid",
+      "error": "Unrecognised MIDI event type byte: 252"
+    },
+    {
+      "artist": "The Stylistics",
+      "file": "I'm Stone in Love With You.mid",
+      "error": "Bad MIDI file.  Expected 'MTrk', got: '/\u0000MT'"
+    },
+    {
+      "artist": "Daft Punk",
+      "file": "Da Funk.mid",
+      "error": "Bad MIDI file.  Expected 'MHdr', got: '%±¹O'"
+    },
+    {
+      "artist": "Henry Mancini",
+      "file": "Moon River.mid",
+      "error": "Expected length for keySignature event is 2, got 3"
+    },
+    {
+      "artist": "Camel",
+      "file": "The Snow Goose.1.mid",
+      "error": "MIDI exceeds the 5,000-measure analysis limit."
+    },
+    {
+      "artist": "Third Eye Blind",
+      "file": "Semi-Charmed Life.1.mid",
+      "error": "Bad MIDI file.  Expected 'MHdr', got: 'RIFF'"
+    },
+    {
+      "artist": "Third Eye Blind",
+      "file": "Semi-Charmed Life.mid",
+      "error": "Bad MIDI file.  Expected 'MHdr', got: 'RIFF'"
+    },
+    {
+      "artist": "Phish",
+      "file": "Taste.mid",
+      "error": "Bad MIDI file.  Expected 'MHdr', got: 'CAKE'"
+    },
+    {
+      "artist": "Edwyn Collins",
+      "file": "A Girl Like You.2.mid",
+      "error": "Expected length for sequenceNumber event is 2, got 0"
+    },
+    {
+      "artist": "Rob Zombie",
+      "file": "Demonoid Phenomenon.mid",
+      "error": "Invalid MIDI delta time."
+    },
+    {
+      "artist": "Nini Rosso",
+      "file": "Il Silenzio.1.mid",
+      "error": "Expected length for keySignature event is 2, got 3"
+    },
+    {
+      "artist": "Theodorakis Mikis",
+      "file": "Zorba's Dance.1.mid",
+      "error": "Expected length for keySignature event is 2, got 3"
+    }
+  ],
+  "training": {
+    "phraseLengths": {
+      "2": 224,
+      "3": 137,
+      "4": 2759,
+      "5": 169,
+      "6": 100,
+      "7": 7,
+      "8": 3
+    },
+    "trainingSongs": 247
+  },
+  "heldOutSongs": 66,
+  "heldOutFiles": 68,
+  "highConfidenceTonicAccuracy": 0.7479776848239572,
+  "highConfidenceTonicCoverage": 0.3060823420736706,
+  "tonicDurationAccuracy": 0.6538483789897395,
+  "phrases": {
+    "matched": 1506,
+    "predicted": 1994,
+    "reference": 1956,
+    "precision": 0.7552657973921765,
+    "recall": 0.7699386503067485,
+    "f1": 0.7625316455696203
+  },
+  "sections": {
+    "matched": 19,
+    "predicted": 54,
+    "reference": 132,
+    "precision": 0.35185185185185186,
+    "recall": 0.14393939393939395,
+    "f1": 0.20430107526881722
+  },
+  "modulations": {
+    "matched": 35,
+    "predicted": 82,
+    "reference": 107,
+    "precision": 0.4268292682926829,
+    "recall": 0.32710280373831774,
+    "f1": 0.37037037037037035
+  },
+  "chartAlignments": [
+    {
+      "reference": "hey-jude-outro",
+      "url": "/lakh/The_Beatles/Hey_Jude_1",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 184.86468000000002,
+      "end": 207.56736,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "hey-jude-outro",
+      "url": "/lakh/The_Beatles/Hey_Jude_10",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 184.6152,
+      "end": 199.99979999999996,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "hey-jude-outro",
+      "url": "/lakh/The_Beatles/Hey_Jude_2",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 191.35139600000014,
+      "end": 214.05410400000017,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "hey-jude-outro",
+      "url": "/lakh/The_Beatles/Hey_Jude_3",
+      "score": 6,
+      "coverage": 0.75,
+      "transpose": 7,
+      "start": 9,
+      "end": 18,
+      "matched": 3,
+      "normalizedScore": 0.75,
+      "status": "needs review"
+    },
+    {
+      "reference": "hey-jude-outro",
+      "url": "/lakh/The_Beatles/Hey_Jude_4",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 188.10792000000026,
+      "end": 210.81060000000036,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "hey-jude-outro",
+      "url": "/lakh/The_Beatles/Hey_Jude_5",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 188.10792000000026,
+      "end": 210.81060000000036,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "hey-jude-outro",
+      "url": "/lakh/The_Beatles/Hey_Jude_6",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 7,
+      "start": 180.76465600000003,
+      "end": 202.58108000000001,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "hey-jude-outro",
+      "url": "/lakh/The_Beatles/Hey_Jude_7",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 191.35139600000014,
+      "end": 214.05410400000017,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "hey-jude-outro",
+      "url": "/lakh/The_Beatles/Hey_Jude_8",
+      "score": 6,
+      "coverage": 0.75,
+      "transpose": 7,
+      "start": 16.2162,
+      "end": 25.94592,
+      "matched": 3,
+      "normalizedScore": 0.75,
+      "status": "needs review"
+    },
+    {
+      "reference": "hey-jude-outro",
+      "url": "/lakh/The_Beatles/Hey_Jude_9",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 191.35139600000014,
+      "end": 214.05410400000017,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "hey-jude-outro",
+      "url": "/lakh/The_Beatles/Hey_Jude",
+      "score": 4.9,
+      "coverage": 0.75,
+      "transpose": 7,
+      "start": 76.75,
+      "end": 88.75,
+      "matched": 3,
+      "normalizedScore": 0.6125,
+      "status": "needs review"
+    },
+    {
+      "reference": "let-it-be-verse",
+      "url": "/lakh/The_Beatles/Let_It_Be_1",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 3.4285679999999994,
+      "end": 10.285703999999999,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "let-it-be-verse",
+      "url": "/lakh/The_Beatles/Let_It_Be_10",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 3.24324,
+      "end": 9.72972,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "let-it-be-verse",
+      "url": "/lakh/The_Beatles/Let_It_Be_11",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 121.64820000000002,
+      "end": 128.13610400000002,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "let-it-be-verse",
+      "url": "/lakh/The_Beatles/Let_It_Be_2",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 4.4,
+      "end": 10.799999999999999,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "let-it-be-verse",
+      "url": "/lakh/The_Beatles/Let_It_Be_3",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 68.33306,
+      "end": 76.66636,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "let-it-be-verse",
+      "url": "/lakh/The_Beatles/Let_It_Be_4",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 0,
+      "end": 6.000001,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "let-it-be-verse",
+      "url": "/lakh/The_Beatles/Let_It_Be_5",
+      "score": 4.9,
+      "coverage": 0.75,
+      "transpose": 0,
+      "start": 52.5,
+      "end": 61.5,
+      "matched": 3,
+      "normalizedScore": 0.6125,
+      "status": "needs review"
+    },
+    {
+      "reference": "let-it-be-verse",
+      "url": "/lakh/The_Beatles/Let_It_Be_6",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 0,
+      "end": 5.999994,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "let-it-be-verse",
+      "url": "/lakh/The_Beatles/Let_It_Be_7",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 5.921024999999999,
+      "end": 12.631519999999998,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "let-it-be-verse",
+      "url": "/lakh/The_Beatles/Let_It_Be_8",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 123.24159999999999,
+      "end": 129.728,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "let-it-be-verse",
+      "url": "/lakh/The_Beatles/Let_It_Be_9",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 3.24324,
+      "end": 9.72972,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "let-it-be-verse",
+      "url": "/lakh/The_Beatles/Let_It_Be",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 0,
+      "start": 2.18182,
+      "end": 8.72728,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "sweet-child-intro",
+      "url": "/lakh/Guns_N_Roses/Sweet_Child_O_Mine_1",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 11,
+      "start": 105,
+      "end": 125.625,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "sweet-child-intro",
+      "url": "/lakh/Guns_N_Roses/Sweet_Child_O_Mine",
+      "score": 6.9,
+      "coverage": 1,
+      "transpose": 11,
+      "start": 48,
+      "end": 68,
+      "matched": 4,
+      "normalizedScore": 0.8625,
+      "status": "candidate alignment"
+    },
+    {
+      "reference": "sweet-child-intro",
+      "url": "/lakh/Guns_N_Roses/Sweet_Child_O_Mine_746ec8d5",
+      "score": 8,
+      "coverage": 1,
+      "transpose": 11,
+      "start": 27.421875,
+      "end": 44.0625,
+      "matched": 4,
+      "normalizedScore": 1,
+      "status": "candidate alignment"
+    }
+  ],
+  "evaluations": [
+    {
+      "url": "/lakh/ABBA/S_O_S",
+      "song": "abba/sos",
+      "correct": 200.29696058333334,
+      "duration": 206.29696058333334,
+      "highDuration": 180.29696058333334,
+      "highCorrect": 174.29696058333334,
+      "phrases": {
+        "matched": 14,
+        "predicted": 29,
+        "reference": 28
+      },
+      "sections": {
+        "matched": 5,
+        "predicted": 6,
+        "reference": 8
+      },
+      "modulations": {
+        "matched": 6,
+        "predicted": 6,
+        "reference": 6
+      }
+    },
+    {
+      "url": "/lakh/Led_Zeppelin/Stairway_To_Heaven_3",
+      "song": "ledzeppelin/stairwaytoheaven",
+      "correct": 460.3486711979168,
+      "duration": 487.03137121875017,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 35,
+        "predicted": 41,
+        "reference": 41
+      },
+      "sections": {
+        "matched": 0,
+        "predicted": 2,
+        "reference": 2
+      },
+      "modulations": null
+    },
+    {
+      "url": "/lakh/The_Beatles/Boys_1",
+      "song": "beatles/boys",
+      "correct": 172.39428,
+      "duration": 172.39428,
+      "highDuration": 172.39428,
+      "highCorrect": 172.39428,
+      "phrases": {
+        "matched": 21,
+        "predicted": 26,
+        "reference": 25
+      },
+      "sections": {
+        "matched": 1,
+        "predicted": 2,
+        "reference": 9
+      },
+      "modulations": null
+    },
+    {
+      "url": "/lakh/The_Beatles/Do_You_Want_to_Know_a_Secret",
+      "song": "beatles/doyouwanttoknowasecret",
+      "correct": 15.411579999999999,
+      "duration": 127.41158,
+      "highDuration": 15.411579999999999,
+      "highCorrect": 15.411579999999999,
+      "phrases": {
+        "matched": 15,
+        "predicted": 15,
+        "reference": 18
+      },
+      "sections": {
+        "matched": 0,
+        "predicted": 0,
+        "reference": 6
+      },
+      "modulations": {
+        "matched": 0,
+        "predicted": 2,
+        "reference": 2
+      }
+    },
+    {
+      "url": "/lakh/The_Beatles/Help",
+      "song": "beatles/help",
+      "correct": 77.610876,
+      "duration": 138.254064,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 22,
+        "predicted": 27,
+        "reference": 27
+      },
+      "sections": {
+        "matched": 0,
+        "predicted": 4,
+        "reference": 4
+      },
+      "modulations": {
+        "matched": 1,
+        "predicted": 7,
+        "reference": 3
+      }
+    },
+    {
+      "url": "/lakh/The_Beatles/Strawberry_Fields_Forever_3",
+      "song": "beatles/strawberryfieldsforever",
+      "correct": 122.77277549999998,
+      "duration": 216.8219485,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 10,
+        "predicted": 21,
+        "reference": 19
+      },
+      "sections": {
+        "matched": 1,
+        "predicted": 6,
+        "reference": 4
+      },
+      "modulations": {
+        "matched": 0,
+        "predicted": 0,
+        "reference": 8
+      }
+    },
+    {
+      "url": "/lakh/Pink_Floyd/Comfortably_Numb",
+      "song": "pinkfloyd/comfortablynumb",
+      "correct": 11.25,
+      "duration": 641.25,
+      "highDuration": 67.5,
+      "highCorrect": 11.25,
+      "phrases": {
+        "matched": 40,
+        "predicted": 85,
+        "reference": 86
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Pink_Floyd/The_Great_Gig_in_the_Sky",
+      "song": "pinkfloyd/greatgiginthesky",
+      "correct": 142,
+      "duration": 684,
+      "highDuration": 82,
+      "highCorrect": 14,
+      "phrases": {
+        "matched": 81,
+        "predicted": 86,
+        "reference": 85
+      },
+      "sections": null,
+      "modulations": {
+        "matched": 1,
+        "predicted": 6,
+        "reference": 2
+      }
+    },
+    {
+      "url": "/lakh/Eric_Clapton/Strange_Brew",
+      "song": "ericclapton/strangebrew",
+      "correct": 213.90872375,
+      "duration": 213.90872375,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 13,
+        "predicted": 28,
+        "reference": 28
+      },
+      "sections": {
+        "matched": 0,
+        "predicted": 0,
+        "reference": 10
+      },
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Creedence_Clearwater_Revival/Bad_Moon_Rising",
+      "song": "creedenceclearwaterrevival/badmoonrising",
+      "correct": 130.10136,
+      "duration": 130.10136,
+      "highDuration": 130.10136,
+      "highCorrect": 130.10136,
+      "phrases": {
+        "matched": 1,
+        "predicted": 26,
+        "reference": 26
+      },
+      "sections": {
+        "matched": 0,
+        "predicted": 0,
+        "reference": 6
+      },
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Kiss/I_Was_Made_for_Loving_You_Baby",
+      "song": "kiss/iwasmadeforlovingyoubaby",
+      "correct": 105.230664,
+      "duration": 252.92282400000002,
+      "highDuration": 5.538456000000025,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 25,
+        "predicted": 37,
+        "reference": 35
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Britney_Spears/Where_Are_You_Now",
+      "song": "britneyspears/whereareyounow",
+      "correct": 0,
+      "duration": 268,
+      "highDuration": 144,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 4,
+        "predicted": 17,
+        "reference": 16
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Van_Halen/Oh_Pretty_Woman",
+      "song": "vanhalen/ohprettywoman",
+      "correct": 92.59823999999989,
+      "duration": 175.74767999999978,
+      "highDuration": 34.01567999999992,
+      "highCorrect": 30.236159999999927,
+      "phrases": {
+        "matched": 23,
+        "predicted": 24,
+        "reference": 23
+      },
+      "sections": null,
+      "modulations": {
+        "matched": 1,
+        "predicted": 5,
+        "reference": 2
+      }
+    },
+    {
+      "url": "/lakh/Frank_Sinatra/All_Of_Me",
+      "song": "franksinatra/allofme",
+      "correct": 42.46149599999999,
+      "duration": 171.692136,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 15,
+        "predicted": 24,
+        "reference": 24
+      },
+      "sections": {
+        "matched": 3,
+        "predicted": 6,
+        "reference": 8
+      },
+      "modulations": {
+        "matched": 1,
+        "predicted": 2,
+        "reference": 12
+      }
+    },
+    {
+      "url": "/lakh/Yes/Your_Move",
+      "song": "yes/yourmove",
+      "correct": 76.28654875000001,
+      "duration": 218.10458875,
+      "highDuration": 141.81804,
+      "highCorrect": 0,
+      "phrases": null,
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Radiohead/Karma_Police",
+      "song": "radiohead/karmapolice",
+      "correct": 59.59723199999999,
+      "duration": 262.549968,
+      "highDuration": 12.885887999999994,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 33,
+        "predicted": 41,
+        "reference": 40
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Michael_Jackson/Rock_With_You",
+      "song": "michaeljackson/rockwithyou",
+      "correct": 50.52527999999998,
+      "duration": 271.57338,
+      "highDuration": 50.52527999999998,
+      "highCorrect": 50.52527999999998,
+      "phrases": {
+        "matched": 9,
+        "predicted": 34,
+        "reference": 32
+      },
+      "sections": {
+        "matched": 4,
+        "predicted": 7,
+        "reference": 16
+      },
+      "modulations": {
+        "matched": 1,
+        "predicted": 4,
+        "reference": 1
+      }
+    },
+    {
+      "url": "/lakh/Seal/Crazy_3",
+      "song": "seal/crazy",
+      "correct": 286.60180800000006,
+      "duration": 286.60180800000006,
+      "highDuration": 286.60180800000006,
+      "highCorrect": 286.60180800000006,
+      "phrases": {
+        "matched": 28,
+        "predicted": 30,
+        "reference": 30
+      },
+      "sections": {
+        "matched": 1,
+        "predicted": 3,
+        "reference": 6
+      },
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Lennon_John/Imagine_4",
+      "song": "lennonjohn/imagine",
+      "correct": 164.64870399999998,
+      "duration": 164.64870399999998,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 14,
+        "predicted": 14,
+        "reference": 15
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Talking_Heads/Psycho_Killer",
+      "song": "talkingheads/psychokiller",
+      "correct": 187.636176,
+      "duration": 237.817944,
+      "highDuration": 187.636176,
+      "highCorrect": 187.636176,
+      "phrases": {
+        "matched": 13,
+        "predicted": 28,
+        "reference": 28
+      },
+      "sections": null,
+      "modulations": {
+        "matched": 1,
+        "predicted": 3,
+        "reference": 2
+      }
+    },
+    {
+      "url": "/lakh/Tool/Intolerance",
+      "song": "tool/intolerance",
+      "correct": 277.7376203864673,
+      "duration": 277.7376203864673,
+      "highDuration": 277.7376203864673,
+      "highCorrect": 277.7376203864673,
+      "phrases": {
+        "matched": 27,
+        "predicted": 27,
+        "reference": 28
+      },
+      "sections": {
+        "matched": 0,
+        "predicted": 2,
+        "reference": 5
+      },
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Henry_Butler/Butler_s_Boogie",
+      "song": "henrybutler/butlersboogie",
+      "correct": 192,
+      "duration": 192,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 15,
+        "predicted": 24,
+        "reference": 24
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Turtles/Elenore",
+      "song": "turtles/elenore",
+      "correct": 84.59011600000001,
+      "duration": 149.50811199999998,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 15,
+        "predicted": 19,
+        "reference": 19
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Whigfield/Another_Day",
+      "song": "whigfield/anotherday",
+      "correct": 164.210228,
+      "duration": 249.02210399999998,
+      "highDuration": 173.232768,
+      "highCorrect": 164.210228,
+      "phrases": {
+        "matched": 31,
+        "predicted": 37,
+        "reference": 34
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Television_Theme_Songs/Eastenders",
+      "song": "televisionthemesongs/eastenders",
+      "correct": 182.250801,
+      "duration": 182.250801,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 17,
+        "predicted": 17,
+        "reference": 19
+      },
+      "sections": {
+        "matched": 0,
+        "predicted": 0,
+        "reference": 7
+      },
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Eddy_Grant/Electric_Avenue",
+      "song": "eddygrant/electricavenue",
+      "correct": 193.92000000000002,
+      "duration": 193.92000000000002,
+      "highDuration": 193.92000000000002,
+      "highCorrect": 193.92000000000002,
+      "phrases": {
+        "matched": 24,
+        "predicted": 24,
+        "reference": 25
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Morton_Jelly_Roll/Beale_Street_Blues",
+      "song": "mortonjellyroll/bealestreetblues",
+      "correct": 110.39414000000001,
+      "duration": 204.15150449166666,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 28,
+        "predicted": 33,
+        "reference": 33
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Al_Stewart/The_Year_of_the_Cat_1",
+      "song": "alstewart/yearofthecat",
+      "correct": 0,
+      "duration": 412.03272000000004,
+      "highDuration": 150.79548000000005,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 25,
+        "predicted": 47,
+        "reference": 48
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Al_Stewart/The_Year_of_the_Cat_2",
+      "song": "alstewart/yearofthecat",
+      "correct": 0,
+      "duration": 274.69850399999996,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 27,
+        "predicted": 27,
+        "reference": 29
+      },
+      "sections": null,
+      "modulations": {
+        "matched": 0,
+        "predicted": 0,
+        "reference": 3
+      }
+    },
+    {
+      "url": "/lakh/Al_Stewart/The_Year_of_the_Cat",
+      "song": "alstewart/yearofthecat",
+      "correct": 0,
+      "duration": 390.796128,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 32,
+        "predicted": 46,
+        "reference": 46
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Al_Stewart/Time_Passages",
+      "song": "alstewart/timepassages",
+      "correct": 0,
+      "duration": 237.60000000000002,
+      "highDuration": 21.599999999999994,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 19,
+        "predicted": 25,
+        "reference": 24
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Whitesnake/Here_I_Go_Again",
+      "song": "whitesnake/hereigoagain",
+      "correct": 253.043124,
+      "duration": 279.130044,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": null,
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/War/Low_Rider",
+      "song": "war/lowrider",
+      "correct": 259.285455,
+      "duration": 259.285455,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 37,
+        "predicted": 38,
+        "reference": 38
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/The_Buckinghams/Mercy_Mercy_Mercy",
+      "song": "buckinghams/mercymercymercy",
+      "correct": 221.49036895000003,
+      "duration": 240.01668495,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 22,
+        "predicted": 24,
+        "reference": 23
+      },
+      "sections": null,
+      "modulations": {
+        "matched": 1,
+        "predicted": 2,
+        "reference": 1
+      }
+    },
+    {
+      "url": "/lakh/White_Barry/Can_t_Get_Enough_of_Your_Love_Babe",
+      "song": "whitebarry/cantgetenoughofyourlovebabe",
+      "correct": 284.4416,
+      "duration": 284.4416,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 23,
+        "predicted": 33,
+        "reference": 30
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Clout/Substitute",
+      "song": "clout/substitute",
+      "correct": 187.678454,
+      "duration": 187.678454,
+      "highDuration": 187.678454,
+      "highCorrect": 187.678454,
+      "phrases": {
+        "matched": 13,
+        "predicted": 18,
+        "reference": 18
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Donovan/Mellow_Yellow_1",
+      "song": "donovan/mellowyellow",
+      "correct": 184.4426,
+      "duration": 184.4426,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 21,
+        "predicted": 21,
+        "reference": 21
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Rammstein/Engel",
+      "song": "rammstein/engel",
+      "correct": 267.5,
+      "duration": 267.5,
+      "highDuration": 267.5,
+      "highCorrect": 267.5,
+      "phrases": {
+        "matched": 25,
+        "predicted": 28,
+        "reference": 27
+      },
+      "sections": {
+        "matched": 1,
+        "predicted": 4,
+        "reference": 6
+      },
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Terry_Jacks/Seasons_in_the_Sun_2",
+      "song": "terryjacks/seasonsinthesun",
+      "correct": 157.95921000000004,
+      "duration": 219.18371000000002,
+      "highDuration": 9.79592,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 22,
+        "predicted": 24,
+        "reference": 23
+      },
+      "sections": null,
+      "modulations": {
+        "matched": 2,
+        "predicted": 3,
+        "reference": 4
+      }
+    },
+    {
+      "url": "/lakh/Holiday_Billie/Stormy_Blues",
+      "song": "holidaybillie/stormyblues",
+      "correct": 393.09479999999996,
+      "duration": 406.54278,
+      "highDuration": 13.447979999999998,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 96,
+        "predicted": 98,
+        "reference": 98
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Talk_of_the_Town/The_Kwek_Kwek_Song",
+      "song": "talkofthetown/kwekkweksong",
+      "correct": 76.05540000000002,
+      "duration": 147.04044000000002,
+      "highDuration": 28.732040000000005,
+      "highCorrect": 11.830840000000002,
+      "phrases": {
+        "matched": 21,
+        "predicted": 23,
+        "reference": 22
+      },
+      "sections": null,
+      "modulations": {
+        "matched": 1,
+        "predicted": 4,
+        "reference": 2
+      }
+    },
+    {
+      "url": "/lakh/Us3/Cantaloop",
+      "song": "us3/cantaloop",
+      "correct": 147.69216000000003,
+      "duration": 254.35872,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 4,
+        "predicted": 30,
+        "reference": 31
+      },
+      "sections": null,
+      "modulations": {
+        "matched": 1,
+        "predicted": 1,
+        "reference": 17
+      }
+    },
+    {
+      "url": "/lakh/UZEB/New_Hit",
+      "song": "uzeb/newhit",
+      "correct": 38.22984000000001,
+      "duration": 70.08804,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 4,
+        "predicted": 8,
+        "reference": 8
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Willie_Nelson/Always_on_My_Mind",
+      "song": "willienelson/alwaysonmymind",
+      "correct": 238.04884,
+      "duration": 238.04884,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": null,
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Korgis/Everybody_s_Got_to_Learn_Sometime",
+      "song": "korgis/everybodysgottolearnsometime",
+      "correct": 220.54032,
+      "duration": 233.51328,
+      "highDuration": 233.51328,
+      "highCorrect": 220.54032,
+      "phrases": {
+        "matched": 9,
+        "predicted": 18,
+        "reference": 19
+      },
+      "sections": {
+        "matched": 0,
+        "predicted": 0,
+        "reference": 8
+      },
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Taco/Puttin_on_the_Ritz",
+      "song": "taco/puttinontheritz",
+      "correct": 92.210388,
+      "duration": 122.52613199999999,
+      "highDuration": 20.210496000000006,
+      "highCorrect": 18.947339999999997,
+      "phrases": {
+        "matched": 23,
+        "predicted": 24,
+        "reference": 24
+      },
+      "sections": null,
+      "modulations": {
+        "matched": 2,
+        "predicted": 3,
+        "reference": 8
+      }
+    },
+    {
+      "url": "/lakh/Tears_n_Joy/I_Will_Always_Love_You",
+      "song": "tearsnjoy/iwillalwaysloveyou",
+      "correct": 272,
+      "duration": 276,
+      "highDuration": 276,
+      "highCorrect": 272,
+      "phrases": {
+        "matched": 34,
+        "predicted": 34,
+        "reference": 34
+      },
+      "sections": null,
+      "modulations": {
+        "matched": 0,
+        "predicted": 1,
+        "reference": 1
+      }
+    },
+    {
+      "url": "/lakh/The_Archies/Sugar_Sugar",
+      "song": "archies/sugarsugar",
+      "correct": 199.68,
+      "duration": 199.68,
+      "highDuration": 199.68,
+      "highCorrect": 199.68,
+      "phrases": {
+        "matched": 25,
+        "predicted": 26,
+        "reference": 26
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/The_Beautiful_South/Don_t_Marry_Her",
+      "song": "beautifulsouth/dontmarryher",
+      "correct": 195.29236,
+      "duration": 195.29236,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 20,
+        "predicted": 20,
+        "reference": 21
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/The_Blue_Diamonds/Ramona",
+      "song": "bluediamonds/ramona",
+      "correct": 58.125,
+      "duration": 163.125,
+      "highDuration": 9.375,
+      "highCorrect": 9.375,
+      "phrases": {
+        "matched": 3,
+        "predicted": 23,
+        "reference": 22
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Texas/Say_What_You_Want",
+      "song": "texas/saywhatyouwant",
+      "correct": 229.140175,
+      "duration": 433.98845500000004,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 81,
+        "predicted": 92,
+        "reference": 89
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/The_Brecker_Brothers/Lovely_Lady",
+      "song": "breckerbrothers/lovelylady",
+      "correct": 186,
+      "duration": 186,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 14,
+        "predicted": 15,
+        "reference": 15
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/The_Chordettes/Lollipop",
+      "song": "chordettes/lollipop",
+      "correct": 149.29104,
+      "duration": 149.29104,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 6,
+        "predicted": 21,
+        "reference": 20
+      },
+      "sections": {
+        "matched": 1,
+        "predicted": 3,
+        "reference": 7
+      },
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Timeless/Where_Is_the_Love",
+      "song": "timeless/whereisthelove",
+      "correct": 283.42432,
+      "duration": 287.99568000000005,
+      "highDuration": 61.71336000000002,
+      "highCorrect": 57.142000000000024,
+      "phrases": {
+        "matched": 25,
+        "predicted": 33,
+        "reference": 30
+      },
+      "sections": {
+        "matched": 1,
+        "predicted": 1,
+        "reference": 8
+      },
+      "modulations": {
+        "matched": 1,
+        "predicted": 1,
+        "reference": 2
+      }
+    },
+    {
+      "url": "/lakh/Ultravox/Vienna",
+      "song": "ultravox/vienna",
+      "correct": 246.72108880208327,
+      "duration": 285.7210888020833,
+      "highDuration": 138,
+      "highCorrect": 132,
+      "phrases": {
+        "matched": 15,
+        "predicted": 28,
+        "reference": 24
+      },
+      "sections": null,
+      "modulations": {
+        "matched": 4,
+        "predicted": 6,
+        "reference": 5
+      }
+    },
+    {
+      "url": "/lakh/Vanilla_Fudge/You_Keep_Me_Hangin_On",
+      "song": "vanillafudge/youkeepmehanginon",
+      "correct": 263.99973600000004,
+      "duration": 295.999704,
+      "highDuration": 23.99997599999999,
+      "highCorrect": 18.66664799999998,
+      "phrases": {
+        "matched": 26,
+        "predicted": 29,
+        "reference": 29
+      },
+      "sections": null,
+      "modulations": {
+        "matched": 6,
+        "predicted": 6,
+        "reference": 6
+      }
+    },
+    {
+      "url": "/lakh/Victoria_Williams/Boogieman",
+      "song": "victoriawilliams/boogieman",
+      "correct": 85.5,
+      "duration": 85.5,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 14,
+        "predicted": 14,
+        "reference": 14
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Walter_Donaldson/My_Blue_Heaven",
+      "song": "walterdonaldson/myblueheaven",
+      "correct": 226.28495999999998,
+      "duration": 265.7134,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 29,
+        "predicted": 37,
+        "reference": 39
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Washington_Dinah/If_I_Can_t_Have_You",
+      "song": "washingtondinah/ificanthaveyou",
+      "correct": 173.95816,
+      "duration": 225.16492,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 24,
+        "predicted": 31,
+        "reference": 25
+      },
+      "sections": null,
+      "modulations": {
+        "matched": 0,
+        "predicted": 3,
+        "reference": 5
+      }
+    },
+    {
+      "url": "/lakh/Was_Not_Was/Walk_the_Dinosaur",
+      "song": "wasnotwas/walkthedinosaur",
+      "correct": 244,
+      "duration": 244,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 27,
+        "predicted": 31,
+        "reference": 30
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Watson_Johnny_Guitar/A_Real_Mother_for_Ya",
+      "song": "watsonjohnnyguitar/arealmotherforya",
+      "correct": 303.67104,
+      "duration": 303.67104,
+      "highDuration": 303.67104,
+      "highCorrect": 303.67104,
+      "phrases": {
+        "matched": 16,
+        "predicted": 34,
+        "reference": 29
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Westbam/Hard_Times",
+      "song": "westbam/hardtimes",
+      "correct": 220.57,
+      "duration": 368.79303999999996,
+      "highDuration": 148.22303999999997,
+      "highCorrect": 0,
+      "phrases": {
+        "matched": 51,
+        "predicted": 57,
+        "reference": 52
+      },
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Williams_Deniece/Let_s_Hear_It_For_The_Boy",
+      "song": "williamsdeniece/letshearitfortheboy",
+      "correct": 241.12526399999993,
+      "duration": 323.0160159999999,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": null,
+      "sections": null,
+      "modulations": {
+        "matched": 1,
+        "predicted": 7,
+        "reference": 7
+      }
+    },
+    {
+      "url": "/lakh/Westernhagen/Mit_Pfefferminz_bin_ich_dein_Prinz",
+      "song": "westernhagen/mitpfefferminzbinichdeinprinz",
+      "correct": 56.202408,
+      "duration": 519.492528,
+      "highDuration": 519.492528,
+      "highCorrect": 56.202408,
+      "phrases": {
+        "matched": 69,
+        "predicted": 87,
+        "reference": 86
+      },
+      "sections": {
+        "matched": 1,
+        "predicted": 8,
+        "reference": 12
+      },
+      "modulations": {
+        "matched": 1,
+        "predicted": 1,
+        "reference": 1
+      }
+    },
+    {
+      "url": "/lakh/Yazoo_Yaz/The_Only_Way_Is_Up",
+      "song": "yazooyaz/onlywayisup",
+      "correct": 197.41896000000003,
+      "duration": 197.41896000000003,
+      "highDuration": 197.41896000000003,
+      "highCorrect": 197.41896000000003,
+      "phrases": null,
+      "sections": null,
+      "modulations": null
+    },
+    {
+      "url": "/lakh/Yvonne_Elliman/If_I_Can_t_Have_You",
+      "song": "yvonneelliman/ificanthaveyou",
+      "correct": 128.7262,
+      "duration": 213.8164,
+      "highDuration": 13.090800000000002,
+      "highCorrect": 0,
+      "phrases": null,
+      "sections": null,
+      "modulations": {
+        "matched": 0,
+        "predicted": 4,
+        "reference": 1
+      }
+    },
+    {
+      "url": "/lakh/Zequinha_Abreu/Tico_Tico_No_Fuba",
+      "song": "zequinhaabreu/ticoticonofuba",
+      "correct": 124.440064,
+      "duration": 136.661856,
+      "highDuration": 0,
+      "highCorrect": 0,
+      "phrases": null,
+      "sections": null,
+      "modulations": {
+        "matched": 3,
+        "predicted": 5,
+        "reference": 6
+      }
+    },
+    {
+      "url": "/lakh/Zhi_Vago/Celebrate_The_Love",
+      "song": "zhivago/celebratethelove",
+      "correct": 252.44192,
+      "duration": 252.44192,
+      "highDuration": 252.44192,
+      "highCorrect": 252.44192,
+      "phrases": {
+        "matched": 31,
+        "predicted": 36,
+        "reference": 34
+      },
+      "sections": null,
+      "modulations": null
+    }
+  ],
+  "limitations": [
+    "Tonic accuracy compares pitch class only: saved annotations do not label mode.",
+    "Phrase references include an implicit four-bar grid and are incomplete labels.",
+    "Section and modulation metrics use only files with explicit boundaries; no negative-boundary ground truth.",
+    "Chart excerpt alignment is weak supervision, not measured chord accuracy.",
+    "Chord confidence remains heuristic; tonic scores use a separate training-song calibration split. Overall search evidence is not a calibrated probability."
+  ]
+}

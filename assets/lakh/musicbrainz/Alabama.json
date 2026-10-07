@@ -1,0 +1,128 @@
+{
+  "artist": "Alabama",
+  "status": "processed",
+  "totalSongs": 20,
+  "matched": [
+    {
+      "song": "Angels Among Us",
+      "album": "Cheap Seats",
+      "albumId": "034f4194-2944-3515-ba45-1d0350b63fb6",
+      "track": 11
+    },
+    {
+      "song": "Born Country",
+      "album": "Born Country",
+      "albumId": "61b3b3d3-83da-451a-810d-f75f6d65b27e",
+      "track": 1
+    },
+    {
+      "song": "Fallin' Again",
+      "album": "Just Us",
+      "albumId": "3d69d681-0db0-3fad-a5c8-70fb184ddc19",
+      "track": 9
+    },
+    {
+      "song": "Feels So Right",
+      "album": "Feels So Right",
+      "albumId": "979bb5c8-453d-45cd-a6bd-8d01adcdaf95",
+      "track": 1
+    },
+    {
+      "song": "High Cotton",
+      "album": "Southern Star",
+      "albumId": "59286192-232b-3b5d-bcd7-5bd5845bcd2c",
+      "track": 3
+    },
+    {
+      "song": "How Do You Fall in Love",
+      "album": "Country Legends: 12 Number One Hits",
+      "albumId": "1db15b00-76b4-4f09-94c2-524ba4a19478",
+      "track": 4
+    },
+    {
+      "song": "I'm in a Hurry",
+      "album": "American Pride",
+      "albumId": "c275bf4a-1387-354a-8828-ab929d444173",
+      "track": 5
+    },
+    {
+      "song": "Jukebox in My Mind",
+      "album": "Pass It On Down",
+      "albumId": "a01dcf0c-4211-3cf6-8daa-b118401bb380",
+      "track": 5
+    },
+    {
+      "song": "Lady Down On Love",
+      "album": "Deuces Wild",
+      "albumId": "9c8191f8-6692-44f6-9123-aff577102449",
+      "track": 5
+    },
+    {
+      "song": "Love In The First Degree",
+      "album": "Feels So Right",
+      "albumId": "979bb5c8-453d-45cd-a6bd-8d01adcdaf95",
+      "track": 2
+    },
+    {
+      "song": "Rain",
+      "album": "Songs of Inspiration",
+      "albumId": "510ad6b1-051a-3da7-961c-a237a9b04025",
+      "track": 15
+    },
+    {
+      "song": "Red River",
+      "album": "The Closer You Get",
+      "albumId": "1dfee6e9-9fd9-3a3d-8dca-cb5a6b5285a3",
+      "track": 4
+    },
+    {
+      "song": "Roll On (Eighteen Wheeler)",
+      "album": "Roll On",
+      "albumId": "0b4a112a-a881-3d46-a618-a605641fa193",
+      "track": 1
+    },
+    {
+      "song": "She and I",
+      "album": "Alabama Greatest Hits",
+      "albumId": "15fda45b-7a1f-336c-bfd2-9e6ff5888b26",
+      "track": 1
+    },
+    {
+      "song": "T.L.C. A.S.A.P.",
+      "album": "Cheap Seats",
+      "albumId": "034f4194-2944-3515-ba45-1d0350b63fb6",
+      "track": 2
+    },
+    {
+      "song": "Tennessee River",
+      "album": "#3",
+      "albumId": "73c73b8d-2aa8-4830-a59d-3a7a50b5f24c",
+      "track": 4
+    },
+    {
+      "song": "The Closer You Get",
+      "album": "The Closer You Get",
+      "albumId": "1dfee6e9-9fd9-3a3d-8dca-cb5a6b5285a3",
+      "track": 1
+    },
+    {
+      "song": "Then Again",
+      "album": "Then Again",
+      "albumId": "0fa0e706-2515-3fb9-b235-604a7d94bfeb",
+      "track": 1
+    },
+    {
+      "song": "When We Make Love",
+      "album": "Roll On",
+      "albumId": "0b4a112a-a881-3d46-a618-a605641fa193",
+      "track": 7
+    }
+  ],
+  "unmatched": [
+    "Jubilee"
+  ],
+  "ambiguous": [],
+  "suggestions": {
+    "Jubilee": []
+  }
+}

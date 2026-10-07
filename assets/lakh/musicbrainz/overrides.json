@@ -1645,5 +1645,18 @@
     "releaseOverrides": {
       "1c6dfb4a-3a45-356a-a368-57b6cef05c9c": "57cd51fd-e513-465f-b1a0-ff91c81d5f61"
     }
+  },
+  "Alabama": {
+    "name": "Alabama",
+    "mbid": "7ac055fa-e357-4890-9098-010b8094a900",
+    "country": "US",
+    "includedReleaseGroups": [
+      "15fda45b-7a1f-336c-bfd2-9e6ff5888b26"
+    ],
+    "songs": {
+      "I'm in a Hurry": {
+        "title": "I'm in a Hurry (And Don't Know Why)"
+      }
+    }
   }
 }

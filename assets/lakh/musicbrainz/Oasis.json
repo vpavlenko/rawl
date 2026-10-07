@@ -1,0 +1,136 @@
+{
+  "artist": "Oasis",
+  "status": "processed",
+  "totalSongs": 21,
+  "matched": [
+    {
+      "song": "All Around the World",
+      "album": "Be Here Now",
+      "albumId": "aea3ea51-121e-30a6-adc2-c63e659603ac",
+      "track": 10
+    },
+    {
+      "song": "Cast No Shadow",
+      "album": "(What’s the Story) Morning Glory?",
+      "albumId": "cc7e6348-cc55-31fa-aeb2-748a46a81cb3",
+      "track": 9
+    },
+    {
+      "song": "Champagne Supernova",
+      "album": "(What’s the Story) Morning Glory?",
+      "albumId": "cc7e6348-cc55-31fa-aeb2-748a46a81cb3",
+      "track": 13
+    },
+    {
+      "song": "Cum on Feel the Noise",
+      "album": "Don’t Look Back in Anger",
+      "albumId": "05dd97bc-a089-375c-abb1-7d64f31ff5f9",
+      "track": 4
+    },
+    {
+      "song": "Do You Know What I Mean?",
+      "album": "Be Here Now",
+      "albumId": "aea3ea51-121e-30a6-adc2-c63e659603ac",
+      "track": 1
+    },
+    {
+      "song": "Don't Go Away",
+      "album": "Be Here Now",
+      "albumId": "aea3ea51-121e-30a6-adc2-c63e659603ac",
+      "track": 8
+    },
+    {
+      "song": "Don't Look Back in Anger",
+      "album": "(What’s the Story) Morning Glory?",
+      "albumId": "cc7e6348-cc55-31fa-aeb2-748a46a81cb3",
+      "track": 4
+    },
+    {
+      "song": "Dont Look Back in Anger",
+      "album": "(What’s the Story) Morning Glory?",
+      "albumId": "cc7e6348-cc55-31fa-aeb2-748a46a81cb3",
+      "track": 4
+    },
+    {
+      "song": "Go Let It Out",
+      "album": "Standing on the Shoulder of Giants",
+      "albumId": "4ad23d4c-520e-39a3-8d7e-e4d396d24bfe",
+      "track": 2
+    },
+    {
+      "song": "Live Forever",
+      "album": "Definitely Maybe",
+      "albumId": "451dca98-c118-32e1-9244-c47ca9c3c0f9",
+      "track": 3
+    },
+    {
+      "song": "Morning Glory",
+      "album": "(What’s the Story) Morning Glory?",
+      "albumId": "cc7e6348-cc55-31fa-aeb2-748a46a81cb3",
+      "track": 11
+    },
+    {
+      "song": "Roll With It",
+      "album": "(What’s the Story) Morning Glory?",
+      "albumId": "cc7e6348-cc55-31fa-aeb2-748a46a81cb3",
+      "track": 2
+    },
+    {
+      "song": "Shakermaker",
+      "album": "Definitely Maybe",
+      "albumId": "451dca98-c118-32e1-9244-c47ca9c3c0f9",
+      "track": 2
+    },
+    {
+      "song": "She's Electric",
+      "album": "(What’s the Story) Morning Glory?",
+      "albumId": "cc7e6348-cc55-31fa-aeb2-748a46a81cb3",
+      "track": 10
+    },
+    {
+      "song": "Stand by Me",
+      "album": "Be Here Now",
+      "albumId": "aea3ea51-121e-30a6-adc2-c63e659603ac",
+      "track": 4
+    },
+    {
+      "song": "Stop Crying Your Heart Out",
+      "album": "Heathen Chemistry",
+      "albumId": "0846b9e1-76ed-3554-9c26-0e67c84bedc6",
+      "track": 4
+    },
+    {
+      "song": "Supersonic",
+      "album": "Definitely Maybe",
+      "albumId": "451dca98-c118-32e1-9244-c47ca9c3c0f9",
+      "track": 6
+    },
+    {
+      "song": "Talk Tonight",
+      "album": "Some Might Say",
+      "albumId": "0d2a8f37-5cd5-3c40-80b7-7417bdfbfbca",
+      "track": 2
+    },
+    {
+      "song": "The Masterplan",
+      "album": "Wonderwall",
+      "albumId": "1c6dfb4a-3a45-356a-a368-57b6cef05c9c",
+      "track": 4
+    },
+    {
+      "song": "Whatever",
+      "album": "Whatever",
+      "albumId": "36e25684-f1cc-3525-8f11-0e202b9073df",
+      "track": 1
+    },
+    {
+      "song": "Wonderwall",
+      "album": "(What’s the Story) Morning Glory?",
+      "albumId": "cc7e6348-cc55-31fa-aeb2-748a46a81cb3",
+      "track": 3
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

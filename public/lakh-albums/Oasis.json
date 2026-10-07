@@ -1,0 +1,231 @@
+{
+  "artist": "Oasis",
+  "artistId": "39ab1aed-75e0-4140-bd47-540276886b60",
+  "groups": [
+    {
+      "id": "451dca98-c118-32e1-9244-c47ca9c3c0f9",
+      "releaseId": "9822581d-98bf-3f97-a94c-4b1350d090aa",
+      "title": "Definitely Maybe",
+      "date": "1994-08-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/451dca98-c118-32e1-9244-c47ca9c3c0f9/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Shakermaker.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Live Forever.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Supersonic.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "36e25684-f1cc-3525-8f11-0e202b9073df",
+      "releaseId": "e4a28c03-8eed-4482-b4da-1ea40511efd2",
+      "title": "Whatever",
+      "date": "1994-12-18",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/36e25684-f1cc-3525-8f11-0e202b9073df/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Whatever.mid",
+            "Whatever.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "05dd97bc-a089-375c-abb1-7d64f31ff5f9",
+      "releaseId": "7fb8f2bd-a11f-41a6-b208-57bf3154eb77",
+      "title": "Don’t Look Back in Anger",
+      "date": "1995",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/05dd97bc-a089-375c-abb1-7d64f31ff5f9/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Cum on Feel the Noise.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0d2a8f37-5cd5-3c40-80b7-7417bdfbfbca",
+      "releaseId": "30421067-2fe1-4c18-ace9-eb866bc311fe",
+      "title": "Some Might Say",
+      "date": "1995-04-24",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/0d2a8f37-5cd5-3c40-80b7-7417bdfbfbca/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Talk Tonight.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cc7e6348-cc55-31fa-aeb2-748a46a81cb3",
+      "releaseId": "929281e2-8a13-4c02-9f9e-8d3a1fc046ab",
+      "title": "(What’s the Story) Morning Glory?",
+      "date": "1995-10-02",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/cc7e6348-cc55-31fa-aeb2-748a46a81cb3/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Roll With It.mid",
+            "Roll With It.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Wonderwall.mid",
+            "Wonderwall.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Don't Look Back in Anger.mid",
+            "Don't Look Back in Anger.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Dont Look Back in Anger.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Cast No Shadow.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "She's Electric.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Morning Glory.mid"
+          ]
+        },
+        {
+          "number": 13,
+          "files": [
+            "Champagne Supernova.mid",
+            "Champagne Supernova.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1c6dfb4a-3a45-356a-a368-57b6cef05c9c",
+      "releaseId": "57cd51fd-e513-465f-b1a0-ff91c81d5f61",
+      "title": "Wonderwall",
+      "date": "1995-10-30",
+      "type": "Single",
+      "cover": "https://coverartarchive.org/release-group/1c6dfb4a-3a45-356a-a368-57b6cef05c9c/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "The Masterplan.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aea3ea51-121e-30a6-adc2-c63e659603ac",
+      "releaseId": "13a71546-3076-4a27-8728-23eac1a56044",
+      "title": "Be Here Now",
+      "date": "1997-08-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/aea3ea51-121e-30a6-adc2-c63e659603ac/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Do You Know What I Mean?.mid",
+            "Do You Know What I Mean?.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Stand by Me.mid",
+            "Stand by Me.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Don't Go Away.mid",
+            "Don't Go Away.1.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "All Around the World.mid",
+            "All Around the World.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4ad23d4c-520e-39a3-8d7e-e4d396d24bfe",
+      "releaseId": "a807034d-09ee-3d4c-9566-06d114c1fc6c",
+      "title": "Standing on the Shoulder of Giants",
+      "date": "2000-02-23",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/4ad23d4c-520e-39a3-8d7e-e4d396d24bfe/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Go Let It Out.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "0846b9e1-76ed-3554-9c26-0e67c84bedc6",
+      "releaseId": "22dacc34-e04f-4b9e-97a5-3dedd3b0a56e",
+      "title": "Heathen Chemistry",
+      "date": "2002-06-26",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/0846b9e1-76ed-3554-9c26-0e67c84bedc6/front-250",
+      "songs": [
+        {
+          "number": 4,
+          "files": [
+            "Stop Crying Your Heart Out.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

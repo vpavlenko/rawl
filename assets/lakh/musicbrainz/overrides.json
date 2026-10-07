@@ -1629,5 +1629,21 @@
         "title": "My Destiny"
       }
     }
+  },
+  "Oasis": {
+    "name": "Oasis",
+    "mbid": "39ab1aed-75e0-4140-bd47-540276886b60",
+    "country": "GB",
+    "songs": {
+      "Cum on Feel the Noise": {
+        "title": "Cum On Feel the Noize"
+      },
+      "Do You Know What I Mean?": {
+        "title": "D’You Know What I Mean?"
+      }
+    },
+    "releaseOverrides": {
+      "1c6dfb4a-3a45-356a-a368-57b6cef05c9c": "57cd51fd-e513-465f-b1a0-ff91c81d5f61"
+    }
   }
 }

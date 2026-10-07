@@ -1,0 +1,207 @@
+{
+  "artist": "Guns N' Roses",
+  "artistId": "eeb1195b-f213-4ce1-b28c-8565211f8e43",
+  "groups": [
+    {
+      "id": "a0b94d0a-210b-4b15-bd1d-93be2196c14a",
+      "releaseId": "1674749c-e197-47ab-a487-efda313f8ef7",
+      "title": "Appetite for Destruction",
+      "date": "1987-07-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/a0b94d0a-210b-4b15-bd1d-93be2196c14a/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Welcome to the Jungle.mid",
+            "Welcome to the Jungle.1.mid",
+            "Welcome to the Jungle.2.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Nightrain.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Mr. Brownstone.mid"
+          ]
+        },
+        {
+          "number": 6,
+          "files": [
+            "Paradise City.mid",
+            "Paradise City.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Sweet Child O' Mine.mid",
+            "Sweet Child O' Mine.1.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Sweet Child O'Mine.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "Rocket Queen.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b1b42d92-bbd0-349d-b2f8-ee4e6ef1bd9c",
+      "releaseId": "1b2ee347-5eb0-4859-a7de-272c156b005e",
+      "title": "G N’ R Lies",
+      "date": "1988-11-30",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/b1b42d92-bbd0-349d-b2f8-ee4e6ef1bd9c/front-250",
+      "songs": [
+        {
+          "number": 5,
+          "files": [
+            "Patience.mid",
+            "Patience.1.mid",
+            "Patience.2.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "642b183a-3e59-3cb9-9187-aeeefa0d8818",
+      "releaseId": "02cc332c-5719-4c6d-969c-d8a23ba0b3df",
+      "title": "Use Your Illusion I",
+      "date": "1991-09-16",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/642b183a-3e59-3cb9-9187-aeeefa0d8818/front-250",
+      "songs": [
+        {
+          "number": 2,
+          "files": [
+            "Dust N' Bones.mid",
+            "Dust N' Bones.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Live & Let Die.mid",
+            "Live & Let Die.1.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Don't Cry.mid",
+            "Don't Cry.1.mid"
+          ]
+        },
+        {
+          "number": 8,
+          "files": [
+            "Back Off Bitch.mid"
+          ]
+        },
+        {
+          "number": 10,
+          "files": [
+            "November Rain.mid",
+            "November Rain.1.mid",
+            "November Rain.2.mid",
+            "November Rain.3.mid",
+            "November Rain.4.mid"
+          ]
+        },
+        {
+          "number": 16,
+          "files": [
+            "Coma.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "617c9f00-9488-3a70-a994-9de312541617",
+      "releaseId": "0ded88ba-3742-3bce-9d8f-0cc1de82b09e",
+      "title": "Use Your Illusion II",
+      "date": "1991-09-17",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/617c9f00-9488-3a70-a994-9de312541617/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Civil War.mid",
+            "Civil War.1.mid"
+          ]
+        },
+        {
+          "number": 3,
+          "files": [
+            "Yesterday's.mid"
+          ]
+        },
+        {
+          "number": 4,
+          "files": [
+            "Knockin' on Heaven Door.mid",
+            "Knockin' on Heaven Door.1.mid",
+            "Knockin' on Heaven Door.2.mid",
+            "Knockin' on Heaven Door.3.mid",
+            "Knockin' on Heaven Door.4.mid"
+          ]
+        },
+        {
+          "number": 5,
+          "files": [
+            "Get in the Ring.mid"
+          ]
+        },
+        {
+          "number": 9,
+          "files": [
+            "Locomotive.mid"
+          ]
+        },
+        {
+          "number": 11,
+          "files": [
+            "Estranged.mid"
+          ]
+        },
+        {
+          "number": 12,
+          "files": [
+            "You Could Be Mine.mid",
+            "You Could Be Mine.1.mid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7ef05688-558a-36a6-97a8-ff4e6174aae6",
+      "releaseId": "906fb730-0261-4a45-b545-7e6c375ff5ac",
+      "title": "“The Spaghetti Incident?”",
+      "date": "1993-11-21",
+      "type": "Album",
+      "cover": "https://coverartarchive.org/release-group/7ef05688-558a-36a6-97a8-ff4e6174aae6/front-250",
+      "songs": [
+        {
+          "number": 1,
+          "files": [
+            "Since I Don't Have You.mid"
+          ]
+        }
+      ]
+    }
+  ]
+}

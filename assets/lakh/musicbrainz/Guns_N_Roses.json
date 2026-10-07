@@ -1,0 +1,142 @@
+{
+  "artist": "Guns N' Roses",
+  "status": "processed",
+  "totalSongs": 22,
+  "matched": [
+    {
+      "song": "Back Off Bitch",
+      "album": "Use Your Illusion I",
+      "albumId": "642b183a-3e59-3cb9-9187-aeeefa0d8818",
+      "track": 8
+    },
+    {
+      "song": "Civil War",
+      "album": "Use Your Illusion II",
+      "albumId": "617c9f00-9488-3a70-a994-9de312541617",
+      "track": 1
+    },
+    {
+      "song": "Coma",
+      "album": "Use Your Illusion I",
+      "albumId": "642b183a-3e59-3cb9-9187-aeeefa0d8818",
+      "track": 16
+    },
+    {
+      "song": "Don't Cry",
+      "album": "Use Your Illusion I",
+      "albumId": "642b183a-3e59-3cb9-9187-aeeefa0d8818",
+      "track": 4
+    },
+    {
+      "song": "Dust N' Bones",
+      "album": "Use Your Illusion I",
+      "albumId": "642b183a-3e59-3cb9-9187-aeeefa0d8818",
+      "track": 2
+    },
+    {
+      "song": "Estranged",
+      "album": "Use Your Illusion II",
+      "albumId": "617c9f00-9488-3a70-a994-9de312541617",
+      "track": 11
+    },
+    {
+      "song": "Get in the Ring",
+      "album": "Use Your Illusion II",
+      "albumId": "617c9f00-9488-3a70-a994-9de312541617",
+      "track": 5
+    },
+    {
+      "song": "Knockin' on Heaven Door",
+      "album": "Use Your Illusion II",
+      "albumId": "617c9f00-9488-3a70-a994-9de312541617",
+      "track": 4
+    },
+    {
+      "song": "Live & Let Die",
+      "album": "Use Your Illusion I",
+      "albumId": "642b183a-3e59-3cb9-9187-aeeefa0d8818",
+      "track": 3
+    },
+    {
+      "song": "Locomotive",
+      "album": "Use Your Illusion II",
+      "albumId": "617c9f00-9488-3a70-a994-9de312541617",
+      "track": 9
+    },
+    {
+      "song": "Mr. Brownstone",
+      "album": "Appetite for Destruction",
+      "albumId": "a0b94d0a-210b-4b15-bd1d-93be2196c14a",
+      "track": 5
+    },
+    {
+      "song": "Nightrain",
+      "album": "Appetite for Destruction",
+      "albumId": "a0b94d0a-210b-4b15-bd1d-93be2196c14a",
+      "track": 3
+    },
+    {
+      "song": "November Rain",
+      "album": "Use Your Illusion I",
+      "albumId": "642b183a-3e59-3cb9-9187-aeeefa0d8818",
+      "track": 10
+    },
+    {
+      "song": "Paradise City",
+      "album": "Appetite for Destruction",
+      "albumId": "a0b94d0a-210b-4b15-bd1d-93be2196c14a",
+      "track": 6
+    },
+    {
+      "song": "Patience",
+      "album": "G N’ R Lies",
+      "albumId": "b1b42d92-bbd0-349d-b2f8-ee4e6ef1bd9c",
+      "track": 5
+    },
+    {
+      "song": "Rocket Queen",
+      "album": "Appetite for Destruction",
+      "albumId": "a0b94d0a-210b-4b15-bd1d-93be2196c14a",
+      "track": 12
+    },
+    {
+      "song": "Since I Don't Have You",
+      "album": "“The Spaghetti Incident?”",
+      "albumId": "7ef05688-558a-36a6-97a8-ff4e6174aae6",
+      "track": 1
+    },
+    {
+      "song": "Sweet Child O' Mine",
+      "album": "Appetite for Destruction",
+      "albumId": "a0b94d0a-210b-4b15-bd1d-93be2196c14a",
+      "track": 9
+    },
+    {
+      "song": "Sweet Child O'Mine",
+      "album": "Appetite for Destruction",
+      "albumId": "a0b94d0a-210b-4b15-bd1d-93be2196c14a",
+      "track": 9
+    },
+    {
+      "song": "Welcome to the Jungle",
+      "album": "Appetite for Destruction",
+      "albumId": "a0b94d0a-210b-4b15-bd1d-93be2196c14a",
+      "track": 1
+    },
+    {
+      "song": "Yesterday's",
+      "album": "Use Your Illusion II",
+      "albumId": "617c9f00-9488-3a70-a994-9de312541617",
+      "track": 3
+    },
+    {
+      "song": "You Could Be Mine",
+      "album": "Use Your Illusion II",
+      "albumId": "617c9f00-9488-3a70-a994-9de312541617",
+      "track": 12
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

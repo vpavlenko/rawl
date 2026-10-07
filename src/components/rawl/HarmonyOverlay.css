@@ -1,0 +1,65 @@
+@font-face {
+  font-family: "Rawl Harmony Symbols";
+  src: url("./fonts/RawlHarmonySymbols.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+266D, U+266F;
+}
+
+.harmony-chord {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 1em;
+  height: 24px;
+  padding: 3px 6px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  text-align: left;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 18px;
+  font-kerning: normal;
+  letter-spacing: normal;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.harmony-chord:focus-visible {
+  outline: 1px solid #d6c5f5;
+  outline-offset: -3px;
+}
+
+.harmony-roman,
+.harmony-name {
+  display: block;
+  flex: none;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.harmony-roman {
+  font-weight: 700;
+  color: #999;
+}
+
+.harmony-name {
+  flex: 0 1 auto;
+  min-width: 0;
+  font-weight: 300;
+  color: #fff;
+}
+
+.harmony-accidental {
+  font-family: "Rawl Harmony Symbols", sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 0;
+  margin: 0 0.035em;
+}

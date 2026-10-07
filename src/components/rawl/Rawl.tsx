@@ -53,7 +53,7 @@ import { repeatSectionModulations } from "./repeatSectionModulations";
 import { findFirstPhraseStart, findTonic } from "./autoAnalysis";
 import { analyzeHarmony, HarmonyResult } from "../../harmony/harmony";
 import { loadIndexedHarmony } from "../../harmony/index";
-import { refreshPhraseAnalysis } from "../../harmony/phraseBoundaries";
+import { refreshStructuralAnalysis } from "../../harmony/sectionBoundaries";
 import { harmonyAnnotationConfig } from "../../harmony/settings";
 import { provisionalHarmony, provisionalScoreAnalysis } from "../../harmony/proposals";
 import HarmonyControls from "./HarmonyControls";
@@ -194,9 +194,11 @@ const Rawl: React.FC<RawlProps> = ({
   const history = useHistory();
   const location = useLocation();
   const harmonyRequested = new URLSearchParams(location.search).get("harmony") === "1";
+  const suppliedHarmonyAnalysis = savedAnalysis || rawlProps?.savedAnalysis || parsingResult.displayOptions?.analysis;
+  const useGeneratedAnalysis = harmonyRequested || !suppliedHarmonyAnalysis;
 
   const [analysis, setAnalysis] = useState<Analysis>(
-    savedAnalysis || rawlProps?.savedAnalysis || parsingResult.displayOptions?.analysis || ANALYSIS_STUB,
+    suppliedHarmonyAnalysis || ANALYSIS_STUB,
   );
   const analysisRef = useRef(analysis);
 
@@ -208,17 +210,17 @@ const Rawl: React.FC<RawlProps> = ({
 
   const [systemLayout, setSystemLayout] = useState<SystemLayout>("merged");
   const scoreContainerRef = useRef<HTMLDivElement>(null);
-  const [showHarmony, setShowHarmony] = useState(harmonyRequested);
-  const showProvisionalAnalysis = harmonyRequested && showHarmony && systemLayout === "merged";
+  const [showHarmony, setShowHarmony] = useState(useGeneratedAnalysis);
+  const showProvisionalAnalysis = useGeneratedAnalysis && showHarmony && systemLayout === "merged";
   const [indexedHarmony, setIndexedHarmony] = useState<HarmonyResult | null>(null);
   const [harmonyLoading, setHarmonyLoading] = useState(false);
   const [liveHarmony, setLiveHarmony] = useState(false);
   const indexedHarmonySourceRef = useRef<{ key: string; config: string } | null>(null);
 
   useEffect(() => {
-    setShowHarmony(harmonyRequested);
+    setShowHarmony(useGeneratedAnalysis);
     setLiveHarmony(false);
-  }, [harmonyRequested, parsingResult]);
+  }, [useGeneratedAnalysis, parsingResult]);
 
   const commitAnalysisUpdate = useCallback(
     (analysisUpdate: Partial<Analysis>) => {
@@ -526,7 +528,6 @@ const Rawl: React.FC<RawlProps> = ({
     : parsingResult.measuresAndBeats,
     [analysis.measures, timingNotes, parsingResult.measuresAndBeats]);
 
-  const suppliedHarmonyAnalysis = savedAnalysis || rawlProps?.savedAnalysis || parsingResult.displayOptions?.analysis;
   const harmonyConfig = harmonyAnnotationConfig(analysis, !!suppliedHarmonyAnalysis);
 
   useEffect(() => {
@@ -547,7 +548,7 @@ const Rawl: React.FC<RawlProps> = ({
       start: note.span[0], end: note.span[1], pitch: note.note.midiNumber,
       voice: note.voiceIndex, isDrum: note.isDrum, velocity: note.velocity,
     }));
-    if (indexedHarmony && !liveHarmony && indexedHarmonySourceRef.current?.key === lakhKey && indexedHarmonySourceRef.current?.config === harmonyConfig) return refreshPhraseAnalysis(indexedHarmony, harmonyNotes, harmonyGrid);
+    if (indexedHarmony && !liveHarmony && indexedHarmonySourceRef.current?.key === lakhKey && indexedHarmonySourceRef.current?.config === harmonyConfig) return refreshStructuralAnalysis(indexedHarmony, harmonyNotes, harmonyGrid);
     const supplied = savedAnalysis || rawlProps?.savedAnalysis || parsingResult.displayOptions?.analysis;
     const referenceKeys = supplied ? getModulations(analysis, harmonyGrid.measures)
       .filter(k => Number.isInteger(k.tonic)).map(k => ({ start: k.time, tonic: k.tonic })) : [];
@@ -1338,6 +1339,27 @@ const Rawl: React.FC<RawlProps> = ({
             backgroundColor: "black",
           }}
         >
+          {showProvisionalAnalysis && scoreAnalysis !== analysis && (
+            <div
+              role="note"
+              aria-label="Automatically generated analysis"
+              data-generated-analysis="true"
+              style={{
+                padding: "10px 12px",
+                background: "#181322",
+                borderBottom: "1px solid #655577",
+                color: "#e1d1fb",
+                fontSize: 13,
+                lineHeight: 1.5,
+              }}
+            >
+              <strong>Automatically generated analysis</strong>
+              <div>
+                Sections, phrase boundaries, and modulations are provisional and
+                may be inaccurate.
+              </div>
+            </div>
+          )}
           {slug && (
             <div
               style={{

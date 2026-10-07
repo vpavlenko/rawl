@@ -74,6 +74,7 @@ export default function HarmonyControls({
                     status: "inferred proposal; review before saving",
                     version: result.version,
                     phraseModelVersion: result.phraseModelVersion,
+                    sectionModelVersion: result.sectionModelVersion,
                     ...proposal,
                   },
                   null,
@@ -84,7 +85,12 @@ export default function HarmonyControls({
             ),
           )
         : null,
-    [proposal, result?.version, result?.phraseModelVersion],
+    [
+      proposal,
+      result?.version,
+      result?.phraseModelVersion,
+      result?.sectionModelVersion,
+    ],
   );
   useEffect(
     () => () => {
@@ -95,6 +101,7 @@ export default function HarmonyControls({
   return (
     <div
       data-phrase-model={result?.phraseModelVersion}
+      data-section-model={result?.sectionModelVersion}
       style={{
         display: "flex",
         alignItems: "center",
@@ -115,8 +122,9 @@ export default function HarmonyControls({
           ) : (
             <span>
               {provisional && "Provisional analysis · "}
-              Estimated chords · dashed = uncertain ·{" "}
+              Estimated chords · hover for evidence ·{" "}
               {result?.phraseModelVersion && "learned phrase boundaries · "}
+              {result?.sectionModelVersion && "learned section boundaries · "}
               {result?.phrases.length ?? 0} phrase and{" "}
               {result?.sections.length ?? 0} section suggestions
             </span>

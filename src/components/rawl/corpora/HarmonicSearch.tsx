@@ -1,9 +1,21 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { findProgression, parseProgression } from "../../../harmony/harmony";
 import { HarmonyIndex, loadHarmonyIndex } from "../../../harmony/index";
 import { canonicalArtistName } from "../../lakh/artistShelves";
+import { AppContext } from "../../AppContext";
+import LakhEntry from "../../lakh/LakhEntry";
+import {
+  LAKH_ANNOTATION_COLORS,
+  manualLakhAnnotation,
+} from "../../lakh/annotationStatus";
+import {
+  LakhCatalog,
+  lakhAnalysisKey,
+  loadLakhCatalog,
+  resolveLakhRoute,
+} from "../../lakh/catalog";
 const Page = styled.main`
   padding: 28px clamp(16px, 4vw, 64px) 80px;
   color: #eee;
@@ -107,6 +119,7 @@ const EXAMPLES = [
   "i bVI bVII i",
 ];
 export default function HarmonicSearch() {
+  const context = useContext(AppContext);
   const location = useLocation(),
     history = useHistory();
   const initial = new URLSearchParams(location.search).get("q") || EXAMPLES[0];
@@ -114,15 +127,19 @@ export default function HarmonicSearch() {
     [active, setActive] = useState(initial);
   const [index, setIndex] = useState<HarmonyIndex | null>(null),
     [error, setError] = useState("");
+  const [catalog, setCatalog] = useState<LakhCatalog | null>(null);
   const [threshold, setThreshold] = useState("0.6"),
     [families, setFamilies] = useState(true),
     [versions, setVersions] = useState(false),
     [limit, setLimit] = useState(50);
   useEffect(() => {
     let cancelled = false;
-    loadHarmonyIndex()
-      .then((data) => {
-        if (!cancelled) setIndex(data);
+    Promise.all([loadHarmonyIndex(), loadLakhCatalog()])
+      .then(([data, catalog]) => {
+        if (!cancelled) {
+          setCatalog(catalog);
+          setIndex(data);
+        }
       })
       .catch((e) => {
         if (!cancelled) setError(e.message);
@@ -270,6 +287,20 @@ export default function HarmonicSearch() {
         probability. Power chords keep their missing-third uncertainty.{" "}
         <Link to="/discover/chromatic-minor-bass">Chromatic bass search</Link>
       </p>
+      <div
+        aria-label="Manual annotation colors"
+        style={{ display: "flex", gap: 18, flexWrap: "wrap", fontSize: 12 }}
+      >
+        <span style={{ color: LAKH_ANNOTATION_COLORS.manual }}>
+          Manual annotation
+        </span>
+        <span style={{ color: LAKH_ANNOTATION_COLORS.fewSections }}>
+          Manual annotation · ≤1 section
+        </span>
+        <span style={{ color: LAKH_ANNOTATION_COLORS.unannotated }}>
+          No manual annotation
+        </span>
+      </div>
       {error && <p role="alert">{error}</p>}
       {!error && !index && <p role="status">Loading the harmonic index…</p>}
       {results.error && <p role="alert">{results.error}</p>}
@@ -301,31 +332,51 @@ export default function HarmonicSearch() {
                 </tr>
               </thead>
               <tbody>
-                {results.rows.slice(0, limit).map((row) => (
-                  <tr key={row.track.url}>
-                    <td>
-                      <Link
-                        to={`${row.track.url}?harmony=1&measure=${Math.floor(
-                          row.track.starts[row.index],
-                        )}`}
-                      >
-                        {canonicalArtistName(row.track.artist)} —{" "}
-                        {row.track.title}
-                      </Link>
-                      <small>
-                        {row.track.keySource === "saved"
-                          ? "Saved tonic · estimated chords"
-                          : "Estimated tonic and chords"}
-                      </small>
-                    </td>
-                    <td>
-                      {row.track.starts[row.index]}–
-                      {row.track.ends[row.endIndex]}
-                    </td>
-                    <td>{row.confidence.toFixed(2)}</td>
-                    <td>{row.occurrences}</td>
-                  </tr>
-                ))}
+                {results.rows.slice(0, limit).map((row) => {
+                  const source = resolveLakhRoute(catalog, row.track.url);
+                  const annotation = manualLakhAnnotation(
+                    context?.annotationVersions || {},
+                    source.artist && source.track
+                      ? lakhAnalysisKey(source.artist.name, source.track)
+                      : "",
+                  );
+                  return (
+                    <tr
+                      key={row.track.url}
+                      data-manual-annotation={annotation.annotated}
+                    >
+                      <td>
+                        <LakhEntry
+                          $folder={false}
+                          $annotated={annotation.annotated}
+                          $hasFewSections={annotation.hasFewSections}
+                          title={annotation.label}
+                          to={`${row.track.url}?harmony=1&measure=${Math.floor(
+                            row.track.starts[row.index],
+                          )}`}
+                        >
+                          {canonicalArtistName(row.track.artist)} —{" "}
+                          {row.track.title}
+                        </LakhEntry>
+                        <small>
+                          <span style={{ color: annotation.color }}>
+                            {annotation.label}
+                          </span>{" "}
+                          ·{" "}
+                          {row.track.keySource === "saved"
+                            ? "Saved tonic · estimated chords"
+                            : "Estimated tonic and chords"}
+                        </small>
+                      </td>
+                      <td>
+                        {row.track.starts[row.index]}–
+                        {row.track.ends[row.endIndex]}
+                      </td>
+                      <td>{row.confidence.toFixed(2)}</td>
+                      <td>{row.occurrences}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           )}

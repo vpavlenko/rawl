@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { lakhEntryColor } from "./annotationStatus";
 
 const LakhEntry = styled(Link)<{
   $annotated: boolean;
@@ -19,15 +20,12 @@ const LakhEntry = styled(Link)<{
   &:link,
   &:visited {
     color: ${({ $annotated, $community, $hasFewSections, $version }) =>
-      $community
-        ? "#69b7ff"
-        : !$annotated
-        ? $version
-          ? "#888"
-          : "#ddd"
-        : $hasFewSections
-        ? "#ff8fbd"
-        : "#e69a3a"};
+      lakhEntryColor({
+        annotated: $annotated,
+        community: $community,
+        hasFewSections: $hasFewSections,
+        version: $version,
+      })};
   }
   text-decoration: none;
   &:hover {

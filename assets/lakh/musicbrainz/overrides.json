@@ -1681,5 +1681,15 @@
     "releaseOverrides": {
       "0c97cd77-f9c9-3efd-9471-a64b9de50070": "ca298c6e-834d-4334-972f-92996d46a9c3"
     }
+  },
+  "Creedence Clearwater Revival": {
+    "name": "Creedence Clearwater Revival",
+    "mbid": "109958eb-a335-4c5e-907e-597ff4c6af46",
+    "country": "US",
+    "songs": {
+      "Midnight Special": {
+        "title": "The Midnight Special"
+      }
+    }
   }
 }

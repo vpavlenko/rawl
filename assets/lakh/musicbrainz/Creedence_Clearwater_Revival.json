@@ -1,0 +1,130 @@
+{
+  "artist": "Creedence Clearwater Revival",
+  "status": "processed",
+  "totalSongs": 20,
+  "matched": [
+    {
+      "song": "Bad Moon Rising",
+      "album": "Green River",
+      "albumId": "6c08878c-d6a1-37b6-84c3-9566748545c1",
+      "track": 5
+    },
+    {
+      "song": "Born On The Bayou",
+      "album": "Bayou Country",
+      "albumId": "ef55850c-7b38-30fc-8f8d-d10f28784094",
+      "track": 1
+    },
+    {
+      "song": "Down on the Corner",
+      "album": "Willy and the Poor Boys",
+      "albumId": "5fdea541-32fc-3b17-b7c4-50b40f65203d",
+      "track": 1
+    },
+    {
+      "song": "Fortunate Son",
+      "album": "Willy and the Poor Boys",
+      "albumId": "5fdea541-32fc-3b17-b7c4-50b40f65203d",
+      "track": 6
+    },
+    {
+      "song": "Green River",
+      "album": "Green River",
+      "albumId": "6c08878c-d6a1-37b6-84c3-9566748545c1",
+      "track": 1
+    },
+    {
+      "song": "Have You Ever Seen the Rain",
+      "album": "Pendulum",
+      "albumId": "da556835-e464-3389-881f-362ef8f984b3",
+      "track": 4
+    },
+    {
+      "song": "Hey Tonight",
+      "album": "Pendulum",
+      "albumId": "da556835-e464-3389-881f-362ef8f984b3",
+      "track": 7
+    },
+    {
+      "song": "I Heard It Through The Grapevine",
+      "album": "Cosmo’s Factory",
+      "albumId": "3a31800f-1916-3f4c-a7ae-26b783d00670",
+      "track": 10
+    },
+    {
+      "song": "I Put A Spell On You",
+      "album": "Creedence Clearwater Revival",
+      "albumId": "871da799-a7f7-39df-8332-e246584458dd",
+      "track": 1
+    },
+    {
+      "song": "Lodi",
+      "album": "Green River",
+      "albumId": "6c08878c-d6a1-37b6-84c3-9566748545c1",
+      "track": 6
+    },
+    {
+      "song": "Long As I Can See The Light",
+      "album": "Cosmo’s Factory",
+      "albumId": "3a31800f-1916-3f4c-a7ae-26b783d00670",
+      "track": 11
+    },
+    {
+      "song": "Lookin' Out My Back Door",
+      "album": "Cosmo’s Factory",
+      "albumId": "3a31800f-1916-3f4c-a7ae-26b783d00670",
+      "track": 5
+    },
+    {
+      "song": "Midnight Special",
+      "album": "Willy and the Poor Boys",
+      "albumId": "5fdea541-32fc-3b17-b7c4-50b40f65203d",
+      "track": 8
+    },
+    {
+      "song": "Proud Mary",
+      "album": "Bayou Country",
+      "albumId": "ef55850c-7b38-30fc-8f8d-d10f28784094",
+      "track": 6
+    },
+    {
+      "song": "Someday Never Comes",
+      "album": "Mardi Gras",
+      "albumId": "b0732b50-1b4e-34a3-bd82-d23c8437d6ba",
+      "track": 5
+    },
+    {
+      "song": "Suzie Q",
+      "album": "Creedence Clearwater Revival",
+      "albumId": "871da799-a7f7-39df-8332-e246584458dd",
+      "track": 3
+    },
+    {
+      "song": "Sweet Hitch-Hiker",
+      "album": "Mardi Gras",
+      "albumId": "b0732b50-1b4e-34a3-bd82-d23c8437d6ba",
+      "track": 10
+    },
+    {
+      "song": "Travelin' Band",
+      "album": "Cosmo’s Factory",
+      "albumId": "3a31800f-1916-3f4c-a7ae-26b783d00670",
+      "track": 3
+    },
+    {
+      "song": "Up Around The Bend",
+      "album": "Cosmo’s Factory",
+      "albumId": "3a31800f-1916-3f4c-a7ae-26b783d00670",
+      "track": 7
+    },
+    {
+      "song": "Who'll Stop the Rain",
+      "album": "Cosmo’s Factory",
+      "albumId": "3a31800f-1916-3f4c-a7ae-26b783d00670",
+      "track": 9
+    }
+  ],
+  "unmatched": [],
+  "ambiguous": [],
+  "suggestions": {}
+}

@@ -573,7 +573,8 @@
     "mbid": "e1f1e33e-2e4c-4d43-b91b-7064068d3283",
     "country": "US",
     "releaseOverrides": {
-      "a997e8ed-6e37-315b-bfdf-cd31f14e3fcc": "b4b61d56-be24-4894-ba69-67fb458b4ae4"
+      "a997e8ed-6e37-315b-bfdf-cd31f14e3fcc": "b4b61d56-be24-4894-ba69-67fb458b4ae4",
+      "f519711d-54f8-307a-bad4-6e619d8214d1": "3078df29-7df1-4cfa-b4b4-b5412f014ad0"
     },
     "songs": {
       "I Was Made for Loving You Baby": {

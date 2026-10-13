@@ -197,7 +197,8 @@ const Rawl: React.FC<RawlProps> = ({
   const isCleanMode = searchParams.get("clean") === "1";
   const harmonyRequested = searchParams.get("harmony") === "1";
   const suppliedHarmonyAnalysis = savedAnalysis || rawlProps?.savedAnalysis || parsingResult.displayOptions?.analysis;
-  const useGeneratedAnalysis = !isCleanMode && (harmonyRequested || !suppliedHarmonyAnalysis);
+  // Generated harmonies and analysis are opt-in while the feature is experimental.
+  const useGeneratedAnalysis = !isCleanMode && harmonyRequested;
 
   const [analysis, setAnalysis] = useState<Analysis>(
     suppliedHarmonyAnalysis || ANALYSIS_STUB,
@@ -213,7 +214,7 @@ const Rawl: React.FC<RawlProps> = ({
   const [systemLayout, setSystemLayout] = useState<SystemLayout>("merged");
   const scoreContainerRef = useRef<HTMLDivElement>(null);
   const [harmonyEnabled, setShowHarmony] = useState(useGeneratedAnalysis);
-  const showHarmony = !isCleanMode && harmonyEnabled;
+  const showHarmony = useGeneratedAnalysis && harmonyEnabled;
   const showProvisionalAnalysis = useGeneratedAnalysis && showHarmony && systemLayout === "merged";
   const [indexedHarmony, setIndexedHarmony] = useState<HarmonyResult | null>(null);
   const [harmonyLoading, setHarmonyLoading] = useState(false);
@@ -781,9 +782,8 @@ const Rawl: React.FC<RawlProps> = ({
   );
 
   useEffect(() => {
-    if (isCleanMode) return;
-    const needsPhrase = !analysis.phrasePatch?.length;
-    const needsTonic = analysis.modulations[1] === null;
+    const needsPhrase = !isCleanMode && !analysis.phrasePatch?.length;
+    const needsTonic = analysis.modulations[1] == null;
     if ((!needsPhrase && !needsTonic) || allNotes.length === 0) return;
 
     const pitchedNotes = allNotes.filter((note) => !note.isDrum);
@@ -805,8 +805,8 @@ const Rawl: React.FC<RawlProps> = ({
         diff.modulations = { ...analysis.modulations, 1: tonic };
       }
     }
-    // Saved analysis can arrive after the notes. Fill missing defaults again
-    // without replacing existing phrase edits or later modulations.
+    // Always provide a provisional tonic for note colors, including in clean mode.
+    // Keep it local and preserve saved tonics, phrase edits and later modulations.
     if (Object.keys(diff).length > 0) {
       const updatedAnalysis = { ...analysisRef.current, ...diff };
       analysisRef.current = updatedAnalysis;
@@ -1449,7 +1449,7 @@ const Rawl: React.FC<RawlProps> = ({
                 ?.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "center", inline: "center" });
             }}
           />}
-          {!isCleanMode && !isEmbedded && systemLayout === "merged" && <HarmonyControls
+          {useGeneratedAnalysis && !isEmbedded && systemLayout === "merged" && <HarmonyControls
             enabled={showHarmony} onToggle={() => setShowHarmony(value => !value)}
             result={displayedHarmony} measures={harmonyGrid.measures} loading={harmonyLoading}
             provisional={showProvisionalAnalysis}

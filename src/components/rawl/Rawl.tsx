@@ -193,9 +193,11 @@ const Rawl: React.FC<RawlProps> = ({
     : `/f/${slug}`;
   const history = useHistory();
   const location = useLocation();
-  const harmonyRequested = new URLSearchParams(location.search).get("harmony") === "1";
+  const searchParams = new URLSearchParams(location.search);
+  const isCleanMode = searchParams.get("clean") === "1";
+  const harmonyRequested = searchParams.get("harmony") === "1";
   const suppliedHarmonyAnalysis = savedAnalysis || rawlProps?.savedAnalysis || parsingResult.displayOptions?.analysis;
-  const useGeneratedAnalysis = harmonyRequested || !suppliedHarmonyAnalysis;
+  const useGeneratedAnalysis = !isCleanMode && (harmonyRequested || !suppliedHarmonyAnalysis);
 
   const [analysis, setAnalysis] = useState<Analysis>(
     suppliedHarmonyAnalysis || ANALYSIS_STUB,
@@ -210,7 +212,8 @@ const Rawl: React.FC<RawlProps> = ({
 
   const [systemLayout, setSystemLayout] = useState<SystemLayout>("merged");
   const scoreContainerRef = useRef<HTMLDivElement>(null);
-  const [showHarmony, setShowHarmony] = useState(useGeneratedAnalysis);
+  const [harmonyEnabled, setShowHarmony] = useState(useGeneratedAnalysis);
+  const showHarmony = !isCleanMode && harmonyEnabled;
   const showProvisionalAnalysis = useGeneratedAnalysis && showHarmony && systemLayout === "merged";
   const [indexedHarmony, setIndexedHarmony] = useState<HarmonyResult | null>(null);
   const [harmonyLoading, setHarmonyLoading] = useState(false);
@@ -778,6 +781,7 @@ const Rawl: React.FC<RawlProps> = ({
   );
 
   useEffect(() => {
+    if (isCleanMode) return;
     const needsPhrase = !analysis.phrasePatch?.length;
     const needsTonic = analysis.modulations[1] === null;
     if ((!needsPhrase && !needsTonic) || allNotes.length === 0) return;
@@ -808,7 +812,7 @@ const Rawl: React.FC<RawlProps> = ({
       analysisRef.current = updatedAnalysis;
       setAnalysis(updatedAnalysis);
     }
-  }, [allNotes, analysis, measuresAndBeats]);
+  }, [isCleanMode, allNotes, analysis, measuresAndBeats]);
 
   const coloredNotes: ColoredNotesInVoices = useMemo(() => {
     // Initialize array to count notes by color (0-11)
@@ -1445,7 +1449,7 @@ const Rawl: React.FC<RawlProps> = ({
                 ?.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "center", inline: "center" });
             }}
           />}
-          {!isEmbedded && systemLayout === "merged" && <HarmonyControls
+          {!isCleanMode && !isEmbedded && systemLayout === "merged" && <HarmonyControls
             enabled={showHarmony} onToggle={() => setShowHarmony(value => !value)}
             result={displayedHarmony} measures={harmonyGrid.measures} loading={harmonyLoading}
             provisional={showProvisionalAnalysis}

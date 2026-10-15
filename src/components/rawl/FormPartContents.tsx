@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Analysis } from "./analysis";
-import { renumberMeasure } from "./AnalysisGrid";
 
 const Contents = styled.nav`
   display: flex;
@@ -57,7 +56,7 @@ export default function FormPartContents({
         <button
           key={measure}
           type="button"
-          title={`Seek and scroll to measure ${renumberMeasure(measure, analysis.measureRenumbering)}`}
+          title={`Seek and scroll to measure ${measure}`}
           onClick={() => onSelect(measure)}
         >
           {name}

@@ -8,12 +8,7 @@ import CornerDownLeft from "../icons/CornerDownLeft";
 import { getSectionAnchorShiftTarget } from "./sectionAnchors";
 import { SetBeatsPerMeasureCallback, getModulations } from "./Rawl";
 import { MeasuresAndBeats, MidiRange } from "./SystemLayout";
-import {
-  Analysis,
-  MeasureRenumbering,
-  MeasuresSpan,
-  PitchClass,
-} from "./analysis";
+import { Analysis, MeasuresSpan, PitchClass } from "./analysis";
 
 export const STACKED_RN_HEIGHT = 20;
 // Only the active score supplies an offset; standalone examples stay in their key.
@@ -345,7 +340,6 @@ export const NewTonicSymbol: React.FC<{
 const Measure: React.FC<{
   span: [number, number];
   number: number;
-  displayNumber: number;
   isPhraseStart: boolean;
   measureSelection: MeasureSelection;
   showHeader: boolean;
@@ -363,7 +357,6 @@ const Measure: React.FC<{
 }> = ({
   span,
   number,
-  displayNumber,
   isPhraseStart,
   measureSelection,
   showHeader,
@@ -710,7 +703,7 @@ const Measure: React.FC<{
                     fontFamily: "sans-serif",
                   }}
                 >
-                  {displayNumber}
+                  {number}
                 </span>
               </div>
             </>
@@ -825,31 +818,6 @@ const TonalGrid: React.FC<{
     return result;
   },
 );
-
-export const renumberMeasure: (
-  measureStart: number,
-  measureRenumbering: MeasureRenumbering,
-) => number = (measureStart, measureRenumbering) => {
-  if (measureRenumbering === undefined) {
-    return measureStart;
-  }
-
-  let maxKey: number | undefined = undefined;
-  Object.keys(measureRenumbering).forEach((key) => {
-    const numericKey = parseInt(key, 10);
-    if (
-      numericKey <= measureStart &&
-      (maxKey === undefined || numericKey > maxKey)
-    ) {
-      maxKey = numericKey;
-    }
-  });
-
-  if (maxKey === undefined) {
-    return measureStart;
-  }
-  return measureStart + measureRenumbering[maxKey] - maxKey;
-};
 
 interface AnalysisGridProps {
   analysis: Analysis;
@@ -972,10 +940,6 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
         })}
         {measures.map((time, i) => {
           const number = i + 1;
-          const displayNumber = renumberMeasure(
-            i + 1,
-            analysis.measureRenumbering,
-          );
           return sectionSpan[0] <= i && i <= sectionSpan[1] ? (
             <Measure
               key={i}
@@ -983,7 +947,6 @@ export const AnalysisGrid: React.FC<AnalysisGridProps> = React.memo(
               span={[time, measures[number] ?? time]}
               isPhraseStart={phraseStarts.indexOf(number) !== -1}
               number={number}
-              displayNumber={displayNumber}
               measureSelection={measureSelection}
               secondsToX={secondsToX}
               showNonPhraseStarts={showAllMeasureBars}

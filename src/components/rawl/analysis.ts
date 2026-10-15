@@ -60,10 +60,6 @@ export function canSetModulationOnset(
   return Number.isFinite(note.span[0]) && note.span[0] >= start && note.span[0] < end;
 }
 
-export type MeasureRenumbering = {
-  [oneIndexedMeasureStart: number]: PitchClass;
-};
-
 export type ManualMeasures = {
   measureStarts: { [oneIndexedMeasureStart: number]: number };
   beatsPerMeasure: { [oneIndexedMeasureStart: number]: number };
@@ -117,7 +113,6 @@ export type Analysis = {
   // Keys, section and phrase are zero-based global phrase indices.
   // Align this section's start or end with the same edge of a phrase in another section.
   sectionAnchors?: Record<number, { section: number; phrase: number; edge?: "end" }>;
-  measureRenumbering?: MeasureRenumbering;
   measures?: ManualMeasures;
   snippets?: Snippet[];
   // Zero-based indices in the original parsed MIDI voices, never renumbered.

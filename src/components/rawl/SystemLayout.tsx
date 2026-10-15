@@ -603,7 +603,7 @@ export const StackedSystemLayout: React.FC<
       parentRef.current &&
       sectionRefs.current.length > 0
     ) {
-      const measureIndex = measureStart + (analysis.measureRenumbering?.[1] || 0) - 1;
+      const measureIndex = measureStart - 1;
       const sectionIndex = sections.findIndex(
         ({ sectionSpan }) =>
           measureIndex >= sectionSpan[0] && measureIndex < sectionSpan[1],
@@ -624,7 +624,7 @@ export const StackedSystemLayout: React.FC<
         }
       }
     }
-  }, [measureStart, sections, analysis.measureRenumbering, measuresAndBeats]);
+  }, [measureStart, sections, measuresAndBeats]);
 
   return (
     <>

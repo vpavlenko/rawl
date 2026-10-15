@@ -1199,11 +1199,10 @@ const Rawl: React.FC<RawlProps> = ({
   const initialMeasureSeekRef = useRef<{ source: ParsingResult; request: string } | null>(null);
   useEffect(() => {
     if (measureStart !== undefined && measuresAndBeats) {
-      const request = `${measureStart}:${analysis.measureRenumbering?.[1] || 0}`;
+      const request = String(measureStart);
       if (initialMeasureSeekRef.current?.source === parsingResult &&
           initialMeasureSeekRef.current.request === request) return;
-      const absoluteMeasureStart =
-        measureStart + (analysis.measureRenumbering?.[1] || 0) - 1;
+      const absoluteMeasureStart = measureStart - 1;
       const seekTime = measuresAndBeats.measures[absoluteMeasureStart] - 1;
       if (Number.isFinite(seekTime)) {
         // A search/snippet target is an initial navigation request. Hover
@@ -1213,7 +1212,7 @@ const Rawl: React.FC<RawlProps> = ({
         if (playAfterSeek) play();
       }
     } else initialMeasureSeekRef.current = null;
-  }, [measureStart, measuresAndBeats, analysis.measureRenumbering, parsingResult, seek, playAfterSeek, play]);
+  }, [measureStart, measuresAndBeats, parsingResult, seek, playAfterSeek, play]);
 
   const handleSourceUrlUpdate = async (newUrl: string) => {
     if (currentMidi) {

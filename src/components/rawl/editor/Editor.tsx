@@ -328,9 +328,7 @@ const Editor: React.FC<EditorProps> = ({
               // Extract the measure number
               const measureNumber = parseInt(measureCoordMatch[1], 10);
 
-              // Account for renumbering if present
-              const absoluteMeasureNum =
-                measureNumber + ((analysis?.measureRenumbering?.[1] || 0) - 1);
+              const absoluteMeasureNum = measureNumber - 1;
 
               // Get the time in seconds for this measure
               const measureTime =

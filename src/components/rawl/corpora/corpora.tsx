@@ -33,6 +33,166 @@ export const MUSESCORE_TOP_100_SLUG = "top_100_musescore_composers";
 
 export const corpora: CorpusEntry[] = [
   {
+    "slug": "lost_vikings_the",
+    "composerName": null,
+    "secondary": false,
+    "showComposerTimeline": false,
+    "midis": [
+      "lost-vikings-the-01-title-theme",
+      "lost-vikings-the-02-home",
+      "lost-vikings-the-03-space-craft",
+      "lost-vikings-the-04-prehistoria",
+      "lost-vikings-the-05-egypt",
+      "lost-vikings-the-06-the-great-factory",
+      "lost-vikings-the-07-wacky-world",
+      "lost-vikings-the-08-ending-part-1",
+      "lost-vikings-the-09-ending-part-2",
+      "lost-vikings-the-10-unused-egypt-alternate"
+    ]
+  },
+  {
+    "slug": "pinocchio",
+    "composerName": null,
+    "secondary": false,
+    "showComposerTimeline": false,
+    "midis": [
+      "pinocchio-01-title-music",
+      "pinocchio-02-level-1",
+      "pinocchio-03-level-2",
+      "pinocchio-04-level-3",
+      "pinocchio-05-level-4",
+      "pinocchio-06-level-5",
+      "pinocchio-07-level-6",
+      "pinocchio-08-level-7",
+      "pinocchio-09-level-8",
+      "pinocchio-10-level-9",
+      "pinocchio-11-fairy-appear",
+      "pinocchio-12-fanfare-jingle"
+    ]
+  },
+  {
+    "slug": "turbo_outrun",
+    "composerName": null,
+    "secondary": false,
+    "showComposerTimeline": false,
+    "midis": [
+      "turbo-outrun-01-shake-the-street-main-theme",
+      "turbo-outrun-02-vivacious-pit-stop",
+      "turbo-outrun-03-a-huge-pile-of-parts-norma-s-theme",
+      "turbo-outrun-04-easy-going-overture",
+      "turbo-outrun-05-shine-county",
+      "turbo-outrun-06-night-ride",
+      "turbo-outrun-07-keep-your-heart-highway",
+      "turbo-outrun-08-checkered-flag-hairspray",
+      "turbo-outrun-09-rush-a-difficulty-insanity",
+      "turbo-outrun-10-who-are-you-funky-run"
+    ]
+  },
+  {
+    "slug": "tecmo_cup_football_game",
+    "composerName": null,
+    "secondary": false,
+    "showComposerTimeline": false,
+    "midis": [
+      "tecmo-cup-football-game-01-opening-theme",
+      "tecmo-cup-football-game-02-main-menu",
+      "tecmo-cup-football-game-03-vs-screen",
+      "tecmo-cup-football-game-04-meeting-half-time",
+      "tecmo-cup-football-game-05-match-start",
+      "tecmo-cup-football-game-06-dreams-dragons-theme",
+      "tecmo-cup-football-game-07-dreams-dragons-opponents-theme",
+      "tecmo-cup-football-game-08-you-score",
+      "tecmo-cup-football-game-09-opponent-scores-victory",
+      "tecmo-cup-football-game-10-last-few-minutes",
+      "tecmo-cup-football-game-11-penalty-shootout",
+      "tecmo-cup-football-game-12-get-new-password",
+      "tecmo-cup-football-game-13-enter-password",
+      "tecmo-cup-football-game-14-ours-theme",
+      "tecmo-cup-football-game-15-ours-opponents-theme",
+      "tecmo-cup-football-game-16-ending-theme",
+      "tecmo-cup-football-game-17-all-stars-team-select"
+    ]
+  },
+  {
+    "slug": "jennifer_capriati_tennis",
+    "composerName": null,
+    "secondary": false,
+    "showComposerTimeline": false,
+    "midis": [
+      "jennifer-capriati-tennis-01-title-screen",
+      "jennifer-capriati-tennis-02-menu",
+      "jennifer-capriati-tennis-03-match-end",
+      "jennifer-capriati-tennis-04-ending-1",
+      "jennifer-capriati-tennis-05-ending-2"
+    ]
+  },
+  {
+    "slug": "general_chaos",
+    "composerName": null,
+    "secondary": false,
+    "showComposerTimeline": false,
+    "midis": [
+      "general-chaos-01-general-chaos",
+      "general-chaos-02-general-havoc",
+      "general-chaos-03-boot-camp"
+    ]
+  },
+  {
+    "slug": "garry_kitchens_super_battletank_war_in_the_gulf",
+    "composerName": null,
+    "secondary": false,
+    "showComposerTimeline": false,
+    "midis": [
+      "garry-kitchens-super-battletank-war-in-the-gulf-01-sega-logo",
+      "garry-kitchens-super-battletank-war-in-the-gulf-02-absolute-logo",
+      "garry-kitchens-super-battletank-war-in-the-gulf-03-title-screen",
+      "garry-kitchens-super-battletank-war-in-the-gulf-04-main-menu",
+      "garry-kitchens-super-battletank-war-in-the-gulf-05-mission-briefing",
+      "garry-kitchens-super-battletank-war-in-the-gulf-06-enemy-briefing",
+      "garry-kitchens-super-battletank-war-in-the-gulf-07-mission-info",
+      "garry-kitchens-super-battletank-war-in-the-gulf-08-battletank-repaired",
+      "garry-kitchens-super-battletank-war-in-the-gulf-09-destroyed-cluster-of-enemies",
+      "garry-kitchens-super-battletank-war-in-the-gulf-10-ending"
+    ]
+  },
+  {
+    "slug": "super_monaco_gp",
+    "composerName": null,
+    "secondary": false,
+    "showComposerTimeline": false,
+    "midis": [
+      "super-monaco-gp-01-extreme-tension",
+      "super-monaco-gp-02-the-checker-flag",
+      "super-monaco-gp-03-the-heat-waves",
+      "super-monaco-gp-04-a-break",
+      "super-monaco-gp-05-qualify",
+      "super-monaco-gp-06-f1-grand-prix",
+      "super-monaco-gp-07-at-a-loss",
+      "super-monaco-gp-08-super-license",
+      "super-monaco-gp-09-exhaust-fumes",
+      "super-monaco-gp-10-concentration",
+      "super-monaco-gp-11-the-bitterness",
+      "super-monaco-gp-12-impatience",
+      "super-monaco-gp-13-contentment",
+      "super-monaco-gp-14-hold-in-check",
+      "super-monaco-gp-15-theme-of-monaco"
+    ]
+  },
+  {
+    "slug": "robocop_3",
+    "composerName": null,
+    "secondary": false,
+    "showComposerTimeline": false,
+    "midis": [
+      "robocop-3-01-title-theme",
+      "robocop-3-02-bonus-screen",
+      "robocop-3-03-in-game-1",
+      "robocop-3-04-in-game-2",
+      "robocop-3-05-end-of-level",
+      "robocop-3-06-game-over"
+    ]
+  },
+  {
     slug: "yiruma_misc",
     composerName: "Yiruma",
     midis: [

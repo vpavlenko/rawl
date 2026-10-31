@@ -33,6 +33,18 @@ export const MUSESCORE_TOP_100_SLUG = "top_100_musescore_composers";
 
 export const corpora: CorpusEntry[] = [
   {
+    slug: "riyad_al_sunbati",
+    composerName: "Riyad Al Sunbati",
+    midis: [
+      "riyad-al-sunbati-taqsim-nahawand",
+      "riyad-al-sunbati-taqsim-hijaz",
+      "riyad-al-sunbati-taqsim-bayyati",
+      "riyad-al-sunbati-taqsim-rast",
+      "riyad-al-sunbati-taqsim-kurd",
+      "riyad-al-sunbati-taqsim-sekah",
+    ],
+  },
+  {
     "slug": "lost_vikings_the",
     "composerName": null,
     "secondary": false,

@@ -51,6 +51,8 @@ import firebaseConfig from "../config/firebaseConfig";
 import defaultAnalyses from "../corpus/analyses.json";
 import { handleSongClick as handleSongClickUtil } from "../handlers/handleSongClick";
 import MIDIPlayer from "../players/ThreadedMIDIPlayer";
+import OriginalAudio, { OriginalAudioState } from "../audio/OriginalAudio";
+import { OriginalAudioAsset } from "../types/firestore";
 import { unlockAudioContext } from "../util";
 import Alert from "./Alert";
 import { AppContext } from "./AppContext";
@@ -142,7 +144,11 @@ type AppState = {
     slug: string;
     sourceUrl: string | null;
     analysisKey?: string;
+    originalAudio?: OriginalAudioAsset;
   } | null;
+  originalAudioActive: boolean;
+  originalAudioLoading: boolean;
+  originalAudioError: boolean;
   audioContextLocked: boolean;
   audioContextState: string;
   currentMidiBuffer: ArrayBuffer | null;
@@ -171,6 +177,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
   private db: Firestore;
   private mediaSessionAudio: HTMLAudioElement;
   private gainNode: GainNode;
+  private originalAudio: OriginalAudio;
+  private originalAudioUrl: string | null = null;
+  private pendingOriginalAutoplay = false;
   private path: string;
   private hash: string;
   private midi: ArrayBuffer;
@@ -277,6 +286,9 @@ class App extends React.Component<RouteComponentProps, AppState> {
       showShortcutHelp: false,
       rawlProps: null,
       currentMidi: null,
+      originalAudioActive: false,
+      originalAudioLoading: false,
+      originalAudioError: false,
       audioContextLocked: this.audioContext.state === "suspended",
       audioContextState: this.audioContext.state,
       currentMidiBuffer: null,
@@ -286,6 +298,15 @@ class App extends React.Component<RouteComponentProps, AppState> {
     const gainNode = (this.gainNode = this.audioContext.createGain());
     gainNode.gain.value = 1;
     gainNode.connect(this.audioContext.destination);
+    const recording = document.createElement("audio");
+    recording.hidden = true;
+    recording.dataset.rawlOriginalAudio = "";
+    document.body.appendChild(recording);
+    this.originalAudio = new OriginalAudio(
+      recording, this.audioContext, gainNode,
+      this.handleOriginalAudioState,
+      (positionMs, wasPlaying) => this.resumeMidiFromRecording(positionMs, wasPlaying),
+    );
     unlockAudioContext(this.audioContext);
   }
 
@@ -491,6 +512,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
     // Add event listener to track audio context state changes
     this.audioContext.addEventListener("statechange", () => {
       const newState = this.audioContext.state;
+      if (newState === "running" && this.pendingOriginalAutoplay && this.originalAudio.isActive()) {
+        this.pendingOriginalAutoplay = false;
+        this.originalAudio.setPaused(false);
+      }
       this.setState({
         audioContextLocked: newState === "suspended",
         audioContextState: newState,
@@ -883,7 +908,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       this.syncMediaSession("none");
     } else {
       this.syncMediaSession(
-        this.midiPlayer?.isPlaying() ? "playing" : "paused",
+        this.isPlaying() ? "playing" : "paused",
       );
 
       this.setState({
@@ -893,6 +918,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   }
 
   handlePlayerError(message) {
+    this.originalAudio.reset();
     this.handleSequencerStateUpdate({ isEjected: true });
     if (message) this.setState({ playerError: message });
     this.setState({ showPlayerError: !!message });
@@ -905,19 +931,65 @@ class App extends React.Component<RouteComponentProps, AppState> {
     );
   }
 
+  isPlaying = () => this.originalAudio?.isActive()
+    ? this.originalAudio.isPlaying()
+    : !!this.midiPlayer?.isPlaying();
+
+  getCurrentPositionMs = () => this.originalAudio?.isActive()
+    ? this.originalAudio.getPositionMs()
+    : this.midiPlayer?.getPositionMs() || 0;
+
+  handleOriginalAudioState = (state: OriginalAudioState) => {
+    if (!state.active) this.pendingOriginalAutoplay = false;
+    this.setState(previous => ({
+      originalAudioActive: state.active,
+      originalAudioLoading: state.loading,
+      originalAudioError: state.error,
+      paused: state.active ? !state.playing : previous.paused,
+      currentSongPositionMs: state.active ? this.getCurrentPositionMs() : previous.currentSongPositionMs,
+    }));
+    if (state.active) this.syncMediaSession(state.playing ? "playing" : "paused");
+  };
+
+  resumeMidiFromRecording = (positionMs: number, playing: boolean) => {
+    if (!this.midiPlayer || this.state.ejected) return;
+    this.midiPlayer.seekMs(Math.min(positionMs, this.midiPlayer.getDurationMs()));
+    if (playing !== this.midiPlayer.isPlaying()) this.midiPlayer.togglePause();
+    this.setState({ paused: !playing, currentSongPositionMs: positionMs });
+    this.syncMediaSession(playing ? "playing" : "paused");
+  };
+
+  toggleAudioSource = () => {
+    if (!this.midiPlayer || this.state.ejected) return;
+    this.pendingOriginalAutoplay = false;
+    const positionMs = this.getCurrentPositionMs();
+    const playing = this.isPlaying();
+    if (this.originalAudio.isActive()) {
+      this.originalAudio.deactivate();
+      this.resumeMidiFromRecording(positionMs, playing);
+    } else if (this.originalAudioUrl) {
+      this.midiPlayer.pause();
+      this.originalAudio.activate(this.originalAudioUrl, positionMs, playing, this.state.tempo);
+      if (playing) void this.handleUnlockAudioContext();
+    }
+  };
+
   togglePause() {
     if (!this.midiPlayer) return;
-    this.setPlaybackPaused(this.midiPlayer.isPlaying());
+    this.setPlaybackPaused(this.isPlaying());
   }
 
   play = () => this.setPlaybackPaused(false);
 
   setPlaybackPaused(paused: boolean) {
     if (this.state.ejected || !this.midiPlayer) return;
+    this.pendingOriginalAutoplay = false;
 
     // Use the player's synchronous state so repeated headset commands are
     // idempotent, even before React has rendered the previous update.
-    if (this.midiPlayer.isPlaying() === paused) {
+    if (this.originalAudio.isActive()) {
+      this.originalAudio.setPaused(paused);
+    } else if (this.midiPlayer.isPlaying() === paused) {
       this.midiPlayer.togglePause();
     }
     if (!paused && this.audioContext.state === "suspended") {
@@ -957,20 +1029,21 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
   seekRelative(ms: number) {
     const durationMs = this.state.currentSongDurationMs;
-    const seekMs = clamp(this.midiPlayer?.getPositionMs() + ms, 0, durationMs);
+    const seekMs = clamp(this.getCurrentPositionMs() + ms, 0, durationMs);
 
     this.seekRelativeInner(seekMs);
   }
 
   seekRelativeInner(seekMs: number) {
+    if (this.originalAudio.isActive()) this.originalAudio.seekMs(seekMs);
     this.midiPlayer?.seekMs(seekMs);
     this.setState({
       currentSongPositionMs: seekMs, // Smooth
     });
     setTimeout(() => {
-      if (this.midiPlayer?.isPlaying()) {
+      if (this.isPlaying()) {
         this.setState({
-          currentSongPositionMs: this.midiPlayer?.getPositionMs(), // Accurate
+          currentSongPositionMs: this.getCurrentPositionMs(), // Accurate
         });
       }
     }, 100);
@@ -1015,6 +1088,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   };
 
   handleTransposeChange = (semitones: number) => {
+    if (this.originalAudio.isActive()) return;
     if (!Number.isFinite(semitones)) return;
     const transpose = Math.max(-12, Math.min(12, Math.round(semitones)));
     this.midiPlayer?.setTranspose(transpose);
@@ -1035,6 +1109,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
   handleTempoChange(event) {
     const tempo = parseFloat(event.target ? event.target.value : event) || 1.0;
+    this.originalAudio.setTempo(tempo);
     this.midiPlayer?.setTempo(tempo);
     this.setState({
       tempo: tempo,
@@ -1043,6 +1118,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
   setSpeedRelative(delta) {
     const tempo = clamp(this.state.tempo + delta, 0.1, 4);
+    this.originalAudio.setTempo(tempo);
     this.midiPlayer?.setTempo(tempo);
     this.setState({
       tempo: tempo,
@@ -1071,7 +1147,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
       );
 
       // After successful load, start playback automatically
-      if (!options?.startPaused && this.midiPlayer && this.state.paused) {
+      if (!options?.startPaused && this.midiPlayer && this.state.paused && !this.originalAudio.isActive()) {
         this.togglePause();
       }
     } catch (error) {
@@ -1124,6 +1200,10 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
   loadMidi = async (midiBlob: Blob, playbackStartedCallback?: () => void, shouldAutoPlay = true) => {
     await this.audioPlayerReady;
+    this.originalAudioUrl = this.state.currentMidi?.originalAudio?.url || null;
+    const originalAudioUrl = this.originalAudioUrl;
+    const midiShouldAutoPlay = shouldAutoPlay && !originalAudioUrl;
+    this.originalAudio.reset();
     if (this.midiPlayer) {
       midiBlob
         .arrayBuffer()
@@ -1132,13 +1212,25 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
           this.setState({ currentMidiBuffer: arrayBuffer });
 
-          this.midiPlayer.setPlaybackStartedCallback(shouldAutoPlay ? playbackStartedCallback : undefined);
+          this.midiPlayer.setPlaybackStartedCallback(midiShouldAutoPlay ? playbackStartedCallback : undefined);
 
           this.midiPlayer
-            .loadData(transformedBuffer, this.state.currentMidi?.slug || "", shouldAutoPlay, [], [], this.state.transpose)
+            .loadData(transformedBuffer, this.state.currentMidi?.slug || "", midiShouldAutoPlay, [], [], this.state.transpose)
             .then((parsingResult) => {
               this.setState({ parsing: parsingResult }, () => {
-                this.setupMidiPlayer(shouldAutoPlay ? undefined : playbackStartedCallback);
+                this.setupMidiPlayer(() => {
+                  if (originalAudioUrl) {
+                    // Keep the synth paused from the start: no MIDI attack may
+                    // leak before the default recording has been selected.
+                    this.pendingOriginalAutoplay = shouldAutoPlay && this.audioContext.state !== "running";
+                    this.originalAudio.activate(
+                      originalAudioUrl, 0,
+                      shouldAutoPlay && !this.pendingOriginalAutoplay,
+                      this.state.tempo,
+                    );
+                  }
+                  if (!midiShouldAutoPlay) playbackStartedCallback?.();
+                });
               });
             })
             .catch((error) => {
@@ -1179,7 +1271,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
 
         const newRawlProps = {
           parsingResult: this.state.parsing,
-          getCurrentPositionMs: this.midiPlayer?.getPositionMs || (() => 0),
+          getCurrentPositionMs: this.getCurrentPositionMs,
           savedAnalysis: savedAnalysis,
           saveAnalysis: this.saveAnalysis,
           voiceNames: this.state.voiceNames,
@@ -1258,6 +1350,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   };
 
   handlePlayerStateUpdate(playerState) {
+    if (this.originalAudio.isActive()) return;
     const { isStopped, isPlaying } = playerState;
     console.debug("Sequencer.handlePlayerStateUpdate(isStopped=%s)", isStopped);
 
@@ -1292,6 +1385,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
     shouldAutoPlay: boolean = true,
     signal?: AbortSignal,
   ) {
+    this.originalAudioUrl = null;
+    this.originalAudio.reset();
     this.midiPlayer.suspend();
     this.timeSliderStore.publish(EMPTY_TIME_SLIDER_DATA);
     const transpose = this.state.persistTranspose ? this.state.transpose : 0;
@@ -1372,6 +1467,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
   };
 
   resetMidiPlayerState = () => {
+    this.originalAudioUrl = null;
+    this.originalAudio.reset();
     if (this.midiPlayer) {
       this.midiPlayer.eject();
     }
@@ -1399,8 +1496,8 @@ class App extends React.Component<RouteComponentProps, AppState> {
   };
 
   getPlaybackTime = () =>
-    this.midiPlayer?.isPlaying()
-      ? this.midiPlayer.getPositionMs() / 1000
+    this.isPlaying()
+      ? this.getCurrentPositionMs() / 1000
       : null;
 
   componentWillUnmount() {
@@ -1424,12 +1521,15 @@ class App extends React.Component<RouteComponentProps, AppState> {
         }
       }
     }
+    this.originalAudio.dispose();
     this.pendingMidiPlayer?.dispose();
     this.pendingMidiPlayer = null;
     this.midiPlayer?.dispose();
   }
 
   eject = () => {
+    this.originalAudioUrl = null;
+    this.originalAudio.reset();
     if (this.midiPlayer) {
       this.midiPlayer.eject();
       this.handleSequencerStateUpdate({ isEjected: true });
@@ -1464,7 +1564,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
   render() {
     const rawlProps: RawlProps = {
       parsingResult: this.state.parsing,
-      getCurrentPositionMs: this.midiPlayer?.getPositionMs,
+      getCurrentPositionMs: this.getCurrentPositionMs,
       savedAnalysis: this.state.analyses[this.path] ?? null,
       saveAnalysis: this.saveAnalysis,
       voiceNames: this.state.voiceNames,
@@ -1491,7 +1591,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                 <>
                   <Rawl
                     parsingResult={parsing}
-                    getCurrentPositionMs={this.midiPlayer?.getPositionMs}
+                    getCurrentPositionMs={this.getCurrentPositionMs}
                     savedAnalysis={this.state.analyses[this.path] ?? null}
                     saveAnalysis={this.saveAnalysis}
                     enableManualRemeasuring={this.state.enableManualRemeasuring}
@@ -1537,7 +1637,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
               unregisterKeyboardHandler={this.unregisterKeyboardHandler}
               savedAnalysis={this.state.analyses[this.path] ?? null}
               saveAnalysis={this.saveAnalysis}
-              getCurrentPositionMs={this.midiPlayer?.getPositionMs}
+              getCurrentPositionMs={this.getCurrentPositionMs}
               seek={this.seekForRawl}
               latencyCorrectionMs={0}
             />
@@ -1598,7 +1698,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   this.state.parsing &&
                   !(this.props.location.pathname === "/e/new") && (
                     <div className="audio-context-overlay">
-                      <StyledButton onClick={this.handleUnlockAudioContext}>
+                      <StyledButton onClick={this.play}>
                         Play
                       </StyledButton>
                     </div>
@@ -1697,7 +1797,7 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   handleTimeSliderChange={this.handleTimeSliderChange}
                   handleVolumeChange={this.handleVolumeChange}
                   togglePause={this.togglePause}
-                  getCurrentPositionMs={this.midiPlayer?.getPositionMs}
+                  getCurrentPositionMs={this.getCurrentPositionMs}
                   tempo={this.state.tempo}
                   setTempo={this.handleTempoChange}
                   transpose={this.state.transpose}
@@ -1705,6 +1805,11 @@ class App extends React.Component<RouteComponentProps, AppState> {
                   persistTranspose={this.state.persistTranspose}
                   setPersistTranspose={this.handlePersistTransposeChange}
                   firstTonic={this.state.firstTonic}
+                  hasOriginalAudio={!!this.originalAudioUrl}
+                  originalAudioActive={this.state.originalAudioActive}
+                  originalAudioLoading={this.state.originalAudioLoading}
+                  originalAudioError={this.state.originalAudioError}
+                  toggleAudioSource={this.toggleAudioSource}
                 />
 
                 <Modal

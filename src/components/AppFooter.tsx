@@ -1,8 +1,4 @@
-import {
-  faDownload,
-  faPause,
-  faPlay,
-} from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { memo, useContext } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
@@ -11,6 +7,8 @@ import { AppContext } from "./AppContext";
 import { StyledRangeInput } from "./Slider";
 import TimeSlider from "./TimeSlider";
 import TransposeControl from "./TransposeControl";
+import Guitar from "./icons/Guitar";
+import KeyboardMusic from "./icons/KeyboardMusic";
 
 export const FOOTER_HEIGHT = 25;
 
@@ -81,6 +79,17 @@ const PauseButton = styled.button`
   margin-right: 10px;
 `;
 
+const AudioSourceButton = styled.button`
+  width: 28px;
+  height: ${FOOTER_HEIGHT}px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  opacity: ${(props: { $loading: boolean }) => (props.$loading ? 0.5 : 1)};
+`;
+
 const TimeSliderWrapper = styled.div`
   flex: 2;
   min-width: 300px;
@@ -140,6 +149,11 @@ const AppFooter: React.FC<
     persistTranspose: boolean;
     setPersistTranspose: (persist: boolean) => void;
     firstTonic: number | null;
+    hasOriginalAudio: boolean;
+    originalAudioActive: boolean;
+    originalAudioLoading: boolean;
+    originalAudioError: boolean;
+    toggleAudioSource: () => void;
   } & RouteComponentProps
 > = ({
   currentSongDurationMs,
@@ -159,6 +173,11 @@ const AppFooter: React.FC<
   persistTranspose,
   setPersistTranspose,
   firstTonic,
+  hasOriginalAudio,
+  originalAudioActive,
+  originalAudioLoading,
+  originalAudioError,
+  toggleAudioSource,
 }) => {
   const context = useContext(AppContext);
 
@@ -210,6 +229,27 @@ const AppFooter: React.FC<
           <FontAwesomeIcon icon={paused ? faPlay : faPause} />
         </PauseButton>
 
+        {hasOriginalAudio && (
+          <AudioSourceButton
+            onClick={toggleAudioSource}
+            aria-label="Original audio"
+            aria-pressed={originalAudioActive}
+            title={
+              originalAudioError
+                ? "Audio unavailable"
+                : originalAudioLoading
+                ? "Loading audio"
+                : originalAudioActive
+                ? "MIDI"
+                : "Original audio"
+            }
+            $loading={originalAudioLoading}
+            data-audio-source={originalAudioActive ? "original" : "midi"}
+          >
+            {originalAudioActive ? <Guitar /> : <KeyboardMusic />}
+          </AudioSourceButton>
+        )}
+
         <TimeSliderWrapper>
           <TimeSlider
             paused={paused}
@@ -221,13 +261,15 @@ const AppFooter: React.FC<
           />
         </TimeSliderWrapper>
 
-        <TransposeControl
-          value={transpose}
-          onChange={setTranspose}
-          firstTonic={firstTonic}
-          persist={persistTranspose}
-          onPersistChange={setPersistTranspose}
-        />
+        {!originalAudioActive && (
+          <TransposeControl
+            value={transpose}
+            onChange={setTranspose}
+            firstTonic={firstTonic}
+            persist={persistTranspose}
+            onPersistChange={setPersistTranspose}
+          />
+        )}
 
         <TempoSection>
           <StyledTempoButton

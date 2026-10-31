@@ -2,6 +2,7 @@ import { TimeSliderStore } from "./timeSliderData";
 import { AnnotationVersions } from "./annotationVersions";
 import { User } from "firebase/auth";
 import React from "react";
+import { OriginalAudioAsset } from "../types/firestore";
 import { Analysis, MeasuresSpan, Snippet } from "./rawl/analysis";
 import { RawlProps } from "./rawl/Rawl";
 
@@ -11,6 +12,7 @@ export type CurrentMidi = {
   slug: string;
   sourceUrl: string | null;
   analysisKey?: string;
+  originalAudio?: OriginalAudioAsset;
 } | null;
 
 export interface AppContextType {

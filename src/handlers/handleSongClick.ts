@@ -56,6 +56,7 @@ export const handleSongClick = async (
         title: midiData.title,
         slug: slug,
         sourceUrl: midiData.url,
+        originalAudio: midiData.originalAudio,
       };
       const savedAnalysis = deps.state.analyses[analysisKey];
 

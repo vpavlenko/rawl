@@ -4,7 +4,18 @@ export interface FirestoreMidiIndex {
   midis: { id: string; slug: string; title: string }[];
 }
 
+export interface OriginalAudioAsset {
+  url: string;
+  storagePath: string;
+  sha256: string;
+  midiSha256: string;
+  durationSeconds: number;
+  sourceOffsetSeconds: number;
+  sourceUrl: string;
+}
+
 export interface FirestoreMidiDocument {
+  originalAudio?: OriginalAudioAsset;
   blob: Bytes;
   slug: string;
   title: string;

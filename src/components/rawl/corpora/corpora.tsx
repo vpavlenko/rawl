@@ -42,6 +42,7 @@ export const corpora: CorpusEntry[] = [
       "riyad-al-sunbati-taqsim-rast",
       "riyad-al-sunbati-taqsim-kurd",
       "riyad-al-sunbati-taqsim-sekah",
+      "mohamed-elabyad-al-atlal",
     ],
   },
   {

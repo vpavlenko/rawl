@@ -1,8 +1,8 @@
 {
   "main.css": "/static/css/main.92fc25a5.css",
-  "main.js": "/static/js/main.7eef4c35.js?v=sunbati-cents-7eef4c35",
+  "main.js": "/static/js/main.a62ed08a.js?v=corpus-cents-a62ed08a",
   "main.css.map": "/static/css/main.92fc25a5.css.map",
-  "main.js.map": "/static/js/main.7eef4c35.js.map",
+  "main.js.map": "/static/js/main.a62ed08a.js.map",
   "index.html": "/index.html",
   "static/media/HarmonyOverlay.css": "/static/media/RawlHarmonySymbols.29cfbae0.woff",
   "static/media/editor_major_layout.png": "/static/media/editor_major_layout.75188da2.png",
@@ -10,5 +10,7 @@
   "static/js/midi-synth.2fd4ae50.js": "/static/js/midi-synth.2fd4ae50.js",
   "static/js/midi-synth.2fd4ae50.js.map": "/static/js/midi-synth.2fd4ae50.js.map",
   "static/js/1.1dcae686.chunk.js": "/static/js/1.1dcae686.chunk.js?v=sunbati-cents-7eef4c35",
-  "static/js/1.1dcae686.chunk.js.map": "/static/js/1.1dcae686.chunk.js.map"
+  "static/js/1.1dcae686.chunk.js.map": "/static/js/1.1dcae686.chunk.js.map",
+  "static/js/midi-synth.ee8b50ab.js": "/static/js/midi-synth.ee8b50ab.js",
+  "static/js/midi-synth.ee8b50ab.js.map": "/static/js/midi-synth.ee8b50ab.js.map"
 }

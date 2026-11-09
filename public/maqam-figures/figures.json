@@ -430,6 +430,45 @@
       ],
       "scale": 3,
       "sha256": "82474a788dc6d1f446f5e6cd5d19f6c70732fe79fd3693a52bda2af0d3b426d6"
+    },
+    "bayati-shuri-jins": {
+      "pdfPage": 250,
+      "printedPage": 215,
+      "referenceHeight": 1700,
+      "crop": [
+        328,
+        1452,
+        495,
+        94
+      ],
+      "scale": 3,
+      "sha256": "a15c92405d35cb8850d5f881f75d3ad53033c0544c108be5cb51620fae196b36"
+    },
+    "bayati-shuri-scale": {
+      "pdfPage": 422,
+      "printedPage": 387,
+      "referenceHeight": 1500,
+      "crop": [
+        315,
+        104,
+        385,
+        86
+      ],
+      "scale": 3,
+      "sha256": "bc67b0adc8b88875481701fb82e049993729f8b1e25b3b182bb9a0879b3601a3"
+    },
+    "bayati-shuri-sayr": {
+      "pdfPage": 422,
+      "printedPage": 387,
+      "referenceHeight": 1500,
+      "crop": [
+        160,
+        245,
+        700,
+        265
+      ],
+      "scale": 3,
+      "sha256": "16533305af4e7f0dfcfb3779a828f06d51651426d678d6b8c80f673a7c8f3a60"
     }
   }
 }

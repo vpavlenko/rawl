@@ -217,6 +217,20 @@ test("Saba adds a full-range final ascent and descent, including every upper ext
   assert.equal(maqamPracticeBlocks(saba, true).length, 4);
 });
 
+test("named family shoulders use their source intervals and practice the full branch", () => {
+  const bayati = MAQAM_SCALES.find(m => m.name === "Bayati");
+  const shuri = bayati.namedShoulders.find(s => s.name === "Bayati Shuri");
+  assert.deepEqual(bayati.scale.slice(shuri.start, shuri.end + 1), [5, 6, 9, 10, 12]);
+  const pitches = maqamPitches(bayati);
+  assert.deepEqual(maqamPracticeBlocks(bayati)[6].map(i => pitches[i]),
+    [0, 1.5, 3, 5, 6, 9, 10, 12, 12, 10, 9, 6, 5, 3, 1.5, 0]);
+  const hijaz = MAQAM_SCALES.find(m => m.name === "Hijaz");
+  const hijazkar = hijaz.namedShoulders.find(s => s.name === "Hijazkar");
+  assert.deepEqual(hijaz.scale.slice(hijazkar.start, hijazkar.end + 1), [5, 7, 8, 11, 12, 13, 16]);
+  assert.equal(bayati.alternateSource.figure, "24.17");
+  assert.equal(hijaz.alternateSource.figure, "24.35");
+});
+
 test("legend ajnas finish after four practice rounds without repeating the full core", () => {
   for (const maqam of MAQAM_SCALES) {
     const blocks = maqamPracticeBlocks(maqam, true);

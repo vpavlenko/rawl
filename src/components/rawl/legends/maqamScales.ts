@@ -26,6 +26,7 @@ export type MaqamScale = {
   alternateSource?: { name: string; figure: string; page: number };
   // Inclusive ascending branches in scale, practiced after the primary scale.
   practiceVariants?: { start: number; end: number }[];
+  namedShoulders?: { name: string; start: number; end: number }[];
 };
 
 export const MAQAM_SCALES: MaqamScale[] = [
@@ -69,6 +70,7 @@ export const MAQAM_SCALES: MaqamScale[] = [
     pages: [217, 393, 394],
     alternateSource: { name: "Hijazkar", figure: "24.35", page: 395 },
     practiceVariants: [{ start: 8, end: 12 }, { start: 13, end: 19 }],
+    namedShoulders: [{ name: "Hijazkar", start: 13, end: 19 }],
   },
   {
     name: "Nikriz",
@@ -147,17 +149,22 @@ export const MAQAM_SCALES: MaqamScale[] = [
     tonic: 2,
     lower: [-3.5, -2],
     jins: [0, 1.5, 3, 5, 7, 8],
-    scale: [0, 1.5, 3, 5, 7, 8, 10, 12, 5, 7, 8.5, 10, 12],
+    scale: [0, 1.5, 3, 5, 7, 8, 10, 12, 5, 7, 8.5, 10, 12,
+      5, 6, 9, 10, 12],
     coreLength: 4,
     ghammaz: [5],
     scaleGroups: [
       { label: "Bayati 1", start: 0, end: 2 },
       { label: "Nahawand 4", start: 3, end: 7 },
       { label: "Rast 4", start: 8, end: 12 },
+      { label: "Hijaz 4", start: 13, end: 17 },
     ],
     noteX: [10, 23, 36, 47, 58, 70, 80.5, 91],
     figures: ["14.10", "24.15", "24.16"],
     pages: [215, 385, 386],
+    alternateSource: { name: "Bayati Shuri", figure: "24.17", page: 387 },
+    practiceVariants: [{ start: 8, end: 12 }, { start: 13, end: 17 }],
+    namedShoulders: [{ name: "Bayati Shuri", start: 13, end: 17 }],
   },
   {
     name: "Saba",
@@ -199,6 +206,7 @@ export const MAQAM_SCALES: MaqamScale[] = [
     figures: ["14.18", "24.21", "24.22"],
     pages: [223, 388, 388],
     alternateSource: { name: "Sikah", figure: "24.23", page: 389 },
+    namedShoulders: [{ name: "Sikah", start: 8, end: 13 }],
   },
 ];
 

@@ -138,7 +138,7 @@ const REFERENCE_ROWS = MAQAM_REFERENCE_SCALES.map((maqam) => {
   return {
     maqam,
     pitches: maqamPitches(maqam),
-    groups: maqam.scaleGroups.map((group) => ({
+    groups: [...maqam.scaleGroups.map((group) => ({
       ...group,
       start: group.start + maqamLowerPitches(maqam).length,
       // Include the root jins's full core now that its bracket is above.
@@ -147,7 +147,13 @@ const REFERENCE_ROWS = MAQAM_REFERENCE_SCALES.map((maqam) => {
         (group.start === 0 ? maqamRootJins(maqam).end : group.end) +
         maqamLowerPitches(maqam).length,
       above: group.start === 0,
-    })),
+    })), ...(maqam.namedShoulders ?? []).map((shoulder) => ({
+      label: shoulder.name,
+      start: shoulder.start + maqamLowerPitches(maqam).length,
+      end: shoulder.end + maqamLowerPitches(maqam).length,
+      above: true,
+      nameOnly: true,
+    }))],
   };
 });
 

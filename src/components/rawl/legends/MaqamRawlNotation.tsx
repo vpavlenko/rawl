@@ -245,7 +245,9 @@ export const MaqamRawlNotation: React.FC<{
             data-placement={group.above ? "above" : "below"}
             data-start={group.start}
             data-end={group.end}
+            data-maqam-name={group.nameOnly || undefined}
             style={{
+              border: group.nameOnly ? 0 : undefined,
               left: `${((startColumn + group.start) / columnCount) * 100}%`,
               width: `${((group.end - group.start + 1) / columnCount) * 100}%`,
               top: layout.groupTops[index],

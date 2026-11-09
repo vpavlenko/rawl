@@ -9,6 +9,7 @@ export type MaqamNotationGroup = {
   start: number;
   end: number;
   above?: boolean;
+  nameOnly?: boolean;
 };
 
 export const MAQAM_ROW_GAP = 8;

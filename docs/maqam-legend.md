@@ -54,6 +54,11 @@ traditionally named Shahnaz. Its source scale and sayr crops are archived as
 `hijazkar-*`. The primary Nahawand and Rast branches remain unchanged.
 Practice plays the primary Hijaz scale, its Rast branch, then the complete
 Hijazkar branch through the source's upper extension.
+Family-maqam names sit above their corresponding shoulders without an extra
+bracket; the component jins brackets stay below. The verified names are
+Hijazkar, Bayati Shuri and Sikah. Bayati Shuri adds the Hijaz-on-4 branch from
+figure 24.17 (printed 387), preserving the existing Nahawand and Rast branches.
+Its practice round uses D, E-half-flat, F, G, A-flat, B, C and D.
 Huzzam's second ascending shoulder is Sikah, from figure 24.23.
 Its available content height is observed on resize. A common pitch height is
 maximized across the taller column of staves, reserving the inter-stave gaps, bracket
